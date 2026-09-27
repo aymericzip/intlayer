@@ -143,9 +143,13 @@ intlayer({ proxy: { ignore: (req) => req.url?.startsWith("/api") } });
 
 Lihat [dokumentasi intlayerProxy](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/vite-intlayer/intlayerProxy.md) untuk referensi perilaku routing lengkap.
 
+- [dokumentasi intlayerProxy](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/vite-intlayer/intlayerProxy.md)
+
 ### 5. Bundled compiler (v9+)
 
 Ketika `compiler.enabled` adalah `true` **dan** `compiler.output` diatur dalam konfigurasi Intlayer Anda, `intlayer()` mendaftarkan `intlayerCompiler` secara otomatis. Compiler mengekstrak deklarasi konten inline yang ditulis langsung di dalam file komponen dan menulis konten tersebut ke dalam kamus saat transform time. Lihat [dokumentasi intlayerCompiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/vite-intlayer/intlayerCompiler.md).
+
+- [dokumentasi intlayerCompiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/vite-intlayer/intlayerCompiler.md)
 
 ### 6. Optimisasi Build
 

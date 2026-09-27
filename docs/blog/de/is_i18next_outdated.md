@@ -92,6 +92,8 @@ style="border:none;"
 
 > Gemessen in einem Produktions-Build über 10 Routen und 10 Sprachen mit Gzip-Kompression. Details im [i18n-Benchmark-Bericht](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/index.md).
 
+- [i18n-Benchmark-Bericht](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/index.md)
+
 ### Basis-Overhead der Bibliotheken
 
 Größe vor dem Hinzufügen von übersetztem Text:
@@ -171,6 +173,9 @@ return <h1>{title}</h1>;
 
 Der [Intlayer-Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compiler.md) erkennt, was `Hero.tsx` tatsächlich verwendet, und entfernt unreferenzierte Felder vor dem Build. Details unter [Bundle-Optimierung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/bundle_optimization.md).
 
+- [Intlayer-Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compiler.md)
+- [Bundle-Optimierung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/bundle_optimization.md)
+
 ## Entwicklererfahrung
 
 ### Getrennte JSON-Dateien vs. Co-Location
@@ -237,6 +242,8 @@ Wird `Hero.tsx` verschoben oder gelöscht, wandern seine Übersetzungen automati
 Das Erweitern von `CustomTypeOptions` bringt Autovervollständigung im Editor, garantiert aber keine Vollständigkeit. Das Löschen eines Schlüssels in `de/home.json` bricht den Build nicht ab, sondern führt zu einem Runtime-Fallback.
 
 Intlayer leitet Typen direkt aus Inhaltsdeklarationen ab. Der [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md) verwandelt fehlende Übersetzungen in strikte Build-Fehler.
+
+- [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md)
 
 ### Tooling-Vergleich
 

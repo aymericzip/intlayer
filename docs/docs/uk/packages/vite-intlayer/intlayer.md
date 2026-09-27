@@ -143,9 +143,13 @@ intlayer({ proxy: { ignore: (req) => req.url?.startsWith("/api") } });
 
 Див. [документацію intlayerProxy](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/vite-intlayer/intlayerProxy.md) для повного довідника поведінки маршрутизації.
 
+- [документацію intlayerProxy](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/vite-intlayer/intlayerProxy.md)
+
 ### 5. Bundled compiler (v9+)
 
 Коли `compiler.enabled` має значення `true` **та** `compiler.output` встановлено у вашій конфігурації Intlayer, `intlayer()` автоматично реєструє `intlayerCompiler`. Компілятор витягує вбудовані декларації контенту, написані безпосередньо у файлах компонентів, і записує їх у словники під час трансформації. Дивіться [документацію intlayerCompiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/vite-intlayer/intlayerCompiler.md).
+
+- [документацію intlayerCompiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/vite-intlayer/intlayerCompiler.md)
 
 ### 6. Оптимізація збірки
 

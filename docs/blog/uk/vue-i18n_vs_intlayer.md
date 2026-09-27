@@ -122,6 +122,8 @@ author: aymericzip
 
 > Повна таблиця з усіма бібліотеками та всіма стратегіями у [звіті benchmark для Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/vue.md).
 
+- [звіті benchmark для Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/vue.md)
+
 ## Звідки розрив? Глобальний екземпляр проти скомпільованих словників
 
 `vue-i18n` — це рантайм. `createI18n()` створює глобальний екземпляр, що зберігає дерево повідомлень для кожної локалі; `useI18n()` прив'язує до нього кожен компонент; `t("footer.github")` шукає ключ під час рендеру. Саме це уможливлює блоки SFC `<i18n>`, `v-t` та завантаження повідомлень під час виконання, і саме тому граф залежностей кожного компонента містить усе дерево:
@@ -157,6 +159,8 @@ Intlayer переносить це знання на етап збірки. Ко
 Компілятор генерує для кожного словника та кожної локалі рівно той JSON, який потрібен цьому компоненту, і відкидає словники, які ніхто не імпортує. Обмеження за маршрутами — наслідок обмеження за компонентами, а не окреме завдання.
 
 > Щоб також відкинути невикористані локалі, встановіть `dictionary.importMode: 'dynamic'` в `intlayer.config.ts`. Див. [документацію з оптимізації бандла](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/bundle_optimization.md).
+
+- [документацію з оптимізації бандла](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/bundle_optimization.md)
 
 ## Досвід розробника
 
@@ -346,6 +350,10 @@ export default defineConfig({
 
 Див. [посібник із міграції з vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/migration_from_vue-i18n_to_intlayer.md) та [документацію із сумісності](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/vue-i18n.md). Користувачі Nuxt мають той самий шлях через [сумісність із `@nuxtjs/i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/nuxtjs-i18n.md).
 
+- [посібник із міграції з vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/migration_from_vue-i18n_to_intlayer.md)
+- [документацію із сумісності](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/vue-i18n.md)
+- [сумісність із `@nuxtjs/i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/nuxtjs-i18n.md)
+
 ## Коли що обирати?
 
 - **Обирайте vue-i18n**, якщо вам потрібен стандартний підхід Vue, ви покладаєтеся на ICU-повідомлення або блоки SFC `<i18n>`, уже використовуєте `@nuxtjs/i18n` або платформа перекладу очікує централізований JSON. Закладіть час на розбиття каталогів і ліниве завантаження за маршрутами, якщо розмір бандла має значення.
@@ -372,17 +380,24 @@ export default defineConfig({
 
 Так. [Intlayer з Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_nuxt.md) охоплює багатомовну маршрутизацію, middleware для визначення локалі та генерацію карти сайту. Якщо ви використовуєте `@nuxtjs/i18n`, [адаптер сумісності Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/nuxtjs-i18n.md) є шляхом міграції.
 
+- [Intlayer з Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_nuxt.md)
+- [адаптер сумісності Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/nuxtjs-i18n.md)
+
 </Question>
 
 <Question title="Чи можу я зберегти свої locales/{locale}.json як джерело правди?">
 
 Так. [Плагін синхронізації JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/vue-i18n.md) зчитує їх з діалектом `vue-i18n` (`{name}`, `{0}`, форми множини через вертикальну риску `"car | cars"`) і записує переклади назад при оновленні через CLI або CMS.
 
+- [Плагін синхронізації JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/vue-i18n.md)
+
 </Question>
 
 <Question title="Чи працює ICU з Intlayer у Vue?">
 
 Нативна підтримка ICU знаходиться в розробці. Адаптер `@intlayer/vue-i18n` підтримує власний синтаксис повідомлень `vue-i18n`, включаючи форми множини та іменовану/спискову інтерполяцію. Про модель плюралізації Intlayer див. [контент перерахування](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/enumeration.md).
+
+- [контент перерахування](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/enumeration.md)
 
 </Question>
 
@@ -431,3 +446,5 @@ Intlayer переносить роботу в компілятор. Словни
 Усі сирі дані, тестові застосунки та скрипти знаходяться в [репозиторії Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Запустіть його самі.
 
 Докладніше див. у документі [«Чому Intlayer?»](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/interest_of_intlayer.md).
+
+- [Чому Intlayer? Переваги над іншими i18n-бібліотеками](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/interest_of_intlayer.md)

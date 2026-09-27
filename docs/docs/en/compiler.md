@@ -54,6 +54,8 @@ The **Intlayer Compiler** is a powerful tool designed to automate the process of
 
 See the [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/compiler_vs_declarative_i18n.md) blog post for a deeper comparison.
 
+- [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/compiler_vs_declarative_i18n.md)
+
 ## Why not use the Intlayer Compiler?
 
 While the compiler offers an excellent "just works" experience, it also introduces some trade-offs you should be aware of:
@@ -64,7 +66,12 @@ While the compiler offers an excellent "just works" experience, it also introduc
 
 For a deeper architectural comparison, see the blog post [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/compiler_vs_declarative_i18n.md).
 
+- [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/compiler_vs_declarative_i18n.md)
+
 As an alternative, to automate your i18n process while keeping full control of your content, Intlayer also provides an auto-extraction command `intlayer extract` (see [CLI documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/extract.md)), or the `Intlayer: extract content to Dictionary` command from the Intlayer VS Code extension (see [VS Code extension documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md)).
+
+- [CLI documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/extract.md)
+- [VS Code extension documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md)
 
 ## Usage
 
@@ -96,9 +103,11 @@ export default defineConfig({
 });
 ```
 
-> The standalone `intlayerCompiler()` plugin is still exported for advanced setups. Registering it alongside `intlayer()` is safe — the compiler deduplicates itself and runs only once.
+> The standalone `intlayerCompiler()` plugin is still exported for advanced setups. Registering it alongside `intlayer()` is safe, the compiler deduplicates itself and runs only once.
 
 See complete tutorial: [Translate Vite and React with Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md)
+
+- [Translate Vite and React with Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md)
 
 #### Framework Support
 
@@ -125,7 +134,7 @@ npm install @intlayer/svelte-compiler
 
 ### Next.js
 
-On Next.js the compiler runs as a bundler loader, `next-intlayer/extractor-loader`. `withIntlayer` registers it for you on **both** Turbopack and webpack — there is no `babel.config.js` to write.
+On Next.js the compiler runs as a bundler loader, `next-intlayer/extractor-loader`. `withIntlayer` registers it for you on **both** Turbopack and webpack. There is no `babel.config.js` to write.
 
 #### Installation
 
@@ -386,3 +395,5 @@ bun x intlayer extract
 ```
 
 > For more details, refer to the [CLI documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md)
+
+- [CLI documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md)

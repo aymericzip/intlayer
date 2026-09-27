@@ -51,6 +51,8 @@ Paraglide आधिकारिक TanStack Router उदाहरणों म�
 
 > दो कंपाइलर-आधारित दृष्टिकोणों की तुलना कर रहे हैं? [क्या Intlayer, Paraglide से हल्का है?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/is_intlayer_lighter_than_paraglide.md) पढ़ें।
 
+- [क्या Intlayer, Paraglide से हल्का है?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/is_intlayer_lighter_than_paraglide.md)
+
 > ये लाइब्रेरी कहाँ से आईं, यह समझने के लिए JavaScript i18n का इतिहास पढ़ें।
 
 - [JavaScript i18n का इतिहास](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/history_of_i18n.md)
@@ -58,6 +60,8 @@ Paraglide आधिकारिक TanStack Router उदाहरणों म�
 ## TanStack Start पर Paraglide के बारे में बेंचमार्क क्या कहता है
 
 [i18n बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/tanstack.md) हर प्रमुख लाइब्रेरी के साथ समान 10-पेज, 10-लोकेल TanStack Start ऐप चलाता है और मापता है कि ब्राउज़र वास्तव में क्या डाउनलोड करता है।
+
+- [i18n बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/tanstack.md)
 
 <I18nBenchmark framework="tanstack" packages="paraglide,intlayer" vertical/>
 
@@ -78,6 +82,8 @@ Paraglide आधिकारिक TanStack Router उदाहरणों म�
 - **पेज लोड समूह में सबसे धीमा है**, आंशिक रूप से इसलिए क्योंकि लोकेल को React कॉन्टेक्स्ट से पढ़ने के बजाय प्रत्येक कॉल पर रणनीतियों के माध्यम से हल किया जाता है।
 
 > पूरा डेटा देखें: [TanStack Start बेंचमार्क रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/tanstack.md), और [बेंचमार्क रिपॉजिटरी](https://github.com/intlayer-org/benchmark-i18n)।
+
+- [TanStack Start बेंचमार्क रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/tanstack.md)
 
 ## TanStack Start पर सुविधाओं की तुलना
 
@@ -102,6 +108,8 @@ TanStack Start पर आमतौर पर उपयोग की जाने
 | **CI में छूटे हुए अनुवाद**               | ✅ `npx intlayer test`                  | ⚠️ अंतर्निहित नहीं           | ⚠️ अंतर्निहित नहीं                | ✅ `lingui compile --strict`    |
 
 > रनटाइम आकार और लीक के आंकड़े [TanStack Start बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/tanstack.md) से लिए गए हैं। लीक को प्रत्येक लाइब्रेरी के सर्वोत्तम सेटअप पर मापा गया है।
+
+- [TanStack Start बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/tanstack.md)
 
 > अन्य TanStack Start गाइड:
 
@@ -837,7 +845,12 @@ Paraglide से Intlayer के लिए कोई ड्रॉप-इन ए�
 
 यदि आप Paraglide के बजाय किसी अन्य लाइब्रेरी से आते हैं, तो [संगतता एडेप्टर (compat adapters)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/index.md) `use-intl`, `next-intl`, `react-i18next`, `react-intl` या Lingui API को बनाए रखते हैं और रनटाइम की अदला-बदली करते हैं।
 
+- [संगतता एडेप्टर (compat adapters)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/index.md)
+
 देखें [क्या Intlayer, Paraglide से हल्का है?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/is_intlayer_lighter_than_paraglide.md) और [Intlayer TanStack Start गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_tanstack.md)।
+
+- [क्या Intlayer, Paraglide से हल्का है?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/is_intlayer_lighter_than_paraglide.md)
+- [Intlayer TanStack Start गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_tanstack.md)
 
 </Step>
 <Step number={17} title="Intlayer का उपयोग करके अपने अनुवादों को स्वचालित करें" isOptional={true}>
@@ -859,6 +872,8 @@ Paraglide अनुवाद रेंडर करता है, लेकि�
 <Question title="क्या Paraglide JS, TanStack Start के लिए एक अच्छा विकल्प है?">
 
 यह एक मजबूत विकल्प है: इसका उपयोग आधिकारिक TanStack Router उदाहरणों में किया जाता है, इसका रनटाइम [बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/tanstack.md) में सबसे छोटा है (~1.8 KB gzip), और संदेश पूरी तरह से टाइप्ड हैं। इसके नुकसान यह हैं कि प्रत्येक संदेश फ़ंक्शन में सभी लोकेल्स होते हैं, जो अन्य भाषाओं के विज़िटर्स को अनुवादित स्ट्रिंग्स का लगभग आधा हिस्सा लीक करता है, और लोकेल बदलने पर पेज रीलोड होता है।
+
+- [बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/tanstack.md)
 
 </Question>
 <Question title="क्या मुझे Paraglide के साथ $locale रूट सेगमेंट की आवश्यकता है?">
@@ -889,6 +904,9 @@ Paraglide अनुवाद रेंडर करता है, लेकि�
 <Question title="क्या मैं Paraglide से Intlayer में माइग्रेट कर सकता हूँ?">
 
 हाँ। दोनों कंपाइलर-आधारित हैं, इसलिए उनका मानसिक मॉडल समान है। [sync JSON प्लगइन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-json.md) के साथ अपनी JSON फ़ाइलों को रखें, फिर पेज दर पेज `m.key()` कॉल्स को `useIntlayer` से बदलें। [Intlayer TanStack Start गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_tanstack.md) देखें।
+
+- [sync JSON प्लगइन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-json.md)
+- [Intlayer TanStack Start गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_tanstack.md)
 
 </Question>
 

@@ -43,7 +43,12 @@ author: aymericzip
 
 > 作为替代方案，您也可以参考 [next-intl 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/i18n_using_next-intl.md)，或直接使用 [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_16.md)。
 
+- [next-intl 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/i18n_using_next-intl.md)
+- [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_16.md)
+
 > 查看 [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/next-i18next_vs_next-intl_vs_intlayer.md) 中的比较。
+
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/next-i18next_vs_next-intl_vs_intlayer.md)
 
 > 想了解这些库的由来，请阅读 JavaScript i18n 的发展史。
 
@@ -52,6 +57,8 @@ author: aymericzip
 ## 基准测试对 Next.js 上 next-i18next 的结论
 
 在开始配置之前，了解 i18n 库对性能和 bundle 的影响非常重要。[i18n 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md)使用主流 i18n 库运行同一个 10 页面、10 种语言的 Next.js 应用，以测量真实的 bundle 体积、字符串泄漏和 hydration 开销。
+
+- [i18n 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md)
 
 <I18nBenchmark framework="nextjs" packages="next-i18next,@intlayer/next-i18next,next-intlayer" vertical/>
 
@@ -77,6 +84,8 @@ author: aymericzip
 - **runtime 体积：** `i18next` 客户端 runtime 在每个页面上约 19.7 KB gzip。对于现有 codebase，兼容适配器 [`@intlayer/next-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/next-i18next.md) 保留相同的 `i18next` API，同时将 runtime 缩小到 9.4 KB 并消除泄漏。原生 [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/next-intlayer/exports.md) 则降至 5.5 KB。
 
 > 查看完整数据：[Next.js 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md)，以及[基准测试仓库](https://github.com/intlayer-org/benchmark-i18n)。
+
+- [Next.js 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md)
 
 ## Next.js 上的功能对比
 
@@ -105,6 +114,9 @@ author: aymericzip
 
 > runtime 体积数据来自 [Next.js 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md)。如需详细讨论，请阅读 [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/next-i18next_vs_next-intl_vs_intlayer.md)。
 
+- [Next.js 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md)
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/next-i18next_vs_next-intl_vs_intlayer.md)
+
 ## 您应该遵循的实践
 
 在我们深入实现之前，以下是您应该遵循的一些实践：
@@ -131,6 +143,8 @@ author: aymericzip
   自动化测试和翻译有助于节省维护多语言应用程序的时间。
 
 > 查看我们的文档，了解有关国际化和SEO的所有内容：[使用 next-intl 进行国际化 (i18n)](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/internationalization_and_SEO.md)。
+
+- [使用 next-intl 进行国际化 (i18n)](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/internationalization_and_SEO.md)
 
 ## 在 Next.js 应用中设置 i18next 的逐步指南
 
@@ -1184,6 +1198,8 @@ Intlayer 允许您：
   Intlayer 提供免费的可视化编辑器，使用可视化编辑器编辑您的内容。了解更多关于[可视化编辑您的翻译](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)。
 
 以及更多功能。要发现 Intlayer 提供的所有功能，请参阅[Intlayer 的优势文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/interest_of_intlayer.md)。
+
+- [Intlayer 的优势文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/interest_of_intlayer.md)
 
 有关详细的性能基准测试和对比，请参阅：
 

@@ -142,12 +142,12 @@ author: aymericzip
 يوفر Intlayer طريقتين مستقلتين لعرض Markdown:
 
 1. **عبر `useIntlayer`**
-   — يحول Intlayer تلقائيًا عقدة `md` إلى الإخراج الأصلي لإطار العمل (JSX ، VNode ، سلسلة HTML).
-   - يتم تحليل Frontmatter وكشفه كـ `.metadata`. يمكنك تجاوز التقديم على مستويين — عالميًا باستخدام `MarkdownProvider` (أو ما يعادله في إطار العمل) ومحليًا لكل عقدة باستخدام `.use()`. يمكن دمج كليهما ؛ `.use()` له الأسبقية على `MarkdownProvider` ، والذي له الأسبقية على الافتراضي.
+   يحول Intlayer تلقائيًا عقدة `md` إلى الإخراج الأصلي لإطار العمل (JSX ، VNode ، سلسلة HTML).
+   - يتم تحليل Frontmatter وكشفه كـ `.metadata`. يمكنك تجاوز التقديم على مستويين، عالميًا باستخدام `MarkdownProvider` (أو ما يعادله في إطار العمل) ومحليًا لكل عقدة باستخدام `.use()`. يمكن دمج كليهما ؛ `.use()` له الأسبقية على `MarkdownProvider` ، والذي له الأسبقية على الافتراضي.
 
-2. **الأدوات المساعدة** — `<MarkdownRenderer />` ، `useMarkdownRenderer()` ، و `renderMarkdown()` هي أدوات مستقلة لا تقبل سوى **سلاسل Markdown الخام**. إنها مستقلة عن `useIntlayer` ولا تعمل مع العقد المزخرفة التي تعيدها.
+2. **الأدوات المساعدة**: `<MarkdownRenderer />` ، `useMarkdownRenderer()` ، و `renderMarkdown()` هي أدوات مستقلة لا تقبل سوى **سلاسل Markdown الخام**. إنها مستقلة عن `useIntlayer` ولا تعمل مع العقد المزخرفة التي تعيدها.
 
-يدعم عرض Markdown **MDX** — استخدم أي مكون JSX/framework بالاسم مباشرة داخل Markdown الخاص بك.
+يدعم عرض Markdown **MDX**، استخدم أي مكون JSX/framework بالاسم مباشرة داخل Markdown الخاص بك.
 
 ### 1. العرض التلقائي (عبر `useIntlayer`)
 
@@ -864,7 +864,7 @@ author: aymericzip
 
 ## التكوين العالمي باستخدام `MarkdownProvider`
 
-يقوم `MarkdownProvider` (أو ما يعادله في إطار العمل) بتكوين خط أنابيب عرض Markdown لتطبيقك بالكامل. ينطبق هذا على كل من العرض التلقائي `useIntlayer` والأدوات المساعدة. الخيارات المعينة هنا هي الإعدادات الافتراضية — يتجاوزها `.use()` على مستوى العقدة.
+يقوم `MarkdownProvider` (أو ما يعادله في إطار العمل) بتكوين خط أنابيب عرض Markdown لتطبيقك بالكامل. ينطبق هذا على كل من العرض التلقائي `useIntlayer` والأدوات المساعدة. الخيارات المعينة هنا هي الإعدادات الافتراضية، يتجاوزها `.use()` على مستوى العقدة.
 
 <Tabs group="framework">
   <Tab label="React" value="react">
@@ -886,7 +886,7 @@ author: aymericzip
     ```
 
 
-    > MDX مدعوم — يتم حل أي اسم مكون يستخدم داخل Markdown الخاص بك (على سبيل المثال `<MyCustomJSXComponent />`) مقابل خريطة `components`.
+    > MDX مدعوم، يتم حل أي اسم مكون يستخدم داخل Markdown الخاص بك (على سبيل المثال `<MyCustomJSXComponent />`) مقابل خريطة `components`.
 
     يمكنك أيضًا استخدام عارض markdown الخاص بك:
 
@@ -928,7 +928,7 @@ author: aymericzip
     ```
 
 
-    > MDX مدعوم — يتم حل أي اسم مكون يستخدم داخل Markdown الخاص بك (على سبيل المثال `<MyCustomJSXComponent />`) مقابل خريطة `components`.
+    > MDX مدعوم، يتم حل أي اسم مكون يستخدم داخل Markdown الخاص بك (على سبيل المثال `<MyCustomJSXComponent />`) مقابل خريطة `components`.
 
     يمكنك أيضًا استخدام عارض markdown الخاص بك:
 
@@ -976,7 +976,7 @@ author: aymericzip
     ```
 
 
-    > MDX مدعوم — يتم حل أي اسم مكون يستخدم داخل Markdown الخاص بك (على سبيل المثال `<MyCustomJSXComponent />`) مقابل خريطة `components`.
+    > MDX مدعوم، يتم حل أي اسم مكون يستخدم داخل Markdown الخاص بك (على سبيل المثال `<MyCustomJSXComponent />`) مقابل خريطة `components`.
 
     يمكنك أيضًا استخدام عارض markdown الخاص بك:
 
@@ -1020,7 +1020,7 @@ author: aymericzip
     ```
 
 
-    > MDX مدعوم — يتم حل أي اسم مكون يستخدم داخل Markdown الخاص بك (على سبيل المثال `<MyCustomJSXComponent />`) مقابل خريطة `components`.
+    > MDX مدعوم، يتم حل أي اسم مكون يستخدم داخل Markdown الخاص بك (على سبيل المثال `<MyCustomJSXComponent />`) مقابل خريطة `components`.
 
     يمكنك أيضًا استخدام عارض markdown الخاص بك:
 
@@ -1059,7 +1059,7 @@ author: aymericzip
     ```
 
 
-    > MDX مدعوم — يتم حل أي اسم مكون يستخدم داخل Markdown الخاص بك (على سبيل المثال `<MyCustomJSXComponent />`) مقابل خريطة `components`.
+    > MDX مدعوم، يتم حل أي اسم مكون يستخدم داخل Markdown الخاص بك (على سبيل المثال `<MyCustomJSXComponent />`) مقابل خريطة `components`.
 
     يمكنك أيضًا استخدام عارض markdown الخاص بك:
 
@@ -1098,7 +1098,7 @@ author: aymericzip
     ```
 
 
-    > MDX مدعوم — يتم حل أي اسم مكون يستخدم داخل Markdown الخاص بك (على سبيل المثال `<MyCustomJSXComponent />`) مقابل خريطة `components`.
+    > MDX مدعوم، يتم حل أي اسم مكون يستخدم داخل Markdown الخاص بك (على سبيل المثال `<MyCustomJSXComponent />`) مقابل خريطة `components`.
 
     يمكنك أيضًا استخدام عارض markdown الخاص بك:
 
@@ -1136,7 +1136,7 @@ author: aymericzip
     };
     ```
 
-    > MDX مدعوم — أي اسم مكون يُستخدم داخل Markdown (مثل `<MyCustomJSXComponent />`) يتم حله مقابل خريطة `components`.
+    > MDX مدعوم، أي اسم مكون يُستخدم داخل Markdown (مثل `<MyCustomJSXComponent />`) يتم حله مقابل خريطة `components`.
 
 يمكنك أيضًا استخدام markdown renderer الخاص بك:
 

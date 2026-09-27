@@ -39,9 +39,13 @@ author: aymericzip
 
 具体的な比較については、当社のブログ記事[react-i18next vs. react-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/react-i18next_vs_react-intl_vs_intlayer.md)をご覧ください。
 
+- [react-i18next vs. react-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/react-i18next_vs_react-intl_vs_intlayer.md)
+
 ## なぜIntlayerをreact-i18nextと組み合わせるのか？
 
 Intlayerは優れた単独のi18nソリューションを提供します（当社の[React統合ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_vite+react.md)を参照）が、以下のような理由でreact-i18nextと組み合わせたい場合があります：
+
+- [React統合ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_vite+react.md)
 
 1. **既存のコードベース**: 既に確立されたreact-i18nextの実装があり、Intlayerの改善された開発者体験に徐々に移行したい場合。
 2. **レガシー要件**: プロジェクトが既存のreact-i18nextプラグインやワークフローとの互換性を必要とする場合。
@@ -146,6 +150,8 @@ CLIを使ってJSONの翻訳を変更した場合やCMSを使用した場合、I
 
 `syncJSON`プラグインの詳細については、[syncJSONプラグインのドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md)を参照してください。
 
+- [syncJSONプラグインのドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md)
+
 </Step>
 
 </Steps>
@@ -165,4 +171,4 @@ CLIを使ってJSONの翻訳を変更した場合やCMSを使用した場合、I
 
 開発者体験を向上させるために、公式の **Intlayer VS Code 拡張機能** をインストールしてください：
 
-[VS Code マーケットプレイスからインストール](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [VS Code マーケットプレイスからインストール](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

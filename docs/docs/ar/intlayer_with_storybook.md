@@ -57,10 +57,16 @@ author: aymericzip
 
 يؤدي تحديد موقع المحتوى المشترك ** إلى تقليل السياق المطلوب ** بواسطة نماذج اللغات الكبيرة (LLMs). يأتي Intlayer أيضًا مزودًا بمجموعة من الأدوات، مثل **CLI** لاختبار الترجمات المفقودة،**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**، **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** و**[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)**، لجعل تجربة المطور (DX) أكثر سلاسة للذكاء الاصطناعي وكلاء.
 
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)
+- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)
+
 </Accordion>
 <Accordion header="الأتمتة">
 
 استخدم الأتمتة للترجمة في مسار CI/CD الخاص بك باستخدام LLM من اختيارك على حساب مزود الذكاء الاصطناعي الخاص بك. يقدم Intlayer أيضًا **مترجمًا** لأتمتة استخراج المحتوى، بالإضافة إلى [منصة ويب](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) للمساعدة في **الترجمة في الخلفية**.
+
+- [منصة ويب](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="أداء">
@@ -71,6 +77,9 @@ author: aymericzip
 <Accordion header="التحجيم مع عدم وجود مطور">
 
 أكثر من مجرد حل i18n، يوفر Intlayer **[محررًا مرئيًا] مستضافًا ذاتيًا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** و**[كامل CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** لمساعدتك في إدارة المحتوى متعدد اللغات في **الوقت الفعلي**، مما يجعل التعاون مع المترجمين ومؤلفي النصوص وأعضاء الفريق الآخرين سلسًا. يمكن تخزين المحتوى محليًا و/أو عن بعد.
+
+- [المحرّر المرئي في Intlayer: عدّل المحتوى في سياقه](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)
+- [كامل CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
@@ -144,6 +153,8 @@ export default config;
 ```
 
 > للحصول على القائمة الكاملة للخيارات، راجع [مرجع التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
+
+- [مرجع التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md)
 
 </Step>
 <Step number={3} title="إضافة إضافة Vite إلى Storybook">
@@ -389,6 +400,8 @@ export default copyButtonContent;
 ```
 
 > لمزيد من تنسيقات وميزات إعلان المحتوى، راجع [توثيق إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md).
+
+- [توثيق إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md)
 
 ## استخدام `useIntlayer` في مكون
 

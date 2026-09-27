@@ -74,6 +74,8 @@ Este hook acepta dos parámetros:
 
 Todas las claves del diccionario deben declararse dentro de archivos de declaración de contenido para mejorar la seguridad de tipos y prevenir errores. [Las instrucciones de configuración se pueden encontrar aquí](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/content_file.md).
 
+- [Las instrucciones de configuración se pueden encontrar aquí](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/content_file.md)
+
 ## Ejemplos de uso en React
 
 Ejemplos de uso del hook `useI18n` dentro de componentes React:

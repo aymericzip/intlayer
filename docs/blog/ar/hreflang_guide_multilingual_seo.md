@@ -140,6 +140,9 @@ ISO 639-1 للغة، ISO 3166-1 Alpha 2 للمنطقة الاختيارية: `fr
 
 > يغطي Intlayer جميع الثلاثة من خلال `routing.mode` و `routing.domains`. انظر [النطاقات المخصصة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/custom_domains.md) و[مرجع التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
 
+- [النطاقات المخصصة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/custom_domains.md)
+- [مرجع التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md)
+
 ## التنفيذ
 
 كتابة هذه الوسوم يدويًا لا تستمر عند التعامل مع لغة ثانية. استخرجها من قائمة اللغات الخاصة بك بدلاً من ذلك.
@@ -188,6 +191,8 @@ export const generateMetadata = async ({
 
 الإعداد الكامل: [دليل i18n لـ Next.js 16](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_16.md).
 
+- [دليل i18n لـ Next.js 16](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_16.md)
+
 </Tab>
 
 <Tab label="TanStack Start" value="tanstack">
@@ -230,6 +235,8 @@ export const Route = createFileRoute("/{-$locale}/about")({
 ```
 
 يتم تشغيل `head` على الخادم، لذا تصل العلامات إلى HTML الأولي. الإعداد الكامل: [دليل TanStack Start i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_tanstack.md).
+
+- [دليل TanStack Start i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_tanstack.md)
 
 </Tab>
 

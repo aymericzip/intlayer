@@ -44,7 +44,12 @@ const config = {
 export default config;
 ```
 
+- [إضافة Sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/plugins/sync-json.md)
+
 يستمر تطبيقك في استيراد ما اعتاد عليه. وتتولى مهام الـ CI ملء كتالوجاتك الحالية وحمايتها، والفرق الذي يراه المراجع في الكود هو مجرد تحديث لملف `locales/fr/checkout.json`، وليس تغييراً معمارياً شاملاً. تتوفر أيضاً [إضافة Sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/plugins/sync-po.md) لتدفقات gettext، و[محولات التوافق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/index.md) للحفاظ على واجهة وقت التشغيل دون أي تعديل.
+
+- [إضافة Sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/plugins/sync-po.md)
+- [محولات التوافق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/index.md)
 
 ## الفصل بين بوابة الفحص (Gate) والتعبئة (Fill)
 
@@ -167,6 +172,8 @@ test("لا توجد لغات مطلوبة مفقودة", async () => {
 
 يطبع الأمر `npx intlayer content test` تقريراً ولكنه ينتهي برمز خروج 0، وبالتالي فهو يفيد بالمعلومات دون أن يوقف عملية البناء. استخدمه محلياً؛ واستخدم التأكيد البرمجي في الـ CI. تفاصيل إضافية في مقال [اكتشاف الترجمات المفقودة](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/detecting_missing_translations.md).
 
+- [اكتشاف الترجمات المفقودة](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/detecting_missing_translations.md)
+
 ## `requiredLocales` تجعل بوابة الفحص قابلة للاستمرار
 
 الفحص الذي يشترط اكتمال جميع اللغات الثماني عشرة يعطل كافة الإصدارات حتى تكتمل أبطأ لغة، وسرعان ما يتم تعطيله من قبل الفريق في غضون شهر.
@@ -209,6 +216,8 @@ export default config;
 ```
 
 يلائم هذا النموذج الفرق التي يدير فيها أشخاص غير تقنيين المحتوى. إنه خيار ومفاضلة: تحصل على استقلالية في التحرير لكنك تفقد ميزة أن مستودع Git يعكس بمفرده كل ما يظهر على الشاشة. تفاصيل أوفى في [توثيق نظام إدارة المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).
+
+- [توثيق نظام إدارة المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
 
 لاحظ أن `clientSecret` يمثل بيانات اعتماد حساسة خاصة بالخادم. يجب حفظها في أسرار الـ CI ومتغيرات بيئة الخادم، وألا تصل إطلاقاً إلى حزمة العميل (Client Bundle).
 

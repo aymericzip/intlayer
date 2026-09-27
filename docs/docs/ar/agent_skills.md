@@ -100,7 +100,7 @@ npx skills add aymericzip/intlayer-skills
 
 - يعلم الوكيل كيفية استخدام مخازن Svelte والصيغة الاصطلاحية للمحتوى المحلي التفاعلي والآمن برمجياً عبر تطبيقات Svelte و SvelteKit.
 
-**intlayer-cms**
+**intlayer-remote-content**
 
 - يسمح للوكيل بدمج وإدارة المحتوى عن بُعد، مما يُمكّنه من التعامل مع سير عمل المزامنة المباشرة والترجمة عن بُعد عبر Intlayer CMS.
 
@@ -115,3 +115,31 @@ npx skills add aymericzip/intlayer-skills
 **intlayer-compiler**
 
 - يبسط سير عمل الوكيل من خلال تمكين استخراج المحتوى التلقائي، مما يسمح له بكتابة سلاسل قابلة للترجمة مباشرة في التعليمات البرمجية الخاصة بك دون ملفات قاموس يدوية.
+
+**intlayer-lit**
+
+- يُعلّم الوكيل كيفية ترجمة مكونات الويب في Lit باستخدام ReactiveControllers `useIntlayer` و`useLocale`.
+
+**intlayer-vanilla**
+
+- يُمكّن الوكيل من توطين صفحات JavaScript / TypeScript البسيطة باستخدام `vanilla-intlayer`، مع أداة تجميع (bundler) أو بدونها.
+
+**intlayer-remix**
+
+- يمنح الوكيل middleware الموجّه (router) في Remix 3 وخطافات `useIntlayer` / `useLocale` المرتبطة بنطاق الطلب.
+
+**intlayer-backend**
+
+- يُجهّز الوكيل لترجمة استجابات الخادم في Express وFastify وHono وNestJS وAdonisJS وElysia من خلال نمط مشترك واحد يجمع middleware + `t` / `getIntlayer`.
+
+**intlayer-dev-tools**
+
+- يتيح للوكيل إعداد أدوات Intlayer حول الكود الخاص بك: قواعد ESLint للسلاسل النصية المكتوبة مباشرة في الكود، وخادم اللغة (Language Server)، وإضافات VS Code وChrome، وخادم MCP، وفحوصات الترجمة في CI/CD.
+
+**intlayer-markdown**
+
+- يُعلّم الوكيل كيفية تعريف محتوى Markdown (`md()`، وملفات `.content.md`، والملفات الخارجية) وعرضه باستخدام مكونات MDX، و`MarkdownProvider` عام، وSuspense، والتحليل من جانب الخادم.
+
+**intlayer-compat**
+
+- يُرشد الوكيل خلال الانتقال من i18next أو react-i18next أو next-intl أو next-i18next أو react-intl أو vue-i18n أو Lingui باستخدام محولات توافق تحافظ على الـ API الأصلية، فلا حاجة لإعادة كتابة استدعاءات الترجمة.

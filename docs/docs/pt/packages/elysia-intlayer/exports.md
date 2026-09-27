@@ -129,7 +129,7 @@ console.log(
 );
 ```
 
-> O plugin registra seu contexto por meio de um `derive` **global**, que o Elysia tipa como `Partial<{ intlayer: IntlayerContext }>`. Em tempo de execução o valor está sempre presente para as rotas registradas após `.use(intlayer())`, portanto use a non-null assertion (`intlayer!.locale`) — ou optional chaining — para satisfazer o TypeScript no modo `strict`.
+> O plugin registra seu contexto por meio de um `derive` **global**, que o Elysia tipa como `Partial<{ intlayer: IntlayerContext }>`. Em tempo de execução o valor está sempre presente para as rotas registradas após `.use(intlayer())`, portanto use a non-null assertion (`intlayer!.locale`), ou optional chaining, para satisfazer o TypeScript no modo `strict`.
 
 ## Documentação relacionada
 

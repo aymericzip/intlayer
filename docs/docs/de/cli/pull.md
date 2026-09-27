@@ -39,6 +39,8 @@ bun x intlayer pull
 
 Wenn der [Intlayer Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md) installiert ist, können Sie Wörterbücher auch direkt aus dem Editor herunterladen. Auf diese Weise können Sie den Inhalt Ihrer Wörterbücher für die Anforderungen Ihrer Anwendung überschreiben.
 
+- [Intlayer Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md)
+
 ## Aliase:
 
 - `npx intlayer dictionaries pull`

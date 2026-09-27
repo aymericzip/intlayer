@@ -40,6 +40,8 @@ author: aymericzip
 
 على النقيض من ذلك، فإن [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md) هو أداة تتيح لك إدارة المحتوى الخاص بك في محرر بصري للقواميس البعيدة. بمجرد إجراء تغيير، لن يؤثر المحتوى على قاعدة الكود الخاصة بك. وسيعرض الموقع تلقائيًا المحتوى الذي تم تغييره.
 
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
+
 ## دمج Intlayer في تطبيقك
 
 لمزيد من التفاصيل حول كيفية دمج Intlayer، راجع القسم المناسب أدناه:
@@ -48,13 +50,19 @@ author: aymericzip
 
 لدمج مع Next.js، راجع [دليل الإعداد](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_15.md).
 
+- [تدويل Next.js 15 - الدليل الكامل لترجمة تطبيقك](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_15.md)
+
 ### الدمج مع Create React App
 
 لدمج مع Create React App، راجع [دليل الإعداد](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_create_react_app.md).
 
+- [i18n في Create React App: دليل الترجمة الكامل](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_create_react_app.md)
+
 ### الدمج مع Vite + React
 
 لدمج مع Vite + React، راجع [دليل الإعداد](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+react.md).
+
+- [تدويل Vite + React - الدليل الكامل لترجمة تطبيقك](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+react.md)
 
 ## كيفية عمل محرر Intlayer
 
@@ -138,6 +146,8 @@ export default config;
 ```
 
 > لمشاهدة جميع المعلمات المتاحة، راجع [وثائق التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
+
+- [وثائق التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md)
 
 ## استخدام المحرر
 
@@ -226,22 +236,38 @@ pnpm intlayer-editor start -e development
 
 أقل بكثير من الإعدادات القائمة على فضاءات الأسماء، لأن الصفحة لا تُحمّل أبدًا كتالوجًا لا تعرضه. يُحل المحتوى المعروض على الخادم مباشرة على الخادم، ويستبدل مترجم وقت البناء استدعاءات `useIntlayer` بإدخالات القاموس الدقيقة التي يستخدمها المكون، لذلك يتم التخلص من المفاتيح واللغات غير المستخدمة. تقسم [القواميس الديناميكية](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dynamic_dictionaries/index.md) الباقي حسب اللغة. مقارنة بالبدائل التقليدية، يقلل Intlayer حجم الحزمة والصفحة بنسبة تصل إلى 50%. انظر [تحسين الحزم](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md) و [المقارنة المعيارية](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/index.md).
 
+- [القواميس الديناميكية](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dynamic_dictionaries/index.md)
+- [تحسين الحزم](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md)
+- [المقارنة المعيارية](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/index.md)
+
 </Question>
 <Question title="هل يمكنني الترحيل من i18next أو next-intl أو react-i18next دون إعادة كتابة مكوناتي؟">
 
 نعم، وبطريقتين. يمكنك ترحيل المحتوى تدريجيًا باستخدام [دليل ترحيل i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_i18next_to_intlayer.md) أو [دليل ترحيل next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_next-intl_to_intlayer.md). أو يمكنك الاحتفاظ بواجهة برمجة التطبيقات الحالية بالكامل: تكشف [محولات التوافق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/index.md) نفس واجهات `i18next` و `react-i18next` و `next-intl` و `next-i18next` و `react-intl` و `use-intl` و `vue-i18n` و `Lingui`، ولكنها مدعومة بقواميس Intlayer، بحيث تتغير الاستيرادات فقط بينما يظل كود المكون كما هو.
+
+- [دليل ترحيل i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_i18next_to_intlayer.md)
+- [دليل ترحيل next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_next-intl_to_intlayer.md)
+- [محولات التوافق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/index.md)
 
 </Question>
 <Question title="هل يمكنني الاحتفاظ بملفات الترجمة JSON الموجودة لدي؟">
 
 نعم. تحافظ [مكونة مزامنة JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/plugins/sync-json.md) على ملفات `/messages/{locale}/{namespace}.json` الخاصة بك كمصدر الحقيقة وتُنشئ قواميس Intlayer منها، في كلا الاتجاهين. وتقوم [مكونة مزامنة PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/plugins/sync-po.md) بنفس الشيء لكتالوجات gettext، وتسمح لك [الملفات المقسمة حسب اللغة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/per_locale_file.md) بتقسيم المحتوى حسب اللغة بدلاً من تجميع كل اللغات في ملف واحد.
 
+- [مكونة مزامنة JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/plugins/sync-json.md)
+- [مكونة مزامنة PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/plugins/sync-po.md)
+- [الملفات المقسمة حسب اللغة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/per_locale_file.md)
+
 </Question>
 <Question title="هل يجب أن أنقل المحتوى الخاص بي مفتاحًا تلو الآخر؟">
 
 لا. قم بتشغيل `npx intlayer extract` وسيقرأ Intlayer ملفات المصدر الخاصة بك، ويسحب السلاسل النصية الموجهة للمستخدم ويكتب ملف `.content` بجانب كل منها، بحيث تراجع diff بدلاً من نسخ السلاسل إلى كتالوج يدويًا. راجع [أمر extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/extract.md).
 
+- [أمر extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/extract.md)
+
 لأتمتة كاملة، يقوم [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md) بالشيء نفسه في وقت البناء على كود JSX و TSX و Vue و Svelte، منشئًا القواميس عند كل تغيير دون الحاجة إلى إدارة المفاتيح يدويًا.
+
+- [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md)
 
 </Question>
 <Question title="ما هي أدوات المحررات والوكلاء الذكيين المتاحة؟">
@@ -278,6 +304,8 @@ pnpm intlayer-editor start -e development
 <Question title="هل يمكنني استخدام المحرر المرئي في بيئة الإنتاج؟">
 
 تم تصميمه لبيئات التطوير والمرحلة الانتقالية (staging)، حيث تكون إعادة البناء بعد التحرير مقبولة. لتحرير المحتوى على موقع إنتاج مباشر، يوصى باستخدام [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).
+
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
 
 </Question>
 <Question title="ما هي تكلفة المحرر المرئي؟ هل هو مبالغ فيه إذا لم أكن بحاجة إليه؟">

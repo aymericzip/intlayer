@@ -51,6 +51,8 @@ author: aymericzip
 
 > Ищете подробное пошаговое руководство для Next.js 16 App Router? Ознакомьтесь с документацией: [Локализация Next.js 16 с Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_nextjs_16.md).
 
+- [Локализация Next.js 16 с Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_nextjs_16.md)
+
 ## Содержание
 
 <TOC/>
@@ -266,6 +268,8 @@ export const generateMetadata = async (): Promise<Metadata> => {
 Полная техническая документация с примерами middleware, SSG (`generateStaticParams`) и Server Components доступна в руководстве:
 
 👉 **[Полное руководство по локализации Next.js 16 с Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_nextjs_16.md)**
+
+- [Полное руководство по локализации Next.js 16 с Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_nextjs_16.md)
 
 ## Часто задаваемые вопросы (FAQ)
 

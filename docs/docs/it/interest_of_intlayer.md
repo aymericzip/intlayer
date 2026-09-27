@@ -54,15 +54,27 @@ Delineare il contenuto della tua applicazione a livello di componente **facilita
 
 Co-localizzare il contenuto **riduce il contesto necessario** per i modelli di linguaggio di grandi dimensioni (LLM). Intlayer include anche una suite di strumenti, come una **CLI** per verificare le traduzioni mancanti, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/mcp_server.md)** e **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/agent_skills.md)**, per rendere l'esperienza sviluppatore (DX) ancora più fluida per gli agenti IA.
 
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/mcp_server.md)
+- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/agent_skills.md)
+
 </Accordion>
 <Accordion header="Funzionalità">
 
 Intlayer offre una serie di funzionalità aggiuntive che altre soluzioni i18n non hanno, come il [supporto per Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/markdown.md), il [recupero di contenuto esterno](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/function_fetching.md), il [caricamento del contenuto da file](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/file.md), l'[aggiornamento del contenuto in tempo reale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/cli/live.md), l'[editor visuale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md) e molto altro.
 
+- [supporto per Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/markdown.md)
+- [recupero di contenuto esterno](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/function_fetching.md)
+- [caricamento del contenuto da file](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/file.md)
+- [aggiornamento del contenuto in tempo reale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/cli/live.md)
+- [editor visuale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md)
+
 </Accordion>
 <Accordion header="Automazione">
 
 Usa l'automazione per tradurre nella tua pipeline CI/CD utilizzando l'LLM che preferisci al costo del tuo fornitore di IA. Intlayer offre anche un **compilatore** per automatizzare l'estrazione del contenuto, oltre a una [piattaforma web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_CMS.md) per aiutarti a **tradurre in background**.
+
+- [piattaforma web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="Prestazioni">
@@ -73,6 +85,9 @@ Il collegamento di enormi file JSON ai componenti può causare problemi di prest
 <Accordion header="Collaborazione con non sviluppatori">
 
 Molto più di una semplice soluzione i18n, Intlayer fornisce un **[editor visuale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md) auto-ospitato** e un **[CMS completo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_CMS.md)** per aiutarti a gestire il tuo contenuto multilingue in **tempo reale**, rendendo fluida la collaborazione con traduttori, copywriter e altri membri del team. Il contenuto può essere memorizzato localmente e/o in remoto.
+
+- [editor visuale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md)
+- [CMS completo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="Design cross-framework">
@@ -288,6 +303,8 @@ Utilizzando `intlayer`, puoi dichiarare il tuo contenuto nel formato della tua l
 
 Se desideri continuare a usare l'API della tua attuale libreria i18n, `intlayer` fornisce anche gli **adattatori di compatibilità (compat adapters)**: pacchetti che espongono esattamente la stessa API di `react-i18next`, `next-intl`, `react-intl`, `vue-i18n` e altre, ma serviti dai dizionari di Intlayer. Questo ti permette di migrare progressivamente senza riscrivere il tuo codice. Consulta la [documentazione degli adattatori di compatibilità](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md).
 
+- [documentazione degli adattatori di compatibilità](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md)
+
 ## Domande frequenti
 
 <FAQ>
@@ -305,22 +322,38 @@ Coesistono tre generazioni:
 
 Molto meno di una configurazione basata su namespace, perché una pagina non scarica mai un catalogo che non renderizza. Il markup renderizzato lato server risolve i suoi contenuti sul server, e il compilatore in fase di build sostituisce le chiamate `useIntlayer` con le esatte voci del dizionario che un componente utilizza, quindi le chiavi e le lingue non utilizzate vengono eliminate. I [dizionari dinamici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dynamic_dictionaries/index.md) suddividono il resto per locale. Misurato rispetto alle alternative abituali, Intlayer riduce la dimensione del bundle e delle pagine fino al 50%. Vedi [ottimizzazione del bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/bundle_optimization.md) e il [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/benchmark/index.md).
 
+- [dizionari dinamici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dynamic_dictionaries/index.md)
+- [ottimizzazione del bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/bundle_optimization.md)
+- [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/benchmark/index.md)
+
 </Question>
 <Question title="Posso migrare da `i18next`, `next-intl` o `react-i18next` senza riscrivere i miei componenti?">
 
 Sì, e ci sono due percorsi. Puoi migrare il contenuto progressivamente con la [guida alla migrazione da i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/migration_from_i18next_to_intlayer.md) o la [guida alla migrazione da next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/migration_from_next-intl_to_intlayer.md). Oppure puoi mantenere interamente la tua API attuale: gli [adattatori di compatibilità](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compat/index.md) espongono esattamente la stessa API di `i18next`, `react-i18next`, `next-intl`, `next-i18next`, `react-intl`, `use-intl`, `vue-i18n` e `Lingui`, ma servita dai dizionari Intlayer, quindi cambiano gli import e il codice dei componenti no.
+
+- [guida alla migrazione da i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/migration_from_i18next_to_intlayer.md)
+- [guida alla migrazione da next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/migration_from_next-intl_to_intlayer.md)
+- [adattatori di compatibilità](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compat/index.md)
 
 </Question>
 <Question title="Posso mantenere i miei file di traduzione JSON esistenti?">
 
 Sì. Il [plugin di sincronizzazione JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/plugins/sync-json.md) mantiene i tuoi file `/messages/{locale}/{namespace}.json` come fonte di verità e genera dizionari Intlayer da essi, in entrambe le direzioni. Un [plugin di sincronizzazione PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/plugins/sync-po.md) fa lo stesso per i cataloghi gettext, e i [file per locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/per_locale_file.md) ti permettono di dividere il contenuto per lingua invece di raggruppare i locale in un unico file.
 
+- [plugin di sincronizzazione JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/plugins/sync-json.md)
+- [plugin di sincronizzazione PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/plugins/sync-po.md)
+- [file per locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/per_locale_file.md)
+
 </Question>
 <Question title="Devo spostare il mio contenuto chiave per chiave?">
 
 No. Esegui `npx intlayer extract` e Intlayer legge i tuoi file sorgente, estrae le stringhe visibili all'utente e scrive un file `.content` accanto a ciascuno, così puoi rivedere un diff invece di copiare le stringhe in un catalogo una alla volta. Vedi il [comando extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/cli/extract.md).
 
+- [comando extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/cli/extract.md)
+
 Per una pipeline completamente automatizzata, il [Compilatore Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compiler.md) fa lo stesso in fase di build sul codice sorgente JSX, TSX, Vue e Svelte, generando i dizionari ad ogni modifica così non ci sono chiavi da mantenere a mano. Funziona per analisi statica, quindi le stringhe che esistono solo a runtime restano fuori portata, e ha bisogno di alcune annotazioni per distinguere il testo visibile all'utente dalla logica applicativa.
+
+- [Compilatore Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compiler.md)
 
 </Question>
 <Question title="Quali strumenti di editor e agenti AI sono disponibili?">
@@ -338,25 +371,51 @@ Cinque componenti, tutti opzionali:
 
 `next-intl` è un livello di messaggi per Next.js: mantieni file JSON di messaggi per locale e li leggi attraverso `useTranslations`. Intlayer è un livello di contenuto: le dichiarazioni vivono accanto al componente, sono tipizzate dalla dichiarazione stessa e sono compilate per componente così una pagina invia solo ciò che renderizza. Intlayer copre anche ciò che `next-intl` lascia a te, ossia la traduzione AI, un editor visivo, un CMS e i controlli delle traduzioni mancanti in CI. Se vuoi mantenere l'API di `next-intl`, l'[adattatore di compatibilità](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compat/index.md) la serve dai dizionari Intlayer.
 
+- [adattatore di compatibilità](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compat/index.md)
+
 </Question>
 <Question title="In cosa Intlayer è diverso da i18next e react-i18next?">
 
 `i18next` risolve le chiavi stringa contro i namespace a runtime, il che significa che una chiave rinominata o scritta male fallisce silenziosamente e ogni namespace toccato da una pagina viene scaricato per intero. Intlayer risolve il contenuto in fase di build contro i tipi generati, quindi una chiave errata è un errore di compilazione, e solo le voci che un componente renderizza raggiungono il bundle. `i18next` ha l'ecosistema di plugin più grande e una storia più lunga; Intlayer ha la tipizzazione, la dimensione del bundle e gli strumenti di modifica e automazione. Vedi la [guida alla migrazione da i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/migration_from_i18next_to_intlayer.md) o l'[adattatore di compatibilità](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compat/index.md).
+
+- [guida alla migrazione da i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/migration_from_i18next_to_intlayer.md)
+- [adattatore di compatibilità](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compat/index.md)
 
 </Question>
 <Question title="Intlayer è più veloce o più leggero delle alternative?">
 
 Su bundle e dimensione delle pagine, sì: non caricare cataloghi che una pagina non renderizza riduce la dimensione del bundle e delle pagine fino al 50% rispetto alle configurazioni basate su namespace. Il [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/benchmark/index.md) pubblica il metodo e i numeri per framework, inclusi [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/benchmark/nextjs.md), [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/benchmark/tanstack.md), [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/benchmark/vue.md) e [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/benchmark/svelte.md), così puoi riprodurli invece di prendere l'affermazione per buona.
 
+- [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/benchmark/index.md)
+- [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/benchmark/nextjs.md)
+- [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/benchmark/tanstack.md)
+- [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/benchmark/vue.md)
+- [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/benchmark/svelte.md)
+
 </Question>
 <Question title="Vale la pena migrare un'app esistente?">
 
 Dipende da cosa fa male oggi. Se il tuo problema è la dimensione del bundle, le traduzioni mancanti silenziose, o i traduttori che non possono lavorare senza uno sviluppatore, la migrazione si ripaga da sola. Se i tuoi cataloghi sono piccoli e stabili, il guadagno è minore. In ogni caso la migrazione non deve essere una riscrittura: gli [adattatori di compatibilità](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compat/index.md) mantengono la tua API attuale, e il [plugin di sincronizzazione JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/plugins/sync-json.md) mantiene i tuoi file JSON esistenti come fonte di verità mentre entrambi i livelli coesistono.
 
+- [adattatori di compatibilità](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compat/index.md)
+- [plugin di sincronizzazione JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/plugins/sync-json.md)
+
 </Question>
 <Question title="Cosa offre Intlayer che le altre librerie i18n non offrono?">
 
 [Contenuto Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/markdown.md), [contenuto recuperato da una fonte esterna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/content_file.md), caricamento di contenuto da file, [aggiornamenti di contenuto live](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/cli/live.md), un [editor visivo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md), un [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_CMS.md), un [compilatore](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compiler.md) che estrae il contenuto dai componenti esistenti, [varianti di contenuto](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dynamic_dictionaries/variants.md) per l'A/B testing, [analytics](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/analytics.md) sull'esposizione dei contenuti, un [server MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/mcp_server.md), un [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/lsp.md) e le [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/agent_skills.md).
+
+- [Contenuto Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/markdown.md)
+- [contenuto recuperato da una fonte esterna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/content_file.md)
+- [aggiornamenti di contenuto live](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/cli/live.md)
+- [editor visivo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_CMS.md)
+- [compilatore](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compiler.md)
+- [varianti di contenuto](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dynamic_dictionaries/variants.md)
+- [analytics](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/analytics.md)
+- [server MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/mcp_server.md)
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/lsp.md)
+- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/agent_skills.md)
 
 </Question>
 <Question title="Posso usare Intlayer solo come gestore di traduzioni e mantenere la mia libreria attuale?">
@@ -367,6 +426,8 @@ Sì. Intlayer può generare i tuoi namespace nel formato e nella posizione che l
 <Question title="Intlayer è gratuito e open source?">
 
 Sì, sotto licenza Apache 2.0, uso commerciale incluso. Il CMS ospitato è un servizio a pagamento opzionale che può anche essere [auto-ospitato](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/self_hosting.md).
+
+- [auto-ospitato](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/self_hosting.md)
 
 </Question>
 

@@ -51,13 +51,25 @@ author: aymericzip
 
 مواد کو ایک ہی جگہ رکھنا (Co-locating content) Large Language Models (LLMs) کے لیے **درکار سیاق و سباق (context) کو کم کرتا ہے**۔ Intlayer ٹولز کے ایک مجموعے کے ساتھ بھی آتا ہے، جیسے کہ گمشدہ تراجم کو ٹیسٹ کرنے کے لیے **CLI**، **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/lsp.md)**، **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/mcp_server.md)**، اور **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/agent_skills.md)**، تاکہ AI agents کے لیے ڈویلپر تجربے (DX) کو مزید ہموار بنایا جا سکے۔
 
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/mcp_server.md)
+- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/agent_skills.md)
+
 **خصوصیت**
 
 Intlayer اضافی خصوصیات کا ایک ایسا مجموعہ فراہم کرتا ہے جو دیگر i18n حلوں (solutions) میں موجود نہیں ہیں، جیسے کہ [Markdown سپورٹ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/dictionary/markdown.md)، [بیرونی مواد کا حصول](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/dictionary/function_fetching.md)، [فائل کے مواد کی لوڈنگ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/dictionary/file.md)، [لائیو مواد کی اپ ڈیٹ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/live.md)، [ویژول ایڈیٹر](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_visual_editor.md) اور بہت کچھ۔
 
+- [Markdown سپورٹ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/dictionary/markdown.md)
+- [بیرونی مواد کا حصول](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/dictionary/function_fetching.md)
+- [فائل کے مواد کی لوڈنگ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/dictionary/file.md)
+- [لائیو مواد کی اپ ڈیٹ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/live.md)
+- [ویژول ایڈیٹر](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_visual_editor.md)
+
 **آٹومیشن**
 
 اپنی مرضی کے LLM کا استعمال کرتے ہوئے اپنے CI/CD پائپ لائن میں ترجمہ کرنے کے لیے آٹومیشن کا استعمال کریں، جو آپ کے AI فراہم کنندہ کی لاگت پر ہوگا۔ Intlayer ایک **compiler** بھی پیش کرتا ہے تاکہ مواد نکالنے (content extraction) کو خودکار بنایا جا سکے، ساتھ ہی ایک [ویب پلیٹ فارم](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_CMS.md) بھی فراہم کرتا ہے تاکہ **بیک گراؤنڈ میں ترجمہ** کرنے میں مدد مل سکے۔
+
+- [ویب پلیٹ فارم](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_CMS.md)
 
 **Performance**
 
@@ -66,6 +78,9 @@ Intlayer اضافی خصوصیات کا ایک ایسا مجموعہ فراہم 
 **نان-ڈیولپرز (none-dev) کے ساتھ اسکیلنگ**
 
 ایک i18n حل سے بڑھ کر، Intlayer ایک **self-hosted [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_visual_editor.md)** اور ایک **[مکمل CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_CMS.md)** فراہم کرتا ہے تاکہ آپ کو اپنے کثیر لسانی مواد کو **real-time** میں منظم کرنے میں مدد مل سکے، جس سے مترجمین، کاپی رائٹرز اور ٹیم کے دیگر اراکین کے ساتھ تعاون ہموار ہو جاتا ہے۔ مواد کو مقامی طور پر اور/یا ریموٹ طور پر محفوظ کیا جا سکتا ہے۔
+
+- [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_visual_editor.md)
+- [مکمل CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_CMS.md)
 
 **Cross framework design**
 
@@ -272,3 +287,5 @@ export const ComponentExample = () => {
 Intlayer کا استعمال کرتے ہوئے، آپ اپنے پسندیدہ i18n لائبریری کے فارمیٹ میں اپنے مواد کا اعلان کر سکتے ہیں، اور intlayer آپ کی پسند کے مقام پر آپ کے نیم اسپیسز تیار کرے گا (مثال کے طور پر: `/messages/{{locale}}/{{namespace}}.json`)۔
 
 اگر آپ اپنی موجودہ i18n لائبریری کا API استعمال کرتے رہنا چاہتے ہیں، تو `intlayer` **کمپیٹ اڈاپٹرز (compat adapters)** بھی فراہم کرتا ہے: ایسے پیکجز جو `react-i18next` ، `next-intl` ، `react-intl` ، `vue-i18n` اور دیگر کا بالکل وہی API فراہم کرتے ہیں، لیکن مواد Intlayer ڈکشنریز سے آتا ہے۔ اس سے آپ اپنا کوڈ دوبارہ لکھے بغیر بتدریج منتقل ہو سکتے ہیں۔ دیکھیں [کمپیٹ اڈاپٹرز کی دستاویزات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md)۔
+
+- [کمپیٹ اڈاپٹرز کی دستاویزات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md)

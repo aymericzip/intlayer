@@ -70,6 +70,8 @@ Tuttavia, nel mondo React vediamo principalmente approcci differenti, che raggru
 > In questo blog non mi concentrerò sulle soluzioni compiler-based, che ho già trattato qui: [Compiler vs Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/compiler_vs_declarative_i18n.md).
 > Nota che l'i18n compiler-based (ad es., Lingui) automatizza semplicemente l'estrazione e il caricamento dei contenuti. Sotto il cofano, spesso condividono le stesse limitazioni di altri approcci.
 
+- [Compiler vs Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/compiler_vs_declarative_i18n.md)
+
 > Nota che più granularizzi il modo in cui recuperi i tuoi contenuti, maggiore è il rischio di inserire stato e logica aggiuntiva nei tuoi componenti.
 
 Gli approcci granulari sono più flessibili di quelli centralizzati, ma spesso è un compromesso. Anche se quelle librerie pubblicizzano il "tree shaking", nella pratica finirai spesso per caricare una pagina in tutte le lingue.
@@ -153,6 +155,8 @@ locale/
 
 Ora devi gestire con precisione quale parte del contenuto della tua app debba essere caricata e dove. In conclusione, la stragrande maggioranza dei progetti salta semplicemente questa fase a causa della complessità (vedi ad esempio la guida [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/i18n_using_next-i18next.md) per vedere le sfide che comporta (anche solo) seguire le buone pratiche).
 Di conseguenza, questi progetti finiscono col trovarsi di fronte al problema del caricamento massiccio dei JSON spiegato in precedenza.
+
+- [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/i18n_using_next-i18next.md)
 
 > Nota che questo problema non è specifico di i18next, ma riguarda tutti gli approcci centralizzati elencati sopra.
 

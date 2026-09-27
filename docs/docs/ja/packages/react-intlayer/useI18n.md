@@ -74,6 +74,8 @@ author: aymericzip
 
 すべての辞書キーは、型安全性を高めエラーを防ぐためにコンテンツ宣言ファイル内で宣言する必要があります。[設定手順はこちら](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)で確認できます。
 
+- [設定手順はこちら](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)
+
 ## Reactでの使用例
 
 Reactコンポーネント内で`useI18n`フックを使用する例：

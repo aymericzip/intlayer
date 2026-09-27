@@ -36,6 +36,8 @@ author: aymericzip
 
 Внутри она повторно использует [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getPathWithoutLocale.md) для удаления сегмента локали, поэтому она учитывает ваш настроенный режим маршрутизации и локали.
 
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getPathWithoutLocale.md)
+
 Пакет также экспортирует базовый помощник [`normalizePath`](#normalizepath), который возвращает канонический путь, независимый от локали, используемый для сравнения.
 
 **Ключевые особенности:**
@@ -44,7 +46,7 @@ author: aymericzip
 - Работает как с абсолютными URL, так и с относительными путями
 - Игнорирует строку запроса, хэш и конечные слэши
 - Допускает отсутствие начальных слэшей и пустые значения (нормализуется к `/`)
-- Легковесная — построена поверх `getPathWithoutLocale`
+- Легковесная, построена поверх `getPathWithoutLocale`
 
 ## Сигнатура функции
 

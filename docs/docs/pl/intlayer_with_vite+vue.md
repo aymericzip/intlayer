@@ -61,10 +61,16 @@ Określanie zakresu zawartości aplikacji **ułatwia konserwację** aplikacji na
 
 Wspólna lokalizacja treści **zmniejsza potrzebny kontekst** dzięki modelom dużego języka (LLM). Intlayer zawiera także zestaw narzędzi, taki jak **CLI** do sprawdzania brakujących tłumaczeń**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** i **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/agent_skills.md)**, aby praca programisty (DX) była jeszcze płynniejsza dla agentów AI.
 
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)
+- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/agent_skills.md)
+
 </Accordion>
 <Accordion header="Automatyzacja">
 
-Korzystaj z automatyzacji, aby tłumaczyć w swoim potoku CI/CD przy użyciu wybranego LLM na koszt dostawcy sztucznej inteligencji. Intlayer oferuje także **kompilator** do automatyzacji ekstrakcji treści, a także [platformę internetową] (https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md), która pomaga **tłumaczyć w tle**.
+Korzystaj z automatyzacji, aby tłumaczyć w swoim potoku CI/CD przy użyciu wybranego LLM na koszt dostawcy sztucznej inteligencji. Intlayer oferuje także **kompilator** do automatyzacji ekstrakcji treści, a także [platformę internetową](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md), która pomaga **tłumaczyć w tle**.
+
+- [platformę internetową](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="Wydajność">
@@ -75,6 +81,9 @@ Korzystaj z automatyzacji, aby tłumaczyć w swoim potoku CI/CD przy użyciu wyb
 <Accordion header="Skalowanie bez użycia dewelopera">
 
 Więcej niż tylko rozwiązanie i18n, Intlayer zapewnia **samodzielny [edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** i **[pełny CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)**, który pomoże Ci zarządzać wielojęzyczną treścią w **w czasie rzeczywistym**, dzięki czemu współpraca z tłumaczami, copywriterami i innymi członkami zespołu będzie płynna. Treść może być przechowywana lokalnie i/lub zdalnie.
+
+- [edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)
+- [pełny CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
@@ -217,6 +226,8 @@ export default config;
 ```
 
 > Za pomocą tego pliku konfiguracyjnego możesz ustawić lokalizowane adresy URL, przekierowania w middleware, nazwy ciasteczek, lokalizację i rozszerzenie deklaracji zawartości, wyłączyć logi Intlayer w konsoli i wiele więcej. Pełną listę dostępnych parametrów znajdziesz w [dokumentacji konfiguracyjnej](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md).
+
+- [dokumentacji konfiguracyjnej](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md)
 
 </Step>
 <Step number={3} title="Zintegruj Intlayer w swojej konfiguracji Vite">
@@ -368,6 +379,8 @@ export default helloWorldContent;
 
 > Po więcej szczegółów odsyłamy do [dokumentacji deklaracji zawartości](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/content_file.md).
 
+- [dokumentacji deklaracji zawartości](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/content_file.md)
+
 </Step>
 <Step number={5} title="Wykorzystaj Intlayer w swoim kodzie">
 
@@ -444,6 +457,9 @@ const countRef = ref(0);
 ```
 
 > Jeśli Twoja aplikacja już istnieje, możesz użyć [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compiler.md), a także [polecenia extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/extract.md), aby przekształcić tysiące komponentów w sekundę.
+
+- [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compiler.md)
+- [polecenia extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/extract.md)
 
 #### Dostęp do treści w Intlayer
 
@@ -650,7 +666,9 @@ Równolegle możesz również użyć `intlayerProxy`, aby dodać routowanie po s
 
 > Zauważ, że aby używać `intlayerProxy` w produkcji, musisz przenieść pakiet `vite-intlayer` z `devDependencies` do `dependencies`.
 
-> Od wersji Intlayer v9, `intlayerProxy()` jest dołączony bezpośrednio do wtyczki `intlayer()` i domyślnie włączony przez opcję `routing.enableProxy` (`true` domyślnie). Rejestrowanie go osobno, jak pokazano poniżej, jest teraz opcjonalne — jest utrzymywane dla kompatybilności wstecznej i dla konfiguracji, które muszą kontrolować kolejność wtyczek. Ustaw `routing.enableProxy: false`, aby zrezygnować. Przeczytaj [notatki wydania v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/releases/v9.md).
+> Od wersji Intlayer v9, `intlayerProxy()` jest dołączony bezpośrednio do wtyczki `intlayer()` i domyślnie włączony przez opcję `routing.enableProxy` (`true` domyślnie). Rejestrowanie go osobno, jak pokazano poniżej, jest teraz opcjonalne, jest utrzymywane dla kompatybilności wstecznej i dla konfiguracji, które muszą kontrolować kolejność wtyczek. Ustaw `routing.enableProxy: false`, aby zrezygnować. Przeczytaj [notatki wydania v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/releases/v9.md).
+
+- [notatki wydania v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/releases/v9.md)
 
 ```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
@@ -929,6 +947,9 @@ Jeśli masz istniejącą bazę kodu, transformacja tysięcy plików może być c
 
 Aby ułatwić ten proces, Intlayer proponuje [kompilator](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compiler.md) / [ekstraktor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/extract.md), aby przetransformować komponenty i wyodrębnić zawartość.
 
+- [kompilator](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compiler.md)
+- [ekstraktor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/extract.md)
+
 Aby go skonfigurować, możesz dodać sekcję `compiler` w pliku `intlayer.config.ts`:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
@@ -1146,7 +1167,7 @@ Aby to zrobić, możesz dodać następujące instrukcje do pliku `.gitignore`:
 
 Aby ulepszyć swoje doświadczenie programistyczne z Intlayer, możesz zainstalować oficjalne **rozszerzenie Intlayer VS Code**.
 
-[Zainstaluj z VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [Zainstaluj z VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 To rozszerzenie zapewnia:
 
@@ -1157,9 +1178,14 @@ To rozszerzenie zapewnia:
 
 Aby uzyskać więcej szczegółów na temat korzystania z rozszerzenia, zapoznaj się z [dokumentacją rozszerzenia Intlayer VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/vs_code_extension.md).
 
+- [dokumentacją rozszerzenia Intlayer VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/vs_code_extension.md)
+
 ### Idź dalej
 
 Aby iść dalej, możesz zaimplementować [edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md) lub wyodrębnić swoją zawartość, korzystając z [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md).
+
+- [edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md)
 
 ## Często Zadawane Pytania
 
@@ -1172,20 +1198,34 @@ Aby iść dalej, możesz zaimplementować [edytor wizualny](https://github.com/a
 
 Praktyczna różnica to zakres i typowanie. W `vue-i18n` klucze są ciągami znaków w runtime, więc zmiana nazwy klucza powoduje cichy błąd, podczas gdy Intlayer generuje typy z Twoich deklaracji i usuwa nieużywaną treść. Zobacz [dlaczego Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/interest_of_intlayer.md) oraz [benchmark Vue i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/vue.md).
 
+- [dlaczego Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/interest_of_intlayer.md)
+- [benchmark Vue i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/vue.md)
+
 </Question>
 <Question title="O ile i18n zwiększa rozmiar mojego bundle'a w Vue?">
 
 Znacznie mniej niż rozwiązania oparte na przestrzeniach nazw, ponieważ strona nigdy nie pobiera katalogu, którego nie renderuje. Kompilator czasu budowy zastępuje wywołania `useIntlayer` dokładnymi wpisami ze słownika, których używa komponent, dzięki czemu nieużywane klucze i nieużywane języki są usuwane, a [słowniki dynamiczne](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dynamic_dictionaries/index.md) dzielą resztę na poszczególne języki. W porównaniu z typowymi alternatywami, Intlayer zmniejsza rozmiar bundle'a i strony nawet o 50%. Zobacz [optymalizację bundle'a](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/bundle_optimization.md) oraz [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/index.md).
+
+- [słowniki dynamiczne](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dynamic_dictionaries/index.md)
+- [optymalizację bundle'a](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/bundle_optimization.md)
+- [Najlepsze rozwiązanie i18n dla Vue w 2026 r. - raport z benchmarku](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/vue.md)
 
 </Question>
 <Question title="Czy mogę zmigrować z vue-i18n bez przepisywania moich komponentów?">
 
 Tak, i są dwie drogi. Możesz migrować treść stopniowo za pomocą [przewodnika migracji z vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/migration_from_vue-i18n_to_intlayer.md). Możesz także zachować obecne API: [adaptery kompatybilności](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compat/index.md) udostępniają dokładnie to samo API co `vue-i18n`, ale zasilane słownikami Intlayer, więc zmieniają się tylko importy, a kod komponentów pozostaje bez zmian.
 
+- [przewodnika migracji z vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/migration_from_vue-i18n_to_intlayer.md)
+- [adaptery kompatybilności](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compat/index.md)
+
 </Question>
 <Question title="Czy mogę zachować moje istniejące pliki tłumaczeń JSON?">
 
 Tak. Wtyczka [sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/plugins/sync-json.md) utrzymuje Twoje pliki `/messages/{locale}/{namespace}.json` jako źródło prawdy i generuje z nich słowniki Intlayer w obu kierunkach. Wtyczka [sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/plugins/sync-po.md) robi to samo dla katalogów gettext, a [pliki per locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/per_locale_file.md) pozwalają rozdzielić zawartość według języka zamiast grupować lokalizacje w jednym pliku.
+
+- [sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/plugins/sync-json.md)
+- [sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/plugins/sync-po.md)
+- [pliki per locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/per_locale_file.md)
 
 </Question>
 <Question title="Czy muszę przenosić moją zawartość klucz po kluczu?">
@@ -1194,7 +1234,11 @@ Nie. Uruchom `npx intlayer extract`, a Intlayer odczyta Twoje komponenty, wyodr�
 
 W przypadku w pełni zautomatyzowanego procesu [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compiler.md) robi to samo w czasie budowania: skanuje kod JSX, TSX, Vue i Svelte przy każdej zmianie, generuje słowniki i utrzymuje je w synchronizacji za pośrednictwem hot module replacement, dzięki czemu nie trzeba w ogóle ręcznie utrzymywać kluczy.
 
+- [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compiler.md)
+
 Warto pamiętać o dwóch ograniczeniach przed włączeniem kompilatora. Działa on w oparciu o analizę statyczną, więc ciągi tekstowe istniejące tylko w czasie wykonywania, takie jak kody błędów API czy pola z CMS, pozostają poza jego zasięgiem. Musi on także odróżnić tekst dla użytkownika od logiki aplikacji, takiej jak `className="active"` czy kod stanu, co w dużej bazie kodu wymaga kilku adnotacji. Polecenie [extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/extract.md) unika obu tych problemów, pozostawiając Ci pełną kontrolę.
+
+- [extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/extract.md)
 
 </Question>
 <Question title="Jakie narzędzia dla edytora i agentów AI są dostępne?">
@@ -1217,6 +1261,8 @@ Tak. `useIntlayer` to composable używany wewnątrz `<script setup>` jak każdy 
 
 W przypadku Vue Routera skonfiguruj segment `:locale` w swoich trasach lub użyj parametru zapytania, a Intlayer zsynchronizuje aktywny język z adresem URL. Opcję `routing.mode` można ustawić na `"prefix-no-default"`, `"prefix-all"` lub `"search-params"`. Zobacz [dokumentację konfiguracji](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md).
 
+- [dokumentację konfiguracji](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md)
+
 </Question>
 <Question title="Jak ustawić atrybuty html lang i dir dla języków od prawej do lewej?">
 
@@ -1227,20 +1273,34 @@ Krok 9 to opisuje. Funkcja `getHTMLTextDir` zwraca `rtl` dla języków takich ja
 
 Uruchom `npx intlayer fill`. Narzędzie CLI wykrywa brakujące tłumaczenia i uzupełnia je za pomocą wybranego modelu LLM, korzystając z Twojego dostawcy i klucza API. Flaga `--git-diff` ogranicza operację do treści zmienionych na bieżącej gałęzi. Zobacz [polecenie fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/fill.md) oraz [integrację CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/CI_CD.md).
 
+- [polecenie fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/fill.md)
+- [integrację CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/CI_CD.md)
+
 </Question>
 <Question title="Czy Intlayer obsługuje formy mnogie, płeć i sformatowany tekst (rich text)?">
 
 Tak: [formy mnogie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/plurial.md), [treści zależne od płci](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/gender.md), warunki, [wstawki (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/insertion.md), [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/markdown.md) dla dłuższych tekstów oraz [formatowania](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/formatters.md) dla liczb, dat i walut.
+
+- [formy mnogie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/plurial.md)
+- [treści zależne od płci](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/gender.md)
+- [wstawki (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/insertion.md)
+- [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/markdown.md)
+- [formatowania](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/formatters.md)
 
 </Question>
 <Question title="Jak tłumacze mogą edytować treść bez dotykania kodu?">
 
 Za pośrednictwem [edytora wizualnego](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md) w trybie self-hosted, który pozwala każdemu edytować tekst bezpośrednio w działającej aplikacji, lub systemu [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md) dla treści, które muszą zmieniać się bez konieczności ponownego wdrożenia.
 
+- [edytora wizualnego](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md)
+
 </Question>
 <Question title="Czy Intlayer jest darmowy i open source?">
 
 Tak, na licencji Apache 2.0, włączając zastosowania komercyjne. Hostowany CMS to opcjonalna płatna usługa, którą można również [hostować samodzielnie (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/self_hosting.md).
+
+- [hostować samodzielnie (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/self_hosting.md)
 
 </Question>
 

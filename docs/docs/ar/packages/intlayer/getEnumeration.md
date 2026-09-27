@@ -32,7 +32,9 @@ author: aymericzip
 
 تقوم دالة `getEnumeration` (وتُعرف أيضًا بـ `enu`) باسترجاع محتوى يتوافق مع كمية معينة بناءً على شروط محددة مسبقًا في كائن تعداد. يتم تعريف الشروط كمفاتيح، ويتم تحديد أولويتها بناءً على ترتيبها في الكائن.
 
-تسترجع دالة `getEnumeration` المحتوى المقابل لكمية محددة بناءً على شروط معرفة مسبقًا في كائن التعداد. تُعرف الشروط كمفاتيح، ويتم تحديد أولويتها حسب ترتيبها في الكائن.
+للمزيد من التفاصيل حول كيفية إعلان التعدادات، راجع [وثائق التعداد](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/enumeration.md).
+
+- [وثائق التعداد](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/enumeration.md)
 
 ## المعاملات
 

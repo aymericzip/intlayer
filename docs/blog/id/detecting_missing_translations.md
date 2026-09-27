@@ -46,7 +46,11 @@ const config = {
 export default config;
 ```
 
+- [plugin Sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/plugins/sync-json.md)
+
 Jika Anda ingin API runtime tetap identik, [adapter kompatibilitas](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/index.md) menyediakan alias untuk `useTranslation`, `$t`, dan sejenisnya pada tingkat bundler. Apa pun pilihannya, perlakukan perintah di bawah ini sebagai salah satu implementasi nyata dari konsep tersebut, bukan sebagai keharusan.
+
+- [adapter kompatibilitas](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/index.md)
 
 ## Mengapa terjemahan yang hilang tidak terlihat?
 
@@ -98,6 +102,8 @@ export default [
 ```
 
 `no-unused-content` mencegah katalog membengkak selamanya. Kunci mati memang tidak merusak kode, tetapi membuat tagihan vendor penerjemah menjadi lebih besar dari yang seharusnya. Daftar aturan lengkap ada di [dokumentasi plugin ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/eslint.md).
+
+- [dokumentasi plugin ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/eslint.md)
 
 ## Lapisan 3: audit cakupan bahasa (locale coverage)
 
@@ -179,6 +185,8 @@ curl -s https://example.com/ja/checkout | grep -c "Add to cart"
 ## Mengisi kekosongan terjemahan
 
 Begitu Anda tahu apa yang kurang, `intlayer fill` mengisi entri kosong tersebut, dan opsi `autoFill` dapat menghasilkan file per-locale saat konten dideklarasikan. Lihat [autoFill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/autoFill.md).
+
+- [autoFill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/autoFill.md)
 
 Perlu dipahami dengan jelas: terjemahan yang diisi oleh mesin mengubah celah _yang terlihat_ menjadi celah _yang tidak terlihat_. Kunci sekarang memiliki isi, sehingga audit berubah menjadi hijau, tetapi belum ada manusia yang membaca hasilnya. Gunakan cara ini untuk membuka blokir rilis, lalu serahkan teks penting kepada peninjau manusia untuk hal-hal yang memengaruhi keputusan pelanggan. Ini adalah penopang sementara, bukan jawaban mutlak.
 

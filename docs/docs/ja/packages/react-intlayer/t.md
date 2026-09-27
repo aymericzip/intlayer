@@ -178,4 +178,6 @@ const text = t(translations);
 
 より詳細な使用方法や高度な機能については、[react-intlayer ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を参照してください。
 
+- [react-intlayer ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)
+
 **注意**: `IntlayerProvider` を適切に設定し、現在のロケールがコンポーネントに正しく渡されるようにしてください。これは、`t` 関数が正しい翻訳を返すために非常に重要です。

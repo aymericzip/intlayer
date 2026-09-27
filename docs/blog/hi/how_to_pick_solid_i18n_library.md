@@ -67,6 +67,8 @@ Paraglide प्रति संदेश एक फ़ंक्शन generate 
 
 [JavaScript i18n का इतिहास](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/history_of_i18n.md) प्रत्येक तरंग को विस्तार से कवर करता है।
 
+- [JavaScript i18n का इतिहास](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/history_of_i18n.md)
+
 ## सबसे महत्वपूर्ण निर्णय: सामग्री कहाँ रहती है और कब लोड होती है
 
 दो संरचनात्मक विकल्प सेटअप्स के बीच बंडल के अधिकांश अंतर को समझाते हैं:
@@ -80,11 +82,17 @@ Paraglide प्रति संदेश एक फ़ंक्शन generate 
 
 `@solid-primitives/i18n` किसी भी अक्ष पर कुछ नहीं करता है: आप प्रति locale एक dictionary `createResource` करते हैं, जिससे आपको dynamic loading मिलती है, और बाकी सब आपके ऊपर है। `solid-i18next` में namespaces और lazy backends हैं, लेकिन कोई भी चीज़ मैपिंग को लागू नहीं करती है, इसलिए `common` को इम्पोर्ट करने वाला एक शेयर्ड कंपोनेंट इसे हर रूट की डिपेंडेंसी बना देता है। Paraglide tree-shaking के माध्यम से पेज अक्ष प्राप्त करता है, हालाँकि यह [Solid बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/solid.md) कार्यान्वयन में प्रभावी नहीं हुआ। Intlayer इसे per-component डिक्लेरेशन के माध्यम से प्राप्त करता है।
 
+- [Solid बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/solid.md)
+
 यदि प्रश्न 4 का आपका उत्तर "कई पेज" था, तो किसी भी API प्राथमिकता से अधिक इस खंड को महत्व दें। [Per-component बनाम centralized i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/per-component_vs_centralized_i18n.md) पोस्ट इसी trade-off के रखरखाव पक्ष को कवर करता है।
+
+- [Per-component बनाम centralized i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/per-component_vs_centralized_i18n.md)
 
 ## उम्मीदवार
 
 लाइब्रेरी के आकार [Solid बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/solid.md) से हैं: 10-पेज, 10-लोकेल ऐप पर बंडलिंग, tree-shaking और minification के बाद, एक खाली कंपोनेंट में provider प्लस accessor। सामग्री को अलग से मापा जाता है।
+
+- [Solid बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/solid.md)
 
 ![Solid i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
@@ -118,6 +126,8 @@ Paraglide का लगभग शून्य लाइब्रेरी आक
 
 Locale को सर्वर पर URL से आना चाहिए ताकि दोनों पक्ष सहमत हों; क्लाइंट पर इसका पता लगाना बहुत देर हो चुकी होती है। `@solid-primitives/i18n` और `solid-i18next` `[[locale]]` रूट, `matchFilters`, रीडायरेक्ट और `entry-server.tsx` टैग्स को आपके ऊपर छोड़ देते हैं। Paraglide में एक Vite प्लगइन है जो रूटिंग को संभालता है। Intlayer मिडलवेयर और रूट हेल्पर्स प्रदान करता है। आप जो भी चुनें, `<html lang>` और `hreflang` को `entry-server.tsx` में रखें; SolidStart v2 में hydration के बाद `@solidjs/meta` क्लाइंट पर लागू होता है। [Solid i18n पोस्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_solid_start.md) उस सेटअप को विस्तार से बताता है।
 
+- [Solid i18n पोस्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_solid_start.md)
+
 </Accordion>
 <Accordion header="Locale बदलाव तुरंत और fine-grained होना चाहिए">
 
@@ -132,6 +142,8 @@ Build time पर संकलित Scoped सामग्री। Intlayer �
 <Accordion header="Type safety अनिवार्य है">
 
 `@solid-primitives/i18n` आपको मुफ़्त में inferred types देता है, जो अधिकांश React लाइब्रेरीज़ की पेशकश से अधिक है। Lazy loading और प्रति-रूट विभाजन के बाद भी बने रहने वाले generated types के लिए, Paraglide, `@lingui/solid` और Intlayer सभी सामग्री से उन्हें बनाते हैं। [लापता अनुवादों का पता लगाना](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/detecting_missing_translations.md) पोस्ट तुलना करता है कि प्रत्येक बिल्ड समय पर क्या पकड़ता है।
+
+- [लापता अनुवादों का पता लगाना](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/detecting_missing_translations.md)
 
 </Accordion>
 <Accordion header="अनुवाद AI द्वारा तैयार किए जाएंगे">
@@ -389,6 +401,9 @@ export const CartSummary: Component<{ count: number }> = (props) => {
 
 मौजूदा i18next कोडबेस पर, [i18next compat adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/i18next.md) बंडलर स्तर पर पैकेज को alias करता है ताकि कैटलॉग और `t()` काम करते रहें जबकि Intlayer सामग्री प्रदान करता है, और [migration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_i18next_to_intlayer.md) बाकी को कवर करता है।
 
+- [i18next compat adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/i18next.md)
+- [migration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_i18next_to_intlayer.md)
+
 ## प्रतिबद्ध होने से पहले
 
 एक फीचर टेबल आपको बताती है कि एक लाइब्रेरी आज क्या करती है। ये बिंदु आपको बताते हैं कि इसके साथ काम करना कैसा होगा।
@@ -411,6 +426,9 @@ export const CartSummary: Component<{ count: number }> = (props) => {
 
 एजेंट अभी भी i18n के साथ संघर्ष करते हैं: वे लोकेल्स भूल जाते हैं, चाबियां गढ़ते हैं, और संदेश सिंटैक्स मिलाते हैं। क्या लाइब्रेरी [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/agent_skills.md) या एक [MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/mcp_server.md) शिप करती है ताकि एजेंट सामग्री को सूचीबद्ध, भर और परीक्षण कर सके? और क्या सामग्री लोडिंग डिफ़ॉल्ट रूप से अनुकूलित है, या किसी को हर तिमाही में नेमस्पेस और लेज़ी आयात की समीक्षा करनी होगी?
 
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/agent_skills.md)
+- [MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/mcp_server.md)
+
 **आउट ऑफ द बॉक्स Type safety।**
 
 "अतिरिक्त वायरिंग के साथ टाइप किया जा सकता है" नहीं, बल्कि "एक गलत कुंजी एक नए इंस्टॉल पर `tsc` को विफल करती है"। जांचें कि क्या होता है जब कोई ऐसी कुंजी होती है जो मौजूद नहीं है, और ऐसे लोकेल के साथ जिसमें एक अनुवाद गायब है।
@@ -422,6 +440,13 @@ export const CartSummary: Component<{ count: number }> = (props) => {
 **डेवलपर अनुभव।**
 
 पहली अनुवादित स्ट्रिंग तक सेटअप समय, एक [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/lsp.md) या [VS Code extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/vs_code_extension.md) जो होवर पर अनुवाद दिखाता है और डिक्लेरेशन पर कूदता है, fill, test और push के लिए एक [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/index.md), आपके कंपोनेंट्स से हार्ड-कोडेड स्ट्रिंग्स निकालने वाला एक [कंपाइलर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md) या एक्सट्रैक्टर ताकि हर स्ट्रिंग को कुंजी-दर-कुंजी प्रबंधित न करना पड़े, और गैर-डेवलपर्स के लिए बिना पुल रिक्वेस्ट के सामग्री संपादित करने का एक तरीका ([visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) या [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md))।
+
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/lsp.md)
+- [VS Code extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/vs_code_extension.md)
+- [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/index.md)
+- [कंपाइलर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md)
+- [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md)
 
 ## अक्सर पूछे जाने वाले प्रश्न
 
@@ -443,11 +468,15 @@ export const CartSummary: Component<{ count: number }> = (props) => {
 
 केवल तभी जब बंडल आकार, उत्पन्न प्रकार (generated types) या बिल्ड-टाइम अनुपलब्ध-कुंजी जांच वास्तविक आवश्यकताएं हों। [कंपाइलर बनाम डिक्लेरेटिव i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/compiler_vs_declarative_i18n.md) पोस्ट बताता है कि कंपाइलर आपको क्या देते हैं और वे कहाँ गलत हो सकते हैं।
 
+- [कंपाइलर बनाम डिक्लेरेटिव i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/compiler_vs_declarative_i18n.md)
+
 </Question>
 
 <Question title="क्या लाइब्रेरी का चुनाव SEO को प्रभावित करता है?">
 
 अप्रत्यक्ष रूप से। क्रॉलर रूटिंग, `hreflang`, `<html lang>` और क्या टेक्स्ट सर्वर-रेंडर किए गए HTML में है, इसकी परवाह करते हैं, जिसका SolidStart पर अर्थ `entry-server.tsx` है। [hreflang गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/hreflang_guide_multilingual_seo.md) देखें।
+
+- [hreflang गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/hreflang_guide_multilingual_seo.md)
 
 </Question>
 

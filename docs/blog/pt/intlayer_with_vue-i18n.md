@@ -41,9 +41,13 @@ author: aymericzip
 
 Veja uma comparação concreta com o vue-i18n em nosso post no blog [vue-i18n vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/vue-i18n_vs_intlayer.md).
 
+- [vue-i18n vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/vue-i18n_vs_intlayer.md)
+
 ## Por que combinar o Intlayer com o vue-i18n?
 
 Embora o Intlayer forneça uma excelente solução de i18n independente (veja nosso [guia de integração com Vue.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_with_vite+vue.md)), você pode querer combiná-lo com o vue-i18n por várias razões:
+
+- [guia de integração com Vue.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_with_vite+vue.md)
 
 1. **Base de código existente**: Você possui uma implementação estabelecida do vue-i18n e deseja migrar gradualmente para a melhor experiência de desenvolvedor do Intlayer.
 2. **Requisitos legados**: Seu projeto requer compatibilidade com plugins ou fluxos de trabalho existentes do vue-i18n.
@@ -144,6 +148,8 @@ Se alterações forem feitas usando o CLI para traduzir o JSON, ou usando o CMS,
 
 Para ver mais detalhes sobre o plugin `syncJSON`, por favor consulte a [documentação do plugin syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/plugins/sync-json.md).
 
+- [documentação do plugin syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/plugins/sync-json.md)
+
 </Step>
 <Step number={3} title="Implementar traduções JSON por componente" isOptional={true}>
 
@@ -206,4 +212,4 @@ Esses arquivos são automaticamente regenerados durante o processo de build e n�
 
 Para uma melhor experiência de desenvolvimento, instale a extensão oficial **Intlayer VS Code Extension**:
 
-[Instalar no Marketplace do VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [Instalar no Marketplace do VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

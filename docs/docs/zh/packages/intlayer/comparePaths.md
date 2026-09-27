@@ -36,6 +36,8 @@ author: aymericzip
 
 它在内部重用了 [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getPathWithoutLocale.md) 来去除区域设置段，因此它会遵循您配置的路由模式和区域设置。
 
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getPathWithoutLocale.md)
+
 该包还导出了底层的 [`normalizePath`](#normalizepath) 辅助函数，它返回用于比较的、与区域设置无关的规范路径名。
 
 **主要特性：**
@@ -44,7 +46,7 @@ author: aymericzip
 - 适用于绝对 URL 和相对路径
 - 忽略查询字符串、哈希值和尾随斜杠
 - 容忍缺少前导斜杠和空值（规范化为 `/`）
-- 轻量级 — 构建在 `getPathWithoutLocale` 之上
+- 轻量级，构建在 `getPathWithoutLocale` 之上
 
 ## 函数签名
 

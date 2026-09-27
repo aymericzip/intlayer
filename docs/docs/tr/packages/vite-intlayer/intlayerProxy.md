@@ -32,6 +32,8 @@ author: aymericzip
 
 > **Intlayer v9'dan beri** `intlayerProxy`, ana [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/vite-intlayer/intlayer.md) eklentisine otomatik olarak dahil edilir ve `routing.enableProxy: true` aracılığıyla varsayılan olarak etkinleştirilir. Yalnızca daha düşük seviyeli kontrole ihtiyacınız olduğunda veya bunu standart `intlayer()` kurulumunun dışında kullandığınızda ayrıca kaydetmeniz gerekir.
 
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/vite-intlayer/intlayer.md)
+
 ## Kullanım
 
 ### `intlayer()` Eklentisinin Parçası Olarak (Önerilen, v9+)
@@ -161,7 +163,7 @@ Ara yazılım, 2 saniyelik kayan bir pencere içinde `originalUrl → newUrl` ç
 
 ## Nitro / Üretim SSR (Otomatik Enjeksiyon, v9+)
 
-`intlayerProxy` bir Vite eklentisi olarak kullanıldığında, bir `.nitro` özelliği taşır. `nitro/vite` derleme eklentisi bu özelliği okur ve `nitroConfig.modules` içine ekler, böylece `intlayerNitroHandler` otomatik olarak bir Nitro sunucu ara yazılımı olarak kaydedilir — üretim SSR için manuel yapılandırma gerekmez.
+`intlayerProxy` bir Vite eklentisi olarak kullanıldığında, bir `.nitro` özelliği taşır. `nitro/vite` derleme eklentisi bu özelliği okur ve `nitroConfig.modules` içine ekler, böylece `intlayerNitroHandler` otomatik olarak bir Nitro sunucu ara yazılımı olarak kaydedilir, üretim SSR için manuel yapılandırma gerekmez.
 
 Nitro işleyicisi (handler), h3 v2'nin Web Fetch API olay modelini kullanır (`fromNodeMiddleware` değil), bu nedenle tüm Nitro şablonlarıyla (Node, Bun, Deno, edge runtimes) uyumludur.
 

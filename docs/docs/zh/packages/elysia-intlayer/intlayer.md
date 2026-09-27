@@ -134,6 +134,8 @@ export default config;
 
 > 有关配置的更多信息，请访问[配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
 
+- [配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)
+
 ## 相关文档
 
 - [elysia-intlayer 包文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/elysia-intlayer/exports.md)

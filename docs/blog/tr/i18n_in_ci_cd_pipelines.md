@@ -44,7 +44,12 @@ const config = {
 export default config;
 ```
 
+- [Sync JSON eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-json.md)
+
 Uygulamanız her zamanki gibi içe aktarmaya devam eder. Aşağıdaki CI işleri mevcut kataloglarınızı doldurur ve denetler; incelemecinin gördüğü fark, büyük bir kod taşıma işlemi değil, `locales/fr/checkout.json` dosyasındaki bir değişikliktir. gettext iş akışları için bir [Sync PO eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-po.md) ve çalışma zamanı API'nizin değişmeden kalmasını istiyorsanız [uyumluluk adaptörleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/index.md) de mevcuttur.
+
+- [Sync PO eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-po.md)
+- [uyumluluk adaptörleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/index.md)
 
 ## Kapıyı (Gate) doldurmadan (Fill) ayırın
 
@@ -167,6 +172,8 @@ test("has no missing required locales", async () => {
 
 `npx intlayer content test` bir rapor yazdırır ancak sıfır koduyla çıkar, bu nedenle bilgilendirir fakat derlemeyi engellemez. Yerel olarak bunu kullanın; CI ortamında ise assertion testini kullanın. [Eksik çevirileri tespit etme](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/detecting_missing_translations.md) bölümünde daha fazlası bulunmaktadır.
 
+- [Eksik çevirileri tespit etme](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/detecting_missing_translations.md)
+
 ## `requiredLocales`, kapıyı sürdürülebilir kılan unsurdur
 
 On sekiz dilin tamamını talep eden bir kapı, en yavaş dil tamamlanana kadar her sürümü engeller ve bir ay içinde devre dışı bırakılır.
@@ -209,6 +216,8 @@ export default config;
 ```
 
 Bu, geliştirici olmayan ekiplerin içeriğe sahip olduğu durumlar için uygundur. Bu bir ödünleşimdir: editör özerkliği kazanırsınız ve git checkout'un uygulamanın neyi render ettiğini tam olarak tanımlaması özelliğini kaybedersiniz. Ayrıntılar [CMS dokümantasyonunda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md).
+
+- [CMS dokümantasyonunda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)
 
 `clientSecret`'ın sunucu tarafı bir kimlik bilgisi olduğunu unutmayın. CI sırlarında ve sunucu ortamınızda bulunmalıdır, istemci paketine ulaşan hiçbir şeyde yer almamalıdır.
 

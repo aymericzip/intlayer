@@ -95,6 +95,8 @@ const exampleContent = {
 export default exampleContent;
 ```
 
+- [内容声明文件（.content.ts）](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)
+
 ## React 客户端组件中的示例用法
 
 下面是如何在 React 组件中使用 `useDictionary` 钩子的示例：

@@ -728,7 +728,9 @@ export default config;
 
 Определяет настройки, связанные с аналитикой Intlayer: сбор данных о том, какой контент действительно показывается пользователям (просмотры страниц, показы контента), и поддержку A/B-тестирования контента.
 
-Аналитика работает по принципу opt-out: она включена по умолчанию и начинает собирать данные, как только установлен пакет `@intlayer/analytics` **и** настроен ключ проекта (`editor.clientId`) для атрибуции. Установите `analytics.enabled` в `false` — или не устанавливайте пакет — и вся интеграция аналитики будет удалена из сборки вашего приложения (dead-code elimination).
+Аналитика работает по принципу opt-out: она включена по умолчанию и начинает собирать данные, как только установлен пакет [`@intlayer/analytics`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/analytics.md) **и** настроен ключ проекта (`editor.clientId`) для атрибуции. Установите `analytics.enabled` в `false`, или не устанавливайте пакет, и вся интеграция аналитики будет удалена из сборки вашего приложения (dead-code elimination).
+
+- [`@intlayer/analytics`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/analytics.md)
 
 | Поле            | Описание                                                                   | Тип       | По умолчанию | Пример  | Примечание                                                                                                                                                               |
 | --------------- | -------------------------------------------------------------------------- | --------- | ------------ | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -976,6 +978,8 @@ export default config;
 
 Для получения дополнительной информации о файлах объявления контента и способе применения значений конфигурации см. [Документацию по файлам контента](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/content_file.md).
 
+- [Документацию по файлам контента](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/content_file.md)
+
 | Поле                        | Описание                                                                                                                                                 | Тип                                                                                                             | По умолчанию   | Пример                                                                                      | Примечание                                                                                                                                                                                                                                                                                                                                                                                      |
 | --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | -------------- | ------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `fill`                      | Управляет тем, как генерируются выходные файлы автозаполнения (ИИ-перевод).                                                                              | `boolean` &#124; <br/> `FilePathPattern` &#124; <br/> `Partial<Record<Locale, boolean &#124; FilePathPattern>>` | `true`         | `{ en: '/locales/en/{{key}}.json', fr: ({ key }) => '/locales/fr/${key}.json', es: false }` | • `true`: путь по умолчанию (тот же файл, что и источник).<br/>• `false`: отключить.<br/>• Шаблон строка/функция генерирует файлы по языкам.<br/>• Объект по языкам: каждый язык соответствует своему шаблону; `false` игнорирует этот язык.<br/>• Включение `{{locale}}` активирует генерацию по языкам.<br/>• `fill` на уровне словаря всегда имеет приоритет над этой глобальной настройкой. |
@@ -1112,22 +1116,38 @@ Intlayer поддерживает несколько ИИ-провайдеров
 
 Гораздо меньше, чем при подходе на основе пространств имён, потому что страница никогда не загружает каталог, который не отображает. Разметка, отрендеренная на сервере, разрешает свой контент на сервере, и компилятор во время сборки заменяет вызовы `useIntlayer` точными записями словаря, которые использует компонент, поэтому неиспользуемые ключи и неиспользуемые языки отбрасываются. [Динамические словари](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dynamic_dictionaries/index.md) разделяют остальное по локалям. По сравнению с обычными альтернативами Intlayer сокращает размер бандла и страницы до 50%. См. [оптимизацию бандла](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/bundle_optimization.md) и [бенчмарк](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/index.md).
 
+- [Динамические словари](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dynamic_dictionaries/index.md)
+- [оптимизацию бандла](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/bundle_optimization.md)
+- [бенчмарк](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/index.md)
+
 </Question>
 <Question title="Могу ли я мигрировать с `i18next`, `next-intl` или `react-i18next`, не переписывая свои компоненты?">
 
 Да, и есть два пути. Вы можете мигрировать контент постепенно с помощью [руководства по миграции с i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/migration_from_i18next_to_intlayer.md) или [руководства по миграции с next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/migration_from_next-intl_to_intlayer.md). Или вы можете полностью сохранить свой текущий API: [адаптеры совместимости](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/index.md) предоставляют точно такой же API, как `i18next`, `react-i18next`, `next-intl`, `next-i18next`, `react-intl`, `use-intl`, `vue-i18n` и `Lingui`, но обслуживаемый словарями Intlayer, поэтому меняются импорты, а код компонентов - нет.
+
+- [руководства по миграции с i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/migration_from_i18next_to_intlayer.md)
+- [руководства по миграции с next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/migration_from_next-intl_to_intlayer.md)
+- [адаптеры совместимости](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/index.md)
 
 </Question>
 <Question title="Могу ли я сохранить свои существующие файлы переводов JSON?">
 
 Да. [Плагин синхронизации JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/plugins/sync-json.md) сохраняет ваши файлы `/messages/{locale}/{namespace}.json` как источник истины и генерирует из них словари Intlayer, в обоих направлениях. [Плагин синхронизации PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/plugins/sync-po.md) делает то же самое для каталогов gettext, а [файлы по локали](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/per_locale_file.md) позволяют разделить контент по языкам вместо группировки локалей в одном файле.
 
+- [Плагин синхронизации JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/plugins/sync-json.md)
+- [Плагин синхронизации PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/plugins/sync-po.md)
+- [файлы по локали](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/per_locale_file.md)
+
 </Question>
 <Question title="Должен ли я переносить свой контент ключ за ключом?">
 
 Нет. Запустите `npx intlayer extract`, и Intlayer прочитает ваши исходные файлы, извлечёт строки, видимые пользователю, и запишет файл `.content` рядом с каждым из них, так что вы просматриваете diff вместо копирования строк в каталог по одной. См. [команду extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/extract.md).
 
+- [команду extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/extract.md)
+
 Для полностью автоматизированного конвейера [Компилятор Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compiler.md) делает то же самое во время сборки на исходном коде JSX, TSX, Vue и Svelte, генерируя словари при каждом изменении, поэтому нет ключей, которые нужно поддерживать вручную. Он работает через статический анализ, поэтому строки, существующие только во время выполнения, остаются недоступными, и ему нужно несколько аннотаций, чтобы отличать текст, видимый пользователю, от логики приложения.
+
+- [Компилятор Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compiler.md)
 
 </Question>
 <Question title="Какие инструменты для редактора и ИИ-агентов доступны?">
@@ -1170,10 +1190,15 @@ Intlayer поддерживает несколько ИИ-провайдеров
 
 `"static"`, значение по умолчанию, импортирует словари статически, поэтому они упакованы и читаются синхронно. `"dynamic"` импортирует их через Suspense, поэтому локаль загружается только когда компонент её отображает, что и нужно для больших наборов контента. `"fetch"` получает их из API живой синхронизации и откатывается к `"dynamic"` при сбое. См. [оптимизацию бандла](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/bundle_optimization.md) и [динамические словари](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dynamic_dictionaries/index.md).
 
+- [оптимизацию бандла](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/bundle_optimization.md)
+- [динамические словари](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dynamic_dictionaries/index.md)
+
 </Question>
 <Question title="Где указать ИИ-провайдера и API-ключ для автоматического перевода?">
 
 Либо в файле конфигурации, либо в командной строке с `--provider`, `--model` и `--api-key`. Ключ остаётся вашим: вызовы перевода идут с вашей машины или из вашего CI-раннера к выбранному вами провайдеру, поэтому ничего не проходит через третью сторону. См. [команду fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/fill.md).
+
+- [команду fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/fill.md)
 
 </Question>
 <Question title="Нужно ли перезапускать dev-сервер после изменения конфигурации?">

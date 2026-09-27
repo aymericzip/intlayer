@@ -143,9 +143,13 @@ intlayer({ proxy: { ignore: (req) => req.url?.startsWith("/api") } });
 
 有关完整的路由行为参考，请参阅 [intlayerProxy 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/vite-intlayer/intlayerProxy.md)。
 
+- [intlayerProxy 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/vite-intlayer/intlayerProxy.md)
+
 ### 5. Bundled compiler (v9+)
 
 当 `compiler.enabled` 为 `true` **且** `compiler.output` 在你的 Intlayer config 中设置时，`intlayer()` 会自动注册 `intlayerCompiler`。编译器提取直接写在组件文件中的内联内容声明，并在转换时将其写入字典。参见 [intlayerCompiler 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/vite-intlayer/intlayerCompiler.md)。
+
+- [intlayerCompiler 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/vite-intlayer/intlayerCompiler.md)
 
 ### 6. 构建优化
 

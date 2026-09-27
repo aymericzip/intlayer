@@ -366,6 +366,8 @@ Intlayer поддерживает различные типы содержимо
 
 > См. [Объявление контента по локалям в Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/per_locale_file.md) для получения дополнительной информации.
 
+- [Объявление контента по локалям в Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/per_locale_file.md)
+
 **Пример:**
 
 ```jsonc
@@ -476,6 +478,8 @@ export default aboutPageMetaContent;
 
 > Подробнее смотрите в разделе [Конфигурация автозаполнения в Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/autoFill.md).
 
+- [Конфигурация автозаполнения в Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/autoFill.md)
+
 ##### `priority` (число)
 
 Указывает приоритет словаря для разрешения конфликтов. Когда несколько словарей содержат одинаковый ключ, словарь с наивысшим числовым приоритетом переопределит остальные. Это полезно для управления иерархией контента и переопределениями.
@@ -503,6 +507,8 @@ export default aboutPageMetaContent;
 
 Используемое в сочетании с Коллекциями, это поле определяет положение элемента в коллекции. Оно позволяет создавать упорядоченные коллекции локализованных элементов, которые можно выбирать по индексу во время выполнения.
 
+- [Коллекции](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dynamic_dictionaries/collections.md)
+
 **Пример:**
 
 ```typescript
@@ -518,9 +524,13 @@ export default aboutPageMetaContent;
 
 > См. [Коллекции](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dynamic_dictionaries/collections.md) для получения дополнительной информации.
 
+- [Коллекции](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dynamic_dictionaries/collections.md)
+
 #### `variant` (строка)
 
 Используемое в сочетании с Вариантами, это поле определяет именованные альтернативы контента. Оно позволяет переключаться между различными вариантами одного и того же ключа словаря во время выполнения без изменения кода (например, для A/B-тестирования, сезонных баннеров). Если значение не указано, оно считается вариантом по умолчанию.
+
+- [Варианты](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dynamic_dictionaries/variants.md)
 
 **Пример:**
 
@@ -529,13 +539,15 @@ export default aboutPageMetaContent;
   key: "hero-banner",
   variant: "black_friday",
   content: {
-    headline: "50 % off — today only",
+    headline: "50 % off, today only",
     cta: "Shop now"
   }
 }
 ```
 
 > См. [Варианты](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dynamic_dictionaries/variants.md) для получения дополнительной информации.
+
+- [Варианты](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dynamic_dictionaries/variants.md)
 
 ### Свойства CMS
 
@@ -610,6 +622,8 @@ multilingualContent: t({
 
 > См. [Переводимый контент (`t`) Документация](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/translation.md) для получения дополнительной информации.
 
+- [Переводимый контент (`t`) Документация](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/translation.md)
+
 ### Условный контент (`cond`)
 
 Контент, который меняется в зависимости от булевых условий:
@@ -624,6 +638,8 @@ conditionalContent: cond({
 ```
 
 > См. [Условный контент (`cond`) Документация](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/condition.md) для получения дополнительной информации.
+
+- [Условный контент (`cond`) Документация](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/condition.md)
 
 ### Перечисляемый контент (`enu`)
 
@@ -641,6 +657,8 @@ statusContent: enu({
 
 > См. [Перечисляемый контент (`enu`) Документация](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/enumeration.md) для получения дополнительной информации.
 
+- [Перечисляемый контент (`enu`) Документация](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/enumeration.md)
+
 ### Множественное число (`plural`)
 
 Контент, который варьируется в зависимости от правил множественного числа:
@@ -656,6 +674,8 @@ pluralContent: plural({
 
 > См. [Множественное число документацию](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/plural.md) для получения дополнительной информации.
 
+- [Множественное число документацию](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/plural.md)
+
 ### Вставляемый контент (`insert`)
 
 Контент, который можно вставлять в другой контент:
@@ -668,6 +688,8 @@ insertionContent: insert("Этот текст можно вставить куд
 
 > См. [Вставляемый контент (`insert`) Документация](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/insertion.md) для получения дополнительной информации.
 
+- [Вставляемый контент (`insert`) Документация](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/insertion.md)
+
 ### Вложенный контент (`nest`)
 
 Ссылки на другие словари:
@@ -679,6 +701,8 @@ nestedContent: nest("about-page");
 ```
 
 > См. [Вложенный контент (`nest`) Документация](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/nesting.md) для получения дополнительной информации.
+
+- [Вложенный контент (`nest`) Документация](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/nesting.md)
 
 ### Контент в формате Markdown (`md`)
 
@@ -693,6 +717,8 @@ markdownContent: md(
 ```
 
 > См. [Контент в формате Markdown (`md`) Документация](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/markdown.md) для получения дополнительной информации.
+
+- [Контент в формате Markdown (`md`) Документация](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/markdown.md)
 
 ### HTML-контент (`html`)
 
@@ -713,6 +739,8 @@ localizedHtmlContent: t({
 
 > См. [HTML-контент (`html`) Документация](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/html.md) для получения дополнительной информации.
 
+- [HTML-контент (`html`) Документация](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/html.md)
+
 ### Контент по половому признаку (`gender`)
 
 Контент, который меняется в зависимости от пола:
@@ -729,9 +757,11 @@ genderContent: gender({
 
 > См. [Контент по половому признаку (`gender`) Документация](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/gender.md) для получения дополнительной информации.
 
+- [Контент по половому признаку (`gender`) Документация](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/gender.md)
+
 ### Контент на основе выбора (`select`)
 
-Контент, который изменяется в зависимости от произвольного строкового значения — эквивалент ICU `select`:
+Контент, который изменяется в зависимости от произвольного строкового значения, эквивалент ICU `select`:
 
 ```typescript
 import { select } from "intlayer";
@@ -748,6 +778,8 @@ selectContent: select({
 
 > См. [Контент на основе выбора (`select`) Документация](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/select.md) для получения дополнительной информации.
 
+- [Контент на основе выбора (`select`) Документация](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/select.md)
+
 ### Контент из файла (`file`)
 
 Ссылки на внешние файлы:
@@ -759,6 +791,8 @@ fileContent: file("./path/to/content.txt");
 ```
 
 > См. [Контент из файла (`file`) Документация](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/file.md) для получения дополнительной информации.
+
+- [Контент из файла (`file`) Документация](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/file.md)
 
 ## Создание файлов контента
 

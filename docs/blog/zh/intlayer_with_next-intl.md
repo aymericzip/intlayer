@@ -40,6 +40,8 @@ author: aymericzip
 
 请参阅我们博客文章中的具体比较：[next-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/next-i18next_vs_next-intl_vs_intlayer.md)。
 
+- [next-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/next-i18next_vs_next-intl_vs_intlayer.md)
+
 ## 为什么要将 Intlayer 与 next-intl 结合使用？
 
 虽然 Intlayer 提供了一个出色的独立 i18n 解决方案（请参阅我们的[Next.js 集成指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_16.md)），但您可能出于以下几个原因想将其与 next-intl 结合使用：
@@ -146,6 +148,8 @@ export default config;
 
 有关 `syncJSON` 插件的更多详细信息，请参阅 [syncJSON 插件文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/plugins/sync-json.md)。
 
+- [syncJSON 插件文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/plugins/sync-json.md)
+
 </Step>
 <Step number={3} title="设置 AI 提供商">
 
@@ -197,6 +201,9 @@ npx intlayer fill
 > 在 [Intlayer AI 配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md#ai-configuration) 中查看所有可用的 AI 提供商。
 > 在 [Intlayer CLI 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md) 中查看所有可用的命令。
 
+- [Intlayer AI 配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md#ai-configuration)
+- [Intlayer CLI 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)
+
 </Step>
 
 </Steps>
@@ -216,4 +223,4 @@ npx intlayer fill
 
 为了提升开发者体验，请安装官方的 **Intlayer VS Code 扩展**：
 
-[从 VS Code 市场安装](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [从 VS Code 市场安装](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

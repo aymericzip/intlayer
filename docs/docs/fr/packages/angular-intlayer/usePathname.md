@@ -31,7 +31,7 @@ author: aymericzip
 
 # Intégration Angular : Documentation du Hook `usePathname`
 
-Le hook `usePathname` retourne le chemin de navigation actuel du navigateur avec le segment de locale supprimé, sous forme de `Signal<string>` Angular. Il est utile pour construire une navigation tenant compte de la locale — par exemple, pour déterminer quel élément de navigation est actif — sans avoir à supprimer manuellement le préfixe de la locale.
+Le hook `usePathname` retourne le chemin de navigation actuel du navigateur avec le segment de locale supprimé, sous forme de `Signal<string>` Angular. Il est utile pour construire une navigation tenant compte de la locale (par exemple, pour déterminer quel élément de navigation est actif) sans avoir à supprimer manuellement le préfixe de la locale.
 
 ## Importer `usePathname` dans Angular
 

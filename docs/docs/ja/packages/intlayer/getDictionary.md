@@ -35,6 +35,8 @@ author: aymericzip
 
 生成されたレジストリでキーによって辞書を検索する [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getIntlayer.md) とは異なり、`getDictionary` は辞書自体を受け取ります。これにより、実行時に構築されたコンテンツ、API または CMS から取得されたコンテンツ、またはテストでインラインで宣言されたコンテンツの適切なツールになります。
 
+- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getIntlayer.md)
+
 **主な機能:**
 
 - 辞書構造 (`{ key, content }`) に従う任意のオブジェクトで動作
@@ -62,7 +64,7 @@ getDictionary(
 - `localeOrSelector: LocalesValues | DictionarySelector`
   - **説明**: コンテンツを解釈するロケール、またはセレクターオブジェクト（`{ item }`、`{ variant }`、オプションで `locale`）。[動的辞書](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/index.md)を参照してください。
   - **型**: `LocalesValues | DictionarySelector`
-  - **必須**: No (Optional) — 設定された `defaultLocale` にデフォルト設定されます。
+  - **必須**: No (Optional)、設定された `defaultLocale` にデフォルト設定されます。
 
 - `plugins: Plugins[]`
   - **説明**: 認識されたノードがどのように解釈されるかを定義するノード変換器の配列。省略された場合は、デフォルトのインタープリタープラグインセットが使用されます。

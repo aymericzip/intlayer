@@ -128,6 +128,8 @@ style="border:none;"
 
 > 完整表格、所有库和策略请参阅 [Next.js 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md)。
 
+- [Next.js 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md)
+
 ### TanStack Start 测试结果
 
 | 库                          | 策略           | 库体积 (gz) | 页面 JS 平均 (gz) | 语言泄漏 | 页面泄漏 | 组件平均体积 (gz) | E2E 响应耗时 |    水合耗时 |
@@ -157,6 +159,8 @@ style="border:none;"
 />
 
 > 完整表格请参阅 [TanStack Start 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md)。
+
+- [TanStack Start 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md)
 
 ## 根本成因剖析：两个编译器，两种不同的工作单元
 
@@ -206,6 +210,8 @@ style="border:none;"
 ![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 > 若要复现 `dynamic` 行的性能指标，只需在 `intlayer.config.ts` 中声明 `dictionary.importMode: 'dynamic'`。详见 [打包优化文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md)。
+
+- [打包优化文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md)
 
 ## 开发者体验对比 (DX)
 
@@ -391,6 +397,8 @@ export default defineConfig({
 
 构建流水线中保留 `@lingui/babel-plugin-lingui-macro` / `@lingui/swc-plugin`，确保其在 Intlayer 编译器之前执行。参阅 [Lingui 兼容适配器文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/lingui.md)。
 
+- [Lingui 兼容适配器文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/lingui.md)
+
 ## 该如何做出选型抉择？
 
 <AccordionGroup>
@@ -403,10 +411,18 @@ export default defineConfig({
 
 如果您想要**组件级作用域内容**、**严格的 TypeScript**、**构建期缺失键报错**、**零成本 tree-shaking 与懒加载**、微小的组件体积、快速注水、即时语言切换以及内置编辑工具（[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)、[AI 翻译](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/autoFill.md)、[MCP 服务器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)）。特别适用于大型、模块化代码库与设计系统。
 
+- [可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
+- [AI 翻译](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/autoFill.md)
+- [MCP 服务器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)
+
 </Accordion>
 <Accordion header="选择 @intlayer/lingui">
 
 如果您已在使用 Lingui，并希望在无需修改宏代码的情况下渐进式迁移到 Intlayer 字典。您的 `.po` 目录通过 [PO 同步插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/lingui.md) 仍然保持为唯一事实来源。在 [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/lingui_vs_intlayer-lingui.md) 中并排测试。
+
+- [PO 同步插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/lingui.md)
+- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/lingui_vs_intlayer-lingui.md)
 
 </Accordion>
 </AccordionGroup>
@@ -437,11 +453,15 @@ export default defineConfig({
 
 不需要。`@intlayer/lingui` 让 `` t`...` ``、`<Trans>`、`msg`、`plural`、`select` 和 `selectOrdinal` 保持原样编译；仅仅是 `i18n._()` 底层解析的数据来源发生了改变。在构建中保留 `@lingui/babel-plugin-lingui-macro` 或 `@lingui/swc-plugin` 即可。参见 [Lingui 兼容性文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/lingui.md)。
 
+- [Lingui 兼容性文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/lingui.md)
+
 </Question>
 
 <Question title="提取和编译步骤怎么处理？">
 
 宏代码继续保留这两个步骤，但对于 Intlayer 自身的内容则完全不需要。`.content.ts` 字典在打包器运行时自动生成，无需单独的 CLI 命令，并且 [`intlayer test`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md) 会在缺失键时直接让 CI 报错，而不是静默回退到源文本。
+
+- [`intlayer test`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)
 
 </Question>
 
@@ -493,3 +513,5 @@ Lingui 毫无疑问是本次评测中最为强劲的“运行时+编译器”混
 所有的原始测试数据、测试应用与执行脚本均已在 [Benchmark Bloom 代码仓库](https://github.com/intlayer-org/benchmark-bloom) 中完整开源。欢迎亲自克隆并运行验证。
 
 欲了解更多设计哲学，请参阅 [“为什么选择 Intlayer？”文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/interest_of_intlayer.md)。
+
+- [为什么选择 Intlayer？相比其他 i18n 库的优势](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/interest_of_intlayer.md)

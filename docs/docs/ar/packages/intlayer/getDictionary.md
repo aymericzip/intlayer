@@ -35,6 +35,8 @@ author: aymericzip
 
 على عكس [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getIntlayer.md)، التي تبحث عن قاموس حسب المفتاح في السجل المُنتج، تأخذ `getDictionary` القاموس نفسه. هذا يجعلها الأداة المناسبة للمحتوى المُنشأ في وقت التشغيل، أو الذي تم جلبه من API أو CMS، أو المُعلن عنه بشكل مباشر في اختبار.
 
+- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getIntlayer.md)
+
 **المميزات الرئيسية:**
 
 - تعمل مع أي كائن يتبع بنية القاموس (`{ key, content }`)
@@ -62,7 +64,7 @@ getDictionary(
 - `localeOrSelector: LocalesValues | DictionarySelector`
   - **الوصف**: اللغة لتفسير المحتوى بها، أو كائن محدد (`{ item }`, `{ variant }`, اختياري مع `locale`). انظر [القواميس الديناميكية](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dynamic_dictionaries/index.md).
   - **النوع**: `LocalesValues | DictionarySelector`
-  - **مطلوب**: لا (اختياري) — يُفترض القيمة الافتراضية `defaultLocale`.
+  - **مطلوب**: لا (اختياري)، يُفترض القيمة الافتراضية `defaultLocale`.
 
 - `plugins: Plugins[]`
   - **الوصف**: مصفوفة من محولات العقد التي تحدد كيفية تفسير العقد المعروفة. إذا تم حذفها، يتم استخدام مجموعة مفسر البرامج الإضافية الافتراضية.

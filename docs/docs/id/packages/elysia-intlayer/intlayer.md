@@ -43,7 +43,7 @@ const app = new Elysia().use(intlayer()).get("/", ({ intlayer }) =>
 );
 ```
 
-> Plugin mendaftarkan context-nya melalui `derive` **global**, yang oleh Elysia diberi tipe `Partial<{ intlayer: IntlayerContext }>`. Nilainya selalu ada saat runtime untuk route yang didaftarkan setelah `.use(intlayer())`, jadi gunakan non-null assertion (`intlayer!.t`) — atau optional chaining — agar TypeScript pada mode `strict` puas.
+> Plugin mendaftarkan context-nya melalui `derive` **global**, yang oleh Elysia diberi tipe `Partial<{ intlayer: IntlayerContext }>`. Nilainya selalu ada saat runtime untuk route yang didaftarkan setelah `.use(intlayer())`, jadi gunakan non-null assertion (`intlayer!.t`), atau optional chaining, agar TypeScript pada mode `strict` puas.
 
 Helper yang sama tersedia sebagai export mandiri, sehingga Anda dapat memanggilnya tanpa melakukan destructuring pada route context:
 
@@ -133,6 +133,8 @@ export default config;
 ```
 
 > Untuk informasi lebih lanjut tentang konfigurasi, kunjungi [dokumentasi konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md).
+
+- [dokumentasi konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md)
 
 ## Dokumentasi Terkait
 

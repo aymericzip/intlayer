@@ -78,6 +78,9 @@ author: aymericzip
 
 بالإضافة إلى سير العمل المعتمد على الكود، يوفر Intlayer [محررًا مرئيًا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) مستضافًا ذاتيًا و [نظام إدارة محتوى عن بُعد](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md) يسمح للمحررين والمترجمين بتحديث المحتوى دون إعادة نشر الكود.
 
+- [محررًا مرئيًا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)
+- [نظام إدارة محتوى عن بُعد](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
+
 </Accordion>
 </AccordionGroup>
 
@@ -204,6 +207,8 @@ module.exports = config;
 
 > لمزيد من خيارات التكوين، يرجى مراجعة [وثائق التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
 
+- [وثائق التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md)
+
 </Step>
 <Step number={3} title="التصريح عن محتواك متعدد اللغات">
 
@@ -240,6 +245,8 @@ export default homeContent;
 ```
 
 > يدعم Intlayer أيضًا تنسيقات JSON و YAML و CommonJS. راجع [وثائق التصريح عن المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md).
+
+- [وثائق التصريح عن المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md)
 
 </Step>
 <Step number={4} title="بناء قواميس Intlayer">
@@ -288,6 +295,8 @@ const { title } = useIntlayer("home");
 يعمل `useIntlayer("home", "fr")` أو `useIntlayer("faq", { item: 2 })` على تجاوز لغة الطلب لاستدعاء واحد، ويقرأ `useDictionary(homeContent)` قاموساً مستورداً بدلاً من المفتاح. خارج الطلب، ترجع الخطافات إلى اللغة الافتراضية.
 
 > يُعد الوسيط البرمجي أيضاً قواميس Intlayer عند بدء تشغيل الخادم، لذلك لن يؤدي فقدان `intlayer build` إلى ترك السجل فارغاً.
+
+> اضبط `routing.enableProxy: false` في `intlayer.config.ts` للإبقاء على تحديد اللغة فقط والتعامل مع التوجيه بنفسك. يترك `intlayer({ ignore })` الطلبات المطابقة دون تعديل (بادئة API على سبيل المثال)، بينما يتحكم `intlayer({ isDevServer })` فيما إذا كانت اللغة المخزنة تحدد عمليات إعادة التوجيه في الوضع التلقائي الافتراضي لـ `enableProxy`.
 
 </Step>
 <Step number={6} title="تعريف مسارات آمنة من حيث النوع">

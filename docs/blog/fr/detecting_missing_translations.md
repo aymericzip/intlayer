@@ -46,7 +46,11 @@ const config = {
 export default config;
 ```
 
+- [plugin Sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/plugins/sync-json.md)
+
 Si vous souhaitez également conserver votre API runtime inchangée, les [adaptateurs de compatibilité](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compat/index.md) créent des alias pour `useTranslation`, `$t` et leurs équivalents au niveau du bundler. Quoi qu'il en soit, considérez les commandes ci-dessous comme une mise en œuvre concrète du principe, et non comme une obligation technique.
+
+- [adaptateurs de compatibilité](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compat/index.md)
 
 ## Pourquoi les manques sont invisibles
 
@@ -98,6 +102,8 @@ export default [
 ```
 
 `no-unused-content` empêche les catalogues de grossir indéfiniment. Les clés mortes ne cassent pas le code, mais elles gonflent inutilement la facture de vos prestataires de traduction. Retrouvez la liste complète des règles dans la [documentation du plugin ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/eslint.md).
+
+- [documentation du plugin ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/eslint.md)
 
 ## Niveau 3 : auditer la couverture des locales
 
@@ -179,6 +185,8 @@ curl -s https://example.com/ja/checkout | grep -c "Add to cart"
 ## Remplir les manques
 
 Une fois les manques identifiés, `intlayer fill` complète les entrées vides, et l'option `autoFill` peut générer les fichiers par locale au moment où le contenu est déclaré. Voir [autoFill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/autoFill.md).
+
+- [autoFill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/autoFill.md)
 
 Soyons lucides : les traductions complétées par machine transforment un manque _visible_ en un manque _invisible_. La clé a désormais une valeur, l'audit passe au vert, et personne n'a relu le résultat. Servez-vous-en pour débloquer une livraison, puis confiez la relecture à un humain pour tout ce qu'un utilisateur lit avant de prendre une décision. C'est un échafaudage, pas une fin en soi.
 

@@ -130,13 +130,13 @@ Xuất toàn bộ kết quả quét dưới dạng đối tượng JSON thay vì
 
 ### Tùy chọn cấu hình tiêu chuẩn
 
-- **`--base-dir`** — Thư mục gốc dùng để xác định vị trí của tệp `intlayer.config.*`.
-- **`-e, --env`** — Môi trường đích (ví dụ: `development`, `production`).
-- **`--env-file`** — Đường dẫn đến tệp `.env` tùy chỉnh.
-- **`--no-cache`** — Tắt bộ nhớ đệm cấu hình.
-- **`--ci`** — Chạy lệnh trong mọi dự án Intlayer của monorepo (hoặc chỉ dự án hiện tại khi chạy từ thư mục dự án). Thông tin xác thực theo từng dự án có thể được đưa vào qua `INTLAYER_PROJECT_CREDENTIALS`, một đối tượng JSON ánh xạ đường dẫn dự án tới `{ "clientId", "clientSecret" }`.
-- **`--verbose`** — Bật ghi nhật ký chi tiết (mặc định trong chế độ CLI).
-- **`--prefix`** — Tiền tố nhật ký tùy chỉnh.
+- **`--base-dir`**: Thư mục gốc dùng để xác định vị trí của tệp `intlayer.config.*`.
+- **`-e, --env`**: Môi trường đích (ví dụ: `development`, `production`).
+- **`--env-file`**: Đường dẫn đến tệp `.env` tùy chỉnh.
+- **`--no-cache`**: Tắt bộ nhớ đệm cấu hình.
+- **`--ci`**: Chạy lệnh trong mọi dự án Intlayer của monorepo (hoặc chỉ dự án hiện tại khi chạy từ thư mục dự án). Thông tin xác thực theo từng dự án có thể được đưa vào qua `INTLAYER_PROJECT_CREDENTIALS`, một đối tượng JSON ánh xạ đường dẫn dự án tới `{ "clientId", "clientSecret" }`.
+- **`--verbose`**: Bật ghi nhật ký chi tiết (mặc định trong chế độ CLI).
+- **`--prefix`**: Tiền tố nhật ký tùy chỉnh.
 
 ## Chiến lược định tuyến
 

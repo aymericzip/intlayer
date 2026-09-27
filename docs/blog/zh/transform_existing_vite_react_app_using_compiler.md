@@ -49,6 +49,8 @@ author: aymericzip
 
 > 需要查看针对 Vite 和 React 的完整详细分步技术指南？请查阅我们的专属文档：[使用 Intlayer 翻译 Vite 和 React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_vite+react.md)。
 
+- [使用 Intlayer 翻译 Vite 和 React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_vite+react.md)
+
 ## 目录
 
 <TOC/>
@@ -332,6 +334,8 @@ console.log("SEO 文件生成完毕。");
 如果您准备按步骤深入配置所有细节（包括严谨的 TypeScript 类型安全支持、动态字典与可视化编辑器），欢迎查阅我们的完整指南：
 
 👉 **[使用 Intlayer 翻译 Vite 和 React 的完整指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_vite+react.md)**
+
+- [使用 Intlayer 翻译 Vite 和 React 的完整指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_vite+react.md)
 
 ## 常见问题解答 (FAQ)
 

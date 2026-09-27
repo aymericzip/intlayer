@@ -86,6 +86,8 @@ Hook ini akan mengelola deteksi locale untuk Anda dan akan mengembalikan konten 
 
 > Untuk melihat semua fitur Intlayer, Anda dapat membaca [dokumentasi kamus](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md).
 
+- [dokumentasi kamus](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md)
+
 ## Konten Jarak Jauh
 
 Intlayer memungkinkan Anda untuk mendeklarasikan konten secara lokal, dan kemudian mengekspornya ke CMS agar dapat diedit oleh tim non-teknis Anda.
@@ -97,6 +99,8 @@ Untuk kamus yang dieksternalisasi menggunakan CMS, Intlayer melakukan operasi fe
 ## Editor Visual
 
 Intlayer juga menyediakan editor visual untuk memungkinkan Anda mengedit konten Anda secara visual. [Editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) ini tersedia dalam paket eksternal `intlayer-editor`.
+
+- [Editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md)
 
 ![editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif?raw=true)
 
@@ -116,11 +120,15 @@ Dalam mode pengembangan, Intlayer menggunakan impor statis terpusat untuk kamus 
 
 Dengan mengaktifkan opsi `importMode = "dynamic"` dalam [konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md), Intlayer akan menggunakan impor dinamis untuk memuat kamus. Opsi ini dinonaktifkan secara default untuk menghindari pemrosesan async saat merender aplikasi.
 
+- [konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md)
+
 > `@intlayer/babel` tersedia secara default pada paket `vite-intlayer`,
 
 > `@intlayer/swc` tidak terpasang secara default pada paket `next-intlayer` karena plugin SWC masih bersifat eksperimental di Next.js.
 
 Untuk melihat cara mengonfigurasi build aplikasi Anda, Anda dapat membaca [dokumentasi konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md).
+
+- [dokumentasi konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md)
 
 ## Paket
 
@@ -342,22 +350,38 @@ Saat build time. Plugin Intlayer memindai file `.content.ts`, mengompilasinya me
 
 Jauh lebih sedikit daripada pengaturan berbasis namespace, karena halaman tidak pernah mengunduh katalog yang tidak di-render. Markup yang dirender di server menyelesaikan kontennya di server, dan kompilator build time mengganti panggilan `useIntlayer` dengan entri kamus persis yang digunakan komponen, sehingga kunci dan bahasa yang tidak digunakan dibuang. [Kamus dinamis](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dynamic_dictionaries/index.md) membagi sisanya per locale. Dibandingkan dengan alternatif konvensional, Intlayer mengurangi ukuran bundle dan halaman hingga 50%. Lihat [optimasi bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/bundle_optimization.md) dan [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/index.md).
 
+- [Kamus dinamis](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dynamic_dictionaries/index.md)
+- [optimasi bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/bundle_optimization.md)
+- [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/index.md)
+
 </Question>
 <Question title="Bisakah saya bermigrasi dari i18next, next-intl atau react-i18next tanpa menulis ulang komponen saya?">
 
 Ya, dan ada dua jalur. Anda dapat memigrasikan konten secara bertahap dengan [panduan migrasi i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_i18next_to_intlayer.md) atau [panduan migrasi next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_next-intl_to_intlayer.md). Atau Anda dapat mempertahankan API Anda saat ini sepenuhnya: [adapter kompatibilitas](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/index.md) mengekspos API yang sama persis dengan `i18next`, `react-i18next`, `next-intl`, `next-i18next`, `react-intl`, `use-intl`, `vue-i18n` dan `Lingui`, tetapi ditenagai oleh kamus Intlayer, sehingga hanya import yang berubah dan kode komponen tetap sama.
+
+- [panduan migrasi i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_i18next_to_intlayer.md)
+- [panduan migrasi next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_next-intl_to_intlayer.md)
+- [adapter kompatibilitas](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/index.md)
 
 </Question>
 <Question title="Bisakah saya menyimpan file terjemahan JSON yang sudah ada?">
 
 Ya. Plugin [sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/plugins/sync-json.md) menjaga file `/messages/{locale}/{namespace}.json` Anda sebagai sumber kebenaran dan menghasilkan kamus Intlayer darinya, di kedua arah. Plugin [sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/plugins/sync-po.md) melakukan hal yang sama untuk katalog gettext, dan [file per locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/per_locale_file.md) memungkinkan Anda membagi konten berdasarkan bahasa daripada mengelompokkan lokal dalam satu file.
 
+- [sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/plugins/sync-json.md)
+- [sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/plugins/sync-po.md)
+- [file per locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/per_locale_file.md)
+
 </Question>
 <Question title="Apakah saya harus memindahkan konten saya key by key?">
 
 Tidak. Jalankan `npx intlayer extract` dan Intlayer membaca file sumber Anda, mengeluarkan string yang dihadapi pengguna, dan menulis file `.content` di sebelah masing-masing, sehingga Anda meninjau diff alih-alih menyalin string ke dalam katalog satu per satu. Lihat [perintah extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/extract.md).
 
+- [perintah extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/extract.md)
+
 Untuk alur kerja yang sepenuhnya otomatis, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md) melakukan hal yang sama saat build time pada kode JSX, TSX, Vue dan Svelte, menghasilkan kamus pada setiap perubahan sehingga tidak ada kunci yang perlu dikelola secara manual. Karena bekerja melalui analisis statis, string yang hanya ada di runtime berada di luar jangkauannya.
+
+- [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md)
 
 </Question>
 <Question title="Apa tooling editor dan agen AI yang tersedia?">
@@ -378,12 +402,16 @@ Folder tersebut adalah output yang dihasilkan: kamus yang dikompilasi dan tipe T
 </Question>
 <Question title="Bagaimana locale aktif ditentukan?">
 
-Dari sumber yang tercantum dalam `routing.storage`, secara berurutan: prefix URL, cookie, header `Accept-Language`, dan bahasa default.
+Dari sumber yang tercantum dalam `routing.storage`, secara berurutan: prefix URL jika `routing.mode` menggunakannya, lalu cookie, lalu header `Accept-Language`, lalu locale default Anda. Locale yang dipilih secara eksplisit oleh pengguna akan disimpan, sehingga tetap berlaku pada kunjungan berikutnya. Lihat [referensi konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md).
+
+- [referensi konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md)
 
 </Question>
 <Question title="Apa perbedaan antara kamus lokal dan jarak jauh (remote)?">
 
-Kamus lokal dideklarasikan di codebase Anda dan dikompilasi bersama aplikasi. Kamus remote dikelola di CMS dan diambil melalui API, memungkinkan pembaruan teks tanpa perlu deploy ulang kode aplikasi.
+Kamus lokal dideklarasikan di codebase Anda dan dikompilasi bersama aplikasi Anda. Kamus remote dikelola di [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md) dan di-resolve saat runtime, sehingga dapat berubah tanpa deployment. Keduanya dibaca melalui hook yang sama, dan konten remote akan kembali (fallback) ke deklarasi lokal ketika tidak tersedia.
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)
 
 </Question>
 <Question title="Apakah Intlayer bekerja tanpa TypeScript?">
@@ -403,7 +431,10 @@ Bahasa diselesaikan satu kali di server dan diteruskan ke provider klien, bukan 
 </Question>
 <Question title="Apakah saya perlu me-rebuild saat menambahkan terjemahan?">
 
-Di lingkungan dev tidak: plugin memantau file dan memperbarui kamus secara instan. Di produksi ya: kamus lokal dikompilasi ke dalam bundle aplikasi saat langkah build.
+Di lingkungan development, tidak: plugin memantau file konten Anda dan membangun ulang kamus yang terpengaruh saat disimpan. Di produksi, kamus merupakan bagian dari build, kecuali jika kontennya remote, dalam hal ini [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md) dan [live sync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/live.md) menerapkan perubahan tanpa deployment.
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)
+- [live sync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/live.md)
 
 </Question>
 

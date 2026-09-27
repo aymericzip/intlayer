@@ -121,6 +121,8 @@ Pilih metrik dan library yang Anda pedulikan:
 
 > Tabel lengkap, dengan setiap library dan setiap strategi, ada di [laporan benchmark Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/vue.md).
 
+- [laporan benchmark Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/vue.md)
+
 ## Mengapa ada selisih? Instance global vs kamus terkompilasi
 
 `vue-i18n` adalah runtime. `createI18n()` membangun instance global yang menyimpan pohon pesan per locale; `useI18n()` mengikat setiap komponen padanya; `t("footer.github")` mencari key saat render. Inilah yang memungkinkan blok SFC `<i18n>`, `v-t`, dan pemuatan pesan saat runtime, dan ini juga alasan graf dependensi setiap komponen mencakup seluruh pohon:
@@ -156,6 +158,8 @@ Intlayer memindahkan pengetahuan itu ke build. Konten dideklarasikan di samping 
 Compiler menghasilkan, per kamus dan per locale, persis JSON yang dibutuhkan komponen itu, dan membuang kamus yang tidak diimpor apa pun. Pembatasan per rute adalah konsekuensi dari pembatasan per komponen, bukan sebuah tugas.
 
 > Untuk juga membuang locale yang tidak dipakai, atur `dictionary.importMode: 'dynamic'` di `intlayer.config.ts`. Lihat [dokumentasi optimasi bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/bundle_optimization.md).
+
+- [dokumentasi optimasi bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/bundle_optimization.md)
 
 ## Pengalaman pengembang
 
@@ -345,6 +349,10 @@ Dalam benchmark, build compat dari aplikasi yang sama turun dari **134,9 KB ke 4
 
 Lihat [panduan migrasi vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_vue-i18n_to_intlayer.md) dan [dokumentasi kompatibilitas](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/vue-i18n.md). Pengguna Nuxt punya jalur yang sama melalui [kompatibilitas `@nuxtjs/i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/nuxtjs-i18n.md).
 
+- [panduan migrasi vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_vue-i18n_to_intlayer.md)
+- [dokumentasi kompatibilitas](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/vue-i18n.md)
+- [kompatibilitas `@nuxtjs/i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/nuxtjs-i18n.md)
+
 ## Kapan memilih yang mana?
 
 - **Pilih vue-i18n** jika Anda menginginkan pendekatan Vue standar, mengandalkan pesan ICU atau blok SFC `<i18n>`, sudah memakai `@nuxtjs/i18n`, atau platform terjemahan mengharapkan JSON terpusat. Sediakan waktu untuk memisahkan katalog dan lazy-load per rute jika ukuran bundle penting.
@@ -371,17 +379,24 @@ Adapter tidak membacanya. Pindahkan pesan tersebut ke JSON lokal Anda, atau ke `
 
 Ya. [Intlayer dengan Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nuxt.md) mencakup perutean multibahasa, middleware deteksi lokal, dan pembuatan peta situs. Jika Anda menggunakan `@nuxtjs/i18n`, [adapter kompatibilitas Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/nuxtjs-i18n.md) adalah jalur migrasinya.
 
+- [Intlayer dengan Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nuxt.md)
+- [adapter kompatibilitas Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/nuxtjs-i18n.md)
+
 </Question>
 
 <Question title="Bisakah saya mempertahankan locales/{locale}.json sebagai sumber kebenaran?">
 
 Ya. [Plugin sinkronisasi JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/vue-i18n.md) membacanya dengan dialek `vue-i18n` (`{name}`, `{0}`, bentuk jamak pipa `"car | cars"`) dan menulis kembali terjemahan saat CLI atau CMS memperbaruinya.
 
+- [Plugin sinkronisasi JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/vue-i18n.md)
+
 </Question>
 
 <Question title="Apakah ICU berfungsi dengan Intlayer di Vue?">
 
 Dukungan ICU bawaan sedang dalam pengerjaan. Adapter `@intlayer/vue-i18n` menyelesaikan sintaks pesan `vue-i18n` sendiri, termasuk bentuk jamak pipa dan interpolasi bernama serta daftar. Untuk model pluralisasi Intlayer, lihat [konten enumerasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/enumeration.md).
+
+- [konten enumerasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/enumeration.md)
 
 </Question>
 
@@ -430,3 +445,5 @@ Intlayer memindahkan pekerjaan ke compiler. Kamus per komponen dan pembersihan k
 Semua data mentah, aplikasi uji, dan skrip ada di [repositori Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Jalankan sendiri.
 
 Lihat [dokumentasi 'Mengapa Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/interest_of_intlayer.md) untuk detail lebih lanjut.
+
+- [Mengapa Intlayer? Keunggulan dibanding library i18n lain](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/interest_of_intlayer.md)

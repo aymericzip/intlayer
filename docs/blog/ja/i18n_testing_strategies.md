@@ -31,6 +31,9 @@ author: aymericzip
 
 カバレッジ検証ツールも同様に移行可能です。[Sync JSONプラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md) を既存カタログに向けたり、[互換アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/index.md) を使って現在のインポートにエイリアスを張ることで、既存のJSONに対してそのままカバレッジ検証を実行できます。
 
+- [Sync JSONプラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md)
+- [互換アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/index.md)
+
 ## 実際に何をテストしているのかを整理する
 
 翻訳品質はコードテストで検証するものではありません。ドイツ語が自然であるかどうかを判定できるアサーションは存在せず、それを試みるとテスト内にハードコードされた文字列が散乱するだけです。
@@ -46,6 +49,8 @@ author: aymericzip
 | フォーマットされた日付や数値がロケールに従う    | `Intl` 内部実装の正確性    |
 
 カバレッジの担保はコンポーネントテストではなく、単一のデータ駆動型テストで行うべきです。これについては [翻訳漏れを検出する方法](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/detecting_missing_translations.md) で詳しく解説しています。本記事ではそれ以外の部分を扱います。
+
+- [翻訳漏れを検出する方法](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/detecting_missing_translations.md)
 
 ## Provider下で描画し、ロールでアサートする
 
@@ -122,6 +127,8 @@ describe.each([0, 1, 2, 3, 11, 100])("count %i", (count) => {
 ```
 
 すべての言語で単に1と2をテストするのではなく、最も複雑な言語のCLDRカテゴリを網羅する数値を選びます。`Intl.PluralRules` を使えば数値がどのカテゴリに分類されるかが分かるため、推測に頼らずサンプルを決定できます。詳細は [ICUメッセージフォーマットの記事](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/icu_message_format.md) を参照してください。
+
+- [ICUメッセージフォーマットの記事](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/icu_message_format.md)
 
 ## スナップショットテストの罠
 

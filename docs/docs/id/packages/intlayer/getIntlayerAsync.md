@@ -34,11 +34,15 @@ author: aymericzip
 
 Fungsi `getIntlayerAsync` memilih satu kamus berdasarkan kuncinya dan menyelesaikan kontennya untuk locale yang diberikan, **memuat locale tersebut saja**.
 
-Ini adalah mitra asinkron dari [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getIntlayer.md), dimaksudkan untuk tempat-tempat di mana kamus dibaca di luar rendering — route `head` / pembangun metadata, loaders, server functions.
+Ini adalah mitra asinkron dari [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getIntlayer.md), dimaksudkan untuk tempat-tempat di mana kamus dibaca di luar rendering, route `head` / pembangun metadata, loaders, server functions.
+
+- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getIntlayer.md)
 
 Di mana `getIntlayer` menarik kamus gabungan yang menampung setiap locale, [plugin build](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/bundle_optimization.md) (`@intlayer/babel`, `@intlayer/swc`) menulis ulang panggilan ini menjadi `getDictionaryAsync(loaderMap, key, locale)`, mengarahkannya ke chunk per-locale di `.intlayer/dynamic_dictionaries/`. Bundle oleh karena itu hanya pernah membawa locale yang benar-benar diminta.
 
-Tanpa plugin tersebut — build yang tidak dioptimalkan — panggilan diselesaikan melalui registry kamus sinkron sebagai gantinya: konten yang sama, tanpa pemisahan per-locale.
+- [plugin build](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/bundle_optimization.md)
+
+Tanpa plugin tersebut, build yang tidak dioptimalkan, panggilan diselesaikan melalui registry kamus sinkron sebagai gantinya: konten yang sama, tanpa pemisahan per-locale.
 
 **Fitur Utama:**
 
@@ -61,18 +65,18 @@ getIntlayerAsync(
 
 - `key: DictionaryKeys`
   - **Description**: Kunci kamus yang akan dibaca, seperti yang dideklarasikan dalam file konten Anda.
-  - **Type**: `DictionaryKeys` — union dari setiap kunci kamus yang dideklarasikan.
+  - **Type**: `DictionaryKeys`, union dari setiap kunci kamus yang dideklarasikan.
   - **Required**: Yes
 
 - `localeOrSelector: LocalesValues | DictionarySelector`
   - **Description**: Locale untuk menginterpretasi konten, atau objek selector untuk [kamus dinamis](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dynamic_dictionaries/index.md).
-    - `'fr'` — sebuah locale
-    - `{ item: 2 }` — item [collection](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dynamic_dictionaries/collections.md) (abaikan `item` untuk mendapatkan setiap item sebagai array)
-    - `{ variant: 'black-friday' }` — [variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dynamic_dictionaries/variants.md) bernama (abaikan untuk yang `default`)
-    - `{ variant: { id: 'prod_abc', userId: '123' } }` — variant terstruktur
+    - `'fr'`: sebuah locale
+    - `{ item: 2 }`: item [collection](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dynamic_dictionaries/collections.md) (abaikan `item` untuk mendapatkan setiap item sebagai array)
+    - `{ variant: 'black-friday' }`: [variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dynamic_dictionaries/variants.md) bernama (abaikan untuk yang `default`)
+    - `{ variant: { id: 'prod_abc', userId: '123' } }`: variant terstruktur
     - Setiap selector dapat membawa locale: `{ item: 2, locale: 'fr' }`
   - **Type**: `LocalesValues | DictionarySelector`
-  - **Required**: No (Optional) — defaults ke `defaultLocale` yang dikonfigurasi.
+  - **Required**: No (Optional), defaults ke `defaultLocale` yang dikonfigurasi.
 
 - `plugins: Plugins[]`
   - **Description**: Custom node transformers yang menggantikan base interpreter plugins. Penggunaan advanced only.
@@ -81,7 +85,7 @@ getIntlayerAsync(
 
 ### Returns
 
-- **Type**: `Promise<Content>` — a promise yang resolve ke konten yang diinterpretasi dari dictionary, yang diketik dari declaration Anda.
+- **Type**: `Promise<Content>`, a promise yang resolve ke konten yang diinterpretasi dari dictionary, yang diketik dari declaration Anda.
 
 ## Contoh Penggunaan
 
@@ -95,12 +99,12 @@ const { title } = await getIntlayerAsync("app", "fr"); // "Bonjour"
 
 ## `getIntlayer` vs `getIntlayerAsync`
 
-|                    | [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getIntlayer.md) | `getIntlayerAsync`                                |
-| ------------------ | --------------------------------------------------------------------------------------------------------------- | ------------------------------------------------- |
-| Returns            | Konten                                                                                                          | Janji dari konten                                 |
-| Dictionary loaded  | Dictionary yang digabungkan (semua locale)                                                                      | Chunk dari locale yang diminta saja               |
-| Best suited for    | Rendering, jalur kode sinkron                                                                                   | Metadata, loaders, fungsi server                  |
-| Requires a plugin? | Tidak                                                                                                           | Tidak — split per-locale memerlukan build plugins |
+|                    | [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getIntlayer.md) | `getIntlayerAsync`                               |
+| ------------------ | --------------------------------------------------------------------------------------------------------------- | ------------------------------------------------ |
+| Returns            | Konten                                                                                                          | Janji dari konten                                |
+| Dictionary loaded  | Dictionary yang digabungkan (semua locale)                                                                      | Chunk dari locale yang diminta saja              |
+| Best suited for    | Rendering, jalur kode sinkron                                                                                   | Metadata, loaders, fungsi server                 |
+| Requires a plugin? | Tidak                                                                                                           | Tidak, split per-locale memerlukan build plugins |
 
 Keduanya menerima argumen yang sama dan mengembalikan konten yang sama: beralih dari satu ke yang lain hanya mengubah **kapan** dan **berapa banyak** yang dimuat.
 

@@ -35,7 +35,7 @@ author: aymericzip
 
 1. **Zahardkodowany tekst**, który nigdy nie trafił do słownika.
 2. **Dynamiczne wywołania**, które przechodzą sprawdzanie typów i działają, ale których kompilator Intlayer nie potrafi zoptymalizować.
-3. **Martwa zawartość (Dead content)** — słowniki i pola, których nic w projekcie nie odczytuje (opcjonalne).
+3. **Martwa zawartość (Dead content)**: słowniki i pola, których nic w projekcie nie odczytuje (opcjonalne).
 
 Nieznane klucze słowników, nieznane ścieżki pól oraz brakujące ustawienia regionalne stanowią już błędy kompilacji, więc wtyczka ich nie powiela.
 
@@ -61,7 +61,7 @@ Wymaga ESLint w wersji 9 lub nowszej (flat config). ESLint 10 jest wspierany.
 
 ## Użycie
 
-Wtyczka działa zarówno w ESLint, jak i [oxlint](https://oxc.rs) — te same reguły, te same opcje.
+Wtyczka działa zarówno w ESLint, jak i [oxlint](https://oxc.rs), te same reguły, te same opcje.
 
 <Tabs defaultTab="eslint">
   <Tab label="ESLint" value="eslint">
@@ -106,7 +106,7 @@ export default [
 }
 ```
 
-Dwa zastrzeżenia: obsługa wtyczek JS w oxlint jest w fazie alfa, a oxlint nie obsługuje niestandardowych parserów — pliki `.vue`, `.svelte`, `.astro` oraz szablony Angular nie są tam sprawdzane. Uruchamiaj oxlint na plikach JS/TS/JSX, a ESLint pozostaw dla reszty.
+Dwa zastrzeżenia: obsługa wtyczek JS w oxlint jest w fazie alfa, a oxlint nie obsługuje niestandardowych parserów, pliki `.vue`, `.svelte`, `.astro` oraz szablony Angular nie są tam sprawdzane. Uruchamiaj oxlint na plikach JS/TS/JSX, a ESLint pozostaw dla reszty.
 
 Reguła `no-unused-content` została celowo pominięta powyżej: wymaga ona katalogu roboczego i ścieżki do sprawdzanego pliku z kontekstu reguły, czego mostek wtyczek JS w fazie alfa nie gwarantuje. Uruchamiaj ją pod ESLintem.
 
@@ -123,7 +123,7 @@ Reguła `no-unused-content` została celowo pominięta powyżej: wymaga ona kata
 
 `recommended` celowo utrzymuje `no-raw-text` na poziomie `warn`: uruchomienie jej na istniejącej bazie kodu ujawnia wszystkie nieprzetłumaczone ciągi znaków naraz, co nie powinno blokować procesu budowania od pierwszego dnia.
 
-`enforce-adapter-import` jest domyślnie wyłączona — włącz ją jawnie, jeśli tego potrzebujesz.
+`enforce-adapter-import` jest domyślnie wyłączona, włącz ją jawnie, jeśli tego potrzebujesz.
 
 `no-unused-content` jest wyłączona w każdej konfiguracji, w tym `strict`. Jest to jedyna reguła, która odczytuje konfigurację Intlayer i przeszukuje pliki źródłowe na dysku, więc jej włączenie powinno być świadomym wyborem, a nie domyślnym zachowaniem zestawu.
 
@@ -248,7 +248,7 @@ export default {
 };
 ```
 
-W przeciwieństwie do innych reguł, ta nie jest w stanie ocenić sytuacji wyłącznie na podstawie sprawdzanego pliku — pole jest nieużywane tylko w kontekście całego projektu. Przy pierwszej deklaracji zawartości podczas działania lintera wczytuje konfigurację Intlayer, skanuje pliki źródłowe wskazane przez tę konfigurację (`build.traversePattern`, `compiler.transformPattern`) i uruchamia ten sam analizator użycia, który zasila `@intlayer/lsp` oraz przekreślenie „nieużywane” w rozszerzeniu VS Code. Wynik jest buforowany przez `cacheTtl` milisekund, więc skanowanie odbywa się raz na uruchomienie, a nie dla każdego pliku.
+W przeciwieństwie do innych reguł, ta nie jest w stanie ocenić sytuacji wyłącznie na podstawie sprawdzanego pliku, pole jest nieużywane tylko w kontekście całego projektu. Przy pierwszej deklaracji zawartości podczas działania lintera wczytuje konfigurację Intlayer, skanuje pliki źródłowe wskazane przez tę konfigurację (`build.traversePattern`, `compiler.transformPattern`) i uruchamia ten sam analizator użycia, który zasila `@intlayer/lsp` oraz przekreślenie „nieużywane” w rozszerzeniu VS Code. Wynik jest buforowany przez `cacheTtl` milisekund, więc skanowanie odbywa się raz na uruchomienie, a nie dla każdego pliku.
 
 **Opcje**
 
@@ -283,9 +283,9 @@ Zmniejsz `cacheTtl`, gdy korzystasz z lintera działającego jako serwer edytora
 
 > **Preferuje brak zgłoszenia w razie wątpliwości.** Fałszywy alarm w tym miejscu mógłby usunąć potrzebne tłumaczenie, dlatego nic nie jest zgłaszane, gdy słownik jest używany w sposób, którego analiza nie potrafi prześledzić: przekazanie całego obiektu zawartości, powiązana z niego funkcja tłumacząca (`const t = useTranslations("home")`), deklaracja dostępna przez bezpośredni import (`useDictionary(myDictionary)`), `nest()` z innego słownika lub lista pól, która stała się niepełna przez operator spread. Komponenty jednoplikowe (`.vue`, `.svelte`, `.astro`) są traktowane jako używające każdego pola wymienionych słowników, ponieważ ich bloki skryptów nie są tu parsowane.
 
-`reportDuplicateKeys` odczytuje niescalone słowniki, które proces budowania zapisuje w `.intlayer/`, więc zachowuje milczenie do momentu, aż projekt zostanie zbudowany przynajmniej raz. Dwie deklaracje dzielące ten sam klucz są scalane, co jest poprawnym wzorcem — raport istnieje, ponieważ pole zdefiniowane po obu stronach po cichu zachowuje tylko jedną z dwóch wartości.
+`reportDuplicateKeys` odczytuje niescalone słowniki, które proces budowania zapisuje w `.intlayer/`, więc zachowuje milczenie do momentu, aż projekt zostanie zbudowany przynajmniej raz. Dwie deklaracje dzielące ten sam klucz są scalane, co jest poprawnym wzorcem, raport istnieje, ponieważ pole zdefiniowane po obu stronach po cichu zachowuje tylko jedną z dwóch wartości.
 
-Analizator jest ładowany z `@intlayer/lsp`, który jest dystrybuowany jako ESM. Reguła wymaga zatem wersji Node obsługującej `require()` dla modułów ES — Node 20.19+ lub 22.12+. Na starszych wersjach reguła nic nie zgłasza, zamiast powodować błąd działania lintera.
+Analizator jest ładowany z `@intlayer/lsp`, który jest dystrybuowany jako ESM. Reguła wymaga zatem wersji Node obsługującej `require()` dla modułów ES, Node 20.19+ lub 22.12+. Na starszych wersjach reguła nic nie zgłasza, zamiast powodować błąd działania lintera.
 
 ## Frameworki
 

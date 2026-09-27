@@ -32,7 +32,7 @@ author: aymericzip
 
 In Intlayer, select-based content is achieved through the `select` function, which maps arbitrary string values to their corresponding content. It is the equivalent of an ICU `{value, select, …}` message, or of a `switch` statement in your application code.
 
-Use `select` when the discriminant is a free-form string — a status, a plan, a platform, a role. For the other discriminants, Intlayer provides dedicated nodes:
+Use `select` when the discriminant is a free-form string, a status, a plan, a platform, a role. For the other discriminants, Intlayer provides dedicated nodes:
 
 | Discriminant           | Node       |
 | ---------------------- | ---------- |
@@ -81,13 +81,13 @@ export default myPostContent;
 }
 ```
 
-> If no `fallback` is declared, the last key declared will be taken as a fallback when the provided value matches no declared case — the same contract as `cond()` and `gender()`.
+> If no `fallback` is declared, the last key declared will be taken as a fallback when the provided value matches no declared case, the same contract as `cond()` and `gender()`.
 
 ### Type safety
 
 The accepted argument is inferred from the declared cases:
 
-- Without a `fallback`, only the declared cases are accepted — a typo is a type error.
+- Without a `fallback`, only the declared cases are accepted, a typo is a type error.
 - With a `fallback`, any string is accepted (the fallback covers the unmatched values) while the declared cases still autocomplete.
 
 ## Why not a plain object?
@@ -371,6 +371,8 @@ select(
 The ICU `other` case is renamed to `fallback`, which is Intlayer's canonical name for a catch-all. The second argument records the ICU variable name so the message round-trips back to the exact same ICU string when exported.
 
 > An ICU `select` whose cases are gender values (`male` / `female` / `other`) is imported as a [`gender`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/gender.md) node instead.
+
+- [`gender`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/gender.md)
 
 ## Additional Resources
 

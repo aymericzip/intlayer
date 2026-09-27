@@ -30,6 +30,8 @@ author: aymericzip
 
 Dieser Artikel analysiert diesen Austausch anhand derselben TanStack-Start-Anwendung, einmal mit Lingui und einmal mit dem Adapter gebaut. Die Messwerte stammen aus [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Für einen direkten Vergleich der beiden Bibliotheken lesen Sie [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/lingui_vs_intlayer.md). Hier geht es darum, was der Adapter bewirkt und wo er keine Vorteile bringt.
 
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/lingui_vs_intlayer.md)
+
 <TOC/>
 
 > **tl;dr**: In derselben TanStack-Start-App reduzierte `@intlayer/lingui` die durchschnittliche Komponentengröße von **85,5 KB auf 12,8 KB** gzip, die Hydratisierung von **28 ms auf 19,7 ms** und den Sprachwechsel von **5,9 ms auf 2,9 ms**, während die Makros unangetastet blieben. Im einfachen Setup (alle Kataloge vorab geladen) beseitigte er zudem **90% Seiten-Leakage** und 12 KB pro Seite. Im lazy-loaded Setup liefert er jedoch **137 KB pro Seite gegenüber 115 KB** bei reinem Lingui aus: Der Adapter löst ICU zur Laufzeit auf, während Lingui vorkompilierte Token-Arrays bereitstellt. Das Leakage der Quellsprache (~9-10%) ist auf beiden Seiten identisch, da es aus dem in den Komponenten eingebetteten `message`-Fallback stammt und nicht aus der Runtime. Der Adapter ist ein Vite-Plugin; gemessen wurde auf TanStack Start.
@@ -230,6 +232,8 @@ export default config;
 
 Für `.po`-Kataloge ersetzen Sie `syncJSON` durch `syncPO` aus `@intlayer/sync-po-plugin` mit dem gleichen `source`-Muster unter Nutzung der Dateiendung `.po`. Siehe die [Sync PO Plugin Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/plugins/sync-po.md).
 
+- [Sync PO Plugin Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/plugins/sync-po.md)
+
 `splitKeys: "key-prefix"` ist der entscheidende Hebel für die drastische Verkleinerung der Komponenten. Die Katalogdatei behält ihre flache Struktur; die Aufteilung existiert nur in den generierten Wörterbüchern, und das Zurückschreiben führt die Schlüssel wieder zusammen.
 
 </Step>
@@ -307,3 +311,5 @@ export default defineConfig({
 Alle Rohdaten, Testanwendungen und Benchmark-Skripte finden Sie im [Benchmark Bloom Repository](https://github.com/intlayer-org/benchmark-bloom). Sie können die Messungen eigenständig reproduzieren.
 
 Weitere Hintergründe bietet die Dokumentation ['Warum Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/interest_of_intlayer.md).
+
+- [Warum Intlayer? Vorteile gegenüber anderen i18n-Bibliotheken](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/interest_of_intlayer.md)

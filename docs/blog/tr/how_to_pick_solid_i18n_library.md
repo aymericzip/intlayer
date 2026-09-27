@@ -67,6 +67,8 @@ Paraglide mesaj başına bir fonksiyon üretir. Intlayer, içeriği `.content.ts
 
 [JavaScript i18n tarihi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/history_of_i18n.md) her dalgayı ayrıntılı olarak ele alır.
 
+- [JavaScript i18n tarihi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/history_of_i18n.md)
+
 ## En önemli karar: İçerik nerede yaşar ve ne zaman yüklenir
 
 Kurulumlar arasındaki bundle farkının çoğunu iki yapısal tercih açıklar:
@@ -80,11 +82,15 @@ Grafik, sayfa başına yaklaşık 30 KB metin içeren, 1 ila 10 locale'e çevril
 
 `@solid-primitives/i18n` her iki eksende de hiçbir şey yapmaz: locale başına bir sözlüğü `createResource` ile yüklersiniz; bu size dinamik yükleme sağlar, gerisi size kalır. `solid-i18next` namespace'lere ve lazy backend'lere sahiptir, ancak eşlemeyi zorunlu kılan hiçbir şey yoktur; bu nedenle `common` import eden paylaşılan bir bileşen, onu her route'un bir bağımlılığı haline getirir. Paraglide, sayfa eksenini tree-shaking ile çözer; ancak bu durum [Solid benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/solid.md) uygulamasında etkili olmadı. Intlayer ise bunu bileşen başına tanımlamalarla sağlar.
 
+- [Solid benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/solid.md)
+
 4. soruya yanıtınız "çok sayıda sayfa" ise, bu bölüme herhangi bir API tercihinden daha fazla önem verin. [Bileşen başına ve merkezi i18n karşılaştırması](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/per-component_vs_centralized_i18n.md) yazısı, aynı trade-off'un bakım boyutunu ele almaktadır.
 
 ## Adaylar
 
 Kütüphane boyutları [Solid benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/solid.md) çalışmasından alınmıştır: 10 sayfalık, 10 locale'e sahip bir uygulamada; bundling, tree-shaking ve minification sonrasında boş bir bileşendeki provider artı accessor. İçerik ayrıca ölçülür.
+
+- [Solid benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/solid.md)
 
 ![Solid i18n kütüphane ekosistemi](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
@@ -118,6 +124,8 @@ Paraglide'ın sıfıra yakın kütüphane boyutu yapısı gereğidir: runtime do
 
 Her iki tarafın da uyuşması için locale'in sunucuda URL'den gelmesi gerekir; bunu istemcide tespit etmek çok geçtir. `@solid-primitives/i18n` ve `solid-i18next`, `[[locale]]` route'unu, `matchFilters` yapısını, redirect'i ve `entry-server.tsx` etiketlerini size bırakır. Paraglide, routing'i yöneten bir Vite eklentisine sahiptir. Intlayer, middleware ve route yardımcılarını hazır olarak sunar. Hangisini seçerseniz seçin, `<html lang>` ve `hreflang` etiketlerini `entry-server.tsx` içine yerleştirin; SolidStart v2'de `@solidjs/meta` istemcide hydration sonrasında uygulanır. [Solid i18n yazısı](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_solid_start.md) bu kurulumu adım adım açıklar.
 
+- [Solid i18n yazısı](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_solid_start.md)
+
 </Accordion>
 <Accordion header="Locale değişimi anlık ve fine-grained olmalıdır">
 
@@ -132,6 +140,8 @@ Build zamanında derlenen scoped içerik. Intlayer yalnızca bir route'un render
 <Accordion header="Type güvenliği tartışmasız bir gereksinimdir">
 
 `@solid-primitives/i18n`, çoğu React kütüphanesinin sunduğundan daha fazlasını sunarak size hiçbir ek çaba gerektirmeden infer edilmiş type'lar sağlar. Lazy loading ve route başına bölme sonrasında da geçerliliğini koruyan üretilmiş (generated) type'lar için Paraglide, `@lingui/solid` ve Intlayer'ın tümü bunları içerikten üretir. [Eksik çevirileri tespit etme](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/detecting_missing_translations.md) yazısı, her birinin build zamanında neleri yakaladığını karşılaştırır.
+
+- [Eksik çevirileri tespit etme](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/detecting_missing_translations.md)
 
 </Accordion>
 <Accordion header="Çeviriler yapay zeka (AI) tarafından üretilecek">
@@ -389,6 +399,9 @@ Tüm locale'ler bileşenin hemen yanında tek bir dosyada yer alır. `useIntlaye
 
 Mevcut bir i18next kod tabanında, [i18next uyumluluk adaptörü](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/i18next.md), paket alias'ını bundler seviyesinde tanımlar; böylece Intlayer içeriği sunarken kataloglar ve `t()` çalışmaya devam eder. Geri kalan konuları [geçiş rehberi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_i18next_to_intlayer.md) ele alır.
 
+- [i18next uyumluluk adaptörü](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/i18next.md)
+- [geçiş rehberi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_i18next_to_intlayer.md)
+
 ## Karar vermeden önce
 
 Bir özellik tablosu size bir kütüphanenin bugün ne yaptığını gösterir. Bu maddeler ise onunla yaşamanın nasıl bir deneyim olacağını anlatır.
@@ -411,6 +424,9 @@ En çok indirilen kütüphane ilk çıkan kütüphanedir, 2026 yılındaki bir S
 
 Ajanlar i18n konusunda hâlâ zorlanmaktadır: locale'leri unuturlar, key uydururlar ve mesaj sözdizimlerini karıştırırlar. Kütüphane, ajanın içeriği listeleyebilmesi, doldurabilmesi ve test edebilmesi için [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/agent_skills.md) veya bir [MCP sunucusu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/mcp_server.md) sunuyor mu? İçerik yüklemesi varsayılan olarak optimize edilmiş mi, yoksa birinin her çeyrekte namespace'leri ve lazy import'ları gözden geçirmesi mi gerekiyor?
 
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/agent_skills.md)
+- [MCP sunucusu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/mcp_server.md)
+
 **Kutudan çıktığı gibi type güvenliği.**
 
 "Ekstra yapılandırmalarla type eklenebilir" değil, "hatalı bir key yeni bir kurulumda `tsc`yi patlatır". Var olmayan bir key girildiğinde ve bir çevirisi eksik olan bir locale durumunda ne olduğunu kontrol edin.
@@ -422,6 +438,13 @@ Kataloglar yalnızca büyür. Intlayer'ın build işlemi kullanılmayan alanlar�
 **Geliştirici deneyimi (DX).**
 
 İlk çevrilmiş string'e kadar geçen kurulum süresi, üzerine gelindiğinde (hover) çeviriyi gösteren ve bildirime atlayan bir [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/lsp.md) veya [VS Code eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/vs_code_extension.md), doldurma, test ve push işlemleri için bir [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/index.md), bileşenlerinizdeki sabit kodlanmış dizeleri çıkaran ve böylece her dizeyi anahtar anahtar yönetmenizi gerektirmeyen bir [derleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md) veya çıkarıcı ve yazılımcı olmayan kişilerin bir pull request açmadan içeriği düzenlemesi için bir yol ([görsel editör](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) veya [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)).
+
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/lsp.md)
+- [VS Code eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/vs_code_extension.md)
+- [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/index.md)
+- [derleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md)
+- [görsel editör](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)
 
 ## Sıkça Sorulan Sorular
 
@@ -443,11 +466,15 @@ Küçük bir uygulama için evet ve mevcut en hafif seçenektir. Route başına 
 
 Yalnızca bundle boyutu, otomatik üretilen type'lar veya build anında eksik anahtar kontrolleri gerçek gereksinimleriniz arasındaysa. [Derleyici ve deklaratif i18n karşılaştırması](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/compiler_vs_declarative_i18n.md) yazısı, derleyicilerin size ne kazandırdığını ve nerelerde yanılabileceğini açıklamaktadır.
 
+- [Derleyici ve deklaratif i18n karşılaştırması](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/compiler_vs_declarative_i18n.md)
+
 </Question>
 
 <Question title="Kütüphane seçimi SEO'yu etkiler mi?">
 
 Dolaylı olarak etkiler. Arama motoru botları (crawler'lar) routing, `hreflang`, `<html lang>` ve metnin sunucu tarafından render edilen HTML içinde yer alıp almadığına bakar; bu durum SolidStart'ta `entry-server.tsx` anlamına gelir. [hreflang rehberi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/hreflang_guide_multilingual_seo.md) yazısına göz atın.
+
+- [hreflang rehberi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/hreflang_guide_multilingual_seo.md)
 
 </Question>
 

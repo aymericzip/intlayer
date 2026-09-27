@@ -186,6 +186,8 @@ module.exports = indexContent;
 
 > अधिक विवरण के लिए, [सामग्री घोषणा दस्तावेज़ीकरण](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/content_file.md) देखें।
 
+- [सामग्री घोषणा दस्तावेज़ीकरण](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/content_file.md)
+
 ### Hono एप्लिकेशन सेटअप
 
 `hono-intlayer` का उपयोग करने के लिए अपना Hono एप्लिकेशन सेट करें:
@@ -252,6 +254,8 @@ export default config;
 
 > कॉन्फ़िगरेशन और उन्नत विषयों के बारे में अधिक जानकारी के लिए, हमारे [दस्तावेज़ीकरण](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md) पर जाएँ।
 
+- [Intlayer कॉन्फ़िगरेशन (intlayer.config.ts)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md)
+
 ### TypeScript कॉन्फ़िगर करें
 
 `hono-intlayer` अंतर्राष्ट्रीयकरण प्रक्रिया को बढ़ाने के लिए TypeScript की मजबूत क्षमताओं का लाभ उठाता है। TypeScript की स्टैटिक टाइपिंग यह सुनिश्चित करती है कि हर अनुवाद कुंजी का हिसाब रखा जाए, जिससे अनुवाद छूटने का जोखिम कम हो जाता है और रखरखाव में सुधार होता है।
@@ -276,7 +280,7 @@ export default config;
 
 Intlayer के साथ अपने विकास अनुभव को बेहतर बनाने के लिए, आप आधिकारिक **Intlayer VS Code Extension** स्थापित कर सकते हैं।
 
-[VS Code Marketplace से स्थापित करें](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [VS Code Marketplace से स्थापित करें](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 यह एक्सटेंशन प्रदान करता है:
 
@@ -286,6 +290,8 @@ Intlayer के साथ अपने विकास अनुभव को �
 - आसानी से अनुवाद बनाने और अपडेट करने के लिए **त्वरित कार्रवाई**।
 
 एक्सटेंशन का उपयोग करने के तरीके के बारे में अधिक विवरण के लिए, [Intlayer VS Code Extension दस्तावेज़ीकरण](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/vs_code_extension.md) देखें।
+
+- [Intlayer VS Code Extension दस्तावेज़ीकरण](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/vs_code_extension.md)
 
 ### Git कॉन्फ़िगरेशन
 
@@ -310,10 +316,14 @@ Hono की अपनी कोई i18n परत नहीं है, इसल
 
 [Intlayer क्यों चुनें](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/interest_of_intlayer.md) देखें।
 
+- [Intlayer क्यों चुनें](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/interest_of_intlayer.md)
+
 </Question>
 <Question title="i18n मेरे Hono सर्वर बंडल आकार को कितना बढ़ाता है?">
 
 पारंपरिक JSON कैटलॉग की तुलना में बहुत कम। Intlayer कंपाइलर बिल्ड समय पर शब्दकोशों को अनुकूलित करता है और प्रत्येक अनुरोध पर उन्हें फिर से पार्स नहीं करता है, जिससे मेमोरी उपयोग और कोल्ड स्टार्ट समय न्यूनतम रहता है। [बंडल अनुकूलन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/bundle_optimization.md) देखें।
+
+- [बंडल अनुकूलन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/bundle_optimization.md)
 
 </Question>
 <Question title="क्या मैं अपने हैंडलर को फिर से लिखे बिना i18next या अन्य बैकएंड लाइब्रेरी से माइग्रेट कर सकता हूँ?">
@@ -325,12 +335,20 @@ Hono की अपनी कोई i18n परत नहीं है, इसल
 
 हाँ। [sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-json.md) आपकी `/messages/{locale}/{namespace}.json` फ़ाइलों को सत्य का स्रोत बनाए रखता है और दोनों दिशाओं में उनसे Intlayer dictionaries बनाता है। [sync PO plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-po.md) gettext catalogs के लिए भी ऐसा ही करता है, और [per locale files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/per_locale_file.md) आपको locales को एक फ़ाइल में समूहीकृत करने के बजाय भाषा के अनुसार content को विभाजित करने देते हैं।
 
+- [sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-json.md)
+- [sync PO plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-po.md)
+- [per locale files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/per_locale_file.md)
+
 </Question>
 <Question title="क्या मुझे अपनी content को key by key move करना होगा?">
 
 नहीं। `npx intlayer extract` चलाएं और Intlayer आपकी source files को पढ़ता है, user facing strings को निकालता है और प्रत्येक के बगल में एक `.content` file लिखता है, इसलिए आप strings को एक catalog में एक-एक करके कॉपी करने के बजाय एक diff की समीक्षा करते हैं। [extract command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/extract.md) देखें।
 
+- [extract command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/extract.md)
+
 पूर्ण स्वचालन के लिए, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md) बिल्ड समय पर यही काम करता है और प्रत्येक परिवर्तन पर शब्दकोश उत्पन्न करता है।
+
+- [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md)
 
 </Question>
 <Question title="कौन से editor और AI agent tooling उपलब्ध हैं?">
@@ -378,15 +396,27 @@ Hono मिडलवेयर `c.req` के माध्यम से कुक
 
 `npx intlayer fill` चलाएं। यह कमांड आपके चुने हुए LLM का उपयोग करके आपके अपने प्रदाता और API कुंजी के साथ लापता अनुवादों को भरता है, और `--git-diff` बदली गई फ़ाइलों तक संचालन को सीमित करता है। [fill command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/fill.md) और [CI/CD integration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/CI_CD.md) देखें।
 
+- [fill command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/fill.md)
+- [CI/CD integration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/CI_CD.md)
+
 </Question>
 <Question title="क्या Intlayer बहुवचन, लिंग और समृद्ध पाठ (rich text) का समर्थन करता है?">
 
 हाँ: [बहुवचन (plurals)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/plurial.md), [लिंग-आधारित सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/gender.md), शर्तें, [सम्मिलन (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/insertion.md), और [प्रारूपक (formatters)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/formatters.md)।
 
+- [बहुवचन (plurals)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/plurial.md)
+- [लिंग-आधारित सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/gender.md)
+- [सम्मिलन (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/insertion.md)
+- [Intlayer में Markdown कंटेंट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/markdown.md)
+- [प्रारूपक (formatters)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/formatters.md)
+
 </Question>
 <Question title="गैर-तकनीकी टीम के सदस्य कोड को छुए बिना ईमेल टेम्पलेट और त्रुटि संदेशों को कैसे संपादित कर सकते हैं?">
 
 दो विकल्प उपलब्ध हैं: [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md), जो सामग्री को कोडबेस से अलग करता है और वेब के माध्यम से संपादन की अनुमति देता है, या [विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md), जो परिवर्तनों को सीधे स्थानीय कोड फ़ाइलों में सहेजता है।
+
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md)
+- [Docker से Intlayer सेल्फ-होस्ट करें](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/self_hosting.md)
 
 </Question>
 <Question title="क्या Intlayer मुफ्त और ओपन सोर्स है?">

@@ -67,6 +67,8 @@ Paraglide 为每条消息生成一个独立函数。Intlayer 在 `.content.ts` �
 
 [JavaScript i18n 发展史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/history_of_i18n.md) 详细介绍了每一波浪潮。
 
+- [JavaScript i18n 发展史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/history_of_i18n.md)
+
 ## 最关键的抉择：内容存放在哪里以及何时加载
 
 两个架构层面的选择决定了不同方案之间大部分 bundle 体积的差异：
@@ -80,11 +82,17 @@ Paraglide 为每条消息生成一个独立函数。Intlayer 在 `.content.ts` �
 
 `@solid-primitives/i18n` 在这两个维度上都不做处理：你通过 `createResource` 按 locale 加载 dictionary，从而实现动态加载，其余部分完全由你自行实现。`solid-i18next` 支持 namespace 和 lazy backend，但没有强制映射机制，因此一个导入了 `common` 的公共组件会使该文件成为每个路由的依赖项。Paraglide 通过 tree-shaking 实现页面维度的拆分，但在 [Solid 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/solid.md) 的实现中并未生效。Intlayer 则通过按组件声明来实现这一目标。
 
+- [Solid 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/solid.md)
+
 如果你对第 4 个问题的回答是“许多页面”，那么相比任何 API 偏好，更应该重点权衡本节内容。[组件级与集中式 i18n 对比](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/per-component_vs_centralized_i18n.md) 一文从维护角度探讨了相同的权衡。
+
+- [组件级与集中式 i18n 对比](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/per-component_vs_centralized_i18n.md)
 
 ## 候选方案一览
 
 各库的大小数据来自 [Solid 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/solid.md)：在包含 10 个页面、10 种语言环境的应用中，空组件内引入 provider 加上 accessor，经过打包、tree-shaking 和压缩（minification）后的体积。翻译内容单独计算。
+
+- [Solid 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/solid.md)
 
 ![Solid i18n 库生态系统](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
@@ -118,6 +126,8 @@ Paraglide 接近于零的库体积是由其架构决定的：运行时代码直�
 
 Locale 必须在服务端从 URL 中获取，以确保双端一致；在客户端才检测语言环境为时已晚。`@solid-primitives/i18n` 和 `solid-i18next` 将 `[[locale]]` 路由、`matchFilters`、重定向以及 `entry-server.tsx` 标签完全留给你自行处理。Paraglide 提供了一个处理路由的 Vite 插件。Intlayer 则直接内置了中间件与路由辅助工具。无论选择哪个方案，都请将 `<html lang>` 和 `hreflang` 放在 `entry-server.tsx` 中；在 SolidStart v2 中，`@solidjs/meta` 是在 hydration 之后才在客户端生效的。[Solid i18n 指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_solid_start.md) 详细介绍了该配置流程。
 
+- [Solid i18n 指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_solid_start.md)
+
 </Accordion>
 <Accordion header="语言切换必须即时且细粒度">
 
@@ -132,6 +142,8 @@ Locale 必须在服务端从 URL 中获取，以确保双端一致；在客户�
 <Accordion header="类型安全不可妥协">
 
 `@solid-primitives/i18n` 开箱即用提供类型推导，这已经超越了大多数 React 库的能力。对于在 lazy loading 和按路由分割后依然有效的生成类型，Paraglide、`@lingui/solid` 和 Intlayer 都能直接从内容生成类型。[检测缺失翻译](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/detecting_missing_translations.md) 一文对比了各方案在构建时能捕获的错误。
+
+- [检测缺失翻译](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/detecting_missing_translations.md)
 
 </Accordion>
 <Accordion header="翻译文案由 AI 自动生成">
@@ -389,6 +401,9 @@ export const CartSummary: Component<{ count: number }> = (props) => {
 
 对于现有的 i18next 代码库，[i18next 兼容适配器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/i18next.md) 可以在打包工具层面设置别名，使得现有的 catalog 和 `t()` 继续工作，同时由 Intlayer 提供内容支持，[迁移指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_i18next_to_intlayer.md) 涵盖了其余细节。
 
+- [i18next 兼容适配器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/i18next.md)
+- [迁移指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_i18next_to_intlayer.md)
+
 ## 做出最终决定前需考虑的事项
 
 功能特性表只能告诉你一个库今天能做什么，而以下几点能告诉你与它长期共存的体验如何。
@@ -411,6 +426,9 @@ export const CartSummary: Component<{ count: number }> = (props) => {
 
 AI Agent 在处理 i18n 时仍面临挑战：容易遗漏 locale、凭空捏造 key、混淆消息语法。该库是否提供了 [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md) 或 [MCP 服务端](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)，以便 Agent 能够列出、填充和测试内容？内容加载是否默认经过优化，还是需要人工每季度审查 namespace 和 lazy import？
 
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)
+- [MCP 服务端](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)
+
 **开箱即用的类型安全。**
 
 并非“经过额外配置后可以支持类型”，而是“在全新安装后输入错误的 key 就会导致 `tsc` 报错”。检查当 key 不存在以及某种语言缺少一条翻译时会发生什么。
@@ -422,6 +440,13 @@ AI Agent 在处理 i18n 时仍面临挑战：容易遗漏 locale、凭空捏造 
 **开发者体验。**
 
 从开始配置到翻译出第一个字符串所需的时间、能在 hover 时显示翻译并跳转到声明处的 [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md) 或 [VS Code 插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/vs_code_extension.md)、用于填充、测试和推送的 [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)、能把组件中硬编码的字符串提取出来、免去逐个键维护的[编译器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md)或提取工具，以及非开发人员无需提交 Pull Request 即可编辑内容的方式（[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md) 或 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)）。
+
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)
+- [VS Code 插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/vs_code_extension.md)
+- [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)
+- [编译器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md)
+- [可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
 
 ## 常见问题解答
 
@@ -443,11 +468,15 @@ AI Agent 在处理 i18n 时仍面临挑战：容易遗漏 locale、凭空捏造 
 
 只有当 bundle 体积、生成的类型定义或构建时缺失 key 检查是你的硬性需求时才需要。[编译器与声明式 i18n 对比](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/compiler_vs_declarative_i18n.md) 一文解释了编译器能为你带来什么，以及它们在哪些场景下可能会出现偏差。
 
+- [编译器与声明式 i18n 对比](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/compiler_vs_declarative_i18n.md)
+
 </Question>
 
 <Question title="库的选择会影响 SEO 吗？">
 
 间接影响。搜索引擎爬虫关注路由、`hreflang`、`<html lang>` 以及文本是否存在于服务端渲染的 HTML 中，在 SolidStart 中这意味着需要配置好 `entry-server.tsx`。详见 [hreflang 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/hreflang_guide_multilingual_seo.md)。
+
+- [hreflang 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/hreflang_guide_multilingual_seo.md)
 
 </Question>
 

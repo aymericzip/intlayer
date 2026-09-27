@@ -27,6 +27,8 @@ author: aymericzip
 
 Để có hướng dẫn từng bước chi tiết, vui lòng xem [Hướng Dẫn Di Chuyển i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_i18next_to_intlayer.md) đầy đủ của chúng tôi.
 
+- [Hướng Dẫn Di Chuyển i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_i18next_to_intlayer.md)
+
 Intlayer tái tạo hoàn hảo các đặc tính runtime cốt lõi của `i18next`. Bằng cách sử dụng gói tương thích, các ứng dụng Vanilla hoặc các module nội bộ của bạn có thể tiếp tục tận dụng cú pháp quen thuộc.
 
 ## Phải làm gì

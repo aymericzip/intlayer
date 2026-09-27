@@ -35,6 +35,8 @@ author: aymericzip
 
 [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getIntlayer.md) के विपरीत, जो generated registry में key के आधार पर dictionary को look up करता है, `getDictionary` स्वयं dictionary को लेता है। यह इसे runtime पर built content, किसी API या CMS से fetched, या test में declared inline के लिए सही tool बनाता है।
 
+- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getIntlayer.md)
+
 **मुख्य विशेषताएँ:**
 
 - Dictionary structure (`{ key, content }`) को follow करने वाले किसी भी object के साथ काम करता है
@@ -62,7 +64,7 @@ getDictionary(
 - `localeOrSelector: LocalesValues | DictionarySelector`
   - **विवरण**: content की व्याख्या करने के लिए locale, या एक selector object (`{ item }`, `{ variant }`, वैकल्पिक रूप से `locale` के साथ)। [dynamic dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dynamic_dictionaries/index.md) देखें।
   - **प्रकार**: `LocalesValues | DictionarySelector`
-  - **आवश्यक**: नहीं (Optional) — configured `defaultLocale` को default करता है।
+  - **आवश्यक**: नहीं (Optional), configured `defaultLocale` को default करता है।
 
 - `plugins: Plugins[]`
   - **विवरण**: node transformers की एक array जो परिभाषित करता है कि कैसे recognized nodes की व्याख्या की जाती है। यदि छोड़ दिया जाता है, तो default set of interpreter plugins का उपयोग किया जाता है।

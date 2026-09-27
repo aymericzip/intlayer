@@ -44,9 +44,13 @@ author: aymericzip
 
 Див. конкретне порівняння з vue-i18n у нашому дописі в блозі [vue-i18n проти Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/vue-i18n_vs_intlayer.md).
 
+- [vue-i18n проти Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/vue-i18n_vs_intlayer.md)
+
 ## Чому поєднувати Intlayer з vue-i18n?
 
 Хоча Intlayer забезпечує відмінне автономне рішення для i18n (див. наш [посібник з інтеграції для Vue.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_vite+vue.md)), ви можете захотіти поєднати його з vue-i18n з кількох причин:
+
+- [посібник з інтеграції для Vue.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_vite+vue.md)
 
 Intlayer пропонує широкий набір **розширених можливостей**, які виходять за межі традиційних i18n-інструментів. Він допомагає вам:
 
@@ -158,6 +162,8 @@ export default config;
 
 Щоб побачити докладніші відомості про плагін `syncJSON`, зверніться до [документації плагіна syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/plugins/sync-json.md).
 
+- [документації плагіна syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/plugins/sync-json.md)
+
 </Step>
 <Step number={3} title="Налаштування AI-провайдера">
 
@@ -209,6 +215,9 @@ npx intlayer fill
 > Див. усіх доступних AI-провайдерів у [документації Intlayer щодо конфігурації AI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md#ai-configuration).
 > Див. усі доступні команди у [документації Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/index.md).
 
+- [документації Intlayer щодо конфігурації AI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md#ai-configuration)
+- [документації Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/index.md)
+
 </Step>
 
 </Steps>
@@ -228,4 +237,4 @@ npx intlayer fill
 
 Для покращення досвіду розробника встановіть офіційне **розширення Intlayer для VS Code**:
 
-[Встановити з VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [Встановити з VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

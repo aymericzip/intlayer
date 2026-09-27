@@ -70,6 +70,8 @@ Granularer Ansatz (intlayer, inlang)
 > In diesem Blog werde ich mich nicht auf compiler-basierte Lösungen konzentrieren, die ich bereits hier behandelt habe: [Compiler vs deklaratives i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/compiler_vs_declarative_i18n.md).
 > Beachte, dass compiler-basierte i18n (z. B. Lingui) lediglich die Extraktion und das Laden von Inhalten automatisiert. Unter der Haube teilen sie oft dieselben Einschränkungen wie andere Ansätze.
 
+- [Compiler vs deklaratives i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/compiler_vs_declarative_i18n.md)
+
 > Beachte, je feiner du das Abrufen deiner Inhalte gestaltest, desto höher ist das Risiko, zusätzlichen State und Logik in deine Komponenten einzufügen.
 
 Granulare Ansätze sind flexibler als zentralisierte, aber oft ein Kompromiss. Selbst wenn diese Bibliotheken "tree shaking" bewerben, lädst du in der Praxis häufig eine Seite in jeder Sprache.
@@ -152,6 +154,8 @@ locale/
 ```
 
 Nun müssen Sie genau steuern, welcher Teil des App-Inhalts geladen werden soll und wo. Folglich überspringt die große Mehrheit der Projekte diesen Teil aufgrund der Komplexität (siehe beispielsweise den [next-i18next-Leitfaden](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/i18n_using_next-i18next.md), um die Herausforderungen zu sehen, die das (bloße) Befolgen guter Praktiken mit sich bringt).
+
+- [next-i18next-Leitfaden](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/i18n_using_next-i18next.md)
 
 Dementsprechend landen diese Projekte beim zuvor beschriebenen Problem des massiven JSON-Ladens.
 

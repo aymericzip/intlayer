@@ -46,7 +46,11 @@ const config = {
 export default config;
 ```
 
+- [плагін Sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/plugins/sync-json.md)
+
 Якщо ви бажаєте зберегти runtime API незмінним, [адаптери сумісності](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/index.md) створюють аліаси для `useTranslation`, `$t` тощо на рівні збирача пакетів. У будь-якому разі сприймайте наведені нижче команди як конкретну реалізацію ідеї, а не як непохитну вимогу.
+
+- [адаптери сумісності](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/index.md)
 
 ## Чому прогалини залишаються непомітними
 
@@ -98,6 +102,8 @@ export default [
 ```
 
 `no-unused-content` оберігає каталоги від безкінечного розростання. Мертві ключі не ламають роботу програми, але необґрунтовано збільшують рахунки від бюро перекладів. Повний перелік правил наведено в [документації до плагіна ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/eslint.md).
+
+- [документації до плагіна ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/eslint.md)
 
 ## Рівень 3: аудит покриття локалей
 
@@ -179,6 +185,8 @@ curl -s https://example.com/ja/checkout | grep -c "Add to cart"
 ## Заповнення прогалин
 
 Коли ви знаєте, чого саме не вистачає, команда `intlayer fill` заповнює порожні поля, а опція `autoFill` може генерувати файли для кожної локалі безпосередньо під час створення контенту. Див. [autoFill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/autoFill.md).
+
+- [autoFill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/autoFill.md)
 
 Слід усвідомлювати: автоматичне машинне заповнення перетворює _видиму_ прогалину на _невидиму_. Ключ отримав значення, аудит стає зеленим, але текст ще ніхто з людей не вичитував. Використовуйте це для розблокування релізу, але обов'язково передавайте критичні тексти на перевірку людині перед показом клієнтам. Це допоміжний каркас, а не остаточна відповідь.
 

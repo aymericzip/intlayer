@@ -34,6 +34,8 @@ author: aymericzip
 
 列挙型の宣言方法の詳細については、[列挙型ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/enumeration.md)を参照してください。
 
+- [列挙型ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/enumeration.md)
+
 ## パラメーター
 
 - `enumerationContent: QuantityContent<Content>`

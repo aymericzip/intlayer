@@ -49,6 +49,8 @@ Im Jahr 2026 müssen Sie Ihre Codebasis nicht neu schreiben. Mit **Intlayer** r�
 
 > Suchen Sie die vollständige, schrittweise technische Anleitung für Vite und React? Besuchen Sie unsere Dokumentation: [Vite und React mit Intlayer übersetzen](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_vite+react.md).
 
+- [Vite und React mit Intlayer übersetzen](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_vite+react.md)
+
 ## Inhaltsverzeichnis
 
 <TOC/>
@@ -327,6 +329,8 @@ Dieser Leitfaden hat Ihnen einen Überblick gegeben, wie Sie eine bestehende Vit
 Wenn Sie jeden Teil Ihrer Anwendung detailliert einrichten möchten, einschließlich vollständiger TypeScript-Typsicherheit, dynamischer Wörterbücher und visuellem Editor, lesen Sie unsere ausführliche Dokumentation:
 
 👉 **[Ausführliche Anleitung zum Übersetzen von Vite und React mit Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_vite+react.md)**
+
+- [Ausführliche Anleitung zum Übersetzen von Vite und React mit Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_vite+react.md)
 
 ## Häufig gestellte Fragen (FAQ)
 

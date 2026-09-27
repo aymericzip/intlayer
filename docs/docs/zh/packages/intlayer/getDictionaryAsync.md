@@ -36,7 +36,12 @@ author: aymericzip
 
 它是 [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getDictionary.md) 的对应物，用于在 `.intlayer/dynamic_dictionaries/` 中发出的每个语言环境加载器映射：它不是接收包含每个语言环境的字典，而是接收加载器映射并仅等待请求的语言环境所需的块。
 
+- [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getDictionary.md)
+
 > 在应用程序代码中，你通常会调用 [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getIntlayerAsync.md)，而不是这个函数。[构建插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md) 会将每个 `getIntlayerAsync('key', locale)` 调用重写为 `getDictionaryAsync(loaderMap, 'key', locale)` 调用。`getDictionaryAsync` 会被导出供自定义加载器和为自己的加载器映射构建工具使用。
+
+- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getIntlayerAsync.md)
+- [构建插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md)
 
 **主要特性：**
 
@@ -71,7 +76,7 @@ getDictionaryAsync(
 - `localeOrSelector: LocalesValues | DictionarySelector`
   - **描述**: 用于解释内容的语言，或选择器对象（`{ item }`、`{ variant }`，可选择带有 `locale`）。参见[动态字典](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dynamic_dictionaries/index.md)。
   - **类型**: `LocalesValues | DictionarySelector`
-  - **必需**: 否（可选）— 默认为配置的 `defaultLocale`。
+  - **必需**: 否（可选），默认为配置的 `defaultLocale`。
 
 - `plugins: Plugins[]`
   - **描述**: Node 转换器。默认为基础解释器集。
@@ -80,7 +85,7 @@ getDictionaryAsync(
 
 ### 返回值
 
-- **Type**: `Promise<Content>` — 一个 promise，解析为加载的 chunk 的解释内容。
+- **Type**: `Promise<Content>`，一个 promise，解析为加载的 chunk 的解释内容。
 - **Description**: 当 map 对请求的 locale 及其任何 fallback 都没有发出 chunk 时，解析为 `null`，镜像缺失的合格坐标如何解析。
 
 ## 使用示例

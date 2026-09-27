@@ -100,9 +100,9 @@ npx skills add aymericzip/intlayer-skills
 
 - Ensina o agente a utilizar stores Svelte e uma sintaxe idiomática para conteúdos localizados reativos e com tipagem segura nas aplicações Svelte e SvelteKit.
 
-**intlayer-cms**
+**intlayer-remote-content**
 
-- Permite ao agente integrar e gerir conteúdos remotos, permitindo-lhe lidar com fluxos de trabalho de sincronização em tempo real e tradição remota através do CMS Intlayer.
+- Permite ao agente integrar e gerir conteúdos remotos, permitindo-lhe lidar com fluxos de trabalho de sincronização em tempo real e tradução remota através do CMS Intlayer.
 
 **intlayer-usage**
 
@@ -115,3 +115,31 @@ npx skills add aymericzip/intlayer-skills
 **intlayer-compiler**
 
 - Simplifica o fluxo de trabalho do agente ao permitir a extração automática de conteúdos, permitindo-lhe escrever strings traduzíveis diretamente no código sem ficheiros de dicionários manuais.
+
+**intlayer-lit**
+
+- Ensina o agente a traduzir web components Lit com os ReactiveControllers `useIntlayer` e `useLocale`.
+
+**intlayer-vanilla**
+
+- Permite ao agente localizar páginas em JavaScript / TypeScript puro com `vanilla-intlayer`, com ou sem bundler.
+
+**intlayer-remix**
+
+- Fornece ao agente o middleware de router do Remix 3 e os hooks `useIntlayer` / `useLocale` com âmbito de pedido.
+
+**intlayer-backend**
+
+- Prepara o agente para traduzir respostas do servidor em Express, Fastify, Hono, NestJS, AdonisJS e Elysia através de um padrão partilhado de middleware + `t` / `getIntlayer`.
+
+**intlayer-dev-tools**
+
+- Permite ao agente configurar as ferramentas Intlayer em torno do seu código: regras ESLint para strings hardcoded, o Language Server, as extensões VS Code e Chrome, o servidor MCP e as verificações de tradução em CI/CD.
+
+**intlayer-markdown**
+
+- Ensina o agente a declarar conteúdo Markdown (`md()`, ficheiros `.content.md`, ficheiros externos) e a renderizá-lo com componentes MDX, um `MarkdownProvider` global, Suspense e parsing do lado do servidor.
+
+**intlayer-compat**
+
+- Orienta o agente na migração a partir de i18next, react-i18next, next-intl, next-i18next, react-intl, vue-i18n ou Lingui com adaptadores de compatibilidade que mantêm a API original, pelo que as chamadas de tradução não precisam de ser reescritas.

@@ -78,6 +78,9 @@ Intlayer colocalise les déclarations de contenu (`.content.ts`) avec la logique
 
 Au-delà des flux de travail orientés code, Intlayer propose un [Éditeur Visuel](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md) auto-hébergé et un [CMS Distant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md), permettant aux éditeurs, traducteurs et rédacteurs de modifier le contenu sans redéployer l'application.
 
+- [Éditeur Visuel](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md)
+- [CMS Distant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md)
+
 </Accordion>
 </AccordionGroup>
 
@@ -204,6 +207,8 @@ module.exports = config;
 
 > Pour d'autres paramètres de configuration (comme le mode strict ou les préférences de stockage de routage), consultez la [documentation de configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md).
 
+- [documentation de configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md)
+
 </Step>
 <Step number={3} title="Déclarer votre contenu multilingue">
 
@@ -238,6 +243,8 @@ export default homeContent;
 
 > Intlayer prend également en charge les formats JSON, YAML et CommonJS. Voir la [Documentation sur la Déclaration de Contenu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/content_file.md).
 
+- [Documentation sur la Déclaration de Contenu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/content_file.md)
+
 </Step>
 <Step number={4} title="Générer les dictionnaires Intlayer">
 
@@ -268,11 +275,11 @@ Remix 3 propose un pipeline de middlewares composable via `createRouter({ middle
 
 `remix-intlayer` fournit le middleware `intlayer()`, le pendant Remix des proxies de `next-intlayer` et `vite-intlayer`. Pour chaque requête entrante, il :
 
-1. **Route la locale**, selon `routing.mode` (`prefix-no-default` par défaut). Une URL sans préfixe de locale est redirigée vers l'URL localisée de la locale détectée — le cookie de stockage (`INTLAYER_LOCALE`) ou l'en-tête personnalisé (`x-intlayer-locale`), puis la négociation standard `Accept-Language`, puis votre `defaultLocale` — à moins que cette locale ne nécessite pas de préfixe. Une URL préfixée telle que `/fr/about` est servie **depuis la route `/about`** en français, `/en/about` est redirigée vers `/about`, et les règles de réécriture `routing.rewrite` sont appliquées dans les deux sens (`/fr/about` → `/fr/a-propos`). Les ressources statiques et, dans les configurations avec `routing.domains`, les domaines de locale sont gérés de la même manière que dans les autres intégrations.
+1. **Route la locale**, selon `routing.mode` (`prefix-no-default` par défaut). Une URL sans préfixe de locale est redirigée vers l'URL localisée de la locale détectée (le cookie de stockage (`INTLAYER_LOCALE`) ou l'en-tête personnalisé (`x-intlayer-locale`), puis la négociation standard `Accept-Language`, puis votre `defaultLocale`) à moins que cette locale ne nécessite pas de préfixe. Une URL préfixée telle que `/fr/about` est servie **depuis la route `/about`** en français, `/en/about` est redirigée vers `/about`, et les règles de réécriture `routing.rewrite` sont appliquées dans les deux sens (`/fr/about` → `/fr/a-propos`). Les ressources statiques et, dans les configurations avec `routing.domains`, les domaines de locale sont gérés de la même manière que dans les autres intégrations.
 2. **Résout la locale** dans le contexte de requête Remix sous `context.intlayer` (ou `context.get(Intlayer)`), avec `locale`, `defaultLocale` et `availableLocales`.
 3. **Persiste la locale** via le cookie / en-tête configuré, de sorte que les requêtes suivantes résolvent la même locale.
 
-Parce que le préfixe de locale est supprimé avant la mise en correspondance du routeur, vos routes sont déclarées une seule fois, sans segment `:locale`, quel que soit le mode de routage. Le middleware exécute ensuite le reste de la requête dans une portée `AsyncLocalStorage` liée au contexte de requête, ce qui permet aux hooks du package de lire la locale sans aucun argument — aussi bien dans les gestionnaires de routes, les vues que les composants `remix/ui` :
+Parce que le préfixe de locale est supprimé avant la mise en correspondance du routeur, vos routes sont déclarées une seule fois, sans segment `:locale`, quel que soit le mode de routage. Le middleware exécute ensuite le reste de la requête dans une portée `AsyncLocalStorage` liée au contexte de requête, ce qui permet aux hooks du package de lire la locale sans aucun argument, aussi bien dans les gestionnaires de routes, les vues que les composants `remix/ui` :
 
 ```typescript
 import { useIntlayer, useLocale } from "remix-intlayer";
@@ -291,7 +298,7 @@ const { title } = useIntlayer("home");
 </Step>
 <Step number={6} title="Définir des routes typées">
 
-Définissez vos routes d'application à l'aide de `route()` issu de `remix/routes`. Déclarez-les une seule fois, sans segment de locale — le middleware sert chaque locale à partir de ces routes :
+Définissez vos routes d'application à l'aide de `route()` issu de `remix/routes`. Déclarez-les une seule fois, sans segment de locale, le middleware sert chaque locale à partir de ces routes :
 
 ```typescript fileName="src/routes.ts" codeFormat={["typescript", "esm"]}
 import { route } from "remix/routes";
@@ -409,7 +416,7 @@ export const router = createRouter({
   middleware: [intlayer(), render()],
 });
 
-// 2. Associer les gestionnaires de route — `/`, `/fr`, `/es`… atteignent tous `home`
+// 2. Associer les gestionnaires de route, `/`, `/fr`, `/es`… atteignent tous `home`
 router.map(routes, {
   actions: {
     home(context) {

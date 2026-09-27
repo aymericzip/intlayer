@@ -43,7 +43,12 @@ Dengan pendekatan ini, Anda dapat:
 
 > Sebagai alternatif, Anda juga dapat merujuk ke [panduan next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18n_using_next-intl.md), atau langsung menggunakan [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_16.md).
 
+- [panduan next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18n_using_next-intl.md)
+- [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_16.md)
+
 > Lihat perbandingan di [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/next-i18next_vs_next-intl_vs_intlayer.md).
+
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/next-i18next_vs_next-intl_vs_intlayer.md)
 
 > Untuk memahami asal-usul pustaka-pustaka ini, baca sejarah i18n di JavaScript.
 
@@ -52,6 +57,8 @@ Dengan pendekatan ini, Anda dapat:
 ## Apa kata benchmark tentang next-i18next di Next.js
 
 Sebelum masuk ke setup, penting untuk memahami dampak library i18n Anda terhadap performa dan bundle. [Benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/nextjs.md) menjalankan aplikasi Next.js yang sama dengan 10 halaman dan 10 locale pada library i18n utama untuk mengukur ukuran bundle nyata, kebocoran string, dan overhead hydration.
+
+- [Benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/nextjs.md)
 
 <I18nBenchmark framework="nextjs" packages="next-i18next,@intlayer/next-i18next,next-intlayer" vertical/>
 
@@ -77,6 +84,8 @@ Poin penting:
 - **Bobot runtime:** Runtime klien `i18next` berbobot ~19.7 KB gzip di setiap halaman. Untuk codebase yang sudah ada, adapter kompatibilitas [`@intlayer/next-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/next-i18next.md) mempertahankan API `i18next` yang sama sambil mengecilkan runtime menjadi 9.4 KB dan menghilangkan kebocoran. [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/next-intlayer/exports.md) native turun hingga 5.5 KB.
 
 > Lihat data lengkapnya: [laporan benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/nextjs.md), dan [repositori benchmark](https://github.com/intlayer-org/benchmark-i18n).
+
+- [laporan benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/nextjs.md)
 
 ## Perbandingan fitur di Next.js
 
@@ -105,6 +114,9 @@ Bagaimana `next-i18next` dibandingkan dengan `next-intl` dan Intlayer pada fitur
 
 > Ukuran runtime berasal dari [benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/nextjs.md). Untuk pembahasan mendetail, baca [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/next-i18next_vs_next-intl_vs_intlayer.md).
 
+- [benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/nextjs.md)
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/next-i18next_vs_next-intl_vs_intlayer.md)
+
 ## Praktik yang harus Anda ikuti
 
 Sebelum kita masuk ke implementasi, berikut beberapa praktik yang harus Anda ikuti:
@@ -131,6 +143,8 @@ Sebelum kita masuk ke implementasi, berikut beberapa praktik yang harus Anda iku
   Otomatisasi pengujian dan terjemahan membantu menghemat waktu dalam memelihara aplikasi multibahasa Anda.
 
 > Lihat dokumentasi kami yang mencantumkan semua yang perlu Anda ketahui tentang internasionalisasi dan SEO: [Internasionalisasi (i18n) dengan next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/internationalization_and_SEO.md).
+
+- [Internasionalisasi (i18n) dengan next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/internationalization_and_SEO.md)
 
 ## Panduan Langkah demi Langkah untuk Mengatur i18next dalam Aplikasi Next.js
 
@@ -1184,6 +1198,8 @@ Intlayer memungkinkan Anda untuk:
   Intlayer menawarkan editor visual gratis untuk mengedit konten Anda menggunakan editor visual. Pelajari lebih lanjut tentang [pengeditan visual terjemahan Anda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md).
 
 Dan masih banyak lagi. Untuk menemukan semua fitur yang disediakan oleh Intlayer, silakan merujuk ke [Dokumentasi Manfaat Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/interest_of_intlayer.md).
+
+- [Dokumentasi Manfaat Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/interest_of_intlayer.md)
 
 Untuk benchmark performa dan perbandingan yang mendetail, lihat:
 

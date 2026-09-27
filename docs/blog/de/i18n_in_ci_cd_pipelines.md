@@ -44,7 +44,12 @@ const config = {
 export default config;
 ```
 
+- [Sync JSON-Plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/plugins/sync-json.md)
+
 Ihre Anwendung importiert weiterhin genau das, was sie bisher importiert hat. Die nachfolgenden CI-Jobs befüllen und überwachen Ihre vorhandenen Kataloge, und das Diff, das ein Reviewer sieht, betrifft `locales/fr/checkout.json` und keine Architekturmigration. Es gibt auch ein [Sync PO-Plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/plugins/sync-po.md) für gettext-Workflows sowie [Kompatibilitätsadapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compat/index.md), um die gewohnte Runtime-API beizubehalten.
+
+- [Sync PO-Plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/plugins/sync-po.md)
+- [Kompatibilitätsadapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compat/index.md)
 
 ## Die Schranke (Gate) vom Befüllen (Fill) trennen
 
@@ -167,6 +172,8 @@ test("hat keine fehlenden erforderlichen Locales", async () => {
 
 `npx intlayer content test` gibt einen Bericht aus, beendet sich aber mit Status 0, informiert also nur, ohne den Build anzuhalten. Nutzen Sie es lokal; nutzen Sie den Assertion-Test in der CI. Mehr dazu in [Fehlende Übersetzungen aufspüren](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/detecting_missing_translations.md).
 
+- [Fehlende Übersetzungen aufspüren](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/detecting_missing_translations.md)
+
 ## `requiredLocales` macht das Gate alltagstauglich
 
 Ein Gate, das alle achtzehn Sprachen als vollständig verlangt, blockiert jeden Release, bis die letzte Sprache fertig ist, und wird innerhalb eines Monats deaktiviert.
@@ -209,6 +216,8 @@ export default config;
 ```
 
 Dies eignet sich besonders für Teams, in denen Nicht-Entwickler Texte pflegen. Es ist ein Kompromiss: Man gewinnt redaktionelle Unabhängigkeit, verliert jedoch die Eigenschaft, dass ein Git-Checkout den genauen Render-Zustand der Anwendung widerspiegelt. Details in der [CMS-Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md).
+
+- [CMS-Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md)
 
 Beachten Sie, dass `clientSecret` ein vertraulicher Serverschlüssel ist. Er gehört in CI-Secrets und Server-Umgebungsvariablen, niemals in ein Client-Bundle.
 

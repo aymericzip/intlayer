@@ -32,6 +32,8 @@ author: aymericzip
 
 > **Từ phiên bản Intlayer v9**, `intlayerProxy` được tự động bao gồm bên trong plugin chính [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/vite-intlayer/intlayer.md) và được bật mặc định thông qua cấu hình `routing.enableProxy: true`. Bạn chỉ cần đăng ký riêng nếu cần kiểm soát ở mức thấp hơn hoặc đang sử dụng bên ngoài thiết lập `intlayer()` tiêu chuẩn.
 
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/vite-intlayer/intlayer.md)
+
 ## Cách sử dụng
 
 ### Như một phần của `intlayer()` (khuyên dùng, v9+)
@@ -127,7 +129,7 @@ Middleware phản chiếu logic định tuyến từ middleware `next-intlayer` 
 | Chế độ          | URL hiển thị trên trình duyệt | Hành vi                                                                                                               |
 | --------------- | ----------------------------- | --------------------------------------------------------------------------------------------------------------------- |
 | `prefix`        | `/vi/about`                   | Mặc định. Tiền tố locale trong URL. Ngôn ngữ mặc định chuyển hướng đến URL không có tiền tố trừ khi bật `prefix-all`. |
-| `prefix-all`    | `/en/about`, `/vi/about`      | Tất cả các ngôn ngữ — bao gồm cả mặc định — đều luôn có tiền tố.                                                      |
+| `prefix-all`    | `/en/about`, `/vi/about`      | Tất cả các ngôn ngữ, bao gồm cả mặc định, đều luôn có tiền tố.                                                        |
 | `no-prefix`     | `/about`                      | Không có ngôn ngữ trong URL. Ngôn ngữ chỉ được lưu trữ trong cookie; việc viết lại URL diễn ra nội bộ.                |
 | `search-params` | `/about?locale=vi`            | Ngôn ngữ được truyền dưới dạng tham số truy vấn. Chuyển hướng để thêm/cập nhật tham số `locale` khi thiếu hoặc cũ.    |
 
@@ -161,7 +163,7 @@ Middleware theo dõi số lần chuyển hướng cho mỗi cặp `originalUrl �
 
 ## Nitro / SSR sản xuất (tự động đưa vào, v9+)
 
-Khi `intlayerProxy` được sử dụng dưới dạng plugin Vite, nó mang thuộc tính `.nitro`. Plugin xây dựng `nitro/vite` đọc thuộc tính này và đẩy nó vào `nitroConfig.modules`, do đó `intlayerNitroHandler` được đăng ký làm middleware máy chủ Nitro tự động — không cần cấu hình thủ công cho SSR sản xuất.
+Khi `intlayerProxy` được sử dụng dưới dạng plugin Vite, nó mang thuộc tính `.nitro`. Plugin xây dựng `nitro/vite` đọc thuộc tính này và đẩy nó vào `nitroConfig.modules`, do đó `intlayerNitroHandler` được đăng ký làm middleware máy chủ Nitro tự động, không cần cấu hình thủ công cho SSR sản xuất.
 
 Trình xử lý Nitro sử dụng mô hình sự kiện Web Fetch API của h3 v2 (không phải `fromNodeMiddleware`) nên nó tương thích với tất cả các cấu hình Nitro: Node, Bun, Deno, edge runtimes.
 

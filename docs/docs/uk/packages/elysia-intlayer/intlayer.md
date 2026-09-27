@@ -43,7 +43,7 @@ const app = new Elysia().use(intlayer()).get("/", ({ intlayer }) =>
 );
 ```
 
-> Плагін реєструє свій контекст через **глобальний** `derive`, який Elysia типізує як `Partial<{ intlayer: IntlayerContext }>`. Під час виконання значення завжди присутнє для маршрутів, зареєстрованих після `.use(intlayer())`, тож використовуйте non-null assertion (`intlayer!.t`) — або optional chaining — щоб задовольнити TypeScript у режимі `strict`.
+> Плагін реєструє свій контекст через **глобальний** `derive`, який Elysia типізує як `Partial<{ intlayer: IntlayerContext }>`. Під час виконання значення завжди присутнє для маршрутів, зареєстрованих після `.use(intlayer())`, тож використовуйте non-null assertion (`intlayer!.t`), або optional chaining, щоб задовольнити TypeScript у режимі `strict`.
 
 Ті самі хелпери доступні як окремі експорти, тож їх можна викликати без деструктуризації контексту маршруту:
 
@@ -133,6 +133,8 @@ export default config;
 ```
 
 > Докладніше про конфігурацію дивіться в [документації з конфігурації](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md).
+
+- [документації з конфігурації](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md)
 
 ## Пов'язана документація
 

@@ -78,6 +78,9 @@ Intlayer размещает объявления контента (`.content.ts`
 
 Помимо работы через код, Intlayer предоставляет автономный [Визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md) и [Удаленную CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md), позволяя редакторам и переводчикам обновлять контент без повторного развертывания проекта.
 
+- [Визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md)
+- [Удаленную CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md)
+
 </Accordion>
 </AccordionGroup>
 
@@ -219,6 +222,8 @@ module.exports = config;
 
 > Дополнительные параметры конфигурации описаны в [документации по настройке](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md).
 
+- [документации по настройке](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md)
+
 </Step>
 <Step number={3} title="Объявление многоязычного контента">
 
@@ -255,6 +260,8 @@ export default homeContent;
 ```
 
 > Intlayer также поддерживает форматы JSON, YAML и CommonJS. См. [Документацию по объявлению контента](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/content_file.md).
+
+- [Документацию по объявлению контента](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/content_file.md)
 
 </Step>
 <Step number={4} title="Сборка словарей Intlayer">
@@ -303,6 +310,8 @@ const { title } = useIntlayer("home");
 `useIntlayer("home", "fr")` или `useIntlayer("faq", { item: 2 })` переопределяют локаль запроса для одного вызова, а `useDictionary(homeContent)` считывает импортированный словарь вместо ключа. Вне контекста запроса хуки возвращаются к локали по умолчанию.
 
 > Middleware также подготавливает словари Intlayer при запуске сервера, благодаря чему отсутствие `intlayer build` не оставит реестр пустым.
+
+> Установите `routing.enableProxy: false` в `intlayer.config.ts`, чтобы оставить только определение локали и управлять маршрутизацией самостоятельно. `intlayer({ ignore })` не трогает совпадающие запросы (например, префикс API), а `intlayer({ isDevServer })` определяет, управляет ли сохранённая локаль редиректами в автоматическом режиме `enableProxy` по умолчанию.
 
 </Step>
 <Step number={6} title="Определение типобезопасных маршрутов">
@@ -407,7 +416,7 @@ export const HomePage = () => () => {
 };
 ```
 
-> JSX в Remix — это не React: `class` пишется как есть (`className` также поддерживается), а повторные рендеры вызываются явно через `handle.update()`. Интерполированные значения экранируются автоматически. Хуки Intlayer представляют собой простые функции, считывающие область запроса, поэтому их можно вызывать как из функции setup, так и из функции рендеринга.
+> JSX в Remix это не React: `class` пишется как есть (`className` также поддерживается), а повторные рендеры вызываются явно через `handle.update()`. Интерполированные значения экранируются автоматически. Хуки Intlayer представляют собой простые функции, считывающие область запроса, поэтому их можно вызывать как из функции setup, так и из функции рендеринга.
 
 </Step>
 <Step number={8} title="Подключение роутера и сервера">

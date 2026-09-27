@@ -158,6 +158,8 @@ export default config;
 
 > Prostřednictvím tohoto konfiguračního souboru můžete nastavit lokalizované adresy URL, přesměrování middleware, názvy souborů cookie, umístění a rozšíření vašich deklarací obsahu, zakázat logování Intlayer v konzoli a další. Pro úplný seznam dostupných parametrů se podívejte na [dokumentaci ke konfiguraci](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/configuration.md).
 
+- [dokumentaci ke konfiguraci](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/configuration.md)
+
 </Step>
 <Step number={3} title="Integrace Intlayer do vaší konfigurace Angular">
 
@@ -271,6 +273,8 @@ export default appContent;
 > Vaše deklarace obsahu mohou být definovány kdekoli ve vaší aplikaci, pokud jsou zahrnuty do adresáře `contentDir` (ve výchozím nastavení, `./src`). A musí se shodovat s příponou souboru deklarace obsahu (ve výchozím nastavení, `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
 
 > Další podrobnosti najdete v [dokumentaci k deklaraci obsahu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/dictionary/content_file.md).
+
+- [dokumentaci k deklaraci obsahu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/dictionary/content_file.md)
 
 </Step>
 <Step number={5} title="Využití Intlayer ve vašem kódu">
@@ -418,7 +422,7 @@ K tomu můžete do svého souboru `.gitignore` přidat následující instrukce:
 
 Chcete-li zlepšit vývoj s Intlayerem, můžete nainstalovat oficiální **Intlayer VS Code Extension**.
 
-[Nainstalovat z VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [Nainstalovat z VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 Toto rozšíření nabízí:
 
@@ -429,8 +433,13 @@ Toto rozšíření nabízí:
 
 Další informace o tom, jak používat rozšíření, najdete v [dokumentaci Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md).
 
+- [dokumentaci Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md)
+
 ### Další kroky
 
 Abyste šli ještě dále, můžete implementovat [vizuální editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/intlayer_visual_editor.md) nebo externalizovat obsah s využitím [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/intlayer_CMS.md).
+
+- [vizuální editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/intlayer_CMS.md)
 
 ---

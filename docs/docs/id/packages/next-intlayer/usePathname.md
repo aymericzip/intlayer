@@ -31,7 +31,7 @@ author: aymericzip
 
 # Integrasi Next.js: Dokumentasi Hook `usePathname`
 
-Hook `usePathname` mengembalikan pathname Next.js saat ini dengan segmen lokal (locale) yang telah dihapus. Ini berguna untuk membangun navigasi yang menyadari lokal — misalnya, menentukan item navigasi mana yang aktif — tanpa harus secara manual menghapus awalan (prefix) lokal.
+Hook `usePathname` mengembalikan pathname Next.js saat ini dengan segmen lokal (locale) yang telah dihapus. Ini berguna untuk membangun navigasi yang menyadari lokal (misalnya, menentukan item navigasi mana yang aktif) tanpa harus secara manual menghapus awalan (prefix) lokal.
 
 ## Mengimpor `usePathname` di Next.js
 

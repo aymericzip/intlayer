@@ -66,6 +66,8 @@ Ten przewodnik przedstawia konfigurację Lingui w projekcie **Next.js 16 App Rou
 
 [Benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/nextjs.md) uruchamia tę samą 10-stronicową, 10-języczną aplikację Next.js z każdą główną biblioteką i mierzy, co przeglądarka faktycznie pobiera.
 
+- [Benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/nextjs.md)
+
 <I18nBenchmark framework="nextjs" packages="lingui,@intlayer/lingui,next-intlayer" vertical/>
 
 Główne liczby dla `@lingui/core@6.6.0` w Next.js 16, zmierzone w dniu 2026-09-26 (gzip):
@@ -83,6 +85,8 @@ Wnioski:
 - **Środowisko uruchomieniowe Lingui waży ~72 KB gzip.** Adapter kompatybilności `@intlayer/lingui` zmniejsza runtime do ~11 KB, ale w tym benchmarku konfiguracja kompatybilności Next.js nadal przesyła całe katalogi do strony. Natywne API `next-intlayer` to konfiguracja, która zachowuje rozmiar aplikacji bazowej.
 
 > Zobacz pełne dane: [raport z benchmarku Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/nextjs.md) oraz [repozytorium benchmarku](https://github.com/intlayer-org/benchmark-i18n).
+
+- [raport z benchmarku Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/nextjs.md)
 
 ## Porównanie funkcji w Next.js
 
@@ -108,6 +112,9 @@ Jak Lingui wypada w porównaniu z `next-intl` i Intlayer pod względem funkcji, 
 | **Ekosystem / społeczność**             | ⚠️ Mniejsza, szybko rosnąca                            | ✅ Dojrzały                                                       | ✅ Duży                                   |
 
 > Rozmiary runtime pochodzą z [benchmarku Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/nextjs.md). Szczegółowe omówienie znajdziesz w artykule [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/lingui_vs_intlayer.md).
+
+- [benchmarku Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/nextjs.md)
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/lingui_vs_intlayer.md)
 
 > Inne poradniki dla Next.js:
 
@@ -1041,9 +1048,17 @@ export const sendContactMessage = async (formData: FormData) => {
 
 Adapter kompatybilności [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compat/lingui.md) pozwala zachować kod źródłowy bez zmian: makra kompilują się jak wcześniej, a wynikowe wywołania `i18n._()`, `useLingui()` oraz `<Trans>` są obsługiwane przez słowniki Intlayer. W benchmarku Next.js rozmiar runtime spada z **~72.1 KB do ~10.7 KB** gzip.
 
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compat/lingui.md)
+
 W Next.js adapter konfiguruje się, tworząc aliasy `@lingui/core` i `@lingui/react` na `@intlayer/lingui` w `next.config.ts` (dla webpacka i Turbopacka) oraz owijając konfigurację za pomocą `withIntlayer` z `next-intlayer/server`. Zachowaj `@lingui/swc-plugin`, aby makra były najpierw kompilowane. Pełna konfiguracja znajduje się w [przewodniku po kompatybilności z Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compat/lingui.md).
 
+- [przewodniku po kompatybilności z Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compat/lingui.md)
+
 Jak pokazuje tabela benchmarku, adapter zmniejsza rozmiar środowiska uruchomieniowego, ale w Next.js nie eliminuje jeszcze przesyłania całego katalogu do każdej strony. Najlepiej sprawdza się jako pomost migracyjny: po jego uruchomieniu możesz stopniowo przenosić komponenty do natywnego API `useIntlayer`, które przesyła tylko te treści, które renderuje dany komponent. Zobacz [przewodnik Next.js + Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_nextjs_16.md), [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/lingui_vs_intlayer-lingui.md) oraz wszystkie [adaptery kompatybilności](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compat/index.md).
+
+- [przewodnik Next.js + Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_nextjs_16.md)
+- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/lingui_vs_intlayer-lingui.md)
+- [adaptery kompatybilności](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compat/index.md)
 
 </Step>
 <Step number={19} title="Zautomatyzuj swoje tłumaczenia za pomocą Intlayer" isOptional={true}>
@@ -1086,15 +1101,23 @@ Pobierz instancję serwera za pomocą `getI18nInstance(locale)` i przetłumacz d
 
 [Benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/nextjs.md) wskazuje około 72 KB gzip dla środowiska uruchomieniowego. Przy jednym katalogu na locale strony ważą ~145 KB w porównaniu do 141 KB bez i18n, lecz każda strona nadal otrzymuje komunikaty z innych stron za pośrednictwem providera klienta.
 
+- [Benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/nextjs.md)
+
 </Question>
 <Question title="Lingui, next-intl czy next-i18next: co wybrać dla Next.js?">
 
 Lingui jest idealny dla zespołów, które preferują pisanie tekstu źródłowego w komponentach i pracę z plikami PO oraz tłumaczami. next-intl sprawdza się w zespołach wolących katalogi JSON i API `t("key")` ściśle zintegrowane z Next.js. next-i18next oferuje bogaty ekosystem wtyczek i18next. Zobacz [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/next-i18next_vs_next-intl_vs_intlayer.md) oraz [benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/nextjs.md).
 
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/next-i18next_vs_next-intl_vs_intlayer.md)
+- [benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/nextjs.md)
+
 </Question>
 <Question title="Czy mogę zmigrować z Lingui do Intlayer bez przepisywania komponentów?">
 
 Tak. Adapter [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compat/lingui.md) pozwala zachować makra i podmienić środowisko uruchomieniowe, po czym można stopniowo przenosić komponenty do `useIntlayer`. Zobacz [adaptery kompatybilności](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compat/index.md).
+
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compat/lingui.md)
+- [adaptery kompatybilności](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compat/index.md)
 
 </Question>
 

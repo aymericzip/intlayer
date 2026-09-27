@@ -26,6 +26,8 @@ React 本身并没有提供内置的 i18n 原语。你在项目第一天选择�
 
 本指南采用另一种思路：先回答关于你项目的几个核心问题，然后将答案映射到最契合的库。本文重点关注纯 React 生态（Vite、React Router、TanStack Start）。Next.js 有其专属的约束，已在 [Next.js 对比文章](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/next-i18next_vs_next-intl_vs_intlayer.md) 中详细介绍。
 
+- [Next.js 对比文章](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/next-i18next_vs_next-intl_vs_intlayer.md)
+
 ## 目录
 
 <TOC/>
@@ -74,6 +76,8 @@ React 本身并没有提供内置的 i18n 原语。你在项目第一天选择�
 
 [JavaScript i18n 历史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/history_of_i18n.md) 详细探讨了每一波浪潮是如何解决前一波痛点的。
 
+- [JavaScript i18n 历史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/history_of_i18n.md)
+
 ## 最关键的抉择：内容存放在哪里以及何时加载
 
 所有 React i18n 库都具备相似的结构：一个 store、一个 provider、一个 hook。Provider 接收的任何内容最终都会进入客户端 bundle 或 hydration payload 中。因此，两个根本性的架构选择是：
@@ -89,11 +93,17 @@ React 本身并没有提供内置的 i18n 原语。你在项目第一天选择�
 
 这不仅是库的特性，更关乎工程规范。`react-i18next` 可以通过 namespace 和 lazy backend 实现作用域划分，`use-intl` 也可以按路由拆分。但工具链本身并不会强制执行，一个通用的 `<Button>` 如果调用了 `t("common:cta")`，就会悄悄让 `common` 成为所有路由的依赖。[基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/index.md) 将这种现象衡量为“其他路由泄漏”和“其他语言泄漏”，这也是各库之间体积差距的主要来源。
 
+- [基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/index.md)
+
 如果你对第 3 个问题的答案是“多语言、多页面”，请将本节作为核心考量。[按组件 vs 集中式 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/per-component_vs_centralized_i18n.md) 一文深入分析了这一选择在维护层面的影响。
+
+- [按组件 vs 集中式 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/per-component_vs_centralized_i18n.md)
 
 ## 候选方案一览
 
 各库的体积数据来源于 [TanStack Start 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md)：空组件中的 provider 加上 hook，在经过打包、tree-shaking 和压缩后的体积（基于 10 个页面和 10 个语言环境）。内容体积单独计算。
+
+- [TanStack Start 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md)
 
 ![React i18n 库生态系统](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
@@ -119,6 +129,8 @@ React 本身并没有提供内置的 i18n 原语。你在项目第一天选择�
 
 选择最简单能用的方案，避免过度投入。`react-i18next` 配合每个语言一个单独的 JSON 文件即可满足需求，Stack Overflow 上十年的积累能帮你节省大量时间。在真正需要前无需引入 namespaces。如果原型后续演进为正式产品，可以规划迁移到作用域隔离的内容管理；[react-i18next 兼容适配器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/react-i18next.md) 支持渐进式迁移。
 
+- [react-i18next 兼容适配器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/react-i18next.md)
+
 </Accordion>
 <Accordion header="翻译来自支持 ICU 的翻译机构或 TMS">
 
@@ -134,6 +146,8 @@ React 本身并没有提供内置的 i18n 原语。你在项目第一天选择�
 
 所有基于键的库都可以配置类型，但几乎没有哪个是默认启用的。如果你不想维护在懒加载 namespaces 下脆弱的 declaration merging，请选择能从内容自动生成类型的库：`Lingui`、`Paraglide` 或 Intlayer。[检测缺失翻译](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/detecting_missing_translations.md) 一文对比了各工具在构建时能捕获的错误类型。
 
+- [检测缺失翻译](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/detecting_missing_translations.md)
+
 </Accordion>
 <Accordion header="包含大量富文本内容：markdown、句子中嵌入链接、按语言定制组件">
 
@@ -148,6 +162,8 @@ React 本身并没有提供内置的 i18n 原语。你在项目第一天选择�
 <Accordion header="未来可能迁移至 Next.js App Router">
 
 React context 无法跨越服务端/客户端边界。仅依赖客户端 Hook 构建的库（`react-i18next`、`react-intl`）在引入 RSC 时需要配套的服务端 API。`use-intl`（作为 `next-intl`）和 Intlayer（作为 `next-intlayer`）已经实现了这种架构拆分。在统一规范前，建议阅读 [Next.js i18n 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/next-i18next_vs_next-intl_vs_intlayer.md)。
+
+- [Next.js i18n 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/next-i18next_vs_next-intl_vs_intlayer.md)
 
 </Accordion>
 </AccordionGroup>
@@ -499,6 +515,11 @@ export const CartSummary: FC<{ count: number }> = ({ count }) => {
 
 如果已经在使用 `react-i18next`、`react-intl` 或 `Lingui`，兼容适配器（[react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/react-i18next.md)、[react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/react-intl.md)、[Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/lingui.md)）会在打包工具层面设置别名，让你在逐个迁移组件的同时保持现有 API 正常工作。[迁移指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_react-i18next_to_intlayer.md) 涵盖了其余迁移步骤。
 
+- [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/react-i18next.md)
+- [react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/react-intl.md)
+- [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/lingui.md)
+- [迁移指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_react-i18next_to_intlayer.md)
+
 ## 最终决定前的自查清单
 
 功能清单仅说明库当前能做什么，以下几点则决定了长期维护的实际体验。
@@ -521,6 +542,9 @@ export const CartSummary: FC<{ count: number }> = ({ count }) => {
 
 目前的 AI Agent 在处理 i18n 时仍容易出错：遗漏语言、凭空捏造键名、混淆消息语法。该库是否提供了 [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md) 或 [MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)，以便 Agent 可以列出、填充和测试文案？内容加载策略是开箱即优化的，还是需要每季度人工审核 namespaces 和懒加载导入？
 
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)
+- [MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)
+
 **开箱即用的类型安全。**
 
 关注的不是“通过额外配置能否支持类型”，而是“在全新安装后输入错误键名能否直接导致 `tsc` 报错”。测试访问不存在的键或某一语言缺少某条翻译时的行为表现。
@@ -532,6 +556,13 @@ export const CartSummary: FC<{ count: number }> = ({ count }) => {
 **开发者体验 (DX)。**
 
 从零配置到渲染出第一条翻译字符串所需的时间、显示悬停翻译并支持跳转到声明的 [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md) 或 [VS Code 插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/vs_code_extension.md)、用于填充、测试和推送的 [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)、能把组件中硬编码的字符串提取出来、免去逐个键维护的[编译器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md)或提取工具，以及非开发人员无需提交 PR 即可编辑文案的渠道（[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md) 或 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)）。
+
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)
+- [VS Code 插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/vs_code_extension.md)
+- [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)
+- [编译器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md)
+- [可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
 
 ## 常见问题解答
 
@@ -547,6 +578,8 @@ export const CartSummary: FC<{ count: number }> = ({ count }) => {
 
 只有当 bundle 体积、生成的类型或构建时缺失键检查是核心诉求时才需要。对于仅有两种语言的小型应用，运行时方案更为简单。[编译器 vs 声明式 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/compiler_vs_declarative_i18n.md) 一文解析了编译器的优势以及可能存在的边界问题。
 
+- [编译器 vs 声明式 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/compiler_vs_declarative_i18n.md)
+
 </Question>
 
 <Question title="以后能否在不重写每个组件的前提下更换库？">
@@ -558,6 +591,8 @@ export const CartSummary: FC<{ count: number }> = ({ count }) => {
 <Question title="库的选择会影响 SEO 吗？">
 
 会产生间接影响。搜索引擎爬虫获取的内容由路由设计、`hreflang`、`<html lang>` 以及文本是否包含在服务端渲染的 HTML 中决定。部分库提供了相关辅助工具，大多数则需要开发者自行处理。详情参见 [hreflang 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/hreflang_guide_multilingual_seo.md)。
+
+- [hreflang 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/hreflang_guide_multilingual_seo.md)
 
 </Question>
 

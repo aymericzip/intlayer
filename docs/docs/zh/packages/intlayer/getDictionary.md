@@ -35,6 +35,8 @@ author: aymericzip
 
 与 [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getIntlayer.md)（在生成的注册表中按键查找字典）不同，`getDictionary` 接收字典本身。这使其成为处理在运行时构建、从 API 或 CMS 获取或在测试中声明的内容的合适工具。
 
+- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getIntlayer.md)
+
 **主要功能：**
 
 - 适用于任何遵循字典结构（`{ key, content }`）的对象
@@ -62,7 +64,7 @@ getDictionary(
 - `localeOrSelector: LocalesValues | DictionarySelector`
   - **描述**: 用于解释内容的区域设置，或选择器对象（`{ item }`、`{ variant }`，可选择带 `locale`）。请参阅[动态字典](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dynamic_dictionaries/index.md)。
   - **类型**: `LocalesValues | DictionarySelector`
-  - **必需**: 否（可选）— 默认为配置的 `defaultLocale`。
+  - **必需**: 否（可选），默认为配置的 `defaultLocale`。
 
 - `plugins: Plugins[]`
   - **描述**: 节点转换器数组，定义如何解释识别的节点。如果省略，将使用默认的解释器插件集。

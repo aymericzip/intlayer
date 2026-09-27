@@ -39,17 +39,23 @@ author: aymericzip
 
 يسهل تحديد نطاق محتوى التطبيق **الصيانة** للتطبيقات واسعة النطاق. يمكنك نسخ أو حذف مجلد ميزة واحد دون الحاجة لمراجعة كود المحتوى بالكامل. بالإضافة إلى ذلك، Intlayer **مكتوب بشكل كامل** لضمان دقة المحتوى الخاص بك.
 
-Intlayer أيضاً هو الحل ذو **التطوير الأكثر نشاطاً** في نظام i18n البيئي — تُصلح المشاكل بسرعة، وتُضاف محولات إطار عمل جديدة بانتظام، ويتم تحسين API الأساسي بناءً على ملاحظات الإنتاج الحقيقية.
+Intlayer أيضاً هو الحل ذو **التطوير الأكثر نشاطاً** في نظام i18n البيئي، تُصلح المشاكل بسرعة، وتُضاف محولات إطار عمل جديدة بانتظام، ويتم تحسين API الأساسي بناءً على ملاحظات الإنتاج الحقيقية.
 
 </Accordion>
 <Accordion header="وكيل ذكي">
 
 يقلل دمج المحتوى **السياق المطلوب** من نماذج اللغة الكبيرة (LLMs). يأتي Intlayer أيضاً مع مجموعة من الأدوات، مثل **CLI** لاختبار الترجمات المفقودة، **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/lsp.md)**، **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/mcp_server.md)**، و**[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)**، لجعل تجربة المطور (DX) أكثر سلاسة حتى للوكلاء الذكيين.
 
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/mcp_server.md)
+- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)
+
 </Accordion>
 <Accordion header="الأتمتة">
 
 استخدم الأتمتة للترجمة في خط أنابيب CI/CD الخاص بك باستخدام نموذج LLM من اختيارك بتكلفة موفر الذكاء الاصطناعي الخاص بك. يوفر Intlayer أيضاً **compiler** لأتمتة استخراج المحتوى، بالإضافة إلى [منصة ويب](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md) لمساعدتك على **الترجمة في الخلفية**.
+
+- [منصة ويب](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="الأداء">
@@ -60,6 +66,9 @@ Intlayer أيضاً هو الحل ذو **التطوير الأكثر نشاطا�
 <Accordion header="التوسع مع غير المطورين">
 
 أكثر من مجرد حل i18n، يوفر Intlayer **[محرر مرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)** ذاتي الاستضافة و**[CMS كامل](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)** لمساعدتك على إدارة محتواك متعدد اللغات في **الوقت الفعلي**، مما يجعل التعاون مع المترجمين والكتاب والأعضاء الآخرين في الفريق بسيطاً. يمكن تخزين المحتوى محلياً و/أو بعداً.
+
+- [محرر مرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)
+- [CMS كامل](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
@@ -72,9 +81,9 @@ Intlayer أيضاً هو الحل ذو **التطوير الأكثر نشاطا�
 
 نظراً لأن `@nuxtjs/i18n` يعمل بواسطة `vue-i18n` تحت الغطاء، هناك استراتيجيتان متكاملتان للترحيل إلى Intlayer:
 
-1. **محول التوافق (موصى به للتطبيقات الموجودة)** — قم بتثبيت `@intlayer/vue-i18n` و `nuxt-intlayer`. يكشف هذا عن **نفس API تماماً** من `vue-i18n` ولكن يفوض كل عمل الترجمة إلى Intlayer تحت الغطاء. تحافظ على استدعاءات `$t` و `useI18n()` و توجيه Nuxt الموجودة دون تغيير — التغيير الوحيد هو التهيئة.
+1. **محول التوافق (موصى به للتطبيقات الموجودة)**: قم بتثبيت `@intlayer/vue-i18n` و `nuxt-intlayer`. يكشف هذا عن **نفس API تماماً** من `vue-i18n` ولكن يفوض كل عمل الترجمة إلى Intlayer تحت الغطاء. تحافظ على استدعاءات `$t` و `useI18n()` و توجيه Nuxt الموجودة دون تغيير، التغيير الوحيد هو التهيئة.
 
-2. **الترحيل الكامل** — استبدل تدريجياً APIs من @nuxtjs/i18n بـ hooks Intlayer الأصلية (`useIntlayer`) ودمج المحتوى في ملفات `.content.ts` بجانب المكونات الخاصة بك.
+2. **الترحيل الكامل**: استبدل تدريجياً APIs من @nuxtjs/i18n بـ hooks Intlayer الأصلية (`useIntlayer`) ودمج المحتوى في ملفات `.content.ts` بجانب المكونات الخاصة بك.
 
 يغطي هذا الدليل **الاستراتيجية 1** أولاً (محول التوافق drop-in)، ثم يرشدك عبر الترحيل الكامل الاختياري.
 
@@ -196,7 +205,7 @@ export default defineNuxtConfig({
 | ------------------------------------ | ---------------------------------------------- |
 | `import { useI18n } from 'vue-i18n'` | `import { useI18n } from '@intlayer/vue-i18n'` |
 
-هذه **بدائل drop-in** — لا تغييرات في توقيعات الدالة أو الحجج أو أنواع الإرجاع مطلوبة.
+هذه **بدائل drop-in**، لا تغييرات في توقيعات الدالة أو الحجج أو أنواع الإرجاع مطلوبة.
 
 </Step>
 <Step number={5} title="تفعيل أتمتة الترجمة المدفوعة بالذكاء الاصطناعي" isOptional={true}>
@@ -256,6 +265,8 @@ export default config;
 
 > انظر [وثائق Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md) لجميع الخيارات المتاحة.
 
+- [وثائق Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md)
+
 </Step>
 
 </Steps>
@@ -270,7 +281,7 @@ export default config;
 | `@nuxtjs/i18n` من `package.json`   | استبدل بالكامل بـ `nuxt-intlayer`.                                                                                  |
 | حزم اللغات JSON (`locales/*.json`) | تُحتاج حزم JSON فقط إذا كنت تستخدم مكوّن `syncJSON` بعد. بمجرد الترحيل إلى ملفات `.content.ts` يمكنك حذف مجلد JSON. |
 
-عندما تكون جاهزاً للمضي أبعد، يكتشف Intlayer **تلقائياً جميع ملفات `.content.ts` و `.content.json` في أي مكان في قاعدة الكود الخاصة بك** (افتراضياً، في أي مكان داخل `./src`). يمكنك وضع ملف `my-component.content.ts` بجانب `MyComponent.vue` مباشرة وسيلتقطه Intlayer في وقت البناء بدون تكوين إضافي — لا استيرادات، لا تسجيل، لا حاجة لملف فهرس مركزي. هذا يجعل دمج الترجمات مع الصفحات والمكونات بدون احتكاك تماماً.
+عندما تكون جاهزاً للمضي أبعد، يكتشف Intlayer **تلقائياً جميع ملفات `.content.ts` و `.content.json` في أي مكان في قاعدة الكود الخاصة بك** (افتراضياً، في أي مكان داخل `./src`). يمكنك وضع ملف `my-component.content.ts` بجانب `MyComponent.vue` مباشرة وسيلتقطه Intlayer في وقت البناء بدون تكوين إضافي، لا استيرادات، لا تسجيل، لا حاجة لملف فهرس مركزي. هذا يجعل دمج الترجمات مع الصفحات والمكونات بدون احتكاك تماماً.
 
 ## تكوين TypeScript
 

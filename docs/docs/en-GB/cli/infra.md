@@ -104,13 +104,13 @@ npx intlayer init infra --mode compose
 
        ./intlayer/.env
 
-     Either RESEND_API_KEY (resend.com) or the MAIL_SMTP_* block — the first
+     Either RESEND_API_KEY (resend.com) or the MAIL_SMTP_* block, the first
      account cannot be verified without a working mailer.
   2. Start the stack:
 
        cd ./intlayer && docker compose up -d
 
-  Then open http://localhost:3000 — first boot initialises the
+  Then open http://localhost:3000, first boot initialises the
   datastores, so give it a minute. The first account you create becomes the
   super admin.
 
@@ -118,6 +118,10 @@ npx intlayer init infra --mode compose
     Stop      docker compose down
     Upgrade   docker compose pull && docker compose up -d
 ```
+
+Given a domain (for instance `example.org`), the installer suggests `https://cms.example.org`, `https://back.example.org` and `https://s3.example.org/intlayer` for the dashboard, the API and the object storage, writes them to the environment file, and switches the start command to a build from the repository, since the published dashboard image only works on `localhost`. See [Custom domain](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/self_hosting.md#custom-domain).
+
+- [Custom domain](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/self_hosting.md#custom-domain)
 
 ## Installer settings
 
@@ -143,6 +147,8 @@ INTLAYER_COMPOSE_DIR=./cms npx intlayer init infra --mode compose
 | `INTLAYER_SELFHOST_REF`   | `main`                    | both       | Git ref the compose file and env template are fetched from |
 
 > The port variables only change the **host** side of the mapping. The published images have `http://localhost:3000`, `http://localhost:3100` and `http://localhost:9000` compiled into the dashboard bundle, so keep the defaults unless you build your own images: see the [self-hosting guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/self_hosting.md#limitations).
+
+- [self-hosting guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/self_hosting.md#limitations)
 
 ## Requirements
 

@@ -260,6 +260,8 @@ The mapping to ICU concepts is direct:
 
 `plural` delegates category selection to `Intl.PluralRules`, so the CLDR table above applies unchanged. Formatting stays separate: numbers, dates, currencies and lists go through the [formatter hooks](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/formatters.md) instead of being embedded in the message.
 
+- [formatter hooks](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/formatters.md)
+
 Honest limits:
 
 - Intlayer requires a build step; the compiler extracts declarations at build time. If you want plain JSON loaded at runtime, that is a different model.
@@ -267,6 +269,9 @@ Honest limits:
 - The ecosystem is smaller than i18next's. Fewer TMS integrations, fewer StackOverflow answers.
 
 If you are coming from a codebase that already contains real ICU strings, the [react-intl compat adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/react-intl.md) parses them directly: `plural`, `select`, `selectordinal`, `#`, and the legacy `number` / `date` / `time` arguments. Skeletons and `offset:` are not covered by that resolver, so check those messages when you migrate. The [i18next adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/i18next.md) resolves the suffix form (`key_one`, `key_male`) against `Intl.PluralRules` instead.
+
+- [react-intl compat adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/react-intl.md)
+- [i18next adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/i18next.md)
 
 ## Common mistakes
 

@@ -114,6 +114,8 @@ export default config;
 
 > اختیارات کی مکمل فہرست کے لیے [کنفیگریشن حوالہ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/configuration.md) دیکھیں۔
 
+- [کنفیگریشن حوالہ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/configuration.md)
+
 </Step>
 <Step number={3} title="Storybook میں Vite پلگ ان شامل کریں">
 
@@ -358,6 +360,8 @@ export default copyButtonContent;
 ```
 
 > مزید مواد کے اعلان کی فارمیٹس اور خصوصیات کے لیے [مواد کے اعلان کی دستاویزات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/dictionary/content_file.md) دیکھیں۔
+
+- [مواد کے اعلان کی دستاویزات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/dictionary/content_file.md)
 
 ## کسی جزو میں `useIntlayer` استعمال کرنا
 

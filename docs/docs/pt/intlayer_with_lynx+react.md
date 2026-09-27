@@ -66,10 +66,16 @@ Definir o escopo do conteúdo do seu aplicativo **facilita a manutenção** de a
 
 A co-localização de conteúdo **reduz o contexto necessário** pelos Large Language Models (LLMs). O Intlayer também vem com um conjunto de ferramentas, como uma **CLI** para testar traduções ausentes,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/mcp_server.md)**, e **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/agent_skills.md)**, para tornar a experiência do desenvolvedor (DX) ainda mais tranquila para os agentes de IA.
 
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/mcp_server.md)
+- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/agent_skills.md)
+
 </Accordion>
 <Accordion header="Automação">
 
 Use a automação para traduzir seu pipeline de CI/CD usando o LLM de sua escolha às custas de seu provedor de IA. O Intlayer também oferece um **compilador** para automatizar a extração de conteúdo, bem como uma [plataforma web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md) para ajudar a **traduzir em segundo plano**.
+
+- [plataforma web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="Desempenho">
@@ -80,6 +86,9 @@ Conectar arquivos JSON enormes a componentes pode levar a problemas de desempenh
 <Accordion header="Escalonamento sem nenhum desenvolvedor">
 
 Mais do que apenas uma solução i18n, o Intlayer fornece um **[editor visual] auto-hospedado(https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md)** e um **[CMS completo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md)** para ajudá-lo a gerenciar seu conteúdo multilíngue em **tempo real**, facilitando a colaboração com tradutores, redatores e outros membros da equipe. O conteúdo pode ser armazenado local e/ou remotamente.
+
+- [Editor visual do Intlayer: edite o conteúdo em contexto](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md)
+- [CMS completo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
@@ -324,6 +333,8 @@ export default appContent;
 
 > Para mais detalhes sobre declarações de conteúdo, consulte a [documentação de conteúdo do Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/content_file.md).
 
+- [documentação de conteúdo do Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/content_file.md)
+
 </Step>
 <Step number={6} title="Use o Intlayer em seus componentes">
 
@@ -425,6 +436,8 @@ Isso dispara uma nova renderização de todos os componentes que usam conteúdo 
 
 > Consulte a [documentação do `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/react-intlayer/useLocale.md) para mais detalhes.
 
+- [documentação do `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/react-intlayer/useLocale.md)
+
 </Step>
 
 </Steps>
@@ -463,20 +476,18 @@ Para evitar fazer commit de arquivos auto-gerados pelo Intlayer, adicione o segu
 
 Para melhorar sua experiência de desenvolvimento com o Intlayer, você pode instalar a **Extensão oficial do Intlayer para VS Code**.
 
-[Instale a partir do Marketplace do VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [Instale a partir do Marketplace do VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 Esta extensão oferece:
 
-- **Autocompleção** para chaves de tradução.
+- **Autocompletar** para chaves de tradução.
 - **Detecção de erros em tempo real** para traduções ausentes.
-- **Pré-visualizações inline** de conteúdo traduzido.
+- **Visualizações inline** do conteúdo traduzido.
 - **Ações rápidas** para criar e atualizar traduções facilmente.
 
-- **Auto-completação** para as chaves de tradução.
-- **Detecção de erros em tempo real** para traduções ausentes.
-- **Pré-visualizações inline** do conteúdo traduzido.
-- **Ações rápidas** para criar e atualizar traduções facilmente.
-  Para mais detalhes sobre como usar a extensão, consulte a [documentação da Extensão Intlayer para VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/vs_code_extension.md).
+Para mais detalhes sobre como usar a extensão, consulte a [documentação da Extensão Intlayer para VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/vs_code_extension.md).
+
+- [documentação da Extensão Intlayer para VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/vs_code_extension.md)
 
 ## Vá Além
 

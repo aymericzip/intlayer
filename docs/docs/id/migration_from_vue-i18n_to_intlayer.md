@@ -38,17 +38,23 @@ Alih-alih memuat file JSON besar ke halaman Anda, muat hanya konten yang diperlu
 
 Menentukan ruang lingkup konten aplikasi Anda **memudahkan pemeliharaan** untuk aplikasi skala besar. Anda dapat menduplikasi atau menghapus folder fitur tunggal tanpa beban mental meninjau seluruh codebase konten Anda. Selain itu, Intlayer **sepenuhnya diketik** untuk memastikan akurasi konten Anda.
 
-Intlayer juga merupakan solusi dengan **pengembangan paling aktif** dalam ekosistem i18n — masalah diperbaiki dengan cepat, adapter framework baru dirilis secara teratur, dan core API terus disempurnakan berdasarkan umpan balik produksi dunia nyata.
+Intlayer juga merupakan solusi dengan **pengembangan paling aktif** dalam ekosistem i18n, masalah diperbaiki dengan cepat, adapter framework baru dirilis secara teratur, dan core API terus disempurnakan berdasarkan umpan balik produksi dunia nyata.
 
 </Accordion>
 <Accordion header="AI Agent">
 
 Kolokasi konten **mengurangi konteks yang diperlukan** oleh Large Language Models (LLM). Intlayer juga dilengkapi dengan rangkaian alat, seperti **CLI** untuk menguji terjemahan yang hilang, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/mcp_server.md)**, dan **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/agent_skills.md)**, untuk membuat pengalaman pengembang (DX) bahkan lebih mulus untuk AI agents.
 
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/mcp_server.md)
+- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/agent_skills.md)
+
 </Accordion>
 <Accordion header="Automation">
 
 Gunakan automation untuk menerjemahkan dalam pipeline CI/CD Anda menggunakan LLM pilihan Anda dengan biaya dari penyedia AI Anda. Intlayer juga menawarkan **compiler** untuk mengotomatisasi ekstraksi konten, serta [web platform](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md) untuk membantu **menerjemahkan di latar belakang**.
+
+- [web platform](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="Performance">
@@ -59,6 +65,9 @@ Menghubungkan file JSON besar ke komponen dapat menyebabkan masalah performa dan
 <Accordion header="Scaling with non-dev">
 
 Lebih dari sekadar solusi i18n, Intlayer menyediakan **[visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) yang self-hosted** dan **[full CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)** untuk membantu Anda mengelola konten multibahasa Anda secara **real-time**, membuat kolaborasi dengan penerjemah, copywriter, dan anggota tim lainnya menjadi seamless. Konten dapat disimpan secara lokal dan/atau remote.
+
+- [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md)
+- [full CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
@@ -71,9 +80,9 @@ Lebih dari sekadar solusi i18n, Intlayer menyediakan **[visual editor](https://g
 
 Ada dua strategi pelengkap untuk bermigrasi dari `vue-i18n` ke Intlayer:
 
-1. **Compat adapter (direkomendasikan untuk aplikasi yang sudah ada)** — Instal `@intlayer/vue-i18n` (untuk komponen Vue). Package ini mengekspos **API yang sama persis** seperti `vue-i18n` tetapi mendelegasikan semua pekerjaan terjemahan ke Intlayer di balik layar. Anda menyimpan panggilan `$t`, `useI18n()`, dan `<i18n-t>` yang sudah ada — satu-satunya perubahan adalah path import dan inisialisasi.
+1. **Compat adapter (direkomendasikan untuk aplikasi yang sudah ada)**: Instal `@intlayer/vue-i18n` (untuk komponen Vue). Package ini mengekspos **API yang sama persis** seperti `vue-i18n` tetapi mendelegasikan semua pekerjaan terjemahan ke Intlayer di balik layar. Anda menyimpan panggilan `$t`, `useI18n()`, dan `<i18n-t>` yang sudah ada, satu-satunya perubahan adalah path import dan inisialisasi.
 
-2. **Migrasi penuh** — Secara bertahap gantikan API `vue-i18n` dengan hooks Intlayer asli (`useIntlayer`) dan co-locate konten di file `.content.ts` bersama komponen Anda.
+2. **Migrasi penuh**: Secara bertahap gantikan API `vue-i18n` dengan hooks Intlayer asli (`useIntlayer`) dan co-locate konten di file `.content.ts` bersama komponen Anda.
 
 Panduan ini mencakup **Strategy 1** terlebih dahulu (compat adapter drop-in), kemudian menjelaskan migrasi penuh opsional.
 
@@ -126,7 +135,7 @@ yarn add intlayer vue-intlayer @intlayer/vue-i18n @intlayer/sync-json-plugin
 bun add intlayer vue-intlayer @intlayer/vue-i18n @intlayer/sync-json-plugin
 ```
 
-> Anda dapat tetap menginstal `vue-i18n` — adapter kompatibilitas menggunakannya sebagai `devDependency` / `peerDependency` untuk tipe TypeScript.
+> Anda dapat tetap menginstal `vue-i18n`, adapter kompatibilitas menggunakannya sebagai `devDependency` / `peerDependency` untuk tipe TypeScript.
 
 </Step>
 <Step number={2} title="Configure Intlayer">
@@ -165,7 +174,7 @@ export default config;
 </Step>
 <Step number={3} title="Add the Intlayer Plugin to your Bundler">
 
-Bungkus konfigurasi bundler yang sudah ada dengan plugin kompatibilitas. Plugin ini menggabungkan plugin Intlayer inti, mengatur content watching, dan — yang penting — **menyuntikkan alias modul** sehingga panggilan `import … from 'vue-i18n'` yang sudah ada dialihkan secara transparan ke `@intlayer/vue-i18n` pada saat build. Tidak ada perubahan file sumber yang diperlukan.
+Bungkus konfigurasi bundler yang sudah ada dengan plugin kompatibilitas. Plugin ini menggabungkan plugin Intlayer inti, mengatur content watching, dan, yang penting, **menyuntikkan alias modul** sehingga panggilan `import … from 'vue-i18n'` yang sudah ada dialihkan secara transparan ke `@intlayer/vue-i18n` pada saat build. Tidak ada perubahan file sumber yang diperlukan.
 
 **For Vite:**
 
@@ -179,7 +188,7 @@ export default defineConfig({
 });
 ```
 
-> `vueI18nVitePlugin()` membungkus plugin `intlayer()` dari `vite-intlayer` dan menambahkan alias `vue-i18n`. Menggunakan plugin `intlayer()` biasa dari `vite-intlayer` mengompilasi kamus tetapi **tidak** menambahkan alias — Anda kemudian harus mengganti nama impor ke `@intlayer/vue-i18n` secara manual (lihat Langkah 4).
+> `vueI18nVitePlugin()` membungkus plugin `intlayer()` dari `vite-intlayer` dan menambahkan alias `vue-i18n`. Menggunakan plugin `intlayer()` biasa dari `vite-intlayer` mengompilasi kamus tetapi **tidak** menambahkan alias, Anda kemudian harus mengganti nama impor ke `@intlayer/vue-i18n` secara manual (lihat Langkah 4).
 
 **For Nuxt:**
 
@@ -204,7 +213,7 @@ export default defineNuxtConfig({
 
 Itu saja untuk migrasi cepat. Aplikasi Anda sekarang berjalan di Intlayer sambil mempertahankan setiap impor dan API `vue-i18n`.
 
-> **Kunci terjemahan yang diketik — otomatis.** Setelah Intlayer mengompilasi kamus Anda, `useI18n` diketik terhadap konten aktual Anda ketika Anda melewatkan opsi `namespace`. Kunci secara otomatis dilengkapi di IDE Anda dan jalur yang tidak valid menyebabkan kesalahan TypeScript pada waktu build — tidak ada pengaturan tambahan yang diperlukan.
+> **Kunci terjemahan yang diketik, otomatis.** Setelah Intlayer mengompilasi kamus Anda, `useI18n` diketik terhadap konten aktual Anda ketika Anda melewatkan opsi `namespace`. Kunci secara otomatis dilengkapi di IDE Anda dan jalur yang tidak valid menyebabkan kesalahan TypeScript pada waktu build, tidak ada pengaturan tambahan yang diperlukan.
 >
 > ```ts
 > // 'about' adalah kunci kamus yang terdaftar
@@ -227,7 +236,7 @@ Plugin Intlayer sudah menangani aliasing di tingkat bundler. Jika Anda lebih suk
 | `import { useI18n } from 'vue-i18n'`    | `import { useI18n } from '@intlayer/vue-i18n'`    |
 | `import { createI18n } from 'vue-i18n'` | `import { createI18n } from '@intlayer/vue-i18n'` |
 
-Ini adalah **drop-in replacements** — tidak ada perubahan pada tanda tangan panggilan, argumen, atau jenis pengembalian yang diperlukan.
+Ini adalah **drop-in replacements**, tidak ada perubahan pada tanda tangan panggilan, argumen, atau jenis pengembalian yang diperlukan.
 
 </Step>
 <Step number={5} title="Enable AI-Powered Translation Automation" isOptional={true}>
@@ -287,6 +296,8 @@ export default config;
 
 > Lihat [dokumentasi CLI Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md) untuk semua opsi yang tersedia.
 
+- [dokumentasi CLI Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md)
+
 </Step>
 
 </Steps>
@@ -301,7 +312,7 @@ Setelah adapter kompatibilitas ditempatkan, boilerplate `vue-i18n` berikut dapat
 | Vue plugin registration (`app.use(i18n)`) | Plugin Intlayer menangani injection dan bootstrapping di balik layar.                                                                                  |
 | JSON language bundles (`locales/*.json`)  | Bundle JSON hanya diperlukan jika Anda masih menggunakan plugin `syncJSON`. Setelah bermigrasi ke file `.content.ts` Anda dapat menghapus folder JSON. |
 
-Ketika Anda siap untuk melangkah lebih jauh, Intlayer **secara otomatis menemukan semua file `.content.ts` dan `.content.json` di mana saja dalam codebase Anda** (secara default, di mana saja di dalam `./src`). Anda dapat menempatkan file `my-component.content.ts` tepat di sebelah `MyComponent.vue` Anda dan Intlayer akan mengambilnya pada waktu build tanpa konfigurasi tambahan — tidak ada imports, tidak ada registrasi, tidak ada file index terpusat yang diperlukan. Ini membuat co-locating translations dengan pages dan components benar-benar tanpa hambatan.
+Ketika Anda siap untuk melangkah lebih jauh, Intlayer **secara otomatis menemukan semua file `.content.ts` dan `.content.json` di mana saja dalam codebase Anda** (secara default, di mana saja di dalam `./src`). Anda dapat menempatkan file `my-component.content.ts` tepat di sebelah `MyComponent.vue` Anda dan Intlayer akan mengambilnya pada waktu build tanpa konfigurasi tambahan, tidak ada imports, tidak ada registrasi, tidak ada file index terpusat yang diperlukan. Ini membuat co-locating translations dengan pages dan components benar-benar tanpa hambatan.
 
 ## Konfigurasi TypeScript
 

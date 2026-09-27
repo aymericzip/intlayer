@@ -166,6 +166,8 @@ export default config;
 
 Щоб дізнатися більше про плагін `syncJSON`, див. [документацію плагіна syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/plugins/sync-json.md).
 
+- [документацію плагіна syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/plugins/sync-json.md)
+
 </Step>
 <Step number={3} title="Налаштування AI-провайдера">
 
@@ -216,6 +218,9 @@ npx intlayer fill
 > Перегляньте всіх доступних AI-провайдерів у [документації з конфігурації Intlayer AI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md#ai-configuration).
 > Перегляньте всі доступні команди в [документації Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/index.md).
 
+- [документації з конфігурації Intlayer AI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md#ai-configuration)
+- [документації Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/index.md)
+
 </Step>
 
 </Steps>
@@ -235,4 +240,4 @@ npx intlayer fill
 
 Для покращення досвіду розробника встановіть офіційне **Intlayer VS Code Extension**:
 
-[Встановити з VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [Встановити з VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

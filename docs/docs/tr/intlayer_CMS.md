@@ -63,6 +63,8 @@ Intlayer, 'yerel' ve 'uzak' sözlükler arasında ayrım yapar.
 
 [Intlayer Visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) editörü, yerel sözlükler için içeriğinizi görsel bir editörde yönetmenizi sağlayan bir araçtır. Bir değişiklik yapıldığında, içerik kod tabanında değiştirilir. Bu, uygulamanın yeniden derleneceği ve yeni içeriği göstermek için sayfanın yeniden yükleneceği anlamına gelir.
 
+- [Intlayer Visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md)
+
 Buna karşılık, Intlayer CMS, uzak sözlükler için içeriğinizi görsel bir editörde yönetmenizi sağlayan bir araçtır. Bir değişiklik yapıldığında, içerik kod tabanınızı **etkilemez**. Ve web sitesi otomatik olarak değiştirilen içeriği gösterir.
 
 ## Entegrasyon
@@ -73,13 +75,19 @@ Paketin nasıl kurulacağına dair daha fazla detay için aşağıdaki ilgili b�
 
 Next.js ile entegrasyon için, [kurulum kılavuzuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_15.md) bakınız.
 
+- [Next.js 15 i18n - Uygulamanızı çevirmek için eksiksiz kılavuz](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_15.md)
+
 ### Create React App ile Entegrasyon
 
 Create React App ile entegrasyon için, [kurulum kılavuzuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_create_react_app.md) bakınız.
 
+- [Create React App i18n: eksiksiz çeviri rehberi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_create_react_app.md)
+
 ### Vite + React ile Entegrasyon
 
 Vite + React ile entegrasyon için, [kurulum kılavuzuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_vite+react.md) bakınız.
+
+- [Vite + React i18n - Uygulamanızı çevirmek için eksiksiz kılavuz](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_vite+react.md)
 
 ## Konfigürasyon
 
@@ -159,6 +167,8 @@ export default config;
 > Eğer bir client ID ve client secret'ınız yoksa, bunları [Intlayer Dashboard - Projects](https://app.intlayer.org/projects) üzerinden yeni bir client oluşturarak edinebilirsiniz.
 
 > Mevcut tüm parametreleri görmek için [konfigürasyon dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) bakınız.
+
+- [konfigürasyon dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md)
 
 ## CMS Kullanımı
 
@@ -274,10 +284,10 @@ bun add @intlayer/api
 
 SDK, paket boyutunuzu küçük tutmak amacıyla **iki ayrı import**'a bölünmüştür:
 
-1. `createIntlayerCMS` — hafif bir **authenticator** oluşturur. Yalnızca kimlik bilgilerini ve yönetilen erişim token'ını taşır; belirli bir alan adı hakkında hiçbir şey bilmez.
-2. `dictionaryEndpoint`, `projectEndpoint`, … — alan başına **endpoint bağlayıcıları**, her biri kendi alt yolundan içe aktarılır (`@intlayer/api/dictionary`, `@intlayer/api/project`, …). Authenticator'u ihtiyacınız olan endpoint'e geçirirsiniz.
+1. `createIntlayerCMS`: hafif bir **authenticator** oluşturur. Yalnızca kimlik bilgilerini ve yönetilen erişim token'ını taşır; belirli bir alan adı hakkında hiçbir şey bilmez.
+2. `dictionaryEndpoint`, `projectEndpoint`, …, alan başına **endpoint bağlayıcıları**, her biri kendi alt yolundan içe aktarılır (`@intlayer/api/dictionary`, `@intlayer/api/project`, …). Authenticator'u ihtiyacınız olan endpoint'e geçirirsiniz.
 
-Her endpoint ayrı olarak içe aktarıldığından, paketiniz yalnızca gerçekten kullandığınız alanları içerir — `dictionaryEndpoint` içe aktarmak hiçbir zaman proje, AI veya başka bir alan istemcisini içeri çekmez.
+Her endpoint ayrı olarak içe aktarıldığından, paketiniz yalnızca gerçekten kullandığınız alanları içerir, `dictionaryEndpoint` içe aktarmak hiçbir zaman proje, AI veya başka bir alan istemcisini içeri çekmez.
 
 ```typescript fileName="cms.ts" codeFormat="typescript"
 import { createIntlayerCMS } from "@intlayer/api";
@@ -383,7 +393,7 @@ await dictionaryEndpoint(cmsAuthenticator).updateDictionary({
 
 ### Tek bir yöntemi çıkarma
 
-Her endpoint yöntemi zaten kimliği doğrulanmış ve bağımsızdır (kendi token işlemesini taşır), bu nedenle birini çıkarabilir ve etrafta geçirebilirsiniz — örneğin bir bağımlılık olarak enjekte etmek için:
+Her endpoint yöntemi zaten kimliği doğrulanmış ve bağımsızdır (kendi token işlemesini taşır), bu nedenle birini çıkarabilir ve etrafta geçirebilirsiniz, örneğin bir bağımlılık olarak enjekte etmek için:
 
 ```typescript fileName="push.ts" codeFormat="typescript"
 import { createIntlayerCMS } from "@intlayer/api";
@@ -391,7 +401,7 @@ import { dictionaryEndpoint } from "@intlayer/api/dictionary";
 
 const dictionary = dictionaryEndpoint(createIntlayerCMS());
 
-// Zaten kimliği doğrulanmış — her çağrıda token'ı otomatik olarak yeniler
+// Zaten kimliği doğrulanmış, her çağrıda token'ı otomatik olarak yeniler
 export const pushDictionaries = dictionary.pushDictionaries;
 
 // Kullanım
@@ -404,6 +414,8 @@ Canlı Senkronizasyon, uygulamanızın CMS içerik değişikliklerini çalışma
 
 Tam kurulum kılavuzu (etkinleştirme, Live Sync sunucusunu başlatma, yerel geliştirme iş akışı ve kısıtlamalar) için [Live Sync belgelerine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/live-sync.md) bakın.
 
+- [Live Sync belgelerine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/live-sync.md)
+
 ## Kendi Sunucunuzda Barındırma
 
 Intlayer, tamamen kendi altyapınızda çalışabilir. Tek bir komut, tam yığını (kontrol paneli, API, veritabanı, nesne depolama ve e-posta) Docker Compose ile başlatır:
@@ -413,6 +425,8 @@ curl -fsSL https://intlayer.org/install.sh | sh
 ```
 
 Tam kurulum kılavuzu, ortam değişkeni referansı, yükseltme talimatları ve yedekleme/geri yükleme prosedürleri için [Kendi Sunucuda Barındırma Kılavuzu'na](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/self_hosting.md) bakınız.
+
+- [Kendi Sunucuda Barındırma Kılavuzu'na](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/self_hosting.md)
 
 ## Hata Ayıklama
 
@@ -437,27 +451,45 @@ CMS ile ilgili herhangi bir sorunla karşılaşırsanız, aşağıdakileri kontr
 
 [Görsel düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) kod tabanınızdaki yerel sözlük dosyalarını düzenler. CMS ise içeriği sunucuda uzaktan yönetir ve kod dağıtımı gerekmeden anında metin güncellemeleri yapılmasına imkan tanır.
 
+- [Görsel düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md)
+
 </Question>
 <Question title="i18n paket boyutuma ne kadar ekler?">
 
 Ad alanı (namespace) tabanlı bir kuruluma kıyasla çok daha az, çünkü bir sayfa render etmediği bir sözlüğü asla indirmez. Sunucu tarafında render edilen markup içeriği sunucuda çözer ve derleme zamanı derleyicisi `useIntlayer` çağrılarını bileşenin kullandığı kesin sözlük kayıtlarıyla değiştirir, böylece kullanılmayan anahtarlar ve diller elenir. [Dinamik sözlükler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dynamic_dictionaries/index.md) geri kalanını yerel başına böler. Yaygın alternatiflerle karşılaştırıldığında Intlayer paket ve sayfa boyutunu %50'ye kadar azaltır. Bkz. [paket optimizasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md) ve [kıyaslama](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/index.md).
+
+- [Dinamik sözlükler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dynamic_dictionaries/index.md)
+- [paket optimizasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md)
+- [kıyaslama](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/index.md)
 
 </Question>
 <Question title="i18next, next-intl veya react-i18next'ten bileşenlerimi yeniden yazmadan geçiş yapabilir miyim?">
 
 Evet, iki yol mevcuttur. [i18next geçiş kılavuzu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_i18next_to_intlayer.md) veya [next-intl geçiş kılavuzu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_next-intl_to_intlayer.md) ile içeriği aşamalı olarak taşıyabilirsiniz. Ya da mevcut API'nizi tamamen koruyabilirsiniz: [uyumluluk adaptörleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/index.md), `i18next`, `react-i18next`, `next-intl`, `next-i18next`, `react-intl`, `use-intl`, `vue-i18n` ve `Lingui` ile tamamen aynı API'yi sunar, ancak Intlayer sözlükleri tarafından desteklenir; böylece yalnızca import satırları değişir, bileşen kodu aynı kalır.
 
+- [i18next geçiş kılavuzu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_i18next_to_intlayer.md)
+- [next-intl geçiş kılavuzu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_next-intl_to_intlayer.md)
+- [uyumluluk adaptörleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/index.md)
+
 </Question>
 <Question title="Mevcut JSON çeviri dosyalarımı koruyabilir miyim?">
 
 Evet. [sync JSON eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-json.md), `/messages/{locale}/{namespace}.json` dosyalarınızı doğruluk kaynağı olarak tutar ve her iki yönde Intlayer sözlükleri üretir. [sync PO eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-po.md) gettext katalogları için aynısını yapar ve [yerel başına dosyalar](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/per_locale_file.md), yerelleri tek bir dosyada gruplamak yerine içeriği dile göre ayırmanıza olanak tanır.
+
+- [sync JSON eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-json.md)
+- [sync PO eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-po.md)
+- [yerel başına dosyalar](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/per_locale_file.md)
 
 </Question>
 <Question title="İçeriğimi anahtar anahtar taşımak zorunda mıyım?">
 
 Hayır. `npx intlayer extract` komutunu çalıştırın; Intlayer kaynak dosyalarınızı okur, kullanıcıya dönük dizeleri çıkarır ve her birinin yanına bir `.content` dosyası yazar, böylece dizeleri tek tek kopyalamak yerine bir diff incelersiniz. Bkz. [extract komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract.md).
 
+- [extract komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract.md)
+
 Tam otomatik bir akış için [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md) derleme sırasında JSX, TSX, Vue ve Svelte kodunda aynı işlemi yapar ve sözlükleri her değişiklikte otomatik üretir, böylece elle anahtar yönetimi gerekmez. Statik analizle çalıştığından, yalnızca çalışma zamanında var olan dizeler kapsam dışı kalır.
+
+- [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md)
 
 </Question>
 <Question title="Hangi editör ve AI aracı araçları mevcuttur?">
@@ -485,10 +517,14 @@ Uygulama otomatik olarak yerel sözlük bildirimine geri döner, böylece bir a�
 
 Evet. CMS verilerinizin ağınızdan çıkmaması gereken kurumsal senaryolar için kendi sunucunuzda çalıştırılabilir. Bkz. [self-hosting kılavuzu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/self_hosting.md).
 
+- [self-hosting kılavuzu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/self_hosting.md)
+
 </Question>
 <Question title="İçerik editörlerinin değişiklik yayınlamak için bir geliştiriciye ihtiyacı var mı?">
 
-Hayır. Uzak sözlüklerin amacı budur: editör metni CMS'te değiştirir ve canlı senkronizasyon (live sync) sayesinde site anında güncellenir.
+Hayır. Uzak sözlüklerin amacı budur: editör metni CMS'te değiştirir ve site bunu yansıtır; [canlı senkronizasyon](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/live.md) güncellemeyi bir build beklemek yerine runtime'da uygular.
+
+- [canlı senkronizasyon](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/live.md)
 
 </Question>
 <Question title="Arayüz yerine CMS'i otomatikleştirebilir miyim?">
@@ -498,12 +534,17 @@ Evet. `@intlayer/api` SDK'sı arayüzle aynı uç noktaları açığa çıkarır
 </Question>
 <Question title="CMS çevirilerde A/B testini destekliyor mu?">
 
-Evet. Uzak sözlükler [içerik varyantlarını](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dynamic_dictionaries/index.md) destekler, bu da farklı kullanıcı kitlelerine farklı metinler sunarak test yapmanıza olanak tanır.
+Evet. Uzak sözlükler [içerik varyantlarını](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dynamic_dictionaries/variants.md) destekler ve [analitik](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/analytics.md) her varyantın nasıl gösterildiğini raporlar; böylece bir ifade değişikliği tartışılmak yerine ölçülebilir.
+
+- [içerik varyantları](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dynamic_dictionaries/variants.md)
+- [analitik](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/analytics.md)
 
 </Question>
 <Question title="CMS ücretsiz mi?">
 
-Intlayer kütüphanesi, CLI, derleyici ve görsel düzenleyici Apache 2.0 lisansı altında ücretsiz ve açık kaynaklıdır. Bulut barındırmalı CMS ücretli bir hizmettir, ancak açık kaynaklı sürümü kendi sunucunuzda ücretsiz çalıştırabilirsiniz.
+Intlayer kütüphanesi, CLI, derleyici ve görsel düzenleyici Apache 2.0 lisansı altında ücretsiz ve açık kaynaklıdır. Barındırılan CMS isteğe bağlı ücretli bir hizmettir ve bunun yerine [kendi sunucunuzda barındırılabilir](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/self_hosting.md).
+
+- [kendi sunucunuzda barındırma](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/self_hosting.md)
 
 </Question>
 

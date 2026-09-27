@@ -175,6 +175,8 @@ export default config;
 
 > Untuk daftar lengkap opsi, lihat [dokumentasi konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md).
 
+- [dokumentasi konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md)
+
 </Step>
 <Step number={3} title="Deklarasikan Konten Anda">
 
@@ -220,6 +222,8 @@ export default appContent;
 ```
 
 > Deklarasi konten dapat berada di mana saja di bawah `contentDir` (secara default `./src`) dan cocok dengan `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`. Lihat [dokumentasi deklarasi konten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md).
+
+- [dokumentasi deklarasi konten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md)
 
 </Step>
 <Step number={4} title="Daftarkan middleware Intlayer">
@@ -641,7 +645,7 @@ Disarankan untuk mengabaikan file yang dihasilkan oleh Intlayer:
 
 Untuk meningkatkan pengalaman pengembangan Anda dengan Intlayer, Anda dapat menginstal **Intlayer VS Code Extension** resmi.
 
-[Instal dari VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [Instal dari VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 Ekstensi ini menyediakan:
 
@@ -652,9 +656,13 @@ Ekstensi ini menyediakan:
 
 Untuk detail lebih lanjut tentang cara menggunakan ekstensi, lihat [dokumentasi Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/vs_code_extension.md).
 
+- [dokumentasi Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/vs_code_extension.md)
+
 ### Lanjutkan Lebih Jauh
 
 Untuk lanjutkan lebih jauh, Anda dapat meneksternalisasi konten Anda menggunakan [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md), sehingga penerjemah dapat mengubah teks tanpa deployment.
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)
 
 ## Pertanyaan yang Sering Diajukan
 
@@ -679,6 +687,9 @@ Tidak. Semua yang dilihat pengunjung diproduksi oleh server, jadi tidak ada yang
 
 Layani halaman Anda di bawah awalan lokal (`/fr/cart`) dan baca lokal dari jalur di penangani rute Anda, bukan dari cookie, untuk rendering halaman lengkap. Fragment dapat terus menggunakan cookie atau header. Lihat [konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md) untuk opsi routing dan [penulisan ulang URL kustom](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/custom_url_rewrites.md).
 
+- [konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md)
+- [penulisan ulang URL kustom](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/custom_url_rewrites.md)
+
 </Question>
 <Question title="Bagaimana cara menangani bahasa dari kanan ke kiri?">
 
@@ -694,25 +705,44 @@ Ya, untuk apa pun yang Anda interpolasi ke dalam template string, persis seperti
 
 Ya. Integrasi backend mengekspos `t()` dan `getIntlayer()` ke handler apa pun, jadi pesan kesalahan yang ditampilkan dalam toast dan label yang dirender ke fragment berasal dari konten yang dideklarasikan sama. Lihat panduan [Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_express.md), [Fastify](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_fastify.md), [Hono](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_hono.md), dan [Elysia](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_elysia.md).
 
+- [Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_express.md)
+- [Fastify](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_fastify.md)
+- [Hono](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_hono.md)
+- [Elysia](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_elysia.md)
+
 </Question>
 <Question title="Apakah saya harus memindahkan konten saya key by key?">
 
 Tidak. Jalankan `npx intlayer extract` dan Intlayer membaca file sumber Anda, mengeluarkan string yang dihadapi pengguna, dan menulis file `.content` di sebelah masing-masing, sehingga Anda meninjau diff alih-alih menyalin string ke dalam katalog satu per satu. Lihat [perintah extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/extract.md).
+
+- [perintah extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/extract.md)
 
 </Question>
 <Question title="Bisakah saya menyimpan file terjemahan JSON yang sudah ada?">
 
 Ya. Plugin [sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/plugins/sync-json.md) menjaga file `/messages/{locale}/{namespace}.json` Anda sebagai sumber kebenaran dan menghasilkan kamus Intlayer darinya, di kedua arah. Plugin [sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/plugins/sync-po.md) melakukan hal yang sama untuk katalog gettext, dan [per locale files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/per_locale_file.md) memungkinkan Anda membagi konten berdasarkan bahasa daripada mengelompokkan lokal dalam satu file.
 
+- [sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/plugins/sync-json.md)
+- [sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/plugins/sync-po.md)
+- [per locale files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/per_locale_file.md)
+
 </Question>
 <Question title="Bagaimana cara menerjemahkan aplikasi secara otomatis dengan AI?">
 
 Jalankan `npx intlayer fill`, yang mengisi terjemahan yang hilang dengan LLM pilihan Anda menggunakan provider dan API key Anda sendiri. Tambahkan `--git-diff` untuk menerjemahkan hanya konten yang berubah di branch. Lihat [perintah fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/fill.md) dan [integrasi CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/CI_CD.md).
 
+- [perintah fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/fill.md)
+- [integrasi CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/CI_CD.md)
+
 </Question>
 <Question title="Apakah Intlayer mendukung gender, kondisi dan nilai interpolasi?">
 
 Ya: [konten berbasis gender](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/gender.md), kondisi, [enumerasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/enumeration.md), [penyisipan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/insertion.md) untuk nilai yang diinterpolasi, dan [formatter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/formatters.md) untuk angka, tanggal, dan mata uang.
+
+- [konten berbasis gender](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/gender.md)
+- [enumerasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/enumeration.md)
+- [penyisipan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/insertion.md)
+- [formatter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/formatters.md)
 
 </Question>
 <Question title="Apa tooling editor dan agen AI yang tersedia?">
@@ -729,6 +759,9 @@ Lima bagian, semuanya opsional:
 <Question title="Apakah Intlayer gratis dan open source?">
 
 Ya, di bawah lisensi Apache 2.0, penggunaan komersial termasuk. [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md) yang di-host adalah layanan berbayar opsional yang juga dapat [di-host sendiri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/self_hosting.md).
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)
+- [di-host sendiri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/self_hosting.md)
 
 </Question>
 

@@ -49,6 +49,8 @@ Intlayer Visual editor, це інструмент, який дозволяє к�
 
 На відміну від цього, [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md), це інструмент, який дозволяє керувати вашим контентом у візуальному редакторі для віддалених словників. Після внесення змін, контент **не** впливає на ваш code-base. А вебсайт автоматично відобразить змінений контент.
 
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)
+
 ## Інтегруйте Intlayer у ваш застосунок
 
 Для детальнішої інформації про те, як інтегрувати intlayer, див. відповідний розділ нижче:
@@ -57,13 +59,19 @@ Intlayer Visual editor, це інструмент, який дозволяє к�
 
 Для інтеграції з Next.js зверніться до [інструкції з налаштування](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_nextjs_15.md).
 
+- [Next.js 15 i18n - Повний посібник з перекладу вашого застосунку](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_nextjs_15.md)
+
 ### Інтеграція з Create React App
 
 Для інтеграції з Create React App зверніться до [керівництва з налаштування](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_create_react_app.md).
 
+- [i18n у Create React App: повний посібник з перекладу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_create_react_app.md)
+
 ### Інтеграція з Vite + React
 
 Для інтеграції з Vite + React зверніться до [керівництва з налаштування](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_vite+react.md).
+
+- [Vite + React i18n - Повний посібник з перекладу вашого застосунку](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_vite+react.md)
 
 ## Як працює Intlayer Editor
 
@@ -147,6 +155,8 @@ export default config;
 ```
 
 > Щоб переглянути всі доступні параметри, зверніться до [документації з конфігурації](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md).
+
+- [документації з конфігурації](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md)
 
 ## Використання редактора
 
@@ -235,22 +245,38 @@ pnpm intlayer-editor start -e development
 
 Значно менше, ніж рішення на основі просторів імен (namespaces), оскільки сторінка ніколи не завантажує каталог, який вона не рендерить. Розмітка, що рендериться на сервері, отримує свій контент безпосередньо на сервері, а компілятор під час збирання замінює виклики `useIntlayer` точними записами словника, які використовує компонент, тому невикористані ключі та мови видаляються. [Динамічні словники](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dynamic_dictionaries/index.md) розділяють залишок за окремими локалями. У порівнянні зі звичними альтернативами Intlayer зменшує розмір бандла та сторінки до 50%. Див. [оптимізацію бандла](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/bundle_optimization.md) та [бенчмарк](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/index.md).
 
+- [Динамічні словники](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dynamic_dictionaries/index.md)
+- [оптимізацію бандла](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/bundle_optimization.md)
+- [бенчмарк](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/index.md)
+
 </Question>
 <Question title="Чи можу я мігрувати з i18next, next-intl або react-i18next без переписування моїх компонентів?">
 
 Так, і для цього є два шляхи. Ви можете переносити контент поступово, користуючись [посібником з міграції з i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/migration_from_i18next_to_intlayer.md) або [посібником з міграції з next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/migration_from_next-intl_to_intlayer.md). Або ви можете повністю зберегти свій поточний API: [адаптери сумісності](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/index.md) надають абсолютно той самий інтерфейс, що й `i18next`, `react-i18next`, `next-intl`, `next-i18next`, `react-intl`, `use-intl`, `vue-i18n` та `Lingui`, але дані беруться зі словників Intlayer, завдяки чому змінюються лише імпорти, а код компонентів залишається незмінним.
+
+- [посібником з міграції з i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/migration_from_i18next_to_intlayer.md)
+- [посібником з міграції з next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/migration_from_next-intl_to_intlayer.md)
+- [адаптери сумісності](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/index.md)
 
 </Question>
 <Question title="Чи можу я зберігати мої існуючі JSON файли перекладів?">
 
 Так. [sync JSON плагін](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/plugins/sync-json.md) зберігає ваші файли `/messages/{locale}/{namespace}.json` як джерело істини та генерує словники Intlayer з них в обох напрямках. [sync PO плагін](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/plugins/sync-po.md) робить те ж саме для gettext каталогів, а [файли для окремих локалей](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/per_locale_file.md) дозволяють розділити контент за мовами замість групування локалей в один файл.
 
+- [sync JSON плагін](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/plugins/sync-json.md)
+- [sync PO плагін](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/plugins/sync-po.md)
+- [файли для окремих локалей](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/per_locale_file.md)
+
 </Question>
 <Question title="Чи потрібно переносити вміст ключ за ключем?">
 
 Ні. Запустіть `npx intlayer extract`, і Intlayer прочитає ваші файли, витягне призначені для користувача рядки і створить файл `.content` поруч із кожним компонентом, завдяки чому ви переглядаєте diff замість копіювання рядків у каталог вручну. Див. [команду extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/extract.md).
 
+- [команду extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/extract.md)
+
 Для повністю автоматизованого робочого процесу [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compiler.md) робить те саме під час збирання у коді JSX, TSX, Vue та Svelte, генеруючи словники під час кожної зміни, тому вручну підтримувати ключі не потрібно. Оскільки він працює через статичний аналіз, динамічні рядки середовища виконання залишаються поза його досяжністю.
+
+- [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compiler.md)
 
 </Question>
 <Question title="Які інструменти для редактора та AI агентів доступні?">
@@ -287,6 +313,8 @@ pnpm intlayer-editor start -e development
 <Question title="Чи можна використовувати візуальний редактор у продакшні?">
 
 Він створений для середовищ розробки та стейджингу, де допустима перезбірка після редагування. Для редагування контенту на живих сайтах рекомендується [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md).
+
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)
 
 </Question>
 <Question title="Яка вартість візуального редактора? Чи не є він надлишковим, якщо він мені не потрібен?">

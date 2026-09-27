@@ -51,6 +51,8 @@ Paraglide は、公式の TanStack Router のサンプルで使用されてい�
 
 > 2つのコンパイラベースのアプローチを比較したいですか？ [Intlayer は Paraglide より軽量か？](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/is_intlayer_lighter_than_paraglide.md)をお読みください。
 
+- [Intlayer は Paraglide より軽量か？](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/is_intlayer_lighter_than_paraglide.md)
+
 > これらのライブラリがどのように生まれたのかを知るには、JavaScript i18n の歴史をご覧ください。
 
 - [JavaScript i18n の歴史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/history_of_i18n.md)
@@ -58,6 +60,8 @@ Paraglide は、公式の TanStack Router のサンプルで使用されてい�
 ## TanStack Start における Paraglide のベンチマーク結果
 
 [i18n ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md)では、主要な各ライブラリを使用して同じ 10 ページ・10 言語の TanStack Start アプリを実行し、ブラウザが実際にダウンロードするサイズを測定しています。
+
+- [i18n ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md)
 
 <I18nBenchmark framework="tanstack" packages="paraglide,intlayer" vertical/>
 
@@ -78,6 +82,8 @@ Paraglide は、公式の TanStack Router のサンプルで使用されてい�
 - **ページ読み込み時間はグループ内で最も遅くなります。** これは、ロケールが React コンテキストから読み取られるのではなく、呼び出しごとに戦略を通じて解決されることが一因です。
 
 > 完全なデータをご覧ください：[TanStack Start ベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md)、および[ベンチマークリポジトリ](https://github.com/intlayer-org/benchmark-i18n)。
+
+- [TanStack Start ベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md)
 
 ## TanStack Start における機能比較
 
@@ -102,6 +108,8 @@ TanStack Start でよく使用される他のライブラリとの Paraglide JS 
 | **CI での未翻訳検出**                      | ✅ `npx intlayer test`                   | ⚠️ 組み込みなし             | ⚠️ 組み込みなし                       | ✅ `lingui compile --strict`        |
 
 > ランタイムサイズと漏洩率の数値は [TanStack Start ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md)に基づいています。漏洩率は各ライブラリの最適構成で測定されています。
+
+- [TanStack Start ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md)
 
 > 他の TanStack Start ガイド：
 
@@ -837,7 +845,12 @@ Paraglide から Intlayer へのドロップインアダプターは存在しま
 
 Paraglide 以外のライブラリから移行する場合は、[互換アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/index.md)を使用することで、`use-intl`、`next-intl`、`react-i18next`、`react-intl`、または Lingui の API を維持したままランタイムを切り替えることができます。
 
+- [互換アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/index.md)
+
 [Intlayer は Paraglide より軽量か？](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/is_intlayer_lighter_than_paraglide.md) および [Intlayer TanStack Start ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_tanstack.md)をご覧ください。
+
+- [Intlayer は Paraglide より軽量か？](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/is_intlayer_lighter_than_paraglide.md)
+- [Intlayer TanStack Start ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_tanstack.md)
 
 </Step>
 <Step number={17} title="Intlayer を使用して翻訳を自動化する" isOptional={true}>
@@ -859,6 +872,8 @@ Paraglide は翻訳のレンダリングを行いますが、翻訳の**生成**
 <Question title="Paraglide JS は TanStack Start に適した選択肢ですか？">
 
 堅実な選択肢の1つです。公式の TanStack Router サンプルで使用されており、[ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md)で最も小さいランタイム（gzip で約 1.8 KB）を持ち、メッセージは完全に型付けされています。トレードオフとしては、すべてのメッセージ関数に全ロケールが含まれるため翻訳文字列の約半分が他言語の訪問者に漏洩すること、およびロケール切り替え時にページ全体がリロードされることが挙げられます。
+
+- [ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md)
 
 </Question>
 <Question title="Paraglide で $locale ルートセグメントは必要ですか？">
@@ -889,6 +904,9 @@ Paraglide は翻訳のレンダリングを行いますが、翻訳の**生成**
 <Question title="Paraglide から Intlayer に移行できますか？">
 
 はい、移行可能です。どちらもコンパイラベースであるため、メンタルモデルは非常に近いです。[JSON 同期プラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md)を使用して既存の JSON ファイルを維持し、ページごとに `m.key()` の呼び出しを `useIntlayer` に置き換えていきます。詳しくは [Intlayer TanStack Start ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_tanstack.md)をご覧ください。
+
+- [JSON 同期プラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md)
+- [Intlayer TanStack Start ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_tanstack.md)
 
 </Question>
 

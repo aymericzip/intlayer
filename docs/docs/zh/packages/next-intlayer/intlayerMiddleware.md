@@ -73,3 +73,5 @@ export const config = {
 ## 配置
 
 要配置中间件，您可以在 `intlayer.config.ts` 文件中设置 `routing` 选项。有关更多详细信息，请参阅[配置](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
+
+- [配置](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)

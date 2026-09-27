@@ -83,10 +83,16 @@ Intlayer は、**コンポーネントレベルのコンテンツスコープ**�
 
 コンテンツを同じ場所に配置すると、大規模言語モデル (LLM) によって**必要なコンテキストが削減**されます。Intlayer には、翻訳の欠落をテストする **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**、および **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)** などのツールスイートも付属しており、AI エージェントの開発者エクスペリエンス (DX) がさらにスムーズになります。
 
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)
+- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)
+
 </Accordion>
 <Accordion header="オートメーション">
 
 AI プロバイダーの費用で、選択した LLM を使用して CI/CD パイプラインで自動化して翻訳します。Intlayer は、コンテンツ抽出を自動化する**コンパイラー**と、**バックグラウンドでの翻訳**を支援する [Web プラットフォーム](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) も提供します。
+
+- [Web プラットフォーム](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="パフォーマンス">
@@ -97,6 +103,9 @@ AI プロバイダーの費用で、選択した LLM を使用して CI/CD パ�
 <Accordion header="非開発者によるスケーリング">
 
 Intlayer は単なる i18n ソリューションではなく、**自己ホスト型[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** と **[完全な CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** を提供し、**リアルタイム**で多言語コンテンツを管理できるようになり、翻訳者、コピーライター、その他のチームメンバーとのコラボレーションがシームレスになります。コンテンツはローカルおよび/またはリモートに保存できます。
+
+- [ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)
+- [完全な CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="バンドルサイズ">
@@ -337,6 +346,8 @@ export default homeScreenContent;
 
 > コンテンツ宣言の詳細については、[Intlayer のコンテンツドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md) を参照してください。
 
+- [Intlayer のコンテンツドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)
+
 </Step>
 <Step number={6} title="コンポーネントで Intlayer を使用する">
 
@@ -388,6 +399,9 @@ export default HomeScreen;
 > `content.someKey` を文字列ベースのプロパティ（例：ボタンの `title` や `Text` コンポーネントの `children`）で使用する場合は、実際の文字列を取得するために **`content.someKey.value` を呼び出してください**。
 
 > アプリケーションが既に存在する場合は、[Intlayer コンパイラ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md) と [抽出コマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md) を組み合わせて、1 秒で何千ものコンポーネントを変換できます。
+
+- [Intlayer コンパイラ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)
+- [抽出コマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md)
 
 </Step>
 <Step number={7} title="アプリのロケールを変更する" isOptional={true}>
@@ -443,6 +457,8 @@ const styles = StyleSheet.create({
 
 > 詳細は [`useLocale` のドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useLocale.md) をご覧ください。
 
+- [`useLocale` のドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useLocale.md)
+
 </Step>
 
 </Steps>
@@ -481,7 +497,7 @@ Intlayer によって自動生成されたファイルをコミットしない�
 
 Intlayer の開発体験を向上させるために、公式の **Intlayer VS Code 拡張機能**をインストールできます。
 
-[VS Code マーケットプレイスからインストール](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [VS Code マーケットプレイスからインストール](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 この拡張機能は以下を提供します：
 
@@ -491,6 +507,8 @@ Intlayer の開発体験を向上させるために、公式の **Intlayer VS Co
 - 翻訳の作成や更新を簡単に行うための**クイックアクション**。
 
 拡張機能の使い方の詳細については、[Intlayer VS Code 拡張機能のドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md) を参照してください。
+
+- [Intlayer VS Code 拡張機能のドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)
 
 ## さらに進む
 
@@ -538,27 +556,43 @@ import "@formatjs/intl-datetimeformat/polyfill";
 
 モバイルではウェブよりもサイズの議論がより重要です。すべてがアプリにバンドルされ、ページごとに取得されないためです。コンポーネントごとにコンテンツをコンパイルすることで、未使用の言語と未使用のキーをバンドルから除外します。[Intlayer を選ぶ理由](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)を参照してください。
 
+- [Intlayer を選ぶ理由](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)
+
 </Question>
 <Question title="i18n はアプリのバンドルサイズにどの程度追加されますか？">
 
 実行時カタログよりもはるかに少なくなります。これはウェブよりもモバイルの方が重要です。すべてがアプリにバンドルされ、ページごとに取得されないためです。Metro プラグインは `useIntlayer` の呼び出しをコンポーネントが使用する正確なエントリに解決するため、未使用のキーと未使用の言語はバイナリに到達しません。通常の代替案と比較すると、Intlayer はバンドルサイズを最大 50% 削減します。[バンドル最適化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)を参照してください。
+
+- [バンドル最適化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)
 
 </Question>
 <Question title="`i18n-js` または `react-i18next` からコンポーネントを書き直さずに移行できますか？">
 
 はい、2 つのパスがあります。[i18n-js 移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/i18n-js.md)または [react-i18next 移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_react-i18next_to_intlayer.md)を使用してコンテンツを段階的に移行できます。または、現在の API を完全に保持できます。[互換性アダプタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/index.md)は `react-i18next` と `react-intl` と同じ API を公開しますが、Intlayer 辞書によって提供されるため、インポートは変わりますがコンポーネントコードは変わりません。
 
+- [i18n-js 移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/i18n-js.md)
+- [react-i18next 移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_react-i18next_to_intlayer.md)
+- [互換性アダプタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/index.md)
+
 </Question>
 <Question title="既存の JSON 翻訳ファイルを保持できますか？">
 
 はい。[sync JSON プラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md)は `/messages/{locale}/{namespace}.json` ファイルを信頼できるソースとして保持し、双方向で Intlayer 辞書を生成します。[sync PO プラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-po.md)は gettext カタログに対して同じことを行い、[ロケールごとのファイル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/per_locale_file.md)ではロケールを 1 つのファイルにグループ化する代わりに、言語ごとにコンテンツを分割できます。
+
+- [sync JSON プラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md)
+- [sync PO プラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-po.md)
+- [ロケールごとのファイル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/per_locale_file.md)
 
 </Question>
 <Question title="コンテンツをキーごとに移動する必要がありますか？">
 
 いいえ。`npx intlayer extract` を実行すると、Intlayer はソースファイルを読み取り、ユーザーに表示される文字列を抽出し、各ファイルの隣に `.content` ファイルを書き込むため、文字列をカタログに 1 つずつコピーする代わりに diff をレビューします。[extract コマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md)を参照してください。
 
+- [extract コマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md)
+
 完全に自動化されたパイプラインの場合、[Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md) はビルド時に JSX、TSX、Vue、Svelte ソースに対して同じことを行い、変更のたびに辞書を生成するため、手動で管理するキーはありません。静的分析によって動作するため、実行時にのみ存在する文字列は到達不可能であり、ユーザーに表示されるテキストをアプリケーションロジックから区別するために、いくつかのアノテーションが必要です。
+
+- [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)
 
 </Question>
 <Question title="利用可能なエディタと AI エージェントツールは何ですか？">
@@ -596,20 +630,34 @@ import "@formatjs/intl-datetimeformat/polyfill";
 
 `npx intlayer fill` を実行します。これは選択した LLM を使用して、独自のプロバイダーと API キーで不足している翻訳を入力し、`--git-diff` は実行をブランチで変更されたコンテンツに制限します。[fill コマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/fill.md)と [CI/CD 統合](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/CI_CD.md)を参照してください。
 
+- [fill コマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/fill.md)
+- [CI/CD 統合](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/CI_CD.md)
+
 </Question>
 <Question title="Intlayer は複数形、性別、リッチテキストをサポートしていますか？">
 
 はい: [複数形](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/plurial.md)、[性別ベースのコンテンツ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/gender.md)、条件、[挿入](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/insertion.md)、[Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/markdown.md)、および数値、日付、通貨の[フォーマッタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/formatters.md)。
+
+- [複数形](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/plurial.md)
+- [性別ベースのコンテンツ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/gender.md)
+- [挿入](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/insertion.md)
+- [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/markdown.md)
+- [フォーマッタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/formatters.md)
 
 </Question>
 <Question title="翻訳者がコードに触れずにコンテンツを編集するにはどうすればよいですか？">
 
 [ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を通じて、独自のインフラストラクチャで実行され、誰でも実行中のアプリでテキストをその場で編集できます。または [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md) を通じて、コンテンツを外部化して、デプロイメントなしに変更できます。
 
+- [ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)
+
 </Question>
 <Question title="Intlayer は無料でオープンソースですか？">
 
 はい、Apache 2.0 ライセンスの下で、商用利用を含みます。ホストされた CMS はオプションの有料サービスで、[自己ホスト](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/self_hosting.md)することもできます。
+
+- [自己ホスト](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/self_hosting.md)
 
 </Question>
 

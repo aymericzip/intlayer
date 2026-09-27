@@ -25,6 +25,8 @@ author: aymericzip
 
 Для полного и подробного пошагового учебника см. наше полное [руководство по миграции next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/migration_from_next-intl_to_intlayer.md).
 
+- [руководство по миграции next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/migration_from_next-intl_to_intlayer.md)
+
 Миграция с `next-intl` на Intlayer позволяет вам полностью сохранить маршрутизацию и синтаксис приложения.
 
 ## Что делать

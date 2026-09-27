@@ -43,7 +43,12 @@ Mit diesem Ansatz können Sie:
 
 > Als Alternative können Sie auch die [next-intl Anleitung](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/i18n_using_next-intl.md) oder direkt [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_nextjs_16.md) verwenden.
 
+- [next-intl Anleitung](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/i18n_using_next-intl.md)
+- [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_nextjs_16.md)
+
 > Siehe den Vergleich in [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/next-i18next_vs_next-intl_vs_intlayer.md).
+
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/next-i18next_vs_next-intl_vs_intlayer.md)
 
 > Um zu verstehen, woher diese Bibliotheken kommen, lesen Sie die Geschichte von i18n in JavaScript.
 
@@ -52,6 +57,8 @@ Mit diesem Ansatz können Sie:
 ## Was der Benchmark über next-i18next mit Next.js sagt
 
 Bevor es an die Einrichtung geht, sollten Sie verstehen, wie sich Ihre i18n-Bibliothek auf Performance und Bundle auswirkt. Der [i18n-Benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/nextjs.md) führt dieselbe Next.js-Anwendung mit 10 Seiten und 10 Locales mit den wichtigsten i18n-Bibliotheken aus, um den realen Bundle-Footprint, das String-Leaking und den Hydration-Overhead zu messen.
+
+- [i18n-Benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/nextjs.md)
 
 <I18nBenchmark framework="nextjs" packages="next-i18next,@intlayer/next-i18next,next-intlayer" vertical/>
 
@@ -77,6 +84,8 @@ Das Wichtigste:
 - **Runtime-Gewicht:** Die `i18next`-Client-Runtime wiegt auf jeder Seite ~19.7 KB gzip. Für bestehende Codebases behält der Compat-Adapter [`@intlayer/next-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compat/next-i18next.md) dieselbe `i18next`-API bei, reduziert die Runtime auf 9.4 KB und beseitigt das Leaking. Natives [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/next-intlayer/exports.md) kommt auf 5.5 KB.
 
 > Alle Daten: [Next.js-Benchmark-Bericht](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/nextjs.md) und das [Benchmark-Repository](https://github.com/intlayer-org/benchmark-i18n).
+
+- [Next.js-Benchmark-Bericht](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/nextjs.md)
 
 ## Funktionsvergleich mit Next.js
 
@@ -104,6 +113,9 @@ So schneidet `next-i18next` im Vergleich zu `next-intl` und Intlayer bei den Fun
 | **Ökosystem / Community**                   | ⚠️ Kleiner, wächst schnell                       | ✅ Groß                                              | ✅ Sehr groß                                    |
 
 > Die Runtime-Größen stammen aus dem [Next.js-Benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/nextjs.md). Eine ausführliche Diskussion finden Sie in [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/next-i18next_vs_next-intl_vs_intlayer.md).
+
+- [Next.js-Benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/nextjs.md)
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/next-i18next_vs_next-intl_vs_intlayer.md)
 
 ## Praktiken, die Sie befolgen sollten
 
@@ -133,6 +145,8 @@ Bevor wir in die Implementierung einsteigen, hier einige Praktiken, die Sie befo
   Automatisierte Tests und Übersetzungen helfen, Zeit bei der Pflege Ihrer mehrsprachigen Anwendung zu sparen.
 
 > Siehe unsere Dokumentation, die alles auflistet, was Sie über Internationalisierung und SEO wissen müssen: [Internationalisierung (i18n) mit next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/internationalization_and_SEO.md).
+
+- [Internationalisierung (i18n) mit next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/internationalization_and_SEO.md)
 
 ## Schritt-für-Schritt-Anleitung zur Einrichtung von i18next in einer Next.js-Anwendung
 
@@ -1186,6 +1200,8 @@ Intlayer ermöglicht Ihnen:
   Intlayer bietet einen kostenlosen visuellen Editor, um Ihre Inhalte visuell zu bearbeiten. Erfahren Sie mehr über das [visuelle Bearbeiten Ihrer Übersetzungen](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md).
 
 Und mehr. Um alle von Intlayer bereitgestellten Funktionen zu entdecken, lesen Sie bitte die [Interessen der Intlayer-Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/interest_of_intlayer.md).
+
+- [Interessen der Intlayer-Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/interest_of_intlayer.md)
 
 Ausführliche Performance-Benchmarks und Vergleiche finden Sie hier:
 

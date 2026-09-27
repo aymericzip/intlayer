@@ -30,7 +30,7 @@ author: aymericzip
 
 # Server LSP Intlayer
 
-**Language server Intlayer** adalah implementasi [Language Server Protocol (LSP)](https://microsoft.github.io/language-server-protocol/) yang membuat IDE — dan agen AI — Anda memahami Intlayer. Ia menghubungkan pemanggilan seperti `useIntlayer("home")` dengan berkas `.content.ts` yang mendeklarasikannya, dua arah.
+**Language server Intlayer** adalah implementasi [Language Server Protocol (LSP)](https://microsoft.github.io/language-server-protocol/) yang membuat IDE, dan agen AI, Anda memahami Intlayer. Ia menghubungkan pemanggilan seperti `useIntlayer("home")` dengan berkas `.content.ts` yang mendeklarasikannya, dua arah.
 
 ## Fitur
 
@@ -44,8 +44,8 @@ author: aymericzip
 
 Ada dua perilaku tambahan yang perlu diketahui:
 
-- **Kamus tergabung** — kunci yang terbagi di beberapa berkas konten mengembalikan satu hasil per berkas, sehingga Anda dapat menuju setiap deklarasi.
-- **Ramah monorepo** — server menyelesaikan `intlayer.config.*` yang _terdekat_ dengan setiap berkas, sehingga beberapa proyek dalam satu workspace masing-masing memiliki kamusnya sendiri.
+- **Kamus tergabung**: kunci yang terbagi di beberapa berkas konten mengembalikan satu hasil per berkas, sehingga Anda dapat menuju setiap deklarasi.
+- **Ramah monorepo**: server menyelesaikan `intlayer.config.*` yang _terdekat_ dengan setiap berkas, sehingga beberapa proyek dalam satu workspace masing-masing memiliki kamusnya sendiri.
 
 ### Pemanggilan yang didukung
 
@@ -62,7 +62,7 @@ Kunci dibaca dari argumen string posisional atau dari objek opsi (`{ namespace }
 
 Ini berlaku untuk semua paket `*-intlayer` (`next-intlayer`, `react-intlayer`, `vue-intlayer`, `svelte-intlayer`, `solid-intlayer`, `preact-intlayer`, `angular-intlayer`, `lit-intlayer`, `express-intlayer`, `hono-intlayer`, `fastify-intlayer`, `intlayer`), serta untuk paket adapter compat yang memungkinkan Anda mempertahankan sintaks i18n yang sudah ada.
 
-> Kamus dibaca dari hasil build, jadi jalankan `npx intlayer build` — atau biarkan dev server tetap berjalan — agar server punya sesuatu untuk diselesaikan.
+> Kamus dibaca dari hasil build, jadi jalankan `npx intlayer build`, atau biarkan dev server tetap berjalan, agar server punya sesuatu untuk diselesaikan.
 
 ## Instalasi
 
@@ -84,21 +84,23 @@ pnpm add --save-dev @intlayer/lsp
 bun add --dev @intlayer/lsp
 ```
 
-Pasang secara global (`npm install -g @intlayer/lsp`) bila editor Anda membutuhkan `intlayer-lsp` di `PATH` — ini berlaku untuk plugin Claude Code dan untuk setiap konfigurasi di bawah yang memanggil biner secara langsung.
+Pasang secara global (`npm install -g @intlayer/lsp`) bila editor Anda membutuhkan `intlayer-lsp` di `PATH`, ini berlaku untuk plugin Claude Code dan untuk setiap konfigurasi di bawah yang memanggil biner secara langsung.
 
 ## Penyiapan
 
 <Tabs defaultTab="vscode">
   <Tab label="VS Code" value="vscode">
 
-Pasang [ekstensi Intlayer untuk VS Code](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension). Language server sudah disertakan sejak v8.12.0 dan berjalan otomatis — **tanpa konfigurasi apa pun**.
+Pasang [ekstensi Intlayer untuk VS Code](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension). Language server sudah disertakan sejak v8.12.0 dan berjalan otomatis, **tanpa konfigurasi apa pun**.
 
 Lihat [dokumentasi ekstensi VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/vs_code_extension.md) untuk fitur lainnya.
+
+- [dokumentasi ekstensi VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/vs_code_extension.md)
 
   </Tab>
   <Tab label="Cursor / Windsurf" value="cursor">
 
-[Cursor](https://www.cursor.com/) dan [Windsurf](https://windsurf.com/) adalah fork VS Code dan memakai ekosistem ekstensi yang sama. Pasang [ekstensi Intlayer untuk VS Code](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) sekali dan server aktif otomatis — **tanpa konfigurasi apa pun**.
+[Cursor](https://www.cursor.com/) dan [Windsurf](https://windsurf.com/) adalah fork VS Code dan memakai ekosistem ekstensi yang sama. Pasang [ekstensi Intlayer untuk VS Code](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) sekali dan server aktif otomatis, **tanpa konfigurasi apa pun**.
 
   </Tab>
   <Tab label="Claude Code" value="claude-code">
@@ -114,7 +116,7 @@ claude plugin marketplace add intlayer@github:aymericzip/intlayer
 claude plugin install intlayer-lsp@intlayer
 ```
 
-`install` sekaligus mengaktifkan plugin. **Mulai ulang Claude Code** — language server dimuat saat startup, jadi sebelum itu plugin belum berpengaruh.
+`install` sekaligus mengaktifkan plugin. **Mulai ulang Claude Code**, language server dimuat saat startup, jadi sebelum itu plugin belum berpengaruh.
 
 Claude Code kemudian menjalankan server pada berkas `.ts`, `.tsx`, `.js`, `.jsx`, `.vue`, `.astro`, dan `.svelte`, serta memakai `goToDefinition`, `findReferences`, dan `hover` saat menelusuri kode Anda.
 
@@ -240,10 +242,10 @@ language-servers = ["intlayer-lsp", "typescript-language-server"]
 
 Editor apa pun yang mendukung LSP dapat menjalankan `@intlayer/lsp`. Arahkan ke:
 
-- **Executable** — `npx @intlayer/lsp`, atau biner `intlayer-lsp`
-- **Transport** — stdio (standar)
-- **Kapabilitas** — `definitionProvider`, `referencesProvider`, `hoverProvider`, `completionProvider` (karakter pemicu `"` `'` `` ` `` `.`), diagnostik push, `textDocumentSync: Incremental`
-- **Pola root** — `intlayer.config.ts`, `intlayer.config.js`, `package.json`
+- **Executable**: `npx @intlayer/lsp`, atau biner `intlayer-lsp`
+- **Transport**: stdio (standar)
+- **Kapabilitas**: `definitionProvider`, `referencesProvider`, `hoverProvider`, `completionProvider` (karakter pemicu `"` `'` `` ` `` `.`), diagnostik push, `textDocumentSync: Incremental`
+- **Pola root**: `intlayer.config.ts`, `intlayer.config.js`, `package.json`
 
 Lihat dokumentasi LSP editor Anda untuk format konfigurasi yang tepat.
 
@@ -252,7 +254,7 @@ Lihat dokumentasi LSP editor Anda untuk format konfigurasi yang tepat.
 
 ## Catatan tentang agen AI di terminal
 
-**Claude Code** bertindak sebagai klien LSP sungguhan — lihat tab di atas.
+**Claude Code** bertindak sebagai klien LSP sungguhan, lihat tab di atas.
 
 **OpenAI Codex** dan sebagian besar alat terminal lain bukan klien LSP: mereka membaca dan menulis berkas secara langsung. Menjalankan server sendirian tidak membantu mereka; manfaatnya muncul saat server aktif di editor pendamping yang indeksnya bisa dikueri oleh agen (Cursor Composer, Windsurf Cascade, Copilot Chat).
 
@@ -271,10 +273,10 @@ Pada setiap permintaan, server mem-parsing dokumen (via [oxc](https://oxc.rs/)) 
 | Gejala                                      | Kemungkinan penyebab            | Solusi                                                                                 |
 | ------------------------------------------- | ------------------------------- | -------------------------------------------------------------------------------------- |
 | Tidak terjadi apa-apa                       | Server tidak berjalan           | Periksa `@intlayer/lsp` sudah terpasang dan editor Anda menjalankannya                 |
-| Bekerja di editor, tidak di Claude Code     | Plugin dipasang di tengah sesi  | Mulai ulang Claude Code — language server dimuat saat startup                          |
+| Bekerja di editor, tidak di Claude Code     | Plugin dipasang di tengah sesi  | Mulai ulang Claude Code, language server dimuat saat startup                           |
 | Definisi untuk sebuah kunci tidak ditemukan | Kamus belum dibangun            | Jalankan `npx intlayer build`, atau mulai dev server Anda                              |
 | Semua kunci dilaporkan tidak dideklarasikan | Konfigurasi tidak terselesaikan | Pastikan ada `intlayer.config.ts` (atau `.js`) di root proyek Anda                     |
 | Proyek yang salah dipakai di monorepo       | Konfigurasi per paket tidak ada | Tambahkan `intlayer.config.*` pada setiap paket yang mendeklarasikan kontennya sendiri |
 | Server crash saat mulai                     | Versi Node.js terlalu lama      | Membutuhkan Node.js ≥ 14.18                                                            |
 
-Di VS Code, server menulis log ke **View → Output → "Intlayer LSP"** — berguna untuk memastikan konfigurasi mana yang terselesaikan dan berapa kamus yang ditemukan.
+Di VS Code, server menulis log ke **View → Output → "Intlayer LSP"**, berguna untuk memastikan konfigurasi mana yang terselesaikan dan berapa kamus yang ditemukan.

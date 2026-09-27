@@ -176,4 +176,6 @@ const text = t(translations);
 
 अधिक विस्तृत उपयोग और उन्नत सुविधाओं के लिए, कृपया [react-intlayer प्रलेखन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) देखें।
 
+- [react-intlayer प्रलेखन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md)
+
 **ध्यान दें**: याद रखें कि अपने `IntlayerProvider` को सही ढंग से सेट अप करें ताकि वर्तमान लोकल आपके घटकों तक सही ढंग से पहुंचाया जा सके। यह `t` फ़ंक्शन के लिए सही अनुवाद लौटाने के लिए अत्यंत महत्वपूर्ण है।

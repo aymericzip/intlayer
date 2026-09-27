@@ -104,13 +104,13 @@ npx intlayer init infra --mode compose
 
        ./intlayer/.env
 
-     Either RESEND_API_KEY (resend.com) or the MAIL_SMTP_* block — the first
+     Either RESEND_API_KEY (resend.com) or the MAIL_SMTP_* block, the first
      account cannot be verified without a working mailer.
   2. Start the stack:
 
        cd ./intlayer && docker compose up -d
 
-  Then open http://localhost:3000 — first boot initialises the
+  Then open http://localhost:3000, first boot initialises the
   datastores, so give it a minute. The first account you create becomes the
   super admin.
 
@@ -118,6 +118,10 @@ npx intlayer init infra --mode compose
     Stop      docker compose down
     Upgrade   docker compose pull && docker compose up -d
 ```
+
+Bir alan adı verildiğinde (örneğin `example.org`), yükleyici gösterge paneli, API ve nesne depolama için `https://cms.example.org`, `https://back.example.org` ve `https://s3.example.org/intlayer` adreslerini önerir, bunları ortam dosyasına yazar ve yayınlanan gösterge paneli imajı yalnızca `localhost` üzerinde çalıştığı için başlatma komutunu depodan derlemeye geçirir. Bkz. [Özel alan adı](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/self_hosting.md#custom-domain).
+
+- [Özel alan adı](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/self_hosting.md#custom-domain)
 
 ## Yükleyici ayarları
 
@@ -143,6 +147,8 @@ INTLAYER_COMPOSE_DIR=./cms npx intlayer init infra --mode compose
 | `INTLAYER_SELFHOST_REF`   | `main`                    | ikisi de        | Compose dosyası ve ortam şablonunun getirildiği Git referansı |
 
 > Bağlantı noktası değişkenleri eşlemenin yalnızca **ana bilgisayar (host)** tarafını değiştirir. Yayınlanan imajlarda gösterge paneli paketinde `http://localhost:3000`, `http://localhost:3100` ve `http://localhost:9000` derlenmiştir; bu nedenle kendi imajlarınızı oluşturmadığınız sürece varsayılan değerleri koruyun: [kendi sunucunuzda barındırma kılavuzuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/self_hosting.md#limitations) bakın.
+
+- [kendi sunucunuzda barındırma kılavuzuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/self_hosting.md#limitations)
 
 ## Gereksinimler
 

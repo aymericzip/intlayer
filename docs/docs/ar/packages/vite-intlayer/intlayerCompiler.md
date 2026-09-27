@@ -27,9 +27,11 @@ author: aymericzip
 
 # intlayerCompiler
 
-`intlayerCompiler` هو عبارة عن إضافة لـ Vite يقوم بفحص ملفات المكونات البرمجية بحثًا عن **إعلانات محتوى Intlayer المضمنة** — وهو المحتوى المعرف مباشرة داخل المكون بدلاً من ملف منفصل `.content.ts` — ويكتبها في ملفات قاموس JSON خلال مرحلة التحويل (transform).
+`intlayerCompiler` هو عبارة عن إضافة لـ Vite يقوم بفحص ملفات المكونات البرمجية بحثًا عن **إعلانات محتوى Intlayer المضمنة**، وهو المحتوى المعرف مباشرة داخل المكون بدلاً من ملف منفصل `.content.ts`، ويكتبها في ملفات قاموس JSON خلال مرحلة التحويل (transform).
 
 > **بدءاً من إطلاق Intlayer v9** يتم تضمين `intlayerCompiler` تلقائيًا داخل الإضافة الأساسية [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/vite-intlayer/intlayer.md) عندما يكون كل من `compiler.enabled` هو `true` وتحديد مسار المخرجات `compiler.output` في إعدادات Intlayer الخاصة بك. تحتاج فقط إلى تسجيلها بشكل منفصل إذا كنت تريد التحكم الكامل في إعدادات المترجم المحددة.
+
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/vite-intlayer/intlayer.md)
 
 ## الاستخدام
 
@@ -118,4 +120,4 @@ intlayerCompiler({
 
 ### إزالة التكرار (Deduplication)
 
-يستخدم `intlayerCompiler` نفس آلية إزالة التكرار `createPrimaryInstanceGuard` المستخدمة في الإضافات المدمجة الأخرى. عندما يتواجد كل من `intlayer()` (الذي يتضمن المترجم) واستدعاء يدوي لـ `intlayerCompiler()` ، يتم تشغيل المثيل الأول المسجل فقط — ولا يتم كتابة أي قواميس مرتين.
+يستخدم `intlayerCompiler` نفس آلية إزالة التكرار `createPrimaryInstanceGuard` المستخدمة في الإضافات المدمجة الأخرى. عندما يتواجد كل من `intlayer()` (الذي يتضمن المترجم) واستدعاء يدوي لـ `intlayerCompiler()` ، يتم تشغيل المثيل الأول المسجل فقط، ولا يتم كتابة أي قواميس مرتين.

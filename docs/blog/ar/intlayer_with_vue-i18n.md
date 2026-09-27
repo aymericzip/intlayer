@@ -41,9 +41,13 @@ author: aymericzip
 
 اطلع على مقارنة ملموسة مع vue-i18n في منشور مدونتنا [vue-i18n مقابل Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/vue-i18n_vs_intlayer.md).
 
+- [vue-i18n مقابل Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/vue-i18n_vs_intlayer.md)
+
 ## لماذا الجمع بين Intlayer و vue-i18n؟
 
 بينما يوفر Intlayer حلاً مستقلاً ممتازًا للتدويل (راجع دليل التكامل مع Vue.js الخاص بنا [دليل التكامل مع Vue.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+vue.md))، قد ترغب في دمجه مع vue-i18n لأسباب عدة:
+
+- [دليل التكامل مع Vue.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+vue.md)
 
 1. **قاعدة الشيفرة الحالية**: لديك تنفيذ قائم لـ vue-i18n وترغب في الانتقال تدريجيًا إلى تجربة المطور المحسنة التي يقدمها Intlayer.
 2. **متطلبات قديمة**: يتطلب مشروعك التوافق مع الإضافات أو سير العمل الحالي لـ vue-i18n.
@@ -144,6 +148,8 @@ export default config;
 
 للاطلاع على مزيد من التفاصيل حول مكون `syncJSON` الإضافي، يرجى الرجوع إلى [توثيق مكون syncJSON الإضافي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/plugins/sync-json.md).
 
+- [توثيق مكون syncJSON الإضافي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/plugins/sync-json.md)
+
 </Step>
 <Step number={3} title="تنفيذ ترجمات JSON لكل مكون على حدة">
 
@@ -206,6 +212,4 @@ export default config;
 
 لتحسين تجربة المطور، قم بتثبيت **إضافة Intlayer الرسمية لـ VS Code**:
 
-[التثبيت من سوق VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-[التثبيت من سوق VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [التثبيت من سوق VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

@@ -143,9 +143,13 @@ intlayer({ proxy: { ignore: (req) => req.url?.startsWith("/api") } });
 
 Xem [tài liệu intlayerProxy](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/vite-intlayer/intlayerProxy.md) để tham khảo đầy đủ về hành vi định tuyến.
 
+- [tài liệu intlayerProxy](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/vite-intlayer/intlayerProxy.md)
+
 ### 5. Trình biên dịch được đóng gói (v9+)
 
 Khi `compiler.enabled` là `true` **và** `compiler.output` được đặt trong cấu hình Intlayer của bạn, `intlayer()` sẽ tự động đăng ký `intlayerCompiler`. Trình biên dịch trích xuất các khai báo nội dung nội tuyến được viết trực tiếp bên trong các tệp thành phần và ghi chúng vào các từ điển tại thời điểm chuyển đổi. Xem [tài liệu intlayerCompiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/vite-intlayer/intlayerCompiler.md).
+
+- [tài liệu intlayerCompiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/vite-intlayer/intlayerCompiler.md)
 
 ### 6. Tối ưu hóa Build
 

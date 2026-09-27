@@ -221,4 +221,6 @@ const text = t(translations);
 
 لمزيد من الاستخدام التفصيلي والميزات المتقدمة، يرجى الرجوع إلى [توثيق next-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md).
 
+- [توثيق next-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)
+
 **ملاحظة**: تذكر إعداد `IntlayerClientProvider` و `IntlayerServerProvider` بشكل صحيح لضمان تمرير اللغة الحالية بشكل صحيح إلى مكوناتك. هذا أمر بالغ الأهمية لكي تقوم دالة `t` بإرجاع الترجمات الصحيحة.

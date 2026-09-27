@@ -34,6 +34,8 @@ author: aymericzip
 
 Для більш детальної інформації про те, як оголошувати перелічення, див. [документацію Enumeration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/enumeration.md).
 
+- [документацію Enumeration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/enumeration.md)
+
 ## Параметри
 
 - `enumerationContent: QuantityContent<Content>`

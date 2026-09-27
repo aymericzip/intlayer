@@ -31,6 +31,9 @@ author: aymericzip
 
 Інструменти перевірки покриття також легко переносяться: із [плагіном Sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/plugins/sync-json.md), спрямованим на ваші каталоги, або [адаптером сумісності](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/index.md), що створює псевдоніми для ваших поточних імпортів, перевірка покриття запускається безпосередньо над наявним JSON.
 
+- [плагіном Sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/plugins/sync-json.md)
+- [адаптером сумісності](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/index.md)
+
 ## Визначте, що ви насправді тестуєте
 
 Якість перекладу неможливо перевірити тестом коду. Жодне твердження не підкаже, чи звучить німецька мова природно, а спроба це зробити призведе до наповнення коду захардкодzoneними рядками.
@@ -46,6 +49,8 @@ author: aymericzip
 | Форматовані дати та числа враховують локаль  | Внутрішню коректність `Intl`    |
 
 Перевірка покриття має виконуватися в одному тесті на основі даних, а не в тестах окремих компонентів. Це докладно описано у статті [як виявляти відсутні переклади](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/detecting_missing_translations.md); цей матеріал присвячений решті аспектів.
+
+- [як виявляти відсутні переклади](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/detecting_missing_translations.md)
 
 ## Рендеринг всередині провайдера та запит за роллю
 
@@ -122,6 +127,8 @@ describe.each([0, 1, 2, 3, 11, 100])("кількість %i", (count) => {
 ```
 
 Вибирайте значення, які потрапляють у кожну категорію CLDR для найскладнішої мови, замість того, щоб скрізь перевіряти лише 1 та 2. `Intl.PluralRules` підказує, до якої категорії належить число, що дозволяє формувати вибірку без ворожіння. Більше про категорії у [статті про формат повідомлень ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/icu_message_format.md).
+
+- [статті про формат повідомлень ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/icu_message_format.md)
 
 ## Пастка снепшотів (Snapshots)
 

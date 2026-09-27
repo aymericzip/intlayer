@@ -31,7 +31,7 @@ author: aymericzip
 
 # Tích hợp Angular: Tài liệu Hook `usePathname`
 
-Hook `usePathname` trả về đường dẫn trình duyệt hiện tại với phần ngôn ngữ (locale) đã bị loại bỏ, dưới dạng một Angular `Signal<string>`. Điều này hữu ích để xây dựng điều hướng nhận biết ngôn ngữ — ví dụ, xác định mục điều hướng nào đang hoạt động — mà không cần phải loại bỏ thủ công tiền tố ngôn ngữ.
+Hook `usePathname` trả về đường dẫn trình duyệt hiện tại với phần ngôn ngữ (locale) đã bị loại bỏ, dưới dạng một Angular `Signal<string>`. Điều này hữu ích để xây dựng điều hướng nhận biết ngôn ngữ (ví dụ, xác định mục điều hướng nào đang hoạt động) mà không cần phải loại bỏ thủ công tiền tố ngôn ngữ.
 
 ## Nhập `usePathname` trong Angular
 

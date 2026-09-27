@@ -31,6 +31,8 @@ author: aymericzip
 
 > [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/vite-intlayer/intlayer.md)를 사용하면 이 플러그인은 자동으로 포함되고 구성됩니다. 플러그인 스택을 직접 구성할 때만 수동으로 등록해야 합니다.
 
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/vite-intlayer/intlayer.md)
+
 ## 사용법
 
 ```ts
@@ -63,8 +65,8 @@ export default defineConfig({
 
 플러그인은 `intlayer.system`에서 확인된 다음 두 개의 사전 위치를 대상으로 합니다:
 
-- `dictionariesDir` — 정적 모든 언어 사전 (예: `.intlayer/dictionaries/*.json`)
-- `dynamicDictionariesDir` — 언어별 동적 사전
+- `dictionariesDir`: 정적 모든 언어 사전 (예: `.intlayer/dictionaries/*.json`)
+- `dynamicDictionariesDir`: 언어별 동적 사전
 
 > 페치 모드 사전(`fetchDictionariesDir`)은 런타임에 원래 필드 이름을 사용하여 원격 API에서 제공되므로 **절대** 압축되지 않습니다. 필드 이름을 바꾸면 서버 응답과 클라이언트 측 속성 액세스 사이에 불일치가 발생할 수 있기 때문입니다.
 

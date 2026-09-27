@@ -92,6 +92,8 @@ style="border:none;"
 
 > Measured in a production browser build across 10 routes and 10 locales with gzip compression. Details in the [i18n benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/index.md).
 
+- [i18n benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/index.md)
+
 ### Baseline Framework Overhead
 
 Footprint before adding any translated text:
@@ -171,6 +173,9 @@ return <h1>{title}</h1>;
 
 The [Intlayer compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compiler.md) inspects what `Hero.tsx` actually consumes and tree-shakes unreferenced fields before emitting client bundles. See [bundle optimization](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/bundle_optimization.md) for architectural details.
 
+- [Intlayer compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compiler.md)
+- [bundle optimization](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/bundle_optimization.md)
+
 ## Developer Experience
 
 ### Disconnected JSON vs. Co-Location
@@ -237,6 +242,8 @@ When you move or delete `Hero.tsx`, its copy moves or gets deleted alongside it.
 Augmenting `CustomTypeOptions` gives IDE autocomplete for keys, but does not guarantee safety. Deleting a key from `fr/home.json` won't fail your build; it only triggers a runtime fallback.
 
 Intlayer infers types directly from content declarations, and [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md) turns missing translations into strict build errors.
+
+- [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)
 
 ### Tooling Comparison
 

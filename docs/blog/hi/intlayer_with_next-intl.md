@@ -40,6 +40,8 @@ author: aymericzip
 
 अधिक जानकारी के लिए हमारे [next-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/next-i18next_vs_next-intl_vs_intlayer.md) ब्लॉग पोस्ट में एक ठोस तुलना देखें।
 
+- [next-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/next-i18next_vs_next-intl_vs_intlayer.md)
+
 देखें एक ठोस तुलना next-intl के साथ हमारे [next-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/next-i18next_vs_next-intl_vs_intlayer.md) ब्लॉग पोस्ट में।
 
 ## Intlayer को next-intl के साथ क्यों मिलाएं?
@@ -149,6 +151,8 @@ export default config;
 
 `syncJSON` प्लगइन के बारे में अधिक विवरण देखने के लिए, कृपया [syncJSON प्लगइन दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-json.md) देखें।
 
+- [syncJSON प्लगइन दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-json.md)
+
 </Step>
 <Step number={3} title="प्रति-कॉम्पोनेंट JSON अनुवाद लागू करें">
 
@@ -211,4 +215,4 @@ export default config;
 
 बेहतर डेवलपर अनुभव के लिए, आधिकारिक **Intlayer VS कोड एक्सटेंशन** इंस्टॉल करें:
 
-[VS कोड मार्केटप्लेस से इंस्टॉल करें](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [VS कोड मार्केटप्लेस से इंस्टॉल करें](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

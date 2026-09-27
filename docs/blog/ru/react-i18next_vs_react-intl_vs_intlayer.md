@@ -136,6 +136,9 @@ author: aymericzip
 
 > Полная таблица в [отчёте бенчмарка TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/tanstack.md) и в [обзоре i18n-бенчмарков](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/index.md).
 
+- [отчёте бенчмарка TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/tanstack.md)
+- [обзоре i18n-бенчмарков](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/index.md)
+
 ### 6) DX, инструменты и сопровождение
 
 - **react-intl / react-i18next**: Широкая экосистема сообщества; для редакционных рабочих процессов обычно используют внешние платформы локализации.
@@ -185,3 +188,5 @@ author: aymericzip
 - Если ваша команда ценит **поддерживаемость и скорость** в многоязычных, компонентно-ориентированных React-приложениях, Intlayer предлагает сегодня **самый полный** рабочий процесс для разработчиков и контента.
 
 Подробнее см. в документе [«Почему Intlayer?»](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/interest_of_intlayer.md).
+
+- [Почему Intlayer? Преимущества перед другими i18n-библиотеками](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/interest_of_intlayer.md)

@@ -30,6 +30,8 @@ author: aymericzip
 
 Bài viết này đo lường việc thay thế đó trên cùng một ứng dụng Vite + Vue 3, được xây dựng một lần với `vue-i18n` và một lần với adapter. Các con số đến từ [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Để so sánh `vue-i18n` và Intlayer như các thư viện, hãy đọc [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/vue-i18n_vs_intlayer.md) và [benchmark vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/vue-i18n_vs_intlayer.md). Bài này nói về những gì adapter thay đổi khi bạn giữ các component của mình như cũ.
 
+- [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/vue-i18n_vs_intlayer.md)
+
 <TOC/>
 
 > **tl;dr**: Trên cùng một ứng dụng Vite + Vue 3, thay thế `vue-i18n` bằng `@intlayer/vue-i18n` đã giảm JavaScript trên mỗi trang từ **134.9 KB xuống 47.0 KB** gzip (ứng dụng không có i18n nặng 41.3 KB), runtime từ **24.3 KB xuống 7.9 KB**, thành phần trung bình từ **196 KB xuống 8.4 KB**, và rò rỉ chuỗi trang nước ngoài từ **90% xuống 0%**, mà không chỉnh sửa bất kỳ tệp `.vue` nào. `createI18n({ messages })` tiếp tục hoạt động như một fallback; xóa các import JSON để có được những con số trên. Các khối SFC `<i18n>` và `setLocaleMessage()` runtime là hai tính năng không được chuyển đổi qua.
@@ -137,6 +139,8 @@ style="border:none;"
 />
 
 > Bảng đầy đủ, từng thư viện và từng chiến lược, trong [báo cáo benchmark Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/vue.md).
+
+- [báo cáo benchmark Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/vue.md)
 
 ## Tại sao các số liệu thay đổi
 
@@ -286,6 +290,8 @@ Nếu các tin nhắn của bạn nằm bên trong các component, chúng cần 
 
 `setLocaleMessage()` và `mergeLocaleMessage()` đưa ra cảnh báo và trả về. Bản dịch được lấy từ CMS tại runtime cần [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md) hoặc các lệnh `intlayer pull` / `push`.
 
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)
+
 </Accordion>
 <Accordion header="messages là phương án dự phòng, không miễn phí">
 
@@ -316,6 +322,9 @@ Bạn đang dùng `vue-i18n` và muốn tiết kiệm 88 KB, component nhỏ hơ
 
 Dành cho các dự án mới hoặc khi adapter đã hoàn thành nhiệm vụ. Nó có runtime nhẹ nhất (3.9 KB) và mô hình `.content.ts` cho từng component thay thế các khối `<i18n>` bằng nội dung có định kiểu. Bắt đầu với [Intlayer với Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_vite+vue.md) hoặc [với Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nuxt.md).
 
+- [Intlayer với Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_vite+vue.md)
+- [với Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nuxt.md)
+
 </Accordion>
 </AccordionGroup>
 
@@ -339,11 +348,16 @@ Bởi vì `useI18n()` không còn truy cập vào instance toàn cục. `createI
 
 Được giữ nguyên. Các cấu hình `datetimeFormats` và `numberFormats` được truyền vào `createI18n()` đều được tuân thủ, hỗ trợ bởi API `Intl` gốc. Xem [định dạng ngày, giờ và số](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/date_time_number_formatting_locales.md).
 
+- [định dạng ngày, giờ và số](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/date_time_number_formatting_locales.md)
+
 </Question>
 
 <Question title="Nó có hoạt động với Nuxt không?">
 
 `@intlayer/vue-i18n` nhắm tới Vite + Vue. Đối với `@nuxtjs/i18n`, hãy sử dụng [adapter tương thích Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/nuxtjs-i18n.md) và xem [Intlayer với Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nuxt.md) để thiết lập native.
+
+- [adapter tương thích Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/nuxtjs-i18n.md)
+- [Intlayer với Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nuxt.md)
 
 </Question>
 
@@ -394,3 +408,5 @@ Tài liệu tham khảo:
 Tất cả dữ liệu thô, các ứng dụng thử nghiệm và các script đều có trong [kho lưu trữ Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Chạy nó bằng chính bạn.
 
 Tham khảo [tài liệu 'Why Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/interest_of_intlayer.md) để biết thêm chi tiết.
+
+- [Vì sao chọn Intlayer? Ưu điểm so với các thư viện i18n khác](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/interest_of_intlayer.md)

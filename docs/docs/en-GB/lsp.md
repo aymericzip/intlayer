@@ -30,7 +30,7 @@ author: aymericzip
 
 # Intlayer LSP Server
 
-The **Intlayer Language Server** is a [Language Server Protocol (LSP)](https://microsoft.github.io/language-server-protocol/) implementation that makes your IDE — and your AI agent — Intlayer-aware. It connects a call like `useIntlayer("home")` to the `.content.ts` file that declares it, in both directions.
+The **Intlayer Language Server** is a [Language Server Protocol (LSP)](https://microsoft.github.io/language-server-protocol/) implementation that makes your IDE, and your AI agent, Intlayer-aware. It connects a call like `useIntlayer("home")` to the `.content.ts` file that declares it, in both directions.
 
 ## Features
 
@@ -44,8 +44,8 @@ The **Intlayer Language Server** is a [Language Server Protocol (LSP)](https://m
 
 Two extra behaviours are worth knowing:
 
-- **Merged dictionaries** — a key split across several content files returns one result per file, so you can navigate to every declaration.
-- **Monorepo-aware** — the server resolves the _closest_ `intlayer.config.*` to each file, so several projects in one workspace each get their own dictionaries.
+- **Merged dictionaries**: a key split across several content files returns one result per file, so you can navigate to every declaration.
+- **Monorepo-aware**: the server resolves the _closest_ `intlayer.config.*` to each file, so several projects in one workspace each get their own dictionaries.
 
 ### Supported calls
 
@@ -62,7 +62,7 @@ The key is read either from a positional string argument or from an options obje
 
 This works for every `*-intlayer` package (`next-intlayer`, `react-intlayer`, `vue-intlayer`, `svelte-intlayer`, `solid-intlayer`, `preact-intlayer`, `angular-intlayer`, `lit-intlayer`, `express-intlayer`, `hono-intlayer`, `fastify-intlayer`, `intlayer`), and for the compat adapter packages that let you keep your existing i18n syntax.
 
-> Dictionaries are read from the build output, so run `npx intlayer build` — or keep your dev server running — to give the server something to resolve.
+> Dictionaries are read from the build output, so run `npx intlayer build`, or keep your dev server running, to give the server something to resolve.
 
 ## Installation
 
@@ -84,21 +84,23 @@ pnpm add --save-dev @intlayer/lsp
 bun add --dev @intlayer/lsp
 ```
 
-Install it globally instead (`npm install -g @intlayer/lsp`) if your editor needs `intlayer-lsp` on the `PATH` — this is the case for the Claude Code plugin and for any configuration below that calls the binary directly.
+Install it globally instead (`npm install -g @intlayer/lsp`) if your editor needs `intlayer-lsp` on the `PATH`. This is the case for the Claude Code plugin and for any configuration below that calls the binary directly.
 
 ## Setup
 
 <Tabs defaultTab="vscode">
   <Tab label="VS Code" value="vscode">
 
-Install the [Intlayer VS Code extension](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension). The language server is bundled since v8.12.0 and starts automatically — **no configuration required**.
+Install the [Intlayer VS Code extension](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension). The language server is bundled since v8.12.0 and starts automatically, **no configuration required**.
 
 See the [VS Code extension documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/vs_code_extension.md) for its other features.
+
+- [VS Code extension documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/vs_code_extension.md)
 
   </Tab>
   <Tab label="Cursor / Windsurf" value="cursor">
 
-[Cursor](https://www.cursor.com/) and [Windsurf](https://windsurf.com/) are VS Code forks and use the same extension ecosystem. Install the [Intlayer VS Code extension](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) once and the server activates automatically — **no configuration required**.
+[Cursor](https://www.cursor.com/) and [Windsurf](https://windsurf.com/) are VS Code forks and use the same extension ecosystem. Install the [Intlayer VS Code extension](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) once and the server activates automatically, **no configuration required**.
 
   </Tab>
   <Tab label="Claude Code" value="claude-code">
@@ -114,7 +116,7 @@ claude plugin marketplace add intlayer@github:aymericzip/intlayer
 claude plugin install intlayer-lsp@intlayer
 ```
 
-`install` also enables the plugin. **Restart Claude Code** — language servers are loaded at startup, so the plugin has no effect until then.
+`install` also enables the plugin. **Restart Claude Code**, language servers are loaded at startup, so the plugin has no effect until then.
 
 Claude Code then starts the server on `.ts`, `.tsx`, `.js`, `.jsx`, `.vue`, `.astro` and `.svelte` files, and uses `goToDefinition`, `findReferences` and `hover` when navigating your code.
 
@@ -240,10 +242,10 @@ language-servers = ["intlayer-lsp", "typescript-language-server"]
 
 Any LSP-capable editor can run `@intlayer/lsp`. Point it at:
 
-- **Executable** — `npx @intlayer/lsp`, or the `intlayer-lsp` binary
-- **Transport** — stdio (standard)
-- **Capabilities** — `definitionProvider`, `referencesProvider`, `hoverProvider`, `completionProvider` (trigger characters `"` `'` `` ` `` `.`), push diagnostics, `textDocumentSync: Incremental`
-- **Root patterns** — `intlayer.config.ts`, `intlayer.config.js`, `package.json`
+- **Executable**: `npx @intlayer/lsp`, or the `intlayer-lsp` binary
+- **Transport**: stdio (standard)
+- **Capabilities**: `definitionProvider`, `referencesProvider`, `hoverProvider`, `completionProvider` (trigger characters `"` `'` `` ` `` `.`), push diagnostics, `textDocumentSync: Incremental`
+- **Root patterns**: `intlayer.config.ts`, `intlayer.config.js`, `package.json`
 
 Consult your editor's LSP documentation for the exact configuration format.
 
@@ -252,7 +254,7 @@ Consult your editor's LSP documentation for the exact configuration format.
 
 ## Note on terminal AI agents
 
-**Claude Code** acts as a real LSP client — see the tab above.
+**Claude Code** acts as a real LSP client. See the tab above.
 
 **OpenAI Codex** and most other terminal tools are not LSP clients: they read and write files directly. Running the server on its own does not help them; the value comes from having it active in a companion editor whose index the agent can query (Cursor Composer, Windsurf Cascade, Copilot Chat).
 
@@ -271,10 +273,10 @@ On a request, the server parses the document (via [oxc](https://oxc.rs/)) and in
 | Symptom                                 | Likely cause                 | Fix                                                                      |
 | --------------------------------------- | ---------------------------- | ------------------------------------------------------------------------ |
 | Nothing happens at all                  | Server not running           | Check `@intlayer/lsp` is installed and your editor is launching it       |
-| Works in the editor, not in Claude Code | Plugin installed mid-session | Restart Claude Code — language servers load at startup                   |
+| Works in the editor, not in Claude Code | Plugin installed mid-session | Restart Claude Code, language servers load at startup                    |
 | No definitions found for a key          | Dictionaries not built       | Run `npx intlayer build`, or start your dev server                       |
 | Every key reported as undeclared        | Config not resolved          | Verify an `intlayer.config.ts` (or `.js`) exists at your project root    |
 | Wrong project used in a monorepo        | Missing per-package config   | Add an `intlayer.config.*` to each package that declares its own content |
 | Server crashes on start                 | Node.js version too old      | Requires Node.js ≥ 14.18                                                 |
 
-In VS Code, the server logs to **View → Output → "Intlayer LSP"** — useful to confirm which config was resolved and how many dictionaries were found.
+In VS Code, the server logs to **View → Output → "Intlayer LSP"**, useful to confirm which config was resolved and how many dictionaries were found.

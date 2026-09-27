@@ -274,7 +274,7 @@ list(["red", "green", "blue"], { locale: "fr", type: "disjunction" }); // "rouge
 
 ## Cached Intl
 
-Експортований `Intl` з `intlayer` — це кешований wrapper навколо глобального `Intl`. Він мемоізує екземпляри форматерів (`NumberFormat`, `DateTimeFormat` тощо), щоб уникнути їхнього повторного створення та поліпшити продуктивність.
+Експортований `Intl` з `intlayer` це кешований wrapper навколо глобального `Intl`. Він мемоізує екземпляри форматерів (`NumberFormat`, `DateTimeFormat` тощо), щоб уникнути їхнього повторного створення та поліпшити продуктивність.
 
 ```ts
 import { Intl } from "intlayer";

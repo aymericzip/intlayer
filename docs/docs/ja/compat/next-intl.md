@@ -25,6 +25,8 @@ author: aymericzip
 
 完全で詳細なステップバイステップチュートリアルについては、[next-intl 移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_next-intl_to_intlayer.md)を参照してください。
 
+- [next-intl 移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_next-intl_to_intlayer.md)
+
 `next-intl` から Intlayer への移行により、アプリケーションのルーティングとシンタックスを完全に変更せずに維持できます。
 
 ## やること

@@ -30,7 +30,7 @@ author: aymericzip
 
 # Svelte Integration: `usePathname` Dokumentation
 
-Die Funktion `usePathname` gibt den aktuellen Browser-Pfadnamen (pathname) ohne das Locale-Segment als einen Svelte `Readable<string>` Store zurück. Sie ist nützlich für den Aufbau einer Locale-bewussten Navigation — zum Beispiel, um festzustellen, welches Navigationselement aktiv ist —, ohne das Locale-Präfix manuell entfernen zu müssen.
+Die Funktion `usePathname` gibt den aktuellen Browser-Pfadnamen (pathname) ohne das Locale-Segment als einen Svelte `Readable<string>` Store zurück. Sie ist nützlich für den Aufbau einer Locale-bewussten Navigation (zum Beispiel, um festzustellen, welches Navigationselement aktiv ist), ohne das Locale-Präfix manuell entfernen zu müssen.
 
 ## Importieren von `usePathname` in Svelte
 

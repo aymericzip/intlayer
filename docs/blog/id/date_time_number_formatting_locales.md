@@ -196,6 +196,8 @@ Fungsi `date()` juga mendukung preset (`"short"`, `"long"`, `"dateOnly"`, `"time
 
 Ini adalah lapisan cache dan penyediaan default bahasa di atas API bawaan platform. Logika pemformatannya sendiri sepenuhnya bersumber dari `Intl`. Rincian lengkap tersedia di [dokumentasi formatters](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/formatters.md).
 
+- [dokumentasi formatters](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/formatters.md)
+
 ## Kesalahan umum
 
 - **`toLocaleDateString()` tanpa menentukan locale.** Bergantung pada konfigurasi wadah kontainer di server.

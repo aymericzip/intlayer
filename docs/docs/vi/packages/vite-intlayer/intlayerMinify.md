@@ -31,6 +31,8 @@ author: aymericzip
 
 > Plugin này đã được tích hợp và cấu hình tự động khi bạn sử dụng [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/vite-intlayer/intlayer.md). Bạn chỉ cần tự đăng ký thủ công nếu đang tự thiết lập cấu trúc plugin của riêng mình.
 
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/vite-intlayer/intlayer.md)
+
 ## Cách sử dụng
 
 ```ts
@@ -63,8 +65,8 @@ Khi `editor.enabled` là `true`, plugin vẫn chạy nhưng **bỏ qua bước �
 
 Plugin nhắm vào hai vị trí từ điển (được phân giải từ `intlayer.system`):
 
-- `dictionariesDir` — các từ điển tĩnh cho tất cả các locale (ví dụ: `.intlayer/dictionaries/*.json`)
-- `dynamicDictionariesDir` — các từ điển động cho mỗi locale
+- `dictionariesDir`: các từ điển tĩnh cho tất cả các locale (ví dụ: `.intlayer/dictionaries/*.json`)
+- `dynamicDictionariesDir`: các từ điển động cho mỗi locale
 
 > Các từ điển sử dụng chế độ fetch (`fetchDictionariesDir`) sẽ **không bao giờ** bị nén vì chúng được cung cấp từ một API từ xa tại thời điểm chạy bằng cách sử dụng các tên trường gốc. Việc đổi tên các trường sẽ tạo ra sự không khớp giữa phản hồi của máy chủ và các thuộc tính được truy cập phía client.
 
@@ -86,7 +88,7 @@ Các trường nội bộ của Intlayer (`nodeType`, `translation`, v.v.) khôn
 
 ## Các từ điển trường hợp đặc biệt (Edge-cases)
 
-Các từ điển được gắn cờ trong `pruneContext.dictionariesWithEdgeCases` (phát hiện bất thường về cấu trúc trong giai đoạn prune) sẽ được bỏ qua hoàn toàn — không nén hay mã hóa — để tránh gửi dữ liệu bị hỏng.
+Các từ điển được gắn cờ trong `pruneContext.dictionariesWithEdgeCases` (phát hiện bất thường về cấu trúc trong giai đoạn prune) sẽ được bỏ qua hoàn toàn, không nén hay mã hóa, để tránh gửi dữ liệu bị hỏng.
 
 ## Nhóm đủ điều kiện (Bộ sưu tập / Biến thể / Bản ghi meta)
 

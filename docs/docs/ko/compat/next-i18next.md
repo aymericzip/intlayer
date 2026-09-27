@@ -25,6 +25,8 @@ author: aymericzip
 
 완전하고 상세한 단계별 튜토리얼을 보려면 전체 [next-i18next 마이그레이션 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_next-i18next_to_intlayer.md)를 참고하세요.
 
+- [next-i18next 마이그레이션 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_next-i18next_to_intlayer.md)
+
 Intlayer는 모든 Next.js Pages Router 및 App Router 구현을 투명하게 처리합니다. adapter를 사용하면 코드를 전혀 다시 작성하지 않고 `next-i18next` 구현을 마이그레이션할 수 있습니다.
 
 ## 해야 할 일

@@ -31,6 +31,9 @@ Aşağıdaki her desen her türlü i18n yığınında çalışır. Sağlayıcıy
 
 Kapsam araçları da taşınabilir: Mevcut kataloglarınıza yönlendirilmiş [Sync JSON eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-json.md) veya mevcut içe aktarmalarınızı takma adlandıran bir [uyumluluk adaptörü](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/index.md) ile kapsam doğrulaması doğrudan mevcut JSON dosyalarınıza karşı çalışır.
 
+- [Sync JSON eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-json.md)
+- [uyumluluk adaptörü](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/index.md)
+
 ## Aslında neyi test ettiğinize karar verin
 
 Çeviri kalitesi kod testiyle doğrulanamaz. Hiçbir assertion Almanca metnin doğal olup olmadığını size söyleyemez ve aksini iddia etmek test paketinizi sabit kodlanmış dizelerle doldurur.
@@ -46,6 +49,8 @@ Mekanik olarak test edilmeye değer olanlar şunlardır:
 | Biçimlendirilmiş tarih ve sayıların dili  | `Intl` motorunun iç doğruluğu        |
 
 Kapsam denetimi bileşen testlerinizde değil, tek bir veri odaklı testte yapılmalıdır. Bu konu [eksik çevirileri tespit etme](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/detecting_missing_translations.md) yazısında ayrıntılı olarak ele alınmıştır; bu yazı diğer konulara odaklanır.
+
+- [eksik çevirileri tespit etme](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/detecting_missing_translations.md)
 
 ## Sağlayıcı altında render edin ve role göre sorgulayın
 
@@ -122,6 +127,8 @@ describe.each([0, 1, 2, 3, 11, 100])("sayı %i", (count) => {
 ```
 
 Her yerde sadece 1 ve 2'yi test etmek yerine en karmaşık diliniz için her CLDR kategorisine denk gelen sayıları seçin. `Intl.PluralRules` bir sayının hangi kategoriye girdiğini söyler, böylece tahmin yürütmek zorunda kalmazsınız. Kategoriler hakkında daha fazla bilgi için [ICU mesaj formatı makalesine](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/icu_message_format.md) göz atın.
+
+- [ICU mesaj formatı makalesine](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/icu_message_format.md)
 
 ## Anlık görüntü (Snapshot) tuzağı
 

@@ -49,6 +49,38 @@ export const router = createRouter({
 3. **リクエストコンテキストの登録**: `Intlayer` キーを使用して解決された現在のロケールを Remix リクエストコンテキストに保存し、フック（`useLocale`、`useIntlayer`、`useDictionary`）が透過的に利用できるようにします。
 4. **クッキー管理**: ユーザーの優先ロケールを永続化する必要がある場合、`Set-Cookie` ヘッダーを設定します。
 
+## パラメーター
+
+`intlayer` 関数は、オプションの `IntlayerMiddlewareOptions` を受け取ります:
+
+```ts
+import { intlayer, type IntlayerMiddlewareOptions } from "remix-intlayer";
+
+const options: IntlayerMiddlewareOptions = {
+  // カスタムルーティング設定の上書き
+};
+
+const middleware = intlayer(options);
+```
+
+## コンテキストへの直接アクセス
+
+フックを使用するほかに、解決された `IntlayerState` を Remix のリクエストコンテキストから直接取得することもできます:
+
+```ts
+import { Intlayer } from "remix-intlayer";
+
+router.get("/api/locale", (context) => {
+  // context.get() 経由
+  const state = context.get(Intlayer);
+
+  // または context.intlayer プロパティから直接
+  const { locale } = context.intlayer;
+
+  return Response.json({ locale });
+});
+```
+
 ## 関連ドキュメント
 
 - [`Intlayer` リクエストコンテキスト](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/remix-intlayer/Intlayer.md)

@@ -45,10 +45,16 @@ author: aymericzip
 
 コンテンツのコロケーション（同一場所配置）により、大規模言語モデル（LLM）に必要な**コンテキストが減少**します。Intlayerには、不足している翻訳をテストするための**CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)**、および**[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)**などのツールスイートが備わっており、AIエージェントにとってよりスムーズな開発者体験（DX）を提供します。
 
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)
+- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)
+
 </Accordion>
 <Accordion header="自動化">
 
 AIプロバイダーのコストで、お好みのLLMを使用してCI/CDパイプライン内で翻訳を自動化できます。Intlayerは、コンテンツ抽出を自動化するための**コンパイラ**や、**バックグラウンドでの翻訳**を支援する[ウェブプラットフォーム](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)も提供しています。
+
+- [ウェブプラットフォーム](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="パフォーマンス">
@@ -59,6 +65,9 @@ AIプロバイダーのコストで、お好みのLLMを使用してCI/CDパイ�
 <Accordion header="非開発者とのスケーラビリティ">
 
 単なるi18nソリューションにとどまらず、Intlayerはセルフホストの**[ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)**と**[フルCMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)**を提供し、多言語コンテンツを**リアルタイム**で管理できるようにします。これにより、翻訳者やコピーライター、その他のチームメンバーとのシームレスなコラボレーションが可能になります。コンテンツはローカルおよび/またはリモートに保存できます。
+
+- [ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)
+- [フルCMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
@@ -71,9 +80,9 @@ AIプロバイダーのコストで、お好みのLLMを使用してCI/CDパイ�
 
 既存のアプリケーションに推奨されるアプローチは**互換性アダプター**です：`@intlayer/next-intl`をインストールします。これは`next-intl`と**全く同じAPI**を公開しますが、裏側ですべての翻訳作業をIntlayerに委譲します。
 
-既存の`useTranslations`、`getTranslations`、`NextIntlClientProvider`などはそのまま保持されます — **変更するのはインポートパスのみです**。呼び出しシグネチャ、プロパティの形、コンポーネント構造のリファクタリングは不要です。
+既存の`useTranslations`、`getTranslations`、`NextIntlClientProvider`などはそのまま保持されます。**変更するのはインポートパスのみです**。呼び出しシグネチャ、プロパティの形、コンポーネント構造のリファクタリングは不要です。
 
-将来的には、オプションとして個々のファイルをよりリッチなIntlayerの`.content.ts`形式に移行し、ビジュアルエディタ、CMS、コンポーネントレベルのコンテンツスコープを利用できるようにすることができます — ただし、このステップは完全にオプションであり、徐々に行うことができます。
+将来的には、オプションとして個々のファイルをよりリッチなIntlayerの`.content.ts`形式に移行し、ビジュアルエディタ、CMS、コンポーネントレベルのコンテンツスコープを利用できるようにすることができます。ただし、このステップは完全にオプションであり、徐々に行うことができます。
 
 ## 目次
 
@@ -124,7 +133,7 @@ yarn add intlayer next-intlayer @intlayer/next-intl @intlayer/sync-json-plugin
 bun add intlayer next-intlayer @intlayer/next-intl @intlayer/sync-json-plugin
 ```
 
-> `next-intl`はインストールしたままにしておいてください — **URLルーティング** (`createNavigation`、`createMiddleware`、`Link`、`redirect`、`usePathname`、`useRouter`) のために引き続き必要です。互換性アダプターはルーティングレイヤーを置き換え**ません**。
+> `next-intl`はインストールしたままにしておいてください。**URLルーティング** (`createNavigation`、`createMiddleware`、`Link`、`redirect`、`usePathname`、`useRouter`) のために引き続き必要です。互換性アダプターはルーティングレイヤーを置き換え**ません**。
 
 </Step>
 <Step number={2} title="Intlayerの設定">
@@ -162,6 +171,8 @@ export default config;
 
 > 利用可能なすべての設定オプションについては、[設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を参照してください。
 
+- [設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)
+
 </Step>
 <Step number={3} title="IntlayerプラグインをNext.jsに追加する">
 
@@ -180,7 +191,7 @@ export default withIntlayer(nextConfig);
 
 > `createNextIntlPlugin()`は`withIntlayer`をラップし、**Webpack**または**Turbopack**を自動検出して、コンテンツ監視や辞書のコンパイルをフックアップし、最も重要なこととして**モジュールエイリアスを注入**します。これにより、既存の`import … from 'next-intl'`への呼び出しがビルド時に透過的に`@intlayer/next-intl`にリダイレクトされます。`next-intl/routing`のエントリは実際のパッケージを指し続けます。ソースファイルの変更は不要です。
 >
-> 通常の`next-intlayer/server`の`withIntlayer`を使用したい場合は、辞書はコンパイルされますがエイリアスは追加され**ません** — その場合、インポートを手動で`@intlayer/next-intl`に変更する必要があります（ステップ4を参照）。
+> 通常の`next-intlayer/server`の`withIntlayer`を使用したい場合は、辞書はコンパイルされますがエイリアスは追加され**ません**、その場合、インポートを手動で`@intlayer/next-intl`に変更する必要があります（ステップ4を参照）。
 
 > **`getRequestConfig`や`loadMessages`は不要になります。** `next-intl`では、リクエストごとに`getRequestConfig`を介してJSONメッセージバンドルを読み込む`src/i18n.ts`ファイルを作成する必要がありました。Intlayerはすべての辞書を**ビルド時**にコンパイルするため、実行時のロードステップはありません。このファイルは完全に削除できます（引き続き`createNavigation`を使用する場合は、ルーティングの部分だけを残してください）。
 
@@ -190,10 +201,10 @@ export default withIntlayer(nextConfig);
 
 これでクイック移行は完了です。アプリはすべての`next-intl`のインポートとAPIを保持したまま、Intlayer上で動作するようになります。
 
-> **型付けされた翻訳キー — 自動的に。** Intlayerが辞書をコンパイルすると、`useTranslations`と`getTranslations`は実際のコンテンツに対して型付けされます。キーはIDEでオートコンプリートされ、無効なパスはビルド時にTypeScriptエラーを引き起こします — 追加の設定は必要ありません。
+> **型付けされた翻訳キー、自動的に。** Intlayerが辞書をコンパイルすると、`useTranslations`と`getTranslations`は実際のコンテンツに対して型付けされます。キーはIDEでオートコンプリートされ、無効なパスはビルド時にTypeScriptエラーを引き起こします。追加の設定は必要ありません。
 >
 > ```tsx
-> // クライアントコンポーネント — 'about' は登録済みの辞書のキーです
+> // クライアントコンポーネント、'about' は登録済みの辞書のキーです
 > const t = useTranslations("about");
 > t("counter.label"); // ✓ オートコンプリート
 > t("does.not.exist"); // ✗ TypeScript エラー
@@ -222,7 +233,7 @@ export default withIntlayer(nextConfig);
 | `import { setLocale } from 'next-intl/server'`       | `import { setLocale } from '@intlayer/next-intl/server'`       |
 | `import { getMessages } from 'next-intl/server'`     | `import { getMessages } from '@intlayer/next-intl/server'`     |
 
-> 実際の`next-intl`からのルーティングのインポートは常に保持してください — 互換性アダプターはURLルーティングレイヤーを置き換え**ません**：
+> 実際の`next-intl`からのルーティングのインポートは常に保持してください。互換性アダプターはURLルーティングレイヤーを置き換え**ません**：
 >
 > ```ts
 > // ✅ これらは常に本物の 'next-intl' から維持する
@@ -291,6 +302,8 @@ export default config;
 
 > 利用可能なすべてのオプションについては、[Intlayer CLIドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md)を確認してください。
 
+- [Intlayer CLIドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md)
+
 </Step>
 
 </Steps>
@@ -305,7 +318,7 @@ export default config;
 | レイアウトでの`loadMessages()` / `getMessages()`呼び出し | `@intlayer/next-intl`の`NextIntlClientProvider`はコンパイルされた出力を読み取ります。`messages`プロップは不要です。                                                                        |
 | レイアウトでの`locales/{locale}/*.json`のインポート      | JSONバンドルは、`syncJSON`プラグインを使用している場合にのみ必要です。`.content.ts`ファイルに移行したら、JSONフォルダを削除できます。                                                      |
 
-さらに進める準備ができたら、Intlayerはコードベース内の**どこにある`.content.ts`および`.content.json`ファイルでも自動的に検出します**（デフォルトでは`./src`内）。`about.content.ts`ファイルを`about/page.tsx`のすぐ隣に配置するだけで、追加の設定なしでビルド時にIntlayerがそれを取得します — インポート、登録、中央のインデックスファイルは不要です。これにより、ページやコンポーネントとの翻訳のコロケーションが完全にシームレスになります。
+さらに進める準備ができたら、Intlayerはコードベース内の**どこにある`.content.ts`および`.content.json`ファイルでも自動的に検出します**（デフォルトでは`./src`内）。`about.content.ts`ファイルを`about/page.tsx`のすぐ隣に配置するだけで、追加の設定なしでビルド時にIntlayerがそれを取得します。インポート、登録、中央のインデックスファイルは不要です。これにより、ページやコンポーネントとの翻訳のコロケーションが完全にシームレスになります。
 
 ## TypeScriptの設定
 

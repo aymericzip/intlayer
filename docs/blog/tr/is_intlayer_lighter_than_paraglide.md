@@ -25,6 +25,8 @@ Evet.
 
 `Paraglide`, piyasadaki en hafif i18n çözümü olarak haklı bir üne sahiptir ve ilk bakışta [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md) sonuçları da bunu doğrular niteliktedir: kütüphane boyutu sıfıra yakındır. Ancak kütüphane boyutunun sıfır olması, istemciye sıfır bayt gönderildiği anlamına gelmez. Bu yalnızca baytların, söz konusu metriğin ölçmediği bir yerde barındığı anlamına gelir.
 
+- [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md)
+
 <TOC/>
 
 ## Önemli Çıkarımlar
@@ -95,6 +97,9 @@ Next.js 16 App Router, aynı uygulama:
 <I18nBenchmark framework="tanstack" packages="paraglide,intlayer" vertical/>
 
 > Tüm veriler [TanStack Start kıyaslama raporunda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md) ve [Next.js kıyaslama raporunda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md) incelenebilir. Her bir paket [kıyaslama deposunda](https://github.com/intlayer-org/benchmark-i18n) açıkça görülebilir.
+
+- [TanStack Start kıyaslama raporunda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md)
+- [Next.js kıyaslama raporunda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md)
 
 İki önemli nokta öne çıkmaktadır:
 
@@ -201,6 +206,8 @@ Paraglide'ın en büyük iddiası, her iletinin bağımsız bir dışa aktarma o
 
 Ancak diğer ortamlarda durum böyle olmadı. [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md) testlerimizde Paraglide sayfaları temel uygulamadan 14 KB daha ağır çıkarken, `next-intlayer` yalnızca 0.3 KB eklemiştir. TanStack Start üzerindeki önceki çalışmalar da diğer sayfaların mesajlarının mevcut rota paketine sızdığını göstermiştir.
 
+- [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md)
+
 Tree shaking başarısı paketleyicinize (Turbopack, Rolldown, Rollup), mesajların içe aktarılma biçimine (`import { m }` vs `import * as m`) ve yan etki analizine sıkı sıkıya bağlıdır. Paraglide'ı boyutu nedeniyle tercih ediyorsanız, paket analiz aracınızı açıp uygulamanızda durumun gerçekten böyle olup olmadığını test edin.
 
 ## Dinamik Yükleme Eksikliği
@@ -240,6 +247,8 @@ export default config;
 | `fetch`      | Yalnızca mevcut dil, Live Sync API üzerinden getirilir | N dilde **N kat daha hafif**     |
 
 [Derleme optimizasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md) ve `importMode: 'static'` moduyla Intlayer, teoride Paraglide ile tamamen aynı içeriği yükler. `'dynamic'` veya `'fetch'` kullanıldığında ise yalnızca mevcut dilin ihtiyaç duyduğu veriyi yükler: N dile sahip bir uygulama için çeviri yükü Paraglide'a göre N kat daha küçüktür.
+
+- [Derleme optimizasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md)
 
 ## Paraglide Hangi Durumlarda Hala Mantıklıdır?
 

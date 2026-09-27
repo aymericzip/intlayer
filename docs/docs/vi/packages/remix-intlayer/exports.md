@@ -37,11 +37,23 @@ npm install remix-intlayer
 
 ### Middleware
 
+Nhập:
+
+```tsx
+import { intlayer } from "remix-intlayer";
+```
+
 | Export     | Loại           | Mô tả                                                                                                       | Tài liệu liên quan                                                                                                                 |
 | ---------- | -------------- | ----------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
 | `intlayer` | Hàm Middleware | Middleware cho Remix 3 giúp phát hiện locale của yêu cầu, quản lý chuyển hướng và điền vào context yêu cầu. | [Middleware intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/remix-intlayer/intlayerMiddleware.md) |
 
 ### Lưu trữ Context
+
+Nhập:
+
+```tsx
+import { Intlayer, INTLAYER_CONTEXT_PROPERTY } from "remix-intlayer";
+```
 
 | Export                      | Loại                          | Mô tả                                                                                                                                                  | Tài liệu liên quan                                                                                                    |
 | --------------------------- | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------- |
@@ -49,6 +61,12 @@ npm install remix-intlayer
 | `INTLAYER_CONTEXT_PROPERTY` | `string`                      | Tên thuộc tính (`'intlayer'`) được cài đặt trực tiếp trên ngữ cảnh yêu cầu, cho phép truy cập qua `context.intlayer` cũng như `context.get(Intlayer)`. | -                                                                                                                     |
 
 ### Hooks
+
+Nhập:
+
+```tsx
+import { useIntlayer, useDictionary, useLocale } from "remix-intlayer";
+```
 
 | Export          | Loại | Mô tả                                                                                            | Tài liệu liên quan                                                                                                           |
 | --------------- | ---- | ------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------- |

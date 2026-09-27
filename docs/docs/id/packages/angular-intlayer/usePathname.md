@@ -31,7 +31,7 @@ author: aymericzip
 
 # Integrasi Angular: Dokumentasi Hook `usePathname`
 
-Hook `usePathname` mengembalikan pathname peramban saat ini dengan segmen lokal dihapus, sebagai Angular `Signal<string>`. Ini berguna untuk membangun navigasi yang sadar lokal — misalnya, menentukan item navigasi mana yang aktif — tanpa harus menghapus awalan lokal secara manual.
+Hook `usePathname` mengembalikan pathname peramban saat ini dengan segmen lokal dihapus, sebagai Angular `Signal<string>`. Ini berguna untuk membangun navigasi yang sadar lokal (misalnya, menentukan item navigasi mana yang aktif) tanpa harus menghapus awalan lokal secara manual.
 
 ## Mengimpor `usePathname` di Angular
 

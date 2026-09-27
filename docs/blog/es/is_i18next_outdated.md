@@ -92,6 +92,8 @@ style="border:none;"
 
 > Medido en un build de producción con 10 rutas y 10 idiomas con compresión gzip. Más detalles en el [informe del benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/benchmark/index.md).
 
+- [informe del benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/benchmark/index.md)
+
 ### Sobrecarga base de la librería
 
 Peso inicial antes de cargar cualquier texto traducido:
@@ -171,6 +173,9 @@ return <h1>{title}</h1>;
 
 El [compilador de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compiler.md) analiza qué consume `Hero.tsx` y retira campos sin utilizar antes de crear los bundles del cliente. Consulta [optimización de bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/bundle_optimization.md) para conocer los detalles.
 
+- [compilador de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compiler.md)
+- [optimización de bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/bundle_optimization.md)
+
 ## Experiencia de desarrollo
 
 ### JSON aislados frente a co-ubicación
@@ -237,6 +242,8 @@ Al mover o eliminar `Hero.tsx`, sus declaraciones de contenido se trasladan o el
 Extender `CustomTypeOptions` permite el autocompletado de claves en el IDE, pero no asegura la integridad del contenido. Suprimir una clave en `es/home.json` no romperá tu compilación; simplemente generará un fallback en runtime.
 
 Intlayer infiere tipos directamente de las declaraciones de contenido, y el [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md) transforma traducciones ausentes en errores de compilación estrictos.
+
+- [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md)
 
 ### Comparación de herramientas
 

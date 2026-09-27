@@ -110,6 +110,8 @@ bun add intlayer-cli -g
 
 `intlayer-cli` package intend to transpile your [intlayer declarations](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md) into dictionaries.
 
+- [intlayer declarations](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md)
+
 This package will transpile all intlayer files, such as `src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}`. [See how to declare your Intlayer declaration files](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
 
 To interpret intlayer dictionaries you can interpreters, such as [react-intlayer](https://www.npmjs.com/package/react-intlayer), or [next-intlayer](https://www.npmjs.com/package/next-intlayer)
@@ -127,13 +129,17 @@ Intlayer accepts multiple configuration file formats:
 
 To see how to configure available locales, or other parameters, refer to the [configuration documentation here](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md).
 
+- [configuration documentation here](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)
+
 ## Run intlayer commands
 
 ### Authentication
 
 - **[Login](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/login.md)** - Authenticate with the Intlayer CMS and get access credentials
 
-> `intlayer login` issues an **access key** (`clientId` / `clientSecret`) that every credentialed command uses. The secret is a server-side credential and never reaches your client bundle — see [Keeping the access key safe](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/login.md#keeping-the-access-key-safe).
+> `intlayer login` issues an **access key** (`clientId` / `clientSecret`) that every credentialed command uses. The secret is a server-side credential and never reaches your client bundle. See [Keeping the access key safe](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/login.md#keeping-the-access-key-safe).
+
+- [Keeping the access key safe](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/login.md#keeping-the-access-key-safe)
 
 ### Core Commands
 

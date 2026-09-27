@@ -121,6 +121,8 @@ author: aymericzip
 
 > 모든 라이브러리와 모든 전략을 포함한 전체 표는 [Vue 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/vue.md)에서 확인할 수 있습니다.
 
+- [Vue 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/vue.md)
+
 ## 왜 이러한 간격이 있을까요? 전역 인스턴스 vs. 컴파일된 딕셔너리
 
 `vue-i18n`은 런타임입니다. `createI18n()`은 로케일당 메시지 트리를 보유하는 글로벌 인스턴스를 구축하고, `useI18n()`은 각 컴포넌트를 이에 바인딩하며, `t("footer.github")`는 렌더 시간에 키를 조회합니다. 이것이 SFC `<i18n>` 블록, `v-t`, 그리고 런타임 메시지 로딩을 가능하게 하는 것이며, 또한 모든 컴포넌트의 의존성 그래프가 전체 트리를 포함하는 이유입니다:
@@ -156,6 +158,8 @@ Intlayer는 그 지식을 빌드로 이동합니다. 콘텐츠는 컴포넌트 �
 컴파일러는 각 딕셔너리와 locale별로 component가 필요로 하는 정확한 JSON을 내보내고, 아무도 import하지 않는 딕셔너리는 제거합니다. Per-route 범위는 per-component 범위의 결과이지, 수행할 작업이 아닙니다.
 
 > 사용하지 않는 locale도 제거하려면 `intlayer.config.ts`에서 `dictionary.importMode: 'dynamic'`을 설정하세요. [bundle optimization doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md)을 참조하세요.
+
+- [bundle optimization doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md)
 
 ## 개발자 경험
 
@@ -350,6 +354,10 @@ export default defineConfig({
 
 [vue-i18n 마이그레이션 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_vue-i18n_to_intlayer.md)와 [호환성 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/vue-i18n.md)를 참조하세요. Nuxt 사용자는 [`@nuxtjs/i18n` 호환성](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/nuxtjs-i18n.md)을 통해 동일한 경로를 사용할 수 있습니다.
 
+- [vue-i18n 마이그레이션 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_vue-i18n_to_intlayer.md)
+- [호환성 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/vue-i18n.md)
+- [`@nuxtjs/i18n` 호환성](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/nuxtjs-i18n.md)
+
 ## 어떤 것을 선택할 때?
 
 - **vue-i18n을 선택하세요** 표준 Vue 접근 방식을 원하거나, ICU 메시지나 SFC `<i18n>` 블록에 의존하거나, 이미 `@nuxtjs/i18n`을 사용 중이거나, 번역 플랫폼이 중앙집중식 JSON을 기대하는 경우. Bundle 크기가 중요하다면 카탈로그 분할 및 경로별 lazy-loading 시간을 고려하세요.
@@ -376,17 +384,24 @@ export default defineConfig({
 
 네. [Nuxt와 함께 사용하는 Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nuxt.md)는 다국어 라우팅, 로케일 감지 미들웨어 및 사이트맵 생성을 지원합니다. `@nuxtjs/i18n`을 사용 중이라면 [Nuxt i18n 호환 어댑터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/nuxtjs-i18n.md)가 마이그레이션 경로입니다.
 
+- [Nuxt와 함께 사용하는 Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nuxt.md)
+- [Nuxt i18n 호환 어댑터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/nuxtjs-i18n.md)
+
 </Question>
 
 <Question title="locales/{locale}.json을 단일 진실 공급원(SSOT)으로 유지할 수 있나요?">
 
 네. [JSON 동기화 플러그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/vue-i18n.md)은 `vue-i18n` 문법(`{name}`, `{0}`, `"car | cars"` 파이프 복수형)으로 읽고 CLI나 CMS가 업데이트할 때 번역을 다시 기록합니다.
 
+- [JSON 동기화 플러그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/vue-i18n.md)
+
 </Question>
 
 <Question title="Vue에서 Intlayer와 함께 ICU가 작동하나요?">
 
 네이티브 ICU 지원은 작업 중입니다. `@intlayer/vue-i18n` 어댑터는 파이프 복수형, 명명된 보간 및 목록 보간을 포함한 `vue-i18n` 고유의 메시지 구문을 지원합니다. Intlayer의 복수화 모델에 대해서는 [열거형 콘텐츠](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/enumeration.md)를 참조하세요.
+
+- [열거형 콘텐츠](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/enumeration.md)
 
 </Question>
 
@@ -435,3 +450,5 @@ Intlayer는 컴파일러로 작업을 이동합니다. 컴포넌트별 딕셔너
 모든 원본 데이터, 테스트 앱 및 스크립트는 [Benchmark Bloom 저장소](https://github.com/intlayer-org/benchmark-bloom)에 있습니다. 직접 실행해보세요.
 
 자세한 내용은 ['Intlayer를 선택해야 하는 이유?' 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/interest_of_intlayer.md)를 참조하세요.
+
+- [왜 Intlayer인가? 다른 i18n 라이브러리 대비 장점](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/interest_of_intlayer.md)

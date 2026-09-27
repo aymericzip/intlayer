@@ -100,6 +100,8 @@ Der [i18n-Benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/
 
 <I18nBenchmark framework="nextjs" packages="next-i18next,next-intl,next-intlayer" vertical/>
 
+- [i18n-Benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/nextjs.md)
+
 <ClickToOpenIframe
   src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
   width="100%"
@@ -121,6 +123,9 @@ Wichtige Kennzahlen, gemessen mit dem Next.js App Router (gzip):
 | `next-intlayer` (native Intlayer) |       **5.5 KB** | **141.3 KB** |             **0.0%** |            **0.0%** |       **6.9 KB** |
 
 > Die vollständige Analyse finden Sie im [Next.js-Benchmark-Bericht](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/nextjs.md) und in der umfassenden [i18n-Benchmark-Übersicht](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/index.md).
+
+- [Next.js-Benchmark-Bericht](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/nextjs.md)
+- [i18n-Benchmark-Übersicht](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/index.md)
 
 Zwei Komponenten sind im Kontext eines mehrsprachigen Anwendungs-Bundles wichtig:
 
@@ -1488,3 +1493,5 @@ Alle drei Bibliotheken sind im Kern der Lokalisierung erfolgreich. Der Unterschi
 - [@intlayer/next-i18next Kompatibilitätsadapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compat/next-i18next.md)
 
 Weitere Details finden Sie im Dokument ['Warum Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/interest_of_intlayer.md).
+
+- [Warum Intlayer? Vorteile gegenüber anderen i18n-Bibliotheken](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/interest_of_intlayer.md)

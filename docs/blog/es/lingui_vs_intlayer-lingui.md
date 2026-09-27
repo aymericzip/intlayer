@@ -30,6 +30,8 @@ author: aymericzip
 
 Este artículo mide ese cambio en la misma aplicación TanStack Start, construida una vez con Lingui y otra con el adaptador. Las cifras provienen de [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Para ver ambas bibliotecas comparadas como tales, lee [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/lingui_vs_intlayer.md). Este análisis se enfoca en lo que cambia el adaptador y en qué aspectos no ayuda.
 
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/lingui_vs_intlayer.md)
+
 <TOC/>
 
 > **tl;dr**: En la misma aplicación TanStack Start, `@intlayer/lingui` redujo el componente promedio de **85.5 KB a 12.8 KB** gzip, la hidratación de **28 ms a 19.7 ms**, y el cambio de idioma de **5.9 ms a 2.9 ms**, manteniendo las macros intactas. En la configuración simple (cada catálogo cargado por adelantado), también eliminó un **90% de fuga por página** y 12 KB por página. Sin embargo, en la configuración con carga diferida envía **137 KB por página frente a 115 KB** de Lingui puro: el adaptador resuelve ICU en tiempo de ejecución mientras que Lingui entrega arreglos de tokens precompilados. La fuga del idioma de origen (~9-10%) es idéntica en ambos casos, ya que proviene del fallback `message` incrustado en los componentes y no del runtime. El adaptador es un plugin de Vite; fue medido en TanStack Start.
@@ -230,6 +232,8 @@ export default config;
 
 Para catálogos `.po`, reemplaza `syncJSON` por `syncPO` de `@intlayer/sync-po-plugin` con el mismo patrón de `source` utilizando la extensión `.po`. Consulta la [documentación del plugin Sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/plugins/sync-po.md).
 
+- [documentación del plugin Sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/plugins/sync-po.md)
+
 `splitKeys: "key-prefix"` es lo que permite reducir drásticamente el tamaño de los componentes. El archivo de catálogo mantiene su estructura plana; la división solo existe en los diccionarios generados y la sincronización inversa vuelve a unir los identificadores.
 
 </Step>
@@ -307,3 +311,5 @@ export default defineConfig({
 Todos los datos originales, las aplicaciones de prueba y los scripts están disponibles en el [repositorio Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Puedes ejecutarlos por ti mismo.
 
 Consulta la [documentación '¿Por qué Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/interest_of_intlayer.md) para conocer más detalles.
+
+- [¿Por qué Intlayer? Ventajas frente a otras bibliotecas i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/interest_of_intlayer.md)

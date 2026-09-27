@@ -25,6 +25,8 @@ author: aymericzip
 
 Để có hướng dẫn từng bước đầy đủ và chi tiết, vui lòng xem [Hướng Dẫn Di Chuyển next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_next-intl_to_intlayer.md) đầy đủ của chúng tôi.
 
+- [Hướng Dẫn Di Chuyển next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_next-intl_to_intlayer.md)
+
 Việc di chuyển từ `next-intl` sang Intlayer cho phép bạn duy trì routing và cú pháp của ứng dụng hoàn toàn không bị gián đoạn.
 
 ## Phải làm gì

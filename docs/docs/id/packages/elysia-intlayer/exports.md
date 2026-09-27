@@ -129,7 +129,7 @@ console.log(
 );
 ```
 
-> Plugin mendaftarkan context-nya melalui `derive` **global**, yang oleh Elysia diberi tipe `Partial<{ intlayer: IntlayerContext }>`. Nilainya selalu ada saat runtime untuk route yang didaftarkan setelah `.use(intlayer())`, jadi gunakan non-null assertion (`intlayer!.locale`) — atau optional chaining — agar TypeScript pada mode `strict` puas.
+> Plugin mendaftarkan context-nya melalui `derive` **global**, yang oleh Elysia diberi tipe `Partial<{ intlayer: IntlayerContext }>`. Nilainya selalu ada saat runtime untuk route yang didaftarkan setelah `.use(intlayer())`, jadi gunakan non-null assertion (`intlayer!.locale`), atau optional chaining, agar TypeScript pada mode `strict` puas.
 
 ## Dokumentasi Terkait
 

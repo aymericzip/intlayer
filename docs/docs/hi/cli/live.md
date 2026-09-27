@@ -22,6 +22,8 @@ author: aymericzip
 
 लाइव सिंक आपकी ऐप को रनटाइम पर CMS कंटेंट परिवर्तनों को प्रतिबिंबित करने देता है। पुनर्निर्माण या पुनः तैनाती की आवश्यकता नहीं है। जब सक्षम किया जाता है, तो अपडेट्स लाइव सिंक सर्वर को स्ट्रीम किए जाते हैं जो आपके एप्लिकेशन द्वारा पढ़े जाने वाले शब्दकोशों को ताज़ा करता है। अधिक जानकारी के लिए देखें [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md)।
 
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md)
+
 ```json fileName="package.json"
 "scripts": {
   "intlayer:live:start": "npx intlayer live start --with 'next dev --turbopack'"

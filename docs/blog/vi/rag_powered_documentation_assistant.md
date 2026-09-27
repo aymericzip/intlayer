@@ -31,6 +31,8 @@ Tôi đã xây dựng một trợ lý tài liệu được hỗ trợ bởi RAG 
 
 👉 [Bản demo trực tiếp](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/interest_of_intlayer.md) 👉 [Boilerplate mã nguồn](https://github.com/aymericzip/smart_doc_RAG)
 
+- [Bản demo trực tiếp](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/interest_of_intlayer.md)
+
 ## Giới thiệu
 
 Nếu bạn từng bị lạc trong tài liệu, cuộn mãi để tìm một câu trả lời, bạn sẽ hiểu nó đau đầu như thế nào. Tài liệu rất hữu ích, nhưng chúng tĩnh và việc tìm kiếm thường cảm thấy vụng về.
@@ -246,6 +248,8 @@ Chúng tôi đã thử nghiệm với gpt-5, nhưng độ trễ quá cao (đôi 
 
 👉 [Thử bản demo tại đây](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/interest_of_intlayer.md) 👉 [Xem mẫu mã nguồn trên GitHub](https://github.com/aymericzip/smart_doc_RAG)
 
+- [Thử bản demo tại đây](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/interest_of_intlayer.md)
+
 </Step>
 <Step number={10} title="Tiến xa hơn">
 
@@ -299,6 +303,8 @@ RAG là một trong những cách đơn giản nhất và mạnh mẽ nhất đ�
 - một công cụ chiến lược sản phẩm
 
 👉 [Thử bản demo tại đây](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/interest_of_intlayer.md) 👉 [Xem mẫu code trên GitHub](https://github.com/aymericzip/smart_doc_RAG)
+
+- [Thử bản demo tại đây](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/interest_of_intlayer.md)
 
 Và nếu bạn cũng đang thử nghiệm với RAG, tôi rất muốn nghe cách bạn đang sử dụng nó như thế nào.
 

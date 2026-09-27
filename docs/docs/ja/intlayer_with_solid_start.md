@@ -89,10 +89,16 @@ Intlayer は、**コンポーネントレベルのコンテンツスコープ**�
 
 コンテンツを同じ場所に配置すると、大規模言語モデル (LLM) によって**必要なコンテキストが削減**されます。Intlayer には、翻訳の欠落をテストする **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**、**[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)** などのツールスイートも付属しており、AI エージェントの開発者エクスペリエンス (DX) をさらにスムーズにします。
 
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)
+- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)
+
 </Accordion>
 <Accordion header="自動化">
 
 AI プロバイダーのコストで、選択した LLM を使用して CI/CD パイプラインで翻訳を自動化します。Intlayer は、コンテンツ抽出を自動化する**コンパイラ**や、**バックグラウンドでの翻訳**を支援する [Web プラットフォーム](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) も提供します。
+
+- [Web プラットフォーム](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="パフォーマンス">
@@ -103,6 +109,9 @@ AI プロバイダーのコストで、選択した LLM を使用して CI/CD �
 <Accordion header="開発者以外のメンバーとのスケーリング">
 
 単なる i18n ソリューションにとどまらず、Intlayer は**セルフホスト型の[ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)**と**[完全な CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)**を提供し、多言語コンテンツを**リアルタイム**で管理できるようにします。これにより、翻訳者、コピーライター、その他のチームメンバーとのコラボレーションがスムーズになります。コンテンツはローカルおよび/またはリモートに保存できます。
+
+- [ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)
+- [完全な CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
@@ -199,6 +208,8 @@ export default config;
 ```
 
 > この設定ファイルを使用して、ローカライズされた URL、ミドルウェアのリダイレクト、Cookie 名、コンテンツ宣言の場所と拡張子の設定、コンソールでの Intlayer ログの無効化などを行うことができます。利用可能なパラメータの完全なリストについては、[設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)を参照してください。
+
+- [設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)
 
 </Step>
 <Step number={3} title="Vite 設定への Intlayer の統合">
@@ -299,6 +310,8 @@ export default homeContent;
 > コンテンツ宣言は、`contentDir` ディレクトリ（デフォルトでは `./src`）に含まれ、コンテンツ宣言ファイルの拡張子（デフォルトでは `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`）と一致していれば、アプリケーション内のどこにでも定義できます。
 >
 > 詳細については、[コンテンツ宣言のドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md)を参照してください。
+
+- [コンテンツ宣言のドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md)
 
 </Step>
 <Step number={5} title="ローカライズされたルーティングの追加">
@@ -475,6 +488,8 @@ export default function Home() {
 
 > `useIntlayer` フックの詳細については、[ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/solid-intlayer/useIntlayer.md)を参照してください。
 
+- [useIntlayer Hook Documentation | solid-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/solid-intlayer/useIntlayer.md)
+
 コンテンツノードは単純な翻訳に限定されません。例えば、複数形化されたカウンター:
 
 ```typescript fileName="src/components/Counter.content.ts" codeFormat="typescript"
@@ -634,6 +649,8 @@ export const LocaleSwitcher: Component = () => {
 >
 > `useLocale` フックの詳細については、[ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/solid-intlayer/useLocale.md)を参照してください。
 
+- [useLocale Hook Documentation | solid-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/solid-intlayer/useLocale.md)
+
 </Step>
 <Step number={11} title="canonical および hreflang リンクの出力" isOptional={true}>
 
@@ -703,8 +720,6 @@ import { AlternateLinks } from "~/components/AlternateLinks";
 <link href="https://example.com/about" hreflang="x-default" rel="alternate" />
 ```
 
-> **`@solidjs/meta` に関する注意**: 執筆時点では、`@solidjs/meta` の `<Title>` と `<Meta>` はハイドレーション後にクライアントに適用されますが、SolidStart v2 のサーバーレンダリングされた `<head>` には**出力されません**。目が離せない修正がアップストリームで適用されるまでは、クローラーが JavaScript なしで表示する必要があるタグ（`canonical`、`hreflang`、必要に応じて `title` / `description`）を、上記のように `entry-server.tsx` に直接レンダリングしてください。
-
 </Step>
 <Step number={12} title="404 ページの管理" isOptional={true}>
 
@@ -730,11 +745,11 @@ export default function NotFound() {
 }
 ```
 
-| リクエスト        | 結果                                            |
-| ----------------- | ----------------------------------------------- |
-| `/xx`             | `404` — `xx` は設定されたロケールではありません |
-| `/nonexistent`    | デフォルトロケールでの `404`                    |
-| `/fr/nonexistent` | フランス語での `404` (`Page introuvable`)       |
+| リクエスト        | 結果                                           |
+| ----------------- | ---------------------------------------------- |
+| `/xx`             | `404`、`xx` は設定されたロケールではありません |
+| `/nonexistent`    | デフォルトロケールでの `404`                   |
+| `/fr/nonexistent` | フランス語での `404` (`Page introuvable`)      |
 
 </Step>
 <Step number={13} title="多言語サイトマップの生成" isOptional={true}>
@@ -855,6 +870,9 @@ export default function Page() {
 既存のコードベースがある場合、何千ものファイルを変換するには時間がかかることがあります。
 
 このプロセスを簡素化するために、Intlayer はコンポーネントを変換してコンテンツを抽出するための [コンパイラ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compiler.md) / [エクストラクター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/extract.md) を提案しています。
+
+- [コンパイラ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compiler.md)
+- [エクストラクター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/extract.md)
 
 設定するには、`intlayer.config.ts` ファイルに `compiler` セクションを追加します:
 
@@ -1009,17 +1027,17 @@ npm run build
 node .output/server/index.mjs
 ```
 
-| リクエスト                                 | 期待されるレスポンス                   |
-| ------------------------------------------ | -------------------------------------- |
-| `GET /`                                    | `200` — 英語                           |
-| `GET /` (`Accept-Language: fr` 付き)       | `302` → `/fr`                          |
-| `GET /` (`INTLAYER_LOCALE=es` Cookie 付き) | `302` → `/es`                          |
-| `GET /fr`                                  | `200` — フランス語, `<html lang="fr">` |
-| `GET /fr/about`                            | `200` — フランス語の about ページ      |
-| `GET /en/about`                            | `302` → `/about` (正規リダイレクト)    |
-| `GET /xx`                                  | `404`                                  |
-| `GET /fr/nonexistent`                      | `404` (フランス語)                     |
-| `GET /sitemap.xml`                         | `200` — 多言語 XML サイトマップ        |
+| リクエスト                                 | 期待されるレスポンス                  |
+| ------------------------------------------ | ------------------------------------- |
+| `GET /`                                    | `200`、英語                           |
+| `GET /` (`Accept-Language: fr` 付き)       | `302` → `/fr`                         |
+| `GET /` (`INTLAYER_LOCALE=es` Cookie 付き) | `302` → `/es`                         |
+| `GET /fr`                                  | `200`、フランス語, `<html lang="fr">` |
+| `GET /fr/about`                            | `200`、フランス語の about ページ      |
+| `GET /en/about`                            | `302` → `/about` (正規リダイレクト)   |
+| `GET /xx`                                  | `404`                                 |
+| `GET /fr/nonexistent`                      | `404` (フランス語)                    |
+| `GET /sitemap.xml`                         | `200`、多言語 XML サイトマップ        |
 
 ページをレンダリングする行は `vite dev` 下でもまったく同じように動作します。3 つのリダイレクト行は、自分でハンドラーをミドルウェアとして登録しない限り、構築されたサーバーにのみ適用されます（ステップ 3 を参照）。
 
@@ -1040,18 +1058,25 @@ Intlayer によって生成されたファイルを無視することをお勧�
 
 Intlayer での開発体験を向上させるために、公式の **Intlayer VS Code 拡張機能** をインストールできます。
 
-[VS Code Marketplace からインストール](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [VS Code Marketplace からインストール](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
-この拡張機能は以下を提供します:
+この拡張機能は以下の機能を提供します：
 
-- 翻訳キーの **自動補完**。
-- 欠落している翻訳の **リアルタイムエラー検出**。
-- 翻訳されたコンテンツの **インラインプレビュー**。
-- 翻訳を簡単に作成および更新するための **クイックアクション**。
+- 翻訳キーの **オートコンプリート**。
+- 不足している翻訳の **リアルタイムエラー検出**。
+- 翻訳済みコンテンツの **インラインプレビュー**。
+- 翻訳を簡単に作成・更新するための **クイックアクション**。
+
+拡張機能の使用方法の詳細については、[Intlayer VS Code Extension ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)を参照してください。
+
+- [Intlayer VS Code Extension ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)
 
 ## さらに進む
 
 さらに進むには、[ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)を実装するか、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)を使用してコンテンツを外部化できます。
+
+- [ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
 
 ## ドキュメントの参照
 
@@ -1074,20 +1099,34 @@ Intlayer での開発体験を向上させるために、公式の **Intlayer VS
 
 Solid Start ではサーバー部分の違いが顕著で、このガイドではそれらを専用のステップとしてカバーしています。[Intlayer を選ぶ理由](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)と [Solid i18n ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/solid.md)を参照してください。
 
+- [Intlayer を選ぶ理由](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)
+- [Solid i18n ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/solid.md)
+
 </Question>
 <Question title="i18n は Solid Start のバンドルサイズにどの程度の影響を与えますか？">
 
 名前空間ベースのセットアップよりもはるかに少ないです。ページはレンダリングしないカタログをダウンロードしないためです。サーバーレンダリングされたマークアップはサーバー上でコンテンツを解決し、ビルド時コンパイラは `useIntlayer` 呼び出しをコンポーネントが使用する正確な辞書エントリに置き換えるため、未使用のキーと未使用の言語は削除され、[動的辞書](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/index.md)は残りをロケールごとに分割します。通常の代替案と比較すると、Intlayer はバンドルとページサイズを最大 50% 削減します。[バンドル最適化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)と[ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/solid.md)を参照してください。
+
+- [動的辞書](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/index.md)
+- [バンドル最適化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)
+- [ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/solid.md)
 
 </Question>
 <Question title="`@solid-primitives/i18n` または `i18next` からコンポーネントを書き直さずに移行できますか？">
 
 ほぼ可能です。[i18next 移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_i18next_to_intlayer.md)に従ってコンテンツを移動してください。段階的に移行することもできます。[sync JSON プラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md)は既存の JSON カタログを信頼できるソースとして保ち、それらから Intlayer 辞書を生成するため、両方のレイヤーは同期を保ったまま、コンポーネントを一度に 1 つずつ移動できます。
 
+- [i18next 移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_i18next_to_intlayer.md)
+- [sync JSON プラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md)
+
 </Question>
 <Question title="既存の JSON 翻訳ファイルを保持できますか？">
 
 はい。[sync JSON プラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md)は `/messages/{locale}/{namespace}.json` ファイルを信頼できるソースとして保ち、双方向で Intlayer 辞書を生成します。[sync PO プラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-po.md)は gettext カタログに対して同じことを行い、[ロケールごとのファイル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/per_locale_file.md)では 1 つのファイルにロケールをグループ化する代わりに言語ごとにコンテンツを分割できます。
+
+- [sync JSON プラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md)
+- [sync PO プラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-po.md)
+- [ロケールごとのファイル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/per_locale_file.md)
 
 </Question>
 <Question title="コンテンツをキーごとに移動する必要がありますか？">
@@ -1096,7 +1135,11 @@ Solid Start ではサーバー部分の違いが顕著で、このガイドで�
 
 完全に自動化されたパイプラインの場合、[Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)はビルド時に同じことを行います。JSX、TSX、Vue、Svelte ソースを変更するたびにスキャンし、辞書を生成し、hot module replacement を通じて同期を保つため、手動で保守するキーはまったくありません。
 
+- [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)
+
 コンパイラをオンにする前に知っておく価値のある 2 つの制限があります。静的分析で動作するため、API エラーコードや CMS フィールドなど、実行時にのみ存在する文字列には到達できません。また、`className="active"` やステータスコードなどのアプリケーションロジックからユーザーに見える文字列を区別する必要があり、大規模なコードベースではいくつかのアノテーションが必要です。[extract コマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md)はループに保つことで両方を回避します。
+
+- [extract コマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md)
 
 </Question>
 <Question title="利用可能なエディタと AI エージェントツーリングは何ですか？">
@@ -1134,6 +1177,8 @@ Solid Start ではサーバー部分の違いが顕著で、このガイドで�
 
 いいえ。`routing.mode` は `"prefix-no-default"`（デフォルト）、`"prefix-all"`、`"no-prefix"`、`"search-params"` を受け入れ、`routing.domains` は各ロケールを独自のドメインにマップします。[設定リファレンス](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を参照してください。
 
+- [設定リファレンス](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)
+
 </Question>
 <Question title="サーバー関数でロケールを取得するにはどうしますか？">
 
@@ -1144,20 +1189,34 @@ Solid Start ではサーバー部分の違いが顕著で、このガイドで�
 
 `npx intlayer fill` を実行してください。選択した LLM を使用して、独自のプロバイダーと API キーで欠落している翻訳を入力し、`--git-diff` は実行をブランチで変更されたコンテンツに制限します。[fill コマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/fill.md)と [CI/CD 統合](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/CI_CD.md)を参照してください。
 
+- [fill コマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/fill.md)
+- [CI/CD 統合](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/CI_CD.md)
+
 </Question>
 <Question title="Intlayer は複数形、性別、リッチテキストをサポートしていますか？">
 
 はい: [複数形](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/plurial.md)、[性別ベースのコンテンツ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/gender.md)、条件、[挿入](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/insertion.md)、[Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/markdown.md)、および数値、日付、通貨の[フォーマッター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/formatters.md)に対応しています。
+
+- [複数形](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/plurial.md)
+- [性別ベースのコンテンツ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/gender.md)
+- [挿入](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/insertion.md)
+- [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/markdown.md)
+- [フォーマッター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/formatters.md)
 
 </Question>
 <Question title="翻訳者がコードに触れずにコンテンツを編集するにはどうしますか？">
 
 [ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を通じて、独自のインフラストラクチャで実行され、誰もが実行中のアプリ上でテキストをその場で編集できます。または、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を通じて、コンテンツを外部化してデプロイなしで変更できます。
 
+- [ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)
+
 </Question>
 <Question title="Intlayer は無料でオープンソースですか？">
 
 はい、Apache 2.0 ライセンスの下で、商用利用を含みます。ホストされた CMS はオプションの有料サービスで、[自己ホスト](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/self_hosting.md)も可能です。
+
+- [自己ホスト](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/self_hosting.md)
 
 </Question>
 

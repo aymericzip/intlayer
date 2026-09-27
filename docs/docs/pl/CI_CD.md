@@ -62,6 +62,8 @@ export default config;
 
 Aby dowiedzieć się więcej o CMS, zapoznaj się z [oficjalną dokumentacją](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md).
 
+- [Intlayer CMS: wyodrębnij wielojęzyczne treści](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md)
+
 ## Używanie Husky
 
 Możesz zintegrować generowanie tłumaczeń z lokalnym workflow Git za pomocą [Husky](https://typicode.github.io/husky/).
@@ -98,6 +100,8 @@ npx intlayer fill --unpushed --mode fill    # Wypełnia tylko brakujące treści
 ```
 
 > Aby uzyskać więcej informacji na temat poleceń Intlayer CLI i ich użycia, zapoznaj się z [dokumentacją CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/index.md).
+
+- [dokumentacją CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/index.md)
 
 > Jeśli masz wiele aplikacji w swoim repozytorium korzystających z osobnych instancji intlayer, możesz użyć argumentu `--base-dir` w następujący sposób:
 
@@ -198,3 +202,5 @@ Aby skonfigurować zmienne środowiskowe, przejdź do GitHub → Settings → Se
 > Domyślnie argument `--git-diff` filtruje słowniki, które zawierają zmiany od bazy (domyślnie `origin/main`) do bieżącej gałęzi (domyślnie: `HEAD`).
 
 > Aby uzyskać więcej informacji o poleceniach Intlayer CLI i ich użyciu, zapoznaj się z [dokumentacją CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/index.md).
+
+- [dokumentacją CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/index.md)

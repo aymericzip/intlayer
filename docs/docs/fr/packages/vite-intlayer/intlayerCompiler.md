@@ -27,9 +27,11 @@ author: aymericzip
 
 # intlayerCompiler
 
-`intlayerCompiler` est un plugin Vite qui scanne les fichiers sources des composants à la recherche de **déclarations de contenu Intlayer en ligne** — du contenu défini directement à l'intérieur d'un composant plutôt que dans un fichier `.content.ts` séparé — et les écrit dans des fichiers JSON de dictionnaire pendant la phase de transformation.
+`intlayerCompiler` est un plugin Vite qui scanne les fichiers sources des composants à la recherche de **déclarations de contenu Intlayer en ligne**, du contenu défini directement à l'intérieur d'un composant plutôt que dans un fichier `.content.ts` séparé, et les écrit dans des fichiers JSON de dictionnaire pendant la phase de transformation.
 
 > **Depuis Intlayer v9**, `intlayerCompiler` est automatiquement inclus dans le plugin principal [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/vite-intlayer/intlayer.md) lorsque `compiler.enabled` est à `true` et que `compiler.output` est défini dans votre configuration Intlayer. Vous n'avez besoin de l'enregistrer séparément que si vous souhaitez un contrôle total sur la configuration spécifique au compilateur.
+
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/vite-intlayer/intlayer.md)
 
 ## Utilisation
 
@@ -118,4 +120,4 @@ Un debounce de 500 ms empêche l'écriture du dictionnaire elle-même (qui décl
 
 ### Dédoublonnage
 
-`intlayerCompiler` utilise le même mécanisme de dédoublonnage `createPrimaryInstanceGuard` que les autres plugins intégrés. Lorsque `intlayer()` (qui intègre le compilateur) et un appel manuel à `intlayerCompiler()` sont tous deux présents, seule la première instance enregistrée s'exécute — aucun dictionnaire n'est écrit deux fois.
+`intlayerCompiler` utilise le même mécanisme de dédoublonnage `createPrimaryInstanceGuard` que les autres plugins intégrés. Lorsque `intlayer()` (qui intègre le compilateur) et un appel manuel à `intlayerCompiler()` sont tous deux présents, seule la première instance enregistrée s'exécute, aucun dictionnaire n'est écrit deux fois.

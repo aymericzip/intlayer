@@ -27,6 +27,8 @@ author: aymericzip
 
 Для детального покрокового посібника дивіться наш повний [Посібник з міграції з i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/migration_from_i18next_to_intlayer.md).
 
+- [Посібник з міграції з i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/migration_from_i18next_to_intlayer.md)
+
 Intlayer ідеально повторює основні характеристики виконання `i18next`. Використовуючи пакет compat, ваші Vanilla-додатки або внутрішні модулі можуть продовжувати використовувати звичний синтаксис.
 
 ## Що робити

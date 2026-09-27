@@ -137,3 +137,5 @@ export default config;
 ### Integrasi TypeScript
 
 Fungsi `t` aman secara tipe saat digunakan dengan kamus yang ditentukan. Untuk detail lebih lanjut, lihat [dokumentasi TypeScript](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md).
+
+- [dokumentasi TypeScript](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md)

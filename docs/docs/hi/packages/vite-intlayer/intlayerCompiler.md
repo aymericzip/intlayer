@@ -27,9 +27,11 @@ author: aymericzip
 
 # intlayerCompiler
 
-`intlayerCompiler` एक Vite प्लगइन है जो घटक स्रोत फ़ाइलों को **इनलाइन Intlayer सामग्री घोषणाओं** — एक अलग `.content.ts` फ़ाइल के बजाय सीधे एक घटक के अंदर परिभाषित सामग्री — के लिए स्कैन करता है और उन्हें ट्रांसफ़ॉर्म चरण के दौरान शब्दकोश JSON फ़ाइलों में लिखता है।
+`intlayerCompiler` एक Vite प्लगइन है जो घटक स्रोत फ़ाइलों को **इनलाइन Intlayer सामग्री घोषणाओं**, एक अलग `.content.ts` फ़ाइल के बजाय सीधे एक घटक के अंदर परिभाषित सामग्री, के लिए स्कैन करता है और उन्हें ट्रांसफ़ॉर्म चरण के दौरान शब्दकोश JSON फ़ाइलों में लिखता है।
 
 > **Intlayer v9 से** `intlayerCompiler` स्वचालित रूप से मुख्य [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/vite-intlayer/intlayer.md) प्लगइन के अंदर शामिल होता है जब आपके Intlayer कॉन्फ़िगरेशन में `compiler.enabled` दोनों `true` और `compiler.output` सेट होते हैं। आपको इसे अलग से पंजीकृत करने की आवश्यकता केवल तब होती है जब आप कंपाइलर-विशिष्ट कॉन्फ़िगरेशन पर पूर्ण नियंत्रण चाहते हैं।
+
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/vite-intlayer/intlayer.md)
 
 ## उपयोग
 
@@ -118,4 +120,4 @@ intlayerCompiler({
 
 ### डिडुप्लीकेशन
 
-`intlayerCompiler` अन्य बंडल प्लगइन्स की तरह ही `createPrimaryInstanceGuard` डिडुप्लीकेशन तंत्र का उपयोग करता है। जब `intlayer()` (जो कंपाइलर को बंडल करता है) और एक मैन्युअल `intlayerCompiler()` कॉल दोनों मौजूद होते हैं, तो केवल पहला पंजीकृत उदाहरण चलता है — कोई भी शब्दकोश दो बार नहीं लिखा जाता है।
+`intlayerCompiler` अन्य बंडल प्लगइन्स की तरह ही `createPrimaryInstanceGuard` डिडुप्लीकेशन तंत्र का उपयोग करता है। जब `intlayer()` (जो कंपाइलर को बंडल करता है) और एक मैन्युअल `intlayerCompiler()` कॉल दोनों मौजूद होते हैं, तो केवल पहला पंजीकृत उदाहरण चलता है, कोई भी शब्दकोश दो बार नहीं लिखा जाता है।

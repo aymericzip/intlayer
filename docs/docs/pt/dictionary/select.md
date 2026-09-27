@@ -376,6 +376,8 @@ O caso ICU `other` é renomeado para `fallback`, que é o nome canônico do Intl
 
 > Um `select` do ICU em que os casos são valores de gênero (`male` / `female` / `other`) é, ao invés disso, importado como um nó [`gender`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/gender.md).
 
+- [`gender`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/gender.md)
+
 ## Recursos Adicionais
 
 Para informações mais detalhadas sobre configuração e uso, consulte os seguintes recursos:

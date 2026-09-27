@@ -26,6 +26,8 @@ React không đi kèm primitive i18n nào. Thư viện bạn chọn ngay từ ng
 
 Hướng dẫn này tiếp cận theo hướng ngược lại: hãy trả lời vài câu hỏi về dự án của bạn trước, sau đó đối chiếu các câu trả lời với những thư viện phù hợp. Hướng dẫn tập trung vào React thuần (Vite, React Router, TanStack Start). Next.js có những ràng buộc riêng, được đề cập trong [bài so sánh Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/next-i18next_vs_next-intl_vs_intlayer.md).
 
+- [bài so sánh Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/next-i18next_vs_next-intl_vs_intlayer.md)
+
 ## Mục lục
 
 <TOC/>
@@ -74,6 +76,8 @@ Nội dung được biên dịch thành các hàm hỗ trợ tree-shaking hoặc
 
 Bài viết [lịch sử JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/history_of_i18n.md) giải thích chi tiết cách mỗi làn sóng giải quyết các vấn đề của làn sóng trước đó.
 
+- [lịch sử JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/history_of_i18n.md)
+
 ## Quyết định quan trọng nhất: nơi lưu trữ nội dung và thời điểm tải
 
 Mọi thư viện React i18n đều có cấu trúc tương tự nhau: một store, một provider, một hook. Bất kể thứ gì provider nhận vào đều sẽ nằm trong client bundle hoặc trong hydration payload. Vì vậy, hai lựa chọn mang tính cấu trúc là:
@@ -89,11 +93,17 @@ Nội dung tập trung với static import sẽ tăng theo cả hai trục: 10 t
 
 Đây không phải là đặc tính của thư viện, mà là vấn đề kỷ luật kiến trúc. `react-i18next` có thể được phân vùng bằng namespace và backend tải lười (lazy backends). `use-intl` có thể được tách theo từng route. Nhưng không có gì ép buộc điều đó, và một `<Button>` dùng chung gọi `t("common:cta")` sẽ âm thầm biến `common` thành dependency của mọi route. Bản [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/index.md) đo lường điều này dưới dạng "rò rỉ từ các route khác" và "rò rỉ từ các locale khác", và đây là nguyên nhân chính tạo nên sự chênh lệch giữa các thư viện.
 
+- [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/index.md)
+
 Nếu câu trả lời của bạn cho câu hỏi 3 là "nhiều locale, nhiều trang", hãy cân nhắc phần này hơn bất kỳ sở thích API nào. Bài viết [i18n theo từng component so với tập trung](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/per-component_vs_centralized_i18n.md) sẽ phân tích sâu hơn về khía cạnh bảo trì của cùng lựa chọn này.
+
+- [i18n theo từng component so với tập trung](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/per-component_vs_centralized_i18n.md)
 
 ## Các ứng cử viên
 
 Kích thước thư viện được lấy từ [bài benchmark trên TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md): provider kèm hook trong một component trống, sau khi bundling, tree-shaking và minification, với 10 trang và 10 locale. Nội dung được đo lường riêng biệt.
+
+- [bài benchmark trên TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md)
 
 ![Hệ sinh thái thư viện React i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
@@ -119,6 +129,8 @@ Có hai điều bảng so sánh không thể hiện. `Paraglide` hầu như khô
 
 Hãy chọn giải pháp đơn giản nhất hoạt động được và đừng đầu tư quá mức. `react-i18next` với một file JSON duy nhất cho mỗi locale là đủ tốt, và cả một thập kỷ câu trả lời trên Stack Overflow sẽ giúp bạn tiết kiệm thời gian. Bỏ qua namespace cho đến khi bạn thực sự cần. Nếu bản prototype trở thành một sản phẩm chính thức, hãy lên kế hoạch chuyển đổi sang nội dung phân phạm vi (scoped content), [adapter tương thích react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/react-i18next.md) sẽ giúp quá trình đó diễn ra từng bước một.
 
+- [adapter tương thích react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/react-i18next.md)
+
 </Accordion>
 <Accordion header="Bản dịch đến từ agency hoặc một TMS hỗ trợ ICU">
 
@@ -134,6 +146,8 @@ Nên ưu tiên scoped content và dynamic loading theo mặc định, thay vì c
 
 Mọi thư viện dựa trên key đều có thể thêm type, nhưng hầu như không có thư viện nào bật sẵn mặc định. Nếu bạn không muốn duy trì declaration merging vốn rất phức tạp khi kết hợp với các namespace tải lười, hãy chọn một thư viện mà type được sinh tự động từ nội dung: `Lingui`, `Paraglide`, hoặc Intlayer. Bài viết [phát hiện bản dịch còn thiếu](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/detecting_missing_translations.md) sẽ so sánh những gì mỗi thư viện có thể bắt được trong thời gian build.
 
+- [phát hiện bản dịch còn thiếu](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/detecting_missing_translations.md)
+
 </Accordion>
 <Accordion header="Nhiều nội dung phức tạp: markdown, link lồng trong câu, component riêng theo locale">
 
@@ -148,6 +162,8 @@ Khi đó, một file JSON tập trung không còn là yêu cầu bắt buộc, v
 <Accordion header="Bạn có thể chuyển sang Next.js App Router sau này">
 
 React Context không thể vượt qua ranh giới giữa server và client. Các thư viện chỉ xây dựng dựa trên client hook (`react-i18next`, `react-intl`) sẽ cần một API server song song ngay khi bạn áp dụng RSC. `use-intl` (dưới dạng `next-intl`) và Intlayer (dưới dạng `next-intlayer`) đã có sẵn sự phân chia đó. Hãy đọc [bài viết về Next.js i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/next-i18next_vs_next-intl_vs_intlayer.md) trước khi chuẩn hóa một mô hình.
+
+- [bài viết về Next.js i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/next-i18next_vs_next-intl_vs_intlayer.md)
 
 </Accordion>
 </AccordionGroup>
@@ -499,6 +515,11 @@ Tất cả các locale nằm trong một file duy nhất đặt cạnh component
 
 Bạn đã đang sử dụng `react-i18next`, `react-intl` hoặc `Lingui`? Các adapter tương thích ([react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/react-i18next.md), [react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/react-intl.md), [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/lingui.md)) sẽ tạo alias cho các import ở cấp độ bundler, giúp API hiện tại tiếp tục hoạt động trong khi bạn chuyển đổi từng component một. [Hướng dẫn chuyển đổi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_react-i18next_to_intlayer.md) sẽ hướng dẫn các phần còn lại.
 
+- [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/react-i18next.md)
+- [react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/react-intl.md)
+- [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/lingui.md)
+- [Hướng dẫn chuyển đổi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_react-i18next_to_intlayer.md)
+
 ## Trước khi bạn đưa ra quyết định
 
 Bảng tính năng cho bạn biết thư viện làm được gì hôm nay. Những điểm dưới đây sẽ cho bạn biết trải nghiệm sử dụng nó lâu dài sẽ như thế nào.
@@ -521,6 +542,9 @@ Thư viện có lượt tải nhiều nhất là thư viện ra mắt đầu ti�
 
 Các agent hiện nay vẫn gặp khó khăn với i18n: chúng quên locale, tự tạo ra key lạ, và trộn lẫn các cú pháp message. Thư viện có cung cấp [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/agent_skills.md) hay [MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/mcp_server.md) để agent có thể liệt kê, điền và kiểm thử nội dung không? Và việc tải nội dung có được tối ưu hóa theo mặc định hay không, hay hàng quý vẫn phải có người rà soát lại namespace và lazy import?
 
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/agent_skills.md)
+- [MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/mcp_server.md)
+
 **Tính an toàn kiểu dữ liệu (type safety) có sẵn ngay từ đầu.**
 
 Không phải kiểu "có thể định kiểu với cấu hình bổ sung", mà là "một key sai sẽ làm fail `tsc` ngay trên bản cài đặt mới tinh". Hãy kiểm tra điều gì xảy ra với một key không tồn tại, và với một locale bị thiếu một bản dịch.
@@ -532,6 +556,13 @@ Các catalog chỉ có xu hướng phình to ra. Quá trình build của Intlaye
 **Trải nghiệm lập trình viên (Developer Experience).**
 
 Thời gian thiết lập đến chuỗi dịch đầu tiên, một [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/lsp.md) hoặc [tiện ích mở rộng VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/vs_code_extension.md) hiển thị bản dịch khi hover và nhảy đến phần khai báo, một [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md) để fill, test và push, một [trình biên dịch](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md) hoặc trình trích xuất lấy các chuỗi hard-code ra khỏi component để bạn không phải quản lý từng chuỗi theo từng khóa, cùng phương thức cho người không phải lập trình viên chỉnh sửa nội dung ([visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md) hoặc [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)) mà không cần tạo pull request.
+
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/lsp.md)
+- [tiện ích mở rộng VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/vs_code_extension.md)
+- [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md)
+- [trình biên dịch](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md)
+- [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)
 
 ## Câu hỏi thường gặp
 
@@ -547,6 +578,8 @@ Có, đối với hầu hết các đội ngũ. Thư viện này sở hữu hệ
 
 Chỉ khi dung lượng bundle, type được sinh tự động hoặc kiểm tra thiếu key khi build nằm trong các yêu cầu của bạn. Đối với một ứng dụng nhỏ có hai locale, một thư viện runtime sẽ đơn giản hơn. Bài viết [trình biên dịch so với i18n khai báo](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/compiler_vs_declarative_i18n.md) giải thích những gì trình biên dịch mang lại và những điểm có thể gặp trục trặc.
 
+- [trình biên dịch so với i18n khai báo](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/compiler_vs_declarative_i18n.md)
+
 </Question>
 
 <Question title="Tôi có thể đổi thư viện sau này mà không cần viết lại mọi component không?">
@@ -558,6 +591,8 @@ Một phần. Các thư viện dựa trên key chia sẻ cấu trúc đủ tươ
 <Question title="Lựa chọn thư viện có ảnh hưởng đến SEO không?">
 
 Ảnh hưởng gián tiếp. Những gì công cụ tìm kiếm (crawler) nhìn thấy được quyết định bởi routing, `hreflang`, `<html lang>` và việc văn bản có nằm trong HTML được render phía server hay không. Một số thư viện cung cấp các helper cho việc đó, hầu hết để bạn tự xử lý. Xem [hướng dẫn hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/hreflang_guide_multilingual_seo.md).
+
+- [hướng dẫn hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/hreflang_guide_multilingual_seo.md)
 
 </Question>
 

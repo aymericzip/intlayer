@@ -31,6 +31,9 @@ Chaque pattern ci-dessous fonctionne sur n'importe quelle stack i18n. Remplacez 
 
 L'outillage de couverture s'adapte également : avec le [plugin Sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/plugins/sync-json.md) branché sur vos catalogues existants, ou un [adaptateur de compatibilité](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compat/index.md) créant un alias sur vos imports actuels, la vérification de couverture s'exécute sur le JSON déjà en place.
 
+- [plugin Sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/plugins/sync-json.md)
+- [adaptateur de compatibilité](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compat/index.md)
+
 ## Déterminer ce que vous testez réellement
 
 La qualité d'une traduction ne se teste pas par assertion. Aucune assertion ne vous dira si l'allemand est idiomatique, et prétendre le contraire produit une suite encombrée de chaînes écrites en dur.
@@ -46,6 +49,8 @@ Ce qui mérite d'être testé est mécanique :
 | Les dates et nombres respectent la locale | L'exactitude interne d'`Intl`     |
 
 La couverture relève d'un seul test automatisé orienté données, et non de vos tests de composants. Ce sujet est abordé dans [détecter les traductions manquantes](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/detecting_missing_translations.md) ; cet article traite du reste.
+
+- [détecter les traductions manquantes](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/detecting_missing_translations.md)
 
 ## Effectuer le rendu dans un provider et cibler par rôle
 
@@ -122,6 +127,8 @@ describe.each([0, 1, 2, 3, 11, 100])("quantité %i", (count) => {
 ```
 
 Choisissez des nombres ciblant chaque catégorie CLDR pour votre langue la plus complexe, plutôt que de vous limiter à 1 et 2 partout. `Intl.PluralRules` indique la catégorie attribuée à un nombre, ce qui permet de déduire vos jeux de test sans tâtonner. Retrouvez plus de précisions sur les catégories dans [l'article sur le format de message ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/icu_message_format.md).
+
+- [l'article sur le format de message ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/icu_message_format.md)
 
 ## Le piège des tests par instantané (snapshots)
 

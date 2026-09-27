@@ -34,6 +34,8 @@ Trong Intlayer, nội dung số nhiều được thực hiện thông qua hàm `
 
 Không giống như [`enu`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/enumeration.md), chọn nội dung dựa trên các phạm vi số do bạn tự xác định, `plural` ủy quyền việc lựa chọn cho các quy tắc CLDR. Đây là điều làm cho nó có thể mở rộng cho các ngôn ngữ có quy tắc số nhiều phức tạp, như tiếng Nga, tiếng Ba Lan, tiếng Ả Rập hoặc tiếng Wales, mà không cần phải tự viết logic modulo.
 
+- [`enu`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/enumeration.md)
+
 ## Khi nào nên sử dụng `plural` so với `enu`
 
 | Trường hợp sử dụng                                                      | Trợ giúp |

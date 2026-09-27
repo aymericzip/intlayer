@@ -163,6 +163,8 @@ export default indexContent;
 
 > আরও বিস্তারিত জানতে, দেখুন [কন্টেন্ট ডিক্লারেশন ডকুমেন্টেশন](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/dictionary/content_file.md)।
 
+- [কন্টেন্ট ডিক্লারেশন ডকুমেন্টেশন](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/dictionary/content_file.md)
+
 ### Fastify অ্যাপ্লিকেশন সেটআপ
 
 `fastify-intlayer` ব্যবহার করতে আপনার Fastify অ্যাপ্লিকেশনটি সেটআপ করুন:
@@ -238,6 +240,8 @@ export default config;
 
 > কনফিগারেশন এবং উন্নত বিষয় সম্পর্কে আরও তথ্যের জন্য আমাদের [ডকুমেন্টেশন](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/configuration.md) ভিজিট করুন।
 
+- [কনফিগারেশন (Configuration)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/configuration.md)
+
 ### TypeScript কনফিগার করা
 
 `fastify-intlayer` আন্তর্জাতিকীকরণ প্রক্রিয়া উন্নত করতে TypeScript-এর শক্তিশালী সক্ষমতা ব্যবহার করে। TypeScript-এর স্ট্যাটিক টাইপিং নিশ্চিত করে যে প্রতিটি অনুবাদ কী বিবেচনায় নেওয়া হয়েছে, যা অনুবাদের ঘাটতির ঝুঁকি কমায় এবং রক্ষণাবেক্ষণযোগ্যতা উন্নত করে।
@@ -258,7 +262,7 @@ export default config;
 
 ইন্টলেয়ারের সাথে আপনার ডেভেলপমেন্ট অভিজ্ঞতা উন্নত করতে, আপনি অফিসিয়াল **Intlayer VS Code Extension** ইনস্টল করতে পারেন।
 
-[VS Code Marketplace থেকে ইনস্টল করুন](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [VS Code Marketplace থেকে ইনস্টল করুন](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 এই এক্সটেনশনটি প্রদান করে:
 
@@ -268,6 +272,8 @@ export default config;
 - সহজে অনুবাদ তৈরি এবং আপডেট করার জন্য **কুইক অ্যাকশন**।
 
 এক্সটেনশন ব্যবহারের আরও বিস্তারিত জানতে, দেখুন [ইন্টলেয়ার ভিএস কোড এক্সটেনশন ডকুমেন্টেশন](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md)।
+
+- [ইন্টলেয়ার ভিএস কোড এক্সটেনশন ডকুমেন্টেশন](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md)
 
 ### Git কনফিগারেশন
 

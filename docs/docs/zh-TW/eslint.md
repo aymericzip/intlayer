@@ -61,7 +61,7 @@ bun add --dev eslint-plugin-intlayer
 
 ## 使用方法
 
-此外掛可在 ESLint 與 [oxlint](https://oxc.rs) 中執行 — 擁有相同的規則與設定選項。
+此外掛可在 ESLint 與 [oxlint](https://oxc.rs) 中執行，擁有相同的規則與設定選項。
 
 <Tabs defaultTab="eslint">
   <Tab label="ESLint" value="eslint">
@@ -106,7 +106,7 @@ export default [
 }
 ```
 
-兩點注意事項：oxlint 對 JS 外掛的支援仍處於 Alpha 階段，且 oxlint 不支援自訂解析器 — 因此 `.vue`、`.svelte`、`.astro` 與 Angular 範本無法在此處進行 lint。請在 JS/TS/JSX 檔案上執行 oxlint，其餘檔案保留使用 ESLint。
+兩點注意事項：oxlint 對 JS 外掛的支援仍處於 Alpha 階段，且 oxlint 不支援自訂解析器，因此 `.vue`、`.svelte`、`.astro` 與 Angular 範本無法在此處進行 lint。請在 JS/TS/JSX 檔案上執行 oxlint，其餘檔案保留使用 ESLint。
 
 上面特意排除了 `no-unused-content`：它需要從規則上下文中取得工作目錄與被檢查檔案的路徑，而 Alpha 階段的 JS 外掛橋接層無法保證提供這些資訊。請在 ESLint 下執行該規則。
 
@@ -123,7 +123,7 @@ export default [
 
 `recommended` 特意將 `no-raw-text` 設為 `warn`：將其指向現有程式碼庫會一次性暴露所有未翻譯的字串，這不應該在第一天就導致建置中斷。
 
-`enforce-adapter-import` 預設關閉 — 如果需要請明確啟用。
+`enforce-adapter-import` 預設關閉，如果需要請明確啟用。
 
 `no-unused-content` 在所有設定中均預設關閉（包含 `strict`）。這是唯一一個需要讀取 Intlayer 設定並從磁碟遍歷來源檔案的規則，因此啟用它應當是一項經過深思熟慮的選擇，而非預設自動執行的行為。
 
@@ -248,7 +248,7 @@ export default {
 };
 ```
 
-與其他規則不同，此規則無法僅憑眼前的檔案給出判斷 — 欄位是否未使用僅相對於整個專案而言。在一次 lint 執行的首次內容宣告時，它會載入你的 Intlayer 設定，比對該設定宣告的來源檔案（`build.traversePattern`、`compiler.transformPattern`），並執行驅動 `@intlayer/lsp` 與 VS Code 擴充套件中「未使用」刪除線的同一套使用情況分析器。結果會快取 `cacheTtl` 毫秒，因此每次執行只會掃描一次，而不是每個檔案掃描一次。
+與其他規則不同，此規則無法僅憑眼前的檔案給出判斷，欄位是否未使用僅相對於整個專案而言。在一次 lint 執行的首次內容宣告時，它會載入你的 Intlayer 設定，比對該設定宣告的來源檔案（`build.traversePattern`、`compiler.transformPattern`），並執行驅動 `@intlayer/lsp` 與 VS Code 擴充套件中「未使用」刪除線的同一套使用情況分析器。結果會快取 `cacheTtl` 毫秒，因此每次執行只會掃描一次，而不是每個檔案掃描一次。
 
 **設定選項**
 
@@ -283,9 +283,9 @@ export default {
 
 > **傾向於保持沉默。** 此處的誤報會導致翻譯被誤刪，因此當字典以分析器無法追蹤的方式被使用時，不會回報任何內容：內容物件被整體傳遞、從中繫結的翻譯函式（`const t = useTranslations("home")`）、透過直接匯入存取的宣告（`useDictionary(myDictionary)`）、來自另一個字典的 `nest()`、或者因 spread 展開而不詳盡的欄位列表。單一檔案元件（`.vue`、`.svelte`、`.astro`）計為使用了它們提及的字典中的所有欄位，因為它們的指令碼區塊在此處不會被解析。
 
-`reportDuplicateKeys` 讀取建置時寫入 `.intlayer/` 下的未合併字典，因此在專案至少建置過一次之前它會保持安靜。共享一個鍵的兩個宣告會被合併，這是一種合法的模式 — 該回報之所以存在，是因為在兩邊同時定義的欄位會無訊息保留兩個值中的一個。
+`reportDuplicateKeys` 讀取建置時寫入 `.intlayer/` 下的未合併字典，因此在專案至少建置過一次之前它會保持安靜。共享一個鍵的兩個宣告會被合併，這是一種合法的模式，該回報之所以存在，是因為在兩邊同時定義的欄位會無訊息保留兩個值中的一個。
 
-分析器從以 ESM 形式發布的 `@intlayer/lsp` 中載入。因此該規則需要能夠 `require()` ES 模組的 Node 版本 — Node 20.19+ 或 22.12+。在更低版本上，它不會回報錯誤中斷 lint 執行，而是什麼都不回報。
+分析器從以 ESM 形式發布的 `@intlayer/lsp` 中載入。因此該規則需要能夠 `require()` ES 模組的 Node 版本，Node 20.19+ 或 22.12+。在更低版本上，它不會回報錯誤中斷 lint 執行，而是什麼都不回報。
 
 ## 框架支援
 

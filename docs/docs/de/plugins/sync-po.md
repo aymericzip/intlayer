@@ -321,6 +321,8 @@ Die synchronisierten PO-Dateien werden wie andere `.content`-Dateien behandelt. 
 
 Weitere Details finden Sie im [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md).
 
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md)
+
 ## Einschränkungen (aktuell)
 
 - Keine Unterstützung für Platzhalter oder Plurale/ICU bei der Zieladressierung von Drittanbieter-Bibliotheken.

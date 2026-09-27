@@ -78,6 +78,8 @@ Le compilateur Intlayer parcourt l'AST (Abstract Syntax Tree) de vos composants 
 
 > Pour plus de détails, consultez la documentation : [Intlayer Compiler Docs](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compiler.md)
 
+- [Intlayer Compiler Docs](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compiler.md)
+
 ## L'Attrait du Compilateur (L'Approche "Magique")
 
 Il y a une raison pour laquelle cette nouvelle approche est tendance. Pour un développeur, l'expérience est incroyable.

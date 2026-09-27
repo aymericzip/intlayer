@@ -74,6 +74,8 @@ author: aymericzip
 
 所有字典键必须在内容声明文件中声明，以增强类型安全并防止错误。[配置说明请参见此处](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)。
 
+- [配置说明请参见此处](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)
+
 ## React 中的使用示例
 
 以下是在 React 组件中使用 `useI18n` 钩子的示例：

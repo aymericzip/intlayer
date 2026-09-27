@@ -95,6 +95,8 @@ const exampleContent = {
 export default exampleContent;
 ```
 
+- [कंटेंट डिक्लेरेशन फ़ाइलें (.content.ts)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/content_file.md)
+
 ## React क्लाइंट कंपोनेंट में उदाहरण उपयोग
 
 नीचे एक उदाहरण दिया गया है कि `useDictionary` हुक को React कंपोनेंट में कैसे उपयोग किया जाए:

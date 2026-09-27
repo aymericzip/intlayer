@@ -140,6 +140,9 @@ ISO 639-1 用于语言，ISO 3166-1 Alpha 2 用于可选的地区：`fr`、`fr-C
 
 > Intlayer 通过 `routing.mode` 和 `routing.domains` 支持这三种方式。参见[自定义域名](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/custom_domains.md)和[配置参考](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
 
+- [自定义域名](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/custom_domains.md)
+- [配置参考](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)
+
 ## 实现
 
 手动编写这些标签无法在添加第二种语言时保持一致。应该从你的语言列表中派生它们。
@@ -188,6 +191,8 @@ export const generateMetadata = async ({
 
 完整设置: [Next.js 16 i18n 指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_16.md)。
 
+- [Next.js 16 i18n 指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_16.md)
+
 </Tab>
 
 <Tab label="TanStack Start" value="tanstack">
@@ -227,6 +232,8 @@ export const Route = createFileRoute("/{-$locale}/about")({
 ```
 
 `head` 在服务器上运行，因此标签会被插入初始 HTML 中。完整配置：[TanStack Start i18n 指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_tanstack.md)。
+
+- [TanStack Start i18n 指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_tanstack.md)
 
 </Tab>
 

@@ -66,6 +66,8 @@ Paraglide 为每个 message 生成一个独立函数，并交由打包工具（b
 
 [JavaScript i18n 发展史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/history_of_i18n.md)详细介绍了各个发展阶段。
 
+- [JavaScript i18n 发展史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/history_of_i18n.md)
+
 ## 最关键的决策：内容存放在哪里以及何时加载
 
 两种结构性选择决定了不同方案之间大部分的 bundle 体积差异：
@@ -81,9 +83,14 @@ Paraglide 为每个 message 生成一个独立函数，并交由打包工具（b
 
 [Vue 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/vue.md)将其衡量为“其他路由泄漏”和“其他 locale 泄漏”。如果对第 3 个问题的回答是“页面很多”，那么这一部分的考量将重于任何 API 偏好。[组件级对比集中式 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/per-component_vs_centralized_i18n.md)一文讨论了同一权衡在维护层面的影响。
 
+- [Vue 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/vue.md)
+- [组件级对比集中式 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/per-component_vs_centralized_i18n.md)
+
 ## 候选库对比
 
 库体积数据来自 [Vue 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/vue.md)：在包含 10 个页面、10 种语言的应用中，空 component 中引入 plugin 加上 composable，在打包、tree-shaking 和代码压缩后的体积。内容大小单独计算。
+
+- [Vue 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/vue.md)
 
 ![Vue i18n 库生态系统](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
@@ -112,6 +119,8 @@ Paraglide 接近于零的运行时体积源于其架构设计：运行时代码�
 
 `@nuxtjs/i18n` 开箱即用地提供了路由策略、`hreflang` 标签和 locale 检测功能，单凭这一点就足以让它成为页面较少的内容类网站的理想之选。它的限制在于按 locale 管理的 catalog：超过 10 个页面后，SSR payload 就会携带所有页面的文案。如果属于这种情况，要么手动为 `vue-i18n` 配置按路由拆分 message，要么转向局部作用域内容方案。[Nuxt i18n 文章](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nuxt.md)首先详细介绍了路由策略的选择。
 
+- [Nuxt i18n 文章](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nuxt.md)
+
 </Accordion>
 <Accordion header="翻译来自 TMS 或交付 ICU 格式的翻译机构">
 
@@ -126,6 +135,8 @@ Paraglide 接近于零的运行时体积源于其架构设计：运行时代码�
 <Accordion header="类型安全不可妥协">
 
 `vue-i18n` 可以通过向 `createI18n` 传递 schema 泛型来实现类型推导。虽然可行，但一旦使用懒加载 catalog 就会失效，因为 schema 描述的 message 当时可能尚未加载。如果不希望手动维护这些，请选择能够根据内容自动生成类型的库：Paraglide 或 Intlayer。[检测缺失翻译](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/detecting_missing_translations.md)一文对比了各方案在 build time 能捕获的问题。
+
+- [检测缺失翻译](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/detecting_missing_translations.md)
 
 </Accordion>
 <Accordion header="内容不仅限于 UI 标签">
@@ -372,6 +383,10 @@ const { title, items } = useIntlayer("cart-summary");
 
 已经在用 `vue-i18n`？[`@intlayer/vue-i18n` 兼容适配器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/vue-i18n.md)可以在 bundler 层对 package 进行别名替换，因此在 Intlayer 提供内容服务的同时，`useI18n()`、`$t`、管道符复数和 `v-t` 仍可继续正常工作。[迁移指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_vue-i18n_to_intlayer.md)介绍了后续如何彻底移除适配器，同时也有针对 [Nuxt 的专属迁移指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_nuxtjs_i18n_to_intlayer.md)。
 
+- [`@intlayer/vue-i18n` 兼容适配器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/vue-i18n.md)
+- [迁移指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_vue-i18n_to_intlayer.md)
+- [Nuxt 的专属迁移指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_nuxtjs_i18n_to_intlayer.md)
+
 ## 最终选型前的建议
 
 功能特性表只能说明一个库当前支持什么，而以下几点则决定了长期维护的实际体验。
@@ -394,6 +409,9 @@ const { title, items } = useIntlayer("cart-summary");
 
 AI Agent 在处理 i18n 时仍常遇到困难：容易遗漏 locale、捏造 key，或混淆 message 语法。该库是否提供了 [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md) 或 [MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)，以便 Agent 列出、填充和测试内容？此外，内容加载是否默认进行了优化，还是需要每个季度人工审查 namespace 和懒加载导入？
 
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)
+- [MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)
+
 **开箱即用的类型安全。**
 
 指的不是“经过额外配置后支持类型”，而是“在全新安装的项目中，错误的 key 会直接导致 `tsc` 报错”。检查当 key 不存在时，或者某个 locale 缺失某条翻译时，系统的表现如何。
@@ -405,6 +423,13 @@ AI Agent 在处理 i18n 时仍常遇到困难：容易遗漏 locale、捏造 key
 **开发者体验。**
 
 从环境配置到输出第一个翻译字符串的时间；是否提供 [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md) 或 [VS Code 插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/vs_code_extension.md)以支持悬停预览翻译和跳转定义；是否包含用于 fill、test 和 push 的 [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)、能把组件中硬编码的字符串提取出来、免去逐个键维护的[编译器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md)或提取工具；以及是否为非开发人员提供了无需提交 Pull Request 即可编辑内容的途径（[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)或 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)）。
+
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)
+- [VS Code 插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/vs_code_extension.md)
+- [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)
+- [编译器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md)
+- [可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
 
 ## 常见问题解答
 
@@ -426,11 +451,15 @@ AI Agent 在处理 i18n 时仍常遇到困难：容易遗漏 locale、捏造 key
 
 只有在 bundle 体积、SSR payload、生成的类型推导或构建时缺失 key 检查确实是刚需时才需要。[编译器对比声明式 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/compiler_vs_declarative_i18n.md)一文解释了编译器能带来的优势以及可能出现的问题。
 
+- [编译器对比声明式 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/compiler_vs_declarative_i18n.md)
+
 </Question>
 
 <Question title="库的选择会影响 SEO 吗？">
 
 会产生间接影响。搜索引擎爬虫关注的是路由结构、`hreflang`、`<html lang>` 以及文本是否包含在服务端渲染的 HTML 中。详见 [hreflang 多语言 SEO 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/hreflang_guide_multilingual_seo.md)。
+
+- [hreflang 多语言 SEO 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/hreflang_guide_multilingual_seo.md)
 
 </Question>
 

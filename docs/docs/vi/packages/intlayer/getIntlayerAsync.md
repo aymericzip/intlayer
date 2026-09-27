@@ -34,11 +34,15 @@ author: aymericzip
 
 Hàm `getIntlayerAsync` chọn một từ điển theo khóa của nó và giải quyết nội dung của nó cho một locale nhất định, **chỉ tải locale đó**.
 
-Nó là phiên bản không đồng bộ của [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getIntlayer.md), được sử dụng cho các trường hợp từ điển được đọc bên ngoài quá trình render — route `head` / metadata builders, loaders, server functions.
+Nó là phiên bản không đồng bộ của [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getIntlayer.md), được sử dụng cho các trường hợp từ điển được đọc bên ngoài quá trình render, route `head` / metadata builders, loaders, server functions.
+
+- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getIntlayer.md)
 
 Nếu như `getIntlayer` kéo trong từ điển đã hợp nhất chứa mọi locale, các [build plugins](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md) (`@intlayer/babel`, `@intlayer/swc`) sẽ viết lại cuộc gọi này thành `getDictionaryAsync(loaderMap, key, locale)`, chỉ vào các chunks theo locale trong `.intlayer/dynamic_dictionaries/`. Bundle do đó chỉ bao giờ cũng mang lại locale thực sự được yêu cầu.
 
-Nếu không có các plugins này — một build chưa được tối ưu hóa — cuộc gọi sẽ được giải quyết thông qua registry từ điển đồng bộ thay thế: cùng nội dung, nhưng không có sự phân chia theo locale.
+- [build plugins](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md)
+
+Nếu không có các plugins này, một build chưa được tối ưu hóa, cuộc gọi sẽ được giải quyết thông qua registry từ điển đồng bộ thay thế: cùng nội dung, nhưng không có sự phân chia theo locale.
 
 **Các tính năng chính:**
 
@@ -61,18 +65,18 @@ getIntlayerAsync(
 
 - `key: DictionaryKeys`
   - **Description**: Khóa của từ điển cần đọc, như được khai báo trong các tệp nội dung của bạn.
-  - **Type**: `DictionaryKeys` — một union của mọi khóa từ điển được khai báo.
+  - **Type**: `DictionaryKeys`, một union của mọi khóa từ điển được khai báo.
   - **Required**: Yes
 
 - `localeOrSelector: LocalesValues | DictionarySelector`
   - **Description**: Locale để giải thích nội dung với, hoặc một đối tượng selector cho [dynamic dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dynamic_dictionaries/index.md).
-    - `'fr'` — một locale
-    - `{ item: 2 }` — một mục [collection](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dynamic_dictionaries/collections.md) (bỏ qua `item` để lấy mọi mục dưới dạng mảng)
-    - `{ variant: 'black-friday' }` — một [variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dynamic_dictionaries/variants.md) có tên (bỏ qua để lấy `default`)
-    - `{ variant: { id: 'prod_abc', userId: '123' } }` — một variant có cấu trúc
+    - `'fr'`: một locale
+    - `{ item: 2 }`: một mục [collection](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dynamic_dictionaries/collections.md) (bỏ qua `item` để lấy mọi mục dưới dạng mảng)
+    - `{ variant: 'black-friday' }`: một [variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dynamic_dictionaries/variants.md) có tên (bỏ qua để lấy `default`)
+    - `{ variant: { id: 'prod_abc', userId: '123' } }`: một variant có cấu trúc
     - Bất kỳ selector nào cũng có thể mang theo một locale: `{ item: 2, locale: 'fr' }`
   - **Type**: `LocalesValues | DictionarySelector`
-  - **Required**: No (Optional) — mặc định là `defaultLocale` được cấu hình.
+  - **Required**: No (Optional), mặc định là `defaultLocale` được cấu hình.
 
 - `plugins: Plugins[]`
   - **Description**: Các node transformers tùy chỉnh thay thế các plugin interpreter cơ bản. Chỉ sử dụng nâng cao.
@@ -81,7 +85,7 @@ getIntlayerAsync(
 
 ### Returns
 
-- **Type**: `Promise<Content>` — a promise resolving to the interpreted content of the dictionary, typed from your declaration.
+- **Type**: `Promise<Content>`, a promise resolving to the interpreted content of the dictionary, typed from your declaration.
 
 ## Ví dụ Sử dụng
 
@@ -95,12 +99,12 @@ const { title } = await getIntlayerAsync("app", "fr"); // "Bonjour"
 
 ## `getIntlayer` vs `getIntlayerAsync`
 
-|                    | [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getIntlayer.md) | `getIntlayerAsync`                          |
-| ------------------ | --------------------------------------------------------------------------------------------------------------- | ------------------------------------------- |
-| Returns            | Nội dung                                                                                                        | Một promise của nội dung                    |
-| Dictionary loaded  | Từ điển được hợp nhất (tất cả các locale)                                                                       | Chunk của locale được yêu cầu duy nhất      |
-| Best suited for    | Rendering, các đường mã đồng bộ                                                                                 | Metadata, loaders, server functions         |
-| Requires a plugin? | No                                                                                                              | No — per-locale split cần các build plugins |
+|                    | [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getIntlayer.md) | `getIntlayerAsync`                         |
+| ------------------ | --------------------------------------------------------------------------------------------------------------- | ------------------------------------------ |
+| Returns            | Nội dung                                                                                                        | Một promise của nội dung                   |
+| Dictionary loaded  | Từ điển được hợp nhất (tất cả các locale)                                                                       | Chunk của locale được yêu cầu duy nhất     |
+| Best suited for    | Rendering, các đường mã đồng bộ                                                                                 | Metadata, loaders, server functions        |
+| Requires a plugin? | No                                                                                                              | No, per-locale split cần các build plugins |
 
 Cả hai chấp nhận các đối số giống nhau và trả về nội dung giống nhau: chuyển đổi từ cái này sang cái khác chỉ thay đổi **khi** và **bao nhiêu** được tải.
 

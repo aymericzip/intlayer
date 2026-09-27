@@ -73,3 +73,5 @@ Fonksiyon, doğrudan kullanıldığında standart Next.js `NextRequest`'i parame
 ## Yapılandırma
 
 Middleware'i yapılandırmak için `intlayer.config.ts` dosyasındaki `routing` seçeneğini ayarlayabilirsiniz. Daha fazla ayrıntı için [yapılandırma](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) sayfasına bakın.
+
+- [yapılandırma](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md)

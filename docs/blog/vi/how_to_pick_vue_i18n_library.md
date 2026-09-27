@@ -66,6 +66,8 @@ Paraglide sinh ra một hàm cho mỗi message và để bundler tự động tr
 
 Bài viết [lịch sử của JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/history_of_i18n.md) đi sâu chi tiết vào từng làn sóng.
 
+- [lịch sử của JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/history_of_i18n.md)
+
 ## Quyết định quan trọng nhất: nội dung nằm ở đâu và được tải khi nào
 
 Hai lựa chọn mang tính cấu trúc giải thích cho hầu hết sự khác biệt về bundle size giữa các thiết lập:
@@ -81,9 +83,14 @@ Biểu đồ ước tính payload cho một ứng dụng trên lý thuyết từ
 
 Bài [benchmark Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/vue.md) đo lường điều này dưới dạng "rò rỉ từ các route khác" (leakage from other routes) và "rò rỉ từ các locale khác" (leakage from other locales). Nếu câu trả lời của bạn cho câu hỏi 3 là "nhiều trang", phần này sẽ quan trọng hơn bất kỳ sở thích API nào. Bài viết [i18n theo từng component so với tập trung](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/per-component_vs_centralized_i18n.md) đề cập đến khía cạnh bảo trì của cùng sự đánh đổi này.
 
+- [benchmark Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/vue.md)
+- [i18n theo từng component so với tập trung](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/per-component_vs_centralized_i18n.md)
+
 ## Các ứng cử viên
 
 Kích thước thư viện được lấy từ bài [benchmark Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/vue.md): plugin cộng với composable trong một component rỗng, sau khi bundling, tree-shaking và minification, trên một ứng dụng 10 trang, 10 locale. Nội dung được đo lường riêng biệt.
+
+- [benchmark Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/vue.md)
 
 ![Hệ sinh thái thư viện Vue i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
@@ -112,6 +119,8 @@ Kích thước thư viện gần như bằng 0 của Paraglide đạt được n
 
 `@nuxtjs/i18n` cung cấp chiến lược định tuyến, các thẻ `hreflang` và tự động phát hiện locale mà không cần viết thêm code, và chỉ riêng điều đó đã đủ để chọn nó cho các trang nội dung có vài trang. Giới hạn của nó nằm ở catalog theo từng locale: khi vượt quá khoảng mười trang, SSR payload sẽ phải gánh toàn bộ nội dung của mọi route. Nếu đó là trường hợp của bạn, hãy tự cấu hình thủ công `vue-i18n` với message theo từng route, hoặc chuyển sang mô hình nội dung scoped. Bài viết [Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nuxt.md) sẽ hướng dẫn bạn lựa chọn chiến lược định tuyến trước tiên.
 
+- [Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nuxt.md)
+
 </Accordion>
 <Accordion header="Bản dịch đến từ TMS hoặc agency bàn giao định dạng ICU">
 
@@ -126,6 +135,8 @@ Nên ưu tiên nội dung scoped được biên dịch tại build time. Paragli
 <Accordion header="Type safety là yêu cầu bắt buộc">
 
 `vue-i18n` có thể được gán type bằng cách truyền một schema generic vào `createI18n`. Cách này hoạt động được, nhưng sẽ bị phá vỡ ngay khi các catalog được lazy load, bởi vì schema mô tả các message có thể chưa được tải về. Nếu không muốn phải tự bảo trì điều đó, hãy chọn thư viện có type được sinh trực tiếp từ nội dung: Paraglide hoặc Intlayer. Bài viết [phát hiện bản dịch còn thiếu](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/detecting_missing_translations.md) so sánh những gì mỗi công cụ phát hiện được tại build time.
+
+- [phát hiện bản dịch còn thiếu](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/detecting_missing_translations.md)
 
 </Accordion>
 <Accordion header="Nội dung phức tạp hơn các nhãn UI thông thường">
@@ -366,6 +377,10 @@ Tất cả các locale nằm trong một file duy nhất cạnh component. Type 
 
 Bạn đang sử dụng `vue-i18n`? [Compat adapter `@intlayer/vue-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/vue-i18n.md) alias package ở cấp độ bundler, nhờ đó `useI18n()`, `$t`, pipe plural và `v-t` tiếp tục hoạt động trong khi Intlayer đảm nhận cung cấp nội dung. [Hướng dẫn di chuyển](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_vue-i18n_to_intlayer.md) sẽ hướng dẫn bạn cách gỡ bỏ adapter sau đó, và cũng có [hướng dẫn dành riêng cho Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_nuxtjs_i18n_to_intlayer.md).
 
+- [Compat adapter `@intlayer/vue-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/vue-i18n.md)
+- [Hướng dẫn di chuyển](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_vue-i18n_to_intlayer.md)
+- [hướng dẫn dành riêng cho Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_nuxtjs_i18n_to_intlayer.md)
+
 ## Những điều cần cân nhắc trước khi quyết định
 
 Bảng tính năng chỉ cho bạn biết một thư viện có thể làm được gì hôm nay. Những điểm dưới đây cho bạn biết trải nghiệm thực tế khi đồng hành cùng nó sẽ như thế nào.
@@ -388,6 +403,9 @@ Thư viện được cài đặt nhiều nhất là thư viện xuất hiện đ
 
 Các agent vẫn còn gặp khó khăn với i18n: chúng quên locale, tự tạo key bừa bãi, và trộn lẫn các cú pháp message. Thư viện có cung cấp [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/agent_skills.md) hoặc một [MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/mcp_server.md) để agent có thể liệt kê, điền và kiểm thử nội dung hay không? Và việc nạp nội dung có được tối ưu hóa theo mặc định không, hay ai đó phải xem xét lại các namespace và lazy import mỗi quý một lần?
 
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/agent_skills.md)
+- [MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/mcp_server.md)
+
 **Type safety ngay từ đầu.**
 
 Không phải "có thể gõ type nếu cấu hình thêm" mà là "sai key sẽ khiến `tsc` báo lỗi ngay trên một bản cài đặt mới". Hãy kiểm tra xem điều gì sẽ xảy ra khi một key không tồn tại, và khi một locale bị thiếu một bản dịch.
@@ -399,6 +417,13 @@ Các catalog chỉ có xu hướng phình to. Quá trình build của Intlayer s
 **Trải nghiệm lập trình viên (Developer experience).**
 
 Thời gian thiết lập cho đến chuỗi dịch đầu tiên, một [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/lsp.md) hoặc [tiện ích mở rộng VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/vs_code_extension.md) hiển thị bản dịch khi hover và nhảy thẳng tới định nghĩa, một [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md) để fill, test và push, một [trình biên dịch](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md) hoặc trình trích xuất lấy các chuỗi hard-code ra khỏi component để bạn không phải quản lý từng chuỗi theo từng khóa, cùng phương thức để người không phải developer có thể chỉnh sửa nội dung ([visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md) hoặc [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)) mà không cần tạo pull request.
+
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/lsp.md)
+- [tiện ích mở rộng VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/vs_code_extension.md)
+- [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md)
+- [trình biên dịch](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md)
+- [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)
 
 ## Câu hỏi thường gặp
 
@@ -420,11 +445,15 @@ Hãy sử dụng module trừ khi việc định tuyến của bạn có yêu c�
 
 Chỉ khi bundle size, SSR payload, type được sinh tự động hoặc kiểm tra thiếu key tại build time là các yêu cầu thực tế của dự án. Bài viết [so sánh i18n compiler và declarative](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/compiler_vs_declarative_i18n.md) giải thích những gì compiler mang lại và những điểm chúng có thể xử lý chưa tối ưu.
 
+- [so sánh i18n compiler và declarative](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/compiler_vs_declarative_i18n.md)
+
 </Question>
 
 <Question title="Việc lựa chọn thư viện có ảnh hưởng đến SEO không?">
 
 Ảnh hưởng gián tiếp. Các công cụ tìm kiếm quan tâm đến định tuyến, `hreflang`, `<html lang>` và việc văn bản có nằm trong HTML được render từ server hay không. Xem thêm [hướng dẫn hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/hreflang_guide_multilingual_seo.md).
+
+- [hướng dẫn hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/hreflang_guide_multilingual_seo.md)
 
 </Question>
 

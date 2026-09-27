@@ -160,6 +160,8 @@ export default indexContent;
 
 > Weitere Details finden Sie in der [Content-Deklarationsdokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/content_file.md).
 
+- [Content-Deklarationsdokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/content_file.md)
+
 ### Elysia-Anwendungssetup
 
 Richten Sie Ihre Elysia-Anwendung für die Verwendung von `elysia-intlayer` ein:
@@ -190,7 +192,7 @@ console.log(
 );
 ```
 
-> Das Plugin registriert seinen Context über ein **globales** `derive`, das Elysia als `Partial<{ intlayer: IntlayerContext }>` typisiert. Zur Laufzeit ist der Wert für alle nach `.use(intlayer())` registrierten Routen immer vorhanden — verwenden Sie daher die Non-Null-Assertion (`intlayer!.locale`) oder Optional Chaining, um TypeScript im `strict`-Modus zufriedenzustellen.
+> Das Plugin registriert seinen Context über ein **globales** `derive`, das Elysia als `Partial<{ intlayer: IntlayerContext }>` typisiert. Zur Laufzeit ist der Wert für alle nach `.use(intlayer())` registrierten Routen immer vorhanden, verwenden Sie daher die Non-Null-Assertion (`intlayer!.locale`) oder Optional Chaining, um TypeScript im `strict`-Modus zufriedenzustellen.
 
 Der Route-Context stellt Folgendes bereit:
 
@@ -301,6 +303,8 @@ export default config;
 
 > Weitere Informationen zu Konfiguration und erweiterten Themen finden Sie in unserer [Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md).
 
+- [Intlayer-Konfiguration (intlayer.config.ts)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md)
+
 ### TypeScript konfigurieren
 
 `elysia-intlayer` nutzt die robusten Funktionen von TypeScript, um den Internationalisierungsprozess zu verbessern. Die statische Typisierung von TypeScript stellt sicher, dass jeder Übersetzungsschlüssel berücksichtigt wird, wodurch das Risiko fehlender Übersetzungen reduziert und die Wartbarkeit verbessert wird.
@@ -321,7 +325,7 @@ Stellen Sie sicher, dass die automatisch generierten Typen (standardmäßig unte
 
 Um dein Entwicklungserlebnis mit Intlayer zu verbessern, kannst du die offizielle **Intlayer VS Code Extension** installieren.
 
-[Aus dem VS Code Marketplace installieren](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [Aus dem VS Code Marketplace installieren](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 Diese Extension bietet:
 
@@ -331,6 +335,8 @@ Diese Extension bietet:
 - **Schnellaktionen** zum einfachen Erstellen und Aktualisieren von Übersetzungen.
 
 Weitere Informationen zur Verwendung der Extension findest du in der [Intlayer VS Code Extension Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/vs_code_extension.md).
+
+- [Intlayer VS Code Extension Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/vs_code_extension.md)
 
 ### Git-Konfiguration
 
@@ -355,27 +361,42 @@ Der Grund, das Backend überhaupt zu internationalisieren, ist, dass ein großer
 
 Siehe [warum Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/interest_of_intlayer.md).
 
+- [warum Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/interest_of_intlayer.md)
+
 </Question>
 <Question title="Wie viel trägt i18n zur Bundle-Größe meines Elysia-Servers bei?">
 
 Sehr wenig. Wörterbücher werden im Voraus kompiliert und nur die von Ihnen deklarierten Locales sind enthalten, sodass es beim Start kein Katalog-Laden und auf dem Anfragepfad keine Dateizugriffe gibt. Das zählt am meisten bei Serverless- und Edge-Deployments, wo die Bundle-Größe die Kaltstartzeit bestimmt. Siehe [Bundle-Optimierung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/bundle_optimization.md).
+
+- [Bundle-Optimierung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/bundle_optimization.md)
 
 </Question>
 <Question title="Kann ich von `i18next` migrieren, ohne meine Handler neu zu schreiben?">
 
 Ja, und es gibt zwei Wege. Sie können die Inhalte schrittweise migrieren mit dem [i18next-Migrationsleitfaden](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/migration_from_i18next_to_intlayer.md). Oder Sie behalten Ihre aktuelle API vollständig bei: Die [Kompatibilitätsadapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compat/index.md) stellen genau dieselbe API wie `i18next` bereit, aber aus Intlayer-Wörterbüchern bedient, sodass sich Importe ändern und der Handler-Code nicht.
 
+- [i18next-Migrationsleitfaden](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/migration_from_i18next_to_intlayer.md)
+- [Kompatibilitätsadapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compat/index.md)
+
 </Question>
 <Question title="Kann ich meine vorhandenen JSON-Übersetzungsdateien behalten?">
 
 Ja. Das [sync-JSON-Plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/plugins/sync-json.md) behält Ihre `/messages/{locale}/{namespace}.json`-Dateien als Single Source of Truth und generiert daraus Intlayer-Wörterbücher, in beide Richtungen. Ein [sync-PO-Plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/plugins/sync-po.md) macht dasselbe für gettext-Kataloge, und [Dateien pro Locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/per_locale_file.md) lassen Sie Inhalte nach Sprache aufteilen, statt Locales in einer Datei zu gruppieren.
+
+- [sync-JSON-Plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/plugins/sync-json.md)
+- [sync-PO-Plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/plugins/sync-po.md)
+- [Dateien pro Locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/per_locale_file.md)
 
 </Question>
 <Question title="Muss ich meine Inhalte Schlüssel für Schlüssel umziehen?">
 
 Nein. Führen Sie `npx intlayer extract` aus; Intlayer liest Ihre Quelldateien, zieht die für den Nutzer sichtbaren Strings heraus und schreibt neben jede eine `.content`-Datei, sodass Sie ein Diff prüfen, statt Strings einzeln in einen Katalog zu kopieren. Siehe den [extract-Befehl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/extract.md).
 
+- [extract-Befehl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/extract.md)
+
 Auf der Frontend-Seite desselben Projekts geht der [Intlayer-Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compiler.md) weiter und generiert die Wörterbücher zur Build-Zeit aus Ihrem JSX-, TSX-, Vue- oder Svelte-Quellcode, sodass die beiden Hälften der App eine Inhaltsebene teilen, ohne von Hand gepflegte Schlüssel.
+
+- [Intlayer-Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compiler.md)
 
 </Question>
 <Question title="Welches Editor- und KI-Agenten-Tooling ist verfügbar?">
@@ -392,6 +413,8 @@ Fünf Bausteine, alle optional:
 <Question title="Woher weiß Intlayer, in welcher Sprache es antworten soll?">
 
 Standardmäßig liest `elysia-intlayer` den `Accept-Language`-Header der eingehenden Anfrage und wählt die am nächsten passende deklarierte Locale, mit Rückfall auf Ihre Standard-Locale. Sie können die Quelle mit `routing.storage` ändern, zum Beispiel ein benutzerdefinierter Header oder ein von Ihrem Frontend gesetztes Cookie, sodass die API in der Sprache antwortet, die der Nutzer tatsächlich gewählt hat, statt in der, die sein Browser meldet. Siehe die [Konfigurationsreferenz](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md).
+
+- [Konfigurationsreferenz](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md)
 
 </Question>
 <Question title="Ist die Locale pro Anfrage isoliert?">
@@ -423,10 +446,19 @@ Ja. Das Plugin wird wie jedes andere Elysia-Plugin mit `.use()` registriert, sod
 
 Führen Sie `npx intlayer fill` aus, das fehlende Übersetzungen mit dem LLM Ihrer Wahl unter Verwendung Ihres eigenen Anbieters und API-Schlüssels füllt. Fügen Sie `--git-diff` hinzu, um nur die im Branch geänderten Inhalte zu übersetzen. Siehe den [fill-Befehl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/fill.md) und die [CI/CD-Integration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/CI_CD.md).
 
+- [fill-Befehl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/fill.md)
+- [CI/CD-Integration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/CI_CD.md)
+
 </Question>
 <Question title="Unterstützt Intlayer Pluralformen, Genus und interpolierte Werte auf dem Server?">
 
 Ja: [Pluralformen](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/plurial.md), [genusbasierte Inhalte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/gender.md), Bedingungen, [Einfügungen](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/insertion.md) für interpolierte Werte, [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/markdown.md) für E-Mail-Texte und [Formatter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/formatters.md) für Zahlen, Daten und Währungen.
+
+- [Pluralformen](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/plurial.md)
+- [genusbasierte Inhalte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/gender.md)
+- [Einfügungen](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/insertion.md)
+- [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/markdown.md)
+- [Formatter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/formatters.md)
 
 </Question>
 <Question title="Erhalte ich TypeScript-Autovervollständigung auf dem Server?">
@@ -438,10 +470,15 @@ Ja. Intlayer generiert die Typen Ihrer Wörterbücher nach `./types/intlayer.d.t
 
 Ja, und das ist das übliche Setup. `elysia-intlayer` funktioniert zusammen mit `react-intlayer`, `next-intlayer` und `vite-intlayer` auf demselben deklarierten Inhalt, sodass ein Label, das sowohl in einer API-Antwort als auch auf einer Seite verwendet wird, nur einmal deklariert wird. Siehe [wie Intlayer funktioniert](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/how_works_intlayer.md).
 
+- [wie Intlayer funktioniert](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/how_works_intlayer.md)
+
 </Question>
 <Question title="Ist Intlayer kostenlos und Open Source?">
 
 Ja, unter der Apache-2.0-Lizenz, kommerzielle Nutzung eingeschlossen. Das gehostete [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md) ist ein optionaler kostenpflichtiger Dienst, der auch [selbst gehostet](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/self_hosting.md) werden kann.
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md)
+- [selbst gehostet](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/self_hosting.md)
 
 </Question>
 

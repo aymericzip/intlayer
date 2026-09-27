@@ -130,13 +130,13 @@ Apresenta o resultado completo do scan como um objeto JSON em vez de um relatór
 
 ### Opções de configuração padrão
 
-- **`--base-dir`** — Diretório base utilizado para localizar o ficheiro `intlayer.config.*`.
-- **`-e, --env`** — Ambiente de destino (por exemplo, `development`, `production`).
-- **`--env-file`** — Caminho para um ficheiro `.env` personalizado.
-- **`--no-cache`** — Desativar cache de configuração.
-- **`--ci`** — Executa o comando em cada projeto Intlayer do monorepo (ou apenas no atual quando executado de dentro de um diretório de projeto). Credenciais por projeto podem ser injetadas via `INTLAYER_PROJECT_CREDENTIALS`, um objeto JSON que associa cada caminho de projeto a `{ "clientId", "clientSecret" }`.
-- **`--verbose`** — Ativar logs detalhados (padrão no modo CLI).
-- **`--prefix`** — Prefixo de log personalizado.
+- **`--base-dir`**: Diretório base utilizado para localizar o ficheiro `intlayer.config.*`.
+- **`-e, --env`**: Ambiente de destino (por exemplo, `development`, `production`).
+- **`--env-file`**: Caminho para um ficheiro `.env` personalizado.
+- **`--no-cache`**: Desativar cache de configuração.
+- **`--ci`**: Executa o comando em cada projeto Intlayer do monorepo (ou apenas no atual quando executado de dentro de um diretório de projeto). Credenciais por projeto podem ser injetadas via `INTLAYER_PROJECT_CREDENTIALS`, um objeto JSON que associa cada caminho de projeto a `{ "clientId", "clientSecret" }`.
+- **`--verbose`**: Ativar logs detalhados (padrão no modo CLI).
+- **`--prefix`**: Prefixo de log personalizado.
 
 ## Estratégia de roteamento
 

@@ -30,6 +30,8 @@ author: aymericzip
 
 This article measures that swap on the same TanStack Start application, built once with Lingui and once with the adapter. The numbers come from [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). For the two libraries compared as libraries, read [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/lingui_vs_intlayer.md). This one is about what the adapter changes, and where it does not help.
 
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/lingui_vs_intlayer.md)
+
 <TOC/>
 
 > **tl;dr**: On the same TanStack Start app, `@intlayer/lingui` cut the average component from **85.5 KB to 12.8 KB** gzip, hydration from **28 ms to 19.7 ms**, and locale switching from **5.9 ms to 2.9 ms**, with the macros untouched. In the naive setup (every catalogue loaded upfront) it also removed **90% page leakage** and 12 KB per page. But in the lazy-loaded setup it ships **137 KB per page against 115 KB** for plain Lingui: the adapter resolves ICU at runtime where Lingui ships precompiled token arrays. The source-locale leakage (~9-10%) is identical on both sides, because it comes from the `message` fallback embedded in the components, not from the runtime. The adapter is a Vite plugin; it was measured on TanStack Start.
@@ -230,6 +232,8 @@ export default config;
 
 For `.po` catalogues, replace `syncJSON` with `syncPO` from `@intlayer/sync-po-plugin` and the same `source` pattern with a `.po` extension. See the [Sync PO plugin doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/plugins/sync-po.md).
 
+- [Sync PO plugin doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/plugins/sync-po.md)
+
 `splitKeys: "key-prefix"` is what makes the component-size column drop. The catalogue file keeps its flat shape; the split only exists in the generated dictionaries, and write-back re-joins the ids.
 
 </Step>
@@ -307,3 +311,5 @@ export default defineConfig({
 All the raw data, the test apps and the scripts are in the [Benchmark Bloom repository](https://github.com/intlayer-org/benchmark-bloom). Run it yourself.
 
 Refer to the ['Why Intlayer?' doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/interest_of_intlayer.md) for more details.
+
+- [Why Intlayer? Benefits over Other i18n Libraries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/interest_of_intlayer.md)

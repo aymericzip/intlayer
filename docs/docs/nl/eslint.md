@@ -35,7 +35,7 @@ author: aymericzip
 
 1. **Hardgecodeerde tekst** die nooit in een woordenboek is opgenomen.
 2. **Dynamische aanroepen** die type-checks doorstaan en functioneren, maar die de Intlayer-compiler niet kan optimaliseren.
-3. **Dode inhoud (Dead content)** — woordenboeken en velden die nergens in het project worden gelezen (opt-in).
+3. **Dode inhoud (Dead content)**: woordenboeken en velden die nergens in het project worden gelezen (opt-in).
 
 Onbekende woordenboeksleutels, onbekende veldpaden en ontbrekende locales zijn al compilatiefouten, dus de plugin herhaalt deze niet.
 
@@ -61,7 +61,7 @@ Vereist ESLint 9 of nieuwer (flat config). ESLint 10 wordt ondersteund.
 
 ## Gebruik
 
-De plugin werkt in zowel ESLint als [oxlint](https://oxc.rs) — dezelfde regels, dezelfde opties.
+De plugin werkt in zowel ESLint als [oxlint](https://oxc.rs), dezelfde regels, dezelfde opties.
 
 <Tabs defaultTab="eslint">
   <Tab label="ESLint" value="eslint">
@@ -106,7 +106,7 @@ export default [
 }
 ```
 
-Twee kanttekeningen: de JS-pluginondersteuning in oxlint is nog in alfa en oxlint ondersteunt geen aangepaste parsers — dus `.vue`-, `.svelte`-, `.astro`-bestanden en Angular-templates worden daar niet gecontroleerd. Voer oxlint uit op uw JS/TS/JSX-bestanden en behoud ESLint voor de rest.
+Twee kanttekeningen: de JS-pluginondersteuning in oxlint is nog in alfa en oxlint ondersteunt geen aangepaste parsers, dus `.vue`-, `.svelte`-, `.astro`-bestanden en Angular-templates worden daar niet gecontroleerd. Voer oxlint uit op uw JS/TS/JSX-bestanden en behoud ESLint voor de rest.
 
 `no-unused-content` is hierboven opzettelijk weggelaten: het vereist de werkmap en het gecontroleerde bestandspad uit de regelcontext, wat de alfa JS-plugin-bridge niet garandeert. Voer dit uit onder ESLint.
 
@@ -123,7 +123,7 @@ Twee kanttekeningen: de JS-pluginondersteuning in oxlint is nog in alfa en oxlin
 
 `recommended` houdt `no-raw-text` opzettelijk op `warn`: als u dit toepast op een bestaande codebase, worden alle onvertaalde strings in één keer zichtbaar, wat uw build niet vanaf dag één zou moeten laten mislukken.
 
-`enforce-adapter-import` staat standaard uit — schakel dit expliciet in als u het wilt gebruiken.
+`enforce-adapter-import` staat standaard uit, schakel dit expliciet in als u het wilt gebruiken.
 
 `no-unused-content` staat uit in elke configuratie, inclusief `strict`. Het is de enige regel die uw Intlayer-configuratie leest en bronbestanden van schijf doorzoekt, dus het inschakelen ervan moet een bewuste keuze zijn in plaats van iets wat een preset automatisch doet.
 
@@ -248,7 +248,7 @@ export default {
 };
 ```
 
-In tegenstelling tot de andere regels kan deze regel niet alleen oordelen op basis van het geopende bestand — een veld is alleen ongebruikt ten opzichte van het hele project. Bij de eerste inhoudsdeclaratie van een lint-run laadt deze uw Intlayer-configuratie, scant de bronbestanden die de configuratie declareert (`build.traversePattern`, `compiler.transformPattern`) en voert dezelfde gebruiksanalysator uit die `@intlayer/lsp` en de doorhaling "ongebruikt" in de VS Code-extensie aandrijft. Het resultaat wordt gedurende `cacheTtl` milliseconden in de cache opgeslagen, zodat de scan eenmaal per run plaatsvindt in plaats van per bestand.
+In tegenstelling tot de andere regels kan deze regel niet alleen oordelen op basis van het geopende bestand, een veld is alleen ongebruikt ten opzichte van het hele project. Bij de eerste inhoudsdeclaratie van een lint-run laadt deze uw Intlayer-configuratie, scant de bronbestanden die de configuratie declareert (`build.traversePattern`, `compiler.transformPattern`) en voert dezelfde gebruiksanalysator uit die `@intlayer/lsp` en de doorhaling "ongebruikt" in de VS Code-extensie aandrijft. Het resultaat wordt gedurende `cacheTtl` milliseconden in de cache opgeslagen, zodat de scan eenmaal per run plaatsvindt in plaats van per bestand.
 
 **Opties**
 
@@ -283,9 +283,9 @@ Verlaag `cacheTtl` wanneer u lint vanuit een langlopende editorserver en wilt da
 
 > **Neigt naar stilte.** Een vals-positief resultaat zou hier een vertaling verwijderen, dus er wordt niets gemeld wanneer het woordenboek wordt gebruikt op een manier die de analyse niet kan volgen: het inhoudsobject in zijn geheel doorgegeven, een vertaalfunctie die eraan is gebonden (`const t = useTranslations("home")`), een declaratie bereikt via een directe import (`useDictionary(myDictionary)`), een `nest()` vanuit een ander woordenboek of een veldenlijst die niet-exhaustief is gemaakt door een spread. Single-file componenten (`.vue`, `.svelte`, `.astro`) tellen alsof ze elk veld gebruiken van de woordenboeken die ze vermelden, omdat hun scriptblokken hier niet worden geparseerd.
 
-`reportDuplicateKeys` leest de niet-samengevoegde woordenboeken die de build wegschrijft onder `.intlayer/`, dus het blijft stil totdat het project ten minste eenmaal is gebouwd. Twee declaraties die een sleutel delen worden samengevoegd, wat een legitiem patroon is — het rapport bestaat omdat een veld dat aan beide zijden is gedefinieerd stilzwijgend slechts een van de twee waarden behoudt.
+`reportDuplicateKeys` leest de niet-samengevoegde woordenboeken die de build wegschrijft onder `.intlayer/`, dus het blijft stil totdat het project ten minste eenmaal is gebouwd. Twee declaraties die een sleutel delen worden samengevoegd, wat een legitiem patroon is, het rapport bestaat omdat een veld dat aan beide zijden is gedefinieerd stilzwijgend slechts een van de twee waarden behoudt.
 
-De analyser wordt geladen vanuit `@intlayer/lsp`, dat als ESM wordt gedistribueerd. De regel vereist daarom een Node-versie die een ES-module kan `require()`-en — Node 20.19+ of 22.12+. Op oudere versies meldt het niets in plaats van de lint-run te laten mislukken.
+De analyser wordt geladen vanuit `@intlayer/lsp`, dat als ESM wordt gedistribueerd. De regel vereist daarom een Node-versie die een ES-module kan `require()`-en, Node 20.19+ of 22.12+. Op oudere versies meldt het niets in plaats van de lint-run te laten mislukken.
 
 ## Frameworks
 

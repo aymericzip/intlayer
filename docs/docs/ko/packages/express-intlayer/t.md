@@ -258,3 +258,5 @@ app.get("/morning", (_req, res) => {
 ## 결론
 
 `t` 함수는 백엔드 국제화를 위한 강력한 도구입니다. 이를 효과적으로 사용하면 전 세계 사용자를 위한 보다 포용적이고 사용자 친화적인 애플리케이션을 만들 수 있습니다. 고급 사용법과 상세한 구성 옵션은 [문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참조하세요.
+
+- [Intlayer 설정 (intlayer.config.ts)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)

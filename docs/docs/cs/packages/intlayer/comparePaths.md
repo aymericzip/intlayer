@@ -32,9 +32,11 @@ author: aymericzip
 
 ## Popis
 
-Funkce `comparePaths` porovnává dvě URL adresy nebo cesty na shodu, přičemž ignoruje segment s jazykem (locale), protokol/hostitele, dotazovací řetězec (query string), hash a koncová lomítka (trailing slashes). Jde o doporučený způsob, jak zjistit, zda navigační odkaz ukazuje na aktuální stránku — například za účelem zvýraznění aktivního odkazu — aniž byste museli psát vlastní (často chybovou) normalizační logiku.
+Funkce `comparePaths` porovnává dvě URL adresy nebo cesty na shodu, přičemž ignoruje segment s jazykem (locale), protokol/hostitele, dotazovací řetězec (query string), hash a koncová lomítka (trailing slashes). Jde o doporučený způsob, jak zjistit, zda navigační odkaz ukazuje na aktuální stránku, například za účelem zvýraznění aktivního odkazu, aniž byste museli psát vlastní (často chybovou) normalizační logiku.
 
 Interně znovu využívá [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/packages/intlayer/getPathWithoutLocale.md) k odstranění segmentu s jazykem, takže respektuje váš nastavený režim směrování a nakonfigurované jazyky.
+
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/packages/intlayer/getPathWithoutLocale.md)
 
 Balíček také exportuje základní pomocnou funkci [`normalizePath`](#normalizepath), která vrací kanonickou cestu nezávislou na jazyce, využívanou k samotnému porovnání.
 
@@ -44,7 +46,7 @@ Balíček také exportuje základní pomocnou funkci [`normalizePath`](#normaliz
 - Funguje s absolutními URL i s relativními cestami
 - Ignoruje dotazovací řetězce, hash a koncová lomítka
 - Toleruje chybějící úvodní lomítka a prázdné hodnoty (normalizuje je na `/`)
-- Odlehčená (lightweight) — postavena nad funkcí `getPathWithoutLocale`
+- Odlehčená (lightweight), postavena nad funkcí `getPathWithoutLocale`
 
 ## Signatura funkce
 

@@ -73,3 +73,5 @@ La funzione accetta il parametro standard Next.js `NextRequest` quando viene uti
 ## Configurazione
 
 Per configurare il middleware, puoi impostare l'opzione `routing` nel file `intlayer.config.ts`. Vedi [configurazione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/configuration.md) per maggiori dettagli.
+
+- [configurazione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/configuration.md)

@@ -196,6 +196,8 @@ Hàm `date()` cũng hỗ trợ các preset (`"short"`, `"long"`, `"dateOnly"`, `
 
 Đây là một tầng cache và xử lý ngôn ngữ mặc định trên nền tảng API chuẩn. Hành vi định dạng cốt lõi vẫn hoàn toàn dựa trên `Intl`. Xem đầy đủ chữ ký hàm tại [tài liệu formatters](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/formatters.md).
 
+- [tài liệu formatters](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/formatters.md)
+
 ## Các sai lầm thường gặp
 
 - **Gọi `toLocaleDateString()` mà không chỉ định locale.** Dùng locale của môi trường máy chủ vốn phụ thuộc cấu hình container.

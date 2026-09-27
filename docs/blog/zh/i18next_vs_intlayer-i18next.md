@@ -35,6 +35,8 @@ author: aymericzip
 
 本文在同一个 Next.js 应用程序上对比了这种替换：一次使用 `next-i18next` 构建，另一次使用 `@intlayer/next-i18next` 构建。测试数据来源于 [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom)。如需对比作为独立库的 `i18next` 与 Intlayer，请阅读 [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18next_vs_intlayer.md)。本文则专注于：当你保持原有代码不变时，适配器带来了哪些实际变化。
 
+- [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18next_vs_intlayer.md)
+
 <TOC/>
 
 > **核心摘要 (tl;dr)**：在同一个 Next.js 应用中，将 `next-i18next` 替换为 `@intlayer/next-i18next` 后，每页传输的 gzip JavaScript 体积从 **218.5 KB 降至 150.7 KB**（朴素初始配置），甚至比深度手动优化的 `next-i18next` 配置（163.4 KB）还要小 **12.7 KB**。组件平均大小从 **78.5 KB 骤降至 9.7 KB**，跨页无关文本泄漏从 **~90% 归零至 0%**，水合时间从 **15.6 ms 缩短至 11.3 ms**，运行时体积从 **19.7 KB 降至 9.4 KB**。无需修改任何组件代码，只需替换一个 Provider 文件。`i18next` 插件（后端加载器、语言检测器）被允许传入但不会执行任何逻辑：因为运行时已经没有任何多余内容需要加载或检测。
@@ -145,6 +147,8 @@ style="border:none;"
 
 > 完整表格、各个库及每种策略，请参阅 [Next.js 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md)。
 
+- [Next.js 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md)
+
 ### TanStack Start 上的结果 (`react-i18next`)
 
 在 Vite 和 TanStack Start 上，基准测试对比的是原生 `react-i18next` 与 `intlayer`：
@@ -164,7 +168,11 @@ style="border:none;"
 
 > 完整表格请参阅 [TanStack Start 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md)。
 
+- [TanStack Start 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md)
+
 > 本次评测暂未包含 Vite / TanStack Start 上的 `react-i18next` 适配器。有关 TanStack Start 的基准表现可参考 [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18next_vs_intlayer.md)：每页 127-184 KB，后端异步加载下的语言切换延迟约为 123-185 ms。
+
+- [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18next_vs_intlayer.md)
 
 ## 性能巨幅提升的底层机理
 
@@ -343,6 +351,8 @@ export default defineConfig({
 
 `i18n.use(HttpBackend)` 仅调用插件的 init，不执行其他任何操作。如果您的应用依赖于在运行时从 CMS 获取翻译，该流程已不复存在；请改用 [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) 或 `intlayer pull` / `push` 命令。语言检测由 Intlayer 的路由配置接管（URL 前缀、cookie、请求头）。
 
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
+
 </Accordion>
 <Accordion header="resources 被忽略，不进行合并">
 
@@ -401,6 +411,9 @@ export default defineConfig({
 <Accordion header="转向原生 (next-intlayer / react-intlayer)">
 
 适用于新项目，或在适配器完成过渡任务之后。它具有最轻量的运行时（5.5 KB，每页仅增加 0.3 KB），并解锁同步 Server Components 和按组件划分的 `.content.ts` 文件。请从 [Intlayer 与 Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_16.md) 或 [与 Vite 和 React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_vite+react.md) 开始。
+
+- [Intlayer 与 Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_16.md)
+- [与 Vite 和 React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_vite+react.md)
 
 </Accordion>
 </AccordionGroup>
@@ -489,3 +502,5 @@ Migration guides:
 所有未经加工的原始测试数据、可运行的示例工程与度量脚本均已在 [Benchmark Bloom 官方仓库](https://github.com/intlayer-org/benchmark-bloom) 开源。
 
 更多设计理念，请查阅 [为什么选择 Intlayer？](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/interest_of_intlayer.md)。
+
+- [为什么选择 Intlayer？相比其他 i18n 库的优势](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/interest_of_intlayer.md)

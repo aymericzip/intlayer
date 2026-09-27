@@ -34,11 +34,15 @@ author: aymericzip
 
 Funkcja `getIntlayerAsync` wybiera jeden słownik po jego kluczu i rozwiązuje jego zawartość dla danego locale'a, **ładując tylko ten locale**.
 
-Jest to asynchroniczny odpowiednik [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/intlayer/getIntlayer.md), przeznaczony dla miejsc, gdzie słownik jest odczytywany poza renderowaniem — konstruktory `head` / metadanych tras, loadery, funkcje serwerowe.
+Jest to asynchroniczny odpowiednik [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/intlayer/getIntlayer.md), przeznaczony dla miejsc, gdzie słownik jest odczytywany poza renderowaniem, konstruktory `head` / metadanych tras, loadery, funkcje serwerowe.
+
+- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/intlayer/getIntlayer.md)
 
 Podczas gdy `getIntlayer` ładuje scalony słownik zawierający każdy locale, [wtyczki budowania](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/bundle_optimization.md) (`@intlayer/babel`, `@intlayer/swc`) przepisują to wywołanie na `getDictionaryAsync(loaderMap, key, locale)`, wskazując na fragmenty poszczególnych locale'ów w `.intlayer/dynamic_dictionaries/`. Bundle w związku z tym zawiera tylko rzeczywiście żądany locale.
 
-Bez tych wtyczek — niezoptymalizowana kompilacja — wywołanie rozwiązuje się zamiast tego poprzez synchroniczny rejestr słownika: ta sama zawartość, bez podziału na locale'a.
+- [wtyczki budowania](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/bundle_optimization.md)
+
+Bez tych wtyczek, niezoptymalizowana kompilacja, wywołanie rozwiązuje się zamiast tego poprzez synchroniczny rejestr słownika: ta sama zawartość, bez podziału na locale'a.
 
 **Kluczowe funkcje:**
 
@@ -61,18 +65,18 @@ getIntlayerAsync(
 
 - `key: DictionaryKeys`
   - **Description**: Klucz słownika do odczytania, zadeklarowany w plikach zawartości.
-  - **Type**: `DictionaryKeys` — unija wszystkich zadeklarowanych kluczy słownika.
+  - **Type**: `DictionaryKeys`, unija wszystkich zadeklarowanych kluczy słownika.
   - **Required**: Yes
 
 - `localeOrSelector: LocalesValues | DictionarySelector`
   - **Description**: Locale do interpretacji zawartości lub obiekt selektora dla [słowników dynamicznych](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dynamic_dictionaries/index.md).
-    - `'fr'` — locale
-    - `{ item: 2 }` — element [kolekcji](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dynamic_dictionaries/collections.md) (pomiń `item`, aby otrzymać wszystkie elementy jako tablicę)
-    - `{ variant: 'black-friday' }` — nazwana [wariant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dynamic_dictionaries/variants.md) (pomiń dla wariantu `default`)
-    - `{ variant: { id: 'prod_abc', userId: '123' } }` — wariant strukturyzowany
+    - `'fr'`: locale
+    - `{ item: 2 }`: element [kolekcji](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dynamic_dictionaries/collections.md) (pomiń `item`, aby otrzymać wszystkie elementy jako tablicę)
+    - `{ variant: 'black-friday' }`: nazwana [wariant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dynamic_dictionaries/variants.md) (pomiń dla wariantu `default`)
+    - `{ variant: { id: 'prod_abc', userId: '123' } }`: wariant strukturyzowany
     - Każdy selektor może zawierać locale: `{ item: 2, locale: 'fr' }`
   - **Type**: `LocalesValues | DictionarySelector`
-  - **Required**: No (Optional) — domyślnie skonfigurowany `defaultLocale`.
+  - **Required**: No (Optional), domyślnie skonfigurowany `defaultLocale`.
 
 - `plugins: Plugins[]`
   - **Description**: Niestandardowe transformatory węzłów zastępujące podstawowe pluginy interpretera. Zaawansowane użycie tylko.
@@ -81,7 +85,7 @@ getIntlayerAsync(
 
 ### Zwracane
 
-- **Typ**: `Promise<Content>` — promise rozwiązujący się do interpretowanej zawartości słownika, typizowanej z Twojej deklaracji.
+- **Typ**: `Promise<Content>`, promise rozwiązujący się do interpretowanej zawartości słownika, typizowanej z Twojej deklaracji.
 
 ## Przykład użycia
 
@@ -95,12 +99,12 @@ const { title } = await getIntlayerAsync("app", "fr"); // "Bonjour"
 
 ## `getIntlayer` vs `getIntlayerAsync`
 
-|                         | [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/intlayer/getIntlayer.md) | `getIntlayerAsync`                                |
-| ----------------------- | --------------------------------------------------------------------------------------------------------------- | ------------------------------------------------- |
-| Zwraca                  | Zawartość                                                                                                       | Obietnicę zawartości                              |
-| Słownik załadowany      | Połączony słownik (wszystkie języki)                                                                            | Chunk tylko żądanego języka                       |
-| Najlepiej nadaje się do | Renderowanie, synchroniczne ścieżki kodu                                                                        | Metadane, loadery, funkcje serwerowe              |
-| Wymaga pluginu?         | Nie                                                                                                             | Nie — podział na języki wymaga pluginów budowania |
+|                         | [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/intlayer/getIntlayer.md) | `getIntlayerAsync`                               |
+| ----------------------- | --------------------------------------------------------------------------------------------------------------- | ------------------------------------------------ |
+| Zwraca                  | Zawartość                                                                                                       | Obietnicę zawartości                             |
+| Słownik załadowany      | Połączony słownik (wszystkie języki)                                                                            | Chunk tylko żądanego języka                      |
+| Najlepiej nadaje się do | Renderowanie, synchroniczne ścieżki kodu                                                                        | Metadane, loadery, funkcje serwerowe             |
+| Wymaga pluginu?         | Nie                                                                                                             | Nie, podział na języki wymaga pluginów budowania |
 
 Obie funkcje akceptują te same argumenty i zwracają tę samą zawartość: przełączenie się między nimi zmienia tylko **kiedy** i **ile** jest ładowane.
 

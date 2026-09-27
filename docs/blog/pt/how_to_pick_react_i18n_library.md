@@ -27,6 +27,8 @@ O React não inclui nenhuma primitiva de i18n. A biblioteca que você escolhe no
 
 Este guia segue o caminho inverso: responda a algumas perguntas sobre o seu projeto primeiro e, em seguida, mapeie as respostas para as bibliotecas mais adequadas. O foco aqui é o React puro (Vite, React Router, TanStack Start). O Next.js tem suas próprias restrições, abordadas na [comparação para Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/next-i18next_vs_next-intl_vs_intlayer.md).
 
+- [comparação para Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/next-i18next_vs_next-intl_vs_intlayer.md)
+
 ## Índice
 
 <TOC/>
@@ -75,6 +77,8 @@ O conteúdo é compilado em funções com tree-shaking ou dicionários por compo
 
 A [história do JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/history_of_i18n.md) detalha como cada onda respondeu aos problemas da anterior.
 
+- [história do JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/history_of_i18n.md)
+
 ## A decisão que mais importa: onde o conteúdo fica e quando ele carrega
 
 Toda biblioteca de i18n para React tem o mesmo formato: uma store, um provider, um hook. O que o provider recebe acaba no bundle do cliente ou no payload de hidratação. Portanto, as duas escolhas estruturais são:
@@ -90,11 +94,17 @@ Conteúdo centralizado com imports estáticos cresce em ambos os eixos: 10 pági
 
 Isso não é uma propriedade da biblioteca, é uma propriedade de disciplina. O `react-i18next` pode ter escopo com namespaces e backends lazy. O `use-intl` pode ser dividido por rota. Mas nada impõe isso, e um `<Button>` compartilhado acessando `t("common:cta")` silenciosamente torna o `common` uma dependência de todas as rotas. O [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/benchmark/index.md) mede isso como "vazamento de outras rotas" e "vazamento de outros locales", e é de onde vem a maior parte da diferença entre as bibliotecas.
 
+- [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/benchmark/index.md)
+
 Se a sua resposta para a pergunta 3 foi "muitos locales, muitas páginas", dê mais peso a esta seção do que a qualquer preferência de API. O artigo sobre [i18n por componente vs. centralizado](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/per-component_vs_centralized_i18n.md) aprofunda o lado da manutenção dessa mesma escolha.
+
+- [i18n por componente vs. centralizado](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/per-component_vs_centralized_i18n.md)
 
 ## Os candidatos
 
 Os tamanhos das bibliotecas vêm do [benchmark no TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/benchmark/tanstack.md): provider mais hook em um componente vazio, após bundling, tree-shaking e minificação, 10 páginas e 10 locales. O conteúdo é medido separadamente.
+
+- [benchmark no TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/benchmark/tanstack.md)
 
 ![Ecossistema de bibliotecas de i18n para React](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
@@ -120,6 +130,8 @@ Duas coisas que a tabela não mostra. O `Paraglide` quase não envia biblioteca 
 
 Escolha a solução mais simples que funcione e não invista além do necessário. `react-i18next` com um único JSON por locale é adequado, e uma década de respostas no Stack Overflow vai economizar seu tempo. Ignore namespaces até precisar deles. Se o protótipo se transformar em um produto, planeje uma migração para conteúdo com escopo; o [adaptador de compatibilidade do react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/compat/react-i18next.md) torna isso incremental.
 
+- [adaptador de compatibilidade do react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/compat/react-i18next.md)
+
 </Accordion>
 <Accordion header="As traduções vêm de uma agência ou de um TMS que usa ICU">
 
@@ -135,6 +147,8 @@ Prefira conteúdo com escopo e carregamento dinâmico por padrão, e não por co
 
 Toda biblioteca baseada em chaves pode ser tipada, mas quase nenhuma vem assim por padrão. Se você não quer manter declaration merging que precisa resistir a namespaces carregados dinamicamente, escolha uma biblioteca onde os tipos são gerados a partir do conteúdo: `Lingui`, `Paraglide` ou Intlayer. O artigo sobre [detecção de traduções ausentes](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/detecting_missing_translations.md) compara o que cada uma detecta em tempo de build.
 
+- [detecção de traduções ausentes](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/detecting_missing_translations.md)
+
 </Accordion>
 <Accordion header="Muito conteúdo rico: markdown, links dentro de frases, componentes por locale">
 
@@ -149,6 +163,8 @@ Nesse caso, um JSON centralizado não é mais um requisito, já que não há um 
 <Accordion header="Você pode migrar para o Next.js App Router mais tarde">
 
 O React context não cruza a fronteira entre servidor e cliente. Bibliotecas construídas apenas sobre um hook de cliente (`react-i18next`, `react-intl`) precisarão de uma API de servidor paralela no dia em que você adotar RSC. `use-intl` (como `next-intl`) e Intlayer (como `next-intlayer`) já possuem essa divisão. Leia o [artigo sobre Next.js i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/next-i18next_vs_next-intl_vs_intlayer.md) antes de padronizar um modelo.
+
+- [artigo sobre Next.js i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/next-i18next_vs_next-intl_vs_intlayer.md)
 
 </Accordion>
 </AccordionGroup>
@@ -500,6 +516,11 @@ Todos os locales em um único arquivo ao lado do componente. Os tipos são gerad
 
 Já usa `react-i18next`, `react-intl` ou `Lingui`? Os adaptadores de compatibilidade ([react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/compat/react-i18next.md), [react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/compat/react-intl.md), [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/compat/lingui.md)) criam aliases para os imports no nível do bundler para que a API existente continue funcionando enquanto você migra componente por componente. O [guia de migração](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/migration_from_react-i18next_to_intlayer.md) cobre o restante.
 
+- [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/compat/react-i18next.md)
+- [react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/compat/react-intl.md)
+- [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/compat/lingui.md)
+- [guia de migração](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/migration_from_react-i18next_to_intlayer.md)
+
 ## Antes de tomar sua decisão
 
 Uma tabela de funcionalidades mostra o que uma biblioteca faz hoje. Estes pontos mostram como será a convivência com ela no dia a dia.
@@ -522,6 +543,9 @@ O `i18next` é apoiado pela Locize. O `next-intl` / `use-intl`, `vue-i18n`, `sve
 
 Os agentes ainda têm dificuldades com i18n: esquecem locales, inventam chaves e misturam sintaxes de mensagens. A biblioteca oferece [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/agent_skills.md) ou um [servidor MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/mcp_server.md) para que o agente possa listar, preencher e testar conteúdo? E o carregamento de conteúdo é otimizado por padrão, ou alguém precisa revisar namespaces e lazy imports a cada trimestre?
 
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/agent_skills.md)
+- [servidor MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/mcp_server.md)
+
 **Type safety pronto para uso.**
 
 Não "pode ser tipado com configuração extra", mas "uma chave errada falha no `tsc` em uma instalação nova". Verifique o que acontece com uma chave inexistente e com um locale que está com uma tradução faltando.
@@ -533,6 +557,13 @@ Os catálogos só aumentam. O build do Intlayer purga campos não utilizados e r
 **Experiência do desenvolvedor (DX).**
 
 Tempo de configuração até a primeira string traduzida, um [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/lsp.md) ou [extensão para VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/vs_code_extension.md) que mostra a tradução ao passar o cursor e navega até a declaração, uma [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/index.md) para preencher, testar e sincronizar (push), um [compilador](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/compiler.md) ou extrator que retira as strings fixas dos seus componentes para não gerir cada string chave a chave, e uma forma para não-desenvolvedores editarem conteúdo ([editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md) ou [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md)) sem a necessidade de um pull request.
+
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/lsp.md)
+- [extensão para VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/vs_code_extension.md)
+- [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/index.md)
+- [compilador](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/compiler.md)
+- [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md)
 
 ## Perguntas Frequentes
 
@@ -548,6 +579,8 @@ Sim para a maioria das equipes. Ele possui o maior ecossistema e o maior número
 
 Apenas se tamanho de bundle, tipos gerados ou verificações de chaves ausentes em tempo de build estiverem entre seus requisitos. Para uma aplicação pequena com dois locales, uma biblioteca de runtime é mais simples. O artigo sobre [compilador vs. i18n declarativo](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/compiler_vs_declarative_i18n.md) explica o que os compiladores oferecem e onde podem falhar.
 
+- [compilador vs. i18n declarativo](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/compiler_vs_declarative_i18n.md)
+
 </Question>
 
 <Question title="Posso trocar de biblioteca depois sem reescrever todos os componentes?">
@@ -559,6 +592,8 @@ Parcialmente. Bibliotecas baseadas em chaves compartilham formato suficiente par
 <Question title="A escolha da biblioteca afeta o SEO?">
 
 Indiretamente. O que os crawlers veem é decidido pelo roteamento, `hreflang`, `<html lang>` e se o texto está no HTML renderizado pelo servidor. Algumas bibliotecas incluem utilitários para isso, a maioria deixa por sua conta. Veja o [guia de hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/hreflang_guide_multilingual_seo.md).
+
+- [guia de hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/hreflang_guide_multilingual_seo.md)
 
 </Question>
 

@@ -51,6 +51,8 @@ Panduan ini menyiapkan ketiganya, kemudian mencakup semua hal yang diserahkan Pa
 
 > Membandingkan dua pendekatan berbasis kompilator? Baca [apakah Intlayer lebih ringan daripada Paraglide?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/is_intlayer_lighter_than_paraglide.md).
 
+- [apakah Intlayer lebih ringan daripada Paraglide?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/is_intlayer_lighter_than_paraglide.md)
+
 > Untuk memahami asal-usul pustaka-pustaka ini, baca sejarah i18n di JavaScript.
 
 - [Sejarah i18n di JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/history_of_i18n.md)
@@ -58,6 +60,8 @@ Panduan ini menyiapkan ketiganya, kemudian mencakup semua hal yang diserahkan Pa
 ## Apa kata tolok ukur tentang Paraglide di TanStack Start
 
 [Tolok ukur i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/tanstack.md) menjalankan aplikasi TanStack Start 10 halaman dan 10 lokal yang sama dengan setiap pustaka utama dan mengukur apa yang sebenarnya diunduh oleh peramban.
+
+- [Tolok ukur i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/tanstack.md)
 
 <I18nBenchmark framework="tanstack" packages="paraglide,intlayer" vertical/>
 
@@ -78,6 +82,8 @@ Poin penting yang perlu diperhatikan:
 - **Pemuatan halaman adalah yang paling lambat dari kelompok ini**, sebagian karena lokal ditentukan melalui strategi pada setiap panggilan daripada dibaca dari konteks React.
 
 > Lihat data lengkap: [Laporan tolok ukur TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/tanstack.md), dan [repositori tolok ukur](https://github.com/intlayer-org/benchmark-i18n).
+
+- [Laporan tolok ukur TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/tanstack.md)
 
 ## Perbandingan fitur di TanStack Start
 
@@ -102,6 +108,8 @@ Perbandingan Paraglide JS dengan pustaka lain yang umum digunakan di TanStack St
 | **Terjemahan yang hilang di CI**                   | ✅ `npx intlayer test`                 | ⚠️ Tidak bawaan         | ⚠️ Tidak bawaan                           | ✅ `lingui compile --strict`  |
 
 > Angka ukuran runtime dan kebocoran berasal dari [tolok ukur TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/tanstack.md). Kebocoran diukur pada penyiapan terbaik dari setiap pustaka.
+
+- [tolok ukur TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/tanstack.md)
 
 > Panduan TanStack Start lainnya:
 
@@ -837,7 +845,12 @@ Tidak ada adaptor langsung dari Paraglide ke Intlayer, karena keduanya mengikuti
 
 Jika Anda berasal dari pustaka lain selain Paraglide, [adaptor kompatibilitas](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/index.md) mempertahankan API `use-intl`, `next-intl`, `react-i18next`, `react-intl`, atau Lingui dan mengganti runtime-nya.
 
+- [adaptor kompatibilitas](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/index.md)
+
 Lihat [apakah Intlayer lebih ringan daripada Paraglide?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/is_intlayer_lighter_than_paraglide.md) dan [panduan TanStack Start Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_tanstack.md).
+
+- [apakah Intlayer lebih ringan daripada Paraglide?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/is_intlayer_lighter_than_paraglide.md)
+- [panduan TanStack Start Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_tanstack.md)
 
 </Step>
 <Step number={17} title="Otomatiskan Terjemahan Anda Menggunakan Intlayer" isOptional={true}>
@@ -859,6 +872,8 @@ Paraglide merender terjemahan, tetapi tidak membantu Anda **membuatnya**. Intlay
 <Question title="Apakah Paraglide JS adalah pilihan yang baik untuk TanStack Start?">
 
 Pilihan yang solid: digunakan dalam contoh resmi TanStack Router, memiliki runtime terkecil dalam [tolok ukur](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/tanstack.md) (~1.8 KB gzip), dan pesan bertipe lengkap. Komprominya adalah setiap fungsi pesan berisi semua lokal, yang membocorkan sekitar setengah dari string terjemahan kepada pengunjung bahasa lain, serta perpindahan lokal memerlukan muat ulang halaman.
+
+- [tolok ukur](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/tanstack.md)
 
 </Question>
 <Question title="Apakah saya memerlukan segmen rute $locale dengan Paraglide?">
@@ -889,6 +904,9 @@ Gunakan `localizeUrl` untuk membuat satu URL absolut per lokal di rute `head()`,
 <Question title="Dapatkah saya bermigrasi dari Paraglide ke Intlayer?">
 
 Ya. Keduanya berbasis kompilator, sehingga model mentalnya serupa. Pertahankan file JSON Anda dengan [plugin sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/plugins/sync-json.md), lalu ganti panggilan `m.key()` dengan `useIntlayer`, halaman demi halaman. Lihat [panduan TanStack Start Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_tanstack.md).
+
+- [plugin sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/plugins/sync-json.md)
+- [panduan TanStack Start Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_tanstack.md)
 
 </Question>
 

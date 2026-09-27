@@ -23,6 +23,8 @@ The `editor` command wraps the `intlayer-editor` commands.
 
 > To be able to use the `editor` command, the `intlayer-editor` package must be installed. (See [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_visual_editor.md))
 
+- [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_visual_editor.md)
+
 ```json fileName="package.json"
 "scripts": {
   "intlayer:editor:start": "npx intlayer editor start --with 'next dev --turbopack'"

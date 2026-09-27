@@ -137,3 +137,5 @@ export default config;
 ### TypeScript 통합
 
 `t` 함수는 정의된 사전과 함께 사용할 때 유형 안전합니다. 자세한 내용은 [TypeScript 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참조하세요.
+
+- [TypeScript 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)

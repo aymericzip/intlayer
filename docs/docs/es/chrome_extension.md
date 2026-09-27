@@ -120,6 +120,11 @@ La detección se basa en lo que la página expone en el navegador: variables glo
 
 La mayoría de las comprobaciones se corresponden con una configuración de enrutamiento o metadatos. Con Intlayer, hreflang, canónico, `x-default`, enlaces localizados, sitemap y robots.txt se generan a partir de tu [configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md). Consulta la guía de integración para tu framework, por ejemplo [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_nextjs_16.md), [Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_nuxt.md) o [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_tanstack.md).
 
+- [configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md)
+- [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_nextjs_16.md)
+- [Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_nuxt.md)
+- [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_tanstack.md)
+
 </Question>
 
 </FAQ>

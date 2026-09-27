@@ -26,6 +26,8 @@ author: aymericzip
 
 يسلك هذا الدليل الاتجاه المعاكس: أجب عن بعض الأسئلة حول مشروعك أولاً، ثم طابق الإجابات مع المكتبات المناسبة. يركز هذا الدليل على تطبيقات React البسيطة (Vite و React Router و TanStack Start). لدى Next.js قيودها الخاصة، والتي تم تناولها في [مقارنة Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/next-i18next_vs_next-intl_vs_intlayer.md).
 
+- [مقارنة Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/next-i18next_vs_next-intl_vs_intlayer.md)
+
 ## جدول المحتويات
 
 <TOC/>
@@ -74,6 +76,8 @@ author: aymericzip
 
 يوضح مقال [تاريخ JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/history_of_i18n.md) بالتفصيل كيف عالجت كل موجة مشاكل الموجة السابقة.
 
+- [تاريخ JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/history_of_i18n.md)
+
 ## القرار الأكثر أهمية: أين يعيش المحتوى ومتى يتم تحميله
 
 تمتلك كل مكتبة React i18n نفس الهيكل الأساسي: مخزن (store)، ومزود (provider)، وخطاف (hook). كل ما يستقبله الـ provider ينتهي به المطاف في حزمة العميل (client bundle) أو في حمولة التروية (hydration payload). لذا فإن الخيارين الهيكليين هما:
@@ -89,11 +93,17 @@ author: aymericzip
 
 هذه ليست ميزة مكتبة فحسب، بل هي مسألة انضباط برمجي. يمكن تقسيم `react-i18next` عبر namespaces و lazy backends. ويمكن تقسيم `use-intl` لكل مسار. ولكن لا يوجد ما يفرض ذلك تلقائياً، ومكون `<Button>` مشترك يستدعي `t("common:cta")` يجعل `common` بهدوء اعتمادية لجميع المسارات. يقيس [اختبار الأداء (benchmark)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/index.md) هذا تحت مسمى "التسريب من المسارات الأخرى" و"التسريب من اللغات الأخرى"، وهو مصدر معظم الفجوة بين المكتبات.
 
+- [اختبار الأداء (benchmark)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/index.md)
+
 إذا كانت إجابتك على السؤال 3 هي "لغات متعددة وصفحات متعددة"، فركز على هذا القسم أكثر من أي تفضيل لواجهة الـ API. يتعمق مقال [الـ i18n لكل مكون مقابل المركزي](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/per-component_vs_centralized_i18n.md) في جانب الصيانة لهذا الخيار.
+
+- [الـ i18n لكل مكون مقابل المركزي](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/per-component_vs_centralized_i18n.md)
 
 ## الخيارات المرشحة
 
 أحجام المكتبات مأخوذة من [اختبار أداء TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md): الـ provider بالإضافة إلى الـ hook في مكون فارغ، بعد التجميع والـ tree-shaking والـ minification، لـ 10 صفحات و10 لغات. يتم قياس المحتوى بشكل منفصل.
+
+- [اختبار أداء TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md)
 
 ![النظام البيئي لمكتبات React i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
@@ -119,6 +129,8 @@ author: aymericzip
 
 اختر أبسط حل يعمل وتجنب الاستثمار الزائد. يُعد `react-i18next` مع ملف JSON واحد لكل لغة كافياً، وستوفر لك إجابات عقد كامل على Stack Overflow الكثير من الوقت. تجنب الـ namespaces حتى تحتاجها فعلاً. إذا تحول النموذج الأولي إلى منتج، خصص وقتاً للانتقال إلى المحتوى المحدد النطاق (scoped)؛ يتيح لك [محول التوافق لـ react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/react-i18next.md) القيام بذلك تدريجياً.
 
+- [محول التوافق لـ react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/react-i18next.md)
+
 </Accordion>
 <Accordion header="الترجمات تأتي من وكالة أو TMS يدعم ICU">
 
@@ -134,6 +146,8 @@ author: aymericzip
 
 يمكن إضافة الأنواع إلى كل مكتبة معتمدة على المفاتيح، ولكن لا توفر أي منها ذلك تقريباً بشكل افتراضي. إذا كنت لا ترغب في صيانة دمج التصريحات (declaration merging) التي يجب أن تتوافق مع الـ namespaces المحملة بشكل كسول، فاختر مكتبة يتم فيها إنشاء الأنواع من المحتوى مباشرة: `Lingui` أو `Paraglide` أو Intlayer. يقارن مقال [اكتشاف الترجمات المفقودة](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/detecting_missing_translations.md) ما تلتقطه كل أداة أثناء وقت البناء.
 
+- [اكتشاف الترجمات المفقودة](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/detecting_missing_translations.md)
+
 </Accordion>
 <Accordion header="الكثير من المحتوى الغني: markdown، روابط داخل الجمل، مكونات خاصة بكل لغة">
 
@@ -148,6 +162,8 @@ author: aymericzip
 <Accordion header="قد تنتقل إلى Next.js App Router لاحقاً">
 
 لا يعبر سياق React حدود الخادم/العميل. ستحتاج المكتبات المبنية على خطاف عميل فقط (`react-i18next` و `react-intl`) إلى واجهة برمجة تطبيقات موازية للخادم فور اعتمادك لـ RSC. تمتلك `use-intl` (باسم `next-intl`) و Intlayer (باسم `next-intlayer`) هذا التقسيم بالفعل. اقرأ [مقال Next.js i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/next-i18next_vs_next-intl_vs_intlayer.md) قبل اعتماد نمط موحد.
+
+- [مقال Next.js i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/next-i18next_vs_next-intl_vs_intlayer.md)
 
 </Accordion>
 </AccordionGroup>
@@ -499,6 +515,11 @@ export const CartSummary: FC<{ count: number }> = ({ count }) => {
 
 هل تستخدم بالفعل `react-i18next` أو `react-intl` أو `Lingui`؟ تتيح محولات التوافق ([react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/react-i18next.md)، و [react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/react-intl.md)، و [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/lingui.md)) إنشاء أسماء مستعارة (aliases) للاستيرادات على مستوى أداة التجميع بحيث تستمر واجهة الـ API الحالية في العمل أثناء نقلك للمكونات واحداً تلو الآخر. يغطي [دليل الهجرة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_react-i18next_to_intlayer.md) باقي التفاصيل.
 
+- [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/react-i18next.md)
+- [react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/react-intl.md)
+- [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/lingui.md)
+- [دليل الهجرة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_react-i18next_to_intlayer.md)
+
 ## قبل أن تعتمد اختيارك النهائي
 
 يخبرك جدول الميزات بما تفعله المكتبة اليوم. وتوضح لك هذه النقاط كيف ستكون تجربة العمل بها على المدى الطويل.
@@ -521,6 +542,9 @@ export const CartSummary: FC<{ count: number }> = ({ count }) => {
 
 لا يزال الوكلاء يواجهون صعوبات مع التدويل: ينسون اللغات، ويخترعون مفاتيح من عندهم، ويخلطون بين صيغ الرسائل. هل توفر المكتبة [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md) أو [خادم MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/mcp_server.md) حتى يتمكن الوكيل من سرد المحتوى وملئه واختباره؟ وهل يتم تحسين تحميل المحتوى افتراضياً، أم يتعين على شخص ما مراجعة الـ namespaces والاستيرادات الكسولة كل ربع سنة؟
 
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)
+- [خادم MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/mcp_server.md)
+
 **أمان الأنواع فور التثبيت.**
 
 ليس "يمكن توفير الأنواع مع إعداد إضافي"، بل "المفتاح الخاطئ يفشل `tsc` في تثبيت جديد". تحقق مما يحدث مع مفتاح غير موجود، ومع لغة تفتقد ترجمة واحدة.
@@ -532,6 +556,13 @@ export const CartSummary: FC<{ count: number }> = ({ count }) => {
 **تجربة المطور (DX).**
 
 الوقت المستغرق من الإعداد حتى أول نص مترجم، ووجود [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/lsp.md) أو [إضافة VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/vs_code_extension.md) تعرض الترجمة عند التمرير وتنتقل إلى التصريح مباشرة، و [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md) للملء والاختبار والرفع، و[مُصرِّف](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md) أو أداة استخراج تستخرج النصوص المكتوبة مباشرة في المكونات حتى لا تضطر إلى إدارة كل نص مفتاحًا بمفتاح، وطريقة لغير المطورين لتحرير المحتوى ([المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) أو [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)) بدون طلب سحب (pull request).
+
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/lsp.md)
+- [إضافة VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/vs_code_extension.md)
+- [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md)
+- [مُصرِّف](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md)
+- [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)
+- [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
 
 ## الأسئلة الشائعة
 
@@ -547,6 +578,8 @@ export const CartSummary: FC<{ count: number }> = ({ count }) => {
 
 فقط إذا كان حجم الحزمة، أو الأنواع المولدة، أو فحوصات المفاتيح المفقودة في وقت البناء من بين متطلباتك. بالنسبة لتطبيق صغير بلغتَين، فإن مكتبة وقت التشغيل أبسط. يشرح مقال [الـ i18n المعتمد على المترجم مقابل التصريحي](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/compiler_vs_declarative_i18n.md) ما تمنحه لك المترجمات وما قد تخطئ فيه.
 
+- [الـ i18n المعتمد على المترجم مقابل التصريحي](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/compiler_vs_declarative_i18n.md)
+
 </Question>
 
 <Question title="هل يمكنني تبديل المكتبة لاحقاً دون إعادة كتابة كل مكون؟">
@@ -558,6 +591,8 @@ export const CartSummary: FC<{ count: number }> = ({ count }) => {
 <Question title="هل يؤثر اختيار المكتبة على تحسين محركات البحث (SEO)؟">
 
 بشكل غير مباشر. ما تراه روبوتات الفهرسة يتحدد من خلال التوجيه (routing)، و `hreflang`، و `<html lang>`، وما إذا كان النص موجوداً في كود HTML المُصيّر على الخادم. توفر بعض المكتبات دوال مساعدة لذلك، بينما تترك معظمها الأمر لك. راجع [دليل hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/hreflang_guide_multilingual_seo.md).
+
+- [دليل hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/hreflang_guide_multilingual_seo.md)
 
 </Question>
 

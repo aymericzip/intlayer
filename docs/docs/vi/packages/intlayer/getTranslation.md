@@ -34,6 +34,8 @@ Hàm `getTranslationContent` lấy nội dung tương ứng với một locale c
 
 Để biết thêm chi tiết về cách khai báo translations, hãy xem [tài liệu Translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/translation.md).
 
+- [tài liệu Translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/translation.md)
+
 ## Tham số
 
 - `languageContent: CustomizableLanguageContent<Content>`

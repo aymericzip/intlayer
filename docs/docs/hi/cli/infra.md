@@ -104,13 +104,13 @@ npx intlayer init infra --mode compose
 
        ./intlayer/.env
 
-     Either RESEND_API_KEY (resend.com) or the MAIL_SMTP_* block — the first
+     Either RESEND_API_KEY (resend.com) or the MAIL_SMTP_* block, the first
      account cannot be verified without a working mailer.
   2. Start the stack:
 
        cd ./intlayer && docker compose up -d
 
-  Then open http://localhost:3000 — first boot initialises the
+  Then open http://localhost:3000, first boot initialises the
   datastores, so give it a minute. The first account you create becomes the
   super admin.
 
@@ -118,6 +118,10 @@ npx intlayer init infra --mode compose
     Stop      docker compose down
     Upgrade   docker compose pull && docker compose up -d
 ```
+
+कोई डोमेन दिए जाने पर (उदाहरण के लिए `example.org`), इंस्टॉलर डैशबोर्ड, API और ऑब्जेक्ट स्टोरेज के लिए `https://cms.example.org`, `https://back.example.org` और `https://s3.example.org/intlayer` सुझाता है, उन्हें पर्यावरण फ़ाइल में लिखता है, और स्टार्ट कमांड को रिपॉजिटरी से बिल्ड पर बदल देता है, क्योंकि प्रकाशित डैशबोर्ड इमेज केवल `localhost` पर काम करती है। [कस्टम डोमेन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/self_hosting.md#custom-domain) देखें।
+
+- [कस्टम डोमेन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/self_hosting.md#custom-domain)
 
 ## इंस्टॉलर सेटिंग्स
 
@@ -143,6 +147,8 @@ INTLAYER_COMPOSE_DIR=./cms npx intlayer init infra --mode compose
 | `INTLAYER_SELFHOST_REF`   | `main`                    | दोनों        | Git संदर्भ जहां से compose फ़ाइल और env टेम्पलेट प्राप्त किए जाते हैं |
 
 > पोर्ट चर केवल मैपिंग के **होस्ट** पक्ष को बदलते हैं। प्रकाशित इमेज में डैशबोर्ड बंडल में `http://localhost:3000`, `http://localhost:3100` और `http://localhost:9000` संकलित होते हैं, इसलिए जब तक आप अपनी स्वयं की इमेज नहीं बनाते, डिफ़ॉल्ट मान बनाए रखें: [सेल्फ-होस्टिंग गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/self_hosting.md#limitations) देखें।
+
+- [सेल्फ-होस्टिंग गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/self_hosting.md#limitations)
 
 ## आवश्यकताएँ
 

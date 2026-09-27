@@ -31,6 +31,8 @@ author: aymericzip
 
 > このプラグインは [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/vite-intlayer/intlayer.md) を使用する際に、自動的に含まれ設定されます。プラグインスタックを自分で構成する場合にのみ、手動で登録する必要があります。
 
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/vite-intlayer/intlayer.md)
+
 ## 使用法
 
 ### `intlayer()` の一部として（推奨）
@@ -99,8 +101,8 @@ Viteがコンパイル済みの辞書JSONファイルを処理する場合、`in
 
 2つのコンテンツ形状がサポートされています：
 
-- **Static dictionaries** — `{ nodeType: "translation", translation: { en: {...}, fr: {...} } }`。フィールドは`translation`内のロケールごとに削除されます。
-- **Dynamic (per-locale) dictionaries** — `{ fieldA: ..., fieldB: ... }`のようなflat構造。フィールドはトップレベルで削除されます。
+- **Static dictionaries**：`{ nodeType: "translation", translation: { en: {...}, fr: {...} } }`。フィールドは`translation`内のロケールごとに削除されます。
+- **Dynamic (per-locale) dictionaries**：`{ fieldA: ..., fieldB: ... }`のようなflat構造。フィールドはトップレベルで削除されます。
 
 ### 3. エッジケース
 

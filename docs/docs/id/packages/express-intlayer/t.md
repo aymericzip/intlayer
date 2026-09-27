@@ -259,3 +259,5 @@ app.get("/morning", (_req, res) => {
 ## Kesimpulan
 
 Fungsi `t` adalah alat yang kuat untuk internasionalisasi backend. Dengan menggunakannya secara efektif, Anda dapat membuat aplikasi yang lebih inklusif dan ramah pengguna untuk audiens global. Untuk penggunaan lanjutan dan opsi konfigurasi yang lebih rinci, lihat [dokumentasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md).
+
+- [Konfigurasi Intlayer (intlayer.config.ts)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md)

@@ -39,17 +39,23 @@ author: aymericzip
 
 对应用程序的内容进行作用域划分**便于大规模应用的维护**。您可以复制或删除单个功能文件夹，无需审查整个内容代码库的心理负担。此外，Intlayer **完全类型化**，确保内容的准确性。
 
-Intlayer 也是 i18n 生态系统中**开发最活跃的**解决方案 — 问题修复快速、新框架适配器定期发布，核心 API 根据真实生产反馈不断优化。
+Intlayer 也是 i18n 生态系统中**开发最活跃的**解决方案，问题修复快速、新框架适配器定期发布，核心 API 根据真实生产反馈不断优化。
 
 </Accordion>
 <Accordion header="AI Agent">
 
 将内容并置**减少了大语言模型 (LLM) 所需的上下文**。Intlayer 还提供了一套工具，如用于测试缺失翻译的 **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)** 和 **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)**，使 AI agents 的开发体验 (DX) 更加顺畅。
 
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)
+- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)
+
 </Accordion>
 <Accordion header="自动化">
 
 在 CI/CD 管道中使用自动化翻译，使用您选择的 LLM，按 AI 提供商的费用计费。Intlayer 还提供了**编译器**来自动提取内容，以及 [web 平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) 来帮助**后台翻译**。
+
+- [web 平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="性能">
@@ -60,6 +66,9 @@ Intlayer 也是 i18n 生态系统中**开发最活跃的**解决方案 — 问�
 <Accordion header="与非开发人员协作扩展">
 
 Intlayer 不仅仅是一个 i18n 解决方案，它还提供**自托管的[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)**和**[完整 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)**，帮助您**实时**管理多语言内容，使与翻译人员、文案人员和其他团队成员的协作无缝衔接。内容可以存储在本地和/或远程。
+
+- [可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)
+- [完整 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
@@ -72,9 +81,9 @@ Intlayer 不仅仅是一个 i18n 解决方案，它还提供**自托管的[可�
 
 由于 `@nuxtjs/i18n` 在底层由 `vue-i18n` 驱动，迁移到 Intlayer 有两种互补的策略：
 
-1. **兼容适配器（推荐用于现有应用）** — 安装 `@intlayer/vue-i18n` 和 `nuxt-intlayer`。这暴露了与 `vue-i18n` **完全相同的 API**，但在底层将所有翻译工作委托给 Intlayer。您保持现有的 `$t`、`useI18n()` 和 Nuxt 路由不变 — 唯一的变化是初始化。
+1. **兼容适配器（推荐用于现有应用）**：安装 `@intlayer/vue-i18n` 和 `nuxt-intlayer`。这暴露了与 `vue-i18n` **完全相同的 API**，但在底层将所有翻译工作委托给 Intlayer。您保持现有的 `$t`、`useI18n()` 和 Nuxt 路由不变，唯一的变化是初始化。
 
-2. **完整迁移** — 逐步用本地 Intlayer hooks（`useIntlayer`）替换 `@nuxtjs/i18n` API，并在组件旁边的 `.content.ts` 文件中共同放置内容。
+2. **完整迁移**：逐步用本地 Intlayer hooks（`useIntlayer`）替换 `@nuxtjs/i18n` API，并在组件旁边的 `.content.ts` 文件中共同放置内容。
 
 本指南首先介绍**策略 1**（即插即用兼容适配器），然后讲解可选的完整迁移。
 
@@ -196,7 +205,7 @@ Intlayer 插件已在 bundler 级别处理别名。如果你更希望在源文�
 | ------------------------------------ | ---------------------------------------------- |
 | `import { useI18n } from 'vue-i18n'` | `import { useI18n } from '@intlayer/vue-i18n'` |
 
-这些是**即插即用的替代品** — 不需要对调用签名、参数或返回类型进行任何更改。
+这些是**即插即用的替代品**，不需要对调用签名、参数或返回类型进行任何更改。
 
 </Step>
 <Step number={5} title="启用 AI 驱动的翻译自动化" isOptional={true}>
@@ -256,6 +265,8 @@ export default config;
 
 > 查看 [Intlayer CLI 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md) 了解所有可用选项。
 
+- [Intlayer CLI 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)
+
 </Step>
 
 </Steps>
@@ -270,7 +281,7 @@ export default config;
 | `package.json` 中的 `@nuxtjs/i18n` | 完全被 `nuxt-intlayer` 取代。                                                                  |
 | JSON 语言包（`locales/*.json`）    | JSON 包仅在仍使用 `syncJSON` 插件时才需要。迁移到 `.content.ts` 文件后，可以删除 JSON 文件夹。 |
 
-当你准备继续深入时，Intlayer **会自动发现代码库中任何位置的所有 `.content.ts` 和 `.content.json` 文件**（默认情况下，在 `./src` 内的任何位置）。你可以将 `my-component.content.ts` 文件放在你的 `MyComponent.vue` 旁边，Intlayer 会在构建时自动获取它，无需任何额外配置 — 无需导入、无需注册、无需中央索引文件。这使得将翻译与页面和组件共置变得完全无摩擦。
+当你准备继续深入时，Intlayer **会自动发现代码库中任何位置的所有 `.content.ts` 和 `.content.json` 文件**（默认情况下，在 `./src` 内的任何位置）。你可以将 `my-component.content.ts` 文件放在你的 `MyComponent.vue` 旁边，Intlayer 会在构建时自动获取它，无需任何额外配置，无需导入、无需注册、无需中央索引文件。这使得将翻译与页面和组件共置变得完全无摩擦。
 
 ## 配置 TypeScript
 

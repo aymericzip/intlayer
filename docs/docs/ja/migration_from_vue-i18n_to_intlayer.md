@@ -45,10 +45,16 @@ author: aymericzip
 
 コンテンツのコロケーション（同一場所配置）により、大規模言語モデル（LLM）に必要な**コンテキストが減少**します。Intlayerには、不足している翻訳をテストするための**CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)**、および**[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)**などのツールスイートが備わっており、AIエージェントにとってよりスムーズな開発者体験（DX）を提供します。
 
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)
+- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)
+
 </Accordion>
 <Accordion header="自動化">
 
 AIプロバイダーのコストで、お好みのLLMを使用してCI/CDパイプライン内で翻訳を自動化できます。Intlayerは、コンテンツ抽出を自動化するための**コンパイラ**や、**バックグラウンドでの翻訳**を支援する[ウェブプラットフォーム](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)も提供しています。
+
+- [ウェブプラットフォーム](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="パフォーマンス">
@@ -59,6 +65,9 @@ AIプロバイダーのコストで、お好みのLLMを使用してCI/CDパイ�
 <Accordion header="非開発者とのスケーラビリティ">
 
 単なるi18nソリューションにとどまらず、Intlayerはセルフホストの**[ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)**と**[フルCMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)**を提供し、多言語コンテンツを**リアルタイム**で管理できるようにします。これにより、翻訳者やコピーライター、その他のチームメンバーとのシームレスなコラボレーションが可能になります。コンテンツはローカルおよび/またはリモートに保存できます。
+
+- [ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)
+- [フルCMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
@@ -71,9 +80,9 @@ AIプロバイダーのコストで、お好みのLLMを使用してCI/CDパイ�
 
 `vue-i18n`からIntlayerに移行するための、互いに補完する2つの戦略があります：
 
-1. **互換性アダプター（既存のアプリに推奨）** — `@intlayer/vue-i18n`（Vueコンポーネント用）をインストールします。このパッケージは`vue-i18n`と**全く同じAPI**を公開しますが、すべての翻訳作業をIntlayerに委譲します。`$t`、`useI18n()`、および`<i18n-t>`への既存の呼び出しはそのまま保持されます — 変更するのはインポートパスと初期化のみです。
+1. **互換性アダプター（既存のアプリに推奨）**：`@intlayer/vue-i18n`（Vueコンポーネント用）をインストールします。このパッケージは`vue-i18n`と**全く同じAPI**を公開しますが、すべての翻訳作業をIntlayerに委譲します。`$t`、`useI18n()`、および`<i18n-t>`への既存の呼び出しはそのまま保持されます。変更するのはインポートパスと初期化のみです。
 
-2. **完全移行** — 徐々に`vue-i18n`のAPIをネイティブのIntlayerフック（`useIntlayer`）に置き換え、コンポーネントと一緒に`.content.ts`ファイル内にコンテンツをコロケーションします。
+2. **完全移行**：徐々に`vue-i18n`のAPIをネイティブのIntlayerフック（`useIntlayer`）に置き換え、コンポーネントと一緒に`.content.ts`ファイル内にコンテンツをコロケーションします。
 
 このガイドでは、まず**戦略1**（ドロップイン互換性アダプター）について解説し、その後オプションである完全移行について説明します。
 
@@ -126,7 +135,7 @@ yarn add intlayer vue-intlayer @intlayer/vue-i18n @intlayer/sync-json-plugin
 bun add intlayer vue-intlayer @intlayer/vue-i18n @intlayer/sync-json-plugin
 ```
 
-> `vue-i18n`はインストールしたままにしておいて構いません — 互換性アダプターはそれをTypeScriptの型の`devDependency` / `peerDependency`として使用します。
+> `vue-i18n`はインストールしたままにしておいて構いません、互換性アダプターはそれをTypeScriptの型の`devDependency` / `peerDependency`として使用します。
 
 </Step>
 <Step number={2} title="Intlayerの設定">
@@ -179,7 +188,7 @@ export default defineConfig({
 });
 ```
 
-> `vueI18nVitePlugin()`は`vite-intlayer`の`intlayer()`プラグインをラップし、`vue-i18n`のエイリアスを追加します。通常の`vite-intlayer`の`intlayer()`プラグインを使用すると、辞書はコンパイルされますがエイリアスは追加され**ません** — その場合、インポートを手動で`@intlayer/vue-i18n`に変更する必要があります（ステップ4を参照）。
+> `vueI18nVitePlugin()`は`vite-intlayer`の`intlayer()`プラグインをラップし、`vue-i18n`のエイリアスを追加します。通常の`vite-intlayer`の`intlayer()`プラグインを使用すると、辞書はコンパイルされますがエイリアスは追加され**ません**、その場合、インポートを手動で`@intlayer/vue-i18n`に変更する必要があります（ステップ4を参照）。
 
 **Nuxtの場合：**
 
@@ -204,7 +213,7 @@ export default defineNuxtConfig({
 
 これでクイック移行は完了です。アプリはすべてのインポートと`vue-i18n`のAPIを保持したまま、Intlayer上で動作するようになります。
 
-> **型付けされた翻訳キー — 自動的に。** Intlayerが辞書をコンパイルすると、`namespace`オプションを渡した場合に`useI18n`は実際のコンテンツに対して型付けされます。キーはIDEでオートコンプリートされ、無効なパスはビルド時にTypeScriptエラーを引き起こします — 追加の設定は必要ありません。
+> **型付けされた翻訳キー、自動的に。** Intlayerが辞書をコンパイルすると、`namespace`オプションを渡した場合に`useI18n`は実際のコンテンツに対して型付けされます。キーはIDEでオートコンプリートされ、無効なパスはビルド時にTypeScriptエラーを引き起こします。追加の設定は必要ありません。
 >
 > ```ts
 > // 'about' は登録済みの辞書のキーです
@@ -287,6 +296,8 @@ export default config;
 
 > 利用可能なすべてのオプションについては、[Intlayer CLIドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md)を確認してください。
 
+- [Intlayer CLIドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md)
+
 </Step>
 
 </Steps>
@@ -301,7 +312,7 @@ export default config;
 | Vueプラグインの登録 (`app.use(i18n)`) | Intlayerプラグインが内部で注入を処理します。                                                                                          |
 | JSON言語バンドル (`locales/*.json`)   | JSONバンドルは、`syncJSON`プラグインを使用している場合にのみ必要です。`.content.ts`ファイルに移行したら、JSONフォルダを削除できます。 |
 
-さらに進める準備ができたら、Intlayerはコードベース内の**どこにある`.content.ts`および`.content.json`ファイルでも自動的に検出します**（デフォルトでは`./src`内）。`my-component.content.ts`ファイルを`MyComponent.vue`のすぐ隣に配置するだけで、追加の設定なしでビルド時にIntlayerがそれを取得します — インポート、登録、中央のインデックスファイルは不要です。これにより、ページやコンポーネントとの翻訳のコロケーションが完全にシームレスになります。
+さらに進める準備ができたら、Intlayerはコードベース内の**どこにある`.content.ts`および`.content.json`ファイルでも自動的に検出します**（デフォルトでは`./src`内）。`my-component.content.ts`ファイルを`MyComponent.vue`のすぐ隣に配置するだけで、追加の設定なしでビルド時にIntlayerがそれを取得します。インポート、登録、中央のインデックスファイルは不要です。これにより、ページやコンポーネントとの翻訳のコロケーションが完全にシームレスになります。
 
 ## TypeScriptの設定
 

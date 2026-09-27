@@ -23,6 +23,8 @@ author: aymericzip
 
 > 要能够使用 `editor` 命令，必须安装 `intlayer-editor` 包。（参见 [Intlayer 可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)）
 
+- [Intlayer 可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)
+
 ```json fileName="package.json"
 "scripts": {
   "intlayer:editor:start": "npx intlayer editor start --with 'next dev --turbopack'"

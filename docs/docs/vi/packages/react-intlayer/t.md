@@ -178,4 +178,6 @@ Hàm `t` trong `react-intlayer` là một công cụ mạnh mẽ và tiện lợ
 
 Để biết thêm chi tiết về cách sử dụng và các tính năng nâng cao, hãy tham khảo [tài liệu react-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md).
 
+- [tài liệu react-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md)
+
 **Lưu ý**: Hãy nhớ thiết lập `IntlayerProvider` đúng cách để đảm bảo locale hiện tại được truyền chính xác đến các component của bạn. Điều này rất quan trọng để hàm `t` trả về các bản dịch chính xác.

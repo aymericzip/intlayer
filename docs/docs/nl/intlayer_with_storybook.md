@@ -114,6 +114,8 @@ export default config;
 
 > Zie voor de volledige lijst met opties de [configuratiereferentie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/configuration.md).
 
+- [configuratiereferentie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/configuration.md)
+
 </Step>
 <Step number={3} title="De Vite-plugin toevoegen aan Storybook">
 
@@ -358,6 +360,8 @@ export default copyButtonContent;
 ```
 
 > Zie voor meer inhoudsdeclaratieformaten en functies de [documentatie voor inhoudsdeclaratie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/dictionary/content_file.md).
+
+- [documentatie voor inhoudsdeclaratie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/dictionary/content_file.md)
 
 ## `useIntlayer` gebruiken in een component
 

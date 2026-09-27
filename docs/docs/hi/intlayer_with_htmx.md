@@ -175,6 +175,8 @@ export default config;
 
 > पूर्ण विकल्पों की सूची के लिए, [कॉन्फ़िगरेशन दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md) देखें।
 
+- [कॉन्फ़िगरेशन दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md)
+
 </Step>
 <Step number={3} title="अपनी सामग्री घोषित करें">
 
@@ -220,6 +222,8 @@ export default appContent;
 ```
 
 > Content declarations `contentDir` के अंतर्गत किसी भी स्थान पर रह सकते हैं (डिफ़ॉल्ट रूप से `./src`) और `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}` से मेल खाते हैं। [content declaration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/content_file.md) देखें।
+
+- [content declaration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/content_file.md)
 
 </Step>
 <Step number={4} title="Intlayer middleware को रजिस्टर करें">
@@ -651,7 +655,7 @@ Intlayer द्वारा जेनरेट की गई फाइलों 
 
 Intlayer के साथ अपने development experience को बेहतर बनाने के लिए, आप official **Intlayer VS Code Extension** को install कर सकते हैं।
 
-[VS Code Marketplace से Install करें](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [VS Code Marketplace से Install करें](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 यह extension निम्नलिखित प्रदान करता है:
 
@@ -662,9 +666,13 @@ Intlayer के साथ अपने development experience को बेह�
 
 Extension का उपयोग कैसे करें इसके बारे में अधिक विवरण के लिए, [Intlayer VS Code Extension documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/vs_code_extension.md) देखें।
 
+- [Intlayer VS Code Extension documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/vs_code_extension.md)
+
 ### आगे बढ़ें
 
 आगे बढ़ने के लिए, आप अपने content को [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md) का उपयोग करके externalize कर सकते हैं, इसलिए अनुवादक deployment के बिना copy बदल सकते हैं।
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md)
 
 ## अक्सर पूछे जाने वाले प्रश्न
 
@@ -689,6 +697,9 @@ Extension का उपयोग कैसे करें इसके बा�
 
 अपने पृष्ठों को locale prefix के तहत परोसें (`/fr/cart`) और अपने route handler में path से locale को पढ़ें, बजाय cookie से, पूर्ण पृष्ठ render के लिए। Fragments cookie या header का उपयोग करते रह सकते हैं। Routing options के लिए [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md) और [custom URL rewrites](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/custom_url_rewrites.md) देखें।
 
+- [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md)
+- [custom URL rewrites](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/custom_url_rewrites.md)
+
 </Question>
 <Question title="मैं दाएं से बाएं भाषाओं को कैसे संभालूं?">
 
@@ -704,25 +715,44 @@ Extension का उपयोग कैसे करें इसके बा�
 
 हाँ। backend integrations `t()` और `getIntlayer()` को किसी भी handler में expose करते हैं, इसलिए एक toast में दिखाया गया error message और एक fragment में rendered label एक ही declared content से आते हैं। [Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_express.md), [Fastify](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_fastify.md), [Hono](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_hono.md) और [Elysia](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_elysia.md) guides देखें।
 
+- [Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_express.md)
+- [Fastify](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_fastify.md)
+- [Hono](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_hono.md)
+- [Elysia](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_elysia.md)
+
 </Question>
 <Question title="क्या मुझे अपनी content को key by key move करना होगा?">
 
 नहीं। `npx intlayer extract` चलाएं और Intlayer आपकी source files को पढ़ता है, user facing strings को निकालता है और प्रत्येक के बगल में एक `.content` file लिखता है, इसलिए आप strings को एक catalog में एक-एक करके कॉपी करने के बजाय एक diff की समीक्षा करते हैं। [extract command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/extract.md) देखें।
+
+- [extract command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/extract.md)
 
 </Question>
 <Question title="क्या मैं अपनी मौजूदा JSON translation files को रख सकता हूं?">
 
 हाँ। [sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-json.md) आपकी `/messages/{locale}/{namespace}.json` फ़ाइलों को सत्य का स्रोत बनाए रखता है और दोनों दिशाओं में उनसे Intlayer dictionaries बनाता है। [sync PO plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-po.md) gettext catalogs के लिए भी ऐसा ही करता है, और [per locale files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/per_locale_file.md) आपको locales को एक फ़ाइल में समूहीकृत करने के बजाय भाषा के अनुसार content को विभाजित करने देते हैं।
 
+- [sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-json.md)
+- [sync PO plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-po.md)
+- [per locale files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/per_locale_file.md)
+
 </Question>
 <Question title="मैं ऐप को AI के साथ स्वचालित रूप से कैसे अनुवाद करूँ?">
 
 `npx intlayer fill` चलाएं, जो आपकी पसंद के LLM का उपयोग करके अपने स्वयं के प्रदाता और API कुंजी के साथ लापता अनुवाद भरता है। `--git-diff` जोड़ें ताकि केवल शाखा पर बदली गई सामग्री का अनुवाद किया जाए। [fill command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/fill.md) और [CI/CD integration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/CI_CD.md) देखें।
 
+- [fill command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/fill.md)
+- [CI/CD integration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/CI_CD.md)
+
 </Question>
 <Question title="क्या Intlayer gender, conditions और interpolated values को सपोर्ट करता है?">
 
 हाँ: [लिंग-आधारित सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/gender.md), शर्तें, [enumerations](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/enumeration.md), [insertions](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/insertion.md) interpolated values के लिए, और [formatters](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/formatters.md) संख्याओं, तारीखों और मुद्राओं के लिए।
+
+- [लिंग-आधारित सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/gender.md)
+- [enumerations](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/enumeration.md)
+- [insertions](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/insertion.md)
+- [formatters](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/formatters.md)
 
 </Question>
 <Question title="कौन से editor और AI agent tooling उपलब्ध हैं?">
@@ -739,6 +769,9 @@ Extension का उपयोग कैसे करें इसके बा�
 <Question title="क्या Intlayer मुक्त और open source है?">
 
 हां, Apache 2.0 license के तहत, commercial use सहित। hosted [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md) एक optional paid service है जिसे [self hosted](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/self_hosting.md) भी किया जा सकता है।
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md)
+- [self hosted](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/self_hosting.md)
 
 </Question>
 

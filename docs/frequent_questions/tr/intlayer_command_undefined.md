@@ -3,7 +3,7 @@ createdAt: 2025-09-07
 updatedAt: 2026-09-27
 priority: 4
 title: Intlayer komutu tanımsız
-description: '"intlayer: command not found" hatasını düzeltin: CLI''ı kurun, paket yöneticiniz üzerinden çalıştırın ve PATH''i kontrol edin.'
+description: "'intlayer: command not found' hatasını düzeltin: CLI'ı kurun, paket yöneticiniz üzerinden çalıştırın ve PATH'i kontrol edin."
 keywords:
   - intlayer
   - komut

@@ -78,6 +78,9 @@ Intlayer 将内容声明 (`.content.ts`) 与路由业务逻辑就近同构，大
 
 除了以代码为核心的工作流外，Intlayer 还提供了自托管的 [可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md) 和 [远程 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)，允许非技术编辑人员和翻译人员更新文案，无需重新部署代码。
 
+- [可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)
+- [远程 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
+
 </Accordion>
 </AccordionGroup>
 
@@ -220,6 +223,8 @@ module.exports = config;
 
 > 更多配置项说明请参阅 [配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
 
+- [配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)
+
 </Step>
 <Step number={3} title="声明多语言内容">
 
@@ -256,6 +261,8 @@ export default homeContent;
 ```
 
 > Intlayer 还支持 JSON、YAML 和 CommonJS 声明格式。请参阅 [内容声明文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)。
+
+- [内容声明文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)
 
 </Step>
 <Step number={4} title="构建 Intlayer 字典">
@@ -304,6 +311,8 @@ const { title } = useIntlayer("home");
 `useIntlayer("home", "fr")` 或 `useIntlayer("faq", { item: 2 })` 可在单次调用中覆盖请求语言环境，而 `useDictionary(homeContent)` 读取导入的字典而不是键。在请求之外，钩子会回退到默认语言环境。
 
 > 中间件还会在服务器启动时准备 Intlayer 字典，因此即使缺少 `intlayer build` 也不会导致注册表为空。
+
+> 在 `intlayer.config.ts` 中设置 `routing.enableProxy: false`，即可只保留语言环境解析，并自行处理路由。`intlayer({ ignore })` 会让匹配的请求保持不变（例如 API 前缀），而 `intlayer({ isDevServer })` 控制在默认的 `enableProxy` 自动模式下，存储的语言环境是否驱动重定向。
 
 </Step>
 <Step number={6} title="定义类型安全路由">

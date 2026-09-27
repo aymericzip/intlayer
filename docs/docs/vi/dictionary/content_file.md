@@ -368,6 +368,8 @@ Chuyển đổi từ điển thành từ điển theo từng locale, trong đó 
 
 > Xem [Khai báo nội dung theo ngôn ngữ trong Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/per_locale_file.md) để biết thêm thông tin.
 
+- [Khai báo nội dung theo ngôn ngữ trong Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/per_locale_file.md)
+
 **Ví dụ:**
 
 ```jsonc
@@ -479,6 +481,8 @@ Hướng dẫn tự động điền nội dung từ điển từ các nguồn b�
 
 > Xem thêm [Cấu hình Tự động điền trong Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/fill.md) để biết thêm thông tin.
 
+- [Cấu hình Tự động điền trong Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/fill.md)
+
 ##### `priority` (number)
 
 Chỉ định độ ưu tiên của từ điển để giải quyết xung đột. Khi có nhiều từ điển cùng chứa một khóa, từ điển có số ưu tiên cao nhất sẽ ghi đè lên các từ điển khác. Điều này hữu ích để quản lý thứ bậc nội dung và ghi đè.
@@ -506,6 +510,8 @@ Chỉ định độ ưu tiên của từ điển để giải quyết xung độ
 
 Được sử dụng cùng với Bộ sưu tập (Collections), trường này xác định vị trí của mục trong bộ sưu tập. Nó cho phép bạn xây dựng các bộ sưu tập có thứ tự của các mục được địa phương hóa có thể chọn bằng chỉ mục tại thời gian chạy.
 
+- [Bộ sưu tập](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dynamic_dictionaries/collections.md)
+
 **Ví dụ:**
 
 ```typescript
@@ -521,9 +527,13 @@ Chỉ định độ ưu tiên của từ điển để giải quyết xung độ
 
 > Xem [Bộ sưu tập](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dynamic_dictionaries/collections.md) để biết thêm thông tin.
 
+- [Bộ sưu tập](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dynamic_dictionaries/collections.md)
+
 #### `variant` (chuỗi)
 
 Được sử dụng cùng với Các biến thể (Variants), trường này xác định các giải pháp thay thế nội dung được đặt tên. Nó cho phép bạn chuyển đổi giữa các biến thể khác nhau của cùng một khóa từ điển tại thời gian chạy mà không cần thay đổi mã (ví dụ: đối với thử nghiệm A/B, biểu ngữ theo mùa). Nếu không được cung cấp, it được coi là biến thể mặc định.
+
+- [Biến thể](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dynamic_dictionaries/variants.md)
 
 **Ví dụ:**
 
@@ -532,13 +542,15 @@ Chỉ định độ ưu tiên của từ điển để giải quyết xung độ
   key: "hero-banner",
   variant: "black_friday",
   content: {
-    headline: "50 % off — today only",
+    headline: "50 % off, today only",
     cta: "Shop now"
   }
 }
 ```
 
 > Xem [Biến thể](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dynamic_dictionaries/variants.md) để biết thêm thông tin.
+
+- [Biến thể](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dynamic_dictionaries/variants.md)
 
 ### Thuộc tính CMS
 
@@ -613,6 +625,8 @@ multilingualContent: t({
 
 > Xem [Nội dung dịch (`t`) Tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/translation.md) để biết thêm thông tin.
 
+- [Nội dung dịch (`t`) Tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/translation.md)
+
 ### Nội dung điều kiện (`cond`)
 
 Nội dung thay đổi dựa trên các điều kiện boolean:
@@ -627,6 +641,8 @@ conditionalContent: cond({
 ```
 
 > Xem [Nội dung điều kiện (`cond`) Tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/condition.md) để biết thêm thông tin.
+
+- [Nội dung điều kiện (`cond`) Tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/condition.md)
 
 ### Nội dung liệt kê (`enu`)
 
@@ -644,6 +660,8 @@ statusContent: enu({
 
 > Xem [Nội dung liệt kê (`enu`) Tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/enumeration.md) để biết thêm thông tin.
 
+- [Nội dung liệt kê (`enu`) Tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/enumeration.md)
+
 ### Nội dung số nhiều (`plural`)
 
 Nội dung thay đổi dựa trên các quy tắc số nhiều:
@@ -659,6 +677,8 @@ pluralContent: plural({
 
 > Xem [Nội dung số nhiều Tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/plural.md) để biết thêm thông tin.
 
+- [Nội dung số nhiều Tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/plural.md)
+
 ### Nội dung chèn (`insert`)
 
 Nội dung có thể được chèn vào các nội dung khác:
@@ -671,6 +691,8 @@ insertionContent: insert("Đoạn văn bản này có thể được chèn vào 
 
 > Xem [Nội dung chèn (`insert`) Tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/insertion.md) để biết thêm thông tin.
 
+- [Nội dung chèn (`insert`) Tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/insertion.md)
+
 ### Nội dung lồng nhau (`nest`)
 
 Tham chiếu đến các từ điển khác:
@@ -682,6 +704,8 @@ nestedContent: nest("about-page");
 ```
 
 > Xem [Nội dung lồng nhau (`nest`) Tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/nesting.md) để biết thêm thông tin.
+
+- [Nội dung lồng nhau (`nest`) Tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/nesting.md)
 
 ### Nội dung Markdown (`md`)
 
@@ -696,6 +720,8 @@ markdownContent: md(
 ```
 
 > Xem [Nội dung Markdown (`md`) Tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/markdown.md) để biết thêm thông tin.
+
+- [Nội dung Markdown (`md`) Tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/markdown.md)
 
 ### Nội dung HTML (`html`)
 
@@ -716,6 +742,8 @@ localizedHtmlContent: t({
 
 > Xem [Nội dung HTML (`html`) Tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/html.md) để biết thêm thông tin.
 
+- [Nội dung HTML (`html`) Tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/html.md)
+
 ### Nội dung theo giới tính (`gender`)
 
 Nội dung thay đổi dựa trên giới tính:
@@ -732,9 +760,11 @@ genderContent: gender({
 
 > Xem [Nội dung theo giới tính (`gender`) Tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/gender.md) để biết thêm thông tin.
 
+- [Nội dung theo giới tính (`gender`) Tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/gender.md)
+
 ### Nội dung dựa trên lựa chọn (`select`)
 
-Nội dung thay đổi dựa trên các giá trị chuỗi tùy ý — tương đương với ICU `select`:
+Nội dung thay đổi dựa trên các giá trị chuỗi tùy ý, tương đương với ICU `select`:
 
 ```typescript
 import { select } from "intlayer";
@@ -751,6 +781,8 @@ Sử dụng `select` khi yếu tố phân biệt không phải là một số l�
 
 > Xem [Nội dung dựa trên lựa chọn (`select`) Tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/select.md) để biết thêm thông tin.
 
+- [Nội dung dựa trên lựa chọn (`select`) Tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/select.md)
+
 ### Nội dung tệp tin (`file`)
 
 Tham chiếu đến các tệp tin bên ngoài:
@@ -762,6 +794,8 @@ fileContent: file("./path/to/content.txt");
 ```
 
 > Xem [Nội dung tệp tin (`file`) Tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/file.md) để biết thêm thông tin.
+
+- [Nội dung tệp tin (`file`) Tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/file.md)
 
 ## Tạo các tệp nội dung
 

@@ -95,6 +95,8 @@ const exampleContent = {
 export default exampleContent;
 ```
 
+- [İçerik bildirim dosyaları (.content.ts)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md)
+
 ## React İstemci Bileşeninde Örnek Kullanım
 
 Aşağıda `useDictionary` hook'unun bir React bileşeninde nasıl kullanılacağına ilişkin bir örnek verilmiştir:

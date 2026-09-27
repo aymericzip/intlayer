@@ -49,6 +49,8 @@ En 2026, vous n'avez plus besoin de réécrire votre base de code pour internati
 
 > Vous recherchez le guide technique pas-à-pas complet pour Vite et React ? Consultez notre documentation dédiée : [Traduire Vite et React avec Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_vite+react.md).
 
+- [Traduire Vite et React avec Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_vite+react.md)
+
 ## Table des matières
 
 <TOC/>
@@ -325,6 +327,8 @@ Ce guide présente une vue d'ensemble conceptuelle pour moderniser et internatio
 Si vous souhaitez configurer chaque partie de votre application en détail, y compris le typage strict TypeScript, les dictionnaires dynamiques et l'éditeur visuel, consultez notre guide complet :
 
 👉 **[Guide complet pour traduire Vite et React avec Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_vite+react.md)**
+
+- [Guide complet pour traduire Vite et React avec Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_vite+react.md)
 
 ## Foire aux questions (FAQ)
 

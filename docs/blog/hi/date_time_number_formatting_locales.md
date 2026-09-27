@@ -196,6 +196,8 @@ list(["सेब", "केला", "संतरा"]); // "सेब, केल
 
 यह प्लेटफ़ॉर्म API पर एक कुशल कैशिंग परत है। वास्तविक फ़ॉर्मेटिंग व्यवहार पूरी तरह से `Intl` है। पूर्ण हस्ताक्षर [फ़ॉर्मेटर्स दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/formatters.md) में देखें।
 
+- [फ़ॉर्मेटर्स दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/formatters.md)
+
 ## सामान्य गलतियाँ
 
 - **बिना लोकेल के `toLocaleDateString()`.** रनटाइम के डिफ़ॉल्ट का उपयोग करता है, जो सर्वर पर कंटेनर कॉन्फ़िगरेशन पर निर्भर करता है।

@@ -61,10 +61,16 @@ Intlayer 经过优化，可与 Vue 完美配合，提供**组件级内容范围*
 
 共置内容**减少大型语言模型 (LLM) 所需的上下文**。 Intlayer 还附带了一套工具，例如用于测试缺失翻译的 **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** 和 **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)**，使 AI 代理的开发者体验 (DX) 更加流畅。
 
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)
+- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)
+
 </Accordion>
 <Accordion header="自动化">
 
 使用您选择的法学硕士，通过自动化在 CI/CD 管道中进行翻译，而费用由您的 AI 提供商承担。 Intlayer 还提供了一个**编译器**来自动提取内容，以及一个[网络平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)来帮助**在后台翻译**。
+
+- [网络平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="表现">
@@ -75,6 +81,9 @@ Intlayer 经过优化，可与 Vue 完美配合，提供**组件级内容范围*
 <Accordion header="无需开发即可扩展">
 
 Intlayer 不仅仅是一个 i18n 解决方案，还提供了一个**自托管的[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)**和一个**[完整的 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** 来帮助您管理多语言内容**实时**，与译员、文案人员和其他团队成员无缝协作。内容可以本地和/或远程存储。
+
+- [可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)
+- [完整的 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
@@ -217,6 +226,8 @@ export default config;
 ```
 
 > 通过此配置文件，您可以设置本地化的 URL、中间件重定向、cookie 名称、内容声明的位置和扩展名，禁用控制台中的 Intlayer 日志等。有关可用参数的完整列表，请参阅[配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
+
+- [配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)
 
 </Step>
 <Step number={3} title="在您的 Vite 配置中集成 Intlayer">
@@ -361,6 +372,8 @@ export default helloWorldContent;
 
 > 更多详情，请参阅[内容声明文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)。
 
+- [内容声明文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)
+
 </Step>
 <Step number={5} title="在代码中使用 Intlayer">
 
@@ -442,6 +455,9 @@ const countRef = ref(0);
 ```
 
 > 如果你的应用已经存在，你可以使用 [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md) 以及 [extract 命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/extract.md)，在几秒钟内转换数千个组件。
+
+- [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md)
+- [extract 命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/extract.md)
 
 #### 在 Intlayer 中访问内容
 
@@ -648,7 +664,9 @@ import LocaleSwitcher from "@components/LocaleSwitcher.vue";
 
 同时，你也可以使用 `intlayerProxy` 为你的应用添加服务器端路由。该插件会根据 URL 自动检测当前语言环境并设置相应的语言环境 cookie。如果未指定语言环境，插件将根据用户浏览器的语言偏好确定最合适的语言环境。如果仍未检测到语言环境，则会重定向到默认语言环境。
 
-> 自 Intlayer v9 起，`intlayerProxy()` 已直接打包到 `intlayer()` 插件中，并通过 `routing.enableProxy` 选项默认启用（默认为 `true`）。如下所示单独注册它现在是可选的 — 它被保留用于向后兼容性以及需要控制插件顺序的设置。设置 `routing.enableProxy: false` 可退出。查看 [v9 发布说明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/releases/v9.md)。
+> 自 Intlayer v9 起，`intlayerProxy()` 已直接打包到 `intlayer()` 插件中，并通过 `routing.enableProxy` 选项默认启用（默认为 `true`）。如下所示单独注册它现在是可选的，它被保留用于向后兼容性以及需要控制插件顺序的设置。设置 `routing.enableProxy: false` 可退出。查看 [v9 发布说明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/releases/v9.md)。
+
+- [v9 发布说明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/releases/v9.md)
 
 ```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
@@ -926,6 +944,9 @@ import RouterLink from "@components/RouterLink.vue";
 
 为了简化此过程，Intlayer 提出了 [编译器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md) / [提取器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/extract.md) 来转换您的组件并提取内容。
 
+- [编译器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md)
+- [提取器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/extract.md)
+
 要进行设置，您可以在 `intlayer.config.ts` 文件中添加 `compiler` 部分：
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
@@ -1143,7 +1164,7 @@ Intlayer 使用模块扩展 (module augmentation) 来利用 TypeScript 的优势
 
 为了提升使用 Intlayer 的开发体验，你可以安装官方的 **Intlayer VS Code 扩展**。
 
-[从 VS Code 市场安装](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [从 VS Code 市场安装](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 该扩展提供：
 
@@ -1154,9 +1175,14 @@ Intlayer 使用模块扩展 (module augmentation) 来利用 TypeScript 的优势
 
 有关如何使用该扩展的更多详细信息，请参阅 [Intlayer VS Code 扩展文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/vs_code_extension.md)。
 
+- [Intlayer VS Code 扩展文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/vs_code_extension.md)
+
 ### 深入了解
 
 要进一步使用，您可以实现[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)或使用[内容管理系统（CMS）](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)将内容外部化。
+
+- [可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)
+- [内容管理系统（CMS）](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
 
 ## 常见问题
 
@@ -1169,20 +1195,34 @@ Intlayer 使用模块扩展 (module augmentation) 来利用 TypeScript 的优势
 
 实际差异在于作用域与类型支持。`vue-i18n` 在运行时将键作为字符串进行解析，重命名的键会静默失效；而 Intlayer 会根据您的声明生成类型，并自动剔除未被组件使用的内容。请参阅 [为什么选择 Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/interest_of_intlayer.md) 和 [Vue i18n 性能基准](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/vue.md)。
 
+- [为什么选择 Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/interest_of_intlayer.md)
+- [Vue i18n 性能基准](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/vue.md)
+
 </Question>
 <Question title="i18n 会给我的 Vue bundle 体积增加多少？">
 
 远少于基于命名空间的方案，因为页面永远不会下载它不渲染的语言目录。构建时编译器将 `useIntlayer` 调用替换为组件使用的确切字典条目，因此未使用的键和未使用的语言都会被自动丢弃，并且 [动态字典](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dynamic_dictionaries/index.md) 会按语言环境拆分剩余内容。与常规替代方案相比，Intlayer 可将 bundle 和页面体积减少高达 50%。请参阅 [Bundle 体积优化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md) 和 [性能基准](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/vue.md)。
+
+- [动态字典](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dynamic_dictionaries/index.md)
+- [Bundle 体积优化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md)
+- [性能基准](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/vue.md)
 
 </Question>
 <Question title="我可以从 vue-i18n 迁移而无需重写组件吗？">
 
 可以，有两条迁移路径。您可以使用 [vue-i18n 迁移指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_vue-i18n_to_intlayer.md) 逐步迁移内容。或者，您可以完全保留当前的 API：[兼容性适配器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/index.md) 公开与 `vue-i18n` 完全相同的 API，但底层由 Intlayer 字典驱动，因此只需更改导入语句，组件代码完全无需修改。
 
+- [vue-i18n 迁移指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_vue-i18n_to_intlayer.md)
+- [兼容性适配器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/index.md)
+
 </Question>
 <Question title="我可以保留现有的 JSON 翻译文件吗？">
 
 可以。[JSON 同步插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/plugins/sync-json.md) 将您的 `/messages/{locale}/{namespace}.json` 文件作为单一真实来源（source of truth），并双向生成 Intlayer 字典。[PO 同步插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/plugins/sync-po.md) 对 gettext 目录执行相同的操作，而 [按语言环境组织的文件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/per_locale_file.md) 允许您按语言拆分内容，而不是将所有语言打包到一个文件中。
+
+- [JSON 同步插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/plugins/sync-json.md)
+- [PO 同步插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/plugins/sync-po.md)
+- [按语言环境组织的文件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/per_locale_file.md)
 
 </Question>
 <Question title="我必须逐个键迁移我的内容吗？">
@@ -1191,7 +1231,11 @@ Intlayer 使用模块扩展 (module augmentation) 来利用 TypeScript 的优势
 
 如需全自动流程，[Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md) 可在构建时执行相同操作：它在每次更改时扫描您的 JSX、TSX、Vue 和 Svelte 源代码，生成字典并通过热模块替换 (HMR) 保持同步，因此完全无需手动维护键名。
 
+- [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md)
+
 开启编译器前有两个限制值得了解：它通过静态分析工作，因此仅在运行时存在的字符串（如 API 错误代码或 CMS 字段）无法被捕获；此外它需要区分用户文本和应用程序逻辑（如 `className="active"` 或状态代码），在大型代码库中需要少量注解。而 [extract 命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/extract.md) 则通过让您参与审查避免了这两个问题。
+
+- [extract 命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/extract.md)
 
 </Question>
 <Question title="有哪些可用的编辑器和 AI 代理工具？">
@@ -1214,6 +1258,8 @@ Intlayer 使用模块扩展 (module augmentation) 来利用 TypeScript 的优势
 
 本指南的第 7 步和第 8 步介绍了 Vue Router 集成：在路由树中添加语言环境段，并使用 watcher 在语言环境变更时重写 URL。如果您不想在路径中包含语言环境，可将 `routing.mode` 设置为 `"no-prefix"` 或 `"search-params"`，此时将通过 Cookie 或查询参数进行解析。请参阅 [配置参考](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
 
+- [配置参考](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)
+
 </Question>
 <Question title="如何为从右到左 (RTL) 的语言设置 html lang 和 dir 属性？">
 
@@ -1224,20 +1270,34 @@ Intlayer 使用模块扩展 (module augmentation) 来利用 TypeScript 的优势
 
 运行 `npx intlayer fill`，它会使用您选择的 LLM、您自己的提供商和 API 密钥填充缺失的翻译。`--git-diff` 可将处理范围限制在当前分支修改的内容。请参阅 [fill 命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/fill.md) 和 [CI/CD 集成](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/CI_CD.md)。
 
+- [fill 命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/fill.md)
+- [CI/CD 集成](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/CI_CD.md)
+
 </Question>
 <Question title="Intlayer 是否支持复数、性别和富文本？">
 
 支持：包括 [复数形式](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/plurial.md)、[基于性别的内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/gender.md)、条件渲染、插值用的 [插入内容 (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/insertion.md)、用于长文本的 [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/markdown.md)，以及用于数字、日期和货币的 [格式化工具](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/formatters.md)。
+
+- [复数形式](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/plurial.md)
+- [基于性别的内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/gender.md)
+- [插入内容 (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/insertion.md)
+- [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/markdown.md)
+- [格式化工具](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/formatters.md)
 
 </Question>
 <Question title="翻译人员如何无需接触代码即可编辑内容？">
 
 可以通过自托管的 [可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)（任何人都可以直接在运行中的应用上就地修改文案），或通过 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) 进行无需重新部署的内容外部化更新。
 
+- [可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
+
 </Question>
 <Question title="Intlayer 是免费且开源的吗？">
 
 是的，基于 Apache 2.0 许可证开源，包含商业用途。托管版 CMS 是可选的付费服务，同时完全支持 [自托管](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/self_hosting.md)。
+
+- [自托管](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/self_hosting.md)
 
 </Question>
 

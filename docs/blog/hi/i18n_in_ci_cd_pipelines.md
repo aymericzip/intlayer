@@ -44,7 +44,12 @@ const config = {
 export default config;
 ```
 
+- [Sync JSON प्लगइन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-json.md)
+
 आपका ऐप वही आयात करता रहता है जो वह आयात करता है। फिर नीचे दिए गए CI जॉब्स आपके मौजूदा कैटलॉग को भरते हैं और जांचते हैं, और एक समीक्षक जो डिफ देखता है वह `locales/fr/checkout.json` में बदलाव है, न कि कोई माइग्रेशन। gettext वर्कफ़्लो के लिए एक [Sync PO प्लगइन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-po.md) है, और यदि आप रनटाइम API को अपरिवर्तित रखना चाहते हैं तो [कम्पैट एडॉप्टर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/index.md) भी उपलब्ध हैं।
+
+- [Sync PO प्लगइन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-po.md)
+- [कम्पैट एडॉप्टर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/index.md)
 
 ## गेट (Gate) को भराव (Fill) से अलग करें
 
@@ -167,6 +172,8 @@ test("has no missing required locales", async () => {
 
 `npx intlayer content test` एक रिपोर्ट प्रिंट करता है लेकिन शून्य से बाहर निकलता है, इसलिए यह सूचित करता है और रोकता नहीं है। इसे स्थानीय रूप से उपयोग करें; CI में असर्शन का उपयोग करें। [अनुपस्थित अनुवादों का पता लगाना](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/detecting_missing_translations.md) में अंतर पर अधिक जानकारी है।
 
+- [अनुपस्थित अनुवादों का पता लगाना](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/detecting_missing_translations.md)
+
 ## `requiredLocales` वह है जो गेट को जीवित रखने योग्य बनाता है
 
 सभी अठारह लोकेल की मांग करने वाला एक गेट सबसे धीमी भाषा के आने तक हर रिलीज़ को रोकता है, और एक महीने के भीतर अक्षम हो जाता है।
@@ -209,6 +216,8 @@ export default config;
 ```
 
 यह उन टीमों के लिए उपयुक्त है जहाँ गैर-डेवलपर्स कॉपी के मालिक हैं। यह एक व्यापार है, अपग्रेड नहीं: आप संपादक स्वायत्तता प्राप्त करते हैं और संपत्ति खो देते हैं कि एक गिट चेकआउट पूरी तरह से वर्णन करता है कि ऐप क्या रेंडर करता है। [CMS दस्तावेज़ीकरण](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md) में विवरण।
+
+- [CMS दस्तावेज़ीकरण](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md)
 
 ध्यान दें कि `clientSecret` एक सर्वर-साइड क्रेडेंशियल है। यह CI रहस्यों और आपके सर्वर वातावरण में रहता है, कभी भी किसी ऐसी चीज़ में नहीं जो क्लाइंट बंडल तक पहुँचती है।
 

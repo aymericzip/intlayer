@@ -35,6 +35,8 @@ author: aymericzip
 
 يقيس هذا المقال ذلك الاستبدال على نفس تطبيق Next.js، حيث تم بناؤه مرة باستخدام `next-i18next` ومرة أخرى باستخدام `@intlayer/next-i18next`. الأرقام مأخوذة من مشروع [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). للمقارنة بين `i18next` و Intlayer كمكتبات مستقلة، يرجى قراءة [مقارنة i18next مقابل Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/i18next_vs_intlayer.md). أما هذا المقال، فيركز على ما يغيره المحول عندما تحتفظ بشيفرتك البرمجية كما هي.
 
+- [مقارنة i18next مقابل Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/i18next_vs_intlayer.md)
+
 <TOC/>
 
 > **ملخص سريع (tl;dr)**: في نفس تطبيق Next.js، أدى استبدال `next-i18next` بـ `@intlayer/next-i18next` إلى خفض حجم JavaScript المضغوط (gzip) لكل صفحة من **218.5 كيلوبايت إلى 150.7 كيلوبايت** (في التكوين الأولي البسيط) وتفوق على تكوين `next-i18next` المحسّن بالكامل (163.4 كيلوبايت) بفارق **12.7 كيلوبايت**. وانخفض متوسط حجم المكون من **78.5 كيلوبايت إلى 9.7 كيلوبايت**، وتراجع تسريب نصوص الصفحات غير المعروضة من **~90% إلى 0%**، وانخفض وقت الترطيب (hydration) من **15.6 مللي ثانية إلى 11.3 مللي ثانية**، وتراجع حجم بيئة التشغيل من **19.7 كيلوبايت إلى 9.4 كيلوبايت**. لم يتم تعديل أي مكون؛ تم تعديل ملف مزود واحد فقط. يتم قبول إضافات `i18next` (مثل الخلفيات وكواشف اللغة) ولكنها لا تفعل شيئاً: لا يوجد شيء إضافي ليتم تحميله أو اكتشافه في وقت التشغيل.
@@ -145,6 +147,8 @@ style="border:none;"
 
 > الجدول الكامل، كل مكتبة وكل استراتيجية، في [تقرير قياس أداء Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md).
 
+- [تقرير قياس أداء Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md)
+
 ### النتائج على TanStack Start (`react-i18next`)
 
 بالنسبة لـ Vite و TanStack Start، يقيس الاختبار `react-i18next` العادي مقابل `intlayer`:
@@ -164,7 +168,11 @@ style="border:none;"
 
 > الجدول الكامل في [تقرير قياس أداء TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md).
 
+- [تقرير قياس أداء TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md)
+
 > لم يكن محول `react-i18next` على Vite / TanStack Start جزءاً من هذا الاختبار. يمكن الاطلاع على القياسات الأساسية لـ `react-i18next` على TanStack Start في مقال [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/i18next_vs_intlayer.md): 127-184 KB لكل صفحة و 123-185 ms لتبديل اللغة عند تحميل الـ backend بشكل مؤجل.
+
+- [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/i18next_vs_intlayer.md)
 
 ## لماذا تتحسن هذه المؤشرات
 
@@ -343,6 +351,8 @@ export default defineConfig({
 
 `i18n.use(HttpBackend)` يقوم فقط باستدعاء دالة init الخاصة بالملحق ولا يفعل أي شيء آخر. إذا كان تطبيقك يعتمد على جلب الترجمات من نظام إدارة المحتوى (CMS) في وقت التشغيل، فإن هذا التدفق قد اختفى؛ استخدم [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md) أو أوامر `intlayer pull` / `push` بدلاً من ذلك. يصبح اكتشاف اللغة جزءًا من إعدادات التوجيه الخاصة بـ Intlayer (بادئة URL، ملف تعريف الارتباط، الرأس).
 
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
+
 </Accordion>
 <Accordion header="يتم تجاهل resources وليس دمجها">
 
@@ -401,6 +411,9 @@ export default defineConfig({
 <Accordion header="الانتقال إلى الوضع الأصلي (next-intlayer / react-intlayer)">
 
 للمشاريع الجديدة، أو بمجرد أن يؤدي المحول وظيفته. يتميز بأخف وقت تشغيل (5.5 كيلوبايت، +0.3 كيلوبايت لكل صفحة) ويوفر Server Components متزامنة وملفات `.content.ts` لكل مكون. ابدأ مع [Intlayer مع Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_16.md) أو [مع Vite و React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+react.md).
+
+- [Intlayer مع Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_16.md)
+- [مع Vite و React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+react.md)
 
 </Accordion>
 </AccordionGroup>
@@ -489,3 +502,5 @@ Migration guides:
 جميع البيانات الأولية والتطبيقات الاختبارية والبرمجيات النصية متوفرة في [مستودع Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). يمكنك مراجعتها واختبارها بنفسك.
 
 راجع توثيق [لماذا Intlayer؟](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/interest_of_intlayer.md) لمزيد من التفاصيل.
+
+- [لماذا Intlayer؟ مزاياه مقارنة بمكتبات i18n الأخرى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/interest_of_intlayer.md)

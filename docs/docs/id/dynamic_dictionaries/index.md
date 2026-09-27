@@ -3,7 +3,7 @@ createdAt: 2026-06-12
 updatedAt: 2026-09-27
 priority: 8
 title: "Kamus dinamis: koleksi dan varian"
-description: Ikhtisar fitur kamus dinamis Intlayer — koleksi dan varian — untuk membangun konten i18n yang fleksibel dan digerakkan saat runtime.
+description: Ikhtisar fitur kamus dinamis Intlayer, koleksi dan varian, untuk membangun konten i18n yang fleksibel dan digerakkan saat runtime.
 keywords:
   - Kamus dinamis
   - Koleksi
@@ -20,7 +20,7 @@ history:
     changes: "Rilis fitur kamus dinamis"
   - version: 9.1.0
     date: 2026-06-26
-    changes: "Menggabungkan record dinamis ke dalam varian — `variant` kini menerima string atau objek"
+    changes: "Menggabungkan record dinamis ke dalam varian, `variant` kini menerima string atau objek"
 author: aymericzip
 ---
 
@@ -37,8 +37,8 @@ Keduanya dapat dikombinasikan dengan argumen locale dan mendukung pemuatan selek
 
 ## Kapan menggunakan yang mana
 
-- **Koleksi** — daftar item terurut yang dikelola dalam file terpisah (entri FAQ, posting blog, produk).
-- **Varian** — alternatif konten bernama atau terstruktur:
+- **Koleksi**: daftar item terurut yang dikelola dalam file terpisah (entri FAQ, posting blog, produk).
+- **Varian**: alternatif konten bernama atau terstruktur:
   - varian **string** untuk pengujian A/B, banner musiman, atau feature flag;
   - varian **objek** untuk record CMS, konten khusus pengguna, atau konten apa pun yang dialamatkan oleh sekumpulan field ("record dinamis" sebelumnya).
 

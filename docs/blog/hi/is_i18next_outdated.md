@@ -92,6 +92,8 @@ style="border:none;"
 
 > प्रोडक्शन बिल्ड में 10 रूट्स और 10 भाषाओं के साथ gzip कंप्रेशन के तहत मापा गया। विवरण [i18n बेंचमार्क रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/index.md) में देखें।
 
+- [i18n बेंचमार्क रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/index.md)
+
 ### लाइब्रेरी का बेस ओवरहेड
 
 ट्रांसलेशन कंटेंट जोड़े बिना शुरुआती बंडल लोड:
@@ -171,6 +173,9 @@ return <h1>{title}</h1>;
 
 [Intlayer कंपाइलर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md) ट्रैक करता है कि `Hero.tsx` में वास्तव में कौन से फील्ड्स इस्तेमाल हो रहे हैं और क्लाइंट बंडल बनाने से पहले अप्रयुक्त डेटा को हटा देता है। अधिक विवरण के लिए [बंडल ऑप्टिमाइजेशन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/bundle_optimization.md) देखें।
 
+- [Intlayer कंपाइलर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md)
+- [बंडल ऑप्टिमाइजेशन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/bundle_optimization.md)
+
 ## डेवलपर अनुभव (DX)
 
 ### अलग JSON फाइल्स बनाम को-लोकेशन
@@ -237,6 +242,8 @@ export const Hero = () => {
 `CustomTypeOptions` सेट करने से एडिटर में ऑटो-कंप्लीशन तो मिल जाता है, लेकिन यह अनुवादों की पूर्णता की जांच नहीं करता। यदि `hi/hero.json` से कोई की हटा दी जाए, तो भी टाइपस्क्रिप्ट बिल्ड नहीं रोकेगा।
 
 Intlayer सीधे कंटेंट डिक्लेरेशन से टाइप्स जनरेट करता है। [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md) सक्षम करने पर, यदि किसी भी भाषा में अनुवाद गायब हो, तो बिल्ड तुरंत फेल हो जाता है।
+
+- [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md)
 
 ### टूलिंग इकोसिस्टम की तुलना
 

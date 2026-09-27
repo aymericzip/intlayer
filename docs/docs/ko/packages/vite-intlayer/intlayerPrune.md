@@ -31,6 +31,8 @@ author: aymericzip
 
 > 플러그인은 [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/vite-intlayer/intlayer.md)를 사용할 때 이미 자동으로 포함되고 구성됩니다. 플러그인 스택을 직접 구성하는 경우에만 수동으로 등록하면 됩니다.
 
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/vite-intlayer/intlayer.md)
+
 ## 사용법
 
 ### `intlayer()`의 일부로 (권장)
@@ -99,8 +101,8 @@ Vite가 컴파일된 dictionary JSON 파일을 처리할 때, `intlayerPrune`은
 
 두 가지 content shape이 지원됩니다:
 
-- **Static dictionaries** — `{ nodeType: "translation", translation: { en: {...}, fr: {...} } }`. Fields는 `translation` 내에서 per-locale별로 pruned됩니다.
-- **Dynamic (per-locale) dictionaries** — flat `{ fieldA: ..., fieldB: ... }`. Fields는 top level에서 pruned됩니다.
+- **Static dictionaries**: `{ nodeType: "translation", translation: { en: {...}, fr: {...} } }`. Fields는 `translation` 내에서 per-locale별로 pruned됩니다.
+- **Dynamic (per-locale) dictionaries**: flat `{ fieldA: ..., fieldB: ... }`. Fields는 top level에서 pruned됩니다.
 
 ### 3. Edge cases
 

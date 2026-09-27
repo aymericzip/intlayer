@@ -110,6 +110,8 @@ bun add intlayer-cli -g
 
 `intlayer-cli` paketi, [intlayer bildirimlerinizi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md) sözlüklere dönüştürmek (transpile) için tasarlanmıştır.
 
+- [intlayer bildirimlerinizi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md)
+
 Bu paket, `src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}` gibi tüm intlayer dosyalarını dönüştürür. [Intlayer bildirim dosyalarınızı nasıl bildireceğinizi görün](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
 
 Intlayer sözlüklerini yorumlamak için [react-intlayer](https://www.npmjs.com/package/react-intlayer) veya [next-intlayer](https://www.npmjs.com/package/next-intlayer) gibi yorumlayıcılar kullanabilirsiniz.
@@ -127,13 +129,17 @@ Intlayer birden fazla yapılandırma dosyası biçimini kabul eder:
 
 Mevcut dillerin veya diğer parametrelerin nasıl yapılandırılacağını öğrenmek için [buradaki yapılandırma belgelerine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) bakın.
 
+- [buradaki yapılandırma belgelerine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md)
+
 ## Intlayer Komutlarını Çalıştırma
 
 ### Kimlik Doğrulama
 
 - **[Login](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/login.md)** - Intlayer CMS ile kimlik doğrulaması yapın ve erişim kimlik bilgilerini alın
 
-> `intlayer login` bir **erişim anahtarı** (`clientId` / `clientSecret`) verir ve her kimlik bilgili komut bu anahtarı kullanır. Gizli anahtar, sunucu tarafı bir kimlik bilgisidir ve hiçbir zaman istemci paketinize ulaşmaz — [Erişim anahtarını güvenli tutma](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/login.md#keeping-the-access-key-safe) bölümüne bakın.
+> `intlayer login` bir **erişim anahtarı** (`clientId` / `clientSecret`) verir ve her kimlik bilgili komut bu anahtarı kullanır. Gizli anahtar, sunucu tarafı bir kimlik bilgisidir ve hiçbir zaman istemci paketinize ulaşmaz, [Erişim anahtarını güvenli tutma](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/login.md#keeping-the-access-key-safe) bölümüne bakın.
+
+- [Erişim anahtarını güvenli tutma](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/login.md#keeping-the-access-key-safe)
 
 ### Temel Komutlar
 

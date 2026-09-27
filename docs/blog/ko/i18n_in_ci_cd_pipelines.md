@@ -44,7 +44,12 @@ const config = {
 export default config;
 ```
 
+- [Sync JSON 플러그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/plugins/sync-json.md)
+
 기존 애플리케이션의 import문은 그대로 유지됩니다. CI 작업이 기존 카탈로그를 채우고 검증하므로, 리뷰어가 보게 되는 변경 사항은 대규모 코드 전환이 아닌 `locales/fr/checkout.json` 파일의 변경일 뿐입니다. gettext 워크플로를 위한 [Sync PO 플러그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/plugins/sync-po.md)과 런타임 API를 유지해 주는 [호환 어댑터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/index.md)도 제공됩니다.
+
+- [Sync PO 플러그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/plugins/sync-po.md)
+- [호환 어댑터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/index.md)
 
 ## 차단 검사(Gate)와 자동 완성(Fill) 분리하기
 
@@ -167,6 +172,8 @@ test("필수 로케일에 누락된 번역이 없다", async () => {
 
 `npx intlayer content test`는 리포트를 출력하지만 종료 코드 0을 반환하므로 정보 제공용일 뿐 빌드를 막지 못합니다. 로컬에서는 이 CLI를 쓰고, CI에서는 테스트 어설션을 활용하세요. 자세한 내용은 [누락된 번역 감지하기](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/detecting_missing_translations.md)를 참고하세요.
 
+- [누락된 번역 감지하기](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/detecting_missing_translations.md)
+
 ## `requiredLocales`로 지속 가능한 검사 유지하기
 
 18개 언어가 모두 완료되어야만 통과하는 Gate는 가장 느린 언어가 완성될 때까지 모든 릴리스를 막아버려, 결국 한 달도 안 되어 비활성화되고 맙니다.
@@ -209,6 +216,8 @@ export default config;
 ```
 
 이 방식은 비개발자가 문구를 직접 관리하는 조직에 잘 맞습니다. 편집의 자율성을 얻는 대신, Git 체크아웃만으로 앱 렌더링 상태를 온전히 파악하기 어려워진다는 트레이드오프가 있습니다. 자세한 내용은 [CMS 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)를 확인하세요.
+
+- [CMS 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)
 
 `clientSecret`은 서버 측 보안 자격 증명입니다. CI 시크릿이나 서버 환경 변수에서 관리해야 하며 클라이언트 번들에 노출되지 않도록 주의하세요.
 

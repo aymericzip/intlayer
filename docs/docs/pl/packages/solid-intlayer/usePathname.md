@@ -31,7 +31,7 @@ author: aymericzip
 
 # Integracja Solid: Dokumentacja Hooka `usePathname`
 
-Hook `usePathname` zwraca bieżącą ścieżkę (pathname) przeglądarki z usuniętym segmentem locale, w postaci `Accessor<string>` w Solid. Jest to przydatne do budowania nawigacji z uwzględnieniem locale — na przykład w celu określenia, który element nawigacji jest aktywny — bez konieczności ręcznego usuwania prefiksu locale.
+Hook `usePathname` zwraca bieżącą ścieżkę (pathname) przeglądarki z usuniętym segmentem locale, w postaci `Accessor<string>` w Solid. Jest to przydatne do budowania nawigacji z uwzględnieniem locale (na przykład w celu określenia, który element nawigacji jest aktywny) bez konieczności ręcznego usuwania prefiksu locale.
 
 ## Importowanie `usePathname` w Solid
 

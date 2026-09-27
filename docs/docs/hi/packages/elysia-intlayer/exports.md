@@ -129,7 +129,7 @@ console.log(
 );
 ```
 
-> प्लगइन अपना context एक **ग्लोबल** `derive` के माध्यम से रजिस्टर करता है, जिसे Elysia `Partial<{ intlayer: IntlayerContext }>` के रूप में टाइप करता है। `.use(intlayer())` के बाद रजिस्टर किए गए routes के लिए रनटाइम पर यह मान हमेशा मौजूद रहता है, इसलिए `strict` मोड में TypeScript को संतुष्ट करने के लिए non-null assertion (`intlayer!.locale`) — या optional chaining — का उपयोग करें।
+> प्लगइन अपना context एक **ग्लोबल** `derive` के माध्यम से रजिस्टर करता है, जिसे Elysia `Partial<{ intlayer: IntlayerContext }>` के रूप में टाइप करता है। `.use(intlayer())` के बाद रजिस्टर किए गए routes के लिए रनटाइम पर यह मान हमेशा मौजूद रहता है, इसलिए `strict` मोड में TypeScript को संतुष्ट करने के लिए non-null assertion (`intlayer!.locale`), या optional chaining, का उपयोग करें।
 
 ## संबंधित दस्तावेज़
 

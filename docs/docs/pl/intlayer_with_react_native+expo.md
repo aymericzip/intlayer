@@ -86,10 +86,16 @@ Określanie zakresu zawartości aplikacji **ułatwia konserwację** aplikacji na
 
 Wspólna lokalizacja treści **zmniejsza potrzebny kontekst** dzięki modelom dużego języka (LLM). Intlayer zawiera także zestaw narzędzi, takich jak **CLI** do sprawdzania brakujących tłumaczeń, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** i **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/agent_skills.md)**, aby praca programisty (DX) była jeszcze płynniejsza dla agentów AI.
 
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)
+- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/agent_skills.md)
+
 </Accordion>
 <Accordion header="Automatyzacja">
 
 Korzystaj z automatyzacji, aby tłumaczyć w swoim potoku CI/CD przy użyciu wybranego LLM na koszt dostawcy sztucznej inteligencji. Intlayer oferuje także **kompilator** do automatyzacji ekstrakcji treści, a także [platformę internetową](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md), która pomaga **tłumaczyć w tle**.
+
+- [platformę internetową](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="Wydajność">
@@ -100,6 +106,9 @@ Korzystaj z automatyzacji, aby tłumaczyć w swoim potoku CI/CD przy użyciu wyb
 <Accordion header="Skalowanie bez użycia dewelopera">
 
 Więcej niż tylko rozwiązanie i18n, Intlayer zapewnia **samodzielny [edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** i **[pełny CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)**, który pomoże Ci zarządzać wielojęzyczną treścią w **czasie rzeczywistym**, dzięki czemu współpraca z tłumaczami, copywriterami i innymi członkami zespołu będzie płynna. Treść może być przechowywana lokalnie i/lub zdalnie.
+
+- [edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)
+- [pełny CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="Rozmiar bundle'a">
@@ -340,6 +349,8 @@ export default homeScreenContent;
 
 > Szczegóły dotyczące deklaracji zawartości znajdziesz w [dokumentacji Intlayer dotyczącej zawartości](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/content_file.md).
 
+- [dokumentacji Intlayer dotyczącej zawartości](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/content_file.md)
+
 </Step>
 <Step number={6} title="Użyj Intlayer w swoich komponentach">
 
@@ -391,6 +402,9 @@ export default HomeScreen;
 > Kiedy używasz `content.someKey` w właściwościach opartych na łańcuchach znaków (np. `title` przycisku lub `children` komponentu `Text`), **wywołaj `content.someKey.value`**, aby uzyskać właściwy łańcuch znaków.
 
 > Jeśli Twoja aplikacja już istnieje, możesz użyć [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compiler.md) w połączeniu z [poleceniem extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/extract.md), aby przekonwertować tysiące komponentów w jedną sekundę.
+
+- [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compiler.md)
+- [poleceniem extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/extract.md)
 
 </Step>
 <Step number={7} title="Zmiana lokalizacji aplikacji" isOptional={true}>
@@ -446,6 +460,8 @@ To powoduje ponowne renderowanie wszystkich komponentów korzystających z zawar
 
 > Zobacz [`useLocale` docs](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/react-intlayer/useLocale.md) po więcej szczegółów.
 
+- [`useLocale` docs](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/react-intlayer/useLocale.md)
+
 </Step>
 
 </Steps>
@@ -484,7 +500,7 @@ Aby uniknąć zatwierdzania automatycznie generowanych plików przez Intlayer, d
 
 Aby poprawić swoje doświadczenie deweloperskie z Intlayer, możesz zainstalować oficjalne **rozszerzenie Intlayer dla VS Code**.
 
-[Zainstaluj z Marketplace VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [Zainstaluj z Marketplace VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 To rozszerzenie oferuje:
 
@@ -494,6 +510,8 @@ To rozszerzenie oferuje:
 - **Szybkie akcje** do łatwego tworzenia i aktualizowania tłumaczeń.
 
 Aby uzyskać więcej informacji o korzystaniu z rozszerzenia, zapoznaj się z [dokumentacją rozszerzenia Intlayer VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/vs_code_extension.md).
+
+- [dokumentacją rozszerzenia Intlayer VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/vs_code_extension.md)
 
 ## Idź dalej
 
@@ -541,20 +559,32 @@ import "@formatjs/intl-datetimeformat/polyfill";
 
 Na platformach mobilnych kluczowy jest rozmiar pakietu i wydajność startu aplikacji: Intlayer eliminuje nieużywane wpisy i dostarcza treść zoptymalizowaną pod Fast Refresh. Zobacz [dlaczego Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/interest_of_intlayer.md).
 
+- [dlaczego Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/interest_of_intlayer.md)
+
 </Question>
 <Question title="O ile i18n zwiększa rozmiar mojego bundle'a w React Native?">
 
 Znacznie mniej niż rozwiązania oparte na przestrzeniach nazw, ponieważ strona nigdy nie pobiera katalogu, którego nie renderuje. Kompilator czasu budowy zastępuje odwołania do treści dokładnymi wpisami, których używa komponent, a [słowniki dynamiczne](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dynamic_dictionaries/index.md) dzielą resztę na poszczególne języki. W porównaniu z typowymi alternatywami, Intlayer zmniejsza rozmiar bundle'a i strony nawet o 50%. Zobacz [optymalizację bundle'a](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/bundle_optimization.md) oraz [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/index.md).
+
+- [optymalizację bundle'a](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/bundle_optimization.md)
 
 </Question>
 <Question title="Czy mogę zmigrować z i18n-js lub react-i18next bez przepisywania moich komponentów?">
 
 Tak, i są dwie drogi. Możesz migrować treść stopniowo za pomocą [przewodnika migracji z react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/migration_from_react-i18next_to_intlayer.md). Możesz także zachować dotychczasowe API za pośrednictwem adapterów kompatybilności.
 
+- [i18n-js migration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/i18n-js.md)
+- [przewodnika migracji z react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/migration_from_react-i18next_to_intlayer.md)
+- [Adaptery zgodności Intlayer dla bibliotek i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compat/index.md)
+
 </Question>
 <Question title="Czy mogę zachować moje istniejące pliki tłumaczeń JSON?">
 
 Tak. Wtyczka [sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/plugins/sync-json.md) utrzymuje Twoje pliki `/messages/{locale}/{namespace}.json` jako źródło prawdy i generuje z nich słowniki Intlayer w obu kierunkach. Wtyczka [sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/plugins/sync-po.md) robi to samo dla katalogów gettext, a [pliki per locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/per_locale_file.md) pozwalają rozdzielić zawartość według języka zamiast grupować lokalizacje w jednym pliku.
+
+- [sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/plugins/sync-json.md)
+- [sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/plugins/sync-po.md)
+- [pliki per locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/per_locale_file.md)
 
 </Question>
 <Question title="Czy muszę przenosić moją zawartość klucz po kluczu?">
@@ -562,6 +592,8 @@ Tak. Wtyczka [sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/d
 Nie. Uruchom `npx intlayer extract`, a Intlayer odczyta Twoje pliki źródłowe, wyodrębni ciągi widoczne dla użytkownika i utworzy plik `.content` obok każdego z nich, dzięki czemu przeglądasz diff zamiast ręcznie kopiować ciągi do katalogu pojedynczo.
 
 W przypadku w pełni zautomatyzowanego procesu [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compiler.md) robi to samo w czasie kompilacji kodu źródłowego JSX, TSX, Vue i Svelte, generując słowniki przy każdej zmianie, dzięki czemu nie trzeba ręcznie zarządzać kluczami. Działa w oparciu o analizę statyczną, więc ciągi znaków istniejące tylko w czasie wykonywania pozostają poza zasięgiem, a rozróżnienie tekstu dla użytkownika od logiki aplikacji wymaga kilku adnotacji.
+
+- [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compiler.md)
 
 </Question>
 <Question title="Jakie narzędzia dla edytora i agentów AI są dostępne?">
@@ -599,20 +631,34 @@ Użyj funkcji `getHTMLTextDir`, aby sprawdzić, czy aktywny język jest zapisywa
 
 Uruchom `npx intlayer fill`. Narzędzie CLI wykrywa brakujące tłumaczenia i uzupełnia je za pomocą wybranego modelu LLM, korzystając z Twojego dostawcy i klucza API. Flaga `--git-diff` ogranicza operację do treści zmienionych na bieżącej gałęzi. Zobacz [polecenie fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/fill.md) oraz [integrację CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/CI_CD.md).
 
+- [polecenie fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/fill.md)
+- [integrację CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/CI_CD.md)
+
 </Question>
 <Question title="Czy Intlayer obsługuje formy mnogie, płeć i sformatowany tekst (rich text)?">
 
 Tak: [formy mnogie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/plurial.md), [treści zależne od płci](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/gender.md), warunki, [wstawki (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/insertion.md), [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/markdown.md) dla dłuższych tekstów oraz [formatowania](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/formatters.md) dla liczb, dat i walut.
+
+- [formy mnogie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/plurial.md)
+- [treści zależne od płci](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/gender.md)
+- [wstawki (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/insertion.md)
+- [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/markdown.md)
+- [formatowania](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/formatters.md)
 
 </Question>
 <Question title="Jak tłumacze mogą edytować treść bez dotykania kodu?">
 
 Za pośrednictwem [edytora wizualnego](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md), który pozwala każdemu edytować tekst bezpośrednio w działającej aplikacji, lub systemu [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md), który wyodrębnia treść, dzięki czemu może być zmieniana bez konieczności ponownego wdrażania.
 
+- [edytora wizualnego](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md)
+
 </Question>
 <Question title="Czy Intlayer jest darmowy i open source?">
 
 Tak, na licencji Apache 2.0, włączając zastosowania komercyjne. Hostowany CMS to opcjonalna płatna usługa, którą można również [hostować samodzielnie (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/self_hosting.md).
+
+- [hostować samodzielnie (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/self_hosting.md)
 
 </Question>
 

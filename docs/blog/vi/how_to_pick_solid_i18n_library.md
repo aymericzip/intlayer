@@ -67,6 +67,8 @@ Paraglide tạo ra một hàm cho mỗi message. Intlayer khai báo nội dung t
 
 Bài viết [lịch sử JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/history_of_i18n.md) phân tích chi tiết từng làn sóng.
 
+- [lịch sử JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/history_of_i18n.md)
+
 ## Quyết định quan trọng nhất: nơi lưu trữ nội dung và thời điểm tải
 
 Hai lựa chọn mang tính cấu trúc giải thích phần lớn sự khác biệt về kích thước bundle giữa các thiết lập:
@@ -80,11 +82,17 @@ Biểu đồ dưới đây ước tính payload cho một ứng dụng giả đ�
 
 `@solid-primitives/i18n` không can thiệp vào cả hai trục: bạn dùng `createResource` cho dictionary của từng locale để tải động (dynamic loading), phần còn lại bạn tự xử lý. `solid-i18next` hỗ trợ namespaces và lazy backends, nhưng không có gì đảm bảo sự phân tách này, vì vậy một component dùng chung import `common` sẽ biến nó thành dependency của mọi route. Paraglide xử lý trục trang thông qua tree-shaking, mặc dù điều này chưa phát huy tác dụng trong triển khai [Solid benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/solid.md). Intlayer đạt được điều đó thông qua việc khai báo nội dung theo từng component.
 
+- [Solid benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/solid.md)
+
 Nếu câu trả lời của bạn cho câu hỏi 4 là "nhiều trang", hãy cân nhắc phần này hơn bất kỳ sở thích API nào. Bài viết [i18n theo từng component so với tập trung](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/per-component_vs_centralized_i18n.md) phân tích khía cạnh bảo trì của cùng sự đánh đổi này.
+
+- [i18n theo từng component so với tập trung](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/per-component_vs_centralized_i18n.md)
 
 ## Các ứng cử viên
 
 Kích thước thư viện được lấy từ [Solid benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/solid.md): provider kèm accessor trong một component trống, sau khi bundling, tree-shaking và minification, trên ứng dụng 10 trang và 10 locale. Nội dung được đo lường riêng biệt.
+
+- [Solid benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/solid.md)
 
 ![Hệ sinh thái thư viện Solid i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
@@ -118,6 +126,8 @@ Kích thước thư viện gần như bằng 0 của Paraglide là do bản ch�
 
 Locale phải được lấy từ URL phía server để cả hai bên đồng bộ; việc phát hiện locale ở client là quá muộn. `@solid-primitives/i18n` và `solid-i18next` để bạn tự xử lý route `[[locale]]`, `matchFilters`, redirect và các thẻ trong `entry-server.tsx`. Paraglide có một plugin Vite giúp xử lý routing. Intlayer cung cấp sẵn middleware và các helper cho route. Dù chọn giải pháp nào, hãy đặt `<html lang>` và `hreflang` trong `entry-server.tsx`; `@solidjs/meta` chỉ áp dụng trên client sau khi hydration trong SolidStart v2. Bài viết [Solid i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_solid_start.md) hướng dẫn chi tiết cách thiết lập này.
 
+- [Solid i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_solid_start.md)
+
 </Accordion>
 <Accordion header="Việc đổi locale phải tức thì và phân mảnh chi tiết (fine-grained)">
 
@@ -132,6 +142,8 @@ Nội dung phân phạm vi (scoped) được biên dịch tại thời điểm b
 <Accordion header="Type safety là yêu cầu bắt buộc">
 
 `@solid-primitives/i18n` cung cấp type được suy luận miễn phí, điều mà hầu hết các thư viện React không có. Đối với type được generate mà vẫn giữ được tính toàn vẹn qua lazy loading và chia tách route, Paraglide, `@lingui/solid` và Intlayer đều tạo ra type từ chính nội dung. Bài viết [phát hiện thiếu bản dịch](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/detecting_missing_translations.md) so sánh những gì mỗi thư viện có thể bắt lỗi được tại thời điểm build.
+
+- [phát hiện thiếu bản dịch](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/detecting_missing_translations.md)
 
 </Accordion>
 <Accordion header="Bản dịch sẽ được tạo bởi AI">
@@ -376,6 +388,9 @@ Tất cả các locale nằm trong một file duy nhất cạnh component. `useI
 
 Trên một codebase i18next hiện có, [i18next compat adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/i18next.md) tạo alias cho package ở cấp độ bundler để các catalog và `t()` tiếp tục hoạt động trong khi Intlayer phân phối nội dung, và [hướng dẫn chuyển đổi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_i18next_to_intlayer.md) sẽ phụ trách phần còn lại.
 
+- [i18next compat adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/i18next.md)
+- [hướng dẫn chuyển đổi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_i18next_to_intlayer.md)
+
 ## Trước khi bạn đưa ra quyết định
 
 Một bảng tính năng chỉ cho bạn biết một thư viện làm được gì hôm nay. Những điểm dưới đây cho bạn biết trải nghiệm sử dụng lâu dài sẽ ra sao.
@@ -398,6 +413,9 @@ Thư viện được cài đặt nhiều nhất là thư viện xuất hiện đ
 
 Các agent vẫn gặp khó khăn với i18n: chúng quên locale, tự bịa ra key và trộn lẫn các cú pháp message. Thư viện có cung cấp [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/agent_skills.md) hoặc [MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/mcp_server.md) để agent có thể liệt kê, điền và kiểm thử nội dung không? Và việc nạp nội dung có được tối ưu hóa theo mặc định hay ai đó phải định kỳ rà soát namespaces và lazy imports hàng quý?
 
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/agent_skills.md)
+- [MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/mcp_server.md)
+
 **Type safety ngay từ đầu.**
 
 Không phải là "có thể định kiểu với cấu hình bổ sung" mà là "một key sai sẽ khiến `tsc` báo lỗi ngay trên một bản cài đặt mới". Hãy kiểm tra điều gì xảy ra với một key không tồn tại, và với một locale bị thiếu một bản dịch.
@@ -409,6 +427,13 @@ Các catalog chỉ có xu hướng phình to ra. Quá trình build của Intlaye
 **Developer experience.**
 
 Thời gian setup cho đến chuỗi dịch đầu tiên, một [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/lsp.md) hoặc [VS Code extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/vs_code_extension.md) hiển thị bản dịch khi hover và nhảy tới khai báo, một [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md) để fill, test và push, một [trình biên dịch](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md) hoặc trình trích xuất lấy các chuỗi hard-code ra khỏi component để bạn không phải quản lý từng chuỗi theo từng khóa, cùng cách để người không phải lập trình viên có thể chỉnh sửa nội dung ([visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md) hoặc [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)) mà không cần tạo pull request.
+
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/lsp.md)
+- [VS Code extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/vs_code_extension.md)
+- [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md)
+- [trình biên dịch](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md)
+- [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)
 
 ## Câu hỏi thường gặp
 
@@ -430,11 +455,15 @@ Bởi vì các component trong Solid chỉ chạy một lần. Một bản dịc
 
 Chỉ khi bundle size, generated types hoặc việc kiểm tra thiếu key tại thời điểm build là các yêu cầu thực tế. Bài viết [i18n dạng compiler so với declarative](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/compiler_vs_declarative_i18n.md) giải thích những gì trình biên dịch mang lại và những trường hợp chúng có thể xử lý không đúng.
 
+- [i18n dạng compiler so với declarative](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/compiler_vs_declarative_i18n.md)
+
 </Question>
 
 <Question title="Việc chọn thư viện có ảnh hưởng đến SEO không?">
 
 Có, một cách gián tiếp. Các công cụ tìm kiếm quan tâm đến routing, `hreflang`, `<html lang>` và liệu văn bản có nằm trong HTML được render trên server hay không, điều mà trên SolidStart gắn liền với `entry-server.tsx`. Xem thêm [hướng dẫn hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/hreflang_guide_multilingual_seo.md).
+
+- [hướng dẫn hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/hreflang_guide_multilingual_seo.md)
 
 </Question>
 

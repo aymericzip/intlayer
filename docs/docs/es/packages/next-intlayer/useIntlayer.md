@@ -76,6 +76,8 @@ Es crucial que todas las claves de contenido estén definidas dentro de archivos
 
 Las instrucciones para configurar archivos de declaración de contenido están disponibles [aquí](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/content_file.md).
 
+- [Archivos de declaración de contenido (.content.ts)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/content_file.md)
+
 ## Ejemplo de uso en Next.js
 
 Aquí se muestra cómo puedes implementar el hook `useIntlayer` dentro de una página de Next.js para cargar dinámicamente contenido localizado según la configuración regional actual de la aplicación:

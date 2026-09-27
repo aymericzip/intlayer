@@ -57,6 +57,8 @@ author: aymericzip
 
 详情请参见 [Intlayer 配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
 
+- [Intlayer 配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)
+
 ## 示例用法
 
 ### 获取完整配置

@@ -66,10 +66,16 @@ author: aymericzip
 
 सामग्री का सह-स्थानीकरण **बड़े भाषा मॉडल (एलएलएम) द्वारा आवश्यक संदर्भ को कम करता है**। इंटलेयर टूल के एक सूट के साथ भी आता है, जैसे **CLI** ताकि लापता अनुवादों का परीक्षण किया जा सके,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, और **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/agent_skills.md)**, AI एजेंटों के लिए डेवलपर अनुभव (DX) को और भी आसान बनाने के लिए।
 
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)
+- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/agent_skills.md)
+
 </Accordion>
 <Accordion header="ऑटोमेशन">
 
 अपने एआई प्रदाता की कीमत पर अपनी पसंद के एलएलएम का उपयोग करके अपने सीआई/सीडी पाइपलाइन में अनुवाद करने के लिए स्वचालन का उपयोग करें। इंटलेयर सामग्री निष्कर्षण को स्वचालित करने के लिए एक **कंपाइलर** के साथ-साथ **पृष्ठभूमि में अनुवाद** में मदद करने के लिए एक [वेब प्लेटफ़ॉर्म](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) भी प्रदान करता है।
+
+- [वेब प्लेटफ़ॉर्म](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="Performance">
@@ -80,6 +86,9 @@ author: aymericzip
 <Accordion header="किसी भी देव के साथ स्केलिंग">
 
 सिर्फ एक i18n समाधान से अधिक, Intlayer एक **स्व-होस्टेड [विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** और एक **[पूर्ण] प्रदान करता है सीएमएस](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** आपकी बहुभाषी सामग्री को **वास्तविक समय** में प्रबंधित करने में मदद करता है, जिससे अनुवादकों, कॉपीराइटरों और टीम के अन्य सदस्यों के साथ सहयोग सहज हो जाता है। सामग्री को स्थानीय और/या दूरस्थ रूप से संग्रहीत किया जा सकता है।
+
+- [विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)
+- [Intlayer CMS: अपना बहुभाषी कंटेंट बाहर रखें](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
@@ -333,6 +342,8 @@ export default appContent;
 
 > सामग्री घोषणाओं पर विवरण के लिए, [Intlayer की सामग्री दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/content_file.md) देखें।
 
+- [Intlayer की सामग्री दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/content_file.md)
+
 </Step>
 <Step number={6} title="अपने घटकों में Intlayer का उपयोग करें">
 
@@ -434,6 +445,8 @@ export const LocaleSwitcher: FC = () => {
 
 > अधिक विवरण के लिए [`useLocale` दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/react-intlayer/useLocale.md) देखें।
 
+- [`useLocale` दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/react-intlayer/useLocale.md)
+
 </Step>
 
 </Steps>
@@ -472,7 +485,7 @@ Intlayer द्वारा उत्पन्न ऑटो-जनरेटे�
 
 Intlayer के साथ अपने विकास अनुभव को बेहतर बनाने के लिए, आप आधिकारिक **Intlayer VS Code एक्सटेंशन** इंस्टॉल कर सकते हैं।
 
-[VS Code मार्केटप्लेस से इंस्टॉल करें](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [VS Code मार्केटप्लेस से इंस्टॉल करें](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 यह एक्सटेंशन प्रदान करता है:
 
@@ -482,6 +495,8 @@ Intlayer के साथ अपने विकास अनुभव को �
 - अनुवादों को आसानी से बनाने और अपडेट करने के लिए **त्वरित क्रियाएं**।
 
 एक्सटेंशन का उपयोग कैसे करें, इसके लिए देखें [Intlayer VS Code एक्सटेंशन दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/vs_code_extension.md)।
+
+- [Intlayer VS Code एक्सटेंशन दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/vs_code_extension.md)
 
 ## आगे बढ़ें
 

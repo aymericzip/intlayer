@@ -149,6 +149,9 @@ npx intlayer init infra --mode compose
 
 `npx intlayer init --interactive`에서도 동일한 단계가 제공됩니다. 설치 프로그램 설정은 [`init infra` 레퍼런스](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/infra.md)를, 각 모드가 설정하는 세부 내용은 [셀프 호스팅 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/self_hosting.md)를 참조하세요.
 
+- [`init infra` 레퍼런스](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/infra.md)
+- [셀프 호스팅 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/self_hosting.md)
+
 ## 출력 예시:
 
 ```bash

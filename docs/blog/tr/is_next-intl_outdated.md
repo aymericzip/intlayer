@@ -90,6 +90,8 @@ style="border:none;"
 
 > Gerçek tarayıcı ortamlarında gzip sıkıştırmasıyla test edilmiştir. Tüm detaylar [Next.js benchmark raporunda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md).
 
+- [Next.js benchmark raporunda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md)
+
 ### Kütüphane Ayak İzi
 
 Çeviri metinleri eklenmeden önceki istemci yükü:
@@ -138,6 +140,8 @@ Aşağıdaki grafik, sayfa başına yaklaşık 30 KB metin içeren, 1 ila 10 say
 
 Intlayer bunu statik analiz ile çözer: [Intlayer derleyicisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md) sadece o rotada çağrılan metinleri paketler, rotalar arası sızıntıyı **%0.0'a** indirir.
 
+- [Intlayer derleyicisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md)
+
 ## next-intl Neden Tree-Shaking'e İzin Vermez?
 
 Kütüphanenin arayüzü çalışma zamanında çözülen dinamik dize anahtarlarına dayanır:
@@ -176,6 +180,8 @@ export function UserProfile() {
 </Tabs>
 
 Turbopack ve Webpack, `UserProfile` içinde hangi anahtarların çağrılacağını bilemez. Çalışma anında hata oluşmaması için **paketleyici tüm ad alanını istemci paketine dahil eder**. Intlayer'ın parçalanmış özellikleri sayesinde derleyici erişilen alanları analiz eder ve gereksiz metinleri ayıklar. Detaylar için [paket optimizasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md) konusuna göz atın.
+
+- [paket optimizasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md)
 
 ## Geliştirici Deneyimi
 
@@ -276,6 +282,8 @@ Ancak yalnızca temel dil doğrulanır. `tr.json` içinden bir anahtar silindiğ
 
 Intlayer, tipleri tüm bildirimlerden çıkarır. [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) modu etkinleştirildiğinde herhangi bir dildeki eksik çeviri derleme hatası oluşturur.
 
+- [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md)
+
 ### Araç Ekosistemi ve Yapay Zeka
 
 | Özellik                      | `next-intl` | Intlayer                                                                                                              |
@@ -301,6 +309,8 @@ Eksik çevirileri OpenAI, Anthropic, Mistral veya Gemini API anahtarlarınızla 
 **Kendi Sunucunuzda Barındırılabilir Görsel CMS:**
 
 Teknik olmayan ekiplerin Git ile entegre biçimde metin düzenlemesi için [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) kullanın.
+
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)
 
 **Özgür Açık Kaynak Lisansı:**
 

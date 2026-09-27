@@ -138,14 +138,14 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> **`clientSecret` to poświadczenie po stronie serwera.** Przyznaje pełny dostęp do API na poziomie projektu — czytanie i pisanie słowników, projektu i organizacji. Przechowuj go w `.env` (ignorowany przez git) lub w magazynie wpisów tajnych CI, nigdy nie umieszczaj go w pliku konfiguracyjnym.
+> **`clientSecret` to poświadczenie po stronie serwera.** Przyznaje pełny dostęp do API na poziomie projektu, czytanie i pisanie słowników, projektu i organizacji. Przechowuj go w `.env` (ignorowany przez git) lub w magazynie wpisów tajnych CI, nigdy nie umieszczaj go w pliku konfiguracyjnym.
 
 Intlayer wymusza to zamiast tylko tego dokumentować:
 
 - `clientSecret` jest **usuwany z konfiguracji, którą bundler встраивает**, więc nie może dotrzeć do bundle'a przeglądarki niezależnie od używanej integracji frameworka. Jest odczytywany tylko po stronie serwera, w czasie wykonania, ze środowiska.
 - `clientId` jest inny: to **publiczny** klucz projektu, bezpieczny do wysyłki i używany przez [`@intlayer/analytics`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/analytics.md#how-events-are-authenticated) do uzyskania krótkotrwałego tokenu tylko do pozyskiwania danych.
 
-Zakomentowanie `clientId` wystarczy, aby wyłączyć każde zachowanie wymagające uwierzytelnienia — pobieranie słowników zdalnych, dostęp do CMS, analizę — nawet gdy zmienne środowiskowe są jeszcze zdefiniowane.
+Zakomentowanie `clientId` wystarczy, aby wyłączyć każde zachowanie wymagające uwierzytelnienia (pobieranie słowników zdalnych, dostęp do CMS, analizę) nawet gdy zmienne środowiskowe są jeszcze zdefiniowane.
 
 W przypadku potoków CI preferuj flagę `--ci`, która wstrzykuje poświadczenia na czas pojedynczego uruchomienia zamiast ich utrwalania.
 

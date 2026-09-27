@@ -196,6 +196,8 @@ Die Funktion `date()` unterstützt zudem Presets (`"short"`, `"long"`, `"dateOnl
 
 Dabei handelt es sich um eine komfortable Caching- und Locale-Schicht über der nativen Plattform-API. Das eigentliche Formatierungsverhalten basiert vollständig auf `Intl`. Sämtliche Signaturen finden sich in der [Formatierungsdokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/formatters.md).
 
+- [Formatierungsdokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/formatters.md)
+
 ## Häufige Fehler
 
 - **`toLocaleDateString()` ohne Locale-Angabe.** Verwendet die Standard-Locale des Systems, die auf einem Server vom Container abhängt.

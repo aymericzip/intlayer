@@ -44,7 +44,7 @@ author: aymericzip
 
 ## Почему Intlayer лучше альтернатив?
 
-По сравнению с основными решениями, такими как «react-native-localize» или «i18next», Intlayer — это решение со встроенными оптимизациями, такими как:
+По сравнению с основными решениями, такими как «react-native-localize» или «i18next», Intlayer это решение со встроенными оптимизациями, такими как:
 
 <AccordionGroup>
 <Accordion header="Полное покрытие Lynx">
@@ -66,10 +66,16 @@ Intlayer оптимизирован для идеальной работы с Ly
 
 Совместное размещение контента **уменьшает контекст, необходимый** для моделей большого языка (LLM). Intlayer также поставляется с набором инструментов, таких как **CLI** для проверки отсутствия переводов,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, и **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/agent_skills.md)**, чтобы сделать работу разработчика (DX) еще более удобной для агентов ИИ.
 
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)
+- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/agent_skills.md)
+
 </Accordion>
 <Accordion header="Автоматизация">
 
 Используйте автоматизацию для перевода в своем конвейере CI/CD, используя LLM по вашему выбору за счет вашего поставщика ИИ. Intlayer также предлагает **компилятор** для автоматизации извлечения контента, а также [веб-платформу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md), которая помогает **переводить в фоновом режиме**.
+
+- [веб-платформу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="Производительность">
@@ -79,7 +85,10 @@ Intlayer оптимизирован для идеальной работы с Ly
 </Accordion>
 <Accordion header="Масштабирование с помощью не-разработчиками">
 
-Intlayer — это больше, чем просто решение i18n. Он предоставляет **автономный [визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** и **[полный CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)**, чтобы помочь вам управлять многоязычным контентом в **реальном времени**, упрощая сотрудничество с переводчиками, копирайтерами и другими членами команды. Контент может храниться локально и/или удаленно.
+Intlayer это больше, чем просто решение i18n. Он предоставляет **автономный [визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** и **[полный CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)**, чтобы помочь вам управлять многоязычным контентом в **реальном времени**, упрощая сотрудничество с переводчиками, копирайтерами и другими членами команды. Контент может храниться локально и/или удаленно.
+
+- [визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)
+- [полный CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
@@ -326,6 +335,8 @@ export default appContent;
 
 > Для получения подробной информации о декларациях контента, см. [документацию по контенту Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/content_file.md).
 
+- [документацию по контенту Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/content_file.md)
+
 </Step>
 <Step number={6} title="Используйте Intlayer в ваших компонентах">
 
@@ -427,6 +438,8 @@ export const LocaleSwitcher: FC = () => {
 
 > См. [документацию по `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/react-intlayer/useLocale.md) для получения дополнительной информации.
 
+- [документацию по `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/react-intlayer/useLocale.md)
+
 </Step>
 
 </Steps>
@@ -465,20 +478,18 @@ Intlayer генерирует определения типов в скрыто�
 
 Для улучшения вашего опыта разработки с Intlayer вы можете установить официальное **расширение Intlayer для VS Code**.
 
-[Установить из Marketplace VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [Установить из Marketplace VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 Это расширение предоставляет:
 
-- **Автодополнение** для ключей переводов.
+- **Автодополнение** для ключей перевода.
 - **Обнаружение ошибок в реальном времени** для отсутствующих переводов.
-- **Встроенные предпросмотры** переведённого контента.
+- **Встроенный предпросмотр** переведенного контента.
 - **Быстрые действия** для легкого создания и обновления переводов.
 
-- **Автозаполнение** для ключей перевода.
-- **Обнаружение ошибок в реальном времени** для отсутствующих переводов.
-- **Встроенный просмотр** переведённого контента.
-- **Быстрые действия** для лёгкого создания и обновления переводов.
-  Для получения дополнительной информации о том, как использовать расширение, обратитесь к [документации по расширению Intlayer для VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/vs_code_extension.md).
+Для получения более подробной информации о том, как использовать расширение, обратитесь к [документации Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/vs_code_extension.md).
+
+- [документации Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/vs_code_extension.md)
 
 ## Узнайте больше
 

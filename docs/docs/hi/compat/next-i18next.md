@@ -25,6 +25,8 @@ author: aymericzip
 
 एक संपूर्ण और विस्तृत चरण-दर-चरण ट्यूटोरियल के लिए, कृपया हमारी पूरी [next-i18next माइग्रेशन गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_next-i18next_to_intlayer.md) देखें।
 
+- [next-i18next माइग्रेशन गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_next-i18next_to_intlayer.md)
+
 Intlayer सभी Next.js Pages Router और App Router कार्यान्वयन को पारदर्शी रूप से संभालता है। एडेप्टर का उपयोग करके आप अपने `next-i18next` कार्यान्वयन को शून्य कोड पुनर्लेखन के साथ माइग्रेट कर सकते हैं।
 
 ## क्या करना है

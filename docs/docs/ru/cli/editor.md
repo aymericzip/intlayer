@@ -23,6 +23,8 @@ author: aymericzip
 
 > Чтобы иметь возможность использовать команду `editor`, должен быть установлен пакет `intlayer-editor`. (См. [Визуальный редактор Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md))
 
+- [Визуальный редактор Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md)
+
 ```json fileName="package.json"
 "scripts": {
   "intlayer:editor:start": "npx intlayer editor start --with 'next dev --turbopack'"

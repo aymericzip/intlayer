@@ -175,6 +175,8 @@ export default config;
 
 > Để xem danh sách đầy đủ các tùy chọn, hãy xem [tài liệu cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md).
 
+- [tài liệu cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md)
+
 </Step>
 <Step number={3} title="Khai báo Nội dung của bạn">
 
@@ -220,6 +222,8 @@ export default appContent;
 ```
 
 > Các khai báo nội dung có thể nằm ở bất kỳ đâu trong `contentDir` (theo mặc định là `./src`) và khớp với `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`. Xem [tài liệu khai báo nội dung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/content_file.md).
+
+- [tài liệu khai báo nội dung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/content_file.md)
 
 </Step>
 <Step number={4} title="Đăng ký middleware Intlayer">
@@ -640,7 +644,7 @@ Nên bỏ qua các tệp được tạo bởi Intlayer:
 
 Để cải thiện trải nghiệm phát triển với Intlayer, bạn có thể cài đặt **Intlayer VS Code Extension** chính thức.
 
-[Cài đặt từ VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [Cài đặt từ VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 Tiện ích mở rộng này cung cấp:
 
@@ -651,9 +655,13 @@ Tiện ích mở rộng này cung cấp:
 
 Để biết thêm chi tiết về cách sử dụng tiện ích mở rộng, hãy tham khảo [tài liệu Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/vs_code_extension.md).
 
+- [tài liệu Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/vs_code_extension.md)
+
 ### Đi xa hơn
 
 Để đi xa hơn, bạn có thể ngoại hóa nội dung của mình bằng cách sử dụng [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md), vì vậy các nhà dịch có thể thay đổi nội dung mà không cần triển khai.
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)
 
 ## Các Câu Hỏi Thường Gặp
 
@@ -678,6 +686,9 @@ Không. Mọi thứ mà một visitor nhìn thấy được produced bởi serve
 
 Phục vụ các trang của bạn dưới một tiền tố locale (`/fr/cart`) và đọc locale từ đường dẫn trong trình xử lý route của bạn, thay vì từ cookie, để render toàn bộ trang. Các fragment có thể tiếp tục sử dụng cookie hoặc header. Xem [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md) để biết các tùy chọn định tuyến và [custom URL rewrites](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/custom_url_rewrites.md).
 
+- [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md)
+- [custom URL rewrites](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/custom_url_rewrites.md)
+
 </Question>
 <Question title="Làm cách nào để xử lý các ngôn ngữ từ phải sang trái?">
 
@@ -693,25 +704,44 @@ Có, đối với bất kỳ thứ gì bạn nội suy vào một template strin
 
 Có. Các backend integrations expose `t()` và `getIntlayer()` cho bất kỳ handler nào, vì vậy một error message hiển thị trong toast và một label được render thành fragment đều đến từ cùng một declared content. Xem các hướng dẫn [Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_express.md), [Fastify](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_fastify.md), [Hono](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_hono.md) và [Elysia](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_elysia.md).
 
+- [Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_express.md)
+- [Fastify](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_fastify.md)
+- [Hono](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_hono.md)
+- [Elysia](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_elysia.md)
+
 </Question>
 <Question title="Tôi có phải di chuyển nội dung từng khóa một không?">
 
 Không. Chạy `npx intlayer extract` và Intlayer sẽ đọc các tệp nguồn của bạn, trích xuất các chuỗi dành cho người dùng và tạo một tệp `.content` bên cạnh mỗi tệp, vì vậy bạn xem xét một diff thay vì sao chép các chuỗi vào catalog từng cái một. Xem [lệnh extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/extract.md).
+
+- [lệnh extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/extract.md)
 
 </Question>
 <Question title="Tôi có thể giữ các tệp dịch JSON hiện có của mình không?">
 
 Có. Plugin [sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/plugins/sync-json.md) giữ cho các file `/messages/{locale}/{namespace}.json` của bạn là nguồn sự thật duy nhất và tạo các từ điển Intlayer từ chúng, theo cả hai hướng. Plugin [sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/plugins/sync-po.md) làm tương tự cho các catalog gettext, và [các file theo locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/per_locale_file.md) cho phép bạn chia nội dung theo ngôn ngữ thay vì nhóm các locale trong một file.
 
+- [sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/plugins/sync-json.md)
+- [sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/plugins/sync-po.md)
+- [các file theo locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/per_locale_file.md)
+
 </Question>
 <Question title="Làm cách nào tôi có thể dịch ứng dụng tự động bằng AI?">
 
 Chạy `npx intlayer fill`, lệnh này điền các bản dịch còn thiếu bằng LLM mà bạn chọn sử dụng nhà cung cấp và API key của riêng bạn. Thêm `--git-diff` để chỉ dịch nội dung đã thay đổi trên branch. Xem [lệnh fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/fill.md) và [tích hợp CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/CI_CD.md).
 
+- [lệnh fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/fill.md)
+- [tích hợp CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/CI_CD.md)
+
 </Question>
 <Question title="Intlayer có hỗ trợ gender, điều kiện và các giá trị được nội suy không?">
 
 Có: [nội dung dựa trên giới tính](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/gender.md), điều kiện, [liệt kê](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/enumeration.md), [chèn](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/insertion.md) cho các giá trị nội suy, và [định dạng](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/formatters.md) cho số, ngày tháng và tiền tệ.
+
+- [nội dung dựa trên giới tính](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/gender.md)
+- [liệt kê](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/enumeration.md)
+- [chèn](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/insertion.md)
+- [định dạng](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/formatters.md)
 
 </Question>
 <Question title="Có những công cụ editor và AI agent nào có sẵn?">
@@ -728,6 +758,9 @@ Năm phần, tất cả đều là tùy chọn:
 <Question title="Intlayer có phải là phần mềm tự do và mã nguồn mở không?">
 
 Có, theo giấy phép Apache 2.0, bao gồm cả sử dụng thương mại. [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md) được lưu trữ là một dịch vụ trả phí tùy chọn cũng có thể được [tự lưu trữ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/self_hosting.md).
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)
+- [tự lưu trữ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/self_hosting.md)
 
 </Question>
 

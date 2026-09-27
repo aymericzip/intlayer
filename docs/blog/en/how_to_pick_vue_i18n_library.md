@@ -66,6 +66,8 @@ Paraglide generates one function per message and lets the bundler tree-shake the
 
 The [history of JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/history_of_i18n.md) covers each wave in detail.
 
+- [history of JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/history_of_i18n.md)
+
 ## The decision that matters most: where content lives and when it loads
 
 Two structural choices explain most of the bundle difference between setups:
@@ -81,9 +83,14 @@ The graph estimates the payload for a theoretical app of 1 to 10 pages, translat
 
 The [Vue benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/vue.md) measures this as "leakage from other routes" and "leakage from other locales". If your answer to question 3 was "many pages", this section outweighs any API preference. The [per-component vs centralized i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/per-component_vs_centralized_i18n.md) post covers the maintenance side of the same trade-off.
 
+- [Vue benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/vue.md)
+- [per-component vs centralized i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/per-component_vs_centralized_i18n.md)
+
 ## The candidates
 
 Library sizes are from the [Vue benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/vue.md): plugin plus composable in an empty component, after bundling, tree-shaking and minification, on a 10-page, 10-locale app. Content is measured separately.
+
+- [Vue benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/vue.md)
 
 ![Vue i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
@@ -112,6 +119,8 @@ Paraglide's near-zero library size is by construction: the runtime is generated 
 
 `@nuxtjs/i18n` gives you the routing strategy, the `hreflang` tags and the locale detection with no code, and that alone justifies it for content sites with a handful of pages. Its limit is the per-locale catalog: past ten or so pages the SSR payload carries every route's copy. If that is your case, either hand-wire `vue-i18n` with per-route messages, or move to scoped content. The [Nuxt i18n post](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nuxt.md) walks through the routing strategy choice first.
 
+- [Nuxt i18n post](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nuxt.md)
+
 </Accordion>
 <Accordion header="Translations come from a TMS or an agency delivering ICU">
 
@@ -126,6 +135,8 @@ Prefer scoped content compiled at build time. Paraglide gets there through tree-
 <Accordion header="Type safety is non-negotiable">
 
 `vue-i18n` can be typed by passing a schema generic to `createI18n`. It works, and it breaks the moment catalogs are lazily loaded, because the schema describes messages that may not be there yet. If you do not want to maintain that, pick a library whose types are generated from the content: Paraglide or Intlayer. The [detecting missing translations](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/detecting_missing_translations.md) post compares what each catches at build time.
+
+- [detecting missing translations](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/detecting_missing_translations.md)
 
 </Accordion>
 <Accordion header="Content is more than UI labels">
@@ -366,6 +377,10 @@ All locales in one file beside the component. Types are generated at build, so `
 
 Already on `vue-i18n`? The [`@intlayer/vue-i18n` compat adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/vue-i18n.md) aliases the package at the bundler level, so `useI18n()`, `$t`, pipe plurals and `v-t` keep working while Intlayer serves the content. The [migration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/migration_from_vue-i18n_to_intlayer.md) covers moving off the adapter afterwards, and there is a [Nuxt-specific one](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/migration_from_nuxtjs_i18n_to_intlayer.md).
 
+- [`@intlayer/vue-i18n` compat adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/vue-i18n.md)
+- [migration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/migration_from_vue-i18n_to_intlayer.md)
+- [Nuxt-specific one](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/migration_from_nuxtjs_i18n_to_intlayer.md)
+
 ## Before you commit
 
 A feature table tells you what a library does today. These points tell you what living with it will be like.
@@ -388,6 +403,9 @@ The most installed library is the one that shipped first, not the one that fits 
 
 Agents still struggle with i18n: they forget locales, invent keys, and mix message syntaxes. Does the library ship [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md) or an [MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md) so the agent can list, fill and test content? And is content loading optimized by default, or does someone have to review namespaces and lazy imports every quarter?
 
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)
+- [MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)
+
 **Type safety out of the box.**
 
 Not "can be typed with extra wiring" but "a wrong key fails `tsc` on a fresh install". Check what happens with a key that does not exist, and with a locale that is missing one translation.
@@ -399,6 +417,13 @@ Catalogs only grow. Intlayer's build purges unused fields and logs them (`build.
 **Developer experience.**
 
 Setup time to first translated string, an [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md) or [VS Code extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md) that shows the translation on hover and jumps to the declaration, a [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md) for fill, test and push, a [compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compiler.md) or extractor that pulls hard-coded strings out of your components so you do not manage every string key by key, and a way for non-developers to edit content ([visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) or [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)) without a pull request.
+
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)
+- [VS Code extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md)
+- [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md)
+- [compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compiler.md)
+- [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
 
 ## Frequently Asked Questions
 
@@ -420,11 +445,15 @@ Use the module unless your routing is unusual or your app has few pages. Hand-wi
 
 Only if bundle size, SSR payload, generated types or build-time missing-key checks are actual requirements. The [compiler vs declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/compiler_vs_declarative_i18n.md) post explains what compilers give you and where they can get it wrong.
 
+- [compiler vs declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/compiler_vs_declarative_i18n.md)
+
 </Question>
 
 <Question title="Does the library choice affect SEO?">
 
 Indirectly. Crawlers care about routing, `hreflang`, `<html lang>` and whether text is in the server-rendered HTML. See the [hreflang guide](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/hreflang_guide_multilingual_seo.md).
+
+- [hreflang guide](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/hreflang_guide_multilingual_seo.md)
 
 </Question>
 

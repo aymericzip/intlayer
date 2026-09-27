@@ -88,6 +88,8 @@ style="border:none;"
 
 > Test condotti in browser reali con compressione gzip. Dati completi nella [documentazione del benchmark Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/benchmark/vue.md).
 
+- [documentazione del benchmark Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/benchmark/vue.md)
+
 ### Peso iniziale delle librerie
 
 Impatto iniziale prima dell'inclusione di qualsiasi stringa:
@@ -178,6 +180,9 @@ const { title } = useIntlayer("hero");
 
 Il [compilatore Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compiler.md) identifica le proprietà lette ed estromette i contenuti superflui prima di generare i chunk del client. Maggiori dettagli nell'[ottimizzazione del bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/bundle_optimization.md).
 
+- [compilatore Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compiler.md)
+- [ottimizzazione del bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/bundle_optimization.md)
+
 ## Esperienza di sviluppo
 
 ### Cataloghi isolati vs. co-locazione
@@ -255,6 +260,8 @@ Eliminando o modificando `Hero.vue`, i file di contenuto correlati vengono aggio
 
 Intlayer convalida rigorosamente i dizionari. Abilitando [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/configuration.md), ogni traduzione mancante genera un errore bloccante in fase di compilazione.
 
+- [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/configuration.md)
+
 ### Strumenti per IDE e IA
 
 | Funzionalità                  | `vue-i18n`              | Intlayer                                                                                                                 |
@@ -278,6 +285,8 @@ Traduce le chiavi assenti sfruttando le tue chiavi API di OpenAI, Anthropic, Mis
 **CMS visuale auto-ospitabile:**
 
 Impiega il [CMS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_CMS.md) per consentire ai collaboratori non tecnici di intervenire sui testi con salvataggio diretto su Git.
+
+- [CMS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_CMS.md)
 
 **Licenza open source permissiva:**
 

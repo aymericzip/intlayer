@@ -130,13 +130,13 @@ Output the full scan result as a JSON object instead of a formatted report. Usef
 
 ### Standard configuration options
 
-- **`--base-dir`** — Base directory used to locate the `intlayer.config.*` file.
-- **`-e, --env`** — Target environment (e.g. `development`, `production`).
-- **`--env-file`** — Path to a custom `.env` file.
-- **`--no-cache`** — Disable configuration cache.
-- **`--ci`** — Run the command in every Intlayer project of the monorepo (or only the current one when run from a project directory). Per-project credentials can be injected via `INTLAYER_PROJECT_CREDENTIALS`, a JSON map of project path to `{ "clientId", "clientSecret" }`.
-- **`--verbose`** — Enable verbose logging (default in CLI mode).
-- **`--prefix`** — Custom log prefix.
+- **`--base-dir`**: Base directory used to locate the `intlayer.config.*` file.
+- **`-e, --env`**: Target environment (e.g. `development`, `production`).
+- **`--env-file`**: Path to a custom `.env` file.
+- **`--no-cache`**: Disable configuration cache.
+- **`--ci`**: Run the command in every Intlayer project of the monorepo (or only the current one when run from a project directory). Per-project credentials can be injected via `INTLAYER_PROJECT_CREDENTIALS`, a JSON map of project path to `{ "clientId", "clientSecret" }`.
+- **`--verbose`**: Enable verbose logging (default in CLI mode).
+- **`--prefix`**: Custom log prefix.
 
 ## Routing strategy
 

@@ -51,6 +51,8 @@ Bu rehber her üç parçanın da kurulumunu yapar, ardından Paraglide'ın size 
 
 > İki derleyici tabanlı yaklaşımı mı karşılaştırıyorsunuz? [Intlayer Paraglide'dan daha mı hafif?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/is_intlayer_lighter_than_paraglide.md) makalesini okuyun.
 
+- [Intlayer Paraglide'dan daha mı hafif?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/is_intlayer_lighter_than_paraglide.md)
+
 > Bu kütüphanelerin nereden geldiğini anlamak için JavaScript i18n tarihini okuyun.
 
 - [JavaScript i18n tarihi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/history_of_i18n.md)
@@ -58,6 +60,8 @@ Bu rehber her üç parçanın da kurulumunu yapar, ardından Paraglide'ın size 
 ## Karşılaştırma Testi (Benchmark) TanStack Start Üzerinde Paraglide Hakkında Ne Söylüyor?
 
 [i18n karşılaştırma testi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md), aynı 10 sayfalık, 10 dilli TanStack Start uygulamasını tüm büyük kütüphanelerle çalıştırır ve tarayıcının gerçekte ne kadar veri indirdiğini ölçer.
+
+- [i18n karşılaştırma testi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md)
 
 <I18nBenchmark framework="tanstack" packages="paraglide,intlayer" vertical/>
 
@@ -78,6 +82,8 @@ Buradan çıkarılacak sonuçlar:
 - **Sayfa yükleme hızı grubun en yavaşıdır**, bunun kısmi nedeni dilin bir React bağlamından (context) okunmak yerine her çağrıda stratejiler üzerinden çözümlenmesidir.
 
 > Tüm verileri inceleyin: [TanStack Start karşılaştırma raporu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md) ve [karşılaştırma deposu](https://github.com/intlayer-org/benchmark-i18n).
+
+- [TanStack Start karşılaştırma raporu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md)
 
 ## TanStack Start Üzerinde Özellik Karşılaştırması
 
@@ -102,6 +108,8 @@ Paraglide JS'nin TanStack Start'ta yaygın olarak kullanılan diğer kütüphane
 | **CI ortamında eksik çeviri kontrolü**      | ✅ `npx intlayer test`               | ⚠️ Yerleşik değil         | ⚠️ Yerleşik değil                          | ✅ `lingui compile --strict`      |
 
 > Çalışma zamanı boyutu ve sızıntı rakamları [TanStack Start karşılaştırmasından](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md) alınmıştır. Sızıntı, her kütüphanenin en iyi kurulumu üzerinden ölçülmüştür.
+
+- [TanStack Start karşılaştırmasından](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md)
 
 > Diğer TanStack Start rehberleri:
 
@@ -837,7 +845,12 @@ Paraglide'dan Intlayer'a doğrudan bir adaptör yoktur çünkü her ikisi de ayn
 
 Paraglide yerine başka bir kütüphaneden geçiyorsanız, [uyumluluk adaptörleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/index.md) `use-intl`, `next-intl`, `react-i18next`, `react-intl` veya Lingui API'sini korur ve yalnızca çalışma zamanını değiştirir.
 
+- [uyumluluk adaptörleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/index.md)
+
 [Intlayer Paraglide'dan daha mı hafif?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/is_intlayer_lighter_than_paraglide.md) makalesine ve [Intlayer TanStack Start rehberine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_tanstack.md) göz atın.
+
+- [Intlayer Paraglide'dan daha mı hafif?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/is_intlayer_lighter_than_paraglide.md)
+- [Intlayer TanStack Start rehberine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_tanstack.md)
 
 </Step>
 <Step number={17} title="Intlayer Kullanarak Çevirilerinizi Otomatikleştirin" isOptional={true}>
@@ -859,6 +872,8 @@ Paraglide çevirileri görüntüler, ancak bunları **oluşturmanıza** yardımc
 <Question title="Paraglide JS, TanStack Start için iyi bir tercih midir?">
 
 Oldukça güçlü bir tercihtir: resmi TanStack Router örneklerinde kullanılır, [karşılaştırma testinin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md) en küçük çalışma zamanına sahiptir (~1.8 KB gzip) ve mesajlar tamamen tiplendirilmiştir. Dezavantajları ise her mesaj fonksiyonunun tüm dilleri içermesi (bu da diğer dillerdeki ziyaretçilere çevrilmiş metinlerin yaklaşık yarısının sızmasına neden olur) ve dil değiştirmenin sayfayı yeniden yüklemesidir.
+
+- [karşılaştırma testinin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md)
 
 </Question>
 <Question title="Paraglide ile $locale rota segmentine ihtiyacım var mı?">
@@ -889,6 +904,9 @@ Rota `head()` fonksiyonu içinde `localizeUrl` kullanarak dil başına bir mutla
 <Question title="Paraglide'dan Intlayer'a geçiş yapabilir miyim?">
 
 Evet. Her ikisi de derleyici tabanlıdır, bu nedenle zihinsel modelleri oldukça yakındır. [JSON senkronizasyon eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-json.md) ile JSON dosyalarınızı koruyun, ardından sayfa sayfa `m.key()` çağrılarını `useIntlayer` ile değiştirin. [Intlayer TanStack Start rehberine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_tanstack.md) göz atın.
+
+- [JSON senkronizasyon eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-json.md)
+- [Intlayer TanStack Start rehberine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_tanstack.md)
 
 </Question>
 

@@ -34,6 +34,8 @@ La función `getEnumeration` recupera contenido correspondiente a una cantidad e
 
 Para más detalles sobre cómo declarar enumeraciones, consulta la [documentación de Enumeración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/enumeration.md).
 
+- [documentación de Enumeración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/enumeration.md)
+
 ## Parámetros
 
 - `enumerationContent: QuantityContent<Content>`

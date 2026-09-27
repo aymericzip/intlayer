@@ -19,7 +19,7 @@ slugs:
 history:
   - version: 9.2.1
     date: 2026-08-09
-    changes: "`purge` 與 `minify` 現在可透過 `@intlayer/swc` 在 Next.js 上運作 — 不需要 `babel.config.js`"
+    changes: "`purge` 與 `minify` 現在可透過 `@intlayer/swc` 在 Next.js 上運作，不需要 `babel.config.js`"
   - version: 8.12.0
     date: 2026-06-24
     changes: "在參考表中依所需的流水線順序列出 Babel 外掛（extract → purge → minify → optimize）"
@@ -68,11 +68,11 @@ Intlayer 使用一種**基於元件的方法（per-component approach）**。與
 
 ### Next.js
 
-Next.js 需要 `@intlayer/swc` 外掛，因為 Next.js 使用 SWC 進行建置。自 **v9.2.1** 起，這一個套件即可涵蓋整條流水線 —— 最佳化（匯入重寫）、清除與壓縮。
+Next.js 需要 `@intlayer/swc` 外掛，因為 Next.js 使用 SWC 進行建置。自 **v9.2.1** 起，這一個套件即可涵蓋整條流水線，最佳化（匯入重寫）、清除與壓縮。
 
 > 該外掛程式並未預設安裝，因為 SWC 外掛程式在 Next.js 當中目前仍處於實驗階段。未來這部分有可能會發生改變。
 
-> **Next.js 16.1.0 是最低版本。** 它是首個基於 SWC 向前相容 Wasm 外掛 ABI 建置的版本；更早的版本會拒絕該外掛。`withIntlayer` 會讀取你專案的 Next.js 版本，低於 16.1.0 時乾脆不註冊該外掛 —— 這些建置仍會成功，只是在沒有打包最佳化的情況下執行。
+> **Next.js 16.1.0 是最低版本。** 它是首個基於 SWC 向前相容 Wasm 外掛 ABI 建置的版本；更早的版本會拒絕該外掛。`withIntlayer` 會讀取你專案的 Next.js 版本，低於 16.1.0 時乾脆不註冊該外掛，這些建置仍會成功，只是在沒有打包最佳化的情況下執行。
 
 <Tabs>
  <Tab value="npm">
@@ -136,7 +136,7 @@ export default config;
 
 > 請使用非同步的 `withIntlayer`，而不是 `withIntlayerSync`。同步版本不會執行分析流水線，因此清除與壓縮對它沒有效果。
 
-> 清除與壓縮僅在 `next build` 時執行 —— 最佳化流水線在 `next dev` 期間是關閉的。
+> 清除與壓縮僅在 `next build` 時執行，最佳化流水線在 `next dev` 期間是關閉的。
 
 **更早的版本（9.2.1 之前）** 需要 `@intlayer/babel` 以及一個宣告 `intlayerPurgeBabelPlugin` 與 `intlayerMinifyBabelPlugin` 的 `babel.config.js`。該檔案不再需要，可以刪除。
 
@@ -145,7 +145,7 @@ export default config;
 
 ### Vite
 
-Vite 使用了包含在 `vite-intlayer` 依賴當中的 `@intlayer/babel` 外掛程式。整個最佳化管線 —— 包括匯入重寫、清除和壓縮 —— 是預設開啟的，且無需任何額外的外掛程式註冊。
+Vite 使用了包含在 `vite-intlayer` 依賴當中的 `@intlayer/babel` 外掛程式。整個最佳化管線（包括匯入重寫、清除和壓縮）是預設開啟的，且無需任何額外的外掛程式註冊。
 
 在 `intlayer.config.ts` 裡設定相對應的標誌來開啟 purge 以及 minify：
 
@@ -263,7 +263,7 @@ Vite 使用者**不需要直接對它們進行設定**。當您在 `vite.config.
 
 ### SWC 外掛（`@intlayer/swc`）
 
-Next.js 使用者同樣**從不直接設定這些**。自 **v9.2.1** 起，`next.config.ts` 中的 `withIntlayer()` 僅憑 `build.purge` 與 `build.minify` 兩個旗標就會執行完整流水線 —— 清除、壓縮與匯入重寫。
+Next.js 使用者同樣**從不直接設定這些**。自 **v9.2.1** 起，`next.config.ts` 中的 `withIntlayer()` 僅憑 `build.purge` 與 `build.minify` 兩個旗標就會執行完整流水線，清除、壓縮與匯入重寫。
 
 工作被分成兩部分，因為 SWC Wasm 外掛一次只轉換一個檔案，且無法存取檔案系統：
 
@@ -312,6 +312,8 @@ export default config;
 
 > 請參閱設定參考資料以了解所有的選項：[設定說明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/configuration.md)
 
+- [設定說明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/configuration.md)
+
 ### 建置選項
 
 | 屬性           | 類型                  | 預設值      | 詳細說明                                                                                                                                     |
@@ -322,7 +324,7 @@ export default config;
 
 ### 壓縮 / Minification (重新命名欄位鍵值)
 
-`build.minify` **並非**壓縮您的 JavaScript —— 那是您的打包器應該處理的工作。它的工作，是把編譯後的字典對應的 JSON 檔案的每一個自訂內容的欄位，全用短位的字母標識來替代，藉此將其體積進行壓縮：
+`build.minify` **並非**壓縮您的 JavaScript，那是您的打包器應該處理的工作。它的工作，是把編譯後的字典對應的 JSON 檔案的每一個自訂內容的欄位，全用短位的字母標識來替代，藉此將其體積進行壓縮：
 
 ```
 // Minify 之前
@@ -346,7 +348,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> 當 `optimize` 為 `false` 時，壓縮會被跳過。當 `editor.enabled` 為 `true` 時，壓縮仍會執行，但不會執行欄位重新命名步驟——視覺化編輯器透過 `keyPath` 解析編輯內容，因此原始欄位名稱必須保留。
+> 當 `optimize` 為 `false` 時，壓縮會被跳過。當 `editor.enabled` 為 `true` 時，壓縮仍會執行，但不會執行欄位重新命名步驟，視覺化編輯器透過 `keyPath` 解析編輯內容，因此原始欄位名稱必須保留。
 
 > 在 Next.js 上，當 `@intlayer/swc` 未安裝或無法載入時（Next.js 低於 16.1.0），壓縮同樣會被略過。重寫原始碼存取的正是這個外掛，因此在沒有它的情況下重新命名字典，會讓你的程式碼讀取已不存在的欄位名稱。
 
@@ -378,7 +380,7 @@ export default config;
 { "title": "…", "subtitle": "…" }
 ```
 
-> 當 `optimize` 為 `false` 時，清除（Purge）會被跳過。當 `editor.enabled` 為 `true` 時，它仍保持啟用——被清除的欄位不會被任何元件讀取，因此編輯器永遠不會渲染它。在 Next.js 上，當 `@intlayer/swc` 不可用以及設定了相容轉接器呼叫方時，還會被額外略過。
+> 當 `optimize` 為 `false` 時，清除（Purge）會被跳過。當 `editor.enabled` 為 `true` 時，它仍保持啟用，被清除的欄位不會被任何元件讀取，因此編輯器永遠不會渲染它。在 Next.js 上，當 `@intlayer/swc` 不可用以及設定了相容轉接器呼叫方時，還會被額外略過。
 
 > 當檢測到某份程式碼因為異常無法順利解析、又或者當把由 `useIntlayer` 輸出的值以靜態解析器難以預測分析的模式在不同元件中來回丟（比如被打包成物件傳入等而未被進行解構）的時候，它同樣會跳過，以此保守地保留整部字典的全部資訊，避免意外發生。
 
@@ -508,6 +510,8 @@ const content = useDictionaryAsync({
 ```
 
 > 如果還需要獲得對於 CMS 獲取方面的認知的話：可以去查看 [CMS 說明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/intlayer_CMS.md)
+
+- [CMS 說明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/intlayer_CMS.md)
 
 > 此模式同樣會一如既往地因為 JSON 內容會直接藉由後端直接輸送而不遭受 purge 跟 minify 等等這幾類資料剔除方案的干擾。
 

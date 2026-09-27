@@ -34,11 +34,15 @@ author: aymericzip
 
 Die Funktion `getIntlayerAsync` wählt ein Dictionary nach seinem Schlüssel aus und löst seinen Inhalt für ein bestimmtes Locale auf, **wobei nur dieses Locale geladen wird**.
 
-Es ist das asynchrone Gegenstück zu [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/intlayer/getIntlayer.md), gedacht für Stellen, an denen ein Dictionary außerhalb des Rendering gelesen wird — Route `head` / Metadata Builder, Loader, Server Functions.
+Es ist das asynchrone Gegenstück zu [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/intlayer/getIntlayer.md), gedacht für Stellen, an denen ein Dictionary außerhalb des Rendering gelesen wird, Route `head` / Metadata Builder, Loader, Server Functions.
+
+- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/intlayer/getIntlayer.md)
 
 Während `getIntlayer` das zusammengeführte Dictionary mit jedem Locale einzieht, schreiben die [Build Plugins](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/bundle_optimization.md) (`@intlayer/babel`, `@intlayer/swc`) diesen Aufruf in `getDictionaryAsync(loaderMap, key, locale)` um und verweisen auf die Locale-spezifischen Chunks in `.intlayer/dynamic_dictionaries/`. Das Bundle enthält daher nur noch das tatsächlich angeforderte Locale.
 
-Ohne diese Plugins — ein nicht optimierter Build — wird der Aufruf stattdessen durch die synchrone Dictionary Registry aufgelöst: derselbe Inhalt, aber ohne die Locale-spezifische Aufteilung.
+- [Build Plugins](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/bundle_optimization.md)
+
+Ohne diese Plugins, ein nicht optimierter Build, wird der Aufruf stattdessen durch die synchrone Dictionary Registry aufgelöst: derselbe Inhalt, aber ohne die Locale-spezifische Aufteilung.
 
 **Wichtigste Funktionen:**
 
@@ -61,18 +65,18 @@ getIntlayerAsync(
 
 - `key: DictionaryKeys`
   - **Beschreibung**: Der Schlüssel des zu lesenden Wörterbuchs, wie in deinen Content-Dateien deklariert.
-  - **Typ**: `DictionaryKeys` — eine Union aller deklarierten Wörterbuchschlüssel.
+  - **Typ**: `DictionaryKeys`, eine Union aller deklarierten Wörterbuchschlüssel.
   - **Erforderlich**: Ja
 
 - `localeOrSelector: LocalesValues | DictionarySelector`
   - **Beschreibung**: Die Locale zur Interpretation des Inhalts oder ein Selector-Objekt für [dynamische Wörterbücher](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dynamic_dictionaries/index.md).
-    - `'fr'` — eine Locale
-    - `{ item: 2 }` — ein [collection](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dynamic_dictionaries/collections.md)-Element (omit `item` um jedes Element als Array zu erhalten)
-    - `{ variant: 'black-friday' }` — eine benannte [variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dynamic_dictionaries/variants.md) (omit für die `default`)
-    - `{ variant: { id: 'prod_abc', userId: '123' } }` — eine strukturierte Variante
+    - `'fr'`: eine Locale
+    - `{ item: 2 }`: ein [collection](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dynamic_dictionaries/collections.md)-Element (omit `item` um jedes Element als Array zu erhalten)
+    - `{ variant: 'black-friday' }`: eine benannte [variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dynamic_dictionaries/variants.md) (omit für die `default`)
+    - `{ variant: { id: 'prod_abc', userId: '123' } }`: eine strukturierte Variante
     - Jeder Selector kann eine Locale tragen: `{ item: 2, locale: 'fr' }`
   - **Typ**: `LocalesValues | DictionarySelector`
-  - **Erforderlich**: Nein (Optional) — standardmäßig auf die konfigurierte `defaultLocale`.
+  - **Erforderlich**: Nein (Optional), standardmäßig auf die konfigurierte `defaultLocale`.
 
 - `plugins: Plugins[]`
   - **Beschreibung**: Benutzerdefinierte Node-Transformer, die die Standard-Interpreter-Plugins ersetzen. Nur für fortgeschrittene Verwendung.
@@ -81,7 +85,7 @@ getIntlayerAsync(
 
 ### Rückgabewert
 
-- **Type**: `Promise<Content>` — ein Promise, das sich zum interpretierten Inhalt des Wörterbuchs auflöst, typisiert aus Ihrer Deklaration.
+- **Type**: `Promise<Content>`, ein Promise, das sich zum interpretierten Inhalt des Wörterbuchs auflöst, typisiert aus Ihrer Deklaration.
 
 ## Beispielverwendung
 
@@ -95,12 +99,12 @@ const { title } = await getIntlayerAsync("app", "fr"); // "Bonjour"
 
 ## `getIntlayer` vs `getIntlayerAsync`
 
-|                    | [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/intlayer/getIntlayer.md) | `getIntlayerAsync`                                          |
-| ------------------ | --------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
-| Returns            | Der Inhalt                                                                                                      | Ein Promise des Inhalts                                     |
-| Dictionary loaded  | Das zusammengeführte Wörterbuch (alle Locales)                                                                  | Das Chunk der angeforderten Locale nur                      |
-| Best suited for    | Rendering, synchrone Code-Pfade                                                                                 | Metadaten, Loader, Server-Funktionen                        |
-| Requires a plugin? | Nein                                                                                                            | Nein — die Per-Locale-Aufteilung benötigt die Build-Plugins |
+|                    | [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/intlayer/getIntlayer.md) | `getIntlayerAsync`                                         |
+| ------------------ | --------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
+| Returns            | Der Inhalt                                                                                                      | Ein Promise des Inhalts                                    |
+| Dictionary loaded  | Das zusammengeführte Wörterbuch (alle Locales)                                                                  | Das Chunk der angeforderten Locale nur                     |
+| Best suited for    | Rendering, synchrone Code-Pfade                                                                                 | Metadaten, Loader, Server-Funktionen                       |
+| Requires a plugin? | Nein                                                                                                            | Nein, die Per-Locale-Aufteilung benötigt die Build-Plugins |
 
 Beide akzeptieren die gleichen Argumente und geben den gleichen Inhalt zurück: Der Wechsel von einem zum anderen ändert nur **wann** und **wie viel** geladen wird.
 

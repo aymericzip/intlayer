@@ -100,7 +100,7 @@ npx skills add aymericzip/intlayer-skills
 
 - Svelte 및 SvelteKit 앱 전체에서 반응형이고 타입 안전한 로컬라이즈 콘텐츠를 위해 Svelte 스토어와 관용적인 구문을 사용하는 방법을 에이전트에게 가르칩니다.
 
-**intlayer-cms**
+**intlayer-remote-content**
 
 - 원격 콘텐츠를 통합하고 관리할 수 있게 하여 에이전트가 Intlayer CMS를 통해 라이브 동기화 및 원격 번역 워크플로우를 처리할 수 있게 합니다.
 
@@ -115,3 +115,31 @@ npx skills add aymericzip/intlayer-skills
 **intlayer-compiler**
 
 - 자동 콘텐츠 추출 기능을 활성화하여 수동 사전 파일 없이 코드에 번역 가능한 문자열을 직접 작성할 수 있게 하여 에이전트의 워크플로우를 단순화합니다.
+
+**intlayer-lit**
+
+- `useIntlayer` 및 `useLocale` ReactiveController를 사용하여 Lit 웹 컴포넌트를 번역하는 방법을 에이전트에게 가르칩니다.
+
+**intlayer-vanilla**
+
+- 번들러 사용 여부와 관계없이 `vanilla-intlayer`로 순수 JavaScript / TypeScript 페이지를 현지화할 수 있게 합니다.
+
+**intlayer-remix**
+
+- Remix 3 라우터 미들웨어와 요청 범위의 `useIntlayer` / `useLocale` 훅을 에이전트에게 제공합니다.
+
+**intlayer-backend**
+
+- 하나의 공유 미들웨어 + `t` / `getIntlayer` 패턴을 통해 Express, Fastify, Hono, NestJS, AdonisJS, Elysia에서 서버 응답을 번역할 수 있게 합니다.
+
+**intlayer-dev-tools**
+
+- 코드 주변에 Intlayer 도구를 설정할 수 있게 합니다: 하드코딩된 문자열을 위한 ESLint 규칙, Language Server, VS Code 및 Chrome 확장 프로그램, MCP 서버, CI/CD 번역 검사.
+
+**intlayer-markdown**
+
+- Markdown 콘텐츠(`md()`, `.content.md` 파일, 외부 파일)를 선언하고 MDX 컴포넌트, 전역 `MarkdownProvider`, Suspense 및 서버 사이드 파싱으로 렌더링하는 방법을 에이전트에게 가르칩니다.
+
+**intlayer-compat**
+
+- 원래 API를 유지하는 호환 어댑터를 사용하여 i18next, react-i18next, next-intl, next-i18next, react-intl, vue-i18n 또는 Lingui에서 마이그레이션하도록 에이전트를 안내하므로 번역 호출을 다시 작성할 필요가 없습니다.

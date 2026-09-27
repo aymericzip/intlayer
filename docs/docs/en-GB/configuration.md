@@ -17,7 +17,7 @@ slugs:
 history:
   - version: 9.3.3
     date: 2026-08-22
-    changes: "Enable analytics by default — active as soon as `@intlayer/analytics` is installed"
+    changes: "Enable analytics by default, active as soon as `@intlayer/analytics` is installed"
   - version: 9.1.3
     date: 2026-08-06
     changes: "Make `routing.enableProxy` tri-state: unset (auto), `true`, `false`"
@@ -731,7 +731,9 @@ Defines settings related to the integrated editor, including server port and act
 
 Defines settings related to Intlayer analytics: collecting which content is actually shown to users (page views, content exposures) and powering content A/B testing.
 
-Analytics is opt-out: it is enabled by default, and starts collecting as soon as the `@intlayer/analytics` package is installed **and** a project key (`editor.clientId`) is configured for attribution. Set `analytics.enabled` to `false` — or leave the package uninstalled — and the whole analytics integration is dead-code-eliminated from your application bundle.
+Analytics is opt-out: it is enabled by default, and starts collecting as soon as the [`@intlayer/analytics`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/analytics.md) package is installed **and** a project key (`editor.clientId`) is configured for attribution. Set `analytics.enabled` to `false`, or leave the package uninstalled, and the whole analytics integration is dead-code-eliminated from your application bundle.
+
+- [`@intlayer/analytics`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/analytics.md)
 
 | Field           | Description                                                               | Type      | Default | Example | Note                                                                                                                                                            |
 | --------------- | ------------------------------------------------------------------------- | --------- | ------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -979,6 +981,8 @@ This dictionary configuration serves two main purposes:
 
 For more information about content declaration files and how configuration values are applied, see the [Content File Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md).
 
+- [Content File Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md)
+
 | Field                       | Description                                                                                                                                               | Type                                                                                                            | Default        | Example                                                                                     | Note                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | -------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `fill`                      | Controls how auto-fill (AI translation) output files are generated.                                                                                       | `boolean` &#124; <br/> `FilePathPattern` &#124; <br/> `Partial<Record<Locale, boolean &#124; FilePathPattern>>` | `true`         | `{ en: '/locales/en/{{key}}.json', fr: ({ key }) => '/locales/fr/${key}.json', es: false }` | • `true`: default path (same file as source).<br/>• `false`: disable.<br/>• String/function template generates per-locale files.<br/>• Object per-locale: each locale maps to its own pattern; `false` skips that locale.<br/>• Including `{{locale}}` triggers per-locale generation.<br/>• Dictionary-level `fill` always takes priority over this global config.                                                                                                                         |
@@ -1116,22 +1120,38 @@ At the root of your project, next to `package.json`. Intlayer also accepts `intl
 
 Much less than a namespace based setup, because a page never downloads a catalogue it does not render. Server rendered markup resolves its content on the server, and the build time compiler replaces `useIntlayer` calls with the exact dictionary entries a component uses, so unused keys and unused languages are dropped. [Dynamic dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dynamic_dictionaries/index.md) split the rest per locale. Measured against the usual alternatives, Intlayer reduces bundle and page size by up to 50%. See [bundle optimization](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/bundle_optimization.md) and the [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/benchmark/index.md).
 
+- [Dynamic dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dynamic_dictionaries/index.md)
+- [bundle optimization](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/bundle_optimization.md)
+- [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/benchmark/index.md)
+
 </Question>
 <Question title="Can I migrate from `i18next`, `next-intl` or `react-i18next` without rewriting my components?">
 
 Yes, and there are two paths. You can migrate the content progressively with the [i18next migration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/migration_from_i18next_to_intlayer.md) or the [next-intl migration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/migration_from_next-intl_to_intlayer.md). Or you can keep your current API entirely: the [compat adapters](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compat/index.md) expose the exact same API as `i18next`, `react-i18next`, `next-intl`, `next-i18next`, `react-intl`, `use-intl`, `vue-i18n` and `Lingui`, but served by Intlayer dictionaries, so imports change and component code does not.
+
+- [i18next migration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/migration_from_i18next_to_intlayer.md)
+- [next-intl migration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/migration_from_next-intl_to_intlayer.md)
+- [compat adapters](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compat/index.md)
 
 </Question>
 <Question title="Can I keep my existing JSON translation files?">
 
 Yes. The [sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/plugins/sync-json.md) keeps your `/messages/{locale}/{namespace}.json` files as the source of truth and generates Intlayer dictionaries from them, in both directions. A [sync PO plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/plugins/sync-po.md) does the same for gettext catalogues, and [per locale files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/per_locale_file.md) let you split content by language instead of grouping locales in one file.
 
+- [sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/plugins/sync-json.md)
+- [sync PO plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/plugins/sync-po.md)
+- [per locale files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/per_locale_file.md)
+
 </Question>
 <Question title="Do I have to move my content key by key?">
 
 No. Run `npx intlayer extract` and Intlayer reads your source files, pulls the user facing strings out and writes a `.content` file next to each one, so you review a diff instead of copying strings into a catalogue one at a time. See the [extract command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/extract.md).
 
+- [extract command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/extract.md)
+
 For a fully automated pipeline, the [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compiler.md) does the same at build time on JSX, TSX, Vue and Svelte source, generating the dictionaries on every change so there are no keys to maintain by hand. It works by static analysis, so strings that only exist at runtime stay out of reach, and it needs a few annotations to tell user facing text apart from application logic.
+
+- [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compiler.md)
 
 </Question>
 <Question title="What editor and AI agent tooling is available?">
@@ -1174,10 +1194,15 @@ It controls the locale routing proxy, the middleware that resolves prefixes and 
 
 `"static"`, the default, imports dictionaries statically so they are bundled and read synchronously. `"dynamic"` imports them through Suspense, so a locale is downloaded only when a component renders it, which is what you want for large content sets. `"fetch"` retrieves them from the live sync API and falls back to `"dynamic"` on failure. See [bundle optimization](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/bundle_optimization.md) and [dynamic dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dynamic_dictionaries/index.md).
 
+- [bundle optimization](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/bundle_optimization.md)
+- [dynamic dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dynamic_dictionaries/index.md)
+
 </Question>
 <Question title="Where do I set the AI provider and API key for automatic translation?">
 
 Either in the configuration file or on the command line with `--provider`, `--model` and `--api-key`. The key stays yours: the translation calls go from your machine or your CI runner to the provider you chose, so nothing is routed through a third party. See the [fill command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/fill.md).
+
+- [fill command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/fill.md)
 
 </Question>
 <Question title="Do I need to restart the dev server after changing the configuration?">

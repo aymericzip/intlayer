@@ -54,15 +54,27 @@ Mencakup konten aplikasi Anda **memfasilitasi pemeliharaan** untuk aplikasi bers
 
 Menempatkan konten bersama **mengurangi konteks yang diperlukan** dengan Model Bahasa Besar (LLM). Intlayer juga dilengkapi dengan serangkaian alat, seperti **CLI** untuk menguji terjemahan yang hilang,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, dan **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/agent_skills.md)**, untuk menjadikan pengalaman pengembang (DX) lebih lancar bagi agen AI.
 
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)
+- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/agent_skills.md)
+
 </Accordion>
 <Accordion header="Fitur">
 
 Intlayer menawarkan sejumlah fitur tambahan yang tidak dimiliki solusi i18n lainnya, seperti [Dukungan penurunan harga](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/markdown.md), [mengambil konten eksternal](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/function_fetching.md), [file pemuatan konten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/file.md), [pembaruan konten langsung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/live.md), [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) dan banyak lagi.
 
+- [Dukungan penurunan harga](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/markdown.md)
+- [mengambil konten eksternal](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/function_fetching.md)
+- [file pemuatan konten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/file.md)
+- [pembaruan konten langsung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/live.md)
+- [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)
+
 </Accordion>
 <Accordion header="Otomatisasi">
 
 Gunakan otomatisasi untuk menerjemahkan dalam saluran CI/CD Anda menggunakan LLM pilihan Anda dengan biaya penyedia AI Anda. Intlayer juga menawarkan **compiler** untuk mengotomatiskan ekstraksi konten, serta [platform web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) untuk membantu **menerjemahkan di latar belakang**.
+
+- [platform web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="Pertunjukan">
@@ -73,6 +85,9 @@ Menghubungkan file JSON berukuran besar ke komponen dapat menyebabkan masalah ki
 <Accordion header="Menskalakan tanpa pengembang">
 
 Lebih dari sekedar solusi i18n, Intlayer menyediakan **[editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** yang dihosting sendiri dan **[CMS lengkap](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** untuk membantu Anda mengelola konten multibahasa secara **real-time**, membuat kolaborasi dengan penerjemah, copywriter, dan anggota tim lainnya menjadi lancar. Konten dapat disimpan secara lokal dan/atau jarak jauh.
+
+- [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)
+- [CMS lengkap](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="Desain lintas kerangka">
@@ -289,6 +304,8 @@ Menggunakan `intlayer`, Anda dapat mendeklarasikan konten dalam format pustaka i
 
 Jika Anda ingin tetap menggunakan API pustaka i18n Anda saat ini, `intlayer` juga menyediakan **compat adapter**: paket yang mengekspos API yang persis sama dengan `react-i18next`, `next-intl`, `react-intl`, `vue-i18n`, dan lainnya, tetapi dilayani oleh kamus Intlayer. Ini memungkinkan Anda bermigrasi secara bertahap tanpa menulis ulang kode Anda. Lihat [dokumentasi Compat Adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md).
 
+- [dokumentasi Compat Adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md)
+
 ## Pertanyaan yang Sering Diajukan
 
 <FAQ>
@@ -306,22 +323,38 @@ Tiga generasi saling berdampingan:
 
 Jauh lebih sedikit daripada pengaturan berbasis namespace, karena halaman tidak pernah mengunduh katalog yang tidak di-render. Markup yang dirender di server menyelesaikan kontennya di server, dan kompilator build time mengganti panggilan `useIntlayer` dengan entri kamus persis yang digunakan komponen, sehingga kunci dan bahasa yang tidak digunakan dibuang. [Kamus dinamis](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dynamic_dictionaries/index.md) membagi sisanya per locale. Dibandingkan dengan alternatif konvensional, Intlayer mengurangi ukuran bundle dan halaman hingga 50%. Lihat [optimasi bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/bundle_optimization.md) dan [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/index.md).
 
+- [Kamus dinamis](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dynamic_dictionaries/index.md)
+- [optimasi bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/bundle_optimization.md)
+- [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/index.md)
+
 </Question>
 <Question title="Bisakah saya bermigrasi dari i18next, next-intl atau react-i18next tanpa menulis ulang komponen saya?">
 
 Ya, dan ada dua jalur. Anda dapat memigrasikan konten secara bertahap dengan [panduan migrasi i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_i18next_to_intlayer.md) atau [panduan migrasi next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_next-intl_to_intlayer.md). Atau Anda dapat mempertahankan API Anda saat ini sepenuhnya: [adapter kompatibilitas](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/index.md) mengekspos API yang sama persis dengan `i18next`, `react-i18next`, `next-intl`, `next-i18next`, `react-intl`, `use-intl`, `vue-i18n` dan `Lingui`, tetapi ditenagai oleh kamus Intlayer, sehingga hanya import yang berubah dan kode komponen tetap sama.
+
+- [panduan migrasi i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_i18next_to_intlayer.md)
+- [panduan migrasi next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_next-intl_to_intlayer.md)
+- [adapter kompatibilitas](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/index.md)
 
 </Question>
 <Question title="Bisakah saya menyimpan file terjemahan JSON yang sudah ada?">
 
 Ya. Plugin [sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/plugins/sync-json.md) menjaga file `/messages/{locale}/{namespace}.json` Anda sebagai sumber kebenaran dan menghasilkan kamus Intlayer darinya, di kedua arah. Plugin [sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/plugins/sync-po.md) melakukan hal yang sama untuk katalog gettext, dan [file per locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/per_locale_file.md) memungkinkan Anda membagi konten berdasarkan bahasa daripada mengelompokkan lokal dalam satu file.
 
+- [sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/plugins/sync-json.md)
+- [sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/plugins/sync-po.md)
+- [file per locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/per_locale_file.md)
+
 </Question>
 <Question title="Apakah saya harus memindahkan konten saya key by key?">
 
 Tidak. Jalankan `npx intlayer extract` dan Intlayer membaca file sumber Anda, mengeluarkan string yang dihadapi pengguna, dan menulis file `.content` di sebelah masing-masing, sehingga Anda meninjau diff alih-alih menyalin string ke dalam katalog satu per satu. Lihat [perintah extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/extract.md).
 
+- [perintah extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/extract.md)
+
 Untuk alur kerja yang sepenuhnya otomatis, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md) melakukan hal yang sama saat build time pada kode JSX, TSX, Vue dan Svelte, menghasilkan kamus pada setiap perubahan sehingga tidak ada kunci yang perlu dikelola secara manual. Karena bekerja melalui analisis statis, string yang hanya ada di runtime berada di luar jangkauannya.
+
+- [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md)
 
 </Question>
 <Question title="Apa tooling editor dan agen AI yang tersedia?">
@@ -337,27 +370,53 @@ Lima bagian, semuanya opsional:
 </Question>
 <Question title="Apa perbedaan Intlayer dengan next-intl?">
 
-`next-intl` adalah lapisan pesan untuk Next.js berbasis file JSON per bahasa. Intlayer mendeklarasikan konten langsung di sebelah komponen, membuang entri yang tidak terpakai saat build time, menghasilkan tipe TypeScript ketat untuk setiap kamus, dan menyediakan terjemahan AI serta visual editor bawaan.
+`next-intl` adalah lapisan pesan untuk Next.js: Anda menyimpan file pesan JSON per locale dan membacanya melalui `useTranslations`. Intlayer adalah lapisan konten: deklarasi berada di samping komponen, diberi tipe dari deklarasi itu sendiri, dan dikompilasi per komponen sehingga sebuah halaman hanya mengirimkan apa yang direndernya. Intlayer juga mencakup hal-hal yang diserahkan `next-intl` kepada Anda, yaitu terjemahan AI, editor visual, CMS, dan pemeriksaan terjemahan yang hilang di CI. Jika Anda ingin mempertahankan API `next-intl`, [compat adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/index.md) menyediakannya dari kamus Intlayer.
+
+- [compat adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/index.md)
 
 </Question>
 <Question title="Apa perbedaan Intlayer dengan i18next dan react-i18next?">
 
-`i18next` menyelesaikan kunci string saat runtime, yang berarti kesalahan ketik pada kunci akan gagal secara diam-diam dan menampilkan teks kosong. Intlayer memeriksa kunci secara statis saat kompilasi, membuang bahasa yang tidak digunakan dari bundle, dan mengotomatiskan penerjemahan.
+`i18next` me-resolve kunci string terhadap namespace saat runtime, yang berarti kunci yang diganti namanya atau salah ketik akan gagal secara diam-diam dan setiap namespace yang digunakan halaman diunduh secara penuh. Intlayer me-resolve konten saat build terhadap tipe yang dihasilkan, sehingga kunci yang salah menjadi error kompilasi, dan hanya entri yang dirender komponen yang masuk ke bundle. `i18next` memiliki ekosistem plugin yang lebih besar dan rekam jejak yang lebih panjang; Intlayer unggul dalam typing, ukuran bundle, serta tooling pengeditan dan otomatisasi. Lihat [panduan migrasi i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_i18next_to_intlayer.md) atau [compat adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/index.md).
+
+- [panduan migrasi i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_i18next_to_intlayer.md)
+- [compat adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/index.md)
 
 </Question>
 <Question title="Apakah Intlayer lebih cepat atau lebih ringan dari alternatifnya?">
 
 Terkait ukuran bundle dan halaman, ya: tidak memuat katalog yang tidak dirender halaman memotong ukuran bundle hingga 50%. Terkait performa runtime, pra-kompilasi menghilangkan biaya parsing di runtime. Lihat [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/index.md).
 
+- [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/index.md)
+- [Solusi i18n terbaik untuk Next.js tahun 2026 - Laporan Benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/nextjs.md)
+- [Solusi i18n terbaik untuk TanStack Start: benchmark 2026](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/tanstack.md)
+- [Solusi i18n Terbaik untuk Vue di Tahun 2026 - Laporan Benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/vue.md)
+- [Solusi i18n Terbaik untuk Svelte di Tahun 2026 - Laporan Benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/svelte.md)
+
 </Question>
 <Question title="Apakah layak memigrasikan aplikasi yang sudah ada?">
 
-Tergantung pada kendala yang Anda hadapi saat ini. Jika masalah Anda adalah ukuran bundle yang besar, terjemahan yang hilang tanpa peringatan, atau kesulitan non-developer dalam mengedit teks, Intlayer menyelesaikannya; adapter kompatibilitas memungkinkan migrasi bertahap tanpa menulis ulang kode.
+Tergantung pada apa yang menjadi masalah saat ini. Jika masalah Anda adalah ukuran bundle, terjemahan yang hilang tanpa peringatan, atau penerjemah yang tidak dapat bekerja tanpa developer, migrasi akan sepadan. Jika katalog Anda kecil dan stabil, manfaatnya lebih kecil. Bagaimanapun juga, migrasi tidak harus berupa penulisan ulang: [compat adapters](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/index.md) mempertahankan API Anda saat ini, dan [plugin sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/plugins/sync-json.md) menjaga file JSON yang ada sebagai sumber kebenaran selama kedua lapisan berjalan berdampingan.
+
+- [compat adapters](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/index.md)
+- [plugin sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/plugins/sync-json.md)
 
 </Question>
 <Question title="Apa yang ditawarkan Intlayer yang tidak dimiliki library i18n lainnya?">
 
 Dukungan [konten Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/markdown.md), pengambilan konten dari CMS, editor visual bawaan, terjemahan otomatis dengan AI menggunakan flag `--git-diff`, dan autocompletion TypeScript berdasarkan analisis komponen.
+
+- [konten Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/markdown.md)
+- [File deklarasi konten (.content.ts)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md)
+- [intlayer live: sinkronkan konten CMS saat runtime](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/live.md)
+- [Editor visual Intlayer: edit konten langsung di tempat](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md)
+- [Intlayer CMS: pindahkan konten multibahasa Anda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)
+- [Intlayer Compiler | Ekstraksi Konten Otomatis untuk i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md)
+- [Varian: uji A/B dan konten alternatif](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dynamic_dictionaries/variants.md)
+- [Intlayer Analytics: paparan konten dan uji A/B](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/analytics.md)
+- [Server MCP Intlayer untuk asisten AI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/mcp_server.md)
+- [Language server Intlayer (LSP) untuk IDE Anda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/lsp.md)
+- [Intlayer Agent Skills untuk agen coding AI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/agent_skills.md)
 
 </Question>
 <Question title="Bisakah saya menggunakan Intlayer hanya sebagai pengelola terjemahan dan mempertahankan library saya saat ini?">
@@ -368,6 +427,8 @@ Ya. Intlayer dapat menghasilkan namespace dalam format dan lokasi yang diharapka
 <Question title="Apakah Intlayer gratis dan open source?">
 
 Ya, di bawah lisensi Apache 2.0, termasuk penggunaan komersial. CMS yang di-host adalah layanan opsional yang juga dapat [di-host sendiri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/self_hosting.md).
+
+- [di-host sendiri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/self_hosting.md)
 
 </Question>
 

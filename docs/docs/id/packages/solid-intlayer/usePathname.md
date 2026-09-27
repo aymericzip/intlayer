@@ -31,7 +31,7 @@ author: aymericzip
 
 # Integrasi Solid: Dokumentasi Hook `usePathname`
 
-Hook `usePathname` mengembalikan pathname browser saat ini dengan segmen locale yang telah dihapus, sebagai Solid `Accessor<string>`. Ini berguna untuk membangun navigasi yang sadar-locale — misalnya, menentukan item navigasi mana yang aktif — tanpa harus menghapus awalan locale secara manual.
+Hook `usePathname` mengembalikan pathname browser saat ini dengan segmen locale yang telah dihapus, sebagai Solid `Accessor<string>`. Ini berguna untuk membangun navigasi yang sadar-locale (misalnya, menentukan item navigasi mana yang aktif) tanpa harus menghapus awalan locale secara manual.
 
 ## Mengimpor `usePathname` di Solid
 

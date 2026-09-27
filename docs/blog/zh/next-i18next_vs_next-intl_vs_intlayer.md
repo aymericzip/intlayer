@@ -100,6 +100,8 @@ Next.js 为你内置了国际化路由支持（例如区域段）。但该功能
 
 <I18nBenchmark framework="nextjs" packages="next-i18next,next-intl,next-intlayer" vertical/>
 
+- [i18n 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md)
+
 <ClickToOpenIframe
   src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
   width="100%"
@@ -121,6 +123,9 @@ Next.js 为你内置了国际化路由支持（例如区域段）。但该功能
 | `next-intlayer` (native Intlayer) | **5.5 KB** |   **141.3 KB** |     **0.0%** |     **0.0%** | **6.9 KB** |
 
 > 完整分析请参阅 [Next.js 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md) 以及全面的 [i18n 基准测试概览](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/index.md)。
+
+- [Next.js 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md)
+- [i18n 基准测试概览](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/index.md)
 
 在多语言应用的 bundle 环境中，有两个重要组成部分：
 
@@ -1455,3 +1460,5 @@ GitHub 星标是衡量项目受欢迎程度、社区信任度和长期相关性�
 - [@intlayer/next-i18next 兼容适配器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/next-i18next.md)
 
 更多详情请参阅[《为什么选择 Intlayer？》文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/interest_of_intlayer.md)。
+
+- [为什么选择 Intlayer？相比其他 i18n 库的优势](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/interest_of_intlayer.md)

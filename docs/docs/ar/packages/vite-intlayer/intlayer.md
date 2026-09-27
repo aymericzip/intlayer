@@ -143,9 +143,13 @@ intlayer({ proxy: { ignore: (req) => req.url?.startsWith("/api") } });
 
 راجع [وثائق intlayerProxy](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/vite-intlayer/intlayerProxy.md) للحصول على مرجع سلوك التوجيه الكامل.
 
+- [وثائق intlayerProxy](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/vite-intlayer/intlayerProxy.md)
+
 ### 5. مجمِّع مرفق (v9+)
 
 عندما يكون `compiler.enabled` هو `true` **و** يتم تعيين `compiler.output` في إعدادات Intlayer الخاصة بك، يسجل `intlayer()` `intlayerCompiler` تلقائياً. يستخرج المجمِّع إعلانات المحتوى المضمنة المكتوبة مباشرة داخل ملفات المكونات ويكتبها إلى القواميس في وقت التحويل. انظر [وثائق intlayerCompiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/vite-intlayer/intlayerCompiler.md).
+
+- [وثائق intlayerCompiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/vite-intlayer/intlayerCompiler.md)
 
 ### 6. تحسينات البناء
 

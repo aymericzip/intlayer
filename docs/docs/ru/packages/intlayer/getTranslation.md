@@ -34,6 +34,8 @@ author: aymericzip
 
 Для получения дополнительной информации о том, как объявлять переводы, см. [документацию по переводам](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/translation.md).
 
+- [документацию по переводам](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/translation.md)
+
 ## Параметры
 
 - `languageContent: CustomizableLanguageContent<Content>`

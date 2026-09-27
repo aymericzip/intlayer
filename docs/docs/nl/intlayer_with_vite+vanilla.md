@@ -152,6 +152,8 @@ export default config;
 
 > Via dit configuratiebestand kunt u gelokaliseerde URL's, middleware-omleidingen, cookienamen, de locatie en extensie van uw inhoudsverklaringen instellen, Intlayer-logboeken in de console uitschakelen en meer. Raadpleeg de [configuratiedocumentatie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/configuration.md) voor een volledige lijst met beschikbare parameters.
 
+- [configuratiedocumentatie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/configuration.md)
+
 </Step>
 <Step number={3} title="Integreer Intlayer in uw Vite-configuratie">
 
@@ -279,6 +281,8 @@ export default appContent;
 > Uw inhoudsverklaringen kunnen overal in uw applicatie worden gedefinieerd zolang ze zijn opgenomen in de `contentDir`-map (standaard `./src`). En overeenkomen met de bestandsextensie voor inhoudsverklaringen (standaard `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
 >
 > Raadpleeg de [inhoudsverklaringsdocumentatie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/dictionary/content_file.md) voor meer informatie.
+
+- [inhoudsverklaringsdocumentatie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/dictionary/content_file.md)
 
 </Step>
 <Step number={6} title="Gebruik Intlayer in uw JavaScript">
@@ -502,6 +506,9 @@ Als u een bestaande codebase heeft, kan het transformeren van duizenden bestande
 
 Om dit proces te vergemakkelijken, stelt Intlayer een [compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/compiler.md) / [extractor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/cli/extract.md) voor om uw componenten te transformeren en de inhoud te extraheren.
 
+- [compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/compiler.md)
+- [extractor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/cli/extract.md)
+
 Om dit in te stellen, kunt u een `compiler`-sectie toevoegen in uw `intlayer.config.ts`-bestand:
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
@@ -713,7 +720,7 @@ Om dit te doen, kunt u de volgende instructies toevoegen aan uw `.gitignore`-bes
 
 Om uw ontwikkelingservaring met Intlayer te verbeteren, kunt u de officiële **Intlayer VS Code-extensie** installeren.
 
-[Installeren vanuit de VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [Installeren vanuit de VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 Deze extensie biedt:
 
@@ -724,6 +731,11 @@ Deze extensie biedt:
 
 Raadpleeg de [documentatie van de Intlayer VS Code-extensie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md) voor meer informatie over het gebruik van de extensie.
 
+- [documentatie van de Intlayer VS Code-extensie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md)
+
 ### Ga verder
 
 Om verder te gaan, kunt u de [visuele editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_visual_editor.md) implementeren of uw inhoud externaliseren met behulp van het [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_CMS.md).
+
+- [visuele editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_CMS.md)

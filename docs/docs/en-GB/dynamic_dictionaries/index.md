@@ -3,7 +3,7 @@ createdAt: 2026-06-12
 updatedAt: 2026-09-27
 priority: 8
 title: "Dynamic Dictionaries: Collections and Variants"
-description: Overview of Intlayer's dynamic dictionary features — collections and variants — for building flexible, runtime-driven i18n content.
+description: Overview of Intlayer's dynamic dictionary features, collections and variants, for building flexible, runtime-driven i18n content.
 keywords:
   - Dynamic Dictionaries
   - Collections
@@ -20,7 +20,7 @@ history:
     changes: "Release of the dynamic dictionaries feature"
   - version: 9.1.0
     date: 2026-06-26
-    changes: "Merged dynamic records into variants — `variant` now accepts a string or an object"
+    changes: "Merged dynamic records into variants, `variant` now accepts a string or an object"
 author: aymericzip
 ---
 
@@ -37,8 +37,8 @@ Both compose with the locale argument and support selective / lazy loading via `
 
 ## When to use which
 
-- **Collections** — ordered list of items managed in separate files (FAQ entries, blog posts, products).
-- **Variants** — named or structured content alternatives:
+- **Collections**: ordered list of items managed in separate files (FAQ entries, blog posts, products).
+- **Variants**: named or structured content alternatives:
   - a **string** variant for A/B tests, seasonal banners, or feature flags;
   - an **object** variant for CMS records, user-specific copy, or any content addressed by a set of fields (the former "dynamic records").
 

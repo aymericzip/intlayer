@@ -31,7 +31,7 @@ author: aymericzip
 
 # Integracja Angular: Dokumentacja hooka `usePathname`
 
-Hook `usePathname` zwraca bieżącą ścieżkę przeglądarki po usunięciu segmentu ustawień regionalnych jako `Signal<string>` Angulara. Jest przydatny do budowania nawigacji opartej na języku — na przykład do określania, który element nawigacji jest aktywny — bez konieczności ręcznego usuwania prefiksu ustawień regionalnych.
+Hook `usePathname` zwraca bieżącą ścieżkę przeglądarki po usunięciu segmentu ustawień regionalnych jako `Signal<string>` Angulara. Jest przydatny do budowania nawigacji opartej na języku (na przykład do określania, który element nawigacji jest aktywny) bez konieczności ręcznego usuwania prefiksu ustawień regionalnych.
 
 ## Importowanie `usePathname` w Angular
 

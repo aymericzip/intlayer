@@ -25,6 +25,8 @@ Ja.
 
 `Paraglide` genießt den Ruf, die leichteste i18n-Lösung auf dem Markt zu sein, und auf den ersten Blick bestätigt der [Benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/tanstack.md) diesen Eindruck: Die Bibliotheksgröße liegt nahe bei null. Doch eine Bibliotheksgröße von null bedeutet keineswegs null ausgelieferte Bytes. Es bedeutet lediglich, dass die Bytes an einer Stelle liegen, die diese Metrik nicht erfasst.
 
+- [Benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/tanstack.md)
+
 <TOC/>
 
 ## Wichtigste Erkenntnisse
@@ -95,6 +97,9 @@ Next.js 16 App Router, dieselbe Anwendung:
 <I18nBenchmark framework="tanstack" packages="paraglide,intlayer" vertical/>
 
 > Vollständige Daten im [TanStack Start Benchmark-Bericht](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/tanstack.md) und im [Next.js Benchmark-Bericht](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/nextjs.md). Jedes Bundle kann im [Benchmark-Repository](https://github.com/intlayer-org/benchmark-i18n) eingesehen werden.
+
+- [TanStack Start Benchmark-Bericht](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/tanstack.md)
+- [Next.js Benchmark-Bericht](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/nextjs.md)
 
 Zwei Aspekte stechen hervor:
 
@@ -201,6 +206,8 @@ Paraglides zentrales Versprechen lautet, dass ungenutzte Nachrichten per Tree Sh
 
 In anderen Konfigurationen funktionierte es nicht. In unserem [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/nextjs.md)-Lauf wiegen Paraglides Seiten 14 KB mehr als die Basisanwendung, während `next-intlayer` lediglich 0.3 KB hinzufügt. Frühere Durchläufe auf TanStack Start zeigten zudem, dass Nachrichten anderer Seiten im Bundle der Route landeten.
 
+- [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/nextjs.md)
+
 Tree Shaking hängt von Ihrem Bundler (Turbopack, Rolldown, Rollup), der Import-Syntax (`import { m }` vs. `import * as m`) und der Side-Effect-Analyse ab. Wenn Sie Paraglide wegen seiner Größe wählen, öffnen Sie Ihren Bundle-Visualizer und überprüfen Sie, ob das Versprechen in Ihrer Anwendung greift.
 
 ## Kein dynamisches Laden
@@ -240,6 +247,8 @@ export default config;
 | `fetch`      | Nur die aktuelle Locale, bezogen über die Live Sync API | **N-mal kleiner** bei N Locales |
 
 Mit der [Build-Transformation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/bundle_optimization.md) und `importMode: 'static'` lädt Intlayer in der Theorie exakt denselben Inhalt wie Paraglide. Mit `'dynamic'` oder `'fetch'` lädt es nur das, was die aktuelle Locale benötigt: Bei einer App in N Sprachen ist die Übersetzungs-Nutzlast um den Faktor N kleiner als bei Paraglide.
+
+- [Build-Transformation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/bundle_optimization.md)
 
 ## Wann Paraglide weiterhin passt
 

@@ -67,6 +67,8 @@ Paraglide compiles each message to an exported function so the bundler tree-shak
 
 The [history of JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/history_of_i18n.md) covers each wave in detail.
 
+- [history of JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/history_of_i18n.md)
+
 ## The decision that matters most: where content lives and when it loads
 
 Two structural choices explain most of the bundle difference between setups:
@@ -80,11 +82,17 @@ The graph estimates the payload for a theoretical app of 1 to 10 pages, translat
 
 `svelte-i18n` sits in the top-left by default: `register("fr", () => import("./fr.json"))` gives you dynamic loading per locale, but a locale catalogue is one object and loading it loads every page's copy. Paraglide is the interesting case: because every message is its own export, tree-shaking gives you the page axis for free, and the [Svelte benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/benchmark/svelte.md) confirms it works as advertised on Vite + Svelte (it did not in the React and Next.js benchmarks). Intlayer gets to the same corner through per-component declarations.
 
+- [Svelte benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/benchmark/svelte.md)
+
 If your answer to question 3 was "many pages", weigh this section more than any API preference. The [per-component vs centralised i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/per-component_vs_centralized_i18n.md) post covers the maintenance side of the same trade-off.
+
+- [per-component vs centralised i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/per-component_vs_centralized_i18n.md)
 
 ## The candidates
 
 Library sizes are from the [Svelte benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/benchmark/svelte.md): store plus accessor in an empty component, after bundling, tree-shaking and minification, on a 10-page, 10-locale app. Content is measured separately.
+
+- [Svelte benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/benchmark/svelte.md)
 
 ![Svelte i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
@@ -113,6 +121,8 @@ Paraglide's near-zero library size is by construction: the runtime is generated 
 
 The sharing problem decides this one. `svelte-i18n` works on SvelteKit but the per-request wiring (`hooks.server.ts`, `locals`, `load`, then `setContext`) is yours to write and easy to get subtly wrong. Paraglide ships a SvelteKit integration that handles routing and reads the locale per call, which sidesteps the singleton. Intlayer sets the locale from `load` data into context. The [SvelteKit i18n post](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_svelte_kit.md) explains the `[[lang]]` versus `reroute` choice, which you should make before picking the library.
 
+- [SvelteKit i18n post](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_svelte_kit.md)
+
 </Accordion>
 <Accordion header="Translations come from a TMS or an agency delivering ICU">
 
@@ -127,6 +137,8 @@ Compile-time. Paraglide's tree-shaking works on Vite + Svelte and the library co
 <Accordion header="Type safety is non-negotiable">
 
 Anything but a bare `svelte-i18n` setup, where the only typing is a hand-written union that drifts from the JSON immediately. `typesafe-i18n`, Paraglide and Intlayer all generate types from the content. Check `typesafe-i18n`'s repository activity before committing a codebase to it. The [detecting missing translations](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/detecting_missing_translations.md) post compares what each catches at build time.
+
+- [detecting missing translations](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/detecting_missing_translations.md)
 
 </Accordion>
 <Accordion header="You do not want generated files in the repo">
@@ -372,6 +384,8 @@ All locales in one file beside the component. `useIntlayer` returns a readable s
 
 Already on `svelte-i18n`? The [`@intlayer/svelte-i18n` compat adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compat/svelte-i18n.md) aliases the package at the bundler level so `$_`, `$date`, `$number` and your flat keys keep working while Intlayer serves the content.
 
+- [`@intlayer/svelte-i18n` compat adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compat/svelte-i18n.md)
+
 ## Before you commit
 
 A feature table tells you what a library does today. These points tell you what living with it will be like.
@@ -394,6 +408,9 @@ The most installed library is the one that shipped first, not the one that fits 
 
 Agents still struggle with i18n: they forget locales, invent keys, and mix message syntaxes. Does the library ship [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/agent_skills.md) or an [MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/mcp_server.md) so the agent can list, fill and test content? And is content loading optimised by default, or does someone have to review namespaces and lazy imports every quarter?
 
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/agent_skills.md)
+- [MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/mcp_server.md)
+
 **Type safety out of the box.**
 
 Not "can be typed with extra wiring" but "a wrong key fails `tsc` on a fresh install". Check what happens with a key that does not exist, and with a locale that is missing one translation.
@@ -405,6 +422,13 @@ Catalogues only grow. Intlayer's build purges unused fields and logs them (`buil
 **Developer experience.**
 
 Setup time to first translated string, an [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/lsp.md) or [VS Code extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/vs_code_extension.md) that shows the translation on hover and jumps to the declaration, a [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/index.md) for fill, test and push, a [compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compiler.md) or extractor that pulls hard-coded strings out of your components so you do not manage every string key by key, and a way for non-developers to edit content ([visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_visual_editor.md) or [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_CMS.md)) without a pull request.
+
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/lsp.md)
+- [VS Code extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/vs_code_extension.md)
+- [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/index.md)
+- [compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compiler.md)
+- [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_CMS.md)
 
 ## Frequently Asked Questions
 
@@ -431,6 +455,8 @@ They change the syntax of your own locale state, not the sharing problem. What m
 <Question title="Does the library choice affect SEO?">
 
 Indirectly. Crawlers care about routing, `hreflang`, `<html lang>` and whether text is in the server-rendered HTML. See the [hreflang guide](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/hreflang_guide_multilingual_seo.md).
+
+- [hreflang guide](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/hreflang_guide_multilingual_seo.md)
 
 </Question>
 

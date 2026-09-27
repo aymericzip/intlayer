@@ -85,10 +85,16 @@ Intlayer को **बहुभाषी रूटिंग**, **SSR समर्
 
 सामग्री का सह-स्थानीकरण **बड़े भाषा मॉडल (एलएलएम) द्वारा आवश्यक संदर्भ को कम करता है**। इंटलेयर टूल के एक सूट के साथ भी आता है, जैसे **CLI** ताकि लापता अनुवादों का परीक्षण किया जा सके,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, और **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/agent_skills.md)**, AI एजेंटों के लिए डेवलपर अनुभव (DX) को और भी आसान बनाने के लिए।
 
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)
+- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/agent_skills.md)
+
 </Accordion>
 <Accordion header="Automation">
 
 अपने एआई प्रदाता की कीमत पर अपनी पसंद के एलएलएम का उपयोग करके अपने सीआई/सीडी पाइपलाइन में अनुवाद करने के लिए स्वचालन का उपयोग करें। इंटलेयर सामग्री निष्कर्षण को स्वचालित करने के लिए एक **कंपाइलर** के साथ-साथ **पृष्ठभूमि में अनुवाद** में मदद करने के लिए एक [वेब प्लेटफ़ॉर्म](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) भी प्रदान करता है।
+
+- [वेब प्लेटफ़ॉर्म](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="प्रदर्शन">
@@ -99,6 +105,9 @@ Intlayer को **बहुभाषी रूटिंग**, **SSR समर्
 <Accordion header="किसी भी देव के साथ स्केलिंग">
 
 सिर्फ एक i18n समाधान से अधिक, Intlayer एक **स्व-होस्टेड [विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** और एक **[पूर्ण] प्रदान करता है सीएमएस](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** आपकी बहुभाषी सामग्री को **वास्तविक समय** में प्रबंधित करने में मदद करता है, जिससे अनुवादकों, कॉपीराइटरों और टीम के अन्य सदस्यों के साथ सहयोग सहज हो जाता है। सामग्री को स्थानीय और/या दूरस्थ रूप से संग्रहीत किया जा सकता है।
+
+- [विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)
+- [Intlayer CMS: अपना बहुभाषी कंटेंट बाहर रखें](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
@@ -395,6 +404,8 @@ export const getLocale = (event: RequestEvent): Locale => {
 
 > `getLocaleFromStorage` आपके कॉन्फ़िगरेशन के अनुसार हेडर या कुकी से locale की जांच करेगा। अधिक जानकारी के लिए देखें [Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md)।
 
+- [Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md)
+
 > `localeDetector` फ़ंक्शन `Accept-Language` हेडर को प्रोसेस करेगा और सबसे उपयुक्त मैच लौटाएगा।
 
 यदि locale कॉन्फ़िगर नहीं किया गया है, तो हम 404 त्रुटि लौटाना चाहते हैं। इसे आसान बनाने के लिए, हम एक `match` फ़ंक्शन बना सकते हैं जो जांचे कि locale मान्य है या नहीं:
@@ -598,7 +609,9 @@ goto(localizedPath); // स्थानीय भाषा के अनुस�
 
 अपने SvelteKit एप्लिकेशन में बैकएंड प्रॉक्सी जोड़ने के लिए, आप `vite-intlayer` प्लगइन द्वारा प्रदान किया गया `intlayerProxy` फ़ंक्शन उपयोग कर सकते हैं। यह प्लगइन URL, कुकीज़, और ब्राउज़र भाषा प्राथमिकताओं के आधार पर उपयोगकर्ता के लिए सबसे अच्छा locale स्वचालित रूप से पहचान लेगा।
 
-> Intlayer v9 के बाद से, `intlayerProxy()` को सीधे `intlayer()` प्लगइन में बंडल किया गया है और `routing.enableProxy` विकल्प (`true` डिफ़ॉल्ट रूप से) के माध्यम से डिफ़ॉल्ट रूप से सक्षम किया गया है। इसे नीचे दिखाए गए अनुसार अलग से रजिस्टर करना अब वैकल्पिक है — यह पिछड़ी संगतता के लिए और उन सेटअप के लिए रखा गया है जिन्हें प्लगइन क्रम को नियंत्रित करने की आवश्यकता है। ऑप्ट आउट करने के लिए `routing.enableProxy: false` सेट करें। [v9 रिलीज़ नोट्स](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/releases/v9.md) देखें।
+> Intlayer v9 के बाद से, `intlayerProxy()` को सीधे `intlayer()` प्लगइन में बंडल किया गया है और `routing.enableProxy` विकल्प (`true` डिफ़ॉल्ट रूप से) के माध्यम से डिफ़ॉल्ट रूप से सक्षम किया गया है। इसे नीचे दिखाए गए अनुसार अलग से रजिस्टर करना अब वैकल्पिक है, यह पिछड़ी संगतता के लिए और उन सेटअप के लिए रखा गया है जिन्हें प्लगइन क्रम को नियंत्रित करने की आवश्यकता है। ऑप्ट आउट करने के लिए `routing.enableProxy: false` सेट करें। [v9 रिलीज़ नोट्स](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/releases/v9.md) देखें।
+
+- [v9 रिलीज़ नोट्स](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/releases/v9.md)
 
 ```ts fileName="vite.config.ts"
 import { defineConfig } from "vite";
@@ -623,7 +636,11 @@ export default defineConfig({
 
 intlayer संपादक सेट करने के लिए, आपको [intlayer संपादक दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) का पालन करना होगा।
 
+- [intlayer संपादक दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md)
+
 intlayer CMS सेट करने के लिए, आपको [intlayer CMS दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md) का पालन करना होगा।
+
+- [intlayer CMS दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md)
 
 intlayer संपादक चयनकर्ता को विज़ुअलाइज़ करने में सक्षम होने के लिए, आपको अपने intlayer कंटेंट में component सिंटैक्स का उपयोग करना होगा।
 
@@ -650,6 +667,9 @@ intlayer संपादक चयनकर्ता को विज़ुअ�
 यदि आपके पास मौजूदा कोडबेस है, तो हजारों फ़ाइलों को बदलना समय लेने वाला हो सकता है।
 
 इस प्रक्रिया को आसान बनाने के लिए, Intlayer आपके घटकों को बदलने और सामग्री निकालने के लिए एक [कंपाइलर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md) / [एक्सट्रैक्टर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/extract.md) का प्रस्ताव करता है।
+
+- [कंपाइलर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md)
+- [एक्सट्रैक्टर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/extract.md)
 
 इसे सेट करने के लिए, आप अपनी `intlayer.config.ts` फ़ाइल में एक `compiler` अनुभाग जोड़ सकते हैं:
 
@@ -783,20 +803,34 @@ bun run build # या bun run dev
 
 [Intlayer क्यों चुनें](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/interest_of_intlayer.md) देखें।
 
+- [Intlayer क्यों चुनें](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/interest_of_intlayer.md)
+- [2026 में Svelte के लिए सर्वश्रेष्ठ i18n समाधान - बेंचमार्क रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/svelte.md)
+
 </Question>
 <Question title="i18n मेरे SvelteKit बंडल आकार को कितना बढ़ाता है?">
 
 नेमस्पेस-आधारित समाधानों की तुलना में बहुत कम, क्योंकि एक पृष्ठ कभी भी उस कैटलॉग को डाउनलोड नहीं करता है जिसे वह रेंडर नहीं करता है। बिल्ड-टाइम कंपाइलर `useIntlayer` कॉल को घटक द्वारा उपयोग की जाने वाली सटीक प्रविष्टियों से बदल देता है, और [गतिशील शब्दकोश](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dynamic_dictionaries/index.md) शेष को प्रति लोकेल विभाजित करते हैं, जिससे बंडल 50% तक कम हो जाता है। [बंडल अनुकूलन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/bundle_optimization.md) और [बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/index.md) देखें।
+
+- [गतिशील शब्दकोश](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dynamic_dictionaries/index.md)
+- [बंडल अनुकूलन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/bundle_optimization.md)
+- [2026 में Svelte के लिए सर्वश्रेष्ठ i18n समाधान - बेंचमार्क रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/svelte.md)
 
 </Question>
 <Question title="क्या मैं अपने घटकों को फिर से लिखे बिना svelte-i18n या typesafe-i18n से माइग्रेट कर सकता हूँ?">
 
 काफी हद तक हाँ। [Svelte I18n माइग्रेशन गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/svelte-i18n.md) का पालन करें।
 
+- [Svelte I18n माइग्रेशन गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/svelte-i18n.md)
+- [Sync JSON प्लगइन: अपनी i18n JSON फ़ाइलें रखें](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-json.md)
+
 </Question>
 <Question title="क्या मैं अपनी मौजूदा JSON translation files को रख सकता हूं?">
 
 हाँ। [sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-json.md) आपकी `/messages/{locale}/{namespace}.json` फ़ाइलों को सत्य का स्रोत बनाए रखता है और दोनों दिशाओं में उनसे Intlayer dictionaries बनाता है। [sync PO plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-po.md) gettext catalogs के लिए भी ऐसा ही करता है, और [per locale files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/per_locale_file.md) आपको locales को एक फ़ाइल में समूहीकृत करने के बजाय भाषा के अनुसार content को विभाजित करने देते हैं।
+
+- [sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-json.md)
+- [sync PO plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-po.md)
+- [per locale files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/per_locale_file.md)
 
 </Question>
 <Question title="क्या मुझे अपनी content को key by key move करना होगा?">
@@ -805,7 +839,11 @@ bun run build # या bun run dev
 
 पूर्ण स्वचालन के लिए, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md) बिल्ड समय पर यही काम करता है: प्रत्येक परिवर्तन पर कोड स्कैन करता है, शब्दकोश उत्पन्न करता है और HMR के साथ सिंक करता है।
 
+- [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md)
+
 कंपाइलर को चालू करने से पहले दो सीमाएं जानने योग्य हैं। यह स्थिर विश्लेषण द्वारा काम करता है, इसलिए जो स्ट्रिंग्स केवल रनटाइम पर मौजूद होती हैं, जैसे कि API त्रुटि कोड या CMS फ़ील्ड, वे पहुंच से बाहर रहती हैं। और इसे `className="active"` या स्थिति कोड जैसे एप्लिकेशन लॉजिक से उपयोगकर्ता के सामने आने वाले टेक्स्ट को अलग करना होगा, जिसके लिए एक बड़े कोडबेस में कुछ एनोटेशन की आवश्यकता होती है। [extract command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/extract.md) आपको लूप में रखकर दोनों से बचाता है।
+
+- [extract command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/extract.md)
 
 </Question>
 <Question title="कौन से editor और AI agent tooling उपलब्ध हैं?">
@@ -838,20 +876,34 @@ bun run build # या bun run dev
 
 `npx intlayer fill` चलाएं। टूल छूटी हुई स्ट्रिंग्स का पता लगाता है और आपके चुने हुए LLM का उपयोग करके उन्हें भरता है। [fill command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/fill.md) देखें।
 
+- [fill command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/fill.md)
+- [अनुवाद के लिए Intlayer CI/CD इंटीग्रेशन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/CI_CD.md)
+
 </Question>
 <Question title="क्या Intlayer बहुवचन, लिंग और समृद्ध पाठ (rich text) का समर्थन करता है?">
 
 हाँ: [बहुवचन (plurals)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/plurial.md), [लिंग-आधारित सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/gender.md), शर्तें, [सम्मिलन (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/insertion.md), [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/markdown.md), और संख्याओं, तिथियों और मुद्राओं के लिए [प्रारूपक (formatters)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/formatters.md)।
+
+- [बहुवचन (plurals)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/plurial.md)
+- [लिंग-आधारित सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/gender.md)
+- [सम्मिलन (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/insertion.md)
+- [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/markdown.md)
+- [प्रारूपक (formatters)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/formatters.md)
 
 </Question>
 <Question title="अनुवादक कोड को छुए बिना सामग्री को कैसे संपादित कर सकते हैं?">
 
 [विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) के माध्यम से, जो किसी को भी सीधे चलते हुए ऐप में टेक्स्ट संपादित करने देता है, या [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md) के माध्यम से, जो सामग्री को अलग करता है ताकि कोड को फिर से तैनात किए बिना उसे अपडेट किया जा सके।
 
+- [विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md)
+
 </Question>
 <Question title="क्या Intlayer मुफ्त और ओपन सोर्स है?">
 
 हाँ, Apache 2.0 लाइसेंस के तहत, व्यावसायिक उपयोग सहित। होस्टेड CMS एक वैकल्पिक सशुल्क सेवा है जिसे [स्वयं होस्ट (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/self_hosting.md) भी किया जा सकता है।
+
+- [स्वयं होस्ट (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/self_hosting.md)
 
 </Question>
 

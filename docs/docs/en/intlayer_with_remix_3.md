@@ -78,6 +78,9 @@ Intlayer co-locates content declarations (`.content.ts`) with your route logic, 
 
 Beyond code-first workflows, Intlayer provides a self-hosted [Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) and a [Remote CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) allowing non-technical editors, translators, and copywriters to update content without redeploying code.
 
+- [Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)
+- [Remote CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
+
 </Accordion>
 </AccordionGroup>
 
@@ -204,6 +207,8 @@ module.exports = config;
 
 > For additional configuration settings (such as strict mode or routing storage preferences), refer to the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md).
 
+- [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)
+
 </Step>
 <Step number={3} title="Declare Your Multilingual Content">
 
@@ -237,6 +242,8 @@ export default homeContent;
 ```
 
 > Intlayer also supports JSON, YAML, and CommonJS declaration formats. See the [Content Declaration Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md).
+
+- [Content Declaration Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md)
 
 </Step>
 <Step number={4} title="Build Intlayer Dictionaries">

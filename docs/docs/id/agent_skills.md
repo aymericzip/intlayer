@@ -100,7 +100,7 @@ npx skills add aymericzip/intlayer-skills
 
 - Mengajarkan agen untuk menggunakan store Svelte dan sintaksis idiomatik untuk konten lokal yang reaktif dan aman secara tipe di seluruh aplikasi Svelte dan SvelteKit.
 
-**intlayer-cms**
+**intlayer-remote-content**
 
 - Memungkinkan agen untuk mengintegrasikan dan mengelola konten jarak jauh, memungkinkannya menangani penyelarasan langsung dan alur kerja terjemahan jarak jauh melalui CMS Intlayer.
 
@@ -115,3 +115,31 @@ npx skills add aymericzip/intlayer-skills
 **intlayer-compiler**
 
 - Menyederhanakan alur kerja agen dengan mengaktifkan ekstraksi konten otomatis, memungkinkannya menulis string yang dapat diterjemahkan langsung dalam kode Anda tanpa file kamus manual.
+
+**intlayer-lit**
+
+- Mengajarkan agen untuk menerjemahkan web component Lit dengan ReactiveController `useIntlayer` dan `useLocale`.
+
+**intlayer-vanilla**
+
+- Memungkinkan agen untuk melokalkan halaman JavaScript / TypeScript biasa dengan `vanilla-intlayer`, dengan atau tanpa bundler.
+
+**intlayer-remix**
+
+- Memberikan agen middleware router Remix 3 serta hook `useIntlayer` / `useLocale` yang terikat pada request.
+
+**intlayer-backend**
+
+- Membekali agen untuk menerjemahkan respons server di Express, Fastify, Hono, NestJS, AdonisJS, dan Elysia melalui satu pola bersama middleware + `t` / `getIntlayer`.
+
+**intlayer-dev-tools**
+
+- Memungkinkan agen menyiapkan tooling Intlayer di sekitar kode Anda: aturan ESLint untuk string hardcoded, Language Server, ekstensi VS Code dan Chrome, server MCP, serta pemeriksaan terjemahan CI/CD.
+
+**intlayer-markdown**
+
+- Mengajarkan agen untuk mendeklarasikan konten Markdown (`md()`, file `.content.md`, file eksternal) dan merendernya dengan komponen MDX, `MarkdownProvider` global, Suspense, dan parsing di sisi server.
+
+**intlayer-compat**
+
+- Memandu agen dalam migrasi dari i18next, react-i18next, next-intl, next-i18next, react-intl, vue-i18n, atau Lingui dengan adapter kompatibilitas yang mempertahankan API asli, sehingga panggilan terjemahan tidak perlu ditulis ulang.

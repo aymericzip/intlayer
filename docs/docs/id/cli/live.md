@@ -22,6 +22,8 @@ author: aymericzip
 
 Live Sync memungkinkan aplikasi Anda mencerminkan perubahan konten CMS saat runtime. Tidak perlu membangun ulang atau menerapkan ulang. Saat diaktifkan, pembaruan dikirimkan ke server Live Sync yang menyegarkan kamus yang dibaca aplikasi Anda. Lihat [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md) untuk detail lebih lanjut.
 
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)
+
 ```json fileName="package.json"
 "scripts": {
   "intlayer:live:start": "npx intlayer live start --with 'next dev --turbopack'"

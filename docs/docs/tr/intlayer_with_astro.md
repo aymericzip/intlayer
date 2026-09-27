@@ -89,10 +89,16 @@ Uygulamanızın içeriğinin kapsamını belirlemek, büyük ölçekli uygulamal
 
 İçeriğin bir arada konumlandırılması **Büyük Dil Modellerinin (LLM'ler) ihtiyaç duyduğu bağlamı azaltır**. Intlayer ayrıca eksik çevirileri test etmek için **CLI** gibi bir araç paketiyle birlikte gelir**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** ve **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/agent_skills.md)**, geliştirici deneyimini (DX) yapay zeka için daha da sorunsuz hale getirmek için ajanlar.
 
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)
+- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/agent_skills.md)
+
 </Accordion>
 <Accordion header="Otomasyon">
 
 Maliyeti AI sağlayıcınıza ait olmak üzere seçtiğiniz LLM'yi kullanarak CI/CD işlem hattınızda çeviri yapmak için otomasyonu kullanın. Intlayer ayrıca içerik çıkarmayı otomatikleştirmek için bir **derleyici** ve **arka planda çeviri yapmaya** yardımcı olacak bir [web platformu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) sunar.
+
+- [web platformu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="Performans">
@@ -103,6 +109,9 @@ Büyük JSON dosyalarını bileşenlere bağlamak performans ve tepkime sorunlar
 <Accordion header="Non-dev ile ölçeklendirme">
 
 Bir i18n çözümünden çok daha fazlası olan Intlayer, **kendi kendine barındırılan bir [görsel düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** ve **[tam CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** çok dilli içeriğinizi **gerçek zamanlı** olarak yönetmenize yardımcı olarak çevirmenler, metin yazarları ve diğer ekip üyeleriyle işbirliğini kusursuz hale getirir. İçerik yerel olarak ve/veya uzaktan depolanabilir.
+
+- [görsel düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)
+- [tam CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
@@ -207,6 +216,8 @@ export default config;
 
 > Bu konfigürasyon dosyası aracılığıyla yerelleştirilmiş URL'leri, ara yazılım yönlendirmelerini, çerez adlarını, içerik deklarasyonlarının konumunu ve uzantılarını yapılandırabilir, konsoldaki Intlayer günlüklerini devre dışı bırakabilir ve daha fazlasını yapabilirsiniz. Kullanılabilir parametrelerin tam listesi için [konfigürasyon dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) bakın.
 
+- [konfigürasyon dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md)
+
 </Step>
 <Step number={3} title="Intlayer'ı Astro konfigürasyonunuza entegre edin">
 
@@ -253,6 +264,8 @@ export default appContent;
 > İçerik deklarasyonları, `contentDir` (varsayılan olarak `./src`) içinde yer aldıkları ve içerik deklarasyon dosyası uzantısıyla (varsayılan olarak `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`) eşleştikleri sürece uygulamanızın herhangi bir yerinde tanımlanabilir.
 
 > Daha fazla bilgi için [içerik deklarasyon dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md) bakın.
+
+- [içerik deklarasyon dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md)
 
 </Step>
 <Step number={5} title="Astro'da İçeriği Kullanma">
@@ -510,6 +523,9 @@ Mevcut bir codebase'iniz varsa, binlerce dosyayı dönüştürmek zaman alıcı 
 
 Bu süreci kolaylaştırmak için Intlayer, bileşenlerinizi dönüştürmek ve içeriği çıkarmak için bir [compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md) / [extractor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract.md) sunmaktadır.
 
+- [compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md)
+- [extractor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract.md)
+
 Bunu ayarlamak için `intlayer.config.ts` dosyanıza bir `compiler` bölümü ekleyebilirsiniz:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
@@ -631,7 +647,7 @@ Bunu yapmak için `.gitignore` dosyanıza aşağıdaki talimatları ekleyin:
 
 Intlayer ile geliştirme deneyiminizi iyileştirmek için **resmi Intlayer VS Code uzantısını** yükleyebilirsiniz.
 
-[VS Code Marketplace'ten Kurulum](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [VS Code Marketplace'ten Kurulum](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 Bu uzantı şunları sağlar:
 
@@ -642,9 +658,14 @@ Bu uzantı şunları sağlar:
 
 Uzantı kullanımı hakkında daha fazla bilgi için [VS Code Uzantısı dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/vs_code_extension.md) bakın.
 
+- [VS Code Uzantısı dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/vs_code_extension.md)
+
 ### Bilginizi Derinleştirin
 
 Daha fazlasını öğrenmek isterseniz, içeriğinizi dış kaynaklara aktarmak için [Görsel Editör](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md)'ü uygulayabilir veya [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) kullanabilirsiniz.
+
+- [Görsel Editör](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)
 
 ## Sıkça Sorulan Sorular
 
@@ -660,20 +681,33 @@ Astro, yerel ön eklerini ve yönlendirmeleri işleyen bir yönlendirme düzeyi 
 
 Astro'ya özgü kazanç, ada çalışma zamanı başına bir i18n kütüphanesi yerine aynı sözlüğün hem bir `.astro` sayfasına hem de React, Vue, Svelte, Solid, Preact veya Lit adasına hizmet vermesidir. Bkz. [neden Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/interest_of_intlayer.md).
 
+- [neden Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/interest_of_intlayer.md)
+
 </Question>
 <Question title="i18n Astro paket boyutuma ne kadar ekler?">
 
 Ad alanı tabanlı bir yapılandırmaya kıyasla çok daha az, çünkü bir sayfa render etmediği bir kataloğu asla indirmez. Astro sayfaları derleme zamanında render edilir, bu nedenle yalnızca çevrilmiş HTML gönderilir ve sayfaya hiçbir sözlük eklenmez; yalnızca ada (island) bileşenleri sözlük alır. [Dinamik sözlükler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dynamic_dictionaries/index.md) geri kalanını yerel başına böler. Intlayer paket ve sayfa boyutunu %50'ye kadar azaltır. Bkz. [paket optimizasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md) ve [kıyaslama](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/index.md).
+
+- [Dinamik sözlükler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dynamic_dictionaries/index.md)
+- [paket optimizasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md)
+- [kıyaslama](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/index.md)
 
 </Question>
 <Question title="i18next'ten veya elle yazılmış bir sözlükten bileşenlerimi yeniden yazmadan geçiş yapabilir miyim?">
 
 Büyük ölçüde evet. İçeriği taşımak için [i18next geçiş kılavuzunu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_i18next_to_intlayer.md) izleyin. Kademeli olarak da geçiş yapabilirsiniz: [sync JSON eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-json.md) mevcut JSON kataloglarınızı doğruluk kaynağı olarak tutar ve bunlardan Intlayer sözlükleri üretir.
 
+- [i18next geçiş kılavuzunu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_i18next_to_intlayer.md)
+- [sync JSON eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-json.md)
+
 </Question>
 <Question title="Mevcut JSON çeviri dosyalarımı koruyabilir miyim?">
 
 Evet. [sync JSON eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-json.md), `/messages/{locale}/{namespace}.json` dosyalarınızı doğruluk kaynağı olarak tutar ve her iki yönde Intlayer sözlükleri üretir. [sync PO eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-po.md) gettext katalogları için aynısını yapar ve [yerel başına dosyalar](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/per_locale_file.md), yerelleri tek bir dosyada gruplamak yerine içeriği dile göre ayırmanıza olanak tanır.
+
+- [sync JSON eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-json.md)
+- [sync PO eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-po.md)
+- [yerel başına dosyalar](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/per_locale_file.md)
 
 </Question>
 <Question title="İçeriğimi anahtar anahtar taşımak zorunda mıyım?">
@@ -682,7 +716,11 @@ Hayır. `npx intlayer extract` komutunu çalıştırın; Intlayer bileşenlerini
 
 Tam otomatik bir süreç için [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md) derleme sırasında aynı işlemi yapar: her değişiklikte JSX, TSX, Vue ve Svelte kodunu tarar, sözlükleri üretir ve HMR ile senkronize tutar.
 
+- [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md)
+
 Derleyiciyi açmadan önce bilmeye değer iki sınır vardır. Statik analiz ile çalışır, bu nedenle API hata kodları veya CMS alanları gibi yalnızca çalışma zamanında var olan dizeler ulaşılamaz kalır. Ayrıca, `className="active"` veya durum kodu gibi uygulama mantığından kullanıcıya yönelik metinleri ayırt etmesi gerekir; bu da büyük bir kod tabanında birkaç ek açıklama gerektirir. [Extract komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract.md) sizi döngüde tutarak her ikisinden de kaçınır.
+
+- [Extract komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract.md)
 
 </Question>
 <Question title="Hangi editör ve AI aracı araçları mevcuttur?">
@@ -699,6 +737,10 @@ Beş araç, hepsi isteğe bağlı:
 <Question title="Intlayer Astro adaları (islands) içinde çalışır mı?">
 
 Evet. `astro-intlayer` `.astro` tarafını kapsar ve her ada framework'ünün kendi bağlayıcısı vardır, böylece ada aktif yereli tekrar çözmek yerine sayfadan doğrudan alır. [Astro + React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_astro_react.md), [Astro + Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_astro_vue.md) ve [Astro + Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_astro_svelte.md) gibi özel kılavuzlar mevcuttur.
+
+- [Astro + React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_astro_react.md)
+- [Astro + Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_astro_vue.md)
+- [Astro + Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_astro_svelte.md)
 
 </Question>
 <Question title="Çevrilmiş içerik statik HTML olarak mı gönderilir?">
@@ -720,20 +762,34 @@ Bu kılavuzun 6. ve 7. adımları bunu kapsar. `routing.mode`, varsayılan dilin
 
 `npx intlayer fill` komutunu çalıştırın. Eksik çevirileri seçtiğiniz LLM ile kendi sağlayıcınız ve API anahtarınızı kullanarak tamamlar ve `--git-diff` işlemi daldaki değişikliklerle sınırlar. Bkz. [fill komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/fill.md) ve [CI/CD entegrasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/CI_CD.md).
 
+- [fill komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/fill.md)
+- [CI/CD entegrasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/CI_CD.md)
+
 </Question>
 <Question title="Intlayer çoğulları, cinsiyeti ve Markdown içeriğini destekliyor mu?">
 
 Evet: [çoğul biçimleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/plurial.md), [cinsiyete dayalı içerik](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/gender.md), koşullar, [eklemeler (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/insertion.md) ve uzun metinler için çok uygun olan [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/markdown.md). [Biçimlendiriciler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/formatters.md) sayıları, tarihleri ve para birimlerini yönetir.
+
+- [çoğul biçimleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/plurial.md)
+- [cinsiyete dayalı içerik](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/gender.md)
+- [eklemeler (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/insertion.md)
+- [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/markdown.md)
+- [Biçimlendiriciler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/formatters.md)
 
 </Question>
 <Question title="Çevirmenler koda dokunmadan içeriği nasıl düzenleyebilir?">
 
 Kendi altyapınızda çalışan ve herkesin metinleri çalışan uygulamada yerinde düzenlemesine olanak tanıyan [görsel düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) veya içeriği kod dağıtımı olmadan güncellenebilecek şekilde dışsallaştıran [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) aracılığıyla.
 
+- [görsel düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)
+
 </Question>
 <Question title="Intlayer ücretsiz ve açık kaynaklı mı?">
 
 Evet, ticari kullanım dahil Apache 2.0 lisansı altındadır. Barındırılan CMS isteğe bağlı ücretli bir hizmettir ve ayrıca [kendi sunucunuzda barındırılabilir (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/self_hosting.md).
+
+- [kendi sunucunuzda barındırılabilir (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/self_hosting.md)
 
 </Question>
 

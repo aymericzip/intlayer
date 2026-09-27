@@ -67,6 +67,8 @@ author: aymericzip
 
 يغطي مقال [تاريخ JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/history_of_i18n.md) كل موجة بالتفصيل.
 
+- [تاريخ JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/history_of_i18n.md)
+
 ## القرار الأكثر أهمية: أين يعيش المحتوى ومتى يتم تحميله
 
 يوضح خياران هيكليان معظم الفروق في حجم الحزمة (bundle) بين الإعدادات المختلفة:
@@ -80,11 +82,17 @@ author: aymericzip
 
 لا تقدم `@solid-primitives/i18n` أي حل مدمج لأي من المحورين: يمكنك استخدام `createResource` لتحميل قاموس لكل لغة، مما يمنحك تحميلاً ديناميكياً، والباقي متروك لك. تمتلك `solid-i18next` مساحات أسماء وخلفيات كسولة (lazy backends)، ولكن لا يوجد ما يفرض هذا التعيين تلقائياً، وبالتالي فإن مكوناً مشتركاً يستورد `common` يجعله اعتمادية لكل مسار. تحقق Paraglide تقسيم الصفحات عبر الـ tree-shaking، على الرغم من أنه لم يكن فعالاً في تطبيق [اختبار أداء Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/solid.md). بينما تحقق Intlayer ذلك من خلال التصريحات الخاصة بكل مكون.
 
+- [اختبار أداء Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/solid.md)
+
 إذا كانت إجابتك على السؤال 4 هي "صفحات كثيرة"، فركز على هذا القسم أكثر من أي تفضيل للـ API. يغطي مقال [الـ i18n لكل مكون مقابل المركزي](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/per-component_vs_centralized_i18n.md) جانب الصيانة لنفس هذا الخيار.
+
+- [الـ i18n لكل مكون مقابل المركزي](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/per-component_vs_centralized_i18n.md)
 
 ## الخيارات المرشحة
 
 أحجام المكتبات مأخوذة من [اختبار أداء Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/solid.md): الـ provider بالإضافة إلى الـ accessor في مكون فارغ، بعد التجميع والـ tree-shaking والـ minification، في تطبيق مكون من 10 صفحات و10 لغات. يتم قياس المحتوى بشكل منفصل.
+
+- [اختبار أداء Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/solid.md)
 
 ![النظام البيئي لمكتبات Solid i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
@@ -118,6 +126,8 @@ author: aymericzip
 
 يجب أن تأتي اللغة من عنوان URL على الخادم حتى يتطابق كلا الجانبين؛ فاكتشافها على جانب العميل يكون متأخراً جداً. تترك كل من `@solid-primitives/i18n` و `solid-i18next` مسار `[[locale]]` و `matchFilters` وإعادة التوجيه وعلامات `entry-server.tsx` لتنفذها بنفسك. تحتوي Paraglide على إضافة Vite تعالج التوجيه. بينما توفر Intlayer البرمجيات الوسيطة (middleware) ومساعدات التوجيه المدمجة. أياً كان اختيارك، ضع `<html lang>` و `hreflang` في `entry-server.tsx`؛ حيث يتم تطبيق `@solidjs/meta` على العميل بعد التروية (hydration) في SolidStart v2. يشرح مقال [Solid i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_solid_start.md) هذا الإعداد بالتفصيل.
 
+- [Solid i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_solid_start.md)
+
 </Accordion>
 <Accordion header="يجب أن يكون تغيير اللغة فورياً ودقيقاً للغاية (fine-grained)">
 
@@ -132,6 +142,8 @@ author: aymericzip
 <Accordion header="أمان الأنواع (Type safety) أمر غير قابل للتفاوض">
 
 تمنحك `@solid-primitives/i18n` أنواعاً مستنتجة مجاناً، وهو أكثر مما تقدمه معظم مكتبات React. وبالنسبة للأنواع المولدة التي تصمد أمام التحميل الكسول والتقسيم لكل مسار، فإن كلاً من Paraglide و `@lingui/solid` و Intlayer تقوم بتوليدها مباشرة من المحتوى. يقارن مقال [اكتشاف الترجمات المفقودة](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/detecting_missing_translations.md) ما تكتشفه كل مكتبة أثناء وقت البناء.
+
+- [اكتشاف الترجمات المفقودة](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/detecting_missing_translations.md)
 
 </Accordion>
 <Accordion header="سيتم إنشاء الترجمات بواسطة الذكاء الاصطناعي">
@@ -376,6 +388,9 @@ export const CartSummary: Component<{ count: number }> = (props) => {
 
 في قاعدة كود حالية تعتمد على i18next، يقوم [محول توافق i18next (compat adapter)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/i18next.md) بعمل اسم مستعار (alias) للحزمة على مستوى أداة التجميع (bundler) بحيث تستمر الكتالوجات و `t()` في العمل بينما تتولى Intlayer تقديم المحتوى، ويغطي [دليل الترحيل](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_i18next_to_intlayer.md) بقية التفاصيل.
 
+- [محول توافق i18next (compat adapter)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/i18next.md)
+- [دليل الترحيل](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_i18next_to_intlayer.md)
+
 ## قبل أن تقرر
 
 يخبرك جدول الميزات بما تفعله المكتبة اليوم. وتخبرك هذه النقاط كيف ستكون تجربة العمل معها على المدى الطويل.
@@ -398,6 +413,9 @@ export const CartSummary: Component<{ count: number }> = (props) => {
 
 لا يزال الوكلاء يواجهون صعوبة مع التدويل: فهم ينسون اللغات، ويخترعون مفاتيح، ويخلطون بين بنيات الرسائل المختلفة. هل توفر المكتبة [مهارات الوكيل (Agent Skills)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md) أو [خادم MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/mcp_server.md) حتى يتمكن الوكيل من سرد المحتوى وملئه واختباره؟ وهل تم تحسين تحميل المحتوى افتراضياً، أم أن على شخص ما مراجعة مساحات الأسماء والاستيرادات الكسولة كل ربع سنة؟
 
+- [مهارات الوكيل (Agent Skills)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)
+- [خادم MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/mcp_server.md)
+
 **أمان الأنواع مباشرة وبدون إعدادات.**
 
 ليس المقصود "يمكن دعمه بالأنواع عبر إعدادات إضافية"، بل "المفتاح الخاطئ يفشل `tsc` فوراً عند التثبيت الجديد". تحقق مما يحدث مع مفتاح غير موجود، ومع لغة تنقصها ترجمة واحدة.
@@ -409,6 +427,13 @@ export const CartSummary: Component<{ count: number }> = (props) => {
 **تجربة المطور (DX).**
 
 الوقت اللازم من الإعداد إلى أول نص مترجم، ووجود [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/lsp.md) أو [امتداد VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/vs_code_extension.md) يعرض الترجمة عند التمرير وينتقل إلى التصريح، ووجود [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md) للملء والاختبار والنشر، و[مُصرِّف](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md) أو أداة استخراج تستخرج النصوص المكتوبة مباشرة في المكونات حتى لا تضطر إلى إدارة كل نص مفتاحًا بمفتاح، وتوفير طريقة لغير المطورين لتعديل المحتوى ([المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) أو [نظام إدارة المحتوى CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)) دون الحاجة إلى pull request.
+
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/lsp.md)
+- [امتداد VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/vs_code_extension.md)
+- [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md)
+- [مُصرِّف](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md)
+- [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)
+- [نظام إدارة المحتوى CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
 
 ## الأسئلة الشائعة
 
@@ -430,11 +455,15 @@ export const CartSummary: Component<{ count: number }> = (props) => {
 
 فقط إذا كان حجم الحزمة، أو الأنواع المولدة تلقائياً، أو التحقق من المفاتيح المفقودة أثناء وقت البناء من المتطلبات الفعلية لمشروعك. يشرح مقال [المترجم مقابل الـ i18n التصريحي](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/compiler_vs_declarative_i18n.md) ما تمنحه لك المترجمات وأين قد تخطئ.
 
+- [المترجم مقابل الـ i18n التصريحي](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/compiler_vs_declarative_i18n.md)
+
 </Question>
 
 <Question title="هل يؤثر اختيار المكتبة على تحسين محركات البحث (SEO)؟">
 
 بشكل غير مباشر. تهتم محركات البحث بالتوجيه (routing)، وعلامات `hreflang`، و `<html lang>`، وما إذا كان النص موجوداً في HTML المصير على الخادم، وهو ما يعني في SolidStart الاعتماد على `entry-server.tsx`. راجع [دليل hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/hreflang_guide_multilingual_seo.md).
+
+- [دليل hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/hreflang_guide_multilingual_seo.md)
 
 </Question>
 

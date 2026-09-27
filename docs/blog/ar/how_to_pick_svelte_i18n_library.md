@@ -67,6 +67,8 @@ author: aymericzip
 
 يغطي مقال [تاريخ JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/history_of_i18n.md) كل موجة بالتفصيل.
 
+- [تاريخ JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/history_of_i18n.md)
+
 ## القرار الأكثر أهمية: أين يعيش المحتوى ومتى يتم تحميله
 
 يحدد خياران هيكليان معظم الفرق في حجم الحزمة بين الإعدادات المختلفة:
@@ -80,11 +82,17 @@ author: aymericzip
 
 تقع `svelte-i18n` في أعلى اليسار افتراضياً: يمنحك استخدام `register("fr", () => import("./fr.json"))` تحميلاً ديناميكياً لكل لغة، ولكن كتالوج اللغة هو كائن واحد يؤدي تحميله إلى تحميل نصوص كل الصفحات. تُعد Paraglide حالة مثيرة للاهتمام: نظراً لأن كل رسالة هي تصدير مستقل، فإن الـ tree-shaking يمنحك ميزة التقسيم حسب الصفحة مجاناً، ويؤكد [اختبار أداء Svelte (benchmark)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/svelte.md) أنها تعمل كما هو معلن مع Vite + Svelte (بينما لم تكن كذلك في اختبارات أداء React و Next.js). وتصل Intlayer إلى نفس النتيجة عبر إعلانات المحتوى لكل مكون.
 
+- [اختبار أداء Svelte (benchmark)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/svelte.md)
+
 إذا كانت إجابتك على السؤال الثالث هي "صفحات كثيرة"، فامنح هذا القسم وزناً أكبر من أي تفضيل لـ API. يغطي مقال [التدويل لكل مكون مقابل التدويل المركزي](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/per-component_vs_centralized_i18n.md) جانب الصيانة لنفس المقايضة.
+
+- [التدويل لكل مكون مقابل التدويل المركزي](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/per-component_vs_centralized_i18n.md)
 
 ## المكتبات المرشحة
 
 أحجام المكتبات مأخوذة من [اختبار أداء Svelte (benchmark)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/svelte.md): حجم الـ store بالإضافة إلى دالة الوصول (accessor) في مكون فارغ، بعد التجميع (bundling) والـ tree-shaking والضغط (minification)، على تطبيق مكون من 10 صفحات و 10 لغات. يتم قياس المحتوى بشكل منفصل.
+
+- [اختبار أداء Svelte (benchmark)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/svelte.md)
 
 ![النظام البيئي لمكتبات Svelte i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
@@ -113,6 +121,8 @@ author: aymericzip
 
 تحسم مشكلة مشاركة الحالة هذا الاختيار. تعمل `svelte-i18n` على SvelteKit ولكن الربط لكل طلب (`hooks.server.ts` و `locals` و `load` ثم `setContext`) يقع على عاتقك لكتابته ومن السهل ارتكاب أخطاء غير ظاهرة فيه. توفر Paraglide تكاملاً مع SvelteKit يتعامل مع التوجيه ويقرأ اللغة عند كل استدعاء، مما يتجنب مشكلة الـ singleton. وتقوم Intlayer بضبط اللغة من بيانات `load` داخل الـ context. يشرح مقال [تدويل SvelteKit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_svelte_kit.md) الاختيار بين `[[lang]]` و `reroute`، وهو قرار يجب اتخاذه قبل اختيار المكتبة.
 
+- [تدويل SvelteKit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_svelte_kit.md)
+
 </Accordion>
 <Accordion header="الترجمات تأتي من TMS أو وكالة تسلم ملفات ICU">
 
@@ -127,6 +137,8 @@ author: aymericzip
 <Accordion header="أمان الأنواع (Type safety) شرط أساسي لا تنازل عنه">
 
 أي خيار باستثناء إعداد `svelte-i18n` البسيط، حيث النوع الوحيد هو اتحاد مكتوب يدوياً يبتعد عن ملف JSON بسرعة. تنشئ كل من `typesafe-i18n` و Paraglide و Intlayer الأنواع تلقائياً من المحتوى. تحقق من نشاط مستودع `typesafe-i18n` قبل اعتماده في قاعدة الشيفرة الخاصة بك. يقارن مقال [اكتشاف الترجمات المفقودة](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/detecting_missing_translations.md) ما تلتقطه كل مكتبة أثناء وقت البناء.
+
+- [اكتشاف الترجمات المفقودة](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/detecting_missing_translations.md)
 
 </Accordion>
 <Accordion header="لا ترغب في وجود ملفات مُنشأة تلقائياً داخل المستودع">
@@ -378,6 +390,8 @@ export default cartSummaryContent;
 
 هل تستخدم `svelte-i18n` بالفعل؟ يقوم [محول التوافق `@intlayer/svelte-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/svelte-i18n.md) بإنشاء اسم مستعار (alias) للحزمة على مستوى أداة الحزم (bundler) حتى تستمر `$_` و `$date` و `$number` ومفاتيحك المسطحة في العمل بينما تتولى Intlayer توفير المحتوى.
 
+- [محول التوافق `@intlayer/svelte-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/svelte-i18n.md)
+
 ## قبل أن تلتزم باختيارك
 
 يخبرك جدول الميزات بما تفعله المكتبة اليوم. وتخبرك هذه النقاط بما ستكون عليه تجربة العمل معها على المدى الطويل.
@@ -400,6 +414,9 @@ export default cartSummaryContent;
 
 لا يزال وكلاء الذكاء الاصطناعي يواجهون صعوبة مع التدويل: فهم ينسون اللغات، ويخترعون مفاتيح، ويخلطون بين تنسيقات الرسائل. هل توفر المكتبة [مهارات الوكيل (Agent Skills)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md) أو [خادم MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/mcp_server.md) حتى يتمكن الوكيل من سرد المحتوى وملئه واختباره؟ وهل تم تحسين تحميل المحتوى افتراضياً، أم يتعين على شخص ما مراجعة مساحات الأسماء والاستيراد الكسول كل ثلاثة أشهر؟
 
+- [مهارات الوكيل (Agent Skills)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)
+- [خادم MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/mcp_server.md)
+
 **أمان الأنواع مباشرة بعد التثبيت (Type safety out of the box).**
 
 ليس "يمكن دعمه بالأنواع عبر إعدادات إضافية" بل "المفتاح الخاطئ يفشل فحص `tsc` في التثبيت الجديد مباشرة". تحقق مما يحدث مع مفتاح غير موجود، ومع لغة تفتقد إلى ترجمة واحدة.
@@ -411,6 +428,13 @@ export default cartSummaryContent;
 **تجربة المطور (Developer experience).**
 
 الوقت المستغرق من التثبيت حتى ظهور أول نص مترجم، ووجود [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/lsp.md) أو [إضافة VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/vs_code_extension.md) تعرض الترجمة عند التمرير وتنتقل إلى الإعلان، و [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md) للملء والاختبار والنشر، و[مُصرِّف](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md) أو أداة استخراج تستخرج النصوص المكتوبة مباشرة في المكونات حتى لا تضطر إلى إدارة كل نص مفتاحًا بمفتاح، وطريقة تتيح لغير المطورين تعديل المحتوى ([المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) أو [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)) بدون الحاجة إلى pull request.
+
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/lsp.md)
+- [إضافة VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/vs_code_extension.md)
+- [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md)
+- [مُصرِّف](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md)
+- [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
 
 ## الأسئلة الشائعة
 
@@ -437,6 +461,8 @@ export default cartSummaryContent;
 <Question title="هل يؤثر اختيار المكتبة على تحسين محركات البحث (SEO)؟">
 
 بشكل غير مباشر. تهتم محركات البحث بالتوجيه، ووسم `hreflang`، و `<html lang>`، وما إذا كان النص متوفراً في كود HTML المُصيّر على الخادم. راجع [دليل hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/hreflang_guide_multilingual_seo.md).
+
+- [دليل hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/hreflang_guide_multilingual_seo.md)
 
 </Question>
 

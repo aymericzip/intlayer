@@ -29,6 +29,8 @@ author: aymericzip
 
 以下で紹介するパイプライン構成はライブラリに依存せず、ツールも同様です。翻訳メッセージが i18next、next-intl、react-intl、vue-i18n、next-translate などのJSONカタログで管理されている場合、[Sync JSON プラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md) はそれらのファイルをその場で読み書きします。
 
+- [Sync JSON プラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md)
+
 ```ts fileName="intlayer.config.ts"
 import { syncJSON } from "@intlayer/sync-json-plugin";
 
@@ -45,6 +47,9 @@ export default config;
 ```
 
 アプリケーション側のインポートは既存のままで構いません。後述のCIジョブが既存のカタログを補完および検証するため、レビュー担当者が見る差分は `locales/fr/checkout.json` の変更だけであり、コードベース全体の移行作業ではありません。gettextワークフロー用の [Sync PO プラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-po.md) や、ランタイムAPIをそのまま維持するための [互換アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/index.md) も用意されています。
+
+- [Sync PO プラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-po.md)
+- [互換アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/index.md)
 
 ## ゲート（Gate）とフィル（Fill）を分離する
 
@@ -167,6 +172,8 @@ test("必須ロケールに翻訳漏れがないこと", async () => {
 
 `npx intlayer content test` はレポートを出力しますが終了コード0を返すため、情報提供にとどまりビルドを停止させません。ローカルではCLIを使い、CIではテストによるアサーションを活用してください。詳細は [翻訳漏れを検出する方法](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/detecting_missing_translations.md) を参照してください。
 
+- [翻訳漏れを検出する方法](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/detecting_missing_translations.md)
+
 ## `requiredLocales` で実用的なゲートを維持する
 
 全18言語の完全性を一律に求めるゲートを作ると、翻訳が遅れている1言語のために全リリースが滞り、最終的にチェック自体が無効化されてしまいます。
@@ -209,6 +216,8 @@ export default config;
 ```
 
 これは非エンジニアが文言を管理するチームに適しています。編集の自由度が高まる一方で、Gitリポジトリの状態だけでは画面表示を完全に再現できなくなるというトレードオフがあります。詳細は [CMSドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md) をご覧ください。
+
+- [CMSドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)
 
 なお、`clientSecret` はサーバーサイドの認証情報です。CIのシークレット設定やサーバーの環境変数で管理し、クライアント向けバンドルに含めないでください。
 

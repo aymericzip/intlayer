@@ -108,10 +108,16 @@ export const MyComponent: FC = () => {
 
 콘텐츠를 코드와 같은 위치에 두면 대규모 언어 모델(LLM)이 **필요로 하는 컨텍스트가 줄어듭니다**. Intlayer에는 누락된 번역을 테스트하기 위한 **CLI**, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/mcp_server.md)** 및 **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/agent_skills.md)** 등과 같은 일련의 도구가 함께 제공되어 AI 에이전트의 개발자 경험(DX)을 훨씬 더 매끄럽게 만듭니다.
 
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/mcp_server.md)
+- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/agent_skills.md)
+
 </Accordion>
 <Accordion header="자동화 (Automation)">
 
 원하는 LLM과 AI 제공자의 비용으로 CI/CD 파이프라인에서 번역을 자동화하세요. Intlayer는 콘텐츠 추출을 자동화하는 **컴파일러(compiler)**를 제공할 뿐만 아니라 **백그라운드에서 번역**할 수 있도록 돕는 [웹 플랫폼](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)도 제공합니다.
+
+- [웹 플랫폼](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="성능 (Performance)">
@@ -122,6 +128,9 @@ export const MyComponent: FC = () => {
 <Accordion header="비개발자와의 협업 및 확장 (Scaling with non-dev)">
 
 단순한 i18n 솔루션을 넘어, Intlayer는 **자체 호스팅 가능한 [시각적 편집기(visual editor)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)**와 **[완전한 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)**를 제공하여 다국어 콘텐츠를 **실시간**으로 관리할 수 있도록 지원하며, 번역가, 카피라이터 및 기타 팀원과의 협업을 원활하게 합니다. 콘텐츠는 로컬 및/또는 원격에 저장될 수 있습니다.
+
+- [시각적 편집기(visual editor)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)
+- [완전한 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
@@ -235,22 +244,38 @@ Intlayer는 JavaScript 및 TypeScript 애플리케이션을 위한 국제화(i18
 
 네임스페이스 기반 설정보다 훨씬 적습니다. 페이지는 렌더링하지 않는 언어의 카탈로그를 절대 다운로드하지 않기 때문입니다. 서버 렌더링 마크업은 서버에서 콘텐츠를 확인하고, 빌드 타임 컴파일러는 `useIntlayer` 호출을 컴포넌트가 사용하는 정확한 사전 항목으로 대체하므로 사용되지 않는 키와 언어는 제거됩니다. [동적 사전](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dynamic_dictionaries/index.md)을 통해 로케일별로 분할됩니다. 일반적인 대안들과 비교했을 때 Intlayer는 번들 및 페이지 크기를 최대 50%까지 줄여줍니다. [번들 최적화](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md)와 [벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/index.md)를 참조하세요.
 
+- [동적 사전](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dynamic_dictionaries/index.md)
+- [번들 최적화](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md)
+- [벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/index.md)
+
 </Question>
 <Question title="컴포넌트를 다시 작성하지 않고 i18next, next-intl 또는 react-i18next에서 마이그레이션할 수 있나요?">
 
 네, 두 가지 방법이 있습니다. [i18next 마이그레이션 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_i18next_to_intlayer.md) 또는 [next-intl 마이그레이션 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_next-intl_to_intlayer.md)를 따라 점진적으로 이전할 수 있습니다. 또는 현재 API를 완전히 유지할 수도 있습니다: [호환 어댑터(compat adapters)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/index.md)는 `i18next`, `react-i18next`, `next-intl`, `next-i18next`, `react-intl`, `use-intl`, `vue-i18n` 및 `Lingui`와 완전히 동일한 API를 노출하면서 Intlayer 사전에서 데이터를 제공하므로, import 구문만 변경하고 컴포넌트 코드는 그대로 유지할 수 있습니다.
+
+- [i18next 마이그레이션 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_i18next_to_intlayer.md)
+- [next-intl 마이그레이션 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_next-intl_to_intlayer.md)
+- [호환 어댑터(compat adapters)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/index.md)
 
 </Question>
 <Question title="기존 JSON 번역 파일을 유지할 수 있나요?">
 
 네. [sync JSON 플러그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/plugins/sync-json.md)은 `/messages/{locale}/{namespace}.json` 파일을 단일 진실 공급원(source of truth)으로 유지하면서 양방향으로 Intlayer 사전을 생성합니다. [sync PO 플러그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/plugins/sync-po.md)은 gettext 카탈로그에 대해 동일한 작업을 수행하며, [로케일별 파일](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/per_locale_file.md)을 통해 로케일을 한 파일에 모으는 대신 언어별로 콘텐츠를 분할할 수도 있습니다.
 
+- [sync JSON 플러그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/plugins/sync-json.md)
+- [sync PO 플러그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/plugins/sync-po.md)
+- [로케일별 파일](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/per_locale_file.md)
+
 </Question>
 <Question title="콘텐츠를 키 단위로 하나씩 옮겨야 하나요?">
 
 아닙니다. `npx intlayer extract`를 실행하면 Intlayer가 소스 파일을 읽고 사용자 대면 문자열을 추출하여 각 컴포넌트 옆에 `.content` 파일을 생성하므로 카탈로그에 일일이 복사할 필요 없이 diff만 검토하면 됩니다. [extract 명령](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/extract.md)을 참조하세요.
 
+- [extract 명령](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/extract.md)
+
 완전 자동화된 파이프라인을 위해 [Intlayer 컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md)는 빌드 타임에 JSX, TSX, Vue 및 Svelte 소스에서 동일한 작업을 수행하여 변경될 때마다 사전을 생성하고 HMR을 통해 동기화하므로 수동으로 키를 관리할 필요가 없습니다. 정적 분석으로 작동하므로 런타임에만 존재하는 문자열은 제외되며, 사용자 텍스트와 애플리케이션 로직을 구분하기 위해 몇 가지 주석이 필요합니다.
+
+- [Intlayer 컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md)
 
 </Question>
 <Question title="사용 가능한 에디터 및 AI 에이전트 도구는 무엇이 있나요?">
@@ -274,40 +299,62 @@ Intlayer는 JavaScript 및 TypeScript 애플리케이션을 위한 국제화(i18
 
 자세한 비교는 [왜 Intlayer인가](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/interest_of_intlayer.md)를, 번들 및 성능 측정 수치는 [벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/index.md)를 참조하세요.
 
+- [왜 Intlayer인가](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/interest_of_intlayer.md)
+- [벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/index.md)
+
 </Question>
 <Question title="Intlayer는 어떤 프레임워크를 지원하나요?">
 
 React, Next.js, Vite, TanStack Start, React Router, Vue, Nuxt, Svelte, SvelteKit, Angular, Solid, Preact, Lit, 모든 아일랜드 프레임워크를 지원하는 Astro, Expo를 포함한 React Native, Lynx, 그리고 서버 측에서는 Express, Fastify, NestJS, Hono, Elysia, AdonisJS를 지원합니다. 각각 [environments](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/introduction.md)에서 전용 가이드를 제공합니다.
+
+- [environments](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/introduction.md)
 
 </Question>
 <Question title="중앙 JSON 파일 대신 컴포넌트 옆에 콘텐츠를 선언하는 이유는 무엇인가요?">
 
 세 가지 이유가 있습니다. 첫째, 전체 네임스페이스 대신 컴포넌트가 렌더링하는 항목만 전달하므로 번들 크기가 대폭 줄어듭니다. 둘째, 기능 폴더를 복사하거나 삭제할 때 공유 카탈로그에서 고아 키를 찾을 필요 없이 한 번에 관리할 수 있습니다. 셋째, 컴포넌트를 편집하는 LLM이나 AI 에이전트가 동일한 폴더에서 콘텐츠를 직접 볼 수 있어 AI 지원 작업이 훨씬 정확하고 안정적입니다. [Intlayer 작동 방식](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/how_works_intlayer.md)을 참조하세요.
 
+- [Intlayer 작동 방식](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/how_works_intlayer.md)
+
 </Question>
 <Question title="AI를 사용하여 앱을 자동으로 번역하려면 어떻게 하나요?">
 
 `npx intlayer fill`을 실행하세요. CLI가 누락된 번역을 감지하고 자체 제공업체 및 API 키를 사용하여 원하는 LLM으로 채워주므로 비용을 AI 제공업체에 직접 지불합니다. `--git-diff`를 사용하면 브랜치에서 변경된 콘텐츠로만 작업 범위를 제한하여 CI 비용을 절감할 수 있습니다. [fill 명령](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/fill.md) 및 [CI/CD 통합](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/CI_CD.md)을 참조하세요.
+
+- [fill 명령](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/fill.md)
+- [CI/CD 통합](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/CI_CD.md)
 
 </Question>
 <Question title="누락된 번역은 어떻게 감지하나요?">
 
 `npx intlayer test`를 실행하세요. 선언된 로케일에 콘텐츠가 누락되면 실패하므로 번역되지 않은 문자열이 프로덕션에 절대 배포되지 않습니다. [VS Code 확장 프로그램](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/vs_code_extension.md)은 동일한 오류를 인라인으로 표시하며, [ESLint 플러그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/eslint.md)은 `no-raw-text` 규칙을 통해 하드코딩된 문자열을 표시합니다. [콘텐츠 테스트](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/testing.md)를 참조하세요.
 
+- [VS Code 확장 프로그램](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/vs_code_extension.md)
+- [ESLint 플러그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/eslint.md)
+- [콘텐츠 테스트](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/testing.md)
+
 </Question>
 <Question title="URL에 로케일을 반드시 포함해야 하나요?">
 
 아닙니다. `routing.mode`는 `"prefix-no-default"`(기본값: `/about` 및 `/ko/about`), `"prefix-all"`, `"no-prefix"`, `"search-params"`를 지원하며, `routing.domains`를 통해 각 로케일을 자체 도메인에 매핑할 수도 있습니다. 어떤 방식을 선택하든 `getMultilingualUrls`가 메타데이터와 사이트맵을 위한 `hreflang` 대체를 자동으로 구축합니다. [설정 참조](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참조하세요.
+
+- [설정 참조](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)
 
 </Question>
 <Question title="번역가와 콘텐츠 편집자가 코드를 건드리지 않고 작업하려면 어떻게 하나요?">
 
 [비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)는 자체 인프라에서 실행되며 실행 중인 앱의 텍스트를 클릭하여 직접 수정한 후 변경 사항을 코드베이스에 다시 기록할 수 있도록 지원합니다. [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)는 배포 없이 변경될 수 있도록 콘텐츠를 외부화하며, [실시간 동기화(live sync)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/live.md)를 통해 런타임에 업데이트를 즉시 적용합니다.
 
+- [비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)
+- [실시간 동기화(live sync)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/live.md)
+
 </Question>
 <Question title="Intlayer는 무료이며 오픈 소스인가요?">
 
 네. Intlayer는 Apache 2.0 라이선스에 따른 오픈 소스이며, 라이브러리, CLI, 컴파일러 및 비주얼 에디터는 상업용 프로젝트를 포함하여 무료로 사용할 수 있습니다. 호스팅형 CMS는 선택적 유료 서비스이며 [자체 호스팅](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/self_hosting.md)도 가능합니다.
+
+- [자체 호스팅](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/self_hosting.md)
 
 </Question>
 

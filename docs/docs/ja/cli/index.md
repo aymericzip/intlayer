@@ -110,6 +110,8 @@ bun add intlayer-cli -g
 
 `intlayer-cli` パッケージは、[Intlayer宣言](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)をディクショナリにトランスパイルするためのものです。
 
+- [Intlayer宣言](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)
+
 このパッケージは、`src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}` などのすべてのIntlayerファイルをトランスパイルします。[Intlayer宣言ファイルの宣言方法を参照してください](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md)。
 
 Intlayerディクショナリを解釈するには、[react-intlayer](https://www.npmjs.com/package/react-intlayer) や [next-intlayer](https://www.npmjs.com/package/next-intlayer) などのインタープリターを使用できます。
@@ -127,13 +129,17 @@ Intlayerは、複数の設定ファイル形式をサポートしています：
 
 利用可能な言語やその他のパラメータの設定方法については、[こちらから設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を参照してください。
 
+- [こちらから設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)
+
 ## Intlayerコマンドの実行
 
 ### 認証
 
 - **[Login](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/login.md)** - Intlayer CMSで認証し、アクセス資格情報を取得します。
 
-> `intlayer login` は、すべての認証されたコマンドが使用する **access key** (`clientId` / `clientSecret`) を発行します。シークレットはサーバー側の認証情報であり、クライアント bundle に到達することはありません — [access key の安全な保管](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/login.md#access-key-の安全な保管)を参照してください。
+> `intlayer login` は、すべての認証されたコマンドが使用する **access key** (`clientId` / `clientSecret`) を発行します。シークレットはサーバー側の認証情報であり、クライアント bundle に到達することはありません、[access key の安全な保管](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/login.md#access-key-の安全な保管)を参照してください。
+
+- [access key の安全な保管](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/login.md#access-key-の安全な保管)
 
 ### コアコマンド
 

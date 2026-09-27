@@ -118,6 +118,8 @@ export default exampleContent;
 
 ここに `fill` 命令を使用した[ロケール単位のコンテンツ宣言ファイル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/per_locale_file.md)があります。
 
+- [ロケール単位のコンテンツ宣言ファイル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/per_locale_file.md)
+
 次に、以下のコマンドを実行します：
 
 ```bash packageManager="npm"

@@ -66,6 +66,8 @@ Paraglide는 메시지당 하나의 함수를 생성하고 번들러가 나머�
 
 [JavaScript i18n의 역사](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/history_of_i18n.md)에서 각 흐름을 자세히 다룹니다.
 
+- [JavaScript i18n의 역사](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/history_of_i18n.md)
+
 ## 가장 중요한 결정: 콘텐츠의 위치와 로딩 시점
 
 두 가지 구조적 선택이 설정 간의 번들 크기 차이 대부분을 설명합니다:
@@ -81,9 +83,14 @@ Paraglide는 메시지당 하나의 함수를 생성하고 번들러가 나머�
 
 [Vue 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/vue.md)에서는 이를 "다른 라우트로부터의 누수" 및 "다른 로케일로부터의 누수"로 측정합니다. 질문 3에 대한 답변이 "많은 페이지"였다면 이 섹션이 API 선호도보다 훨씬 중요합니다. [컴포넌트별 vs 중앙 집중식 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/per-component_vs_centralized_i18n.md) 포스트에서는 동일한 트레이드오프의 유지보수 측면을 다룹니다.
 
+- [Vue 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/vue.md)
+- [컴포넌트별 vs 중앙 집중식 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/per-component_vs_centralized_i18n.md)
+
 ## 후보 라이브러리
 
 라이브러리 크기는 10개 페이지, 10개 로케일 앱에서 번들링, 트리 셰이킹, 압축(minification)을 거친 후 빈 컴포넌트 내 플러그인과 composable을 측정한 [Vue 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/vue.md) 기준입니다. 콘텐츠는 별도로 측정됩니다.
+
+- [Vue 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/vue.md)
 
 ![Vue i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
@@ -112,6 +119,8 @@ Composition 모드(`legacy: false`)의 `vue-i18n`과 `@intlify/unplugin-vue-i18n
 
 `@nuxtjs/i18n`은 코드 작성 없이 라우팅 전략, `hreflang` 태그, 로케일 감지를 제공하므로, 몇 개 페이지로 구성된 콘텐츠 사이트라면 이것만으로도 선택할 이유가 충분합니다. 한계는 로케일별 카탈로그입니다. 대략 10개 이상의 페이지가 넘어가면 SSR 페이로드가 모든 라우트의 텍스트를 포함하게 됩니다. 이러한 경우 `vue-i18n`을 라우트별 메시지와 수동으로 연결하거나 스코프 지정된 콘텐츠로 전환하세요. [Nuxt i18n 포스트](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nuxt.md)에서 라우팅 전략 선택을 먼저 안내합니다.
 
+- [Nuxt i18n 포스트](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nuxt.md)
+
 </Accordion>
 <Accordion header="번역이 TMS 또는 ICU를 전달하는 에이전시로부터 오는 경우">
 
@@ -126,6 +135,8 @@ Composition 모드(`legacy: false`)의 `vue-i18n`과 `@intlify/unplugin-vue-i18n
 <Accordion header="타입 안전성이 타협할 수 없는 요구사항인 경우">
 
 `vue-i18n`은 `createI18n`에 스키마 generic을 전달하여 타입을 지정할 수 있습니다. 작동은 하지만, 카탈로그가 지연 로딩되는 순간 깨집니다. 스키마가 아직 로드되지 않았을 수 있는 메시지를 기술하기 때문입니다. 이를 직접 유지보수하고 싶지 않다면 Paraglide나 Intlayer처럼 콘텐츠로부터 타입이 생성되는 라이브러리를 선택하세요. [누락된 번역 감지](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/detecting_missing_translations.md) 포스트에서 각 라이브러리가 빌드 타임에 감지하는 항목을 비교합니다.
+
+- [누락된 번역 감지](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/detecting_missing_translations.md)
 
 </Accordion>
 <Accordion header="콘텐츠가 단순 UI 레이블 이상인 경우">
@@ -372,6 +383,10 @@ const { title, items } = useIntlayer("cart-summary");
 
 이미 `vue-i18n`을 사용 중이신가요? [`@intlayer/vue-i18n` 호환 어댑터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/vue-i18n.md)는 번들러 수준에서 패키지를 alias 처리하여, Intlayer가 콘텐츠를 제공하는 동안 `useI18n()`, `$t`, 파이프 복수형, `v-t`가 그대로 작동하도록 합니다. [마이그레이션 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_vue-i18n_to_intlayer.md)에서 어댑터 이후의 전환 과정을 다루며, [Nuxt 전용 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_nuxtjs_i18n_to_intlayer.md)도 제공됩니다.
 
+- [`@intlayer/vue-i18n` 호환 어댑터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/vue-i18n.md)
+- [마이그레이션 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_vue-i18n_to_intlayer.md)
+- [Nuxt 전용 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_nuxtjs_i18n_to_intlayer.md)
+
 ## 최종 결정 전에 확인할 사항
 
 기능 비교표는 라이브러리가 현재 무엇을 지원하는지 알려줍니다. 아래 항목들은 실제로 라이브러리를 사용하며 유지보수할 때 겪게 될 경험을 보여줍니다.
@@ -394,6 +409,9 @@ const { title, items } = useIntlayer("cart-summary");
 
 에이전트는 여전히 i18n 처리에 어려움을 겪습니다. 로케일을 빠뜨리거나, 임의의 키를 생성하거나, 메시지 문법을 혼동합니다. 해당 라이브러리가 [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/agent_skills.md)나 [MCP 서버](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/mcp_server.md)를 제공하여 에이전트가 콘텐츠를 나열, 채우기 및 테스트할 수 있나요? 또한 콘텐츠 로딩이 기본적으로 최적화되어 있는지, 아니면 매 분기마다 누군가가 네임스페이스와 지연 import를 검토해야 하나요?
 
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/agent_skills.md)
+- [MCP 서버](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/mcp_server.md)
+
 **기본 제공되는 타입 안전성.**
 
 "추가 설정으로 타입을 지정할 수 있다"가 아니라 "새로 설치했을 때 잘못된 키가 `tsc`에서 에러를 발생시킨다"여야 합니다. 존재하지 않는 키를 사용할 때와 특정 로케일에 번역이 하나 누락되었을 때 어떤 일이 일어나는지 확인하세요.
@@ -405,6 +423,13 @@ const { title, items } = useIntlayer("cart-summary");
 **개발자 경험(DX).**
 
 첫 번째 번역 문자열까지의 설정 시간, 마우스 호버 시 번역을 표시하고 선언으로 이동할 수 있는 [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/lsp.md) 또는 [VS Code 확장 프로그램](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/vs_code_extension.md), 채우기/테스트/푸시를 위한 [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/index.md), 컴포넌트에 하드코딩된 문자열을 추출해 키 하나하나를 직접 관리하지 않아도 되게 해주는 [컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md) 또는 추출기, 비개발자가 풀 리퀘스트 없이 콘텐츠를 편집할 수 있는 도구([시각적 편집기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md) 또는 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)) 지원 여부를 확인하세요.
+
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/lsp.md)
+- [VS Code 확장 프로그램](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/vs_code_extension.md)
+- [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/index.md)
+- [컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md)
+- [시각적 편집기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)
 
 ## 자주 묻는 질문 (FAQ)
 
@@ -426,11 +451,15 @@ const { title, items } = useIntlayer("cart-summary");
 
 번들 크기, SSR 페이로드, 자동 생성되는 타입 또는 빌드 타임 누락 키 검사가 실제 요구사항인 경우에만 필요합니다. [컴파일러 vs 선언적 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/compiler_vs_declarative_i18n.md) 포스트에서 컴파일러가 제공하는 이점과 발생할 수 있는 한계를 설명합니다.
 
+- [컴파일러 vs 선언적 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/compiler_vs_declarative_i18n.md)
+
 </Question>
 
 <Question title="라이브러리 선택이 SEO에 영향을 미치나요?">
 
 간접적으로 영향을 미칩니다. 크롤러는 라우팅, `hreflang`, `<html lang>`, 텍스트가 서버 렌더링된 HTML에 포함되어 있는지 여부를 중요하게 봅니다. [hreflang 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/hreflang_guide_multilingual_seo.md)를 참조하세요.
+
+- [hreflang 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/hreflang_guide_multilingual_seo.md)
 
 </Question>
 

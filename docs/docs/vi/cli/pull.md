@@ -39,6 +39,8 @@ bun x intlayer pull
 
 Nếu đã cài đặt [trình chỉnh sửa intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md), bạn cũng có thể kéo từ điển từ trình chỉnh sửa. Bằng cách này, bạn có thể ghi đè nội dung của các từ điển để phục vụ nhu cầu ứng dụng của bạn.
 
+- [trình chỉnh sửa intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md)
+
 ## Bí danh:
 
 - `npx intlayer dictionaries pull`

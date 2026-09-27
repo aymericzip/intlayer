@@ -118,6 +118,8 @@ export default exampleContent;
 
 这是一个[按语言环境的内容声明文件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/per_locale_file.md)，使用了 `fill` 指令。
 
+- [按语言环境的内容声明文件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/per_locale_file.md)
+
 然后，当您运行以下命令时：
 
 ```bash packageManager="npm"

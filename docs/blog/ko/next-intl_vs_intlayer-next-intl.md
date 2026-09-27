@@ -33,6 +33,8 @@ author: aymericzip
 
 이 글은 동일한 Next.js 애플리케이션에서 `next-intl`로 한 번 빌드하고 어댑터로 한 번 빌드한 것을 비교합니다. 수치는 브라우저가 실제로 다운로드하는 내용을 기록하는 오픈소스 도구인 [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom)에서 나옵니다. 라이브러리로서의 `next-intl` vs Intlayer 비교를 원한다면 [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/next-intl_vs_intlayer.md)를 읽어보세요. 이 글은 컴포넌트를 그대로 유지할 때 어댑터가 어떤 변화를 가져오는지에 관한 것입니다.
 
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/next-intl_vs_intlayer.md)
+
 <TOC/>
 
 > **요약**: 동일한 Next.js 앱에서 `next-intl`을 `@intlayer/next-intl`로 바꾼 경우, 페이지당 JavaScript는 **153.6 KB에서 147.5 KB** gzip으로, 평균 컴포넌트는 **21.8 KB에서 8.1 KB**로, 외부 페이지 문자열 누수는 **약 90%에서 0%**로, hydration은 **14.7ms에서 12.8ms**로 감소했으며, 수정된 컴포넌트가 없습니다. TanStack Start에서 `use-intl` 동등물(`@intlayer/use-intl`)은 컴포넌트를 **76-87 KB에서 9-11 KB**로 줄였고 로케일 전환은 **7-21ms에서 4-9ms**로 단축했습니다. 어댑터는 `next-intl`의 **14.7 KB** 및 네이티브 `next-intlayer`의 **5.5 KB**와 비교하여 **8.0 KB**의 런타임 비용이 발생합니다. 네비게이션과 미들웨어는 Intlayer의 라우팅 구성에서 다시 구현됩니다. 로컬라이즈된 `pathnames`은 전달되지 않는 유일한 기능입니다.
@@ -145,6 +147,8 @@ style="border:none;"
 
 > 모든 라이브러리와 전략이 포함된 전체 표는 [Next.js 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/nextjs.md)에서 확인하세요.
 
+- [Next.js 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/nextjs.md)
+
 ### TanStack Start (`use-intl`)에서의 결과
 
 `use-intl`은 `next-intl`의 framework-agnostic core입니다. 이의 adapter인 `@intlayer/use-intl`은 Vite plugin (`@intlayer/use-intl/plugin`)과 함께 동일한 design을 따릅니다.
@@ -176,6 +180,8 @@ style="border:none;"
 />
 
 > 전체 표는 [TanStack Start 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/tanstack.md)에서 확인하세요.
+
+- [TanStack Start 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/tanstack.md)
 
 ## 숫자가 변하는 이유
 
@@ -329,6 +335,8 @@ export default withIntlayer(nextConfig);
 
 포매터는 네이티브 `Intl`을 기반으로 하며 로케일만이 출력에 영향을 미칩니다. 수화 과정에서 안정적인 날짜를 위해 강제 시간대나 고정된 `now`에 의존하는 경우 호출 위치에서 직접 처리하세요. [날짜, 시간 및 숫자 포맷팅](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/date_time_number_formatting_locales.md)을 참조하세요.
 
+- [날짜, 시간 및 숫자 포맷팅](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/date_time_number_formatting_locales.md)
+
 </Accordion>
 </AccordionGroup>
 
@@ -349,6 +357,8 @@ export default withIntlayer(nextConfig);
 
 신규 프로젝트나 어댑터가 과도기적 역할을 다한 경우에 적합합니다. 셋 중 가장 가벼우며(5.5 KB, 페이지당 +0.3 KB 추가), 동기식 서버 컴포넌트, 컴포넌트별 `.content.ts` 파일 및 모든 기능을 지원합니다. [Next.js에서 Intlayer 시작하기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_16.md)를 참조하세요.
 
+- [Next.js에서 Intlayer 시작하기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_16.md)
+
 </Accordion>
 </AccordionGroup>
 
@@ -365,6 +375,8 @@ Next.js에서 컴포넌트 코드는 변경되지 않습니다. 벤치마크 빌
 <Question title="ICU 메시지는 어떻게 처리되나요?">
 
 정상적으로 계속 작동합니다. `t("key", { count })`, `t.rich()`, `t.markup()`, `select`, `selectordinal`, `#`, `{ts, date, long}`은 Intlayer의 ICU 해석기를 통해 처리됩니다. [ICU 메시지 형식](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)을 참조하세요.
+
+- [ICU 메시지 형식](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)
 
 </Question>
 
@@ -425,3 +437,5 @@ Intlayer 코어 위에 `next-intl` API 표면(`useFormatter`, `t.rich`, ICU 해�
 모든 raw data, test app 및 script는 [Benchmark Bloom repository](https://github.com/intlayer-org/benchmark-bloom)에 있습니다. 직접 실행해보세요.
 
 자세한 내용은 ['Why Intlayer?' doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/interest_of_intlayer.md)을 참조하세요.
+
+- [왜 Intlayer인가? 다른 i18n 라이브러리 대비 장점](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/interest_of_intlayer.md)

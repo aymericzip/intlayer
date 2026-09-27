@@ -49,6 +49,8 @@ author: aymericzip
 
 > Ищете подробное пошаговое техническое руководство для Vite и React? Ознакомьтесь с документацией: [Локализация Vite и React с Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_vite+react.md).
 
+- [Локализация Vite и React с Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_vite+react.md)
+
 ## Содержание
 
 <TOC/>
@@ -332,6 +334,8 @@ console.log("SEO-файлы успешно созданы.");
 Если вы хотите детально настроить каждый элемент приложения, включая строгую типизацию TypeScript, динамические словари и визуальный редактор, перейдите к подробному руководству:
 
 👉 **[Полное руководство по переводу Vite и React с Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_vite+react.md)**
+
+- [Полное руководство по переводу Vite и React с Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_vite+react.md)
 
 ## Часто задаваемые вопросы (FAQ)
 

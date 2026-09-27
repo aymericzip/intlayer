@@ -31,6 +31,9 @@ Every pattern below works on any i18n stack. Swap the provider for `I18nextProvi
 
 The coverage tooling ports too: with the [Sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/plugins/sync-json.md) pointed at your existing catalogs, or a [compat adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md) aliasing your current imports, the coverage assertion runs against the JSON you already have.
 
+- [Sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/plugins/sync-json.md)
+- [compat adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md)
+
 ## Decide what you are actually testing
 
 Translation quality is not a test. No assertion tells you whether the German is idiomatic, and pretending otherwise is how you get a suite full of hardcoded strings.
@@ -46,6 +49,8 @@ What is worth testing is mechanical:
 | Formatted dates and numbers use the locale | Third-party `Intl` correctness  |
 
 Coverage belongs in one data-driven test, not in your component tests. That is covered in [finding missing translations](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/detecting_missing_translations.md); this post is about the rest.
+
+- [finding missing translations](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/detecting_missing_translations.md)
 
 ## Render under a provider, assert on role
 
@@ -122,6 +127,8 @@ describe.each([0, 1, 2, 3, 11, 100])("count %i", (count) => {
 ```
 
 Pick counts that hit each CLDR category for your worst-case language rather than testing 1 and 2 everywhere. `Intl.PluralRules` tells you which category a number falls into, so you can derive the sample set instead of guessing. More on the categories in [the ICU message format post](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md).
+
+- [the ICU message format post](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)
 
 ## The snapshot trap
 

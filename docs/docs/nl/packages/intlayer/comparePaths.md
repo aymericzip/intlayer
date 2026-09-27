@@ -32,9 +32,11 @@ author: aymericzip
 
 ## Beschrijving
 
-De functie `comparePaths` vergelijkt twee URL's of paden op gelijkheid, waarbij het locale-segment, het protocol/host, de query-string, de hash en afsluitende schuine strepen (trailing slashes) worden genegeerd. Het is de aanbevolen manier om te bepalen of een navigatielink naar de huidige pagina verwijst — bijvoorbeeld om de actieve link te markeren — zonder dat u zelf (foutgevoelige) normalisatielogica hoeft te schrijven.
+De functie `comparePaths` vergelijkt twee URL's of paden op gelijkheid, waarbij het locale-segment, het protocol/host, de query-string, de hash en afsluitende schuine strepen (trailing slashes) worden genegeerd. Het is de aanbevolen manier om te bepalen of een navigatielink naar de huidige pagina verwijst, bijvoorbeeld om de actieve link te markeren, zonder dat u zelf (foutgevoelige) normalisatielogica hoeft te schrijven.
 
 Intern hergebruikt het [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/packages/intlayer/getPathWithoutLocale.md) om het locale-segment te verwijderen, zodat het uw geconfigureerde routeringsmodus en locales respecteert.
+
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/packages/intlayer/getPathWithoutLocale.md)
 
 Het pakket exporteert ook de onderliggende hulpmethode [`normalizePath`](#normalizepath), die het canonieke, locale-onafhankelijke pad retourneert dat wordt gebruikt voor de vergelijking.
 
@@ -44,7 +46,7 @@ Het pakket exporteert ook de onderliggende hulpmethode [`normalizePath`](#normal
 - Werkt met zowel absolute URL's als relatieve paden
 - Negeert query-strings, hashes en afsluitende schuine strepen
 - Tolereert ontbrekende voorloopstrepen en lege waarden (genormaliseerd naar `/`)
-- Lichtgewicht — gebouwd bovenop `getPathWithoutLocale`
+- Lichtgewicht, gebouwd bovenop `getPathWithoutLocale`
 
 ## Functiesignatuur
 

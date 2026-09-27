@@ -137,3 +137,5 @@ export default config;
 ### TypeScript Entegrasyonu
 
 `t` fonksiyonu, tanımlanmış sözlüklerle kullanıldığında tür güvenlidir. Daha fazla ayrıntı için [TypeScript belgelerine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) bakın.
+
+- [TypeScript belgelerine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md)

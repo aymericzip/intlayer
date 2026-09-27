@@ -23,6 +23,8 @@ author: aymericzip
 
 > `editor` 명령어를 사용하려면 `intlayer-editor` 패키지가 설치되어 있어야 합니다. ([Intlayer 비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md) 참고)
 
+- [Intlayer 비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)
+
 ```json fileName="package.json"
 "scripts": {
   "intlayer:editor:start": "npx intlayer editor start --with 'next dev --turbopack'"

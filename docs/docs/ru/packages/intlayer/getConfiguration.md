@@ -32,7 +32,7 @@ author: aymericzip
 # Документация: функция `getConfiguration` в `intlayer` (Устарело)
 
 > [!WARNING]
-> **Устарело**: Функция `getConfiguration` устарела. Новый рекомендуемый способ — импортировать `{ availableLocale, defaultLocales, internationalization, routing, ... }` (например, `defaultLocale`, `locales`, `requiredLocales` или `editor`) напрямую из `'intlayer'`:
+> **Устарело**: Функция `getConfiguration` устарела. Новый рекомендуемый способ, импортировать `{ availableLocale, defaultLocales, internationalization, routing, ... }` (например, `defaultLocale`, `locales`, `requiredLocales` или `editor`) напрямую из `'intlayer'`:
 >
 > ```typescript
 > import { defaultLocale, locales, requiredLocales, editor } from "intlayer";
@@ -56,6 +56,8 @@ author: aymericzip
   - `editor`: Конфигурации, специфичные для редактора.
 
 См. [документацию по конфигурации Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md) для получения дополнительной информации.
+
+- [документацию по конфигурации Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md)
 
 ## Пример использования
 

@@ -99,6 +99,8 @@ Next.js आपको अंतर्राष्ट्रीयकृत routing
 
 <I18nBenchmark framework="nextjs" packages="next-i18next,next-intl,next-intlayer" vertical/>
 
+- [i18n बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/nextjs.md)
+
 <ClickToOpenIframe
   src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
   width="100%"
@@ -120,6 +122,9 @@ Next.js App Router पर मापे गए मुख्य आँकड़े
 | `next-intlayer` (native Intlayer) |   **5.5 KB** | **141.3 KB** |         **0.0%** |      **0.0%** |   **6.9 KB** |
 
 > पूरे विश्लेषण के लिए, [Next.js बेंचमार्क रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/nextjs.md) और विस्तृत [i18n बेंचमार्क अवलोकन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/index.md) देखें।
+
+- [Next.js बेंचमार्क रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/nextjs.md)
+- [i18n बेंचमार्क अवलोकन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/index.md)
 
 बहु-भाषा अनुप्रयोग bundle के संदर्भ में दो घटक महत्वपूर्ण हैं:
 
@@ -1522,3 +1527,5 @@ GitHub stars किसी प्रोजेक्ट की लोकप्र�
 - [@intlayer/next-i18next संगतता एडाप्टर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/next-i18next.md)
 
 अधिक जानकारी के लिए ['Why Intlayer?' दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/interest_of_intlayer.md) देखें।
+
+- [Intlayer क्यों? अन्य i18n लाइब्रेरी से बेहतर क्या है](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/interest_of_intlayer.md)

@@ -41,9 +41,13 @@ author: aymericzip
 
 Veja uma comparação concreta com o next-intl em nosso post no blog [next-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/next-i18next_vs_next-intl_vs_intlayer.md).
 
+- [next-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/next-i18next_vs_next-intl_vs_intlayer.md)
+
 ## Por que combinar o Intlayer com o next-i18next?
 
 Enquanto o Intlayer oferece uma excelente solução i18n independente (veja nosso [guia de integração com Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_with_nextjs_16.md)), você pode querer combiná-lo com o next-i18next por várias razões:
+
+- [guia de integração com Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_with_nextjs_16.md)
 
 1. **Base de código existente**: Você possui uma implementação consolidada do next-i18next e deseja migrar gradualmente para a melhor experiência de desenvolvedor do Intlayer.
 2. **Requisitos legados**: Seu projeto requer compatibilidade com plugins ou fluxos de trabalho existentes do i18next.
@@ -142,6 +146,8 @@ Se alterações forem feitas usando o CLI para traduzir o JSON, ou usando o CMS,
 
 Para ver mais detalhes sobre o plugin `syncJSON`, por favor consulte a [documentação do plugin syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/plugins/sync-json.md).
 
+- [documentação do plugin syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/plugins/sync-json.md)
+
 </Step>
 <Step number={3} title="Implementar traduções JSON por componente" isOptional={true}>
 
@@ -203,4 +209,4 @@ Esses arquivos são automaticamente regenerados durante o processo de build e n�
 
 Para uma melhor experiência do desenvolvedor, instale a extensão oficial **Intlayer para VS Code**:
 
-[Instalar a partir do VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [Instalar a partir do VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

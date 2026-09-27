@@ -92,6 +92,8 @@ style="border:none;"
 
 > 本番ビルド環境において10ルート、10言語、gzip圧縮の条件で測定。詳細は[i18nベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/index.md)に記載されています。
 
+- [i18nベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/index.md)
+
 ### ライブラリ自体の基礎オーバーヘッド
 
 翻訳データを含まない、ライブラリ導入のみによるサイズ:
@@ -171,6 +173,9 @@ return <h1>{title}</h1>;
 
 [Intlayerコンパイラ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)は`Hero.tsx`で参照されているフィールドを正確に特定し、未使用のデータをクライアントバンドルの生成前に除去します。詳細は[バンドル最適化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)をご覧ください。
 
+- [Intlayerコンパイラ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)
+- [バンドル最適化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)
+
 ## 開発体験（DX）の比較
 
 ### 隔離されたJSONとコンポーネントの共配置
@@ -237,6 +242,8 @@ export const Hero = () => {
 `CustomTypeOptions`を設定すればエディタ上で補完が効きますが、翻訳が全言語で揃っているかまでは保証されません。例えば`ja/hero.json`からキーを削除してもビルドエラーにはならず、実行時にフォールバックテキストが表示されるだけです。
 
 Intlayerは宣言されたコンテンツから型を自動生成し、[`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を有効にすれば翻訳の欠落をビルドエラーとして即座に検出します。
+
+- [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)
 
 ### 提供ツールの比較
 

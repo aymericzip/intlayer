@@ -184,6 +184,8 @@ module.exports = indexContent;
 
 > Raadpleeg voor meer details de [documentatie voor inhoudsdeclaratie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/dictionary/content_file.md).
 
+- [documentatie voor inhoudsdeclaratie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/dictionary/content_file.md)
+
 ### Hono-applicatie instellen
 
 Stel uw Hono-applicatie in om `hono-intlayer` te gebruiken:
@@ -251,6 +253,8 @@ Standaard zal `hono-intlayer` de `Accept-Language` header interpreteren om de vo
 
 > Voor meer informatie over configuratie en geavanceerde onderwerpen, bezoek onze [documentatie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/configuration.md).
 
+- [Configuratie (Configuration)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/configuration.md)
+
 ### TypeScript configureren
 
 `hono-intlayer` maakt gebruik van de robuuste mogelijkheden van TypeScript om het internationaliseringsproces te verbeteren. De statische typering van TypeScript zorgt ervoor dat met elke vertaalsleutel rekening wordt gehouden, waardoor het risico op ontbrekende vertalingen wordt verminderd en de onderhoudbaarheid wordt verbeterd.
@@ -275,7 +279,7 @@ Zorg ervoor dat de automatisch gegenereerde types (standaard in ./types/intlayer
 
 Om uw ontwikkelervaring met Intlayer te verbeteren, kunt u de officiële **Intlayer VS Code-extensie** installeren.
 
-[Installeren vanaf de VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [Installeren vanaf de VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 Deze extensie biedt:
 
@@ -285,6 +289,8 @@ Deze extensie biedt:
 - **Snelle acties** om eenvoudig vertalingen te maken en bij te werken.
 
 Raadpleeg voor meer informatie over het gebruik van de extensie de [documentatie van de Intlayer VS Code-extensie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md).
+
+- [documentatie van de Intlayer VS Code-extensie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md)
 
 ### Git-configuratie
 

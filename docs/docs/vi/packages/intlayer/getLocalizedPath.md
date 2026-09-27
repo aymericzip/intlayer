@@ -32,7 +32,9 @@ author: aymericzip
 
 Hàm `getLocalizedPath` chuyển đổi một canonical path (đường dẫn nội bộ của ứng dụng) thành phiên bản đã được địa phương hóa dựa trên locale và các quy tắc rewrite được cung cấp. Hàm này đặc biệt hữu ích để tạo các URL thân thiện với SEO thay đổi theo ngôn ngữ.
 
-Đây là đối tác tương đối của [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getLocalizedUrl.md) — đối với input tương đối, cả hai đều trả về giá trị giống nhau. Không giống như `getLocalizedUrl`, nó không bao giờ trả về URL tuyệt đối: cấu hình `domains` bị bỏ qua, vì vậy một locale được phục vụ từ domain của nó vẫn tạo ra một đường dẫn. Input tuyệt đối được chấp nhận, nhưng nguồn gốc của nó bị loại bỏ — chỉ đường dẫn, chuỗi truy vấn và hash được giữ lại.
+Đây là đối tác tương đối của [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getLocalizedUrl.md), đối với input tương đối, cả hai đều trả về giá trị giống nhau. Không giống như `getLocalizedUrl`, nó không bao giờ trả về URL tuyệt đối: cấu hình `domains` bị bỏ qua, vì vậy một locale được phục vụ từ domain của nó vẫn tạo ra một đường dẫn. Input tuyệt đối được chấp nhận, nhưng nguồn gốc của nó bị loại bỏ, chỉ đường dẫn, chuỗi truy vấn và hash được giữ lại.
+
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getLocalizedUrl.md)
 
 **Tính năng chính:**
 
@@ -71,10 +73,10 @@ getLocalizedPath(
   - **Kiểu**: `RoutingConfig['rewrite']`
   - **Mặc định**: `configuration.routing.rewrite`
 
-  - `options.locales?: Locales[]` — các locale được hỗ trợ. **Default**: `configuration.internationalization.locales`
-  - `options.defaultLocale?: Locales` — locale mặc định. **Default**: `configuration.internationalization.defaultLocale`
-  - `options.mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'` — cách locale xuất hiện trong đường dẫn. **Default**: `configuration.routing.mode`
-  - `options.rewrite?: RoutingConfig['rewrite']` — các quy tắc rewrite tùy chỉnh. **Default**: `configuration.routing.rewrite`
+  - `options.locales?: Locales[]`: các locale được hỗ trợ. **Default**: `configuration.internationalization.locales`
+  - `options.defaultLocale?: Locales`: locale mặc định. **Default**: `configuration.internationalization.defaultLocale`
+  - `options.mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'`: cách locale xuất hiện trong đường dẫn. **Default**: `configuration.routing.mode`
+  - `options.rewrite?: RoutingConfig['rewrite']`: các quy tắc rewrite tùy chỉnh. **Default**: `configuration.routing.rewrite`
 
 ## Trả về
 
@@ -97,6 +99,8 @@ const home = getLocalizedPath("/", Locales.FRENCH);
 ```
 
 Cùng một narrowing này chảy vào [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getLocalizedUrl.md), áp dụng các quy tắc rewrite trước khi thêm tiền tố locale.
+
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getLocalizedUrl.md)
 
 Hai trường hợp vẫn được mở rộng thành `string`, vì chúng không thể được giải quyết tại thời điểm biên dịch:
 

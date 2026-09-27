@@ -322,6 +322,8 @@ Os arquivos PO sincronizados serão considerados como outros arquivos `.content`
 
 Consulte o [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/index.md) para mais detalhes.
 
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/index.md)
+
 ## Limitações (atuais)
 
 - Sem suporte para inserções ou plurais/ICU ao visar bibliotecas de terceiros.

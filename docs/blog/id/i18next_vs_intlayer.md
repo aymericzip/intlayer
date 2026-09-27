@@ -135,6 +135,8 @@ style="border:none;"
 
 > Tabel lengkap, setiap pustaka dan setiap strategi, ada di [laporan benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/nextjs.md).
 
+- [laporan benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/nextjs.md)
+
 ### Hasil pada TanStack Start (`react-i18next`)
 
 Aplikasi yang sama pada TanStack Start dengan `react-i18next` murni untuk memisahkan faktor arsitektur Next.js:
@@ -165,6 +167,8 @@ style="border:none;"
 />
 
 > Tabel lengkap ada di [laporan benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/tanstack.md).
+
+- [laporan benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/tanstack.md)
 
 ## Mengapa Perbedaannya Begitu Nyata? Global Instance vs Kamus Terkompilasi
 
@@ -221,6 +225,8 @@ Intlayer meniadakan instance global tersebut. Konten dideklarasikan langsung di 
 `@intlayer/swc` / `@intlayer/babel` mendeteksi komponen mana yang memakai kamus mana, mengemas hanya kamus tersebut untuk bahasa aktif, dan membersihkan teks yang tidak terpakai. Pola "scoped-dynamic" menjadi output alami dari proses build, bukan lagi tugas manual yang harus dipelihara pengembang.
 
 > Untuk menerapkan performa pada baris `dynamic`, setel `dictionary.importMode: 'dynamic'` di file `intlayer.config.ts`. Silakan pelajari lebih lanjut di [panduan optimasi bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/bundle_optimization.md).
+
+- [panduan optimasi bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/bundle_optimization.md)
 
 ## Pengalaman Pengembang (DX)
 
@@ -461,6 +467,10 @@ Dalam pengujian benchmark, build kompatibel pada aplikasi Next.js yang sama meng
 
 Pelajari panduan migrasinya: [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_i18next_to_intlayer.md), [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_react-i18next_to_intlayer.md), [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_next-i18next_to_intlayer.md).
 
+- [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_i18next_to_intlayer.md)
+- [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_react-i18next_to_intlayer.md)
+- [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_next-i18next_to_intlayer.md)
+
 ## Kapan Memilih yang Mana?
 
 <AccordionGroup>
@@ -473,10 +483,17 @@ Jika Anda sangat bergantung pada ekosistem pluginnya (pendeteksi khusus, backend
 
 Anda menginginkan **konten berbasis komponen**, **TypeScript yang ketat**, **kesalahan kunci yang hilang saat waktu build**, **tree-shaking dan lazy loading tanpa usaha**, pergantian bahasa instan, komponen server sinkron, dan alat editorial bawaan ([Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md), [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md), [terjemahan AI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/autoFill.md), [server MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/mcp_server.md)). Sangat relevan untuk basis kode modular yang besar dan sistem desain.
 
+- [Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)
+- [terjemahan AI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/autoFill.md)
+- [server MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/mcp_server.md)
+
 </Accordion>
 <Accordion header="Pilih adaptor @intlayer/*-i18next">
 
 Anda sudah menggunakan i18next dan menginginkan efisiensi bundle serta peningkatan reaktivitas tanpa perlu menulis ulang komponen. Berkas `locales/{lng}/{ns}.json` Anda tetap menjadi sumber kebenaran utama. Diukur berdampingan dalam [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18next_vs_intlayer-i18next.md).
+
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18next_vs_intlayer-i18next.md)
 
 </Accordion>
 </AccordionGroup>
@@ -501,17 +518,23 @@ Itu memperbaiki ukuran byte, bukan latensi. Beralih ke `i18next-resources-to-bac
 
 Bisa, dengan `scoped-dynamic`: satu namespace per rute, backend sumber daya, dan pemetaan halaman ke namespace yang dikelola secara manual. Ini menghasilkan 163.4 KB per halaman di Next.js, masih **+22 KB** lebih besar daripada 141.3 KB milik Intlayer yang tidak memerlukan konfigurasi tambahan. Lihat [optimasi bundel](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/bundle_optimization.md).
 
+- [optimasi bundel](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/bundle_optimization.md)
+
 </Question>
 
 <Question title="Apakah saya harus menulis ulang komponen untuk bermigrasi?">
 
 Tidak. `@intlayer/i18next`, `@intlayer/react-i18next`, dan `@intlayer/next-i18next` mempertahankan `useTranslation`, `t()`, `<Trans>`, `{{interpolation}}`, bentuk jamak `_one` / `_other`, sufiks konteks, dan `returnObjects`. Cukup satu baris plugin di `next.config.ts` atau `vite.config.ts`. Panduan langkah demi langkah ada di [panduan migrasi next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_next-i18next_to_intlayer.md).
 
+- [panduan migrasi next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_next-i18next_to_intlayer.md)
+
 </Question>
 
 <Question title="Apa yang terjadi pada plugin i18next saya?">
 
 Backend dan pendeteksi bahasa tetap diterima tetapi menjadi tidak aktif: tidak ada lagi yang perlu dimuat atau dideteksi saat runtime. Deteksi bahasa menjadi konfigurasi routing Intlayer (awalan URL, cookie, header). Jika aplikasi Anda mengambil terjemahan dari CMS saat permintaan tiba, gunakan [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md) atau perintah `intlayer pull` / `push` sebagai gantinya.
+
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)
 
 </Question>
 
@@ -575,3 +598,5 @@ Intlayer memindahkan seluruh beban kerja tersebut ke kompilator. Pengelolaan kam
 Seluruh data mentah, aplikasi pengujian, dan skrip dapat diakses di [repositori Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Anda bebas mengujinya sendiri.
 
 Untuk pemahaman lebih mendalam, kunjungi dokumentasi ['Mengapa Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/interest_of_intlayer.md).
+
+- [Mengapa Intlayer? Keunggulan dibanding library i18n lain](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/interest_of_intlayer.md)

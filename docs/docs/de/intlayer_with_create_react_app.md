@@ -60,10 +60,16 @@ Durch die Festlegung des Inhaltsbereichs Ihrer Anwendung wird die Wartung für u
 
 Durch die gemeinsame Platzierung von Inhalten **reduziert sich der von Large Language Models (LLMs) benötigte Kontext**. Intlayer verfügt außerdem über eine Reihe von Tools, wie zum Beispiel eine **CLI** zum Testen auf fehlende Übersetzungen,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** und **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/agent_skills.md)**, um die Entwicklererfahrung (DX) für KI-Agenten noch reibungsloser zu gestalten.
 
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)
+- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/agent_skills.md)
+
 </Accordion>
 <Accordion header="Automatisierung">
 
 Nutzen Sie die Automatisierung, um Ihre CI/CD-Pipeline mit dem LLM Ihrer Wahl auf Kosten Ihres KI-Anbieters zu übersetzen. Intlayer bietet außerdem einen **Compiler** zur Automatisierung der Inhaltsextraktion sowie eine [Webplattform](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) zur Unterstützung der **Übersetzung im Hintergrund**.
+
+- [Webplattform](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="Leistung">
@@ -74,6 +80,9 @@ Das Verbinden großer JSON-Dateien mit Komponenten kann zu Leistungs- und Reakti
 <Accordion header="Skalierung mit Nicht-Entwickler">
 
 Intlayer ist mehr als nur eine i18n-Lösung. Es bietet einen **selbstgehosteten [visuellen Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** und ein **[vollständiges CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)**, um Ihnen zu helfen Verwalten Sie Ihre mehrsprachigen Inhalte in **Echtzeit** und gestalten Sie die Zusammenarbeit mit Übersetzern, Textern und anderen Teammitgliedern reibungslos. Inhalte können lokal und/oder remote gespeichert werden.
+
+- [visuellen Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)
+- [vollständiges CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
@@ -158,6 +167,8 @@ export default config;
 
 > Über diese Konfigurationsdatei können Sie lokalisierte URLs, Middleware-Weiterleitungen, Cookienamen, den Speicherort und die Erweiterung Ihrer Inhaltsdeklarationen, das Deaktivieren von Intlayer-Logs in der Konsole und mehr einrichten. Eine vollständige Liste der verfügbaren Parameter finden Sie in der [Konfigurationsdokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md).
 
+- [Konfigurationsdokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md)
+
 </Step>
 <Step number={3} title="Integration von Intlayer in Ihre CRA-Konfiguration">
 
@@ -227,6 +238,8 @@ export default appContent;
 
 > Weitere Details finden Sie in der [Dokumentation zur Inhaltsdeklaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/content_file.md).
 
+- [Dokumentation zur Inhaltsdeklaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/content_file.md)
+
 > Wenn Ihre Inhaltsdatei TSX-Code enthält, sollten Sie `import React from "react";` in Ihrer Inhaltsdatei importieren.
 
 </Step>
@@ -279,6 +292,8 @@ export default App;
 
 > Weitere Informationen zum `useIntlayer`-Hook finden Sie in der [Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/react-intlayer/useIntlayer.md).
 
+- [useIntlayer Hook Dokumentation | react-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/react-intlayer/useIntlayer.md)
+
 </Step>
 <Step number={6} title="Ändern Sie die Sprache Ihrer Inhalte" isOptional={true}>
 
@@ -301,6 +316,8 @@ const LocaleSwitcher = () => {
 
 > Weitere Informationen zum `useLocale`-Hook finden Sie in der [Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/react-intlayer/useLocale.md).
 
+- [useLocale Hook Dokumentation | react-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/react-intlayer/useLocale.md)
+
 </Step>
 <Step number={7} title="Lokalisierte Routen zu Ihrer Anwendung hinzufügen" isOptional={true}>
 
@@ -314,6 +331,8 @@ Beispiel:
 ```
 
 > Standardmäßig werden die Routen nicht für die Standardsprache vorangestellt. Wenn Sie die Standardsprache voranstellen möchten, können Sie die Option `middleware.prefixDefault` in Ihrer Konfiguration auf `true` setzen. Weitere Informationen finden Sie in der [Konfigurationsdokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md).
+
+- [Konfigurationsdokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md)
 
 Um lokalisierte Routen zu Ihrer Anwendung hinzuzufügen, können Sie eine `LocaleRouter`-Komponente erstellen, die die Routen Ihrer Anwendung umschließt und lokalisierungsbasierte Routen verwaltet. Hier ist ein Beispiel mit [React Router](https://reactrouter.com/home):
 
@@ -526,6 +545,11 @@ const LocaleSwitcher: FC = () => {
 > - [`dir`-Attribut](https://developer.mozilla.org/de/docs/Web/HTML/Global_attributes/dir)
 > - [`aria-current`-Attribut](https://developer.mozilla.org/de/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
+- [`useLocale`-Hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/react-intlayer/useLocale.md)
+- [`getLocaleName`-Hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/intlayer/getLocaleName.md)
+- [`getLocalizedUrl`-Hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/intlayer/getLocalizedUrl.md)
+- [`getHTMLTextDir`-Hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/intlayer/getHTMLTextDir.md)
+
 </Step>
 <Step number={9} title="Ändern der HTML-Sprach- und Richtungsattribute" isOptional={true}>
 
@@ -636,7 +660,7 @@ Fügen Sie dazu die folgenden Anweisungen zu Ihrer `.gitignore`-Datei hinzu:
 
 Um Ihre Entwicklungserfahrung mit Intlayer zu verbessern, können Sie die offizielle **Intlayer VS Code Extension** installieren.
 
-[Installieren Sie aus dem VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [Installieren Sie aus dem VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 Diese Extension bietet:
 
@@ -647,9 +671,14 @@ Diese Extension bietet:
 
 Weitere Informationen zur Verwendung der Extension finden Sie in der [Intlayer VS Code Extension Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/vs_code_extension.md).
 
+- [Intlayer VS Code Extension Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/vs_code_extension.md)
+
 ### Weiterführende Schritte
 
 Um weiterzugehen, können Sie den [visuellen Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md) implementieren oder Ihre Inhalte mithilfe des [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md) auslagern.
+
+- [visuellen Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md)
 
 ## Häufig gestellte Fragen
 
@@ -663,20 +692,35 @@ Um weiterzugehen, können Sie den [visuellen Editor](https://github.com/aymericz
 
 Create React App kapselt seine eigene webpack-Konfiguration, sodass die Integration über den `react-scripts-intlayer`-Drop-in-Ersatz für `react-scripts` läuft statt über ein Plugin, das Sie selbst registrieren. Siehe [warum Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/interest_of_intlayer.md) und den [Benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/index.md).
 
+- [warum Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/interest_of_intlayer.md)
+- [Benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/index.md)
+
 </Question>
 <Question title="Wie viel trägt i18n zu meiner React-Bundle-Größe bei?">
 
 Viel weniger als bei einem Namespace-basierten Setup, denn eine Seite lädt niemals einen Katalog herunter, den sie nicht rendert. Der Build-Zeit-Compiler ersetzt `useIntlayer`-Aufrufe durch genau die Wörterbucheinträge, die eine Komponente verwendet, sodass ungenutzte Schlüssel und ungenutzte Sprachen entfernt werden, und [dynamische Wörterbücher](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dynamic_dictionaries/index.md) teilen den Rest pro Locale auf. Gemessen an den üblichen Alternativen reduziert Intlayer die Bundle- und Seitengröße um bis zu 50 %. Siehe [Bundle-Optimierung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/bundle_optimization.md) und den [Benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/index.md).
+
+- [dynamische Wörterbücher](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dynamic_dictionaries/index.md)
+- [Bundle-Optimierung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/bundle_optimization.md)
+- [Benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/index.md)
 
 </Question>
 <Question title="Kann ich von `react-i18next` oder `react-intl` migrieren, ohne meine Komponenten neu zu schreiben?">
 
 Ja, und es gibt zwei Wege. Sie können die Inhalte schrittweise migrieren mit dem [react-i18next-Migrationsleitfaden](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/migration_from_react-i18next_to_intlayer.md) oder dem [i18next-Migrationsleitfaden](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/migration_from_i18next_to_intlayer.md). Oder Sie behalten Ihre aktuelle API vollständig bei: Die [Kompatibilitätsadapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compat/index.md) stellen genau dieselbe API wie `react-i18next`, `react-intl` und `i18next` bereit, aber aus Intlayer-Wörterbüchern bedient, sodass sich Importe ändern und der Komponentencode nicht.
 
+- [react-i18next-Migrationsleitfaden](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/migration_from_react-i18next_to_intlayer.md)
+- [i18next-Migrationsleitfaden](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/migration_from_i18next_to_intlayer.md)
+- [Kompatibilitätsadapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compat/index.md)
+
 </Question>
 <Question title="Kann ich meine vorhandenen JSON-Übersetzungsdateien behalten?">
 
 Ja. Das [sync-JSON-Plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/plugins/sync-json.md) behält Ihre `/messages/{locale}/{namespace}.json`-Dateien als Single Source of Truth und generiert daraus Intlayer-Wörterbücher, in beide Richtungen. Ein [sync-PO-Plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/plugins/sync-po.md) macht dasselbe für gettext-Kataloge, und [Dateien pro Locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/per_locale_file.md) lassen Sie Inhalte nach Sprache aufteilen, statt Locales in einer Datei zu gruppieren.
+
+- [sync-JSON-Plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/plugins/sync-json.md)
+- [sync-PO-Plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/plugins/sync-po.md)
+- [Dateien pro Locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/per_locale_file.md)
 
 </Question>
 <Question title="Muss ich meine Inhalte Schlüssel für Schlüssel umziehen?">
@@ -685,7 +729,11 @@ Nein. Führen Sie `npx intlayer extract` aus; Intlayer liest Ihre Komponenten, z
 
 Für eine vollständig automatisierte Pipeline macht der [Intlayer-Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compiler.md) dasselbe zur Build-Zeit: Er scannt Ihren JSX-, TSX-, Vue- und Svelte-Quellcode bei jeder Änderung, generiert die Wörterbücher und hält sie über Hot Module Replacement synchron, sodass es überhaupt keine von Hand zu pflegenden Schlüssel gibt.
 
+- [Intlayer-Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compiler.md)
+
 Zwei Einschränkungen sollten Sie kennen, bevor Sie den Compiler aktivieren. Er arbeitet mit statischer Analyse, sodass Strings, die nur zur Laufzeit existieren, etwa API-Fehlercodes oder CMS-Felder, unerreichbar bleiben. Und er muss für den Nutzer sichtbaren Text von Anwendungslogik wie `className="active"` oder einem Statuscode unterscheiden, was in einer großen Codebasis einige Annotationen erfordert. Der [extract-Befehl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/extract.md) vermeidet beides, indem er Sie einbezieht.
+
+- [extract-Befehl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/extract.md)
 
 </Question>
 <Question title="Welches Editor- und KI-Agenten-Tooling ist verfügbar?">
@@ -703,15 +751,22 @@ Fünf Bausteine, alle optional:
 
 Wenn Sie den Umstieg ohnehin planen, tun Sie es zuerst und folgen Sie stattdessen dem [Vite-und-React-Leitfaden](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_vite+react.md): Das Vite-Plugin ist der besser unterstützte Weg und gibt Ihnen schnellere Rebuilds. Wenn Sie noch nicht bereit sind, funktioniert dieser Leitfaden weiter, und die Inhaltsdeklarationen ändern sich zwischen den beiden Setups nicht, sodass eine spätere Migration des Builds nicht bedeutet, Ihr i18n neu zu schreiben.
 
+- [Vite-und-React-Leitfaden](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_vite+react.md)
+
 </Question>
 <Question title="Wie richte ich lokalisiertes Routing in einem Create-React-App-Projekt ein?">
 
 Die Schritte 7 und 8 behandeln die lokalisierten Routen und das Umschreiben der URL, wenn sich die Locale ändert. Wenn Sie die Locale nicht im Pfad haben möchten, setzen Sie `routing.mode` auf `"no-prefix"` oder `"search-params"`, und sie wird stattdessen aus einem Cookie oder einem Query-Parameter aufgelöst. Siehe die [Konfigurationsreferenz](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md).
 
+- [Konfigurationsreferenz](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md)
+
 </Question>
 <Question title="Wie handhabe ich SEO-Metadaten in einer clientseitig gerenderten React-App?">
 
 Setzen Sie `lang` und `dir` am `html`-Element aus der aktiven Locale, wie Schritt 9 zeigt, und geben Sie `hreflang`-Alternativen für jede deklarierte Locale mit `getMultilingualUrls` aus, einschließlich `x-default`. Da Create React App eine einzige clientseitig gerenderte Hülle ausliefert, bevorzugen Sie für Seiten, die zuverlässig gecrawlt werden müssen, ein vorgerendertes oder serverseitig gerendertes Setup wie [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_tanstack.md) oder [React Router v7](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_react_router_v7.md).
+
+- [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_tanstack.md)
+- [React Router v7](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_react_router_v7.md)
 
 </Question>
 <Question title="Wie unterstütze ich Rechts-nach-links-Sprachen wie Arabisch oder Hebräisch?">
@@ -723,20 +778,34 @@ Schritt 9 behandelt das. `getHTMLTextDir` gibt `ltr`, `rtl` oder `auto` für ein
 
 Führen Sie `npx intlayer fill` aus. Es füllt fehlende Übersetzungen mit dem LLM Ihrer Wahl, unter Verwendung Ihres eigenen Anbieters und API-Schlüssels, und `--git-diff` beschränkt den Lauf auf die im Branch geänderten Inhalte. Siehe den [fill-Befehl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/fill.md) und die [CI/CD-Integration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/CI_CD.md).
 
+- [fill-Befehl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/fill.md)
+- [CI/CD-Integration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/CI_CD.md)
+
 </Question>
 <Question title="Unterstützt Intlayer Pluralformen, Genus und Rich Text?">
 
 Ja: [Pluralformen](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/plurial.md), [genusbasierte Inhalte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/gender.md), Bedingungen, [Einfügungen](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/insertion.md), [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/markdown.md) und [Formatter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/formatters.md) für Zahlen, Daten und Währungen.
+
+- [Pluralformen](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/plurial.md)
+- [genusbasierte Inhalte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/gender.md)
+- [Einfügungen](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/insertion.md)
+- [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/markdown.md)
+- [Formatter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/formatters.md)
 
 </Question>
 <Question title="Wie können Übersetzer die Inhalte bearbeiten, ohne den Code anzufassen?">
 
 Über den [visuellen Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md), der auf Ihrer eigenen Infrastruktur läuft und es jedem ermöglicht, Text direkt in der laufenden App zu bearbeiten, oder das [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md), das Inhalte auslagert, sodass sie sich ohne Deployment ändern können.
 
+- [visuellen Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md)
+
 </Question>
 <Question title="Ist Intlayer kostenlos und Open Source?">
 
 Ja, unter der Apache-2.0-Lizenz, kommerzielle Nutzung eingeschlossen. Das gehostete CMS ist ein optionaler kostenpflichtiger Dienst, der auch [selbst gehostet](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/self_hosting.md) werden kann.
+
+- [selbst gehostet](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/self_hosting.md)
 
 </Question>
 

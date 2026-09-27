@@ -37,17 +37,23 @@ author: aymericzip
 
 يسهل تحديد نطاق محتوى التطبيق **الصيانة** للتطبيقات واسعة النطاق. يمكنك نسخ أو حذف مجلد ميزة واحد دون الحاجة لمراجعة كود المحتوى بالكامل. بالإضافة إلى ذلك، Intlayer **مكتوب بشكل كامل** لضمان دقة المحتوى الخاص بك.
 
-Intlayer أيضاً هو الحل ذو **التطوير الأكثر نشاطاً** في نظام i18n البيئي — تُصلح المشاكل بسرعة، وتُضاف محولات إطار عمل جديدة بانتظام، ويتم تحسين API الأساسي بناءً على ملاحظات الإنتاج الحقيقية.
+Intlayer أيضاً هو الحل ذو **التطوير الأكثر نشاطاً** في نظام i18n البيئي، تُصلح المشاكل بسرعة، وتُضاف محولات إطار عمل جديدة بانتظام، ويتم تحسين API الأساسي بناءً على ملاحظات الإنتاج الحقيقية.
 
 </Accordion>
 <Accordion header="وكيل ذكي">
 
 يقلل دمج المحتوى **السياق المطلوب** من نماذج اللغة الكبيرة (LLMs). يأتي Intlayer أيضاً مع مجموعة من الأدوات، مثل **CLI** لاختبار الترجمات المفقودة، **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/lsp.md)**، **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/mcp_server.md)**، و**[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)**، لجعل تجربة المطور (DX) أكثر سلاسة حتى للوكلاء الذكيين.
 
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/mcp_server.md)
+- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)
+
 </Accordion>
 <Accordion header="الأتمتة">
 
 استخدم الأتمتة للترجمة في خط أنابيب CI/CD الخاص بك باستخدام نموذج LLM من اختيارك بتكلفة موفر الذكاء الاصطناعي الخاص بك. يوفر Intlayer أيضاً **compiler** لأتمتة استخراج المحتوى، بالإضافة إلى [منصة ويب](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md) لمساعدتك على **الترجمة في الخلفية**.
+
+- [منصة ويب](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="الأداء">
@@ -58,6 +64,9 @@ Intlayer أيضاً هو الحل ذو **التطوير الأكثر نشاطا�
 <Accordion header="التوسع مع غير المطورين">
 
 أكثر من مجرد حل i18n، يوفر Intlayer **[محرر مرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)** ذاتي الاستضافة و**[CMS كامل](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)** لمساعدتك على إدارة محتواك متعدد اللغات في **الوقت الفعلي**، مما يجعل التعاون مع المترجمين والكتاب والأعضاء الآخرين في الفريق بسيطاً. يمكن تخزين المحتوى محلياً و/أو بعداً.
+
+- [محرر مرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)
+- [CMS كامل](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
@@ -70,9 +79,9 @@ Intlayer أيضاً هو الحل ذو **التطوير الأكثر نشاطا�
 
 هناك استراتيجيتان متكاملتان للترحيل من `i18next` إلى Intlayer:
 
-1. **محول التوافق (موصى به للتطبيقات الموجودة)** — قم بتثبيت `@intlayer/i18next`. تكشف هذه الحزمة عن **نفس API تماماً** من `i18next` ولكن تفوض كل عمل الترجمة إلى Intlayer تحت الغطاء. تحافظ على استدعاءات `i18next.t()` و `i18next.changeLanguage()` و `createInstance()` الموجودة — التغيير الوحيد هو مسار الاستيراد والتهيئة.
+1. **محول التوافق (موصى به للتطبيقات الموجودة)**: قم بتثبيت `@intlayer/i18next`. تكشف هذه الحزمة عن **نفس API تماماً** من `i18next` ولكن تفوض كل عمل الترجمة إلى Intlayer تحت الغطاء. تحافظ على استدعاءات `i18next.t()` و `i18next.changeLanguage()` و `createInstance()` الموجودة، التغيير الوحيد هو مسار الاستيراد والتهيئة.
 
-2. **الترحيل الكامل** — استبدل تدريجياً APIs من i18next بأدوات Intlayer الأصلية ودمج المحتوى في ملفات `.content.ts`.
+2. **الترحيل الكامل**: استبدل تدريجياً APIs من i18next بأدوات Intlayer الأصلية ودمج المحتوى في ملفات `.content.ts`.
 
 يغطي هذا الدليل **الاستراتيجية 1** أولاً (محول التوافق drop-in)، ثم يرشدك عبر الترحيل الكامل الاختياري.
 
@@ -125,7 +134,7 @@ yarn add intlayer @intlayer/i18next @intlayer/sync-json-plugin
 bun add intlayer @intlayer/i18next @intlayer/sync-json-plugin
 ```
 
-> يمكنك الاحتفاظ بـ `i18next` مثبتاً — يستخدم محول التوافق كـ `devDependency` / `peerDependency` لأنواع TypeScript.
+> يمكنك الاحتفاظ بـ `i18next` مثبتاً، يستخدم محول التوافق كـ `devDependency` / `peerDependency` لأنواع TypeScript.
 
 </Step>
 <Step number={2} title="تكوين Intlayer">
@@ -179,7 +188,7 @@ export default defineConfig({
 
 > `i18nextVitePlugin()` يغلف مكوّن `intlayer()` من `vite-intlayer` ويضيف
 > اسم مستعار `i18next` → `@intlayer/i18next` لك. يجمّع المكوّن العادي `intlayer()`
-> من `vite-intlayer` القواامس ولكن **لا** يضيف هذا الاسم المستعار — يمكنك حينها
+> من `vite-intlayer` القواامس ولكن **لا** يضيف هذا الاسم المستعار، يمكنك حينها
 > إعادة تسمية الاستيرادات إلى `@intlayer/i18next` يدويياً (انظر الخطوة التالية).
 
 </Step>
@@ -203,7 +212,7 @@ export default defineConfig({
 | `import { createInstance } from 'i18next'` | `import { createInstance } from '@intlayer/i18next'` |
 | `import { t } from 'i18next'`              | `import { t } from '@intlayer/i18next'`              |
 
-هذه **بدائل drop-in** — لا تغييرات في توقيعات الدالة أو الحجج أو أنواع الإرجاع مطلوبة.
+هذه **بدائل drop-in**، لا تغييرات في توقيعات الدالة أو الحجج أو أنواع الإرجاع مطلوبة.
 
 </Step>
 <Step number={5} title="تفعيل أتمتة الترجمة المدفوعة بالذكاء الاصطناعي" isOptional={true}>
@@ -263,6 +272,8 @@ export default config;
 
 > انظر [وثائق Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md) لجميع الخيارات المتاحة.
 
+- [وثائق Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md)
+
 </Step>
 
 </Steps>
@@ -277,7 +288,7 @@ export default config;
 | `i18next.use(...)`                 | لا يستخدم Intlayer مكوّنات i18next أو backends أو كاشفات اللغات.                                                    |
 | حزم اللغات JSON (`locales/*.json`) | تُحتاج حزم JSON فقط إذا كنت تستخدم مكوّن `syncJSON` بعد. بمجرد الترحيل إلى ملفات `.content.ts` يمكنك حذف مجلد JSON. |
 
-عندما تكون جاهزاً للمضي أبعد، يكتشف Intlayer **تلقائياً جميع ملفات `.content.ts` و `.content.json` في أي مكان في قاعدة الكود الخاصة بك** (افتراضياً، في أي مكان داخل `./src`). يمكنك وضع ملف `my-component.content.ts` بجانب منطقك مباشرة وسيلتقطه Intlayer في وقت البناء بدون تكوين إضافي — لا استيرادات، لا تسجيل، لا حاجة لملف فهرس مركزي. هذا يجعل دمج الترجمات بدون احتكاك تماماً.
+عندما تكون جاهزاً للمضي أبعد، يكتشف Intlayer **تلقائياً جميع ملفات `.content.ts` و `.content.json` في أي مكان في قاعدة الكود الخاصة بك** (افتراضياً، في أي مكان داخل `./src`). يمكنك وضع ملف `my-component.content.ts` بجانب منطقك مباشرة وسيلتقطه Intlayer في وقت البناء بدون تكوين إضافي، لا استيرادات، لا تسجيل، لا حاجة لملف فهرس مركزي. هذا يجعل دمج الترجمات بدون احتكاك تماماً.
 
 ## تكوين TypeScript
 

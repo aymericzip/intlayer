@@ -731,7 +731,9 @@ Define as definições para o editor visual integrado, incluindo a porta do serv
 
 Define as definições relacionadas com os analytics do Intlayer: a recolha do conteúdo que é efetivamente mostrado aos utilizadores (visualizações de página, exposições de conteúdo) e o suporte a testes A/B de conteúdo.
 
-Os analytics são de exclusão (opt-out): estão ativados por predefinição e começam a recolher assim que o pacote `@intlayer/analytics` estiver instalado **e** uma chave de projeto (`editor.clientId`) estiver configurada para a atribuição. Defina `analytics.enabled` como `false` — ou não instale o pacote — e toda a integração de analytics é eliminada do bundle da sua aplicação (dead-code elimination).
+Os analytics são de exclusão (opt-out): estão ativados por predefinição e começam a recolher assim que o pacote [`@intlayer/analytics`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/analytics.md) estiver instalado **e** uma chave de projeto (`editor.clientId`) estiver configurada para a atribuição. Defina `analytics.enabled` como `false`, ou não instale o pacote, e toda a integração de analytics é eliminada do bundle da sua aplicação (dead-code elimination).
+
+- [`@intlayer/analytics`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/analytics.md)
 
 | Campo           | Descrição                                                                                    | Tipo      | Padrão  | Exemplo | Nota                                                                                                                                                                                              |
 | --------------- | -------------------------------------------------------------------------------------------- | --------- | ------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -977,7 +979,9 @@ Esta configuração de dicionário serve dois propósitos principais:
 1. **Valores Padrão**: Defina valores padrão ao criar arquivos de declaração de conteúdo
 2. **Comportamento de Fallback**: Forneça valores de fallback quando campos específicos não forem definidos, permitindo que você defina o comportamento da operação de dicionário globalmente
 
-Parâmetros que controlam as operações do dicionário, incluindo o comportamento de preenchimento automático (auto-fill) e geração de conteúdo.
+Para mais informações sobre os arquivos de declaração de conteúdo e como os valores de configuração são aplicados, consulte a [Documentação de Arquivos de Conteúdo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/content_file.md).
+
+- [Documentação de Arquivos de Conteúdo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/content_file.md)
 
 | Campo                       | Descrição                                                                                                                                              | Tipo                                                                                                            | Padrão       | Exemplo                                                                                     | Nota                                                                                                                                                                                                                                                                                                                                                                                                    |
 | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------- | ------------ | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -1114,22 +1118,38 @@ Na raiz do seu projeto, ao lado do `package.json`. O Intlayer também aceita `in
 
 Muito menos do que uma configuração baseada em namespaces, porque uma página nunca baixa um catálogo que não renderiza. O markup renderizado no servidor resolve seu conteúdo no próprio servidor, e o compilador em tempo de build substitui as chamadas `useIntlayer` pelas entradas exatas que o componente utiliza, descartando chaves e idiomas não utilizados. Os [dicionários dinâmicos](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dynamic_dictionaries/index.md) dividem o restante por locale. Comparado às alternativas habituais, o Intlayer reduz o tamanho do bundle e da página em até 50%. Consulte [otimização de bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/bundle_optimization.md) e o [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/benchmark/index.md).
 
+- [dicionários dinâmicos](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dynamic_dictionaries/index.md)
+- [otimização de bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/bundle_optimization.md)
+- [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/benchmark/index.md)
+
 </Question>
 <Question title="Posso migrar do i18next, next-intl ou react-i18next sem reescrever meus componentes?">
 
 Sim, e existem dois caminhos. Você pode migrar o conteúdo progressivamente com o [guia de migração do i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/migration_from_i18next_to_intlayer.md) ou o [guia de migração do next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/migration_from_next-intl_to_intlayer.md). Ou você pode manter sua API atual integralmente: os [adaptadores de compatibilidade (compat adapters)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/compat/index.md) expõem exatamente a mesma interface de `i18next`, `react-i18next`, `next-intl`, `next-i18next`, `react-intl`, `use-intl`, `vue-i18n` e `Lingui`, porém alimentados pelos dicionários do Intlayer, permitindo que apenas os imports mudem enquanto o código dos componentes permanece idêntico.
+
+- [guia de migração do i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/migration_from_i18next_to_intlayer.md)
+- [guia de migração do next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/migration_from_next-intl_to_intlayer.md)
+- [adaptadores de compatibilidade (compat adapters)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/compat/index.md)
 
 </Question>
 <Question title="Posso manter meus arquivos de tradução JSON existentes?">
 
 Sim. O [plugin sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/plugins/sync-json.md) mantém seus arquivos `/messages/{locale}/{namespace}.json` como fonte de verdade e gera dicionários Intlayer a partir deles, em ambas as direções. O [plugin sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/plugins/sync-po.md) faz o mesmo para catálogos gettext, e os [arquivos por locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/per_locale_file.md) permitem dividir o conteúdo por idioma em vez de agrupar todos os locales em um único arquivo.
 
+- [plugin sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/plugins/sync-json.md)
+- [plugin sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/plugins/sync-po.md)
+- [arquivos por locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/per_locale_file.md)
+
 </Question>
 <Question title="Preciso mover meu conteúdo chave por chave?">
 
 Não. Execute `npx intlayer extract` e o Intlayer lê seus arquivos fonte, extrai as strings voltadas para o usuário e escreve um arquivo `.content` ao lado de cada um, para que você revise um diff em vez de copiar strings para um catálogo uma a uma. Consulte o [comando extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/extract.md).
 
+- [comando extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/extract.md)
+
 Para um fluxo de trabalho totalmente automatizado, o [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/compiler.md) faz o mesmo em tempo de build em código JSX, TSX, Vue e Svelte, gerando os dicionários a cada alteração para que não haja necessidade de manter chaves manualmente. Como opera por análise estática, strings criadas exclusivamente em tempo de execução ficam fora de alcance, necessitando de algumas anotações para diferenciar texto do usuário de lógica interna da aplicação.
+
+- [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/compiler.md)
 
 </Question>
 <Question title="Quais ferramentas de editor e agentes de IA estão disponíveis?">
@@ -1172,10 +1192,15 @@ Controla o proxy de roteamento de locales, o middleware responsável por resolve
 
 `"static"`, o padrão, importa dicionários estaticamente para que sejam empacotados e lidos de forma síncrona. `"dynamic"` os importa via Suspense, de forma que um locale seja baixado somente quando um componente o renderiza, ideal para conjuntos extensos de texto. `"fetch"` os obtém pela API de live sync, recorrendo a `"dynamic"` em caso de falha. Consulte [otimização de bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/bundle_optimization.md) e [dicionários dinâmicos](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dynamic_dictionaries/index.md).
 
+- [otimização de bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/bundle_optimization.md)
+- [dicionários dinâmicos](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dynamic_dictionaries/index.md)
+
 </Question>
 <Question title="Onde configuro o provedor de IA e a chave de API para tradução automática?">
 
 Tanto no arquivo de configuração quanto na linha de comando com `--provider`, `--model` e `--api-key`. A chave permanece sua: as chamadas de tradução saem da sua máquina ou do seu executor de CI direto para a API do provedor escolhido, sem intermediários. Consulte o [comando fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/fill.md).
+
+- [comando fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/fill.md)
 
 </Question>
 <Question title="Preciso reiniciar o servidor de desenvolvimento após alterar a configuração?">

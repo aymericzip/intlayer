@@ -46,7 +46,11 @@ const config = {
 export default config;
 ```
 
+- [إضافة Sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/plugins/sync-json.md)
+
 إذا كنت تفضل الإبقاء على واجهة وقت التشغيل كما هي، فإن [محولات التوافق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/index.md) تعيد تسمية `useTranslation` و `$t` وما شابهها على مستوى أداة الحزم (Bundler). في كلا الحالتين، تعامل مع الأوامر أدناه كتطبيق عملي للفكرة وليس كشرط إلزامي.
+
+- [محولات التوافق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/index.md)
 
 ## لماذا تكون الترجمات المفقودة غير مرئية؟
 
@@ -98,6 +102,8 @@ export default [
 ```
 
 قاعدة `no-unused-content` تمنع تضخم الكتالوجات بلا نهاية. فالمفاتيح المهجورة لا تكسر الكود، لكنها ترفع فواتير شركات الترجمة. تجد القائمة الكاملة للقواعد في [توثيق إضافة ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/eslint.md).
+
+- [توثيق إضافة ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/eslint.md)
 
 ## الطبقة الثالثة: تدقيق تغطية اللغات
 
@@ -179,6 +185,8 @@ curl -s https://example.com/ja/checkout | grep -c "Add to cart"
 ## ملء الفجوات
 
 بمجرد تحديد ما ينقصك، يملأ الأمر `intlayer fill` الخانات الشاغرة، ويمكن للخيار `autoFill` توليد ملفات اللغات بمجرد كتابة المحتوى. راجع [autoFill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/autoFill.md).
+
+- [autoFill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/autoFill.md)
 
 كن واقعياً: الترجمة الآلية تحول النقص **المرئي** إلى نقص **غير مرئي**. المفتاح أصبح يحمل نصاً والاختبار بات أخضر، ولكن لم يقرأ أحد ذلك النص. استعن بها لإنجاز الإطلاق، لكن دقق النصوص الحساسة بشرياً دائماً.
 

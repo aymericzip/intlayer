@@ -27,9 +27,11 @@ author: aymericzip
 
 # intlayerCompiler
 
-O `intlayerCompiler` é um plugin do Vite que varre os arquivos de código-fonte dos componentes em busca de **declarações de conteúdo embutidas do Intlayer** — conteúdo definido diretamente dentro de um componente, em vez de em um arquivo `.content.ts` separado — e as grava em arquivos JSON de dicionário durante a fase de transformação.
+O `intlayerCompiler` é um plugin do Vite que varre os arquivos de código-fonte dos componentes em busca de **declarações de conteúdo embutidas do Intlayer** (conteúdo definido diretamente dentro de um componente, em vez de em um arquivo `.content.ts` separado) e as grava em arquivos JSON de dicionário durante a fase de transformação.
 
 > **A partir do Intlayer v9**, o `intlayerCompiler` é incluído automaticamente dentro do plugin principal [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/vite-intlayer/intlayer.md) quando `compiler.enabled` é `true` e `compiler.output` está configurado nas suas configurações do Intlayer. Você só precisa registrá-lo separadamente quando desejar controle total sobre as configurações específicas do compilador.
+
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/vite-intlayer/intlayer.md)
 
 ## Uso
 
@@ -118,4 +120,4 @@ Um debounce de 500 ms impede que a gravação do dicionário em si (que também 
 
 ### Eliminação de duplicatas (Deduplicação)
 
-O `intlayerCompiler` usa o mesmo mecanismo de deduplicação `createPrimaryInstanceGuard` que os outros plugins integrados. Quando tanto `intlayer()` (que empacota o compilador) quanto uma chamada manual ao `intlayerCompiler()` estão presentes, apenas a primeira instância registrada é executada — nenhum dicionário é gravado duas vezes.
+O `intlayerCompiler` usa o mesmo mecanismo de deduplicação `createPrimaryInstanceGuard` que os outros plugins integrados. Quando tanto `intlayer()` (que empacota o compilador) quanto uma chamada manual ao `intlayerCompiler()` estão presentes, apenas a primeira instância registrada é executada, nenhum dicionário é gravado duas vezes.

@@ -40,6 +40,8 @@ Intlayer विजुअल एडिटर एक उपकरण है जो
 
 इसके विपरीत, [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md) एक उपकरण है जो आपको दूरस्थ शब्दकोशों के लिए विजुअल एडिटर में अपनी सामग्री प्रबंधित करने की अनुमति देता है। एक बार परिवर्तन करने के बाद, सामग्री आपके कोड-बेस को प्रभावित नहीं करेगी। और वेबसाइट स्वचालित रूप से बदली गई सामग्री प्रदर्शित करेगी।
 
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md)
+
 ## अपने एप्लिकेशन में Intlayer को एकीकृत करें
 
 Intlayer को एकीकृत करने के तरीके के बारे में अधिक जानकारी के लिए, नीचे दिए गए संबंधित अनुभाग को देखें:
@@ -48,13 +50,19 @@ Intlayer को एकीकृत करने के तरीके के �
 
 Next.js के साथ एकीकरण के लिए, [सेटअप गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nextjs_15.md) देखें।
 
+- [Next.js 15 i18n - अपने ऐप को अनुवाद करने का पूर्ण गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nextjs_15.md)
+
 ### Create React App के साथ एकीकरण
 
 Create React App के साथ एकीकरण के लिए, [सेटअप गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_create_react_app.md) देखें।
 
+- [Create React App i18n: पूरी अनुवाद गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_create_react_app.md)
+
 ### Vite + React के साथ एकीकरण
 
 Vite + React के साथ एकीकरण के लिए, [सेटअप गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_vite+react.md) देखें।
+
+- [Vite + React i18n - अपने ऐप को अनुवाद करने का पूर्ण गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_vite+react.md)
 
 ## Intlayer एडिटर कैसे काम करता है
 
@@ -138,6 +146,8 @@ export default config;
 ```
 
 > सभी उपलब्ध पैरामीटर देखने के लिए, [कॉन्फ़िगरेशन दस्तावेज़ीकरण](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md) देखें।
+
+- [कॉन्फ़िगरेशन दस्तावेज़ीकरण](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md)
 
 ## एडिटर का उपयोग करना
 
@@ -226,22 +236,38 @@ pnpm intlayer-editor start -e development
 
 नेमस्पेस-आधारित सेटअपों की तुलना में बहुत कम, क्योंकि एक पृष्ठ कभी भी उस कैटलॉग को डाउनलोड नहीं करता है जिसे वह रेंडर नहीं करता है। सर्वर पर रेंडर किया गया मार्कअप सर्वर पर ही अपनी सामग्री को हल करता है, और बिल्ड-टाइम कंपाइलर `useIntlayer` कॉल को घटक द्वारा उपयोग की जाने वाली सटीक शब्दकोश प्रविष्टियों से बदल देता है, इसलिए अप्रयुक्त कुंजियों और भाषाओं को हटा दिया जाता है। [गतिशील शब्दकोश](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dynamic_dictionaries/index.md) शेष को प्रति लोकेल विभाजित करते हैं। पारंपरिक विकल्पों की तुलना में, Intlayer बंडल और पृष्ठ आकार को 50% तक कम करता है। [बंडल अनुकूलन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/bundle_optimization.md) और [बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/index.md) देखें।
 
+- [गतिशील शब्दकोश](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dynamic_dictionaries/index.md)
+- [बंडल अनुकूलन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/bundle_optimization.md)
+- [बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/index.md)
+
 </Question>
 <Question title="क्या मैं अपने घटकों को फिर से लिखे बिना i18next, next-intl या react-i18next से माइग्रेट कर सकता हूँ?">
 
 हाँ, और इसके दो रास्ते हैं। आप [i18next माइग्रेशन गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_i18next_to_intlayer.md) या [next-intl माइग्रेशन गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_next-intl_to_intlayer.md) के साथ सामग्री को धीरे-धीरे स्थानांतरित कर सकते हैं। या आप अपने वर्तमान API को पूरी तरह से बनाए रख सकते हैं: [संगतता एडेप्टर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/index.md) `i18next`, `react-i18next`, `next-intl`, `next-i18next`, `react-intl`, `use-intl`, `vue-i18n` और `Lingui` के समान API प्रदान करते हैं, लेकिन Intlayer शब्दकोशों द्वारा संचालित होते हैं, जिससे केवल आयात बदलते हैं और घटक कोड समान रहता है।
+
+- [i18next माइग्रेशन गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_i18next_to_intlayer.md)
+- [next-intl माइग्रेशन गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_next-intl_to_intlayer.md)
+- [संगतता एडेप्टर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/index.md)
 
 </Question>
 <Question title="क्या मैं अपनी मौजूदा JSON translation files को रख सकता हूं?">
 
 हाँ। [sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-json.md) आपकी `/messages/{locale}/{namespace}.json` फ़ाइलों को सत्य का स्रोत बनाए रखता है और दोनों दिशाओं में उनसे Intlayer dictionaries बनाता है। [sync PO plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-po.md) gettext catalogs के लिए भी ऐसा ही करता है, और [per locale files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/per_locale_file.md) आपको locales को एक फ़ाइल में समूहीकृत करने के बजाय भाषा के अनुसार content को विभाजित करने देते हैं।
 
+- [sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-json.md)
+- [sync PO plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-po.md)
+- [per locale files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/per_locale_file.md)
+
 </Question>
 <Question title="क्या मुझे अपनी content को key by key move करना होगा?">
 
 नहीं। `npx intlayer extract` चलाएं और Intlayer आपकी source files को पढ़ता है, user facing strings को निकालता है और प्रत्येक के बगल में एक `.content` file लिखता है, इसलिए आप strings को एक catalog में एक-एक करके कॉपी करने के बजाय एक diff की समीक्षा करते हैं। [extract command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/extract.md) देखें।
 
+- [extract command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/extract.md)
+
 पूरी तरह से स्वचालित वर्कफ़्लो के लिए, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md) JSX, TSX, Vue और Svelte कोड पर निर्माण समय के दौरान भी यही करता है, प्रत्येक परिवर्तन पर शब्दकोश उत्पन्न करता है जिससे कुंजियों को मैन्युअल रूप से बनाए रखने की आवश्यकता समाप्त हो जाती है।
+
+- [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md)
 
 </Question>
 <Question title="कौन से editor और AI agent tooling उपलब्ध हैं?">
@@ -278,6 +304,8 @@ pnpm intlayer-editor start -e development
 <Question title="क्या मैं उत्पादन में विज़ुअल एडिटर का उपयोग कर सकता हूँ?">
 
 यह विकास और स्टेजिंग परिवेशों के लिए डिज़ाइन किया गया है, जहाँ संपादन के बाद रीबिल्ड स्वीकार्य है। लाइव प्रोडक्शन साइट पर सामग्री संपादित करने के लिए, [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md) की सिफारिश की जाती है।
+
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md)
 
 </Question>
 <Question title="विज़ुअल एडिटर की क्या लागत है? यदि मुझे इसकी आवश्यकता नहीं है तो क्या यह ज़रूरत से ज़्यादा है?">

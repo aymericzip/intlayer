@@ -41,9 +41,13 @@ author: aymericzip
 
 Consulta un confronto concreto con vue-i18n nel nostro post sul blog [vue-i18n vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/vue-i18n_vs_intlayer.md).
 
+- [vue-i18n vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/vue-i18n_vs_intlayer.md)
+
 ## Perché combinare Intlayer con vue-i18n?
 
 Sebbene Intlayer offra una soluzione i18n autonoma eccellente (vedi la nostra [guida all'integrazione con Vue.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_vite+vue.md)), potresti volerlo combinare con vue-i18n per diversi motivi:
+
+- [guida all'integrazione con Vue.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_vite+vue.md)
 
 1. **Codice esistente**: Hai un'implementazione vue-i18n consolidata e desideri migrare gradualmente all'esperienza sviluppatore migliorata di Intlayer.
 2. **Requisiti legacy**: Il tuo progetto richiede compatibilità con plugin o flussi di lavoro vue-i18n esistenti.
@@ -144,6 +148,8 @@ Se vengono effettuate modifiche utilizzando la CLI per tradurre il JSON, o utili
 
 Per maggiori dettagli sul plugin `syncJSON`, si prega di fare riferimento alla [documentazione del plugin syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/plugins/sync-json.md).
 
+- [documentazione del plugin syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/plugins/sync-json.md)
+
 </Step>
 <Step number={3} title="Implementare traduzioni JSON per componente" isOptional={true}>
 
@@ -206,4 +212,4 @@ Questi file vengono rigenerati automaticamente durante il processo di build e no
 
 Per migliorare l'esperienza dello sviluppatore, installa l'**Estensione ufficiale Intlayer per VS Code**:
 
-[Installa dal Marketplace di VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [Installa dal Marketplace di VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

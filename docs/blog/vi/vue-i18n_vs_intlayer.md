@@ -121,6 +121,8 @@ Chọn các chỉ số và thư viện bạn quan tâm:
 
 > Bảng đầy đủ, với mọi thư viện và mọi chiến lược, có trong [báo cáo benchmark Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/vue.md).
 
+- [báo cáo benchmark Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/vue.md)
+
 ## Tại sao có khoảng cách? Instance toàn cục vs từ điển được biên dịch
 
 `vue-i18n` là một runtime. `createI18n()` xây dựng một instance toàn cục chứa cây thông điệp cho mỗi locale; `useI18n()` ràng buộc mỗi component với nó; `t("footer.github")` tra khóa lúc render. Đây là điều giúp khối SFC `<i18n>`, `v-t` và tải thông điệp lúc runtime trở nên khả thi, và cũng là lý do đồ thị phụ thuộc của mọi component bao gồm toàn bộ cây:
@@ -156,6 +158,8 @@ Intlayer chuyển kiến thức đó sang lúc build. Nội dung được khai b
 Trình biên dịch xuất ra, theo từng từ điển và từng locale, chính xác JSON mà component đó cần, và loại bỏ các từ điển không được import ở đâu cả. Giới hạn theo route là hệ quả của giới hạn theo component, không phải một nhiệm vụ.
 
 > Để loại bỏ luôn các locale không dùng, đặt `dictionary.importMode: 'dynamic'` trong `intlayer.config.ts`. Xem [tài liệu tối ưu bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md).
+
+- [tài liệu tối ưu bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md)
 
 ## Trải nghiệm lập trình viên
 
@@ -345,6 +349,10 @@ Trong benchmark, bản build compat của cùng ứng dụng giảm từ **134,9
 
 Xem [hướng dẫn di chuyển từ vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_vue-i18n_to_intlayer.md) và [tài liệu tương thích](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/vue-i18n.md). Người dùng Nuxt có cùng lộ trình qua [tương thích `@nuxtjs/i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/nuxtjs-i18n.md).
 
+- [hướng dẫn di chuyển từ vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_vue-i18n_to_intlayer.md)
+- [tài liệu tương thích](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/vue-i18n.md)
+- [tương thích `@nuxtjs/i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/nuxtjs-i18n.md)
+
 ## Khi nào chọn cái nào?
 
 - **Chọn vue-i18n** nếu bạn muốn cách tiếp cận Vue tiêu chuẩn, bạn dựa vào thông điệp ICU hoặc khối SFC `<i18n>`, bạn đã dùng `@nuxtjs/i18n`, hoặc một nền tảng dịch thuật yêu cầu JSON tập trung. Hãy dành thời gian tách catalog và lazy-load theo route nếu kích thước bundle quan trọng.
@@ -371,17 +379,24 @@ Adapter không đọc chúng. Hãy chuyển các thông điệp đó vào tệp 
 
 Có. [Intlayer với Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nuxt.md) hỗ trợ định tuyến đa ngôn ngữ, middleware phát hiện ngôn ngữ và tạo sitemap. Nếu bạn đang dùng `@nuxtjs/i18n`, [adapter tương thích Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/nuxtjs-i18n.md) là con đường di chuyển.
 
+- [Intlayer với Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nuxt.md)
+- [adapter tương thích Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/nuxtjs-i18n.md)
+
 </Question>
 
 <Question title="Tôi có thể giữ locales/{locale}.json làm nguồn chân lý duy nhất không?">
 
 Có. [Plugin đồng bộ JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/vue-i18n.md) đọc chúng với cú pháp của `vue-i18n` (`{name}`, `{0}`, dạng số nhiều `"car | cars"`) và ghi các bản dịch trở lại khi CLI hoặc CMS cập nhật.
 
+- [Plugin đồng bộ JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/vue-i18n.md)
+
 </Question>
 
 <Question title="ICU có hoạt động với Intlayer trên Vue không?">
 
 Hỗ trợ ICU gốc đang được hoàn thiện. Adapter `@intlayer/vue-i18n` xử lý cú pháp thông điệp của chính `vue-i18n`, bao gồm dạng số nhiều và nội suy có tên/danh sách. Để tìm hiểu mô hình số nhiều của Intlayer, hãy xem [nội dung liệt kê](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/enumeration.md).
+
+- [nội dung liệt kê](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/enumeration.md)
 
 </Question>
 
@@ -430,3 +445,5 @@ Intlayer chuyển công việc vào trình biên dịch. Từ điển theo compo
 Toàn bộ dữ liệu thô, ứng dụng kiểm thử và script nằm trong [kho lưu trữ Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Hãy tự chạy thử.
 
 Tham khảo [tài liệu 'Tại sao Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/interest_of_intlayer.md) để biết thêm chi tiết.
+
+- [Vì sao chọn Intlayer? Ưu điểm so với các thư viện i18n khác](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/interest_of_intlayer.md)

@@ -363,6 +363,8 @@ content: { /* ... */ }
 
 > 자세한 내용은 [Intlayer의 로케일별 콘텐츠 선언](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/per_locale_file.md)을 참조하세요.
 
+- [Intlayer의 로케일별 콘텐츠 선언](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/per_locale_file.md)
+
 **예시:**
 
 ```jsonc
@@ -473,6 +475,8 @@ export default aboutPageMetaContent;
 
 > 자세한 내용은 [Intlayer의 자동 채우기 구성](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/autoFill.md)을 참조하세요.
 
+- [Intlayer의 자동 채우기 구성](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/autoFill.md)
+
 ##### `priority` (숫자)
 
 충돌 해결을 위한 사전의 우선순위를 나타냅니다. 여러 사전이 동일한 키를 가질 때, 우선순위 숫자가 가장 높은 사전이 다른 사전을 덮어씁니다. 이는 콘텐츠 계층 구조 및 덮어쓰기를 관리하는 데 유용합니다.
@@ -500,6 +504,8 @@ export default aboutPageMetaContent;
 
 컬렉션(Collections)과 연동하여 사용되는 이 필드는 컬렉션 내 항목의 위치를 정의합니다. 실행 시 인덱스로 선택 가능한 로컬라이즈된 항목의 정렬된 컬렉션을 빌드할 수 있습니다.
 
+- [컬렉션](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dynamic_dictionaries/collections.md)
+
 **예시:**
 
 ```typescript
@@ -515,9 +521,13 @@ export default aboutPageMetaContent;
 
 > 자세한 정보는 [컬렉션](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dynamic_dictionaries/collections.md)을 참조하세요.
 
+- [컬렉션](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dynamic_dictionaries/collections.md)
+
 #### `variant` (string)
 
 변형(Variants)과 연동하여 사용되는 이 필드는 이름이 지정된 콘텐츠 대안을 정의합니다. 코드 변경 없이 실행 시 동일한 사전 키의 다양한 변형 간에 전환할 수 있습니다(예: A/B 테스트, 시즌별 배너). 제공되지 않는 경우 기본 변형으로 간주됩니다.
+
+- [변형](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dynamic_dictionaries/variants.md)
 
 **예시:**
 
@@ -526,13 +536,15 @@ export default aboutPageMetaContent;
   key: "hero-banner",
   variant: "black_friday",
   content: {
-    headline: "50 % off — today only",
+    headline: "50 % off, today only",
     cta: "Shop now"
   }
 }
 ```
 
 > 자세한 정보는 [변형](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dynamic_dictionaries/variants.md)을 참조하세요.
+
+- [변형](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dynamic_dictionaries/variants.md)
 
 ### CMS 속성
 
@@ -607,6 +619,8 @@ multilingualContent: t({
 
 > 자세한 내용은 [번역 콘텐츠 (`t`) 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/translation.md) 를 참조하세요.
 
+- [번역 콘텐츠 (`t`) 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/translation.md)
+
 ### 조건 콘텐츠 (`cond`)
 
 불리언 조건에 따라 변경되는 콘텐츠:
@@ -621,6 +635,8 @@ conditionalContent: cond({
 ```
 
 > 자세한 내용은 [조건 콘텐츠 (`cond`) 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/condition.md) 를 참조하세요.
+
+- [조건 콘텐츠 (`cond`) 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/condition.md)
 
 ### 열거형 콘텐츠 (`enu`)
 
@@ -638,6 +654,8 @@ statusContent: enu({
 
 > 자세한 내용은 [열거형 콘텐츠 (`enu`) 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/enumeration.md) 를 참조하세요.
 
+- [열거형 콘텐츠 (`enu`) 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/enumeration.md)
+
 ### 복수형 콘텐츠 (`plural`)
 
 복수형 규칙에 따라 달라지는 콘텐츠:
@@ -653,6 +671,8 @@ pluralContent: plural({
 
 > 자세한 내용은 [복수형 콘텐츠 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/plural.md) 를 참조하세요.
 
+- [복수형 콘텐츠 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/plural.md)
+
 ### 삽입 콘텐츠 (`insert`)
 
 다른 콘텐츠에 삽입할 수 있는 콘텐츠:
@@ -665,6 +685,8 @@ insertionContent: insert("이 텍스트는 어디에나 삽입할 수 있습니�
 
 > 자세한 내용은 [삽입 콘텐츠 (`insert`) 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/insertion.md) 를 참조하세요.
 
+- [삽입 콘텐츠 (`insert`) 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/insertion.md)
+
 ### 중첩 콘텐츠 (`nest`)
 
 다른 사전에 대한 참조:
@@ -676,6 +698,8 @@ nestedContent: nest("about-page");
 ```
 
 > 자세한 내용은 [중첩 콘텐츠 (`nest`) 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/nesting.md) 를 참조하세요.
+
+- [중첩 콘텐츠 (`nest`) 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/nesting.md)
 
 ### 마크다운 콘텐츠 (`md`)
 
@@ -690,6 +714,8 @@ markdownContent: md(
 ```
 
 > 자세한 내용은 [마크다운 콘텐츠 (`md`) 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/markdown.md) 를 참조하세요.
+
+- [마크다운 콘텐츠 (`md`) 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/markdown.md)
 
 ### HTML 콘텐츠 (`html`)
 
@@ -710,6 +736,8 @@ localizedHtmlContent: t({
 
 > 자세한 내용은 [HTML 콘텐츠 (`html`) 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/html.md) 를 참조하세요.
 
+- [HTML 콘텐츠 (`html`) 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/html.md)
+
 ### 성별에 따른 콘텐츠 (`gender`)
 
 성별에 따라 달라지는 콘텐츠:
@@ -726,9 +754,11 @@ genderContent: gender({
 
 > 자세한 내용은 [성별에 따른 콘텐츠 (`gender`) 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/gender.md) 를 참조하세요.
 
+- [성별에 따른 콘텐츠 (`gender`) 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/gender.md)
+
 ### 선택 기반 콘텐츠 (`select`)
 
-임의의 문자열 값에 따라 달라지는 콘텐츠 — ICU `select`와 동일합니다:
+임의의 문자열 값에 따라 달라지는 콘텐츠, ICU `select`와 동일합니다:
 
 ```typescript
 import { select } from "intlayer";
@@ -745,6 +775,8 @@ selectContent: select({
 
 > 자세한 내용은 [선택 기반 콘텐츠](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/select.md) 를 참조하세요.
 
+- [선택 기반 콘텐츠](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/select.md)
+
 ### 파일 콘텐츠 (`file`)
 
 외부 파일에 대한 참조:
@@ -756,6 +788,8 @@ fileContent: file("./path/to/content.txt");
 ```
 
 > 자세한 내용은 [파일 콘텐츠 (`file`) 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/file.md) 를 참조하세요.
+
+- [파일 콘텐츠 (`file`) 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/file.md)
 
 ## 콘텐츠 파일 생성하기
 

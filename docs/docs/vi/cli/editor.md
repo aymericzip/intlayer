@@ -23,6 +23,8 @@ Lệnh `editor` bao bọc lại các lệnh `intlayer-editor`.
 
 > Để có thể sử dụng lệnh `editor`, gói `intlayer-editor` phải được cài đặt. (Xem [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md))
 
+- [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md)
+
 ```json fileName="package.json"
 "scripts": {
   "intlayer:editor:start": "npx intlayer editor start --with 'next dev --turbopack'"

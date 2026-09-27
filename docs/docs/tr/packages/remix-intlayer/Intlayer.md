@@ -29,6 +29,8 @@ author: aymericzip
 
 ## Kullanım
 
+`intlayer()` ara yazılımı çalıştığında, istek bağlamında `Intlayer` anahtarı altında bir `IntlayerState` nesnesi saklar. Bunu herhangi bir rota işleyicisi içinde alabilirsiniz:
+
 ```ts fileName="src/server.ts"
 import { createRouter } from "remix/router";
 import { intlayer, Intlayer } from "remix-intlayer";
@@ -37,20 +39,39 @@ const router = createRouter({
   middleware: [intlayer()],
 });
 
-router.get("/api/current-locale", (context) => {
-  const intlayerState = context.get(Intlayer);
+router.get("/api/profile", (context) => {
+  // context.get(Intlayer) aracılığıyla erişim
+  const { locale, defaultLocale, availableLocales } = context.get(Intlayer);
 
   return Response.json({
-    locale: intlayerState?.locale,
+    locale,
+    defaultLocale,
+    availableLocales,
   });
 });
 ```
 
-## Açıklama
+Doğrudan özellik kısayolu olan `context.intlayer` ile de erişebilirsiniz:
 
-`Intlayer`, geçerli oturum durumunu Remix'in istek bağlamına (`RequestContext`) bağlamak için `intlayer()` ara yazılımı tarafından kullanılır. Genellikle `useLocale()` veya `useIntlayer()` gibi hook'ların kullanılması tercih edilir. `context.get(Intlayer)` aracılığıyla doğrudan erişim, alt düzey ara yazılım işleyicilerinde veya bağlam örneğinin açıkça iletildiği API rotalarında yararlıdır.
+```ts
+router.get("/api/status", (context) => {
+  const currentLocale = context.intlayer.locale;
+  return Response.json({ status: "ok", locale: currentLocale });
+});
+```
+
+## `IntlayerState` Yapısı
+
+`IntlayerState` nesnesi şunları içerir:
+
+| Özellik            | Tür                 | Açıklama                                                            |
+| ------------------ | ------------------- | ------------------------------------------------------------------- |
+| `locale`           | `DeclaredLocales`   | Geçerli istek için çözümlenen yerel ayar.                           |
+| `defaultLocale`    | `DeclaredLocales`   | `intlayer.config.ts` içinde tanımlanan yedek yerel ayar.            |
+| `availableLocales` | `DeclaredLocales[]` | Proje için yapılandırılmış tüm desteklenen yerel ayarların listesi. |
 
 ## İlgili Dokümantasyon
 
 - [`intlayer` Ara Yazılımı](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/remix-intlayer/intlayerMiddleware.md)
 - [`useLocale` Hook'u](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/remix-intlayer/useLocale.md)
+- [`useIntlayer` Hook'u](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/remix-intlayer/useIntlayer.md)

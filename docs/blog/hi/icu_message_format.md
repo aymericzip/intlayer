@@ -264,6 +264,8 @@ ICU अवधारणाओं के साथ मैपिंग सीधी
 
 `plural` श्रेणी चयन को सीधे `Intl.PluralRules` को सौंपता है, इसलिए ऊपर दी गई CLDR तालिका बिना किसी बदलाव के लागू होती है। फ़ॉर्मेटिंग अलग रहती है: संख्याएं, दिनांक, मुद्राएं और सूचियां संदेश में एम्बेड होने के बजाय [फ़ॉर्मेटर हुक](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/formatters.md) के माध्यम से नियंत्रित की जाती हैं।
 
+- [फ़ॉर्मेटर हुक](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/formatters.md)
+
 व्यावहारिक सीमाएं:
 
 - Intlayer को एक बिल्ड चरण की आवश्यकता होती है; कंपाइलर बिल्ड समय पर घोषणाओं को निकालता है। यदि आप रनटाइम पर साधारण JSON लोड करना चाहते हैं, तो वह एक अलग मॉडल है।
@@ -271,6 +273,9 @@ ICU अवधारणाओं के साथ मैपिंग सीधी
 - यह इकोसिस्टम i18next की तुलना में नया है, जिसमें कम तैयार TMS एकीकरण उपलब्ध हैं।
 
 यदि आप किसी ऐसे कोडबेस से आ रहे हैं जिसमें पहले से ही वास्तविक ICU स्ट्रिंग्स हैं, तो [react-intl कम्पैट एडेप्टर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/react-intl.md) उन्हें सीधे पार्स करता है: `plural`, `select`, `selectordinal`, `#`, और लेगेसी `number` / `date` / `time` तर्क। स्केलेटन और `offset:` उस रिज़ॉल्वर द्वारा कवर नहीं किए गए हैं, इसलिए माइग्रेट करते समय उन संदेशों की जांच करें। [i18next एडेप्टर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/i18next.md) इसके बजाय प्रत्यय रूपों (`key_one`, `key_male`) को `Intl.PluralRules` के विरुद्ध हल करता है।
+
+- [react-intl कम्पैट एडेप्टर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/react-intl.md)
+- [i18next एडेप्टर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/i18next.md)
 
 ## सामान्य गलतियां
 

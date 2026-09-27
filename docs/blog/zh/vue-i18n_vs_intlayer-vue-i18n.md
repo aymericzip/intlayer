@@ -30,6 +30,8 @@ author: aymericzip
 
 本文在同一个 Vite + Vue 3 应用上测量了这个替换，该应用分别使用 `vue-i18n` 和适配器构建。数据来自 [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom)。如需了解 `vue-i18n` 和 Intlayer 作为库的对比，请阅读 [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/vue-i18n_vs_intlayer.md) 和 [vue-i18n vs Intlayer 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/vue-i18n_vs_intlayer.md)。本文讨论的是当你保持组件不变时，适配器会带来什么改变。
 
+- [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/vue-i18n_vs_intlayer.md)
+
 <TOC/>
 
 > **总结**: 在同一个 Vite + Vue 3 应用中，将 `vue-i18n` 替换为 `@intlayer/vue-i18n` 后，每页 JavaScript 从 **134.9 KB 降至 47.0 KB** gzip（不含 i18n 的应用为 41.3 KB），运行时从 **24.3 KB 降至 7.9 KB**，平均组件从 **196 KB 降至 8.4 KB**，跨页面字符串泄露从 **90% 降至 0%**，且无需编辑任何 `.vue` 文件。`createI18n({ messages })` 仍作为备选方案继续工作；移除 JSON 导入即可获得上述数字。SFC `<i18n>` 块和运行时 `setLocaleMessage()` 这两个功能无法转移。
@@ -137,6 +139,8 @@ style="border:none;"
 />
 
 > 完整表格、各个库及每种策略，请参阅 [Vue 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/vue.md)。
+
+- [Vue 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/vue.md)
 
 ## 为什么数字会变化
 
@@ -286,6 +290,8 @@ export const i18n = createI18n({ locale: "en" });
 
 `setLocaleMessage()` 和 `mergeLocaleMessage()` 会发出警告并直接返回。在运行时从 CMS 获取的翻译需要使用 [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) 或 `intlayer pull` / `push` 命令。
 
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
+
 </Accordion>
 <Accordion header="messages 是回退方案，并非零成本">
 
@@ -316,6 +322,9 @@ export const i18n = createI18n({ locale: "en" });
 
 适用于新项目，或在适配器完成过渡任务之后。它具有最轻量的运行时（3.9 KB）以及按组件划分的 `.content.ts` 模式，用类型化内容取代 `<i18n>` 块。请从 [Intlayer 与 Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_vite+vue.md) 或 [与 Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nuxt.md) 开始。
 
+- [Intlayer 与 Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_vite+vue.md)
+- [与 Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nuxt.md)
+
 </Accordion>
 </AccordionGroup>
 
@@ -339,11 +348,16 @@ export const i18n = createI18n({ locale: "en" });
 
 完全保留。传递给 `createI18n()` 的 `datetimeFormats` 和 `numberFormats` 依然有效，由原生 `Intl` 提供支持。请参阅[日期、时间和数字格式化](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/date_time_number_formatting_locales.md)。
 
+- [日期、时间和数字格式化](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/date_time_number_formatting_locales.md)
+
 </Question>
 
 <Question title="它是否适用于 Nuxt？">
 
 `@intlayer/vue-i18n` 针对 Vite + Vue。对于 `@nuxtjs/i18n`，请使用 [Nuxt i18n 兼容适配器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/nuxtjs-i18n.md)，原生设置请参阅 [Intlayer 与 Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nuxt.md)。
+
+- [Nuxt i18n 兼容适配器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/nuxtjs-i18n.md)
+- [Intlayer 与 Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nuxt.md)
 
 </Question>
 
@@ -394,3 +408,5 @@ export const i18n = createI18n({ locale: "en" });
 所有原始数据、测试应用程序和脚本都在 [Benchmark Bloom 仓库](https://github.com/intlayer-org/benchmark-bloom) 中。自己运行它。
 
 有关更多详细信息，请参考 ['Why Intlayer?' 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/interest_of_intlayer.md)。
+
+- [为什么选择 Intlayer？相比其他 i18n 库的优势](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/interest_of_intlayer.md)

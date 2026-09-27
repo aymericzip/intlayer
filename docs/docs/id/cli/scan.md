@@ -130,13 +130,13 @@ Menghasilkan seluruh hasil pemindaian sebagai objek JSON alih-alih laporan terfo
 
 ### Opsi konfigurasi standar
 
-- **`--base-dir`** — Direktori dasar yang digunakan untuk mencari file `intlayer.config.*`.
-- **`-e, --env`** — Lingkungan target (misalnya `development`, `production`).
-- **`--env-file`** — Jalur ke file `.env` kustom.
-- **`--no-cache`** — Menonaktifkan cache konfigurasi.
-- **`--ci`** — Menjalankan perintah di setiap proyek Intlayer dalam monorepo (atau hanya proyek saat ini jika dijalankan dari direktori proyek). Kredensial per proyek dapat disuntikkan melalui `INTLAYER_PROJECT_CREDENTIALS`, sebuah objek JSON yang memetakan path proyek ke `{ "clientId", "clientSecret" }`.
-- **`--verbose`** — Mengaktifkan pencatatan detail (default dalam mode CLI).
-- **`--prefix`** — Prefiks pencatatan kustom.
+- **`--base-dir`**: Direktori dasar yang digunakan untuk mencari file `intlayer.config.*`.
+- **`-e, --env`**: Lingkungan target (misalnya `development`, `production`).
+- **`--env-file`**: Jalur ke file `.env` kustom.
+- **`--no-cache`**: Menonaktifkan cache konfigurasi.
+- **`--ci`**: Menjalankan perintah di setiap proyek Intlayer dalam monorepo (atau hanya proyek saat ini jika dijalankan dari direktori proyek). Kredensial per proyek dapat disuntikkan melalui `INTLAYER_PROJECT_CREDENTIALS`, sebuah objek JSON yang memetakan path proyek ke `{ "clientId", "clientSecret" }`.
+- **`--verbose`**: Mengaktifkan pencatatan detail (default dalam mode CLI).
+- **`--prefix`**: Prefiks pencatatan kustom.
 
 ## Strategi perutean
 

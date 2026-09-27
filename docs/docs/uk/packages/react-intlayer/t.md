@@ -183,4 +183,6 @@ const text = t(translations);
 
 Для докладнішого опису використання та просунутих можливостей зверніться до [документації react-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md).
 
+- [документації react-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md)
+
 **Примітка**: Не забудьте належним чином налаштувати `IntlayerProvider`, щоб поточна локаль правильно передавалася вашим компонентам. Це критично важливо для того, щоб функція `t` повертала коректні переклади.

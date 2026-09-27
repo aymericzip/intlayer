@@ -30,7 +30,7 @@ author: aymericzip
 
 # Intlayer LSP सर्वर
 
-**Intlayer लैंग्वेज सर्वर** [Language Server Protocol (LSP)](https://microsoft.github.io/language-server-protocol/) का एक कार्यान्वयन है जो आपके IDE — और आपके AI एजेंट — को Intlayer के प्रति सजग बनाता है। यह `useIntlayer("home")` जैसे कॉल को उस `.content.ts` फ़ाइल से जोड़ता है जो उसे घोषित करती है, दोनों दिशाओं में।
+**Intlayer लैंग्वेज सर्वर** [Language Server Protocol (LSP)](https://microsoft.github.io/language-server-protocol/) का एक कार्यान्वयन है जो आपके IDE, और आपके AI एजेंट, को Intlayer के प्रति सजग बनाता है। यह `useIntlayer("home")` जैसे कॉल को उस `.content.ts` फ़ाइल से जोड़ता है जो उसे घोषित करती है, दोनों दिशाओं में।
 
 ## विशेषताएँ
 
@@ -44,8 +44,8 @@ author: aymericzip
 
 दो अतिरिक्त व्यवहार जानने योग्य हैं:
 
-- **मर्ज की गई डिक्शनरियाँ** — कई कंटेंट फ़ाइलों में बँटी कुंजी हर फ़ाइल के लिए एक परिणाम लौटाती है, जिससे आप हर घोषणा तक जा सकते हैं।
-- **मोनोरेपो-अनुकूल** — सर्वर हर फ़ाइल के _निकटतम_ `intlayer.config.*` को हल करता है, जिससे एक ही वर्कस्पेस के कई प्रोजेक्ट्स को अपनी-अपनी डिक्शनरियाँ मिलती हैं।
+- **मर्ज की गई डिक्शनरियाँ**: कई कंटेंट फ़ाइलों में बँटी कुंजी हर फ़ाइल के लिए एक परिणाम लौटाती है, जिससे आप हर घोषणा तक जा सकते हैं।
+- **मोनोरेपो-अनुकूल**: सर्वर हर फ़ाइल के _निकटतम_ `intlayer.config.*` को हल करता है, जिससे एक ही वर्कस्पेस के कई प्रोजेक्ट्स को अपनी-अपनी डिक्शनरियाँ मिलती हैं।
 
 ### समर्थित कॉल
 
@@ -62,7 +62,7 @@ author: aymericzip
 
 यह हर `*-intlayer` पैकेज (`next-intlayer`, `react-intlayer`, `vue-intlayer`, `svelte-intlayer`, `solid-intlayer`, `preact-intlayer`, `angular-intlayer`, `lit-intlayer`, `express-intlayer`, `hono-intlayer`, `fastify-intlayer`, `intlayer`) के लिए काम करता है, और उन compat अडैप्टर पैकेजों के लिए भी जो आपको अपना मौजूदा i18n सिंटैक्स बनाए रखने देते हैं।
 
-> डिक्शनरियाँ बिल्ड आउटपुट से पढ़ी जाती हैं, इसलिए `npx intlayer build` चलाएँ — या अपना डेव सर्वर चालू रखें — ताकि सर्वर के पास हल करने को कुछ हो।
+> डिक्शनरियाँ बिल्ड आउटपुट से पढ़ी जाती हैं, इसलिए `npx intlayer build` चलाएँ, या अपना डेव सर्वर चालू रखें, ताकि सर्वर के पास हल करने को कुछ हो।
 
 ## इंस्टॉलेशन
 
@@ -84,21 +84,23 @@ pnpm add --save-dev @intlayer/lsp
 bun add --dev @intlayer/lsp
 ```
 
-यदि आपके एडिटर को `PATH` में `intlayer-lsp` चाहिए तो इसके बजाय इसे ग्लोबली इंस्टॉल करें (`npm install -g @intlayer/lsp`) — Claude Code प्लगइन और नीचे दिए हर उस कॉन्फ़िगरेशन के लिए यही स्थिति है जो बाइनरी को सीधे कॉल करता है।
+यदि आपके एडिटर को `PATH` में `intlayer-lsp` चाहिए तो इसके बजाय इसे ग्लोबली इंस्टॉल करें (`npm install -g @intlayer/lsp`), Claude Code प्लगइन और नीचे दिए हर उस कॉन्फ़िगरेशन के लिए यही स्थिति है जो बाइनरी को सीधे कॉल करता है।
 
 ## सेटअप
 
 <Tabs defaultTab="vscode">
   <Tab label="VS Code" value="vscode">
 
-[Intlayer VS Code एक्सटेंशन](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) इंस्टॉल करें। लैंग्वेज सर्वर v8.12.0 से इसमें शामिल है और स्वतः शुरू होता है — **किसी कॉन्फ़िगरेशन की ज़रूरत नहीं**।
+[Intlayer VS Code एक्सटेंशन](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) इंस्टॉल करें। लैंग्वेज सर्वर v8.12.0 से इसमें शामिल है और स्वतः शुरू होता है, **किसी कॉन्फ़िगरेशन की ज़रूरत नहीं**।
 
 अन्य सुविधाओं के लिए [VS Code एक्सटेंशन दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/vs_code_extension.md) देखें।
+
+- [VS Code एक्सटेंशन दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/vs_code_extension.md)
 
   </Tab>
   <Tab label="Cursor / Windsurf" value="cursor">
 
-[Cursor](https://www.cursor.com/) और [Windsurf](https://windsurf.com/) VS Code के फ़ोर्क हैं और उसी एक्सटेंशन इकोसिस्टम का उपयोग करते हैं। [Intlayer VS Code एक्सटेंशन](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) एक बार इंस्टॉल करें और सर्वर स्वतः सक्रिय हो जाता है — **किसी कॉन्फ़िगरेशन की ज़रूरत नहीं**।
+[Cursor](https://www.cursor.com/) और [Windsurf](https://windsurf.com/) VS Code के फ़ोर्क हैं और उसी एक्सटेंशन इकोसिस्टम का उपयोग करते हैं। [Intlayer VS Code एक्सटेंशन](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) एक बार इंस्टॉल करें और सर्वर स्वतः सक्रिय हो जाता है, **किसी कॉन्फ़िगरेशन की ज़रूरत नहीं**।
 
   </Tab>
   <Tab label="Claude Code" value="claude-code">
@@ -114,7 +116,7 @@ claude plugin marketplace add intlayer@github:aymericzip/intlayer
 claude plugin install intlayer-lsp@intlayer
 ```
 
-`install` प्लगइन को सक्षम भी कर देता है। **Claude Code पुनः आरंभ करें** — लैंग्वेज सर्वर स्टार्टअप पर लोड होते हैं, इसलिए तब तक प्लगइन का कोई असर नहीं होता।
+`install` प्लगइन को सक्षम भी कर देता है। **Claude Code पुनः आरंभ करें**, लैंग्वेज सर्वर स्टार्टअप पर लोड होते हैं, इसलिए तब तक प्लगइन का कोई असर नहीं होता।
 
 इसके बाद Claude Code `.ts`, `.tsx`, `.js`, `.jsx`, `.vue`, `.astro` और `.svelte` फ़ाइलों पर सर्वर शुरू करता है, और आपके कोड में नेविगेट करते समय `goToDefinition`, `findReferences` और `hover` का उपयोग करता है।
 
@@ -240,10 +242,10 @@ language-servers = ["intlayer-lsp", "typescript-language-server"]
 
 LSP सक्षम कोई भी एडिटर `@intlayer/lsp` चला सकता है। उसे यह बताएँ:
 
-- **एक्ज़ीक्यूटेबल** — `npx @intlayer/lsp`, या `intlayer-lsp` बाइनरी
-- **ट्रांसपोर्ट** — stdio (मानक)
-- **क्षमताएँ** — `definitionProvider`, `referencesProvider`, `hoverProvider`, `completionProvider` (ट्रिगर वर्ण `"` `'` `` ` `` `.`), पुश डायग्नोस्टिक्स, `textDocumentSync: Incremental`
-- **रूट पैटर्न** — `intlayer.config.ts`, `intlayer.config.js`, `package.json`
+- **एक्ज़ीक्यूटेबल**: `npx @intlayer/lsp`, या `intlayer-lsp` बाइनरी
+- **ट्रांसपोर्ट**: stdio (मानक)
+- **क्षमताएँ**: `definitionProvider`, `referencesProvider`, `hoverProvider`, `completionProvider` (ट्रिगर वर्ण `"` `'` `` ` `` `.`), पुश डायग्नोस्टिक्स, `textDocumentSync: Incremental`
+- **रूट पैटर्न**: `intlayer.config.ts`, `intlayer.config.js`, `package.json`
 
 सटीक कॉन्फ़िगरेशन प्रारूप के लिए अपने एडिटर का LSP दस्तावेज़ देखें।
 
@@ -252,7 +254,7 @@ LSP सक्षम कोई भी एडिटर `@intlayer/lsp` चला �
 
 ## टर्मिनल AI एजेंट्स पर टिप्पणी
 
-**Claude Code** एक वास्तविक LSP क्लाइंट की तरह काम करता है — ऊपर का टैब देखें।
+**Claude Code** एक वास्तविक LSP क्लाइंट की तरह काम करता है, ऊपर का टैब देखें।
 
 **OpenAI Codex** और अधिकांश अन्य टर्मिनल टूल LSP क्लाइंट नहीं हैं: वे फ़ाइलें सीधे पढ़ते और लिखते हैं। सर्वर को अकेले चलाने से उन्हें मदद नहीं मिलती; लाभ तब मिलता है जब वह किसी सहयोगी एडिटर में सक्रिय हो जिसका इंडेक्स एजेंट क्वेरी कर सके (Cursor Composer, Windsurf Cascade, Copilot Chat)।
 
@@ -271,10 +273,10 @@ LSP सक्षम कोई भी एडिटर `@intlayer/lsp` चला �
 | लक्षण                                       | संभावित कारण                     | समाधान                                                                      |
 | ------------------------------------------- | -------------------------------- | --------------------------------------------------------------------------- |
 | कुछ भी नहीं होता                            | सर्वर नहीं चल रहा                | जाँचें कि `@intlayer/lsp` इंस्टॉल है और आपका एडिटर उसे शुरू करता है         |
-| एडिटर में काम करता है, Claude Code में नहीं | सत्र के बीच प्लगइन इंस्टॉल किया  | Claude Code पुनः आरंभ करें — लैंग्वेज सर्वर स्टार्टअप पर लोड होते हैं       |
+| एडिटर में काम करता है, Claude Code में नहीं | सत्र के बीच प्लगइन इंस्टॉल किया  | Claude Code पुनः आरंभ करें, लैंग्वेज सर्वर स्टार्टअप पर लोड होते हैं        |
 | किसी कुंजी की परिभाषा नहीं मिलती            | डिक्शनरियाँ बिल्ड नहीं हुईं      | `npx intlayer build` चलाएँ, या अपना डेव सर्वर शुरू करें                     |
 | हर कुंजी अघोषित बताई जाती है                | कॉन्फ़िगरेशन हल नहीं हुआ         | सत्यापित करें कि प्रोजेक्ट रूट में `intlayer.config.ts` (या `.js`) मौजूद है |
 | मोनोरेपो में ग़लत प्रोजेक्ट उपयोग हुआ       | प्रति-पैकेज कॉन्फ़िगरेशन नहीं है | अपना कंटेंट घोषित करने वाले हर पैकेज में `intlayer.config.*` जोड़ें         |
 | शुरू होते ही सर्वर क्रैश हो जाता है         | Node.js संस्करण बहुत पुराना      | Node.js ≥ 14.18 आवश्यक है                                                   |
 
-VS Code में सर्वर **View → Output → "Intlayer LSP"** में लॉग लिखता है — यह पुष्टि करने में उपयोगी कि कौन-सा कॉन्फ़िगरेशन हल हुआ और कितनी डिक्शनरियाँ मिलीं।
+VS Code में सर्वर **View → Output → "Intlayer LSP"** में लॉग लिखता है, यह पुष्टि करने में उपयोगी कि कौन-सा कॉन्फ़िगरेशन हल हुआ और कितनी डिक्शनरियाँ मिलीं।

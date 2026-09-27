@@ -35,6 +35,8 @@ The `getDictionary` function interprets a dictionary **object you pass yourself*
 
 Unlike [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/intlayer/getIntlayer.md), which looks a dictionary up by key in the generated registry, `getDictionary` takes the dictionary itself. That makes it the right tool for content built at runtime, fetched from an API or a CMS, or declared inline in a test.
 
+- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/intlayer/getIntlayer.md)
+
 **Key Features:**
 
 - Works with any object following the dictionary structure (`{ key, content }`)
@@ -62,7 +64,7 @@ getDictionary(
 - `localeOrSelector: LocalesValues | DictionarySelector`
   - **Description**: The locale to interpret the content with, or a selector object (`{ item }`, `{ variant }`, optionally with `locale`). See [dynamic dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dynamic_dictionaries/index.md).
   - **Type**: `LocalesValues | DictionarySelector`
-  - **Required**: No (Optional) — defaults to the configured `defaultLocale`.
+  - **Required**: No (Optional), defaults to the configured `defaultLocale`.
 
 - `plugins: Plugins[]`
   - **Description**: An array of node transformers defining how recognised nodes are interpreted. If omitted, the default set of interpreter plugins is used.

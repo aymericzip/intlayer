@@ -45,9 +45,13 @@ author: aymericzip
 
 i18next ile somut bir karşılaştırma için [next-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/next-i18next_vs_next-intl_vs_intlayer.md) blog yazımıza bakabilirsiniz.
 
+- [next-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/next-i18next_vs_next-intl_vs_intlayer.md)
+
 ## Neden Intlayer'ı i18next ile Birleştirmelisiniz?
 
 Intlayer mükemmel bir bağımsız i18n çözümü sunarken (bakınız [Next.js entegrasyon rehberimiz](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_16.md)), aşağıdaki nedenlerle i18next ile birleştirmek isteyebilirsiniz:
+
+- [Next.js entegrasyon rehberimiz](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_16.md)
 
 1. **Mevcut kod tabanı**: Yerleşik bir i18next uygulamanız var ve Intlayer'ın geliştirilmiş geliştirici deneyimine kademeli olarak geçmek istiyorsunuz.
 2. **Eski gereksinimler**: Projeniz mevcut i18next eklentileri veya iş akışları ile uyumluluk gerektiriyor.
@@ -151,6 +155,8 @@ JSON'u çevirmek için CLI veya CMS kullanılarak değişiklik yapılırsa, Intl
 
 `syncJSON` eklentisi hakkında daha fazla detay görmek için lütfen [syncJSON eklenti dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-json.md) bakınız.
 
+- [syncJSON eklenti dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-json.md)
+
 </Step>
 <Step number={3} title="Bileşen başına JSON çevirilerini uygulama">
 
@@ -212,4 +218,4 @@ Bu dosyalar derleme süreciniz sırasında yeniden oluşturulabilir ve sürüm k
 
 Geliştirici deneyimini iyileştirmek için resmi **Intlayer VS Code Eklentisi**ni yükleyin:
 
-[VS Code Marketplace'ten Yükleyin](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [VS Code Marketplace'ten Yükleyin](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

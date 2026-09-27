@@ -118,6 +118,8 @@ export default exampleContent;
 
 다음은 `fill` 명령어를 사용하는 [로케일별 콘텐츠 선언 파일](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/per_locale_file.md)입니다.
 
+- [로케일별 콘텐츠 선언 파일](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/per_locale_file.md)
+
 그런 다음 다음 명령어를 실행할 때:
 
 ```bash packageManager="npm"

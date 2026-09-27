@@ -142,12 +142,12 @@ Możesz zadeklarować treść Markdown używając funkcji `md` lub po prostu jak
 Intlayer zapewnia dwa niezależne sposoby renderowania Markdown:
 
 1. **Przez `useIntlayer`**
-   — Intlayer automatycznie przekształca węzeł `md` w natywny wynik frameworka (JSX, VNode, ciąg znaków HTML).
-   - Frontmatter jest analizowany i eksponowany jako `.metadata`. Możesz nadpisać renderowanie na dwóch poziomach — globalnie za pomocą `MarkdownProvider` (lub odpowiednika frameworka) i lokalnie dla węzła za pomocą `.use()`. Oba można łączyć; `.use()` ma pierwszeństwo przed `MarkdownProvider`, który z kolei ma pierwszeństwo przed ustawieniami domyślnymi.
+   Intlayer automatycznie przekształca węzeł `md` w natywny wynik frameworka (JSX, VNode, ciąg znaków HTML).
+   - Frontmatter jest analizowany i eksponowany jako `.metadata`. Możesz nadpisać renderowanie na dwóch poziomach, globalnie za pomocą `MarkdownProvider` (lub odpowiednika frameworka) i lokalnie dla węzła za pomocą `.use()`. Oba można łączyć; `.use()` ma pierwszeństwo przed `MarkdownProvider`, który z kolei ma pierwszeństwo przed ustawieniami domyślnymi.
 
-2. **Narzędzia pomocnicze** — `<MarkdownRenderer />`, `useMarkdownRenderer()` i `renderMarkdown()` to samodzielne narzędzia, które akceptują **tylko surowe ciągi znaków Markdown**. Są one niezależne od `useIntlayer` i nie działają ze zwracanymi przez nie udekorowanymi węzłami.
+2. **Narzędzia pomocnicze**: `<MarkdownRenderer />`, `useMarkdownRenderer()` i `renderMarkdown()` to samodzielne narzędzia, które akceptują **tylko surowe ciągi znaków Markdown**. Są one niezależne od `useIntlayer` i nie działają ze zwracanymi przez nie udekorowanymi węzłami.
 
-Renderowanie Markdown obsługuje **MDX** — użyj dowolnego komponentu JSX/frameworka podając jego nazwę bezpośrednio w swoim Markdown.
+Renderowanie Markdown obsługuje **MDX**, użyj dowolnego komponentu JSX/frameworka podając jego nazwę bezpośrednio w swoim Markdown.
 
 ### 1. Automatyczne renderowanie (przez `useIntlayer`)
 
@@ -864,7 +864,7 @@ Te narzędzia renderują **tylko surowe ciągi znaków Markdown** i są niezale�
 
 ## Konfiguracja globalna z `MarkdownProvider`
 
-`MarkdownProvider` (lub jego odpowiednik we frameworku) konfiguruje potok renderowania Markdown dla całej aplikacji. Dotyczy to zarówno automatycznego renderowania `useIntlayer`, jak i narzędzi pomocniczych. Ustawione tutaj opcje są ustawieniami domyślnymi — `.use()` nadpisuje je na poziomie węzła.
+`MarkdownProvider` (lub jego odpowiednik we frameworku) konfiguruje potok renderowania Markdown dla całej aplikacji. Dotyczy to zarówno automatycznego renderowania `useIntlayer`, jak i narzędzi pomocniczych. Ustawione tutaj opcje są ustawieniami domyślnymi, `.use()` nadpisuje je na poziomie węzła.
 
 <Tabs group="framework">
   <Tab label="React" value="react">
@@ -886,7 +886,7 @@ Te narzędzia renderują **tylko surowe ciągi znaków Markdown** i są niezale�
     ```
 
 
-    > MDX jest obsługiwany — każda nazwa komponentu użyta wewnątrz twojego Markdown (np. `<MyCustomJSXComponent />`) jest rozwiązywana względem mapy `components`.
+    > MDX jest obsługiwany, każda nazwa komponentu użyta wewnątrz twojego Markdown (np. `<MyCustomJSXComponent />`) jest rozwiązywana względem mapy `components`.
 
     Możesz również użyć własnego renderera markdown:
 
@@ -928,7 +928,7 @@ Te narzędzia renderują **tylko surowe ciągi znaków Markdown** i są niezale�
     ```
 
 
-    > MDX jest obsługiwany — każda nazwa komponentu użyta wewnątrz twojego Markdown (np. `<MyCustomJSXComponent />`) jest rozwiązywana względem mapy `components`.
+    > MDX jest obsługiwany, każda nazwa komponentu użyta wewnątrz twojego Markdown (np. `<MyCustomJSXComponent />`) jest rozwiązywana względem mapy `components`.
 
     Możesz również użyć własnego renderera markdown:
 
@@ -976,7 +976,7 @@ Te narzędzia renderują **tylko surowe ciągi znaków Markdown** i są niezale�
     ```
 
 
-    > MDX jest obsługiwany — każda nazwa komponentu użyta wewnątrz twojego Markdown (np. `<MyCustomJSXComponent />`) jest rozwiązywana względem mapy `components`.
+    > MDX jest obsługiwany, każda nazwa komponentu użyta wewnątrz twojego Markdown (np. `<MyCustomJSXComponent />`) jest rozwiązywana względem mapy `components`.
 
     Możesz również użyć własnego renderera markdown:
 
@@ -1020,7 +1020,7 @@ Te narzędzia renderują **tylko surowe ciągi znaków Markdown** i są niezale�
     ```
 
 
-    > MDX jest obsługiwany — każda nazwa komponentu użyta wewnątrz twojego Markdown (np. `<MyCustomJSXComponent />`) jest rozwiązywana względem mapy `components`.
+    > MDX jest obsługiwany, każda nazwa komponentu użyta wewnątrz twojego Markdown (np. `<MyCustomJSXComponent />`) jest rozwiązywana względem mapy `components`.
 
     Możesz również użyć własnego renderera markdown:
 
@@ -1059,7 +1059,7 @@ Te narzędzia renderują **tylko surowe ciągi znaków Markdown** i są niezale�
     ```
 
 
-    > MDX jest obsługiwany — każda nazwa komponentu użyta wewnątrz twojego Markdown (np. `<MyCustomJSXComponent />`) jest rozwiązywana względem mapy `components`.
+    > MDX jest obsługiwany, każda nazwa komponentu użyta wewnątrz twojego Markdown (np. `<MyCustomJSXComponent />`) jest rozwiązywana względem mapy `components`.
 
     Możesz również użyć własnego renderera markdown:
 
@@ -1098,7 +1098,7 @@ Te narzędzia renderują **tylko surowe ciągi znaków Markdown** i są niezale�
     ```
 
 
-    > MDX jest obsługiwany — każda nazwa komponentu użyta wewnątrz twojego Markdown (np. `<MyCustomJSXComponent />`) jest rozwiązywana względem mapy `components`.
+    > MDX jest obsługiwany, każda nazwa komponentu użyta wewnątrz twojego Markdown (np. `<MyCustomJSXComponent />`) jest rozwiązywana względem mapy `components`.
 
     Możesz również użyć własnego renderera markdown:
 
@@ -1137,7 +1137,7 @@ Te narzędzia renderują **tylko surowe ciągi znaków Markdown** i są niezale�
     ```
 
 
-    > MDX jest obsługiwany — każda nazwa komponentu użyta wewnątrz twojego Markdown (np. `<MyCustomJSXComponent />`) jest rozwiązywana względem mapy `components`.
+    > MDX jest obsługiwany, każda nazwa komponentu użyta wewnątrz twojego Markdown (np. `<MyCustomJSXComponent />`) jest rozwiązywana względem mapy `components`.
 
     Możesz również użyć własnego renderera markdown:
 

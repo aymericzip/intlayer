@@ -61,6 +61,8 @@ TanStack Start에는 내장된 i18n 계층이 없으므로, 이 가이드에서�
 
 [i18n 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/tanstack.md)는 동일한 10개 페이지, 10개 로케일의 TanStack Start 앱을 주요 라이브러리로 실행하여 브라우저가 실제로 다운로드하는 크기를 측정합니다.
 
+- [i18n 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/tanstack.md)
+
 <I18nBenchmark framework="tanstack" packages="lingui,@intlayer/lingui,intlayer" vertical/>
 
 2026-09-26 기준 `@lingui/core@6.6.0` 주요 수치 (gzip):
@@ -78,6 +80,8 @@ TanStack Start에는 내장된 i18n 계층이 없으므로, 이 가이드에서�
 - **런타임은 여전히 무겁습니다** (~57 KB gzip). `@intlayer/lingui` 호환 어댑터(16단계)는 매크로를 그대로 유지하면서 런타임을 ~10 KB로 줄여줍니다.
 
 > 전체 데이터 확인: [TanStack Start 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/tanstack.md) 및 [벤치마크 저장소](https://github.com/intlayer-org/benchmark-i18n).
+
+- [TanStack Start 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/tanstack.md)
 
 ## TanStack Start에서의 기능 비교
 
@@ -102,6 +106,8 @@ TanStack Start에서 일반적으로 사용되는 다른 라이브러리들과 L
 | **CI에서 누락된 번역 감지**            | ✅ `npx intlayer test`               | ⚠️ 미내장             | ⚠️ 미내장                        | ✅ `lingui compile --strict` |
 
 > 런타임 크기 및 누출률 수치는 [TanStack Start 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/tanstack.md)에서 가져왔습니다. 누출률은 각 라이브러리의 최적 설정에서 측정되었습니다.
+
+- [TanStack Start 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/tanstack.md)
 
 > 기타 TanStack Start 가이드:
 
@@ -931,6 +937,8 @@ export const Route = createFileRoute("/{-$locale}/$")({
 
 [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/lingui.md) 호환 어댑터는 소스 코드를 그대로 유지합니다. 매크로는 이전과 동일하게 컴파일되며, 결과로 생성되는 `i18n._()`, `useLingui()`, `<Trans>` 호출은 컴파일된 Intlayer 딕셔너리에 의해 제공됩니다. 벤치마크에서 런타임은 **~56.7 KB에서 ~9.8 KB** gzip으로 감소합니다.
 
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/lingui.md)
+
 ```bash packageManager="npm"
 npm install @intlayer/lingui intlayer @intlayer/sync-json-plugin
 npx intlayer init
@@ -973,6 +981,11 @@ export default defineConfig({
 
 카탈로그는 [sync JSON 플러그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/plugins/sync-json.md) (JSON 카탈로그) 또는 [sync PO 플러그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/plugins/sync-po.md) (PO 카탈로그)을 통해 동기화됩니다. 전체 설정은 [Lingui 호환 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/lingui.md)를 참고하고, 나란히 비교한 내용은 [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/lingui_vs_intlayer-lingui.md)에서 확인하세요.
 
+- [sync JSON 플러그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/plugins/sync-json.md)
+- [sync PO 플러그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/plugins/sync-po.md)
+- [Lingui 호환 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/lingui.md)
+- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/lingui_vs_intlayer-lingui.md)
+
 </Step>
 <Step number={17} title="Intlayer를 활용한 번역 자동화" isOptional={true}>
 
@@ -1014,10 +1027,15 @@ Lingui는 메시지를 추출하지만, 수십 개의 카탈로그를 수작업�
 
 [벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/tanstack.md)에서는 런타임으로 ~56.7 KB gzip이 측정됩니다. 로케일당 하나의 카탈로그를 필요 시 로드하면 페이지 크기는 i18n이 없는 111 KB 대비 ~115 KB가 됩니다. 모든 카탈로그를 정적으로 가져오면 ~152 KB로 증가합니다.
 
+- [벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/tanstack.md)
+
 </Question>
 <Question title="Lingui 매크로를 유지하면서 Intlayer로 마이그레이션할 수 있나요?">
 
 네. [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/lingui.md) 어댑터는 매크로를 유지하고 런타임을 교체합니다. 그런 다음 컴포넌트를 하나씩 `useIntlayer`로 이전할 수 있습니다. [호환 어댑터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/index.md)를 참고하세요.
+
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/lingui.md)
+- [호환 어댑터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/index.md)
 
 </Question>
 

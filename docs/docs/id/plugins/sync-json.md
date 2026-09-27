@@ -216,7 +216,7 @@ Mengontrol apakah satu file JSON yang **kunci tingkat pertamanya adalah namespac
 
 Ini cocok dengan model namespace dari pustaka seperti `next-intl` dan `react-intl`, di mana satu file `messages/{locale}.json` mengelompokkan beberapa namespace berdasarkan kunci tingkat pertamanya, masing-masing ditangani secara independen (misalnya `useTranslations('Hero')` menyelesaikan ke kamus `Hero`).
 
-- `undefined` (default): **terdeteksi otomatis** — file dibagi ketika pola `source` tidak memiliki segmen `{key}` (satu file menampung setiap namespace), dan disimpan sebagai satu kamus jika tidak (satu file per kunci).
+- `undefined` (default): **terdeteksi otomatis**, file dibagi ketika pola `source` tidak memiliki segmen `{key}` (satu file menampung setiap namespace), dan disimpan sebagai satu kamus jika tidak (satu file per kunci).
 - `true`: selalu membagi setiap kunci tingkat atas menjadi kamusnya sendiri.
 - `false`: jangan pernah membagi; seluruh file menjadi satu kamus.
 
@@ -238,7 +238,7 @@ syncJSON({
 }),
 ```
 
-Ini menghasilkan tiga kamus — `Hero`, `Nav`, dan `About` — sehingga `useTranslations('Hero')` (next-intl) menyelesaikan dengan benar. Saat ditulis kembali, semua namespace disatukan kembali ke dalam file per-locale yang sama.
+Ini menghasilkan tiga kamus (`Hero`, `Nav`, dan `About`) sehingga `useTranslations('Hero')` (next-intl) menyelesaikan dengan benar. Saat ditulis kembali, semua namespace disatukan kembali ke dalam file per-locale yang sama.
 
 > Ketika Anda mempertahankan segmen `{key}` eksplisit di `source` Anda (misalnya `./locales/${locale}/${key}.json`), setiap file sudah menjadi satu namespace, sehingga pemisahan dinonaktifkan secara default.
 
@@ -402,7 +402,7 @@ loadJSON({
 
 Perilaku yang sama seperti di [`syncJSON`](#splitkeys-boolean): ketika satu file JSON mengelompokkan beberapa namespace berdasarkan kunci tingkat pertamanya, setiap kunci tingkat atas menjadi kamusnya sendiri.
 
-- `undefined` (default): **terdeteksi otomatis** — dibagi ketika pola `source` tidak memiliki segmen `{key}`, kamus tunggal jika tidak.
+- `undefined` (default): **terdeteksi otomatis**, dibagi ketika pola `source` tidak memiliki segmen `{key}`, kamus tunggal jika tidak.
 - `true` / `false`: paksa atau nonaktifkan pemisahan.
 
 ```ts
@@ -440,6 +440,8 @@ File JSON yang disinkronkan akan dianggap sebagai file `.content` lainnya. Artin
 - `intlayer content pull` untuk menarik file JSON yang disinkronkan
 
 Lihat [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md) untuk detail lebih lanjut.
+
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md)
 
 ## Keterbatasan (saat ini)
 

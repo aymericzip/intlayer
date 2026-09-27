@@ -51,6 +51,8 @@ W 2026 roku nie musisz przepisywać swojej bazy kodu. Z **Intlayer** wdrożysz w
 
 > Szukasz pełnego przewodnika technicznego krok po kroku dla Next.js 16 App Router? Sprawdź naszą dokumentację: [Tłumaczenie Next.js 16 z Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_nextjs_16.md).
 
+- [Tłumaczenie Next.js 16 z Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_nextjs_16.md)
+
 ## Spis treści
 
 <TOC/>
@@ -266,6 +268,8 @@ export const generateMetadata = async (): Promise<Metadata> => {
 Szczegółową instrukcję krok po kroku z obsługą middleware, SSG (`generateStaticParams`) i komponentów serwerowych znajdziesz w dokumentacji:
 
 👉 **[Kompletny przewodnik po tłumaczeniu Next.js 16 z Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_nextjs_16.md)**
+
+- [Kompletny przewodnik po tłumaczeniu Next.js 16 z Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_nextjs_16.md)
 
 ## Najczęściej zadawane pytania (FAQ)
 

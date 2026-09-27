@@ -76,6 +76,8 @@ author: aymericzip
 
 有关设置内容声明文件的说明，请参见[此处](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)。
 
+- [内容声明文件（.content.ts）](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)
+
 ## 在 Next.js 中的示例用法
 
 以下示例展示了如何在 Next.js 页面中实现 `useIntlayer` 钩子，根据应用程序当前的语言环境动态加载本地化内容：

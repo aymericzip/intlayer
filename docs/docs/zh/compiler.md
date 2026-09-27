@@ -54,6 +54,8 @@ author: aymericzip
 
 请参阅[Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/compiler_vs_declarative_i18n.md)博客文章，了解更深入的比较。
 
+- [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/compiler_vs_declarative_i18n.md)
+
 ## 为什么不使用 Intlayer 编译器？
 
 编译器虽然提供了一个优秀的"开箱即用"的体验，但它也引入了一些你应该了解的权衡：
@@ -65,7 +67,12 @@ author: aymericzip
 
 有关更深入的架构比较，请参阅博客文章[Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/compiler_vs_declarative_i18n.md)。
 
+- [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/compiler_vs_declarative_i18n.md)
+
 作为替代方案，为了在保持对内容的完全控制的同时自动化您的 i18n 流程，Intlayer 还提供了自动提取命令 `intlayer extract`（请参阅[CLI 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/extract.md)），或 Intlayer VS Code 扩展的 `Intlayer: extract content to Dictionary` 命令（请参阅[VS Code 扩展文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/vs_code_extension.md)）。
+
+- [CLI 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/extract.md)
+- [VS Code 扩展文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/vs_code_extension.md)
 
 ## 使用方法
 
@@ -97,9 +104,11 @@ export default defineConfig({
 });
 ```
 
-> 独立的 `intlayerCompiler()` 插件仍然为高级设置导出。与 `intlayer()` 一起注册是安全的——编译器会自行去重并且只运行一次。
+> 独立的 `intlayerCompiler()` 插件仍然为高级设置导出。与 `intlayer()` 一起注册是安全的，编译器会自行去重并且只运行一次。
 
 See complete tutorial: [Translate Vite and React with Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md)
+
+- [Translate Vite and React with Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md)
 
 #### 框架支持
 
@@ -389,3 +398,5 @@ bun x intlayer extract
 ```
 
 > 有关更多详细信息，请参阅 [CLI 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)
+
+- [CLI 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)

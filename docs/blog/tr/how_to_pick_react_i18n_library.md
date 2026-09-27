@@ -26,6 +26,8 @@ React yerleşik bir i18n primitive'i sunmaz. İlk gün seçtiğiniz kütüphane,
 
 Bu rehber tersi bir yaklaşım izler: önce projeniz hakkında birkaç soruyu yanıtlayın, ardından bu yanıtları uygun kütüphanelerle eşleştirin. Bu rehber düz React (Vite, React Router, TanStack Start) projelerine odaklanır. Next.js'in kendine has kısıtlamaları vardır ve bunlar [Next.js karşılaştırması](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/next-i18next_vs_next-intl_vs_intlayer.md) yazısında ele alınmıştır.
 
+- [Next.js karşılaştırması](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/next-i18next_vs_next-intl_vs_intlayer.md)
+
 ## İçindekiler
 
 <TOC/>
@@ -74,6 +76,8 @@ SSR ve Server Components etrafında tasarlanmıştır. Sunucuda render edin, cli
 
 [JavaScript i18n tarihi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/history_of_i18n.md), her dalganın bir öncekinin sorunlarına nasıl yanıt verdiğini ayrıntılı olarak açıklamaktadır.
 
+- [JavaScript i18n tarihi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/history_of_i18n.md)
+
 ## En önemli karar: içerik nerede yaşar ve ne zaman yüklenir
 
 Her React i18n kütüphanesi aynı yapıya sahiptir: bir store, bir provider, bir hook. Provider ne alırsa alsın, client bundle'ında veya hydration payload'ında son bulur. Dolayısıyla iki yapısal seçenek şunlardır:
@@ -89,11 +93,15 @@ Statik import'lara sahip merkezi içerik her iki eksende de büyür: 10 sayfa ç
 
 Bu bir kütüphane özelliği değil, bir disiplin özelliğidir. `react-i18next` namespace'ler ve lazy backend'ler ile sınırlandırılabilir. `use-intl` route başına bölünebilir. Ancak hiçbir şey bunu zorlamaz ve `t("common:cta")` çağıran paylaşılan bir `<Button>`, `common` namespace'ini sessizce her route'un bağımlılığı haline getirir. [Benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/index.md) bunu "diğer route'lardan sızıntı" ve "diğer locale'lerden sızıntı" olarak ölçer ve kütüphaneler arasındaki farkın çoğu buradan kaynaklanır.
 
+- [Benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/index.md)
+
 3. soruya yanıtınız "çok sayıda locale, çok sayıda sayfa" olduysa, bu bölüme herhangi bir API tercihinden daha fazla önem verin. [Bileşen bazlı vs merkezi i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/per-component_vs_centralized_i18n.md) yazısı, aynı tercihin bakım tarafını daha derinlemesine inceler.
 
 ## Adaylar
 
 Kütüphane boyutları [TanStack Start benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md) çalışmasından alınmıştır: boş bir bileşende provider artı hook, bundling, tree-shaking ve minification sonrası, 10 sayfa ve 10 locale. İçerik ayrıca ölçülür.
+
+- [TanStack Start benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md)
 
 ![React i18n kütüphane ekosistemi](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
@@ -119,6 +127,8 @@ Tablonun göstermediği iki nokta var. `Paraglide`, kodları doğrudan deponuza 
 
 Çalışan en basit seçeneği seçin ve aşırı yatırım yapmayın. Locale başına tek bir JSON ile `react-i18next` gayet uygundur ve Stack Overflow'daki on yıllık yanıtlar size zaman kazandıracaktır. İhtiyacınız olana kadar namespace'leri atlayın. Prototip bir ürüne dönüşürse, kapsamlı (scoped) içeriğe geçiş için bütçe ayırın; [react-i18next uyumluluk adaptörü](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/react-i18next.md) bu geçişi aşamalı hale getirir.
 
+- [react-i18next uyumluluk adaptörü](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/react-i18next.md)
+
 </Accordion>
 <Accordion header="Çeviriler bir ajans veya ICU formatını destekleyen bir TMS'den geliyor">
 
@@ -134,6 +144,8 @@ Sözleşmeye göre değil, varsayılan olarak kapsamlı (scoped) içeriği ve di
 
 Her anahtar tabanlı kütüphane type güvenli hale getirilebilir, ancak neredeyse hiçbiri varsayılan olarak böyle değildir. Lazy yüklenen namespace'ler karşısında ayakta kalması gereken declaration merging yapılarıyla uğraşmak istemiyorsanız, typeların içerikten otomatik üretildiği bir kütüphane seçin: `Lingui`, `Paraglide` veya Intlayer. [Eksik çevirileri algılama](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/detecting_missing_translations.md) yazısı, her birinin derleme zamanında neleri yakaladığını karşılaştırır.
 
+- [Eksik çevirileri algılama](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/detecting_missing_translations.md)
+
 </Accordion>
 <Accordion header="Çok sayıda zengin içerik: markdown, cümle içi bağlantılar, locale başına bileşenler">
 
@@ -148,6 +160,8 @@ Bu durumda, içeri aktarılacak bir TMS bulunmadığından merkezi bir JSON art�
 <Accordion header="Daha sonra Next.js App Router'a geçebilirsiniz">
 
 React context, sunucu/istemci sınırını geçemez. Yalnızca istemci hook'u üzerine kurulu kütüphaneler (`react-i18next`, `react-intl`), RSC'yi benimsediğiniz gün paralel bir sunucu API'sine ihtiyaç duyacaktır. `use-intl` (`next-intl` olarak) ve Intlayer (`next-intlayer` olarak) bu ayrıma zaten sahiptir. Bir deseni standartlaştırmadan önce [Next.js i18n yazısını](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/next-i18next_vs_next-intl_vs_intlayer.md) okuyun.
+
+- [Next.js i18n yazısını](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/next-i18next_vs_next-intl_vs_intlayer.md)
 
 </Accordion>
 </AccordionGroup>
@@ -499,6 +513,11 @@ Tüm locale'ler bileşenin yanındaki tek bir dosyada bulunur. Typelar derleme s
 
 Halihazırda `react-i18next`, `react-intl` veya `Lingui` kullanıyor musunuz? Uyumluluk adaptörleri ([react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/react-i18next.md), [react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/react-intl.md), [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/lingui.md)), import'ları bundler düzeyinde alias haline getirir; böylece siz bileşen bazında geçiş yaparken mevcut API çalışmaya devam eder. [Geçiş rehberi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_react-i18next_to_intlayer.md) geri kalan detayları kapsar.
 
+- [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/react-i18next.md)
+- [react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/react-intl.md)
+- [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/lingui.md)
+- [Geçiş rehberi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_react-i18next_to_intlayer.md)
+
 ## Karar vermeden önce
 
 Bir özellik tablosu bir kütüphanenin bugün ne yaptığını gösterir. Bu maddeler ise onunla yaşamanın nasıl bir şey olacağını anlatır.
@@ -521,6 +540,9 @@ En çok indirilen kütüphane, 2026 React kod tabanına en uygun olan değil, il
 
 Agent'lar i18n konusunda hâlâ zorlanmaktadır: locale'leri unuturlar, anahtarlar uydururlar ve mesaj sözdizimlerini karıştırırlar. Kütüphane, agent'ın içeriği listelemesi, doldurması ve test etmesi için [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/agent_skills.md) veya bir [MCP sunucusu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/mcp_server.md) sunuyor mu? İçerik yüklemesi varsayılan olarak optimize edilmiş mi, yoksa birinin her çeyrekte namespace'leri ve lazy import'ları gözden geçirmesi mi gerekiyor?
 
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/agent_skills.md)
+- [MCP sunucusu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/mcp_server.md)
+
 **Kutudan çıktığı gibi Type Güvenliği.**
 
 "Ekstra yapılandırmayla type güvenli hale getirilebilir" değil, "yanlış bir anahtar temiz bir kurulumda `tsc` derlemesini durdurur". Var olmayan bir anahtarda ve bir çevirisi eksik olan bir locale durumunda ne olduğunu kontrol edin.
@@ -532,6 +554,13 @@ Kataloglar sadece büyür. Intlayer'ın derleme adımı kullanılmayan alanları
 **Geliştirici deneyimi (DX).**
 
 İlk çevrilmiş dizeye kadar geçen kurulum süresi, fareyle üzerine gelindiğinde çeviriyi gösteren ve bildirime atlayan bir [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/lsp.md) veya [VS Code eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/vs_code_extension.md), doldurma, test etme ve push için bir [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/index.md), bileşenlerinizdeki sabit kodlanmış dizeleri çıkaran ve böylece her dizeyi anahtar anahtar yönetmenizi gerektirmeyen bir [derleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md) veya çıkarıcı ve geliştirici olmayanların bir pull request açmadan içeriği düzenlemesi için bir yol ([görsel düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) veya [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)).
+
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/lsp.md)
+- [VS Code eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/vs_code_extension.md)
+- [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/index.md)
+- [derleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md)
+- [görsel düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)
 
 ## Sıkça Sorulan Sorular
 
@@ -547,6 +576,8 @@ Kataloglar sadece büyür. Intlayer'ın derleme adımı kullanılmayan alanları
 
 Yalnızca bundle boyutu, üretilen typelar veya derleme zamanında eksik anahtar kontrolleri gereksinimleriniz arasındaysa. İki locale içeren küçük bir uygulama için runtime kütüphanesi daha basittir. [Derleyici vs bildirimsel i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/compiler_vs_declarative_i18n.md) yazısı, derleyicilerin size ne sağladığını ve neleri yanlış yapabileceğini açıklamaktadır.
 
+- [Derleyici vs bildirimsel i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/compiler_vs_declarative_i18n.md)
+
 </Question>
 
 <Question title="Daha sonra her bileşeni yeniden yazmadan kütüphaneyi değiştirebilir miyim?">
@@ -558,6 +589,8 @@ Kısmen. Anahtar tabanlı kütüphaneler, bir uyumluluk adaptörünün bir API'y
 <Question title="Kütüphane seçimi SEO'yu etkiler mi?">
 
 Dolaylı olarak. Crawler'ların gördüğü şey; yönlendirme, `hreflang`, `<html lang>` ve metnin sunucu tarafından render edilen HTML'de olup olmadığına göre belirlenir. Bazı kütüphaneler bunun için helper'lar sunar, çoğu ise bunu size bırakır. [hreflang rehberine](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/hreflang_guide_multilingual_seo.md) göz atın.
+
+- [hreflang rehberine](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/hreflang_guide_multilingual_seo.md)
 
 </Question>
 

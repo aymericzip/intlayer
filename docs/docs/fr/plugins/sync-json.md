@@ -216,7 +216,7 @@ Contrôle si un fichier JSON unique dont les **clés de premier niveau sont des 
 
 Cela correspond au modèle de namespace de bibliothèques comme `next-intl` et `react-intl`, où un fichier `messages/{locale}.json` regroupe plusieurs namespaces par ses clés de premier niveau, chacun étant adressé indépendamment (par exemple, `useTranslations('Hero')` se résout au dictionnaire `Hero`).
 
-- `undefined` (par défaut) : **détection automatique** — le fichier est divisé lorsque le modèle `source` n'a pas de segment `{key}` (un fichier contient tous les namespaces), et conservé comme un seul dictionnaire sinon (un fichier par clé).
+- `undefined` (par défaut) : **détection automatique**, le fichier est divisé lorsque le modèle `source` n'a pas de segment `{key}` (un fichier contient tous les namespaces), et conservé comme un seul dictionnaire sinon (un fichier par clé).
 - `true` : divise toujours chaque clé de premier niveau en son propre dictionnaire.
 - `false` : ne divise jamais ; le fichier entier devient un seul dictionnaire.
 
@@ -238,7 +238,7 @@ syncJSON({
 }),
 ```
 
-Cela produit trois dictionnaires — `Hero`, `Nav`, et `About` — de sorte que `useTranslations('Hero')` (next-intl) se résout correctement. Lors de la réécriture, tous les namespaces sont réassemblés dans le même fichier par locale.
+Cela produit trois dictionnaires (`Hero`, `Nav`, et `About`) de sorte que `useTranslations('Hero')` (next-intl) se résout correctement. Lors de la réécriture, tous les namespaces sont réassemblés dans le même fichier par locale.
 
 > Lorsque vous conservez le segment `{key}` explicite dans votre `source` (par exemple, `./locales/${locale}/${key}.json`), chaque fichier est déjà un namespace, donc la division est désactivée par défaut.
 
@@ -402,7 +402,7 @@ loadJSON({
 
 Même comportement que dans [`syncJSON`](#splitkeys-boolean) : lorsqu'un fichier JSON unique regroupe plusieurs namespaces par ses clés de premier niveau, chaque clé de premier niveau devient son propre dictionnaire.
 
-- `undefined` (par défaut) : **détection automatique** — divise lorsque le modèle `source` n'a pas de segment `{key}`, dictionnaire unique sinon.
+- `undefined` (par défaut) : **détection automatique**, divise lorsque le modèle `source` n'a pas de segment `{key}`, dictionnaire unique sinon.
 - `true` / `false` : force ou désactive la division.
 
 ```ts
@@ -440,6 +440,8 @@ Les fichiers JSON synchronisés seront considérés comme d'autres fichiers `.co
 - `intlayer content pull` pour récupérer les fichiers JSON synchronisés
 
 Voir [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/index.md) pour plus de détails.
+
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/index.md)
 
 ## Limitations (actuelles)
 

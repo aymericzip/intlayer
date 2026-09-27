@@ -36,7 +36,12 @@ author: aymericzip
 
 Вона є аналогом [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer/getDictionary.md) для карт завантажувачів для кожної локалі, виданих в `.intlayer/dynamic_dictionaries/`: замість отримання словника, який містить кожну локаль, вона отримує карту завантажувачів та чекає лише на чанк потрібної локалі.
 
+- [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer/getDictionary.md)
+
 > У коді застосунку ви зазвичай викликаєте [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer/getIntlayerAsync.md), а не цю функцію. [Плагіни збирання](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/bundle_optimization.md) переписують кожний виклик `getIntlayerAsync('key', locale)` на `getDictionaryAsync(loaderMap, 'key', locale)`. `getDictionaryAsync` експортується для користувацьких завантажувачів та для утиліт, які будують власні карти завантажувачів.
+
+- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer/getIntlayerAsync.md)
+- [Плагіни збирання](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/bundle_optimization.md)
 
 **Ключові можливості:**
 
@@ -71,7 +76,7 @@ getDictionaryAsync(
 - `localeOrSelector: LocalesValues | DictionarySelector`
   - **Description**: Локаль для інтерпретації вмісту або об'єкт селектора (`{ item }`, `{ variant }`, необов'язково з `locale`). Див. [динамічні словники](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dynamic_dictionaries/index.md).
   - **Type**: `LocalesValues | DictionarySelector`
-  - **Required**: No (Optional) — за замовчуванням встановлюється значення `defaultLocale`.
+  - **Required**: No (Optional), за замовчуванням встановлюється значення `defaultLocale`.
 
 - `plugins: Plugins[]`
   - **Description**: Трансформатори Node. За замовчуванням використовується базовий набір інтерпретаторів.
@@ -80,7 +85,7 @@ getDictionaryAsync(
 
 ### Returns
 
-- **Type**: `Promise<Content>` — a promise resolving to the interpreted content of the loaded chunk.
+- **Type**: `Promise<Content>`, a promise resolving to the interpreted content of the loaded chunk.
 - **Description**: Resolves to `null` when the map emits no chunk for the requested locale nor for any of its fallbacks, mirroring how a missing qualified coordinate resolves.
 
 ## Приклад використання

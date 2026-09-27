@@ -140,6 +140,9 @@ Cấu trúc duy nhất cần tránh: phục vụ các ngôn ngữ khác nhau t�
 
 > Intlayer bao gồm cả ba thông qua `routing.mode` và `routing.domains`. Xem [tùy chỉnh domains](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/custom_domains.md) và [tài liệu cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md).
 
+- [tùy chỉnh domains](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/custom_domains.md)
+- [tài liệu cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md)
+
 ## Triển khai
 
 Viết thủ công những tag này không tồn tại khi tiếp xúc với locale thứ hai. Thay vào đó, hãy lấy chúng từ danh sách locale của bạn.
@@ -188,6 +191,8 @@ export const generateMetadata = async ({
 
 Cấu hình đầy đủ: [Hướng dẫn Next.js 16 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_16.md).
 
+- [Hướng dẫn Next.js 16 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_16.md)
+
 </Tab>
 
 <Tab label="TanStack Start" value="tanstack">
@@ -227,6 +232,8 @@ export const Route = createFileRoute("/{-$locale}/about")({
 ```
 
 `head` chạy trên server, vì vậy các tag sẽ được đưa vào HTML ban đầu. Thiết lập đầy đủ: [Hướng dẫn i18n TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_tanstack.md).
+
+- [Hướng dẫn i18n TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_tanstack.md)
 
 </Tab>
 

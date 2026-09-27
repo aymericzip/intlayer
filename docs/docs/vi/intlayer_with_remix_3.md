@@ -78,6 +78,9 @@ Intlayer sắp xếp các khai báo nội dung (`.content.ts`) cùng với logic
 
 Vượt ra ngoài quy trình làm việc ưu tiên mã nguồn, Intlayer cung cấp một [Trình biên tập trực quan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md) tự lưu trữ và một [CMS từ xa](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md), cho phép các biên tập viên và dịch giả cập nhật nội dung mà không cần triển khai lại mã.
 
+- [Trình biên tập trực quan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md)
+- [CMS từ xa](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)
+
 </Accordion>
 </AccordionGroup>
 
@@ -219,6 +222,8 @@ module.exports = config;
 
 > Để biết thêm các tùy chọn cấu hình bổ sung, hãy tham khảo [tài liệu cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md).
 
+- [tài liệu cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md)
+
 </Step>
 <Step number={3} title="Khai báo nội dung đa ngôn ngữ">
 
@@ -255,6 +260,8 @@ export default homeContent;
 ```
 
 > Intlayer cũng hỗ trợ các định dạng JSON, YAML và CommonJS. Xem [Tài liệu Khai báo Nội dung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/content_file.md).
+
+- [Tài liệu Khai báo Nội dung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/content_file.md)
 
 </Step>
 <Step number={4} title="Xây dựng từ điển Intlayer">
@@ -303,6 +310,8 @@ const { title } = useIntlayer("home");
 `useIntlayer("home", "fr")` hoặc `useIntlayer("faq", { item: 2 })` ghi đè ngôn ngữ yêu cầu cho một lệnh gọi, và `useDictionary(homeContent)` đọc từ điển đã nhập thay vì một khóa. Bên ngoài một yêu cầu, các hook sẽ quay về ngôn ngữ mặc định.
 
 > Middleware cũng chuẩn bị các từ điển Intlayer khi máy chủ khởi động, do đó việc thiếu `intlayer build` sẽ không để lại sổ đăng ký trống rỗng.
+
+> Đặt `routing.enableProxy: false` trong `intlayer.config.ts` để chỉ giữ lại việc xác định locale và tự xử lý routing. `intlayer({ ignore })` giữ nguyên các request khớp (ví dụ một tiền tố API), và `intlayer({ isDevServer })` kiểm soát việc locale đã lưu có điều khiển các chuyển hướng trong chế độ tự động mặc định của `enableProxy` hay không.
 
 </Step>
 <Step number={6} title="Xác định các tuyến an toàn kiểu">

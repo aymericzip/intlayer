@@ -41,9 +41,13 @@ author: aymericzip
 
 Смотрите конкретное сравнение с vue-i18n в нашем блоге [vue-i18n vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/vue-i18n_vs_intlayer.md).
 
+- [vue-i18n vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/vue-i18n_vs_intlayer.md)
+
 ## Почему стоит сочетать Intlayer с vue-i18n?
 
 Хотя Intlayer предоставляет отличное самостоятельное решение i18n (см. наше [руководство по интеграции с Vue.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_vite+vue.md)), вы можете захотеть сочетать его с vue-i18n по нескольким причинам:
+
+- [руководство по интеграции с Vue.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_vite+vue.md)
 
 1. **Существующая кодовая база**: У вас уже есть реализованная система vue-i18n, и вы хотите постепенно перейти на улучшенный опыт разработки с Intlayer.
 2. **Требования наследия**: Ваш проект требует совместимости с существующими плагинами или рабочими процессами vue-i18n.
@@ -144,6 +148,8 @@ export default config;
 
 Чтобы узнать больше подробностей о плагине `syncJSON`, пожалуйста, обратитесь к [документации плагина syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/plugins/sync-json.md).
 
+- [документации плагина syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/plugins/sync-json.md)
+
 </Step>
 
 </Steps>
@@ -163,6 +169,4 @@ export default config;
 
 Для улучшения опыта разработчика установите официальное **расширение Intlayer для VS Code**:
 
-[Установить из магазина расширений VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-[Установить из магазина расширений VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [Установить из магазина расширений VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

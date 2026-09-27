@@ -41,9 +41,13 @@ author: aymericzip
 
 Vue-i18n ile somut bir karşılaştırma için [vue-i18n vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/vue-i18n_vs_intlayer.md) blog yazımıza bakabilirsiniz.
 
+- [vue-i18n vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/vue-i18n_vs_intlayer.md)
+
 ## Neden Intlayer'ı vue-i18n ile Birleştirmelisiniz?
 
 Intlayer mükemmel bir bağımsız i18n çözümü sunarken (bkz. [Vue.js entegrasyon rehberimiz](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+vue.md)), onu vue-i18n ile birleştirmek isteyebileceğiniz birkaç neden olabilir:
+
+- [Vue.js entegrasyon rehberimiz](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+vue.md)
 
 1. **Mevcut kod tabanı**: Yerleşik bir vue-i18n uygulamanız var ve Intlayer'ın geliştirilmiş geliştirici deneyimine kademeli olarak geçmek istiyorsunuz.
 2. **Eski gereksinimler**: Projeniz mevcut vue-i18n eklentileri veya iş akışları ile uyumluluk gerektiriyor.
@@ -144,6 +148,8 @@ CLI kullanılarak JSON'un çevrilmesi için değişiklik yapılırsa veya CMS ku
 
 `syncJSON` eklentisi hakkında daha fazla detay görmek için lütfen [syncJSON eklenti dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-json.md) bakınız.
 
+- [syncJSON eklenti dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-json.md)
+
 </Step>
 <Step number={3} title="Bileşen başına JSON çevirilerini uygulama">
 
@@ -206,6 +212,4 @@ Bu dosyalar derleme sürecinde otomatik olarak yeniden oluşturulur ve depoza g�
 
 Geliştirici deneyimini iyileştirmek için resmi **Intlayer VS Code Eklentisi**ni yükleyin:
 
-[VS Code Marketplace'ten Yükleyin](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-[VS Code Marketinden Yükleyin](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [VS Code Marketplace'ten Yükleyin](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

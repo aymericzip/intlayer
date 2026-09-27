@@ -196,6 +196,8 @@ A função `date()` também suporta presets (`"short"`, `"long"`, `"dateOnly"`, 
 
 Trata-se de uma camada ágil de cache e resolução padrão sobre as APIs da plataforma. A formatação em si continua sendo 100% `Intl`. Consulte as assinaturas completas na [documentação de formatadores](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/formatters.md).
 
+- [documentação de formatadores](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/formatters.md)
+
 ## Erros comuns
 
 - **`toLocaleDateString()` sem definir locale.** Usa o locale do ambiente hospedeiro, que no servidor reflete a imagem do contêiner.

@@ -49,6 +49,8 @@ Di tahun 2026, Anda tidak perlu menulis ulang kode Anda. Bersama **Intlayer**, A
 
 > Mencari panduan teknis langkah demi langkah untuk Vite dan React? Lihat dokumentasi kami: [Terjemahkan Vite dan React dengan Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_vite+react.md).
 
+- [Terjemahkan Vite dan React dengan Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_vite+react.md)
+
 ## Daftar Isi
 
 <TOC/>
@@ -332,6 +334,8 @@ Panduan ini memberikan gambaran konseptual tentang cara menambahkan internasiona
 Jika Anda siap mengonfigurasi setiap bagian aplikasi secara mendalam, termasuk keamanan tipe TypeScript yang ketat, kamus dinamis, dan editor visual, kunjungi panduan dokumentasi lengkap kami:
 
 👉 **[Panduan Lengkap Menerjemahkan Vite dan React dengan Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_vite+react.md)**
+
+- [Panduan Lengkap Menerjemahkan Vite dan React dengan Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_vite+react.md)
 
 ## Pertanyaan yang Sering Diajukan (FAQ)
 

@@ -76,6 +76,8 @@ Kluczowe jest, aby wszystkie klucze zawartości były zdefiniowane w plikach dek
 
 Instrukcje dotyczące konfigurowania plików deklaracji zawartości są dostępne [tutaj](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/content_file.md).
 
+- [Pliki deklaracji treści (.content.ts)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/content_file.md)
+
 ## Przykład użycia w Next.js
 
 Oto jak można zaimplementować hook `useIntlayer` na stronie Next.js, aby dynamicznie ładować zlokalizowaną zawartość w oparciu o aktualną lokalizację aplikacji:

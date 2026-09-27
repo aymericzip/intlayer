@@ -39,6 +39,8 @@ bun x intlayer dictionary push
 
 If the [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_visual_editor.md) is installed, you can also push dictionaries to the editor. This command will allow you to make the dictionaries available to [the editor](https://app.intlayer.org/). In this way, you can share your dictionaries with your team and edit your content without modifying the code of your application.
 
+- [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_visual_editor.md)
+
 ## Aliases:
 
 - `npx intlayer dictionaries push`

@@ -35,7 +35,7 @@ O `eslint-plugin-intlayer` detecta os tipos de erros de i18n que o TypeScript n�
 
 1. **Texto codificado diretamente (hardcoded)** que nunca chegou a um dicionário.
 2. **Chamadas dinâmicas** que passam na verificação de tipos e são executadas, mas que o compilador do Intlayer não consegue otimizar.
-3. **Conteúdo morto** — dicionários e campos que nada no projeto lê (ativação opcional).
+3. **Conteúdo morto**: dicionários e campos que nada no projeto lê (ativação opcional).
 
 Chaves de dicionário desconhecidas, caminhos de campos desconhecidos e idiomas ausentes já são erros de compilação, portanto o plugin não os repete.
 
@@ -61,7 +61,7 @@ Requer o ESLint 9 ou superior (flat config). O ESLint 10 é compatível.
 
 ## Utilização
 
-O plugin funciona tanto no ESLint quanto no [oxlint](https://oxc.rs) — com as mesmas regras e as mesmas opções.
+O plugin funciona tanto no ESLint quanto no [oxlint](https://oxc.rs), com as mesmas regras e as mesmas opções.
 
 <Tabs defaultTab="eslint">
   <Tab label="ESLint" value="eslint">
@@ -106,7 +106,7 @@ export default [
 }
 ```
 
-Duas ressalvas: o suporte a plugins JS no oxlint ainda está em versão alfa e o oxlint não suporta parsers customizados — portanto, arquivos `.vue`, `.svelte`, `.astro` e templates do Angular não são verificados lá. Execute o oxlint nos seus arquivos JS/TS/JSX e mantenha o ESLint para o restante.
+Duas ressalvas: o suporte a plugins JS no oxlint ainda está em versão alfa e o oxlint não suporta parsers customizados, portanto, arquivos `.vue`, `.svelte`, `.astro` e templates do Angular não são verificados lá. Execute o oxlint nos seus arquivos JS/TS/JSX e mantenha o ESLint para o restante.
 
 O `no-unused-content` foi omitido acima de propósito: ele precisa do diretório de trabalho e do caminho do arquivo analisado a partir do contexto da regra, o que a ponte alfa de plugins JS não garante. Execute-o no ESLint.
 
@@ -123,7 +123,7 @@ O `no-unused-content` foi omitido acima de propósito: ele precisa do diretório
 
 A configuração `recommended` mantém deliberadamente `no-raw-text` como `warn`: apontá-la para uma base de código existente traz à tona todas as strings não traduzidas de uma só vez, o que não deve quebrar a sua compilação logo no primeiro dia.
 
-O `enforce-adapter-import` fica desativado por padrão — ative-o explicitamente se desejar.
+O `enforce-adapter-import` fica desativado por padrão, ative-o explicitamente se desejar.
 
 O `no-unused-content` fica desativado em todas as configurações, inclusive na `strict`. É a única regra que lê sua configuração do Intlayer e percorre seus arquivos de código no disco; portanto, ativá-la deve ser uma escolha consciente e não algo imposto por uma predefinição.
 
@@ -248,7 +248,7 @@ export default {
 };
 ```
 
-Ao contrário das outras regras, esta não pode responder apenas com base no arquivo analisado — um campo só é considerado não utilizado em relação ao projeto inteiro. Na primeira declaração de conteúdo de uma execução do linter, ela carrega a sua configuração do Intlayer, busca os arquivos de código declarados por essa configuração (`build.traversePattern`, `compiler.transformPattern`) e executa o mesmo analisador de uso que alimenta o `@intlayer/lsp` e o tachado de "não utilizado" na extensão do VS Code. O resultado é armazenado em cache por `cacheTtl` milissegundos, para que a varredura ocorra uma vez por execução e não a cada arquivo.
+Ao contrário das outras regras, esta não pode responder apenas com base no arquivo analisado, um campo só é considerado não utilizado em relação ao projeto inteiro. Na primeira declaração de conteúdo de uma execução do linter, ela carrega a sua configuração do Intlayer, busca os arquivos de código declarados por essa configuração (`build.traversePattern`, `compiler.transformPattern`) e executa o mesmo analisador de uso que alimenta o `@intlayer/lsp` e o tachado de "não utilizado" na extensão do VS Code. O resultado é armazenado em cache por `cacheTtl` milissegundos, para que a varredura ocorra uma vez por execução e não a cada arquivo.
 
 **Opções**
 
@@ -283,9 +283,9 @@ Diminua `cacheTtl` ao executar o lint a partir de um servidor de editor de longa
 
 > **Tende ao silêncio.** Um falso positivo aqui apagaria uma tradução; portanto, nada é reportado quando o dicionário é consumido de uma forma que a análise não consiga rastrear: o objeto de conteúdo passado por completo, uma função de tradução vinculada a partir dele (`const t = useTranslations("home")`), uma declaração acessada por importação direta (`useDictionary(myDictionary)`), um `nest()` de outro dicionário ou uma lista de campos tornada não exaustiva por um spread. Componentes de arquivo único (`.vue`, `.svelte`, `.astro`) são considerados como usuários de todos os campos dos dicionários mencionados, pois seus blocos de script não são analisados aqui.
 
-O `reportDuplicateKeys` lê os dicionários não mesclados que o build grava em `.intlayer/`, portanto permanece em silêncio até que o projeto tenha sido construído pelo menos uma vez. Duas declarações compartilhando uma chave são mescladas, o que é um padrão válido — o aviso existe porque um campo definido em ambos os lados mantém silenciosamente apenas um dos dois valores.
+O `reportDuplicateKeys` lê os dicionários não mesclados que o build grava em `.intlayer/`, portanto permanece em silêncio até que o projeto tenha sido construído pelo menos uma vez. Duas declarações compartilhando uma chave são mescladas, o que é um padrão válido, o aviso existe porque um campo definido em ambos os lados mantém silenciosamente apenas um dos dois valores.
 
-O analisador é carregado a partir do `@intlayer/lsp`, distribuído como ESM. A regra requer, portanto, uma versão do Node compatível com `require()` em módulos ES — Node 20.19+ ou 22.12+. Em versões anteriores, ela não reporta nada em vez de falhar a execução do lint.
+O analisador é carregado a partir do `@intlayer/lsp`, distribuído como ESM. A regra requer, portanto, uma versão do Node compatível com `require()` em módulos ES, Node 20.19+ ou 22.12+. Em versões anteriores, ela não reporta nada em vez de falhar a execução do lint.
 
 ## Frameworks
 

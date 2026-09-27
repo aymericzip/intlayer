@@ -31,6 +31,8 @@ author: aymericzip
 
 > **Intlayer v9以降**、`compiler.enabled`が`true`かつ`compiler.output`がIntlayer設定で指定されている場合、`intlayerCompiler`はメインの[`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/vite-intlayer/intlayer.md)プラグインに自動的に組み込まれます。コンパイラ固有の設定を完全に制御したい場合にのみ、個別に登録する必要があります。
 
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/vite-intlayer/intlayer.md)
+
 ## 使用方法
 
 ### `intlayer()`の一部として（推奨、v9+）

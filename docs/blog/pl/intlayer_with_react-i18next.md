@@ -39,9 +39,13 @@ author: aymericzip
 
 Zobacz konkretne porównanie z react-i18next w naszym wpisie na blogu [react-i18next vs. react-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/react-i18next_vs_react-intl_vs_intlayer.md).
 
+- [react-i18next vs. react-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/react-i18next_vs_react-intl_vs_intlayer.md)
+
 ## Dlaczego łączyć Intlayer z react-i18next?
 
 Chociaż Intlayer zapewnia doskonałe, samodzielne rozwiązanie i18n (zobacz nasz [przewodnik integracji z React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_vite+react.md)), możesz chcieć połączyć je z react-i18next z kilku powodów:
+
+- [przewodnik integracji z React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_vite+react.md)
 
 1. **Istniejąca baza kodu**: Masz już wdrożoną implementację react-i18next i chcesz stopniowo przejść na ulepszone doświadczenie deweloperskie oferowane przez Intlayer.
 2. **Wymagania dotyczące kompatybilności wstecznej**: Twój projekt wymaga zgodności z istniejącymi wtyczkami lub procesami react-i18next.
@@ -145,6 +149,8 @@ Jeśli zmiany zostaną dokonane za pomocą CLI do tłumaczenia JSON lub przy uż
 
 Aby zobaczyć więcej szczegółów dotyczących wtyczki `syncJSON`, prosimy o zapoznanie się z [dokumentacją wtyczki syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/plugins/sync-json.md).
 
+- [dokumentacją wtyczki syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/plugins/sync-json.md)
+
 </Step>
 
 </Steps>
@@ -164,4 +170,4 @@ Te pliki mogą być ponownie wygenerowane podczas procesu budowania i nie muszą
 
 Dla lepszego doświadczenia deweloperskiego zainstaluj oficjalne **rozszerzenie Intlayer dla VS Code**:
 
-[Zainstaluj z VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [Zainstaluj z VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

@@ -32,9 +32,11 @@ author: aymericzip
 
 ## Description
 
-The `comparePaths` function compares two URLs or pathnames for equality while ignoring the locale segment, the protocol/host, the query string, the hash and trailing slashes. It is the recommended way to determine whether a navigation link points to the current page — for example to highlight the active link — without having to roll your own (error-prone) normalization logic.
+The `comparePaths` function compares two URLs or pathnames for equality while ignoring the locale segment, the protocol/host, the query string, the hash and trailing slashes. It is the recommended way to determine whether a navigation link points to the current page, for example to highlight the active link, without having to roll your own (error-prone) normalization logic.
 
 Internally it reuses [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/intlayer/getPathWithoutLocale.md) to strip the locale segment, so it respects your configured routing mode and locales.
+
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/intlayer/getPathWithoutLocale.md)
 
 The package also exports the underlying [`normalizePath`](#normalizepath) helper, which returns the canonical, locale-agnostic pathname used for the comparison.
 
@@ -44,7 +46,7 @@ The package also exports the underlying [`normalizePath`](#normalizepath) helper
 - Works with both absolute URLs and relative pathnames
 - Ignores query string, hash and trailing slashes
 - Tolerates missing leading slashes and empty values (normalized to `/`)
-- Lightweight — built on top of `getPathWithoutLocale`
+- Lightweight, built on top of `getPathWithoutLocale`
 
 ## Function Signature
 

@@ -41,9 +41,13 @@ author: aymericzip
 
 Lihat perbandingan konkret dengan vue-i18n dalam posting blog kami [vue-i18n vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/vue-i18n_vs_intlayer.md).
 
+- [vue-i18n vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/vue-i18n_vs_intlayer.md)
+
 ## Mengapa Menggabungkan Intlayer dengan vue-i18n?
 
 Meskipun Intlayer menyediakan solusi i18n mandiri yang sangat baik (lihat [panduan integrasi Vue.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_vite+vue.md)), Anda mungkin ingin menggabungkannya dengan vue-i18n untuk beberapa alasan:
+
+- [panduan integrasi Vue.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_vite+vue.md)
 
 1. **Basis kode yang ada**: Anda memiliki implementasi vue-i18n yang sudah mapan dan ingin secara bertahap bermigrasi ke pengalaman pengembang yang lebih baik dari Intlayer.
 2. **Persyaratan warisan**: Proyek Anda memerlukan kompatibilitas dengan plugin atau alur kerja vue-i18n yang sudah ada.
@@ -144,6 +148,8 @@ Jika perubahan dilakukan menggunakan CLI untuk menerjemahkan JSON, atau mengguna
 
 Untuk melihat lebih detail tentang plugin `syncJSON`, silakan merujuk ke [dokumentasi plugin syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/plugins/sync-json.md).
 
+- [dokumentasi plugin syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/plugins/sync-json.md)
+
 </Step>
 <Step number={3} title="Implementasikan terjemahan JSON per-komponen">
 
@@ -206,4 +212,4 @@ File-file ini secara otomatis dibuat ulang selama proses build dan tidak perlu d
 
 Untuk pengalaman pengembang yang lebih baik, pasang **Ekstensi VS Code Intlayer** resmi:
 
-[Pasang dari VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [Pasang dari VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

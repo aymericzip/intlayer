@@ -31,6 +31,8 @@ O `intlayerMinify` é um plugin do Vite que minifica arquivos JSON de dicionári
 
 > O plugin já está incluído e configurado automaticamente quando você usa o [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/vite-intlayer/intlayer.md). Você só precisa registrá-lo manualmente se estiver compondo a pilha de plugins por conta própria.
 
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/vite-intlayer/intlayer.md)
+
 ## Uso
 
 ```ts
@@ -63,8 +65,8 @@ Quando `editor.enabled` é `true`, o plugin continua sendo executado, mas **pula
 
 O plugin tem como alvo dois locais de dicionário (conforme resolvido a partir de `intlayer.system`):
 
-- `dictionariesDir` — dicionários estáticos de todos os idiomas (ex: `.intlayer/dictionaries/*.json`)
-- `dynamicDictionariesDir` — dicionários dinâmicos por idioma
+- `dictionariesDir`: dicionários estáticos de todos os idiomas (ex: `.intlayer/dictionaries/*.json`)
+- `dynamicDictionariesDir`: dicionários dinâmicos por idioma
 
 > Os dicionários no modo fetch (`fetchDictionariesDir`) **nunca** são minificados porque são servidos a partir de uma API remota em tempo de execução usando seus nomes de campo originais. Renomear os campos criaria uma incompatibilidade entre a resposta do servidor e os acessos às propriedades no lado do cliente.
 
@@ -86,7 +88,7 @@ Campos internos do Intlayer (`nodeType`, `translation`, etc.) nunca são renomea
 
 ## Dicionários de casos extremos (Edge-cases)
 
-Dicionários sinalizados em `pruneContext.dictionariesWithEdgeCases` (anomalias estruturais detectadas durante a fase de eliminação) são ignorados inteiramente — não são minificados nem ofuscados — para evitar o envio de dados corrompidos.
+Dicionários sinalizados em `pruneContext.dictionariesWithEdgeCases` (anomalias estruturais detectadas durante a fase de eliminação) são ignorados inteiramente, não são minificados nem ofuscados, para evitar o envio de dados corrompidos.
 
 ## Grupos qualificados (coleções / variantes / registros meta)
 

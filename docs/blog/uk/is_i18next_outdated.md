@@ -92,6 +92,8 @@ style="border:none;"
 
 > Вимірювання у production-збірці на 10 маршрутах і 10 мовах зі стисненням gzip. Деталі у [звіті про бенчмарк i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/index.md).
 
+- [звіті про бенчмарк i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/index.md)
+
 ### Базовий оверхед бібліотек
 
 Розмір до додавання перекладеного контенту:
@@ -171,6 +173,9 @@ return <h1>{title}</h1>;
 
 [Компілятор Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compiler.md) бачить, що саме використовує `Hero.tsx`, і видаляє незадіяні поля до генерації клієнтських бандлів. Детальніше про це у розділі [оптимізація бандла](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/bundle_optimization.md).
 
+- [Компілятор Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compiler.md)
+- [оптимізація бандла](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/bundle_optimization.md)
+
 ## Досвід розробника
 
 ### Ізольований JSON проти спільного розміщення
@@ -237,6 +242,8 @@ export const Hero = () => {
 Розширення `CustomTypeOptions` надає підказки в IDE, але не перевіряє наявність тексту. Видалення ключа з `uk/home.json` не зупинить збірку, а призведе лише до фоллбеку під час виконання.
 
 Intlayer формує типи безпосередньо з описів контенту, а режим [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md) перетворює відсутні переклади на помилки компіляції.
+
+- [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md)
 
 ### Порівняння інструментів
 

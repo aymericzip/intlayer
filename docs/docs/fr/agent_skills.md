@@ -100,7 +100,7 @@ npx skills add aymericzip/intlayer-skills
 
 - Enseigne à l'agent l'utilisation des stores Svelte et une syntaxe idiomatique pour un contenu localisé réactif et typé dans les applications Svelte et SvelteKit.
 
-**intlayer-cms**
+**intlayer-remote-content**
 
 - Permet à l'agent d'intégrer et de gérer du contenu distant, lui permettant de gérer les flux de travail de synchronisation en direct et de traduction à distance via le CMS Intlayer.
 
@@ -115,3 +115,31 @@ npx skills add aymericzip/intlayer-skills
 **intlayer-compiler**
 
 - Simplifie le flux de travail de l'agent en permettant l'extraction automatique du contenu, lui permettant d'écrire des chaînes traduisibles directement dans votre code sans fichiers de dictionnaire manuels.
+
+**intlayer-lit**
+
+- Enseigne à l'agent à traduire des web components Lit avec les ReactiveControllers `useIntlayer` et `useLocale`.
+
+**intlayer-vanilla**
+
+- Permet à l'agent de localiser des pages en JavaScript / TypeScript pur avec `vanilla-intlayer`, avec ou sans bundler.
+
+**intlayer-remix**
+
+- Donne à l'agent le middleware de routeur Remix 3 et les hooks `useIntlayer` / `useLocale` liés à la requête.
+
+**intlayer-backend**
+
+- Équipe l'agent pour traduire les réponses serveur dans Express, Fastify, Hono, NestJS, AdonisJS et Elysia grâce à un même modèle middleware + `t` / `getIntlayer`.
+
+**intlayer-dev-tools**
+
+- Permet à l'agent de mettre en place l'outillage Intlayer autour de votre code : règles ESLint pour les chaînes codées en dur, le Language Server, les extensions VS Code et Chrome, le serveur MCP et les vérifications de traduction en CI/CD.
+
+**intlayer-markdown**
+
+- Enseigne à l'agent à déclarer du contenu Markdown (`md()`, fichiers `.content.md`, fichiers externes) et à le rendre avec des composants MDX, un `MarkdownProvider` global, Suspense et le parsing côté serveur.
+
+**intlayer-compat**
+
+- Guide l'agent dans la migration depuis i18next, react-i18next, next-intl, next-i18next, react-intl, vue-i18n ou Lingui grâce à des adaptateurs de compatibilité qui conservent l'API d'origine, sans avoir à réécrire les appels de traduction.

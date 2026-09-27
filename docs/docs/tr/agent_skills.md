@@ -100,7 +100,7 @@ npx skills add aymericzip/intlayer-skills
 
 - Ajana, Svelte ve SvelteKit uygulamalarında reaktif ve tip güvenli yerelleştirilmiş içerik için Svelte store'larını ve deyimsel söz dizimini kullanmayı öğretir.
 
-**intlayer-cms**
+**intlayer-remote-content**
 
 - Ajanın uzak içeriği entegre etmesine ve yönetmesine olanak tanıyarak Intlayer CMS aracılığıyla canlı senkronizasyon ve uzak çeviri iş akışlarını işlemesini sağlar.
 
@@ -115,3 +115,31 @@ npx skills add aymericzip/intlayer-skills
 **intlayer-compiler**
 
 - Otomatik içerik çıkarmayı etkinleştirerek ajanın iş akışını basitleştirir ve manuel sözlük dosyaları olmadan doğrudan kodunuzda çevrilebilir dizeler yazmasına olanak tanır.
+
+**intlayer-lit**
+
+- Ajana, Lit web bileşenlerini `useIntlayer` ve `useLocale` ReactiveController'ları ile çevirmeyi öğretir.
+
+**intlayer-vanilla**
+
+- Ajanın, düz JavaScript / TypeScript sayfalarını bundler ile veya bundler olmadan `vanilla-intlayer` ile yerelleştirmesini sağlar.
+
+**intlayer-remix**
+
+- Ajana Remix 3 router middleware'ini ve istek kapsamlı `useIntlayer` / `useLocale` hook'larını sağlar.
+
+**intlayer-backend**
+
+- Ajanı, ortak bir middleware + `t` / `getIntlayer` kalıbı aracılığıyla Express, Fastify, Hono, NestJS, AdonisJS ve Elysia'da sunucu yanıtlarını çevirmek için donatır.
+
+**intlayer-dev-tools**
+
+- Ajanın kodunuz etrafında Intlayer araçlarını kurmasını sağlar: sabit kodlanmış dizeler için ESLint kuralları, Language Server, VS Code ve Chrome eklentileri, MCP sunucusu ve CI/CD çeviri kontrolleri.
+
+**intlayer-markdown**
+
+- Ajana Markdown içeriği (`md()`, `.content.md` dosyaları, harici dosyalar) tanımlamayı ve bunu MDX bileşenleri, global bir `MarkdownProvider`, Suspense ve sunucu tarafı ayrıştırma ile render etmeyi öğretir.
+
+**intlayer-compat**
+
+- Ajanı, orijinal API'yi koruyan uyumluluk adaptörleriyle i18next, react-i18next, next-intl, next-i18next, react-intl, vue-i18n veya Lingui'den geçiş sürecinde yönlendirir; böylece çeviri çağrılarının yeniden yazılması gerekmez.

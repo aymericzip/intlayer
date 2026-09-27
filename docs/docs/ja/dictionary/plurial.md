@@ -34,6 +34,8 @@ Intlayerでは、複数形コンテンツは `plural` 関数を通じて実現�
 
 [`enu`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/enumeration.md) は自分で定義した数値範囲に基づいてコンテンツを選択しますが、`plural` は選択をCLDRルールに委ねます。これにより、ロシア語、ポーランド語、アラビア語、ウェールズ語などの複雑な複数化ルールを持つ言語でも、剰余ロジックなどを手書きすることなく拡張可能になります。
 
+- [`enu`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/enumeration.md)
+
 ## `plural` と `enu` の使い分け
 
 | ユースケース                                            | ヘルパー |

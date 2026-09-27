@@ -32,6 +32,8 @@ author: aymericzip
 
 > **自 Intlayer v9 起**，`intlayerProxy` 会自动包含在主 [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/vite-intlayer/intlayer.md) 插件中，并通过 `routing.enableProxy: true` 默认启用。仅当您需要更底层的控制或在标准 `intlayer()` 设置之外使用它时，才需要单独注册它。
 
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/vite-intlayer/intlayer.md)
+
 ## 用法
 
 ### 作为 `intlayer()` 的一部分（推荐，v9+）
@@ -127,7 +129,7 @@ export default fromNodeMiddleware(
 | 模式            | URL 在浏览器中可见       | 行为                                                                            |
 | --------------- | ------------------------ | ------------------------------------------------------------------------------- |
 | `prefix`        | `/zh/about`              | 默认。URL 中的语言前缀。默认语言会重定向到无前缀 URL，除非启用了 `prefix-all`。 |
-| `prefix-all`    | `/en/about`, `/zh/about` | 所有语言 — 包括默认语言 — 始终带有前缀。                                        |
+| `prefix-all`    | `/en/about`, `/zh/about` | 所有语言，包括默认语言，始终带有前缀。                                          |
 | `no-prefix`     | `/about`                 | URL 中没有语言。语言仅存储在 cookie 中；URL 重写发生在内部。                    |
 | `search-params` | `/about?locale=zh`       | 语言作为查询参数传递。在缺失或过期时重定向以添加/更新 `locale` 参数。           |
 
@@ -161,7 +163,7 @@ export default fromNodeMiddleware(
 
 ## Nitro / 生产环境 SSR（自动注入，v9+）
 
-当 `intlayerProxy` 用作 Vite 插件时，它携带一个 `.nitro` 属性。`nitro/vite` 构建插件读取此属性并将其推入 `nitroConfig.modules` 中，因此 `intlayerNitroHandler` 会自动注册为 Nitro 服务器中间件 — 生产环境 SSR 不需要手动配置。
+当 `intlayerProxy` 用作 Vite 插件时，它携带一个 `.nitro` 属性。`nitro/vite` 构建插件读取此属性并将其推入 `nitroConfig.modules` 中，因此 `intlayerNitroHandler` 会自动注册为 Nitro 服务器中间件，生产环境 SSR 不需要手动配置。
 
 Nitro 处理器使用 h3 v2 的 Web Fetch API 事件模型（而不是 `fromNodeMiddleware`），因此它与所有 Nitro 预设兼容：Node, Bun, Deno, edge 运行时。
 

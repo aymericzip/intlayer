@@ -110,6 +110,8 @@ bun add intlayer-cli -g
 
 `intlayer-cli` पैकेज आपकी [Intlayer घोषणाओं](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/content_file.md) को शब्दकोशों में ट्रांसपाइल करने के लिए डिज़ाइन किया गया है।
 
+- [Intlayer घोषणाओं](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/content_file.md)
+
 यह पैकेज सभी Intlayer फ़ाइलों को ट्रांसपाइल करता है, जैसे `src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}`. [अपनी Intlayer घोषणा फ़ाइलों को कैसे घोषित करें, देखें](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md)।
 
 Intlayer शब्दकोशों की व्याख्या करने के लिए आप व्याख्याताओं (interpreters) का उपयोग कर सकते हैं, जैसे [react-intlayer](https://www.npmjs.com/package/react-intlayer) या [next-intlayer](https://www.npmjs.com/package/next-intlayer)।
@@ -127,13 +129,17 @@ Intlayer कई कॉन्फ़िगरेशन फ़ाइल प्र�
 
 उपलब्ध भाषाओं या अन्य मापदंडों को कॉन्फ़िगर करने का तरीका जानने के लिए, [यहाँ कॉन्फ़िगरेशन दस्तावेज़ीकरण](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md) देखें।
 
+- [यहाँ कॉन्फ़िगरेशन दस्तावेज़ीकरण](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md)
+
 ## Intlayer कमांड निष्पादित करना
 
 ### प्रमाणीकरण (Authentication)
 
 - **[Login](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/login.md)** - Intlayer CMS के साथ प्रमाणित हों और एक्सेस क्रेडेंशियल प्राप्त करें
 
-> `intlayer login` एक **access key** (`clientId` / `clientSecret`) जारी करता है जिसका उपयोग हर credentialed command करता है। secret एक server-side credential है और कभी भी आपके client bundle तक नहीं पहुंचता — [Keeping the access key safe](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/login.md#keeping-the-access-key-safe) देखें।
+> `intlayer login` एक **access key** (`clientId` / `clientSecret`) जारी करता है जिसका उपयोग हर credentialed command करता है। secret एक server-side credential है और कभी भी आपके client bundle तक नहीं पहुंचता, [Keeping the access key safe](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/login.md#keeping-the-access-key-safe) देखें।
+
+- [Keeping the access key safe](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/login.md#keeping-the-access-key-safe)
 
 ### मुख्य कमांड (Core Commands)
 

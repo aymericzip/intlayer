@@ -86,6 +86,8 @@ Esse hook gerenciará a detecção de localidade para você e retornará o conte
 
 > Para ver todos os recursos do Intlayer, você pode ler a [documentação de dicionário](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/content_file.md).
 
+- [documentação de dicionário](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/content_file.md)
+
 ## Conteúdo remoto
 
 O Intlayer permite que você declare conteúdo localmente e, em seguida, exporte-o para o CMS para torná-lo editável por sua equipe não técnica.
@@ -97,6 +99,8 @@ Para dicionários externalizados usando o CMS, o Intlayer realiza uma operação
 ## Editor visual
 
 O Intlayer também fornece um editor visual para permitir que você edite seu conteúdo de forma visual. Este [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md) está disponível no pacote externo `intlayer-editor`.
+
+- [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md)
 
 ![editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif?raw=true)
 
@@ -119,11 +123,15 @@ No modo de desenvolvimento, o Intlayer usa uma importação estática centraliza
 
 Ao ativar a opção `importMode = "dynamic"` na [configuração](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md), o Intlayer usará a importação dinâmica para carregar os dicionários. Essa opção está desativada por padrão para evitar processamento assíncrono ao renderizar a aplicação.
 
+- [configuração](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md)
+
 > `@intlayer/babel` está disponível por padrão no pacote `vite-intlayer`,
 
 > `@intlayer/swc` não está instalado por padrão no pacote `next-intlayer`, pois os plugins SWC ainda são experimentais no Next.js.
 
 Para ver como configurar a construção de sua aplicação, você pode ler a [documentação de configuração](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md).
+
+- [documentação de configuração](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md)
 
 ## Pacotes
 
@@ -345,22 +353,38 @@ Em tempo de build. O plugin do empacotador (bundler) ou o comando `npx intlayer 
 
 Muito menos do que uma configuração baseada em namespaces, porque uma página nunca baixa um catálogo que não renderiza. O markup renderizado no servidor resolve seu conteúdo no próprio servidor, e o compilador em tempo de build substitui as chamadas `useIntlayer` pelas entradas exatas que o componente utiliza, descartando chaves e idiomas não utilizados. Os [dicionários dinâmicos](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dynamic_dictionaries/index.md) dividem o restante por locale. Comparado às alternativas habituais, o Intlayer reduz o tamanho do bundle e da página em até 50%. Consulte [otimização de bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/bundle_optimization.md) e o [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/benchmark/index.md).
 
+- [dicionários dinâmicos](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dynamic_dictionaries/index.md)
+- [otimização de bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/bundle_optimization.md)
+- [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/benchmark/index.md)
+
 </Question>
 <Question title="Posso migrar do i18next, next-intl ou react-i18next sem reescrever meus componentes?">
 
 Sim, e existem dois caminhos. Você pode migrar o conteúdo progressivamente com o [guia de migração do i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/migration_from_i18next_to_intlayer.md) ou o [guia de migração do next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/migration_from_next-intl_to_intlayer.md). Ou você pode manter sua API atual integralmente: os [adaptadores de compatibilidade (compat adapters)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/compat/index.md) expõem exatamente a mesma interface de `i18next`, `react-i18next`, `next-intl`, `next-i18next`, `react-intl`, `use-intl`, `vue-i18n` e `Lingui`, porém alimentados pelos dicionários do Intlayer, permitindo que apenas os imports mudem enquanto o código dos componentes permanece idêntico.
+
+- [guia de migração do i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/migration_from_i18next_to_intlayer.md)
+- [guia de migração do next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/migration_from_next-intl_to_intlayer.md)
+- [adaptadores de compatibilidade (compat adapters)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/compat/index.md)
 
 </Question>
 <Question title="Posso manter meus arquivos de tradução JSON existentes?">
 
 Sim. O [plugin sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/plugins/sync-json.md) mantém seus arquivos `/messages/{locale}/{namespace}.json` como fonte de verdade e gera dicionários Intlayer a partir deles, em ambas as direções. O [plugin sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/plugins/sync-po.md) faz o mesmo para catálogos gettext, e os [arquivos por locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/per_locale_file.md) permitem dividir o conteúdo por idioma em vez de agrupar todos os locales em um único arquivo.
 
+- [plugin sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/plugins/sync-json.md)
+- [plugin sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/plugins/sync-po.md)
+- [arquivos por locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/per_locale_file.md)
+
 </Question>
 <Question title="Preciso mover meu conteúdo chave por chave?">
 
 Não. Execute `npx intlayer extract` e o Intlayer lê seus arquivos fonte, extrai as strings voltadas para o usuário e escreve um arquivo `.content` ao lado de cada um, para que você revise um diff em vez de copiar strings para um catálogo uma a uma. Consulte o [comando extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/extract.md).
 
+- [comando extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/extract.md)
+
 Para um fluxo de trabalho totalmente automatizado, o [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/compiler.md) faz o mesmo em tempo de build em código JSX, TSX, Vue e Svelte, gerando os dicionários a cada alteração para que não haja necessidade de manter chaves manualmente. Como opera por análise estática, strings criadas exclusivamente em tempo de execução ficam fora de alcance, necessitando de algumas anotações para diferenciar texto do usuário de lógica interna da aplicação.
+
+- [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/compiler.md)
 
 </Question>
 <Question title="Quais ferramentas de editor e agentes de IA estão disponíveis?">
@@ -383,10 +407,14 @@ Ela contém a saída gerada: os dicionários compilados e as definições de tip
 
 A partir das fontes listadas em `routing.storage`, em ordem: o prefixo da URL quando `routing.mode` o utiliza, depois cookies, depois o cabeçalho `Accept-Language`, recorrendo por fim ao locale padrão. A escolha feita explicitamente pelo usuário é persistida para que permaneça na próxima visita. Consulte a [referência de configuração](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md).
 
+- [referência de configuração](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md)
+
 </Question>
 <Question title="Qual a diferença entre dicionários locais e remotos?">
 
 Um dicionário local é declarado diretamente na sua base de código e compilado com sua aplicação. Um dicionário remoto é gerenciado no [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md) e resolvido em tempo de execução, permitindo alterações sem um novo deploy. Ambos são consumidos através dos mesmos hooks, e o conteúdo remoto faz fallback para a declaração local caso esteja indisponível.
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md)
 
 </Question>
 <Question title="O Intlayer funciona sem TypeScript?">
@@ -407,6 +435,9 @@ O locale é resolvido uma única vez no servidor e repassado ao provider, em vez
 <Question title="Preciso recompilar a aplicação quando adiciono uma tradução?">
 
 Em desenvolvimento, não: o plugin observa seus arquivos de conteúdo e recompila os dicionários afetados ao salvar. Em produção, os dicionários fazem parte do build compilado, a menos que o conteúdo seja remoto - nesse caso, o [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md) e a [sincronização ao vivo (live sync)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/live.md) aplicam as mudanças sem necessidade de novo deploy.
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md)
+- [sincronização ao vivo (live sync)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/live.md)
 
 </Question>
 

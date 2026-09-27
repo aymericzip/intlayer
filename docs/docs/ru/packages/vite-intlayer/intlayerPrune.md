@@ -31,6 +31,8 @@ author: aymericzip
 
 > Плагин уже включен и автоматически настроен при использовании [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/vite-intlayer/intlayer.md). Вам нужно только зарегистрировать его вручную, если вы самостоятельно составляете стек плагинов.
 
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/vite-intlayer/intlayer.md)
+
 ## Использование
 
 ### As part of `intlayer()` (recommended)
@@ -99,8 +101,8 @@ const { title, description } = useIntlayer("myDict");
 
 Поддерживаются две формы содержимого:
 
-- **Static dictionaries** — `{ nodeType: "translation", translation: { en: {...}, fr: {...} } }`. Поля обрезаются по локали внутри `translation`.
-- **Dynamic (per-locale) dictionaries** — плоская структура `{ fieldA: ..., fieldB: ... }`. Поля обрезаются на верхнем уровне.
+- **Static dictionaries**: `{ nodeType: "translation", translation: { en: {...}, fr: {...} } }`. Поля обрезаются по локали внутри `translation`.
+- **Dynamic (per-locale) dictionaries**: плоская структура `{ fieldA: ..., fieldB: ... }`. Поля обрезаются на верхнем уровне.
 
 ### 3. Граничные случаи
 
@@ -108,14 +110,14 @@ const { title, description } = useIntlayer("myDict");
 
 ### 4. Field-rename map
 
-При успешном завершении pruning `intlayerPrune` также записывает `pruneContext.dictionaryKeyToFieldRenameMap` — отображение исходных имен полей на короткие псевдонимы. `intlayerMinify` читает эту карту для переименования полей в выходном JSON, а Babel rename pass `intlayerOptimize` обновляет доступы к свойствам в исходных файлах соответственно.
+При успешном завершении pruning `intlayerPrune` также записывает `pruneContext.dictionaryKeyToFieldRenameMap`, отображение исходных имен полей на короткие псевдонимы. `intlayerMinify` читает эту карту для переименования полей в выходном JSON, а Babel rename pass `intlayerOptimize` обновляет доступы к свойствам в исходных файлах соответственно.
 
 ## Условия активации
 
 `intlayerPrune` активен **только** когда все из следующих условий верны:
 
-1. Команда Vite — `build`.
+1. Команда Vite, `build`.
 2. `build.optimize` имеет значение `true` (или `undefined`, что по умолчанию равно `true` для сборок).
 3. `build.purge` имеет значение `true` в вашей конфигурации Intlayer.
 
-Он остаётся активным, когда `editor.enabled` имеет значение `true`: визуальный редактор разрешает каждую правку через `dictionaryKey` + `keyPath` относительно не объединённых словарей, которых этот плагин никогда не касается, а очищенное поле — это поле, которое не читает ни один компонент, поэтому оно никогда не отображается и не может быть выбрано на странице.
+Он остаётся активным, когда `editor.enabled` имеет значение `true`: визуальный редактор разрешает каждую правку через `dictionaryKey` + `keyPath` относительно не объединённых словарей, которых этот плагин никогда не касается, а очищенное поле это поле, которое не читает ни один компонент, поэтому оно никогда не отображается и не может быть выбрано на странице.

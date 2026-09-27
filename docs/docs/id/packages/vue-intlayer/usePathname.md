@@ -30,7 +30,7 @@ author: aymericzip
 
 # Integrasi Vue: Dokumentasi `usePathname`
 
-Fungsi `usePathname` mengembalikan pathname browser saat ini dengan segmen locale yang dihapus, dalam bentuk Vue `ComputedRef<string>`. Ini berguna untuk membangun navigasi yang sadar-locale — misalnya, untuk menentukan item navigasi mana yang sedang aktif — tanpa harus menghapus awalan locale secara manual.
+Fungsi `usePathname` mengembalikan pathname browser saat ini dengan segmen locale yang dihapus, dalam bentuk Vue `ComputedRef<string>`. Ini berguna untuk membangun navigasi yang sadar-locale (misalnya, untuk menentukan item navigasi mana yang sedang aktif) tanpa harus menghapus awalan locale secara manual.
 
 ## Mengimpor `usePathname` di Vue
 

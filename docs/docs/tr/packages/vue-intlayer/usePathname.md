@@ -30,7 +30,7 @@ author: aymericzip
 
 # Vue Entegrasyonu: `usePathname` Dokümantasyonu
 
-`usePathname` fonksiyonu, locale segmenti kaldırılmış mevcut tarayıcı pathname'ini bir Vue `ComputedRef<string>` olarak döndürür. Bu, locale önekini manuel olarak çıkarmak zorunda kalmadan, locale duyarlı bir navigasyon oluşturmak — örneğin, hangi nav öğesinin aktif olduğunu belirlemek — için faydalıdır.
+`usePathname` fonksiyonu, locale segmenti kaldırılmış mevcut tarayıcı pathname'ini bir Vue `ComputedRef<string>` olarak döndürür. Bu, locale önekini manuel olarak çıkarmak zorunda kalmadan, locale duyarlı bir navigasyon oluşturmak (örneğin, hangi nav öğesinin aktif olduğunu belirlemek) için faydalıdır.
 
 ## Vue'da `usePathname` İçe Aktarımı
 

@@ -149,6 +149,9 @@ npx intlayer init infra --mode compose
 
 `npx intlayer init --interactive` 也提供了相同的步骤。有关安装程序设置，请参阅 [`init infra` 参考](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/infra.md)，有关各模式设置的内容，请参阅[自行托管指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/self_hosting.md)。
 
+- [`init infra` 参考](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/infra.md)
+- [自行托管指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/self_hosting.md)
+
 ## 输出示例：
 
 ```bash

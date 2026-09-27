@@ -196,6 +196,8 @@ list(["사과", "바나나", "오렌지"]); // "사과, 바나나, 오렌지"
 
 이는 표준 플랫폼 API 위에 캐싱 계층과 로케일 주입 기능을 더한 것으로, 실제 포맷팅 연산은 온전히 `Intl`을 따릅니다. 전체 시그니처는 [포맷터 공식 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/formatters.md)를 확인하세요.
 
+- [포맷터 공식 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/formatters.md)
+
 ## 흔한 실수들
 
 - **로케일을 지정하지 않은 `toLocaleDateString()`.** 런타임 호스트의 로케일을 사용하므로 서버 환경에 따라 결과가 달라집니다.

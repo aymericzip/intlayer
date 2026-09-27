@@ -31,6 +31,8 @@ author: aymericzip
 
 ツールも同様に移植可能です。翻訳メッセージがJSONカタログとして管理されている場合、[Sync JSON プラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md) を使用することで、コンテンツの場所やインポートパスを変更することなくIntlayerの監査、自動補完、テストコマンドを実行できます。
 
+- [Sync JSON プラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md)
+
 ```ts fileName="intlayer.config.ts"
 import { syncJSON } from "@intlayer/sync-json-plugin";
 
@@ -47,6 +49,8 @@ export default config;
 ```
 
 ランタイムAPIもそのまま維持したい場合は、[互換アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/index.md) を使ってバンドラーレベルで `useTranslation` や `$t` などのエイリアスを設定できます。以下のコマンド群は設計思想の一例として捉えてください。
+
+- [互換アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/index.md)
 
 ## なぜ翻訳漏れは目に見えないのか
 
@@ -98,6 +102,8 @@ export default [
 ```
 
 `no-unused-content` は、カタログが無駄に肥大化するのを防ぎます。使われていないデッドキーは動作エラーにはなりませんが、外部翻訳サービスへの発注費用を無駄に跳ね上げる原因となります。ルールの詳細は [ESLintプラグインドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/eslint.md) を参照してください。
+
+- [ESLintプラグインドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/eslint.md)
 
 ## レイヤー3: ロケールカバレッジの監査
 
@@ -179,6 +185,8 @@ curl -s https://example.com/ja/checkout | grep -c "Add to cart"
 ## 不足した翻訳を補完する
 
 不足箇所が判明したら、`intlayer fill` で空のエントリを自動入力できます。また、`autoFill` オプションを使用すれば、コンテンツを宣言した時点で言語別ファイルを自動生成できます。詳細は [autoFill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/autoFill.md) を参照してください。
+
+- [autoFill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/autoFill.md)
 
 ここで重要なのは、機械による自動補完は「目に見える不足」を「目に見えない不足」に変える手段にすぎないという点です。キーが埋まるためテストはパスしますが、その文言はまだ誰もレビューしていません。開発をブロックしないための足場として活用し、重要な文言は必ず人間の手で確認してください。
 

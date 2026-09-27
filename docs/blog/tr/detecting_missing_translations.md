@@ -46,7 +46,11 @@ const config = {
 export default config;
 ```
 
+- [Sync JSON eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-json.md)
+
 Çalışma zamanı API'sinin de aynı kalmasını istiyorsanız, [uyumluluk adaptörleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/index.md) paketleyici düzeyinde `useTranslation`, `$t` ve türevlerini takma adlandırır. Her halükarda, aşağıdaki komutları bir zorunluluk olarak değil, fikrin somut bir uygulaması olarak değerlendirin.
+
+- [uyumluluk adaptörleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/index.md)
 
 ## Neden görünmezdirler?
 
@@ -98,6 +102,8 @@ export default [
 ```
 
 `no-unused-content`, katalogların sonsuza kadar büyümesini engelleyen kuraldır. Kullanılmayan anahtarlar bir doğruluk hatası değildir, ancak çeviri faturasını gereksiz yere artıran şeydir. Kuralların tam listesi [ESLint eklenti dokümantasyonunda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/eslint.md).
+
+- [ESLint eklenti dokümantasyonunda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/eslint.md)
 
 ## Katman 3: Dil kapsamını denetleyin (Audit)
 
@@ -179,6 +185,8 @@ curl -s https://example.com/ja/checkout | grep -c "Add to cart"
 ## Boşlukları doldurmak
 
 Neyin eksik olduğunu bildikten sonra `intlayer fill` boş girişleri doldurur ve `autoFill` seçeneği içerik tanımlandıkça dil başına dosyalar oluşturabilir. Bkz. [autoFill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/autoFill.md).
+
+- [autoFill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/autoFill.md)
 
 Bu konuda net olmak gerekir: makineyle doldurulan çeviriler _görünür_ bir boşluğu _görünmez_ bir boşluğa dönüştürür. Anahtar artık bir değere sahiptir, denetim yeşile döner, ancak metni kimse okumamıştır. Bunu yayını açmak için bir iskele olarak kullanın, ardından bir müşterinin karar vermeden önce okuduğu kritik metinleri mutlaka bir insana yönlendirin.
 

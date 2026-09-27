@@ -35,7 +35,7 @@ author: aymericzip
 
 1. **Teks hardcoded** yang tidak pernah dimasukkan ke dalam kamus.
 2. **Panggilan dinamis** yang lolos pemeriksaan tipe dan berjalan, namun tidak dapat dioptimalkan oleh compiler Intlayer.
-3. **Konten mati (Dead content)** — kamus dan field yang tidak dibaca oleh apa pun di dalam proyek (opsional/opt-in).
+3. **Konten mati (Dead content)**: kamus dan field yang tidak dibaca oleh apa pun di dalam proyek (opsional/opt-in).
 
 Kunci kamus yang tidak diketahui, path field yang tidak diketahui, dan locale yang hilang sudah merupakan kesalahan kompilasi, sehingga plugin tidak mengulanginya.
 
@@ -61,7 +61,7 @@ Memerlukan ESLint 9 atau lebih baru (flat config). ESLint 10 didukung.
 
 ## Penggunaan
 
-Plugin ini berjalan di ESLint dan [oxlint](https://oxc.rs) — aturan yang sama, opsi yang sama.
+Plugin ini berjalan di ESLint dan [oxlint](https://oxc.rs), aturan yang sama, opsi yang sama.
 
 <Tabs defaultTab="eslint">
   <Tab label="ESLint" value="eslint">
@@ -106,7 +106,7 @@ export default [
 }
 ```
 
-Dua catatan: dukungan plugin JS di oxlint masih berstatus alfa, dan oxlint tidak mendukung parser kustom — sehingga file `.vue`, `.svelte`, `.astro`, dan template Angular tidak diperiksa di sana. Jalankan oxlint untuk file JS/TS/JSX Anda dan gunakan ESLint untuk sisanya.
+Dua catatan: dukungan plugin JS di oxlint masih berstatus alfa, dan oxlint tidak mendukung parser kustom, sehingga file `.vue`, `.svelte`, `.astro`, dan template Angular tidak diperiksa di sana. Jalankan oxlint untuk file JS/TS/JSX Anda dan gunakan ESLint untuk sisanya.
 
 `no-unused-content` sengaja tidak disertakan di atas: aturan ini memerlukan direktori kerja dan path file yang diperiksa dari konteks aturan, yang belum dijamin oleh bridge plugin JS alfa. Jalankan aturan ini di bawah ESLint.
 
@@ -123,7 +123,7 @@ Dua catatan: dukungan plugin JS di oxlint masih berstatus alfa, dan oxlint tidak
 
 `recommended` sengaja menetapkan `no-raw-text` pada `warn`: menerapkannya pada codebase yang ada akan menampilkan semua string yang belum diterjemahkan sekaligus, yang seharusnya tidak merusak proses build Anda pada hari pertama.
 
-`enforce-adapter-import` dinonaktifkan secara default — aktifkan secara eksplisit jika Anda menginginkannya.
+`enforce-adapter-import` dinonaktifkan secara default, aktifkan secara eksplisit jika Anda menginginkannya.
 
 `no-unused-content` dinonaktifkan di setiap konfigurasi, termasuk `strict`. Ini adalah satu-satunya aturan yang membaca konfigurasi Intlayer Anda dan memindai file sumber dari disk, jadi mengaktifkannya harus menjadi pilihan yang disengaja daripada sesuatu yang dilakukan preset secara otomatis.
 
@@ -248,7 +248,7 @@ export default {
 };
 ```
 
-Berbeda dengan aturan lainnya, aturan ini tidak dapat mengambil keputusan hanya dari file yang sedang diperiksa — sebuah field hanya dianggap tidak digunakan secara relatif terhadap keseluruhan proyek. Pada deklarasi konten pertama dalam satu sesi lint, aturan ini memuat konfigurasi Intlayer Anda, memindai file sumber yang dideklarasikan konfigurasi tersebut (`build.traversePattern`, `compiler.transformPattern`), dan menjalankan penganalisis penggunaan yang sama yang menggerakkan `@intlayer/lsp` dan coretan "tidak digunakan" di ekstensi VS Code. Hasilnya di-cache selama `cacheTtl` milidetik, sehingga pemindaian terjadi sekali per sesi dan bukan per file.
+Berbeda dengan aturan lainnya, aturan ini tidak dapat mengambil keputusan hanya dari file yang sedang diperiksa, sebuah field hanya dianggap tidak digunakan secara relatif terhadap keseluruhan proyek. Pada deklarasi konten pertama dalam satu sesi lint, aturan ini memuat konfigurasi Intlayer Anda, memindai file sumber yang dideklarasikan konfigurasi tersebut (`build.traversePattern`, `compiler.transformPattern`), dan menjalankan penganalisis penggunaan yang sama yang menggerakkan `@intlayer/lsp` dan coretan "tidak digunakan" di ekstensi VS Code. Hasilnya di-cache selama `cacheTtl` milidetik, sehingga pemindaian terjadi sekali per sesi dan bukan per file.
 
 **Opsi**
 
@@ -283,9 +283,9 @@ Kurangi `cacheTtl` jika Anda melakukan lint dari server editor jangka panjang da
 
 > **Cenderung memilih untuk diam.** Laporan positif palsu di sini dapat menghapus terjemahan, jadi tidak ada yang dilaporkan ketika kamus digunakan dengan cara yang tidak dapat diikuti oleh analisis: objek konten yang diteruskan secara utuh, fungsi penerjemah yang diikat darinya (`const t = useTranslations("home")`), deklarasi yang dijangkau melalui impor langsung (`useDictionary(myDictionary)`), sebuah `nest()` dari kamus lain, atau daftar field yang dibuat tidak lengkap oleh spread operator. Komponen file tunggal (`.vue`, `.svelte`, `.astro`) dihitung menggunakan setiap field dari kamus yang mereka sebutkan, karena blok skrip mereka tidak diparsing di sini.
 
-`reportDuplicateKeys` membaca kamus yang belum digabungkan yang ditulis proses build di bawah `.intlayer/`, sehingga tetap diam sampai proyek dibangun setidaknya satu kali. Dua deklarasi yang berbagi kunci akan digabungkan, yang merupakan pola yang sah — laporan ini ada karena field yang ditentukan di kedua sisi secara diam-diam hanya menyimpan salah satu dari dua nilai.
+`reportDuplicateKeys` membaca kamus yang belum digabungkan yang ditulis proses build di bawah `.intlayer/`, sehingga tetap diam sampai proyek dibangun setidaknya satu kali. Dua deklarasi yang berbagi kunci akan digabungkan, yang merupakan pola yang sah, laporan ini ada karena field yang ditentukan di kedua sisi secara diam-diam hanya menyimpan salah satu dari dua nilai.
 
-Penganalisis dimuat dari `@intlayer/lsp`, yang didistribusikan sebagai ESM. Oleh karena itu, aturan ini memerlukan versi Node yang dapat melakukan `require()` pada modul ES — Node 20.19+ atau 22.12+. Pada versi yang lebih lama, aturan ini tidak melaporkan apa pun alih-alih menggagalkan sesi lint.
+Penganalisis dimuat dari `@intlayer/lsp`, yang didistribusikan sebagai ESM. Oleh karena itu, aturan ini memerlukan versi Node yang dapat melakukan `require()` pada modul ES, Node 20.19+ atau 22.12+. Pada versi yang lebih lama, aturan ini tidak melaporkan apa pun alih-alih menggagalkan sesi lint.
 
 ## Framework
 

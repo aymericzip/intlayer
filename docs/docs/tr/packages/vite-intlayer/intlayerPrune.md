@@ -31,6 +31,8 @@ author: aymericzip
 
 > Plugin, [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/vite-intlayer/intlayer.md) kullanırken otomatik olarak dahil edilir ve yapılandırılır. Plugin stack'ini kendiniz oluşturuyorsanız, bunu yalnızca manuel olarak kaydetmeniz gerekir.
 
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/vite-intlayer/intlayer.md)
+
 ## Kullanım
 
 ### `intlayer()` kapsamında (önerilen)
@@ -99,8 +101,8 @@ Vite derlenmiş bir sözlük JSON dosyasını işlediğinde, `intlayerPrune` bun
 
 İki içerik şekli desteklenir:
 
-- **Statik sözlükler** — `{ nodeType: "translation", translation: { en: {...}, fr: {...} } }`. Alanlar `translation` içinde yerel başına budanır.
-- **Dinamik (yerel başına) sözlükler** — düz `{ fieldA: ..., fieldB: ... }`. Alanlar en üst düzeyde budanır.
+- **Statik sözlükler**: `{ nodeType: "translation", translation: { en: {...}, fr: {...} } }`. Alanlar `translation` içinde yerel başına budanır.
+- **Dinamik (yerel başına) sözlükler**: düz `{ fieldA: ..., fieldB: ... }`. Alanlar en üst düzeyde budanır.
 
 ### 3. Edge cases
 
@@ -108,7 +110,7 @@ Bir sözlüğün içerik yapısı tanınamazsa (örneğin, olağandışı iç i�
 
 ### 4. Field-rename map
 
-Budama başarılı olduğunda, `intlayerPrune` ayrıca `pruneContext.dictionaryKeyToFieldRenameMap` — orijinal alan adlarından kısa takma adlara eşleme yazar. `intlayerMinify` çıktı JSON'daki alanları yeniden adlandırmak için bu haritayı okur ve `intlayerOptimize`'ın Babel rename geçişi kaynak dosyalardaki property erişimlerini buna göre günceller.
+Budama başarılı olduğunda, `intlayerPrune` ayrıca `pruneContext.dictionaryKeyToFieldRenameMap`, orijinal alan adlarından kısa takma adlara eşleme yazar. `intlayerMinify` çıktı JSON'daki alanları yeniden adlandırmak için bu haritayı okur ve `intlayerOptimize`'ın Babel rename geçişi kaynak dosyalardaki property erişimlerini buna göre günceller.
 
 ## Aktivasyon koşulları
 
@@ -118,4 +120,4 @@ Budama başarılı olduğunda, `intlayerPrune` ayrıca `pruneContext.dictionaryK
 2. `build.optimize` `true` olur (veya `undefined`, derlemeler için varsayılan olarak `true` olur).
 3. `build.purge` Intlayer yapılandırmanızda `true` olur.
 
-`editor.enabled` `true` olduğunda etkin kalmaya devam eder: görsel düzenleyici, bu eklentinin asla dokunmadığı birleştirilmemiş sözlüklere karşı her düzenlemeyi `dictionaryKey` + `keyPath` üzerinden çözer ve temizlenen bir alan hiçbir bileşenin okumadığı bir alandır — bu yüzden asla render edilmez ve sayfada seçilemez.
+`editor.enabled` `true` olduğunda etkin kalmaya devam eder: görsel düzenleyici, bu eklentinin asla dokunmadığı birleştirilmemiş sözlüklere karşı her düzenlemeyi `dictionaryKey` + `keyPath` üzerinden çözer ve temizlenen bir alan hiçbir bileşenin okumadığı bir alandır, bu yüzden asla render edilmez ve sayfada seçilemez.

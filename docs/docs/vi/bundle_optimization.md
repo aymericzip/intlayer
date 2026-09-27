@@ -19,7 +19,7 @@ slugs:
 history:
   - version: 9.2.1
     date: 2026-08-09
-    changes: "`purge` và `minify` giờ đã hoạt động trên Next.js thông qua `@intlayer/swc` — không cần `babel.config.js`"
+    changes: "`purge` và `minify` giờ đã hoạt động trên Next.js thông qua `@intlayer/swc`, không cần `babel.config.js`"
   - version: 8.12.0
     date: 2026-06-24
     changes: "Liệt kê các plugin Babel theo đúng thứ tự pipeline (extract → purge → minify → optimize) trong các bảng tham chiếu"
@@ -68,11 +68,11 @@ Cách tiếp cận này đảm bảo rằng:
 
 ### Next.js
 
-Next.js cần plugin `@intlayer/swc`, vì Next.js dùng SWC để build. Từ **v9.2.1**, chỉ một gói này đã bao trọn toàn bộ pipeline — tối ưu hóa (viết lại import), purge và minify.
+Next.js cần plugin `@intlayer/swc`, vì Next.js dùng SWC để build. Từ **v9.2.1**, chỉ một gói này đã bao trọn toàn bộ pipeline, tối ưu hóa (viết lại import), purge và minify.
 
 > Plugin này không cài đặt theo mặc định bởi vì nền tảng hỗ trợ (API SWC Plugins) trên Next.js vẫn còn là một thử nghiệm. Do đó sẽ có thay đổi khi nó được cập nhật.
 
-> **Next.js 16.1.0 là phiên bản tối thiểu.** Đây là bản phát hành đầu tiên được xây dựng trên ABI plugin Wasm tương thích tiến của SWC; các bản trước đó từ chối plugin. `withIntlayer` đọc phiên bản Next.js của dự án và đơn giản là không đăng ký plugin nếu thấp hơn 16.1.0 — các build đó vẫn thành công, chỉ là chạy mà không có tối ưu hóa bundle.
+> **Next.js 16.1.0 là phiên bản tối thiểu.** Đây là bản phát hành đầu tiên được xây dựng trên ABI plugin Wasm tương thích tiến của SWC; các bản trước đó từ chối plugin. `withIntlayer` đọc phiên bản Next.js của dự án và đơn giản là không đăng ký plugin nếu thấp hơn 16.1.0, các build đó vẫn thành công, chỉ là chạy mà không có tối ưu hóa bundle.
 
 <Tabs>
  <Tab value="npm">
@@ -136,7 +136,7 @@ Trong quá trình `next build`, `withIntlayer` phân tích mã nguồn, viết l
 
 > Hãy dùng `withIntlayer` bất đồng bộ, không phải `withIntlayerSync`. Biến thể đồng bộ không chạy pipeline phân tích, nên purge và minify không có tác dụng với nó.
 
-> Purge và minify chỉ chạy khi `next build` — pipeline tối ưu hóa tắt trong lúc `next dev`.
+> Purge và minify chỉ chạy khi `next build`, pipeline tối ưu hóa tắt trong lúc `next dev`.
 
 **Các phiên bản trước (trước 9.2.1)** yêu cầu `@intlayer/babel` và một tệp `babel.config.js` khai báo `intlayerPurgeBabelPlugin` và `intlayerMinifyBabelPlugin`. Tệp đó không còn cần thiết và có thể xóa.
 
@@ -263,7 +263,7 @@ Những người dùng Vite **không bao giờ phải cấu hình cái này mộ
 
 ### Plugin SWC (`@intlayer/swc`)
 
-Người dùng Next.js cũng **không bao giờ cấu hình những thứ này trực tiếp**. Từ **v9.2.1**, `withIntlayer()` trong `next.config.ts` chạy toàn bộ pipeline — purge, minify và viết lại import — chỉ dựa trên hai cờ `build.purge` và `build.minify`.
+Người dùng Next.js cũng **không bao giờ cấu hình những thứ này trực tiếp**. Từ **v9.2.1**, `withIntlayer()` trong `next.config.ts` chạy toàn bộ pipeline (purge, minify và viết lại import) chỉ dựa trên hai cờ `build.purge` và `build.minify`.
 
 Công việc được chia làm hai, vì một plugin Wasm của SWC chỉ biến đổi một tệp tại một thời điểm và không có quyền truy cập hệ thống tệp:
 
@@ -312,6 +312,8 @@ export default config;
 
 > Quý khách muốn khảo sát tài liệu thì mời bấm vào reference link dưới: [Phần Cấu Hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md)
 
+- [Phần Cấu Hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md)
+
 ### Những Thông Tin Build Options Chi Tiết
 
 | Cấu trúc (Property) | Khai báo loại         | Tùy chọn gốc | Thuyết minh giải nghĩa                                                                                                                                                                                                                                            |
@@ -322,7 +324,7 @@ export default config;
 
 ### Chức năng rút gọn Minification (Cắt ngắn độ lớn định danh trường tham chiếu)
 
-Kỹ thuật từ `build.minify` **không phải** là phương tiện giúp tối thiểu hóa cấu trúc JavaScript từ hệ sinh thái — các nền tảng build như vite, next.js sẽ nhận trách nhiệm. Ngược lại, điều nó mang lại chính là cô đọng kích cỡ lưu chứa mã JSON thay toàn bộ khóa định danh nguyên thủy cho nội dung mà lập trình viên nhập vào trở nên đơn giản hơn nhiều bằng việc cung cấp các biệt danh alpha ngắn cũn cởn.
+Kỹ thuật từ `build.minify` **không phải** là phương tiện giúp tối thiểu hóa cấu trúc JavaScript từ hệ sinh thái, các nền tảng build như vite, next.js sẽ nhận trách nhiệm. Ngược lại, điều nó mang lại chính là cô đọng kích cỡ lưu chứa mã JSON thay toàn bộ khóa định danh nguyên thủy cho nội dung mà lập trình viên nhập vào trở nên đơn giản hơn nhiều bằng việc cung cấp các biệt danh alpha ngắn cũn cởn.
 
 ```
 // Trình tự thông tin JSON chuẩn bị Minify
@@ -346,11 +348,11 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> Việc minify sẽ bị bỏ qua khi `optimize` là `false`. Khi `editor.enabled` là `true`, quá trình này vẫn chạy nhưng không thực hiện bước đổi tên trường — trình soạn thảo trực quan phân giải các chỉnh sửa thông qua `keyPath`, vì vậy tên trường gốc phải được giữ nguyên.
+> Việc minify sẽ bị bỏ qua khi `optimize` là `false`. Khi `editor.enabled` là `true`, quá trình này vẫn chạy nhưng không thực hiện bước đổi tên trường, trình soạn thảo trực quan phân giải các chỉnh sửa thông qua `keyPath`, vì vậy tên trường gốc phải được giữ nguyên.
 
 > Trên Next.js, minify cũng bị bỏ qua khi `@intlayer/swc` không được cài đặt hoặc không thể tải (Next.js dưới 16.1.0). Plugin chính là nửa viết lại các truy cập trong mã nguồn, nên đổi tên từ điển mà thiếu nó sẽ khiến mã của bạn đọc những tên trường không còn tồn tại.
 
-> Sự can thiệp bằng minify đồng thời mất kiểm soát khi tải từ các lệnh gọi JSON ngoại lai của server api khác thông qua thông số gán thiết lập mặc định qua file nguồn `importMode: 'fetch'` — điều này giải quyết và chống phá hỏng liên lạc bằng json của đầu ra máy chủ do nếu app tại máy tính người xài thay danh định gốc trên code sẽ đứt đường tiếp nhận dữ liệu phía cloud.
+> Sự can thiệp bằng minify đồng thời mất kiểm soát khi tải từ các lệnh gọi JSON ngoại lai của server api khác thông qua thông số gán thiết lập mặc định qua file nguồn `importMode: 'fetch'`, điều này giải quyết và chống phá hỏng liên lạc bằng json của đầu ra máy chủ do nếu app tại máy tính người xài thay danh định gốc trên code sẽ đứt đường tiếp nhận dữ liệu phía cloud.
 
 ### Hệ chức năng gạt bỏ rác Purging (xóa trắng các khóa thuộc tính trống hoặc dư)
 
@@ -378,7 +380,7 @@ export default config;
 { "title": "…", "subtitle": "…" }
 ```
 
-> Purge sẽ bị bỏ qua khi `optimize` là `false`. Nó vẫn hoạt động khi `editor.enabled` là `true` — một trường đã bị loại bỏ sẽ không được component nào đọc đến, nên trình soạn thảo sẽ không bao giờ render nó. Trên Next.js, nó còn bị bỏ qua khi `@intlayer/swc` không khả dụng và khi có cấu hình các lời gọi từ bộ chuyển đổi tương thích.
+> Purge sẽ bị bỏ qua khi `optimize` là `false`. Nó vẫn hoạt động khi `editor.enabled` là `true`, một trường đã bị loại bỏ sẽ không được component nào đọc đến, nên trình soạn thảo sẽ không bao giờ render nó. Trên Next.js, nó còn bị bỏ qua khi `@intlayer/swc` không khả dụng và khi có cấu hình các lời gọi từ bộ chuyển đổi tương thích.
 
 > Ngoài ra chức năng của hệ cũng bảo lưu quy trình rủi ro và buộc dừng tiến trình purge (như khi không parse được code nguồn để phân tích), hoặc lệnh trả biến ở bộ thu nhận `useIntlayer` xài như thông số ẩn hoặc bị mã hóa ngầm lúc khai báo truyền tin nên analyzer bot mất dấu để định hướng hành tung của nội dung nguồn (một trường hợp cụ thể đó là kiểu trải dữ liệu `spread` cho vô Object bự xài nhưng quên không destructure rõ ràng tham số lúc dùng trong prop). Tại ranh giới bất an kiểu này hệ tự ép lấy sạch sành sanh cho yên tâm trọn gói JSON mà khỏi sợ cắt lố làm mất dữ liệu oan.
 
@@ -508,6 +510,8 @@ const content = useDictionaryAsync({
 ```
 
 > Thêm kiến thức nền tham quan thêm bên kho thông tin cho CMS thì nhấp vào: [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)
+
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)
 
 > Lên giao thức fetch này thì chuyện gạt rác hay cắt ghép rút gọn (purge & minify) là bị khóa kín chốt vĩnh viễn luôn vì cái bảng JSON được kéo xuống bằng dạng nguyên sơ y nguyên với đống thuộc tính chả đổi tên nào gửi trực tiếp bằng dữ liệu nguồn API Remote xa xôi từ máy chủ nội bộ trên Cloud CMS do user gõ sao nó phản chiếu ngược trở lại đúng như cũ.
 

@@ -78,6 +78,9 @@ Intlayer menempatkan deklarasi konten (`.content.ts`) bersama logika rute Anda, 
 
 Di luar alur kerja berbasis kode, Intlayer menyediakan [Editor Visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) mandiri dan [CMS Jarak Jauh](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md), memungkinkan editor dan penerjemah memperbarui konten tanpa harus menerapkan ulang kode.
 
+- [Editor Visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md)
+- [CMS Jarak Jauh](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)
+
 </Accordion>
 </AccordionGroup>
 
@@ -219,6 +222,8 @@ module.exports = config;
 
 > Untuk pengaturan konfigurasi tambahan, silakan merujuk ke [dokumentasi konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md).
 
+- [dokumentasi konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md)
+
 </Step>
 <Step number={3} title="Deklarasikan Konten Multibahasa Anda">
 
@@ -255,6 +260,8 @@ export default homeContent;
 ```
 
 > Intlayer juga mendukung format JSON, YAML, dan CommonJS. Lihat [Dokumentasi Deklarasi Konten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md).
+
+- [Dokumentasi Deklarasi Konten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md)
 
 </Step>
 <Step number={4} title="Bangun Kamus Intlayer">
@@ -303,6 +310,8 @@ const { title } = useIntlayer("home");
 `useIntlayer("home", "fr")` atau `useIntlayer("faq", { item: 2 })` mengganti lokal permintaan untuk satu panggilan, dan `useDictionary(homeContent)` membaca kamus yang diimpor alih-alih kunci. Di luar permintaan, hook kembali ke lokal default.
 
 > Middleware juga menyiapkan kamus Intlayer saat server dimulai, sehingga `intlayer build` yang terlewat tidak membiarkan registri kosong.
+
+> Atur `routing.enableProxy: false` di `intlayer.config.ts` untuk hanya mempertahankan resolusi locale dan menangani routing sendiri. `intlayer({ ignore })` membiarkan permintaan yang cocok tidak tersentuh (misalnya prefiks API), dan `intlayer({ isDevServer })` mengontrol apakah locale yang tersimpan menentukan redirect dalam mode otomatis default `enableProxy`.
 
 </Step>
 <Step number={6} title="Definisikan Rute yang Aman Secara Tipe">

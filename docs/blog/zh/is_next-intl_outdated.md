@@ -90,6 +90,8 @@ style="border:none;"
 
 > 在真实浏览器中开启 gzip 压缩环境下测试。完整数据见 [Next.js 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md)。
 
+- [Next.js 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md)
+
 ### 库本身的基础体积
 
 未引入任何翻译文本时客户端的空白开销：
@@ -138,6 +140,8 @@ export default async function RootLayout({ children, params }) {
 
 Intlayer 采用静态分析解决该问题：[Intlayer 编译器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md)精准提取各个路由实际调用的翻译字段，使跨页面泄漏率直降为 **0.0%**。
 
+- [Intlayer 编译器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md)
+
 ## 为什么 next-intl 无法做 Tree-shaking？
 
 这是因为其 API 依赖于运行时的动态字符串取值：
@@ -176,6 +180,8 @@ export function UserProfile() {
 </Tabs>
 
 Turbopack 和 Webpack 无法静态预判 `UserProfile` 内部将调用哪些键名。为了防止线上缺失文本报错，**打包工具只能将整个命名空间全部打包进客户端 chunk**。而在 Intlayer 中，属性以解构方式使用，编译器能精确追踪依赖关系并剪裁掉无用内容。更多细节见[打包优化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md)。
+
+- [打包优化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md)
 
 ## 开发者体验对比
 
@@ -276,6 +282,8 @@ declare global {
 
 Intlayer 则直接基于内容声明生成全局类型。开启 [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md) 后，若缺少任何一种目标语言的翻译，编译期就会立即报错拦截。
 
+- [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)
+
 ### 工具链与 AI 适配能力
 
 | 功能特性                  | `next-intl` | Intlayer                                                                                                   |
@@ -301,6 +309,8 @@ Intlayer 将这些能力原生地内置于开源工具链中：
 **支持私有化部署的可视化 CMS：**
 
 利用 [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)，非技术人员可以直接在网页上可视修改并即时推送到 Git 仓库。
+
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
 
 **纯粹的开源协议：**
 

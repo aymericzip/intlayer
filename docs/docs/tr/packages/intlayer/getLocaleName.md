@@ -3,7 +3,7 @@ createdAt: 2025-09-07
 updatedAt: 2026-09-27
 priority: 5
 title: getLocaleName Fonksiyonu Dokümantasyonu | intlayer
-description: 'getLocaleName ile bir locale''in adını başka bir dilde alın, örneğin "French" veya "français"; dil seçici etiketleri için.'
+description: "getLocaleName ile bir locale'in adını başka bir dilde alın, örneğin 'French' veya 'français'; dil seçici etiketleri için."
 keywords:
   - getLocaleName
   - çeviri

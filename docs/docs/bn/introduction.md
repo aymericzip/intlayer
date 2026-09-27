@@ -108,10 +108,16 @@ export const MyComponent: FC = () => {
 
 বিষয়বস্তু সহ-অবস্থান (Co-locating content) লার্জ ল্যাঙ্গুয়েজ মডেল (LLMs) দ্বারা **প্রয়োজনীয় প্রসঙ্গ হ্রাস করে**। Intlayer অনুপস্থিত অনুবাদের পরীক্ষা করার জন্য **CLI**, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/mcp_server.md)** এবং এআই এজেন্টদের জন্য ডেভেলপার অভিজ্ঞতা (DX) আরও মসৃণ করতে **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/agent_skills.md)** এর মতো সরঞ্জামগুলির একটি স্যুট নিয়ে আসে।
 
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/mcp_server.md)
+- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/agent_skills.md)
+
 </Accordion>
 <Accordion header="স্বয়ংক্রিয়করণ (Automation)">
 
 আপনার এআই প্রদানকারীর খরচে আপনার পছন্দের LLM ব্যবহার করে আপনার CI/CD পাইপলাইনে অনুবাদ করার জন্য স্বয়ংক্রিয়করণ ব্যবহার করুন। Intlayer বিষয়বস্তু নিষ্কাশন স্বয়ংক্রিয় করতে একটি **কম্পাইলার (compiler)** এবং **ব্যাকগ্রাউন্ডে অনুবাদ** করতে সাহায্য করার জন্য একটি [ওয়েব প্ল্যাটফর্ম](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_CMS.md) অফার করে।
+
+- [ওয়েব প্ল্যাটফর্ম](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="কর্মক্ষমতা (Performance)">
@@ -122,6 +128,9 @@ export const MyComponent: FC = () => {
 <Accordion header="নন-ডেভদের সাথে স্কেলিং (Scaling with non-dev)">
 
 শুধুমাত্র একটি i18n সমাধানের চেয়ে বেশি, Intlayer আপনাকে **রিয়েল-টাইমে** আপনার বহুভাষিক সামগ্রী পরিচালনা করতে সহায়তা করার জন্য একটি **স্ব-হোস্টেড (self-hosted) [ভিজ্যুয়াল এডিটর](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_visual_editor.md)** এবং একটি **[সম্পূর্ণ CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_CMS.md)** প্রদান করে, যা অনুবাদক, কপিরাইটার এবং অন্যান্য দলের সদস্যদের সাথে সহযোগিতা নির্বিঘ্ন করে। সামগ্রী স্থানীয়ভাবে এবং/বা দূরবর্তীভাবে সংরক্ষণ করা যেতে পারে।
+
+- [ভিজ্যুয়াল এডিটর](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_visual_editor.md)
+- [সম্পূর্ণ CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>

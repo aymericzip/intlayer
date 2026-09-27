@@ -88,6 +88,8 @@ style="border:none;"
 
 > Getestet in realen Browserumgebungen mit Gzip-Kompression. Vollständige Daten in der [Vue-Benchmark-Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/vue.md).
 
+- [Vue-Benchmark-Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/vue.md)
+
 ### Basis-Overhead
 
 Overhead vor dem Hinzufügen von Übersetzungstexten:
@@ -178,6 +180,9 @@ const { title } = useIntlayer("hero");
 
 Der [Intlayer-Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compiler.md) erfasst verwendete Eigenschaften präzise und entfernt ungenutzte Inhalte vor dem Erstellen der Client-Chunks. Details in der [Bundle-Optimierung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/bundle_optimization.md).
 
+- [Intlayer-Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compiler.md)
+- [Bundle-Optimierung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/bundle_optimization.md)
+
 ## Entwicklererfahrung
 
 ### Getrennte Kataloge vs. Co-Location
@@ -255,6 +260,8 @@ Wird `Hero.vue` gelöscht oder verschoben, werden die Übersetzungen direkt mita
 
 Mit Intlayer werden Wörterbücher strikt geprüft. Das Aktivieren von [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md) lässt den Build bei jeder fehlenden Übersetzung fehlschlagen.
 
+- [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md)
+
 ### Modernes Tooling für IDEs und KI
 
 | Feature                      | `vue-i18n`                | Intlayer                                                                                                                  |
@@ -278,6 +285,8 @@ Ergänzt fehlende Übersetzungen mit eigenen API-Schlüsseln von OpenAI, Anthrop
 **Selbst hostbares visuelles CMS:**
 
 Nutzen Sie das [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md), damit Content-Teams Texte visuell bearbeiten und direkt in Git committen können.
+
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md)
 
 **Freie Open-Source-Lizenz:**
 

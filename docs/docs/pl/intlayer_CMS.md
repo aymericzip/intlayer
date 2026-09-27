@@ -63,6 +63,8 @@ Intlayer rozróżnia „lokalne” i „zdalne” słowniki.
 
 [Edytor Intlayer Visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md) to narzędzie, które pozwala zarządzać treścią w edytorze wizualnym dla lokalnych słowników. Po wprowadzeniu zmiany, zawartość zostanie zastąpiona w bazie kodu. Oznacza to, że aplikacja zostanie przebudowana, a strona przeładowana, aby wyświetlić nową treść.
 
+- [Edytor Intlayer Visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md)
+
 W przeciwieństwie do tego, Intlayer CMS to narzędzie, które pozwala zarządzać treścią w edytorze wizualnym dla zdalnych słowników. Po wprowadzeniu zmiany, zawartość **nie** wpłynie na bazę kodu. Strona internetowa automatycznie wyświetli zmienioną treść.
 
 ## Integracja
@@ -73,13 +75,19 @@ Aby uzyskać więcej szczegółów na temat instalacji pakietu, zobacz odpowiedn
 
 Aby zintegrować z Next.js, zapoznaj się z [przewodnikiem instalacji](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_nextjs_15.md).
 
+- [Next.js 15 i18n - Kompletny przewodnik po tłumaczeniu swojej aplikacji](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_nextjs_15.md)
+
 ### Integracja z Create React App
 
 Aby zintegrować z Create React App, zapoznaj się z [przewodnikiem instalacji](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_create_react_app.md).
 
+- [i18n w Create React App: pełny przewodnik po tłumaczeniu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_create_react_app.md)
+
 ### Integracja z Vite + React
 
 Aby zintegrować z Vite + React, zapoznaj się z [przewodnikiem instalacji](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_vite+react.md).
+
+- [Vite + React i18n - Kompletny przewodnik po tłumaczeniu swojej aplikacji](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_vite+react.md)
 
 ## Konfiguracja
 
@@ -159,6 +167,8 @@ export default config;
 > Jeśli nie masz client ID i client secret, możesz je uzyskać, tworząc nowego klienta w [Intlayer Dashboard - Projects](https://app.intlayer.org/projects).
 
 > Aby zobaczyć wszystkie dostępne parametry, zapoznaj się z [dokumentacją konfiguracji](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md).
+
+- [dokumentacją konfiguracji](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md)
 
 ## Korzystanie z CMS
 
@@ -274,10 +284,10 @@ bun add @intlayer/api
 
 SDK jest podzielony na **dwa odrębne importy** celowo, aby utrzymać rozmiar bundla na małym poziomie:
 
-1. `createIntlayerCMS` — tworzy lekki **authenticator**. Zawiera tylko poświadczenia i zarządzany token dostępu; nic nie wie o żadnej konkretnej domenie.
-2. `dictionaryEndpoint`, `projectEndpoint`, … — bindery **endpoint'ów** dla poszczególnych domen, każdy importowany z własnej ścieżki (`@intlayer/api/dictionary`, `@intlayer/api/project`, …). Przekazujesz authenticator do potrzebnego Ci endpoint'u.
+1. `createIntlayerCMS`: tworzy lekki **authenticator**. Zawiera tylko poświadczenia i zarządzany token dostępu; nic nie wie o żadnej konkretnej domenie.
+2. `dictionaryEndpoint`, `projectEndpoint`, …, bindery **endpoint'ów** dla poszczególnych domen, każdy importowany z własnej ścieżki (`@intlayer/api/dictionary`, `@intlayer/api/project`, …). Przekazujesz authenticator do potrzebnego Ci endpoint'u.
 
-Ponieważ każdy endpoint jest importowany oddzielnie, Twój bundle zawiera tylko domeny, których faktycznie używasz — importowanie `dictionaryEndpoint` nigdy nie ściąga projektu, AI lub żadnego innego klienta domeny.
+Ponieważ każdy endpoint jest importowany oddzielnie, Twój bundle zawiera tylko domeny, których faktycznie używasz, importowanie `dictionaryEndpoint` nigdy nie ściąga projektu, AI lub żadnego innego klienta domeny.
 
 ```typescript fileName="cms.ts" codeFormat="typescript"
 import { createIntlayerCMS } from "@intlayer/api";
@@ -383,7 +393,7 @@ await dictionaryEndpoint(cmsAuthenticator).updateDictionary({
 
 ### Wyodrębnianie pojedynczej metody
 
-Każda metoda endpointu jest już uwierzytelniona i niezależna (obsługuje własne zarządzanie tokenami), więc możesz wyodrębnić jedną i przekazywać ją — na przykład aby wstrzyknąć ją jako zależność:
+Każda metoda endpointu jest już uwierzytelniona i niezależna (obsługuje własne zarządzanie tokenami), więc możesz wyodrębnić jedną i przekazywać ją, na przykład aby wstrzyknąć ją jako zależność:
 
 ```typescript fileName="push.ts" codeFormat="typescript"
 import { createIntlayerCMS } from "@intlayer/api";
@@ -391,7 +401,7 @@ import { dictionaryEndpoint } from "@intlayer/api/dictionary";
 
 const dictionary = dictionaryEndpoint(createIntlayerCMS());
 
-// Już uwierzytelnione — automatycznie odświeża token przy każdym wywołaniu
+// Już uwierzytelnione, automatycznie odświeża token przy każdym wywołaniu
 export const pushDictionaries = dictionary.pushDictionaries;
 
 // Użycie
@@ -404,6 +414,8 @@ Synchronizacja na żywo pozwala Twojej aplikacji odzwierciedlać zmiany treści 
 
 Pełny przewodnik po konfiguracji (włączanie, uruchamianie serwera Live Sync, lokalny przepływ pracy programistycznej i ograniczenia) znajdziesz w [dokumentacji Live Sync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/live-sync.md).
 
+- [dokumentacji Live Sync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/live-sync.md)
+
 ## Samodzielne hostowanie (Self-Hosting)
 
 Intlayer może działać w całości na Twojej własnej infrastrukturze. Jedna komenda uruchamia pełny stos (panel, API, bazę danych, magazyn obiektów i pocztę e-mail) za pomocą Docker Compose:
@@ -413,6 +425,8 @@ curl -fsSL https://intlayer.org/install.sh | sh
 ```
 
 Pełny przewodnik konfiguracji, dokumentację zmiennych środowiskowych, instrukcje aktualizacji oraz procedury tworzenia kopii zapasowych i przywracania znajdziesz w [Przewodniku po samodzielnym hostowaniu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/self_hosting.md).
+
+- [Przewodniku po samodzielnym hostowaniu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/self_hosting.md)
 
 ## Debug
 
@@ -437,27 +451,45 @@ Jeśli napotkasz jakiekolwiek problemy z CMS, sprawdź następujące kwestie:
 
 [Edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md) edytuje lokalne pliki słowników w Twojej bazie kodu. CMS zarządza treścią zdalnie na serwerze, umożliwiając zmianę tekstów bez konieczności ponownego wdrażania aplikacji.
 
+- [Edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md)
+
 </Question>
 <Question title="O ile i18n zwiększa rozmiar mojego bundle'a?">
 
 Znacznie mniej niż rozwiązania oparte na przestrzeniach nazw, ponieważ strona nigdy nie pobiera katalogu, którego nie renderuje. Znaczniki renderowane po stronie serwera rozwiązują treść na serwerze, a kompilator czasu budowy zastępuje wywołania `useIntlayer` dokładnymi wpisami, których używa komponent, dzięki czemu nieużywane klucze i nieużywane języki są usuwane. [Słowniki dynamiczne](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dynamic_dictionaries/index.md) dzielą resztę na poszczególne języki. W porównaniu z typowymi alternatywami, Intlayer zmniejsza rozmiar bundle'a i strony nawet o 50%. Zobacz [optymalizację bundle'a](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/bundle_optimization.md) oraz [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/index.md).
+
+- [Słowniki dynamiczne](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dynamic_dictionaries/index.md)
+- [optymalizację bundle'a](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/bundle_optimization.md)
+- [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/index.md)
 
 </Question>
 <Question title="Czy mogę zmigrować z i18next, next-intl lub react-i18next bez przepisywania moich komponentów?">
 
 Tak, i są dwie drogi. Możesz migrować treść stopniowo za pomocą [przewodnika migracji z i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/migration_from_i18next_to_intlayer.md) lub [przewodnika migracji z next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/migration_from_next-intl_to_intlayer.md). Możesz także zachować obecne API w całości: [adaptery kompatybilności](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compat/index.md) udostępniają dokładnie to samo API co `i18next`, `react-i18next`, `next-intl`, `next-i18next`, `react-intl`, `use-intl`, `vue-i18n` i `Lingui`, ale zasilane słownikami Intlayer, więc zmieniają się importy, a kod komponentów pozostaje nienaruszony.
 
+- [przewodnika migracji z i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/migration_from_i18next_to_intlayer.md)
+- [przewodnika migracji z next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/migration_from_next-intl_to_intlayer.md)
+- [adaptery kompatybilności](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compat/index.md)
+
 </Question>
 <Question title="Czy mogę zachować moje istniejące pliki tłumaczeń JSON?">
 
 Tak. Wtyczka [sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/plugins/sync-json.md) utrzymuje Twoje pliki `/messages/{locale}/{namespace}.json` jako źródło prawdy i generuje z nich słowniki Intlayer w obu kierunkach. Wtyczka [sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/plugins/sync-po.md) robi to samo dla katalogów gettext, a [pliki per locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/per_locale_file.md) pozwalają rozdzielić zawartość według języka zamiast grupować lokalizacje w jednym pliku.
+
+- [sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/plugins/sync-json.md)
+- [sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/plugins/sync-po.md)
+- [pliki per locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/per_locale_file.md)
 
 </Question>
 <Question title="Czy muszę przenosić moją zawartość klucz po kluczu?">
 
 Nie. Uruchom `npx intlayer extract`, a Intlayer odczyta Twoje pliki źródłowe, wyodrębni ciągi widoczne dla użytkownika i utworzy plik `.content` obok każdego z nich, dzięki czemu przeglądasz diff zamiast ręcznie kopiować ciągi do katalogu pojedynczo. Zobacz [polecenie extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/extract.md).
 
+- [polecenie extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/extract.md)
+
 W przypadku w pełni zautomatyzowanego procesu [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compiler.md) robi to samo w czasie budowania w kodzie JSX, TSX, Vue i Svelte, generując słowniki przy każdej zmianie, dzięki czemu nie ma potrzeby ręcznego zarządzania kluczami. Działa on w oparciu o analizę statyczną, więc ciągi istniejące tylko w czasie wykonywania pozostają poza jego zasięgiem i wymaga kilku adnotacji do odróżnienia tekstu dla użytkownika od logiki aplikacji.
+
+- [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compiler.md)
 
 </Question>
 <Question title="Jakie narzędzia dla edytora i agentów AI są dostępne?">
@@ -485,10 +517,14 @@ Aplikacja automatycznie powraca do lokalnej deklaracji słownika w bazie kodu, d
 
 Tak. CMS może działać na Twojej własnej infrastrukturze, co jest idealnym rozwiązaniem, gdy dane nie mogą opuszczać Twojej sieci. Zobacz [przewodnik po self-hostingu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/self_hosting.md).
 
+- [przewodnik po self-hostingu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/self_hosting.md)
+
 </Question>
 <Question title="Czy edytorzy treści potrzebują programisty do publikacji zmian?">
 
-Nie. Taki jest cel zdalnych słowników: edytor zmienia tekst w CMS, a witryna natychmiast odzwierciedla zmiany za pośrednictwem mechanizmu synchronizacji na żywo (live sync).
+Nie. Taki jest cel zdalnych słowników: edytor zmienia tekst w CMS, a witryna odzwierciedla zmianę, ponieważ [synchronizacja na żywo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/live.md) stosuje aktualizację w runtime zamiast czekać na build.
+
+- [synchronizacja na żywo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/live.md)
 
 </Question>
 <Question title="Czy mogę zautomatyzować CMS zamiast korzystać z interfejsu?">
@@ -498,12 +534,17 @@ Tak. Pakiet `@intlayer/api` SDK udostępnia te same punkty końcowe co interfejs
 </Question>
 <Question title="Czy CMS obsługuje testy A/B tłumaczeń?">
 
-Tak. Zdalne słowniki obsługują [warianty treści](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dynamic_dictionaries/index.md), co pozwala na testowanie różnych wersji tekstów dla różnych grup odbiorców.
+Tak. Zdalne słowniki obsługują [warianty treści](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dynamic_dictionaries/variants.md), a [analityka](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/analytics.md) pokazuje, jak wyświetlany jest każdy wariant, dzięki czemu zmianę sformułowania można zmierzyć, zamiast się o nią spierać.
+
+- [warianty treści](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dynamic_dictionaries/variants.md)
+- [analityka](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/analytics.md)
 
 </Question>
 <Question title="Czy CMS jest darmowy?">
 
-Biblioteka Intlayer, CLI, kompilator i edytor wizualny są bezpłatne i open source na licencji Apache 2.0. Hostowany CMS to płatna usługa chmurowa, ale wersję CMS można również uruchomić na własnym serwerze bez opłat.
+Biblioteka Intlayer, CLI, kompilator i edytor wizualny są bezpłatne i open source na licencji Apache 2.0. Hostowany CMS to opcjonalna płatna usługa, którą można zamiast tego [hostować samodzielnie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/self_hosting.md).
+
+- [hostować samodzielnie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/self_hosting.md)
 
 </Question>
 

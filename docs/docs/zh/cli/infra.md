@@ -104,13 +104,13 @@ npx intlayer init infra --mode compose
 
        ./intlayer/.env
 
-     Either RESEND_API_KEY (resend.com) or the MAIL_SMTP_* block — the first
+     Either RESEND_API_KEY (resend.com) or the MAIL_SMTP_* block, the first
      account cannot be verified without a working mailer.
   2. Start the stack:
 
        cd ./intlayer && docker compose up -d
 
-  Then open http://localhost:3000 — first boot initialises the
+  Then open http://localhost:3000, first boot initialises the
   datastores, so give it a minute. The first account you create becomes the
   super admin.
 
@@ -118,6 +118,10 @@ npx intlayer init infra --mode compose
     Stop      docker compose down
     Upgrade   docker compose pull && docker compose up -d
 ```
+
+给定一个域名（例如 `example.org`），安装程序会为控制面板、API 和对象存储分别建议 `https://cms.example.org`、`https://back.example.org` 和 `https://s3.example.org/intlayer`，将它们写入环境文件，并将启动命令切换为从仓库构建，因为已发布的控制面板镜像只能在 `localhost` 上运行。请参阅 [自定义域名](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/self_hosting.md#custom-domain)。
+
+- [自定义域名](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/self_hosting.md#custom-domain)
 
 ## 安装程序设置
 
@@ -143,6 +147,8 @@ INTLAYER_COMPOSE_DIR=./cms npx intlayer init infra --mode compose
 | `INTLAYER_SELFHOST_REF`   | `main`                    | 两者    | 获取 compose 文件和 env 模板的 Git ref             |
 
 > 端口变量仅更改映射的 **主机** 端。已发布的镜像在控制面板包中预编译了 `http://localhost:3000`、`http://localhost:3100` 和 `http://localhost:9000`，因此除非您构建自己的镜像，否则请保留默认值：请参阅[自行托管指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/self_hosting.md#limitations)。
+
+- [自行托管指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/self_hosting.md#limitations)
 
 ## 环境要求
 

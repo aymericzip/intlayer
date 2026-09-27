@@ -49,6 +49,38 @@ Middleware thực hiện các tác vụ sau cho mỗi yêu cầu đến:
 3. **Điền vào Context yêu cầu**: Lưu locale đã được phân giải hiện tại vào context yêu cầu Remix bằng khóa `Intlayer`, cho phép các hook (`useLocale`, `useIntlayer`, `useDictionary`) sử dụng một cách minh bạch.
 4. **Quản lý Cookie**: Thiết lập tiêu đề `Set-Cookie` khi cần lưu lại locale ưu tiên của người dùng.
 
+## Tham số
+
+Hàm `intlayer` chấp nhận tùy chọn `IntlayerMiddlewareOptions`:
+
+```ts
+import { intlayer, type IntlayerMiddlewareOptions } from "remix-intlayer";
+
+const options: IntlayerMiddlewareOptions = {
+  // Ghi đè cấu hình định tuyến tùy chỉnh
+};
+
+const middleware = intlayer(options);
+```
+
+## Truy cập Context trực tiếp
+
+Ngoài việc sử dụng các hook, bạn có thể truy cập `IntlayerState` đã được phân giải trực tiếp từ context yêu cầu của Remix:
+
+```ts
+import { Intlayer } from "remix-intlayer";
+
+router.get("/api/locale", (context) => {
+  // Qua context.get()
+  const state = context.get(Intlayer);
+
+  // Hoặc qua thuộc tính trực tiếp context.intlayer
+  const { locale } = context.intlayer;
+
+  return Response.json({ locale });
+});
+```
+
 ## Tài liệu liên quan
 
 - [Context yêu cầu `Intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/remix-intlayer/Intlayer.md)

@@ -63,6 +63,8 @@ author: aymericzip
 
 [i18n ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md)では、主要な各ライブラリを使用して同じ 10 ページ・10 ロケールの Next.js アプリを実行し、ブラウザが実際にダウンロードするサイズを測定しています。
 
+- [i18n ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md)
+
 <I18nBenchmark framework="nextjs" packages="lingui,@intlayer/lingui,next-intlayer" vertical/>
 
 2026-09-26 に測定された Next.js 16 上の `@lingui/core@6.6.0` に関する主要な数値（gzip）：
@@ -80,6 +82,8 @@ author: aymericzip
 - **Lingui のランタイムサイズは約 72 KB（gzip）です。** `@intlayer/lingui` 互換アダプターを使用するとランタイムは約 11 KB に削減されますが、このベンチマークでは Next.js 互換セットアップでもカタログ全体がページに送信されます。ベースアプリと同等のサイズを維持できるのは、ネイティブの `next-intlayer` API セットアップです。
 
 > 完全なデータについては、[Next.js ベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md) および [ベンチマークリポジトリ](https://github.com/intlayer-org/benchmark-i18n)をご覧ください。
+
+- [Next.js ベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md)
 
 ## Next.js における機能比較
 
@@ -105,6 +109,9 @@ Next.js App Router プロジェクトで通常必要とされる機能におい�
 | **エコシステム / コミュニティ**            | ⚠️ 比較的小規模だが急速に成長中                                    | ✅ 成熟                                                    | ✅ 大規模                                                |
 
 > ランタイムサイズは [Next.js ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md) に基づいています。詳細な解説については、[Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/lingui_vs_intlayer.md) をお読みください。
+
+- [Next.js ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md)
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/lingui_vs_intlayer.md)
 
 > その他の Next.js ガイド：
 
@@ -1038,9 +1045,17 @@ export const sendContactMessage = async (formData: FormData) => {
 
 [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/lingui.md) 互換アダプターを使用すると、ソースコードを変更せずにそのまま利用できます。マクロは以前と同様にコンパイルされ、生成された `i18n._()`、`useLingui()`、および `<Trans>` の呼び出しは Intlayer の辞書から提供されます。Next.js のベンチマークでは、ランタイムが **約 72.1 KB から約 10.7 KB**（gzip）に削減されます。
 
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/lingui.md)
+
 Next.js では、`next.config.ts`（webpack および Turbopack）で `@lingui/core` と `@lingui/react` を `@intlayer/lingui` にエイリアスし、`next-intlayer/server` の `withIntlayer` で設定をラップすることでアダプターを接続します。マクロが最初にコンパイルされるように `@lingui/swc-plugin` はそのまま維持します。完全な設定方法は [Lingui 互換ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/lingui.md) をご覧ください。
 
+- [Lingui 互換ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/lingui.md)
+
 ベンチマーク表に示されているように、アダプターはランタイムサイズを削減しますが、Next.js 上で各ページに送信されるカタログのサイズはまだ削減されません。これは移行用のブリッジとして使用するのが最適です。動作を確認したら、各コンポーネントがレンダリングするコンテンツのみを送信するネイティブの `useIntlayer` API へコンポーネントを段階的に移行します。[Next.js + Intlayer ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_16.md)、[Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/lingui_vs_intlayer-lingui.md)、およびすべての [互換アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/index.md) をご覧ください。
+
+- [Next.js + Intlayer ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_16.md)
+- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/lingui_vs_intlayer-lingui.md)
+- [互換アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/index.md)
 
 </Step>
 <Step number={19} title="Intlayer を使用した翻訳の自動化" isOptional={true}>
@@ -1083,15 +1098,23 @@ Server Components にはコンテキストが存在しないため、インス�
 
 [ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md) では、ランタイムが約 72 KB（gzip）と測定されています。ロケールごとに 1 つのカタログを使用した場合、i18n なしの 141 KB に対してページサイズは約 145 KB になりますが、クライアントプロバイダーを通じて各ページに他のページのメッセージも受信されます。
 
+- [ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md)
+
 </Question>
 <Question title="Next.js には Lingui、next-intl、next-i18next のどれを選ぶべきですか？">
 
 Lingui は、コンポーネント内にソーステキストを記述し、PO ファイルや翻訳者と連携したいチームに適しています。next-intl は、JSON カタログと Next.js に緊密に統合された `t("key")` API を好むチームに適しています。next-i18next は i18next プラグインのエコシステムを活用できます。[next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/next-i18next_vs_next-intl_vs_intlayer.md) および [Next.js ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md) をご覧ください。
 
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/next-i18next_vs_next-intl_vs_intlayer.md)
+- [Next.js ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md)
+
 </Question>
 <Question title="コンポーネントを書き直さずに Lingui から Intlayer に移行できますか？">
 
 はい。[`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/lingui.md) アダプターを使用すると、マクロを維持したままランタイムを切り替えることができ、その後コンポーネントを段階的に `useIntlayer` に移行できます。[互換アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/index.md) をご覧ください。
+
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/lingui.md)
+- [互換アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/index.md)
 
 </Question>
 

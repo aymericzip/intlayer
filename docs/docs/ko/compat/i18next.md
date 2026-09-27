@@ -27,6 +27,8 @@ author: aymericzip
 
 상세한 단계별 튜토리얼은 [i18next 마이그레이션 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_i18next_to_intlayer.md)를 참고하세요.
 
+- [i18next 마이그레이션 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_i18next_to_intlayer.md)
+
 Intlayer는 `i18next`의 핵심 런타임 특성을 완벽하게 복제합니다. compat package를 활용하면 Vanilla 애플리케이션이나 내부 모듈에서 익숙한 구문을 계속 사용할 수 있습니다.
 
 ## 수행할 작업

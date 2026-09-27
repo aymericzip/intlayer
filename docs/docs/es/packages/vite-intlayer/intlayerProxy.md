@@ -32,6 +32,8 @@ author: aymericzip
 
 > **Desde Intlayer v9**, `intlayerProxy` se incluye automáticamente dentro del plugin principal [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/vite-intlayer/intlayer.md) y está habilitado por defecto mediante `routing.enableProxy: true`. Solo necesita registrarlo por separado si requiere un control de nivel inferior o si lo está utilizando fuera de la configuración estándar de `intlayer()`.
 
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/vite-intlayer/intlayer.md)
+
 ## Uso
 
 ### Como parte de `intlayer()` (recomendado, v9+)
@@ -127,7 +129,7 @@ El middleware refleja la lógica de enrutamiento del middleware de `next-intlaye
 | Modo            | URL visible en el navegador | Comportamiento                                                                                                                          |
 | --------------- | --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
 | `prefix`        | `/es/about`                 | Por defecto. Prefijo de idioma en la URL. El idioma por defecto redirige a la URL sin prefijo a menos que `prefix-all` esté habilitado. |
-| `prefix-all`    | `/en/about`, `/es/about`    | Todos los idiomas — incluido el por defecto — siempre tienen prefijo.                                                                   |
+| `prefix-all`    | `/en/about`, `/es/about`    | Todos los idiomas, incluido el por defecto, siempre tienen prefijo.                                                                     |
 | `no-prefix`     | `/about`                    | Sin idioma en la URL. El idioma se almacena únicamente en las cookies; las reescrituras de URL ocurren internamente.                    |
 | `search-params` | `/about?locale=es`          | Idioma pasado como parámetro de consulta. Redirige para agregar/actualizar el parámetro `locale` cuando falta o está obsoleto.          |
 

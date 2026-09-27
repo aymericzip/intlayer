@@ -39,6 +39,8 @@ bun x intlayer pull
 
 Eğer [intlayer editörü](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) yüklüyse, sözlükleri editörden de çekebilirsiniz. Bu şekilde, uygulamanızın ihtiyacı doğrultusunda sözlüklerinizin içeriğini üzerine yazabilirsiniz.
 
+- [intlayer editörü](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md)
+
 ## Takma İsimler:
 
 - `npx intlayer dictionaries pull`

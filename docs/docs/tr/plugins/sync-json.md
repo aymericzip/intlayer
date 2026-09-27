@@ -216,7 +216,7 @@ syncJSON({
 
 Bu, `next-intl` ve `react-intl` gibi kütüphanelerin ad alanı modeline uyar; burada bir `messages/{locale}.json` dosyası, ilk düzey anahtarlarıyla birden çok ad alanını gruplandırır ve her biri bağımsız olarak ele alınır (örneğin, `useTranslations('Hero')` `Hero` sözlüğüne çözümlenir).
 
-- `undefined` (varsayılan): **otomatik algılanır** — `source` deseninde `{key}` segmenti yoksa dosya bölünür (bir dosya her ad alanını tutar), aksi takdirde tek bir sözlük olarak kalır (anahtar başına bir dosya).
+- `undefined` (varsayılan): **otomatik algılanır**, `source` deseninde `{key}` segmenti yoksa dosya bölünür (bir dosya her ad alanını tutar), aksi takdirde tek bir sözlük olarak kalır (anahtar başına bir dosya).
 - `true`: her üst düzey anahtarı her zaman kendi sözlüğüne böler.
 - `false`: asla bölmez; tüm dosya tek bir sözlük haline gelir.
 
@@ -402,7 +402,7 @@ loadJSON({
 
 [`syncJSON`](#splitkeys-boolean) ile aynı davranış: tek bir JSON dosyası, ilk düzey anahtarlarıyla birden çok ad alanını gruplandırdığında, her üst düzey anahtar kendi sözlüğü haline gelir.
 
-- `undefined` (varsayılan): **otomatik algılanır** — `source` deseninde `{key}` segmenti yoksa bölünür, aksi takdirde tek bir sözlük olur.
+- `undefined` (varsayılan): **otomatik algılanır**, `source` deseninde `{key}` segmenti yoksa bölünür, aksi takdirde tek bir sözlük olur.
 - `true` / `false`: bölmeyi zorlar veya devre dışı bırakır.
 
 ```ts
@@ -440,6 +440,8 @@ Eşzamanlanmış JSON dosyaları diğer `.content` dosyaları gibi kabul edilece
 - Eşzamanlanmış JSON dosyalarını çekmek için `intlayer content pull`
 
 Daha fazla detay için [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/index.md) sayfasına bakınız.
+
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/index.md)
 
 ## Sınırlamalar (mevcut)
 

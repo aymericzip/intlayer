@@ -76,6 +76,8 @@ Việc tất cả các khóa nội dung phải được định nghĩa trong cá
 
 Hướng dẫn thiết lập các tệp khai báo nội dung có sẵn [tại đây](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/content_file.md).
 
+- [File khai báo nội dung (.content.ts)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/content_file.md)
+
 ## Ví dụ sử dụng trong Next.js
 
 Dưới đây là cách bạn có thể triển khai hook `useIntlayer` trong một trang Next.js để tải nội dung đa ngôn ngữ một cách động dựa trên locale hiện tại của ứng dụng:

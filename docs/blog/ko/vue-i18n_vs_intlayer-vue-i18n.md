@@ -30,6 +30,8 @@ author: aymericzip
 
 이 문서는 동일한 Vite + Vue 3 애플리케이션에서 `vue-i18n`으로 빌드한 경우와 어댑터로 빌드한 경우의 성능 변화를 측정합니다. 수치는 [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom)에서 나왔습니다. `vue-i18n`과 Intlayer를 라이브러리로 비교하려면 [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/vue-i18n_vs_intlayer.md)와 [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/vue-i18n_vs_intlayer.md)를 읽으세요. 이 문서는 컴포넌트를 그대로 유지했을 때 어댑터가 어떤 변화를 가져오는지에 관한 것입니다.
 
+- [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/vue-i18n_vs_intlayer.md)
+
 <TOC/>
 
 > **tl;dr**: 동일한 Vite + Vue 3 앱에서 `vue-i18n`을 `@intlayer/vue-i18n`으로 교체하면 페이지당 JavaScript가 **134.9 KB에서 47.0 KB** gzip으로 감소했습니다 (i18n 없는 앱의 무게는 41.3 KB), 런타임은 **24.3 KB에서 7.9 KB**, 평균 컴포넌트는 **196 KB에서 8.4 KB**, 외부 페이지 문자열 누수는 **90%에서 0%**로 감소했습니다. 단 하나의 `.vue` 파일도 수정하지 않았습니다. `createI18n({ messages })`는 폴백으로 계속 작동합니다. JSON imports를 제거하면 위의 숫자를 얻을 수 있습니다. SFC `<i18n>` 블록과 런타임 `setLocaleMessage()`는 이월되지 않는 두 가지 기능입니다.
@@ -137,6 +139,8 @@ style="border:none;"
 />
 
 > 모든 라이브러리와 전략이 포함된 전체 표는 [Vue 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/vue.md)에서 확인하세요.
+
+- [Vue 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/vue.md)
 
 ## 숫자가 움직이는 이유
 
@@ -286,6 +290,8 @@ export const i18n = createI18n({ locale: "en" });
 
 `setLocaleMessage()` 및 `mergeLocaleMessage()`는 경고를 표시하고 반환합니다. 런타임에 CMS에서 가져오는 번역은 [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md) 또는 `intlayer pull` / `push` 명령어가 필요합니다.
 
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)
+
 </Accordion>
 <Accordion header="messages는 폴백일 뿐, 무료가 아님">
 
@@ -316,6 +322,9 @@ export const i18n = createI18n({ locale: "en" });
 
 새 프로젝트이거나 어댑터가 역할을 다한 경우 적합합니다. 가장 가벼운 런타임(3.9 KB)과 `<i18n>` 블록을 타입이 지정된 콘텐츠로 대체하는 컴포넌트별 `.content.ts` 모델을 제공합니다. [Vue와 함께 사용하는 Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_vite+vue.md) 또는 [Nuxt와 함께](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nuxt.md) 시작하세요.
 
+- [Vue와 함께 사용하는 Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_vite+vue.md)
+- [Nuxt와 함께](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nuxt.md)
+
 </Accordion>
 </AccordionGroup>
 
@@ -339,11 +348,16 @@ export const i18n = createI18n({ locale: "en" });
 
 유지됩니다. `createI18n()`에 전달된 `datetimeFormats` 및 `numberFormats`가 적용되며 네이티브 `Intl` API가 지원합니다. [날짜, 시간 및 숫자 형식 지정](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/date_time_number_formatting_locales.md)을 참조하세요.
 
+- [날짜, 시간 및 숫자 형식 지정](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/date_time_number_formatting_locales.md)
+
 </Question>
 
 <Question title="Nuxt에서도 작동하나요?">
 
 `@intlayer/vue-i18n`은 Vite + Vue를 대상으로 합니다. `@nuxtjs/i18n`의 경우 [Nuxt i18n 호환 어댑터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/nuxtjs-i18n.md)를 사용하고, 네이티브 설정은 [Nuxt와 함께 사용하는 Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nuxt.md)를 확인하세요.
+
+- [Nuxt i18n 호환 어댑터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/nuxtjs-i18n.md)
+- [Nuxt와 함께 사용하는 Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nuxt.md)
 
 </Question>
 
@@ -394,3 +408,5 @@ export const i18n = createI18n({ locale: "en" });
 모든 원본 데이터, 테스트 앱 및 스크립트는 [Benchmark Bloom 저장소](https://github.com/intlayer-org/benchmark-bloom)에 있습니다. 직접 실행해보세요.
 
 자세한 내용은 ['Intlayer를 선택해야 하는 이유?' 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/interest_of_intlayer.md)를 참조하세요.
+
+- [왜 Intlayer인가? 다른 i18n 라이브러리 대비 장점](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/interest_of_intlayer.md)

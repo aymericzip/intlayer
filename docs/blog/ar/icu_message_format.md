@@ -268,6 +268,8 @@ totalOpenings(5); // اللغة العربية → "5 وظائف شاغرة"
 
 يفوض المعامل `plural` تحديد الفئة إلى `Intl.PluralRules` مباشرة، وبالتالي ينطبق جدول CLDR الموضح أعلاه كما هو. كما يظل التنسيق منفصلاً: تتم معالجة الأرقام والتواريخ والعملات والقوائم عبر [خطافات التنسيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/formatters.md) بدلاً من حشرها داخل نص الرسالة.
 
+- [خطافات التنسيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/formatters.md)
+
 نقاط ينبغي مراعاتها:
 
 - تتطلب Intlayer مرحلة بناء: يقوم المترجم باستخراج التصريحات أثناء التحزيم. إذا كنت ترغب في تحميل ملفات JSON عادية أثناء وقت التشغيل، فهذا نموذج مختلف.
@@ -275,6 +277,9 @@ totalOpenings(5); // اللغة العربية → "5 وظائف شاغرة"
 - البيئة المحيطة بـ Intlayer أحدث عمرًا من i18next، مع تكاملات أقل جاهزية مع أدوات إدارة الترجمة (TMS).
 
 إذا كنت تنتقل من مشروع يحتوي بالفعل على نصوص ICU، فإن [محول التوافق react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/react-intl.md) يحللها مباشرة: `plural`، `select`، `selectordinal`، `#`، ومعاملات `number` و`date` و`time` الكلاسيكية. لا يدعم هذا المحول الهياكل أو `offset:`، لذا يجب مراجعة تلك النصوص أثناء الترحيل. أما [محول i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/i18next.md) فيقوم بحل لواحق المفاتيح (`key_one`، `key_male`) عبر `Intl.PluralRules`.
+
+- [محول التوافق react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/react-intl.md)
+- [محول i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/i18next.md)
 
 ## الأخطاء الشائعة
 

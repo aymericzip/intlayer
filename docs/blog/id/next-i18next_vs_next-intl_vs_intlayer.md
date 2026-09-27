@@ -100,6 +100,8 @@ Setelah membangun aplikasi, bundle adalah JavaScript yang akan dimuat oleh brows
 
 <I18nBenchmark framework="nextjs" packages="next-i18next,next-intl,next-intlayer" vertical/>
 
+- [Benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/nextjs.md)
+
 <ClickToOpenIframe
   src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
   width="100%"
@@ -121,6 +123,9 @@ Angka kunci yang diukur pada Next.js App Router (gzip):
 | `next-intlayer` (native Intlayer) |     **5.5 KB** |         **141.3 KB** |              **0.0%** |               **0.0%** |         **6.9 KB** |
 
 > Untuk analisis lengkap, lihat [Laporan Benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/nextjs.md) dan [Ikhtisar Benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/index.md) yang komprehensif.
+
+- [Laporan Benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/nextjs.md)
+- [Ikhtisar Benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/index.md)
 
 Ada dua komponen yang penting dalam konteks bundle aplikasi multi-bahasa:
 
@@ -1521,3 +1526,5 @@ Ketiga perpustakaan tersebut berhasil dalam lokalisasi inti. Perbedaannya adalah
 - [Adaptor Kompatibilitas @intlayer/next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/next-i18next.md)
 
 Lihat dokumen ['Mengapa Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/interest_of_intlayer.md) untuk detail lebih lanjut.
+
+- [Mengapa Intlayer? Keunggulan dibanding library i18n lain](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/interest_of_intlayer.md)

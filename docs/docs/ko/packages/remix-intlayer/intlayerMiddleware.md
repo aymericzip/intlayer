@@ -49,6 +49,38 @@ export const router = createRouter({
 3. **요청 컨텍스트 등록**: `Intlayer` 키를 사용하여 확인된 현재 로케일을 Remix 요청 컨텍스트에 저장하여, 훅(`useLocale`, `useIntlayer`, `useDictionary`)이 이를 투명하게 활용할 수 있도록 합니다.
 4. **쿠키 관리**: 사용자의 선호 로케일을 유지해야 하는 경우 `Set-Cookie` 헤더를 설정합니다.
 
+## 매개변수
+
+`intlayer` 함수는 선택적인 `IntlayerMiddlewareOptions`를 인수로 받습니다:
+
+```ts
+import { intlayer, type IntlayerMiddlewareOptions } from "remix-intlayer";
+
+const options: IntlayerMiddlewareOptions = {
+  // 사용자 정의 라우팅 설정 재정의
+};
+
+const middleware = intlayer(options);
+```
+
+## 컨텍스트에 직접 접근하기
+
+훅을 사용하는 것 외에도, Remix 요청 컨텍스트에서 확인된 `IntlayerState`에 직접 접근할 수 있습니다:
+
+```ts
+import { Intlayer } from "remix-intlayer";
+
+router.get("/api/locale", (context) => {
+  // context.get()을 통해
+  const state = context.get(Intlayer);
+
+  // 또는 context.intlayer 속성을 통해 직접
+  const { locale } = context.intlayer;
+
+  return Response.json({ locale });
+});
+```
+
 ## 관련 문서
 
 - [`Intlayer` 요청 컨텍스트](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/remix-intlayer/Intlayer.md)

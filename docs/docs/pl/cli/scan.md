@@ -130,13 +130,13 @@ Wypisuje pełny wynik skanowania jako obiekt JSON zamiast sformatowanego raportu
 
 ### Standardowe opcje konfiguracji
 
-- **`--base-dir`** — Katalog bazowy używany do zlokalizowania pliku `intlayer.config.*`.
-- **`-e, --env`** — Środowisko docelowe (np. `development`, `production`).
-- **`--env-file`** — Ścieżka do niestandardowego pliku `.env`.
-- **`--no-cache`** — Wyłącza pamięć podręczną konfiguracji.
-- **`--ci`** — Uruchamia polecenie w każdym projekcie Intlayer w monorepo (lub tylko w bieżącym, gdy uruchomione z katalogu projektu). Dane uwierzytelniające dla poszczególnych projektów można wstrzyknąć przez `INTLAYER_PROJECT_CREDENTIALS` — obiekt JSON mapujący ścieżkę projektu na `{ "clientId", "clientSecret" }`.
-- **`--verbose`** — Włącza pełne logowanie (domyślne w trybie CLI).
-- **`--prefix`** — Niestandardowy prefiks logów.
+- **`--base-dir`**: Katalog bazowy używany do zlokalizowania pliku `intlayer.config.*`.
+- **`-e, --env`**: Środowisko docelowe (np. `development`, `production`).
+- **`--env-file`**: Ścieżka do niestandardowego pliku `.env`.
+- **`--no-cache`**: Wyłącza pamięć podręczną konfiguracji.
+- **`--ci`**: Uruchamia polecenie w każdym projekcie Intlayer w monorepo (lub tylko w bieżącym, gdy uruchomione z katalogu projektu). Dane uwierzytelniające dla poszczególnych projektów można wstrzyknąć przez `INTLAYER_PROJECT_CREDENTIALS`, obiekt JSON mapujący ścieżkę projektu na `{ "clientId", "clientSecret" }`.
+- **`--verbose`**: Włącza pełne logowanie (domyślne w trybie CLI).
+- **`--prefix`**: Niestandardowy prefiks logów.
 
 ## Strategia routingu
 

@@ -88,6 +88,8 @@ style="border:none;"
 
 > تم الاختبار في متصفحات فعلية مع تفعيل ضغط gzip. التفاصيل متوفرة في [توثيق مقارنة أداء Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/vue.md).
 
+- [توثيق مقارنة أداء Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/vue.md)
+
 ### العبء الأولي للمكتبات
 
 الحجم قبل تضمين ملفات الترجمة:
@@ -178,6 +180,9 @@ const { title } = useIntlayer("hero");
 
 يستطيع [مترجم Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md) تتبع الخصائص المطلوبة تحديداً واستبعاد ما عداها قبل بناء ملفات العميل. تعرف على المزيد في [تحسين الحزم](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md).
 
+- [مترجم Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md)
+- [تحسين الحزم](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md)
+
 ## تجربة المطورين
 
 ### ملفات منفصلة مقابل التجاور المباشر
@@ -255,6 +260,8 @@ const { title } = useIntlayer("hero");
 
 في Intlayer، تخضع القواميس لتدقيق حازم. وتفعيل [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md) يوقف البناء فوراً إذا كانت هناك ترجمة ناقصة في أي لغة مستهدفة.
 
+- [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md)
+
 ### أدوات المحررات والذكاء الاصطناعي
 
 | الأداة                        | `vue-i18n`                 | Intlayer                                                                                                            |
@@ -278,6 +285,8 @@ const { title } = useIntlayer("hero");
 **نظام إدارة محتوى مرئي ذاتي الاستضافة:**
 
 شغّل [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md) لتمكين كتاب المحتوى من تعديل العبارات برؤية حية مع الحفظ المباشر في Git.
+
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
 
 **ترخيص مفتوح:**
 

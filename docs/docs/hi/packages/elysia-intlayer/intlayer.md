@@ -43,7 +43,7 @@ const app = new Elysia().use(intlayer()).get("/", ({ intlayer }) =>
 );
 ```
 
-> प्लगइन अपना context एक **ग्लोबल** `derive` के माध्यम से रजिस्टर करता है, जिसे Elysia `Partial<{ intlayer: IntlayerContext }>` के रूप में टाइप करता है। `.use(intlayer())` के बाद रजिस्टर किए गए routes के लिए रनटाइम पर यह मान हमेशा मौजूद रहता है, इसलिए `strict` मोड में TypeScript को संतुष्ट करने के लिए non-null assertion (`intlayer!.t`) — या optional chaining — का उपयोग करें।
+> प्लगइन अपना context एक **ग्लोबल** `derive` के माध्यम से रजिस्टर करता है, जिसे Elysia `Partial<{ intlayer: IntlayerContext }>` के रूप में टाइप करता है। `.use(intlayer())` के बाद रजिस्टर किए गए routes के लिए रनटाइम पर यह मान हमेशा मौजूद रहता है, इसलिए `strict` मोड में TypeScript को संतुष्ट करने के लिए non-null assertion (`intlayer!.t`), या optional chaining, का उपयोग करें।
 
 वही helpers स्टैंडअलोन exports के रूप में भी उपलब्ध हैं, इसलिए आप route context को डीस्ट्रक्चर किए बिना उन्हें कॉल कर सकते हैं:
 
@@ -133,6 +133,8 @@ export default config;
 ```
 
 > कॉन्फ़िगरेशन के बारे में अधिक जानकारी के लिए, [कॉन्फ़िगरेशन दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md) देखें।
+
+- [कॉन्फ़िगरेशन दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md)
 
 ## संबंधित दस्तावेज़
 

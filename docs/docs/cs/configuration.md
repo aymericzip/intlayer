@@ -727,7 +727,7 @@ Definuje nastavení pro vestavěný vizuální editor, včetně portu serveru a 
 
 Definuje nastavení související s analytikou Intlayer: shromažďování informací o tom, jaký obsah je uživatelům skutečně zobrazován (zobrazení stránek, expozice obsahu), a podporu A/B testování obsahu.
 
-Analytika je ve výchozím stavu zapnutá (opt-out): sbírat začne, jakmile je nainstalován balíček `@intlayer/analytics` **a** je nakonfigurován projektový klíč (`editor.clientId`) pro atribuci. Nastavte `analytics.enabled` na `false` — nebo balíček neinstalujte — a celá integrace analytiky je odstraněna z balíčku vaší aplikace (dead-code elimination).
+Analytika je ve výchozím stavu zapnutá (opt-out): sbírat začne, jakmile je nainstalován balíček `@intlayer/analytics` **a** je nakonfigurován projektový klíč (`editor.clientId`) pro atribuci. Nastavte `analytics.enabled` na `false`, nebo balíček neinstalujte, a celá integrace analytiky je odstraněna z balíčku vaší aplikace (dead-code elimination).
 
 | Pole            | Popis                                                                              | Typ       | Výchozí | Příklad | Poznámka                                                                                                                                                                   |
 | --------------- | ---------------------------------------------------------------------------------- | --------- | ------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

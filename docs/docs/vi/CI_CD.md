@@ -62,6 +62,8 @@ export default config;
 
 Để tìm hiểu thêm về CMS, tham khảo [tài liệu chính thức](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md).
 
+- [Intlayer CMS: tách nội dung đa ngôn ngữ ra ngoài](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)
+
 ## Sử dụng Husky
 
 Bạn có thể tích hợp việc tạo bản dịch vào quy trình làm việc Git cục bộ của mình bằng cách sử dụng [Husky](https://typicode.github.io/husky/).
@@ -98,6 +100,8 @@ npx intlayer fill --unpushed --mode fill    # Chỉ điền nội dung còn thi�
 ```
 
 > Để biết thêm thông tin về các lệnh Intlayer CLI và cách sử dụng chúng, hãy tham khảo [tài liệu CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md).
+
+- [tài liệu CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md)
 
 > Nếu bạn có nhiều ứng dụng trong kho mã của mình sử dụng các instance intlayer riêng biệt, bạn có thể sử dụng đối số `--base-dir` như sau:
 
@@ -198,3 +202,5 @@ jobs:
 > Mặc định, đối số `--git-diff` lọc các từ điển bao gồm các thay đổi từ base (mặc định `origin/main`) đến nhánh hiện tại (mặc định: `HEAD`).
 
 > Để biết thêm thông tin về các lệnh Intlayer CLI và cách sử dụng chúng, hãy tham khảo [tài liệu CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md).
+
+- [tài liệu CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md)

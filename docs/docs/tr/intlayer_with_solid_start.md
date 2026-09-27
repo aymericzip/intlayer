@@ -89,10 +89,16 @@ Uygulamanızın içeriğini kapsamlara ayırmak, büyük ölçekli uygulamalar i
 
 İçeriği aynı yerde konumlandırmak, Büyük Dil Modelleri (LLM'ler) için **gereken bağlamı azaltır**. Intlayer ayrıca yapay zeka ajanları için geliştirici deneyimini (DX) daha da sorunsuz hale getirmek amacıyla eksik çevirileri test etmek için **CLI**, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** ve **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/agent_skills.md)** gibi bir dizi araçla birlikte gelir.
 
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)
+- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/agent_skills.md)
+
 </Accordion>
 <Accordion header="Otomasyon">
 
 AI sağlayıcınızın maliyetiyle seçtiğiniz LLM'yi kullanarak CI/CD işlem hattınızda çeviri yapmak için otomasyonu kullanın. Intlayer ayrıca içerik çıkarmayı otomatikleştirmek için bir **derleyici (compiler)** ve **arka planda çeviri yapmaya** yardımcı olacak bir [web platformu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) sunar.
+
+- [web platformu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="Performans">
@@ -103,6 +109,9 @@ Devasa JSON dosyalarını bileşenlere bağlamak performans ve reaktivite sorunl
 <Accordion header="Geliştirici olmayanlarla ölçeklendirme">
 
 Bir i18n çözümünden daha fazlası olan Intlayer, çevirmenler, reklam yazarları ve diğer ekip üyeleriyle iş birliğini sorunsuz hale getirmek için çok dilli içeriğinizi **gerçek zamanlı** yönetmenize yardımcı olan **kendi sunucunuzda barındırılan bir [görsel editör](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** ve **[tam bir CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** sağlar. İçerik yerel ve/veya uzaktan depolanabilir.
+
+- [görsel editör](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)
+- [tam bir CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
@@ -162,7 +171,7 @@ bun add intlayer solid-intlayer vite-intlayer
 
   Intlayer'ı [Vite paketleyicisi](https://vite.dev/guide/why.html#why-bundle-for-production) ile entegre etmek için Vite eklentisini ve kullanıcının tercih ettiği yerel ayarı algılayan, çerezleri yöneten ve URL yönlendirmesini işleyen yerel ayar yönlendirme işleyicisini içerir.
 
-> Buradaki `vite-intlayer` yalnızca bir derleme zamanı konusu değil, aynı zamanda sunucu tarafı bir konudur: SolidStart'ın Nitro sunucusunun çalıştırdığı istek işleyicisini sağlar. Bunu `dependencies` içinde tutmak güvenli varsayılandır — yalnızca Nitro'nun işleyiciyi satır içine aldığı oluşturulmuş `.output` dizinini dağıtırsanız bunu `devDependencies` kısmına taşıyabilirsiniz.
+> Buradaki `vite-intlayer` yalnızca bir derleme zamanı konusu değil, aynı zamanda sunucu tarafı bir konudur: SolidStart'ın Nitro sunucusunun çalıştırdığı istek işleyicisini sağlar. Bunu `dependencies` içinde tutmak güvenli varsayılandır, yalnızca Nitro'nun işleyiciyi satır içine aldığı oluşturulmuş `.output` dizinini dağıtırsanız bunu `devDependencies` kısmına taşıyabilirsiniz.
 
 </Step>
 <Step number={2} title="Projenizin Yapılandırılması">
@@ -199,6 +208,8 @@ export default config;
 ```
 
 > Bu yapılandırma dosyası aracılığıyla yerelleştirilmiş URL'ler, ara yazılım (middleware) yönlendirmesi, çerez adları, içerik bildirimlerinizin konumu ve uzantısı ayarlayabilir, konsoldaki Intlayer günlüklerini devre dışı bırakabilir ve daha fazlasını yapabilirsiniz. Mevcut parametrelerin tam listesi için [yapılandırma dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md) bakın.
+
+- [yapılandırma dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)
 
 </Step>
 <Step number={3} title="Vite Yapılandırmanıza Intlayer'ı Entegre Edin">
@@ -300,6 +311,8 @@ export default homeContent;
 >
 > Daha fazla ayrıntı için [içerik bildirimi dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md) bakın.
 
+- [içerik bildirimi dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md)
+
 </Step>
 <Step number={5} title="Yerelleştirilmiş yönlendirme ekleyin">
 
@@ -333,7 +346,7 @@ export default function LocaleLayout(props: RouteSectionProps) {
 }
 ```
 
-`@solidjs/router`, `:locale?` kalıbını iki kalıba genişletir — biri segmentli, diğeri segmentsiz — ve bunları azalan özgüllüğe göre dener. `matchFilters`, çalışan bir kurulum ile kafa karıştırıcı bir kurulum arasındaki farkı yaratan şeydir:
+`@solidjs/router`, `:locale?` kalıbını iki kalıba genişletir (biri segmentli, diğeri segmentsiz) ve bunları azalan özgüllüğe göre dener. `matchFilters`, çalışan bir kurulum ile kafa karıştırıcı bir kurulum arasındaki farkı yaratan şeydir:
 
 | URL         | matchFilters olmadan                          | matchFilters ile                           |
 | ----------- | --------------------------------------------- | ------------------------------------------ |
@@ -391,7 +404,7 @@ export default function App() {
 }
 ```
 
-> `IntlayerProvider`, `locale` prop'una yanıt verir, bu nedenle JSX içinde erişimci çağrısı `locale()` geçirmek yeterlidir — Solid bunu bir getter'a derler ve URL değiştiğinde tüm ağaç yeni dilde yeniden işlenir.
+> `IntlayerProvider`, `locale` prop'una yanıt verir, bu nedenle JSX içinde erişimci çağrısı `locale()` geçirmek yeterlidir, Solid bunu bir getter'a derler ve URL değiştiğinde tüm ağaç yeni dilde yeniden işlenir.
 
 </Step>
 <Step number={7} title="Sunucuda HTML lang ve dir özniteliklerini ayarlayın">
@@ -474,6 +487,8 @@ export default function Home() {
 > ```
 
 > `useIntlayer` hook'u hakkında daha fazla bilgi edinmek için [dokümantasyona](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/solid-intlayer/useIntlayer.md) bakın.
+
+- [useIntlayer Hook Documentation | solid-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/solid-intlayer/useIntlayer.md)
 
 İçerik düğümleri yalnızca düz çevirilerle sınırlı değildir. Örneğin çoğullaştırılmış bir sayaç:
 
@@ -561,14 +576,14 @@ export const Nav: Component = () => {
 };
 ```
 
-Bir kez `href="/about"` yazmak artık etkin yerel ayara bağlı olarak `/about`, `/fr/about` veya `/es/about` üretir — sayfalarınızın hiçbir yerinde manuel ön ek eklemeye gerek kalmaz.
+Bir kez `href="/about"` yazmak artık etkin yerel ayara bağlı olarak `/about`, `/fr/about` veya `/es/about` üretir, sayfalarınızın hiçbir yerinde manuel ön ek eklemeye gerek kalmaz.
 
 </Step>
 <Step number={10} title="Bir Yerel Ayar Değiştirici (Locale Switcher) Bileşeni Oluşturun">
 
 Değiştiriciyi bir `<select>` yerine **gerçek bağlantılar (anchors)** olarak işleyin: geçerli sayfanın her dili, yeni bir sekmede açılabilen taranabilir bir bağlantı haline gelir ki bu yalnızca JavaScript ile çalışan bir denetimin sunamayacağı bir şeydir.
 
-`getPathWithoutLocale` yerel ayar segmentini geçerli yoldan kaldırır ve `getLocalizedUrl` bunu hedef yerel ayar için yeniden oluşturur, böylece bağlantılar hiçbir şeyi sabit kodlamadan yönlendirme modunuzu takip eder. Gezinme, işlenen yerel ayarı değiştiren şeydir — `[[locale]]` rotası bunu URL'den türetir — bu sırada `setLocale` seçimi `INTLAYER_LOCALE` çerezinde saklar, böylece yerel ayarsız bir URL'ye daha sonra yapılan bir ziyaret aynı dilde çözümlenir.
+`getPathWithoutLocale` yerel ayar segmentini geçerli yoldan kaldırır ve `getLocalizedUrl` bunu hedef yerel ayar için yeniden oluşturur, böylece bağlantılar hiçbir şeyi sabit kodlamadan yönlendirme modunuzu takip eder. Gezinme, işlenen yerel ayarı değiştiren şeydir, `[[locale]]` rotası bunu URL'den türetir, bu sırada `setLocale` seçimi `INTLAYER_LOCALE` çerezinde saklar, böylece yerel ayarsız bir URL'ye daha sonra yapılan bir ziyaret aynı dilde çözümlenir.
 
 ```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat={["typescript", "esm"]}
 import { A, useLocation } from "@solidjs/router";
@@ -626,13 +641,15 @@ export const LocaleSwitcher: Component = () => {
 
 > Solid'de `useLocale` içindeki `locale` bir **signal erişimcisidir**. Mevcut değerini reaktif olarak okumak için `locale()` (parantezler ile) kullanın.
 >
-> `getLocaleName(localeItem)` her dili kendi dilinde işler — `English / Français / Español`. İsimleri şu anda görüntülenen dile çevirmek için ikinci bir bağımsız değişken geçirin: `getLocaleName(localeItem, locale())`, İngilizce'de `English / French / Spanish`, Fransızca'da `anglais / français / espagnol` verir.
+> `getLocaleName(localeItem)` her dili kendi dilinde işler, `English / Français / Español`. İsimleri şu anda görüntülenen dile çevirmek için ikinci bir bağımsız değişken geçirin: `getLocaleName(localeItem, locale())`, İngilizce'de `English / French / Spanish`, Fransızca'da `anglais / français / espagnol` verir.
 >
 > `<A>` zaten geçerli URL ile eşleşen bağlantıda `aria-current="page"` ayarlar, bu nedenle bunun için eklenecek bir şey yoktur. `replace`, işlenen öznitelikten yönlendirici tarafından geri okunur: bir geçmiş girdisi eklemek yerine onu değiştirir, böylece tarayıcının "geri" düğmesi önceki dildeki aynı sayfaya değil, geçişten önce ziyaret edilen sayfaya geri döner.
 >
 > Her bağlantıdaki `dir` ve `hreflang`, sağdan sola dillerin isimlerini doğru şekilde yönlendirir ve yardımcı teknolojilere ve arama motoru tarayıcılarına her bağlantının hangi dili işaret ettiğini bildirir.
 >
 > `useLocale` hook'u hakkında daha fazla bilgi edinmek için [dokümantasyona](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/solid-intlayer/useLocale.md) bakın.
+
+- [useLocale Hook Documentation | solid-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/solid-intlayer/useLocale.md)
 
 </Step>
 <Step number={11} title="Kurallı (canonical) ve hreflang bağlantılarını yayınlayın" isOptional={true}>
@@ -703,12 +720,10 @@ import { AlternateLinks } from "~/components/AlternateLinks";
 <link href="https://example.com/about" hreflang="x-default" rel="alternate" />
 ```
 
-> **`@solidjs/meta` hakkında not**: Bu kılavuz yazıldığı sırada, `@solidjs/meta` paketinden `<Title>` ve `<Meta>` hidrasyondan sonra istemcide uygulanır ancak SolidStart v2'de sunucu tarafında işlenen `<head>` içine **yayınlanmaz**. Üst projede bu düzeltilene kadar, arama motoru tarayıcılarının JavaScript olmadan görmesi gereken etiketleri — `canonical`, `hreflang` ve gerekirse `title` / `description` — yukarıda gösterildiği gibi doğrudan `entry-server.tsx` içinde işleyin.
-
 </Step>
 <Step number={12} title="Bulunamayan sayfaları yönetin" isOptional={true}>
 
-`src/routes` kökündeki bir splat rotası, yerel ayar segmentinin eşleşmediği her yolu yakalar — `matchFilters` tarafından reddedilen geçersiz yerel ayar ön ekleri dahil. Yerel ayar hala kök düzen aracılığıyla URL'den geldiği için 404 sayfası ziyaretçinin dilinde görüntülenir:
+`src/routes` kökündeki bir splat rotası, yerel ayar segmentinin eşleşmediği her yolu yakalar, `matchFilters` tarafından reddedilen geçersiz yerel ayar ön ekleri dahil. Yerel ayar hala kök düzen aracılığıyla URL'den geldiği için 404 sayfası ziyaretçinin dilinde görüntülenir:
 
 ```tsx fileName="src/routes/[...404].tsx" codeFormat="typescript"
 import { Title } from "@solidjs/meta";
@@ -730,11 +745,11 @@ export default function NotFound() {
 }
 ```
 
-| İstek             | Sonuç                                             |
-| ----------------- | ------------------------------------------------- |
-| `/xx`             | `404` — `xx` yapılandırılmış bir yerel ayar değil |
-| `/nonexistent`    | Varsayılan yerel ayarda `404`                     |
-| `/fr/nonexistent` | Fransızca `404` (`Page introuvable`)              |
+| İstek             | Sonuç                                            |
+| ----------------- | ------------------------------------------------ |
+| `/xx`             | `404`, `xx` yapılandırılmış bir yerel ayar değil |
+| `/nonexistent`    | Varsayılan yerel ayarda `404`                    |
+| `/fr/nonexistent` | Fransızca `404` (`Page introuvable`)             |
 
 </Step>
 <Step number={13} title="Çok dilli bir sitemap (site haritası) oluşturun" isOptional={true}>
@@ -743,7 +758,7 @@ Intlayer'ın sitemap oluşturucusu, her yolu yerel ayar başına bir girişe gen
 
 > Yalnızca düz URL'ler oluşturan temel oluşturucuların aksine Intlayer, her sayfanın her yerelleştirilmiş varyantı arasında iki yönlü bağlantılar kurar; bu da arama motorlarının yerelleştirilmiş URL'leri ilişkilendirmesine ve doğru kitleye doğru URL'yi sunmasına yardımcı olur.
 
-SolidStart, bir HTTP yöntemini dışa aktaran bir dosyayı bir API rotasına dönüştürür ve yoldan `.ts` uzantısını kaldırır — böylece `src/routes/sitemap.xml.ts` `/sitemap.xml` adresinde sunulur:
+SolidStart, bir HTTP yöntemini dışa aktaran bir dosyayı bir API rotasına dönüştürür ve yoldan `.ts` uzantısını kaldırır, böylece `src/routes/sitemap.xml.ts` `/sitemap.xml` adresinde sunulur:
 
 ```typescript fileName="src/routes/sitemap.xml.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { APIEvent } from "@solidjs/start/server";
@@ -811,7 +826,7 @@ export const GET = () =>
 
 Mevcut yerel ayara bir sunucu fonksiyonu veya bir API rotası içinden erişmek isteyebilirsiniz.
 
-Bunun gibi ön ek tabanlı bir kurulumda, **URL yetkilidir**: `getLocaleFromPath` ön eki istek URL'sinden okur. `getLocale`, yerel ayar ön eki taşımayan istekler için bir geri çekilme (fallback) mekanizmasıdır — `INTLAYER_LOCALE` çerezini, ardından `x-intlayer-locale` üst bilgisini inceler, ardından `Accept-Language` uzlaşması yapar.
+Bunun gibi ön ek tabanlı bir kurulumda, **URL yetkilidir**: `getLocaleFromPath` ön eki istek URL'sinden okur. `getLocale`, yerel ayar ön eki taşımayan istekler için bir geri çekilme (fallback) mekanizmasıdır, `INTLAYER_LOCALE` çerezini, ardından `x-intlayer-locale` üst bilgisini inceler, ardından `Accept-Language` uzlaşması yapar.
 
 ```tsx fileName="src/routes/[[locale]]/index.tsx" codeFormat="typescript"
 import { createAsync } from "@solidjs/router";
@@ -855,6 +870,9 @@ export default function Page() {
 Mevcut bir kod tabanınız varsa binlerce dosyayı dönüştürmek zaman alabilir.
 
 Bu süreci kolaylaştırmak için Intlayer, bileşenlerinizi dönüştürmek ve içeriği ayıklamak için bir [derleyici (compiler)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compiler.md) / [ayıklayıcı (extractor)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/extract.md) sunar.
+
+- [derleyici (compiler)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compiler.md)
+- [ayıklayıcı (extractor)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/extract.md)
 
 Bunu kurmak için `intlayer.config.ts` dosyanıza bir `compiler` bölümü ekleyebilirsiniz:
 
@@ -1011,19 +1029,19 @@ node .output/server/index.mjs
 
 | İstek                                     | Beklenen yanıt                         |
 | ----------------------------------------- | -------------------------------------- |
-| `GET /`                                   | `200` — İngilizce                      |
+| `GET /`                                   | `200`, İngilizce                       |
 | `GET /` (`Accept-Language: fr` ile)       | `302` → `/fr`                          |
 | `GET /` (`INTLAYER_LOCALE=es` çerezi ile) | `302` → `/es`                          |
-| `GET /fr`                                 | `200` — Fransızca, `<html lang="fr">`  |
-| `GET /fr/about`                           | `200` — Fransızca hakkında sayfası     |
+| `GET /fr`                                 | `200`, Fransızca, `<html lang="fr">`   |
+| `GET /fr/about`                           | `200`, Fransızca hakkında sayfası      |
 | `GET /en/about`                           | `302` → `/about` (kurallı yönlendirme) |
 | `GET /xx`                                 | `404`                                  |
 | `GET /fr/nonexistent`                     | `404` Fransızca                        |
-| `GET /sitemap.xml`                        | `200` — çok dilli XML site haritası    |
+| `GET /sitemap.xml`                        | `200`, çok dilli XML site haritası     |
 
-Bir sayfayı işleyen satırlar `vite dev` altında aynı şekilde davranır. Üç yönlendirme satırı, işleyiciyi kendiniz bir ara yazılım (middleware) olarak kaydetmediğiniz sürece yalnızca oluşturulmuş bir sunucu için geçerlidir — 3. adıma bakın.
+Bir sayfayı işleyen satırlar `vite dev` altında aynı şekilde davranır. Üç yönlendirme satırı, işleyiciyi kendiniz bir ara yazılım (middleware) olarak kaydetmediğiniz sürece yalnızca oluşturulmuş bir sunucu için geçerlidir, 3. adıma bakın.
 
-> Geliştirme sunucusunu Bun (`bun --bun vite dev`) yerine Node (`vite dev`) üzerinde çalıştırın: SolidStart'ın SSR'ı şu anda Bun çalışma zamanında `Expected a Response object, but received 'NodeResponse'` hatasıyla başarısız oluyor. Bu Intlayer ile ilgili değildir — düz şablonda da tekrarlanır — ve yalnızca geliştirme sunucusunu etkiler, `vite build` komutunu etkilemez.
+> Geliştirme sunucusunu Bun (`bun --bun vite dev`) yerine Node (`vite dev`) üzerinde çalıştırın: SolidStart'ın SSR'ı şu anda Bun çalışma zamanında `Expected a Response object, but received 'NodeResponse'` hatasıyla başarısız oluyor. Bu Intlayer ile ilgili değildir, düz şablonda da tekrarlanır, ve yalnızca geliştirme sunucusunu etkiler, `vite build` komutunu etkilemez.
 
 ## Git Yapılandırması
 
@@ -1040,18 +1058,25 @@ Bunu yapmak için `.gitignore` dosyanıza aşağıdaki talimatları ekleyebilirs
 
 Intlayer ile geliştirme deneyiminizi geliştirmek için resmi **Intlayer VS Code Eklentisini** yükleyebilirsiniz.
 
-[VS Code Marketplace'ten Yükleyin](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [VS Code Marketplace'ten Yükleyin](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
-Bu eklenti şunları sağlar:
+Bu uzantı şunları sağlar:
 
 - Çeviri anahtarları için **otomatik tamamlama**.
-- Eksik çeviriler için **gerçek zamanlı hata algılama**.
+- Eksik çeviriler için **gerçek zamanlı hata tespiti**.
 - Çevrilmiş içeriğin **satır içi önizlemeleri**.
 - Çevirileri kolayca oluşturmak ve güncellemek için **hızlı eylemler**.
+
+Uzantının nasıl kullanılacağı hakkında daha fazla ayrıntı için [Intlayer VS Code Uzantısı belgelerine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/vs_code_extension.md) bakın.
+
+- [Intlayer VS Code Uzantısı belgelerine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/vs_code_extension.md)
 
 ## Daha Fazlası
 
 Daha ileri gitmek için [görsel editör](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) uygulayabilir veya [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) kullanarak içeriğinizi dışa aktarabilirsiniz.
+
+- [görsel editör](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
 
 ## Dokümantasyon Referansları
 
@@ -1073,20 +1098,34 @@ Daha ileri gitmek için [görsel editör](https://github.com/aymericzip/intlayer
 
 Bkz. [neden Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/interest_of_intlayer.md).
 
+- [neden Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/interest_of_intlayer.md)
+- [2026'da Solid için En İyi i18n Çözümü - Benchmark Raporu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/solid.md)
+
 </Question>
 <Question title="i18n Solid Start paket boyutuma ne kadar ekler?">
 
 Ad alanı tabanlı bir yapılandırmaya kıyasla çok daha az, çünkü bir sayfa render etmediği bir kataloğu asla indirmez. Derleme zamanı derleyicisi `useIntlayer` çağrılarını bileşenin kullandığı kesin sözlük girişleriyle değiştirir ve [dinamik sözlükler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dynamic_dictionaries/index.md) geri kalanını yerel başına böler. Intlayer paket boyutunu %50'ye kadar azaltır. Bkz. [paket optimizasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md) ve [kıyaslama](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/index.md).
+
+- [dinamik sözlükler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dynamic_dictionaries/index.md)
+- [paket optimizasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md)
+- [2026'da Solid için En İyi i18n Çözümü - Benchmark Raporu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/solid.md)
 
 </Question>
 <Question title="@solid-primitives/i18n veya i18next'ten bileşenlerimi yeniden yazmadan geçiş yapabilir miyim?">
 
 Büyük ölçüde evet. [i18next geçiş kılavuzunu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_i18next_to_intlayer.md) izleyin.
 
+- [i18next geçiş kılavuzunu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_i18next_to_intlayer.md)
+- [Sync JSON eklentisi: i18n JSON dosyalarınızı koruyun](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-json.md)
+
 </Question>
 <Question title="Mevcut JSON çeviri dosyalarımı koruyabilir miyim?">
 
 Evet. [sync JSON eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-json.md), `/messages/{locale}/{namespace}.json` dosyalarınızı doğruluk kaynağı olarak tutar ve her iki yönde Intlayer sözlükleri üretir. [sync PO eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-po.md) gettext katalogları için aynısını yapar ve [yerel başına dosyalar](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/per_locale_file.md), yerelleri tek bir dosyada gruplamak yerine içeriği dile göre ayırmanıza olanak tanır.
+
+- [sync JSON eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-json.md)
+- [sync PO eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-po.md)
+- [yerel başına dosyalar](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/per_locale_file.md)
 
 </Question>
 <Question title="İçeriğimi anahtar anahtar taşımak zorunda mıyım?">
@@ -1095,7 +1134,11 @@ Hayır. `npx intlayer extract` komutunu çalıştırın; Intlayer bileşenlerini
 
 Tam otomatik bir süreç için [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md) derleme sırasında aynı işlemi yapar: her değişiklikte kaynak kodunu tarar, sözlükleri üretir ve HMR ile senkronize tutar.
 
+- [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md)
+
 Derleyiciyi açmadan önce bilmeye değer iki sınır vardır. Statik analiz ile çalışır, bu nedenle API hata kodları veya CMS alanları gibi yalnızca çalışma zamanında var olan dizeler ulaşılamaz kalır. Ayrıca, `className="active"` veya durum kodu gibi uygulama mantığından kullanıcıya yönelik metinleri ayırt etmesi gerekir; bu da büyük bir kod tabanında birkaç ek açıklama gerektirir. [Extract komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract.md) sizi döngüde tutarak her ikisinden de kaçınır.
+
+- [Extract komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract.md)
 
 </Question>
 <Question title="Hangi editör ve AI aracı araçları mevcuttur?">
@@ -1131,7 +1174,9 @@ Adım 14 bunu kapsar. `validatePrefix`, URL'nin yerel segmentinin geçerli olup 
 </Question>
 <Question title="URL'ye yerel koymak zorunda mıyım?">
 
-Hayır. `routing.mode` ayarı `"prefix-no-default"` (varsayılan), `"prefix-all"`, `"no-prefix"` ve `"search-params"` değerlerini kabul eder.
+Hayır. `routing.mode` ayarı `"prefix-no-default"` (varsayılan), `"prefix-all"`, `"no-prefix"` ve `"search-params"` değerlerini kabul eder; `routing.domains` ise her locale'i kendi alan adına eşler. Bkz. [yapılandırma referansı](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md).
+
+- [yapılandırma referansı](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md)
 
 </Question>
 <Question title="Bir sunucu fonksiyonunda yereli nasıl alırım?">
@@ -1143,20 +1188,34 @@ Solid Start sunucu fonksiyonlarında `getIntlayer` istek bağlamındaki yerel bi
 
 `npx intlayer fill` komutunu çalıştırın. Eksik çevirileri seçtiğiniz LLM ile kendi sağlayıcınız ve API anahtarınızı kullanarak tamamlar ve `--git-diff` işlemi daldaki değişikliklerle sınırlar. Bkz. [fill komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/fill.md) ve [CI/CD entegrasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/CI_CD.md).
 
+- [fill komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/fill.md)
+- [CI/CD entegrasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/CI_CD.md)
+
 </Question>
 <Question title="Intlayer çoğulları, cinsiyeti ve zengin metni (rich text) destekliyor mu?">
 
 Evet: [çoğul biçimleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/plurial.md), [cinsiyete dayalı içerik](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/gender.md), koşullar, [eklemeler (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/insertion.md), [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/markdown.md) ve [biçimlendiriciler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/formatters.md).
+
+- [çoğul biçimleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/plurial.md)
+- [cinsiyete dayalı içerik](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/gender.md)
+- [eklemeler (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/insertion.md)
+- [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/markdown.md)
+- [biçimlendiriciler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/formatters.md)
 
 </Question>
 <Question title="Çevirmenler koda dokunmadan içeriği nasıl düzenleyebilir?">
 
 Kendi altyapınızda çalışan ve herkesin metinleri çalışan uygulamada yerinde düzenlemesine olanak tanıyan [görsel düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) veya içeriği kod dağıtımı olmadan güncellenebilecek şekilde dışsallaştıran [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) aracılığıyla.
 
+- [görsel düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)
+
 </Question>
 <Question title="Intlayer ücretsiz ve açık kaynaklı mı?">
 
 Evet, ticari kullanım dahil Apache 2.0 lisansı altındadır. Barındırılan CMS isteğe bağlı ücretli bir hizmettir ve ayrıca [kendi sunucunuzda barındırılabilir (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/self_hosting.md).
+
+- [kendi sunucunuzda barındırılabilir (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/self_hosting.md)
 
 </Question>
 

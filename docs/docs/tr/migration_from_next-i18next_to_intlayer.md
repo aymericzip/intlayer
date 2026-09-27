@@ -41,17 +41,23 @@ Sayfalarınıza devasa JSON dosyalarını yüklemek yerine yalnızca gerekli iç
 
 Uygulamanızın içeriğini kapsamlandırmak (scoping), büyük ölçekli uygulamaları **sürdürmesi kolay** hale getirir. Tüm içerik kod tabanınızı gözden geçirme yükü olmadan bir özellik dizinini silebilir veya kopyalayabilirsiniz. Ayrıca, Intlayer içeriğinizin doğruluğunu garanti etmek için **sıkı bir şekilde yazılmıştır (strongly typed)**.
 
-Intlayer aynı zamanda i18n ekosisteminde **en aktif şekilde geliştirilen** çözümdür — sorunlar hızlıca çözülür, yeni framework adaptörleri düzenli olarak yayınlanır ve çekirdek API, üretimdeki gerçek geri bildirimlere dayanarak sürekli olarak iyileştirilir.
+Intlayer aynı zamanda i18n ekosisteminde **en aktif şekilde geliştirilen** çözümdür, sorunlar hızlıca çözülür, yeni framework adaptörleri düzenli olarak yayınlanır ve çekirdek API, üretimdeki gerçek geri bildirimlere dayanarak sürekli olarak iyileştirilir.
 
 </Accordion>
 <Accordion header="Yapay Zeka (AI) Ajanları">
 
 İçeriğin (kod ile) bir arada bulunması (colocation), Büyük Dil Modelleri (LLM'ler) için **gerekli bağlamı azaltır**. Intlayer ayrıca eksik çevirileri test etmek için bir **CLI**, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/mcp_server.md)** ve yapay zeka ajanları için Geliştirici Deneyimini (DX) çok daha pürüzsüz hale getiren **[Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/agent_skills.md)** gibi bir dizi araç sunar.
 
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/mcp_server.md)
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/agent_skills.md)
+
 </Accordion>
 <Accordion header="Otomasyon">
 
 Seçtiğiniz bir LLM'yi kullanarak, CI/CD süreçlerinizdeki çevirileri kendi AI sağlayıcınızın maliyeti üzerinden otomatikleştirin. Intlayer ayrıca içerik çıkarma işlemini otomatikleştiren bir **derleyici** ve **arka planda çeviriye** yardımcı olmak için bir [web platformu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) sunar.
+
+- [web platformu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="Performans">
@@ -62,6 +68,9 @@ Büyük JSON dosyalarını bileşenlere bağlamak, performans ve reaktivite soru
 <Accordion header="Geliştirici Olmayanlarla Ölçeklenebilirlik">
 
 Basit bir i18n çözümünden çok daha fazlası olan Intlayer, çok dilli içeriğinizi **gerçek zamanlı** olarak yönetmenize yardımcı olan kendi barındırdığınız (self-hosted) bir **[görsel editör](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md)** ve **[tam donanımlı bir CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)** sağlar. Bu, çevirmenler, metin yazarları ve ekibin diğer üyeleriyle sorunsuz bir işbirliği sağlar. İçerik yerel ve/veya uzak bir sunucuda barındırılabilir.
+
+- [görsel editör](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md)
+- [tam donanımlı bir CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
@@ -74,9 +83,9 @@ Basit bir i18n çözümünden çok daha fazlası olan Intlayer, çok dilli içer
 
 `next-i18next`, `react-i18next` ve `i18next` üzerine kurulu olduğundan, Intlayer'a geçiş için birbirini tamamlayan iki strateji vardır:
 
-1. **Uyumluluk Adaptörü (Mevcut uygulamalar için önerilir)** — `@intlayer/next-i18next`, `@intlayer/react-i18next` ve `@intlayer/i18next` paketlerini kurun. Bu paketler arka planda tüm çeviri işlerini Intlayer'a devrederek eskisi ile **tam olarak aynı API'leri** sunar. Mevcut `useTranslation`, `appWithTranslation`, `serverSideTranslations` çağrılarınız ve Next.js Sayfa Yönlendirici (Pages Router) yapılarınız dokunulmadan kalır; değişen tek şey kurulum ve yapılandırma şeklidir.
+1. **Uyumluluk Adaptörü (Mevcut uygulamalar için önerilir)**: `@intlayer/next-i18next`, `@intlayer/react-i18next` ve `@intlayer/i18next` paketlerini kurun. Bu paketler arka planda tüm çeviri işlerini Intlayer'a devrederek eskisi ile **tam olarak aynı API'leri** sunar. Mevcut `useTranslation`, `appWithTranslation`, `serverSideTranslations` çağrılarınız ve Next.js Sayfa Yönlendirici (Pages Router) yapılarınız dokunulmadan kalır; değişen tek şey kurulum ve yapılandırma şeklidir.
 
-2. **Tam Geçiş** — `next-i18next` API'lerini kademeli olarak Intlayer'ın yerel (native) kancalarıyla (`useIntlayer`) değiştirin ve içeriğinizi bileşenlerinizin yanındaki `.content.ts` dosyalarında tutun (colocate).
+2. **Tam Geçiş**: `next-i18next` API'lerini kademeli olarak Intlayer'ın yerel (native) kancalarıyla (`useIntlayer`) değiştirin ve içeriğinizi bileşenlerinizin yanındaki `.content.ts` dosyalarında tutun (colocate).
 
 Bu kılavuz, öncelikle **Strateji 1'i** (doğrudan eklenebilir uyumluluk adaptörü) kapsar ve ardından isteğe bağlı tam geçişten bahseder.
 
@@ -196,10 +205,10 @@ export default withIntlayer(nextConfig);
 
 Hızlı geçiş bu kadar. Next.js uygulamanız artık, `useTranslation`, `serverSideTranslations` ve `appWithTranslation` çağrılarınızı olduğu gibi koruyarak Intlayer üzerinde çalışmaktadır.
 
-> **Türetilmiş (Typed) çeviri anahtarları — otomatik olarak.** Intlayer sözlüklerinizi derlediğinde, `useTranslation` ve `getFixedT` kendi gerçek içeriğiniz için tür güvenli (typed) hale gelir. Anahtarlar IDE'nizde otomatik tamamlanır (autocomplete) ve geçersiz yollar, ekstra bir yapılandırma olmadan derleme (compile) anında TypeScript hatalarına neden olur.
+> **Türetilmiş (Typed) çeviri anahtarları, otomatik olarak.** Intlayer sözlüklerinizi derlediğinde, `useTranslation` ve `getFixedT` kendi gerçek içeriğiniz için tür güvenli (typed) hale gelir. Anahtarlar IDE'nizde otomatik tamamlanır (autocomplete) ve geçersiz yollar, ekstra bir yapılandırma olmadan derleme (compile) anında TypeScript hatalarına neden olur.
 >
 > ```tsx
-> // Pages Router — 'about' kayıtlı bir sözlük isim alanıdır (namespace)
+> // Pages Router, 'about' kayıtlı bir sözlük isim alanıdır (namespace)
 > const { t } = useTranslation("about");
 > t("counter.label"); // ✓ otomatik tamamlandı
 > t("does.not.exist"); // ✗ TypeScript Hatası
@@ -284,6 +293,8 @@ export default config;
 ```
 
 > Mevcut tüm seçenekleri incelemek için [Intlayer CLI Dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/index.md) göz atın.
+
+- [Intlayer CLI Dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/index.md)
 
 </Step>
 

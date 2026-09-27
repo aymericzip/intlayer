@@ -49,6 +49,8 @@ TanStack Start nie zawiera wbudowanej warstwy i18n. Routing, wykrywanie języka,
 
 > Korzystasz z Next.js? Zobacz [przewodnik po next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/i18n_using_next-intl.md).
 
+- [przewodnik po next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/i18n_using_next-intl.md)
+
 > Aby zrozumieć, skąd wzięły się te biblioteki, przeczytaj historię i18n w JavaScript.
 
 - [Historia i18n w JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/history_of_i18n.md)
@@ -56,6 +58,8 @@ TanStack Start nie zawiera wbudowanej warstwy i18n. Routing, wykrywanie języka,
 ## Co benchmark mówi o use-intl w TanStack Start
 
 [Benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/tanstack.md) uruchamia tę samą 10-stronicową, 10-języczną aplikację TanStack Start z każdą większą biblioteką i mierzy to, co przeglądarka rzeczywiście pobiera.
+
+- [Benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/tanstack.md)
 
 <I18nBenchmark framework="tanstack" packages="use-intl,@intlayer/use-intl,intlayer" vertical/>
 
@@ -74,6 +78,8 @@ Wnioski:
 - **Sam runtime pozostaje ciężki** (~76 KB gzip), ponieważ parser ICU jest przesyłany do klienta. Adapter kompatybilności `@intlayer/use-intl` (krok 17) zachowuje dokładnie to samo API przy runtime wynoszącym ~7 KB.
 
 > Zobacz pełne dane: [Raport z benchmarku TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/tanstack.md) oraz [repozytorium benchmarku](https://github.com/intlayer-org/benchmark-i18n).
+
+- [Raport z benchmarku TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/tanstack.md)
 
 ## Porównanie funkcji w TanStack Start
 
@@ -98,6 +104,8 @@ Jak `use-intl` wypada na tle innych bibliotek powszechnie używanych w TanStack 
 | **Brakujące tłumaczenia w CI**                      | ✅ `npx intlayer test`                    | ⚠️ Brak wbudowanego     | ⚠️ Brak wbudowanego                      | ✅ `lingui compile --strict`     |
 
 > Dane dotyczące rozmiaru runtime i wycieków pochodzą z [benchmarku TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/tanstack.md). Wyciek jest mierzony na najlepszej konfiguracji każdej biblioteki.
+
+- [benchmarku TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/tanstack.md)
 
 > Inne przewodniki po TanStack Start:
 
@@ -974,6 +982,8 @@ export const startInstance = createStart(() => ({
 
 Benchmark pokazuje, że najcięższą częścią konfiguracji use-intl jest sam runtime (~76 KB gzip). Adapter kompatybilności [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compat/index.md) udostępnia **to samo API** (`useTranslations`, `useFormatter`, `IntlProvider`, `createTranslator`, formy mnogie ICU, `t.rich`), ale serwuje je ze skompilowanych słowników Intlayer: **~6.7 KB zamiast ~75.9 KB**, 0% wycieku języków i 0% wycieku stron, bez konieczności wprowadzania jakichkolwiek zmian w komponentach.
 
+- [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compat/index.md)
+
 ```bash packageManager="npm"
 npm install @intlayer/use-intl intlayer @intlayer/sync-json-plugin
 npx intlayer init
@@ -1034,7 +1044,11 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
+- [wtyczce sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/plugins/sync-json.md)
+
 > Adapter stanowi również płynną ścieżkę migracji: po jego uruchomieniu możesz stopniowo przenosić poszczególne komponenty na natywne API `useIntlayer`. Zobacz [przewodnik po Intlayer dla TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_tanstack.md).
+
+- [przewodnik po Intlayer dla TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_tanstack.md)
 
 </Step>
 <Step number={18} title="Pre-renderuj każdy język" isOptional={true}>
@@ -1142,6 +1156,8 @@ use-intl renderuje tłumaczenia, ale nie pomaga w ich **tworzeniu**. Intlayer je
 
 Aby odkryć wszystkie funkcje, sprawdź [dlaczego warto wybrać Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/interest_of_intlayer.md).
 
+- [dlaczego warto wybrać Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/interest_of_intlayer.md)
+
 </Step>
 </Steps>
 
@@ -1152,6 +1168,8 @@ Aby odkryć wszystkie funkcje, sprawdź [dlaczego warto wybrać Intlayer](https:
 <Question title="Czy use-intl to dobry wybór dla TanStack Start?">
 
 Tak, jeśli chcesz używać API `next-intl` poza Next.js. Otrzymujesz obsługę wiadomości ICU, formatery i dobre wsparcie TypeScriptu, unikając ograniczeń specyficznych dla Next.js, takich jak `setRequestLocale`. Kompromisem jest waga: [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/tanstack.md) wskazuje ~76 KB gzip dla runtime, a naiwna konfiguracja przesyła wszystkie języki i wszystkie strony do przeglądarki. Ładuj przestrzenie nazw dla każdej trasy i dla każdego języka osobno, jak opisano w tym poradniku, aby uniknąć wycieków.
+
+- [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/tanstack.md)
 
 </Question>
 <Question title="Jaka jest różnica między use-intl a next-intl?">
@@ -1173,6 +1191,8 @@ Serwer i przeglądarka formatują daty w różnych strefach czasowych. Przekaż 
 
 Po pierwsze, podziel wiadomości według przestrzeni nazw i ładuj je dla każdej trasy i języka za pomocą `import.meta.glob`, co eliminuje wycieki języków i stron. Następnie, jeśli rozmiar runtime ma znaczenie, przełącz się na adapter [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compat/index.md): to samo API, ~6.7 KB zamiast ~75.9 KB w benchmarku.
 
+- [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compat/index.md)
+
 </Question>
 <Question title="Jak przetłumaczyć tytuł i opis meta za pomocą use-intl?">
 
@@ -1182,6 +1202,9 @@ Wywołaj `createTranslator` wewnątrz funkcji `head()` trasy z wiadomościami zw
 <Question title="Czy mogę stopniowo migrować z use-intl do Intlayer?">
 
 Tak. Zainstaluj najpierw adapter kompatybilności (krok 17): Twoje komponenty nadal wywołują `useTranslations`, korzystając teraz z Intlayer pod maską. Następnie przenoś komponenty pojedynczo na `useIntlayer`, deklarując zawartość bezpośrednio przy nich. Zobacz [adaptery kompatybilności](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compat/index.md) oraz [przewodnik po Intlayer dla TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_tanstack.md).
+
+- [adaptery kompatybilności](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compat/index.md)
+- [przewodnik po Intlayer dla TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_tanstack.md)
 
 </Question>
 

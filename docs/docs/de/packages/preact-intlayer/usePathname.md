@@ -30,7 +30,7 @@ author: aymericzip
 
 # Preact Integration: `usePathname` Hook Dokumentation
 
-Der `usePathname` Hook gibt den aktuellen Pfadnamen (pathname) des Browsers zurück, wobei das Locale-Segment entfernt wurde. Dies ist nützlich für den Aufbau einer Locale-bewussten Navigation — beispielsweise, um festzustellen, welches Navigationselement aktiv ist — ohne den Locale-Präfix manuell entfernen zu müssen.
+Der `usePathname` Hook gibt den aktuellen Pfadnamen (pathname) des Browsers zurück, wobei das Locale-Segment entfernt wurde. Dies ist nützlich für den Aufbau einer Locale-bewussten Navigation (beispielsweise, um festzustellen, welches Navigationselement aktiv ist) ohne den Locale-Präfix manuell entfernen zu müssen.
 
 ## Importieren von `usePathname` in Preact
 

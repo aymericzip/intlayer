@@ -137,3 +137,5 @@ export default config;
 ### TypeScript-Integration
 
 Die `t`-Funktion ist typsicher, wenn sie mit definierten Wörterbüchern verwendet wird. Weitere Details finden Sie in der [TypeScript-Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md).
+
+- [TypeScript-Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md)

@@ -33,6 +33,8 @@ author: aymericzip
 
 この記事は、同じNext.jsアプリケーションで2つを比較しており、1回は`next-intl`で構築し、もう1回はアダプタで構築しています。数値は[Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom)から得られており、これはブラウザが実際にダウンロードするものを記録するオープンソーススイートです。ライブラリとして`next-intl`とIntlayerの比較が必要な場合は、[next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/next-intl_vs_intlayer.md)をお読みください。このドキュメントは、コンポーネントをそのままにしておいたときにアダプタが何を変更するかについてです。
 
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/next-intl_vs_intlayer.md)
+
 <TOC/>
 
 > **tl;dr**: 同じNext.jsアプリで、`next-intl`を`@intlayer/next-intl`に置き換えることで、ページあたりのJavaScriptが**153.6 KBから147.5 KB** gzipに、平均コンポーネントが**21.8 KBから8.1 KB**に、外部ページの文字列漏洩が**約90%から0%**に、ハイドレーションが**14.7 msから12.8 ms**に短縮され、コンポーネント編集なしで達成されました。TanStack Startでは、`use-intl`の同等物（`@intlayer/use-intl`）がコンポーネントを**76-87 KBから9-11 KB**に削減し、ロケール切り替えを**7-21 msから4-9 ms**に短縮しました。アダプターのランタイムコストは**8.0 KB**（`next-intl`は**14.7 KB**、ネイティブ`next-intlayer`は**5.5 KB**）です。ナビゲーションとミドルウェアはIntlayerのルーティング設定で再実装されます。ローカライズされた`pathnames`は唯一引き継がれない機能です。
@@ -146,6 +148,8 @@ style="border:none;"
 
 > すべてのライブラリと戦略の完全な表は、[Next.js ベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md)をご覧ください。
 
+- [Next.js ベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md)
+
 ### TanStack Start上の結果 (`use-intl`)
 
 `use-intl`は`next-intl`のフレームワークに依存しないコアです。そのアダプター`@intlayer/use-intl`は、Viteプラグイン(`@intlayer/use-intl/plugin`)を使用して同じ設計に従います。
@@ -177,6 +181,8 @@ style="border:none;"
 />
 
 > 完全な表は、[TanStack Start ベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md)をご覧ください。
+
+- [TanStack Start ベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md)
 
 ## 数字が変わる理由
 
@@ -330,6 +336,8 @@ export default withIntlayer(nextConfig);
 
 フォーマッターはネイティブの `Intl` に基づいており、ロケールのみが出力に影響します。ハイドレーションが安定した日付のために強制的なタイムゾーンや固定の `now` に依存している場合は、呼び出し側で処理してください。[日付、時刻、数値のフォーマット](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/date_time_number_formatting_locales.md)を参照してください。
 
+- [日付、時刻、数値のフォーマット](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/date_time_number_formatting_locales.md)
+
 </Accordion>
 </AccordionGroup>
 
@@ -350,6 +358,8 @@ export default withIntlayer(nextConfig);
 
 新規プロジェクト、またはアダプターがその役割を果たした後に適しています。3つの中で最も軽量であり（5.5 KB、ページあたり +0.3 KB）、同期サーバーコンポーネント、コンポーネントごとの `.content.ts` ファイル、およびすべてのフル機能を活用できます。[Next.js での Intlayer の導入](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_16.md)から始めてください。
 
+- [Next.js での Intlayer の導入](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_16.md)
+
 </Accordion>
 </AccordionGroup>
 
@@ -366,6 +376,8 @@ Next.js において、コンポーネントは変更不要です。ベンチマ
 <Question title="ICU メッセージはどうなりますか？">
 
 そのまま動作し続けます。`t("key", { count })`、`t.rich()`、`t.markup()`、`select`、`selectordinal`、`#`、`{ts, date, long}` は Intlayer の ICU リゾルバーによって解決されます。[ICU メッセージフォーマット](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)を参照してください。
+
+- [ICU メッセージフォーマット](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)
 
 </Question>
 
@@ -426,3 +438,5 @@ Intlayer コアの上に `next-intl` API サーフェス（`useFormatter`、`t.r
 すべてのraw data、テスト アプリ、およびスクリプトは [Benchmark Bloom リポジトリ](https://github.com/intlayer-org/benchmark-bloom) にあります。自分で実行してください。
 
 詳細については、['Why Intlayer?' ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md) を参照してください。
+
+- [なぜ Intlayer？他の i18n ライブラリとの違い](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)

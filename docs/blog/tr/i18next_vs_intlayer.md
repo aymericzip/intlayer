@@ -135,6 +135,8 @@ style="border:none;"
 
 > Tüm kütüphaneler ve her strateji için tam tablo [Next.js kıyaslama raporunda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md).
 
+- [Next.js kıyaslama raporunda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md)
+
 ### TanStack Start Sonuçları (`react-i18next`)
 
 Next.js'e özgü yapılandırmaları dışarıda bırakmak adına TanStack Start üzerinde doğrudan `react-i18next` ile yapılan ölçümler:
@@ -165,6 +167,8 @@ style="border:none;"
 />
 
 > Tam tablo [TanStack Start kıyaslama raporunda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md).
+
+- [TanStack Start kıyaslama raporunda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md)
 
 ## Fark Nereden Kaynaklanıyor? Global Örnek vs Derlenmiş Sözlükler
 
@@ -221,6 +225,8 @@ Intlayer global örneği tamamen ortadan kaldırır. İçerik doğrudan bileşen
 `@intlayer/swc` / `@intlayer/babel` hangi bileşenin hangi sözlüğü kullandığını tespit eder, yalnızca bunları ve yalnızca aktif dil için paketler, kullanılmayan içerikleri eler. "scoped-dynamic" kalıbı, ekibin yönetmek zorunda olduğu bir kural yerine derlemenin otomatik bir çıktısı haline gelir.
 
 > `dynamic` satırındaki rakamları elde etmek için `intlayer.config.ts` dosyasında `dictionary.importMode: 'dynamic'` ayarını yapmanız yeterlidir. Ayrıntılar için [paket optimizasyonu kılavuzuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md) bakın.
+
+- [paket optimizasyonu kılavuzuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md)
 
 ## Geliştirici Deneyimi (DX)
 
@@ -461,6 +467,10 @@ Benchmark testinde, aynı Next.js uygulamasının uyumluluk derlemesi kodlara do
 
 Geçiş kılavuzlarına göz atın: [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_i18next_to_intlayer.md), [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_react-i18next_to_intlayer.md), [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_next-i18next_to_intlayer.md).
 
+- [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_i18next_to_intlayer.md)
+- [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_react-i18next_to_intlayer.md)
+- [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_next-i18next_to_intlayer.md)
+
 ## Hangisini Ne Zaman Seçmeli?
 
 <AccordionGroup>
@@ -473,10 +483,17 @@ Geniş eklenti ekosistemine (özel algılayıcılar, arka uçlar, ICU, Locize) k
 
 **Bileşen düzeyinde içerik**, **katı TypeScript**, **derleme zamanı eksik anahtar hataları**, **zahmetsiz tree-shaking ve lazy loading**, anında dil değişimi, eşzamanlı sunucu bileşenleri ve yerleşik düzenleme araçları ([Görsel Düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md), [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md), [Yapay Zeka Çevirisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/autoFill.md), [MCP Sunucusu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/mcp_server.md)) istiyorsanız. Özellikle büyük, modüler kod tabanları ve tasarım sistemleri için uygundur.
 
+- [Görsel Düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)
+- [Yapay Zeka Çevirisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/autoFill.md)
+- [MCP Sunucusu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/mcp_server.md)
+
 </Accordion>
 <Accordion header="@intlayer/*-i18next Adaptörlerini Seçin">
 
 Zaten i18next kullanıyorsanız ve bileşenleri yeniden yazmadan paket ve tepkisellik kazanımlarını elde etmek istiyorsanız. `locales/{lng}/{ns}.json` dosyalarınız gerçek kaynak olarak kalır. [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18next_vs_intlayer-i18next.md) makalesinde yan yana ölçülmüştür.
+
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18next_vs_intlayer-i18next.md)
 
 </Accordion>
 </AccordionGroup>
@@ -501,17 +518,23 @@ Baytları çözer, gecikmeyi çözmez. `i18next-resources-to-backend`e geçmek s
 
 Evet, `scoped-dynamic` ile: rota başına bir namespace, bir kaynak backend'i ve elle tuttuğunuz bir sayfa-namespace haritası. Next.js'te sayfa başına 163.4 KB'a ulaşır; bu da hiçbir yapılandırma gerektirmeyen Intlayer'ın 141.3 KB değerinden hala **+22 KB** fazladır. Bkz. [paket optimizasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md).
 
+- [paket optimizasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md)
+
 </Question>
 
 <Question title="Geçiş yapmak için bileşenlerimi yeniden yazmam gerekir mi?">
 
 Hayır. `@intlayer/i18next`, `@intlayer/react-i18next` ve `@intlayer/next-i18next`; `useTranslation`, `t()`, `<Trans>`, `{{interpolation}}`, `_one` / `_other` çoğulları, bağlam son ekleri ve `returnObjects`i korur. `next.config.ts` veya `vite.config.ts` içine tek bir eklenti satırı yeterlidir. [next-i18next geçiş kılavuzunda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_next-i18next_to_intlayer.md) adım adım anlatılmıştır.
 
+- [next-i18next geçiş kılavuzunda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_next-i18next_to_intlayer.md)
+
 </Question>
 
 <Question title="i18next eklentilerime ne olur?">
 
 Backend'ler ve dil algılayıcılar kabul edilir ancak devre dışı kalır: çalışma zamanında yüklenecek veya algılanacak hiçbir şey kalmaz. Dil algılama, Intlayer'ın yönlendirme yapılandırmasına dönüşür (URL öneki, çerez, başlık). Uygulamanız istek anında bir CMS'den çevirileri alıyorsa, bunun yerine [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) veya `intlayer pull` / `push` kullanın.
+
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)
 
 </Question>
 
@@ -575,3 +598,5 @@ Intlayer bu iş yükünü derleyiciye devreder. Bileşen başına sözlükler, d
 Tüm ham veriler, test uygulamaları ve otomasyon komutları [Benchmark Bloom deposunda](https://github.com/intlayer-org/benchmark-bloom) herkese açıktır. Kendiniz test edebilirsiniz.
 
 Daha fazla bilgi için ['Neden Intlayer?' dokümanını](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/interest_of_intlayer.md) inceleyin.
+
+- [Neden Intlayer? Diğer i18n kütüphanelerine göre avantajları](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/interest_of_intlayer.md)

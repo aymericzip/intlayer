@@ -341,7 +341,9 @@ export function middleware(request: NextRequest) {
 
 Per SolidJS, Vue e Svelte, il plugin Vite `intlayerProxy` gestisce le riscritture durante lo sviluppo.
 
-> A partire da Intlayer v9, `intlayerProxy()` è incluso direttamente nel plugin `intlayer()` e abilitato per impostazione predefinita tramite l'opzione `routing.enableProxy` (`true` per impostazione predefinita). La registrazione separata come mostrato di seguito è ora facoltativa — viene mantenuta per la compatibilità con le versioni precedenti e per le configurazioni che necessitano di controllare l'ordine dei plugin. Impostare `routing.enableProxy: false` per rinunciare. Vedi le [note sulla versione v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/releases/v9.md).
+> A partire da Intlayer v9, `intlayerProxy()` è incluso direttamente nel plugin `intlayer()` e abilitato per impostazione predefinita tramite l'opzione `routing.enableProxy` (`true` per impostazione predefinita). La registrazione separata come mostrato di seguito è ora facoltativa, viene mantenuta per la compatibilità con le versioni precedenti e per le configurazioni che necessitano di controllare l'ordine dei plugin. Impostare `routing.enableProxy: false` per rinunciare. Vedi le [note sulla versione v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/releases/v9.md).
+
+- [note sulla versione v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/releases/v9.md)
 
 ```typescript fileName="vite.config.ts"
 import { defineConfig } from "vite";

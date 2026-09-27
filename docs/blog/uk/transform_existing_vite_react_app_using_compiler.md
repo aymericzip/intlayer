@@ -49,6 +49,8 @@ author: aymericzip
 
 > Шукаєте повний покроковий технічний посібник для Vite і React? Перегляньте нашу документацію: [Переклад Vite і React з Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_vite+react.md).
 
+- [Переклад Vite і React з Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_vite+react.md)
+
 ## Зміст
 
 <TOC/>
@@ -332,6 +334,8 @@ console.log("SEO-файли успішно згенеровано.");
 Якщо ви готові налаштувати кожен елемент детально, включаючи сувору типізацію TypeScript, динамічні словники та візуальний редактор, перейдіть до нашого повного посібника:
 
 👉 **[Повний посібник з перекладу Vite і React з Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_vite+react.md)**
+
+- [Повний посібник з перекладу Vite і React з Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_vite+react.md)
 
 ## Часті запитання (FAQ)
 

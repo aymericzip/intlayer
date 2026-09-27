@@ -39,9 +39,13 @@ author: aymericzip
 
 Consulta una comparación concreta con react-i18next en nuestro artículo del blog [react-i18next vs. react-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/react-i18next_vs_react-intl_vs_intlayer.md).
 
+- [react-i18next vs. react-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/react-i18next_vs_react-intl_vs_intlayer.md)
+
 ## ¿Por qué combinar Intlayer con react-i18next?
 
 Aunque Intlayer proporciona una excelente solución i18n independiente (consulta nuestra [guía de integración con React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_vite+react.md)), es posible que desees combinarlo con react-i18next por varias razones:
+
+- [guía de integración con React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_vite+react.md)
 
 1. **Código existente**: Tienes una implementación establecida de react-i18next y deseas migrar gradualmente a la mejor experiencia de desarrollo de Intlayer.
 2. **Requisitos heredados**: Tu proyecto requiere compatibilidad con plugins o flujos de trabajo existentes de react-i18next.
@@ -145,6 +149,8 @@ Si se realizan cambios usando la CLI para traducir el JSON, o usando el CMS, Int
 
 Para ver más detalles sobre el plugin `syncJSON`, por favor consulta la [documentación del plugin syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/plugins/sync-json.md).
 
+- [documentación del plugin syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/plugins/sync-json.md)
+
 </Step>
 
 </Steps>
@@ -164,4 +170,4 @@ Estos archivos pueden regenerarse durante tu proceso de compilación y no necesi
 
 Para mejorar la experiencia del desarrollador, instala la extensión oficial **Intlayer VS Code Extension**:
 
-[Instalar desde el Marketplace de VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [Instalar desde el Marketplace de VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

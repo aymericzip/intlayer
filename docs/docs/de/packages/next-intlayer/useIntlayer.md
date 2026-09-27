@@ -76,6 +76,8 @@ Es ist entscheidend, dass alle Inhalts-Schlüssel in Inhaltsdeklarationsdateien 
 
 Anleitungen zum Einrichten von Inhaltsdeklarationsdateien finden Sie [hier](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/content_file.md).
 
+- [Inhaltsdeklarationsdateien (.content.ts)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/content_file.md)
+
 ## Beispielhafte Verwendung in Next.js
 
 So können Sie den `useIntlayer`-Hook in einer Next.js-Seite implementieren, um lokalisierten Inhalt dynamisch basierend auf der aktuellen Anwendungslocale zu laden:

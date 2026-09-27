@@ -137,3 +137,5 @@ export default config;
 ### Интеграция с TypeScript
 
 Функция `t` является типизированной при использовании с определенными словарями. Для получения более подробной информации обратитесь к [документации TypeScript](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md).
+
+- [документации TypeScript](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md)

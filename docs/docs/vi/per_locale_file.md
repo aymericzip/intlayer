@@ -127,6 +127,8 @@ export default config;
 
 Sử dụng cấu hình này, tất cả các tệp theo từng locale sẽ được tạo với locale mặc định được đặt là tiếng Anh. Nó cũng bao gồm việc tạo các tệp `.content` bằng cách sử dụng lệnh `extract` và compiler. (Xem [Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md) hoặc [Extract](https://github.com/aymericzip/intlayer/edit/main/docs/docs/en/cli/extract.md) để biết thêm thông tin.)
 
+- [Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md)
+
 ## Định dạng theo từng locale
 
 Định dạng này hữu ích khi:
@@ -266,3 +268,5 @@ console.log(JSON.stringify(intlayer, null, 2));
 ### Tạo Dịch Tự Động
 
 Sử dụng [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md) để tự động điền các bản dịch còn thiếu dựa trên các dịch vụ bạn ưu tiên.
+
+- [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md)

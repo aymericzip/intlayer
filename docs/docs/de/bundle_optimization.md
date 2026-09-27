@@ -19,7 +19,7 @@ slugs:
 history:
   - version: 9.2.1
     date: 2026-08-09
-    changes: "`purge` und `minify` funktionieren jetzt in Next.js über `@intlayer/swc` — kein `babel.config.js` erforderlich"
+    changes: "`purge` und `minify` funktionieren jetzt in Next.js über `@intlayer/swc`, kein `babel.config.js` erforderlich"
   - version: 8.12.0
     date: 2026-06-24
     changes: "Babel-Plugins in den Referenztabellen in der erforderlichen Pipeline-Reihenfolge auflisten (extract → purge → minify → optimize)"
@@ -68,11 +68,11 @@ Dies stellt sicher, dass:
 
 ### Next.js
 
-Next.js benötigt das `@intlayer/swc`-Plugin, da Next.js SWC für Builds verwendet. Seit **v9.2.1** deckt dieses eine Paket die gesamte Pipeline ab — Optimierung (Import-Umschreibung), Purge und Minify.
+Next.js benötigt das `@intlayer/swc`-Plugin, da Next.js SWC für Builds verwendet. Seit **v9.2.1** deckt dieses eine Paket die gesamte Pipeline ab, Optimierung (Import-Umschreibung), Purge und Minify.
 
 > Dieses Plugin ist nicht standardmäßig installiert, da SWC-Plugins für Next.js noch experimentell sind. Dies kann sich in Zukunft ändern.
 
-> **Next.js 16.1.0 ist die Mindestversion.** Es ist die erste Version, die auf SWCs vorwärtskompatibler Wasm-Plugin-ABI aufbaut; frühere Versionen weisen das Plugin ab. `withIntlayer` liest Ihre Next.js-Version und registriert das Plugin unterhalb von 16.1.0 einfach nicht — diese Builds sind weiterhin erfolgreich, sie laufen nur ohne Bundle-Optimierung.
+> **Next.js 16.1.0 ist die Mindestversion.** Es ist die erste Version, die auf SWCs vorwärtskompatibler Wasm-Plugin-ABI aufbaut; frühere Versionen weisen das Plugin ab. `withIntlayer` liest Ihre Next.js-Version und registriert das Plugin unterhalb von 16.1.0 einfach nicht, diese Builds sind weiterhin erfolgreich, sie laufen nur ohne Bundle-Optimierung.
 
 <Tabs>
  <Tab value="npm">
@@ -136,7 +136,7 @@ Während `next build` analysiert `withIntlayer` Ihre Quellen, schreibt die kompi
 
 > Verwenden Sie das asynchrone `withIntlayer`, nicht `withIntlayerSync`. Die synchrone Variante führt die Analyse-Pipeline nicht aus, sodass Purge und Minify damit keine Wirkung haben.
 
-> Purge und Minify laufen nur bei `next build` — die Optimierungs-Pipeline ist während `next dev` deaktiviert.
+> Purge und Minify laufen nur bei `next build`, die Optimierungs-Pipeline ist während `next dev` deaktiviert.
 
 **Frühere Versionen (vor 9.2.1)** benötigten `@intlayer/babel` und eine `babel.config.js`, die `intlayerPurgeBabelPlugin` und `intlayerMinifyBabelPlugin` deklariert. Diese Datei wird nicht mehr benötigt und kann gelöscht werden.
 
@@ -145,7 +145,7 @@ Während `next build` analysiert `withIntlayer` Ihre Quellen, schreibt die kompi
 
 ### Vite
 
-Vite verwendet das Plugin `@intlayer/babel`, das als Abhängigkeit von `vite-intlayer` enthalten ist. Die gesamte Optimierungspipeline — Importumschreibung, Purge und Minify — ist standardmäßig aktiviert und erfordert keine zusätzliche Plugin-Registrierung.
+Vite verwendet das Plugin `@intlayer/babel`, das als Abhängigkeit von `vite-intlayer` enthalten ist. Die gesamte Optimierungspipeline (Importumschreibung, Purge und Minify) ist standardmäßig aktiviert und erfordert keine zusätzliche Plugin-Registrierung.
 
 Aktivieren Sie Purge und Minify, indem Sie die entsprechenden Flags in `intlayer.config.ts` festlegen:
 
@@ -263,7 +263,7 @@ Vite-Benutzer **konfigurieren diese nie direkt**. Sie werden automatisch eingeri
 
 ### SWC-Plugin (`@intlayer/swc`)
 
-Auch Next.js-Nutzer **konfigurieren diese nie direkt**. Seit **v9.2.1** führt `withIntlayer()` in `next.config.ts` die vollständige Pipeline aus — Purge, Minify und Import-Umschreibung — allein anhand der Flags `build.purge` und `build.minify`.
+Auch Next.js-Nutzer **konfigurieren diese nie direkt**. Seit **v9.2.1** führt `withIntlayer()` in `next.config.ts` die vollständige Pipeline aus (Purge, Minify und Import-Umschreibung) allein anhand der Flags `build.purge` und `build.minify`.
 
 Die Arbeit ist zweigeteilt, denn ein SWC-Wasm-Plugin transformiert jeweils nur eine Datei und hat keinen Dateisystemzugriff:
 
@@ -312,6 +312,8 @@ export default config;
 
 > Siehe die Konferenzreferenz für alle Optionen: [Konfiguration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md)
 
+- [Konfiguration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md)
+
 ### Build-Optionen
 
 | Eigenschaft    | Typ                   | Standard    | Beschreibung                                                                                                                                                                                                                    |
@@ -322,7 +324,7 @@ export default config;
 
 ### Minifizierung (Feld-Schlüssel-Umbennung)
 
-`build.minify` verkleinert **nicht** Ihr JavaScript-Bundle — das erledigt Ihr Bundler. Stattdessen schrumpft es die kompilierten Wörterbuch-JSON-Dateien, indem jeder benutzerdefinierte Inhaltsfeld-Schlüssel durch einen kurzen alphabetischen Alias ersetzt wird:
+`build.minify` verkleinert **nicht** Ihr JavaScript-Bundle, das erledigt Ihr Bundler. Stattdessen schrumpft es die kompilierten Wörterbuch-JSON-Dateien, indem jeder benutzerdefinierte Inhaltsfeld-Schlüssel durch einen kurzen alphabetischen Alias ersetzt wird:
 
 ```
 // Vor der Minifizierung
@@ -346,11 +348,11 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> Die Minifizierung wird übersprungen, wenn `optimize` auf `false` gesetzt ist. Wenn `editor.enabled` auf `true` steht, läuft sie weiterhin, jedoch ohne den Schritt zur Feldumbenennung — der visuelle Editor löst Bearbeitungen über `keyPath` auf, daher müssen die ursprünglichen Feldnamen erhalten bleiben.
+> Die Minifizierung wird übersprungen, wenn `optimize` auf `false` gesetzt ist. Wenn `editor.enabled` auf `true` steht, läuft sie weiterhin, jedoch ohne den Schritt zur Feldumbenennung, der visuelle Editor löst Bearbeitungen über `keyPath` auf, daher müssen die ursprünglichen Feldnamen erhalten bleiben.
 
 > Unter Next.js wird die Minifizierung außerdem übersprungen, wenn `@intlayer/swc` nicht installiert ist oder nicht geladen werden kann (Next.js unterhalb von 16.1.0). Das Plugin ist die Hälfte, die die Quellcode-Zugriffe umschreibt; die Wörterbücher ohne es umzubenennen, würde Ihren Code Feldnamen lesen lassen, die es nicht mehr gibt.
 
-> Die Minifizierung wird ebenfalls für Wörterbücher übersprungen, die über `importMode: 'fetch'` geladen werden, da deren JSON von einer Remote-API mit den ursprünglichen Feldnamen bereitgestellt wird — das Umbenennen der clientseitigen Schlüssel würde den Server/Client-Vertrag brechen.
+> Die Minifizierung wird ebenfalls für Wörterbücher übersprungen, die über `importMode: 'fetch'` geladen werden, da deren JSON von einer Remote-API mit den ursprünglichen Feldnamen bereitgestellt wird, das Umbenennen der clientseitigen Schlüssel würde den Server/Client-Vertrag brechen.
 
 ### Purging (Entfernen ungenutzter Felder)
 
@@ -378,7 +380,7 @@ export default config;
 { "title": "…", "subtitle": "…" }
 ```
 
-> Der Purge wird übersprungen, wenn `optimize` auf `false` gesetzt ist. Er bleibt aktiv, wenn `editor.enabled` auf `true` steht — ein bereinigtes Feld wird von keiner Komponente gelesen, daher rendert der Editor es nie. Unter Next.js wird er zusätzlich übersprungen, wenn `@intlayer/swc` nicht verfügbar ist und wenn Kompatibilitäts-Adapter-Aufrufer konfiguriert sind.
+> Der Purge wird übersprungen, wenn `optimize` auf `false` gesetzt ist. Er bleibt aktiv, wenn `editor.enabled` auf `true` steht, ein bereinigtes Feld wird von keiner Komponente gelesen, daher rendert der Editor es nie. Unter Next.js wird er zusätzlich übersprungen, wenn `@intlayer/swc` nicht verfügbar ist und wenn Kompatibilitäts-Adapter-Aufrufer konfiguriert sind.
 
 > Der Purge wird auch konservativ übersprungen, wenn eine Quelldatei nicht analysiert werden kann, oder wenn das Ergebnis von `useIntlayer` einer Variablen zugewiesen und auf eine Weise weitergegeben wird, die der statische Analysator nicht verfolgen kann (z.B. in ein Objekt eingefügt oder als Prop ohne Destrukturierung übergeben). In diesen Fällen wird das gesamte Wörterbuch beibehalten.
 
@@ -508,6 +510,8 @@ const content = useDictionaryAsync({
 ```
 
 > Weitere Details finden Sie in der CMS-Dokumentation: [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md)
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md)
 
 > Im Fetch-Modus werden Purge und Minifizierung nicht angewendet, da das JSON von einer Remote-API mit den ursprünglichen Feldnamen bereitgestellt wird.
 

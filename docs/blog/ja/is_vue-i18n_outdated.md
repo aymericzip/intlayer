@@ -88,6 +88,8 @@ style="border:none;"
 
 > 実ブラウザ環境で本番用gzip圧縮を適用して計測。詳細は[Vueベンチマークドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/vue.md)をご覧ください。
 
+- [Vueベンチマークドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/vue.md)
+
 ### 初期ライブラリのサイズ
 
 翻訳テキストを読み込む前のフットプリント:
@@ -178,6 +180,9 @@ const { title } = useIntlayer("hero");
 
 [Intlayerコンパイラ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)はアクセスされたプロパティを正確に追跡し、クライアント用チャンクをビルドする前に未使用データをカットします。詳細は[バンドル最適化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)をご覧ください。
 
+- [Intlayerコンパイラ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)
+- [バンドル最適化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)
+
 ## 開発体験（DX）の比較
 
 ### 分離されたJSONとコンポーネント共配置
@@ -255,6 +260,8 @@ const { title } = useIntlayer("hero");
 
 Intlayerでは辞書の内容が厳密に検証されます。[`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を有効にすれば、いずれかの言語で翻訳が不足している場合にビルドエラーが発生します。
 
+- [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)
+
 ### エディタおよびAIツールのサポート
 
 | ツール                            | `vue-i18n`          | Intlayer                                                                                                           |
@@ -278,6 +285,8 @@ Intlayerは自前のツールチェーンを提供しています。
 **セルフホスト対応ビジュアルCMS:**
 
 [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を起動し、非エンジニアのメンバーがWeb上で修正した内容を直接Gitに保存できます。
+
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)
 
 **オープンソースライセンス:**
 

@@ -49,6 +49,8 @@ Nel 2026 non devi riscrivere il tuo codice. Con **Intlayer**, puoi integrare l'i
 
 > Cerchi la guida tecnica completa passo-passo per Vite e React? Consulta la nostra documentazione: [Tradurre Vite e React con Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_vite+react.md).
 
+- [Tradurre Vite e React con Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_vite+react.md)
+
 ## Indice
 
 <TOC/>
@@ -332,6 +334,8 @@ Questa guida ha offerto una panoramica concettuale per internazionalizzare un'ap
 Se desideri configurare passo dopo passo ogni dettaglio, compresi il supporto avanzato a TypeScript, i dizionari dinamici e l'editor visivo, visita la nostra guida ufficiale:
 
 👉 **[Guida completa per tradurre Vite e React con Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_vite+react.md)**
+
+- [Guida completa per tradurre Vite e React con Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_vite+react.md)
 
 ## Domande Frequenti (FAQ)
 

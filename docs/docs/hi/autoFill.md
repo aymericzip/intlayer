@@ -118,6 +118,8 @@ export default exampleContent;
 
 यहाँ `fill` instruction का उपयोग करने वाली एक [per-locale content declaration file](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/per_locale_file.md) है।
 
+- [per-locale content declaration file](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/per_locale_file.md)
+
 फिर, जब आप निम्नलिखित आदेश चलाते हैं:
 
 ```bash packageManager="npm"

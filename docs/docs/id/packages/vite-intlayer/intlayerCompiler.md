@@ -27,9 +27,11 @@ author: aymericzip
 
 # intlayerCompiler
 
-`intlayerCompiler` adalah plugin Vite yang memindai file sumber komponen untuk **deklarasi konten Intlayer inline** — konten yang ditentukan secara langsung di dalam komponen alih-alih di file `.content.ts` terpisah — dan menulisnya ke file JSON kamus selama fase transform.
+`intlayerCompiler` adalah plugin Vite yang memindai file sumber komponen untuk **deklarasi konten Intlayer inline**, konten yang ditentukan secara langsung di dalam komponen alih-alih di file `.content.ts` terpisah, dan menulisnya ke file JSON kamus selama fase transform.
 
 > **Sejak Intlayer v9** `intlayerCompiler` secara otomatis disertakan di dalam plugin utama [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/vite-intlayer/intlayer.md) ketika `compiler.enabled` bernilai `true` dan `compiler.output` diatur dalam konfigurasi Intlayer Anda. Anda hanya perlu mendaftarkannya secara terpisah ketika Anda ingin kontrol penuh atas konfigurasi khusus kompilator.
+
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/vite-intlayer/intlayer.md)
 
 ## Penggunaan
 
@@ -118,4 +120,4 @@ Debounce 500 ms mencegah penulisan kamus itu sendiri (yang juga memicu event per
 
 ### Deduplikasi
 
-`intlayerCompiler` menggunakan mekanisme deduplikasi `createPrimaryInstanceGuard` yang sama dengan plugin bawaan lainnya. Ketika panggilan `intlayer()` (yang membundel kompilator) dan panggilan manual `intlayerCompiler()` ada, hanya instans terdaftar pertama yang berjalan — tidak ada kamus yang ditulis dua kali.
+`intlayerCompiler` menggunakan mekanisme deduplikasi `createPrimaryInstanceGuard` yang sama dengan plugin bawaan lainnya. Ketika panggilan `intlayer()` (yang membundel kompilator) dan panggilan manual `intlayerCompiler()` ada, hanya instans terdaftar pertama yang berjalan, tidak ada kamus yang ditulis dua kali.

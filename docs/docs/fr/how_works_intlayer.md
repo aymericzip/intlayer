@@ -85,6 +85,8 @@ Ce hook gérera pour vous la détection de la locale et renverra le contenu pour
 
 > Pour voir toutes les fonctionnalités d'Intlayer, vous pouvez lire la [documentation des dictionnaires](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/content_file.md).
 
+- [documentation des dictionnaires](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/content_file.md)
+
 ## Contenu distant
 
 Intlayer vous permet de déclarer du contenu localement, puis de l'exporter vers le CMS pour le rendre éditable par votre équipe non technique.
@@ -96,6 +98,8 @@ Pour les dictionnaires externalisés utilisant le CMS, Intlayer effectue une op�
 ## Éditeur visuel
 
 Intlayer fournit également un éditeur visuel pour vous permettre d'éditer votre contenu de manière visuelle. Cet [éditeur visuel](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md) est disponible dans le package externe `intlayer-editor`.
+
+- [éditeur visuel](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md)
 
 ![éditeur visuel](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif?raw=true)
 
@@ -118,11 +122,15 @@ En mode développement, Intlayer utilise une importation statique centralisée p
 
 En activant l'option `importMode = "dynamic"` dans la configuration `dictionary` de la [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md), Intlayer utilisera l'importation dynamique pour charger les dictionnaires. Cette option est désactivée par défaut pour éviter le traitement asynchrone lors du rendu de l'application.
 
+- [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md)
+
 > `@intlayer/babel` est disponible par défaut dans le package `vite-intlayer`,
 
 > `@intlayer/swc` n'est pas installé par défaut dans le package `next-intlayer` car les plugins SWC sont encore expérimentaux sur Next.js.
 
 Pour voir comment configurer la construction de votre application, vous pouvez lire la [documentation de configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md).
+
+- [documentation de configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md)
 
 ## Packages
 
@@ -344,22 +352,38 @@ Au moment du build. Le plugin du bundler, ou `npx intlayer build`, analyse vos f
 
 Bien moins qu'une configuration basée sur des espaces de noms, car une page ne télécharge jamais un catalogue qu'elle n'affiche pas. Le balisage rendu côté serveur résout son contenu sur le serveur, et le compilateur au moment du build remplace les appels `useIntlayer` par les entrées de dictionnaire exactes qu'un composant utilise, si bien que les clés inutilisées et les langues inutilisées sont éliminées. Les [dictionnaires dynamiques](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dynamic_dictionaries/index.md) répartissent le reste par locale. Mesuré face aux alternatives habituelles, Intlayer réduit la taille du bundle et des pages jusqu'à 50 %. Voir l'[optimisation du bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/bundle_optimization.md) et le [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/benchmark/index.md).
 
+- [dictionnaires dynamiques](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dynamic_dictionaries/index.md)
+- [optimisation du bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/bundle_optimization.md)
+- [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/benchmark/index.md)
+
 </Question>
 <Question title="Puis-je migrer depuis `i18next`, `next-intl` ou `react-i18next` sans réécrire mes composants ?">
 
 Oui, et il existe deux voies. Vous pouvez migrer le contenu progressivement avec le [guide de migration i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/migration_from_i18next_to_intlayer.md) ou le [guide de migration next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/migration_from_next-intl_to_intlayer.md). Ou vous pouvez conserver entièrement votre API actuelle : les [adaptateurs de compatibilité](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compat/index.md) exposent exactement la même API que `i18next`, `react-i18next`, `next-intl`, `next-i18next`, `react-intl`, `use-intl`, `vue-i18n` et `Lingui`, mais servie par des dictionnaires Intlayer : seuls les imports changent, pas le code des composants.
+
+- [guide de migration i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/migration_from_i18next_to_intlayer.md)
+- [guide de migration next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/migration_from_next-intl_to_intlayer.md)
+- [adaptateurs de compatibilité](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compat/index.md)
 
 </Question>
 <Question title="Puis-je conserver mes fichiers de traduction JSON existants ?">
 
 Oui. Le [plugin de synchronisation JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/plugins/sync-json.md) conserve vos fichiers `/messages/{locale}/{namespace}.json` comme source de vérité et génère les dictionnaires Intlayer à partir d'eux, dans les deux sens. Un [plugin de synchronisation PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/plugins/sync-po.md) fait de même pour les catalogues gettext, et les [fichiers par locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/per_locale_file.md) permettent de séparer le contenu par langue au lieu de regrouper les locales dans un seul fichier.
 
+- [plugin de synchronisation JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/plugins/sync-json.md)
+- [plugin de synchronisation PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/plugins/sync-po.md)
+- [fichiers par locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/per_locale_file.md)
+
 </Question>
 <Question title="Dois-je déplacer mon contenu clé par clé ?">
 
 Non. Lancez `npx intlayer extract` et Intlayer lit vos fichiers source, en extrait les chaînes destinées aux utilisateurs et écrit un fichier `.content` à côté de chacun, de sorte que vous relisez un diff plutôt que de copier des chaînes dans un catalogue une par une. Voir la [commande extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/extract.md).
 
+- [commande extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/extract.md)
+
 Pour un pipeline entièrement automatisé, le [compilateur Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compiler.md) fait la même chose au moment du build sur du code source JSX, TSX, Vue et Svelte, en générant les dictionnaires à chaque changement, de sorte qu'il n'y a aucune clé à maintenir à la main. Il fonctionne par analyse statique : les chaînes qui n'existent qu'à l'exécution restent hors de portée, et il a besoin de quelques annotations pour distinguer le texte destiné aux utilisateurs de la logique applicative.
+
+- [compilateur Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compiler.md)
 
 </Question>
 <Question title="Quels outils d'éditeur et d'agent IA sont disponibles ?">
@@ -382,10 +406,14 @@ C'est la sortie générée : les dictionnaires compilés et les types générés
 
 À partir des sources listées dans `routing.storage`, dans l'ordre : le préfixe d'URL lorsque `routing.mode` en utilise un, puis un cookie, puis l'en-tête `Accept-Language`, puis votre locale par défaut. Une locale que l'utilisateur choisit explicitement est persistée, elle survit donc à la visite suivante. Voir la [référence de configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md).
 
+- [référence de configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md)
+
 </Question>
 <Question title="Quelle est la différence entre les dictionnaires locaux et distants ?">
 
 Un dictionnaire local est déclaré dans votre base de code et compilé avec votre application. Un dictionnaire distant est géré dans le [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md) et résolu à l'exécution, il peut donc changer sans déploiement. Les deux sont lus via les mêmes hooks, et le contenu distant se replie sur la déclaration locale lorsqu'il est indisponible.
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md)
 
 </Question>
 <Question title="Intlayer fonctionne-t-il sans TypeScript ?">
@@ -406,6 +434,9 @@ La locale est résolue une seule fois sur le serveur et transmise au provider, p
 <Question title="Dois-je reconstruire lorsque j'ajoute une traduction ?">
 
 En développement, non : le plugin surveille vos fichiers de contenu et reconstruit les dictionnaires affectés à l'enregistrement. En production, les dictionnaires font partie du build, sauf si le contenu est distant, auquel cas le [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md) et la [synchronisation en direct](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/live.md) appliquent le changement sans déploiement.
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md)
+- [synchronisation en direct](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/live.md)
 
 </Question>
 

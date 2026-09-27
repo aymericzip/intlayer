@@ -95,6 +95,8 @@ const exampleContent = {
 export default exampleContent;
 ```
 
+- [ملفات تعريف المحتوى (.content.ts)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md)
+
 ## مثال على الاستخدام في مكون عميل React
 
 فيما يلي مثال على كيفية استخدام الخطاف `useDictionary` في مكون React:

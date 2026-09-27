@@ -31,6 +31,8 @@ author: aymericzip
 
 👉 [लाइव डेमो](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/interest_of_intlayer.md) 👉 [कोड बॉयलरप्लेट](https://github.com/aymericzip/smart_doc_RAG)
 
+- [लाइव डेमो](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/interest_of_intlayer.md)
+
 ## परिचय
 
 यदि आप कभी दस्तावेज़ में खो गए हैं, एक उत्तर के लिए अंतहीन स्क्रॉलिंग करते हुए, तो आप जानते हैं कि यह कितना दर्दनाक हो सकता है। दस्तावेज़ उपयोगी होते हैं, लेकिन वे स्थिर होते हैं और उनमें खोज करना अक्सर जटिल लगता है।
@@ -242,6 +244,8 @@ docUrl: "https://example.com/docs/hi/another-doc"
 
 👉 [यहाँ डेमो आज़माएँ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/interest_of_intlayer.md) 👉 [GitHub पर कोड टेम्पलेट देखें](https://github.com/aymericzip/smart_doc_RAG)
 
+- [यहाँ डेमो आज़माएँ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/interest_of_intlayer.md)
+
 </Step>
 <Step number={10} title="आगे बढ़ना">
 
@@ -295,6 +299,8 @@ RAG LLMs को व्यावहारिक बनाने के सबस�
 - एक उत्पाद रणनीति उपकरण
 
 👉 [यहाँ डेमो आज़माएँ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/interest_of_intlayer.md) 👉 [GitHub पर कोड टेम्पलेट देखें](https://github.com/aymericzip/smart_doc_RAG)
+
+- [यहाँ डेमो आज़माएँ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/interest_of_intlayer.md)
 
 और यदि आप भी RAG के साथ प्रयोग कर रहे हैं, तो मैं सुनना चाहूंगा कि आप इसे कैसे उपयोग कर रहे हैं।
 

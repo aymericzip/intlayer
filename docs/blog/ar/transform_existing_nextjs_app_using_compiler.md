@@ -51,6 +51,8 @@ author: aymericzip
 
 > هل تبحث عن الدليل الفني الشامل خطوة بخطوة لـ Next.js 16 App Router؟ راجع وثائقنا المخصصة: [ترجمة Next.js 16 باستخدام Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_16.md).
 
+- [ترجمة Next.js 16 باستخدام Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_16.md)
+
 ## جدول المحتويات
 
 <TOC/>
@@ -266,6 +268,8 @@ export const generateMetadata = async (): Promise<Metadata> => {
 قدم هذا الدليل نظرة شاملة على كيفية تحويل تطبيق Next.js الحالي إلى تطبيق متعدد اللغات في عام 2026. للاطلاع على الدليل الفني المفصل خطوة بخطوة، بما في ذلك البرمجيات الوسيطة والتوليد الثابت (`generateStaticParams`) ومكونات الخادم، تفضل بزيارة توثيقنا الرسمي:
 
 👉 **[الدليل الكامل لترجمة Next.js 16 مع Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_16.md)**
+
+- [الدليل الكامل لترجمة Next.js 16 مع Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_16.md)
 
 ## الأسئلة الشائعة (FAQ)
 

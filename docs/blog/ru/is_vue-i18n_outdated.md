@@ -88,6 +88,8 @@ style="border:none;"
 
 > Измерения в реальных браузерах с gzip-сжатием. Данные доступны в [документации бенчмарка Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/vue.md).
 
+- [документации бенчмарка Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/vue.md)
+
 ### Начальный оверхед библиотек
 
 Размер до добавления переводов:
@@ -178,6 +180,9 @@ const { title } = useIntlayer("hero");
 
 [Компилятор Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compiler.md) отслеживает точные обращения к полям и исключает лишнее до сборки клиентских файлов. Подробнее в [оптимизации бандла](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/bundle_optimization.md).
 
+- [Компилятор Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compiler.md)
+- [оптимизации бандла](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/bundle_optimization.md)
+
 ## Опыт разработки
 
 ### Внешние каталоги против совместного размещения
@@ -255,6 +260,8 @@ const { title } = useIntlayer("hero");
 
 В Intlayer словари валидируются строго. Включение [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md) приводит к ошибке сборки при отсутствии перевода в любом настроенном языке.
 
+- [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md)
+
 ### Инструменты для IDE и ИИ
 
 | Возможность                 | `vue-i18n`            | Intlayer                                                                                                                 |
@@ -278,6 +285,8 @@ Intlayer предлагает встроенные решения:
 **Автономная визуальная CMS:**
 
 Используйте [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md), чтобы контент-менеджеры редактировали тексты визуально с фиксацией изменений прямо в Git.
+
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md)
 
 **Свободная лицензия:**
 

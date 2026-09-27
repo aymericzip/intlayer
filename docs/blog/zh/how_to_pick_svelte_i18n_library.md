@@ -67,6 +67,8 @@ Paraglide 将每条消息编译为导出的函数，以便打包工具对路由�
 
 [JavaScript i18n 历史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/history_of_i18n.md) 详细探讨了每一波浪潮。
 
+- [JavaScript i18n 历史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/history_of_i18n.md)
+
 ## 最关键的抉择：内容存放在哪里以及何时加载
 
 两个架构选择解释了不同方案之间大部分的 bundle 差异：
@@ -80,11 +82,17 @@ Paraglide 将每条消息编译为导出的函数，以便打包工具对路由�
 
 `svelte-i18n` 默认位于左上方：`register("fr", () => import("./fr.json"))` 提供了按 locale 的动态加载，但一个 locale catalog 是一个完整对象，加载它就会同时加载所有页面的文案。Paraglide 是一个有趣的案例：因为每条消息都是独立的导出，tree-shaking 免费提供了页面维度的精简，[Svelte 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/svelte.md) 证实它在 Vite + Svelte 上确实如宣传的那样有效（但在 React 和 Next.js 的基准测试中并未奏效）。Intlayer 则通过按组件声明达到了相同的效果。
 
+- [Svelte 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/svelte.md)
+
 如果你对第 3 个问题的答案是“很多页面”，请把这一节作为比任何 API 偏好都更核心的考量。[按组件 vs 集中式 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/per-component_vs_centralized_i18n.md) 一文探讨了这一权衡在维护层面的影响。
+
+- [按组件 vs 集中式 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/per-component_vs_centralized_i18n.md)
 
 ## 候选方案一览
 
 各库的体积数据来源于 [Svelte 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/svelte.md)：空组件中的 store 加访问器在经过打包、tree-shaking 和压缩后的体积（基于 10 个页面和 10 个 locale 的应用）。内容体积单独计算。
+
+- [Svelte 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/svelte.md)
 
 ![Svelte i18n 库生态系统](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
@@ -113,6 +121,8 @@ Paraglide 趋近于零的库体积是其架构使然：运行时代码直接生�
 
 状态共享问题决定了这个选择。`svelte-i18n` 可以在 SvelteKit 上运行，但针对每个请求的隔离配置（`hooks.server.ts`、`locals`、`load`，然后调用 `setContext`）需要你自己编写，稍有不慎就容易出错。Paraglide 提供了处理路由并按每次调用读取 locale 的 SvelteKit 集成，从而避开了单例问题。Intlayer 将 `load` 数据中的 locale 设置到 context 中。[SvelteKit i18n 文章](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_svelte_kit.md) 解释了 `[[lang]]` 与 `reroute` 的选择，你应该在选定库之前做好这一决策。
 
+- [SvelteKit i18n 文章](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_svelte_kit.md)
+
 </Accordion>
 <Accordion header="翻译来自 TMS 或交付 ICU 的机构">
 
@@ -127,6 +137,8 @@ Paraglide 趋近于零的库体积是其架构使然：运行时代码直接生�
 <Accordion header="类型安全不可妥协">
 
 除了纯裸配置的 `svelte-i18n` 之外都可以（在 `svelte-i18n` 中唯一的类型化手段是手写 union，且会迅速与 JSON 脱节）。`typesafe-i18n`、Paraglide 和 Intlayer 都会根据内容自动生成类型。在将代码库绑定到 `typesafe-i18n` 之前，请先检查其仓库的活跃度。[检测缺失翻译](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/detecting_missing_translations.md) 一文对比了各方案在构建阶段能够捕获的错误类型。
+
+- [检测缺失翻译](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/detecting_missing_translations.md)
 
 </Accordion>
 <Accordion header="不希望代码库中包含生成文件">
@@ -378,6 +390,8 @@ export default cartSummaryContent;
 
 已经在用 `svelte-i18n` 了？[`@intlayer/svelte-i18n` 兼容适配器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/svelte-i18n.md) 能够在打包工具层面为该 package 设置别名，从而让 `$_`、`$date`、`$number` 以及你的扁平 key 继续工作，同时底层由 Intlayer 提供内容服务。
 
+- [`@intlayer/svelte-i18n` 兼容适配器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/svelte-i18n.md)
+
 ## 做出承诺前需要注意的事项
 
 功能特性表只能说明一个库今天能做什么。以下这些点则能告诉你长期维护它的体验如何。
@@ -400,6 +414,9 @@ export default cartSummaryContent;
 
 AI Agent 在处理 i18n 时仍面临挑战：它们容易遗漏 locale、臆造 key 并混淆消息语法。该库是否提供 [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md) 或 [MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)，以便 Agent 可以列出、补全和测试内容？内容加载是否默认经过优化，还是需要有人每个季度都去审查 namespace 和懒加载 import？
 
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)
+- [MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)
+
 **开箱即用的类型安全。**
 
 指的不是“通过额外配置可以实现类型化”，而是“在全新安装后，输入错误的 key 就会导致 `tsc` 报错”。检查在 key 不存在时以及某个 locale 缺失翻译时会发生什么。
@@ -411,6 +428,13 @@ Catalog 只会不断增长。Intlayer 的构建流程会清理未使用的字段
 **开发者体验。**
 
 从配置到输出第一个翻译字符串所需的时间、能够在 hover 时显示翻译并跳转到声明的 [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md) 或 [VS Code 插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/vs_code_extension.md)、用于 fill、test 和 push 的 [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)、能把组件中硬编码的字符串提取出来、免去逐个键维护的[编译器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md)或提取工具，以及非开发人员无需提交 pull request 即可编辑内容的方式（[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md) 或 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)）。
+
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)
+- [VS Code 插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/vs_code_extension.md)
+- [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)
+- [编译器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md)
+- [可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
 
 ## 常见问题解答
 
@@ -437,6 +461,8 @@ Catalog 只会不断增长。Intlayer 的构建流程会清理未使用的字段
 <Question title="库的选择会影响 SEO 吗？">
 
 会有间接影响。搜索引擎爬虫关注的是路由、`hreflang`、`<html lang>` 以及文本是否包含在服务端渲染的 HTML 中。详情请参阅 [hreflang 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/hreflang_guide_multilingual_seo.md)。
+
+- [hreflang 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/hreflang_guide_multilingual_seo.md)
 
 </Question>
 

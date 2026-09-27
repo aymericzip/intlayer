@@ -64,6 +64,8 @@ export default config;
 
 Para saber mais sobre o CMS, consulte a [documentação oficial](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md).
 
+- [CMS do Intlayer: externalize seu conteúdo multilíngue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md)
+
 ## Usando Husky
 
 Você pode integrar a geração de traduções no seu fluxo de trabalho local do Git usando o [Husky](https://typicode.github.io/husky/).
@@ -100,6 +102,8 @@ npx intlayer fill --unpushed --mode fill    # Apenas preenche o conteúdo faltan
 ```
 
 > Para mais informações sobre os comandos CLI do Intlayer e seu uso, consulte a [documentação CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/index.md).
+
+- [documentação CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/index.md)
 
 > Se você tiver múltiplos aplicativos no seu repositório usando instâncias separadas do Intlayer, você pode usar o argumento `--base-dir` assim:
 
@@ -200,3 +204,5 @@ Para configurar as variáveis de ambiente, vá para GitHub → Configurações �
 > Por padrão, o argumento `--git-diff` filtra os dicionários que incluem alterações da base (padrão `origin/main`) para o branch atual (padrão: `HEAD`).
 
 > Para mais informações sobre os comandos do Intlayer CLI e seu uso, consulte a [documentação do CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/index.md).
+
+- [documentação do CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/index.md)

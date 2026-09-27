@@ -49,6 +49,38 @@ Middleware виконує такі завдання для кожного вхі
 3. **Заповнення контексту запиту**: Зберігає поточну визначену локаль у контексті запиту Remix за допомогою ключа `Intlayer`, що дозволяє хукам (`useLocale`, `useIntlayer`, `useDictionary`) прозоро її використовувати.
 4. **Керування cookie**: Встановлює заголовок `Set-Cookie`, коли потрібно зберегти бажану локаль користувача.
 
+## Параметри
+
+Функція `intlayer` приймає необов'язкові параметри `IntlayerMiddlewareOptions`:
+
+```ts
+import { intlayer, type IntlayerMiddlewareOptions } from "remix-intlayer";
+
+const options: IntlayerMiddlewareOptions = {
+  // Перевизначення користувацької конфігурації маршрутизації
+};
+
+const middleware = intlayer(options);
+```
+
+## Прямий доступ до контексту
+
+Окрім використання хуків, ви можете отримати визначений стан `IntlayerState` безпосередньо з контексту запиту Remix:
+
+```ts
+import { Intlayer } from "remix-intlayer";
+
+router.get("/api/locale", (context) => {
+  // Через context.get()
+  const state = context.get(Intlayer);
+
+  // Або через пряму властивість context.intlayer
+  const { locale } = context.intlayer;
+
+  return Response.json({ locale });
+});
+```
+
 ## Пов'язана документація
 
 - [Контекст запиту `Intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/remix-intlayer/Intlayer.md)

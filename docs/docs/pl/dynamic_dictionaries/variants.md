@@ -23,7 +23,7 @@ history:
     changes: "Wydanie funkcji wariantów"
   - version: 9.1.0
     date: 2026-06-26
-    changes: "`variant` akceptuje teraz ciąg znaków lub obiekt — dawne rekordy `meta` / dynamiczne są deklarowane jako warianty obiektowe"
+    changes: "`variant` akceptuje teraz ciąg znaków lub obiekt, dawne rekordy `meta` / dynamiczne są deklarowane jako warianty obiektowe"
   - version: 9.1.1
     date: 2026-07-31
     changes: "Wariant deklaruje tylko klucze, które nadpisuje; niezadeklarowane warianty powracają do domyślnego wpisu"
@@ -39,8 +39,8 @@ author: aymericzip
 
 Wartość `variant` może przyjmować **dwie formy**:
 
-- **Ciąg znaków** — pojedyncza nazwana alternatywa (testy A/B, banery sezonowe, feature flagi).
-- **Obiekt** — strukturalny dyskryminator adresowany zestawem pól (rekordy CMS, treść zależna od użytkownika, dowolna treść z nieprzezroczystym ID jako kluczem). Tożsamością jest cały obiekt: selektor musi dostarczyć **równy** obiekt, aby rozwiązać wpis.
+- **Ciąg znaków**: pojedyncza nazwana alternatywa (testy A/B, banery sezonowe, feature flagi).
+- **Obiekt**: strukturalny dyskryminator adresowany zestawem pól (rekordy CMS, treść zależna od użytkownika, dowolna treść z nieprzezroczystym ID jako kluczem). Tożsamością jest cały obiekt: selektor musi dostarczyć **równy** obiekt, aby rozwiązać wpis.
 
 > Forma obiektowa zastępuje dawne pole `meta`. Wszędzie, gdzie wcześniej pisałeś `meta: { id, … }`, napisz `variant: { id, … }` i wybierz ją przez `{ variant: { id, … } }`.
 
@@ -74,8 +74,8 @@ const dictionary = {
   variant: "black_friday",
   content: {
     headline: t({
-      en: "50 % off — today only",
-      fr: "−50 % — aujourd'hui seulement",
+      en: "50 % off, today only",
+      fr: "−50 %, aujourd'hui seulement",
     }),
     cta: t({ en: "Shop now", fr: "Acheter maintenant" }),
   },
@@ -107,7 +107,7 @@ export default dictionary;
 
 ```tsx
 useIntlayer("hero-banner", { variant: "summer" });
-// → { headline: "Développez plus vite tout l'été", cta: "Commencer" } — `cta` odziedziczone
+// → { headline: "Développez plus vite tout l'été", cta: "Commencer" }, `cta` odziedziczone
 
 useIntlayer("hero-banner", { variant: "never-declared" });
 // → wpis domyślny
@@ -278,7 +278,7 @@ const content = useIntlayer("hero-banner", {
 
 ## Warianty obiektowe (strukturalne)
 
-Wariant obiektowy adresuje treść dowolnym zestawem par klucz-wartość zadeklarowanych w polu `variant` — co umożliwia modelowanie rekordów CMS, treści zależnej od użytkownika lub dowolnej treści z nieprzezroczystym ID jako kluczem. Tożsamością jest **cały obiekt**: selektor musi dostarczyć równy obiekt, aby wpis został rozwiązany.
+Wariant obiektowy adresuje treść dowolnym zestawem par klucz-wartość zadeklarowanych w polu `variant`, co umożliwia modelowanie rekordów CMS, treści zależnej od użytkownika lub dowolnej treści z nieprzezroczystym ID jako kluczem. Tożsamością jest **cały obiekt**: selektor musi dostarczyć równy obiekt, aby wpis został rozwiązany.
 
 ```ts fileName="product.abc.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
@@ -495,7 +495,7 @@ const content = useIntlayer("product", {
 });
 ```
 
-#### Brakujące pole — brak dopasowania
+#### Brakujące pole, brak dopasowania
 
 ```ts
 // Zwraca null: brakuje `userId`, więc obiekt nie pasuje do zadeklarowanego wariantu
@@ -504,7 +504,7 @@ const content = useIntlayer("product", { variant: { id: "prod_abc" } });
 
 ## Wariant otaczający
 
-Niektóre wymiary wariantu są stałe przez całą sesję — najemca, typ szkoły, poziom planu. Są rozstrzygane raz i żaden komponent nie powinien przekazywać ich ręcznie.
+Niektóre wymiary wariantu są stałe przez całą sesję, najemca, typ szkoły, poziom planu. Są rozstrzygane raz i żaden komponent nie powinien przekazywać ich ręcznie.
 
 > Nie opakowuj `useIntlayer` we własny hook, aby je wstrzyknąć. Optymalizacja na etapie budowania przepisuje wyłącznie dosłowne wywołanie `useIntlayer("key")` zaimportowane z pakietu frameworka, więc nic za opakowaniem nie trafi do bundla.
 
@@ -647,7 +647,7 @@ useIntlayer("hero-banner");
 // → wariant dostawcy
 
 useIntlayer("hero-banner", { variant: "summer" });
-// → "summer" — zastępuje wariant dostawcy, nie rozszerza go
+// → "summer", zastępuje wariant dostawcy, nie rozszerza go
 ```
 
 ### Formy
@@ -662,7 +662,7 @@ Prop `variant` przyjmuje trzy formy:
 
 #### Łańcuch preferencji
 
-Łańcuch jest przechodzony od lewej do prawej względem wpisów deklarowanych przez każdy klucz i wygrywa pierwszy zadeklarowany. Gdy żaden nie jest zadeklarowany, używany jest niejawny wpis domyślny — dokładnie tak jak dla pojedynczej wartości.
+Łańcuch jest przechodzony od lewej do prawej względem wpisów deklarowanych przez każdy klucz i wygrywa pierwszy zadeklarowany. Gdy żaden nie jest zadeklarowany, używany jest niejawny wpis domyślny, dokładnie tak jak dla pojedynczej wartości.
 
 ```tsx
 <IntlayerProvider variant={["school1", "school2"]} />
@@ -692,9 +692,9 @@ Adresuj każdy klucz słownika osobno. Zarezerwowany wpis `default` obejmuje wsz
 />
 ```
 
-> Na dostawcy zwykły obiekt jest **zawsze** odczytywany jako mapa według klucza, nigdy jako wariant obiektowy — oba są strukturalnie identyczne. Aby ustalić wariant obiektowy globalnie, zagnieźdź go pod wpisem: `variant={{ default: { id: "prod_abc" } }}`.
+> Na dostawcy zwykły obiekt jest **zawsze** odczytywany jako mapa według klucza, nigdy jako wariant obiektowy, oba są strukturalnie identyczne. Aby ustalić wariant obiektowy globalnie, zagnieźdź go pod wpisem: `variant={{ default: { id: "prod_abc" } }}`.
 
-Ponieważ klucze mapy są sprawdzane względem zadeklarowanych kluczy słowników, literówka — lub wariant obiektowy zapisany wprost, taki jak `variant={{ id: "prod_abc" }}` — jest błędem kompilacji.
+Ponieważ klucze mapy są sprawdzane względem zadeklarowanych kluczy słowników, literówka (lub wariant obiektowy zapisany wprost, taki jak `variant={{ id: "prod_abc" }}`) jest błędem kompilacji.
 
 ## Tryb ładowania
 
@@ -712,6 +712,8 @@ export default dictionary;
 ```
 
 Zobacz [optymalizację bundla](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/bundle_optimization.md), aby poznać szczegóły trybów `static`, `dynamic` i `fetch`.
+
+- [optymalizację bundla](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/bundle_optimization.md)
 
 ## Typowe przypadki użycia
 

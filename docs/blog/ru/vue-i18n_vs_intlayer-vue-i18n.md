@@ -30,6 +30,8 @@ author: aymericzip
 
 В этой статье измеряется эта замена в одном и том же приложении Vite + Vue 3, собранном один раз с `vue-i18n` и один раз с адаптером. Цифры взяты из [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Для сравнения `vue-i18n` и Intlayer как библиотек прочитайте [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/vue-i18n_vs_intlayer.md) и [бенчмарк vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/vue-i18n_vs_intlayer.md). Это о том, какие изменения вносит адаптер, когда вы оставляете свои компоненты как они есть.
 
+- [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/vue-i18n_vs_intlayer.md)
+
 <TOC/>
 
 > **tl;dr**: На том же приложении Vite + Vue 3 замена `vue-i18n` на `@intlayer/vue-i18n` снизила JavaScript на страницу с **134.9 KB до 47.0 KB** gzip (приложение без i18n весит 41.3 KB), runtime с **24.3 KB до 7.9 KB**, средний компонент с **196 KB до 8.4 KB**, и утечку строк на иностранных страницах с **90% на 0%**, без редактирования файлов `.vue`. `createI18n({ messages })` продолжает работать как fallback; удалите импорты JSON для получения указанных выше значений. SFC блоки `<i18n>` и runtime `setLocaleMessage()`, это два функционала, которые не переносятся.
@@ -137,6 +139,8 @@ style="border:none;"
 />
 
 > Полная таблица, каждая библиотека и каждая стратегия, в [отчете о бенчмарке Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/vue.md).
+
+- [отчете о бенчмарке Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/vue.md)
 
 ## Почему меняются цифры
 
@@ -286,6 +290,8 @@ export const i18n = createI18n({ locale: "en" });
 
 `setLocaleMessage()` и `mergeLocaleMessage()` выводят предупреждение и завершают работу. Переводы, получаемые из CMS во время выполнения, требуют [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md) или команд `intlayer pull` / `push`.
 
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md)
+
 </Accordion>
 <Accordion header="messages является запасным вариантом, но не бесплатным">
 
@@ -316,6 +322,9 @@ export const i18n = createI18n({ locale: "en" });
 
 Для новых проектов или когда адаптер выполнил свою задачу. Он имеет самый легкий рантайм (3.9 КБ) и модель `.content.ts` для каждого компонента, заменяющую блоки `<i18n>` типизированным содержимым. Начните с [Intlayer с Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_vite+vue.md) или [с Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_nuxt.md).
 
+- [Intlayer с Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_vite+vue.md)
+- [с Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_nuxt.md)
+
 </Accordion>
 </AccordionGroup>
 
@@ -339,11 +348,16 @@ export const i18n = createI18n({ locale: "en" });
 
 Сохранено. Конфигурации `datetimeFormats` и `numberFormats`, переданные в `createI18n()`, учитываются и поддерживаются нативным `Intl`. См. [форматирование даты, времени и чисел](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/date_time_number_formatting_locales.md).
 
+- [форматирование даты, времени и чисел](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/date_time_number_formatting_locales.md)
+
 </Question>
 
 <Question title="Работает ли это с Nuxt?">
 
 `@intlayer/vue-i18n` ориентирован на Vite + Vue. Для `@nuxtjs/i18n` используйте [адаптер совместимости Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/nuxtjs-i18n.md) и ознакомьтесь с [Intlayer с Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_nuxt.md) для нативной настройки.
+
+- [адаптер совместимости Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/nuxtjs-i18n.md)
+- [Intlayer с Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_nuxt.md)
 
 </Question>
 
@@ -394,3 +408,5 @@ export const i18n = createI18n({ locale: "en" });
 Все исходные данные, тестовые приложения и сценарии находятся в [репозитории Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Запустите его самостоятельно.
 
 Обратитесь к документации ['Почему Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/interest_of_intlayer.md) для получения дополнительной информации.
+
+- [Почему Intlayer? Преимущества перед другими i18n-библиотеками](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/interest_of_intlayer.md)

@@ -46,10 +46,16 @@ Intlayer는 i18n 생태계에서 **가장 활발하게 개발되는** 솔루션�
 
 콘텐츠의 위치를 통일(Colocation)하면 대규모 언어 모델(LLM)에 필요한 **컨텍스트가 줄어듭니다**. Intlayer에는 누락된 번역을 테스트하기 위한 **CLI**, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/mcp_server.md)** 및 **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/agent_skills.md)** 등 일련의 도구가 있어 AI 에이전트를 위한 개발자 경험(DX)이 훨씬 매끄러워집니다.
 
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/mcp_server.md)
+- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/agent_skills.md)
+
 </Accordion>
 <Accordion header="자동화">
 
 AI 제공 업체의 비용만으로 원하는 LLM을 사용하여 CI/CD 파이프라인에서 번역을 자동화하세요. Intlayer는 콘텐츠 추출을 자동화하기 위한 **컴파일러**와 **백그라운드 번역**을 지원하는 [웹 플랫폼](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)도 제공합니다.
+
+- [웹 플랫폼](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="성능">
@@ -60,6 +66,9 @@ AI 제공 업체의 비용만으로 원하는 LLM을 사용하여 CI/CD 파이�
 <Accordion header="비개발자와의 스케일업">
 
 Intlayer는 단순한 i18n 솔루션을 넘어, 자체 호스팅이 가능한 **[시각적 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)**와 다국어 콘텐츠를 **실시간**으로 관리할 수 있는 **[풀 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)**를 제공합니다. 이를 통해 번역가, 카피라이터 및 기타 팀 구성원과 원활하게 협업할 수 있습니다. 콘텐츠는 로컬 및/또는 원격으로 저장될 수 있습니다.
+
+- [시각적 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)
+- [풀 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
@@ -72,9 +81,9 @@ Intlayer는 단순한 i18n 솔루션을 넘어, 자체 호스팅이 가능한 **
 
 `@nuxtjs/i18n`은 내부적으로 `vue-i18n`에 의해 작동하므로, Intlayer로 마이그레이션하기 위한 두 가지 보완적 전략이 있습니다:
 
-1. **호환성 어댑터 (기존 앱에 권장)** — `@intlayer/vue-i18n`과 `nuxt-intlayer`를 설치하세요. 이 기능은 `vue-i18n`과 **정확히 동일한 API**를 노출하지만, 모든 번역 작업을 Intlayer에 위임합니다. `$t`, `useI18n()` 및 Nuxt 라우팅에 대한 기존 호출은 그대로 유지됩니다. 변경 사항은 초기화뿐입니다.
+1. **호환성 어댑터 (기존 앱에 권장)**: `@intlayer/vue-i18n`과 `nuxt-intlayer`를 설치하세요. 이 기능은 `vue-i18n`과 **정확히 동일한 API**를 노출하지만, 모든 번역 작업을 Intlayer에 위임합니다. `$t`, `useI18n()` 및 Nuxt 라우팅에 대한 기존 호출은 그대로 유지됩니다. 변경 사항은 초기화뿐입니다.
 
-2. **전체 마이그레이션** — `@nuxtjs/i18n` API를 점진적으로 기본 Intlayer 훅(`useIntlayer`)으로 교체하고 컴포넌트와 함께 `.content.ts` 파일 내에 콘텐츠를 배치합니다.
+2. **전체 마이그레이션**: `@nuxtjs/i18n` API를 점진적으로 기본 Intlayer 훅(`useIntlayer`)으로 교체하고 컴포넌트와 함께 `.content.ts` 파일 내에 콘텐츠를 배치합니다.
 
 이 가이드에서는 먼저 **전략 1** (쉽게 도입할 수 있는 호환성 어댑터)에 대해 설명하고, 선택 사항인 전체 마이그레이션에 대해 알아봅니다.
 
@@ -256,6 +265,8 @@ export default config;
 
 > 사용할 수 있는 모든 옵션은 [Intlayer CLI 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/index.md)에서 확인하세요.
 
+- [Intlayer CLI 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/index.md)
+
 </Step>
 
 </Steps>
@@ -270,7 +281,7 @@ export default config;
 | `package.json` 안의 `@nuxtjs/i18n` | `nuxt-intlayer`로 완전히 대체되었습니다.                                                                                              |
 | JSON 언어 번들 (`locales/*.json`)  | JSON 번들은 `syncJSON` 플러그인을 여전히 사용할 때만 필요합니다. `.content.ts` 파일로 이전을 완료하면 JSON 폴더를 삭제할 수 있습니다. |
 
-한 단계 더 나아갈 준비가 되면 Intlayer는 **코드베이스 내의 모든 `.content.ts` 및 `.content.json` 파일을 자동으로 감지합니다**(기본적으로 `./src` 내의 어느 곳에서든). `MyComponent.vue` 바로 옆에 `my-component.content.ts` 파일을 추가하기만 하면 Intlayer는 별도 설정 없이 컴파일 타임에 이를 감지합니다 — 가져오기, 등록, 중앙 인덱스 파일이 필요 없습니다. 페이지와 컴포넌트에서 번역의 위치 통일이 매우 매끄러워집니다.
+한 단계 더 나아갈 준비가 되면 Intlayer는 **코드베이스 내의 모든 `.content.ts` 및 `.content.json` 파일을 자동으로 감지합니다**(기본적으로 `./src` 내의 어느 곳에서든). `MyComponent.vue` 바로 옆에 `my-component.content.ts` 파일을 추가하기만 하면 Intlayer는 별도 설정 없이 컴파일 타임에 이를 감지합니다. 가져오기, 등록, 중앙 인덱스 파일이 필요 없습니다. 페이지와 컴포넌트에서 번역의 위치 통일이 매우 매끄러워집니다.
 
 ## TypeScript 설정
 

@@ -34,6 +34,8 @@ author: aymericzip
 
 На відміну від [`enu`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/enumeration.md), який вибирає контент на основі числових діапазонів, визначених вами самостійно, `plural` делегує вибір правилам CLDR. Це робить його масштабованим для мов зі складними правилами множини, таких як українська, польська, арабська або валлійська, без необхідності вручну писати логіку по модулю.
 
+- [`enu`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/enumeration.md)
+
 ## Коли використовувати `plural` замість `enu`
 
 | Варіант використання                                                               | Хелпер   |

@@ -25,6 +25,8 @@ author: aymericzip
 
 Для полного и подробного пошагового учебника см. наше полное [руководство по миграции react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/migration_from_react-i18next_to_intlayer.md).
 
+- [руководство по миграции react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/migration_from_react-i18next_to_intlayer.md)
+
 Использование адаптера совместимости Intlayer позволяет вам переместить с `react-i18next` без каких-либо изменений в импортах исходного кода.
 
 ## Что делать

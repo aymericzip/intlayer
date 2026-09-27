@@ -30,7 +30,7 @@ author: aymericzip
 
 # Integrasi Preact: Dokumentasi Hook `usePathname`
 
-Hook `usePathname` mengembalikan pathname browser saat ini dengan segmen locale yang telah dihilangkan. Hal ini berguna untuk membangun navigasi yang peka terhadap locale — misalnya, menentukan item navigasi mana yang aktif — tanpa harus menghilangkan awalan locale secara manual.
+Hook `usePathname` mengembalikan pathname browser saat ini dengan segmen locale yang telah dihilangkan. Hal ini berguna untuk membangun navigasi yang peka terhadap locale (misalnya, menentukan item navigasi mana yang aktif) tanpa harus menghilangkan awalan locale secara manual.
 
 ## Mengimpor `usePathname` di Preact
 

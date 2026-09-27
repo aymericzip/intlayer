@@ -366,6 +366,8 @@ export default {
 
 > راجع [إعلان المحتوى حسب اللغة في Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/per_locale_file.md) لمزيد من المعلومات.
 
+- [إعلان المحتوى حسب اللغة في Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/per_locale_file.md)
+
 **مثال:**
 
 ```jsonc
@@ -476,6 +478,8 @@ export default aboutPageMetaContent;
 
 > راجع [تكوين التعبئة التلقائية في Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/autoFill.md) لمزيد من المعلومات.
 
+- [تكوين التعبئة التلقائية في Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/autoFill.md)
+
 ##### `priority` (عدد)
 
 يشير إلى أولوية القاموس لحل التعارضات. عندما تحتوي عدة قواميس على نفس المفتاح، فإن القاموس ذو الرقم الأعلى في الأولوية سيتجاوز الآخرين. هذا مفيد لإدارة تسلسل المحتوى والتجاوزات.
@@ -503,6 +507,8 @@ export default aboutPageMetaContent;
 
 يُستخدم بالاقتران مع المجموعات (Collections)، ويحدد هذا الحقل موضع العنصر في المجموعة. يسمح لك ببناء مجموعات مرتبة من العناصر المترجمة القابلة للاختيار عن طريق الفهرس في وقت التشغيل.
 
+- [المجموعات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dynamic_dictionaries/collections.md)
+
 **مثال:**
 
 ```typescript
@@ -518,9 +524,13 @@ export default aboutPageMetaContent;
 
 > انظر [المجموعات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dynamic_dictionaries/collections.md) لمزيد من المعلومات.
 
+- [المجموعات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dynamic_dictionaries/collections.md)
+
 #### `variant` (سلسلة نصية)
 
 يُستخدم بالاقتران مع المتغيرات (Variants)، ويحدد هذا الحقل بدائل المحتوى المسماة. يتيح لك التبديل بين الأشكال المختلفة لنفس مفتاح القاموس في وقت التشغيل دون تغيير الكود (على سبيل المثال، لاختبارات A/B، واللافتات الموسمية). إذا لم يتم تقديمه، فسيتم اعتباره المتغير الافتراضي.
+
+- [المتغيرات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dynamic_dictionaries/variants.md)
 
 **مثال:**
 
@@ -529,13 +539,15 @@ export default aboutPageMetaContent;
   key: "hero-banner",
   variant: "black_friday",
   content: {
-    headline: "50 % off — today only",
+    headline: "50 % off, today only",
     cta: "Shop now"
   }
 }
 ```
 
 > انظر [المتغيرات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dynamic_dictionaries/variants.md) لمزيد من المعلومات.
+
+- [المتغيرات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dynamic_dictionaries/variants.md)
 
 ### خصائص نظام إدارة المحتوى
 
@@ -610,6 +622,8 @@ multilingualContent: t({
 
 > راجع [محتوى الترجمة (`t`) توثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/translation.md) لمزيد من المعلومات.
 
+- [محتوى الترجمة (`t`) توثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/translation.md)
+
 ### محتوى الشرط (`cond`)
 
 محتوى يتغير بناءً على شروط منطقية:
@@ -624,6 +638,8 @@ conditionalContent: cond({
 ```
 
 > راجع [محتوى الشرط (`cond`) توثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/condition.md) لمزيد من المعلومات.
+
+- [محتوى الشرط (`cond`) توثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/condition.md)
 
 ### محتوى التعداد (`enu`)
 
@@ -641,6 +657,8 @@ statusContent: enu({
 
 > راجع [محتوى التعداد (`enu`) توثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/enumeration.md) لمزيد من المعلومات.
 
+- [محتوى التعداد (`enu`) توثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/enumeration.md)
+
 ### محتوى الجمع (`plural`)
 
 المحتوى الذي يختلف بناءً على قواعد الجمع:
@@ -656,6 +674,8 @@ pluralContent: plural({
 
 > راجع [محتوى الجمع توثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/plural.md) لمزيد من المعلومات.
 
+- [محتوى الجمع توثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/plural.md)
+
 ### محتوى الإدراج (`insert`)
 
 محتوى يمكن إدراجه داخل محتويات أخرى:
@@ -668,6 +688,8 @@ insertionContent: insert("يمكن إدراج هذا النص في أي مكان
 
 > راجع [محتوى الإدراج (`insert`) توثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/insertion.md) لمزيد من المعلومات.
 
+- [محتوى الإدراج (`insert`) توثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/insertion.md)
+
 ### المحتوى المتداخل (`nest`)
 
 مراجع إلى قواميس أخرى:
@@ -679,6 +701,8 @@ nestedContent: nest("about-page");
 ```
 
 > راجع [المحتوى المتداخل (`nest`) توثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/nesting.md) لمزيد من المعلومات.
+
+- [المحتوى المتداخل (`nest`) توثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/nesting.md)
 
 ### محتوى ماركداون (`md`)
 
@@ -693,6 +717,8 @@ markdownContent: md(
 ```
 
 > راجع [محتوى ماركداون (`md`) توثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/markdown.md) لمزيد من المعلومات.
+
+- [محتوى ماركداون (`md`) توثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/markdown.md)
 
 ### محتوى HTML (`html`)
 
@@ -713,6 +739,8 @@ localizedHtmlContent: t({
 
 > راجع [محتوى HTML (`html`) توثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/html.md) لمزيد من المعلومات.
 
+- [محتوى HTML (`html`) توثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/html.md)
+
 ### محتوى الجنس (`gender`)
 
 محتوى يتغير بناءً على الجنس:
@@ -729,9 +757,11 @@ genderContent: gender({
 
 > راجع [محتوى الجنس (`gender`) توثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/gender.md) لمزيد من المعلومات.
 
+- [محتوى الجنس (`gender`) توثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/gender.md)
+
 ### المحتوى المعتمد على الاختيار (`select`)
 
-محتوى يتغير بناءً على قيمة نصية عشوائية — ما يعادل `select` في ICU:
+محتوى يتغير بناءً على قيمة نصية عشوائية، ما يعادل `select` في ICU:
 
 ```typescript
 import { select } from "intlayer";
@@ -748,6 +778,8 @@ selectContent: select({
 
 > راجع [المحتوى المعتمد على الاختيار](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/select.md) لمزيد من المعلومات.
 
+- [المحتوى المعتمد على الاختيار](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/select.md)
+
 ### محتوى الملف (`file`)
 
 مراجع لملفات خارجية:
@@ -759,6 +791,8 @@ fileContent: file("./path/to/content.txt");
 ```
 
 > راجع [محتوى الملف (`file`) توثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/file.md) لمزيد من المعلومات.
+
+- [محتوى الملف (`file`) توثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/file.md)
 
 ## إنشاء ملفات المحتوى
 

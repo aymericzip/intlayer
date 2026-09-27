@@ -23,6 +23,8 @@ Polecenie `editor` opakowuje polecenia `intlayer-editor`.
 
 > Aby móc używać polecenia `editor`, pakiet `intlayer-editor` musi być zainstalowany. (Zobacz [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md))
 
+- [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md)
+
 ```json fileName="package.json"
 "scripts": {
   "intlayer:editor:start": "npx intlayer editor start --with 'next dev --turbopack'"

@@ -30,6 +30,8 @@ author: aymericzip
 
 Niniejszy artykuł mierzy tę zamianę na tej samej aplikacji TanStack Start, zbudowanej raz z czystym Lingui, a raz z adapterem. Dane liczbowe pochodzą z repozytorium [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Bezpośrednie porównanie obu bibliotek znajdziesz w artykule [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/lingui_vs_intlayer.md). Ten wpis skupia się na tym, co zmienia adapter i w jakich kwestiach nie przynosi on korzyści.
 
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/lingui_vs_intlayer.md)
+
 <TOC/>
 
 > **W skrócie (tl;dr)**: Na tej samej aplikacji TanStack Start `@intlayer/lingui` zmniejszył średni rozmiar komponentu z **85,5 KB do 12,8 KB** gzip, czas hydratacji z **28 ms do 19,7 ms**, a przełączanie języka z **5,9 ms do 2,9 ms**, bez modyfikacji makr. W podstawowej konfiguracji (wszystkie katalogi ładowane na starcie) wyeliminował także **90% wycieku stron** i zaoszczędził 12 KB na stronę. Jednak w konfiguracji z leniwym ładowaniem (lazy loading) przesyła **137 KB na stronę w porównaniu do 115 KB** dla czystego Lingui: adapter interpretuje składnię ICU w czasie wykonywania, podczas gdy Lingui dostarcza wstępnie skompilowane tablice tokenów. Wyciek języka źródłowego (~9-10%) jest identyczny po obu stronach, ponieważ wynika z zapasowego tekstu `message` osadzonego w komponentach, a nie z samego runtime'u. Adapter jest wtyczką do Vite; pomiary przeprowadzono na TanStack Start.
@@ -230,6 +232,8 @@ export default config;
 
 Dla katalogów `.po` zastąp `syncJSON` wtyczką `syncPO` z pakietu `@intlayer/sync-po-plugin` z tym samym wzorcem `source` i rozszerzeniem `.po`. Szczegóły znajdziesz w [dokumentacji wtyczki Sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/plugins/sync-po.md).
 
+- [dokumentacji wtyczki Sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/plugins/sync-po.md)
+
 Parametr `splitKeys: "key-prefix"` stanowi klucz do drastycznego zmniejszenia wagi komponentów. Sam plik katalogu zachowuje swoją płaską strukturę; podział istnieje tylko w generowanych słownikach, a mechanizm zapisu zwrotnego automatycznie scala klucze.
 
 </Step>
@@ -307,3 +311,5 @@ Wtyczka `lingui()` integruje `vite-intlayer` (obserwacja zawartości, kompilacja
 Wszystkie surowe dane pomiarowe, aplikacje demonstracyjne i skrypty znajdziesz w [repozytorium Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Możesz uruchomić je samodzielnie.
 
 Więcej szczegółów technicznych znajdziesz w dokumencie ['Dlaczego Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/interest_of_intlayer.md).
+
+- [Dlaczego Intlayer? Zalety na tle innych bibliotek i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/interest_of_intlayer.md)

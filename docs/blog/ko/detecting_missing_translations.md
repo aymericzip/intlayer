@@ -46,7 +46,11 @@ const config = {
 export default config;
 ```
 
+- [Sync JSON 플러그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/plugins/sync-json.md)
+
 런타임 API를 기존과 동일하게 유지하고 싶다면, [호환 어댑터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/index.md)를 통해 번들러 수준에서 `useTranslation`, `$t` 등을 별칭(alias) 처리할 수 있습니다. 어떤 방식이든 아래의 명령어들을 하나의 구체적인 구현 방안으로 이해하시면 됩니다.
+
+- [호환 어댑터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/index.md)
 
 ## 번역 누락이 보이지 않는 이유
 
@@ -98,6 +102,8 @@ export default [
 ```
 
 `no-unused-content`는 카탈로그가 불필요하게 비대해지는 것을 방지합니다. 사용되지 않는 키가 오류를 일으키지는 않지만, 외부 번역 에이전시 비용을 낭비하게 만듭니다. 자세한 규칙 목록은 [ESLint 플러그인 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/eslint.md)를 참고하세요.
+
+- [ESLint 플러그인 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/eslint.md)
 
 ## 계층 3: 로케일 커버리지 감사 (Audit)
 
@@ -179,6 +185,8 @@ curl -s https://example.com/ja/checkout | grep -c "Add to cart"
 ## 빈틈 채우기
 
 누락된 부분이 확인되면 `intlayer fill`을 통해 비어 있는 항목을 채울 수 있으며, `autoFill` 옵션을 통해 콘텐츠 선언 시점에 언어별 파일을 자동 생성할 수도 있습니다. 자세한 내용은 [autoFill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/autoFill.md) 문서를 참고하세요.
+
+- [autoFill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/autoFill.md)
 
 기계 번역 자동 채우기는 **보이던 공백을 보이지 않는 공백으로 바꿀 뿐**이라는 점을 명확히 인지해야 합니다. 키가 채워졌으므로 감사는 통과하지만, 그 문장을 검토한 사람은 아무도 없습니다. 배포를 진행하기 위한 임시 수단으로 활용하고, 구매 전환이나 결제에 직결되는 핵심 문구는 반드시 사람의 검토를 거치도록 하세요.
 

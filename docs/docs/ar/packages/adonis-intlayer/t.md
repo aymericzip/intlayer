@@ -137,3 +137,5 @@ export default config;
 ### تكامل TypeScript
 
 دالة `t` آمنة من حيث النوع عند استخدامها مع قواميس محددة. لمزيد من التفاصيل، راجع [توثيق TypeScript](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
+
+- [توثيق TypeScript](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md)

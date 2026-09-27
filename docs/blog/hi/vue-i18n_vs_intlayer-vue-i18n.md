@@ -30,6 +30,8 @@ author: aymericzip
 
 यह लेख एक ही Vite + Vue 3 एप्लिकेशन पर इस स्वैप को मापता है, एक बार `vue-i18n` के साथ और एक बार एडेप्टर के साथ निर्मित। संख्याएँ [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) से आती हैं। `vue-i18n` और Intlayer की तुलना लाइब्रेरी के रूप में करने के लिए, [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/vue-i18n_vs_intlayer.md) और [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/vue-i18n_vs_intlayer.md) पढ़ें। यह इस बारे में है कि जब आप अपने components को वैसे ही रखते हैं तो एडेप्टर क्या बदलता है।
 
+- [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/vue-i18n_vs_intlayer.md)
+
 <TOC/>
 
 > **tl;dr**: एक ही Vite + Vue 3 ऐप्लिकेशन पर, `vue-i18n` को `@intlayer/vue-i18n` से बदलने से प्रति-पृष्ठ JavaScript **134.9 KB से 47.0 KB** gzip तक कम हो गया (i18n के बिना ऐप 41.3 KB वजन का है), runtime **24.3 KB से 7.9 KB**, औसत component **196 KB से 8.4 KB**, और foreign-page string leakage **90% से 0%**, बिना किसी `.vue` फ़ाइल को संपादित किए। `createI18n({ messages })` fallback के रूप में काम करता रहता है; ऊपर दिए गए नंबर प्राप्त करने के लिए JSON imports हटाएं। SFC `<i18n>` blocks और runtime `setLocaleMessage()` वे दो features हैं जो carry over नहीं होते हैं।
@@ -137,6 +139,8 @@ style="border:none;"
 />
 
 > पूरी तालिका, प्रत्येक लाइब्रेरी और रणनीति, [Vue बेंचमार्क रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/vue.md) में।
+
+- [Vue बेंचमार्क रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/vue.md)
 
 ## संख्याएं क्यों बदलती हैं
 
@@ -286,6 +290,8 @@ export const i18n = createI18n({ locale: "en" });
 
 `setLocaleMessage()` और `mergeLocaleMessage()` चेतावनी देते हैं और वापस लौट जाते हैं। रनटाइम पर CMS से लाए गए अनुवादों के लिए [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md) या `intlayer pull` / `push` कमांड की आवश्यकता होती है।
 
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md)
+
 </Accordion>
 <Accordion header="messages एक फ़ॉलबैक है, मुफ़्त नहीं">
 
@@ -316,6 +322,9 @@ export const i18n = createI18n({ locale: "en" });
 
 नई परियोजनाओं के लिए, या एक बार जब एडाप्टर अपना काम कर ले। इसमें सबसे हल्का रनटाइम (3.9 KB) और प्रति-घटक `.content.ts` मॉडल है जो `<i18n>` ब्लॉक को टाइप की गई सामग्री से बदलता है। [Vue के साथ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_vite+vue.md) या [Nuxt के साथ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nuxt.md) से शुरुआत करें।
 
+- [Vue के साथ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_vite+vue.md)
+- [Nuxt के साथ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nuxt.md)
+
 </Accordion>
 </AccordionGroup>
 
@@ -339,11 +348,16 @@ export const i18n = createI18n({ locale: "en" });
 
 बनाए रखा गया है। `createI18n()` को दिए गए `datetimeFormats` और `numberFormats` का सम्मान किया जाता है, जो नेटिव `Intl` API द्वारा समर्थित हैं। [दिनांक, समय और संख्या फ़ॉर्मेटिंग](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/date_time_number_formatting_locales.md) देखें।
 
+- [दिनांक, समय और संख्या फ़ॉर्मेटिंग](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/date_time_number_formatting_locales.md)
+
 </Question>
 
 <Question title="क्या यह Nuxt के साथ काम करता है?">
 
 `@intlayer/vue-i18n` Vite + Vue को लक्षित करता है। `@nuxtjs/i18n` के लिए, [Nuxt i18n संगतता एडाप्टर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/nuxtjs-i18n.md) का उपयोग करें, और नेटिव सेटअप के लिए [Nuxt के साथ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nuxt.md) देखें।
+
+- [Nuxt i18n संगतता एडाप्टर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/nuxtjs-i18n.md)
+- [Nuxt के साथ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nuxt.md)
 
 </Question>
 
@@ -394,3 +408,5 @@ export const i18n = createI18n({ locale: "en" });
 [Benchmark Bloom repository](https://github.com/intlayer-org/benchmark-bloom) में सभी raw data, test apps और scripts हैं। इसे अपने आप चलाएं।
 
 अधिक विवरण के लिए ['Why Intlayer?' doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/interest_of_intlayer.md) देखें।
+
+- [Intlayer क्यों? अन्य i18n लाइब्रेरी से बेहतर क्या है](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/interest_of_intlayer.md)

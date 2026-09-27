@@ -140,6 +140,9 @@ A única estrutura a evitar: servir diferentes idiomas na **mesma URL** com base
 
 > Intlayer cobre todos os três através de `routing.mode` e `routing.domains`. Veja [custom domains](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/custom_domains.md) e a [referência de configuração](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md).
 
+- [custom domains](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/custom_domains.md)
+- [referência de configuração](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md)
+
 ## Implementação
 
 Escrever essas tags manualmente não sobrevive ao contato com um segundo locale. Derive-as da sua lista de locales em vez disso.
@@ -188,6 +191,8 @@ export const generateMetadata = async ({
 
 Setup completo: [Guia i18n Next.js 16](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_with_nextjs_16.md).
 
+- [Guia i18n Next.js 16](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_with_nextjs_16.md)
+
 </Tab>
 
 <Tab label="TanStack Start" value="tanstack">
@@ -227,6 +232,8 @@ export const Route = createFileRoute("/{-$locale}/about")({
 ```
 
 `head` executa no servidor, então as tags chegam no HTML inicial. Setup completo: [guia i18n do TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_with_tanstack.md).
+
+- [guia i18n do TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_with_tanstack.md)
 
 </Tab>
 

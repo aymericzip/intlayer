@@ -66,6 +66,8 @@ author: aymericzip
 
 [i18n बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/nextjs.md) प्रत्येक प्रमुख लाइब्रेरी के साथ समान 10-पेज, 10-लोकेल Next.js ऐप चलाता है और मापता है कि ब्राउज़र वास्तव में क्या डाउनलोड करता है।
 
+- [i18n बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/nextjs.md)
+
 <I18nBenchmark framework="nextjs" packages="lingui,@intlayer/lingui,next-intlayer" vertical/>
 
 Next.js 16 पर `@lingui/core@6.6.0` के लिए मुख्य आंकड़े, 2026-09-26 को मापे गए (gzip):
@@ -83,6 +85,8 @@ Next.js 16 पर `@lingui/core@6.6.0` के लिए मुख्य आं�
 - **Lingui रनटाइम का वजन ~72 KB gzip है।** `@intlayer/lingui` कम्पैट अडैप्टर रनटाइम को घटाकर ~11 KB कर देता है, लेकिन इस बेंचमार्क में Next.js कम्पैट सेटअप अभी भी पूरे कैटलॉग को पेज पर भेजता है। मूल `next-intlayer` API वह सेटअप है जो बेस ऐप के आकार पर बना रहता है।
 
 > पूरा डेटा देखें: [Next.js बेंचमार्क रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/nextjs.md), और [बेंचमार्क रिपोजिटरी](https://github.com/intlayer-org/benchmark-i18n)।
+
+- [Next.js बेंचमार्क रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/nextjs.md)
 
 ## Next.js पर सुविधाओं की तुलना
 
@@ -108,6 +112,9 @@ Next.js App Router प्रोजेक्ट में आमतौर पर 
 | **इकोसिस्टम / समुदाय**               | ⚠️ छोटा, तेजी से बढ़ रहा है                        | ✅ परिपक्व                                                      | ✅ बड़ा                                         |
 
 > रनटाइम आकार [Next.js बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/nextjs.md) से लिए गए हैं। विस्तृत चर्चा के लिए, [Lingui बनाम Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/lingui_vs_intlayer.md) पढ़ें।
+
+- [Next.js बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/nextjs.md)
+- [Lingui बनाम Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/lingui_vs_intlayer.md)
 
 > अन्य Next.js गाइड:
 
@@ -1041,9 +1048,17 @@ export const sendContactMessage = async (formData: FormData) => {
 
 [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/lingui.md) कम्पैट अडैप्टर आपके स्रोत को अछूता रखता है: मैक्रोज़ पहले की तरह संकलित होते हैं, और परिणामी `i18n._()`, `useLingui()` और `<Trans>` कॉल Intlayer शब्दकोशों द्वारा सेवित किए जाते हैं। Next.js बेंचमार्क में, रनटाइम **~72.1 KB से घटकर ~10.7 KB** gzip हो जाता है।
 
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/lingui.md)
+
 Next.js पर, अडैप्टर को `next.config.ts` (webpack और Turbopack) में `@lingui/core` और `@lingui/react` को `@intlayer/lingui` में उपनाम (alias) देकर, और कॉन्फ़िग को `next-intlayer/server` से `withIntlayer` के साथ लपेटकर जोड़ा जाता है। `@lingui/swc-plugin` बनाए रखें ताकि मैक्रोज़ अभी भी पहले संकलित हों। पूरा कॉन्फ़िगरेशन [Lingui कम्पैट गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/lingui.md) में है।
 
+- [Lingui कम्पैट गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/lingui.md)
+
 जैसा कि बेंचमार्क तालिका से पता चलता है, अडैप्टर रनटाइम को कम करता है लेकिन Next.js पर प्रत्येक पेज पर भेजे जाने वाले कैटलॉग को अभी कम नहीं करता है। इसका सबसे अच्छा उपयोग प्रवासन सेतु (migration bridge) के रूप में किया जाता है: एक बार जब यह काम करने लगे, तो घटकों को एक-एक करके मूल `useIntlayer` API में स्थानांतरित करें, जो केवल वही सामग्री भेजता है जो प्रत्येक घटक रेंडर करता है। [Next.js + Intlayer गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nextjs_16.md), [Lingui बनाम @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/lingui_vs_intlayer-lingui.md) और सभी [कम्पैट अडैप्टर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/index.md) देखें।
+
+- [Next.js + Intlayer गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nextjs_16.md)
+- [Lingui बनाम @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/lingui_vs_intlayer-lingui.md)
+- [कम्पैट अडैप्टर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/index.md)
 
 </Step>
 <Step number={19} title="Intlayer का उपयोग करके अपने अनुवाद स्वचालित करें" isOptional={true}>
@@ -1086,15 +1101,23 @@ Server Components में कोई context नहीं होता है, 
 
 [बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/nextjs.md) रनटाइम के लिए ~72 KB gzip मापता है। प्रति लोकेल एक कैटलॉग के साथ, बिना i18n वाले 141 KB के मुकाबले पेजों का वजन ~145 KB होता है, लेकिन प्रत्येक पेज अभी भी क्लाइंट प्रोवाइडर के माध्यम से अन्य पेजों के संदेश प्राप्त करता है।
 
+- [बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/nextjs.md)
+
 </Question>
 <Question title="Lingui, next-intl या next-i18next: Next.js के लिए मुझे किसे चुनना चाहिए?">
 
 Lingui उन टीमों के लिए उपयुक्त है जो घटकों में स्रोत टेक्स्ट लिखना और PO फ़ाइलों तथा अनुवादकों के साथ काम करना पसंद करती हैं। next-intl उन टीमों के लिए उपयुक्त है जो JSON कैटलॉग और Next.js के साथ एकीकृत `t("key")` API पसंद करती हैं। next-i18next i18next प्लगइन इकोसिस्टम लाता है। [next-i18next बनाम next-intl बनाम Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/next-i18next_vs_next-intl_vs_intlayer.md) और [Next.js बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/nextjs.md) देखें।
 
+- [next-i18next बनाम next-intl बनाम Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/next-i18next_vs_next-intl_vs_intlayer.md)
+- [Next.js बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/nextjs.md)
+
 </Question>
 <Question title="क्या मैं अपने घटकों को फिर से लिखे बिना Lingui से Intlayer में माइग्रेट कर सकता हूँ?">
 
 हाँ। [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/lingui.md) अडैप्टर मैक्रोज़ को बनाए रखता है और रनटाइम को स्वैप करता है, फिर आप घटकों को उत्तरोत्तर `useIntlayer` में ले जा सकते हैं। [कम्पैट अडैप्टर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/index.md) देखें।
+
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/lingui.md)
+- [कम्पैट अडैप्टर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/index.md)
 
 </Question>
 

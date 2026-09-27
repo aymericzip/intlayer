@@ -31,6 +31,9 @@ Jedes unten aufgeführte Muster funktioniert auf jedem i18n-Stack. Ersetzen Sie 
 
 Auch die Abdeckungswerkzeuge lassen sich direkt übertragen: Mit dem [Sync JSON-Plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/plugins/sync-json.md), das auf Ihre bestehenden Kataloge verweist, oder einem [Kompatibilitätsadapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compat/index.md), der Ihre aktuellen Imports verknüpft, wird die Abdeckungsprüfung direkt gegen Ihr vorhandenes JSON ausgeführt.
 
+- [Sync JSON-Plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/plugins/sync-json.md)
+- [Kompatibilitätsadapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compat/index.md)
+
 ## Festlegen, was wirklich getestet werden soll
 
 Übersetzungsqualität lässt sich nicht per Assertion prüfen. Keine Überprüfung kann feststellen, ob das Deutsch idiomatisch klingt, und der Versuch führt lediglich zu einer Test-Suite voller fest codierter Zeichenketten.
@@ -46,6 +49,8 @@ Was sich mechanisch testen lässt und sinnvoll ist:
 | Formatierte Daten und Zahlen nutzen Locale  | Interne Korrektheit von `Intl`          |
 
 Die Abdeckungsprüfung gehört in einen datengetriebenen Test, nicht in Komponententests. Dies wird in [Fehlende Übersetzungen aufspüren](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/detecting_missing_translations.md) behandelt; dieser Beitrag widmet sich dem Rest.
+
+- [Fehlende Übersetzungen aufspüren](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/detecting_missing_translations.md)
 
 ## Unter einem Provider rendern und nach Rollen abfragen
 
@@ -122,6 +127,8 @@ describe.each([0, 1, 2, 3, 11, 100])("anzahl %i", (count) => {
 ```
 
 Wählen Sie Zahlenwerte, die jede CLDR-Kategorie Ihrer komplexesten Zielsprache abdecken, statt überall nur 1 und 2 zu prüfen. `Intl.PluralRules` verrät, in welche Kategorie eine Zahl fällt, sodass Sie die Stichproben ableiten können. Mehr dazu im [Beitrag zum ICU-Message-Format](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/icu_message_format.md).
+
+- [Beitrag zum ICU-Message-Format](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/icu_message_format.md)
 
 ## Die Snapshot-Falle
 

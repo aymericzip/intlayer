@@ -33,6 +33,8 @@ author: aymericzip
 
 本文在同一个 Next.js 应用上对两者进行了比较，一次使用 `next-intl` 构建，一次使用适配器构建。这些数据来自 [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom)，一个记录浏览器实际下载内容的开源套件。如果你想要 `next-intl` vs Intlayer 作为库的比较，请阅读 [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/next-intl_vs_intlayer.md)。本文是关于当你保持组件原样不变时，适配器改变了什么。
 
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/next-intl_vs_intlayer.md)
+
 <TOC/>
 
 > **简明摘要**: 在同一个 Next.js 应用中，将 `next-intl` 替换为 `@intlayer/next-intl` 使每页 JavaScript 从 **153.6 KB 降至 147.5 KB**（gzip），平均组件从 **21.8 KB 降至 8.1 KB**，外页字符串泄漏从 **~90% 降至 0%**，水合从 **14.7 ms 降至 12.8 ms**，期间未编辑任何组件。在 TanStack Start 上，`use-intl` 等价物（`@intlayer/use-intl`）将组件从 **76-87 KB 缩减至 9-11 KB**，区域设置切换从 **7-21 ms 缩减至 4-9 ms**。适配器运行时成本为 **8.0 KB**，而 `next-intl` 为 **14.7 KB**，原生 `next-intlayer` 为 **5.5 KB**。导航和中间件在 Intlayer 的路由配置上重新实现；本地化 `pathnames` 是未被转移的唯一功能。
@@ -145,6 +147,8 @@ style="border:none;"
 
 > 完整表格、所有库和策略请参阅 [Next.js 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md)。
 
+- [Next.js 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md)
+
 ### TanStack Start 上的结果（`use-intl`）
 
 `use-intl` 是 `next-intl` 的框架无关核心。其 adapter `@intlayer/use-intl` 采用相同的设计，配合 Vite plugin（`@intlayer/use-intl/plugin`）。
@@ -176,6 +180,8 @@ style="border:none;"
 />
 
 > 完整表格请参阅 [TanStack Start 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md)。
+
+- [TanStack Start 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md)
 
 ## 为什么数字会变动
 
@@ -329,6 +335,8 @@ export default withIntlayer(nextConfig);
 
 格式化器由原生 `Intl` 提供支持，只有当前语言会影响其输出。如果您依赖强制的时区或固定的 `now` 来获得注水稳定的日期，请在调用处自行处理。参见[日期、时间和数字格式化](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/date_time_number_formatting_locales.md)。
 
+- [日期、时间和数字格式化](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/date_time_number_formatting_locales.md)
+
 </Accordion>
 </AccordionGroup>
 
@@ -349,6 +357,8 @@ export default withIntlayer(nextConfig);
 
 适用于新项目，或适配器完成过渡任务后。它是三者中最轻量级的（5.5 KB，每页仅增加 +0.3 KB），并解锁同步服务端组件、按组件就近维护 `.content.ts` 文件以及完整的全套功能。请阅读 [在 Next.js 中使用 Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_16.md)。
 
+- [在 Next.js 中使用 Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_16.md)
+
 </Accordion>
 </AccordionGroup>
 
@@ -365,6 +375,8 @@ export default withIntlayer(nextConfig);
 <Question title="ICU 消息支持情况如何？">
 
 它们可以继续正常工作。`t("key", { count })`、`t.rich()`、`t.markup()`、`select`、`selectordinal`、`#` 和 `{ts, date, long}` 均由 Intlayer 的 ICU 解析器处理。参见 [ICU 消息格式](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)。
+
+- [ICU 消息格式](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)
 
 </Question>
 
@@ -425,3 +437,5 @@ export default withIntlayer(nextConfig);
 所有原始数据、测试应用和脚本都在 [Benchmark Bloom repository](https://github.com/intlayer-org/benchmark-bloom) 中。自己运行它。
 
 有关更多详情，请参考 ['Why Intlayer?' 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/interest_of_intlayer.md)。
+
+- [为什么选择 Intlayer？相比其他 i18n 库的优势](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/interest_of_intlayer.md)

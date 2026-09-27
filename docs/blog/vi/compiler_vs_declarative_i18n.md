@@ -78,6 +78,8 @@ Trình biên dịch Intlayer duyệt qua AST (Cây Cú Pháp Trừu Tượng) c�
 
 > Để biết thêm chi tiết, hãy xem tài liệu: [Tài liệu Trình Biên Dịch Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md)
 
+- [Tài liệu Trình Biên Dịch Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md)
+
 ## Sức Hút của Trình Biên Dịch (Phương Pháp "Phép Thuật")
 
 Có một lý do khiến phương pháp mới này đang trở nên phổ biến. Đối với một nhà phát triển, trải nghiệm này thật tuyệt vời.

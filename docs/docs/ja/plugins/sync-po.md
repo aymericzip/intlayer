@@ -322,6 +322,8 @@ loadPO({
 
 詳細は [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md) を参照してください。
 
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md)
+
 ## 制限事項（現在）
 
 - サードパーティライブラリをターゲットにする場合、挿入や複数形/ICU のサポートはありません。

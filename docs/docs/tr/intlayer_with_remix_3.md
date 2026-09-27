@@ -78,6 +78,9 @@ Intlayer, içerik bildirimlerini (`.content.ts`) doğrudan rota mantığınızla
 
 Kod odaklı iş akışlarının ötesinde Intlayer, kendi kendine barındırılabilen bir [Görsel Editör](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) ve bir [Uzak CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) sunarak teknik olmayan editörlerin ve çevirmenlerin kodu yeniden dağıtmadan içeriği güncellemesine olanak tanır.
 
+- [Görsel Editör](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md)
+- [Uzak CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)
+
 </Accordion>
 </AccordionGroup>
 
@@ -219,6 +222,8 @@ module.exports = config;
 
 > Ek yapılandırma seçenekleri için [yapılandırma belgelerine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) başvurun.
 
+- [yapılandırma belgelerine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md)
+
 </Step>
 <Step number={3} title="Çok Dilli İçeriğinizi Bildirin">
 
@@ -255,6 +260,8 @@ export default homeContent;
 ```
 
 > Intlayer ayrıca JSON, YAML ve CommonJS formatlarını da destekler. [İçerik Bildirimi Dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md) bakın.
+
+- [İçerik Bildirimi Dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md)
 
 </Step>
 <Step number={4} title="Intlayer Sözlüklerini Derleyin">
@@ -303,6 +310,8 @@ const { title } = useIntlayer("home");
 `useIntlayer("home", "fr")` veya `useIntlayer("faq", { item: 2 })` tek bir çağrı için istek yerel ayarını geçersiz kılar ve `useDictionary(homeContent)` bir anahtar yerine içe aktarılan bir sözlüğü okur. Bir isteğin dışındayken hook'lar varsayılan yerel ayara döner.
 
 > Ara yazılım ayrıca sunucu başladığında Intlayer sözlüklerini hazırlar, böylece eksik bir `intlayer build` kaydı boş bırakmaz.
+
+> Yalnızca locale çözümlemesini korumak ve yönlendirmeyi kendiniz yönetmek için `intlayer.config.ts` içinde `routing.enableProxy: false` ayarlayın. `intlayer({ ignore })` eşleşen istekleri olduğu gibi bırakır (örneğin bir API öneki), `intlayer({ isDevServer })` ise varsayılan `enableProxy` otomatik modunda saklanan locale'in yönlendirmeleri belirleyip belirlemeyeceğini kontrol eder.
 
 </Step>
 <Step number={6} title="Tip Güvenli Rotalar Tanımlayın">

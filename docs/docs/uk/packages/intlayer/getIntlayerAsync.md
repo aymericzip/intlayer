@@ -34,11 +34,15 @@ author: aymericzip
 
 Функція `getIntlayerAsync` вибирає один словник за його ключем і розв'язує його вміст для заданої локалі, **завантажуючи тільки цю локаль**.
 
-Це асинхронний аналог [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer/getIntlayer.md), призначений для місць, де словник читається поза рендеруванням — маршрути `head` / конструктори метаданих, лодери, серверні функції.
+Це асинхронний аналог [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer/getIntlayer.md), призначений для місць, де словник читається поза рендеруванням, маршрути `head` / конструктори метаданих, лодери, серверні функції.
+
+- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer/getIntlayer.md)
 
 Де `getIntlayer` завантажує об'єднаний словник, що містить кожну локаль, [плагіни збірки](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/bundle_optimization.md) (`@intlayer/babel`, `@intlayer/swc`) переписують цей виклик у `getDictionaryAsync(loaderMap, key, locale)`, спрямовуючи його на фрагменти для кожної локалі в `.intlayer/dynamic_dictionaries/`. Таким чином, пакет ніколи не містить нічого, крім фактично запитаної локалі.
 
-Без цих плагінів — необоптимізована збірка — виклик розв'язується через синхронний реєстр словників: той же вміст, але без поділу по локалях.
+- [плагіни збірки](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/bundle_optimization.md)
+
+Без цих плагінів, необоптимізована збірка, виклик розв'язується через синхронний реєстр словників: той же вміст, але без поділу по локалях.
 
 **Ключові особливості:**
 
@@ -61,18 +65,18 @@ getIntlayerAsync(
 
 - `key: DictionaryKeys`
   - **Опис**: Ключ словника для читання, як оголошено у ваших файлах вмісту.
-  - **Тип**: `DictionaryKeys` — об'єднання всіх оголошених ключів словника.
+  - **Тип**: `DictionaryKeys`, об'єднання всіх оголошених ключів словника.
   - **Обов'язково**: Так
 
 - `localeOrSelector: LocalesValues | DictionarySelector`
   - **Опис**: Локаль для інтерпретації вмісту або об'єкт селектора для [динамічних словників](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dynamic_dictionaries/index.md).
-    - `'fr'` — локаль
-    - `{ item: 2 }` — елемент [колекції](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dynamic_dictionaries/collections.md) (пропустіть `item`, щоб отримати кожен елемент як масив)
-    - `{ variant: 'black-friday' }` — названий [варіант](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dynamic_dictionaries/variants.md) (пропустіть для `default`)
-    - `{ variant: { id: 'prod_abc', userId: '123' } }` — структурований варіант
+    - `'fr'`: локаль
+    - `{ item: 2 }`: елемент [колекції](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dynamic_dictionaries/collections.md) (пропустіть `item`, щоб отримати кожен елемент як масив)
+    - `{ variant: 'black-friday' }`: названий [варіант](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dynamic_dictionaries/variants.md) (пропустіть для `default`)
+    - `{ variant: { id: 'prod_abc', userId: '123' } }`: структурований варіант
     - Будь-який селектор може містити локаль: `{ item: 2, locale: 'fr' }`
   - **Тип**: `LocalesValues | DictionarySelector`
-  - **Обов'язково**: Ні (Опціонально) — за замовчуванням використовується налаштована `defaultLocale`.
+  - **Обов'язково**: Ні (Опціонально), за замовчуванням використовується налаштована `defaultLocale`.
 
 - `plugins: Plugins[]`
   - **Опис**: Користувацькі трансформатори вузлів, що замінюють базові плагіни інтерпретатора. Тільки для розширеного використання.
@@ -81,7 +85,7 @@ getIntlayerAsync(
 
 ### Повертає
 
-- **Тип**: `Promise<Content>` — promise, що розв'язується в інтерпретований вміст словника, типізований на основі вашої декларації.
+- **Тип**: `Promise<Content>`, promise, що розв'язується в інтерпретований вміст словника, типізований на основі вашої декларації.
 
 ## Приклад використання
 
@@ -95,12 +99,12 @@ const { title } = await getIntlayerAsync("app", "fr"); // "Bonjour"
 
 ## `getIntlayer` vs `getIntlayerAsync`
 
-|                    | [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer/getIntlayer.md) | `getIntlayerAsync`                                 |
-| ------------------ | --------------------------------------------------------------------------------------------------------------- | -------------------------------------------------- |
-| Returns            | Вміст                                                                                                           | Promise вмісту                                     |
-| Dictionary loaded  | Об'єднаний словник (усі локалі)                                                                                 | Фрагмент тільки запитаної локалі                   |
-| Best suited for    | Rendering, синхронні кодові шляхи                                                                               | Metadata, loaders, серверні функції                |
-| Requires a plugin? | No                                                                                                              | No — розділення за локалями потребує build plugins |
+|                    | [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer/getIntlayer.md) | `getIntlayerAsync`                                |
+| ------------------ | --------------------------------------------------------------------------------------------------------------- | ------------------------------------------------- |
+| Returns            | Вміст                                                                                                           | Promise вмісту                                    |
+| Dictionary loaded  | Об'єднаний словник (усі локалі)                                                                                 | Фрагмент тільки запитаної локалі                  |
+| Best suited for    | Rendering, синхронні кодові шляхи                                                                               | Metadata, loaders, серверні функції               |
+| Requires a plugin? | No                                                                                                              | No, розділення за локалями потребує build plugins |
 
 Обидві функції приймають однакові аргументи та повертають один і той же вміст: перемикання між ними змінює лише **коли** та **скільки** завантажується.
 

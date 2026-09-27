@@ -27,9 +27,11 @@ author: aymericzip
 
 # intlayerCompiler
 
-`intlayerCompiler` — это плагин Vite, который сканирует исходные файлы компонентов на наличие **встроенных объявлений контента Intlayer** (inline declarations) — контента, определенного непосредственно внутри компонента, а не в отдельном файле `.content.ts`, — и записывает их в файлы JSON словаря во время фазы трансформации.
+`intlayerCompiler`: это плагин Vite, который сканирует исходные файлы компонентов на наличие **встроенных объявлений контента Intlayer** (inline declarations) (контента, определенного непосредственно внутри компонента, а не в отдельном файле `.content.ts`,) и записывает их в файлы JSON словаря во время фазы трансформации.
 
 > **Начиная с Intlayer v9** `intlayerCompiler` автоматически включается в основной плагин [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/vite-intlayer/intlayer.md), если в конфигурации Intlayer включен компилятор (`compiler.enabled: true`) и задан путь вывода (`compiler.output`). Вам нужно регистрировать его отдельно только в том случае, если вы хотите полностью контролировать конфигурацию компилятора.
+
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/vite-intlayer/intlayer.md)
 
 ## Использование
 
@@ -118,4 +120,4 @@ intlayerCompiler({
 
 ### Дедупликация
 
-`intlayerCompiler` использует тот же механизм дедупликации `createPrimaryInstanceGuard`, что и другие встроенные плагины. Когда присутствуют как `intlayer()` (который включает компилятор), так и ручной вызов `intlayerCompiler()`, запускается только первый зарегистрированный экземпляр — словари не записываются дважды.
+`intlayerCompiler` использует тот же механизм дедупликации `createPrimaryInstanceGuard`, что и другие встроенные плагины. Когда присутствуют как `intlayer()` (который включает компилятор), так и ручной вызов `intlayerCompiler()`, запускается только первый зарегистрированный экземпляр, словари не записываются дважды.

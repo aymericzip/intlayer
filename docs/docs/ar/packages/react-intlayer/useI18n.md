@@ -70,6 +70,8 @@ author: aymericzip
 
 يجب إعلان جميع مفاتيح القاموس داخل ملفات إعلان المحتوى لتعزيز سلامة النوع ومنع الأخطاء. [يمكن العثور على تعليمات التكوين هنا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md).
 
+- [يمكن العثور على تعليمات التكوين هنا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md)
+
 ## أمثلة الاستخدام في React
 
 أمثلة على استخدام الخطاف `useI18n` داخل مكونات React:

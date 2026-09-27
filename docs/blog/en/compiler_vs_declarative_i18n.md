@@ -78,6 +78,8 @@ The Intlayer compiler traverses the AST (Abstract Syntax Tree) of your React, Vu
 
 > For more details, check out the documentation: [Intlayer Compiler Docs](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compiler.md)
 
+- [Intlayer Compiler Docs](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compiler.md)
+
 ## The Allure of the Compiler (The "Magic" Approach)
 
 There is a reason this new approach is trending. For a developer, the experience feels incredible.

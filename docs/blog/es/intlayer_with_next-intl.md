@@ -40,6 +40,8 @@ author: aymericzip
 
 Consulta una comparación concreta con next-intl en nuestra publicación del blog [next-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/next-i18next_vs_next-intl_vs_intlayer.md).
 
+- [next-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/next-i18next_vs_next-intl_vs_intlayer.md)
+
 ## ¿Por qué combinar Intlayer con next-intl?
 
 Aunque Intlayer ofrece una excelente solución i18n independiente (consulta nuestra [guía de integración con Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_nextjs_16.md)), es posible que desees combinarlo con next-intl por varias razones:
@@ -147,6 +149,8 @@ Si se realizan cambios usando la CLI para traducir el JSON, o usando el CMS, Int
 
 Para ver más detalles sobre el plugin `syncJSON`, por favor consulte la [documentación del plugin syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/plugins/sync-json.md).
 
+- [documentación del plugin syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/plugins/sync-json.md)
+
 </Step>
 
 </Steps>
@@ -166,4 +170,4 @@ Estos archivos pueden regenerarse durante su proceso de compilación y no necesi
 
 Para mejorar la experiencia del desarrollador, instale la **Extensión oficial de Intlayer para VS Code**:
 
-[Instalar desde el Marketplace de VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [Instalar desde el Marketplace de VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

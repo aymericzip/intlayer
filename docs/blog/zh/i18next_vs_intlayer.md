@@ -135,6 +135,8 @@ style="border:none;"
 
 > 完整表格及各库、各策略数据，请参阅 [Next.js 性能基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md)。
 
+- [Next.js 性能基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md)
+
 ### TanStack Start 平台测试结果 (`react-i18next`)
 
 为了排除 Next.js 平台特有机制的影响，在 TanStack Start 上直接运行纯粹的 `react-i18next`:
@@ -165,6 +167,8 @@ style="border:none;"
 />
 
 > 完整表格请参阅 [TanStack Start 性能基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md)。
+
+- [TanStack Start 性能基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md)
 
 ## 为什么差距如此悬殊？全局实例模式 vs 编译时字典
 
@@ -221,6 +225,8 @@ Intlayer 彻底抛弃了全局实例模式。翻译内容直接声明在组件�
 `@intlayer/swc` / `@intlayer/babel` 可以精确识别哪个组件引用了哪个字典，仅针对当前激活的语言按需打包这些字典，并彻底剔除无用文本。"scoped-dynamic" 这种极其理想的加载模式成为构建工具的自动化产物，而不是团队必须手工遵守的开发负担。
 
 > 若要复现 `dynamic` 行的数据，只需在 `intlayer.config.ts` 中声明 `dictionary.importMode: 'dynamic'`。详见[打包优化文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md)。
+
+- [打包优化文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md)
 
 ## 开发者体验对比 (DX)
 
@@ -461,6 +467,10 @@ export default defineConfig({
 
 详见迁移指南: [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_i18next_to_intlayer.md), [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_react-i18next_to_intlayer.md), [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_next-i18next_to_intlayer.md)。
 
+- [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_i18next_to_intlayer.md)
+- [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_react-i18next_to_intlayer.md)
+- [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_next-i18next_to_intlayer.md)
+
 ## 如何做出选择？
 
 <AccordionGroup>
@@ -473,10 +483,17 @@ export default defineConfig({
 
 您希望获得**组件级内容管理**、**严格的 TypeScript 类型提示**、**构建期漏译检测**、**零心智负担的 Tree-shaking 与按需懒加载**、毫秒级语言切换、同步服务端组件支持以及开箱即用的内容编辑套件（[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)、[AI 自动翻译](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/autoFill.md)、[MCP 服务端](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)）。特别适用于大型、模块化代码库与设计系统。
 
+- [可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
+- [AI 自动翻译](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/autoFill.md)
+- [MCP 服务端](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)
+
 </Accordion>
 <Accordion header="选择 @intlayer/*-i18next 适配层">
 
 您现有项目已深度依赖 i18next，希望在完全不重构组件代码的前提下，立即获取包体积缩减与极致响应速度。您的 `locales/{lng}/{ns}.json` 文件继续作为唯一事实来源。在 [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18next_vs_intlayer-i18next.md) 中进行了同台实测。
+
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18next_vs_intlayer-i18next.md)
 
 </Accordion>
 </AccordionGroup>
@@ -501,17 +518,23 @@ export default defineConfig({
 
 可以，通过 `scoped-dynamic` 方案：为每个路由划分独立的命名空间、配置资源后端并人工维护页面与命名空间的映射表。这使 Next.js 页面体积降至 163.4 KB，但仍比零配置的 Intlayer（141.3 KB）多出 **+22 KB**。请参阅[包体积优化指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md)。
 
+- [包体积优化指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md)
+
 </Question>
 
 <Question title="迁移到 Intlayer 是否需要彻底重写我的现有组件？">
 
 不需要。`@intlayer/i18next`、`@intlayer/react-i18next` 和 `@intlayer/next-i18next` 完整保留了 `useTranslation`、`t()`、`<Trans>`、`{{interpolation}}`、`_one` / `_other` 复数规则、上下文后缀及 `returnObjects`。仅需在 `next.config.ts` 或 `vite.config.ts` 中配置一行插件即可。详见 [next-i18next 迁移指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_next-i18next_to_intlayer.md)。
 
+- [next-i18next 迁移指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_next-i18next_to_intlayer.md)
+
 </Question>
 
 <Question title="我原有的 i18next 插件会受到什么影响？">
 
 后端加载器与语言探测器依然会被接收但处于空转状态：运行时不再需要加载或探测任何内容。语言探测被 Intlayer 的原生路由策略（URL 前缀、Cookie、Header）接管。若您的应用依赖请求期从 CMS 动态获取翻译，请改用 [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) 或 `intlayer pull` / `push` 指令。
+
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
 
 </Question>
 
@@ -575,3 +598,5 @@ Intlayer 将繁杂的优化任务全部转移至编译器完成。组件级独�
 所有原始测试数据、测试用例与自动化脚本均公开在 [Benchmark Bloom 仓库](https://github.com/intlayer-org/benchmark-bloom)。欢迎亲自克隆并复现。
 
 了解更多架构优势，请参阅 ['Why Intlayer?' 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/interest_of_intlayer.md)。
+
+- [为什么选择 Intlayer？相比其他 i18n 库的优势](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/interest_of_intlayer.md)

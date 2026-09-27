@@ -46,7 +46,11 @@ const config = {
 export default config;
 ```
 
+- [wtyczka Sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/plugins/sync-json.md)
+
 Jeśli zależy Ci również na zachowaniu dotychczasowego runtime API, [adaptery kompatybilności](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compat/index.md) tworzą aliasy dla `useTranslation`, `$t` i pokrewnych na poziomie bundlera. W każdym przypadku traktuj poniższe komendy jako praktyczną realizację koncepcji, a nie sztywny wymóg.
+
+- [adaptery kompatybilności](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compat/index.md)
 
 ## Dlaczego braki są niewidoczne
 
@@ -98,6 +102,8 @@ export default [
 ```
 
 `no-unused-content` zapobiega niekontrolowanemu rozrastaniu się katalogów. Martwe klucze nie psują działania aplikacji, ale niepotrzebnie powiększają rachunki za tłumaczenia. Pełna lista reguł znajduje się w [dokumentacji wtyczki ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/eslint.md).
+
+- [dokumentacji wtyczki ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/eslint.md)
 
 ## Warstwa 3: audyt pokrycia języków
 
@@ -179,6 +185,8 @@ curl -s https://example.com/ja/checkout | grep -c "Add to cart"
 ## Uzupełnianie luk
 
 Gdy wiesz już, czego brakuje, `intlayer fill` uzupełnia puste wpisy, a opcja `autoFill` potrafi generować pliki dla poszczególnych języków bezpośrednio podczas deklarowania zawartości. Zobacz [autoFill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/autoFill.md).
+
+- [autoFill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/autoFill.md)
 
 Warto spojrzeć na to trzeźwym okiem: automatyczne uzupełnianie maszynowe zamienia lukę _widoczną_ w lukę _niewidoczną_. Klucz ma teraz wartość, audyt świeci na zielono, ale nikt nie sprawdził sensu sformułowań. Używaj tego do odblokowania release'u, a następnie przekazuj teksty do weryfikacji człowiekowi w przypadku wszystkiego, co klient czyta przed podjęciem decyzji. To rusztowanie pomocnicze, a nie gotowy produkt.
 

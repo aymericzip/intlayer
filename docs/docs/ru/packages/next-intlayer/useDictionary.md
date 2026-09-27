@@ -95,6 +95,8 @@ const exampleContent = {
 export default exampleContent;
 ```
 
+- [Файлы объявления контента (.content.ts)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/content_file.md)
+
 ## Пример использования в React клиентском компоненте
 
 Ниже приведён пример того, как использовать хук `useDictionary` в React компоненте:

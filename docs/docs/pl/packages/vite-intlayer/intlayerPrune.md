@@ -31,6 +31,8 @@ Wtyczka Vite `intlayerPrune` służy do tree-shakingu i usuwania nieużywanych s
 
 > Plugin jest już automatycznie włączony i skonfigurowany, gdy używasz [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/vite-intlayer/intlayer.md). Musisz go zarejestrować ręcznie tylko wtedy, gdy skomponujesz stos pluginów samodzielnie.
 
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/vite-intlayer/intlayer.md)
+
 ## Użycie
 
 ### W ramach `intlayer()` (zalecane)
@@ -99,8 +101,8 @@ When Vite processes a compiled dictionary JSON file, `intlayerPrune` intercepts 
 
 Two content shapes are supported:
 
-- **Static dictionaries** — `{ nodeType: "translation", translation: { en: {...}, fr: {...} } }`. Fields are pruned per-locale inside `translation`.
-- **Dynamic (per-locale) dictionaries** — flat `{ fieldA: ..., fieldB: ... }`. Fields are pruned at the top level.
+- **Static dictionaries**: `{ nodeType: "translation", translation: { en: {...}, fr: {...} } }`. Fields are pruned per-locale inside `translation`.
+- **Dynamic (per-locale) dictionaries**: flat `{ fieldA: ..., fieldB: ... }`. Fields are pruned at the top level.
 
 ### 3. Przypadki szczególne
 
@@ -108,7 +110,7 @@ Jeśli struktura zawartości słownika nie może być rozpoznana (np. niezwykły
 
 ### 4. Mapa zmian nazw pól
 
-Gdy przycinanie przebiegnie pomyślnie, `intlayerPrune` zapisuje również `pruneContext.dictionaryKeyToFieldRenameMap` — mapowanie z oryginalnych nazw pól na krótkie aliasy. `intlayerMinify` odczytuje tę mapę, aby zmienić nazwy pól w wyjściowym JSON, a przebieg zmiany nazwy Babel w `intlayerOptimize` aktualizuje dostępy do właściwości w plikach źródłowych odpowiednio.
+Gdy przycinanie przebiegnie pomyślnie, `intlayerPrune` zapisuje również `pruneContext.dictionaryKeyToFieldRenameMap`, mapowanie z oryginalnych nazw pól na krótkie aliasy. `intlayerMinify` odczytuje tę mapę, aby zmienić nazwy pól w wyjściowym JSON, a przebieg zmiany nazwy Babel w `intlayerOptimize` aktualizuje dostępy do właściwości w plikach źródłowych odpowiednio.
 
 ## Warunki aktywacji
 
@@ -118,4 +120,4 @@ Gdy przycinanie przebiegnie pomyślnie, `intlayerPrune` zapisuje również `prun
 2. `build.optimize` to `true` (lub `undefined`, które domyślnie przyjmuje wartość `true` dla kompilacji).
 3. `build.purge` to `true` w konfiguracji Intlayer.
 
-Pozostaje aktywny, gdy `editor.enabled` ma wartość `true`: wizualny edytor odwzorowuje każdą edycję za pomocą `dictionaryKey` + `keyPath` względem niezmergowanych słowników, których ta wtyczka nigdy nie dotyka, a usunięte pole to pole, którego nie odczytuje żaden komponent — więc nigdy nie jest renderowane ani wybieralne na stronie.
+Pozostaje aktywny, gdy `editor.enabled` ma wartość `true`: wizualny edytor odwzorowuje każdą edycję za pomocą `dictionaryKey` + `keyPath` względem niezmergowanych słowników, których ta wtyczka nigdy nie dotyka, a usunięte pole to pole, którego nie odczytuje żaden komponent, więc nigdy nie jest renderowane ani wybieralne na stronie.

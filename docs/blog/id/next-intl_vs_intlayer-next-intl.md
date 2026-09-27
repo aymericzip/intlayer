@@ -33,6 +33,8 @@ author: aymericzip
 
 Artikel ini membandingkan keduanya pada aplikasi Next.js yang sama, dibangun sekali dengan `next-intl` dan sekali dengan adapter. Angka-angka berasal dari [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom), suite open-source yang mencatat apa yang benar-benar diunduh browser. Jika Anda menginginkan perbandingan `next-intl` vs Intlayer sebagai library, baca [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/next-intl_vs_intlayer.md). Yang ini tentang apa yang berubah pada adapter ketika Anda menjaga komponen seperti yang sekarang.
 
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/next-intl_vs_intlayer.md)
+
 <TOC/>
 
 > **tl;dr**: Pada aplikasi Next.js yang sama, mengganti `next-intl` dengan `@intlayer/next-intl` mengurangi JavaScript per halaman dari **153.6 KB menjadi 147.5 KB** gzip, rata-rata komponen dari **21.8 KB menjadi 8.1 KB**, kebocoran string halaman asing dari **~90% menjadi 0%**, dan hydration dari **14.7 ms menjadi 12.8 ms**, tanpa ada komponen yang diedit. Pada TanStack Start, ekuivalen `use-intl` (`@intlayer/use-intl`) mengurangi komponen dari **76-87 KB menjadi 9-11 KB** dan penggantian locale dari **7-21 ms menjadi 4-9 ms**. Adapter membutuhkan **8.0 KB** runtime versus **14.7 KB** untuk `next-intl` dan **5.5 KB** untuk native `next-intlayer`. Navigasi dan middleware diimplementasikan ulang pada konfigurasi routing Intlayer; `pathnames` terlokal adalah satu-satunya fitur yang tidak dialihkan.
@@ -146,6 +148,8 @@ style="border:none;"
 
 > Tabel lengkap, setiap pustaka dan setiap strategi, dalam [laporan tolok ukur Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/nextjs.md).
 
+- [laporan tolok ukur Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/nextjs.md)
+
 ### Hasil pada TanStack Start (`use-intl`)
 
 `use-intl` adalah core framework-agnostic dari `next-intl`. Adapternya, `@intlayer/use-intl`, mengikuti desain yang sama dengan Vite plugin (`@intlayer/use-intl/plugin`).
@@ -177,6 +181,8 @@ style="border:none;"
 />
 
 > Tabel lengkap dalam [laporan tolok ukur TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/tanstack.md).
+
+- [laporan tolok ukur TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/tanstack.md)
 
 ## Mengapa angka-angka berubah
 
@@ -330,6 +336,8 @@ Runtime 8.0 KB dibandingkan 5.5 KB untuk `next-intlayer`, dan +6-7 KB per halama
 
 Pemformat didukung oleh `Intl` bawaan dan hanya bahasa yang memengaruhi hasilnya. Jika Anda mengandalkan zona waktu paksa atau `now` tetap untuk tanggal yang stabil saat hidrasi, tangani di titik panggilan. Lihat [pemformatan tanggal, waktu, dan angka](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/date_time_number_formatting_locales.md).
 
+- [pemformatan tanggal, waktu, dan angka](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/date_time_number_formatting_locales.md)
+
 </Accordion>
 </AccordionGroup>
 
@@ -350,6 +358,8 @@ Anda menggunakan `next-intl` hari ini dan menginginkan keuntungan bundel, pengur
 
 Untuk proyek baru, atau setelah adaptor menyelesaikan tugasnya. Ini adalah yang paling ringan dari ketiganya (5.5 KB, +0.3 KB per halaman) dan membuka komponen server sinkron, file `.content.ts` per komponen, dan rangkaian fitur lengkap. Mulai dengan [Intlayer dengan Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_16.md).
 
+- [Intlayer dengan Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_16.md)
+
 </Accordion>
 </AccordionGroup>
 
@@ -366,6 +376,8 @@ Pada Next.js, ya untuk komponen: build tolok ukur hanya mengubah `next.config.ts
 <Question title="Apa yang terjadi dengan pesan ICU?">
 
 Mereka tetap berfungsi. `t("key", { count })`, `t.rich()`, `t.markup()`, `select`, `selectordinal`, `#`, dan `{ts, date, long}` diselesaikan oleh resolver ICU Intlayer. Lihat [format pesan ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md).
+
+- [format pesan ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)
 
 </Question>
 
@@ -426,3 +438,5 @@ Dokumen referensi:
 Semua data mentah, aplikasi tes, dan script tersedia di [repository Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Jalankan sendiri.
 
 Lihat ['dokumen Why Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/interest_of_intlayer.md) untuk detail lebih lanjut.
+
+- [Mengapa Intlayer? Keunggulan dibanding library i18n lain](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/interest_of_intlayer.md)

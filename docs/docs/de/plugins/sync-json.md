@@ -216,7 +216,7 @@ Steuert, ob eine einzelne JSON-Datei, deren **Top-Level-Schlüssel Namespaces si
 
 Dies entspricht dem Namespace-Modell von Bibliotheken wie `next-intl` und `react-intl`, bei denen eine `messages/{locale}.json`-Datei mehrere Namespaces durch ihre Top-Level-Schlüssel gruppiert, wobei jeder unabhängig angesprochen wird (z.B. `useTranslations('Hero')` löst sich in das `Hero`-Wörterbuch auf).
 
-- `undefined` (Standard): **automatisch erkannt** — die Datei wird aufgeteilt, wenn das `source`-Muster kein `{key}`-Segment enthält (eine Datei enthält jeden Namespace), und andernfalls als einzelnes Wörterbuch beibehalten (eine Datei pro Schlüssel).
+- `undefined` (Standard): **automatisch erkannt**, die Datei wird aufgeteilt, wenn das `source`-Muster kein `{key}`-Segment enthält (eine Datei enthält jeden Namespace), und andernfalls als einzelnes Wörterbuch beibehalten (eine Datei pro Schlüssel).
 - `true`: teilt jeden Top-Level-Schlüssel immer in ein eigenes Wörterbuch auf.
 - `false`: niemals aufteilen; die gesamte Datei wird zu einem einzigen Wörterbuch.
 
@@ -238,7 +238,7 @@ syncJSON({
 }),
 ```
 
-Dies erzeugt drei Wörterbücher — `Hero`, `Nav` und `About` — sodass `useTranslations('Hero')` (next-intl) korrekt aufgelöst wird. Beim Zurückschreiben werden alle Namespaces wieder in derselben pro-Locale-Datei zusammengeführt.
+Dies erzeugt drei Wörterbücher (`Hero`, `Nav` und `About`) sodass `useTranslations('Hero')` (next-intl) korrekt aufgelöst wird. Beim Zurückschreiben werden alle Namespaces wieder in derselben pro-Locale-Datei zusammengeführt.
 
 > Wenn Sie das explizite `{key}`-Segment in Ihrer `source` beibehalten (z.B. `./locales/${locale}/${key}.json`), ist jede Datei bereits ein Namespace, sodass die Aufteilung standardmäßig deaktiviert ist.
 
@@ -402,7 +402,7 @@ loadJSON({
 
 Gleiches Verhalten wie bei [`syncJSON`](#splitkeys-boolean): Wenn eine einzelne JSON-Datei mehrere Namespaces durch ihre Top-Level-Schlüssel gruppiert, wird jeder Top-Level-Schlüssel zu einem eigenen Wörterbuch.
 
-- `undefined` (Standard): **automatisch erkannt** — Aufteilung, wenn das `source`-Muster kein `{key}`-Segment enthält, andernfalls ein einzelnes Wörterbuch.
+- `undefined` (Standard): **automatisch erkannt**, Aufteilung, wenn das `source`-Muster kein `{key}`-Segment enthält, andernfalls ein einzelnes Wörterbuch.
 - `true` / `false`: Aufteilung erzwingen oder deaktivieren.
 
 ```ts
@@ -440,6 +440,8 @@ Die synchronisierten JSON-Dateien werden wie andere `.content`-Dateien behandelt
 - `intlayer content pull`, um die synchronisierten JSON-Dateien zu pullen
 
 Siehe [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/index.md) für weitere Details.
+
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/index.md)
 
 ## Einschränkungen (aktuell)
 

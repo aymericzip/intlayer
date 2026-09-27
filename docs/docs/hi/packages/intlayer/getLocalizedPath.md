@@ -32,7 +32,9 @@ author: aymericzip
 
 The `getLocalizedPath` फ़ंक्शन एक कैनोनिकल पाथ (आंतरिक एप्लिकेशन पाथ) को दिए गए locale और rewrite नियमों के आधार पर उसके लोकलाइज़्ड समतुल्य में resolve करता है। यह विशेष रूप से उन SEO-friendly URLs को जनरेट करने के लिए उपयोगी है जो भाषा के अनुसार बदलते हैं।
 
-यह [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getLocalizedUrl.md) का सापेक्ष समकक्ष है — एक सापेक्ष इनपुट के लिए दोनों समान मान लौटाते हैं। `getLocalizedUrl` के विपरीत, यह कभी भी एक निरपेक्ष URL नहीं लौटाता है: `domains` कॉन्फ़िगरेशन को अनदेखा किया जाता है, इसलिए एक लोकेल जो अपने स्वयं के डोमेन से परोसा जाता है फिर भी एक पथ प्राप्त करता है। एक निरपेक्ष इनपुट स्वीकार किया जाता है, लेकिन इसकी उत्पत्ति को छोड़ दिया जाता है — केवल इसका पथ, क्वेरी स्ट्रिंग और हैश रखे जाते हैं।
+यह [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getLocalizedUrl.md) का सापेक्ष समकक्ष है (एक सापेक्ष इनपुट के लिए दोनों समान मान लौटाते हैं। `getLocalizedUrl` के विपरीत, यह कभी भी एक निरपेक्ष URL नहीं लौटाता है: `domains` कॉन्फ़िगरेशन को अनदेखा किया जाता है, इसलिए एक लोकेल जो अपने स्वयं के डोमेन से परोसा जाता है फिर भी एक पथ प्राप्त करता है। एक निरपेक्ष इनपुट स्वीकार किया जाता है, लेकिन इसकी उत्पत्ति को छोड़ दिया जाता है) केवल इसका पथ, क्वेरी स्ट्रिंग और हैश रखे जाते हैं।
+
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getLocalizedUrl.md)
 
 **मुख्य विशेषताएँ:**
 
@@ -96,6 +98,8 @@ const home = getLocalizedPath("/", Locales.FRENCH);
 ```
 
 यही संकीर्णन [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getLocalizedUrl.md) में बहता है, जो locale को prefix करने से पहले rewrite rules को लागू करता है।
+
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getLocalizedUrl.md)
 
 दो मामले `string` तक विस्तृत रहते हैं, क्योंकि उन्हें compile time पर resolve नहीं किया जा सकता:
 

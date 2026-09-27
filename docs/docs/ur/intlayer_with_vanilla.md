@@ -164,6 +164,8 @@ export default config;
 
 > اس کنفیگریشن فائل کے ذریعے، آپ مقامی URLs، مڈل ویئر ری ڈائریکشن، کوکی کے نام، اپنے مواد کے اعلانات کی جگہ اور توسیع، کنسول میں Intlayer لاگز کو غیر فعال کرنا، اور بہت کچھ ترتیب دے سکتے ہیں۔ دستیاب پیرامیٹرز کی مکمل فہرست کے لیے، [کنفیگریشن دستاویزات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/configuration.md) دیکھیں۔
 
+- [کنفیگریشن دستاویزات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/configuration.md)
+
 </Step>
 <Step number={3} title="اپنے HTML میں بنڈل درآمد کریں">
 
@@ -288,6 +290,8 @@ export default appContent;
 > آپ کے مواد کے اعلانات آپ کی ایپلی کیشن میں کہیں بھی بیان کیے جا سکتے ہیں جیسے ہی وہ `contentDir` ڈائرکٹری (ڈیفالٹ کے طور پر، `./src`) میں شامل ہوتے ہیں۔ اور مواد کے اعلان کی فائل کی توسیع (ڈیفالٹ کے طور پر، `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`) سے ملتے ہیں۔
 >
 > مزید تفصیلات کے لیے، [مواد کے اعلان کے دستاویزات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/dictionary/content_file.md) دیکھیں۔
+
+- [مواد کے اعلان کے دستاویزات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/dictionary/content_file.md)
 
 </Step>
 <Step number={6} title="اپنے JavaScript میں Intlayer استعمال کریں">
@@ -424,7 +428,7 @@ const unsubscribe = useDictionaryDynamic(
 
 Intlayer کے ساتھ اپنے ترقی کے تجربے کو بہتر بنانے کے لیے، آپ سرکاری **Intlayer VS Code ایکسٹینشن** نصب کر سکتے ہیں۔
 
-[VS Code مارکیٹ پلیس سے انسٹال کریں](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [VS Code مارکیٹ پلیس سے انسٹال کریں](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 یہ ایکسٹینشن فراہم کرتی ہے:
 
@@ -435,6 +439,11 @@ Intlayer کے ساتھ اپنے ترقی کے تجربے کو بہتر بنان�
 
 ایکسٹینشن کو استعمال کرنے کے طریقے کے بارے में مزید تفصیلات کے لیے، [Intlayer VS Code ایکسٹینشن دستاویزات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md) دیکھیں۔
 
+- [Intlayer VS Code ایکسٹینشن دستاویزات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md)
+
 ### مزید آگے بڑھیں
 
 مزید آگے بڑھنے کے لیے، آپ [بصری ایڈیٹر](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_visual_editor.md) کو نافذ کر سکتے ہیں یا [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_CMS.md) کا استعمال کرتے ہوئے اپنے مواد کو بیرونی بنا سکتے ہیں۔
+
+- [بصری ایڈیٹر](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_CMS.md)

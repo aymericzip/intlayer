@@ -31,7 +31,7 @@ author: aymericzip
 
 # Integrazione Solid: Documentazione dell'Hook `usePathname`
 
-L'hook `usePathname` restituisce il percorso del browser attuale (pathname) con il segmento locale rimosso, sotto forma di `Accessor<string>` in Solid. È utile per la navigazione basata sul locale — per esempio, determinare quale voce di menu è attiva — senza dover rimuovere manualmente il prefisso locale.
+L'hook `usePathname` restituisce il percorso del browser attuale (pathname) con il segmento locale rimosso, sotto forma di `Accessor<string>` in Solid. È utile per la navigazione basata sul locale (per esempio, determinare quale voce di menu è attiva) senza dover rimuovere manualmente il prefisso locale.
 
 ## Importare `usePathname` in Solid
 

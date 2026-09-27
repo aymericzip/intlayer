@@ -54,6 +54,8 @@ author: aymericzip
 
 गहरे तुलना के लिए [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/compiler_vs_declarative_i18n.md) ब्लॉग पोस्ट देखें।
 
+- [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/compiler_vs_declarative_i18n.md)
+
 ## Intlayer Compiler का उपयोग क्यों न करें?
 
 हालांकि कंपाइलर एक उत्कृष्ट "बस काम करता है" अनुभव प्रदान करता है, यह कुछ समझौते भी पेश करता है जिनके बारे में आपको पता होना चाहिए:
@@ -65,7 +67,12 @@ author: aymericzip
 
 गहरी वास्तुकला तुलना के लिए, [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/compiler_vs_declarative_i18n.md) ब्लॉग पोस्ट देखें।
 
+- [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/compiler_vs_declarative_i18n.md)
+
 वैकल्पिक रूप से, अपनी सामग्री पर पूर्ण नियंत्रण रखते हुए अपनी i18n प्रक्रिया को स्वचालित करने के लिए, Intlayer एक स्वचालित निष्कर्षण कमांड `intlayer extract` (देखें [CLI दस्तावेज़ीकरण](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/extract.md)) या Intlayer VS Code एक्सटेंशन का `Intlayer: extract content to Dictionary` कमांड (देखें [VS Code एक्सटेंशन दस्तावेज़ीकरण](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/vs_code_extension.md)) भी प्रदान करता है।
+
+- [CLI दस्तावेज़ीकरण](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/extract.md)
+- [VS Code एक्सटेंशन दस्तावेज़ीकरण](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/vs_code_extension.md)
 
 ## उपयोग
 
@@ -97,9 +104,11 @@ export default defineConfig({
 });
 ```
 
-> स्टैंडअलोन `intlayerCompiler()` प्लगइन अभी भी advanced setups के लिए exported है। इसे `intlayer()` के साथ register करना सुरक्षित है — compiler खुद को deduplicate करता है और केवल एक बार चलता है।
+> स्टैंडअलोन `intlayerCompiler()` प्लगइन अभी भी advanced setups के लिए exported है। इसे `intlayer()` के साथ register करना सुरक्षित है, compiler खुद को deduplicate करता है और केवल एक बार चलता है।
 
 See complete tutorial: [Translate Vite and React with Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md)
+
+- [Translate Vite and React with Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md)
 
 #### फ्रेमवर्क समर्थन
 
@@ -384,3 +393,5 @@ bun x intlayer extract
 ```
 
 > अधिक विवरण के लिए, [CLI दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/index.md) देखें।
+
+- [CLI दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/index.md)

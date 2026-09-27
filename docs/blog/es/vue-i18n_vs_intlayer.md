@@ -121,6 +121,8 @@ Elige las métricas y las librerías que te interesan:
 
 > Tabla completa, con todas las librerías y todas las estrategias, en el [informe de benchmark de Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/benchmark/vue.md).
 
+- [informe de benchmark de Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/benchmark/vue.md)
+
 ## ¿Por qué la brecha? Instancia global vs. diccionarios compilados
 
 `vue-i18n` es un runtime. `createI18n()` construye una instancia global que sostiene un árbol de mensajes por locale; `useI18n()` vincula cada componente a ella; `t("footer.github")` busca la clave en tiempo de renderización. Esto es lo que hace posibles los bloques SFC `<i18n>`, `v-t` y la carga de mensajes en tiempo de ejecución, y también es la razón por la que el gráfico de dependencias de cada componente incluye el árbol completo:
@@ -156,6 +158,8 @@ Intlayer traslada ese conocimiento al build. El contenido se declara junto al co
 El compilador emite, por diccionario y por locale, exactamente el JSON que el componente necesita, y descarta diccionarios que nada importa. El alcance por ruta es una consecuencia del alcance por componente, no una tarea.
 
 > Para también descartar las locales no utilizadas, establece `dictionary.importMode: 'dynamic'` en `intlayer.config.ts`. Consulta la [documentación de optimización de bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/bundle_optimization.md).
+
+- [documentación de optimización de bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/bundle_optimization.md)
 
 ## Experiencia del desarrollador
 
@@ -347,6 +351,10 @@ En el benchmark, la compilación de compatibilidad de la misma aplicación pasó
 
 Consulta la [guía de migración de vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/migration_from_vue-i18n_to_intlayer.md) y la [documentación de compatibilidad](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compat/vue-i18n.md). Los usuarios de Nuxt tienen el mismo camino a través de la [compatibilidad con `@nuxtjs/i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compat/nuxtjs-i18n.md).
 
+- [guía de migración de vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/migration_from_vue-i18n_to_intlayer.md)
+- [documentación de compatibilidad](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compat/vue-i18n.md)
+- [compatibilidad con `@nuxtjs/i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compat/nuxtjs-i18n.md)
+
 ## ¿Cuándo elegir cuál?
 
 - **Elige vue-i18n** si quieres el enfoque estándar de Vue, confías en mensajes ICU o bloques `<i18n>` de SFC, ya usas `@nuxtjs/i18n`, o una plataforma de traducción espera JSON centralizado. Presupuesta el tiempo para dividir catálogos y lazy-load por ruta si el tamaño del bundle es importante.
@@ -373,17 +381,24 @@ El adaptador no los lee. Mueve esos mensajes a tu JSON de idioma, o a un archivo
 
 Sí. [Intlayer con Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_nuxt.md) cubre enrutamiento multilingüe, middleware de detección de idioma y generación de sitemaps. Si utilizas `@nuxtjs/i18n`, el [adaptador de compatibilidad Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compat/nuxtjs-i18n.md) es la ruta de migración.
 
+- [Intlayer con Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_nuxt.md)
+- [adaptador de compatibilidad Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compat/nuxtjs-i18n.md)
+
 </Question>
 
 <Question title="¿Puedo mantener mis locales/{locale}.json como fuente de verdad?">
 
 Sí. El [plugin de sincronización JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compat/vue-i18n.md) los lee con el dialecto de `vue-i18n` (`{name}`, `{0}`, plurales en tubería `"car | cars"`) y vuelve a escribir las traducciones cuando la CLI o el CMS los actualiza.
 
+- [plugin de sincronización JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compat/vue-i18n.md)
+
 </Question>
 
 <Question title="¿Funciona ICU con Intlayer en Vue?">
 
 El soporte nativo para ICU está en desarrollo. El adaptador `@intlayer/vue-i18n` resuelve la sintaxis de mensajes propia de `vue-i18n`, incluidos los plurales en barra vertical y la interpolación nombrada y de listas. Para el modelo de pluralización de Intlayer, consulta el [contenido de enumeración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/enumeration.md).
+
+- [contenido de enumeración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/enumeration.md)
 
 </Question>
 
@@ -432,3 +447,5 @@ Intlayer traslada el trabajo al compilador. Los diccionarios por componente y la
 Todos los datos sin procesar, las aplicaciones de prueba y los scripts están en el [repositorio Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Ejecútalo tú mismo.
 
 Consulta la [documentación 'Why Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/interest_of_intlayer.md) para más detalles.
+
+- [¿Por qué Intlayer? Ventajas frente a otras bibliotecas i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/interest_of_intlayer.md)

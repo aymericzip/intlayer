@@ -104,13 +104,13 @@ npx intlayer init infra --mode compose
 
        ./intlayer/.env
 
-     Either RESEND_API_KEY (resend.com) or the MAIL_SMTP_* block — the first
+     Either RESEND_API_KEY (resend.com) or the MAIL_SMTP_* block, the first
      account cannot be verified without a working mailer.
   2. Start the stack:
 
        cd ./intlayer && docker compose up -d
 
-  Then open http://localhost:3000 — first boot initialises the
+  Then open http://localhost:3000, first boot initialises the
   datastores, so give it a minute. The first account you create becomes the
   super admin.
 
@@ -118,6 +118,10 @@ npx intlayer init infra --mode compose
     Stop      docker compose down
     Upgrade   docker compose pull && docker compose up -d
 ```
+
+À partir d'un domaine (par exemple `example.org`), l'installateur propose `https://cms.example.org`, `https://back.example.org` et `https://s3.example.org/intlayer` pour le tableau de bord, l'API et le stockage d'objets, les écrit dans le fichier d'environnement et remplace la commande de démarrage par un build depuis le dépôt, car l'image publiée du tableau de bord ne fonctionne que sur `localhost`. Voir [Domaine personnalisé](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/self_hosting.md#custom-domain).
+
+- [Domaine personnalisé](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/self_hosting.md#custom-domain)
 
 ## Paramètres de l'installateur
 
@@ -143,6 +147,8 @@ INTLAYER_COMPOSE_DIR=./cms npx intlayer init infra --mode compose
 | `INTLAYER_SELFHOST_REF`   | `main`                    | les deux     | Référence Git d'où sont récupérés le fichier compose et le modèle env |
 
 > Les variables de port ne modifient que le côté **hôte** du mappage. Les images publiées intègrent `http://localhost:3000`, `http://localhost:3100` et `http://localhost:9000` compilés dans le bundle du tableau de bord, conservez donc les valeurs par défaut à moins de construire vos propres images : voir le [guide d'auto-hébergement](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/self_hosting.md#limitations).
+
+- [guide d'auto-hébergement](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/self_hosting.md#limitations)
 
 ## Prérequis
 

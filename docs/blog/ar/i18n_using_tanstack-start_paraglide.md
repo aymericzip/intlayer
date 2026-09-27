@@ -51,6 +51,8 @@ author: aymericzip
 
 > هل تقارن بين النهجين المعتمدين على المترجم؟ اقرأ [هل Intlayer أخف من Paraglide؟](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/is_intlayer_lighter_than_paraglide.md).
 
+- [هل Intlayer أخف من Paraglide؟](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/is_intlayer_lighter_than_paraglide.md)
+
 > لفهم أصل هذه المكتبات، اقرأ تاريخ i18n في JavaScript.
 
 - [تاريخ i18n في JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/history_of_i18n.md)
@@ -58,6 +60,8 @@ author: aymericzip
 ## ماذا تقول المقارنة المعيارية (Benchmark) عن Paraglide على TanStack Start
 
 يقوم [اختبار الأداء للتدويل](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md) بتشغيل نفس تطبيق TanStack Start المكون من 10 صفحات و 10 لغات مع كل مكتبة رئيسية ويقيس ما يقوم المتصفح بتنزيله بالفعل.
+
+- [اختبار الأداء للتدويل](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md)
 
 <I18nBenchmark framework="tanstack" packages="paraglide,intlayer" vertical/>
 
@@ -78,6 +82,8 @@ author: aymericzip
 - **تحميل الصفحة هو الأبطأ في المجموعة**، ويرجع ذلك جزئيا إلى أن تحديد اللغة يتم من خلال استراتيجيات عند كل استدعاء بدلا من قراءتها من سياق React context.
 
 > اطلع على البيانات الكاملة: [تقرير مقارنة أداء TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md)، و[مستودع المقارنة المعيارية](https://github.com/intlayer-org/benchmark-i18n).
+
+- [تقرير مقارنة أداء TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md)
 
 ## مقارنة الميزات على TanStack Start
 
@@ -102,6 +108,8 @@ author: aymericzip
 | **الترجمات المفقودة في CI**           | ✅ `npx intlayer test`               | ⚠️ غير مدمج           | ⚠️ غير مدمج                           | ✅ `lingui compile --strict` |
 
 > أرقام حجم وقت التشغيل والتسرب مأخوذة من [مقارنة أداء TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md). يتم قياس التسرب في أفضل إعداد لكل مكتبة.
+
+- [مقارنة أداء TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md)
 
 > أدلة TanStack Start الأخرى:
 
@@ -837,7 +845,12 @@ export const sendWelcomeEmail = createServerFn({ method: "POST" })
 
 إذا كنت قادما من مكتبة أخرى بدلا من Paraglide، فإن [محولات التوافق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/index.md) تحافظ على واجهة برمجة تطبيقات `use-intl` أو `next-intl` أو `react-i18next` أو `react-intl` أو Lingui وتستبدل بيئة التشغيل.
 
+- [محولات التوافق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/index.md)
+
 راجع [هل Intlayer أخف من Paraglide؟](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/is_intlayer_lighter_than_paraglide.md) و [دليل Intlayer مع TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_tanstack.md).
+
+- [هل Intlayer أخف من Paraglide؟](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/is_intlayer_lighter_than_paraglide.md)
+- [دليل Intlayer مع TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_tanstack.md)
 
 </Step>
 <Step number={17} title="أتمتة ترجماتك باستخدام Intlayer" isOptional={true}>
@@ -859,6 +872,8 @@ export const sendWelcomeEmail = createServerFn({ method: "POST" })
 <Question title="هل يعد Paraglide JS خيارا جيدا لـ TanStack Start؟">
 
 إنه خيار قوي: فهو مستخدم في أمثلة TanStack Router الرسمية، ويحتوي على أصغر بيئة تشغيل في [المقارنة المعيارية](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md) (~1.8 KB gzip)، والرسائل محددة الأنواع بالكامل. التنازلات تكمن في أن كل دالة رسالة تحتوي على جميع اللغات، مما يسرب ما يقرب من نصف النصوص المترجمة لزوار اللغات الأخرى، وأن تبديل اللغة يعيد تحميل الصفحة.
+
+- [المقارنة المعيارية](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md)
 
 </Question>
 <Question title="هل أحتاج إلى مقطع مسار $locale مع Paraglide؟">
@@ -889,6 +904,9 @@ export const sendWelcomeEmail = createServerFn({ method: "POST" })
 <Question title="هل يمكنني الانتقال من Paraglide إلى Intlayer؟">
 
 نعم. كلاهما يعتمد على المترجم، لذا فإن النموذج الذهني متقارب جدا. احتفظ بملفات JSON الخاصة بك باستخدام [إضافة مزامنة JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/plugins/sync-json.md)، ثم استبدل استدعاءات `m.key()` بـ `useIntlayer`، صفحة تلو الأخرى. راجع [دليل Intlayer مع TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_tanstack.md).
+
+- [إضافة مزامنة JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/plugins/sync-json.md)
+- [دليل Intlayer مع TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_tanstack.md)
 
 </Question>
 

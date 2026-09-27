@@ -265,6 +265,8 @@ ICU kavramlarıyla eşleşme son derece doğaldır:
 
 `plural`, kategori seçimini doğrudan `Intl.PluralRules` API'sine devreder, böylece yukarıdaki CLDR tablosu eksiksiz çalışır. Biçimlendirme ayrı tutulur: Sayılar, tarihler, para birimleri ve listeler mesaj metnine gömülmek yerine [biçimlendirici kancaları (formatter hooks)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/formatters.md) üzerinden yönetilir.
 
+- [biçimlendirici kancaları (formatter hooks)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/formatters.md)
+
 Bilinmesi gereken kısıtlamalar:
 
 - Intlayer bir derleme adımı gerektirir; derleyici bildirimleri derleme aşamasında çıkarır. Çalışma zamanında salt JSON yüklemek istiyorsanız bu farklı bir yaklaşımdır.
@@ -272,6 +274,9 @@ Bilinmesi gereken kısıtlamalar:
 - Ekosistem i18next'e göre daha yenidir, bu nedenle hazır TMS entegrasyonu sayısı henüz gelişme aşamasındadır.
 
 Mevcut projenizde hazır ICU metinleri bulunuyorsa, [react-intl uyumluluk bağdaştırıcısı](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/react-intl.md) bunları doğrudan ayrıştırır: `plural`, `select`, `selectordinal`, `#` ve geleneksel `number` / `date` / `time` argümanları. İskeletler ve `offset:` bu çözümleyici tarafından henüz desteklenmemektedir. [i18next bağdaştırıcısı](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/i18next.md) ise son ek biçimini (`key_one`, `key_male`) `Intl.PluralRules` ile eşleştirir.
+
+- [react-intl uyumluluk bağdaştırıcısı](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/react-intl.md)
+- [i18next bağdaştırıcısı](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/i18next.md)
 
 ## Yaygın hatalar
 

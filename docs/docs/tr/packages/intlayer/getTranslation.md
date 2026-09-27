@@ -34,6 +34,8 @@ author: aymericzip
 
 Çevirileri nasıl bildireceğiniz hakkında daha fazla ayrıntı için bkz. [Çeviri belgeleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/translation.md).
 
+- [Çeviri belgeleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/translation.md)
+
 ## Parametreler
 
 - `languageContent: CustomizableLanguageContent<Content>`

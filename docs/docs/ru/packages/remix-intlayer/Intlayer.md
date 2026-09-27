@@ -29,6 +29,8 @@ author: aymericzip
 
 ## Использование
 
+При выполнении промежуточного ПО `intlayer()` оно сохраняет объект `IntlayerState` в контексте запроса под ключом `Intlayer`. Его можно получить в любом обработчике маршрута:
+
 ```ts fileName="src/server.ts"
 import { createRouter } from "remix/router";
 import { intlayer, Intlayer } from "remix-intlayer";
@@ -37,20 +39,39 @@ const router = createRouter({
   middleware: [intlayer()],
 });
 
-router.get("/api/current-locale", (context) => {
-  const intlayerState = context.get(Intlayer);
+router.get("/api/profile", (context) => {
+  // Доступ через context.get(Intlayer)
+  const { locale, defaultLocale, availableLocales } = context.get(Intlayer);
 
   return Response.json({
-    locale: intlayerState?.locale,
+    locale,
+    defaultLocale,
+    availableLocales,
   });
 });
 ```
 
-## Описание
+Также к нему можно обратиться с помощью сокращённой записи через прямое свойство `context.intlayer`:
 
-`Intlayer` используется промежуточным ПО `intlayer()` для привязки текущего состояния сессии к контексту запроса Remix (`RequestContext`). Обычно предпочтительнее использовать хуки, такие как `useLocale()` или `useIntlayer()`. Прямой доступ к `context.get(Intlayer)` полезен в низкоуровневых промежуточных обработчиках или API-маршрутах, где передача экземпляра контекста является явной.
+```ts
+router.get("/api/status", (context) => {
+  const currentLocale = context.intlayer.locale;
+  return Response.json({ status: "ok", locale: currentLocale });
+});
+```
+
+## Структура `IntlayerState`
+
+Объект `IntlayerState` содержит:
+
+| Свойство           | Тип                 | Описание                                                     |
+| ------------------ | ------------------- | ------------------------------------------------------------ |
+| `locale`           | `DeclaredLocales`   | Локаль, определённая для текущего запроса.                   |
+| `defaultLocale`    | `DeclaredLocales`   | Резервная локаль, заданная в `intlayer.config.ts`.           |
+| `availableLocales` | `DeclaredLocales[]` | Список всех поддерживаемых локалей, настроенных для проекта. |
 
 ## Связанная документация
 
 - [Промежуточное ПО `intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/remix-intlayer/intlayerMiddleware.md)
 - [Хук `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/remix-intlayer/useLocale.md)
+- [Хук `useIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/remix-intlayer/useIntlayer.md)

@@ -100,7 +100,7 @@ npx skills add aymericzip/intlayer-skills
 
 - Dạy agent sử dụng các store của Svelte và cú pháp đặc trưng cho nội dung được bản địa hóa an toàn về kiểu dữ liệu và phản ứng trên các ứng dụng Svelte và SvelteKit.
 
-**intlayer-cms**
+**intlayer-remote-content**
 
 - Cho phép agent tích hợp và quản lý nội dung từ xa, cho phép nó xử lý việc đồng bộ hóa trực tiếp và quy trình dịch thuật từ xa thông qua Intlayer CMS.
 
@@ -115,3 +115,31 @@ npx skills add aymericzip/intlayer-skills
 **intlayer-compiler**
 
 - Đơn giản hóa quy trình làm việc của agent bằng cách cho phép trích xuất nội dung tự động, cho phép nó viết các chuỗi có thể dịch trực tiếp trong mã của bạn mà không cần các tệp từ điển thủ công.
+
+**intlayer-lit**
+
+- Hướng dẫn agent dịch các web component Lit bằng các ReactiveController `useIntlayer` và `useLocale`.
+
+**intlayer-vanilla**
+
+- Cho phép agent bản địa hóa các trang JavaScript / TypeScript thuần bằng `vanilla-intlayer`, có hoặc không có bundler.
+
+**intlayer-remix**
+
+- Cung cấp cho agent middleware router của Remix 3 và các hook `useIntlayer` / `useLocale` theo phạm vi request.
+
+**intlayer-backend**
+
+- Trang bị cho agent khả năng dịch các phản hồi server trong Express, Fastify, Hono, NestJS, AdonisJS và Elysia thông qua một mẫu chung middleware + `t` / `getIntlayer`.
+
+**intlayer-dev-tools**
+
+- Cho phép agent thiết lập bộ công cụ Intlayer xung quanh mã của bạn: quy tắc ESLint cho các chuỗi hardcode, Language Server, các tiện ích mở rộng VS Code và Chrome, máy chủ MCP và các kiểm tra bản dịch trong CI/CD.
+
+**intlayer-markdown**
+
+- Hướng dẫn agent khai báo nội dung Markdown (`md()`, tệp `.content.md`, tệp bên ngoài) và render nó bằng các component MDX, một `MarkdownProvider` toàn cục, Suspense và phân tích cú pháp phía server.
+
+**intlayer-compat**
+
+- Hướng dẫn agent di chuyển từ i18next, react-i18next, next-intl, next-i18next, react-intl, vue-i18n hoặc Lingui bằng các adapter tương thích giữ nguyên API gốc, để không cần viết lại các lời gọi dịch.

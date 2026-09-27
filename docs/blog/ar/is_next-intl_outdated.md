@@ -90,6 +90,8 @@ style="border:none;"
 
 > تم الاختبار في متصفحات حقيقية باستخدام ضغط gzip الإنتاجي. التفاصيل في [تقرير مقارنة أداء Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md).
 
+- [تقرير مقارنة أداء Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md)
+
 ### حجم المكتبات المجرد
 
 حجم الشيفرة قبل تضمين ملفات النصوص:
@@ -138,6 +140,8 @@ export default async function RootLayout({ children, params }) {
 
 تتجاوز Intlayer هذا القصور عبر التحليل الثابت: حيث يستخلص [مترجم Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md) النصوص المستخدمة فعلياً في المسار المحدد، لتنخفض نسبة التسريب إلى **0.0%**.
 
+- [مترجم Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md)
+
 ## لماذا تعطل next-intl ميزة الـ Tree-shaking؟
 
 تعتمد واجهة المكتبة على نصوص ديناميكية يتم طلبها في وقت التشغيل:
@@ -176,6 +180,8 @@ export function UserProfile() {
 </Tabs>
 
 لا يمكن لـ Turbopack أو Webpack معرفة المفاتيح التي ستُطلب من `UserProfile`. ولتجنب الأخطاء، **تضطر أدوات الحزم إلى تضمين المساحة الاسمية بأكملها في حزمة العميل**. بينما تتيح الخصائص المفككة في Intlayer للمترجم تتبع الاستخدام الفعلي وحذف كل ما لم يُستخدم. اقرأ المزيد في [تحسين الحزم](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md).
+
+- [تحسين الحزم](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md)
 
 ## مقارنة تجربة التطوير
 
@@ -276,6 +282,8 @@ declare global {
 
 تستنتج Intlayer الأنواع من كافة ملفات المحتوى. وتفعيل [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md) يوقف عملية البناء عند غياب الترجمة في أي لغة مستهدفة.
 
+- [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md)
+
 ### أدوات التطوير والذكاء الاصطناعي
 
 | الميزة                               | `next-intl`  | Intlayer                                                                                                          |
@@ -301,6 +309,8 @@ declare global {
 **نظام إدارة محتوى مرئي ذاتي الاستضافة:**
 
 استخدم [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md) لتمكين الفرق غير التقنية من مراجعة النصوص مع الحفظ المباشر في Git.
+
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
 
 **ترخيص مفتوح:**
 

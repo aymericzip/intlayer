@@ -123,6 +123,8 @@ author: aymericzip
 
 > الجدول الكامل، مع كل المكتبات وكل الاستراتيجيات، متوفر في [تقرير benchmark الخاص بـ Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/vue.md).
 
+- [تقرير benchmark الخاص بـ Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/vue.md)
+
 ## لماذا الفجوة؟ المثيل العام مقابل القواميس المُصرَّفة
 
 `vue-i18n` هو وقت تشغيل. يبني `createI18n()` مثيلًا عامًا يحمل شجرة رسائل لكل لغة؛ يربط `useI18n()` كل مكوّن به؛ ويبحث `t("footer.github")` عن المفتاح في وقت العرض. هذا ما يجعل كتل SFC `<i18n>` و `v-t` وتحميل الرسائل في وقت التشغيل ممكنًا، وهو أيضًا سبب احتواء رسم اعتماديات كل مكوّن على الشجرة بأكملها:
@@ -158,6 +160,8 @@ author: aymericzip
 يُصدر المُصرِّف، لكل قاموس ولكل لغة، JSON الذي يحتاجه ذلك المكوّن بالضبط، ويحذف القواميس التي لا يستوردها أحد. تحديد النطاق لكل مسار نتيجة لتحديد النطاق لكل مكوّن، وليس مهمة.
 
 > لحذف اللغات غير المستخدمة أيضًا، اضبط `dictionary.importMode: 'dynamic'` في `intlayer.config.ts`. انظر [وثيقة تحسين الحزمة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md).
+
+- [وثيقة تحسين الحزمة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md)
 
 ## تجربة المطور
 
@@ -347,6 +351,10 @@ export default defineConfig({
 
 انظر [دليل الترحيل من vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_vue-i18n_to_intlayer.md) و[وثيقة التوافق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/vue-i18n.md). لمستخدمي Nuxt نفس المسار عبر [توافق `@nuxtjs/i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/nuxtjs-i18n.md).
 
+- [دليل الترحيل من vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_vue-i18n_to_intlayer.md)
+- [وثيقة التوافق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/vue-i18n.md)
+- [توافق `@nuxtjs/i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/nuxtjs-i18n.md)
+
 ## متى تختار أيهما؟
 
 - **اختر vue-i18n** إذا أردت النهج القياسي لـ Vue، أو كنت تعتمد على رسائل ICU أو كتل SFC `<i18n>`، أو كنت تستخدم `@nuxtjs/i18n` بالفعل، أو كانت منصة الترجمة تتوقع JSON مركزيًا. خصص وقتًا لتقسيم الفهارس والتحميل الكسول لكل مسار إذا كان حجم الحزمة مهمًا.
@@ -373,17 +381,24 @@ export default defineConfig({
 
 نعم. يغطي [Intlayer مع Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nuxt.md) التوجيه متعدد اللغات والبرمجيات الوسيطة للكشف عن اللغة وإنشاء خريطة الموقع. إذا كنت تستخدم `@nuxtjs/i18n`، فإن [محول توافق Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/nuxtjs-i18n.md) هو مسار الترحيل.
 
+- [Intlayer مع Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nuxt.md)
+- [محول توافق Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/nuxtjs-i18n.md)
+
 </Question>
 
 <Question title="هل يمكنني الاحتفاظ بـ locales/{locale}.json كمصدر وحيد للحقيقة؟">
 
 نعم. يقرأها [ملحق مزامنة JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/vue-i18n.md) بلهجة `vue-i18n` (`{name}`، `{0}`، وصيغ الجمع `"car | cars"`) ويكتب الترجمات مرة أخرى عندما يقوم CLI أو CMS بتحديثها.
 
+- [ملحق مزامنة JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/vue-i18n.md)
+
 </Question>
 
 <Question title="هل يعمل ICU مع Intlayer على Vue؟">
 
 دعم ICU الأصلي قيد التطوير. يتعامل محول `@intlayer/vue-i18n` مع بناء جملة الرسائل الخاصة بـ `vue-i18n`، بما في ذلك صيغ الجمع والاستيفاء المحدد والقوائم. للحصول على نموذج صيغ الجمع الخاص بـ Intlayer، راجع [محتوى التعداد](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/enumeration.md).
+
+- [محتوى التعداد](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/enumeration.md)
 
 </Question>
 
@@ -432,3 +447,5 @@ export default defineConfig({
 كل البيانات الخام وتطبيقات الاختبار والنصوص البرمجية موجودة في [مستودع Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). شغّله بنفسك.
 
 راجع [وثيقة "لماذا Intlayer؟"](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/interest_of_intlayer.md) لمزيد من التفاصيل.
+
+- [لماذا Intlayer؟ مزاياه مقارنة بمكتبات i18n الأخرى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/interest_of_intlayer.md)

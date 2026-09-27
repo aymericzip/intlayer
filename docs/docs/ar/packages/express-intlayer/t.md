@@ -258,3 +258,5 @@ app.get("/morning", (_req, res) => {
 ## الخاتمة
 
 تُعد دالة `t` أداة قوية للتدويل في جانب الخادم. باستخدامها بشكل فعال، يمكنك إنشاء تطبيق أكثر شمولية وسهل الاستخدام لجمهور عالمي. للاستخدام المتقدم وخيارات التكوين التفصيلية، يرجى الرجوع إلى [التوثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
+
+- [إعدادات Intlayer (intlayer.config.ts)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md)

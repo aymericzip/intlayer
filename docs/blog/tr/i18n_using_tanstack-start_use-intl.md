@@ -49,6 +49,8 @@ TanStack Start yerleşik bir i18n katmanı içermez. Yönlendirme (routing), dil
 
 > Bunun yerine Next.js mi kullanıyorsunuz? [next-intl rehberi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18n_using_next-intl.md) sayfasına bakın.
 
+- [next-intl rehberi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18n_using_next-intl.md)
+
 > Bu kütüphanelerin nereden geldiğini anlamak için JavaScript i18n tarihini okuyun.
 
 - [JavaScript i18n tarihi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/history_of_i18n.md)
@@ -56,6 +58,8 @@ TanStack Start yerleşik bir i18n katmanı içermez. Yönlendirme (routing), dil
 ## TanStack Start Üzerinde use-intl Kıyaslama (Benchmark) Sonuçları
 
 [i18n kıyaslama testi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md), her önemli kütüphane ile aynı 10 sayfalık ve 10 dilli TanStack Start uygulamasını çalıştırır ve tarayıcının gerçekte ne kadar veri indirdiğini ölçer.
+
+- [i18n kıyaslama testi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md)
 
 <I18nBenchmark framework="tanstack" packages="use-intl,@intlayer/use-intl,intlayer" vertical/>
 
@@ -74,6 +78,8 @@ TanStack Start yerleşik bir i18n katmanı içermez. Yönlendirme (routing), dil
 - **Çalışma zamanının kendisi ağır kalmaktadır** (~76 KB gzip), çünkü ICU ayrıştırıcısı istemciye gönderilir. `@intlayer/use-intl` uyumluluk adaptörü (17. adım), ~7 KB çalışma zamanı ile tamamen aynı API'yi korur.
 
 > Tüm verileri inceleyin: [TanStack Start kıyaslama raporu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md) ve [kıyaslama deposu](https://github.com/intlayer-org/benchmark-i18n).
+
+- [TanStack Start kıyaslama raporu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md)
 
 ## TanStack Start Üzerinde Özellik Karşılaştırması
 
@@ -98,6 +104,8 @@ TanStack Start yerleşik bir i18n katmanı içermez. Yönlendirme (routing), dil
 | **CI üzerinde eksik çeviriler**           | ✅ `npx intlayer test`               | ⚠️ Yerleşik değil         | ⚠️ Yerleşik değil                               | ✅ `lingui compile --strict`   |
 
 > Çalışma zamanı boyutu ve sızıntı değerleri [TanStack Start kıyaslama testinden](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md) alınmıştır. Sızıntı, her kütüphanenin en iyi yapılandırmasında ölçülmüştür.
+
+- [TanStack Start kıyaslama testinden](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md)
 
 > Diğer TanStack Start rehberleri:
 
@@ -974,6 +982,8 @@ export const startInstance = createStart(() => ({
 
 Kıyaslama testi, use-intl kurulumunun en ağır kısmının çalışma zamanının kendisi olduğunu göstermektedir (~76 KB gzip). [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/index.md) uyumluluk adaptörü **aynı API'yi** (`useTranslations`, `useFormatter`, `IntlProvider`, `createTranslator`, ICU çoğulları, `t.rich`) sunar, ancak bunu derlenmiş Intlayer sözlüklerinden sağlar: bileşenlerinizde hiçbir değişiklik yapmadan **~75.9 KB yerine ~6.7 KB**, %0 dil sızıntısı ve %0 sayfa sızıntısı elde edersiniz.
 
+- [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/index.md)
+
 ```bash packageManager="npm"
 npm install @intlayer/use-intl intlayer @intlayer/sync-json-plugin
 npx intlayer init
@@ -1034,7 +1044,11 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
+- [JSON senkronizasyon eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-json.md)
+
 > Adaptör ayrıca sorunsuz bir geçiş yolu sunar: çalışır hale geldikten sonra bileşenleri tek tek yerel `useIntlayer` API'sine taşıyabilirsiniz. [Intlayer TanStack Start rehberine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_tanstack.md) göz atın.
+
+- [Intlayer TanStack Start rehberine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_tanstack.md)
 
 </Step>
 <Step number={18} title="Her Dili Önceden İşleyin (Pre-render)" isOptional={true}>
@@ -1142,6 +1156,8 @@ use-intl çevirileri işler, ancak bunları **oluşturmanıza** yardımcı olmaz
 
 Tüm özellikleri keşfetmek için [neden Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/interest_of_intlayer.md) sayfasına bakın.
 
+- [neden Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/interest_of_intlayer.md)
+
 </Step>
 </Steps>
 
@@ -1152,6 +1168,8 @@ Tüm özellikleri keşfetmek için [neden Intlayer](https://github.com/aymericzi
 <Question title="use-intl TanStack Start için iyi bir tercih midir?">
 
 Next.js dışında `next-intl` API'sini kullanmak istiyorsanız evet. Size ICU mesajları, biçimlendiriciler ve iyi bir TypeScript desteği sunar; ayrıca `setRequestLocale` gibi Next.js'e özgü kısıtlamalardan kaçınmanızı sağlar. Dezavantajı ise ağırlığıdır: [kıyaslama testi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md) çalışma zamanı için ~76 KB gzip ölçmektedir ve basit bir kurulum tüm dilleri ve sayfaları tarayıcıya gönderir. Sızıntıları önlemek için bu rehberde olduğu gibi ad alanlarını rota ve dil bazında yükleyin.
+
+- [kıyaslama testi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md)
 
 </Question>
 <Question title="use-intl ile next-intl arasındaki fark nedir?">
@@ -1173,6 +1191,8 @@ Sunucu ve tarayıcı tarihleri farklı saat dilimlerinde biçimlendirir. Her iki
 
 İlk olarak, mesajları ad alanına göre bölün ve `import.meta.glob` ile rota ve dil bazında yükleyin; bu, dil ve sayfa sızıntılarını ortadan kaldırır. Ardından, çalışma zamanı boyutu önemliyse [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/index.md) adaptörüne geçin: aynı API, kıyaslama testinde ~75.9 KB yerine ~6.7 KB.
 
+- [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/index.md)
+
 </Question>
 <Question title="use-intl ile başlık ve meta açıklamayı nasıl çevirebilirim?">
 
@@ -1182,6 +1202,9 @@ Rota yükleyicisinin döndürdüğü mesajlarla rota `head()` fonksiyonu içinde
 <Question title="use-intl'den Intlayer'a kademeli olarak geçebilir miyim?">
 
 Evet. Önce uyumluluk adaptörünü kurun (17. adım): bileşenleriniz `useTranslations` çağırmaya devam eder ve artık Intlayer tarafından desteklenir. Ardından bileşenleri tek tek `useIntlayer` API'sine taşıyın ve içerikleri yanlarında tanımlayın. [Uyumluluk adaptörleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/index.md) ve [Intlayer TanStack Start rehberi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_tanstack.md) sayfalarına bakın.
+
+- [Uyumluluk adaptörleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/index.md)
+- [Intlayer TanStack Start rehberi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_tanstack.md)
 
 </Question>
 

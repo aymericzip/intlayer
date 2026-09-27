@@ -142,12 +142,12 @@ Markdown içeriğini `md` işlevini kullanarak veya basitçe bir dize olarak (Ma
 Intlayer, Markdown'ı işlemek için iki bağımsız yol sağlar:
 
 1. **`useIntlayer` aracılığıyla**
-   — Intlayer, `md` düğümünü çerçevenin yerel çıktısına (JSX, VNode, HTML dizesi) otomatik olarak dönüştürür.
-   - Frontmatter ayrıştırılır ve `.metadata` olarak sunulur. İşlemeyi iki düzeyde geçersiz kılabilirsiniz — `MarkdownProvider` (veya çerçeve eşdeğeri) ile global olarak ve `.use()` ile düğüm başına yerel olarak. Her ikisi de birleştirilebilir; `.use()`, `MarkdownProvider`'dan önceliklidir ve o da varsayılandan önceliklidir.
+   Intlayer, `md` düğümünü çerçevenin yerel çıktısına (JSX, VNode, HTML dizesi) otomatik olarak dönüştürür.
+   - Frontmatter ayrıştırılır ve `.metadata` olarak sunulur. İşlemeyi iki düzeyde geçersiz kılabilirsiniz, `MarkdownProvider` (veya çerçeve eşdeğeri) ile global olarak ve `.use()` ile düğüm başına yerel olarak. Her ikisi de birleştirilebilir; `.use()`, `MarkdownProvider`'dan önceliklidir ve o da varsayılandan önceliklidir.
 
-2. **Yardımcı araçlar** — `<MarkdownRenderer />`, `useMarkdownRenderer()` ve `renderMarkdown()`, **yalnızca ham Markdown dizelerini** kabul eden bağımsız araçlardır. `useIntlayer`'dan bağımsızdırlar ve döndürdüğü süslenmiş düğümlerle çalışmazlar.
+2. **Yardımcı araçlar**: `<MarkdownRenderer />`, `useMarkdownRenderer()` ve `renderMarkdown()`, **yalnızca ham Markdown dizelerini** kabul eden bağımsız araçlardır. `useIntlayer`'dan bağımsızdırlar ve döndürdüğü süslenmiş düğümlerle çalışmazlar.
 
-Markdown oluşturma **MDX**'i destekler — Markdown'ınızın içinde doğrudan adıyla herhangi bir JSX/çerçeve bileşenini kullanın.
+Markdown oluşturma **MDX**'i destekler, Markdown'ınızın içinde doğrudan adıyla herhangi bir JSX/çerçeve bileşenini kullanın.
 
 ### 1. Otomatik İşleme (`useIntlayer` aracılığıyla)
 
@@ -864,7 +864,7 @@ Bu yardımcı programlar **yalnızca ham Markdown dizelerini** oluşturur ve `us
 
 ## `MarkdownProvider` ile Global Yapılandırma
 
-`MarkdownProvider` (veya çerçeve eşdeğeri), tüm uygulamanız için Markdown oluşturma işlem hattını yapılandırır. Bu hem otomatik `useIntlayer` oluşturma işlemleri hem de yardımcı araçlar için geçerlidir. Burada ayarlanan seçenekler varsayılanlardır — `.use()` bunları düğüm düzeyinde geçersiz kılar.
+`MarkdownProvider` (veya çerçeve eşdeğeri), tüm uygulamanız için Markdown oluşturma işlem hattını yapılandırır. Bu hem otomatik `useIntlayer` oluşturma işlemleri hem de yardımcı araçlar için geçerlidir. Burada ayarlanan seçenekler varsayılanlardır, `.use()` bunları düğüm düzeyinde geçersiz kılar.
 
 <Tabs group="framework">
   <Tab label="React" value="react">
@@ -886,7 +886,7 @@ Bu yardımcı programlar **yalnızca ham Markdown dizelerini** oluşturur ve `us
     ```
 
 
-    > MDX desteklenir — Markdown'ınızın içinde kullanılan herhangi bir bileşen adı (örn. `<MyCustomJSXComponent />`) `components` haritasına göre çözümlenir.
+    > MDX desteklenir, Markdown'ınızın içinde kullanılan herhangi bir bileşen adı (örn. `<MyCustomJSXComponent />`) `components` haritasına göre çözümlenir.
 
     Kendi markdown oluşturucunuzu da kullanabilirsiniz:
 
@@ -928,7 +928,7 @@ Bu yardımcı programlar **yalnızca ham Markdown dizelerini** oluşturur ve `us
     ```
 
 
-    > MDX desteklenir — Markdown'ınızın içinde kullanılan herhangi bir bileşen adı (örn. `<MyCustomJSXComponent />`) `components` haritasına göre çözümlenir.
+    > MDX desteklenir, Markdown'ınızın içinde kullanılan herhangi bir bileşen adı (örn. `<MyCustomJSXComponent />`) `components` haritasına göre çözümlenir.
 
     Kendi markdown oluşturucunuzu da kullanabilirsiniz:
 
@@ -976,7 +976,7 @@ Bu yardımcı programlar **yalnızca ham Markdown dizelerini** oluşturur ve `us
     ```
 
 
-    > MDX desteklenir — Markdown'ınızın içinde kullanılan herhangi bir bileşen adı (örn. `<MyCustomJSXComponent />`) `components` haritasına göre çözümlenir.
+    > MDX desteklenir, Markdown'ınızın içinde kullanılan herhangi bir bileşen adı (örn. `<MyCustomJSXComponent />`) `components` haritasına göre çözümlenir.
 
     Kendi markdown oluşturucunuzu da kullanabilirsiniz:
 
@@ -1020,7 +1020,7 @@ Bu yardımcı programlar **yalnızca ham Markdown dizelerini** oluşturur ve `us
     ```
 
 
-    > MDX desteklenir — Markdown'ınızın içinde kullanılan herhangi bir bileşen adı (örn. `<MyCustomJSXComponent />`) `components` haritasına göre çözümlenir.
+    > MDX desteklenir, Markdown'ınızın içinde kullanılan herhangi bir bileşen adı (örn. `<MyCustomJSXComponent />`) `components` haritasına göre çözümlenir.
 
     Kendi markdown oluşturucunuzu da kullanabilirsiniz:
 
@@ -1059,7 +1059,7 @@ Bu yardımcı programlar **yalnızca ham Markdown dizelerini** oluşturur ve `us
     ```
 
 
-    > MDX desteklenir — Markdown'ınızın içinde kullanılan herhangi bir bileşen adı (örn. `<MyCustomJSXComponent />`) `components` haritasına göre çözümlenir.
+    > MDX desteklenir, Markdown'ınızın içinde kullanılan herhangi bir bileşen adı (örn. `<MyCustomJSXComponent />`) `components` haritasına göre çözümlenir.
 
     Kendi markdown oluşturucunuzu da kullanabilirsiniz:
 
@@ -1098,7 +1098,7 @@ Bu yardımcı programlar **yalnızca ham Markdown dizelerini** oluşturur ve `us
     ```
 
 
-    > MDX desteklenir — Markdown'ınızın içinde kullanılan herhangi bir bileşen adı (örn. `<MyCustomJSXComponent />`) `components` haritasına göre çözümlenir.
+    > MDX desteklenir, Markdown'ınızın içinde kullanılan herhangi bir bileşen adı (örn. `<MyCustomJSXComponent />`) `components` haritasına göre çözümlenir.
 
     Kendi markdown oluşturucunuzu da kullanabilirsiniz:
 
@@ -1137,7 +1137,7 @@ Bu yardımcı programlar **yalnızca ham Markdown dizelerini** oluşturur ve `us
     ```
 
 
-    > MDX desteklenir — Markdown'ınızın içinde kullanılan herhangi bir bileşen adı (örn. `<MyCustomJSXComponent />`) `components` haritasına göre çözümlenir.
+    > MDX desteklenir, Markdown'ınızın içinde kullanılan herhangi bir bileşen adı (örn. `<MyCustomJSXComponent />`) `components` haritasına göre çözümlenir.
 
     Kendi markdown oluşturucunuzu da kullanabilirsiniz:
 

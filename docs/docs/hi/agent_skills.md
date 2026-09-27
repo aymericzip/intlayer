@@ -100,7 +100,7 @@ npx skills add aymericzip/intlayer-skills
 
 - एजेंट को Svelte और SvelteKit ऐप्स में प्रतिक्रियाशील और प्रकार-सुरक्षित स्थानीयकृत सामग्री के लिए Svelte स्टोर और मुहावरेदार सिंटैक्स का उपयोग करना सिखाता है।
 
-**intlayer-cms**
+**intlayer-remote-content**
 
 - एजेंट को दूरस्थ सामग्री को एकीकृत और प्रबंधित करने की अनुमति देता है, जिससे वह Intlayer CMS के माध्यम से लाइव-सिंकिंग और दूरस्थ अनुवाद वर्कफ़्लो को संभालने में सक्षम हो सके।
 
@@ -115,3 +115,31 @@ npx skills add aymericzip/intlayer-skills
 **intlayer-compiler**
 
 - स्वचालित सामग्री निष्कर्षण को सक्षम करके एजेंट के वर्कफ़्लो को सरल बनाता है, जिससे वह मैन्युअल शब्दकोश फ़ाइलों के बिना सीधे आपके कोड में अनुवाद योग्य स्ट्रिंग लिख सके।
+
+**intlayer-lit**
+
+- एजेंट को `useIntlayer` और `useLocale` ReactiveControllers के साथ Lit वेब कंपोनेंट्स का अनुवाद करना सिखाता है।
+
+**intlayer-vanilla**
+
+- एजेंट को `vanilla-intlayer` के साथ, bundler के साथ या उसके बिना, सादे JavaScript / TypeScript पेजों को स्थानीयकृत करने में सक्षम बनाता है।
+
+**intlayer-remix**
+
+- एजेंट को Remix 3 राउटर middleware और अनुरोध-स्कोप वाले `useIntlayer` / `useLocale` हुक प्रदान करता है।
+
+**intlayer-backend**
+
+- एजेंट को एक साझा middleware + `t` / `getIntlayer` पैटर्न के माध्यम से Express, Fastify, Hono, NestJS, AdonisJS और Elysia में सर्वर प्रतिक्रियाओं का अनुवाद करने में सक्षम बनाता है।
+
+**intlayer-dev-tools**
+
+- एजेंट को आपके कोड के आसपास Intlayer टूलिंग सेट करने देता है: हार्डकोडेड स्ट्रिंग्स के लिए ESLint नियम, Language Server, VS Code और Chrome एक्सटेंशन, MCP सर्वर और CI/CD अनुवाद जाँच।
+
+**intlayer-markdown**
+
+- एजेंट को Markdown सामग्री (`md()`, `.content.md` फ़ाइलें, बाहरी फ़ाइलें) घोषित करना और उसे MDX कंपोनेंट्स, एक ग्लोबल `MarkdownProvider`, Suspense और सर्वर-साइड पार्सिंग के साथ रेंडर करना सिखाता है।
+
+**intlayer-compat**
+
+- एजेंट को मूल API बनाए रखने वाले compat एडेप्टर्स के साथ i18next, react-i18next, next-intl, next-i18next, react-intl, vue-i18n या Lingui से माइग्रेट करने में मार्गदर्शन करता है, ताकि अनुवाद कॉल्स को दोबारा लिखने की आवश्यकता न हो।

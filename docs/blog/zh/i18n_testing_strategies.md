@@ -31,6 +31,9 @@ author: aymericzip
 
 覆盖率工具也同样可以迁移：通过将 [Sync JSON 插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/plugins/sync-json.md) 指向现有字典目录，或使用 [兼容适配器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/index.md) 别名化当前的导入，覆盖率断言可以直接针对你现有的 JSON 文件运行。
 
+- [Sync JSON 插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/plugins/sync-json.md)
+- [兼容适配器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/index.md)
+
 ## 明确你到底在测试什么
 
 翻译质量不是一个可以通过代码断言来验证的事物。没有任何断言能告诉你德语是否地道，试图这样做只会让你的测试套件充斥着硬编码的字符串。
@@ -46,6 +49,8 @@ author: aymericzip
 | 格式化的日期和数字正确遵循了语言环境 | `Intl` 底层内部实现的正确性  |
 
 覆盖率检查应该归入单个数据驱动的测试中，而不是分散在组件测试里。这部分内容在 [如何检测缺失的翻译](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/detecting_missing_translations.md) 中有详细介绍；本文主要关注其余部分。
+
+- [如何检测缺失的翻译](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/detecting_missing_translations.md)
 
 ## 在 Provider 下渲染并按角色（Role）断言
 
@@ -122,6 +127,8 @@ describe.each([0, 1, 2, 3, 11, 100])("数量 %i", (count) => {
 ```
 
 针对最复杂的语言选择能命中每个 CLDR 类别的数值，而不是处处只测试 1 和 2。`Intl.PluralRules` 可以告诉你一个数字属于哪个类别，从而让你推导测试样本而不是靠猜测。有关类别的更多信息见 [ICU 消息格式文章](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/icu_message_format.md)。
+
+- [ICU 消息格式文章](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/icu_message_format.md)
 
 ## 快照（Snapshot）的陷阱
 

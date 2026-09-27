@@ -26,6 +26,8 @@ Reactには標準のi18nプリミティブが用意されていません。プ�
 
 本ガイドでは逆のアプローチを取ります。まずプロジェクトに関するいくつかの質問に答え、その回答に合ったライブラリをマッピングしていきます。本記事はプレーンなReact（Vite、React Router、TanStack Start）に焦点を当てています。Next.jsには独自の制約があり、それについては[Next.jsの比較記事](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/next-i18next_vs_next-intl_vs_intlayer.md)で解説しています。
 
+- [Next.jsの比較記事](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/next-i18next_vs_next-intl_vs_intlayer.md)
+
 ## 目次
 
 <TOC/>
@@ -74,6 +76,8 @@ SSRおよびServer Componentsを考慮して設計されています。サーバ
 
 [JavaScript i18nの歴史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/history_of_i18n.md)では、それぞれの波が前の世代の課題をどのように解決したかを詳しく解説しています。
 
+- [JavaScript i18nの歴史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/history_of_i18n.md)
+
 ## 最も重要な決定: コンテンツの配置場所と読み込みタイミング
 
 すべてのReact i18nライブラリは、ストア、プロバイダー、フックという基本的に同じ構造を持っています。プロバイダーが受け取ったものは、最終的にクライアントバンドルまたはハイドレーションペイロードに含まれます。したがって、構造上の選択肢は次の2つです。
@@ -89,11 +93,17 @@ SSRおよびServer Componentsを考慮して設計されています。サーバ
 
 これはライブラリ自体の特性というよりも、設計規律の問題です。`react-i18next`でも名前空間や遅延ロードバックエンドを使用してスコープ化が可能です。`use-intl`もルートごとに分割できます。しかし、それを強制する仕組みはなく、共通の`<Button>`が`t("common:cta")`を参照するだけで、`common`が静かにすべてのルートの依存関係になってしまいます。[ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/index.md)ではこれを「他ルートからのリーク」および「他ロケールからのリーク」として測定しており、これこそがライブラリ間の差の大部分を生み出しています。
 
+- [ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/index.md)
+
 質問3への回答が「多数のロケール、多数のページ」であった場合、APIの好み以上にこのセクションを重視してください。[コンポーネント単位 vs 中央集約型 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/per-component_vs_centralized_i18n.md)の記事では、この選択によるメンテナンス面の違いをさらに詳しく掘り下げています。
+
+- [コンポーネント単位 vs 中央集約型 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/per-component_vs_centralized_i18n.md)
 
 ## 候補となるライブラリ
 
 ライブラリのサイズは[TanStack Startベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md)に基づいています（空のコンポーネントにおけるプロバイダーとフック、バンドル・ツリーシェイキング・Minify後、10ページ・10ロケール）。コンテンツのサイズは別途測定されています。
+
+- [TanStack Startベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md)
 
 ![React i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
@@ -119,6 +129,8 @@ SSRおよびServer Componentsを考慮して設計されています。サーバ
 
 過剰な投資は避け、最もシンプルに動くものを選択してください。ロケールごとに1つのJSONを使用する`react-i18next`で十分であり、過去10年間に蓄積されたStack Overflowの知見が開発時間を節約してくれます。必要になるまで名前空間の導入は見送りましょう。プロトタイプが正式なプロダクトに移行した場合は、スコープ付きコンテンツへの移行を検討してください。[react-i18next互換アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/react-i18next.md)を利用すれば、段階的な移行が可能です。
 
+- [react-i18next互換アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/react-i18next.md)
+
 </Accordion>
 <Accordion header="翻訳がICU対応の翻訳会社またはTMSから提供される">
 
@@ -134,6 +146,8 @@ SSRおよびServer Componentsを考慮して設計されています。サーバ
 
 キーベースのライブラリはすべて型付けが可能ですが、最初から型付けされているものはほとんどありません。遅延ロードされる名前空間に対応するためのdeclaration mergingの保守を避けたい場合は、コンテンツから型が自動生成されるライブラリ（`Lingui`、`Paraglide`、Intlayer）を選択してください。[翻訳漏れの検知に関する記事](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/detecting_missing_translations.md)では、ビルド時に各ライブラリが何を検出できるかを比較しています。
 
+- [翻訳漏れの検知に関する記事](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/detecting_missing_translations.md)
+
 </Accordion>
 <Accordion header="リッチコンテンツ（マークダウン、文中のリンク、ロケールごとのコンポーネント）が多い">
 
@@ -148,6 +162,8 @@ SSRおよびServer Componentsを考慮して設計されています。サーバ
 <Accordion header="将来的にNext.js App Routerへ移行する可能性がある">
 
 Reactのコンテキストはサーバーとクライアントの境界を越えることができません。クライアントフックのみに依存するライブラリ（`react-i18next`、`react-intl`）は、RSCを採用する段階で並行して動作するサーバーAPIが必要になります。`use-intl`（`next-intl`として）やIntlayer（`next-intlayer`として）はすでにその分割に対応しています。標準パターンを決定する前に、[Next.js i18nの記事](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/next-i18next_vs_next-intl_vs_intlayer.md)を確認してください。
+
+- [Next.js i18nの記事](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/next-i18next_vs_next-intl_vs_intlayer.md)
 
 </Accordion>
 </AccordionGroup>
@@ -493,6 +509,11 @@ export const CartSummary: FC<{ count: number }> = ({ count }) => {
 
 すでに`react-i18next`、`react-intl`、または`Lingui`をお使いですか？互換アダプター（[react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/react-i18next.md)、[react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/react-intl.md)、[Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/lingui.md)）はバンドラーレベルでインポートをエイリアス化するため、コンポーネント単位で移行を進めながら既存のAPIをそのまま動作させ続けることができます。その他の詳細については[マイグレーションガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_react-i18next_to_intlayer.md)をご覧ください。
 
+- [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/react-i18next.md)
+- [react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/react-intl.md)
+- [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/lingui.md)
+- [マイグレーションガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_react-i18next_to_intlayer.md)
+
 ## 採用を決める前に
 
 機能一覧表はライブラリが現在何ができるかを教えてくれますが、以下のポイントは実際にそのライブラリを運用し続けることがどのようなものかを教えてくれます。
@@ -515,6 +536,9 @@ export const CartSummary: FC<{ count: number }> = ({ count }) => {
 
 AIエージェントは依然としてi18nに苦労しています（ロケールを忘れる、存在しないキーを作成する、メッセージ構文を混同するなど）。ライブラリが[Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)や[MCPサーバー](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)を提供しており、エージェントがコンテンツの一覧表示、自動補完、テストを実行できるようになっているか？また、コンテンツの読み込みはデフォルトで最適化されているか、それとも四半期ごとに誰かが名前空間や遅延インポートを見直す必要があるか？
 
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)
+- [MCPサーバー](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)
+
 **初期状態で型安全であるか。**
 
 「追加の設定を行えば型付けできる」ではなく、「新規インストール時に不正なキーを指定すると`tsc`が失敗する」かどうかを確認してください。存在しないキーを指定した場合や、翻訳が1つ欠落しているロケールがある場合に何が起こるかを検証してください。
@@ -526,6 +550,13 @@ AIエージェントは依然としてi18nに苦労しています（ロケー�
 **開発者体験（DX）。**
 
 最初の翻訳文字列が表示されるまでのセットアップ時間、ホバー時に翻訳を表示して宣言箇所へジャンプできる[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)や[VS Code拡張機能](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)、補完・テスト・プッシュのための[CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md)、コンポーネント内のハードコードされた文字列を抽出してキーごとに管理する手間をなくす[コンパイラー](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)や抽出ツール、そして開発者以外でもプルリクエストなしでコンテンツを編集できる仕組み（[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)や[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)）が用意されているかを確認してください。
+
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)
+- [VS Code拡張機能](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)
+- [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md)
+- [コンパイラー](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)
+- [ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)
 
 ## よくある質問（FAQ）
 
@@ -541,6 +572,8 @@ AIエージェントは依然としてi18nに苦労しています（ロケー�
 
 バンドルサイズ、自動生成される型、またはビルド時の翻訳漏れチェックが要件に含まれている場合にのみ必要となります。2つのロケールを持つ小規模なアプリであれば、ランタイムライブラリの方がシンプルです。[コンパイラー vs 宣言的 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/compiler_vs_declarative_i18n.md)の記事では、コンパイラーがもたらすメリットと注意すべき点について解説しています。
 
+- [コンパイラー vs 宣言的 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/compiler_vs_declarative_i18n.md)
+
 </Question>
 
 <Question title="すべてのコンポーネントを書き直さずに後からライブラリを変更できますか？">
@@ -552,6 +585,8 @@ AIエージェントは依然としてi18nに苦労しています（ロケー�
 <Question title="ライブラリの選択はSEOに影響しますか？">
 
 間接的に影響します。クローラーが認識する内容は、ルーティング、`hreflang`、`<html lang>`、およびテキストがサーバーレンダリングされたHTMLに含まれているかどうかによって決まります。一部のライブラリはこれらを補助するヘルパーを提供していますが、多くは開発者自身の実装に委ねられています。詳細は[hreflangガイド](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/hreflang_guide_multilingual_seo.md)をご覧ください。
+
+- [hreflangガイド](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/hreflang_guide_multilingual_seo.md)
 
 </Question>
 

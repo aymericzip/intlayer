@@ -140,6 +140,9 @@ getLocalizedUrl("https://example.com/about", "fr"); // → "https://example.com/
 
 > Intlayer는 `routing.mode` 및 `routing.domains`를 통해 세 가지 모두를 지원합니다. [사용자 정의 도메인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/custom_domains.md) 및 [구성 참조](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참조하십시오.
 
+- [사용자 정의 도메인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/custom_domains.md)
+- [구성 참조](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)
+
 ## 구현
 
 이러한 태그를 수동으로 작성하면 두 번째 locale과의 접촉에서 유지되지 않습니다. 대신 locale 목록에서 파생시키세요.
@@ -188,6 +191,8 @@ export const generateMetadata = async ({
 
 전체 설정: [Next.js 16 i18n 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_16.md).
 
+- [Next.js 16 i18n 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_16.md)
+
 </Tab>
 
 <Tab label="TanStack Start" value="tanstack">
@@ -227,6 +232,8 @@ export const Route = createFileRoute("/{-$locale}/about")({
 ```
 
 `head`는 서버에서 실행되므로 태그가 초기 HTML에 포함됩니다. 전체 설정: [TanStack Start i18n guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_tanstack.md).
+
+- [TanStack Start i18n guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_tanstack.md)
 
 </Tab>
 

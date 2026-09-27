@@ -110,6 +110,8 @@ bun add intlayer-cli -g
 
 تم تصميم حزمة `intlayer-cli` لنقل [تصريحات intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md) إلى قواميس.
 
+- [تصريحات intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md)
+
 تقوم هذه الحزمة بتحويل جميع ملفات intlayer ، مثل `src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}`. [انظر كيف تصرح عن ملفات تصريح Intlayer الخاصة بك](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
 
 لتفسير قواميس intlayer يمكنك استخدام المترجمين الفوريين ، مثل [react-intlayer](https://www.npmjs.com/package/react-intlayer) أو [next-intlayer](https://www.npmjs.com/package/next-intlayer)
@@ -127,13 +129,17 @@ bun add intlayer-cli -g
 
 لمعرفة كيفية تكوين اللغات المتاحة أو المعلمات الأخرى ، راجع [وثائق التكوين هنا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
 
+- [وثائق التكوين هنا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md)
+
 ## تنفيذ أوامر Intlayer
 
 ### المصادقة
 
 - **[Login](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/login.md)** - المصادقة مع Intlayer CMS والحصول على أوراق اعتماد الوصول
 
-> أمر `intlayer login` يصدر **مفتاح وصول** (`clientId` / `clientSecret`) يستخدمه كل أمر معتمد. السر هو بيانات اعتماد من جانب الخادم ولا يصل أبداً إلى حزمة العميل الخاصة بك — انظر [الحفاظ على مفتاح الوصول آمناً](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/login.md#keeping-the-access-key-safe).
+> أمر `intlayer login` يصدر **مفتاح وصول** (`clientId` / `clientSecret`) يستخدمه كل أمر معتمد. السر هو بيانات اعتماد من جانب الخادم ولا يصل أبداً إلى حزمة العميل الخاصة بك، انظر [الحفاظ على مفتاح الوصول آمناً](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/login.md#keeping-the-access-key-safe).
+
+- [الحفاظ على مفتاح الوصول آمناً](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/login.md#keeping-the-access-key-safe)
 
 ### الأوامر الأساسية
 

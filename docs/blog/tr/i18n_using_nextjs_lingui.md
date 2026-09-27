@@ -63,6 +63,8 @@ Bu kılavuz, Lingui'yi bir **Next.js 16 App Router** projesinde şu özelliklerl
 
 [i18n benchmark testi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md), aynı 10 sayfalık, 10 yerel ayarlı Next.js uygulamasını tüm popüler kütüphanelerle çalıştırır ve tarayıcının gerçekte ne indirdiğini ölçer.
 
+- [i18n benchmark testi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md)
+
 <I18nBenchmark framework="nextjs" packages="lingui,@intlayer/lingui,next-intlayer" vertical/>
 
 Next.js 16 üzerinde `@lingui/core@6.6.0` için temel rakamlar, 2026-09-26 tarihinde ölçülmüştür (gzip):
@@ -80,6 +82,8 @@ Next.js 16 üzerinde `@lingui/core@6.6.0` için temel rakamlar, 2026-09-26 tarih
 - **Lingui çalışma zamanı (runtime) ~72 KB gzip ağırlığındadır.** `@intlayer/lingui` uyumluluk bağdaştırıcısı çalışma zamanını ~11 KB seviyesine düşürür, ancak bu benchmark'ta Next.js uyumluluk kurulumu yine de sayfalara tüm katalogları gönderir. Temel uygulama boyutunda kalan kurulum, yerel `next-intlayer` API'sidir.
 
 > Tüm verileri inceleyin: [Next.js benchmark raporu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md) ve [benchmark deposu](https://github.com/intlayer-org/benchmark-i18n).
+
+- [Next.js benchmark raporu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md)
 
 ## Next.js Üzerinde Özellik Karşılaştırması
 
@@ -105,6 +109,9 @@ Lingui'nin, bir Next.js App Router projesinin genellikle ihtiyaç duyduğu özel
 | **Ekosistem / topluluk**                 | ⚠️ Daha küçük, hızla büyüyor                        | ✅ Olgun                                                        | ✅ Geniş                                      |
 
 > Çalışma zamanı boyutları [Next.js benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md) testinden alınmıştır. Ayrıntılı bir inceleme için [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/lingui_vs_intlayer.md) yazısını okuyun.
+
+- [Next.js benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md)
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/lingui_vs_intlayer.md)
 
 > Diğer Next.js rehberleri:
 
@@ -1038,9 +1045,17 @@ export const sendContactMessage = async (formData: FormData) => {
 
 [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/lingui.md) uyumluluk bağdaştırıcısı kaynak kodunuza dokunmaz: makrolar eskisi gibi derlenir ve sonuçta ortaya çıkan `i18n._()`, `useLingui()` ve `<Trans>` çağrıları Intlayer sözlükleri tarafından karşılanır. Next.js benchmark testinde çalışma zamanı **~72.1 KB'tan ~10.7 KB** gzip seviyesine düşer.
 
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/lingui.md)
+
 Next.js üzerinde bağdaştırıcı, `next.config.ts` dosyasında (webpack ve Turbopack) `@lingui/core` ve `@lingui/react` modüllerini `@intlayer/lingui` ile takma adlandırarak (alias) ve yapılandırmayı `next-intlayer/server` paketinden `withIntlayer` ile sararak bağlanır. Makroların önce derlenmeye devam etmesi için `@lingui/swc-plugin` eklentisini koruyun. Eksiksiz yapılandırma [Lingui uyumluluk kılavuzunda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/lingui.md) yer almaktadır.
 
+- [Lingui uyumluluk kılavuzunda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/lingui.md)
+
 Benchmark tablosunun gösterdiği gibi, bağdaştırıcı çalışma zamanını azaltır ancak Next.js'te her sayfaya gönderilen kataloğu henüz küçültmez. En iyi kullanım şekli bir geçiş köprüsü olmasıdır: çalışır hale geldikten sonra, bileşenleri teker teker yalnızca render ettikleri içeriği gönderen yerel `useIntlayer` API'sine taşıyın. [Next.js + Intlayer kılavuzuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_16.md), [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/lingui_vs_intlayer-lingui.md) karşılaştırmasına ve tüm [uyumluluk bağdaştırıcılarına](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/index.md) göz atın.
+
+- [Next.js + Intlayer kılavuzuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_16.md)
+- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/lingui_vs_intlayer-lingui.md)
+- [uyumluluk bağdaştırıcılarına](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/index.md)
 
 </Step>
 <Step number={19} title="Intlayer Kullanarak Çevirilerinizi Otomatikleştirin" isOptional={true}>
@@ -1083,15 +1098,23 @@ Sunucu örneğini `getI18nInstance(locale)` ile alın ve `msg` makrosuyla tanım
 
 [Benchmark testi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md), çalışma zamanı için ~72 KB gzip ölçmektedir. Yerel ayar başına bir katalog ile sayfalar, i18n olmadan 141 KB iken ~145 KB ağırlığındadır, ancak her sayfa yine de istemci sağlayıcısı aracılığıyla diğer sayfaların mesajlarını alır.
 
+- [Benchmark testi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md)
+
 </Question>
 <Question title="Lingui, next-intl veya next-i18next: Next.js için hangisini seçmeliyim?">
 
 Lingui, kaynak metinleri doğrudan bileşenler içinde yazmayı, PO dosyaları ve çevirmenlerle çalışmayı tercih eden ekiplere uygundur. next-intl, JSON kataloglarını ve Next.js ile sıkı şekilde entegre edilmiş bir `t("key")` API'sini tercih eden ekipler için uygundur. next-i18next ise geniş i18next eklenti ekosistemini getirir. [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/next-i18next_vs_next-intl_vs_intlayer.md) ve [Next.js benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md) yazılarına bakın.
 
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/next-i18next_vs_next-intl_vs_intlayer.md)
+- [Next.js benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md)
+
 </Question>
 <Question title="Bileşenlerimi yeniden yazmadan Lingui'den Intlayer'a geçebilir miyim?">
 
 Evet. [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/lingui.md) bağdaştırıcısı makroları korur ve çalışma zamanını değiştirir, ardından bileşenleri kademeli olarak `useIntlayer` API'sine taşıyabilirsiniz. [Uyumluluk bağdaştırıcıları](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/index.md) sayfasına bakın.
+
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/lingui.md)
+- [Uyumluluk bağdaştırıcıları](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/index.md)
 
 </Question>
 

@@ -27,9 +27,11 @@ author: aymericzip
 
 # intlayerCompiler
 
-`intlayerCompiler` ist ein Vite-Plugin, das Komponenten-Quelldateien nach **Inline-Intlayer-Inhaltsdeklarationen** scannt — also Inhalten, die direkt in einer Komponente statt in einer separaten `.content.ts`-Datei definiert sind — und diese während der Transformationsphase in Wörterbuch-JSON-Dateien schreibt.
+`intlayerCompiler` ist ein Vite-Plugin, das Komponenten-Quelldateien nach **Inline-Intlayer-Inhaltsdeklarationen** scannt (also Inhalten, die direkt in einer Komponente statt in einer separaten `.content.ts`-Datei definiert sind) und diese während der Transformationsphase in Wörterbuch-JSON-Dateien schreibt.
 
 > **Seit Intlayer v9** ist `intlayerCompiler` automatisch im Hauptplugin [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/vite-intlayer/intlayer.md) enthalten, wenn sowohl `compiler.enabled` auf `true` gesetzt als auch `compiler.output` in Ihrer Intlayer-Konfiguration konfiguriert ist. Sie müssen es nur dann separat registrieren, wenn Sie die volle Kontrolle über die Compiler-spezifische Konfiguration wünschen.
+
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/vite-intlayer/intlayer.md)
 
 ## Verwendung
 
@@ -118,4 +120,4 @@ Ein Debounce von 500 ms verhindert, dass das Schreiben des Wörterbuchs selbst (
 
 ### Deduplizierung
 
-`intlayerCompiler` verwendet denselben Deduplizierungsmechanismus (`createPrimaryInstanceGuard`) wie die anderen gebündelten Plugins. Wenn sowohl `intlayer()` (das den Compiler bündelt) als auch ein manueller `intlayerCompiler()`-Aufruf vorhanden sind, wird nur die erste registrierte Instanz ausgeführt — es werden keine Wörterbücher doppelt geschrieben.
+`intlayerCompiler` verwendet denselben Deduplizierungsmechanismus (`createPrimaryInstanceGuard`) wie die anderen gebündelten Plugins. Wenn sowohl `intlayer()` (das den Compiler bündelt) als auch ein manueller `intlayerCompiler()`-Aufruf vorhanden sind, wird nur die erste registrierte Instanz ausgeführt, es werden keine Wörterbücher doppelt geschrieben.

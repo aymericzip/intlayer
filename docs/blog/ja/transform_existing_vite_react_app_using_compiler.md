@@ -49,6 +49,8 @@ Vite & Reactプロジェクトの初期段階から国際化（i18n）を導入�
 
 > Vite & Reactの詳細なステップバイステップ技術ガイドをお探しですか？専用ドキュメントをご覧ください: [IntlayerでVite & Reactを翻訳する](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_vite+react.md)。
 
+- [IntlayerでVite & Reactを翻訳する](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_vite+react.md)
+
 ## 目次
 
 <TOC/>
@@ -332,6 +334,8 @@ console.log("SEOファイルが正常に生成されました。");
 TypeScriptの厳格な型付け、動的辞書、ビジュアルエディタなど、すべての設定手順を詳しく知りたい方は、公式ドキュメントをご覧ください：
 
 👉 **[IntlayerによるVite & React翻訳の完全ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_vite+react.md)**
+
+- [IntlayerによるVite & React翻訳の完全ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_vite+react.md)
 
 ## よくある質問 (FAQ)
 

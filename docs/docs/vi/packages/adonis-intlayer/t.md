@@ -137,3 +137,5 @@ export default config;
 ### Tích hợp TypeScript
 
 Hàm `t` an toàn về kiểu khi được sử dụng với các từ điển đã định nghĩa. Để biết thêm chi tiết, hãy tham khảo [tài liệu TypeScript](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md).
+
+- [tài liệu TypeScript](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md)

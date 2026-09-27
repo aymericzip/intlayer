@@ -178,4 +178,6 @@ const text = t(translations);
 
 Daha detaylı kullanım ve gelişmiş özellikler için [react-intlayer dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) bakın.
 
+- [react-intlayer dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md)
+
 **Not**: `t` fonksiyonunun doğru çevirileri döndürmesi için `IntlayerProvider`'ınızı doğru şekilde ayarladığınızdan emin olun. Bu, bileşenlerinize mevcut yerel ayarın doğru geçirilmesi için çok önemlidir.

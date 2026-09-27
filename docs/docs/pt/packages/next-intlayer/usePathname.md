@@ -31,7 +31,7 @@ author: aymericzip
 
 # Integração Next.js: Documentação do Hook `usePathname`
 
-O hook `usePathname` retorna o pathname atual do Next.js sem o segmento da localidade. Isso é útil para construir uma navegação ciente da localidade — por exemplo, determinar qual item de navegação está ativo — sem ter que remover manualmente o prefixo da localidade.
+O hook `usePathname` retorna o pathname atual do Next.js sem o segmento da localidade. Isso é útil para construir uma navegação ciente da localidade (por exemplo, determinar qual item de navegação está ativo) sem ter que remover manualmente o prefixo da localidade.
 
 ## Importando `usePathname` no Next.js
 

@@ -41,9 +41,13 @@ author: aymericzip
 
 具体的な比較は、当社のブログ記事 [vue-i18n vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/vue-i18n_vs_intlayer.md) をご覧ください。
 
+- [vue-i18n vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/vue-i18n_vs_intlayer.md)
+
 ## なぜ Intlayer を vue-i18n と組み合わせるのか？
 
 Intlayer は優れた単独の i18n ソリューションを提供します（[Vue.js 統合ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_vite+vue.md) を参照）が、いくつかの理由で vue-i18n と組み合わせたい場合があります：
+
+- [Vue.js 統合ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_vite+vue.md)
 
 1. **既存のコードベース**: 既に確立された vue-i18n の実装があり、Intlayer の改善された開発者体験へ段階的に移行したい場合。
 2. **レガシー要件**: プロジェクトが既存の vue-i18n プラグインやワークフローとの互換性を必要とする場合。
@@ -144,6 +148,8 @@ CLIを使ってJSONの翻訳を変更した場合やCMSを使用した場合、I
 
 `syncJSON`プラグインの詳細については、[syncJSONプラグインのドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md)を参照してください。
 
+- [syncJSONプラグインのドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md)
+
 </Step>
 
 </Steps>
@@ -163,6 +169,4 @@ CLIを使ってJSONの翻訳を変更した場合やCMSを使用した場合、I
 
 開発者体験を向上させるために、公式の **Intlayer VS Code 拡張機能** をインストールしてください：
 
-[VS Code マーケットプレイスからインストール](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-[VS Codeマーケットプレイスからインストール](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [VS Code マーケットプレイスからインストール](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

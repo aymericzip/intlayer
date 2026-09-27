@@ -36,7 +36,12 @@ author: aymericzip
 
 यह `.intlayer/dynamic_dictionaries/` में emitted per-locale loader maps के लिए [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getDictionary.md) का counterpart है: हर locale को hold करने वाली dictionary प्राप्त करने के बजाय, यह loader map को प्राप्त करता है और केवल उस chunk को await करता है जिसकी requested locale को आवश्यकता है।
 
+- [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getDictionary.md)
+
 > Application code में आप आमतौर पर [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getIntlayerAsync.md) को call करते हैं, इस फ़ंक्शन को नहीं। [build plugins](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/bundle_optimization.md) हर `getIntlayerAsync('key', locale)` call को एक `getDictionaryAsync(loaderMap, 'key', locale)` में rewrite करते हैं। `getDictionaryAsync` को custom loaders के लिए और उस tooling के लिए export किया जाता है जो अपने स्वयं के loader maps को build करता है।
+
+- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getIntlayerAsync.md)
+- [build plugins](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/bundle_optimization.md)
 
 **मुख्य विशेषताएं:**
 
@@ -71,7 +76,7 @@ getDictionaryAsync(
 - `localeOrSelector: LocalesValues | DictionarySelector`
   - **Description**: सामग्री को interpret करने के लिए locale, या एक selector object (`{ item }`, `{ variant }`, वैकल्पिक रूप से `locale` के साथ)। [dynamic dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dynamic_dictionaries/index.md) देखें।
   - **Type**: `LocalesValues | DictionarySelector`
-  - **Required**: No (Optional) — configured `defaultLocale` में defaults होता है।
+  - **Required**: No (Optional), configured `defaultLocale` में defaults होता है।
 
 - `plugins: Plugins[]`
   - **Description**: Node transformers। base interpreter set में defaults होता है।
@@ -80,7 +85,7 @@ getDictionaryAsync(
 
 ### Returns
 
-- **Type**: `Promise<Content>` — a promise resolving to the interpreted content of the loaded chunk.
+- **Type**: `Promise<Content>`, a promise resolving to the interpreted content of the loaded chunk.
 - **Description**: Resolves to `null` when the map emits no chunk for the requested locale nor for any of its fallbacks, mirroring how a missing qualified coordinate resolves.
 
 ## उदाहरण उपयोग

@@ -245,7 +245,7 @@ export default config;
 
 Intlayerでの開発体験を向上させるために、公式の **Intlayer VS Code 拡張機能** をインストールできます。
 
-[VS Code Marketplaceからインストール](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [VS Code Marketplaceからインストール](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 この拡張機能は以下を提供します：
 
@@ -255,6 +255,8 @@ Intlayerでの開発体験を向上させるために、公式の **Intlayer VS 
 - 翻訳の作成や更新を簡単に行うための **クイックアクション**。
 
 拡張機能の使い方の詳細については、[Intlayer VS Code 拡張機能のドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)を参照してください。
+
+- [Intlayer VS Code 拡張機能のドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)
 
 ### Git 設定
 
@@ -279,27 +281,42 @@ NestJS には `nestjs-i18n` があり、これが一般的な選択肢で、JSON
 
 [Intlayer の利点](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)を参照してください。
 
+- [Intlayer の利点](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)
+
 </Question>
 <Question title="i18n は NestJS サーバーのバンドルサイズにどの程度追加されますか？">
 
 ほとんど追加されません。辞書はあらかじめコンパイルされ、宣言したロケールのみが含まれるため、ブート時のカタログ読み込みやリクエストパス上のファイル読み込みはありません。これはサーバーレスおよびエッジデプロイメントで最も重要で、バンドルサイズがコールドスタート時間を左右します。[バンドル最適化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)を参照してください。
+
+- [バンドル最適化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)
 
 </Question>
 <Question title="`i18next` からハンドラーを書き直さずに移行できますか？">
 
 はい、2 つのパスがあります。[i18next 移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_i18next_to_intlayer.md)でコンテンツを段階的に移行できます。または、現在の API を完全に保つことができます。[互換性アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/index.md)は `i18next` と同じ API を公開しますが、Intlayer 辞書によって提供されるため、インポートは変わりますがハンドラーコードは変わりません。
 
+- [i18next 移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_i18next_to_intlayer.md)
+- [互換性アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/index.md)
+
 </Question>
 <Question title="既存の JSON 翻訳ファイルを保持できますか？">
 
 はい。[sync JSON プラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md)は `/messages/{locale}/{namespace}.json` ファイルを真実のソースとして保持し、双方向で Intlayer 辞書を生成します。[sync PO プラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-po.md)は gettext カタログに対して同じことを行い、[ロケールごとのファイル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/per_locale_file.md)ではロケールを 1 つのファイルにグループ化する代わりに言語ごとにコンテンツを分割できます。
+
+- [sync JSON プラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md)
+- [sync PO プラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-po.md)
+- [ロケールごとのファイル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/per_locale_file.md)
 
 </Question>
 <Question title="コンテンツをキーごとに移動する必要がありますか？">
 
 いいえ。`npx intlayer extract` を実行すると、Intlayer はソースファイルを読み込み、ユーザーが見える文字列を抽出し、各ファイルの横に `.content` ファイルを書き込むため、文字列をカタログに 1 つずつコピーする代わりに diff をレビューできます。[extract コマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md)を参照してください。
 
+- [extract コマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md)
+
 同じプロジェクトのフロントエンド側では、[Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)はさらに進んで、JSX、TSX、Vue または Svelte ソースからビルド時に辞書を生成するため、アプリの両側が手動で保持されたキーなしで 1 つのコンテンツレイヤーを共有します。
+
+- [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)
 
 </Question>
 <Question title="利用可能なエディターと AI エージェントツールは何ですか？">
@@ -316,6 +333,8 @@ NestJS には `nestjs-i18n` があり、これが一般的な選択肢で、JSON
 <Question title="Intlayer はどの言語で応答するかをどのように知っていますか？">
 
 デフォルトでは `express-intlayer` は受信リクエストの `Accept-Language` ヘッダーを読み込み、最も近い宣言されたロケールを選択し、デフォルトロケールにフォールバックします。`routing.storage` でソースを変更できます。例えば、カスタムヘッダーまたはフロントエンドで設定された cookie を使用して、API がブラウザが宣伝する言語ではなくユーザーが実際に選択した言語で応答するようにできます。[設定リファレンス](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を参照してください。
+
+- [設定リファレンス](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)
 
 </Question>
 <Question title="ロケールはリクエストごとに分離されていますか？">
@@ -342,10 +361,19 @@ NestJS には `nestjs-i18n` があり、これが一般的な選択肢で、JSON
 
 `npx intlayer fill` を実行します。これは選択した LLM を使用して独自のプロバイダーと API キーで不足している翻訳を入力します。`--git-diff` を追加してブランチで変更されたコンテンツのみを翻訳します。[fill コマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/fill.md)と [CI/CD 統合](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/CI_CD.md)を参照してください。
 
+- [fill コマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/fill.md)
+- [CI/CD 統合](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/CI_CD.md)
+
 </Question>
 <Question title="Intlayer はサーバー上で複数形、性別、補間値をサポートしていますか？">
 
 はい。[複数形](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/plurial.md)、[性別ベースのコンテンツ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/gender.md)、条件、補間値の[挿入](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/insertion.md)、メール本文の [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/markdown.md)、および数値、日付、通貨の[フォーマッター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/formatters.md)があります。
+
+- [複数形](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/plurial.md)
+- [性別ベースのコンテンツ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/gender.md)
+- [挿入](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/insertion.md)
+- [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/markdown.md)
+- [フォーマッター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/formatters.md)
 
 </Question>
 <Question title="サーバーで TypeScript オートコンプリートを取得できますか？">
@@ -357,10 +385,15 @@ NestJS には `nestjs-i18n` があり、これが一般的な選択肢で、JSON
 
 はい、それが通常のセットアップです。`express-intlayer` は同じ宣言されたコンテンツ上で `react-intlayer`、`next-intlayer`、`vite-intlayer` と一緒に機能するため、API レスポンスとページの両方で使用されるラベルは 1 回宣言されます。[Intlayer の仕組み](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/how_works_intlayer.md)を参照してください。
 
+- [Intlayer の仕組み](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/how_works_intlayer.md)
+
 </Question>
 <Question title="Intlayer は無料でオープンソースですか？">
 
 はい、Apache 2.0 ライセンスの下で、商用利用を含みます。ホストされた [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md) はオプションの有料サービスで、[セルフホスト](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/self_hosting.md)することもできます。
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)
+- [セルフホスト](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/self_hosting.md)
 
 </Question>
 

@@ -41,9 +41,13 @@ author: aymericzip
 
 See a concrete comparison with vue-i18n in our [vue-i18n vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/vue-i18n_vs_intlayer.md) blog post.
 
+- [vue-i18n vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/vue-i18n_vs_intlayer.md)
+
 ## Why Combine Intlayer with vue-i18n?
 
 While Intlayer provides an excellent standalone i18n solution (see our [Vue.js integration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_vite+vue.md)), you might want to combine it with vue-i18n for several reasons.
+
+- [Vue.js integration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_vite+vue.md)
 
 Intlayer offers a rich set of **advanced features** that go beyond traditional i18n tools. It helps you:
 
@@ -153,6 +157,8 @@ If changes are made using the CLI to translate the JSON, or using the CMS, Intla
 
 To see more details about the `syncJSON` plugin, please refer to the [syncJSON plugin documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/plugins/sync-json.md).
 
+- [syncJSON plugin documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/plugins/sync-json.md)
+
 </Step>
 
 </Steps>
@@ -172,6 +178,4 @@ These files are automatically regenerated during the build process and do not ne
 
 For improved developer experience, install the official **Intlayer VS Code Extension**:
 
-[Install from the VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-[Install from the VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [Install from the VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

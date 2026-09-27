@@ -57,6 +57,8 @@ author: aymericzip
 
 अधिक जानकारी के लिए देखें [Intlayer कॉन्फ़िगरेशन दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md)।
 
+- [Intlayer कॉन्फ़िगरेशन दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md)
+
 ## उदाहरण उपयोग
 
 ### पूरी कॉन्फ़िगरेशन प्राप्त करना

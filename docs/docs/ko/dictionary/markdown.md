@@ -142,12 +142,12 @@ Intlayer는 Markdown 구문을 사용하여 정의된 서식 있는 텍스트 �
 Intlayer는 Markdown을 렌더링하는 두 가지 독립적인 방법을 제공합니다:
 
 1. **`useIntlayer`를 통한 방식**
-   — Intlayer는 프레임워크의 네이티브 출력(JSX, VNode, HTML 문자열)으로 `md` 노드를 자동으로 변환합니다.
+   Intlayer는 프레임워크의 네이티브 출력(JSX, VNode, HTML 문자열)으로 `md` 노드를 자동으로 변환합니다.
    - 프런트매터는 분석되어 `.metadata`로 노출됩니다. 렌더링은 두 가지 수준에서 재정의할 수 있습니다. `MarkdownProvider`(또는 프레임워크 동등 기능)를 통한 전역 설정과 `.use()`를 통한 노드별 로컬 설정입니다. 두 가지를 결합할 수 있으며, `.use()`가 `MarkdownProvider`보다 우선하고, `MarkdownProvider`가 기본값보다 우선합니다.
 
-2. **도우미 유틸리티** — `<MarkdownRenderer />`, `useMarkdownRenderer()`, 및 `renderMarkdown()`은 **순수 Markdown 문자열만** 허용하는 독립 실행형 도구입니다. 이들은 `useIntlayer`와 독립적이며 반환되는 장식된 노드와 작동하지 않습니다.
+2. **도우미 유틸리티**: `<MarkdownRenderer />`, `useMarkdownRenderer()`, 및 `renderMarkdown()`은 **순수 Markdown 문자열만** 허용하는 독립 실행형 도구입니다. 이들은 `useIntlayer`와 독립적이며 반환되는 장식된 노드와 작동하지 않습니다.
 
-Markdown 렌더링은 **MDX**를 지원합니다 — Markdown 내에서 이름으로 직접 JSX/프레임워크 컴포넌트를 사용할 수 있습니다.
+Markdown 렌더링은 **MDX**를 지원합니다. Markdown 내에서 이름으로 직접 JSX/프레임워크 컴포넌트를 사용할 수 있습니다.
 
 ### 1. 자동 렌더링 (`useIntlayer`를 통한 방식)
 
@@ -886,7 +886,7 @@ Markdown 렌더링은 **MDX**를 지원합니다 — Markdown 내에서 이름�
     ```
 
 
-    > MDX 지원 — Markdown 내부에서 사용된 모든 컴포넌트 이름(예: `<MyCustomJSXComponent />`)은 `components` 맵에서 확인됩니다.
+    > MDX 지원, Markdown 내부에서 사용된 모든 컴포넌트 이름(예: `<MyCustomJSXComponent />`)은 `components` 맵에서 확인됩니다.
 
     자체 마크다운 렌더러를 사용할 수도 있습니다:
 
@@ -928,7 +928,7 @@ Markdown 렌더링은 **MDX**를 지원합니다 — Markdown 내에서 이름�
     ```
 
 
-    > MDX 지원 — Markdown 내부에서 사용된 모든 컴포넌트 이름(예: `<MyCustomJSXComponent />`)은 `components` 맵에서 확인됩니다.
+    > MDX 지원, Markdown 내부에서 사용된 모든 컴포넌트 이름(예: `<MyCustomJSXComponent />`)은 `components` 맵에서 확인됩니다.
 
     자체 마크다운 렌더러를 사용할 수도 있습니다:
 
@@ -976,7 +976,7 @@ Markdown 렌더링은 **MDX**를 지원합니다 — Markdown 내에서 이름�
     ```
 
 
-    > MDX 지원 — Markdown 내부에서 사용된 모든 컴포넌트 이름(예: `<MyCustomJSXComponent />`)은 `components` 맵에서 확인됩니다.
+    > MDX 지원, Markdown 내부에서 사용된 모든 컴포넌트 이름(예: `<MyCustomJSXComponent />`)은 `components` 맵에서 확인됩니다.
 
     자체 마크다운 렌더러를 사용할 수도 있습니다:
 
@@ -1020,7 +1020,7 @@ Markdown 렌더링은 **MDX**를 지원합니다 — Markdown 내에서 이름�
     ```
 
 
-    > MDX 지원 — Markdown 내부에서 사용된 모든 컴포넌트 이름(예: `<MyCustomJSXComponent />`)은 `components` 맵에서 확인됩니다.
+    > MDX 지원, Markdown 내부에서 사용된 모든 컴포넌트 이름(예: `<MyCustomJSXComponent />`)은 `components` 맵에서 확인됩니다.
 
     자체 마크다운 렌더러를 사용할 수도 있습니다:
 
@@ -1059,7 +1059,7 @@ Markdown 렌더링은 **MDX**를 지원합니다 — Markdown 내에서 이름�
     ```
 
 
-    > MDX 지원 — Markdown 내부에서 사용된 모든 컴포넌트 이름(예: `<MyCustomJSXComponent />`)은 `components` 맵에서 확인됩니다.
+    > MDX 지원, Markdown 내부에서 사용된 모든 컴포넌트 이름(예: `<MyCustomJSXComponent />`)은 `components` 맵에서 확인됩니다.
 
     자체 마크다운 렌더러를 사용할 수도 있습니다:
 
@@ -1098,7 +1098,7 @@ Markdown 렌더링은 **MDX**를 지원합니다 — Markdown 내에서 이름�
     ```
 
 
-    > MDX 지원 — Markdown 내부에서 사용된 모든 컴포넌트 이름(예: `<MyCustomJSXComponent />`)은 `components` 맵에서 확인됩니다.
+    > MDX 지원, Markdown 내부에서 사용된 모든 컴포넌트 이름(예: `<MyCustomJSXComponent />`)은 `components` 맵에서 확인됩니다.
 
     자체 마크다운 렌더러를 사용할 수도 있습니다:
 
@@ -1136,7 +1136,7 @@ Markdown 렌더링은 **MDX**를 지원합니다 — Markdown 내에서 이름�
     };
     ```
 
-    > MDX가 지원됨 — Markdown 내에서 사용되는 모든 component 이름(예: `<MyCustomJSXComponent />`)은 `components` 맵에 대해 해석됩니다.
+    > MDX가 지원됨, Markdown 내에서 사용되는 모든 component 이름(예: `<MyCustomJSXComponent />`)은 `components` 맵에 대해 해석됩니다.
 
 자신의 markdown renderer를 사용할 수도 있습니다:
 

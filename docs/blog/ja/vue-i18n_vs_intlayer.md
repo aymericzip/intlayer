@@ -122,6 +122,8 @@ author: aymericzip
 
 > すべてのライブラリとすべての戦略を含む完全な表は、[Vue ベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/vue.md)をご覧ください。
 
+- [Vue ベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/vue.md)
+
 ## なぜ差が出るのか？グローバルインスタンス vs コンパイル済み辞書
 
 `vue-i18n` はランタイムです。`createI18n()` がロケールごとのメッセージツリーを保持するグローバルインスタンスを構築し、`useI18n()` が各コンポーネントをそれに束縛し、`t("footer.github")` がレンダリング時にキーを検索します。これが SFC の `<i18n>` ブロック、`v-t`、ランタイムでのメッセージ読み込みを可能にしている一方で、すべてのコンポーネントの依存グラフにツリー全体が含まれる理由でもあります：
@@ -157,6 +159,8 @@ Intlayer はその知識をビルドに移します。コンテンツはコン�
 コンパイラは辞書ごと・ロケールごとに、そのコンポーネントが必要とする JSON だけを正確に出力し、どこからもインポートされない辞書は削除します。ルート単位のスコープはコンポーネント単位のスコープの帰結であって、作業ではありません。
 
 > 未使用のロケールも削除するには、`intlayer.config.ts` で `dictionary.importMode: 'dynamic'` を設定してください。[バンドル最適化のドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)を参照してください。
+
+- [バンドル最適化のドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)
 
 ## 開発者体験
 
@@ -346,6 +350,10 @@ export default defineConfig({
 
 [vue-i18n 移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_vue-i18n_to_intlayer.md)と[互換性ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/vue-i18n.md)を参照してください。Nuxt ユーザーは [`@nuxtjs/i18n` 互換性](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/nuxtjs-i18n.md)を通じて同じ道をたどれます。
 
+- [vue-i18n 移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_vue-i18n_to_intlayer.md)
+- [互換性ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/vue-i18n.md)
+- [`@nuxtjs/i18n` 互換性](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/nuxtjs-i18n.md)
+
 ## どちらを選ぶべきか？
 
 - **vue-i18n を選ぶ**：標準的な Vue のアプローチが欲しい、ICU メッセージや SFC の `<i18n>` ブロックに依存している、すでに `@nuxtjs/i18n` を使っている、または翻訳プラットフォームが集中管理された JSON を要求する場合。バンドルサイズが重要なら、カタログの分割とルートごとの遅延読み込みに時間を確保してください。
@@ -372,17 +380,24 @@ export default defineConfig({
 
 はい。[NuxtとIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nuxt.md) は多言語ルーティング、ロケール検出ミドルウェア、サイトマップ生成をサポートしています。`@nuxtjs/i18n` をご利用の場合は、[Nuxt i18n 互換アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/nuxtjs-i18n.md) が移行パスとなります。
 
+- [NuxtとIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nuxt.md)
+- [Nuxt i18n 互換アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/nuxtjs-i18n.md)
+
 </Question>
 
 <Question title="locales/{locale}.json を信頼できる唯一の情報源として維持できますか？">
 
 はい。[JSON同期プラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/vue-i18n.md) は `vue-i18n` 構文（`{name}`、`{0}`、パイプによる複数形 `"car | cars"`）で読み取り、CLI または CMS が更新したときに翻訳を書き戻します。
 
+- [JSON同期プラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/vue-i18n.md)
+
 </Question>
 
 <Question title="Vue 上の Intlayer で ICU は動作しますか？">
 
 ネイティブの ICU サポートは準備中です。`@intlayer/vue-i18n` アダプターは、パイプによる複数形や名前付き/リスト補間を含む `vue-i18n` 自身のメッセージ構文を処理します。Intlayer の複数形モデルについては、[列挙コンテンツ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/enumeration.md) をご覧ください。
+
+- [列挙コンテンツ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/enumeration.md)
 
 </Question>
 
@@ -431,3 +446,5 @@ Intlayer はその作業をコンパイラに移します。コンポーネン�
 生データ、テストアプリ、スクリプトはすべて [Benchmark Bloom リポジトリ](https://github.com/intlayer-org/benchmark-bloom)にあります。ぜひご自身で実行してみてください。
 
 詳細は [「なぜ Intlayer？」ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)を参照してください。
+
+- [なぜ Intlayer？他の i18n ライブラリとの違い](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)

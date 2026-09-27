@@ -143,9 +143,13 @@ intlayer({ proxy: { ignore: (req) => req.url?.startsWith("/api") } });
 
 Tam yönlendirme davranışı referansı için [intlayerProxy belgelerine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/vite-intlayer/intlayerProxy.md) bakın.
 
+- [intlayerProxy belgelerine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/vite-intlayer/intlayerProxy.md)
+
 ### 5. Bundled compiler (v9+)
 
 `compiler.enabled` değeri `true` **ve** Intlayer config dosyanızda `compiler.output` ayarlandığında, `intlayer()` otomatik olarak `intlayerCompiler` kaydeder. Compiler, bileşen dosyalarının içinde doğrudan yazılan satır içi içerik bildirimleri çıkarır ve bunları dönüştürme zamanında sözlüklere yazar. [intlayerCompiler dokumentasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/vite-intlayer/intlayerCompiler.md) sayfasına bakın.
+
+- [intlayerCompiler dokumentasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/vite-intlayer/intlayerCompiler.md)
 
 ### 6. Build optimisasyonları
 

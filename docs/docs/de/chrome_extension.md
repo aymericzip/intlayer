@@ -120,6 +120,11 @@ Die Erkennung basiert auf dem, was die Seite im Browser offenlegt: globale Varia
 
 Die meisten Prüfungen entsprechen einer Routing- oder Metadaten-Einstellung. Mit Intlayer werden hreflang, kanonischer Link, `x-default`, lokalisierte Links, sitemap und robots.txt aus Ihrer [Konfiguration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md) generiert. Weitere Informationen finden Sie im Integrationsleitfaden für Ihr Framework, z. B. [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_nextjs_16.md), [Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_nuxt.md) oder [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_tanstack.md).
 
+- [Konfiguration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md)
+- [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_nextjs_16.md)
+- [Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_nuxt.md)
+- [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_tanstack.md)
+
 </Question>
 
 </FAQ>

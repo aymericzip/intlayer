@@ -76,6 +76,8 @@ Il est crucial que toutes les clés de contenu soient définies dans des fichier
 
 Les instructions pour configurer les fichiers de déclaration de contenu sont disponibles [ici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/content_file.md).
 
+- [Fichiers de déclaration de contenu (.content.ts)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/content_file.md)
+
 ## Exemple d'utilisation dans Next.js
 
 Voici comment vous pouvez implémenter le hook `useIntlayer` dans une page Next.js pour charger dynamiquement le contenu localisé en fonction de la locale actuelle de l'application :

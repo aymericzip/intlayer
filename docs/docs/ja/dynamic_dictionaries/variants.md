@@ -23,7 +23,7 @@ history:
     changes: "バリアント機能のリリース"
   - version: 9.1.0
     date: 2026-06-26
-    changes: "`variant`は文字列またはオブジェクトを受け付けるようになりました — 以前の `meta` / 動的レコードはオブジェクトバリアントとして宣言されます"
+    changes: "`variant`は文字列またはオブジェクトを受け付けるようになりました。以前の `meta` / 動的レコードはオブジェクトバリアントとして宣言されます"
   - version: 9.1.1
     date: 2026-07-31
     changes: "バリアントは上書きするキーのみを宣言します。宣言されていないバリアントはデフォルトのエントリにフォールバックします"
@@ -39,8 +39,8 @@ author: aymericzip
 
 `variant` の値は**2 つの形式**を取れます:
 
-- **文字列** — 単一の名前付き代替（A/B テスト、季節バナー、フィーチャーフラグ）。
-- **オブジェクト** — フィールドの集合でアドレス指定される構造化された識別子（CMS レコード、ユーザー固有コピー、不透明な ID をキーとする任意のコンテンツ）。オブジェクト全体が同一性です。エントリを解決するには、セレクターが**等しい**オブジェクトを提供する必要があります。
+- **文字列**：単一の名前付き代替（A/B テスト、季節バナー、フィーチャーフラグ）。
+- **オブジェクト**：フィールドの集合でアドレス指定される構造化された識別子（CMS レコード、ユーザー固有コピー、不透明な ID をキーとする任意のコンテンツ）。オブジェクト全体が同一性です。エントリを解決するには、セレクターが**等しい**オブジェクトを提供する必要があります。
 
 > オブジェクト形式は旧 `meta` フィールドを置き換えます。以前 `meta: { id, … }` と書いていた箇所はすべて `variant: { id, … }` と書き、`{ variant: { id, … } }` で選択してください。
 
@@ -74,8 +74,8 @@ const dictionary = {
   variant: "black_friday",
   content: {
     headline: t({
-      en: "50 % off — today only",
-      fr: "−50 % — aujourd'hui seulement",
+      en: "50 % off, today only",
+      fr: "−50 %, aujourd'hui seulement",
     }),
     cta: t({ en: "Shop now", fr: "Acheter maintenant" }),
   },
@@ -107,7 +107,7 @@ export default dictionary;
 
 ```tsx
 useIntlayer("hero-banner", { variant: "summer" });
-// → { headline: "Développez plus vite tout l'été", cta: "Commencer" } — `cta` は継承されます
+// → { headline: "Développez plus vite tout l'été", cta: "Commencer" }, `cta` は継承されます
 
 useIntlayer("hero-banner", { variant: "never-declared" });
 // → デフォルトのエントリ
@@ -495,7 +495,7 @@ const content = useIntlayer("product", {
 });
 ```
 
-#### フィールド欠落 — 一致なし
+#### フィールド欠落、一致なし
 
 ```ts
 // null を返します: `userId` が欠落しているため、オブジェクトは宣言されたバリアントに一致しません
@@ -647,7 +647,7 @@ useIntlayer("hero-banner");
 // → プロバイダーのバリアント
 
 useIntlayer("hero-banner", { variant: "summer" });
-// → "summer" — プロバイダーのバリアントを置き換えます（拡張はしません）
+// → "summer", プロバイダーのバリアントを置き換えます（拡張はしません）
 ```
 
 ### 形式
@@ -712,6 +712,8 @@ export default dictionary;
 ```
 
 `static`、`dynamic`、`fetch` モードの詳細については[バンドル最適化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)を参照してください。
+
+- [バンドル最適化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)
 
 ## 典型的なユースケース
 

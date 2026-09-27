@@ -224,4 +224,6 @@ La funzione `t` in `next-intlayer` è uno strumento potente e comodo per gestire
 
 Per un utilizzo più dettagliato e funzionalità avanzate, consulta la [documentazione di next-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md).
 
+- [documentazione di next-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md)
+
 **Nota**: Ricorda di configurare correttamente `IntlayerClientProvider` e `IntlayerServerProvider` per garantire che la locale corrente venga passata correttamente ai tuoi componenti. Questo è fondamentale affinché la funzione `t` restituisca le traduzioni corrette.

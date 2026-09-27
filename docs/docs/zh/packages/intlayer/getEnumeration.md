@@ -34,6 +34,8 @@ author: aymericzip
 
 有关如何声明枚举的更多详细信息，请参见[枚举文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/enumeration.md)。
 
+- [枚举文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/enumeration.md)
+
 ## 参数
 
 - `enumerationContent: QuantityContent<Content>`

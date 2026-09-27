@@ -136,6 +136,9 @@ author: aymericzip
 
 > पूरी तालिका [TanStack Start benchmark रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/tanstack.md) और [i18n Benchmark अवलोकन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/index.md) में देखें।
 
+- [TanStack Start benchmark रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/tanstack.md)
+- [i18n Benchmark अवलोकन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/index.md)
+
 ### 6) DX, टूलिंग और रखरखाव
 
 - **react-intl / react-i18next**: व्यापक समुदाय पारिस्थितिकी तंत्र; संपादकीय वर्कफ़्लो के लिए आप आमतौर पर बाहरी स्थानीयकरण प्लेटफ़ॉर्म अपनाते हैं।
@@ -185,3 +188,5 @@ GitHub stars एक प्रोजेक्ट की लोकप्रिय�
 - यदि आपकी टीम बहु-स्थानीय, कंपोनेंट-चालित React ऐप्स में **रखरखाव और गति** को महत्व देती है, तो Intlayer आज सबसे **पूर्ण** डेवलपर और कंटेंट वर्कफ़्लो प्रदान करता है।
 
 अधिक जानकारी के लिए ['Intlayer क्यों?' दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/interest_of_intlayer.md) देखें।
+
+- [Intlayer क्यों? अन्य i18n लाइब्रेरी से बेहतर क्या है](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/interest_of_intlayer.md)

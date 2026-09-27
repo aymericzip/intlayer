@@ -163,6 +163,8 @@ export default indexContent;
 
 > مزید تفصیلات کے لیے، [مواد کے اعلان کی دستاویزات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/dictionary/content_file.md) دیکھیں۔
 
+- [مواد کے اعلان کی دستاویزات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/dictionary/content_file.md)
+
 ### Fastify ایپلی کیشن سیٹ اپ
 
 `fastify-intlayer` استعمال کرنے کے لیے اپنی Fastify ایپلی کیشن سیٹ اپ کریں:
@@ -238,6 +240,8 @@ export default config;
 
 > ترتیب اور جدید موضوعات کے بارے میں مزید معلومات کے لیے ہماری [دستاویزات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/configuration.md) دیکھیں۔
 
+- [ترتیب (Configuration)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/configuration.md)
+
 ### TypeScript ترتیب دیں
 
 `fastify-intlayer` بین الاقوامی کاری کے عمل کو بہتر بنانے کے لیے TypeScript کی مضبوط صلاحیتوں کا فائدہ اٹھاتا ہے۔ TypeScript کی جامد ٹائپنگ اس بات کو یقینی بناتی ہے کہ ہر ترجمے کی کلید کو مدنظر رکھا گیا ہے، جس سے ترجمے کے چھوٹ جانے کے خطرے کو کم کیا جاتا ہے اور دیکھ بھال کو بہتر بنایا جاتا ہے۔
@@ -258,7 +262,7 @@ export default config;
 
 Intlayer کے ساتھ اپنے ترقیاتی تجربے کو بہتر بنانے کے لیے، آپ سرکاری **Intlayer VS Code Extension** انسٹال کر سکتے ہیں۔
 
-[VS Code Marketplace سے انسٹال کریں](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [VS Code Marketplace سے انسٹال کریں](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 یہ ایکسٹینشن فراہم کرتا ہے:
 
@@ -268,6 +272,8 @@ Intlayer کے ساتھ اپنے ترقیاتی تجربے کو بہتر بنان
 - آسانی سے ترجمے بنانے اور اپ ڈیٹ کرنے کے لیے **فوری اقدامات**۔
 
 ایکسٹینشن کے استعمال کے بارے میں مزید تفصیلات کے لیے، [Intlayer VS Code Extension دستاویزات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md) دیکھیں۔
+
+- [Intlayer VS Code Extension دستاویزات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md)
 
 ### Git ترتیب
 

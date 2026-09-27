@@ -49,6 +49,38 @@ export const router = createRouter({
 3. **ملء سياق الطلب**: تحفظ اللغة المحددة الحالية في سياق طلب Remix باستخدام المفتاح `Intlayer`، مما يتيح للخطافات (`useLocale` و `useIntlayer` و `useDictionary`) استهلاكها مباشرة.
 4. **إدارة ملفات تعريف الارتباط**: تُعيّن ترويسة `Set-Cookie` عند الحاجة إلى الاحتفاظ باللغة المفضلة للمستخدم.
 
+## المعاملات
+
+تقبل الدالة `intlayer` خيارات `IntlayerMiddlewareOptions` اختيارية:
+
+```ts
+import { intlayer, type IntlayerMiddlewareOptions } from "remix-intlayer";
+
+const options: IntlayerMiddlewareOptions = {
+  // تجاوزات مخصصة لإعدادات التوجيه
+};
+
+const middleware = intlayer(options);
+```
+
+## الوصول إلى السياق مباشرةً
+
+بالإضافة إلى استخدام الخطافات، يمكنك الوصول إلى `IntlayerState` المحددة مباشرةً من سياق طلب Remix:
+
+```ts
+import { Intlayer } from "remix-intlayer";
+
+router.get("/api/locale", (context) => {
+  // عبر context.get()
+  const state = context.get(Intlayer);
+
+  // أو عبر الخاصية المباشرة context.intlayer
+  const { locale } = context.intlayer;
+
+  return Response.json({ locale });
+});
+```
+
 ## المستندات ذات الصلة
 
 - [سياق الطلب `Intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/remix-intlayer/Intlayer.md)

@@ -36,7 +36,12 @@ Hàm `getDictionaryAsync` tải một **single locale chunk** của một từ �
 
 Đây là phần đối ứng của [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getDictionary.md) cho các loader maps theo locale được phát ra trong `.intlayer/dynamic_dictionaries/`: thay vì nhận một từ điển chứa mọi locale, nó nhận loader map và chỉ chờ đợi chunk mà locale được yêu cầu cần.
 
+- [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getDictionary.md)
+
 > Trong mã ứng dụng, bạn thường gọi [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getIntlayerAsync.md), không phải hàm này. Các [build plugins](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md) viết lại mọi lệnh gọi `getIntlayerAsync('key', locale)` thành `getDictionaryAsync(loaderMap, 'key', locale)`. `getDictionaryAsync` được export cho các custom loaders và cho các công cụ xây dựng loader maps của riêng chúng.
+
+- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getIntlayerAsync.md)
+- [build plugins](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md)
 
 **Các tính năng chính:**
 
@@ -71,7 +76,7 @@ getDictionaryAsync(
 - `localeOrSelector: LocalesValues | DictionarySelector`
   - **Description**: Locale để diễn giải nội dung với, hoặc một đối tượng selector (`{ item }`, `{ variant }`, tùy chọn với `locale`). Xem [dynamic dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dynamic_dictionaries/index.md).
   - **Type**: `LocalesValues | DictionarySelector`
-  - **Required**: No (Optional) — mặc định là `defaultLocale` đã cấu hình.
+  - **Required**: No (Optional), mặc định là `defaultLocale` đã cấu hình.
 
 - `plugins: Plugins[]`
   - **Description**: Node transformers. Mặc định là bộ interpreter cơ sở.
@@ -80,7 +85,7 @@ getDictionaryAsync(
 
 ### Returns
 
-- **Type**: `Promise<Content>` — a promise resolving to the interpreted content of the loaded chunk.
+- **Type**: `Promise<Content>`, a promise resolving to the interpreted content of the loaded chunk.
 - **Description**: Resolves to `null` when the map emits no chunk for the requested locale nor for any of its fallbacks, mirroring how a missing qualified coordinate resolves.
 
 ## Ví dụ sử dụng

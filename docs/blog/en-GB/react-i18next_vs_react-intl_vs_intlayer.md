@@ -136,6 +136,9 @@ Numbers from [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) 
 
 > Full table in the [TanStack Start benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/benchmark/tanstack.md) and [i18n Benchmark Overview](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/benchmark/index.md).
 
+- [TanStack Start benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/benchmark/tanstack.md)
+- [i18n Benchmark Overview](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/benchmark/index.md)
+
 ### 6) DX, tooling & maintenance
 
 - **react-intl / react-i18next**: Broad community ecosystem; for editorial workflows you usually adopt external localisation platforms.
@@ -185,3 +188,5 @@ All three libraries localise React effectively. The differentiator is how much *
 - If your team prizes **maintainability and speed** in multi-locale, component-driven React apps, Intlayer offers the **most complete** developer and content workflow today.
 
 Refer to ['Why Intlayer?' doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/interest_of_intlayer.md) for more details.
+
+- [Why Intlayer? Benefits over Other i18n Libraries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/interest_of_intlayer.md)

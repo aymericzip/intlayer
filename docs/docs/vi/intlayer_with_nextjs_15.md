@@ -87,10 +87,16 @@ Xác định phạm vi nội dung ứng dụng của bạn **tạo điều kiệ
 
 Nội dung cùng định vị **giảm ngữ cảnh cần thiết** của Mô hình ngôn ngữ lớn (LLM). Intlayer cũng đi kèm một bộ công cụ, chẳng hạn như **CLI** để kiểm tra các bản dịch bị thiếu,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** và **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/agent_skills.md)**, để giúp trải nghiệm của nhà phát triển (DX) trở nên mượt mà hơn nữa đối với các tác nhân AI.
 
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)
+- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/agent_skills.md)
+
 </Accordion>
 <Accordion header="Tự động hóa">
 
 Sử dụng tính năng tự động hóa để dịch trong quy trình CI/CD của bạn bằng cách sử dụng LLM mà bạn chọn với chi phí do nhà cung cấp AI của bạn chi trả. Intlayer cũng cung cấp **trình biên dịch** để tự động trích xuất nội dung cũng như [nền tảng web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) để giúp **dịch ở chế độ nền**.
+
+- [nền tảng web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="Hiệu suất">
@@ -101,6 +107,9 @@ Việc kết nối các tệp JSON lớn với các thành phần có thể dẫ
 <Accordion header="Mở rộng quy mô không có nhà phát triển">
 
 Không chỉ là giải pháp i18n, Intlayer còn cung cấp **[trình chỉnh sửa trực quan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** và **[CMS đầy đủ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** để giúp bạn quản lý nội dung đa ngôn ngữ của mình trong **thời gian thực**, giúp việc cộng tác với người dịch, người viết quảng cáo và các thành viên khác trong nhóm trở nên liền mạch. Nội dung có thể được lưu trữ cục bộ và/hoặc từ xa.
+
+- [trình chỉnh sửa trực quan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)
+- [CMS đầy đủ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
@@ -219,6 +228,8 @@ Here is the final structure that we will make:
 
 > If you don't want locale routing, intlayer can be used as a simple provider / hook. See [this guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_no_locale_path.md) for more details.
 
+- [this guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_no_locale_path.md)
+
 Tạo một file cấu hình để cấu hình các ngôn ngữ của ứng dụng của bạn:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
@@ -240,6 +251,8 @@ export default config;
 ```
 
 > Thông qua tệp cấu hình này, bạn có thể thiết lập URL địa phương hóa, chuyển hướng middleware, tên cookie, vị trí và phần mở rộng của các khai báo nội dung, tắt các log của Intlayer trên console, và nhiều hơn nữa. Để xem danh sách đầy đủ các tham số có sẵn, hãy tham khảo [tài liệu cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md).
+
+- [tài liệu cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md)
 
 </Step>
 <Step number={3} title="Tích hợp Intlayer vào cấu hình Next.js của bạn">
@@ -420,6 +433,8 @@ export default pageContent;
 
 > Để biết thêm chi tiết, hãy tham khảo [tài liệu khai báo nội dung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/content_file.md).
 
+- [tài liệu khai báo nội dung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/content_file.md)
+
 </Step>
 <Step number={6} title="Sử dụng Nội dung trong Mã của Bạn">
 
@@ -458,7 +473,7 @@ export default Page;
 ```
 
 - **`IntlayerProvider`** được gắn kết một lần, trong layout của locale. Nó cung cấp locale cho cả server và client components, vì vậy các trang không còn phải tự bao bọc nữa.
-- The server hooks resolve the locale in this order: the locale passed at the call site, then the server context seeded by the provider, then the locale carried by the request (the `x-intlayer-locale` header set by the Intlayer proxy, then the locale cookie). That last step is what keeps content correct on a client-side navigation that re-renders only the page segment, where the layout — and with it the provider — does not re-run.
+- The server hooks resolve the locale in this order: the locale passed at the call site, then the server context seeded by the provider, then the locale carried by the request (the `x-intlayer-locale` header set by the Intlayer proxy, then the locale cookie). That last step is what keeps content correct on a client-side navigation that re-renders only the page segment, where the layout, and with it the provider, does not re-run.
 
 </Tab>
 <Tab label='Intlayer <9.4' value='<9.4'>
@@ -577,6 +592,8 @@ export const ServerComponentExample: FC = () => {
 
 > Để tìm hiểu thêm về hook `useIntlayer`, hãy tham khảo [tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/next-intlayer/useIntlayer.md).
 
+- [Tài liệu Hook useIntlayer | next-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/next-intlayer/useIntlayer.md)
+
 </Step>
 <Step number={7} title="Cấu hình Middleware để Phát hiện Ngôn ngữ" isOptional={true}>
 
@@ -593,7 +610,11 @@ export const config = {
 
 > `intlayerMiddleware` được sử dụng để phát hiện ngôn ngữ ưu tiên của người dùng và chuyển hướng họ đến URL phù hợp như được chỉ định trong [cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md). Ngoài ra, nó còn cho phép lưu ngôn ngữ ưu tiên của người dùng trong cookie.
 
+- [cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md)
+
 > Kể từ Intlayer v9, middleware này tôn trọng tùy chọn `routing.enableProxy` (`true` theo mặc định). Đặt `routing.enableProxy: false` trong cấu hình của bạn để biến nó thành pass-through mà không cần xóa tệp này. Xem [ghi chú phát hành v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/releases/v9.md).
+
+- [ghi chú phát hành v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/releases/v9.md)
 
 > Nếu bạn cần kết hợp nhiều middleware với nhau (ví dụ, `intlayerMiddleware` cùng với middleware xác thực hoặc middleware tùy chỉnh), Intlayer hiện cung cấp một helper gọi là `multipleMiddlewares`.
 
@@ -840,6 +861,8 @@ export const LocaleSwitcher: FC = () => {
 
 > Một cách thay thế là sử dụng hàm `setLocale` do hook `useLocale` cung cấp. Hàm này sẽ không cho phép tải trước trang. Xem [tài liệu hook `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/next-intlayer/useLocale.md) để biết thêm chi tiết.
 
+- [tài liệu hook `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/next-intlayer/useLocale.md)
+
 > Bạn cũng có thể thiết lập một hàm trong tùy chọn `onLocaleChange` để kích hoạt một hàm tùy chỉnh khi ngôn ngữ thay đổi.
 
 ```tsx fileName="src/components/LocaleSwitcher.tsx"
@@ -869,6 +892,11 @@ return (
 > - [thuộc tính `lang`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang)
 > - [thuộc tính `dir`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
 > - [thuộc tính `aria-current`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
+
+- [hook `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/next-intlayer/useLocale.md)
+- [hook `getLocaleName`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getLocaleName.md)
+- [hook `getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getLocalizedUrl.md)
+- [hook `getHTMLTextDir`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getHTMLTextDir.md)
 
 </Step>
 <Step number={11} title="Tạo một thành phần Link được bản địa hóa" isOptional={true}>
@@ -1059,7 +1087,7 @@ Khuyến nghị bỏ qua các tệp được tạo bởi Intlayer. Điều này 
 
 Để cải thiện trải nghiệm phát triển của bạn với Intlayer, bạn có thể cài đặt **Tiện ích mở rộng Intlayer VS Code** chính thức.
 
-[Cài đặt từ VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [Cài đặt từ VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 Tiện ích mở rộng này cung cấp:
 
@@ -1070,9 +1098,14 @@ Tiện ích mở rộng này cung cấp:
 
 Để biết thêm chi tiết về cách sử dụng tiện ích mở rộng, hãy tham khảo [tài liệu Tiện ích mở rộng Intlayer VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/vs_code_extension.md).
 
+- [tài liệu Tiện ích mở rộng Intlayer VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/vs_code_extension.md)
+
 ### Đi Xa Hơn
 
 Để đi xa hơn, bạn có thể triển khai [trình chỉnh sửa trực quan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md) hoặc bên ngoài hóa nội dung của bạn bằng cách sử dụng [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md).
+
+- [trình chỉnh sửa trực quan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)
 
 ## Các Câu Hỏi Thường Gặp
 
@@ -1088,27 +1121,46 @@ Trường `i18n` của `next.config.js` không áp dụng cho App Router, do đ�
 
 Khai báo theo từng component đảm bảo trang chỉ tải các chuỗi mà nó hiển thị thay vì toàn bộ catalog. Xem [lý do chọn Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/interest_of_intlayer.md) và [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/index.md).
 
+- [lý do chọn Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/interest_of_intlayer.md)
+- [Giải pháp i18n tốt nhất cho Next.js năm 2026 - Báo cáo Benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md)
+
 </Question>
 <Question title="i18n làm tăng kích thước bundle Next.js của tôi bao nhiêu?">
 
 Ít hơn đáng kể so với các giải pháp dựa trên namespace, vì trang không bao giờ tải catalog mà nó không hiển thị. Server Components phân giải nội dung ngay trên server, và compiler tại thời điểm build thay thế các lệnh gọi `useIntlayer` bằng chính xác các mục từ điển mà component sử dụng. [Từ điển động](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dynamic_dictionaries/index.md) chia phần còn lại theo từng locale, giảm kích thước bundle tới 50%. Xem [tối ưu hóa bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md) và [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/index.md).
+
+- [Từ điển động](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dynamic_dictionaries/index.md)
+- [tối ưu hóa bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md)
+- [Giải pháp i18n tốt nhất cho Next.js năm 2026 - Báo cáo Benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md)
 
 </Question>
 <Question title="Tôi có thể di chuyển từ next-intl, next-i18next hoặc i18next mà không cần viết lại các component của mình không?">
 
 Có, theo hai cách. Bạn có thể di chuyển nội dung dần dần bằng [hướng dẫn di chuyển từ i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_i18next_to_intlayer.md) hoặc [next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_next-intl_to_intlayer.md). Hoặc bạn có thể giữ nguyên API hiện tại: [adapter tương thích](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/index.md) cung cấp chính xác các API tương tự nhưng chạy trên các từ điển Intlayer.
 
+- [next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_next-intl_to_intlayer.md)
+- [hướng dẫn di chuyển từ i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_i18next_to_intlayer.md)
+- [adapter tương thích](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/index.md)
+
 </Question>
 <Question title="Tôi có thể giữ các tệp dịch JSON hiện có của mình không?">
 
 Có. Plugin [sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/plugins/sync-json.md) giữ cho các tệp `/messages/{locale}/{namespace}.json` của bạn là nguồn sự thật duy nhất và tạo các từ điển Intlayer từ chúng theo cả hai hướng. Plugin [sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/plugins/sync-po.md) làm điều tương tự cho các catalog gettext, và [các tệp theo locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/per_locale_file.md) cho phép bạn chia nội dung theo ngôn ngữ thay vì nhóm các locale trong một tệp.
+
+- [sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/plugins/sync-json.md)
+- [sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/plugins/sync-po.md)
+- [các tệp theo locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/per_locale_file.md)
 
 </Question>
 <Question title="Tôi có phải di chuyển nội dung từng khóa một không?">
 
 Không. Chạy `npx intlayer extract` và Intlayer sẽ đọc các tệp nguồn của bạn, trích xuất các chuỗi dành cho người dùng và tạo tệp `.content` bên cạnh mỗi tệp, nhờ đó bạn chỉ cần xem lại diff thay vì sao chép chuỗi vào catalog thủ công. Xem [lệnh extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/extract.md).
 
+- [lệnh extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/extract.md)
+
 Để tự động hóa hoàn toàn, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md) thực hiện việc tương tự trong quá trình build trên mã JSX, TSX, Vue và Svelte, tạo từ điển trên mỗi thay đổi mà không cần quản lý khóa thủ công.
+
+- [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md)
 
 </Question>
 <Question title="Có những công cụ editor và AI agent nào có sẵn?">
@@ -1124,7 +1176,11 @@ Năm công cụ, tất cả đều là tùy chọn:
 </Question>
 <Question title="Intlayer hỗ trợ những phiên bản Next.js nào?">
 
-Next.js 12, 13, 14, 15, và 16. Cả App Router và Pages Router đều được hỗ trợ đầy đủ.
+Next.js 12, 13, 14, 15 và 16. Hướng dẫn này dành cho Next.js 15. Với Next.js 16, hãy làm theo [hướng dẫn Next.js 16](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_16.md). Với Next.js 14, hãy làm theo [hướng dẫn Next.js 14](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_14.md). Với Pages Router, hãy làm theo [hướng dẫn Pages Router](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_page_router.md).
+
+- [hướng dẫn Next.js 16](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_16.md)
+- [hướng dẫn Next.js 14](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_14.md)
+- [hướng dẫn Pages Router](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_page_router.md)
 
 </Question>
 <Question title="Intlayer có hoạt động với React Server Components không?">
@@ -1135,6 +1191,9 @@ Có. Nội dung trong Server Components được giải quyết trực tiếp tr
 <Question title="Tôi có bắt buộc phải đưa locale vào URL như /vi/about không?">
 
 Không. `routing.mode` chấp nhận `"prefix-no-default"` (mặc định: `/about` cho ngôn ngữ chính và `/vi/about` cho ngôn ngữ khác), `"prefix-all"`, `"no-prefix"`, và `"search-params"`. Tùy chọn `routing.domains` ánh xạ từng ngôn ngữ tới tên miền riêng. Xem [tài liệu cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md).
+
+- [tài liệu cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md)
+- [guide without locale path](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_no_locale_path.md)
 
 </Question>
 <Question title="Làm cách nào để thêm thẻ hreflang và metadata được bản địa hóa cho SEO?">
@@ -1156,20 +1215,34 @@ Component bọc thẻ `Link` chuẩn của Next.js và chuyển href qua hàm `g
 
 Chạy `npx intlayer fill`. CLI phát hiện các bản dịch còn thiếu và điền chúng bằng LLM bạn chọn sử dụng provider và API key của riêng bạn. Flag `--git-diff` giới hạn thao tác ở nội dung đã thay đổi trên branch hiện tại. Xem [lệnh fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/fill.md) và [tích hợp CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/CI_CD.md).
 
+- [lệnh fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/fill.md)
+- [tích hợp CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/CI_CD.md)
+
 </Question>
 <Question title="Intlayer có hỗ trợ dạng số nhiều, giới tính và rich text không?">
 
 Có: [dạng số nhiều (plurals)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/plurial.md), [nội dung dựa trên giới tính](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/gender.md), điều kiện, [chèn (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/insertion.md), [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/markdown.md), và [định dạng](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/formatters.md) cho số, ngày tháng và tiền tệ.
+
+- [dạng số nhiều (plurals)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/plurial.md)
+- [nội dung dựa trên giới tính](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/gender.md)
+- [chèn (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/insertion.md)
+- [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/markdown.md)
+- [định dạng](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/formatters.md)
 
 </Question>
 <Question title="Làm thế nào người dịch có thể chỉnh sửa nội dung mà không cần chạm vào mã nguồn?">
 
 Thông qua [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md), cho phép bất kỳ ai chỉnh sửa văn bản trực tiếp trên ứng dụng đang chạy, hoặc qua [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md), giúp tách biệt nội dung để cập nhật mà không cần triển khai lại mã nguồn.
 
+- [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)
+
 </Question>
 <Question title="Chi phí của trình chỉnh sửa trực quan là bao nhiêu? Nó có dư thừa nếu tôi không cần đến không?">
 
 [Trình chỉnh sửa trực quan Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md) có **chi phí bằng không** đối với ứng dụng của bạn nếu không được thiết lập. Logic bổ sung chỉ được tải nếu được bật rõ ràng và khi cần thiết.
+
+- [Trình chỉnh sửa trực quan Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md)
 
 Ngay cả khi được bật, chi phí cũng cực kỳ nhẹ (+5 KB, chỉ tải động khi được kích hoạt) vì phần lớn logic được xử lý bởi trình chỉnh sửa máy chủ trên [app.intlayer.org](https://app.intlayer.org) hoặc thông qua gói `intlayer-editor`. Nếu bạn chỉ cần một giải pháp dịch thuật đơn giản mà không cần chỉnh sửa trực quan, Intlayer sẽ không tạo ra bất kỳ tải phụ nào cho ứng dụng của bạn.
 
@@ -1177,6 +1250,8 @@ Ngay cả khi được bật, chi phí cũng cực kỳ nhẹ (+5 KB, chỉ tả
 <Question title="Intlayer có phải là mã nguồn mở và miễn phí không?">
 
 Có, theo giấy phép Apache 2.0, bao gồm cả mục đích thương mại. CMS lưu trữ trên đám mây là một dịch vụ trả phí tùy chọn và cũng có thể [tự lưu trữ (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/self_hosting.md).
+
+- [tự lưu trữ (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/self_hosting.md)
 
 </Question>
 

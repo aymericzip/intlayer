@@ -40,6 +40,8 @@ Intlayer 可视化编辑器是一种工具，允许您在本地字典的可视�
 
 相比之下，[Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) 是一种工具，允许您在远程字典的可视化编辑器中管理内容。一旦进行了更改，内容将**不会**影响您的代码库。网站将自动显示更改后的内容。
 
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
+
 ## 将 Intlayer 集成到您的应用程序中
 
 有关如何集成 Intlayer 的更多详细信息，请参阅以下相关部分：
@@ -48,13 +50,19 @@ Intlayer 可视化编辑器是一种工具，允许您在本地字典的可视�
 
 有关与 Next.js 集成的内容，请参阅[设置指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_15.md)。
 
+- [Next.js 15 i18n - 翻译你的应用的完整指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_15.md)
+
 ### 与 Create React App 集成
 
 有关与 Create React App 集成的内容，请参阅[设置指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_create_react_app.md)。
 
+- [Create React App i18n：完整翻译指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_create_react_app.md)
+
 ### 与 Vite + React 集成
 
 有关与 Vite + React 集成的内容，请参阅[设置指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_vite+react.md)。
+
+- [Vite + React i18n - 翻译你的应用的完整指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_vite+react.md)
 
 ## Intlayer 编辑器如何工作
 
@@ -139,6 +147,8 @@ export default config;
 
 > 要查看所有可用参数，请参阅[配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
 
+- [配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)
+
 ## 使用编辑器
 
 1. 安装编辑器后，您可以使用以下命令启动编辑器：
@@ -221,27 +231,45 @@ pnpm intlayer-editor start -e development
 
 可视化编辑器编辑的是本地字典，并将修改直接写回您的代码库中，因此会走常规的代码审查和部署流水线。而 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) 编辑的是远程字典，可在运行中的线上站点直接生效而无需重新部署。编辑器适合开发者掌控的内容；CMS 适合市场团队掌控的内容。
 
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
+
 </Question>
 <Question title="i18n 会给我的 bundle 体积增加多少？">
 
 远少于基于命名空间的方案，因为页面永远不会下载它不渲染的语言目录。服务端渲染的标记在服务端直接解析内容，而构建时编译器将 `useIntlayer` 调用替换为组件使用的确切字典条目，因此未使用的键和未使用的语言都会被自动丢弃。[动态字典](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dynamic_dictionaries/index.md) 会按语言环境拆分剩余内容。与常规替代方案相比，Intlayer 可将 bundle 和页面体积减少高达 50%。请参阅 [Bundle 体积优化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md) 和 [性能基准](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/index.md)。
+
+- [动态字典](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dynamic_dictionaries/index.md)
+- [Bundle 体积优化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md)
+- [性能基准](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/index.md)
 
 </Question>
 <Question title="我可以从 i18next、next-intl 或 react-i18next 迁移而无需重写组件吗？">
 
 可以，有两条迁移路径。您可以使用 [i18next 迁移指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_i18next_to_intlayer.md) 或 [next-intl 迁移指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_next-intl_to_intlayer.md) 逐步迁移内容。或者，您可以完全保留当前的 API：[兼容性适配器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/index.md) 公开与 `i18next`、`react-i18next`、`next-intl`、`next-i18next`、`react-intl`、`use-intl`、`vue-i18n` 和 `Lingui` 完全相同的 API，但底层由 Intlayer 字典驱动，因此只需更改导入语句，组件代码无需修改。
 
+- [i18next 迁移指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_i18next_to_intlayer.md)
+- [next-intl 迁移指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_next-intl_to_intlayer.md)
+- [兼容性适配器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/index.md)
+
 </Question>
 <Question title="我可以保留现有的 JSON 翻译文件吗？">
 
 可以。[JSON 同步插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/plugins/sync-json.md) 将您的 `/messages/{locale}/{namespace}.json` 文件作为单一真实来源（source of truth），并双向生成 Intlayer 字典。[PO 同步插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/plugins/sync-po.md) 对 gettext 目录执行相同的操作，而 [按语言环境组织的文件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/per_locale_file.md) 允许您按语言拆分内容，而不是将所有语言打包到一个文件中。
+
+- [JSON 同步插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/plugins/sync-json.md)
+- [PO 同步插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/plugins/sync-po.md)
+- [按语言环境组织的文件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/per_locale_file.md)
 
 </Question>
 <Question title="我必须逐个键迁移我的内容吗？">
 
 不需要。运行 `npx intlayer extract`，Intlayer 会读取您的源码文件，提取面向用户的字符串，并在每个组件旁边生成 `.content` 文件，这样您只需审查 diff，而无需手动逐一复制字符串到语言目录中。请参阅 [extract 命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/extract.md)。
 
+- [extract 命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/extract.md)
+
 如需全自动流程，[Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md) 可以在构建时对 JSX、TSX、Vue 和 Svelte 源码执行相同操作，在每次更改时自动生成字典，完全无需手动维护键名。它通过静态分析工作，因此仅在运行时存在的字符串无法被捕获，并且需要少量注解以区分用户文本和应用程序逻辑。
+
+- [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md)
 
 </Question>
 <Question title="有哪些可用的编辑器和 AI 代理工具？">
@@ -279,6 +307,8 @@ pnpm intlayer-editor start -e development
 
 它是专为开发和预发布 (staging) 环境设计的，在这类环境中编辑后触发重新构建是可以接受的。若要在无需重新部署的情况下直接修改线上运行中的内容，请使用 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) 及其远程字典功能。
 
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
+
 </Question>
 <Question title="可视化编辑器的成本是多少？如果我不需要它，会不会显得多余？">
 
@@ -290,6 +320,9 @@ pnpm intlayer-editor start -e development
 <Question title="可视化编辑器是免费的吗？">
 
 是的。可视化编辑器是开源项目的一部分，基于 Apache 2.0 许可证授权，包含商业用途。仅托管版 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) 属于付费服务，并且 CMS 也完全支持 [自托管](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/self_hosting.md)。
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
+- [自托管](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/self_hosting.md)
 
 </Question>
 

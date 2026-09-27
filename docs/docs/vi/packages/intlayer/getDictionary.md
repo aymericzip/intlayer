@@ -35,6 +35,8 @@ Hàm `getDictionary` giải thích một dictionary **object mà bạn tự truy
 
 Không giống như [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getIntlayer.md), cái mà tìm kiếm một dictionary theo key trong registry được tạo, `getDictionary` nhận chính dictionary đó. Điều đó làm cho nó trở thành công cụ phù hợp cho nội dung được xây dựng tại runtime, được lấy từ một API hoặc CMS, hoặc được khai báo inline trong một test.
 
+- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getIntlayer.md)
+
 **Các tính năng chính:**
 
 - Hoạt động với bất kỳ object nào tuân theo cấu trúc dictionary (`{ key, content }`)
@@ -62,7 +64,7 @@ getDictionary(
 - `localeOrSelector: LocalesValues | DictionarySelector`
   - **Description**: Locale để diễn giải nội dung, hoặc một object selector (`{ item }`, `{ variant }`, tùy chọn với `locale`). Xem [dynamic dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dynamic_dictionaries/index.md).
   - **Type**: `LocalesValues | DictionarySelector`
-  - **Required**: No (Optional) — mặc định là `defaultLocale` đã cấu hình.
+  - **Required**: No (Optional), mặc định là `defaultLocale` đã cấu hình.
 
 - `plugins: Plugins[]`
   - **Description**: Một mảng các node transformers xác định cách các node được nhận dạng được diễn giải. Nếu bỏ qua, bộ plugin interpreter mặc định sẽ được sử dụng.

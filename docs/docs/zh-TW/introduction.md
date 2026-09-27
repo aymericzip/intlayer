@@ -110,10 +110,16 @@ export const MyComponent: FC = () => {
 
 將內容同位放置 **減少了所需的上下文**，這非常適合大型語言模型 (LLM)。Intlayer 還附帶一套工具，例如用於測試缺失翻譯的 **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/mcp_server.md)** 以及 **[Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/agent_skills.md)**，旨在讓 AI 代理的開發者體驗 (DX) 變得更加順暢。
 
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/mcp_server.md)
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/agent_skills.md)
+
 </Accordion>
 <Accordion header="自動化">
 
 使用您選擇的 LLM 並在由您的 AI 提供者承擔費用的情況下，透過自動化在您的 CI/CD 管道中進行翻譯。Intlayer 還提供了一個 **編譯器**，可自動提取內容；並配備了一個 [Web 平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/intlayer_CMS.md) 以幫助您 **在背景執行翻譯**。
+
+- [Web 平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="效能表現 (Performance)">
@@ -124,6 +130,9 @@ export const MyComponent: FC = () => {
 <Accordion header="無需開發人員的規模化運作 (Scaling with non-dev)">
 
 Intlayer 不僅僅是一個簡單的 i18n 解決方案。它還提供了一個 **支援自託管的[視覺化編輯器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/intlayer_visual_editor.md)** 以及一個 **[完整的 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/intlayer_CMS.md)**。藉此，您可以 **即時** 管理多語言內容，並讓譯者、文案及其他團隊成員之間的協作變得無縫。內容可以儲存在本地和/或遠端伺服器上。
+
+- [視覺化編輯器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/intlayer_visual_editor.md)
+- [完整的 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>

@@ -67,6 +67,8 @@ Paraglide компілює кожне повідомлення в окремо �
 
 [Історія i18n у JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/history_of_i18n.md) детально розглядає кожну хвилю.
 
+- [Історія i18n у JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/history_of_i18n.md)
+
 ## Рішення, яке має найбільше значення: де живе контент і коли він завантажується
 
 Два структурні вибори пояснюють більшу частину різниці в розмірі bundle між конфігураціями:
@@ -80,11 +82,17 @@ Paraglide компілює кожне повідомлення в окремо �
 
 `svelte-i18n` за замовчуванням розташовується у верхньому лівому куті: `register("fr", () => import("./fr.json"))` забезпечує динамічне завантаження для кожної локалі, але каталог локалі є єдиним об'єктом, і його завантаження підтягує тексти кожної сторінки. Paraglide є цікавим випадком: оскільки кожне повідомлення є окремим експортом, tree-shaking дає оптимізацію за сторінками безкоштовно, і [бенчмарк Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/svelte.md) підтверджує, що це працює, як заявлено, на Vite + Svelte (на відміну від бенчмарків React і Next.js). Intlayer досягає того ж результату завдяки оголошенням на рівні компонентів.
 
+- [бенчмарк Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/svelte.md)
+
 Якщо вашою відповіддю на запитання 3 було «багато сторінок», надайте цьому розділу більшої ваги, ніж будь-яким уподобанням щодо API. Стаття про [покомпонентний та централізований i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/per-component_vs_centralized_i18n.md) розглядає аспект підтримки цього ж компромісу.
+
+- [покомпонентний та централізований i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/per-component_vs_centralized_i18n.md)
 
 ## Кандидати
 
 Розміри бібліотек взяті з [бенчмарку Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/svelte.md): store плюс аксесор у порожньому компоненті після бандлінгу, tree-shaking та мініфікації для застосунку на 10 сторінок і 10 локалей. Контент вимірюється окремо.
+
+- [бенчмарку Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/svelte.md)
 
 ![Екосистема бібліотек i18n для Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
@@ -113,6 +121,8 @@ Paraglide компілює кожне повідомлення в окремо �
 
 Проблема розділення стану вирішує цей вибір. `svelte-i18n` працює на SvelteKit, але налаштування для кожного запиту (`hooks.server.ts`, `locals`, `load`, потім `setContext`) вам доведеться писати самостійно, і тут легко припуститися непомітної помилки. Paraglide постачається з інтеграцією для SvelteKit, яка керує маршрутизацією та зчитує локаль під час кожного виклику, уникаючи singleton. Intlayer встановлює локаль із даних `load` у context. Стаття про [SvelteKit i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_svelte_kit.md) пояснює вибір між `[[lang]]` та `reroute`, який варто зробити до вибору бібліотеки.
 
+- [SvelteKit i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_svelte_kit.md)
+
 </Accordion>
 <Accordion header="Переклади надходять від TMS або агенції у форматі ICU">
 
@@ -127,6 +137,8 @@ Paraglide компілює кожне повідомлення в окремо �
 <Accordion header="Типобезпека є обов'язковою">
 
 Будь-який варіант, крім чистого `svelte-i18n`, де єдиною типізацією є написане вручну union-оголошення, яке миттєво втрачає синхронізацію з JSON. `typesafe-i18n`, Paraglide та Intlayer генерують типи з контенту. Перевірте активність репозиторію `typesafe-i18n` перед тим, як переводити на нього кодову базу. Стаття про [виявлення відсутніх перекладів](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/detecting_missing_translations.md) порівнює, що кожен інструмент відловлює під час збирання.
+
+- [виявлення відсутніх перекладів](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/detecting_missing_translations.md)
 
 </Accordion>
 <Accordion header="Ви не хочете бачити згенеровані файли в репозиторії">
@@ -372,6 +384,8 @@ export default cartSummaryContent;
 
 Вже використовуєте `svelte-i18n`? [Адаптер сумісності `@intlayer/svelte-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/svelte-i18n.md) створює аліас для пакета на рівні збирача, тому `$_`, `$date`, `$number` та ваші плоскі ключі продовжують працювати, поки Intlayer надає контент.
 
+- [Адаптер сумісності `@intlayer/svelte-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/svelte-i18n.md)
+
 ## Перед тим як зробити вибір
 
 Таблиця функцій показує, що бібліотека робить сьогодні. Ці пункти підкажуть, як виглядатиме робота з нею на практиці.
@@ -394,6 +408,9 @@ export default cartSummaryContent;
 
 Агенти все ще відчувають труднощі з i18n: вони забувають локалі, вигадують ключі та плутають синтаксис повідомлень. Чи надає бібліотека [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/agent_skills.md) або [MCP-сервер](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/mcp_server.md), щоб агент міг переглядати, заповнювати та тестувати контент? І чи оптимізовано завантаження контенту за замовчуванням, чи комусь доводиться щокварталу переглядати namespaces та lazy imports?
 
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/agent_skills.md)
+- [MCP-сервер](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/mcp_server.md)
+
 **Типобезпека «з коробки».**
 
 Не «можна типізувати додатковими зусиллями», а «неправильний ключ викликає помилку `tsc` одразу після встановлення». Перевірте, що відбувається з неіснуючим ключем та з локаллю, у якій пропущено один переклад.
@@ -405,6 +422,13 @@ export default cartSummaryContent;
 **Досвід розробника (Developer experience).**
 
 Час налаштування до першого перекладеного рядка, [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/lsp.md) або [розширення для VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/vs_code_extension.md), які показують переклад при наведенні та переходять до оголошення, [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/index.md) для заповнення, тестування й публікації (push), [компілятор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compiler.md) або екстрактор, який витягує захардкоджені рядки з компонентів, щоб не керувати кожним рядком ключ за ключем, а також можливість для нетехнічних спеціалістів редагувати контент ([візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md) або [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)) без створення pull request.
+
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/lsp.md)
+- [розширення для VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/vs_code_extension.md)
+- [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/index.md)
+- [компілятор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compiler.md)
+- [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)
 
 ## Часті запитання
 
@@ -431,6 +455,8 @@ export default cartSummaryContent;
 <Question title="Чи впливає вибір бібліотеки на SEO?">
 
 Опосередковано. Для пошукових роботів важливі маршрутизація, `hreflang`, `<html lang>` і те, чи присутній текст у відрендереному сервером HTML. Дивіться [посібник з hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/hreflang_guide_multilingual_seo.md).
+
+- [посібник з hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/hreflang_guide_multilingual_seo.md)
 
 </Question>
 

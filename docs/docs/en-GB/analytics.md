@@ -57,6 +57,8 @@ Intlayer already lets you declare content [Variants](https://github.com/aymericz
 3. `useConversion()` lets you attribute a goal (e.g. `"cta_click"`) to that variant.
 4. The dashboard's experiment results endpoint compares conversion rates per variant, including statistical significance (a z-test).
 
+- [Variants](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dynamic_dictionaries/index.md)
+
 ## Installation
 
 `@intlayer/analytics` is an **optional dependency** of every framework package (`react-intlayer`, `next-intlayer`, `vue-intlayer`, …), so most projects already have it. Install it explicitly if your setup skips optional dependencies (`npm install --no-optional`, `NODE_ENV=production` installs of some package managers, …):
@@ -137,6 +139,8 @@ export default config;
 ```
 
 Uninstalling `@intlayer/analytics` has the same effect as `enabled: false`. See the [Configuration reference](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md#analytics-configuration) for the full field list.
+
+- [Configuration reference](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md#analytics-configuration)
 
 ## Usage
 
@@ -634,9 +638,13 @@ export const HeroBanner = ({ variant }: { variant: string }) => {
 };
 ```
 
+- [Variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dynamic_dictionaries/variants.md)
+
 > Reading the variant in a **child** is what makes this work outside React: in Vue, Svelte, Solid, and Angular the selector passed to `useIntlayer` is captured when the component sets up, so the read has to happen in a component that only mounts once the variant is known.
 
 If the experiment covers a whole page rather than a single dictionary, hoist the variant onto the provider instead - see [Ambient variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dynamic_dictionaries/variants.md#ambient-variant). Every `useIntlayer` below then resolves against it with no call-site change.
+
+- [Ambient variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dynamic_dictionaries/variants.md#ambient-variant)
 
 If you need the raw assignment outside of a component, reach for the client directly:
 
@@ -701,6 +709,8 @@ const cms = createIntlayerCMS();
 
 const { data: audience } = await analyticsEndpoint(cms).getAudience(30);
 ```
+
+- [CMS SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
 
 > **Server-side only.** `createIntlayerCMS()` authenticates with `clientId` + `clientSecret`, and the secret is never available in the browser - this snippet would issue unauthenticated requests if it ran there. Keep it in a route handler, server action, or script.
 

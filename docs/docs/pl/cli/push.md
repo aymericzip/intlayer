@@ -39,6 +39,8 @@ bun x intlayer dictionary push
 
 Jeśli [edytor intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md) jest zainstalowany, możesz również wysyłać słowniki do edytora. To polecenie pozwoli udostępnić słowniki w [edytorze](https://app.intlayer.org/). W ten sposób możesz dzielić się swoimi słownikami z zespołem i edytować treści bez konieczności modyfikowania kodu aplikacji.
 
+- [edytor intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md)
+
 ## Alias:
 
 - `npx intlayer dictionaries push`
@@ -67,7 +69,7 @@ Jeśli [edytor intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/d
 
   > Przykład: `npx intlayer build --no-cache`
 
-- **`--ci`**: Uruchamia polecenie w każdym projekcie Intlayer w monorepo (lub tylko w bieżącym, gdy uruchomione z katalogu projektu). Dane uwierzytelniające dla poszczególnych projektów można wstrzyknąć przez `INTLAYER_PROJECT_CREDENTIALS` — obiekt JSON mapujący ścieżkę projektu na `{ "clientId", "clientSecret" }`.
+- **`--ci`**: Uruchamia polecenie w każdym projekcie Intlayer w monorepo (lub tylko w bieżącym, gdy uruchomione z katalogu projektu). Dane uwierzytelniające dla poszczególnych projektów można wstrzyknąć przez `INTLAYER_PROJECT_CREDENTIALS`, obiekt JSON mapujący ścieżkę projektu na `{ "clientId", "clientSecret" }`.
 
   > Przykład: `npx intlayer push --ci`
 

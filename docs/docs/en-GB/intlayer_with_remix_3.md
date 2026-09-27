@@ -78,6 +78,9 @@ Intlayer co-locates content declarations (`.content.ts`) with your route logic, 
 
 Beyond code-first workflows, Intlayer provides a self-hosted [Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_visual_editor.md) and a [Remote CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_CMS.md) allowing non-technical editors, translators, and copywriters to update content without redeploying code.
 
+- [Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_visual_editor.md)
+- [Remote CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_CMS.md)
+
 </Accordion>
 </AccordionGroup>
 
@@ -219,6 +222,8 @@ module.exports = config;
 
 > For additional configuration settings, refer to the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md).
 
+- [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md)
+
 </Step>
 <Step number={3} title="Declare Your Multilingual Content">
 
@@ -255,6 +260,8 @@ export default homeContent;
 ```
 
 > Intlayer also supports JSON, YAML, and CommonJS declaration formats. See the [Content Declaration Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/content_file.md).
+
+- [Content Declaration Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/content_file.md)
 
 </Step>
 <Step number={4} title="Build Intlayer Dictionaries">
@@ -303,6 +310,8 @@ const { title } = useIntlayer("home");
 `useIntlayer("home", "fr")` or `useIntlayer("faq", { item: 2 })` override the request locale for one call, and `useDictionary(homeContent)` reads an imported dictionary instead of a key. Outside of a request the hooks fall back to the default locale.
 
 > The middleware also prepares the Intlayer dictionaries when the server starts, so a missing `intlayer build` does not leave the registry empty.
+
+> Set `routing.enableProxy: false` in `intlayer.config.ts` to keep the locale resolution only and handle the routing yourself. `intlayer({ ignore })` leaves the matching requests untouched (an API prefix, for instance), and `intlayer({ isDevServer })` controls whether the stored locale drives redirects in the default `enableProxy` auto mode.
 
 </Step>
 <Step number={6} title="Define Type-Safe Routes">

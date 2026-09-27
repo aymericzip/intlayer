@@ -43,7 +43,12 @@ author: aymericzip
 
 > 대안으로 [next-intl 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/i18n_using_next-intl.md)를 참조하거나, 직접 [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_16.md)를 사용할 수 있습니다.
 
+- [next-intl 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/i18n_using_next-intl.md)
+- [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_16.md)
+
 > [next-i18next vs next-intl vs Intlayer 비교](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/next-i18next_vs_next-intl_vs_intlayer.md)를 확인하세요.
+
+- [next-i18next vs next-intl vs Intlayer 비교](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/next-i18next_vs_next-intl_vs_intlayer.md)
 
 > 이러한 라이브러리가 어디에서 왔는지 이해하려면 JavaScript i18n의 역사를 읽어보세요.
 
@@ -52,6 +57,8 @@ author: aymericzip
 ## 벤치마크로 본 Next.js의 next-i18next
 
 설정에 들어가기 전에 i18n 라이브러리가 성능과 bundle에 미치는 영향을 이해하는 것이 중요합니다. [i18n 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/nextjs.md)는 10개 페이지, 10개 로케일로 구성된 동일한 Next.js 애플리케이션을 주요 i18n 라이브러리로 실행하여 실제 bundle 크기, 문자열 누수, 하이드레이션 오버헤드를 측정합니다.
+
+- [i18n 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/nextjs.md)
 
 <I18nBenchmark framework="nextjs" packages="next-i18next,@intlayer/next-i18next,next-intlayer" vertical/>
 
@@ -77,6 +84,8 @@ Next.js에서 `next-i18next`의 주요 수치 (gzip):
 - **runtime 무게:** `i18next` 클라이언트 runtime은 모든 페이지에서 ~19.7 KB gzip입니다. 기존 codebase의 경우 호환 어댑터 [`@intlayer/next-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/next-i18next.md)가 동일한 `i18next` API를 유지하면서 runtime을 9.4 KB로 줄이고 누수를 없앱니다. 네이티브 [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/next-intlayer/exports.md)는 5.5 KB까지 내려갑니다.
 
 > 전체 데이터 보기: [Next.js 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/nextjs.md), 그리고 [벤치마크 저장소](https://github.com/intlayer-org/benchmark-i18n).
+
+- [Next.js 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/nextjs.md)
 
 ## Next.js 기능 비교
 
@@ -105,6 +114,9 @@ Next.js App Router 프로젝트에 일반적으로 필요한 기능을 기준으
 
 > runtime 크기는 [Next.js 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/nextjs.md)에서 가져왔습니다. 자세한 논의는 [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/next-i18next_vs_next-intl_vs_intlayer.md)를 읽어 보세요.
 
+- [Next.js 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/nextjs.md)
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/next-i18next_vs_next-intl_vs_intlayer.md)
+
 ## 따라야 할 실천 사항
 
 구현에 들어가기 전에, 다음과 같은 실천 사항을 따라야 합니다:
@@ -131,6 +143,8 @@ Next.js App Router 프로젝트에 일반적으로 필요한 기능을 기준으
   테스트와 번역 자동화는 다국어 애플리케이션 유지 관리를 위한 시간을 절약하는 데 도움이 됩니다.
 
 > 국제화 및 SEO에 대해 알아야 할 모든 내용을 나열한 문서를 참조하세요: [next-intl을 사용한 국제화 (i18n)](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/internationalization_and_SEO.md).
+
+- [next-intl을 사용한 국제화 (i18n)](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/internationalization_and_SEO.md)
 
 ## Next.js 애플리케이션에서 i18next 설정 단계별 가이드
 
@@ -1185,6 +1199,8 @@ Intlayer는 다음을 가능하게 합니다:
   Intlayer는 비주얼 에디터를 사용하여 콘텐츠를 편집할 수 있는 무료 비주얼 에디터를 제공합니다. [번역 비주얼 편집](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)에서 자세히 알아보세요.
 
 그리고 더 많은 기능들이 있습니다. Intlayer가 제공하는 모든 기능을 확인하려면 [Intlayer의 장점 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/interest_of_intlayer.md)를 참조하세요.
+
+- [Intlayer의 장점 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/interest_of_intlayer.md)
 
 자세한 성능 벤치마크와 비교는 다음을 참고하세요:
 

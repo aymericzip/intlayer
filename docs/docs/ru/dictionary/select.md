@@ -376,6 +376,8 @@ select(
 
 > Обратите внимание: сообщения ICU `select`, в которых случаями являются значения пола (`male` / `female` / `other`), вместо этого импортируются как узел [`gender`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/gender.md).
 
+- [`gender`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/gender.md)
+
 ## Дополнительные ресурсы
 
 Для получения более подробной информации о конфигурации и использовании ознакомьтесь со следующими ресурсами:

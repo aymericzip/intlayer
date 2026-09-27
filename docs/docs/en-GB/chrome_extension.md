@@ -120,6 +120,11 @@ Detection relies on what the page exposes in the browser: global variables, cook
 
 Most checks map to a routing or metadata setting. With Intlayer, hreflang, canonical, `x-default`, localised links, sitemap and robots.txt are generated from your [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md). See the integration guide for your framework, for example [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_nextjs_16.md), [Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_nuxt.md) or [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_tanstack.md).
 
+- [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md)
+- [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_nextjs_16.md)
+- [Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_nuxt.md)
+- [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_tanstack.md)
+
 </Question>
 
 </FAQ>

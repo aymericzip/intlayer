@@ -160,6 +160,8 @@ export default indexContent;
 
 > 詳細については、[コンテンツ宣言のドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)を参照してください。
 
+- [コンテンツ宣言のドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)
+
 ### Elysia アプリケーションのセットアップ
 
 `elysia-intlayer` を使用するように Elysia アプリケーションをセットアップします:
@@ -301,6 +303,8 @@ export default config;
 
 > 設定と高度なトピックについて詳しく知るには、当社の[ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)をご覧ください。
 
+- [Intlayer の設定（intlayer.config.ts）](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)
+
 ### TypeScript を設定する
 
 `elysia-intlayer` は、国際化プロセスを強化するための TypeScript の堅牢な機能を活用しています。TypeScript の静的型付けにより、すべての翻訳キーが考慮され、欠落した翻訳のリスクが軽減され、保守性が向上します。
@@ -321,7 +325,7 @@ export default config;
 
 Intlayer の開発体験を向上させるために、公式の **Intlayer VS Code Extension** をインストールできます。
 
-[VS Code Marketplace からインストール](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [VS Code Marketplace からインストール](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 この拡張機能は以下を提供します:
 
@@ -331,6 +335,8 @@ Intlayer の開発体験を向上させるために、公式の **Intlayer VS Co
 - **翻訳を簡単に作成および更新するためのクイック アクション**。
 
 拡張機能の使用方法の詳細については、[Intlayer VS Code Extension ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)を参照してください。
+
+- [Intlayer VS Code Extension ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)
 
 ### Git Configuration
 
@@ -355,27 +361,42 @@ Elysiaには独自のi18nレイヤーがないため、手動でhookに組み込
 
 [Intlayerを選ぶ理由](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)をご覧ください。
 
+- [Intlayerを選ぶ理由](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)
+
 </Question>
 <Question title="i18nはElysiaサーバーのbundleサイズにどのくらい影響しますか？">
 
 ごくわずかです。辞書は事前にコンパイルされ、宣言したロケールのみが含まれるため、起動時にカタログをロードしたり、リクエストパスでファイルを読み込んだりすることはありません。これは、bundleサイズがコールドスタート時間に影響するserverlessおよびedge deploymentsで最も重要です。[bundle最適化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)をご覧ください。
+
+- [bundle最適化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)
 
 </Question>
 <Question title="`i18next`からハンドラーを書き換えずに移行できますか？">
 
 はい、2つの方法があります。[i18next移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_i18next_to_intlayer.md)に従って、コンテンツを段階的に移行できます。または、現在のAPIを完全に維持することも可能です。[互換アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/index.md)は`i18next`とまったく同じAPIを公開しますが、Intlayer辞書によって提供されるため、インポートは変更されますが、handlerコードは変更されません。
 
+- [i18next移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_i18next_to_intlayer.md)
+- [互換アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/index.md)
+
 </Question>
 <Question title="既存のJSON翻訳ファイルを保持できますか？">
 
 はい、可能です。[sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md)は、`/messages/{locale}/{namespace}.json`ファイルを信頼できる情報源として保持し、それらからIntlayer辞書を双方向に生成します。[sync PO plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-po.md)はgettext catalogsに対しても同様の機能を提供し、[ロケールごとのファイル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/per_locale_file.md)を使用すると、1つのファイルにロケールをグループ化する代わりに、言語ごとにコンテンツを分割できます。
+
+- [sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md)
+- [sync PO plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-po.md)
+- [ロケールごとのファイル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/per_locale_file.md)
 
 </Question>
 <Question title="コンテンツをキーごとに移動する必要がありますか？">
 
 いいえ、必要ありません。`npx intlayer extract`を実行すると、Intlayerがソースファイルを読み込み、ユーザー向けの文字列を抽出し、それぞれの隣に`.content`ファイルを書き込みます。これにより、文字列をカタログに1つずつコピーする代わりに、差分を確認するだけで済みます。[extractコマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md)をご覧ください。
 
+- [extractコマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md)
+
 同じプロジェクトのフロントエンド側では、[Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)がさらに進んで、JSX、TSX、Vue、またはSvelteのソースからビルド時に辞書を生成するため、アプリの両方の部分が手動でキーを管理することなく、1つのコンテンツレイヤーを共有できます。
+
+- [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)
 
 </Question>
 <Question title="利用可能なエディターおよびAIエージェントツールにはどのようなものがありますか？">
@@ -392,6 +413,8 @@ Elysiaには独自のi18nレイヤーがないため、手動でhookに組み込
 <Question title="Intlayerはどの言語で応答すべきかをどのように判断しますか？">
 
 デフォルトでは、`elysia-intlayer`は受信リクエストの`Accept-Language` headerを読み取り、最も近い宣言されたロケールを選択し、デフォルトのロケールにフォールバックします。`routing.storage`を使用してソースを変更できます。例えば、フロントエンドによって設定されたカスタムheaderやcookieを使用することで、APIはブラウザが宣伝する言語ではなく、ユーザーが実際に選択した言語で応答できます。[設定リファレンス](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)をご覧ください。
+
+- [設定リファレンス](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)
 
 </Question>
 <Question title="ロケールはリクエストごとに分離されますか？">
@@ -423,10 +446,19 @@ ElysiaはまずBunをターゲットとしており、Intlayerは実行時にデ
 
 `npx intlayer fill`を実行すると、選択したLLMと独自のプロバイダーおよびAPI keyを使用して、不足している翻訳が埋められます。`--git-diff`を追加すると、ブランチで変更されたコンテンツのみが翻訳されます。[fillコマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/fill.md)および[CI/CD統合](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/CI_CD.md)をご覧ください。
 
+- [fillコマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/fill.md)
+- [CI/CD統合](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/CI_CD.md)
+
 </Question>
 <Question title="Intlayerはサーバー上で複数形、性別、および補間値をサポートしていますか？">
 
 はい、サポートしています。[複数形](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/plurial.md)、[性別に基づくコンテンツ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/gender.md)、条件、補間値のための[挿入](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/insertion.md)、メール本文のための[Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/markdown.md)、および数値、日付、通貨のための[フォーマッター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/formatters.md)をサポートしています。
+
+- [複数形](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/plurial.md)
+- [性別に基づくコンテンツ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/gender.md)
+- [挿入](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/insertion.md)
+- [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/markdown.md)
+- [フォーマッター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/formatters.md)
 
 </Question>
 <Question title="サーバー上でTypeScriptのオートコンプリートは利用できますか？">
@@ -438,10 +470,15 @@ ElysiaはまずBunをターゲットとしており、Intlayerは実行時にデ
 
 はい、それが通常のセットアップです。`elysia-intlayer`は、`react-intlayer`、`next-intlayer`、`vite-intlayer`と連携して同じ宣言されたコンテンツで動作するため、API responseとページの両方で使用されるラベルは一度だけ宣言されます。[Intlayerの仕組み](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/how_works_intlayer.md)をご覧ください。
 
+- [Intlayerの仕組み](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/how_works_intlayer.md)
+
 </Question>
 <Question title="Intlayerは無料でオープンソースですか？">
 
 はい、Apache 2.0ライセンスの下で、商用利用も含まれます。ホストされている[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)はオプションの有料サービスであり、[セルフホスト](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/self_hosting.md)することも可能です。
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)
+- [セルフホスト](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/self_hosting.md)
 
 </Question>
 

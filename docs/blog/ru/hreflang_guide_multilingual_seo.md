@@ -140,6 +140,9 @@ ISO 639-1 для языка, ISO 3166-1 Alpha 2 для необязательн�
 
 > Intlayer охватывает все три варианта через `routing.mode` и `routing.domains`. См. [пользовательские домены](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/custom_domains.md) и [справочник конфигурации](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md).
 
+- [пользовательские домены](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/custom_domains.md)
+- [справочник конфигурации](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md)
+
 ## Реализация
 
 Написание этих тегов вручную не переживает контакт со второй локалью. Вместо этого выводите их из вашего списка локалей.
@@ -188,6 +191,8 @@ export const generateMetadata = async ({
 
 Полная настройка: [Руководство i18n Next.js 16](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_nextjs_16.md).
 
+- [Руководство i18n Next.js 16](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_nextjs_16.md)
+
 </Tab>
 
 <Tab label="TanStack Start" value="tanstack">
@@ -227,6 +232,8 @@ export const Route = createFileRoute("/{-$locale}/about")({
 ```
 
 `head` выполняется на сервере, поэтому теги попадают в исходный HTML. Полная настройка: [TanStack Start i18n guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_tanstack.md).
+
+- [TanStack Start i18n guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_tanstack.md)
 
 </Tab>
 

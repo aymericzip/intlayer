@@ -29,6 +29,8 @@ Eksport `Intlayer` służy jako identyfikator magazynu kontekstu żądania w Rem
 
 ## Użycie
 
+Gdy middleware `intlayer()` zostaje wykonane, zapisuje obiekt `IntlayerState` w kontekście żądania pod kluczem `Intlayer`. Możesz go pobrać w dowolnej procedurze obsługi trasy:
+
 ```ts fileName="src/server.ts"
 import { createRouter } from "remix/router";
 import { intlayer, Intlayer } from "remix-intlayer";
@@ -37,20 +39,39 @@ const router = createRouter({
   middleware: [intlayer()],
 });
 
-router.get("/api/current-locale", (context) => {
-  const intlayerState = context.get(Intlayer);
+router.get("/api/profile", (context) => {
+  // Dostęp przez context.get(Intlayer)
+  const { locale, defaultLocale, availableLocales } = context.get(Intlayer);
 
   return Response.json({
-    locale: intlayerState?.locale,
+    locale,
+    defaultLocale,
+    availableLocales,
   });
 });
 ```
 
-## Opis
+Możesz również uzyskać do niego dostęp za pomocą skróconej formy bezpośredniej właściwości `context.intlayer`:
 
-`Intlayer` jest używany przez middleware `intlayer()` do powiązania bieżącego stanu sesji z kontekstem żądania Remix (`RequestContext`). Zazwyczaj zaleca się korzystanie z hooków, takich jak `useLocale()` lub `useIntlayer()`. Bezpośredni dostęp przez `context.get(Intlayer)` jest przydatny w niskopoziomowych procedurach obsługi middleware lub trasach API, gdzie instancja kontekstu jest przekazywana jawnie.
+```ts
+router.get("/api/status", (context) => {
+  const currentLocale = context.intlayer.locale;
+  return Response.json({ status: "ok", locale: currentLocale });
+});
+```
+
+## Struktura `IntlayerState`
+
+Obiekt `IntlayerState` zawiera:
+
+| Właściwość         | Typ                 | Opis                                                                      |
+| ------------------ | ------------------- | ------------------------------------------------------------------------- |
+| `locale`           | `DeclaredLocales`   | Lokalizacja ustalona dla bieżącego żądania.                               |
+| `defaultLocale`    | `DeclaredLocales`   | Lokalizacja zapasowa zdefiniowana w `intlayer.config.ts`.                 |
+| `availableLocales` | `DeclaredLocales[]` | Lista wszystkich obsługiwanych lokalizacji skonfigurowanych dla projektu. |
 
 ## Powiązana dokumentacja
 
 - [Middleware `intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/remix-intlayer/intlayerMiddleware.md)
 - [Hook `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/remix-intlayer/useLocale.md)
+- [Hook `useIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/remix-intlayer/useIntlayer.md)

@@ -30,7 +30,7 @@ author: aymericzip
 
 # Integracja ze Svelte: Dokumentacja `usePathname`
 
-Funkcja `usePathname` zwraca bieżącą ścieżkę przeglądarki (pathname) z usuniętym segmentem locale jako `Readable<string>` ze Svelte. Jest to przydatne do budowania nawigacji uwzględniającej locale — na przykład określania, który element nawigacji jest aktywny — bez konieczności ręcznego usuwania prefiksu locale.
+Funkcja `usePathname` zwraca bieżącą ścieżkę przeglądarki (pathname) z usuniętym segmentem locale jako `Readable<string>` ze Svelte. Jest to przydatne do budowania nawigacji uwzględniającej locale (na przykład określania, który element nawigacji jest aktywny) bez konieczności ręcznego usuwania prefiksu locale.
 
 ## Importowanie `usePathname` w Svelte
 

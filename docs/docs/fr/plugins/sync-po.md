@@ -322,6 +322,8 @@ Les fichiers PO synchronisés seront considérés comme les autres fichiers `.co
 
 Voir [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md) pour plus de détails.
 
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md)
+
 ## Limitations (actuelles)
 
 - Pas de support pour les insertions ou les pluriels/ICU lors du ciblage de bibliothèques tierces.

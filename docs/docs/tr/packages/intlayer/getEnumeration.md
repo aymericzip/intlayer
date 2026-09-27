@@ -34,6 +34,8 @@ author: aymericzip
 
 Enumerations bildirimi hakkında daha fazla bilgi için [Enumeration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/enumeration.md) bölümüne bakınız.
 
+- [Enumeration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/enumeration.md)
+
 ## Parametreler
 
 - `enumerationContent: QuantityContent<Content>`

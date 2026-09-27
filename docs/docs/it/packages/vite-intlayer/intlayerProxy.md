@@ -32,6 +32,8 @@ author: aymericzip
 
 > **A partire da Intlayer v9** `intlayerProxy` è incluso automaticamente all'interno del plugin principale [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/vite-intlayer/intlayer.md) ed abilitato per impostazione predefinita tramite `routing.enableProxy: true`. È necessario registrarlo separatamente solo se si ha bisogno di un controllo di livello inferiore o se lo si utilizza al di fuori della configurazione standard di `intlayer()`.
 
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/vite-intlayer/intlayer.md)
+
 ## Utilizzo
 
 ### Come parte di `intlayer()` (consigliato, v9+)
@@ -127,7 +129,7 @@ Il middleware rispecchia la logica di routing del middleware `next-intlayer` e s
 | Modalità        | URL visibile nel browser | Comportamento                                                                                                                                 |
 | --------------- | ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
 | `prefix`        | `/it/about`              | Predefinito. Prefisso della lingua nell'URL. La lingua predefinita reindirizza all'URL senza prefisso a meno che non sia attivo `prefix-all`. |
-| `prefix-all`    | `/en/about`, `/it/about` | Tutte le lingue — compresa quella predefinita — hanno sempre il prefisso.                                                                     |
+| `prefix-all`    | `/en/about`, `/it/about` | Tutte le lingue, compresa quella predefinita, hanno sempre il prefisso.                                                                       |
 | `no-prefix`     | `/about`                 | Nessuna lingua nell'URL. La lingua viene memorizzata solo nei cookie; le riscritture URL avvengono internamente.                              |
 | `search-params` | `/about?locale=it`       | Lingua passata come parametro di query. Reindirizza per aggiungere/aggiornare il parametro `locale` quando mancante o obsoleto.               |
 
@@ -161,7 +163,7 @@ Il middleware tiene traccia dei conteggi di reindirizzamento per coppia `origina
 
 ## Nitro / SSR in produzione (iniezione automatica, v9+)
 
-Quando `intlayerProxy` viene utilizzato come plugin Vite, include una proprietà `.nitro`. Il plugin di compilazione `nitro/vite` legge questa proprietà e la inserisce in `nitroConfig.modules`, quindi `intlayerNitroHandler` viene registrato automaticamente come middleware del server Nitro — nessuna configurazione manuale è necessaria per il SSR in produzione.
+Quando `intlayerProxy` viene utilizzato come plugin Vite, include una proprietà `.nitro`. Il plugin di compilazione `nitro/vite` legge questa proprietà e la inserisce in `nitroConfig.modules`, quindi `intlayerNitroHandler` viene registrato automaticamente come middleware del server Nitro, nessuna configurazione manuale è necessaria per il SSR in produzione.
 
 Il gestore Nitro utilizza il modello di eventi della Web Fetch API di h3 v2 (non `fromNodeMiddleware`) quindi è compatibile con tutti i preset di Nitro: Node, Bun, Deno, runtime edge.
 

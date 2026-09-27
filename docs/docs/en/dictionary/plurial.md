@@ -34,6 +34,8 @@ In Intlayer, plural content is achieved through the `plural` function, which map
 
 Unlike [`enu`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/enumeration.md), which selects content based on numeric ranges you define yourself, `plural` delegates the selection to CLDR rules. This is what makes it scalable to languages with complex pluralization rules, such as Russian, Polish, Arabic, or Welsh, without having to hand-write modulo logic.
 
+- [`enu`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/enumeration.md)
+
 ## When to Use `plural` vs `enu`
 
 | Use case                                                                 | Helper   |

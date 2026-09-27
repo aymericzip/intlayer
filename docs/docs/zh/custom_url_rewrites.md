@@ -341,7 +341,9 @@ export function middleware(request: NextRequest) {
 
 对于 SolidJS、Vue 和 Svelte，`intlayerProxy` Vite 插件在开发期间管理重写。
 
-> 自 Intlayer v9 起，`intlayerProxy()` 已直接捆绑到 `intlayer()` 插件中，并通过 `routing.enableProxy` 选项默认启用（默认为 `true`）。如下所示单独注册现在是可选的 — 它保留用于向后兼容性和需要控制插件顺序的设置。设置 `routing.enableProxy: false` 来禁用。查看 [v9 发布说明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/releases/v9.md)。
+> 自 Intlayer v9 起，`intlayerProxy()` 已直接捆绑到 `intlayer()` 插件中，并通过 `routing.enableProxy` 选项默认启用（默认为 `true`）。如下所示单独注册现在是可选的，它保留用于向后兼容性和需要控制插件顺序的设置。设置 `routing.enableProxy: false` 来禁用。查看 [v9 发布说明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/releases/v9.md)。
+
+- [v9 发布说明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/releases/v9.md)
 
 ```typescript fileName="vite.config.ts"
 import { defineConfig } from "vite";

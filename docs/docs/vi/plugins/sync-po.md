@@ -322,6 +322,8 @@ Các tệp PO đã đồng bộ hóa sẽ được coi như các tệp `.content
 
 Xem [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md) để biết thêm chi tiết.
 
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md)
+
 ## Hạn chế (hiện tại)
 
 - Không hỗ trợ chèn hoặc số nhiều/ICU khi nhắm mục tiêu đến các thư viện bên thứ ba.

@@ -28,9 +28,11 @@ author: aymericzip
 
 # intlayerProxy
 
-`intlayerProxy` — это плагин Vite, который регистрирует промежуточное ПО (middleware) локализации роутинга для **любой среды**: dev-сервера, preview-сервера и продакшен SSR (Nitro / TanStack Start).
+`intlayerProxy`: это плагин Vite, который регистрирует промежуточное ПО (middleware) локализации роутинга для **любой среды**: dev-сервера, preview-сервера и продакшен SSR (Nitro / TanStack Start).
 
 > **Начиная с Intlayer v9** `intlayerProxy` автоматически включается в основной плагин [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/vite-intlayer/intlayer.md) и активирован по умолчанию с помощью настройки `routing.enableProxy: true`. Вам нужно регистрировать его отдельно только в том случае, если вам нужен низкоуровневый контроль или если вы используете его за пределами стандартной конфигурации `intlayer()`.
+
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/vite-intlayer/intlayer.md)
 
 ## Использование
 
@@ -144,8 +146,8 @@ export default fromNodeMiddleware(
 
 - Запросы, соответствующие предикату `ignore`.
 - `/node_modules/**`
-- `/@**` — внутренние запросы Vite (`@vite/`, `@fs/`, `@id/` и т.д.).
-- `/_**` — внутренние запросы сервера (`__vite_ping`, `__manifest` и т.д.).
+- `/@**`: внутренние запросы Vite (`@vite/`, `@fs/`, `@id/` и т.д.).
+- `/_**`: внутренние запросы сервера (`__vite_ping`, `__manifest` и т.д.).
 - Запросы, путь которых заканчивается расширением файла (статические файлы). Если в пути статического файла присутствует языковой префикс (например, `/ru/logo.png`), он удаляется, чтобы файл мог быть отдан корректно.
 
 ### Роутинг по доменам
@@ -161,7 +163,7 @@ export default fromNodeMiddleware(
 
 ## Nitro / SSR в продакшене (автоматическое внедрение, v9+)
 
-Когда `intlayerProxy` используется как плагин Vite, он содержит свойство `.nitro`. Плагин сборки `nitro/vite` считывает это свойство и помещает его в `nitroConfig.modules`, благодаря чему `intlayerNitroHandler` регистрируется как middleware сервера Nitro автоматически — для продакшен SSR не требуется ручная настройка.
+Когда `intlayerProxy` используется как плагин Vite, он содержит свойство `.nitro`. Плагин сборки `nitro/vite` считывает это свойство и помещает его в `nitroConfig.modules`, благодаря чему `intlayerNitroHandler` регистрируется как middleware сервера Nitro автоматически, для продакшен SSR не требуется ручная настройка.
 
 Обработчик Nitro использует модель событий Web Fetch API h3 v2 (а не `fromNodeMiddleware`), поэтому он совместим со всеми пресетами Nitro: Node, Bun, Deno, edge runtimes.
 

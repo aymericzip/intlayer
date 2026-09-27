@@ -118,6 +118,8 @@ export default exampleContent;
 
 Qui c'è un [file di dichiarazione di contenuto per locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/per_locale_file.md) che utilizza l'istruzione `fill`.
 
+- [file di dichiarazione di contenuto per locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/per_locale_file.md)
+
 Quindi, quando esegui il seguente comando:
 
 ```bash packageManager="npm"

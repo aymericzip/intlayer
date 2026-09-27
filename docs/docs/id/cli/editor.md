@@ -23,6 +23,8 @@ Perintah `editor` membungkus ulang perintah `intlayer-editor`.
 
 > Untuk dapat menggunakan perintah `editor`, paket `intlayer-editor` harus diinstal. (Lihat [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md))
 
+- [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md)
+
 ```json fileName="package.json"
 "scripts": {
   "intlayer:editor:start": "npx intlayer editor start --with 'next dev --turbopack'"

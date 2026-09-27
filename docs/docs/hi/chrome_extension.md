@@ -120,6 +120,11 @@ Firefox ऐड-ऑन से [**Intlayer i18n Scanner**](https://addons.mozilla.
 
 अधिकांश जांचें रूटिंग या मेटाडेटा सेटिंग से संबंधित होती हैं। Intlayer के साथ, hreflang, विहित लिंक, `x-default`, स्थानीयकृत लिंक, साइटमैप और robots.txt आपके [कॉन्फ़िगरेशन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md) से स्वचालित रूप से उत्पन्न होते हैं। अपने फ़्रेमवर्क के लिए एकीकरण मार्गदर्शिका देखें, उदाहरण के लिए [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nextjs_16.md), [Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nuxt.md) या [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_tanstack.md)।
 
+- [कॉन्फ़िगरेशन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md)
+- [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nextjs_16.md)
+- [Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nuxt.md)
+- [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_tanstack.md)
+
 </Question>
 
 </FAQ>

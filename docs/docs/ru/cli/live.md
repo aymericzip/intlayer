@@ -22,6 +22,8 @@ author: aymericzip
 
 Live Sync позволяет вашему приложению отражать изменения контента CMS во время выполнения. Пересборка или повторное развертывание не требуются. При включении обновления передаются на сервер Live Sync, который обновляет словари, используемые вашим приложением. Подробнее смотрите в разделе [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md).
 
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md)
+
 ```json fileName="package.json"
 "scripts": {
   "intlayer:live:start": "npx intlayer live start --with 'next dev --turbopack'"
@@ -38,7 +40,7 @@ Live Sync позволяет вашему приложению отражать 
 
   > Пример: `npx intlayer dictionary push --env-file .env.production.local`
 
-- **`--ci`**: Выполняет команду в каждом проекте Intlayer монорепозитория (или только в текущем при запуске из директории проекта). Учетные данные для каждого проекта можно подставить через `INTLAYER_PROJECT_CREDENTIALS` — JSON-объект, сопоставляющий путь проекта с `{ "clientId", "clientSecret" }`.
+- **`--ci`**: Выполняет команду в каждом проекте Intlayer монорепозитория (или только в текущем при запуске из директории проекта). Учетные данные для каждого проекта можно подставить через `INTLAYER_PROJECT_CREDENTIALS`, JSON-объект, сопоставляющий путь проекта с `{ "clientId", "clientSecret" }`.
 
   > Пример: `npx intlayer live --ci`
 

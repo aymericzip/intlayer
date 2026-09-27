@@ -41,9 +41,13 @@ author: aymericzip
 
 Zobacz konkretne porównanie z next-intl w naszym wpisie na blogu [next-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/next-i18next_vs_next-intl_vs_intlayer.md).
 
+- [next-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/next-i18next_vs_next-intl_vs_intlayer.md)
+
 ## Dlaczego łączyć Intlayer z next-i18next?
 
 Chociaż Intlayer oferuje doskonałe, samodzielne rozwiązanie i18n (zobacz nasz [przewodnik integracji z Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_nextjs_16.md)), możesz chcieć połączyć je z next-i18next z kilku powodów:
+
+- [przewodnik integracji z Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_nextjs_16.md)
 
 1. **Istniejąca baza kodu**: Masz już wdrożoną implementację next-i18next i chcesz stopniowo przechodzić na ulepszone doświadczenie deweloperskie Intlayer.
 2. **Wymagania dotyczące kompatybilności wstecznej**: Twój projekt wymaga zgodności z istniejącymi wtyczkami lub procesami i18next.
@@ -154,6 +158,8 @@ Jeśli zmiany zostaną wprowadzone za pomocą CLI do tłumaczenia JSON lub przy 
 
 Aby zobaczyć więcej szczegółów na temat wtyczki `syncJSON`, prosimy zapoznać się z [dokumentacją wtyczki syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/plugins/sync-json.md).
 
+- [dokumentacją wtyczki syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/plugins/sync-json.md)
+
 </Step>
 
 </Steps>
@@ -173,4 +179,4 @@ Te pliki są automatycznie generowane podczas procesu budowania i nie muszą by�
 
 Dla lepszego doświadczenia deweloperskiego zainstaluj oficjalne rozszerzenie **Intlayer VS Code Extension**:
 
-[Zainstaluj z VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [Zainstaluj z VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

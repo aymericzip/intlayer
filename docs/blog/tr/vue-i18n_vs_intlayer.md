@@ -120,6 +120,8 @@ Her derleme için paket şunları kaydeder:
 
 > Tüm kütüphaneleri ve tüm stratejileri içeren tam tablo, [Vue benchmark raporunda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/vue.md).
 
+- [Vue benchmark raporunda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/vue.md)
+
 ## Fark neden? Global örnek vs derlenmiş sözlükler
 
 `vue-i18n` bir runtime'dır. `createI18n()`, locale başına bir mesaj ağacı tutan global bir örnek oluşturur; `useI18n()` her bileşeni ona bağlar; `t("footer.github")` anahtarı render zamanında arar. SFC `<i18n>` bloklarını, `v-t`'yi ve runtime mesaj yüklemeyi mümkün kılan şey budur ve her bileşenin bağımlılık grafiğinin tüm ağacı içermesinin nedeni de budur:
@@ -155,6 +157,8 @@ Intlayer bu bilgiyi derlemeye taşır. İçerik bileşenin yanında bildirilir v
 Derleyici, sözlük ve locale başına, o bileşenin ihtiyaç duyduğu JSON'u tam olarak üretir ve hiçbir şeyin içe aktarmadığı sözlükleri atar. Rota başına kapsamlandırma, bileşen başına kapsamlandırmanın bir sonucudur, bir görev değil.
 
 > Kullanılmayan locale'leri de atmak için `intlayer.config.ts` içinde `dictionary.importMode: 'dynamic'` ayarlayın. [Bundle optimizasyonu dokümanına](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md) bakın.
+
+- [Bundle optimizasyonu dokümanına](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md)
 
 ## Geliştirici deneyimi
 
@@ -344,6 +348,10 @@ Benchmark'ta aynı uygulamanın compat derlemesi, bileşenlere dokunulmadan sayf
 
 [vue-i18n geçiş rehberine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_vue-i18n_to_intlayer.md) ve [uyumluluk dokümanına](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/vue-i18n.md) bakın. Nuxt kullanıcıları [`@nuxtjs/i18n` uyumluluğu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/nuxtjs-i18n.md) üzerinden aynı yola sahiptir.
 
+- [vue-i18n geçiş rehberine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_vue-i18n_to_intlayer.md)
+- [uyumluluk dokümanına](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/vue-i18n.md)
+- [`@nuxtjs/i18n` uyumluluğu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/nuxtjs-i18n.md)
+
 ## Hangisini ne zaman seçmeli?
 
 - **vue-i18n'i seçin**: standart Vue yaklaşımını istiyorsanız, ICU mesajlarına veya SFC `<i18n>` bloklarına güveniyorsanız, zaten `@nuxtjs/i18n` kullanıyorsanız veya bir çeviri platformu merkezi JSON bekliyorsa. Bundle boyutu önemliyse katalogları bölmek ve rota başına lazy load yapmak için zaman ayırın.
@@ -370,17 +378,24 @@ Adaptör bunları okumaz. Bu mesajları yerel ayar JSON dosyanıza veya üretile
 
 Evet. [Nuxt ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nuxt.md) çok dilli yönlendirme, dil algılama ara yazılımı ve site haritası oluşturmayı kapsar. `@nuxtjs/i18n` kullanıyorsanız, [Nuxt i18n uyumluluk adaptörü](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/nuxtjs-i18n.md) geçiş yoludur.
 
+- [Nuxt ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nuxt.md)
+- [Nuxt i18n uyumluluk adaptörü](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/nuxtjs-i18n.md)
+
 </Question>
 
 <Question title="locales/{locale}.json dosyalarımı referans kaynağı olarak tutabilir miyim?">
 
 Evet. [JSON senkronizasyon eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/vue-i18n.md) bunları `vue-i18n` sözdizimiyle (`{name}`, `{0}`, `"car | cars"` boru çoğulları) okur ve CLI veya CMS güncellediğinde çevirileri geri yazar.
 
+- [JSON senkronizasyon eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/vue-i18n.md)
+
 </Question>
 
 <Question title="ICU, Vue üzerinde Intlayer ile çalışır mı?">
 
 Yerel ICU desteği geliştirme aşamasındadır. `@intlayer/vue-i18n` adaptörü, boru çoğulları ve adlandırılmış/liste enterpolasyonu dahil olmak üzere `vue-i18n`'in kendi mesaj sözdizimini çözümler. Intlayer'ın çoğullaştırma modeli için [numaralandırma içeriği](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/enumeration.md) bölümüne bakın.
+
+- [numaralandırma içeriği](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/enumeration.md)
 
 </Question>
 
@@ -429,3 +444,5 @@ Intlayer işi derleyiciye taşır. Bileşen başına sözlükler ve ölü içeri
 Tüm ham veriler, test uygulamaları ve script'ler [Benchmark Bloom deposunda](https://github.com/intlayer-org/benchmark-bloom). Kendiniz çalıştırın.
 
 Daha fazla ayrıntı için ['Neden Intlayer?' dokümanına](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/interest_of_intlayer.md) bakın.
+
+- [Neden Intlayer? Diğer i18n kütüphanelerine göre avantajları](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/interest_of_intlayer.md)

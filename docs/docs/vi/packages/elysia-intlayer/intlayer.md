@@ -43,7 +43,7 @@ const app = new Elysia().use(intlayer()).get("/", ({ intlayer }) =>
 );
 ```
 
-> Plugin đăng ký context của nó thông qua một `derive` **global**, được Elysia định kiểu là `Partial<{ intlayer: IntlayerContext }>`. Giá trị luôn tồn tại lúc runtime với các route được đăng ký sau `.use(intlayer())`, vì vậy hãy dùng non-null assertion (`intlayer!.t`) — hoặc optional chaining — để thỏa mãn TypeScript ở chế độ `strict`.
+> Plugin đăng ký context của nó thông qua một `derive` **global**, được Elysia định kiểu là `Partial<{ intlayer: IntlayerContext }>`. Giá trị luôn tồn tại lúc runtime với các route được đăng ký sau `.use(intlayer())`, vì vậy hãy dùng non-null assertion (`intlayer!.t`), hoặc optional chaining, để thỏa mãn TypeScript ở chế độ `strict`.
 
 Các helper tương tự cũng có sẵn dưới dạng các export độc lập, nên bạn có thể gọi chúng mà không cần destructure route context:
 
@@ -133,6 +133,8 @@ export default config;
 ```
 
 > Để biết thêm thông tin về cấu hình, hãy truy cập [tài liệu cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md).
+
+- [tài liệu cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md)
 
 ## Tài liệu liên quan
 

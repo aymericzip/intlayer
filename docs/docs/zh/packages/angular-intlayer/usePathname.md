@@ -31,7 +31,7 @@ author: aymericzip
 
 # Angular 集成：`usePathname` Hook 文档
 
-`usePathname` hook 返回当前浏览器的路径名（已移除区域设置部分），类型为 Angular 的 `Signal<string>`。它对于构建感知区域设置的导航非常有用——例如，确定哪个导航项处于活动状态——而无需手动移除区域设置前缀。
+`usePathname` hook 返回当前浏览器的路径名（已移除区域设置部分），类型为 Angular 的 `Signal<string>`。它对于构建感知区域设置的导航非常有用（例如，确定哪个导航项处于活动状态）而无需手动移除区域设置前缀。
 
 ## 在 Angular 中导入 `usePathname`
 

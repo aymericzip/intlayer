@@ -57,6 +57,8 @@ Fonksiyon herhangi bir parametre almaz. Bunun yerine, yapılandırma için ortam
 
 Daha fazla detay için [Intlayer yapılandırma dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md) bakın.
 
+- [Intlayer yapılandırma dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)
+
 ## Kullanım Örneği
 
 ### Tam Yapılandırmayı Alma

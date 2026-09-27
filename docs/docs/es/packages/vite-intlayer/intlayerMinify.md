@@ -31,6 +31,8 @@ author: aymericzip
 
 > El plugin ya está incluido y configurado automáticamente cuando utiliza [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/vite-intlayer/intlayer.md). Solo necesita registrarlo manualmente si está componiendo la pila de plugins usted mismo.
 
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/vite-intlayer/intlayer.md)
+
 ## Uso
 
 ```ts
@@ -63,8 +65,8 @@ Cuando `editor.enabled` es `true`, el plugin se sigue ejecutando pero **omite el
 
 El plugin apunta a dos ubicaciones de diccionarios (según lo resuelto a partir de `intlayer.system`):
 
-- `dictionariesDir` — diccionarios estáticos para todos los idiomas (por ejemplo, `.intlayer/dictionaries/*.json`)
-- `dynamicDictionariesDir` — diccionarios dinámicos por idioma
+- `dictionariesDir`: diccionarios estáticos para todos los idiomas (por ejemplo, `.intlayer/dictionaries/*.json`)
+- `dynamicDictionariesDir`: diccionarios dinámicos por idioma
 
 > Los diccionarios en modo fetch (`fetchDictionariesDir`) **nunca** se minifican porque se sirven desde una API remota en tiempo de ejecución utilizando sus nombres de campo originales. Cambiar el nombre de los campos crearía una discrepancia entre la respuesta del servidor y los accesos a propiedades en el lado del cliente.
 
@@ -86,7 +88,7 @@ Los campos internos de Intlayer (`nodeType`, `translation`, etc.) nunca se renom
 
 ## Dicionarios de casos extremos (Edge cases)
 
-Los diccionarios marcados en `pruneContext.dictionariesWithEdgeCases` (anomalías estructurales detectadas durante la fase de prune) se omiten por completo — ni se minifican ni se ofuscan — para evitar el envío de datos dañados.
+Los diccionarios marcados en `pruneContext.dictionariesWithEdgeCases` (anomalías estructurales detectadas durante la fase de prune) se omiten por completo, ni se minifican ni se ofuscan, para evitar el envío de datos dañados.
 
 ## Grupos calificados (colecciones / variantes / registros meta)
 

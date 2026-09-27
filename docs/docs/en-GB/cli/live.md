@@ -22,6 +22,8 @@ author: aymericzip
 
 Live Sync allows your app to reflect CMS content changes at runtime. No rebuild or redeploy is required. When enabled, updates are streamed to a Live Sync server that refreshes the dictionaries your application reads. See [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_CMS.md) for more details.
 
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_CMS.md)
+
 ```json fileName="package.json"
 "scripts": {
   "intlayer:live:start": "npx intlayer live start --with 'next dev --turbopack'"

@@ -64,6 +64,8 @@ TanStack Start yerleşik bir i18n katmanı sunmaz, bu nedenle bu rehber Lingui'y
 
 [i18n karşılaştırma testi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md), aynı 10 sayfalık ve 10 yerelli TanStack Start uygulamasını tüm büyük kütüphanelerle çalıştırır ve tarayıcının gerçekte ne indirdiğini ölçer.
 
+- [i18n karşılaştırma testi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md)
+
 <I18nBenchmark framework="tanstack" packages="lingui,@intlayer/lingui,intlayer" vertical/>
 
 `@lingui/core@6.6.0` için 2026-09-26 tarihinde ölçülen temel veriler (gzip):
@@ -81,6 +83,8 @@ TanStack Start yerleşik bir i18n katmanı sunmaz, bu nedenle bu rehber Lingui'y
 - **Çalışma zamanı (runtime) ağır kalır** (~57 KB gzip). `@intlayer/lingui` uyumluluk adaptörü (adım 16) makrolarınızı korur ve boyutu ~10 KB seviyesine indirir.
 
 > Tüm verileri inceleyin: [TanStack Start karşılaştırma raporu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md) ve [benchmark deposu](https://github.com/intlayer-org/benchmark-i18n).
+
+- [TanStack Start karşılaştırma raporu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md)
 
 ## TanStack Start Üzerinde Özellik Karşılaştırması
 
@@ -105,6 +109,8 @@ Lingui'nin TanStack Start üzerinde yaygın olarak kullanılan diğer kütüphan
 | **CI ortamında eksik çeviriler**          | ✅ `npx intlayer test`               | ⚠️ Yerleşik değil         | ⚠️ Yerleşik değil                          | ✅ `lingui compile --strict` |
 
 > Çalışma zamanı boyutu ve sızıntı verileri [TanStack Start karşılaştırma testinden](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md) alınmıştır. Sızıntı, her kütüphanenin en iyi yapılandırmasında ölçülmüştür.
+
+- [TanStack Start karşılaştırma testinden](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md)
 
 > Diğer TanStack Start rehberleri:
 
@@ -934,6 +940,8 @@ export const Route = createFileRoute("/{-$locale}/$")({
 
 [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/lingui.md) uyumluluk adaptörü kaynak kodunuzu değiştirmeden korur: makrolar tam olarak daha önceki gibi derlenir ve ortaya çıkan `i18n._()`, `useLingui()` ve `<Trans>` çağrıları derlenmiş Intlayer sözlükleri tarafından sunulur. Karşılaştırma testinde çalışma zamanı boyutu gzip ile **~56.7 KB'tan ~9.8 KB'a** düşer.
 
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/lingui.md)
+
 ```bash packageManager="npm"
 npm install @intlayer/lingui intlayer @intlayer/sync-json-plugin
 npx intlayer init
@@ -976,6 +984,11 @@ export default defineConfig({
 
 Kataloglar [sync JSON eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-json.md) (JSON katalogları) veya [sync PO eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-po.md) (PO katalogları) ile senkronize edilir. Kurulumun tamamını [Lingui uyumluluk rehberinde](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/lingui.md) ve yan yana karşılaştırmayı [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/lingui_vs_intlayer-lingui.md) yazısında görebilirsiniz.
 
+- [sync JSON eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-json.md)
+- [sync PO eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-po.md)
+- [Lingui uyumluluk rehberinde](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/lingui.md)
+- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/lingui_vs_intlayer-lingui.md)
+
 </Step>
 <Step number={17} title="Intlayer Kullanarak Çevirilerinizi Otomatikleştirin" isOptional={true}>
 
@@ -1017,10 +1030,15 @@ Bunları `msg` makrosuyla bildirin ve rota yükleyicisinde ``i18n._(msg`...`)`` 
 
 [Karşılaştırma testi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md), çalışma zamanı için gzip ile ~56.7 KB ölçmektedir. Talep üzerine yüklenen yerel başına bir katalog ile sayfalar, i18n olmayan 111 KB'a karşılık ~115 KB yer kaplar. Her kataloğu statik olarak içe aktarmak bunu ~152 KB seviyesine çıkarır.
 
+- [Karşılaştırma testi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md)
+
 </Question>
 <Question title="Lingui makrolarını koruyarak Intlayer'a geçebilir miyim?">
 
 Evet. [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/lingui.md) adaptörü makroları korur ve çalışma zamanını değiştirir. Ardından bileşenleri tek tek `useIntlayer` yapısına taşıyabilirsiniz. [Uyumluluk adaptörleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/index.md) sayfasına bakın.
+
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/lingui.md)
+- [Uyumluluk adaptörleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/index.md)
 
 </Question>
 

@@ -76,6 +76,8 @@ Sangat penting bahwa semua kunci konten didefinisikan dalam file deklarasi konte
 
 Instruksi untuk mengatur file deklarasi konten tersedia [di sini](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md).
 
+- [File deklarasi konten (.content.ts)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md)
+
 ## Contoh Penggunaan di Next.js
 
 Berikut cara mengimplementasikan hook `useIntlayer` dalam halaman Next.js untuk memuat konten yang dilokalkan secara dinamis berdasarkan locale aplikasi saat ini:

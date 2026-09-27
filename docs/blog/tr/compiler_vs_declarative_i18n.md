@@ -78,6 +78,8 @@ Intlayer derleyicisi, React, Vue veya Svelte bileşenlerinizin yanı sıra diğe
 
 > Daha fazla detay için dokümantasyona göz atın: [Intlayer Derleyici Dokümantasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md)
 
+- [Intlayer Derleyici Dokümantasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md)
+
 ## Derleyicinin Cazibesi ("Sihirli" Yaklaşım)
 
 Bu yeni yaklaşımın popüler olmasının bir nedeni var. Bir geliştirici için deneyim inanılmazdır.

@@ -39,6 +39,8 @@ bun x intlayer dictionary push
 
 如果已安装 [intlayer 编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)，您也可以将词典推送到编辑器。此命令将使词典可用于[编辑器](https://app.intlayer.org/)。通过这种方式，您可以与团队共享词典，并在不修改应用代码的情况下编辑内容。
 
+- [intlayer 编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)
+
 ## 别名：
 
 - `npx intlayer dictionaries push`

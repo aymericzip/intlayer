@@ -45,9 +45,13 @@ author: aymericzip
 
 See a concrete comparison with i18next in our [next-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/next-i18next_vs_next-intl_vs_intlayer.md) blog post.
 
+- [next-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/next-i18next_vs_next-intl_vs_intlayer.md)
+
 ## Why Combine Intlayer with i18next?
 
 While Intlayer provides an excellent standalone i18n solution (see our [Next.js integration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_16.md)), you might want to combine it with i18next for several reasons:
+
+- [Next.js integration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_16.md)
 
 Intlayer offers a rich set of **advanced features** that go beyond traditional i18n tools. It helps you:
 
@@ -160,6 +164,8 @@ If changes are made using the CLI to translate the JSON, or using the CMS, Intla
 
 To see more details about the `syncJSON` plugin, please refer to the [syncJSON plugin documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/plugins/sync-json.md).
 
+- [syncJSON plugin documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/plugins/sync-json.md)
+
 </Step>
 
 </Steps>
@@ -179,4 +185,4 @@ These files can be regenerated during your build process and do not need to be c
 
 For an improved developer experience, install the official **Intlayer VS Code Extension**:
 
-[Install from the VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [Install from the VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

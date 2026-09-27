@@ -26,6 +26,8 @@ React는 기본 i18n 프리미티브를 제공하지 않습니다. 첫날 선택
 
 이 가이드는 반대로 접근합니다. 먼저 프로젝트에 대한 몇 가지 질문에 답한 다음, 해당 답변에 맞는 라이브러리를 매핑합니다. 이 글은 순수 React(Vite, React Router, TanStack Start)에 초점을 맞춥니다. Next.js는 고유한 제약 사항이 있으며, 이는 [Next.js 비교](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/next-i18next_vs_next-intl_vs_intlayer.md)에서 다룹니다.
 
+- [Next.js 비교](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/next-i18next_vs_next-intl_vs_intlayer.md)
+
 ## 목차
 
 <TOC/>
@@ -74,6 +76,8 @@ SSR 및 Server Components를 중심으로 설계되었습니다. 서버에서 �
 
 [JavaScript i18n의 역사](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/history_of_i18n.md)에서 각 흐름이 이전 세대의 문제를 어떻게 해결했는지 자세히 확인할 수 있습니다.
 
+- [JavaScript i18n의 역사](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/history_of_i18n.md)
+
 ## 가장 중요한 결정: 콘텐츠의 위치와 로딩 시점
 
 모든 React i18n 라이브러리는 store, provider, hook이라는 동일한 구조를 가집니다. provider가 받는 데이터는 모두 클라이언트 번들이나 hydration 페이로드에 포함됩니다. 따라서 두 가지 구조적 선택이 핵심입니다:
@@ -89,11 +93,17 @@ SSR 및 Server Components를 중심으로 설계되었습니다. 서버에서 �
 
 이는 라이브러리 자체의 특성이 아니라 관리 규율의 문제입니다. `react-i18next`는 네임스페이스와 lazy 백엔드로 범위를 나눌 수 있고, `use-intl`은 라우트별로 분할할 수 있습니다. 하지만 이를 강제하는 장치가 없기 때문에, 공유 컴포넌트인 `<Button>`이 `t("common:cta")`를 참조하는 순간 `common` 네임스페이스가 모든 라우트의 의존성이 되어 버립니다. [벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/index.md)에서는 이를 "다른 라우트로부터의 누수" 및 "다른 로케일로부터의 누수"로 측정하며, 라이브러리 간의 격차 대부분이 여기서 발생합니다.
 
+- [벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/index.md)
+
 3번 질문에 "많은 로케일, 많은 페이지"라고 답했다면 어떤 API 선호도보다 이 섹션을 중요하게 고려하세요. [컴포넌트별 vs 중앙집중식 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/per-component_vs_centralized_i18n.md) 포스트에서 동일한 선택의 유지보수 측면을 더 깊이 다룹니다.
+
+- [컴포넌트별 vs 중앙집중식 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/per-component_vs_centralized_i18n.md)
 
 ## 후보 라이브러리
 
 라이브러리 크기는 [TanStack Start 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/tanstack.md)를 기준으로 합니다. 빈 컴포넌트에서 provider와 hook을 번들링, 트리 쉐이킹, minification을 거친 후 측정한 수치이며(10개 페이지, 10개 로케일), 콘텐츠 크기는 별도로 측정되었습니다.
+
+- [TanStack Start 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/tanstack.md)
 
 ![React i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
@@ -119,6 +129,8 @@ SSR 및 Server Components를 중심으로 설계되었습니다. 서버에서 �
 
 작동하는 가장 단순한 도구를 선택하고 과도한 투자를 피하세요. 로케일당 단일 JSON을 사용하는 `react-i18next`로도 충분하며, 지난 10년간 쌓인 Stack Overflow 답변들이 시간을 절약해 줄 것입니다. 필요해지기 전까지는 네임스페이스 설정을 건너뛰어도 좋습니다. 프로토타입이 정식 제품이 된다면 범위 제한 콘텐츠로 마이그레이션할 계획을 세우세요. [react-i18next 호환 어댑터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/react-i18next.md)를 사용하면 점진적으로 전환할 수 있습니다.
 
+- [react-i18next 호환 어댑터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/react-i18next.md)
+
 </Accordion>
 <Accordion header="번역이 ICU를 지원하는 에이전시나 TMS에서 제공되는 경우">
 
@@ -134,6 +146,8 @@ SSR 및 Server Components를 중심으로 설계되었습니다. 서버에서 �
 
 모든 키 기반 라이브러리는 타입을 지원할 수 있지만, 기본으로 활성화된 경우는 거의 없습니다. lazy 로딩되는 네임스페이스에 맞춰 declaration merging을 직접 유지보수하고 싶지 않다면, 콘텐츠로부터 타입이 자동 생성되는 라이브러리(`Lingui`, `Paraglide`, Intlayer)를 선택하세요. [누락된 번역 감지](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/detecting_missing_translations.md) 글에서 각 라이브러리가 빌드 타임에 무엇을 감지하는지 비교합니다.
 
+- [누락된 번역 감지](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/detecting_missing_translations.md)
+
 </Accordion>
 <Accordion header="리치 콘텐츠가 많은 경우: 마크다운, 문장 내 링크, 로케일별 컴포넌트">
 
@@ -148,6 +162,8 @@ SSR 및 Server Components를 중심으로 설계되었습니다. 서버에서 �
 <Accordion header="향후 Next.js App Router로 이전할 가능성이 있는 경우">
 
 React context는 서버와 클라이언트 경계를 넘지 못합니다. 클라이언트 hook에만 의존하는 라이브러리(`react-i18next`, `react-intl`)는 RSC를 도입하는 순간 별도의 서버 API가 필요하게 됩니다. `use-intl`(`next-intl`로 제공)과 Intlayer(`next-intlayer`로 제공)는 이미 이러한 분리를 지원합니다. 패턴을 표준화하기 전에 [Next.js i18n 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/next-i18next_vs_next-intl_vs_intlayer.md)를 읽어보세요.
+
+- [Next.js i18n 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/next-i18next_vs_next-intl_vs_intlayer.md)
 
 </Accordion>
 </AccordionGroup>
@@ -499,6 +515,11 @@ export const CartSummary: FC<{ count: number }> = ({ count }) => {
 
 이미 `react-i18next`, `react-intl`, `Lingui`를 사용 중이신가요? 호환 어댑터([react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/react-i18next.md), [react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/react-intl.md), [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/lingui.md))가 번들러 수준에서 import를 별칭 처리(alias)하여 컴포넌트 단위로 이전하는 동안에도 기존 API가 그대로 작동하도록 지원합니다. 그 외의 내용은 [마이그레이션 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_react-i18next_to_intlayer.md)를 참고하세요.
 
+- [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/react-i18next.md)
+- [react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/react-intl.md)
+- [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/lingui.md)
+- [마이그레이션 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_react-i18next_to_intlayer.md)
+
 ## 최종 결정 전 확인할 사항
 
 기능 표는 라이브러리가 현재 무엇을 할 수 있는지만 보여줍니다. 다음 항목들은 실제로 운영하면서 마주하게 될 경험을 알려줍니다.
@@ -521,6 +542,9 @@ export const CartSummary: FC<{ count: number }> = ({ count }) => {
 
 AI 에이전트는 여전히 i18n 작업에서 실수를 범합니다. 로케일을 누락하거나, 없는 키를 임의로 만들고, 메시지 문법을 혼동하곤 합니다. 라이브러리가 에이전트가 콘텐츠를 조회, 채우기(fill), 테스트할 수 있는 [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/agent_skills.md)나 [MCP 서버](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/mcp_server.md)를 제공하나요? 또한 콘텐츠 로딩이 기본적으로 최적화되어 있는지, 아니면 분기마다 네임스페이스와 lazy import를 수동으로 검토해야 하는지 확인하세요.
 
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/agent_skills.md)
+- [MCP 서버](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/mcp_server.md)
+
 **기본으로 제공되는 타입 안전성.**
 
 "추가 설정을 통해 타입을 지정할 수 있음"이 아니라 "새로 설치하자마자 잘못된 키를 사용하면 `tsc`가 실패함"을 의미합니다. 존재하지 않는 키를 사용할 때와 특정 로케일에 번역이 하나 누락되었을 때 어떤 일이 발생하는지 확인해 보세요.
@@ -532,6 +556,13 @@ AI 에이전트는 여전히 i18n 작업에서 실수를 범합니다. 로케일
 **개발자 경험 (DX).**
 
 첫 번역 문자열까지의 설정 시간, 마우스 호버 시 번역을 미리 보여주고 선언 위치로 바로 이동할 수 있는 [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/lsp.md) 또는 [VS Code 확장 프로그램](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/vs_code_extension.md), fill, test, push를 지원하는 [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/index.md), 컴포넌트에 하드코딩된 문자열을 추출해 키 하나하나를 직접 관리하지 않아도 되게 해주는 [컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md) 또는 추출기, 비개발자가 풀 리퀘스트 없이도 콘텐츠를 편집할 수 있는 도구([비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md) 또는 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md))가 제공되는지 확인하세요.
+
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/lsp.md)
+- [VS Code 확장 프로그램](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/vs_code_extension.md)
+- [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/index.md)
+- [컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md)
+- [비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)
 
 ## 자주 묻는 질문 (FAQ)
 
@@ -547,6 +578,8 @@ AI 에이전트는 여전히 i18n 작업에서 실수를 범합니다. 로케일
 
 번들 크기, 자동 생성되는 타입, 빌드 타임 누락 키 검사가 요구사항에 포함된 경우에만 필요합니다. 2개 로케일을 가진 소규모 앱이라면 런타임 라이브러리가 더 간단합니다. [컴파일러 vs 선언형 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/compiler_vs_declarative_i18n.md) 포스트에서 컴파일러가 제공하는 이점과 주의할 점을 설명합니다.
 
+- [컴파일러 vs 선언형 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/compiler_vs_declarative_i18n.md)
+
 </Question>
 
 <Question title="모든 컴포넌트를 다시 작성하지 않고 나중에 라이브러리를 변경할 수 있나요?">
@@ -558,6 +591,8 @@ AI 에이전트는 여전히 i18n 작업에서 실수를 범합니다. 로케일
 <Question title="라이브러리 선택이 SEO에 영향을 미치나요?">
 
 간접적으로 영향을 미칩니다. 크롤러가 보는 내용은 라우팅, `hreflang`, `<html lang>` 설정, 그리고 텍스트가 서버 렌더링된 HTML에 포함되는지에 따라 결정됩니다. 일부 라이브러리는 이를 돕는 헬퍼를 제공하지만 대부분은 개발자가 직접 처리해야 합니다. 자세한 내용은 [hreflang 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/hreflang_guide_multilingual_seo.md)를 참고하세요.
+
+- [hreflang 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/hreflang_guide_multilingual_seo.md)
 
 </Question>
 

@@ -31,7 +31,7 @@ author: aymericzip
 
 ## विवरण
 
-`getIntlayer` फ़ंक्शन अपनी key द्वारा एक डिक्शनरी चुनता है और दिए गए locale के लिए इसकी content को return करता है। यह `useIntlayer` hook का framework-agnostic समकक्ष है: समान content, समान selectors, लेकिन कहीं भी usable जहाँ React context उपलब्ध नहीं है — Node scripts, server functions, route loaders, metadata builders, Express/Fastify handlers, tests.
+`getIntlayer` फ़ंक्शन अपनी key द्वारा एक डिक्शनरी चुनता है और दिए गए locale के लिए इसकी content को return करता है। यह `useIntlayer` hook का framework-agnostic समकक्ष है: समान content, समान selectors, लेकिन कहीं भी usable जहाँ React context उपलब्ध नहीं है, Node scripts, server functions, route loaders, metadata builders, Express/Fastify handlers, tests.
 
 यह Intlayer द्वारा `.intlayer/` में जनरेट की गई डिक्शनरीज़ को पढ़ता है, इसलिए `key` argument typed है और आपकी अपनी content declarations से autocompleted है, और returned object प्रत्येक leaf तक पूरी तरह typed है।
 
@@ -57,18 +57,18 @@ getIntlayer(
 
 - `key: DictionaryKeys`
   - **Description**: डिक्शनरी की कुंजी जिसे पढ़ना है, जैसा कि आपकी कंटेंट फाइलों में घोषित किया गया है।
-  - **Type**: `DictionaryKeys` — हर घोषित डिक्शनरी कुंजी का एक union।
+  - **Type**: `DictionaryKeys`, हर घोषित डिक्शनरी कुंजी का एक union।
   - **Required**: Yes
 
 - `localeOrSelector: LocalesValues | DictionarySelector`
   - **Description**: कंटेंट को interpret करने के लिए locale, या [dynamic dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dynamic_dictionaries/index.md) के लिए एक selector object।
-    - `'fr'` — एक locale
-    - `{ item: 2 }` — एक [collection](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dynamic_dictionaries/collections.md) item (सभी items को array के रूप में प्राप्त करने के लिए `item` को omit करें)
-    - `{ variant: 'black-friday' }` — एक named [variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dynamic_dictionaries/variants.md) (`default` के लिए omit करें)
-    - `{ variant: { id: 'prod_abc', userId: '123' } }` — एक structured variant
+    - `'fr'`: एक locale
+    - `{ item: 2 }`: एक [collection](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dynamic_dictionaries/collections.md) item (सभी items को array के रूप में प्राप्त करने के लिए `item` को omit करें)
+    - `{ variant: 'black-friday' }`: एक named [variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dynamic_dictionaries/variants.md) (`default` के लिए omit करें)
+    - `{ variant: { id: 'prod_abc', userId: '123' } }`: एक structured variant
     - कोई भी selector एक locale ले सकता है: `{ item: 2, locale: 'fr' }`
   - **Type**: `LocalesValues | DictionarySelector`
-  - **Required**: No (Optional) — configured `defaultLocale` को default करता है।
+  - **Required**: No (Optional), configured `defaultLocale` को default करता है।
 
 - `plugins: Plugins[]`
   - **Description**: Custom node transformers जो base interpreter plugins को replace करते हैं। Advanced use only; default behaviour रखने के लिए इसे omit करें।
@@ -110,6 +110,8 @@ const { title } = getIntlayer("app", "fr"); // "Bonjour"
 ### बिना locale के
 
 Locale को छोड़ देने से content को आपके [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md) में घोषित `defaultLocale` के साथ interpret किया जाता है।
+
+- [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md)
 
 ```typescript
 import { getIntlayer } from "intlayer";
@@ -161,6 +163,9 @@ const banner = getIntlayer("banner", { variant: "black-friday", locale: "fr" });
 ### Bundle size
 
 `getIntlayer` merged dictionary को पढ़ता है, जो **हर** locale को hold करता है। Client bundles में, [build plugins](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/bundle_optimization.md) call को rewrite करते हैं ताकि केवल required content ship हो। जब आप rendering के बाहर content को पढ़ते हैं (metadata, loaders, server functions) और single locale को on demand load करना चाहते हैं, तो इसके बजाय [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getIntlayerAsync.md) का उपयोग करें।
+
+- [build plugins](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/bundle_optimization.md)
+- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getIntlayerAsync.md)
 
 ## संबंधित फ़ंक्शन
 

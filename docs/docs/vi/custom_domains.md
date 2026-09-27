@@ -143,7 +143,7 @@ Các URL tuyệt đối này đã sẵn sàng để sử dụng trong các thẻ
 
 `routing.domains` được serialize vào module augmentation được tạo, do đó
 `getLocalizedUrl` và `getLocalizedPath` thu hẹp kiểu trả về của chúng thành URL chính xác
-mà một locale được định tuyến theo domain sẽ phân giải thành — bao gồm cả việc loại bỏ prefix.
+mà một locale được định tuyến theo domain sẽ phân giải thành, bao gồm cả việc loại bỏ prefix.
 
 ```ts
 // routing: { mode: 'prefix-no-default', domains: { en: 'intlayer.org', zh: 'intlayer.zh' } }
@@ -202,7 +202,9 @@ GET intlayer.zh/about
 
 Plugin Vite `intlayerProxy` áp dụng logic tương tự trong quá trình phát triển:
 
-> Kể từ Intlayer v9, `intlayerProxy()` được đóng gói trực tiếp vào plugin `intlayer()` và được bật mặc định thông qua tùy chọn `routing.enableProxy` (`true` theo mặc định). Đăng ký nó riêng biệt như hiển thị bên dưới hiện là tùy chọn — nó được giữ lại để tương thích ngược và cho các thiết lập cần kiểm soát thứ tự plugin. Đặt `routing.enableProxy: false` để từ chối. Xem [ghi chú phát hành v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/releases/v9.md).
+> Kể từ Intlayer v9, `intlayerProxy()` được đóng gói trực tiếp vào plugin `intlayer()` và được bật mặc định thông qua tùy chọn `routing.enableProxy` (`true` theo mặc định). Đăng ký nó riêng biệt như hiển thị bên dưới hiện là tùy chọn, nó được giữ lại để tương thích ngược và cho các thiết lập cần kiểm soát thứ tự plugin. Đặt `routing.enableProxy: false` để từ chối. Xem [ghi chú phát hành v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/releases/v9.md).
+
+- [ghi chú phát hành v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/releases/v9.md)
 
 ```typescript fileName="vite.config.ts"
 import { defineConfig } from "vite";

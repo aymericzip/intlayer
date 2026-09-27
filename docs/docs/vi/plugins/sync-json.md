@@ -216,7 +216,7 @@ Kiểm soát liệu một tệp JSON duy nhất mà **các khóa cấp đầu ti
 
 Điều này phù hợp với mô hình namespace của các thư viện như `next-intl` và `react-intl`, nơi một tệp `messages/{locale}.json` nhóm nhiều namespace theo các khóa cấp đầu tiên của nó, mỗi khóa được xử lý độc lập (ví dụ: `useTranslations('Hero')` phân giải thành từ điển `Hero`).
 
-- `undefined` (mặc định): **tự động phát hiện** — tệp được chia khi mẫu `source` không có phân đoạn `{key}` (một tệp chứa mọi namespace), và được giữ dưới dạng một từ điển duy nhất nếu không (một tệp cho mỗi khóa).
+- `undefined` (mặc định): **tự động phát hiện**, tệp được chia khi mẫu `source` không có phân đoạn `{key}` (một tệp chứa mọi namespace), và được giữ dưới dạng một từ điển duy nhất nếu không (một tệp cho mỗi khóa).
 - `true`: luôn chia mỗi khóa cấp cao nhất thành từ điển riêng của nó.
 - `false`: không bao giờ chia; toàn bộ tệp trở thành một từ điển duy nhất.
 
@@ -238,7 +238,7 @@ syncJSON({
 }),
 ```
 
-Điều này tạo ra ba từ điển — `Hero`, `Nav`, và `About` — do đó `useTranslations('Hero')` (next-intl) phân giải chính xác. Khi ghi lại, tất cả các namespace được tập hợp lại vào cùng một tệp theo từng locale.
+Điều này tạo ra ba từ điển (`Hero`, `Nav`, và `About`) do đó `useTranslations('Hero')` (next-intl) phân giải chính xác. Khi ghi lại, tất cả các namespace được tập hợp lại vào cùng một tệp theo từng locale.
 
 > Khi bạn giữ phân đoạn `{key}` rõ ràng trong `source` của mình (ví dụ: `./locales/${locale}/${key}.json`), mỗi tệp đã là một namespace, vì vậy việc chia tách bị tắt theo mặc định.
 
@@ -402,7 +402,7 @@ loadJSON({
 
 Hành vi tương tự như trong [`syncJSON`](#splitkeys-boolean): khi một tệp JSON duy nhất nhóm nhiều namespace theo các khóa cấp đầu tiên của nó, mỗi khóa cấp cao nhất sẽ trở thành từ điển riêng của nó.
 
-- `undefined` (mặc định): **tự động phát hiện** — chia khi mẫu `source` không có phân đoạn `{key}`, nếu không thì là một từ điển duy nhất.
+- `undefined` (mặc định): **tự động phát hiện**, chia khi mẫu `source` không có phân đoạn `{key}`, nếu không thì là một từ điển duy nhất.
 - `true` / `false`: buộc hoặc tắt chia tách.
 
 ```ts
@@ -440,6 +440,8 @@ Các tệp JSON được đồng bộ sẽ được coi như các tệp `.conten
 - `intlayer content pull` để kéo các tệp JSON được đồng bộ về
 
 Xem [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md) để biết thêm chi tiết.
+
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md)
 
 ## Limitations (current)
 

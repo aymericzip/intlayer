@@ -37,11 +37,23 @@ npm install remix-intlayer
 
 ### Middleware
 
+Import:
+
+```tsx
+import { intlayer } from "remix-intlayer";
+```
+
 | Eksport    | Typ                | Opis                                                                                                             | Powiązana dokumentacja                                                                                                             |
 | ---------- | ------------------ | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
 | `intlayer` | Funkcja middleware | Middleware dla Remix 3 wykrywające język żądania, zarządzające przekierowaniami i wypełniające kontekst żądania. | [Middleware intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/remix-intlayer/intlayerMiddleware.md) |
 
 ### Przechowywanie kontekstu
+
+Import:
+
+```tsx
+import { Intlayer, INTLAYER_CONTEXT_PROPERTY } from "remix-intlayer";
+```
 
 | Eksport                     | Typ                            | Opis                                                                                                                                                            | Powiązana dokumentacja                                                                                                 |
 | --------------------------- | ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
@@ -49,6 +61,12 @@ npm install remix-intlayer
 | `INTLAYER_CONTEXT_PROPERTY` | `string`                       | Nazwa właściwości (`'intlayer'`) zainstalowana bezpośrednio w kontekście żądania, umożliwiająca dostęp poprzez `context.intlayer` oraz `context.get(Intlayer)`. | -                                                                                                                      |
 
 ### Hooki
+
+Import:
+
+```tsx
+import { useIntlayer, useDictionary, useLocale } from "remix-intlayer";
+```
 
 | Eksport         | Typ  | Opis                                                                                                      | Powiązana dokumentacja                                                                                                       |
 | --------------- | ---- | --------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |

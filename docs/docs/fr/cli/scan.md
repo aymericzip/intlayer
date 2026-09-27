@@ -130,13 +130,13 @@ Affiche le résultat complet du scan sous forme d'objet JSON au lieu d'un rappor
 
 ### Options de configuration standard
 
-- **`--base-dir`** — Répertoire de base utilisé pour localiser le fichier `intlayer.config.*`.
-- **`-e, --env`** — Environnement cible (par exemple, `development`, `production`).
-- **`--env-file`** — Chemin vers un fichier `.env` personnalisé.
-- **`--no-cache`** — Désactiver le cache de configuration.
-- **`--ci`** — Exécute la commande dans chaque projet Intlayer du monorepo (ou uniquement le projet courant si lancée depuis son répertoire). Des identifiants par projet peuvent être injectés via `INTLAYER_PROJECT_CREDENTIALS`, un objet JSON associant chaque chemin de projet à `{ "clientId", "clientSecret" }`.
-- **`--verbose`** — Activer le journal détaillé (par défaut en mode CLI).
-- **`--prefix`** — Préfixe de journal personnalisé.
+- **`--base-dir`**: Répertoire de base utilisé pour localiser le fichier `intlayer.config.*`.
+- **`-e, --env`**: Environnement cible (par exemple, `development`, `production`).
+- **`--env-file`**: Chemin vers un fichier `.env` personnalisé.
+- **`--no-cache`**: Désactiver le cache de configuration.
+- **`--ci`**: Exécute la commande dans chaque projet Intlayer du monorepo (ou uniquement le projet courant si lancée depuis son répertoire). Des identifiants par projet peuvent être injectés via `INTLAYER_PROJECT_CREDENTIALS`, un objet JSON associant chaque chemin de projet à `{ "clientId", "clientSecret" }`.
+- **`--verbose`**: Activer le journal détaillé (par défaut en mode CLI).
+- **`--prefix`**: Préfixe de journal personnalisé.
 
 ## Stratégie de routage
 

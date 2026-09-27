@@ -35,7 +35,7 @@ author: aymericzip
 
 1. **Văn bản hardcode** chưa từng được đưa vào từ điển.
 2. **Các lệnh gọi động** vượt qua kiểm tra kiểu và thực thi được, nhưng trình biên dịch Intlayer không thể tối ưu hóa.
-3. **Nội dung thừa (Dead content)** — các từ điển và trường không có bất kỳ phần nào trong dự án đọc (tùy chọn kích hoạt).
+3. **Nội dung thừa (Dead content)**: các từ điển và trường không có bất kỳ phần nào trong dự án đọc (tùy chọn kích hoạt).
 
 Các khóa từ điển không xác định, đường dẫn trường không xác định và ngôn ngữ còn thiếu vốn đã là các lỗi biên dịch, vì vậy plugin sẽ không lặp lại chúng.
 
@@ -61,7 +61,7 @@ Yêu cầu ESLint 9 trở lên (flat config). ESLint 10 được hỗ trợ.
 
 ## Cách sử dụng
 
-Plugin hoạt động trên cả ESLint và [oxlint](https://oxc.rs) — cùng quy tắc, cùng tùy chọn.
+Plugin hoạt động trên cả ESLint và [oxlint](https://oxc.rs), cùng quy tắc, cùng tùy chọn.
 
 <Tabs defaultTab="eslint">
   <Tab label="ESLint" value="eslint">
@@ -106,7 +106,7 @@ export default [
 }
 ```
 
-Hai lưu ý: hỗ trợ plugin JS của oxlint vẫn đang ở giai đoạn alpha và oxlint không hỗ trợ trình phân tích cú pháp tùy chỉnh — vì vậy các tệp `.vue`, `.svelte`, `.astro` và template Angular không được lint tại đó. Hãy chạy oxlint trên các tệp JS/TS/JSX của bạn và giữ lại ESLint cho phần còn lại.
+Hai lưu ý: hỗ trợ plugin JS của oxlint vẫn đang ở giai đoạn alpha và oxlint không hỗ trợ trình phân tích cú pháp tùy chỉnh, vì vậy các tệp `.vue`, `.svelte`, `.astro` và template Angular không được lint tại đó. Hãy chạy oxlint trên các tệp JS/TS/JSX của bạn và giữ lại ESLint cho phần còn lại.
 
 `no-unused-content` được cố tình lược bỏ ở trên: nó cần thư mục làm việc và đường dẫn tệp được lint từ ngữ cảnh quy tắc, điều mà cầu nối plugin JS alpha chưa đảm bảo. Hãy chạy quy tắc này dưới ESLint.
 
@@ -123,7 +123,7 @@ Hai lưu ý: hỗ trợ plugin JS của oxlint vẫn đang ở giai đoạn alph
 
 `recommended` cố ý giữ `no-raw-text` ở mức `warn`: việc áp dụng quy tắc này vào một codebase hiện có sẽ hiển thị tất cả các chuỗi chưa được dịch cùng một lúc, điều này không nên làm gián đoạn bản build của bạn ngay từ ngày đầu tiên.
 
-`enforce-adapter-import` bị tắt theo mặc định — hãy bật rõ ràng nếu bạn muốn.
+`enforce-adapter-import` bị tắt theo mặc định, hãy bật rõ ràng nếu bạn muốn.
 
 `no-unused-content` bị tắt trong mọi cấu hình, bao gồm cả `strict`. Đây là quy tắc duy nhất đọc cấu hình Intlayer của bạn và duyệt qua các tệp nguồn từ đĩa, vì vậy việc bật nó nên là một lựa chọn có chủ đích thay vì được thiết lập sẵn tự động.
 
@@ -248,7 +248,7 @@ export default {
 };
 ```
 
-Không giống như các quy tắc khác, quy tắc này không thể quyết định chỉ từ tệp đang kiểm tra — một trường chỉ được xem là không sử dụng khi so với toàn bộ dự án. Khi gặp khai báo nội dung đầu tiên trong một lần lint, nó sẽ tải cấu hình Intlayer, quét các tệp nguồn mà cấu hình đó khai báo (`build.traversePattern`, `compiler.transformPattern`) và chạy cùng bộ phân tích mức độ sử dụng đang vận hành `@intlayer/lsp` và tính năng gạch ngang "không sử dụng" trong tiện ích mở rộng VS Code. Kết quả được lưu vào bộ nhớ cache trong `cacheTtl` mili giây, do đó quá trình quét diễn ra một lần cho mỗi lượt chạy thay vì mỗi tệp.
+Không giống như các quy tắc khác, quy tắc này không thể quyết định chỉ từ tệp đang kiểm tra, một trường chỉ được xem là không sử dụng khi so với toàn bộ dự án. Khi gặp khai báo nội dung đầu tiên trong một lần lint, nó sẽ tải cấu hình Intlayer, quét các tệp nguồn mà cấu hình đó khai báo (`build.traversePattern`, `compiler.transformPattern`) và chạy cùng bộ phân tích mức độ sử dụng đang vận hành `@intlayer/lsp` và tính năng gạch ngang "không sử dụng" trong tiện ích mở rộng VS Code. Kết quả được lưu vào bộ nhớ cache trong `cacheTtl` mili giây, do đó quá trình quét diễn ra một lần cho mỗi lượt chạy thay vì mỗi tệp.
 
 **Tùy chọn**
 
@@ -283,9 +283,9 @@ Giảm `cacheTtl` khi bạn lint từ một editor server hoạt động lâu d�
 
 > **Thiên về sự an toàn (ít báo sai).** Một cảnh báo sai ở đây có thể dẫn đến việc xóa một bản dịch, vì vậy sẽ không có gì được báo cáo khi từ điển được sử dụng theo cách mà bộ phân tích không thể theo dõi: đối tượng nội dung được truyền nguyên vẹn, hàm dịch được liên kết từ đó (`const t = useTranslations("home")`), khai báo được truy cập qua import trực tiếp (`useDictionary(myDictionary)`), lệnh `nest()` từ từ điển khác, hoặc danh sách trường bị làm mờ bởi toán tử spread. Các component đơn tệp (`.vue`, `.svelte`, `.astro`) được tính là sử dụng mọi trường của từ điển mà chúng đề cập, vì các khối script của chúng không được phân tích cú pháp tại đây.
 
-`reportDuplicateKeys` đọc các từ điển chưa hợp nhất mà bản build ghi dưới thư mục `.intlayer/`, do đó nó giữ im lặng cho đến khi dự án được build ít nhất một lần. Hai khai báo có chung một khóa sẽ được hợp nhất, đây là một mẫu hợp lệ — báo cáo tồn tại vì một trường được định nghĩa ở cả hai bên sẽ âm thầm chỉ giữ lại một trong hai giá trị.
+`reportDuplicateKeys` đọc các từ điển chưa hợp nhất mà bản build ghi dưới thư mục `.intlayer/`, do đó nó giữ im lặng cho đến khi dự án được build ít nhất một lần. Hai khai báo có chung một khóa sẽ được hợp nhất, đây là một mẫu hợp lệ, báo cáo tồn tại vì một trường được định nghĩa ở cả hai bên sẽ âm thầm chỉ giữ lại một trong hai giá trị.
 
-Bộ phân tích được nạp từ `@intlayer/lsp`, phát hành dưới dạng ESM. Do đó quy tắc cần một phiên bản Node có thể `require()` module ES — Node 20.19+ hoặc 22.12+. Trên các phiên bản cũ hơn, nó sẽ không báo cáo gì thay vì làm hỏng lần chạy lint.
+Bộ phân tích được nạp từ `@intlayer/lsp`, phát hành dưới dạng ESM. Do đó quy tắc cần một phiên bản Node có thể `require()` module ES, Node 20.19+ hoặc 22.12+. Trên các phiên bản cũ hơn, nó sẽ không báo cáo gì thay vì làm hỏng lần chạy lint.
 
 ## Frameworks
 

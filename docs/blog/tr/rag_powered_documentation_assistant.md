@@ -31,6 +31,8 @@ RAG güçlendirmeli bir dokümantasyon asistanı oluşturdum ve bunu hemen kulla
 
 👉 [Canlı demo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/interest_of_intlayer.md) 👉 [Kod boilerplate](https://github.com/aymericzip/smart_doc_RAG)
 
+- [Canlı demo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/interest_of_intlayer.md)
+
 ## Giriş
 
 Eğer dokümantasyonlarda kaybolmuşsanız, bir cevap için sonsuzca kaydırma yaptığınızı biliyorsunuz, bu ne kadar acı verici olabilir. Dokümanlar yararlıdır, ama statiktirler ve arama yapmak genellikle hantaldır.
@@ -242,6 +244,8 @@ Gpt-5 ile denedik, ama gecikme çok yüksekti (bazen 15 saniyeye kadar bir yanı
 
 👉 [Demoyu burada deneyin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/interest_of_intlayer.md) 👉 [GitHub'da kod şablonunu kontrol edin](https://github.com/aymericzip/smart_doc_RAG)
 
+- [Demoyu burada deneyin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/interest_of_intlayer.md)
+
 </Step>
 
 </Steps>
@@ -263,5 +267,7 @@ Benim için bu proje, RAG'nin sadece bir teknik hile olmadığını gösterdi. D
 - bir ürün strateji aracı
 
 👉 [Demoyu burada deneyin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/interest_of_intlayer.md) 👉 [GitHub'da kod şablonunu kontrol edin](https://github.com/aymericzip/smart_doc_RAG)
+
+- [Demoyu burada deneyin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/interest_of_intlayer.md)
 
 Ve eğer siz de RAG ile deneme yapıyorsanız, nasıl kullandığınızı duymak isterim.

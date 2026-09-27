@@ -46,7 +46,11 @@ const config = {
 export default config;
 ```
 
+- [plugin Sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/plugins/sync-json.md)
+
 Nếu bạn muốn runtime API giữ nguyên không đổi, các [adapter tương thích](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/index.md) sẽ tạo alias cho `useTranslation`, `$t` và các hàm tương đương ở cấp độ bundler. Dù thế nào đi nữa, hãy xem các câu lệnh dưới đây là một phương án triển khai cụ thể của nguyên lý, chứ không phải một điều kiện bắt buộc.
+
+- [adapter tương thích](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/index.md)
 
 ## Tại sao các chỗ thiếu lại vô hình?
 
@@ -98,6 +102,8 @@ export default [
 ```
 
 `no-unused-content` là quy tắc giúp catalog không bị phình to vô hạn. Key rác không làm hỏng logic phần mềm, nhưng chúng làm cho hóa đơn của các nhà cung cấp dịch vụ dịch thuật tăng cao ngoài ý muốn. Xem danh sách quy tắc đầy đủ trong [tài liệu plugin ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/eslint.md).
+
+- [tài liệu plugin ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/eslint.md)
 
 ## Tầng 3: Audit độ bao phủ locale
 
@@ -179,6 +185,8 @@ curl -s https://example.com/ja/checkout | grep -c "Add to cart"
 ## Lấp đầy các khoảng trống
 
 Khi bạn đã biết phần nào bị thiếu, `intlayer fill` sẽ tự động điền các mục còn trống, và tùy chọn `autoFill` có thể tạo các file theo từng locale ngay khi nội dung được khai báo. Xem [autoFill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/autoFill.md).
+
+- [autoFill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/autoFill.md)
 
 Cần nhìn nhận thẳng thắn: bản dịch do máy tự điền sẽ biến một khoảng trống **nhìn thấy được** thành một khoảng trống **vô hình**. Key hiện đã có giá trị, audit báo xanh, nhưng chưa có bất kỳ ai đọc lại câu từ đó. Hãy dùng nó để gỡ nút thắt cho đợt release, sau đó bắt buộc phải có người duyệt lại đối với bất kỳ nội dung nào mà khách hàng đọc trước khi đưa ra quyết định. Đó là giàn giáo tạm thời, không phải là kết quả sau cùng.
 

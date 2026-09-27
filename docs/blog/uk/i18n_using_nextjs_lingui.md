@@ -66,6 +66,8 @@ author: aymericzip
 
 [Бенчмарк i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/nextjs.md) запускає один і той самий додаток Next.js на 10 сторінок та 10 локалей з кожною популярною бібліотекою і вимірює, що насправді завантажує браузер.
 
+- [Бенчмарк i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/nextjs.md)
+
 <I18nBenchmark framework="nextjs" packages="lingui,@intlayer/lingui,next-intlayer" vertical/>
 
 Ключові показники для `@lingui/core@6.6.0` на Next.js 16, виміряні 2026-09-26 (gzip):
@@ -83,6 +85,8 @@ author: aymericzip
 - **Рантайм Lingui важить ~72 KB gzip.** Адаптер сумісності `@intlayer/lingui` зменшує рантайм до ~11 KB, але в цьому бенчмарку налаштування сумісності для Next.js все ще надсилає цілі каталоги на сторінку. Нативний API `next-intlayer` - це конфігурація, яка залишається на рівні базового розміру додатка.
 
 > Дивіться повні дані: [Звіт бенчмарку Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/nextjs.md) та [репозиторій бенчмарку](https://github.com/intlayer-org/benchmark-i18n).
+
+- [Звіт бенчмарку Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/nextjs.md)
 
 ## Порівняння функціональності на Next.js
 
@@ -108,6 +112,9 @@ author: aymericzip
 | **Екосистема / спільнота**            | ⚠️ Менша, але швидко зростає                          | ✅ Зріла                                                            | ✅ Велика                                   |
 
 > Розміри рантайму взяті з [бенчмарку Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/nextjs.md). Для детального аналізу читайте [Lingui проти Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/lingui_vs_intlayer.md).
+
+- [бенчмарку Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/nextjs.md)
+- [Lingui проти Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/lingui_vs_intlayer.md)
 
 > Інші посібники з Next.js:
 
@@ -1041,9 +1048,17 @@ export const sendContactMessage = async (formData: FormData) => {
 
 Адаптер сумісності [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/lingui.md) зберігає ваш вихідний код без змін: макроси компілюються як і раніше, а отримані виклики `i18n._()`, `useLingui()` та `<Trans>` обслуговуються словниками Intlayer. У бенчмарку Next.js розмір рантайму зменшується з **~72.1 KB до ~10.7 KB** gzip.
 
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/lingui.md)
+
 У Next.js адаптер підключається через створення аліасів `@lingui/core` та `@lingui/react` на `@intlayer/lingui` у `next.config.ts` (webpack та Turbopack) і огортання конфігурації за допомогою `withIntlayer` з `next-intlayer/server`. Залиште `@lingui/swc-plugin`, щоб макроси спочатку компілювалися. Повна конфігурація доступна у [посібнику з сумісності з Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/lingui.md).
 
+- [посібнику з сумісності з Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/lingui.md)
+
 Як показує таблиця бенчмарку, адаптер зменшує розмір рантайму, але поки що не каталог, який надсилається на кожну сторінку у Next.js. Його найкраще використовувати як міст для міграції: після його запуску переносьте компоненти по одному на нативний API `useIntlayer`, який передає лише той вміст, який рендерить кожен компонент. Дивіться [посібник з Next.js + Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_nextjs_16.md), [Lingui проти @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/lingui_vs_intlayer-lingui.md) та всі [адаптери сумісності](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/index.md).
+
+- [посібник з Next.js + Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_nextjs_16.md)
+- [Lingui проти @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/lingui_vs_intlayer-lingui.md)
+- [адаптери сумісності](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/index.md)
 
 </Step>
 <Step number={19} title="Автоматизуйте переклади за допомогою Intlayer" isOptional={true}>
@@ -1086,15 +1101,23 @@ Lingui витягує повідомлення, але заповнення де
 
 [Бенчмарк](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/nextjs.md) показує ~72 KB gzip для рантайму. З одним каталогом на локаль сторінки важать ~145 KB проти 141 KB без i18n, але кожна сторінка все одно отримує повідомлення інших сторінок через клієнтський провайдер.
 
+- [Бенчмарк](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/nextjs.md)
+
 </Question>
 <Question title="Lingui, next-intl чи next-i18next: що вибрати для Next.js?">
 
 Lingui підходить командам, яким подобається писати вихідний текст безпосередньо в компонентах і працювати з PO-файлами та перекладачами. next-intl підходить тим, хто віддає перевагу JSON-каталогам та API `t("key")`, тісно інтегрованому з Next.js. next-i18next надає екосистему плагінів i18next. Дивіться [next-i18next проти next-intl проти Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/next-i18next_vs_next-intl_vs_intlayer.md) та [бенчмарк Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/nextjs.md).
 
+- [next-i18next проти next-intl проти Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/next-i18next_vs_next-intl_vs_intlayer.md)
+- [бенчмарк Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/nextjs.md)
+
 </Question>
 <Question title="Чи можу я перейти з Lingui на Intlayer без переписування компонентів?">
 
 Так. Адаптер [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/lingui.md) зберігає макроси та замінює рантайм, після чого ви можете поступово переводити компоненти на `useIntlayer`. Дивіться [адаптери сумісності](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/index.md).
+
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/lingui.md)
+- [адаптери сумісності](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/index.md)
 
 </Question>
 

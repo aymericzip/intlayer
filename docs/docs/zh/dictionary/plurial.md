@@ -34,6 +34,8 @@ author: aymericzip
 
 与 [`enu`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/enumeration.md) 不同，`enu` 是根据您自己定义的数值范围选择内容的，而 `plural` 将选择权交给 CLDR 规则。这使得它能够扩展到具有复杂复数规则的语言（如俄语、波兰语、阿拉伯语或威尔士语），而无需手动编写求余逻辑。
 
+- [`enu`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/enumeration.md)
+
 ## 何时使用 `plural` 与 `enu`
 
 | 用例                                            | 辅助函数 |

@@ -90,6 +90,8 @@ style="border:none;"
 
 > Diuji pada peramban nyata dengan kompresi gzip produksi. Data lengkap ada di [laporan benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/nextjs.md).
 
+- [laporan benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/nextjs.md)
+
 ### Beban Dasar Pustaka
 
 Beban di klien sebelum file terjemahan ditambahkan:
@@ -138,6 +140,8 @@ Grafik di bawah memperkirakan ukuran konten untuk aplikasi teoretis dengan 1 hin
 
 Intlayer menyelesaikannya lewat analisis statis: [kompiler Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md) hanya memasukkan teks yang dipanggil pada rute tersebut, sehingga kebocoran antar halaman turun menjadi **0.0%**.
 
+- [kompiler Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md)
+
 ## Mengapa next-intl Menghalangi Tree-Shaking?
 
 API pustaka ini bergantung pada string dinamis yang dievaluasi saat runtime:
@@ -176,6 +180,8 @@ export function UserProfile() {
 </Tabs>
 
 Turbopack dan Webpack tidak dapat memastikan key mana dari `UserProfile` yang akan dipanggil. Untuk mencegah galat saat aplikasi berjalan, **bundler terpaksa menyertakan seluruh namespace ke dalam chunk klien**. Sebaliknya, pemanggilan terstruktur di Intlayer memungkinkan kompiler memverifikasi dependensi dan memangkas teks yang tak terpakai. Pelajari di [optimasi bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/bundle_optimization.md).
+
+- [optimasi bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/bundle_optimization.md)
 
 ## Pengalaman Pengembang (DX)
 
@@ -276,6 +282,8 @@ Namun pemeriksaan hanya berlaku untuk bahasa utama. Jika ada key yang terhapus d
 
 Intlayer membuat tipe data langsung dari semua file konten. Mengaktifkan [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md) akan langsung menghentikan build jika ada terjemahan yang tertinggal di salah satu bahasa.
 
+- [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md)
+
 ### Ekosistem Perkakas dan AI
 
 | Fitur                           | `next-intl`  | Intlayer                                                                                                           |
@@ -301,6 +309,8 @@ Mendeteksi dan menerjemahkan teks yang hilang menggunakan API key OpenAI, Anthro
 **CMS Visual yang Dapat Di-hosting Mandiri:**
 
 Gunakan [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md) agar tim non-teknis bisa menyunting teks langsung dari antarmuka web dan menyimpannya ke Git.
+
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)
 
 **Lisensi Terbuka:**
 

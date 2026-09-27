@@ -67,6 +67,8 @@ Paraglideはメッセージごとに1つの関数を生成します。Intlayer�
 
 各世代の詳細については、[JavaScript i18nの歴史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/history_of_i18n.md)で詳しく解説しています。
 
+- [JavaScript i18nの歴史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/history_of_i18n.md)
+
 ## 最も重要な意思決定: コンテンツの配置場所と読み込みタイミング
 
 構成におけるバンドルサイズの差の大部分は、主に2つの構造的な選択によって決まります。
@@ -80,11 +82,17 @@ Paraglideはメッセージごとに1つの関数を生成します。Intlayer�
 
 `@solid-primitives/i18n`はどちらの軸も自動では対応しません。ロケールごとに辞書を`createResource`することで動的ロードは実現できますが、それ以外の制御は自作する必要があります。`solid-i18next`にはネームスペースと遅延バックエンドがありますが、マッピングが強制されないため、共通コンポーネントが`common`をインポートすると、それがすべてのルートの依存関係になってしまいます。Paraglideはツリーシェイキング（tree-shaking）によってページ単位の最適化を行いますが、[Solidベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/solid.md)の実装では効果が現れませんでした。Intlayerはコンポーネントごとの宣言によってこれを実現します。
 
+- [Solidベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/solid.md)
+
 質問4の回答が「多くのページがある」だった場合は、APIの好みよりもこのセクションを重視してください。[コンポーネント単位 vs 集中管理型 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/per-component_vs_centralized_i18n.md)の記事では、このトレードオフのメンテナンス面について解説しています。
+
+- [コンポーネント単位 vs 集中管理型 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/per-component_vs_centralized_i18n.md)
 
 ## 比較対象の候補
 
 ライブラリのサイズは、10ページ・10ロケールのアプリを対象にした[Solidベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/solid.md)（バンドル、ツリーシェイキング、minify後の空コンポーネントにおけるProvider＋アクセサ）の数値です。コンテンツのサイズは個別に測定しています。
+
+- [Solidベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/solid.md)
 
 ![Solid i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
@@ -118,6 +126,8 @@ Paraglideのライブラリサイズがほぼゼロである理由は構造に�
 
 クライアントとサーバーで言語設定を一致させるため、サーバー側のURLからロケールを取得する必要があります。クライアント側で検出していては遅すぎます。`@solid-primitives/i18n`や`solid-i18next`では、`[[locale]]`ルート、`matchFilters`、リダイレクト処理、`entry-server.tsx`のタグ設定をすべて自前で構築する必要があります。Paraglideにはルーティングを処理するViteプラグインが用意されています。Intlayerにはミドルウェアとルートヘルパーが同梱されています。どの選択肢を採用する場合でも、`<html lang>`と`hreflang`は`entry-server.tsx`に記述してください。SolidStart v2では`@solidjs/meta`がクライアント側でハイドレーション後に適用されるためです。詳細なセットアップ手順は[Solid i18nの記事](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_solid_start.md)を参照してください。
 
+- [Solid i18nの記事](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_solid_start.md)
+
 </Accordion>
 <Accordion header="ロケール変更を即座かつきめ細かく（fine-grained）反映させたい場合">
 
@@ -132,6 +142,8 @@ Paraglideのライブラリサイズがほぼゼロである理由は構造に�
 <Accordion header="型安全性が必須条件である場合">
 
 `@solid-primitives/i18n`は追加設定なしで推論された型を提供します。これは多くのReactライブラリ以上の利点です。遅延ロードやルートごとのコード分割に対応した生成型の点では、Paraglide、`@lingui/solid`、Intlayerはいずれもコンテンツから型を自動生成します。[不足している翻訳の検出](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/detecting_missing_translations.md)の記事では、各ライブラリがビルド時に何をキャッチできるかを比較しています。
+
+- [不足している翻訳の検出](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/detecting_missing_translations.md)
 
 </Accordion>
 <Accordion header="翻訳をAIで自動生成する場合">
@@ -389,6 +401,9 @@ export const CartSummary: Component<{ count: number }> = (props) => {
 
 既存のi18nextコードベースに対しては、[i18next互換アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/i18next.md)によりバンドラーレベルでパッケージがエイリアスされ、Intlayerがコンテンツを提供しながらカタログと`t()`を引き続き動作させることができます。その他の詳細は[移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_i18next_to_intlayer.md)を参照してください。
 
+- [i18next互換アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/i18next.md)
+- [移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_i18next_to_intlayer.md)
+
 ## 採用を決める前のチェックポイント
 
 機能比較表は現在の機能を示しているに過ぎません。以下のポイントは、実際にそのライブラリを運用していく際の体験を左右します。
@@ -411,6 +426,9 @@ export const CartSummary: Component<{ count: number }> = (props) => {
 
 AIエージェントは依然としてi18nの扱いに苦労することが多く、ロケールの不足、キーの捏造、メッセージ構文の混同などが起きがちです。エージェントがコンテンツのリストアップ、補完、テストを行えるように、ライブラリが[Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)や[MCPサーバー](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)を提供しているか確認してください。またコンテンツの読み込みがデフォルトで最適化されているか、あるいは四半期ごとにネームスペースや遅延インポートの見直しが必要になるかも重要です。
 
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)
+- [MCPサーバー](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)
+
 **設定なし（out of the box）での型安全性。**
 
 「追加の設定を行えば型付けできる」ではなく、「新規インストール状態で存在しないキーを指定すると`tsc`が失敗する」かどうかです。存在しないキーを指定した場合や、1つのロケールで翻訳が欠落している場合に何が起きるかを確認してください。
@@ -422,6 +440,13 @@ AIエージェントは依然としてi18nの扱いに苦労することが多�
 **開発者体験（Developer Experience）。**
 
 最初の翻訳文字列を表示するまでのセットアップ時間、ホバー時に翻訳を表示し定義元へジャンプできる[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)や[VS Code拡張機能](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)、補完・テスト・プッシュを行うための[CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md)、コンポーネント内のハードコードされた文字列を抽出してキーごとに管理する手間をなくす[コンパイラー](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)や抽出ツール、そして開発者以外でもプルリクエストなしでコンテンツを編集できる手段（[ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)や[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)）の有無を確認してください。
+
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)
+- [VS Code拡張機能](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)
+- [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md)
+- [コンパイラー](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)
+- [ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)
 
 ## よくある質問
 
@@ -443,11 +468,15 @@ Solidのコンポーネントは一度しか実行されないためです。セ
 
 バンドルサイズ、自動生成された型、あるいはビルド時の不足キーチェックが実際に必要な要件である場合にのみ検討してください。[コンパイラ vs 宣言型 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/compiler_vs_declarative_i18n.md)の記事では、コンパイラが提供する利点と注意点について解説しています。
 
+- [コンパイラ vs 宣言型 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/compiler_vs_declarative_i18n.md)
+
 </Question>
 
 <Question title="ライブラリの選択はSEOに影響しますか？">
 
 間接的に影響します。クローラーはルーティング、`hreflang`、`<html lang>`、およびサーバーレンダリングされたHTML内にテキストが存在するかどうかを評価します。SolidStartにおいては`entry-server.tsx`の設定が重要になります。[hreflangガイド](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/hreflang_guide_multilingual_seo.md)を参照してください。
+
+- [hreflangガイド](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/hreflang_guide_multilingual_seo.md)
 
 </Question>
 

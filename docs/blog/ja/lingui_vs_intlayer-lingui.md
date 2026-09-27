@@ -30,6 +30,8 @@ author: aymericzip
 
 本記事では、同じTanStack StartアプリケーションをLingui単体とアダプター併用の両方でビルドし、その差異を検証します。数値は [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) に基づいています。ライブラリ同士の純粋な比較については [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/lingui_vs_intlayer.md) をご覧ください。本稿では、アダプターの導入によって何が変わり、どこで利点が得られないのかに焦点を当てます。
 
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/lingui_vs_intlayer.md)
+
 <TOC/>
 
 > **要約 (tl;dr)**: 同一のTanStack Startアプリにおいて、`@intlayer/lingui` はマクロを一切書き換えることなく、平均コンポーネントサイズを **85.5 KB から 12.8 KB** (gzip) に削減し、ハイドレーション時間を **28 ms から 19.7 ms** へ、言語切り替えを **5.9 ms から 2.9 ms** へと短縮しました。初期ロード時に全カタログを一括読み込みするナイーブな構成では、**90%のページリーク**を解消し、1ページあたり12 KB削減しました。ただし、遅延ロード構成では純粋なLinguiの115 KBに対して **137 KB/ページ** となります。これは、Linguiがビルド時に事前コンパイルされたトークン配列を配信するのに対し、アダプターは実行時にICUを解決するためです。元の言語のリーク率（約9〜10%）は、ランタイムではなくコンポーネント内に埋め込まれた `message` フォールバックに起因するため、両者で同等です。アダプターはViteプラグインとして機能し、TanStack Start上で測定されました。
@@ -230,6 +232,8 @@ export default config;
 
 `.po` カタログの場合は、`syncJSON` を `@intlayer/sync-po-plugin` の `syncPO` に置き換え、拡張子を `.po` にした同様の `source` パターンを指定します。詳細は [Sync POプラグインドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-po.md) を参照してください。
 
+- [Sync POプラグインドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-po.md)
+
 `splitKeys: "key-prefix"` こそがコンポーネントサイズ削減の要です。元のカタログファイルはフラットな構造のまま保持され、分割は自動生成されたディクショナリ内にのみ存在し、逆同期によってキーは自動的に再統合されます。
 
 </Step>
@@ -307,3 +311,5 @@ export default defineConfig({
 ベンチマークの全生データ、テストアプリ、スクリプトは [Benchmark Bloom リポジトリ](https://github.com/intlayer-org/benchmark-bloom) で公開されています。ぜひご自身でお試しください。
 
 詳細については [「Intlayerを選ぶ理由」ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md) をご参照ください。
+
+- [なぜ Intlayer？他の i18n ライブラリとの違い](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)

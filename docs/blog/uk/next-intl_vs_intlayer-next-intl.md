@@ -33,6 +33,8 @@ author: aymericzip
 
 У цій статті порівнюються обидва на одному й тому ж Next.js застосунку, побудованому один раз з `next-intl` та один раз з адаптером. Цифри взяті з [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom), open-source набору, який записує, що насправді завантажує браузер. Якщо вам потрібне порівняння `next-intl` та Intlayer як бібліотек, прочитайте [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/next-intl_vs_intlayer.md). Ця стаття про те, як адаптер змінює все, коли ви зберігаєте компоненти як вони є.
 
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/next-intl_vs_intlayer.md)
+
 <TOC/>
 
 > **tl;dr**: На тій же Next.js програмі заміна `next-intl` на `@intlayer/next-intl` зменшила JavaScript на сторінку з **153.6 KB до 147.5 KB** gzip, середній компонент з **21.8 KB до 8.1 KB**, витік рядків іноземних сторінок з **~90% до 0%** та гідрацію з **14.7 ms до 12.8 ms**, без редагування компонентів. На TanStack Start еквівалент `use-intl` (`@intlayer/use-intl`) зменшив компоненти з **76-87 KB до 9-11 KB** та перемикання локалі з **7-21 ms до 4-9 ms**. Адаптер коштує **8.0 KB** runtime порівняно з **14.7 KB** для `next-intl` та **5.5 KB** для нативного `next-intlayer`. Навігація та middleware переімплементовані на конфігурації маршрутизації Intlayer; локалізовані `pathnames` - це одна функція, яка не перенесена.
@@ -145,6 +147,8 @@ style="border:none;"
 
 > Повна таблиця, кожна бібліотека та стратегія у [звіті про бенчмарк Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/nextjs.md).
 
+- [звіті про бенчмарк Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/nextjs.md)
+
 ### Результати на TanStack Start (`use-intl`)
 
 `use-intl` - це framework-агностичне ядро `next-intl`. Його адаптер `@intlayer/use-intl` слідує тому ж дизайну з Vite плагіном (`@intlayer/use-intl/plugin`).
@@ -176,6 +180,8 @@ style="border:none;"
 />
 
 > Повна таблиця у [звіті про бенчмарк TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/tanstack.md).
+
+- [звіті про бенчмарк TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/tanstack.md)
 
 ## Чому змінюються цифри
 
@@ -329,6 +335,8 @@ export default withIntlayer(nextConfig);
 
 Форматери базуються на нативному `Intl`, і лише локаль впливає на їх результат. Якщо для стабільної гідратації дат ви покладаєтеся на примусовий часовий пояс або фіксований `now`, обробляйте це у місці виклику. Див. [форматування дати, часу та чисел](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/date_time_number_formatting_locales.md).
 
+- [форматування дати, часу та чисел](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/date_time_number_formatting_locales.md)
+
 </Accordion>
 </AccordionGroup>
 
@@ -349,6 +357,8 @@ export default withIntlayer(nextConfig);
 
 Для нових проєктів або коли адаптер виконав свою перехідну роль. Це найлегший із трьох варіантів (5.5 KB, +0.3 KB на сторінку), що відкриває синхронні серверні компоненти, файли `.content.ts` для кожного компонента та повний набір функцій. Почніть з [Intlayer з Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_nextjs_16.md).
 
+- [Intlayer з Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_nextjs_16.md)
+
 </Accordion>
 </AccordionGroup>
 
@@ -365,6 +375,8 @@ export default withIntlayer(nextConfig);
 <Question title="Що відбувається з повідомленнями ICU?">
 
 Вони продовжують працювати. `t("key", { count })`, `t.rich()`, `t.markup()`, `select`, `selectordinal`, `#` та `{ts, date, long}` обробляються резолвером ICU в Intlayer. Див. [формат повідомлень ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md).
+
+- [формат повідомлень ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)
 
 </Question>
 
@@ -425,3 +437,5 @@ export default withIntlayer(nextConfig);
 Усі вихідні дані, тестові додатки та скрипти знаходяться в репозиторії [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Запустіть це самостійно.
 
 Зверніться до документації ['Why Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/interest_of_intlayer.md) для більш детальної інформації.
+
+- [Чому Intlayer? Переваги над іншими i18n-бібліотеками](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/interest_of_intlayer.md)

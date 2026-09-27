@@ -51,6 +51,8 @@ Hướng dẫn này sẽ thiết lập cả ba thành phần trên, sau đó tr�
 
 > So sánh hai phương pháp tiếp cận dựa trên trình biên dịch? Đọc bài viết [Intlayer có nhẹ hơn Paraglide không?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/is_intlayer_lighter_than_paraglide.md).
 
+- [Intlayer có nhẹ hơn Paraglide không?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/is_intlayer_lighter_than_paraglide.md)
+
 > Để hiểu các thư viện này đến từ đâu, hãy đọc lịch sử i18n trong JavaScript.
 
 - [Lịch sử i18n trong JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/history_of_i18n.md)
@@ -58,6 +60,8 @@ Hướng dẫn này sẽ thiết lập cả ba thành phần trên, sau đó tr�
 ## Dữ liệu benchmark nói gì về Paraglide trên TanStack Start
 
 Bài [kiểm thử benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md) chạy cùng một ứng dụng TanStack Start 10 trang, 10 ngôn ngữ với mọi thư viện phổ biến và đo lường dung lượng thực tế mà trình duyệt tải về.
+
+- [kiểm thử benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md)
 
 <I18nBenchmark framework="tanstack" packages="paraglide,intlayer" vertical/>
 
@@ -78,6 +82,8 @@ Những điểm cần lưu ý:
 - **Thời gian tải trang chậm nhất trong nhóm**, một phần vì locale được giải quyết thông qua các chiến lược (strategies) trong mỗi lần gọi thay vì đọc trực tiếp từ React context.
 
 > Xem toàn bộ dữ liệu: [Báo cáo benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md), và [kho lưu trữ benchmark](https://github.com/intlayer-org/benchmark-i18n).
+
+- [Báo cáo benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md)
 
 ## So sánh tính năng trên TanStack Start
 
@@ -102,6 +108,8 @@ Cách Paraglide JS so sánh với các thư viện khác thường được dùn
 | **Bản dịch thiếu trong CI**                 | ✅ `npx intlayer test`                   | ⚠️ Không tích hợp sẵn    | ⚠️ Không tích hợp sẵn                | ✅ `lingui compile --strict`   |
 
 > Kích thước runtime và số liệu rò rỉ đến từ [Benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md). Độ rò rỉ được đo trên thiết lập tối ưu nhất của từng thư viện.
+
+- [Benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md)
 
 > Các hướng dẫn TanStack Start khác:
 
@@ -837,7 +845,12 @@ Không có adapter chuyển đổi trực tiếp từ Paraglide sang Intlayer, v
 
 Nếu bạn chuyển từ một thư viện khác thay vì Paraglide, các [compat adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/index.md) sẽ giữ nguyên API của `use-intl`, `next-intl`, `react-i18next`, `react-intl` hoặc Lingui và chỉ thay thế runtime.
 
+- [compat adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/index.md)
+
 Xem [Intlayer có nhẹ hơn Paraglide không?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/is_intlayer_lighter_than_paraglide.md) và [Hướng dẫn Intlayer cho TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_tanstack.md).
+
+- [Intlayer có nhẹ hơn Paraglide không?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/is_intlayer_lighter_than_paraglide.md)
+- [Hướng dẫn Intlayer cho TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_tanstack.md)
 
 </Step>
 <Step number={17} title="Tự động hóa bản dịch bằng Intlayer" isOptional={true}>
@@ -859,6 +872,8 @@ Paraglide giúp hiển thị các bản dịch, nhưng nó không hỗ trợ b�
 <Question title="Paraglide JS có phải là lựa chọn tốt cho TanStack Start không?">
 
 Đó là một lựa chọn đáng tin cậy: nó được sử dụng trong các ví dụ chính thức của TanStack Router, có runtime nhỏ nhất trong [bài kiểm thử benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md) (~1.8 KB gzip), và các thông điệp có kiểu dữ liệu đầy đủ. Sự đánh đổi là mỗi hàm thông điệp chứa toàn bộ các locale, làm rò rỉ khoảng một nửa chuỗi dịch tới người dùng ngôn ngữ khác, và việc đổi ngôn ngữ sẽ tải lại trang.
+
+- [bài kiểm thử benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md)
 
 </Question>
 <Question title="Tôi có cần phân đoạn route $locale với Paraglide không?">
@@ -889,6 +904,9 @@ Các **thông điệp (messages)** không sử dụng sẽ bị loại bỏ khi 
 <Question title="Tôi có thể chuyển đổi từ Paraglide sang Intlayer không?">
 
 Có. Cả hai đều dựa trên trình biên dịch (compiler-based), nên mô hình tư duy rất tương đồng. Hãy giữ các tệp JSON của bạn với [plugin đồng bộ JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/plugins/sync-json.md), sau đó thay thế các lệnh gọi `m.key()` bằng `useIntlayer`, từng trang một. Xem [Hướng dẫn Intlayer cho TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_tanstack.md).
+
+- [plugin đồng bộ JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/plugins/sync-json.md)
+- [Hướng dẫn Intlayer cho TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_tanstack.md)
 
 </Question>
 

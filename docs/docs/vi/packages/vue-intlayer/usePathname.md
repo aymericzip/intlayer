@@ -30,7 +30,7 @@ author: aymericzip
 
 # Tích hợp Vue: Tài liệu `usePathname`
 
-Hàm `usePathname` trả về pathname của trình duyệt hiện tại đã được loại bỏ phân đoạn locale, dưới dạng một `ComputedRef<string>` của Vue. Điều này rất hữu ích khi xây dựng điều hướng nhận biết locale — ví dụ: để xác định mục điều hướng nào đang hoạt động — mà không cần phải cắt bỏ tiền tố locale một cách thủ công.
+Hàm `usePathname` trả về pathname của trình duyệt hiện tại đã được loại bỏ phân đoạn locale, dưới dạng một `ComputedRef<string>` của Vue. Điều này rất hữu ích khi xây dựng điều hướng nhận biết locale, ví dụ: để xác định mục điều hướng nào đang hoạt động, mà không cần phải cắt bỏ tiền tố locale một cách thủ công.
 
 ## Nhập (Import) `usePathname` trong Vue
 

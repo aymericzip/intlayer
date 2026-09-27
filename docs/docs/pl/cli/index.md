@@ -110,6 +110,8 @@ bun add intlayer-cli -g
 
 Pakiet `intlayer-cli` służy do transpilacji [deklaracji intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/content_file.md) do słowników.
 
+- [deklaracji intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/content_file.md)
+
 Ten pakiet transpiluje wszystkie pliki intlayer, takie jak `src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}`. [Zobacz jak deklarować pliki deklaracji Intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
 
 Do interpretacji słowników intlayer możesz użyć interpreterów, takich jak [react-intlayer](https://www.npmjs.com/package/react-intlayer) lub [next-intlayer](https://www.npmjs.com/package/next-intlayer).
@@ -127,13 +129,17 @@ Intlayer akceptuje wiele formatów plików konfiguracyjnych:
 
 Aby dowiedzieć się, jak skonfigurować dostępne języki lub inne parametry, zapoznaj się z [dokumentacją konfiguracji tutaj](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md).
 
+- [dokumentacją konfiguracji tutaj](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md)
+
 ## Wykonywanie poleceń Intlayer
 
 ### Uwierzytelnianie
 
 - **[Zaloguj](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/login.md)** - Uwierzytelnij się w Intlayer CMS i uzyskaj dane dostępu
 
-> `intlayer login` wydaje **klucz dostępu** (`clientId` / `clientSecret`), który jest używany przez każde polecenie wymagające uwierzytelnienia. Sekret jest poświadczeniem po stronie serwera i nigdy nie trafia do Twojego pakietu klienta — zobacz [Keeping the access key safe](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/login.md#keeping-the-access-key-safe).
+> `intlayer login` wydaje **klucz dostępu** (`clientId` / `clientSecret`), który jest używany przez każde polecenie wymagające uwierzytelnienia. Sekret jest poświadczeniem po stronie serwera i nigdy nie trafia do Twojego pakietu klienta, zobacz [Keeping the access key safe](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/login.md#keeping-the-access-key-safe).
+
+- [Keeping the access key safe](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/login.md#keeping-the-access-key-safe)
 
 ### Polecenia Podstawowe
 

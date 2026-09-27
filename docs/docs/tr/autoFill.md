@@ -118,6 +118,8 @@ export default exampleContent;
 
 `fill` talimatını kullanan [locale başına içerik bildirim dosyası](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/per_locale_file.md).
 
+- [locale başına içerik bildirim dosyası](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/per_locale_file.md)
+
 Daha sonra, aşağıdaki komutu çalıştırdığınızda:
 
 ```bash packageManager="npm"

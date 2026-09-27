@@ -31,6 +31,9 @@ author: aymericzip
 
 कवरेज टूलिंग भी आसानी से पोर्ट हो जाती है: आपके मौजूदा कैटलॉग को लक्षित करने वाले [Sync JSON प्लगइन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-json.md), या आपके वर्तमान इम्पोर्ट को एलियास करने वाले [कम्पैट एडॉप्टर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/index.md) के साथ, कवरेज असर्शन सीधे आपके मौजूदा JSON पर चलता है।
 
+- [Sync JSON प्लगइन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-json.md)
+- [कम्पैट एडॉप्टर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/index.md)
+
 ## तय करें कि आप वास्तव में क्या परीक्षण कर रहे हैं
 
 अनुवाद की गुणवत्ता कोड टेस्ट से जांची जाने वाली चीज़ नहीं है। कोई भी असर्शन यह नहीं बता सकता कि जर्मन स्वाभाविक लग रही है या नहीं, और ऐसा करने की कोशिश करने से आपका टेस्ट सुइट हार्डकोडेड स्ट्रिंग्स से भर जाता है।
@@ -46,6 +49,8 @@ author: aymericzip
 | स्वरूपित तिथियां और संख्याएं लोकेल का उपयोग करती हैं | `Intl` की आंतरिक शुद्धता             |
 
 कवरेज की जांच एक डेटा-संचालित परीक्षण में होनी चाहिए, आपके कंपोनेंट परीक्षणों में नहीं। इसे [अनुपस्थित अनुवादों का पता लगाना](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/detecting_missing_translations.md) में विस्तार से बताया गया है; यह पोस्ट बाकी चीज़ों के बारे में है।
+
+- [अनुपस्थित अनुवादों का पता लगाना](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/detecting_missing_translations.md)
 
 ## प्रोवाइडर के तहत रेंडर करें और रोल (Role) पर जोर दें
 
@@ -122,6 +127,8 @@ describe.each([0, 1, 2, 3, 11, 100])("count %i", (count) => {
 ```
 
 हर जगह केवल 1 और 2 का परीक्षण करने के बजाय अपनी सबसे जटिल भाषा के लिए प्रत्येक CLDR श्रेणी को छूने वाले आंकड़े चुनें। `Intl.PluralRules` बताता है कि कोई संख्या किस श्रेणी में आती है, जिससे आप अनुमान लगाने के बजाय नमूने प्राप्त कर सकते हैं। श्रेणियों के बारे में अधिक जानकारी [ICU संदेश प्रारूप पोस्ट](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/icu_message_format.md) में है।
+
+- [ICU संदेश प्रारूप पोस्ट](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/icu_message_format.md)
 
 ## स्नैपशॉट का जाल
 

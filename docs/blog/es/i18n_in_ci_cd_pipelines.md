@@ -44,7 +44,12 @@ const config = {
 export default config;
 ```
 
+- [plugin Sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/plugins/sync-json.md)
+
 Tu aplicación sigue importando lo mismo de siempre. Los procesos de CI completan y protegen tus catálogos existentes, y el diff que el revisor ve es una simple actualización en `locales/fr/checkout.json`, no una migración de arquitectura. Existe un [plugin Sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/plugins/sync-po.md) para flujos gettext, y [adaptadores de compatibilidad](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compat/index.md) para mantener la API en tiempo de ejecución sin cambios.
+
+- [plugin Sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/plugins/sync-po.md)
+- [adaptadores de compatibilidad](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compat/index.md)
 
 ## Separa el control de bloqueo (gate) del llenado (fill)
 
@@ -167,6 +172,8 @@ test("no tiene locales requeridos faltantes", async () => {
 
 `npx intlayer content test` imprime un informe pero devuelve código de salida cero, por lo que solo informa sin bloquear. Úsalo en local; usa la aserción en CI. Más detalles en [detectar traducciones faltantes](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/detecting_missing_translations.md).
 
+- [detectar traducciones faltantes](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/detecting_missing_translations.md)
+
 ## `requiredLocales` hace viable el gate
 
 Un gate que exija dieciocho idiomas completos bloquea cada despliegue hasta que el idioma más rezagado esté listo, terminando por ser desactivado en menos de un mes.
@@ -209,6 +216,8 @@ export default config;
 ```
 
 Esto se adapta a equipos donde personas no técnicas gestionan los textos. Es un intercambio: ganas autonomía editorial y pierdes la propiedad de que un checkout de git describa con exactitud todo lo que la app renderiza. Detalles en la [documentación del CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md).
+
+- [documentación del CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md)
 
 Ten en cuenta que `clientSecret` es una credencial sensible de servidor. Pertenece a los secretos de CI y al entorno de tu servidor, nunca a nada que llegue al cliente.
 

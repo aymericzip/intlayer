@@ -341,7 +341,9 @@ export function middleware(request: NextRequest) {
 
 SolidJS, Vue ve Svelte için `intlayerProxy` Vite eklentisi geliştirme sırasında yeniden yazmaları (rewrites) yönetir.
 
-> Intlayer v9'dan itibaren, `intlayerProxy()` doğrudan `intlayer()` eklentisinin içinde paketlenmiş ve `routing.enableProxy` seçeneği (`varsayılan olarak true`) aracılığıyla varsayılan olarak etkinleştirilmiştir. Aşağıda gösterildiği gibi ayrı olarak kaydetmek artık isteğe bağlıdır — geriye dönük uyumluluk ve eklenti sırasını kontrol etmesi gereken kurulumlar için tutulmuştur. Çıkmak için `routing.enableProxy: false` ayarlayın. [v9 sürüm notlarına](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/releases/v9.md) bakın.
+> Intlayer v9'dan itibaren, `intlayerProxy()` doğrudan `intlayer()` eklentisinin içinde paketlenmiş ve `routing.enableProxy` seçeneği (`varsayılan olarak true`) aracılığıyla varsayılan olarak etkinleştirilmiştir. Aşağıda gösterildiği gibi ayrı olarak kaydetmek artık isteğe bağlıdır, geriye dönük uyumluluk ve eklenti sırasını kontrol etmesi gereken kurulumlar için tutulmuştur. Çıkmak için `routing.enableProxy: false` ayarlayın. [v9 sürüm notlarına](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/releases/v9.md) bakın.
+
+- [v9 sürüm notlarına](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/releases/v9.md)
 
 ```typescript fileName="vite.config.ts"
 import { defineConfig } from "vite";

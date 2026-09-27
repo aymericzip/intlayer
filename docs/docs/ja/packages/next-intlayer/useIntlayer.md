@@ -76,6 +76,8 @@ Next.js アプリケーションでクライアントサイドコンポーネン
 
 コンテンツ宣言ファイルの設定手順は[こちら](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)で確認できます。
 
+- [コンテンツ宣言ファイル（.content.ts）](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)
+
 ## Next.jsでの使用例
 
 `useIntlayer` フックを Next.js ページ内に実装して、アプリケーションの現在のロケールに基づいて動的にローカライズされたコンテンツを読み込む方法を以下に示します:

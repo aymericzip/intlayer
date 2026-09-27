@@ -149,6 +149,9 @@ npx intlayer init infra --mode compose
 
 A mesma etapa é oferecida por `npx intlayer init --interactive`. Consulte a [referência do `init infra`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/infra.md) para as configurações do instalador, e o [guia de auto-hospedagem](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/self_hosting.md) para ver o que cada modo configura.
 
+- [referência do `init infra`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/infra.md)
+- [guia de auto-hospedagem](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/self_hosting.md)
+
 ## Exemplo de saída:
 
 ```bash

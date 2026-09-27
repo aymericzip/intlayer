@@ -78,6 +78,9 @@ Intlayer はコンテンツ宣言 (`.content.ts`) をルートロジックと同
 
 コードファーストのワークフローだけでなく、Intlayer はセルフホスト可能な [ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md) と [リモート CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md) を提供し、開発者以外の編集者や翻訳者がコードを再デプロイすることなく文言を更新できるようにします。
 
+- [ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)
+- [リモート CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)
+
 </Accordion>
 </AccordionGroup>
 
@@ -219,6 +222,8 @@ module.exports = config;
 
 > その他の設定オプションについては、[設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md) を参照してください。
 
+- [設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)
+
 </Step>
 <Step number={3} title="多言語コンテンツの宣言">
 
@@ -255,6 +260,8 @@ export default homeContent;
 ```
 
 > Intlayer は JSON、YAML、および CommonJS 形式もサポートしています。[コンテンツ宣言ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md) をご覧ください。
+
+- [コンテンツ宣言ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)
 
 </Step>
 <Step number={4} title="Intlayer 辞書のビルド">
@@ -303,6 +310,8 @@ const { title } = useIntlayer("home");
 `useIntlayer("home", "fr")` または `useIntlayer("faq", { item: 2 })` は1回の呼び出しでリクエストロケールを上書きし、`useDictionary(homeContent)` はキーの代わりにインポートされた辞書を読み取ります。リクエスト外ではフックはデフォルトロケールにフォールバックします。
 
 > ミドルウェアはサーバー起動時に Intlayer 辞書も準備するため、`intlayer build` が実行されていなくてもレジストリが空になることはありません。
+
+> `intlayer.config.ts` で `routing.enableProxy: false` を設定すると、ロケールの解決のみを維持し、ルーティングは自分で処理できます。`intlayer({ ignore })` は一致するリクエスト（例えば API のプレフィックス）をそのまま通し、`intlayer({ isDevServer })` はデフォルトの `enableProxy` 自動モードで保存されたロケールがリダイレクトを決定するかどうかを制御します。
 
 </Step>
 <Step number={6} title="型安全なルートの定義">

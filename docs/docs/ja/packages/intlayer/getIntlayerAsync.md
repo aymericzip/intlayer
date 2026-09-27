@@ -36,7 +36,11 @@ author: aymericzip
 
 これは [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getIntlayer.md) の非同期対応であり、ルート `head` / メタデータビルダー、ローダー、サーバー関数など、レンダリング外で辞書が読み込まれる場所を対象としています。
 
+- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getIntlayer.md)
+
 `getIntlayer` がすべてのロケールを保持するマージされた辞書を取得する場合、[ビルドプラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)（`@intlayer/babel`、`@intlayer/swc`）はこの呼び出しを `getDictionaryAsync(loaderMap, key, locale)` に書き換え、`.intlayer/dynamic_dictionaries/` のロケール別チャンクを指すようにします。したがって、バンドルには実際にリクエストされたロケールのみが含まれます。
+
+- [ビルドプラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)
 
 これらのプラグインがない場合（最適化されていないビルド）、呼び出しは同期辞書レジストリを通じて解決されます。ロケール別に分割されていない同じコンテンツです。
 
@@ -61,18 +65,18 @@ getIntlayerAsync(
 
 - `key: DictionaryKeys`
   - **説明**: コンテンツファイルで宣言されたとおりの辞書キー。
-  - **型**: `DictionaryKeys` — すべての宣言された辞書キーの Union。
+  - **型**: `DictionaryKeys`、すべての宣言された辞書キーの Union。
   - **必須**: Yes
 
 - `localeOrSelector: LocalesValues | DictionarySelector`
   - **説明**: コンテンツを解釈するロケール、または[動的辞書](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/index.md)のセレクタオブジェクト。
-    - `'fr'` — ロケール
-    - `{ item: 2 }` — [collection](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/collections.md)アイテム（すべてのアイテムを配列として取得するには`item`を省略）
-    - `{ variant: 'black-friday' }` — 名前付き[variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/variants.md)（`default`を使用するには省略）
-    - `{ variant: { id: 'prod_abc', userId: '123' } }` — 構造化された variant
+    - `'fr'`：ロケール
+    - `{ item: 2 }`：[collection](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/collections.md)アイテム（すべてのアイテムを配列として取得するには`item`を省略）
+    - `{ variant: 'black-friday' }`：名前付き[variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/variants.md)（`default`を使用するには省略）
+    - `{ variant: { id: 'prod_abc', userId: '123' } }`：構造化された variant
     - 任意のセレクタがロケールを持つ可能性: `{ item: 2, locale: 'fr' }`
   - **型**: `LocalesValues | DictionarySelector`
-  - **必須**: No (オプション) — 設定された `defaultLocale` がデフォルト。
+  - **必須**: No (オプション)、設定された `defaultLocale` がデフォルト。
 
 - `plugins: Plugins[]`
   - **説明**: 基本インタープリタプラグインを置き換えるカスタムノード トランスフォーマー。高度な使用のみ。
@@ -81,7 +85,7 @@ getIntlayerAsync(
 
 ### Returns
 
-- **Type**: `Promise<Content>` — 辞書の解釈されたコンテンツに解決する promise。型は宣言から取得されます。
+- **Type**: `Promise<Content>`、辞書の解釈されたコンテンツに解決する promise。型は宣言から取得されます。
 
 ## 使用例
 
@@ -95,12 +99,12 @@ const { title } = await getIntlayerAsync("app", "fr"); // "Bonjour"
 
 ## `getIntlayer` vs `getIntlayerAsync`
 
-|                    | [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getIntlayer.md) | `getIntlayerAsync`                                |
-| ------------------ | --------------------------------------------------------------------------------------------------------------- | ------------------------------------------------- |
-| Returns            | コンテンツ                                                                                                      | コンテンツのPromise                               |
-| Dictionary loaded  | マージされたディクショナリ（すべてのロケール）                                                                  | リクエストされたロケールのチャンクのみ            |
-| Best suited for    | レンダリング、同期コードパス                                                                                    | メタデータ、ローダー、サーバー関数                |
-| Requires a plugin? | No                                                                                                              | No — per-locale splitはビルドプラグインが必要です |
+|                    | [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getIntlayer.md) | `getIntlayerAsync`                               |
+| ------------------ | --------------------------------------------------------------------------------------------------------------- | ------------------------------------------------ |
+| Returns            | コンテンツ                                                                                                      | コンテンツのPromise                              |
+| Dictionary loaded  | マージされたディクショナリ（すべてのロケール）                                                                  | リクエストされたロケールのチャンクのみ           |
+| Best suited for    | レンダリング、同期コードパス                                                                                    | メタデータ、ローダー、サーバー関数               |
+| Requires a plugin? | No                                                                                                              | No、per-locale splitはビルドプラグインが必要です |
 
 両方とも同じ引数を受け入れ、同じコンテンツを返します。一方から他方に切り替えることで変わるのは、**いつ**と**どの程度**のロードが行われるかだけです。
 

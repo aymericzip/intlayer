@@ -41,9 +41,13 @@ author: aymericzip
 
 Siehe einen konkreten Vergleich mit vue-i18n in unserem Blogbeitrag [vue-i18n vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/vue-i18n_vs_intlayer.md).
 
+- [vue-i18n vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/vue-i18n_vs_intlayer.md)
+
 ## Warum Intlayer mit vue-i18n kombinieren?
 
 Während Intlayer eine hervorragende eigenständige i18n-Lösung bietet (siehe unseren [Vue.js-Integrationsleitfaden](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_vite+vue.md)), möchten Sie es möglicherweise aus mehreren Gründen mit vue-i18n kombinieren:
+
+- [Vue.js-Integrationsleitfaden](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_vite+vue.md)
 
 1. **Bestehender Codebestand**: Sie haben eine etablierte vue-i18n-Implementierung und möchten schrittweise auf die verbesserte Entwicklererfahrung von Intlayer migrieren.
 2. **Legacy-Anforderungen**: Ihr Projekt erfordert Kompatibilität mit bestehenden vue-i18n-Plugins oder Workflows.
@@ -144,6 +148,8 @@ Wenn Änderungen über die CLI zur Übersetzung des JSON vorgenommen werden oder
 
 Um weitere Details zum `syncJSON`-Plugin zu sehen, lesen Sie bitte die [syncJSON Plugin-Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/plugins/sync-json.md).
 
+- [syncJSON Plugin-Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/plugins/sync-json.md)
+
 </Step>
 <Step number={3} title="Implementierung von komponentenbezogenen JSON-Übersetzungen" isOptional={true}>
 
@@ -206,4 +212,4 @@ Diese Dateien werden während des Build-Prozesses automatisch neu generiert und 
 
 Für eine verbesserte Entwicklererfahrung installieren Sie die offizielle **Intlayer VS Code Erweiterung**:
 
-[Installation aus dem VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [Installation aus dem VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

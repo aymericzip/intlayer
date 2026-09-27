@@ -175,6 +175,8 @@ export default config;
 
 > Konfigürasyonun tam seçenekleri için [yapılandırma belgelerine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) bakın.
 
+- [yapılandırma belgelerine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md)
+
 </Step>
 <Step number={3} title="İçeriğinizi Bildirin">
 
@@ -220,6 +222,8 @@ export default appContent;
 ```
 
 > İçerik bildirimleri `contentDir` altında herhangi bir yerde bulunabilir (varsayılan olarak `./src`) ve `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}` ile eşleşir. Bkz. [içerik bildirimi belgeleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md).
+
+- [içerik bildirimi belgeleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md)
 
 </Step>
 <Step number={4} title="Intlayer middleware'ini kaydet">
@@ -641,7 +645,7 @@ Intlayer tarafından oluşturulan dosyaları yok saymak önerilir:
 
 Intlayer ile geliştirme deneyiminizi iyileştirmek için resmi **Intlayer VS Code Uzantısı**'nı yükleyebilirsiniz.
 
-[VS Code Marketplace'ten Yükleyin](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [VS Code Marketplace'ten Yükleyin](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 Bu extension şunları sağlar:
 
@@ -652,9 +656,13 @@ Bu extension şunları sağlar:
 
 Extension'ın nasıl kullanılacağı hakkında daha fazla bilgi için [Intlayer VS Code Extension belgelerine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/vs_code_extension.md) bakın.
 
+- [Intlayer VS Code Extension belgelerine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/vs_code_extension.md)
+
 ### Daha İleri Gidin
 
 Daha ileri gitmek için, içeriğinizi [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) kullanarak dışsallaştırabilirsiniz, böylece çevirmenler bir deployment olmadan metni değiştirebilir.
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)
 
 ## Sıkça Sorulan Sorular
 
@@ -679,6 +687,9 @@ Hayır. Ziyaretçinin gördüğü her şey sunucu tarafından üretilir, bu nede
 
 Sayfalarınızı bir yerel ön eki altında sunun (`/fr/cart`) ve tam sayfa renderi için yerel kodu yoldan okuyun, tanımlama bilgisinden değil, rota işleyicinizde. Parçalar tanımlama bilgisini veya başlığı kullanmaya devam edebilir. [konfigürasyon](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) için yönlendirme seçeneklerine ve [özel URL yeniden yazımları](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/custom_url_rewrites.md) bölümüne bakın.
 
+- [konfigürasyon](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md)
+- [özel URL yeniden yazımları](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/custom_url_rewrites.md)
+
 </Question>
 <Question title="Sağdan sola dilleri nasıl işleyebilirim?">
 
@@ -694,25 +705,44 @@ Evet, bir şablon dizesine interpolate ettiğiniz herhangi bir şey için, diğe
 
 Evet. Backend integrations, `t()` ve `getIntlayer()` fonksiyonlarını herhangi bir handler'a expose eder, böylece bir toast'ta gösterilen bir hata mesajı ve bir fragment'e render edilen bir label aynı declared content'ten gelir. [Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_express.md), [Fastify](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_fastify.md), [Hono](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_hono.md) ve [Elysia](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_elysia.md) rehberlerine bakın.
 
+- [Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_express.md)
+- [Fastify](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_fastify.md)
+- [Hono](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_hono.md)
+- [Elysia](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_elysia.md)
+
 </Question>
 <Question title="İçeriği key by key taşımak zorunda mıyım?">
 
 Hayır. `npx intlayer extract` komutunu çalıştırın ve Intlayer kaynak dosyalarınızı okuyup kullanıcı tarafından görünen stringleri çıkartarak her birinin yanına bir `.content` dosyası yazar, böylece kataloğa birer birer string kopyalamak yerine bir diff'i gözden geçirirsiniz. [extract komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract.md) sayfasına bakınız.
+
+- [extract komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract.md)
 
 </Question>
 <Question title="Mevcut JSON çeviri dosyalarımı tutabilir miyim?">
 
 Evet. [sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-json.md) sizin `/messages/{locale}/{namespace}.json` dosyalarınızı gerçeğin kaynağı olarak tutar ve her iki yönde de bunlardan Intlayer sözlükleri oluşturur. Bir [sync PO plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-po.md) gettext kataloğu için aynısını yapar ve [locale başına dosyalar](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/per_locale_file.md) içeriği locales'i bir dosyada gruplamak yerine dile göre bölmenizi sağlar.
 
+- [sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-json.md)
+- [sync PO plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-po.md)
+- [locale başına dosyalar](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/per_locale_file.md)
+
 </Question>
 <Question title="Uygulamayı AI ile otomatik olarak nasıl çevirebilirim?">
 
 `npx intlayer fill` komutunu çalıştırın; bu komut, kendi provider'ınız ve API anahtarınızı kullanarak seçtiğiniz LLM ile eksik çevirileri doldurur. Branch'de yapılan içeriği çevirmek için `--git-diff` ekleyin. Bkz. [fill komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/fill.md) ve [CI/CD entegrasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/CI_CD.md).
 
+- [fill komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/fill.md)
+- [CI/CD entegrasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/CI_CD.md)
+
 </Question>
 <Question title="Intlayer cinsiyet, koşullar ve interpole edilmiş değerleri destekliyor mu?">
 
 Evet: [cinsiyet tabanlı içerik](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/gender.md), koşullar, [numaralandırmalar](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/enumeration.md), [eklemeler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/insertion.md) enterpolasyonlu değerler için ve [formatlayıcılar](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/formatters.md) sayılar, tarihler ve para birimler için.
+
+- [cinsiyet tabanlı içerik](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/gender.md)
+- [numaralandırmalar](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/enumeration.md)
+- [eklemeler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/insertion.md)
+- [formatlayıcılar](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/formatters.md)
 
 </Question>
 <Question title="Hangi editör ve AI aracı araçları mevcuttur?">
@@ -729,6 +759,9 @@ Beş parça, hepsi isteğe bağlı:
 <Question title="Intlayer ücretsiz ve açık kaynak mı?">
 
 Evet, Apache 2.0 lisansı altında, ticari kullanım dahil. Barındırılan [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) isteğe bağlı bir ücretli hizmettir ve ayrıca [kendi kendine barındırılabilir](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/self_hosting.md).
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)
+- [kendi kendine barındırılabilir](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/self_hosting.md)
 
 </Question>
 

@@ -322,6 +322,8 @@ loadPO({
 
 См. [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md) для получения более подробной информации.
 
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md)
+
 ## Ограничения (текущие)
 
 - Отсутствие поддержки вставок или множественного числа/ICU при нацеливании на сторонние библиотеки.

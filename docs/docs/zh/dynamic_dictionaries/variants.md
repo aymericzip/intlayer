@@ -23,7 +23,7 @@ history:
     changes: "变体功能发布"
   - version: 9.1.0
     date: 2026-06-26
-    changes: "`variant` 现在接受字符串或对象 — 以前的 `meta` / 动态记录现在声明为对象变体"
+    changes: "`variant` 现在接受字符串或对象，以前的 `meta` / 动态记录现在声明为对象变体"
   - version: 9.1.1
     date: 2026-07-31
     changes: "变体仅声明它覆盖的键；未声明的变体将回退到默认条目"
@@ -39,8 +39,8 @@ author: aymericzip
 
 `variant` 的值可以采用**两种形式**：
 
-- **字符串** — 单个具名替代项（A/B 测试、季节性横幅、功能开关）。
-- **对象** — 由一组字段寻址的结构化判别器（CMS 记录、用户特定文案、以不透明 ID 作为键的任何内容）。整个对象即为标识：选择器必须提供一个**相等**的对象才能解析该条目。
+- **字符串**：单个具名替代项（A/B 测试、季节性横幅、功能开关）。
+- **对象**：由一组字段寻址的结构化判别器（CMS 记录、用户特定文案、以不透明 ID 作为键的任何内容）。整个对象即为标识：选择器必须提供一个**相等**的对象才能解析该条目。
 
 > 对象形式取代了以前的 `meta` 字段。凡是以前写 `meta: { id, … }` 的地方，请改写为 `variant: { id, … }`，并用 `{ variant: { id, … } }` 进行选择。
 
@@ -74,8 +74,8 @@ const dictionary = {
   variant: "black_friday",
   content: {
     headline: t({
-      en: "50 % off — today only",
-      fr: "−50 % — aujourd'hui seulement",
+      en: "50 % off, today only",
+      fr: "−50 %, aujourd'hui seulement",
     }),
     cta: t({ en: "Shop now", fr: "Acheter maintenant" }),
   },
@@ -107,7 +107,7 @@ export default dictionary;
 
 ```tsx
 useIntlayer("hero-banner", { variant: "summer" });
-// → { headline: "Développez plus vite tout l'été", cta: "Commencer" } — 继承了 `cta`
+// → { headline: "Développez plus vite tout l'été", cta: "Commencer" }, 继承了 `cta`
 
 useIntlayer("hero-banner", { variant: "never-declared" });
 // → 默认条目
@@ -278,7 +278,7 @@ const content = useIntlayer("hero-banner", {
 
 ## 对象（结构化）变体
 
-对象变体通过在 `variant` 字段中声明的任意键值对集合来寻址内容——从而可以建模 CMS 记录、用户特定文案，或键为不透明 ID 的任何内容。**整个对象**即为标识：选择器必须提供一个相等的对象，该条目才会被解析。
+对象变体通过在 `variant` 字段中声明的任意键值对集合来寻址内容，从而可以建模 CMS 记录、用户特定文案，或键为不透明 ID 的任何内容。**整个对象**即为标识：选择器必须提供一个相等的对象，该条目才会被解析。
 
 ```ts fileName="product.abc.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
@@ -495,7 +495,7 @@ const content = useIntlayer("product", {
 });
 ```
 
-#### 缺少字段 — 无匹配
+#### 缺少字段，无匹配
 
 ```ts
 // 返回 null：缺少 `userId`，因此对象与声明的变体不匹配
@@ -504,7 +504,7 @@ const content = useIntlayer("product", { variant: { id: "prod_abc" } });
 
 ## 环境变体
 
-有些变体维度在整个会话中都是固定的——租户、学校类型、套餐等级。它们只需解析一次，任何组件都不应手动传递它们。
+有些变体维度在整个会话中都是固定的，租户、学校类型、套餐等级。它们只需解析一次，任何组件都不应手动传递它们。
 
 > 不要为了注入它们而把 `useIntlayer` 包装进你自己的 Hook。构建期优化只会重写从框架包中导入的字面量 `useIntlayer("key")` 调用，因此包装器背后的内容不会被打包。
 
@@ -647,7 +647,7 @@ useIntlayer("hero-banner");
 // → 提供者的变体
 
 useIntlayer("hero-banner", { variant: "summer" });
-// → "summer" —— 替换提供者的变体，而不是扩展它
+// → "summer", 替换提供者的变体，而不是扩展它
 ```
 
 ### 形式
@@ -662,7 +662,7 @@ useIntlayer("hero-banner", { variant: "summer" });
 
 #### 优先级链
 
-链会针对每个键所声明的条目从左到右依次尝试，第一个已声明的胜出。若都未声明，则使用隐式的默认条目——与单个值的行为完全一致。
+链会针对每个键所声明的条目从左到右依次尝试，第一个已声明的胜出。若都未声明，则使用隐式的默认条目，与单个值的行为完全一致。
 
 ```tsx
 <IntlayerProvider variant={["school1", "school2"]} />
@@ -692,9 +692,9 @@ useIntlayer("hero-banner", { variant: ["black_friday", "summer"] });
 />
 ```
 
-> 在提供者上，普通对象**始终**被解读为按键映射，而绝不会被当作对象变体——两者在结构上完全相同。若要全局指定对象变体，请将其嵌套在某个条目下：`variant={{ default: { id: "prod_abc" } }}`。
+> 在提供者上，普通对象**始终**被解读为按键映射，而绝不会被当作对象变体，两者在结构上完全相同。若要全局指定对象变体，请将其嵌套在某个条目下：`variant={{ default: { id: "prod_abc" } }}`。
 
-由于映射的键会与你声明的字典键进行校验，拼写错误——或直接写成对象变体，例如 `variant={{ id: "prod_abc" }}`——都会导致编译期错误。
+由于映射的键会与你声明的字典键进行校验，拼写错误（或直接写成对象变体，例如 `variant={{ id: "prod_abc" }}`）都会导致编译期错误。
 
 ## 加载模式
 
@@ -712,6 +712,8 @@ export default dictionary;
 ```
 
 有关 `static`、`dynamic` 和 `fetch` 模式的详细信息，请参阅[包优化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md)。
+
+- [包优化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md)
 
 ## 典型用例
 

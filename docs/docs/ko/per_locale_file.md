@@ -127,6 +127,8 @@ export default config;
 
 이 구성을 사용하면 모든 로케일별 파일이 기본 로케일이 영어로 설정된 상태로 생성됩니다. 또한 `extract` 명령어와 컴파일러를 사용한 `.content` 파일 생성도 포함됩니다. (자세한 내용은 [Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md) 또는 [Extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/extract.md)를 참조하세요.)
 
+- [Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md)
+
 ## 로케일별 형식
 
 이 형식은 다음과 같은 경우에 유용합니다:
@@ -265,3 +267,5 @@ console.log(JSON.stringify(intlayer, null, 2));
 ### 자동 번역 생성
 
 [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/index.md)를 사용하여 선호하는 서비스를 기반으로 누락된 번역을 자동으로 채우세요.
+
+- [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/index.md)

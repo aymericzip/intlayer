@@ -73,3 +73,5 @@ export const config = {
 ## कॉन्फ़िगरेशन
 
 मिडलवेयर को कॉन्फ़िगर करने के लिए, आप `intlayer.config.ts` फ़ाइल में `routing` विकल्प सेट कर सकते हैं। अधिक विवरण के लिए [कॉन्फ़िगरेशन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md) देखें।
+
+- [कॉन्फ़िगरेशन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md)

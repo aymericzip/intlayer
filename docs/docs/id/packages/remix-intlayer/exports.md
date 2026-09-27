@@ -37,11 +37,23 @@ npm install remix-intlayer
 
 ### Middleware
 
+Impor:
+
+```tsx
+import { intlayer } from "remix-intlayer";
+```
+
 | Ekspor     | Tipe              | Deskripsi                                                                                                         | Dokumen Terkait                                                                                                                    |
 | ---------- | ----------------- | ----------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
 | `intlayer` | Fungsi Middleware | Middleware untuk Remix 3 yang mendeteksi locale permintaan, mengelola pengalihan, dan mengisi konteks permintaan. | [Middleware intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/remix-intlayer/intlayerMiddleware.md) |
 
 ### Penyimpanan Konteks
+
+Impor:
+
+```tsx
+import { Intlayer, INTLAYER_CONTEXT_PROPERTY } from "remix-intlayer";
+```
 
 | Ekspor                      | Tipe                               | Deskripsi                                                                                                                                                 | Dokumen Terkait                                                                                                       |
 | --------------------------- | ---------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
@@ -49,6 +61,12 @@ npm install remix-intlayer
 | `INTLAYER_CONTEXT_PROPERTY` | `string`                           | Nama properti (`'intlayer'`) yang dipasang langsung pada konteks permintaan, memungkinkan akses melalui `context.intlayer` serta `context.get(Intlayer)`. | -                                                                                                                     |
 
 ### Hook
+
+Impor:
+
+```tsx
+import { useIntlayer, useDictionary, useLocale } from "remix-intlayer";
+```
 
 | Ekspor          | Tipe | Deskripsi                                                                                               | Dokumen Terkait                                                                                                              |
 | --------------- | ---- | ------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |

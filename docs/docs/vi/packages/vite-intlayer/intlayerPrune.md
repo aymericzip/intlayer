@@ -31,6 +31,8 @@ Plugin Vite `intlayerPrune` được sử dụng để thực hiện tree-shakin
 
 > Plugin đã được bao gồm và cấu hình tự động khi bạn sử dụng [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/vite-intlayer/intlayer.md). Bạn chỉ cần đăng ký nó theo cách thủ công nếu bạn đang soạn plugin stack của riêng mình.
 
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/vite-intlayer/intlayer.md)
+
 ## Cách sử dụng
 
 ### Như một phần của `intlayer()` (được khuyến nghị)
@@ -99,8 +101,8 @@ When Vite processes a compiled dictionary JSON file, `intlayerPrune` intercepts 
 
 Two content shapes are supported:
 
-- **Static dictionaries** — `{ nodeType: "translation", translation: { en: {...}, fr: {...} } }`. Fields are pruned per-locale inside `translation`.
-- **Dynamic (per-locale) dictionaries** — flat `{ fieldA: ..., fieldB: ... }`. Fields are pruned at the top level.
+- **Static dictionaries**: `{ nodeType: "translation", translation: { en: {...}, fr: {...} } }`. Fields are pruned per-locale inside `translation`.
+- **Dynamic (per-locale) dictionaries**: flat `{ fieldA: ..., fieldB: ... }`. Fields are pruned at the top level.
 
 ### 3. Các trường hợp đặc biệt
 
@@ -108,7 +110,7 @@ Nếu cấu trúc nội dung của một dictionary không thể được nhận
 
 ### 4. Field-rename map
 
-Khi pruning thành công, `intlayerPrune` cũng ghi `pruneContext.dictionaryKeyToFieldRenameMap` — một ánh xạ từ tên trường gốc sang các bí danh ngắn. `intlayerMinify` đọc bản đồ này để đổi tên các trường trong JSON đầu ra, và Babel rename pass của `intlayerOptimize` cập nhật các truy cập thuộc tính trong các tệp nguồn tương ứng.
+Khi pruning thành công, `intlayerPrune` cũng ghi `pruneContext.dictionaryKeyToFieldRenameMap`, một ánh xạ từ tên trường gốc sang các bí danh ngắn. `intlayerMinify` đọc bản đồ này để đổi tên các trường trong JSON đầu ra, và Babel rename pass của `intlayerOptimize` cập nhật các truy cập thuộc tính trong các tệp nguồn tương ứng.
 
 ## Điều kiện kích hoạt
 
@@ -118,4 +120,4 @@ Khi pruning thành công, `intlayerPrune` cũng ghi `pruneContext.dictionaryKeyT
 2. `build.optimize` là `true` (hoặc `undefined`, mặc định là `true` cho các bản build).
 3. `build.purge` là `true` trong cấu hình Intlayer của bạn.
 
-Nó vẫn hoạt động khi `editor.enabled` là `true`: trình soạn thảo trực quan phân giải mỗi chỉnh sửa thông qua `dictionaryKey` + `keyPath` dựa trên các từ điển chưa hợp nhất, mà plugin này không bao giờ đụng đến, và một trường đã bị loại bỏ là trường mà không component nào đọc — vì vậy nó không bao giờ được render và cũng không thể chọn được trên trang.
+Nó vẫn hoạt động khi `editor.enabled` là `true`: trình soạn thảo trực quan phân giải mỗi chỉnh sửa thông qua `dictionaryKey` + `keyPath` dựa trên các từ điển chưa hợp nhất, mà plugin này không bao giờ đụng đến, và một trường đã bị loại bỏ là trường mà không component nào đọc, vì vậy nó không bao giờ được render và cũng không thể chọn được trên trang.

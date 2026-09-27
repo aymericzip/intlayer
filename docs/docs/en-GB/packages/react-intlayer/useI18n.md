@@ -72,7 +72,9 @@ This hook accepts two parameters:
 
 ## Dictionary
 
-All dictionary keys must be declared within content declaration files to enhance type safety and prevent errors. [Configuration instructions can be found here](https://github.com/aymericzip/intlayer/blob/main/docs/docs/{{locale}}/dictionary/content_file.md).
+All dictionary keys must be declared within content declaration files to enhance type safety and prevent errors. [Configuration instructions can be found here](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/content_file.md).
+
+- [Configuration instructions can be found here](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/content_file.md)
 
 ## Usage Examples in React
 

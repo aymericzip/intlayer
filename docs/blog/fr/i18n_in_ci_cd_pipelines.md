@@ -44,7 +44,12 @@ const config = {
 export default config;
 ```
 
+- [plugin Sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/plugins/sync-json.md)
+
 Votre application continue d'importer ce qu'elle importe déjà. Les jobs CI complètent et valident alors vos catalogues existants, et le diff affiché au relecteur est simplement une mise à jour de `locales/fr/checkout.json`, et non une migration d'architecture. Il existe aussi un [plugin Sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/plugins/sync-po.md) pour les flux gettext, ainsi que des [adaptateurs de compatibilité](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compat/index.md) pour conserver votre API runtime actuelle.
+
+- [plugin Sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/plugins/sync-po.md)
+- [adaptateurs de compatibilité](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compat/index.md)
 
 ## Séparer le contrôle de garde (gate) du remplissage (fill)
 
@@ -167,6 +172,8 @@ test("n'a aucune locale obligatoire manquante", async () => {
 
 `npx intlayer content test` affiche un rapport mais se termine avec un code de retour 0, ce qui informe sans bloquer. Utilisez-le en local ; utilisez l'assertion en CI. Plus de précisions dans [détecter les traductions manquantes](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/detecting_missing_translations.md).
 
+- [détecter les traductions manquantes](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/detecting_missing_translations.md)
+
 ## `requiredLocales` rend le gate viable au quotidien
 
 Un contrôle exigeant les dix-huit langues complètes bloque chaque release jusqu'à l'arrivée de la dernière traduction, et finit par être désactivé en moins d'un mois.
@@ -209,6 +216,8 @@ export default config;
 ```
 
 Ce mode convient particulièrement aux équipes où des contributeurs non-techniques gèrent les textes. Il s'agit d'un compromis : vous gagnez en autonomie éditoriale et perdez la propriété où un checkout Git reflète à lui seul l'état exact de l'application. Consultez la [documentation du CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md).
+
+- [documentation du CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md)
 
 Notez que `clientSecret` est un identifiant sensible côté serveur. Il doit rester dans les secrets CI et vos variables d'environnement de serveur, jamais dans un bundle client.
 

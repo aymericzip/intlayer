@@ -36,7 +36,12 @@ Funkcja `getDictionaryAsync` ładuje **pojedynczy chunk ustawień regionalnych**
 
 Jest to odpowiednik [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/intlayer/getDictionary.md) dla map loaderów na ustawienia regionalne emitowanych w `.intlayer/dynamic_dictionaries/`: zamiast otrzymywać słownik zawierający wszystkie ustawienia regionalne, otrzymuje mapę loadera i czeka tylko na chunk potrzebny dla żądanych ustawień regionalnych.
 
+- [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/intlayer/getDictionary.md)
+
 > W kodzie aplikacji zazwyczaj wywołujesz [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/intlayer/getIntlayerAsync.md), a nie tę funkcję. [Pluginy build](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/bundle_optimization.md) przepisują każde wywołanie `getIntlayerAsync('key', locale)` na `getDictionaryAsync(loaderMap, 'key', locale)`. `getDictionaryAsync` jest eksportowana dla niestandardowych loaderów i narzędzi, które budują własne mapy loaderów.
+
+- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/intlayer/getIntlayerAsync.md)
+- [Pluginy build](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/bundle_optimization.md)
 
 **Kluczowe funkcje:**
 
@@ -71,7 +76,7 @@ getDictionaryAsync(
 - `localeOrSelector: LocalesValues | DictionarySelector`
   - **Description**: Lokalizacja do interpretacji zawartości lub obiekt selektora (`{ item }`, `{ variant }`, opcjonalnie z `locale`). Patrz [dynamiczne słowniki](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dynamic_dictionaries/index.md).
   - **Type**: `LocalesValues | DictionarySelector`
-  - **Required**: No (Optional) — defaults to the configured `defaultLocale`.
+  - **Required**: No (Optional), defaults to the configured `defaultLocale`.
 
 - `plugins: Plugins[]`
   - **Description**: Transformatory węzłów. Domyślnie ustawiony na bazowy zestaw interpretera.
@@ -80,7 +85,7 @@ getDictionaryAsync(
 
 ### Returns
 
-- **Type**: `Promise<Content>` — obietnica rozwiązująca się do interpretowanej zawartości załadowanego fragmentu.
+- **Type**: `Promise<Content>`, obietnica rozwiązująca się do interpretowanej zawartości załadowanego fragmentu.
 - **Description**: Rozwiązuje się do `null`, gdy mapa nie emituje żadnego fragmentu dla żądanej lokalizacji ani żadnych jej fallbacków, odzwierciedlając sposób, w jaki rozwiązuje się brakująca kwalifikowana współrzędna.
 
 ## Przykładowe użycie

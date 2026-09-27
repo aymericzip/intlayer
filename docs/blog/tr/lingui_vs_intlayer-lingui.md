@@ -30,6 +30,8 @@ author: aymericzip
 
 Bu makale, aynı TanStack Start uygulaması üzerinde bu değişimi ölçmektedir: biri saf Lingui ile, diğeri adaptör ile inşa edilmiştir. Veriler [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) deposundan alınmıştır. İki kütüphanenin doğrudan karşılaştırması için [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/lingui_vs_intlayer.md) yazısını okuyabilirsiniz. Bu yazı ise adaptörün neleri değiştirdiği ve nerede avantaj sağlamadığı üzerinedir.
 
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/lingui_vs_intlayer.md)
+
 <TOC/>
 
 > **Özet (tl;dr)**: Aynı TanStack Start uygulamasında `@intlayer/lingui`, makrolara dokunmadan ortalama bileşen boyutunu gzip olarak **85.5 KB'tan 12.8 KB'a**, hidrasyon süresini **28 ms'den 19.7 ms'ye** ve dil değişimini **5.9 ms'den 2.9 ms'ye** düşürdü. Basit kurulumda (her kataloğun baştan yüklendiği durum) ayrıca **%90 sayfa sızıntısını** ortadan kaldırdı ve sayfa başına 12 KB tasarruf sağladı. Ancak tembel yüklemeli (lazy-loaded) kurulumda saf Lingui'nin 115 KB'lık değerine kıyasla **sayfa başına 137 KB** gönderir: Adaptör ICU sözdizimini çalışma zamanında çözümlerken Lingui önceden derlenmiş belirteç (token) dizileri sunar. Kaynak dil sızıntısı (~%9-10), çalışma zamanından değil bileşenlere gömülü `message` yedeğinden kaynaklandığı için iki tarafta da aynıdır. Adaptör bir Vite eklentisidir ve TanStack Start üzerinde ölçülmüştür.
@@ -230,6 +232,8 @@ export default config;
 
 `.po` katalogları için, `syncJSON` yerine `@intlayer/sync-po-plugin`'den `syncPO` kullanın ve `.po` uzantılı aynı `source` desenini uygulayın. [Sync PO eklenti belgelerine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-po.md) göz atabilirsiniz.
 
+- [Sync PO eklenti belgelerine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-po.md)
+
 `splitKeys: "key-prefix"` bileşen boyutunu dramatik şekilde küçülten temel unsurdur. Katalog dosyası düz yapısını korur; bölme yalnızca üretilen sözlüklerde var olur ve geri yazma işlemi anahtarları otomatik olarak yeniden birleştirir.
 
 </Step>
@@ -307,3 +311,5 @@ export default defineConfig({
 Tüm ham veriler, test uygulamaları ve kıyaslama betikleri [Benchmark Bloom deposunda](https://github.com/intlayer-org/benchmark-bloom) mevcuttur. Kendiniz de çalıştırabilirsiniz.
 
 Daha fazla ayrıntı için ['Neden Intlayer?' dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/interest_of_intlayer.md) göz atabilirsiniz.
+
+- [Neden Intlayer? Diğer i18n kütüphanelerine göre avantajları](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/interest_of_intlayer.md)

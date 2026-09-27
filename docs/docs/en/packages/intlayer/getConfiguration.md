@@ -57,6 +57,8 @@ The function does not take any parameters. Instead, it uses environment variable
 
 See [Intlayer configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md) for more details.
 
+- [Intlayer configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)
+
 ## Example Usage
 
 ### Retrieving the Full Configuration

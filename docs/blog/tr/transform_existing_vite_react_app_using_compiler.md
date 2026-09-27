@@ -49,6 +49,8 @@ Bir Vite ve React projesine ilk günden i18n eklemek nispeten kolaydır. Ancak t
 
 > Vite ve React için adım adım kapsamlı teknik kılavuz mu arıyorsunuz? Belgelerimize göz atın: [Intlayer ile Vite ve React Çevirisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_vite+react.md).
 
+- [Intlayer ile Vite ve React Çevirisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_vite+react.md)
+
 ## İçindekiler
 
 <TOC/>
@@ -332,6 +334,8 @@ Bu rehber, 2026 yılında mimari zorluklar yaşamadan mevcut bir Vite ve React u
 Eksiksiz TypeScript tip güvenliği, dinamik sözlükler ve görsel editör dahil olmak üzere tüm yapılandırma ayrıntılarını adım adım öğrenmek için ayrıntılı kılavuzumuza göz atın:
 
 👉 **[Intlayer ile Vite ve React Çevirisi İçin Tam Kılavuz](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_vite+react.md)**
+
+- [Intlayer ile Vite ve React Çevirisi İçin Tam Kılavuz](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_vite+react.md)
 
 ## Sıkça Sorulan Sorular (FAQ)
 

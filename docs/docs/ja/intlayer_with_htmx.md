@@ -175,6 +175,8 @@ export default config;
 
 > 全オプションのリストについては、[設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を参照してください。
 
+- [設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)
+
 </Step>
 <Step number={3} title="コンテンツを宣言する">
 
@@ -220,6 +222,8 @@ export default appContent;
 ```
 
 > コンテンツ宣言は `contentDir` 以下（デフォルトは `./src`）のどこにでも配置でき、`.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}` にマッチします。[コンテンツ宣言ドキュメンテーション](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)を参照してください。
+
+- [コンテンツ宣言ドキュメンテーション](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)
 
 </Step>
 <Step number={4} title="Intlayer ミドルウェアを登録する">
@@ -649,7 +653,7 @@ Intlayer によって生成されたファイルを無視することをお勧�
 
 Intlayer を使用した開発体験を向上させるために、公式の **Intlayer VS Code Extension** をインストールできます。
 
-[VS Code Marketplace からインストール](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [VS Code Marketplace からインストール](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 このエクステンションは以下を提供します:
 
@@ -660,9 +664,13 @@ Intlayer を使用した開発体験を向上させるために、公式の **In
 
 エクステンションの使用方法の詳細については、[Intlayer VS Code エクステンションのドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)を参照してください。
 
+- [Intlayer VS Code エクステンションのドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)
+
 ### さらに進める
 
 さらに進めるには、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を使用してコンテンツを外部化できます。これにより、翻訳者はデプロイメントなしでコピーを変更できます。
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)
 
 ## よくある質問
 
@@ -687,6 +695,9 @@ Intlayer を使用した開発体験を向上させるために、公式の **In
 
 ロケールプレフィックス（`/fr/cart`）の下でページを提供し、Cookie ではなくルートハンドラーのパスからロケールを読み取ります。これはフルページレンダリングの場合です。フラグメントは引き続き Cookie またはヘッダーを使用できます。[configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)でルーティングオプションを、[custom URL rewrites](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/custom_url_rewrites.md)を参照してください。
 
+- [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)
+- [custom URL rewrites](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/custom_url_rewrites.md)
+
 </Question>
 <Question title="右から左への言語にはどのように対応しますか?">
 
@@ -702,25 +713,44 @@ Intlayer を使用した開発体験を向上させるために、公式の **In
 
 はい。バックエンド統合は `t()` と `getIntlayer()` をあらゆるハンドラーに公開するため、トーストに表示されるエラーメッセージとフラグメントにレンダリングされるラベルは、同じ宣言されたコンテンツから取得されます。[Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_express.md)、[Fastify](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_fastify.md)、[Hono](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_hono.md)、[Elysia](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_elysia.md)ガイドを参照してください。
 
+- [Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_express.md)
+- [Fastify](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_fastify.md)
+- [Hono](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_hono.md)
+- [Elysia](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_elysia.md)
+
 </Question>
 <Question title="コンテンツをキーごとに移動する必要がありますか?">
 
 いいえ。`npx intlayer extract` を実行すると、Intlayer がソースファイルを読み込み、ユーザー向けの文字列を抽出して、各ファイルの隣に `.content` ファイルを書き込みます。これにより、カタログに文字列を 1 つずつコピーするのではなく、diff を確認できます。[extract コマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md)を参照してください。
+
+- [extract コマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md)
 
 </Question>
 <Question title="既存の JSON 翻訳ファイルを保持できますか?">
 
 はい。[sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md)は、`/messages/{locale}/{namespace}.json`ファイルを真実のソースとして保つ一方で、Intlayerディクショナリを両方向で生成します。[sync PO plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-po.md)はgetextカタログに対して同じことを行い、[per locale files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/per_locale_file.md)では、ロケールを1つのファイルにグループ化する代わりに、言語別にコンテンツを分割できます。
 
+- [sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md)
+- [sync PO plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-po.md)
+- [per locale files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/per_locale_file.md)
+
 </Question>
 <Question title="AIで自動的にアプリを翻訳するにはどうしたらいいですか?">
 
 `npx intlayer fill` を実行します。これにより、選択した LLM を使用して、独自のプロバイダーと API キーで不足している翻訳が入力されます。`--git-diff` を追加して、ブランチで変更されたコンテンツのみを翻訳します。[fill command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/fill.md) と [CI/CD integration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/CI_CD.md) を参照してください。
 
+- [fill command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/fill.md)
+- [CI/CD integration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/CI_CD.md)
+
 </Question>
 <Question title="Intlayer は gender、条件分岐、補間値に対応していますか？">
 
 はい：[性別ベースのコンテンツ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/gender.md)、条件、[列挙](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/enumeration.md)、補間値用の[挿入](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/insertion.md)、および数値、日付、通貨用の[フォーマッター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/formatters.md)。
+
+- [性別ベースのコンテンツ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/gender.md)
+- [列挙](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/enumeration.md)
+- [挿入](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/insertion.md)
+- [フォーマッター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/formatters.md)
 
 </Question>
 <Question title="どのようなエディターとAIエージェントツールが利用可能ですか？">
@@ -737,6 +767,9 @@ Intlayer を使用した開発体験を向上させるために、公式の **In
 <Question title="Intlayer は無料でオープンソースですか？">
 
 はい、Apache 2.0 ライセンスの下で、商用利用を含みます。ホストされている [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md) はオプションの有料サービスであり、[自己ホスト](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/self_hosting.md) することもできます。
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)
+- [自己ホスト](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/self_hosting.md)
 
 </Question>
 

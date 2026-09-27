@@ -34,7 +34,12 @@ author: aymericzip
 
 > Nếu bạn muốn, bạn cũng có thể tham khảo [hướng dẫn next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18n_using_next-i18next.md), hoặc sử dụng trực tiếp [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_16.md).
 
+- [hướng dẫn next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18n_using_next-i18next.md)
+- [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_16.md)
+
 > Xem so sánh tại [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/next-i18next_vs_next-intl_vs_intlayer.md).
+
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/next-i18next_vs_next-intl_vs_intlayer.md)
 
 > Để hiểu các thư viện này đến từ đâu, hãy đọc lịch sử i18n trong JavaScript.
 
@@ -43,6 +48,8 @@ author: aymericzip
 ## Benchmark nói gì về next-intl trên Next.js
 
 Trước khi triển khai bản dịch, việc hiểu hồ sơ hiệu năng của `next-intl` là rất quan trọng. [Benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md) đánh giá cùng một ứng dụng Next.js 10 trang, 10 locale trên nhiều cấu hình và thư viện khác nhau để đo kích thước bundle thực tế, mức rò rỉ chuỗi và chi phí hydration.
+
+- [Benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md)
 
 <I18nBenchmark framework="nextjs" packages="next-intl,@intlayer/next-intl,next-intlayer" vertical/>
 
@@ -68,6 +75,8 @@ Số liệu chính của `next-intl` trên Next.js (gzip):
 - **Trọng lượng runtime:** Runtime của `next-intl` thêm ~14.7 KB gzip vào mỗi trang. Với các ứng dụng `next-intl` hiện có, compat adapter [`@intlayer/next-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/next-intl.md) giữ nguyên các hook (`useTranslations`, `useFormatter`, v.v.) đồng thời giảm kích thước runtime xuống ~8.0 KB với 0% rò rỉ. [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/next-intlayer/exports.md) native còn giảm tiếp xuống 5.5 KB.
 
 > Xem toàn bộ dữ liệu: [báo cáo benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md), và [repository benchmark](https://github.com/intlayer-org/benchmark-i18n).
+
+- [báo cáo benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md)
 
 ## So sánh tính năng trên Next.js
 
@@ -96,6 +105,9 @@ So sánh `next-intl` với `next-i18next` và Intlayer về các tính năng mà
 
 > Kích thước runtime lấy từ [benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md). Để xem phân tích chi tiết, hãy đọc [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/next-i18next_vs_next-intl_vs_intlayer.md).
 
+- [benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md)
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/next-i18next_vs_next-intl_vs_intlayer.md)
+
 ## Các thực hành bạn nên tuân theo
 
 Trước khi chúng ta đi vào phần triển khai, đây là một số thực hành bạn nên tuân theo:
@@ -122,6 +134,8 @@ Trước khi chúng ta đi vào phần triển khai, đây là một số thực
   Tự động hóa kiểm thử và dịch thuật giúp tiết kiệm thời gian duy trì ứng dụng đa ngôn ngữ của bạn.
 
 > Xem tài liệu của chúng tôi liệt kê tất cả những gì bạn cần biết về quốc tế hóa và SEO: [Internationalization (i18n) with next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/internationalization_and_SEO.md).
+
+- [Internationalization (i18n) with next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/internationalization_and_SEO.md)
 
 ## Hướng Dẫn Từng Bước Để Thiết Lập next-intl Trong Ứng Dụng Next.js
 
@@ -855,6 +869,8 @@ Intlayer sẽ cho phép bạn:
   Intlayer cung cấp một trình chỉnh sửa trực quan miễn phí để chỉnh sửa nội dung của bạn bằng trình chỉnh sửa trực quan. Tìm hiểu thêm về [chỉnh sửa trực quan bản dịch của bạn](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md).
 
 Và còn nhiều hơn thế nữa. Để khám phá tất cả các tính năng mà Intlayer cung cấp, vui lòng tham khảo [Lợi ích của tài liệu Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/interest_of_intlayer.md).
+
+- [Lợi ích của tài liệu Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/interest_of_intlayer.md)
 
 Để xem benchmark hiệu năng và so sánh chi tiết, tham khảo:
 

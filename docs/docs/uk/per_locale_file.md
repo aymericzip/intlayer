@@ -115,6 +115,8 @@ export default config;
 
 Використовуючи цю конфігурацію, усі файли для кожної локалі будуть згенеровані з мовою за замовчуванням, встановленою на English. Вона також включає генерацію `.content` файлів за допомогою команди `transform` та компілятора. (Див. [Компілятор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compiler.md) або [Transform](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/extract.md) для докладнішої інформації.)
 
+- [Компілятор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compiler.md)
+
 ## Один файл з кількома перекладами
 
 Цей формат ідеально підходить для:
@@ -271,3 +273,5 @@ console.log(JSON.stringify(intlayer, null, 2));
 ### Автоматична генерація перекладів
 
 Використовуйте [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/index.md) для автоматичного заповнення відсутніх перекладів на основі ваших улюблених сервісів.
+
+- [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/index.md)

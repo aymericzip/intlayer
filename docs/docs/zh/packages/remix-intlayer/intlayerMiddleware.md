@@ -49,6 +49,38 @@ export const router = createRouter({
 3. **填充请求上下文**: 使用 `Intlayer` 键将当前解析的语言环境保存到 Remix 请求上下文中，使钩子 (`useLocale`, `useIntlayer`, `useDictionary`) 能够透明使用。
 4. **Cookie 管理**: 在需要持久保存用户首选语言环境时设置 `Set-Cookie` 标头。
 
+## 参数
+
+`intlayer` 函数接受可选的 `IntlayerMiddlewareOptions`：
+
+```ts
+import { intlayer, type IntlayerMiddlewareOptions } from "remix-intlayer";
+
+const options: IntlayerMiddlewareOptions = {
+  // 自定义路由配置覆盖
+};
+
+const middleware = intlayer(options);
+```
+
+## 直接访问上下文
+
+除了使用钩子之外，您还可以直接从 Remix 请求上下文中访问解析后的 `IntlayerState`：
+
+```ts
+import { Intlayer } from "remix-intlayer";
+
+router.get("/api/locale", (context) => {
+  // 通过 context.get()
+  const state = context.get(Intlayer);
+
+  // 或通过 context.intlayer 属性直接访问
+  const { locale } = context.intlayer;
+
+  return Response.json({ locale });
+});
+```
+
 ## 相关文档
 
 - [`Intlayer` 请求上下文](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/remix-intlayer/Intlayer.md)

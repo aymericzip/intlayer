@@ -65,7 +65,7 @@ bun x intlayer standalone --packages [pakiety...] [opcje]
 - `-e, --env [env]` - Środowisko.
 - `--base-dir [baseDir]` - Katalog bazowy.
 - `--no-cache` - Wyłącz pamięć podręczną.
-- `--ci` - Uruchamia polecenie w każdym projekcie Intlayer w monorepo (lub tylko w bieżącym, gdy uruchomione z katalogu projektu). Dane uwierzytelniające dla poszczególnych projektów można wstrzyknąć przez `INTLAYER_PROJECT_CREDENTIALS` — obiekt JSON mapujący ścieżkę projektu na `{ "clientId", "clientSecret" }`.
+- `--ci` - Uruchamia polecenie w każdym projekcie Intlayer w monorepo (lub tylko w bieżącym, gdy uruchomione z katalogu projektu). Dane uwierzytelniające dla poszczególnych projektów można wstrzyknąć przez `INTLAYER_PROJECT_CREDENTIALS`, obiekt JSON mapujący ścieżkę projektu na `{ "clientId", "clientSecret" }`.
 - `--verbose` - Szczegółowe dane wyjściowe.
 
 ## Przykłady:

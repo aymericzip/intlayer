@@ -31,6 +31,8 @@ author: aymericzip
 
 👉 [Жива демонстрація](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/interest_of_intlayer.md) 👉 [Шаблон коду](https://github.com/aymericzip/smart_doc_RAG)
 
+- [Жива демонстрація](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/interest_of_intlayer.md)
+
 ## Вступ
 
 Якщо ви колись губилися у документації, нескінченно гортали в пошуках однієї відповіді, ви знаєте, наскільки це болісно. Документація корисна, але вона статична, і пошук у ній часто здається незручним.
@@ -246,6 +248,8 @@ User query :
 
 👉 [Спробувати демо тут](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/interest_of_intlayer.md) 👉 [Переглянути шаблон коду на GitHub](https://github.com/aymericzip/smart_doc_RAG)
 
+- [Спробувати демо тут](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/interest_of_intlayer.md)
+
 </Step>
 <Step number={10} title="Подальші кроки">
 
@@ -299,6 +303,8 @@ RAG, це один із найпростіших і найпотужніших �
 - інструмент для продуктової стратегії
 
 👉 [Спробуйте демо тут](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/interest_of_intlayer.md) 👉 [Перегляньте шаблон коду на GitHub](https://github.com/aymericzip/smart_doc_RAG)
+
+- [Спробуйте демо тут](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/interest_of_intlayer.md)
 
 І якщо ви теж експериментуєте з RAG, мені було б цікаво дізнатися, як ви його використовуєте.
 

@@ -3,7 +3,7 @@ createdAt: 2025-09-07
 updatedAt: 2026-09-27
 priority: 4
 title: URL'den yanlış locale alınması
-description: 'Next.js''te URL''den "en" yerine "about" gibi yanlış bir locale okunmasını, Intlayer''ın beklediği [locale] klasör yapısıyla düzeltin.'
+description: "Next.js'te URL'den 'en' yerine 'about' gibi yanlış bir locale okunmasını, Intlayer'ın beklediği [locale] klasör yapısıyla düzeltin."
 keywords:
   - locale
   - url

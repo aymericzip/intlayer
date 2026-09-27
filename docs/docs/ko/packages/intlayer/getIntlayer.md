@@ -57,18 +57,18 @@ getIntlayer(
 
 - `key: DictionaryKeys`
   - **Description**: 콘텐츠 파일에 선언된 대로 읽을 사전의 키입니다.
-  - **Type**: `DictionaryKeys` — 선언된 모든 사전 키의 합집합입니다.
+  - **Type**: `DictionaryKeys`, 선언된 모든 사전 키의 합집합입니다.
   - **Required**: Yes
 
 - `localeOrSelector: LocalesValues | DictionarySelector`
   - **Description**: 콘텐츠를 해석할 locale이거나, [dynamic dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dynamic_dictionaries/index.md)용 selector 객체입니다.
-    - `'fr'` — a locale
-    - `{ item: 2 }` — a [collection](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dynamic_dictionaries/collections.md) item (omit `item` to get every item as an array)
-    - `{ variant: 'black-friday' }` — a named [variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dynamic_dictionaries/variants.md) (omit for the `default` one)
-    - `{ variant: { id: 'prod_abc', userId: '123' } }` — a structured variant
+    - `'fr'`: a locale
+    - `{ item: 2 }`: a [collection](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dynamic_dictionaries/collections.md) item (omit `item` to get every item as an array)
+    - `{ variant: 'black-friday' }`: a named [variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dynamic_dictionaries/variants.md) (omit for the `default` one)
+    - `{ variant: { id: 'prod_abc', userId: '123' } }`: a structured variant
     - Any selector can carry a locale: `{ item: 2, locale: 'fr' }`
   - **Type**: `LocalesValues | DictionarySelector`
-  - **Required**: No (Optional) — 설정된 `defaultLocale`으로 기본 설정됩니다.
+  - **Required**: No (Optional), 설정된 `defaultLocale`으로 기본 설정됩니다.
 
 - `plugins: Plugins[]`
   - **Description**: 기본 interpreter plugins를 대체하는 커스텀 node transformers입니다. 고급 사용법이므로, 기본 동작을 유지하려면 생략하세요.
@@ -110,6 +110,8 @@ const { title } = getIntlayer("app", "fr"); // "Bonjour"
 ### 로케일 없이
 
 로케일을 생략하면 [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)에서 선언된 `defaultLocale`로 콘텐츠를 해석합니다.
+
+- [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)
 
 ```typescript
 import { getIntlayer } from "intlayer";
@@ -161,6 +163,9 @@ const banner = getIntlayer("banner", { variant: "black-friday", locale: "fr" });
 ### Bundle size
 
 `getIntlayer`는 **모든** locale을 포함하는 병합된 사전을 읽습니다. 클라이언트 번들에서 [build plugins](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md)는 필요한 콘텐츠만 배송되도록 호출을 다시 작성합니다. 렌더링 외부에서 콘텐츠를 읽을 때(metadata, loaders, server functions) 단일 locale을 요청 시 로드하려면 [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getIntlayerAsync.md)를 대신 사용하세요.
+
+- [build plugins](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md)
+- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getIntlayerAsync.md)
 
 ## 관련 함수
 

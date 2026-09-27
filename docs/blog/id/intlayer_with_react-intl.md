@@ -41,9 +41,13 @@ author: aymericzip
 
 Lihat perbandingan konkret dengan react-intl dalam posting blog kami [react-i18next vs. react-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/react-i18next_vs_react-intl_vs_intlayer.md).
 
+- [react-i18next vs. react-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/react-i18next_vs_react-intl_vs_intlayer.md)
+
 ## Mengapa Menggabungkan Intlayer dengan react-intl?
 
 Meskipun Intlayer menyediakan solusi i18n mandiri yang sangat baik (lihat [panduan integrasi React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_vite+react.md)), Anda mungkin ingin menggabungkannya dengan react-intl karena beberapa alasan:
+
+- [panduan integrasi React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_vite+react.md)
 
 1. **Basis kode yang sudah ada**: Anda memiliki implementasi react-intl yang sudah mapan dan ingin secara bertahap bermigrasi ke pengalaman pengembang Intlayer yang lebih baik.
 2. **Persyaratan warisan**: Proyek Anda memerlukan kompatibilitas dengan plugin atau alur kerja react-intl yang sudah ada.
@@ -144,6 +148,8 @@ Jika perubahan dilakukan menggunakan CLI untuk menerjemahkan JSON, atau mengguna
 
 Untuk melihat lebih detail tentang plugin `syncJSON`, silakan merujuk ke [dokumentasi plugin syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/plugins/sync-json.md).
 
+- [dokumentasi plugin syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/plugins/sync-json.md)
+
 </Step>
 <Step number={3} title="Implementasikan terjemahan JSON per-komponen">
 
@@ -206,4 +212,4 @@ File-file ini dapat dibuat ulang selama proses build Anda dan tidak perlu dikomi
 
 Untuk pengalaman pengembang yang lebih baik, pasang **Ekstensi VS Code Intlayer** resmi:
 
-[Pasang dari VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [Pasang dari VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

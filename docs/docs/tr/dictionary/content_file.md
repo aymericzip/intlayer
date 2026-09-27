@@ -362,6 +362,8 @@ Sözlüğü, içerikte bildirilen her alanın otomatik olarak bir çeviri düğ�
 
 > Daha fazla bilgi için [Intlayer'da Yerel Dil Bazlı İçerik Bildirimi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/per_locale_file.md) sayfasına bakınız.
 
+- [Intlayer'da Yerel Dil Bazlı İçerik Bildirimi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/per_locale_file.md)
+
 **Örnek:**
 
 ```jsonc
@@ -472,6 +474,8 @@ Sözlük içeriğini harici kaynaklardan otomatik olarak doldurma talimatları. 
 
 > Daha fazla bilgi için [Intlayer'da Otomatik Doldurma Yapılandırması](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/autoFill.md) sayfasına bakınız.
 
+- [Intlayer'da Otomatik Doldurma Yapılandırması](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/autoFill.md)
+
 ##### `priority` (sayı)
 
 Çakışma çözümlemesi için sözlüğün önceliğini belirtir. Birden fazla sözlük aynı anahtara sahip olduğunda, en yüksek öncelik numarasına sahip sözlük diğerlerinin üzerine yazacaktır. Bu, içerik hiyerarşilerini ve geçersiz kılmaları yönetmek için faydalıdır.
@@ -499,6 +503,8 @@ Sözlük içeriğini harici kaynaklardan otomatik olarak doldurma talimatları. 
 
 Koleksiyonlar (Collections) ile birlikte kullanılan bu alan, bir koleksiyondaki öğenin konumunu tanımlar. Çalışma zamanında dizine (index) göre seçilebilen yerelleştirilmiş öğelerden oluşan sıralı koleksiyonlar oluşturmanıza olanak tanır.
 
+- [Koleksiyonlar](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dynamic_dictionaries/collections.md)
+
 **Örnek:**
 
 ```typescript
@@ -514,9 +520,13 @@ Koleksiyonlar (Collections) ile birlikte kullanılan bu alan, bir koleksiyondaki
 
 > Daha fazla bilgi için [Koleksiyonlar](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dynamic_dictionaries/collections.md) sayfasına bakın.
 
+- [Koleksiyonlar](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dynamic_dictionaries/collections.md)
+
 #### `variant` (string)
 
 Varyantlar (Variants) ile birlikte kullanılan bu alan, adlandırılmış içerik alternatiflerini tanımlar. Kod değişikliği yapmadan çalışma zamanında aynı sözlük anahtarının farklı varyasyonları arasında geçiş yapmanızı sağlar (örneğin A/B testi, mevsimsel afişler için). Sağlanmazsa, varsayılan varyant olarak kabul edilir.
+
+- [Varyantlar](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dynamic_dictionaries/variants.md)
 
 **Örnek:**
 
@@ -525,13 +535,15 @@ Varyantlar (Variants) ile birlikte kullanılan bu alan, adlandırılmış içeri
   key: "hero-banner",
   variant: "black_friday",
   content: {
-    headline: "50 % off — today only",
+    headline: "50 % off, today only",
     cta: "Shop now"
   }
 }
 ```
 
 > Daha fazla bilgi için [Varyantlar](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dynamic_dictionaries/variants.md) sayfasına bakın.
+
+- [Varyantlar](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dynamic_dictionaries/variants.md)
 
 ### CMS Özellikleri
 
@@ -606,6 +618,8 @@ multilingualContent: t({
 
 > See [Çeviri İçeriği (`t`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/translation.md) for more information.
 
+- [Çeviri İçeriği (`t`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/translation.md)
+
 ### Koşul İçeriği (`cond`)
 
 Boolean koşullara göre değişen içerik:
@@ -620,6 +634,8 @@ conditionalContent: cond({
 ```
 
 > See [Koşul İçeriği (`cond`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/condition.md) for more information.
+
+- [Koşul İçeriği (`cond`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/condition.md)
 
 ### Numaralandırma İçeriği (`enu`)
 
@@ -637,6 +653,8 @@ statusContent: enu({
 
 > See [Numaralandırma İçeriği (`enu`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/enumeration.md) for more information.
 
+- [Numaralandırma İçeriği (`enu`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/enumeration.md)
+
 ### Plural Content (`plural`)
 
 Content that varies based on plural rules:
@@ -652,6 +670,8 @@ pluralContent: plural({
 
 > See [Plural Content Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/plural.md) for more information.
 
+- [Plural Content Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/plural.md)
+
 ### Ekleme İçeriği (`insert`)
 
 Başka içeriklere eklenebilen içerik:
@@ -664,6 +684,8 @@ insertionContent: insert("Bu metin herhangi bir yere eklenebilir");
 
 > See [Ekleme İçeriği (`insert`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/insertion.md) for more information.
 
+- [Ekleme İçeriği (`insert`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/insertion.md)
+
 ### İç İçe İçerik (`nest`)
 
 Diğer sözlüklere referanslar:
@@ -675,6 +697,8 @@ nestedContent: nest("about-page");
 ```
 
 > See [İç İçe İçerik (`nest`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/nesting.md) for more information.
+
+- [İç İçe İçerik (`nest`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/nesting.md)
 
 ### Markdown İçeriği (`md`)
 
@@ -689,6 +713,8 @@ markdownContent: md(
 ```
 
 > See [Markdown İçeriği (`md`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/markdown.md) for more information.
+
+- [Markdown İçeriği (`md`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/markdown.md)
 
 ### HTML İçeriği (`html`)
 
@@ -709,6 +735,8 @@ localizedHtmlContent: t({
 
 > See [HTML İçeriği (`html`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/html.md) for more information.
 
+- [HTML İçeriği (`html`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/html.md)
+
 ### Cinsiyete Göre İçerik (`gender`)
 
 Cinsiyete göre değişen içerik:
@@ -725,9 +753,11 @@ genderContent: gender({
 
 > See [Cinsiyete Göre İçerik (`gender`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/gender.md) for more information.
 
+- [Cinsiyete Göre İçerik (`gender`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/gender.md)
+
 ### Seçime Dayalı İçerik (`select`)
 
-Rastgele bir dize değerine göre değişen içerik — ICU `select` ile eşdeğerdir:
+Rastgele bir dize değerine göre değişen içerik, ICU `select` ile eşdeğerdir:
 
 ```typescript
 import { select } from "intlayer";
@@ -744,6 +774,8 @@ Ayırt edici (discriminant) bir miktar (`enu`), bir boolean (`cond`) veya cinsiy
 
 > See [Seçime Dayalı İçerik (`select`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/select.md) for more information.
 
+- [Seçime Dayalı İçerik (`select`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/select.md)
+
 ### Dosya İçeriği (`file`)
 
 Harici dosyalara referanslar:
@@ -755,6 +787,8 @@ fileContent: file("./path/to/content.txt");
 ```
 
 > See [Dosya İçeriği (`file`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/file.md) for more information.
+
+- [Dosya İçeriği (`file`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/file.md)
 
 ## İçerik Dosyaları Oluşturma
 

@@ -46,7 +46,11 @@ const config = {
 export default config;
 ```
 
+- [Sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/plugins/sync-json.md)
+
 If you want the runtime API to stay identical as well, the [compat adapters](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md) alias `useTranslation`, `$t` and friends at the bundler level. Either way, treat the commands below as one implementation of the idea, not as a requirement.
+
+- [compat adapters](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md)
 
 ## Why they are invisible
 
@@ -98,6 +102,8 @@ export default [
 ```
 
 `no-unused-content` is the one that keeps catalogs from growing forever. Dead keys are not a correctness bug, but they are what makes a translation vendor invoice larger than it should be. Full rule list in the [ESLint plugin doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/eslint.md).
+
+- [ESLint plugin doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/eslint.md)
 
 ## Layer 3: audit locale coverage
 
@@ -179,6 +185,8 @@ curl -s https://example.com/ja/checkout | grep -c "Add to cart"
 ## Filling the gaps
 
 Once you know what is missing, `intlayer fill` populates the empty entries, and the `autoFill` option can generate per-locale files as content is declared. See [autoFill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/autoFill.md).
+
+- [autoFill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/autoFill.md)
 
 Worth being clear-eyed about this: machine-filled translations turn a _visible_ gap into an _invisible_ one. The key now has a value, so the audit goes green, and nobody reviews the wording. Use it to unblock a release, then route the output through a human for anything a customer reads before deciding. It is a scaffold, not an answer.
 

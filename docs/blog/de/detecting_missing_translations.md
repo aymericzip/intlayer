@@ -46,7 +46,11 @@ const config = {
 export default config;
 ```
 
+- [Sync JSON-Plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/plugins/sync-json.md)
+
 Möchten Sie auch die gewohnte Runtime-API beibehalten, erstellen [Kompatibilitätsadapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compat/index.md) Aliasse für `useTranslation`, `$t` und Co. auf Bundler-Ebene. Betrachten Sie die folgenden Befehle als konkrete Umsetzung des Konzepts, nicht als starre Vorgabe.
+
+- [Kompatibilitätsadapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compat/index.md)
 
 ## Warum fehlende Übersetzungen unsichtbar bleiben
 
@@ -98,6 +102,8 @@ export default [
 ```
 
 `no-unused-content` verhindert, dass Kataloge ins Unendliche wachsen. Tote Schlüssel stören die Funktion nicht, treiben jedoch Übersetzungskosten unnötig in die Höhe. Die vollständige Regelliste finden Sie in der [ESLint-Plugin-Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/eslint.md).
+
+- [ESLint-Plugin-Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/eslint.md)
 
 ## Ebene 3: Auditierung der Locale-Abdeckung
 
@@ -179,6 +185,8 @@ curl -s https://example.com/ja/checkout | grep -c "Add to cart"
 ## Lücken schließen
 
 Sind Lücken lokalisiert, füllt `intlayer fill` leere Einträge automatisch auf, während die Option `autoFill` sprachspezifische Dateien direkt bei der Deklaration von Inhalten generieren kann. Siehe [autoFill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/autoFill.md).
+
+- [autoFill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/autoFill.md)
 
 Man sollte sich darüber im Klaren sein: Maschinell gefüllte Übersetzungen machen eine _sichtbare_ Lücke zu einer _unsichtbaren_. Der Schlüssel besitzt nun Inhalt, der Audit wird grün, gelesen hat den Text jedoch niemand. Nutzen Sie dies, um Releases zu entblocken, und lassen Sie Texte vor Kaufentscheidungen stets durch Menschen gegenlesen.
 

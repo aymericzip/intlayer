@@ -92,6 +92,8 @@ style="border:none;"
 
 > Đo lường trong bản build production với 10 routes và 10 ngôn ngữ có nén gzip. Chi tiết xem tại [báo cáo benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/index.md).
 
+- [báo cáo benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/index.md)
+
 ### Gánh Nặng Cơ Sở Của Thư Viện
 
 Kích thước ban đầu trước khi bổ sung bất kỳ nội dung dịch thuật nào:
@@ -171,6 +173,9 @@ return <h1>{title}</h1>;
 
 [Trình biên dịch Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md) xác định chính xác các thuộc tính mà `Hero.tsx` truy cập và loại bỏ nội dung không sử dụng trước khi tạo bundle client. Xem thêm tại [tối ưu hóa bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md).
 
+- [Trình biên dịch Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md)
+- [tối ưu hóa bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md)
+
 ## Trải Nghiệm Lập Trình Viên (DX)
 
 ### JSON Tách Biệt vs. Đặt Cùng Component
@@ -237,6 +242,8 @@ Khi bạn di chuyển hoặc xóa `Hero.tsx`, file khai báo nội dung của n�
 Khai báo `CustomTypeOptions` mang lại gợi ý mã trong trình soạn thảo, nhưng không đảm bảo tính đầy đủ của các bản dịch. Xóa một khóa khỏi `vi/hero.json` sẽ không làm hỏng quá trình build TypeScript, mà chỉ kích hoạt fallback khi chạy.
 
 Intlayer tự động tạo kiểu dữ liệu từ chính các khai báo nội dung, và chế độ [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md) sẽ báo lỗi build ngay lập tức nếu thiếu bản dịch ở bất kỳ ngôn ngữ nào.
+
+- [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md)
 
 ### So Sánh Hệ Thống Công Cụ
 

@@ -32,9 +32,11 @@ author: aymericzip
 
 ## Açıklama
 
-`comparePaths` fonksiyonu, locale (dil) segmentini, protokolü/sunucuyu, sorgu dizesini, karma değerini (hash) ve sondaki eğik çizgileri göz ardı ederek iki URL'nin veya yolun eşitliğini karşılaştırır. Bir gezinme bağlantısının mevcut sayfayı işaret edip etmediğini belirlemenin —örneğin aktif bağlantıyı vurgulamak için— kendi (hataya açık) normalleştirme mantığınızı yazmanıza gerek kalmadan önerilen yoludur.
+`comparePaths` fonksiyonu, locale (dil) segmentini, protokolü/sunucuyu, sorgu dizesini, karma değerini (hash) ve sondaki eğik çizgileri göz ardı ederek iki URL'nin veya yolun eşitliğini karşılaştırır. Bir gezinme bağlantısının mevcut sayfayı işaret edip etmediğini belirlemenin, örneğin aktif bağlantıyı vurgulamak için, kendi (hataya açık) normalleştirme mantığınızı yazmanıza gerek kalmadan önerilen yoludur.
 
 İçeride locale segmentini kaldırmak için [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getPathWithoutLocale.md)'i yeniden kullanır, böylece yapılandırılmış yönlendirme modunuza ve dillerinize saygı duyar.
+
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getPathWithoutLocale.md)
 
 Paket ayrıca, karşılaştırma için kullanılan standartlaştırılmış, dilden bağımsız yolu döndüren temel [`normalizePath`](#normalizepath) yardımcısını da dışa aktarır.
 
@@ -44,7 +46,7 @@ Paket ayrıca, karşılaştırma için kullanılan standartlaştırılmış, dil
 - Hem mutlak URL'lerle hem de göreceli yollarla çalışır
 - Sorgu dizesini, karmayı ve sondaki eğik çizgileri yoksayar
 - Eksik baştaki eğik çizgileri ve boş değerleri tolere eder (`/` olarak normalleştirilir)
-- Hafif — `getPathWithoutLocale` üzerine inşa edilmiştir
+- Hafif, `getPathWithoutLocale` üzerine inşa edilmiştir
 
 ## Fonksiyon İmzası
 

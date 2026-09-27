@@ -49,6 +49,38 @@ Ara yazılım, gelen her istek için aşağıdaki görevleri gerçekleştirir:
 3. **İstek Bağlamını Doldurma**: Geçerli çözümlenmiş yerel ayarı `Intlayer` anahtarını kullanarak Remix istek bağlamına kaydeder, böylece hook'lar (`useLocale`, `useIntlayer`, `useDictionary`) bunu şeffaf bir şekilde kullanabilir.
 4. **Çerez Yönetimi**: Kullanıcının tercih ettiği yerel ayarın kalıcı hale getirilmesi gerektiğinde `Set-Cookie` başlığını ayarlar.
 
+## Parametreler
+
+`intlayer` fonksiyonu isteğe bağlı `IntlayerMiddlewareOptions` kabul eder:
+
+```ts
+import { intlayer, type IntlayerMiddlewareOptions } from "remix-intlayer";
+
+const options: IntlayerMiddlewareOptions = {
+  // Özel yönlendirme yapılandırması geçersiz kılmaları
+};
+
+const middleware = intlayer(options);
+```
+
+## Bağlama Doğrudan Erişim
+
+Hook'ları kullanmanın yanı sıra, çözümlenen `IntlayerState` nesnesine doğrudan Remix istek bağlamından erişebilirsiniz:
+
+```ts
+import { Intlayer } from "remix-intlayer";
+
+router.get("/api/locale", (context) => {
+  // context.get() aracılığıyla
+  const state = context.get(Intlayer);
+
+  // Veya doğrudan context.intlayer özelliği aracılığıyla
+  const { locale } = context.intlayer;
+
+  return Response.json({ locale });
+});
+```
+
 ## İlgili Dokümantasyon
 
 - [`Intlayer` İstek Bağlamı](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/remix-intlayer/Intlayer.md)

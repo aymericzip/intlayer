@@ -375,6 +375,8 @@ El caso ICU `other` pasa a llamarse `fallback`, que es el nombre canónico de In
 
 > Un ICU `select` cuyos casos son valores de género (`male` / `female` / `other`) se importa en su lugar como un nodo [`gender`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/gender.md).
 
+- [`gender`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/gender.md)
+
 ## Recursos Adicionales
 
 Para obtener información más detallada sobre configuración y uso, consulta los siguientes recursos:

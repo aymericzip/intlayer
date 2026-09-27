@@ -35,6 +35,8 @@ author: aymericzip
 
 В отличие от [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getIntlayer.md), которая ищет словарь по ключу в сгенерированном реестре, `getDictionary` принимает сам словарь. Это делает её правильным инструментом для содержимого, построенного во время выполнения, полученного из API или CMS, или объявленного встроенно в тесте.
 
+- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getIntlayer.md)
+
 **Ключевые особенности:**
 
 - Работает с любым объектом, следующим структуре словаря (`{ key, content }`)
@@ -62,7 +64,7 @@ getDictionary(
 - `localeOrSelector: LocalesValues | DictionarySelector`
   - **Description**: Локаль для интерпретации содержимого или объект селектора (`{ item }`, `{ variant }`, опционально с `locale`). См. [dynamic dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dynamic_dictionaries/index.md).
   - **Type**: `LocalesValues | DictionarySelector`
-  - **Required**: No (Optional) — defaults to the configured `defaultLocale`.
+  - **Required**: No (Optional), defaults to the configured `defaultLocale`.
 
 - `plugins: Plugins[]`
   - **Description**: Массив преобразователей узлов, определяющих способ интерпретации распознанных узлов. Если не указано, используется набор плагинов интерпретатора по умолчанию.

@@ -31,7 +31,7 @@ author: aymericzip
 
 ## Mô tả
 
-Hàm `getIntlayer` chọn một từ điển theo khóa của nó và trả về nội dung được diễn giải cho một locale nhất định. Đây là phiên bản độc lập với framework tương ứng với hook `useIntlayer`: cùng nội dung, cùng selectors, nhưng có thể sử dụng ở bất kỳ đâu mà React context không khả dụng — các script Node, server functions, route loaders, metadata builders, Express/Fastify handlers, tests.
+Hàm `getIntlayer` chọn một từ điển theo khóa của nó và trả về nội dung được diễn giải cho một locale nhất định. Đây là phiên bản độc lập với framework tương ứng với hook `useIntlayer`: cùng nội dung, cùng selectors, nhưng có thể sử dụng ở bất kỳ đâu mà React context không khả dụng, các script Node, server functions, route loaders, metadata builders, Express/Fastify handlers, tests.
 
 Nó đọc các từ điển được tạo bởi Intlayer trong `.intlayer/`, vì vậy argument `key` được gõ và tự động hoàn thành từ các khai báo nội dung của bạn, và đối tượng được trả về được gõ đầy đủ đến từng leaf.
 
@@ -57,18 +57,18 @@ getIntlayer(
 
 - `key: DictionaryKeys`
   - **Description**: Khóa của từ điển cần đọc, được khai báo trong các tệp nội dung của bạn.
-  - **Type**: `DictionaryKeys` — một union của mọi khóa từ điển được khai báo.
+  - **Type**: `DictionaryKeys`, một union của mọi khóa từ điển được khai báo.
   - **Required**: Yes
 
 - `localeOrSelector: LocalesValues | DictionarySelector`
   - **Description**: Locale để diễn giải nội dung với, hoặc một object selector cho [dynamic dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dynamic_dictionaries/index.md).
-    - `'fr'` — một locale
-    - `{ item: 2 }` — một mục [collection](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dynamic_dictionaries/collections.md) (bỏ qua `item` để lấy mọi mục dưới dạng mảng)
-    - `{ variant: 'black-friday' }` — một [variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dynamic_dictionaries/variants.md) được đặt tên (bỏ qua để lấy variant `default`)
-    - `{ variant: { id: 'prod_abc', userId: '123' } }` — một variant có cấu trúc
+    - `'fr'`: một locale
+    - `{ item: 2 }`: một mục [collection](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dynamic_dictionaries/collections.md) (bỏ qua `item` để lấy mọi mục dưới dạng mảng)
+    - `{ variant: 'black-friday' }`: một [variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dynamic_dictionaries/variants.md) được đặt tên (bỏ qua để lấy variant `default`)
+    - `{ variant: { id: 'prod_abc', userId: '123' } }`: một variant có cấu trúc
     - Bất kỳ selector nào cũng có thể mang theo một locale: `{ item: 2, locale: 'fr' }`
   - **Type**: `LocalesValues | DictionarySelector`
-  - **Required**: No (Optional) — mặc định là `defaultLocale` được cấu hình.
+  - **Required**: No (Optional), mặc định là `defaultLocale` được cấu hình.
 
 - `plugins: Plugins[]`
   - **Description**: Các node transformers tùy chỉnh thay thế các plugins interpreter cơ bản. Chỉ dùng cho các trường hợp nâng cao; bỏ qua để giữ hành vi mặc định.
@@ -110,6 +110,8 @@ const { title } = getIntlayer("app", "fr"); // "Bonjour"
 ### Không có locale
 
 Bỏ qua locale sẽ diễn giải nội dung với `defaultLocale` được khai báo trong [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md) của bạn.
+
+- [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md)
 
 ```typescript
 import { getIntlayer } from "intlayer";
@@ -161,6 +163,9 @@ Trong quá trình phát triển, yêu cầu một khóa không có từ điển 
 ### Kích thước Bundle
 
 `getIntlayer` đọc từ từ điển hợp nhất, chứa **mọi** locale. Trong client bundles, các [build plugins](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md) viết lại cuộc gọi để chỉ nội dung cần thiết được gửi đi. Khi bạn đọc nội dung bên ngoài rendering (metadata, loaders, server functions) và muốn một locale duy nhất được tải theo yêu cầu, hãy sử dụng [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getIntlayerAsync.md) thay thế.
+
+- [build plugins](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md)
+- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getIntlayerAsync.md)
 
 ## Các Hàm Liên Quan
 

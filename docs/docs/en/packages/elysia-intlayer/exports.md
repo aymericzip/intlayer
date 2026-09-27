@@ -127,7 +127,7 @@ console.log(
 );
 ```
 
-> The plugin registers its context through a **global** `derive`, which Elysia types as `Partial<{ intlayer: IntlayerContext }>`. The value is always present at runtime for routes registered after `.use(intlayer())`, so use the non-null assertion (`intlayer!.locale`) — or optional chaining — to satisfy TypeScript in `strict` mode.
+> The plugin registers its context through a **global** `derive`, which Elysia types as `Partial<{ intlayer: IntlayerContext }>`. The value is always present at runtime for routes registered after `.use(intlayer())`, so use the non-null assertion (`intlayer!.locale`), or optional chaining, to satisfy TypeScript in `strict` mode.
 
 ## Related Doc
 

@@ -31,7 +31,7 @@ author: aymericzip
 
 ## 描述
 
-`getIntlayer` 函数通过其键选择一个字典，并返回针对给定区域设置解释的内容。它是 `useIntlayer` 钩子的框架无关对应物：相同的内容、相同的选择器，但可在 React 上下文不可用的任何地方使用 — Node 脚本、服务器函数、路由加载器、元数据构建器、Express/Fastify 处理程序、测试。
+`getIntlayer` 函数通过其键选择一个字典，并返回针对给定区域设置解释的内容。它是 `useIntlayer` 钩子的框架无关对应物：相同的内容、相同的选择器，但可在 React 上下文不可用的任何地方使用，Node 脚本、服务器函数、路由加载器、元数据构建器、Express/Fastify 处理程序、测试。
 
 它读取由 Intlayer 在 `.intlayer/` 中生成的字典，因此 `key` 参数是从您自己的内容声明中类型化和自动完成的，返回的对象从每个叶子节点都是完全类型化的。
 
@@ -57,18 +57,18 @@ getIntlayer(
 
 - `key: DictionaryKeys`
   - **Description**: 要读取的字典的键，如在您的内容文件中声明的那样。
-  - **Type**: `DictionaryKeys` — 每个声明的字典键的联合。
+  - **Type**: `DictionaryKeys`，每个声明的字典键的联合。
   - **Required**: Yes
 
 - `localeOrSelector: LocalesValues | DictionarySelector`
   - **Description**: 用于解释内容的语言环境，或用于[动态字典](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dynamic_dictionaries/index.md)的选择器对象。
-    - `'fr'` — 一个语言环境
-    - `{ item: 2 }` — 一个[集合](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dynamic_dictionaries/collections.md)项目（省略 `item` 以获取每个项目作为数组）
-    - `{ variant: 'black-friday' }` — 一个命名的[变体](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dynamic_dictionaries/variants.md)（省略以使用 `default` 版本）
-    - `{ variant: { id: 'prod_abc', userId: '123' } }` — 一个结构化变体
+    - `'fr'`：一个语言环境
+    - `{ item: 2 }`：一个[集合](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dynamic_dictionaries/collections.md)项目（省略 `item` 以获取每个项目作为数组）
+    - `{ variant: 'black-friday' }`：一个命名的[变体](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dynamic_dictionaries/variants.md)（省略以使用 `default` 版本）
+    - `{ variant: { id: 'prod_abc', userId: '123' } }`：一个结构化变体
     - 任何选择器都可以携带一个语言环境：`{ item: 2, locale: 'fr' }`
   - **Type**: `LocalesValues | DictionarySelector`
-  - **Required**: No (Optional) — 默认为配置的 `defaultLocale`。
+  - **Required**: No (Optional)，默认为配置的 `defaultLocale`。
 
 - `plugins: Plugins[]`
   - **Description**: 自定义节点转换器，替换基础解释器插件。仅用于高级用法；省略它以保持默认行为。
@@ -110,6 +110,8 @@ const { title } = getIntlayer("app", "fr"); // "Bonjour"
 ### 不指定语言
 
 省略语言参数会使用你在[配置](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)中声明的 `defaultLocale` 来解释内容。
+
+- [配置](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)
 
 ```typescript
 import { getIntlayer } from "intlayer";
@@ -161,6 +163,9 @@ const banner = getIntlayer("banner", { variant: "black-friday", locale: "fr" });
 ### Bundle size
 
 `getIntlayer` 读取合并的字典，其中包含**每个**语言环境。在客户端 bundles 中，[构建插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md)重写调用，以便只传输所需的内容。当你在渲染之外读取内容（元数据、加载器、服务器函数）并希望按需加载单个语言环境时，请使用 [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getIntlayerAsync.md)。
+
+- [构建插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md)
+- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getIntlayerAsync.md)
 
 ## 相关函数
 

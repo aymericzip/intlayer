@@ -31,6 +31,8 @@ Ho costruito un assistente alla documentazione potenziato da RAG e l'ho confezio
 
 👉 [Demo live](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/interest_of_intlayer.md) 👉 [Boilerplate del codice](https://github.com/aymericzip/smart_doc_RAG)
 
+- [Demo live](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/interest_of_intlayer.md)
+
 ## Introduzione
 
 Se ti sei mai perso nella documentazione, scorrendo all'infinito alla ricerca di una risposta, sai quanto può essere frustrante. La documentazione è utile, ma è statica e la ricerca spesso risulta macchinosa.
@@ -93,5 +95,7 @@ Per me, questo progetto ha dimostrato che RAG non è solo un trucco tecnico. È 
 - uno strumento di strategia di prodotto
 
 👉 [Prova la demo qui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/interest_of_intlayer.md) 👉 [Controlla il modello di codice su GitHub](https://github.com/aymericzip/smart_doc_RAG)
+
+- [Prova la demo qui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/interest_of_intlayer.md)
 
 E se anche tu stai sperimentando con RAG, mi piacerebbe sapere come lo stai usando.

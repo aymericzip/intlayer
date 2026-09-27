@@ -30,6 +30,8 @@ author: aymericzip
 
 У цій статті оцінюється така заміна на одному й тому самому застосунку TanStack Start, зібраному спочатку з чистим Lingui, а потім з адаптером. Дані отримано з [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Для безпосереднього порівняння двох бібліотек прочитайте [Lingui проти Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/lingui_vs_intlayer.md). Тут мова піде про те, що саме змінює адаптер і в яких випадках він не надає переваг.
 
+- [Lingui проти Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/lingui_vs_intlayer.md)
+
 <TOC/>
 
 > **Стисло (tl;dr)**: На тому самому застосунку TanStack Start `@intlayer/lingui` зменшив середній розмір компонента з **85,5 КБ до 12,8 КБ** gzip, скоротив час гідратації з **28 мс до 19,7 мс**, а перемикання мови - з **5,9 мс до 2,9 мс**, не змінюючи макроси. У базовій конфігурації (всі каталоги завантажуються на старті) він також усунув **90% витоку сторінок** і заощадив 12 КБ на кожній сторінці. Проте в конфігурації з лінивим завантаженням (lazy loading) він передає **137 КБ на сторінку проти 115 КБ** у чистого Lingui: адаптер розбирає синтаксис ICU в рантаймі, тоді як Lingui постачає попередньо скомпільовані масиви токенів. Витік вихідної мови (~9-10%) однаковий з обох боків, оскільки виникає через вбудований у компоненти резервний текст `message`, а не через рантайм. Адаптер створено як плагін для Vite; вимірювання проводилися на TanStack Start.
@@ -230,6 +232,8 @@ export default config;
 
 Для каталогів `.po` замініть `syncJSON` на `syncPO` з пакета `@intlayer/sync-po-plugin` з аналогічним шаблоном `source` та розширенням `.po`. Дивіться [документацію плагіна Sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/plugins/sync-po.md).
 
+- [документацію плагіна Sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/plugins/sync-po.md)
+
 Параметр `splitKeys: "key-prefix"` є вирішальним фактором для радикального полегшення компонентів. Сам файл каталогу зберігає пласку структуру; поділ існує тільки у згенерованих словниках, а зворотна синхронізація автоматично об'єднує ключі.
 
 </Step>
@@ -307,3 +311,5 @@ export default defineConfig({
 Усі первинні дані, тестові застосунки та скрипти розміщені у [репозиторії Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Ви можете самостійно відтворити ці вимірювання.
 
 Ознайомтеся з матеріалом ['Чому Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/interest_of_intlayer.md) для отримання додаткової інформації.
+
+- [Чому Intlayer? Переваги над іншими i18n-бібліотеками](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/interest_of_intlayer.md)

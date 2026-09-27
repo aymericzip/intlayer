@@ -26,6 +26,8 @@ React не має вбудованих примітивів для i18n. Біб�
 
 Цей посібник пропонує піти від зворотного: спочатку дайте відповідь на кілька запитань про ваш проєкт, а потім зіставте відповіді з бібліотеками, які вам підходять. Він орієнтований на чистий React (Vite, React Router, TanStack Start). Next.js має власні обмеження, розглянуті у [порівнянні Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/next-i18next_vs_next-intl_vs_intlayer.md).
 
+- [порівнянні Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/next-i18next_vs_next-intl_vs_intlayer.md)
+
 ## Table of Contents
 
 <TOC/>
@@ -74,6 +76,8 @@ JSON-каталоги, завантажені в пам'ять, пошук `t("a
 
 [Історія JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/history_of_i18n.md) детально описує, як кожна хвиля вирішувала проблеми попередньої.
 
+- [Історія JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/history_of_i18n.md)
+
 ## Найважливіше рішення: де живе контент і коли він завантажується
 
 Кожна бібліотека React i18n має схожу структуру: сховище, провайдер, хук. Усе, що отримує провайдер, потрапляє у клієнтський bundle або в payload гідратації. Отже, є два ключові структурні вибори:
@@ -89,11 +93,17 @@ JSON-каталоги, завантажені в пам'ять, пошук `t("a
 
 Це не стільки властивість бібліотеки, скільки питання дисципліни розробки. `react-i18next` можна розділити за допомогою namespaces та lazy backends. `use-intl` можна розбити по маршрутах. Але ніщо не змушує цього робити, і спільний `<Button>`, який викликає `t("common:cta")`, непомітно робить `common` залежністю кожного маршруту. [Бенчмарк](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/index.md) вимірює це як "витік з інших маршрутів" та "витік з інших локалей", і саме тут виникає більша частина розриву між бібліотеками.
 
+- [Бенчмарк](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/index.md)
+
 Якщо вашою відповіддю на запитання 3 було "багато локалей, багато сторінок", надайте цьому розділу більшої ваги, ніж будь-яким уподобанням щодо API. Стаття [per-component проти централізованого i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/per-component_vs_centralized_i18n.md) детальніше розглядає сторону підтримки того самого вибору.
+
+- [per-component проти централізованого i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/per-component_vs_centralized_i18n.md)
 
 ## Кандидати
 
 Розміри бібліотек взяті з [бенчмарку TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/tanstack.md): провайдер плюс хук у порожньому компоненті після збірки, tree-shaking та мініфікації, для 10 сторінок і 10 локалей. Контент вимірюється окремо.
+
+- [бенчмарку TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/tanstack.md)
 
 ![Екосистема бібліотек i18n для React](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
@@ -119,6 +129,8 @@ JSON-каталоги, завантажені в пам'ять, пошук `t("a
 
 Обирайте найпростіший робочий варіант і не перевантажуйте архітектуру. `react-i18next` з одним файлом JSON на локаль чудово підійде, а десятирічний досвід відповідей на Stack Overflow заощадить ваш час. Відкладіть namespaces, поки вони дійсно не знадобляться. Якщо прототип переросте в продукт, закладіть час на міграцію до scoped контенту; [адаптер сумісності react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/react-i18next.md) зробить цей процес поступовим.
 
+- [адаптер сумісності react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/react-i18next.md)
+
 </Accordion>
 <Accordion header="Переклади надходять від агенції або з TMS, яка підтримує ICU">
 
@@ -134,6 +146,8 @@ JSON-каталоги, завантажені в пам'ять, пошук `t("a
 
 Будь-яку бібліотеку на основі ключів можна типізувати, але майже жодна не робить цього за замовчуванням. Якщо ви не хочете підтримувати declaration merging, який має працювати з динамічно завантажуваними namespaces, оберіть бібліотеку, де типи генеруються з контенту: `Lingui`, `Paraglide` або Intlayer. Стаття про [виявлення відсутніх перекладів](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/detecting_missing_translations.md) порівнює, що саме кожна бібліотека відловлює під час збірки.
 
+- [виявлення відсутніх перекладів](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/detecting_missing_translations.md)
+
 </Accordion>
 <Accordion header="Багато rich-контенту: markdown, посилання всередині речень, компоненти під конкретні локалі">
 
@@ -148,6 +162,8 @@ JSON-каталоги, завантажені в пам'ять, пошук `t("a
 <Accordion header="У майбутньому можливий перехід на Next.js App Router">
 
 React Context не перетинає межу між сервером і клієнтом. Бібліотеки, побудовані лише на клієнтських хуках (`react-i18next`, `react-intl`), потребуватимуть паралельного server API у той день, коли ви перейдете на RSC. `use-intl` (як `next-intl`) та Intlayer (як `next-intlayer`) уже мають такий розподіл. Ознайомтеся зі статтею про [i18n у Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/next-i18next_vs_next-intl_vs_intlayer.md), перш ніж стандартизувати архітектурний патерн.
+
+- [i18n у Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/next-i18next_vs_next-intl_vs_intlayer.md)
 
 </Accordion>
 </AccordionGroup>
@@ -493,6 +509,11 @@ export const CartSummary: FC<{ count: number }> = ({ count }) => {
 
 Вже використовуєте `react-i18next`, `react-intl` або `Lingui`? Адаптери сумісності ([react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/react-i18next.md), [react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/react-intl.md), [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/lingui.md)) створюють аліаси для імпортів на рівні бандлера, тому наявне API продовжує працювати, поки ви переносите проєкт компонент за компонентом. [Посібник з міграції](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/migration_from_react-i18next_to_intlayer.md) описує решту кроків.
 
+- [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/react-i18next.md)
+- [react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/react-intl.md)
+- [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/lingui.md)
+- [Посібник з міграції](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/migration_from_react-i18next_to_intlayer.md)
+
 ## Перед тим як зробити вибір
 
 Таблиця функцій показує, що вміє бібліотека сьогодні. Наведені нижче пункти допоможуть зрозуміти, як це буде працювати на практиці у довгостроковій перспективі.
@@ -515,6 +536,9 @@ export const CartSummary: FC<{ count: number }> = ({ count }) => {
 
 Агенти все ще відчувають труднощі з i18n: вони забувають локалі, вигадують ключі та змішують синтаксис повідомлень. Чи надає бібліотека [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/agent_skills.md) або [сервер MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/mcp_server.md), щоб агент міг переглядати, заповнювати та тестувати контент? І чи оптимізовано завантаження контенту за замовчуванням, чи комусь доведеться щокварталу перевіряти namespaces та lazy imports?
 
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/agent_skills.md)
+- [сервер MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/mcp_server.md)
+
 **Типобезпека з коробки.**
 
 Не "можна типізувати з додатковими налаштуваннями", а "неправильний ключ викликає помилку `tsc` на щойно встановленому проєкті". Перевірте, що відбувається з неіснуючим ключем і з локаллю, у якій бракує одного перекладу.
@@ -526,6 +550,13 @@ export const CartSummary: FC<{ count: number }> = ({ count }) => {
 **Досвід розробника (DX).**
 
 Час від налаштування до першого перекладеного рядка, [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/lsp.md) або [розширення VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/vs_code_extension.md), яке показує переклад при наведенні курсора та переходить до декларації, [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/index.md) для заповнення, тестування й публікації, [компілятор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compiler.md) або екстрактор, який витягує захардкоджені рядки з компонентів, щоб не керувати кожним рядком ключ за ключем, а також можливість редагування контенту для не-розробників ([візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md) або [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)) без відкриття pull request.
+
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/lsp.md)
+- [розширення VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/vs_code_extension.md)
+- [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/index.md)
+- [компілятор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compiler.md)
+- [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)
 
 ## Поширені запитання
 
@@ -541,6 +572,8 @@ export const CartSummary: FC<{ count: number }> = ({ count }) => {
 
 Лише якщо розмір bundle, згенеровані типи або перевірка відсутніх ключів під час збірки є серед ваших обов'язкових вимог. Для невеликого застосунку з двома локалями бібліотека з runtime-підходом буде простішою. Стаття [компілятор проти декларативного i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/compiler_vs_declarative_i18n.md) пояснює, які переваги надають компілятори і які нюанси вони можуть мати.
 
+- [компілятор проти декларативного i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/compiler_vs_declarative_i18n.md)
+
 </Question>
 
 <Question title="Чи можна змінити бібліотеку пізніше без переписування кожного компонента?">
@@ -552,6 +585,8 @@ export const CartSummary: FC<{ count: number }> = ({ count }) => {
 <Question title="Чи впливає вибір бібліотеки на SEO?">
 
 Опосередковано. Те, що бачать пошукові роботи, визначається маршрутизацією, тегами `hreflang`, `<html lang>` і тим, чи присутній текст у серверному HTML. Деякі бібліотеки мають готові хелпери для цього, більшість залишає це на вас. Дивіться [посібник з hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/hreflang_guide_multilingual_seo.md).
+
+- [посібник з hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/hreflang_guide_multilingual_seo.md)
 
 </Question>
 

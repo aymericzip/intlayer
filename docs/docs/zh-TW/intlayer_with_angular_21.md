@@ -158,6 +158,8 @@ export default config;
 
 > 透過此配置文件，您可以設定在地化的URL、中間件重定向、Cookie名稱、內容宣告的位置和副檔名、禁用控制台中的Intlayer日誌等。獲取所有可用參數的完整列表，請參考[配置文件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/configuration.md)。
 
+- [配置文件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/configuration.md)
+
 </Step>
 <Step number={3} title="在Angular配置中整合Intlayer">
 
@@ -271,6 +273,8 @@ export default appContent;
 > 您的內容宣告可以定義在應用程式的任何位置，只需將其包含在 `contentDir` 目錄（預設為 `./src`）中，並且符合內容宣告的文件副檔名（預設為 `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`）。
 
 > 詳細資訊請參考 [內容宣告文件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/dictionary/content_file.md)。
+
+- [內容宣告文件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/dictionary/content_file.md)
 
 </Step>
 <Step number={5} title="在程式碼中使用Intlayer">
@@ -418,7 +422,7 @@ Intlayer使用模組擴充（Module Augmentation）來獲得TypeScript的好處�
 
 為了提升您在Intlayer中的開發體驗，您可以安裝官方的 **Intlayer VS Code 擴展**。
 
-[從VS Code應用市場安裝](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [從VS Code應用市場安裝](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 該擴展提供：
 
@@ -429,8 +433,13 @@ Intlayer使用模組擴充（Module Augmentation）來獲得TypeScript的好處�
 
 有關如何使用該擴展的更多詳細資訊，請參閱 [Intlayer VS Code 擴展範例文件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md)。
 
+- [Intlayer VS Code 擴展範例文件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md)
+
 ### 深入了解
 
 想要深入了解，您可以實現[視覺化編輯器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/intlayer_visual_editor.md)或使用[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/intlayer_CMS.md)外部化您的內容。
+
+- [視覺化編輯器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/intlayer_CMS.md)
 
 ---

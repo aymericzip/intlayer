@@ -178,6 +178,8 @@ export default indexContent;
 
 > 詳細については、[コンテンツ宣言のドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)を参照してください。
 
+- [コンテンツ宣言のドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)
+
 ### AdonisJS アプリケーションの設定
 
 `adonis-intlayer` を使用するように AdonisJS アプリケーションをセットアップします。
@@ -274,6 +276,8 @@ export default config;
 
 > 設定や高度なトピックの詳細については、[ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)をご覧ください。
 
+- [Intlayer の設定（intlayer.config.ts）](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)
+
 ### TypeScript の設定
 
 `adonis-intlayer` は、TypeScript の強力な機能を活用して国際化プロセスを強化します。TypeScript の静的型付けにより、すべての翻訳キーが考慮され、翻訳の漏れのリスクが軽減され、保守性が向上します。
@@ -298,7 +302,7 @@ export default config;
 
 Intlayer での開発体験を向上させるために、公式の **Intlayer VS Code 拡張機能**をインストールできます。
 
-[VS Code Marketplace からインストール](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [VS Code Marketplace からインストール](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 この拡張機能は以下を提供します。
 
@@ -308,6 +312,8 @@ Intlayer での開発体験を向上させるために、公式の **Intlayer VS
 - 翻訳を簡単に作成・更新するための**クイックアクション**。
 
 拡張機能の使用方法の詳細については、[Intlayer VS Code 拡張機能のドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)を参照してください。
+
+- [Intlayer VS Code 拡張機能のドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)
 
 ### Git の設定
 
@@ -332,27 +338,42 @@ AdonisJSには、リクエストスコープのサービスで`resources/lang`�
 
 [Intlayerを選ぶ理由](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)をご覧ください。
 
+- [Intlayerを選ぶ理由](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)
+
 </Question>
 <Question title="i18nはAdonisJSサーバーのbundleサイズにどれくらい影響しますか？">
 
 ほとんどありません。辞書は事前にコンパイルされ、宣言したロケールのみが含まれるため、起動時にカタログがロードされたり、リクエストパスでファイルが読み込まれたりすることはありません。これは、bundleサイズがコールドスタート時間に影響するサーバーレスおよびエッジデプロイメントで最も重要です。[bundle最適化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)をご覧ください。
+
+- [bundle最適化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)
 
 </Question>
 <Question title="`i18next`からハンドラーを書き換えずに移行できますか？">
 
 はい、2つの方法があります。[i18next移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_i18next_to_intlayer.md)に従って、コンテンツを段階的に移行できます。または、現在のAPIを完全に維持することも可能です。[互換アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/index.md)は、`i18next`とまったく同じAPIを公開しますが、Intlayerの辞書によって提供されるため、インポートは変更されますが、ハンドラーコードは変更されません。
 
+- [i18next移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_i18next_to_intlayer.md)
+- [互換アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/index.md)
+
 </Question>
 <Question title="既存のJSON翻訳ファイルを保持できますか？">
 
 はい、可能です。[sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md)は、`/messages/{locale}/{namespace}.json`ファイルを信頼できる情報源として保持し、そこからIntlayer辞書を双方向に生成します。[sync PO plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-po.md)はgettextカタログに対しても同様の機能を提供し、[ロケールごとのファイル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/per_locale_file.md)を使用すると、1つのファイルにロケールをグループ化する代わりに、言語ごとにコンテンツを分割できます。
+
+- [sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md)
+- [sync PO plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-po.md)
+- [ロケールごとのファイル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/per_locale_file.md)
 
 </Question>
 <Question title="コンテンツをキーごとに移動する必要がありますか？">
 
 いいえ、必要ありません。`npx intlayer extract`を実行すると、Intlayerはソースファイルを読み込み、ユーザー向けの文字列を抽出し、それぞれのファイルの隣に`.content`ファイルを書き出します。これにより、文字列をカタログに一つずつコピーする代わりに、差分を確認することができます。[extractコマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md)をご覧ください。
 
+- [extractコマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md)
+
 同じプロジェクトのフロントエンド側では、[Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)がさらに進んで、JSX、TSX、Vue、またはSvelteのソースからビルド時に辞書を生成します。これにより、アプリの両側が手動でキーを管理することなく、1つのコンテンツレイヤーを共有できます。
+
+- [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)
 
 </Question>
 <Question title="利用可能なエディターおよびAIエージェントツールは何ですか？">
@@ -369,6 +390,8 @@ AdonisJSには、リクエストスコープのサービスで`resources/lang`�
 <Question title="Intlayerはどの言語で応答すべきかをどのように判断しますか？">
 
 デフォルトでは、`adonis-intlayer`は受信リクエストの`Accept-Language` headerを読み取り、最も近い宣言されたロケールを選択し、デフォルトのロケールにフォールバックします。`routing.storage`を使用してソースを変更できます。例えば、カスタムheaderやフロントエンドによって設定されたcookieを使用することで、APIはブラウザが通知する言語ではなく、ユーザーが実際に選択した言語で応答できます。[設定リファレンス](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)をご覧ください。
+
+- [設定リファレンス](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)
 
 </Question>
 <Question title="ロケールはリクエストごとに分離されていますか？">
@@ -400,10 +423,19 @@ AdonisJSには、リクエストスコープのサービスで`resources/lang`�
 
 `npx intlayer fill`を実行すると、選択したLLMと独自のプロバイダーおよびAPIキーを使用して、不足している翻訳が補完されます。`--git-diff`を追加すると、ブランチで変更されたコンテンツのみが翻訳されます。[fillコマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/fill.md)と[CI/CD統合](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/CI_CD.md)をご覧ください。
 
+- [fillコマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/fill.md)
+- [CI/CD統合](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/CI_CD.md)
+
 </Question>
 <Question title="Intlayerはサーバー上で複数形、性別、および補間された値をサポートしていますか？">
 
 はい、サポートしています。[複数形](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/plurial.md)、[性別に基づくコンテンツ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/gender.md)、条件、補間された値のための[挿入](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/insertion.md)、メール本文のための[Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/markdown.md)、そして数値、日付、通貨のための[フォーマッター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/formatters.md)に対応しています。
+
+- [複数形](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/plurial.md)
+- [性別に基づくコンテンツ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/gender.md)
+- [挿入](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/insertion.md)
+- [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/markdown.md)
+- [フォーマッター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/formatters.md)
 
 </Question>
 <Question title="サーバー上でTypeScriptのオートコンプリートは利用できますか？">
@@ -415,10 +447,15 @@ AdonisJSには、リクエストスコープのサービスで`resources/lang`�
 
 はい、それが一般的な設定です。`adonis-intlayer`は、`react-intlayer`、`next-intlayer`、`vite-intlayer`と同じ宣言されたコンテンツで動作するため、APIレスポンスとページの両方で使用されるラベルは一度だけ宣言されます。[Intlayerの仕組み](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/how_works_intlayer.md)をご覧ください。
 
+- [Intlayerの仕組み](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/how_works_intlayer.md)
+
 </Question>
 <Question title="Intlayerは無料でオープンソースですか？">
 
 はい、Apache 2.0ライセンスの下で、商用利用を含め無料でオープンソースです。ホストされている[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)はオプションの有料サービスであり、[セルフホスト](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/self_hosting.md)することも可能です。
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)
+- [セルフホスト](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/self_hosting.md)
 
 </Question>
 

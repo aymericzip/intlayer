@@ -135,6 +135,8 @@ style="border:none;"
 
 > すべてのライブラリと戦略を網羅した詳細な表は、[Next.jsベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md)をご覧ください。
 
+- [Next.jsベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md)
+
 ### TanStack Startでの結果 (`react-i18next`)
 
 Next.js特有のオーバーヘッドを排除するため、TanStack Start上で純粋な`react-i18next`を使用した比較です。
@@ -165,6 +167,8 @@ style="border:none;"
 />
 
 > 詳細な表は[TanStack Startベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md)をご覧ください。
+
+- [TanStack Startベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md)
 
 ## なぜこれほどの差が出るのか？ グローバルインスタンス vs コンパイル済み辞書
 
@@ -221,6 +225,8 @@ Intlayerはグローバルインスタンスを排除します。コンテンツ
 `@intlayer/swc` / `@intlayer/babel`がコンポーネントと辞書の依存関係を追跡し、アクティブな言語に必要な辞書のみをバンドルし、未使用のコンテンツを切り捨てます。「scoped-dynamic」な最適化は、手作業のルールではなくビルドの成果物として自動的に実現されます。
 
 > `dynamic`行の数値を再現するには、`intlayer.config.ts`で`dictionary.importMode: 'dynamic'`を設定します。詳細は[バンドル最適化ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)を参照してください。
+
+- [バンドル最適化ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)
 
 ## 開発者体験（DX）
 
@@ -461,6 +467,10 @@ export default defineConfig({
 
 詳細は移行ガイドをご覧ください: [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_i18next_to_intlayer.md), [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_react-i18next_to_intlayer.md), [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_next-i18next_to_intlayer.md)。
 
+- [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_i18next_to_intlayer.md)
+- [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_react-i18next_to_intlayer.md)
+- [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_next-i18next_to_intlayer.md)
+
 ## どちらを選ぶべきか？
 
 <AccordionGroup>
@@ -473,10 +483,17 @@ export default defineConfig({
 
 **コンポーネント指向のコンテンツ管理**、**厳格なTypeScript型安全性**、**ビルド時の翻訳キー欠落検出**、**設定不要のTree-shakingと遅延読み込み**、瞬時のロケール切り替え、同期サーバーコンポーネント、そして組み込みのエディタツール群（[ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)、[AI自動翻訳](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/autoFill.md)、[MCPサーバー](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)）を重視する場合。特に大規模でモジュール化されたコードベースやデザインシステムに最適です。
 
+- [ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)
+- [AI自動翻訳](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/autoFill.md)
+- [MCPサーバー](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)
+
 </Accordion>
 <Accordion header="@intlayer/*-i18nextアダプターを選ぶ場合">
 
 すでにi18nextを使っており、コンポーネントを書き換えることなくバンドル削減と反応性の向上を得たい場合。既存の `locales/{lng}/{ns}.json` ファイルはそのまま真実の単一ソースとして機能します。[i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/i18next_vs_intlayer-i18next.md) で実際の比較測定を行っています。
+
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/i18next_vs_intlayer-i18next.md)
 
 </Accordion>
 </AccordionGroup>
@@ -501,17 +518,23 @@ export default defineConfig({
 
 はい、`scoped-dynamic` を使用すれば可能です。ルートごとに1つの名前空間、リソースバックエンド、手動管理のページ対名前空間マップが必要です。Next.jsで1ページあたり163.4 KBまで削減できますが、設定不要のIntlayer（141.3 KB）より依然として **+22 KB** 重くなります。詳細は[バンドル最適化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)をご覧ください。
 
+- [バンドル最適化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)
+
 </Question>
 
 <Question title="移行するためにコンポーネントを書き直す必要がありますか？">
 
 いいえ。`@intlayer/i18next`、`@intlayer/react-i18next`、`@intlayer/next-i18next` は、`useTranslation`、`t()`、`<Trans>`、`{{interpolation}}`、`_one` / `_other` の複数形、コンテキスト接尾辞、`returnObjects` を完全に維持します。`next.config.ts` や `vite.config.ts` にプラグインを1行追加するだけです。手順は [next-i18next移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_next-i18next_to_intlayer.md) をご覧ください。
 
+- [next-i18next移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_next-i18next_to_intlayer.md)
+
 </Question>
 
 <Question title="既存のi18nextプラグインはどうなりますか？">
 
 バックエンドや言語検出プラグインは受け入れられますが、何も動作しません。ランタイムでロードや検出を行う必要がなくなるためです。ロケール検出はIntlayerのルーティング設定（URLプレフィックス、Cookie、ヘッダー）に置き換わります。リクエスト時にCMSから翻訳を取得している場合は、代わりに [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md) または `intlayer pull` / `push` を使用してください。
+
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)
 
 </Question>
 
@@ -575,3 +598,5 @@ Intlayerはこの負担をコンパイラに移行させました。コンポー
 テストアプリ、生データ、自動化スクリプトはすべて[Benchmark Bloomリポジトリ](https://github.com/intlayer-org/benchmark-bloom)で公開されています。ぜひご自身で追試してみてください。
 
 詳細は['Why Intlayer?' ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)をご覧ください。
+
+- [なぜ Intlayer？他の i18n ライブラリとの違い](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)

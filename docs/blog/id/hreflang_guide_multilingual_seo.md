@@ -140,6 +140,9 @@ Satu struktur yang harus dihindari: melayani bahasa berbeda di **URL yang sama**
 
 > Intlayer mencakup ketiganya melalui `routing.mode` dan `routing.domains`. Lihat [custom domains](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/custom_domains.md) dan [referensi konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md).
 
+- [custom domains](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/custom_domains.md)
+- [referensi konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md)
+
 ## Implementation
 
 Menulis tag ini secara manual tidak akan bertahan dengan locale kedua. Turunkan tag-tag ini dari daftar locale Anda.
@@ -188,6 +191,8 @@ export const generateMetadata = async ({
 
 Pengaturan lengkap: [Panduan i18n Next.js 16](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_16.md).
 
+- [Panduan i18n Next.js 16](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_16.md)
+
 </Tab>
 
 <Tab label="TanStack Start" value="tanstack">
@@ -227,6 +232,8 @@ export const Route = createFileRoute("/{-$locale}/about")({
 ```
 
 `head` berjalan di server, jadi tag mendarat di HTML awal. Setup lengkap: [Panduan i18n TanStack](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_tanstack.md).
+
+- [Panduan i18n TanStack](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_tanstack.md)
 
 </Tab>
 

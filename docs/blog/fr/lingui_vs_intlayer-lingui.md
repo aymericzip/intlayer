@@ -30,6 +30,8 @@ author: aymericzip
 
 Cet article mesure ce remplacement sur la même application TanStack Start, compilée une première fois avec Lingui et une seconde fois avec l'adaptateur. Les chiffres proviennent de [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Pour comparer les deux bibliothèques en tant que telles, consultez [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/lingui_vs_intlayer.md). Cet article se concentre sur les apports de l'adaptateur et les cas où il n'apporte pas de gain.
 
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/lingui_vs_intlayer.md)
+
 <TOC/>
 
 > **tl;dr** : Sur la même application TanStack Start, `@intlayer/lingui` a réduit la taille moyenne des composants de **85,5 Ko à 12,8 Ko** gzip, l'hydratation de **28 ms à 19,7 ms**, et le changement de locale de **5,9 ms à 2,9 ms**, sans modifier les macros. Dans la configuration naïve (tous les catalogues chargés au démarrage), il a également éliminé **90 % de fuite de page** et 12 Ko par page. En revanche, dans la configuration avec lazy loading, il charge **137 Ko par page contre 115 Ko** pour Lingui classique : l'adaptateur résout l'ICU au runtime là où Lingui distribue des tableaux de tokens précompilés. La fuite de locale source (~9-10 %) est identique des deux côtés, car elle provient du repli de secours `message` directement embarqué dans les composants, et non du runtime. L'adaptateur est un plugin Vite ; il a été mesuré sur TanStack Start.
@@ -230,6 +232,8 @@ export default config;
 
 Pour les catalogues `.po`, remplacez `syncJSON` par `syncPO` depuis `@intlayer/sync-po-plugin` avec le même schéma `source` assorti d'une extension `.po`. Consultez la [documentation du plugin Sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/plugins/sync-po.md).
 
+- [documentation du plugin Sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/plugins/sync-po.md)
+
 L'option `splitKeys: "key-prefix"` est précisément ce qui permet d'alléger drastiquement les composants. Le catalogue conserve sa structure linéaire ; le découpage s'applique uniquement aux dictionnaires compilés, et la synchronisation inverse fusionne automatiquement les clés.
 
 </Step>
@@ -307,3 +311,5 @@ export default defineConfig({
 L'ensemble des données brutes, des applications de test et des scripts est accessible dans le [dépôt Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Vous pouvez reproduire ces mesures vous-même.
 
 Consultez la [documentation 'Pourquoi Intlayer ?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/interest_of_intlayer.md) pour approfondir ces concepts.
+
+- [Pourquoi Intlayer ? Avantages face aux autres bibliothèques i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/interest_of_intlayer.md)

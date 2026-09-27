@@ -104,13 +104,13 @@ npx intlayer init infra --mode compose
 
        ./intlayer/.env
 
-     Either RESEND_API_KEY (resend.com) or the MAIL_SMTP_* block — the first
+     Either RESEND_API_KEY (resend.com) or the MAIL_SMTP_* block, the first
      account cannot be verified without a working mailer.
   2. Start the stack:
 
        cd ./intlayer && docker compose up -d
 
-  Then open http://localhost:3000 — first boot initialises the
+  Then open http://localhost:3000, first boot initialises the
   datastores, so give it a minute. The first account you create becomes the
   super admin.
 
@@ -118,6 +118,10 @@ npx intlayer init infra --mode compose
     Stop      docker compose down
     Upgrade   docker compose pull && docker compose up -d
 ```
+
+Khi được cung cấp một tên miền (ví dụ `example.org`), trình cài đặt đề xuất `https://cms.example.org`, `https://back.example.org` và `https://s3.example.org/intlayer` cho bảng điều khiển, API và bộ lưu trữ đối tượng, ghi chúng vào tệp môi trường và chuyển lệnh khởi động sang build từ repository, vì image bảng điều khiển đã phát hành chỉ hoạt động trên `localhost`. Xem [Tên miền tùy chỉnh](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/self_hosting.md#custom-domain).
+
+- [Tên miền tùy chỉnh](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/self_hosting.md#custom-domain)
 
 ## Cài đặt của trình cài đặt
 
@@ -143,6 +147,8 @@ INTLAYER_COMPOSE_DIR=./cms npx intlayer init infra --mode compose
 | `INTLAYER_SELFHOST_REF`   | `main`                    | cả hai      | Nhánh Git dùng để lấy tệp compose và mẫu env              |
 
 > Các biến cổng chỉ thay đổi phía **máy chủ (host)** của ánh xạ. Các hình ảnh đã xuất bản đã biên dịch sẵn `http://localhost:3000`, `http://localhost:3100` và `http://localhost:9000` vào gói bảng điều khiển, vì vậy hãy giữ nguyên mặc định trừ khi bạn tự xây dựng hình ảnh: xem [hướng dẫn tự lưu trữ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/self_hosting.md#limitations).
+
+- [hướng dẫn tự lưu trữ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/self_hosting.md#limitations)
 
 ## Yêu cầu
 

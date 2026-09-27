@@ -23,7 +23,7 @@ history:
     changes: "변형 기능 출시"
   - version: 9.1.0
     date: 2026-06-26
-    changes: "`variant`는 이제 문자열 또는 객체를 허용합니다 — 이전의 `meta` / 동적 레코드는 객체 변형으로 선언됩니다"
+    changes: "`variant`는 이제 문자열 또는 객체를 허용합니다. 이전의 `meta` / 동적 레코드는 객체 변형으로 선언됩니다"
   - version: 9.1.1
     date: 2026-07-31
     changes: "변형은 재정의하는 키만 선언합니다. 선언되지 않은 변형은 기본 항목으로 대체됩니다"
@@ -39,8 +39,8 @@ author: aymericzip
 
 `variant` 값은 **두 가지 형태**를 가질 수 있습니다:
 
-- **문자열** — 단일 이름 지정 대안(A/B 테스트, 시즌 배너, 기능 플래그).
-- **객체** — 필드 집합으로 주소가 지정되는 구조화된 판별자(CMS 레코드, 사용자별 콘텐츠, 불투명한 ID로 키가 지정된 모든 콘텐츠). 객체 전체가 정체성입니다. 항목을 해결하려면 셀렉터가 **동일한** 객체를 제공해야 합니다.
+- **문자열**: 단일 이름 지정 대안(A/B 테스트, 시즌 배너, 기능 플래그).
+- **객체**: 필드 집합으로 주소가 지정되는 구조화된 판별자(CMS 레코드, 사용자별 콘텐츠, 불투명한 ID로 키가 지정된 모든 콘텐츠). 객체 전체가 정체성입니다. 항목을 해결하려면 셀렉터가 **동일한** 객체를 제공해야 합니다.
 
 > 객체 형태는 이전의 `meta` 필드를 대체합니다. 이전에 `meta: { id, … }`를 작성했던 모든 곳에서 `variant: { id, … }`를 작성하고 `{ variant: { id, … } }`로 선택하세요.
 
@@ -74,8 +74,8 @@ const dictionary = {
   variant: "black_friday",
   content: {
     headline: t({
-      en: "50 % off — today only",
-      fr: "−50 % — aujourd'hui seulement",
+      en: "50 % off, today only",
+      fr: "−50 %, aujourd'hui seulement",
     }),
     cta: t({ en: "Shop now", fr: "Acheter maintenant" }),
   },
@@ -107,7 +107,7 @@ export default dictionary;
 
 ```tsx
 useIntlayer("hero-banner", { variant: "summer" });
-// → { headline: "Développez plus vite tout l'été", cta: "Commencer" } — `cta`가 상속됨
+// → { headline: "Développez plus vite tout l'été", cta: "Commencer" }, `cta`가 상속됨
 
 useIntlayer("hero-banner", { variant: "never-declared" });
 // → 기본 항목
@@ -278,7 +278,7 @@ const content = useIntlayer("hero-banner", {
 
 ## 객체(구조화) 변형
 
-객체 변형은 `variant` 필드에 선언된 임의의 키-값 쌍 집합으로 콘텐츠의 주소를 지정합니다 — 이를 통해 CMS 레코드, 사용자별 콘텐츠, 또는 키가 불투명한 ID인 모든 콘텐츠를 모델링할 수 있습니다. **객체 전체**가 정체성입니다. 항목이 해결되려면 셀렉터가 동일한 객체를 제공해야 합니다.
+객체 변형은 `variant` 필드에 선언된 임의의 키-값 쌍 집합으로 콘텐츠의 주소를 지정합니다. 이를 통해 CMS 레코드, 사용자별 콘텐츠, 또는 키가 불투명한 ID인 모든 콘텐츠를 모델링할 수 있습니다. **객체 전체**가 정체성입니다. 항목이 해결되려면 셀렉터가 동일한 객체를 제공해야 합니다.
 
 ```ts fileName="product.abc.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
@@ -495,7 +495,7 @@ const content = useIntlayer("product", {
 });
 ```
 
-#### 누락된 필드 — 일치 없음
+#### 누락된 필드, 일치 없음
 
 ```ts
 // null 반환: `userId`가 누락되어 객체가 선언된 변형과 일치하지 않습니다
@@ -647,7 +647,7 @@ useIntlayer("hero-banner");
 // → 프로바이더의 변형
 
 useIntlayer("hero-banner", { variant: "summer" });
-// → "summer" — 프로바이더 변형을 대체하며, 확장하지 않습니다
+// → "summer", 프로바이더 변형을 대체하며, 확장하지 않습니다
 ```
 
 ### 형태
@@ -692,9 +692,9 @@ useIntlayer("hero-banner", { variant: ["black_friday", "summer"] });
 />
 ```
 
-> 프로바이더에서 일반 객체는 **항상** 키별 맵으로 읽히며, 객체 변형으로는 해석되지 않습니다 — 둘은 구조적으로 동일하기 때문입니다. 객체 변형을 전역으로 지정하려면 항목 아래에 중첩하세요: `variant={{ default: { id: "prod_abc" } }}`.
+> 프로바이더에서 일반 객체는 **항상** 키별 맵으로 읽히며, 객체 변형으로는 해석되지 않습니다. 둘은 구조적으로 동일하기 때문입니다. 객체 변형을 전역으로 지정하려면 항목 아래에 중첩하세요: `variant={{ default: { id: "prod_abc" } }}`.
 
-맵의 키는 선언된 사전 키와 대조되므로, 오타 — 또는 `variant={{ id: "prod_abc" }}`처럼 객체 변형을 직접 작성한 경우 — 는 컴파일 오류가 됩니다.
+맵의 키는 선언된 사전 키와 대조되므로, 오타, 또는 `variant={{ id: "prod_abc" }}`처럼 객체 변형을 직접 작성한 경우, 는 컴파일 오류가 됩니다.
 
 ## 로딩 모드
 
@@ -712,6 +712,8 @@ export default dictionary;
 ```
 
 `static`, `dynamic`, `fetch` 모드에 대한 자세한 내용은 [번들 최적화](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md)를 참조하세요.
+
+- [번들 최적화](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md)
 
 ## 일반적인 사용 사례
 

@@ -35,6 +35,8 @@ author: aymericzip
 
 यह लेख एक ही Next.js एप्लिकेशन पर उस प्रतिस्थापन को मापता है, जिसे एक बार `next-i18next` के साथ और एक बार `@intlayer/next-i18next` के साथ बनाया गया है। आंकड़े [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) से लिए गए हैं। लाइब्रेरी के रूप में `i18next` और Intlayer की तुलना के लिए, [i18next बनाम Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/i18next_vs_intlayer.md) पढ़ें। यह लेख इस बात पर केंद्रित है कि जब आप अपने कोड को वैसे ही रखते हैं जैसा वह है, तो एडेप्टर क्या बदलता है।
 
+- [i18next बनाम Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/i18next_vs_intlayer.md)
+
 <TOC/>
 
 > **संक्षेप में (tl;dr)**: उसी Next.js ऐप पर, `next-i18next` को `@intlayer/next-i18next` से बदलने पर प्रति-पेज JavaScript का आकार gzip में **218.5 KB से घटकर 150.7 KB** हो गया (प्राथमिक सेटअप में) और इसने पूरी तरह से अनुकूलित `next-i18next` सेटअप (163.4 KB) को **12.7 KB** से पीछे छोड़ दिया। औसत घटक **78.5 KB से घटकर 9.7 KB** हो गया, बाहरी-पेज स्ट्रिंग लीकेज **~90% से घटकर 0%** हो गया, हाइड्रेशन का समय **15.6 ms से घटकर 11.3 ms** हो गया, और रनटाइम **19.7 KB से घटकर 9.4 KB** हो गया। किसी भी घटक को संपादित नहीं किया गया; केवल एक प्रोवाइडर फ़ाइल बदली गई। `i18next` प्लगइन्स (बैकएंड, भाषा संसूचक) स्वीकार किए जाते हैं लेकिन वे कुछ नहीं करते, क्योंकि रनटाइम पर लोड करने या पता लगाने के लिए कुछ नहीं बचता है।
@@ -145,6 +147,8 @@ style="border:none;"
 
 > पूरी तालिका, प्रत्येक लाइब्रेरी और रणनीति, [Next.js बेंचमार्क रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/nextjs.md) में।
 
+- [Next.js बेंचमार्क रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/nextjs.md)
+
 ### TanStack Start पर परिणाम (`react-i18next`)
 
 Vite और TanStack Start के लिए, बेंचमार्क साधारण `react-i18next` की तुलना `intlayer` से करता है:
@@ -164,7 +168,11 @@ style="border:none;"
 
 > पूरी तालिका [TanStack Start बेंचमार्क रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/tanstack.md) में।
 
+- [TanStack Start बेंचमार्क रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/tanstack.md)
+
 > Vite / TanStack Start पर `react-i18next` एडेप्टर इस परीक्षण का हिस्सा नहीं था। TanStack Start पर `react-i18next` बेसलाइन [i18next बनाम Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/i18next_vs_intlayer.md) में है: बैकएंड lazy होने पर प्रति पेज 127-184 KB और लोकेल स्विच में 123-185 ms।
+
+- [i18next बनाम Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/i18next_vs_intlayer.md)
 
 ## संख्याएँ क्यों बदलती हैं
 
@@ -343,6 +351,8 @@ export default defineConfig({
 
 `i18n.use(HttpBackend)` केवल प्लगइन के init को कॉल करता है और कुछ नहीं। यदि आपका ऐप रनटाइम पर CMS से अनुवाद लाने पर निर्भर था, तो वह प्रवाह चला गया है; इसके बजाय [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md) या `intlayer pull` / `push` कमांड का उपयोग करें। भाषा पहचान Intlayer का रूटिंग कॉन्फ़िगरेशन बन जाती है (URL उपसर्ग, कुकी, हेडर)।
 
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md)
+
 </Accordion>
 <Accordion header="resources को नजरअंदाज किया जाता है, मर्ज नहीं">
 
@@ -401,6 +411,9 @@ export default defineConfig({
 <Accordion header="नेटिव बनें (next-intlayer / react-intlayer)">
 
 नई परियोजनाओं के लिए, या एक बार जब एडाप्टर अपना काम कर ले। इसमें सबसे हल्का रनटाइम (5.5 KB, प्रति पेज +0.3 KB) है और यह समकालिक Server Components और प्रति-घटक `.content.ts` फ़ाइलों को अनलॉक करता है। [Next.js के साथ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nextjs_16.md) या [Vite और React के साथ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_vite+react.md) से शुरुआत करें।
+
+- [Next.js के साथ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nextjs_16.md)
+- [Vite और React के साथ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_vite+react.md)
 
 </Accordion>
 </AccordionGroup>
@@ -489,3 +502,5 @@ Migration guides:
 सभी परीक्षण डेटा, ऐप और स्क्रिप्ट [Benchmark Bloom रिपॉजिटरी](https://github.com/intlayer-org/benchmark-bloom) में उपलब्ध हैं।
 
 अधिक जानकारी के लिए [Intlayer क्यों?](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/interest_of_intlayer.md) दस्तावेज़ देखें।
+
+- [Intlayer क्यों? अन्य i18n लाइब्रेरी से बेहतर क्या है](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/interest_of_intlayer.md)

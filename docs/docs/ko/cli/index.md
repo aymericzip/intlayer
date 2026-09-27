@@ -110,6 +110,8 @@ bun add intlayer-cli -g
 
 `intlayer-cli` 패키지는 [Intlayer 선언](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md)을 딕셔너리로 트랜스파일하는 데 사용됩니다.
 
+- [Intlayer 선언](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md)
+
 이 패키지는 `src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}`과 같은 모든 Intlayer 파일을 트랜스파일합니다. [Intlayer 선언 파일 선언 방법 알아보기](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
 
 Intlayer 딕셔너리를 해석하려면 [react-intlayer](https://www.npmjs.com/package/react-intlayer) 또는 [next-intlayer](https://www.npmjs.com/package/next-intlayer)와 같은 해석기를 사용할 수 있습니다.
@@ -127,13 +129,17 @@ Intlayer는 여러 설정 파일 형식을 허용합니다:
 
 사용 가능한 언어 또는 기타 매개변수를 구성하는 방법은 [여기에서 구성 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참조하세요.
 
+- [여기에서 구성 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)
+
 ## Intlayer 명령어 실행
 
 ### 인증
 
 - **[로그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/login.md)** - Intlayer CMS에 인증하고 액세스 자격 증명을 가져옵니다.
 
-> `intlayer login`은 모든 자격 있는 명령어가 사용하는 **액세스 키**(`clientId` / `clientSecret`)를 발급합니다. 시크릿은 서버 측 자격증명이며 클라이언트 번들에 도달하지 않습니다 — [액세스 키 안전 유지](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/login.md#keeping-the-access-key-safe)를 참조하세요.
+> `intlayer login`은 모든 자격 있는 명령어가 사용하는 **액세스 키**(`clientId` / `clientSecret`)를 발급합니다. 시크릿은 서버 측 자격증명이며 클라이언트 번들에 도달하지 않습니다. [액세스 키 안전 유지](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/login.md#keeping-the-access-key-safe)를 참조하세요.
+
+- [액세스 키 안전 유지](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/login.md#keeping-the-access-key-safe)
 
 ### 핵심 명령어
 

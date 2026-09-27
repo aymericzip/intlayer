@@ -57,6 +57,8 @@ A função não recebe nenhum parâmetro. Em vez disso, ela utiliza variáveis d
 
 Consulte a [documentação de configuração do Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md) para mais detalhes.
 
+- [documentação de configuração do Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md)
+
 ## Exemplo de Uso
 
 ### Recuperando a Configuração Completa

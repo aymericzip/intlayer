@@ -30,7 +30,7 @@ author: aymericzip
 
 # خادم LSP الخاص بـ Intlayer
 
-**خادم اللغة الخاص بـ Intlayer** هو تنفيذ لـ [Language Server Protocol (LSP)](https://microsoft.github.io/language-server-protocol/) يجعل محرّرك — ووكيل الذكاء الاصطناعي لديك — على دراية بـ Intlayer. فهو يربط استدعاءً مثل `useIntlayer("home")` بملف `.content.ts` الذي يصرّح عنه، في الاتجاهين معًا.
+**خادم اللغة الخاص بـ Intlayer** هو تنفيذ لـ [Language Server Protocol (LSP)](https://microsoft.github.io/language-server-protocol/) يجعل محرّرك، ووكيل الذكاء الاصطناعي لديك، على دراية بـ Intlayer. فهو يربط استدعاءً مثل `useIntlayer("home")` بملف `.content.ts` الذي يصرّح عنه، في الاتجاهين معًا.
 
 ## المزايا
 
@@ -44,8 +44,8 @@ author: aymericzip
 
 هناك سلوكان إضافيان يستحقان المعرفة:
 
-- **القواميس المدمجة** — المفتاح الموزّع على عدة ملفات محتوى يُعيد نتيجة واحدة لكل ملف، بحيث يمكنك الانتقال إلى كل تصريح.
-- **متوافق مع المستودعات الأحادية** — يحدّد الخادم ملف `intlayer.config.*` _الأقرب_ إلى كل ملف، بحيث يحصل كل مشروع ضمن مساحة العمل نفسها على قواميسه الخاصة.
+- **القواميس المدمجة**: المفتاح الموزّع على عدة ملفات محتوى يُعيد نتيجة واحدة لكل ملف، بحيث يمكنك الانتقال إلى كل تصريح.
+- **متوافق مع المستودعات الأحادية**: يحدّد الخادم ملف `intlayer.config.*` _الأقرب_ إلى كل ملف، بحيث يحصل كل مشروع ضمن مساحة العمل نفسها على قواميسه الخاصة.
 
 ### الاستدعاءات المدعومة
 
@@ -62,7 +62,7 @@ author: aymericzip
 
 يعمل هذا مع كل حزم `*-intlayer` (`next-intlayer`، `react-intlayer`، `vue-intlayer`، `svelte-intlayer`، `solid-intlayer`، `preact-intlayer`، `angular-intlayer`، `lit-intlayer`، `express-intlayer`، `hono-intlayer`، `fastify-intlayer`، `intlayer`)، ومع حزم المحوّلات التوافقية التي تتيح لك الإبقاء على صياغة i18n الحالية لديك.
 
-> تُقرأ القواميس من ناتج البناء، لذا شغّل `npx intlayer build` — أو أبقِ خادم التطوير قيد التشغيل — كي يجد الخادم ما يحلّه.
+> تُقرأ القواميس من ناتج البناء، لذا شغّل `npx intlayer build`، أو أبقِ خادم التطوير قيد التشغيل، كي يجد الخادم ما يحلّه.
 
 ## التثبيت
 
@@ -84,21 +84,23 @@ pnpm add --save-dev @intlayer/lsp
 bun add --dev @intlayer/lsp
 ```
 
-ثبّته عالميًا بدلًا من ذلك (`npm install -g @intlayer/lsp`) إذا كان محرّرك يحتاج إلى `intlayer-lsp` ضمن `PATH` — وهذا ينطبق على إضافة Claude Code وعلى أي إعداد أدناه يستدعي الملف التنفيذي مباشرة.
+ثبّته عالميًا بدلًا من ذلك (`npm install -g @intlayer/lsp`) إذا كان محرّرك يحتاج إلى `intlayer-lsp` ضمن `PATH`، وهذا ينطبق على إضافة Claude Code وعلى أي إعداد أدناه يستدعي الملف التنفيذي مباشرة.
 
 ## الإعداد
 
 <Tabs defaultTab="vscode">
   <Tab label="VS Code" value="vscode">
 
-ثبّت [إضافة Intlayer لـ VS Code](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension). خادم اللغة مُضمَّن منذ الإصدار v8.12.0 ويبدأ تلقائيًا — **لا حاجة إلى أي إعداد**.
+ثبّت [إضافة Intlayer لـ VS Code](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension). خادم اللغة مُضمَّن منذ الإصدار v8.12.0 ويبدأ تلقائيًا، **لا حاجة إلى أي إعداد**.
 
 راجع [توثيق إضافة VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/vs_code_extension.md) للاطلاع على بقية المزايا.
+
+- [توثيق إضافة VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/vs_code_extension.md)
 
   </Tab>
   <Tab label="Cursor / Windsurf" value="cursor">
 
-[Cursor](https://www.cursor.com/) و[Windsurf](https://windsurf.com/) نسختان مشتقتان من VS Code وتستخدمان منظومة الإضافات نفسها. ثبّت [إضافة Intlayer لـ VS Code](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) مرة واحدة ليُفعَّل الخادم تلقائيًا — **لا حاجة إلى أي إعداد**.
+[Cursor](https://www.cursor.com/) و[Windsurf](https://windsurf.com/) نسختان مشتقتان من VS Code وتستخدمان منظومة الإضافات نفسها. ثبّت [إضافة Intlayer لـ VS Code](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) مرة واحدة ليُفعَّل الخادم تلقائيًا، **لا حاجة إلى أي إعداد**.
 
   </Tab>
   <Tab label="Claude Code" value="claude-code">
@@ -114,7 +116,7 @@ claude plugin marketplace add intlayer@github:aymericzip/intlayer
 claude plugin install intlayer-lsp@intlayer
 ```
 
-يقوم `install` بتفعيل الإضافة أيضًا. **أعد تشغيل Claude Code** — إذ تُحمَّل خوادم اللغة عند بدء التشغيل، فلا تأثير للإضافة قبل ذلك.
+يقوم `install` بتفعيل الإضافة أيضًا. **أعد تشغيل Claude Code**، إذ تُحمَّل خوادم اللغة عند بدء التشغيل، فلا تأثير للإضافة قبل ذلك.
 
 عندئذٍ يشغّل Claude Code الخادم على ملفات `.ts` و`.tsx` و`.js` و`.jsx` و`.vue` و`.astro` و`.svelte`، ويستخدم `goToDefinition` و`findReferences` و`hover` أثناء تنقّلك في الشيفرة.
 
@@ -240,10 +242,10 @@ language-servers = ["intlayer-lsp", "typescript-language-server"]
 
 يمكن لأي محرّر يدعم LSP تشغيل `@intlayer/lsp`. وجّهه إلى:
 
-- **الملف التنفيذي** — `npx @intlayer/lsp`، أو الملف التنفيذي `intlayer-lsp`
-- **النقل** — stdio (قياسي)
-- **القدرات** — `definitionProvider`، `referencesProvider`، `hoverProvider`، `completionProvider` (محارف التفعيل `"` `'` `` ` `` `.`)، تشخيصات مدفوعة، `textDocumentSync: Incremental`
-- **أنماط الجذر** — `intlayer.config.ts`، `intlayer.config.js`، `package.json`
+- **الملف التنفيذي**: `npx @intlayer/lsp`، أو الملف التنفيذي `intlayer-lsp`
+- **النقل**: stdio (قياسي)
+- **القدرات**: `definitionProvider`، `referencesProvider`، `hoverProvider`، `completionProvider` (محارف التفعيل `"` `'` `` ` `` `.`)، تشخيصات مدفوعة، `textDocumentSync: Incremental`
+- **أنماط الجذر**: `intlayer.config.ts`، `intlayer.config.js`، `package.json`
 
 راجع توثيق LSP الخاص بمحرّرك لمعرفة صيغة الإعداد الدقيقة.
 
@@ -252,7 +254,7 @@ language-servers = ["intlayer-lsp", "typescript-language-server"]
 
 ## ملاحظة حول وكلاء الذكاء الاصطناعي في الطرفية
 
-**Claude Code** يعمل كعميل LSP حقيقي — انظر التبويب أعلاه.
+**Claude Code** يعمل كعميل LSP حقيقي، انظر التبويب أعلاه.
 
 **OpenAI Codex** ومعظم أدوات الطرفية الأخرى ليست عملاء LSP: فهي تقرأ الملفات وتكتبها مباشرة. تشغيل الخادم وحده لا يفيدها؛ إنما تأتي الفائدة من كونه نشطًا في محرّر مرافق يستطيع الوكيل الاستعلام عن فهرسه (Cursor Composer، Windsurf Cascade، Copilot Chat).
 
@@ -268,13 +270,13 @@ language-servers = ["intlayer-lsp", "typescript-language-server"]
 
 ## استكشاف الأخطاء وإصلاحها
 
-| العَرَض                                    | السبب المرجّح              | الحل                                                         |
-| ------------------------------------------ | -------------------------- | ------------------------------------------------------------ |
-| لا يحدث أي شيء إطلاقًا                     | الخادم غير مُشغَّل         | تحقّق من تثبيت `@intlayer/lsp` ومن أن محرّرك يشغّله          |
-| يعمل في المحرّر ولا يعمل في Claude Code    | تثبيت الإضافة أثناء الجلسة | أعد تشغيل Claude Code — فخوادم اللغة تُحمَّل عند بدء التشغيل |
-| لا يُعثر على تعريفات لمفتاح ما             | لم تُبنَ القواميس          | شغّل `npx intlayer build`، أو ابدأ خادم التطوير              |
-| الإبلاغ عن كل المفاتيح بأنها غير مصرّح بها | تعذّر تحليل الإعدادات      | تأكّد من وجود `intlayer.config.ts` (أو `.js`) في جذر مشروعك  |
-| استخدام مشروع خاطئ داخل مستودع أحادي       | غياب إعداد لكل حزمة        | أضف `intlayer.config.*` إلى كل حزمة تصرّح بمحتواها الخاص     |
-| تعطّل الخادم عند البدء                     | إصدار Node.js قديم جدًا    | يتطلّب Node.js ‏≥ 14.18                                      |
+| العَرَض                                    | السبب المرجّح              | الحل                                                        |
+| ------------------------------------------ | -------------------------- | ----------------------------------------------------------- |
+| لا يحدث أي شيء إطلاقًا                     | الخادم غير مُشغَّل         | تحقّق من تثبيت `@intlayer/lsp` ومن أن محرّرك يشغّله         |
+| يعمل في المحرّر ولا يعمل في Claude Code    | تثبيت الإضافة أثناء الجلسة | أعد تشغيل Claude Code، فخوادم اللغة تُحمَّل عند بدء التشغيل |
+| لا يُعثر على تعريفات لمفتاح ما             | لم تُبنَ القواميس          | شغّل `npx intlayer build`، أو ابدأ خادم التطوير             |
+| الإبلاغ عن كل المفاتيح بأنها غير مصرّح بها | تعذّر تحليل الإعدادات      | تأكّد من وجود `intlayer.config.ts` (أو `.js`) في جذر مشروعك |
+| استخدام مشروع خاطئ داخل مستودع أحادي       | غياب إعداد لكل حزمة        | أضف `intlayer.config.*` إلى كل حزمة تصرّح بمحتواها الخاص    |
+| تعطّل الخادم عند البدء                     | إصدار Node.js قديم جدًا    | يتطلّب Node.js ‏≥ 14.18                                     |
 
-في VS Code، يسجّل الخادم مخرجاته في **عرض ← الإخراج ← «Intlayer LSP»** — وهو مفيد لتأكيد أي إعداد جرى تحليله وكم قاموسًا عُثر عليه.
+في VS Code، يسجّل الخادم مخرجاته في **عرض ← الإخراج ← «Intlayer LSP»**، وهو مفيد لتأكيد أي إعداد جرى تحليله وكم قاموسًا عُثر عليه.

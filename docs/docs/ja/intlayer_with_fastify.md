@@ -163,6 +163,8 @@ export default indexContent;
 
 > 詳細については、[コンテンツ宣言のドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)を参照してください。
 
+- [コンテンツ宣言のドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)
+
 ### Fastifyアプリケーションの設定
 
 `fastify-intlayer`を使用するようにFastifyアプリケーションを設定します。
@@ -238,6 +240,8 @@ export default config;
 
 > 設定および詳細なトピックについては、[ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を参照してください。
 
+- [Intlayer の設定（intlayer.config.ts）](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)
+
 ### TypeScriptの設定
 
 `fastify-intlayer`は、国際化プロセスを改善するためにTypeScriptの強力な機能を活用しています。TypeScriptの静的型付けにより、すべての翻訳キーが考慮されていることが保証され、翻訳漏れのリスクが軽減され、保守性が向上します。
@@ -258,7 +262,7 @@ export default config;
 
 Intlayerでの開発体験を向上させるために、公式の**Intlayer VS Code Extension**をインストールできます。
 
-[VS Code Marketplaceからインストール](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [VS Code Marketplaceからインストール](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 この拡張機能は以下を提供します。
 
@@ -268,6 +272,8 @@ Intlayerでの開発体験を向上させるために、公式の**Intlayer VS C
 - 翻訳を簡単に作成・更新できる**クイックアクション**。
 
 拡張機能の使用方法の詳細については、[Intlayer VS Code Extensionドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)を参照してください。
+
+- [Intlayer VS Code Extensionドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)
 
 ### Gitの設定
 
@@ -293,27 +299,42 @@ Intlayerによって生成されたファイルは無視することをお勧め
 
 [Intlayer を選ぶ理由](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)を参照してください。
 
+- [Intlayer を選ぶ理由](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)
+
 </Question>
 <Question title="i18n は Fastify サーバーのバンドルサイズにどの程度の影響を与えますか？">
 
 非常に少ないです。辞書はビルド時にコンパイルされ、宣言したロケールのみが含まれるため、ブート時のカタログ読み込みやリクエストパス上のファイル読み込みはありません。これは特にサーバーレスおよびエッジデプロイメントで重要です。バンドルサイズはコールドスタート時間に影響します。[バンドル最適化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)を参照してください。
+
+- [バンドル最適化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)
 
 </Question>
 <Question title="`i18next` からハンドラーを書き直さずに移行できますか？">
 
 はい、2 つのパスがあります。[i18next 移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_i18next_to_intlayer.md)を使用してコンテンツを段階的に移行できます。または、現在の API を完全に保つことができます。[互換性アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/index.md)は `i18next` と同じ API を公開しますが、Intlayer 辞書によって提供されるため、インポートは変わりますがハンドラーコードは変わりません。
 
+- [i18next 移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_i18next_to_intlayer.md)
+- [互換性アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/index.md)
+
 </Question>
 <Question title="既存の JSON 翻訳ファイルを保持できますか？">
 
 はい。[sync JSON プラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md)は `/messages/{locale}/{namespace}.json` ファイルを信頼できるソースとして保持し、Intlayer 辞書を双方向で生成します。[sync PO プラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-po.md)は gettext カタログに対して同じことを行い、[ロケールごとのファイル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/per_locale_file.md)ではロケールを 1 つのファイルにグループ化する代わりに言語で分割できます。
+
+- [sync JSON プラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md)
+- [sync PO プラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-po.md)
+- [ロケールごとのファイル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/per_locale_file.md)
 
 </Question>
 <Question title="コンテンツをキーごとに移動する必要がありますか？">
 
 いいえ。`npx intlayer extract` を実行すると、Intlayer はソースファイルを読み込み、ユーザーが見える文字列を抽出し、各ファイルの隣に `.content` ファイルを書き込むため、文字列をカタログに 1 つずつコピーする代わりに diff をレビューできます。[extract コマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md)を参照してください。
 
+- [extract コマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md)
+
 同じプロジェクトのフロントエンド側では、[Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)はさらに進んで、JSX、TSX、Vue または Svelte ソースからビルド時に辞書を生成するため、アプリの両側は手動で管理されたキーなしで 1 つのコンテンツレイヤーを共有します。
+
+- [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)
 
 </Question>
 <Question title="利用可能なエディターと AI エージェントツールは何ですか？">
@@ -330,6 +351,8 @@ Intlayerによって生成されたファイルは無視することをお勧め
 <Question title="Intlayer はどの言語で応答するかをどのように知っていますか？">
 
 デフォルトでは `fastify-intlayer` は受信リクエストの `Accept-Language` ヘッダーを読み込み、最も近い宣言されたロケールを選択し、デフォルトロケールにフォールバックします。`routing.storage` でソースを変更できます。例えば、カスタムヘッダーまたはフロントエンドで設定された cookie を使用して、API がブラウザーが宣伝する言語ではなく、ユーザーが実際に選択した言語で応答するようにできます。[設定リファレンス](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を参照してください。
+
+- [設定リファレンス](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)
 
 </Question>
 <Question title="ロケールはリクエストごとに分離されていますか？">
@@ -356,10 +379,19 @@ Intlayerによって生成されたファイルは無視することをお勧め
 
 `npx intlayer fill` を実行します。これにより、選択した LLM を使用して、独自のプロバイダーと API キーで不足している翻訳を入力します。`--git-diff` を追加して、ブランチで変更されたコンテンツのみを翻訳します。[fill コマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/fill.md)と [CI/CD 統合](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/CI_CD.md)を参照してください。
 
+- [fill コマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/fill.md)
+- [CI/CD 統合](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/CI_CD.md)
+
 </Question>
 <Question title="Intlayer はサーバー上で複数形、性別、補間値をサポートしていますか？">
 
 はい。[複数形](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/plurial.md)、[性別ベースのコンテンツ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/gender.md)、条件、補間値の[挿入](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/insertion.md)、メール本文の [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/markdown.md)、および数値、日付、通貨の[フォーマッター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/formatters.md)があります。
+
+- [複数形](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/plurial.md)
+- [性別ベースのコンテンツ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/gender.md)
+- [挿入](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/insertion.md)
+- [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/markdown.md)
+- [フォーマッター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/formatters.md)
 
 </Question>
 <Question title="サーバーで TypeScript オートコンプリートを取得できますか？">
@@ -371,10 +403,15 @@ Intlayerによって生成されたファイルは無視することをお勧め
 
 はい、これが通常のセットアップです。`fastify-intlayer` は同じ宣言されたコンテンツで `react-intlayer`、`next-intlayer`、`vite-intlayer` と並行して機能するため、API レスポンスとページの両方で使用されるラベルは 1 回だけ宣言されます。[Intlayer の仕組み](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/how_works_intlayer.md)を参照してください。
 
+- [Intlayer の仕組み](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/how_works_intlayer.md)
+
 </Question>
 <Question title="Intlayer は無料でオープンソースですか？">
 
 はい、Apache 2.0 ライセンスの下で、商用利用を含みます。ホストされた [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md) はオプションの有料サービスで、[セルフホスト](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/self_hosting.md)することもできます。
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)
+- [セルフホスト](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/self_hosting.md)
 
 </Question>
 

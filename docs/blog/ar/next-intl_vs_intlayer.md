@@ -121,6 +121,8 @@ style="border:none;"
 
 > الجدول الكامل، لكل مكتبة واستراتيجية، في [تقرير قياس أداء Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md).
 
+- [تقرير قياس أداء Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md)
+
 ### النتائج على TanStack Start (`use-intl`)
 
 تعتبر `use-intl` النواة المستقلة عن أي إطار عمل لمكتبة `next-intl`. نفس واجهة برمجة التطبيقات ونفس تنسيق الرسائل. مقارنتها مع `intlayer` على TanStack Start تزيل العوامل الخاصة بـ Next.js من المعادلة.
@@ -151,6 +153,8 @@ style="border:none;"
 />
 
 > الجدول الكامل في [تقرير قياس أداء TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md).
+
+- [تقرير قياس أداء TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md)
 
 ## لماذا هذا الفارق؟ الكتالوجات المركزية مقابل القواميس المجمعة
 
@@ -203,6 +207,8 @@ style="border:none;"
 في وقت البناء، يرى المترجم أي مكون يستورد أي قاموس، ويحزم هذه القواميس فقط للغة النشطة، ويسقط أي محتوى غير مستخدم تلقائياً.
 
 > للحصول على أرقام صف `dynamic`، اضبط `dictionary.importMode: 'dynamic'` في `intlayer.config.ts`. راجع [دليل تحسين الحزمة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md).
+
+- [دليل تحسين الحزمة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md)
 
 ## تجربة المطور
 
@@ -414,7 +420,11 @@ export default withIntlayer(nextConfig);
 
 في الاختبار، تحسن بناء التوافق لنفس التطبيق من **153.6 كيلوبايت إلى 147.5 كيلوبايت** لكل صفحة، ومن **21.8 كيلوبايت إلى 8.1 كيلوبايت** لكل مكون، ومن **تسرب يقارب 90% إلى 0%**، مع بقاء كود التطبيق دون أي تعديل. ويمكن لملفات `messages/{locale}.json` الحالية أن تظل مصدر الحقيقة عبر [إضافة مزامنة JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/next-intl.md).
 
+- [إضافة مزامنة JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/next-intl.md)
+
 راجع [دليل الانتقال من next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_next-intl_to_intlayer.md) لاتباع الخطوات التفصيلية.
+
+- [دليل الانتقال من next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_next-intl_to_intlayer.md)
 
 ## متى تختار أياً منهما؟
 
@@ -428,10 +438,18 @@ export default withIntlayer(nextConfig);
 
 تريد **محتوى مخصصاً لكل مكون**، و**TypeScript صارماً**، و**أخطاء المفاتيح المفقودة في وقت البناء**، و**tree-shaking والتحميل الكسول دون أي جهد إضافي**، ومكونات خادم متزامنة، وأدوات تحرير مدمجة ([المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)، [نظام إدارة المحتوى CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)، [الترجمة بالذكاء الاصطناعي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/autoFill.md)، [خادم MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/mcp_server.md)). ملائم بشكل خاص لقواعد الكود الكبيرة والمعيارية وأنظمة التصميم.
 
+- [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)
+- [نظام إدارة المحتوى CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
+- [الترجمة بالذكاء الاصطناعي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/autoFill.md)
+- [خادم MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/mcp_server.md)
+
 </Accordion>
 <Accordion header="اختر @intlayer/next-intl">
 
 أنت تستخدم بالفعل `next-intl` وتريد الحصول على مزايا حجم الحزمة دون إعادة كتابة الكود. يحافظ [محول التوافق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/next-intl.md) على عمليات الاستيراد وملف `messages/{locale}.json` كمصدر وحيد للحقيقة. تم قياسه جنباً إلى جنب في [next-intl مقابل @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/next-intl_vs_intlayer-next-intl.md).
+
+- [محول التوافق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/next-intl.md)
+- [next-intl مقابل @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/next-intl_vs_intlayer-next-intl.md)
 
 </Accordion>
 </AccordionGroup>
@@ -450,11 +468,15 @@ export default withIntlayer(nextConfig);
 
 نعم، باستخدام إعداد `scoped-dynamic`: قسّم `messages/{locale}.json` إلى مساحة أسماء لكل مسار، ثم استخدم `pick(messages, [...])` في كل صفحة وحافظ على صحة هذا التعيين مع تنقل المكونات. هذا هو الجهد الذي تعكسه صفوف `scoped-*` في الاختبار. يصل Intlayer إلى 0% بدون ذلك لأن المترجم يحدد نطاق المحتوى لكل مكون. راجع [تحسين الحزمة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md).
 
+- [تحسين الحزمة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md)
+
 </Question>
 
 <Question title="هل يجب علي إعادة كتابة مكوناتي للترحيل؟">
 
 لا. يحافظ `@intlayer/next-intl` على `useTranslations` و `getTranslations` و `useFormatter` و `t.rich()` وصيغ الجمع في ICU ومساعدات التنقل، ويقدمها من قواميس مجمعة بواسطة مترجم Intlayer. سطر إضافي واحد في `next.config.ts`. دليلك خطوة بخطوة في [دليل ترحيل next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_next-intl_to_intlayer.md).
+
+- [دليل ترحيل next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_next-intl_to_intlayer.md)
 
 </Question>
 
@@ -462,11 +484,15 @@ export default withIntlayer(nextConfig);
 
 دعم ICU الأصلي قيد التطوير في واجهة برمجة التطبيقات الأساسية. لكن محولات التوافق (`@intlayer/next-intl`، `@intlayer/use-intl`) تدعم ICU بالكامل: صيغ الجمع، و `select`، و `selectordinal`، و `#` و `{ts, date, long}` تتم معالجتها عبر محلل ICU في Intlayer. اقرأ [تنسيق رسائل ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md) لمزيد من التفاصيل.
 
+- [تنسيق رسائل ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)
+
 </Question>
 
 <Question title="هل يمكنني الاحتفاظ بملفات messages/{locale}.json؟">
 
 نعم. يقرأها [المكون الإضافي لمزامنة JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/next-intl.md)، ويقسم المفاتيح العليا إلى قواميس، ويكتب الترجمات مرة أخرى في نفس الملفات عندما تقوم أداة CLI أو CMS بتحديثها. سير عمل المترجمين لديك لن يتغير.
+
+- [المكون الإضافي لمزامنة JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/next-intl.md)
 
 </Question>
 
@@ -519,3 +545,5 @@ export default withIntlayer(nextConfig);
 جميع البيانات الأولية والتطبيقات وسيناريوهات الاختبار متاحة في [مستودع Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). يمكنك تشغيلها بنفسك.
 
 راجع وثيقة ['لماذا Intlayer؟'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/interest_of_intlayer.md) لمزيد من التفاصيل.
+
+- [لماذا Intlayer؟ مزاياه مقارنة بمكتبات i18n الأخرى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/interest_of_intlayer.md)

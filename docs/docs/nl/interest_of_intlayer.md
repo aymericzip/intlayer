@@ -54,15 +54,27 @@ Het afbakenen van de inhoud van uw applicatie op componentniveau **vergemakkelij
 
 Het samen plaatsen van code en inhoud (Co-location) **vermindert de benodigde context** voor Large Language Models (LLM's). Intlayer wordt ook geleverd met een reeks tools, zoals een **CLI** om te testen op ontbrekende vertalingen, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/mcp_server.md)** en **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/agent_skills.md)**, om de ontwikkelaarservaring (DX) voor AI-agenten nog soepeler te maken.
 
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/mcp_server.md)
+- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/agent_skills.md)
+
 </Accordion>
 <Accordion header="Functies">
 
 Intlayer biedt een reeks extra functies die andere i18n-oplossingen niet hebben, zoals [Markdown-ondersteuning](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/dictionary/markdown.md), [externe inhoud ophalen](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/dictionary/function_fetching.md), [bestandsinhoud laden](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/dictionary/file.md), [live-inhoudsupdate](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/cli/live.md), [visuele editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_visual_editor.md) en meer.
 
+- [Markdown-ondersteuning](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/dictionary/markdown.md)
+- [externe inhoud ophalen](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/dictionary/function_fetching.md)
+- [bestandsinhoud laden](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/dictionary/file.md)
+- [live-inhoudsupdate](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/cli/live.md)
+- [visuele editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_visual_editor.md)
+
 </Accordion>
 <Accordion header="Automatisering">
 
 Gebruik automatisering om te vertalen in uw CI/CD-pipeline met behulp van de LLM van uw keuze tegen de directe kosten van uw AI-provider. Intlayer biedt ook een **compiler** om inhoudsextractie te automatiseren, evenals een [webplatform](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_CMS.md) om te helpen **vertalen op de achtergrond**.
+
+- [webplatform](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="Prestaties">
@@ -73,6 +85,9 @@ Het verbinden van enorme JSON-bestanden met componenten kan leiden tot prestatie
 <Accordion header="Schalen met niet-ontwikkelaars">
 
 Meer dan alleen een i18n-oplossing biedt Intlayer een **zelfgehoste [visuele editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_visual_editor.md)** en een **[volledig CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_CMS.md)** om u te helpen uw meertalige inhoud in **realtime** te beheren. Dit maakt de samenwerking met vertalers, copywriters en andere teamleden naadloos. Inhoud kan lokaal en/of extern worden opgeslagen.
+
+- [visuele editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_visual_editor.md)
+- [volledig CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="Cross-framework ontwerp">
@@ -283,3 +298,5 @@ GitHub-sterren zijn een sterke indicator van de populariteit van een project, he
 Door `intlayer` te gebruiken, kunt u uw inhoud declareren in het formaat van uw favoriete i18n-bibliotheek, en intlayer genereert uw namespaces op de locatie van uw keuze (voorbeeld: `/messages/{{locale}}/{{namespace}}.json`).
 
 Als u de API van uw huidige i18n-bibliotheek wilt blijven gebruiken, biedt `intlayer` ook **compat-adapters**: pakketten die exact dezelfde API blootstellen als `react-i18next`, `next-intl`, `react-intl`, `vue-i18n` en andere, maar die worden bediend door Intlayer-woordenboeken. Zo kunt u geleidelijk migreren zonder uw code te herschrijven. Zie de [documentatie over compat-adapters](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md).
+
+- [documentatie over compat-adapters](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md)

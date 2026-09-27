@@ -30,7 +30,7 @@ author: aymericzip
 
 # Intlayer LSP 服务器
 
-**Intlayer 语言服务器**是 [Language Server Protocol (LSP)](https://microsoft.github.io/language-server-protocol/) 的一个实现，它让你的 IDE —— 以及你的 AI 智能体 —— 理解 Intlayer。它把 `useIntlayer("home")` 这样的调用与声明它的 `.content.ts` 文件双向关联起来。
+**Intlayer 语言服务器**是 [Language Server Protocol (LSP)](https://microsoft.github.io/language-server-protocol/) 的一个实现，它让你的 IDE，以及你的 AI 智能体，理解 Intlayer。它把 `useIntlayer("home")` 这样的调用与声明它的 `.content.ts` 文件双向关联起来。
 
 ## 功能
 
@@ -44,8 +44,8 @@ author: aymericzip
 
 还有两个行为值得了解：
 
-- **合并字典** —— 分散在多个内容文件中的键会按文件各返回一个结果，因此你可以跳转到每一处声明。
-- **支持 monorepo** —— 服务器会解析距离每个文件_最近的_ `intlayer.config.*`，因此同一工作区中的多个项目各自拥有独立的字典。
+- **合并字典**：分散在多个内容文件中的键会按文件各返回一个结果，因此你可以跳转到每一处声明。
+- **支持 monorepo**：服务器会解析距离每个文件_最近的_ `intlayer.config.*`，因此同一工作区中的多个项目各自拥有独立的字典。
 
 ### 支持的调用
 
@@ -84,21 +84,23 @@ pnpm add --save-dev @intlayer/lsp
 bun add --dev @intlayer/lsp
 ```
 
-如果你的编辑器需要在 `PATH` 中找到 `intlayer-lsp`，请改为全局安装（`npm install -g @intlayer/lsp`）—— Claude Code 插件以及下文中直接调用该可执行文件的配置都属于这种情况。
+如果你的编辑器需要在 `PATH` 中找到 `intlayer-lsp`，请改为全局安装（`npm install -g @intlayer/lsp`），Claude Code 插件以及下文中直接调用该可执行文件的配置都属于这种情况。
 
 ## 配置
 
 <Tabs defaultTab="vscode">
   <Tab label="VS Code" value="vscode">
 
-安装 [Intlayer VS Code 扩展](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension)。语言服务器自 v8.12.0 起已内置并会自动启动 —— **无需任何配置**。
+安装 [Intlayer VS Code 扩展](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension)。语言服务器自 v8.12.0 起已内置并会自动启动，**无需任何配置**。
 
 其他功能请参阅 [VS Code 扩展文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/vs_code_extension.md)。
+
+- [VS Code 扩展文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/vs_code_extension.md)
 
   </Tab>
   <Tab label="Cursor / Windsurf" value="cursor">
 
-[Cursor](https://www.cursor.com/) 和 [Windsurf](https://windsurf.com/) 是 VS Code 的分支，使用相同的扩展生态。安装一次 [Intlayer VS Code 扩展](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension)，服务器便会自动启用 —— **无需任何配置**。
+[Cursor](https://www.cursor.com/) 和 [Windsurf](https://windsurf.com/) 是 VS Code 的分支，使用相同的扩展生态。安装一次 [Intlayer VS Code 扩展](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension)，服务器便会自动启用，**无需任何配置**。
 
   </Tab>
   <Tab label="Claude Code" value="claude-code">
@@ -114,7 +116,7 @@ claude plugin marketplace add intlayer@github:aymericzip/intlayer
 claude plugin install intlayer-lsp@intlayer
 ```
 
-`install` 同时会启用该插件。**请重启 Claude Code** —— 语言服务器在启动时加载，因此在重启前插件不会生效。
+`install` 同时会启用该插件。**请重启 Claude Code**，语言服务器在启动时加载，因此在重启前插件不会生效。
 
 之后 Claude Code 会在 `.ts`、`.tsx`、`.js`、`.jsx`、`.vue`、`.astro` 和 `.svelte` 文件上启动该服务器，并在浏览代码时使用 `goToDefinition`、`findReferences` 和 `hover`。
 
@@ -240,10 +242,10 @@ language-servers = ["intlayer-lsp", "typescript-language-server"]
 
 任何支持 LSP 的编辑器都可以运行 `@intlayer/lsp`。请将其指向：
 
-- **可执行文件** —— `npx @intlayer/lsp`，或 `intlayer-lsp` 可执行文件
-- **传输方式** —— stdio（标准）
-- **能力** —— `definitionProvider`、`referencesProvider`、`hoverProvider`、`completionProvider`（触发字符 `"` `'` `` ` `` `.`）、推送式诊断、`textDocumentSync: Incremental`
-- **根目录匹配模式** —— `intlayer.config.ts`、`intlayer.config.js`、`package.json`
+- **可执行文件**：`npx @intlayer/lsp`，或 `intlayer-lsp` 可执行文件
+- **传输方式**：stdio（标准）
+- **能力**：`definitionProvider`、`referencesProvider`、`hoverProvider`、`completionProvider`（触发字符 `"` `'` `` ` `` `.`）、推送式诊断、`textDocumentSync: Incremental`
+- **根目录匹配模式**：`intlayer.config.ts`、`intlayer.config.js`、`package.json`
 
 确切的配置格式请查阅你所用编辑器的 LSP 文档。
 
@@ -252,7 +254,7 @@ language-servers = ["intlayer-lsp", "typescript-language-server"]
 
 ## 关于终端 AI 智能体的说明
 
-**Claude Code** 是一个真正的 LSP 客户端 —— 参见上面的标签页。
+**Claude Code** 是一个真正的 LSP 客户端，参见上面的标签页。
 
 **OpenAI Codex** 及大多数其他终端工具并不是 LSP 客户端：它们直接读写文件。单独运行服务器对它们没有帮助；真正的价值在于服务器在一个配套编辑器中处于活跃状态，而智能体可以查询该编辑器的索引（Cursor Composer、Windsurf Cascade、Copilot Chat）。
 
@@ -271,10 +273,10 @@ language-servers = ["intlayer-lsp", "typescript-language-server"]
 | 现象                                    | 可能原因           | 解决办法                                               |
 | --------------------------------------- | ------------------ | ------------------------------------------------------ |
 | 完全没有反应                            | 服务器未运行       | 检查是否已安装 `@intlayer/lsp`，以及编辑器是否会启动它 |
-| 在编辑器中可用，在 Claude Code 中不可用 | 会话中途安装了插件 | 重启 Claude Code —— 语言服务器在启动时加载             |
+| 在编辑器中可用，在 Claude Code 中不可用 | 会话中途安装了插件 | 重启 Claude Code，语言服务器在启动时加载               |
 | 找不到某个键的定义                      | 字典尚未构建       | 运行 `npx intlayer build`，或启动开发服务器            |
 | 所有键都被报告为未声明                  | 配置未解析         | 确认项目根目录存在 `intlayer.config.ts`（或 `.js`）    |
 | 在 monorepo 中使用了错误的项目          | 缺少各自的包级配置 | 为每个声明自有内容的包添加 `intlayer.config.*`         |
 | 服务器启动时崩溃                        | Node.js 版本过低   | 需要 Node.js ≥ 14.18                                   |
 
-在 VS Code 中，服务器会将日志输出到 **查看 → 输出 → “Intlayer LSP”** —— 便于确认解析到的是哪份配置以及找到了多少字典。
+在 VS Code 中，服务器会将日志输出到 **查看 → 输出 → “Intlayer LSP”**，便于确认解析到的是哪份配置以及找到了多少字典。

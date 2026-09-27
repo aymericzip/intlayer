@@ -33,7 +33,7 @@ author: aymericzip
 
 In Intlayer wird auswahlbasierter Inhalt durch die Funktion `select` erreicht, die beliebige Zeichenfolgenwerte ihrem entsprechenden Inhalt zuordnet. Dies entspricht einer ICU-Nachricht `{value, select, …}` oder einer `switch`-Anweisung im Code Ihrer Anwendung.
 
-Verwenden Sie `select`, wenn der Diskriminant eine freiformatige Zeichenfolge ist — ein Status, ein Plan, eine Plattform, eine Rolle. Für die anderen Diskriminanten bietet Intlayer spezielle Knoten:
+Verwenden Sie `select`, wenn der Diskriminant eine freiformatige Zeichenfolge ist, ein Status, ein Plan, eine Plattform, eine Rolle. Für die anderen Diskriminanten bietet Intlayer spezielle Knoten:
 
 | Diskriminant             | Knoten     |
 | ------------------------ | ---------- |
@@ -82,13 +82,13 @@ export default myPostContent;
 }
 ```
 
-> Wenn kein `fallback` deklariert ist, wird der zuletzt deklarierte Schlüssel als Fallback herangezogen, wenn der bereitgestellte Wert mit keinem deklarierten Fall übereinstimmt — derselbe Vertrag wie bei `cond()` und `gender()`.
+> Wenn kein `fallback` deklariert ist, wird der zuletzt deklarierte Schlüssel als Fallback herangezogen, wenn der bereitgestellte Wert mit keinem deklarierten Fall übereinstimmt, derselbe Vertrag wie bei `cond()` und `gender()`.
 
 ### Typsicherheit
 
 Das akzeptierte Argument wird aus den deklarierten Fällen abgeleitet:
 
-- Ohne einen `fallback` werden nur die deklarierten Fälle akzeptiert — ein Tippfehler ist ein Typfehler.
+- Ohne einen `fallback` werden nur die deklarierten Fälle akzeptiert, ein Tippfehler ist ein Typfehler.
 - Mit einem `fallback` wird jede Zeichenfolge akzeptiert (der Fallback deckt die nicht übereinstimmenden Werte ab), während die deklarierten Fälle weiterhin automatisch vervollständigt werden.
 
 ## Warum kein einfaches Objekt?
@@ -375,6 +375,8 @@ select(
 Der ICU-Fall `other` wird in `fallback` umbenannt, was der kanonische Name von Intlayer für einen Auffangfall (Catch-All) ist. Das zweite Argument zeichnet den ICU-Variablennamen auf, sodass die Nachricht beim Exportieren wieder in genau dieselbe ICU-Zeichenfolge umgewandelt wird.
 
 > Ein ICU `select`, dessen Fälle Geschlechterwerte sind (`male` / `female` / `other`), wird stattdessen als [`gender`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/gender.md)-Knoten importiert.
+
+- [`gender`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/gender.md)
 
 ## Zusätzliche Ressourcen
 

@@ -70,6 +70,8 @@ Cependant, dans le monde React, on observe principalement différentes approches
 > Dans ce blog, je ne me concentrerai pas sur les solutions basées sur un compilateur, que j'ai déjà abordées ici : [Compilateur vs i18n déclaratif](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/compiler_vs_declarative_i18n.md).
 > Notez que l'i18n basée sur un compilateur (par exemple, Lingui) n'automatise que l'extraction et le chargement du contenu. Sous le capot, ces solutions partagent souvent les mêmes limitations que les autres approches.
 
+- [Compilateur vs i18n déclaratif](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/compiler_vs_declarative_i18n.md)
+
 > Notez que plus vous affinez la façon dont vous récupérez votre contenu, plus vous risquez d'introduire de l'état et de la logique supplémentaires dans vos composants.
 
 Les approches granulaires sont plus flexibles que les approches centralisées, mais c'est souvent un compromis. Même si ces bibliothèques mettent en avant le "tree shaking", en pratique vous finirez souvent par charger une page dans chaque langue.
@@ -152,6 +154,8 @@ locale/
 ```
 
 Vous devez maintenant gérer avec précision quelles parties du contenu de votre application doivent être chargées, et où. En conclusion, la grande majorité des projets passent simplement outre cette étape en raison de la complexité (voir par exemple le guide [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/i18n_using_next-i18next.md) pour constater les défis que représente (simplement) le suivi des bonnes pratiques).
+
+- [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/i18n_using_next-i18next.md)
 
 > Notez que ce problème n'est pas spécifique à i18next, mais concerne toutes les approches centralisées listées ci‑dessus.
 

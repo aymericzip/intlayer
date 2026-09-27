@@ -50,6 +50,8 @@ TanStack Start không đi kèm sẵn tầng i18n. Việc định tuyến, phát 
 
 > Sử dụng Next.js thay thế? Xem [hướng dẫn next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18n_using_next-intl.md).
 
+- [hướng dẫn next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18n_using_next-intl.md)
+
 > Để hiểu các thư viện này đến từ đâu, hãy đọc lịch sử i18n trong JavaScript.
 
 - [Lịch sử i18n trong JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/history_of_i18n.md)
@@ -57,6 +59,8 @@ TanStack Start không đi kèm sẵn tầng i18n. Việc định tuyến, phát 
 ## Đo điểm chuẩn benchmark nói gì về use-intl trên TanStack Start
 
 Bài [đo điểm chuẩn i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md) chạy cùng một ứng dụng TanStack Start gồm 10 trang và 10 ngôn ngữ với từng thư viện lớn để đo lường dung lượng thực tế mà trình duyệt tải xuống.
+
+- [đo điểm chuẩn i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md)
 
 <I18nBenchmark framework="tanstack" packages="use-intl,@intlayer/use-intl,intlayer" vertical/>
 
@@ -75,6 +79,8 @@ Những điều cần lưu ý:
 - **Bản thân runtime vẫn còn nặng** (~76 KB gzip), vì parser ICU được gửi tới client. Adapter tương thích `@intlayer/use-intl` (bước 17) giữ nguyên API chính xác với runtime chỉ ~7 KB.
 
 > Xem toàn bộ dữ liệu: [Báo cáo benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md), và [kho lưu trữ benchmark](https://github.com/intlayer-org/benchmark-i18n).
+
+- [Báo cáo benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md)
 
 ## So sánh tính năng trên TanStack Start
 
@@ -99,6 +105,8 @@ Cách `use-intl` so sánh với các thư viện khác thường được sử d
 | **Kiểm tra thiếu bản dịch trong CI**           | ✅ `npx intlayer test`               | ⚠️ Không tích hợp sẵn     | ⚠️ Không tích hợp sẵn                     | ✅ `lingui compile --strict`     |
 
 > Kích thước runtime và số liệu rò rỉ được lấy từ [benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md). Rò rỉ được đo trên cấu hình tối ưu nhất của từng thư viện.
+
+- [benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md)
 
 > Các hướng dẫn TanStack Start khác:
 
@@ -975,6 +983,8 @@ export const startInstance = createStart(() => ({
 
 Số liệu benchmark cho thấy phần nặng nhất của thiết lập use-intl chính là runtime (~76 KB gzip). Adapter tương thích [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/index.md) cung cấp **cùng một API** (`useTranslations`, `useFormatter`, `IntlProvider`, `createTranslator`, số nhiều ICU, `t.rich`), nhưng phục vụ từ các từ điển Intlayer đã được biên dịch: **chỉ ~6.7 KB thay vì ~75.9 KB**, 0% rò rỉ ngôn ngữ và 0% rò rỉ trang, mà không cần thay đổi bất kỳ component nào của bạn.
 
+- [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/index.md)
+
 ```bash packageManager="npm"
 npm install @intlayer/use-intl intlayer @intlayer/sync-json-plugin
 npx intlayer init
@@ -1035,7 +1045,11 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
+- [plugin sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/plugins/sync-json.md)
+
 > Adapter này cũng là một lộ trình chuyển đổi mượt mà: khi nó đã hoạt động, bạn có thể chuyển dần từng component sang API gốc `useIntlayer`. Xem [hướng dẫn Intlayer TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_tanstack.md).
+
+- [hướng dẫn Intlayer TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_tanstack.md)
 
 </Step>
 <Step number={18} title="Prerender mọi ngôn ngữ" isOptional={true}>
@@ -1143,6 +1157,8 @@ use-intl phụ trách render các bản dịch, nhưng không hỗ trợ bạn *
 
 Để khám phá tất cả các tính năng, xem [lợi ích của Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/interest_of_intlayer.md).
 
+- [lợi ích của Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/interest_of_intlayer.md)
+
 </Step>
 </Steps>
 
@@ -1153,6 +1169,8 @@ use-intl phụ trách render các bản dịch, nhưng không hỗ trợ bạn *
 <Question title="use-intl có phải là một lựa chọn tốt cho TanStack Start không?">
 
 Có, nếu bạn muốn sử dụng API của `next-intl` bên ngoài Next.js. Nó cung cấp các thông điệp ICU, formatters và hỗ trợ TypeScript tốt, đồng thời tránh được các ràng buộc đặc thù của Next.js như `setRequestLocale`. Điểm đánh đổi là dung lượng: [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md) ghi nhận ~76 KB gzip cho runtime, và thiết lập thông thường sẽ gửi mọi ngôn ngữ và mọi trang đến trình duyệt. Hãy tải các namespace theo từng route và từng ngôn ngữ như trong hướng dẫn này để tránh rò rỉ dữ liệu.
+
+- [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md)
 
 </Question>
 <Question title="Sự khác biệt giữa use-intl và next-intl là gì?">
@@ -1174,6 +1192,8 @@ Server và trình duyệt định dạng ngày tháng ở các múi giờ khác 
 
 Đầu tiên, hãy chia nhỏ thông điệp theo namespace và tải theo từng route cũng như từng ngôn ngữ bằng `import.meta.glob`, giúp loại bỏ rò rỉ ngôn ngữ và rò rỉ trang. Sau đó, nếu kích thước runtime là yếu tố quan trọng, hãy chuyển sang adapter [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/index.md): cùng một API, dung lượng chỉ ~6.7 KB thay vì ~75.9 KB theo benchmark.
 
+- [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/index.md)
+
 </Question>
 <Question title="Làm thế nào để dịch tiêu đề (title) và meta description với use-intl?">
 
@@ -1183,6 +1203,9 @@ Gọi `createTranslator` bên trong hàm `head()` của route cùng với các t
 <Question title="Tôi có thể chuyển đổi dần dần từ use-intl sang Intlayer không?">
 
 Có. Cài đặt adapter tương thích trước (bước 17): các component của bạn vẫn tiếp tục gọi `useTranslations`, hiện được hỗ trợ bởi Intlayer. Sau đó, chuyển dần từng component sang `useIntlayer` và khai báo nội dung ngay bên cạnh chúng. Xem [các adapter tương thích](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/index.md) và [hướng dẫn Intlayer TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_tanstack.md).
+
+- [các adapter tương thích](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/index.md)
+- [hướng dẫn Intlayer TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_tanstack.md)
 
 </Question>
 

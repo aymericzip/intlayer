@@ -31,7 +31,7 @@ author: aymericzip
 
 # Tích hợp Next.js: Tài liệu Hook `usePathname`
 
-Hook `usePathname` trả về đường dẫn (pathname) Next.js hiện tại đã loại bỏ phân đoạn vùng miền (locale segment). Điều này rất hữu ích để xây dựng tính năng điều hướng nhận thức vùng miền (locale-aware) — ví dụ: để xác định xem mục điều hướng nào đang hoạt động — mà không cần phải loại bỏ tiền tố locale theo cách thủ công.
+Hook `usePathname` trả về đường dẫn (pathname) Next.js hiện tại đã loại bỏ phân đoạn vùng miền (locale segment). Điều này rất hữu ích để xây dựng tính năng điều hướng nhận thức vùng miền (locale-aware), ví dụ: để xác định xem mục điều hướng nào đang hoạt động, mà không cần phải loại bỏ tiền tố locale theo cách thủ công.
 
 ## Nhập `usePathname` trong Next.js
 

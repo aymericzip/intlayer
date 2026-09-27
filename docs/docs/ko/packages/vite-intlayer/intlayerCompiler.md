@@ -31,6 +31,8 @@ author: aymericzip
 
 > **Intlayer v9부터** `intlayerCompiler`는 Intlayer 설정에서 `compiler.enabled`가 `true`이고 `compiler.output`이 설정된 경우 기본 [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/vite-intlayer/intlayer.md) 플러그인 내에 자동으로 포함됩니다. 컴파일러 전용 설정을 완벽히 제어하고 싶을 때만 이 플러그인을 별도로 등록해야 합니다.
 
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/vite-intlayer/intlayer.md)
+
 ## 사용법
 
 ### `intlayer()`의 일부로 사용 (권장, v9+)

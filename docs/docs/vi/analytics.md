@@ -24,13 +24,13 @@ history:
     changes: "Bật phân tích theo mặc định khi `@intlayer/analytics` được cài đặt"
   - version: 9.0.0
     date: 2026-07-08
-    changes: "Init doc — gói @intlayer/analytics, theo dõi ở cấp độ provider/node, thử nghiệm A/B, dashboard"
+    changes: "Init doc, gói @intlayer/analytics, theo dõi ở cấp độ provider/node, thử nghiệm A/B, dashboard"
 author: aymericzip
 ---
 
 # Tài liệu Intlayer Analytics
 
-`@intlayer/analytics` là một gói đồng hành tùy chọn cho bạn biết **chính xác nội dung nào được hiển thị** cho khách truy cập của bạn — trang nào, bằng ngôn ngữ (locale) nào và đoạn nội dung được dịch cụ thể nào — để bạn có thể hiểu rõ khán giả của mình và chạy **thử nghiệm A/B trên nội dung**.
+`@intlayer/analytics` là một gói đồng hành tùy chọn cho bạn biết **chính xác nội dung nào được hiển thị** cho khách truy cập của bạn (trang nào, bằng ngôn ngữ (locale) nào và đoạn nội dung được dịch cụ thể nào) để bạn có thể hiểu rõ khán giả của mình và chạy **thử nghiệm A/B trên nội dung**.
 
 ## Mục lục
 
@@ -40,22 +40,24 @@ author: aymericzip
 
 `@intlayer/analytics` gom nhóm ba loại sự kiện ẩn danh thành các batch:
 
-| Sự kiện            | Bắt ở đâu                                            | Cho bạn biết điều gì                                                                                                                                              |
-| ------------------ | ---------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `page_view`        | Cấp độ Provider (`IntlayerProvider`)                 | Trang và ngôn ngữ nào mà một phiên (session) đã xem, khi tải lần đầu, khi chuyển hướng (route change) hoặc chuyển ngôn ngữ.                                       |
-| `content_exposure` | Cấp độ Node (`useIntlayer` / plugin trình biên dịch) | Khóa từ điển (dictionary key) / đường dẫn khóa nào thực sự được giải quyết và hiển thị — và nếu là một phần của thử nghiệm, thì đó là **biến thể (variant)** nào. |
-| `conversion`       | Bất cứ nơi nào bạn gọi `useConversion()`             | Một mục tiêu đạt được (đăng ký, nhấp chuột, mua hàng...) được quy cho (attributed) biến thể A/B mà phiên đó đã tiếp xúc.                                          |
+| Sự kiện            | Bắt ở đâu                                            | Cho bạn biết điều gì                                                                                                                                             |
+| ------------------ | ---------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `page_view`        | Cấp độ Provider (`IntlayerProvider`)                 | Trang và ngôn ngữ nào mà một phiên (session) đã xem, khi tải lần đầu, khi chuyển hướng (route change) hoặc chuyển ngôn ngữ.                                      |
+| `content_exposure` | Cấp độ Node (`useIntlayer` / plugin trình biên dịch) | Khóa từ điển (dictionary key) / đường dẫn khóa nào thực sự được giải quyết và hiển thị, và nếu là một phần của thử nghiệm, thì đó là **biến thể (variant)** nào. |
+| `conversion`       | Bất cứ nơi nào bạn gọi `useConversion()`             | Một mục tiêu đạt được (đăng ký, nhấp chuột, mua hàng...) được quy cho (attributed) biến thể A/B mà phiên đó đã tiếp xúc.                                         |
 
-Các sự kiện được thu thập trong bộ nhớ và được gửi dưới dạng một **yêu cầu batch duy nhất khoảng 20 giây một lần** — không bao giờ gửi trên mỗi lần gõ phím hoặc mỗi lần render — do đó, analytics không bao giờ ảnh hưởng đến thời gian render đầu tiên hoặc thêm một yêu cầu cho mỗi tương tác.
+Các sự kiện được thu thập trong bộ nhớ và được gửi dưới dạng một **yêu cầu batch duy nhất khoảng 20 giây một lần**, không bao giờ gửi trên mỗi lần gõ phím hoặc mỗi lần render, do đó, analytics không bao giờ ảnh hưởng đến thời gian render đầu tiên hoặc thêm một yêu cầu cho mỗi tương tác.
 
 ## Cách nó hỗ trợ thử nghiệm A/B trên nội dung
 
 Intlayer đã cho phép bạn khai báo [Biến thể (Variants)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dynamic_dictionaries/index.md) nội dung (ví dụ: từ điển `hero-banner` có biến thể `control` và `black_friday`). `@intlayer/analytics` khép kín quy trình này:
 
-1. `getVariant(experimentKey, variants)` gán một cách tất định mỗi phiên ẩn danh cho một biến thể — đây là một hàm thuần túy (pure function) của session id và khóa thử nghiệm, vì vậy việc gán là **ổn định trong toàn bộ phiên** và **không cần round-trip đến máy chủ** trước lần render đầu tiên (không bị nhấp nháy (flicker), không thay đổi bố cục (layout shift)).
+1. `getVariant(experimentKey, variants)` gán một cách tất định mỗi phiên ẩn danh cho một biến thể, đây là một hàm thuần túy (pure function) của session id và khóa thử nghiệm, vì vậy việc gán là **ổn định trong toàn bộ phiên** và **không cần round-trip đến máy chủ** trước lần render đầu tiên (không bị nhấp nháy (flicker), không thay đổi bố cục (layout shift)).
 2. Mỗi sự kiện `content_exposure` mang theo `variant` đã được hiển thị.
 3. `useConversion()` cho phép bạn quy một mục tiêu (ví dụ: `"cta_click"`) cho biến thể đó.
 4. Điểm cuối (endpoint) kết quả thử nghiệm trên dashboard sẽ so sánh tỷ lệ chuyển đổi trên mỗi biến thể, bao gồm cả ý nghĩa thống kê (kiểm định z).
+
+- [Biến thể (Variants)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dynamic_dictionaries/index.md)
 
 ## Cài đặt
 
@@ -77,7 +79,7 @@ pnpm add @intlayer/analytics
 bun add @intlayer/analytics
 ```
 
-Chỉ cần cài gói là đủ để bật phân tích: `analytics.enabled` mặc định là `true`, và `@intlayer/config` sẽ chuyển thành `false` bất cứ khi nào không tìm thấy gói trong dự án của bạn. Nếu bạn không cài đặt nó, mọi điểm tích hợp (integration point) sẽ được coi là một hành động trống (no-op) — xem phần [Không tốn phí khi không được cài đặt](#khong-ton-phi-khi-khong-duoc-cai-dat) bên dưới.
+Chỉ cần cài gói là đủ để bật phân tích: `analytics.enabled` mặc định là `true`, và `@intlayer/config` sẽ chuyển thành `false` bất cứ khi nào không tìm thấy gói trong dự án của bạn. Nếu bạn không cài đặt nó, mọi điểm tích hợp (integration point) sẽ được coi là một hành động trống (no-op), xem phần [Không tốn phí khi không được cài đặt](#khong-ton-phi-khi-khong-duoc-cai-dat) bên dưới.
 
 ## Cấu hình
 
@@ -97,8 +99,8 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-- `editor.backendURL` — URL cơ sở mà các sự kiện analytics được gửi đến (`POST {backendURL}/api/analytics/events`).
-- `editor.clientId` — khóa dự án công khai được gắn vào mọi sự kiện được thu nhận. Nó cũng đóng vai trò là **công tắc bật (enable switch)**: analytics hoàn toàn bị vô hiệu hóa (và được loại bỏ bằng tree-shaking, xem bên dưới) cho đến khi `clientId` được định cấu hình.
+- `editor.backendURL`: URL cơ sở mà các sự kiện analytics được gửi đến (`POST {backendURL}/api/analytics/events`).
+- `editor.clientId`: khóa dự án công khai được gắn vào mọi sự kiện được thu nhận. Nó cũng đóng vai trò là **công tắc bật (enable switch)**: analytics hoàn toàn bị vô hiệu hóa (và được loại bỏ bằng tree-shaking, xem bên dưới) cho đến khi `clientId` được định cấu hình.
 
 Nếu bạn tự lưu trữ (self-host) Intlayer, analytics sẽ tự động trỏ đến phiên bản của riêng bạn vì nó dùng chung `editor.backendURL`.
 
@@ -119,14 +121,14 @@ Nó tự xác thực dựa trên `editor.clientId`: việc trao đổi, lưu và
 
 ### Cách tắt (opt-out)
 
-Khối `analytics` tùy chọn cho phép tinh chỉnh — hoặc tắt hẳn — việc thu thập:
+Khối `analytics` tùy chọn cho phép tinh chỉnh, hoặc tắt hẳn, việc thu thập:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
   analytics: {
-    enabled: false, // Mặc định: true — loại toàn bộ tích hợp khỏi gói ứng dụng
+    enabled: false, // Mặc định: true, loại toàn bộ tích hợp khỏi gói ứng dụng
     flushInterval: 20_000, // Số mili giây giữa hai lần gửi theo lô
     sampleRate: 1, // Tỷ lệ phiên được ghi lại, từ 0 (không) đến 1 (tất cả)
   },
@@ -270,7 +272,7 @@ Không cần thay đổi mã nguồn. Khi `@intlayer/analytics` đã được c�
 
 ### Tự động theo dõi ở cấp độ node
 
-Mỗi khi `useIntlayer` phân giải một phần nội dung để hiển thị, trình thông dịch sẽ báo cáo một sự kiện `content_exposure` cho chính xác `dictionaryKey` + đường dẫn khóa + ngôn ngữ đó — một lần nữa, không cần thay đổi mã. Các lần hiển thị lặp lại của cùng một node trong cùng một cửa sổ flush sẽ được gộp lại thành một sự kiện duy nhất với thuộc tính `count`, vì vậy một danh sách hiển thị lại (re-render) 50 lần sẽ không gửi 50 sự kiện.
+Mỗi khi `useIntlayer` phân giải một phần nội dung để hiển thị, trình thông dịch sẽ báo cáo một sự kiện `content_exposure` cho chính xác `dictionaryKey` + đường dẫn khóa + ngôn ngữ đó, một lần nữa, không cần thay đổi mã. Các lần hiển thị lặp lại của cùng một node trong cùng một cửa sổ flush sẽ được gộp lại thành một sự kiện duy nhất với thuộc tính `count`, vì vậy một danh sách hiển thị lại (re-render) 50 lần sẽ không gửi 50 sự kiện.
 
 ### Theo dõi chuyển đổi cho thử nghiệm A/B
 
@@ -614,7 +616,7 @@ Sử dụng `useConversion()` để quy một mục tiêu cho biến thể mà m
   </Tab>
 </Tabs>
 
-Weights (trọng số) là tùy chọn — truyền một giá trị cho mỗi biến thể để làm nghiêng tỷ lệ phân chia, ví dụ: `useExperiment("homepage-hero", ["default", "black_friday"], [9, 1])`.
+Weights (trọng số) là tùy chọn, truyền một giá trị cho mỗi biến thể để làm nghiêng tỷ lệ phân chia, ví dụ: `useExperiment("homepage-hero", ["default", "black_friday"], [9, 1])`.
 
 Component con sau đó đọc [Variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dynamic_dictionaries/variants.md) của từ điển tương ứng:
 
@@ -633,9 +635,13 @@ export const HeroBanner = ({ variant }: { variant: string }) => {
 };
 ```
 
+- [Variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dynamic_dictionaries/variants.md)
+
 > Việc đọc biến thể trong một **component con** là điều giúp cách này hoạt động được bên ngoài React: trong Vue, Svelte, Solid và Angular, bộ chọn (selector) được truyền vào `useIntlayer` được ghi nhận ngay khi component được thiết lập, nên việc đọc cần diễn ra trong một component chỉ được mount sau khi biến thể đã được xác định.
 
-Nếu thử nghiệm bao trùm cả một trang thay vì chỉ một từ điển, hãy đưa biến thể lên provider thay vì vậy — xem [Ambient variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dynamic_dictionaries/variants.md#ambient-variant). Mọi `useIntlayer` bên dưới khi đó sẽ tự phân giải theo biến thể này mà không cần thay đổi nơi gọi.
+Nếu thử nghiệm bao trùm cả một trang thay vì chỉ một từ điển, hãy đưa biến thể lên provider thay vì vậy, xem [Ambient variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dynamic_dictionaries/variants.md#ambient-variant). Mọi `useIntlayer` bên dưới khi đó sẽ tự phân giải theo biến thể này mà không cần thay đổi nơi gọi.
+
+- [Ambient variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dynamic_dictionaries/variants.md#ambient-variant)
 
 Nếu bạn cần giá trị gán thô bên ngoài một component, hãy truy cập trực tiếp vào client:
 
@@ -649,21 +655,21 @@ const variant = client?.getVariant("homepage-hero", [
 ]);
 ```
 
-> `getVariant` chỉ gán biến thể — nó không ghi lại lượt hiển thị (exposure). Hãy ưu tiên dùng `useExperiment()`, nếu không tỷ lệ chuyển đổi sẽ không có mẫu số.
+> `getVariant` chỉ gán biến thể, nó không ghi lại lượt hiển thị (exposure). Hãy ưu tiên dùng `useExperiment()`, nếu không tỷ lệ chuyển đổi sẽ không có mẫu số.
 
 ## Quyền riêng tư & Hiệu suất
 
-- **Ẩn danh theo thiết kế (Anonymous by design)**: các phiên được xác định bằng một id xoay vòng (rotating id); máy chủ (backend) chỉ lưu trữ **mã băm SHA-256** của id đó — không bao giờ lưu trữ id thô và không bao giờ lưu trữ địa chỉ IP.
-- **Vị trí là tương đối**: chỉ có mã quốc gia, bắt nguồn từ các tiêu đề vị trí địa lý của CDN (ví dụ: `cf-ipcountry`, `x-vercel-ip-country`, ...) — không có IP nào được đọc hoặc lưu trữ.
+- **Ẩn danh theo thiết kế (Anonymous by design)**: các phiên được xác định bằng một id xoay vòng (rotating id); máy chủ (backend) chỉ lưu trữ **mã băm SHA-256** của id đó, không bao giờ lưu trữ id thô và không bao giờ lưu trữ địa chỉ IP.
+- **Vị trí là tương đối**: chỉ có mã quốc gia, bắt nguồn từ các tiêu đề vị trí địa lý của CDN (ví dụ: `cf-ipcountry`, `x-vercel-ip-country`, ...), không có IP nào được đọc hoặc lưu trữ.
 - **URL loại trừ tham số tìm kiếm (search params)** theo mặc định, do đó các chuỗi truy vấn (query strings) không bao giờ bị thu thập.
 - **Lấy mẫu (Sampling)**: `sampleRate` cho phép bạn chỉ giữ lại một phần nhỏ các sự kiện hiển thị nội dung trên các ứng dụng có lưu lượng truy cập cao.
-- **Xử lý theo batch**: một yêu cầu được gửi sau khoảng 20 giây (`flushInterval`), hoặc sớm hơn nếu bộ đệm bị đầy (`maxBufferSize`) — không bao giờ gửi một yêu cầu cho mỗi sự kiện.
+- **Xử lý theo batch**: một yêu cầu được gửi sau khoảng 20 giây (`flushInterval`), hoặc sớm hơn nếu bộ đệm bị đầy (`maxBufferSize`), không bao giờ gửi một yêu cầu cho mỗi sự kiện.
 
 ### Không tốn phí khi không được cài đặt
 
 `@intlayer/analytics` tuân theo chính xác cùng một mô hình tùy chọn-dependency như `@intlayer/editor`:
 
-- mọi điểm tích hợp đều tải gói này thông qua việc sử dụng **dynamic `import()` được bao bọc trong khối `try/catch`** — một ứng dụng không bao giờ cài đặt `@intlayer/analytics` sẽ không bao giờ bị tăng kích thước bundle hoặc chi phí thời gian chạy, và không bao giờ thấy lỗi;
+- mọi điểm tích hợp đều tải gói này thông qua việc sử dụng **dynamic `import()` được bao bọc trong khối `try/catch`**, một ứng dụng không bao giờ cài đặt `@intlayer/analytics` sẽ không bao giờ bị tăng kích thước bundle hoặc chi phí thời gian chạy, và không bao giờ thấy lỗi;
 - một biến môi trường tại thời điểm biên dịch (`INTLAYER_ANALYTICS_ENABLED`), được `@intlayer/config` tự động đặt thành `'false'` khi gói chưa được cài đặt, `analytics.enabled` là `false`, hoặc `editor.clientId` chưa được cấu hình, cho phép các bundler **loại bỏ toàn bộ tích hợp dưới dạng mã chết (dead-code-eliminate)**;
 - analytics bị vô hiệu hóa bên trong iframe xem trước của trình chỉnh sửa / CMS Intlayer, do đó các phiên của trình chỉnh sửa không bao giờ được tính là lưu lượng truy cập thực.
 
@@ -671,7 +677,7 @@ const variant = client?.getVariant("homepage-hero", [
 
 Sau khi dự án của bạn đã thu thập các sự kiện, trang **Analytics** trong [Intlayer dashboard](https://app.intlayer.org/analytics) (hiển thị ở thanh bên sau khi dự án được chọn) sẽ hiển thị:
 
-- **Người dùng đang hoạt động (Active users)** — số lượng khách truy cập duy nhất trong khoảng thời gian cuộn (rolling window) đã chọn (7 / 30 / 90 ngày).
+- **Người dùng đang hoạt động (Active users)**: số lượng khách truy cập duy nhất trong khoảng thời gian cuộn (rolling window) đã chọn (7 / 30 / 90 ngày).
 - **Người dùng hôm nay** và **người dùng trong 7 ngày qua**.
 - **Lượt xem trang (Page views)** trong khoảng thời gian đã chọn.
 - Một **biểu đồ diễn biến (evolution graph)** của số khách truy cập duy nhất hàng ngày.
@@ -699,6 +705,8 @@ const cms = createIntlayerCMS();
 
 const { data: audience } = await analyticsEndpoint(cms).getAudience(30);
 ```
+
+- [CMS SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)
 
 > **Chỉ dùng ở phía server.** `createIntlayerCMS()` xác thực bằng `clientId` + `clientSecret`, và secret không bao giờ khả dụng trong trình duyệt: đoạn mã này sẽ gửi các yêu cầu không được xác thực nếu chạy ở đó. Hãy giữ nó trong một route handler, server action, hoặc một script.
 

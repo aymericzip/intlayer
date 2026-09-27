@@ -127,6 +127,8 @@ export default config;
 
 この設定を使用すると、すべてのロケールごとのファイルがデフォルトロケールを英語として生成されます。これには、`extract` コマンドを使用した `.content` ファイルの生成や、コンパイラも含まれます。（詳細については、[Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md) または [Extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md) を参照してください。）
 
+- [Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)
+
 ## ロケール別フォーマット
 
 このフォーマットは以下の場合に便利です：
@@ -265,3 +267,5 @@ console.log(JSON.stringify(intlayer, null, 2));
 ### 自動翻訳生成
 
 [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md) を使用して、お好みのサービスに基づいて不足している翻訳を自動的に補完します。
+
+- [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md)

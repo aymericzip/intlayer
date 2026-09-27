@@ -25,6 +25,8 @@ author: aymericzip
 
 Para um tutorial completo e detalhado passo a passo, consulte nosso completo [Guia de Migração react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/migration_from_react-i18next_to_intlayer.md).
 
+- [Guia de Migração react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/migration_from_react-i18next_to_intlayer.md)
+
 Usar o adaptador de compatibilidade do Intlayer permite que você migre de `react-i18next` sem qualquer alteração nos seus imports de código-fonte.
 
 ## O que fazer

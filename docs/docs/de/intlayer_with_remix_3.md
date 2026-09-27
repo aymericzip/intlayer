@@ -78,6 +78,9 @@ Intlayer platziert Inhaltsdeklarationen (`.content.ts`) direkt neben Ihrer Route
 
 Über Code-basierte Workflows hinaus bietet Intlayer einen selbst gehosteten [Visuellen Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md) und ein [Remote CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md), mit denen Redakteure und Übersetzer Inhalte ohne erneutes Deployment anpassen können.
 
+- [Visuellen Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md)
+- [Remote CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md)
+
 </Accordion>
 </AccordionGroup>
 
@@ -204,6 +207,8 @@ module.exports = config;
 
 > Weitere Konfigurationsoptionen finden Sie in der [Dokumentation zur Konfiguration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md).
 
+- [Dokumentation zur Konfiguration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md)
+
 </Step>
 <Step number={3} title="Mehrsprachige Inhalte deklarieren">
 
@@ -240,6 +245,8 @@ export default homeContent;
 ```
 
 > Intlayer unterstützt auch JSON-, YAML- und CommonJS-Formate. Siehe die [Dokumentation zur Inhaltsdeklaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/content_file.md).
+
+- [Dokumentation zur Inhaltsdeklaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/content_file.md)
 
 </Step>
 <Step number={4} title="Intlayer-Wörterbücher erstellen">
@@ -288,6 +295,8 @@ const { title } = useIntlayer("home");
 `useIntlayer("home", "fr")` oder `useIntlayer("faq", { item: 2 })` überschreiben das Anfrage-Gebietsschema für einen Aufruf, und `useDictionary(homeContent)` liest ein importiertes Wörterbuch anstelle eines Schlüssels. Außerhalb einer Anfrage greifen die Hooks auf das Standard-Gebietsschema zurück.
 
 > Die Middleware bereitet auch die Intlayer-Wörterbücher beim Serverstart vor, sodass ein fehlendes `intlayer build` die Registry nicht leer hinterlässt.
+
+> Setzen Sie `routing.enableProxy: false` in `intlayer.config.ts`, um nur die Locale-Auflösung beizubehalten und das Routing selbst zu übernehmen. `intlayer({ ignore })` lässt passende Anfragen unverändert (zum Beispiel ein API-Präfix), und `intlayer({ isDevServer })` steuert, ob die gespeicherte Locale im standardmäßigen `enableProxy`-Automatikmodus Weiterleitungen auslöst.
 
 </Step>
 <Step number={6} title="Typsichere Routen definieren">

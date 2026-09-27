@@ -136,6 +136,9 @@ TanStack Start 上の標準的な React 実装を計測した [Benchmark Bloom](
 
 > 完全な表は [TanStack Start ベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md) と [i18n ベンチマーク概要](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/index.md) を参照してください。
 
+- [TanStack Start ベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md)
+- [i18n ベンチマーク概要](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/index.md)
+
 ### 6) DX、ツール＆メンテナンス
 
 - **react-intl / react-i18next**: 幅広いコミュニティエコシステムがあり、編集ワークフローには通常、外部のローカリゼーションプラットフォームを採用します。
@@ -185,3 +188,5 @@ GitHub スターはプロジェクトの人気度、コミュニティからの�
 - チームが多言語対応でコンポーネント駆動のReactアプリにおいて、**保守性と速度**を重視するなら、Intlayerは今日最も**完全な**開発者およびコンテンツワークフローを提供します。
 
 詳細は[「なぜ Intlayer なのか？」ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)を参照してください。
+
+- [なぜ Intlayer？他の i18n ライブラリとの違い](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)

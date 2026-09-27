@@ -34,6 +34,8 @@ Fungsi `getEnumeration` mengambil konten yang sesuai dengan kuantitas tertentu b
 
 Untuk detail lebih lanjut tentang cara mendeklarasikan enumerasi, lihat [dokumentasi Enumeration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/enumeration.md).
 
+- [dokumentasi Enumeration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/enumeration.md)
+
 ## Parameter
 
 - `enumerationContent: QuantityContent<Content>`

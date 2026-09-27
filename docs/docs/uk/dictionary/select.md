@@ -376,6 +376,8 @@ select(
 
 > Зверніть увагу: повідомлення ICU `select`, у яких випадками є значення статі (`male` / `female` / `other`), натомість імпортуються як вузол [`gender`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/gender.md).
 
+- [`gender`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/gender.md)
+
 ## Додаткові ресурси
 
 Для отримання більш детальної інформації щодо конфігурації та використання перегляньте такі ресурси:

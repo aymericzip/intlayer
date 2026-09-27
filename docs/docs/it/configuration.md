@@ -732,7 +732,9 @@ Definisce le impostazioni per l'editor visuale, incluse la porta del server e lo
 
 Definisce le impostazioni relative agli analytics di Intlayer: la raccolta di quale contenuto viene effettivamente mostrato agli utenti (visualizzazioni di pagina, esposizioni di contenuto) e il supporto ai test A/B sui contenuti.
 
-Gli analytics sono opt-out: sono abilitati per impostazione predefinita e iniziano a raccogliere dati non appena il pacchetto `@intlayer/analytics` è installato **e** una chiave di progetto (`editor.clientId`) è configurata per l'attribuzione. Imposta `analytics.enabled` su `false` — oppure non installare il pacchetto — e l'intera integrazione analytics viene eliminata dal bundle dell'applicazione (dead-code elimination).
+Gli analytics sono opt-out: sono abilitati per impostazione predefinita e iniziano a raccogliere dati non appena il pacchetto [`@intlayer/analytics`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/analytics.md) è installato **e** una chiave di progetto (`editor.clientId`) è configurata per l'attribuzione. Imposta `analytics.enabled` su `false`, oppure non installare il pacchetto, e l'intera integrazione analytics viene eliminata dal bundle dell'applicazione (dead-code elimination).
+
+- [`@intlayer/analytics`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/analytics.md)
 
 | Campo           | Descrizione                                                                                            | Tipo      | Predefinito | Esempio | Nota                                                                                                                                                                                     |
 | --------------- | ------------------------------------------------------------------------------------------------------ | --------- | ----------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -980,6 +982,8 @@ Questa configurazione del dizionario serve a due scopi principali:
 
 Per ulteriori informazioni sui file di dichiarazione dei contenuti e su come vengono applicati i valori di configurazione, consulta la [Documentazione dei File di Contenuto](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/content_file.md).
 
+- [Documentazione dei File di Contenuto](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/content_file.md)
+
 | Campo                       | Descrizione                                                                                                                                                               | Tipo                                                                                                            | Predefinito  | Esempio                                                                                     | Commenti                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | ------------ | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `fill`                      | Controlla come vengono generati i file di output della compilazione automatica (traduzione IA).                                                                           | `boolean` &#124; <br/> `FilePathPattern` &#124; <br/> `Partial<Record<Locale, boolean &#124; FilePathPattern>>` | `true`       | `{ en: '/locales/en/{{key}}.json', fr: ({ key }) => '/locales/fr/${key}.json', es: false }` | • `true`: Percorso predefinito (stesso file della sorgente).<br/>• `false`: Disabilita.<br/>• Stringa template/Funzione abilita la generazione per locale.<br/>• Oggetto per locale: Ogni locale corrisponde al proprio template; `false` esclude quel locale.<br/>• L'inclusione di `{{locale}}` abilita la generazione per locale.<br/>• `fill` a livello di dizionario ha sempre la priorità su questa impostazione globale. |
@@ -1116,22 +1120,38 @@ Alla radice del tuo progetto, accanto a `package.json`. Intlayer accetta anche `
 
 Molto meno di una configurazione basata su namespace, perché una pagina non scarica mai un catalogo che non renderizza. Il markup renderizzato lato server risolve i suoi contenuti sul server, e il compilatore in fase di build sostituisce le chiamate `useIntlayer` con le esatte voci del dizionario che un componente utilizza, quindi le chiavi e le lingue non utilizzate vengono eliminate. I [dizionari dinamici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dynamic_dictionaries/index.md) suddividono il resto per locale. Misurato rispetto alle alternative abituali, Intlayer riduce la dimensione del bundle e delle pagine fino al 50%. Vedi [ottimizzazione del bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/bundle_optimization.md) e il [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/benchmark/index.md).
 
+- [dizionari dinamici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dynamic_dictionaries/index.md)
+- [ottimizzazione del bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/bundle_optimization.md)
+- [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/benchmark/index.md)
+
 </Question>
 <Question title="Posso migrare da `i18next`, `next-intl` o `react-i18next` senza riscrivere i miei componenti?">
 
 Sì, e ci sono due percorsi. Puoi migrare il contenuto progressivamente con la [guida alla migrazione da i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/migration_from_i18next_to_intlayer.md) o la [guida alla migrazione da next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/migration_from_next-intl_to_intlayer.md). Oppure puoi mantenere interamente la tua API attuale: gli [adattatori di compatibilità](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compat/index.md) espongono esattamente la stessa API di `i18next`, `react-i18next`, `next-intl`, `next-i18next`, `react-intl`, `use-intl`, `vue-i18n` e `Lingui`, ma servita dai dizionari Intlayer, quindi cambiano gli import e il codice dei componenti no.
+
+- [guida alla migrazione da i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/migration_from_i18next_to_intlayer.md)
+- [guida alla migrazione da next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/migration_from_next-intl_to_intlayer.md)
+- [adattatori di compatibilità](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compat/index.md)
 
 </Question>
 <Question title="Posso mantenere i miei file di traduzione JSON esistenti?">
 
 Sì. Il [plugin di sincronizzazione JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/plugins/sync-json.md) mantiene i tuoi file `/messages/{locale}/{namespace}.json` come fonte di verità e genera dizionari Intlayer da essi, in entrambe le direzioni. Un [plugin di sincronizzazione PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/plugins/sync-po.md) fa lo stesso per i cataloghi gettext, e i [file per locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/per_locale_file.md) ti permettono di dividere il contenuto per lingua invece di raggruppare i locale in un unico file.
 
+- [plugin di sincronizzazione JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/plugins/sync-json.md)
+- [plugin di sincronizzazione PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/plugins/sync-po.md)
+- [file per locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/per_locale_file.md)
+
 </Question>
 <Question title="Devo spostare il mio contenuto chiave per chiave?">
 
 No. Esegui `npx intlayer extract` e Intlayer legge i tuoi file sorgente, estrae le stringhe visibili all'utente e scrive un file `.content` accanto a ciascuno, così puoi rivedere un diff invece di copiare le stringhe in un catalogo una alla volta. Vedi il [comando extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/cli/extract.md).
 
+- [comando extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/cli/extract.md)
+
 Per una pipeline completamente automatizzata, il [Compilatore Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compiler.md) fa lo stesso in fase di build sul codice sorgente JSX, TSX, Vue e Svelte, generando i dizionari ad ogni modifica così non ci sono chiavi da mantenere a mano. Funziona per analisi statica, quindi le stringhe che esistono solo a runtime restano fuori portata, e ha bisogno di alcune annotazioni per distinguere il testo visibile all'utente dalla logica applicativa.
+
+- [Compilatore Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compiler.md)
 
 </Question>
 <Question title="Quali strumenti di editor e agenti AI sono disponibili?">
@@ -1174,10 +1194,15 @@ Controlla il proxy di routing delle locale, il middleware che risolve prefissi e
 
 `"static"`, il valore predefinito, importa i dizionari staticamente così vengono inclusi nel bundle e letti in modo sincrono. `"dynamic"` li importa tramite Suspense, quindi una locale viene scaricata solo quando un componente la renderizza, il che è ciò che vuoi per grandi insiemi di contenuti. `"fetch"` li recupera dall'API di sincronizzazione live e ricade su `"dynamic"` in caso di errore. Vedi [ottimizzazione del bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/bundle_optimization.md) e [dizionari dinamici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dynamic_dictionaries/index.md).
 
+- [ottimizzazione del bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/bundle_optimization.md)
+- [dizionari dinamici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dynamic_dictionaries/index.md)
+
 </Question>
 <Question title="Dove imposto il provider AI e la API key per la traduzione automatica?">
 
 O nel file di configurazione o da riga di comando con `--provider`, `--model` e `--api-key`. La chiave resta tua: le chiamate di traduzione vanno dalla tua macchina o dal tuo runner CI al provider che hai scelto, quindi nulla viene instradato attraverso una terza parte. Vedi il [comando fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/cli/fill.md).
+
+- [comando fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/cli/fill.md)
 
 </Question>
 <Question title="Devo riavviare il dev server dopo aver cambiato la configurazione?">

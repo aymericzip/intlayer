@@ -31,7 +31,7 @@ author: aymericzip
 
 ## Beschreibung
 
-Die Funktion `getIntlayer` wählt ein Wörterbuch nach seinem Schlüssel aus und gibt seinen Inhalt interpretiert für ein bestimmtes Gebietsschema zurück. Sie ist das Framework-agnostische Äquivalent des Hooks `useIntlayer`: derselbe Inhalt, dieselben Selektoren, aber überall dort einsetzbar, wo ein React Context nicht verfügbar ist — Node-Skripte, Server-Funktionen, Route Loader, Metadata-Builder, Express/Fastify-Handler, Tests.
+Die Funktion `getIntlayer` wählt ein Wörterbuch nach seinem Schlüssel aus und gibt seinen Inhalt interpretiert für ein bestimmtes Gebietsschema zurück. Sie ist das Framework-agnostische Äquivalent des Hooks `useIntlayer`: derselbe Inhalt, dieselben Selektoren, aber überall dort einsetzbar, wo ein React Context nicht verfügbar ist, Node-Skripte, Server-Funktionen, Route Loader, Metadata-Builder, Express/Fastify-Handler, Tests.
 
 Sie liest die von Intlayer in `.intlayer/` generierten Wörterbücher, sodass das Argument `key` typisiert und automatisch aus deinen eigenen Content-Deklarationen vervollständigt wird, und das zurückgegebene Objekt ist vollständig typisiert bis auf jedes Blatt.
 
@@ -57,18 +57,18 @@ getIntlayer(
 
 - `key: DictionaryKeys`
   - **Description**: Der Schlüssel des zu lesenden Wörterbuchs, wie in deinen Content-Dateien deklariert.
-  - **Type**: `DictionaryKeys` — eine Vereinigung aller deklarierten Wörterbuchschlüssel.
+  - **Type**: `DictionaryKeys`, eine Vereinigung aller deklarierten Wörterbuchschlüssel.
   - **Required**: Yes
 
 - `localeOrSelector: LocalesValues | DictionarySelector`
   - **Description**: Das Locale zur Interpretation des Inhalts oder ein Selector-Objekt für [dynamische Wörterbücher](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dynamic_dictionaries/index.md).
-    - `'fr'` — ein Locale
-    - `{ item: 2 }` — ein [collection](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dynamic_dictionaries/collections.md) Element (omit `item` um alle Elemente als Array zu erhalten)
-    - `{ variant: 'black-friday' }` — eine benannte [variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dynamic_dictionaries/variants.md) (omit für die `default`)
-    - `{ variant: { id: 'prod_abc', userId: '123' } }` — eine strukturierte Variante
+    - `'fr'`: ein Locale
+    - `{ item: 2 }`: ein [collection](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dynamic_dictionaries/collections.md) Element (omit `item` um alle Elemente als Array zu erhalten)
+    - `{ variant: 'black-friday' }`: eine benannte [variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dynamic_dictionaries/variants.md) (omit für die `default`)
+    - `{ variant: { id: 'prod_abc', userId: '123' } }`: eine strukturierte Variante
     - Jeder Selector kann ein Locale enthalten: `{ item: 2, locale: 'fr' }`
   - **Type**: `LocalesValues | DictionarySelector`
-  - **Required**: No (Optional) — defaults to the configured `defaultLocale`.
+  - **Required**: No (Optional), defaults to the configured `defaultLocale`.
 
 - `plugins: Plugins[]`
   - **Description**: Custom Node Transformer, die die Basis-Interpreter-Plugins ersetzen. Nur für fortgeschrittene Verwendung; omit it to keep the default behaviour.
@@ -110,6 +110,8 @@ const { title } = getIntlayer("app", "de"); // "Hallo"
 ### Ohne Locale
 
 Das Weglassen der Locale interpretiert den Inhalt mit dem `defaultLocale`, der in Ihrer [Konfiguration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md) deklariert ist.
+
+- [Konfiguration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md)
 
 ```typescript
 import { getIntlayer } from "intlayer";
@@ -161,6 +163,9 @@ Beim Anfordern eines Schlüssels, der kein generiertes Wörterbuch hat, protokol
 ### Bundle-Größe
 
 `getIntlayer` liest das zusammengeführte Wörterbuch, das **jedes** Locale enthält. In Client-Bundles schreiben die [Build-Plugins](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/bundle_optimization.md) den Aufruf um, sodass nur der erforderliche Inhalt ausgeliefert wird. Wenn Sie Inhalte außerhalb des Rendering lesen (Metadaten, Loaders, Server-Funktionen) und ein einzelnes Locale bei Bedarf laden möchten, verwenden Sie stattdessen [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/intlayer/getIntlayerAsync.md).
+
+- [Build-Plugins](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/bundle_optimization.md)
+- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/intlayer/getIntlayerAsync.md)
 
 ## Verwandte Funktionen
 

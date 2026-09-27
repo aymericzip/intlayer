@@ -35,7 +35,7 @@ author: aymericzip
 
 1. **Testo hardcoded** che non è mai stato inserito in un dizionario.
 2. **Chiamate dinamiche** che superano il controllo dei tipi e vengono eseguite, ma che il compilatore Intlayer non può ottimizzare.
-3. **Contenuto inutilizzato (dead content)** — dizionari e campi che nessun elemento nel progetto legge (attivazione opzionale).
+3. **Contenuto inutilizzato (dead content)**: dizionari e campi che nessun elemento nel progetto legge (attivazione opzionale).
 
 Le chiavi di dizionario sconosciute, i percorsi di campo sconosciuti e le impostazioni internazionali mancanti sono già errori di compilazione, quindi il plugin non li ripete.
 
@@ -61,7 +61,7 @@ Richiede ESLint 9 o versione successiva (flat config). ESLint 10 è supportato.
 
 ## Utilizzo
 
-Il plugin funziona sia in ESLint che in [oxlint](https://oxc.rs) — stesse regole, stesse opzioni.
+Il plugin funziona sia in ESLint che in [oxlint](https://oxc.rs), stesse regole, stesse opzioni.
 
 <Tabs defaultTab="eslint">
   <Tab label="ESLint" value="eslint">
@@ -106,7 +106,7 @@ export default [
 }
 ```
 
-Due precisazioni: il supporto ai plugin JS in oxlint è ancora in versione alfa e oxlint non supporta parser personalizzati — quindi i file `.vue`, `.svelte`, `.astro` e i template Angular non vengono analizzati lì. Esegui oxlint sui tuoi file JS/TS/JSX e mantieni ESLint per il resto.
+Due precisazioni: il supporto ai plugin JS in oxlint è ancora in versione alfa e oxlint non supporta parser personalizzati, quindi i file `.vue`, `.svelte`, `.astro` e i template Angular non vengono analizzati lì. Esegui oxlint sui tuoi file JS/TS/JSX e mantieni ESLint per il resto.
 
 `no-unused-content` è intenzionalmente esclusa sopra: necessita della directory di lavoro e del percorso del file analizzato dal contesto della regola, cosa che il bridge alfa del plugin JS non garantisce. Eseguila sotto ESLint.
 
@@ -123,7 +123,7 @@ Due precisazioni: il supporto ai plugin JS in oxlint è ancora in versione alfa 
 
 `recommended` mantiene deliberatamente `no-raw-text` su `warn`: applicarla a una base di codice esistente fa emergere tutte le stringhe non tradotte contemporaneamente, il che non dovrebbe interrompere la build dal primo giorno.
 
-`enforce-adapter-import` è disabilitata per impostazione predefinita — attivala esplicitamente se lo desideri.
+`enforce-adapter-import` è disabilitata per impostazione predefinita, attivala esplicitamente se lo desideri.
 
 `no-unused-content` è disattivata in ogni configurazione, inclusa `strict`. È l'unica regola che legge la configurazione di Intlayer ed esamina i file sorgente dal disco, pertanto la sua attivazione dovrebbe essere una scelta deliberata anziché un'impostazione predefinita.
 
@@ -285,7 +285,7 @@ Riduci `cacheTtl` quando esegui il lint da un server dell'editor a lunga durata 
 
 `reportDuplicateKeys` legge i dizionari non uniti che la build scrive sotto `.intlayer/`, quindi rimane inattiva finché il progetto non è stato compilato almeno una volta. Due dichiarazioni che condividono una chiave vengono unite, il che è un modello valido: la segnalazione esiste perché un campo definito su entrambi i lati mantiene silenziosamente solo uno dei due valori.
 
-L'analizzatore viene caricato da `@intlayer/lsp`, distribuito come modulo ESM. La regola necessita pertanto di una versione di Node in grado di eseguire `require()` su un modulo ES — Node 20.19+ o 22.12+. Con versioni precedenti, non segnala nulla anziché interrompere l'esecuzione del lint.
+L'analizzatore viene caricato da `@intlayer/lsp`, distribuito come modulo ESM. La regola necessita pertanto di una versione di Node in grado di eseguire `require()` su un modulo ES, Node 20.19+ o 22.12+. Con versioni precedenti, non segnala nulla anziché interrompere l'esecuzione del lint.
 
 ## Frameworks
 

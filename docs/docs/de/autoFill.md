@@ -118,6 +118,8 @@ export default exampleContent;
 
 Hier ist eine [Pro-Locale-Inhaltsdeklarationsdatei](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/per_locale_file.md), die die `fill`-Anweisung verwendet.
 
+- [Pro-Locale-Inhaltsdeklarationsdatei](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/per_locale_file.md)
+
 Wenn Sie dann den folgenden Befehl ausführen:
 
 ```bash packageManager="npm"

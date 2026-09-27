@@ -92,6 +92,8 @@ style="border:none;"
 
 > تم الاختبار في بيئة بناء إنتاجية تتضمن 10 مسارات و10 لغات مع ضغط gzip. التفاصيل متاحة في [تقرير مقارنة أداء i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/index.md).
 
+- [تقرير مقارنة أداء i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/index.md)
+
 ### العبء الأساسي للمكتبات
 
 الحجم الأولي قبل إضافة أي محتوى مترجم:
@@ -171,6 +173,9 @@ return <h1>{title}</h1>;
 
 يقوم [مترجم Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md) بتحليل الخصائص المستخدمة في `Hero.tsx` بدقة ويستبعد النصوص غير المستعملة قبل تجميع حزم العميل. راجع [تحسين الحزم](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md) للمزيد.
 
+- [مترجم Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md)
+- [تحسين الحزم](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md)
+
 ## تجربة المطورين
 
 ### ملفات JSON المعزولة مقابل التجميع المشترك
@@ -237,6 +242,8 @@ export const Hero = () => {
 يمنح إعداد `CustomTypeOptions` اقتراحات داخل المحرر، لكنه لا يضمن اكتمال الترجمات عبر كل اللغات. حذف مفتاح من `ar/home.json` لن يعطل البناء بل سيكتفي بالرجوع للنص الافتراضي وقت التشغيل.
 
 تستنتج Intlayer الأنواع مباشرة من تعريفات المحتوى، ويقوم وضع [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md) بتحويل أي ترجمة مفقودة إلى خطأ فوري يوقف عملية البناء.
+
+- [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md)
 
 ### مقارنة الأدوات
 

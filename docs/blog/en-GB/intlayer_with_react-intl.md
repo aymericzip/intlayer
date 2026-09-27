@@ -41,9 +41,13 @@ author: aymericzip
 
 See a concrete comparison with react-intl in our [react-i18next vs. react-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/react-i18next_vs_react-intl_vs_intlayer.md) blog post.
 
+- [react-i18next vs. react-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/react-i18next_vs_react-intl_vs_intlayer.md)
+
 ## Why Combine Intlayer with react-intl?
 
 While Intlayer provides an excellent standalone i18n solution (see our [React integration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_vite+react.md)), you might want to combine it with react-intl for several reasons:
+
+- [React integration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_vite+react.md)
 
 Intlayer offers a rich set of **advanced features** that go beyond traditional i18n tools. It helps you:
 
@@ -153,6 +157,8 @@ If changes are made using the CLI to translate the JSON, or using the CMS, Intla
 
 To see more details about the `syncJSON` plugin, please refer to the [syncJSON plugin documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/plugins/sync-json.md).
 
+- [syncJSON plugin documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/plugins/sync-json.md)
+
 </Step>
 
 </Steps>
@@ -172,4 +178,4 @@ These files can be regenerated during your build process and do not need to be c
 
 For an improved developer experience, install the official **Intlayer VS Code Extension**:
 
-[Install from the VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [Install from the VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

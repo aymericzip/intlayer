@@ -32,6 +32,8 @@ author: aymericzip
 
 > **بدءاً من إطلاق Intlayer v9** يتم تضمين `intlayerProxy` تلقائيًا داخل الإضافة الأساسية [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/vite-intlayer/intlayer.md) وتمكينه افتراضيًا عبر الخيار `routing.enableProxy: true`. تحتاج فقط لتسجيله بشكل منفصل إذا كنت بحاجة لسرعة تحكم ذات مستوى أدنى أو كنت تستخدمه خارج إطار عمل `intlayer()` القياسي.
 
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/vite-intlayer/intlayer.md)
+
 ## الاستخدام
 
 ### كجزء من `intlayer()` (موصى به، الإصدار 9+)
@@ -127,7 +129,7 @@ export default fromNodeMiddleware(
 | الوضع           | عنوان URL المرئي في المتصفح | السلوك                                                                                                                            |
 | --------------- | --------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
 | `prefix`        | `/ar/about`                 | الافتراضي. بادئة اللغة في عنوان URL. اللغة الافتراضية تعيد التوجيه لعنوان بدون بادئة إلا إذا تم تفعيل `prefix-all`.               |
-| `prefix-all`    | `/en/about` و `/ar/about`   | جميع اللغات — بما في ذلك اللغة الافتراضية — تحتوي دائمًا على بادئة.                                                               |
+| `prefix-all`    | `/en/about` و `/ar/about`   | جميع اللغات، بما في ذلك اللغة الافتراضية، تحتوي دائمًا على بادئة.                                                                 |
 | `no-prefix`     | `/about`                    | لا توجد لغة في عنوان URL. يتم تخزين اللغة في ملفات تعريف الارتباط فقط؛ وتحدث عمليات إعادة كتابة العناوين داخليًا.                 |
 | `search-params` | `/about?locale=ar`          | يتم تمرير اللغة كمعامل استعلام (query parameter). يقوم بإعادة التوجيه لإضافة/تحديث المعامل `locale` عندما يكون مفقودًا أو قديمًا. |
 
@@ -161,7 +163,7 @@ export default fromNodeMiddleware(
 
 ## Nitro / الـ SSR للإنتاج (الحقن التلقائي، الإصدار v9+)
 
-عند استخدام `intlayerProxy` كإضافة لـ Vite، فإنه يحمل خاصية `.nitro`. يقرأ مكون بناء `nitro/vite` هذه الخاصية ويدفعها إلى `nitroConfig.modules` ، لذلك يتم تسجيل `intlayerNitroHandler` كبرنامج وسيط لخادم Nitro تلقائيًا — لا يلزم تكوين يدوي لـ SSR الإنتاج.
+عند استخدام `intlayerProxy` كإضافة لـ Vite، فإنه يحمل خاصية `.nitro`. يقرأ مكون بناء `nitro/vite` هذه الخاصية ويدفعها إلى `nitroConfig.modules` ، لذلك يتم تسجيل `intlayerNitroHandler` كبرنامج وسيط لخادم Nitro تلقائيًا، لا يلزم تكوين يدوي لـ SSR الإنتاج.
 
 يستخدم معالج Nitro نموذج أحداث Web Fetch API الخاص بـ h3 v2 (وليس `fromNodeMiddleware`) لذا فهو متوافق مع جميع ملفات تعريف ومسبقات Nitro: Node، Bun، Deno، بيئات عمل الحافة (edge).
 

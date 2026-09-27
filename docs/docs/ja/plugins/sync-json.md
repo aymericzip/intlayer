@@ -216,7 +216,7 @@ syncJSON({
 
 これは、`next-intl`や`react-intl`のようなライブラリの名前空間モデルと一致します。これらのライブラリでは、1つの`messages/{locale}.json`ファイルが、そのファーストレベルのキーによって複数の名前空間をグループ化し、それぞれが独立してアドレス指定されます（例：`useTranslations('Hero')`は`Hero`辞書に解決されます）。
 
-- `undefined` (デフォルト): **自動検出** — `source`パターンに`{key}`セグメントがない場合（1つのファイルがすべての名前空間を保持する場合）にファイルが分割され、それ以外の場合（キーごとに1つのファイル）は単一の辞書として保持されます。
+- `undefined` (デフォルト): **自動検出**、`source`パターンに`{key}`セグメントがない場合（1つのファイルがすべての名前空間を保持する場合）にファイルが分割され、それ以外の場合（キーごとに1つのファイル）は単一の辞書として保持されます。
 - `true`: 常に各トップレベルキーを独自の辞書に分割します。
 - `false`: 分割しません。ファイル全体が単一の辞書になります。
 
@@ -402,7 +402,7 @@ loadJSON({
 
 [`syncJSON`](#splitkeys-boolean) と同じ動作です。単一のJSONファイルがファーストレベルのキーによって複数の名前空間をグループ化する場合、各トップレベルキーが独自の辞書になります。
 
-- `undefined` (デフォルト): **自動検出** — `source`パターンに`{key}`セグメントがない場合に分割され、それ以外の場合は単一の辞書になります。
+- `undefined` (デフォルト): **自動検出**、`source`パターンに`{key}`セグメントがない場合に分割され、それ以外の場合は単一の辞書になります。
 - `true` / `false`: 分割を強制または無効にします。
 
 ```ts
@@ -440,6 +440,8 @@ loadJSON({
 - `intlayer content pull` で同期されたJSONファイルをプルする
 
 See [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md) for more details.
+
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md)
 
 ## Limitations (current)
 

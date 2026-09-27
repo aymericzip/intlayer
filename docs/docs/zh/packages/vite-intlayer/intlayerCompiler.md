@@ -31,6 +31,8 @@ author: aymericzip
 
 > **自 Intlayer v9 起**，当您的 Intlayer 配置中同时设置了 `compiler.enabled` 为 `true` 且设置了 `compiler.output` 时，`intlayerCompiler` 会自动包含在主 [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/vite-intlayer/intlayer.md) 插件中。只有当您希望完全控制编译器特定配置时，才需要单独注册它。
 
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/vite-intlayer/intlayer.md)
+
 ## 用法
 
 ### 作为 `intlayer()` 的一部分（推荐，v9+）
@@ -118,4 +120,4 @@ intlayerCompiler({
 
 ### 去重（Deduplication）
 
-`intlayerCompiler` 使用与其他捆绑插件相同的 `createPrimaryInstanceGuard` 去重机制。当同时存在 `intlayer()`（已捆绑编译器）和手动 `intlayerCompiler()` 调用时，仅运行第一个注册 ins — 不会重复写入任何字典。
+`intlayerCompiler` 使用与其他捆绑插件相同的 `createPrimaryInstanceGuard` 去重机制。当同时存在 `intlayer()`（已捆绑编译器）和手动 `intlayerCompiler()` 调用时，仅运行第一个注册 ins，不会重复写入任何字典。

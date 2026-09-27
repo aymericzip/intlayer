@@ -136,6 +136,9 @@ Angka dari [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) ya
 
 > Tabel lengkap ada di [laporan benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/tanstack.md) dan [Ikhtisar Benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/index.md).
 
+- [laporan benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/tanstack.md)
+- [Ikhtisar Benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/index.md)
+
 ### 6) DX, tooling & maintenance
 
 - **react-intl / react-i18next**: Ekosistem komunitas yang luas; untuk alur kerja editorial Anda biasanya mengadopsi platform lokalisasi eksternal.
@@ -185,3 +188,5 @@ Ketiga pustaka tersebut secara efektif melakukan lokalisasi React. Pembeda utama
 - Jika tim Anda mengutamakan **pemeliharaan dan kecepatan** dalam aplikasi React multi-locale yang berbasis komponen, Intlayer menawarkan **alur kerja** pengembang dan konten yang **paling lengkap** saat ini.
 
 Lihat dokumen ['Mengapa Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/interest_of_intlayer.md) untuk detail lebih lanjut.
+
+- [Mengapa Intlayer? Keunggulan dibanding library i18n lain](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/interest_of_intlayer.md)

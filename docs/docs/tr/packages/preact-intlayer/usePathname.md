@@ -30,7 +30,7 @@ author: aymericzip
 
 # Preact Entegrasyonu: `usePathname` Hook Dokümantasyonu
 
-`usePathname` hook'u, locale segmenti çıkarılmış olarak mevcut tarayıcı pathname'ini (yolu) döndürür. Bu, locale ön ekini manuel olarak kaldırmak zorunda kalmadan locale'e duyarlı bir navigasyon oluşturmak — örneğin, hangi navigasyon öğesinin aktif olduğunu belirlemek — için yararlıdır.
+`usePathname` hook'u, locale segmenti çıkarılmış olarak mevcut tarayıcı pathname'ini (yolu) döndürür. Bu, locale ön ekini manuel olarak kaldırmak zorunda kalmadan locale'e duyarlı bir navigasyon oluşturmak (örneğin, hangi navigasyon öğesinin aktif olduğunu belirlemek) için yararlıdır.
 
 ## Preact'te `usePathname` İçe Aktarımı
 

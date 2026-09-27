@@ -196,6 +196,8 @@ list(["苹果", "香蕉", "橙子"]); // "苹果、香蕉和橙子"
 
 其底层完全基于标准的 `Intl` 实现，属于优雅的缓存与上下文解析封装。详细的方法签名可查阅 [格式化工具文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/formatters.md)。
 
+- [格式化工具文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/formatters.md)
+
 ## 常见错误
 
 - **调用 `toLocaleDateString()` 时未传语言环境。** 默认采用宿主环境设定，在服务端易受容器环境漂移影响。

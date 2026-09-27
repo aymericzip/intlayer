@@ -19,7 +19,7 @@ slugs:
 history:
   - version: 9.2.1
     date: 2026-08-09
-    changes: "`purge` と `minify` が `@intlayer/swc` を通じて Next.js で動作するようになりました — `babel.config.js` は不要です"
+    changes: "`purge` と `minify` が `@intlayer/swc` を通じて Next.js で動作するようになりました。`babel.config.js` は不要です"
   - version: 8.12.0
     date: 2026-06-24
     changes: "リファレンス表で Babel プラグインを必要なパイプライン順（extract → purge → minify → optimize）で列挙"
@@ -68,11 +68,11 @@ Intlayerは**コンポーネントごとのアプローチ**を使用します�
 
 ### Next.js
 
-Next.js はビルドに SWC を使用するため、`@intlayer/swc` プラグインが必要です。**v9.2.1** 以降、このパッケージ 1 つでパイプライン全体 — 最適化（インポート書き換え）、パージ、ミニファイ — をカバーします。
+Next.js はビルドに SWC を使用するため、`@intlayer/swc` プラグインが必要です。**v9.2.1** 以降、このパッケージ 1 つでパイプライン全体（最適化（インポート書き換え）、パージ、ミニファイ）をカバーします。
 
 > SWCプラグインはNext.jsではまだ実験的であるため、このプラグインはデフォルトではインストールされません。将来的に変更される可能性があります。
 
-> **Next.js 16.1.0 が最小バージョンです。** SWC の前方互換な Wasm プラグイン ABI 上に構築された最初のリリースであり、それ以前のリリースはプラグインを拒否します。`withIntlayer` はプロジェクトの Next.js バージョンを読み取り、16.1.0 未満ではプラグインを登録しません — それらのビルドは引き続き成功し、単にバンドル最適化なしで実行されます。
+> **Next.js 16.1.0 が最小バージョンです。** SWC の前方互換な Wasm プラグイン ABI 上に構築された最初のリリースであり、それ以前のリリースはプラグインを拒否します。`withIntlayer` はプロジェクトの Next.js バージョンを読み取り、16.1.0 未満ではプラグインを登録しません、それらのビルドは引き続き成功し、単にバンドル最適化なしで実行されます。
 
 <Tabs>
  <Tab value="npm">
@@ -136,7 +136,7 @@ export default config;
 
 > `withIntlayerSync` ではなく、非同期の `withIntlayer` を使用してください。同期版は解析パイプラインを実行しないため、パージとミニファイは効果がありません。
 
-> パージとミニファイは `next build` 時にのみ実行されます — 最適化パイプラインは `next dev` 中は無効です。
+> パージとミニファイは `next build` 時にのみ実行されます。最適化パイプラインは `next dev` 中は無効です。
 
 **それ以前のバージョン（9.2.1 より前）** では `@intlayer/babel` と、`intlayerPurgeBabelPlugin` および `intlayerMinifyBabelPlugin` を宣言する `babel.config.js` が必要でした。このファイルはもう不要で、削除できます。
 
@@ -312,6 +312,8 @@ export default config;
 
 > すべてのオプションについては、設定リファレンスを参照してください：[設定](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)
 
+- [設定](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)
+
 ### ビルドオプション
 
 | プロパティ     | 型                    | デフォルト  | 説明                                                                                                                                                                                                                 |
@@ -346,7 +348,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> `optimize` が `false` の場合、最小化はスキップされます。`editor.enabled` が `true` の場合でも実行されますが、フィールドのリネーム処理は行われません — ビジュアルエディタは `keyPath` で編集内容を解決するため、元のフィールド名を維持する必要があります。
+> `optimize` が `false` の場合、最小化はスキップされます。`editor.enabled` が `true` の場合でも実行されますが、フィールドのリネーム処理は行われません、ビジュアルエディタは `keyPath` で編集内容を解決するため、元のフィールド名を維持する必要があります。
 
 > Next.js では、`@intlayer/swc` がインストールされていない、または読み込めない場合（16.1.0 未満の Next.js）にもミニファイはスキップされます。ソース側のアクセスを書き換えるのはこのプラグインなので、これなしで辞書をリネームすると、コードが存在しないフィールド名を読むことになります。
 
@@ -378,7 +380,7 @@ export default config;
 { "title": "…", "subtitle": "…" }
 ```
 
-> `optimize` が `false` の場合、パージはスキップされます。`editor.enabled` が `true` の場合でも有効なままです — パージされたフィールドはどのコンポーネントからも読み取られないため、エディタがそれを描画することはありません。Next.js では、さらに `@intlayer/swc` が利用できない場合、および互換アダプターの呼び出し元が設定されている場合にもスキップされます。
+> `optimize` が `false` の場合、パージはスキップされます。`editor.enabled` が `true` の場合でも有効なままです。パージされたフィールドはどのコンポーネントからも読み取られないため、エディタがそれを描画することはありません。Next.js では、さらに `@intlayer/swc` が利用できない場合、および互換アダプターの呼び出し元が設定されている場合にもスキップされます。
 
 > ソースファイルが解析できない場合、または `useIntlayer` の結果が変数に割り当てられ、静的アナライザーが追跡できない方法（例：オブジェクトへのスプレッド、分割代入せずにプロップとして渡すなど）で渡された場合も、パージは保守的にスキップされます。このような場合は、完全な辞書が保持されます。
 
@@ -508,6 +510,8 @@ const content = useDictionaryAsync({
 ```
 
 > 詳細については、CMSのドキュメントを参照してください：[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)
 
 > fetchモードでは、JSONが元のフィールド名を使用してリモートAPIから提供されるため、purgeとminifyは適用されません。
 

@@ -104,13 +104,13 @@ npx intlayer init infra --mode compose
 
        ./intlayer/.env
 
-     Either RESEND_API_KEY (resend.com) or the MAIL_SMTP_* block — the first
+     Either RESEND_API_KEY (resend.com) or the MAIL_SMTP_* block, the first
      account cannot be verified without a working mailer.
   2. Start the stack:
 
        cd ./intlayer && docker compose up -d
 
-  Then open http://localhost:3000 — first boot initialises the
+  Then open http://localhost:3000, first boot initialises the
   datastores, so give it a minute. The first account you create becomes the
   super admin.
 
@@ -118,6 +118,10 @@ npx intlayer init infra --mode compose
     Stop      docker compose down
     Upgrade   docker compose pull && docker compose up -d
 ```
+
+Якщо вказано домен (наприклад, `example.org`), інсталятор пропонує `https://cms.example.org`, `https://back.example.org` і `https://s3.example.org/intlayer` для панелі керування, API та об’єктного сховища, записує їх у файл середовища та перемикає команду запуску на збірку з репозиторію, оскільки опублікований образ панелі керування працює лише на `localhost`. Див. [Власний домен](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/self_hosting.md#custom-domain).
+
+- [Власний домен](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/self_hosting.md#custom-domain)
 
 ## Налаштування інсталятора
 
@@ -143,6 +147,8 @@ INTLAYER_COMPOSE_DIR=./cms npx intlayer init infra --mode compose
 | `INTLAYER_SELFHOST_REF`   | `main`                    | обидва            | Git-посилання, з якого завантажуються compose-файл та шаблон env |
 
 > Змінні портів змінюють лише сторону **хоста** у відображенні. Опубліковані образи мають значення `http://localhost:3000`, `http://localhost:3100` та `http://localhost:9000`, скомпільовані в пакет панелі керування, тому залишайте значення за замовчуванням, якщо не збираєте власні образи: див. [посібник із власного хостингу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/self_hosting.md#limitations).
+
+- [посібник із власного хостингу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/self_hosting.md#limitations)
 
 ## Вимоги
 

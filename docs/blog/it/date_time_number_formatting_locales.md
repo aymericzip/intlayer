@@ -196,6 +196,8 @@ La funzione `date()` supporta anche preset (`"short"`, `"long"`, `"dateOnly"`, `
 
 Si tratta essenzialmente di uno strato di caching e gestione del locale predefinito costruito sopra l'API di piattaforma standard. Il comportamento di formattazione resta interamente quello di `Intl`. Consulta la lista completa nella [documentazione dei formattatori](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/formatters.md).
 
+- [documentazione dei formattatori](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/formatters.md)
+
 ## Errori comuni
 
 - **`toLocaleDateString()` senza specificare il locale.** Utilizza il locale del sistema host, che su un server dipende dall'immagine del container.

@@ -36,7 +36,12 @@ author: aymericzip
 
 إنها نظير [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getDictionary.md) لخرائط محملات لكل منطقة لغوية المُصدرة في `.intlayer/dynamic_dictionaries/`: بدلاً من استقبال قاموس يحتوي على كل منطقة لغوية، فإنها تستقبل خريطة المحمل وتنتظر فقط الجزء الذي تحتاجه المنطقة اللغوية المطلوبة.
 
+- [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getDictionary.md)
+
 > في كود التطبيق، عادة تستدعي [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getIntlayerAsync.md)، وليس هذه الدالة. تُعيد [مكونات البناء](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md) كتابة كل استدعاء `getIntlayerAsync('key', locale)` إلى `getDictionaryAsync(loaderMap, 'key', locale)`. يتم تصدير `getDictionaryAsync` للمحملات المخصصة وللأدوات التي تبني خرائط محملاتها الخاصة.
+
+- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getIntlayerAsync.md)
+- [مكونات البناء](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md)
 
 **الميزات الرئيسية:**
 
@@ -71,7 +76,7 @@ getDictionaryAsync(
 - `localeOrSelector: LocalesValues | DictionarySelector`
   - **الوصف**: اللغة لتفسير المحتوى بها، أو كائن محدد (`{ item }`، `{ variant }`، مع `locale` اختياري). راجع [القواميس الديناميكية](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dynamic_dictionaries/index.md).
   - **النوع**: `LocalesValues | DictionarySelector`
-  - **مطلوب**: لا (اختياري) — القيمة الافتراضية هي `defaultLocale` المُعينة.
+  - **مطلوب**: لا (اختياري)، القيمة الافتراضية هي `defaultLocale` المُعينة.
 
 - `plugins: Plugins[]`
   - **الوصف**: محولات عقدة. القيمة الافتراضية هي مجموعة المترجم الأساسي.
@@ -80,7 +85,7 @@ getDictionaryAsync(
 
 ### العودة
 
-- **النوع**: `Promise<Content>` — وعد يحل إلى المحتوى المفسَّر للـ chunk المُحمَّل.
+- **النوع**: `Promise<Content>`، وعد يحل إلى المحتوى المفسَّر للـ chunk المُحمَّل.
 - **الوصف**: يحل إلى `null` عندما لا ينبعث الـ map أي chunk للـ locale المطلوب أو لأي من fallbacks الخاصة به، مما يعكس كيفية حل الإحداثيات المؤهلة المفقودة.
 
 ## مثال الاستخدام

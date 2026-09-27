@@ -31,6 +31,8 @@ author: aymericzip
 
 👉 [라이브 데모](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/interest_of_intlayer.md) 👉 [코드 보일러플레이트](https://github.com/aymericzip/smart_doc_RAG)
 
+- [라이브 데모](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/interest_of_intlayer.md)
+
 ## 소개
 
 문서에서 답을 찾으려고 끝없이 스크롤하다가 길을 잃은 적이 있다면, 그 고통이 얼마나 큰지 아실 겁니다. 문서는 유용하지만 정적이고, 검색하는 것이 종종 불편하게 느껴집니다.
@@ -93,5 +95,7 @@ RAG는 LLM을 실용적으로 만드는 가장 간단하면서도 강력한 방�
 - 제품 전략 도구
 
 👉 [여기서 데모를 시도해보세요](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/interest_of_intlayer.md) 👉 [GitHub에서 코드 템플릿을 확인하세요](https://github.com/aymericzip/smart_doc_RAG)
+
+- [여기서 데모를 시도해보세요](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/interest_of_intlayer.md)
 
 그리고 만약 여러분도 RAG를 실험하고 있다면, 어떻게 사용하고 있는지 듣고 싶습니다.

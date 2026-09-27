@@ -129,7 +129,7 @@ console.log(
 );
 ```
 
-> Plugin đăng ký context của nó thông qua một `derive` **global**, được Elysia định kiểu là `Partial<{ intlayer: IntlayerContext }>`. Giá trị luôn tồn tại lúc runtime với các route được đăng ký sau `.use(intlayer())`, vì vậy hãy dùng non-null assertion (`intlayer!.locale`) — hoặc optional chaining — để thỏa mãn TypeScript ở chế độ `strict`.
+> Plugin đăng ký context của nó thông qua một `derive` **global**, được Elysia định kiểu là `Partial<{ intlayer: IntlayerContext }>`. Giá trị luôn tồn tại lúc runtime với các route được đăng ký sau `.use(intlayer())`, vì vậy hãy dùng non-null assertion (`intlayer!.locale`), hoặc optional chaining, để thỏa mãn TypeScript ở chế độ `strict`.
 
 ## Tài liệu liên quan
 

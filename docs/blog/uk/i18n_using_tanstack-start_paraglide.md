@@ -51,6 +51,8 @@ Paraglide - це підхід до i18n, який використовуєтьс
 
 > Порівнюєте два підходи на основі компілятора? Читайте [чи є Intlayer легшим за Paraglide?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/is_intlayer_lighter_than_paraglide.md).
 
+- [чи є Intlayer легшим за Paraglide?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/is_intlayer_lighter_than_paraglide.md)
+
 > Щоб зрозуміти, звідки взялися ці бібліотеки, прочитайте історію i18n у JavaScript.
 
 - [Історія i18n у JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/history_of_i18n.md)
@@ -58,6 +60,8 @@ Paraglide - це підхід до i18n, який використовуєтьс
 ## Що каже бенчмарк про Paraglide на TanStack Start
 
 [Бенчмарк i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/tanstack.md) запускає один і той самий застосунок TanStack Start на 10 сторінок і 10 мов з кожною основною бібліотекою та вимірює, що насправді завантажує браузер.
+
+- [Бенчмарк i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/tanstack.md)
 
 <I18nBenchmark framework="tanstack" packages="paraglide,intlayer" vertical/>
 
@@ -78,6 +82,8 @@ Paraglide - це підхід до i18n, який використовуєтьс
 - **Завантаження сторінки є найповільнішим у групі**, частково тому, що локаль визначається через стратегії під час кожного виклику, а не зчитується з React context.
 
 > Перегляньте повні дані: [Звіт про бенчмарки TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/tanstack.md), а також [репозиторій бенчмарка](https://github.com/intlayer-org/benchmark-i18n).
+
+- [Звіт про бенчмарки TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/tanstack.md)
 
 ## Порівняння функціональності на TanStack Start
 
@@ -102,6 +108,8 @@ Paraglide - це підхід до i18n, який використовуєтьс
 | **Перевірка відсутніх перекладів у CI**              | ✅ `npx intlayer test`                  | ⚠️ Не вбудовано               | ⚠️ Не вбудовано                    | ✅ `lingui compile --strict`    |
 
 > Дані про розмір runtime та витоки взяті з [бенчмарка TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/tanstack.md). Витік вимірюється на найкращій конфігурації для кожної бібліотеки.
+
+- [бенчмарка TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/tanstack.md)
 
 > Інші посібники для TanStack Start:
 
@@ -837,7 +845,12 @@ export const sendWelcomeEmail = createServerFn({ method: "POST" })
 
 Якщо ви переходите з іншої бібліотеки, а не з Paraglide, [адаптери сумісності](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/index.md) зберігають API `use-intl`, `next-intl`, `react-i18next`, `react-intl` або Lingui, замінюючи лише runtime.
 
+- [адаптери сумісності](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/index.md)
+
 Дивіться [чи є Intlayer легшим за Paraglide?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/is_intlayer_lighter_than_paraglide.md) та [посібник з Intlayer для TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_tanstack.md).
+
+- [чи є Intlayer легшим за Paraglide?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/is_intlayer_lighter_than_paraglide.md)
+- [посібник з Intlayer для TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_tanstack.md)
 
 </Step>
 <Step number={17} title="Автоматизуйте ваші переклади за допомогою Intlayer" isOptional={true}>
@@ -859,6 +872,8 @@ Paraglide рендерить переклади, але не допомагає 
 <Question title="Чи є Paraglide JS гарним вибором для TanStack Start?">
 
 Це надійне рішення: воно використовується в офіційних прикладах TanStack Router, має найменший runtime у [бенчмарку](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/tanstack.md) (~1.8 KB gzip), а повідомлення повністю типізовані. Компроміси полягають у тому, що кожна функція повідомлення містить усі локалі, що призводить до витоку приблизно половини перекладених рядків відвідувачам іншими мовами, а зміна мови перезавантажує сторінку.
+
+- [бенчмарку](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/tanstack.md)
 
 </Question>
 <Question title="Чи потрібен мені сегмент маршруту $locale з Paraglide?">
@@ -889,6 +904,9 @@ Paraglide рендерить переклади, але не допомагає 
 <Question title="Чи можу я перейти з Paraglide на Intlayer?">
 
 Так. Обидві бібліотеки побудовані на компіляторі, тому ментальна модель дуже схожа. Збережіть ваші файли JSON за допомогою [плагіна синхронізації JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/plugins/sync-json.md), а потім замінюйте виклики `m.key()` на `useIntlayer` сторінка за сторінкою. Дивіться [посібник з Intlayer для TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_tanstack.md).
+
+- [плагіна синхронізації JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/plugins/sync-json.md)
+- [посібник з Intlayer для TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_tanstack.md)
 
 </Question>
 

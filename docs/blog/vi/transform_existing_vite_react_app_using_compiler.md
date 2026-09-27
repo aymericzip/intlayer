@@ -49,6 +49,8 @@ Vào năm 2026, bạn không cần phải viết lại mã nguồn của mình. 
 
 > Bạn đang tìm kiếm hướng dẫn kỹ thuật chi tiết từng bước cho Vite và React? Xem tài liệu chuyên sâu của chúng tôi: [Dịch Vite và React với Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_vite+react.md).
 
+- [Dịch Vite và React với Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_vite+react.md)
+
 ## Mục lục
 
 <TOC/>
@@ -332,6 +334,8 @@ Hướng dẫn này đã cung cấp cái nhìn tổng quan về cách bổ sung 
 Nếu bạn muốn cấu hình từng phần chi tiết, bao gồm hỗ trợ kiểu TypeScript hoàn chỉnh, từ điển động và trình chỉnh sửa trực quan, vui lòng tham khảo tài liệu hướng dẫn đầy đủ:
 
 👉 **[Hướng dẫn toàn diện về cách dịch Vite và React với Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_vite+react.md)**
+
+- [Hướng dẫn toàn diện về cách dịch Vite và React với Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_vite+react.md)
 
 ## Câu hỏi thường gặp (FAQ)
 

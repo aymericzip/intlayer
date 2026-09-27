@@ -25,6 +25,8 @@ author: aymericzip
 
 Untuk tutorial langkah demi langkah yang lengkap dan terperinci, silakan lihat [Panduan Migrasi next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_next-i18next_to_intlayer.md) lengkap kami.
 
+- [Panduan Migrasi next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_next-i18next_to_intlayer.md)
+
 Intlayer menangani semua implementasi Pages Router dan App Router Next.js secara transparan. Menggunakan adapter memungkinkan Anda migrasi implementasi `next-i18next` tanpa penulisan ulang kode sama sekali.
 
 ## Yang perlu dilakukan

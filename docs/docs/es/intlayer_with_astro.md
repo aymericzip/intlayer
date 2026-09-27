@@ -89,10 +89,16 @@ Determinar el alcance del contenido de su aplicación **facilita el mantenimient
 
 La ubicación conjunta de contenido **reduce el contexto necesario** para los modelos de lenguajes grandes (LLM). Intlayer también viene con un conjunto de herramientas, como una **CLI** para comprobar si faltan traducciones,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** y **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/agent_skills.md)**, para que la experiencia del desarrollador (DX) sea aún más fluida para los agentes de IA.
 
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)
+- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/agent_skills.md)
+
 </Accordion>
 <Accordion header="Automatización">
 
 Utilice la automatización para traducir su canal de CI/CD utilizando el LLM de su elección al costo de su proveedor de IA. Intlayer también ofrece un **compilador** para automatizar la extracción de contenido, así como una [plataforma web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) para ayudar a **traducir en segundo plano**.
+
+- [plataforma web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="Actuación">
@@ -103,6 +109,9 @@ La conexión de archivos JSON masivos a componentes puede provocar problemas de 
 <Accordion header="Escalando sin ningún desarrollador">
 
 Más que una simple solución i18n, Intlayer proporciona un **[editor visual] autohospedado(https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** y un **[CMS completo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** para ayudarle a administrar su contenido multilingüe en **tiempo real**, lo que facilita la colaboración con traductores, redactores y otros miembros del equipo. El contenido se puede almacenar de forma local y/o remota.
+
+- [Editor visual de Intlayer: edita el contenido en contexto](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md)
+- [CMS completo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
@@ -206,6 +215,8 @@ export default config;
 
 > A través de este archivo de configuración, puedes configurar URLs localizadas, redirecciones de middleware, nombres de cookies, ubicación y extensiones de las declaraciones de contenido, desactivar los logs de Intlayer en la consola, y más. Para una lista completa de los parámetros disponibles, consulta la [documentación de configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md).
 
+- [documentación de configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md)
+
 </Step>
 <Step number={3} title="Integrar Intlayer en tu configuración de Astro">
 
@@ -251,6 +262,8 @@ export default appContent;
 > Las declaraciones de contenido pueden definirse en cualquier lugar de tu aplicación, siempre que estén incluidas en el `contentDir` (por defecto `./src`) y coincidan con la extensión de los archivos de declaración de contenido (por defecto `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
 
 > Para más información, consulta la [documentación de declaración de contenido](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/content_file.md).
+
+- [documentación de declaración de contenido](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/content_file.md)
 
 </Step>
 <Step number={5} title="Usar el contenido en Astro">
@@ -509,6 +522,9 @@ Si tienes una base de código existente, transformar miles de archivos puede lle
 
 Para facilitar este proceso, Intlayer propone un [compilador](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compiler.md) / [extractor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/extract.md) para transformar tus componentes y extraer el contenido.
 
+- [compilador](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compiler.md)
+- [extractor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/extract.md)
+
 Para configurarlo, puedes agregar una sección `compiler` en tu archivo `intlayer.config.ts` :
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
@@ -626,7 +642,7 @@ Para hacerlo, añade las siguientes instrucciones a tu archivo `.gitignore`:
 
 Para mejorar tu experiencia de desarrollo con Intlayer, puedes instalar la **extensión oficial de Intlayer para VS Code**.
 
-[Instalar desde el VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [Instalar desde el VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 Esta extensión proporciona:
 
@@ -637,9 +653,14 @@ Esta extensión proporciona:
 
 Para más información sobre el uso de la extensión, consulta la [documentación de la extensión para VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/vs_code_extension.md).
 
+- [documentación de la extensión para VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/vs_code_extension.md)
+
 ### Profundiza más
 
 Si quieres saber más, también puedes implementar el [Editor Visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md) o usar el [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md) para externalizar tus contenidos.
+
+- [Editor Visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md)
 
 ## Preguntas frecuentes
 
@@ -655,20 +676,33 @@ Astro incluye una opción `i18n` a nivel de enrutamiento que gestiona los prefij
 
 La ventaja específica de Astro es que el mismo diccionario sirve a una página `.astro` y a una isla de React, Vue, Svelte, Solid, Preact o Lit, en lugar de una biblioteca de i18n por cada runtime de isla. Consulta [por qué Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/interest_of_intlayer.md).
 
+- [por qué Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/interest_of_intlayer.md)
+
 </Question>
 <Question title="¿Cuánto añade la i18n al tamaño del bundle de mi sitio Astro?">
 
 Mucho menos que una configuración basada en espacios de nombres, porque una página nunca descarga un catálogo que no renderiza. Las páginas de Astro se renderizan en tiempo de compilación, así que entregan HTML traducido y ningún diccionario; solo las islas reciben uno. El compilador de tiempo de compilación resuelve las llamadas de contenido a las entradas exactas que usa un componente, y los [diccionarios dinámicos](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dynamic_dictionaries/index.md) reparten el resto por idioma. Frente a las alternativas habituales, Intlayer reduce el tamaño del bundle y de la página hasta en un 50%. Consulta la [optimización del bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/bundle_optimization.md) y el [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/benchmark/index.md).
+
+- [diccionarios dinámicos](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dynamic_dictionaries/index.md)
+- [optimización del bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/bundle_optimization.md)
+- [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/benchmark/index.md)
 
 </Question>
 <Question title="¿Puedo migrar desde `i18next` o un diccionario escrito a mano sin reescribir mis componentes?">
 
 En gran medida. Sigue la [guía de migración de i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/migration_from_i18next_to_intlayer.md) para trasladar el contenido. También puedes migrar de forma gradual: el [plugin de sincronización JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/plugins/sync-json.md) mantiene tus catálogos JSON existentes como fuente de verdad y genera diccionarios de Intlayer a partir de ellos, de modo que ambas capas se mantienen sincronizadas mientras trasladas los componentes uno a uno.
 
+- [guía de migración de i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/migration_from_i18next_to_intlayer.md)
+- [plugin de sincronización JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/plugins/sync-json.md)
+
 </Question>
 <Question title="¿Puedo conservar mis archivos de traducción JSON existentes?">
 
 Sí. El [plugin de sincronización JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/plugins/sync-json.md) mantiene tus archivos `/messages/{locale}/{namespace}.json` como fuente de verdad y genera diccionarios de Intlayer a partir de ellos, en ambas direcciones. Un [plugin de sincronización PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/plugins/sync-po.md) hace lo mismo para los catálogos gettext, y los [archivos por idioma](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/per_locale_file.md) te permiten dividir el contenido por idioma en lugar de agrupar los idiomas en un solo archivo.
+
+- [plugin de sincronización JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/plugins/sync-json.md)
+- [plugin de sincronización PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/plugins/sync-po.md)
+- [archivos por idioma](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/per_locale_file.md)
 
 </Question>
 <Question title="¿Tengo que trasladar mi contenido clave por clave?">
@@ -677,7 +711,11 @@ No. Ejecuta `npx intlayer extract` e Intlayer lee tus componentes, extrae las ca
 
 Para una canalización totalmente automatizada, el [compilador de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compiler.md) hace lo mismo en tiempo de compilación: escanea tu código JSX, TSX, Vue y Svelte en cada cambio, genera los diccionarios y los mantiene sincronizados mediante el reemplazo de módulos en caliente, así que no hay ninguna clave que mantener a mano.
 
+- [compilador de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compiler.md)
+
 Conviene conocer dos límites antes de activar el compilador. Funciona por análisis estático, así que las cadenas que solo existen en tiempo de ejecución, como los códigos de error de la API o los campos del CMS, quedan fuera de su alcance. Y tiene que distinguir el texto visible para el usuario de la lógica de la aplicación, como `className="active"` o un código de estado, lo que requiere unas pocas anotaciones en una base de código grande. El [comando extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/extract.md) evita ambos manteniéndote en el proceso.
+
+- [comando extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/extract.md)
 
 </Question>
 <Question title="¿Qué herramientas para editores y agentes de IA están disponibles?">
@@ -694,6 +732,10 @@ Cinco piezas, todas opcionales:
 <Question title="¿Intlayer funciona dentro de las islas de Astro?">
 
 Sí. `astro-intlayer` cubre el lado `.astro`, y cada framework de isla tiene su propio binding, así que una isla recibe el idioma activo desde la página en lugar de volver a resolverlo. Existen guías dedicadas para [Astro + React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_astro_react.md), [Astro + Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_astro_vue.md) y [Astro + Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_astro_svelte.md), entre otras.
+
+- [Astro + React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_astro_react.md)
+- [Astro + Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_astro_vue.md)
+- [Astro + Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_astro_svelte.md)
 
 </Question>
 <Question title="¿El contenido traducido se entrega como HTML estático?">
@@ -715,20 +757,34 @@ El paso 8 cubre `sitemap.xml` y `robots.txt`. `getMultilingualUrls` construye la
 
 Ejecuta `npx intlayer fill`. Rellena las traducciones que faltan con el LLM de tu elección, usando tu propio proveedor y tu clave de API, y `--git-diff` limita la ejecución al contenido modificado en la rama. Consulta el [comando fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/fill.md) y la [integración de CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/CI_CD.md).
 
+- [comando fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/fill.md)
+- [integración de CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/CI_CD.md)
+
 </Question>
 <Question title="¿Intlayer admite plurales, género y contenido Markdown?">
 
 Sí: [formas plurales](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/plurial.md), [contenido según el género](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/gender.md), condiciones, [inserciones](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/insertion.md) y [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/markdown.md), que es cómodo en Astro para páginas de texto extenso. Los [formateadores](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/formatters.md) gestionan números, fechas y monedas.
+
+- [formas plurales](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/plurial.md)
+- [contenido según el género](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/gender.md)
+- [inserciones](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/insertion.md)
+- [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/markdown.md)
+- [formateadores](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/formatters.md)
 
 </Question>
 <Question title="¿Cómo pueden los traductores editar el contenido sin tocar el código?">
 
 A través del [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md), que se ejecuta en tu propia infraestructura y permite que cualquiera edite texto en su sitio en la aplicación en ejecución, o del [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md), que externaliza el contenido para que pueda cambiar sin un despliegue.
 
+- [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md)
+
 </Question>
 <Question title="¿Es Intlayer gratuito y de código abierto?">
 
 Sí, bajo la licencia Apache 2.0, uso comercial incluido. El CMS alojado es un servicio de pago opcional que también puede [autoalojarse](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/self_hosting.md).
+
+- [autoalojarse](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/self_hosting.md)
 
 </Question>
 

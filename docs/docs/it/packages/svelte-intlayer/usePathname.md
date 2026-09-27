@@ -30,7 +30,7 @@ author: aymericzip
 
 # Integrazione Svelte: Documentazione di `usePathname`
 
-La funzione `usePathname` restituisce il pathname corrente del browser con il segmento della locale rimosso, sotto forma di store Svelte `Readable<string>`. È utile per costruire una navigazione consapevole della locale — per esempio, determinare quale elemento di navigazione è attivo — senza dover rimuovere manualmente il prefisso della locale.
+La funzione `usePathname` restituisce il pathname corrente del browser con il segmento della locale rimosso, sotto forma di store Svelte `Readable<string>`. È utile per costruire una navigazione consapevole della locale (per esempio, determinare quale elemento di navigazione è attivo) senza dover rimuovere manualmente il prefisso della locale.
 
 ## Importare `usePathname` in Svelte
 

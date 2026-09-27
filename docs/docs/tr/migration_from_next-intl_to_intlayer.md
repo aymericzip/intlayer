@@ -39,17 +39,23 @@ Sayfalarınıza devasa JSON dosyalarını yüklemek yerine yalnızca gerekli iç
 
 Uygulamanızın içeriğini kapsamlandırmak (scoping), büyük ölçekli uygulamaları **sürdürmesi kolay** hale getirir. Tüm içerik kod tabanınızı gözden geçirme yükü olmadan bir özellik dizinini silebilir veya kopyalayabilirsiniz. Ayrıca, Intlayer içeriğinizin doğruluğunu garanti etmek için **sıkı bir şekilde yazılmıştır (strongly typed)**.
 
-Intlayer aynı zamanda i18n ekosisteminde **en aktif şekilde geliştirilen** çözümdür — sorunlar hızlıca çözülür, yeni framework adaptörleri düzenli olarak yayınlanır ve çekirdek API, üretimdeki gerçek geri bildirimlere dayanarak sürekli olarak iyileştirilir.
+Intlayer aynı zamanda i18n ekosisteminde **en aktif şekilde geliştirilen** çözümdür, sorunlar hızlıca çözülür, yeni framework adaptörleri düzenli olarak yayınlanır ve çekirdek API, üretimdeki gerçek geri bildirimlere dayanarak sürekli olarak iyileştirilir.
 
 </Accordion>
 <Accordion header="Yapay Zeka (AI) Ajanları">
 
 İçeriğin (kod ile) bir arada bulunması (colocation), Büyük Dil Modelleri (LLM'ler) için **gerekli bağlamı azaltır**. Intlayer ayrıca eksik çevirileri test etmek için bir **CLI**, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/mcp_server.md)** ve yapay zeka ajanları için Geliştirici Deneyimini (DX) çok daha pürüzsüz hale getiren **[Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/agent_skills.md)** gibi bir dizi araç sunar.
 
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/mcp_server.md)
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/agent_skills.md)
+
 </Accordion>
 <Accordion header="Otomasyon">
 
 Seçtiğiniz bir LLM'yi kullanarak, CI/CD süreçlerinizdeki çevirileri kendi AI sağlayıcınızın maliyeti üzerinden otomatikleştirin. Intlayer ayrıca içerik çıkarma işlemini otomatikleştiren bir **derleyici** ve **arka planda çeviriye** yardımcı olmak için bir [web platformu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) sunar.
+
+- [web platformu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="Performans">
@@ -60,6 +66,9 @@ Büyük JSON dosyalarını bileşenlere bağlamak, performans ve reaktivite soru
 <Accordion header="Geliştirici Olmayanlarla Ölçeklenebilirlik">
 
 Basit bir i18n çözümünden çok daha fazlası olan Intlayer, çok dilli içeriğinizi **gerçek zamanlı** olarak yönetmenize yardımcı olan kendi barındırdığınız (self-hosted) bir **[görsel editör](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md)** ve **[tam donanımlı bir CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)** sağlar. Bu, çevirmenler, metin yazarları ve ekibin diğer üyeleriyle sorunsuz bir işbirliği sağlar. İçerik yerel ve/veya uzak bir sunucuda barındırılabilir.
+
+- [görsel editör](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md)
+- [tam donanımlı bir CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
@@ -74,7 +83,7 @@ Mevcut uygulamalar için önerilen yaklaşım, **uyumluluk adaptörünü** kulla
 
 `useTranslations`, `getTranslations`, `NextIntlClientProvider` vb. mevcut dosyalarınızda olduğu gibi kalır; **değişen tek şey içe aktarma yoludur**. Herhangi bir çağrı sentaksını, özellik (props) adını veya bileşen kurgunuzu değiştirmeniz gerekmez.
 
-Zamanla, görsel editör, CMS ve bileşen düzeyi bağlamından (scoping) yararlanmak için bağımsız dosyaları yavaş yavaş Intlayer'ın daha güçlü `.content.ts` biçimine dönüştürebilirsiniz—fakat bu adım tamamen isteğe bağlıdır ve adım adım uygulanabilir.
+Zamanla, görsel editör, CMS ve bileşen düzeyi bağlamından (scoping) yararlanmak için bağımsız dosyaları yavaş yavaş Intlayer'ın daha güçlü `.content.ts` biçimine dönüştürebilirsiniz, fakat bu adım tamamen isteğe bağlıdır ve adım adım uygulanabilir.
 
 ## İçindekiler
 
@@ -163,6 +172,8 @@ export default config;
 
 > Mevcut tüm seçeneklerin tam listesi için [Yapılandırma Dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) göz atın.
 
+- [Yapılandırma Dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md)
+
 </Step>
 <Step number={3} title="Intlayer Eklentisini Next.js'e Entegre Edin">
 
@@ -191,10 +202,10 @@ export default withIntlayer(nextConfig);
 
 Hızlı geçiş bu kadar. Uygulamanız artık `next-intl` içe aktarmalarınız ve API'niz olduğu gibi kalarak Intlayer üzerinde çalışmaktadır.
 
-> **Türetilmiş (Typed) çeviri anahtarları — otomatik olarak.** Intlayer sözlüklerinizi derlediğinde, `useTranslations` ve `getTranslations` özellikleri, kendi gerçek içeriğiniz için tam anlamıyla tür güvenli (typed) hale gelir. IDE'nizdeki anahtarlar otomatik tamamlanacak (autocomplete) ve geçersiz yollar herhangi bir ilave yapılandırma gerektirmeden derleme zamanında TypeScript hatası üretecektir.
+> **Türetilmiş (Typed) çeviri anahtarları, otomatik olarak.** Intlayer sözlüklerinizi derlediğinde, `useTranslations` ve `getTranslations` özellikleri, kendi gerçek içeriğiniz için tam anlamıyla tür güvenli (typed) hale gelir. IDE'nizdeki anahtarlar otomatik tamamlanacak (autocomplete) ve geçersiz yollar herhangi bir ilave yapılandırma gerektirmeden derleme zamanında TypeScript hatası üretecektir.
 >
 > ```tsx
-> // İstemci bileşeni (Client component) — 'about' kayıtlı bir sözlük anahtarıdır
+> // İstemci bileşeni (Client component), 'about' kayıtlı bir sözlük anahtarıdır
 > const t = useTranslations("about");
 > t("counter.label"); // ✓ otomatik tamamlandı
 > t("does.not.exist"); // ✗ TypeScript Hatası
@@ -223,7 +234,7 @@ Aşağıdaki adımlar isteğe bağlıdır ve kademeli olarak yapılabilir. Bunla
 | `import { setLocale } from 'next-intl/server'`       | `import { setLocale } from '@intlayer/next-intl/server'`       |
 | `import { getMessages } from 'next-intl/server'`     | `import { getMessages } from '@intlayer/next-intl/server'`     |
 
-> Yönlendirme ile ilgili içe aktarmaların her zaman gerçek `next-intl`'den geldiğinden emin olun — uyumluluk adaptörü next-intl'nin URL yönlendirme işleyişini **değiştirmez**:
+> Yönlendirme ile ilgili içe aktarmaların her zaman gerçek `next-intl`'den geldiğinden emin olun, uyumluluk adaptörü next-intl'nin URL yönlendirme işleyişini **değiştirmez**:
 >
 > ```ts
 > // ✅ Bunları gerçek 'next-intl' paketinden almayı sürdürün
@@ -291,6 +302,8 @@ export default config;
 ```
 
 > Mevcut tüm seçenekleri incelemek için [Intlayer CLI Dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/index.md) göz atın.
+
+- [Intlayer CLI Dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/index.md)
 
 </Step>
 

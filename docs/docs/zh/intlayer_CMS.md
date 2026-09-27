@@ -60,6 +60,8 @@ Intlayer 区分“本地”字典和“远程”字典。
 
 [Intlayer Visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md) 编辑器是一个工具，允许您在本地字典的可视化编辑器中管理内容。一旦进行更改，内容将被替换到代码库中。这意味着应用程序将被重新构建，页面将重新加载以显示新内容。
 
+- [Intlayer Visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)
+
 相比之下，Intlayer CMS 是一个工具，允许您在远程字典的可视化编辑器中管理内容。一旦进行更改，内容将**不会**影响您的代码库。网站将自动显示更改后的内容。
 
 ## 集成
@@ -70,13 +72,19 @@ Intlayer 区分“本地”字典和“远程”字典。
 
 对于与 Next.js 的集成，请参阅[安装指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_15.md)。
 
+- [Next.js 15 i18n - 翻译你的应用的完整指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_15.md)
+
 ### 与 Create React App 集成
 
 对于与 Create React App 的集成，请参阅[安装指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_create_react_app.md)。
 
+- [Create React App i18n：完整翻译指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_create_react_app.md)
+
 ### 与 Vite + React 集成
 
 对于与 Vite + React 的集成，请参阅[安装指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_vite+react.md)。
+
+- [Vite + React i18n - 翻译你的应用的完整指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_vite+react.md)
 
 ## 配置
 
@@ -156,6 +164,8 @@ export default config;
 > 如果您没有客户端 ID 和客户端密钥，可以通过在[Intlayer 控制面板 - 项目](https://app.intlayer.org/projects)中创建新客户端来获取。
 
 > 要查看所有可用参数，请参考[配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
+
+- [配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)
 
 ## 使用 CMS
 
@@ -271,10 +281,10 @@ bun add @intlayer/api
 
 SDK 被拆分为**两个独立的导入**，目的是保持您的包体积小：
 
-1. `createIntlayerCMS` — 创建一个轻量级**身份验证器**。它只携带凭证和托管的访问令牌；对任何特定的域一无所知。
-2. `dictionaryEndpoint`、`projectEndpoint` 等 — 按域名的**端点绑定器**，每个都从自己的子路径导入（`@intlayer/api/dictionary`、`@intlayer/api/project` 等）。您将身份验证器传递给您需要的端点。
+1. `createIntlayerCMS`：创建一个轻量级**身份验证器**。它只携带凭证和托管的访问令牌；对任何特定的域一无所知。
+2. `dictionaryEndpoint`、`projectEndpoint` 等，按域名的**端点绑定器**，每个都从自己的子路径导入（`@intlayer/api/dictionary`、`@intlayer/api/project` 等）。您将身份验证器传递给您需要的端点。
 
-因为每个端点都是单独导入的，您的包只包含您实际使用的域 — 导入 `dictionaryEndpoint` 永远不会拉入项目、AI 或任何其他域客户端。
+因为每个端点都是单独导入的，您的包只包含您实际使用的域，导入 `dictionaryEndpoint` 永远不会拉入项目、AI 或任何其他域客户端。
 
 ```typescript fileName="cms.ts" codeFormat="typescript"
 import { createIntlayerCMS } from "@intlayer/api";
@@ -380,7 +390,7 @@ await dictionaryEndpoint(cmsAuthenticator).updateDictionary({
 
 ### 提取单个方法
 
-每个端点方法都已经过身份验证且独立（它包含自己的令牌处理），因此您可以提取一个并将其传递——例如将其注入作为依赖项：
+每个端点方法都已经过身份验证且独立（它包含自己的令牌处理），因此您可以提取一个并将其传递，例如将其注入作为依赖项：
 
 ```typescript fileName="push.ts" codeFormat="typescript"
 import { createIntlayerCMS } from "@intlayer/api";
@@ -388,7 +398,7 @@ import { dictionaryEndpoint } from "@intlayer/api/dictionary";
 
 const dictionary = dictionaryEndpoint(createIntlayerCMS());
 
-// 已认证 — 每次调用时自动刷新令牌
+// 已认证, 每次调用时自动刷新令牌
 export const pushDictionaries = dictionary.pushDictionaries;
 
 // 使用示例
@@ -401,6 +411,8 @@ await pushDictionaries([{ key: "home", content: { title: "Home" } }]);
 
 完整的设置指南（启用方式、启动 Live Sync 服务器、本地开发工作流程和限制条件）请参阅 [Live Sync 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/live-sync.md)。
 
+- [Live Sync 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/live-sync.md)
+
 ## 自托管
 
 Intlayer 可以完全在您自己的基础设施上运行。一条命令可以使用 Docker Compose 启动完整的堆栈（仪表板、API、数据库、对象存储和电子邮件）：
@@ -410,6 +422,8 @@ curl -fsSL https://intlayer.org/install.sh | sh
 ```
 
 有关完整的设置指南、环境变量参考、升级说明和备份/恢复过程，请参阅[自托管指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/self_hosting.md)。
+
+- [自托管指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/self_hosting.md)
 
 ## 调试
 
@@ -434,27 +448,45 @@ curl -fsSL https://intlayer.org/install.sh | sh
 
 [可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md) 编辑的是本地字典，并将修改直接写回您的代码库中，因此应用需要重新构建，并且更改需要走正常的代码审查和部署流程。而 CMS 编辑的是远程字典：修改完全不触碰您的代码库，运行中的站点无需重新部署即可直接生效。团队通常两者搭配使用：开发者维护的内容使用编辑器，市场团队每周频繁更新的内容使用 CMS。
 
+- [可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)
+
 </Question>
 <Question title="i18n 会给我的 bundle 体积增加多少？">
 
 远少于基于命名空间的方案，因为页面永远不会下载它不渲染的语言目录。服务端渲染的标记在服务端直接解析内容，而构建时编译器将 `useIntlayer` 调用替换为组件使用的确切字典条目，因此未使用的键和未使用的语言都会被自动丢弃。[动态字典](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dynamic_dictionaries/index.md) 会按语言环境拆分剩余内容。与常规替代方案相比，Intlayer 可将 bundle 和页面体积减少高达 50%。请参阅 [Bundle 体积优化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md) 和 [性能基准](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/index.md)。
+
+- [动态字典](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dynamic_dictionaries/index.md)
+- [Bundle 体积优化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md)
+- [性能基准](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/index.md)
 
 </Question>
 <Question title="我可以从 i18next、next-intl 或 react-i18next 迁移而无需重写组件吗？">
 
 可以，有两条迁移路径。您可以使用 [i18next 迁移指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_i18next_to_intlayer.md) 或 [next-intl 迁移指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_next-intl_to_intlayer.md) 逐步迁移内容。或者，您可以完全保留当前的 API：[兼容性适配器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/index.md) 公开与 `i18next`、`react-i18next`、`next-intl`、`next-i18next`、`react-intl`、`use-intl`、`vue-i18n` 和 `Lingui` 完全相同的 API，但底层由 Intlayer 字典驱动，因此只需更改导入语句，组件代码无需修改。
 
+- [i18next 迁移指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_i18next_to_intlayer.md)
+- [next-intl 迁移指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_next-intl_to_intlayer.md)
+- [兼容性适配器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/index.md)
+
 </Question>
 <Question title="我可以保留现有的 JSON 翻译文件吗？">
 
 可以。[JSON 同步插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/plugins/sync-json.md) 将您的 `/messages/{locale}/{namespace}.json` 文件作为单一真实来源（source of truth），并双向生成 Intlayer 字典。[PO 同步插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/plugins/sync-po.md) 对 gettext 目录执行相同的操作，而 [按语言环境组织的文件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/per_locale_file.md) 允许您按语言拆分内容，而不是将所有语言打包到一个文件中。
+
+- [JSON 同步插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/plugins/sync-json.md)
+- [PO 同步插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/plugins/sync-po.md)
+- [按语言环境组织的文件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/per_locale_file.md)
 
 </Question>
 <Question title="我必须逐个键迁移我的内容吗？">
 
 不需要。运行 `npx intlayer extract`，Intlayer 会读取您的源码文件，提取面向用户的字符串，并在每个组件旁边生成 `.content` 文件，这样您只需审查 diff，而无需手动逐一复制字符串到语言目录中。请参阅 [extract 命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/extract.md)。
 
+- [extract 命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/extract.md)
+
 如需全自动流程，[Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md) 可以在构建时对 JSX、TSX、Vue 和 Svelte 源码执行相同操作，在每次更改时自动生成字典，完全无需手动维护键名。它通过静态分析工作，因此仅在运行时存在的字符串无法被捕获，并且需要少量注解以区分用户文本和应用程序逻辑。
+
+- [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md)
 
 </Question>
 <Question title="有哪些可用的编辑器和 AI 代理工具？">
@@ -482,10 +514,14 @@ curl -fsSL https://intlayer.org/install.sh | sh
 
 可以。CMS 完全可以在您自己的基础设施上运行，这非常适合内容不能离开内部网络的私有化合规场景。请参阅 [自托管 Intlayer 指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/self_hosting.md)。
 
+- [自托管 Intlayer 指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/self_hosting.md)
+
 </Question>
 <Question title="内容编辑人员发布更改需要开发者介入吗？">
 
 不需要。这正是远程字典的核心价值：编辑人员在 CMS 中修改文案，线上站点便会直接反映更新，通过 [实时同步 (live sync)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/live.md) 在运行时即时应用更新，无需等待构建和发布流水线。
+
+- [实时同步 (live sync)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/live.md)
 
 </Question>
 <Question title="除了使用图形界面外，我可以对 CMS 进行自动化操作吗？">
@@ -497,10 +533,15 @@ curl -fsSL https://intlayer.org/install.sh | sh
 
 支持。远程字典支持 [内容变体 (variants)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dynamic_dictionaries/variants.md)，并且 [数据分析 (analytics)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/analytics.md) 会报告每个变体的曝光数据，使文案效果能够通过数据直接衡量，而无需无谓争论。
 
+- [内容变体 (variants)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dynamic_dictionaries/variants.md)
+- [数据分析 (analytics)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/analytics.md)
+
 </Question>
 <Question title="CMS 是免费的吗？">
 
 Intlayer 的核心库、CLI、编译器和可视化编辑器均在 Apache 2.0 许可证下完全开源免费。云端托管版 CMS 是一项可选的付费服务，您也可以选择完全免费的 [自托管方案](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/self_hosting.md)。
+
+- [自托管方案](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/self_hosting.md)
 
 </Question>
 

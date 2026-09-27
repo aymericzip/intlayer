@@ -100,6 +100,8 @@ Next.js предоставляет встроенную поддержку ин�
 
 <I18nBenchmark framework="nextjs" packages="next-i18next,next-intl,next-intlayer" vertical/>
 
+- [i18n benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/nextjs.md)
+
 <ClickToOpenIframe
   src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
   width="100%"
@@ -121,6 +123,9 @@ Next.js предоставляет встроенную поддержку ин�
 | `next-intlayer` (native Intlayer) |        **5.5 KB** |        **141.3 KB** |              **0.0%** |              **0.0%** |           **6.9 KB** |
 
 > Полный анализ смотрите в [отчёте о бенчмарке Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/nextjs.md) и в подробном [обзоре бенчмарка i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/index.md).
+
+- [отчёте о бенчмарке Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/nextjs.md)
+- [обзоре бенчмарка i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/index.md)
 
 В контексте бандла многоязычного приложения важны два компонента:
 
@@ -1456,3 +1461,5 @@ export const config = {
 - [Адаптер совместимости @intlayer/next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/next-i18next.md)
 
 Обратитесь к [документу «Почему Intlayer?»](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/interest_of_intlayer.md) для получения дополнительной информации.
+
+- [Почему Intlayer? Преимущества перед другими i18n-библиотеками](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/interest_of_intlayer.md)

@@ -64,6 +64,8 @@ export default config;
 
 لمعرفة المزيد عن نظام إدارة المحتوى، راجع [التوثيق الرسمي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).
 
+- [Intlayer CMS: أخرج محتواك متعدد اللغات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
+
 ## استخدام Husky
 
 يمكنك دمج توليد الترجمات في سير عمل Git المحلي الخاص بك باستخدام [Husky](https://typicode.github.io/husky/).
@@ -100,6 +102,8 @@ npx intlayer fill --unpushed --mode fill    # ملء المحتوى المفقو
 ```
 
 > لمزيد من المعلومات حول أوامر Intlayer CLI وكيفية استخدامها، راجع [توثيق CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md).
+
+- [توثيق CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md)
 
 > إذا كان لديك عدة تطبيقات في مستودعك تستخدم نسخ منفصلة من intlayer، يمكنك استخدام الوسيط `--base-dir` كما يلي:
 
@@ -200,3 +204,5 @@ jobs:
 > بشكل افتراضي، تقوم الوسيطة `--git-diff` بتصفية القواميس التي تتضمن تغييرات من القاعدة (الافتراضية `origin/main`) إلى الفرع الحالي (الافتراضي: `HEAD`).
 
 > لمزيد من المعلومات حول أوامر Intlayer CLI وكيفية استخدامها، راجع [توثيق CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md).
+
+- [توثيق CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md)

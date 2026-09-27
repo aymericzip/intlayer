@@ -39,6 +39,8 @@ bun x intlayer pull
 
 إذا كان [محرر intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) مثبتًا، يمكنك أيضًا سحب القواميس من المحرر. بهذه الطريقة، يمكنك استبدال محتوى قواميسك حسب حاجة تطبيقك.
 
+- [محرر intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)
+
 ## الأسماء المستعارة:
 
 - `npx intlayer dictionaries pull`

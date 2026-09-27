@@ -29,6 +29,8 @@ Ekspor `Intlayer` berfungsi sebagai pengidentifikasi penyimpanan konteks permint
 
 ## Penggunaan
 
+Saat middleware `intlayer()` berjalan, middleware tersebut menyimpan objek `IntlayerState` di konteks permintaan dengan kunci `Intlayer`. Anda dapat mengambilnya di dalam handler rute mana pun:
+
 ```ts fileName="src/server.ts"
 import { createRouter } from "remix/router";
 import { intlayer, Intlayer } from "remix-intlayer";
@@ -37,20 +39,39 @@ const router = createRouter({
   middleware: [intlayer()],
 });
 
-router.get("/api/current-locale", (context) => {
-  const intlayerState = context.get(Intlayer);
+router.get("/api/profile", (context) => {
+  // Akses melalui context.get(Intlayer)
+  const { locale, defaultLocale, availableLocales } = context.get(Intlayer);
 
   return Response.json({
-    locale: intlayerState?.locale,
+    locale,
+    defaultLocale,
+    availableLocales,
   });
 });
 ```
 
-## Deskripsi
+Anda juga dapat mengaksesnya menggunakan pintasan properti langsung `context.intlayer`:
 
-`Intlayer` digunakan oleh middleware `intlayer()` untuk mengikat state sesi saat ini ke konteks permintaan Remix (`RequestContext`). Biasanya disarankan menggunakan hook seperti `useLocale()` atau `useIntlayer()`. Akses langsung melalui `context.get(Intlayer)` berguna dalam handler middleware tingkat rendah atau rute API di mana instans konteks diteruskan secara eksplisit.
+```ts
+router.get("/api/status", (context) => {
+  const currentLocale = context.intlayer.locale;
+  return Response.json({ status: "ok", locale: currentLocale });
+});
+```
+
+## Struktur `IntlayerState`
+
+Objek `IntlayerState` berisi:
+
+| Properti           | Tipe                | Deskripsi                                                          |
+| ------------------ | ------------------- | ------------------------------------------------------------------ |
+| `locale`           | `DeclaredLocales`   | Locale yang ditentukan untuk permintaan saat ini.                  |
+| `defaultLocale`    | `DeclaredLocales`   | Locale cadangan yang didefinisikan di `intlayer.config.ts`.        |
+| `availableLocales` | `DeclaredLocales[]` | Daftar semua locale yang didukung yang dikonfigurasi untuk proyek. |
 
 ## Dokumentasi Terkait
 
 - [Middleware `intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/remix-intlayer/intlayerMiddleware.md)
 - [Hook `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/remix-intlayer/useLocale.md)
+- [Hook `useIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/remix-intlayer/useIntlayer.md)

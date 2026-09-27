@@ -33,6 +33,8 @@ author: aymericzip
 
 यह article दोनों की तुलना एक ही Next.js application पर करता है, जो एक बार `next-intl` के साथ और एक बार adapter के साथ built है। नंबर [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) से आते हैं, एक open-source suite जो record करता है कि browser actually क्या download करता है। अगर आप `next-intl` vs Intlayer की तुलना libraries के रूप में चाहते हैं, तो [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/next-intl_vs_intlayer.md) पढ़ें। यह एक इस बारे में है कि adapter क्या बदलता है जब आप अपने components को जैसे हैं वैसे ही रखते हैं।
 
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/next-intl_vs_intlayer.md)
+
 <TOC/>
 
 > **tl;dr**: एक ही Next.js ऐप्लिकेशन पर, `next-intl` को `@intlayer/next-intl` से बदलने से प्रति-पृष्ठ JavaScript **153.6 KB से 147.5 KB** gzip तक कम हो गया, औसत कंपोनेंट **21.8 KB से 8.1 KB** तक, विदेशी-पृष्ठ स्ट्रिंग लीकेज **~90% से 0%** तक, और हाइड्रेशन **14.7 ms से 12.8 ms** तक, बिना किसी कंपोनेंट को संपादित किए। TanStack Start पर, `use-intl` समकक्ष (`@intlayer/use-intl`) कंपोनेंट्स को **76-87 KB से 9-11 KB** तक और लोकेल स्विचिंग को **7-21 ms से 4-9 ms** तक कम कर देता है। एडेप्टर runtime के लिए **8.0 KB** की लागत लेता है जबकि `next-intl` **14.7 KB** और native `next-intlayer` **5.5 KB** की लागत लेते हैं। Navigation और middleware को Intlayer की routing config पर पुनः लागू किया गया है; localized `pathnames` एकमात्र सुविधा है जो स्थानांतरित नहीं की गई है।
@@ -145,6 +147,8 @@ style="border:none;"
 
 > [Next.js बेंचमार्क रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/nextjs.md) में पूरी तालिका, प्रत्येक लाइब्रेरी और प्रत्येक रणनीति देखें।
 
+- [Next.js बेंचमार्क रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/nextjs.md)
+
 ### TanStack Start पर परिणाम (`use-intl`)
 
 `use-intl` `next-intl` का framework-agnostic core है। इसका adapter, `@intlayer/use-intl`, एक Vite plugin (`@intlayer/use-intl/plugin`) के साथ एक ही design का पालन करता है।
@@ -176,6 +180,8 @@ style="border:none;"
 />
 
 > [TanStack Start बेंचमार्क रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/tanstack.md) में पूरी तालिका देखें।
+
+- [TanStack Start बेंचमार्क रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/tanstack.md)
 
 ## संख्याएं क्यों बदलती हैं
 
@@ -329,6 +335,8 @@ export default withIntlayer(nextConfig);
 
 फॉर्मेटर्स नेटिव `Intl` द्वारा समर्थित हैं और केवल भाषा उनके आउटपुट को प्रभावित करती है। यदि आप हाइड्रेशन-स्थिर तिथियों के लिए मजबूर समय क्षेत्र या एक निश्चित `now` पर भरोसा करते हैं, तो इसे कॉल साइट पर संभालें। [दिनांक, समय और संख्या स्वरूपण](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/date_time_number_formatting_locales.md) देखें।
 
+- [दिनांक, समय और संख्या स्वरूपण](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/date_time_number_formatting_locales.md)
+
 </Accordion>
 </AccordionGroup>
 
@@ -349,6 +357,8 @@ export default withIntlayer(nextConfig);
 
 नई परियोजनाओं के लिए, या एक बार एडॉप्टर द्वारा अपना काम पूरा कर लेने के बाद। यह तीनों में सबसे हल्का है (5.5 KB, +0.3 KB प्रति पृष्ठ) और सिंक्रोनस सर्वर घटकों, प्रति-घटक `.content.ts` फाइलों और पूर्ण फीचर सेट को अनलॉक करता है। [Next.js के साथ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nextjs_16.md) से शुरुआत करें।
 
+- [Next.js के साथ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nextjs_16.md)
+
 </Accordion>
 </AccordionGroup>
 
@@ -365,6 +375,8 @@ Next.js पर, घटकों के लिए हाँ: बेंचमा�
 <Question title="ICU संदेशों का क्या होता है?">
 
 वे काम करते रहते हैं। `t("key", { count })`, `t.rich()`, `t.markup()`, `select`, `selectordinal`, `#` और `{ts, date, long}` Intlayer के ICU रिज़ॉल्वर द्वारा हल किए जाते हैं। [ICU संदेश प्रारूप](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md) देखें।
+
+- [ICU संदेश प्रारूप](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)
 
 </Question>
 
@@ -425,3 +437,5 @@ Next.js पर, घटकों के लिए हाँ: बेंचमा�
 सभी raw data, test apps और scripts [Benchmark Bloom repository](https://github.com/intlayer-org/benchmark-bloom) में हैं। इसे स्वयं चलाएं।
 
 अधिक विवरण के लिए ['Why Intlayer?' doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/interest_of_intlayer.md) देखें।
+
+- [Intlayer क्यों? अन्य i18n लाइब्रेरी से बेहतर क्या है](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/interest_of_intlayer.md)

@@ -34,7 +34,12 @@ author: aymericzip
 
 > Tercih ederseniz, ayrıca [next-i18next rehberine](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/i18n_using_next-i18next.md) veya doğrudan [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_16.md) kullanmaya da başvurabilirsiniz.
 
+- [next-i18next rehberine](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/i18n_using_next-i18next.md)
+- [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_16.md)
+
 > Karşılaştırmayı [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/next-i18next_vs_next-intl_vs_intlayer.md) sayfasında görebilirsiniz.
+
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/next-i18next_vs_next-intl_vs_intlayer.md)
 
 > Bu kütüphanelerin nereden geldiğini anlamak için JavaScript i18n tarihini okuyun.
 
@@ -43,6 +48,8 @@ author: aymericzip
 ## Benchmark, Next.js üzerinde next-intl hakkında ne söylüyor
 
 Çevirileri uygulamadan önce `next-intl`'in performans profilini anlamak önemlidir. [i18n benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md), 10 sayfalı ve 10 locale'li aynı Next.js uygulamasını farklı kurulumlar ve kütüphanelerle değerlendirerek gerçek bundle boyutunu, string sızıntısını ve hydration maliyetini ölçer.
+
+- [i18n benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md)
 
 <I18nBenchmark framework="nextjs" packages="next-intl,@intlayer/next-intl,next-intlayer" vertical/>
 
@@ -68,6 +75,8 @@ Next.js üzerinde `next-intl` için temel rakamlar (gzip):
 - **Runtime ağırlığı:** `next-intl` runtime'ı her sayfaya ~14.7 KB gzip ekler. Mevcut `next-intl` uygulamaları için [`@intlayer/next-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/next-intl.md) compat adaptörü aynı hook'ları (`useTranslations`, `useFormatter` vb.) korurken runtime boyutunu %0 sızıntıyla ~8.0 KB'a düşürür. Yerel [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/next-intlayer/exports.md) ise boyutu 5.5 KB'a kadar indirir.
 
 > Tüm verilere bakın: [Next.js benchmark raporu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md) ve [benchmark deposu](https://github.com/intlayer-org/benchmark-i18n).
+
+- [Next.js benchmark raporu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md)
 
 ## Next.js üzerinde özellik karşılaştırması
 
@@ -96,6 +105,9 @@ Next.js üzerinde `next-intl` için temel rakamlar (gzip):
 
 > Runtime boyutları [Next.js benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md) verilerinden alınmıştır. Ayrıntılı bir tartışma için [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/next-i18next_vs_next-intl_vs_intlayer.md) yazısını okuyun.
 
+- [Next.js benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md)
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/next-i18next_vs_next-intl_vs_intlayer.md)
+
 ## Takip etmeniz gereken uygulamalar
 
 Uygulamaya başlamadan önce, takip etmeniz gereken bazı uygulamalar şunlardır:
@@ -122,6 +134,8 @@ Uygulamaya başlamadan önce, takip etmeniz gereken bazı uygulamalar şunlardı
   Testlerin ve çevirilerin otomatikleştirilmesi, çok dilli uygulamanızı sürdürürken zaman kaybetmenizi önler.
 
 > Uluslararasılaştırma ve SEO hakkında bilmeniz gereken her şeyi listeleyen dokümanımıza bakın: [next-intl ile Uluslararasılaştırma (i18n)](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/internationalization_and_SEO.md).
+
+- [next-intl ile Uluslararasılaştırma (i18n)](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/internationalization_and_SEO.md)
 
 ## Next.js Uygulamasında next-intl Kurulumuna Adım Adım Rehber
 
@@ -855,6 +869,8 @@ Intlayer size şunları sağlar:
   Intlayer, içeriğinizi görsel bir editör kullanarak düzenlemenizi sağlayan ücretsiz bir görsel editör sunar. Çevirilerinizi görsel olarak düzenlemek hakkında daha fazla bilgi için [visual editing your translations](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) sayfasını ziyaret edin.
 
 Ve daha fazlası. Intlayer tarafından sunulan tüm özellikleri keşfetmek için lütfen [Interest of Intlayer documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/interest_of_intlayer.md) dokümantasyonuna bakınız.
+
+- [Interest of Intlayer documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/interest_of_intlayer.md)
 
 Ayrıntılı performans benchmark'ları ve karşılaştırmalar için bakın:
 

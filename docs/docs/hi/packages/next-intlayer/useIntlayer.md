@@ -76,6 +76,8 @@ author: aymericzip
 
 कंटेंट घोषणा फ़ाइलों को सेटअप करने के निर्देश [यहाँ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/content_file.md) उपलब्ध हैं।
 
+- [कंटेंट डिक्लेरेशन फ़ाइलें (.content.ts)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/content_file.md)
+
 ## Next.js में उदाहरण उपयोग
 
 यहाँ बताया गया है कि आप `useIntlayer` हुक को Next.js पेज के भीतर कैसे लागू कर सकते हैं ताकि एप्लिकेशन की वर्तमान स्थानीय भाषा के आधार पर स्थानीयकृत सामग्री को गतिशील रूप से लोड किया जा सके:

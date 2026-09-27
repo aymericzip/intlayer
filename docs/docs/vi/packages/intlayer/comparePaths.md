@@ -32,9 +32,11 @@ author: aymericzip
 
 ## Mô tả
 
-Hàm `comparePaths` so sánh hai URL hoặc đường dẫn để kiểm tra sự trùng khớp trong khi bỏ qua phần locale, giao thức/host, chuỗi truy vấn (query string), hash và các dấu gạch chéo ở cuối (trailing slashes). Đây là cách được khuyến nghị để xác định xem một liên kết điều hướng có trỏ đến trang hiện tại hay không — ví dụ: để làm nổi bật liên kết đang hoạt động — mà không cần phải tự viết logic chuẩn hóa riêng (dễ bị lỗi).
+Hàm `comparePaths` so sánh hai URL hoặc đường dẫn để kiểm tra sự trùng khớp trong khi bỏ qua phần locale, giao thức/host, chuỗi truy vấn (query string), hash và các dấu gạch chéo ở cuối (trailing slashes). Đây là cách được khuyến nghị để xác định xem một liên kết điều hướng có trỏ đến trang hiện tại hay không, ví dụ: để làm nổi bật liên kết đang hoạt động, mà không cần phải tự viết logic chuẩn hóa riêng (dễ bị lỗi).
 
 Về mặt nội bộ, nó sử dụng lại [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getPathWithoutLocale.md) để loại bỏ phần locale, do đó nó tôn trọng chế độ định tuyến và các locales đã được định cấu hình của bạn.
+
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getPathWithoutLocale.md)
 
 Gói cũng xuất ra một hàm hỗ trợ cơ bản là [`normalizePath`](#normalizepath), nó trả về đường dẫn chuẩn, không phụ thuộc vào locale được sử dụng cho mục đích so sánh.
 
@@ -44,7 +46,7 @@ Gói cũng xuất ra một hàm hỗ trợ cơ bản là [`normalizePath`](#norm
 - Hoạt động với cả URL tuyệt đối và đường dẫn tương đối
 - Bỏ qua chuỗi truy vấn, hash và các dấu gạch chéo ở cuối
 - Cho phép bỏ qua dấu gạch chéo ở đầu và giá trị rỗng (được chuẩn hóa thành `/`)
-- Nhẹ nhàng — được xây dựng trên `getPathWithoutLocale`
+- Nhẹ nhàng, được xây dựng trên `getPathWithoutLocale`
 
 ## Chữ ký hàm (Function Signature)
 

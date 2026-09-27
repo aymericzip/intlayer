@@ -38,17 +38,23 @@ En lugar de cargar archivos JSON masivos en tus páginas, carga solo el contenid
 
 Establecer un alcance al contenido de tu aplicación **facilita el mantenimiento** para aplicaciones a gran escala. Puedes duplicar o eliminar una carpeta de función completa sin la carga mental de revisar todo el código de tu contenido. Además, Intlayer está **completamente tipado** para asegurar la precisión de tu contenido.
 
-Intlayer es también la solución con el **desarrollo más activo** en el ecosistema i18n — los problemas se solucionan rápidamente, nuevos adaptadores de framework se añaden regularmente y la API principal se refina continuamente basándose en retroalimentación real de producción.
+Intlayer es también la solución con el **desarrollo más activo** en el ecosistema i18n, los problemas se solucionan rápidamente, nuevos adaptadores de framework se añaden regularmente y la API principal se refina continuamente basándose en retroalimentación real de producción.
 
 </Accordion>
 <Accordion header="Agente de IA">
 
 Colocalizar el contenido **reduce el contexto necesario** para los Grandes Modelos de Lenguaje (LLM). Intlayer también incluye una suite de herramientas, como un **CLI** para probar traducciones faltantes, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/mcp_server.md)** y **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/agent_skills.md)**, para que la experiencia del desarrollador (DX) sea aún más fluida para los agentes de IA.
 
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/mcp_server.md)
+- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/agent_skills.md)
+
 </Accordion>
 <Accordion header="Automatización">
 
 Usa la automatización para traducir en tu flujo de CI/CD utilizando el LLM de tu elección al costo de tu proveedor de IA. Intlayer también ofrece un **compilador** para automatizar la extracción de contenido, así como una [plataforma web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md) para ayudar a **traducir en segundo plano**.
+
+- [plataforma web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="Rendimiento">
@@ -59,6 +65,9 @@ Conectar archivos JSON masivos a los componentes puede llevar a problemas de ren
 <Accordion header="Escalabilidad con no-desarrolladores">
 
 Más que una simple solución de i18n, Intlayer proporciona un **[editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md)** autohospedado y un **[CMS completo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md)** para ayudarte a gestionar tu contenido multilingüe en **tiempo real**, haciendo la colaboración con traductores, redactores y otros miembros del equipo fluida. El contenido se puede almacenar local y/o remotamente.
+
+- [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md)
+- [CMS completo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
@@ -71,9 +80,9 @@ Más que una simple solución de i18n, Intlayer proporciona un **[editor visual]
 
 El enfoque recomendado para las aplicaciones existentes es el **adaptador de compatibilidad**: instala `@intlayer/next-intl`, que expone **exactamente la misma API** que `next-intl` pero delega todo el trabajo de traducción a Intlayer.
 
-Mantienes tus `useTranslations`, `getTranslations`, `NextIntlClientProvider` existentes y demás elementos — **el único cambio es la ruta de importación**. No se requiere refactorizar firmas de llamada, formas de props o la estructura de los componentes.
+Mantienes tus `useTranslations`, `getTranslations`, `NextIntlClientProvider` existentes y demás elementos, **el único cambio es la ruta de importación**. No se requiere refactorizar firmas de llamada, formas de props o la estructura de los componentes.
 
-Con el tiempo puedes, opcionalmente, migrar archivos individuales al formato `.content.ts` más rico de Intlayer para desbloquear el editor visual, el CMS y el alcance de contenido por componente — pero este paso es enteramente opcional y puede realizarse de forma gradual.
+Con el tiempo puedes, opcionalmente, migrar archivos individuales al formato `.content.ts` más rico de Intlayer para desbloquear el editor visual, el CMS y el alcance de contenido por componente, pero este paso es enteramente opcional y puede realizarse de forma gradual.
 
 ## Tabla de Contenidos
 
@@ -124,7 +133,7 @@ yarn add intlayer next-intlayer @intlayer/next-intl @intlayer/sync-json-plugin
 bun add intlayer next-intlayer @intlayer/next-intl @intlayer/sync-json-plugin
 ```
 
-> Conserva instalado `next-intl` — sigue siendo necesario para el **enrutamiento URL** (`createNavigation`, `createMiddleware`, `Link`, `redirect`, `usePathname`, `useRouter`). El adaptador de compatibilidad **no** reemplaza la capa de enrutamiento.
+> Conserva instalado `next-intl`, sigue siendo necesario para el **enrutamiento URL** (`createNavigation`, `createMiddleware`, `Link`, `redirect`, `usePathname`, `useRouter`). El adaptador de compatibilidad **no** reemplaza la capa de enrutamiento.
 
 </Step>
 <Step number={2} title="Configurar Intlayer">
@@ -162,6 +171,8 @@ export default config;
 
 > Para obtener una lista completa de opciones de configuración, consulta la [documentación de configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md).
 
+- [documentación de configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md)
+
 </Step>
 <Step number={3} title="Añadir el Plugin de Intlayer a Next.js">
 
@@ -180,7 +191,7 @@ export default withIntlayer(nextConfig);
 
 > `createNextIntlPlugin()` envuelve a `withIntlayer`, detecta automáticamente **Webpack** o **Turbopack**, vincula el monitoreo de contenido, compila los diccionarios y, lo más importante, **inyecta alias de módulos** para que tus llamadas existentes a `import … from 'next-intl'` sean redirigidas de forma transparente a `@intlayer/next-intl` en tiempo de compilación. La entrada de enrutamiento `next-intl/routing` sigue apuntando al paquete real. No se requieren cambios en los archivos de origen.
 >
-> ¿Prefieres usar el `withIntlayer` sencillo de `next-intlayer/server`? Compilará tus diccionarios, pero **no** añadirá los alias de `next-intl` — tendrías que renombrar las importaciones a `@intlayer/next-intl` manualmente (ver el Paso 4).
+> ¿Prefieres usar el `withIntlayer` sencillo de `next-intlayer/server`? Compilará tus diccionarios, pero **no** añadirá los alias de `next-intl`, tendrías que renombrar las importaciones a `@intlayer/next-intl` manualmente (ver el Paso 4).
 
 > **Ya no necesitas `getRequestConfig` o `loadMessages`.** Con `next-intl`, tenías que escribir un archivo `src/i18n.ts` que cargaba paquetes de mensajes JSON en cada solicitud a través de `getRequestConfig`. Intlayer compila todos los diccionarios **en tiempo de compilación**, por lo que no hay paso de carga en tiempo de ejecución. Puedes borrar ese archivo por completo (o mantener solo las partes de enrutamiento si aún utilizas `createNavigation`).
 
@@ -190,10 +201,10 @@ export default withIntlayer(nextConfig);
 
 Eso es todo para la migración rápida. Tu aplicación ahora funciona sobre Intlayer mientras mantiene intactas todas las importaciones y APIs de `next-intl`.
 
-> **Claves de traducción tipadas — automáticas.** Una vez que Intlayer compila tus diccionarios, `useTranslations` y `getTranslations` quedan tipados en relación a tu contenido real. Las claves se autocompletan en tu IDE y las rutas inválidas provocan errores de TypeScript en tiempo de compilación — sin configuraciones adicionales requeridas.
+> **Claves de traducción tipadas, automáticas.** Una vez que Intlayer compila tus diccionarios, `useTranslations` y `getTranslations` quedan tipados en relación a tu contenido real. Las claves se autocompletan en tu IDE y las rutas inválidas provocan errores de TypeScript en tiempo de compilación, sin configuraciones adicionales requeridas.
 >
 > ```tsx
-> // Componente de cliente — 'about' es una clave de diccionario registrada
+> // Componente de cliente, 'about' es una clave de diccionario registrada
 > const t = useTranslations("about");
 > t("counter.label"); // ✓ autocompletado
 > t("does.not.exist"); // ✗ Error de TypeScript
@@ -222,7 +233,7 @@ El contenedor `createNextIntlPlugin()` ya maneja el alias de `next-intl` → `@i
 | `import { setLocale } from 'next-intl/server'`       | `import { setLocale } from '@intlayer/next-intl/server'`       |
 | `import { getMessages } from 'next-intl/server'`     | `import { getMessages } from '@intlayer/next-intl/server'`     |
 
-> Mantén siempre las importaciones de enrutamiento del `next-intl` real — el adaptador de compatibilidad **no** reemplaza la capa de enrutamiento URL:
+> Mantén siempre las importaciones de enrutamiento del `next-intl` real, el adaptador de compatibilidad **no** reemplaza la capa de enrutamiento URL:
 >
 > ```ts
 > // ✅ Mantén siempre estos desde el 'next-intl' real
@@ -291,6 +302,8 @@ export default config;
 
 > Consulta la [documentación de CLI de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/index.md) para ver todas las opciones disponibles.
 
+- [documentación de CLI de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/index.md)
+
 </Step>
 
 </Steps>
@@ -305,7 +318,7 @@ Una vez que `@intlayer/next-intl` esté en su lugar, el siguiente código repeti
 | Llamadas `loadMessages()` / `getMessages()` en layout | El `NextIntlClientProvider` de `@intlayer/next-intl` lee de la salida compilada; no se requiere la prop `messages`.                                                                                  |
 | Importaciones `locales/{locale}/*.json` en layout     | Los bundles JSON solo son necesarios si aún utilizas el plugin `syncJSON`. Una vez que migres a archivos `.content.ts`, puedes borrar la carpeta JSON.                                               |
 
-Cuando estés listo para ir más allá, Intlayer **descubre automáticamente todos los archivos `.content.ts` y `.content.json` en cualquier lugar de tu código base** (por defecto, en cualquier lugar dentro de `./src`). Puedes colocar un archivo `about.content.ts` directamente junto a tu `about/page.tsx` e Intlayer lo tomará al momento de compilación sin configuración adicional — sin importaciones, sin registro, sin necesidad de un archivo índice centralizado. Esto hace que la co-localización de traducciones sea completamente fluida con las páginas y componentes.
+Cuando estés listo para ir más allá, Intlayer **descubre automáticamente todos los archivos `.content.ts` y `.content.json` en cualquier lugar de tu código base** (por defecto, en cualquier lugar dentro de `./src`). Puedes colocar un archivo `about.content.ts` directamente junto a tu `about/page.tsx` e Intlayer lo tomará al momento de compilación sin configuración adicional, sin importaciones, sin registro, sin necesidad de un archivo índice centralizado. Esto hace que la co-localización de traducciones sea completamente fluida con las páginas y componentes.
 
 ## Configurar TypeScript
 

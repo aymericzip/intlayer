@@ -49,6 +49,8 @@ Trình chỉnh sửa trực quan Intlayer là một công cụ cho phép bạn q
 
 Ngược lại, [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md) là một công cụ cho phép bạn quản lý nội dung trong trình chỉnh sửa trực quan dành cho các từ điển từ xa. Khi có sự thay đổi, nội dung sẽ **không** ảnh hưởng đến code-base của bạn. Và trang web sẽ tự động hiển thị nội dung đã thay đổi.
 
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)
+
 ## Tích hợp Intlayer vào ứng dụng của bạn
 
 Để biết thêm chi tiết về cách tích hợp Intlayer, xem phần liên quan bên dưới:
@@ -57,13 +59,19 @@ Ngược lại, [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/
 
 Để tích hợp với Next.js, tham khảo [hướng dẫn cài đặt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_15.md).
 
+- [Next.js 15 i18n - Hướng dẫn đầy đủ để dịch ứng dụng của bạn](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_15.md)
+
 ### Tích hợp với Create React App
 
 Để tích hợp với Create React App, xem hướng dẫn [cài đặt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_create_react_app.md).
 
+- [i18n Create React App: hướng dẫn dịch đầy đủ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_create_react_app.md)
+
 ### Tích hợp với Vite + React
 
 Để tích hợp với Vite + React, xem hướng dẫn [cài đặt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_vite+react.md).
+
+- [Vite + React i18n - Hướng dẫn đầy đủ để dịch ứng dụng của bạn](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_vite+react.md)
 
 ## Cách hoạt động của Intlayer Editor
 
@@ -147,6 +155,8 @@ export default config;
 ```
 
 > Để xem tất cả các tham số có sẵn, tham khảo [tài liệu cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md).
+
+- [tài liệu cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md)
 
 ## Sử dụng Trình chỉnh sửa
 
@@ -235,22 +245,38 @@ Visual editor chỉnh sửa các từ điển cục bộ và lưu thay đổi tr
 
 Ít hơn nhiều so with các cấu hình dựa trên namespace, vì trang không bao giờ tải catalog mà nó không hiển thị. Mã hiển thị trên server phân giải nội dung ngay trên server, và compiler tại thời điểm build thay thế các lệnh gọi `useIntlayer` bằng chính xác các mục từ điển mà component sử dụng, do đó các khóa và ngôn ngữ không sử dụng sẽ bị loại bỏ. [Từ điển động](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dynamic_dictionaries/index.md) chia phần còn lại theo từng locale. So với các giải pháp thông thường, Intlayer giảm kích thước bundle và trang tới 50%. Xem [tối ưu hóa bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md) và [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/index.md).
 
+- [Từ điển động](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dynamic_dictionaries/index.md)
+- [tối ưu hóa bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md)
+- [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/index.md)
+
 </Question>
 <Question title="Tôi có thể di chuyển từ i18next, next-intl hoặc react-i18next mà không cần viết lại component không?">
 
 Có, theo hai cách. Bạn có thể di chuyển nội dung dần dần bằng [hướng dẫn di chuyển từ i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_i18next_to_intlayer.md) hoặc [hướng dẫn di chuyển từ next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_next-intl_to_intlayer.md). Hoặc bạn có thể giữ nguyên API hiện tại: [adapter tương thích](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/index.md) cung cấp chính xác các API tương tự như `i18next`, `react-i18next`, `next-intl`, `next-i18next`, `react-intl`, `use-intl`, `vue-i18n` và `Lingui`, nhưng chạy trên các từ điển Intlayer, nhờ đó chỉ có các lệnh import thay đổi còn mã component vẫn giữ nguyên.
+
+- [hướng dẫn di chuyển từ i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_i18next_to_intlayer.md)
+- [hướng dẫn di chuyển từ next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_next-intl_to_intlayer.md)
+- [adapter tương thích](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/index.md)
 
 </Question>
 <Question title="Tôi có thể giữ các tệp dịch JSON hiện có của mình không?">
 
 Có. Plugin [sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/plugins/sync-json.md) giữ cho các tệp `/messages/{locale}/{namespace}.json` của bạn là nguồn sự thật duy nhất và tạo các từ điển Intlayer từ chúng theo cả hai hướng. Plugin [sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/plugins/sync-po.md) làm điều tương tự cho các catalog gettext, và [các tệp theo locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/per_locale_file.md) cho phép bạn chia nội dung theo ngôn ngữ thay vì nhóm các locale trong một tệp.
 
+- [sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/plugins/sync-json.md)
+- [sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/plugins/sync-po.md)
+- [các tệp theo locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/per_locale_file.md)
+
 </Question>
 <Question title="Tôi có phải di chuyển nội dung từng khóa một không?">
 
 Không. Chạy `npx intlayer extract` và Intlayer sẽ đọc các tệp nguồn của bạn, trích xuất các chuỗi dành cho người dùng và tạo tệp `.content` bên cạnh mỗi tệp, nhờ đó bạn xem lại diff thay vì sao chép chuỗi vào catalog thủ công. Xem [lệnh extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/extract.md).
 
+- [lệnh extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/extract.md)
+
 Đối với quy trình làm việc hoàn toàn tự động, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md) thực hiện việc tương tự trong quá trình build trên mã JSX, TSX, Vue và Svelte, tạo từ điển trên mỗi thay đổi mà không cần quản lý khóa thủ công.
+
+- [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md)
 
 </Question>
 <Question title="Có những công cụ editor và AI agent nào có sẵn?">
@@ -287,6 +313,8 @@ Editor hiển thị ứng dụng trong iframe, do đó Content Security Policy (
 <Question title="Tôi có thể sử dụng visual editor trong môi trường production không?">
 
 Editor được thiết kế cho môi trường development và staging, nơi việc build lại sau khi chỉnh sửa là chấp nhận được. Để chỉnh sửa nội dung trên trang web production trực tiếp, nên sử dụng [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md).
+
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)
 
 </Question>
 <Question title="Chi phí của trình chỉnh sửa trực quan là bao nhiêu? Nó có dư thừa nếu tôi không cần đến không?">

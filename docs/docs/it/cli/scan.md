@@ -130,13 +130,13 @@ Mostra il risultato completo della scansione come oggetto JSON invece di un rapp
 
 ### Opzioni di configurazione standard
 
-- **`--base-dir`** — Directory di base utilizzata per individuare il file `intlayer.config.*`.
-- **`-e, --env`** — Ambiente di destinazione (ad esempio, `development`, `production`).
-- **`--env-file`** — Percorso di un file `.env` personalizzato.
-- **`--no-cache`** — Disabilita la cache di configurazione.
-- **`--ci`** — Esegue il comando in ogni progetto Intlayer del monorepo (o solo in quello corrente se lanciato da una directory di progetto). Le credenziali per progetto possono essere iniettate tramite `INTLAYER_PROJECT_CREDENTIALS`, un oggetto JSON che associa ogni percorso di progetto a `{ "clientId", "clientSecret" }`.
-- **`--verbose`** — Abilita la registrazione dettagliata (impostazione predefinita in modalità CLI).
-- **`--prefix`** — Prefisso di registro personalizzato.
+- **`--base-dir`**: Directory di base utilizzata per individuare il file `intlayer.config.*`.
+- **`-e, --env`**: Ambiente di destinazione (ad esempio, `development`, `production`).
+- **`--env-file`**: Percorso di un file `.env` personalizzato.
+- **`--no-cache`**: Disabilita la cache di configurazione.
+- **`--ci`**: Esegue il comando in ogni progetto Intlayer del monorepo (o solo in quello corrente se lanciato da una directory di progetto). Le credenziali per progetto possono essere iniettate tramite `INTLAYER_PROJECT_CREDENTIALS`, un oggetto JSON che associa ogni percorso di progetto a `{ "clientId", "clientSecret" }`.
+- **`--verbose`**: Abilita la registrazione dettagliata (impostazione predefinita in modalità CLI).
+- **`--prefix`**: Prefisso di registro personalizzato.
 
 ## Strategia di routing
 

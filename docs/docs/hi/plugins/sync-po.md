@@ -322,6 +322,8 @@ loadPO({
 
 अधिक जानकारी के लिए [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md) देखें।
 
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md)
+
 ## सीमाएँ (वर्तमान)
 
 - तृतीय-पक्ष पुस्तकालयों को लक्षित करते समय कोई प्रविष्टि या बहुवचन/ICU समर्थन नहीं।

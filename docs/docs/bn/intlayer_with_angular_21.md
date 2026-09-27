@@ -156,6 +156,8 @@ export default config;
 
 > এই কনফিগারেশন ফাইলের মাধ্যমে আপনি স্থানীয়করণ করা URL, মিডলওয়্যার রিডাইরেকশন, কুকি নাম, আপনার কন্টেন্ট ডিক্লেরেশনের অবস্থান এবং এক্সটেনশন সেট করতে পারেন, কনসোল এ Intlayer লগ নিষ্ক্রিয় করতে পারেন এবং আরও অনেক কিছু করতে পারেন। উপলব্ধ প্যারামিটারগুলোর একটি সম্পূর্ণ তালিকার জন্য [কনফিগারেশন ডকুমেন্টেশন](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/configuration.md) দেখুন।
 
+- [কনফিগারেশন ডকুমেন্টেশন](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/configuration.md)
+
 ### ধাপ ৩: আপনার Angular কনফিগারেশনে Intlayer একত্রিত করুন
 
 Intlayer কে Angular CLI এর সাথে একত্রিত করতে আপনাকে একটি কাস্টম বিল্ডার ব্যবহার করতে হবে। এই গাইডটি ধরে নেয় যে আপনি Vite/esbuild ব্যবহার করছেন (Angular 22 প্রজেক্টের জন্য ডিফল্ট)।
@@ -267,6 +269,8 @@ export default appContent;
 > আপনার কন্টেন্ট ডিক্লেরেশনগুলো আপনার অ্যাপ্লিকেশনের যেকোনো স্থানে সংজ্ঞায়িত করা যেতে পারে যতক্ষণ না সেগুলো `contentDir` ডিরেক্টরিতে (ডিফল্টভাবে `./src`) অন্তর্ভুক্ত থাকে। এবং কন্টেন্ট ডিক্লেরেশনের ফাইল এক্সটেনশনের সাথে মেলে (ডিফল্টভাবে `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`)।
 
 > আরও বিস্তারিত জানার জন্য, [কন্টেন্ট ডিক্লেরেশন ডকুমেন্টেশন](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/dictionary/content_file.md) দেখুন।
+
+- [কন্টেন্ট ডিক্লেরেশন ডকুমেন্টেশন](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/dictionary/content_file.md)
 
 ### ধাপ ৫: আপনার কোডে Intlayer ব্যবহার করুন
 
@@ -408,7 +412,7 @@ Intlayer দ্বারা জেনারেট করা ফাইলগু�
 
 Intlayer এর সাথে আপনার ডেভেলপমেন্টের অভিজ্ঞতা উন্নত করতে আপনি অফিসিয়াল **Intlayer VS Code এক্সটেনশন** ইন্সটল করতে পারেন।
 
-[VS Code Marketplace থেকে ইন্সটল করুন](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [VS Code Marketplace থেকে ইন্সটল করুন](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 এই এক্সটেনশনটি প্রদান করে:
 
@@ -419,8 +423,13 @@ Intlayer এর সাথে আপনার ডেভেলপমেন্ট�
 
 এক্সটেনশনটি কীভাবে ব্যবহার করবেন তা সম্পর্কে আরও জানতে [Intlayer VS Code এক্সটেনশন ডকুমেন্টেশন](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md) দেখুন।
 
+- [Intlayer VS Code এক্সটেনশন ডকুমেন্টেশন](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md)
+
 ### আরও গভীরে যান
 
 আরও গভীরে যাওয়ার জন্য আপনি [ভিজ্যুয়াল এডিটর](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_visual_editor.md) বাস্তবায়ন করতে পারেন বা [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_CMS.md) ব্যবহার করে আপনার কন্টেন্ট বাহ্যিক করতে পারেন।
+
+- [ভিজ্যুয়াল এডিটর](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_CMS.md)
 
 ---

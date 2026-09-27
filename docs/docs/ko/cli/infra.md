@@ -104,13 +104,13 @@ npx intlayer init infra --mode compose
 
        ./intlayer/.env
 
-     Either RESEND_API_KEY (resend.com) or the MAIL_SMTP_* block — the first
+     Either RESEND_API_KEY (resend.com) or the MAIL_SMTP_* block, the first
      account cannot be verified without a working mailer.
   2. Start the stack:
 
        cd ./intlayer && docker compose up -d
 
-  Then open http://localhost:3000 — first boot initialises the
+  Then open http://localhost:3000, first boot initialises the
   datastores, so give it a minute. The first account you create becomes the
   super admin.
 
@@ -118,6 +118,10 @@ npx intlayer init infra --mode compose
     Stop      docker compose down
     Upgrade   docker compose pull && docker compose up -d
 ```
+
+도메인(예: `example.org`)이 주어지면 설치 프로그램은 대시보드, API, 객체 스토리지용으로 `https://cms.example.org`, `https://back.example.org`, `https://s3.example.org/intlayer`를 제안하고 이를 환경 파일에 기록합니다. 또한 게시된 대시보드 이미지는 `localhost`에서만 작동하므로 시작 명령을 저장소에서 빌드하는 방식으로 전환합니다. [사용자 지정 도메인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/self_hosting.md#custom-domain)을 참조하세요.
+
+- [사용자 지정 도메인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/self_hosting.md#custom-domain)
 
 ## 설치 프로그램 설정
 
@@ -143,6 +147,8 @@ INTLAYER_COMPOSE_DIR=./cms npx intlayer init infra --mode compose
 | `INTLAYER_SELFHOST_REF`   | `main`                    | 둘 다     | compose 파일 및 env 템플릿을 가져오는 Git ref       |
 
 > 포트 변수는 매핑의 **호스트** 측만 변경합니다. 게시된 이미지에는 `http://localhost:3000`, `http://localhost:3100`, `http://localhost:9000`이 대시보드 번들에 컴파일되어 있으므로 자체 이미지를 빌드하지 않는 한 기본값을 유지하세요: [셀프 호스팅 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/self_hosting.md#limitations)를 참조하세요.
+
+- [셀프 호스팅 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/self_hosting.md#limitations)
 
 ## 요구 사항
 

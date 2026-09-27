@@ -57,6 +57,8 @@ Funkcja nie przyjmuje żadnych parametrów. Zamiast tego wykorzystuje zmienne ś
 
 Zobacz [dokumentację konfiguracji Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md) po więcej szczegółów.
 
+- [dokumentację konfiguracji Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md)
+
 ## Przykład użycia
 
 ### Pobieranie pełnej konfiguracji

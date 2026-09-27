@@ -137,3 +137,5 @@ export default config;
 ### TypeScript 集成
 
 当与定义的字典一起使用时，`t` 函数是类型安全的。有关更多详细信息，请参阅 [TypeScript 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
+
+- [TypeScript 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)

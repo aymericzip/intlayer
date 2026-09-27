@@ -35,6 +35,8 @@ author: aymericzip
 
 Bài viết này đo lường sự thay thế đó trên cùng một ứng dụng Next.js, được xây dựng một lần với `next-i18next` và một lần với `@intlayer/next-i18next`. Các số liệu đến từ [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Để so sánh `i18next` và Intlayer dưới dạng thư viện, hãy đọc [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18next_vs_intlayer.md). Bài viết này tập trung vào những gì adapter mang lại khi bạn giữ nguyên mã nguồn của mình.
 
+- [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18next_vs_intlayer.md)
+
 <TOC/>
 
 > **tl;dr**: Trên cùng một ứng dụng Next.js, việc thay thế `next-i18next` bằng `@intlayer/next-i18next` đã giảm lượng JavaScript trên mỗi trang từ **218.5 KB xuống 150.7 KB** gzip (thiết lập cơ bản) và đánh bại thiết lập `next-i18next` được tối ưu hóa hoàn toàn (163.4 KB) **12.7 KB**. Kích thước component trung bình giảm từ **78.5 KB xuống 9.7 KB**, tỷ lệ rò rỉ chuỗi từ trang khác giảm từ **~90% xuống 0%**, thời gian hydrate từ **15.6 ms xuống 11.3 ms**, và runtime từ **19.7 KB xuống 9.4 KB**. Không có component nào bị sửa đổi; chỉ cần chỉnh sửa duy nhất một tệp provider. Các plugin của `i18next` (backend, trình phát hiện ngôn ngữ) vẫn được chấp nhận nhưng không thực hiện hành động nào: không còn gì để tải hoặc phát hiện trong lúc runtime.
@@ -145,6 +147,8 @@ style="border:none;"
 
 > Bảng đầy đủ, từng thư viện và từng chiến lược, trong [báo cáo benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md).
 
+- [báo cáo benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md)
+
 ### Kết quả trên TanStack Start (`react-i18next`)
 
 Với Vite và TanStack Start, benchmark so sánh `react-i18next` thuần với `intlayer`:
@@ -164,7 +168,11 @@ style="border:none;"
 
 > Bảng đầy đủ trong [báo cáo benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md).
 
+- [báo cáo benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md)
+
 > Adapter `react-i18next` trên Vite / TanStack Start không nằm trong đợt thử nghiệm này. Số liệu cơ sở của `react-i18next` trên TanStack Start có tại [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18next_vs_intlayer.md): 127-184 KB mỗi trang và mất 123-185 ms khi đổi ngôn ngữ với backend tải lười.
+
+- [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18next_vs_intlayer.md)
 
 ## Lý do các con số có sự thay đổi
 
@@ -343,6 +351,8 @@ export default defineConfig({
 
 `i18n.use(HttpBackend)` chỉ gọi init của plugin và không làm gì khác. Nếu ứng dụng của bạn dựa vào việc tìm nạp bản dịch từ CMS tại runtime, luồng đó sẽ không còn nữa; hãy sử dụng [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md) hoặc các lệnh `intlayer pull` / `push` để thay thế. Việc phát hiện ngôn ngữ sẽ trở thành cấu hình định tuyến của Intlayer (tiền tố URL, cookie, tiêu đề).
 
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)
+
 </Accordion>
 <Accordion header="resources bị bỏ qua, không được hợp nhất">
 
@@ -401,6 +411,9 @@ Bạn đang dùng `react-i18next` / `next-i18next` và muốn tiết kiệm 68 K
 <Accordion header="Chuyển sang native (next-intlayer / react-intlayer)">
 
 Dành cho các dự án mới hoặc khi adapter đã hoàn thành nhiệm vụ. Nó có runtime nhẹ nhất (5.5 KB, +0.3 KB mỗi trang) và mở khóa các Server Components đồng bộ cùng các tệp `.content.ts` theo từng component. Bắt đầu với [Intlayer với Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_16.md) hoặc [với Vite và React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_vite+react.md).
+
+- [Intlayer với Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_16.md)
+- [với Vite và React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_vite+react.md)
 
 </Accordion>
 </AccordionGroup>
@@ -489,3 +502,5 @@ Migration guides:
 Mọi dữ liệu thô, ứng dụng kiểm thử và mã kịch bản đều có sẵn trong [kho lưu trữ Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Bạn có thể tự mình kiểm chứng.
 
 Tham khảo thêm tài liệu ['Tại sao chọn Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/interest_of_intlayer.md) để biết thêm chi tiết.
+
+- [Vì sao chọn Intlayer? Ưu điểm so với các thư viện i18n khác](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/interest_of_intlayer.md)

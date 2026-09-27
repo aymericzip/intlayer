@@ -322,6 +322,8 @@ loadPO({
 
 有关更多详细信息，请参阅 [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md)。
 
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md)
+
 ## 局限性（当前）
 
 - 针对第三方库时不支持插值或复数/ICU。

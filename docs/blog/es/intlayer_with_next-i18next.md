@@ -41,9 +41,13 @@ author: aymericzip
 
 Consulta una comparación concreta con next-intl en nuestro artículo del blog [next-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/next-i18next_vs_next-intl_vs_intlayer.md).
 
+- [next-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/next-i18next_vs_next-intl_vs_intlayer.md)
+
 ## ¿Por qué combinar Intlayer con next-i18next?
 
 Aunque Intlayer ofrece una excelente solución i18n independiente (consulta nuestra [guía de integración con Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_nextjs_16.md)), es posible que desees combinarlo con next-i18next por varias razones:
+
+- [guía de integración con Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_nextjs_16.md)
 
 1. **Base de código existente**: Tienes una implementación establecida de next-i18next y quieres migrar gradualmente a la mejor experiencia de desarrollo que ofrece Intlayer.
 2. **Requisitos heredados**: Tu proyecto requiere compatibilidad con plugins o flujos de trabajo existentes de i18next.
@@ -142,6 +146,8 @@ Si se realizan cambios utilizando la CLI para traducir el JSON, o usando el CMS,
 
 Para ver más detalles sobre el plugin `syncJSON`, por favor consulta la [documentación del plugin syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/plugins/sync-json.md).
 
+- [documentación del plugin syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/plugins/sync-json.md)
+
 </Step>
 
 </Steps>
@@ -161,4 +167,4 @@ Estos archivos se regeneran automáticamente durante el proceso de compilación 
 
 Para mejorar la experiencia del desarrollador, instala la extensión oficial **Intlayer para VS Code**:
 
-[Instalar desde el Marketplace de VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [Instalar desde el Marketplace de VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

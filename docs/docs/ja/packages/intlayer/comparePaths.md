@@ -36,6 +36,8 @@ author: aymericzip
 
 内部的には [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getPathWithoutLocale.md) を再利用してロケールセグメントを削除するため、設定されたルーティングモードとロケールを尊重します。
 
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getPathWithoutLocale.md)
+
 パッケージはまた、比較に使用されるロケールに依存しない正規化されたパス名を返す基盤ヘルパーである [`normalizePath`](#normalizepath) をエクスポートします。
 
 **主な特徴：**
@@ -44,7 +46,7 @@ author: aymericzip
 - 絶対 URL と相対パスの両方で動作
 - クエリ文字列、ハッシュ、および末尾のスラッシュを無視
 - 先頭のスラッシュの欠落や空の値を許容（`/` に正規化）
-- 軽量 — `getPathWithoutLocale` の上に構築されています
+- 軽量、`getPathWithoutLocale` の上に構築されています
 
 ## 関数シグネチャ
 

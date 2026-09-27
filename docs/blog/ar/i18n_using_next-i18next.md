@@ -43,7 +43,12 @@ author: aymericzip
 
 > كبديل، يمكنك أيضًا الرجوع إلى [دليل next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/i18n_using_next-intl.md)، أو استخدام [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_16.md) مباشرة.
 
+- [دليل next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/i18n_using_next-intl.md)
+- [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_16.md)
+
 > اطلع على المقارنة في [next-i18next مقابل next-intl مقابل Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/next-i18next_vs_next-intl_vs_intlayer.md).
+
+- [next-i18next مقابل next-intl مقابل Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/next-i18next_vs_next-intl_vs_intlayer.md)
 
 > لفهم أصل هذه المكتبات، اقرأ تاريخ i18n في JavaScript.
 
@@ -52,6 +57,8 @@ author: aymericzip
 ## ماذا يقول الـ benchmark عن next-i18next في Next.js
 
 قبل البدء في الإعداد، من الضروري فهم تأثير مكتبة i18n على الأداء وحجم الـ bundle. يقوم [benchmark الـ i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md) بتشغيل نفس تطبيق Next.js المكوّن من 10 صفحات و10 لغات مع أبرز مكتبات i18n لقياس الحجم الفعلي للـ bundle وتسرّب النصوص وتكلفة الـ hydration.
+
+- [benchmark الـ i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md)
 
 <I18nBenchmark framework="nextjs" packages="next-i18next,@intlayer/next-i18next,next-intlayer" vertical/>
 
@@ -77,6 +84,8 @@ author: aymericzip
 - **وزن الـ runtime:** يزن runtime العميل الخاص بـ `i18next` حوالي ~19.7 KB gzip في كل صفحة. بالنسبة للـ codebase الحالية، يحافظ محوّل التوافق [`@intlayer/next-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/next-i18next.md) على نفس واجهة `i18next` مع تقليص الـ runtime إلى 9.4 KB وإزالة التسرّب. أما [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/next-intlayer/exports.md) الأصلي فينخفض إلى 5.5 KB.
 
 > اطّلع على البيانات الكاملة: [تقرير benchmark الخاص بـ Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md)، و[مستودع الـ benchmark](https://github.com/intlayer-org/benchmark-i18n).
+
+- [تقرير benchmark الخاص بـ Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md)
 
 ## مقارنة الميزات في Next.js
 
@@ -105,6 +114,9 @@ author: aymericzip
 
 > أحجام الـ runtime مأخوذة من [benchmark الخاص بـ Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md). لنقاش مفصّل، اقرأ [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/next-i18next_vs_next-intl_vs_intlayer.md).
 
+- [benchmark الخاص بـ Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md)
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/next-i18next_vs_next-intl_vs_intlayer.md)
+
 ## الممارسات التي يجب اتباعها
 
 قبل أن نبدأ في التنفيذ، إليك بعض الممارسات التي يجب اتباعها:
@@ -131,6 +143,8 @@ author: aymericzip
   تساعد أتمتة الاختبارات والترجمات في توفير الوقت لصيانة تطبيقك متعدد اللغات.
 
 > راجع وثيقتنا التي تسرد كل ما تحتاج لمعرفته حول التدويل وتحسين محركات البحث: [التدويل (i18n) مع next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/internationalization_and_SEO.md).
+
+- [التدويل (i18n) مع next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/internationalization_and_SEO.md)
 
 ## دليل خطوة بخطوة لإعداد i18next في تطبيق Next.js
 
@@ -1186,6 +1200,8 @@ Intlayer هي مكتبة **مجانية** و**مفتوحة المصدر** مصم
   يقدم Intlayer محررًا مرئيًا مجانيًا لتحرير محتواك باستخدام محرر مرئي. تعرّف على المزيد حول [التحرير المرئي لترجماتك](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md).
 
 والمزيد. لاكتشاف جميع الميزات التي يوفرها Intlayer، يرجى الرجوع إلى [أهمية توثيق Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/interest_of_intlayer.md).
+
+- [أهمية توثيق Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/interest_of_intlayer.md)
 
 للاطلاع على benchmarks الأداء والمقارنات التفصيلية، راجع:
 

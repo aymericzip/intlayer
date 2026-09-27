@@ -51,6 +51,8 @@ En 2026, vous n'avez plus besoin de réécrire votre base de code pour internati
 
 > Vous recherchez le guide technique pas-à-pas complet pour Next.js 16 App Router ? Consultez notre documentation dédiée : [Traduire Next.js 16 avec Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_nextjs_16.md).
 
+- [Traduire Next.js 16 avec Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_nextjs_16.md)
+
 ## Table des matières
 
 <TOC/>
@@ -267,6 +269,8 @@ export const generateMetadata = async (): Promise<Metadata> => {
 Ce guide présente une vue d'ensemble des solutions pour adapter une application Next.js existante à l'internationalisation en 2026 sans friction architecturale. Pour suivre le guide technique pas-à-pas complet, incluant la configuration du middleware, la génération statique (`generateStaticParams`), les sitemaps localisés et l'intégration des Server Components, rendez-vous sur notre documentation détaillée :
 
 👉 **[Guide complet pour traduire Next.js 16 avec Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_nextjs_16.md)**
+
+- [Guide complet pour traduire Next.js 16 avec Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_nextjs_16.md)
 
 ## Foire aux questions (FAQ)
 

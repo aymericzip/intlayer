@@ -120,6 +120,11 @@ Firefox Add-ons から [**Intlayer i18n Scanner**](https://addons.mozilla.org/en
 
 ほとんどのチェックは、ルーティングまたはメタデータの設定に対応しています。Intlayerを使用すると、hreflang、カノニカル、`x-default`、ローカライズされたリンク、サイトマップ、robots.txtが[設定](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)から自動生成されます。フレームワークごとの統合ガイド（例: [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_16.md)、[Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nuxt.md)、[TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_tanstack.md)）を参照してください。
 
+- [設定](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)
+- [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_16.md)
+- [Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nuxt.md)
+- [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_tanstack.md)
+
 </Question>
 
 </FAQ>

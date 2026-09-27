@@ -32,9 +32,11 @@ author: aymericzip
 
 ## Deskripsi
 
-Fungsi `comparePaths` membandingkan dua URL atau path untuk kesamaan dengan mengabaikan segmen locale, protokol/host, query string, hash, dan garis miring di akhir (trailing slashes). Ini adalah cara yang disarankan untuk menentukan apakah tautan navigasi menunjuk ke halaman saat ini — misalnya untuk menyoroti tautan yang aktif — tanpa harus membuat logika normalisasi Anda sendiri (yang rentan terhadap kesalahan).
+Fungsi `comparePaths` membandingkan dua URL atau path untuk kesamaan dengan mengabaikan segmen locale, protokol/host, query string, hash, dan garis miring di akhir (trailing slashes). Ini adalah cara yang disarankan untuk menentukan apakah tautan navigasi menunjuk ke halaman saat ini, misalnya untuk menyoroti tautan yang aktif, tanpa harus membuat logika normalisasi Anda sendiri (yang rentan terhadap kesalahan).
 
 Secara internal, fungsi ini menggunakan kembali [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getPathWithoutLocale.md) untuk menghapus segmen locale, sehingga menghormati mode routing dan locale yang telah Anda konfigurasi.
+
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getPathWithoutLocale.md)
 
 Paket ini juga mengekspor helper pendukung [`normalizePath`](#normalizepath), yang mengembalikan path kanonik yang tidak bergantung pada locale untuk digunakan dalam perbandingan.
 
@@ -44,7 +46,7 @@ Paket ini juga mengekspor helper pendukung [`normalizePath`](#normalizepath), ya
 - Berfungsi baik dengan URL absolut maupun path relatif
 - Mengabaikan query string, hash, dan garis miring akhir
 - Mentolerir ketiadaan garis miring awal dan nilai kosong (dinormalisasi menjadi `/`)
-- Ringan — dibangun di atas `getPathWithoutLocale`
+- Ringan, dibangun di atas `getPathWithoutLocale`
 
 ## Tanda Tangan Fungsi
 

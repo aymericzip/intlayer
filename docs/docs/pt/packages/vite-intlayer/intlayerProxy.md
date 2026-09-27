@@ -32,6 +32,8 @@ O `intlayerProxy` é um plugin do Vite que registra o middleware de roteamento d
 
 > **A partir do Intlayer v9**, o `intlayerProxy` é incluído automaticamente dentro do plugin principal [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/vite-intlayer/intlayer.md) e ativado por padrão via `routing.enableProxy: true`. Você só precisa registrá-lo separadamente se precisar de controle de nível mais baixo ou se estiver usando-o fora da configuração padrão do `intlayer()`.
 
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/vite-intlayer/intlayer.md)
+
 ## Uso
 
 ### Como parte do `intlayer()` (recomendado, v9+)
@@ -127,7 +129,7 @@ O middleware espelha a lógica de roteamento do middleware `next-intlayer` e sup
 | Modo            | URL visível no navegador | Comportamento                                                                                                                            |
 | --------------- | ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------- |
 | `prefix`        | `/pt/about`              | Padrão. Prefixo de idioma na URL. O idioma padrão redireciona para a URL sem prefixo, a menos que `prefix-all` esteja ativo.             |
-| `prefix-all`    | `/en/about`, `/pt/about` | Todos os idiomas — incluindo o padrão — são sempre prefixados.                                                                           |
+| `prefix-all`    | `/en/about`, `/pt/about` | Todos os idiomas, incluindo o padrão, são sempre prefixados.                                                                             |
 | `no-prefix`     | `/about`                 | Sem idioma na URL. O idioma é armazenado apenas em cookies; as reescritas de URL ocorrem internamente.                                   |
 | `search-params` | `/about?locale=pt`       | Idioma passado como um parâmetro de consulta. Redireciona para adicionar/atualizar o parâmetro `locale` quando ausente ou desatualizado. |
 
@@ -161,7 +163,7 @@ O middleware rastreia as contagens de redirecionamento por par `originalUrl → 
 
 ## Nitro / SSR de produção (injeção automática, v9+)
 
-Quando o `intlayerProxy` é usado como um plugin do Vite, ele carrega uma propriedade `.nitro`. O plugin de compilação `nitro/vite` lê esta propriedade e a insere em `nitroConfig.modules`, de modo que o `intlayerNitroHandler` é registrado como um middleware do servidor Nitro automaticamente — nenhuma configuração manual é necessária para o SSR de produção.
+Quando o `intlayerProxy` é usado como um plugin do Vite, ele carrega uma propriedade `.nitro`. O plugin de compilação `nitro/vite` lê esta propriedade e a insere em `nitroConfig.modules`, de modo que o `intlayerNitroHandler` é registrado como um middleware do servidor Nitro automaticamente, nenhuma configuração manual é necessária para o SSR de produção.
 
 O manipulador Nitro usa o modelo de evento Web Fetch API da h3 v2 (não o `fromNodeMiddleware`), por isso é compatível com todas as predefinições do Nitro: Node, Bun, Deno, runtimes edge.
 

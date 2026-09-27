@@ -36,7 +36,12 @@ author: aymericzip
 
 이는 `.intlayer/dynamic_dictionaries/`에서 내보낸 로케일별 로더 맵에 대한 [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getDictionary.md)의 대응물입니다: 모든 로케일을 포함하는 딕셔너리를 받는 대신, 로더 맵을 받고 요청된 로케일이 필요로 하는 청크만 기다립니다.
 
+- [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getDictionary.md)
+
 > 애플리케이션 코드에서는 일반적으로 이 함수가 아닌 [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getIntlayerAsync.md)를 호출합니다. [빌드 플러그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md)은 모든 `getIntlayerAsync('key', locale)` 호출을 `getDictionaryAsync(loaderMap, 'key', locale)` 호출로 다시 쓰습니다. `getDictionaryAsync`는 커스텀 로더와 자체 로더 맵을 빌드하는 도구를 위해 내보내집니다.
+
+- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getIntlayerAsync.md)
+- [빌드 플러그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md)
 
 **주요 기능:**
 
@@ -71,7 +76,7 @@ getDictionaryAsync(
 - `localeOrSelector: LocalesValues | DictionarySelector`
   - **설명**: 콘텐츠를 해석할 로케일이거나, 선택자 객체(`{ item }`, `{ variant }`, 선택적으로 `locale` 포함)입니다. [동적 딕셔너리](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dynamic_dictionaries/index.md)를 참조하세요.
   - **타입**: `LocalesValues | DictionarySelector`
-  - **필수**: No (선택사항) — 구성된 `defaultLocale`로 기본 설정됩니다.
+  - **필수**: No (선택사항), 구성된 `defaultLocale`로 기본 설정됩니다.
 
 - `plugins: Plugins[]`
   - **설명**: Node 변환기입니다. 기본 인터프리터 세트로 기본 설정됩니다.
@@ -80,7 +85,7 @@ getDictionaryAsync(
 
 ### Returns
 
-- **Type**: `Promise<Content>` — loaded chunk의 interpreted content로 resolve되는 promise입니다.
+- **Type**: `Promise<Content>`, loaded chunk의 interpreted content로 resolve되는 promise입니다.
 - **Description**: 요청된 locale에 대해 map이 chunk를 emit하지 않고 그 fallback 중 어느 것도 emit하지 않을 때 `null`로 resolve됩니다. 이는 missing qualified coordinate가 resolve되는 방식을 반영합니다.
 
 ## 사용 예시

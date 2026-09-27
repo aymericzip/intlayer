@@ -31,7 +31,7 @@ author: aymericzip
 
 # Solid Entegrasyonu: `usePathname` Hook Dokümantasyonu
 
-`usePathname` hook'u, geçerli tarayıcı yol adını (pathname) locale segmenti çıkarılmış olarak bir Solid `Accessor<string>` biçiminde döndürür. Locale duyarlı navigasyon oluşturmak — örneğin hangi navigasyon öğesinin aktif olduğunu belirlemek — için locale ön ekini manuel olarak kaldırmanıza gerek kalmadan kullanışlıdır.
+`usePathname` hook'u, geçerli tarayıcı yol adını (pathname) locale segmenti çıkarılmış olarak bir Solid `Accessor<string>` biçiminde döndürür. Locale duyarlı navigasyon oluşturmak, örneğin hangi navigasyon öğesinin aktif olduğunu belirlemek, için locale ön ekini manuel olarak kaldırmanıza gerek kalmadan kullanışlıdır.
 
 ## Solid'de `usePathname` İçe Aktarımı
 

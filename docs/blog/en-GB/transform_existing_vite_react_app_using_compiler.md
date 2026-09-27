@@ -49,6 +49,8 @@ In 2026, you do not have to rewrite your codebase to make your Vite and React ap
 
 > Looking for the complete, step-by-step technical guide for Vite and React? Check out our dedicated documentation: [Translate Vite and React with Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_vite+react.md).
 
+- [Translate Vite and React with Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_vite+react.md)
+
 ## Table of Contents
 
 <TOC/>
@@ -331,6 +333,8 @@ This guide provided a high-level overview of how to retrofit internationalisatio
 If you are ready to configure every part of your Vite and React application step-by-step, including detailed configuration options, TypeScript type safety, dynamic dictionaries, and visual editing, head over to our comprehensive documentation guide:
 
 👉 **[Complete Guide to Translating Vite and React with Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_vite+react.md)**
+
+- [Complete Guide to Translating Vite and React with Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_vite+react.md)
 
 ## Frequently Asked Questions (FAQ)
 

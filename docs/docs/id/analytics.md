@@ -24,13 +24,13 @@ history:
     changes: "Mengaktifkan analitik secara default saat `@intlayer/analytics` terpasang"
   - version: 9.0.0
     date: 2026-07-08
-    changes: "Init doc — paket @intlayer/analytics, pelacakan tingkat provider/node, pengujian A/B, dasbor"
+    changes: "Init doc, paket @intlayer/analytics, pelacakan tingkat provider/node, pengujian A/B, dasbor"
 author: aymericzip
 ---
 
 # Dokumentasi Intlayer Analytics
 
-`@intlayer/analytics` adalah paket pelengkap opsional yang memberi tahu Anda **konten mana yang benar-benar ditampilkan** kepada pengunjung Anda — halaman mana, dalam bahasa (locale) apa, dan bagian mana dari konten terjemahan yang spesifik — sehingga Anda dapat memahami audiens Anda dan menjalankan **pengujian A/B pada konten**.
+`@intlayer/analytics` adalah paket pelengkap opsional yang memberi tahu Anda **konten mana yang benar-benar ditampilkan** kepada pengunjung Anda (halaman mana, dalam bahasa (locale) apa, dan bagian mana dari konten terjemahan yang spesifik) sehingga Anda dapat memahami audiens Anda dan menjalankan **pengujian A/B pada konten**.
 
 ## Daftar Isi (Table of Contents)
 
@@ -40,22 +40,24 @@ author: aymericzip
 
 `@intlayer/analytics` menggabungkan tiga jenis peristiwa anonim dalam sebuah batch:
 
-| Peristiwa (Event)  | Di mana ditangkap                                 | Apa yang dikatakannya kepada Anda                                                                                                                       |
-| ------------------ | ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `page_view`        | Tingkat Provider (`IntlayerProvider`)             | Halaman dan lokal (locale) mana yang dilihat oleh sesi (session), pada muat awal, perubahan rute, atau pergantian bahasa.                               |
-| `content_exposure` | Tingkat Node (`useIntlayer` / plugin interpreter) | Kunci kamus / jalur kunci mana yang benar-benar diselesaikan (resolved) dan ditampilkan — dan jika bagian dari sebuah eksperimen, **varian** yang mana. |
-| `conversion`       | Di mana pun Anda memanggil `useConversion()`      | Sebuah tujuan (goal) yang dicapai (pendaftaran, klik, pembelian...) yang diatribusikan ke varian A/B yang diekspos kepada sesi tersebut.                |
+| Peristiwa (Event)  | Di mana ditangkap                                 | Apa yang dikatakannya kepada Anda                                                                                                                      |
+| ------------------ | ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `page_view`        | Tingkat Provider (`IntlayerProvider`)             | Halaman dan lokal (locale) mana yang dilihat oleh sesi (session), pada muat awal, perubahan rute, atau pergantian bahasa.                              |
+| `content_exposure` | Tingkat Node (`useIntlayer` / plugin interpreter) | Kunci kamus / jalur kunci mana yang benar-benar diselesaikan (resolved) dan ditampilkan, dan jika bagian dari sebuah eksperimen, **varian** yang mana. |
+| `conversion`       | Di mana pun Anda memanggil `useConversion()`      | Sebuah tujuan (goal) yang dicapai (pendaftaran, klik, pembelian...) yang diatribusikan ke varian A/B yang diekspos kepada sesi tersebut.               |
 
-Peristiwa (events) dikumpulkan di dalam memori dan dikirimkan sebagai **sebuah permintaan batch tunggal kira-kira setiap 20 detik** — tidak pernah pada setiap ketikan (keystroke) atau saat di-render (render) — sehingga analitik tidak pernah berdampak pada waktu rendering pertama (first render time) atau menambahkan sebuah request setiap interaksi.
+Peristiwa (events) dikumpulkan di dalam memori dan dikirimkan sebagai **sebuah permintaan batch tunggal kira-kira setiap 20 detik**, tidak pernah pada setiap ketikan (keystroke) atau saat di-render (render), sehingga analitik tidak pernah berdampak pada waktu rendering pertama (first render time) atau menambahkan sebuah request setiap interaksi.
 
 ## Bagaimana hal ini mendukung pengujian A/B pada konten
 
 Intlayer telah memungkinkan Anda mendeklarasikan [Varian (Variants)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dynamic_dictionaries/index.md) dari konten (misalnya kamus `hero-banner` yang memiliki varian `control` dan varian `black_friday`). `@intlayer/analytics` menutup siklus tersebut:
 
-1. `getVariant(experimentKey, variants)` secara deterministik (deterministically) menugaskan (assign) setiap sesi anonim ke dalam sebuah varian — ini merupakan murni sebuah fungsi (pure function) dari session id dan experiment key, sehingga tugas (assignment) ini **stabil (stable) di seluruh sesi** dan tidak memerlukan **satu siklus ke server (server round-trip)** sebelum proses rendering pertama selesai dilakukan (tidak ada kelap-kelip / flicker, dan juga layout shift).
+1. `getVariant(experimentKey, variants)` secara deterministik (deterministically) menugaskan (assign) setiap sesi anonim ke dalam sebuah varian, ini merupakan murni sebuah fungsi (pure function) dari session id dan experiment key, sehingga tugas (assignment) ini **stabil (stable) di seluruh sesi** dan tidak memerlukan **satu siklus ke server (server round-trip)** sebelum proses rendering pertama selesai dilakukan (tidak ada kelap-kelip / flicker, dan juga layout shift).
 2. Setiap peristiwa `content_exposure` turut membawa `variant` yang dipertunjukkan tersebut.
 3. `useConversion()` memungkinkan Anda untuk mengatribusikan (attribute) sebuah tujuan (goal) (contohnya `"cta_click"`) ke arah varian tersebut.
 4. Titik-akhir (endpoint) terkait hasil eksperimen pada dasbor membandingkan tingkat konversi (conversion rates) dari setiap varian, termasuk dengan signifikansi statistik-nya (melalui z-test).
+
+- [Varian (Variants)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dynamic_dictionaries/index.md)
 
 ## Instalasi (Installation)
 
@@ -77,7 +79,7 @@ pnpm add @intlayer/analytics
 bun add @intlayer/analytics
 ```
 
-Memasang paketnya sudah cukup untuk menyalakan analitik: `analytics.enabled` bernilai `true` secara default, dan `@intlayer/config` mengubahnya menjadi `false` setiap kali paket tidak ditemukan di proyek Anda. Bila Anda memutuskan untuk tak memasangnya, maka titik temu / integrasi (integration point) ini diselesaikan menjadi hal yang tidak beroperasi atau no-op — silakan periksa rincian dari [Tidak ada biaya apa pun ketika tidak dipasang (Zero-cost ketika tidak dipasang)](#nol-biaya-saat-tidak-diinstal) pada poin selanjutnya di bawah.
+Memasang paketnya sudah cukup untuk menyalakan analitik: `analytics.enabled` bernilai `true` secara default, dan `@intlayer/config` mengubahnya menjadi `false` setiap kali paket tidak ditemukan di proyek Anda. Bila Anda memutuskan untuk tak memasangnya, maka titik temu / integrasi (integration point) ini diselesaikan menjadi hal yang tidak beroperasi atau no-op, silakan periksa rincian dari [Tidak ada biaya apa pun ketika tidak dipasang (Zero-cost ketika tidak dipasang)](#nol-biaya-saat-tidak-diinstal) pada poin selanjutnya di bawah.
 
 ## Konfigurasi (Configuration)
 
@@ -97,8 +99,8 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-- `editor.backendURL` — merupakan dasar (base) rujukan / acuan bagi URL saat peristiwa (event) analytics diantarkan ke sana (`POST {backendURL}/api/analytics/events`).
-- `editor.clientId` — merujuk terhadap pengunci (key) bagi proyek publik agar dipertautkan / diatribusikan ke beragam input data. Tak hanya itu fungsinya turut bertindak layaknya **pemicu aktivasi (enable switch)**: analitik sepenuhnya dibuat pada tingkatan non-aktif (dan dalam kondisi ter-tree-shaken, perhatikan penjabarannya di bawah) sampai kemudian di saat fungsi `clientId` ini ditata & dikonfigurasikan.
+- `editor.backendURL`: merupakan dasar (base) rujukan / acuan bagi URL saat peristiwa (event) analytics diantarkan ke sana (`POST {backendURL}/api/analytics/events`).
+- `editor.clientId`: merujuk terhadap pengunci (key) bagi proyek publik agar dipertautkan / diatribusikan ke beragam input data. Tak hanya itu fungsinya turut bertindak layaknya **pemicu aktivasi (enable switch)**: analitik sepenuhnya dibuat pada tingkatan non-aktif (dan dalam kondisi ter-tree-shaken, perhatikan penjabarannya di bawah) sampai kemudian di saat fungsi `clientId` ini ditata & dikonfigurasikan.
 
 Dalam situasi ketika melakukan hosting (self-host) mandiri akan halnya fungsi Intlayer ini, analitik bakal terpusat tanpa penyesuaian baru (otomatis) terhadap instalasi server Anda disebabkan rujukan pengaturannya adalah identik terhadap rujukan `editor.backendURL`.
 
@@ -119,14 +121,14 @@ Klien ini melakukan autentikasi sendiri berdasarkan `editor.clientId`: pertukara
 
 ### Menonaktifkan (opt-out)
 
-Blok `analytics` opsional menyetel — atau mematikan — pengumpulan data:
+Blok `analytics` opsional menyetel, atau mematikan, pengumpulan data:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
   analytics: {
-    enabled: false, // Default: true — mengeluarkan seluruh integrasi dari bundel
+    enabled: false, // Default: true, mengeluarkan seluruh integrasi dari bundel
     flushInterval: 20_000, // Milidetik antara dua pengiriman batch
     sampleRate: 1, // Fraksi sesi yang direkam, dari 0 (tidak ada) hingga 1 (semua)
   },
@@ -270,7 +272,7 @@ Titik masuknya berbeda untuk setiap framework, tetapi dalam semua kasus tetap te
 
 ### Pelacakan otomatis tingkat Node (Automatic node-level tracking)
 
-Dalam segenap ragam resolusi muatan koding saat menampilkan serpihan / wujud konten pada panggilannya melewati rujukan pemakaian dari `useIntlayer`, interpreter di sistem melaporkan dan merekam serpihan data bertitelkan rujukan nama peristiwanya (event): `content_exposure` untuk paduan akurasi di hal penggunaan ini: `dictionaryKey` + arah pencariannya pada perincian jalan/aksesnya (key path) + daerah acuan pilihan pemakai (locale) — sekali lagi tak satu jengkal pun perubahan bentuk kode dilibatkan. Adanya wujud rentetan dari kemunculan satu buah referensi simpul penamaan (node) selama jangka tahapan pusar (flush window) maka keseluruhannya cuma dikumpulkan di dalam satu rangkuman catatan rujukan dan dibumbuhi tambahan catatan bilangan rekam-an `count`, ini menegaskan bahwasanya dari hal yang sama terulang dan memunculkan rupa ulang tampilan atau rendering tak-kurang-bahkan 50 kali sekalipun bukan berarti mengirimkan rincian berurutan dan mengada-adakan proses berulang (50 pengantaran yang diestimasikan terhitung secara manual).
+Dalam segenap ragam resolusi muatan koding saat menampilkan serpihan / wujud konten pada panggilannya melewati rujukan pemakaian dari `useIntlayer`, interpreter di sistem melaporkan dan merekam serpihan data bertitelkan rujukan nama peristiwanya (event): `content_exposure` untuk paduan akurasi di hal penggunaan ini: `dictionaryKey` + arah pencariannya pada perincian jalan/aksesnya (key path) + daerah acuan pilihan pemakai (locale), sekali lagi tak satu jengkal pun perubahan bentuk kode dilibatkan. Adanya wujud rentetan dari kemunculan satu buah referensi simpul penamaan (node) selama jangka tahapan pusar (flush window) maka keseluruhannya cuma dikumpulkan di dalam satu rangkuman catatan rujukan dan dibumbuhi tambahan catatan bilangan rekam-an `count`, ini menegaskan bahwasanya dari hal yang sama terulang dan memunculkan rupa ulang tampilan atau rendering tak-kurang-bahkan 50 kali sekalipun bukan berarti mengirimkan rincian berurutan dan mengada-adakan proses berulang (50 pengantaran yang diestimasikan terhitung secara manual).
 
 ### Memantau hal rekam pencapaian / Konversi test A/B (Tracking conversions for A/B tests)
 
@@ -614,7 +616,7 @@ Anda mesti menerapkan rincian `useConversion()` guna memandu sebuah tujuan akhir
   </Tab>
 </Tabs>
 
-Weights bersifat opsional — kirim satu nilai per varian untuk mengubah pembagiannya, misalnya `useExperiment("homepage-hero", ["default", "black_friday"], [9, 1])`.
+Weights bersifat opsional, kirim satu nilai per varian untuk mengubah pembagiannya, misalnya `useExperiment("homepage-hero", ["default", "black_friday"], [9, 1])`.
 
 Komponen anak kemudian membaca [Variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dynamic_dictionaries/variants.md) dari kamus yang sesuai:
 
@@ -633,9 +635,13 @@ export const HeroBanner = ({ variant }: { variant: string }) => {
 };
 ```
 
+- [Variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dynamic_dictionaries/variants.md)
+
 > Membaca varian di dalam komponen **anak** adalah yang membuat ini bekerja di luar React: di Vue, Svelte, Solid, dan Angular, selector yang diberikan ke `useIntlayer` ditangkap saat komponen disiapkan, sehingga pembacaannya harus terjadi di komponen yang baru dipasang setelah variannya diketahui.
 
-Jika eksperimen mencakup seluruh halaman, bukan hanya satu kamus, angkat variannya ke provider — lihat [Ambient variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dynamic_dictionaries/variants.md#ambient-variant). Setiap `useIntlayer` di bawahnya kemudian akan diselesaikan berdasarkan itu tanpa perubahan pada titik pemanggilan.
+Jika eksperimen mencakup seluruh halaman, bukan hanya satu kamus, angkat variannya ke provider, lihat [Ambient variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dynamic_dictionaries/variants.md#ambient-variant). Setiap `useIntlayer` di bawahnya kemudian akan diselesaikan berdasarkan itu tanpa perubahan pada titik pemanggilan.
+
+- [Ambient variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dynamic_dictionaries/variants.md#ambient-variant)
 
 Jika Anda memerlukan hasil penetapan mentah di luar sebuah komponen, akses client-nya secara langsung:
 
@@ -649,11 +655,11 @@ const variant = client?.getVariant("homepage-hero", [
 ]);
 ```
 
-> `getVariant` hanya menetapkan varian — tidak mencatat paparan (exposure). Sebaiknya gunakan `useExperiment()`, jika tidak tingkat konversi tidak akan memiliki penyebut.
+> `getVariant` hanya menetapkan varian, tidak mencatat paparan (exposure). Sebaiknya gunakan `useExperiment()`, jika tidak tingkat konversi tidak akan memiliki penyebut.
 
 ## Privasi dan Peforma (Privacy & performance)
 
-- **Anonim semenjak disajikan di dalam rancang bangun rancangan arsitektur** (Anonymous by design): keseluruhan lalu-lintas data pengguna hanya akan mempergunakan nama acak yang bergilir secara unik (rotating id); fungsi-fungsi bagian hulu dari mesin server (backend) tidak pernah (secara langsung & tak sadar) me-rekam hasil catatan rujukan dalam hal ini IP dari pengguna asalnya — namun alih-alih me-rekam atau men-sirkulasikannya pada **rangkaian fungsi Hash SHA-256 (SHA-256 hash)** demi tujuan keutuhan.
+- **Anonim semenjak disajikan di dalam rancang bangun rancangan arsitektur** (Anonymous by design): keseluruhan lalu-lintas data pengguna hanya akan mempergunakan nama acak yang bergilir secara unik (rotating id); fungsi-fungsi bagian hulu dari mesin server (backend) tidak pernah (secara langsung & tak sadar) me-rekam hasil catatan rujukan dalam hal ini IP dari pengguna asalnya, namun alih-alih me-rekam atau men-sirkulasikannya pada **rangkaian fungsi Hash SHA-256 (SHA-256 hash)** demi tujuan keutuhan.
 - **Batasan dan acuan dari pemosisian sangat acak / menyeluruh (Location is coarse)**: rincian data disuplai melalui serangkaian fungsi pelacakan geo-posisi atau geolokasi di CDN headers (`cf-ipcountry`, `x-vercel-ip-country`, ...). Rangkaian tidak merekam data maupun menyalin posisi akurat IP penggunanya secara keseluruhan maupun sebagian di sepanjang lalu lalang dari setiap interaksi data di lapangan.
 - **Rujukan URL senantiasa tidak menyingkap serpihan/sandi atau referensinya (URLs exclude search params)** berkat penetapan bawaan sistem di balik layar (default settings) demi kemaslahatan fungsi yang menyeluruh dari pengguna saat men-skrining pelacakan referensi penyamaran yang berkesinambungan.
 - **Batasan perbandingan sampling (Sampling)**: `sampleRate` dapat diselaraskan atau diformat berdasarkan dari rentetan trafik atau kerumitan penelusuran demi fungsi kinerja tinggi aplikasi.
@@ -663,13 +669,13 @@ const variant = client?.getVariant("homepage-hero", [
 
 Fungsi di belakang layer yang senantiasa berlaku dalam hal-ihwal perincian `@intlayer/analytics` sepenuhnya taat terhadap acuan yang lazim dipakai, tak-ubahnya seperti keberadaan pakem atau patokan yang biasa mendasari / membidani / menyelimuti referensi kebergantungan situasional (optional-dependency pattern) dalam serangkaian fungsi dari ranah operasional `@intlayer/editor`:
 
-- di setiap rupa kemunculan pada fase / titik pertautan (integration point) sistem senantiasa mendatangkan wujud dari kumpulan rujukan kodingnya dalam model penanganan kesalahan yaitu mendayagunakan blok rujukan di kerangka kodingan bersandikan **`try/catch` pada rangkaian perincian pemanggil model pemanggil dari fungsi / pola struktur pemrograman pemanggil dinamis `import()` (dynamic `import()`)** — Hal itu mengasumsikan bila ternyata sewaktu sistem di mana di satu aplikasi tak-menyematkan proses pasang modul / instal koding pendukung untuk instrumen ini (di kasus penggunaan rujukan spesifik bagi instalasi alat pelacak seperti instalasi di `@intlayer/analytics`) — itu sama sekali tak akan mengurangi sedikit pun ruang ketersediaan sistem penyedia data atau server karena sistem mengasumsikan penggunanya memang memandang sebelah mata perihal tersebut (yakni tak pernah merilis wujud dukungan alat operasional penganalisa data rujukan aplikasi untuk ukuran besar/bundel pada penyediaan / runtime di sisi sistem dan tidak perlu melihat kegagalan proses).
+- di setiap rupa kemunculan pada fase / titik pertautan (integration point) sistem senantiasa mendatangkan wujud dari kumpulan rujukan kodingnya dalam model penanganan kesalahan yaitu mendayagunakan blok rujukan di kerangka kodingan bersandikan **`try/catch` pada rangkaian perincian pemanggil model pemanggil dari fungsi / pola struktur pemrograman pemanggil dinamis `import()` (dynamic `import()`)**, Hal itu mengasumsikan bila ternyata sewaktu sistem di mana di satu aplikasi tak-menyematkan proses pasang modul / instal koding pendukung untuk instrumen ini (di kasus penggunaan rujukan spesifik bagi instalasi alat pelacak seperti instalasi di `@intlayer/analytics`), itu sama sekali tak akan mengurangi sedikit pun ruang ketersediaan sistem penyedia data atau server karena sistem mengasumsikan penggunanya memang memandang sebelah mata perihal tersebut (yakni tak pernah merilis wujud dukungan alat operasional penganalisa data rujukan aplikasi untuk ukuran besar/bundel pada penyediaan / runtime di sisi sistem dan tidak perlu melihat kegagalan proses).
 - variabel lingkungan saat kompilasi (`INTLAYER_ANALYTICS_ENABLED`), yang otomatis diatur ke `'false'` oleh `@intlayer/config` setiap kali paket tidak terpasang, `analytics.enabled` bernilai `false`, atau `editor.clientId` tidak dikonfigurasi, memungkinkan bundler **menghilangkan seluruh integrasi sebagai kode mati (dead-code-eliminate)**;
-  Bentuk pengeset-an rupa-rupa di waktu-awal oleh koding pengatur yakni alat di lingkungan rancangan pemograman (`@intlayer/config`) menyelaraskannya seraya otomatis dikukuhkan kepada bentuk referensi bertuliskankan status `'false'` dan rujukan pengunci dari sisi / sisi koding pendefinisi tak ditemukan keberadaannya dari sisi koding acuan konfigurasi (`editor.clientId`). Proses berkesinambungan menyingkirkan elemen mati demi mencegah rupa serpihan sampah ini disebut sebagai — fitur pembuangan dari elemen kode mubazir (atau perlakuan ini dikenal di dunia sistem sebagai pemicu dalam fungsi acuan yang disebut hal **dead-code-eliminate**).
+  Bentuk pengeset-an rupa-rupa di waktu-awal oleh koding pengatur yakni alat di lingkungan rancangan pemograman (`@intlayer/config`) menyelaraskannya seraya otomatis dikukuhkan kepada bentuk referensi bertuliskankan status `'false'` dan rujukan pengunci dari sisi / sisi koding pendefinisi tak ditemukan keberadaannya dari sisi koding acuan konfigurasi (`editor.clientId`). Proses berkesinambungan menyingkirkan elemen mati demi mencegah rupa serpihan sampah ini disebut sebagai, fitur pembuangan dari elemen kode mubazir (atau perlakuan ini dikenal di dunia sistem sebagai pemicu dalam fungsi acuan yang disebut hal **dead-code-eliminate**).
 
 ## Dasbor (Dashboard): Halaman Analitik
 
-Saat di mana perancangan rupa proyek Anda secara sempurna rampung & mampu / bisa mengambil dan menyalin kejadian di ranahnya — perincian perujukan sistem dari pemanggil pada tautan **Analytics** pada tampilan di dasbor/pusat fungsi rujukan operasional pada antarmuka ([Intlayer dashboard](https://app.intlayer.org/analytics)) maka bagian tersebut senantiasa terbuka dan tampak bila pengguna menentukan opsi ke sebuah perwujudan pilihan atau proyek tertentu di dalam kolom-menu samping dari layar antar-muka operasional (sidebar) dan tampil perinciannya:
+Saat di mana perancangan rupa proyek Anda secara sempurna rampung & mampu / bisa mengambil dan menyalin kejadian di ranahnya, perincian perujukan sistem dari pemanggil pada tautan **Analytics** pada tampilan di dasbor/pusat fungsi rujukan operasional pada antarmuka ([Intlayer dashboard](https://app.intlayer.org/analytics)) maka bagian tersebut senantiasa terbuka dan tampak bila pengguna menentukan opsi ke sebuah perwujudan pilihan atau proyek tertentu di dalam kolom-menu samping dari layar antar-muka operasional (sidebar) dan tampil perinciannya:
 
 - **Rujukan dari pengunjung atau pemakai / pelanggan atau pengguna-aktif harian** (Active users).
 - **Hasil catatan perihal rincian rujukan harian pengunjung / orang yang berlalu lalang (today & last 7 days)**.
@@ -700,6 +706,8 @@ const cms = createIntlayerCMS();
 
 const { data: audience } = await analyticsEndpoint(cms).getAudience(30);
 ```
+
+- [CMS SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)
 
 > **Hanya di sisi server.** `createIntlayerCMS()` melakukan autentikasi dengan `clientId` + `clientSecret`, dan secret tidak pernah tersedia di browser: cuplikan kode ini akan mengirim permintaan yang tidak terautentikasi jika dijalankan di sana. Simpan kode ini di route handler, server action, atau skrip.
 

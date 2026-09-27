@@ -46,10 +46,16 @@ author: aymericzip
 
 コンテンツのコロケーション（同一場所配置）により、大規模言語モデル（LLM）に必要な**コンテキストが減少**します。Intlayerには、不足している翻訳をテストするための**CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)**、および**[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)**などのツールスイートが備わっており、AIエージェントにとってよりスムーズな開発者体験（DX）を提供します。
 
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)
+- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)
+
 </Accordion>
 <Accordion header="自動化">
 
 AIプロバイダーのコストで、お好みのLLMを使用してCI/CDパイプライン内で翻訳を自動化できます。Intlayerは、コンテンツ抽出を自動化するための**コンパイラ**や、**バックグラウンドでの翻訳**を支援する[ウェブプラットフォーム](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)も提供しています。
+
+- [ウェブプラットフォーム](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="パフォーマンス">
@@ -60,6 +66,9 @@ AIプロバイダーのコストで、お好みのLLMを使用してCI/CDパイ�
 <Accordion header="非開発者とのスケーラビリティ">
 
 単なるi18nソリューションにとどまらず、Intlayerはセルフホストの**[ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)**と**[フルCMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)**を提供し、多言語コンテンツを**リアルタイム**で管理できるようにします。これにより、翻訳者やコピーライター、その他のチームメンバーとのシームレスなコラボレーションが可能になります。コンテンツはローカルおよび/またはリモートに保存できます。
+
+- [ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)
+- [フルCMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
@@ -72,9 +81,9 @@ AIプロバイダーのコストで、お好みのLLMを使用してCI/CDパイ�
 
 `react-i18next` / `i18next`からIntlayerに移行するための、互いに補完する2つの戦略があります：
 
-1. **互換性アダプター（既存のアプリに推奨）** — `@intlayer/react-i18next`（Reactコンポーネント用）および/または`@intlayer/i18next`（コア`i18n`インスタンス用）をインストールします。これらのパッケージは`react-i18next` / `i18next`と**全く同じAPI**を公開しますが、すべての翻訳作業をIntlayerに委譲します。`useTranslation`、`Trans`、`withTranslation`、`i18next.t()`への既存の呼び出しはそのまま保持されます — 変更するのはインポートパスのみです。
+1. **互換性アダプター（既存のアプリに推奨）**：`@intlayer/react-i18next`（Reactコンポーネント用）および/または`@intlayer/i18next`（コア`i18n`インスタンス用）をインストールします。これらのパッケージは`react-i18next` / `i18next`と**全く同じAPI**を公開しますが、すべての翻訳作業をIntlayerに委譲します。`useTranslation`、`Trans`、`withTranslation`、`i18next.t()`への既存の呼び出しはそのまま保持されます。変更するのはインポートパスのみです。
 
-2. **完全移行** — 徐々に`react-i18next`のAPIをネイティブのIntlayerフック（`useIntlayer`、`IntlayerProvider`）に置き換え、コンポーネントと一緒に`.content.ts`ファイル内にコンテンツをコロケーションします。
+2. **完全移行**：徐々に`react-i18next`のAPIをネイティブのIntlayerフック（`useIntlayer`、`IntlayerProvider`）に置き換え、コンポーネントと一緒に`.content.ts`ファイル内にコンテンツをコロケーションします。
 
 このガイドでは、まず**戦略1**（ドロップイン互換性アダプター）について解説し、その後オプションである完全移行について説明します。
 
@@ -127,7 +136,7 @@ yarn add intlayer react-intlayer @intlayer/react-i18next @intlayer/i18next @intl
 bun add intlayer react-intlayer @intlayer/react-i18next @intlayer/i18next @intlayer/sync-json-plugin
 ```
 
-> `react-i18next`と`i18next`はインストールしたままにしておいて構いません — 互換性アダプターはそれらをTypeScriptの型のオプションの`devDependencies` / `peerDependencies`として使用します。`package.json`のpeer設定を変更する必要はありません。
+> `react-i18next`と`i18next`はインストールしたままにしておいて構いません、互換性アダプターはそれらをTypeScriptの型のオプションの`devDependencies` / `peerDependencies`として使用します。`package.json`のpeer設定を変更する必要はありません。
 
 </Step>
 <Step number={2} title="Intlayerの設定">
@@ -180,7 +189,7 @@ export default defineConfig({
 });
 ```
 
-> `reactI18nextVitePlugin()`は`vite-intlayer`の`intlayer()`プラグインをラップし、`react-i18next` / `i18next`のエイリアスを追加します。通常の`vite-intlayer`の`intlayer()`プラグインを使用すると、辞書はコンパイルされますがエイリアスは追加され**ません** — その場合、インポートを手動で`@intlayer/*`に変更する必要があります（ステップ4を参照）。
+> `reactI18nextVitePlugin()`は`vite-intlayer`の`intlayer()`プラグインをラップし、`react-i18next` / `i18next`のエイリアスを追加します。通常の`vite-intlayer`の`intlayer()`プラグインを使用すると、辞書はコンパイルされますがエイリアスは追加され**ません**、その場合、インポートを手動で`@intlayer/*`に変更する必要があります（ステップ4を参照）。
 
 **Next.jsの場合：**
 
@@ -211,7 +220,7 @@ export default withIntlayer(nextConfig);
 
 これでクイック移行は完了です。アプリはすべてのインポートと`react-i18next`のAPIを保持したまま、Intlayer上で動作するようになります。
 
-> **型付けされた翻訳キー — 自動的に。** Intlayerが辞書をコンパイルすると、`useTranslation`と`getFixedT`は実際のコンテンツに対して型付けされます。キーはIDEでオートコンプリートされ、無効なパスはビルド時にTypeScriptエラーを引き起こします — 追加の設定は必要ありません。
+> **型付けされた翻訳キー、自動的に。** Intlayerが辞書をコンパイルすると、`useTranslation`と`getFixedT`は実際のコンテンツに対して型付けされます。キーはIDEでオートコンプリートされ、無効なパスはビルド時にTypeScriptエラーを引き起こします。追加の設定は必要ありません。
 >
 > ```tsx
 > // 'about' は登録済みの辞書のキーです → t() は有効なパスのみを受け入れます
@@ -310,6 +319,8 @@ export default config;
 
 > 利用可能なすべてのオプションについては、[Intlayer CLIドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md)を確認してください。
 
+- [Intlayer CLIドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md)
+
 </Step>
 
 </Steps>
@@ -324,7 +335,7 @@ export default config;
 | `I18nextProvider` / `initReactI18next` | Intlayerプラグインが注入とブートストラッピングを内部で処理します。                                                                    |
 | JSON言語バンドル (`locales/*.json`)    | JSONバンドルは、`syncJSON`プラグインを使用している場合にのみ必要です。`.content.ts`ファイルに移行したら、JSONフォルダを削除できます。 |
 
-さらに進める準備ができたら、Intlayerはコードベース内の**どこにある`.content.ts`および`.content.json`ファイルでも自動的に検出します**（デフォルトでは`./src`内）。`my-component.content.ts`ファイルを`MyComponent.tsx`のすぐ隣に配置するだけで、追加の設定なしでビルド時にIntlayerがそれを取得します — インポート、登録、中央のインデックスファイルは不要です。これにより、ページやコンポーネントとの翻訳のコロケーションが完全にシームレスになります。
+さらに進める準備ができたら、Intlayerはコードベース内の**どこにある`.content.ts`および`.content.json`ファイルでも自動的に検出します**（デフォルトでは`./src`内）。`my-component.content.ts`ファイルを`MyComponent.tsx`のすぐ隣に配置するだけで、追加の設定なしでビルド時にIntlayerがそれを取得します。インポート、登録、中央のインデックスファイルは不要です。これにより、ページやコンポーネントとの翻訳のコロケーションが完全にシームレスになります。
 
 ## TypeScriptの設定
 

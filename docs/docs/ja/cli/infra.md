@@ -104,13 +104,13 @@ npx intlayer init infra --mode compose
 
        ./intlayer/.env
 
-     Either RESEND_API_KEY (resend.com) or the MAIL_SMTP_* block — the first
+     Either RESEND_API_KEY (resend.com) or the MAIL_SMTP_* block, the first
      account cannot be verified without a working mailer.
   2. Start the stack:
 
        cd ./intlayer && docker compose up -d
 
-  Then open http://localhost:3000 — first boot initialises the
+  Then open http://localhost:3000, first boot initialises the
   datastores, so give it a minute. The first account you create becomes the
   super admin.
 
@@ -118,6 +118,10 @@ npx intlayer init infra --mode compose
     Stop      docker compose down
     Upgrade   docker compose pull && docker compose up -d
 ```
+
+ドメイン（例: `example.org`）を指定すると、インストーラーはダッシュボード、API、オブジェクトストレージ用にそれぞれ `https://cms.example.org`、`https://back.example.org`、`https://s3.example.org/intlayer` を提案し、それらを環境ファイルに書き込みます。また、公開されているダッシュボードイメージは `localhost` でしか動作しないため、起動コマンドをリポジトリからのビルドに切り替えます。[カスタムドメイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/self_hosting.md#custom-domain) を参照してください。
+
+- [カスタムドメイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/self_hosting.md#custom-domain)
 
 ## インストーラーの設定
 
@@ -143,6 +147,8 @@ INTLAYER_COMPOSE_DIR=./cms npx intlayer init infra --mode compose
 | `INTLAYER_SELFHOST_REF`   | `main`                    | 両方     | composeファイルと環境テンプレートを取得するGit ref    |
 
 > ポート変数はマッピングの **ホスト** 側のみを変更します。公開されているイメージには `http://localhost:3000`、`http://localhost:3100`、`http://localhost:9000` が組み込まれているため、独自のイメージをビルドしない限りデフォルトのままにしてください: [セルフホスティングガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/self_hosting.md#limitations) を参照してください。
+
+- [セルフホスティングガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/self_hosting.md#limitations)
 
 ## 要件
 

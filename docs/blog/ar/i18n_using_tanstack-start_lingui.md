@@ -64,6 +64,8 @@ author: aymericzip
 
 يقوم [اختبار الأداء المقارن للتدويل (i18n benchmark)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md) بتشغيل نفس تطبيق TanStack Start المكون من 10 صفحات و 10 لغات مع كل مكتبة رئيسية ويقيس ما يقوم المتصفح بتنزيله بالفعل.
 
+- [اختبار الأداء المقارن للتدويل (i18n benchmark)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md)
+
 <I18nBenchmark framework="tanstack" packages="lingui,@intlayer/lingui,intlayer" vertical/>
 
 الأرقام الرئيسية لحزمة `@lingui/core@6.6.0`، المقاسة بتاريخ 2026-09-26 (gzip):
@@ -81,6 +83,8 @@ author: aymericzip
 - **وقت التشغيل يظل كبيراً وثقيلاً** (~57 كيلوبايت gzip). محول التوافق `@intlayer/lingui` (الخطوة 16) يحتفظ بوحدات الماكرو الخاصة بك ويقلل حجمه إلى ~10 كيلوبايت.
 
 > اطلع على البيانات الكاملة: [تقرير اختبار أداء TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md)، و[مستودع اختبار الأداء](https://github.com/intlayer-org/benchmark-i18n).
+
+- [تقرير اختبار أداء TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md)
 
 ## مقارنة الميزات على TanStack Start
 
@@ -105,6 +109,8 @@ author: aymericzip
 | **الترجمات المفقودة في CI**                 | ✅ `npx intlayer test`                   | ⚠️ غير مدمج                       | ⚠️ غير مدمج                           | ✅ `lingui compile --strict` |
 
 > أرقام حجم وقت التشغيل ونسبة التسريب مأخوذة من [اختبار أداء TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md). يتم قياس التسريب بناءً على أفضل إعداد لكل مكتبة.
+
+- [اختبار أداء TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md)
 
 > أدلة أخرى لـ TanStack Start:
 
@@ -934,6 +940,8 @@ export const Route = createFileRoute("/{-$locale}/$")({
 
 يحافظ محول التوافق [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/lingui.md) على الكود المصدري دون أي تعديل: يتم تجميع وحدات الماكرو تماماً كما كانت من قبل، وتتم خدمة استدعاءات `i18n._()` و `useLingui()` و `<Trans>` الناتجة عن طريق قواميس Intlayer المجمعة. في اختبار الأداء، ينخفض وقت التشغيل من **~56.7 كيلوبايت إلى ~9.8 كيلوبايت** gzip.
 
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/lingui.md)
+
 ```bash packageManager="npm"
 npm install @intlayer/lingui intlayer @intlayer/sync-json-plugin
 npx intlayer init
@@ -976,6 +984,11 @@ export default defineConfig({
 
 تتم مزامنة الكتالوجات باستخدام [إضافة مزامنة JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/plugins/sync-json.md) (كتالوجات JSON) أو [إضافة مزامنة PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/plugins/sync-po.md) (كتالوجات PO). راجع الإعداد الكامل في [دليل توافق Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/lingui.md)، والمقارنة المفصلة في [Lingui مقابل @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/lingui_vs_intlayer-lingui.md).
 
+- [إضافة مزامنة JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/plugins/sync-json.md)
+- [إضافة مزامنة PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/plugins/sync-po.md)
+- [دليل توافق Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/lingui.md)
+- [Lingui مقابل @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/lingui_vs_intlayer-lingui.md)
+
 </Step>
 <Step number={17} title="أتمتة ترجماتك باستخدام Intlayer" isOptional={true}>
 
@@ -1017,10 +1030,15 @@ export default defineConfig({
 
 يقيس [اختبار الأداء](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md) حوالي ~56.7 كيلوبايت gzip لوقت التشغيل. مع تحميل كتالوج واحد لكل لغة عند الطلب، تزن الصفحات حوالي ~115 كيلوبايت مقارنة بـ 111 كيلوبايت بدون تدويل. يؤدي استيراد جميع الكتالوجات بشكل ثابت إلى زيادة الحجم إلى حوالي ~152 كيلوبايت.
 
+- [اختبار الأداء](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md)
+
 </Question>
 <Question title="هل يمكنني الاحتفاظ بوحدات ماكرو Lingui والترحيل إلى Intlayer؟">
 
 نعم. يحافظ محول [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/lingui.md) على وحدات الماكرو ويستبدل وقت التشغيل فقط. يمكنك بعد ذلك نقل المكونات إلى `useIntlayer` واحداً تلو الآخر. راجع [محولات التوافق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/index.md).
+
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/lingui.md)
+- [محولات التوافق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/index.md)
 
 </Question>
 

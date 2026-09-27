@@ -96,6 +96,9 @@ Intlayer está optimizado para funcionar con **Componentes del servidor** para u
 > El enrutamiento por locale es útil para SEO, tamaño del bundle y rendimiento. Ambas configuraciones, con y sin enrutamiento por ruta de locale, son compatibles y se describen en esta guía.
 > Para Next.js 12, 13, 14 y 15 con App Router, consulte esta [guía](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_14.md).
 
+- [Next.js Pages Router i18n: Complete Translation Guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_page_router.md)
+- [Next.js 14 i18n - Complete guide to translate your app](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_14.md)
+
 </Accordion>
 <Accordion header="Tamaño del bundle">
 
@@ -111,10 +114,16 @@ Determinar el alcance del contenido de su aplicación **facilita el mantenimient
 
 La ubicación conjunta de contenido **reduce el contexto necesario** para los modelos de lenguajes grandes (LLM). Intlayer también viene con un conjunto de herramientas, como una **CLI** para comprobar si faltan traducciones,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** y **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/agent_skills.md)**, para que la experiencia del desarrollador (DX) sea aún más fluida para los agentes de IA.
 
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)
+- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/agent_skills.md)
+
 </Accordion>
 <Accordion header="Automatización">
 
 Utilice la automatización para traducir su canal de CI/CD utilizando el LLM de su elección al costo de su proveedor de IA. Intlayer también ofrece un **compilador** para automatizar la extracción de contenido, así como una [plataforma web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) para ayudar a **traducir en segundo plano**.
+
+- [plataforma web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="Actuación">
@@ -125,6 +134,9 @@ La conexión de archivos JSON masivos a componentes puede provocar problemas de 
 <Accordion header="Escalando sin ningún desarrollador">
 
 Más que una simple solución i18n, Intlayer proporciona un **[editor visual] autohospedado(https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** y un **[CMS completo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** para ayudarle a administrar su contenido multilingüe en **tiempo real**, lo que facilita la colaboración con traductores, redactores y otros miembros del equipo. El contenido se puede almacenar de forma local y/o remota.
+
+- [Editor visual de Intlayer: edita el contenido en contexto](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md)
+- [CMS completo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
@@ -301,6 +313,8 @@ export default config;
 </Tabs>
 
 > A través de este archivo de configuración, puedes configurar URLs localizadas, redirección de proxy, nombres de cookies, la ubicación y extensión de tus declaraciones de contenido, desactivar los registros de Intlayer en la consola, y más. Para una lista completa de los parámetros disponibles, consulta la [documentación de configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md).
+
+- [documentación de configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md)
 
 </Step>
 <Step number={3} title="Integra Intlayer en tu configuración de Next.js">
@@ -605,6 +619,8 @@ export default pageContent;
 
 > Para más detalles, consulta la [documentación de declaración de contenido](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/content_file.md).
 
+- [documentación de declaración de contenido](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/content_file.md)
+
 </Step>
 <Step number={6} title="Utiliza el contenido en tu código">
 
@@ -761,7 +777,12 @@ export const ServerComponentExample: FC = () => {
 
 > Para aprender más sobre el hook `useIntlayer`, consulta la [documentación](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/next-intlayer/useIntlayer.md).
 
+- [Documentación del Hook useIntlayer | next-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/next-intlayer/useIntlayer.md)
+
 > Si su aplicación ya existe, puede utilizar el [Compilador Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compiler.md), así como el [comando de extracción](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/extract.md), para transformar miles de componentes en un segundo.
+
+- [Compilador Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compiler.md)
+- [comando de extracción](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/extract.md)
 
 </Step>
 <Step number={7} title="Configurar Proxy para la Detección de Idioma" isOptional={true}>
@@ -779,7 +800,11 @@ export const config = {
 
 > El `intlayerProxy` se utiliza para detectar la configuración regional preferida del usuario y redirigirlo a la URL apropiada según lo especificado en la [configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md). Además, permite guardar la configuración regional preferida del usuario en una cookie.
 
+- [configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md)
+
 > A partir de Intlayer v9, este middleware respeta la opción `routing.enableProxy` (`true` por defecto). Establece `routing.enableProxy: false` en tu configuración para convertirlo en un pass-through sin eliminar este archivo. Consulta las [notas de la versión v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/releases/v9.md).
+
+- [notas de la versión v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/releases/v9.md)
 
 > Si necesitas encadenar varios proxies juntos (por ejemplo, `intlayerProxy` con autenticación o proxies personalizados), Intlayer ahora proporciona una ayuda llamada `multipleProxies`.
 
@@ -1017,6 +1042,8 @@ export const LocaleSwitcher: FC = () => {
 
 > Una forma alternativa es usar la función `setLocale` proporcionada por el hook `useLocale`. Esta función no permitirá la precarga de la página. Consulta la [documentación del hook `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/next-intlayer/useLocale.md) para más detalles.
 
+- [documentación del hook `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/next-intlayer/useLocale.md)
+
 > También puedes establecer una función en la opción `onLocaleChange` para activar una función personalizada cuando cambie la configuración regional.
 
 ```tsx fileName="src/components/LocaleSwitcher.tsx"
@@ -1044,6 +1071,11 @@ return (
 > - [`lang` attribute](https://developer.mozilla.org/es/docs/Web/HTML/Atributos_globales/lang)
 > - [`dir` attribute`](https://developer.mozilla.org/es/docs/Web/HTML/Atributos_globales/dir)
 > - [`aria-current` attribute`](https://developer.mozilla.org/es/docs/Web/Accessibility/ARIA/Atributos/aria-current)
+
+- [`useLocale` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/next-intlayer/useLocale.md)
+- [`getLocaleName` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer/getLocaleName.md)
+- [`getLocalizedUrl` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer/getLocalizedUrl.md)
+- [`getHTMLTextDir` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer/getHTMLTextDir.md)
 
 </Step>
 <Step number={11} title="Creación de un Componente de Enlace Localizado" isOptional={true}>
@@ -1177,6 +1209,9 @@ bun add @intlayer/swc --dev
 Si tienes una base de código existente, transformar miles de archivos puede llevar mucho tiempo.
 
 Para facilitar este proceso, Intlayer propone un [compilador](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compiler.md) / [extractor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/extract.md) para transformar tus componentes y extraer el contenido.
+
+- [compilador](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compiler.md)
+- [extractor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/extract.md)
 
 Para configurarlo, puedes agregar una sección `compiler` en tu archivo `intlayer.config.ts` :
 
@@ -1351,7 +1386,7 @@ Para hacerlo, puedes agregar las siguientes instrucciones a tu archivo `.gitigno
 
 Para mejorar tu experiencia de desarrollo con Intlayer, puedes instalar la **Extensión oficial de Intlayer para VS Code**.
 
-[Instalar desde el Marketplace de VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [Instalar desde el Marketplace de VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 Esta extensión proporciona:
 
@@ -1362,9 +1397,14 @@ Esta extensión proporciona:
 
 Para más detalles sobre cómo usar la extensión, consulta la [documentación de la extensión Intlayer para VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/vs_code_extension.md).
 
+- [documentación de la extensión Intlayer para VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/vs_code_extension.md)
+
 ### Ir más allá
 
 Para ir más allá, puedes implementar el [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md) o externalizar tu contenido usando el [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md).
+
+- [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md)
 
 ## Preguntas frecuentes
 
@@ -1380,20 +1420,35 @@ Next.js no tiene una capa de mensajes integrada desde que el campo `i18n` de `ne
 
 La diferencia práctica es lo que llega al navegador. Las bibliotecas basadas en espacios de nombres entregan catálogos JSON completos a una página, mientras que Intlayer entrega solo el contenido que usan los componentes renderizados, lo que recorta el tamaño del bundle y de la página hasta en un 50%. Consulta [por qué Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/interest_of_intlayer.md) y el [benchmark de i18n de Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/benchmark/nextjs.md).
 
+- [por qué Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/interest_of_intlayer.md)
+- [benchmark de i18n de Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/benchmark/nextjs.md)
+
 </Question>
 <Question title="¿Cuánto añade la i18n al tamaño del bundle de mi aplicación Next.js?">
 
 Mucho menos que una configuración basada en espacios de nombres, porque una página nunca descarga un catálogo que no renderiza. Los Server Components resuelven su contenido en el servidor, y el compilador de tiempo de compilación reemplaza las llamadas a `useIntlayer` por las entradas de diccionario exactas que usa un componente, de modo que se descartan las claves sin usar y los idiomas sin usar, y los [diccionarios dinámicos](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dynamic_dictionaries/index.md) reparten el resto por idioma. Frente a las alternativas habituales, Intlayer reduce el tamaño del bundle y de la página hasta en un 50%. Consulta la [optimización del bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/bundle_optimization.md) y el [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/benchmark/nextjs.md).
+
+- [diccionarios dinámicos](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dynamic_dictionaries/index.md)
+- [optimización del bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/bundle_optimization.md)
+- [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/benchmark/nextjs.md)
 
 </Question>
 <Question title="¿Puedo migrar desde `next-intl`, `next-i18next` o `i18next` sin reescribir mis componentes?">
 
 Sí, y hay dos caminos. Puedes migrar el contenido de forma progresiva con la [guía de migración de next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/migration_from_next-intl_to_intlayer.md) o la [guía de migración de i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/migration_from_i18next_to_intlayer.md). O puedes mantener tu API actual por completo: los [adaptadores de compatibilidad](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compat/index.md) exponen exactamente la misma API que `next-intl`, `react-i18next` y `react-intl`, pero servida por diccionarios de Intlayer, así que cambian los imports y el código de los componentes no.
 
+- [guía de migración de next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/migration_from_next-intl_to_intlayer.md)
+- [guía de migración de i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/migration_from_i18next_to_intlayer.md)
+- [adaptadores de compatibilidad](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compat/index.md)
+
 </Question>
 <Question title="¿Puedo conservar mis archivos de traducción JSON existentes?">
 
 Sí. El [plugin de sincronización JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/plugins/sync-json.md) mantiene tus archivos `/messages/{locale}/{namespace}.json` como fuente de verdad y genera diccionarios de Intlayer a partir de ellos, en ambas direcciones. Un [plugin de sincronización PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/plugins/sync-po.md) hace lo mismo para los catálogos gettext, y los [archivos por idioma](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/per_locale_file.md) te permiten dividir el contenido por idioma en lugar de agrupar los idiomas en un solo archivo.
+
+- [plugin de sincronización JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/plugins/sync-json.md)
+- [plugin de sincronización PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/plugins/sync-po.md)
+- [archivos por idioma](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/per_locale_file.md)
 
 </Question>
 <Question title="¿Tengo que trasladar mi contenido clave por clave?">
@@ -1402,7 +1457,11 @@ No. Ejecuta `npx intlayer extract` e Intlayer lee tus componentes, extrae las ca
 
 Para una canalización totalmente automatizada, el [compilador de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compiler.md) hace lo mismo en tiempo de compilación: escanea tu código JSX, TSX, Vue y Svelte en cada cambio, genera los diccionarios y los mantiene sincronizados mediante el reemplazo de módulos en caliente, así que no hay ninguna clave que mantener a mano.
 
+- [compilador de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compiler.md)
+
 Conviene conocer dos límites antes de activar el compilador. Funciona por análisis estático, así que las cadenas que solo existen en tiempo de ejecución, como los códigos de error de la API o los campos del CMS, quedan fuera de su alcance. Y tiene que distinguir el texto visible para el usuario de la lógica de la aplicación, como `className="active"` o un código de estado, lo que requiere unas pocas anotaciones en una base de código grande. El [comando extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/extract.md) evita ambos manteniéndote en el proceso.
+
+- [comando extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/extract.md)
 
 </Question>
 <Question title="¿Qué herramientas para editores y agentes de IA están disponibles?">
@@ -1425,6 +1484,10 @@ Sí. `next-intlayer` está construido para el App Router: el contenido se resuel
 
 Intlayer es compatible con Next.js 12, 13, 14, 15 y 16. Esta guía cubre Next.js 16. Para configuraciones más antiguas, sigue la [guía de Next.js 15](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_nextjs_15.md), la [guía de Next.js 14](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_nextjs_14.md) o la [guía del Pages Router](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_nextjs_page_router.md).
 
+- [guía de Next.js 15](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_nextjs_15.md)
+- [guía de Next.js 14](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_nextjs_14.md)
+- [guía del Pages Router](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_nextjs_page_router.md)
+
 </Question>
 <Question title="¿Tengo que poner el idioma en la URL, como /fr/about?">
 
@@ -1437,6 +1500,8 @@ No. El esquema de URL es una opción de configuración, no una restricción. `ro
 
 También puedes asignar cada idioma a su propio dominio con `routing.domains`. Consulta la [referencia de configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md) y el [Paso 2](#step-2-configure-your-project) para conocer las opciones de modo de enrutamiento.
 
+- [referencia de configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md)
+
 </Question>
 <Question title="¿Cómo añado etiquetas hreflang y metadatos localizados para SEO?">
 
@@ -1447,20 +1512,35 @@ Usa la función `generateMetadata` de Next.js junto con `getMultilingualUrls` de
 
 Ejecuta `npx intlayer fill`. La CLI detecta las traducciones que faltan en tus archivos de contenido y las rellena con el LLM de tu elección, usando tu propio proveedor y tu clave de API, así que le pagas directamente al proveedor y nada pasa por un tercero. Consulta el [comando fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/fill.md) y la [integración de CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/CI_CD.md).
 
+- [comando fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/fill.md)
+- [integración de CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/CI_CD.md)
+
 </Question>
 <Question title="¿Intlayer admite plurales, género, condiciones y texto enriquecido?">
 
 Sí. Las declaraciones de contenido admiten [formas plurales](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/plurial.md), [contenido según el género](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/gender.md), condiciones, [inserciones](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/insertion.md) para valores interpolados, y [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/markdown.md) para texto enriquecido como páginas legales o cuerpos de blog. Los números, las fechas y las monedas los gestionan los [formateadores](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/formatters.md).
+
+- [formas plurales](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/plurial.md)
+- [contenido según el género](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/gender.md)
+- [inserciones](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/insertion.md)
+- [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/markdown.md)
+- [formateadores](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/formatters.md)
 
 </Question>
 <Question title="¿Cómo pueden editar el contenido los traductores y las personas que no programan?">
 
 Dos opciones, ambas opcionales. El [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md) se ejecuta en tu propia infraestructura y permite que cualquiera haga clic en el texto de tu sitio para editarlo en su sitio. El [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md) externaliza el contenido para que pueda actualizarse sin un despliegue, con la [sincronización en vivo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/live.md) reflejando los cambios en tiempo de ejecución.
 
+- [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md)
+- [sincronización en vivo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/live.md)
+
 </Question>
 <Question title="¿Cuál es el costo del editor visual? ¿Es excesivo si no lo necesito?">
 
 El [editor visual de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md) tiene un **costo cero** en su aplicación si no está configurado. La lógica adicional solo se carga si se habilita explícitamente y es necesaria.
+
+- [editor visual de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md)
 
 Si está habilitado, el impacto es extremadamente ligero (+5 KB, cargado dinámicamente solo cuando se activa) porque la mayor parte de la lógica es manejada por el editor del servidor en [app.intlayer.org](https://app.intlayer.org) o a través del paquete `intlayer-editor`. Si solo necesita una solución de traducción simple sin edición visual, Intlayer no agrega ninguna sobrecarga a su aplicación.
 
@@ -1469,10 +1549,16 @@ Si está habilitado, el impacto es extremadamente ligero (+5 KB, cargado dinámi
 
 Ejecuta `npx intlayer test` en CI. Falla la build cuando a un idioma declarado le falta contenido, así que una cadena sin traducir nunca llega a producción. La [extensión de VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/vs_code_extension.md) muestra los mismos errores mientras escribes, y el [plugin de ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/eslint.md) y su regla `no-raw-text` detectan las cadenas codificadas de forma fija. Consulta [probar tu contenido](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/testing.md).
 
+- [extensión de VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/vs_code_extension.md)
+- [plugin de ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/eslint.md)
+- [probar tu contenido](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/testing.md)
+
 </Question>
 <Question title="¿Es Intlayer gratuito y de código abierto?">
 
 Sí. Intlayer es de código abierto bajo la licencia Apache 2.0, y toda la biblioteca, la CLI, el editor visual y el compilador son de uso gratuito, incluido el uso comercial. El CMS alojado es un servicio de pago opcional, y también puede [autoalojarse](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/self_hosting.md).
+
+- [autoalojarse](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/self_hosting.md)
 
 </Question>
 

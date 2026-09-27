@@ -44,7 +44,7 @@ yarn add intlayer elysia-intlayer
 bun add intlayer elysia-intlayer
 ```
 
-> `elysia` — это peer dependency (`>=1.0.0`). Elysia рассчитан на runtime **Bun**.
+> `elysia`: это peer dependency (`>=1.0.0`). Elysia рассчитан на runtime **Bun**.
 
 ## Экспорты
 
@@ -129,7 +129,7 @@ console.log(
 );
 ```
 
-> Плагин регистрирует свой контекст через **глобальный** `derive`, который Elysia типизирует как `Partial<{ intlayer: IntlayerContext }>`. Во время выполнения значение всегда присутствует для маршрутов, зарегистрированных после `.use(intlayer())`, поэтому используйте non-null assertion (`intlayer!.locale`) — или optional chaining — чтобы удовлетворить TypeScript в режиме `strict`.
+> Плагин регистрирует свой контекст через **глобальный** `derive`, который Elysia типизирует как `Partial<{ intlayer: IntlayerContext }>`. Во время выполнения значение всегда присутствует для маршрутов, зарегистрированных после `.use(intlayer())`, поэтому используйте non-null assertion (`intlayer!.locale`), или optional chaining, чтобы удовлетворить TypeScript в режиме `strict`.
 
 ## Связанная документация
 

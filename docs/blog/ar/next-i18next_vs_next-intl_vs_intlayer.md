@@ -100,6 +100,8 @@ author: aymericzip
 
 <I18nBenchmark framework="nextjs" packages="next-i18next,next-intl,next-intlayer" vertical/>
 
+- [معيار i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md)
+
 <ClickToOpenIframe
   src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
   width="100%"
@@ -121,6 +123,9 @@ author: aymericzip
 | `next-intlayer` (native Intlayer) |  **5.5 KB** |    **141.3 KB** |           **0.0%** |            **0.0%** |    **6.9 KB** |
 
 > للاطلاع على التحليل الكامل، راجع [تقرير معيار Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md) و[النظرة العامة الشاملة على معيار i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/index.md).
+
+- [تقرير معيار Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md)
+- [النظرة العامة الشاملة على معيار i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/index.md)
 
 هناك مكونان مهمان في سياق حزمة تطبيق متعدد اللغات:
 
@@ -1502,3 +1507,5 @@ The set up of the middleware centralized in the `intlayer.config.ts` file.
 - [محوّل التوافق @intlayer/next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/next-i18next.md)
 
 راجع [وثيقة "لماذا Intlayer؟"](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/interest_of_intlayer.md) لمزيد من التفاصيل.
+
+- [لماذا Intlayer؟ مزاياه مقارنة بمكتبات i18n الأخرى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/interest_of_intlayer.md)

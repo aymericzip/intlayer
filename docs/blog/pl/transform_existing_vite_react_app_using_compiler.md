@@ -49,6 +49,8 @@ W 2026 roku nie musisz przepisywać bazy kodu. Z **Intlayer** wdrożysz internac
 
 > Szukasz pełnego przewodnika technicznego krok po kroku dla Vite i React? Sprawdź naszą dokumentację: [Tłumaczenie Vite i React z Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_vite+react.md).
 
+- [Tłumaczenie Vite i React z Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_vite+react.md)
+
 ## Spis treści
 
 <TOC/>
@@ -327,6 +329,8 @@ Ten przewodnik przedstawił koncepcyjne podejście do wdrożenia internacjonaliz
 Jeśli chcesz skonfigurować wszystkie szczegóły (w tym pełne wsparcie TypeScript, dynamiczne słowniki i edytor wizualny), przejdź do naszej kompletnej dokumentacji:
 
 👉 **[Kompletny przewodnik po tłumaczeniu Vite i React z Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_vite+react.md)**
+
+- [Kompletny przewodnik po tłumaczeniu Vite i React z Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_vite+react.md)
 
 ## Często zadawane pytania (FAQ)
 

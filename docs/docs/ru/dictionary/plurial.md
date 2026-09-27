@@ -30,9 +30,11 @@ author: aymericzip
 
 ## Как работает множественное число
 
-To use plural content in Next.js Client Components, retrieve it via the `useIntlayer` hook and call it with a count. Here's an example:
+В Intlayer контент во множественном числе реализуется с помощью функции `plural`, которая сопоставляет категории множественного числа CLDR, `zero`, `one`, `two`, `few`, `many`, `other`, с соответствующим контентом. Нужная категория выбирается автоматически на основе активной локали и значения счётчика с использованием встроенного в платформу API [`Intl.PluralRules`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Intl/PluralRules).
 
-To use plural content in Angular components, retrieve it via the `useIntlayer` hook and call it with a count. Here's an example:
+В отличие от [`enu`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/enumeration.md), который выбирает контент на основе заданных вами числовых диапазонов, `plural` делегирует выбор правилам CLDR. Именно это позволяет масштабировать его на языки со сложными правилами множественного числа, такие как русский, польский, арабский или валлийский, без необходимости вручную писать логику с остатком от деления.
+
+- [`enu`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/enumeration.md)
 
 ## Когда использовать `plural` вместо `enu`
 

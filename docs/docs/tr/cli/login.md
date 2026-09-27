@@ -138,7 +138,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> **`clientSecret` sunucu tarafı kimlik bilgisidir.** Proje kapsamlı tam API erişimi verir — sözlükleriniz, projeniz ve kuruluşunuzu okuyup yazabilir. Bunu `.env` dosyasında (git tarafından yok sayılan) veya CI gizli deposunda tutun ve asla yapılandırma dosyasında satır içine yazmayın.
+> **`clientSecret` sunucu tarafı kimlik bilgisidir.** Proje kapsamlı tam API erişimi verir, sözlükleriniz, projeniz ve kuruluşunuzu okuyup yazabilir. Bunu `.env` dosyasında (git tarafından yok sayılan) veya CI gizli deposunda tutun ve asla yapılandırma dosyasında satır içine yazmayın.
 
 Intlayer bunu yalnızca belgelemek yerine zorunlu kılar:
 

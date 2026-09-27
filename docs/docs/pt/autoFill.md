@@ -122,6 +122,8 @@ export default exampleContent;
 
 Aqui está um [arquivo de declaração de conteúdo por localidade](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/per_locale_file.md) usando a instrução `fill`.
 
+- [arquivo de declaração de conteúdo por localidade](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/per_locale_file.md)
+
 Então, quando você executar o seguinte comando:
 
 ```bash packageManager="npm"

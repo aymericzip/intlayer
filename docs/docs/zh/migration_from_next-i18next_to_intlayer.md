@@ -40,17 +40,23 @@ author: aymericzip
 
 限定应用程序内容的范围**有利于大规模应用程序的维护**。你可以复制或删除单个功能文件夹，而无需费力审查整个内容 codebase。此外，Intlayer **完全类型化**，以确保内容的准确性。
 
-Intlayer 也是 i18n 生态系统中**开发最活跃**的解决方案 — 问题修复迅速，新的框架适配器定期发布，核心 API 根据真实的生产反馈不断改进。
+Intlayer 也是 i18n 生态系统中**开发最活跃**的解决方案，问题修复迅速，新的框架适配器定期发布，核心 API 根据真实的生产反馈不断改进。
 
 </Accordion>
 <Accordion header="AI Agent">
 
 内容共置**减少了大型语言模型 (LLM) 所需的上下文**。Intlayer 还附带一套工具，例如用于测试缺失翻译的 **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)** 和 **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)**，使 AI agents 的开发者体验 (DX) 更加顺畅。
 
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)
+- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)
+
 </Accordion>
 <Accordion header="自动化">
 
 在你的 CI/CD pipeline 中使用自动化翻译，使用你选择的 LLM，成本由你的 AI 提供商承担。Intlayer 还提供**编译器**来自动化内容提取，以及一个 [web platform](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) 帮助**后台翻译**。
+
+- [web platform](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="性能">
@@ -61,6 +67,9 @@ Intlayer 也是 i18n 生态系统中**开发最活跃**的解决方案 — 问�
 <Accordion header="与非开发人员协作扩展">
 
 Intlayer 不仅仅是一个 i18n 解决方案，它还提供**自托管[可视编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)**和**[完整 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)** 来帮助你**实时**管理多语言内容，使与翻译人员、文案和其他团队成员的协作无缝进行。内容可以存储在本地和/或远程。
+
+- [可视编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)
+- [完整 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
@@ -73,9 +82,9 @@ Intlayer 不仅仅是一个 i18n 解决方案，它还提供**自托管[可视�
 
 由于 `next-i18next` 在底层封装了 `react-i18next` 和 `i18next`，迁移到 Intlayer 有两种互补的策略：
 
-1. **兼容适配器（推荐用于现有应用）** — 安装 `@intlayer/next-i18next`、`@intlayer/react-i18next` 和 `@intlayer/i18next`。这些包公开的 **API 完全相同**，但在底层将所有翻译工作委托给 Intlayer。您可以保持现有的 `useTranslation`、`appWithTranslation`、`serverSideTranslations` 调用和 Next.js Pages 路由不变 — 唯一的变化是初始化。
+1. **兼容适配器（推荐用于现有应用）**：安装 `@intlayer/next-i18next`、`@intlayer/react-i18next` 和 `@intlayer/i18next`。这些包公开的 **API 完全相同**，但在底层将所有翻译工作委托给 Intlayer。您可以保持现有的 `useTranslation`、`appWithTranslation`、`serverSideTranslations` 调用和 Next.js Pages 路由不变，唯一的变化是初始化。
 
-2. **完全迁移** — 逐步使用原生 Intlayer 钩子（`useIntlayer`）替换 `next-i18next` API，并在组件旁边的 `.content.ts` 文件中并置内容。
+2. **完全迁移**：逐步使用原生 Intlayer 钩子（`useIntlayer`）替换 `next-i18next` API，并在组件旁边的 `.content.ts` 文件中并置内容。
 
 本指南首先介绍**策略 1**（即插即用的兼容适配器），然后演示可选的完全迁移。
 
@@ -187,7 +196,7 @@ export default withIntlayer(nextConfig);
 
 > **您不再需要 `next-i18next.config.js`。** Intlayer 在**构建时**编译所有字典,无缝处理语言环境检测、路由和字典加载。
 >
-> 倾向于使用来自 `next-intlayer/server` 的简单 `withIntlayer`? 它编译您的字典但**不**添加 `next-i18next` / `react-i18next` / `i18next` 别名 — 您随后需要手动将导入重命名为 `@intlayer/*`(请参阅第 4 步)。
+> 倾向于使用来自 `next-intlayer/server` 的简单 `withIntlayer`? 它编译您的字典但**不**添加 `next-i18next` / `react-i18next` / `i18next` 别名，您随后需要手动将导入重命名为 `@intlayer/*`(请参阅第 4 步)。
 
 </Step>
 
@@ -195,10 +204,10 @@ export default withIntlayer(nextConfig);
 
 快速迁移就到这里。您的 Next.js 应用现在在 Intlayer 上运行,同时保持每个 `useTranslation`、`serverSideTranslations` 和 `appWithTranslation` 调用完整。
 
-> **有类型的翻译键 — 自动。** 一旦 Intlayer 编译您的字典,`useTranslation` 和 `getFixedT` 就会针对您的实际内容进行类型化。键在您的 IDE 中自动完成,无效路径会在构建时导致 TypeScript 错误 — 无需额外设置。
+> **有类型的翻译键，自动。** 一旦 Intlayer 编译您的字典,`useTranslation` 和 `getFixedT` 就会针对您的实际内容进行类型化。键在您的 IDE 中自动完成,无效路径会在构建时导致 TypeScript 错误，无需额外设置。
 >
 > ```tsx
-> // Pages Router — 'about' 是一个已注册的字典键
+> // Pages Router，'about' 是一个已注册的字典键
 > const { t } = useTranslation("about");
 > t("counter.label"); // ✓ 自动完成
 > t("does.not.exist"); // ✗ TypeScript 错误
@@ -224,7 +233,7 @@ Intlayer 插件已经在 bundler 级别处理别名。如果您更希望在源�
 | `import { useTranslation } from 'next-i18next'`                                | `import { useTranslation } from '@intlayer/next-i18next'`         |
 | `import { useTranslation } from 'react-i18next'`                               | `import { useTranslation } from '@intlayer/react-i18next'`        |
 
-这些是**即插即用替代品**——无需更改调用签名、参数或返回类型。
+这些是**即插即用替代品**，无需更改调用签名、参数或返回类型。
 
 </Step>
 <Step number={5} title="启用 AI 驱动的翻译自动化" isOptional={true}>
@@ -284,6 +293,8 @@ export default config;
 
 > 详见 [Intlayer CLI 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)了解所有可用选项。
 
+- [Intlayer CLI 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)
+
 </Step>
 
 </Steps>
@@ -298,7 +309,7 @@ export default config;
 | `next-i18next` from `package.json`              | 完全被 `@intlayer/next-i18next` 和别名替代。                                                               |
 | JSON language bundles (`public/locales/*.json`) | JSON bundles 仅在你仍然使用 `syncJSON` 插件时才需要。迁移到 `.content.ts` 文件后，你可以删除 JSON 文件夹。 |
 
-当你准备进一步操作时，Intlayer **会自动发现整个 codebase 中的所有 `.content.ts` 和 `.content.json` 文件**（默认情况下，在 `./src` 内的任何位置）。你可以将 `my-component.content.ts` 文件放在 `MyComponent.tsx` 旁边，Intlayer 将在构建时自动识别它，无需任何额外配置 — 无需导入、无需注册、无需集中的索引文件。这使得将翻译与页面和组件并置完全无障碍。
+当你准备进一步操作时，Intlayer **会自动发现整个 codebase 中的所有 `.content.ts` 和 `.content.json` 文件**（默认情况下，在 `./src` 内的任何位置）。你可以将 `my-component.content.ts` 文件放在 `MyComponent.tsx` 旁边，Intlayer 将在构建时自动识别它，无需任何额外配置，无需导入、无需注册、无需集中的索引文件。这使得将翻译与页面和组件并置完全无障碍。
 
 ## 配置 TypeScript
 

@@ -54,15 +54,27 @@ Omezení rozsahu obsahu vaší aplikace na úroveň komponent **usnadňuje údr�
 
 Umístění obsahu přímo u komponent **snižuje rozsah kontextu** potřebného pro velké jazykové modely (LLM). Intlayer také přichází se sadou nástrojů, jako je **CLI** pro testování chybějících překladů, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/mcp_server.md)** a **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/agent_skills.md)**, které AI agentům usnadňují vývojářské prostředí (DX).
 
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/mcp_server.md)
+- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/agent_skills.md)
+
 </Accordion>
 <Accordion header="Funkce">
 
 Intlayer nabízí řadu dodatečných funkcí, které jiná i18n řešení nemají, jako je [podpora Markdownu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/dictionary/markdown.md), [načítání externího obsahu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/dictionary/function_fetching.md), [načítání obsahu ze souborů](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/dictionary/file.md), [živá aktualizace obsahu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/live.md), [vizuální editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/intlayer_visual_editor.md) a další.
 
+- [podpora Markdownu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/dictionary/markdown.md)
+- [načítání externího obsahu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/dictionary/function_fetching.md)
+- [načítání obsahu ze souborů](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/dictionary/file.md)
+- [živá aktualizace obsahu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/live.md)
+- [vizuální editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/intlayer_visual_editor.md)
+
 </Accordion>
 <Accordion header="Automatizace">
 
 Využijte automatizaci k překladu ve vaší CI/CD pipeline pomocí LLM podle vaší volby za cenu vašeho poskytovatele AI. Intlayer nabízí také **kompilátor** pro automatickou extrakci obsahu a [webovou platformu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/intlayer_CMS.md) pro podporu **překladu na pozadí**.
+
+- [webovou platformu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="Výkon">
@@ -73,6 +85,9 @@ Připojení masivních souborů JSON ke komponentám může způsobit problémy 
 <Accordion header="Spolupráce s netechnickými profily">
 
 Více než jen i18n řešení, Intlayer poskytuje **[vizuální editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/intlayer_visual_editor.md) s možností vlastního hostování** a **[plnohodnotný CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/intlayer_CMS.md)**, které vám pomohou spravovat vícejazyčný obsah v **reálném čase**. Spolupráce s překladateli, textaři a dalšími členy týmu je tak zcela bezproblémová. Obsah lze ukládat lokálně a/nebo vzdáleně.
+
+- [vizuální editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/intlayer_visual_editor.md)
+- [plnohodnotný CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="Návrh napříč frameworky">
@@ -283,3 +298,5 @@ Les étoiles GitHub sont un indicateur fort de la popularité d'un projet, de la
 Pomocí `intlayer` můžete deklarovat svůj obsah ve formátu vaší oblíbené knihovny i18n a intlayer vygeneruje vaše jmenné prostory v umístění podle vašeho výběru (příklad: `/messages/{{locale}}/{{namespace}}.json`).
 
 Pokud chcete nadále používat API své současné i18n knihovny, `intlayer` nabízí také **compat adaptéry**: balíčky, které vystavují přesně stejné API jako `react-i18next`, `next-intl`, `react-intl`, `vue-i18n` a další, ale obsah dodávají z Intlayer slovníků. Díky tomu můžete migrovat postupně, aniž byste museli přepisovat svůj kód. Viz [dokumentace compat adaptérů](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md).
+
+- [dokumentace compat adaptérů](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md)

@@ -70,6 +70,8 @@ extension Localization on String {
 > इस ब्लॉग में, मैं compiler-based समाधानों पर ध्यान नहीं दूँगा, जिन्हें मैंने पहले यहाँ कवर किया है: [Compiler vs Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/compiler_vs_declarative_i18n.md).
 > ध्यान दें कि compiler-based i18n (उदा., Lingui) केवल सामग्री के extraction और loading को स्वचालित करता है। आंतरिक रूप से, इनके पास अक्सर अन्य approaches की जैसी ही सीमाएँ होती हैं।
 
+- [Compiler vs Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/compiler_vs_declarative_i18n.md)
+
 > ध्यान दें कि जितना अधिक आप अपनी सामग्री को फाइन-ग्रेन तरीके से पुनःप्राप्त करते हैं, उतना ही अधिक आप अपने कॉम्पोनेंट्स में अतिरिक्त state और logic जोड़ने का जोखिम उठाते हैं।
 
 ग्रैन्युलर approaches केंद्रीकृत (centralized) approaches की तुलना में अधिक लचीली होती हैं, लेकिन अक्सर यह एक tradeoff होता है। भले ही उन लाइब्रेरीज़ द्वारा "tree shaking" का दावा किया जाता हो, व्यवहार में अक्सर आप हर भाषा में एक पेज लोड करते हुए ही समाप्त होते हैं।
@@ -154,6 +156,8 @@ locale/
 
 अब आपको बारीकी से यह प्रबंधित करना होगा कि आपके ऐप का कौन सा कंटेंट कब और कहाँ लोड किया जाना चाहिए। नतीजा, जटिलता के कारण अधिकांश प्रोजेक्ट इस हिस्से को छोड़ देते हैं (उदाहरण के लिए चुनौतियाँ देखने के लिए [next-i18next गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/i18n_using_next-i18next.md) देखें, जो सिर्फ़ अच्छी प्रथाओं का पालन करने से उत्पन्न होती हैं)।
 परिणामस्वरूप, वे प्रोजेक्ट पहले बताई गई भारी JSON लोडिंग समस्या का सामना कर लेते हैं।
+
+- [next-i18next गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/i18n_using_next-i18next.md)
 
 > ध्यान दें कि यह समस्या केवल i18next तक सीमित नहीं है, बल्कि ऊपर सूचीबद्ध सभी केंद्रीकृत approaches पर लागू होती है।
 

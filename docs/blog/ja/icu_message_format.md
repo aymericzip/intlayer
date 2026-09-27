@@ -263,6 +263,8 @@ ICUの概念との対応は非常に明確です。
 
 `plural`は内部でカテゴリ判定を`Intl.PluralRules`に委譲しているため、前述のCLDR表がそのまま適用されます。数値、日付、通貨、リストなどのフォーマット処理はメッセージ本体に直接埋め込むのではなく、[専用のフォーマッターフック](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/formatters.md)を通じて分離して管理されます。
 
+- [専用のフォーマッターフック](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/formatters.md)
+
 留意点：
 
 - Intlayerはビルドステップを必要とします。コンパイラがビルド時にコンテンツ宣言を静的抽出します。実行時にプレーンなJSONを動的取得するモデルとは異なります。
@@ -270,6 +272,9 @@ ICUの概念との対応は非常に明確です。
 - i18nextに比べるとエコシステムの歴史が浅く、TMS連携ツールの種類やコミュニティ上のQ&A数はこれから拡大していく段階です。
 
 すでにICU文字列が多数存在するプロジェクトから移行する場合、[react-intl互換アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/react-intl.md)がそれらを直接解釈します（`plural`、`select`、`selectordinal`、`#`、従来の`number` / `date` / `time`）。スケルトンや`offset:`はこのリゾルバーの対象外となるため、移行時に該当箇所を確認してください。[i18nextアダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/i18next.md)は、接尾辞形式（`key_one`、`key_male`）を`Intl.PluralRules`と照合して解決します。
+
+- [react-intl互換アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/react-intl.md)
+- [i18nextアダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/i18next.md)
 
 ## よくある間違い
 

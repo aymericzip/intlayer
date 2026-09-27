@@ -30,6 +30,8 @@ author: aymericzip
 
 Artikel ini mengukur pertukaran tersebut pada aplikasi TanStack Start yang sama, dibangun sekali dengan Lingui murni dan sekali dengan adaptor. Angka-angka ini berasal dari [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Untuk perbandingan langsung kedua pustaka, baca [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/lingui_vs_intlayer.md). Tulisan ini berfokus pada apa yang diubah oleh adaptor, dan di mana ia tidak memberikan peningkatan.
 
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/lingui_vs_intlayer.md)
+
 <TOC/>
 
 > **Ringkasan (tl;dr)**: Pada aplikasi TanStack Start yang sama, `@intlayer/lingui` memangkas ukuran rata-rata komponen dari **85,5 KB menjadi 12,8 KB** gzip, hidrasi dari **28 ms menjadi 19,7 ms**, dan pergantian bahasa dari **5,9 ms menjadi 2,9 ms**, tanpa mengubah makro sedikit pun. Pada konfigurasi dasar (semua katalog dimuat di awal), adaptor juga menghilangkan **90% kebocoran halaman** dan menghemat 12 KB per halaman. Namun pada konfigurasi lazy-loaded, adaptor mengirimkan **137 KB per halaman dibandingkan 115 KB** untuk Lingui biasa: adaptor mengurai sintaks ICU pada saat runtime sedangkan Lingui mengirimkan larik token yang telah dikompilasi sebelumnya. Kebocoran bahasa sumber (~9-10%) identik di kedua sisi karena berasal dari fallback teks `message` yang tertanam dalam komponen, bukan dari runtime. Adaptor ini berupa plugin Vite dan diukur pada TanStack Start.
@@ -230,6 +232,8 @@ export default config;
 
 Untuk katalog `.po`, ganti `syncJSON` dengan `syncPO` dari `@intlayer/sync-po-plugin` dengan pola `source` yang sama menggunakan ekstensi `.po`. Lihat [dokumentasi plugin Sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/plugins/sync-po.md).
 
+- [dokumentasi plugin Sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/plugins/sync-po.md)
+
 `splitKeys: "key-prefix"` adalah kunci utama pengurangan ukuran komponen secara drastis. Berkas katalog tetap mempertahankan format datarnya; pemisahan hanya terjadi pada kamus yang dihasilkan, dan sinkronisasi balik menyatukan kembali kunci-kunci tersebut secara otomatis.
 
 </Step>
@@ -307,3 +311,5 @@ export default defineConfig({
 Semua data mentah, aplikasi pengujian, dan skrip benchmark tersedia di [repositori Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Anda dipersilakan mengujinya sendiri.
 
 Untuk informasi selengkapnya, silakan baca dokumentasi ['Mengapa Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/interest_of_intlayer.md).
+
+- [Mengapa Intlayer? Keunggulan dibanding library i18n lain](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/interest_of_intlayer.md)

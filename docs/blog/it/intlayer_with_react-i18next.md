@@ -39,9 +39,13 @@ author: aymericzip
 
 Consulta un confronto concreto con react-i18next nel nostro post sul blog [react-i18next vs. react-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/react-i18next_vs_react-intl_vs_intlayer.md).
 
+- [react-i18next vs. react-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/react-i18next_vs_react-intl_vs_intlayer.md)
+
 ## Perché combinare Intlayer con react-i18next?
 
 Sebbene Intlayer offra una soluzione i18n autonoma eccellente (vedi la nostra [guida all'integrazione con React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_vite+react.md)), potresti volerlo combinare con react-i18next per diversi motivi:
+
+- [guida all'integrazione con React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_vite+react.md)
 
 1. **Codice esistente**: Hai un'implementazione consolidata di react-i18next e desideri migrare gradualmente alla migliore esperienza sviluppatore offerta da Intlayer.
 2. **Requisiti legacy**: Il tuo progetto richiede compatibilità con plugin o flussi di lavoro esistenti di react-i18next.
@@ -145,6 +149,8 @@ Se vengono apportate modifiche utilizzando la CLI per tradurre il JSON, o utiliz
 
 Per maggiori dettagli sul plugin `syncJSON`, si prega di fare riferimento alla [documentazione del plugin syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/plugins/sync-json.md).
 
+- [documentazione del plugin syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/plugins/sync-json.md)
+
 </Step>
 <Step number={3} title="Implementare traduzioni JSON per componente" isOptional={true}>
 
@@ -206,4 +212,4 @@ Questi file possono essere rigenerati durante il processo di build e non è nece
 
 Per migliorare l'esperienza dello sviluppatore, installa l'**Estensione ufficiale Intlayer per VS Code**:
 
-[Installa dal Marketplace di VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [Installa dal Marketplace di VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

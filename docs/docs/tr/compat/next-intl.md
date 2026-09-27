@@ -25,6 +25,8 @@ author: aymericzip
 
 Kapsamlı ve ayrıntılı adım adım eğitim için lütfen tam [next-intl Göç Kılavuzuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_next-intl_to_intlayer.md) bakın.
 
+- [next-intl Göç Kılavuzuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_next-intl_to_intlayer.md)
+
 `next-intl`'den Intlayer'a geçiş, uygulama routing'inizi ve sözdizimini tamamen etkilemeden tutmanıza izin verir.
 
 ## Ne yapmalı

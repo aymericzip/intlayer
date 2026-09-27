@@ -158,6 +158,8 @@ export default config;
 
 > Via dit configuratiebestand kunt u gelokaliseerde URL's instellen, middleware-omleidingen, cookienamen, de locatie en extensie van uw inhoudsdeclaraties instellen, Intlayer-logs in de console uitschakelen, en nog veel meer. Zie de [configuratiedocumentatie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/configuration.md) voor een volledige lijst met beschikbare parameters.
 
+- [configuratiedocumentatie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/configuration.md)
+
 </Step>
 <Step number={3} title="Intlayer integreren in uw Angular-configuratie">
 
@@ -271,6 +273,8 @@ export default appContent;
 > Uw inhoudsdeclaraties kunnen overal in uw applicatie worden gedefinieerd, zolang ze maar worden opgenomen in de directory `contentDir` (standaard `./src`). En zolang ze overeenkomen met de bestandsextensie voor inhoudsdeclaraties (standaard `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
 
 > Zie voor meer informatie de [documentatie over inhoudsdeclaratie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/dictionary/content_file.md).
+
+- [documentatie over inhoudsdeclaratie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/dictionary/content_file.md)
 
 </Step>
 <Step number={5} title="Gebruik Intlayer in uw Code">
@@ -418,7 +422,7 @@ Om dit te doen, kunt u de volgende instructies toevoegen aan uw `.gitignore`-bes
 
 Om uw ontwikkelingservaring met Intlayer te verbeteren, kunt u de officiële **Intlayer VS Code Extensie** installeren.
 
-[Installeren vanuit de VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [Installeren vanuit de VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 Deze extensie biedt:
 
@@ -429,8 +433,13 @@ Deze extensie biedt:
 
 Voor meer informatie over hoe u de extensie kunt gebruiken, zie de [Intlayer VS Code Extensie documentatie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md).
 
+- [Intlayer VS Code Extensie documentatie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md)
+
 ### Verder Gaan
 
 Om nog verder te gaan, kunt u de [visuele editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_visual_editor.md) implementeren of uw inhoud externaliseren met behulp van de [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_CMS.md).
+
+- [visuele editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_CMS.md)
 
 ---

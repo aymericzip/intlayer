@@ -140,6 +140,9 @@ Subdirectories अधिकांश projects के लिए सही default
 
 > Intlayer तीनों को `routing.mode` और `routing.domains` के माध्यम से cover करता है। [custom domains](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/custom_domains.md) और [configuration reference](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md) देखें।
 
+- [custom domains](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/custom_domains.md)
+- [configuration reference](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md)
+
 ## Implementation
 
 इन टैग्स को हाथ से लिखना दूसरे locale के साथ संपर्क में नहीं टिकता। इसके बजाय उन्हें अपनी locale सूची से प्राप्त करें।
@@ -194,6 +197,8 @@ export const generateMetadata = async ({
 
 पूरा सेटअप: [Next.js 16 i18n guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nextjs_16.md).
 
+- [Next.js 16 i18n guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nextjs_16.md)
+
 </Tab>
 
 <Tab label="TanStack Start" value="tanstack">
@@ -236,6 +241,8 @@ export const Route = createFileRoute("/{-$locale}/about")({
 ```
 
 `head` सर्वर पर चलता है, इसलिए टैग प्रारंभिक HTML में आते हैं। पूर्ण सेटअप: [TanStack Start i18n guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_tanstack.md)।
+
+- [TanStack Start i18n guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_tanstack.md)
 
 </Tab>
 

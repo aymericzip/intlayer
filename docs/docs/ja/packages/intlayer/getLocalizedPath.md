@@ -32,7 +32,9 @@ author: aymericzip
 
 `getLocalizedPath` 関数は、canonical path（内部アプリケーションパス）を提供された locale とリライトルールに基づいてローカライズされたパスに解決します。言語ごとに異なる SEO に適した URL を生成する際に特に有用です。
 
-[`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getLocalizedUrl.md)の相対的なカウンターパートです — 相対入力の場合、両者は同じ値を返します。`getLocalizedUrl`とは異なり、絶対URLを返すことはありません：`domains`設定は無視されるため、独自のドメインから提供されるロケールでもパスが生成されます。絶対入力は受け入れられますが、そのオリジンは削除され、パス、クエリ文字列、ハッシュのみが保持されます。
+[`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getLocalizedUrl.md)の相対的なカウンターパートです。相対入力の場合、両者は同じ値を返します。`getLocalizedUrl`とは異なり、絶対URLを返すことはありません：`domains`設定は無視されるため、独自のドメインから提供されるロケールでもパスが生成されます。絶対入力は受け入れられますが、そのオリジンは削除され、パス、クエリ文字列、ハッシュのみが保持されます。
+
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getLocalizedUrl.md)
 
 **主な機能:**
 
@@ -70,10 +72,10 @@ getLocalizedPath(
   - **説明**: ルーティングのオーバーライド。すべてのエントリはプロジェクトの設定にデフォルト設定されます。
   - **型**: `object`
 
-  - `options.locales?: Locales[]` — サポートされているロケール。**デフォルト**: `configuration.internationalization.locales`
-  - `options.defaultLocale?: Locales` — デフォルトロケール。**デフォルト**: `configuration.internationalization.defaultLocale`
-  - `options.mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'` — パス内でロケールがどのように表示されるか。**デフォルト**: `configuration.routing.mode`
-  - `options.rewrite?: RoutingConfig['rewrite']` — カスタム rewrite ルール。**デフォルト**: `configuration.routing.rewrite`
+  - `options.locales?: Locales[]`：サポートされているロケール。**デフォルト**: `configuration.internationalization.locales`
+  - `options.defaultLocale?: Locales`：デフォルトロケール。**デフォルト**: `configuration.internationalization.defaultLocale`
+  - `options.mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'`：パス内でロケールがどのように表示されるか。**デフォルト**: `configuration.routing.mode`
+  - `options.rewrite?: RoutingConfig['rewrite']`：カスタム rewrite ルール。**デフォルト**: `configuration.routing.rewrite`
 
 ## 戻り値
 
@@ -96,6 +98,8 @@ const home = getLocalizedPath("/", Locales.FRENCH);
 ```
 
 同じ絞り込みが [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getLocalizedUrl.md) に流れ込み、ロケールをプレフィックスする前に書き換えルールを適用します。
+
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getLocalizedUrl.md)
 
 2つのケースは `string` に拡大されたままです。これらはコンパイル時に解決できないためです：
 

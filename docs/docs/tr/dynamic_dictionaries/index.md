@@ -3,7 +3,7 @@ createdAt: 2026-06-12
 updatedAt: 2026-09-27
 priority: 8
 title: "Dinamik sözlükler: koleksiyonlar ve varyantlar"
-description: Intlayer'in dinamik sözlük özelliklerine — koleksiyonlar ve varyantlar — genel bakış; esnek, çalışma zamanında yönlendirilen i18n içeriği oluşturmak için.
+description: Intlayer'in dinamik sözlük özelliklerine, koleksiyonlar ve varyantlar, genel bakış; esnek, çalışma zamanında yönlendirilen i18n içeriği oluşturmak için.
 keywords:
   - Dinamik sözlükler
   - Koleksiyonlar
@@ -20,7 +20,7 @@ history:
     changes: "Dinamik sözlükler özelliğinin yayımlanması"
   - version: 9.1.0
     date: 2026-06-26
-    changes: "Dinamik kayıtlar varyantlara birleştirildi — `variant` artık bir dize veya nesne kabul ediyor"
+    changes: "Dinamik kayıtlar varyantlara birleştirildi, `variant` artık bir dize veya nesne kabul ediyor"
 author: aymericzip
 ---
 
@@ -37,8 +37,8 @@ Her ikisi de locale argümanıyla birlikte çalışır ve `importMode` aracılı
 
 ## Hangisini ne zaman kullanmalı
 
-- **Koleksiyonlar** — ayrı dosyalarda yönetilen sıralı öğe listesi (SSS girdileri, blog gönderileri, ürünler).
-- **Varyantlar** — adlandırılmış veya yapılandırılmış içerik alternatifleri:
+- **Koleksiyonlar**: ayrı dosyalarda yönetilen sıralı öğe listesi (SSS girdileri, blog gönderileri, ürünler).
+- **Varyantlar**: adlandırılmış veya yapılandırılmış içerik alternatifleri:
   - A/B testleri, sezonluk afişler veya özellik bayrakları için bir **dize** varyantı;
   - CMS kayıtları, kullanıcıya özel metin veya bir alan kümesiyle adreslenen herhangi bir içerik için bir **nesne** varyantı (eski "dinamik kayıtlar").
 

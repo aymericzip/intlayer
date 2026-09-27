@@ -31,7 +31,7 @@ author: aymericzip
 
 ## Descrição
 
-A função `getIntlayer` seleciona um dicionário pela sua chave e retorna seu conteúdo interpretado para uma determinada localidade. É o equivalente agnóstico de framework do hook `useIntlayer`: mesmo conteúdo, mesmos seletores, mas utilizável em qualquer lugar onde um contexto React não está disponível — scripts Node, funções de servidor, carregadores de rotas, construtores de metadados, manipuladores Express/Fastify, testes.
+A função `getIntlayer` seleciona um dicionário pela sua chave e retorna seu conteúdo interpretado para uma determinada localidade. É o equivalente agnóstico de framework do hook `useIntlayer`: mesmo conteúdo, mesmos seletores, mas utilizável em qualquer lugar onde um contexto React não está disponível, scripts Node, funções de servidor, carregadores de rotas, construtores de metadados, manipuladores Express/Fastify, testes.
 
 Ela lê os dicionários gerados pelo Intlayer em `.intlayer/`, então o argumento `key` é digitado e autocompletado a partir de suas próprias declarações de conteúdo, e o objeto retornado é totalmente digitado até cada folha.
 
@@ -57,18 +57,18 @@ getIntlayer(
 
 - `key: DictionaryKeys`
   - **Description**: A chave do dicionário a ler, conforme declarado nos seus arquivos de conteúdo.
-  - **Type**: `DictionaryKeys` — uma união de cada chave de dicionário declarada.
+  - **Type**: `DictionaryKeys`, uma união de cada chave de dicionário declarada.
   - **Required**: Yes
 
 - `localeOrSelector: LocalesValues | DictionarySelector`
   - **Description**: O locale para interpretar o conteúdo, ou um objeto seletor para [dicionários dinâmicos](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dynamic_dictionaries/index.md).
-    - `'fr'` — um locale
-    - `{ item: 2 }` — um item de [coleção](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dynamic_dictionaries/collections.md) (omita `item` para obter cada item como um array)
-    - `{ variant: 'black-friday' }` — uma [variante](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dynamic_dictionaries/variants.md) nomeada (omita para a variante `default`)
-    - `{ variant: { id: 'prod_abc', userId: '123' } }` — uma variante estruturada
+    - `'fr'`: um locale
+    - `{ item: 2 }`: um item de [coleção](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dynamic_dictionaries/collections.md) (omita `item` para obter cada item como um array)
+    - `{ variant: 'black-friday' }`: uma [variante](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dynamic_dictionaries/variants.md) nomeada (omita para a variante `default`)
+    - `{ variant: { id: 'prod_abc', userId: '123' } }`: uma variante estruturada
     - Qualquer seletor pode levar um locale: `{ item: 2, locale: 'fr' }`
   - **Type**: `LocalesValues | DictionarySelector`
-  - **Required**: No (Optional) — padrão para o `defaultLocale` configurado.
+  - **Required**: No (Optional), padrão para o `defaultLocale` configurado.
 
 - `plugins: Plugins[]`
   - **Description**: Transformadores de nó personalizados que substituem os plugins do interpretador base. Uso avançado apenas; omita para manter o comportamento padrão.
@@ -110,6 +110,8 @@ const { title } = getIntlayer("app", "pt"); // "Olá"
 ### Sem um locale
 
 Omitir o locale interpreta o conteúdo com o `defaultLocale` declarado em sua [configuração](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md).
+
+- [configuração](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md)
 
 ```typescript
 import { getIntlayer } from "intlayer";
@@ -161,6 +163,9 @@ Em desenvolvimento, solicitar uma chave que não possui um dicionário gerado re
 ### Tamanho do bundle
 
 `getIntlayer` lê o dicionário mesclado, que contém **todos** os locales. Em bundles de cliente, os [plugins de build](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/bundle_optimization.md) reescrevem a chamada para que apenas o conteúdo necessário seja enviado. Quando você lê conteúdo fora da renderização (metadados, loaders, funções de servidor) e deseja um único locale carregado sob demanda, use [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/intlayer/getIntlayerAsync.md) em vez disso.
+
+- [plugins de build](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/bundle_optimization.md)
+- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/intlayer/getIntlayerAsync.md)
 
 ## Funções Relacionadas
 

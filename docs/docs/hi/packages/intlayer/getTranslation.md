@@ -34,6 +34,8 @@ author: aymericzip
 
 अनुवाद घोषित करने के तरीके के बारे में अधिक विवरण के लिए, [अनुवाद दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/translation.md) देखें।
 
+- [अनुवाद दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/translation.md)
+
 ## पैरामीटर
 
 - `languageContent: CustomizableLanguageContent<Content>`

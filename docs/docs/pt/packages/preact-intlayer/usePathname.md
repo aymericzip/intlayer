@@ -30,7 +30,7 @@ author: aymericzip
 
 # Integração Preact: Documentação do Hook `usePathname`
 
-O hook `usePathname` retorna o pathname (caminho) atual do navegador com o segmento da locale removido. Isso é útil para construir uma navegação ciente da locale — por exemplo, determinar qual item de navegação está ativo — sem precisar remover manualmente o prefixo da locale.
+O hook `usePathname` retorna o pathname (caminho) atual do navegador com o segmento da locale removido. Isso é útil para construir uma navegação ciente da locale (por exemplo, determinar qual item de navegação está ativo) sem precisar remover manualmente o prefixo da locale.
 
 ## Importando `usePathname` no Preact
 

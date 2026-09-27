@@ -30,7 +30,7 @@ author: aymericzip
 
 # Intégration Preact : Documentation du Hook `usePathname`
 
-Le hook `usePathname` retourne le chemin actuel du navigateur en supprimant le segment de la locale. Il est utile pour créer une navigation adaptée à la locale — par exemple, pour déterminer quel élément de navigation est actif — sans avoir à supprimer manuellement le préfixe de la locale.
+Le hook `usePathname` retourne le chemin actuel du navigateur en supprimant le segment de la locale. Il est utile pour créer une navigation adaptée à la locale (par exemple, pour déterminer quel élément de navigation est actif) sans avoir à supprimer manuellement le préfixe de la locale.
 
 ## Importer `usePathname` dans Preact
 

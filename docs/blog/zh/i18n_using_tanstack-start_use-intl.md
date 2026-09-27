@@ -49,6 +49,8 @@ TanStack Start 本身不包含 i18n 层。路由、语言检测、SEO 元数据�
 
 > 使用 Next.js？请参阅 [next-intl 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18n_using_next-intl.md)。
 
+- [next-intl 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18n_using_next-intl.md)
+
 > 想了解这些库的由来，请阅读 JavaScript i18n 的发展史。
 
 - [JavaScript i18n 的发展史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/history_of_i18n.md)
@@ -56,6 +58,8 @@ TanStack Start 本身不包含 i18n 层。路由、语言检测、SEO 元数据�
 ## 关于 TanStack Start 上的 use-intl 基准测试数据
 
 [i18n 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md)使用各大主流国际化库运行了相同的 10 页面、10 种语言的 TanStack Start 应用，并测量了浏览器实际下载的内容。
+
+- [i18n 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md)
 
 <I18nBenchmark framework="tanstack" packages="use-intl,@intlayer/use-intl,intlayer" vertical/>
 
@@ -74,6 +78,8 @@ TanStack Start 本身不包含 i18n 层。路由、语言检测、SEO 元数据�
 - **运行时本身相对较重**（约 76 KB gzip），因为 ICU 解析器需要打包发送到客户端。使用 `@intlayer/use-intl` 兼容适配器（步骤 17）可以在保持完全相同 API 的同时，将运行时体积缩减至约 7 KB。
 
 > 查看完整数据：[TanStack Start 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md) 以及 [基准测试仓库](https://github.com/intlayer-org/benchmark-i18n)。
+
+- [TanStack Start 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md)
 
 ## TanStack Start 上的功能特性对比
 
@@ -98,6 +104,8 @@ TanStack Start 本身不包含 i18n 层。路由、语言检测、SEO 元数据�
 | **CI 中检测缺失翻译**                 | ✅ `npx intlayer test`               | ⚠️ 未内置                  | ⚠️ 未内置                   | ✅ `lingui compile --strict` |
 
 > 运行时体积和代码泄露数据来自 [TanStack Start 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md)。泄露率基于每个库的最佳配置进行测量。
+
+- [TanStack Start 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md)
 
 > 其他 TanStack Start 指南：
 
@@ -974,6 +982,8 @@ export const startInstance = createStart(() => ({
 
 基准测试表明，use-intl 配置中最重的是其运行时本身（约 76 KB gzip）。[`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/index.md) 兼容适配器提供了**完全相同的 API**（`useTranslations`、`useFormatter`、`IntlProvider`、`createTranslator`、ICU 复数、`t.rich`），但由预编译的 Intlayer 字典驱动：**体积从约 75.9 KB 降至约 6.7 KB**，0% 语言泄露，0% 页面泄露，且无需修改组件代码。
 
+- [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/index.md)
+
 ```bash packageManager="npm"
 npm install @intlayer/use-intl intlayer @intlayer/sync-json-plugin
 npx intlayer init
@@ -1034,7 +1044,11 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
+- [sync JSON 插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/plugins/sync-json.md)
+
 > 该适配器也是平滑迁移的理想路径：一旦运行成功，你可以逐步将组件迁移到原生的 `useIntlayer` API。详情请参阅 [Intlayer TanStack Start 指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_tanstack.md)。
+
+- [Intlayer TanStack Start 指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_tanstack.md)
 
 </Step>
 <Step number={18} title="预渲染所有语言页面" isOptional={true}>
@@ -1142,6 +1156,8 @@ use-intl 负责渲染翻译，但无法帮助你**生成**翻译内容。Intlaye
 
 要了解所有功能，请参阅[为什么选择 Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/interest_of_intlayer.md)。
 
+- [为什么选择 Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/interest_of_intlayer.md)
+
 </Step>
 </Steps>
 
@@ -1152,6 +1168,8 @@ use-intl 负责渲染翻译，但无法帮助你**生成**翻译内容。Intlaye
 <Question title="use-intl 是 TanStack Start 的好选择吗？">
 
 是的，如果你希望在 Next.js 之外使用 `next-intl` 的 API。它为你提供了 ICU 消息、格式化工具以及良好的 TypeScript 支持，并且避免了像 `setRequestLocale` 这样的 Next.js 专属限制。其主要权衡是体积：[基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md)测得其运行时约为 76 KB gzip，且朴素的配置会将所有语言和页面的消息一次性发送到浏览器。按路由和按语言拆分加载命名空间（如本指南所示）可以避免代码泄露。
+
+- [基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md)
 
 </Question>
 <Question title="use-intl 与 next-intl 有什么区别？">
@@ -1173,6 +1191,8 @@ use-intl 负责渲染翻译，但无法帮助你**生成**翻译内容。Intlaye
 
 首先，按命名空间拆分消息，并在每个路由中通过 `import.meta.glob` 按需加载对应语言，这可以消除语言和页面的代码泄露。其次，如果运行时体积很关键，可以切换到 [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/index.md) 适配器：API 完全相同，在基准测试中体积由约 75.9 KB 降至约 6.7 KB。
 
+- [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/index.md)
+
 </Question>
 <Question title="如何使用 use-intl 翻译标题和 meta description？">
 
@@ -1182,6 +1202,9 @@ use-intl 负责渲染翻译，但无法帮助你**生成**翻译内容。Intlaye
 <Question title="我可以从 use-intl 渐进式迁移到 Intlayer 吗？">
 
 可以。首先安装兼容适配器（步骤 17）：你的组件继续调用 `useTranslations`，底层由 Intlayer 提供支持。然后逐步将组件迁移到 `useIntlayer`，并在组件旁声明内容。请参阅[兼容适配器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/index.md)和 [Intlayer TanStack Start 指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_tanstack.md)。
+
+- [兼容适配器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/index.md)
+- [Intlayer TanStack Start 指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_tanstack.md)
 
 </Question>
 

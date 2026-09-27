@@ -78,6 +78,9 @@ Intlayer는 콘텐츠 선언(`.content.ts`)을 라우트 로직과 같은 위치
 
 코드 우선 워크플로 외에도 Intlayer는 자체 호스팅 가능한 [비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md) 및 [원격 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)를 제공하여 비개발자인 편집자와 번역가가 코드를 다시 배포하지 않고도 콘텐츠를 업데이트할 수 있습니다.
 
+- [비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)
+- [원격 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)
+
 </Accordion>
 </AccordionGroup>
 
@@ -204,6 +207,8 @@ module.exports = config;
 
 > 추가 구성 설정은 [구성 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참조하세요.
 
+- [구성 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)
+
 </Step>
 <Step number={3} title="다국어 콘텐츠 선언">
 
@@ -240,6 +245,8 @@ export default homeContent;
 ```
 
 > Intlayer는 JSON, YAML 및 CommonJS 형식도 지원합니다. [콘텐츠 선언 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md)를 참조하세요.
+
+- [콘텐츠 선언 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md)
 
 </Step>
 <Step number={4} title="Intlayer 사전 빌드">
@@ -288,6 +295,8 @@ const { title } = useIntlayer("home");
 `useIntlayer("home", "fr")` 또는 `useIntlayer("faq", { item: 2 })`는 단일 호출에 대해 요청 로케일을 재정의하며, `useDictionary(homeContent)`는 키 대신 가져온 사전을 읽습니다. 요청 외부에서 훅은 기본 로케일로 대체됩니다.
 
 > 미들웨어는 서버 시작 시 Intlayer 사전도 준비하므로 `intlayer build`가 누락되어도 레지스트리가 비어 있지 않습니다.
+
+> `intlayer.config.ts`에서 `routing.enableProxy: false`를 설정하면 로케일 해석만 유지하고 라우팅은 직접 처리할 수 있습니다. `intlayer({ ignore })`는 일치하는 요청(예: API 접두사)을 그대로 두며, `intlayer({ isDevServer })`는 기본 `enableProxy` 자동 모드에서 저장된 로케일이 리디렉션을 결정할지 여부를 제어합니다.
 
 </Step>
 <Step number={6} title="타입 안전한 라우트 정의">

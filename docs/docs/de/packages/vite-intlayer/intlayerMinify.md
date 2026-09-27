@@ -31,6 +31,8 @@ author: aymericzip
 
 > Das Plugin ist bereits automatisch enthalten und konfiguriert, wenn Sie [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/vite-intlayer/intlayer.md) verwenden. Sie müssen es nur dann manuell registrieren, wenn Sie den Plugin-Stack selbst zusammenstellen.
 
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/vite-intlayer/intlayer.md)
+
 ## Verwendung
 
 ```ts
@@ -63,8 +65,8 @@ Wenn `editor.enabled` auf `true` steht, läuft das Plugin weiterhin, **überspri
 
 Das Plugin zielt auf zwei Wörterbuchverzeichnisse ab (wie in `intlayer.system` aufgelöst):
 
-- `dictionariesDir` — statische Wörterbücher für alle Sprachen (z. B. `.intlayer/dictionaries/*.json`)
-- `dynamicDictionariesDir` — dynamische Wörterbücher pro Sprache
+- `dictionariesDir`: statische Wörterbücher für alle Sprachen (z. B. `.intlayer/dictionaries/*.json`)
+- `dynamicDictionariesDir`: dynamische Wörterbücher pro Sprache
 
 > Wörterbücher im Fetch-Modus (`fetchDictionariesDir`) werden **nie** minifiziert, da sie zur Laufzeit von einer Remote-API unter ihren ursprünglichen Feldnamen bereitgestellt werden. Das Umbenennen von Feldern würde eine Diskrepanz zwischen der Serverantwort und den clientseitigen Eigenschaftszugriffen verursachen.
 
@@ -86,7 +88,7 @@ Interne Intlayer-Felder (`nodeType`, `translation` usw.) werden niemals umbenann
 
 ## Edge-Case-Wörterbücher
 
-Wörterbücher, die in `pruneContext.dictionariesWithEdgeCases` gekennzeichnet sind (strukturelle Anomalien, die während der Prune-Phase festgestellt wurden), werden vollständig übersprungen — weder minifiziert noch maskiert —, um die Auslieferung fehlerhafter Daten zu vermeiden.
+Wörterbücher, die in `pruneContext.dictionariesWithEdgeCases` gekennzeichnet sind (strukturelle Anomalien, die während der Prune-Phase festgestellt wurden), werden vollständig übersprungen, weder minifiziert noch maskiert, um die Auslieferung fehlerhafter Daten zu vermeiden.
 
 ## Qualifizierte Gruppen (Sammlungen / Varianten / Meta-Einträge)
 

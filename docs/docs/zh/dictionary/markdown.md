@@ -142,12 +142,12 @@ Intlayer 支持使用 Markdown 语法定义的富文本内容。这使您可以�
 Intlayer 提供两种独立的方式来渲染 Markdown：
 
 1. **通过 `useIntlayer`**
-   — Intlayer 会自动将 `md` 节点转换为框架的原生输出（JSX，VNode，HTML 字符串）。
-   - Frontmatter 被解析并作为 `.metadata` 暴露。您可以在两个级别上覆盖渲染 — 使用 `MarkdownProvider`（或框架等效物）进行全局覆盖，或使用 `.use()` 针对每个节点进行局部覆盖。两者可以结合使用；`.use()` 优先于 `MarkdownProvider`，而 `MarkdownProvider` 优先于默认渲染。
+   Intlayer 会自动将 `md` 节点转换为框架的原生输出（JSX，VNode，HTML 字符串）。
+   - Frontmatter 被解析并作为 `.metadata` 暴露。您可以在两个级别上覆盖渲染，使用 `MarkdownProvider`（或框架等效物）进行全局覆盖，或使用 `.use()` 针对每个节点进行局部覆盖。两者可以结合使用；`.use()` 优先于 `MarkdownProvider`，而 `MarkdownProvider` 优先于默认渲染。
 
-2. **辅助实用程序** — `<MarkdownRenderer />`，`useMarkdownRenderer()` 和 `renderMarkdown()` 是独立的工具，**仅接受原始 Markdown 字符串**。它们独立于 `useIntlayer`，不与它返回的修饰节点一起工作。
+2. **辅助实用程序**：`<MarkdownRenderer />`，`useMarkdownRenderer()` 和 `renderMarkdown()` 是独立的工具，**仅接受原始 Markdown 字符串**。它们独立于 `useIntlayer`，不与它返回的修饰节点一起工作。
 
-Markdown 渲染支持 **MDX** — 在您的 Markdown 中直接按名称使用任何 JSX/框架组件。
+Markdown 渲染支持 **MDX**，在您的 Markdown 中直接按名称使用任何 JSX/框架组件。
 
 ### 1. 自动渲染（通过 `useIntlayer`）
 
@@ -864,7 +864,7 @@ Markdown 渲染支持 **MDX** — 在您的 Markdown 中直接按名称使用任
 
 ## 使用 `MarkdownProvider` 进行全局配置
 
-`MarkdownProvider`（或其框架对应的组件）为整个应用程序配置 Markdown 渲染管道。它适用于自动 `useIntlayer` 渲染和辅助实用程序。此处设置的选项为默认值 — `.use()` 在节点级别将其覆盖。
+`MarkdownProvider`（或其框架对应的组件）为整个应用程序配置 Markdown 渲染管道。它适用于自动 `useIntlayer` 渲染和辅助实用程序。此处设置的选项为默认值，`.use()` 在节点级别将其覆盖。
 
 <Tabs group="framework">
   <Tab label="React" value="react">
@@ -886,7 +886,7 @@ Markdown 渲染支持 **MDX** — 在您的 Markdown 中直接按名称使用任
     ```
 
 
-    > 支持 MDX — Markdown 内部使用的任何组件名称（例如 `<MyCustomJSXComponent />`）都会根据 `components` 映射进行解析。
+    > 支持 MDX，Markdown 内部使用的任何组件名称（例如 `<MyCustomJSXComponent />`）都会根据 `components` 映射进行解析。
 
     您还可以使用自己的 markdown 渲染器：
 
@@ -928,7 +928,7 @@ Markdown 渲染支持 **MDX** — 在您的 Markdown 中直接按名称使用任
     ```
 
 
-    > 支持 MDX — Markdown 内部使用的任何组件名称（例如 `<MyCustomJSXComponent />`）都会根据 `components` 映射进行解析。
+    > 支持 MDX，Markdown 内部使用的任何组件名称（例如 `<MyCustomJSXComponent />`）都会根据 `components` 映射进行解析。
 
     您还可以使用自己的 markdown 渲染器：
 
@@ -976,7 +976,7 @@ Markdown 渲染支持 **MDX** — 在您的 Markdown 中直接按名称使用任
     ```
 
 
-    > 支持 MDX — Markdown 内部使用的任何组件名称（例如 `<MyCustomJSXComponent />`）都会根据 `components` 映射进行解析。
+    > 支持 MDX，Markdown 内部使用的任何组件名称（例如 `<MyCustomJSXComponent />`）都会根据 `components` 映射进行解析。
 
     您还可以使用自己的 markdown 渲染器：
 
@@ -1020,7 +1020,7 @@ Markdown 渲染支持 **MDX** — 在您的 Markdown 中直接按名称使用任
     ```
 
 
-    > 支持 MDX — Markdown 内部使用的任何组件名称（例如 `<MyCustomJSXComponent />`）都会根据 `components` 映射进行解析。
+    > 支持 MDX，Markdown 内部使用的任何组件名称（例如 `<MyCustomJSXComponent />`）都会根据 `components` 映射进行解析。
 
     您还可以使用自己的 markdown 渲染器：
 
@@ -1059,7 +1059,7 @@ Markdown 渲染支持 **MDX** — 在您的 Markdown 中直接按名称使用任
     ```
 
 
-    > 支持 MDX — Markdown 内部使用的任何组件名称（例如 `<MyCustomJSXComponent />`）都会根据 `components` 映射进行解析。
+    > 支持 MDX，Markdown 内部使用的任何组件名称（例如 `<MyCustomJSXComponent />`）都会根据 `components` 映射进行解析。
 
     您还可以使用自己的 markdown 渲染器：
 
@@ -1098,7 +1098,7 @@ Markdown 渲染支持 **MDX** — 在您的 Markdown 中直接按名称使用任
     ```
 
 
-    > 支持 MDX — Markdown 内部使用的任何组件名称（例如 `<MyCustomJSXComponent />`）都会根据 `components` 映射进行解析。
+    > 支持 MDX，Markdown 内部使用的任何组件名称（例如 `<MyCustomJSXComponent />`）都会根据 `components` 映射进行解析。
 
     您还可以使用自己的 markdown 渲染器：
 
@@ -1136,7 +1136,7 @@ Markdown 渲染支持 **MDX** — 在您的 Markdown 中直接按名称使用任
     };
     ```
 
-    > 支持 MDX — 任何在 Markdown 中使用的组件名称（例如 `<MyCustomJSXComponent />`）都会根据 `components` map 进行解析。
+    > 支持 MDX，任何在 Markdown 中使用的组件名称（例如 `<MyCustomJSXComponent />`）都会根据 `components` map 进行解析。
 
 你也可以使用自己的 markdown 渲染器：
 

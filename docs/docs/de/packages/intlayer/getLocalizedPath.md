@@ -32,7 +32,9 @@ author: aymericzip
 
 Die Funktion `getLocalizedPath` wandelt einen kanonischen Pfad (interner Anwendungs-Pfad) in sein lokalisiertes Äquivalent um, basierend auf der angegebenen Locale und den Rewrite-Regeln. Sie ist besonders nützlich, um SEO-freundliche URLs zu erzeugen, die je nach Sprache variieren.
 
-Es ist das relative Gegenstück zu [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/intlayer/getLocalizedUrl.md) — für eine relative Eingabe geben beide den gleichen Wert zurück. Im Gegensatz zu `getLocalizedUrl` gibt es niemals eine absolute URL zurück: die `domains`-Konfiguration wird ignoriert, daher ergibt eine Locale, die von ihrer eigenen Domain bedient wird, immer noch einen Pfad. Eine absolute Eingabe wird akzeptiert, aber ihr Ursprung wird verworfen — nur ihr Pfad, Query String und Hash werden beibehalten.
+Es ist das relative Gegenstück zu [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/intlayer/getLocalizedUrl.md), für eine relative Eingabe geben beide den gleichen Wert zurück. Im Gegensatz zu `getLocalizedUrl` gibt es niemals eine absolute URL zurück: die `domains`-Konfiguration wird ignoriert, daher ergibt eine Locale, die von ihrer eigenen Domain bedient wird, immer noch einen Pfad. Eine absolute Eingabe wird akzeptiert, aber ihr Ursprung wird verworfen, nur ihr Pfad, Query String und Hash werden beibehalten.
+
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/intlayer/getLocalizedUrl.md)
 
 **Wesentliche Merkmale:**
 
@@ -96,6 +98,8 @@ const home = getLocalizedPath("/", Locales.FRENCH);
 ```
 
 Die gleiche Eingrenzung fließt in [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/intlayer/getLocalizedUrl.md), die die Rewrite-Regeln anwendet, bevor das Locale-Präfix hinzugefügt wird.
+
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/intlayer/getLocalizedUrl.md)
 
 Zwei Fälle bleiben zu `string` verbreitert, da sie zur Compile-Zeit nicht aufgelöst werden können:
 

@@ -90,6 +90,8 @@ style="border:none;"
 
 > Getestet in realen Browserumgebungen mit Gzip-Kompression. Vollständige Daten im [Next.js-Benchmark-Bericht](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/nextjs.md).
 
+- [Next.js-Benchmark-Bericht](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/nextjs.md)
+
 ### Basis-Overhead
 
 Client-Overhead vor dem Laden von Texten:
@@ -138,6 +140,8 @@ Das folgende Diagramm schätzt die Payload für eine theoretische App mit 1 bis 
 
 Intlayer löst dies per statischer Analyse: Der [Intlayer-Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compiler.md) bündelt exakt die Texte, die auf der jeweiligen Route benötigt werden. Die Leakage sinkt auf **0.0%**.
 
+- [Intlayer-Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compiler.md)
+
 ## Warum next-intl Tree-Shaking verhindert
 
 Die Schnittstelle verlässt sich auf dynamische Aufrufe per String-Schlüssel:
@@ -176,6 +180,8 @@ export function UserProfile() {
 </Tabs>
 
 Weder Turbopack noch Webpack können zur Build-Zeit prüfen, welche Schlüssel in `UserProfile` tatsächlich aufgerufen werden. Um Ausfälle zu vermeiden, **muss der Bundler den gesamten Namespace in den Client-Chunk packen**. Intlayers destrukturierte Eigenschaften ermöglichen es dem Compiler, Referenzen nachzuverfolgen und ungenutzte Texte auszusortieren. Siehe [Bundle-Optimierung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/bundle_optimization.md).
+
+- [Bundle-Optimierung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/bundle_optimization.md)
 
 ## Entwicklererfahrung
 
@@ -276,6 +282,8 @@ Es prüft jedoch nur die Primärsprache. Fehlt ein Schlüssel in `de.json`, meld
 
 Intlayer leitet Typen aus allen Deklarationen ab. Mit aktiviertem [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md) führt jede fehlende Übersetzung zu einem Build-Fehler.
 
+- [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md)
+
 ### Tooling & KI-Workflows
 
 | Feature                         | `next-intl` | Intlayer                                                                                                              |
@@ -301,6 +309,8 @@ Erkennt und übersetzt fehlende Texte automatisch mit eigenen API-Schlüsseln (O
 **Selbst hostbares visuelles CMS:**
 
 Ermöglicht Redakteuren im [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md) visuelles Bearbeiten mit direktem Git-Commit.
+
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md)
 
 **Permissive Open-Source-Lizenz:**
 

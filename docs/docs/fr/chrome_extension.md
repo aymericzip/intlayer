@@ -120,6 +120,11 @@ La détection repose sur ce que la page expose dans le navigateur : variables gl
 
 La plupart des vérifications correspondent à un paramètre de routage ou de métadonnées. Avec Intlayer, hreflang, canonique, `x-default`, liens localisés, sitemap et robots.txt sont générés à partir de votre [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md). Consultez le guide d'intégration correspondant à votre framework, par exemple [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_nextjs_16.md), [Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_nuxt.md) ou [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_tanstack.md).
 
+- [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md)
+- [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_nextjs_16.md)
+- [Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_nuxt.md)
+- [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_tanstack.md)
+
 </Question>
 
 </FAQ>

@@ -104,6 +104,8 @@ bun add intlayer-cli -g
 
 `intlayer-cli` প্যাকেজটি আপনার [Intlayer ঘোষণাগুলো](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/dictionary/content_file.md) ডিকশনারিতে ট্রান্সপাইল করার জন্য ডিজাইন করা হয়েছে।
 
+- [Intlayer ঘোষণাগুলো](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/dictionary/content_file.md)
+
 এই প্যাকেজটি সমস্ত Intlayer ফাইল ট্রান্সপাইল করে, যেমন: `src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}`. [দেখুন কীভাবে আপনার Intlayer ঘোষণা ফাইলগুলো ঘোষণা করবেন](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md)।
 
 Intlayer ডিকশনারিগুলো ব্যাখ্যা করার জন্য আপনি ইন্টারপ্রেটার ব্যবহার করতে পারেন, যেমন: [react-intlayer](https://www.npmjs.com/package/react-intlayer) বা [next-intlayer](https://www.npmjs.com/package/next-intlayer)।
@@ -120,6 +122,8 @@ Intlayer একাধিক কনফিগারেশন ফাইল ফর�
 - `.intlayerrc`
 
 উপলব্ধ ভাষা বা অন্যান্য প্যারামিটার কীভাবে কনফিগার করবেন তা জানতে, [এখানে কনফিগারেশন ডকুমেন্টেশন](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/configuration.md) দেখুন।
+
+- [এখানে কনফিগারেশন ডকুমেন্টেশন](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/configuration.md)
 
 ## Intlayer কমান্ড চালানো
 

@@ -87,6 +87,8 @@ const MyComponent = () => {
 
 > Intlayerのすべての機能を見るには、[辞書ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)を参照してください。
 
+- [辞書ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)
+
 ## 遠隔コンテンツ
 
 Intlayerを使用すると、コンテンツをローカルで宣言し、それをCMSにエクスポートして非技術的なチームが編集できるようにすることができます。
@@ -98,6 +100,8 @@ CMSを使用して外部化された辞書の場合、Intlayerは基本的なフ
 ## ビジュアルエディタ
 
 Intlayerは、視覚的にコンテンツを編集できるビジュアルエディタも提供しています。この[ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)は、外部の`intlayer-editor`パッケージで利用可能です。
+
+- [ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)
 
 ![ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif?raw=true)
 
@@ -120,11 +124,15 @@ BabelおよびSWCプラグインは、アプリケーションの抽象構文木
 
 [設定](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)で`importMode = "dynamic"`オプションを有効にすると、Intlayerは動的インポートを使用して辞書をロードします。このオプションは、アプリケーションのレンダリング時に非同期処理を回避するためにデフォルトで無効になっています。
 
+- [設定](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)
+
 > `@intlayer/babel`は`vite-intlayer`パッケージでデフォルトで利用可能です。
 
 > `@intlayer/swc`は、Next.jsでSWCプラグインがまだ実験的であるため、`next-intlayer`パッケージにはデフォルトでインストールされていません。
 
 アプリケーションのビルドを設定する方法については、[設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を参照してください。
+
+- [設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)
 
 ## パッケージ
 
@@ -347,22 +355,38 @@ Expressに基づいたサーバーは、ビジュアルエディターのリク�
 
 名前空間ベースのセットアップよりもはるかに少ないです。なぜなら、ページはレンダリングしないカタログをダウンロードすることがないからです。サーバーレンダリングされたマークアップはサーバー上でそのコンテンツを解決し、ビルド時コンパイラは `useIntlayer` の呼び出しをコンポーネントが使用する正確な辞書エントリに置き換えるため、未使用のキーや未使用の言語は削除されます。[動的辞書](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/index.md)は、残りをロケールごとに分割します。一般的な代替手段と比較して、Intlayerはbundleとページサイズを最大50%削減します。[bundle最適化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)と[ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/index.md)を参照してください。
 
+- [動的辞書](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/index.md)
+- [bundle最適化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)
+- [ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/index.md)
+
 </Question>
 <Question title="コンポーネントを書き直さずに、`i18next`、`next-intl`、`react-i18next` から移行できますか？">
 
 はい、2つの方法があります。[i18next移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_i18next_to_intlayer.md)または[next-intl移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_next-intl_to_intlayer.md)を使用して、コンテンツを段階的に移行できます。または、現在のAPIを完全に維持することもできます。[互換アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/index.md)は、`i18next`、`react-i18next`、`next-intl`、`next-i18next`、`react-intl`、`use-intl`、`vue-i18n`、`Lingui` とまったく同じAPIを公開しますが、Intlayer辞書によって提供されるため、importは変更されますが、コンポーネントコードは変更されません。
+
+- [i18next移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_i18next_to_intlayer.md)
+- [next-intl移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_next-intl_to_intlayer.md)
+- [互換アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/index.md)
 
 </Question>
 <Question title="既存のJSON翻訳ファイルを維持できますか？">
 
 はい。[sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md)は、`/messages/{locale}/{namespace}.json` ファイルを信頼できる情報源として保持し、それらからIntlayer辞書を双方向に生成します。[sync PO plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-po.md)はgettextカタログに対しても同様の処理を行い、[ロケールごとのファイル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/per_locale_file.md)を使用すると、1つのファイルにロケールをグループ化する代わりに、言語ごとにコンテンツを分割できます。
 
+- [sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md)
+- [sync PO plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-po.md)
+- [ロケールごとのファイル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/per_locale_file.md)
+
 </Question>
 <Question title="コンテンツをキーごとに移動する必要がありますか？">
 
 いいえ。`npx intlayer extract` を実行すると、Intlayerはソースファイルを読み取り、ユーザー向けの文字列を抽出し、それぞれの隣に `.content` ファイルを書き込みます。これにより、文字列をカタログに1つずつコピーする代わりに、差分を確認できます。[extractコマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md)を参照してください。
 
+- [extractコマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md)
+
 完全に自動化されたパイプラインの場合、[Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)は、JSX、TSX、Vue、Svelteのソースに対してビルド時に同じ処理を行い、変更があるたびに辞書を生成するため、手動でキーを管理する必要がありません。これは静的解析によって機能するため、ランタイム時にのみ存在する文字列は対象外となり、ユーザー向けのテキストとアプリケーションロジックを区別するためにいくつかのannotationが必要です。
+
+- [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)
 
 </Question>
 <Question title="利用可能なエディターおよびAIエージェントツールは何ですか？">
@@ -385,10 +409,14 @@ Expressに基づいたサーバーは、ビジュアルエディターのリク�
 
 `routing.storage` にリストされているソースから、次の順序で決定されます: `routing.mode` がURL prefixを使用する場合のそれ、次にcookie、次に`Accept-Language` header、そしてデフォルトのロケールです。ユーザーが明示的に選択したロケールは永続化され、次回の訪問時にも維持されます。[設定リファレンス](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を参照してください。
 
+- [設定リファレンス](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)
+
 </Question>
 <Question title="ローカル辞書とリモート辞書の違いは何ですか？">
 
 ローカル辞書はコードベースで宣言され、アプリケーションとともにコンパイルされます。リモート辞書は[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)で管理され、ランタイム時に解決されるため、デプロイなしで変更できます。どちらも同じhooksを通じて読み取られ、リモートコンテンツが利用できない場合はローカル宣言にフォールバックします。
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)
 
 </Question>
 <Question title="IntlayerはTypeScriptなしで動作しますか？">
@@ -409,6 +437,9 @@ Expressに基づいたサーバーは、ビジュアルエディターのリク�
 <Question title="翻訳を追加するたびに再ビルドする必要がありますか？">
 
 開発環境では、いいえ。pluginはコンテンツファイルを監視し、保存時に影響を受ける辞書を再ビルドします。本番環境では、コンテンツがリモートでない限り、辞書はビルドの一部です。リモートコンテンツの場合は、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)と[live sync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/live.md)がデプロイなしで変更を適用します。
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)
+- [live sync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/live.md)
 
 </Question>
 

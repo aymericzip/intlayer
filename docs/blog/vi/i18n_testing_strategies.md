@@ -31,6 +31,9 @@ Mọi mẫu bên dưới đều hoạt động trên bất kỳ stack i18n nào.
 
 Công cụ kiểm tra độ bao phủ cũng có thể chuyển đổi dễ dàng: với [plugin Sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/plugins/sync-json.md) trỏ vào các danh mục hiện có, hoặc một [adapter tương thích](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/index.md) đặt bí danh cho các import hiện tại, xác nhận độ bao phủ sẽ chạy trực tiếp trên file JSON bạn đang có.
 
+- [plugin Sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/plugins/sync-json.md)
+- [adapter tương thích](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/index.md)
+
 ## Xác định những gì bạn thực sự đang kiểm thử
 
 Chất lượng dịch thuật không thể kiểm tra bằng mã test. Không có assertion nào có thể cho bạn biết tiếng Đức có tự nhiên hay không, và cố gắng làm điều đó chỉ khiến bộ test ngập tràn các chuỗi hardcode.
@@ -46,6 +49,8 @@ Những gì máy móc có thể và đáng để kiểm thử:
 | Ngày và số được định dạng theo đúng locale | Tính chính xác nội bộ của `Intl` |
 
 Độ bao phủ nên được kiểm tra trong một bài test hướng dữ liệu duy nhất, không phải trong bài test component. Điều này được thảo luận trong [cách phát hiện bản dịch còn thiếu](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/detecting_missing_translations.md); bài viết này tập trung vào phần còn lại.
+
+- [cách phát hiện bản dịch còn thiếu](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/detecting_missing_translations.md)
 
 ## Render dưới Provider và truy vấn theo Role
 
@@ -122,6 +127,8 @@ describe.each([0, 1, 2, 3, 11, 100])("số lượng %i", (count) => {
 ```
 
 Hãy chọn các con số tương ứng với từng danh mục CLDR cho ngôn ngữ phức tạp nhất của bạn thay vì chỉ thử 1 và 2 ở mọi nơi. `Intl.PluralRules` cho biết một số rơi vào danh mục nào, giúp bạn xây dựng tập mẫu mà không phải đoán mò. Xem thêm về các danh mục trong [bài viết về định dạng thông điệp ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/icu_message_format.md).
+
+- [bài viết về định dạng thông điệp ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/icu_message_format.md)
 
 ## Cái bẫy của Snapshot test
 

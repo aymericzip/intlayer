@@ -39,6 +39,8 @@ bun x intlayer pull
 
 [Intlayerエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)がインストールされている場合、エディターからも辞書をプルできます。この方法で、アプリケーションのニーズに合わせて辞書の内容を上書きすることが可能です。
 
+- [Intlayerエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)
+
 ## エイリアス:
 
 - `npx intlayer dictionaries pull`

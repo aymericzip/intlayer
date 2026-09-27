@@ -60,6 +60,8 @@ Intlayer membedakan antara kamus 'lokal' dan 'remote'.
 
 [Editor Visual Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) adalah alat yang memungkinkan Anda mengelola konten Anda dalam editor visual untuk kamus lokal. Setelah perubahan dilakukan, konten akan diganti dalam code-base. Itu berarti aplikasi akan dibangun ulang dan halaman akan dimuat ulang untuk menampilkan konten baru.
 
+- [Editor Visual Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md)
+
 Sebaliknya, Intlayer CMS adalah alat yang memungkinkan Anda mengelola konten Anda dalam editor visual untuk kamus jarak jauh. Setelah perubahan dilakukan, konten **tidak** akan memengaruhi code-base Anda. Dan situs web akan secara otomatis menampilkan konten yang telah diubah.
 
 ## Integrasi
@@ -70,13 +72,19 @@ Untuk detail lebih lanjut tentang cara menginstal paket, lihat bagian terkait di
 
 Untuk integrasi dengan Next.js, lihat [panduan pengaturan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_15.md).
 
+- [Next.js 15 i18n - Panduan lengkap menerjemahkan aplikasi Anda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_15.md)
+
 ### Integrasi dengan Create React App
 
 Untuk integrasi dengan Create React App, lihat [panduan pengaturan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_create_react_app.md).
 
+- [i18n Create React App: panduan terjemahan lengkap](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_create_react_app.md)
+
 ### Integrasi dengan Vite + React
 
 Untuk integrasi dengan Vite + React, lihat [panduan pengaturan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_vite+react.md).
+
+- [Vite + React i18n - Panduan lengkap menerjemahkan aplikasi Anda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_vite+react.md)
 
 ## Konfigurasi
 
@@ -156,6 +164,8 @@ export default config;
 > Jika Anda belum memiliki client ID dan client secret, Anda dapat memperolehnya dengan membuat client baru di [Intlayer Dashboard - Projects](https://app.intlayer.org/projects).
 
 > Untuk melihat semua parameter yang tersedia, lihat [dokumentasi konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md).
+
+- [dokumentasi konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md)
 
 ## Menggunakan CMS
 
@@ -271,10 +281,10 @@ bun add @intlayer/api
 
 SDK dibagi menjadi **dua import terpisah** dengan tujuan, untuk membuat bundle Anda tetap kecil:
 
-1. `createIntlayerCMS` — membuat **authenticator** yang ringan. Ini hanya membawa kredensial dan token akses yang dikelola; ia tidak mengetahui apa pun tentang domain tertentu.
-2. `dictionaryEndpoint`, `projectEndpoint`, … — **endpoint binders** per-domain, masing-masing diimpor dari subpath-nya sendiri (`@intlayer/api/dictionary`, `@intlayer/api/project`, …). Anda melewatkan authenticator ke endpoint yang Anda butuhkan.
+1. `createIntlayerCMS`: membuat **authenticator** yang ringan. Ini hanya membawa kredensial dan token akses yang dikelola; ia tidak mengetahui apa pun tentang domain tertentu.
+2. `dictionaryEndpoint`, `projectEndpoint`, …, **endpoint binders** per-domain, masing-masing diimpor dari subpath-nya sendiri (`@intlayer/api/dictionary`, `@intlayer/api/project`, …). Anda melewatkan authenticator ke endpoint yang Anda butuhkan.
 
-Karena setiap endpoint diimpor secara terpisah, bundle Anda hanya mencakup domain yang benar-benar Anda gunakan — mengimpor `dictionaryEndpoint` tidak akan pernah menarik klien project, AI, atau domain lainnya.
+Karena setiap endpoint diimpor secara terpisah, bundle Anda hanya mencakup domain yang benar-benar Anda gunakan, mengimpor `dictionaryEndpoint` tidak akan pernah menarik klien project, AI, atau domain lainnya.
 
 ```typescript fileName="cms.ts" codeFormat="typescript"
 import { createIntlayerCMS } from "@intlayer/api";
@@ -380,7 +390,7 @@ await dictionaryEndpoint(cmsAuthenticator).updateDictionary({
 
 ### Mengekstrak satu method
 
-Setiap endpoint method sudah terauthentikasi dan standalone (membawa penanganan token-nya sendiri), jadi Anda dapat mengekstraknya dan meneruskannya — misalnya untuk melakukannya sebagai dependency:
+Setiap endpoint method sudah terauthentikasi dan standalone (membawa penanganan token-nya sendiri), jadi Anda dapat mengekstraknya dan meneruskannya, misalnya untuk melakukannya sebagai dependency:
 
 ```typescript fileName="push.ts" codeFormat="typescript"
 import { createIntlayerCMS } from "@intlayer/api";
@@ -388,7 +398,7 @@ import { dictionaryEndpoint } from "@intlayer/api/dictionary";
 
 const dictionary = dictionaryEndpoint(createIntlayerCMS());
 
-// Sudah terauthentikasi — menyegarkan token secara otomatis pada setiap panggilan
+// Sudah terauthentikasi, menyegarkan token secara otomatis pada setiap panggilan
 export const pushDictionaries = dictionary.pushDictionaries;
 
 // Penggunaan
@@ -401,6 +411,8 @@ Sinkronisasi Langsung memungkinkan aplikasi Anda mencerminkan perubahan konten C
 
 Untuk panduan pengaturan lengkap (mengaktifkan, menjalankan server Live Sync, alur kerja pengembangan lokal, dan batasan), lihat [dokumentasi Live Sync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/live-sync.md).
 
+- [dokumentasi Live Sync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/live-sync.md)
+
 ## Self-Hosting
 
 Intlayer dapat berjalan sepenuhnya pada infrastruktur Anda sendiri. Satu baris perintah bootstrap stack lengkap (dashboard, API, database, object storage, dan email) dengan Docker Compose:
@@ -410,6 +422,8 @@ curl -fsSL https://intlayer.org/install.sh | sh
 ```
 
 Untuk panduan setup lengkap, referensi variabel environment, instruksi upgrade, dan prosedur backup/restore, lihat [Self-Hosting Guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/self_hosting.md).
+
+- [Self-Hosting Guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/self_hosting.md)
 
 ## Debug
 
@@ -434,27 +448,45 @@ Jika Anda mengalami masalah dengan CMS, periksa hal-hal berikut:
 
 [Editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) mengedit file kamus lokal di codebase Anda. CMS mengelola konten dari jarak jauh di server, memungkinkan pembaruan teks tanpa memerlukan deployment ulang kode aplikasi.
 
+- [Editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md)
+
 </Question>
 <Question title="Berapa banyak i18n menambah ukuran bundle saya?">
 
 Jauh lebih sedikit daripada pengaturan berbasis namespace, karena halaman tidak pernah mengunduh katalog yang tidak di-render. Markup yang dirender di server menyelesaikan kontennya di server, dan kompilator build time mengganti panggilan `useIntlayer` dengan entri kamus persis yang digunakan komponen, sehingga kunci dan bahasa yang tidak digunakan dibuang. [Kamus dinamis](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dynamic_dictionaries/index.md) membagi sisanya per locale. Dibandingkan dengan alternatif konvensional, Intlayer mengurangi ukuran bundle dan halaman hingga 50%. Lihat [optimasi bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/bundle_optimization.md) dan [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/index.md).
+
+- [Kamus dinamis](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dynamic_dictionaries/index.md)
+- [optimasi bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/bundle_optimization.md)
+- [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/index.md)
 
 </Question>
 <Question title="Bisakah saya bermigrasi dari i18next, next-intl atau react-i18next tanpa menulis ulang komponen saya?">
 
 Ya, dan ada dua jalur. Anda dapat memigrasikan konten secara bertahap dengan [panduan migrasi i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_i18next_to_intlayer.md) atau [panduan migrasi next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_next-intl_to_intlayer.md). Atau Anda dapat mempertahankan API Anda saat ini sepenuhnya: [adapter kompatibilitas](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/index.md) mengekspos API yang sama persis dengan `i18next`, `react-i18next`, `next-intl`, `next-i18next`, `react-intl`, `use-intl`, `vue-i18n` dan `Lingui`, tetapi ditenagai oleh kamus Intlayer, sehingga hanya import yang berubah dan kode komponen tetap sama.
 
+- [panduan migrasi i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_i18next_to_intlayer.md)
+- [panduan migrasi next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_next-intl_to_intlayer.md)
+- [adapter kompatibilitas](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/index.md)
+
 </Question>
 <Question title="Bisakah saya menyimpan file terjemahan JSON yang sudah ada?">
 
 Ya. Plugin [sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/plugins/sync-json.md) menjaga file `/messages/{locale}/{namespace}.json` Anda sebagai sumber kebenaran dan menghasilkan kamus Intlayer darinya, di kedua arah. Plugin [sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/plugins/sync-po.md) melakukan hal yang sama untuk katalog gettext, dan [file per locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/per_locale_file.md) memungkinkan Anda membagi konten berdasarkan bahasa daripada mengelompokkan lokal dalam satu file.
+
+- [sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/plugins/sync-json.md)
+- [sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/plugins/sync-po.md)
+- [file per locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/per_locale_file.md)
 
 </Question>
 <Question title="Apakah saya harus memindahkan konten saya key by key?">
 
 Tidak. Jalankan `npx intlayer extract` dan Intlayer membaca file sumber Anda, mengeluarkan string yang dihadapi pengguna, dan menulis file `.content` di sebelah masing-masing, sehingga Anda meninjau diff alih-alih menyalin string ke dalam katalog satu per satu. Lihat [perintah extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/extract.md).
 
+- [perintah extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/extract.md)
+
 Untuk alur kerja yang sepenuhnya otomatis, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md) melakukan hal yang sama saat build time pada kode JSX, TSX, Vue dan Svelte, menghasilkan kamus pada setiap perubahan sehingga tidak ada kunci yang perlu dikelola secara manual. Karena bekerja melalui analisis statis, string yang hanya ada di runtime berada di luar jangkauannya.
+
+- [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md)
 
 </Question>
 <Question title="Apa tooling editor dan agen AI yang tersedia?">
@@ -482,10 +514,14 @@ Aplikasi secara otomatis beralih ke deklarasi kamus lokal di codebase, sehingga 
 
 Ya. CMS dapat dijalankan di infrastruktur Anda sendiri untuk kebutuhan di mana konten tidak boleh keluar dari jaringan internal Anda. Lihat [panduan self-hosting](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/self_hosting.md).
 
+- [panduan self-hosting](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/self_hosting.md)
+
 </Question>
 <Question title="Apakah editor konten memerlukan developer untuk mempublikasikan perubahan?">
 
-Tidak. Itulah tujuan utama kamus remote: editor mengubah teks di CMS dan berkat fitur sinkronisasi langsung (live sync), situs langsung menampilkan pembaruan tersebut.
+Tidak. Itulah tujuan kamus remote: editor mengubah teks di CMS dan situs langsung mencerminkannya, dengan [sinkronisasi langsung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/live.md) yang menerapkan pembaruan saat runtime alih-alih menunggu build.
+
+- [sinkronisasi langsung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/live.md)
 
 </Question>
 <Question title="Bisakah saya mengotomatiskan CMS alih-alih menggunakan antarmuka?">
@@ -495,12 +531,17 @@ Ya. SDK `@intlayer/api` mengekspos endpoint yang sama dengan antarmuka, memungki
 </Question>
 <Question title="Apakah CMS mendukung pengujian A/B untuk terjemahan?">
 
-Ya. Kamus remote mendukung [varian konten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dynamic_dictionaries/index.md), memungkinkan Anda menguji berbagai versi teks pada kelompok audiens yang berbeda.
+Ya. Kamus remote mendukung [varian konten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dynamic_dictionaries/variants.md), dan [analitik](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/analytics.md) melaporkan bagaimana setiap varian ditampilkan, sehingga perubahan kata-kata dapat diukur alih-alih diperdebatkan.
+
+- [varian konten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dynamic_dictionaries/variants.md)
+- [analitik](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/analytics.md)
 
 </Question>
 <Question title="Apakah CMS gratis?">
 
-Library Intlayer, CLI, compiler, dan editor visual gratis dan open source di bawah lisensi Apache 2.0. CMS cloud adalah layanan berbayar, tetapi versi self-host dapat dijalankan secara gratis di server Anda sendiri.
+Library Intlayer, CLI, compiler, dan editor visual gratis dan open source di bawah lisensi Apache 2.0. CMS yang di-host adalah layanan berbayar opsional, dan sebagai gantinya dapat di-[self-host](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/self_hosting.md).
+
+- [self-host](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/self_hosting.md)
 
 </Question>
 

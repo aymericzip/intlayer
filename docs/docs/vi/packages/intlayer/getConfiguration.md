@@ -57,6 +57,8 @@ Hàm không nhận tham số nào. Thay vào đó, nó sử dụng các biến m
 
 Xem thêm [Tài liệu cấu hình Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md) để biết chi tiết.
 
+- [Tài liệu cấu hình Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md)
+
 ## Ví dụ sử dụng
 
 ### Lấy toàn bộ cấu hình

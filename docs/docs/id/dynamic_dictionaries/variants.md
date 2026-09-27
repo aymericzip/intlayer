@@ -23,7 +23,7 @@ history:
     changes: "Rilis fitur varian"
   - version: 9.1.0
     date: 2026-06-26
-    changes: "`variant` kini menerima string atau objek — `meta` / record dinamis sebelumnya dideklarasikan sebagai varian objek"
+    changes: "`variant` kini menerima string atau objek, `meta` / record dinamis sebelumnya dideklarasikan sebagai varian objek"
   - version: 9.1.1
     date: 2026-07-31
     changes: "Varian hanya mendeklarasikan kunci yang ditimpanya; varian yang tidak dideklarasikan akan kembali ke entri default"
@@ -39,8 +39,8 @@ Sebuah **varian** adalah sekumpulan file konten yang berbagi `key` kamus yang sa
 
 Nilai `variant` dapat berupa **dua bentuk**:
 
-- **String** — satu alternatif bernama (pengujian A/B, banner musiman, feature flag).
-- **Objek** — diskriminator terstruktur yang dialamatkan oleh sekumpulan field (record CMS, konten khusus pengguna, konten apa pun yang dikunci oleh ID buram). Seluruh objek adalah identitasnya: selektor harus memberikan objek yang **sama** untuk menyelesaikan entri.
+- **String**: satu alternatif bernama (pengujian A/B, banner musiman, feature flag).
+- **Objek**: diskriminator terstruktur yang dialamatkan oleh sekumpulan field (record CMS, konten khusus pengguna, konten apa pun yang dikunci oleh ID buram). Seluruh objek adalah identitasnya: selektor harus memberikan objek yang **sama** untuk menyelesaikan entri.
 
 > Bentuk objek menggantikan field `meta` sebelumnya. Di mana pun Anda dulu menulis `meta: { id, … }`, tulis `variant: { id, … }`, dan pilih dengan `{ variant: { id, … } }`.
 
@@ -74,8 +74,8 @@ const dictionary = {
   variant: "black_friday",
   content: {
     headline: t({
-      en: "50 % off — today only",
-      fr: "−50 % — aujourd'hui seulement",
+      en: "50 % off, today only",
+      fr: "−50 %, aujourd'hui seulement",
     }),
     cta: t({ en: "Shop now", fr: "Acheter maintenant" }),
   },
@@ -107,7 +107,7 @@ export default dictionary;
 
 ```tsx
 useIntlayer("hero-banner", { variant: "summer" });
-// → { headline: "Développez plus vite tout l'été", cta: "Commencer" } — `cta` diwarisi
+// → { headline: "Développez plus vite tout l'été", cta: "Commencer" }, `cta` diwarisi
 
 useIntlayer("hero-banner", { variant: "never-declared" });
 // → entri default
@@ -278,7 +278,7 @@ const content = useIntlayer("hero-banner", {
 
 ## Varian objek (terstruktur)
 
-Varian objek mengalamatkan konten dengan sekumpulan pasangan key-value sewenang-wenang yang dideklarasikan di field `variant` — memungkinkan pemodelan record CMS, konten khusus pengguna, atau konten apa pun yang kuncinya berupa ID buram. **Seluruh objek** adalah identitasnya: selektor harus memberikan objek yang sama agar entri diselesaikan.
+Varian objek mengalamatkan konten dengan sekumpulan pasangan key-value sewenang-wenang yang dideklarasikan di field `variant`, memungkinkan pemodelan record CMS, konten khusus pengguna, atau konten apa pun yang kuncinya berupa ID buram. **Seluruh objek** adalah identitasnya: selektor harus memberikan objek yang sama agar entri diselesaikan.
 
 ```ts fileName="product.abc.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
@@ -495,7 +495,7 @@ const content = useIntlayer("product", {
 });
 ```
 
-#### Field hilang — tidak cocok
+#### Field hilang, tidak cocok
 
 ```ts
 // Mengembalikan null: `userId` hilang, sehingga objek tidak cocok dengan varian yang dideklarasikan
@@ -504,7 +504,7 @@ const content = useIntlayer("product", { variant: { id: "prod_abc" } });
 
 ## Varian ambien
 
-Beberapa dimensi varian tetap sepanjang satu sesi — tenant, jenis sekolah, tingkat paket. Semuanya diselesaikan sekali, dan tidak ada komponen yang perlu meneruskannya secara manual.
+Beberapa dimensi varian tetap sepanjang satu sesi, tenant, jenis sekolah, tingkat paket. Semuanya diselesaikan sekali, dan tidak ada komponen yang perlu meneruskannya secara manual.
 
 > Jangan membungkus `useIntlayer` dalam hook Anda sendiri untuk menyuntikkannya. Optimasi saat build hanya menulis ulang pemanggilan literal `useIntlayer("key")` yang diimpor dari paket framework, sehingga apa pun di balik pembungkus tidak akan ikut dibundel.
 
@@ -647,7 +647,7 @@ useIntlayer("hero-banner");
 // → varian dari provider
 
 useIntlayer("hero-banner", { variant: "summer" });
-// → "summer" — menggantikan varian provider, bukan memperluasnya
+// → "summer", menggantikan varian provider, bukan memperluasnya
 ```
 
 ### Bentuk
@@ -662,7 +662,7 @@ Prop `variant` menerima tiga bentuk:
 
 #### Rantai preferensi
 
-Rantai dicoba dari kiri ke kanan terhadap entri yang dideklarasikan setiap kunci, dan yang pertama dideklarasikan menang. Bila tidak ada yang dideklarasikan, entri default implisit digunakan — persis seperti untuk nilai tunggal.
+Rantai dicoba dari kiri ke kanan terhadap entri yang dideklarasikan setiap kunci, dan yang pertama dideklarasikan menang. Bila tidak ada yang dideklarasikan, entri default implisit digunakan, persis seperti untuk nilai tunggal.
 
 ```tsx
 <IntlayerProvider variant={["school1", "school2"]} />
@@ -692,9 +692,9 @@ Alamatkan setiap kunci kamus secara terpisah. Entri `default` yang dicadangkan m
 />
 ```
 
-> Pada provider, objek biasa **selalu** dibaca sebagai peta per kunci, bukan sebagai varian objek — keduanya identik secara struktural. Untuk menetapkan varian objek secara global, sarangkan di bawah sebuah entri: `variant={{ default: { id: "prod_abc" } }}`.
+> Pada provider, objek biasa **selalu** dibaca sebagai peta per kunci, bukan sebagai varian objek, keduanya identik secara struktural. Untuk menetapkan varian objek secara global, sarangkan di bawah sebuah entri: `variant={{ default: { id: "prod_abc" } }}`.
 
-Karena kunci pada peta diperiksa terhadap kunci kamus yang Anda deklarasikan, salah ketik — atau varian objek yang ditulis langsung, seperti `variant={{ id: "prod_abc" }}` — adalah galat saat kompilasi.
+Karena kunci pada peta diperiksa terhadap kunci kamus yang Anda deklarasikan, salah ketik (atau varian objek yang ditulis langsung, seperti `variant={{ id: "prod_abc" }}`) adalah galat saat kompilasi.
 
 ## Mode pemuatan
 
@@ -712,6 +712,8 @@ export default dictionary;
 ```
 
 Lihat [optimasi bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/bundle_optimization.md) untuk detail tentang mode `static`, `dynamic`, dan `fetch`.
+
+- [optimasi bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/bundle_optimization.md)
 
 ## Kasus penggunaan umum
 

@@ -134,14 +134,14 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> **`clientSecret` es una credencial del lado del servidor.** Otorga acceso completo a la API con alcance de proyecto — lectura y escritura de tus diccionarios, tu proyecto y tu organización. Mantenlo en `.env` (ignorado por git) o en tu almacén de secretos de CI, y nunca lo incluyas en línea en el archivo de configuración.
+> **`clientSecret` es una credencial del lado del servidor.** Otorga acceso completo a la API con alcance de proyecto, lectura y escritura de tus diccionarios, tu proyecto y tu organización. Mantenlo en `.env` (ignorado por git) o en tu almacén de secretos de CI, y nunca lo incluyas en línea en el archivo de configuración.
 
 Intlayer lo impone en lugar de solo documentarlo:
 
 - `clientSecret` es **eliminado de la configuración que tu bundler incluye**, por lo que no puede llegar a un bundle del navegador sin importar qué integración de framework utilices. Solo se lee del lado del servidor, en tiempo de ejecución, desde el entorno.
 - `clientId` es diferente: es la **clave pública** del proyecto, segura para distribuir, y utilizada por [`@intlayer/analytics`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/analytics.md#how-events-are-authenticated) para obtener un token de corta duración, solo para ingesta.
 
-Comentar `clientId` es suficiente para desactivar cada comportamiento autenticado — obtención remota de diccionarios, acceso a CMS, análisis — incluso cuando las variables de entorno aún están definidas.
+Comentar `clientId` es suficiente para desactivar cada comportamiento autenticado (obtención remota de diccionarios, acceso a CMS, análisis) incluso cuando las variables de entorno aún están definidas.
 
 Para pipelines de CI, prefiere el flag `--ci`, que inyecta las credenciales durante la duración de una única ejecución en lugar de persistirlas.
 

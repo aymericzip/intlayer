@@ -88,6 +88,8 @@ style="border:none;"
 
 > Вимірювання у реальних браузерах зі стисненням gzip. Вичерпні дані наведено в [документації бенчмарка Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/vue.md).
 
+- [документації бенчмарка Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/vue.md)
+
 ### Початковий оверхед бібліотек
 
 Вага до додавання файлів перекладу:
@@ -178,6 +180,9 @@ const { title } = useIntlayer("hero");
 
 [Компілятор Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compiler.md) бачить використані поля та прибирає зайвий контент до створення клієнтських чанків. Детальніше в розділі [оптимізація бандла](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/bundle_optimization.md).
 
+- [Компілятор Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compiler.md)
+- [оптимізація бандла](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/bundle_optimization.md)
+
 ## Досвід розробника
 
 ### Окремі каталоги проти спільного розміщення
@@ -255,6 +260,8 @@ const { title } = useIntlayer("hero");
 
 В Intlayer словники перевіряються суворо. Активація [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md) призводить до зупинки збірки при відсутності перекладу в будь-якій мові.
 
+- [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md)
+
 ### Інструменти для IDE та ШІ
 
 | Можливість                   | `vue-i18n`           | Intlayer                                                                                                                  |
@@ -278,6 +285,8 @@ Intlayer пропонує вбудовані засоби:
 **Автономна візуальна CMS:**
 
 Розгортайте [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md), щоб редактори могли змінювати тексти візуально зі збереженням безпосередньо в Git.
+
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)
 
 **Відкрита ліцензія:**
 

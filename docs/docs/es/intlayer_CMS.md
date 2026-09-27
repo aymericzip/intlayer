@@ -63,6 +63,8 @@ Intlayer diferencia entre diccionarios 'locales' y 'distantes'.
 
 El editor [Intlayer Visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md) es una herramienta que te permite gestionar tu contenido en un editor visual para diccionarios locales. Una vez que se realiza un cambio, el contenido será reemplazado en la base de código. Eso significa que la aplicación se reconstruirá y la página se recargará para mostrar el nuevo contenido.
 
+- [Intlayer Visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md)
+
 En contraste, el CMS de Intlayer es una herramienta que te permite gestionar tu contenido en un editor visual para diccionarios distantes. Una vez que se realiza un cambio, el contenido **no** afectará tu base de código. Y el sitio web mostrará automáticamente el contenido modificado.
 
 ## Integración
@@ -73,13 +75,19 @@ Para más detalles sobre cómo instalar el paquete, consulta la sección corresp
 
 Para la integración con Next.js, consulta la [guía de configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_nextjs_15.md).
 
+- [Next.js 15 i18n - Guía completa para traducir tu aplicación](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_nextjs_15.md)
+
 ### Integración con Create React App
 
 Para la integración con Create React App, consulta la [guía de configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_create_react_app.md).
 
+- [i18n en Create React App: guía completa de traducción](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_create_react_app.md)
+
 ### Integración con Vite + React
 
 Para la integración con Vite + React, consulta la [guía de configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_vite+react.md).
+
+- [Vite + React i18n - Guía completa para traducir tu aplicación](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_vite+react.md)
 
 ## Configuración
 
@@ -159,6 +167,8 @@ export default config;
 > Si no tienes un ID de cliente y un secreto de cliente, puedes obtenerlos creando un nuevo cliente en el [Panel de Intlayer - Proyectos](https://app.intlayer.org/projects).
 
 > Para ver todos los parámetros disponibles, consulta la [documentación de configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md).
+
+- [documentación de configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md)
 
 ## Uso del CMS
 
@@ -246,13 +256,13 @@ Este comando sube tus diccionarios de contenido inicial, haciéndolos disponible
 
 Luego podrás ver y gestionar tu diccionario en el [Intlayer CMS](https://app.intlayer.org/content).
 
-## Sincronización en vivo
+## Acceso programático con el SDK `@intlayer/api`
 
-La sincronización en vivo permite que tu aplicación refleje los cambios de contenido del CMS en runtime. No se requiere reconstrucción ni redepliegue. Cuando está habilitada, las actualizaciones se transmiten a un servidor de sincronización en vivo que actualiza los diccionarios que tu aplicación lee.
+Más allá de la CLI y del editor visual, Intlayer ofrece un SDK tipado en el paquete [`@intlayer/api`](https://www.npmjs.com/package/@intlayer/api). Te permite usar el CMS como una **base de datos de contenido headless**: puedes obtener proyectos, obtener diccionarios y enviarlos o actualizarlos directamente desde tu propia aplicación, tus scripts o tu pipeline de CI.
 
-Para la guía de configuración completa (activación, inicio del servidor Live Sync, flujo de trabajo de desarrollo local y restricciones), consulta la [documentación de Live Sync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/live-sync.md).
+El SDK gestiona la autenticación por ti. Mientras tu `clientId` y tu `clientSecret` estén disponibles (en tu configuración de Intlayer o en tu entorno), obtiene y renueva automáticamente un token de acceso OAuth2 y firma cada petición.
 
-### Servicios iniciados
+### Instalación
 
 ```bash packageManager="npm"
 npm install @intlayer/api
@@ -262,110 +272,128 @@ npm install @intlayer/api
 yarn add @intlayer/api
 ```
 
-| Servicio                   | Puerto(s)                            | Propósito                                             |
-| -------------------------- | ------------------------------------ | ----------------------------------------------------- |
-| **app** (panel de control) | `3000`                               | Interfaz CMS TanStack Start                           |
-| **backend** (API)          | `3100`                               | API REST Fastify                                      |
-| **MongoDB 7**              | interno                              | Base de datos principal (replica set de un solo nodo) |
-| **Redis 7**                | interno                              | Colas de trabajos y caché                             |
-| **MinIO**                  | `9000` (S3), `9001` (consola)        | Almacenamiento de objetos compatible con S3           |
-| **Mailpit**                | `1025` (SMTP), `8025` (interfaz web) | Sumidero local de correo transaccional                |
-
-Chromium (para la generación de capturas de pantalla con Puppeteer) está incluido en la imagen del backend — no se necesita ningún contenedor adicional.
-
-### Conectar tu proyecto a una instancia auto-alojada
-
-Apunta tu configuración de Intlayer a tu propio backend y panel de control en lugar de `intlayer.org`:
-
-1. `createIntlayerCMS` — crea un **autenticador** ligero. Solo lleva las credenciales y el token de acceso gestionado; no sabe nada sobre ningún dominio específico.
-2. `dictionaryEndpoint`, `projectEndpoint`, … — **vinculadores de endpoint** por dominio, cada uno importado desde su propia ruta (`@intlayer/api/dictionary`, `@intlayer/api/project`, …). Pasas el autenticador al endpoint que necesitas.
-
-Debido a que cada endpoint se importa por separado, tu bundle incluye solo los dominios que realmente usas — importar `dictionaryEndpoint` nunca incluye el proyecto, AI, u ningún otro cliente de dominio.
-
-```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
-import type { IntlayerConfig } from "intlayer";
-
-const config: IntlayerConfig = {
-  editor: {
-    clientId: process.env.INTLAYER_CLIENT_ID,
-    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
-
-    /**
-     * URL del panel de control CMS auto-alojado.
-     * Por defecto: https://app.intlayer.org
-     */
-    cmsURL: process.env.INTLAYER_CMS_URL, // ej. http://localhost:3000
-
-    /**
-     * URL de la API backend auto-alojada.
-     * Por defecto: https://back.intlayer.org
-     */
-    backendURL: process.env.INTLAYER_BACKEND_URL, // ej. http://localhost:3100
-  },
-};
-
-export default config;
+```bash packageManager="pnpm"
+pnpm add @intlayer/api
 ```
 
-> [!WARNING]
-> Las credenciales del CMS (`clientId` / `clientSecret`) otorgan **acceso de escritura** a tu contenido. Solo crea el autenticador en el **lado del servidor** (server actions, route handlers, scripts, CI). Nunca las importes en código del lado del cliente ni expongas tus credenciales al navegador.
-
-Establece las variables de entorno correspondientes en tu proyecto:
-
-```sh
-INTLAYER_CMS_URL=http://localhost:3000
-INTLAYER_BACKEND_URL=http://localhost:3100
-INTLAYER_CLIENT_ID=<your-client-id>
-INTLAYER_CLIENT_SECRET=<your-client-secret>
+```bash packageManager="bun"
+bun add @intlayer/api
 ```
 
-Crea credenciales de acceso en tu panel de control auto-alojado en `http://localhost:3000/projects`.
+### Cómo funciona: autenticador + endpoints
 
-### SDK `@intlayer/api`: apuntar a un backend auto-alojado
+El SDK está dividido a propósito en **dos imports separados**, para mantener tu bundle pequeño:
+
+1. `createIntlayerCMS`: crea un **autenticador** ligero. Solo lleva las credenciales y el token de acceso gestionado; no sabe nada sobre ningún dominio específico.
+2. `dictionaryEndpoint`, `projectEndpoint`, …, **vinculadores de endpoint** por dominio, cada uno importado desde su propia ruta (`@intlayer/api/dictionary`, `@intlayer/api/project`, …). Pasas el autenticador al endpoint que necesitas.
+
+Debido a que cada endpoint se importa por separado, tu bundle incluye solo los dominios que realmente usas: importar `dictionaryEndpoint` nunca incluye el cliente de proyecto, de IA ni de ningún otro dominio.
 
 ```typescript fileName="cms.ts" codeFormat="typescript"
 import { createIntlayerCMS } from "@intlayer/api";
-import { dictionaryEndpoint } from "@intlayer/api/dictionary";
 
-const cms = createIntlayerCMS({
+// La configuración es opcional: si se omite, las credenciales se leen desde
+// `@intlayer/config/built`, que resuelve las variables de entorno INTLAYER_CLIENT_ID e
+// INTLAYER_CLIENT_SECRET.
+export const cmsAuthenticator = createIntlayerCMS();
+```
+
+> [!WARNING]
+> Las credenciales del CMS (`clientId` / `clientSecret`) otorgan **acceso de escritura** a tu contenido. Solo crea el autenticador en el **lado del servidor** (server actions, route handlers, scripts, CI). Nunca lo importes en código del lado del cliente ni expongas tus credenciales al navegador.
+
+Si prefieres no depender de la configuración en tiempo de build, pasa las credenciales explícitamente:
+
+```typescript fileName="cms.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+
+export const cmsAuthenticator = createIntlayerCMS({
   editor: {
     clientId: process.env.INTLAYER_CLIENT_ID,
     clientSecret: process.env.INTLAYER_CLIENT_SECRET,
-    backendURL: process.env.INTLAYER_BACKEND_URL, // http://localhost:3100
+    // Opcional, para backends auto-alojados:
+    // backendURL: process.env.INTLAYER_BACKEND_URL,
   },
 });
-
-const { data: dictionaries } = await dictionaryEndpoint(cms).getDictionaries();
 ```
 
-### Características opcionales
+> Obtén tus credenciales creando una nueva clave de acceso en el [Panel de Intlayer - Proyectos](https://app.intlayer.org/projects).
 
-| Característica                         | Variable(s) de entorno                          |
-| -------------------------------------- | ----------------------------------------------- |
-| Traducción / auditoría con IA          | `OPENAI_API_KEY`                                |
-| Facturación                            | `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, … |
-| OAuth de GitHub                        | `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`      |
-| OAuth de Google                        | `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`      |
-| OAuth de GitLab / Microsoft / LinkedIn | `GITLAB_*`, `MICROSOFT_*`, `LINKEDIN_*`         |
-| Correo transaccional via Resend        | `RESEND_API_KEY` (por defecto: Mailpit SMTP)    |
+### Obtener proyectos
 
-### Persistencia de datos y actualizaciones
+```typescript fileName="projects.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+import { projectEndpoint } from "@intlayer/api/project";
 
-Puertos expuestos en el host:
+const cmsAuthenticator = createIntlayerCMS();
 
-| Puerto | Servicio                                                            |
-| ------ | ------------------------------------------------------------------- |
-| `3000` | Panel de control                                                    |
-| `3100` | API Backend                                                         |
-| `8025` | Interfaz web de correo Mailpit                                      |
-| `9000` | API S3 de MinIO (necesaria para la carga de assets en el navegador) |
-| `9001` | Consola de MinIO                                                    |
+// Listar los proyectos accesibles con tus credenciales
+const { data: projects } =
+  await projectEndpoint(cmsAuthenticator).getProjects();
 
-Para una referencia completa de todas las variables de entorno disponibles y opciones avanzadas (proxy inverso, dominios personalizados, respaldo/restauración), consulta la [Guía de Auto-alojamiento](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/self_hosting.md).
+// Leer los insights de localización agregados del proyecto seleccionado
+const { data: insights } =
+  await projectEndpoint(cmsAuthenticator).getProjectInsights();
+```
+
+### Obtener diccionarios
+
+```typescript fileName="read-dictionaries.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+import { dictionaryEndpoint } from "@intlayer/api/dictionary";
+
+const cmsAuthenticator = createIntlayerCMS();
+
+// Listar todos los diccionarios remotos del proyecto
+const { data: dictionaries } =
+  await dictionaryEndpoint(cmsAuthenticator).getDictionaries();
+
+// O obtener un único diccionario por su clave
+const { data: dictionary } = await dictionaryEndpoint(
+  cmsAuthenticator
+).getDictionary("my-first-dictionary-key");
+```
+
+### Enviar y actualizar diccionarios
+
+Usa el CMS como base de datos para escribir contenido:
+
+```typescript fileName="write-dictionaries.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+import { dictionaryEndpoint } from "@intlayer/api/dictionary";
+
+const cmsAuthenticator = createIntlayerCMS();
+
+// Crear un nuevo diccionario
+await dictionaryEndpoint(cmsAuthenticator).addDictionary({
+  key: "my-first-dictionary-key",
+  content: { title: "Hello world" },
+});
+
+// Hacer upsert de un lote de diccionarios (crearlos o actualizarlos en una sola llamada)
+await dictionaryEndpoint(cmsAuthenticator).pushDictionaries([
+  { key: "home", content: { title: "Home" } },
+  { key: "about", content: { title: "About" } },
+]);
+
+// Actualizar un diccionario existente
+await dictionaryEndpoint(cmsAuthenticator).updateDictionary({
+  id: "<dictionary-id>",
+  key: "home",
+  content: { title: "Updated title" },
+});
+```
+
+> Consejo: reutiliza el endpoint vinculado para no repetirte:
+>
+> ```typescript codeFormat="typescript"
+> const dictionary = dictionaryEndpoint(cmsAuthenticator);
+> await dictionary.pushDictionaries([myDictionary]);
+> const { data } = await dictionary.getDictionaries();
+> ```
 
 ### Extrayendo un método único
 
-Cada método de endpoint ya está autenticado y es independiente (maneja su propio token), por lo que puedes extraer uno y pasarlo — por ejemplo para inyectarlo como una dependencia:
+Cada método de endpoint ya está autenticado y es independiente (maneja su propio token), por lo que puedes extraer uno y pasarlo, por ejemplo para inyectarlo como una dependencia:
 
 ```typescript fileName="push.ts" codeFormat="typescript"
 import { createIntlayerCMS } from "@intlayer/api";
@@ -373,7 +401,7 @@ import { dictionaryEndpoint } from "@intlayer/api/dictionary";
 
 const dictionary = dictionaryEndpoint(createIntlayerCMS());
 
-// Ya autenticado — refresca el token automáticamente en cada llamada
+// Ya autenticado, refresca el token automáticamente en cada llamada
 export const pushDictionaries = dictionary.pushDictionaries;
 
 // Uso
@@ -382,9 +410,11 @@ await pushDictionaries([{ key: "home", content: { title: "Home" } }]);
 
 ## Live sync
 
-Live Sync permite que tu aplicación refleje los cambios de contenido del CMS en tiempo de ejecución — sin necesidad de reconstruir o redeplegar. Cuando está habilitado, las actualizaciones se transmiten a un servidor Live Sync que actualiza los diccionarios que tu aplicación lee.
+Live Sync permite que tu aplicación refleje los cambios de contenido del CMS en tiempo de ejecución, sin necesidad de reconstruir o redeplegar. Cuando está habilitado, las actualizaciones se transmiten a un servidor Live Sync que actualiza los diccionarios que tu aplicación lee.
 
 Para la guía de configuración completa (configuración, iniciar el servidor Live Sync, el flujo de trabajo de desarrollo local y limitaciones), consulta la [documentación de Live Sync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/live-sync.md).
+
+- [documentación de Live Sync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/live-sync.md)
 
 ## Auto-hospedaje
 
@@ -419,27 +449,45 @@ Si encuentras problemas con el CMS, verifica lo siguiente:
 
 El [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md) edita diccionarios locales y escribe el cambio de vuelta en tu base de código, así que la aplicación se reconstruye y el cambio pasa por tu revisión y despliegue habituales. El CMS edita diccionarios remotos: el cambio no toca tu base de código y el sitio en ejecución lo recoge sin un despliegue. Los equipos suelen usar ambos, el editor para el contenido del que son responsables los desarrolladores y el CMS para el contenido que marketing cambia cada semana.
 
+- [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md)
+
 </Question>
 <Question title="¿Cuánto añade la i18n al tamaño de mi bundle?">
 
 Mucho menos que una configuración basada en espacios de nombres, porque una página nunca descarga un catálogo que no renderiza. El marcado renderizado en el servidor resuelve su contenido en el servidor, y el compilador de tiempo de compilación reemplaza las llamadas a `useIntlayer` por las entradas de diccionario exactas que usa un componente, de modo que se descartan las claves sin usar y los idiomas sin usar. Los [diccionarios dinámicos](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dynamic_dictionaries/index.md) reparten el resto por idioma. Frente a las alternativas habituales, Intlayer reduce el tamaño del bundle y de la página hasta en un 50%. Consulta la [optimización del bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/bundle_optimization.md) y el [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/benchmark/index.md).
+
+- [diccionarios dinámicos](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dynamic_dictionaries/index.md)
+- [optimización del bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/bundle_optimization.md)
+- [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/benchmark/index.md)
 
 </Question>
 <Question title="¿Puedo migrar desde `i18next`, `next-intl` o `react-i18next` sin reescribir mis componentes?">
 
 Sí, y hay dos caminos. Puedes migrar el contenido de forma progresiva con la [guía de migración de i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/migration_from_i18next_to_intlayer.md) o la [guía de migración de next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/migration_from_next-intl_to_intlayer.md). O puedes mantener tu API actual por completo: los [adaptadores de compatibilidad](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compat/index.md) exponen exactamente la misma API que `i18next`, `react-i18next`, `next-intl`, `next-i18next`, `react-intl`, `use-intl`, `vue-i18n` y `Lingui`, pero servida por diccionarios de Intlayer, así que cambian los imports y el código de los componentes no.
 
+- [guía de migración de i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/migration_from_i18next_to_intlayer.md)
+- [guía de migración de next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/migration_from_next-intl_to_intlayer.md)
+- [adaptadores de compatibilidad](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compat/index.md)
+
 </Question>
 <Question title="¿Puedo conservar mis archivos de traducción JSON existentes?">
 
 Sí. El [plugin de sincronización JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/plugins/sync-json.md) mantiene tus archivos `/messages/{locale}/{namespace}.json` como fuente de verdad y genera diccionarios de Intlayer a partir de ellos, en ambas direcciones. Un [plugin de sincronización PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/plugins/sync-po.md) hace lo mismo para los catálogos gettext, y los [archivos por idioma](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/per_locale_file.md) te permiten dividir el contenido por idioma en lugar de agrupar los idiomas en un solo archivo.
+
+- [plugin de sincronización JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/plugins/sync-json.md)
+- [plugin de sincronización PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/plugins/sync-po.md)
+- [archivos por idioma](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/per_locale_file.md)
 
 </Question>
 <Question title="¿Tengo que trasladar mi contenido clave por clave?">
 
 No. Ejecuta `npx intlayer extract` e Intlayer lee tus archivos fuente, extrae las cadenas visibles para el usuario y escribe un archivo `.content` junto a cada uno, así que revisas un diff en lugar de copiar cadenas a un catálogo una por una. Consulta el [comando extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/extract.md).
 
+- [comando extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/extract.md)
+
 Para una canalización totalmente automatizada, el [compilador de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compiler.md) hace lo mismo en tiempo de compilación sobre código JSX, TSX, Vue y Svelte, generando los diccionarios en cada cambio para que no haya ninguna clave que mantener a mano. Funciona por análisis estático, así que las cadenas que solo existen en tiempo de ejecución quedan fuera de su alcance, y necesita unas pocas anotaciones para distinguir el texto visible para el usuario de la lógica de la aplicación.
+
+- [compilador de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compiler.md)
 
 </Question>
 <Question title="¿Qué herramientas para editores y agentes de IA están disponibles?">
@@ -467,10 +515,14 @@ La aplicación recurre a la declaración local del diccionario, así que un fall
 
 Sí. El CMS puede ejecutarse en tu propia infraestructura, que es la respuesta habitual cuando el contenido no debe salir de tu red. Consulta [autoalojar Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/self_hosting.md).
 
+- [autoalojar Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/self_hosting.md)
+
 </Question>
 <Question title="¿Los editores de contenido necesitan a un desarrollador para publicar un cambio?">
 
 No. Ese es el objetivo de los diccionarios remotos: un editor cambia el texto en el CMS y el sitio lo refleja, con la [sincronización en vivo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/live.md) aplicando la actualización en tiempo de ejecución en lugar de esperar a una build.
+
+- [sincronización en vivo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/live.md)
 
 </Question>
 <Question title="¿Puedo automatizar el CMS en lugar de usar la interfaz?">
@@ -482,10 +534,15 @@ Sí. El SDK `@intlayer/api` expone los mismos endpoints que la interfaz, así qu
 
 Sí. Los diccionarios remotos admiten [variantes de contenido](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dynamic_dictionaries/variants.md), y las [analíticas](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/analytics.md) informan de cómo se expone cada variante, así que un cambio de redacción se puede medir en lugar de debatir.
 
+- [variantes de contenido](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dynamic_dictionaries/variants.md)
+- [analíticas](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/analytics.md)
+
 </Question>
 <Question title="¿El CMS es gratuito?">
 
 La biblioteca, la CLI, el compilador y el editor visual de Intlayer son gratuitos y de código abierto bajo la licencia Apache 2.0. El CMS alojado es un servicio de pago opcional, y en su lugar puede [autoalojarse](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/self_hosting.md).
+
+- [autoalojarse](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/self_hosting.md)
 
 </Question>
 

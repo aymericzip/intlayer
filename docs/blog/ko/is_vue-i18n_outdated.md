@@ -88,6 +88,8 @@ style="border:none;"
 
 > 프로덕션 gzip 압축을 적용하여 실제 브라우저에서 측정했습니다. 세부 사항은 [Vue 벤치마크 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/vue.md)에서 확인할 수 있습니다.
 
+- [Vue 벤치마크 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/vue.md)
+
 ### 라이브러리 초기 오버헤드
 
 번역 텍스트를 불러오기 전의 순수 라이브러리 크기:
@@ -178,6 +180,9 @@ const { title } = useIntlayer("hero");
 
 [Intlayer 컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md)는 컴포넌트가 접근하는 프로퍼티를 명확히 파악하여 클라이언트 번들 생성 전에 미사용 번역을 안전하게 배제합니다. 자세한 내용은 [번들 최적화](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md)를 참고하세요.
 
+- [Intlayer 컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md)
+- [번들 최적화](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md)
+
 ## 개발자 경험 (DX) 비교
 
 ### 격리된 JSON 폴더 vs. 컴포넌트와 함께 배치
@@ -255,6 +260,8 @@ const { title } = useIntlayer("hero");
 
 Intlayer는 사전을 엄격하게 검증합니다. [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 활성화하면 어떤 언어에서든 번역이 누락될 경우 즉각 빌드 에러가 발생합니다.
 
+- [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)
+
 ### IDE 및 AI 도구 지원
 
 | 기능                      | `vue-i18n`           | Intlayer                                                                                                        |
@@ -278,6 +285,8 @@ Intlayer는 완전한 네이티브 도구를 기본 제공합니다.
 **자체 호스팅 비주얼 CMS:**
 
 [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)를 연동하면 기획자나 마케터가 웹 UI에서 문구를 직접 수정하고 변경 사항을 Git에 커밋할 수 있습니다.
+
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)
 
 **오픈소스 라이선스:**
 

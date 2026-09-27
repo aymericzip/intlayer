@@ -100,6 +100,8 @@ Sau khi xây dựng ứng dụng, bundle là JavaScript mà trình duyệt sẽ 
 
 <I18nBenchmark framework="nextjs" packages="next-i18next,next-intl,next-intlayer" vertical/>
 
+- [Benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md)
+
 <ClickToOpenIframe
   src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
   width="100%"
@@ -121,6 +123,9 @@ Các số liệu chính đo trên Next.js App Router (gzip):
 | `next-intlayer` (native Intlayer) |          **5.5 KB** |            **141.3 KB** |          **0.0%** |         **0.0%** |               **6.9 KB** |
 
 > Để xem phân tích đầy đủ, hãy tham khảo [Báo cáo Benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md) và [Tổng quan Benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/index.md) chi tiết.
+
+- [Báo cáo Benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md)
+- [Tổng quan Benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/index.md)
 
 Có hai thành phần quan trọng trong bối cảnh bundle của ứng dụng đa ngôn ngữ:
 
@@ -1541,3 +1546,5 @@ Cả ba thư viện đều thành công trong việc cốt lõi hóa localizatio
 - [Adapter tương thích @intlayer/next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/next-i18next.md)
 
 Tham khảo tài liệu ['Tại sao chọn Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/interest_of_intlayer.md) để biết thêm chi tiết.
+
+- [Vì sao chọn Intlayer? Ưu điểm so với các thư viện i18n khác](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/interest_of_intlayer.md)

@@ -92,6 +92,8 @@ style="border:none;"
 
 > 프로덕션 빌드 환경에서 10개 라우트, 10개 언어, gzip 압축 기준으로 측정되었습니다. 세부 사항은 [i18n 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/index.md)를 참조하세요.
 
+- [i18n 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/index.md)
+
 ### 라이브러리 기본 오버헤드
 
 번역 텍스트를 추가하기 전의 순수 라이브러리 크기:
@@ -171,6 +173,9 @@ return <h1>{title}</h1>;
 
 [Intlayer 컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md)는 `Hero.tsx`가 실제로 참조하는 필드만 분석하여 사용되지 않는 번역을 클라이언트 번들 생성 전에 완전히 제거합니다. 자세한 내용은 [번들 최적화](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md)를 참조하세요.
 
+- [Intlayer 컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md)
+- [번들 최적화](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md)
+
 ## 개발자 경험 (DX) 비교
 
 ### 격리된 JSON vs. 컴포넌트와 함께 배치
@@ -237,6 +242,8 @@ export const Hero = () => {
 `CustomTypeOptions`를 정의하면 에디터 자동완성은 지원되지만, 실제 번역이 빠짐없이 채워졌는지는 검증하지 못합니다. `ko/hero.json`에서 키를 지워도 빌드는 통과하며, 런타임에 폴백 텍스트만 표시됩니다.
 
 Intlayer는 선언된 콘텐츠를 기반으로 직접 타입을 생성합니다. [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 활성화하면 특정 언어에서 번역이 누락되었을 때 즉시 빌드 에러를 발생시킵니다.
+
+- [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)
 
 ### 툴링 생태계 비교
 

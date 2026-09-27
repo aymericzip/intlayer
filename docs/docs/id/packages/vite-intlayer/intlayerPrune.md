@@ -31,6 +31,8 @@ Plugin Vite `intlayerPrune` digunakan untuk melakukan tree-shaking dan memangkas
 
 > Plugin sudah disertakan dan dikonfigurasi secara otomatis ketika Anda menggunakan [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/vite-intlayer/intlayer.md). Anda hanya perlu mendaftarkannya secara manual jika Anda menyusun plugin stack sendiri.
 
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/vite-intlayer/intlayer.md)
+
 ## Penggunaan
 
 ### Sebagai bagian dari `intlayer()` (direkomendasikan)
@@ -99,8 +101,8 @@ Ketika Vite memproses file JSON kamus yang telah dikompilasi, `intlayerPrune` me
 
 Dua bentuk konten didukung:
 
-- **Static dictionaries** — `{ nodeType: "translation", translation: { en: {...}, fr: {...} } }`. Field dipangkas per-locale di dalam `translation`.
-- **Dynamic (per-locale) dictionaries** — flat `{ fieldA: ..., fieldB: ... }`. Field dipangkas di tingkat atas.
+- **Static dictionaries**: `{ nodeType: "translation", translation: { en: {...}, fr: {...} } }`. Field dipangkas per-locale di dalam `translation`.
+- **Dynamic (per-locale) dictionaries**: flat `{ fieldA: ..., fieldB: ... }`. Field dipangkas di tingkat atas.
 
 ### 3. Kasus Edge Cases
 
@@ -108,7 +110,7 @@ Jika struktur konten kamus tidak dapat dikenali (misalnya, bentuk nested yang ti
 
 ### 4. Field-rename map
 
-Ketika pruning berhasil, `intlayerPrune` juga menulis `pruneContext.dictionaryKeyToFieldRenameMap` — sebuah pemetaan dari nama field asli ke alias pendek. `intlayerMinify` membaca peta ini untuk mengubah nama field dalam output JSON, dan Babel rename pass milik `intlayerOptimize` memperbarui akses properti dalam file sumber sesuai dengan itu.
+Ketika pruning berhasil, `intlayerPrune` juga menulis `pruneContext.dictionaryKeyToFieldRenameMap`, sebuah pemetaan dari nama field asli ke alias pendek. `intlayerMinify` membaca peta ini untuk mengubah nama field dalam output JSON, dan Babel rename pass milik `intlayerOptimize` memperbarui akses properti dalam file sumber sesuai dengan itu.
 
 ## Kondisi Aktivasi
 
@@ -118,4 +120,4 @@ Ketika pruning berhasil, `intlayerPrune` juga menulis `pruneContext.dictionaryKe
 2. `build.optimize` adalah `true` (atau `undefined`, yang secara default adalah `true` untuk build).
 3. `build.purge` adalah `true` dalam konfigurasi Intlayer Anda.
 
-Proses ini tetap aktif ketika `editor.enabled` bernilai `true`: Visual editor menyelesaikan setiap pengeditan melalui `dictionaryKey` + `keyPath` terhadap kamus yang belum digabung, yang tidak pernah disentuh oleh plugin ini, dan field yang dipangkas adalah field yang tidak dibaca oleh komponen mana pun — sehingga tidak pernah dirender maupun dapat dipilih di halaman.
+Proses ini tetap aktif ketika `editor.enabled` bernilai `true`: Visual editor menyelesaikan setiap pengeditan melalui `dictionaryKey` + `keyPath` terhadap kamus yang belum digabung, yang tidak pernah disentuh oleh plugin ini, dan field yang dipangkas adalah field yang tidak dibaca oleh komponen mana pun, sehingga tidak pernah dirender maupun dapat dipilih di halaman.

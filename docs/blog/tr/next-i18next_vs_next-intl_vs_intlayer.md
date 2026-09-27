@@ -99,6 +99,8 @@ Uygulamayı derledikten sonra, bundle tarayıcının sayfayı render etmek için
 
 <I18nBenchmark framework="nextjs" packages="next-i18next,next-intl,next-intlayer" vertical/>
 
+- [i18n benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md)
+
 <ClickToOpenIframe
   src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
   width="100%"
@@ -120,6 +122,9 @@ Next.js App Router üzerinde ölçülen temel rakamlar (gzip):
 | `next-intlayer` (native Intlayer) |       **5.5 KB** |  **141.3 KB** |               **0.0%** |              **0.0%** |   **6.9 KB** |
 
 > Tam analiz için [Next.js Benchmark Raporu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md) ve kapsamlı [i18n Benchmark Genel Bakışı](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/index.md) sayfalarına bakın.
+
+- [Next.js Benchmark Raporu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md)
+- [i18n Benchmark Genel Bakışı](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/index.md)
 
 Çok dilli bir uygulama bundle'ı bağlamında önemli iki bileşen vardır:
 
@@ -1519,3 +1524,5 @@ GitHub yıldızları, bir projenin popülaritesinin, topluluk güveninin ve uzun
 - [@intlayer/next-i18next Uyumluluk Adaptörü](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/next-i18next.md)
 
 Daha fazla detay için ['Neden Intlayer?' dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/interest_of_intlayer.md) bakın.
+
+- [Neden Intlayer? Diğer i18n kütüphanelerine göre avantajları](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/interest_of_intlayer.md)

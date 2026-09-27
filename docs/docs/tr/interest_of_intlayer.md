@@ -54,15 +54,27 @@ Uygulamanızın içeriğini bileşen düzeyinde sınırlandırmak, büyük ölç
 
 İçeriği bileşenle aynı yerde konumlandırmak (Co-location), Büyük Dil Modellerinin (LLM'ler) ihtiyaç duyduğu **bağlamı azaltır**. Intlayer ayrıca, AI ajanları için geliştirici deneyimini (DX) daha da sorunsuz hale getirmek için eksik çevirileri test eden bir **CLI**, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/mcp_server.md)** ve **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/agent_skills.md)** gibi bir araç paketiyle birlikte gelir.
 
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/mcp_server.md)
+- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/agent_skills.md)
+
 </Accordion>
 <Accordion header="Özellik">
 
 Intlayer, diğer i18n çözümlerinin sahip olmadığı [Markdown desteği](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/markdown.md), [harici içerik çekme](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/function_fetching.md), [dosya içeriği yükleme](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/file.md), [canlı içerik güncelleme](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/live.md), [görsel editör](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) ve daha fazlası gibi bir dizi ek özellik sunar.
 
+- [Markdown desteği](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/markdown.md)
+- [harici içerik çekme](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/function_fetching.md)
+- [dosya içeriği yükleme](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/file.md)
+- [canlı içerik güncelleme](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/live.md)
+- [görsel editör](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md)
+
 </Accordion>
 <Accordion header="Otomasyon">
 
 AI sağlayıcınızın maliyeti üzerinden seçtiğiniz LLM'yi kullanarak CI/CD hattınızda otomatik çeviri yapın. Intlayer ayrıca içerik çıkarmayı otomatikleştirmek için bir **derleyici** ve **arka planda çeviri yapmanıza** yardımcı olacak bir [web platformu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) sunar.
+
+- [web platformu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="Performans">
@@ -73,6 +85,9 @@ Büyük JSON dosyalarını bileşenlere bağlamak performans ve tepkisellik soru
 <Accordion header="Geliştirici Olmayanlarla Ölçeklenme">
 
 Bir i18n çözümünden daha fazlası olan Intlayer, çevirmenler, metin yazarları ve diğer ekip üyeleriyle işbirliğini sorunsuz hale getirmek için **kendi kendine barındırılabilen bir [görsel editör](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md)** ve **[tam bir CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)** sağlar. İçerikler yerel ve/veya uzaktan saklanabilir.
+
+- [görsel editör](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md)
+- [tam bir CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="Çapraz Framework Tasarımı">
@@ -288,6 +303,8 @@ GitHub yıldızları, bir projenin popülerliğinin, topluluk güveninin ve uzun
 
 Mevcut i18n kütüphanenizin API'sini kullanmaya devam etmek isterseniz, `intlayer` ayrıca **uyumluluk adaptörleri (compat adapters)** sunar: `react-i18next`, `next-intl`, `react-intl`, `vue-i18n` ve diğerleriyle tamamen aynı API'yi sunan, ancak içeriği Intlayer sözlüklerinden alan paketler. Böylece kodunuzu yeniden yazmadan kademeli olarak geçiş yapabilirsiniz. Bkz. [Uyumluluk adaptörleri dokümantasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md).
 
+- [Uyumluluk adaptörleri dokümantasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md)
+
 ## Sıkça Sorulan Sorular
 
 <FAQ>
@@ -305,22 +322,38 @@ Mevcut i18n kütüphanenizin API'sini kullanmaya devam etmek isterseniz, `intlay
 
 Ad alanı (namespace) tabanlı bir kuruluma kıyasla çok daha az, çünkü bir sayfa render etmediği bir sözlüğü asla indirmez. Sunucu tarafında render edilen markup içeriği sunucuda çözer ve derleme zamanı derleyicisi `useIntlayer` çağrılarını bileşenin kullandığı kesin sözlük kayıtlarıyla değiştirir, böylece kullanılmayan anahtarlar ve diller elenir. [Dinamik sözlükler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dynamic_dictionaries/index.md) geri kalanını yerel başına böler. Yaygın alternatiflerle karşılaştırıldığında Intlayer paket ve sayfa boyutunu %50'ye kadar azaltır. Bkz. [paket optimizasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md) ve [kıyaslama](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/index.md).
 
+- [Dinamik sözlükler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dynamic_dictionaries/index.md)
+- [paket optimizasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md)
+- [kıyaslama](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/index.md)
+
 </Question>
 <Question title="i18next, next-intl veya react-i18next'ten bileşenlerimi yeniden yazmadan geçiş yapabilir miyim?">
 
 Evet, iki yol mevcuttur. [i18next geçiş kılavuzu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_i18next_to_intlayer.md) veya [next-intl geçiş kılavuzu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_next-intl_to_intlayer.md) ile içeriği aşamalı olarak taşıyabilirsiniz. Ya da mevcut API'nizi tamamen koruyabilirsiniz: [uyumluluk adaptörleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/index.md), `i18next`, `react-i18next`, `next-intl`, `next-i18next`, `react-intl`, `use-intl`, `vue-i18n` ve `Lingui` ile tamamen aynı API'yi sunar, ancak Intlayer sözlükleri tarafından desteklenir; böylece yalnızca import satırları değişir, bileşen kodu aynı kalır.
+
+- [i18next geçiş kılavuzu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_i18next_to_intlayer.md)
+- [next-intl geçiş kılavuzu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_next-intl_to_intlayer.md)
+- [uyumluluk adaptörleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/index.md)
 
 </Question>
 <Question title="Mevcut JSON çeviri dosyalarımı koruyabilir miyim?">
 
 Evet. [sync JSON eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-json.md), `/messages/{locale}/{namespace}.json` dosyalarınızı doğruluk kaynağı olarak tutar ve her iki yönde Intlayer sözlükleri üretir. [sync PO eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-po.md) gettext katalogları için aynısını yapar ve [yerel başına dosyalar](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/per_locale_file.md), yerelleri tek bir dosyada gruplamak yerine içeriği dile göre ayırmanıza olanak tanır.
 
+- [sync JSON eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-json.md)
+- [sync PO eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-po.md)
+- [yerel başına dosyalar](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/per_locale_file.md)
+
 </Question>
 <Question title="İçeriğimi anahtar anahtar taşımak zorunda mıyım?">
 
 Hayır. `npx intlayer extract` komutunu çalıştırın; Intlayer kaynak dosyalarınızı okur, kullanıcıya dönük dizeleri çıkarır ve her birinin yanına bir `.content` dosyası yazar, böylece dizeleri tek tek kopyalamak yerine bir diff incelersiniz. Bkz. [extract komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract.md).
 
+- [extract komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract.md)
+
 Tam otomatik bir akış için [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md) derleme sırasında JSX, TSX, Vue ve Svelte kodunda aynı işlemi yapar ve sözlükleri her değişiklikte otomatik üretir, böylece elle anahtar yönetimi gerekmez. Statik analizle çalıştığından, yalnızca çalışma zamanında var olan dizeler kapsam dışı kalır.
+
+- [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md)
 
 </Question>
 <Question title="Hangi editör ve AI aracı araçları mevcuttur?">
@@ -336,27 +369,53 @@ Beş araç, hepsi isteğe bağlı:
 </Question>
 <Question title="Intlayer'ın next-intl'den farkı nedir?">
 
-`next-intl` dil başına JSON dosyalarına dayanan bir Next.js mesaj katmanıdır. Intlayer ise içeriği her bileşenin yanında bildirir, kullanılmayan kayıtları derleme zamanında eler, her sözlük için katı TypeScript tipleri üretir ve AI çeviri ile görsel düzenleyiciyi yerleşik sunar.
+`next-intl`, Next.js için bir mesaj katmanıdır: her dil için JSON mesaj dosyaları tutar ve bunları `useTranslations` aracılığıyla okursunuz. Intlayer ise bir içerik katmanıdır: bildirimler bileşenin yanında bulunur, tipleri doğrudan bildirimin kendisinden türetilir ve bileşen başına derlenir, böylece bir sayfa yalnızca render ettiği şeyi gönderir. Intlayer ayrıca `next-intl`'in size bıraktığı şeyleri de kapsar: yapay zeka ile çeviri, görsel editör, CMS ve CI'da eksik çeviri kontrolleri. `next-intl` API'sini korumak istiyorsanız, [uyumluluk adaptörü](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/index.md) bunu Intlayer sözlüklerinden sunar.
+
+- [uyumluluk adaptörü](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/index.md)
 
 </Question>
 <Question title="Intlayer'ın i18next ve react-i18next'ten farkı nedir?">
 
-`i18next` anahtarları çalışma zamanında ad alanlarına göre çözer, bu da yazım hatalarında sessizce boş metin basılmasına neden olur. Intlayer anahtarları derleme zamanında statik kontrol eder, kullanılmayan dilleri paketten eler ve çevirileri otomatikleştirir.
+`i18next`, string anahtarlarını çalışma zamanında namespace'lere göre çözümler; bu da yeniden adlandırılmış veya yanlış yazılmış bir anahtarın sessizce başarısız olması ve bir sayfanın kullandığı her namespace'in tamamen indirilmesi anlamına gelir. Intlayer ise içeriği derleme zamanında oluşturulan tiplere göre çözümler, böylece hatalı bir anahtar bir derleme hatası olur ve pakete yalnızca bir bileşenin render ettiği girdiler ulaşır. `i18next` daha geniş bir eklenti ekosistemine ve daha uzun bir geçmişe sahiptir; Intlayer ise tip güvenliği, paket boyutu ve düzenleme ile otomasyon araçları sunar. [i18next geçiş rehberine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_i18next_to_intlayer.md) veya [uyumluluk adaptörüne](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/index.md) bakın.
+
+- [i18next geçiş rehberi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_i18next_to_intlayer.md)
+- [uyumluluk adaptörü](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/index.md)
 
 </Question>
 <Question title="Intlayer alternatiflerden daha hızlı veya daha hafif mi?">
 
 Paket ve sayfa boyutu açısından evet: bir sayfanın render etmediği katalogları yüklememek paket boyutunu %50'ye kadar düşürür. Çalışma zamanında ise önceden derleme çalışma zamanı ayrıştırma maliyetini ortadan kaldırır. Bkz. [kıyaslama](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/index.md).
 
+- [kıyaslama](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/index.md)
+- [2026'da Next.js için En İyi i18n Çözümü - Benchmark Raporu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md)
+- [TanStack Start için en iyi i18n çözümü: 2026 benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md)
+- [2026'da Vue için En İyi i18n Çözümü - Benchmark Raporu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/vue.md)
+- [2026'da Svelte için En İyi i18n Çözümü - Benchmark Raporu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/svelte.md)
+
 </Question>
 <Question title="Mevcut bir uygulamayı taşımaya değer mi?">
 
-Bugün yaşadığınız zorluklara bağlıdır. Sorununuz paket boyutu, sessiz eksik çeviriler veya teknik olmayan ekibin metinleri düzenleyememesi ise Intlayer bunları çözer; uyumluluk adaptörleri ise kodunuzu yeniden yazmadan aşamalı geçişe olanak tanır.
+Bu, bugün neyin sorun yarattığına bağlıdır. Sorununuz paket boyutu, sessizce eksik kalan çeviriler veya bir geliştirici olmadan çalışamayan çevirmenlerse, geçiş kendini amorti eder. Kataloglarınız küçük ve stabilse kazanç daha azdır. Her iki durumda da geçişin baştan yazmak olması gerekmez: [uyumluluk adaptörleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/index.md) mevcut API'nizi korur ve [sync JSON eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-json.md) iki katman bir arada var olurken mevcut JSON dosyalarınızı doğruluk kaynağı olarak tutar.
+
+- [uyumluluk adaptörleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/index.md)
+- [sync JSON eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-json.md)
 
 </Question>
 <Question title="Intlayer diğer i18n kütüphanelerinin sunmadığı neleri sunar?">
 
 [Markdown desteği](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/markdown.md), CMS üzerinden içerik çekme, yerleşik görsel düzenleyici, `--git-diff` bayraklı AI çeviri ve bileşen analizine dayalı TypeScript otomatik tamamlama.
+
+- [Markdown desteği](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/markdown.md)
+- [İçerik bildirim dosyaları (.content.ts)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md)
+- [intlayer live: CMS içeriğini çalışma anında senkronize edin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/live.md)
+- [Intlayer görsel editörü: içeriği bağlamında düzenleyin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md)
+- [Intlayer CMS: çok dilli içeriğinizi dışarı taşıyın](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)
+- [Intlayer Compiler | i18n için Otomatik İçerik Çıkarımı](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md)
+- [Varyantlar: A/B testleri ve alternatif içerik](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dynamic_dictionaries/variants.md)
+- [Intlayer Analytics: içerik görünürlüğü ve A/B testleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/analytics.md)
+- [Yapay zeka asistanları için Intlayer MCP sunucusu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/mcp_server.md)
+- [IDE'niz için Intlayer dil sunucusu (LSP)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/lsp.md)
+- [Yapay zeka kodlama ajanları için Intlayer Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/agent_skills.md)
 
 </Question>
 <Question title="Intlayer'ı yalnızca çeviri yöneticisi olarak kullanıp mevcut kütüphanemi koruyabilir miyim?">
@@ -367,6 +426,8 @@ Evet. Intlayer mevcut kütüphanenizin beklediği biçimde ad alanları üretebi
 <Question title="Intlayer ücretsiz ve açık kaynaklı mı?">
 
 Evet, ticari kullanım dahil Apache 2.0 lisansı altındadır. Barındırılan CMS isteğe bağlı bir hizmettir ve ayrıca [kendi sunucunuzda barındırılabilir](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/self_hosting.md).
+
+- [kendi sunucunuzda barındırılabilir](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/self_hosting.md)
 
 </Question>
 

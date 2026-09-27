@@ -49,6 +49,8 @@ TanStack Start не поставляется со встроенным слое�
 
 > Используете Next.js? См. [руководство по next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/i18n_using_next-intl.md).
 
+- [руководство по next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/i18n_using_next-intl.md)
+
 > Чтобы понять, откуда взялись эти библиотеки, прочитайте историю i18n в JavaScript.
 
 - [История i18n в JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/history_of_i18n.md)
@@ -56,6 +58,8 @@ TanStack Start не поставляется со встроенным слое�
 ## Что говорит бенчмарк о use-intl в TanStack Start
 
 В [бенчмарке i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/tanstack.md) тестируется одно и то же приложение на TanStack Start из 10 страниц и 10 локалей с каждой из основных библиотек и измеряется реальный объем данных, скачиваемых браузером.
+
+- [бенчмарке i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/tanstack.md)
 
 <I18nBenchmark framework="tanstack" packages="use-intl,@intlayer/use-intl,intlayer" vertical/>
 
@@ -74,6 +78,8 @@ TanStack Start не поставляется со встроенным слое�
 - **Сам рантайм остается тяжелым** (~76 KB gzip), поскольку парсер ICU поставляется клиенту. Адаптер совместимости `@intlayer/use-intl` (шаг 17) сохраняет точно такой же API при размере рантайма около 7 KB.
 
 > Ознакомьтесь с полными данными: [отчет о бенчмарке TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/tanstack.md) и [репозиторий бенчмарка](https://github.com/intlayer-org/benchmark-i18n).
+
+- [отчет о бенчмарке TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/tanstack.md)
 
 ## Сравнение возможностей в TanStack Start
 
@@ -98,6 +104,8 @@ TanStack Start не поставляется со встроенным слое�
 | **Проверка отсутствующих переводов в CI**           | ✅ `npx intlayer test`                   | ⚠️ Не встроенная              | ⚠️ Не встроенная                         | ✅ `lingui compile --strict`    |
 
 > Показатели размера рантайма и утечек взяты из [бенчмарка TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/tanstack.md). Утечки измерены на оптимальной конфигурации для каждой библиотеки.
+
+- [бенчмарка TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/tanstack.md)
 
 > Другие руководства по TanStack Start:
 
@@ -974,6 +982,8 @@ export const startInstance = createStart(() => ({
 
 Бенчмарк показывает, что самой тяжелой частью конфигурации use-intl является сам рантайм (~76 KB gzip). Адаптер совместимости [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/index.md) предоставляет **тот же самый API** (`useTranslations`, `useFormatter`, `IntlProvider`, `createTranslator`, формы множественного числа ICU, `t.rich`), но отдает данные из скомпилированных словарей Intlayer: **~6.7 KB вместо ~75.9 KB**, 0% утечки локалей и 0% утечки страниц, без необходимости менять ваши компоненты.
 
+- [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/index.md)
+
 ```bash packageManager="npm"
 npm install @intlayer/use-intl intlayer @intlayer/sync-json-plugin
 npx intlayer init
@@ -1034,7 +1044,11 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
+- [плагину синхронизации JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/plugins/sync-json.md)
+
 > Адаптер также обеспечивает плавную миграцию: после его внедрения вы можете постепенно переводить компоненты на нативный API `useIntlayer`. См. [руководство по Intlayer с TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_tanstack.md).
+
+- [руководство по Intlayer с TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_tanstack.md)
 
 </Step>
 <Step number={18} title="Предварительный рендеринг (Pre-rendering) для каждой локали" isOptional={true}>
@@ -1142,6 +1156,8 @@ use-intl выполняет рендеринг переводов, но не п�
 
 Чтобы ознакомиться со всеми возможностями, узнайте [почему стоит выбрать Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/interest_of_intlayer.md).
 
+- [почему стоит выбрать Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/interest_of_intlayer.md)
+
 </Step>
 </Steps>
 
@@ -1152,6 +1168,8 @@ use-intl выполняет рендеринг переводов, но не п�
 <Question title="Является ли use-intl хорошим выбором для TanStack Start?">
 
 Да, если вам нужен API библиотеки `next-intl` за пределами Next.js. Вы получаете сообщения ICU, форматтеры и хорошую поддержку TypeScript, избегая при этом специфических ограничений Next.js, таких как `setRequestLocale`. Главный компромисс заключается в размере: [бенчмарк](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/tanstack.md) показывает около 76 KB gzip для рантайма, а базовая настройка без оптимизаций отправляет все локали и все страницы в браузер. Загружайте пространства имен для каждого маршрута и каждой локали отдельно, как показано в этом руководстве, чтобы избежать утечек.
+
+- [бенчмарк](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/tanstack.md)
 
 </Question>
 <Question title="В чем разница между use-intl и next-intl?">
@@ -1173,6 +1191,8 @@ use-intl выполняет рендеринг переводов, но не п�
 
 Во-первых, разделите сообщения по пространствам имен и загружайте их для каждого маршрута и каждой локали отдельно с помощью `import.meta.glob`, что полностью устраняет утечки локалей и страниц. Затем, если критичен размер рантайма, перейдите на адаптер [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/index.md): тот же самый API, ~6.7 KB вместо ~75.9 KB в бенчмарке.
 
+- [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/index.md)
+
 </Question>
 <Question title="Как перевести заголовок и мета-описание с помощью use-intl?">
 
@@ -1182,6 +1202,9 @@ use-intl выполняет рендеринг переводов, но не п�
 <Question title="Можно ли постепенно мигрировать с use-intl на Intlayer?">
 
 Да. Сначала установите адаптер совместимости (шаг 17): ваши компоненты продолжат вызывать `useTranslations`, но уже на базе Intlayer. Затем переводите компоненты по одному на `useIntlayer` и объявляйте контент рядом с ними. См. [адаптеры совместимости](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/index.md) и [руководство по Intlayer с TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_tanstack.md).
+
+- [адаптеры совместимости](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/index.md)
+- [руководство по Intlayer с TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_tanstack.md)
 
 </Question>
 

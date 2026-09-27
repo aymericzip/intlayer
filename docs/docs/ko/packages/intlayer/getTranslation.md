@@ -34,6 +34,8 @@ author: aymericzip
 
 번역 선언 방법에 대한 자세한 내용은 [번역 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/translation.md)를 참조하세요.
 
+- [번역 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/translation.md)
+
 ## 매개변수
 
 - `languageContent: CustomizableLanguageContent<Content>`

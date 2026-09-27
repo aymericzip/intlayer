@@ -49,6 +49,38 @@ export const router = createRouter({
 3. **Заполнение контекста запроса**: Сохраняет текущую разрешенную локаль в контексте запроса Remix с использованием ключа `Intlayer`, что позволяет хукам (`useLocale`, `useIntlayer`, `useDictionary`) прозрачно использовать ее.
 4. **Управление куками**: Сохраняет заголовок `Set-Cookie` при необходимости запомнить предпочтительную локаль пользователя.
 
+## Параметры
+
+Функция `intlayer` принимает необязательные параметры `IntlayerMiddlewareOptions`:
+
+```ts
+import { intlayer, type IntlayerMiddlewareOptions } from "remix-intlayer";
+
+const options: IntlayerMiddlewareOptions = {
+  // Переопределения пользовательской конфигурации маршрутизации
+};
+
+const middleware = intlayer(options);
+```
+
+## Прямой доступ к контексту
+
+Помимо использования хуков, вы можете получить разрешённое состояние `IntlayerState` непосредственно из контекста запроса Remix:
+
+```ts
+import { Intlayer } from "remix-intlayer";
+
+router.get("/api/locale", (context) => {
+  // Через context.get()
+  const state = context.get(Intlayer);
+
+  // Или через прямое свойство context.intlayer
+  const { locale } = context.intlayer;
+
+  return Response.json({ locale });
+});
+```
+
 ## Связанная документация
 
 - [Контекст запроса `Intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/remix-intlayer/Intlayer.md)

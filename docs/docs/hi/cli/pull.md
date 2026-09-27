@@ -39,6 +39,8 @@ bun x intlayer pull
 
 यदि [intlayer संपादक](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) स्थापित है, तो आप संपादक से भी शब्दकोश खींच सकते हैं। इस तरह, आप अपनी एप्लिकेशन की आवश्यकता के लिए अपने शब्दकोश की सामग्री को अधिलेखित कर सकते हैं।
 
+- [intlayer संपादक](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md)
+
 ## उपनाम:
 
 - `npx intlayer dictionaries pull`

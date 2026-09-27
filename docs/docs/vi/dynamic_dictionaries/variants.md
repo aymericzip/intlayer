@@ -23,7 +23,7 @@ history:
     changes: "Phát hành tính năng biến thể"
   - version: 9.1.0
     date: 2026-06-26
-    changes: "`variant` hiện chấp nhận một chuỗi hoặc một đối tượng — trước đây `meta` / bản ghi động được khai báo là biến thể đối tượng"
+    changes: "`variant` hiện chấp nhận một chuỗi hoặc một đối tượng, trước đây `meta` / bản ghi động được khai báo là biến thể đối tượng"
   - version: 9.1.1
     date: 2026-07-31
     changes: "Biến thể chỉ khai báo các khóa mà nó ghi đè; các biến thể không được khai báo sẽ quay lại mục mặc định"
@@ -39,8 +39,8 @@ Một **biến thể** là một tập hợp các tệp nội dung dùng chung `
 
 Giá trị `variant` có thể có **hai dạng**:
 
-- **Một chuỗi** — một lựa chọn được đặt tên duy nhất (thử nghiệm A/B, banner theo mùa, feature flag).
-- **Một đối tượng** — một bộ phân biệt có cấu trúc được định địa chỉ bằng một tập hợp trường (bản ghi CMS, nội dung riêng theo người dùng, bất kỳ nội dung nào được khóa bằng một ID mờ). Toàn bộ đối tượng chính là danh tính: bộ chọn phải cung cấp một đối tượng **bằng nhau** để phân giải mục.
+- **Một chuỗi**: một lựa chọn được đặt tên duy nhất (thử nghiệm A/B, banner theo mùa, feature flag).
+- **Một đối tượng**: một bộ phân biệt có cấu trúc được định địa chỉ bằng một tập hợp trường (bản ghi CMS, nội dung riêng theo người dùng, bất kỳ nội dung nào được khóa bằng một ID mờ). Toàn bộ đối tượng chính là danh tính: bộ chọn phải cung cấp một đối tượng **bằng nhau** để phân giải mục.
 
 > Dạng đối tượng thay thế trường `meta` trước đây. Ở bất cứ đâu trước kia bạn viết `meta: { id, … }`, hãy viết `variant: { id, … }`, và chọn nó bằng `{ variant: { id, … } }`.
 
@@ -74,8 +74,8 @@ const dictionary = {
   variant: "black_friday",
   content: {
     headline: t({
-      en: "50 % off — today only",
-      fr: "−50 % — aujourd'hui seulement",
+      en: "50 % off, today only",
+      fr: "−50 %, aujourd'hui seulement",
     }),
     cta: t({ en: "Shop now", fr: "Acheter maintenant" }),
   },
@@ -107,7 +107,7 @@ export default dictionary;
 
 ```tsx
 useIntlayer("hero-banner", { variant: "summer" });
-// → { headline: "Développez plus vite tout l'été", cta: "Commencer" } — `cta` được kế thừa
+// → { headline: "Développez plus vite tout l'été", cta: "Commencer" }, `cta` được kế thừa
 
 useIntlayer("hero-banner", { variant: "never-declared" });
 // → mục mặc định
@@ -278,7 +278,7 @@ const content = useIntlayer("hero-banner", {
 
 ## Biến thể đối tượng (có cấu trúc)
 
-Một biến thể đối tượng định địa chỉ nội dung bằng một tập hợp cặp khóa-giá trị tùy ý được khai báo trong trường `variant` — giúp mô hình hóa bản ghi CMS, nội dung riêng theo người dùng, hoặc bất kỳ nội dung nào có khóa là một ID mờ. **Toàn bộ đối tượng** chính là danh tính: bộ chọn phải cung cấp một đối tượng bằng nhau để mục được phân giải.
+Một biến thể đối tượng định địa chỉ nội dung bằng một tập hợp cặp khóa-giá trị tùy ý được khai báo trong trường `variant`, giúp mô hình hóa bản ghi CMS, nội dung riêng theo người dùng, hoặc bất kỳ nội dung nào có khóa là một ID mờ. **Toàn bộ đối tượng** chính là danh tính: bộ chọn phải cung cấp một đối tượng bằng nhau để mục được phân giải.
 
 ```ts fileName="product.abc.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
@@ -495,7 +495,7 @@ const content = useIntlayer("product", {
 });
 ```
 
-#### Thiếu trường — không khớp
+#### Thiếu trường, không khớp
 
 ```ts
 // Trả về null: thiếu `userId`, nên đối tượng không khớp với biến thể đã khai báo
@@ -504,7 +504,7 @@ const content = useIntlayer("product", { variant: { id: "prod_abc" } });
 
 ## Biến thể bao trùm
 
-Một số chiều biến thể cố định trong suốt phiên làm việc — tenant, loại trường học, hạng gói. Chúng được xác định một lần, và không component nào phải truyền chúng thủ công.
+Một số chiều biến thể cố định trong suốt phiên làm việc, tenant, loại trường học, hạng gói. Chúng được xác định một lần, và không component nào phải truyền chúng thủ công.
 
 > Đừng bọc `useIntlayer` trong hook riêng của bạn để chèn chúng. Tối ưu hóa lúc build chỉ viết lại lời gọi `useIntlayer("key")` dạng literal được import từ gói framework, nên mọi thứ nằm sau một lớp bọc sẽ không được đóng gói.
 
@@ -647,7 +647,7 @@ useIntlayer("hero-banner");
 // → biến thể của provider
 
 useIntlayer("hero-banner", { variant: "summer" });
-// → "summer" — thay thế biến thể của provider, không mở rộng nó
+// → "summer", thay thế biến thể của provider, không mở rộng nó
 ```
 
 ### Các dạng
@@ -662,7 +662,7 @@ Prop `variant` chấp nhận ba dạng:
 
 #### Chuỗi ưu tiên
 
-Chuỗi được thử từ trái sang phải theo các mục mà mỗi khóa khai báo, và mục được khai báo đầu tiên sẽ thắng. Khi không có mục nào được khai báo, mục mặc định ngầm định sẽ được dùng — hệt như với một giá trị đơn.
+Chuỗi được thử từ trái sang phải theo các mục mà mỗi khóa khai báo, và mục được khai báo đầu tiên sẽ thắng. Khi không có mục nào được khai báo, mục mặc định ngầm định sẽ được dùng, hệt như với một giá trị đơn.
 
 ```tsx
 <IntlayerProvider variant={["school1", "school2"]} />
@@ -692,9 +692,9 @@ Chỉ định riêng từng khóa từ điển. Mục `default` được dành r
 />
 ```
 
-> Trên provider, một object thuần **luôn** được đọc là ánh xạ theo khóa, không bao giờ là biến thể object — hai thứ này giống hệt nhau về cấu trúc. Để cố định một biến thể object trên toàn cục, hãy lồng nó dưới một mục: `variant={{ default: { id: "prod_abc" } }}`.
+> Trên provider, một object thuần **luôn** được đọc là ánh xạ theo khóa, không bao giờ là biến thể object, hai thứ này giống hệt nhau về cấu trúc. Để cố định một biến thể object trên toàn cục, hãy lồng nó dưới một mục: `variant={{ default: { id: "prod_abc" } }}`.
 
-Vì các khóa của ánh xạ được đối chiếu với các khóa từ điển bạn đã khai báo, một lỗi gõ nhầm — hoặc một biến thể object viết trực tiếp, chẳng hạn `variant={{ id: "prod_abc" }}` — sẽ là lỗi biên dịch.
+Vì các khóa của ánh xạ được đối chiếu với các khóa từ điển bạn đã khai báo, một lỗi gõ nhầm (hoặc một biến thể object viết trực tiếp, chẳng hạn `variant={{ id: "prod_abc" }}`) sẽ là lỗi biên dịch.
 
 ## Chế độ tải
 
@@ -712,6 +712,8 @@ export default dictionary;
 ```
 
 Xem [tối ưu hóa bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md) để biết chi tiết về các chế độ `static`, `dynamic` và `fetch`.
+
+- [tối ưu hóa bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md)
 
 ## Các trường hợp sử dụng điển hình
 

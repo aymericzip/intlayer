@@ -149,6 +149,9 @@ npx intlayer init infra --mode compose
 
 Aynı adım `npx intlayer init --interactive` tarafından da sunulur. Yükleyici ayarları için [`init infra` referansına](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/infra.md) ve her modun neleri kurduğu hakkında bilgi edinmek için [kendi sunucunuzda barındırma kılavuzuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/self_hosting.md) bakın.
 
+- [`init infra` referansına](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/infra.md)
+- [kendi sunucunuzda barındırma kılavuzuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/self_hosting.md)
+
 ## Örnek çıktı:
 
 ```bash

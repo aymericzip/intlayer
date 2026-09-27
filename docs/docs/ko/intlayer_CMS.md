@@ -66,6 +66,8 @@ Intlayer는 '로컬(local)' 사전과 '원격(distant)' 사전을 구분합니�
 
 [Intlayer Visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md) 에디터는 로컬 사전을 위한 시각적 편집기에서 콘텐츠를 관리할 수 있는 도구입니다. 변경이 이루어지면, 콘텐츠는 코드베이스에서 교체됩니다. 이는 애플리케이션이 재빌드되고 페이지가 새 콘텐츠를 표시하기 위해 다시 로드된다는 것을 의미합니다.
 
+- [Intlayer Visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)
+
 반면에, Intlayer CMS는 원격 사전을 위한 시각적 편집기에서 콘텐츠를 관리할 수 있는 도구입니다. 변경이 이루어져도 콘텐츠는 코드베이스에 영향을 주지 않습니다. 그리고 웹사이트는 변경된 콘텐츠를 자동으로 표시합니다.
 
 ## 통합하기
@@ -76,13 +78,19 @@ Intlayer는 '로컬(local)' 사전과 '원격(distant)' 사전을 구분합니�
 
 Next.js와 통합하려면 [설치 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_15.md)를 참조하세요.
 
+- [Next.js 15 i18n - 앱을 번역하는 완전 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_15.md)
+
 ### Create React App과 통합하기
 
 Create React App과 통합하려면 [설치 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_create_react_app.md)를 참조하세요.
 
+- [Create React App i18n: 완벽한 번역 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_create_react_app.md)
+
 ### Vite + React와 통합하기
 
 Vite + React와 통합하려면 [설치 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_vite+react.md)를 참조하세요.
+
+- [Vite + React i18n - 앱을 번역하는 완전 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_vite+react.md)
 
 ## 구성
 
@@ -162,6 +170,8 @@ export default config;
 > 클라이언트 ID와 클라이언트 시크릿이 없는 경우, [Intlayer 대시보드 - 프로젝트](https://app.intlayer.org/projects)에서 새 클라이언트를 생성하여 얻을 수 있습니다.
 
 > 사용 가능한 모든 매개변수를 확인하려면 [구성 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참조하세요.
+
+- [구성 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)
 
 ## CMS 사용하기
 
@@ -277,8 +287,8 @@ bun add @intlayer/api
 
 SDK는 번들 크기를 작게 유지하기 위해 의도적으로 **두 개의 개별 임포트**로 분리되어 있습니다:
 
-1.  `createIntlayerCMS` — 경량 **인증기**를 생성합니다. 자격 증명과 관리되는 액세스 토큰만 포함하며, 특정 도메인에 대해서는 알지 못합니다.
-2.  `dictionaryEndpoint`, `projectEndpoint`, … — 도메인별 **엔드포인트 바인더**로, 각각 자체 하위 경로 (`@intlayer/api/dictionary`, `@intlayer/api/project`, …)에서 임포트됩니다. 필요한 엔드포인트에 인증기를 전달합니다.
+1.  `createIntlayerCMS`: 경량 **인증기**를 생성합니다. 자격 증명과 관리되는 액세스 토큰만 포함하며, 특정 도메인에 대해서는 알지 못합니다.
+2.  `dictionaryEndpoint`, `projectEndpoint`, …, 도메인별 **엔드포인트 바인더**로, 각각 자체 하위 경로 (`@intlayer/api/dictionary`, `@intlayer/api/project`, …)에서 임포트됩니다. 필요한 엔드포인트에 인증기를 전달합니다.
 
 각 엔드포인트가 개별적으로 임포트되므로, 번들에는 실제로 사용하는 도메인만 포함됩니다. `dictionaryEndpoint`를 임포트해도 프로젝트, AI 또는 다른 도메인 클라이언트가 함께 포함되지 않습니다.
 
@@ -394,7 +404,7 @@ import { dictionaryEndpoint } from "@intlayer/api/dictionary";
 
 const dictionary = dictionaryEndpoint(createIntlayerCMS());
 
-// 이미 인증됨 — 각 호출 시 토큰을 자동으로 새로 고칩니다.
+// 이미 인증됨, 각 호출 시 토큰을 자동으로 새로 고칩니다.
 export const pushDictionaries = dictionary.pushDictionaries;
 
 // 사용 예시
@@ -407,6 +417,8 @@ await pushDictionaries([{ key: "home", content: { title: "Home" } }]);
 
 전체 설정 가이드(구성 활성화, Live Sync 서버 시작, 로컬 개발 워크플로, 제약 사항)는 [Live Sync 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/live-sync.md)를 참조하세요.
 
+- [Live Sync 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/live-sync.md)
+
 ## 자체 호스팅
 
 Intlayer는 자체 인프라에서 완전히 실행될 수 있습니다. 한 줄의 명령어로 Docker Compose를 사용하여 전체 스택(대시보드, API, 데이터베이스, 객체 스토리지 및 이메일)을 부트스트랩할 수 있습니다:
@@ -416,6 +428,8 @@ curl -fsSL https://intlayer.org/install.sh | sh
 ```
 
 전체 설정 가이드, 환경 변수 참조, 업그레이드 지침 및 백업/복원 절차는 [자체 호스팅 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/self_hosting.md)를 참조하세요.
+
+- [자체 호스팅 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/self_hosting.md)
 
 ## 디버그
 
@@ -440,27 +454,45 @@ CMS에서 문제가 발생하면 다음을 확인하세요:
 
 [비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)는 로컬 사전을 편집하고 변경 사항을 코드베이스에 다시 기록하므로, 앱이 다시 빌드되고 정상적인 코드 리뷰 및 배포 과정을 거칩니다. CMS는 원격 사전을 편집합니다: 변경 사항이 코드베이스를 건드리지 않으며 실행 중인 웹사이트가 배포 없이 즉시 업데이트를 반영합니다. 팀에서는 두 가지를 함께 사용하는 경우가 많습니다. 즉, 개발자가 소유하는 UI 콘텐츠에는 에디터를 사용하고 마케팅 팀이 매주 변경하는 콘텐츠에는 CMS를 사용합니다.
 
+- [비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)
+
 </Question>
 <Question title="i18n이 번들 크기에 얼마나 영향을 미치나요?">
 
 네임스페이스 기반 설정보다 훨씬 적습니다. 페이지는 렌더링하지 않는 언어의 카탈로그를 절대 다운로드하지 않기 때문입니다. 서버 렌더링 마크업은 서버에서 콘텐츠를 확인하고, 빌드 타임 컴파일러는 `useIntlayer` 호출을 컴포넌트가 사용하는 정확한 사전 항목으로 대체하므로 사용되지 않는 키와 언어는 제거됩니다. [동적 사전](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dynamic_dictionaries/index.md)을 통해 로케일별로 분할됩니다. 일반적인 대안들과 비교했을 때 Intlayer는 번들 및 페이지 크기를 최대 50%까지 줄여줍니다. [번들 최적화](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md)와 [벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/index.md)를 참조하세요.
+
+- [동적 사전](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dynamic_dictionaries/index.md)
+- [번들 최적화](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md)
+- [벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/index.md)
 
 </Question>
 <Question title="컴포넌트를 다시 작성하지 않고 i18next, next-intl 또는 react-i18next에서 마이그레이션할 수 있나요?">
 
 네, 두 가지 방법이 있습니다. [i18next 마이그레이션 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_i18next_to_intlayer.md) 또는 [next-intl 마이그레이션 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_next-intl_to_intlayer.md)를 따라 점진적으로 이전할 수 있습니다. 또는 현재 API를 완전히 유지할 수도 있습니다: [호환 어댑터(compat adapters)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/index.md)는 `i18next`, `react-i18next`, `next-intl`, `next-i18next`, `react-intl`, `use-intl`, `vue-i18n` 및 `Lingui`와 완전히 동일한 API를 노출하면서 Intlayer 사전에서 데이터를 제공하므로, import 구문만 변경하고 컴포넌트 코드는 그대로 유지할 수 있습니다.
 
+- [i18next 마이그레이션 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_i18next_to_intlayer.md)
+- [next-intl 마이그레이션 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_next-intl_to_intlayer.md)
+- [호환 어댑터(compat adapters)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/index.md)
+
 </Question>
 <Question title="기존 JSON 번역 파일을 유지할 수 있나요?">
 
 네. [sync JSON 플러그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/plugins/sync-json.md)은 `/messages/{locale}/{namespace}.json` 파일을 단일 진실 공급원(source of truth)으로 유지하면서 양방향으로 Intlayer 사전을 생성합니다. [sync PO 플러그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/plugins/sync-po.md)은 gettext 카탈로그에 대해 동일한 작업을 수행하며, [로케일별 파일](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/per_locale_file.md)을 통해 로케일을 한 파일에 모으는 대신 언어별로 콘텐츠를 분할할 수도 있습니다.
+
+- [sync JSON 플러그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/plugins/sync-json.md)
+- [sync PO 플러그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/plugins/sync-po.md)
+- [로케일별 파일](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/per_locale_file.md)
 
 </Question>
 <Question title="콘텐츠를 키 단위로 하나씩 옮겨야 하나요?">
 
 아닙니다. `npx intlayer extract`를 실행하면 Intlayer가 소스 파일을 읽고 사용자 대면 문자열을 추출하여 각 컴포넌트 옆에 `.content` 파일을 생성하므로 카탈로그에 일일이 복사할 필요 없이 diff만 검토하면 됩니다. [extract 명령](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/extract.md)을 참조하세요.
 
+- [extract 명령](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/extract.md)
+
 완전 자동화된 파이프라인을 위해 [Intlayer 컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md)는 빌드 타임에 JSX, TSX, Vue 및 Svelte 소스에서 동일한 작업을 수행하여 변경될 때마다 사전을 생성하고 HMR을 통해 동기화하므로 수동으로 키를 관리할 필요가 없습니다. 정적 분석으로 작동하므로 런타임에만 존재하는 문자열은 제외되며, 사용자 텍스트와 애플리케이션 로직을 구분하기 위해 몇 가지 주석이 필요합니다.
+
+- [Intlayer 컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md)
 
 </Question>
 <Question title="사용 가능한 에디터 및 AI 에이전트 도구는 무엇이 있나요?">
@@ -488,10 +520,14 @@ CMS에서 문제가 발생하면 다음을 확인하세요:
 
 네. CMS를 자체 인프라에서 실행할 수 있으며, 콘텐츠가 내부 네트워크 외부로 유출되어서는 안 되는 환경에서 주로 사용됩니다. [Intlayer 자체 호스팅](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/self_hosting.md)을 참조하세요.
 
+- [Intlayer 자체 호스팅](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/self_hosting.md)
+
 </Question>
 <Question title="콘텐츠 편집자가 변경 사항을 게시하기 위해 개발자의 도움이 필요한가요?">
 
 아닙니다. 그것이 원격 사전의 핵심 목적입니다: 편집자가 CMS에서 텍스트를 변경하면 사이트에 즉시 반영되며, [실시간 동기화(live sync)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/live.md)를 통해 빌드를 기다리지 않고 런타임에 업데이트가 적용됩니다.
+
+- [실시간 동기화(live sync)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/live.md)
 
 </Question>
 <Question title="인터페이스를 사용하는 대신 CMS 작업을 자동화할 수 있나요?">
@@ -503,10 +539,15 @@ CMS에서 문제가 발생하면 다음을 확인하세요:
 
 네. 원격 사전은 [콘텐츠 변형(content variants)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dynamic_dictionaries/variants.md)을 지원하며, [애널리틱스](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/analytics.md)를 통해 각 변형이 어떻게 노출되었는지 보고하므로 주관적인 토론 대신 데이터에 기반하여 문구 변경 효과를 측정할 수 있습니다.
 
+- [콘텐츠 변형(content variants)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dynamic_dictionaries/variants.md)
+- [애널리틱스](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/analytics.md)
+
 </Question>
 <Question title="CMS는 무료인가요?">
 
 Intlayer 라이브러리, CLI, 컴파일러 및 비주얼 에디터는 Apache 2.0 라이선스에 따라 무료 오픈 소스로 제공됩니다. 호스팅형 CMS는 선택적 유료 서비스이며 대안으로 [자체 호스팅](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/self_hosting.md)할 수도 있습니다.
+
+- [자체 호스팅](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/self_hosting.md)
 
 </Question>
 

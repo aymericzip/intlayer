@@ -39,9 +39,13 @@ author: aymericzip
 
 Siehe einen konkreten Vergleich mit react-i18next in unserem Blogbeitrag [react-i18next vs. react-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/react-i18next_vs_react-intl_vs_intlayer.md).
 
+- [react-i18next vs. react-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/react-i18next_vs_react-intl_vs_intlayer.md)
+
 ## Warum Intlayer mit react-i18next kombinieren?
 
 Während Intlayer eine ausgezeichnete eigenständige i18n-Lösung bietet (siehe unseren [React-Integrationsleitfaden](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_vite+react.md)), möchten Sie es möglicherweise aus mehreren Gründen mit react-i18next kombinieren:
+
+- [React-Integrationsleitfaden](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_vite+react.md)
 
 1. **Bestehender Codebestand**: Sie haben eine etablierte react-i18next-Implementierung und möchten schrittweise auf die verbesserte Entwicklererfahrung von Intlayer migrieren.
 2. **Altsystemanforderungen**: Ihr Projekt erfordert Kompatibilität mit bestehenden react-i18next-Plugins oder Workflows.
@@ -145,6 +149,8 @@ Wenn Änderungen über die CLI zur Übersetzung des JSON oder über das CMS vorg
 
 Um weitere Details zum `syncJSON`-Plugin zu erfahren, lesen Sie bitte die [syncJSON Plugin-Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/plugins/sync-json.md).
 
+- [syncJSON Plugin-Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/plugins/sync-json.md)
+
 </Step>
 <Step number={3} title="Implementierung von JSON-Übersetzungen pro Komponente" isOptional={true}>
 
@@ -206,4 +212,4 @@ Diese Dateien können während Ihres Build-Prozesses neu generiert werden und m�
 
 Für eine verbesserte Entwicklererfahrung installieren Sie die offizielle **Intlayer VS Code Erweiterung**:
 
-[Installation aus dem VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [Installation aus dem VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

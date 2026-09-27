@@ -51,6 +51,8 @@ author: aymericzip
 
 > Шукаєте повний покроковий посібник для Next.js 16 App Router? Перегляньте нашу документацію: [Переклад Next.js 16 з Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_nextjs_16.md).
 
+- [Переклад Next.js 16 з Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_nextjs_16.md)
+
 ## Зміст
 
 <TOC/>
@@ -266,6 +268,8 @@ export const generateMetadata = async (): Promise<Metadata> => {
 Повний технічний посібник із налаштування middleware, генерації статичних сторінок (`generateStaticParams`) та Server Components доступний у документації:
 
 👉 **[Повний посібник із перекладу Next.js 16 з Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_nextjs_16.md)**
+
+- [Повний посібник із перекладу Next.js 16 з Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_nextjs_16.md)
 
 ## Часті запитання (FAQ)
 

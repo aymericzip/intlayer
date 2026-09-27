@@ -322,6 +322,8 @@ loadPO({
 
 راجع [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md) لمزيد من التفاصيل.
 
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md)
+
 ## القيود (الحالية)
 
 - لا يوجد دعم للإدراجات أو الجموع/ICU عند استهداف مكتبات جهات خارجية.

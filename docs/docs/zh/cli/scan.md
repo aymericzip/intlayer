@@ -130,13 +130,13 @@ Bundle locale weight:
 
 ### 标准配置选项
 
-- **`--base-dir`** — 用于定位 `intlayer.config.*` 文件的基目录。
-- **`-e, --env`** — 目标环境（例如 `development`，`production`）。
-- **`--env-file`** — 自定义 `.env` 文件的路径。
-- **`--no-cache`** — 禁用配置缓存。
-- **`--ci`** — 在 monorepo 的每个 Intlayer 项目中执行该命令（在项目目录内运行时仅处理当前项目）。可通过 `INTLAYER_PROJECT_CREDENTIALS`（将项目路径映射到 `{ "clientId", "clientSecret" }` 的 JSON 对象）为每个项目注入凭据。
-- **`--verbose`** — 启用详细日志记录（CLI 模式下默认开启）。
-- **`--prefix`** — 自定义日志前缀。
+- **`--base-dir`**：用于定位 `intlayer.config.*` 文件的基目录。
+- **`-e, --env`**：目标环境（例如 `development`，`production`）。
+- **`--env-file`**：自定义 `.env` 文件的路径。
+- **`--no-cache`**：禁用配置缓存。
+- **`--ci`**：在 monorepo 的每个 Intlayer 项目中执行该命令（在项目目录内运行时仅处理当前项目）。可通过 `INTLAYER_PROJECT_CREDENTIALS`（将项目路径映射到 `{ "clientId", "clientSecret" }` 的 JSON 对象）为每个项目注入凭据。
+- **`--verbose`**：启用详细日志记录（CLI 模式下默认开启）。
+- **`--prefix`**：自定义日志前缀。
 
 ## 路由策略
 

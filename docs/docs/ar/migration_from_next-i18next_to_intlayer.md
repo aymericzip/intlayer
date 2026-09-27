@@ -47,10 +47,16 @@ Intlayer هو أيضًا الحل الذي يتمتع بـ **أنشط تطور**
 
 **يقلل** Co-locating المحتوى من السياق المطلوب بواسطة النماذج اللغوية الكبيرة (LLMs). يأتي Intlayer أيضًا مع مجموعة من الأدوات، مثل **CLI** لاختبار الترجمات المفقودة، **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**، **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**، و **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)**، لجعل تجربة المطور (DX) أكثر سلاسة حتى بالنسبة لوكلاء AI.
 
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)
+- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)
+
 </Accordion>
 <Accordion header="الأتمتة">
 
 استخدم الأتمتة للترجمة في خط أنابيب CI/CD الخاص بك باستخدام LLM من اختيارك بتكلفة موفر AI الخاص بك. يوفر Intlayer أيضًا **مترجم** لأتمتة استخراج المحتوى، وكذلك [منصة ويب](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) لمساعدتك في **الترجمة في الخلفية**.
+
+- [منصة ويب](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="الأداء">
@@ -60,7 +66,10 @@ Intlayer هو أيضًا الحل الذي يتمتع بـ **أنشط تطور**
 </Accordion>
 <Accordion header="التوسع مع غير المطورين">
 
-أكثر من مجرد حل i18n، يوفر Intlayer **محرر بصري مستضاف على الخادم الخاص بك** و **CMS كامل** لمساعدتك في إدارة محتوى متعدد اللغات **في الوقت الفعلي**، مما يجعل التعاون مع المترجمين والمحررين وأعضاء الفريق الآخرين سلساً. يمكن تخزين المحتوى محليًا و/أو عن بعد.
+أكثر من مجرد حل i18n، يوفر Intlayer **[محرر بصري](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) مستضاف على الخادم الخاص بك** و **[CMS كامل](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)** لمساعدتك في إدارة محتوى متعدد اللغات **في الوقت الفعلي**، مما يجعل التعاون مع المترجمين والمحررين وأعضاء الفريق الآخرين سلساً. يمكن تخزين المحتوى محليًا و/أو عن بعد.
+
+- [محرر بصري](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)
+- [CMS كامل](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
@@ -73,9 +82,9 @@ Intlayer هو أيضًا الحل الذي يتمتع بـ **أنشط تطور**
 
 نظراً لأن `next-i18next` يلتف حول `react-i18next` و `i18next` تحت الغطاء، هناك استراتيجيتان متكاملتان للترحيل إلى Intlayer:
 
-1. **محول التوافق (موصى به للتطبيقات الموجودة)** — قم بتثبيت `@intlayer/next-i18next` و `@intlayer/react-i18next` و `@intlayer/i18next`. تعرض هذه الحزم **نفس API تماماً** كنظيراتها لكن توكل جميع أعمال الترجمة إلى Intlayer تحت الغطاء. تحتفظ باستدعاءات `useTranslation` و `appWithTranslation` و `serverSideTranslations` الموجودة والتوجيه Pages من Next.js دون تغيير - التغيير الوحيد هو التهيئة.
+1. **محول التوافق (موصى به للتطبيقات الموجودة)**: قم بتثبيت `@intlayer/next-i18next` و `@intlayer/react-i18next` و `@intlayer/i18next`. تعرض هذه الحزم **نفس API تماماً** كنظيراتها لكن توكل جميع أعمال الترجمة إلى Intlayer تحت الغطاء. تحتفظ باستدعاءات `useTranslation` و `appWithTranslation` و `serverSideTranslations` الموجودة والتوجيه Pages من Next.js دون تغيير - التغيير الوحيد هو التهيئة.
 
-2. **الترحيل الكامل** — استبدل تدريجياً APIs من `next-i18next` بـ hooks Intlayer الأصلية (`useIntlayer`) وضع المحتوى في ملفات `.content.ts` بجانب مكوناتك.
+2. **الترحيل الكامل**: استبدل تدريجياً APIs من `next-i18next` بـ hooks Intlayer الأصلية (`useIntlayer`) وضع المحتوى في ملفات `.content.ts` بجانب مكوناتك.
 
 يغطي هذا الدليل **الاستراتيجية 1** أولاً (محول التوافق drop-in)، ثم يمر عبر الترحيل الكامل الاختياري.
 
@@ -283,6 +292,8 @@ export default config;
 ```
 
 > راجع [وثائق Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md) لجميع الخيارات المتاحة.
+
+- [وثائق Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md)
 
 </Step>
 

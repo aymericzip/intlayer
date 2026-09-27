@@ -128,6 +128,8 @@ style="border:none;"
 
 > الجدول الكامل، لكل مكتبة واستراتيجية، في [تقرير قياس أداء Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md).
 
+- [تقرير قياس أداء Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md)
+
 ### النتائج على TanStack Start
 
 | المكتبة                    | الاستراتيجية   | حجم المكتبة (gz) | متوسط JS للصفحة (gz) | تسرب اللغة | تسرب الصفحة | متوسط المكون (gz) | تفاعلية E2E | الترطيب |
@@ -157,6 +159,8 @@ style="border:none;"
 />
 
 > الجدول الكامل في [تقرير قياس أداء TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md).
+
+- [تقرير قياس أداء TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md)
 
 ## لماذا هذا الفارق؟ مترجمان بوحدتي عمل مختلفتين
 
@@ -206,6 +210,8 @@ style="border:none;"
 ![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 > للحصول على أرقام صف `dynamic`، قم بضبط `dictionary.importMode: 'dynamic'` في ملف `intlayer.config.ts`. راجع [دليل تحسين الحزمة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md).
+
+- [دليل تحسين الحزمة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md)
 
 ## تجربة المطور
 
@@ -391,6 +397,8 @@ export default defineConfig({
 
 احتفظ بـ `@lingui/babel-plugin-lingui-macro` أو `@lingui/swc-plugin` ليعمل قبل مترجم Intlayer. راجع [دليل التوافق مع Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/lingui.md).
 
+- [دليل التوافق مع Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/lingui.md)
+
 ## متى تختار أياً منهما؟
 
 <AccordionGroup>
@@ -403,10 +411,18 @@ export default defineConfig({
 
 أنت تريد **محتوى بنطاق محدد على مستوى المكونات**، و**TypeScript صارماً**، و**أخطاء المفاتيح المفقودة وقت البناء**، و**tree-shaking وتحميلاً كسولاً دون جهد**، ومكونات خفيفة، وتفعيل hydration سريعاً، وتبديلاً فورياً للغة، وأدوات تحرير مدمجة ([المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)، [نظام إدارة المحتوى CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)، [الترجمة بالذكاء الاصطناعي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/autoFill.md)، [خادم MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/mcp_server.md)). ملائم للغاية لقواعد الكود الكبيرة والمعيارية وأنظمة التصميم.
 
+- [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)
+- [نظام إدارة المحتوى CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
+- [الترجمة بالذكاء الاصطناعي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/autoFill.md)
+- [خادم MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/mcp_server.md)
+
 </Accordion>
 <Accordion header="اختر @intlayer/lingui">
 
 أنت تستخدم Lingui حالياً وتريد الانتقال إلى قواميس Intlayer تدريجياً دون المساس بوحدات الماكرو. تظل كتالوجات `.po` الخاصة بك المصدر الوحيد للحقيقة عبر [إضافة مزامنة PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/lingui.md). تم قياسه جنباً إلى جنب في [Lingui مقابل @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/lingui_vs_intlayer-lingui.md).
+
+- [إضافة مزامنة PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/lingui.md)
+- [Lingui مقابل @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/lingui_vs_intlayer-lingui.md)
 
 </Accordion>
 </AccordionGroup>
@@ -437,11 +453,15 @@ export default defineConfig({
 
 لا. يحافظ `@intlayer/lingui` على ترجمة `` t`...` `` و `<Trans>` و `msg` و `plural` و `select` و `selectOrdinal` كما كانت تماماً؛ فقط ما يحلله `i18n._()` هو ما يتغير. احتفظ بـ `@lingui/babel-plugin-lingui-macro` أو `@lingui/swc-plugin` في البناء. راجع [وثائق توافق Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/lingui.md).
 
+- [وثائق توافق Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/lingui.md)
+
 </Question>
 
 <Question title="ماذا عن خطوات الاستخراج والتجميع؟">
 
 تظل موجودة لوحدات الماكرو، وتختفي تماماً لمحتوى Intlayer الخاص. يتم بناء قواميس `.content.ts` تلقائياً عند تشغيل أداة الحزم، دون الحاجة إلى تشغيل أوامر CLI منفصلة، ويوقف أمر [`intlayer test`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md) خط أنابيب CI عند وجود أي مفتاح مفقود بدلاً من الرجوع الصامت إلى السلسلة المصدرية.
+
+- [`intlayer test`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md)
 
 </Question>
 
@@ -493,3 +513,5 @@ Lingui هي أقوى مكتبة تجمع بين بيئة التشغيل والم
 جميع البيانات الأولية والتطبيقات وسيناريوهات الاختبار متوفرة في [مستودع Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). يمكنك تشغيله بنفسك.
 
 راجع وثيقة ['لماذا Intlayer؟'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/interest_of_intlayer.md) لمزيد من التفاصيل.
+
+- [لماذا Intlayer؟ مزاياه مقارنة بمكتبات i18n الأخرى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/interest_of_intlayer.md)

@@ -30,9 +30,11 @@ author: aymericzip
 
 ## How Plural Works
 
-To use plural content in Next.js Client Components, retrieve it via the `useIntlayer` hook and call it with a count. Here's an example:
+In Intlayer, plural content is achieved through the `plural` function, which maps CLDR plural categories, `zero`, `one`, `two`, `few`, `many`, `other`, to their corresponding content. The correct category is selected automatically based on the active locale and a count value, using the platform's built-in [`Intl.PluralRules`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Intl/PluralRules) API.
 
-To use plural content in Angular components, retrieve it via the `useIntlayer` hook and call it with a count. Here's an example:
+Unlike [`enu`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/enumeration.md), which selects content based on numeric ranges you define yourself, `plural` delegates the selection to CLDR rules. This is what makes it scalable to languages with complex pluralisation rules, such as Russian, Polish, Arabic, or Welsh, without having to hand-write modulo logic.
+
+- [`enu`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/enumeration.md)
 
 ## When to Use `plural` vs `enu`
 

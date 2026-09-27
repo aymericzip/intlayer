@@ -100,6 +100,8 @@ Il [benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/i
 
 <I18nBenchmark framework="nextjs" packages="next-i18next,next-intl,next-intlayer" vertical/>
 
+- [benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/benchmark/nextjs.md)
+
 <ClickToOpenIframe
   src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
   width="100%"
@@ -121,6 +123,9 @@ Dati chiave misurati su Next.js App Router (gzip):
 | `next-intlayer` (native Intlayer) |          **5.5 KB** |        **141.3 KB** |             **0.0%** |             **0.0%** |           **6.9 KB** |
 
 > Per l'analisi completa, consulta il [report di benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/benchmark/nextjs.md) e la [panoramica del benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/benchmark/index.md).
+
+- [report di benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/benchmark/nextjs.md)
+- [panoramica del benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/benchmark/index.md)
 
 Due componenti sono importanti nel contesto di un bundle per applicazioni multilingue:
 
@@ -1453,3 +1458,5 @@ Tutte e tre le librerie riescono nella localizzazione di base. La differenza è 
 - [Adattatore di compatibilità @intlayer/next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compat/next-i18next.md)
 
 Consulta il documento ['Perché Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/interest_of_intlayer.md) per maggiori dettagli.
+
+- [Perché Intlayer? Vantaggi rispetto ad altre librerie i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/interest_of_intlayer.md)

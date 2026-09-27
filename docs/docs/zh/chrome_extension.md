@@ -120,6 +120,11 @@ author: aymericzip
 
 大多数检查都对应路由或元数据设置。使用 Intlayer 时，hreflang、规范链接、`x-default`、本地化链接、站点地图和 robots.txt 均可从您的[配置](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)自动生成。请参阅适用于您框架的集成指南，例如 [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_16.md)、[Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nuxt.md) 或 [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_tanstack.md)。
 
+- [配置](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)
+- [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_16.md)
+- [Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nuxt.md)
+- [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_tanstack.md)
+
 </Question>
 
 </FAQ>

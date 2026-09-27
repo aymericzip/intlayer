@@ -34,6 +34,8 @@ Hàm `getEnumeration` lấy nội dung tương ứng với một số lượng c
 
 Để biết thêm chi tiết về cách khai báo enumerations, xem [tài liệu Enumeration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/enumeration.md).
 
+- [tài liệu Enumeration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/enumeration.md)
+
 ## Tham số
 
 - `enumerationContent: QuantityContent<Content>`

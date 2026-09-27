@@ -175,6 +175,8 @@ export default config;
 
 > Pełną listę opcji można znaleźć w [dokumentacji konfiguracji](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md).
 
+- [dokumentacji konfiguracji](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md)
+
 </Step>
 <Step number={3} title="Zadeklaruj swoją zawartość">
 
@@ -220,6 +222,8 @@ export default appContent;
 ```
 
 > Deklaracje treści mogą znajdować się w dowolnym miejscu w `contentDir` (domyślnie `./src`) i powinny pasować do `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`. Zobacz [dokumentację deklaracji treści](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/content_file.md).
+
+- [dokumentację deklaracji treści](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/content_file.md)
 
 </Step>
 <Step number={4} title="Zarejestruj middleware Intlayer">
@@ -647,7 +651,7 @@ Zaleca się ignorowanie plików generowanych przez Intlayer:
 
 Aby ulepszyć doświadczenie programisty z Intlayer, możesz zainstalować oficjalne **Rozszerzenie VS Code Intlayer**.
 
-[Zainstaluj z VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [Zainstaluj z VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 To rozszerzenie zapewnia:
 
@@ -658,9 +662,13 @@ To rozszerzenie zapewnia:
 
 Aby uzyskać więcej szczegółów na temat korzystania z rozszerzenia, zapoznaj się z [dokumentacją rozszerzenia Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/vs_code_extension.md).
 
+- [dokumentacją rozszerzenia Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/vs_code_extension.md)
+
 ### Idź dalej
 
 Aby pójść dalej, możesz eksternalizować swoją zawartość za pomocą [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md), aby tłumacze mogli zmieniać kopię bez wdrażania.
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md)
 
 ## Frequently Asked Questions
 
@@ -685,6 +693,9 @@ Nie. Wszystko, co widzi odwiedzający, jest produkowane przez serwer, więc nie 
 
 Serwuj swoje strony pod prefixem lokalizacji (`/fr/cart`) i odczytuj lokalę ze ścieżki w handleru trasy, zamiast z ciasteczka, dla pełnego renderowania strony. Fragmenty mogą nadal używać ciasteczka lub nagłówka. Zobacz [konfigurację](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md) opcji routingu i [niestandardowe przepisywanie adresów URL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/custom_url_rewrites.md).
 
+- [konfigurację](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md)
+- [niestandardowe przepisywanie adresów URL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/custom_url_rewrites.md)
+
 </Question>
 <Question title="Jak obsługuję języki od prawej do lewej?">
 
@@ -700,25 +711,44 @@ Tak, dla wszystkiego, co interpolujesz w string szablonowy, dokładnie jak dla k
 
 Tak. Integracje backend'owe udostępniają `t()` i `getIntlayer()` do dowolnego handlera, dzięki czemu komunikat o błędzie wyświetlany w toast'e i etykieta renderowana do fragmentu pochodzą z tej samej zadeklarowanej treści. Zobacz przewodniki [Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_express.md), [Fastify](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_fastify.md), [Hono](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_hono.md) i [Elysia](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_elysia.md).
 
+- [Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_express.md)
+- [Fastify](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_fastify.md)
+- [Hono](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_hono.md)
+- [Elysia](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_elysia.md)
+
 </Question>
 <Question title="Czy muszę przenosić moją treść klucz za kluczem?">
 
 Nie. Uruchom `npx intlayer extract` i Intlayer przeczyta Twoje pliki źródłowe, wyciągnie ciągi znaków przeznaczone dla użytkownika i napisze plik `.content` obok każdego z nich, abyś mógł przejrzeć diff zamiast kopiować ciągi znaków do katalogu jeden po jednym. Zobacz [polecenie extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/extract.md).
+
+- [polecenie extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/extract.md)
 
 </Question>
 <Question title="Czy mogę zachować moje istniejące pliki tłumaczeń JSON?">
 
 Tak. [Plugin synchronizacji JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/plugins/sync-json.md) utrzymuje pliki `/messages/{locale}/{namespace}.json` jako źródło prawdy i generuje słowniki Intlayer z nich, w obu kierunkach. [Plugin synchronizacji PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/plugins/sync-po.md) robi to samo dla katalogów gettext, a [pliki dla poszczególnych lokalizacji](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/per_locale_file.md) pozwalają na podział zawartości według języka zamiast grupowania lokalizacji w jednym pliku.
 
+- [Plugin synchronizacji JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/plugins/sync-json.md)
+- [Plugin synchronizacji PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/plugins/sync-po.md)
+- [pliki dla poszczególnych lokalizacji](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/per_locale_file.md)
+
 </Question>
 <Question title="Jak automatycznie przetłumaczyć aplikację za pomocą AI?">
 
 Uruchom `npx intlayer fill`, które wypełnia brakujące tłumaczenia za pomocą LLM wybranego dostawcy i klucza API. Dodaj `--git-diff`, aby tłumaczyć tylko zawartość zmienioną na gałęzi. Zobacz [polecenie fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/fill.md) i [integrację CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/CI_CD.md).
 
+- [polecenie fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/fill.md)
+- [integrację CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/CI_CD.md)
+
 </Question>
 <Question title="Czy Intlayer obsługuje płeć, warunki i wartości interpolowane?">
 
 Tak: [zawartość oparta na płci](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/gender.md), warunki, [wyliczenia](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/enumeration.md), [wstawienia](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/insertion.md) dla interpolowanych wartości, oraz [formatory](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/formatters.md) dla liczb, dat i walut.
+
+- [zawartość oparta na płci](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/gender.md)
+- [wyliczenia](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/enumeration.md)
+- [wstawienia](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/insertion.md)
+- [formatory](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/formatters.md)
 
 </Question>
 <Question title="Jakie narzędzia edytora i agenta AI są dostępne?">
@@ -735,6 +765,9 @@ Pięć elementów, wszystkie opcjonalne:
 <Question title="Czy Intlayer jest darmowy i open source?">
 
 Tak, na licencji Apache 2.0, komercyjne użycie włączone. Hostowany [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md) jest opcjonalną płatną usługą, którą można również [hostować samodzielnie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/self_hosting.md).
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md)
+- [hostować samodzielnie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/self_hosting.md)
 
 </Question>
 

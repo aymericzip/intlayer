@@ -45,9 +45,13 @@ author: aymericzip
 
 اطلع على مقارنة ملموسة مع i18next في منشور المدونة الخاص بنا [next-i18next مقابل next-intl مقابل Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/next-i18next_vs_next-intl_vs_intlayer.md).
 
+- [next-i18next مقابل next-intl مقابل Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/next-i18next_vs_next-intl_vs_intlayer.md)
+
 ## لماذا الجمع بين Intlayer و i18next؟
 
 بينما يوفر Intlayer حلاً ممتازًا مستقلاً لـ i18n (راجع دليل التكامل مع Next.js الخاص بنا [Next.js integration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_16.md))، قد ترغب في دمجه مع i18next لأسباب عدة:
+
+- [Next.js integration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_16.md)
 
 1. **قاعدة الشيفرة الحالية**: لديك تنفيذ قائم لـ i18next وتريد الانتقال تدريجيًا إلى تجربة المطور المحسنة التي يقدمها Intlayer.
 2. **متطلبات قديمة**: مشروعك يتطلب التوافق مع الإضافات أو سير العمل الحالي الخاص بـ i18next.
@@ -151,6 +155,8 @@ export default config;
 
 للاطلاع على مزيد من التفاصيل حول المكون الإضافي `syncJSON`، يرجى الرجوع إلى [توثيق مكون syncJSON الإضافي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/plugins/sync-json.md).
 
+- [توثيق مكون syncJSON الإضافي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/plugins/sync-json.md)
+
 </Step>
 <Step number={3} title="تنفيذ ترجمات JSON لكل مكون على حدة">
 
@@ -212,4 +218,4 @@ export default config;
 
 لتحسين تجربة المطور، قم بتثبيت **إضافة Intlayer الرسمية لـ VS Code**:
 
-[التثبيت من سوق VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [التثبيت من سوق VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

@@ -725,7 +725,9 @@ export default config;
 
 定义与 Intlayer 分析相关的设置：收集实际展示给用户的内容（页面浏览量、内容曝光），并支持内容的 A/B 测试。
 
-分析功能采用选择退出（opt-out）模式：默认启用，只要安装了 `@intlayer/analytics` 包**并且**配置了用于归因的项目密钥（`editor.clientId`），即开始收集数据。将 `analytics.enabled` 设为 `false`（或不安装该包），整个分析集成就会从应用程序打包结果中被移除（死代码消除）。
+分析功能采用选择退出（opt-out）模式：默认启用，只要安装了 [`@intlayer/analytics`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/analytics.md) 包**并且**配置了用于归因的项目密钥（`editor.clientId`），即开始收集数据。将 `analytics.enabled` 设为 `false`（或不安装该包），整个分析集成就会从应用程序打包结果中被移除（死代码消除）。
+
+- [`@intlayer/analytics`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/analytics.md)
 
 | 字段            | 描述                                                   | 类型      | 默认值  | 示例    | 说明                                                                                                                       |
 | --------------- | ------------------------------------------------------ | --------- | ------- | ------- | -------------------------------------------------------------------------------------------------------------------------- |
@@ -971,7 +973,9 @@ export default config;
 1. **默认值**: 在创建内容声明文件时定义默认值
 2. **回退行为**: 在未定义特定字段时提供回退值，允许您全局定义字典操作行为
 
-控制字典操作的参数，包括自动填充行为和内容生成。
+有关内容声明文件以及配置值如何应用的更多信息，请参阅[内容文件文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)。
+
+- [内容文件文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)
 
 | 字段                        | 说明                                                                                         | 类型                                                                                                            | 默认值       | 示例                                                                                        | 备注                                                                                                                                                                                                                                                                                                        |
 | --------------------------- | -------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | ------------ | ------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -1109,22 +1113,38 @@ Intlayer 支持多个 AI 提供商，以提供最大的灵活性。当前支持�
 
 远少于基于命名空间的方案，因为页面永远不会下载它不渲染的语言目录。服务端渲染的标记在服务端直接解析内容，而构建时编译器将 `useIntlayer` 调用替换为组件使用的确切字典条目，因此未使用的键和未使用的语言都会被自动丢弃。[动态字典](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dynamic_dictionaries/index.md) 会按语言环境拆分剩余内容。与常规替代方案相比，Intlayer 可将 bundle 和页面体积减少高达 50%。请参阅 [Bundle 体积优化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md) 和 [性能基准](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/index.md)。
 
+- [动态字典](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dynamic_dictionaries/index.md)
+- [Bundle 体积优化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md)
+- [性能基准](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/index.md)
+
 </Question>
 <Question title="我可以从 i18next、next-intl 或 react-i18next 迁移而无需重写组件吗？">
 
 可以，有两条迁移路径。您可以使用 [i18next 迁移指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_i18next_to_intlayer.md) 或 [next-intl 迁移指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_next-intl_to_intlayer.md) 逐步迁移内容。或者，您可以完全保留当前的 API：[兼容性适配器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/index.md) 公开与 `i18next`、`react-i18next`、`next-intl`、`next-i18next`、`react-intl`、`use-intl`、`vue-i18n` 和 `Lingui` 完全相同的 API，但底层由 Intlayer 字典驱动，因此只需更改导入语句，组件代码无需修改。
+
+- [i18next 迁移指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_i18next_to_intlayer.md)
+- [next-intl 迁移指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_next-intl_to_intlayer.md)
+- [兼容性适配器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/index.md)
 
 </Question>
 <Question title="我可以保留现有的 JSON 翻译文件吗？">
 
 可以。[JSON 同步插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/plugins/sync-json.md) 将您的 `/messages/{locale}/{namespace}.json` 文件作为单一真实来源（source of truth），并双向生成 Intlayer 字典。[PO 同步插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/plugins/sync-po.md) 对 gettext 目录执行相同的操作，而 [按语言环境组织的文件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/per_locale_file.md) 允许您按语言拆分内容，而不是将所有语言打包到一个文件中。
 
+- [JSON 同步插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/plugins/sync-json.md)
+- [PO 同步插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/plugins/sync-po.md)
+- [按语言环境组织的文件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/per_locale_file.md)
+
 </Question>
 <Question title="我必须逐个键迁移我的内容吗？">
 
 不需要。运行 `npx intlayer extract`，Intlayer 会读取您的源码文件，提取面向用户的字符串，并在每个组件旁边生成 `.content` 文件，这样您只需审查 diff，而无需手动逐一复制字符串到语言目录中。请参阅 [extract 命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/extract.md)。
 
+- [extract 命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/extract.md)
+
 如需全自动流程，[Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md) 可以在构建时对 JSX、TSX、Vue 和 Svelte 源码执行相同操作，在每次更改时自动生成字典，完全无需手动维护键名。它通过静态分析工作，因此仅在运行时存在的字符串无法被捕获，并且需要少量注解以区分用户文本和应用程序逻辑。
+
+- [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md)
 
 </Question>
 <Question title="有哪些可用的编辑器和 AI 代理工具？">
@@ -1167,10 +1187,15 @@ Intlayer 支持多个 AI 提供商，以提供最大的灵活性。当前支持�
 
 默认的 `"static"` 会以静态方式导入字典，因此字典会被打包在一起并同步读取。`"dynamic"` 会通过 Suspense 异步导入字典，因此仅当组件渲染该语言时才会下载对应语言包，非常适合庞大的内容集合。`"fetch"` 则从实时同步 API 获取字典，并在获取失败时回退到 `"dynamic"`。请参阅 [Bundle 体积优化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md) 和 [动态字典](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dynamic_dictionaries/index.md)。
 
+- [Bundle 体积优化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md)
+- [动态字典](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dynamic_dictionaries/index.md)
+
 </Question>
 <Question title="在哪里配置用于自动翻译的 AI 提供商和 API 密钥？">
 
 可以在配置文件中设置，或者直接在命令行中使用 `--provider`、`--model` 和 `--api-key` 进行指定。密钥始终由您掌控：翻译请求直接从您的本地机器或 CI 执行器发送给您指定的模型提供商，不经过任何第三方中转。请参阅 [fill 命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/fill.md)。
+
+- [fill 命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/fill.md)
 
 </Question>
 <Question title="修改配置后需要重启开发服务器吗？">

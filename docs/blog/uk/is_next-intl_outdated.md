@@ -90,6 +90,8 @@ style="border:none;"
 
 > Вимірювання у реальних браузерах зі стисненням gzip. Повні дані наведені у [звіті про бенчмарк Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/nextjs.md).
 
+- [звіті про бенчмарк Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/nextjs.md)
+
 ### Базовий розмір бібліотек
 
 Розмір на стороні клієнта до додавання контенту:
@@ -138,6 +140,8 @@ export default async function RootLayout({ children, params }) {
 
 Intlayer вирішує це статичним аналізом: [компілятор Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compiler.md) включає тільки ті тексти, які реально використовуються на поточному маршруті, зводячи витік до **0.0%**.
 
+- [компілятор Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compiler.md)
+
 ## Чому next-intl не підтримує tree-shaking
 
 Інтерфейс бібліотеки побудований на динамічних викликах текстових ключів у runtime:
@@ -176,6 +180,8 @@ export function UserProfile() {
 </Tabs>
 
 Turbopack і Webpack не можуть визначити, які рядки з `UserProfile` реально знадобляться. Щоб уникнути збоїв, **збирач включає весь неймспейс до клієнтського бандла**. Деструктуровані властивості в Intlayer дозволяють компілятору точно відстежувати звернення та відкидати зайве. Докладніше в розділі [оптимізація бандла](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/bundle_optimization.md).
+
+- [оптимізація бандла](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/bundle_optimization.md)
 
 ## Досвід розробника
 
@@ -276,6 +282,8 @@ declare global {
 
 Intlayer формує типи з усіх оголошень контенту. Активація [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md) блокує компіляцію, якщо відсутній хоча б один переклад.
 
+- [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md)
+
 ### Інструменти та підтримка ШІ
 
 | Можливість                      | `next-intl` | Intlayer                                                                                                                 |
@@ -301,6 +309,8 @@ Intlayer пропонує ці можливості безпосередньо:
 **Автономна візуальна CMS:**
 
 Застосовуйте [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md), щоб команда могла візуально редагувати контент із прямим збереженням у Git.
+
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)
 
 **Відкрита ліцензія:**
 

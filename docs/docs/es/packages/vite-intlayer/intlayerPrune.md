@@ -31,6 +31,8 @@ El plugin `intlayerPrune` para Vite se utiliza para aplicar tree-shaking y elimi
 
 > El plugin ya está incluido y configurado automáticamente cuando usas [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/vite-intlayer/intlayer.md). Solo necesitas registrarlo manualmente si estás componiendo la pila de plugins tú mismo.
 
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/vite-intlayer/intlayer.md)
+
 ## Uso
 
 ### Como parte de `intlayer()` (recomendado)
@@ -99,8 +101,8 @@ When Vite processes a compiled dictionary JSON file, `intlayerPrune` intercepts 
 
 Two content shapes are supported:
 
-- **Static dictionaries** — `{ nodeType: "translation", translation: { en: {...}, fr: {...} } }`. Fields are pruned per-locale inside `translation`.
-- **Dynamic (per-locale) dictionaries** — flat `{ fieldA: ..., fieldB: ... }`. Fields are pruned at the top level.
+- **Static dictionaries**: `{ nodeType: "translation", translation: { en: {...}, fr: {...} } }`. Fields are pruned per-locale inside `translation`.
+- **Dynamic (per-locale) dictionaries**: flat `{ fieldA: ..., fieldB: ... }`. Fields are pruned at the top level.
 
 ### 3. Casos especiales
 
@@ -108,7 +110,7 @@ Si la estructura de contenido de un diccionario no puede ser reconocida (por eje
 
 ### 4. Mapa de renombrado de campos
 
-Cuando la poda tiene éxito, `intlayerPrune` también escribe `pruneContext.dictionaryKeyToFieldRenameMap` — un mapeo de nombres de campos originales a alias cortos. `intlayerMinify` lee este mapa para renombrar campos en el JSON de salida, y el paso de renombrado de Babel de `intlayerOptimize` actualiza los accesos a propiedades en los archivos de origen en consecuencia.
+Cuando la poda tiene éxito, `intlayerPrune` también escribe `pruneContext.dictionaryKeyToFieldRenameMap`, un mapeo de nombres de campos originales a alias cortos. `intlayerMinify` lee este mapa para renombrar campos en el JSON de salida, y el paso de renombrado de Babel de `intlayerOptimize` actualiza los accesos a propiedades en los archivos de origen en consecuencia.
 
 ## Condiciones de activación
 
@@ -118,4 +120,4 @@ Cuando la poda tiene éxito, `intlayerPrune` también escribe `pruneContext.dict
 2. `build.optimize` es `true` (o `undefined`, que por defecto es `true` en los builds).
 3. `build.purge` es `true` en tu configuración de Intlayer.
 
-Permanece activo cuando `editor.enabled` es `true`: el editor visual resuelve cada edición mediante `dictionaryKey` + `keyPath` contra los diccionarios sin fusionar, que este plugin nunca toca, y un campo purgado es uno que ningún componente lee — por lo que nunca se renderiza ni se puede seleccionar en la página.
+Permanece activo cuando `editor.enabled` es `true`: el editor visual resuelve cada edición mediante `dictionaryKey` + `keyPath` contra los diccionarios sin fusionar, que este plugin nunca toca, y un campo purgado es uno que ningún componente lee, por lo que nunca se renderiza ni se puede seleccionar en la página.

@@ -92,6 +92,8 @@ style="border:none;"
 
 > Diuji pada build produksi dengan 10 rute dan 10 bahasa menggunakan kompresi gzip. Rincian lengkap ada di [laporan benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/index.md).
 
+- [laporan benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/index.md)
+
 ### Beban Dasar Pustaka
 
 Ukuran awal sebelum menambahkan konten terjemahan apa pun:
@@ -171,6 +173,9 @@ return <h1>{title}</h1>;
 
 [Kompiler Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md) memeriksa bagian mana dari `Hero.tsx` yang benar-benar dipanggil dan membuang konten yang tidak terpakai sebelum bundle klien dibuat. Pelajari lebih lanjut di [optimasi bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/bundle_optimization.md).
 
+- [Kompiler Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md)
+- [optimasi bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/bundle_optimization.md)
+
 ## Pengalaman Pengembang (DX)
 
 ### JSON Terpisah vs. Ko-Lokasi
@@ -237,6 +242,8 @@ Jika Anda memindahkan atau menghapus `Hero.tsx`, file kontennya akan ikut berpin
 Mendeklarasikan `CustomTypeOptions` memberi saran kode di editor, tetapi tidak memverifikasi kelengkapan terjemahan. Menghapus key dari `id/hero.json` tidak akan membatalkan build, melainkan hanya menampilkan fallback saat runtime.
 
 Intlayer menghasilkan tipe data langsung dari deklarasi konten, dan mode [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md) akan langsung menghentikan build jika ada terjemahan yang hilang pada bahasa apa pun.
+
+- [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md)
 
 ### Ekosistem Alat Bantu
 

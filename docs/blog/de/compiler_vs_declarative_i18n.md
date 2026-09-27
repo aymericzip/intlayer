@@ -78,6 +78,8 @@ Der Intlayer Compiler durchläuft den AST (Abstract Syntax Tree) Ihrer React-, V
 
 > Für weitere Details siehe die Dokumentation: [Intlayer Compiler Docs](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compiler.md)
 
+- [Intlayer Compiler Docs](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compiler.md)
+
 ## Der Reiz des Compilers (Der "Magische" Ansatz)
 
 Es gibt einen Grund, warum dieser neue Ansatz im Trend liegt. Für einen Entwickler fühlt sich die Erfahrung unglaublich an.

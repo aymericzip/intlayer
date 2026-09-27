@@ -39,17 +39,23 @@ author: aymericzip
 
 Розміщення вмісту вашої програми в одному місці **полегшує обслуговування** крупномасштабних додатків. Ви можете дублювати або видаляти окремий папку функції без потреби перегляду всієї бази коду вмісту. Крім того, Intlayer **повністю типізований**, щоб забезпечити точність вашого вмісту.
 
-Intlayer також є рішенням з **найактивнішим розвитком** в екосистемі i18n — проблеми виправляються швидко, нові адаптери фреймворків з'являються регулярно, а основний API постійно удосконалюється на основі реального зворотного зв'язку з production.
+Intlayer також є рішенням з **найактивнішим розвитком** в екосистемі i18n, проблеми виправляються швидко, нові адаптери фреймворків з'являються регулярно, а основний API постійно удосконалюється на основі реального зворотного зв'язку з production.
 
 </Accordion>
 <Accordion header="AI Agent">
 
 Розташування вмісту в одному місці **зменшує контекст, необхідний** для великих мовних моделей (LLMs). Intlayer також містить набір інструментів, таких як **CLI** для тестування відсутніх перекладів, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/mcp_server.md)** та **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/agent_skills.md)**, щоб зробити розробницький досвід (DX) ще гладшим для AI agents.
 
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/mcp_server.md)
+- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/agent_skills.md)
+
 </Accordion>
 <Accordion header="Автоматизація">
 
 Використовуйте автоматизацію для перекладу у вашому CI/CD pipeline, використовуючи LLM на ваш вибір за вартість вашого AI провайдера. Intlayer також пропонує **компілятор** для автоматизації видобутку вмісту, а також [веб-платформу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md) для допомоги **перекладу у фоновому режимі**.
+
+- [веб-платформу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="Продуктивність">
@@ -60,6 +66,9 @@ Intlayer також є рішенням з **найактивнішим розв
 <Accordion header="Масштабування з не-розробниками">
 
 Більше ніж просто рішення i18n, Intlayer пропонує **самостійно розміщений [редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md)** та **[повноцінну CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)** для допомоги вам керувати вашим багатомовним вмістом у **реальному часі**, що робить співпрацю з перекладачами, копірайтерами та іншими членами команди безперебійною. Вміст можна зберігати локально та/або віддалено.
+
+- [редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md)
+- [повноцінну CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
@@ -72,9 +81,9 @@ Intlayer також є рішенням з **найактивнішим розв
 
 Існують дві взаємодоповнюючі стратегії для переходу з `react-i18next` / `i18next` на Intlayer:
 
-1. **Compat adapter (рекомендується для існуючих додатків)** — Встановіть `@intlayer/react-i18next` (для React компонентів) та/або `@intlayer/i18next` (для основного екземпляра `i18n`). Ці пакети надають **той самий API**, що й `react-i18next` / `i18next`, але делегують всю роботу перекладу Intlayer під капотом. Ви зберігаєте існуючі виклики `useTranslation`, `Trans`, `withTranslation`, `i18next.t()` — єдиною змією є шлях імпорту.
+1. **Compat adapter (рекомендується для існуючих додатків)**: Встановіть `@intlayer/react-i18next` (для React компонентів) та/або `@intlayer/i18next` (для основного екземпляра `i18n`). Ці пакети надають **той самий API**, що й `react-i18next` / `i18next`, але делегують всю роботу перекладу Intlayer під капотом. Ви зберігаєте існуючі виклики `useTranslation`, `Trans`, `withTranslation`, `i18next.t()`, єдиною змією є шлях імпорту.
 
-2. **Повна міграція** — Поступово замінюйте `react-i18next` API на нативні хуки Intlayer (`useIntlayer`, `IntlayerProvider`) і розміщуйте вміст у файлах `.content.ts` поряд із ваші компонентами.
+2. **Повна міграція**: Поступово замінюйте `react-i18next` API на нативні хуки Intlayer (`useIntlayer`, `IntlayerProvider`) і розміщуйте вміст у файлах `.content.ts` поряд із ваші компонентами.
 
 Цей посібник спочатку охоплює **Стратегію 1** (drop-in compat adapter), а потім розглядає необов'язкову повну міграцію.
 
@@ -84,7 +93,7 @@ Intlayer також є рішенням з **найактивнішим розв
 
 ## Швидка міграція
 
-Наступні кроки — мінімум необхідний для запуску вашої існуючої програми `react-i18next` на Intlayer без змін коду.
+Наступні кроки, мінімум необхідний для запуску вашої існуючої програми `react-i18next` на Intlayer без змін коду.
 
 <Steps>
 <Step number={1} title="Встановлення залежностей">
@@ -127,7 +136,7 @@ yarn add intlayer react-intlayer @intlayer/react-i18next @intlayer/i18next @intl
 bun add intlayer react-intlayer @intlayer/react-i18next @intlayer/i18next @intlayer/sync-json-plugin
 ```
 
-> Ви можете залишити встановленими `react-i18next` та `i18next` — адаптери сумісності використовують їх як `devDependencies` / необов'язкові `peerDependencies` для типів TypeScript. Вам не потрібно змінювати жодних однорівневих залежностей `package.json`.
+> Ви можете залишити встановленими `react-i18next` та `i18next`, адаптери сумісності використовують їх як `devDependencies` / необов'язкові `peerDependencies` для типів TypeScript. Вам не потрібно змінювати жодних однорівневих залежностей `package.json`.
 
 </Step>
 <Step number={2} title="Налаштування Intlayer">
@@ -166,7 +175,7 @@ export default config;
 </Step>
 <Step number={3} title="Додавання плагіна Intlayer до вашого Bundler">
 
-Обгорніть вашу існуючу конфігурацію bundler за допомогою плагіна сумісності. Він компонує основний плагін Intlayer, налаштовує моніторинг вмісту та — що критично — **інжектує псевдоніми модулів** так, щоб ваші існуючі виклики `import … from 'react-i18next'` (та `'i18next'`) були прозоро перенаправлені на `@intlayer/react-i18next` / `@intlayer/i18next` під час побудови. Жодних змін вихідних файлів не потрібно.
+Обгорніть вашу існуючу конфігурацію bundler за допомогою плагіна сумісності. Він компонує основний плагін Intlayer, налаштовує моніторинг вмісту та, що критично, **інжектує псевдоніми модулів** так, щоб ваші існуючі виклики `import … from 'react-i18next'` (та `'i18next'`) були прозоро перенаправлені на `@intlayer/react-i18next` / `@intlayer/i18next` під час побудови. Жодних змін вихідних файлів не потрібно.
 
 **Для Vite:**
 
@@ -180,7 +189,7 @@ export default defineConfig({
 });
 ```
 
-> `reactI18nextVitePlugin()` обгортає плагін `intlayer()` від `vite-intlayer` та додає псевдоніми `react-i18next` / `i18next`. Використання звичайного плагіна `intlayer()` від `vite-intlayer` компілює словники, але **не** додає ці псевдоніми — тоді вам потрібно було б вручну перейменувати імпорти на `@intlayer/*` (див. крок 4).
+> `reactI18nextVitePlugin()` обгортає плагін `intlayer()` від `vite-intlayer` та додає псевдоніми `react-i18next` / `i18next`. Використання звичайного плагіна `intlayer()` від `vite-intlayer` компілює словники, але **не** додає ці псевдоніми, тоді вам потрібно було б вручну перейменувати імпорти на `@intlayer/*` (див. крок 4).
 
 **Для Next.js:**
 
@@ -211,10 +220,10 @@ export default withIntlayer(nextConfig);
 
 Це все для швидкої міграції. Ваша програма тепер працює на Intlayer, зберігаючи кожний імпорт та API `react-i18next`.
 
-> **Типізовані ключі перекладу — автоматично.** Як тільки Intlayer компілює ваші словники, `useTranslation` та `getFixedT` типізуються відповідно до вашого фактичного вмісту. Ключі автодоповнюються у вашому IDE, а неправильні шляхи викликають помилки TypeScript під час побудови — жодного додаткового налаштування не потрібно.
+> **Типізовані ключі перекладу, автоматично.** Як тільки Intlayer компілює ваші словники, `useTranslation` та `getFixedT` типізуються відповідно до вашого фактичного вмісту. Ключі автодоповнюються у вашому IDE, а неправильні шляхи викликають помилки TypeScript під час побудови, жодного додаткового налаштування не потрібно.
 >
 > ```tsx
-> // 'about' — зареєстрований ключ словника → t() приймає лише правильні крапкові шляхи
+> // 'about', зареєстрований ключ словника → t() приймає лише правильні крапкові шляхи
 > const { t } = useTranslation("about");
 > t("counter.label"); // ✓ автодоповнення
 > t("does.not.exist"); // ✗ помилка TypeScript
@@ -310,6 +319,8 @@ export default config;
 
 > Див. [документацію Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/index.md) для всіх доступних опцій.
 
+- [документацію Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/index.md)
+
 </Step>
 
 </Steps>
@@ -324,7 +335,7 @@ export default config;
 | `I18nextProvider` / `initReactI18next`   | Плагін Intlayer обробляє впровадження та завантаження під капотом.                                                                              |
 | JSON language bundles (`locales/*.json`) | JSON пакети потрібні лише якщо ви все ще використовуєте плагін `syncJSON`. Після міграції на файли `.content.ts` ви можете видалити папку JSON. |
 
-Коли ви будете готові йти далі, Intlayer **автоматично виявляє всі файли `.content.ts` і `.content.json` будь-де у вашій кодовій базі** (за замовчуванням, будь-де всередині `./src`). Ви можете розмістити файл `my-component.content.ts` прямо поряд з вашим `MyComponent.tsx`, і Intlayer перехопить його під час збирання без будь-якої додаткової конфігурації — без імпортів, реєстрації чи централізованого файлу індексу. Це робить розташування перекладів поряд зі сторінками та компонентами абсолютно безпроблемним.
+Коли ви будете готові йти далі, Intlayer **автоматично виявляє всі файли `.content.ts` і `.content.json` будь-де у вашій кодовій базі** (за замовчуванням, будь-де всередині `./src`). Ви можете розмістити файл `my-component.content.ts` прямо поряд з вашим `MyComponent.tsx`, і Intlayer перехопить його під час збирання без будь-якої додаткової конфігурації, без імпортів, реєстрації чи централізованого файлу індексу. Це робить розташування перекладів поряд зі сторінками та компонентами абсолютно безпроблемним.
 
 ## Налаштування TypeScript
 

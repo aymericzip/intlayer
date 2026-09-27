@@ -78,6 +78,8 @@ Intlayer कंपाइलर आपके React, Vue, या Svelte कंप�
 
 > अधिक विवरण के लिए, दस्तावेज़ देखें: [Intlayer Compiler Docs](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md)
 
+- [Intlayer Compiler Docs](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md)
+
 ## कंपाइलर का आकर्षण (The "Magic" Approach)
 
 इस नए दृष्टिकोण के ट्रेंड में आने का एक कारण है। एक डेवलपर के लिए, अनुभव अविश्वसनीय लगता है।

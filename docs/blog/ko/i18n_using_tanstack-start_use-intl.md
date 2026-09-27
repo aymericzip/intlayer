@@ -49,6 +49,8 @@ TanStack Start는 자체적인 i18n 계층을 제공하지 않습니다. 라우�
 
 > Next.js를 사용 중이신가요? [next-intl 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/i18n_using_next-intl.md)를 확인하세요.
 
+- [next-intl 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/i18n_using_next-intl.md)
+
 > 이러한 라이브러리가 어디에서 왔는지 이해하려면 JavaScript i18n의 역사를 읽어보세요.
 
 - [JavaScript i18n의 역사](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/history_of_i18n.md)
@@ -56,6 +58,8 @@ TanStack Start는 자체적인 i18n 계층을 제공하지 않습니다. 라우�
 ## TanStack Start에서 use-intl에 대한 벤치마크 결과
 
 [i18n 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/tanstack.md)는 동일한 10개 페이지, 10개 로케일의 TanStack Start 앱을 주요 라이브러리로 실행하여 브라우저가 실제로 다운로드하는 크기를 측정합니다.
+
+- [i18n 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/tanstack.md)
 
 <I18nBenchmark framework="tanstack" packages="use-intl,@intlayer/use-intl,intlayer" vertical/>
 
@@ -74,6 +78,8 @@ TanStack Start는 자체적인 i18n 계층을 제공하지 않습니다. 라우�
 - **런타임 자체는 여전히 무겁습니다** (~76 KB gzip). ICU 파서가 클라이언트로 전송되기 때문입니다. `@intlayer/use-intl` 호환 어댑터(17단계)를 사용하면 정확히 동일한 API를 유지하면서 약 7 KB의 런타임으로 줄일 수 있습니다.
 
 > 전체 데이터 확인: [TanStack Start 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/tanstack.md) 및 [벤치마크 저장소](https://github.com/intlayer-org/benchmark-i18n).
+
+- [TanStack Start 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/tanstack.md)
 
 ## TanStack Start 기능 비교
 
@@ -98,6 +104,8 @@ TanStack Start에서 주로 사용되는 다른 라이브러리와 `use-intl`의
 | **CI에서 누락된 번역 감지**          | ✅ `npx intlayer test`               | ⚠️ 내장 기능 없음     | ⚠️ 내장 기능 없음                | ✅ `lingui compile --strict` |
 
 > 런타임 크기 및 누출 수치는 [TanStack Start 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/tanstack.md)에서 가져왔습니다. 누출은 각 라이브러리의 최적 설정에서 측정되었습니다.
+
+- [TanStack Start 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/tanstack.md)
 
 > 기타 TanStack Start 가이드:
 
@@ -974,6 +982,8 @@ export const startInstance = createStart(() => ({
 
 벤치마크에 따르면 use-intl 설정에서 가장 무거운 부분은 런타임 자체(~76 KB gzip)입니다. [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/index.md) 호환 어댑터는 **동일한 API**(`useTranslations`, `useFormatter`, `IntlProvider`, `createTranslator`, ICU 복수형, `t.rich`)를 제공하면서 컴파일된 Intlayer 딕셔너리로부터 이를 제공합니다: 컴포넌트 변경 없이 **~75.9 KB 대신 ~6.7 KB**, 0% 로케일 누출 및 0% 페이지 누출을 달성합니다.
 
+- [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/index.md)
+
 ```bash packageManager="npm"
 npm install @intlayer/use-intl intlayer @intlayer/sync-json-plugin
 npx intlayer init
@@ -1034,7 +1044,11 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
+- [JSON 동기화 플러그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/plugins/sync-json.md)
+
 > 이 어댑터는 원활한 마이그레이션 경로이기도 합니다: 어댑터가 실행되면 컴포넌트를 네이티브 `useIntlayer` API로 하나씩 점진적으로 이전할 수 있습니다. [Intlayer TanStack Start 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_tanstack.md)를 참조하세요.
+
+- [Intlayer TanStack Start 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_tanstack.md)
 
 </Step>
 <Step number={18} title="모든 로케일 사전 렌더링하기" isOptional={true}>
@@ -1142,6 +1156,8 @@ use-intl은 번역을 렌더링하지만 번역을 **생성**하는 데는 도�
 
 모든 기능을 살펴보려면 [Intlayer를 선택해야 하는 이유](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/interest_of_intlayer.md)를 확인하세요.
 
+- [Intlayer를 선택해야 하는 이유](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/interest_of_intlayer.md)
+
 </Step>
 </Steps>
 
@@ -1152,6 +1168,8 @@ use-intl은 번역을 렌더링하지만 번역을 **생성**하는 데는 도�
 <Question title="TanStack Start에 use-intl은 좋은 선택인가요?">
 
 네, Next.js 외부에서 `next-intl` API를 사용하고 싶다면 좋은 선택입니다. ICU 메시지, 포매터, 우수한 TypeScript 지원을 제공하며 `setRequestLocale`과 같은 Next.js 전용 제약 사항을 피할 수 있습니다. 단점은 번들 무게입니다: [벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/tanstack.md)에 따르면 런타임 크기가 약 76 KB gzip에 달하며 단순한 설정에서는 모든 로케일과 모든 페이지가 브라우저로 전송됩니다. 이러한 누출을 방지하려면 본 가이드처럼 라우트 및 로케일별로 네임스페이스를 로드하세요.
+
+- [벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/tanstack.md)
 
 </Question>
 <Question title="use-intl과 next-intl의 차이점은 무엇인가요?">
@@ -1173,6 +1191,8 @@ URL에 접두사를 사용하는 것이 좋습니다. 그러면 각 언어 버�
 
 먼저 메시지를 네임스페이스별로 분할하고 `import.meta.glob`을 사용하여 경로 및 로케일별로 로드하면 로케일 및 페이지 누출이 제거됩니다. 그래도 런타임 크기가 중요하다면 [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/index.md) 어댑터로 전환하세요: 동일한 API를 제공하면서 벤치마크 기준 약 75.9 KB 대신 약 6.7 KB로 줄어듭니다.
 
+- [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/index.md)
+
 </Question>
 <Question title="use-intl로 title과 meta description을 번역하려면 어떻게 해야 하나요?">
 
@@ -1182,6 +1202,9 @@ URL에 접두사를 사용하는 것이 좋습니다. 그러면 각 언어 버�
 <Question title="use-intl에서 Intlayer로 점진적으로 마이그레이션할 수 있나요?">
 
 네. 먼저 호환 어댑터를 설치하면(17단계): 컴포넌트는 Intlayer를 기반으로 계속 `useTranslations`를 호출합니다. 그 후 컴포넌트를 한 번에 하나씩 `useIntlayer`로 이동하고 콘텐츠를 컴포넌트 옆에 선언하세요. [호환 어댑터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/index.md) 및 [Intlayer TanStack Start 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_tanstack.md)를 참조하세요.
+
+- [호환 어댑터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/index.md)
+- [Intlayer TanStack Start 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_tanstack.md)
 
 </Question>
 

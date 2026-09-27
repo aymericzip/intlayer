@@ -216,7 +216,7 @@ syncJSON({
 
 这与 `next-intl` 和 `react-intl` 等库的命名空间模型相匹配，其中一个 `messages/{locale}.json` 文件通过其第一级键将多个命名空间分组，每个命名空间独立寻址（例如 `useTranslations('Hero')` 解析为 `Hero` 字典）。
 
-- `undefined` (默认)：**自动检测** — 当 `source` 模式没有 `{key}` 段时（一个文件包含所有命名空间），文件将被拆分；否则（每个键一个文件），文件将保持为单个字典。
+- `undefined` (默认)：**自动检测**，当 `source` 模式没有 `{key}` 段时（一个文件包含所有命名空间），文件将被拆分；否则（每个键一个文件），文件将保持为单个字典。
 - `true`：始终将每个顶级键拆分为其自己的字典。
 - `false`：从不拆分；整个文件将成为一个字典。
 
@@ -238,7 +238,7 @@ syncJSON({
 }),
 ```
 
-这将生成三个字典 — `Hero`、`Nav` 和 `About` — 因此 `useTranslations('Hero')` (next-intl) 可以正确解析。在写回时，所有命名空间将重新组装到同一个按语言环境的文件中。
+这将生成三个字典（`Hero`、`Nav` 和 `About`）因此 `useTranslations('Hero')` (next-intl) 可以正确解析。在写回时，所有命名空间将重新组装到同一个按语言环境的文件中。
 
 > 当您在 `source` 中保留显式的 `{key}` 段时（例如 `./locales/${locale}/${key}.json`），每个文件已经是一个命名空间，因此默认禁用拆分。
 
@@ -402,7 +402,7 @@ loadJSON({
 
 与 [`syncJSON`](#splitkeys-boolean) 中的行为相同：当单个 JSON 文件通过其第一级键将多个命名空间分组时，每个顶级键都将成为其自己的字典。
 
-- `undefined` (默认)：**自动检测** — 当 `source` 模式没有 `{key}` 段时拆分，否则为单个字典。
+- `undefined` (默认)：**自动检测**，当 `source` 模式没有 `{key}` 段时拆分，否则为单个字典。
 - `true` / `false`：强制或禁用拆分。
 
 ```ts
@@ -440,6 +440,8 @@ loadJSON({
 - `intlayer content pull` 用于拉取同步的 JSON 文件
 
 请参阅[Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)了解更多详情。
+
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)
 
 ## Limitations (current)
 

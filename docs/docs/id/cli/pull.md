@@ -39,6 +39,8 @@ bun x intlayer pull
 
 Jika [editor intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) sudah terpasang, Anda juga dapat menarik kamus dari editor. Dengan cara ini, Anda dapat menimpa isi kamus Anda sesuai kebutuhan aplikasi Anda.
 
+- [editor intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md)
+
 ## Alias:
 
 - `npx intlayer dictionaries pull`

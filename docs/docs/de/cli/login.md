@@ -134,14 +134,14 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> **`clientSecret` ist eine serverseitige Anmeldedaten.** Sie gewährt vollständigen projektbezogenen API-Zugriff — Lesen und Schreiben Ihrer Wörterbücher, Ihres Projekts und Ihrer Organisation. Bewahren Sie es in `.env` (von git ignoriert) oder in Ihrem CI-Geheimnisspeicher auf und fügen Sie es niemals inline in die Konfigurationsdatei ein.
+> **`clientSecret` ist eine serverseitige Anmeldedaten.** Sie gewährt vollständigen projektbezogenen API-Zugriff, Lesen und Schreiben Ihrer Wörterbücher, Ihres Projekts und Ihrer Organisation. Bewahren Sie es in `.env` (von git ignoriert) oder in Ihrem CI-Geheimnisspeicher auf und fügen Sie es niemals inline in die Konfigurationsdatei ein.
 
 Intlayer erzwingt dies, anstatt es nur zu dokumentieren:
 
 - `clientSecret` wird **aus der Konfiguration entfernt, die Ihr Bundler inline setzt**, sodass es unabhängig von der Framework-Integration kein Browser-Bundle erreichen kann. Es wird nur serverseitig zur Laufzeit aus der Umgebung gelesen.
 - `clientId` ist anders: Es ist der **öffentliche** Projektschlüssel, sicher zu versenden und wird von [`@intlayer/analytics`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/analytics.md#how-events-are-authenticated) verwendet, um ein kurzlebiges, nur zum Erfassen bestimmtes Token zu erhalten.
 
-Das Auskommentieren von `clientId` reicht aus, um jedes authentifizierte Verhalten zu deaktivieren — Remote-Wörterbuchabruf, CMS-Zugriff, Analytics — auch wenn die Umgebungsvariablen noch definiert sind.
+Das Auskommentieren von `clientId` reicht aus, um jedes authentifizierte Verhalten zu deaktivieren (Remote-Wörterbuchabruf, CMS-Zugriff, Analytics) auch wenn die Umgebungsvariablen noch definiert sind.
 
 Für CI-Pipelines bevorzugen Sie das `--ci` Flag, das die Anmeldedaten für die Dauer eines einzelnen Laufs injiziert, anstatt sie dauerhaft zu speichern.
 

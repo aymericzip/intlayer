@@ -51,6 +51,8 @@ Nel 2026 non devi riscrivere il tuo codice. Con **Intlayer**, puoi integrare l'i
 
 > Cerchi la guida tecnica completa passo-passo per Next.js 16 App Router? Consulta la nostra documentazione: [Tradurre Next.js 16 con Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_nextjs_16.md).
 
+- [Tradurre Next.js 16 con Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_nextjs_16.md)
+
 ## Indice
 
 <TOC/>
@@ -267,6 +269,8 @@ export const generateMetadata = async (): Promise<Metadata> => {
 Per seguire la guida tecnica completa con middleware, generazione statica (`generateStaticParams`) e Server Components, visita la documentazione ufficiale:
 
 👉 **[Guida completa per tradurre Next.js 16 con Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_nextjs_16.md)**
+
+- [Guida completa per tradurre Next.js 16 con Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_nextjs_16.md)
 
 ## Domande Frequenti (FAQ)
 

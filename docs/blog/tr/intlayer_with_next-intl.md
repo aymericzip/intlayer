@@ -40,6 +40,8 @@ author: aymericzip
 
 Next-intl ile somut bir karşılaştırma için [next-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/next-i18next_vs_next-intl_vs_intlayer.md) blog yazımıza bakın.
 
+- [next-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/next-i18next_vs_next-intl_vs_intlayer.md)
+
 ## Neden Intlayer'ı next-intl ile Birleştirmelisiniz?
 
 Intlayer mükemmel bir bağımsız i18n çözümü sunarken (bakınız [Next.js entegrasyon rehberimiz](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_16.md)), birkaç nedenle next-intl ile birleştirmek isteyebilirsiniz:
@@ -147,6 +149,8 @@ JSON'u çevirmek için CLI kullanılarak veya CMS aracılığıyla değişiklikl
 
 `syncJSON` eklentisi hakkında daha fazla ayrıntı için lütfen [syncJSON eklentisi dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-json.md) bakınız.
 
+- [syncJSON eklentisi dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-json.md)
+
 </Step>
 <Step number={3} title="Bileşen başına JSON çevirilerini uygulama">
 
@@ -209,4 +213,4 @@ Bu dosyalar, derleme süreciniz sırasında yeniden oluşturulabilir ve sürüm 
 
 Geliştirici deneyimini iyileştirmek için resmi **Intlayer VS Code Eklentisi**ni yükleyin:
 
-[VS Code Marketplace'ten yükleyin](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [VS Code Marketplace'ten yükleyin](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

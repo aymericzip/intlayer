@@ -46,7 +46,11 @@ const config = {
 export default config;
 ```
 
+- [Sync JSON प्लगइन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-json.md)
+
 यदि आप चाहते हैं कि रनटाइम API भी समान रहे, तो [कम्पैट एडॉप्टर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/index.md) बंडलर स्तर पर `useTranslation`, `$t` और मित्रों को एलियास करते हैं। किसी भी तरह, नीचे दिए गए आदेशों को विचार के एक कार्यान्वयन के रूप में समझें, आवश्यकता के रूप में नहीं।
+
+- [कम्पैट एडॉप्टर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/index.md)
 
 ## वे अदृश्य क्यों हैं
 
@@ -98,6 +102,8 @@ export default [
 ```
 
 `no-unused-content` वह है जो कैटलॉग को हमेशा बढ़ने से रोकता है। मृत कुंजियाँ कोई शुद्धता बग नहीं हैं, लेकिन वे वही हैं जो अनुवाद विक्रेता के चालान को आवश्यकता से बड़ा बनाती हैं। [ESLint प्लगइन दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/eslint.md) में पूर्ण नियम सूची।
+
+- [ESLint प्लगइन दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/eslint.md)
 
 ## परत 3: ऑडिट लोकेल कवरेज
 
@@ -179,6 +185,8 @@ curl -s https://example.com/ja/checkout | grep -c "Add to cart"
 ## अंतराल को भरना
 
 एक बार जब आप जान जाते हैं कि क्या गायब है, तो `intlayer fill` खाली प्रविष्टियों को भरता है, और `autoFill` विकल्प सामग्री घोषित होने पर प्रति-लोकेल फ़ाइलें उत्पन्न कर सकता है। [autoFill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/autoFill.md) देखें।
+
+- [autoFill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/autoFill.md)
 
 इसके बारे में स्पष्ट होना चाहिए: मशीन से भरे अनुवाद एक _दृश्यमान_ अंतर को एक _अदृश्य_ अंतर में बदल देते हैं। कुंजी का अब एक मान है, इसलिए ऑडिट हरा हो जाता है, और किसी ने शब्दों की समीक्षा नहीं की। रिलीज़ को अनब्लॉक करने के लिए इसका उपयोग करें, फिर ग्राहक द्वारा निर्णय लेने से पहले पढ़ी जाने वाली किसी भी चीज़ के लिए आउटपुट को एक मानव के माध्यम से रूट करें। यह एक पाड़ है, उत्तर नहीं।
 

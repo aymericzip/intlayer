@@ -31,6 +31,8 @@ author: aymericzip
 
 👉 [عرض مباشر](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/interest_of_intlayer.md) 👉 [قالب الكود](https://github.com/aymericzip/smart_doc_RAG)
 
+- [عرض مباشر](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/interest_of_intlayer.md)
+
 ## المقدمة
 
 إذا شعرت يومًا بالضياع في الوثائق، تتصفح بلا نهاية بحثًا عن إجابة واحدة، فأنت تعلم مدى صعوبة ذلك. الوثائق مفيدة، لكنها ثابتة والبحث فيها غالبًا ما يكون غير سلس.
@@ -240,6 +242,8 @@ docUrl: "https://example.com/docs/ar/another-doc"
 
 👉 [جرّب العرض التوضيحي هنا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/interest_of_intlayer.md) 👉 [تحقق من قالب الكود على GitHub](https://github.com/aymericzip/smart_doc_RAG)
 
+- [جرّب العرض التوضيحي هنا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/interest_of_intlayer.md)
+
 </Step>
 <Step number={10} title="التوسع أكثر">
 
@@ -293,6 +297,8 @@ RAG هي واحدة من أبسط وأقوى الطرق لجعل نماذج ال
 - أداة لاستراتيجية المنتج
 
 👉 [جرب العرض التوضيحي هنا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/interest_of_intlayer.md) 👉 [تحقق من قالب الكود على GitHub](https://github.com/aymericzip/smart_doc_RAG)
+
+- [جرب العرض التوضيحي هنا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/interest_of_intlayer.md)
 
 وإذا كنت تجرب RAG أيضًا، أود أن أسمع كيف تستخدمها.
 

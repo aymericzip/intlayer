@@ -376,6 +376,8 @@ Trường hợp `other` của ICU được đổi tên thành `fallback`, tên c
 
 > Xin lưu ý, thông báo ICU `select` nơi các trường hợp là các giá trị giới tính (`male` / `female` / `other`) thay vào đó sẽ được nhập dưới dạng nút [`gender`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/gender.md).
 
+- [`gender`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/gender.md)
+
 ## Tài nguyên Bổ sung
 
 Để biết thêm thông tin chi tiết về cấu hình và cách sử dụng, hãy xem các tài nguyên sau:

@@ -39,6 +39,8 @@ bun x intlayer dictionary push
 
 إذا تم تثبيت [محرر intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)، يمكنك أيضًا دفع القواميس إلى المحرر. سيسمح هذا الأمر بجعل القواميس متاحة لـ [المحرر](https://app.intlayer.org/). بهذه الطريقة، يمكنك مشاركة قواميسك مع فريقك وتحرير المحتوى الخاص بك دون الحاجة إلى تعديل كود التطبيق الخاص بك.
 
+- [محرر intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)
+
 ## الأسماء المستعارة:
 
 - `npx intlayer dictionaries push`

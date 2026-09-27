@@ -88,6 +88,8 @@ style="border:none;"
 
 > Tested in a real browser using production gzip compression. Full data in the [Vue benchmark documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/vue.md).
 
+- [Vue benchmark documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/vue.md)
+
 ### Baseline Framework Overhead
 
 Overhead before adding any translation strings:
@@ -178,6 +180,9 @@ const { title } = useIntlayer("hero");
 
 The [Intlayer compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compiler.md) tracks exact properties and removes unreferenced content before building client chunks. See [bundle optimization](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/bundle_optimization.md) for details.
 
+- [Intlayer compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compiler.md)
+- [bundle optimization](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/bundle_optimization.md)
+
 ## Developer Experience
 
 ### Disconnected Catalogs vs. Co-Location
@@ -255,6 +260,8 @@ When `Hero.vue` is deleted or refactored, its content file moves or gets removed
 
 With Intlayer, dictionaries are validated strictly. Enabling [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md) turns missing translations in any locale into hard compile errors.
 
+- [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)
+
 ### Modern Tooling for AI & IDEs
 
 | Feature                   | `vue-i18n`              | Intlayer                                                                                                             |
@@ -278,6 +285,8 @@ Automatically translates missing keys using your own OpenAI, Anthropic, Mistral,
 **Self-hostable visual CMS:**
 
 Use the [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) to let non-developers edit copy while changes commit directly to Git.
+
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
 
 **Permissive open-source license:**
 

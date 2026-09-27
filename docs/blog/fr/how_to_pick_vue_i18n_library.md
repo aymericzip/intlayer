@@ -66,6 +66,8 @@ Paraglide génère une fonction par message et laisse le bundler éliminer le re
 
 L'[histoire de l'i18n JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/history_of_i18n.md) détaille chaque vague en profondeur.
 
+- [histoire de l'i18n JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/history_of_i18n.md)
+
 ## La décision la plus importante : où vit le contenu et quand se charge-t-il
 
 Deux choix structurels expliquent la majeure partie des différences de taille de bundle entre les configurations :
@@ -81,9 +83,14 @@ Le graphique estime le payload pour une application théorique de 1 à 10 pages,
 
 Le [benchmark Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/benchmark/vue.md) mesure cela sous forme de "fuite des autres routes" et "fuite des autres locales". Si votre réponse à la question 3 était "beaucoup de pages", cette section l'emporte sur toute préférence d'API. L'article sur l'[i18n par composant vs centralisée](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/per-component_vs_centralized_i18n.md) aborde la maintenance de ce même compromis.
 
+- [benchmark Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/benchmark/vue.md)
+- [i18n par composant vs centralisée](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/per-component_vs_centralized_i18n.md)
+
 ## Les candidats
 
 Les tailles des bibliothèques sont issues du [benchmark Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/benchmark/vue.md) : plugin plus composable dans un composant vide, après bundling, tree-shaking et minification, sur une application de 10 pages et 10 locales. Le contenu est mesuré séparément.
+
+- [benchmark Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/benchmark/vue.md)
 
 ![Écosystème des bibliothèques i18n pour Vue](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
@@ -112,6 +119,8 @@ La taille quasi nulle de la bibliothèque Paraglide découle de sa conception : 
 
 `@nuxtjs/i18n` vous offre la stratégie de routing, les balises `hreflang` et la détection de la locale sans écrire de code, ce qui justifie à lui seul son choix pour des sites de contenu avec une poignée de pages. Sa limite réside dans le catalogue par locale : au-delà d'une dizaine de pages, le payload SSR transporte les textes de chaque route. Si tel est votre cas, configurez `vue-i18n` à la main avec des messages par route, ou passez à un contenu scopé. L'article sur [Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_nuxt.md) guide d'abord le choix de la stratégie de routing.
 
+- [Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_nuxt.md)
+
 </Accordion>
 <Accordion header="Les traductions proviennent d'un TMS ou d'une agence fournissant de l'ICU">
 
@@ -126,6 +135,8 @@ Privilégiez le contenu scopé compilé au moment du build. Paraglide y parvient
 <Accordion header="Le typage strict est non négociable">
 
 `vue-i18n` peut être typé en passant un generic de schéma à `createI18n`. Cela fonctionne, mais se brise dès que les catalogues sont chargés en lazy loading, car le schéma décrit des messages qui ne sont potentiellement pas encore là. Si vous ne souhaitez pas maintenir cela, optez pour une bibliothèque dont les types sont générés à partir du contenu : Paraglide ou Intlayer. L'article sur la [détection des traductions manquantes](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/detecting_missing_translations.md) compare ce que chacune détecte au moment du build.
+
+- [détection des traductions manquantes](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/detecting_missing_translations.md)
 
 </Accordion>
 <Accordion header="Le contenu est plus complexe que de simples libellés d'interface">
@@ -366,6 +377,10 @@ Toutes les locales réunies dans un seul fichier à côté du composant. Les typ
 
 Vous utilisez déjà `vue-i18n` ? L'[adaptateur de compatibilité `@intlayer/vue-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compat/vue-i18n.md) crée un alias du package au niveau du bundler, de sorte que `useI18n()`, `$t`, les pluriels pipe et `v-t` continuent de fonctionner pendant qu'Intlayer sert le contenu. Le [guide de migration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/migration_from_vue-i18n_to_intlayer.md) explique comment se détacher de l'adaptateur par la suite, et il existe un [guide spécifique à Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/migration_from_nuxtjs_i18n_to_intlayer.md).
 
+- [adaptateur de compatibilité `@intlayer/vue-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compat/vue-i18n.md)
+- [guide de migration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/migration_from_vue-i18n_to_intlayer.md)
+- [guide spécifique à Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/migration_from_nuxtjs_i18n_to_intlayer.md)
+
 ## Avant de vous engager
 
 Un tableau de fonctionnalités indique ce qu'une bibliothèque fait aujourd'hui. Les points suivants expliquent à quoi ressemblera votre quotidien avec elle.
@@ -388,6 +403,9 @@ La bibliothèque la plus installée est celle qui est sortie en premier, pas né
 
 Les agents rencontrent encore des difficultés avec l'i18n : ils oublient des locales, inventent des clés et mélangent les syntaxes de messages. La bibliothèque fournit-elle des [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/agent_skills.md) ou un [serveur MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/mcp_server.md) pour permettre à l'agent de lister, compléter et tester le contenu ? Et le chargement du contenu est-il optimisé par défaut, ou quelqu'un doit-il auditer les namespaces et les imports lazy chaque trimestre ?
 
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/agent_skills.md)
+- [serveur MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/mcp_server.md)
+
 **Typage strict dès l'installation.**
 
 Pas un simple "peut être typé avec de la configuration supplémentaire", mais "une mauvaise clé fait échouer `tsc` sur une installation neuve". Regardez ce qui se produit avec une clé inexistante, ainsi qu'avec une locale à laquelle il manque une traduction.
@@ -399,6 +417,13 @@ Les catalogues ne font que grossir. Le build d'Intlayer purge les champs inutili
 **Expérience développeur.**
 
 Le temps de configuration jusqu'à la première chaîne traduite, un [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/lsp.md) ou une [extension VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/vs_code_extension.md) qui affiche la traduction au survol et renvoie vers la déclaration, une [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/index.md) pour compléter, tester et synchroniser (push), un [compilateur](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compiler.md) ou extracteur qui extrait les chaînes codées en dur de vos composants pour ne pas tout gérer clé par clé, et un moyen pour les non-développeurs d'éditer le contenu ([éditeur visuel](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md) ou [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md)) sans pull request.
+
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/lsp.md)
+- [extension VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/vs_code_extension.md)
+- [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/index.md)
+- [compilateur](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compiler.md)
+- [éditeur visuel](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md)
 
 ## Foire Aux Questions
 
@@ -420,11 +445,15 @@ Utilisez le module, à moins que votre routing soit inhabituel ou que votre appl
 
 Seulement si la taille du bundle, le payload SSR, les types générés ou la vérification des clés manquantes au build sont de réelles exigences. L'article sur l'[i18n basée sur compilateur vs déclarative](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/compiler_vs_declarative_i18n.md) explique ce que les compilateurs apportent et les pièges potentiels.
 
+- [i18n basée sur compilateur vs déclarative](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/compiler_vs_declarative_i18n.md)
+
 </Question>
 
 <Question title="Le choix de la bibliothèque influence-t-il le SEO ?">
 
 Indirectement. Les robots d'indexation s'intéressent au routing, au `hreflang`, à `<html lang>` et à la présence du texte dans le HTML rendu côté serveur. Consultez le [guide hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/hreflang_guide_multilingual_seo.md).
+
+- [guide hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/hreflang_guide_multilingual_seo.md)
 
 </Question>
 

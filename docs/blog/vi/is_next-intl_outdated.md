@@ -90,6 +90,8 @@ style="border:none;"
 
 > Đo lường trên các trình duyệt thực tế với nén gzip ở môi trường production. Xem toàn bộ chi tiết trong [báo cáo benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md).
 
+- [báo cáo benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md)
+
 ### Dung Lượng Cơ Sở Của Thư Viện
 
 Dung lượng client trước khi thêm bất kỳ chuỗi dịch nào:
@@ -138,6 +140,8 @@ Biểu đồ dưới đây ước tính dung lượng nội dung cho một ứng
 
 Intlayer giải quyết vấn đề bằng phân tích tĩnh: [trình biên dịch Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md) chỉ đóng gói những nội dung thực sự được gọi trên route đó, đưa tỷ lệ rò rỉ giữa các trang về mức **0.0%**.
 
+- [trình biên dịch Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md)
+
 ## Tại Sao next-intl Không Thể Tree-Shaking?
 
 Giao diện API của thư viện dựa trên việc tra cứu chuỗi khóa động trong quá trình chạy:
@@ -176,6 +180,8 @@ export function UserProfile() {
 </Tabs>
 
 Turbopack và Webpack không thể dự đoán những khóa nào trong `UserProfile` sẽ được gọi. Nhằm tránh lỗi thiếu văn bản, **bundler buộc phải đưa toàn bộ namespace vào chunk client**. Ngược lại, cú pháp tách thuộc tính của Intlayer cho phép trình biên dịch kiểm tra chính xác các liên kết và loại bỏ văn bản không dùng. Xem thêm tại [tối ưu hóa bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md).
+
+- [tối ưu hóa bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md)
 
 ## Trải Nghiệm Lập Trình Viên (DX)
 
@@ -276,6 +282,8 @@ Tuy nhiên cơ chế này chỉ kiểm tra ngôn ngữ cơ sở. Nếu một kh�
 
 Intlayer tạo kiểu dữ liệu trực tiếp từ tất cả các file khai báo nội dung. Khi bật chế độ [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md), bất kỳ bản dịch nào bị thiếu ở bất kỳ ngôn ngữ nào đều khiến quá trình build dừng lại ngay lập tức.
 
+- [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md)
+
 ### Hệ Thống Công Cụ Và Trợ Lý AI
 
 | Tính năng                   | `next-intl` | Intlayer                                                                                                             |
@@ -301,6 +309,8 @@ Tìm và dịch các khóa còn thiếu bằng chính khóa API OpenAI, Anthropi
 **CMS Trực Quan Tự Host:**
 
 Sử dụng [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md) để những người không rành kỹ thuật có thể chỉnh sửa nội dung trực tiếp trên web và lưu vào Git.
+
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)
 
 **Bản Quyền Mã Nguồn Mở Tự Do:**
 

@@ -3,7 +3,7 @@ createdAt: 2026-06-12
 updatedAt: 2026-09-27
 priority: 8
 title: "Từ điển động: collection và biến thể"
-description: Tổng quan về các tính năng từ điển động của Intlayer — bộ sưu tập và biến thể — để xây dựng nội dung i18n linh hoạt, được điều khiển trong thời gian chạy.
+description: Tổng quan về các tính năng từ điển động của Intlayer, bộ sưu tập và biến thể, để xây dựng nội dung i18n linh hoạt, được điều khiển trong thời gian chạy.
 keywords:
   - Từ điển động
   - Bộ sưu tập
@@ -20,7 +20,7 @@ history:
     changes: "Phát hành tính năng từ điển động"
   - version: 9.1.0
     date: 2026-06-26
-    changes: "Hợp nhất bản ghi động vào biến thể — `variant` giờ chấp nhận một chuỗi hoặc một đối tượng"
+    changes: "Hợp nhất bản ghi động vào biến thể, `variant` giờ chấp nhận một chuỗi hoặc một đối tượng"
 author: aymericzip
 ---
 
@@ -37,8 +37,8 @@ Cả hai đều kết hợp với đối số locale và hỗ trợ tải chọn
 
 ## Khi nào dùng cái nào
 
-- **Bộ sưu tập** — danh sách mục được sắp xếp, quản lý trong các tệp riêng (mục FAQ, bài blog, sản phẩm).
-- **Biến thể** — các lựa chọn nội dung được đặt tên hoặc có cấu trúc:
+- **Bộ sưu tập**: danh sách mục được sắp xếp, quản lý trong các tệp riêng (mục FAQ, bài blog, sản phẩm).
+- **Biến thể**: các lựa chọn nội dung được đặt tên hoặc có cấu trúc:
   - biến thể **chuỗi** cho thử nghiệm A/B, banner theo mùa hoặc feature flag;
   - biến thể **đối tượng** cho bản ghi CMS, nội dung riêng theo người dùng, hoặc bất kỳ nội dung nào được định địa chỉ bằng một tập hợp trường ("bản ghi động" trước đây).
 

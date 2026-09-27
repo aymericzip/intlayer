@@ -25,6 +25,8 @@ author: aymericzip
 
 एक संपूर्ण और विस्तृत चरण-दर-चरण ट्यूटोरियल के लिए, कृपया हमारी पूरी [next-intl माइग्रेशन गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_next-intl_to_intlayer.md) देखें।
 
+- [next-intl माइग्रेशन गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_next-intl_to_intlayer.md)
+
 `next-intl` से Intlayer में माइग्रेशन करने से आप अपने एप्लिकेशन रूटिंग और सिंटैक्स को पूरी तरह से बिना किसी परेशानी के बनाए रख सकते हैं।
 
 ## क्या करना है

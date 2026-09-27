@@ -88,6 +88,8 @@ style="border:none;"
 
 > Đo lường trong môi trường trình duyệt thật với nén gzip production. Số liệu đầy đủ xem tại [tài liệu benchmark Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/vue.md).
 
+- [tài liệu benchmark Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/vue.md)
+
 ### Kích Thước Cơ Bản Ban Đầu
 
 Kích thước trước khi nạp thêm các chuỗi dịch thuật:
@@ -178,6 +180,9 @@ const { title } = useIntlayer("hero");
 
 [Trình biên dịch Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md) theo dõi trực tiếp các thuộc tính được truy cập và lược bỏ dữ liệu thừa trước khi đóng gói các file cho client. Xem chi tiết tại [tối ưu hóa bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md).
 
+- [Trình biên dịch Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md)
+- [tối ưu hóa bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md)
+
 ## Trải Nghiệm Lập Trình Viên (DX)
 
 ### Thư Mục Riêng vs. Đặt Cùng Component
@@ -255,6 +260,8 @@ Khi bạn đổi tên hoặc xóa `Hero.vue`, file nội dung đi kèm cũng đ�
 
 Với Intlayer, từ điển được kiểm định chặt chẽ. Kích hoạt [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md) sẽ khiến bản build báo lỗi ngay lập tức nếu thiếu bản dịch ở bất kỳ ngôn ngữ nào.
 
+- [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md)
+
 ### Công Cụ Trình Soạn Thảo Và AI
 
 | Tính năng                 | `vue-i18n`             | Intlayer                                                                                                               |
@@ -278,6 +285,8 @@ Dịch các khóa còn thiếu bằng chính khóa API OpenAI, Anthropic, Mistra
 **CMS Trực Quan Tự Host:**
 
 Triển khai [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md) để đội ngũ nội dung có thể chỉnh sửa văn bản trực quan với khả năng lưu trực tiếp vào Git.
+
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)
 
 **Giấy Phép Mã Nguồn Mở:**
 

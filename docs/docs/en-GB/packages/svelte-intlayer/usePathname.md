@@ -30,7 +30,7 @@ author: aymericzip
 
 # Svelte Integration: `usePathname` Documentation
 
-The `usePathname` function returns the current browser pathname with the locale segment stripped, as a Svelte `Readable<string>` store. It is useful for building locale-aware navigation — for example, determining which nav item is active — without having to manually remove the locale prefix.
+The `usePathname` function returns the current browser pathname with the locale segment stripped, as a Svelte `Readable<string>` store. It is useful for building locale-aware navigation (for example, determining which nav item is active) without having to manually remove the locale prefix.
 
 ## Importing `usePathname` in Svelte
 

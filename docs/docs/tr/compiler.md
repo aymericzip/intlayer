@@ -54,6 +54,8 @@ author: aymericzip
 
 Daha derin bir karşılaştırma için [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/compiler_vs_declarative_i18n.md) blog yazısına bakabilirsiniz.
 
+- [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/compiler_vs_declarative_i18n.md)
+
 ## Neden Intlayer Compiler Kullanmamalısınız?
 
 Derleyici mükemmel bir "hemen çalışır" deneyimi sunarken, aynı zamanda farkında olmanız gereken bazı ödünleşmeler de getirir:
@@ -65,7 +67,12 @@ Derleyici mükemmel bir "hemen çalışır" deneyimi sunarken, aynı zamanda far
 
 Daha derin bir mimari karşılaştırma için [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/compiler_vs_declarative_i18n.md) blog yazısına bakın.
 
+- [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/compiler_vs_declarative_i18n.md)
+
 Alternatif olarak, içeriğiniz üzerinde tam kontrolü korurken i18n sürecinizi otomatikleştirmek için, Intlayer ayrıca otomatik çıkarım komutu `intlayer extract` (bkz. [CLI dokümantasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract.md)) veya Intlayer VS Code uzantısının `Intlayer: extract content to Dictionary` komutunu (bkz. [VS Code uzantı dokümantasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/vs_code_extension.md)) sağlar.
+
+- [CLI dokümantasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract.md)
+- [VS Code uzantı dokümantasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/vs_code_extension.md)
 
 ## Kullanım
 
@@ -97,9 +104,11 @@ export default defineConfig({
 });
 ```
 
-> Bağımsız `intlayerCompiler()` eklentisi, gelişmiş kurulumlar için hala dışa aktarılmaktadır. `intlayer()` ile birlikte kaydetmek güvenlidir — derleyici kendisini çoğaltmaz ve yalnızca bir kez çalışır.
+> Bağımsız `intlayerCompiler()` eklentisi, gelişmiş kurulumlar için hala dışa aktarılmaktadır. `intlayer()` ile birlikte kaydetmek güvenlidir, derleyici kendisini çoğaltmaz ve yalnızca bir kez çalışır.
 
 See complete tutorial: [Translate Vite and React with Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md)
+
+- [Translate Vite and React with Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md)
 
 #### Framework Desteği
 
@@ -382,3 +391,5 @@ bun x intlayer extract
 ```
 
 > Daha fazla ayrıntı için [CLI belgelerine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/index.md) bakın.
+
+- [CLI belgelerine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/index.md)

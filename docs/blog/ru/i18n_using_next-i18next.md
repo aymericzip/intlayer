@@ -43,7 +43,12 @@ author: aymericzip
 
 > В качестве альтернативы вы также можете ознакомиться с [руководством next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/i18n_using_next-intl.md) или использовать напрямую [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_nextjs_16.md).
 
+- [руководством next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/i18n_using_next-intl.md)
+- [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_nextjs_16.md)
+
 > Сравнение смотрите в [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/next-i18next_vs_next-intl_vs_intlayer.md).
+
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/next-i18next_vs_next-intl_vs_intlayer.md)
 
 > Чтобы понять, откуда взялись эти библиотеки, прочитайте историю i18n в JavaScript.
 
@@ -52,6 +57,8 @@ author: aymericzip
 ## Что показывает бенчмарк о next-i18next в Next.js
 
 Прежде чем переходить к настройке, важно понять, как ваша i18n-библиотека влияет на производительность и bundle. [i18n-бенчмарк](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/nextjs.md) запускает одно и то же Next.js-приложение на 10 страниц и 10 локалей с основными i18n-библиотеками, чтобы измерить реальный размер bundle, утечку строк и накладные расходы на гидратацию.
+
+- [i18n-бенчмарк](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/nextjs.md)
 
 <I18nBenchmark framework="nextjs" packages="next-i18next,@intlayer/next-i18next,next-intlayer" vertical/>
 
@@ -77,6 +84,8 @@ author: aymericzip
 - **Вес runtime:** клиентский runtime `i18next` весит ~19.7 KB gzip на каждой странице. Для существующих codebase адаптер совместимости [`@intlayer/next-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/next-i18next.md) сохраняет тот же API `i18next`, уменьшая runtime до 9.4 KB и устраняя утечки. Нативный [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/next-intlayer/exports.md) опускается до 5.5 KB.
 
 > Полные данные: [отчёт бенчмарка Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/nextjs.md) и [репозиторий бенчмарка](https://github.com/intlayer-org/benchmark-i18n).
+
+- [отчёт бенчмарка Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/nextjs.md)
 
 ## Сравнение возможностей в Next.js
 
@@ -105,6 +114,9 @@ author: aymericzip
 
 > Размеры runtime взяты из [бенчмарка Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/nextjs.md). Подробное обсуждение читайте в статье [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/next-i18next_vs_next-intl_vs_intlayer.md).
 
+- [бенчмарка Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/nextjs.md)
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/next-i18next_vs_next-intl_vs_intlayer.md)
+
 ## Практики, которые следует соблюдать
 
 Прежде чем перейти к реализации, вот некоторые практики, которые следует соблюдать:
@@ -131,6 +143,8 @@ author: aymericzip
   Автоматизация тестов и переводов помогает экономить время на поддержку вашего многоязычного приложения.
 
 > Смотрите нашу документацию, в которой перечислено все, что вам нужно знать об интернационализации и SEO: [Интернационализация (i18n) с next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/internationalization_and_SEO.md).
+
+- [Интернационализация (i18n) с next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/internationalization_and_SEO.md)
 
 ## Пошаговое руководство по настройке i18next в приложении Next.js
 
@@ -1185,6 +1199,8 @@ Intlayer позволяет вам:
   Intlayer предлагает бесплатный визуальный редактор для редактирования вашего контента. Узнайте больше о [визуальном редактировании переводов](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md).
 
 И многое другое. Чтобы узнать обо всех возможностях Intlayer, пожалуйста, обратитесь к [документации по интересу Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/interest_of_intlayer.md).
+
+- [документации по интересу Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/interest_of_intlayer.md)
 
 Подробные бенчмарки производительности и сравнения смотрите здесь:
 

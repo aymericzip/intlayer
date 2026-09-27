@@ -49,6 +49,38 @@ Middleware wykonuje następujące zadania dla każdego przychodzącego żądania
 3. **Wypełnianie kontekstu żądania**: Zapisuje aktualnie ustalony język w kontekście żądania Remix przy użyciu klucza `Intlayer`, umożliwiając hookom (`useLocale`, `useIntlayer`, `useDictionary`) bezpośredni dostęp.
 4. **Zarządzanie plikami cookie**: Ustawia nagłówek `Set-Cookie`, gdy zachodzi potrzeba utrwalenia preferowanego języka użytkownika.
 
+## Parametry
+
+Funkcja `intlayer` przyjmuje opcjonalne `IntlayerMiddlewareOptions`:
+
+```ts
+import { intlayer, type IntlayerMiddlewareOptions } from "remix-intlayer";
+
+const options: IntlayerMiddlewareOptions = {
+  // Niestandardowe nadpisania konfiguracji routingu
+};
+
+const middleware = intlayer(options);
+```
+
+## Bezpośredni dostęp do kontekstu
+
+Oprócz korzystania z hooków możesz uzyskać dostęp do ustalonego `IntlayerState` bezpośrednio z kontekstu żądania Remix:
+
+```ts
+import { Intlayer } from "remix-intlayer";
+
+router.get("/api/locale", (context) => {
+  // Przez context.get()
+  const state = context.get(Intlayer);
+
+  // Lub przez bezpośrednią właściwość context.intlayer
+  const { locale } = context.intlayer;
+
+  return Response.json({ locale });
+});
+```
+
 ## Powiązana dokumentacja
 
 - [Kontekst żądania `Intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/remix-intlayer/Intlayer.md)

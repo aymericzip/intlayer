@@ -34,6 +34,8 @@ author: aymericzip
 
 Для получения дополнительной информации о том, как объявлять перечисления, см. [документацию по перечислениям](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/enumeration.md).
 
+- [документацию по перечислениям](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/enumeration.md)
+
 ## Параметры
 
 - `enumerationContent: QuantityContent<Content>`

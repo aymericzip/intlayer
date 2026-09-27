@@ -31,7 +31,7 @@ author: aymericzip
 
 # Angular-Integration: `usePathname` Hook Dokumentation
 
-Der `usePathname`-Hook gibt den aktuellen Browser-Pfad als Angular `Signal<string>` zurück, wobei das Gebietsschema-Segment (Locale) entfernt wurde. Er ist nützlich für den Aufbau einer gebietsschema-basierten Navigation — zum Beispiel, um festzustellen, welches Navigationselement aktiv ist —, ohne das Gebietsschema-Präfix manuell entfernen zu müssen.
+Der `usePathname`-Hook gibt den aktuellen Browser-Pfad als Angular `Signal<string>` zurück, wobei das Gebietsschema-Segment (Locale) entfernt wurde. Er ist nützlich für den Aufbau einer gebietsschema-basierten Navigation (zum Beispiel, um festzustellen, welches Navigationselement aktiv ist), ohne das Gebietsschema-Präfix manuell entfernen zu müssen.
 
 ## `usePathname` in Angular importieren
 

@@ -41,9 +41,13 @@ author: aymericzip
 
 [next-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/next-i18next_vs_next-intl_vs_intlayer.md) 블로그 게시물에서 next-intl과의 구체적인 비교를 확인하세요.
 
+- [next-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/next-i18next_vs_next-intl_vs_intlayer.md)
+
 ## 왜 Intlayer를 next-i18next와 결합해야 하나요?
 
 Intlayer가 훌륭한 독립형 i18n 솔루션을 제공하지만(자세한 내용은 [Next.js 통합 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_16.md) 참조), 다음과 같은 여러 이유로 next-i18next와 결합하여 사용할 수 있습니다:
+
+- [Next.js 통합 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_16.md)
 
 1. **기존 코드베이스**: 이미 구축된 next-i18next 구현이 있으며 Intlayer의 향상된 개발자 경험으로 점진적으로 마이그레이션하려는 경우.
 2. **레거시 요구사항**: 프로젝트가 기존 i18next 플러그인 또는 워크플로우와의 호환성을 필요로 하는 경우.
@@ -142,6 +146,8 @@ CLI를 사용하여 JSON을 번역하거나 CMS를 사용하여 변경 사항이
 
 `syncJSON` 플러그인에 대한 자세한 내용은 [syncJSON 플러그인 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/plugins/sync-json.md)를 참조하세요.
 
+- [syncJSON 플러그인 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/plugins/sync-json.md)
+
 </Step>
 <Step number={3} title="컴포넌트별 JSON 번역 구현" isOptional={true}>
 
@@ -203,8 +209,8 @@ export default config;
 
 개발자 경험 향상을 위해 공식 **Intlayer VS Code 확장 프로그램**을 설치하세요:
 
-[VS Code 마켓플레이스에서 설치하기](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [VS Code 마켓플레이스에서 설치하기](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 개발자 경험을 향상시키기 위해 공식 **Intlayer VS Code 확장 프로그램**을 설치하세요:
 
-[VS Code 마켓플레이스에서 설치하기](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [VS Code 마켓플레이스에서 설치하기](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

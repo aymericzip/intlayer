@@ -260,6 +260,8 @@ Mapowanie na pojęcia ICU jest bezpośrednie:
 
 Operator `plural` deleguje wybór kategorii do `Intl.PluralRules`, dzięki czemu powyższa tabela CLDR działa bezpośrednio. Formatowanie pozostaje odseparowane: liczby, daty, waluty i listy są obsługiwane przez dedykowane [hooki formatujące](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/formatters.md), zamiast być wbudowane w treść komunikatu.
 
+- [hooki formatujące](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/formatters.md)
+
 Ograniczenia:
 
 - Intlayer wymaga etapu budowania: kompilator wyodrębnia deklaracje w trakcie budowy aplikacji. Jeśli preferujesz czysty JSON ładowany dynamicznie w czasie wykonywania, jest to odmienny model.
@@ -267,6 +269,9 @@ Ograniczenia:
 - Ekosystem jest młodszy niż w przypadku i18next, z mniejszą liczbą gotowych integracji TMS.
 
 Dla projektów zawierających już ciągi ICU, [adapter zgodności react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compat/react-intl.md) przetwarza je bezpośrednio: `plural`, `select`, `selectordinal`, `#` oraz tradycyjne argumenty `number`, `date`, `time`. Szkielety oraz opcja `offset:` nie są obsługiwane przez ten mechanizm i wymagają weryfikacji podczas migracji. [Adapter i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compat/i18next.md) mapuje natomiast formy z sufiksami (`key_one`, `key_male`) na wywołania `Intl.PluralRules`.
+
+- [adapter zgodności react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compat/react-intl.md)
+- [Adapter i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compat/i18next.md)
 
 ## Częste błędy
 

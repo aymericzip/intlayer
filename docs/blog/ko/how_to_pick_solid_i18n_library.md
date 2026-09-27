@@ -67,6 +67,8 @@ Paraglide는 메시지당 하나의 함수를 생성합니다. Intlayer는 컴�
 
 [JavaScript i18n의 역사](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/history_of_i18n.md)에서 각 세대를 자세히 다룹니다.
 
+- [JavaScript i18n의 역사](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/history_of_i18n.md)
+
 ## 가장 중요한 결정: 콘텐츠가 위치하는 곳과 로드되는 시점
 
 설정 간 번들 크기 차이의 대부분은 두 가지 구조적 선택에서 비롯됩니다.
@@ -80,11 +82,17 @@ Paraglide는 메시지당 하나의 함수를 생성합니다. Intlayer는 컴�
 
 `@solid-primitives/i18n`은 두 축 모두 기본 제공하지 않습니다. 로케일당 딕셔너리를 `createResource`하여 동적 로딩을 구현할 수 있으며, 나머지는 직접 구현해야 합니다. `solid-i18next`는 네임스페이스와 지연 로딩 백엔드를 갖추고 있지만 매핑을 강제하지 않으므로, `common`을 임포트하는 공통 컴포넌트가 모든 라우트의 의존성이 됩니다. Paraglide는 tree-shaking을 통해 페이지 단위 분할을 달성하지만, [Solid 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/solid.md) 구현에서는 적용되지 않았습니다. Intlayer는 컴포넌트별 선언을 통해 이를 해결합니다.
 
+- [Solid 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/solid.md)
+
 질문 4에 대한 답변이 "많은 페이지"였다면, 어떤 API 선호도보다 이 섹션을 중요하게 고려하세요. [컴포넌트 단위 vs 중앙 집중식 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/per-component_vs_centralized_i18n.md) 글에서 동일한 트레이드오프의 유지보수 측면을 다룹니다.
+
+- [컴포넌트 단위 vs 중앙 집중식 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/per-component_vs_centralized_i18n.md)
 
 ## 라이브러리 후보군
 
 라이브러리 크기는 [Solid 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/solid.md) 기준입니다. 10개 페이지, 10개 로케일 앱에서 번들링, tree-shaking, minification 후 빈 컴포넌트 내의 provider와 accessor를 측정한 수치입니다. 콘텐츠 크기는 별도로 측정됩니다.
+
+- [Solid 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/solid.md)
 
 ![Solid i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
@@ -118,6 +126,8 @@ Paraglide의 라이브러리 크기가 거의 0에 가까운 것은 구조적 �
 
 서버와 클라이언트가 일치하도록 서버의 URL에서 로케일을 가져와야 합니다. 클라이언트에서 감지하는 것은 너무 늦습니다. `@solid-primitives/i18n`과 `solid-i18next`는 `[[locale]]` 라우트, `matchFilters`, 리다이렉트, `entry-server.tsx` 태그 처리를 개발자에게 맡깁니다. Paraglide는 라우팅을 처리하는 Vite 플러그인을 제공합니다. Intlayer는 미들웨어와 라우트 헬퍼를 제공합니다. 어떤 라이브러리를 선택하든 `<html lang>`과 `hreflang`을 `entry-server.tsx`에 넣으세요. SolidStart v2에서 `@solidjs/meta`는 hydration 이후 클라이언트에서 적용됩니다. [Solid i18n 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_solid_start.md)에서 해당 설정을 자세히 다룹니다.
 
+- [Solid i18n 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_solid_start.md)
+
 </Accordion>
 <Accordion header="로케일 변경이 즉각적이고 세분화(fine-grained)되어야 할 때">
 
@@ -132,6 +142,8 @@ Paraglide의 라이브러리 크기가 거의 0에 가까운 것은 구조적 �
 <Accordion header="타입 안전성이 절대적으로 중요한 경우">
 
 `@solid-primitives/i18n`은 별도 작업 없이 추론된 타입을 제공하며, 이는 대부분의 React 라이브러리가 제공하는 것 이상입니다. 지연 로딩과 라우트별 분할 이후에도 유지되는 생성 타입을 원한다면 Paraglide, `@lingui/solid`, Intlayer 모두 콘텐츠로부터 타입을 생성합니다. [누락된 번역 감지](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/detecting_missing_translations.md) 글에서 각 라이브러리가 빌드 타임에 무엇을 감지하는지 비교합니다.
+
+- [누락된 번역 감지](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/detecting_missing_translations.md)
 
 </Accordion>
 <Accordion header="번역을 AI로 생성할 예정인 경우">
@@ -389,6 +401,9 @@ export const CartSummary: Component<{ count: number }> = (props) => {
 
 기존 i18next 코드베이스에서는 [i18next 호환 어댑터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/i18next.md)를 통해 번들러 수준에서 패키지를 별칭(alias) 처리할 수 있어, Intlayer가 콘텐츠를 제공하는 동안에도 카탈로그와 `t()`가 계속 작동합니다. 자세한 내용은 [마이그레이션 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_i18next_to_intlayer.md)에서 다룹니다.
 
+- [i18next 호환 어댑터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/i18next.md)
+- [마이그레이션 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_i18next_to_intlayer.md)
+
 ## 도입 전 고려할 점
 
 기능 비교표는 라이브러리가 현재 무엇을 할 수 있는지를 보여줍니다. 아래 항목들은 실제로 라이브러리를 유지보수하며 겪게 될 경험을 알려줍니다.
@@ -411,6 +426,9 @@ export const CartSummary: Component<{ count: number }> = (props) => {
 
 에이전트는 여전히 i18n 작업에 어려움을 겪습니다. 로케일을 빠뜨리거나, 임의의 키를 만들고, 메시지 문법을 혼동합니다. 라이브러리가 에이전트가 콘텐츠를 나열하고 채우며 테스트할 수 있도록 [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/agent_skills.md)나 [MCP 서버](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/mcp_server.md)를 제공하나요? 또한 콘텐츠 로딩이 기본적으로 최적화되어 있나요, 아니면 분기마다 네임스페이스와 지연 임포트를 수동으로 검토해야 하나요?
 
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/agent_skills.md)
+- [MCP 서버](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/mcp_server.md)
+
 **기본으로 제공되는 타입 안전성.**
 
 "추가 설정으로 타입을 맞출 수 있다"가 아니라 "새로 설치했을 때 잘못된 키가 `tsc`에서 에러를 발생시키는가"가 중요합니다. 존재하지 않는 키를 전달했을 때, 그리고 특정 번역이 누락된 로케일에서 어떤 일이 발생하는지 확인하세요.
@@ -422,6 +440,13 @@ export const CartSummary: Component<{ count: number }> = (props) => {
 **개발자 경험(DX).**
 
 첫 번째 번역 문자열까지의 설정 시간, 마우스 호버 시 번역을 보여주고 선언부로 이동할 수 있는 [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/lsp.md) 또는 [VS Code 확장 프로그램](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/vs_code_extension.md), 채우기/테스트/푸시를 위한 [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/index.md), 컴포넌트에 하드코딩된 문자열을 추출해 키 하나하나를 직접 관리하지 않아도 되게 해주는 [컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md) 또는 추출기, 비개발자가 풀 리퀘스트 없이 콘텐츠를 수정할 수 있는 방법([시각적 편집기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md) 또는 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md))의 유무를 살펴보세요.
+
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/lsp.md)
+- [VS Code 확장 프로그램](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/vs_code_extension.md)
+- [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/index.md)
+- [컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md)
+- [시각적 편집기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)
 
 ## 자주 묻는 질문
 
@@ -443,11 +468,15 @@ Solid 컴포넌트는 한 번만 실행되기 때문입니다. 셋업 시점에 
 
 번들 크기, 자동 생성 타입, 빌드 타임 누락 키 검사가 실제 필수 요구사항인 경우에만 필요합니다. [컴파일러 vs 선언적 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/compiler_vs_declarative_i18n.md) 글에서 컴파일러가 제공하는 이점과 발생할 수 있는 문제점을 설명합니다.
 
+- [컴파일러 vs 선언적 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/compiler_vs_declarative_i18n.md)
+
 </Question>
 
 <Question title="라이브러리 선택이 SEO에 영향을 미치나요?">
 
 간접적으로 영향을 미칩니다. 검색 엔진 크롤러는 라우팅, `hreflang`, `<html lang>`, 그리고 텍스트가 서버 렌더링 HTML에 포함되어 있는지를 중요하게 보며, SolidStart에서는 이것이 `entry-server.tsx`를 의미합니다. 자세한 내용은 [hreflang 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/hreflang_guide_multilingual_seo.md)를 참조하세요.
+
+- [hreflang 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/hreflang_guide_multilingual_seo.md)
 
 </Question>
 

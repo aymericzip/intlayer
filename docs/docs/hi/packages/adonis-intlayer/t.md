@@ -137,3 +137,5 @@ export default config;
 ### TypeScript एकीकरण
 
 `t` फ़ंक्शन परिभाषित शब्दकोशों के साथ उपयोग किए जाने पर प्रकार-सुरक्षित है। अधिक विवरण के लिए, [TypeScript दस्तावेज़ीकरण](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md) देखें।
+
+- [TypeScript दस्तावेज़ीकरण](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md)

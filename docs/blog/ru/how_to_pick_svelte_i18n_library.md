@@ -67,6 +67,8 @@ Paraglide компилирует каждое сообщение в отдель
 
 В статье об [истории i18n в JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/history_of_i18n.md) подробно рассматривается каждая волна.
 
+- [истории i18n в JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/history_of_i18n.md)
+
 ## Главное решение: где хранится контент и когда он загружается
 
 Два архитектурных выбора объясняют большую часть разницы в размере bundle между решениями:
@@ -80,11 +82,17 @@ Paraglide компилирует каждое сообщение в отдель
 
 `svelte-i18n` по умолчанию находится в верхнем левом углу: вызов `register("fr", () => import("./fr.json"))` обеспечивает динамическую загрузку для каждой локали, но каталог локали представляет собой единый объект, поэтому при его загрузке подтягиваются тексты всех страниц. Paraglide представляет собой интересный случай: поскольку каждое сообщение является отдельным экспортом, tree-shaking автоматически разделяет страницы, и [бенчмарк Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/svelte.md) подтверждает эффективность на Vite + Svelte (в бенчмарках React и Next.js этого не происходило). Intlayer достигает аналогичных показателей за счет объявлений на уровне компонентов.
 
+- [бенчмарк Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/svelte.md)
+
 Если в вопросе 3 вы указали «много страниц», уделите этому разделу больше внимания, чем предпочтениям в API. В статье о [колокации против централизованного i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/per-component_vs_centralized_i18n.md) подробно описана сторона поддержки этого компромисса.
+
+- [колокации против централизованного i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/per-component_vs_centralized_i18n.md)
 
 ## Кандидаты
 
 Размеры библиотек взяты из [бенчмарка Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/svelte.md): store плюс аксессор в пустом компоненте после сборки, tree-shaking и минификации в приложении на 10 страниц и 10 локалей. Объем контента измеряется отдельно.
+
+- [бенчмарка Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/svelte.md)
 
 ![Экосистема библиотек i18n для Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
@@ -113,6 +121,8 @@ Paraglide компилирует каждое сообщение в отдель
 
 В этом случае решающим фактором становится проблема разделения состояния. `svelte-i18n` работает в SvelteKit, но логику per-request (`hooks.server.ts`, `locals`, `load`, затем `setContext`) приходится реализовывать вручную, где легко допустить ошибку. Paraglide предлагает готовую интеграцию со SvelteKit, которая берет на себя роутинг и считывает локаль при каждом вызове, избегая синглтонов. Intlayer передает локаль из данных `load` в context. В статье об [i18n в SvelteKit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_svelte_kit.md) подробно разобран выбор между `[[lang]]` и `reroute`, с которым стоит определиться до выбора библиотеки.
 
+- [i18n в SvelteKit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_svelte_kit.md)
+
 </Accordion>
 <Accordion header="Переводы поступают из TMS или агентства в формате ICU">
 
@@ -127,6 +137,8 @@ Paraglide компилирует каждое сообщение в отдель
 <Accordion header="Строгая типизация обязательна">
 
 Любой вариант, кроме базовой конфигурации `svelte-i18n`, где единственной типизацией является созданный вручную union-тип, быстро рассинхронизирующийся с JSON. `typesafe-i18n`, Paraglide и Intlayer генерируют типы напрямую из контента. Перед выбором `typesafe-i18n` обратите внимание на активность репозитория. В статье об [обнаружении пропущенных переводов](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/detecting_missing_translations.md) сравнивается, какие ошибки выявляет каждая библиотека на этапе сборки.
+
+- [обнаружении пропущенных переводов](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/detecting_missing_translations.md)
 
 </Accordion>
 <Accordion header="Нежелательно хранить сгенерированные файлы в репозитории">
@@ -383,6 +395,8 @@ export default cartSummaryContent;
 
 Уже используете `svelte-i18n`? [Адаптер совместимости `@intlayer/svelte-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/svelte-i18n.md) создает алиас пакета на уровне bundler, сохраняя работоспособность `$_`, `$date`, `$number` и плоских ключей, пока Intlayer управляет контентом.
 
+- [Адаптер совместимости `@intlayer/svelte-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/svelte-i18n.md)
+
 ## Перед принятием окончательного решения
 
 Таблица возможностей показывает текущее состояние библиотеки. Следующие критерии помогут понять, каково будет поддерживать ее в долгосрочной перспективе.
@@ -405,6 +419,9 @@ export default cartSummaryContent;
 
 Агенты все еще допускают ошибки в i18n: забывают локали, придумывают несуществующие ключи и путают синтаксис сообщений. Предлагает ли библиотека [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/agent_skills.md) или [MCP-сервер](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/mcp_server.md), чтобы агент мог просматривать, заполнять и тестировать контент? Оптимизирована ли загрузка контента по умолчанию, или команде придется регулярно пересматривать namespaces и динамические импорты?
 
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/agent_skills.md)
+- [MCP-сервер](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/mcp_server.md)
+
 **Типизация из коробки.**
 
 Речь идет не о «возможности настроить типы вручную», а о ситуации, когда неверный ключ приводит к ошибке `tsc` сразу после установки. Проверьте, как библиотека реагирует на несуществующий ключ и на локаль с отсутствующим переводом.
@@ -416,6 +433,13 @@ export default cartSummaryContent;
 **Удобство для разработчиков (DX).**
 
 Время от начала настройки до первой переведенной строки, наличие [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/lsp.md) или [расширения VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/vs_code_extension.md) с подсказками при наведении и переходом к объявлению, [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/index.md) для генерации, тестирования и отправки переводов, [компилятор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compiler.md) или экстрактор, который извлекает захардкоженные строки из компонентов, чтобы не управлять каждой строкой ключ за ключом, а также возможность редактирования контента специалистами без участия разработчиков ([визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md) или [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md)) без создания pull request.
+
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/lsp.md)
+- [расширения VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/vs_code_extension.md)
+- [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/index.md)
+- [компилятор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compiler.md)
+- [визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md)
 
 ## Часто задаваемые вопросы
 
@@ -442,6 +466,8 @@ export default cartSummaryContent;
 <Question title="Влияет ли выбор библиотеки на SEO?">
 
 Косвенно. Для поисковых роботов критичны корректный роутинг, теги `hreflang`, атрибут `<html lang>` и присутствие текста в HTML, сгенерированном на сервере. Подробнее об этом читайте в [руководстве по hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/hreflang_guide_multilingual_seo.md).
+
+- [руководстве по hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/hreflang_guide_multilingual_seo.md)
 
 </Question>
 

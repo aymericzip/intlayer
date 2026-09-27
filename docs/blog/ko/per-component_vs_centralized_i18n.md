@@ -70,6 +70,8 @@ extension Localization on String {
 > 이 블로그에서는 컴파일러 기반 솔루션에 초점을 맞추지 않겠습니다. 해당 내용은 이미 여기에서 다뤘습니다: [Compiler vs Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/compiler_vs_declarative_i18n.md).
 > 컴파일러 기반 i18n(예: Lingui)은 단순히 콘텐츠 추출과 로딩을 자동화할 뿐이라는 점을 유의하세요. 내부적으로는 다른 접근 방식들과 동일한 한계를 공유하는 경우가 많습니다.
 
+- [Compiler vs Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/compiler_vs_declarative_i18n.md)
+
 > 콘텐츠를 가져오는 방식을 더 세분화할수록 컴포넌트에 추가적인 상태와 로직을 삽입할 위험이 커집니다.
 
 세분화된 접근 방식은 중앙집중식 접근보다 더 유연하지만, 종종 트레이드오프가 따릅니다. 해당 라이브러리들이 "tree shaking"을 홍보하더라도, 실제로는 종종 모든 언어에 대해 페이지를 로드하게 됩니다.
@@ -153,6 +155,8 @@ locale/
 
 이제 앱의 어떤 콘텐츠를 언제 어디서 로드할지 세밀하게 관리해야 합니다. 결론적으로, 복잡성 때문에 대다수의 프로젝트는 이 부분을 건너뛰게 됩니다(예: 좋은 관행을 따르는 것만으로 발생하는 어려움을 보려면 [next-i18next 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/i18n_using_next-i18next.md)를 참조하세요).
 그 결과, 이러한 프로젝트들은 앞서 설명한 대규모 JSON 로딩 문제에 직면하게 됩니다.
+
+- [next-i18next 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/i18n_using_next-i18next.md)
 
 > 참고: 이 문제는 i18next에만 국한된 것이 아니라 위에 열거한 모든 중앙집중식 접근 방식에 공통적으로 발생합니다.
 

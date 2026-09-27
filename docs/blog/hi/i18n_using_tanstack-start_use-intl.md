@@ -49,6 +49,8 @@ TanStack Start में कोई अंतर्निहित i18n लेय
 
 > क्या आप Next.js का उपयोग कर रहे हैं? [next-intl गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/i18n_using_next-intl.md) देखें।
 
+- [next-intl गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/i18n_using_next-intl.md)
+
 > ये लाइब्रेरी कहाँ से आईं, यह समझने के लिए JavaScript i18n का इतिहास पढ़ें।
 
 - [JavaScript i18n का इतिहास](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/history_of_i18n.md)
@@ -56,6 +58,8 @@ TanStack Start में कोई अंतर्निहित i18n लेय
 ## TanStack Start पर use-intl के बारे में बेंचमार्क क्या कहता है
 
 [i18n बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/tanstack.md) हर प्रमुख लाइब्रेरी के साथ समान 10-पेज, 10-लोकेल TanStack Start ऐप चलाता है और मापता है कि ब्राउज़र वास्तव में क्या डाउनलोड करता है।
+
+- [i18n बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/tanstack.md)
 
 <I18nBenchmark framework="tanstack" packages="use-intl,@intlayer/use-intl,intlayer" vertical/>
 
@@ -74,6 +78,8 @@ TanStack Start में कोई अंतर्निहित i18n लेय
 - **रनटाइम स्वयं भारी रहता है** (~76 KB gzip), क्योंकि ICU पार्सर क्लाइंट पर भेजा जाता है। `@intlayer/use-intl` कम्पैट एडेप्टर (स्टेप 17) ~7 KB रनटाइम के साथ बिल्कुल समान API बनाए रखता है।
 
 > पूरा डेटा देखें: [TanStack Start बेंचमार्क रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/tanstack.md), और [बेंचमार्क रिपॉजिटरी](https://github.com/intlayer-org/benchmark-i18n)।
+
+- [TanStack Start बेंचमार्क रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/tanstack.md)
 
 ## TanStack Start पर फीचर तुलना
 
@@ -98,6 +104,8 @@ TanStack Start पर आमतौर पर उपयोग की जाने
 | **CI में गायब अनुवाद**                   | ✅ `npx intlayer test`               | ⚠️ अंतर्निहित नहीं           | ⚠️ अंतर्निहित नहीं                | ✅ `lingui compile --strict`    |
 
 > रनटाइम साइज़ और लीक के आंकड़े [TanStack Start बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/tanstack.md) से लिए गए हैं। लीक प्रत्येक लाइब्रेरी के सर्वश्रेष्ठ सेटअप पर मापा जाता है।
+
+- [TanStack Start बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/tanstack.md)
 
 > अन्य TanStack Start गाइड्स:
 
@@ -974,6 +982,8 @@ export const startInstance = createStart(() => ({
 
 बेंचमार्क दिखाता है कि use-intl सेटअप का सबसे भारी हिस्सा स्वयं रनटाइम है (~76 KB gzip)। [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/index.md) कम्पैट एडेप्टर **समान API** (`useTranslations`, `useFormatter`, `IntlProvider`, `createTranslator`, ICU प्लूरल्स, `t.rich`) प्रदान करता है, लेकिन इसे कंपाइल किए गए Intlayer डिक्शनरी से परोसता है: **~75.9 KB के बजाय ~6.7 KB**, 0% लोकेल लीक और 0% पेज लीक, आपके कंपोनेंट्स में बिना किसी बदलाव के।
 
+- [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/index.md)
+
 ```bash packageManager="npm"
 npm install @intlayer/use-intl intlayer @intlayer/sync-json-plugin
 npx intlayer init
@@ -1034,7 +1044,11 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
+- [sync JSON प्लगइन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-json.md)
+
 > यह एडेप्टर एक आसान माइग्रेशन मार्ग भी है: एक बार जब यह चलने लगे, तो आप कंपोनेंट्स को एक-एक करके मूल `useIntlayer` API में ले जा सकते हैं। [Intlayer TanStack Start गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_tanstack.md) देखें।
+
+- [Intlayer TanStack Start गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_tanstack.md)
 
 </Step>
 <Step number={18} title="प्रत्येक लोकेल को प्री-रेंडर करें" isOptional={true}>
@@ -1142,6 +1156,8 @@ use-intl अनुवाद रेंडर करता है, लेकिन
 
 सभी सुविधाओं को जानने के लिए, [Intlayer क्यों चुनें](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/interest_of_intlayer.md) देखें।
 
+- [Intlayer क्यों चुनें](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/interest_of_intlayer.md)
+
 </Step>
 </Steps>
 
@@ -1152,6 +1168,8 @@ use-intl अनुवाद रेंडर करता है, लेकिन
 <Question title="क्या TanStack Start के लिए use-intl एक अच्छा विकल्प है?">
 
 हाँ, यदि आप Next.js के बाहर `next-intl` API चाहते हैं। यह आपको ICU संदेश, प्रारूपक (formatters) और अच्छा TypeScript समर्थन देता है, और यह Next.js-विशिष्ट बाधाओं जैसे `setRequestLocale` से बचाता है। इसका नकारात्मक पहलू वज़न है: [बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/tanstack.md) रनटाइम के लिए ~76 KB gzip मापता है, और एक सामान्य सेटअप प्रत्येक लोकेल और प्रत्येक पेज को ब्राउज़र में भेज देता है। लीक से बचने के लिए, इस गाइड की तरह, रूट और लोकेल के अनुसार नेमस्पेस लोड करें।
+
+- [बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/tanstack.md)
 
 </Question>
 <Question title="use-intl और next-intl में क्या अंतर है?">
@@ -1173,6 +1191,8 @@ URL में प्रीफिक्स का उपयोग करें।
 
 सबसे पहले, संदेशों को नेमस्पेस द्वारा विभाजित करें और उन्हें `import.meta.glob` के साथ प्रति रूट और प्रति लोकेल लोड करें, जो लोकेल और पेज लीक को हटा देता है। फिर, यदि रनटाइम साइज़ मायने रखता है, तो [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/index.md) एडेप्टर पर स्विच करें: समान API, बेंचमार्क में ~75.9 KB के बजाय ~6.7 KB।
 
+- [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/index.md)
+
 </Question>
 <Question title="मैं use-intl के साथ शीर्षक और मेटा विवरण का अनुवाद कैसे करूँ?">
 
@@ -1182,6 +1202,9 @@ URL में प्रीफिक्स का उपयोग करें।
 <Question title="क्या मैं use-intl से Intlayer में धीरे-धीरे माइग्रेट कर सकता हूँ?">
 
 हाँ। पहले कम्पैट एडेप्टर स्थापित करें (स्टेप 17): आपके कंपोनेंट्स `useTranslations` को कॉल करना जारी रखते हैं, जो अब Intlayer द्वारा समर्थित है। फिर कंपोनेंट्स को एक-एक करके `useIntlayer` में ले जाएं, और सामग्री को उनके बगल में घोषित करें। [कम्पैट एडेप्टर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/index.md) और [Intlayer TanStack Start गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_tanstack.md) देखें।
+
+- [कम्पैट एडेप्टर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/index.md)
+- [Intlayer TanStack Start गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_tanstack.md)
 
 </Question>
 

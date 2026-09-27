@@ -30,7 +30,7 @@ author: aymericzip
 
 # Máy chủ LSP Intlayer
 
-**Máy chủ ngôn ngữ Intlayer** là một hiện thực của [Language Server Protocol (LSP)](https://microsoft.github.io/language-server-protocol/) giúp IDE — và tác nhân AI — của bạn hiểu Intlayer. Nó kết nối một lệnh gọi như `useIntlayer("home")` với tệp `.content.ts` khai báo nó, theo cả hai chiều.
+**Máy chủ ngôn ngữ Intlayer** là một hiện thực của [Language Server Protocol (LSP)](https://microsoft.github.io/language-server-protocol/) giúp IDE, và tác nhân AI, của bạn hiểu Intlayer. Nó kết nối một lệnh gọi như `useIntlayer("home")` với tệp `.content.ts` khai báo nó, theo cả hai chiều.
 
 ## Tính năng
 
@@ -44,8 +44,8 @@ author: aymericzip
 
 Có hai hành vi bổ sung đáng lưu ý:
 
-- **Từ điển được hợp nhất** — một khóa trải trên nhiều tệp nội dung sẽ trả về một kết quả cho mỗi tệp, nhờ đó bạn có thể tới từng khai báo.
-- **Hỗ trợ monorepo** — máy chủ phân giải tệp `intlayer.config.*` _gần nhất_ với mỗi tệp, nhờ đó nhiều dự án trong cùng một workspace đều có từ điển riêng.
+- **Từ điển được hợp nhất**: một khóa trải trên nhiều tệp nội dung sẽ trả về một kết quả cho mỗi tệp, nhờ đó bạn có thể tới từng khai báo.
+- **Hỗ trợ monorepo**: máy chủ phân giải tệp `intlayer.config.*` _gần nhất_ với mỗi tệp, nhờ đó nhiều dự án trong cùng một workspace đều có từ điển riêng.
 
 ### Các lệnh gọi được hỗ trợ
 
@@ -62,7 +62,7 @@ Khóa được đọc từ một đối số chuỗi theo vị trí, hoặc từ
 
 Điều này áp dụng cho mọi gói `*-intlayer` (`next-intlayer`, `react-intlayer`, `vue-intlayer`, `svelte-intlayer`, `solid-intlayer`, `preact-intlayer`, `angular-intlayer`, `lit-intlayer`, `express-intlayer`, `hono-intlayer`, `fastify-intlayer`, `intlayer`), cũng như cho các gói adapter compat cho phép bạn giữ nguyên cú pháp i18n hiện có.
 
-> Từ điển được đọc từ kết quả build, vì vậy hãy chạy `npx intlayer build` — hoặc giữ máy chủ phát triển đang chạy — để máy chủ có dữ liệu mà phân giải.
+> Từ điển được đọc từ kết quả build, vì vậy hãy chạy `npx intlayer build`, hoặc giữ máy chủ phát triển đang chạy, để máy chủ có dữ liệu mà phân giải.
 
 ## Cài đặt
 
@@ -84,21 +84,23 @@ pnpm add --save-dev @intlayer/lsp
 bun add --dev @intlayer/lsp
 ```
 
-Hãy cài đặt toàn cục (`npm install -g @intlayer/lsp`) nếu trình soạn thảo của bạn cần `intlayer-lsp` nằm trong `PATH` — đây là trường hợp của plugin Claude Code và của mọi cấu hình bên dưới gọi trực tiếp tệp nhị phân.
+Hãy cài đặt toàn cục (`npm install -g @intlayer/lsp`) nếu trình soạn thảo của bạn cần `intlayer-lsp` nằm trong `PATH`, đây là trường hợp của plugin Claude Code và của mọi cấu hình bên dưới gọi trực tiếp tệp nhị phân.
 
 ## Thiết lập
 
 <Tabs defaultTab="vscode">
   <Tab label="VS Code" value="vscode">
 
-Cài [tiện ích mở rộng Intlayer cho VS Code](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension). Máy chủ ngôn ngữ đã được đóng gói kèm từ v8.12.0 và tự khởi động — **không cần cấu hình gì**.
+Cài [tiện ích mở rộng Intlayer cho VS Code](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension). Máy chủ ngôn ngữ đã được đóng gói kèm từ v8.12.0 và tự khởi động, **không cần cấu hình gì**.
 
 Xem [tài liệu tiện ích mở rộng VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/vs_code_extension.md) để biết các tính năng khác.
+
+- [tài liệu tiện ích mở rộng VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/vs_code_extension.md)
 
   </Tab>
   <Tab label="Cursor / Windsurf" value="cursor">
 
-[Cursor](https://www.cursor.com/) và [Windsurf](https://windsurf.com/) là các bản fork của VS Code và dùng chung hệ sinh thái tiện ích mở rộng. Chỉ cần cài [tiện ích mở rộng Intlayer cho VS Code](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) một lần là máy chủ tự kích hoạt — **không cần cấu hình gì**.
+[Cursor](https://www.cursor.com/) và [Windsurf](https://windsurf.com/) là các bản fork của VS Code và dùng chung hệ sinh thái tiện ích mở rộng. Chỉ cần cài [tiện ích mở rộng Intlayer cho VS Code](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) một lần là máy chủ tự kích hoạt, **không cần cấu hình gì**.
 
   </Tab>
   <Tab label="Claude Code" value="claude-code">
@@ -114,7 +116,7 @@ claude plugin marketplace add intlayer@github:aymericzip/intlayer
 claude plugin install intlayer-lsp@intlayer
 ```
 
-`install` cũng đồng thời bật plugin. **Hãy khởi động lại Claude Code** — các máy chủ ngôn ngữ được nạp lúc khởi động, nên trước đó plugin chưa có tác dụng.
+`install` cũng đồng thời bật plugin. **Hãy khởi động lại Claude Code**, các máy chủ ngôn ngữ được nạp lúc khởi động, nên trước đó plugin chưa có tác dụng.
 
 Sau đó Claude Code sẽ khởi chạy máy chủ trên các tệp `.ts`, `.tsx`, `.js`, `.jsx`, `.vue`, `.astro` và `.svelte`, đồng thời dùng `goToDefinition`, `findReferences` và `hover` khi duyệt mã của bạn.
 
@@ -240,10 +242,10 @@ language-servers = ["intlayer-lsp", "typescript-language-server"]
 
 Mọi trình soạn thảo hỗ trợ LSP đều có thể chạy `@intlayer/lsp`. Hãy trỏ nó tới:
 
-- **Tệp thực thi** — `npx @intlayer/lsp`, hoặc tệp nhị phân `intlayer-lsp`
-- **Phương thức truyền** — stdio (chuẩn)
-- **Khả năng** — `definitionProvider`, `referencesProvider`, `hoverProvider`, `completionProvider` (ký tự kích hoạt `"` `'` `` ` `` `.`), chẩn đoán dạng push, `textDocumentSync: Incremental`
-- **Mẫu thư mục gốc** — `intlayer.config.ts`, `intlayer.config.js`, `package.json`
+- **Tệp thực thi**: `npx @intlayer/lsp`, hoặc tệp nhị phân `intlayer-lsp`
+- **Phương thức truyền**: stdio (chuẩn)
+- **Khả năng**: `definitionProvider`, `referencesProvider`, `hoverProvider`, `completionProvider` (ký tự kích hoạt `"` `'` `` ` `` `.`), chẩn đoán dạng push, `textDocumentSync: Incremental`
+- **Mẫu thư mục gốc**: `intlayer.config.ts`, `intlayer.config.js`, `package.json`
 
 Hãy tham khảo tài liệu LSP của trình soạn thảo để biết định dạng cấu hình chính xác.
 
@@ -252,7 +254,7 @@ Hãy tham khảo tài liệu LSP của trình soạn thảo để biết định
 
 ## Ghi chú về tác nhân AI trên terminal
 
-**Claude Code** hoạt động như một client LSP thực thụ — xem tab ở trên.
+**Claude Code** hoạt động như một client LSP thực thụ, xem tab ở trên.
 
 **OpenAI Codex** và phần lớn công cụ terminal khác không phải là client LSP: chúng đọc và ghi tệp trực tiếp. Chạy riêng máy chủ không giúp ích cho chúng; giá trị đến từ việc máy chủ đang hoạt động trong một trình soạn thảo đi kèm mà tác nhân có thể truy vấn chỉ mục (Cursor Composer, Windsurf Cascade, Copilot Chat).
 
@@ -271,10 +273,10 @@ Khi có yêu cầu, máy chủ phân tích tài liệu (qua [oxc](https://oxc.rs
 | Hiện tượng                                                         | Nguyên nhân có thể             | Cách khắc phục                                                                |
 | ------------------------------------------------------------------ | ------------------------------ | ----------------------------------------------------------------------------- |
 | Hoàn toàn không có gì xảy ra                                       | Máy chủ không chạy             | Kiểm tra `@intlayer/lsp` đã được cài và trình soạn thảo có khởi chạy nó không |
-| Chạy được trong trình soạn thảo nhưng không chạy trong Claude Code | Cài plugin giữa phiên làm việc | Khởi động lại Claude Code — máy chủ ngôn ngữ được nạp lúc khởi động           |
+| Chạy được trong trình soạn thảo nhưng không chạy trong Claude Code | Cài plugin giữa phiên làm việc | Khởi động lại Claude Code, máy chủ ngôn ngữ được nạp lúc khởi động            |
 | Không tìm thấy định nghĩa cho một khóa                             | Từ điển chưa được build        | Chạy `npx intlayer build`, hoặc khởi động máy chủ phát triển                  |
 | Mọi khóa đều bị báo là chưa khai báo                               | Chưa phân giải được cấu hình   | Kiểm tra có tệp `intlayer.config.ts` (hoặc `.js`) ở gốc dự án                 |
 | Dùng nhầm dự án trong monorepo                                     | Thiếu cấu hình cho từng gói    | Thêm `intlayer.config.*` vào mỗi gói có khai báo nội dung riêng               |
 | Máy chủ sập khi khởi động                                          | Phiên bản Node.js quá cũ       | Yêu cầu Node.js ≥ 14.18                                                       |
 
-Trong VS Code, máy chủ ghi log vào **Xem → Output → “Intlayer LSP”** — hữu ích để xác nhận cấu hình nào đã được phân giải và tìm thấy bao nhiêu từ điển.
+Trong VS Code, máy chủ ghi log vào **Xem → Output → “Intlayer LSP”**, hữu ích để xác nhận cấu hình nào đã được phân giải và tìm thấy bao nhiêu từ điển.

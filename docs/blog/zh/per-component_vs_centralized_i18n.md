@@ -70,6 +70,8 @@ extension Localization on String {
 > 在本博文中，我不会专注于基于编译器的解决方案，我已经在这里覆盖过：[Compiler vs Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/compiler_vs_declarative_i18n.md).
 > 注意，基于编译器的 i18n（例如 Lingui）只是自动化了内容的提取和加载。在底层，它们通常与其他方法共享相同的限制。
 
+- [Compiler vs Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/compiler_vs_declarative_i18n.md)
+
 > 注意，你越细化内容的检索方式，就越有可能将额外的 state 和逻辑插入到组件中。
 
 细粒度方法比集中式方法更灵活，但这通常是一种权衡。即使这些 libraries 宣称支持 "tree shaking"，在实际中，你通常仍会以每种语言加载整个页面。
@@ -153,6 +155,8 @@ locale/
 ```
 
 现在你必须精细地管理应用的哪些内容应该被加载，以及在何处加载它们。总之，由于复杂性，绝大多数项目都会跳过这一步（例如参见 [next-i18next 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18n_using_next-i18next.md) 来了解仅仅遵循良好实践也会带来哪些挑战）。因此，这些项目最终会遇到前面解释的庞大 JSON 加载问题。
+
+- [next-i18next 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18n_using_next-i18next.md)
 
 > 注意，这个问题并非 i18next 所特有，而是上述所有集中式方法共有的问题。
 

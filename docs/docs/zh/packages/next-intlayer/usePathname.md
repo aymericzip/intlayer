@@ -31,7 +31,7 @@ author: aymericzip
 
 # Next.js 集成：`usePathname` 钩子（Hook）文档
 
-`usePathname` 钩子返回去除区域设置（locale）片段后的当前 Next.js 路径名（pathname）。这对于构建感知语言环境的导航非常有用——例如，判断哪个导航项处于活动状态——而无需手动剥离语言环境前缀。
+`usePathname` 钩子返回去除区域设置（locale）片段后的当前 Next.js 路径名（pathname）。这对于构建感知语言环境的导航非常有用（例如，判断哪个导航项处于活动状态）而无需手动剥离语言环境前缀。
 
 ## 在 Next.js 中导入 `usePathname`
 

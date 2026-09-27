@@ -25,6 +25,8 @@ author: aymericzip
 
 للحصول على برنامج تعليمي مفصل وكامل خطوة بخطوة، يرجى مراجعة [دليل الترحيل الكامل من next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_next-intl_to_intlayer.md).
 
+- [دليل الترحيل الكامل من next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_next-intl_to_intlayer.md)
+
 يسمح الترحيل من `next-intl` إلى Intlayer بالحفاظ على التوجيه والصيغة الخاصة بتطبيقك دون تضرر.
 
 ## ما يجب فعله

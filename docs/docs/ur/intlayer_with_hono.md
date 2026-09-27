@@ -184,6 +184,8 @@ module.exports = indexContent;
 
 > مزید تفصیلات کے لیے، [مواد کے اعلان کی دستاویزات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/dictionary/content_file.md) دیکھیں۔
 
+- [مواد کے اعلان کی دستاویزات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/dictionary/content_file.md)
+
 ### Hono ایپلی کیشن سیٹ اپ (Hono Application Setup)
 
 `hono-intlayer` استعمال کرنے کے لیے اپنی Hono ایپلی کیشن سیٹ اپ کریں:
@@ -251,6 +253,8 @@ export default config;
 
 > کنفیگریشن اور جدید موضوعات کے بارے میں مزید معلومات کے لیے، ہماری [دستاویزات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/configuration.md) دیکھیں۔
 
+- [ترتیب (Configuration)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/configuration.md)
+
 ### TypeScript کنفیگر کریں (Configure TypeScript)
 
 `hono-intlayer` بین الاقوامی نظام کو بہتر بنانے کے لیے TypeScript کی طاقتور خصوصیات کا فائدہ اٹھاتا ہے۔ TypeScript کی جامد ٹائپنگ اس بات کو یقینی بناتی ہے کہ ہر ترجمے کی کلید (translation key) موجود ہو، جس سے ترجمہ غائب ہونے کا خطرہ کم ہو جاتا ہے اور کام کو برقرار رکھنا آسان ہو جاتا ہے۔
@@ -275,7 +279,7 @@ export default config;
 
 Intlayer کے ساتھ اپنے ڈیولپمنٹ کے تجربے کو بہتر بنانے کے لیے، آپ آفیشل **Intlayer VS Code Extension** انسٹال کر سکتے ہیں۔
 
-[VS Code Marketplace سے انسٹال کریں](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [VS Code Marketplace سے انسٹال کریں](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 یہ ایکسٹینشن فراہم کرتی ہے:
 
@@ -285,6 +289,8 @@ Intlayer کے ساتھ اپنے ڈیولپمنٹ کے تجربے کو بہتر �
 - آسانی سے ترجمہ تخلیق کرنے اور اپ ڈیٹ کرنے کے لیے **Quick actions**۔
 
 ایکسٹینشن استعمال کرنے کے طریقہ کے بارے میں مزید تفصیلات کے لیے، [Intlayer VS Code Extension دستاویزات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md) دیکھیں۔
+
+- [Intlayer VS Code Extension دستاویزات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md)
 
 ### Git کنفیگریشن (Git Configuration)
 

@@ -90,6 +90,8 @@ style="border:none;"
 
 > Avaliado em navegadores reais com compressão gzip de produção. Informações completas no [relatório de benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/benchmark/nextjs.md).
 
+- [relatório de benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/benchmark/nextjs.md)
+
 ### Pegada base da biblioteca
 
 Peso no cliente antes de acrescentar quaisquer textos:
@@ -138,6 +140,8 @@ O gráfico abaixo estima o peso do conteúdo para uma aplicação teórica de 1 
 
 O Intlayer soluciona isso por análise estática: o [compilador do Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/compiler.md) empacota exclusivamente os textos solicitados por cada rota, reduzindo o vazamento para **0.0%**.
 
+- [compilador do Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/compiler.md)
+
 ## Por que o next-intl não suporta tree-shaking
 
 Sua API depende de buscas dinâmicas por strings em runtime:
@@ -176,6 +180,8 @@ export function UserProfile() {
 </Tabs>
 
 Turbopack e Webpack não conseguem assegurar quais chaves de `UserProfile` serão de fato invocadas. Para não ocasionar erros, **o bundler precisa empacotar o namespace por inteiro no bundle do cliente**. A desestruturação do Intlayer permite ao compilador inspecionar referências concretas e suprimir campos sem utilidade. Saiba mais em [otimização de bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/bundle_optimization.md).
+
+- [otimização de bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/bundle_optimization.md)
 
 ## Experiência do desenvolvedor
 
@@ -276,6 +282,8 @@ Entretanto, apenas o idioma base é verificado. Se uma chave for excluída de `p
 
 O Intlayer infere tipos a partir de todas as declarações. Com o [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md), traduções incompletas geram erros imediatos na compilação.
 
+- [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md)
+
 ### Ecossistema e automação com IA
 
 | Funcionalidade                  | `next-intl` | Intlayer                                                                                                             |
@@ -301,6 +309,8 @@ Localiza e traduz textos ausentes utilizando suas credenciais da OpenAI, Anthrop
 **CMS visual auto-hospedado:**
 
 Use o [CMS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md) para capacitar editores a ajustarem textos com gravação direta no Git.
+
+- [CMS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md)
 
 **Licença de código aberto permissiva:**
 

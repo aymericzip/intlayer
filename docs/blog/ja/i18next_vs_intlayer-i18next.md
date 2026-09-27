@@ -35,6 +35,8 @@ author: aymericzip
 
 本記事では、同一のNext.jsアプリケーションを `next-i18next` と `@intlayer/next-i18next` のそれぞれでビルドしてその差異を測定しました。数値は [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) から引用しています。ライブラリ単体としての `i18next` と Intlayer の比較については [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/i18next_vs_intlayer.md) をご覧ください。本記事では、既存のコードをそのまま維持した状態でアダプターが何をもたらすかに焦点を当てます。
 
+- [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/i18next_vs_intlayer.md)
+
 <TOC/>
 
 > **要約 (tl;dr)**: 同一のNext.jsアプリにおいて、`next-i18next` を `@intlayer/next-i18next` に置き換えることで、ページごとのJavaScriptサイズがgzipで **218.5 KB から 150.7 KB** へ削減され（基本構成比）、完全に最適化された `next-i18next` の構成（163.4 KB）よりもさらに **12.7 KB** 小さくなりました。コンポーネントの平均サイズは **78.5 KB から 9.7 KB** に激減し、他ページの文字列リークは **~90% から 0%** に、ハイドレーション時間は **15.6 ms から 11.3 ms** に、ランタイム自体も **19.7 KB から 9.4 KB** に縮小しました。コンポーネントの書き換えは不要で、Providerファイルを1つ差し替えるだけで導入可能です。`i18next` のプラグイン（バックエンド、言語検出器）は受け入れられますが何もしません。ランタイム時にロードや検出を行う必要がなくなるためです。
@@ -145,6 +147,8 @@ style="border:none;"
 
 > すべてのライブラリと各戦略の完全な表は、[Next.jsベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md)をご覧ください。
 
+- [Next.jsベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md)
+
 ### TanStack Start での結果 (`react-i18next`)
 
 Vite と TanStack Start では、ベンチマークは素の `react-i18next` と `intlayer` を比較しています:
@@ -164,7 +168,11 @@ style="border:none;"
 
 > 完全な表は [TanStack Start ベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md) を参照してください。
 
+- [TanStack Start ベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md)
+
 > Vite / TanStack Start 環境での `react-i18next` アダプターはこのテストには含まれていません。TanStack Start における `react-i18next` の基準値は [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/i18next_vs_intlayer.md) にあります。バックエンドを遅延読み込みした場合、1ページあたり 127-184 KB、ロケール切り替えに 123-185 ms かかります。
+
+- [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/i18next_vs_intlayer.md)
 
 ## なぜ数値が改善するのか
 
@@ -343,6 +351,8 @@ export default defineConfig({
 
 `i18n.use(HttpBackend)` はプラグインの init を呼び出すだけで、他には何もしません。アプリが実行時にCMSから翻訳を取得することに依存していた場合、そのフローは利用できなくなります。代わりに [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md) または `intlayer pull` / `push` コマンドを使用してください。言語検出はIntlayerのルーティング設定（URLプレフィックス、cookie、ヘッダー）に置き換わります。
 
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)
+
 </Accordion>
 <Accordion header="resources はマージされず、無視されます">
 
@@ -401,6 +411,9 @@ export default defineConfig({
 <Accordion header="ネイティブに移行する (next-intlayer / react-intlayer)">
 
 新規プロジェクト、またはアダプターが役割を果たした後向けです。最も軽量なランタイム（5.5 KB、ページあたり +0.3 KB）を備え、同期サーバーコンポーネントおよびコンポーネント単位の `.content.ts` ファイルを利用可能にします。[Next.jsとIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_16.md) または [ViteおよびReact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_vite+react.md) から始めてください。
+
+- [Next.jsとIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_16.md)
+- [ViteおよびReact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_vite+react.md)
 
 </Accordion>
 </AccordionGroup>
@@ -489,3 +502,5 @@ Migration guides:
 すべての測定データ、検証用アプリ、再現スクリプトは [Benchmark Bloom リポジトリ](https://github.com/intlayer-org/benchmark-bloom) に公開されています。
 
 詳細は [なぜIntlayerなのか？](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md) ドキュメントをご覧ください。
+
+- [なぜ Intlayer？他の i18n ライブラリとの違い](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)

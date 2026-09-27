@@ -22,6 +22,8 @@ author: aymericzip
 
 ライブ同期を使うと、アプリがランタイムでCMSのコンテンツ変更を反映できます。再ビルドや再デプロイは不要です。有効にすると、更新はライブ同期サーバーにストリーミングされ、アプリケーションが読み込む辞書が更新されます。詳細は[Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を参照してください。
 
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)
+
 ```json fileName="package.json"
 "scripts": {
   "intlayer:live:start": "npx intlayer live start --with 'next dev --turbopack'"

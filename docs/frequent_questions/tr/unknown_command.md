@@ -3,7 +3,7 @@ createdAt: 2025-09-07
 updatedAt: 2026-09-27
 priority: 4
 title: 'Intlayer "unknown command" hatasını düzeltin'
-description: 'Intlayer CLI "unknown command" hatasını düzeltin: komut adını, CLI sürümünü ve binary''yi nasıl çağırdığınızı kontrol edin.'
+description: "Intlayer CLI 'unknown command' hatasını düzeltin: komut adını, CLI sürümünü ve binary'yi nasıl çağırdığınızı kontrol edin."
 keywords:
   - bilinmeyen
   - komut

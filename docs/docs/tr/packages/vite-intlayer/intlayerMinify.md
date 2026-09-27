@@ -31,6 +31,8 @@ author: aymericzip
 
 > Eklenti, [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/vite-intlayer/intlayer.md) kullandığınızda zaten otomatik olarak dahil edilir ve yapılandırılır. Yalnızca eklenti yığınını kendiniz oluşturuyorsanız bunu manuel olarak kaydetmeniz gerekir.
 
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/vite-intlayer/intlayer.md)
+
 ## Kullanım
 
 ```ts
@@ -63,8 +65,8 @@ export default defineConfig({
 
 Eklenti, iki sözlük konumunu hedefler (`intlayer.system` üzerinden çözümlendiği şekliyle):
 
-- `dictionariesDir` — statik tüm dillerdeki sözlükler (örneğin `.intlayer/dictionaries/*.json`)
-- `dynamicDictionariesDir` — dil başına dinamik sözlükler
+- `dictionariesDir`: statik tüm dillerdeki sözlükler (örneğin `.intlayer/dictionaries/*.json`)
+- `dynamicDictionariesDir`: dil başına dinamik sözlükler
 
 > Getirme modundaki sözlükler (`fetchDictionariesDir`), çalışma zamanında orijinal alan adları kullanılarak uzak bir API'den sunuldukları için **asla** sıkıştırılmaz. Alan adlarını yeniden adlandırmak, sunucu yanıtı ile istemci tarafı özellik erişimleri arasında bir uyumsuzluk yaratacaktır.
 
@@ -86,7 +88,7 @@ Dahili Intlayer alanları (`nodeType`, `translation` vb.) asla yeniden adlandır
 
 ## İstisnai Sözlükler (Edge-cases)
 
-`pruneContext.dictionariesWithEdgeCases` içinde işaretlenen sözlükler (temizleme aşamasında algılanan yapısal anomaliler), bozuk veri gönderimini önlemek için tamamen atlanır — ne sıkıştırılır ne de karartılır.
+`pruneContext.dictionariesWithEdgeCases` içinde işaretlenen sözlükler (temizleme aşamasında algılanan yapısal anomaliler), bozuk veri gönderimini önlemek için tamamen atlanır, ne sıkıştırılır ne de karartılır.
 
 ## Nitelikli Gruplar (Koleksiyonlar / Varyantlar / Meta Kayıtlar)
 

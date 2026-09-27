@@ -90,6 +90,8 @@ style="border:none;"
 
 > 프로덕션 환경의 실제 브라우저에서 gzip 압축을 적용하여 측정했습니다. 자세한 내용은 [Next.js 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/nextjs.md)를 확인하세요.
 
+- [Next.js 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/nextjs.md)
+
 ### 라이브러리 기본 번들 크기
 
 번역 텍스트를 불러오기 전 클라이언트에 로드되는 기본 크기:
@@ -138,6 +140,8 @@ JSON을 네임스페이스별로 나누어 일부 해소할 수 있으나, 어�
 
 Intlayer는 정적 분석을 통해 이 문제를 해결합니다. [Intlayer 컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md)가 각 라우트에서 실제로 호출되는 문구만 번들링하므로 페이지 간 누수율이 **0.0%**가 됩니다.
 
+- [Intlayer 컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md)
+
 ## next-intl에서 트리 쉐이킹이 동작하지 않는 이유
 
 라이브러리 API가 런타임에 동적으로 문자열 키를 찾는 구조로 되어 있기 때문입니다.
@@ -176,6 +180,8 @@ export function UserProfile() {
 </Tabs>
 
 Turbopack이나 Webpack은 `UserProfile` 내에서 어떤 키가 실제로 쓰이는지 사전에 알 수 없습니다. 누락 오류를 막기 위해 **번들러는 해당 네임스페이스 전체를 클라이언트 청크에 포함**시킵니다. 반면 Intlayer는 구조 분해된 프로퍼티를 통해 컴파일러가 실제 참조를 추적하고, 쓰이지 않는 문구를 깔끔히 제외합니다. 자세한 내용은 [번들 최적화](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md)를 참고하세요.
+
+- [번들 최적화](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md)
 
 ## 개발자 경험 (DX)의 차이
 
@@ -276,6 +282,8 @@ declare global {
 
 Intlayer는 모든 콘텐츠 선언 파일로부터 직접 타입을 생성합니다. [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 켜두면 어떤 언어에서든 번역이 누락되었을 때 컴파일 에러가 발생해 문제를 사전에 차단합니다.
 
+- [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)
+
 ### 도구 생태계 및 AI 연동
 
 | 기능                       | `next-intl` | Intlayer                                                                                                        |
@@ -301,6 +309,8 @@ Intlayer는 이러한 기능들을 기본적으로 제공합니다.
 **자체 호스팅 비주얼 CMS:**
 
 [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)를 이용해 비개발 직군도 웹에서 문구를 직접 수정하고 Git에 곧바로 반영할 수 있습니다.
+
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)
 
 **자유로운 오픈소스 라이선스:**
 

@@ -126,6 +126,8 @@ export default config;
 
 Bu yapılandırmayı kullanarak, tüm yerel ayar başına dosyalar varsayılan yerel ayar İngilizce olarak ayarlanmış şekilde oluşturulacaktır. Ayrıca `extract` komutu kullanılarak `.content` dosyalarının oluşturulmasını ve derleyiciyi (compiler) içerir. (Daha fazla bilgi için [Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md) veya [Extract](https://github.com/aymericzip/intlayer/edit/main/docs/docs/en/cli/extract.md) bölümlerine bakın.)
 
+- [Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md)
+
 ## Yerel Ayar Başına Format
 
 Bu format şunlar için yararlıdır:
@@ -264,3 +266,5 @@ console.log(JSON.stringify(intlayer, null, 2));
 ### Otomatik Çeviri Oluşturma
 
 Eksik çevirileri tercih ettiğiniz servisler temelinde otomatik olarak doldurmak için [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md)'yi kullanın.
+
+- [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md)

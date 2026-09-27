@@ -90,6 +90,8 @@ style="border:none;"
 
 > वास्तविक ब्राउज़रों में प्रोडक्शन gzip कंप्रेशन के साथ परीक्षण किया गया। पूर्ण विवरण [Next.js बेंचमार्क रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/nextjs.md) में उपलब्ध है।
 
+- [Next.js बेंचमार्क रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/nextjs.md)
+
 ### बेस लाइब्रेरी ओवरहेड
 
 ट्रांसलेशन फाइल्स लोड होने से पहले क्लाइंट पर लोड:
@@ -138,6 +140,8 @@ JSON फाइलों को नेमस्पेस में बांट�
 
 Intlayer इसे स्टैटिक एनालिसिस से हल करता है: [Intlayer कंपाइलर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md) केवल उन्हीं टेक्स्ट्स को बंडल करता है जो उस विशेष रूट पर इस्तेमाल होते हैं, जिससे लीकेज **0.0%** हो जाता है।
 
+- [Intlayer कंपाइलर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md)
+
 ## next-intl ट्री-शेकिंग का समर्थन क्यों नहीं करता?
 
 लाइब्रेरी का एपीआई रनटाइम पर डायनामिक स्ट्रिंग कीज़ को हल करने पर निर्भर करता है:
@@ -176,6 +180,8 @@ export function UserProfile() {
 </Tabs>
 
 Turbopack और Webpack यह पहले से नहीं जान सकते कि `UserProfile` में कौन सी कीज़ कॉल की जाएंगी। टेक्स्ट मिसिंग एरर से बचने के लिए, **बंडलर पूरे नेमस्पेस को क्लाइंट चंक में डाल देता है**। इसके विपरीत, Intlayer में डिएस्ट्रक्चर्ड प्रॉपर्टीज कंपाइलर को सटीक उपयोग का विश्लेषण करने और गैर-ज़रूरी टेक्स्ट हटाने की अनुमति देती हैं। अधिक जानकारी के लिए [बंडल ऑप्टिमाइजेशन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/bundle_optimization.md) देखें।
+
+- [बंडल ऑप्टिमाइजेशन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/bundle_optimization.md)
 
 ## डेवलपर अनुभव (DX) की तुलना
 
@@ -276,6 +282,8 @@ declare global {
 
 Intlayer सभी कंटेंट फाइलों से सीधे टाइप्स बनाता है। [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md) चालू करने पर, किसी भी भाषा में ट्रांसलेशन छूटने पर तुरंत बिल्ड एरर आ जाता है।
 
+- [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md)
+
 ### टूलिंग और एआई इंटीग्रेशन
 
 | फीचर                            | `next-intl` | Intlayer                                                                                                         |
@@ -301,6 +309,8 @@ Intlayer ये सभी टूल्स डिफ़ॉल्ट रूप स
 **सेल्फ-होस्टेड विजुअल सीएमएस:**
 
 [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md) के जरिए गैर-तकनीकी टीम के सदस्य सीधे वेब यूआई में टेक्स्ट एडिट करके गिट में कमिट कर सकते हैं।
+
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md)
 
 **ओपन सोर्स लाइसेंस:**
 

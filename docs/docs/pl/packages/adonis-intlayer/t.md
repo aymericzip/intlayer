@@ -137,3 +137,5 @@ export default config;
 ### Integracja z TypeScript
 
 Funkcja `t` jest bezpieczna pod względem typów, gdy jest używana ze zdefiniowanymi słownikami. Więcej szczegółów znajdziesz w [dokumentacji TypeScript](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md).
+
+- [dokumentacji TypeScript](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md)

@@ -31,6 +31,8 @@ author: aymericzip
 
 > Il plugin è già incluso e configurato automaticamente quando usi [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/vite-intlayer/intlayer.md). Devi solo registrarlo manualmente se stai componendo lo stack di plugin da solo.
 
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/vite-intlayer/intlayer.md)
+
 ## Utilizzo
 
 ```ts
@@ -63,8 +65,8 @@ Quando `editor.enabled` è `true`, il plugin viene comunque eseguito ma **salta 
 
 Il plugin prende di mira due posizioni del dizionario (come risolto da `intlayer.system`):
 
-- `dictionariesDir` — dizionari statici per tutte le lingue (es. `.intlayer/dictionaries/*.json`)
-- `dynamicDictionariesDir` — dizionari dinamici per lingua
+- `dictionariesDir`: dizionari statici per tutte le lingue (es. `.intlayer/dictionaries/*.json`)
+- `dynamicDictionariesDir`: dizionari dinamici per lingua
 
 > I dizionari in modalità fetch (`fetchDictionariesDir`) non vengono **mai** minificati perché sono serviti da un'API remota a runtime utilizzando i loro nomi di campo originali. La ridenominazione dei campi creerebbe una mancata corrispondenza tra la risposta del server e gli accessi alle proprietà lato client.
 
@@ -86,7 +88,7 @@ I campi interni di Intlayer (`nodeType`, `translation`, ecc.) non vengono mai ri
 
 ## Dizionari di casi limite (Edge-cases)
 
-I dizionari contrassegnati in `pruneContext.dictionariesWithEdgeCases` (anomalie strutturali rilevate durante la fase di prune) vengono saltati completamente — né minificati né mascherati — per evitare di distribuire dati danneggiati.
+I dizionari contrassegnati in `pruneContext.dictionariesWithEdgeCases` (anomalie strutturali rilevate durante la fase di prune) vengono saltati completamente, né minificati né mascherati, per evitare di distribuire dati danneggiati.
 
 ## Gruppi qualificati (collezioni / varianti / record meta)
 

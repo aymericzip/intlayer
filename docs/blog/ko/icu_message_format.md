@@ -264,6 +264,8 @@ ICU 개념과의 매핑 관계는 직관적입니다.
 
 `plural`은 카테고리 판별을 `Intl.PluralRules`에 위임하므로 앞서 살펴본 CLDR 테이블이 그대로 적용됩니다. 숫자, 날짜, 통화, 목록 서식화는 메시지 문자열에 섞지 않고 [포맷터 훅](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/formatters.md)을 통해 관심사를 분리하여 처리합니다.
 
+- [포맷터 훅](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/formatters.md)
+
 고려해야 할 한계점:
 
 - Intlayer는 빌드 단계가 필요합니다. 컴파일러가 빌드 타임에 콘텐츠 선언을 추출합니다. 런타임에 단순 JSON을 동적으로 불러오는 모델과는 방향성이 다릅니다.
@@ -271,6 +273,9 @@ ICU 개념과의 매핑 관계는 직관적입니다.
 - i18next에 비해 상대적으로 신생 생태계이므로 TMS 도구 연동이나 커뮤니티 레퍼런스가 축적되는 단계에 있습니다.
 
 기존에 작성된 ICU 문자열이 있는 프로젝트를 마이그레이션할 경우, [react-intl 호환 어댑터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/react-intl.md)가 `plural`, `select`, `selectordinal`, `#`, 레거시 `number` / `date` / `time` 구문을 직접 해석합니다. 스켈레톤 및 `offset:`은 현재 해당 리졸버에서 지원되지 않으므로 마이그레이션 시 검토가 필요합니다. [i18next 어댑터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/i18next.md)는 접미사 형식(`key_one`, `key_male`)을 `Intl.PluralRules`를 통해 처리합니다.
+
+- [react-intl 호환 어댑터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/react-intl.md)
+- [i18next 어댑터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/i18next.md)
 
 ## 흔히 범하는 실수
 

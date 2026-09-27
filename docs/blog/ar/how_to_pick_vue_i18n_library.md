@@ -66,6 +66,8 @@ author: aymericzip
 
 يغطي منشور [تاريخ تدويل JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/history_of_i18n.md) كل موجة بالتفصيل.
 
+- [تاريخ تدويل JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/history_of_i18n.md)
+
 ## القرار الأكثر أهمية: أين يقع المحتوى ومتى يتم تحميله
 
 يفسر خياران هيكليان معظم الفروق في حجم الحزمة بين الإعدادات المختلفة:
@@ -81,9 +83,14 @@ author: aymericzip
 
 يقيس [مقارنة أداء Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/vue.md) هذا تحت مسمى "تسريب من المسارات الأخرى" و"تسريب من اللغات الأخرى". إذا كانت إجابتك على السؤال الثالث هي "صفحات كثيرة"، فإن هذا القسم يفوق في أهميته أي تفضيل لـ API. ويغطي مقال [تدويل كل مكون على حدة مقابل التدويل المركزي](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/per-component_vs_centralized_i18n.md) جانب الصيانة لنفس المقايضة.
 
+- [مقارنة أداء Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/vue.md)
+- [تدويل كل مكون على حدة مقابل التدويل المركزي](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/per-component_vs_centralized_i18n.md)
+
 ## المكتبات المرشحة
 
 أحجام المكتبات مأخوذة من [مقارنة أداء Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/vue.md): الملحق بالإضافة إلى composable في مكون فارغ، بعد التجميع (bundling) وtree-shaking والتصغير (minification)، في تطبيق مكون من 10 صفحات و10 لغات. يتم قياس المحتوى بشكل منفصل.
+
+- [مقارنة أداء Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/vue.md)
 
 ![منظومة مكتبات Vue i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
@@ -112,6 +119,8 @@ author: aymericzip
 
 يوفر لك `@nuxtjs/i18n` استراتيجية التوجيه، ووسوم `hreflang`، والتعرف على لغة المستخدم دون الحاجة لكتابة كود مخصص، وهذا وحده يبرر استخدامه لمواقع المحتوى التي تحتوي على صفحات محدودة. لكن عيبه يكمن في قاموس كل لغة: فبعد تجاوز حوالي عشر صفحات، تحمل حمولة SSR نصوص كل المسارات الأخرى. إذا كان هذا هو وضعك، فإما أن تقوم بإعداد `vue-i18n` يدوياً برسائل مقسمة لكل مسار، أو تنتقل إلى المحتوى محدد النطاق (scoped content). يستعرض منشور [Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nuxt.md) خيارات استراتيجية التوجيه أولاً.
 
+- [Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nuxt.md)
+
 </Accordion>
 <Accordion header="الترجمات تأتي من TMS أو وكالة تقدم تنسيق ICU">
 
@@ -126,6 +135,8 @@ author: aymericzip
 <Accordion header="أمان الأنواع (Type safety) أمر غير قابل للتفاوض">
 
 يمكن إضافة types إلى `vue-i18n` عن طريق تمرير schema generic إلى `createI18n`. هذا يعمل، لكنه يتعطل في اللحظة التي يتم فيها تحميل القواميس بشكل كسول (lazily loaded)، لأن المخطط يصف رسائل قد لا تكون موجودة بعد. إذا كنت لا ترغب في صيانة ذلك يدوياً، فاختر مكتبة تولد الأنواع من المحتوى نفسه مثل: Paraglide أو Intlayer. يقارن منشور [اكتشاف الترجمات المفقودة](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/detecting_missing_translations.md) ما تلتقطه كل أداة أثناء وقت البناء.
+
+- [اكتشاف الترجمات المفقودة](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/detecting_missing_translations.md)
 
 </Accordion>
 <Accordion header="المحتوى يتجاوز كونه نصوص واجهة مستخدم بسيطة">
@@ -366,6 +377,10 @@ const { title, items } = useIntlayer("cart-summary");
 
 هل تستخدم `vue-i18n` بالفعل؟ يقوم [محول التوافق `@intlayer/vue-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/vue-i18n.md) بعمل alias للحزمة على مستوى أداة التجميع (bundler)، بحيث يستمر عمل `useI18n()` و`$t` وجمع الخطوط العمودية و`v-t` أثناء تقديم Intlayer للمحتوى. يغطي [دليل الترحيل](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_vue-i18n_to_intlayer.md) خطوات الاستغناء عن المحول بعد ذلك، وهناك أيضاً [دليل مخصص لـ Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_nuxtjs_i18n_to_intlayer.md).
 
+- [محول التوافق `@intlayer/vue-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/vue-i18n.md)
+- [دليل الترحيل](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_vue-i18n_to_intlayer.md)
+- [دليل مخصص لـ Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_nuxtjs_i18n_to_intlayer.md)
+
 ## قبل اتخاذ القرار النهائي
 
 يوضح لك جدول الميزات ما تفعله المكتبة اليوم، بينما توضح لك هذه النقاط كيف ستكون تجربة التعامل معها على المدى الطويل.
@@ -388,6 +403,9 @@ const { title, items } = useIntlayer("cart-summary");
 
 لا يزال الوكلاء يواجهون صعوبة مع i18n: فهم ينسون اللغات، ويبتكرون مفاتيح غير موجودة، ويخلطون بين تنسيقات الرسائل. هل توفر المكتبة [مهارات الوكيل (Agent Skills)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md) أو [خادم MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/mcp_server.md) حتى يتمكن الوكيل من سرد المحتوى وملئه واختباره؟ وهل تم تحسين تحميل المحتوى افتراضياً، أم يتعين على شخص مراجعة namespaces والتحميل الكسول كل ثلاثة أشهر؟
 
+- [مهارات الوكيل (Agent Skills)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)
+- [خادم MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/mcp_server.md)
+
 **أمان الأنواع (Type safety) المدمج.**
 
 ليس المقصود "يمكن دعمه بالأنواع مع تكوينات إضافية" بل "المفتاح الخاطئ يفشل في `tsc` عند التثبيت المباشر". تحقق مما يحدث مع مفتاح غير موجود، ومع لغة تفتقد إلى ترجمة واحدة.
@@ -399,6 +417,13 @@ const { title, items } = useIntlayer("cart-summary");
 **تجربة المطور (Developer experience).**
 
 وقت الإعداد حتى الحصول على أول نص مترجم، ووجود [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/lsp.md) أو [إضافة VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/vs_code_extension.md) تعرض الترجمة عند التمرير وتنتقل إلى الإعلان، و[CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md) للملء والاختبار والرفع (push)، و[مُصرِّف](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md) أو أداة استخراج تستخرج النصوص المكتوبة مباشرة في المكونات حتى لا تضطر إلى إدارة كل نص مفتاحًا بمفتاح، وطريقة لغير المطورين لتعديل المحتوى ([محرر مرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) أو [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)) دون الحاجة إلى فتح pull request.
+
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/lsp.md)
+- [إضافة VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/vs_code_extension.md)
+- [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md)
+- [مُصرِّف](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md)
+- [محرر مرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
 
 ## الأسئلة الشائعة
 
@@ -420,11 +445,15 @@ const { title, items } = useIntlayer("cart-summary");
 
 فقط إذا كان حجم الحزمة، أو حمولة SSR، أو الأنواع المولدة (generated types)، أو فحص المفاتيح المفقودة في وقت البناء متطلبات فعلية لديك. يشرح منشور [المترجم مقابل التدويل التعريفي](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/compiler_vs_declarative_i18n.md) ما تقدمه المترجمات وأين يمكن أن تخطئ.
 
+- [المترجم مقابل التدويل التعريفي](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/compiler_vs_declarative_i18n.md)
+
 </Question>
 
 <Question title="هل يؤثر اختيار المكتبة على تحسين محركات البحث (SEO)؟">
 
 بشكل غير مباشر. تهتم روبوتات الفهرسة بالتوجيه، و`hreflang`، و`<html lang>`، وما إذا كان النص موجوداً في HTML المعروض من الخادم. راجع [دليل hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/hreflang_guide_multilingual_seo.md).
+
+- [دليل hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/hreflang_guide_multilingual_seo.md)
 
 </Question>
 

@@ -37,17 +37,23 @@ author: aymericzip
 
 अपने एप्लिकेशन की सामग्री को स्कोप करना **बड़े पैमाने के एप्लिकेशन के लिए रखरखाव को सुविधाजनक बनाता है**। आप अपने पूरे सामग्री कोडबेस की समीक्षा की मानसिक बोझ के बिना एक भी फीचर फोल्डर को डुप्लिकेट या हटा सकते हैं। इसके अलावा, Intlayer **पूरी तरह से टाइप किया गया है** आपकी सामग्री की सटीकता सुनिश्चित करने के लिए।
 
-Intlayer भी i18n पारिस्थितिकी तंत्र में **सबसे सक्रिय विकास** के साथ समाधान है — समस्याएं तेजी से ठीक की जाती हैं, नई फ्रेमवर्क एडॉप्टर नियमित रूप से आती हैं, और मुख्य API को वास्तविक दुनिया के उत्पादन प्रतिक्रिया के आधार पर निरंतर परिष्कृत किया जाता है।
+Intlayer भी i18n पारिस्थितिकी तंत्र में **सबसे सक्रिय विकास** के साथ समाधान है, समस्याएं तेजी से ठीक की जाती हैं, नई फ्रेमवर्क एडॉप्टर नियमित रूप से आती हैं, और मुख्य API को वास्तविक दुनिया के उत्पादन प्रतिक्रिया के आधार पर निरंतर परिष्कृत किया जाता है।
 
 </Accordion>
 <Accordion header="AI एजेंट">
 
 सामग्री को सह-स्थित करना **बड़ी भाषा मॉडल (LLM) द्वारा आवश्यक संदर्भ को कम करता है**। Intlayer साथ ही एक समूह के साथ आता है, जैसे कि **CLI** अनुपलब्ध अनुवादों के लिए परीक्षण करने के लिए, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/mcp_server.md)**, और **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/agent_skills.md)**, डेवलपर अनुभव (DX) को AI एजेंटों के लिए भी मसृण बनाने के लिए।
 
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/mcp_server.md)
+- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/agent_skills.md)
+
 </Accordion>
 <Accordion header="स्वचालन">
 
 अपनी पसंद के LLM का उपयोग करके CI/CD पाइपलाइन में अनुवाद करने के लिए स्वचालन का उपयोग करें आपके AI प्रदाता की लागत पर। Intlayer साथ ही एक **compiler** प्रदान करता है सामग्री निष्कर्षण को स्वचालित करने के लिए, साथ ही एक [web platform](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md) **पृष्ठभूमि में अनुवाद करने में मदद करने के लिए**।
+
+- [web platform](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="कार्यक्षमता">
@@ -58,6 +64,9 @@ Intlayer भी i18n पारिस्थितिकी तंत्र मे
 <Accordion header="गैर-dev के साथ स्केलिंग">
 
 केवल एक i18n समाधान से अधिक, Intlayer एक **self-hosted [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md)** और एक **[full CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md)** आपकी बहुभाषी सामग्री को प्रबंधित करने में मदद करने के लिए **वास्तविक समय में**, अनुवादक, कॉपीराइटर और अन्य टीम सदस्यों के साथ सहयोग को निर्बाध बनाता है। सामग्री स्थानीय रूप से और/या दूरस्थ रूप से संग्रहीत की जा सकती है।
+
+- [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md)
+- [full CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
@@ -70,9 +79,9 @@ Intlayer भी i18n पारिस्थितिकी तंत्र मे
 
 `i18next` से Intlayer में माइग्रेट करने के लिए दो पूरक रणनीतियां हैं:
 
-1. **Compat एडॉप्टर (मौजूदा ऐप्स के लिए अनुशंसित)** — `@intlayer/i18next` स्थापित करें। यह पैकेज `i18next` के **बिल्कुल समान API** को उजागर करता है लेकिन सभी अनुवाद कार्य को हूड के तहत Intlayer को सौंपता है। आप अपने मौजूदा `i18next.t()`, `i18next.changeLanguage()`, और `createInstance()` कॉल रखते हैं — एकमात्र परिवर्तन import पथ और आरंभीकरण है।
+1. **Compat एडॉप्टर (मौजूदा ऐप्स के लिए अनुशंसित)**: `@intlayer/i18next` स्थापित करें। यह पैकेज `i18next` के **बिल्कुल समान API** को उजागर करता है लेकिन सभी अनुवाद कार्य को हूड के तहत Intlayer को सौंपता है। आप अपने मौजूदा `i18next.t()`, `i18next.changeLanguage()`, और `createInstance()` कॉल रखते हैं, एकमात्र परिवर्तन import पथ और आरंभीकरण है।
 
-2. **पूर्ण माइग्रेशन** — धीरे-धीरे `i18next` API को मूल Intlayer उपकरणों और सह-स्थित सामग्री के साथ `.content.ts` फाइलों में बदलें।
+2. **पूर्ण माइग्रेशन**: धीरे-धीरे `i18next` API को मूल Intlayer उपकरणों और सह-स्थित सामग्री के साथ `.content.ts` फाइलों में बदलें।
 
 यह गाइड **रणनीति 1** को पहले कवर करता है (drop-in compat एडॉप्टर), फिर वैकल्पिक पूर्ण माइग्रेशन के माध्यम से चलता है।
 
@@ -125,7 +134,7 @@ yarn add intlayer @intlayer/i18next @intlayer/sync-json-plugin
 bun add intlayer @intlayer/i18next @intlayer/sync-json-plugin
 ```
 
-> आप `i18next` को स्थापित रख सकते हैं — compat एडॉप्टर इसे `devDependency` / `peerDependency` के रूप में TypeScript प्रकारों के लिए उपयोग करता है।
+> आप `i18next` को स्थापित रख सकते हैं, compat एडॉप्टर इसे `devDependency` / `peerDependency` के रूप में TypeScript प्रकारों के लिए उपयोग करता है।
 
 </Step>
 <Step number={2} title="Intlayer को कॉन्फ़िगर करें">
@@ -178,7 +187,7 @@ export default defineConfig({
 ```
 
 > `i18nextVitePlugin()` `vite-intlayer` के `intlayer()` प्लग-इन को लपेटता है और
-> `i18next` → `@intlayer/i18next` एलिएस आपके लिए जोड़ता है। `vite-intlayer` से सादे `intlayer()` प्लग-इन का उपयोग करने से dictionaries को संकलित किया जाता है लेकिन **नहीं** वह एलिएस जोड़ता है — आप तब अगले चरण में imports को `@intlayer/i18next` पर नाम दें (देखें)।
+> `i18next` → `@intlayer/i18next` एलिएस आपके लिए जोड़ता है। `vite-intlayer` से सादे `intlayer()` प्लग-इन का उपयोग करने से dictionaries को संकलित किया जाता है लेकिन **नहीं** वह एलिएस जोड़ता है, आप तब अगले चरण में imports को `@intlayer/i18next` पर नाम दें (देखें)।
 
 </Step>
 
@@ -201,7 +210,7 @@ export default defineConfig({
 | `import { createInstance } from 'i18next'` | `import { createInstance } from '@intlayer/i18next'` |
 | `import { t } from 'i18next'`              | `import { t } from '@intlayer/i18next'`              |
 
-ये **drop-in replacements** हैं — कॉल signature, arguments, या return प्रकार में कोई परिवर्तन आवश्यक नहीं है।
+ये **drop-in replacements** हैं, कॉल signature, arguments, या return प्रकार में कोई परिवर्तन आवश्यक नहीं है।
 
 </Step>
 <Step number={5} title="AI-Powered अनुवाद ऑटोमेशन को सक्षम करें" isOptional={true}>
@@ -261,6 +270,8 @@ export default config;
 
 > सभी उपलब्ध विकल्पों के लिए [Intlayer CLI documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/index.md) देखें।
 
+- [Intlayer CLI documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/index.md)
+
 </Step>
 
 </Steps>
@@ -275,7 +286,7 @@ export default config;
 | `i18next.use(...)`                       | Intlayer i18next प्लग-इन, backends, या language detectors का उपयोग नहीं करता।                                                                                            |
 | JSON language bundles (`locales/*.json`) | JSON bundles केवल तभी आवश्यक हैं जब आप अभी भी `syncJSON` प्लग-इन का उपयोग करते हैं। एक बार `.content.ts` फाइलों में माइग्रेट करने के बाद आप JSON फोल्डर को हटा सकते हैं। |
 
-जब आप आगे बढ़ने के लिए तैयार हों, Intlayer **स्वचालित रूप से आपके कोडबेस में कहीं भी सभी `.content.ts` और `.content.json` फाइलों को खोजता है** (डिफ़ॉल्ट रूप से, `./src` के अंदर कहीं भी)। आप एक `my-component.content.ts` फाइल को अपनी logic के बगल में रख सकते हैं और Intlayer इसे बिल्ड समय पर किसी अतिरिक्त कॉन्फ़िगरेशन के बिना उठाएगा — कोई imports, कोई पंजीकरण, कोई केंद्रीकृत index फाइल आवश्यक नहीं है। यह अनुवाद को सह-स्थित करना पूरी तरह से घर्षण रहित बनाता है।
+जब आप आगे बढ़ने के लिए तैयार हों, Intlayer **स्वचालित रूप से आपके कोडबेस में कहीं भी सभी `.content.ts` और `.content.json` फाइलों को खोजता है** (डिफ़ॉल्ट रूप से, `./src` के अंदर कहीं भी)। आप एक `my-component.content.ts` फाइल को अपनी logic के बगल में रख सकते हैं और Intlayer इसे बिल्ड समय पर किसी अतिरिक्त कॉन्फ़िगरेशन के बिना उठाएगा, कोई imports, कोई पंजीकरण, कोई केंद्रीकृत index फाइल आवश्यक नहीं है। यह अनुवाद को सह-स्थित करना पूरी तरह से घर्षण रहित बनाता है।
 
 ## TypeScript को कॉन्फ़िगर करें
 

@@ -88,6 +88,8 @@ style="border:none;"
 
 > 在真实浏览器中开启 gzip 压缩环境下测试。完整数据见 [Vue 基准测试文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/vue.md)。
 
+- [Vue 基准测试文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/vue.md)
+
 ### 库本身的基础体积
 
 未引入任何翻译文本时客户端的空白开销：
@@ -178,6 +180,9 @@ const { title } = useIntlayer("hero");
 
 [Intlayer 编译器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md)能够准确识别访问了哪些属性，在生成客户端 bundle 之前剔除无用字段。具体解析请查阅[打包优化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md)。
 
+- [Intlayer 编译器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md)
+- [打包优化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md)
+
 ## 开发者体验对比
 
 ### 分离式 JSON vs. 组件就近组织
@@ -255,6 +260,8 @@ const { title } = useIntlayer("hero");
 
 在 Intlayer 中，多语言数据遵循严格校验机制。开启 [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md) 后，只要任意语言存在未翻译词条，构建流程便会即刻报错中断。
 
+- [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)
+
 ### IDE 与 AI 辅助工具
 
 | 功能特性                  | `vue-i18n`             | Intlayer                                                                                                   |
@@ -278,6 +285,8 @@ Intlayer 提供了开箱即用的闭环工作流：
 **自主托管的可视化 CMS：**
 
 集成 [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)，方便非技术人员直观修改文案，并直接以 Git 提交的形式落盘。
+
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
 
 **开源宽松授权：**
 

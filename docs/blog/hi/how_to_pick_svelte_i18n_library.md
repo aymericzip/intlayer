@@ -67,6 +67,8 @@ Paraglide प्रत्येक संदेश को एक exported functi
 
 [JavaScript i18n का इतिहास](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/history_of_i18n.md) प्रत्येक तरंग को विस्तार से कवर करता है।
 
+- [JavaScript i18n का इतिहास](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/history_of_i18n.md)
+
 ## वह निर्णय जो सबसे अधिक मायने रखता है: सामग्री कहाँ रहती है और कब लोड होती है
 
 दो संरचनात्मक विकल्प सेटअप के बीच बंडल के अधिकांश अंतर को समझाते हैं:
@@ -80,11 +82,17 @@ Paraglide प्रत्येक संदेश को एक exported functi
 
 `svelte-i18n` डिफ़ॉल्ट रूप से ऊपर-बाएँ में बैठता है: `register("fr", () => import("./fr.json"))` आपको प्रति locale dynamic loading देता है, लेकिन एक locale catalog एक सिंगल ऑब्जेक्ट होता है और इसे लोड करने से हर पेज की कॉपी लोड हो जाती है। Paraglide एक दिलचस्प मामला है: क्योंकि हर संदेश का अपना export होता है, tree-shaking आपको पेज का अक्ष मुफ़्त में दे देता है, और [Svelte benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/svelte.md) पुष्टि करता है कि यह Vite + Svelte पर विज्ञापित रूप से काम करता है (यह React और Next.js बेंचमार्क में नहीं हुआ था)। Intlayer प्रति-घटक घोषणाओं के माध्यम से उसी कोने तक पहुँचता है।
 
+- [Svelte benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/svelte.md)
+
 यदि प्रश्न 3 का आपका उत्तर "कई पेज" था, तो किसी भी API प्राथमिकता से अधिक इस खंड को महत्व दें। [Per-component बनाम centralized i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/per-component_vs_centralized_i18n.md) पोस्ट इसी ट्रेड-ऑफ के रखरखाव पक्ष को कवर करती है।
+
+- [Per-component बनाम centralized i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/per-component_vs_centralized_i18n.md)
 
 ## उम्मीदवार
 
 लाइब्रेरी के आकार [Svelte benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/svelte.md) से हैं: 10-पेज, 10-locale ऐप पर बंडलिंग, tree-shaking और minification के बाद एक खाली घटक में store प्लस accessor। सामग्री को अलग से मापा जाता है।
+
+- [Svelte benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/svelte.md)
 
 ![Svelte i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
@@ -113,6 +121,8 @@ Paraglide का शून्य के करीब लाइब्रेरी
 
 साझा करने की समस्या इसे तय करती है। `svelte-i18n` SvelteKit पर काम करता है लेकिन प्रति-अनुरोध वायरिंग (`hooks.server.ts`, `locals`, `load`, फिर `setContext`) आपको लिखनी होती है और इसे सूक्ष्मता से गलत करना आसान है। Paraglide एक SvelteKit एकीकरण शिप करता है जो रूटिंग को संभालता है और प्रति कॉल locale पढ़ता है, जो singleton से बचता है। Intlayer `load` डेटा से locale को context में सेट करता है। [SvelteKit i18n पोस्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_svelte_kit.md) `[[lang]]` बनाम `reroute` विकल्प की व्याख्या करती है, जिसे आपको लाइब्रेरी चुनने से पहले चुनना चाहिए।
 
+- [SvelteKit i18n पोस्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_svelte_kit.md)
+
 </Accordion>
 <Accordion header="अनुवाद TMS या ICU डिलीवर करने वाली एजेंसी से आते हैं">
 
@@ -127,6 +137,8 @@ Compile-time। Paraglide की tree-shaking Vite + Svelte पर काम क
 <Accordion header="Type safety गैर-परक्राम्य है">
 
 एक साधारण `svelte-i18n` सेटअप के अलावा कुछ भी, जहाँ एकमात्र टाइपिंग एक हाथ से लिखा गया यूनियन है जो तुरंत JSON से भटक जाता है। `typesafe-i18n`, Paraglide और Intlayer सभी सामग्री से types उत्पन्न करते हैं। किसी कोडबेस को सौंपने से पहले `typesafe-i18n` की रिपॉजिटरी गतिविधि की जाँच करें। [लापता अनुवादों का पता लगाना](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/detecting_missing_translations.md) पोस्ट तुलना करती है कि प्रत्येक बिल्ड समय पर क्या पकड़ता है।
+
+- [लापता अनुवादों का पता लगाना](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/detecting_missing_translations.md)
 
 </Accordion>
 <Accordion header="आप repo में generated files नहीं चाहते हैं">
@@ -372,6 +384,8 @@ export default cartSummaryContent;
 
 पहले से ही `svelte-i18n` पर हैं? [`@intlayer/svelte-i18n` compat adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/svelte-i18n.md) पैकेज को बंडलर स्तर पर उपनाम (alias) देता है ताकि `$_`, `$date`, `$number` और आपकी फ्लैट कुंजियाँ काम करती रहें जबकि Intlayer सामग्री परोसता है।
 
+- [`@intlayer/svelte-i18n` compat adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/svelte-i18n.md)
+
 ## प्रतिबद्ध होने से पहले
 
 एक सुविधा तालिका आपको बताती है कि आज एक लाइब्रेरी क्या करती है। ये बिंदु आपको बताते हैं कि इसके साथ रहना कैसा होगा।
@@ -394,6 +408,9 @@ export default cartSummaryContent;
 
 एजेंट अभी भी i18n के साथ संघर्ष करते हैं: वे locales भूल जाते हैं, keys का आविष्कार करते हैं, और संदेश सिंटैक्स मिलाते हैं। क्या लाइब्रेरी [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/agent_skills.md) या एक [MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/mcp_server.md) शिप करती है ताकि एजेंट सामग्री को सूचीबद्ध, भर और परीक्षण कर सके? और क्या सामग्री लोडिंग डिफ़ॉल्ट रूप से अनुकूलित है, या किसी को हर तिमाही में नेमस्पेस और लेज़ी आयात की समीक्षा करनी होगी?
 
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/agent_skills.md)
+- [MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/mcp_server.md)
+
 **बॉक्स से बाहर टाइप सुरक्षा।**
 
 "अतिरिक्त वायरिंग के साथ टाइप किया जा सकता है" नहीं बल्कि "एक गलत कुंजी एक नए इंस्टॉल पर `tsc` को विफल करती है"। जाँचें कि उस कुंजी के साथ क्या होता है जो मौजूद नहीं है, और उस locale के साथ जिसमें एक अनुवाद गायब है।
@@ -405,6 +422,13 @@ export default cartSummaryContent;
 **डेवलपर अनुभव।**
 
 पहली अनुवादित स्ट्रिंग तक सेटअप समय, एक [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/lsp.md) या [VS Code extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/vs_code_extension.md) जो होवर पर अनुवाद दिखाता है और घोषणा पर कूदता है, भरने, परीक्षण करने और पुश करने के लिए एक [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/index.md), आपके कंपोनेंट्स से हार्ड-कोडेड स्ट्रिंग्स निकालने वाला एक [कंपाइलर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md) या एक्सट्रैक्टर ताकि हर स्ट्रिंग को कुंजी-दर-कुंजी प्रबंधित न करना पड़े, और गैर-डेवलपर्स के लिए बिना पुल रिक्वेस्ट के सामग्री संपादित करने का एक तरीका ([visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) या [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md))।
+
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/lsp.md)
+- [VS Code extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/vs_code_extension.md)
+- [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/index.md)
+- [कंपाइलर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md)
+- [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md)
 
 ## अक्सर पूछे जाने वाले प्रश्न
 
@@ -431,6 +455,8 @@ Vite + Svelte पर, हाँ, बेंचमार्क इसकी पु
 <Question title="क्या लाइब्रेरी का चुनाव SEO को प्रभावित करता है?">
 
 अप्रत्यक्ष रूप से। क्रॉलर्स रूटिंग, `hreflang`, `<html lang>` और सर्वर-रेंडर किए गए HTML में टेक्स्ट है या नहीं, इसकी परवाह करते हैं। [hreflang गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/hreflang_guide_multilingual_seo.md) देखें।
+
+- [hreflang गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/hreflang_guide_multilingual_seo.md)
 
 </Question>
 

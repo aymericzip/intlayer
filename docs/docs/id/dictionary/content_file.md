@@ -365,6 +365,8 @@ Mengubah kamus menjadi kamus per-locale di mana setiap field yang dideklarasikan
 
 > Lihat [Deklarasi Konten Per-Lokasi di Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/per_locale_file.md) untuk informasi lebih lanjut.
 
+- [Deklarasi Konten Per-Lokasi di Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/per_locale_file.md)
+
 **Contoh:**
 
 ```jsonc
@@ -476,6 +478,8 @@ Instruksi untuk mengisi konten kamus secara otomatis dari sumber eksternal. Ini 
 
 > Lihat [Konfigurasi Auto-Fill di Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/fill.md) untuk informasi lebih lanjut.
 
+- [Konfigurasi Auto-Fill di Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/fill.md)
+
 ##### `priority` (number)
 
 Menunjukkan prioritas kamus untuk penyelesaian konflik. Ketika beberapa kamus memiliki kunci yang sama, kamus dengan nomor prioritas tertinggi akan menimpa yang lain. Ini berguna untuk mengelola hierarki konten dan override.
@@ -503,6 +507,8 @@ Menunjukkan prioritas kamus untuk penyelesaian konflik. Ketika beberapa kamus me
 
 Digunakan bersama dengan Collections, bidang ini menentukan posisi item dalam koleksi. Ini memungkinkan Anda membangun koleksi terurut dari item yang dilokalkan yang dapat dipilih berdasarkan indeks saat runtime.
 
+- [Collections](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dynamic_dictionaries/collections.md)
+
 **Contoh:**
 
 ```typescript
@@ -518,9 +524,13 @@ Digunakan bersama dengan Collections, bidang ini menentukan posisi item dalam ko
 
 > Lihat [Collections](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dynamic_dictionaries/collections.md) untuk informasi lebih lanjut.
 
+- [Collections](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dynamic_dictionaries/collections.md)
+
 #### `variant` (string)
 
 Digunakan bersama dengan Variants, bidang ini menentukan alternatif konten bernama. Ini memungkinkan Anda beralih di antara variasi yang berbeda dari kunci kamus yang sama saat runtime tanpa perubahan kode (misalnya, untuk pengujian A/B, spanduk musiman). Jika tidak disediakan, ini dianggap sebagai varian default.
+
+- [Variants](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dynamic_dictionaries/variants.md)
 
 **Contoh:**
 
@@ -529,13 +539,15 @@ Digunakan bersama dengan Variants, bidang ini menentukan alternatif konten berna
   key: "hero-banner",
   variant: "black_friday",
   content: {
-    headline: "50 % off — today only",
+    headline: "50 % off, today only",
     cta: "Shop now"
   }
 }
 ```
 
 > Lihat [Variants](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dynamic_dictionaries/variants.md) untuk informasi lebih lanjut.
+
+- [Variants](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dynamic_dictionaries/variants.md)
 
 ### Properti CMS
 
@@ -610,6 +622,8 @@ multilingualContent: t({
 
 > See [Konten Terjemahan (`t`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/translation.md) for more information.
 
+- [Konten Terjemahan (`t`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/translation.md)
+
 ### Konten Kondisi (`cond`)
 
 Konten yang berubah berdasarkan kondisi boolean:
@@ -624,6 +638,8 @@ conditionalContent: cond({
 ```
 
 > See [Konten Kondisi (`cond`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/condition.md) for more information.
+
+- [Konten Kondisi (`cond`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/condition.md)
 
 ### Konten Enumerasi (`enu`)
 
@@ -641,6 +657,8 @@ statusContent: enu({
 
 > See [Konten Enumerasi (`enu`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/enumeration.md) for more information.
 
+- [Konten Enumerasi (`enu`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/enumeration.md)
+
 ### Plural Content (`plural`)
 
 Content that varies based on plural rules:
@@ -656,6 +674,8 @@ pluralContent: plural({
 
 > See [Plural Content Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/plural.md) for more information.
 
+- [Plural Content Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/plural.md)
+
 ### Konten Penyisipan (`insert`)
 
 Konten yang dapat disisipkan ke dalam konten lain:
@@ -668,6 +688,8 @@ insertionContent: insert("Teks ini dapat disisipkan di mana saja");
 
 > See [Konten Penyisipan (`insert`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/insertion.md) for more information.
 
+- [Konten Penyisipan (`insert`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/insertion.md)
+
 ### Konten Bersarang (`nest`)
 
 Referensi ke kamus lain:
@@ -679,6 +701,8 @@ nestedContent: nest("about-page");
 ```
 
 > See [Konten Bersarang (`nest`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/nesting.md) for more information.
+
+- [Konten Bersarang (`nest`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/nesting.md)
 
 ### Konten Markdown (`md`)
 
@@ -693,6 +717,8 @@ markdownContent: md(
 ```
 
 > See [Konten Markdown (`md`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/markdown.md) for more information.
+
+- [Konten Markdown (`md`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/markdown.md)
 
 ### Konten HTML (`html`)
 
@@ -713,6 +739,8 @@ localizedHtmlContent: t({
 
 > See [Konten HTML (`html`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/html.md) for more information.
 
+- [Konten HTML (`html`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/html.md)
+
 ### Konten Gender (`gender`)
 
 Konten yang bervariasi berdasarkan gender:
@@ -729,9 +757,11 @@ genderContent: gender({
 
 > See [Konten Gender (`gender`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/gender.md) for more information.
 
+- [Konten Gender (`gender`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/gender.md)
+
 ### Konten Berbasis Pilihan (`select`)
 
-Konten yang bervariasi berdasarkan nilai string sembarang — setara dengan ICU `select`:
+Konten yang bervariasi berdasarkan nilai string sembarang, setara dengan ICU `select`:
 
 ```typescript
 import { select } from "intlayer";
@@ -748,6 +778,8 @@ Gunakan `select` ketika penentu (discriminant) bukan berupa kuantitas (`enu`), b
 
 > See [Konten Berbasis Pilihan (`select`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/select.md) for more information.
 
+- [Konten Berbasis Pilihan (`select`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/select.md)
+
 ### Konten File (`file`)
 
 Referensi ke file eksternal:
@@ -759,6 +791,8 @@ fileContent: file("./path/to/content.txt");
 ```
 
 > See [Konten File (`file`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/file.md) for more information.
+
+- [Konten File (`file`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/file.md)
 
 ## Membuat File Konten
 

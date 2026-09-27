@@ -54,6 +54,8 @@ author: aymericzip
 
 Lihat posting blog [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/compiler_vs_declarative_i18n.md) untuk perbandingan yang lebih mendalam.
 
+- [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/compiler_vs_declarative_i18n.md)
+
 ## Mengapa Tidak Menggunakan Intlayer Compiler?
 
 Meskipun compiler menawarkan pengalaman "langsung bekerja" yang sangat baik, compiler juga memperkenalkan beberapa kompromi yang harus Anda ketahui:
@@ -65,7 +67,12 @@ Meskipun compiler menawarkan pengalaman "langsung bekerja" yang sangat baik, com
 
 Untuk perbandingan arsitektur yang lebih mendalam, lihat posting blog [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/compiler_vs_declarative_i18n.md).
 
+- [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/compiler_vs_declarative_i18n.md)
+
 Sebagai alternatif, untuk mengotomatisasi proses i18n Anda sambil mempertahankan kontrol penuh atas konten Anda, Intlayer juga menyediakan perintah auto-ekstraksi `intlayer extract` (lihat [dokumentasi CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/extract.md)), atau perintah `Intlayer: extract content to Dictionary` dari ekstensi Intlayer VS Code (lihat [dokumentasi ekstensi VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/vs_code_extension.md)).
+
+- [dokumentasi CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/extract.md)
+- [dokumentasi ekstensi VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/vs_code_extension.md)
 
 ## Penggunaan
 
@@ -97,9 +104,11 @@ export default defineConfig({
 });
 ```
 
-> Plugin `intlayerCompiler()` standalone masih diekspor untuk setup lanjutan. Mendaftarkannya bersama `intlayer()` aman — compiler melakukan deduplikasi dirinya sendiri dan berjalan hanya sekali.
+> Plugin `intlayerCompiler()` standalone masih diekspor untuk setup lanjutan. Mendaftarkannya bersama `intlayer()` aman, compiler melakukan deduplikasi dirinya sendiri dan berjalan hanya sekali.
 
 See complete tutorial: [Translate Vite and React with Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md)
+
+- [Translate Vite and React with Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md)
 
 #### Dukungan Framework
 
@@ -382,3 +391,5 @@ bun x intlayer extract
 ```
 
 > Untuk rincian lebih lanjut, silakan merujuk ke [dokumentasi CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md)
+
+- [dokumentasi CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md)

@@ -30,6 +30,8 @@ author: aymericzip
 
 تقيس هذه المقالة هذا التحول على نفس تطبيق TanStack Start، مبنيا مرة باستخدام Lingui الصافي ومرة باستخدام المحول. الأرقام مأخوذة من [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). للمقارنة بين المكتبتين كمكتبتين مستقلتين، اقرأ [Lingui مقابل Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/lingui_vs_intlayer.md). تركز هذه المقالة على ما يغيره المحول، وأين لا يقدم فائدة إضافية.
 
+- [Lingui مقابل Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/lingui_vs_intlayer.md)
+
 <TOC/>
 
 > **خلاصة سريعة (tl;dr)**: في نفس تطبيق TanStack Start، قلص `@intlayer/lingui` متوسط حجم المكون من **85.5 كيلوبايت إلى 12.8 كيلوبايت** بتنسيق gzip، وخفض وقت الترطيب (hydration) من **28 مللي ثانية إلى 19.7 مللي ثانية**، وسرع التبديل بين اللغات من **5.9 مللي ثانية إلى 2.9 مللي ثانية**، مع بقاء وحدات الماكرو كما هي دون تعديل. في الإعداد البسيط (تحميل كافة الفهارس مسبقا)، أزال أيضا **90% من تسرب الصفحات** ووفر 12 كيلوبايت لكل صفحة. ولكن في إعداد التحميل الكسول (lazy-loaded)، يرسل المحول **137 كيلوبايت لكل صفحة مقابل 115 كيلوبايت** لمكتبة Lingui العادية: يرجع ذلك إلى أن المحول يحلل صياغة ICU في وقت التشغيل بينما توفر Lingui مصفوفات رموز مجمعة مسبقا. تسرب اللغة المصدر (~9-10%) متطابق في الجانبين، لأنه ينبع من النص الاحتياطي `message` المضمن داخل المكونات وليس من بيئة التشغيل. المحول عبارة عن إضافة Vite؛ وتمت القياسات على TanStack Start.
@@ -230,6 +232,8 @@ export default config;
 
 لفهارس `.po`، استبدل `syncJSON` بـ `syncPO` من حزمة `@intlayer/sync-po-plugin` واستخدم نفس نمط `source` مع امتداد `.po`. راجع [توثيق إضافة Sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/plugins/sync-po.md).
 
+- [توثيق إضافة Sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/plugins/sync-po.md)
+
 خيار `splitKeys: "key-prefix"` هو المفتاح الفعلي لتقليص أحجام المكونات. يحافظ ملف الفهرس على بنيته المسطحة؛ والتقسيم يظهر فقط في القواميس المنشأة، وتقوم المزامنة العكسية بإعادة دمج المفاتيح بسلاسة.
 
 </Step>
@@ -307,3 +311,5 @@ export default defineConfig({
 تتوفر جميع البيانات التفصيلية وتطبيقات الاختبار وسكربتات القياس في [مستودع Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). ندعوك لتجربتها بنفسك.
 
 راجع توثيق ['لماذا Intlayer؟'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/interest_of_intlayer.md) لمزيد من التفاصيل.
+
+- [لماذا Intlayer؟ مزاياه مقارنة بمكتبات i18n الأخرى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/interest_of_intlayer.md)

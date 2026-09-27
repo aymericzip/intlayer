@@ -63,6 +63,8 @@ author: aymericzip
 
 [i18n 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/nextjs.md)는 동일한 10개 페이지, 10개 로케일의 Next.js 앱을 주요 라이브러리로 실행하여 브라우저가 실제로 다운로드하는 크기를 측정합니다.
 
+- [i18n 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/nextjs.md)
+
 <I18nBenchmark framework="nextjs" packages="lingui,@intlayer/lingui,next-intlayer" vertical/>
 
 2026-09-26 기준 Next.js 16에서의 `@lingui/core@6.6.0` 주요 수치 (gzip):
@@ -80,6 +82,8 @@ author: aymericzip
 - **Lingui 런타임 크기는 gzip 기준 약 72 KB입니다.** `@intlayer/lingui` 호환 어댑터는 런타임을 약 11 KB로 줄여주지만, 이 벤치마크에서는 Next.js 호환 설정이 여전히 전체 카탈로그를 페이지로 전달합니다. 기본 앱 크기를 유지하는 설정은 네이티브 `next-intlayer` API입니다.
 
 > 전체 데이터 확인: [Next.js 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/nextjs.md) 및 [벤치마크 저장소](https://github.com/intlayer-org/benchmark-i18n).
+
+- [Next.js 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/nextjs.md)
 
 ## Next.js 기능 비교
 
@@ -105,6 +109,9 @@ Next.js App Router 프로젝트에서 일반적으로 필요한 기능에 대해
 | **생태계 / 커뮤니티**            | ⚠️ 상대적으로 작지만 빠르게 성장 중                | ✅ 성숙함                                                  | ✅ 대규모                                     |
 
 > 런타임 크기는 [Next.js 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/nextjs.md)에서 가져왔습니다. 자세한 내용은 [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/lingui_vs_intlayer.md)를 읽어보세요.
+
+- [Next.js 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/nextjs.md)
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/lingui_vs_intlayer.md)
 
 > 다른 Next.js 가이드:
 
@@ -1038,9 +1045,17 @@ export const sendContactMessage = async (formData: FormData) => {
 
 [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/lingui.md) 호환 어댑터를 사용하면 소스 코드를 수정하지 않고 그대로 유지할 수 있습니다. 매크로는 이전과 동일하게 컴파일되며, 생성된 `i18n._()`, `useLingui()`, `<Trans>` 호출은 Intlayer 딕셔너리를 통해 제공됩니다. Next.js 벤치마크에서 런타임 크기는 gzip 기준 **약 72.1 KB에서 약 10.7 KB**로 감소합니다.
 
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/lingui.md)
+
 Next.js에서는 `next.config.ts`(webpack 및 Turbopack)에서 `@lingui/core`와 `@lingui/react`를 `@intlayer/lingui`로 alias하고, `next-intlayer/server`의 `withIntlayer`로 설정을 래핑하여 어댑터를 연결합니다. 매크로가 먼저 컴파일될 수 있도록 `@lingui/swc-plugin`은 유지하세요. 전체 설정 방법은 [Lingui 호환 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/lingui.md)에 설명되어 있습니다.
 
+- [Lingui 호환 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/lingui.md)
+
 벤치마크 표에서 알 수 있듯이, 어댑터는 런타임 크기를 줄여주지만 Next.js에서 각 페이지로 전송되는 카탈로그 크기까지 완전히 줄이지는 못합니다. 따라서 마이그레이션 브리지로 활용하는 것이 가장 좋습니다. 일단 동작을 확인한 후 각 컴포넌트가 렌더링하는 콘텐츠만 전송하는 네이티브 `useIntlayer` API로 컴포넌트를 점진적으로 전환하세요. [Next.js + Intlayer 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_16.md), [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/lingui_vs_intlayer-lingui.md) 및 모든 [호환 어댑터 목록](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/index.md)을 확인하세요.
+
+- [Next.js + Intlayer 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_16.md)
+- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/lingui_vs_intlayer-lingui.md)
+- [호환 어댑터 목록](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/index.md)
 
 </Step>
 <Step number={19} title="Intlayer를 활용한 번역 자동화" isOptional={true}>
@@ -1083,15 +1098,23 @@ Lingui는 메시지를 추출하지만, 수십 개의 카탈로그를 직접 채
 
 [벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/nextjs.md)에 따르면 런타임 크기는 gzip 기준 약 72 KB입니다. 로케일당 하나의 카탈로그를 사용하는 경우 페이지 크기는 i18n 미적용 시 141 KB 대비 약 145 KB이지만, 각 페이지는 여전히 클라이언트 Provider를 통해 다른 페이지의 메시지를 함께 전달받게 됩니다.
 
+- [벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/nextjs.md)
+
 </Question>
 <Question title="Next.js에서 Lingui, next-intl, next-i18next 중 어떤 것을 선택해야 할까요?">
 
 컴포넌트 내에 원본 텍스트를 직접 작성하고 PO 파일 및 전문 번역가와의 협업을 선호하는 팀에는 Lingui가 적합합니다. JSON 카탈로그와 Next.js에 긴밀하게 통합된 `t("key")` API를 선호한다면 next-intl이 적합합니다. i18next 플러그인 생태계를 활용하고 싶다면 next-i18next가 좋습니다. 자세한 비교는 [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/next-i18next_vs_next-intl_vs_intlayer.md) 및 [Next.js 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/nextjs.md)를 참고하세요.
 
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/next-i18next_vs_next-intl_vs_intlayer.md)
+- [Next.js 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/nextjs.md)
+
 </Question>
 <Question title="컴포넌트를 다시 작성하지 않고 Lingui에서 Intlayer로 마이그레이션할 수 있나요?">
 
 네, 가능합니다. [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/lingui.md) 어댑터를 사용하면 매크로는 그대로 유지한 채 런타임만 교체할 수 있으며, 이후 컴포넌트를 `useIntlayer`로 점진적으로 이전할 수 있습니다. 자세한 내용은 [호환 어댑터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/index.md)를 확인하세요.
+
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/lingui.md)
+- [호환 어댑터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/index.md)
 
 </Question>
 

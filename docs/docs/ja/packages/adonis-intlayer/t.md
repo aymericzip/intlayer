@@ -137,3 +137,5 @@ export default config;
 ### TypeScript 統合
 
 `t` 関数は、定義された辞書と一緒に使用する場合に型安全です。詳細については、[TypeScript ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を参照してください。
+
+- [TypeScript ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)

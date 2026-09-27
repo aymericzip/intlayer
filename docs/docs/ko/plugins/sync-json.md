@@ -216,7 +216,7 @@ syncJSON({
 
 이는 `next-intl` 및 `react-intl`과 같은 라이브러리의 네임스페이스 모델과 일치합니다. 이 모델에서는 하나의 `messages/{locale}.json` 파일이 최상위 키별로 여러 네임스페이스를 그룹화하며, 각 네임스페이스는 독립적으로 처리됩니다 (예: `useTranslations('Hero')`는 `Hero` 사전을 해결합니다).
 
-- `undefined` (기본값): **자동 감지** — `source` 패턴에 `{key}` 세그먼트가 없는 경우 (하나의 파일이 모든 네임스페이스를 포함) 파일이 분할되고, 그렇지 않은 경우 (키당 하나의 파일) 단일 사전으로 유지됩니다.
+- `undefined` (기본값): **자동 감지**, `source` 패턴에 `{key}` 세그먼트가 없는 경우 (하나의 파일이 모든 네임스페이스를 포함) 파일이 분할되고, 그렇지 않은 경우 (키당 하나의 파일) 단일 사전으로 유지됩니다.
 - `true`: 항상 각 최상위 키를 자체 사전으로 분할합니다.
 - `false`: 분할하지 않습니다; 전체 파일이 단일 사전이 됩니다.
 
@@ -402,7 +402,7 @@ loadJSON({
 
 [`syncJSON`](#splitkeys-boolean)과 동일한 동작: 단일 JSON 파일이 최상위 키별로 여러 네임스페이스를 그룹화할 때, 각 최상위 키는 자체 사전이 됩니다.
 
-- `undefined` (기본값): **자동 감지** — `source` 패턴에 `{key}` 세그먼트가 없는 경우 분할되고, 그렇지 않은 경우 단일 사전이 됩니다.
+- `undefined` (기본값): **자동 감지**, `source` 패턴에 `{key}` 세그먼트가 없는 경우 분할되고, 그렇지 않은 경우 단일 사전이 됩니다.
 - `true` / `false`: 분할을 강제하거나 비활성화합니다.
 
 ```ts
@@ -440,6 +440,8 @@ loadJSON({
 - `intlayer content pull` : 동기화된 JSON 파일을 풀합니다.
 
 자세한 내용은 [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/index.md)를 참조하세요.
+
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/index.md)
 
 ## Limitations (current)
 

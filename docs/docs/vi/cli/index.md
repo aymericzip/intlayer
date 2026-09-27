@@ -110,6 +110,8 @@ bun add intlayer-cli -g
 
 Gói `intlayer-cli` được thiết kế để chuyển đổi các [khai báo Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/content_file.md) của bạn vào các từ điển.
 
+- [khai báo Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/content_file.md)
+
 Gói này chuyển đổi tất cả các tệp Intlayer, chẳng hạn như `src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}`. [Xem cách khai báo các tệp khai báo Intlayer của bạn](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
 
 Để diễn giải các từ điển Intlayer, bạn có thể sử dụng các trình diễn giải như [react-intlayer](https://www.npmjs.com/package/react-intlayer) hoặc [next-intlayer](https://www.npmjs.com/package/next-intlayer).
@@ -127,13 +129,17 @@ Intlayer chấp nhận nhiều định dạng tệp cấu hình khác nhau:
 
 Để tìm hiểu cách cấu hình các ngôn ngữ có sẵn hoặc các tham số khác, hãy xem [tài liệu cấu hình tại đây](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md).
 
+- [tài liệu cấu hình tại đây](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md)
+
 ## Thực hiện các lệnh Intlayer
 
 ### Xác thực
 
 - **[Đăng nhập](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/login.md)** - Xác thực với Intlayer CMS và nhận thông tin xác thực truy cập
 
-> `intlayer login` cấp một **access key** (`clientId` / `clientSecret`) mà mọi lệnh có xác thực đều sử dụng. Secret là một thông tin xác thực phía server và không bao giờ được gửi tới client bundle của bạn — xem [Keeping the access key safe](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/login.md#keeping-the-access-key-safe).
+> `intlayer login` cấp một **access key** (`clientId` / `clientSecret`) mà mọi lệnh có xác thực đều sử dụng. Secret là một thông tin xác thực phía server và không bao giờ được gửi tới client bundle của bạn, xem [Keeping the access key safe](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/login.md#keeping-the-access-key-safe).
+
+- [Keeping the access key safe](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/login.md#keeping-the-access-key-safe)
 
 ### Các lệnh cốt lõi
 

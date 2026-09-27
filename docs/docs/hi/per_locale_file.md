@@ -127,6 +127,8 @@ export default config;
 
 इस कॉन्फ़िगरेशन का उपयोग करते हुए, सभी प्रति-लोकेल फ़ाइलें डिफ़ॉल्ट लोकेल को अंग्रेज़ी पर सेट करके जेनरेट की जाएंगी। इसमें `extract` कमांड और कंपाइलर का उपयोग करके `.content` फ़ाइलों का जनरेशन भी शामिल है। (अधिक जानकारी के लिए [Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md) या [Extract](https://github.com/aymericzip/intlayer/edit/main/docs/docs/en/cli/extract.md) देखें।)
 
+- [Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md)
+
 ## प्रति-स्थान प्रारूप
 
 यह प्रारूप तब उपयोगी होता है जब:
@@ -265,3 +267,5 @@ console.log(JSON.stringify(intlayer, null, 2));
 ### स्वचालित अनुवाद निर्माण
 
 अपने पसंदीदा सेवाओं के आधार पर गायब अनुवादों को स्वचालित रूप से भरने के लिए [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/index.md) का उपयोग करें।
+
+- [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/index.md)

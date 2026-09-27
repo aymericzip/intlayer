@@ -62,6 +62,8 @@ export default config;
 
 Untuk mempelajari lebih lanjut tentang CMS, lihat [dokumentasi resmi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md).
 
+- [Intlayer CMS: pindahkan konten multibahasa Anda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)
+
 ## Menggunakan Husky
 
 Anda dapat mengintegrasikan pembuatan terjemahan ke dalam alur kerja Git lokal Anda menggunakan [Husky](https://typicode.github.io/husky/).
@@ -98,6 +100,8 @@ npx intlayer fill --unpushed --mode fill    # Hanya mengisi konten yang hilang, 
 ```
 
 > Untuk informasi lebih lanjut tentang perintah Intlayer CLI dan penggunaannya, lihat [dokumentasi CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md).
+
+- [dokumentasi CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md)
 
 > Jika Anda memiliki beberapa aplikasi dalam repo Anda yang menggunakan instance intlayer terpisah, Anda dapat menggunakan argumen `--base-dir` seperti ini:
 
@@ -198,3 +202,5 @@ Untuk mengatur variabel lingkungan, buka GitHub → Settings → Secrets and var
 > Secara default, argumen `--git-diff` memfilter kamus yang mencakup perubahan dari basis (default `origin/main`) ke cabang saat ini (default: `HEAD`).
 
 > Untuk informasi lebih lanjut tentang perintah Intlayer CLI dan penggunaannya, lihat [dokumentasi CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md).
+
+- [dokumentasi CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md)

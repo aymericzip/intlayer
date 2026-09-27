@@ -34,6 +34,8 @@ Funkcja `getTranslationContent` pobiera zawartość odpowiadającą określonemu
 
 Aby uzyskać więcej szczegółów na temat deklarowania tłumaczeń, zapoznaj się z [dokumentacją Tłumaczeń](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/translation.md).
 
+- [dokumentacją Tłumaczeń](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/translation.md)
+
 ## Parametry
 
 - `languageContent: CustomizableLanguageContent<Content>`

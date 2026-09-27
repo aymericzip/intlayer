@@ -34,11 +34,15 @@ author: aymericzip
 
 La fonction `getIntlayerAsync` sélectionne un dictionnaire par sa clé et résout son contenu pour une locale donnée, **en chargeant cette locale seule**.
 
-C'est l'équivalent asynchrone de [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/intlayer/getIntlayer.md), destiné aux endroits où un dictionnaire est lu en dehors du rendu — constructeurs de `head` / métadonnées de route, loaders, fonctions serveur.
+C'est l'équivalent asynchrone de [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/intlayer/getIntlayer.md), destiné aux endroits où un dictionnaire est lu en dehors du rendu, constructeurs de `head` / métadonnées de route, loaders, fonctions serveur.
+
+- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/intlayer/getIntlayer.md)
 
 Où `getIntlayer` récupère le dictionnaire fusionné contenant chaque locale, les [plugins de build](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/bundle_optimization.md) (`@intlayer/babel`, `@intlayer/swc`) réécrivent cet appel en `getDictionaryAsync(loaderMap, key, locale)`, le pointant vers les chunks par locale dans `.intlayer/dynamic_dictionaries/`. Le bundle ne porte donc que la locale réellement demandée.
 
-Sans ces plugins — une build non optimisée — l'appel se résout à travers le registre de dictionnaire synchrone à la place : le même contenu, sans la division par locale.
+- [plugins de build](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/bundle_optimization.md)
+
+Sans ces plugins, une build non optimisée, l'appel se résout à travers le registre de dictionnaire synchrone à la place : le même contenu, sans la division par locale.
 
 **Fonctionnalités clés :**
 
@@ -61,18 +65,18 @@ getIntlayerAsync(
 
 - `key: DictionaryKeys`
   - **Description**: La clé du dictionnaire à lire, telle que déclarée dans vos fichiers de contenu.
-  - **Type**: `DictionaryKeys` — une union de chaque clé de dictionnaire déclarée.
+  - **Type**: `DictionaryKeys`, une union de chaque clé de dictionnaire déclarée.
   - **Required**: Yes
 
 - `localeOrSelector: LocalesValues | DictionarySelector`
   - **Description**: La locale pour interpréter le contenu avec, ou un objet sélecteur pour les [dictionnaires dynamiques](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dynamic_dictionaries/index.md).
-    - `'fr'` — une locale
-    - `{ item: 2 }` — un élément de [collection](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dynamic_dictionaries/collections.md) (omettez `item` pour obtenir chaque élément en tant que tableau)
-    - `{ variant: 'black-friday' }` — une [variante](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dynamic_dictionaries/variants.md) nommée (omettez pour celle par `default`)
-    - `{ variant: { id: 'prod_abc', userId: '123' } }` — une variante structurée
+    - `'fr'`: une locale
+    - `{ item: 2 }`: un élément de [collection](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dynamic_dictionaries/collections.md) (omettez `item` pour obtenir chaque élément en tant que tableau)
+    - `{ variant: 'black-friday' }`: une [variante](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dynamic_dictionaries/variants.md) nommée (omettez pour celle par `default`)
+    - `{ variant: { id: 'prod_abc', userId: '123' } }`: une variante structurée
     - N'importe quel sélecteur peut porter une locale: `{ item: 2, locale: 'fr' }`
   - **Type**: `LocalesValues | DictionarySelector`
-  - **Required**: No (Optional) — defaults to the configured `defaultLocale`.
+  - **Required**: No (Optional), defaults to the configured `defaultLocale`.
 
 - `plugins: Plugins[]`
   - **Description**: Des transformateurs de nœuds personnalisés remplaçant les plugins d'interpréteur de base. Utilisation avancée uniquement.
@@ -81,7 +85,7 @@ getIntlayerAsync(
 
 ### Retours
 
-- **Type**: `Promise<Content>` — une promise qui se résout avec le contenu interprété du dictionnaire, typé à partir de votre déclaration.
+- **Type**: `Promise<Content>`, une promise qui se résout avec le contenu interprété du dictionnaire, typé à partir de votre déclaration.
 
 ## Exemple d'utilisation
 
@@ -95,12 +99,12 @@ const { title } = await getIntlayerAsync("app", "fr"); // "Bonjour"
 
 ## `getIntlayer` vs `getIntlayerAsync`
 
-|                    | [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/intlayer/getIntlayer.md) | `getIntlayerAsync`                                          |
-| ------------------ | --------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
-| Returns            | Le contenu                                                                                                      | Une promesse du contenu                                     |
-| Dictionary loaded  | Le dictionnaire fusionné (toutes les locales)                                                                   | Le chunk de la locale demandée uniquement                   |
-| Best suited for    | Rendu, chemins de code synchrone                                                                                | Métadonnées, loaders, fonctions serveur                     |
-| Requires a plugin? | Non                                                                                                             | Non — la division par locale nécessite les plugins de build |
+|                    | [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/intlayer/getIntlayer.md) | `getIntlayerAsync`                                         |
+| ------------------ | --------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
+| Returns            | Le contenu                                                                                                      | Une promesse du contenu                                    |
+| Dictionary loaded  | Le dictionnaire fusionné (toutes les locales)                                                                   | Le chunk de la locale demandée uniquement                  |
+| Best suited for    | Rendu, chemins de code synchrone                                                                                | Métadonnées, loaders, fonctions serveur                    |
+| Requires a plugin? | Non                                                                                                             | Non, la division par locale nécessite les plugins de build |
 
 Both accept the same arguments and return the same content: switching from one to the other only changes **when** and **how much** is loaded.
 

@@ -41,9 +41,13 @@ author: aymericzip
 
 vue-i18n과의 구체적인 비교는 저희 [vue-i18n vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/vue-i18n_vs_intlayer.md) 블로그 게시물을 참고하세요.
 
+- [vue-i18n vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/vue-i18n_vs_intlayer.md)
+
 ## 왜 Intlayer를 vue-i18n과 결합해야 할까요?
 
 Intlayer는 훌륭한 독립형 i18n 솔루션을 제공하지만(자세한 내용은 저희 [Vue.js 통합 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_vite+vue.md)를 참조), 다음과 같은 여러 이유로 vue-i18n과 결합하여 사용할 수 있습니다:
+
+- [Vue.js 통합 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_vite+vue.md)
 
 1. **기존 코드베이스**: 이미 구축된 vue-i18n 구현이 있으며 Intlayer의 향상된 개발자 경험으로 점진적으로 마이그레이션하고자 합니다.
 2. **레거시 요구사항**: 프로젝트가 기존 vue-i18n 플러그인 또는 워크플로우와의 호환성을 필요로 합니다.
@@ -144,6 +148,8 @@ CLI를 사용하여 JSON을 번역하거나 CMS를 통해 변경이 이루어지
 
 `syncJSON` 플러그인에 대한 자세한 내용은 [syncJSON 플러그인 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/plugins/sync-json.md)를 참조하세요.
 
+- [syncJSON 플러그인 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/plugins/sync-json.md)
+
 </Step>
 <Step number={3} title="컴포넌트별 JSON 번역 구현" isOptional={true}>
 
@@ -206,6 +212,4 @@ export default config;
 
 개발자 경험 향상을 위해 공식 **Intlayer VS Code 확장 프로그램**을 설치하세요:
 
-[VS Code 마켓플레이스에서 설치하기](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-[VS Code 마켓플레이스에서 설치하기](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [VS Code 마켓플레이스에서 설치하기](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

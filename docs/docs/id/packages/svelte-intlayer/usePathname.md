@@ -30,7 +30,7 @@ author: aymericzip
 
 # Integrasi Svelte: Dokumentasi `usePathname`
 
-Fungsi `usePathname` mengembalikan pathname browser saat ini dengan segmen locale yang telah dihapus, dalam bentuk store Svelte `Readable<string>`. Ini berguna untuk membangun navigasi yang sadar akan locale — misalnya, menentukan item navigasi mana yang sedang aktif — tanpa harus menghapus awalan locale secara manual.
+Fungsi `usePathname` mengembalikan pathname browser saat ini dengan segmen locale yang telah dihapus, dalam bentuk store Svelte `Readable<string>`. Ini berguna untuk membangun navigasi yang sadar akan locale (misalnya, menentukan item navigasi mana yang sedang aktif) tanpa harus menghapus awalan locale secara manual.
 
 ## Mengimpor `usePathname` di Svelte
 

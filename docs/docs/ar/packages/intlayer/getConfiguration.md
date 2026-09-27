@@ -57,6 +57,8 @@ author: aymericzip
 
 راجع [توثيق تكوين Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md) لمزيد من التفاصيل.
 
+- [توثيق تكوين Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md)
+
 ## مثال على الاستخدام
 
 ### استرجاع التكوين الكامل

@@ -41,8 +41,6 @@ npm install lynx-intlayer
 import "lynx-intlayer";
 ```
 
-| 関数 | 説明 |
-
 | 関数               | 説明                                                                   |
 | ------------------ | ---------------------------------------------------------------------- |
 | `intlayerPolyfill` | Lynx が Intlayer をサポートするために必要な polyfills を適用する関数。 |

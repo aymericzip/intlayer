@@ -31,7 +31,7 @@ author: aymericzip
 
 # Integración Angular: Documentación del Hook `usePathname`
 
-El hook `usePathname` devuelve la ruta de navegación actual del navegador con el segmento de idioma eliminado, como un `Signal<string>` de Angular. Es útil para construir navegación basada en idiomas — por ejemplo, para determinar qué elemento de navegación está activo — sin tener que eliminar manualmente el prefijo de idioma.
+El hook `usePathname` devuelve la ruta de navegación actual del navegador con el segmento de idioma eliminado, como un `Signal<string>` de Angular. Es útil para construir navegación basada en idiomas (por ejemplo, para determinar qué elemento de navegación está activo) sin tener que eliminar manualmente el prefijo de idioma.
 
 ## Importar `usePathname` en Angular
 

@@ -39,6 +39,8 @@ bun x intlayer pull
 
 如果已安装 [intlayer 编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)，你也可以从编辑器拉取词典。通过这种方式，你可以根据应用需求覆盖词典内容。
 
+- [intlayer 编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)
+
 ## 别名：
 
 - `npx intlayer dictionaries pull`

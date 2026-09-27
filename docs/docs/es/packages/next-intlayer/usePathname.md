@@ -31,7 +31,7 @@ author: aymericzip
 
 # Integración Next.js: Documentación del Hook `usePathname`
 
-El hook `usePathname` devuelve la ruta actual de Next.js habiendo eliminado el segmento de la locale. Es útil para construir navegación con consciencia de locale — por ejemplo, determinar qué elemento del menú está activo — sin tener que eliminar manualmente el prefijo de la locale.
+El hook `usePathname` devuelve la ruta actual de Next.js habiendo eliminado el segmento de la locale. Es útil para construir navegación con consciencia de locale (por ejemplo, determinar qué elemento del menú está activo) sin tener que eliminar manualmente el prefijo de la locale.
 
 ## Importar `usePathname` en Next.js
 

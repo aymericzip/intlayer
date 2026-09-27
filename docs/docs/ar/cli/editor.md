@@ -23,6 +23,8 @@ author: aymericzip
 
 > لكي تتمكن من استخدام أمر `editor`، يجب تثبيت حزمة `intlayer-editor`. (انظر [محرر Intlayer البصري](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md))
 
+- [محرر Intlayer البصري](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)
+
 ```json fileName="package.json"
 "scripts": {
   "intlayer:editor:start": "npx intlayer editor start --with 'next dev --turbopack'"

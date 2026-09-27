@@ -87,6 +87,8 @@ const MyComponent = () => {
 
 > Intlayer की सभी विशेषताओं को देखने के लिए, आप [डिक्शनरी दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/content_file.md) पढ़ सकते हैं।
 
+- [डिक्शनरी दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/content_file.md)
+
 ## दूरस्थ सामग्री
 
 Intlayer आपको सामग्री को स्थानीय रूप से घोषित करने और फिर उन्हें CMS में निर्यात करने की अनुमति देता है ताकि आपकी गैर-तकनीकी टीम द्वारा इसे संपादित किया जा सके।
@@ -98,6 +100,8 @@ CMS का उपयोग करके बाहरी डिक्शनरी
 ## दृश्य संपादक
 
 Intlayer एक दृश्य संपादक भी प्रदान करता है जो आपको अपनी सामग्री को दृश्य तरीके से संपादित करने की अनुमति देता है। यह [विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) बाहरी `intlayer-editor` पैकेज में उपलब्ध है।
+
+- [विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md)
 
 ![विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif?raw=true)
 
@@ -120,11 +124,15 @@ Babel और SWC plugins आपके एप्लिकेशन के Abstrac
 
 [कॉन्फ़िगरेशन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md) में `importMode = "dynamic"` विकल्प को सक्रिय करके, Intlayer डिक्शनरीज़ को लोड करने के लिए डायनेमिक आयात का उपयोग करेगा। यह विकल्प डिफ़ॉल्ट रूप से अक्षम है ताकि एप्लिकेशन को रेंडर करते समय असिंक्रोनस प्रोसेसिंग से बचा जा सके।
 
+- [कॉन्फ़िगरेशन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md)
+
 > `@intlayer/babel` डिफ़ॉल्ट रूप से `vite-intlayer` पैकेज पर उपलब्ध है,
 
 > `@intlayer/swc` डिफ़ॉल्ट रूप से `next-intlayer` पैकेज पर स्थापित नहीं है क्योंकि SWC प्लगइन्स अभी भी Next.js पर प्रयोगात्मक हैं।
 
 अपने एप्लिकेशन के निर्माण को कॉन्फ़िगर करने का तरीका देखने के लिए, आप [कॉन्फ़िगरेशन दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md) पढ़ सकते हैं।
+
+- [कॉन्फ़िगरेशन दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md)
 
 ## पैकेज
 
@@ -346,22 +354,38 @@ Intlayer को [Vite बंडलर](https://vite.dev/guide/why.html#why-bundl
 
 नेमस्पेस-आधारित सेटअपों की तुलना में बहुत कम, क्योंकि एक पृष्ठ कभी भी उस कैटलॉग को डाउनलोड नहीं करता है जिसे वह रेंडर नहीं करता है। सर्वर पर रेंडर किया गया मार्कअप सर्वर पर ही अपनी सामग्री को हल करता है, और बिल्ड-टाइम कंपाइलर `useIntlayer` कॉल को घटक द्वारा उपयोग की जाने वाली सटीक शब्दकोश प्रविष्टियों से बदल देता है, इसलिए अप्रयुक्त कुंजियों और भाषाओं को हटा दिया जाता है। [गतिशील शब्दकोश](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dynamic_dictionaries/index.md) शेष को प्रति लोकेल विभाजित करते हैं। पारंपरिक विकल्पों की तुलना में, Intlayer बंडल और पृष्ठ आकार को 50% तक कम करता है। [बंडल अनुकूलन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/bundle_optimization.md) और [बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/index.md) देखें।
 
+- [गतिशील शब्दकोश](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dynamic_dictionaries/index.md)
+- [बंडल अनुकूलन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/bundle_optimization.md)
+- [बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/index.md)
+
 </Question>
 <Question title="क्या मैं अपने घटकों को फिर से लिखे बिना i18next, next-intl या react-i18next से माइग्रेट कर सकता हूँ?">
 
 हाँ, और इसके दो रास्ते हैं। आप [i18next माइग्रेशन गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_i18next_to_intlayer.md) या [next-intl माइग्रेशन गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_next-intl_to_intlayer.md) के साथ सामग्री को धीरे-धीरे स्थानांतरित कर सकते हैं। या आप अपने वर्तमान API को पूरी तरह से बनाए रख सकते हैं: [संगतता एडेप्टर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/index.md) `i18next`, `react-i18next`, `next-intl`, `next-i18next`, `react-intl`, `use-intl`, `vue-i18n` और `Lingui` के समान API प्रदान करते हैं, लेकिन Intlayer शब्दकोशों द्वारा संचालित होते हैं, जिससे केवल आयात बदलते हैं और घटक कोड समान रहता है।
+
+- [i18next माइग्रेशन गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_i18next_to_intlayer.md)
+- [next-intl माइग्रेशन गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_next-intl_to_intlayer.md)
+- [संगतता एडेप्टर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/index.md)
 
 </Question>
 <Question title="क्या मैं अपनी मौजूदा JSON translation files को रख सकता हूं?">
 
 हाँ। [sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-json.md) आपकी `/messages/{locale}/{namespace}.json` फ़ाइलों को सत्य का स्रोत बनाए रखता है और दोनों दिशाओं में उनसे Intlayer dictionaries बनाता है। [sync PO plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-po.md) gettext catalogs के लिए भी ऐसा ही करता है, और [per locale files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/per_locale_file.md) आपको locales को एक फ़ाइल में समूहीकृत करने के बजाय भाषा के अनुसार content को विभाजित करने देते हैं।
 
+- [sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-json.md)
+- [sync PO plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-po.md)
+- [per locale files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/per_locale_file.md)
+
 </Question>
 <Question title="क्या मुझे अपनी content को key by key move करना होगा?">
 
 नहीं। `npx intlayer extract` चलाएं और Intlayer आपकी source files को पढ़ता है, user facing strings को निकालता है और प्रत्येक के बगल में एक `.content` file लिखता है, इसलिए आप strings को एक catalog में एक-एक करके कॉपी करने के बजाय एक diff की समीक्षा करते हैं। [extract command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/extract.md) देखें।
 
+- [extract command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/extract.md)
+
 पूरी तरह से स्वचालित वर्कफ़्लो के लिए, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md) JSX, TSX, Vue और Svelte कोड पर निर्माण समय के दौरान भी यही करता है, प्रत्येक परिवर्तन पर शब्दकोश उत्पन्न करता है जिससे कुंजियों को मैन्युअल रूप से बनाए रखने की आवश्यकता समाप्त हो जाती है।
+
+- [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md)
 
 </Question>
 <Question title="कौन से editor और AI agent tooling उपलब्ध हैं?">
@@ -382,12 +406,16 @@ Intlayer को [Vite बंडलर](https://vite.dev/guide/why.html#why-bundl
 </Question>
 <Question title="सक्रिय लोकेल कैसे निर्धारित किया जाता है?">
 
-`routing.storage` में सूचीबद्ध स्रोतों से, क्रम में: URL उपसर्ग, कुकी, `Accept-Language` हेडर, और डिफ़ॉल्ट भाषा।
+`routing.storage` में सूचीबद्ध स्रोतों से, क्रम में: URL उपसर्ग जब `routing.mode` उसका उपयोग करता है, फिर कुकी, फिर `Accept-Language` हेडर, और फिर आपकी डिफ़ॉल्ट लोकेल। उपयोगकर्ता द्वारा स्पष्ट रूप से चुनी गई लोकेल सहेज ली जाती है, इसलिए वह अगली विज़िट में भी बनी रहती है। [कॉन्फ़िगरेशन संदर्भ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md) देखें।
+
+- [कॉन्फ़िगरेशन संदर्भ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md)
 
 </Question>
 <Question title="स्थानीय और दूरस्थ (remote) शब्दकोशों में क्या अंतर है?">
 
-एक स्थानीय शब्दकोश आपके कोडबेस में घोषित किया जाता है और एप्लिकेशन के साथ संकलित किया जाता है। एक रिमोट शब्दकोश CMS में प्रबंधित किया जाता है और API के माध्यम से प्राप्त किया जाता है, जिससे एप्लिकेशन कोड को पुनः तैनात किए बिना टेक्स्ट अपडेट करने की अनुमति मिलती है।
+एक स्थानीय शब्दकोश आपके कोडबेस में घोषित किया जाता है और आपके एप्लिकेशन के साथ संकलित किया जाता है। एक रिमोट शब्दकोश [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md) में प्रबंधित किया जाता है और रनटाइम पर हल किया जाता है, इसलिए यह बिना डिप्लॉयमेंट के बदल सकता है। दोनों को एक ही हुक्स के माध्यम से पढ़ा जाता है, और जब रिमोट सामग्री उपलब्ध नहीं होती तो वह स्थानीय घोषणा पर वापस आ जाती है।
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md)
 
 </Question>
 <Question title="क्या Intlayer TypeScript के बिना काम करता है?">
@@ -407,7 +435,10 @@ Intlayer को [Vite बंडलर](https://vite.dev/guide/why.html#why-bundl
 </Question>
 <Question title="अनुवाद जोड़ते समय क्या मुझे फिर से रीबिल्ड करने की आवश्यकता है?">
 
-विकास परिवेश में नहीं: प्लगइन फ़ाइलों की निगरानी करता है और शब्दकोशों को तुरंत अपडेट करता है। उत्पादन में हाँ: स्थानीय शब्दकोश बिल्ड चरण के दौरान एप्लिकेशन बंडल में संकलित होते हैं।
+डेवलपमेंट में नहीं: प्लगइन आपकी सामग्री फ़ाइलों की निगरानी करता है और सहेजने पर प्रभावित शब्दकोशों को फिर से बनाता है। प्रोडक्शन में शब्दकोश बिल्ड का हिस्सा होते हैं, जब तक कि सामग्री रिमोट न हो, उस स्थिति में [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md) और [लाइव सिंक](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/live.md) बिना डिप्लॉयमेंट के बदलाव लागू करते हैं।
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md)
+- [लाइव सिंक](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/live.md)
 
 </Question>
 

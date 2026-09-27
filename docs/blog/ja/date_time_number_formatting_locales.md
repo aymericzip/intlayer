@@ -196,6 +196,8 @@ list(["りんご", "バナナ", "オレンジ"]); // "りんご、バナナ、�
 
 プラットフォーム標準の `Intl` をベースにしたキャッシュ層とロケール補完機能であるため、内部のフォーマット動作は `Intl` そのものです。詳細は [フォーマッタードキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/formatters.md) を確認してください。
 
+- [フォーマッタードキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/formatters.md)
+
 ## よくある失敗
 
 - **ロケール未指定の `toLocaleDateString()`。** 実行環境のデフォルトに依存し、サーバー側ではコンテナ設定に引きずられます。

@@ -30,9 +30,11 @@ author: aymericzip
 
 ## Description
 
-The `getTranslationContent` function retrieves the content corresponding to a specific locale from a set of customisable language content. If the specified locale is not found, it defaults to returning the content for the default locale configured in the project.
+The `getTranslation` function (also aliased as `t`) retrieves the content corresponding to a specific locale from a set of customisable language content. If the specified locale is not found, it defaults to returning the content for the default locale configured in the project.
 
-The `getTranslationContent` function retrieves the content corresponding to a specific locale from a set of customisable language content. If the specified locale is not found, it defaults to returning the content for the default locale configured in the project.
+For more details on how to declare translations, see the [Translation documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/translation.md).
+
+- [Translation documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/translation.md)
 
 ## Parameters
 

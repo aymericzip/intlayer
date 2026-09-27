@@ -51,6 +51,8 @@ Esta guía configura estos tres componentes y luego cubre todo lo que Paraglide 
 
 > ¿Comparando los dos enfoques basados en compilador? Lee [¿es Intlayer más ligero que Paraglide?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/is_intlayer_lighter_than_paraglide.md).
 
+- [¿es Intlayer más ligero que Paraglide?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/is_intlayer_lighter_than_paraglide.md)
+
 > Para entender de dónde vienen estas bibliotecas, lee la historia del i18n en JavaScript.
 
 - [La historia del i18n en JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/history_of_i18n.md)
@@ -58,6 +60,8 @@ Esta guía configura estos tres componentes y luego cubre todo lo que Paraglide 
 ## Lo que dice el benchmark sobre Paraglide en TanStack Start
 
 El [benchmark de i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/benchmark/tanstack.md) ejecuta la misma aplicación TanStack Start de 10 páginas y 10 locales con cada una de las principales bibliotecas y mide lo que el navegador realmente descarga.
+
+- [benchmark de i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/benchmark/tanstack.md)
 
 <I18nBenchmark framework="tanstack" packages="paraglide,intlayer" vertical/>
 
@@ -78,6 +82,8 @@ Puntos clave a considerar:
 - **La carga de página es la más lenta del grupo**, en parte porque el locale se resuelve mediante estrategias en cada llamada en lugar de leerse desde un contexto de React.
 
 > Consulta los datos completos: [Informe de benchmark de TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/benchmark/tanstack.md) y el [repositorio del benchmark](https://github.com/intlayer-org/benchmark-i18n).
+
+- [Informe de benchmark de TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/benchmark/tanstack.md)
 
 ## Comparación de características en TanStack Start
 
@@ -102,6 +108,8 @@ Cómo se compara Paraglide JS con las otras bibliotecas comúnmente utilizadas e
 | **Traducciones faltantes en CI**                | ✅ `npx intlayer test`                     | ⚠️ No integrado           | ⚠️ No integrado                          | ✅ `lingui compile --strict`   |
 
 > Las cifras de tamaño de runtime y fuga provienen del [benchmark de TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/benchmark/tanstack.md). La fuga se mide en la mejor configuración de cada biblioteca.
+
+- [benchmark de TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/benchmark/tanstack.md)
 
 > Otras guías de TanStack Start:
 
@@ -837,7 +845,12 @@ No existe un adaptador directo de Paraglide a Intlayer, porque ambos siguen el m
 
 Si vienes de otra biblioteca en lugar de Paraglide, los [adaptadores de compatibilidad](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compat/index.md) mantienen la API de `use-intl`, `next-intl`, `react-i18next`, `react-intl` o Lingui e intercambian el runtime.
 
+- [adaptadores de compatibilidad](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compat/index.md)
+
 Consulta [¿es Intlayer más ligero que Paraglide?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/is_intlayer_lighter_than_paraglide.md) y la [guía de Intlayer con TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_tanstack.md).
+
+- [¿es Intlayer más ligero que Paraglide?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/is_intlayer_lighter_than_paraglide.md)
+- [guía de Intlayer con TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_tanstack.md)
 
 </Step>
 <Step number={17} title="Automatizar tus traducciones usando Intlayer" isOptional={true}>
@@ -859,6 +872,8 @@ Paraglide renderiza traducciones, pero no te ayuda a **producirlas**. Intlayer e
 <Question title="¿Es Paraglide JS una buena opción para TanStack Start?">
 
 Es una opción sólida: se utiliza en los ejemplos oficiales de TanStack Router, tiene el runtime más pequeño del [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/benchmark/tanstack.md) (~1.8 KB gzip) y los mensajes están completamente tipados. Las contrapartidas son que cada función de mensaje contiene todos los locales, lo que genera una fuga de aproximadamente la mitad de las cadenas traducidas a visitantes de otros idiomas, y que cambiar de locale recarga la página.
+
+- [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/benchmark/tanstack.md)
 
 </Question>
 <Question title="¿Necesito un segmento de ruta $locale con Paraglide?">
@@ -889,6 +904,9 @@ Los **mensajes** no utilizados se eliminan cuando usas `outputStructure: "messag
 <Question title="¿Puedo migrar de Paraglide a Intlayer?">
 
 Sí. Ambos se basan en compilador, por lo que el modelo conceptual es muy cercano. Mantén tus archivos JSON con el [plugin sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/plugins/sync-json.md), y luego reemplaza las llamadas `m.key()` con `useIntlayer`, página por página. Consulta la [guía de Intlayer con TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_tanstack.md).
+
+- [plugin sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/plugins/sync-json.md)
+- [guía de Intlayer con TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_tanstack.md)
 
 </Question>
 

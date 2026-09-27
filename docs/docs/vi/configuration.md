@@ -726,7 +726,9 @@ Xác định cài đặt cho visual editor, bao gồm cổng máy chủ và tr�
 
 Xác định các cài đặt liên quan đến phân tích của Intlayer: thu thập dữ liệu về nội dung thực sự được hiển thị cho người dùng (lượt xem trang, hiển thị nội dung) và hỗ trợ thử nghiệm A/B trên nội dung.
 
-Tính năng phân tích là tùy chọn từ chối (opt-out): nó được bật theo mặc định và bắt đầu thu thập ngay khi gói `@intlayer/analytics` được cài đặt **và** một khóa dự án (`editor.clientId`) được cấu hình để quy kết. Đặt `analytics.enabled` thành `false` — hoặc không cài gói — thì toàn bộ tích hợp phân tích sẽ bị loại bỏ khỏi gói ứng dụng của bạn (dead-code elimination).
+Tính năng phân tích là tùy chọn từ chối (opt-out): nó được bật theo mặc định và bắt đầu thu thập ngay khi gói [`@intlayer/analytics`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/analytics.md) được cài đặt **và** một khóa dự án (`editor.clientId`) được cấu hình để quy kết. Đặt `analytics.enabled` thành `false`, hoặc không cài gói, thì toàn bộ tích hợp phân tích sẽ bị loại bỏ khỏi gói ứng dụng của bạn (dead-code elimination).
+
+- [`@intlayer/analytics`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/analytics.md)
 
 | Trường          | Mô tả                                                                            | Kiểu      | Mặc định | Ví dụ   | Ghi chú                                                                                                                                                                   |
 | --------------- | -------------------------------------------------------------------------------- | --------- | -------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -974,6 +976,8 @@ Cấu hình từ điển này phục vụ hai mục đích chính:
 
 Để biết thêm thông tin về các tệp khai báo nội dung và cách các giá trị cấu hình được áp dụng, hãy xem [Tài liệu Tệp Nội dung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/content_file.md).
 
+- [Tài liệu Tệp Nội dung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/content_file.md)
+
 | Trường                      | Mô tả                                                                                                                                                      | Kiểu dữ liệu                                                                                                    | Mặc định     | Ví dụ                                                                                       | Nhận xét                                                                                                                                                                                                                                                                                                                                                                                          |
 | --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | ------------ | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `fill`                      | Điều khiển cách các tệp đầu ra auto-fill (bản dịch bằng AI) được tạo ra.                                                                                   | `boolean` &#124; <br/> `FilePathPattern` &#124; <br/> `Partial<Record<Locale, boolean &#124; FilePathPattern>>` | `true`       | `{ en: '/locales/en/{{key}}.json', fr: ({ key }) => '/locales/fr/${key}.json', es: false }` | • `true`: Đường dẫn mặc định (cùng tệp với nguồn).<br/>• `false`: Vô hiệu hóa.<br/>• Template string/Hàm bật tạo tệp theo từng locale.<br/>• Đối tượng theo từng locale: Mỗi locale khớp với template của riêng nó; `false` loại bỏ locale đó.<br/>• Việc bao gồm `{{locale}}` bật tạo tệp theo từng locale.<br/>• Cài đặt `fill` ở cấp độ dictionary luôn được ưu tiên hơn cài đặt toàn cầu này. |
@@ -1110,22 +1114,38 @@ Trình kiểm soát trình biên dịch Intlayer, thu thập các bộ từ đi�
 
 Ít hơn nhiều so with các cấu hình dựa trên namespace, vì trang không bao giờ tải catalog mà nó không hiển thị. Mã hiển thị trên server phân giải nội dung ngay trên server, và compiler tại thời điểm build thay thế các lệnh gọi `useIntlayer` bằng chính xác các mục từ điển mà component sử dụng, do đó các khóa và ngôn ngữ không sử dụng sẽ bị loại bỏ. [Từ điển động](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dynamic_dictionaries/index.md) chia phần còn lại theo từng locale. So với các giải pháp thông thường, Intlayer giảm kích thước bundle và trang tới 50%. Xem [tối ưu hóa bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md) và [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/index.md).
 
+- [Từ điển động](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dynamic_dictionaries/index.md)
+- [tối ưu hóa bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md)
+- [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/index.md)
+
 </Question>
 <Question title="Tôi có thể di chuyển từ i18next, next-intl hoặc react-i18next mà không cần viết lại component không?">
 
 Có, theo hai cách. Bạn có thể di chuyển nội dung dần dần bằng [hướng dẫn di chuyển từ i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_i18next_to_intlayer.md) hoặc [hướng dẫn di chuyển từ next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_next-intl_to_intlayer.md). Hoặc bạn có thể giữ nguyên API hiện tại: [adapter tương thích](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/index.md) cung cấp chính xác các API tương tự như `i18next`, `react-i18next`, `next-intl`, `next-i18next`, `react-intl`, `use-intl`, `vue-i18n` và `Lingui`, nhưng chạy trên các từ điển Intlayer, nhờ đó chỉ có các lệnh import thay đổi còn mã component vẫn giữ nguyên.
+
+- [hướng dẫn di chuyển từ i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_i18next_to_intlayer.md)
+- [hướng dẫn di chuyển từ next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_next-intl_to_intlayer.md)
+- [adapter tương thích](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/index.md)
 
 </Question>
 <Question title="Tôi có thể giữ các tệp dịch JSON hiện có của mình không?">
 
 Có. Plugin [sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/plugins/sync-json.md) giữ cho các tệp `/messages/{locale}/{namespace}.json` của bạn là nguồn sự thật duy nhất và tạo các từ điển Intlayer từ chúng theo cả hai hướng. Plugin [sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/plugins/sync-po.md) làm điều tương tự cho các catalog gettext, và [các tệp theo locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/per_locale_file.md) cho phép bạn chia nội dung theo ngôn ngữ thay vì nhóm các locale trong một tệp.
 
+- [sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/plugins/sync-json.md)
+- [sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/plugins/sync-po.md)
+- [các tệp theo locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/per_locale_file.md)
+
 </Question>
 <Question title="Tôi có phải di chuyển nội dung từng khóa một không?">
 
 Không. Chạy `npx intlayer extract` và Intlayer sẽ đọc các tệp nguồn của bạn, trích xuất các chuỗi dành cho người dùng và tạo tệp `.content` bên cạnh mỗi tệp, nhờ đó bạn xem lại diff thay vì sao chép chuỗi vào catalog thủ công. Xem [lệnh extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/extract.md).
 
+- [lệnh extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/extract.md)
+
 Đối với quy trình làm việc hoàn toàn tự động, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md) thực hiện việc tương tự trong quá trình build trên mã JSX, TSX, Vue và Svelte, tạo từ điển trên mỗi thay đổi mà không cần quản lý khóa thủ công.
+
+- [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md)
 
 </Question>
 <Question title="Có những công cụ editor và AI agent nào có sẵn?">

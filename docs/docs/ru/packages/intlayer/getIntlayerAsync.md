@@ -34,11 +34,15 @@ author: aymericzip
 
 Функция `getIntlayerAsync` выбирает один словарь по его ключу и разрешает его содержимое для заданной локали, **загружая только эту локаль**.
 
-Это асинхронный аналог [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getIntlayer.md), предназначенный для мест, где словарь читается вне рендеринга — построители маршрута `head` / метаданных, загрузчики, серверные функции.
+Это асинхронный аналог [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getIntlayer.md), предназначенный для мест, где словарь читается вне рендеринга, построители маршрута `head` / метаданных, загрузчики, серверные функции.
+
+- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getIntlayer.md)
 
 В то время как `getIntlayer` подгружает объединённый словарь, содержащий все локали, [плагины сборки](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/bundle_optimization.md) (`@intlayer/babel`, `@intlayer/swc`) переписывают этот вызов в `getDictionaryAsync(loaderMap, key, locale)`, указывая на части для каждой локали в `.intlayer/dynamic_dictionaries/`. Таким образом, бандл никогда не содержит ничего, кроме фактически запрошенной локали.
 
-Без этих плагинов — при неоптимизированной сборке — вызов разрешается через синхронный реестр словарей вместо этого: то же содержимое, но без разделения по локалям.
+- [плагины сборки](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/bundle_optimization.md)
+
+Без этих плагинов, при неоптимизированной сборке, вызов разрешается через синхронный реестр словарей вместо этого: то же содержимое, но без разделения по локалям.
 
 **Ключевые особенности:**
 
@@ -61,18 +65,18 @@ getIntlayerAsync(
 
 - `key: DictionaryKeys`
   - **Описание**: Ключ словаря для чтения, как объявлено в ваших файлах контента.
-  - **Тип**: `DictionaryKeys` — объединение всех объявленных ключей словаря.
+  - **Тип**: `DictionaryKeys`, объединение всех объявленных ключей словаря.
   - **Обязательно**: Yes
 
 - `localeOrSelector: LocalesValues | DictionarySelector`
   - **Описание**: Локаль для интерпретации контента или объект селектора для [динамических словарей](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dynamic_dictionaries/index.md).
-    - `'fr'` — локаль
-    - `{ item: 2 }` — элемент [коллекции](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dynamic_dictionaries/collections.md) (опустите `item`, чтобы получить все элементы в виде массива)
-    - `{ variant: 'black-friday' }` — именованный [вариант](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dynamic_dictionaries/variants.md) (опустите для получения `default`)
-    - `{ variant: { id: 'prod_abc', userId: '123' } }` — структурированный вариант
+    - `'fr'`: локаль
+    - `{ item: 2 }`: элемент [коллекции](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dynamic_dictionaries/collections.md) (опустите `item`, чтобы получить все элементы в виде массива)
+    - `{ variant: 'black-friday' }`: именованный [вариант](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dynamic_dictionaries/variants.md) (опустите для получения `default`)
+    - `{ variant: { id: 'prod_abc', userId: '123' } }`: структурированный вариант
     - Любой селектор может содержать локаль: `{ item: 2, locale: 'fr' }`
   - **Тип**: `LocalesValues | DictionarySelector`
-  - **Обязательно**: No (Optional) — по умолчанию используется настроенный `defaultLocale`.
+  - **Обязательно**: No (Optional), по умолчанию используется настроенный `defaultLocale`.
 
 - `plugins: Plugins[]`
   - **Описание**: Пользовательские трансформаторы узлов, заменяющие базовые плагины интерпретатора. Только для продвинутого использования.
@@ -81,7 +85,7 @@ getIntlayerAsync(
 
 ### Возвращаемое значение
 
-- **Type**: `Promise<Content>` — обещание, разрешаемое в интерпретированное содержимое словаря, типизированное из вашего объявления.
+- **Type**: `Promise<Content>`, обещание, разрешаемое в интерпретированное содержимое словаря, типизированное из вашего объявления.
 
 ## Пример использования
 
@@ -95,12 +99,12 @@ const { title } = await getIntlayerAsync("app", "fr"); // "Bonjour"
 
 ## `getIntlayer` vs `getIntlayerAsync`
 
-|                    | [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getIntlayer.md) | `getIntlayerAsync`                                 |
-| ------------------ | --------------------------------------------------------------------------------------------------------------- | -------------------------------------------------- |
-| Returns            | Контент                                                                                                         | Обещание (promise) контента                        |
-| Dictionary loaded  | Объединённый словарь (все локали)                                                                               | Только фрагмент запрошенной локали                 |
-| Best suited for    | Рендеринг, синхронные пути кода                                                                                 | Метаданные, загрузчики, серверные функции          |
-| Requires a plugin? | Нет                                                                                                             | Нет — разделение по локалям требует плагины сборки |
+|                    | [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getIntlayer.md) | `getIntlayerAsync`                                |
+| ------------------ | --------------------------------------------------------------------------------------------------------------- | ------------------------------------------------- |
+| Returns            | Контент                                                                                                         | Обещание (promise) контента                       |
+| Dictionary loaded  | Объединённый словарь (все локали)                                                                               | Только фрагмент запрошенной локали                |
+| Best suited for    | Рендеринг, синхронные пути кода                                                                                 | Метаданные, загрузчики, серверные функции         |
+| Requires a plugin? | Нет                                                                                                             | Нет, разделение по локалям требует плагины сборки |
 
 Обе функции принимают одинаковые аргументы и возвращают одинаковый контент: переключение между ними изменяет только **когда** и **сколько** загружается.
 

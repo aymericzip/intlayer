@@ -34,6 +34,8 @@ author: aymericzip
 
 Для більш детальної інформації про те, як оголошувати переклади, див. [документацію Translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/translation.md).
 
+- [документацію Translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/translation.md)
+
 ## Параметри
 
 - `languageContent: CustomizableLanguageContent<Content>`

@@ -46,7 +46,11 @@ const config = {
 export default config;
 ```
 
+- [plugin Sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/plugins/sync-json.md)
+
 Si prefieres mantener idéntica la API en tiempo de ejecución, los [adaptadores de compatibilidad](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compat/index.md) crean alias para `useTranslation`, `$t` y similares en el empaquetador. En cualquier caso, toma los comandos siguientes como una implementación concreta de la idea, no como una imposición.
+
+- [adaptadores de compatibilidad](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compat/index.md)
 
 ## Por qué son invisibles
 
@@ -98,6 +102,8 @@ export default [
 ```
 
 `no-unused-content` evita que los catálogos crezcan descontroladamente. Las claves muertas no rompen la aplicación, pero engrosan innecesariamente las facturas de traducción. Revisa la lista de reglas en la [documentación del plugin ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/eslint.md).
+
+- [documentación del plugin ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/eslint.md)
 
 ## Capa 3: audita la cobertura de locales
 
@@ -179,6 +185,8 @@ curl -s https://example.com/ja/checkout | grep -c "Add to cart"
 ## Llenar los vacíos
 
 Cuando sabes qué falta, `intlayer fill` autocompleta las entradas vacías, y la opción `autoFill` genera archivos por idioma al declarar contenido. Consulta [autoFill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/autoFill.md).
+
+- [autoFill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/autoFill.md)
 
 Conviene ser realistas: las traducciones generadas automáticamente convierten una falta _visible_ en una falta _invisible_. La clave ahora tiene contenido, la auditoría se pone en verde y nadie ha revisado el texto. Úsalo para desbloquear entregas y luego envía las salidas a revisión humana en todo texto crítico para la toma de decisiones. Es una ayuda inicial, no un reemplazo.
 

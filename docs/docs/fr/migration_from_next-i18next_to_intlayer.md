@@ -40,17 +40,23 @@ Au lieu de charger des fichiers JSON massifs dans vos pages, ne chargez que le c
 
 Scoper le contenu de votre application **facilite la maintenance** pour les applications à grande échelle. Vous pouvez dupliquer ou supprimer un dossier de fonctionnalité entier sans avoir la charge mentale de revoir toute votre base de code de contenu. De plus, Intlayer est **entièrement typé** pour garantir l'exactitude de votre contenu.
 
-Intlayer est également la solution avec le **développement le plus actif** dans l'écosystème i18n — les problèmes sont résolus rapidement, de nouveaux adaptateurs de framework arrivent régulièrement, et l'API principale est continuellement affinée en fonction des retours de production réels.
+Intlayer est également la solution avec le **développement le plus actif** dans l'écosystème i18n, les problèmes sont résolus rapidement, de nouveaux adaptateurs de framework arrivent régulièrement, et l'API principale est continuellement affinée en fonction des retours de production réels.
 
 </Accordion>
 <Accordion header="Agent IA">
 
 Colocaliser le contenu **réduit le contexte nécessaire** pour les Grands Modèles de Langage (LLM). Intlayer est également livré avec une suite d'outils, tels qu'une **CLI** pour tester les traductions manquantes, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/mcp_server.md)**, et des **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/agent_skills.md)**, pour rendre l'expérience développeur (DX) encore plus fluide pour les agents IA.
 
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/mcp_server.md)
+- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/agent_skills.md)
+
 </Accordion>
 <Accordion header="Automatisation">
 
 Utilisez l'automatisation pour traduire dans votre pipeline CI/CD en utilisant le LLM de votre choix au coût de votre fournisseur d'IA. Intlayer propose également un **compilateur** pour automatiser l'extraction de contenu, ainsi qu'une [plateforme web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md) pour aider à **traduire en arrière-plan**.
+
+- [plateforme web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="Performance">
@@ -61,6 +67,9 @@ Connecter des fichiers JSON massifs aux composants peut entraîner des problème
 <Accordion header="Évolutivité avec des non-développeurs">
 
 Plus qu'une simple solution i18n, Intlayer fournit un **[éditeur visuel](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md)** auto-hébergé et un **[CMS complet](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md)** pour vous aider à gérer votre contenu multilingue en **temps réel**, rendant la collaboration avec les traducteurs, les rédacteurs et les autres membres de l'équipe transparente. Le contenu peut être stocké localement et/ou à distance.
+
+- [éditeur visuel](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md)
+- [CMS complet](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
@@ -73,9 +82,9 @@ Plus qu'une simple solution i18n, Intlayer fournit un **[éditeur visuel](https:
 
 Étant donné que `next-i18next` enveloppe `react-i18next` et `i18next` en coulisses, il existe deux stratégies complémentaires pour migrer vers Intlayer :
 
-1. **Adaptateur de compatibilité (recommandé pour les applications existantes)** — Installez `@intlayer/next-i18next`, `@intlayer/react-i18next`, et `@intlayer/i18next`. Ces packages exposent **exactement la même API** que leurs homologues mais délèguent tout le travail de traduction à Intlayer. Vous conservez vos appels existants à `useTranslation`, `appWithTranslation`, `serverSideTranslations`, et le routage des pages Next.js intacts — le seul changement est l'initialisation.
+1. **Adaptateur de compatibilité (recommandé pour les applications existantes)**: Installez `@intlayer/next-i18next`, `@intlayer/react-i18next`, et `@intlayer/i18next`. Ces packages exposent **exactement la même API** que leurs homologues mais délèguent tout le travail de traduction à Intlayer. Vous conservez vos appels existants à `useTranslation`, `appWithTranslation`, `serverSideTranslations`, et le routage des pages Next.js intacts, le seul changement est l'initialisation.
 
-2. **Migration complète** — Remplacez progressivement les API `next-i18next` par des hooks natifs Intlayer (`useIntlayer`) et colocalisez le contenu dans des fichiers `.content.ts` avec vos composants.
+2. **Migration complète**: Remplacez progressivement les API `next-i18next` par des hooks natifs Intlayer (`useIntlayer`) et colocalisez le contenu dans des fichiers `.content.ts` avec vos composants.
 
 Ce guide couvre d'abord la **Stratégie 1** (adaptateur de compatibilité prêt à l'emploi), puis passe en revue la migration complète optionnelle.
 
@@ -187,7 +196,7 @@ export default withIntlayer(nextConfig);
 
 > **Vous n'avez plus besoin de `next-i18next.config.js`.** Intlayer compile tous les dictionnaires **au moment de la construction**, gérant la détection des paramètres régionaux, le routage et le chargement des dictionnaires de manière transparente.
 >
-> Préférez-vous le `withIntlayer` simple de `next-intlayer/server` ? Il compile vos dictionnaires mais n'ajoute **pas** les alias `next-i18next` / `react-i18next` / `i18next` — vous devrez alors renommer les imports vers `@intlayer/*` manuellement (voir l'étape 4).
+> Préférez-vous le `withIntlayer` simple de `next-intlayer/server` ? Il compile vos dictionnaires mais n'ajoute **pas** les alias `next-i18next` / `react-i18next` / `i18next`, vous devrez alors renommer les imports vers `@intlayer/*` manuellement (voir l'étape 4).
 
 </Step>
 
@@ -195,10 +204,10 @@ export default withIntlayer(nextConfig);
 
 C'est tout pour la migration rapide. Votre application Next.js fonctionne désormais sur Intlayer tout en conservant chaque appel à `useTranslation`, `serverSideTranslations`, et `appWithTranslation` intact.
 
-> **Clés de traduction typées — automatiques.** Une fois qu'Intlayer a compilé vos dictionnaires, `useTranslation` et `getFixedT` sont typés par rapport à votre contenu réel. Les clés sont autocomplétées dans votre IDE et les chemins invalides provoquent des erreurs TypeScript au moment de la construction — aucune configuration supplémentaire n'est requise.
+> **Clés de traduction typées, automatiques.** Une fois qu'Intlayer a compilé vos dictionnaires, `useTranslation` et `getFixedT` sont typés par rapport à votre contenu réel. Les clés sont autocomplétées dans votre IDE et les chemins invalides provoquent des erreurs TypeScript au moment de la construction, aucune configuration supplémentaire n'est requise.
 >
 > ```tsx
-> // Pages Router — 'about' est une clé de dictionnaire enregistrée
+> // Pages Router, 'about' est une clé de dictionnaire enregistrée
 > const { t } = useTranslation("about");
 > t("counter.label"); // ✓ autocomplété
 > t("does.not.exist"); // ✗ Erreur TypeScript
@@ -224,7 +233,7 @@ Le plugin Intlayer gère déjà l'aliassage au niveau du bundler. Si vous préf�
 | `import { useTranslation } from 'next-i18next'`                                | `import { useTranslation } from '@intlayer/next-i18next'`         |
 | `import { useTranslation } from 'react-i18next'`                               | `import { useTranslation } from '@intlayer/react-i18next'`        |
 
-Ce sont des **remplacements directs** — aucun changement de signatures d'appel, d'arguments ou de types de retour n'est requis.
+Ce sont des **remplacements directs**, aucun changement de signatures d'appel, d'arguments ou de types de retour n'est requis.
 
 </Step>
 <Step number={5} title="Activer l'automatisation de la traduction alimentée par l'IA" isOptional={true}>
@@ -284,6 +293,8 @@ export default config;
 
 > Consultez la [documentation de la CLI Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/index.md) pour toutes les options disponibles.
 
+- [documentation de la CLI Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/index.md)
+
 </Step>
 
 </Steps>
@@ -298,7 +309,7 @@ Une fois l'adaptateur de compatibilité en place, le code standard `next-i18next
 | `next-i18next` dans `package.json`               | Remplacé entièrement par `@intlayer/next-i18next` et les alias.                                                                                                                         |
 | Bundles de langue JSON (`public/locales/*.json`) | Les bundles JSON ne sont nécessaires que si vous utilisez encore le plugin `syncJSON`. Une fois que vous migrez vers des fichiers `.content.ts`, vous pouvez supprimer le dossier JSON. |
 
-Lorsque vous êtes prêt à aller plus loin, Intlayer **découvre automatiquement tous les fichiers `.content.ts` et `.content.json` n'importe où dans votre base de code** (par défaut, n'importe où dans `./src`). Vous pouvez placer un fichier `my-component.content.ts` juste à côté de votre `MyComponent.tsx` et Intlayer le détectera au moment de la construction sans configuration supplémentaire — pas d'imports, pas d'enregistrement, pas besoin de fichier d'index centralisé. Cela rend la colocalisation des traductions avec les pages et les composants complètement transparente.
+Lorsque vous êtes prêt à aller plus loin, Intlayer **découvre automatiquement tous les fichiers `.content.ts` et `.content.json` n'importe où dans votre base de code** (par défaut, n'importe où dans `./src`). Vous pouvez placer un fichier `my-component.content.ts` juste à côté de votre `MyComponent.tsx` et Intlayer le détectera au moment de la construction sans configuration supplémentaire, pas d'imports, pas d'enregistrement, pas besoin de fichier d'index centralisé. Cela rend la colocalisation des traductions avec les pages et les composants complètement transparente.
 
 ## Configurer TypeScript
 

@@ -51,6 +51,8 @@ Im Jahr 2026 müssen Sie Ihre Codebasis nicht neu schreiben. Mit **Intlayer** r�
 
 > Suchen Sie die vollständige, schrittweise technische Anleitung für Next.js 16 App Router? Besuchen Sie unsere Dokumentation: [Next.js 16 mit Intlayer übersetzen](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_nextjs_16.md).
 
+- [Next.js 16 mit Intlayer übersetzen](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_nextjs_16.md)
+
 ## Inhaltsverzeichnis
 
 <TOC/>
@@ -267,6 +269,8 @@ export const generateMetadata = async (): Promise<Metadata> => {
 Dieser Leitfaden gibt einen Überblick über die nachträgliche Internationalisierung einer Next.js-App im Jahr 2026. Für die vollständige schrittweise Anleitung besuchen Sie unsere Dokumentation:
 
 👉 **[Vollständiger Leitfaden zur Übersetzung von Next.js 16 mit Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_nextjs_16.md)**
+
+- [Vollständiger Leitfaden zur Übersetzung von Next.js 16 mit Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_nextjs_16.md)
 
 ## Häufig gestellte Fragen (FAQ)
 

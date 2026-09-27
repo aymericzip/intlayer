@@ -3,7 +3,7 @@ createdAt: 2026-06-12
 updatedAt: 2026-09-27
 priority: 8
 title: "Dynamische Wörterbücher: Collections und Varianten"
-description: Überblick über die Funktionen für dynamische Wörterbücher von Intlayer — Sammlungen und Varianten — zum Erstellen flexibler, zur Laufzeit gesteuerter i18n-Inhalte.
+description: Überblick über die Funktionen für dynamische Wörterbücher von Intlayer, Sammlungen und Varianten, zum Erstellen flexibler, zur Laufzeit gesteuerter i18n-Inhalte.
 keywords:
   - Dynamische Wörterbücher
   - Sammlungen
@@ -20,7 +20,7 @@ history:
     changes: "Veröffentlichung der Funktion für dynamische Wörterbücher"
   - version: 9.1.0
     date: 2026-06-26
-    changes: "Dynamische Datensätze in Varianten zusammengeführt — `variant` akzeptiert jetzt einen String oder ein Objekt"
+    changes: "Dynamische Datensätze in Varianten zusammengeführt, `variant` akzeptiert jetzt einen String oder ein Objekt"
 author: aymericzip
 ---
 
@@ -37,8 +37,8 @@ Beide lassen sich mit dem locale-Argument kombinieren und unterstützen selektiv
 
 ## Wann was verwenden
 
-- **Sammlungen** — geordnete Liste von Elementen, die in separaten Dateien verwaltet werden (FAQ-Einträge, Blogbeiträge, Produkte).
-- **Varianten** — benannte oder strukturierte Inhaltsalternativen:
+- **Sammlungen**: geordnete Liste von Elementen, die in separaten Dateien verwaltet werden (FAQ-Einträge, Blogbeiträge, Produkte).
+- **Varianten**: benannte oder strukturierte Inhaltsalternativen:
   - eine **String**-Variante für A/B-Tests, saisonale Banner oder Funktion-Flags;
   - eine **Objekt**-Variante für CMS-Datensätze, benutzerspezifische Inhalte oder beliebige Inhalte, die über eine Reihe von Feldern adressiert werden (die früheren „dynamischen Datensätze").
 

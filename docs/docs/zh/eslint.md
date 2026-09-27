@@ -61,7 +61,7 @@ bun add --dev eslint-plugin-intlayer
 
 ## 使用方法
 
-该插件可在 ESLint 和 [oxlint](https://oxc.rs) 中运行 — 拥有相同的规则和配置选项。
+该插件可在 ESLint 和 [oxlint](https://oxc.rs) 中运行，拥有相同的规则和配置选项。
 
 <Tabs defaultTab="eslint">
   <Tab label="ESLint" value="eslint">
@@ -106,7 +106,7 @@ export default [
 }
 ```
 
-两点注意事项：oxlint 对 JS 插件的支持仍处于 Alpha 阶段，且 oxlint 不支持自定义解析器 — 因此 `.vue`、`.svelte`、`.astro` 和 Angular 模板无法在此处进行 lint。请在 JS/TS/JSX 文件上运行 oxlint，其余文件保留使用 ESLint。
+两点注意事项：oxlint 对 JS 插件的支持仍处于 Alpha 阶段，且 oxlint 不支持自定义解析器，因此 `.vue`、`.svelte`、`.astro` 和 Angular 模板无法在此处进行 lint。请在 JS/TS/JSX 文件上运行 oxlint，其余文件保留使用 ESLint。
 
 上面特意排除了 `no-unused-content`：它需要从规则上下文中获取工作目录和被检查文件的路径，而 Alpha 阶段的 JS 插件桥接层无法保证提供这些信息。请在 ESLint 下运行该规则。
 
@@ -123,7 +123,7 @@ export default [
 
 `recommended` 特意将 `no-raw-text` 设为 `warn`：将其指向现有代码库会一次性暴露所有未翻译的字符串，这不应该在第一天就导致构建中断。
 
-`enforce-adapter-import` 默认关闭 — 如果需要请显式启用。
+`enforce-adapter-import` 默认关闭，如果需要请显式启用。
 
 `no-unused-content` 在所有配置中均默认关闭（包括 `strict`）。这是唯一一个需要读取 Intlayer 配置并从磁盘遍历源文件的规则，因此启用它应当是一项经过深思熟虑的选择，而非预设自动执行的行为。
 
@@ -248,7 +248,7 @@ export default {
 };
 ```
 
-与其他规则不同，此规则无法仅凭眼前的文件给出判断 — 字段是否未使用仅相对于整个项目而言。在一次 lint 运行的首次内容声明时，它会加载你的 Intlayer 配置，匹配该配置声明的源文件（`build.traversePattern`、`compiler.transformPattern`），并运行驱动 `@intlayer/lsp` 和 VS Code 扩展中“未使用”删除线的同一套使用情况分析器。结果会缓存 `cacheTtl` 毫秒，因此每次运行只会扫描一次，而不是每个文件扫描一次。
+与其他规则不同，此规则无法仅凭眼前的文件给出判断，字段是否未使用仅相对于整个项目而言。在一次 lint 运行的首次内容声明时，它会加载你的 Intlayer 配置，匹配该配置声明的源文件（`build.traversePattern`、`compiler.transformPattern`），并运行驱动 `@intlayer/lsp` 和 VS Code 扩展中“未使用”删除线的同一套使用情况分析器。结果会缓存 `cacheTtl` 毫秒，因此每次运行只会扫描一次，而不是每个文件扫描一次。
 
 **配置选项**
 
@@ -283,9 +283,9 @@ export default {
 
 > **倾向于保持沉默。** 此处的误报会导致翻译被误删，因此当字典以分析器无法跟踪的方式被使用时，不会报告任何内容：内容对象被整体传递、从中绑定的翻译函数（`const t = useTranslations("home")`）、通过直接导入访问的声明（`useDictionary(myDictionary)`）、来自另一个字典的 `nest()`、或者因 spread 展开而不详尽的字段列表。单文件组件（`.vue`、`.svelte`、`.astro`）计为使用了它们提及的字典中的所有字段，因为它们的脚本块在此处不会被解析。
 
-`reportDuplicateKeys` 读取构建时写入 `.intlayer/` 下的未合并字典，因此在项目至少构建过一次之前它会保持静默。共享一个键的两个声明会被合并，这是一种合法的模式 — 该报告之所以存在，是因为在两边同时定义的字段会静默保留两个值中的一个。
+`reportDuplicateKeys` 读取构建时写入 `.intlayer/` 下的未合并字典，因此在项目至少构建过一次之前它会保持静默。共享一个键的两个声明会被合并，这是一种合法的模式，该报告之所以存在，是因为在两边同时定义的字段会静默保留两个值中的一个。
 
-分析器从以 ESM 形式分发的 `@intlayer/lsp` 中加载。因此该规则需要能够 `require()` ES 模块的 Node 版本 — Node 20.19+ 或 22.12+。在更低版本上，它不会报错中断 lint 运行，而是什么都不报告。
+分析器从以 ESM 形式分发的 `@intlayer/lsp` 中加载。因此该规则需要能够 `require()` ES 模块的 Node 版本，Node 20.19+ 或 22.12+。在更低版本上，它不会报错中断 lint 运行，而是什么都不报告。
 
 ## 框架支持
 

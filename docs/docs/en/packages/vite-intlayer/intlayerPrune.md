@@ -34,6 +34,8 @@ author: aymericzip
 
 > The plugin is already included and configured automatically when you use [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/vite-intlayer/intlayer.md). You only need to register it manually if you are composing the plugin stack yourself.
 
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/vite-intlayer/intlayer.md)
+
 ## Usage
 
 ### As part of `intlayer()` (recommended)
@@ -102,8 +104,8 @@ When Vite processes a compiled dictionary JSON file, `intlayerPrune` intercepts 
 
 Two content shapes are supported:
 
-- **Static dictionaries** — `{ nodeType: "translation", translation: { en: {...}, fr: {...} } }`. Fields are pruned per-locale inside `translation`.
-- **Dynamic (per-locale) dictionaries** — flat `{ fieldA: ..., fieldB: ... }`. Fields are pruned at the top level.
+- **Static dictionaries**: `{ nodeType: "translation", translation: { en: {...}, fr: {...} } }`. Fields are pruned per-locale inside `translation`.
+- **Dynamic (per-locale) dictionaries**: flat `{ fieldA: ..., fieldB: ... }`. Fields are pruned at the top level.
 
 ### 3. Edge cases
 
@@ -111,7 +113,7 @@ If a dictionary's content structure cannot be recognised (e.g. an unusual nested
 
 ### 4. Field-rename map
 
-When pruning succeeds, `intlayerPrune` also writes `pruneContext.dictionaryKeyToFieldRenameMap` — a mapping from original field names to short aliases. `intlayerMinify` reads this map to rename fields in the output JSON, and `intlayerOptimize`'s Babel rename pass updates property accesses in source files accordingly.
+When pruning succeeds, `intlayerPrune` also writes `pruneContext.dictionaryKeyToFieldRenameMap`, a mapping from original field names to short aliases. `intlayerMinify` reads this map to rename fields in the output JSON, and `intlayerOptimize`'s Babel rename pass updates property accesses in source files accordingly.
 
 ## Activation conditions
 
@@ -121,4 +123,4 @@ When pruning succeeds, `intlayerPrune` also writes `pruneContext.dictionaryKeyTo
 2. `build.optimize` is `true` (or `undefined`, which defaults to `true` for builds).
 3. `build.purge` is `true` in your Intlayer config.
 
-It stays active when `editor.enabled` is `true`: the visual editor resolves every edit through `dictionaryKey` + `keyPath` against the unmerged dictionaries, which this plugin never touches, and a purged field is one no component reads — so it is never rendered and never selectable in the page.
+It stays active when `editor.enabled` is `true`: the visual editor resolves every edit through `dictionaryKey` + `keyPath` against the unmerged dictionaries, which this plugin never touches, and a purged field is one no component reads, so it is never rendered and never selectable in the page.

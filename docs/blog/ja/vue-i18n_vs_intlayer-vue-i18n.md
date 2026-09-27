@@ -30,6 +30,8 @@ author: aymericzip
 
 この記事では、同じVite + Vue 3アプリケーションでこのスワップを測定します。このアプリケーションは`vue-i18n`で1回、アダプターで1回ビルドされました。数値は[Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom)から取得されています。ライブラリとして比較される`vue-i18n`とIntlayerについては、[vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/vue-i18n_vs_intlayer.md)と[vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/vue-i18n_vs_intlayer.md)を参照してください。この記事は、コンポーネントをそのまま保つ場合にアダプターが何を変更するかについてです。
 
+- [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/vue-i18n_vs_intlayer.md)
+
 <TOC/>
 
 > **tl;dr**: 同じ Vite + Vue 3 アプリで、`vue-i18n` を `@intlayer/vue-i18n` に置き換えると、ページごとの JavaScript が **134.9 KB から 47.0 KB** gzip に削減されました（i18n なしのアプリは 41.3 KB）、ランタイムが **24.3 KB から 7.9 KB**、平均コンポーネントが **196 KB から 8.4 KB**、他言語ページの文字列漏洩が **90% から 0%** に改善され、`.vue` ファイルは一切編集していません。`createI18n({ messages })` はフォールバックとして動作し続けます。JSON のインポートを削除すると上記の数値が得られます。SFC `<i18n>` ブロックとランタイム `setLocaleMessage()` は、引き継がれない 2 つの機能です。
@@ -137,6 +139,8 @@ style="border:none;"
 />
 
 > すべてのライブラリと各戦略の完全な表は、[Vueベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/vue.md)をご覧ください。
+
+- [Vueベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/vue.md)
 
 ## 数値が移動する理由
 
@@ -286,6 +290,8 @@ export const i18n = createI18n({ locale: "en" });
 
 `setLocaleMessage()` および `mergeLocaleMessage()` は警告を出力して返ります。実行時にCMSから取得される翻訳には、[Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md) または `intlayer pull` / `push` コマンドが必要です。
 
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)
+
 </Accordion>
 <Accordion header="messages はフォールバックであり、無料ではありません">
 
@@ -316,6 +322,9 @@ export const i18n = createI18n({ locale: "en" });
 
 新規プロジェクト、またはアダプターが役割を果たした後向けです。最も軽量なランタイム（3.9 KB）と、`<i18n>` ブロックを型付きコンテンツに置き換えるコンポーネント単位の `.content.ts` モデルを備えています。[VueとIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_vite+vue.md) または [Nuxtとの組み合わせ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nuxt.md) から始めてください。
 
+- [VueとIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_vite+vue.md)
+- [Nuxtとの組み合わせ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nuxt.md)
+
 </Accordion>
 </AccordionGroup>
 
@@ -339,11 +348,16 @@ export const i18n = createI18n({ locale: "en" });
 
 維持されます。`createI18n()` に渡された `datetimeFormats` と `numberFormats` は尊重され、ネイティブの `Intl` APIによって処理されます。[日付、時間、数値のフォーマット](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/date_time_number_formatting_locales.md)をご覧ください。
 
+- [日付、時間、数値のフォーマット](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/date_time_number_formatting_locales.md)
+
 </Question>
 
 <Question title="Nuxt でも動作しますか？">
 
 `@intlayer/vue-i18n` は Vite + Vue を対象としています。`@nuxtjs/i18n` については、[Nuxt i18n 互換アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/nuxtjs-i18n.md) を使用し、ネイティブ構成については [NuxtとIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nuxt.md) をご覧ください。
+
+- [Nuxt i18n 互換アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/nuxtjs-i18n.md)
+- [NuxtとIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nuxt.md)
 
 </Question>
 
@@ -394,3 +408,5 @@ export const i18n = createI18n({ locale: "en" });
 すべてのrawデータ、テストアプリ、スクリプトは[Benchmark Bloomリポジトリ](https://github.com/intlayer-org/benchmark-bloom)にあります。自分で実行してみてください。
 
 詳細については、['Intlayerについて'ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)を参照してください。
+
+- [なぜ Intlayer？他の i18n ライブラリとの違い](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)

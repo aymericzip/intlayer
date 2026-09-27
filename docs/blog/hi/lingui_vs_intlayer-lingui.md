@@ -30,6 +30,8 @@ author: aymericzip
 
 यह लेख उसी TanStack Start एप्लिकेशन पर इस बदलाव को मापता है, जिसे एक बार शुद्ध Lingui के साथ और एक बार एडॉप्टर के साथ बनाया गया है। ये आंकड़े [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) से लिए गए हैं। दोनों लाइब्रेरीज़ की तुलना देखने के लिए [Lingui बनाम Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/lingui_vs_intlayer.md) पढ़ें। यह लेख इस बात पर केंद्रित है कि एडॉप्टर क्या बदलता है, और कहाँ यह अतिरिक्त लाभ नहीं देता।
 
+- [Lingui बनाम Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/lingui_vs_intlayer.md)
+
 <TOC/>
 
 > **संक्षेप में (tl;dr)**: उसी TanStack Start ऐप पर, `@intlayer/lingui` ने मैक्रोज़ को छुए बिना औसत घटक आकार को **85.5 KB से घटाकर 12.8 KB** gzip कर दिया, हाइड्रेशन को **28 ms से 19.7 ms** और भाषा स्विचिंग को **5.9 ms से घटाकर 2.9 ms** कर दिया। बुनियादी सेटअप में (जहाँ हर कैटलॉग पहले से लोड होता है) इसने **90% पेज लीकेज** को भी हटा दिया और प्रति पेज 12 KB की बचत की। लेकिन लेज़ी-लोडेड सेटअप में यह साधारण Lingui के 115 KB के मुकाबले **137 KB प्रति पेज** भेजता है: इसका कारण यह है कि एडॉप्टर रनटाइम पर ICU को हल करता है जबकि Lingui प्रीकंपाइल्ड टोकन एरे प्रदान करता है। स्रोत-भाषा लीकेज (~9-10%) दोनों पक्षों में समान है, क्योंकि यह घटकों में एम्बेडेड `message` फ़ॉलबैक से आता है, रनटाइम से नहीं। यह एडॉप्टर एक Vite प्लगइन है; इसे TanStack Start पर मापा गया था।
@@ -230,6 +232,8 @@ export default config;
 
 `.po` कैटलॉग के लिए, `syncJSON` को `@intlayer/sync-po-plugin` के `syncPO` से बदलें और `.po` एक्सटेंशन के साथ समान `source` पैटर्न का उपयोग करें। [Sync PO प्लगइन दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-po.md) देखें।
 
+- [Sync PO प्लगइन दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-po.md)
+
 `splitKeys: "key-prefix"` घटक आकार को अत्यधिक कम करने का प्रमुख कारक है। कैटलॉग फ़ाइल अपना फ्लैट आकार बनाए रखती है; विभाजन केवल उत्पन्न डिक्शनरी में मौजूद होता है, और रिवर्स सिंक स्वचालित रूप से कुंजियों को फिर से जोड़ देता है।
 
 </Step>
@@ -307,3 +311,5 @@ export default defineConfig({
 सभी मूल डेटा, परीक्षण ऐप्स और बेंचमार्क स्क्रिप्ट्स [Benchmark Bloom रिपॉजिटरी](https://github.com/intlayer-org/benchmark-bloom) में उपलब्ध हैं। आप इसे स्वयं चलाकर देख सकते हैं।
 
 अधिक जानकारी के लिए ['Intlayer क्यों चुनें?' दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/interest_of_intlayer.md) देखें।
+
+- [Intlayer क्यों? अन्य i18n लाइब्रेरी से बेहतर क्या है](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/interest_of_intlayer.md)

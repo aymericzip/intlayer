@@ -196,6 +196,8 @@ list(["apple", "banana", "orange"]); // "apple, banana, and orange"
 
 To be clear about what this is: a caching layer and a locale default over the platform API. The formatting behaviour is `Intl`, and everything in this post applies whether or not you use it. Full signatures in the [formatters documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/formatters.md).
 
+- [formatters documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/formatters.md)
+
 ## Common mistakes
 
 - **`toLocaleDateString()` with no locale.** Uses the runtime's locale, which on a server is whatever the container was configured with.

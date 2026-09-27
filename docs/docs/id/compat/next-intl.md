@@ -25,6 +25,8 @@ author: aymericzip
 
 Untuk tutorial langkah demi langkah yang lengkap dan terperinci, silakan lihat [Panduan Migrasi next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_next-intl_to_intlayer.md) lengkap kami.
 
+- [Panduan Migrasi next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_next-intl_to_intlayer.md)
+
 Migrasi dari `next-intl` ke Intlayer memungkinkan Anda mempertahankan routing aplikasi dan sintaks Anda sepenuhnya tanpa gangguan.
 
 ## Yang perlu dilakukan

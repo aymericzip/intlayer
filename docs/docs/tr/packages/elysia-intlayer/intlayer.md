@@ -134,6 +134,8 @@ export default config;
 
 > Yapılandırma hakkında daha fazla bilgi için [yapılandırma dokümantasyonunu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) ziyaret edin.
 
+- [yapılandırma dokümantasyonunu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md)
+
 ## İlgili Dokümantasyon
 
 - [elysia-intlayer Paket Dokümantasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/elysia-intlayer/exports.md)

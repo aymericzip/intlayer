@@ -50,6 +50,6 @@ bun x intlayer watch
 
   > Приклад: `npx intlayer watch --with "next dev --turbopack"`
 
-- **`--ci`**: Виконує команду в кожному проєкті Intlayer монорепозиторію (або лише в поточному при запуску з директорії проєкту). Облікові дані для кожного проєкту можна підставити через `INTLAYER_PROJECT_CREDENTIALS` — JSON-об'єкт, що зіставляє шлях проєкту з `{ "clientId", "clientSecret" }`.
+- **`--ci`**: Виконує команду в кожному проєкті Intlayer монорепозиторію (або лише в поточному при запуску з директорії проєкту). Облікові дані для кожного проєкту можна підставити через `INTLAYER_PROJECT_CREDENTIALS`, JSON-об'єкт, що зіставляє шлях проєкту з `{ "clientId", "clientSecret" }`.
 
   > Приклад: `npx intlayer watch --ci`

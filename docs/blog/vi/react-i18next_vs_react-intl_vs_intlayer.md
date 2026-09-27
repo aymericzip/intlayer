@@ -136,6 +136,9 @@ Số liệu từ [Benchmark Bloom](https://github.com/intlayer-org/benchmark-blo
 
 > Bảng đầy đủ trong [báo cáo benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md) và [Tổng quan Benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/index.md).
 
+- [báo cáo benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md)
+- [Tổng quan Benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/index.md)
+
 ### 6) DX, công cụ & bảo trì
 
 - **react-intl / react-i18next**: Hệ sinh thái cộng đồng rộng lớn; đối với quy trình biên tập, bạn thường sử dụng các nền tảng nội địa hóa bên ngoài.
@@ -185,3 +188,5 @@ Cả ba thư viện đều thực hiện việc bản địa hóa React một c�
 - Nếu nhóm của bạn coi trọng **khả năng bảo trì và tốc độ** trong các ứng dụng React đa ngôn ngữ, dựa trên thành phần, Intlayer cung cấp quy trình làm việc cho nhà phát triển và nội dung **đầy đủ nhất** hiện nay.
 
 Tham khảo tài liệu ['Tại sao chọn Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/interest_of_intlayer.md) để biết thêm chi tiết.
+
+- [Vì sao chọn Intlayer? Ưu điểm so với các thư viện i18n khác](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/interest_of_intlayer.md)

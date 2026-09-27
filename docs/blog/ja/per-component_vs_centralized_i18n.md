@@ -70,6 +70,8 @@ extension Localization on String {
 > このブログでは、すでに解説したためコンパイラベースのソリューションには焦点を当てません: [コンパイラ vs 宣言型 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/compiler_vs_declarative_i18n.md).
 > コンパイラベースの i18n（例: Lingui）は、コンテンツの抽出と読み込みを自動化するだけであることに注意してください。内部的には、しばしば他のアプローチと同じ制約を共有します。
 
+- [コンパイラ vs 宣言型 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/compiler_vs_declarative_i18n.md)
+
 > コンテンツ取得をより細かくすればするほど、コンポーネントに追加の状態やロジックを挿入してしまうリスクが高まることに注意してください。
 
 グラニュラーなアプローチは集中型より柔軟ですが、多くの場合トレードオフになります。ライブラリが "tree shaking" を謳っていても、実際にはページごとにすべての言語を読み込むことが多いでしょう。
@@ -153,6 +155,8 @@ locale/
 ```
 
 ここでは、アプリのどのコンテンツをどこで読み込むかを細かく管理する必要があります。結論として、その複雑さのために大多数のプロジェクトはこの部分を省略してしまいます（例えば、良いプラクティスに従うだけでも直面する課題を確認するには [next-i18next ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/i18n_using_next-i18next.md) を参照してください）。その結果、これらのプロジェクトは前述した大量の JSON 読み込み問題に陥ります。
+
+- [next-i18next ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/i18n_using_next-i18next.md)
 
 > この問題は i18next 固有のものではなく、上で挙げたすべての集中型アプローチに共通する問題であることに注意してください。
 

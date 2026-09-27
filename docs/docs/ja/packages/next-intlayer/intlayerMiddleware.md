@@ -73,3 +73,5 @@ export const config = {
 ## 設定
 
 ミドルウェアを設定するには、`intlayer.config.ts` ファイルで `routing` オプションを設定できます。詳細については、[設定](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を参照してください。
+
+- [設定](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)

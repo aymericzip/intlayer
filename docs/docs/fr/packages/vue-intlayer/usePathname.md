@@ -30,7 +30,7 @@ author: aymericzip
 
 # Intégration Vue : Documentation de `usePathname`
 
-La fonction `usePathname` retourne le chemin de l'URL actuelle (pathname) du navigateur sans le segment de la locale, sous la forme d'une `ComputedRef<string>` de Vue. C'est utile pour construire une navigation qui prend en compte la locale — par exemple, pour déterminer quel élément de navigation est actif — sans avoir à retirer le préfixe de locale manuellement.
+La fonction `usePathname` retourne le chemin de l'URL actuelle (pathname) du navigateur sans le segment de la locale, sous la forme d'une `ComputedRef<string>` de Vue. C'est utile pour construire une navigation qui prend en compte la locale (par exemple, pour déterminer quel élément de navigation est actif) sans avoir à retirer le préfixe de locale manuellement.
 
 ## Importer `usePathname` dans Vue
 

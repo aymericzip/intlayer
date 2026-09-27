@@ -54,6 +54,8 @@ author: aymericzip
 
 راجع منشور المدونة [المترجم مقابل i18n التصريحي](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/compiler_vs_declarative_i18n.md) لمقارنة أعمق.
 
+- [المترجم مقابل i18n التصريحي](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/compiler_vs_declarative_i18n.md)
+
 ## لماذا لا تستخدم مترجم Intlayer؟
 
 بينما يوفر المترجم تجربة ممتازة "تعمل مباشرة"، فإنه يقدم أيضًا بعض المقايضات التي يجب أن تكون على دراية بها:
@@ -65,7 +67,12 @@ author: aymericzip
 
 لمقارنة معمارية أعمق، راجع منشور المدونة [المترجم مقابل i18n التصريحي](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/compiler_vs_declarative_i18n.md).
 
+- [المترجم مقابل i18n التصريحي](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/compiler_vs_declarative_i18n.md)
+
 كبديل، لأتمتة عملية i18n الخاصة بك مع الحفاظ على السيطرة الكاملة على المحتوى الخاص بك، يوفر Intlayer أيضًا أمر الاستخراج التلقائي `intlayer extract` (راجع [وثائق CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/extract.md))، أو أمر `Intlayer: extract content to Dictionary` من امتداد Intlayer VS Code (راجع [وثائق امتداد VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/vs_code_extension.md)).
+
+- [وثائق CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/extract.md)
+- [وثائق امتداد VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/vs_code_extension.md)
 
 ## الاستخدام
 
@@ -97,9 +104,11 @@ export default defineConfig({
 });
 ```
 
-> إن plugin `intlayerCompiler()` المستقل لا يزال يتم تصديره للإعدادات المتقدمة. تسجيله جنباً إلى جنب مع `intlayer()` آمن — المترجم يزيل التكرار عن نفسه ويعمل مرة واحدة فقط.
+> إن plugin `intlayerCompiler()` المستقل لا يزال يتم تصديره للإعدادات المتقدمة. تسجيله جنباً إلى جنب مع `intlayer()` آمن، المترجم يزيل التكرار عن نفسه ويعمل مرة واحدة فقط.
 
 See complete tutorial: [Translate Vite and React with Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md)
+
+- [Translate Vite and React with Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md)
 
 #### دعم الأُطُر
 
@@ -384,3 +393,5 @@ bun x intlayer extract
 ```
 
 > لمزيد من التفاصيل، راجع [توثيق CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md)
+
+- [توثيق CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md)

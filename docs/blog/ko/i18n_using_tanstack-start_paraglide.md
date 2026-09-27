@@ -51,6 +51,8 @@ Paraglide는 공식 TanStack Router 예제에서 사용되는 i18n 방식이며,
 
 > 두 컴파일러 기반 접근 방식을 비교하고 싶으신가요? [Intlayer는 Paraglide보다 더 가벼운가요?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/is_intlayer_lighter_than_paraglide.md) 문서를 읽어보세요.
 
+- [Intlayer는 Paraglide보다 더 가벼운가요?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/is_intlayer_lighter_than_paraglide.md)
+
 > 이러한 라이브러리가 어디에서 왔는지 이해하려면 JavaScript i18n의 역사를 읽어보세요.
 
 - [JavaScript i18n의 역사](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/history_of_i18n.md)
@@ -58,6 +60,8 @@ Paraglide는 공식 TanStack Router 예제에서 사용되는 i18n 방식이며,
 ## TanStack Start에서의 Paraglide 벤치마크 결과
 
 [i18n 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/tanstack.md)는 모든 주요 라이브러리를 사용하여 동일한 10페이지, 10개 로케일 TanStack Start 앱을 실행하고 브라우저가 실제로 다운로드하는 양을 측정합니다.
+
+- [i18n 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/tanstack.md)
 
 <I18nBenchmark framework="tanstack" packages="paraglide,intlayer" vertical/>
 
@@ -78,6 +82,8 @@ Paraglide는 공식 TanStack Router 예제에서 사용되는 i18n 방식이며,
 - **페이지 로드 속도가 비교군 중 가장 느립니다.** 이는 부분적으로 로케일을 React 컨텍스트에서 읽지 않고 매 호출 시마다 전략을 통해 확인하기 때문입니다.
 
 > 전체 데이터 확인하기: [TanStack Start 벤치마크 리포트](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/tanstack.md) 및 [벤치마크 저장소](https://github.com/intlayer-org/benchmark-i18n).
+
+- [TanStack Start 벤치마크 리포트](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/tanstack.md)
 
 ## TanStack Start에서의 기능 비교
 
@@ -102,6 +108,8 @@ Paraglide JS와 TanStack Start에서 흔히 사용되는 다른 라이브러리 
 | **CI에서의 누락 번역 검사**           | ✅ `npx intlayer test`               | ⚠️ 내장 기능 없음     | ⚠️ 내장 기능 없음                 | ✅ `lingui compile --strict` |
 
 > 런타임 크기 및 누출 수치는 [TanStack Start 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/tanstack.md)를 기반으로 합니다. 누출은 각 라이브러리의 최적 설정에서 측정되었습니다.
+
+- [TanStack Start 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/tanstack.md)
 
 > 기타 TanStack Start 가이드:
 
@@ -837,7 +845,12 @@ Paraglide와 Intlayer는 모두 빌드 타임에 콘텐츠를 컴파일하고 �
 
 Paraglide가 아닌 다른 라이브러리에서 마이그레이션하는 경우, [호환 어댑터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/index.md)를 사용하면 `use-intl`, `next-intl`, `react-i18next`, `react-intl`, Lingui API를 그대로 유지하면서 런타임만 교체할 수 있습니다.
 
+- [호환 어댑터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/index.md)
+
 [Intlayer는 Paraglide보다 더 가벼운가요?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/is_intlayer_lighter_than_paraglide.md) 및 [Intlayer TanStack Start 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_tanstack.md)를 확인하세요.
+
+- [Intlayer는 Paraglide보다 더 가벼운가요?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/is_intlayer_lighter_than_paraglide.md)
+- [Intlayer TanStack Start 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_tanstack.md)
 
 </Step>
 <Step number={17} title="Intlayer를 활용하여 번역 자동화하기" isOptional={true}>
@@ -859,6 +872,8 @@ Paraglide는 번역을 렌더링하지만 번역을 **생성**하는 데는 도�
 <Question title="TanStack Start에서 Paraglide JS는 좋은 선택인가요?">
 
 좋은 선택입니다. 공식 TanStack Router 예제에서 사용되고 있으며, [벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/tanstack.md)에서 가장 작은 런타임 크기(~1.8 KB gzip)를 기록했고 메시지가 완벽하게 타입으로 보호됩니다. 다만, 모든 메시지 함수에 모든 로케일이 포함되어 있어 다른 언어 방문자에게 약 절반의 번역 문자열이 누출된다는 점과 언어 전환 시 페이지가 새로고침된다는 단점이 있습니다.
+
+- [벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/tanstack.md)
 
 </Question>
 <Question title="Paraglide를 사용할 때 $locale 라우트 세그먼트가 필요한가요?">
@@ -889,6 +904,9 @@ Paraglide는 번역을 렌더링하지만 번역을 **생성**하는 데는 도�
 <Question title="Paraglide에서 Intlayer로 마이그레이션할 수 있나요?">
 
 네, 가능합니다. 두 라이브러리 모두 컴파일러 기반이므로 멘탈 모델이 매우 유사합니다. [JSON 동기화 플러그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/plugins/sync-json.md)으로 기존 JSON 파일을 유지한 후, 페이지별로 `m.key()` 호출을 `useIntlayer`로 점진적으로 교체하세요. [Intlayer TanStack Start 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_tanstack.md)를 참고하세요.
+
+- [JSON 동기화 플러그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/plugins/sync-json.md)
+- [Intlayer TanStack Start 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_tanstack.md)
 
 </Question>
 

@@ -143,7 +143,7 @@ URL absolut ini siap digunakan dalam tag `<link rel="alternate" hreflang="...">`
 
 `routing.domains` diserialisasi ke dalam augmentasi modul yang dihasilkan, sehingga
 `getLocalizedUrl` dan `getLocalizedPath` mempersempit jenis pengembalian mereka ke URL yang tepat
-yang diselesaikan oleh locale yang dirutekan domain — termasuk penekanan prefiks.
+yang diselesaikan oleh locale yang dirutekan domain, termasuk penekanan prefiks.
 
 ```ts
 // routing: { mode: 'prefix-no-default', domains: { en: 'intlayer.org', zh: 'intlayer.zh' } }
@@ -203,7 +203,9 @@ GET intlayer.zh/about
 
 Plugin Vite `intlayerProxy` menerapkan logika yang sama selama pengembangan:
 
-> Sejak Intlayer v9, `intlayerProxy()` digabungkan langsung ke dalam plugin `intlayer()` dan diaktifkan secara default melalui opsi `routing.enableProxy` (`true` secara default). Mendaftarkannya secara terpisah seperti yang ditunjukkan di bawah ini sekarang bersifat opsional — ini dipertahankan untuk kompatibilitas mundur dan untuk setup yang perlu mengontrol urutan plugin. Atur `routing.enableProxy: false` untuk memilih untuk tidak menggunakan. Lihat [catatan rilis v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/releases/v9.md).
+> Sejak Intlayer v9, `intlayerProxy()` digabungkan langsung ke dalam plugin `intlayer()` dan diaktifkan secara default melalui opsi `routing.enableProxy` (`true` secara default). Mendaftarkannya secara terpisah seperti yang ditunjukkan di bawah ini sekarang bersifat opsional, ini dipertahankan untuk kompatibilitas mundur dan untuk setup yang perlu mengontrol urutan plugin. Atur `routing.enableProxy: false` untuk memilih untuk tidak menggunakan. Lihat [catatan rilis v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/releases/v9.md).
+
+- [catatan rilis v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/releases/v9.md)
 
 ```typescript fileName="vite.config.ts"
 import { defineConfig } from "vite";

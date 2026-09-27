@@ -78,6 +78,8 @@ Kompiler Intlayer menelusuri AST (Abstract Syntax Tree) dari komponen React, Vue
 
 > Untuk detail lebih lanjut, lihat dokumentasi: [Dokumentasi Compiler Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md)
 
+- [Dokumentasi Compiler Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md)
+
 ## Daya Tarik Compiler (Pendekatan "Ajaib")
 
 Ada alasan mengapa pendekatan baru ini sedang tren. Bagi seorang developer, pengalamannya terasa luar biasa.

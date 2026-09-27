@@ -31,6 +31,9 @@ Setiap pola di bawah ini berfungsi pada stack i18n mana pun. Ganti provider deng
 
 Perangkat pengujian cakupan juga dapat dipindahkan: dengan [plugin Sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/plugins/sync-json.md) yang diarahkan ke katalog yang ada, atau [adapter kompatibilitas](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/index.md) yang membuat alias pada import saat ini, asersi cakupan berjalan langsung terhadap file JSON yang sudah Anda miliki.
 
+- [plugin Sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/plugins/sync-json.md)
+- [adapter kompatibilitas](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/index.md)
+
 ## Tentukan apa yang sebenarnya Anda uji
 
 Kualitas terjemahan bukan sesuatu yang bisa diuji dengan kode. Tidak ada assertion yang dapat memberi tahu apakah bahasa Jerman terdengar alami, dan mencoba melakukannya hanya akan memenuhi suite Anda dengan string hardcoded.
@@ -46,6 +49,8 @@ Hal-hal mekanis yang layak diuji meliputi:
 | Tanggal dan angka yang diformat sesuai locale | Kebenaran implementasi internal `Intl` |
 
 Pengujian cakupan harus dilakukan dalam satu tes berbasis data, bukan dalam tes komponen individual. Hal ini dibahas secara rinci di [menemukan terjemahan yang hilang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/detecting_missing_translations.md); artikel ini berfokus pada aspek lainnya.
+
+- [menemukan terjemahan yang hilang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/detecting_missing_translations.md)
 
 ## Render di bawah provider dan periksa berdasarkan peran (Role)
 
@@ -122,6 +127,8 @@ describe.each([0, 1, 2, 3, 11, 100])("jumlah %i", (count) => {
 ```
 
 Pilihlah angka yang mencakup setiap kategori CLDR untuk bahasa paling kompleks alih-alih menguji 1 dan 2 di semua tempat. `Intl.PluralRules` memberi tahu kategori dari suatu angka, sehingga Anda dapat menentukan sampel pengujian tanpa menebak-nebak. Selengkapnya mengenai kategori ini dalam [artikel format pesan ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/icu_message_format.md).
+
+- [artikel format pesan ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/icu_message_format.md)
 
 ## Jebakan snapshot
 

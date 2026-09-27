@@ -54,6 +54,8 @@ author: aymericzip
 
 더 깊은 비교를 원한다면 [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/compiler_vs_declarative_i18n.md) 블로그 게시물을 참조하세요.
 
+- [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/compiler_vs_declarative_i18n.md)
+
 ## Intlayer 컴파일러를 사용하지 않는 이유
 
 컴파일러는 훌륭한 "바로 작동" 경험을 제공하지만, 인지해야 할 몇 가지 트레이드오프도 도입합니다:
@@ -65,7 +67,12 @@ author: aymericzip
 
 더 깊은 아키텍처 비교를 위해서는 블로그 게시물 [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/compiler_vs_declarative_i18n.md)을 참조하세요.
 
+- [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/compiler_vs_declarative_i18n.md)
+
 대안으로, 콘텐츠에 대한 완전한 제어를 유지하면서 i18n 프로세스를 자동화하기 위해 Intlayer는 자동 추출 명령 `intlayer extract`([CLI 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/extract.md) 참조) 또는 Intlayer VS Code 확장의 `Intlayer: extract content to Dictionary` 명령([VS Code 확장 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/vs_code_extension.md) 참조)도 제공합니다.
+
+- [CLI 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/extract.md)
+- [VS Code 확장 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/vs_code_extension.md)
 
 ## 사용법
 
@@ -97,9 +104,11 @@ export default defineConfig({
 });
 ```
 
-> 독립형 `intlayerCompiler()` 플러그인은 고급 설정을 위해 여전히 내보내집니다. `intlayer()`와 함께 등록하는 것은 안전합니다 — 컴파일러는 자신을 중복 제거하고 한 번만 실행됩니다.
+> 독립형 `intlayerCompiler()` 플러그인은 고급 설정을 위해 여전히 내보내집니다. `intlayer()`와 함께 등록하는 것은 안전합니다. 컴파일러는 자신을 중복 제거하고 한 번만 실행됩니다.
 
 See complete tutorial: [Translate Vite and React with Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md)
+
+- [Translate Vite and React with Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md)
 
 #### 프레임워크 지원
 
@@ -385,3 +394,5 @@ bun x intlayer extract
 
 > 자세한 내용은 [CLI 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/index.md)
 > 를 참조하세요.
+
+- [CLI 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/index.md)

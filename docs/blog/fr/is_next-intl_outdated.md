@@ -90,6 +90,8 @@ style="border:none;"
 
 > Tests exécutés dans de vrais navigateurs avec compression gzip de production. Détails dans le [rapport de benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/benchmark/nextjs.md).
 
+- [rapport de benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/benchmark/nextjs.md)
+
 ### Empreinte de base des bibliothèques
 
 Poids côté client avant d'ajouter le moindre texte :
@@ -138,6 +140,8 @@ Le graphique ci-dessous estime le poids du contenu pour une application théoriq
 
 Intlayer règle ce problème par analyse statique : le [compilateur Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compiler.md) inclut exclusivement les textes réellement appelés sur chaque route, ramenant la fuite entre pages à **0.0%**.
 
+- [compilateur Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compiler.md)
+
 ## Pourquoi next-intl résiste au tree-shaking
 
 L'API s'appuie sur des résolutions de chaînes textuelles au runtime :
@@ -176,6 +180,8 @@ export function UserProfile() {
 </Tabs>
 
 Turbopack et Webpack ne peuvent pas déterminer quelles clés du namespace `UserProfile` sont effectivement invoquées pendant l'exécution. Pour prévenir les erreurs de clés manquantes, **le bundler est forcé d'intégrer tout le namespace dans le bundle client**. Grâce à la déstructuration d'Intlayer, le compilateur sait quelles propriétés sont utilisées et retire les champs superflus. Consultez [l'optimisation de bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/bundle_optimization.md) pour approfondir.
+
+- [l'optimisation de bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/bundle_optimization.md)
 
 ## Expérience développeur
 
@@ -276,6 +282,8 @@ Cependant, seule la langue principale est contrôlée. Si une clé disparaît de
 
 Intlayer dérive les types de l'ensemble des déclarations de contenu. Activer le [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md) bloque le build dès qu'une traduction manque dans n'importe quelle langue configurée.
 
+- [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md)
+
 ### Outillage et assistants IA
 
 | Fonctionnalité                   | `next-intl` | Intlayer                                                                                                             |
@@ -301,6 +309,8 @@ Identifie et traduit automatiquement les clés manquantes avec vos propres clés
 **CMS visuel auto-hébergeable :**
 
 Utilisez le [CMS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md) pour permettre aux équipes éditoriales de modifier les contenus avec validation directe dans Git.
+
+- [CMS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md)
 
 **Licence open source permissive :**
 

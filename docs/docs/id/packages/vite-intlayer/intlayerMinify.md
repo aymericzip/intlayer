@@ -31,6 +31,8 @@ author: aymericzip
 
 > Plugin ini sudah disertakan dan dikonfigurasi secara otomatis saat Anda menggunakan [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/vite-intlayer/intlayer.md). Anda hanya perlu mendaftarkannya secara manual jika Anda menyusun plugin stack sendiri.
 
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/vite-intlayer/intlayer.md)
+
 ## Penggunaan
 
 ```ts
@@ -63,8 +65,8 @@ Ketika `editor.enabled` bernilai `true`, plugin tetap berjalan tetapi **melewati
 
 Plugin ini menargetkan dua lokasi kamus (seperti yang diselesaikan dari `intlayer.system`):
 
-- `dictionariesDir` — kamus semua-bahasa statis (misalnya `.intlayer/dictionaries/*.json`)
-- `dynamicDictionariesDir` — kamus dinamis per-bahasa
+- `dictionariesDir`: kamus semua-bahasa statis (misalnya `.intlayer/dictionaries/*.json`)
+- `dynamicDictionariesDir`: kamus dinamis per-bahasa
 
 > Kamus mode ambil (`fetchDictionariesDir`) **tidak pernah** diminifikasi karena disajikan dari API jarak jauh saat runtime menggunakan nama bidang asli mereka. Mengganti nama bidang akan membuat ketidakcocokan antara respons server dan akses properti di sisi klien.
 
@@ -86,7 +88,7 @@ Bidang internal Intlayer (`nodeType`, `translation`, dll.) tidak pernah diganti 
 
 ## Kamus kasus khusus (Edge-cases)
 
-Kamus yang ditandai dalam `pruneContext.dictionariesWithEdgeCases` (anomali struktural yang terdeteksi selama fase prune) dilewati sepenuhnya — tidak diminifikasi maupun dikaburkan — untuk menghindari pengiriman data yang rusak.
+Kamus yang ditandai dalam `pruneContext.dictionariesWithEdgeCases` (anomali struktural yang terdeteksi selama fase prune) dilewati sepenuhnya, tidak diminifikasi maupun dikaburkan, untuk menghindari pengiriman data yang rusak.
 
 ## Grup berkualifikasi (koleksi / varian / rekaman meta)
 

@@ -73,3 +73,5 @@ Hàm nhận đối tượng chuẩn Next.js `NextRequest` làm tham số khi đ�
 ## Cấu hình
 
 Để cấu hình middleware, bạn có thể thiết lập tùy chọn `routing` trong tệp `intlayer.config.ts`. Xem [cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md) để biết thêm chi tiết.
+
+- [cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md)

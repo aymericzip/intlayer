@@ -43,6 +43,8 @@ author: aymericzip
 
 See a concrete comparison with next-intl in our [next-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/next-i18next_vs_next-intl_vs_intlayer.md) blog post.
 
+- [next-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/next-i18next_vs_next-intl_vs_intlayer.md)
+
 ## Why Combine Intlayer with next-intl?
 
 Intlayer offers a rich set of **advanced features** that go beyond traditional i18n tools. It helps you:
@@ -157,6 +159,8 @@ If changes are made using the CLI to translate the JSON, or using the CMS, Intla
 
 To see more details about the `syncJSON` plugin, please refer to the [syncJSON plugin documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/plugins/sync-json.md).
 
+- [syncJSON plugin documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/plugins/sync-json.md)
+
 </Step>
 <Step number={3} title="Set up AI provider">
 
@@ -208,6 +212,9 @@ This will fill your translations with the AI provider you have configured.
 > See all the available AI providers in the [Intlayer AI configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md#ai-configuration).
 > See all the available commands in the [Intlayer CLI documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md).
 
+- [Intlayer AI configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md#ai-configuration)
+- [Intlayer CLI documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md)
+
 </Step>
 
 </Steps>
@@ -227,4 +234,4 @@ These files can be regenerated during your build process and don't need to be co
 
 For improved developer experience, install the official **Intlayer VS Code Extension**:
 
-[Install from the VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [Install from the VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

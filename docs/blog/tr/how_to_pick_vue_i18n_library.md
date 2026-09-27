@@ -66,6 +66,8 @@ Paraglide mesaj başına bir fonksiyon üretir ve bundler'ın geri kalanını tr
 
 [JavaScript i18n tarihi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/history_of_i18n.md) her dalgayı ayrıntılı olarak ele almaktadır.
 
+- [JavaScript i18n tarihi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/history_of_i18n.md)
+
 ## En önemli karar: içerik nerede yaşar ve ne zaman yüklenir
 
 İki yapısal tercih, kurulumlar arasındaki bundle farkının çoğunu açıklar:
@@ -81,9 +83,14 @@ Grafik, sayfa başına yaklaşık 30 KB metin içeren, 1 ila 10 dile çevrilmiş
 
 [Vue benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/vue.md) bunu "diğer route'lardan sızıntı" ve "diğer dillerden sızıntı" olarak ölçer. 3. soruya cevabınız "çok sayıda sayfa" ise, bu bölüm her türlü API tercihinden daha ağır basar. [Bileşen bazlı ve merkezi i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/per-component_vs_centralized_i18n.md) yazısı, aynı dengenin bakım tarafını ele alır.
 
+- [Vue benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/vue.md)
+- [Bileşen bazlı ve merkezi i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/per-component_vs_centralized_i18n.md)
+
 ## Adaylar
 
 Kütüphane boyutları [Vue benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/vue.md) çalışmasından alınmıştır: 10 sayfalık, 10 dilli bir uygulamada, bundling, tree-shaking ve minification sonrasında boş bir bileşendeki plugin artı composable. İçerik ayrı olarak ölçülür.
+
+- [Vue benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/vue.md)
 
 ![Vue i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
@@ -112,6 +119,8 @@ Composition modunda (`legacy: false`) `vue-i18n`, runtime-only build göndermek 
 
 `@nuxtjs/i18n` size routing stratejisini, `hreflang` etiketlerini ve dil tespitini kod yazmadan sağlar; bu bile tek başına az sayfalı içerik siteleri için onu haklı çıkarır. Sınırı dil başına katalog yapısıdır: on civarı sayfayı geçtikten sonra SSR payload her route'un metnini taşır. Sizin durumunuz buysa, `vue-i18n`'i route bazlı mesajlarla manuel olarak bağlayın veya scoped içeriğe geçin. [Nuxt i18n yazısı](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nuxt.md) önce routing stratejisi seçimini ele alır.
 
+- [Nuxt i18n yazısı](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nuxt.md)
+
 </Accordion>
 <Accordion header="Çeviriler bir TMS'den veya ICU teslim eden bir ajanstan geliyor">
 
@@ -126,6 +135,8 @@ Build time'da derlenen scoped içeriği tercih edin. Paraglide buraya Vite üzer
 <Accordion header="Type safety tartışılmaz bir gerekliliktir">
 
 `vue-i18n`, `createI18n`'e bir schema generic geçilerek type'landırılabilir. Çalışır, ancak kataloglar lazy load edildiği anda bozulur, çünkü schema henüz orada olmayabilecek mesajları tanımlar. Bunu yönetmek istemiyorsanız, type'ları içerikten üretilen bir kütüphane seçin: Paraglide veya Intlayer. [Eksik çevirileri tespit etme](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/detecting_missing_translations.md) yazısı, her birinin build time sırasında neleri yakaladığını karşılaştırır.
+
+- [Eksik çevirileri tespit etme](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/detecting_missing_translations.md)
 
 </Accordion>
 <Accordion header="İçerik UI etiketlerinden fazlasıdır">
@@ -372,6 +383,10 @@ Tüm diller bileşenin yanındaki tek bir dosyada. Type'lar build sırasında ü
 
 Halihazırda `vue-i18n` kullanıyor musunuz? [`@intlayer/vue-i18n` compat adaptörü](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/vue-i18n.md), paketi bundler düzeyinde alias'lar, böylece Intlayer içeriği sunarken `useI18n()`, `$t`, pipe çoğulları ve `v-t` çalışmaya devam eder. [Geçiş rehberi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_vue-i18n_to_intlayer.md) sonrasında adaptörden çıkışı kapsar ve bir de [Nuxt'a özel rehber](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_nuxtjs_i18n_to_intlayer.md) bulunmaktadır.
 
+- [`@intlayer/vue-i18n` compat adaptörü](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/vue-i18n.md)
+- [Geçiş rehberi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_vue-i18n_to_intlayer.md)
+- [Nuxt'a özel rehber](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_nuxtjs_i18n_to_intlayer.md)
+
 ## Karar vermeden önce
 
 Bir özellik tablosu size bir kütüphanenin bugün ne yaptığını söyler. Bu maddeler ise onunla yaşamanın nasıl bir şey olacağını anlatır.
@@ -394,6 +409,9 @@ En çok yüklenen kütüphane ilk çıkan kütüphanedir, 2026 Vue codebase'ine 
 
 Ajanlar i18n ile hâlâ zorlanıyor: dilleri unutuyorlar, key uyduruyorlar ve mesaj sözdizimlerini karıştırıyorlar. Kütüphane, ajanın içeriği listeleyebilmesi, doldurabilmesi ve test edebilmesi için [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/agent_skills.md) veya bir [MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/mcp_server.md) sunuyor mu? Ve içerik yükleme varsayılan olarak optimize edilmiş mi, yoksa birinin her çeyrekte namespace'leri ve lazy import'ları gözden geçirmesi mi gerekiyor?
 
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/agent_skills.md)
+- [MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/mcp_server.md)
+
 **Kutudan çıktığı gibi Type safety.**
 
 "Ekstra yapılandırmayla type eklenebilir" değil, "temiz bir kurulumda yanlış bir key `tsc`'yi patlatır". Var olmayan bir key ile ve bir çevirisi eksik olan bir dilde ne olduğunu kontrol edin.
@@ -405,6 +423,13 @@ Kataloglar yalnızca büyür. Intlayer'ın build işlemi kullanılmayan alanlar�
 **Developer experience (Geliştirici deneyimi).**
 
 İlk çevrilmiş string'e kadar kurulum süresi, hover sırasında çeviriyi gösteren ve tanımlamaya atlayan bir [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/lsp.md) veya [VS Code eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/vs_code_extension.md), doldurma, test etme ve push işlemleri için bir [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/index.md), bileşenlerinizdeki sabit kodlanmış dizeleri çıkaran ve böylece her dizeyi anahtar anahtar yönetmenizi gerektirmeyen bir [derleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md) veya çıkarıcı ve geliştirici olmayanların bir pull request olmadan içeriği düzenlemesinin bir yolu ([görsel editör](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) veya [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)).
+
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/lsp.md)
+- [VS Code eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/vs_code_extension.md)
+- [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/index.md)
+- [derleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md)
+- [görsel editör](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)
 
 ## Sıkça Sorulan Sorular
 
@@ -426,11 +451,15 @@ Routing yapınız sıra dışı değilse veya uygulamanız az sayıda sayfaya sa
 
 Yalnızca bundle boyutu, SSR payload'u, üretilen type'lar veya build time eksik key kontrolleri gerçek gereksinimler ise. [Compiler ve deklaratif i18n karşılaştırması](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/compiler_vs_declarative_i18n.md) yazısı, derleyicilerin size ne sağladığını ve nerelerde yanılabileceğini açıklar.
 
+- [Compiler ve deklaratif i18n karşılaştırması](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/compiler_vs_declarative_i18n.md)
+
 </Question>
 
 <Question title="Kütüphane seçimi SEO'yu etkiler mi?">
 
 Dolaylı olarak. Tarayıcı botları routing, `hreflang`, `<html lang>` ve metnin sunucu tarafından render edilen HTML içinde olup olmadığı ile ilgilenir. [hreflang rehberi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/hreflang_guide_multilingual_seo.md) içeriğine göz atın.
+
+- [hreflang rehberi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/hreflang_guide_multilingual_seo.md)
 
 </Question>
 

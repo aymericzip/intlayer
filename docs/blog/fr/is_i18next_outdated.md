@@ -92,6 +92,8 @@ style="border:none;"
 
 > Mesures effectuées sur un build de production avec 10 routes et 10 locales, compression gzip activée. Détails dans le [rapport de benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/benchmark/index.md).
 
+- [rapport de benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/benchmark/index.md)
+
 ### Poids initial des bibliothèques
 
 Poids de base avant l'ajout du moindre contenu traduit :
@@ -171,6 +173,9 @@ return <h1>{title}</h1>;
 
 Le [compilateur Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compiler.md) identifie ce que `Hero.tsx` utilise réellement et élimine les champs non référencés avant de produire les bundles clients. Consultez [l'optimisation de bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/bundle_optimization.md) pour en savoir plus.
 
+- [compilateur Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compiler.md)
+- [l'optimisation de bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/bundle_optimization.md)
+
 ## Expérience développeur
 
 ### Fichiers JSON distants ou co-localisation
@@ -237,6 +242,8 @@ Lorsque vous déplacez ou supprimez `Hero.tsx`, ses traductions suivent automati
 L'extension de `CustomTypeOptions` offre l'autocomplétion des clés, mais ne garantit pas la présence effective des textes. La suppression d'une clé dans `fr/home.json` ne bloque pas votre build, elle entraîne simplement un fallback au runtime.
 
 Intlayer déduit les types à partir des déclarations de contenu, et le [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md) convertit les traductions manquantes en erreurs strictes au build.
+
+- [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md)
 
 ### Comparatif d'outillage
 

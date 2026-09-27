@@ -90,6 +90,8 @@ style="border:none;"
 
 > Tested in real browser environments using production gzip compression. Details in the [Next.js benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/nextjs.md).
 
+- [Next.js benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/nextjs.md)
+
 ### Core Library Footprint
 
 Client footprint before adding any content:
@@ -138,6 +140,8 @@ The graph below estimates the payload for a theoretical app of 1 to 10 pages in 
 
 Intlayer solves this via static analysis: the [Intlayer compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compiler.md) bundles only the copy actually referenced on that route, driving other-page leakage to **0.0%**.
 
+- [Intlayer compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compiler.md)
+
 ## Why next-intl Cannot Be Tree-Shaken
 
 The API relies on dynamic runtime string calls:
@@ -176,6 +180,8 @@ export function UserProfile() {
 </Tabs>
 
 Turbopack and Webpack cannot verify which keys inside `UserProfile` are actually called at runtime. To prevent missing-key errors, **the bundler must include the entire namespace in the client chunk**. Intlayer's destructured properties allow the compiler to track references directly and strip unused fields during compilation. See [bundle optimization](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/bundle_optimization.md) for details.
+
+- [bundle optimization](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/bundle_optimization.md)
 
 ## Developer Experience
 
@@ -276,6 +282,8 @@ However, it only checks your canonical locale. If you delete a key from `fr.json
 
 Intlayer infers types from all content declarations. Enabling [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md) turns missing translations in any locale into hard compile errors.
 
+- [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)
+
 ### Tooling & AI Agent Workflows
 
 | Feature                        | `next-intl` | Intlayer                                                                                                         |
@@ -301,6 +309,8 @@ Automatically detects and translates missing keys via your own OpenAI, Anthropic
 **Self-hostable visual CMS:**
 
 Use the [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) to give non-technical contributors visual editing that commits back to Git.
+
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
 
 **Permissive open-source license:**
 

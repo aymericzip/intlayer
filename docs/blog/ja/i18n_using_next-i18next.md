@@ -43,7 +43,12 @@ author: aymericzip
 
 > 代替として、[next-intlガイド](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/i18n_using_next-intl.md)や、直接[Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_16.md)を参照することもできます。
 
+- [next-intlガイド](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/i18n_using_next-intl.md)
+- [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_16.md)
+
 > 比較は[ next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/next-i18next_vs_next-intl_vs_intlayer.md)をご覧ください。
+
+- [ next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/next-i18next_vs_next-intl_vs_intlayer.md)
 
 > これらのライブラリがどのように生まれたのかを知るには、JavaScript i18n の歴史をご覧ください。
 
@@ -52,6 +57,8 @@ author: aymericzip
 ## ベンチマークから見た Next.js での next-i18next
 
 セットアップに入る前に、i18n ライブラリがパフォーマンスと bundle に与える影響を理解しておくことが重要です。[i18n ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md)では、10 ページ・10 ロケールの同じ Next.js アプリケーションを主要な i18n ライブラリで実行し、実際の bundle サイズ、文字列の漏れ、ハイドレーションのオーバーヘッドを計測しています。
+
+- [i18n ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md)
 
 <I18nBenchmark framework="nextjs" packages="next-i18next,@intlayer/next-i18next,next-intlayer" vertical/>
 
@@ -77,6 +84,8 @@ Next.js における `next-i18next` の主要な数値（gzip）:
 - **runtime の重さ:** `i18next` のクライアント runtime は各ページで ~19.7 KB gzip あります。既存の codebase では、互換アダプター [`@intlayer/next-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/next-i18next.md) が同じ `i18next` API を保ったまま runtime を 9.4 KB に縮小し、漏れをなくします。ネイティブの [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/next-intlayer/exports.md) なら 5.5 KB まで下がります。
 
 > 全データはこちら: [Next.js ベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md)、および[ベンチマークリポジトリ](https://github.com/intlayer-org/benchmark-i18n)。
+
+- [Next.js ベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md)
 
 ## Next.js での機能比較
 
@@ -105,6 +114,9 @@ Next.js App Router プロジェクトで通常必要になる機能について�
 
 > runtime サイズは [Next.js ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md)によるものです。詳しい解説は [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/next-i18next_vs_next-intl_vs_intlayer.md) をご覧ください。
 
+- [Next.js ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md)
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/next-i18next_vs_next-intl_vs_intlayer.md)
+
 ## 実装前に守るべきプラクティス
 
 実装に入る前に、以下のプラクティスを守ってください：
@@ -131,6 +143,8 @@ Next.js App Router プロジェクトで通常必要になる機能について�
   テストと翻訳の自動化は、多言語アプリケーションのメンテナンスにかかる時間を削減するのに役立ちます。
 
 > 国際化とSEOに関して知っておくべきすべてをまとめたドキュメントはこちらをご覧ください: [next-intlによる国際化 (i18n)](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/internationalization_and_SEO.md)。
+
+- [next-intlによる国際化 (i18n)](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/internationalization_and_SEO.md)
 
 ## Next.jsアプリケーションでi18nextをセットアップするステップバイステップガイド
 
@@ -1184,6 +1198,8 @@ Intlayerが可能にすること：
   Intlayerは無料のビジュアルエディターを提供しており、視覚的にコンテンツを編集できます。詳細は[翻訳のビジュアル編集](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)をご覧ください。
 
 その他にも多数の機能があります。Intlayerが提供するすべての機能については、[Intlayerの利点に関するドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)をご参照ください。
+
+- [Intlayerの利点に関するドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)
 
 詳細なパフォーマンスベンチマークと比較については、以下を参照してください:
 

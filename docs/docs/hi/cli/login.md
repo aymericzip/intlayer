@@ -134,14 +134,14 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> **`clientSecret` एक server-side credential है।** यह पूर्ण project-scoped API access देता है — आपकी dictionaries, आपके project और आपके organization को पढ़ने और लिखने के लिए। इसे `.env` (git-ignored) में या अपने CI secret store में रखें, और कभी भी इसे configuration file में inline न करें।
+> **`clientSecret` एक server-side credential है।** यह पूर्ण project-scoped API access देता है, आपकी dictionaries, आपके project और आपके organization को पढ़ने और लिखने के लिए। इसे `.env` (git-ignored) में या अपने CI secret store में रखें, और कभी भी इसे configuration file में inline न करें।
 
 Intlayer इसे केवल दस्तावेज़ित करने के बजाय लागू करता है:
 
 - `clientSecret` को **अपने bundler द्वारा inlined किए जाने वाले configuration से हटा दिया जाता है**, इसलिए यह कोई भी framework integration चाहे जो भी हो, browser bundle तक नहीं पहुंच सकता। यह केवल server-side, runtime में, environment से पढ़ा जाता है।
 - `clientId` अलग है: यह **public** project key है, ship करने के लिए सुरक्षित है, और [`@intlayer/analytics`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/analytics.md#how-events-are-authenticated) द्वारा एक short-lived, ingest-only token प्राप्त करने के लिए उपयोग किया जाता है।
 
-`clientId` को comment out करना हर प्रमाणित behavior को disable करने के लिए पर्याप्त है — remote dictionary fetching, CMS access, analytics — भले ही environment variables अभी भी परिभाषित हों।
+`clientId` को comment out करना हर प्रमाणित behavior को disable करने के लिए पर्याप्त है (remote dictionary fetching, CMS access, analytics) भले ही environment variables अभी भी परिभाषित हों।
 
 CI pipelines के लिए, `--ci` फ़्लैग को प्राथमिकता दें, जो एकल run की अवधि के लिए credentials को inject करता है उन्हें persist करने के बजाय।
 

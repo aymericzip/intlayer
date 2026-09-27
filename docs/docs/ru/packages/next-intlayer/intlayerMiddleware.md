@@ -73,3 +73,5 @@ Middleware выполняет следующие задачи:
 ## Конфигурация
 
 Чтобы настроить middleware, вы можете задать опцию `routing` в файле `intlayer.config.ts`. См. [конфигурацию](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md) для более подробной информации.
+
+- [конфигурацию](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md)

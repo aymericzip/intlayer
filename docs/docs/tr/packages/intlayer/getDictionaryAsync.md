@@ -36,7 +36,12 @@ author: aymericzip
 
 `.intlayer/dynamic_dictionaries/` içinde yayınlanan yerel ayara özgü loader haritaları için [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getDictionary.md) işlevinin karşılığıdır: her yerel ayarı içeren bir sözlük almak yerine, loader haritasını alır ve istenen yerel ayarın ihtiyaç duyduğu parçayı bekler.
 
+- [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getDictionary.md)
+
 > Uygulama kodunda normalde bu işlevi değil, [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getIntlayerAsync.md) işlevini çağırırsınız. [Build eklentileri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md), her `getIntlayerAsync('key', locale)` çağrısını `getDictionaryAsync(loaderMap, 'key', locale)` çağrısına dönüştürür. `getDictionaryAsync` özel loaderlar ve kendi loader haritalarını oluşturan tooling için dışa aktarılır.
+
+- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getIntlayerAsync.md)
+- [Build eklentileri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md)
 
 **Temel Özellikler:**
 
@@ -71,7 +76,7 @@ getDictionaryAsync(
 - `localeOrSelector: LocalesValues | DictionarySelector`
   - **Description**: İçeriği yorumlamak için kullanılacak locale, veya bir seçici nesnesi (`{ item }`, `{ variant }`, isteğe bağlı olarak `locale` ile). Bkz. [dynamic dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dynamic_dictionaries/index.md).
   - **Type**: `LocalesValues | DictionarySelector`
-  - **Required**: No (Optional) — yapılandırılan `defaultLocale` değerine varsayılan olarak ayarlanır.
+  - **Required**: No (Optional), yapılandırılan `defaultLocale` değerine varsayılan olarak ayarlanır.
 
 - `plugins: Plugins[]`
   - **Description**: Node transformers. Temel interpreter setine varsayılan olarak ayarlanır.
@@ -80,7 +85,7 @@ getDictionaryAsync(
 
 ### Döndürülen Değerler
 
-- **Type**: `Promise<Content>` — yüklenen chunk'ın yorumlanmış içeriğine çözümlenen bir promise.
+- **Type**: `Promise<Content>`, yüklenen chunk'ın yorumlanmış içeriğine çözümlenen bir promise.
 - **Description**: İstenen locale için ne harita ne de herhangi bir fallback'i çıkardığında `null` değerine çözümlenir, eksik nitelendirilmiş koordinatın nasıl çözümlendiğini yansıtır.
 
 ## Örnek Kullanım

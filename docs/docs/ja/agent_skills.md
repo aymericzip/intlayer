@@ -100,7 +100,7 @@ npx skills add aymericzip/intlayer-skills
 
 - Svelte ステアとイディオマティックな構文を使用して、Svelte および SvelteKit アプリ全体でリアクティブかつ型安全なローカライズコンテンツを扱う方法をエージェントに教えます。
 
-**intlayer-cms**
+**intlayer-remote-content**
 
 - リモートコンテンツの統合と管理を可能にし、Intlayer CMS を介したライブ同期やリモート翻訳ワークフローをエージェントが処理できるようにします。
 
@@ -115,3 +115,31 @@ npx skills add aymericzip/intlayer-skills
 **intlayer-compiler**
 
 - 自動コンテンツ抽出を可能にすることでエージェントのワークフローを簡素化し、手動で辞書ファイルを作成することなく、コード内に翻訳可能な文字列を直接記述できるようにします。
+
+**intlayer-lit**
+
+- `useIntlayer` および `useLocale` の ReactiveController を使って Lit の Web コンポーネントを翻訳する方法をエージェントに教えます。
+
+**intlayer-vanilla**
+
+- `vanilla-intlayer` を使い、バンドラーの有無にかかわらず、素の JavaScript / TypeScript ページをローカライズできるようにします。
+
+**intlayer-remix**
+
+- Remix 3 のルーターミドルウェアと、リクエストスコープの `useIntlayer` / `useLocale` フックをエージェントに提供します。
+
+**intlayer-backend**
+
+- 共通のミドルウェア + `t` / `getIntlayer` パターンにより、Express、Fastify、Hono、NestJS、AdonisJS、Elysia でサーバーレスポンスを翻訳できるようにします。
+
+**intlayer-dev-tools**
+
+- コードの周辺に Intlayer のツールをセットアップできるようにします：ハードコードされた文字列を検出する ESLint ルール、Language Server、VS Code および Chrome 拡張機能、MCP サーバー、CI/CD での翻訳チェック。
+
+**intlayer-markdown**
+
+- Markdown コンテンツ（`md()`、`.content.md` ファイル、外部ファイル）を宣言し、MDX コンポーネント、グローバルな `MarkdownProvider`、Suspense、サーバーサイドパースでレンダリングする方法をエージェントに教えます。
+
+**intlayer-compat**
+
+- 元の API を維持する互換アダプターを使い、i18next、react-i18next、next-intl、next-i18next、react-intl、vue-i18n、Lingui からの移行をエージェントに案内します。翻訳呼び出しを書き換える必要はありません。

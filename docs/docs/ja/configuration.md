@@ -724,7 +724,9 @@ export default config;
 
 Intlayerアナリティクスに関する設定を定義します。ユーザーに実際に表示されたコンテンツ（ページビュー、コンテンツの露出）を収集し、コンテンツのA/Bテストを可能にします。
 
-アナリティクスはオプトアウト方式です。デフォルトで有効であり、`@intlayer/analytics` パッケージがインストールされ、**かつ** 帰属のためのプロジェクトキー（`editor.clientId`）が設定されるとすぐに収集を開始します。`analytics.enabled` を `false` にする（またはパッケージをインストールしない）と、アナリティクスの統合全体がアプリケーションのバンドルから削除されます（デッドコード除去）。
+アナリティクスはオプトアウト方式です。デフォルトで有効であり、[`@intlayer/analytics`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/analytics.md) パッケージがインストールされ、**かつ** 帰属のためのプロジェクトキー（`editor.clientId`）が設定されるとすぐに収集を開始します。`analytics.enabled` を `false` にする（またはパッケージをインストールしない）と、アナリティクスの統合全体がアプリケーションのバンドルから削除されます（デッドコード除去）。
+
+- [`@intlayer/analytics`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/analytics.md)
 
 | フィールド      | 説明                                                                              | 型        | デフォルト | 例      | 備考                                                                                                                                                                              |
 | --------------- | --------------------------------------------------------------------------------- | --------- | ---------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -970,7 +972,9 @@ Intlayerの内部パスと出力結果に関連する設定。これらの設定
 1. **デフォルト値**: コンテンツ宣言ファイルを作成する際にデフォルト値を定義する
 2. **フォールバック動作**: 特定のフィールドが定義されていない場合にフォールバック値を提供し、辞書操作の動作をグローバルに定義できるようにする
 
-自動入力動作やコンテンツ生成など、辞書操作を制御するパラメータ。
+コンテンツ宣言ファイルと設定値の適用方法の詳細については、[コンテンツファイルのドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)を参照してください。
+
+- [コンテンツファイルのドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)
 
 | フィールド                  | 説明                                                                                                                                          | 型                                                                                                              | デフォルト   | 例                                                                                          | 備考                                                                                                                                                                                                                                                                                                                                                                                                      |
 | --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | ------------ | ------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -1108,22 +1112,38 @@ Intlayer がアプリケーションの国際化をどのように最適化お�
 
 名前空間ベースのセットアップよりもはるかに少ないです。なぜなら、ページはレンダリングしないカタログをダウンロードすることがないからです。サーバーでレンダリングされたマークアップはサーバー上でコンテンツを解決し、ビルド時コンパイラは `useIntlayer` の呼び出しをコンポーネントが使用する正確な辞書エントリに置き換えるため、未使用のキーや未使用の言語は削除されます。[動的辞書](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/index.md)は残りをロケールごとに分割します。一般的な代替案と比較して、Intlayer は `bundle` およびページサイズを最大 50% 削減します。[bundle optimization](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md) および [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/index.md) を参照してください。
 
+- [動的辞書](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/index.md)
+- [bundle optimization](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)
+- [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/index.md)
+
 </Question>
 <Question title="コンポーネントを書き直さずに `i18next`、`next-intl`、または `react-i18next` から移行できますか？">
 
 はい、2つの方法があります。[i18next 移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_i18next_to_intlayer.md)または [next-intl 移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_next-intl_to_intlayer.md)を使用して、コンテンツを段階的に移行できます。または、現在の API を完全に維持することも可能です。[compat adapters](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/index.md)は、`i18next`、`react-i18next`、`next-intl`、`next-i18next`、`react-intl`、`use-intl`、`vue-i18n`、および `Lingui` とまったく同じ API を公開しますが、Intlayer の辞書によって提供されるため、インポートは変更されますが、コンポーネントのコードは変更されません。
+
+- [i18next 移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_i18next_to_intlayer.md)
+- [next-intl 移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_next-intl_to_intlayer.md)
+- [compat adapters](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/index.md)
 
 </Question>
 <Question title="既存の JSON 翻訳ファイルを保持できますか？">
 
 はい。[sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md)は、`/messages/{locale}/{namespace}.json` ファイルを信頼できる情報源として保持し、それらから Intlayer 辞書を双方向に生成します。[sync PO plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-po.md)は gettext カタログに対しても同様の処理を行い、[per locale files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/per_locale_file.md)を使用すると、ロケールを1つのファイルにまとめるのではなく、言語ごとにコンテンツを分割できます。
 
+- [sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md)
+- [sync PO plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-po.md)
+- [per locale files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/per_locale_file.md)
+
 </Question>
 <Question title="コンテンツをキーごとに移動する必要がありますか？">
 
 いいえ。`npx intlayer extract` を実行すると、Intlayer はソースファイルを読み取り、ユーザー向けの文字列を抽出し、それぞれの隣に `.content` ファイルを書き込みます。これにより、一度に1つずつ文字列をカタログにコピーする代わりに、差分を確認できます。[extract command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md) を参照してください。
 
+- [extract command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md)
+
 完全に自動化されたパイプラインの場合、[Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md) はビルド時に JSX、TSX、Vue、Svelte のソースに対して同様の処理を行い、変更があるたびに辞書を生成するため、手動でキーを管理する必要がありません。これは静的解析によって機能するため、実行時にのみ存在する文字列は対象外となり、ユーザー向けのテキストとアプリケーションロジックを区別するためにいくつかの注釈が必要です。
+
+- [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)
 
 </Question>
 <Question title="利用可能なエディタおよび AI エージェントツールは何ですか？">
@@ -1166,10 +1186,15 @@ Intlayer がアプリケーションの国際化をどのように最適化お�
 
 デフォルトの `"static"` は、辞書を静的にインポートするため、`bundle` され同期的に読み込まれます。`"dynamic"` は `Suspense` を介してインポートするため、ロケールはコンポーネントがレンダリングするときにのみダウンロードされます。これは大規模なコンテンツセットに適しています。`"fetch"` はライブ同期 API から辞書を取得し、失敗した場合は `"dynamic"` にフォールバックします。[bundle optimization](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md) および [dynamic dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/index.md) を参照してください。
 
+- [bundle optimization](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)
+- [dynamic dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/index.md)
+
 </Question>
 <Question title="自動翻訳のための AI プロバイダーと API キーはどこで設定しますか？">
 
 設定ファイル、またはコマンドラインで `--provider`、`--model`、`--api-key` を使用して設定します。キーはあなたのものです。翻訳呼び出しは、あなたのマシンまたは CI ランナーから選択したプロバイダーに直接送信されるため、第三者を介してルーティングされることはありません。[fill command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/fill.md) を参照してください。
+
+- [fill command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/fill.md)
 
 </Question>
 <Question title="設定を変更した後、開発サーバーを再起動する必要がありますか？">

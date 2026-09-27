@@ -25,6 +25,8 @@ author: aymericzip
 
 `Paraglide` は極めて軽量な i18n ソリューションとして知られており、一見すると [ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md) でもそれが裏付けられているように見えます。ライブラリサイズはほぼゼロです。しかし、ライブラリサイズがゼロであることは、配信されるバイト数がゼロであることを意味しません。その指標がカウントしていない別の場所にバイトが隠れているに過ぎません。
 
+- [ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md)
+
 <TOC/>
 
 ## 主なポイント
@@ -95,6 +97,9 @@ Next.js 16 App Router、同一アプリケーション：
 <I18nBenchmark framework="tanstack" packages="paraglide,intlayer" vertical/>
 
 > 詳細なデータは [TanStack Start ベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md) および [Next.js ベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md) を参照してください。すべてのバンドルは [ベンチマークリポジトリ](https://github.com/intlayer-org/benchmark-i18n) で確認できます。
+
+- [TanStack Start ベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md)
+- [Next.js ベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md)
 
 2 つの重要な事実が浮き彫りになります：
 
@@ -201,6 +206,8 @@ Paraglide の最大のセールスポイントは、各メッセージが独立�
 
 しかし、他の環境ではそうではありませんでした。[Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md) の計測では、Paraglide のページはベースアプリより 14 KB 増加したのに対し、`next-intlayer` の増加は 0.3 KB にとどまりました。TanStack Start の初期計測でも、他のページのメッセージがルートバンドルに混入していることが確認されました。
 
+- [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md)
+
 Tree Shaking の成否は、バンドラー（Turbopack、Rolldown、Rollup）、メッセージのインポート方法（`import { m }` vs `import * as m`）、および副作用（Side Effects）の解析精度に左右されます。サイズを理由に Paraglide を採用する場合は、バンドルアナライザーを開いて、ご自身のアプリで正しく動作しているか確認してください。
 
 ## 動的読み込み（Dynamic Loading）の欠如
@@ -240,6 +247,8 @@ export default config;
 | `fetch`      | 現在のロケールのみ、Live Sync API から取得 | N 言語の場合、**N 分の 1 に軽量化** |
 
 [ビルド変換](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md) と `importMode: 'static'` を組み合わせることで、Intlayer は理論上 Paraglide とまったく同じ容量を配信します。`'dynamic'` または `'fetch'` を使用すれば、現在のロケールに必要なものだけを読み込むため、N 言語対応のアプリでは翻訳ペイロードが Paraglide と比較して N 分の 1 に削減されます。
+
+- [ビルド変換](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)
 
 ## Paraglide が適しているユースケース
 

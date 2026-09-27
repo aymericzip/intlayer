@@ -24,7 +24,7 @@ history:
     changes: "`@intlayer/analytics` kuruluyken analitiği varsayılan olarak etkinleştir"
   - version: 9.0.0
     date: 2026-07-08
-    changes: "Init doc — @intlayer/analytics paketi, provider/node düzeyinde izleme, A/B testi, gösterge paneli"
+    changes: "Init doc, @intlayer/analytics paketi, provider/node düzeyinde izleme, A/B testi, gösterge paneli"
 author: aymericzip
 ---
 
@@ -40,22 +40,24 @@ author: aymericzip
 
 `@intlayer/analytics` üç tür anonim olayı toplu olarak işler (batch):
 
-| Olay               | Nerede yakalanır                             | Size ne anlatır                                                                                                                             |
-| ------------------ | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| `page_view`        | Sağlayıcı düzeyinde (`IntlayerProvider`)     | Bir oturumun (session) ilk yüklemede, rota değişikliğinde veya yerel ayar değişiminde hangi sayfayı ve yereli görüntülediği.                |
-| `content_exposure` | Düğüm düzeyinde (`useIntlayer` / eklentiler) | Hangi sözlük anahtarının / anahtar yolunun gerçekten çözümlenip görüntülendiği — ve, bir deneyin parçasıysa, hangi **varyantın (variant)**. |
-| `conversion`       | `useConversion()` çağırdığınız her yerde     | Oturumun maruz kaldığı A/B varyantına atfedilen (attributed) bir ulaşılan hedef (kayıt, tıklama, satın alma...).                            |
+| Olay               | Nerede yakalanır                             | Size ne anlatır                                                                                                                            |
+| ------------------ | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| `page_view`        | Sağlayıcı düzeyinde (`IntlayerProvider`)     | Bir oturumun (session) ilk yüklemede, rota değişikliğinde veya yerel ayar değişiminde hangi sayfayı ve yereli görüntülediği.               |
+| `content_exposure` | Düğüm düzeyinde (`useIntlayer` / eklentiler) | Hangi sözlük anahtarının / anahtar yolunun gerçekten çözümlenip görüntülendiği, ve, bir deneyin parçasıysa, hangi **varyantın (variant)**. |
+| `conversion`       | `useConversion()` çağırdığınız her yerde     | Oturumun maruz kaldığı A/B varyantına atfedilen (attributed) bir ulaşılan hedef (kayıt, tıklama, satın alma...).                           |
 
-Olaylar bellekte toplanır ve **yaklaşık her 20 saniyede bir tek bir toplu istek (batch request)** olarak gönderilir — asla her tuş vuruşunda veya oluşturmada (render) değil — bu nedenle analitik, ilk oluşturma süresini asla etkilemez veya her etkileşim başına bir istek eklemez.
+Olaylar bellekte toplanır ve **yaklaşık her 20 saniyede bir tek bir toplu istek (batch request)** olarak gönderilir, asla her tuş vuruşunda veya oluşturmada (render) değil, bu nedenle analitik, ilk oluşturma süresini asla etkilemez veya her etkileşim başına bir istek eklemez.
 
 ## İçerikte A/B Testini Nasıl Destekler
 
 Intlayer zaten içerik [Varyantları (Variants)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dynamic_dictionaries/index.md) (örneğin bir `control` ve bir `black_friday` varyantına sahip bir `hero-banner` sözlüğü) bildirmenize izin verir. `@intlayer/analytics` bu döngüyü tamamlar:
 
-1. `getVariant(experimentKey, variants)` her anonim oturumu deterministik olarak bir varyanta atar — oturum kimliğinin ve deney anahtarının (experiment key) saf bir işlevidir (pure function), bu nedenle atama **tüm oturum boyunca kararlıdır** ve ilk oluşturmadan önce **sunucu gidiş-dönüşü (server round-trip) gerektirmez** (titreme yok, düzen kayması (layout shift) yok).
+1. `getVariant(experimentKey, variants)` her anonim oturumu deterministik olarak bir varyanta atar, oturum kimliğinin ve deney anahtarının (experiment key) saf bir işlevidir (pure function), bu nedenle atama **tüm oturum boyunca kararlıdır** ve ilk oluşturmadan önce **sunucu gidiş-dönüşü (server round-trip) gerektirmez** (titreme yok, düzen kayması (layout shift) yok).
 2. Her `content_exposure` olayı gösterilen `variant` bilgisini taşır.
 3. `useConversion()`, bir hedefi (örneğin `"cta_click"`) o varyanta atfetmenize (attribute) olanak tanır.
 4. Gösterge panelindeki deney sonuçları (experiment results) uç noktası, istatistiksel anlamlılık (z-testi) dahil olmak üzere varyant başına dönüşüm oranlarını (conversion rates) karşılaştırır.
+
+- [Varyantları (Variants)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dynamic_dictionaries/index.md)
 
 ## Kurulum
 
@@ -77,7 +79,7 @@ pnpm add @intlayer/analytics
 bun add @intlayer/analytics
 ```
 
-Analitiği açmak için paketi kurmanız yeterlidir: `analytics.enabled` varsayılan olarak `true`'dur ve paket projenizde bulunamadığında `@intlayer/config` bunu `false` olarak çözümler. Kurmazsanız, her entegrasyon noktası etkisiz bir işlem (no-op) olarak çözülür — aşağıdaki [Kurulmadığında sıfır maliyet](#kurulmadiginda-sifir-maliyet) bölümüne bakın.
+Analitiği açmak için paketi kurmanız yeterlidir: `analytics.enabled` varsayılan olarak `true`'dur ve paket projenizde bulunamadığında `@intlayer/config` bunu `false` olarak çözümler. Kurmazsanız, her entegrasyon noktası etkisiz bir işlem (no-op) olarak çözülür, aşağıdaki [Kurulmadığında sıfır maliyet](#kurulmadiginda-sifir-maliyet) bölümüne bakın.
 
 ## Yapılandırma
 
@@ -97,8 +99,8 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-- `editor.backendURL` — analitik olaylarının gönderildiği temel URL (`POST {backendURL}/api/analytics/events`).
-- `editor.clientId` — yutulan her olaya atfedilen genel proje anahtarı. Aynı zamanda bir **etkinleştirme anahtarı (enable switch)** işlevi görür: `clientId` yapılandırılana kadar analizler tamamen devre dışı bırakılır (ve ölü kod olarak atılır (tree-shaken), aşağıya bakın).
+- `editor.backendURL`: analitik olaylarının gönderildiği temel URL (`POST {backendURL}/api/analytics/events`).
+- `editor.clientId`: yutulan her olaya atfedilen genel proje anahtarı. Aynı zamanda bir **etkinleştirme anahtarı (enable switch)** işlevi görür: `clientId` yapılandırılana kadar analizler tamamen devre dışı bırakılır (ve ölü kod olarak atılır (tree-shaken), aşağıya bakın).
 
 Intlayer'ı kendi başınıza barındırıyorsanız (self-host), analiz otomatik olarak `editor.backendURL`'yi paylaştığı için kendi örneğinize (instance) işaret eder.
 
@@ -119,14 +121,14 @@ Kendisini `editor.clientId` üzerinden doğrular; değişim, önbelleğe alma ve
 
 ### Devre dışı bırakma
 
-İsteğe bağlı `analytics` bloğu veri toplamayı ayarlar — ya da tamamen kapatır:
+İsteğe bağlı `analytics` bloğu veri toplamayı ayarlar, ya da tamamen kapatır:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
   analytics: {
-    enabled: false, // Varsayılan: true — tüm entegrasyonu paketin dışında bırakır
+    enabled: false, // Varsayılan: true, tüm entegrasyonu paketin dışında bırakır
     flushInterval: 20_000, // İki toplu gönderim arasındaki milisaniye
     sampleRate: 1, // Kaydedilecek oturum oranı, 0 (hiçbiri) ile 1 (tümü) arasında
   },
@@ -270,7 +272,7 @@ Giriş noktası her framework'te farklıdır, ancak her durumda Intlayer'ı zate
 
 ### Otomatik düğüm (node) düzeyinde izleme
 
-`useIntlayer` görüntüleme için bir içerik parçasını her çözümlediğinde, yorumlayıcı (interpreter) o tam `dictionaryKey` + anahtar yolu (key path) + yerel ayar (locale) için bir `content_exposure` olayı bildirir — yine, hiçbir kod değişikliği gerekmez. Aynı düğümün bir boşaltma penceresi (flush window) içindeki tekrarlanan gösterimleri bir `count` (sayım) ile tek bir olayda birleştirilir (coalesced), bu nedenle 50 kez yeniden oluşturulan (re-render) bir liste 50 olay göndermez.
+`useIntlayer` görüntüleme için bir içerik parçasını her çözümlediğinde, yorumlayıcı (interpreter) o tam `dictionaryKey` + anahtar yolu (key path) + yerel ayar (locale) için bir `content_exposure` olayı bildirir, yine, hiçbir kod değişikliği gerekmez. Aynı düğümün bir boşaltma penceresi (flush window) içindeki tekrarlanan gösterimleri bir `count` (sayım) ile tek bir olayda birleştirilir (coalesced), bu nedenle 50 kez yeniden oluşturulan (re-render) bir liste 50 olay göndermez.
 
 ### A/B testleri için dönüşümleri izleme
 
@@ -614,7 +616,7 @@ Bir oturumun (session) gördüğü varyanta bir hedef atfetmek için `useConvers
   </Tab>
 </Tabs>
 
-Ağırlıklar isteğe bağlıdır — bölünmeyi eğmek için varyant başına bir tane geçirin, örneğin `useExperiment("homepage-hero", ["default", "black_friday"], [9, 1])`.
+Ağırlıklar isteğe bağlıdır, bölünmeyi eğmek için varyant başına bir tane geçirin, örneğin `useExperiment("homepage-hero", ["default", "black_friday"], [9, 1])`.
 
 Alt bileşen daha sonra eşleşen sözlüğün [Variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dynamic_dictionaries/variants.md)'ını okur:
 
@@ -633,9 +635,13 @@ export const HeroBanner = ({ variant }: { variant: string }) => {
 };
 ```
 
+- [Variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dynamic_dictionaries/variants.md)
+
 > Varyantı bir **alt bileşende** okumak, bunun React dışında da çalışmasını sağlayan şeydir: Vue, Svelte, Solid ve Angular'da, `useIntlayer`'a geçirilen seçici (selector), bileşen kurulduğunda yakalanır, bu nedenle okuma işlemi yalnızca varyant bilindikten sonra bağlanan bir bileşende gerçekleşmelidir.
 
-Deney tek bir sözlük yerine tüm bir sayfayı kapsıyorsa, varyantı bunun yerine sağlayıcıya taşıyın — bkz. [Ambient variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dynamic_dictionaries/variants.md#ambient-variant). Aşağıdaki her `useIntlayer`, çağrı noktasında herhangi bir değişiklik yapılmadan buna göre çözümlenir.
+Deney tek bir sözlük yerine tüm bir sayfayı kapsıyorsa, varyantı bunun yerine sağlayıcıya taşıyın, bkz. [Ambient variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dynamic_dictionaries/variants.md#ambient-variant). Aşağıdaki her `useIntlayer`, çağrı noktasında herhangi bir değişiklik yapılmadan buna göre çözümlenir.
+
+- [Ambient variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dynamic_dictionaries/variants.md#ambient-variant)
 
 Bir bileşenin dışında ham atamaya ihtiyacınız varsa, doğrudan istemciye başvurun:
 
@@ -653,17 +659,17 @@ const variant = client?.getVariant("homepage-hero", [
 
 ## Gizlilik ve Performans
 
-- **Tasarım gereği anonim**: Oturumlar dönen (rotating) bir id ile tanımlanır; arka uç (backend) yalnızca o kimliğin bir **SHA-256 karmasını (hash)** saklar — asla ham id'yi ve asla bir IP adresini saklamaz.
-- **Konum kabadır (coarse)**: Yalnızca CDN coğrafi konum başlıklarından (geolocation headers) (`cf-ipcountry`, `x-vercel-ip-country`, ...) elde edilen bir ülke kodu — hiçbir IP okunmaz veya saklanmaz.
+- **Tasarım gereği anonim**: Oturumlar dönen (rotating) bir id ile tanımlanır; arka uç (backend) yalnızca o kimliğin bir **SHA-256 karmasını (hash)** saklar, asla ham id'yi ve asla bir IP adresini saklamaz.
+- **Konum kabadır (coarse)**: Yalnızca CDN coğrafi konum başlıklarından (geolocation headers) (`cf-ipcountry`, `x-vercel-ip-country`, ...) elde edilen bir ülke kodu, hiçbir IP okunmaz veya saklanmaz.
 - **URL'ler arama parametrelerini varsayılan olarak hariç tutar**, bu nedenle sorgu dizeleri (query strings) asla yakalanmaz.
 - **Örnekleme (Sampling)**: `sampleRate`, trafiği yüksek uygulamalarda içerik gösterimi olaylarının yalnızca bir kısmını saklamanıza olanak tanır.
-- **Toplu İşleme (Batched)**: Yaklaşık her 20 saniyede bir istek (`flushInterval`) veya arabellek (buffer) dolarsa daha erken (`maxBufferSize`) — hiçbir zaman olay başına bir istek değil.
+- **Toplu İşleme (Batched)**: Yaklaşık her 20 saniyede bir istek (`flushInterval`) veya arabellek (buffer) dolarsa daha erken (`maxBufferSize`), hiçbir zaman olay başına bir istek değil.
 
 ### Kurulmadığında sıfır maliyet (Zero-cost when not installed)
 
 `@intlayer/analytics`, `@intlayer/editor` ile tamamen aynı isteğe bağlı bağımlılık desenini izler:
 
-- Her entegrasyon noktası, paketi **`try/catch` içine sarılmış dinamik bir `import()`** aracılığıyla yükler — `@intlayer/analytics`'i hiç kurmayan bir uygulama hiçbir zaman paket boyutu veya çalışma zamanı (runtime) maliyeti ödemez ve hiçbir zaman bir hata görmez;
+- Her entegrasyon noktası, paketi **`try/catch` içine sarılmış dinamik bir `import()`** aracılığıyla yükler, `@intlayer/analytics`'i hiç kurmayan bir uygulama hiçbir zaman paket boyutu veya çalışma zamanı (runtime) maliyeti ödemez ve hiçbir zaman bir hata görmez;
 - derleme zamanı ortam değişkeni (`INTLAYER_ANALYTICS_ENABLED`), paket kurulu değilse, `analytics.enabled` `false` ise ya da `editor.clientId` yapılandırılmamışsa `@intlayer/config` tarafından otomatik olarak `'false'` yapılır ve paketleyicilerin tüm entegrasyonu **ölü kod olarak kaldırmasını (dead-code-eliminate)** sağlar;
 - Analytics, Intlayer düzenleyicisi (editor)/CMS önizleme (preview) iframe'i içinde devre dışı bırakılır, böylece düzenleyici oturumları (editor sessions) hiçbir zaman gerçek trafik olarak sayılmaz.
 
@@ -671,7 +677,7 @@ const variant = client?.getVariant("homepage-hero", [
 
 Projeniz olayları topladıktan sonra, [Intlayer gösterge paneli (dashboard)](https://app.intlayer.org/analytics) içindeki **Analytics** sayfası (bir proje seçildikten sonra kenar çubuğunda (sidebar) görünür) şunları gösterir:
 
-- **Aktif kullanıcılar** — seçilen hareketli penceredeki (7 / 30 / 90 gün) benzersiz (distinct) ziyaretçiler.
+- **Aktif kullanıcılar**: seçilen hareketli penceredeki (7 / 30 / 90 gün) benzersiz (distinct) ziyaretçiler.
 - **Bugünkü kullanıcılar** ve **son 7 gündeki kullanıcılar**.
 - Seçili pencere boyunca **Sayfa görüntülemeleri (Page views)**.
 - Günlük tekil ziyaretçilerin bir **gelişim grafiği (evolution graph)**.
@@ -699,6 +705,8 @@ const cms = createIntlayerCMS();
 
 const { data: audience } = await analyticsEndpoint(cms).getAudience(30);
 ```
+
+- [CMS SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)
 
 > **Yalnızca sunucu tarafında.** `createIntlayerCMS()`, `clientId` + `clientSecret` ile kimlik doğrular ve gizli bilgi (secret) hiçbir zaman tarayıcıda kullanılamaz: bu kod parçacığı orada çalışırsa, kimliği doğrulanmamış istekler gönderirdi. Bunu bir route handler, server action veya betikte (script) tutun.
 

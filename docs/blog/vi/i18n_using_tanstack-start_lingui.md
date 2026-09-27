@@ -64,6 +64,8 @@ TanStack Start không đi kèm sẵn một tầng i18n, do đó hướng dẫn n
 
 Bài [benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md) chạy cùng một ứng dụng TanStack Start 10 trang, 10 ngôn ngữ với mọi thư viện phổ biến và đo lường những gì trình duyệt thực sự tải xuống.
 
+- [benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md)
+
 <I18nBenchmark framework="tanstack" packages="lingui,@intlayer/lingui,intlayer" vertical/>
 
 Các số liệu chính cho `@lingui/core@6.6.0`, đo vào ngày 2026-09-26 (gzip):
@@ -81,6 +83,8 @@ Những điểm cốt lõi cần lưu ý:
 - **Runtime vẫn tương đối nặng** (~57 KB gzip). Adapter tương thích `@intlayer/lingui` (bước 16) giữ nguyên các macro của bạn và giảm kích thước xuống còn ~10 KB.
 
 > Xem toàn bộ dữ liệu tại: [Báo cáo benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md), và [kho lưu trữ benchmark](https://github.com/intlayer-org/benchmark-i18n).
+
+- [Báo cáo benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md)
 
 ## So sánh tính năng trên TanStack Start
 
@@ -105,6 +109,8 @@ Cách Lingui so sánh với các thư viện khác thường dùng trên TanStac
 | **Bản dịch thiếu trong CI**                    | ✅ `npx intlayer test`               | ⚠️ Không tích hợp sẵn    | ⚠️ Không tích hợp sẵn                | ✅ `lingui compile --strict`     |
 
 > Các số liệu về kích thước runtime và rò rỉ đến từ [benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md). Rò rỉ được đo trên cấu hình tối ưu nhất của từng thư viện.
+
+- [benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md)
 
 > Các hướng dẫn khác cho TanStack Start:
 
@@ -934,6 +940,8 @@ export const Route = createFileRoute("/{-$locale}/$")({
 
 Adapter tương thích [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/lingui.md) giữ nguyên mã nguồn của bạn: các macro vẫn được biên dịch chính xác như trước, và các lời gọi `i18n._()`, `useLingui()` cùng `<Trans>` được phục vụ bởi các dictionary Intlayer đã biên dịch. Trong bài benchmark, kích thước runtime giảm từ **~56.7 KB xuống còn ~9.8 KB** gzip.
 
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/lingui.md)
+
 ```bash packageManager="npm"
 npm install @intlayer/lingui intlayer @intlayer/sync-json-plugin
 npx intlayer init
@@ -976,6 +984,11 @@ export default defineConfig({
 
 Các catalog được đồng bộ hóa với [plugin sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/plugins/sync-json.md) (cho catalog JSON) hoặc [plugin sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/plugins/sync-po.md) (cho catalog PO). Xem toàn bộ cấu hình trong [hướng dẫn tương thích Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/lingui.md), và xem so sánh chi tiết trong bài viết [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/lingui_vs_intlayer-lingui.md).
 
+- [plugin sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/plugins/sync-json.md)
+- [plugin sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/plugins/sync-po.md)
+- [hướng dẫn tương thích Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/lingui.md)
+- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/lingui_vs_intlayer-lingui.md)
+
 </Step>
 <Step number={17} title="Tự động hóa bản dịch của bạn với Intlayer" isOptional={true}>
 
@@ -1017,10 +1030,15 @@ Khai báo chúng với macro `msg`, và dịch chúng trong route loader bằng 
 
 Bài [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md) đo được khoảng ~56.7 KB gzip cho runtime. Khi tải mỗi ngôn ngữ một catalog theo nhu cầu, các trang nặng khoảng ~115 KB so với 111 KB khi không có i18n. Nếu import tĩnh tất cả các catalog, dung lượng sẽ tăng lên ~152 KB.
 
+- [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md)
+
 </Question>
 <Question title="Tôi có thể giữ lại các macro của Lingui và chuyển đổi sang Intlayer không?">
 
 Có. Adapter [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/lingui.md) giữ nguyên các macro và thay thế phần runtime. Sau đó, bạn có thể chuyển đổi dần từng component sang `useIntlayer`. Xem các [adapter tương thích](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/index.md).
+
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/lingui.md)
+- [adapter tương thích](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/index.md)
 
 </Question>
 

@@ -49,6 +49,8 @@ TanStack Start does not ship an i18n layer. Routing, locale detection, SEO metad
 
 > Using Next.js instead? See the [next-intl guide](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/i18n_using_next-intl.md).
 
+- [next-intl guide](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/i18n_using_next-intl.md)
+
 > To understand where these libraries come from, read the history of JavaScript i18n.
 
 - [The history of JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/history_of_i18n.md)
@@ -56,6 +58,8 @@ TanStack Start does not ship an i18n layer. Routing, locale detection, SEO metad
 ## What the benchmark says about use-intl on TanStack Start
 
 The [i18n benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/tanstack.md) runs the same 10-page, 10-locale TanStack Start app with every major library and measures what the browser actually downloads.
+
+- [i18n benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/tanstack.md)
 
 <I18nBenchmark framework="tanstack" packages="use-intl,@intlayer/use-intl,intlayer" vertical/>
 
@@ -74,6 +78,8 @@ What to take away:
 - **The runtime itself stays heavy** (~76 KB gzip), because the ICU parser ships to the client. The `@intlayer/use-intl` compat adapter (step 17) keeps the exact same API with a ~7 KB runtime.
 
 > See the full data: [TanStack Start benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/tanstack.md), and the [benchmark repository](https://github.com/intlayer-org/benchmark-i18n).
+
+- [TanStack Start benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/tanstack.md)
 
 ## Feature comparison on TanStack Start
 
@@ -98,6 +104,8 @@ How `use-intl` compares with the other libraries commonly used on TanStack Start
 | **Missing translations in CI**       | ✅ `npx intlayer test`               | ⚠️ Not built-in        | ⚠️ Not built-in                   | ✅ `lingui compile --strict`     |
 
 > Runtime size and leak figures come from the [TanStack Start benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/tanstack.md). Leak is measured on the best setup of each library.
+
+- [TanStack Start benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/tanstack.md)
 
 > Other TanStack Start guides:
 
@@ -974,6 +982,8 @@ export const startInstance = createStart(() => ({
 
 The benchmark shows the heaviest part of a use-intl setup is the runtime itself (~76 KB gzip). The [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md) compat adapter exposes the **same API** (`useTranslations`, `useFormatter`, `IntlProvider`, `createTranslator`, ICU plurals, `t.rich`), but serves it from compiled Intlayer dictionaries: **~6.7 KB instead of ~75.9 KB**, 0% locale leak and 0% page leak, with no change to your components.
 
+- [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md)
+
 ```bash packageManager="npm"
 npm install @intlayer/use-intl intlayer @intlayer/sync-json-plugin
 npx intlayer init
@@ -1034,7 +1044,11 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
+- [sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/plugins/sync-json.md)
+
 > The adapter is also a smooth migration path: once it runs, you can move components one by one to the native `useIntlayer` API. See the [Intlayer TanStack Start guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_tanstack.md).
+
+- [Intlayer TanStack Start guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_tanstack.md)
 
 </Step>
 <Step number={18} title="Pre-render Every Locale" isOptional={true}>
@@ -1142,6 +1156,8 @@ use-intl renders translations, but it does not help you **produce** them. Intlay
 
 To discover all features, see [why Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/interest_of_intlayer.md).
 
+- [why Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/interest_of_intlayer.md)
+
 </Step>
 </Steps>
 
@@ -1152,6 +1168,8 @@ To discover all features, see [why Intlayer](https://github.com/aymericzip/intla
 <Question title="Is use-intl a good choice for TanStack Start?">
 
 Yes, if you want the `next-intl` API outside of Next.js. It gives you ICU messages, formatters and good TypeScript support, and it avoids Next.js-specific constraints such as `setRequestLocale`. The trade-off is weight: the [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/tanstack.md) measures ~76 KB gzip for the runtime, and a naive setup ships every locale and every page to the browser. Load namespaces per route and per locale, as in this guide, to avoid the leaks.
+
+- [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/tanstack.md)
 
 </Question>
 <Question title="What is the difference between use-intl and next-intl?">
@@ -1173,6 +1191,8 @@ The server and the browser format dates in different time zones. Pass an explici
 
 First, split messages by namespace and load them per route and per locale with `import.meta.glob`, which removes the locale and page leaks. Then, if the runtime size matters, switch to the [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md) adapter: same API, ~6.7 KB instead of ~75.9 KB in the benchmark.
 
+- [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md)
+
 </Question>
 <Question title="How do I translate the title and meta description with use-intl?">
 
@@ -1182,6 +1202,9 @@ Call `createTranslator` inside the route `head()` function with the messages ret
 <Question title="Can I migrate from use-intl to Intlayer progressively?">
 
 Yes. Install the compat adapter first (step 17): your components keep calling `useTranslations`, now backed by Intlayer. Then move components one at a time to `useIntlayer`, and declare content next to them. See the [compat adapters](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md) and the [Intlayer TanStack Start guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_tanstack.md).
+
+- [compat adapters](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md)
+- [Intlayer TanStack Start guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_tanstack.md)
 
 </Question>
 

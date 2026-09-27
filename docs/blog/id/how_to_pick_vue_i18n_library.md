@@ -66,6 +66,8 @@ Paraglide menghasilkan satu fungsi per pesan dan membiarkan bundler melakukan tr
 
 Artikel [sejarah JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/history_of_i18n.md) membahas setiap gelombang arsitektur ini secara mendalam.
 
+- [sejarah JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/history_of_i18n.md)
+
 ## Keputusan yang paling penting: di mana konten berada dan kapan dimuat
 
 Dua pilihan struktural menjelaskan sebagian besar perbedaan ukuran bundle antar konfigurasi:
@@ -81,9 +83,14 @@ Grafik berikut memperkirakan payload untuk aplikasi teoritis dengan 1 hingga 10 
 
 [Benchmark Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/vue.md) mengukur hal ini sebagai "kebocoran dari route lain" dan "kebocoran dari locale lain". Jika jawaban Anda untuk pertanyaan 3 adalah "banyak halaman", bagian ini lebih penting daripada preferensi API mana pun. Artikel [per-component vs centralized i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/per-component_vs_centralized_i18n.md) membahas sisi pemeliharaan dari trade-off yang sama.
 
+- [Benchmark Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/vue.md)
+- [per-component vs centralized i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/per-component_vs_centralized_i18n.md)
+
 ## Kandidat library
 
 Ukuran library diambil dari [benchmark Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/vue.md): plugin ditambah composable dalam komponen kosong, setelah proses bundling, tree-shaking, dan minifikasi, pada aplikasi 10 halaman dan 10 locale. Konten diukur secara terpisah.
+
+- [benchmark Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/vue.md)
 
 ![Ekosistem library Vue i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
@@ -112,6 +119,8 @@ Ukuran library Paraglide yang mendekati nol dicapai melalui konstruksinya: runti
 
 `@nuxtjs/i18n` memberi Anda strategi routing, tag `hreflang`, dan deteksi locale tanpa perlu menulis kode tambahan, dan itu saja sudah cukup untuk membenarkan penggunaannya pada situs konten dengan beberapa halaman. Batasannya adalah katalog per-locale: jika sudah melewati sekitar sepuluh halaman, SSR payload akan membawa teks setiap route. Jika itu kasus Anda, hubungkan `vue-i18n` secara manual dengan pesan per-route, atau beralihlah ke scoped content. Artikel [Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nuxt.md) membahas pemilihan strategi routing terlebih dahulu.
 
+- [Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nuxt.md)
+
 </Accordion>
 <Accordion header="Terjemahan berasal dari TMS atau agensi yang menyediakan ICU">
 
@@ -126,6 +135,8 @@ Pilihlah scoped content yang di-compile pada saat build time. Paraglide mencapai
 <Accordion header="Type safety tidak bisa ditawar">
 
 `vue-i18n` dapat memiliki type safety dengan meneruskan schema generic ke `createI18n`. Cara ini berhasil, tetapi langsung rusak begitu katalog dimuat secara lazy (lazy loading), karena skema tersebut mendeskripsikan pesan yang mungkin belum ada saat itu. Jika Anda tidak ingin repot memelihara hal tersebut, pilih library yang types-nya di-generate langsung dari konten: Paraglide atau Intlayer. Artikel [mendeteksi terjemahan yang hilang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/detecting_missing_translations.md) membandingkan apa yang dapat ditangkap oleh masing-masing library saat build time.
+
+- [mendeteksi terjemahan yang hilang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/detecting_missing_translations.md)
 
 </Accordion>
 <Accordion header="Konten lebih dari sekadar label UI">
@@ -366,6 +377,10 @@ Semua locale berada dalam satu file di samping komponen. Types di-generate saat 
 
 Sudah menggunakan `vue-i18n`? [Compat adapter `@intlayer/vue-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/vue-i18n.md) membuat alias untuk package tersebut di level bundler, sehingga `useI18n()`, `$t`, pipe plurals, dan `v-t` tetap berfungsi sementara Intlayer menyajikan kontennya. [Panduan migrasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_vue-i18n_to_intlayer.md) membahas langkah-langkah melepaskan adapter setelahnya, dan tersedia juga [panduan khusus Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_nuxtjs_i18n_to_intlayer.md).
 
+- [Compat adapter `@intlayer/vue-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/vue-i18n.md)
+- [Panduan migrasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_vue-i18n_to_intlayer.md)
+- [panduan khusus Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_nuxtjs_i18n_to_intlayer.md)
+
 ## Sebelum Anda menentukan pilihan
 
 Tabel fitur menunjukkan apa yang dapat dilakukan oleh library saat ini. Poin-poin berikut memberi gambaran seperti apa penggunaannya dalam jangka panjang.
@@ -388,6 +403,9 @@ Library yang paling banyak dipasang adalah library yang dirilis pertama kali, bu
 
 Agent masih sering kesulitan dengan i18n: mereka melewatkan locale, mengarang keys, dan mencampuradukkan sintaks pesan. Apakah library menyediakan [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/agent_skills.md) atau [MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/mcp_server.md) agar agent dapat membuat daftar, mengisi, dan menguji konten? Dan apakah pemuatan konten sudah dioptimalkan secara default, atau seseorang harus meninjau namespace dan lazy import setiap kuartal?
 
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/agent_skills.md)
+- [MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/mcp_server.md)
+
 **Type safety langsung tanpa konfigurasi tambahan (out of the box).**
 
 Bukan "dapat diberi types dengan konfigurasi tambahan", melainkan "key yang salah akan menggagalkan `tsc` pada instalasi baru". Periksa apa yang terjadi jika sebuah key tidak ada, dan jika sebuah locale kehilangan satu terjemahan.
@@ -399,6 +417,13 @@ Katalog terjemahan cenderung terus membengkak. Build Intlayer membersihkan field
 **Developer experience.**
 
 Waktu setup hingga string terjemahan pertama muncul, dukungan [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/lsp.md) atau [ekstensi VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/vs_code_extension.md) yang menampilkan terjemahan saat hover dan melompat ke deklarasi, [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md) untuk fill, test, dan push, [compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md) atau ekstraktor yang mengambil string hard-coded dari komponen Anda sehingga tidak perlu mengelola setiap string satu per satu berdasarkan kunci, serta cara bagi non-developer untuk mengedit konten ([visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) atau [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)) tanpa perlu membuat pull request.
+
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/lsp.md)
+- [ekstensi VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/vs_code_extension.md)
+- [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md)
+- [compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md)
+- [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)
 
 ## Pertanyaan yang Sering Diajukan
 
@@ -420,11 +445,15 @@ Gunakan modul tersebut kecuali jika kebutuhan routing Anda tidak lazim atau apli
 
 Hanya jika ukuran bundle, SSR payload, generated types, atau pemeriksaan missing-key saat build time memang merupakan kebutuhan nyata. Artikel [compiler vs declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/compiler_vs_declarative_i18n.md) menjelaskan keuntungan yang diberikan compiler dan potensi kekurangannya.
 
+- [compiler vs declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/compiler_vs_declarative_i18n.md)
+
 </Question>
 
 <Question title="Apakah pilihan library memengaruhi SEO?">
 
 Secara tidak langsung. Web crawler memperhatikan routing, `hreflang`, `<html lang>`, dan apakah teks ada di dalam HTML yang di-render di server. Lihat [panduan hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/hreflang_guide_multilingual_seo.md).
+
+- [panduan hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/hreflang_guide_multilingual_seo.md)
 
 </Question>
 

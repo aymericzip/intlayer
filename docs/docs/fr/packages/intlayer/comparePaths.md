@@ -32,9 +32,11 @@ author: aymericzip
 
 ## Description
 
-La fonction `comparePaths` compare deux URL ou chemins pour vérifier leur égalité tout en ignorant le segment de la locale, le protocole/domaine, la chaîne de requête (query string), le hash et les barres obliques de fin (trailing slashes). C'est la méthode recommandée pour déterminer si un lien de navigation pointe vers la page courante — par exemple pour mettre en évidence le lien actif — sans avoir à recréer votre propre logique de normalisation (sujette aux erreurs).
+La fonction `comparePaths` compare deux URL ou chemins pour vérifier leur égalité tout en ignorant le segment de la locale, le protocole/domaine, la chaîne de requête (query string), le hash et les barres obliques de fin (trailing slashes). C'est la méthode recommandée pour déterminer si un lien de navigation pointe vers la page courante, par exemple pour mettre en évidence le lien actif, sans avoir à recréer votre propre logique de normalisation (sujette aux erreurs).
 
 En interne, elle réutilise [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/intlayer/getPathWithoutLocale.md) pour supprimer le segment de la locale, de sorte qu'elle respecte votre mode de routage et vos locales configurés.
+
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/intlayer/getPathWithoutLocale.md)
 
 Le package exporte également la fonction utilitaire sous-jacente [`normalizePath`](#normalizepath), qui retourne le chemin canonique, indépendant de la locale, utilisé pour la comparaison.
 
@@ -44,7 +46,7 @@ Le package exporte également la fonction utilitaire sous-jacente [`normalizePat
 - Fonctionne avec des URL absolues et des chemins relatifs
 - Ignore la chaîne de requête, le hash et les barres obliques de fin
 - Tolère l'absence de barre oblique initiale et les valeurs vides (normalisé en `/`)
-- Léger — construit par-dessus `getPathWithoutLocale`
+- Léger, construit par-dessus `getPathWithoutLocale`
 
 ## Signature de la fonction
 

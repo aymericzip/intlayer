@@ -44,7 +44,12 @@ const config = {
 export default config;
 ```
 
+- [плагін Sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/plugins/sync-json.md)
+
 Ваш додаток продовжує імпортувати те, що імпортував раніше. Завдання CI потім заповнюють та перевіряють наявні каталоги, а різниця (diff), яку бачить рецензент, це звичайна зміна файлу `locales/fr/checkout.json`, а не складна міграція архітектури. Також є [плагін Sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/plugins/sync-po.md) для робочих процесів gettext та [адаптери сумісності](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/index.md) для збереження незмінного runtime API.
+
+- [плагін Sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/plugins/sync-po.md)
+- [адаптери сумісності](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/index.md)
 
 ## Розділяйте блокувальний бар'єр (gate) та заповнення (fill)
 
@@ -167,6 +172,8 @@ test("has no missing required locales", async () => {
 
 Команда `npx intlayer content test` друкує звіт, але повертає код виходу 0, тому вона лише інформує, не блокуючи збірку. Використовуйте її локально, а в CI запускайте перевірку через assertion. Більше деталей у статті [як виявляти відсутні переклади](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/detecting_missing_translations.md).
 
+- [як виявляти відсутні переклади](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/detecting_missing_translations.md)
+
 ## `requiredLocales` робить перевірку життєздатною
 
 Бар'єр, що вимагає стовідсоткової повноти всіх вісімнадцяти мов, блокує кожен реліз доти, доки не буде готова найповільніша мова, і врешті-решт вимикається командою протягом місяця.
@@ -209,6 +216,8 @@ export default config;
 ```
 
 Це чудово підходить командам, де текстами займаються не-розробники. Це компроміс: ви отримуєте свободу редагування, але втрачаєте властивість, за якої стан git checkout повністю визначає відображення додатка. Детальніше в [документації до CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md).
+
+- [документації до CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)
 
 Зверніть увагу, що `clientSecret` є конфіденційним сервером ключем. Його місце виключно в секретах CI та змінних середовища сервера, він ніколи не повинен потрапляти в клієнтські бандли.
 

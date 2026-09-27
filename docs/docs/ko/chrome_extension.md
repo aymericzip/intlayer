@@ -120,6 +120,11 @@ Firefox 부가 기능에서 [**Intlayer i18n Scanner**](https://addons.mozilla.o
 
 대부분의 검사는 라우팅 또는 메타데이터 설정과 관련이 있습니다. Intlayer를 사용하면 hreflang, 표준 링크, `x-default`, 현지화된 링크, 사이트맵 및 robots.txt가 [설정](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)에서 자동으로 생성됩니다. 사용 중인 프레임워크(예: [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_16.md), [Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nuxt.md), [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_tanstack.md))의 통합 가이드를 참조하세요.
 
+- [설정](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)
+- [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_16.md)
+- [Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nuxt.md)
+- [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_tanstack.md)
+
 </Question>
 
 </FAQ>

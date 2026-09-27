@@ -23,6 +23,8 @@ author: aymericzip
 
 > `editor` कमांड का उपयोग करने के लिए, `intlayer-editor` पैकेज इंस्टॉल होना आवश्यक है। (देखें [Intlayer विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md))
 
+- [Intlayer विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md)
+
 ```json fileName="package.json"
 "scripts": {
   "intlayer:editor:start": "npx intlayer editor start --with 'next dev --turbopack'"

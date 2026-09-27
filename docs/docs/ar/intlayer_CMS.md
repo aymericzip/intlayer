@@ -63,6 +63,8 @@ author: aymericzip
 
 محرر [Intlayer Visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) هو أداة تتيح لك إدارة المحتوى الخاص بك في محرر مرئي للقواميس المحلية. بمجرد إجراء تغيير، سيتم استبدال المحتوى في قاعدة الشيفرة. هذا يعني أن التطبيق سيتم إعادة بنائه وستتم إعادة تحميل الصفحة لعرض المحتوى الجديد.
 
+- [Intlayer Visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)
+
 على النقيض من ذلك، فإن نظام إدارة المحتوى Intlayer CMS هو أداة تتيح لك إدارة المحتوى الخاص بك في محرر مرئي للقواميس البعيدة. بمجرد إجراء تغيير، لن يؤثر المحتوى على قاعدة الشيفرة الخاصة بك. وسيعرض الموقع تلقائيًا المحتوى المُعدل.
 
 ## التكامل
@@ -73,13 +75,19 @@ author: aymericzip
 
 للتكامل مع Next.js، راجع [دليل الإعداد](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_15.md).
 
+- [تدويل Next.js 15 - الدليل الكامل لترجمة تطبيقك](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_15.md)
+
 ### التكامل مع Create React App
 
 للتكامل مع Create React App، راجع [دليل الإعداد](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_create_react_app.md).
 
+- [i18n في Create React App: دليل الترجمة الكامل](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_create_react_app.md)
+
 ### التكامل مع Vite + React
 
 للتكامل مع Vite + React، راجع [دليل الإعداد](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+react.md).
+
+- [تدويل Vite + React - الدليل الكامل لترجمة تطبيقك](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+react.md)
 
 ## التهيئة
 
@@ -159,6 +167,8 @@ export default config;
 > إذا لم يكن لديك معرف عميل وسر عميل، يمكنك الحصول عليهما بإنشاء عميل جديد في [لوحة تحكم Intlayer - المشاريع](https://app.intlayer.org/projects).
 
 > لرؤية جميع المعلمات المتاحة، راجع [توثيق التهيئة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
+
+- [توثيق التهيئة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md)
 
 ## استخدام نظام إدارة المحتوى
 
@@ -274,10 +284,10 @@ bun add @intlayer/api
 
 تم تقسيم SDK إلى **استيرادين منفصلين** عن قصد، للحفاظ على حجم حزمتك صغيرًا:
 
-1. `createIntlayerCMS` — ينشئ **مصادقًا** خفيف الوزن. يحمل فقط بيانات الاعتماد والرمز المميز للوصول المُدار؛ لا يعرف شيئًا عن أي مجال محدد.
-2. `dictionaryEndpoint`, `projectEndpoint`, … — **محررات نقاط النهاية** لكل مجال، يتم استيراد كل منها من مسارها الخاص (`@intlayer/api/dictionary`, `@intlayer/api/project`, …). تمرر المصادق إلى نقطة النهاية التي تحتاجها.
+1. `createIntlayerCMS`: ينشئ **مصادقًا** خفيف الوزن. يحمل فقط بيانات الاعتماد والرمز المميز للوصول المُدار؛ لا يعرف شيئًا عن أي مجال محدد.
+2. `dictionaryEndpoint`, `projectEndpoint`, …، **محررات نقاط النهاية** لكل مجال، يتم استيراد كل منها من مسارها الخاص (`@intlayer/api/dictionary`, `@intlayer/api/project`, …). تمرر المصادق إلى نقطة النهاية التي تحتاجها.
 
-لأن كل نقطة نهاية يتم استيرادها بشكل منفصل، تتضمن حزمتك فقط المجالات التي تستخدمها فعليًا — استيراد `dictionaryEndpoint` لا يسحب أبدًا المشروع أو الذكاء الاصطناعي أو أي عميل مجال آخر.
+لأن كل نقطة نهاية يتم استيرادها بشكل منفصل، تتضمن حزمتك فقط المجالات التي تستخدمها فعليًا، استيراد `dictionaryEndpoint` لا يسحب أبدًا المشروع أو الذكاء الاصطناعي أو أي عميل مجال آخر.
 
 ```typescript fileName="cms.ts" codeFormat="typescript"
 import { createIntlayerCMS } from "@intlayer/api";
@@ -383,7 +393,7 @@ await dictionaryEndpoint(cmsAuthenticator).updateDictionary({
 
 ### استخراج طريقة واحدة
 
-كل طريقة endpoint مصادق عليها بالفعل وقائمة بذاتها (تحمل معالجة الرمز الخاص بها)، لذا يمكنك استخراج واحدة وتمريرها حوله — على سبيل المثال لحقنها كتبعية:
+كل طريقة endpoint مصادق عليها بالفعل وقائمة بذاتها (تحمل معالجة الرمز الخاص بها)، لذا يمكنك استخراج واحدة وتمريرها حوله، على سبيل المثال لحقنها كتبعية:
 
 ```typescript fileName="push.ts" codeFormat="typescript"
 import { createIntlayerCMS } from "@intlayer/api";
@@ -391,7 +401,7 @@ import { dictionaryEndpoint } from "@intlayer/api/dictionary";
 
 const dictionary = dictionaryEndpoint(createIntlayerCMS());
 
-// مصادق عليه بالفعل — ينعش الرمز تلقائياً في كل استدعاء
+// مصادق عليه بالفعل, ينعش الرمز تلقائياً في كل استدعاء
 export const pushDictionaries = dictionary.pushDictionaries;
 
 // الاستخدام
@@ -404,6 +414,8 @@ await pushDictionaries([{ key: "home", content: { title: "Home" } }]);
 
 للحصول على دليل الإعداد الكامل (التفعيل، تشغيل خادم Live Sync، سير عمل التطوير المحلي، والقيود)، راجع [توثيق Live Sync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/live-sync.md).
 
+- [توثيق Live Sync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/live-sync.md)
+
 ## الاستضافة الذاتية (Self-Hosting)
 
 يمكن تشغيل Intlayer بالكامل على بنيتك التحتية الخاصة. يؤدي أمر واحد إلى تشغيل المكدس الكامل (لوحة التحكم، وواجهة برمجة التطبيقات، وقاعدة البيانات، وتخزين الكائنات، والبريد الإلكتروني) باستخدام Docker Compose:
@@ -413,6 +425,8 @@ curl -fsSL https://intlayer.org/install.sh | sh
 ```
 
 للاطلاع على دليل الإعداد الكامل، ومرجع متغيرات البيئة، وتعليمات الترقية، وإجراءات النسخ الاحتياطي والاستعادة، راجع [دليل الاستضافة الذاتية](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/self_hosting.md).
+
+- [دليل الاستضافة الذاتية](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/self_hosting.md)
 
 ## تصحيح الأخطاء
 
@@ -437,27 +451,45 @@ curl -fsSL https://intlayer.org/install.sh | sh
 
 يعدل [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) ملفات القواميس المحلية في قاعدة التعليمات البرمجية الخاصة بك. يدير نظام CMS المحتوى عن بُعد على الخادم، مما يتيح تحديثات النصوص دون إعادة نشر كود التطبيق.
 
+- [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)
+
 </Question>
 <Question title="كم يضيف i18n إلى حجم حزمة (bundle) تطبيقي؟">
 
 أقل بكثير من الإعدادات القائمة على فضاءات الأسماء، لأن الصفحة لا تُحمّل أبدًا كتالوجًا لا تعرضه. يُحل المحتوى المعروض على الخادم مباشرة على الخادم، ويستبدل مترجم وقت البناء استدعاءات `useIntlayer` بإدخالات القاموس الدقيقة التي يستخدمها المكون، لذلك يتم التخلص من المفاتيح واللغات غير المستخدمة. تقسم [القواميس الديناميكية](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dynamic_dictionaries/index.md) الباقي حسب اللغة. مقارنة بالبدائل التقليدية، يقلل Intlayer حجم الحزمة والصفحة بنسبة تصل إلى 50%. انظر [تحسين الحزم](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md) و [المقارنة المعيارية](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/index.md).
+
+- [القواميس الديناميكية](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dynamic_dictionaries/index.md)
+- [تحسين الحزم](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md)
+- [المقارنة المعيارية](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/index.md)
 
 </Question>
 <Question title="هل يمكنني الترحيل من i18next أو next-intl أو react-i18next دون إعادة كتابة مكوناتي؟">
 
 نعم، وبطريقتين. يمكنك ترحيل المحتوى تدريجيًا باستخدام [دليل ترحيل i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_i18next_to_intlayer.md) أو [دليل ترحيل next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_next-intl_to_intlayer.md). أو يمكنك الاحتفاظ بواجهة برمجة التطبيقات الحالية بالكامل: تكشف [محولات التوافق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/index.md) نفس واجهات `i18next` و `react-i18next` و `next-intl` و `next-i18next` و `react-intl` و `use-intl` و `vue-i18n` و `Lingui`، ولكنها مدعومة بقواميس Intlayer، بحيث تتغير الاستيرادات فقط بينما يظل كود المكون كما هو.
 
+- [دليل ترحيل i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_i18next_to_intlayer.md)
+- [دليل ترحيل next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_next-intl_to_intlayer.md)
+- [محولات التوافق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/index.md)
+
 </Question>
 <Question title="هل يمكنني الاحتفاظ بملفات الترجمة JSON الموجودة لدي؟">
 
 نعم. تحافظ [مكونة مزامنة JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/plugins/sync-json.md) على ملفات `/messages/{locale}/{namespace}.json` الخاصة بك كمصدر الحقيقة وتُنشئ قواميس Intlayer منها، في كلا الاتجاهين. وتقوم [مكونة مزامنة PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/plugins/sync-po.md) بنفس الشيء لكتالوجات gettext، وتسمح لك [الملفات المقسمة حسب اللغة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/per_locale_file.md) بتقسيم المحتوى حسب اللغة بدلاً من تجميع كل اللغات في ملف واحد.
+
+- [مكونة مزامنة JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/plugins/sync-json.md)
+- [مكونة مزامنة PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/plugins/sync-po.md)
+- [الملفات المقسمة حسب اللغة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/per_locale_file.md)
 
 </Question>
 <Question title="هل يجب أن أنقل المحتوى الخاص بي مفتاحًا تلو الآخر؟">
 
 لا. قم بتشغيل `npx intlayer extract` وسيقرأ Intlayer ملفات المصدر الخاصة بك، ويسحب السلاسل النصية الموجهة للمستخدم ويكتب ملف `.content` بجانب كل منها، بحيث تراجع diff بدلاً من نسخ السلاسل إلى كتالوج يدويًا. راجع [أمر extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/extract.md).
 
+- [أمر extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/extract.md)
+
 لأتمتة كاملة، يقوم [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md) بالشيء نفسه في وقت البناء على كود JSX و TSX و Vue و Svelte، منشئًا القواميس عند كل تغيير دون الحاجة إلى إدارة المفاتيح يدويًا.
+
+- [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md)
 
 </Question>
 <Question title="ما هي أدوات المحررات والوكلاء الذكيين المتاحة؟">
@@ -485,10 +517,14 @@ curl -fsSL https://intlayer.org/install.sh | sh
 
 نعم. يمكن تشغيل CMS على بنيتك التحتية الخاصة للمتطلبات التي لا يجب أن يغادر فيها المحتوى شبكتك الداخلية. انظر [دليل الاستضافة الذاتية](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/self_hosting.md).
 
+- [دليل الاستضافة الذاتية](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/self_hosting.md)
+
 </Question>
 <Question title="هل يحتاج محررو المحتوى إلى مطور لنشر التغييرات؟">
 
-لا. هذا هو الهدف الأساسي من القواميس البعيدة: يغير المحررون النصوص على CMS وبفضل ميزة المزامنة المباشرة (live sync)، يعرض الموقع التحديث على الفور.
+لا. هذا هو الهدف الأساسي من القواميس البعيدة: يغيّر المحرر النص في CMS ويعكس الموقع التغيير، إذ تطبّق [المزامنة المباشرة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/live.md) التحديث أثناء التشغيل بدلاً من انتظار عملية بناء.
+
+- [المزامنة المباشرة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/live.md)
 
 </Question>
 <Question title="هل يمكنني أتمتة CMS بدلاً من استخدام واجهة المستخدم؟">
@@ -498,12 +534,17 @@ curl -fsSL https://intlayer.org/install.sh | sh
 </Question>
 <Question title="هل يدعم CMS اختبار A/B للترجمات؟">
 
-نعم. تدعم القواميس البعيدة [تنوعات المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dynamic_dictionaries/index.md)، مما يتيح لك اختبار نسخ نصية مختلفة لشرائح جمهور مختلفة.
+نعم. تدعم القواميس البعيدة [تنوعات المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dynamic_dictionaries/variants.md)، وتوضح [التحليلات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/analytics.md) كيفية عرض كل تنوع، بحيث يمكن قياس أثر تغيير الصياغة بدلاً من الجدال حوله.
+
+- [تنوعات المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dynamic_dictionaries/variants.md)
+- [التحليلات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/analytics.md)
 
 </Question>
 <Question title="هل CMS مجاني؟">
 
-مكتبة Intlayer، و CLI، والمترجم، والمحرر المرئي مجانية تمامًا ومفتوحة المصدر بموجب ترخيص Apache 2.0. سحابة CMS هي خدمة مدفوعة، ولكن النسخة المستضافة ذاتيًا يمكن تشغيلها مجانًا على خادمك الخاص.
+مكتبة Intlayer، و CLI، والمترجم، والمحرر المرئي مجانية ومفتوحة المصدر بموجب ترخيص Apache 2.0. أما CMS المستضاف فهو خدمة مدفوعة اختيارية، ويمكن [استضافته ذاتيًا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/self_hosting.md) بدلاً من ذلك.
+
+- [استضافته ذاتيًا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/self_hosting.md)
 
 </Question>
 

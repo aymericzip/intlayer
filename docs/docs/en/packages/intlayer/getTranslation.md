@@ -34,6 +34,8 @@ The `getTranslation` function (also aliased as `t`) retrieves the content corres
 
 For more details on how to declare translations, see the [Translation documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/translation.md).
 
+- [Translation documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/translation.md)
+
 ## Parameters
 
 - `languageContent: CustomizableLanguageContent<Content>`

@@ -130,13 +130,13 @@ Gibt das vollständige Scan-Ergebnis als JSON-Objekt anstelle eines formatierten
 
 ### Standard-Konfigurationsoptionen
 
-- **`--base-dir`** — Basisverzeichnis zur Lokalisierung der Datei `intlayer.config.*`.
-- **`-e, --env`** — Zielumgebung (z. B. `development`, `production`).
-- **`--env-file`** — Pfad zu einer benutzerdefinierten `.env`-Datei.
-- **`--no-cache`** — Konfigurationscache deaktivieren.
-- **`--ci`** — Führt den Befehl in jedem Intlayer-Projekt des Monorepos aus (oder nur im aktuellen, wenn er aus einem Projektverzeichnis gestartet wird). Projektspezifische Zugangsdaten können über `INTLAYER_PROJECT_CREDENTIALS` eingefügt werden, ein JSON-Objekt, das jedem Projektpfad `{ "clientId", "clientSecret" }` zuordnet.
-- **`--verbose`** — Ausführliche Protokollierung aktivieren (Standardwert im CLI-Modus).
-- **`--prefix`** — Benutzerdefiniertes Protokollpräfix.
+- **`--base-dir`**: Basisverzeichnis zur Lokalisierung der Datei `intlayer.config.*`.
+- **`-e, --env`**: Zielumgebung (z. B. `development`, `production`).
+- **`--env-file`**: Pfad zu einer benutzerdefinierten `.env`-Datei.
+- **`--no-cache`**: Konfigurationscache deaktivieren.
+- **`--ci`**: Führt den Befehl in jedem Intlayer-Projekt des Monorepos aus (oder nur im aktuellen, wenn er aus einem Projektverzeichnis gestartet wird). Projektspezifische Zugangsdaten können über `INTLAYER_PROJECT_CREDENTIALS` eingefügt werden, ein JSON-Objekt, das jedem Projektpfad `{ "clientId", "clientSecret" }` zuordnet.
+- **`--verbose`**: Ausführliche Protokollierung aktivieren (Standardwert im CLI-Modus).
+- **`--prefix`**: Benutzerdefiniertes Protokollpräfix.
 
 ## Routing-Strategie
 

@@ -178,4 +178,6 @@ Die `t`-Funktion in `react-intlayer` ist ein leistungsstarkes und praktisches We
 
 Für detailliertere Anleitungen und erweiterte Funktionen konsultieren Sie bitte die [react-intlayer Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md).
 
+- [react-intlayer Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md)
+
 **Hinweis**: Denken Sie daran, Ihren `IntlayerProvider` richtig einzurichten, damit die aktuelle Locale korrekt an Ihre Komponenten weitergegeben wird. Dies ist entscheidend dafür, dass die `t`-Funktion die richtigen Übersetzungen zurückgibt.

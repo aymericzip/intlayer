@@ -27,6 +27,8 @@ author: aymericzip
 
 Untuk tutorial langkah demi langkah yang terperinci, silakan lihat [Panduan Migrasi i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_i18next_to_intlayer.md) lengkap kami.
 
+- [Panduan Migrasi i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_i18next_to_intlayer.md)
+
 Intlayer mereplikasi dengan sempurna karakteristik runtime inti dari `i18next`. Dengan memanfaatkan paket kompatibilitas, aplikasi Vanilla Anda atau modul internal dapat terus menggunakan sintaks yang familiar.
 
 ## Yang perlu dilakukan

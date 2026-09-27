@@ -21,16 +21,16 @@ slugs:
 history:
   - version: 9.3.3
     date: 2026-08-22
-    changes: "Enable analytics by default — active as soon as `@intlayer/analytics` is installed"
+    changes: "Enable analytics by default, active as soon as `@intlayer/analytics` is installed"
   - version: 9.0.0
     date: 2026-07-08
-    changes: "Init doc — @intlayer/analytics package, provider/node-level tracking, A/B testing, dashboard"
+    changes: "Init doc, @intlayer/analytics package, provider/node-level tracking, A/B testing, dashboard"
 author: aymericzip
 ---
 
 # Intlayer Analytics Documentation
 
-`@intlayer/analytics` is an optional companion package that tells you **which content is actually shown** to your visitors — which page, in which locale, and which specific piece of translated content — so you can understand your audience and run **A/B tests on content**.
+`@intlayer/analytics` is an optional companion package that tells you **which content is actually shown** to your visitors (which page, in which locale, and which specific piece of translated content) so you can understand your audience and run **A/B tests on content**.
 
 ## Table of Contents
 
@@ -40,22 +40,24 @@ author: aymericzip
 
 `@intlayer/analytics` batches three kinds of anonymous events:
 
-| Event              | Captured where                                   | What it tells you                                                                                                         |
-| ------------------ | ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------- |
-| `page_view`        | Provider level (the Intlayer provider)           | Which page and locale a session viewed, on first load, route change, or locale switch.                                    |
-| `content_exposure` | Node level (`useIntlayer` / interpreter plugins) | Which dictionary key / key path was actually resolved and displayed — and, when part of an experiment, which **variant**. |
-| `conversion`       | Wherever you call `useConversion()`              | A goal reached (signup, click, purchase…) attributed to the A/B variant the session was exposed to.                       |
+| Event              | Captured where                                   | What it tells you                                                                                                        |
+| ------------------ | ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
+| `page_view`        | Provider level (the Intlayer provider)           | Which page and locale a session viewed, on first load, route change, or locale switch.                                   |
+| `content_exposure` | Node level (`useIntlayer` / interpreter plugins) | Which dictionary key / key path was actually resolved and displayed, and, when part of an experiment, which **variant**. |
+| `conversion`       | Wherever you call `useConversion()`              | A goal reached (signup, click, purchase…) attributed to the A/B variant the session was exposed to.                      |
 
-Events are collected in memory and sent as a **single batched request roughly every 20 seconds** — never on every keystroke or render — so analytics never impacts first render time or adds a request per interaction.
+Events are collected in memory and sent as a **single batched request roughly every 20 seconds**, never on every keystroke or render, so analytics never impacts first render time or adds a request per interaction.
 
 ## How it powers A/B testing on content
 
 Intlayer already lets you declare content [Variants](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dynamic_dictionaries/index.md) (e.g. a `hero-banner` dictionary with a default and a `black_friday` variant). `@intlayer/analytics` closes the loop:
 
-1. `useExperiment(experimentKey, variants)` deterministically assigns each anonymous session to a variant — a pure function of the session id and the experiment key, so the assignment is **stable across the session** and requires **no server round-trip** before first render (no flicker, no layout shift).
+1. `useExperiment(experimentKey, variants)` deterministically assigns each anonymous session to a variant, a pure function of the session id and the experiment key, so the assignment is **stable across the session** and requires **no server round-trip** before first render (no flicker, no layout shift).
 2. Every `content_exposure` event carries the `variant` that was shown.
 3. `useConversion()` lets you attribute a goal (e.g. `"cta_click"`) to that variant.
 4. The dashboard's experiment results endpoint compares conversion rates per variant, including statistical significance (a z-test).
+
+- [Variants](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dynamic_dictionaries/index.md)
 
 ## Installation
 
@@ -77,7 +79,7 @@ pnpm add @intlayer/analytics
 bun add @intlayer/analytics
 ```
 
-Installing the package is all it takes to turn analytics on: `analytics.enabled` defaults to `true`, and Intlayer resolves it to `false` whenever the package cannot be found in your project. If you don't install it, every integration point resolves to a no-op — see [Zero-cost when not installed](#zero-cost-when-not-installed) below.
+Installing the package is all it takes to turn analytics on: `analytics.enabled` defaults to `true`, and Intlayer resolves it to `false` whenever the package cannot be found in your project. If you don't install it, every integration point resolves to a no-op. See [Zero-cost when not installed](#zero-cost-when-not-installed) below.
 
 ## Configuration
 
@@ -97,9 +99,9 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-- `editor.backendURL` — the base URL analytics events are sent to (`POST {backendURL}/api/analytics/events`).
-- `editor.clientId` — the **public** project key. It identifies the project when the SDK requests an ingest token, and acts as an **enable switch**: analytics stays fully disabled (and tree-shaken, see below) until `clientId` is configured.
-- `editor.clientSecret` — **never used by analytics, and never sent to the browser.** It is a server-only credential; see [How events are authenticated](#how-events-are-authenticated).
+- `editor.backendURL`: the base URL analytics events are sent to (`POST {backendURL}/api/analytics/events`).
+- `editor.clientId`: the **public** project key. It identifies the project when the SDK requests an ingest token, and acts as an **enable switch**: analytics stays fully disabled (and tree-shaken, see below) until `clientId` is configured.
+- `editor.clientSecret`: **never used by analytics, and never sent to the browser.** It is a server-only credential; see [How events are authenticated](#how-events-are-authenticated).
 
 If you self-host Intlayer, analytics automatically points at your own instance since it shares `editor.backendURL`.
 
@@ -116,18 +118,18 @@ const keys = await client.getDictionaryKeys();
 const [navbar] = await client.getDictionaries(["navbar"]);
 ```
 
-It authenticates itself from `editor.clientId` — the exchange, caching and renewal are handled internally. The scopes bound what it can reach: published dictionary content and analytics ingestion. Anything else (pushing dictionaries, reading a project, spending AI credits) needs a real credential, and therefore a server or a signed-in user.
+It authenticates itself from `editor.clientId`, the exchange, caching and renewal are handled internally. The scopes bound what it can reach: published dictionary content and analytics ingestion. Anything else (pushing dictionaries, reading a project, spending AI credits) needs a real credential, and therefore a server or a signed-in user.
 
 ### Opting out
 
-The optional `analytics` block tunes — or turns off — the collection:
+The optional `analytics` block tunes, or turns off, the collection:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
   analytics: {
-    enabled: false, // Default: true — opts the whole integration out of the bundle
+    enabled: false, // Default: true, opts the whole integration out of the bundle
     flushInterval: 20_000, // Milliseconds between two batched flushes
     sampleRate: 1, // Fraction of sessions to record, from 0 (none) to 1 (all)
   },
@@ -137,6 +139,8 @@ export default config;
 ```
 
 Uninstalling `@intlayer/analytics` has the same effect as `enabled: false`. See the [Configuration reference](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md#analytics-configuration) for the full field list.
+
+- [Configuration reference](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md#analytics-configuration)
 
 ## Usage
 
@@ -149,7 +153,7 @@ No code changes are required. Once `@intlayer/analytics` is installed and `edito
 - records a `page_view` on every locale change,
 - starts the ~20s flush loop and flushes any remaining events on unmount / tab close (via `navigator.sendBeacon`, falling back to `fetch(..., { keepalive: true })`).
 
-The entry point differs per framework — but in every case it is the same one you already use to set Intlayer up, so there is nothing extra to add:
+The entry point differs per framework, but in every case it is the same one you already use to set Intlayer up, so there is nothing extra to add:
 
 <Tabs group="framework">
   <Tab label="React" value="react">
@@ -198,7 +202,7 @@ The entry point differs per framework — but in every case it is the same one y
     app.mount("#app");
     ```
 
-    > With Nuxt, `nuxt-intlayer` installs the plugin for you — nothing to do.
+    > With Nuxt, `nuxt-intlayer` installs the plugin for you, nothing to do.
 
   </Tab>
   <Tab label="Svelte" value="svelte">
@@ -271,7 +275,7 @@ The entry point differs per framework — but in every case it is the same one y
 
 ### Automatic node-level tracking
 
-Every time `useIntlayer` resolves a piece of content for display, the interpreter reports a `content_exposure` event for that exact `dictionaryKey` + key path + locale — again, no code changes required. Repeated exposures of the same node within a flush window are coalesced into a single event with a `count`, so a list re-rendering 50 times doesn't send 50 events.
+Every time `useIntlayer` resolves a piece of content for display, the interpreter reports a `content_exposure` event for that exact `dictionaryKey` + key path + locale, again, no code changes required. Repeated exposures of the same node within a flush window are coalesced into a single event with a `count`, so a list re-rendering 50 times doesn't send 50 events.
 
 ### Tracking conversions for A/B tests
 
@@ -329,7 +333,7 @@ Every time `useIntlayer` resolves a piece of content for display, the interprete
     };
     ```
 
-    > `useConversion` is a client hook — mark the component `"use client"`.
+    > `useConversion` is a client hook, mark the component `"use client"`.
 
   </Tab>
   <Tab label="Vue" value="vue">
@@ -527,7 +531,7 @@ Every time `useIntlayer` resolves a piece of content for display, the interprete
   </Tab>
   <Tab label="Svelte" value="svelte">
 
-    `variant` and `isAssigned` are stores — read them with the `$` prefix.
+    `variant` and `isAssigned` are stores. Read them with the `$` prefix.
 
     ```svelte fileName="Hero.svelte"
     <script lang="ts">
@@ -569,7 +573,7 @@ Every time `useIntlayer` resolves a piece of content for display, the interprete
   </Tab>
   <Tab label="Solid" value="solid">
 
-    `variant` and `isAssigned` are `Accessor`s — call them to read the value.
+    `variant` and `isAssigned` are `Accessor`s. Call them to read the value.
 
     ```tsx fileName="Hero.tsx"
     import { useExperiment } from "solid-intlayer";
@@ -593,7 +597,7 @@ Every time `useIntlayer` resolves a piece of content for display, the interprete
   </Tab>
   <Tab label="Angular" value="angular">
 
-    `variant` and `isAssigned` are `Signal`s — call them to read the value.
+    `variant` and `isAssigned` are `Signal`s. Call them to read the value.
 
     ```typescript fileName="hero.component.ts"
     import { Component } from "@angular/core";
@@ -615,7 +619,7 @@ Every time `useIntlayer` resolves a piece of content for display, the interprete
   </Tab>
 </Tabs>
 
-Weights are optional — pass one per variant to skew the split, e.g. `useExperiment("homepage-hero", ["default", "black_friday"], [9, 1])`.
+Weights are optional. Pass one per variant to skew the split, e.g. `useExperiment("homepage-hero", ["default", "black_friday"], [9, 1])`.
 
 The child then reads the [Variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dynamic_dictionaries/variants.md) of the dictionary that matches:
 
@@ -634,9 +638,13 @@ export const HeroBanner = ({ variant }: { variant: string }) => {
 };
 ```
 
+- [Variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dynamic_dictionaries/variants.md)
+
 > Reading the variant in a **child** is what makes this work outside React: in Vue, Svelte, Solid, and Angular the selector passed to `useIntlayer` is captured when the component sets up, so the read has to happen in a component that only mounts once the variant is known.
 
-If the experiment covers a whole page rather than a single dictionary, hoist the variant onto the provider instead — see [Ambient variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dynamic_dictionaries/variants.md#ambient-variant). Every `useIntlayer` below then resolves against it with no call-site change.
+If the experiment covers a whole page rather than a single dictionary, hoist the variant onto the provider instead. See [Ambient variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dynamic_dictionaries/variants.md#ambient-variant). Every `useIntlayer` below then resolves against it with no call-site change.
+
+- [Ambient variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dynamic_dictionaries/variants.md#ambient-variant)
 
 If you need the raw assignment outside of a component, reach for the client directly:
 
@@ -650,21 +658,21 @@ const variant = client?.getVariant("homepage-hero", [
 ]);
 ```
 
-> `getVariant` only assigns — it does not record the exposure. Prefer `useExperiment()`, otherwise the conversion rate has no denominator.
+> `getVariant` only assigns. It does not record the exposure. Prefer `useExperiment()`, otherwise the conversion rate has no denominator.
 
 ## Privacy & performance
 
-- **Anonymous by design**: sessions are identified by a rotating id; the backend only ever stores a **SHA-256 hash** of that id — never the raw id, never an IP address.
-- **Location is coarse**: only a country code, derived from CDN geolocation headers (`cf-ipcountry`, `x-vercel-ip-country`, …) — no IP is read or stored.
+- **Anonymous by design**: sessions are identified by a rotating id; the backend only ever stores a **SHA-256 hash** of that id, never the raw id, never an IP address.
+- **Location is coarse**: only a country code, derived from CDN geolocation headers (`cf-ipcountry`, `x-vercel-ip-country`, …), no IP is read or stored.
 - **URLs exclude search params** by default, so query strings are never captured.
 - **Sampling**: `sampleRate` lets you keep only a fraction of content-exposure events on high-traffic apps.
-- **Batched**: one request roughly every 20 seconds (`flushInterval`), or earlier if the buffer fills up (`maxBufferSize`) — never one request per event.
+- **Batched**: one request roughly every 20 seconds (`flushInterval`), or earlier if the buffer fills up (`maxBufferSize`), never one request per event.
 
 ### Zero-cost when not installed
 
 `@intlayer/analytics` follows the exact same optional-dependency pattern as `@intlayer/editor`:
 
-- every integration point loads the package via a **dynamic `import()` wrapped in `try/catch`** — an app that never installs `@intlayer/analytics` never pays a bundle-size or runtime cost, and never sees an error;
+- every integration point loads the package via a **dynamic `import()` wrapped in `try/catch`**, an app that never installs `@intlayer/analytics` never pays a bundle-size or runtime cost, and never sees an error;
 - a compile-time env var (`INTLAYER_ANALYTICS_ENABLED`), automatically set to `'false'` whenever the package is not installed, `analytics.enabled` is `false`, or `editor.clientId` is not configured, lets bundlers **dead-code-eliminate** the whole integration;
 - analytics is disabled inside the Intlayer editor/CMS preview iframe, so editor sessions are never counted as real traffic.
 
@@ -672,7 +680,7 @@ const variant = client?.getVariant("homepage-hero", [
 
 Once your project has collected events, the **Analytics** page in the [Intlayer dashboard](https://app.intlayer.org/analytics) (visible in the sidebar once a project is selected) shows:
 
-- **Active users** — distinct visitors over the selected rolling window (7 / 30 / 90 days).
+- **Active users**: distinct visitors over the selected rolling window (7 / 30 / 90 days).
 - **Users today** and **users over the last 7 days**.
 - **Page views** over the selected window.
 - An **evolution graph** of daily distinct visitors.
@@ -702,7 +710,9 @@ const cms = createIntlayerCMS();
 const { data: audience } = await analyticsEndpoint(cms).getAudience(30);
 ```
 
-> **Server-side only.** `createIntlayerCMS()` authenticates with `clientId` + `clientSecret`, and the secret is never available in the browser — this snippet would issue unauthenticated requests if it ran there. Keep it in a route handler, server action, or script.
+- [CMS SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
+
+> **Server-side only.** `createIntlayerCMS()` authenticates with `clientId` + `clientSecret`, and the secret is never available in the browser. This snippet would issue unauthenticated requests if it ran there. Keep it in a route handler, server action, or script.
 
 ## Useful links
 

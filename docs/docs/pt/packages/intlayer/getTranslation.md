@@ -34,6 +34,8 @@ A função `getTranslationContent` recupera o conteúdo correspondente a um loca
 
 Para mais detalhes sobre como declarar traduções, consulte a [documentação de Tradução](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/translation.md).
 
+- [documentação de Tradução](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/translation.md)
+
 ## Parâmetros
 
 - `languageContent: CustomizableLanguageContent<Content>`

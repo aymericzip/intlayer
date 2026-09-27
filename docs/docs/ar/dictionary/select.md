@@ -376,6 +376,8 @@ select(
 
 > لاحظ أن الرسالة بـ `select` في ICU التي تكون حالاتها قيم جنس (`male` / `female` / `other`) ستُستورد بدلاً من ذلك كعقدة [`gender`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/gender.md).
 
+- [`gender`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/gender.md)
+
 ## الموارد الإضافية
 
 للحصول على معلومات أكثر تفصيلًا حول التكوين والاستخدام، راجع الموارد التالية:

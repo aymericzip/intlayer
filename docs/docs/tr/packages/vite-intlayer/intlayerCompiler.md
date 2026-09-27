@@ -31,6 +31,8 @@ author: aymericzip
 
 > **Intlayer v9'dan beri** `intlayerCompiler`, Intlayer yapılandırmanızda hem `compiler.enabled` değeri `true` hem de `compiler.output` ayarlandığında ana [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/vite-intlayer/intlayer.md) eklentisine otomatik olarak dahil edilir. Yalnızca derleyiciye özel yapılandırma üzerinde tam kontrol sahibi olmak istediğinizde bunu ayrıca kaydetmeniz gerekir.
 
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/vite-intlayer/intlayer.md)
+
 ## Kullanım
 
 ### `intlayer()` Eklentisinin Parçası Olarak (Önerilen, v9+)
@@ -118,4 +120,4 @@ Geliştirme modunda bir bileşen dosyası kaydedildiğinde derleyici:
 
 ### Tekilleştirme (Deduplication)
 
-`intlayerCompiler`, diğer paketlenmiş eklentilerle aynı `createPrimaryInstanceGuard` tekilleştirme mekanizmasını kullanır. Hem `intlayer()` (derleyiciyi içeren) hem de manuel bir `intlayerCompiler()` çağrısı mevcut olduğunda, yalnızca ilk kaydedilen örnek çalışır — hiçbir sözlük iki kez yazılmaz.
+`intlayerCompiler`, diğer paketlenmiş eklentilerle aynı `createPrimaryInstanceGuard` tekilleştirme mekanizmasını kullanır. Hem `intlayer()` (derleyiciyi içeren) hem de manuel bir `intlayerCompiler()` çağrısı mevcut olduğunda, yalnızca ilk kaydedilen örnek çalışır, hiçbir sözlük iki kez yazılmaz.

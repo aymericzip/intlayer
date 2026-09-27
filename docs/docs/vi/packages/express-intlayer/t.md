@@ -258,3 +258,5 @@ app.get("/morning", (_req, res) => {
 ## Kết luận
 
 Hàm `t` là một công cụ mạnh mẽ cho việc quốc tế hóa backend. Bằng cách sử dụng hiệu quả, bạn có thể tạo ra một ứng dụng thân thiện với người dùng và bao quát hơn cho đối tượng toàn cầu. Để biết cách sử dụng nâng cao và các tùy chọn cấu hình chi tiết, hãy tham khảo [tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md).
+
+- [Cấu hình Intlayer (intlayer.config.ts)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md)

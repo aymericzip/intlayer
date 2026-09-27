@@ -221,4 +221,6 @@ Hàm `t` trong `next-intlayer` là một công cụ mạnh mẽ và tiện lợi
 
 Để biết thêm chi tiết về cách sử dụng và các tính năng nâng cao, hãy tham khảo [tài liệu next-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md).
 
+- [tài liệu next-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md)
+
 **Lưu ý**: Hãy nhớ thiết lập `IntlayerClientProvider` và `IntlayerServerProvider` của bạn một cách chính xác để đảm bảo rằng locale hiện tại được truyền đúng xuống các component của bạn. Điều này rất quan trọng để hàm `t` trả về các bản dịch chính xác.

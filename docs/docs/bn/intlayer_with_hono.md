@@ -184,6 +184,8 @@ module.exports = indexContent;
 
 > আরও বিস্তারিত জানার জন্য, [কন্টেন্ট ডিক্লারেশন ডকুমেন্টেশন](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/dictionary/content_file.md) দেখুন।
 
+- [কন্টেন্ট ডিক্লারেশন ডকুমেন্টেশন](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/dictionary/content_file.md)
+
 ### Hono অ্যাপ্লিকেশন সেটআপ (Hono Application Setup)
 
 `hono-intlayer` ব্যবহার করতে আপনার Hono অ্যাপ্লিকেশন সেটআপ করুন:
@@ -251,6 +253,8 @@ export default config;
 
 > কনফিগারেশন এবং উন্নত বিষয় সম্পর্কে আরও তথ্যের জন্য, আমাদের [ডকুমেন্টেশন](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/configuration.md) ভিজিট করুন।
 
+- [কনফিগারেশন (Configuration)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/configuration.md)
+
 ### TypeScript কনফিগার করুন (Configure TypeScript)
 
 `hono-intlayer` আন্তর্জাতিকীকরণ প্রক্রিয়াকে উন্নত করতে TypeScript-এর শক্তিশালী সক্ষমতাকে কাজে লাগায়। TypeScript-এর স্ট্যাটিক টাইপিং নিশ্চিত করে যে প্রতিটি অনুবাদ কী (translation key) হিসাব করা হয়েছে, যা অনুবাদের ঘাটতির ঝুঁকি কমায় এবং রক্ষণাবেক্ষণযোগ্যতা উন্নত করে।
@@ -275,7 +279,7 @@ export default config;
 
 Intlayer-এর সাথে আপনার ডেভেলপমেন্ট অভিজ্ঞতা উন্নত করতে, আপনি অফিসিয়াল **Intlayer VS Code Extension** ইনস্টল করতে পারেন।
 
-[VS Code Marketplace থেকে ইনস্টল করুন](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [VS Code Marketplace থেকে ইনস্টল করুন](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 এই এক্সটেনশনটি প্রদান করে:
 
@@ -285,6 +289,8 @@ Intlayer-এর সাথে আপনার ডেভেলপমেন্ট �
 - সহজে অনুবাদ তৈরি এবং আপডেট করার জন্য **Quick actions**।
 
 এক্সটেনশনটি কীভাবে ব্যবহার করবেন সে সম্পর্কে আরও বিশদ বিবরণের জন্য, [Intlayer VS Code Extension ডকুমেন্টেশন](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md) দেখুন।
+
+- [Intlayer VS Code Extension ডকুমেন্টেশন](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md)
 
 ### Git কনফিগারেশন (Git Configuration)
 

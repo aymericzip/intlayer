@@ -31,7 +31,7 @@ author: aymericzip
 
 # Angular Integration: `usePathname` Hook Documentation
 
-The `usePathname` hook returns the current browser pathname with the locale segment stripped, as an Angular `Signal<string>`. It is useful for building locale-aware navigation — for example, determining which nav item is active — without having to manually remove the locale prefix.
+The `usePathname` hook returns the current browser pathname with the locale segment stripped, as an Angular `Signal<string>`. It is useful for building locale-aware navigation (for example, determining which nav item is active) without having to manually remove the locale prefix.
 
 ## Importing `usePathname` in Angular
 

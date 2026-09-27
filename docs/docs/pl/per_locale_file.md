@@ -126,6 +126,8 @@ export default config;
 
 Korzystając z tej konfiguracji, wszystkie pliki dla poszczególnych lokali będą generowane z domyślnym lokalem ustawionym na angielski. Obejmuje to również generowanie plików `.content` za pomocą polecenia `extract` oraz kompilatora. (Zobacz [Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compiler.md) lub [Extract](https://github.com/aymericzip/intlayer/edit/main/docs/docs/en/cli/extract.md), aby uzyskać więcej informacji.)
 
+- [Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compiler.md)
+
 ## Format per-locale
 
 Ten format jest przydatny, gdy:
@@ -264,3 +266,5 @@ console.log(JSON.stringify(intlayer, null, 2));
 ### Automatyczne generowanie tłumaczeń
 
 Użyj [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/index.md), aby automatycznie uzupełnić brakujące tłumaczenia na podstawie wybranych usług.
+
+- [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/index.md)

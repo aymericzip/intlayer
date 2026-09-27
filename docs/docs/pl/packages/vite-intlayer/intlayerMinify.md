@@ -31,6 +31,8 @@ author: aymericzip
 
 > Ta wtyczka jest automatycznie dołączana i konfigurowana, gdy używasz wtyczki [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/vite-intlayer/intlayer.md). Musisz ją zarejestrować ręcznie tylko wtedy, gdy samodzielnie tworzysz stos wtyczek.
 
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/vite-intlayer/intlayer.md)
+
 ## Użycie
 
 ```ts
@@ -63,8 +65,8 @@ Gdy `editor.enabled` ma wartość `true`, wtyczka nadal działa, ale **pomija zm
 
 Wtyczka kieruje swoje działanie na dwie lokalizacje słowników (rozpoznane na podstawie `intlayer.system`):
 
-- `dictionariesDir` — statyczne słowniki dla wszystkich języków (np. `.intlayer/dictionaries/*.json`)
-- `dynamicDictionariesDir` — dynamiczne słowniki dla poszczególnych języków
+- `dictionariesDir`: statyczne słowniki dla wszystkich języków (np. `.intlayer/dictionaries/*.json`)
+- `dynamicDictionariesDir`: dynamiczne słowniki dla poszczególnych języków
 
 > Słowniki w trybie pobierania (`fetchDictionariesDir`) **nigdy** nie są minifikowane, ponieważ są serwowane z zewnętrznego API w czasie rzeczywistym przy użyciu ich oryginalnych nazw pól. Zmiana nazw pól stworzyłaby niezgodność między odpowiedzią serwera a dostępem do właściwości po stronie klienta.
 
@@ -86,7 +88,7 @@ Wewnętrzne pola Intlayer (`nodeType`, `translation` itp.) nigdy nie zmieniają 
 
 ## Słowniki z przypadkami brzegowymi
 
-Słowniki oznaczone w `pruneContext.dictionariesWithEdgeCases` (anomalie strukturalne wykryte podczas fazy oczyszczania/prune) są całkowicie pomijane — nie są minifikowane ani maskowane — aby uniknąć dostarczenia uszkodzonych danych.
+Słowniki oznaczone w `pruneContext.dictionariesWithEdgeCases` (anomalie strukturalne wykryte podczas fazy oczyszczania/prune) są całkowicie pomijane, nie są minifikowane ani maskowane, aby uniknąć dostarczenia uszkodzonych danych.
 
 ## Grupy kwalifikowane (kolekcje / warianty / metarekordy)
 

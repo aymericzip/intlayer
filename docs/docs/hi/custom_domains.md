@@ -143,7 +143,7 @@ getMultilingualUrls("/about", { currentDomain: "intlayer.org" });
 
 `routing.domains` को generated module augmentation में serialize किया जाता है, इसलिए
 `getLocalizedUrl` और `getLocalizedPath` अपने return type को exact
-URL तक narrow करते हैं जिसे एक domain-routed locale resolve करता है — prefix suppression शामिल है।
+URL तक narrow करते हैं जिसे एक domain-routed locale resolve करता है, prefix suppression शामिल है।
 
 ```ts
 // routing: { mode: 'prefix-no-default', domains: { en: 'intlayer.org', zh: 'intlayer.zh' } }
@@ -202,7 +202,9 @@ GET intlayer.zh/about
 
 `intlayerProxy` Vite प्लगइन विकास के दौरान समान तर्क लागू करता है:
 
-> Intlayer v9 के बाद से, `intlayerProxy()` सीधे `intlayer()` plugin में bundled है और `routing.enableProxy` विकल्प के माध्यम से डिफ़ॉल्ट रूप से सक्षम है (`true` डिफ़ॉल्ट रूप से)। इसे अलग से पंजीकृत करना जैसा कि नीचे दिखाया गया है अब वैकल्पिक है — यह backward compatibility के लिए और उन setups के लिए रखा गया है जिन्हें plugin order को नियंत्रित करने की आवश्यकता है। `routing.enableProxy: false` सेट करके opt out करें। [v9 release notes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/releases/v9.md) देखें।
+> Intlayer v9 के बाद से, `intlayerProxy()` सीधे `intlayer()` plugin में bundled है और `routing.enableProxy` विकल्प के माध्यम से डिफ़ॉल्ट रूप से सक्षम है (`true` डिफ़ॉल्ट रूप से)। इसे अलग से पंजीकृत करना जैसा कि नीचे दिखाया गया है अब वैकल्पिक है, यह backward compatibility के लिए और उन setups के लिए रखा गया है जिन्हें plugin order को नियंत्रित करने की आवश्यकता है। `routing.enableProxy: false` सेट करके opt out करें। [v9 release notes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/releases/v9.md) देखें।
+
+- [v9 release notes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/releases/v9.md)
 
 ```typescript fileName="vite.config.ts"
 import { defineConfig } from "vite";

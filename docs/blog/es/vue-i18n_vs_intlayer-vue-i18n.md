@@ -30,6 +30,8 @@ author: aymericzip
 
 Este artículo mide ese cambio en la misma aplicación Vite + Vue 3, construida una vez con `vue-i18n` y otra con el adaptador. Los números provienen de [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Para comparar `vue-i18n` e Intlayer como librerías, lee [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/vue-i18n_vs_intlayer.md) y el [benchmark de vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/vue-i18n_vs_intlayer.md). Este trata sobre qué cambia el adaptador cuando mantienes tus componentes como están.
 
+- [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/vue-i18n_vs_intlayer.md)
+
 <TOC/>
 
 > **tl;dr**: En la misma app de Vite + Vue 3, reemplazar `vue-i18n` con `@intlayer/vue-i18n` redujo el JavaScript por página de **134.9 KB a 47.0 KB** gzip (la app sin i18n pesa 41.3 KB), el runtime de **24.3 KB a 7.9 KB**, el componente promedio de **196 KB a 8.4 KB**, y la fuga de strings en páginas extranjeras de **90% a 0%**, sin editar ningún archivo `.vue`. `createI18n({ messages })` sigue funcionando como fallback; elimina los imports JSON para obtener los números anteriores. Los bloques SFC `<i18n>` y el `setLocaleMessage()` en runtime son las dos características que no se transfieren.
@@ -137,6 +139,8 @@ style="border:none;"
 />
 
 > Tabla completa, cada biblioteca y cada estrategia, en el [informe de benchmark de Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/benchmark/vue.md).
+
+- [informe de benchmark de Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/benchmark/vue.md)
 
 ## Por qué se mueven los números
 
@@ -286,6 +290,8 @@ Si tus mensajes residen dentro de los componentes, deben trasladarse a los archi
 
 `setLocaleMessage()` y `mergeLocaleMessage()` muestran una advertencia y retornan. Las traducciones obtenidas de un CMS en runtime requieren el [CMS de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md) o los comandos `intlayer pull` / `push`.
 
+- [CMS de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md)
+
 </Accordion>
 <Accordion header="messages es un fallback, no gratuito">
 
@@ -316,6 +322,9 @@ Estás en `vue-i18n` y quieres los 88 KB, componentes 23 veces más pequeños, 0
 
 Para nuevos proyectos, o una vez que el adaptador haya cumplido su función. Tiene el runtime más ligero (3.9 KB) y el modelo `.content.ts` por componente que reemplaza los bloques `<i18n>` con contenido tipado. Comienza con [Intlayer con Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_vite+vue.md) o [con Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_nuxt.md).
 
+- [Intlayer con Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_vite+vue.md)
+- [con Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_nuxt.md)
+
 </Accordion>
 </AccordionGroup>
 
@@ -339,11 +348,16 @@ Porque `useI18n()` deja de acceder a la instancia global. `createI18n({ messages
 
 Se conserva. Se respetan `datetimeFormats` y `numberFormats` pasados a `createI18n()`, respaldados por la API nativa `Intl`. Consulta [formateo de fechas, horas y números](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/date_time_number_formatting_locales.md).
 
+- [formateo de fechas, horas y números](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/date_time_number_formatting_locales.md)
+
 </Question>
 
 <Question title="¿Funciona con Nuxt?">
 
 `@intlayer/vue-i18n` está diseñado para Vite + Vue. Para `@nuxtjs/i18n`, usa el [adaptador de compatibilidad Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compat/nuxtjs-i18n.md) y consulta [Intlayer con Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_nuxt.md) para la configuración nativa.
+
+- [adaptador de compatibilidad Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compat/nuxtjs-i18n.md)
+- [Intlayer con Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_nuxt.md)
 
 </Question>
 
@@ -394,3 +408,5 @@ Documentación de referencia:
 Todos los datos sin procesar, las aplicaciones de prueba y los scripts están en el [repositorio Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Ejecútalo tú mismo.
 
 Consulta la [documentación 'Why Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/interest_of_intlayer.md) para más detalles.
+
+- [¿Por qué Intlayer? Ventajas frente a otras bibliotecas i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/interest_of_intlayer.md)

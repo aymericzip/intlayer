@@ -31,6 +31,8 @@ Le plugin Vite `intlayerPrune` permet d'effectuer du tree-shaking et de supprime
 
 > Le plugin est déjà inclus et configuré automatiquement lorsque vous utilisez [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/vite-intlayer/intlayer.md). Vous n'avez besoin de l'enregistrer manuellement que si vous composez vous-même la pile de plugins.
 
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/vite-intlayer/intlayer.md)
+
 ## Utilisation
 
 ### Dans le cadre de `intlayer()` (recommandé)
@@ -99,8 +101,8 @@ Lorsque Vite traite un fichier JSON de dictionnaire compilé, `intlayerPrune` l'
 
 Deux formes de contenu sont supportées :
 
-- **Dictionnaires statiques** — `{ nodeType: "translation", translation: { en: {...}, fr: {...} } }`. Les champs sont élagués par locale à l'intérieur de `translation`.
-- **Dictionnaires dynamiques (par locale)** — flat `{ fieldA: ..., fieldB: ... }`. Les champs sont élagués au niveau supérieur.
+- **Dictionnaires statiques**: `{ nodeType: "translation", translation: { en: {...}, fr: {...} } }`. Les champs sont élagués par locale à l'intérieur de `translation`.
+- **Dictionnaires dynamiques (par locale)**: flat `{ fieldA: ..., fieldB: ... }`. Les champs sont élagués au niveau supérieur.
 
 ### 3. Cas limites
 
@@ -108,7 +110,7 @@ Si la structure de contenu d'un dictionnaire ne peut pas être reconnue (par exe
 
 ### 4. Field-rename map
 
-Lorsque l'élagage réussit, `intlayerPrune` écrit également `pruneContext.dictionaryKeyToFieldRenameMap` — un mapping entre les noms de champs originaux et leurs alias courts. `intlayerMinify` lit cette carte pour renommer les champs dans le JSON de sortie, et la passe de renommage Babel d'`intlayerOptimize` met à jour les accès aux propriétés dans les fichiers sources en conséquence.
+Lorsque l'élagage réussit, `intlayerPrune` écrit également `pruneContext.dictionaryKeyToFieldRenameMap`, un mapping entre les noms de champs originaux et leurs alias courts. `intlayerMinify` lit cette carte pour renommer les champs dans le JSON de sortie, et la passe de renommage Babel d'`intlayerOptimize` met à jour les accès aux propriétés dans les fichiers sources en conséquence.
 
 ## Conditions d'activation
 
@@ -118,4 +120,4 @@ Lorsque l'élagage réussit, `intlayerPrune` écrit également `pruneContext.dic
 2. `build.optimize` est `true` (ou `undefined`, qui est `true` par défaut pour les builds).
 3. `build.purge` est `true` dans votre configuration Intlayer.
 
-Il reste actif lorsque `editor.enabled` est `true` : l'éditeur visuel résout chaque modification via `dictionaryKey` + `keyPath` par rapport aux dictionnaires non fusionnés, que ce plugin ne touche jamais, et un champ purgé est un champ qu'aucun composant ne lit — il n'est donc jamais rendu ni sélectionnable dans la page.
+Il reste actif lorsque `editor.enabled` est `true` : l'éditeur visuel résout chaque modification via `dictionaryKey` + `keyPath` par rapport aux dictionnaires non fusionnés, que ce plugin ne touche jamais, et un champ purgé est un champ qu'aucun composant ne lit, il n'est donc jamais rendu ni sélectionnable dans la page.

@@ -39,17 +39,23 @@ Alih-alih memuat file JSON besar ke halaman Anda, muat hanya konten yang diperlu
 
 Membatasi konten aplikasi Anda **memfasilitasi pemeliharaan** untuk aplikasi skala besar. Anda dapat menduplikasi atau menghapus folder fitur tunggal tanpa beban mental meninjau seluruh codebase konten Anda. Selain itu, Intlayer **sepenuhnya diketik** untuk memastikan akurasi konten Anda.
 
-Intlayer juga merupakan solusi dengan **pengembangan paling aktif** di ekosistem i18n — masalah diperbaiki dengan cepat, adapter framework baru dirilis secara teratur, dan API inti terus disempurnakan berdasarkan umpan balik produksi dunia nyata.
+Intlayer juga merupakan solusi dengan **pengembangan paling aktif** di ekosistem i18n, masalah diperbaiki dengan cepat, adapter framework baru dirilis secara teratur, dan API inti terus disempurnakan berdasarkan umpan balik produksi dunia nyata.
 
 </Accordion>
 <Accordion header="AI Agent">
 
 Menempatkan konten bersama **mengurangi konteks yang diperlukan** oleh Large Language Models (LLM). Intlayer juga dilengkapi dengan rangkaian alat, seperti **CLI** untuk menguji terjemahan yang hilang, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/mcp_server.md)**, dan **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/agent_skills.md)**, untuk membuat pengalaman developer (DX) bahkan lebih lancar untuk agen AI.
 
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/mcp_server.md)
+- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/agent_skills.md)
+
 </Accordion>
 <Accordion header="Otomasi">
 
 Gunakan otomasi untuk menerjemahkan di pipeline CI/CD Anda menggunakan LLM pilihan Anda dengan biaya dari penyedia AI Anda. Intlayer juga menawarkan **compiler** untuk mengotomatisasi ekstraksi konten, serta [platform web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md) untuk membantu **menerjemahkan di latar belakang**.
+
+- [platform web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="Performa">
@@ -60,6 +66,9 @@ Menghubungkan file JSON besar ke komponen dapat menyebabkan masalah performa dan
 <Accordion header="Scaling dengan non-dev">
 
 Lebih dari sekadar solusi i18n, Intlayer menyediakan **[visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) yang di-self-hosted** dan **[CMS lengkap](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)** untuk membantu Anda mengelola konten multibahasa Anda secara **real-time**, membuat kolaborasi dengan penerjemah, copywriter, dan anggota tim lainnya mulus. Konten dapat disimpan secara lokal dan/atau jarak jauh.
+
+- [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md)
+- [CMS lengkap](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
@@ -72,9 +81,9 @@ Lebih dari sekadar solusi i18n, Intlayer menyediakan **[visual editor](https://g
 
 Karena `@nuxtjs/i18n` didukung oleh `vue-i18n` di balik layar, ada dua strategi pelengkap untuk migrasi ke Intlayer:
 
-1. **Compat adapter (direkomendasikan untuk aplikasi yang sudah ada)** — Instal `@intlayer/vue-i18n` dan `nuxt-intlayer`. Ini mengekspos **API yang sama persis** seperti `vue-i18n` tetapi mendelegasikan semua pekerjaan terjemahan ke Intlayer di balik layar. Anda mempertahankan `$t`, `useI18n()`, dan routing Nuxt yang sudah ada — satu-satunya perubahan adalah inisialisasi.
+1. **Compat adapter (direkomendasikan untuk aplikasi yang sudah ada)**: Instal `@intlayer/vue-i18n` dan `nuxt-intlayer`. Ini mengekspos **API yang sama persis** seperti `vue-i18n` tetapi mendelegasikan semua pekerjaan terjemahan ke Intlayer di balik layar. Anda mempertahankan `$t`, `useI18n()`, dan routing Nuxt yang sudah ada, satu-satunya perubahan adalah inisialisasi.
 
-2. **Migrasi penuh** — Secara bertahap ganti API `@nuxtjs/i18n` dengan hooks Intlayer asli (`useIntlayer`) dan co-locate konten dalam file `.content.ts` bersama komponen Anda.
+2. **Migrasi penuh**: Secara bertahap ganti API `@nuxtjs/i18n` dengan hooks Intlayer asli (`useIntlayer`) dan co-locate konten dalam file `.content.ts` bersama komponen Anda.
 
 Panduan ini mencakup **Strategi 1** terlebih dahulu (drop-in compat adapter), kemudian menjelaskan migrasi penuh opsional.
 
@@ -196,7 +205,7 @@ Plugin Intlayer sudah menangani aliasing di tingkat bundler. Jika Anda lebih suk
 | ------------------------------------ | ---------------------------------------------- |
 | `import { useI18n } from 'vue-i18n'` | `import { useI18n } from '@intlayer/vue-i18n'` |
 
-Ini adalah **drop-in replacements** — tidak ada perubahan pada tanda tangan panggilan, argumen, atau jenis pengembalian yang diperlukan.
+Ini adalah **drop-in replacements**, tidak ada perubahan pada tanda tangan panggilan, argumen, atau jenis pengembalian yang diperlukan.
 
 </Step>
 <Step number={5} title="Enable AI-Powered Translation Automation" isOptional={true}>
@@ -256,6 +265,8 @@ export default config;
 
 > Lihat [dokumentasi Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md) untuk semua opsi yang tersedia.
 
+- [dokumentasi Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md)
+
 </Step>
 
 </Steps>
@@ -270,7 +281,7 @@ Setelah adapter kompatibilitas sudah disiapkan, boilerplate berikut dapat dihapu
 | `@nuxtjs/i18n` from `package.json`        | Sepenuhnya digantikan oleh `nuxt-intlayer`.                                                                                                                  |
 | JSON language bundles (`locales/*.json`)  | JSON bundles hanya diperlukan jika Anda masih menggunakan plugin `syncJSON`. Setelah Anda bermigrasi ke file `.content.ts` Anda dapat menghapus folder JSON. |
 
-Ketika Anda siap untuk melanjutkan, Intlayer **secara otomatis menemukan semua file `.content.ts` dan `.content.json` di mana pun dalam codebase Anda** (secara default, di mana pun di dalam `./src`). Anda dapat menempatkan file `my-component.content.ts` tepat di sebelah `MyComponent.vue` Anda dan Intlayer akan mengambilnya pada saat build tanpa konfigurasi tambahan — tidak ada imports, tidak ada registration, tidak ada file index terpusat yang diperlukan. Ini membuat co-locating translations dengan pages dan components menjadi sangat mudah.
+Ketika Anda siap untuk melanjutkan, Intlayer **secara otomatis menemukan semua file `.content.ts` dan `.content.json` di mana pun dalam codebase Anda** (secara default, di mana pun di dalam `./src`). Anda dapat menempatkan file `my-component.content.ts` tepat di sebelah `MyComponent.vue` Anda dan Intlayer akan mengambilnya pada saat build tanpa konfigurasi tambahan, tidak ada imports, tidak ada registration, tidak ada file index terpusat yang diperlukan. Ini membuat co-locating translations dengan pages dan components menjadi sangat mudah.
 
 ## Konfigurasi TypeScript
 

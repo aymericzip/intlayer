@@ -92,6 +92,8 @@ style="border:none;"
 
 > 10 rota ve 10 dil içeren bir üretim derlemesinde gzip sıkıştırmasıyla test edilmiştir. Tüm veriler [i18n benchmark raporunda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/index.md).
 
+- [i18n benchmark raporunda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/index.md)
+
 ### Temel Kütüphane Yükü
 
 Çeviri metinleri eklenmeden önceki ilk ayak izi:
@@ -171,6 +173,9 @@ return <h1>{title}</h1>;
 
 [Intlayer derleyicisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md), `Hero.tsx` bileşeninin gerçekte neleri tükettiğini analiz eder ve kullanılmayan alanları temizler. İncelemek için [paket optimizasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md) sayfasına bakın.
 
+- [Intlayer derleyicisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md)
+- [paket optimizasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md)
+
 ## Geliştirici Deneyimi
 
 ### Dağınık JSON vs. Birlikte Konumlandırma
@@ -237,6 +242,8 @@ export const Hero = () => {
 `CustomTypeOptions` tanımlamak editörde otomatik tamamlama sağlar ancak içeriğin varlığını garanti etmez. `tr/home.json` dosyasından bir anahtarı silmek derlemeyi durdurmaz, sadece çalışma zamanında fallback tetikler.
 
 Intlayer, tipleri doğrudan içerik bildirimlerinden çıkarır ve [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) modu eksik çevirileri derleme hatasına dönüştürür.
+
+- [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md)
 
 ### Araç Karşılaştırması
 

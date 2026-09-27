@@ -66,6 +66,8 @@ Paraglide प्रति मैसेज एक फंक्शन जेनर
 
 [JavaScript i18n का इतिहास](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/history_of_i18n.md) प्रत्येक दौर को विस्तार से कवर करता है।
 
+- [JavaScript i18n का इतिहास](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/history_of_i18n.md)
+
 ## सबसे महत्वपूर्ण निर्णय: कंटेंट कहाँ रहता है और कब लोड होता है
 
 दो संरचनात्मक विकल्प सेटअप्स के बीच अधिकांश बंडल अंतर की व्याख्या करते हैं:
@@ -81,9 +83,14 @@ Paraglide प्रति मैसेज एक फंक्शन जेनर
 
 [Vue बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/vue.md) इसे "अन्य रूट्स से लीकेज" और "अन्य लोकेल्स से लीकेज" के रूप में मापता है। यदि प्रश्न 3 का आपका उत्तर "कई पेज" था, तो यह सेक्शन किसी भी API प्राथमिकता से अधिक महत्वपूर्ण है। [प्रति-कंपोनेंट बनाम केंद्रीकृत i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/per-component_vs_centralized_i18n.md) पोस्ट इसी ट्रेड-ऑफ के मेंटेनेंस पक्ष को कवर करती है।
 
+- [Vue बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/vue.md)
+- [प्रति-कंपोनेंट बनाम केंद्रीकृत i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/per-component_vs_centralized_i18n.md)
+
 ## उम्मीदवार लाइब्रेरीज़
 
 लाइब्रेरी साइज़ [Vue बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/vue.md) से हैं: 10-पेज, 10-लोकेल ऐप पर बंडलिंग, ट्री-शेकिंग और मिनिफिकेशन के बाद एक खाली कंपोनेंट में प्लगइन और कंपोज़ेबल। कंटेंट को अलग से मापा जाता है।
+
+- [Vue बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/vue.md)
 
 ![Vue i18n लाइब्रेरी इकोसिस्टम](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
@@ -112,6 +119,8 @@ Composition मोड (`legacy: false`) में `vue-i18n`, `@intlify/unplugin
 
 `@nuxtjs/i18n` आपको बिना किसी कोड के रूटिंग रणनीति, `hreflang` टैग्स और लोकेल डिटेक्शन प्रदान करता है, और केवल यही कुछ पेजों वाली कंटेंट साइटों के लिए इसे उचित ठहराता है। इसकी सीमा प्रति-लोकेल कैटलॉग है: लगभग दस पेजों के बाद SSR पेलोड हर रूट की कॉपी ले जाता है। यदि आपका मामला ऐसा है, तो या तो प्रति-रूट मैसेजेस के साथ `vue-i18n` को मैन्युअली वायर करें, या स्कोप्ड कंटेंट पर जाएँ। [Nuxt i18n पोस्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nuxt.md) पहले रूटिंग रणनीति के चुनाव के बारे में बताती है।
 
+- [Nuxt i18n पोस्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nuxt.md)
+
 </Accordion>
 <Accordion header="ट्रांसलेशन किसी TMS या ICU डिलीवर करने वाली एजेंसी से आते हैं">
 
@@ -126,6 +135,8 @@ Composition मोड (`legacy: false`) में `vue-i18n`, `@intlify/unplugin
 <Accordion header="टाइप सुरक्षा गैर-परक्राम्य है">
 
 `vue-i18n` को `createI18n` में एक स्कीमा जेनेरिक पास करके टाइप किया जा सकता है। यह काम करता है, और जैसे ही कैटलॉग लेज़ी लोड होते हैं, यह टूट जाता है, क्योंकि स्कीमा उन मैसेजेस का वर्णन करती है जो शायद अभी तक वहाँ नहीं हैं। यदि आप इसे बनाए नहीं रखना चाहते हैं, तो ऐसी लाइब्रेरी चुनें जिसके टाइप्स कंटेंट से जेनरेट होते हैं: Paraglide या Intlayer। [लापता अनुवादों का पता लगाना](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/detecting_missing_translations.md) पोस्ट तुलना करती है कि प्रत्येक बिल्ड टाइम पर क्या पकड़ता है।
+
+- [लापता अनुवादों का पता लगाना](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/detecting_missing_translations.md)
 
 </Accordion>
 <Accordion header="कंटेंट UI लेबल्स से अधिक है">
@@ -366,6 +377,10 @@ const { title, items } = useIntlayer("cart-summary");
 
 पहले से ही `vue-i18n` पर हैं? [`@intlayer/vue-i18n` कम्पैटिबिलिटी एडेप्टर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/vue-i18n.md) बंडलर स्तर पर पैकेज को उपनाम (alias) देता है, ताकि `useI18n()`, `$t`, पाइप प्लूरल्स और `v-t` काम करते रहें जबकि Intlayer कंटेंट सर्व करता है। [माइग्रेशन गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_vue-i18n_to_intlayer.md) बाद में एडेप्टर से हटने को कवर करती है, और एक [Nuxt-विशिष्ट गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_nuxtjs_i18n_to_intlayer.md) भी है।
 
+- [`@intlayer/vue-i18n` कम्पैटिबिलिटी एडेप्टर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/vue-i18n.md)
+- [माइग्रेशन गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_vue-i18n_to_intlayer.md)
+- [Nuxt-विशिष्ट गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_nuxtjs_i18n_to_intlayer.md)
+
 ## निर्णय लेने से पहले
 
 एक फीचर टेबल आपको बताती है कि लाइब्रेरी आज क्या करती है। ये बिंदु आपको बताते हैं कि इसके साथ काम करना कैसा रहेगा।
@@ -388,6 +403,9 @@ const { title, items } = useIntlayer("cart-summary");
 
 एजेंट अभी भी i18n के साथ संघर्ष करते हैं: वे लोकेल्स भूल जाते हैं, मनगढ़ंत कीज़ बनाते हैं, और मैसेज सिंटैक्स मिला देते हैं। क्या लाइब्रेरी [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/agent_skills.md) या एक [MCP सर्वर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/mcp_server.md) प्रदान करती है ताकि एजेंट कंटेंट को लिस्ट, फ़िल और टेस्ट कर सके? और क्या कंटेंट लोडिंग डिफ़ॉल्ट रूप से अनुकूलित है, या किसी को हर तिमाही में नेमस्पेस और लेज़ी इम्पोर्ट्स की समीक्षा करनी होगी?
 
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/agent_skills.md)
+- [MCP सर्वर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/mcp_server.md)
+
 **आउट-ऑफ-द-बॉक्स टाइप सुरक्षा।**
 
 "अतिरिक्त वायरिंग के साथ टाइप किया जा सकता है" ऐसा नहीं, बल्कि "एक गलत की पर फ्रेश इंस्टॉल पर `tsc` फेल हो जाता है"। जाँचें कि अस्तित्वहीन की के साथ क्या होता है, और ऐसे लोकेल के साथ क्या होता है जिसमें एक अनुवाद छूट गया है।
@@ -399,6 +417,13 @@ const { title, items } = useIntlayer("cart-summary");
 **डेवलपर अनुभव (Developer experience)।**
 
 पहले ट्रांसलेटेड स्ट्रिंग तक सेटअप का समय, एक [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/lsp.md) या [VS Code एक्सटेंशन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/vs_code_extension.md) जो होवर पर अनुवाद दिखाता है और डिक्लेरेशन पर कूदता है, फ़िल, टेस्ट और पुश के लिए एक [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/index.md), आपके कंपोनेंट्स से हार्ड-कोडेड स्ट्रिंग्स निकालने वाला एक [कंपाइलर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md) या एक्सट्रैक्टर ताकि हर स्ट्रिंग को कुंजी-दर-कुंजी प्रबंधित न करना पड़े, और गैर-डेवलपर्स के लिए पुल रिक्वेस्ट के बिना कंटेंट को एडिट करने का एक तरीका ([विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) या [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md))।
+
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/lsp.md)
+- [VS Code एक्सटेंशन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/vs_code_extension.md)
+- [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/index.md)
+- [कंपाइलर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md)
+- [विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md)
 
 ## अक्सर पूछे जाने वाले प्रश्न
 
@@ -420,11 +445,15 @@ const { title, items } = useIntlayer("cart-summary");
 
 केवल तभी जब बंडल साइज़, SSR पेलोड, जेनरेटेड टाइप्स या बिल्ड-टाइम मिसिंग-की चेक्स वास्तविक आवश्यकताएं हों। [कंपाइलर बनाम डिक्लेरेटिव i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/compiler_vs_declarative_i18n.md) पोस्ट बताती है कि कंपाइलर आपको क्या देते हैं और वे कहाँ गलत हो सकते हैं।
 
+- [कंपाइलर बनाम डिक्लेरेटिव i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/compiler_vs_declarative_i18n.md)
+
 </Question>
 
 <Question title="क्या लाइब्रेरी का चुनाव SEO को प्रभावित करता है?">
 
 अप्रत्यक्ष रूप से। क्रॉलर्स रूटिंग, `hreflang`, `<html lang>` की परवाह करते हैं और क्या टेक्स्ट सर्वर-रेंडर किए गए HTML में मौजूद है। [hreflang गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/hreflang_guide_multilingual_seo.md) देखें।
+
+- [hreflang गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/hreflang_guide_multilingual_seo.md)
 
 </Question>
 

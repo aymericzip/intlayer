@@ -32,7 +32,9 @@ author: aymericzip
 
 Fungsi `getLocalizedPath` mengubah canonical path (path internal aplikasi) menjadi padanan yang dilokalkan berdasarkan locale dan aturan rewrite yang disediakan. Fungsi ini sangat berguna untuk menghasilkan URL ramah SEO yang berbeda menurut bahasa.
 
-Ini adalah padanan relatif dari [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getLocalizedUrl.md) — untuk input relatif keduanya mengembalikan nilai yang sama. Tidak seperti `getLocalizedUrl`, ini tidak pernah mengembalikan URL absolut: konfigurasi `domains` diabaikan, jadi locale yang disajikan dari domain-nya sendiri masih menghasilkan path. Input absolut diterima, tetapi asal-usulnya dijatuhkan — hanya path, query string, dan hash yang dipertahankan.
+Ini adalah padanan relatif dari [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getLocalizedUrl.md), untuk input relatif keduanya mengembalikan nilai yang sama. Tidak seperti `getLocalizedUrl`, ini tidak pernah mengembalikan URL absolut: konfigurasi `domains` diabaikan, jadi locale yang disajikan dari domain-nya sendiri masih menghasilkan path. Input absolut diterima, tetapi asal-usulnya dijatuhkan, hanya path, query string, dan hash yang dipertahankan.
+
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getLocalizedUrl.md)
 
 **Fitur Utama:**
 
@@ -71,10 +73,10 @@ getLocalizedPath(
   - **Tipe**: `RoutingConfig['rewrite']`
   - **Default**: `configuration.routing.rewrite`
 
-  - `options.locales?: Locales[]` — locale yang didukung. **Default**: `configuration.internationalization.locales`
-  - `options.defaultLocale?: Locales` — locale default. **Default**: `configuration.internationalization.defaultLocale`
-  - `options.mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'` — bagaimana locale muncul di path. **Default**: `configuration.routing.mode`
-  - `options.rewrite?: RoutingConfig['rewrite']` — custom rewrite rules. **Default**: `configuration.routing.rewrite`
+  - `options.locales?: Locales[]`: locale yang didukung. **Default**: `configuration.internationalization.locales`
+  - `options.defaultLocale?: Locales`: locale default. **Default**: `configuration.internationalization.defaultLocale`
+  - `options.mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'`: bagaimana locale muncul di path. **Default**: `configuration.routing.mode`
+  - `options.rewrite?: RoutingConfig['rewrite']`: custom rewrite rules. **Default**: `configuration.routing.rewrite`
 
 ## Pengembalian
 
@@ -97,6 +99,8 @@ const home = getLocalizedPath("/", Locales.FRENCH);
 ```
 
 Penyempitan yang sama mengalir ke dalam [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getLocalizedUrl.md), yang menerapkan aturan penulisan ulang sebelum memberi awalan locale.
+
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getLocalizedUrl.md)
 
 Dua kasus tetap meluas menjadi `string`, karena tidak dapat diselesaikan pada waktu kompilasi:
 

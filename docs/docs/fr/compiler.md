@@ -54,6 +54,8 @@ Le **Intlayer Compiler** est un outil puissant conçu pour automatiser le proces
 
 Consultez l'article de blog [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/compiler_vs_declarative_i18n.md) pour une comparaison plus approfondie.
 
+- [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/compiler_vs_declarative_i18n.md)
+
 ## Pourquoi ne pas utiliser l'Intlayer Compiler ?
 
 Bien que le compilateur offre une excellente expérience "fonctionne tout seul", il introduit également certains compromis dont vous devez être conscient :
@@ -65,7 +67,12 @@ Bien que le compilateur offre une excellente expérience "fonctionne tout seul",
 
 Pour une comparaison architecturale plus approfondie, consultez l'article de blog [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/compiler_vs_declarative_i18n.md).
 
+- [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/compiler_vs_declarative_i18n.md)
+
 Comme alternative, pour automatiser votre processus i18n tout en gardant un contrôle total de votre contenu, Intlayer fournit également une commande d'auto-extraction `intlayer extract` (voir la [documentation CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/extract.md)), ou la commande `Intlayer: extract content to Dictionary` de l'extension Intlayer VS Code (voir la [documentation de l'extension VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/vs_code_extension.md)).
+
+- [documentation CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/extract.md)
+- [documentation de l'extension VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/vs_code_extension.md)
 
 ## Utilisation
 
@@ -97,9 +104,11 @@ export default defineConfig({
 });
 ```
 
-> Le plugin autonome `intlayerCompiler()` est toujours exporté pour les configurations avancées. L'enregistrer aux côtés de `intlayer()` est sûr — le compilateur se déduplique lui-même et s'exécute une seule fois.
+> Le plugin autonome `intlayerCompiler()` est toujours exporté pour les configurations avancées. L'enregistrer aux côtés de `intlayer()` est sûr, le compilateur se déduplique lui-même et s'exécute une seule fois.
 
 See complete tutorial: [Translate Vite and React with Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md)
+
+- [Translate Vite and React with Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md)
 
 #### Support des frameworks
 
@@ -389,3 +398,5 @@ bun x intlayer extract
 ```
 
 > Pour plus de détails, consultez la [documentation CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/index.md)
+
+- [documentation CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/index.md)

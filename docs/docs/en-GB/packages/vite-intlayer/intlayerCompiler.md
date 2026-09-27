@@ -27,9 +27,11 @@ author: aymericzip
 
 # intlayerCompiler
 
-`intlayerCompiler` is a Vite plugin that scans component source files for **inline Intlayer content declarations** — content defined directly inside a component rather than in a separate `.content.ts` file — and writes them to dictionary JSON files during the transform phase.
+`intlayerCompiler` is a Vite plugin that scans component source files for **inline Intlayer content declarations**, content defined directly inside a component rather than in a separate `.content.ts` file, and writes them to dictionary JSON files during the transform phase.
 
 > **Since Intlayer v9** `intlayerCompiler` is automatically included inside the main [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/vite-intlayer/intlayer.md) plugin when both `compiler.enabled` is `true` and `compiler.output` is set in your Intlayer config. You only need to register it separately when you want full control over compiler-specific configuration.
+
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/vite-intlayer/intlayer.md)
 
 ## Usage
 
@@ -118,4 +120,4 @@ A 500 ms debounce prevents the dictionary write itself (which also triggers a fi
 
 ### Deduplication
 
-`intlayerCompiler` uses the same `createPrimaryInstanceGuard` deduplication mechanism as the other bundled plugins. When both `intlayer()` (which bundles the compiler) and a manual `intlayerCompiler()` call are present, only the first registered instance runs — no dictionaries are written twice.
+`intlayerCompiler` uses the same `createPrimaryInstanceGuard` deduplication mechanism as the other bundled plugins. When both `intlayer()` (which bundles the compiler) and a manual `intlayerCompiler()` call are present, only the first registered instance runs, no dictionaries are written twice.

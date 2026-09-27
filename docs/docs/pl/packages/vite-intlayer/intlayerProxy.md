@@ -32,6 +32,8 @@ author: aymericzip
 
 > **Od Intlayer v9** `intlayerProxy` jest automatycznie dołączany do głównej wtyczki [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/vite-intlayer/intlayer.md) i domyślnie włączony poprzez `routing.enableProxy: true`. Musisz go zarejestrować osobno tylko wtedy, gdy potrzebujesz kontroli na niższym poziomie lub używasz go poza standardową konfiguracją `intlayer()`.
 
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/vite-intlayer/intlayer.md)
+
 ## Użycie
 
 ### Jako część `intlayer()` (zalecane, v9+)
@@ -127,7 +129,7 @@ Oprogramowanie pośredniczące odzwierciedla logikę routingu z middleware `next
 | Tryb            | Widoczność URL w przeglądarce | Zachowanie                                                                                                                                                          |
 | --------------- | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `prefix`        | `/pl/about`                   | Domyślny. Prefiks języka w adresie URL. Domyślny język przekierowuje do adresu URL bez prefiksu, chyba że włączono `prefix-all`.                                    |
-| `prefix-all`    | `/en/about`, `/pl/about`      | Wszystkie języki — w tym domyślny — są zawsze poprzedzone prefiksem.                                                                                                |
+| `prefix-all`    | `/en/about`, `/pl/about`      | Wszystkie języki, w tym domyślny, są zawsze poprzedzone prefiksem.                                                                                                  |
 | `no-prefix`     | `/about`                      | Brak języka w adresie URL. Język jest przechowywany wyłącznie w plikach cookie; przepisywanie URL odbywa się wewnętrznie.                                           |
 | `search-params` | `/about?locale=pl`            | Język przekazywany jako parametr zapytania (query parameter). Przekierowuje w celu dodania/aktualizacji parametru `locale`, jeśli go brakuje lub jest przestarzały. |
 
@@ -161,7 +163,7 @@ Oprogramowanie pośredniczące śledzi liczbę przekierowań dla pary `originalU
 
 ## Nitro / produkcyjny SSR (automatyczna iniekcja, v9+)
 
-Gdy `intlayerProxy` jest używany jako wtyczka Vite, niesie ze sobą właściwość `.nitro`. Wtyczka budująca `nitro/vite` odczytuje tę właściwość i wstrzykuje ją do `nitroConfig.modules`, dzięki czemu `intlayerNitroHandler` rejestruje się jako serwerowe oprogramowanie pośredniczące Nitro automatycznie — dla produkcyjnego SSR nie jest wymagana żadna ręczna konfiguracja.
+Gdy `intlayerProxy` jest używany jako wtyczka Vite, niesie ze sobą właściwość `.nitro`. Wtyczka budująca `nitro/vite` odczytuje tę właściwość i wstrzykuje ją do `nitroConfig.modules`, dzięki czemu `intlayerNitroHandler` rejestruje się jako serwerowe oprogramowanie pośredniczące Nitro automatycznie, dla produkcyjnego SSR nie jest wymagana żadna ręczna konfiguracja.
 
 Handler Nitro korzysta z modelu zdarzeń Web Fetch API h3 v2 (nie `fromNodeMiddleware`), więc jest kompatybilny ze wszystkimi szablonami (presets) Nitro: Node, Bun, Deno, środowiskami edge.
 

@@ -79,16 +79,16 @@ hoặc
 import "next-intlayer/server";
 ```
 
-| Component                | Mô tả                                                                                                                                                                                                       | Tài liệu liên quan |
-| ------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
-| `IntlayerProvider`       | Nhà cung cấp hợp nhất cho Next.js App Router. Được gắn một lần trong bố cục ngôn ngữ, khởi tạo ngữ cảnh máy chủ theo phạm vi yêu cầu _và_ gắn nhà cung cấp máy khách. (Intlayer >= 9.4)                     | -                  |
-| `IntlayerClientProvider` | **Không còn được sử dụng** — sử dụng `IntlayerProvider` từ `next-intlayer/server`. Nhà cung cấp cho các thành phần phía máy khách trong Next.js App Router. Bao bọc `IntlayerProvider` từ `react-intlayer`. | -                  |
-| `IntlayerServerProvider` | **Không còn được sử dụng** — sử dụng `IntlayerProvider` từ `next-intlayer/server`. Cung cấp ngữ cảnh ngôn ngữ trên máy chủ. (Intlayer < 9.4)                                                                | -                  |
-| `IntlayerServer`         | Wrapper phía server cho nội dung Intlayer trong App Router. Đảm bảo xử lý locale đúng đắn trong Server Components.                                                                                          | -                  |
-| `HTMLProvider`           | Provider cho các thiết lập quốc tế hóa (i18n) liên quan đến HTML. Cho phép ghi đè component cho các thẻ HTML.                                                                                               | -                  |
-| `HTMLRenderer`           | Hiển thị nội dung HTML với các component tùy chỉnh.                                                                                                                                                         | -                  |
-| `MarkdownProvider`       | Provider cho ngữ cảnh render markdown. Cho phép ghi đè các component tùy chỉnh cho các phần tử markdown.                                                                                                    | -                  |
-| `MarkdownRenderer`       | Hiển thị nội dung markdown với các component tùy chỉnh.                                                                                                                                                     | -                  |
+| Component                | Mô tả                                                                                                                                                                                                      | Tài liệu liên quan |
+| ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
+| `IntlayerProvider`       | Nhà cung cấp hợp nhất cho Next.js App Router. Được gắn một lần trong bố cục ngôn ngữ, khởi tạo ngữ cảnh máy chủ theo phạm vi yêu cầu _và_ gắn nhà cung cấp máy khách. (Intlayer >= 9.4)                    | -                  |
+| `IntlayerClientProvider` | **Không còn được sử dụng**, sử dụng `IntlayerProvider` từ `next-intlayer/server`. Nhà cung cấp cho các thành phần phía máy khách trong Next.js App Router. Bao bọc `IntlayerProvider` từ `react-intlayer`. | -                  |
+| `IntlayerServerProvider` | **Không còn được sử dụng**, sử dụng `IntlayerProvider` từ `next-intlayer/server`. Cung cấp ngữ cảnh ngôn ngữ trên máy chủ. (Intlayer < 9.4)                                                                | -                  |
+| `IntlayerServer`         | Wrapper phía server cho nội dung Intlayer trong App Router. Đảm bảo xử lý locale đúng đắn trong Server Components.                                                                                         | -                  |
+| `HTMLProvider`           | Provider cho các thiết lập quốc tế hóa (i18n) liên quan đến HTML. Cho phép ghi đè component cho các thẻ HTML.                                                                                              | -                  |
+| `HTMLRenderer`           | Hiển thị nội dung HTML với các component tùy chỉnh.                                                                                                                                                        | -                  |
+| `MarkdownProvider`       | Provider cho ngữ cảnh render markdown. Cho phép ghi đè các component tùy chỉnh cho các phần tử markdown.                                                                                                   | -                  |
+| `MarkdownRenderer`       | Hiển thị nội dung markdown với các component tùy chỉnh.                                                                                                                                                    | -                  |
 
 ### Hooks (phía client)
 

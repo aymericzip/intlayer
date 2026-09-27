@@ -363,6 +363,8 @@ Intlayer 中的字典由 `Dictionary` 类型定义，包含多个控制其行为
 
 > 更多信息请参见 [Intlayer 中的按语言环境内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/per_locale_file.md)。
 
+- [Intlayer 中的按语言环境内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/per_locale_file.md)
+
 **示例：**
 
 ```jsonc
@@ -473,6 +475,8 @@ export default aboutPageMetaContent;
 
 > 更多信息请参见 [Intlayer 中的自动填充配置](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/autoFill.md)。
 
+- [Intlayer 中的自动填充配置](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/autoFill.md)
+
 ##### `priority`（数字）
 
 表示词典在冲突解决中的优先级。当多个词典包含相同键时，优先级数字最高的词典将覆盖其他词典。这对于管理内容层级和覆盖非常有用。
@@ -500,6 +504,8 @@ export default aboutPageMetaContent;
 
 与集合 (Collections) 配合使用，此字段定义项在集合中的位置。它允许您构建在运行时可通过索引选择的本地化项的有序集合。
 
+- [集合](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dynamic_dictionaries/collections.md)
+
 **示例：**
 
 ```typescript
@@ -515,9 +521,13 @@ export default aboutPageMetaContent;
 
 > 参见 [集合](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dynamic_dictionaries/collections.md) 了解更多信息。
 
+- [集合](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dynamic_dictionaries/collections.md)
+
 #### `variant` (字符串)
 
 与变体 (Variants) 配合使用，此字段定义命名的内容替代方案。它允许您在运行时切换相同字典键的不同变体，而无需修改代码（例如，用于 A/B 测试、季节性横幅）。如果未提供，则被视为默认变体。
+
+- [变体](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dynamic_dictionaries/variants.md)
 
 **示例：**
 
@@ -526,13 +536,15 @@ export default aboutPageMetaContent;
   key: "hero-banner",
   variant: "black_friday",
   content: {
-    headline: "50 % off — today only",
+    headline: "50 % off, today only",
     cta: "Shop now"
   }
 }
 ```
 
 > 参见 [变体](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dynamic_dictionaries/variants.md) 了解更多信息。
+
+- [变体](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dynamic_dictionaries/variants.md)
 
 ### CMS 属性
 
@@ -607,6 +619,8 @@ multilingualContent: t({
 
 > 请参阅 [翻译内容 (`t`) 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/translation.md) 以获取更多信息。
 
+- [翻译内容 (`t`) 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/translation.md)
+
 ### 条件内容 (`cond`)
 
 基于布尔条件变化的内容：
@@ -621,6 +635,8 @@ conditionalContent: cond({
 ```
 
 > 请参阅 [条件内容 (`cond`) 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/condition.md) 以获取更多信息。
+
+- [条件内容 (`cond`) 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/condition.md)
 
 ### 枚举内容 (`enu`)
 
@@ -638,9 +654,11 @@ statusContent: enu({
 
 > 请参阅 [枚举内容 (`enu`) 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/enumeration.md) 以获取更多信息。
 
-### Plural Content (`plural`)
+- [枚举内容 (`enu`) 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/enumeration.md)
 
-Content that varies based on plural rules:
+### 复数内容 (`plural`)
+
+根据复数规则变化的内容：
 
 ```typescript
 import { plural } from "intlayer";
@@ -651,7 +669,9 @@ pluralContent: plural({
 });
 ```
 
-> 请参阅 [插入内容 (`insert`) 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/insertion.md) 以获取更多信息。
+> 请参阅 [复数内容 (`plural`) 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/plural.md) 以获取更多信息。
+
+- [复数内容 (`plural`) 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/plural.md)
 
 ### 插入内容 (`insert`)
 
@@ -665,6 +685,8 @@ insertionContent: insert("This text can be inserted anywhere");
 
 > 查看 [插入文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/insertion.md) 了解更多信息。
 
+- [插入文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/insertion.md)
+
 ### 嵌套内容 (`nest`)
 
 引用其他字典：
@@ -676,6 +698,8 @@ nestedContent: nest("about-page");
 ```
 
 > 请参阅 [嵌套内容 (`nest`) 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/nesting.md) 以获取更多信息。
+
+- [嵌套内容 (`nest`) 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/nesting.md)
 
 ### Markdown 内容 (`md`)
 
@@ -690,6 +714,8 @@ markdownContent: md(
 ```
 
 > 请参阅 [Markdown 内容 (`md`) 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/markdown.md) 以获取更多信息。
+
+- [Markdown 内容 (`md`) 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/markdown.md)
 
 ### HTML 内容 (`html`)
 
@@ -710,6 +736,8 @@ localizedHtmlContent: t({
 
 > 请参阅 [HTML 内容 (`html`) 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/html.md) 以获取更多信息。
 
+- [HTML 内容 (`html`) 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/html.md)
+
 ### 性别内容 (`gender`)
 
 根据性别变化的内容：
@@ -726,9 +754,11 @@ genderContent: gender({
 
 > 请参阅 [性别内容 (`gender`) 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/gender.md) 以获取更多信息。
 
+- [性别内容 (`gender`) 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/gender.md)
+
 ### 基于选择的内容 (`select`)
 
-基于任意字符串值变化的内容——相当于 ICU 的 `select`：
+基于任意字符串值变化的内容，相当于 ICU 的 `select`：
 
 ```typescript
 import { select } from "intlayer";
@@ -745,6 +775,8 @@ selectContent: select({
 
 > 参见 [基于选择的内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/select.md) 了解更多信息。
 
+- [基于选择的内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/select.md)
+
 ### 文件内容 (`file`)
 
 引用外部文件：
@@ -756,6 +788,8 @@ fileContent: file("./path/to/content.txt");
 ```
 
 > 请参阅 [文件内容 (`file`) 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/file.md) 以获取更多信息。
+
+- [文件内容 (`file`) 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/file.md)
 
 ## 创建内容文件
 

@@ -31,6 +31,9 @@ author: aymericzip
 
 커버리지 도구 역시 마찬가지로 적용할 수 있습니다. 기존 카탈로그를 가리키는 [Sync JSON 플러그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/plugins/sync-json.md)이나 현재 import를 별칭(alias) 처리하는 [호환 어댑터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/index.md)를 사용하면 기존 JSON 파일에 대해 커버리지 검증을 즉시 수행할 수 있습니다.
 
+- [Sync JSON 플러그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/plugins/sync-json.md)
+- [호환 어댑터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/index.md)
+
 ## 실제로 무엇을 테스트할지 정의하기
 
 번역 품질은 코드로 테스트할 수 있는 대상이 아닙니다. 어떤 어설션도 독일어 표현이 자연스러운지 판단할 수 없으며, 이를 시도하면 테스트 코드에 하드코딩된 문자열만 넘쳐나게 됩니다.
@@ -46,6 +49,8 @@ author: aymericzip
 | 서식화된 날짜와 숫자가 로케일을 따르는지   | `Intl` 내부 구현의 정확성     |
 
 커버리지 확인은 컴포넌트 단위 테스트가 아닌 단일 데이터 기반 테스트로 처리해야 합니다. 이는 [누락된 번역 감지하기](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/detecting_missing_translations.md)에서 다루고 있으며, 이 글에서는 그 외의 항목을 다룹니다.
+
+- [누락된 번역 감지하기](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/detecting_missing_translations.md)
 
 ## Provider 하위에서 렌더링하고 역할(role)로 검증하기
 
@@ -122,6 +127,8 @@ describe.each([0, 1, 2, 3, 11, 100])("개수 %i", (count) => {
 ```
 
 모든 곳에서 단순히 1과 2만 테스트하지 말고, 가장 복잡한 언어의 각 CLDR 카테고리에 해당하는 숫자를 선택하세요. `Intl.PluralRules`를 사용하면 숫자가 어떤 카테고리에 속하는지 알 수 있으므로 추측하지 않고 표본을 구성할 수 있습니다. 카테고리에 관한 자세한 내용은 [ICU 메시지 포맷 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/icu_message_format.md)에서 확인하세요.
+
+- [ICU 메시지 포맷 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/icu_message_format.md)
 
 ## 스냅샷(Snapshot)의 함정
 

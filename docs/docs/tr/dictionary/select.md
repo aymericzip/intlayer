@@ -376,6 +376,8 @@ ICU `other` durumu, Intlayer'da her şeyi yakalayan durumların (catch-all cases
 
 > Lütfen dikkat edin; durumların cinsiyet değerleri (`male` / `female` / `other`) olduğu ICU `select` mesajları bunun yerine bir [`gender`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/gender.md) düğümü olarak içe aktarılır.
 
+- [`gender`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/gender.md)
+
 ## Ek Kaynaklar
 
 Yapılandırma ve kullanım hakkında daha ayrıntılı bilgi için aşağıdaki kaynaklara bakın:

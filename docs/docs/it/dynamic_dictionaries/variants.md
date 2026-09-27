@@ -23,7 +23,7 @@ history:
     changes: "Rilascio della funzionalità delle varianti"
   - version: 9.1.0
     date: 2026-06-26
-    changes: "`variant` ora accetta una stringa o un oggetto — i precedenti `meta` / record dinamici vengono dichiarati come varianti oggetto"
+    changes: "`variant` ora accetta una stringa o un oggetto, i precedenti `meta` / record dinamici vengono dichiarati come varianti oggetto"
   - version: 9.1.1
     date: 2026-07-31
     changes: "Una variante dichiara solo le chiavi che sovrascrive; le varianti non dichiarate ricadono sulla voce predefinita"
@@ -39,8 +39,8 @@ Una **variante** è un insieme di file di contenuto che condividono la stessa ch
 
 Il valore di `variant` può assumere **due forme**:
 
-- **Una stringa** — una singola alternativa con nome (test A/B, banner stagionali, feature flag).
-- **Un oggetto** — un discriminatore strutturato indirizzato da un insieme di campi (record di CMS, contenuti specifici per utente, qualsiasi contenuto con chiave un ID opaco). L'intero oggetto è l'identità: il selettore deve fornire un oggetto **uguale** per risolvere la voce.
+- **Una stringa**: una singola alternativa con nome (test A/B, banner stagionali, feature flag).
+- **Un oggetto**: un discriminatore strutturato indirizzato da un insieme di campi (record di CMS, contenuti specifici per utente, qualsiasi contenuto con chiave un ID opaco). L'intero oggetto è l'identità: il selettore deve fornire un oggetto **uguale** per risolvere la voce.
 
 > La forma a oggetto sostituisce il precedente campo `meta`. Ovunque scrivessi `meta: { id, … }`, scrivi `variant: { id, … }` e selezionala con `{ variant: { id, … } }`.
 
@@ -74,8 +74,8 @@ const dictionary = {
   variant: "black_friday",
   content: {
     headline: t({
-      en: "50 % off — today only",
-      fr: "−50 % — aujourd'hui seulement",
+      en: "50 % off, today only",
+      fr: "−50 %, aujourd'hui seulement",
     }),
     cta: t({ en: "Shop now", fr: "Acheter maintenant" }),
   },
@@ -107,7 +107,7 @@ export default dictionary;
 
 ```tsx
 useIntlayer("hero-banner", { variant: "summer" });
-// → { headline: "Développez plus vite tout l'été", cta: "Commencer" } — `cta` ereditato
+// → { headline: "Développez plus vite tout l'été", cta: "Commencer" }, `cta` ereditato
 
 useIntlayer("hero-banner", { variant: "never-declared" });
 // → la voce predefinita
@@ -278,7 +278,7 @@ const content = useIntlayer("hero-banner", {
 
 ## Varianti oggetto (strutturate)
 
-Una variante oggetto indirizza il contenuto tramite un insieme arbitrario di coppie chiave-valore dichiarate nel campo `variant` — rendendo possibile modellare record di CMS, contenuti specifici per utente o qualsiasi contenuto la cui chiave è un ID opaco. L'**intero oggetto** è l'identità: il selettore deve fornire un oggetto uguale affinché la voce venga risolta.
+Una variante oggetto indirizza il contenuto tramite un insieme arbitrario di coppie chiave-valore dichiarate nel campo `variant`, rendendo possibile modellare record di CMS, contenuti specifici per utente o qualsiasi contenuto la cui chiave è un ID opaco. L'**intero oggetto** è l'identità: il selettore deve fornire un oggetto uguale affinché la voce venga risolta.
 
 ```ts fileName="product.abc.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
@@ -495,7 +495,7 @@ const content = useIntlayer("product", {
 });
 ```
 
-#### Campo mancante — nessuna corrispondenza
+#### Campo mancante, nessuna corrispondenza
 
 ```ts
 // Restituisce null: manca `userId`, quindi l'oggetto non corrisponde alla variante dichiarata
@@ -647,7 +647,7 @@ useIntlayer("hero-banner");
 // → la variante del provider
 
 useIntlayer("hero-banner", { variant: "summer" });
-// → "summer" — sostituisce la variante del provider, non la estende
+// → "summer", sostituisce la variante del provider, non la estende
 ```
 
 ### Forme
@@ -694,7 +694,7 @@ Indirizza ogni chiave di dizionario separatamente. La voce riservata `default` c
 
 > Su un provider un oggetto semplice è **sempre** letto come mappa per chiave, mai come variante oggetto: le due sono strutturalmente identiche. Per fissare una variante oggetto a livello globale, annidala sotto una voce: `variant={{ default: { id: "prod_abc" } }}`.
 
-Poiché le chiavi della mappa sono verificate rispetto alle chiavi di dizionario dichiarate, un refuso — o una variante oggetto scritta direttamente, come `variant={{ id: "prod_abc" }}` — è un errore di compilazione.
+Poiché le chiavi della mappa sono verificate rispetto alle chiavi di dizionario dichiarate, un refuso (o una variante oggetto scritta direttamente, come `variant={{ id: "prod_abc" }}`) è un errore di compilazione.
 
 ## Modalità di caricamento
 
@@ -712,6 +712,8 @@ export default dictionary;
 ```
 
 Vedi [ottimizzazione del bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/bundle_optimization.md) per i dettagli sulle modalità `static`, `dynamic` e `fetch`.
+
+- [ottimizzazione del bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/bundle_optimization.md)
 
 ## Casi d'uso tipici
 

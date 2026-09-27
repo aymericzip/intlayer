@@ -35,7 +35,7 @@ author: aymericzip
 
 1. **Natvrdo zapsaný text (hardcoded text)**, který nebyl vložen do slovníku.
 2. **Dynamická volání**, která projdou typovou kontrolou a fungují, ale kompilátor Intlayer je nedokáže optimalizovat.
-3. **Mrtvý obsah (Dead content)** — slovníky a pole, které v projektu nic nečte (volitelné / opt-in).
+3. **Mrtvý obsah (Dead content)**: slovníky a pole, které v projektu nic nečte (volitelné / opt-in).
 
 Neznámé klíče slovníků, neznámé cesty polí a chybějící lokality jsou již chybami kompilace, takže je plugin neopakuje.
 
@@ -61,7 +61,7 @@ Vyžaduje ESLint 9 nebo novější (flat config). ESLint 10 je podporován.
 
 ## Použití
 
-Plugin funguje jak v ESLint, tak v [oxlint](https://oxc.rs) — se stejnými pravidly a možnostmi.
+Plugin funguje jak v ESLint, tak v [oxlint](https://oxc.rs), se stejnými pravidly a možnostmi.
 
 <Tabs defaultTab="eslint">
   <Tab label="ESLint" value="eslint">
@@ -106,7 +106,7 @@ export default [
 }
 ```
 
-Dvě upozornění: podpora JS pluginů v oxlint je stále ve fázi alfa a oxlint nepodporuje vlastní parsery — proto zde soubory `.vue`, `.svelte`, `.astro` a šablony Angularu nejsou kontrolovány. Spusťte oxlint na souborech JS/TS/JSX a pro zbytek použijte ESLint.
+Dvě upozornění: podpora JS pluginů v oxlint je stále ve fázi alfa a oxlint nepodporuje vlastní parsery, proto zde soubory `.vue`, `.svelte`, `.astro` a šablony Angularu nejsou kontrolovány. Spusťte oxlint na souborech JS/TS/JSX a pro zbytek použijte ESLint.
 
 Pravidlo `no-unused-content` je výše záměrně vynecháno: vyžaduje pracovní adresář a cestu ke kontrolovanému souboru z kontextu pravidla, což alfa můstek JS pluginů nezaručuje. Spusťte jej pod ESLintem.
 
@@ -123,7 +123,7 @@ Pravidlo `no-unused-content` je výše záměrně vynecháno: vyžaduje pracovn�
 
 Předvolba `recommended` záměrně ponechává `no-raw-text` na úrovni `warn`: její spuštění nad existující kódovou bází zobrazí všechny nepřeložené řetězce najednou, což by nemělo rozbít váš build hned první den.
 
-`enforce-adapter-import` je ve výchozím nastavení vypnuto — pokud jej chcete, explicitně jej zapněte.
+`enforce-adapter-import` je ve výchozím nastavení vypnuto, pokud jej chcete, explicitně jej zapněte.
 
 `no-unused-content` je vypnuto ve všech konfiguracích včetně `strict`. Je to jediné pravidlo, které čte vaši konfiguraci Intlayer a prochází zdrojové soubory z disku, takže jeho zapnutí by mělo být záměrnou volbou, nikoli automatickou předvolbou.
 
@@ -248,7 +248,7 @@ export default {
 };
 ```
 
-Na rozdíl od jiných pravidel toto pravidlo nemůže rozhodnout pouze na základě otevřeného souboru — pole je nepoužité pouze ve vztahu k celému projektu. Při první deklaraci obsahu v běhu lintu načte vaši konfiguraci Intlayer, prohledá zdrojové soubory podle konfigurace (`build.traversePattern`, `compiler.transformPattern`) a spustí stejný analyzátor využití, který pohání `@intlayer/lsp` a přeškrtnutí „nepoužitého“ v rozšíření VS Code. Výsledek se ukládá do mezipaměti na `cacheTtl` milisekund, takže skenování proběhne jednou za běh a nikoli pro každý soubor.
+Na rozdíl od jiných pravidel toto pravidlo nemůže rozhodnout pouze na základě otevřeného souboru, pole je nepoužité pouze ve vztahu k celému projektu. Při první deklaraci obsahu v běhu lintu načte vaši konfiguraci Intlayer, prohledá zdrojové soubory podle konfigurace (`build.traversePattern`, `compiler.transformPattern`) a spustí stejný analyzátor využití, který pohání `@intlayer/lsp` a přeškrtnutí „nepoužitého“ v rozšíření VS Code. Výsledek se ukládá do mezipaměti na `cacheTtl` milisekund, takže skenování proběhne jednou za běh a nikoli pro každý soubor.
 
 **Možnosti**
 
@@ -283,9 +283,9 @@ Snižte `cacheTtl`, pokud lintujete z dlouhotrvajícího serveru editoru a chcet
 
 > **Přiklání se k tichu.** Falešně pozitivní výsledek by zde smazal překlad, proto se nic nehlásí, pokud je slovník konzumován způsobem, který analýza nedokáže sledovat: objekt obsahu předaný jako celek, překladatelská funkce vázaná z něj (`const t = useTranslations("home")`), deklarace dosažená přímým importem (`useDictionary(myDictionary)`), volání `nest()` z jiného slovníku nebo seznam polí neúplný kvůli operátoru spread. Jednosouborové komponenty (`.vue`, `.svelte`, `.astro`) se počítají jako využívající každé pole zmíněných slovníků, protože jejich bloky skriptů se zde neparsují.
 
-`reportDuplicateKeys` čte nesloučené slovníky, které build zapisuje do `.intlayer/`, takže zůstává neaktivní, dokud projekt nebyl alespoň jednou sestaven. Dvě deklarace sdílející klíč se sloučí, což je legitimní vzor — hlášení existuje proto, že pole definované na obou stranách tiše zachová pouze jednu ze dvou hodnot.
+`reportDuplicateKeys` čte nesloučené slovníky, které build zapisuje do `.intlayer/`, takže zůstává neaktivní, dokud projekt nebyl alespoň jednou sestaven. Dvě deklarace sdílející klíč se sloučí, což je legitimní vzor, hlášení existuje proto, že pole definované na obou stranách tiše zachová pouze jednu ze dvou hodnot.
 
-Analyzátor se načítá z `@intlayer/lsp`, který je distribuován jako ESM. Pravidlo proto vyžaduje verzi Node schopnou provést `require()` modulu ES — Node 20.19+ nebo 22.12+. Na starších verzích raději nehlásí nic, než aby způsobilo selhání lintu.
+Analyzátor se načítá z `@intlayer/lsp`, který je distribuován jako ESM. Pravidlo proto vyžaduje verzi Node schopnou provést `require()` modulu ES, Node 20.19+ nebo 22.12+. Na starších verzích raději nehlásí nic, než aby způsobilo selhání lintu.
 
 ## Frameworky
 

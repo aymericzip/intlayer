@@ -30,7 +30,7 @@ author: aymericzip
 
 # Vue Integration: `usePathname` Documentation
 
-`usePathname` फ़ंक्शन वर्तमान ब्राउज़र पथनाम (pathname) को locale खंड हटाकर Vue `ComputedRef<string>` के रूप में लौटाता है। यह locale-जागरूक नेविगेशन बनाने के लिए उपयोगी है — उदाहरण के लिए, यह निर्धारित करना कि कौन सा नेव आइटम सक्रिय है — बिना locale उपसर्ग को मैन्युअल रूप से हटाए।
+`usePathname` फ़ंक्शन वर्तमान ब्राउज़र पथनाम (pathname) को locale खंड हटाकर Vue `ComputedRef<string>` के रूप में लौटाता है। यह locale-जागरूक नेविगेशन बनाने के लिए उपयोगी है (उदाहरण के लिए, यह निर्धारित करना कि कौन सा नेव आइटम सक्रिय है) बिना locale उपसर्ग को मैन्युअल रूप से हटाए।
 
 ## Vue में `usePathname` आयात (Import) करना
 

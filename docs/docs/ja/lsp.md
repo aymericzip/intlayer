@@ -44,8 +44,8 @@ author: aymericzip
 
 知っておくとよい挙動が 2 つあります。
 
-- **マージされた辞書** — 複数のコンテンツファイルに分割されたキーは、ファイルごとに 1 件の結果を返すため、すべての宣言へ移動できます。
-- **モノレポ対応** — サーバーは各ファイルに _最も近い_ `intlayer.config.*` を解決するため、1 つのワークスペース内の複数プロジェクトがそれぞれ独自の辞書を持てます。
+- **マージされた辞書**：複数のコンテンツファイルに分割されたキーは、ファイルごとに 1 件の結果を返すため、すべての宣言へ移動できます。
+- **モノレポ対応**：サーバーは各ファイルに _最も近い_ `intlayer.config.*` を解決するため、1 つのワークスペース内の複数プロジェクトがそれぞれ独自の辞書を持てます。
 
 ### サポートされる呼び出し
 
@@ -91,14 +91,16 @@ bun add --dev @intlayer/lsp
 <Tabs defaultTab="vscode">
   <Tab label="VS Code" value="vscode">
 
-[Intlayer VS Code 拡張機能](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension)をインストールしてください。言語サーバーは v8.12.0 以降同梱されており、自動的に起動します — **設定は不要です**。
+[Intlayer VS Code 拡張機能](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension)をインストールしてください。言語サーバーは v8.12.0 以降同梱されており、自動的に起動します。**設定は不要です**。
 
 その他の機能については [VS Code 拡張機能のドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)を参照してください。
+
+- [VS Code 拡張機能のドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)
 
   </Tab>
   <Tab label="Cursor / Windsurf" value="cursor">
 
-[Cursor](https://www.cursor.com/) と [Windsurf](https://windsurf.com/) は VS Code のフォークで、同じ拡張機能エコシステムを使用します。[Intlayer VS Code 拡張機能](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension)を一度インストールすれば、サーバーは自動的に有効になります — **設定は不要です**。
+[Cursor](https://www.cursor.com/) と [Windsurf](https://windsurf.com/) は VS Code のフォークで、同じ拡張機能エコシステムを使用します。[Intlayer VS Code 拡張機能](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension)を一度インストールすれば、サーバーは自動的に有効になります。**設定は不要です**。
 
   </Tab>
   <Tab label="Claude Code" value="claude-code">
@@ -114,7 +116,7 @@ claude plugin marketplace add intlayer@github:aymericzip/intlayer
 claude plugin install intlayer-lsp@intlayer
 ```
 
-`install` はプラグインの有効化も行います。**Claude Code を再起動してください** — 言語サーバーは起動時に読み込まれるため、それまではプラグインは機能しません。
+`install` はプラグインの有効化も行います。**Claude Code を再起動してください**、言語サーバーは起動時に読み込まれるため、それまではプラグインは機能しません。
 
 その後 Claude Code は `.ts`、`.tsx`、`.js`、`.jsx`、`.vue`、`.astro`、`.svelte` ファイルでサーバーを起動し、コードを辿る際に `goToDefinition`、`findReferences`、`hover` を使用します。
 
@@ -240,10 +242,10 @@ language-servers = ["intlayer-lsp", "typescript-language-server"]
 
 LSP に対応したエディターであれば `@intlayer/lsp` を実行できます。次を指定してください。
 
-- **実行ファイル** — `npx @intlayer/lsp`、または `intlayer-lsp` バイナリ
-- **トランスポート** — stdio（標準）
-- **機能** — `definitionProvider`、`referencesProvider`、`hoverProvider`、`completionProvider`（トリガー文字 `"` `'` `` ` `` `.`）、プッシュ診断、`textDocumentSync: Incremental`
-- **ルートパターン** — `intlayer.config.ts`、`intlayer.config.js`、`package.json`
+- **実行ファイル**：`npx @intlayer/lsp`、または `intlayer-lsp` バイナリ
+- **トランスポート**：stdio（標準）
+- **機能**：`definitionProvider`、`referencesProvider`、`hoverProvider`、`completionProvider`（トリガー文字 `"` `'` `` ` `` `.`）、プッシュ診断、`textDocumentSync: Incremental`
+- **ルートパターン**：`intlayer.config.ts`、`intlayer.config.js`、`package.json`
 
 正確な設定形式は、お使いのエディターの LSP ドキュメントを参照してください。
 
@@ -252,7 +254,7 @@ LSP に対応したエディターであれば `@intlayer/lsp` を実行でき�
 
 ## ターミナル AI エージェントについて
 
-**Claude Code** は本物の LSP クライアントとして動作します — 上のタブを参照してください。
+**Claude Code** は本物の LSP クライアントとして動作します。上のタブを参照してください。
 
 **OpenAI Codex** をはじめとするほとんどのターミナルツールは LSP クライアントではなく、ファイルを直接読み書きします。サーバーを単独で起動しても役に立ちません。価値が生まれるのは、エージェントがインデックスを照会できる併用エディター（Cursor Composer、Windsurf Cascade、Copilot Chat）でサーバーが有効になっている場合です。
 
@@ -271,7 +273,7 @@ LSP に対応したエディターであれば `@intlayer/lsp` を実行でき�
 | 症状                                          | 考えられる原因                     | 対処                                                                              |
 | --------------------------------------------- | ---------------------------------- | --------------------------------------------------------------------------------- |
 | まったく何も起こらない                        | サーバーが動作していない           | `@intlayer/lsp` がインストールされ、エディターが起動しているか確認してください    |
-| エディターでは動くが Claude Code では動かない | セッション中にプラグインを導入した | Claude Code を再起動してください — 言語サーバーは起動時に読み込まれます           |
+| エディターでは動くが Claude Code では動かない | セッション中にプラグインを導入した | Claude Code を再起動してください。言語サーバーは起動時に読み込まれます            |
 | キーの定義が見つからない                      | 辞書がビルドされていない           | `npx intlayer build` を実行するか、開発サーバーを起動してください                 |
 | すべてのキーが未宣言として報告される          | 設定が解決されていない             | プロジェクトルートに `intlayer.config.ts`（または `.js`）があるか確認してください |
 | モノレポで誤ったプロジェクトが使われる        | パッケージごとの設定がない         | 独自のコンテンツを宣言する各パッケージに `intlayer.config.*` を追加してください   |

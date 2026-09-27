@@ -24,13 +24,13 @@ history:
     changes: "Domyślne włączenie analityki, gdy zainstalowano `@intlayer/analytics`"
   - version: 9.0.0
     date: 2026-07-08
-    changes: "Init doc — pakiet @intlayer/analytics, śledzenie na poziomie dostawcy (provider)/węzła (node), testy A/B, dashboard"
+    changes: "Init doc, pakiet @intlayer/analytics, śledzenie na poziomie dostawcy (provider)/węzła (node), testy A/B, dashboard"
 author: aymericzip
 ---
 
 # Dokumentacja Intlayer Analytics
 
-`@intlayer/analytics` to opcjonalny pakiet dodatkowy, który podpowiada ci **jakie treści są faktycznie wyświetlane** twoim odwiedzającym — jaka strona, w jakiej lokalizacji (języku) oraz jaki konkretny fragment przetłumaczonej treści — co pozwala ci lepiej zrozumieć odbiorców i przeprowadzać **testy A/B zawartości**.
+`@intlayer/analytics` to opcjonalny pakiet dodatkowy, który podpowiada ci **jakie treści są faktycznie wyświetlane** twoim odwiedzającym (jaka strona, w jakiej lokalizacji (języku) oraz jaki konkretny fragment przetłumaczonej treści) co pozwala ci lepiej zrozumieć odbiorców i przeprowadzać **testy A/B zawartości**.
 
 ## Spis treści
 
@@ -40,22 +40,24 @@ author: aymericzip
 
 `@intlayer/analytics` gromadzi i wysyła (batch) trzy rodzaje anonimowych zdarzeń:
 
-| Zdarzenie          | Gdzie przechwytywane                             | Co mówi                                                                                                                                    |
-| ------------------ | ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| `page_view`        | Na poziomie Providera (`IntlayerProvider`)       | Jaką stronę i lokalizację (locale) przeglądała sesja podczas pierwszego ładowania, zmiany trasy lub zmiany lokalizacji.                    |
-| `content_exposure` | Na poziomie Węzła (`useIntlayer` / interpretery) | Jaki klucz słownika / ścieżka klucza został faktycznie rozwiązany i wyświetlony — oraz, jeśli jest częścią eksperymentu, jaki **wariant**. |
-| `conversion`       | Gdziekolwiek wywołasz `useConversion()`          | Cel osiągnięty (rejestracja, kliknięcie, zakup...) przypisany do wariantu A/B, na który została wystawiona sesja.                          |
+| Zdarzenie          | Gdzie przechwytywane                             | Co mówi                                                                                                                                   |
+| ------------------ | ------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `page_view`        | Na poziomie Providera (`IntlayerProvider`)       | Jaką stronę i lokalizację (locale) przeglądała sesja podczas pierwszego ładowania, zmiany trasy lub zmiany lokalizacji.                   |
+| `content_exposure` | Na poziomie Węzła (`useIntlayer` / interpretery) | Jaki klucz słownika / ścieżka klucza został faktycznie rozwiązany i wyświetlony, oraz, jeśli jest częścią eksperymentu, jaki **wariant**. |
+| `conversion`       | Gdziekolwiek wywołasz `useConversion()`          | Cel osiągnięty (rejestracja, kliknięcie, zakup...) przypisany do wariantu A/B, na który została wystawiona sesja.                         |
 
-Zdarzenia są zbierane w pamięci i wysyłane jako **jedno żądanie wsadowe (batch request) w przybliżeniu co 20 sekund** — nigdy po każdym wciśnięciu klawisza czy renderowaniu — więc analityka nigdy nie wpływa na czas pierwszego wyrenderowania ani nie dodaje żądań dla każdej interakcji.
+Zdarzenia są zbierane w pamięci i wysyłane jako **jedno żądanie wsadowe (batch request) w przybliżeniu co 20 sekund**, nigdy po każdym wciśnięciu klawisza czy renderowaniu, więc analityka nigdy nie wpływa na czas pierwszego wyrenderowania ani nie dodaje żądań dla każdej interakcji.
 
 ## Jak napędza to testy A/B treści
 
 Intlayer pozwala ci już deklarować [Warianty (Variants)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dynamic_dictionaries/index.md) zawartości (np. słownik `hero-banner` z wariantem `control` i `black_friday`). `@intlayer/analytics` zamyka pętlę:
 
-1. `getVariant(experimentKey, variants)` deterministycznie przypisuje każdą anonimową sesję do danego wariantu — czysta funkcja bazująca na identyfikatorze sesji i kluczu eksperymentu, więc przypisanie jest **stabilne przez całą sesję** i nie wymaga **okrężnego zapytania do serwera (server round-trip)** przed pierwszym wyrenderowaniem (brak migotania, brak przesunięć układu/layout shift).
+1. `getVariant(experimentKey, variants)` deterministycznie przypisuje każdą anonimową sesję do danego wariantu, czysta funkcja bazująca na identyfikatorze sesji i kluczu eksperymentu, więc przypisanie jest **stabilne przez całą sesję** i nie wymaga **okrężnego zapytania do serwera (server round-trip)** przed pierwszym wyrenderowaniem (brak migotania, brak przesunięć układu/layout shift).
 2. Każde zdarzenie `content_exposure` przenosi `variant`, który został pokazany.
 3. `useConversion()` pozwala na przypisanie celu (np. `"cta_click"`) do tego wariantu.
 4. Punkt końcowy (endpoint) z wynikami eksperymentu na dashboardzie porównuje współczynniki konwersji (conversion rates) wariantów, wliczając w to istotność statystyczną (test-z).
+
+- [Warianty (Variants)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dynamic_dictionaries/index.md)
 
 ## Instalacja
 
@@ -77,7 +79,7 @@ pnpm add @intlayer/analytics
 bun add @intlayer/analytics
 ```
 
-Instalacja pakietu to wszystko, czego potrzeba, aby włączyć analitykę: `analytics.enabled` domyślnie wynosi `true`, a `@intlayer/config` ustawia je na `false`, gdy pakietu nie da się znaleźć w projekcie. Jeśli nie ją zainstalujesz, każdy punkt integracyjny sprowadza się do pustej operacji (no-op) — zobacz [Zerowy koszt, gdy nie zainstalowano](#zerowy-koszt-gdy-nie-zainstalowano) poniżej.
+Instalacja pakietu to wszystko, czego potrzeba, aby włączyć analitykę: `analytics.enabled` domyślnie wynosi `true`, a `@intlayer/config` ustawia je na `false`, gdy pakietu nie da się znaleźć w projekcie. Jeśli nie ją zainstalujesz, każdy punkt integracyjny sprowadza się do pustej operacji (no-op), zobacz [Zerowy koszt, gdy nie zainstalowano](#zerowy-koszt-gdy-nie-zainstalowano) poniżej.
 
 ## Konfiguracja
 
@@ -97,8 +99,8 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-- `editor.backendURL` — podstawowy URL, do którego przesyłane są zdarzenia analityki (`POST {backendURL}/api/analytics/events`).
-- `editor.clientId` — publiczny klucz projektu przypisany do każdego przetworzonego zdarzenia. Służy również jako **przełącznik aktywacji**: analityka pozostaje całkowicie wyłączona (oraz usunięta podczas tree-shakingu, patrz niżej), dopóki `clientId` nie zostanie skonfigurowany.
+- `editor.backendURL`: podstawowy URL, do którego przesyłane są zdarzenia analityki (`POST {backendURL}/api/analytics/events`).
+- `editor.clientId`: publiczny klucz projektu przypisany do każdego przetworzonego zdarzenia. Służy również jako **przełącznik aktywacji**: analityka pozostaje całkowicie wyłączona (oraz usunięta podczas tree-shakingu, patrz niżej), dopóki `clientId` nie zostanie skonfigurowany.
 
 Jeśli hostujesz sam Intlayer (self-host), analityka automatycznie wskazuje na twoją własną instancję, jako że współdzieli parametr `editor.backendURL`.
 
@@ -119,14 +121,14 @@ Uwierzytelnia się on samodzielnie na podstawie `editor.clientId`: wymiana, bufo
 
 ### Rezygnacja (opt-out)
 
-Opcjonalny blok `analytics` pozwala dostroić — lub wyłączyć — zbieranie danych:
+Opcjonalny blok `analytics` pozwala dostroić, lub wyłączyć, zbieranie danych:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
   analytics: {
-    enabled: false, // Domyślnie: true — usuwa całą integrację z pakietu aplikacji
+    enabled: false, // Domyślnie: true, usuwa całą integrację z pakietu aplikacji
     flushInterval: 20_000, // Milisekundy między dwoma zbiorczymi wysyłkami
     sampleRate: 1, // Ułamek rejestrowanych sesji, od 0 (żadnej) do 1 (wszystkie)
   },
@@ -270,7 +272,7 @@ Punkt wejścia różni się w zależności od frameworka, ale w każdym przypadk
 
 ### Automatyczne śledzenie na poziomie węzła
 
-Za każdym razem, gdy `useIntlayer` rozwiąże jakiś fragment treści do wyświetlenia, interpreter raportuje zdarzenie typu `content_exposure` dla odpowiedniego elementu tj. zbiór `dictionaryKey` + lokalizacja (locale) + precyzyjna ścieżka klucza (key path) — ponownie, nie ma potrzeby zmieniania kodu. Powielone zdarzenia tego samego węzła pojawiające się w cyklu wypychania zostają zgrupowane do 1 zapytania razem z właściwością `count` — dzięki czemu lista z renderowaniem wykonywanym po 50 razy nie wypycha 50 razy osobnego zapytania.
+Za każdym razem, gdy `useIntlayer` rozwiąże jakiś fragment treści do wyświetlenia, interpreter raportuje zdarzenie typu `content_exposure` dla odpowiedniego elementu tj. zbiór `dictionaryKey` + lokalizacja (locale) + precyzyjna ścieżka klucza (key path), ponownie, nie ma potrzeby zmieniania kodu. Powielone zdarzenia tego samego węzła pojawiające się w cyklu wypychania zostają zgrupowane do 1 zapytania razem z właściwością `count`, dzięki czemu lista z renderowaniem wykonywanym po 50 razy nie wypycha 50 razy osobnego zapytania.
 
 ### Śledzenie konwersji do testów A/B
 
@@ -614,7 +616,7 @@ Wykorzystaj `useConversion()`, aby przypisać cel do wariantu, z którym wchodzo
   </Tab>
 </Tabs>
 
-Wagi są opcjonalne — przekaż jedną na wariant, aby zmienić proporcje podziału, np. `useExperiment("homepage-hero", ["default", "black_friday"], [9, 1])`.
+Wagi są opcjonalne, przekaż jedną na wariant, aby zmienić proporcje podziału, np. `useExperiment("homepage-hero", ["default", "black_friday"], [9, 1])`.
 
 Komponent dziecko odczytuje następnie pasujący [Wariant (Variant)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dynamic_dictionaries/variants.md) słownika:
 
@@ -633,9 +635,13 @@ export const HeroBanner = ({ variant }: { variant: string }) => {
 };
 ```
 
+- [Wariant (Variant)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dynamic_dictionaries/variants.md)
+
 > Odczytanie wariantu w **komponencie dziecku** sprawia, że działa to poza React: w Vue, Svelte, Solid i Angular selektor przekazany do `useIntlayer` jest przechwytywany w momencie konfigurowania komponentu, więc odczyt musi nastąpić w komponencie, który montuje się dopiero, gdy wariant jest już znany.
 
-Jeśli eksperyment obejmuje całą stronę, a nie pojedynczy słownik, przenieś wariant na providera — zobacz [Ambient variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dynamic_dictionaries/variants.md#ambient-variant). Każdy `useIntlayer` poniżej rozwiąże się wtedy względem niego bez zmian w miejscu wywołania.
+Jeśli eksperyment obejmuje całą stronę, a nie pojedynczy słownik, przenieś wariant na providera, zobacz [Ambient variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dynamic_dictionaries/variants.md#ambient-variant). Każdy `useIntlayer` poniżej rozwiąże się wtedy względem niego bez zmian w miejscu wywołania.
+
+- [Ambient variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dynamic_dictionaries/variants.md#ambient-variant)
 
 Jeśli potrzebujesz surowego przypisania poza komponentem, skorzystaj bezpośrednio z klienta:
 
@@ -649,7 +655,7 @@ const variant = client?.getVariant("homepage-hero", [
 ]);
 ```
 
-> `getVariant` tylko przypisuje — nie rejestruje ekspozycji. Preferuj `useExperiment()`, w przeciwnym razie współczynnik konwersji nie będzie miał mianownika.
+> `getVariant` tylko przypisuje, nie rejestruje ekspozycji. Preferuj `useExperiment()`, w przeciwnym razie współczynnik konwersji nie będzie miał mianownika.
 
 ## Prywatność & Wydajność
 
@@ -697,6 +703,8 @@ const cms = createIntlayerCMS();
 
 const { data: audience } = await analyticsEndpoint(cms).getAudience(30);
 ```
+
+- [CMS SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md)
 
 > **Tylko po stronie serwera.** `createIntlayerCMS()` uwierzytelnia się za pomocą `clientId` + `clientSecret`, a sekret nigdy nie jest dostępny w przeglądarce: ten fragment kodu wysyłałby nieuwierzytelnione żądania, gdyby działał tam. Trzymaj go w route handlerze, server action lub skrypcie.
 

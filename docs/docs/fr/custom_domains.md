@@ -143,7 +143,7 @@ Ces URLs absolues sont prêtes à être utilisées dans les balises `<link rel="
 
 `routing.domains` est sérialisé dans l'augmentation de module générée, donc
 `getLocalizedUrl` et `getLocalizedPath` affinent leur type de retour à l'URL exacte
-qu'une locale routée par domaine résout — la suppression du préfixe incluse.
+qu'une locale routée par domaine résout, la suppression du préfixe incluse.
 
 ```ts
 // routing: { mode: 'prefix-no-default', domains: { en: 'intlayer.org', zh: 'intlayer.zh' } }
@@ -158,7 +158,7 @@ getLocalizedPath("/about", "zh");
 Le type URL est l'**union** des deux valeurs que la fonction peut retourner : l'URL
 absolue sur le domaine de la locale, et celle relative qu'elle retourne quand la
 page en cours de rendu vit déjà sur ce domaine. `getLocalizedPath` n'a pas cette
-ambiguïté — elle n'émet jamais une origine — donc elle reste un littéral unique.
+ambiguïté, elle n'émet jamais une origine, donc elle reste un littéral unique.
 
 Les locales qui partagent un domaine conservent également leur préfixe normal dans le type :
 
@@ -168,7 +168,7 @@ getLocalizedUrl("/about", "fr");
 ```
 
 > Régénérez les types (`npx intlayer build`, ou n'importe quelle exécution de dev server) après
-> avoir modifié `routing.domains` — l'affinement provient du
+> avoir modifié `routing.domains`, l'affinement provient du
 > `__RoutingRegistry` généré, pas du fichier de configuration lui-même.
 
 ## Comportement du Proxy
@@ -203,7 +203,9 @@ GET intlayer.zh/about
 
 Le plugin Vite `intlayerProxy` applique la même logique pendant le développement :
 
-> Depuis Intlayer v9, `intlayerProxy()` est intégré directement dans le plugin `intlayer()` et activé par défaut via l'option `routing.enableProxy` (`true` par défaut). L'enregistrer séparément comme indiqué ci-dessous est maintenant optionnel — il est conservé pour la compatibilité rétroactive et pour les configurations qui ont besoin de contrôler l'ordre des plugins. Définissez `routing.enableProxy: false` pour refuser. Voir les [notes de version v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/releases/v9.md).
+> Depuis Intlayer v9, `intlayerProxy()` est intégré directement dans le plugin `intlayer()` et activé par défaut via l'option `routing.enableProxy` (`true` par défaut). L'enregistrer séparément comme indiqué ci-dessous est maintenant optionnel, il est conservé pour la compatibilité rétroactive et pour les configurations qui ont besoin de contrôler l'ordre des plugins. Définissez `routing.enableProxy: false` pour refuser. Voir les [notes de version v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/releases/v9.md).
+
+- [notes de version v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/releases/v9.md)
 
 ```typescript fileName="vite.config.ts"
 import { defineConfig } from "vite";

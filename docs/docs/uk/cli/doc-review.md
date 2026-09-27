@@ -142,7 +142,7 @@ bun x intlayer doc review
 
   > Приклад: `npx intlayer doc review --base-dir ./docs --env-file .env.production.local`
 
-- **`--ci`**: Виконує команду в кожному проєкті Intlayer монорепозиторію (або лише в поточному при запуску з директорії проєкту). Облікові дані для кожного проєкту можна підставити через `INTLAYER_PROJECT_CREDENTIALS` — JSON-об'єкт, що зіставляє шлях проєкту з `{ "clientId", "clientSecret" }`.
+- **`--ci`**: Виконує команду в кожному проєкті Intlayer монорепозиторію (або лише в поточному при запуску з директорії проєкту). Облікові дані для кожного проєкту можна підставити через `INTLAYER_PROJECT_CREDENTIALS`, JSON-об'єкт, що зіставляє шлях проєкту з `{ "clientId", "clientSecret" }`.
 
   > Приклад: `npx intlayer doc review --ci`
 

@@ -44,9 +44,13 @@ author: aymericzip
 
 Перегляньте конкретне порівняння з react-intl у нашому дописі в блозі [react-i18next vs. react-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/react-i18next_vs_react-intl_vs_intlayer.md).
 
+- [react-i18next vs. react-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/react-i18next_vs_react-intl_vs_intlayer.md)
+
 ## Чому поєднувати Intlayer з react-intl?
 
 Хоча Intlayer надає відмінне самостійне рішення для i18n (див. наш [керівництво з інтеграції з React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_vite+react.md)), ви можете захотіти поєднати його з react-intl з кількох причин:
+
+- [керівництво з інтеграції з React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_vite+react.md)
 
 Intlayer пропонує багатий набір **розширених функцій**, що виходять за межі традиційних i18n-інструментів. Він допомагає вам:
 
@@ -156,6 +160,8 @@ export default config;
 
 Щоб дізнатися більше про плагін `syncJSON`, будь ласка, перегляньте [документацію плагіна `syncJSON`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/plugins/sync-json.md).
 
+- [документацію плагіна `syncJSON`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/plugins/sync-json.md)
+
 </Step>
 <Step number={3} title="Налаштування AI-провайдера">
 
@@ -207,6 +213,9 @@ npx intlayer fill
 > Перегляньте всі доступні AI-провайдери в [документації конфігурації Intlayer AI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md#ai-configuration).
 > Перегляньте всі доступні команди в [документації Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/index.md).
 
+- [документації конфігурації Intlayer AI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md#ai-configuration)
+- [документації Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/index.md)
+
 </Step>
 
 </Steps>
@@ -226,4 +235,4 @@ npx intlayer fill
 
 Для покращення досвіду розробника встановіть офіційне **розширення Intlayer для VS Code**:
 
-[Встановити з VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [Встановити з VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

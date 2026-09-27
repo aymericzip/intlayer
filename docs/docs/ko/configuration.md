@@ -725,7 +725,9 @@ export default config;
 
 Intlayer 애널리틱스와 관련된 설정을 정의합니다: 사용자에게 실제로 표시되는 콘텐츠(페이지 뷰, 콘텐츠 노출)를 수집하고 콘텐츠에 대한 A/B 테스트를 지원합니다.
 
-애널리틱스는 옵트아웃 방식입니다: 기본적으로 활성화되어 있으며, `@intlayer/analytics` 패키지가 설치되고 **그리고** 귀속을 위한 프로젝트 키(`editor.clientId`)가 구성되는 즉시 수집을 시작합니다. `analytics.enabled`를 `false`로 설정하거나 패키지를 설치하지 않으면, 전체 애널리틱스 통합이 애플리케이션 번들에서 데드 코드 제거(dead-code elimination)됩니다.
+애널리틱스는 옵트아웃 방식입니다: 기본적으로 활성화되어 있으며, [`@intlayer/analytics`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/analytics.md) 패키지가 설치되고 **그리고** 귀속을 위한 프로젝트 키(`editor.clientId`)가 구성되는 즉시 수집을 시작합니다. `analytics.enabled`를 `false`로 설정하거나 패키지를 설치하지 않으면, 전체 애널리틱스 통합이 애플리케이션 번들에서 데드 코드 제거(dead-code elimination)됩니다.
+
+- [`@intlayer/analytics`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/analytics.md)
 
 | 필드            | 설명                                                                | 타입      | 기본값  | 예시    | 참고                                                                                                                                                                      |
 | --------------- | ------------------------------------------------------------------- | --------- | ------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -973,6 +975,8 @@ Intlayer의 내부 경로 및 출력 결과와 관련된 설정입니다. 이러
 
 content declaration 파일 및 configuration 값이 어떻게 적용되는지에 대한 자세한 내용은 [Content File Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md)을 참조하세요.
 
+- [Content File Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md)
+
 | 필드                        | 설명                                                                                                                                                   | 타입                                                                                                            | 기본값       | 예시                                                                                        | 참고                                                                                                                                                                                                                                                                                                                                                                           |
 | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------- | ------------ | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `fill`                      | 자동 채우기(AI 번역) 출력 파일 생성을 제어합니다.                                                                                                      | `boolean` &#124; <br/> `FilePathPattern` &#124; <br/> `Partial<Record<Locale, boolean &#124; FilePathPattern>>` | `true`       | `{ en: '/locales/en/{{key}}.json', fr: ({ key }) => '/locales/fr/${key}.json', es: false }` | • `true`: 기본 경로(소스와 동일한 파일).<br/>• `false`: 비활성화.<br/>• 문자열/함수 패턴은 로케일별 생성을 허용합니다.<br/>• 로케일별 객체: 각 로케일이 자체 패턴을 가지며 `false`는 해당 로케일을 제외합니다.<br/>• `{{locale}}`을 포함하면 로케일별 생성이 가능합니다.<br/>• 딕셔너리 수준의 `fill` 설정은 항상 이 글로벌 설정보다 우선합니다.                               |
@@ -1109,22 +1113,38 @@ Intlayer가 애플리케이션의 국제화를 최적화하고 컴파일하는 �
 
 네임스페이스 기반 설정보다 훨씬 적습니다. 페이지는 렌더링하지 않는 언어의 카탈로그를 절대 다운로드하지 않기 때문입니다. 서버 렌더링 마크업은 서버에서 콘텐츠를 확인하고, 빌드 타임 컴파일러는 `useIntlayer` 호출을 컴포넌트가 사용하는 정확한 사전 항목으로 대체하므로 사용되지 않는 키와 언어는 제거됩니다. [동적 사전](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dynamic_dictionaries/index.md)을 통해 로케일별로 분할됩니다. 일반적인 대안들과 비교했을 때 Intlayer는 번들 및 페이지 크기를 최대 50%까지 줄여줍니다. [번들 최적화](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md)와 [벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/index.md)를 참조하세요.
 
+- [동적 사전](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dynamic_dictionaries/index.md)
+- [번들 최적화](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md)
+- [벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/index.md)
+
 </Question>
 <Question title="컴포넌트를 다시 작성하지 않고 i18next, next-intl 또는 react-i18next에서 마이그레이션할 수 있나요?">
 
 네, 두 가지 방법이 있습니다. [i18next 마이그레이션 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_i18next_to_intlayer.md) 또는 [next-intl 마이그레이션 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_next-intl_to_intlayer.md)를 따라 점진적으로 이전할 수 있습니다. 또는 현재 API를 완전히 유지할 수도 있습니다: [호환 어댑터(compat adapters)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/index.md)는 `i18next`, `react-i18next`, `next-intl`, `next-i18next`, `react-intl`, `use-intl`, `vue-i18n` 및 `Lingui`와 완전히 동일한 API를 노출하면서 Intlayer 사전에서 데이터를 제공하므로, import 구문만 변경하고 컴포넌트 코드는 그대로 유지할 수 있습니다.
+
+- [i18next 마이그레이션 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_i18next_to_intlayer.md)
+- [next-intl 마이그레이션 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_next-intl_to_intlayer.md)
+- [호환 어댑터(compat adapters)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/index.md)
 
 </Question>
 <Question title="기존 JSON 번역 파일을 유지할 수 있나요?">
 
 네. [sync JSON 플러그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/plugins/sync-json.md)은 `/messages/{locale}/{namespace}.json` 파일을 단일 진실 공급원(source of truth)으로 유지하면서 양방향으로 Intlayer 사전을 생성합니다. [sync PO 플러그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/plugins/sync-po.md)은 gettext 카탈로그에 대해 동일한 작업을 수행하며, [로케일별 파일](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/per_locale_file.md)을 통해 로케일을 한 파일에 모으는 대신 언어별로 콘텐츠를 분할할 수도 있습니다.
 
+- [sync JSON 플러그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/plugins/sync-json.md)
+- [sync PO 플러그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/plugins/sync-po.md)
+- [로케일별 파일](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/per_locale_file.md)
+
 </Question>
 <Question title="콘텐츠를 키 단위로 하나씩 옮겨야 하나요?">
 
 아닙니다. `npx intlayer extract`를 실행하면 Intlayer가 소스 파일을 읽고 사용자 대면 문자열을 추출하여 각 컴포넌트 옆에 `.content` 파일을 생성하므로 카탈로그에 일일이 복사할 필요 없이 diff만 검토하면 됩니다. [extract 명령](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/extract.md)을 참조하세요.
 
+- [extract 명령](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/extract.md)
+
 완전 자동화된 파이프라인을 위해 [Intlayer 컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md)는 빌드 타임에 JSX, TSX, Vue 및 Svelte 소스에서 동일한 작업을 수행하여 변경될 때마다 사전을 생성하고 HMR을 통해 동기화하므로 수동으로 키를 관리할 필요가 없습니다. 정적 분석으로 작동하므로 런타임에만 존재하는 문자열은 제외되며, 사용자 텍스트와 애플리케이션 로직을 구분하기 위해 몇 가지 주석이 필요합니다.
+
+- [Intlayer 컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md)
 
 </Question>
 <Question title="사용 가능한 에디터 및 AI 에이전트 도구는 무엇이 있나요?">
@@ -1167,10 +1187,15 @@ Intlayer가 애플리케이션의 국제화를 최적화하고 컴파일하는 �
 
 기본값인 `"static"`은 사전을 정적으로 가져와 함께 번들링되고 동기식으로 읽힙니다. `"dynamic"`은 Suspense를 통해 가져오므로 컴포넌트가 렌더링할 때만 해당 로케일이 다운로드되어 대용량 콘텐츠에 이상적입니다. `"fetch"`는 실시간 동기화 API에서 사전을 검색하고 실패 시 `"dynamic"`으로 폴백합니다. [번들 최적화](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md)와 [동적 사전](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dynamic_dictionaries/index.md)을 참조하세요.
 
+- [번들 최적화](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md)
+- [동적 사전](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dynamic_dictionaries/index.md)
+
 </Question>
 <Question title="자동 번역을 위한 AI 제공업체 및 API 키는 어디에 설정하나요?">
 
 구성 파일 내에서 설정하거나 커맨드라인에서 `--provider`, `--model`, `--api-key` 플래그로 지정할 수 있습니다. 키는 완전히 사용자 소유로 유지됩니다. 번역 호출은 로컬 머신 또는 CI 러너에서 선택한 제공업체로 직접 전송되므로 어떠한 제3자도 거치지 않습니다. [fill 명령](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/fill.md)을 참조하세요.
+
+- [fill 명령](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/fill.md)
 
 </Question>
 <Question title="구성을 변경한 후 개발 서버를 다시 시작해야 하나요?">

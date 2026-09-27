@@ -24,13 +24,13 @@ history:
     changes: "Analytics standardmäßig aktivieren, sobald `@intlayer/analytics` installiert ist"
   - version: 9.0.0
     date: 2026-07-08
-    changes: "Init doc — @intlayer/analytics Paket, Nachverfolgung auf Provider-/Node-Ebene, A/B-Tests, Dashboard"
+    changes: "Init doc, @intlayer/analytics Paket, Nachverfolgung auf Provider-/Node-Ebene, A/B-Tests, Dashboard"
 author: aymericzip
 ---
 
 # Intlayer Analytics Dokumentation
 
-`@intlayer/analytics` ist ein optionales Begleitpaket, das Ihnen mitteilt, **welche Inhalte Ihren Besuchern tatsächlich angezeigt werden** — welche Seite, in welchem Gebietsschema (Locale) und welcher spezifische Teil des übersetzten Inhalts — damit Sie Ihr Publikum verstehen und **A/B-Tests für Inhalte** durchführen können.
+`@intlayer/analytics` ist ein optionales Begleitpaket, das Ihnen mitteilt, **welche Inhalte Ihren Besuchern tatsächlich angezeigt werden** (welche Seite, in welchem Gebietsschema (Locale) und welcher spezifische Teil des übersetzten Inhalts) damit Sie Ihr Publikum verstehen und **A/B-Tests für Inhalte** durchführen können.
 
 ## Inhaltsverzeichnis
 
@@ -40,22 +40,24 @@ author: aymericzip
 
 `@intlayer/analytics` bündelt drei Arten von anonymen Ereignissen:
 
-| Ereignis           | Wo erfasst                                       | Was es Ihnen sagt                                                                                                                               |
-| ------------------ | ------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------- |
-| `page_view`        | Provider-Ebene (`IntlayerProvider`)              | Welche Seite und welches Gebietsschema eine Sitzung beim ersten Laden, beim Routenwechsel oder Gebietsschema-Wechsel aufgerufen hat.            |
-| `content_exposure` | Node-Ebene (`useIntlayer` / Interpreter-Plugins) | Welcher Wörterbuchschlüssel / Schlüsselpfad tatsächlich aufgelöst und angezeigt wurde — und, falls Teil eines Experiments, welche **Variante**. |
-| `conversion`       | Überall dort, wo Sie `useConversion()` aufrufen  | Ein erreichtes Ziel (Anmeldung, Klick, Kauf...), das der A/B-Variante zugeschrieben wird, der die Sitzung ausgesetzt war.                       |
+| Ereignis           | Wo erfasst                                       | Was es Ihnen sagt                                                                                                                              |
+| ------------------ | ------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| `page_view`        | Provider-Ebene (`IntlayerProvider`)              | Welche Seite und welches Gebietsschema eine Sitzung beim ersten Laden, beim Routenwechsel oder Gebietsschema-Wechsel aufgerufen hat.           |
+| `content_exposure` | Node-Ebene (`useIntlayer` / Interpreter-Plugins) | Welcher Wörterbuchschlüssel / Schlüsselpfad tatsächlich aufgelöst und angezeigt wurde, und, falls Teil eines Experiments, welche **Variante**. |
+| `conversion`       | Überall dort, wo Sie `useConversion()` aufrufen  | Ein erreichtes Ziel (Anmeldung, Klick, Kauf...), das der A/B-Variante zugeschrieben wird, der die Sitzung ausgesetzt war.                      |
 
-Ereignisse werden im Speicher gesammelt und als **einzelne Batch-Anfrage etwa alle 20 Sekunden** gesendet — niemals bei jedem Tastendruck oder Rendern — sodass die Analytik niemals die erste Renderzeit beeinträchtigt oder eine Anfrage pro Interaktion hinzufügt.
+Ereignisse werden im Speicher gesammelt und als **einzelne Batch-Anfrage etwa alle 20 Sekunden** gesendet, niemals bei jedem Tastendruck oder Rendern, sodass die Analytik niemals die erste Renderzeit beeinträchtigt oder eine Anfrage pro Interaktion hinzufügt.
 
 ## Wie es A/B-Tests für Inhalte ermöglicht
 
 Mit Intlayer können Sie bereits inhaltliche [Varianten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dynamic_dictionaries/index.md) deklarieren (z. B. ein `hero-banner` Wörterbuch mit einer `control` und einer `black_friday` Variante). `@intlayer/analytics` schließt den Kreis:
 
-1. `getVariant(experimentKey, variants)` weist jede anonyme Sitzung deterministisch einer Variante zu — eine reine Funktion der Sitzungs-ID und des Experimentschlüssels, sodass die Zuweisung **über die gesamte Sitzung hinweg stabil** ist und **keine Server-Roundtrips** vor dem ersten Rendern erfordert (kein Flackern, keine Layout-Verschiebung).
+1. `getVariant(experimentKey, variants)` weist jede anonyme Sitzung deterministisch einer Variante zu, eine reine Funktion der Sitzungs-ID und des Experimentschlüssels, sodass die Zuweisung **über die gesamte Sitzung hinweg stabil** ist und **keine Server-Roundtrips** vor dem ersten Rendern erfordert (kein Flackern, keine Layout-Verschiebung).
 2. Jedes `content_exposure` Ereignis enthält die `variant`, die angezeigt wurde.
 3. Mit `useConversion()` können Sie dieser Variante ein Ziel (z. B. `"cta_click"`) zuschreiben.
 4. Der Endpunkt für die Experimentergebnisse des Dashboards vergleicht die Konversionsraten pro Variante, einschließlich der statistischen Signifikanz (ein z-Test).
+
+- [Varianten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dynamic_dictionaries/index.md)
 
 ## Installation
 
@@ -77,7 +79,7 @@ pnpm add @intlayer/analytics
 bun add @intlayer/analytics
 ```
 
-Die Installation des Pakets genügt, um Analytics einzuschalten: `analytics.enabled` ist standardmäßig `true`, und `@intlayer/config` setzt es auf `false`, sobald das Paket in Ihrem Projekt nicht gefunden wird. Wenn Sie es nicht installieren, wird jeder Integrationspunkt in ein No-Op aufgelöst — siehe [Keine Kosten, wenn nicht installiert](#keine-kosten-wenn-nicht-installiert) unten.
+Die Installation des Pakets genügt, um Analytics einzuschalten: `analytics.enabled` ist standardmäßig `true`, und `@intlayer/config` setzt es auf `false`, sobald das Paket in Ihrem Projekt nicht gefunden wird. Wenn Sie es nicht installieren, wird jeder Integrationspunkt in ein No-Op aufgelöst, siehe [Keine Kosten, wenn nicht installiert](#keine-kosten-wenn-nicht-installiert) unten.
 
 ## Konfiguration
 
@@ -97,8 +99,8 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-- `editor.backendURL` — die Basis-URL, an die Analytics-Ereignisse gesendet werden (`POST {backendURL}/api/analytics/events`).
-- `editor.clientId` — der öffentliche Projektschlüssel, der jedem aufgenommenen Ereignis zugeschrieben wird. Es fungiert auch als **Aktivierungsschalter**: Analytics bleibt vollständig deaktiviert (und als Dead-Code eliminiert, siehe unten), bis `clientId` konfiguriert ist.
+- `editor.backendURL`: die Basis-URL, an die Analytics-Ereignisse gesendet werden (`POST {backendURL}/api/analytics/events`).
+- `editor.clientId`: der öffentliche Projektschlüssel, der jedem aufgenommenen Ereignis zugeschrieben wird. Es fungiert auch als **Aktivierungsschalter**: Analytics bleibt vollständig deaktiviert (und als Dead-Code eliminiert, siehe unten), bis `clientId` konfiguriert ist.
 
 Wenn Sie Intlayer selbst hosten, verweist die Analytik automatisch auf Ihre eigene Instanz, da sie `editor.backendURL` teilt.
 
@@ -119,14 +121,14 @@ Er authentifiziert sich selbst über `editor.clientId`, der Austausch, das Cachi
 
 ### Deaktivieren (Opt-out)
 
-Der optionale `analytics`-Block steuert die Erfassung — oder schaltet sie ab:
+Der optionale `analytics`-Block steuert die Erfassung, oder schaltet sie ab:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
   analytics: {
-    enabled: false, // Standard: true — nimmt die gesamte Integration aus dem Bundle
+    enabled: false, // Standard: true, nimmt die gesamte Integration aus dem Bundle
     flushInterval: 20_000, // Millisekunden zwischen zwei gebündelten Übertragungen
     sampleRate: 1, // Anteil der aufgezeichneten Sitzungen, von 0 (keine) bis 1 (alle)
   },
@@ -270,7 +272,7 @@ Der Einstiegspunkt unterscheidet sich je nach Framework, ist aber in jedem Fall 
 
 ### Automatische Nachverfolgung auf Node-Ebene
 
-Jedes Mal, wenn `useIntlayer` einen Inhalt zur Anzeige auflöst, meldet der Interpreter ein `content_exposure` Ereignis für genau diese `dictionaryKey` + Schlüsselpfad + Gebietsschema — auch hier sind keine Codeänderungen erforderlich. Wiederholte Expositionen desselben Knotens innerhalb eines Flush-Fensters werden zu einem einzigen Ereignis mit einem `count` zusammengefasst, sodass eine Liste, die 50 Mal neu gerendert wird, nicht 50 Ereignisse sendet.
+Jedes Mal, wenn `useIntlayer` einen Inhalt zur Anzeige auflöst, meldet der Interpreter ein `content_exposure` Ereignis für genau diese `dictionaryKey` + Schlüsselpfad + Gebietsschema, auch hier sind keine Codeänderungen erforderlich. Wiederholte Expositionen desselben Knotens innerhalb eines Flush-Fensters werden zu einem einzigen Ereignis mit einem `count` zusammengefasst, sodass eine Liste, die 50 Mal neu gerendert wird, nicht 50 Ereignisse sendet.
 
 ### Nachverfolgung von Konversionen für A/B-Tests
 
@@ -614,7 +616,7 @@ Verwenden Sie `useConversion()`, um einer Variante, die eine Sitzung gesehen hat
   </Tab>
 </Tabs>
 
-Gewichtungen sind optional — geben Sie eine pro Variante an, um die Aufteilung zu beeinflussen, z. B. `useExperiment("homepage-hero", ["default", "black_friday"], [9, 1])`.
+Gewichtungen sind optional, geben Sie eine pro Variante an, um die Aufteilung zu beeinflussen, z. B. `useExperiment("homepage-hero", ["default", "black_friday"], [9, 1])`.
 
 Das untergeordnete Element liest dann die [Variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dynamic_dictionaries/variants.md) des Wörterbuchs, die übereinstimmt:
 
@@ -633,9 +635,13 @@ export const HeroBanner = ({ variant }: { variant: string }) => {
 };
 ```
 
+- [Variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dynamic_dictionaries/variants.md)
+
 > Das Lesen der Variante in einer **untergeordneten Komponente** ist das, was dies außerhalb von React funktioniert: In Vue, Svelte, Solid und Angular wird der Selektor, der an `useIntlayer` übergeben wird, erfasst, wenn die Komponente initialisiert wird, daher muss das Lesen in einer Komponente stattfinden, die nur einmal bereitgestellt wird, wenn die Variante bekannt ist.
 
-Wenn das Experiment eine ganze Seite abdeckt und nicht nur ein einzelnes Dictionary, verschieben Sie die Variante stattdessen auf den Provider — siehe [Ambient variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dynamic_dictionaries/variants.md#ambient-variant). Jedes `useIntlayer` darunter wird dann dagegen aufgelöst, ohne dass Änderungen an der Aufrufstelle erforderlich sind.
+Wenn das Experiment eine ganze Seite abdeckt und nicht nur ein einzelnes Dictionary, verschieben Sie die Variante stattdessen auf den Provider, siehe [Ambient variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dynamic_dictionaries/variants.md#ambient-variant). Jedes `useIntlayer` darunter wird dann dagegen aufgelöst, ohne dass Änderungen an der Aufrufstelle erforderlich sind.
+
+- [Ambient variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dynamic_dictionaries/variants.md#ambient-variant)
 
 Wenn du die Raw Assignment außerhalb einer Komponente benötigst, greife direkt auf den Client zu:
 
@@ -649,21 +655,21 @@ const variant = client?.getVariant("homepage-hero", [
 ]);
 ```
 
-> `getVariant` weist nur zu — es zeichnet die Exposition nicht auf. Verwenden Sie lieber `useExperiment()`, andernfalls hat die Konversionsrate keinen Nenner.
+> `getVariant` weist nur zu, es zeichnet die Exposition nicht auf. Verwenden Sie lieber `useExperiment()`, andernfalls hat die Konversionsrate keinen Nenner.
 
 ## Datenschutz & Leistung
 
-- **Anonym durch Design**: Sitzungen werden durch eine rotierende ID identifiziert; das Backend speichert nur einen **SHA-256-Hash** dieser ID — niemals die rohe ID, niemals eine IP-Adresse.
-- **Standort ist grob**: nur ein Ländercode, der aus CDN-Geolokalisierungs-Headern (`cf-ipcountry`, `x-vercel-ip-country`, ...) abgeleitet wird — es wird keine IP gelesen oder gespeichert.
+- **Anonym durch Design**: Sitzungen werden durch eine rotierende ID identifiziert; das Backend speichert nur einen **SHA-256-Hash** dieser ID, niemals die rohe ID, niemals eine IP-Adresse.
+- **Standort ist grob**: nur ein Ländercode, der aus CDN-Geolokalisierungs-Headern (`cf-ipcountry`, `x-vercel-ip-country`, ...) abgeleitet wird, es wird keine IP gelesen oder gespeichert.
 - **URLs schließen Suchparameter aus**: standardmäßig werden Query-Strings nie erfasst.
 - **Sampling**: `sampleRate` ermöglicht es Ihnen, bei Traffic-starken Apps nur einen Bruchteil der Content-Exposure-Ereignisse zu behalten.
-- **Gepoolt**: eine Anfrage ungefähr alle 20 Sekunden (`flushInterval`), oder früher, wenn der Puffer voll ist (`maxBufferSize`) — niemals eine Anfrage pro Ereignis.
+- **Gepoolt**: eine Anfrage ungefähr alle 20 Sekunden (`flushInterval`), oder früher, wenn der Puffer voll ist (`maxBufferSize`), niemals eine Anfrage pro Ereignis.
 
 ### Keine Kosten, wenn nicht installiert
 
 `@intlayer/analytics` folgt genau dem gleichen optionalen Abhängigkeitsmuster wie `@intlayer/editor`:
 
-- Jeder Integrationspunkt lädt das Paket über einen **dynamischen `import()` umhüllt in `try/catch`** — eine App, die `@intlayer/analytics` nie installiert, zahlt weder für Bundle-Größe noch Laufzeitkosten und sieht nie einen Fehler;
+- Jeder Integrationspunkt lädt das Paket über einen **dynamischen `import()` umhüllt in `try/catch`**, eine App, die `@intlayer/analytics` nie installiert, zahlt weder für Bundle-Größe noch Laufzeitkosten und sieht nie einen Fehler;
 - eine Compile-Zeit-Umgebungsvariable (`INTLAYER_ANALYTICS_ENABLED`), die von `@intlayer/config` automatisch auf `'false'` gesetzt wird, wenn das Paket nicht installiert ist, `analytics.enabled` `false` ist oder `editor.clientId` nicht konfiguriert ist, ermöglicht Bundlern die **Dead-Code-Elimination** der gesamten Integration;
 - Analytics ist im Intlayer Editor/CMS-Vorschau-Iframe deaktiviert, sodass Editor-Sitzungen niemals als echter Traffic gewertet werden.
 
@@ -671,7 +677,7 @@ const variant = client?.getVariant("homepage-hero", [
 
 Sobald Ihr Projekt Ereignisse gesammelt hat, zeigt die Seite **Analytics** im [Intlayer Dashboard](https://app.intlayer.org/analytics) (sichtbar in der Seitenleiste, sobald ein Projekt ausgewählt ist) Folgendes an:
 
-- **Aktive Nutzer** — eindeutige Besucher über das ausgewählte rollierende Zeitfenster (7 / 30 / 90 Tage).
+- **Aktive Nutzer**: eindeutige Besucher über das ausgewählte rollierende Zeitfenster (7 / 30 / 90 Tage).
 - **Nutzer heute** und **Nutzer in den letzten 7 Tagen**.
 - **Seitenaufrufe** über das ausgewählte Zeitfenster.
 - Ein **Verlaufsdiagramm** der täglichen eindeutigen Besucher.
@@ -699,6 +705,8 @@ const cms = createIntlayerCMS();
 
 const { data: audience } = await analyticsEndpoint(cms).getAudience(30);
 ```
+
+- [CMS SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md)
 
 > **Nur Server-seitig.** `createIntlayerCMS()` authentifiziert sich mit `clientId` + `clientSecret`, und das Secret ist niemals im Browser verfügbar, dieser Code-Schnipsel würde unauthentifizierte Anfragen ausstellen, wenn er dort ausgeführt würde. Halten Sie ihn in einem Route Handler, Server Action oder Script.
 

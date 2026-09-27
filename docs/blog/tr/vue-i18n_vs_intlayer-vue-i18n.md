@@ -30,6 +30,8 @@ author: aymericzip
 
 Bu makale, aynı Vite + Vue 3 uygulamasında bu değişimi ölçer; bir kez `vue-i18n` ile ve bir kez adapter ile oluşturulmuştur. Sayılar [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) kaynağından gelmektedir. `vue-i18n` ve Intlayer'ı kütüphaneler olarak karşılaştırmak için [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/vue-i18n_vs_intlayer.md) ve [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/vue-i18n_vs_intlayer.md) makalesini okuyun. Bu makale, bileşenlerinizi olduğu gibi tuttuğunuzda adapterın ne değiştirdiği hakkındadır.
 
+- [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/vue-i18n_vs_intlayer.md)
+
 <TOC/>
 
 > **tl;dr**: Aynı Vite + Vue 3 uygulamasında, `vue-i18n` yerine `@intlayer/vue-i18n` kullanmak sayfa başına JavaScript'i gzip olarak **134.9 KB'den 47.0 KB'ye** düşürdü (i18n olmadan uygulama 41.3 KB ağırlığında), runtime'ı **24.3 KB'den 7.9 KB'ye**, ortalama component'i **196 KB'den 8.4 KB'ye** ve yabancı sayfa string sızıntısını **%90'dan %0'a** indirdi, hiçbir `.vue` dosyası düzenlenmedi. `createI18n({ messages })` fallback olarak çalışmaya devam eder; yukarıdaki sayıları elde etmek için JSON imports'ları kaldırın. SFC `<i18n>` blokları ve runtime `setLocaleMessage()`, bu özelliklerin aktarılmayan iki özelliğidir.
@@ -137,6 +139,8 @@ style="border:none;"
 />
 
 > Tüm tablo, her kütüphane ve her strateji, [Vue kıyaslama raporunda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/vue.md).
+
+- [Vue kıyaslama raporunda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/vue.md)
 
 ## Sayılar neden değişiyor
 
@@ -286,6 +290,8 @@ Mesajlarınız bileşenlerin içindeyse, yerel ayarlara ait dosyalara veya üret
 
 `setLocaleMessage()` ve `mergeLocaleMessage()` bir uyarı verip geri döner. Çalışma zamanında bir CMS'ten çekilen çeviriler, [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) veya `intlayer pull` / `push` komutlarını gerektirir.
 
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)
+
 </Accordion>
 <Accordion header="messages bir yedek seçenektir, ücretsiz değildir">
 
@@ -316,6 +322,9 @@ Uygulamanız SFC `<i18n>` bloklarına veya çalışma zamanı `setLocaleMessage(
 
 Yeni projeler için veya adaptör görevini tamamladıktan sonra. En hafif çalışma zamanına (3.9 KB) ve `<i18n>` bloklarını tiplenmiş içerikle değiştiren bileşen başına `.content.ts` modeline sahiptir. [Vue ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_vite+vue.md) veya [Nuxt ile](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nuxt.md) başlayın.
 
+- [Vue ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_vite+vue.md)
+- [Nuxt ile](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nuxt.md)
+
 </Accordion>
 </AccordionGroup>
 
@@ -339,11 +348,16 @@ Hayır. Kıyaslama derlemesi yalnızca `vite.config.ts`, `intlayer.config.ts` ve
 
 Korundu. `createI18n()` işlevine iletilen `datetimeFormats` ve `numberFormats` yapılandırmalarına uyulur ve yerel `Intl` API'si ile desteklenir. Bkz. [tarih, saat ve sayı biçimlendirmesi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/date_time_number_formatting_locales.md).
 
+- [tarih, saat ve sayı biçimlendirmesi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/date_time_number_formatting_locales.md)
+
 </Question>
 
 <Question title="Nuxt ile çalışır mı?">
 
 `@intlayer/vue-i18n` Vite + Vue hedefler. `@nuxtjs/i18n` için [Nuxt i18n uyumluluk adaptörünü](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/nuxtjs-i18n.md) kullanın ve yerel kurulum için [Nuxt ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nuxt.md) sayfasına bakın.
+
+- [Nuxt i18n uyumluluk adaptörünü](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/nuxtjs-i18n.md)
+- [Nuxt ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nuxt.md)
 
 </Question>
 
@@ -394,3 +408,5 @@ Referans belgeler:
 Tüm ham veriler, test uygulamaları ve scriptler [Benchmark Bloom repository](https://github.com/intlayer-org/benchmark-bloom) içinde bulunmaktadır. Kendiniz çalıştırabilirsiniz.
 
 Daha fazla ayrıntı için ['Neden Intlayer?' dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/interest_of_intlayer.md) bakınız.
+
+- [Neden Intlayer? Diğer i18n kütüphanelerine göre avantajları](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/interest_of_intlayer.md)

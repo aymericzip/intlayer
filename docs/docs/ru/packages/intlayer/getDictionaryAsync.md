@@ -36,7 +36,12 @@ author: aymericzip
 
 Это аналог [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getDictionary.md) для maps загрузчиков для отдельных языков, выпускаемых в `.intlayer/dynamic_dictionaries/`: вместо получения словаря со всеми языками он получает map загрузчика и ожидает только chunk для запрошенного языка.
 
+- [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getDictionary.md)
+
 > В коде приложения вы обычно вызываете [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getIntlayerAsync.md), а не эту функцию. [Плагины сборки](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/bundle_optimization.md) переписывают каждый вызов `getIntlayerAsync('key', locale)` на `getDictionaryAsync(loaderMap, 'key', locale)`. `getDictionaryAsync` экспортируется для пользовательских загрузчиков и для инструментов, которые создают свои собственные maps загрузчиков.
+
+- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getIntlayerAsync.md)
+- [Плагины сборки](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/bundle_optimization.md)
 
 **Ключевые особенности:**
 
@@ -71,7 +76,7 @@ getDictionaryAsync(
 - `localeOrSelector: LocalesValues | DictionarySelector`
   - **Description**: Локаль для интерпретации контента или объект селектора (`{ item }`, `{ variant }`, опционально с `locale`). См. [динамические словари](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dynamic_dictionaries/index.md).
   - **Type**: `LocalesValues | DictionarySelector`
-  - **Required**: No (Optional) — по умолчанию используется настроенная `defaultLocale`.
+  - **Required**: No (Optional), по умолчанию используется настроенная `defaultLocale`.
 
 - `plugins: Plugins[]`
   - **Description**: Node трансформеры. По умолчанию используется базовый набор интерпретатора.
@@ -80,7 +85,7 @@ getDictionaryAsync(
 
 ### Returns
 
-- **Type**: `Promise<Content>` — a promise resolving to the interpreted content of the loaded chunk.
+- **Type**: `Promise<Content>`, a promise resolving to the interpreted content of the loaded chunk.
 - **Description**: Resolves to `null` when the map emits no chunk for the requested locale nor for any of its fallbacks, mirroring how a missing qualified coordinate resolves.
 
 ## Пример использования

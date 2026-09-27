@@ -57,6 +57,8 @@ author: aymericzip
 
 자세한 내용은 [Intlayer 구성 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참조하세요.
 
+- [Intlayer 구성 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)
+
 ## 사용 예시
 
 ### 전체 구성 가져오기

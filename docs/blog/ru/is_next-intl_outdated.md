@@ -90,6 +90,8 @@ style="border:none;"
 
 > Измерения в реальных браузерах с gzip-сжатием. Все подробности в [отчете о бенчмарке Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/nextjs.md).
 
+- [отчете о бенчмарке Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/nextjs.md)
+
 ### Базовый размер библиотек
 
 Вес клиентской части до добавления текстов:
@@ -138,6 +140,8 @@ export default async function RootLayout({ children, params }) {
 
 Intlayer решает эту задачу с помощью статического анализа: [компилятор Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compiler.md) бандлит исключительно те строки, которые задействованы на конкретном маршруте, снижая утечку до **0.0%**.
 
+- [компилятор Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compiler.md)
+
 ## Почему next-intl не поддается tree-shaking
 
 Интерфейс библиотеки опирается на строковые вызовы ключей во время выполнения:
@@ -176,6 +180,8 @@ export function UserProfile() {
 </Tabs>
 
 Turbopack и Webpack не могут предсказать, какие именно ключи из `UserProfile` будут вызваны. Чтобы не допустить падения приложения, **бандлер включает весь неймспейс целиком в клиентский чанк**. Деструктурированные свойства в Intlayer позволяют компилятору четко видеть зависимости и вырезать ненужные поля. Подробнее в [оптимизации бандла](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/bundle_optimization.md).
+
+- [оптимизации бандла](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/bundle_optimization.md)
 
 ## Опыт разработки
 
@@ -276,6 +282,8 @@ declare global {
 
 Intlayer генерирует типы на основе всех файлов контента. Активация режима [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md) останавливает сборку при отсутствии перевода в любой из указанных локалей.
 
+- [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md)
+
 ### Сравнение инструментария и поддержка ИИ
 
 | Возможность                     | `next-intl` | Intlayer                                                                                                              |
@@ -301,6 +309,8 @@ Intlayer предлагает эти решения из коробки:
 **Автономная визуальная CMS:**
 
 Используйте [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md) для визуального редактирования с сохранением изменений напрямую в Git.
+
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md)
 
 **Лицензия Apache 2.0:**
 

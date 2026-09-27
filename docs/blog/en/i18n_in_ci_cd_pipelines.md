@@ -44,7 +44,12 @@ const config = {
 export default config;
 ```
 
+- [Sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/plugins/sync-json.md)
+
 Your app keeps importing what it imports. The CI jobs below then fill and gate your existing catalogs, and the diff a reviewer sees is a change to `locales/fr/checkout.json`, not a migration. There is a [Sync PO plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/plugins/sync-po.md) for gettext workflows, and [compat adapters](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md) if you also want the runtime API to stay unchanged.
+
+- [Sync PO plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/plugins/sync-po.md)
+- [compat adapters](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md)
 
 ## Separate the gate from the fill
 
@@ -167,6 +172,8 @@ test("has no missing required locales", async () => {
 
 `npx intlayer content test` prints a report but exits zero, so it informs and does not gate. Use it locally; use the assertion in CI. More on the distinction in [finding missing translations](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/detecting_missing_translations.md).
 
+- [finding missing translations](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/detecting_missing_translations.md)
+
 ## `requiredLocales` is what makes the gate survivable
 
 A gate that demands all eighteen locales blocks every release until the slowest language lands, and gets disabled within a month.
@@ -209,6 +216,8 @@ export default config;
 ```
 
 This suits teams where non-developers own the copy. It is a trade, not an upgrade: you gain editor autonomy and lose the property that a git checkout fully describes what the app renders. Details in the [CMS documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
+
+- [CMS documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
 
 Note that `clientSecret` is a server-side credential. It belongs in CI secrets and in your server environment, never in anything that reaches a client bundle.
 

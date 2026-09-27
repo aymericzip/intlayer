@@ -25,6 +25,8 @@ author: aymericzip
 
 يحظى `Paraglide` بسمعة جيدة باعتباره أخف حلول التدويل المتاحة، وللوهلة الأولى يتفق [اختبار الأداء](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md) مع ذلك: فحجم مكتبته يقارب الصفر. لكن حجم مكتبة يقارب الصفر لا يعني إرسال صفر بايت إلى المتصفح. هذا يعني ببساطة أن البايتات تستقر في مكان لا ترصده تلك المعايير.
 
+- [اختبار الأداء](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md)
+
 <TOC/>
 
 ## النقاط الرئيسية
@@ -95,6 +97,9 @@ src/paraglide/
 <I18nBenchmark framework="tanstack" packages="paraglide,intlayer" vertical/>
 
 > البيانات الكاملة متوفرة في [تقرير مقارنة TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md) و[تقرير مقارنة Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md). يمكن فحص كل حزمة في [مستودع اختبارات الأداء](https://github.com/intlayer-org/benchmark-i18n).
+
+- [تقرير مقارنة TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md)
+- [تقرير مقارنة Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md)
 
 هناك نقطتان واضحتان:
 
@@ -201,6 +206,8 @@ export const Hero = () => {
 
 لكن في بيئات أخرى، لم يتحقق ذلك. ففي اختبارنا على [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md)، زادت صفحات Paraglide بمقدار 14 KB مقارنة بالتطبيق الأساسي، بينما أضاف `next-intlayer` فقط 0.3 KB. كما أظهرت اختبارات سابقة على TanStack Start تسرب رسائل من صفحات أخرى إلى حزمة المسار الحالي.
 
+- [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md)
+
 يعتمد الـ Tree Shaking على أداة الحزم لديك (Turbopack، Rolldown، Rollup)، وعلى طريقة استيراد الرسائل (`import { m }` مقابل `import * as m`)، وعلى تحليل الآثار الجانبية (side-effects). إذا اخترت Paraglide لصغر حجمه، افتح أداة فحص الحزم وتأكد من تحقق ذلك في تطبيقك الفعلي.
 
 ## غياب التحميل الديناميكي
@@ -240,6 +247,8 @@ export default config;
 | `fetch`      | اللغة الحالية فقط، مجلوبة عبر واجهة برمجة Live Sync | **أخف بـ N مرة** مع وجود N لغة |
 
 بفضل [التحويل أثناء البناء](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md) وخيار `importMode: 'static'`، يحمّل Intlayer نظرياً نفس المحتوى تماماً مثل Paraglide. ومع استخدام `'dynamic'` أو `'fetch'`، فإنه يحمّل فقط ما تتطلبه اللغة الحالية: لتطبيق يدعم N لغة، تصبح حمولة الترجمة أصغر بـ N مرة مقارنة بـ Paraglide.
+
+- [التحويل أثناء البناء](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md)
 
 ## متى يظل Paraglide خياراً مناسباً؟
 

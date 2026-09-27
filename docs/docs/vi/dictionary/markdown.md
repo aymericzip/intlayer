@@ -142,12 +142,12 @@ Bạn có thể khai báo nội dung Markdown bằng cách sử dụng hàm `md`
 Intlayer cung cấp hai cách độc lập để render Markdown:
 
 1. **Thông qua `useIntlayer`**
-   — Intlayer tự động chuyển đổi node `md` thành đầu ra nguyên bản của framework (JSX, VNode, chuỗi HTML).
-   - Frontmatter được phân tích cú pháp và hiển thị dưới dạng `.metadata`. Bạn có thể ghi đè quá trình render ở hai cấp độ — toàn cục với `MarkdownProvider` (hoặc tương đương trong framework) và cục bộ trên mỗi node bằng `.use()`. Cả hai đều có thể được kết hợp; `.use()` được ưu tiên hơn `MarkdownProvider`, và `MarkdownProvider` được ưu tiên hơn mặc định.
+   Intlayer tự động chuyển đổi node `md` thành đầu ra nguyên bản của framework (JSX, VNode, chuỗi HTML).
+   - Frontmatter được phân tích cú pháp và hiển thị dưới dạng `.metadata`. Bạn có thể ghi đè quá trình render ở hai cấp độ, toàn cục với `MarkdownProvider` (hoặc tương đương trong framework) và cục bộ trên mỗi node bằng `.use()`. Cả hai đều có thể được kết hợp; `.use()` được ưu tiên hơn `MarkdownProvider`, và `MarkdownProvider` được ưu tiên hơn mặc định.
 
-2. **Các tiện ích hỗ trợ** — `<MarkdownRenderer />`, `useMarkdownRenderer()`, và `renderMarkdown()` là các công cụ độc lập chấp nhận **chỉ các chuỗi Markdown thô**. Chúng độc lập với `useIntlayer` và không hoạt động với các node được trang trí mà nó trả về.
+2. **Các tiện ích hỗ trợ**: `<MarkdownRenderer />`, `useMarkdownRenderer()`, và `renderMarkdown()` là các công cụ độc lập chấp nhận **chỉ các chuỗi Markdown thô**. Chúng độc lập với `useIntlayer` và không hoạt động với các node được trang trí mà nó trả về.
 
-Render Markdown hỗ trợ **MDX** — sử dụng bất kỳ component JSX/framework nào bằng tên trực tiếp bên trong Markdown của bạn.
+Render Markdown hỗ trợ **MDX**, sử dụng bất kỳ component JSX/framework nào bằng tên trực tiếp bên trong Markdown của bạn.
 
 ### 1. Render Tự động (thông qua `useIntlayer`)
 
@@ -864,7 +864,7 @@ Các tiện ích này **chỉ render các chuỗi Markdown thô** và độc l�
 
 ## Cấu hình Toàn cục với `MarkdownProvider`
 
-`MarkdownProvider` (hoặc tương đương trong framework) cấu hình pipeline render Markdown cho toàn bộ ứng dụng của bạn. Điều này áp dụng cho cả render `useIntlayer` tự động và các tiện ích hỗ trợ. Các tùy chọn được đặt ở đây là mặc định — `.use()` sẽ ghi đè chúng ở cấp độ node.
+`MarkdownProvider` (hoặc tương đương trong framework) cấu hình pipeline render Markdown cho toàn bộ ứng dụng của bạn. Điều này áp dụng cho cả render `useIntlayer` tự động và các tiện ích hỗ trợ. Các tùy chọn được đặt ở đây là mặc định, `.use()` sẽ ghi đè chúng ở cấp độ node.
 
 <Tabs group="framework">
   <Tab label="React" value="react">
@@ -886,7 +886,7 @@ Các tiện ích này **chỉ render các chuỗi Markdown thô** và độc l�
     ```
 
 
-    > Hỗ trợ MDX — bất kỳ tên component nào được sử dụng bên trong Markdown của bạn (ví dụ: `<MyCustomJSXComponent />`) đều được phân giải dựa trên bản đồ `components`.
+    > Hỗ trợ MDX, bất kỳ tên component nào được sử dụng bên trong Markdown của bạn (ví dụ: `<MyCustomJSXComponent />`) đều được phân giải dựa trên bản đồ `components`.
 
     Bạn cũng có thể sử dụng trình render markdown của riêng mình:
 
@@ -928,7 +928,7 @@ Các tiện ích này **chỉ render các chuỗi Markdown thô** và độc l�
     ```
 
 
-    > Hỗ trợ MDX — bất kỳ tên component nào được sử dụng bên trong Markdown của bạn (ví dụ: `<MyCustomJSXComponent />`) đều được phân giải dựa trên bản đồ `components`.
+    > Hỗ trợ MDX, bất kỳ tên component nào được sử dụng bên trong Markdown của bạn (ví dụ: `<MyCustomJSXComponent />`) đều được phân giải dựa trên bản đồ `components`.
 
     Bạn cũng có thể sử dụng trình render markdown của riêng mình:
 
@@ -976,7 +976,7 @@ Các tiện ích này **chỉ render các chuỗi Markdown thô** và độc l�
     ```
 
 
-    > Hỗ trợ MDX — bất kỳ tên component nào được sử dụng bên trong Markdown của bạn (ví dụ: `<MyCustomJSXComponent />`) đều được phân giải dựa trên bản đồ `components`.
+    > Hỗ trợ MDX, bất kỳ tên component nào được sử dụng bên trong Markdown của bạn (ví dụ: `<MyCustomJSXComponent />`) đều được phân giải dựa trên bản đồ `components`.
 
     Bạn cũng có thể sử dụng trình render markdown của riêng mình:
 
@@ -1020,7 +1020,7 @@ Các tiện ích này **chỉ render các chuỗi Markdown thô** và độc l�
     ```
 
 
-    > Hỗ trợ MDX — bất kỳ tên component nào được sử dụng bên trong Markdown của bạn (ví dụ: `<MyCustomJSXComponent />`) đều được phân giải dựa trên bản đồ `components`.
+    > Hỗ trợ MDX, bất kỳ tên component nào được sử dụng bên trong Markdown của bạn (ví dụ: `<MyCustomJSXComponent />`) đều được phân giải dựa trên bản đồ `components`.
 
     Bạn cũng có thể sử dụng trình render markdown của riêng mình:
 
@@ -1059,7 +1059,7 @@ Các tiện ích này **chỉ render các chuỗi Markdown thô** và độc l�
     ```
 
 
-    > Hỗ trợ MDX — bất kỳ tên component nào được sử dụng bên trong Markdown của bạn (ví dụ: `<MyCustomJSXComponent />`) đều được phân giải dựa trên bản đồ `components`.
+    > Hỗ trợ MDX, bất kỳ tên component nào được sử dụng bên trong Markdown của bạn (ví dụ: `<MyCustomJSXComponent />`) đều được phân giải dựa trên bản đồ `components`.
 
     Bạn cũng có thể sử dụng trình render markdown của riêng mình:
 
@@ -1098,7 +1098,7 @@ Các tiện ích này **chỉ render các chuỗi Markdown thô** và độc l�
     ```
 
 
-    > Hỗ trợ MDX — bất kỳ tên component nào được sử dụng bên trong Markdown của bạn (ví dụ: `<MyCustomJSXComponent />`) đều được phân giải dựa trên bản đồ `components`.
+    > Hỗ trợ MDX, bất kỳ tên component nào được sử dụng bên trong Markdown của bạn (ví dụ: `<MyCustomJSXComponent />`) đều được phân giải dựa trên bản đồ `components`.
 
     Bạn cũng có thể sử dụng trình render markdown của riêng mình:
 
@@ -1137,7 +1137,7 @@ Các tiện ích này **chỉ render các chuỗi Markdown thô** và độc l�
     ```
 
 
-    > Hỗ trợ MDX — bất kỳ tên component nào được sử dụng bên trong Markdown của bạn (ví dụ: `<MyCustomJSXComponent />`) đều được phân giải dựa trên bản đồ `components`.
+    > Hỗ trợ MDX, bất kỳ tên component nào được sử dụng bên trong Markdown của bạn (ví dụ: `<MyCustomJSXComponent />`) đều được phân giải dựa trên bản đồ `components`.
 
     Bạn cũng có thể sử dụng trình render markdown của riêng mình:
 

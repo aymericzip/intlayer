@@ -30,6 +30,8 @@ author: aymericzip
 
 Este artigo mede essa troca na mesma aplicação TanStack Start, construída uma vez com o Lingui e outra com o adaptador. Os números são provenientes do [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Para avaliar as duas bibliotecas diretamente, leia [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/lingui_vs_intlayer.md). Este texto foca nas transformações proporcionadas pelo adaptador e nas situações em que ele não traz vantagens.
 
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/lingui_vs_intlayer.md)
+
 <TOC/>
 
 > **tl;dr**: Na mesma aplicação TanStack Start, o `@intlayer/lingui` reduziu o componente médio de **85,5 KB para 12,8 KB** gzip, a hidratação de **28 ms para 19,7 ms**, e a troca de idioma de **5,9 ms para 2,9 ms**, sem alterar nenhuma macro. Na configuração simples (todos os catálogos carregados no início), ele também eliminou **90% do vazamento de página** e 12 KB por página. No entanto, na configuração com lazy loading ele entrega **137 KB por página contra 115 KB** do Lingui puro: o adaptador resolve ICU em runtime enquanto o Lingui entrega arrays de tokens pré-compilados. O vazamento do idioma de origem (~9-10%) é idêntico em ambos os lados, pois decorre do fallback `message` embutido nos componentes, não do runtime. O adaptador é um plugin do Vite; os testes foram realizados com TanStack Start.
@@ -230,6 +232,8 @@ export default config;
 
 Para catálogos `.po`, substitua `syncJSON` por `syncPO` do pacote `@intlayer/sync-po-plugin` mantendo a mesma estrutura `source` com extensão `.po`. Acesse a [documentação do plugin Sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/plugins/sync-po.md).
 
+- [documentação do plugin Sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/plugins/sync-po.md)
+
 `splitKeys: "key-prefix"` é o fator determinante para a redução no tamanho dos componentes. O catálogo retém sua estrutura linear; a divisão opera apenas nos dicionários gerados internamente, e a sincronização reconstitui as chaves perfeitamente.
 
 </Step>
@@ -307,3 +311,5 @@ O `@intlayer/lingui` reconfigura o destino ao qual cada chamada do Lingui é ass
 Todos os dados detalhados, projetos de teste e scripts podem ser conferidos no [repositório Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Fique à vontade para rodar os testes localmente.
 
 Consulte a documentação ['Por que o Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/interest_of_intlayer.md) para explorar mais detalhes.
+
+- [Por que o Intlayer? Vantagens sobre outras bibliotecas i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/interest_of_intlayer.md)

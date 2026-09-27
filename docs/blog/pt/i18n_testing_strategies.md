@@ -31,6 +31,9 @@ Cada padrão a seguir funciona em qualquer stack de i18n. Troque o provider por 
 
 As ferramentas de cobertura também se adaptam: com o [plugin Sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/plugins/sync-json.md) apontado para seus catálogos existentes, ou um [adaptador de compatibilidade](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/compat/index.md) criando aliases para seus imports atuais, a asserção de cobertura é executada diretamente contra o JSON que você já possui.
 
+- [plugin Sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/plugins/sync-json.md)
+- [adaptador de compatibilidade](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/compat/index.md)
+
 ## Decida o que você realmente está testando
 
 Qualidade de tradução não se valida com teste de código. Nenhuma asserção é capaz de informar se o alemão soa natural, e fingir o contrário apenas enche sua suíte de strings hardcoded.
@@ -46,6 +49,8 @@ O que vale a pena testar é mecânico:
 | Datas e números formatados usam o locale   | A precisão interna de `Intl`     |
 
 A cobertura pertence a um teste orientado a dados, não aos seus testes de componentes. Isso é abordado em [detectar traduções ausentes](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/detecting_missing_translations.md); este artigo trata do restante.
+
+- [detectar traduções ausentes](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/detecting_missing_translations.md)
 
 ## Renderize com um provider e consulte por papel (role)
 
@@ -122,6 +127,8 @@ describe.each([0, 1, 2, 3, 11, 100])("quantidade %i", (count) => {
 ```
 
 Escolha quantidades que atinjam cada categoria CLDR para o idioma mais exigente em vez de testar apenas 1 e 2 em todos os lugares. O `Intl.PluralRules` informa em qual categoria um número se encaixa, permitindo deduzir os casos de teste com exatidão. Mais detalhes no [artigo sobre o formato de mensagens ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/icu_message_format.md).
+
+- [artigo sobre o formato de mensagens ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/icu_message_format.md)
 
 ## A armadilha dos snapshots
 

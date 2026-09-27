@@ -63,6 +63,8 @@ Intlayer distinguishes between 'local' and 'remote' dictionaries.
 
 The [Intlayer Visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_visual_editor.md) editor is a tool that allows you to manage your content in a visual editor for local dictionaries. Once a change is made, the content will be replaced in the code-base. This means that the application will be rebuilt and the page will be reloaded to display the new content.
 
+- [Intlayer Visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_visual_editor.md)
+
 In contrast, the Intlayer CMS is a tool that allows you to manage your content in a visual editor for remote dictionaries. Once a change is made, the content will **not** impact your code-base. The website will automatically display the updated content.
 
 ## Integrating
@@ -73,13 +75,19 @@ For more details on how to install the package, see the relevant section below:
 
 For integration with Next.js, refer to the [setup guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_nextjs_15.md).
 
+- [Next.js 15 i18n - Complete guide to translate your app](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_nextjs_15.md)
+
 ### Integrating with Create React App
 
 For integration with Create React App, refer to the [setup guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_create_react_app.md).
 
+- [Create React App i18n: Complete Translation Guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_create_react_app.md)
+
 ### Integrating with Vite + React
 
 For integration with Vite + React, refer to the [setup guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_vite+react.md).
+
+- [Vite + React i18n - Complete guide to translate your app](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_vite+react.md)
 
 ## Configuration
 
@@ -159,6 +167,8 @@ export default config;
 > If you do not have a client ID and client secret, you can obtain them by creating a new client in the [Intlayer Dashboard - Projects](https://app.intlayer.org/projects).
 
 > To see all available parameters, refer to the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md).
+
+- [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md)
 
 ## Using the CMS
 
@@ -274,10 +284,10 @@ bun add @intlayer/api
 
 The SDK is split into **two separate imports** on purpose, to keep your bundle small:
 
-1. `createIntlayerCMS` — creates a lightweight **authenticator**. It only carries the credentials and the managed access token; it knows nothing about any specific domain.
-2. `dictionaryEndpoint`, `projectEndpoint`, … — per-domain **endpoint binders**, each imported from its own subpath (`@intlayer/api/dictionary`, `@intlayer/api/project`, …). You pass the authenticator to the endpoint you need.
+1. `createIntlayerCMS`: creates a lightweight **authenticator**. It only carries the credentials and the managed access token; it knows nothing about any specific domain.
+2. `dictionaryEndpoint`, `projectEndpoint`, …, per-domain **endpoint binders**, each imported from its own subpath (`@intlayer/api/dictionary`, `@intlayer/api/project`, …). You pass the authenticator to the endpoint you need.
 
-Because each endpoint is imported separately, your bundle includes only the domains you actually use — importing `dictionaryEndpoint` never pulls in the project, AI, or any other domain client.
+Because each endpoint is imported separately, your bundle includes only the domains you actually use, importing `dictionaryEndpoint` never pulls in the project, AI, or any other domain client.
 
 ```typescript fileName="cms.ts" codeFormat="typescript"
 import { createIntlayerCMS } from "@intlayer/api";
@@ -383,7 +393,7 @@ await dictionaryEndpoint(cmsAuthenticator).updateDictionary({
 
 ### Extracting a single method
 
-Every endpoint method is already authenticated and standalone (it carries its own token handling), so you can extract one and pass it around — for example to inject it as a dependency:
+Every endpoint method is already authenticated and standalone (it carries its own token handling), so you can extract one and pass it around, for example to inject it as a dependency:
 
 ```typescript fileName="push.ts" codeFormat="typescript"
 import { createIntlayerCMS } from "@intlayer/api";
@@ -391,7 +401,7 @@ import { dictionaryEndpoint } from "@intlayer/api/dictionary";
 
 const dictionary = dictionaryEndpoint(createIntlayerCMS());
 
-// Already authenticated — refreshes the token automatically on each call
+// Already authenticated, refreshes the token automatically on each call
 export const pushDictionaries = dictionary.pushDictionaries;
 
 // Usage
@@ -404,6 +414,8 @@ Live Sync allows your app to reflect CMS content changes at runtime. No rebuild 
 
 For the full setup guide (configuration, starting the Live Sync server, the local development workflow, and constraints), see the [Live Sync documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/live-sync.md).
 
+- [Live Sync documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/live-sync.md)
+
 ## Self-Hosting
 
 Intlayer can run entirely on your own infrastructure. A one-liner bootstraps the full stack (dashboard, API, database, object storage, and email) with Docker Compose:
@@ -413,6 +425,8 @@ curl -fsSL https://intlayer.org/install.sh | sh
 ```
 
 For the complete setup guide, environment variable reference, upgrade instructions, and backup/restore procedures, see the [Self-Hosting Guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/self_hosting.md).
+
+- [Self-Hosting Guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/self_hosting.md)
 
 ## Debug
 
@@ -437,27 +451,45 @@ If you encounter any issues with the CMS, check the following:
 
 The [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_visual_editor.md) edits local dictionaries and writes the change back into your code base, so the app is rebuilt and the change goes through your normal review and deployment. The CMS edits remote dictionaries: the change does not touch your code base and the running site picks it up without a deployment. Teams often use both, the editor for content owned by developers and the CMS for content that marketing changes weekly.
 
+- [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_visual_editor.md)
+
 </Question>
 <Question title="How much does i18n add to my bundle size?">
 
 Much less than a namespace based setup, because a page never downloads a catalogue it does not render. Server rendered markup resolves its content on the server, and the build time compiler replaces `useIntlayer` calls with the exact dictionary entries a component uses, so unused keys and unused languages are dropped. [Dynamic dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dynamic_dictionaries/index.md) split the rest per locale. Measured against the usual alternatives, Intlayer reduces bundle and page size by up to 50%. See [bundle optimization](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/bundle_optimization.md) and the [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/benchmark/index.md).
+
+- [Dynamic dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dynamic_dictionaries/index.md)
+- [bundle optimization](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/bundle_optimization.md)
+- [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/benchmark/index.md)
 
 </Question>
 <Question title="Can I migrate from `i18next`, `next-intl` or `react-i18next` without rewriting my components?">
 
 Yes, and there are two paths. You can migrate the content progressively with the [i18next migration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/migration_from_i18next_to_intlayer.md) or the [next-intl migration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/migration_from_next-intl_to_intlayer.md). Or you can keep your current API entirely: the [compat adapters](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compat/index.md) expose the exact same API as `i18next`, `react-i18next`, `next-intl`, `next-i18next`, `react-intl`, `use-intl`, `vue-i18n` and `Lingui`, but served by Intlayer dictionaries, so imports change and component code does not.
 
+- [i18next migration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/migration_from_i18next_to_intlayer.md)
+- [next-intl migration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/migration_from_next-intl_to_intlayer.md)
+- [compat adapters](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compat/index.md)
+
 </Question>
 <Question title="Can I keep my existing JSON translation files?">
 
 Yes. The [sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/plugins/sync-json.md) keeps your `/messages/{locale}/{namespace}.json` files as the source of truth and generates Intlayer dictionaries from them, in both directions. A [sync PO plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/plugins/sync-po.md) does the same for gettext catalogues, and [per locale files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/per_locale_file.md) let you split content by language instead of grouping locales in one file.
+
+- [sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/plugins/sync-json.md)
+- [sync PO plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/plugins/sync-po.md)
+- [per locale files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/per_locale_file.md)
 
 </Question>
 <Question title="Do I have to move my content key by key?">
 
 No. Run `npx intlayer extract` and Intlayer reads your source files, pulls the user facing strings out and writes a `.content` file next to each one, so you review a diff instead of copying strings into a catalogue one at a time. See the [extract command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/extract.md).
 
+- [extract command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/extract.md)
+
 For a fully automated pipeline, the [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compiler.md) does the same at build time on JSX, TSX, Vue and Svelte source, generating the dictionaries on every change so there are no keys to maintain by hand. It works by static analysis, so strings that only exist at runtime stay out of reach, and it needs a few annotations to tell user facing text apart from application logic.
+
+- [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compiler.md)
 
 </Question>
 <Question title="What editor and AI agent tooling is available?">
@@ -485,10 +517,14 @@ The application falls back to the local declaration of the dictionary, so a netw
 
 Yes. The CMS can run on your own infrastructure, which is the usual answer when content must not leave your network. See [self hosting Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/self_hosting.md).
 
+- [self hosting Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/self_hosting.md)
+
 </Question>
 <Question title="Do content editors need a developer to publish a change?">
 
 No. That is the point of remote dictionaries: an editor changes the text in the CMS and the site reflects it, with [live sync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/live.md) applying the update at runtime instead of waiting for a build.
+
+- [live sync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/live.md)
 
 </Question>
 <Question title="Can I automate the CMS instead of using the interface?">
@@ -500,10 +536,15 @@ Yes. The `@intlayer/api` SDK exposes the same endpoints as the interface, so you
 
 Yes. Remote dictionaries support [content variants](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dynamic_dictionaries/variants.md), and [analytics](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/analytics.md) reports how each variant is exposed, so a wording change can be measured rather than argued about.
 
+- [content variants](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dynamic_dictionaries/variants.md)
+- [analytics](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/analytics.md)
+
 </Question>
 <Question title="Is the CMS free?">
 
 The Intlayer library, CLI, compiler and visual editor are free and open source under the Apache 2.0 licence. The hosted CMS is an optional paid service, and it can be [self hosted](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/self_hosting.md) instead.
+
+- [self hosted](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/self_hosting.md)
 
 </Question>
 

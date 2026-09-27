@@ -23,7 +23,7 @@ history:
     changes: "Varyantlar özelliğinin yayımlanması"
   - version: 9.1.0
     date: 2026-06-26
-    changes: "`variant` artık bir dize veya bir nesne kabul ediyor — önceki `meta` / dinamik kayıtlar nesne varyantları olarak bildiriliyor"
+    changes: "`variant` artık bir dize veya bir nesne kabul ediyor, önceki `meta` / dinamik kayıtlar nesne varyantları olarak bildiriliyor"
   - version: 9.1.1
     date: 2026-07-31
     changes: "Bir varyant yalnızca geçersiz kıldığı anahtarları bildirir; bildirilmemiş varyantlar varsayılan girdiye geri döner"
@@ -39,8 +39,8 @@ Bir **varyant**, aynı sözlük anahtarını (`key`) paylaşan ancak her biri fa
 
 `variant` değeri **iki biçim** alabilir:
 
-- **Bir dize** — tek bir adlandırılmış alternatif (A/B testleri, sezonluk afişler, özellik bayrakları).
-- **Bir nesne** — bir alan kümesiyle adreslenen yapılandırılmış bir ayırt edici (CMS kayıtları, kullanıcıya özel metin, opak bir kimlikle anahtarlanan herhangi bir içerik). Kimlik nesnenin tamamıdır: seçici, girdiyi çözümlemek için **eşit** bir nesne sağlamalıdır.
+- **Bir dize**: tek bir adlandırılmış alternatif (A/B testleri, sezonluk afişler, özellik bayrakları).
+- **Bir nesne**: bir alan kümesiyle adreslenen yapılandırılmış bir ayırt edici (CMS kayıtları, kullanıcıya özel metin, opak bir kimlikle anahtarlanan herhangi bir içerik). Kimlik nesnenin tamamıdır: seçici, girdiyi çözümlemek için **eşit** bir nesne sağlamalıdır.
 
 > Nesne biçimi eski `meta` alanının yerini alır. Daha önce `meta: { id, … }` yazdığınız her yerde `variant: { id, … }` yazın ve onu `{ variant: { id, … } }` ile seçin.
 
@@ -74,8 +74,8 @@ const dictionary = {
   variant: "black_friday",
   content: {
     headline: t({
-      en: "50 % off — today only",
-      fr: "−50 % — aujourd'hui seulement",
+      en: "50 % off, today only",
+      fr: "−50 %, aujourd'hui seulement",
     }),
     cta: t({ en: "Shop now", fr: "Acheter maintenant" }),
   },
@@ -107,7 +107,7 @@ export default dictionary;
 
 ```tsx
 useIntlayer("hero-banner", { variant: "summer" });
-// → { headline: "Développez plus vite tout l'été", cta: "Commencer" } — `cta` miras alındı
+// → { headline: "Développez plus vite tout l'été", cta: "Commencer" }, `cta` miras alındı
 
 useIntlayer("hero-banner", { variant: "never-declared" });
 // → varsayılan girdi
@@ -278,7 +278,7 @@ const content = useIntlayer("hero-banner", {
 
 ## Nesne (yapılandırılmış) varyantlar
 
-Bir nesne varyantı, `variant` alanında bildirilen rastgele bir anahtar-değer çiftleri kümesiyle içeriği adresler — bu da CMS kayıtlarını, kullanıcıya özel metni veya anahtarı opak bir kimlik olan herhangi bir içeriği modellemeyi mümkün kılar. Kimlik **nesnenin tamamıdır**: girdinin çözümlenmesi için seçici eşit bir nesne sağlamalıdır.
+Bir nesne varyantı, `variant` alanında bildirilen rastgele bir anahtar-değer çiftleri kümesiyle içeriği adresler, bu da CMS kayıtlarını, kullanıcıya özel metni veya anahtarı opak bir kimlik olan herhangi bir içeriği modellemeyi mümkün kılar. Kimlik **nesnenin tamamıdır**: girdinin çözümlenmesi için seçici eşit bir nesne sağlamalıdır.
 
 ```ts fileName="product.abc.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
@@ -495,7 +495,7 @@ const content = useIntlayer("product", {
 });
 ```
 
-#### Eksik alan — eşleşme yok
+#### Eksik alan, eşleşme yok
 
 ```ts
 // null döndürür: `userId` eksik, bu nedenle nesne bildirilen varyantla eşleşmiyor
@@ -504,7 +504,7 @@ const content = useIntlayer("product", { variant: { id: "prod_abc" } });
 
 ## Ortam varyantı
 
-Bazı varyant boyutları tüm oturum boyunca sabittir — kiracı, okul türü, plan seviyesi. Bir kez çözümlenirler ve hiçbir bileşenin bunları elle geçirmesi gerekmemelidir.
+Bazı varyant boyutları tüm oturum boyunca sabittir, kiracı, okul türü, plan seviyesi. Bir kez çözümlenirler ve hiçbir bileşenin bunları elle geçirmesi gerekmemelidir.
 
 > Bunları enjekte etmek için `useIntlayer`'ı kendi hook'unuza sarmayın. Derleme zamanı optimizasyonu yalnızca framework paketinden içe aktarılan düz bir `useIntlayer("key")` çağrısını yeniden yazar; bir sarmalayıcının arkasındaki hiçbir şey paketlenmez.
 
@@ -647,7 +647,7 @@ useIntlayer("hero-banner");
 // → sağlayıcının varyantı
 
 useIntlayer("hero-banner", { variant: "summer" });
-// → "summer" — sağlayıcı varyantının yerini alır, onu genişletmez
+// → "summer", sağlayıcı varyantının yerini alır, onu genişletmez
 ```
 
 ### Biçimler
@@ -662,7 +662,7 @@ useIntlayer("hero-banner", { variant: "summer" });
 
 #### Tercih zinciri
 
-Zincir, her anahtarın bildirdiği girdilere karşı soldan sağa denenir ve bildirilen ilk girdi kazanır. Hiçbiri bildirilmemişse örtük varsayılan girdi kullanılır — tıpkı tek bir değerde olduğu gibi.
+Zincir, her anahtarın bildirdiği girdilere karşı soldan sağa denenir ve bildirilen ilk girdi kazanır. Hiçbiri bildirilmemişse örtük varsayılan girdi kullanılır, tıpkı tek bir değerde olduğu gibi.
 
 ```tsx
 <IntlayerProvider variant={["school1", "school2"]} />
@@ -692,9 +692,9 @@ Her sözlük anahtarını ayrı ayrı adresleyin. Ayrılmış `default` girdisi,
 />
 ```
 
-> Bir sağlayıcıda düz bir nesne **her zaman** anahtar başına eşleme olarak okunur, asla nesne varyantı olarak değil — ikisi yapısal olarak aynıdır. Bir nesne varyantını global olarak sabitlemek için onu bir girdinin altına yerleştirin: `variant={{ default: { id: "prod_abc" } }}`.
+> Bir sağlayıcıda düz bir nesne **her zaman** anahtar başına eşleme olarak okunur, asla nesne varyantı olarak değil, ikisi yapısal olarak aynıdır. Bir nesne varyantını global olarak sabitlemek için onu bir girdinin altına yerleştirin: `variant={{ default: { id: "prod_abc" } }}`.
 
-Eşlemenin anahtarları bildirdiğiniz sözlük anahtarlarına karşı denetlendiğinden, bir yazım hatası — ya da doğrudan yazılmış bir nesne varyantı, örneğin `variant={{ id: "prod_abc" }}` — derleme zamanı hatasıdır.
+Eşlemenin anahtarları bildirdiğiniz sözlük anahtarlarına karşı denetlendiğinden, bir yazım hatası (ya da doğrudan yazılmış bir nesne varyantı, örneğin `variant={{ id: "prod_abc" }}`) derleme zamanı hatasıdır.
 
 ## Yükleme modu
 
@@ -712,6 +712,8 @@ export default dictionary;
 ```
 
 `static`, `dynamic` ve `fetch` modlarıyla ilgili ayrıntılar için [paket optimizasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md) bölümüne bakın.
+
+- [paket optimizasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md)
 
 ## Tipik kullanım örnekleri
 

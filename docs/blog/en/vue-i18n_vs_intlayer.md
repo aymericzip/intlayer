@@ -120,6 +120,8 @@ Pick the metrics and the libraries you care about:
 
 > Full table, every library and every strategy, in the [Vue benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/vue.md).
 
+- [Vue benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/vue.md)
+
 ## Why the gap? Global instance vs. compiled dictionaries
 
 `vue-i18n` is a runtime. `createI18n()` builds a global instance holding a message tree per locale; `useI18n()` binds each component to it; `t("footer.github")` looks the key up at render time. This is what makes SFC `<i18n>` blocks, `v-t`, and runtime message loading possible, and it is also why every component's dependency graph includes the whole tree:
@@ -155,6 +157,8 @@ Intlayer moves that knowledge to the build. Content is declared next to the comp
 The compiler emits, per dictionary and per locale, exactly the JSON that component needs, and drops dictionaries nothing imports. Per-route scoping is a consequence of per-component scoping, not a task.
 
 > To also drop the unused locales, set `dictionary.importMode: 'dynamic'` in `intlayer.config.ts`. See the [bundle optimization doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/bundle_optimization.md).
+
+- [bundle optimization doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/bundle_optimization.md)
 
 ## Developer experience
 
@@ -344,6 +348,10 @@ In the benchmark, the compat build of the same app went from **134.9 KB to 47.0 
 
 See the [vue-i18n migration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/migration_from_vue-i18n_to_intlayer.md) and the [compatibility doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/vue-i18n.md). Nuxt users have the same path through [`@nuxtjs/i18n` compatibility](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/nuxtjs-i18n.md).
 
+- [vue-i18n migration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/migration_from_vue-i18n_to_intlayer.md)
+- [compatibility doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/vue-i18n.md)
+- [`@nuxtjs/i18n` compatibility](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/nuxtjs-i18n.md)
+
 ## When to choose which?
 
 - **Choose vue-i18n** if you want the standard Vue approach, you rely on ICU messages or SFC `<i18n>` blocks, you already use `@nuxtjs/i18n`, or a translation platform expects centralized JSON. Budget the time to split catalogs and lazy-load per route if bundle size matters.
@@ -370,17 +378,24 @@ The adapter does not read them. Move those messages into your locale JSON, or in
 
 Yes. [Intlayer with Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nuxt.md) covers multilingual routing, locale detection middleware and sitemap generation. If you are on `@nuxtjs/i18n`, the [Nuxt i18n compat adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/nuxtjs-i18n.md) is the migration path.
 
+- [Intlayer with Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nuxt.md)
+- [Nuxt i18n compat adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/nuxtjs-i18n.md)
+
 </Question>
 
 <Question title="Can I keep my locales/{locale}.json as the source of truth?">
 
 Yes. The [JSON sync plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/vue-i18n.md) reads them with the `vue-i18n` dialect (`{name}`, `{0}`, `"car | cars"` pipe plurals) and writes translations back when the CLI or the CMS updates them.
 
+- [JSON sync plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/vue-i18n.md)
+
 </Question>
 
 <Question title="Does ICU work with Intlayer on Vue?">
 
 Native ICU support is a work in progress. The `@intlayer/vue-i18n` adapter resolves `vue-i18n`'s own message syntax, including pipe plurals and named and list interpolation. For Intlayer's pluralization model, see [enumeration content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/enumeration.md).
+
+- [enumeration content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/enumeration.md)
 
 </Question>
 
@@ -429,3 +444,5 @@ Intlayer moves the work into the compiler. Per-component dictionaries and dead-c
 All the raw data, the test apps and the scripts are in the [Benchmark Bloom repository](https://github.com/intlayer-org/benchmark-bloom). Run it yourself.
 
 Refer to the ['Why Intlayer?' doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/interest_of_intlayer.md) for more details.
+
+- [Why Intlayer? Benefits over Other i18n Libraries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/interest_of_intlayer.md)

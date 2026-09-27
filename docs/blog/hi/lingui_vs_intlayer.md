@@ -128,6 +128,8 @@ style="border:none;"
 
 > [Next.js बेंचमार्क रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/nextjs.md) में पूरी तालिका, प्रत्येक लाइब्रेरी और प्रत्येक रणनीति देखें।
 
+- [Next.js बेंचमार्क रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/nextjs.md)
+
 ### TanStack Start पर परिणाम
 
 | लाइब्रेरी                   | रणनीति         | लाइब्रेरी साइज़ (gz) | पेज JS औसत (gz) | लोकेल लीक |  पेज लीक | कंपोनेंट औसत (gz) | E2E प्रतिक्रियाशीलता | हाइड्रेशन |
@@ -157,6 +159,8 @@ style="border:none;"
 />
 
 > [TanStack Start बेंचमार्क रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/tanstack.md) में पूरी तालिका देखें।
+
+- [TanStack Start बेंचमार्क रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/tanstack.md)
 
 ## अंतर क्यों है? दो कंपाइलर, काम की दो इकाइयाँ
 
@@ -206,6 +210,8 @@ style="border:none;"
 ![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 > `dynamic` पंक्ति के आंकड़े प्राप्त करने के लिए, `intlayer.config.ts` में `dictionary.importMode: 'dynamic'` सेट करें। [बंडल ऑप्टिमाइज़ेशन दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/bundle_optimization.md) देखें।
+
+- [बंडल ऑप्टिमाइज़ेशन दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/bundle_optimization.md)
 
 ## डेवलपर अनुभव
 
@@ -391,6 +397,8 @@ export default defineConfig({
 
 बिल्ड में `@lingui/babel-plugin-lingui-macro` / `@lingui/swc-plugin` रखें, जो Intlayer कंपाइलर से पहले चल रहा हो। [Lingui संगतता दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/lingui.md) देखें।
 
+- [Lingui संगतता दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/lingui.md)
+
 ## कब किसे चुनें?
 
 <AccordionGroup>
@@ -403,10 +411,18 @@ export default defineConfig({
 
 यदि आप **घटक-क्षेत्रीय सामग्री**, **सख्त TypeScript**, **बिल्ड-टाइम अनुपलब्ध-कुंजी त्रुटियाँ**, **शून्य-प्रयास ट्री-शेकिंग और लेज़ी लोडिंग**, छोटे घटक, तेज़ हाइड्रेशन, त्वरित भाषा स्विचिंग और अंतर्निहित संपादकीय उपकरण ([विजुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md), [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md), [AI अनुवाद](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/autoFill.md), [MCP सर्वर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/mcp_server.md)) चाहते हैं। बड़े, मॉड्यूलर कोडबेस और डिज़ाइन सिस्टम के लिए विशेष रूप से प्रासंगिक।
 
+- [विजुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md)
+- [AI अनुवाद](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/autoFill.md)
+- [MCP सर्वर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/mcp_server.md)
+
 </Accordion>
 <Accordion header="@intlayer/lingui चुनें">
 
 यदि आप Lingui पर हैं और मैक्रोज़ को छुए बिना वृद्धिशील रूप से Intlayer शब्दकोशों में स्थानांतरित होना चाहते हैं। आपके `.po` कैटलॉग [PO सिंक प्लगइन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/lingui.md) के माध्यम से सत्य का स्रोत बने रहते हैं। [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/lingui_vs_intlayer-lingui.md) में साथ-साथ मापा गया।
+
+- [PO सिंक प्लगइन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/lingui.md)
+- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/lingui_vs_intlayer-lingui.md)
 
 </Accordion>
 </AccordionGroup>
@@ -437,11 +453,15 @@ export default defineConfig({
 
 नहीं। `@intlayer/lingui` `` t`...` ``, `<Trans>`, `msg`, `plural`, `select` और `selectOrdinal` को पहले की तरह संकलित करता रहता है; केवल वह स्रोत बदलता है जिसके विरुद्ध `i18n._()` हल होता है। बिल्ड में `@lingui/babel-plugin-lingui-macro` या `@lingui/swc-plugin` बनाए रखें। [Lingui संगतता दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/lingui.md) देखें।
 
+- [Lingui संगतता दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/lingui.md)
+
 </Question>
 
 <Question title="एक्सट्रैक्ट और कंपाइल चरणों का क्या?">
 
 वे मैक्रोज़ के लिए बने रहते हैं, और Intlayer की अपनी सामग्री के लिए हट जाते हैं। `.content.ts` शब्दकोश तब बनाए जाते हैं जब बंडलर चलता है, बिना किसी अलग CLI पास के, और [`intlayer test`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/index.md) चुपचाप स्रोत स्ट्रिंग पर वापस जाने के बजाय किसी भी लापता कुंजी पर CI को विफल कर देता है।
+
+- [`intlayer test`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/index.md)
 
 </Question>
 
@@ -493,3 +513,5 @@ Lingui इस बेंचमार्क में सबसे मजबूत
 सभी कच्चे डेटा, परीक्षण ऐप्स और स्क्रिप्ट [Benchmark Bloom रिपॉजिटरी](https://github.com/intlayer-org/benchmark-bloom) में उपलब्ध हैं। इसे स्वयं चलाकर देखें।
 
 अधिक विवरण के लिए ['Why Intlayer?' दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/interest_of_intlayer.md) देखें।
+
+- [Intlayer क्यों? अन्य i18n लाइब्रेरी से बेहतर क्या है](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/interest_of_intlayer.md)

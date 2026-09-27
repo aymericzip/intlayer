@@ -34,6 +34,8 @@ author: aymericzip
 
 열거형 선언 방법에 대한 자세한 내용은 [Enumeration 설명서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/enumeration.md)를 참조하세요.
 
+- [Enumeration 설명서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/enumeration.md)
+
 ## 매개변수
 
 - `enumerationContent: QuantityContent<Content>`

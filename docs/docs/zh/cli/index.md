@@ -110,6 +110,8 @@ bun add intlayer-cli -g
 
 `intlayer-cli` 包旨在将您的 [Intlayer 声明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)转译为字典。
 
+- [Intlayer 声明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)
+
 该包会转译所有 Intlayer 文件，例如 `src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}`。[查看如何声明您的 Intlayer 声明文件](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md)。
 
 要解释 Intlayer 字典，您可以使用解释器，例如 [react-intlayer](https://www.npmjs.com/package/react-intlayer) 或 [next-intlayer](https://www.npmjs.com/package/next-intlayer)。
@@ -127,13 +129,17 @@ Intlayer 接受多种配置文件格式：
 
 要了解如何配置可用语言或其他参数，请参阅[此处的配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
 
+- [此处的配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)
+
 ## 执行 Intlayer 命令
 
 ### 身份验证
 
 - **[Login](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/login.md)** - 在 Intlayer CMS 中进行身份验证并获取访问凭据
 
-> `intlayer login` 生成一个**访问密钥** (`clientId` / `clientSecret`)，每个需要凭证的命令都会使用它。该密钥是服务器端凭证，永远不会到达您的客户端 bundle — 请参阅[保持访问密钥安全](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/login.md#keeping-the-access-key-safe)。
+> `intlayer login` 生成一个**访问密钥** (`clientId` / `clientSecret`)，每个需要凭证的命令都会使用它。该密钥是服务器端凭证，永远不会到达您的客户端 bundle，请参阅[保持访问密钥安全](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/login.md#keeping-the-access-key-safe)。
+
+- [保持访问密钥安全](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/login.md#keeping-the-access-key-safe)
 
 ### 核心命令
 

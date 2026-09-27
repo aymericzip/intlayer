@@ -45,9 +45,13 @@ author: aymericzip
 
 Lihat perbandingan konkret dengan i18next dalam posting blog kami [next-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/next-i18next_vs_next-intl_vs_intlayer.md).
 
+- [next-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/next-i18next_vs_next-intl_vs_intlayer.md)
+
 ## Mengapa Menggabungkan Intlayer dengan i18next?
 
 Meskipun Intlayer menyediakan solusi i18n mandiri yang sangat baik (lihat [panduan integrasi Next.js kami](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_16.md)), Anda mungkin ingin menggabungkannya dengan i18next karena beberapa alasan:
+
+- [panduan integrasi Next.js kami](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_16.md)
 
 1. **Basis kode yang sudah ada**: Anda memiliki implementasi i18next yang sudah mapan dan ingin secara bertahap bermigrasi ke pengalaman pengembang Intlayer yang lebih baik.
 2. **Persyaratan warisan**: Proyek Anda memerlukan kompatibilitas dengan plugin atau alur kerja i18next yang sudah ada.
@@ -151,6 +155,8 @@ Jika perubahan dilakukan menggunakan CLI untuk menerjemahkan JSON, atau mengguna
 
 Untuk melihat lebih detail tentang plugin `syncJSON`, silakan merujuk ke [dokumentasi plugin syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/plugins/sync-json.md).
 
+- [dokumentasi plugin syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/plugins/sync-json.md)
+
 </Step>
 <Step number={3} title="Implementasikan terjemahan JSON per-komponen">
 
@@ -212,4 +218,4 @@ File-file ini dapat dibuat ulang selama proses build Anda dan tidak perlu dikomi
 
 Untuk pengalaman pengembang yang lebih baik, pasang **Ekstensi VS Code Intlayer** resmi:
 
-[Pasang dari VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [Pasang dari VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

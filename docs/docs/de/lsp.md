@@ -30,7 +30,7 @@ author: aymericzip
 
 # Intlayer LSP-Server
 
-Der **Intlayer Language Server** ist eine Implementierung des [Language Server Protocol (LSP)](https://microsoft.github.io/language-server-protocol/), die Ihre IDE — und Ihren KI-Agenten — Intlayer-fähig macht. Er verbindet einen Aufruf wie `useIntlayer("home")` mit der `.content.ts`-Datei, die ihn deklariert, und zwar in beide Richtungen.
+Der **Intlayer Language Server** ist eine Implementierung des [Language Server Protocol (LSP)](https://microsoft.github.io/language-server-protocol/), die Ihre IDE, und Ihren KI-Agenten, Intlayer-fähig macht. Er verbindet einen Aufruf wie `useIntlayer("home")` mit der `.content.ts`-Datei, die ihn deklariert, und zwar in beide Richtungen.
 
 ## Funktionen
 
@@ -44,8 +44,8 @@ Der **Intlayer Language Server** ist eine Implementierung des [Language Server P
 
 Zwei weitere Verhaltensweisen sind erwähnenswert:
 
-- **Zusammengeführte Wörterbücher** — ein über mehrere Inhaltsdateien verteilter Schlüssel liefert ein Ergebnis pro Datei, sodass Sie zu jeder Deklaration navigieren können.
-- **Monorepo-fähig** — der Server ermittelt die zu jeder Datei _nächstgelegene_ `intlayer.config.*`, sodass mehrere Projekte in einem Arbeitsbereich jeweils eigene Wörterbücher erhalten.
+- **Zusammengeführte Wörterbücher**: ein über mehrere Inhaltsdateien verteilter Schlüssel liefert ein Ergebnis pro Datei, sodass Sie zu jeder Deklaration navigieren können.
+- **Monorepo-fähig**: der Server ermittelt die zu jeder Datei _nächstgelegene_ `intlayer.config.*`, sodass mehrere Projekte in einem Arbeitsbereich jeweils eigene Wörterbücher erhalten.
 
 ### Unterstützte Aufrufe
 
@@ -62,7 +62,7 @@ Der Schlüssel wird entweder aus einem positionellen String-Argument oder aus ei
 
 Das funktioniert für jedes `*-intlayer`-Paket (`next-intlayer`, `react-intlayer`, `vue-intlayer`, `svelte-intlayer`, `solid-intlayer`, `preact-intlayer`, `angular-intlayer`, `lit-intlayer`, `express-intlayer`, `hono-intlayer`, `fastify-intlayer`, `intlayer`) sowie für die Compat-Adapter-Pakete, mit denen Sie Ihre bestehende i18n-Syntax beibehalten können.
 
-> Wörterbücher werden aus der Build-Ausgabe gelesen — führen Sie also `npx intlayer build` aus oder lassen Sie Ihren Dev-Server laufen, damit der Server etwas auflösen kann.
+> Wörterbücher werden aus der Build-Ausgabe gelesen, führen Sie also `npx intlayer build` aus oder lassen Sie Ihren Dev-Server laufen, damit der Server etwas auflösen kann.
 
 ## Installation
 
@@ -84,21 +84,23 @@ pnpm add --save-dev @intlayer/lsp
 bun add --dev @intlayer/lsp
 ```
 
-Installieren Sie ihn stattdessen global (`npm install -g @intlayer/lsp`), wenn Ihr Editor `intlayer-lsp` im `PATH` benötigt — das gilt für das Claude-Code-Plugin und für jede der folgenden Konfigurationen, die das Binary direkt aufruft.
+Installieren Sie ihn stattdessen global (`npm install -g @intlayer/lsp`), wenn Ihr Editor `intlayer-lsp` im `PATH` benötigt, das gilt für das Claude-Code-Plugin und für jede der folgenden Konfigurationen, die das Binary direkt aufruft.
 
 ## Einrichtung
 
 <Tabs defaultTab="vscode">
   <Tab label="VS Code" value="vscode">
 
-Installieren Sie die [Intlayer-VS-Code-Erweiterung](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension). Der Language Server ist seit v8.12.0 enthalten und startet automatisch — **keine Konfiguration erforderlich**.
+Installieren Sie die [Intlayer-VS-Code-Erweiterung](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension). Der Language Server ist seit v8.12.0 enthalten und startet automatisch, **keine Konfiguration erforderlich**.
 
 Weitere Funktionen finden Sie in der [Dokumentation der VS-Code-Erweiterung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/vs_code_extension.md).
+
+- [Dokumentation der VS-Code-Erweiterung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/vs_code_extension.md)
 
   </Tab>
   <Tab label="Cursor / Windsurf" value="cursor">
 
-[Cursor](https://www.cursor.com/) und [Windsurf](https://windsurf.com/) sind VS-Code-Forks und nutzen dasselbe Erweiterungs-Ökosystem. Installieren Sie die [Intlayer-VS-Code-Erweiterung](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) einmal, und der Server aktiviert sich automatisch — **keine Konfiguration erforderlich**.
+[Cursor](https://www.cursor.com/) und [Windsurf](https://windsurf.com/) sind VS-Code-Forks und nutzen dasselbe Erweiterungs-Ökosystem. Installieren Sie die [Intlayer-VS-Code-Erweiterung](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) einmal, und der Server aktiviert sich automatisch, **keine Konfiguration erforderlich**.
 
   </Tab>
   <Tab label="Claude Code" value="claude-code">
@@ -114,7 +116,7 @@ claude plugin marketplace add intlayer@github:aymericzip/intlayer
 claude plugin install intlayer-lsp@intlayer
 ```
 
-`install` aktiviert das Plugin ebenfalls. **Starten Sie Claude Code neu** — Language Server werden beim Start geladen, das Plugin wirkt also erst danach.
+`install` aktiviert das Plugin ebenfalls. **Starten Sie Claude Code neu**, Language Server werden beim Start geladen, das Plugin wirkt also erst danach.
 
 Claude Code startet den Server anschließend für `.ts`-, `.tsx`-, `.js`-, `.jsx`-, `.vue`-, `.astro`- und `.svelte`-Dateien und nutzt `goToDefinition`, `findReferences` und `hover` beim Navigieren durch Ihren Code.
 
@@ -240,10 +242,10 @@ language-servers = ["intlayer-lsp", "typescript-language-server"]
 
 Jeder LSP-fähige Editor kann `@intlayer/lsp` ausführen. Richten Sie ihn ein auf:
 
-- **Ausführbare Datei** — `npx @intlayer/lsp` oder das `intlayer-lsp`-Binary
-- **Transport** — stdio (Standard)
-- **Fähigkeiten** — `definitionProvider`, `referencesProvider`, `hoverProvider`, `completionProvider` (Auslösezeichen `"` `'` `` ` `` `.`), Push-Diagnosen, `textDocumentSync: Incremental`
-- **Root-Muster** — `intlayer.config.ts`, `intlayer.config.js`, `package.json`
+- **Ausführbare Datei**: `npx @intlayer/lsp` oder das `intlayer-lsp`-Binary
+- **Transport**: stdio (Standard)
+- **Fähigkeiten**: `definitionProvider`, `referencesProvider`, `hoverProvider`, `completionProvider` (Auslösezeichen `"` `'` `` ` `` `.`), Push-Diagnosen, `textDocumentSync: Incremental`
+- **Root-Muster**: `intlayer.config.ts`, `intlayer.config.js`, `package.json`
 
 Das genaue Konfigurationsformat entnehmen Sie der LSP-Dokumentation Ihres Editors.
 
@@ -252,7 +254,7 @@ Das genaue Konfigurationsformat entnehmen Sie der LSP-Dokumentation Ihres Editor
 
 ## Hinweis zu KI-Agenten im Terminal
 
-**Claude Code** agiert als echter LSP-Client — siehe den Tab oben.
+**Claude Code** agiert als echter LSP-Client, siehe den Tab oben.
 
 **OpenAI Codex** und die meisten anderen Terminal-Tools sind keine LSP-Clients: Sie lesen und schreiben Dateien direkt. Den Server allein laufen zu lassen hilft ihnen nicht; der Nutzen entsteht, wenn er in einem begleitenden Editor aktiv ist, dessen Index der Agent abfragen kann (Cursor Composer, Windsurf Cascade, Copilot Chat).
 
@@ -271,10 +273,10 @@ Bei einer Anfrage parst der Server das Dokument (via [oxc](https://oxc.rs/)) und
 | Symptom                                         | Wahrscheinliche Ursache                  | Lösung                                                                               |
 | ----------------------------------------------- | ---------------------------------------- | ------------------------------------------------------------------------------------ |
 | Es passiert überhaupt nichts                    | Server läuft nicht                       | Prüfen Sie, ob `@intlayer/lsp` installiert ist und Ihr Editor ihn startet            |
-| Funktioniert im Editor, nicht in Claude Code    | Plugin mitten in der Sitzung installiert | Claude Code neu starten — Language Server werden beim Start geladen                  |
+| Funktioniert im Editor, nicht in Claude Code    | Plugin mitten in der Sitzung installiert | Claude Code neu starten, Language Server werden beim Start geladen                   |
 | Keine Definitionen für einen Schlüssel gefunden | Wörterbücher nicht gebaut                | Führen Sie `npx intlayer build` aus oder starten Sie Ihren Dev-Server                |
 | Jeder Schlüssel als nicht deklariert gemeldet   | Konfiguration nicht aufgelöst            | Prüfen Sie, ob eine `intlayer.config.ts` (oder `.js`) im Projektstamm vorhanden ist  |
 | Falsches Projekt in einem Monorepo verwendet    | Fehlende Konfiguration pro Paket         | Fügen Sie jedem Paket, das eigenen Inhalt deklariert, eine `intlayer.config.*` hinzu |
 | Server stürzt beim Start ab                     | Node.js-Version zu alt                   | Erfordert Node.js ≥ 14.18                                                            |
 
-In VS Code protokolliert der Server unter **Ansicht → Ausgabe → „Intlayer LSP“** — nützlich, um zu prüfen, welche Konfiguration aufgelöst und wie viele Wörterbücher gefunden wurden.
+In VS Code protokolliert der Server unter **Ansicht → Ausgabe → „Intlayer LSP“**, nützlich, um zu prüfen, welche Konfiguration aufgelöst und wie viele Wörterbücher gefunden wurden.

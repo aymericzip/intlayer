@@ -264,6 +264,8 @@ Sự tương ứng với các khái niệm ICU rất trực quan:
 
 `plural` chuyển giao việc phân loại danh mục cho `Intl.PluralRules`, nhờ đó bảng quy tắc CLDR ở trên được áp dụng nguyên vẹn. Việc định dạng luôn độc lập: số, ngày tháng, tiền tệ và danh sách được xử lý thông qua các [hook định dạng](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/formatters.md) thay vì bị nhúng thẳng vào văn bản thông điệp.
 
+- [hook định dạng](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/formatters.md)
+
 Một số giới hạn cần biết:
 
 - Intlayer yêu cầu bước biên dịch: compiler sẽ trích xuất các khai báo trong thời gian build. Nếu bạn muốn tải JSON thông thường động ở runtime, đó là mô hình khác.
@@ -271,6 +273,9 @@ Một số giới hạn cần biết:
 - Hệ sinh thái còn mới hơn so với i18next, số lượng tích hợp sẵn với các nền tảng TMS bên ngoài đang trong quá trình phát triển.
 
 Với các dự án đang sở hữu sẵn chuỗi ICU thực tế, [bộ điều hợp tương thích react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/react-intl.md) có thể phân tích trực tiếp: `plural`, `select`, `selectordinal`, `#`, và các đối số truyền thống `number`, `date`, `time`. Skeleton và `offset:` chưa được hỗ trợ bởi bộ giải mã này nên cần được rà soát khi di chuyển dự án. [Bộ điều hợp i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/i18next.md) xử lý dạng hậu tố (`key_one`, `key_male`) thông qua `Intl.PluralRules`.
+
+- [bộ điều hợp tương thích react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/react-intl.md)
+- [Bộ điều hợp i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/i18next.md)
 
 ## Những lỗi phổ biến
 

@@ -121,6 +121,8 @@ export default exampleContent;
 
 Ось [файл декларації вмісту на рівні локалі](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/per_locale_file.md), який використовує інструкцію `fill`.
 
+- [файл декларації вмісту на рівні локалі](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/per_locale_file.md)
+
 Потім, коли ви виконаєте наступну команду:
 
 ```bash packageManager="npm"

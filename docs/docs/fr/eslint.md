@@ -35,7 +35,7 @@ author: aymericzip
 
 1. **Le texte codé en dur** qui n'a jamais rejoint un dictionnaire.
 2. **Les appels dynamiques** qui passent le typage et s'exécutent, mais que le compilateur Intlayer ne peut pas optimiser.
-3. **Le contenu mort** — les dictionnaires et les champs qu'aucun élément du projet ne lit (sur activation explicite).
+3. **Le contenu mort**: les dictionnaires et les champs qu'aucun élément du projet ne lit (sur activation explicite).
 
 Les clés de dictionnaire inconnues, les chemins de champ inconnus et les locales manquantes sont déjà des erreurs de compilation, le plugin ne les répète donc pas.
 
@@ -61,7 +61,7 @@ Nécessite ESLint 9 ou une version ultérieure (flat config). ESLint 10 est pris
 
 ## Utilisation
 
-Le plugin fonctionne à la fois avec ESLint et [oxlint](https://oxc.rs) — mêmes règles, mêmes options.
+Le plugin fonctionne à la fois avec ESLint et [oxlint](https://oxc.rs), mêmes règles, mêmes options.
 
 <Tabs defaultTab="eslint">
   <Tab label="ESLint" value="eslint">
@@ -106,7 +106,7 @@ export default [
 }
 ```
 
-Deux réserves : la prise en charge des plugins JS par oxlint est encore en alpha, et oxlint ne prend pas en charge les parsers personnalisés — les fichiers `.vue`, `.svelte`, `.astro` et les templates Angular n'y sont donc pas analysés. Lancez oxlint sur vos fichiers JS/TS/JSX et gardez ESLint pour le reste.
+Deux réserves : la prise en charge des plugins JS par oxlint est encore en alpha, et oxlint ne prend pas en charge les parsers personnalisés, les fichiers `.vue`, `.svelte`, `.astro` et les templates Angular n'y sont donc pas analysés. Lancez oxlint sur vos fichiers JS/TS/JSX et gardez ESLint pour le reste.
 
 `no-unused-content` est volontairement omise ci-dessus : elle nécessite le répertoire de travail et le chemin du fichier analysé issus du contexte de règle, ce que le bridge de plugin JS alpha ne garantit pas. Exécutez-la sous ESLint.
 
@@ -123,7 +123,7 @@ Deux réserves : la prise en charge des plugins JS par oxlint est encore en alph
 
 `recommended` maintient volontairement `no-raw-text` à `warn` : pointer cette règle vers une codebase existante fait remonter toutes les chaînes non traduites d'un coup, ce qui ne doit pas casser votre build dès le premier jour.
 
-`enforce-adapter-import` est désactivée par défaut — activez-la explicitement si vous la souhaitez.
+`enforce-adapter-import` est désactivée par défaut, activez-la explicitement si vous la souhaitez.
 
 `no-unused-content` est désactivée dans toutes les configurations, y compris `strict`. C'est la seule règle qui lit votre configuration Intlayer et parcourt vos fichiers sources sur le disque ; son activation doit donc être un choix délibéré plutôt qu'un comportement imposé par un preset.
 
@@ -248,7 +248,7 @@ export default {
 };
 ```
 
-Contrairement aux autres règles, celle-ci ne peut pas répondre uniquement à partir du fichier en cours d'analyse — un champ n'est inutilisé que par rapport à l'ensemble du projet. Dès la première déclaration de contenu d'une exécution de lint, elle charge votre configuration Intlayer, recherche les fichiers sources définis par cette configuration (`build.traversePattern`, `compiler.transformPattern`) et exécute le même analyseur d'utilisation qui alimente `@intlayer/lsp` et le barré « inutilisé » dans l'extension VS Code. Le résultat est mis en cache pendant `cacheTtl` millisecondes, de sorte que l'analyse est effectuée une fois par exécution plutôt qu'une fois par fichier.
+Contrairement aux autres règles, celle-ci ne peut pas répondre uniquement à partir du fichier en cours d'analyse, un champ n'est inutilisé que par rapport à l'ensemble du projet. Dès la première déclaration de contenu d'une exécution de lint, elle charge votre configuration Intlayer, recherche les fichiers sources définis par cette configuration (`build.traversePattern`, `compiler.transformPattern`) et exécute le même analyseur d'utilisation qui alimente `@intlayer/lsp` et le barré « inutilisé » dans l'extension VS Code. Le résultat est mis en cache pendant `cacheTtl` millisecondes, de sorte que l'analyse est effectuée une fois par exécution plutôt qu'une fois par fichier.
 
 **Options**
 
@@ -283,9 +283,9 @@ Diminuez `cacheTtl` si vous lisez depuis un serveur d'éditeur persistant et sou
 
 > **La règle privilégie le silence.** Un faux positif supprimant une traduction, rien n'est signalé lorsque le dictionnaire est consommé d'une manière que l'analyse ne peut pas suivre : l'objet de contenu transmis dans son intégralité, une fonction de traduction liée à partir de celui-ci (`const t = useTranslations("home")`), une déclaration atteinte via un import direct (`useDictionary(myDictionary)`), un `nest()` depuis un autre dictionnaire, ou une liste de champs rendue non exhaustive par un spread. Les composants monofichiers (`.vue`, `.svelte`, `.astro`) sont considérés comme utilisant chaque champ des dictionnaires qu'ils mentionnent, car leurs blocs de script ne sont pas analysés ici.
 
-`reportDuplicateKeys` lit les dictionnaires non fusionnés que le build écrit sous `.intlayer/`, elle reste donc silencieuse jusqu'à ce que le projet ait été compilé au moins une fois. Deux déclarations partageant une clé sont fusionnées, ce qui est un modèle légitime — le rapport existe car un champ défini des deux côtés ne conserve silencieusement que l'une des deux valeurs.
+`reportDuplicateKeys` lit les dictionnaires non fusionnés que le build écrit sous `.intlayer/`, elle reste donc silencieuse jusqu'à ce que le projet ait été compilé au moins une fois. Deux déclarations partageant une clé sont fusionnées, ce qui est un modèle légitime, le rapport existe car un champ défini des deux côtés ne conserve silencieusement que l'une des deux valeurs.
 
-L'analyseur est chargé depuis `@intlayer/lsp`, qui est distribué en ESM. La règle nécessite donc une version de Node capable de faire un `require()` sur un module ES — Node 20.19+ ou 22.12+. Sur toute version antérieure, elle ne signale rien plutôt que de faire échouer l'exécution du lint.
+L'analyseur est chargé depuis `@intlayer/lsp`, qui est distribué en ESM. La règle nécessite donc une version de Node capable de faire un `require()` sur un module ES, Node 20.19+ ou 22.12+. Sur toute version antérieure, elle ne signale rien plutôt que de faire échouer l'exécution du lint.
 
 ## Frameworks
 

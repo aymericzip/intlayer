@@ -27,9 +27,11 @@ author: aymericzip
 
 # intlayerCompiler
 
-`intlayerCompiler` là một plugin Vite quét các tệp nguồn component để tìm **các khai báo nội dung Intlayer trực tiếp (inline)** — nội dung được định nghĩa trực tiếp bên trong một component thay vì trong một tệp `.content.ts` riêng biệt — và ghi chúng vào các tệp JSON từ điển trong giai đoạn transform (chuyển đổi).
+`intlayerCompiler` là một plugin Vite quét các tệp nguồn component để tìm **các khai báo nội dung Intlayer trực tiếp (inline)**, nội dung được định nghĩa trực tiếp bên trong một component thay vì trong một tệp `.content.ts` riêng biệt, và ghi chúng vào các tệp JSON từ điển trong giai đoạn transform (chuyển đổi).
 
 > **Từ phiên bản Intlayer v9**, `intlayerCompiler` được tự động bao gồm bên trong plugin chính [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/vite-intlayer/intlayer.md) khi cả hai cấu hình `compiler.enabled` là `true` và `compiler.output` được thiết lập trong cấu hình Intlayer của bạn. Bạn chỉ cần đăng ký riêng khi muốn kiểm soát hoàn toàn cấu hình dành riêng cho trình biên dịch.
+
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/vite-intlayer/intlayer.md)
 
 ## Cách sử dụng
 
@@ -118,4 +120,4 @@ Một khoảng thời gian debounce (chống rung) 500 ms ngăn việc ghi từ 
 
 ### Khử trùng lặp (Deduplication)
 
-`intlayerCompiler` sử dụng cùng một cơ chế khử trùng lặp `createPrimaryInstanceGuard` giống như các plugin đi kèm khác. Khi cả `intlayer()` (gộp cả trình biên dịch) và lệnh gọi `intlayerCompiler()` thủ công đều xuất hiện, chỉ có phiên bản đã đăng ký đầu tiên chạy — không có từ điển nào bị ghi đè hai lần.
+`intlayerCompiler` sử dụng cùng một cơ chế khử trùng lặp `createPrimaryInstanceGuard` giống như các plugin đi kèm khác. Khi cả `intlayer()` (gộp cả trình biên dịch) và lệnh gọi `intlayerCompiler()` thủ công đều xuất hiện, chỉ có phiên bản đã đăng ký đầu tiên chạy, không có từ điển nào bị ghi đè hai lần.

@@ -32,7 +32,9 @@ author: aymericzip
 
 getLocalizedPath fonksiyonu, verilen locale ve yeniden yazma (rewrite) kurallarına göre bir canonical path'i (uygulama içi yol) hedef dildeki karşılığına çözer. Dil bazlı olarak değişen, SEO dostu URL'ler üretmek için özellikle faydalıdır.
 
-[`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getLocalizedUrl.md) işlevinin göreceli karşılığıdır — göreceli bir giriş için her ikisi de aynı değeri döndürür. `getLocalizedUrl`'den farklı olarak, asla mutlak bir URL döndürmez: `domains` yapılandırması yok sayılır, bu nedenle kendi alanından sunulan bir locale yine de bir yol döndürür. Mutlak bir giriş kabul edilir, ancak kaynağı atılır — yalnızca yol, sorgu dizesi ve hash korunur.
+[`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getLocalizedUrl.md) işlevinin göreceli karşılığıdır, göreceli bir giriş için her ikisi de aynı değeri döndürür. `getLocalizedUrl`'den farklı olarak, asla mutlak bir URL döndürmez: `domains` yapılandırması yok sayılır, bu nedenle kendi alanından sunulan bir locale yine de bir yol döndürür. Mutlak bir giriş kabul edilir, ancak kaynağı atılır, yalnızca yol, sorgu dizesi ve hash korunur.
+
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getLocalizedUrl.md)
 
 **Temel Özellikler:**
 
@@ -71,10 +73,10 @@ getLocalizedPath(
   - **Tür**: `RoutingConfig['rewrite']`
   - **Varsayılan**: `configuration.routing.rewrite`
 
-  - `options.locales?: Locales[]` — desteklenen locale'ler. **Varsayılan**: `configuration.internationalization.locales`
-  - `options.defaultLocale?: Locales` — varsayılan locale. **Varsayılan**: `configuration.internationalization.defaultLocale`
-  - `options.mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'` — locale'nin yolda nasıl göründüğü. **Varsayılan**: `configuration.routing.mode`
-  - `options.rewrite?: RoutingConfig['rewrite']` — özel rewrite kuralları. **Varsayılan**: `configuration.routing.rewrite`
+  - `options.locales?: Locales[]`: desteklenen locale'ler. **Varsayılan**: `configuration.internationalization.locales`
+  - `options.defaultLocale?: Locales`: varsayılan locale. **Varsayılan**: `configuration.internationalization.defaultLocale`
+  - `options.mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'`: locale'nin yolda nasıl göründüğü. **Varsayılan**: `configuration.routing.mode`
+  - `options.rewrite?: RoutingConfig['rewrite']`: özel rewrite kuralları. **Varsayılan**: `configuration.routing.rewrite`
 
 ## Dönüş Değeri
 
@@ -97,6 +99,8 @@ const home = getLocalizedPath("/", Locales.FRENCH);
 ```
 
 Aynı daraltma [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getLocalizedUrl.md) içine akar, bu da locale'i ön ekleme yapmadan önce yeniden yazma kurallarını uygular.
+
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getLocalizedUrl.md)
 
 İki durumun `string`'e genişletilmesi gerekir, çünkü bunlar derleme zamanında çözümlenemez:
 

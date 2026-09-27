@@ -79,16 +79,16 @@ import "next-intlayer";
 import "next-intlayer/server";
 ```
 
-| 组件                     | 描述                                                                                                                                                                | 相关文档 |
-| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
-| `IntlayerProvider`       | Next.js App Router 的统一 Provider。在区域设置布局中挂载一次，初始化请求范围的服务端上下文 _并_ 挂载客户端 Provider。(Intlayer >= 9.4)                              | -        |
-| `IntlayerClientProvider` | **已弃用** — 使用来自 `next-intlayer/server` 的 `IntlayerProvider`。Next.js App Router 中客户端组件的 Provider。封装了来自 `react-intlayer` 的 `IntlayerProvider`。 | -        |
-| `IntlayerServerProvider` | **已弃用** — 使用来自 `next-intlayer/server` 的 `IntlayerProvider`。在服务端提供区域设置上下文。(Intlayer < 9.4)                                                    | -        |
-| `IntlayerServer`         | App Router 中 Intlayer 内容的服务端包装器。确保 Server Components 中正确的 locale 处理。                                                                            | -        |
-| `HTMLProvider`           | 用于 HTML 相关国际化设置的 Provider。允许为 HTML 标签覆盖组件。                                                                                                     | -        |
-| `HTMLRenderer`           | 使用自定义组件渲染 HTML 内容。                                                                                                                                      | -        |
-| `MarkdownProvider`       | 用于 Markdown 渲染上下文的 Provider。允许为 Markdown 元素覆盖自定义组件。                                                                                           | -        |
-| `MarkdownRenderer`       | 使用自定义组件渲染 Markdown 内容。                                                                                                                                  | -        |
+| 组件                     | 描述                                                                                                                                                               | 相关文档 |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------- |
+| `IntlayerProvider`       | Next.js App Router 的统一 Provider。在区域设置布局中挂载一次，初始化请求范围的服务端上下文 _并_ 挂载客户端 Provider。(Intlayer >= 9.4)                             | -        |
+| `IntlayerClientProvider` | **已弃用**，使用来自 `next-intlayer/server` 的 `IntlayerProvider`。Next.js App Router 中客户端组件的 Provider。封装了来自 `react-intlayer` 的 `IntlayerProvider`。 | -        |
+| `IntlayerServerProvider` | **已弃用**，使用来自 `next-intlayer/server` 的 `IntlayerProvider`。在服务端提供区域设置上下文。(Intlayer < 9.4)                                                    | -        |
+| `IntlayerServer`         | App Router 中 Intlayer 内容的服务端包装器。确保 Server Components 中正确的 locale 处理。                                                                           | -        |
+| `HTMLProvider`           | 用于 HTML 相关国际化设置的 Provider。允许为 HTML 标签覆盖组件。                                                                                                    | -        |
+| `HTMLRenderer`           | 使用自定义组件渲染 HTML 内容。                                                                                                                                     | -        |
+| `MarkdownProvider`       | 用于 Markdown 渲染上下文的 Provider。允许为 Markdown 元素覆盖自定义组件。                                                                                          | -        |
+| `MarkdownRenderer`       | 使用自定义组件渲染 Markdown 内容。                                                                                                                                 | -        |
 
 ### 钩子（客户端）
 

@@ -43,7 +43,7 @@ const app = new Elysia().use(intlayer()).get("/", ({ intlayer }) =>
 );
 ```
 
-> تسجّل الإضافة سياقها عبر `derive` **عام**، والذي يعطيه Elysia النوع `Partial<{ intlayer: IntlayerContext }>`. تكون القيمة موجودة دائماً وقت التشغيل للمسارات المسجَّلة بعد `.use(intlayer())`، لذا استخدم تأكيد عدم الفراغ (`intlayer!.t`) — أو التسلسل الاختياري — لإرضاء TypeScript في الوضع `strict`.
+> تسجّل الإضافة سياقها عبر `derive` **عام**، والذي يعطيه Elysia النوع `Partial<{ intlayer: IntlayerContext }>`. تكون القيمة موجودة دائماً وقت التشغيل للمسارات المسجَّلة بعد `.use(intlayer())`، لذا استخدم تأكيد عدم الفراغ (`intlayer!.t`)، أو التسلسل الاختياري، لإرضاء TypeScript في الوضع `strict`.
 
 نفس الدوال المساعدة متاحة كصادرات مستقلة، بحيث يمكنك استدعاؤها دون تفكيك سياق المسار:
 
@@ -133,6 +133,8 @@ export default config;
 ```
 
 > لمزيد من المعلومات حول الإعداد، تفضّل بزيارة [توثيق الإعداد](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
+
+- [توثيق الإعداد](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md)
 
 ## وثائق ذات صلة
 

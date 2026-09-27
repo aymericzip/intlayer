@@ -100,7 +100,7 @@ npx skills add aymericzip/intlayer-skills
 
 - Lehrt den Agenten Svelte-Stores und idiomatische Syntax für reaktive und typsichere lokalisierte Inhalte in Svelte- und SvelteKit-Apps zu verwenden.
 
-**intlayer-cms**
+**intlayer-remote-content**
 
 - Ermöglicht dem Agenten die Integration und Verwaltung von Remote-Inhalten, sodass er Live-Synchronisierung und Remote-Übersetzungs-Workflows über das Intlayer CMS abwickeln kann.
 
@@ -115,3 +115,31 @@ npx skills add aymericzip/intlayer-skills
 **intlayer-compiler**
 
 - Vereinfacht den Workflow des Agenten durch die automatische Inhaltsextraktion, sodass er übersetzbare Strings direkt in Ihren Code schreiben kann, ohne manuelle Wörterbuchdateien.
+
+**intlayer-lit**
+
+- Bringt dem Agenten bei, Lit-Webkomponenten mit den ReactiveControllers `useIntlayer` und `useLocale` zu übersetzen.
+
+**intlayer-vanilla**
+
+- Ermöglicht dem Agenten, reine JavaScript- / TypeScript-Seiten mit `vanilla-intlayer` zu lokalisieren, mit oder ohne Bundler.
+
+**intlayer-remix**
+
+- Stellt dem Agenten die Router-Middleware von Remix 3 und die request-bezogenen Hooks `useIntlayer` / `useLocale` bereit.
+
+**intlayer-backend**
+
+- Befähigt den Agenten, Serverantworten in Express, Fastify, Hono, NestJS, AdonisJS und Elysia über ein gemeinsames Muster aus Middleware + `t` / `getIntlayer` zu übersetzen.
+
+**intlayer-dev-tools**
+
+- Lässt den Agenten das Intlayer-Tooling rund um Ihren Code einrichten: ESLint-Regeln für hartcodierte Strings, den Language Server, die VS Code- und Chrome-Erweiterungen, den MCP-Server und Übersetzungsprüfungen in CI/CD.
+
+**intlayer-markdown**
+
+- Bringt dem Agenten bei, Markdown-Inhalte (`md()`, `.content.md`-Dateien, externe Dateien) zu deklarieren und sie mit MDX-Komponenten, einem globalen `MarkdownProvider`, Suspense und serverseitigem Parsing zu rendern.
+
+**intlayer-compat**
+
+- Führt den Agenten durch die Migration von i18next, react-i18next, next-intl, next-i18next, react-intl, vue-i18n oder Lingui mit Kompatibilitätsadaptern, die die ursprüngliche API beibehalten, sodass Übersetzungsaufrufe nicht neu geschrieben werden müssen.

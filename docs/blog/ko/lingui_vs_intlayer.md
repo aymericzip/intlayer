@@ -128,6 +128,8 @@ style="border:none;"
 
 > 모든 라이브러리와 전략이 포함된 전체 표는 [Next.js 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/nextjs.md)에서 확인하세요.
 
+- [Next.js 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/nextjs.md)
+
 ### TanStack Start 측정 결과
 
 | 라이브러리                  | 전략           | Lib size (gz) | Page JS 평균 (gz) | 언어 누수율 | 페이지 누수율 | 컴포넌트 평균 (gz) | E2E 반응성 | 하이드레이션 |
@@ -157,6 +159,8 @@ style="border:none;"
 />
 
 > 전체 표는 [TanStack Start 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/tanstack.md)에서 확인하세요.
+
+- [TanStack Start 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/tanstack.md)
 
 ## 왜 이런 격차가 발생하는가? 두 컴파일러의 서로 다른 작업 단위
 
@@ -206,6 +210,8 @@ style="border:none;"
 ![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 > `dynamic` 행의 측정 결과를 재현하려면 `intlayer.config.ts`에서 `dictionary.importMode: 'dynamic'`을 설정하십시오. 자세한 내용은 [번들 최적화 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md)를 참고하시기 바랍니다.
+
+- [번들 최적화 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md)
 
 ## 개발자 경험 (DX)
 
@@ -391,6 +397,8 @@ export default defineConfig({
 
 빌드 설정에서 Intlayer 컴파일러 이전에 `@lingui/babel-plugin-lingui-macro` 또는 `@lingui/swc-plugin`이 실행되도록 구성하십시오. 자세한 내용은 [Lingui 호환성 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/lingui.md)를 참조하십시오.
 
+- [Lingui 호환성 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/lingui.md)
+
 ## 언제 어떤 라이브러리를 선택해야 하는가?
 
 <AccordionGroup>
@@ -403,10 +411,18 @@ export default defineConfig({
 
 **컴포넌트 스코프 콘텐츠**, **엄격한 TypeScript**, **빌드 타임 누락 키 오류**, **노력 없는 트리 쉐이킹 및 지연 로딩**, 가벼운 컴포넌트, 빠른 수화, 즉각적인 로케일 전환 및 내장 편집 도구([비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md), [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md), [AI 번역](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/autoFill.md), [MCP 서버](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/mcp_server.md))를 원하는 경우. 대규모 모듈식 코드베이스와 디자인 시스템에 특히 적합합니다.
 
+- [비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)
+- [AI 번역](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/autoFill.md)
+- [MCP 서버](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/mcp_server.md)
+
 </Accordion>
 <Accordion header="@intlayer/lingui 선택하기">
 
 이미 Lingui를 사용 중이며 매크로를 수정하지 않고 점진적으로 Intlayer 사전으로 마이그레이션하려는 경우. [PO 동기화 플러그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/lingui.md)을 통해 `.po` 카탈로그를 신뢰할 수 있는 단일 소스로 유지합니다. [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/lingui_vs_intlayer-lingui.md)에서 나란히 측정되었습니다.
+
+- [PO 동기화 플러그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/lingui.md)
+- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/lingui_vs_intlayer-lingui.md)
 
 </Accordion>
 </AccordionGroup>
@@ -437,11 +453,15 @@ export default defineConfig({
 
 아닙니다. `@intlayer/lingui`는 `` t`...` ``, `<Trans>`, `msg`, `plural`, `select`, `selectOrdinal`을 기존과 동일하게 컴파일합니다; `i18n._()`가 확인하는 대상만 바뀝니다. 빌드에서 `@lingui/babel-plugin-lingui-macro` 또는 `@lingui/swc-plugin`을 계속 유지하세요. [Lingui 호환성 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/lingui.md)를 참조하세요.
 
+- [Lingui 호환성 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/lingui.md)
+
 </Question>
 
 <Question title="추출 및 컴파일 단계는 어떻게 되나요?">
 
 매크로에는 그대로 유지되지만 Intlayer 자체 콘텐츠에서는 제거됩니다. `.content.ts` 사전은 번들러가 실행될 때 별도의 CLI 단계 없이 생성되며, [`intlayer test`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/index.md)는 소스 문자열로 조용히 폴백하는 대신 누락된 키가 있을 때 CI를 실패시킵니다.
+
+- [`intlayer test`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/index.md)
 
 </Question>
 
@@ -493,3 +513,5 @@ Lingui는 이번 벤치마크에서 런타임과 컴파일러를 결합한 가�
 모든 원시 측정 데이터, 테스트 애플리케이션 및 스크립트는 [Benchmark Bloom 저장소](https://github.com/intlayer-org/benchmark-bloom)에서 직접 확인하고 실행해 보실 수 있습니다.
 
 더 자세한 정보는 ['왜 Intlayer인가?' 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/interest_of_intlayer.md)를 참고하시기 바랍니다.
+
+- [왜 Intlayer인가? 다른 i18n 라이브러리 대비 장점](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/interest_of_intlayer.md)

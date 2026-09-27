@@ -168,6 +168,8 @@ export default indexContent;
 
 > 자세한 내용은 [콘텐츠 선언 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md)를 참조하세요.
 
+- [콘텐츠 선언 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md)
+
 ### Express 애플리케이션 설정
 
 `express-intlayer`를 사용하도록 Express 애플리케이션을 설정하세요:
@@ -238,6 +240,8 @@ export default config;
 
 > 구성 및 고급 주제에 대한 자세한 내용은 [문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참조하세요.
 
+- [Intlayer 설정 (intlayer.config.ts)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)
+
 ### TypeScript 구성
 
 `express-intlayer`는 국제화 과정을 향상시키기 위해 TypeScript의 강력한 기능을 활용합니다. TypeScript의 정적 타이핑은 모든 번역 키가 포함되도록 보장하여 누락된 번역의 위험을 줄이고 유지보수성을 향상시킵니다.
@@ -262,7 +266,7 @@ export default config;
 
 Intlayer와 함께 개발 경험을 향상시키기 위해 공식 **Intlayer VS 코드 확장**을 설치할 수 있습니다.
 
-[VS 코드 마켓플레이스에서 설치하기](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [VS 코드 마켓플레이스에서 설치하기](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 이 확장은 다음 기능을 제공합니다:
 
@@ -272,6 +276,8 @@ Intlayer와 함께 개발 경험을 향상시키기 위해 공식 **Intlayer VS 
 - 번역을 쉽게 생성하고 업데이트할 수 있는 **빠른 작업**.
 
 확장 사용 방법에 대한 자세한 내용은 [Intlayer VS 코드 확장 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/vs_code_extension.md)를 참조하세요.
+
+- [Intlayer VS 코드 확장 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/vs_code_extension.md)
 
 ### Git 설정
 
@@ -296,27 +302,42 @@ Intlayer가 생성하는 파일을 무시하는 것이 권장됩니다. 이렇�
 
 [왜 Intlayer인가](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/interest_of_intlayer.md)를 참조하세요.
 
+- [왜 Intlayer인가](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/interest_of_intlayer.md)
+
 </Question>
 <Question title="i18n이 Express 서버 번들 크기에 얼마나 영향을 미치나요?">
 
 매우 적습니다. 사전은 사전에 컴파일되며 선언한 로케일만 포함되므로 부팅 시 카탈로그 로딩이나 요청 경로에서의 파일 읽기가 발생하지 않습니다. 이는 번들 크기가 콜드 스타트 시간을 좌우하는 서버리스 및 엣지 배포 환경에서 특히 중요합니다. [번들 최적화](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md)를 참조하세요.
+
+- [번들 최적화](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md)
 
 </Question>
 <Question title="핸들러를 다시 작성하지 않고 i18next에서 마이그레이션할 수 있나요?">
 
 네, 두 가지 방법이 있습니다. [i18next 마이그레이션 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_i18next_to_intlayer.md)를 따라 점진적으로 이전할 수 있습니다. 또는 현재 API를 완전히 유지할 수도 있습니다: [호환 어댑터(compat adapters)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/index.md)는 `i18next`와 완전히 동일한 API를 노출하면서 Intlayer 사전에서 데이터를 제공하므로, import 구문만 변경하고 핸들러 코드는 그대로 유지할 수 있습니다.
 
+- [i18next 마이그레이션 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_i18next_to_intlayer.md)
+- [호환 어댑터(compat adapters)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/index.md)
+
 </Question>
 <Question title="기존 JSON 번역 파일을 유지할 수 있나요?">
 
 네. [sync JSON 플러그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/plugins/sync-json.md)은 `/messages/{locale}/{namespace}.json` 파일을 단일 진실 공급원(source of truth)으로 유지하면서 양방향으로 Intlayer 사전을 생성합니다. [sync PO 플러그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/plugins/sync-po.md)은 gettext 카탈로그에 대해 동일한 작업을 수행하며, [로케일별 파일](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/per_locale_file.md)을 통해 로케일을 한 파일에 모으는 대신 언어별로 콘텐츠를 분할할 수도 있습니다.
+
+- [sync JSON 플러그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/plugins/sync-json.md)
+- [sync PO 플러그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/plugins/sync-po.md)
+- [로케일별 파일](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/per_locale_file.md)
 
 </Question>
 <Question title="콘텐츠를 키 단위로 하나씩 옮겨야 하나요?">
 
 아닙니다. `npx intlayer extract`를 실행하면 Intlayer가 소스 파일을 읽고 사용자 대면 문자열을 추출하여 각 컴포넌트 옆에 `.content` 파일을 생성하므로 카탈로그에 일일이 복사할 필요 없이 diff만 검토하면 됩니다. [extract 명령](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/extract.md)을 참조하세요.
 
+- [extract 명령](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/extract.md)
+
 동일한 프로젝트의 프론트엔드 측에서는 [Intlayer 컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md)가 빌드 타임에 JSX, TSX, Vue 또는 Svelte 소스에서 사전을 생성하므로 앱의 두 영역이 수동 키 관리 없이 단일 콘텐츠 레이어를 공유할 수 있습니다.
+
+- [Intlayer 컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md)
 
 </Question>
 <Question title="사용 가능한 에디터 및 AI 에이전트 도구는 무엇이 있나요?">
@@ -333,6 +354,8 @@ Intlayer가 생성하는 파일을 무시하는 것이 권장됩니다. 이렇�
 <Question title="Intlayer는 응답할 언어를 어떻게 파악하나요?">
 
 기본적으로 `express-intlayer`는 들어오는 요청의 `Accept-Language` 헤더를 읽고 선언된 가장 가까운 로케일을 선택하며, 기본 로케일로 폴백합니다. `routing.storage`를 통해 소스를 사용자 지정 헤더나 프론트엔드가 설정한 쿠키 등으로 변경할 수 있으므로 브라우저 광고 언어가 아닌 사용자가 실제로 선택한 언어로 API가 응답하도록 만들 수 있습니다. [설정 참조](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참조하세요.
+
+- [설정 참조](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)
 
 </Question>
 <Question title="로케일은 요청별로 격리되나요?">
@@ -359,10 +382,19 @@ Intlayer가 생성하는 파일을 무시하는 것이 권장됩니다. 이렇�
 
 `npx intlayer fill`을 실행하면 자체 제공업체 및 API 키를 사용하여 원하는 LLM으로 누락된 번역을 채워줍니다. 브랜치에서 변경된 콘텐츠만 번역하려면 `--git-diff`를 추가하세요. [fill 명령](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/fill.md) 및 [CI/CD 통합](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/CI_CD.md)을 참조하세요.
 
+- [fill 명령](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/fill.md)
+- [CI/CD 통합](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/CI_CD.md)
+
 </Question>
 <Question title="Intlayer는 서버에서 복수형, 성별 및 보간된 값을 지원하나요?">
 
 네: [복수형(plural forms)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/plurial.md), [성별 기반 콘텐츠](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/gender.md), 조건문, 보간 값을 위한 [삽입(insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/insertion.md), 이메일 본문을 위한 [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/markdown.md), 그리고 숫자, 날짜, 통화를 위한 [포맷터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/formatters.md)를 지원합니다.
+
+- [복수형(plural forms)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/plurial.md)
+- [성별 기반 콘텐츠](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/gender.md)
+- [삽입(insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/insertion.md)
+- [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/markdown.md)
+- [포맷터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/formatters.md)
 
 </Question>
 <Question title="서버에서 TypeScript 자동 완성이 지원되나요?">
@@ -374,10 +406,15 @@ Intlayer가 생성하는 파일을 무시하는 것이 권장됩니다. 이렇�
 
 네, 실제로 권장되는 설정입니다. `express-intlayer`는 동일한 선언 콘텐츠에 대해 `react-intlayer`, `next-intlayer`, `vite-intlayer`와 함께 작동하므로 API 응답과 웹 페이지 모두에서 사용되는 레이블을 한 번만 선언하면 됩니다. [Intlayer 작동 방식](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/how_works_intlayer.md)을 참조하세요.
 
+- [Intlayer 작동 방식](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/how_works_intlayer.md)
+
 </Question>
 <Question title="Intlayer는 무료이며 오픈 소스인가요?">
 
 네, 상업적 사용을 포함하여 Apache 2.0 라이선스에 따라 제공됩니다. 호스팅형 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)는 선택적 유료 서비스이며 [자체 호스팅](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/self_hosting.md)도 가능합니다.
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)
+- [자체 호스팅](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/self_hosting.md)
 
 </Question>
 

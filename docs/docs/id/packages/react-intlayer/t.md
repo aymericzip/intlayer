@@ -179,4 +179,6 @@ Fungsi `t` dalam `react-intlayer` adalah alat yang kuat dan praktis untuk mengel
 
 Untuk penggunaan yang lebih rinci dan fitur lanjutan, lihat [dokumentasi react-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md).
 
+- [dokumentasi react-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md)
+
 **Catatan**: Ingat untuk mengatur `IntlayerProvider` Anda dengan benar agar locale saat ini diteruskan dengan tepat ke komponen Anda. Ini sangat penting agar fungsi `t` mengembalikan terjemahan yang benar.

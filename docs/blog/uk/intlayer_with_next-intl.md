@@ -43,6 +43,8 @@ author: aymericzip
 
 Перегляньте конкретне порівняння з next-intl у нашому дописі в блозі [next-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/next-i18next_vs_next-intl_vs_intlayer.md).
 
+- [next-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/next-i18next_vs_next-intl_vs_intlayer.md)
+
 ## Чому поєднувати Intlayer з next-intl?
 
 Intlayer пропонує широкий набір **розширених можливостей**, які виходять за межі традиційних інструментів i18n. Він допомагає вам:
@@ -157,6 +159,8 @@ export default config;
 
 Щоб дізнатися більше про плагін `syncJSON`, будь ласка, зверніться до [документації плагіна syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/plugins/sync-json.md).
 
+- [документації плагіна syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/plugins/sync-json.md)
+
 </Step>
 <Step number={3} title="Налаштування AI-провайдера">
 
@@ -208,6 +212,9 @@ npx intlayer fill
 > Див. усіх доступних AI-провайдерів у [документації конфігурації AI Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md#ai-configuration).
 > Див. усі доступні команди в [документації Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/index.md).
 
+- [документації конфігурації AI Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md#ai-configuration)
+- [документації Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/index.md)
+
 </Step>
 
 </Steps>
@@ -227,4 +234,4 @@ npx intlayer fill
 
 Для покращення досвіду розробника встановіть офіційне **Intlayer VS Code Extension**:
 
-[Встановити з VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [Встановити з VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

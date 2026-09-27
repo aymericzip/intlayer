@@ -57,6 +57,8 @@ La fonction ne prend aucun paramètre. Elle utilise plutôt les variables d'envi
 
 Voir la [documentation de configuration d'Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md) pour plus de détails.
 
+- [documentation de configuration d'Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md)
+
 ## Exemple d'utilisation
 
 ### Récupération de la configuration complète

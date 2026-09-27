@@ -51,6 +51,8 @@ Next.jsプロジェクトの初期段階から国際化（i18n）を導入する
 
 > Next.js 16 App Routerの詳細なステップバイステップ技術ガイドをお探しですか？専用ドキュメントをご覧ください: [IntlayerでNext.js 16を翻訳する](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_16.md)。
 
+- [IntlayerでNext.js 16を翻訳する](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_16.md)
+
 ## 目次
 
 <TOC/>
@@ -266,6 +268,8 @@ export const generateMetadata = async (): Promise<Metadata> => {
 本記事では既存アプリへの導入概要を解説しました。ミドルウェアの詳細、静的生成（`generateStaticParams`）、サーバーコンポーネント等の全設定手順については、完全版ドキュメントをご覧ください：
 
 👉 **[IntlayerでNext.js 16を翻訳する完全ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_16.md)**
+
+- [IntlayerでNext.js 16を翻訳する完全ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_16.md)
 
 ## よくある質問 (FAQ)
 

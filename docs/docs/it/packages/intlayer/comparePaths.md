@@ -32,9 +32,11 @@ author: aymericzip
 
 ## Descrizione
 
-La funzione `comparePaths` confronta due URL o percorsi per verificarne l'uguaglianza ignorando il segmento locale, il protocollo/host, la query string, l'hash e le barre finali. È il metodo consigliato per determinare se un link di navigazione punta alla pagina corrente — ad esempio per evidenziare il link attivo — senza dover creare una logica di normalizzazione personalizzata (soggetta a errori).
+La funzione `comparePaths` confronta due URL o percorsi per verificarne l'uguaglianza ignorando il segmento locale, il protocollo/host, la query string, l'hash e le barre finali. È il metodo consigliato per determinare se un link di navigazione punta alla pagina corrente, ad esempio per evidenziare il link attivo, senza dover creare una logica di normalizzazione personalizzata (soggetta a errori).
 
 Internamente riutilizza [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/intlayer/getPathWithoutLocale.md) per rimuovere il segmento locale, in modo da rispettare la modalità di routing e i locale configurati.
+
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/intlayer/getPathWithoutLocale.md)
 
 Il pacchetto esporta anche l'utility sottostante [`normalizePath`](#normalizepath), che restituisce il percorso canonico, indipendente dal locale, utilizzato per il confronto.
 
@@ -44,7 +46,7 @@ Il pacchetto esporta anche l'utility sottostante [`normalizePath`](#normalizepat
 - Funziona sia con URL assoluti che con percorsi relativi
 - Ignora query string, hash e barre finali
 - Tollera l'assenza di barre iniziali e valori vuoti (normalizzato a `/`)
-- Leggero — basato su `getPathWithoutLocale`
+- Leggero, basato su `getPathWithoutLocale`
 
 ## Firma della funzione
 

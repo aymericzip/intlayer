@@ -49,6 +49,8 @@ TanStack Startには組み込みのi18nレイヤーが付属していません�
 
 > 代わりにNext.jsをお使いですか？[next-intlガイド](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/i18n_using_next-intl.md)をご覧ください。
 
+- [next-intlガイド](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/i18n_using_next-intl.md)
+
 > これらのライブラリがどのように生まれたのかを知るには、JavaScript i18n の歴史をご覧ください。
 
 - [JavaScript i18n の歴史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/history_of_i18n.md)
@@ -56,6 +58,8 @@ TanStack Startには組み込みのi18nレイヤーが付属していません�
 ## TanStack Startにおけるuse-intlのベンチマーク結果
 
 [i18nベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md)では、同じ10ページ・10ロケールのTanStack Startアプリを主要な各ライブラリで実行し、ブラウザが実際にダウンロードするサイズを測定しています。
+
+- [i18nベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md)
 
 <I18nBenchmark framework="tanstack" packages="use-intl,@intlayer/use-intl,intlayer" vertical/>
 
@@ -74,6 +78,8 @@ TanStack Startには組み込みのi18nレイヤーが付属していません�
 - **ランタイム自体が重いまま**（gzipで約76 KB）。これはICUパーサーがクライアントに送信されるためです。`@intlayer/use-intl`互換アダプター（ステップ17）を使用すると、まったく同じAPIを維持しながらランタイムを約7 KBに抑えることができます。
 
 > 詳細なデータについては、[TanStack Startベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md)および[ベンチマークリポジトリ](https://github.com/intlayer-org/benchmark-i18n)をご覧ください。
+
+- [TanStack Startベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md)
 
 ## TanStack Startでの機能比較
 
@@ -98,6 +104,8 @@ TanStack Startには組み込みのi18nレイヤーが付属していません�
 | **CIでの翻訳漏れチェック**                 | ✅ `npx intlayer test`                | ⚠️ 組み込みなし             | ⚠️ 組み込みなし                     | ✅ `lingui compile --strict`        |
 
 > ランタイムサイズと漏洩の数値は[TanStack Startベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md)に基づいています。漏洩は各ライブラリの最適なセットアップで測定されています。
+
+- [TanStack Startベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md)
 
 > 他のTanStack Startガイド:
 
@@ -974,6 +982,8 @@ export const startInstance = createStart(() => ({
 
 ベンチマークが示すように、use-intlセットアップで最も重い部分はランタイム自体です（gzipで約76 KB）。[`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/index.md)互換アダプターは**同じAPI**（`useTranslations`、`useFormatter`、`IntlProvider`、`createTranslator`、ICU複数形、`t.rich`）を提供しながら、コンパイル済みのIntlayerディクショナリから配信します。コンポーネントを変更することなく、**約75.9 KBから約6.7 KBに削減**され、ロケール漏洩0%、ページ漏洩0%を実現します。
 
+- [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/index.md)
+
 ```bash packageManager="npm"
 npm install @intlayer/use-intl intlayer @intlayer/sync-json-plugin
 npx intlayer init
@@ -1034,7 +1044,11 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
+- [JSON同期プラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md)
+
 > このアダプターはスムーズな移行パスにもなります。一度動作させれば、コンポーネントを1つずつネイティブの`useIntlayer` APIに移行できます。[Intlayer TanStack Startガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_tanstack.md)をご覧ください。
+
+- [Intlayer TanStack Startガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_tanstack.md)
 
 </Step>
 <Step number={18} title="すべてのロケールを事前レンダリング" isOptional={true}>
@@ -1142,6 +1156,8 @@ use-intlは翻訳をレンダリングしますが、翻訳を**生成・管理�
 
 すべての機能を確認するには、[Intlayerのメリット](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)をご覧ください。
 
+- [Intlayerのメリット](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)
+
 </Step>
 </Steps>
 
@@ -1152,6 +1168,8 @@ use-intlは翻訳をレンダリングしますが、翻訳を**生成・管理�
 <Question title="TanStack Startにuse-intlは適した選択肢ですか？">
 
 はい、Next.js以外で`next-intl`のAPIを使用したい場合には適しています。ICUメッセージ、フォーマッター、優れたTypeScriptサポートが提供され、`setRequestLocale`などのNext.js固有の制約を回避できます。トレードオフはライブラリの重さです。[ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md)ではランタイムが約76 KB（gzip）と測定されており、単純なセットアップではすべてのロケールやすべてのページがブラウザに配信されてしまいます。漏洩を防ぐために、本ガイドのようにルートごと、ロケールごとにネームスペースをロードしてください。
+
+- [ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md)
 
 </Question>
 <Question title="use-intlとnext-intlの違いは何ですか？">
@@ -1173,6 +1191,8 @@ URL内のプレフィックスを使用してください。これにより、�
 
 まず、メッセージをネームスペースごとに分割し、`import.meta.glob`を使用してルートごと・ロケールごとにロードします。これによりロケール漏洩とページ漏洩が解消されます。さらにランタイムサイズを削減したい場合は、[`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/index.md)アダプターに切り替えます。ベンチマークにおいて、同じAPIのまま約75.9 KBから約6.7 KBに削減されます。
 
+- [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/index.md)
+
 </Question>
 <Question title="use-intlでtitleやmeta descriptionを翻訳するにはどうすればよいですか？">
 
@@ -1182,6 +1202,9 @@ URL内のプレフィックスを使用してください。これにより、�
 <Question title="use-intlからIntlayerへ段階的に移行することはできますか？">
 
 はい。まず互換アダプターをインストールします（ステップ17）。コンポーネントは`useTranslations`を引き続き呼び出しながら、バックエンドはIntlayerで動作します。その後、コンポーネントを1つずつ`useIntlayer`に移行し、コンテンツ宣言をコンポーネントの隣に配置していきます。[互換アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/index.md)および[Intlayer TanStack Startガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_tanstack.md)をご覧ください。
+
+- [互換アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/index.md)
+- [Intlayer TanStack Startガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_tanstack.md)
 
 </Question>
 

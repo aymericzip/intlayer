@@ -341,7 +341,9 @@ export function middleware(request: NextRequest) {
 
 SolidJS、Vue、Svelte 向けに、開発中のリライトは `intlayerProxy` Vite プラグインが管理します。
 
-> Intlayer v9 以降、`intlayerProxy()` は `intlayer()` プラグインに直接バンドルされており、`routing.enableProxy` オプション（デフォルトは `true`）を通じてデフォルトで有効になっています。以下のように個別に登録することはオプションになりました — これは後方互換性とプラグインの順序を制御する必要があるセットアップのために保持されています。`routing.enableProxy: false` を設定してオプトアウトできます。[v9 リリースノート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/releases/v9.md)を参照してください。
+> Intlayer v9 以降、`intlayerProxy()` は `intlayer()` プラグインに直接バンドルされており、`routing.enableProxy` オプション（デフォルトは `true`）を通じてデフォルトで有効になっています。以下のように個別に登録することはオプションになりました。これは後方互換性とプラグインの順序を制御する必要があるセットアップのために保持されています。`routing.enableProxy: false` を設定してオプトアウトできます。[v9 リリースノート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/releases/v9.md)を参照してください。
+
+- [v9 リリースノート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/releases/v9.md)
 
 ```typescript fileName="vite.config.ts"
 import { defineConfig } from "vite";

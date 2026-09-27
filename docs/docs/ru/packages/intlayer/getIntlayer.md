@@ -31,7 +31,7 @@ author: aymericzip
 
 ## Описание
 
-Функция `getIntlayer` выбирает один словарь по его ключу и возвращает его содержимое, интерпретированное для заданной локали. Это независимый от фреймворка эквивалент хука `useIntlayer`: то же содержимое, те же селекторы, но пригодный для использования везде, где React контекст недоступен — скрипты Node, серверные функции, загрузчики маршрутов, построители метаданных, обработчики Express/Fastify, тесты.
+Функция `getIntlayer` выбирает один словарь по его ключу и возвращает его содержимое, интерпретированное для заданной локали. Это независимый от фреймворка эквивалент хука `useIntlayer`: то же содержимое, те же селекторы, но пригодный для использования везде, где React контекст недоступен, скрипты Node, серверные функции, загрузчики маршрутов, построители метаданных, обработчики Express/Fastify, тесты.
 
 Функция читает словари, созданные Intlayer в `.intlayer/`, поэтому аргумент `key` типизирован и автодополняется на основе ваших объявлений содержимого, а возвращаемый объект полностью типизирован вплоть до каждого листового узла.
 
@@ -57,18 +57,18 @@ getIntlayer(
 
 - `key: DictionaryKeys`
   - **Description**: Ключ словаря для чтения, объявленный в ваших файлах контента.
-  - **Type**: `DictionaryKeys` — объединение всех объявленных ключей словаря.
+  - **Type**: `DictionaryKeys`, объединение всех объявленных ключей словаря.
   - **Required**: Yes
 
 - `localeOrSelector: LocalesValues | DictionarySelector`
   - **Description**: Локаль для интерпретации контента или объект селектора для [динамических словарей](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dynamic_dictionaries/index.md).
-    - `'fr'` — локаль
-    - `{ item: 2 }` — элемент [коллекции](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dynamic_dictionaries/collections.md) (опустите `item` чтобы получить все элементы как массив)
-    - `{ variant: 'black-friday' }` — именованный [вариант](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dynamic_dictionaries/variants.md) (опустите для `default` варианта)
-    - `{ variant: { id: 'prod_abc', userId: '123' } }` — структурированный вариант
+    - `'fr'`: локаль
+    - `{ item: 2 }`: элемент [коллекции](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dynamic_dictionaries/collections.md) (опустите `item` чтобы получить все элементы как массив)
+    - `{ variant: 'black-friday' }`: именованный [вариант](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dynamic_dictionaries/variants.md) (опустите для `default` варианта)
+    - `{ variant: { id: 'prod_abc', userId: '123' } }`: структурированный вариант
     - Любой селектор может содержать локаль: `{ item: 2, locale: 'fr' }`
   - **Type**: `LocalesValues | DictionarySelector`
-  - **Required**: No (Optional) — по умолчанию используется настроенная `defaultLocale`.
+  - **Required**: No (Optional), по умолчанию используется настроенная `defaultLocale`.
 
 - `plugins: Plugins[]`
   - **Description**: Пользовательские трансформеры узлов, заменяющие базовые плагины интерпретатора. Только для продвинутого использования; опустите для сохранения поведения по умолчанию.
@@ -110,6 +110,8 @@ const { title } = getIntlayer("app", "fr"); // "Bonjour"
 ### Без локали
 
 Если пропустить параметр locale, контент будет интерпретирован с использованием `defaultLocale`, объявленной в вашей [конфигурации](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md).
+
+- [конфигурации](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md)
 
 ```typescript
 import { getIntlayer } from "intlayer";
@@ -161,6 +163,9 @@ const banner = getIntlayer("banner", { variant: "black-friday", locale: "fr" });
 ### Размер бандла
 
 `getIntlayer` читает объединённый словарь, который содержит **все** локали. В клиентских бандлах [плагины сборки](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/bundle_optimization.md) переписывают вызов так, чтобы отправлялось только необходимое содержимое. Когда вы читаете содержимое вне рендеринга (метаданные, загрузчики, серверные функции) и хотите загрузить одну локаль по требованию, используйте [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getIntlayerAsync.md).
+
+- [плагины сборки](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/bundle_optimization.md)
+- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getIntlayerAsync.md)
 
 ## Связанные функции
 

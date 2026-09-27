@@ -34,6 +34,8 @@ author: aymericzip
 
 Live Sync lets your app reflect [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) content changes at runtime. No rebuild or redeploy required. When enabled, updates are streamed to a Live Sync server that refreshes the dictionaries your application reads.
 
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
+
 ## Table of Contents
 
 <TOC/>

@@ -19,7 +19,7 @@ slugs:
 history:
   - version: 9.2.1
     date: 2026-08-09
-    changes: "`purge` dan `minify` kini bekerja di Next.js melalui `@intlayer/swc` — tidak perlu `babel.config.js`"
+    changes: "`purge` dan `minify` kini bekerja di Next.js melalui `@intlayer/swc`, tidak perlu `babel.config.js`"
   - version: 8.12.0
     date: 2026-06-24
     changes: "Mencantumkan plugin Babel dalam urutan pipeline yang diperlukan (extract → purge → minify → optimize) pada tabel referensi"
@@ -68,11 +68,11 @@ Hal ini memastikan bahwa:
 
 ### Next.js
 
-Next.js memerlukan plugin `@intlayer/swc`, karena Next.js menggunakan SWC untuk build. Sejak **v9.2.1**, satu paket ini mencakup seluruh pipeline — optimasi (penulisan ulang import), purge, dan minify.
+Next.js memerlukan plugin `@intlayer/swc`, karena Next.js menggunakan SWC untuk build. Sejak **v9.2.1**, satu paket ini mencakup seluruh pipeline, optimasi (penulisan ulang import), purge, dan minify.
 
 > Plugin ini tidak terpasang secara default karena plugin SWC masih berada pada tahap eksperimental untuk Next.js. Hal ini dapat berubah di masa yang akan datang.
 
-> **Next.js 16.1.0 adalah versi minimum.** Ini adalah rilis pertama yang dibangun di atas ABI plugin Wasm SWC yang kompatibel ke depan; rilis sebelumnya menolak plugin tersebut. `withIntlayer` membaca versi Next.js proyek Anda dan tidak mendaftarkan plugin sama sekali di bawah 16.1.0 — build tersebut tetap berhasil, hanya saja berjalan tanpa optimasi bundle.
+> **Next.js 16.1.0 adalah versi minimum.** Ini adalah rilis pertama yang dibangun di atas ABI plugin Wasm SWC yang kompatibel ke depan; rilis sebelumnya menolak plugin tersebut. `withIntlayer` membaca versi Next.js proyek Anda dan tidak mendaftarkan plugin sama sekali di bawah 16.1.0, build tersebut tetap berhasil, hanya saja berjalan tanpa optimasi bundle.
 
 <Tabs>
  <Tab value="npm">
@@ -136,7 +136,7 @@ Selama `next build`, `withIntlayer` menganalisis sumber Anda, menulis ulang kamu
 
 > Gunakan `withIntlayer` yang asinkron, bukan `withIntlayerSync`. Varian sinkron tidak menjalankan pipeline analisis, jadi purge dan minify tidak berpengaruh dengannya.
 
-> Purge dan minify hanya berjalan pada `next build` — pipeline optimasi dimatikan selama `next dev`.
+> Purge dan minify hanya berjalan pada `next build`, pipeline optimasi dimatikan selama `next dev`.
 
 **Versi sebelumnya (sebelum 9.2.1)** memerlukan `@intlayer/babel` dan sebuah `babel.config.js` yang mendeklarasikan `intlayerPurgeBabelPlugin` dan `intlayerMinifyBabelPlugin`. Berkas itu tidak lagi diperlukan dan dapat dihapus.
 
@@ -145,7 +145,7 @@ Selama `next build`, `withIntlayer` menganalisis sumber Anda, menulis ulang kamu
 
 ### Vite
 
-Vite menggunakan plugin `@intlayer/babel`, yang disertakan sebagai dependensi dari `vite-intlayer`. Proses pipeline optimasi penuh — penulisan ulang import, purge, dan minify — aktif secara otomatis (default) dan tidak memerlukan tambahan setup apa pun.
+Vite menggunakan plugin `@intlayer/babel`, yang disertakan sebagai dependensi dari `vite-intlayer`. Proses pipeline optimasi penuh (penulisan ulang import, purge, dan minify) aktif secara otomatis (default) dan tidak memerlukan tambahan setup apa pun.
 
 Aktifkan purge dan minify dengan menetapkan flag terkait di `intlayer.config.ts`:
 
@@ -263,7 +263,7 @@ Pengguna Vite **tidak pernah mengonfigurasi ini secara langsung**. Plugin ini te
 
 ### Plugin SWC (`@intlayer/swc`)
 
-Pengguna Next.js juga **tidak pernah mengonfigurasi ini secara langsung**. Sejak **v9.2.1**, `withIntlayer()` di `next.config.ts` menjalankan seluruh pipeline — purge, minify, dan penulisan ulang import — hanya berdasarkan flag `build.purge` dan `build.minify`.
+Pengguna Next.js juga **tidak pernah mengonfigurasi ini secara langsung**. Sejak **v9.2.1**, `withIntlayer()` di `next.config.ts` menjalankan seluruh pipeline (purge, minify, dan penulisan ulang import) hanya berdasarkan flag `build.purge` dan `build.minify`.
 
 Pekerjaan dibagi menjadi dua, karena plugin Wasm SWC mentransformasi satu berkas dalam satu waktu dan tidak memiliki akses ke sistem berkas:
 
@@ -312,6 +312,8 @@ export default config;
 
 > Lihat referensi konfigurasi secara menyeluruh untuk melihat semua opsi yang tersedia: [Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md)
 
+- [Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md)
+
 ### Opsi Build
 
 | Properti       | Tipe                  | Default     | Deskripsi                                                                                                                                                                                                                |
@@ -322,7 +324,7 @@ export default config;
 
 ### Minifikasi (penggantian nama kunci file/field)
 
-Perintah `build.minify` **tidak** akan melakukan proses minifikasi file JavaScript di bundle Anda — hal itu masih dipegang oleh bundler Anda. Opsi ini difungsikan untuk memperkecil ukuran file kamus JSON dengan menggantikan kunci field buatan pengguna (user-defined keys) menjadi alias huruf abjad yang jauh lebih ringkas:
+Perintah `build.minify` **tidak** akan melakukan proses minifikasi file JavaScript di bundle Anda, hal itu masih dipegang oleh bundler Anda. Opsi ini difungsikan untuk memperkecil ukuran file kamus JSON dengan menggantikan kunci field buatan pengguna (user-defined keys) menjadi alias huruf abjad yang jauh lebih ringkas:
 
 ```
 // Sebelum minifikasi
@@ -346,7 +348,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> Minifikasi akan dilewati bila `optimize` disetel menjadi `false`. Ketika `editor.enabled` bernilai `true`, proses ini tetap berjalan, tetapi tanpa langkah penggantian nama field — Visual editor menyelesaikan pengeditan melalui `keyPath`, sehingga nama field asli harus tetap dipertahankan.
+> Minifikasi akan dilewati bila `optimize` disetel menjadi `false`. Ketika `editor.enabled` bernilai `true`, proses ini tetap berjalan, tetapi tanpa langkah penggantian nama field, Visual editor menyelesaikan pengeditan melalui `keyPath`, sehingga nama field asli harus tetap dipertahankan.
 
 > Di Next.js, minifikasi juga dilewati ketika `@intlayer/swc` tidak terpasang atau tidak dapat dimuat (Next.js di bawah 16.1.0). Plugin inilah separuh yang menulis ulang akses di kode sumber, sehingga mengganti nama kamus tanpa plugin tersebut akan membuat kode Anda membaca nama bidang yang sudah tidak ada.
 
@@ -378,7 +380,7 @@ export default config;
 { "title": "…", "subtitle": "…" }
 ```
 
-> Purge akan dilewati ketika `optimize` bernilai `false`. Proses ini tetap aktif ketika `editor.enabled` bernilai `true` — field yang telah dipangkas tidak dibaca oleh komponen mana pun, sehingga editor tidak akan pernah merendernya. Di Next.js, ia juga dilewati ketika `@intlayer/swc` tidak tersedia dan ketika pemanggil adapter kompatibilitas dikonfigurasi.
+> Purge akan dilewati ketika `optimize` bernilai `false`. Proses ini tetap aktif ketika `editor.enabled` bernilai `true`, field yang telah dipangkas tidak dibaca oleh komponen mana pun, sehingga editor tidak akan pernah merendernya. Di Next.js, ia juga dilewati ketika `@intlayer/swc` tidak tersedia dan ketika pemanggil adapter kompatibilitas dikonfigurasi.
 
 > Secara konservatif, proses purge tidak akan dilaksanakan jika file asal (source file) gagal dipindai, atau pemanggilan `useIntlayer` disimpan di variabel untuk lalu disebarluaskan di mana proses pindaian statik tak mampu melacak jejaknya (contoh lewat spread function atau pengiriman prop secara untuh). Jika skenario ini terjadi, file kamus tak akan disentuh.
 
@@ -508,6 +510,8 @@ const content = useDictionaryAsync({
 ```
 
 > Lihat panduan CMS untuk petunjuk spesifikasinya: [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)
 
 > Di dalam mode fetch, purge dan minify tak bisa dilaksanakan disebabkan file JSON Anda dipanggil menggunakan API cloud dengan spesifikasi original names (namanya tetap dipertahankan murni).
 

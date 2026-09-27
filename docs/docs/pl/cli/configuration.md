@@ -52,7 +52,7 @@ bun x intlayer configuration get
 - **`--base-dir`**: Określ katalog bazowy projektu.
 - **`--verbose`**: Włącz szczegółowe logowanie w celu debugowania. (domyślnie true przy użyciu CLI)
 - **`--no-cache`**: Wyłącz pamięć podręczną.
-- **`--ci`**: Uruchamia polecenie w każdym projekcie Intlayer w monorepo (lub tylko w bieżącym, gdy uruchomione z katalogu projektu). Dane uwierzytelniające dla poszczególnych projektów można wstrzyknąć przez `INTLAYER_PROJECT_CREDENTIALS` — obiekt JSON mapujący ścieżkę projektu na `{ "clientId", "clientSecret" }`.
+- **`--ci`**: Uruchamia polecenie w każdym projekcie Intlayer w monorepo (lub tylko w bieżącym, gdy uruchomione z katalogu projektu). Dane uwierzytelniające dla poszczególnych projektów można wstrzyknąć przez `INTLAYER_PROJECT_CREDENTIALS`, obiekt JSON mapujący ścieżkę projektu na `{ "clientId", "clientSecret" }`.
 
 ## Prześlij konfigurację
 
@@ -86,6 +86,6 @@ bun x intlayer configuration push
 - **`--base-dir`**: Określ katalog bazowy projektu.
 - **`--verbose`**: Włącz szczegółowe logowanie w celu debugowania. (domyślnie true przy użyciu CLI)
 - **`--no-cache`**: Wyłącz pamięć podręczną.
-- **`--ci`**: Uruchamia polecenie w każdym projekcie Intlayer w monorepo (lub tylko w bieżącym, gdy uruchomione z katalogu projektu). Dane uwierzytelniające dla poszczególnych projektów można wstrzyknąć przez `INTLAYER_PROJECT_CREDENTIALS` — obiekt JSON mapujący ścieżkę projektu na `{ "clientId", "clientSecret" }`.
+- **`--ci`**: Uruchamia polecenie w każdym projekcie Intlayer w monorepo (lub tylko w bieżącym, gdy uruchomione z katalogu projektu). Dane uwierzytelniające dla poszczególnych projektów można wstrzyknąć przez `INTLAYER_PROJECT_CREDENTIALS`, obiekt JSON mapujący ścieżkę projektu na `{ "clientId", "clientSecret" }`.
 
 Poprzez przesłanie konfiguracji, Twój projekt jest w pełni zintegrowany z Intlayer CMS, co umożliwia płynne zarządzanie słownikami w zespołach.

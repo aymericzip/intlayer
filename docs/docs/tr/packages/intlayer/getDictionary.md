@@ -35,6 +35,8 @@ author: aymericzip
 
 Oluşturulan kayıt defterinde bir sözlüğü anahtara göre arayan [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getIntlayer.md)'dan farklı olarak, `getDictionary` sözlüğün kendisini alır. Bu, çalışma zamanında oluşturulan, bir API veya CMS'den getirilen ya da bir teste satır içinde bildirilen içerik için doğru araç haline getirir.
 
+- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getIntlayer.md)
+
 **Temel Özellikler:**
 
 - Sözlük yapısını izleyen herhangi bir nesneyle çalışır (`{ key, content }`)
@@ -62,7 +64,7 @@ getDictionary(
 - `localeOrSelector: LocalesValues | DictionarySelector`
   - **Açıklama**: İçeriği yorumlamak için kullanılacak yerel ayar veya bir seçici nesnesi (`{ item }`, `{ variant }`, isteğe bağlı olarak `locale`). Bkz. [dinamik sözlükler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dynamic_dictionaries/index.md).
   - **Tür**: `LocalesValues | DictionarySelector`
-  - **Gerekli**: Hayır (İsteğe bağlı) — yapılandırılmış `defaultLocale` ayarına varsayılan olarak atar.
+  - **Gerekli**: Hayır (İsteğe bağlı), yapılandırılmış `defaultLocale` ayarına varsayılan olarak atar.
 
 - `plugins: Plugins[]`
   - **Açıklama**: Tanınan düğümlerin nasıl yorumlandığını tanımlayan bir dizi düğüm dönüştürücüsü. Atlanırsa, varsayılan yorumlayıcı eklentileri seti kullanılır.

@@ -120,6 +120,11 @@ Việc phát hiện dựa trên những gì trang web hiển thị trong trình 
 
 Hầu hết các mục kiểm tra đều tương ứng với cấu hình định tuyến hoặc siêu dữ liệu. Với Intlayer, hreflang, canonical, `x-default`, liên kết bản địa hóa, sitemap và robots.txt được tạo tự động từ [cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md) của bạn. Xem hướng dẫn tích hợp cho framework của bạn, ví dụ: [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_16.md), [Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nuxt.md) hoặc [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_tanstack.md).
 
+- [cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md)
+- [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_16.md)
+- [Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nuxt.md)
+- [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_tanstack.md)
+
 </Question>
 
 </FAQ>

@@ -37,17 +37,23 @@ author: aymericzip
 
 限定应用内容的范围**便于大规模应用的维护**。您可以复制或删除单个功能文件夹，而无需费力审查整个内容 codebase。此外，Intlayer **完全类型化**以确保内容的准确性。
 
-Intlayer 也是 i18n 生态系统中**开发最活跃的**解决方案——问题得到快速修复，新的框架适配器定期发布，核心 API 根据真实生产反馈不断改进。
+Intlayer 也是 i18n 生态系统中**开发最活跃的**解决方案，问题得到快速修复，新的框架适配器定期发布，核心 API 根据真实生产反馈不断改进。
 
 </Accordion>
 <Accordion header="AI Agent">
 
 内容共定位**减少了大型语言模型 (LLM) 所需的上下文**。Intlayer 还提供一套工具，如**CLI** 来测试缺失的翻译、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)** 和**[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)**，使 AI agents 的开发者体验 (DX) 更加顺利。
 
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)
+- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)
+
 </Accordion>
 <Accordion header="自动化">
 
 使用自动化在您的 CI/CD pipeline 中进行翻译，使用您选择的 LLM，费用由您的 AI 提供商承担。Intlayer 还提供**编译器**来自动化内容提取，以及一个 [web platform](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) 来帮助**在后台翻译**。
+
+- [web platform](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="性能">
@@ -58,6 +64,9 @@ Intlayer 也是 i18n 生态系统中**开发最活跃的**解决方案——问�
 <Accordion header="与非开发人员协作扩展">
 
 不仅仅是一个 i18n 解决方案，Intlayer 提供**自托管的[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)**和一个**[完整 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)** 来帮助您**实时**管理多语言内容，使与翻译人员、文案编写者和其他团队成员的协作无缝衔接。内容可以本地和/或远程存储。
+
+- [可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)
+- [完整 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
@@ -70,9 +79,9 @@ Intlayer 也是 i18n 生态系统中**开发最活跃的**解决方案——问�
 
 从 `i18next` 迁移到 Intlayer 有两种互补策略：
 
-1. **兼容性适配器（推荐用于现有应用）** — 安装 `@intlayer/i18next`。这个包暴露了与 `i18next` **完全相同的 API**，但在底层将所有翻译工作委托给 Intlayer。你可以保留现有的 `i18next.t()`、`i18next.changeLanguage()` 和 `createInstance()` 调用 — 唯一的改变是导入路径和初始化方式。
+1. **兼容性适配器（推荐用于现有应用）**：安装 `@intlayer/i18next`。这个包暴露了与 `i18next` **完全相同的 API**，但在底层将所有翻译工作委托给 Intlayer。你可以保留现有的 `i18next.t()`、`i18next.changeLanguage()` 和 `createInstance()` 调用，唯一的改变是导入路径和初始化方式。
 
-2. **完整迁移** — 逐步用原生 Intlayer 工具替换 `i18next` API，并在 `.content.ts` 文件中并置内容。
+2. **完整迁移**：逐步用原生 Intlayer 工具替换 `i18next` API，并在 `.content.ts` 文件中并置内容。
 
 本指南首先涵盖**策略 1**（即插即用的兼容性适配器），然后演示可选的完整迁移。
 
@@ -125,7 +134,7 @@ yarn add intlayer @intlayer/i18next @intlayer/sync-json-plugin
 bun add intlayer @intlayer/i18next @intlayer/sync-json-plugin
 ```
 
-> 你可以保持 `i18next` 的安装 — 兼容性适配器将其用作 `devDependency` / `peerDependency` 来获取 TypeScript 类型。
+> 你可以保持 `i18next` 的安装，兼容性适配器将其用作 `devDependency` / `peerDependency` 来获取 TypeScript 类型。
 
 </Step>
 <Step number={2} title="配置 Intlayer">
@@ -177,7 +186,7 @@ export default defineConfig({
 });
 ```
 
-> `i18nextVitePlugin()` 包装 `vite-intlayer` 的 `intlayer()` 插件，并为你添加 `i18next` → `@intlayer/i18next` 别名。使用来自 `vite-intlayer` 的普通 `intlayer()` 插件会编译字典，但 **不会** 添加该别名 — 你需要手动将导入重命名为 `@intlayer/i18next`（见下一步）。
+> `i18nextVitePlugin()` 包装 `vite-intlayer` 的 `intlayer()` 插件，并为你添加 `i18next` → `@intlayer/i18next` 别名。使用来自 `vite-intlayer` 的普通 `intlayer()` 插件会编译字典，但 **不会** 添加该别名，你需要手动将导入重命名为 `@intlayer/i18next`（见下一步）。
 
 </Step>
 
@@ -200,7 +209,7 @@ export default defineConfig({
 | `import { createInstance } from 'i18next'` | `import { createInstance } from '@intlayer/i18next'` |
 | `import { t } from 'i18next'`              | `import { t } from '@intlayer/i18next'`              |
 
-这些是**直接替换** — 不需要对调用签名、参数或返回类型进行任何更改。
+这些是**直接替换**，不需要对调用签名、参数或返回类型进行任何更改。
 
 </Step>
 <Step number={5} title="启用 AI 驱动的翻译自动化" isOptional={true}>
@@ -260,6 +269,8 @@ export default config;
 
 > 查看 [Intlayer CLI 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md) 了解所有可用选项。
 
+- [Intlayer CLI 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)
+
 </Step>
 
 </Steps>
@@ -274,7 +285,7 @@ export default config;
 | `i18next.use(...)`             | Intlayer 不使用 i18next 插件、后端或语言检测器。                                                     |
 | JSON 语言包 (`locales/*.json`) | JSON 包仅在您仍然使用 `syncJSON` 插件时才需要。迁移到 `.content.ts` 文件后，您可以删除 JSON 文件夹。 |
 
-当您准备进一步操作时，Intlayer **自动发现您的 codebase 中任何地方的所有 `.content.ts` 和 `.content.json` 文件**（默认情况下，在 `./src` 内的任何地方）。您可以将 `my-component.content.ts` 文件放在逻辑代码的旁边，Intlayer 将在构建时自动发现它，无需任何额外配置——无需导入、无需注册、无需集中索引文件。这使得共置翻译完全无摩擦。
+当您准备进一步操作时，Intlayer **自动发现您的 codebase 中任何地方的所有 `.content.ts` 和 `.content.json` 文件**（默认情况下，在 `./src` 内的任何地方）。您可以将 `my-component.content.ts` 文件放在逻辑代码的旁边，Intlayer 将在构建时自动发现它，无需任何额外配置，无需导入、无需注册、无需集中索引文件。这使得共置翻译完全无摩擦。
 
 ## 配置 TypeScript
 

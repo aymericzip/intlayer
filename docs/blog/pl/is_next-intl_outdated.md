@@ -90,6 +90,8 @@ style="border:none;"
 
 > Testy przeprowadzone w realnych przeglądarkach z kompresją gzip. Kompletne dane w [raporcie benchmarku Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/nextjs.md).
 
+- [raporcie benchmarku Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/nextjs.md)
+
 ### Podstawowy narzut bibliotek
 
 Waga w przeglądarce przed dodaniem jakichkolwiek tłumaczeń:
@@ -138,6 +140,8 @@ Poniższy wykres szacuje rozmiar treści dla teoretycznej aplikacji mającej od 
 
 Intlayer rozwiązuje ten problem analizą statyczną: [kompilator Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compiler.md) przygotowuje dla każdej trasy wyłącznie te teksty, które faktycznie się na niej znajdują, redukując wyciek do **0.0%**.
 
+- [kompilator Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compiler.md)
+
 ## Dlaczego next-intl nie obsługuje tree-shakingu
 
 API biblioteki opiera się na dynamicznych kluczach tekstowych wywoływanych w runtime:
@@ -176,6 +180,8 @@ export function UserProfile() {
 </Tabs>
 
 Turbopack oraz Webpack nie są w stanie określić, po które klucze z `UserProfile` sięgnie kod w przeglądarce. By zapobiec błędom brakujących tłumaczeń, **bundler musi wysłać cały namespace do klienta**. Destrukturyzowane właściwości w Intlayer pozwalają kompilatorowi precyzyjnie sprawdzić referencje i wyczyścić nieużywany tekst. Szczegóły znajdziesz w [optymalizacji bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/bundle_optimization.md).
+
+- [optymalizacji bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/bundle_optimization.md)
 
 ## Doświadczenie programisty
 
@@ -276,6 +282,8 @@ Weryfikowany jest jednak wyłącznie plik domyślny. Jeśli usuniesz wpis z `pl.
 
 Intlayer tworzy typy dla wszystkich zadeklarowanych treści. Włączenie [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md) wymusza błąd budowania, jeśli w którymkolwiek języku zabraknie tłumaczenia.
 
+- [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md)
+
 ### Zestaw narzędzi i asystenci AI
 
 | Funkcjonalność                    | `next-intl` | Intlayer                                                                                                            |
@@ -301,6 +309,8 @@ Wyszukuje i uzupełnia brakujące klucze, korzystając z Twoich prywatnych klucz
 **Samodzielnie hostowany CMS wizualny:**
 
 Skorzystaj z [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md), by dać zespołom nietechnicznym możliwość edycji treści z bezpośrednim zapisem w Git.
+
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md)
 
 **Licencja open source:**
 

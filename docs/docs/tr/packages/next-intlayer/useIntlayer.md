@@ -76,6 +76,8 @@ Next.js uygulamanızda istemci tarafı veya sunucu tarafı bileşenlerde çalı�
 
 İçerik bildirim dosyalarının kurulumu için talimatlar [burada](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md) mevcuttur.
 
+- [İçerik bildirim dosyaları (.content.ts)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md)
+
 ## Next.js'te Örnek Kullanım
 
 İşte uygulamanın mevcut yerel ayarına göre yerelleştirilmiş içeriği dinamik olarak yüklemek için `useIntlayer` hook'unu bir Next.js sayfasında nasıl uygulayabileceğiniz:

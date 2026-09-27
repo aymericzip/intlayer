@@ -67,6 +67,8 @@ Paraglide generates one function per message. Intlayer declares content per comp
 
 The [history of JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/history_of_i18n.md) covers each wave in detail.
 
+- [history of JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/history_of_i18n.md)
+
 ## The decision that matters most: where content lives and when it loads
 
 Two structural choices explain most of the bundle difference between setups:
@@ -80,11 +82,17 @@ The graph estimates the payload for a theoretical app of 1 to 10 pages, translat
 
 `@solid-primitives/i18n` does nothing about either axis: you `createResource` a dictionary per locale, which gets you dynamic loading, and the rest is yours. `solid-i18next` has namespaces and lazy backends, but nothing enforces the mapping, so a shared component importing `common` makes it a dependency of every route. Paraglide gets the page axis through tree-shaking, although it did not take effect in the [Solid benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/benchmark/solid.md) implementation. Intlayer gets it through per-component declarations.
 
+- [Solid benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/benchmark/solid.md)
+
 If your answer to question 4 was "many pages", weigh this section more than any API preference. The [per-component vs centralised i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/per-component_vs_centralized_i18n.md) post covers the maintenance side of the same trade-off.
+
+- [per-component vs centralised i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/per-component_vs_centralized_i18n.md)
 
 ## The candidates
 
 Library sizes are from the [Solid benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/benchmark/solid.md): provider plus accessor in an empty component, after bundling, tree-shaking and minification, on a 10-page, 10-locale app. Content is measured separately.
+
+- [Solid benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/benchmark/solid.md)
 
 ![Solid i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
@@ -118,6 +126,8 @@ Paraglide's near-zero library size is by construction: the runtime is generated 
 
 The locale has to come from the URL on the server so both sides agree; detecting it on the client is too late. `@solid-primitives/i18n` and `solid-i18next` leave the `[[locale]]` route, `matchFilters`, the redirect and the `entry-server.tsx` tags to you. Paraglide has a Vite plugin that handles routing. Intlayer ships middleware and the route helpers. Whichever you pick, put `<html lang>` and `hreflang` in `entry-server.tsx`; `@solidjs/meta` applies on the client after hydration in SolidStart v2. The [Solid i18n post](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_solid_start.md) walks through that setup.
 
+- [Solid i18n post](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_solid_start.md)
+
 </Accordion>
 <Accordion header="Locale change must be instant and fine-grained">
 
@@ -132,6 +142,8 @@ Scoped content compiled at build time. Intlayer ships only what a route renders.
 <Accordion header="Type safety is non-negotiable">
 
 `@solid-primitives/i18n` gives you inferred types for free, which is more than most React libraries offer. For generated types that survive lazy loading and per-route splitting, Paraglide, `@lingui/solid` and Intlayer all produce them from the content. The [detecting missing translations](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/detecting_missing_translations.md) post compares what each catches at build time.
+
+- [detecting missing translations](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/detecting_missing_translations.md)
 
 </Accordion>
 <Accordion header="Translations will be produced by AI">
@@ -376,6 +388,9 @@ All locales in one file beside the component. `useIntlayer` returns signal-backe
 
 On an existing i18next codebase, the [i18next compat adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compat/i18next.md) aliases the package at the bundler level so catalogues and `t()` keep working while Intlayer serves the content, and the [migration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/migration_from_i18next_to_intlayer.md) covers the rest.
 
+- [i18next compat adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compat/i18next.md)
+- [migration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/migration_from_i18next_to_intlayer.md)
+
 ## Before you commit
 
 A feature table tells you what a library does today. These points tell you what living with it will be like.
@@ -398,6 +413,9 @@ The most installed library is the one that shipped first, not the one that fits 
 
 Agents still struggle with i18n: they forget locales, invent keys, and mix message syntaxes. Does the library ship [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/agent_skills.md) or an [MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/mcp_server.md) so the agent can list, fill and test content? And is content loading optimised by default, or does someone have to review namespaces and lazy imports every quarter?
 
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/agent_skills.md)
+- [MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/mcp_server.md)
+
 **Type safety out of the box.**
 
 Not "can be typed with extra wiring" but "a wrong key fails `tsc` on a fresh install". Check what happens with a key that does not exist, and with a locale that is missing one translation.
@@ -409,6 +427,13 @@ Catalogues only grow. Intlayer's build purges unused fields and logs them (`buil
 **Developer experience.**
 
 Setup time to first translated string, an [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/lsp.md) or [VS Code extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/vs_code_extension.md) that shows the translation on hover and jumps to the declaration, a [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/index.md) for fill, test and push, a [compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compiler.md) or extractor that pulls hard-coded strings out of your components so you do not manage every string key by key, and a way for non-developers to edit content ([visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_visual_editor.md) or [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_CMS.md)) without a pull request.
+
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/lsp.md)
+- [VS Code extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/vs_code_extension.md)
+- [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/index.md)
+- [compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compiler.md)
+- [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_CMS.md)
 
 ## Frequently Asked Questions
 
@@ -430,11 +455,15 @@ Because Solid components run once. A translation read into a `const` at setup is
 
 Only if bundle size, generated types or build-time missing-key checks are actual requirements. The [compiler vs declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/compiler_vs_declarative_i18n.md) post explains what compilers give you and where they can get it wrong.
 
+- [compiler vs declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/compiler_vs_declarative_i18n.md)
+
 </Question>
 
 <Question title="Does the library choice affect SEO?">
 
 Indirectly. Crawlers care about routing, `hreflang`, `<html lang>` and whether text is in the server-rendered HTML, which on SolidStart means `entry-server.tsx`. See the [hreflang guide](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/hreflang_guide_multilingual_seo.md).
+
+- [hreflang guide](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/hreflang_guide_multilingual_seo.md)
 
 </Question>
 

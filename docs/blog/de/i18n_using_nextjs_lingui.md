@@ -66,6 +66,8 @@ Dieser Leitfaden richtet Lingui in einem **Next.js 16 App Router** Projekt ein, 
 
 Der [i18n-Benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/nextjs.md) führt dieselbe Next.js-App mit 10 Seiten und 10 Locales mit jeder gängigen Bibliothek aus und misst, was der Browser tatsächlich herunterlädt.
 
+- [i18n-Benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/nextjs.md)
+
 <I18nBenchmark framework="nextjs" packages="lingui,@intlayer/lingui,next-intlayer" vertical/>
 
 Wichtige Kennzahlen für `@lingui/core@6.6.0` auf Next.js 16, gemessen am 26.09.2026 (gzip):
@@ -83,6 +85,8 @@ Wichtige Erkenntnisse:
 - **Die Lingui-Runtime wiegt ~72 KB gzip.** Der `@intlayer/lingui`-Compat-Adapter reduziert die Runtime auf ~11 KB, aber in diesem Benchmark überträgt das Next.js-Compat-Setup immer noch ganze Kataloge an die Seite. Die native `next-intlayer`-API ist das Setup, das bei der Größe der Basis-App bleibt.
 
 > Vollständige Daten ansehen: [Next.js-Benchmark-Bericht](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/nextjs.md) und das [Benchmark-Repository](https://github.com/intlayer-org/benchmark-i18n).
+
+- [Next.js-Benchmark-Bericht](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/nextjs.md)
 
 ## Funktionsvergleich auf Next.js
 
@@ -108,6 +112,9 @@ Wie Lingui im Vergleich zu `next-intl` und Intlayer bei den Funktionen abschneid
 | **Ökosystem / Community**                | ⚠️ Kleiner, wächst schnell                             | ✅ Ausgereift                                                          | ✅ Groß                                     |
 
 > Die Runtime-Größen stammen aus dem [Next.js-Benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/nextjs.md). Für einen ausführlichen Vergleich lesen Sie [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/lingui_vs_intlayer.md).
+
+- [Next.js-Benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/nextjs.md)
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/lingui_vs_intlayer.md)
 
 > Weitere Next.js-Anleitungen:
 
@@ -1041,9 +1048,17 @@ export const sendContactMessage = async (formData: FormData) => {
 
 Der [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compat/lingui.md) Compat-Adapter lässt Ihren Quellcode unberührt: Makros kompilieren wie gewohnt, und die resultierenden Aufrufe von `i18n._()`, `useLingui()` und `<Trans>` werden über Intlayer-Wörterbücher bedient. Im Next.js-Benchmark sinkt die Runtime von **~72.1 KB auf ~10.7 KB** gzip.
 
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compat/lingui.md)
+
 Unter Next.js wird der Adapter eingebunden, indem `@lingui/core` und `@lingui/react` in `next.config.ts` (sowohl für webpack als auch für Turbopack) auf `@intlayer/lingui` aliasiert werden und die Konfiguration mit `withIntlayer` aus `next-intlayer/server` umschlossen wird. Behalten Sie `@lingui/swc-plugin`, damit die Makros weiterhin zuerst kompiliert werden. Die vollständige Konfiguration finden Sie im [Lingui Compat Leitfaden](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compat/lingui.md).
 
+- [Lingui Compat Leitfaden](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compat/lingui.md)
+
 Wie die Benchmark-Tabelle zeigt, reduziert der Adapter die Runtime, aber unter Next.js noch nicht den an jede Seite ausgelieferten Katalog. Er eignet sich am besten als Migrationsbrücke: Sobald er läuft, können Sie Komponenten schrittweise auf die native `useIntlayer`-API umstellen, die nur die Inhalte ausliefert, die jede Komponente tatsächlich rendert. Siehe die [Next.js + Intlayer Anleitung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_nextjs_16.md), [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/lingui_vs_intlayer-lingui.md) und alle [Compat-Adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compat/index.md).
+
+- [Next.js + Intlayer Anleitung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_nextjs_16.md)
+- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/lingui_vs_intlayer-lingui.md)
+- [Compat-Adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compat/index.md)
 
 </Step>
 <Step number={19} title="Übersetzungen mit Intlayer automatisieren" isOptional={true}>
@@ -1086,15 +1101,23 @@ Holen Sie sich die Server-Instanz mit `getI18nInstance(locale)` und übersetzen 
 
 Der [Benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/nextjs.md) misst ~72 KB gzip für die Runtime. Mit einem Katalog pro Locale wiegen Seiten ~145 KB im Vergleich zu 141 KB ohne i18n, aber jede Seite erhält über den Client-Provider weiterhin die Nachrichten anderer Seiten.
 
+- [Benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/nextjs.md)
+
 </Question>
 <Question title="Lingui, next-intl oder next-i18next: Welches sollte ich für Next.js wählen?">
 
 Lingui eignet sich für Teams, die Quelltexte gerne direkt in Komponenten schreiben und mit PO-Dateien sowie Übersetzern arbeiten. next-intl eignet sich für Teams, die JSON-Kataloge und eine eng in Next.js integrierte `t("key")`-API bevorzugen. next-i18next bringt das Plugin-Ökosystem von i18next mit. Siehe [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/next-i18next_vs_next-intl_vs_intlayer.md) und den [Next.js-Benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/nextjs.md).
 
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/next-i18next_vs_next-intl_vs_intlayer.md)
+- [Next.js-Benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/nextjs.md)
+
 </Question>
 <Question title="Kann ich von Lingui zu Intlayer migrieren, ohne meine Komponenten neu zu schreiben?">
 
 Ja. Der [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compat/lingui.md) Adapter behält die Makros bei und tauscht die Runtime aus. Anschließend können Sie Komponenten schrittweise auf `useIntlayer` umstellen. Siehe die [Compat-Adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compat/index.md).
+
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compat/lingui.md)
+- [Compat-Adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compat/index.md)
 
 </Question>
 

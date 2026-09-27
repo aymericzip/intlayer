@@ -26,6 +26,8 @@ React ships no i18n primitive. The library you pick on day one decides how trans
 
 This guide goes the other way: answer a few questions about your project first, then map the answers to the libraries that fit. It focuses on plain React (Vite, React Router, TanStack Start). Next.js has its own constraints, covered in the [Next.js comparison](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/next-i18next_vs_next-intl_vs_intlayer.md).
 
+- [Next.js comparison](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/next-i18next_vs_next-intl_vs_intlayer.md)
+
 ## Table of Contents
 
 <TOC/>
@@ -74,6 +76,8 @@ Content is compiled into tree-shakable functions or per-component dictionaries. 
 
 The [history of JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/history_of_i18n.md) details how each wave answered the previous one's problems.
 
+- [history of JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/history_of_i18n.md)
+
 ## The decision that matters most: where content lives and when it loads
 
 Every React i18n library has the same shape: a store, a provider, a hook. Whatever the provider receives ends up in the client bundle or in the hydration payload. So the two structural choices are:
@@ -89,11 +93,17 @@ Centralized content with static imports grows with both axes: 10 pages times 10 
 
 This is not a library property, it is a discipline property. `react-i18next` can be scoped with namespaces and lazy backends. `use-intl` can be split per route. But nothing enforces it, and a shared `<Button>` reaching for `t("common:cta")` quietly makes `common` a dependency of every route. The [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/index.md) measures this as "leakage from other routes" and "leakage from other locales", and it is where most of the gap between libraries comes from.
 
+- [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/index.md)
+
 If your answer to question 3 was "many locales, many pages", weigh this section more than any API preference. The [per-component vs centralized i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/per-component_vs_centralized_i18n.md) post goes deeper on the maintenance side of the same choice.
+
+- [per-component vs centralized i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/per-component_vs_centralized_i18n.md)
 
 ## The candidates
 
 Library sizes come from the [TanStack Start benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/tanstack.md): provider plus hook in an empty component, after bundling, tree-shaking and minification, 10 pages and 10 locales. Content is measured separately.
+
+- [TanStack Start benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/tanstack.md)
 
 ![React i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
@@ -119,6 +129,8 @@ Two things the table does not show. `Paraglide` ships almost no library because 
 
 Pick the simplest thing that works and do not over-invest. `react-i18next` with a single JSON per locale is fine, and the decade of Stack Overflow answers will save you time. Skip namespaces until you need them. If the prototype becomes a product, budget a migration to scoped content; the [react-i18next compat adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/react-i18next.md) makes that incremental.
 
+- [react-i18next compat adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/react-i18next.md)
+
 </Accordion>
 <Accordion header="Translations come from an agency or a TMS that speaks ICU">
 
@@ -134,6 +146,8 @@ Prefer scoped content and dynamic loading by default, not by convention. `Lingui
 
 Every key-based library can be typed, and almost none is by default. If you do not want to maintain declaration merging that has to survive lazily loaded namespaces, pick a library where types are generated from the content: `Lingui`, `Paraglide`, or Intlayer. The [detecting missing translations](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/detecting_missing_translations.md) post compares what each catches at build time.
 
+- [detecting missing translations](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/detecting_missing_translations.md)
+
 </Accordion>
 <Accordion header="Lots of rich content: markdown, links inside sentences, per-locale components">
 
@@ -148,6 +162,8 @@ Then a centralized JSON is no longer a requirement, since there is no TMS to imp
 <Accordion header="You may move to Next.js App Router later">
 
 React context does not cross the server/client boundary. Libraries built on a client hook alone (`react-i18next`, `react-intl`) will need a parallel server API the day you adopt RSC. `use-intl` (as `next-intl`) and Intlayer (as `next-intlayer`) already have that split. Read the [Next.js i18n post](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/next-i18next_vs_next-intl_vs_intlayer.md) before standardizing a pattern.
+
+- [Next.js i18n post](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/next-i18next_vs_next-intl_vs_intlayer.md)
 
 </Accordion>
 </AccordionGroup>
@@ -493,6 +509,11 @@ All locales in one file beside the component. Types are generated at build, so `
 
 Already on `react-i18next`, `react-intl` or `Lingui`? The compat adapters ([react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/react-i18next.md), [react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/react-intl.md), [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/lingui.md)) alias the imports at the bundler level so the existing API keeps working while you move component by component. The [migration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/migration_from_react-i18next_to_intlayer.md) covers the rest.
 
+- [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/react-i18next.md)
+- [react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/react-intl.md)
+- [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/lingui.md)
+- [migration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/migration_from_react-i18next_to_intlayer.md)
+
 ## Before you commit
 
 A feature table tells you what a library does today. These points tell you what living with it will be like.
@@ -515,6 +536,9 @@ The most installed library is the one that shipped first, not the one that fits 
 
 Agents still struggle with i18n: they forget locales, invent keys, and mix message syntaxes. Does the library ship [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md) or an [MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md) so the agent can list, fill and test content? And is content loading optimized by default, or does someone have to review namespaces and lazy imports every quarter?
 
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)
+- [MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)
+
 **Type safety out of the box.**
 
 Not "can be typed with extra wiring" but "a wrong key fails `tsc` on a fresh install". Check what happens with a key that does not exist, and with a locale that is missing one translation.
@@ -526,6 +550,13 @@ Catalogs only grow. Intlayer's build purges unused fields and logs them (`build.
 **Developer experience.**
 
 Setup time to first translated string, an [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md) or [VS Code extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md) that shows the translation on hover and jumps to the declaration, a [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md) for fill, test and push, a [compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compiler.md) or extractor that pulls hard-coded strings out of your components so you do not manage every string key by key, and a way for non-developers to edit content ([visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) or [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)) without a pull request.
+
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)
+- [VS Code extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md)
+- [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md)
+- [compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compiler.md)
+- [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
 
 ## Frequently Asked Questions
 
@@ -541,6 +572,8 @@ Yes for most teams. It has the largest ecosystem and the most answers online. It
 
 Only if bundle size, generated types or build-time missing-key checks are among your requirements. For a small app with two locales, a runtime library is simpler. The [compiler vs declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/compiler_vs_declarative_i18n.md) post explains what compilers give you and what they can get wrong.
 
+- [compiler vs declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/compiler_vs_declarative_i18n.md)
+
 </Question>
 
 <Question title="Can I switch library later without rewriting every component?">
@@ -552,6 +585,8 @@ Partially. Key-based libraries share enough shape that a compat adapter can alia
 <Question title="Does the library choice affect SEO?">
 
 Indirectly. What crawlers see is decided by routing, `hreflang`, `<html lang>` and whether text is in the server-rendered HTML. Some libraries ship helpers for that, most leave it to you. See the [hreflang guide](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/hreflang_guide_multilingual_seo.md).
+
+- [hreflang guide](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/hreflang_guide_multilingual_seo.md)
 
 </Question>
 

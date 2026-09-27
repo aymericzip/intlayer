@@ -110,6 +110,8 @@ bun add intlayer-cli -g
 
 Paket `intlayer-cli` dirancang untuk mentranspilasi [deklarasi intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md) Anda ke dalam kamus.
 
+- [deklarasi intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md)
+
 Paket ini mentranspilasi semua file intlayer, seperti `src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}`. [Lihat cara mendeklarasikan file deklarasi Intlayer Anda](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
 
 Untuk menginterpretasikan kamus intlayer, Anda dapat menggunakan interpreter, seperti [react-intlayer](https://www.npmjs.com/package/react-intlayer) atau [next-intlayer](https://www.npmjs.com/package/next-intlayer).
@@ -127,13 +129,17 @@ Intlayer menerima beberapa format file konfigurasi:
 
 Untuk mempelajari cara mengonfigurasi bahasa yang tersedia atau parameter lainnya, lihat [dokumentasi konfigurasi di sini](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md).
 
+- [dokumentasi konfigurasi di sini](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md)
+
 ## Menjalankan Perintah Intlayer
 
 ### Autentikasi
 
 - **[Login](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/login.md)** - Autentikasi dengan Intlayer CMS dan dapatkan kredensial akses
 
-> `intlayer login` mengeluarkan sebuah **access key** (`clientId` / `clientSecret`) yang digunakan oleh setiap perintah yang memerlukan kredensial. Secret adalah kredensial sisi server dan tidak pernah mencapai client bundle Anda — lihat [Keeping the access key safe](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/login.md#keeping-the-access-key-safe).
+> `intlayer login` mengeluarkan sebuah **access key** (`clientId` / `clientSecret`) yang digunakan oleh setiap perintah yang memerlukan kredensial. Secret adalah kredensial sisi server dan tidak pernah mencapai client bundle Anda, lihat [Keeping the access key safe](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/login.md#keeping-the-access-key-safe).
+
+- [Keeping the access key safe](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/login.md#keeping-the-access-key-safe)
 
 ### Perintah Utama
 

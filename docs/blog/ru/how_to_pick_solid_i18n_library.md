@@ -67,6 +67,8 @@ Paraglide генерирует отдельную функцию для кажд
 
 Статья об [истории JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/history_of_i18n.md) подробно рассматривает каждую волну.
 
+- [истории JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/history_of_i18n.md)
+
 ## Главное архитектурное решение: где хранится контент и когда он загружается
 
 Два структурных фактора объясняют большую часть различий в размере bundle между решениями:
@@ -80,11 +82,17 @@ Paraglide генерирует отдельную функцию для кажд
 
 `@solid-primitives/i18n` не решает эти задачи из коробки: вы используете `createResource` для словаря каждой локали, что дает динамическую загрузку, а остальное реализуете сами. `solid-i18next` поддерживает namespaces и lazy backends, но ничто не контролирует их разделение: если общий компонент импортирует `common`, он становится зависимостью каждого маршрута. Paraglide оптимизирует разделение по страницам с помощью tree-shaking, хотя в [Solid benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/solid.md) этого эффекта достичь не удалось. Intlayer обеспечивает разделение за счет деклараций на уровне отдельных компонентов.
 
+- [Solid benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/solid.md)
+
 Если вашим ответом на вопрос 4 было «много страниц», уделите этому разделу больше внимания, чем предпочтениям в API. В статье о [колокации против централизованного i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/per-component_vs_centralized_i18n.md) рассматривается аспект поддержки того же компромисса.
+
+- [колокации против централизованного i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/per-component_vs_centralized_i18n.md)
 
 ## Кандидаты
 
 Размеры библиотек взяты из [Solid benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/solid.md): provider плюс accessor в пустом компоненте после сборки, tree-shaking и минификации в приложении на 10 страниц и 10 локалей. Объем контента измеряется отдельно.
+
+- [Solid benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/solid.md)
 
 ![Экосистема библиотек i18n для Solid](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
@@ -118,6 +126,8 @@ Paraglide генерирует отдельную функцию для кажд
 
 Локаль должна извлекаться из URL на сервере, чтобы данные на обеих сторонах совпадали; определять ее на клиенте уже слишком поздно. `@solid-primitives/i18n` и `solid-i18next` оставляют маршрут `[[locale]]`, `matchFilters`, редиректы и теги в `entry-server.tsx` на ваше усмотрение. У Paraglide есть плагин для Vite, отвечающий за маршрутизацию. Intlayer поставляется с готовыми middleware и хелперами маршрутов. Что бы вы ни выбрали, размещайте `<html lang>` и `hreflang` в `entry-server.tsx`; `@solidjs/meta` применяется на клиенте только после гидратации в SolidStart v2. В статье об [i18n в Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_solid_start.md) подробно описана эта настройка.
 
+- [i18n в Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_solid_start.md)
+
 </Accordion>
 <Accordion header="Смена локали должна быть мгновенной и точечной">
 
@@ -132,6 +142,8 @@ Paraglide генерирует отдельную функцию для кажд
 <Accordion header="Типобезопасность принципиально важна">
 
 `@solid-primitives/i18n` предоставляет автоматически выводимые типы из коробки, чего не предлагает большинство библиотек для React. Если нужны сгенерированные типы, сохраняющиеся при lazy-загрузке и разделении по маршрутам, Paraglide, `@lingui/solid` и Intlayer создают их напрямую из контента. В статье об [обнаружении недостающих переводов](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/detecting_missing_translations.md) сравнивается, какие ошибки каждая библиотека отлавливает на этапе сборки.
+
+- [обнаружении недостающих переводов](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/detecting_missing_translations.md)
 
 </Accordion>
 <Accordion header="Переводы будут создаваться с помощью AI">
@@ -389,6 +401,9 @@ export const CartSummary: Component<{ count: number }> = (props) => {
 
 Для существующей кодовой базы на i18next [адаптер совместимости с i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/i18next.md) подменяет alias пакета на уровне сборщика, благодаря чему каталоги и `t()` продолжают работать, пока Intlayer отдает контент. Остальные шаги описаны в [руководстве по миграции](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/migration_from_i18next_to_intlayer.md).
 
+- [адаптер совместимости с i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/i18next.md)
+- [руководстве по миграции](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/migration_from_i18next_to_intlayer.md)
+
 ## На что обратить внимание перед выбором
 
 Таблица возможностей показывает, что библиотека умеет сегодня. Следующие пункты подскажут, каково будет поддерживать ее в долгосрочной перспективе.
@@ -411,6 +426,9 @@ export const CartSummary: Component<{ count: number }> = (props) => {
 
 Агенты по-прежнему испытывают трудности с i18n: забывают локали, выдумывают несуществующие ключи и смешивают синтаксисы сообщений. Предоставляет ли библиотека [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/agent_skills.md) или [MCP-сервер](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/mcp_server.md), чтобы агент мог просматривать, заполнять и тестировать контент? Оптимизирована ли загрузка контента по умолчанию, или кому-то придется ежеквартально проверять namespaces и lazy-импорты?
 
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/agent_skills.md)
+- [MCP-сервер](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/mcp_server.md)
+
 **Типобезопасность из коробки.**
 
 Не «можно настроить типы при дополнительных усилиях», а «неверный ключ приводит к ошибке `tsc` сразу после чистой установки». Проверьте, что происходит при обращении к несуществующему ключу и если в какой-то локали отсутствует перевод.
@@ -422,6 +440,13 @@ export const CartSummary: Component<{ count: number }> = (props) => {
 **Удобство для разработчиков (DX).**
 
 Время от установки до первой переведенной строки, наличие [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/lsp.md) или [расширения для VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/vs_code_extension.md), показывающего перевод при наведении и позволяющего перейти к объявлению, [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/index.md) для заполнения, тестирования и пуша, [компилятор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compiler.md) или экстрактор, который извлекает захардкоженные строки из компонентов, чтобы не управлять каждой строкой ключ за ключом, а также возможность для нетехнических специалистов редактировать контент ([визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md) или [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md)) без pull request.
+
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/lsp.md)
+- [расширения для VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/vs_code_extension.md)
+- [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/index.md)
+- [компилятор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compiler.md)
+- [визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md)
 
 ## Часто задаваемые вопросы
 
@@ -443,11 +468,15 @@ export const CartSummary: Component<{ count: number }> = (props) => {
 
 Только если размер bundle, сгенерированные типы или проверка отсутствующих ключей на этапе сборки являются обязательными требованиями. В статье о [компиляторах против декларативного i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/compiler_vs_declarative_i18n.md) объясняется, что дают компиляторы и в каких случаях они могут подвести.
 
+- [компиляторах против декларативного i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/compiler_vs_declarative_i18n.md)
+
 </Question>
 
 <Question title="Влияет ли выбор библиотеки на SEO?">
 
 Косвенно. Поисковые роботы обращают внимание на маршрутизацию, `hreflang`, `<html lang>` и наличие текста в HTML, отрендеренном на сервере, что в SolidStart означает корректную настройку `entry-server.tsx`. Ознакомьтесь с [руководством по hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/hreflang_guide_multilingual_seo.md).
+
+- [руководством по hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/hreflang_guide_multilingual_seo.md)
 
 </Question>
 

@@ -57,6 +57,8 @@ Die Funktion nimmt keine Parameter entgegen. Stattdessen verwendet sie Umgebungs
 
 Siehe [Intlayer Konfigurationsdokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md) für weitere Details.
 
+- [Intlayer Konfigurationsdokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md)
+
 ## Beispielhafte Verwendung
 
 ### Abrufen der vollständigen Konfiguration

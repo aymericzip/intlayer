@@ -144,12 +144,12 @@ Intlayerは、Markdown構文を使用して定義されたリッチテキスト�
 Intlayer は Markdown をレンダリングするための 2 つの独立した方法を提供します:
 
 1. **`useIntlayer` 経由**
-   — Intlayer は自動的に `md` ノードをフレームワークのネイティブ出力 (JSX、VNode、HTML 文字列) に変換します。
+   Intlayer は自動的に `md` ノードをフレームワークのネイティブ出力 (JSX、VNode、HTML 文字列) に変換します。
    - Frontmatter は解析され、`.metadata` として公開されます。レンダリングはグローバルに `MarkdownProvider` (またはフレームワークと同等のもの) で、ノードごとにローカルで `.use()` で、2 つのレベルでオーバーライドできます。両者は組み合わせることができます。`.use()` は `MarkdownProvider` に優先し、`MarkdownProvider` はデフォルトに優先します。
 
-2. **ヘルパーユーティリティ** — `<MarkdownRenderer />`、`useMarkdownRenderer()`、および `renderMarkdown()` は、**生の Markdown 文字列のみ** を受け入れるスタンドアロンツールです。これらは `useIntlayer` から独立しており、それが返す装飾されたノードでは機能しません。
+2. **ヘルパーユーティリティ**：`<MarkdownRenderer />`、`useMarkdownRenderer()`、および `renderMarkdown()` は、**生の Markdown 文字列のみ** を受け入れるスタンドアロンツールです。これらは `useIntlayer` から独立しており、それが返す装飾されたノードでは機能しません。
 
-Markdown レンダリングは **MDX** をサポートしています — Markdown 内で JSX/フレームワークコンポーネントを名前で直接使用できます。
+Markdown レンダリングは **MDX** をサポートしています。Markdown 内で JSX/フレームワークコンポーネントを名前で直接使用できます。
 
 ### 1. 自動レンダリング（`useIntlayer`経由）
 
@@ -866,7 +866,7 @@ Markdown レンダリングは **MDX** をサポートしています — Markdo
 
 ## `MarkdownProvider` を使用したグローバル設定
 
-`MarkdownProvider`（またはそのフレームワーク相当）は、アプリケーション全体の Markdown レンダリングパイプラインを設定します。自動的な `useIntlayer` レンダリングとヘルパーユーティリティの両方に適用されます。ここで設定されたオプションはデフォルトです — `.use()` はノードレベルでそれらをオーバーライドします。
+`MarkdownProvider`（またはそのフレームワーク相当）は、アプリケーション全体の Markdown レンダリングパイプラインを設定します。自動的な `useIntlayer` レンダリングとヘルパーユーティリティの両方に適用されます。ここで設定されたオプションはデフォルトです。`.use()` はノードレベルでそれらをオーバーライドします。
 
 <Tabs group="framework">
   <Tab label="React" value="react">
@@ -888,7 +888,7 @@ Markdown レンダリングは **MDX** をサポートしています — Markdo
     ```
 
 
-    > MDX がサポートされています — Markdown 内で使用されるコンポーネント名（例：`<MyCustomJSXComponent />`）は `components` マップに対して解決されます。
+    > MDX がサポートされています。Markdown 内で使用されるコンポーネント名（例：`<MyCustomJSXComponent />`）は `components` マップに対して解決されます。
 
     独自の Markdown レンダラーを使用することもできます：
 
@@ -930,7 +930,7 @@ Markdown レンダリングは **MDX** をサポートしています — Markdo
     ```
 
 
-    > MDX がサポートされています — Markdown 内で使用されるコンポーネント名（例：`<MyCustomJSXComponent />`）は `components` マップに対して解決されます。
+    > MDX がサポートされています。Markdown 内で使用されるコンポーネント名（例：`<MyCustomJSXComponent />`）は `components` マップに対して解決されます。
 
     独自の Markdown レンダラーを使用することもできます：
 
@@ -978,7 +978,7 @@ Markdown レンダリングは **MDX** をサポートしています — Markdo
     ```
 
 
-    > MDX がサポートされています — Markdown 内で使用されるコンポーネント名（例：`<MyCustomJSXComponent />`）は `components` マップに対して解決されます。
+    > MDX がサポートされています。Markdown 内で使用されるコンポーネント名（例：`<MyCustomJSXComponent />`）は `components` マップに対して解決されます。
 
     独自の Markdown レンダラーを使用することもできます：
 
@@ -1022,7 +1022,7 @@ Markdown レンダリングは **MDX** をサポートしています — Markdo
     ```
 
 
-    > MDX がサポートされています — Markdown 内で使用されるコンポーネント名（例：`<MyCustomJSXComponent />`）は `components` マップに対して解決されます。
+    > MDX がサポートされています。Markdown 内で使用されるコンポーネント名（例：`<MyCustomJSXComponent />`）は `components` マップに対して解決されます。
 
     独自の Markdown レンダラーを使用することもできます：
 
@@ -1061,7 +1061,7 @@ Markdown レンダリングは **MDX** をサポートしています — Markdo
     ```
 
 
-    > MDX がサポートされています — Markdown 内で使用されるコンポーネント名（例：`<MyCustomJSXComponent />`）は `components` マップに対して解決されます。
+    > MDX がサポートされています。Markdown 内で使用されるコンポーネント名（例：`<MyCustomJSXComponent />`）は `components` マップに対して解決されます。
 
     独自の Markdown レンダラーを使用することもできます：
 
@@ -1100,7 +1100,7 @@ Markdown レンダリングは **MDX** をサポートしています — Markdo
     ```
 
 
-    > MDX がサポートされています — Markdown 内で使用されるコンポーネント名（例：`<MyCustomJSXComponent />`）は `components` マップに対して解決されます。
+    > MDX がサポートされています。Markdown 内で使用されるコンポーネント名（例：`<MyCustomJSXComponent />`）は `components` マップに対して解決されます。
 
     独自の Markdown レンダラーを使用することもできます：
 
@@ -1139,7 +1139,7 @@ Markdown レンダリングは **MDX** をサポートしています — Markdo
     ```
 
 
-    > MDX がサポートされています — Markdown 内で使用されるコンポーネント名（例：`<MyCustomJSXComponent />`）は `components` マップに対して解決されます。
+    > MDX がサポートされています。Markdown 内で使用されるコンポーネント名（例：`<MyCustomJSXComponent />`）は `components` マップに対して解決されます。
 
     独自の Markdown レンダラーを使用することもできます：
 

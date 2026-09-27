@@ -149,6 +149,9 @@ npx intlayer init infra --mode compose
 
 Bước tương tự cũng được cung cấp bởi `npx intlayer init --interactive`. Xem [tài liệu tham khảo `init infra`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/infra.md) để biết cài đặt của trình cài đặt và [hướng dẫn tự lưu trữ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/self_hosting.md) để biết những gì mỗi chế độ thiết lập.
 
+- [tài liệu tham khảo `init infra`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/infra.md)
+- [hướng dẫn tự lưu trữ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/self_hosting.md)
+
 ## Ví dụ đầu ra:
 
 ```bash

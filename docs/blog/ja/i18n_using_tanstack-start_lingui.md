@@ -61,6 +61,8 @@ TanStack Start には組み込みの i18n レイヤーが付属していない�
 
 [i18n ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md)では、主要な各ライブラリを使用して同じ 10 ページ・10 ロケールの TanStack Start アプリを実行し、ブラウザが実際にダウンロードするサイズを測定しています。
 
+- [i18n ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md)
+
 <I18nBenchmark framework="tanstack" packages="lingui,@intlayer/lingui,intlayer" vertical/>
 
 2026-09-26 に測定された `@lingui/core@6.6.0` に関する主要な数値（gzip）：
@@ -78,6 +80,8 @@ TanStack Start には組み込みの i18n レイヤーが付属していない�
 - **ランタイムが依然として大きめである**（約 57 KB gzip）。`@intlayer/lingui` 互換アダプター（ステップ 16）を使用すると、マクロをそのまま維持しながら約 10 KB まで削減できます。
 
 > 詳細なデータについては、[TanStack Start ベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md)および[ベンチマークリポジトリ](https://github.com/intlayer-org/benchmark-i18n)をご覧ください。
+
+- [TanStack Start ベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md)
 
 ## TanStack Start における機能比較
 
@@ -102,6 +106,8 @@ TanStack Start で一般的に使用される他のライブラリとの Lingui 
 | **CI での未翻訳検出**                       | ✅ `npx intlayer test`                 | ⚠️ 組み込みなし             | ⚠️ 組み込みなし                         | ✅ `lingui compile --strict`        |
 
 > ランタイムサイズと混入率（リーク）の数値は、[TanStack Start ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md)に基づいています。混入率は各ライブラリの最適な構成で測定されています。
+
+- [TanStack Start ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md)
 
 > 他の TanStack Start ガイド：
 
@@ -931,6 +937,8 @@ export const Route = createFileRoute("/{-$locale}/$")({
 
 [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/lingui.md) 互換アダプターを使用すると、ソースコードを変更する必要がありません。マクロはこれまで通りコンパイルされ、生成された `i18n._()`、`useLingui()`、および `<Trans>` の呼び出しはコンパイルされた Intlayer 辞書によって処理されます。ベンチマークでは、ランタイムが **約 56.7 KB から約 9.8 KB**（gzip）に減少します。
 
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/lingui.md)
+
 ```bash packageManager="npm"
 npm install @intlayer/lingui intlayer @intlayer/sync-json-plugin
 npx intlayer init
@@ -973,6 +981,11 @@ export default defineConfig({
 
 カタログは [JSON 同期プラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md)（JSON カタログ）または [PO 同期プラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-po.md)（PO カタログ）と同期されます。詳細なセットアップについては [Lingui 互換ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/lingui.md)を、詳細な比較については [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/lingui_vs_intlayer-lingui.md) をご覧ください。
 
+- [JSON 同期プラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md)
+- [PO 同期プラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-po.md)
+- [Lingui 互換ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/lingui.md)
+- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/lingui_vs_intlayer-lingui.md)
+
 </Step>
 <Step number={17} title="Intlayer を使用した翻訳の自動化" isOptional={true}>
 
@@ -1014,10 +1027,15 @@ Lingui はメッセージを抽出しますが、何十ものカタログを手�
 
 [ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md)では、ランタイムが約 56.7 KB（gzip）と測定されています。ロケールごとに1つのカタログをオンデマンドでロードする場合、i18n なしの 111 KB に対してページサイズは約 115 KB になります。すべてのカタログを静的にインポートすると約 152 KB に増加します。
 
+- [ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md)
+
 </Question>
 <Question title="Lingui のマクロを維持したまま Intlayer に移行できますか？">
 
 はい。[`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/lingui.md) アダプターはマクロを維持し、ランタイムを置き換えます。その後、コンポーネントを1つずつ `useIntlayer` に移行できます。[互換アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/index.md)をご覧ください。
+
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/lingui.md)
+- [互換アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/index.md)
 
 </Question>
 

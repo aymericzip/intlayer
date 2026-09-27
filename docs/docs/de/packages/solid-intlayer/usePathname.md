@@ -31,7 +31,7 @@ author: aymericzip
 
 # Solid Integration: `usePathname` Hook Dokumentation
 
-Der `usePathname` Hook gibt den aktuellen Browser-Pfadnamen (pathname) ohne das Locale-Segment als Solid `Accessor<string>` zurück. Dies ist nützlich für locale-sensitive Navigation — zum Beispiel um zu bestimmen, welches Navigationselement aktiv ist — ohne den Locale-Präfix manuell entfernen zu müssen.
+Der `usePathname` Hook gibt den aktuellen Browser-Pfadnamen (pathname) ohne das Locale-Segment als Solid `Accessor<string>` zurück. Dies ist nützlich für locale-sensitive Navigation (zum Beispiel um zu bestimmen, welches Navigationselement aktiv ist) ohne den Locale-Präfix manuell entfernen zu müssen.
 
 ## Importieren von `usePathname` in Solid
 

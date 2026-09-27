@@ -49,6 +49,8 @@ author: aymericzip
 
 > هل تستخدم Next.js بدلاً من ذلك؟ راجع [دليل next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/i18n_using_next-intl.md).
 
+- [دليل next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/i18n_using_next-intl.md)
+
 > لفهم أصل هذه المكتبات، اقرأ تاريخ i18n في JavaScript.
 
 - [تاريخ i18n في JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/history_of_i18n.md)
@@ -56,6 +58,8 @@ author: aymericzip
 ## ماذا تقول المقارنة المعيارية (Benchmark) عن use-intl على TanStack Start
 
 يقوم [الاختبار المعياري للتدويل (i18n benchmark)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md) بتشغيل التطبيق نفسه المكون من 10 صفحات و 10 لغات على TanStack Start باستخدام جميع المكتبات الرئيسية، ويقيس ما يقوم المتصفح بتنزيله بالفعل.
+
+- [الاختبار المعياري للتدويل (i18n benchmark)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md)
 
 <I18nBenchmark framework="tanstack" packages="use-intl,@intlayer/use-intl,intlayer" vertical/>
 
@@ -74,6 +78,8 @@ author: aymericzip
 - **بيئة التشغيل (runtime) نفسها تظل ثقيلة** (~76 KB بصيغة gzip)، لأن محلل ICU يتم شحنه إلى العميل. توفر طبقة التوافق `@intlayer/use-intl` (الخطوة 17) واجهة البرمجة نفسها تماماً مع بيئة تشغيل بحجم ~7 KB فقط.
 
 > للاطلاع على البيانات الكاملة: راجع [تقرير الاختبار المعياري لـ TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md)، و[مستودع الاختبار المعياري](https://github.com/intlayer-org/benchmark-i18n).
+
+- [تقرير الاختبار المعياري لـ TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md)
 
 ## مقارنة الميزات على TanStack Start
 
@@ -98,6 +104,8 @@ author: aymericzip
 | **الترجمات المفقودة في التكامل المستمر (CI)**           | ✅ `npx intlayer test`                 | ⚠️ غير مدمج                      | ⚠️ غير مدمج                           | ✅ `lingui compile --strict` |
 
 > أرقام حجم بيئة التشغيل ونسبة التسريب مأخوذة من [الاختبار المعياري لـ TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md). تم قياس التسريب بناءً على أفضل إعداد لكل مكتبة.
+
+- [الاختبار المعياري لـ TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md)
 
 > أدلة TanStack Start الأخرى:
 
@@ -974,6 +982,8 @@ export const startInstance = createStart(() => ({
 
 توضح المقارنة المعيارية أن الجزء الأكثر ثقلاً في إعداد use-intl هو بيئة التشغيل نفسها (~76 KB بصيغة gzip). توفر أداة التوافق [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/index.md) **الواجهة البرمجية نفسها** (`useTranslations`، `useFormatter`، `IntlProvider`، `createTranslator`، صيغ جمع ICU، و `t.rich`)، لكنها تقدمها من قواميس Intlayer المجمعة: **~6.7 KB بدلاً من ~75.9 KB**، مع 0% تسريب للغات و 0% تسريب للصفحات، ودون أي تعديل على مكوناتك.
 
+- [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/index.md)
+
 ```bash packageManager="npm"
 npm install @intlayer/use-intl intlayer @intlayer/sync-json-plugin
 npx intlayer init
@@ -1034,7 +1044,11 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
+- [إضافة مزامنة JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/plugins/sync-json.md)
+
 > يوفر هذا المحول أيضاً مسار انتقال سلساً وتدريجياً: بمجرد تشغيله، يمكنك نقل المكونات واحداً تلو الآخر إلى واجهة `useIntlayer` الأصلية. راجع [دليل Intlayer مع TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_tanstack.md).
+
+- [دليل Intlayer مع TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_tanstack.md)
 
 </Step>
 <Step number={18} title="العرض المسبق (Pre-render) لكل لغة" isOptional={true}>
@@ -1142,6 +1156,8 @@ export const getServerLocale = createServerFn().handler(() => {
 
 لاستكشاف جميع الميزات، راجع [لماذا Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/interest_of_intlayer.md).
 
+- [لماذا Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/interest_of_intlayer.md)
+
 </Step>
 </Steps>
 
@@ -1152,6 +1168,8 @@ export const getServerLocale = createServerFn().handler(() => {
 <Question title="هل يعد use-intl خياراً جيداً لـ TanStack Start؟">
 
 نعم، إذا كنت ترغب في استخدام واجهة برمجة `next-intl` خارج Next.js. يمنحك ذلك رسائل ICU ودوال التنسيق ودعماً ممتازاً لـ TypeScript، ويتجنب القيود الخاصة بـ Next.js مثل `setRequestLocale`. المأخذ الوحيد هو الحجم: يقيس [الاختبار المعياري](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md) حوالي ~76 KB بصيغة gzip لبيئة التشغيل، وفي الإعداد البسيط يتم إرسال جميع اللغات والصفحات إلى المتصفح. احرص على تحميل نطاقات الأسماء لكل مسار ولكل لغة، كما هو موضح في هذا الدليل، لتجنب التسريبات.
+
+- [الاختبار المعياري](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md)
 
 </Question>
 <Question title="ما هو الفرق بين use-intl و next-intl؟">
@@ -1173,6 +1191,8 @@ export const getServerLocale = createServerFn().handler(() => {
 
 أولاً، قسّم الرسائل بحسب نطاقات الأسماء وقم بتحميلها لكل مسار ولكل لغة باستخدام `import.meta.glob`، مما يزيل تسريبات اللغات والصفحات. بعد ذلك، إذا كان حجم بيئة التشغيل مهماً بالنسبة لك، انتقل إلى محول [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/index.md): نفس واجهة البرمجة بحجم ~6.7 KB بدلاً من ~75.9 KB في الاختبار المعياري.
 
+- [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/index.md)
+
 </Question>
 <Question title="كيف يمكنني ترجمة العنوان والوصف التعريفي باستخدام use-intl؟">
 
@@ -1182,6 +1202,9 @@ export const getServerLocale = createServerFn().handler(() => {
 <Question title="هل يمكنني الانتقال من use-intl إلى Intlayer بشكل تدريجي؟">
 
 نعم. ثبّت محول التوافق أولاً (الخطوة 17): ستستمر مكوناتك في استدعاء `useTranslations`، والتي ستعمل الآن بواسطة Intlayer. بعد ذلك، انقل المكونات واحداً تلو الآخر إلى `useIntlayer`، وأعلن عن المحتوى بجوارها مباشرة. راجع [محولات التوافق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/index.md) و[دليل Intlayer مع TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_tanstack.md).
+
+- [محولات التوافق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/index.md)
+- [دليل Intlayer مع TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_tanstack.md)
 
 </Question>
 

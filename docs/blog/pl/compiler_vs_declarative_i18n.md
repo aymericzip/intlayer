@@ -78,6 +78,8 @@ Kompilator Intlayer przeszukuje AST (Abstract Syntax Tree) Twoich komponentów R
 
 > Aby uzyskać więcej szczegółów, zapoznaj się z dokumentacją: [Intlayer Compiler Docs](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compiler.md)
 
+- [Intlayer Compiler Docs](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compiler.md)
+
 ## Urok Kompilatora (Podejście "Magiczne")
 
 Jest powód, dla którego to nowe podejście zyskuje na popularności. Dla dewelopera doświadczenie jest niesamowite.

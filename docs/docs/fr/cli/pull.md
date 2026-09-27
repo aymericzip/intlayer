@@ -39,6 +39,8 @@ bun x intlayer pull
 
 Si l'[éditeur intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md) est installé, vous pouvez également récupérer des dictionnaires depuis l'éditeur. De cette manière, vous pouvez écraser le contenu de vos dictionnaires selon les besoins de votre application.
 
+- [éditeur intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md)
+
 ## Alias :
 
 - `npx intlayer dictionaries pull`

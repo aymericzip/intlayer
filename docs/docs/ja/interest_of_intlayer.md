@@ -54,15 +54,27 @@ author: aymericzip
 
 コンテンツを同じ場所に配置（コローケーション）することで、大規模言語モデル（LLM）に必要な**コンテキストが削減**されます。Intlayerには、翻訳漏れをテストするための**CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)**、**[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)**などのツールスイートも付属しており、AIエージェントの開発体験（DX）をさらにスムーズにします。
 
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)
+- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)
+
 </Accordion>
 <Accordion header="機能性">
 
 Intlayerは、他のi18nソリューションにはない、[Markdownサポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/markdown.md)、[外部コンテンツの取得](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/function_fetching.md)、[ファイルコンテンツの読み込み](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/file.md)、[ライブコンテンツ更新](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/live.md)、[ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)など、多くの追加機能を提供します。
 
+- [Markdownサポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/markdown.md)
+- [外部コンテンツの取得](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/function_fetching.md)
+- [ファイルコンテンツの読み込み](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/file.md)
+- [ライブコンテンツ更新](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/live.md)
+- [ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)
+
 </Accordion>
 <Accordion header="自動化">
 
 CI/CDパイプラインでお好みのLLMを使用し、AIプロバイダーの実費で自動翻訳を行います。Intlayerはコンテンツ抽出を自動化する**コンパイラ**や、**バックグラウンドで翻訳**をサポートする[ウェブプラットフォーム](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)も提供しています。
+
+- [ウェブプラットフォーム](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="パフォーマンス">
@@ -73,6 +85,9 @@ CI/CDパイプラインでお好みのLLMを使用し、AIプロバイダーの�
 <Accordion header="非開発環境でのスケーリング">
 
 単なるi18nソリューションにとどまらず、Intlayerはセルフホスト可能な**[ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)**と**[フル機能のCMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)**を提供し、多言語コンテンツを**リアルタイム**で管理できるようにします。これにより、翻訳者、コピーライター、その他のチームメンバーとのコラボレーションがシームレスになります。コンテンツはローカルおよび/またはリモートに保存できます。
+
+- [ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)
+- [フル機能のCMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="クロスフレームワークデザイン">
@@ -287,6 +302,8 @@ GitHubスター数は、プロジェクトの知名度、コミュニティか�
 
 現在の i18n ライブラリの API を使い続けたい場合、`intlayer` は **互換アダプター（compat adapters）** も提供しています。これは `react-i18next`、`next-intl`、`react-intl`、`vue-i18n` などとまったく同じ API を公開しつつ、内容は Intlayer の辞書から提供されるパッケージです。これにより、コードを書き直すことなく段階的に移行できます。[互換アダプターのドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md)をご覧ください。
 
+- [互換アダプターのドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md)
+
 ## よくある質問
 
 <FAQ>
@@ -304,22 +321,38 @@ GitHubスター数は、プロジェクトの知名度、コミュニティか�
 
 名前空間ベースのセットアップよりもはるかに少ないです。なぜなら、ページはレンダリングしないカタログをダウンロードしないからです。サーバーレンダリングされたマークアップはサーバー上でコンテンツを解決し、ビルド時コンパイラは`useIntlayer`の呼び出しをコンポーネントが使用する正確な辞書エントリに置き換えるため、未使用のキーや未使用の言語は削除されます。[動的辞書](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/index.md)は残りをロケールごとに分割します。一般的な代替手段と比較して、Intlayerはbundleサイズとページサイズを最大50%削減します。[bundle最適化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)と[ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/index.md)を参照してください。
 
+- [動的辞書](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/index.md)
+- [bundle最適化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)
+- [ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/index.md)
+
 </Question>
 <Question title="`i18next`、`next-intl`、または`react-i18next`からコンポーネントを書き直さずに移行できますか？">
 
 はい、2つの方法があります。[i18next移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_i18next_to_intlayer.md)または[next-intl移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_next-intl_to_intlayer.md)を使用して、コンテンツを段階的に移行できます。または、現在のAPIを完全に維持することもできます。[互換アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/index.md)は、`i18next`、`react-i18next`、`next-intl`、`next-i18next`、`react-intl`、`use-intl`、`vue-i18n`、および`Lingui`とまったく同じAPIを公開しますが、Intlayer辞書によって提供されるため、インポートは変更されますが、コンポーネントコードは変更されません。
+
+- [i18next移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_i18next_to_intlayer.md)
+- [next-intl移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_next-intl_to_intlayer.md)
+- [互換アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/index.md)
 
 </Question>
 <Question title="既存のJSON翻訳ファイルを保持できますか？">
 
 はい。[sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md)は、`/messages/{locale}/{namespace}.json`ファイルを信頼できる情報源として保持し、それらからIntlayer辞書を双方向に生成します。[sync PO plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-po.md)はgettextカタログに対しても同様の機能を提供し、[ロケールごとのファイル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/per_locale_file.md)を使用すると、ロケールを1つのファイルにまとめるのではなく、言語ごとにコンテンツを分割できます。
 
+- [sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md)
+- [sync PO plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-po.md)
+- [ロケールごとのファイル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/per_locale_file.md)
+
 </Question>
 <Question title="コンテンツをキーごとに移動する必要がありますか？">
 
 いいえ。`npx intlayer extract`を実行すると、Intlayerはソースファイルを読み取り、ユーザー向けの文字列を抽出し、それぞれの隣に`.content`ファイルを書き込みます。これにより、文字列をカタログに1つずつコピーする代わりに、差分を確認できます。[extractコマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md)を参照してください。
 
+- [extractコマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md)
+
 完全に自動化されたパイプラインの場合、[Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)は、JSX、TSX、Vue、Svelteのソースに対してビルド時に同じ処理を行い、変更があるたびに辞書を生成するため、手動でキーを管理する必要がありません。これは静的解析によって機能するため、ランタイムにのみ存在する文字列は対象外となり、ユーザー向けのテキストとアプリケーションロジックを区別するためにいくつかの注釈が必要です。
+
+- [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)
 
 </Question>
 <Question title="利用可能なエディターおよびAIエージェントツールにはどのようなものがありますか？">
@@ -337,25 +370,51 @@ GitHubスター数は、プロジェクトの知名度、コミュニティか�
 
 `next-intl`はNext.js用のメッセージレイヤーです。ロケールごとにJSONメッセージファイルを保持し、`useTranslations`を通じてそれらを読み取ります。Intlayerはコンテンツレイヤーです。宣言はコンポーネントの隣に配置され、宣言自体から型付けされ、コンポーネントごとにコンパイルされるため、ページはレンダリングするものだけを提供します。Intlayerは、`next-intl`がユーザーに任せるAI翻訳、ビジュアルエディター、CMS、CIでの翻訳漏れチェックもカバーします。`next-intl` APIを維持したい場合は、[互換アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/index.md)がIntlayer辞書からそれを提供します。
 
+- [互換アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/index.md)
+
 </Question>
 <Question title="Intlayerはi18nextおよびreact-i18nextとどう違いますか？">
 
 `i18next`はランタイムに名前空間に対して文字列キーを解決します。これは、キーの名前変更やスペルミスがサイレントに失敗し、ページが触れるすべての名前空間が完全にダウンロードされることを意味します。Intlayerはビルド時に生成された型に対してコンテンツを解決するため、不正なキーはコンパイルエラーとなり、コンポーネントがレンダリングするエントリのみがbundleに含まれます。`i18next`はより大きなプラグインエコシステムと長い実績を持っています。Intlayerは型付け、bundleサイズ、および編集・自動化ツールを提供します。[i18next移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_i18next_to_intlayer.md)または[互換アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/index.md)を参照してください。
+
+- [i18next移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_i18next_to_intlayer.md)
+- [互換アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/index.md)
 
 </Question>
 <Question title="Intlayerは他の代替手段よりも高速または軽量ですか？">
 
 bundleサイズとページサイズに関しては、はい。ページがレンダリングしないカタログをロードしないことで、名前空間ベースのセットアップと比較してbundleサイズとページサイズを最大50%削減します。[ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/index.md)では、[Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md)、[TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md)、[Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/vue.md)、[Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/svelte.md)を含むフレームワークごとの方法と数値が公開されているため、主張を鵜呑みにするのではなく、ご自身で再現できます。
 
+- [ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/index.md)
+- [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md)
+- [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md)
+- [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/vue.md)
+- [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/svelte.md)
+
 </Question>
 <Question title="既存のアプリを移行する価値はありますか？">
 
 それは現在の課題によります。もしbundleサイズ、サイレントな翻訳漏れ、または開発者なしでは作業できない翻訳者が課題であれば、移行する価値は十分にあります。カタログが小さく安定している場合は、得られるメリットは小さくなります。いずれにしても、移行は書き直しである必要はありません。[互換アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/index.md)は現在のAPIを維持し、[sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md)は両方のレイヤーが共存する間、既存のJSONファイルを信頼できる情報源として保持します。
 
+- [互換アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/index.md)
+- [sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md)
+
 </Question>
 <Question title="Intlayerが他のi18nライブラリにはない機能は何ですか？">
 
 [Markdown content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/markdown.md)、[外部ソースからフェッチされたコンテンツ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)、ファイルコンテンツのロード、[ライブコンテンツ更新](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/live.md)、[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)、既存のコンポーネントからコンテンツを抽出する[コンパイラ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)、A/Bテスト用の[コンテンツバリアント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/variants.md)、コンテンツ露出に関する[アナリティクス](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/analytics.md)、[MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)、[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)および[エージェントスキル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)。
+
+- [Markdown content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/markdown.md)
+- [外部ソースからフェッチされたコンテンツ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)
+- [ライブコンテンツ更新](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/live.md)
+- [ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)
+- [コンパイラ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)
+- [コンテンツバリアント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/variants.md)
+- [アナリティクス](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/analytics.md)
+- [MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)
+- [エージェントスキル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)
 
 </Question>
 <Question title="Intlayerを翻訳マネージャーとしてのみ使用し、現在のライブラリを保持できますか？">
@@ -366,6 +425,8 @@ bundleサイズとページサイズに関しては、はい。ページがレ�
 <Question title="Intlayerは無料でオープンソースですか？">
 
 はい、Apache 2.0 licenseの下で、商用利用も含まれます。ホスト型CMSはオプションの有料サービスですが、[セルフホスト](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/self_hosting.md)することも可能です。
+
+- [セルフホスト](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/self_hosting.md)
 
 </Question>
 

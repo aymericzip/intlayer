@@ -79,16 +79,16 @@ import "next-intlayer";
 import "next-intlayer/server";
 ```
 
-| المكوّن                  | الوصف                                                                                                                                                                        | الوثيقة ذات الصلة |
-| ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- |
-| `IntlayerProvider`       | موفّر موحّد لـ Next.js App Router. يتم تركيبه مرة واحدة في تخطيط اللغة (locale layout)، حيث يزرع سياق الخادم على نطاق الطلب _ويركب_ موفّر العميل. (Intlayer >= 9.4)          | -                 |
-| `IntlayerClientProvider` | **مهمل** — استخدم `IntlayerProvider` من `next-intlayer/server`. موفّر للمكونات على جهة العميل في App Router الخاص بـ Next.js. يغلّف `IntlayerProvider` من `react-intlayer`.  | -                 |
-| `IntlayerServerProvider` | **مهمل** — استخدم `IntlayerProvider` من `next-intlayer/server`. موفّر للمكونات على جهة الخادم في Next.js (App Router). يوفر سياق اللغة (locale) على الخادم. (Intlayer < 9.4) | -                 |
-| `IntlayerServer`         | غلاف على جهة الخادم لمحتوى Intlayer في App Router. يضمن التعامل الصحيح مع الـ locale في مكونات الخادم.                                                                       | -                 |
-| `HTMLProvider`           | مزود لإعدادات التدويل المتعلقة بـ HTML. يسمح بتجاوز المكونات لعلامات HTML.                                                                                                   | -                 |
-| `HTMLRenderer`           | يعرض محتوى HTML مع مكونات مخصصة.                                                                                                                                             | -                 |
-| `MarkdownProvider`       | مزود لسياق عرض Markdown. يسمح بتجاوز المكونات المخصصة لعناصر Markdown.                                                                                                       | -                 |
-| `MarkdownRenderer`       | يعرض محتوى Markdown مع مكونات مخصصة.                                                                                                                                         | -                 |
+| المكوّن                  | الوصف                                                                                                                                                                       | الوثيقة ذات الصلة |
+| ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- |
+| `IntlayerProvider`       | موفّر موحّد لـ Next.js App Router. يتم تركيبه مرة واحدة في تخطيط اللغة (locale layout)، حيث يزرع سياق الخادم على نطاق الطلب _ويركب_ موفّر العميل. (Intlayer >= 9.4)         | -                 |
+| `IntlayerClientProvider` | **مهمل**، استخدم `IntlayerProvider` من `next-intlayer/server`. موفّر للمكونات على جهة العميل في App Router الخاص بـ Next.js. يغلّف `IntlayerProvider` من `react-intlayer`.  | -                 |
+| `IntlayerServerProvider` | **مهمل**، استخدم `IntlayerProvider` من `next-intlayer/server`. موفّر للمكونات على جهة الخادم في Next.js (App Router). يوفر سياق اللغة (locale) على الخادم. (Intlayer < 9.4) | -                 |
+| `IntlayerServer`         | غلاف على جهة الخادم لمحتوى Intlayer في App Router. يضمن التعامل الصحيح مع الـ locale في مكونات الخادم.                                                                      | -                 |
+| `HTMLProvider`           | مزود لإعدادات التدويل المتعلقة بـ HTML. يسمح بتجاوز المكونات لعلامات HTML.                                                                                                  | -                 |
+| `HTMLRenderer`           | يعرض محتوى HTML مع مكونات مخصصة.                                                                                                                                            | -                 |
+| `MarkdownProvider`       | مزود لسياق عرض Markdown. يسمح بتجاوز المكونات المخصصة لعناصر Markdown.                                                                                                      | -                 |
+| `MarkdownRenderer`       | يعرض محتوى Markdown مع مكونات مخصصة.                                                                                                                                        | -                 |
 
 ### Hooks (جهة العميل)
 

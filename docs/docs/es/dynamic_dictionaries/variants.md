@@ -23,7 +23,7 @@ history:
     changes: "Lanzamiento de la función de variantes"
   - version: 9.1.0
     date: 2026-06-26
-    changes: "`variant` ahora acepta una cadena o un objeto — los antiguos `meta` / registros dinámicos se declaran como variantes de objeto"
+    changes: "`variant` ahora acepta una cadena o un objeto, los antiguos `meta` / registros dinámicos se declaran como variantes de objeto"
   - version: 9.1.1
     date: 2026-07-31
     changes: "Una variante declara solo las claves que anula; las variantes no declaradas recurren a la entrada por defecto"
@@ -39,8 +39,8 @@ Una **variante** es un conjunto de archivos de contenido que comparten la misma 
 
 El valor de `variant` puede adoptar **dos formas**:
 
-- **Una cadena** — una única alternativa con nombre (pruebas A/B, banners de temporada, feature flags).
-- **Un objeto** — un discriminador estructurado direccionado por un conjunto de campos (registros de CMS, contenido específico de usuario, cualquier contenido indexado por un ID opaco). El objeto completo es la identidad: el selector debe proporcionar un objeto **igual** para resolver la entrada.
+- **Una cadena**: una única alternativa con nombre (pruebas A/B, banners de temporada, feature flags).
+- **Un objeto**: un discriminador estructurado direccionado por un conjunto de campos (registros de CMS, contenido específico de usuario, cualquier contenido indexado por un ID opaco). El objeto completo es la identidad: el selector debe proporcionar un objeto **igual** para resolver la entrada.
 
 > La forma de objeto sustituye al antiguo campo `meta`. Donde antes escribía `meta: { id, … }`, escriba `variant: { id, … }`, y selecciónela con `{ variant: { id, … } }`.
 
@@ -74,8 +74,8 @@ const dictionary = {
   variant: "black_friday",
   content: {
     headline: t({
-      en: "50 % off — today only",
-      fr: "−50 % — aujourd'hui seulement",
+      en: "50 % off, today only",
+      fr: "−50 %, aujourd'hui seulement",
     }),
     cta: t({ en: "Shop now", fr: "Acheter maintenant" }),
   },
@@ -107,7 +107,7 @@ export default dictionary;
 
 ```tsx
 useIntlayer("hero-banner", { variant: "summer" });
-// → { headline: "Développez plus vite tout l'été", cta: "Commencer" } — `cta` heredado
+// → { headline: "Développez plus vite tout l'été", cta: "Commencer" }, `cta` heredado
 
 useIntlayer("hero-banner", { variant: "never-declared" });
 // → la entrada por defecto
@@ -278,7 +278,7 @@ const content = useIntlayer("hero-banner", {
 
 ## Variantes de objeto (estructuradas)
 
-Una variante de objeto direcciona el contenido mediante un conjunto arbitrario de pares clave-valor declarados en el campo `variant` — lo que permite modelar registros de CMS, contenido específico de usuario o cualquier contenido cuya clave sea un ID opaco. El **objeto completo** es la identidad: el selector debe proporcionar un objeto igual para que la entrada se resuelva.
+Una variante de objeto direcciona el contenido mediante un conjunto arbitrario de pares clave-valor declarados en el campo `variant`, lo que permite modelar registros de CMS, contenido específico de usuario o cualquier contenido cuya clave sea un ID opaco. El **objeto completo** es la identidad: el selector debe proporcionar un objeto igual para que la entrada se resuelva.
 
 ```ts fileName="product.abc.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
@@ -495,7 +495,7 @@ const content = useIntlayer("product", {
 });
 ```
 
-#### Campo faltante — sin coincidencia
+#### Campo faltante, sin coincidencia
 
 ```ts
 // Devuelve null: falta `userId`, por lo que el objeto no coincide con la variante declarada
@@ -647,7 +647,7 @@ useIntlayer("hero-banner");
 // → la variante del proveedor
 
 useIntlayer("hero-banner", { variant: "summer" });
-// → "summer" — sustituye la variante del proveedor, no la extiende
+// → "summer", sustituye la variante del proveedor, no la extiende
 ```
 
 ### Formas
@@ -694,7 +694,7 @@ Dirígete a cada clave de diccionario por separado. La entrada reservada `defaul
 
 > En un proveedor, un objeto simple se lee **siempre** como el mapa por clave, nunca como una variante de objeto: ambos son estructuralmente idénticos. Para fijar una variante de objeto globalmente, anídala bajo una entrada: `variant={{ default: { id: "prod_abc" } }}`.
 
-Como las claves del mapa se comprueban contra tus claves de diccionario declaradas, una errata —o una variante de objeto escrita directamente, como `variant={{ id: "prod_abc" }}`— es un error de compilación.
+Como las claves del mapa se comprueban contra tus claves de diccionario declaradas, una errata (o una variante de objeto escrita directamente, como `variant={{ id: "prod_abc" }}`) es un error de compilación.
 
 ## Modo de carga
 
@@ -712,6 +712,8 @@ export default dictionary;
 ```
 
 Consulte [optimización del bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/bundle_optimization.md) para detalles sobre los modos `static`, `dynamic` y `fetch`.
+
+- [optimización del bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/bundle_optimization.md)
 
 ## Casos de uso típicos
 

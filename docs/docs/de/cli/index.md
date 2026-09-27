@@ -110,6 +110,8 @@ bun add intlayer-cli -g
 
 Das Paket `intlayer-cli` dient dazu, Ihre [Intlayer-Deklarationen](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/content_file.md) in Wörterbücher zu transpilieren.
 
+- [Intlayer-Deklarationen](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/content_file.md)
+
 Dieses Paket transpiliert alle Intlayer-Dateien, wie z. B. `src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}`. [Erfahren Sie, wie Sie Ihre Intlayer-Deklarationsdateien deklarieren](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
 
 Um Intlayer-Wörterbücher zu interpretieren, können Sie Interpreter wie [react-intlayer](https://www.npmjs.com/package/react-intlayer) oder [next-intlayer](https://www.npmjs.com/package/next-intlayer) verwenden.
@@ -127,13 +129,17 @@ Intlayer akzeptiert verschiedene Formate für Konfigurationsdateien:
 
 Um zu erfahren, wie Sie verfügbare Sprachen oder andere Parameter konfigurieren, lesen Sie die [Konfigurationsdokumentation hier](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md).
 
+- [Konfigurationsdokumentation hier](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md)
+
 ## Intlayer-Befehle ausführen
 
 ### Authentifizierung
 
 - **[Anmelden](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/login.md)** - Bei Intlayer CMS authentifizieren und Zugangsdaten erhalten
 
-> `intlayer login` stellt einen **Zugangsschlüssel** (`clientId` / `clientSecret`) aus, den jeder authentifizierte Befehl verwendet. Das Geheimnis ist eine serverseitige Anmeldeinformation und gelangt niemals in Ihr Client-Bundle — siehe [Zugangsschlüssel sichern](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/login.md#zugangsschlüssel-sichern).
+> `intlayer login` stellt einen **Zugangsschlüssel** (`clientId` / `clientSecret`) aus, den jeder authentifizierte Befehl verwendet. Das Geheimnis ist eine serverseitige Anmeldeinformation und gelangt niemals in Ihr Client-Bundle, siehe [Zugangsschlüssel sichern](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/login.md#zugangsschlüssel-sichern).
+
+- [Zugangsschlüssel sichern](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/login.md#zugangsschlüssel-sichern)
 
 ### Kernbefehle
 

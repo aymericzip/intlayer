@@ -67,6 +67,8 @@ Paraglide genera una función por mensaje. Intlayer declara el contenido por com
 
 El post sobre la [historia de la i18n en JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/history_of_i18n.md) cubre cada ola en detalle.
 
+- [historia de la i18n en JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/history_of_i18n.md)
+
 ## La decisión más importante: dónde reside el contenido y cuándo se carga
 
 Dos decisiones estructurales explican la mayor parte de la diferencia de bundle entre configuraciones:
@@ -80,11 +82,17 @@ El gráfico estima el payload para una aplicación teórica de 1 a 10 páginas, 
 
 `@solid-primitives/i18n` no hace nada respecto a ninguno de los dos ejes: utilizas `createResource` para cargar un diccionario por locale, lo que te da carga dinámica, y el resto corre por tu cuenta. `solid-i18next` cuenta con namespaces y backends lazy, pero nada impone el mapeo, por lo que un componente compartido que importa `common` lo convierte en una dependencia de cada ruta. Paraglide aborda el eje de las páginas mediante tree-shaking, aunque no tuvo efecto en la implementación del [benchmark de Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/benchmark/solid.md). Intlayer lo logra mediante declaraciones por componente.
 
+- [benchmark de Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/benchmark/solid.md)
+
 Si tu respuesta a la pregunta 4 fue "muchas páginas", dale más peso a esta sección que a cualquier preferencia de API. El artículo sobre [i18n por componente vs centralizada](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/per-component_vs_centralized_i18n.md) cubre el aspecto de mantenimiento de este mismo compromiso.
+
+- [i18n por componente vs centralizada](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/per-component_vs_centralized_i18n.md)
 
 ## Las opciones candidatas
 
 Los tamaños de las librerías provienen del [benchmark de Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/benchmark/solid.md): provider más accessor en un componente vacío, tras empaquetado, tree-shaking y minificación, en una app de 10 páginas y 10 locales. El contenido se mide por separado.
+
+- [benchmark de Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/benchmark/solid.md)
 
 ![Ecosistema de librerías Solid i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
@@ -118,6 +126,8 @@ El tamaño de librería casi nulo de Paraglide es por diseño: el runtime se gen
 
 El locale debe provenir de la URL en el servidor para que ambos lados coincidan; detectarlo en el cliente es demasiado tarde. `@solid-primitives/i18n` y `solid-i18next` dejan la ruta `[[locale]]`, `matchFilters`, la redirección y las etiquetas de `entry-server.tsx` en tus manos. Paraglide cuenta con un plugin de Vite que gestiona el enrutamiento. Intlayer incluye middleware y helpers de ruta. Elijas la que elijas, coloca `<html lang>` y `hreflang` en `entry-server.tsx`; `@solidjs/meta` se aplica en el cliente tras la hidratación en SolidStart v2. El [artículo sobre i18n en Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_solid_start.md) detalla esa configuración.
 
+- [artículo sobre i18n en Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_solid_start.md)
+
 </Accordion>
 <Accordion header="El cambio de locale debe ser instantáneo y de grano fino">
 
@@ -132,6 +142,8 @@ Contenido con scoping compilado en tiempo de build. Intlayer solo envía lo que 
 <Accordion header="La seguridad de tipos no es negociable">
 
 `@solid-primitives/i18n` te ofrece tipos inferidos de forma gratuita, lo cual es más de lo que ofrecen la mayoría de las librerías de React. Para tipos generados que sobrevivan a la carga lazy y a la división por rutas, Paraglide, `@lingui/solid` e Intlayer los producen a partir del contenido. El artículo sobre [detección de traducciones faltantes](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/detecting_missing_translations.md) compara lo que detecta cada una en tiempo de build.
+
+- [detección de traducciones faltantes](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/detecting_missing_translations.md)
 
 </Accordion>
 <Accordion header="Las traducciones se generarán con IA">
@@ -384,6 +396,9 @@ Todos los locales en un solo archivo junto al componente. `useIntlayer` devuelve
 
 En una base de código i18next existente, el [adaptador de compatibilidad de i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compat/i18next.md) crea un alias del paquete a nivel de bundler para que los catálogos y `t()` sigan funcionando mientras Intlayer sirve el contenido, y la [guía de migración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/migration_from_i18next_to_intlayer.md) cubre el resto.
 
+- [adaptador de compatibilidad de i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compat/i18next.md)
+- [guía de migración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/migration_from_i18next_to_intlayer.md)
+
 ## Antes de comprometerte
 
 Una tabla de características te dice lo que una librería hace hoy. Estos puntos te dicen cómo será convivir con ella.
@@ -406,6 +421,9 @@ La librería más instalada es la que se lanzó primero, no la que encaja en un 
 
 Los agentes aún tienen dificultades con la i18n: olvidan locales, inventan claves y mezclan sintaxis de mensajes. ¿La librería incluye [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/agent_skills.md) o un [servidor MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/mcp_server.md) para que el agente pueda listar, rellenar y probar contenido? ¿Y la carga de contenido está optimizada por defecto, o alguien tiene que revisar namespaces e importaciones lazy cada trimestre?
 
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/agent_skills.md)
+- [servidor MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/mcp_server.md)
+
 **Seguridad de tipos lista para usar.**
 
 No "puede tiparse con configuración adicional", sino "una clave incorrecta hace fallar `tsc` en una instalación limpia". Comprueba qué sucede con una clave que no existe y con un locale al que le falta una traducción.
@@ -417,6 +435,13 @@ Los catálogos solo crecen. El build de Intlayer purga los campos no utilizados 
 **Experiencia de desarrollo (Developer Experience).**
 
 Tiempo de configuración hasta la primera cadena traducida, un [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/lsp.md) o [extensión de VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/vs_code_extension.md) que muestra la traducción al pasar el cursor y salta a la declaración, una [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/index.md) para rellenar, probar y hacer push, un [compilador](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compiler.md) o extractor que saque las cadenas codificadas de tus componentes para no gestionar cada cadena clave por clave, y una forma para que los no desarrolladores editen contenido ([editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md) o [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md)) sin necesidad de un pull request.
+
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/lsp.md)
+- [extensión de VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/vs_code_extension.md)
+- [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/index.md)
+- [compilador](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compiler.md)
+- [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md)
 
 ## Preguntas frecuentes
 
@@ -438,11 +463,15 @@ Porque los componentes de Solid se ejecutan una sola vez. Una traducción leída
 
 Solo si el tamaño del bundle, los tipos generados o las comprobaciones de claves faltantes en tiempo de build son requisitos reales. El artículo sobre [i18n por compilador vs declarativa](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/compiler_vs_declarative_i18n.md) explica lo que te aportan los compiladores y dónde pueden fallar.
 
+- [i18n por compilador vs declarativa](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/compiler_vs_declarative_i18n.md)
+
 </Question>
 
 <Question title="¿Afecta la elección de la librería al SEO?">
 
 Indirectamente. A los crawlers les importa el enrutamiento, `hreflang`, `<html lang>` y si el texto está en el HTML renderizado por el servidor, lo que en SolidStart significa `entry-server.tsx`. Consulta la [guía de hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/hreflang_guide_multilingual_seo.md).
+
+- [guía de hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/hreflang_guide_multilingual_seo.md)
 
 </Question>
 

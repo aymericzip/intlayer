@@ -31,6 +31,8 @@ author: aymericzip
 
 > 当你使用 [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/vite-intlayer/intlayer.md) 时，该插件已自动包含并配置。只有在你自己组合插件堆栈时，才需要手动注册它。
 
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/vite-intlayer/intlayer.md)
+
 ## 使用
 
 ### 作为 `intlayer()` 的一部分（推荐）
@@ -99,8 +101,8 @@ const { title, description } = useIntlayer("myDict");
 
 支持两种内容形状：
 
-- **静态字典** — `{ nodeType: "translation", translation: { en: {...}, fr: {...} } }`。字段在 `translation` 内按语言环境修剪。
-- **动态（按语言环境）字典** — 扁平化 `{ fieldA: ..., fieldB: ... }`。字段在顶级进行修剪。
+- **静态字典**：`{ nodeType: "translation", translation: { en: {...}, fr: {...} } }`。字段在 `translation` 内按语言环境修剪。
+- **动态（按语言环境）字典**：扁平化 `{ fieldA: ..., fieldB: ... }`。字段在顶级进行修剪。
 
 ### 3. Edge cases
 
@@ -108,7 +110,7 @@ const { title, description } = useIntlayer("myDict");
 
 ### 4. Field-rename map
 
-当剪枝成功时，`intlayerPrune` 也会写入 `pruneContext.dictionaryKeyToFieldRenameMap` — 一个从原始字段名到简短别名的映射。`intlayerMinify` 读取此映射以在输出 JSON 中重命名字段，而 `intlayerOptimize` 的 Babel 重命名传递相应地更新源文件中的属性访问。
+当剪枝成功时，`intlayerPrune` 也会写入 `pruneContext.dictionaryKeyToFieldRenameMap`，一个从原始字段名到简短别名的映射。`intlayerMinify` 读取此映射以在输出 JSON 中重命名字段，而 `intlayerOptimize` 的 Babel 重命名传递相应地更新源文件中的属性访问。
 
 ## 激活条件
 
@@ -118,4 +120,4 @@ const { title, description } = useIntlayer("myDict");
 2. `build.optimize` 是 `true`（或 `undefined`，在构建时默认为 `true`）。
 3. 在您的 Intlayer 配置中 `build.purge` 是 `true`。
 
-当 `editor.enabled` 为 `true` 时，它仍保持启用：可视化编辑器通过 `dictionaryKey` + `keyPath` 对照未合并的字典来解析每一次编辑，而该插件从不触碰这些字典；被清除的字段是没有任何组件会读取的字段——因此它永远不会被渲染，也无法在页面中被选中。
+当 `editor.enabled` 为 `true` 时，它仍保持启用：可视化编辑器通过 `dictionaryKey` + `keyPath` 对照未合并的字典来解析每一次编辑，而该插件从不触碰这些字典；被清除的字段是没有任何组件会读取的字段，因此它永远不会被渲染，也无法在页面中被选中。

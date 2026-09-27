@@ -36,6 +36,8 @@ author: aymericzip
 
 它在內部重複使用了 [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/packages/intlayer/getPathWithoutLocale.md) 來移除語言設定區段，因此它會遵循您配置的路由模式和語言設定。
 
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/packages/intlayer/getPathWithoutLocale.md)
+
 該套件還匯出了底層的 [`normalizePath`](#normalizepath) 輔助函式，它會回傳用於比較的、與語言設定無關的正規路徑名稱。
 
 **主要功能：**
@@ -44,7 +46,7 @@ author: aymericzip
 - 適用於絕對 URL 和相對路徑
 - 忽略查詢字串、雜湊值和結尾斜線
 - 容許缺少前導斜線和空值（正規化為 `/`）
-- 輕量級 — 建構在 `getPathWithoutLocale` 之上
+- 輕量級，建構在 `getPathWithoutLocale` 之上
 
 ## 函式簽名
 

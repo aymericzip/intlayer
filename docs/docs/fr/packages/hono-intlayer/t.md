@@ -202,3 +202,5 @@ app.get("/morning", (c) => {
 ## Conclusion
 
 La fonction `t` est un outil puissant pour l'internationalisation backend. En l'utilisant efficacement, vous pouvez créer une application plus inclusive et conviviale pour un public mondial. Pour une utilisation avancée et des options de configuration détaillées, reportez-vous à la [documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md).
+
+- [Intlayer Configuration (intlayer.config.ts)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)

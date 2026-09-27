@@ -87,6 +87,8 @@ const MyComponent = () => {
 
 > Intlayer의 모든 기능을 보려면 [사전 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md)를 읽어보세요.
 
+- [사전 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md)
+
 ## 원격 콘텐츠
 
 Intlayer를 사용하면 콘텐츠를 로컬에서 선언한 후 CMS로 내보내어 비기술 팀이 편집할 수 있도록 할 수 있습니다.
@@ -98,6 +100,8 @@ CMS를 사용하는 외부 사전의 경우, Intlayer는 원격 사전을 가져
 ## 시각적 편집기
 
 Intlayer는 콘텐츠를 시각적으로 편집할 수 있는 시각적 편집기도 제공합니다. 이 [시각적 편집기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)는 외부 `intlayer-editor` 패키지에서 사용할 수 있습니다.
+
+- [시각적 편집기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)
 
 ![시각적 편집기](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif?raw=true)
 
@@ -120,11 +124,15 @@ Babel 및 SWC 플러그인은 애플리케이션의 추상 구문 트리(Abstrac
 
 [설정](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)에서 `importMode = "dynamic"` 옵션을 활성화하면 Intlayer는 동적 가져오기를 사용하여 사전을 로드합니다. 이 옵션은 애플리케이션 렌더링 시 비동기 처리를 방지하기 위해 기본적으로 비활성화되어 있습니다.
 
+- [설정](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)
+
 > `@intlayer/babel`는 `vite-intlayer` 패키지에 기본으로 포함되어 있습니다.
 
 > `@intlayer/swc`는 Next.js에서 SWC 플러그인이 아직 실험적이므로 `next-intlayer` 패키지에 기본적으로 설치되어 있지 않습니다.
 
 애플리케이션 빌드를 구성하는 방법을 보려면 [설정 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 읽어보세요.
+
+- [설정 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)
 
 ## 패키지
 
@@ -346,22 +354,38 @@ Express를 기반으로 한 서버는 시각적 편집기 요청을 수신하고
 
 네임스페이스 기반 설정보다 훨씬 적습니다. 페이지는 렌더링하지 않는 언어의 카탈로그를 절대 다운로드하지 않기 때문입니다. 서버 렌더링 마크업은 서버에서 콘텐츠를 확인하고, 빌드 타임 컴파일러는 `useIntlayer` 호출을 컴포넌트가 사용하는 정확한 사전 항목으로 대체하므로 사용되지 않는 키와 언어는 제거됩니다. [동적 사전](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dynamic_dictionaries/index.md)을 통해 로케일별로 분할됩니다. 일반적인 대안들과 비교했을 때 Intlayer는 번들 및 페이지 크기를 최대 50%까지 줄여줍니다. [번들 최적화](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md)와 [벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/index.md)를 참조하세요.
 
+- [동적 사전](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dynamic_dictionaries/index.md)
+- [번들 최적화](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md)
+- [벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/index.md)
+
 </Question>
 <Question title="컴포넌트를 다시 작성하지 않고 i18next, next-intl 또는 react-i18next에서 마이그레이션할 수 있나요?">
 
 네, 두 가지 방법이 있습니다. [i18next 마이그레이션 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_i18next_to_intlayer.md) 또는 [next-intl 마이그레이션 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_next-intl_to_intlayer.md)를 따라 점진적으로 이전할 수 있습니다. 또는 현재 API를 완전히 유지할 수도 있습니다: [호환 어댑터(compat adapters)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/index.md)는 `i18next`, `react-i18next`, `next-intl`, `next-i18next`, `react-intl`, `use-intl`, `vue-i18n` 및 `Lingui`와 완전히 동일한 API를 노출하면서 Intlayer 사전에서 데이터를 제공하므로, import 구문만 변경하고 컴포넌트 코드는 그대로 유지할 수 있습니다.
+
+- [i18next 마이그레이션 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_i18next_to_intlayer.md)
+- [next-intl 마이그레이션 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_next-intl_to_intlayer.md)
+- [호환 어댑터(compat adapters)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/index.md)
 
 </Question>
 <Question title="기존 JSON 번역 파일을 유지할 수 있나요?">
 
 네. [sync JSON 플러그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/plugins/sync-json.md)은 `/messages/{locale}/{namespace}.json` 파일을 단일 진실 공급원(source of truth)으로 유지하면서 양방향으로 Intlayer 사전을 생성합니다. [sync PO 플러그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/plugins/sync-po.md)은 gettext 카탈로그에 대해 동일한 작업을 수행하며, [로케일별 파일](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/per_locale_file.md)을 통해 로케일을 한 파일에 모으는 대신 언어별로 콘텐츠를 분할할 수도 있습니다.
 
+- [sync JSON 플러그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/plugins/sync-json.md)
+- [sync PO 플러그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/plugins/sync-po.md)
+- [로케일별 파일](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/per_locale_file.md)
+
 </Question>
 <Question title="콘텐츠를 키 단위로 하나씩 옮겨야 하나요?">
 
 아닙니다. `npx intlayer extract`를 실행하면 Intlayer가 소스 파일을 읽고 사용자 대면 문자열을 추출하여 각 컴포넌트 옆에 `.content` 파일을 생성하므로 카탈로그에 일일이 복사할 필요 없이 diff만 검토하면 됩니다. [extract 명령](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/extract.md)을 참조하세요.
 
+- [extract 명령](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/extract.md)
+
 완전 자동화된 파이프라인을 위해 [Intlayer 컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md)는 빌드 타임에 JSX, TSX, Vue 및 Svelte 소스에서 동일한 작업을 수행하여 변경될 때마다 사전을 생성하고 HMR을 통해 동기화하므로 수동으로 키를 관리할 필요가 없습니다. 정적 분석으로 작동하므로 런타임에만 존재하는 문자열은 제외되며, 사용자 텍스트와 애플리케이션 로직을 구분하기 위해 몇 가지 주석이 필요합니다.
+
+- [Intlayer 컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md)
 
 </Question>
 <Question title="사용 가능한 에디터 및 AI 에이전트 도구는 무엇이 있나요?">
@@ -384,10 +408,14 @@ Express를 기반으로 한 서버는 시각적 편집기 요청을 수신하고
 
 `routing.storage`에 나열된 순서대로 소스를 읽어 결정됩니다: `routing.mode`에서 접두사를 사용하는 경우의 URL 접두사, 쿠키, `Accept-Language` 헤더, 기본 로케일 순입니다. 사용자가 명시적으로 선택한 로케일은 저장되어 다음 방문 시에도 유지됩니다. [설정 참조](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참조하세요.
 
+- [설정 참조](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)
+
 </Question>
 <Question title="로컬 사전과 원격 사전의 차이점은 무엇인가요?">
 
 로컬 사전은 코드베이스에 선언되어 애플리케이션과 함께 컴파일됩니다. 원격 사전은 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)에서 관리되고 런타임에 확인되므로 배포 없이도 변경될 수 있습니다. 둘 다 동일한 훅을 통해 읽히며, 원격 콘텐츠를 사용할 수 없는 경우 로컬 선언으로 원활하게 폴백됩니다.
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)
 
 </Question>
 <Question title="Intlayer는 TypeScript 없이도 작동하나요?">
@@ -408,6 +436,9 @@ Express를 기반으로 한 서버는 시각적 편집기 요청을 수신하고
 <Question title="번역을 추가할 때 다시 빌드해야 하나요?">
 
 개발 환경에서는 필요하지 않습니다. 플러그인이 콘텐츠 파일을 감시하고 저장 시 영향을 받는 사전을 자동으로 다시 빌드합니다. 프로덕션 환경에서는 사전이 빌드의 일부가 되지만, 원격 콘텐츠인 경우 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md) 및 [실시간 동기화](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/live.md)를 통해 배포 없이 변경 사항을 적용할 수 있습니다.
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)
+- [실시간 동기화](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/live.md)
 
 </Question>
 

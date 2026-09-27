@@ -66,6 +66,8 @@ Panduan ini menyiapkan Lingui dalam proyek **Next.js 16 App Router**, dengan:
 
 [Tolok ukur i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/nextjs.md) menjalankan aplikasi Next.js 10 halaman dan 10 lokal yang sama dengan setiap pustaka utama dan mengukur apa yang sebenarnya diunduh oleh peramban.
 
+- [Tolok ukur i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/nextjs.md)
+
 <I18nBenchmark framework="nextjs" packages="lingui,@intlayer/lingui,next-intlayer" vertical/>
 
 Angka-angka penting untuk `@lingui/core@6.6.0` di Next.js 16, diukur pada 2026-09-26 (gzip):
@@ -83,6 +85,8 @@ Poin penting yang perlu diperhatikan:
 - **Runtime Lingui berbobot ~72 KB gzip.** Adaptor kompatibilitas `@intlayer/lingui` memangkas ukuran runtime menjadi ~11 KB, tetapi dalam tolok ukur ini pengaturan kompatibilitas Next.js masih mengirimkan seluruh katalog ke halaman. API bawaan `next-intlayer` adalah pengaturan yang tetap berada pada ukuran aplikasi dasar.
 
 > Lihat data selengkapnya: [Laporan tolok ukur Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/nextjs.md), dan [repositori tolok ukur](https://github.com/intlayer-org/benchmark-i18n).
+
+- [Laporan tolok ukur Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/nextjs.md)
 
 ## Perbandingan Fitur di Next.js
 
@@ -108,6 +112,9 @@ Perbandingan Lingui dengan `next-intl` dan Intlayer pada fitur-fitur yang biasan
 | **Ekosistem / komunitas**            | ⚠️ Lebih kecil, berkembang pesat                                            | ✅ Matang                                                             | ✅ Besar                                    |
 
 > Ukuran runtime bersumber dari [Tolok ukur Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/nextjs.md). Untuk pembahasan mendalam, baca [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/lingui_vs_intlayer.md).
+
+- [Tolok ukur Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/nextjs.md)
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/lingui_vs_intlayer.md)
 
 > Panduan Next.js lainnya:
 
@@ -1041,9 +1048,17 @@ export const sendContactMessage = async (formData: FormData) => {
 
 Adaptor kompatibilitas [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/lingui.md) mempertahankan kode sumber Anda tanpa perubahan: makro dikompilasi seperti sebelumnya, dan panggilan `i18n._()`, `useLingui()`, serta `<Trans>` yang dihasilkan dilayani oleh kamus Intlayer. Dalam tolok ukur Next.js, ukuran runtime turun dari **~72.1 KB menjadi ~10.7 KB** gzip.
 
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/lingui.md)
+
 Pada Next.js, adaptor ini dihubungkan dengan membuat alias `@lingui/core` dan `@lingui/react` ke `@intlayer/lingui` di `next.config.ts` (webpack dan Turbopack), dan membungkus konfigurasi dengan `withIntlayer` dari `next-intlayer/server`. Pertahankan `@lingui/swc-plugin` agar makro tetap dikompilasi terlebih dahulu. Konfigurasi lengkap ada di [panduan kompatibilitas Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/lingui.md).
 
+- [panduan kompatibilitas Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/lingui.md)
+
 Seperti yang ditunjukkan tabel tolok ukur, adaptor ini mengurangi ukuran runtime tetapi belum mengurangi katalog yang dikirimkan ke setiap halaman di Next.js. Adaptor ini paling tepat digunakan sebagai jembatan migrasi: setelah berjalan, pindahkan komponen satu per satu ke API bawaan `useIntlayer`, yang hanya mengirimkan konten yang dirender oleh masing-masing komponen. Lihat [panduan Next.js + Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_16.md), [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/lingui_vs_intlayer-lingui.md), dan semua [adaptor kompatibilitas](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/index.md).
+
+- [panduan Next.js + Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_16.md)
+- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/lingui_vs_intlayer-lingui.md)
+- [adaptor kompatibilitas](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/index.md)
 
 </Step>
 <Step number={19} title="Otomatiskan Terjemahan Anda Menggunakan Intlayer" isOptional={true}>
@@ -1086,15 +1101,23 @@ Dapatkan instance server dengan `getI18nInstance(locale)` dan terjemahkan deskri
 
 [Tolok ukur](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/nextjs.md) mengukur ukuran runtime ~72 KB gzip. Dengan satu katalog per lokal, ukuran halaman adalah ~145 KB dibandingkan 141 KB tanpa i18n, tetapi setiap halaman masih menerima pesan dari halaman lain melalui penyedia klien.
 
+- [Tolok ukur](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/nextjs.md)
+
 </Question>
 <Question title="Lingui, next-intl, atau next-i18next: mana yang sebaiknya saya pilih untuk Next.js?">
 
 Lingui cocok untuk tim yang suka menulis teks sumber langsung di dalam komponen dan bekerja dengan file PO serta penerjemah. next-intl cocok untuk tim yang lebih memilih katalog JSON dan API `t("key")` yang terintegrasi erat dengan Next.js. next-i18next membawa ekosistem plugin i18next. Lihat [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/next-i18next_vs_next-intl_vs_intlayer.md) dan [Tolok ukur Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/nextjs.md).
 
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/next-i18next_vs_next-intl_vs_intlayer.md)
+- [Tolok ukur Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/nextjs.md)
+
 </Question>
 <Question title="Bisakah saya bermigrasi dari Lingui ke Intlayer tanpa menulis ulang komponen saya?">
 
 Ya. Adaptor [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/lingui.md) mempertahankan makro dan menukar runtime, kemudian Anda dapat memindahkan komponen ke `useIntlayer` secara bertahap. Lihat [adaptor kompatibilitas](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/index.md).
+
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/lingui.md)
+- [adaptor kompatibilitas](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/index.md)
 
 </Question>
 

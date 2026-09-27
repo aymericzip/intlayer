@@ -216,7 +216,7 @@ Controla si un único archivo JSON cuyas **claves de primer nivel son espacios d
 
 Esto coincide con el modelo de espacio de nombres de bibliotecas como `next-intl` y `react-intl`, donde un archivo `messages/{locale}.json` agrupa varios espacios de nombres por sus claves de primer nivel, cada uno abordado de forma independiente (por ejemplo, `useTranslations('Hero')` se resuelve en el diccionario `Hero`).
 
-- `undefined` (por defecto): **autodetectado** — el archivo se divide cuando el patrón `source` no tiene un segmento `{key}` (un archivo contiene todos los espacios de nombres), y se mantiene como un único diccionario en caso contrario (un archivo por clave).
+- `undefined` (por defecto): **autodetectado**, el archivo se divide cuando el patrón `source` no tiene un segmento `{key}` (un archivo contiene todos los espacios de nombres), y se mantiene como un único diccionario en caso contrario (un archivo por clave).
 - `true`: siempre divide cada clave de nivel superior en su propio diccionario.
 - `false`: nunca divide; todo el archivo se convierte en un único diccionario.
 
@@ -238,7 +238,7 @@ syncJSON({
 }),
 ```
 
-Esto produce tres diccionarios — `Hero`, `Nav` y `About` — por lo que `useTranslations('Hero')` (next-intl) se resuelve correctamente. Al volver a escribir, todos los espacios de nombres se reensamblan en el mismo archivo por localidad.
+Esto produce tres diccionarios (`Hero`, `Nav` y `About`) por lo que `useTranslations('Hero')` (next-intl) se resuelve correctamente. Al volver a escribir, todos los espacios de nombres se reensamblan en el mismo archivo por localidad.
 
 > Cuando mantienes el segmento `{key}` explícito en tu `source` (por ejemplo, `./locales/${locale}/${key}.json`), cada archivo ya es un espacio de nombres, por lo que la división está deshabilitada por defecto.
 
@@ -402,7 +402,7 @@ loadJSON({
 
 Mismo comportamiento que en [`syncJSON`](#splitkeys-boolean): cuando un único archivo JSON agrupa varios espacios de nombres por sus claves de primer nivel, cada clave de nivel superior se convierte en su propio diccionario.
 
-- `undefined` (por defecto): **autodetectado** — se divide cuando el patrón `source` no tiene un segmento `{key}`, un único diccionario en caso contrario.
+- `undefined` (por defecto): **autodetectado**, se divide cuando el patrón `source` no tiene un segmento `{key}`, un único diccionario en caso contrario.
 - `true` / `false`: fuerza o deshabilita la división.
 
 ```ts
@@ -440,6 +440,8 @@ Los archivos JSON sincronizados serán considerados como otros archivos `.conten
 - `intlayer content pull` para descargar los archivos JSON sincronizados
 
 Vea [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/index.md) para más detalles.
+
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/index.md)
 
 ## Limitaciones (actuales)
 

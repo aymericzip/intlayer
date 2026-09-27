@@ -70,6 +70,8 @@ Drobnoziarniste podejście (intlayer, inlang)
 > W tym wpisie na blogu nie będę się skupiał na rozwiązaniach opartych na kompilatorze, które już omówiłem tutaj: [Kompilator vs deklaratywne i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/compiler_vs_declarative_i18n.md).
 > Zwróć uwagę, że i18n oparty na kompilatorze (np. Lingui) jedynie automatyzuje ekstrakcję i ładowanie treści. Pod maską często ma te same ograniczenia co inne podejścia.
 
+- [Kompilator vs deklaratywne i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/compiler_vs_declarative_i18n.md)
+
 > Im bardziej drobnoziarnie kontrolujesz pobieranie treści, tym większe ryzyko wprowadzenia dodatkowego stanu i logiki do Twoich komponentów.
 
 Podejścia granularne są bardziej elastyczne niż scentralizowane, ale często wiąże się to z kompromisem. Nawet jeśli biblioteki reklamują "tree shaking", w praktyce często i tak skończysz ładując stronę we wszystkich językach.
@@ -153,6 +155,8 @@ locale/
 
 Teraz musisz precyzyjnie zarządzać, która część zawartości Twojej aplikacji powinna być ładowana i gdzie. W praktyce zdecydowana większość projektów pomija ten etap ze względu na jego złożoność (zobacz na przykład [przewodnik next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/i18n_using_next-i18next.md), aby zobaczyć wyzwania, jakie stanowi (tylko) przestrzeganie dobrych praktyk).
 W konsekwencji te projekty kończą z opisanym wcześniej problemem masywnego ładowania plików JSON.
+
+- [przewodnik next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/i18n_using_next-i18next.md)
 
 > Należy zauważyć, że problem ten nie dotyczy tylko i18next, lecz wszystkich scentralizowanych podejść wymienionych powyżej.
 

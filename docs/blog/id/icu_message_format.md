@@ -264,6 +264,8 @@ Pemetaan ke konsep ICU sangat jelas dan langsung:
 
 Operator `plural` menyerahkan pemilihan kategori kepada `Intl.PluralRules`, sehingga tabel CLDR di atas berlaku tanpa perubahan. Logika pemformatan tetap terpisah: angka, tanggal, mata uang, dan daftar ditangani melalui [hooks pemformatan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/formatters.md), alih-alih dicampur ke dalam teks pesan.
 
+- [hooks pemformatan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/formatters.md)
+
 Batasan praktis:
 
 - Intlayer memerlukan tahap build: compiler mengekstrak deklarasi saat proses build aplikasi. Jika Anda menginginkan JSON biasa yang dimuat saat runtime, itu adalah model yang berbeda.
@@ -271,6 +273,9 @@ Batasan praktis:
 - Ekosistemnya lebih baru dibandingkan i18next, dengan integrasi bawaan TMS yang masih terus berkembang.
 
 Jika Anda beralih dari basis kode yang sudah memuat string ICU asli, [adapter kompatibilitas react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/react-intl.md) dapat langsung menguraikannya: `plural`, `select`, `selectordinal`, `#`, dan argumen lama `number`, `date`, `time`. Skeleton dan `offset:` belum didukung oleh parser tersebut dan perlu diperiksa saat migrasi. Sementara itu, [adapter i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/i18next.md) menyelesaikan bentuk akhiran (`key_one`, `key_male`) melalui `Intl.PluralRules`.
+
+- [adapter kompatibilitas react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/react-intl.md)
+- [adapter i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/i18next.md)
 
 ## Kesalahan yang Sering Terjadi
 

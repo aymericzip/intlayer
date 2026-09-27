@@ -35,6 +35,8 @@ author: aymericzip
 
 Este artigo analisa essa substituição na mesma aplicação Next.js, construída uma vez com `next-i18next` e outra com `@intlayer/next-i18next`. Os dados são do [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Para comparar `i18next` e Intlayer como bibliotecas completas, leia [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/i18next_vs_intlayer.md). Este artigo se concentra no que o adaptador transforma quando você preserva seu código como está.
 
+- [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/i18next_vs_intlayer.md)
+
 <TOC/>
 
 > **tl;dr**: Na mesma aplicação Next.js, substituir `next-i18next` por `@intlayer/next-i18next` reduziu o JavaScript por página de **218.5 KB para 150.7 KB** gzip (setup básico) e superou o setup do `next-i18next` totalmente otimizado (163.4 KB) em **12.7 KB**. O componente médio caiu de **78.5 KB para 9.7 KB**, o vazamento de strings para outras páginas foi de **~90% para 0%**, a hidratação de **15.6 ms para 11.3 ms** e o runtime de **19.7 KB para 9.4 KB**. Nenhum componente foi editado; apenas um arquivo de provider foi ajustado. Plugins do `i18next` (backends, detectores de idioma) são aceitos mas não realizam nada: não há mais nada para carregar ou detectar em tempo de execução.
@@ -145,6 +147,8 @@ style="border:none;"
 
 > Tabela completa, cada biblioteca e cada estratégia, no [relatório de benchmark do Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/benchmark/nextjs.md).
 
+- [relatório de benchmark do Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/benchmark/nextjs.md)
+
 ### Resultados no TanStack Start (`react-i18next`)
 
 Para Vite e TanStack Start, o benchmark compara o `react-i18next` puro com o `intlayer`:
@@ -164,7 +168,11 @@ style="border:none;"
 
 > Tabela completa no [relatório de benchmark do TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/benchmark/tanstack.md).
 
+- [relatório de benchmark do TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/benchmark/tanstack.md)
+
 > O adaptador `react-i18next` no Vite / TanStack Start não constou desta rodada de testes. A medição para `react-i18next` no TanStack Start pode ser verificada em [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/i18next_vs_intlayer.md): 127-184 KB por página e 123-185 ms na troca de idioma com backend sob demanda.
+
+- [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/i18next_vs_intlayer.md)
 
 ## O motivo da mudança nos indicadores
 
@@ -343,6 +351,8 @@ O `reactI18nextVitePlugin()` encapsula o `vite-intlayer` e define os aliases par
 
 `i18n.use(HttpBackend)` chama o init do plugin e nada mais. Se o seu aplicativo dependia de buscar traduções de um CMS em tempo de execução, esse fluxo desaparece; use o [CMS do Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md) ou os comandos `intlayer pull` / `push`. A detecção de idioma passa a ser a configuração de roteamento do Intlayer (prefixo de URL, cookie, cabeçalho).
 
+- [CMS do Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md)
+
 </Accordion>
 <Accordion header="resources é ignorado, não mesclado">
 
@@ -401,6 +411,9 @@ Você está no `react-i18next` / `next-i18next` e quer os 68 KB economizados, co
 <Accordion header="Tornar-se nativo (next-intlayer / react-intlayer)">
 
 Para novos projetos, ou assim que o adaptador cumprir seu papel. Possui o runtime mais leve (5.5 KB, +0.3 KB por página) e desbloqueia Server Components síncronos e arquivos `.content.ts` por componente. Comece com [Intlayer com Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_with_nextjs_16.md) ou [com Vite e React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_with_vite+react.md).
+
+- [Intlayer com Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_with_nextjs_16.md)
+- [com Vite e React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_with_vite+react.md)
 
 </Accordion>
 </AccordionGroup>
@@ -489,3 +502,5 @@ O `i18next` figura como o runtime mais pesado deste benchmark, e os adaptadores 
 A totalidade dos dados brutos, aplicações de teste e scripts encontra-se publicada no [repositório do Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom).
 
 Consulte o documento [Por que Intlayer?](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/interest_of_intlayer.md) para aprofundar.
+
+- [Por que o Intlayer? Vantagens sobre outras bibliotecas i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/interest_of_intlayer.md)

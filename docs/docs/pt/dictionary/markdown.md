@@ -142,12 +142,12 @@ Você pode declarar conteúdo Markdown usando a função `md` ou simplesmente co
 O Intlayer fornece duas maneiras independentes de renderizar Markdown:
 
 1. **Através do `useIntlayer`**
-   — O Intlayer transforma automaticamente o nó `md` na saída nativa do framework (JSX, VNode, string HTML).
-   - O Frontmatter é analisado e exposto como `.metadata`. Você pode substituir a renderização em dois níveis — globalmente com `MarkdownProvider` (ou o equivalente do framework) e localmente por nó com `.use()`. Ambos podem ser combinados; `.use()` tem prioridade sobre `MarkdownProvider`, que por sua vez tem prioridade sobre o padrão.
+   O Intlayer transforma automaticamente o nó `md` na saída nativa do framework (JSX, VNode, string HTML).
+   - O Frontmatter é analisado e exposto como `.metadata`. Você pode substituir a renderização em dois níveis, globalmente com `MarkdownProvider` (ou o equivalente do framework) e localmente por nó com `.use()`. Ambos podem ser combinados; `.use()` tem prioridade sobre `MarkdownProvider`, que por sua vez tem prioridade sobre o padrão.
 
-2. **Utilitários auxiliares** — `<MarkdownRenderer />`, `useMarkdownRenderer()` e `renderMarkdown()` são ferramentas autônomas que aceitam **apenas strings Markdown brutas**. Elas são independentes do `useIntlayer` e não funcionam com os nós decorados que ele retorna.
+2. **Utilitários auxiliares**: `<MarkdownRenderer />`, `useMarkdownRenderer()` e `renderMarkdown()` são ferramentas autônomas que aceitam **apenas strings Markdown brutas**. Elas são independentes do `useIntlayer` e não funcionam com os nós decorados que ele retorna.
 
-A renderização do Markdown suporta **MDX** — use qualquer componente JSX/framework por nome diretamente no seu Markdown.
+A renderização do Markdown suporta **MDX**, use qualquer componente JSX/framework por nome diretamente no seu Markdown.
 
 ### 1. Renderização Automática (através de `useIntlayer`)
 
@@ -864,7 +864,7 @@ Estes utilitários renderizam **apenas strings Markdown brutas** e são independ
 
 ## Configuração Global com `MarkdownProvider`
 
-O `MarkdownProvider` (ou o seu equivalente do framework) configura o pipeline de renderização Markdown para toda a sua aplicação. Aplica-se tanto para a renderização automática do `useIntlayer` quanto para os utilitários auxiliares. Opções definidas aqui são os padrões — o `.use()` substitui-os em nível de nó.
+O `MarkdownProvider` (ou o seu equivalente do framework) configura o pipeline de renderização Markdown para toda a sua aplicação. Aplica-se tanto para a renderização automática do `useIntlayer` quanto para os utilitários auxiliares. Opções definidas aqui são os padrões, o `.use()` substitui-os em nível de nó.
 
 <Tabs group="framework">
   <Tab label="React" value="react">
@@ -886,7 +886,7 @@ O `MarkdownProvider` (ou o seu equivalente do framework) configura o pipeline de
     ```
 
 
-    > O MDX é suportado — qualquer nome de componente usado dentro do seu Markdown (ex: `<MyCustomJSXComponent />`) é resolvido com base no mapa de `components`.
+    > O MDX é suportado, qualquer nome de componente usado dentro do seu Markdown (ex: `<MyCustomJSXComponent />`) é resolvido com base no mapa de `components`.
 
     Você também pode usar seu próprio renderizador de markdown:
 
@@ -928,7 +928,7 @@ O `MarkdownProvider` (ou o seu equivalente do framework) configura o pipeline de
     ```
 
 
-    > O MDX é suportado — qualquer nome de componente usado dentro do seu Markdown (ex: `<MyCustomJSXComponent />`) é resolvido com base no mapa de `components`.
+    > O MDX é suportado, qualquer nome de componente usado dentro do seu Markdown (ex: `<MyCustomJSXComponent />`) é resolvido com base no mapa de `components`.
 
     Você também pode usar seu próprio renderizador de markdown:
 
@@ -976,7 +976,7 @@ O `MarkdownProvider` (ou o seu equivalente do framework) configura o pipeline de
     ```
 
 
-    > O MDX é suportado — qualquer nome de componente usado dentro do seu Markdown (ex: `<MyCustomJSXComponent />`) é resolvido com base no mapa de `components`.
+    > O MDX é suportado, qualquer nome de componente usado dentro do seu Markdown (ex: `<MyCustomJSXComponent />`) é resolvido com base no mapa de `components`.
 
     Você também pode usar seu próprio renderizador de markdown:
 
@@ -1020,7 +1020,7 @@ O `MarkdownProvider` (ou o seu equivalente do framework) configura o pipeline de
     ```
 
 
-    > O MDX é suportado — qualquer nome de componente usado dentro do seu Markdown (ex: `<MyCustomJSXComponent />`) é resolvido com base no mapa de `components`.
+    > O MDX é suportado, qualquer nome de componente usado dentro do seu Markdown (ex: `<MyCustomJSXComponent />`) é resolvido com base no mapa de `components`.
 
     Você também pode usar seu próprio renderizador de markdown:
 
@@ -1059,7 +1059,7 @@ O `MarkdownProvider` (ou o seu equivalente do framework) configura o pipeline de
     ```
 
 
-    > O MDX é suportado — qualquer nome de componente usado dentro do seu Markdown (ex: `<MyCustomJSXComponent />`) é resolvido com base no mapa de `components`.
+    > O MDX é suportado, qualquer nome de componente usado dentro do seu Markdown (ex: `<MyCustomJSXComponent />`) é resolvido com base no mapa de `components`.
 
     Você também pode usar seu próprio renderizador de markdown:
 
@@ -1098,7 +1098,7 @@ O `MarkdownProvider` (ou o seu equivalente do framework) configura o pipeline de
     ```
 
 
-    > O MDX é suportado — qualquer nome de componente usado dentro do seu Markdown (ex: `<MyCustomJSXComponent />`) é resolvido com base no mapa de `components`.
+    > O MDX é suportado, qualquer nome de componente usado dentro do seu Markdown (ex: `<MyCustomJSXComponent />`) é resolvido com base no mapa de `components`.
 
     Você também pode usar seu próprio renderizador de markdown:
 
@@ -1137,7 +1137,7 @@ O `MarkdownProvider` (ou o seu equivalente do framework) configura o pipeline de
     ```
 
 
-    > O MDX é suportado — qualquer nome de componente usado dentro do seu Markdown (ex: `<MyCustomJSXComponent />`) é resolvido com base no mapa de `components`.
+    > O MDX é suportado, qualquer nome de componente usado dentro do seu Markdown (ex: `<MyCustomJSXComponent />`) é resolvido com base no mapa de `components`.
 
     Você também pode usar seu próprio renderizador de markdown:
 

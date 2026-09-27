@@ -376,6 +376,8 @@ ICU की `other` स्थिति को `fallback` के रूप मे�
 
 > ध्यान दें, ICU `select` जिसमें स्थितियां लिंग मान (`male` / `female` / `other`) हैं, उन्हें इसके बजाय [`gender`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/gender.md) नोड के रूप में आयात किया जाता है।
 
+- [`gender`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/gender.md)
+
 ## अतिरिक्त संसाधन
 
 कॉन्फ़िगरेशन (configuration) और उपयोग के बारे में अधिक विस्तृत जानकारी के लिए, निम्नलिखित संसाधनों को देखें:

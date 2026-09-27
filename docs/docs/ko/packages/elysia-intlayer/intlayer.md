@@ -134,6 +134,8 @@ export default config;
 
 > 설정에 대한 자세한 내용은 [설정 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참고하세요.
 
+- [설정 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)
+
 ## 관련 문서
 
 - [elysia-intlayer 패키지 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/elysia-intlayer/exports.md)

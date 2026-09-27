@@ -70,6 +70,8 @@ extension Localization on String {
 > في هذه المدونة، لن أركز على الحلول المعتمدة على الـ compiler (compiler-based)، والتي قمت بتغطيتها سابقًا هنا: [Compiler vs Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/compiler_vs_declarative_i18n.md).
 > لاحظ أن i18n المعتمدة على الـ compiler (مثل Lingui) تقوم ببساطة بأتمتة استخراج وتحميل المحتوى. تحت الغطاء، غالبًا ما تشترك في نفس القيود التي تواجه النهج الأخرى.
 
+- [Compiler vs Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/compiler_vs_declarative_i18n.md)
+
 > لاحظ أنه كلما زادت دقة تفصيل طريقة استرجاع المحتوى، زادت المخاطرة بإدخال حالة (state) ومنطق إضافي داخل مكوناتك.
 
 النهج التفصيلي أكثر مرونة من النهج المركزي، لكنه غالبًا ما يكون مقايضة. حتى وإن كانت تلك المكتبات تروّج لخاصية "tree shaking"، ففي الممارسة العملية، غالبًا ما ستجد نفسك تقوم بتحميل الصفحة بكل لغة.

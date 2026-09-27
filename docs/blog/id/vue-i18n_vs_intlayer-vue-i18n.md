@@ -30,6 +30,8 @@ author: aymericzip
 
 Artikel ini mengukur pertukaran tersebut pada aplikasi Vite + Vue 3 yang sama, dibangun sekali dengan `vue-i18n` dan sekali dengan adapter. Angka-angka tersebut berasal dari [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Untuk perbandingan `vue-i18n` dan Intlayer sebagai library, baca [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/vue-i18n_vs_intlayer.md) dan [benchmark vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/vue-i18n_vs_intlayer.md). Yang ini tentang apa yang berubah adapter ketika Anda mempertahankan komponen seperti apa adanya.
 
+- [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/vue-i18n_vs_intlayer.md)
+
 <TOC/>
 
 > **tl;dr**: Pada aplikasi Vite + Vue 3 yang sama, mengganti `vue-i18n` dengan `@intlayer/vue-i18n` mengurangi JavaScript per-halaman dari **134.9 KB menjadi 47.0 KB** gzip (aplikasi tanpa i18n berukuran 41.3 KB), runtime dari **24.3 KB menjadi 7.9 KB**, rata-rata komponen dari **196 KB menjadi 8.4 KB**, dan kebocoran string halaman asing dari **90% menjadi 0%**, tanpa mengedit file `.vue` apa pun. `createI18n({ messages })` terus berfungsi sebagai fallback; hapus impor JSON untuk mendapatkan angka di atas. Blok SFC `<i18n>` dan `setLocaleMessage()` runtime adalah dua fitur yang tidak terbawa.
@@ -137,6 +139,8 @@ style="border:none;"
 />
 
 > Tabel lengkap, setiap pustaka dan strategi, dalam [laporan benchmark Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/vue.md).
+
+- [laporan benchmark Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/vue.md)
 
 ## Mengapa angka berubah
 
@@ -286,6 +290,8 @@ Jika pesan Anda berada di dalam komponen, pesan tersebut harus dipindahkan ke be
 
 `setLocaleMessage()` dan `mergeLocaleMessage()` memberikan peringatan dan kembali. Terjemahan yang diambil dari CMS saat runtime memerlukan [CMS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md), atau perintah `intlayer pull` / `push`.
 
+- [CMS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)
+
 </Accordion>
 <Accordion header="messages adalah fallback, bukan gratis">
 
@@ -316,6 +322,9 @@ Anda menggunakan `vue-i18n` dan menginginkan penghematan 88 KB, komponen 23x leb
 
 Untuk proyek baru, atau setelah adaptor menyelesaikan tugasnya. Menawarkan runtime teringan (3.9 KB) dan model `.content.ts` per komponen yang menggantikan blok `<i18n>` dengan konten bertipe. Mulai dengan [Intlayer dengan Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_vite+vue.md) atau [dengan Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nuxt.md).
 
+- [Intlayer dengan Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_vite+vue.md)
+- [dengan Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nuxt.md)
+
 </Accordion>
 </AccordionGroup>
 
@@ -339,11 +348,16 @@ Karena `useI18n()` berhenti mengakses instans global. `createI18n({ messages })`
 
 Dipertahankan. Konfigurasi `datetimeFormats` dan `numberFormats` yang diteruskan ke `createI18n()` dihormati, didukung oleh API `Intl` bawaan. Lihat [pemformatan tanggal, waktu, dan angka](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/date_time_number_formatting_locales.md).
 
+- [pemformatan tanggal, waktu, dan angka](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/date_time_number_formatting_locales.md)
+
 </Question>
 
 <Question title="Apakah ini berfungsi dengan Nuxt?">
 
 `@intlayer/vue-i18n` menargetkan Vite + Vue. Untuk `@nuxtjs/i18n`, gunakan [adaptor kompatibilitas Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/nuxtjs-i18n.md), dan lihat [Intlayer dengan Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nuxt.md) untuk konfigurasi bawaan.
+
+- [adaptor kompatibilitas Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/nuxtjs-i18n.md)
+- [Intlayer dengan Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nuxt.md)
 
 </Question>
 
@@ -394,3 +408,5 @@ Dokumentasi referensi:
 Semua data mentah, aplikasi pengujian, dan skrip ada di [repositori Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Jalankan sendiri.
 
 Lihat [dokumen 'Mengapa Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/interest_of_intlayer.md) untuk detail selengkapnya.
+
+- [Mengapa Intlayer? Keunggulan dibanding library i18n lain](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/interest_of_intlayer.md)

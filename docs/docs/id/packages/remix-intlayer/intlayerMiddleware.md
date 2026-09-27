@@ -49,6 +49,38 @@ Middleware melakukan tugas-tugas berikut untuk setiap permintaan yang masuk:
 3. **Mengisi Konteks Permintaan**: Menyimpan locale yang diselesaikan saat ini dalam konteks permintaan Remix menggunakan kunci `Intlayer`, sehingga hook (`useLocale`, `useIntlayer`, `useDictionary`) dapat menggunakannya secara transparan.
 4. **Manajemen Cookie**: Menyetel header `Set-Cookie` saat perlu mempertahankan locale pilihan pengguna.
 
+## Parameter
+
+Fungsi `intlayer` menerima `IntlayerMiddlewareOptions` opsional:
+
+```ts
+import { intlayer, type IntlayerMiddlewareOptions } from "remix-intlayer";
+
+const options: IntlayerMiddlewareOptions = {
+  // Penimpaan konfigurasi routing kustom
+};
+
+const middleware = intlayer(options);
+```
+
+## Mengakses Konteks Secara Langsung
+
+Selain menggunakan hook, Anda dapat mengakses `IntlayerState` yang telah ditentukan langsung dari konteks permintaan Remix:
+
+```ts
+import { Intlayer } from "remix-intlayer";
+
+router.get("/api/locale", (context) => {
+  // Melalui context.get()
+  const state = context.get(Intlayer);
+
+  // Atau melalui properti langsung context.intlayer
+  const { locale } = context.intlayer;
+
+  return Response.json({ locale });
+});
+```
+
 ## Dokumentasi Terkait
 
 - [Konteks Permintaan `Intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/remix-intlayer/Intlayer.md)

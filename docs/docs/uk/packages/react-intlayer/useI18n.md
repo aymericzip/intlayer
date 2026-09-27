@@ -74,6 +74,8 @@ author: aymericzip
 
 Усі ключі словника повинні бути оголошені у файлах декларації вмісту, щоб підвищити типобезпеку та запобігти помилкам. [Інструкції з конфігурації можна знайти тут](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/content_file.md).
 
+- [Інструкції з конфігурації можна знайти тут](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/content_file.md)
+
 ## Приклади використання в React
 
 Приклади використання хуку `useI18n` у React-компонентах:

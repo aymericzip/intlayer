@@ -221,4 +221,6 @@ Fungsi `t` dalam `next-intlayer` adalah alat yang kuat dan praktis untuk mengelo
 
 Untuk penggunaan yang lebih rinci dan fitur lanjutan, lihat [dokumentasi next-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md).
 
+- [dokumentasi next-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md)
+
 **Catatan**: Ingatlah untuk mengatur `IntlayerClientProvider` dan `IntlayerServerProvider` Anda dengan benar agar locale saat ini diteruskan dengan tepat ke komponen Anda. Ini sangat penting agar fungsi `t` mengembalikan terjemahan yang benar.

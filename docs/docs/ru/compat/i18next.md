@@ -27,6 +27,8 @@ author: aymericzip
 
 Для подробного пошагового обучения см. наше полное [руководство по миграции i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/migration_from_i18next_to_intlayer.md).
 
+- [руководство по миграции i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/migration_from_i18next_to_intlayer.md)
+
 Intlayer идеально воспроизводит основные характеристики runtime `i18next`. Используя пакет совместимости, ваши приложения Vanilla или внутренние модули могут продолжать использовать знакомый синтаксис.
 
 ## Что делать

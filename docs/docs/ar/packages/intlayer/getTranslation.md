@@ -34,6 +34,8 @@ author: aymericzip
 
 للمزيد من التفاصيل حول كيفية إعلان الترجمات، راجع [وثائق الترجمة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/translation.md).
 
+- [وثائق الترجمة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/translation.md)
+
 ## المعاملات
 
 - `languageContent: CustomizableLanguageContent<Content>`

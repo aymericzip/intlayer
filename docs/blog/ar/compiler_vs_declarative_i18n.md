@@ -78,6 +78,8 @@ author: aymericzip
 
 > لمزيد من التفاصيل، اطلع على الوثائق: [وثائق مترجم Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md)
 
+- [وثائق مترجم Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md)
+
 ## جاذبية المترجم (النهج "السحري")
 
 هناك سبب يجعل هذا النهج الجديد شائعًا. بالنسبة للمطور، التجربة مذهلة.

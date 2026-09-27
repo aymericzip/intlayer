@@ -54,6 +54,8 @@ author: aymericzip
 
 Див. статтю в блозі [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/compiler_vs_declarative_i18n.md) для глибшого порівняння.
 
+- [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/compiler_vs_declarative_i18n.md)
+
 ## Чому не використовувати Intlayer Compiler?
 
 Хоча компілятор пропонує чудовий досвід «just works», він також вносить певні компроміси, про які варто знати:
@@ -65,11 +67,16 @@ author: aymericzip
 
 Для глибшого архітектурного порівняння див. статтю в блозі [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/compiler_vs_declarative_i18n.md).
 
+- [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/compiler_vs_declarative_i18n.md)
+
 Як альтернативу, щоб автоматизувати ваш процес i18n і зберегти повний контроль над контентом, Intlayer також пропонує команду автоматичної екстракції `intlayer extract` (див. [документацію CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/extract.md)), або команду `Intlayer: extract content to Dictionary` з розширення Intlayer для VS Code (див. [документацію розширення VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/vs_code_extension.md)).
+
+- [документацію CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/extract.md)
+- [документацію розширення VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/vs_code_extension.md)
 
 ## Використання
 
-> Найшвидший спосіб підключити компілятор — інтерактивне налаштування: запустіть `npx intlayer init --interactive` і виберіть **Compiler**. У Next.js та Vite він активується автоматично, щойно встановлено `compiler.enabled` і налаштовано шлях `compiler.output`.
+> Найшвидший спосіб підключити компілятор, інтерактивне налаштування: запустіть `npx intlayer init --interactive` і виберіть **Compiler**. У Next.js та Vite він активується автоматично, щойно встановлено `compiler.enabled` і налаштовано шлях `compiler.output`.
 
 <Tabs>
  <Tab value='vite'>
@@ -97,9 +104,11 @@ export default defineConfig({
 });
 ```
 
-> Плагін `intlayerCompiler()` все ще експортується для розширених налаштувань. Реєстрація його разом з `intlayer()` є безпечною — компілятор дублює себе та запускається лише один раз.
+> Плагін `intlayerCompiler()` все ще експортується для розширених налаштувань. Реєстрація його разом з `intlayer()` є безпечною, компілятор дублює себе та запускається лише один раз.
 
 See complete tutorial: [Translate Vite and React with Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md)
+
+- [Translate Vite and React with Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md)
 
 #### Підтримка фреймворків
 
@@ -384,3 +393,5 @@ bun x intlayer extract
 ```
 
 > Для отримання детальнішої інформації див. [документацію CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/index.md)
+
+- [документацію CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/index.md)

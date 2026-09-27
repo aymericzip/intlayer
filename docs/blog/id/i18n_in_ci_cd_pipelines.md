@@ -44,7 +44,12 @@ const config = {
 export default config;
 ```
 
+- [plugin Sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/plugins/sync-json.md)
+
 Aplikasi Anda tetap mengimpor file seperti biasa. Tugas CI berikut ini kemudian mengisi dan memverifikasi katalog yang ada, dan perbedaan (diff) yang dilihat oleh reviewer adalah perubahan pada `locales/fr/checkout.json`, bukan migrasi kode besar-besaran. Terdapat juga [plugin Sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/plugins/sync-po.md) untuk alur kerja gettext, dan [adapter kompatibilitas](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/index.md) jika Anda ingin API runtime tetap tidak berubah.
+
+- [plugin Sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/plugins/sync-po.md)
+- [adapter kompatibilitas](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/index.md)
 
 ## Pisahkan gerbang pemeriksaan (gate) dari pengisian (fill)
 
@@ -167,6 +172,8 @@ test("has no missing required locales", async () => {
 
 `npx intlayer content test` mencetak laporan tetapi keluar dengan kode nol, sehingga hanya memberi tahu tanpa memblokir build. Gunakan itu secara lokal; gunakan assertion tes di CI. Rincian lebih lanjut di [menemukan terjemahan yang hilang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/detecting_missing_translations.md).
 
+- [menemukan terjemahan yang hilang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/detecting_missing_translations.md)
+
 ## `requiredLocales` membuat gate dapat bertahan di dunia nyata
 
 Sebuah gerbang yang menuntut lengkapnya semua delapan belas bahasa akan memblokir setiap rilis hingga bahasa yang paling lambat selesai, dan biasanya dinonaktifkan dalam waktu satu bulan.
@@ -209,6 +216,8 @@ export default config;
 ```
 
 Ini cocok untuk tim di mana non-developer mengelola konten. Ini adalah kompromi: Anda mendapatkan otonomi editor namun kehilangan jaminan bahwa git checkout secara mandiri mendeskripsikan secara tepat apa yang dirender aplikasi. Detailnya di [dokumentasi CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md).
+
+- [dokumentasi CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)
 
 Harap dicatat bahwa `clientSecret` adalah kredensial sisi server. Kunci ini harus berada di rahasia CI dan variabel lingkungan server Anda, tidak boleh masuk ke bundle klien.
 

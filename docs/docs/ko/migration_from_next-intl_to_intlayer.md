@@ -45,10 +45,16 @@ Intlayer는 i18n 생태계에서 **가장 활발하게 개발되는** 솔루션�
 
 콘텐츠의 위치를 통일(Colocation)하면 대규모 언어 모델(LLM)에 필요한 **컨텍스트가 줄어듭니다**. Intlayer에는 누락된 번역을 테스트하기 위한 **CLI**, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/mcp_server.md)** 및 **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/agent_skills.md)** 등 일련의 도구가 있어 AI 에이전트를 위한 개발자 경험(DX)이 훨씬 매끄러워집니다.
 
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/mcp_server.md)
+- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/agent_skills.md)
+
 </Accordion>
 <Accordion header="자동화">
 
 AI 제공 업체의 비용만으로 원하는 LLM을 사용하여 CI/CD 파이프라인에서 번역을 자동화하세요. Intlayer는 콘텐츠 추출을 자동화하기 위한 **컴파일러**와 **백그라운드 번역**을 지원하는 [웹 플랫폼](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)도 제공합니다.
+
+- [웹 플랫폼](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="성능">
@@ -59,6 +65,9 @@ AI 제공 업체의 비용만으로 원하는 LLM을 사용하여 CI/CD 파이�
 <Accordion header="비개발자와의 스케일업">
 
 Intlayer는 단순한 i18n 솔루션을 넘어, 자체 호스팅이 가능한 **[시각적 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)**와 다국어 콘텐츠를 **실시간**으로 관리할 수 있는 **[풀 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)**를 제공합니다. 이를 통해 번역가, 카피라이터 및 기타 팀 구성원과 원활하게 협업할 수 있습니다. 콘텐츠는 로컬 및/또는 원격으로 저장될 수 있습니다.
+
+- [시각적 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)
+- [풀 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
@@ -71,9 +80,9 @@ Intlayer는 단순한 i18n 솔루션을 넘어, 자체 호스팅이 가능한 **
 
 기존 애플리케이션을 위한 추천 접근 방식은 **호환성 어댑터**를 사용하는 것입니다: `@intlayer/next-intl`을 설치하세요. 이 어댑터는 `next-intl`과 **정확히 동일한 API**를 제공하면서 모든 번역 작업을 백그라운드에서 Intlayer에 위임합니다.
 
-기존에 사용하던 `useTranslations`, `getTranslations`, `NextIntlClientProvider` 및 기타 구성 요소는 계속 유지할 수 있습니다 — **가져오기 경로만 변경하면 됩니다.** 함수 호출 방식, 속성 형태, 컴포넌트 구조의 리팩토링이 필요하지 않습니다.
+기존에 사용하던 `useTranslations`, `getTranslations`, `NextIntlClientProvider` 및 기타 구성 요소는 계속 유지할 수 있습니다. **가져오기 경로만 변경하면 됩니다.** 함수 호출 방식, 속성 형태, 컴포넌트 구조의 리팩토링이 필요하지 않습니다.
 
-시간이 지남에 따라 점진적으로 개별 파일을 더욱 강력한 Intlayer의 `.content.ts` 형식으로 옮기면, 시각적 에디터, CMS 및 컴포넌트 레벨의 콘텐츠 스코프를 활용할 수 있습니다 — 하지만 이는 전적으로 선택 사항이며 점진적으로 도입할 수 있습니다.
+시간이 지남에 따라 점진적으로 개별 파일을 더욱 강력한 Intlayer의 `.content.ts` 형식으로 옮기면, 시각적 에디터, CMS 및 컴포넌트 레벨의 콘텐츠 스코프를 활용할 수 있습니다. 하지만 이는 전적으로 선택 사항이며 점진적으로 도입할 수 있습니다.
 
 ## 목차
 
@@ -124,7 +133,7 @@ yarn add intlayer next-intlayer @intlayer/next-intl @intlayer/sync-json-plugin
 bun add intlayer next-intlayer @intlayer/next-intl @intlayer/sync-json-plugin
 ```
 
-> `next-intl`은 계속 설치해 두세요 — **URL 라우팅**(`createNavigation`, `createMiddleware`, `Link`, `redirect`, `usePathname`, `useRouter`)을 위해 계속 필요합니다. 호환성 어댑터는 라우팅 레이어를 교체**하지 않습니다**.
+> `next-intl`은 계속 설치해 두세요, **URL 라우팅**(`createNavigation`, `createMiddleware`, `Link`, `redirect`, `usePathname`, `useRouter`)을 위해 계속 필요합니다. 호환성 어댑터는 라우팅 레이어를 교체**하지 않습니다**.
 
 </Step>
 <Step number={2} title="Intlayer 설정">
@@ -162,6 +171,8 @@ export default config;
 
 > 가능한 모든 구성 옵션은 [설정 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참조하세요.
 
+- [설정 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)
+
 </Step>
 <Step number={3} title="Next.js에 Intlayer 플러그인 통합">
 
@@ -180,7 +191,7 @@ export default withIntlayer(nextConfig);
 
 > `createNextIntlPlugin()`은 `withIntlayer`를 래핑하여 **Webpack**이나 **Turbopack**을 자동으로 감지하고, 콘텐츠 감시와 사전 컴파일을 연결하며 가장 중요하게는 **모듈 별칭을 주입**합니다. 이를 통해 기존의 `import … from 'next-intl'`에 대한 호출이 빌드 시간에 투명하게 `@intlayer/next-intl`로 리디렉션됩니다. 라우팅 관련 파일인 `next-intl/routing` 항목은 여전히 실제 패키지를 가리킵니다. 소스 코드를 변경할 필요가 없습니다.
 >
-> 순수한 `next-intlayer/server`의 `withIntlayer`를 사용하고 싶나요? 이 경우 사전은 컴파일되지만 `next-intl`에 대한 별칭은 추가**되지 않습니다** — 따라서 수동으로 `@intlayer/next-intl`을 참조하도록 가져오기 경로를 이름을 변경해야 합니다(단계 4 참고).
+> 순수한 `next-intlayer/server`의 `withIntlayer`를 사용하고 싶나요? 이 경우 사전은 컴파일되지만 `next-intl`에 대한 별칭은 추가**되지 않습니다**, 따라서 수동으로 `@intlayer/next-intl`을 참조하도록 가져오기 경로를 이름을 변경해야 합니다(단계 4 참고).
 
 > **`getRequestConfig`나 `loadMessages` 파일은 더 이상 필요하지 않습니다.** `next-intl`을 사용할 때는 모든 요청마다 `getRequestConfig`를 통해 JSON 메시지 번들을 불러오기 위해 `src/i18n.ts` 파일을 작성해야 했습니다. Intlayer는 모든 사전을 **빌드 시간**에 컴파일하므로 런타임에 메시지를 불러오는 단계가 없습니다. 이 파일을 완전히 지우셔도 됩니다 (계속해서 `createNavigation`을 사용한다면 라우팅 관련 코드만 남기세요).
 
@@ -190,10 +201,10 @@ export default withIntlayer(nextConfig);
 
 이것으로 빠른 마이그레이션이 완료되었습니다. 이제 앱은 모든 가져오기와 `next-intl` API를 그대로 유지한 채 Intlayer에서 작동합니다.
 
-> **자동화된 타입의 번역 키.** Intlayer가 사전을 컴파일하면 `useTranslations` 및 `getTranslations`는 실제 콘텐츠에 대해 타입 검사를 수행합니다. 키는 IDE에서 자동 완성되며 유효하지 않은 경로는 빌드 시에 TypeScript 오류로 나타납니다 — 추가 설정이 필요 없습니다.
+> **자동화된 타입의 번역 키.** Intlayer가 사전을 컴파일하면 `useTranslations` 및 `getTranslations`는 실제 콘텐츠에 대해 타입 검사를 수행합니다. 키는 IDE에서 자동 완성되며 유효하지 않은 경로는 빌드 시에 TypeScript 오류로 나타납니다. 추가 설정이 필요 없습니다.
 >
 > ```tsx
-> // 클라이언트 컴포넌트 — 'about'은 등록된 사전 키입니다.
+> // 클라이언트 컴포넌트, 'about'은 등록된 사전 키입니다.
 > const t = useTranslations("about");
 > t("counter.label"); // ✓ 자동 완성
 > t("does.not.exist"); // ✗ TypeScript 오류
@@ -222,7 +233,7 @@ export default withIntlayer(nextConfig);
 | `import { setLocale } from 'next-intl/server'`       | `import { setLocale } from '@intlayer/next-intl/server'`       |
 | `import { getMessages } from 'next-intl/server'`     | `import { getMessages } from '@intlayer/next-intl/server'`     |
 
-> 실제 `next-intl`에서 제공하는 라우팅 가져오기는 항상 유지하세요 — 호환성 어댑터는 URL 라우팅 레이어를 대체**하지 않습니다**:
+> 실제 `next-intl`에서 제공하는 라우팅 가져오기는 항상 유지하세요, 호환성 어댑터는 URL 라우팅 레이어를 대체**하지 않습니다**:
 >
 > ```ts
 > // ✅ 이 항목들은 항상 실제 'next-intl'에서 불러옵니다.
@@ -291,6 +302,8 @@ export default config;
 
 > 사용할 수 있는 모든 옵션은 [Intlayer CLI 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/index.md)에서 확인하세요.
 
+- [Intlayer CLI 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/index.md)
+
 </Step>
 
 </Steps>
@@ -305,7 +318,7 @@ export default config;
 | 레이아웃 내에서 `loadMessages()` / `getMessages()` 호출 | `@intlayer/next-intl`의 `NextIntlClientProvider`는 컴파일된 출력을 읽습니다; `messages` 속성은 불필요합니다.                                                  |
 | 레이아웃에서 `locales/{locale}/*.json` 불러오기         | JSON 번들은 `syncJSON` 플러그인을 여전히 사용할 때만 필요합니다. `.content.ts` 파일로 이전을 완료하면 JSON 폴더를 삭제할 수 있습니다.                         |
 
-한 단계 더 나아갈 준비가 되면 Intlayer는 **코드베이스 내의 모든 `.content.ts` 및 `.content.json` 파일을 자동으로 감지합니다**(기본적으로 `./src` 내의 어느 곳에서든). `about/page.tsx` 파일 바로 옆에 `about.content.ts` 파일을 추가하기만 하면 Intlayer는 별도 설정 없이 컴파일 타임에 이를 감지합니다 — 가져오기, 등록, 중앙 인덱스 파일이 필요 없습니다. 페이지와 컴포넌트에서 번역의 위치 통일이 매우 매끄러워집니다.
+한 단계 더 나아갈 준비가 되면 Intlayer는 **코드베이스 내의 모든 `.content.ts` 및 `.content.json` 파일을 자동으로 감지합니다**(기본적으로 `./src` 내의 어느 곳에서든). `about/page.tsx` 파일 바로 옆에 `about.content.ts` 파일을 추가하기만 하면 Intlayer는 별도 설정 없이 컴파일 타임에 이를 감지합니다. 가져오기, 등록, 중앙 인덱스 파일이 필요 없습니다. 페이지와 컴포넌트에서 번역의 위치 통일이 매우 매끄러워집니다.
 
 ## TypeScript 설정
 

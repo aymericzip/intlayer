@@ -86,6 +86,8 @@ Hook này sẽ quản lý việc phát hiện locale cho bạn và trả về n�
 
 > Để xem tất cả các tính năng của Intlayer, bạn có thể đọc [tài liệu từ điển](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/content_file.md).
 
+- [tài liệu từ điển](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/content_file.md)
+
 ## Nội dung từ xa
 
 Intlayer cho phép bạn khai báo nội dung cục bộ, sau đó xuất chúng sang CMS để đội ngũ không chuyên về kỹ thuật của bạn có thể chỉnh sửa.
@@ -97,6 +99,8 @@ Vì vậy, bạn sẽ có thể đẩy và kéo nội dung từ CMS về ứng d
 ## Trình chỉnh sửa trực quan
 
 Intlayer cũng cung cấp một trình soạn thảo trực quan để cho phép bạn chỉnh sửa nội dung một cách trực quan. [Trình soạn thảo trực quan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md) này có trong gói bên ngoài `intlayer-editor`.
+
+- [Trình soạn thảo trực quan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md)
 
 ![trình soạn thảo trực quan](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif?raw=true)
 
@@ -116,11 +120,15 @@ Trong chế độ phát triển, Intlayer sử dụng việc nhập khẩu tĩnh
 
 Bằng cách kích hoạt tùy chọn `importMode = "dynamic"` trong [cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md), Intlayer sẽ sử dụng import động để tải các từ điển. Tùy chọn này mặc định bị tắt để tránh xử lý bất đồng bộ khi render ứng dụng.
 
+- [cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md)
+
 > `@intlayer/babel` có sẵn theo mặc định trong gói `vite-intlayer`,
 
 > `@intlayer/swc` không được cài đặt theo mặc định trong gói `next-intlayer` vì các plugin SWC vẫn đang trong giai đoạn thử nghiệm trên Next.js.
 
 Để xem cách cấu hình quá trình build ứng dụng của bạn, bạn có thể đọc [tài liệu cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md).
+
+- [tài liệu cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md)
 
 ## Các gói
 
@@ -342,22 +350,38 @@ Tại build time. Plugin Intlayer quét các tệp `.content.ts`, biên dịch c
 
 Ít hơn nhiều so with các cấu hình dựa trên namespace, vì trang không bao giờ tải catalog mà nó không hiển thị. Mã hiển thị trên server phân giải nội dung ngay trên server, và compiler tại thời điểm build thay thế các lệnh gọi `useIntlayer` bằng chính xác các mục từ điển mà component sử dụng, do đó các khóa và ngôn ngữ không sử dụng sẽ bị loại bỏ. [Từ điển động](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dynamic_dictionaries/index.md) chia phần còn lại theo từng locale. So với các giải pháp thông thường, Intlayer giảm kích thước bundle và trang tới 50%. Xem [tối ưu hóa bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md) và [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/index.md).
 
+- [Từ điển động](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dynamic_dictionaries/index.md)
+- [tối ưu hóa bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md)
+- [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/index.md)
+
 </Question>
 <Question title="Tôi có thể di chuyển từ i18next, next-intl hoặc react-i18next mà không cần viết lại component không?">
 
 Có, theo hai cách. Bạn có thể di chuyển nội dung dần dần bằng [hướng dẫn di chuyển từ i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_i18next_to_intlayer.md) hoặc [hướng dẫn di chuyển từ next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_next-intl_to_intlayer.md). Hoặc bạn có thể giữ nguyên API hiện tại: [adapter tương thích](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/index.md) cung cấp chính xác các API tương tự như `i18next`, `react-i18next`, `next-intl`, `next-i18next`, `react-intl`, `use-intl`, `vue-i18n` và `Lingui`, nhưng chạy trên các từ điển Intlayer, nhờ đó chỉ có các lệnh import thay đổi còn mã component vẫn giữ nguyên.
+
+- [hướng dẫn di chuyển từ i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_i18next_to_intlayer.md)
+- [hướng dẫn di chuyển từ next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_next-intl_to_intlayer.md)
+- [adapter tương thích](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/index.md)
 
 </Question>
 <Question title="Tôi có thể giữ các tệp dịch JSON hiện có của mình không?">
 
 Có. Plugin [sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/plugins/sync-json.md) giữ cho các tệp `/messages/{locale}/{namespace}.json` của bạn là nguồn sự thật duy nhất và tạo các từ điển Intlayer từ chúng theo cả hai hướng. Plugin [sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/plugins/sync-po.md) làm điều tương tự cho các catalog gettext, và [các tệp theo locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/per_locale_file.md) cho phép bạn chia nội dung theo ngôn ngữ thay vì nhóm các locale trong một tệp.
 
+- [sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/plugins/sync-json.md)
+- [sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/plugins/sync-po.md)
+- [các tệp theo locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/per_locale_file.md)
+
 </Question>
 <Question title="Tôi có phải di chuyển nội dung từng khóa một không?">
 
 Không. Chạy `npx intlayer extract` và Intlayer sẽ đọc các tệp nguồn của bạn, trích xuất các chuỗi dành cho người dùng và tạo tệp `.content` bên cạnh mỗi tệp, nhờ đó bạn xem lại diff thay vì sao chép chuỗi vào catalog thủ công. Xem [lệnh extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/extract.md).
 
+- [lệnh extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/extract.md)
+
 Đối với quy trình làm việc hoàn toàn tự động, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md) thực hiện việc tương tự trong quá trình build trên mã JSX, TSX, Vue và Svelte, tạo từ điển trên mỗi thay đổi mà không cần quản lý khóa thủ công.
+
+- [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md)
 
 </Question>
 <Question title="Có những công cụ editor và AI agent nào có sẵn?">
@@ -378,12 +402,16 @@ Thư mục này là đầu ra được tạo: các từ điển đã biên dịc
 </Question>
 <Question title="Locale hoạt động được xác định như thế nào?">
 
-Từ các nguồn được liệt kê trong `routing.storage`, theo thứ tự: tiền tố URL, cookie, tiêu đề `Accept-Language`, và ngôn ngữ mặc định.
+Từ các nguồn được liệt kê trong `routing.storage`, theo thứ tự: tiền tố URL khi `routing.mode` sử dụng nó, sau đó là cookie, sau đó là tiêu đề `Accept-Language`, và cuối cùng là locale mặc định của bạn. Locale mà người dùng chọn một cách rõ ràng sẽ được lưu lại, vì vậy nó vẫn được giữ ở lần truy cập tiếp theo. Xem [tài liệu tham khảo cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md).
+
+- [tài liệu tham khảo cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md)
 
 </Question>
 <Question title="Sự khác biệt giữa từ điển cục bộ và từ điển từ xa (remote) là gì?">
 
-Từ điển cục bộ được khai báo trong codebase của bạn và được biên dịch cùng ứng dụng. Từ điển từ xa được quản lý trong CMS và được lấy qua API, cho phép cập nhật văn bản mà không cần build lại mã ứng dụng.
+Từ điển cục bộ được khai báo trong codebase của bạn và được biên dịch cùng ứng dụng. Từ điển từ xa được quản lý trong [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md) và được phân giải khi chạy, vì vậy nó có thể thay đổi mà không cần triển khai lại. Cả hai đều được đọc thông qua cùng các hook, và nội dung từ xa sẽ quay về khai báo cục bộ khi không khả dụng.
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)
 
 </Question>
 <Question title="Intlayer có hoạt động mà không cần TypeScript không?">
@@ -403,7 +431,10 @@ Ngôn ngữ được xác định một lần trên server và truyền tới cl
 </Question>
 <Question title="Tôi có cần rebuild khi thêm bản dịch không?">
 
-Trong môi trường dev thì không: plugin theo dõi tệp và cập nhật từ điển ngay lập tức. Trong production thì có: từ điển cục bộ được biên dịch vào bundle ứng dụng trong bước build.
+Trong môi trường phát triển thì không: plugin theo dõi các tệp nội dung của bạn và build lại các từ điển bị ảnh hưởng khi lưu. Trong production, các từ điển là một phần của bản build, trừ khi nội dung là từ xa, khi đó [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md) và [đồng bộ trực tiếp](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/live.md) áp dụng thay đổi mà không cần triển khai lại.
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)
+- [đồng bộ trực tiếp](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/live.md)
 
 </Question>
 

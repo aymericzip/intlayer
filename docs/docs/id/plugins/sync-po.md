@@ -322,6 +322,8 @@ File PO yang disinkronkan akan dianggap sebagai file `.content` lainnya. Itu ber
 
 Lihat [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md) untuk detail lebih lanjut.
 
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md)
+
 ## Batasan (saat ini)
 
 - Tidak ada dukungan penyisipan atau jamak/ICU saat menargetkan pustaka pihak ketiga.

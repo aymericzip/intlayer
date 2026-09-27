@@ -35,6 +35,8 @@ Fungsi `getDictionary` menginterpretasi objek dictionary **yang Anda berikan sen
 
 Berbeda dengan [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getIntlayer.md), yang mencari dictionary berdasarkan key dalam registry yang dihasilkan, `getDictionary` mengambil dictionary itu sendiri. Hal ini menjadikannya alat yang tepat untuk konten yang dibangun pada saat runtime, diambil dari API atau CMS, atau dideklarasikan secara inline dalam test.
 
+- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getIntlayer.md)
+
 **Fitur Utama:**
 
 - Bekerja dengan objek apa pun yang mengikuti struktur dictionary (`{ key, content }`)
@@ -62,7 +64,7 @@ getDictionary(
 - `localeOrSelector: LocalesValues | DictionarySelector`
   - **Description**: Locale untuk menafsirkan konten, atau objek selector (`{ item }`, `{ variant }`, secara opsional dengan `locale`). Lihat [dynamic dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dynamic_dictionaries/index.md).
   - **Type**: `LocalesValues | DictionarySelector`
-  - **Required**: No (Optional) — defaults to the configured `defaultLocale`.
+  - **Required**: No (Optional), defaults to the configured `defaultLocale`.
 
 - `plugins: Plugins[]`
   - **Description**: Array node transformers yang menentukan bagaimana node yang dikenali ditafsirkan. Jika dihilangkan, set default interpreter plugins digunakan.

@@ -196,6 +196,8 @@ list(["تفاحة", "موزة", "برتقالة"]); // "تفاحة، موزة، 
 
 هذه مجرد طبقة تخزين مؤقت ومطابقة للغة مبنية فوق الواجهة القياسية للمنصة، أما سلوك التنسيق الفعلي فهو نابع من `Intl`. راجع كافة التفاصيل في [توثيق أدوات التنسيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/formatters.md).
 
+- [توثيق أدوات التنسيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/formatters.md)
+
 ## أخطاء شائعة
 
 - **استدعاء `toLocaleDateString()` دون تمرير لغة.** يعتمد على لغة النظام المضيف، والتي تتغير في الخوادم بحسب ضبط الحاوية.

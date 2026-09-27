@@ -31,6 +31,8 @@ Saya membangun asisten dokumentasi bertenaga RAG dan mengemasnya menjadi boilerp
 
 👉 [Demo langsung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/interest_of_intlayer.md) 👉 [Boilerplate kode](https://github.com/aymericzip/smart_doc_RAG)
 
+- [Demo langsung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/interest_of_intlayer.md)
+
 ## Pendahuluan
 
 Jika Anda pernah tersesat dalam dokumentasi, menggulir tanpa henti mencari satu jawaban, Anda tahu betapa menyakitkannya hal itu. Dokumentasi berguna, tetapi bersifat statis dan pencariannya sering terasa canggung.
@@ -246,6 +248,8 @@ Kami bereksperimen dengan gpt-5, tetapi latensinya terlalu tinggi (kadang hingga
 
 👉 [Coba demo di sini](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/interest_of_intlayer.md) 👉 [Periksa template kode di GitHub](https://github.com/aymericzip/smart_doc_RAG)
 
+- [Coba demo di sini](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/interest_of_intlayer.md)
+
 </Step>
 <Step number={10} title="Melangkah Lebih Jauh">
 
@@ -299,6 +303,8 @@ Bagi saya, proyek ini menunjukkan bahwa RAG bukan hanya trik teknis. Ini adalah 
 - sebuah alat strategi produk
 
 👉 [Coba demo di sini](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/interest_of_intlayer.md) 👉 [Periksa template kode di GitHub](https://github.com/aymericzip/smart_doc_RAG)
+
+- [Coba demo di sini](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/interest_of_intlayer.md)
 
 Dan jika Anda juga bereksperimen dengan RAG, saya ingin sekali mendengar bagaimana Anda menggunakannya.
 

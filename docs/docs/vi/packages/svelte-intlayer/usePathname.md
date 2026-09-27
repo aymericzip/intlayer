@@ -30,7 +30,7 @@ author: aymericzip
 
 # Tích hợp Svelte: Tài liệu `usePathname`
 
-Hàm `usePathname` trả về pathname của trình duyệt hiện tại với phần locale đã bị loại bỏ, dưới dạng một Svelte `Readable<string>` store. Nó hữu ích cho việc xây dựng điều hướng nhận biết locale — ví dụ, xác định mục điều hướng nào đang hoạt động — mà không cần phải loại bỏ tiền tố locale theo cách thủ công.
+Hàm `usePathname` trả về pathname của trình duyệt hiện tại với phần locale đã bị loại bỏ, dưới dạng một Svelte `Readable<string>` store. Nó hữu ích cho việc xây dựng điều hướng nhận biết locale (ví dụ, xác định mục điều hướng nào đang hoạt động) mà không cần phải loại bỏ tiền tố locale theo cách thủ công.
 
 ## Import `usePathname` trong Svelte
 

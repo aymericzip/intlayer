@@ -35,7 +35,7 @@ author: aymericzip
 
 1. **Hartcodierter Text**, der nie in einem Wörterbuch deklariert wurde.
 2. **Dynamische Aufrufe**, die die Typüberprüfung bestehen und ausgeführt werden, die der Intlayer-Compiler jedoch nicht optimieren kann.
-3. **Toter Inhalt** — Wörterbücher und Felder, die an keiner Stelle im Projekt gelesen werden (Opt-in).
+3. **Toter Inhalt**: Wörterbücher und Felder, die an keiner Stelle im Projekt gelesen werden (Opt-in).
 
 Unbekannte Wörterbuchschlüssel, unbekannte Feldpfade und fehlende Locales sind bereits Kompilierungsfehler, weshalb das Plugin diese nicht wiederholt.
 
@@ -61,7 +61,7 @@ Erfordert ESLint 9 oder höher (Flat Config). ESLint 10 wird unterstützt.
 
 ## Verwendung
 
-Das Plugin funktioniert sowohl in ESLint als auch in [oxlint](https://oxc.rs) — dieselben Regeln, dieselben Optionen.
+Das Plugin funktioniert sowohl in ESLint als auch in [oxlint](https://oxc.rs), dieselben Regeln, dieselben Optionen.
 
 <Tabs defaultTab="eslint">
   <Tab label="ESLint" value="eslint">
@@ -106,7 +106,7 @@ export default [
 }
 ```
 
-Zwei Hinweise: Die JS-Plugin-Unterstützung von oxlint befindet sich noch im Alpha-Stadium und oxlint unterstützt keine benutzerdefinierten Parser — `.vue`-, `.svelte`-, `.astro`-Dateien und Angular-Templates werden dort daher nicht geprüft. Führen Sie oxlint für Ihre JS/TS/JSX-Dateien aus und behalten Sie ESLint für den Rest bei.
+Zwei Hinweise: Die JS-Plugin-Unterstützung von oxlint befindet sich noch im Alpha-Stadium und oxlint unterstützt keine benutzerdefinierten Parser, `.vue`-, `.svelte`-, `.astro`-Dateien und Angular-Templates werden dort daher nicht geprüft. Führen Sie oxlint für Ihre JS/TS/JSX-Dateien aus und behalten Sie ESLint für den Rest bei.
 
 `no-unused-content` wird oben absichtlich weggelassen: Die Regel benötigt das Arbeitsverzeichnis und den Pfad der geprüften Datei aus dem Regelkontext, was die Alpha-Bridge für JS-Plugins nicht garantiert. Führen Sie diese Regel unter ESLint aus.
 
@@ -123,7 +123,7 @@ Zwei Hinweise: Die JS-Plugin-Unterstützung von oxlint befindet sich noch im Alp
 
 `recommended` belässt `no-raw-text` absichtlich bei `warn`: Bei Anwendung auf eine bestehende Codebasis werden alle unübersetzten Zeichenfolgen auf einmal gemeldet, was Ihren Build nicht von Tag eins an blockieren sollte.
 
-`enforce-adapter-import` ist standardmäßig deaktiviert — aktivieren Sie die Regel bei Bedarf explizit.
+`enforce-adapter-import` ist standardmäßig deaktiviert, aktivieren Sie die Regel bei Bedarf explizit.
 
 `no-unused-content` ist in allen Konfigurationen standardmäßig deaktiviert, einschließlich `strict`. Es ist die einzige Regel, die Ihre Intlayer-Konfiguration liest und Ihre Quelldateien vom Dateisystem durchsucht. Die Aktivierung sollte daher eine bewusste Entscheidung sein und nicht automatisch über ein Preset erfolgen.
 
@@ -248,7 +248,7 @@ export default {
 };
 ```
 
-Im Gegensatz zu den anderen Regeln kann diese Regel nicht allein anhand der geprüften Datei entscheiden — ein Feld ist nur relativ zum gesamten Projekt ungenutzt. Bei der ersten Inhaltsdeklaration eines Lint-Laufs lädt sie Ihre Intlayer-Konfiguration, durchsucht die Quelldateien gemäß Konfiguration (`build.traversePattern`, `compiler.transformPattern`) und führt dieselbe Nutzungsanalyse aus, die auch `@intlayer/lsp` und das Durchstreichen von „ungenutzt“ in der VS Code-Erweiterung antreibt. Das Ergebnis wird für `cacheTtl` Millisekunden zwischengespeichert, sodass der Scan einmal pro Durchlauf und nicht für jede Datei ausgeführt wird.
+Im Gegensatz zu den anderen Regeln kann diese Regel nicht allein anhand der geprüften Datei entscheiden, ein Feld ist nur relativ zum gesamten Projekt ungenutzt. Bei der ersten Inhaltsdeklaration eines Lint-Laufs lädt sie Ihre Intlayer-Konfiguration, durchsucht die Quelldateien gemäß Konfiguration (`build.traversePattern`, `compiler.transformPattern`) und führt dieselbe Nutzungsanalyse aus, die auch `@intlayer/lsp` und das Durchstreichen von „ungenutzt“ in der VS Code-Erweiterung antreibt. Das Ergebnis wird für `cacheTtl` Millisekunden zwischengespeichert, sodass der Scan einmal pro Durchlauf und nicht für jede Datei ausgeführt wird.
 
 **Optionen**
 
@@ -283,9 +283,9 @@ Verringern Sie `cacheTtl`, wenn Sie mit einem langlebigen Editor-Server linten u
 
 > **Neigt zur Zurückhaltung.** Ein Fehlalarm würde eine Übersetzung löschen. Daher wird nichts gemeldet, wenn das Wörterbuch auf eine Weise verwendet wird, die die Analyse nicht nachverfolgen kann: das Inhaltsobjekt als Ganzes übergeben, eine gebundene Übersetzerfunktion (`const t = useTranslations("home")`), eine über direkten Import erreichte Deklaration (`useDictionary(myDictionary)`), ein `nest()` aus einem anderen Wörterbuch oder eine Feldliste, die durch einen Spread nicht-exhaustiv ist. Single-File-Komponenten (`.vue`, `.svelte`, `.astro`) gelten als Verwender aller Felder der genannten Wörterbücher, da ihre Script-Blöcke hier nicht analysiert werden.
 
-`reportDuplicateKeys` liest die unzusammengeführten Wörterbücher, die der Build unter `.intlayer/` schreibt, und bleibt daher stumm, bis das Projekt mindestens einmal gebaut wurde. Zwei Deklarationen mit demselben Schlüssel werden zusammengeführt, was ein legitimes Muster ist — die Meldung existiert, da bei einem beidseitig definierten Feld stillschweigend nur einer der beiden Werte beibehalten wird.
+`reportDuplicateKeys` liest die unzusammengeführten Wörterbücher, die der Build unter `.intlayer/` schreibt, und bleibt daher stumm, bis das Projekt mindestens einmal gebaut wurde. Zwei Deklarationen mit demselben Schlüssel werden zusammengeführt, was ein legitimes Muster ist, die Meldung existiert, da bei einem beidseitig definierten Feld stillschweigend nur einer der beiden Werte beibehalten wird.
 
-Der Analysator wird aus `@intlayer/lsp` geladen, welches als ESM ausgeliefert wird. Die Regel benötigt daher eine Node-Version, die ein ES-Modul via `require()` laden kann — Node 20.19+ oder 22.12+. Bei älteren Versionen meldet sie nichts, anstatt den Lint-Lauf abbrechen zu lassen.
+Der Analysator wird aus `@intlayer/lsp` geladen, welches als ESM ausgeliefert wird. Die Regel benötigt daher eine Node-Version, die ein ES-Modul via `require()` laden kann, Node 20.19+ oder 22.12+. Bei älteren Versionen meldet sie nichts, anstatt den Lint-Lauf abbrechen zu lassen.
 
 ## Frameworks
 

@@ -175,6 +175,8 @@ export default config;
 
 > Для повного списку параметрів див. [документацію конфігурації](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md).
 
+- [документацію конфігурації](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md)
+
 </Step>
 <Step number={3} title="Оголосити ваш вміст">
 
@@ -220,6 +222,8 @@ export default appContent;
 ```
 
 > Оголошення контенту можуть знаходитися будь-де під `contentDir` (за замовчуванням `./src`) та відповідати `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`. Див. [документацію оголошення контенту](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/content_file.md).
+
+- [документацію оголошення контенту](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/content_file.md)
 
 </Step>
 <Step number={4} title="Зареєструвати middleware Intlayer">
@@ -640,7 +644,7 @@ export default config;
 
 Щоб покращити розробку за допомогою Intlayer, ви можете встановити офіційне **Intlayer VS Code Extension**.
 
-[Встановити з VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [Встановити з VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 Це розширення надає:
 
@@ -651,9 +655,13 @@ export default config;
 
 Для отримання більше деталей про використання розширення звертайтесь до [документації Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/vs_code_extension.md).
 
+- [документації Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/vs_code_extension.md)
+
 ### Йти далі
 
 Щоб йти далі, ви можете екстерналізувати свій вміст за допомогою [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md), щоб перекладачі змінювали копію без розгортання.
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)
 
 ## Часто задавані запитання
 
@@ -678,6 +686,9 @@ export default config;
 
 Подавайте свої сторінки з префіксом локалі (`/fr/cart`) і читайте локаль зі шляху у вашому обробнику маршруту, а не з cookie, для повного рендерингу сторінки. Фрагменти можуть продовжити використовувати cookie або заголовок. Див. [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md) для параметрів маршрутизації та [custom URL rewrites](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/custom_url_rewrites.md).
 
+- [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md)
+- [custom URL rewrites](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/custom_url_rewrites.md)
+
 </Question>
 <Question title="Як я обробляю мови, які читаються справа наліво?">
 
@@ -693,25 +704,44 @@ export default config;
 
 Так. Backend інтеграції виставляють `t()` та `getIntlayer()` для будь-якого handler, тому повідомлення об помилці, показане в toast, і label, відрендерений у fragment, походять від того самого оголошеного content. Див. керівництва [Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_express.md), [Fastify](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_fastify.md), [Hono](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_hono.md) та [Elysia](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_elysia.md).
 
+- [Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_express.md)
+- [Fastify](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_fastify.md)
+- [Hono](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_hono.md)
+- [Elysia](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_elysia.md)
+
 </Question>
 <Question title="Чи потрібно мені переміщувати мій content ключ за ключем?">
 
 Ні. Запустіть `npx intlayer extract` і Intlayer прочитає ваші вихідні файли, витягне рядки, орієнтовані на користувача, і напише файл `.content` поруч з кожним з них, тому ви переглядаєте diff замість копіювання рядків в каталог один за одним. Див. [команду extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/extract.md).
+
+- [команду extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/extract.md)
 
 </Question>
 <Question title="Чи можу я зберігати мої існуючі JSON файли перекладів?">
 
 Так. [sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/plugins/sync-json.md) зберігає ваші файли `/messages/{locale}/{namespace}.json` як джерело істини та генерує словники Intlayer з них, в обох напрямках. [sync PO plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/plugins/sync-po.md) робить те ж саме для gettext каталогів, а [per locale files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/per_locale_file.md) дозволяють вам розділити вміст за мовою замість групування локалей в один файл.
 
+- [sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/plugins/sync-json.md)
+- [sync PO plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/plugins/sync-po.md)
+- [per locale files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/per_locale_file.md)
+
 </Question>
 <Question title="Як я автоматично перекладаю додаток за допомогою штучного інтелекту?">
 
 Запустіть `npx intlayer fill`, який заповнює відсутні переклади за допомогою LLM на ваш вибір, використовуючи вашого власного провайдера та API ключ. Додайте `--git-diff`, щоб перекладати лише вміст, змінений у гілці. Див. [команду fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/fill.md) та [інтеграцію CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/CI_CD.md).
 
+- [команду fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/fill.md)
+- [інтеграцію CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/CI_CD.md)
+
 </Question>
 <Question title="Чи Intlayer підтримує гендер, умови та інтерпольовані значення?">
 
 Так: [контент на основі статі](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/gender.md), умови, [перелічення](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/enumeration.md), [вставки](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/insertion.md) для інтерпольованих значень та [форматори](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/formatters.md) для чисел, дат та валют.
+
+- [контент на основі статі](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/gender.md)
+- [перелічення](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/enumeration.md)
+- [вставки](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/insertion.md)
+- [форматори](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/formatters.md)
 
 </Question>
 <Question title="Які редактори та інструменти AI агентів доступні?">
@@ -728,6 +758,9 @@ export default config;
 <Question title="Чи є Intlayer безкоштовним та відкритим джерелом?">
 
 Так, під ліцензією Apache 2.0, включаючи комерційне використання. Розміщена [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md) - це опційна платна послуга, яка також може бути [самостійно розміщена](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/self_hosting.md).
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)
+- [самостійно розміщена](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/self_hosting.md)
 
 </Question>
 

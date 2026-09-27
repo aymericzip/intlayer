@@ -51,13 +51,25 @@ author: aymericzip
 
 將內容與組件共同放置（Co-location）**減少了大型語言模型（LLMs）所需的上下文**。Intlayer 還提供了一套工具，例如用於測試缺失翻譯的 **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/mcp_server.md)** 以及 **[Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/agent_skills.md)**，使 AI 智能體的開發體驗（DX）更加流暢。
 
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/mcp_server.md)
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/agent_skills.md)
+
 **功能豐富 (Feature)**
 
 Intlayer 提供了其他 i18n 解決方案所沒有的一系列附加功能，例如 [Markdown 支持](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/dictionary/markdown.md)、[外部內容獲取](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/dictionary/function_fetching.md)、[文件內容載入](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/dictionary/file.md)、[實時內容更新](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/cli/live.md)、[可視化編輯器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/intlayer_visual_editor.md)等。
 
+- [Markdown 支持](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/dictionary/markdown.md)
+- [外部內容獲取](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/dictionary/function_fetching.md)
+- [文件內容載入](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/dictionary/file.md)
+- [實時內容更新](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/cli/live.md)
+- [可視化編輯器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/intlayer_visual_editor.md)
+
 **自動化 (Automation)**
 
 使用自動化在你的 CI/CD 流程中翻譯，可以使用你選擇的任何 LLM，成本完全取決於你的 AI 提供商。Intlayer 還提供了一個**編譯器**來自動提取內容，以及一個 [網頁平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/intlayer_CMS.md) 來幫助你**在后台進行翻譯工作**。
+
+- [網頁平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/intlayer_CMS.md)
 
 **性能表現 (Performance)**
 
@@ -66,6 +78,9 @@ Intlayer 提供了其他 i18n 解決方案所沒有的一系列附加功能，�
 **擴展至非開發團隊 (Scaling with non-dev)**
 
 不僅僅是一個 i18n 解決方案，Intlayer 還提供了一個**自主托管的可視化編輯器[visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/intlayer_visual_editor.md)**和一個**[功能完備的 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/intlayer_CMS.md)**，幫助你**實時**管理多語言內容，使與翻譯人員、文案人員和其他團隊成員的協作變得無縫銜接。內容可以存儲在本地和/或遠程。
+
+- [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/intlayer_visual_editor.md)
+- [功能完備的 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/intlayer_CMS.md)
 
 **跨框架設計 (Cross framework design)**
 
@@ -272,3 +287,5 @@ GitHub 星星數是衡量項目受歡迎程度、社區信任度以及長期相�
 使用 `intlayer`，你可以宣告你喜歡的 i18n 庫格式的內容，並且 intlayer 將在你想指定的路徑下生成命名空間（例如：`/messages/{{locale}}/{{namespace}}.json`）。
 
 如果你想繼續使用目前 i18n 函式庫的 API，`intlayer` 也提供 **相容轉接器（compat adapters）**：這些套件公開與 `react-i18next`、`next-intl`、`react-intl`、`vue-i18n` 等完全相同的 API，但內容由 Intlayer 字典提供。如此一來，你就能逐步遷移，而不需要重寫程式碼。請參閱[相容轉接器文件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md)。
+
+- [相容轉接器文件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md)

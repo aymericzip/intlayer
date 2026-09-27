@@ -377,6 +377,8 @@ ICU 中的 `other` 情况被重命名为 `fallback`，这是 Intlayer 用于所�
 
 > 如果 ICU `select` 的情况是性别值（`male` / `female` / `other`），它将作为 [`gender`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/gender.md) 节点导入。
 
+- [`gender`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/gender.md)
+
 ## 其他资源
 
 有关配置和使用的更多详细信息，请参阅以下资源：

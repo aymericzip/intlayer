@@ -32,7 +32,9 @@ author: aymericzip
 
 Функція `getLocalizedPath` перетворює канонічний шлях (внутрішній шлях додатка) у його локалізований еквівалент на основі вказаної локалі та правил переписування. Вона особливо корисна для генерації SEO-дружніх URL-адрес, що відрізняються залежно від мови.
 
-Це відносний аналог [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer/getLocalizedUrl.md) — для відносного вводу обидва повертають одне й те саме значення. На відміну від `getLocalizedUrl`, він ніколи не повертає абсолютний URL: конфігурація `domains` ігнорується, тому локаль, обслужена з власного домену, все одно повертає шлях. Абсолютний вввід прийнятий, але його походження видаляється — зберігаються лише його шлях, рядок запиту та хеш.
+Це відносний аналог [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer/getLocalizedUrl.md), для відносного вводу обидва повертають одне й те саме значення. На відміну від `getLocalizedUrl`, він ніколи не повертає абсолютний URL: конфігурація `domains` ігнорується, тому локаль, обслужена з власного домену, все одно повертає шлях. Абсолютний вввід прийнятий, але його походження видаляється, зберігаються лише його шлях, рядок запиту та хеш.
+
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer/getLocalizedUrl.md)
 
 **Ключові можливості:**
 
@@ -96,6 +98,8 @@ const home = getLocalizedPath("/", Locales.FRENCH);
 ```
 
 Те саме звуження поширюється на [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer/getLocalizedUrl.md), яка застосовує правила переписування перед додаванням префікса локалі.
+
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer/getLocalizedUrl.md)
 
 Два випадки залишаються розширеними до `string`, оскільки вони не можуть бути розв'язані під час компіляції:
 

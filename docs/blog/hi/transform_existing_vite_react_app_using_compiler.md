@@ -49,6 +49,8 @@ author: aymericzip
 
 > Vite और React के लिए चरण-दर-चरण तकनीकी गाइड खोज रहे हैं? हमारा दस्तावेज़ देखें: [Intlayer के साथ Vite और React का अनुवाद करें](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_vite+react.md)।
 
+- [Intlayer के साथ Vite और React का अनुवाद करें](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_vite+react.md)
+
 ## विषय सूची
 
 <TOC/>
@@ -327,6 +329,8 @@ console.log("SEO फ़ाइलें सफलतापूर्वक उत�
 यदि आप विस्तृत कॉन्फ़िगरेशन, TypeScript प्रकार सुरक्षा, गतिशील शब्दकोश और विज़ुअल एडिटर सहित प्रत्येक भाग को सेट अप करने के लिए तैयार हैं, तो हमारे व्यापक गाइड पर जाएँ:
 
 👉 **[Intlayer के साथ Vite और React का अनुवाद करने की संपूर्ण गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_vite+react.md)**
+
+- [Intlayer के साथ Vite और React का अनुवाद करने की संपूर्ण गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_vite+react.md)
 
 ## अक्सर पूछे जाने वाले प्रश्न (FAQ)
 

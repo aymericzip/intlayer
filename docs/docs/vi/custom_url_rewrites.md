@@ -341,7 +341,9 @@ export function middleware(request: NextRequest) {
 
 Đối với SolidJS, Vue và Svelte, plugin Vite `intlayerProxy` quản lý các rewrite trong quá trình phát triển.
 
-> Kể từ Intlayer v9, `intlayerProxy()` được đóng gói trực tiếp vào plugin `intlayer()` và được bật theo mặc định thông qua tùy chọn `routing.enableProxy` (`true` theo mặc định). Đăng ký nó riêng biệt như được hiển thị bên dưới hiện nay là tùy chọn — nó được giữ lại để tương thích ngược và cho các cài đặt cần kiểm soát thứ tự plugin. Đặt `routing.enableProxy: false` để không tham gia. Xem [ghi chú phát hành v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/releases/v9.md).
+> Kể từ Intlayer v9, `intlayerProxy()` được đóng gói trực tiếp vào plugin `intlayer()` và được bật theo mặc định thông qua tùy chọn `routing.enableProxy` (`true` theo mặc định). Đăng ký nó riêng biệt như được hiển thị bên dưới hiện nay là tùy chọn, nó được giữ lại để tương thích ngược và cho các cài đặt cần kiểm soát thứ tự plugin. Đặt `routing.enableProxy: false` để không tham gia. Xem [ghi chú phát hành v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/releases/v9.md).
+
+- [ghi chú phát hành v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/releases/v9.md)
 
 ```typescript fileName="vite.config.ts"
 import { defineConfig } from "vite";

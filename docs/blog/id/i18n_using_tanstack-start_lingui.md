@@ -64,6 +64,8 @@ TanStack Start tidak menyertakan lapisan i18n bawaan, jadi panduan ini menghubun
 
 [Benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/tanstack.md) menjalankan aplikasi TanStack Start 10 halaman, 10 lokal yang sama dengan setiap library utama dan mengukur apa yang sebenarnya diunduh oleh browser.
 
+- [Benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/tanstack.md)
+
 <I18nBenchmark framework="tanstack" packages="lingui,@intlayer/lingui,intlayer" vertical/>
 
 Angka-angka utama untuk `@lingui/core@6.6.0`, diukur pada 2026-09-26 (gzip):
@@ -81,6 +83,8 @@ Hal penting yang dapat dipelajari:
 - **Ukuran runtime tetap besar** (~57 KB gzip). Adaptor kompatibilitas `@intlayer/lingui` (langkah 16) mempertahankan makro Anda dan memotong ukurannya menjadi ~10 KB.
 
 > Lihat data selengkapnya: [Laporan benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/tanstack.md), dan [repositori benchmark](https://github.com/intlayer-org/benchmark-i18n).
+
+- [Laporan benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/tanstack.md)
 
 ## Perbandingan fitur di TanStack Start
 
@@ -105,6 +109,8 @@ Perbandingan Lingui dengan library lain yang biasa digunakan di TanStack Start:
 | **Terjemahan hilang di CI**                    | ✅ `npx intlayer test`                     | ⚠️ Tidak bawaan        | ⚠️ Tidak bawaan                      | ✅ `lingui compile --strict`  |
 
 > Angka ukuran runtime dan kebocoran berasal dari [benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/tanstack.md). Kebocoran diukur pada pengaturan terbaik dari setiap library.
+
+- [benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/tanstack.md)
 
 > Panduan TanStack Start lainnya:
 
@@ -934,6 +940,8 @@ export const Route = createFileRoute("/{-$locale}/$")({
 
 Adaptor kompatibilitas [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/lingui.md) mempertahankan kode sumber Anda tanpa perubahan: makro dikompilasi persis seperti sebelumnya, dan panggilan `i18n._()`, `useLingui()`, serta `<Trans>` yang dihasilkan dilayani oleh kamus Intlayer yang dikompilasi. Dalam benchmark, ukuran runtime berkurang dari **~56.7 KB menjadi ~9.8 KB** gzip.
 
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/lingui.md)
+
 ```bash packageManager="npm"
 npm install @intlayer/lingui intlayer @intlayer/sync-json-plugin
 npx intlayer init
@@ -976,6 +984,11 @@ export default defineConfig({
 
 Katalog disinkronkan dengan [plugin sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/plugins/sync-json.md) (katalog JSON) atau [plugin sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/plugins/sync-po.md) (katalog PO). Lihat konfigurasi lengkapnya di [panduan kompatibilitas Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/lingui.md), dan perbandingan berdampingan di [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/lingui_vs_intlayer-lingui.md).
 
+- [plugin sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/plugins/sync-json.md)
+- [plugin sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/plugins/sync-po.md)
+- [panduan kompatibilitas Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/lingui.md)
+- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/lingui_vs_intlayer-lingui.md)
+
 </Step>
 <Step number={17} title="Otomatiskan Terjemahan Anda Menggunakan Intlayer" isOptional={true}>
 
@@ -1017,10 +1030,15 @@ Deklarasikan dengan makro `msg`, dan terjemahkan di loader rute dengan ``i18n._(
 
 [Benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/tanstack.md) mengukur ~56.7 KB gzip untuk runtime. Dengan satu katalog per lokal yang dimuat sesuai kebutuhan, ukuran halaman sekitar ~115 KB dibandingkan 111 KB tanpa i18n. Mengimpor semua katalog secara statis meningkatkannya menjadi ~152 KB.
 
+- [Benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/tanstack.md)
+
 </Question>
 <Question title="Dapatkah saya mempertahankan makro Lingui dan bermigrasi ke Intlayer?">
 
 Ya. Adaptor [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/lingui.md) mempertahankan makro dan menukar runtime. Anda kemudian dapat memindahkan komponen ke `useIntlayer` satu per satu. Lihat [adaptor kompatibilitas](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/index.md).
+
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/lingui.md)
+- [adaptor kompatibilitas](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/index.md)
 
 </Question>
 

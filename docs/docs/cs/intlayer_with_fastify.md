@@ -163,6 +163,8 @@ export default indexContent;
 
 > Další podrobnosti naleznete v [dokumentaci k deklaraci obsahu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/dictionary/content_file.md).
 
+- [dokumentaci k deklaraci obsahu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/dictionary/content_file.md)
+
 ### Nastavení aplikace Fastify
 
 Nastavte svou aplikaci Fastify tak, aby používala `fastify-intlayer`:
@@ -238,6 +240,8 @@ Ve výchozím nastavení bude `fastify-intlayer` interpretovat hlavičku `Accept
 
 > Další informace o konfiguraci a pokročilých tématech naleznete v naší [dokumentaci](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/configuration.md).
 
+- [Konfigurace (Configuration)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/configuration.md)
+
 ### Konfigurace TypeScriptu
 
 `fastify-intlayer` využívá robustní funkce TypeScriptu ke zlepšení procesu internacionalizace. Statické typování TypeScriptu zajišťuje, že každý překladový klíč je zohledněn, což snižuje riziko chybějících překladů a zlepšuje udržovatelnost.
@@ -258,7 +262,7 @@ Ujistěte se, že automaticky generované typy (ve výchozím nastavení v ./typ
 
 Chcete-li zlepšit svůj zážitek z vývoje s Intlayer, můžete si nainstalovat oficiální **Intlayer VS Code Extension**.
 
-[Instalovat z VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [Instalovat z VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 Toto rozšíření poskytuje:
 
@@ -268,6 +272,8 @@ Toto rozšíření poskytuje:
 - **Rychlé akce** pro snadné vytváření a aktualizaci překladů.
 
 Další podrobnosti o používání rozšíření naleznete v [dokumentaci k rozšíření Intlayer VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md).
+
+- [dokumentaci k rozšíření Intlayer VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md)
 
 ### Konfigurace Gitu
 

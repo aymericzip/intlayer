@@ -51,6 +51,8 @@ Vào năm 2026, bạn không cần phải viết lại mã nguồn của mình. 
 
 > Bạn đang tìm kiếm hướng dẫn kỹ thuật chi tiết từng bước cho Next.js 16 App Router? Xem tài liệu của chúng tôi: [Dịch Next.js 16 với Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_16.md).
 
+- [Dịch Next.js 16 với Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_16.md)
+
 ## Mục lục
 
 <TOC/>
@@ -266,6 +268,8 @@ export const generateMetadata = async (): Promise<Metadata> => {
 Để xem hướng dẫn kỹ thuật chi tiết với middleware, SSG (`generateStaticParams`) và Server Components, vui lòng truy cập tài liệu chính thức:
 
 👉 **[Hướng dẫn toàn diện dịch Next.js 16 với Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_16.md)**
+
+- [Hướng dẫn toàn diện dịch Next.js 16 với Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_16.md)
 
 ## Câu hỏi thường gặp (FAQ)
 

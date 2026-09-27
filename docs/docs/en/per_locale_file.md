@@ -115,6 +115,8 @@ export default config;
 
 Using this configuration, all per-locale files will be generated with the default locale set to English. It also include generation of `.content` files using the `extract` command, and the compiler. (See [Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compiler.md) or [Extract](https://github.com/aymericzip/intlayer/edit/main/docs/docs/en/cli/extract.md) for more information.)
 
+- [Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compiler.md)
+
 ## Single File with Multiple Translations
 
 This format is ideal for:
@@ -267,3 +269,5 @@ console.log(JSON.stringify(intlayer, null, 2));
 ### Automatic Translation Generation
 
 Use the [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md) to auto-fill missing translations based on your preferred services.
+
+- [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md)

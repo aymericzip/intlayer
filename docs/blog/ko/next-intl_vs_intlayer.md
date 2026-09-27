@@ -121,6 +121,8 @@ style="border:none;"
 
 > 모든 라이브러리와 전략이 포함된 전체 표는 [Next.js 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/nextjs.md)에서 확인하세요.
 
+- [Next.js 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/nextjs.md)
+
 ### TanStack Start (`use-intl`) 결과
 
 `use-intl`은 `next-intl`의 프레임워크 독립적인 핵심 코어입니다. 동일한 API, 동일한 메시지 형식을 사용합니다. TanStack Start에서 이를 `intlayer`와 비교하면 방정식에서 Next.js 관련 요소를 배제할 수 있습니다.
@@ -151,6 +153,8 @@ style="border:none;"
 />
 
 > 전체 표는 [TanStack Start 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/tanstack.md)에서 확인하세요.
+
+- [TanStack Start 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/tanstack.md)
 
 ## 왜 이런 차이가 발생하는가? 중앙 집중식 카탈로그 vs 컴파일된 사전
 
@@ -203,6 +207,8 @@ Intlayer는 이 구조를 완전히 뒤집습니다. 콘텐츠는 컴포넌트 �
 빌드 시 컴파일러는 어떤 컴포넌트가 어떤 사전을 가져오는지 감지하여 활성 로케일에 필요한 사전만 번들링합니다.
 
 > `dynamic` 행의 수치를 얻으려면 `intlayer.config.ts`에서 `dictionary.importMode: 'dynamic'`을 설정하세요. [번들 최적화 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md)를 참조하세요.
+
+- [번들 최적화 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md)
 
 ## 개발자 경험
 
@@ -414,7 +420,11 @@ export default withIntlayer(nextConfig);
 
 벤치마크에서 동일한 앱의 호환 빌드는 애플리케이션 코드를 전혀 수정하지 않고도 페이지당 **153.6 KB에서 147.5 KB**로, 컴포넌트당 **21.8 KB에서 8.1 KB**로 줄었으며, 페이지 누출은 **약 90%에서 0%**로 개선되었습니다. 기존 `messages/{locale}.json` 파일은 [JSON 동기화 플러그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/next-intl.md)을 통해 계속 단일 소스로 유지할 수 있습니다.
 
+- [JSON 동기화 플러그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/next-intl.md)
+
 자세한 단계는 [next-intl 마이그레이션 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_next-intl_to_intlayer.md)를 참조하세요.
+
+- [next-intl 마이그레이션 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_next-intl_to_intlayer.md)
 
 ## 언제 무엇을 선택해야 할까요?
 
@@ -428,10 +438,18 @@ Next.js의 생태계 표준을 원하고, ICU MessageFormat에 의존하며, 앱
 
 **컴포넌트 스코프 콘텐츠**, **엄격한 TypeScript**, **빌드 타임 누락 키 에러**, **노력 없는 트리 쉐이킹 및 지연 로딩**, 동기식 서버 컴포넌트, 내장 편집 툴([비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md), [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md), [AI 번역](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/autoFill.md), [MCP 서버](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/mcp_server.md))을 원하는 경우. 특히 대규모 모듈식 코드베이스 및 디자인 시스템에 적합합니다.
 
+- [비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)
+- [AI 번역](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/autoFill.md)
+- [MCP 서버](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/mcp_server.md)
+
 </Accordion>
 <Accordion header="@intlayer/next-intl 선택">
 
 이미 `next-intl`을 사용 중이며 코드 재작성 없이 번들 크기를 줄이고자 하는 경우. [호환 어댑터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/next-intl.md)는 기존 import 구문과 `messages/{locale}.json` 파일을 단일 진실 공급원으로 유지합니다. [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/next-intl_vs_intlayer-next-intl.md)에서 나란히 측정되었습니다.
+
+- [호환 어댑터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/next-intl.md)
+- [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/next-intl_vs_intlayer-next-intl.md)
 
 </Accordion>
 </AccordionGroup>
@@ -450,11 +468,15 @@ Next.js의 생태계 표준을 원하고, ICU MessageFormat에 의존하며, 앱
 
 네, `scoped-dynamic` 설정을 통해 가능합니다. `messages/{locale}.json`을 라우트당 하나의 네임스페이스로 분할한 다음 각 페이지에서 `pick(messages, [...])`을 사용하고 컴포넌트 변경 시 이 매핑을 정확하게 유지해야 합니다. 벤치마크의 `scoped-*` 행이 바로 이러한 작업의 결과입니다. Intlayer는 컴파일러가 컴포넌트별로 콘텐츠 범위를 지정하므로 별도 작업 없이 기본적으로 0%에 도달합니다. [번들 최적화](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md)를 참조하세요.
 
+- [번들 최적화](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md)
+
 </Question>
 
 <Question title="마이그레이션하려면 컴포넌트를 다시 작성해야 하나요?">
 
 아닙니다. `@intlayer/next-intl`은 `useTranslations`, `getTranslations`, `useFormatter`, `t.rich()`, ICU 복수형 및 네비게이션 헬퍼를 유지하며, 컴파일된 딕셔너리에서 이를 제공합니다. `next.config.ts`에 플러그인 한 줄만 추가하면 됩니다. 단계별 안내는 [next-intl 마이그레이션 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_next-intl_to_intlayer.md)를 참조하세요.
+
+- [next-intl 마이그레이션 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_next-intl_to_intlayer.md)
 
 </Question>
 
@@ -462,11 +484,15 @@ Next.js의 생태계 표준을 원하고, ICU MessageFormat에 의존하며, 앱
 
 네이티브 API에서 ICU 지원은 지속적으로 확장 중입니다. 호환 어댑터(`@intlayer/next-intl`, `@intlayer/use-intl`)는 이미 ICU를 지원합니다: 복수형, `select`, `selectordinal`, `#`, `{ts, date, long}`은 Intlayer의 ICU 리졸버를 통해 처리됩니다. 자세한 내용은 [ICU 메시지 포맷 설명](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)을 참조하세요.
 
+- [ICU 메시지 포맷 설명](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)
+
 </Question>
 
 <Question title="messages/{locale}.json 파일을 그대로 유지할 수 있나요?">
 
 네. [JSON 동기화 플러그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/next-intl.md)이 해당 파일을 읽어 최상위 키를 딕셔너리로 분할하고, CLI나 CMS가 번역을 업데이트할 때 동일한 파일에 다시 기록합니다. 번역 팀의 워크플로는 변경되지 않습니다.
+
+- [JSON 동기화 플러그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/next-intl.md)
 
 </Question>
 
@@ -519,3 +545,5 @@ Intlayer는 이 모든 작업을 컴파일러로 이전합니다. 컴포넌트�
 모든 원시 데이터, 테스트 앱 및 스크립트는 [Benchmark Bloom 저장소](https://github.com/intlayer-org/benchmark-bloom)에 공개되어 있습니다. 직접 실행해 보세요.
 
 자세한 내용은 ['Why Intlayer?' 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/interest_of_intlayer.md)를 참조하세요.
+
+- [왜 Intlayer인가? 다른 i18n 라이브러리 대비 장점](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/interest_of_intlayer.md)

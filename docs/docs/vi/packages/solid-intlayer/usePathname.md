@@ -31,7 +31,7 @@ author: aymericzip
 
 # Tích hợp Solid: Tài liệu Hook `usePathname`
 
-Hook `usePathname` trả về pathname của trình duyệt hiện tại với phần locale đã bị loại bỏ, dưới dạng một `Accessor<string>` của Solid. Nó hữu ích cho việc xây dựng điều hướng nhận biết locale — ví dụ, xác định mục điều hướng nào đang hoạt động — mà không cần phải loại bỏ tiền tố locale theo cách thủ công.
+Hook `usePathname` trả về pathname của trình duyệt hiện tại với phần locale đã bị loại bỏ, dưới dạng một `Accessor<string>` của Solid. Nó hữu ích cho việc xây dựng điều hướng nhận biết locale (ví dụ, xác định mục điều hướng nào đang hoạt động) mà không cần phải loại bỏ tiền tố locale theo cách thủ công.
 
 ## Import `usePathname` trong Solid
 

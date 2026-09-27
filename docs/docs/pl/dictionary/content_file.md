@@ -365,6 +365,8 @@ Przekształca słownik w słownik per-lokalizacyjny, gdzie każde pole zadeklaro
 
 > Zobacz [Deklarację zawartości per-locale w Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/per_locale_file.md) po więcej informacji.
 
+- [Deklarację zawartości per-locale w Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/per_locale_file.md)
+
 **Przykład:**
 
 ```jsonc
@@ -476,6 +478,8 @@ Instrukcje dotyczące automatycznego wypełniania zawartości słownika z zewnę
 
 > Zobacz [Konfiguracja automatycznego wypełniania w Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/fill.md) po więcej informacji.
 
+- [Konfiguracja automatycznego wypełniania w Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/fill.md)
+
 ##### `priority` (number)
 
 Wskazuje priorytet słownika do rozwiązywania konfliktów. Gdy wiele słowników zawiera ten sam klucz, słownik z najwyższym numerem priorytetu nadpisze pozostałe. Jest to przydatne do zarządzania hierarchią treści i nadpisaniami.
@@ -503,6 +507,8 @@ Wskazuje priorytet słownika do rozwiązywania konfliktów. Gdy wiele słownikó
 
 Używane w połączeniu z Kolekcjami (Collections), to pole definiuje pozycję elementu w kolekcji. Pozwala na budowanie uporządkowanych kolekcji zlokalizowanych elementów wybieralnych za pomocą indeksu w czasie wykonywania.
 
+- [Kolekcje](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dynamic_dictionaries/collections.md)
+
 **Przykład:**
 
 ```typescript
@@ -518,9 +524,13 @@ Używane w połączeniu z Kolekcjami (Collections), to pole definiuje pozycję e
 
 > Zobacz [Kolekcje](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dynamic_dictionaries/collections.md) po więcej informacji.
 
+- [Kolekcje](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dynamic_dictionaries/collections.md)
+
 #### `variant` (string)
 
 Używane w połączeniu z Wariantami (Variants), to pole definiuje nazwane alternatywy treści. Pozwala na przełączanie się między różnymi wariantami tego samego klucza słownika w czasie wykonywania bez zmian w kodzie (np. w przypadku testów A/B, banerów sezonowych). Jeśli nie zostanie podane, jest traktowane jako wariant domyślny.
+
+- [Warianty](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dynamic_dictionaries/variants.md)
 
 **Przykład:**
 
@@ -529,13 +539,15 @@ Używane w połączeniu z Wariantami (Variants), to pole definiuje nazwane alter
   key: "hero-banner",
   variant: "black_friday",
   content: {
-    headline: "50 % off — today only",
+    headline: "50 % off, today only",
     cta: "Shop now"
   }
 }
 ```
 
 > Zobacz [Warianty](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dynamic_dictionaries/variants.md) po więcej informacji.
+
+- [Warianty](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dynamic_dictionaries/variants.md)
 
 ### Właściwości CMS
 
@@ -610,6 +622,8 @@ multilingualContent: t({
 
 > See [Zawartość tłumaczenia (`t`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/translation.md) for more information.
 
+- [Zawartość tłumaczenia (`t`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/translation.md)
+
 ### Zawartość warunkowa (`cond`)
 
 Treść, która zmienia się w zależności od warunków logicznych (boolean):
@@ -624,6 +638,8 @@ conditionalContent: cond({
 ```
 
 > See [Zawartość warunkowa (`cond`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/condition.md) for more information.
+
+- [Zawartość warunkowa (`cond`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/condition.md)
 
 ### Treść enumeracyjna (`enu`)
 
@@ -641,6 +657,8 @@ statusContent: enu({
 
 > See [Treść enumeracyjna (`enu`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/enumeration.md) for more information.
 
+- [Treść enumeracyjna (`enu`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/enumeration.md)
+
 ### Plural Content (`plural`)
 
 Content that varies based on plural rules:
@@ -656,6 +674,8 @@ pluralContent: plural({
 
 > See [Plural Content Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/plural.md) for more information.
 
+- [Plural Content Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/plural.md)
+
 ### Treść wstawiana (`insert`)
 
 Treść, którą można wstawić do innej treści:
@@ -668,6 +688,8 @@ insertionContent: insert("Ten tekst można wstawić w dowolne miejsce");
 
 > See [Treść wstawiana (`insert`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/insertion.md) for more information.
 
+- [Treść wstawiana (`insert`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/insertion.md)
+
 ### Treść zagnieżdżona (`nest`)
 
 Odniesienia do innych słowników:
@@ -679,6 +701,8 @@ nestedContent: nest("about-page");
 ```
 
 > See [Treść zagnieżdżona (`nest`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/nesting.md) for more information.
+
+- [Treść zagnieżdżona (`nest`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/nesting.md)
 
 ### Zawartość Markdown (`md`)
 
@@ -693,6 +717,8 @@ markdownContent: md(
 ```
 
 > See [Zawartość Markdown (`md`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/markdown.md) for more information.
+
+- [Zawartość Markdown (`md`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/markdown.md)
 
 ### Zawartość HTML (`html`)
 
@@ -713,6 +739,8 @@ localizedHtmlContent: t({
 
 > See [Zawartość HTML (`html`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/html.md) for more information.
 
+- [Zawartość HTML (`html`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/html.md)
+
 ### Zawartość według płci (`gender`)
 
 Treść zmieniająca się w zależności od płci:
@@ -729,9 +757,11 @@ genderContent: gender({
 
 > See [Zawartość według płci (`gender`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/gender.md) for more information.
 
+- [Zawartość według płci (`gender`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/gender.md)
+
 ### Treść Oparta na Wyborze (`select`)
 
-Treść zmieniająca się w zależności od dowolnej wartości znakowej — odpowiednik ICU `select`:
+Treść zmieniająca się w zależności od dowolnej wartości znakowej, odpowiednik ICU `select`:
 
 ```typescript
 import { select } from "intlayer";
@@ -748,6 +778,8 @@ Używaj `select`, gdy dyskryminatorem nie jest ani ilość (`enu`), ani wartoś�
 
 > See [Treść Oparta na Wyborze (`select`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/select.md) for more information.
 
+- [Treść Oparta na Wyborze (`select`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/select.md)
+
 ### Zawartość pliku (`file`)
 
 Odniesienia do plików zewnętrznych:
@@ -759,6 +791,8 @@ fileContent: file("./path/to/content.txt");
 ```
 
 > See [Zawartość pliku (`file`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/file.md) for more information.
+
+- [Zawartość pliku (`file`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/file.md)
 
 ## Tworzenie plików z zawartością
 

@@ -130,13 +130,13 @@ Vypíše kompletní výsledek scanu jako JSON objekt namísto formátovaného re
 
 ### Standardní volby konfigurace
 
-- **`--base-dir`** — Základní adresář pro nalezení souboru `intlayer.config.*`.
-- **`-e, --env`** — Cílové prostředí (např. `development`, `production`).
-- **`--env-file`** — Cesta k vlastnímu souboru `.env`.
-- **`--no-cache`** — Zakáže mezipaměť konfigurace.
-- **`--ci`** — Spustí příkaz v každém projektu Intlayer v monorepu (nebo jen v aktuálním, pokud je spuštěn z adresáře projektu). Přihlašovací údaje pro jednotlivé projekty lze vložit přes `INTLAYER_PROJECT_CREDENTIALS`, JSON objekt mapující cestu projektu na `{ "clientId", "clientSecret" }`.
-- **`--verbose`** — Povolí podrobné protokolování (výchozí v režimu CLI).
-- **`--prefix`** — Vlastní prefix protokolu.
+- **`--base-dir`**: Základní adresář pro nalezení souboru `intlayer.config.*`.
+- **`-e, --env`**: Cílové prostředí (např. `development`, `production`).
+- **`--env-file`**: Cesta k vlastnímu souboru `.env`.
+- **`--no-cache`**: Zakáže mezipaměť konfigurace.
+- **`--ci`**: Spustí příkaz v každém projektu Intlayer v monorepu (nebo jen v aktuálním, pokud je spuštěn z adresáře projektu). Přihlašovací údaje pro jednotlivé projekty lze vložit přes `INTLAYER_PROJECT_CREDENTIALS`, JSON objekt mapující cestu projektu na `{ "clientId", "clientSecret" }`.
+- **`--verbose`**: Povolí podrobné protokolování (výchozí v režimu CLI).
+- **`--prefix`**: Vlastní prefix protokolu.
 
 ## Strategie směrování
 

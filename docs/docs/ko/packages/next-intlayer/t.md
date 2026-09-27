@@ -224,4 +224,6 @@ const text = t(translations);
 
 더 자세한 사용법과 고급 기능에 대해서는 [next-intlayer 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)를 참조하세요.
 
+- [next-intlayer 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)
+
 **참고**: 현재 로케일이 컴포넌트에 올바르게 전달되도록 `IntlayerClientProvider`와 `IntlayerServerProvider`를 적절히 설정하는 것을 잊지 마세요. 이는 `t` 함수가 올바른 번역을 반환하는 데 매우 중요합니다.

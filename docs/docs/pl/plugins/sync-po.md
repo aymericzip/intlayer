@@ -322,6 +322,8 @@ Zsynchronizowane pliki PO będą traktowane jak inne pliki `.content`. Oznacza t
 
 Zobacz [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md) po więcej szczegółów.
 
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md)
+
 ## Ograniczenia (aktualne)
 
 - Brak wsparcia dla wstawek lub liczb mnogich/ICU przy celowaniu w biblioteki firm trzecich.

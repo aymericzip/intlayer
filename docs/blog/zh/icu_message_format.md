@@ -263,6 +263,8 @@ totalOpenings(5); // 中文语言环境 → "5 个职位空缺"
 
 `plural` 底层同样将分类选择委托给原生的 `Intl.PluralRules`，因此前文的 CLDR 规则表完全适用。格式化逻辑与文案保持解耦：数字、日期、货币与列表通过[格式化 Hooks](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/formatters.md)处理，而不需要硬编码在消息内容中。
 
+- [格式化 Hooks](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/formatters.md)
+
 客观考量：
 
 - Intlayer 依赖构建流程：编译器会在构建期间提取内容声明。如果你需要纯粹在运行时动态加载普通 JSON，这是不同的架构范式。
@@ -270,6 +272,9 @@ totalOpenings(5); // 中文语言环境 → "5 个职位空缺"
 - 相较于成熟的 i18next，Intlayer 的生态更加年轻，开箱即用的第三方 TMS 集成仍在持续扩充中。
 
 对于迁移既有 ICU 字符串的项目，[react-intl 兼容适配器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/react-intl.md)可以直接解析原有内容：`plural`、`select`、`selectordinal`、`#` 以及传统的 `number`、`date`、`time` 参数。骨架与 `offset:` 目前暂未覆盖，迁移时需重点检查这些特殊格式。[i18next 适配器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/i18next.md)则会通过 `Intl.PluralRules` 解析后缀键（`key_one`、`key_male`）。
+
+- [react-intl 兼容适配器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/react-intl.md)
+- [i18next 适配器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/i18next.md)
 
 ## 常见失误
 

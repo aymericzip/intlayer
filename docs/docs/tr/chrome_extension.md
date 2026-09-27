@@ -120,6 +120,11 @@ Tespit, sayfanın tarayıcıda sunduğu bilgilere dayanır: genel değişkenler,
 
 Çoğu kontrol, bir yönlendirme veya meta veri ayarıyla eşleşir. Intlayer ile hreflang, canonical, `x-default`, yerelleştirilmiş bağlantılar, site haritası ve robots.txt [yapılandırmanızdan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) oluşturulur. Framework'ünüz için entegrasyon kılavuzuna bakın, örneğin [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_16.md), [Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nuxt.md) veya [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_tanstack.md).
 
+- [yapılandırmanızdan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md)
+- [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_16.md)
+- [Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nuxt.md)
+- [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_tanstack.md)
+
 </Question>
 
 </FAQ>

@@ -88,6 +88,8 @@ style="border:none;"
 
 > Gerçek tarayıcı ortamlarında gzip sıkıştırmasıyla test edilmiştir. Verilerin tamamı [Vue benchmark dokümantasyonunda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/vue.md).
 
+- [Vue benchmark dokümantasyonunda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/vue.md)
+
 ### Temel Kütüphane Yükü
 
 Çeviri metinleri eklenmeden önceki ilk ağırlık:
@@ -178,6 +180,9 @@ const { title } = useIntlayer("hero");
 
 [Intlayer derleyicisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md) kullanılan özellikleri tam olarak belirler ve istemci paketini oluşturmadan önce gereksiz verileri ayıklar. Detaylar için [paket optimizasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md) sayfasına bakın.
 
+- [Intlayer derleyicisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md)
+- [paket optimizasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md)
+
 ## Geliştirici Deneyimi
 
 ### Dağınık Kataloglar vs. Birlikte Konumlandırma
@@ -255,6 +260,8 @@ const { title } = useIntlayer("hero");
 
 Intlayer ile sözlükler titizlikle kontrol edilir. [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) ayarı açıldığında eksik bir çeviri doğrudan build hatasına dönüşür.
 
+- [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md)
+
 ### Geliştirici ve Yapay Zeka Araçları
 
 | Özellik                     | `vue-i18n`               | Intlayer                                                                                                              |
@@ -278,6 +285,8 @@ Eksik anahtarları kendi OpenAI, Anthropic, Mistral veya Gemini anahtarlarınız
 **Kendi Altyapınızda Barındırılabilir Görsel CMS:**
 
 [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) ile teknik olmayan ekip üyelerinin doğrudan Git'e yansıyacak şekilde metin düzenlemesini sağlayın.
+
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)
 
 **Açık Kaynak Lisansı:**
 

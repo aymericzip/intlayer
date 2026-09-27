@@ -123,6 +123,8 @@ author: aymericzip
 
 > हर library और हर strategy के साथ पूरी table [Vue benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/vue.md) में देखें।
 
+- [Vue benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/vue.md)
+
 ## अंतर क्यों? ग्लोबल इंस्टेंस बनाम कंपाइल की गई डिक्शनरी
 
 `vue-i18n` एक रनटाइम है। `createI18n()` एक ग्लोबल इंस्टेंस बनाता है जो प्रति लोकेल एक मैसेज ट्री रखता है; `useI18n()` हर कंपोनेंट को उससे बाँधता है; `t("footer.github")` रेंडर टाइम पर key खोजता है। यही SFC `<i18n>` ब्लॉक, `v-t` और रनटाइम मैसेज लोडिंग को संभव बनाता है, और यही कारण है कि हर कंपोनेंट के डिपेंडेंसी ग्राफ़ में पूरा ट्री शामिल होता है:
@@ -158,6 +160,8 @@ Intlayer उस ज्ञान को बिल्ड में ले जा�
 कंपाइलर प्रति डिक्शनरी और प्रति लोकेल ठीक वही JSON उत्सर्जित करता है जिसकी उस कंपोनेंट को ज़रूरत है, और उन डिक्शनरी को हटा देता है जिन्हें कोई इम्पोर्ट नहीं करता। प्रति-रूट स्कोपिंग प्रति-कंपोनेंट स्कोपिंग का परिणाम है, कोई कार्य नहीं।
 
 > अप्रयुक्त लोकेल भी हटाने के लिए, `intlayer.config.ts` में `dictionary.importMode: 'dynamic'` सेट करें। [बंडल ऑप्टिमाइज़ेशन डॉक](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/bundle_optimization.md) देखें।
+
+- [बंडल ऑप्टिमाइज़ेशन डॉक](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/bundle_optimization.md)
 
 ## डेवलपर अनुभव
 
@@ -347,6 +351,10 @@ export default defineConfig({
 
 [vue-i18n माइग्रेशन गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_vue-i18n_to_intlayer.md) और [संगतता डॉक](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/vue-i18n.md) देखें। Nuxt उपयोगकर्ताओं के लिए [`@nuxtjs/i18n` संगतता](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/nuxtjs-i18n.md) के ज़रिए वही रास्ता है।
 
+- [vue-i18n माइग्रेशन गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_vue-i18n_to_intlayer.md)
+- [संगतता डॉक](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/vue-i18n.md)
+- [`@nuxtjs/i18n` संगतता](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/nuxtjs-i18n.md)
+
 ## कब कौन-सा चुनें?
 
 - **vue-i18n चुनें** यदि आप मानक Vue दृष्टिकोण चाहते हैं, ICU मैसेज या SFC `<i18n>` ब्लॉक पर निर्भर हैं, पहले से `@nuxtjs/i18n` उपयोग करते हैं, या कोई अनुवाद प्लेटफ़ॉर्म केंद्रीकृत JSON की अपेक्षा करता है। अगर बंडल आकार मायने रखता है तो कैटलॉग बाँटने और प्रति रूट lazy-load करने का समय रखें।
@@ -373,17 +381,24 @@ export default defineConfig({
 
 हाँ। [Nuxt के साथ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nuxt.md) बहुभाषी रूटिंग, लोकेल डिटेक्शन मिडलवेयर और साइटमैप जनरेशन को कवर करता है। यदि आप `@nuxtjs/i18n` पर हैं, तो [Nuxt i18n संगतता एडाप्टर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/nuxtjs-i18n.md) माइग्रेशन पथ है।
 
+- [Nuxt के साथ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nuxt.md)
+- [Nuxt i18n संगतता एडाप्टर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/nuxtjs-i18n.md)
+
 </Question>
 
 <Question title="क्या मैं अपने locales/{locale}.json को सत्य के स्रोत के रूप में रख सकता हूँ?">
 
 हाँ। [JSON सिंक प्लगइन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/vue-i18n.md) उन्हें `vue-i18n` बोली (`{name}`, `{0}`, `"car | cars"` पाइप बहुवचन) के साथ पढ़ता है और जब CLI या CMS उन्हें अपडेट करता है तो अनुवाद वापस लिखता है।
 
+- [JSON सिंक प्लगइन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/vue-i18n.md)
+
 </Question>
 
 <Question title="क्या ICU Vue पर Intlayer के साथ काम करता है?">
 
 नेटिव ICU समर्थन पर काम चल रहा है। `@intlayer/vue-i18n` एडाप्टर पाइप बहुवचन और नामित तथा सूची इंटरपोलेशन सहित `vue-i18n` के अपने संदेश सिंटैक्स को हल करता है। Intlayer के बहुवचन मॉडल के लिए, [गणना सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/enumeration.md) देखें।
+
+- [गणना सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/enumeration.md)
 
 </Question>
 
@@ -432,3 +447,5 @@ Intlayer काम को कंपाइलर में ले जाता �
 सारा कच्चा डेटा, टेस्ट ऐप और स्क्रिप्ट [Benchmark Bloom रिपॉज़िटरी](https://github.com/intlayer-org/benchmark-bloom) में हैं। इसे खुद चलाएँ।
 
 अधिक जानकारी के लिए ['Intlayer क्यों?' डॉक](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/interest_of_intlayer.md) देखें।
+
+- [Intlayer क्यों? अन्य i18n लाइब्रेरी से बेहतर क्या है](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/interest_of_intlayer.md)

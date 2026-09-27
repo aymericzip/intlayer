@@ -78,6 +78,8 @@ Intlayerコンパイラは、React、Vue、Svelteコンポーネントおよび�
 
 > 詳細については、ドキュメントをご覧ください: [Intlayer Compiler Docs](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)
 
+- [Intlayer Compiler Docs](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)
+
 ## コンパイラーの魅力（「マジック」アプローチ）
 
 この新しいアプローチがトレンドになっている理由があります。開発者にとって、その体験は驚くべきものです。

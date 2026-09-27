@@ -30,7 +30,7 @@ author: aymericzip
 
 # Integracja z Preact: Dokumentacja Hooka `usePathname`
 
-Hook `usePathname` zwraca bieżącą ścieżkę przeglądarki (pathname) z usuniętym segmentem locale. Jest to przydatne do tworzenia nawigacji uwzględniającej wielojęzyczność — na przykład określania, który element nawigacji jest aktywny — bez konieczności ręcznego usuwania prefiksu locale.
+Hook `usePathname` zwraca bieżącą ścieżkę przeglądarki (pathname) z usuniętym segmentem locale. Jest to przydatne do tworzenia nawigacji uwzględniającej wielojęzyczność (na przykład określania, który element nawigacji jest aktywny) bez konieczności ręcznego usuwania prefiksu locale.
 
 ## Importowanie `usePathname` w Preact
 

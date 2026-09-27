@@ -26,6 +26,8 @@ React में कोई इन-बिल्ट i18n primitive नहीं आ
 
 यह गाइड विपरीत दिशा में काम करता है: पहले अपने प्रोजेक्ट के बारे में कुछ सवालों के जवाब दें, और फिर उन जवाबों को उपयुक्त लाइब्रेरी से मिलाएँ। यह सादे React (Vite, React Router, TanStack Start) पर केंद्रित है। Next.js की अपनी बाधाएं हैं, जिन्हें [Next.js तुलना](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/next-i18next_vs_next-intl_vs_intlayer.md) में शामिल किया गया है।
 
+- [Next.js तुलना](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/next-i18next_vs_next-intl_vs_intlayer.md)
+
 ## विषय सूची
 
 <TOC/>
@@ -74,6 +76,8 @@ SSR और Server Components के आसपास डिज़ाइन कि
 
 [JavaScript i18n का इतिहास](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/history_of_i18n.md) विस्तार से बताता है कि प्रत्येक तरंग ने पिछली समस्याओं का कैसे समाधान किया।
 
+- [JavaScript i18n का इतिहास](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/history_of_i18n.md)
+
 ## वह निर्णय जो सबसे अधिक मायने रखता है: सामग्री कहाँ रहती है और कब लोड होती है
 
 प्रत्येक React i18n लाइब्रेरी का आकार समान होता है: एक स्टोर, एक प्रोवाइडर, एक हुक। प्रोवाइडर जो कुछ भी प्राप्त करता है वह क्लाइंट बंडल में या हाइड्रेशन पेलोड में समाप्त होता है। इसलिए दो संरचनात्मक विकल्प हैं:
@@ -89,11 +93,17 @@ SSR और Server Components के आसपास डिज़ाइन कि
 
 यह लाइब्रेरी का गुण नहीं है, यह अनुशासन का गुण है। `react-i18next` को नेमस्पेस और लेज़ी बैकएंड के साथ स्कोप किया जा सकता है। `use-intl` को प्रति रूट विभाजित किया जा सकता है। लेकिन कोई भी इसे लागू नहीं करता है, और एक साझा `<Button>` जो `t("common:cta")` तक पहुंचता है, चुपचाप `common` को प्रत्येक रूट की निर्भरता बना देता है। [बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/index.md) इसे "अन्य रूट्स से रिसाव" और "अन्य लोकेल्स से रिसाव" के रूप में मापता है, और यहीं से लाइब्रेरीज़ के बीच अधिकांश अंतर आता है।
 
+- [बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/index.md)
+
 यदि प्रश्न 3 का आपका उत्तर "कई लोकेल्स, कई पेज" था, तो इस खंड को किसी भी API प्राथमिकता से अधिक महत्व दें। [प्रति-घटक बनाम केंद्रीकृत i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/per-component_vs_centralized_i18n.md) पोस्ट उसी विकल्प के रखरखाव पक्ष पर गहराई से जाती है।
+
+- [प्रति-घटक बनाम केंद्रीकृत i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/per-component_vs_centralized_i18n.md)
 
 ## उम्मीदवार
 
 लाइब्रेरी के आकार [TanStack Start बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/tanstack.md) से आते हैं: एक खाली घटक में प्रोवाइडर प्लस हुक, बंडलिंग, ट्री-शेकिंग और मिनिफिकेशन के बाद, 10 पेज और 10 लोकेल्स। सामग्री को अलग से मापा जाता है।
+
+- [TanStack Start बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/tanstack.md)
 
 ![React i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
@@ -119,6 +129,8 @@ SSR और Server Components के आसपास डिज़ाइन कि
 
 सबसे सरल विकल्प चुनें जो काम करता है और ज़रूरत से ज़्यादा निवेश न करें। प्रति लोकेल एकल JSON के साथ `react-i18next` ठीक है, और एक दशक के Stack Overflow उत्तर आपका समय बचाएंगे। जब तक आपको उनकी आवश्यकता न हो तब तक नेमस्पेस छोड़ दें। यदि प्रोटोटाइप एक उत्पाद बन जाता है, तो स्कोप्ड सामग्री में माइग्रेशन का बजट बनाएं; [react-i18next कम्पैट एडॉप्टर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/react-i18next.md) इसे वृद्धिशील बनाता है।
 
+- [react-i18next कम्पैट एडॉप्टर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/react-i18next.md)
+
 </Accordion>
 <Accordion header="अनुवाद किसी एजेंसी या ICU बोलने वाले TMS से आते हैं">
 
@@ -134,6 +146,8 @@ SSR और Server Components के आसपास डिज़ाइन कि
 
 प्रत्येक कुंजी-आधारित लाइब्रेरी को टाइप किया जा सकता है, और लगभग कोई भी डिफ़ॉल्ट रूप से टाइप नहीं होती है। यदि आप घोषणा विलय (declaration merging) को बनाए नहीं रखना चाहते हैं जिसे लेज़ी रूप से लोड किए गए नेमस्पेस में काम करना है, तो ऐसी लाइब्रेरी चुनें जहाँ प्रकार सामग्री से जनरेट होते हैं: `Lingui`, `Paraglide`, या Intlayer। [अनुपस्थित अनुवादों का पता लगाना](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/detecting_missing_translations.md) पोस्ट तुलना करती है कि प्रत्येक बिल्ड समय पर क्या पकड़ता है।
 
+- [अनुपस्थित अनुवादों का पता लगाना](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/detecting_missing_translations.md)
+
 </Accordion>
 <Accordion header="बहुत सारी रिच सामग्री: मार्कडाउन, वाक्यों के अंदर लिंक, प्रति-लोकेल घटक">
 
@@ -148,6 +162,8 @@ SSR और Server Components के आसपास डिज़ाइन कि
 <Accordion header="आप बाद में Next.js App Router पर जा सकते हैं">
 
 React context सर्वर/क्लाइंट सीमा को पार नहीं करता है। केवल एक क्लाइंट हुक पर निर्मित लाइब्रेरीज़ (`react-i18next`, `react-intl`) को जिस दिन आप RSC अपनाते हैं, उस दिन एक समानांतर सर्वर API की आवश्यकता होगी। `use-intl` (`next-intl` के रूप में) और Intlayer (`next-intlayer` के रूप में) में पहले से ही वह विभाजन है। एक पैटर्न को मानकीकृत करने से पहले [Next.js i18n पोस्ट](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/next-i18next_vs_next-intl_vs_intlayer.md) पढ़ें।
+
+- [Next.js i18n पोस्ट](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/next-i18next_vs_next-intl_vs_intlayer.md)
 
 </Accordion>
 </AccordionGroup>
@@ -499,6 +515,11 @@ export const CartSummary: FC<{ count: number }> = ({ count }) => {
 
 पहले से ही `react-i18next`, `react-intl` या `Lingui` पर हैं? कम्पैट एडॉप्टर ([react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/react-i18next.md), [react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/react-intl.md), [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/lingui.md)) बंडलर स्तर पर आयात को एलियास करते हैं ताकि मौजूदा API घटक दर घटक आगे बढ़ते समय काम करता रहे। [माइग्रेशन गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_react-i18next_to_intlayer.md) बाकी को कवर करता है।
 
+- [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/react-i18next.md)
+- [react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/react-intl.md)
+- [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/lingui.md)
+- [माइग्रेशन गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_react-i18next_to_intlayer.md)
+
 ## प्रतिबद्ध करने से पहले
 
 एक फीचर टेबल आपको बताती है कि एक लाइब्रेरी आज क्या करती है। ये बिंदु आपको बताते हैं कि इसके साथ रहना कैसा होगा।
@@ -521,6 +542,9 @@ export const CartSummary: FC<{ count: number }> = ({ count }) => {
 
 एजेंट अभी भी i18n के साथ संघर्ष करते हैं: वे लोकेल्स भूल जाते हैं, कुंजियों का आविष्कार करते हैं, और संदेश सिंटैक्स को मिलाते हैं। क्या लाइब्रेरी [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/agent_skills.md) या एक [MCP सर्वर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/mcp_server.md) भेजती है ताकि एजेंट सामग्री को सूचीबद्ध, भर और परीक्षण कर सके? और क्या सामग्री लोडिंग डिफ़ॉल्ट रूप से अनुकूलित है, या किसी को हर तिमाही में नेमस्पेस और लेज़ी आयातों की समीक्षा करनी होगी?
 
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/agent_skills.md)
+- [MCP सर्वर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/mcp_server.md)
+
 **आउट ऑफ द बॉक्स प्रकार सुरक्षा (Type safety)।**
 
 "अतिरिक्त वायरिंग के साथ टाइप किया जा सकता है" नहीं बल्कि "एक गलत कुंजी एक नए इंस्टॉल पर `tsc` को विफल कर देती है"। जांचें कि उस कुंजी के साथ क्या होता है जो मौजूद नहीं है, और उस लोकेल के साथ जिसमें एक अनुवाद गायब है।
@@ -532,6 +556,13 @@ export const CartSummary: FC<{ count: number }> = ({ count }) => {
 **डेवलपर अनुभव (Developer experience)।**
 
 पहले अनुवादित स्ट्रिंग तक सेटअप का समय, एक [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/lsp.md) या [VS Code एक्सटेंशन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/vs_code_extension.md) जो होवर पर अनुवाद दिखाता है और घोषणा पर कूदता है, भरने, परीक्षण करने और पुश करने के लिए एक [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/index.md), आपके कंपोनेंट्स से हार्ड-कोडेड स्ट्रिंग्स निकालने वाला एक [कंपाइलर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md) या एक्सट्रैक्टर ताकि हर स्ट्रिंग को कुंजी-दर-कुंजी प्रबंधित न करना पड़े, और गैर-डेवलपर्स के लिए बिना किसी पुल अनुरोध के सामग्री को संपादित करने का एक तरीका ([विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) या [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md))।
+
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/lsp.md)
+- [VS Code एक्सटेंशन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/vs_code_extension.md)
+- [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/index.md)
+- [कंपाइलर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md)
+- [विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md)
 
 ## अक्सर पूछे जाने वाले प्रश्न
 
@@ -547,6 +578,8 @@ export const CartSummary: FC<{ count: number }> = ({ count }) => {
 
 केवल तभी जब बंडल आकार, जनरेट किए गए प्रकार या बिल्ड-टाइम अनुपस्थित-कुंजी जांच आपकी आवश्यकताओं में शामिल हों। दो लोकेल्स वाले एक छोटे ऐप के लिए, एक रनटाइम लाइब्रेरी सरल है। [कंपाइलर बनाम घोषणात्मक i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/compiler_vs_declarative_i18n.md) पोस्ट बताती है कि कंपाइलर आपको क्या देते हैं और वे क्या गलत कर सकते हैं।
 
+- [कंपाइलर बनाम घोषणात्मक i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/compiler_vs_declarative_i18n.md)
+
 </Question>
 
 <Question title="क्या मैं प्रत्येक घटक को फिर से लिखे बिना बाद में लाइब्रेरी बदल सकता हूँ?">
@@ -558,6 +591,8 @@ export const CartSummary: FC<{ count: number }> = ({ count }) => {
 <Question title="क्या लाइब्रेरी का चुनाव SEO को प्रभावित करता है?">
 
 अप्रत्यक्ष रूप से। क्रॉलर्स जो देखते हैं वह रूटिंग, `hreflang`, `<html lang>` द्वारा तय किया जाता है और क्या टेक्स्ट सर्वर-रेंडर किए गए HTML में है। कुछ लाइब्रेरीज़ इसके लिए हेल्पर्स भेजती हैं, अधिकांश इसे आप पर छोड़ देती हैं। [hreflang गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/hreflang_guide_multilingual_seo.md) देखें।
+
+- [hreflang गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/hreflang_guide_multilingual_seo.md)
 
 </Question>
 

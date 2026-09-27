@@ -51,6 +51,8 @@ author: aymericzip
 
 > 需要查看针对 Next.js 16 App Router 的完整详细分步技术指南？请查阅我们的专属文档：[使用 Intlayer 翻译 Next.js 16](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_16.md)。
 
+- [使用 Intlayer 翻译 Next.js 16](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_16.md)
+
 ## 目录
 
 <TOC/>
@@ -266,6 +268,8 @@ export const generateMetadata = async (): Promise<Metadata> => {
 本指南为您提供了在 2026 年快速改造现有 Next.js 应用的高级概览。若需查阅中间件配置、静态生成 (`generateStaticParams`) 及服务器组件的完整分步指南，请访问：
 
 👉 **[使用 Intlayer 翻译 Next.js 16 完整指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_16.md)**
+
+- [使用 Intlayer 翻译 Next.js 16 完整指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_16.md)
 
 ## 常见问题解答 (FAQ)
 

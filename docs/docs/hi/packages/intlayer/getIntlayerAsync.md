@@ -34,11 +34,15 @@ author: aymericzip
 
 `getIntlayerAsync` फ़ंक्शन अपनी key के आधार पर एक डिक्शनरी चुनता है और दिए गए locale के लिए उसकी content को resolve करता है, **केवल उस locale को लोड करते हुए**।
 
-यह [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getIntlayer.md) का asynchronous counterpart है, जिसका उपयोग उन जगहों पर किया जाता है जहां डिक्शनरी rendering के बाहर पढ़ी जाती है — route `head` / metadata builders, loaders, server functions।
+यह [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getIntlayer.md) का asynchronous counterpart है, जिसका उपयोग उन जगहों पर किया जाता है जहां डिक्शनरी rendering के बाहर पढ़ी जाती है, route `head` / metadata builders, loaders, server functions।
+
+- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getIntlayer.md)
 
 जहां `getIntlayer` merged डिक्शनरी को pull करता है जिसमें हर locale है, वहीं [build plugins](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/bundle_optimization.md) (`@intlayer/babel`, `@intlayer/swc`) इस call को `getDictionaryAsync(loaderMap, key, locale)` में rewrite करते हैं, जो `.intlayer/dynamic_dictionaries/` में per-locale chunks की ओर इशारा करते हैं। इसलिए bundle केवल वास्तव में अनुरोधित locale को ही carry करता है।
 
-इन plugins के बिना — एक unoptimized build — call synchronous dictionary registry के माध्यम से resolve होती है: वही content, per-locale split के बिना।
+- [build plugins](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/bundle_optimization.md)
+
+इन plugins के बिना, एक unoptimized build, call synchronous dictionary registry के माध्यम से resolve होती है: वही content, per-locale split के बिना।
 
 **मुख्य विशेषताएं:**
 
@@ -61,18 +65,18 @@ getIntlayerAsync(
 
 - `key: DictionaryKeys`
   - **विवरण**: डिक्शनरी की कुंजी जिसे पढ़ना है, जैसा कि आपकी content files में घोषित किया गया है।
-  - **Type**: `DictionaryKeys` — हर घोषित डिक्शनरी कुंजी का एक union।
+  - **Type**: `DictionaryKeys`, हर घोषित डिक्शनरी कुंजी का एक union।
   - **आवश्यक**: हाँ
 
 - `localeOrSelector: LocalesValues | DictionarySelector`
   - **विवरण**: content को interpret करने के लिए locale, या [dynamic dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dynamic_dictionaries/index.md) के लिए एक selector object।
-    - `'fr'` — एक locale
-    - `{ item: 2 }` — एक [collection](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dynamic_dictionaries/collections.md) item (हर item को array के रूप में पाने के लिए `item` को omit करें)
-    - `{ variant: 'black-friday' }` — एक नाम दिया गया [variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dynamic_dictionaries/variants.md) (`default` के लिए omit करें)
-    - `{ variant: { id: 'prod_abc', userId: '123' } }` — एक structured variant
+    - `'fr'`: एक locale
+    - `{ item: 2 }`: एक [collection](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dynamic_dictionaries/collections.md) item (हर item को array के रूप में पाने के लिए `item` को omit करें)
+    - `{ variant: 'black-friday' }`: एक नाम दिया गया [variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dynamic_dictionaries/variants.md) (`default` के लिए omit करें)
+    - `{ variant: { id: 'prod_abc', userId: '123' } }`: एक structured variant
     - कोई भी selector एक locale ले सकता है: `{ item: 2, locale: 'fr' }`
   - **Type**: `LocalesValues | DictionarySelector`
-  - **आवश्यक**: नहीं (Optional) — configured `defaultLocale` को default करता है।
+  - **आवश्यक**: नहीं (Optional), configured `defaultLocale` को default करता है।
 
 - `plugins: Plugins[]`
   - **विवरण**: Custom node transformers जो base interpreter plugins को replace करते हैं। Advanced use only।
@@ -81,7 +85,7 @@ getIntlayerAsync(
 
 ### Returns
 
-- **Type**: `Promise<Content>` — एक promise जो आपकी घोषणा से टाइप किए गए dictionary की interpreted content को resolve करता है।
+- **Type**: `Promise<Content>`, एक promise जो आपकी घोषणा से टाइप किए गए dictionary की interpreted content को resolve करता है।
 
 ## उदाहरण उपयोग
 
@@ -95,12 +99,12 @@ const { title } = await getIntlayerAsync("app", "fr"); // "Bonjour"
 
 ## `getIntlayer` vs `getIntlayerAsync`
 
-|                    | [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getIntlayer.md) | `getIntlayerAsync`                                      |
-| ------------------ | --------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------- |
-| Returns            | सामग्री                                                                                                         | सामग्री का एक promise                                   |
-| Dictionary loaded  | मर्ज किया गया शब्दकोश (सभी locales)                                                                             | केवल अनुरोधित locale का chunk                           |
-| Best suited for    | Rendering, synchronous code paths                                                                               | Metadata, loaders, server functions                     |
-| Requires a plugin? | नहीं                                                                                                            | नहीं — per-locale split को build plugins की आवश्यकता है |
+|                    | [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getIntlayer.md) | `getIntlayerAsync`                                     |
+| ------------------ | --------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------ |
+| Returns            | सामग्री                                                                                                         | सामग्री का एक promise                                  |
+| Dictionary loaded  | मर्ज किया गया शब्दकोश (सभी locales)                                                                             | केवल अनुरोधित locale का chunk                          |
+| Best suited for    | Rendering, synchronous code paths                                                                               | Metadata, loaders, server functions                    |
+| Requires a plugin? | नहीं                                                                                                            | नहीं, per-locale split को build plugins की आवश्यकता है |
 
 दोनों एक ही arguments स्वीकार करते हैं और एक ही सामग्री return करते हैं: एक से दूसरे में स्विच करने से केवल **कब** और **कितना** load होता है, यह बदलता है।
 

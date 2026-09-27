@@ -38,17 +38,23 @@ author: aymericzip
 
 Організація контенту вашої програми **полегшує обслуговування** великомасштабних додатків. Ви можете дублювати або видаляти окриму папку функцій без необхідності перегляду всього codebase контенту. Крім того, Intlayer **повністю типізований**, щоб забезпечити точність вашого контенту.
 
-Intlayer також є рішенням з **найбільш активним розробленням** в екосистемі i18n — проблеми вирішуються швидко, нові адаптери фреймворків надходять регулярно, а основний API постійно вдосконалюється на основі реального виробничого зворотного зв'язку.
+Intlayer також є рішенням з **найбільш активним розробленням** в екосистемі i18n, проблеми вирішуються швидко, нові адаптери фреймворків надходять регулярно, а основний API постійно вдосконалюється на основі реального виробничого зворотного зв'язку.
 
 </Accordion>
 <Accordion header="AI Agent">
 
 Розташування контенту в одному місці **зменшує контекст, необхідний** для великих мовних моделей (LLMs). Intlayer також поставляється з набором інструментів, таких як **CLI** для тестування відсутніх перекладів, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/mcp_server.md)** та **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/agent_skills.md)**, щоб зробити досвід розробника (DX) ще гладшим для AI агентів.
 
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/mcp_server.md)
+- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/agent_skills.md)
+
 </Accordion>
 <Accordion header="Автоматизація">
 
 Використовуйте автоматизацію для перекладу у вашому CI/CD pipeline, використовуючи LLM на ваш вибір за вартість вашого AI-провайдера. Intlayer також пропонує **компілятор** для автоматизації видобування контенту, а також [веб-платформу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md) для допомоги в **перекладі у фоновому режимі**.
+
+- [веб-платформу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="Продуктивність">
@@ -59,6 +65,9 @@ Intlayer також є рішенням з **найбільш активним �
 <Accordion header="Масштабування з неробами">
 
 Більше ніж просто рішення i18n, Intlayer надає **самостійно розміщений [редактор з візуальним інтерфейсом](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md)** та **[повноцінну CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)** для допомоги в керуванні вашим багатомовним контентом у **режимі реального часу**, що робить співпрацю з перекладачами, копірайтерами та іншими членами команди безперешкодною. Контент можна зберігати локально та/або віддалено.
+
+- [редактор з візуальним інтерфейсом](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md)
+- [повноцінну CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
@@ -71,9 +80,9 @@ Intlayer також є рішенням з **найбільш активним �
 
 Існує дві взаємодоповнюючі стратегії для міграції з `vue-i18n` на Intlayer:
 
-1. **Compat adapter (рекомендується для існуючих додатків)** — Встановіть `@intlayer/vue-i18n` (для Vue-компонентів). Цей пакет надає **абсолютно той самий API**, що й `vue-i18n`, але делегує всю роботу з перекладами Intlayer під капотом. Ви зберігаєте свої існуючі виклики `$t`, `useI18n()` та `<i18n-t>` — єдина зміна — це шлях імпорту та ініціалізація.
+1. **Compat adapter (рекомендується для існуючих додатків)**: Встановіть `@intlayer/vue-i18n` (для Vue-компонентів). Цей пакет надає **абсолютно той самий API**, що й `vue-i18n`, але делегує всю роботу з перекладами Intlayer під капотом. Ви зберігаєте свої існуючі виклики `$t`, `useI18n()` та `<i18n-t>`, єдина зміна це шлях імпорту та ініціалізація.
 
-2. **Повна міграція** — Поступово замініть API `vue-i18n` на нативні hook'и Intlayer (`useIntlayer`) та розташуйте контент у файлах `.content.ts` поруч з вашими компонентами.
+2. **Повна міграція**: Поступово замініть API `vue-i18n` на нативні hook'и Intlayer (`useIntlayer`) та розташуйте контент у файлах `.content.ts` поруч з вашими компонентами.
 
 Цей посібник спочатку охоплює **Strategy 1** (drop-in compat adapter), а потім проходить через опціональну повну міграцію.
 
@@ -126,7 +135,7 @@ yarn add intlayer vue-intlayer @intlayer/vue-i18n @intlayer/sync-json-plugin
 bun add intlayer vue-intlayer @intlayer/vue-i18n @intlayer/sync-json-plugin
 ```
 
-> Ви можете залишити встановленим `vue-i18n` — адаптер сумісності використовує його як `devDependency` / `peerDependency` для типів TypeScript.
+> Ви можете залишити встановленим `vue-i18n`, адаптер сумісності використовує його як `devDependency` / `peerDependency` для типів TypeScript.
 
 </Step>
 <Step number={2} title="Налаштування Intlayer">
@@ -165,7 +174,7 @@ export default config;
 </Step>
 <Step number={3} title="Додайте плагін Intlayer до вашого бундлера">
 
-Обгорніть вашу існуючу конфігурацію бундлера плагіном сумісності. Він складає основний плагін Intlayer, налаштовує спостереження вмісту та — критично — **впроваджує псевдонім модуля**, щоб ваші існуючі виклики `import … from 'vue-i18n'` були прозоро перенаправлені на `@intlayer/vue-i18n` під час збирання. Жодні змін файлів вихідного коду не потрібні.
+Обгорніть вашу існуючу конфігурацію бундлера плагіном сумісності. Він складає основний плагін Intlayer, налаштовує спостереження вмісту та, критично, **впроваджує псевдонім модуля**, щоб ваші існуючі виклики `import … from 'vue-i18n'` були прозоро перенаправлені на `@intlayer/vue-i18n` під час збирання. Жодні змін файлів вихідного коду не потрібні.
 
 **Для Vite:**
 
@@ -179,7 +188,7 @@ export default defineConfig({
 });
 ```
 
-> `vueI18nVitePlugin()` обгортає плагін `intlayer()` з `vite-intlayer` та додає псевдонім `vue-i18n`. Використання звичайного плагіна `intlayer()` з `vite-intlayer` компілює словники, але **не** додає псевдонім — тоді вам доведеться вручну перейменувати імпорти на `@intlayer/vue-i18n` (див. Крок 4).
+> `vueI18nVitePlugin()` обгортає плагін `intlayer()` з `vite-intlayer` та додає псевдонім `vue-i18n`. Використання звичайного плагіна `intlayer()` з `vite-intlayer` компілює словники, але **не** додає псевдонім, тоді вам доведеться вручну перейменувати імпорти на `@intlayer/vue-i18n` (див. Крок 4).
 
 **Для Nuxt:**
 
@@ -204,10 +213,10 @@ export default defineNuxtConfig({
 
 На цьому швидка міграція завершена. Ваш застосунок тепер працює на Intlayer, при цьому зберігаючи кожен імпорт та API `vue-i18n`.
 
-> **Типізовані ключі перекладу — автоматично.** Після того як Intlayer скомпілює ваші словники, `useI18n` типізується відповідно до вашого фактичного вмісту, коли ви передаєте опцію `namespace`. Ключі автодоповнюються у вашому IDE, а невалідні шляхи спричиняють помилки TypeScript під час збирання — додатково налаштування не потрібно.
+> **Типізовані ключі перекладу, автоматично.** Після того як Intlayer скомпілює ваші словники, `useI18n` типізується відповідно до вашого фактичного вмісту, коли ви передаєте опцію `namespace`. Ключі автодоповнюються у вашому IDE, а невалідні шляхи спричиняють помилки TypeScript під час збирання, додатково налаштування не потрібно.
 >
 > ```ts
-> // 'about' — зареєстрований ключ словника
+> // 'about', зареєстрований ключ словника
 > const { t } = useI18n({ namespace: "about" });
 > t("counter.label"); // ✓ автодоповнено
 > t("does.not.exist"); // ✗ помилка TypeScript
@@ -227,7 +236,7 @@ export default defineNuxtConfig({
 | `import { useI18n } from 'vue-i18n'`    | `import { useI18n } from '@intlayer/vue-i18n'`    |
 | `import { createI18n } from 'vue-i18n'` | `import { createI18n } from '@intlayer/vue-i18n'` |
 
-Це **drop-in замінники** — змін у сигнатурах функцій, аргументах або типах повернення не потрібно.
+Це **drop-in замінники**, змін у сигнатурах функцій, аргументах або типах повернення не потрібно.
 
 </Step>
 <Step number={5} title="Увімкніть автоматизацію перекладу на основі AI" isOptional={true}>
@@ -287,6 +296,8 @@ export default config;
 
 > Перегляньте [документацію Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/index.md) для всіх доступних опцій.
 
+- [документацію Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/index.md)
+
 </Step>
 
 </Steps>
@@ -301,7 +312,7 @@ export default config;
 | Vue plugin registration (`app.use(i18n)`) | Плагін Intlayer обробляє ін'єкцію та завантаження під капотом.                                                                                            |
 | JSON language bundles (`locales/*.json`)  | JSON bundles потрібні лише якщо ви все ще використовуєте плагін `syncJSON`. Як тільки ви перейдете на файли `.content.ts`, ви можете видалити папку JSON. |
 
-Коли ви будете готові йти далі, Intlayer **автоматично виявляє всі файли `.content.ts` та `.content.json` будь-де у вашому codebase** (за замовчуванням, будь-де всередині `./src`). Ви можете розмістити файл `my-component.content.ts` прямо поруч із вашим `MyComponent.vue`, і Intlayer підхопить його під час збірки без додаткової конфігурації — без імпортів, без реєстрації, без централізованого файлу індексу. Це робить розташування перекладів разом зі сторінками та компонентами повністю безпроблемним.
+Коли ви будете готові йти далі, Intlayer **автоматично виявляє всі файли `.content.ts` та `.content.json` будь-де у вашому codebase** (за замовчуванням, будь-де всередині `./src`). Ви можете розмістити файл `my-component.content.ts` прямо поруч із вашим `MyComponent.vue`, і Intlayer підхопить його під час збірки без додаткової конфігурації, без імпортів, без реєстрації, без централізованого файлу індексу. Це робить розташування перекладів разом зі сторінками та компонентами повністю безпроблемним.
 
 ## Налаштування TypeScript
 

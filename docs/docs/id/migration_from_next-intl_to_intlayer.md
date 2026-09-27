@@ -38,17 +38,23 @@ Alih-alih memuat file JSON besar ke halaman Anda, muat hanya konten yang diperlu
 
 Scoping konten aplikasi Anda **memfasilitasi pemeliharaan** untuk aplikasi berskala besar. Anda dapat menduplikasi atau menghapus folder fitur tunggal tanpa beban mental untuk meninjau seluruh codebase konten Anda. Selain itu, Intlayer **fully typed** untuk memastikan akurasi konten Anda.
 
-Intlayer juga merupakan solusi dengan **pengembangan paling aktif** dalam ekosistem i18n — masalah diperbaiki dengan cepat, adapter framework baru diluncurkan secara teratur, dan core API terus disempurnakan berdasarkan feedback produksi dunia nyata.
+Intlayer juga merupakan solusi dengan **pengembangan paling aktif** dalam ekosistem i18n, masalah diperbaiki dengan cepat, adapter framework baru diluncurkan secara teratur, dan core API terus disempurnakan berdasarkan feedback produksi dunia nyata.
 
 </Accordion>
 <Accordion header="AI Agent">
 
 Co-locating konten **mengurangi konteks yang diperlukan** oleh Large Language Models (LLMs). Intlayer juga dilengkapi dengan suite alat, seperti **CLI** untuk menguji terjemahan yang hilang, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/mcp_server.md)**, dan **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/agent_skills.md)**, untuk membuat developer experience (DX) bahkan lebih mulus untuk AI agents.
 
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/mcp_server.md)
+- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/agent_skills.md)
+
 </Accordion>
 <Accordion header="Automation">
 
 Gunakan automation untuk menerjemahkan di CI/CD pipeline Anda menggunakan LLM pilihan Anda dengan biaya dari penyedia AI Anda. Intlayer juga menawarkan **compiler** untuk mengotomatisasi ekstraksi konten, serta [web platform](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md) untuk membantu **menerjemahkan di latar belakang**.
+
+- [web platform](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="Performance">
@@ -59,6 +65,9 @@ Menghubungkan file JSON besar ke komponen dapat menyebabkan masalah performance 
 <Accordion header="Scaling with non-dev">
 
 Lebih dari sekadar solusi i18n, Intlayer menyediakan **self-hosted [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md)** dan **[full CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)** untuk membantu Anda mengelola konten multibahasa Anda secara **real-time**, membuat kolaborasi dengan translator, copywriter, dan anggota tim lainnya menjadi seamless. Konten dapat disimpan secara lokal dan/atau remote.
+
+- [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md)
+- [full CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
@@ -71,9 +80,9 @@ Lebih dari sekadar solusi i18n, Intlayer menyediakan **self-hosted [visual edito
 
 Pendekatan yang direkomendasikan untuk aplikasi yang sudah ada adalah **compat adapter**: instal `@intlayer/next-intl`, yang mengekspos **API yang persis sama** seperti `next-intl` tetapi mendelegasikan semua pekerjaan terjemahan ke Intlayer di balik layar.
 
-Anda tetap mempertahankan `useTranslations`, `getTranslations`, `NextIntlClientProvider` dan teman-temannya — **satu-satunya perubahan adalah jalur impor**. Tidak ada refactoring dari signature pemanggilan, bentuk prop, atau struktur komponen yang diperlukan.
+Anda tetap mempertahankan `useTranslations`, `getTranslations`, `NextIntlClientProvider` dan teman-temannya, **satu-satunya perubahan adalah jalur impor**. Tidak ada refactoring dari signature pemanggilan, bentuk prop, atau struktur komponen yang diperlukan.
 
-Seiring waktu, Anda dapat secara opsional memigrasikan file individual ke format `.content.ts` yang lebih kaya dari Intlayer untuk membuka visual editor, CMS, dan scoping konten per-komponen — tetapi langkah tersebut sepenuhnya opsional dan dapat dilakukan secara bertahap.
+Seiring waktu, Anda dapat secara opsional memigrasikan file individual ke format `.content.ts` yang lebih kaya dari Intlayer untuk membuka visual editor, CMS, dan scoping konten per-komponen, tetapi langkah tersebut sepenuhnya opsional dan dapat dilakukan secara bertahap.
 
 ## Daftar Isi
 
@@ -124,7 +133,7 @@ yarn add intlayer next-intlayer @intlayer/next-intl @intlayer/sync-json-plugin
 bun add intlayer next-intlayer @intlayer/next-intl @intlayer/sync-json-plugin
 ```
 
-> Pertahankan `next-intl` yang terinstal — masih diperlukan untuk **URL routing** (`createNavigation`, `createMiddleware`, `Link`, `redirect`, `usePathname`, `useRouter`). Adapter kompatibilitas **tidak** menggantikan lapisan routing.
+> Pertahankan `next-intl` yang terinstal, masih diperlukan untuk **URL routing** (`createNavigation`, `createMiddleware`, `Link`, `redirect`, `usePathname`, `useRouter`). Adapter kompatibilitas **tidak** menggantikan lapisan routing.
 
 </Step>
 <Step number={2} title="Konfigurasi Intlayer">
@@ -162,6 +171,8 @@ export default config;
 
 > Untuk daftar lengkap opsi konfigurasi, lihat [dokumentasi konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md).
 
+- [dokumentasi konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md)
+
 </Step>
 <Step number={3} title="Tambahkan Plugin Intlayer ke Next.js">
 
@@ -178,9 +189,9 @@ const nextConfig: NextConfig = {/* opsi konfigurasi yang sudah ada */};
 export default withIntlayer(nextConfig);
 ```
 
-> `createNextIntlPlugin()` membungkus `withIntlayer`, secara otomatis mendeteksi **Webpack** atau **Turbopack**, mengatur pengawasan konten, kompilasi kamus, dan — secara kritis — **menyuntikkan alias modul** sehingga panggilan `import … from 'next-intl'` yang sudah ada dialihkan secara transparan ke `@intlayer/next-intl` pada waktu build. Entri routing `next-intl/routing` dibiarkan menunjuk ke paket aslinya. Tidak ada perubahan file sumber yang diperlukan.
+> `createNextIntlPlugin()` membungkus `withIntlayer`, secara otomatis mendeteksi **Webpack** atau **Turbopack**, mengatur pengawasan konten, kompilasi kamus, dan, secara kritis, **menyuntikkan alias modul** sehingga panggilan `import … from 'next-intl'` yang sudah ada dialihkan secara transparan ke `@intlayer/next-intl` pada waktu build. Entri routing `next-intl/routing` dibiarkan menunjuk ke paket aslinya. Tidak ada perubahan file sumber yang diperlukan.
 >
-> Lebih suka `withIntlayer` biasa dari `next-intlayer/server`? Ini akan mengkompilasi kamus Anda, tetapi **tidak** menambahkan alias `next-intl` — Anda kemudian harus mengganti nama impor ke `@intlayer/next-intl` secara manual (lihat Langkah 4).
+> Lebih suka `withIntlayer` biasa dari `next-intlayer/server`? Ini akan mengkompilasi kamus Anda, tetapi **tidak** menambahkan alias `next-intl`, Anda kemudian harus mengganti nama impor ke `@intlayer/next-intl` secara manual (lihat Langkah 4).
 
 > **Anda tidak lagi memerlukan `getRequestConfig` atau `loadMessages`.** Dengan `next-intl`, Anda harus menulis file `src/i18n.ts` yang memuat bundle pesan JSON pada setiap permintaan melalui `getRequestConfig`. Intlayer mengkompilasi semua kamus pada **waktu build**, jadi tidak ada langkah loading runtime. Anda dapat menghapus file itu sepenuhnya (atau pertahankan hanya bagian routing jika Anda masih menggunakan `createNavigation`).
 
@@ -190,10 +201,10 @@ export default withIntlayer(nextConfig);
 
 Itu saja untuk migrasi cepat. Aplikasi Anda sekarang berjalan di Intlayer sambil mempertahankan setiap impor dan API `next-intl`.
 
-> **Kunci terjemahan yang diketik — otomatis.** Setelah Intlayer mengkompilasi kamus Anda, `useTranslations` dan `getTranslations` diketik terhadap konten aktual Anda. Kunci secara otomatis dilengkapi di IDE Anda dan jalur yang tidak valid menyebabkan kesalahan TypeScript pada waktu build — tidak ada setup tambahan yang diperlukan.
+> **Kunci terjemahan yang diketik, otomatis.** Setelah Intlayer mengkompilasi kamus Anda, `useTranslations` dan `getTranslations` diketik terhadap konten aktual Anda. Kunci secara otomatis dilengkapi di IDE Anda dan jalur yang tidak valid menyebabkan kesalahan TypeScript pada waktu build, tidak ada setup tambahan yang diperlukan.
 >
 > ```tsx
-> // Komponen klien — 'about' adalah kunci kamus yang terdaftar
+> // Komponen klien, 'about' adalah kunci kamus yang terdaftar
 > const t = useTranslations("about");
 > t("counter.label"); // ✓ autocompleted
 > t("does.not.exist"); // ✗ kesalahan TypeScript
@@ -222,7 +233,7 @@ Wrapper `createNextIntlPlugin()` sudah menangani aliasing `next-intl` → `@intl
 | `import { setLocale } from 'next-intl/server'`       | `import { setLocale } from '@intlayer/next-intl/server'`       |
 | `import { getMessages } from 'next-intl/server'`     | `import { getMessages } from '@intlayer/next-intl/server'`     |
 
-> Selalu pertahankan routing imports dari `next-intl` yang asli — compat adapter **tidak** mengganti URL routing layer:
+> Selalu pertahankan routing imports dari `next-intl` yang asli, compat adapter **tidak** mengganti URL routing layer:
 >
 > ```ts
 > // ✅ Selalu pertahankan imports ini dari 'next-intl' yang asli
@@ -291,6 +302,8 @@ export default config;
 
 > Lihat [dokumentasi Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md) untuk semua opsi yang tersedia.
 
+- [dokumentasi Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md)
+
 </Step>
 
 </Steps>
@@ -305,7 +318,7 @@ Setelah `@intlayer/next-intl` diterapkan, boilerplate `next-intl` berikut dapat 
 | `loadMessages()` / `getMessages()` call in layout | `NextIntlClientProvider` dari `@intlayer/next-intl` membaca dari output yang dikompilasi; tidak ada props `messages` yang diperlukan.                               |
 | `locales/{locale}/*.json` imports in layout       | Bundle JSON hanya diperlukan jika Anda masih menggunakan plugin `syncJSON`. Setelah bermigrasi ke file `.content.ts` Anda dapat menghapus folder JSON.              |
 
-Ketika Anda siap untuk melangkah lebih jauh, Intlayer **secara otomatis menemukan semua file `.content.ts` dan `.content.json` di mana pun dalam codebase Anda** (secara default, di mana pun di dalam `./src`). Anda dapat menempatkan file `about.content.ts` tepat di samping `about/page.tsx` Anda dan Intlayer akan mengambilnya pada waktu build tanpa konfigurasi tambahan — tidak ada imports, tidak ada registrasi, tidak ada file indeks terpusat yang diperlukan. Ini membuat co-locating translations dengan pages dan components menjadi sepenuhnya frictionless.
+Ketika Anda siap untuk melangkah lebih jauh, Intlayer **secara otomatis menemukan semua file `.content.ts` dan `.content.json` di mana pun dalam codebase Anda** (secara default, di mana pun di dalam `./src`). Anda dapat menempatkan file `about.content.ts` tepat di samping `about/page.tsx` Anda dan Intlayer akan mengambilnya pada waktu build tanpa konfigurasi tambahan, tidak ada imports, tidak ada registrasi, tidak ada file indeks terpusat yang diperlukan. Ini membuat co-locating translations dengan pages dan components menjadi sepenuhnya frictionless.
 
 ## Konfigurasi TypeScript
 

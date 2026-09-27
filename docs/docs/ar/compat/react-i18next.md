@@ -25,6 +25,8 @@ author: aymericzip
 
 للحصول على برنامج تعليمي مفصل وكامل خطوة بخطوة، يرجى مراجعة [دليل الترحيل الكامل من react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_react-i18next_to_intlayer.md).
 
+- [دليل الترحيل الكامل من react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_react-i18next_to_intlayer.md)
+
 يسمح استخدام محول التوافق في Intlayer بترحيل من `react-i18next` دون أي تغييرات على واردات الكود المصدري الخاص بك.
 
 ## ما يجب فعله

@@ -221,4 +221,6 @@ const text = t(translations);
 
 Daha detaylı kullanım ve gelişmiş özellikler için [next-intlayer dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) bakın.
 
+- [next-intlayer dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md)
+
 **Not**: `t` fonksiyonunun doğru çevirileri döndürmesi için mevcut yerel ayarınızın bileşenlerinize doğru şekilde aktarıldığından emin olun. Bu, `IntlayerClientProvider` ve `IntlayerServerProvider`'ı düzgün şekilde kurmak için çok önemlidir.

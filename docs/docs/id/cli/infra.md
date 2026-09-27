@@ -104,13 +104,13 @@ npx intlayer init infra --mode compose
 
        ./intlayer/.env
 
-     Either RESEND_API_KEY (resend.com) or the MAIL_SMTP_* block — the first
+     Either RESEND_API_KEY (resend.com) or the MAIL_SMTP_* block, the first
      account cannot be verified without a working mailer.
   2. Start the stack:
 
        cd ./intlayer && docker compose up -d
 
-  Then open http://localhost:3000 — first boot initialises the
+  Then open http://localhost:3000, first boot initialises the
   datastores, so give it a minute. The first account you create becomes the
   super admin.
 
@@ -118,6 +118,10 @@ npx intlayer init infra --mode compose
     Stop      docker compose down
     Upgrade   docker compose pull && docker compose up -d
 ```
+
+Jika diberikan sebuah domain (misalnya `example.org`), penginstal menyarankan `https://cms.example.org`, `https://back.example.org`, dan `https://s3.example.org/intlayer` untuk dasbor, API, dan penyimpanan objek, menuliskannya ke file lingkungan, dan mengganti perintah start menjadi build dari repositori, karena image dasbor yang dipublikasikan hanya berfungsi di `localhost`. Lihat [Domain kustom](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/self_hosting.md#custom-domain).
+
+- [Domain kustom](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/self_hosting.md#custom-domain)
 
 ## Pengaturan penginstal
 
@@ -143,6 +147,8 @@ INTLAYER_COMPOSE_DIR=./cms npx intlayer init infra --mode compose
 | `INTLAYER_SELFHOST_REF`   | `main`                    | keduanya      | Referensi Git tempat file compose dan template env diambil |
 
 > Variabel port hanya mengubah sisi **host** dari pemetaan. Citra yang diterbitkan telah mengompilasi `http://localhost:3000`, `http://localhost:3100`, dan `http://localhost:9000` ke dalam bundel dasbor, jadi pertahankan nilai default kecuali Anda membangun citra sendiri: lihat [panduan self-hosting](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/self_hosting.md#limitations).
+
+- [panduan self-hosting](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/self_hosting.md#limitations)
 
 ## Persyaratan
 

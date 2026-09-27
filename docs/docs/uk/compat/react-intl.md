@@ -23,7 +23,7 @@ author: aymericzip
 
 # Перехід від React Intl до Intlayer
 
-Якщо ваш React додаток використовує `react-intl` (FormatJS), перехід на Intlayer — це просто. Наш compat layer безпроблемно обробляє ICU MessageFormat та всі існуючі компоненти `Formatted*`.
+Якщо ваш React додаток використовує `react-intl` (FormatJS), перехід на Intlayer це просто. Наш compat layer безпроблемно обробляє ICU MessageFormat та всі існуючі компоненти `Formatted*`.
 
 ## Що робити
 

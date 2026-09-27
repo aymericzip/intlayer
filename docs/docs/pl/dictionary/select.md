@@ -376,6 +376,8 @@ Przypadek (case) `other` z ICU jest zmieniany na `fallback`, co jest kanoniczną
 
 > Pamiętaj, że komunikaty ICU `select`, w których przypadkami są wartości płci (`male` / `female` / `other`), są importowane jako węzeł [`gender`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/gender.md).
 
+- [`gender`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/gender.md)
+
 ## Dodatkowe Zasoby
 
 Aby uzyskać bardziej szczegółowe informacje na temat konfiguracji i użytkowania, zapoznaj się z poniższymi zasobami:

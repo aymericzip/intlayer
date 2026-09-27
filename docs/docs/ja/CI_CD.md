@@ -64,6 +64,8 @@ export default config;
 
 CMSの詳細については、[公式ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を参照してください。
 
+- [Intlayer CMS：多言語コンテンツを外部化する](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)
+
 ## Huskyの使用
 
 [Husky](https://typicode.github.io/husky/)を使用して、ローカルのGitワークフローに翻訳生成を統合できます。
@@ -100,6 +102,8 @@ npx intlayer fill --unpushed --mode fill    # 欠落しているコンテンツ�
 ```
 
 > Intlayer CLIコマンドとその使用方法の詳細については、[CLIドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md)を参照してください。
+
+- [CLIドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md)
 
 > リポジトリ内に複数のアプリがあり、それぞれ別のintlayerインスタンスを使用している場合は、次のように`--base-dir`引数を使用できます。
 
@@ -200,3 +204,5 @@ jobs:
 > デフォルトでは、`--git-diff` 引数はベース（デフォルトは `origin/main`）から現在のブランチ（デフォルトは `HEAD`）への変更を含む辞書をフィルタリングします。
 
 > Intlayer CLIコマンドとその使用方法の詳細については、[CLIドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md)を参照してください。
+
+- [CLIドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md)

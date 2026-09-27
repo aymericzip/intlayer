@@ -79,6 +79,8 @@ It's crucial that all content keys are defined within content declaration files 
 
 Instructions for setting up content declaration files are available [here](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md).
 
+- [Content Declaration Files (.content.ts)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md)
+
 ## Example Usage in Next.js
 
 Here's how you can implement the `useIntlayer` hook within a Next.js page to dynamically load localized content based on the application's current locale:

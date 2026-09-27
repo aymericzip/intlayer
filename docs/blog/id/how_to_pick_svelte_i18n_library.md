@@ -67,6 +67,8 @@ Paraglide mengompilasi setiap pesan menjadi fungsi yang diekspor sehingga bundle
 
 [Sejarah JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/history_of_i18n.md) membahas setiap gelombang secara rinci.
 
+- [Sejarah JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/history_of_i18n.md)
+
 ## Keputusan yang paling penting: di mana konten berada dan kapan dimuat
 
 Dua pilihan struktural menjelaskan sebagian besar perbedaan bundle antar setup:
@@ -80,11 +82,17 @@ Grafik ini memperkirakan payload untuk aplikasi teoritis 1 hingga 10 halaman, di
 
 `svelte-i18n` berada di kiri atas secara default: `register("fr", () => import("./fr.json"))` memberi Anda pemuatan dinamis per locale, tetapi katalog locale adalah satu objek tunggal dan memuatnya akan memuat salinan teks untuk setiap halaman. Paraglide adalah kasus yang menarik: karena setiap pesan adalah ekspornya sendiri, tree-shaking memberi Anda pemisahan sumbu halaman secara gratis, dan [benchmark Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/svelte.md) mengonfirmasi bahwa ini bekerja seperti yang diiklankan pada Vite + Svelte (namun tidak terjadi pada benchmark React dan Next.js). Intlayer mencapai hasil yang sama melalui deklarasi per komponen.
 
+- [benchmark Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/svelte.md)
+
 Jika jawaban Anda untuk pertanyaan 3 adalah "banyak halaman", pertimbangkan bagian ini lebih dari preferensi API apa pun. Artikel [i18n per komponen vs terpusat](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/per-component_vs_centralized_i18n.md) membahas sisi pemeliharaan dari kompromi yang sama.
+
+- [i18n per komponen vs terpusat](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/per-component_vs_centralized_i18n.md)
 
 ## Para kandidat
 
 Ukuran library diambil dari [benchmark Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/svelte.md): store ditambah accessor dalam komponen kosong, setelah bundling, tree-shaking, dan minifikasi, pada aplikasi 10 halaman dan 10 locale. Konten diukur secara terpisah.
+
+- [benchmark Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/svelte.md)
 
 ![Ekosistem library Svelte i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
@@ -113,6 +121,8 @@ Ukuran library Paraglide yang hampir nol diperoleh dari rancangannya: runtime di
 
 Masalah pembagian data (sharing problem) menentukan pilihan ini. `svelte-i18n` berfungsi di SvelteKit tetapi integrasi per-request (`hooks.server.ts`, `locals`, `load`, lalu `setContext`) harus Anda tulis sendiri dan mudah salah dalam penerapannya. Paraglide menyediakan integrasi SvelteKit yang menangani routing dan membaca locale pada setiap pemanggilan, yang menghindari masalah singleton. Intlayer menetapkan locale dari data `load` ke dalam context. [Artikel SvelteKit i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_svelte_kit.md) menjelaskan pilihan antara `[[lang]]` dan `reroute`, yang sebaiknya Anda putuskan sebelum memilih library.
 
+- [Artikel SvelteKit i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_svelte_kit.md)
+
 </Accordion>
 <Accordion header="Terjemahan berasal dari TMS atau agensi yang mengirimkan ICU">
 
@@ -127,6 +137,8 @@ Gunakan compile-time. Tree-shaking milik Paraglide bekerja pada Vite + Svelte da
 <Accordion header="Type safety tidak bisa dikompromikan">
 
 Gunakan opsi apa pun selain setup `svelte-i18n` polos, di mana satu-satunya pengetikan adalah union manual yang cepat usang dari file JSON. `typesafe-i18n`, Paraglide, dan Intlayer semuanya men-generate type dari konten. Periksa aktivitas repository `typesafe-i18n` sebelum menggunakannya pada codebase Anda. Artikel [mendeteksi terjemahan yang hilang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/detecting_missing_translations.md) membandingkan apa saja yang dapat ditangkap oleh masing-masing library pada saat build.
+
+- [mendeteksi terjemahan yang hilang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/detecting_missing_translations.md)
 
 </Accordion>
 <Accordion header="Anda tidak ingin ada file yang di-generate di dalam repo">
@@ -378,6 +390,8 @@ Semua locale dalam satu file di samping komponen. `useIntlayer` mengembalikan st
 
 Sudah menggunakan `svelte-i18n`? [Adaptor kompatibilitas `@intlayer/svelte-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/svelte-i18n.md) membuat alias untuk package pada tingkat bundler sehingga `$_`, `$date`, `$number`, dan kunci flat Anda tetap berfungsi sementara Intlayer menyajikan kontennya.
 
+- [Adaptor kompatibilitas `@intlayer/svelte-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/svelte-i18n.md)
+
 ## Sebelum Anda memutuskan
 
 Tabel fitur memberi tahu apa yang dilakukan library hari ini. Poin-poin ini memberi tahu seperti apa pengalaman menggunakannya dalam jangka panjang.
@@ -400,6 +414,9 @@ Library yang paling banyak diinstal adalah library yang dirilis lebih dulu, buka
 
 Agent masih kesulitan dengan i18n: mereka melupakan locale, mengarang kunci, dan mencampur sintaks pesan. Apakah library menyediakan [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/agent_skills.md) atau [server MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/mcp_server.md) sehingga agent dapat mendaftar, mengisi, dan menguji konten? Dan apakah pemuatan konten dioptimalkan secara default, atau seseorang harus meninjau namespace dan lazy import setiap kuartal?
 
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/agent_skills.md)
+- [server MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/mcp_server.md)
+
 **Type safety langsung siap pakai.**
 
 Bukan "dapat diberi tipe dengan konfigurasi tambahan", melainkan "kunci yang salah akan menggagalkan `tsc` pada instalasi baru". Periksa apa yang terjadi dengan kunci yang tidak ada, dan dengan locale yang kehilangan satu terjemahan.
@@ -411,6 +428,13 @@ Katalog hanya akan terus bertambah. Build Intlayer membersihkan field yang tidak
 **Pengalaman developer (Developer experience).**
 
 Waktu setup hingga string terjemahan pertama, [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/lsp.md) atau [ekstensi VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/vs_code_extension.md) yang menampilkan terjemahan saat hover dan melompat ke deklarasi, [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md) untuk fill, test, dan push, [compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md) atau ekstraktor yang mengambil string hard-coded dari komponen Anda sehingga tidak perlu mengelola setiap string satu per satu berdasarkan kunci, serta cara bagi non-developer untuk mengedit konten ([visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) atau [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)) tanpa pull request.
+
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/lsp.md)
+- [ekstensi VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/vs_code_extension.md)
+- [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md)
+- [compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md)
+- [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)
 
 ## Pertanyaan yang Sering Diajukan
 
@@ -437,6 +461,8 @@ Rune mengubah sintaks dari state locale Anda sendiri, bukan masalah pembagian da
 <Question title="Apakah pilihan library memengaruhi SEO?">
 
 Secara tidak langsung. Web crawler memperhatikan routing, `hreflang`, `<html lang>`, dan apakah teks ada di dalam HTML yang dirender di server. Lihat [panduan hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/hreflang_guide_multilingual_seo.md).
+
+- [panduan hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/hreflang_guide_multilingual_seo.md)
 
 </Question>
 

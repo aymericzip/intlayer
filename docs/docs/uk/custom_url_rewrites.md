@@ -341,7 +341,9 @@ export function middleware(request: NextRequest) {
 
 Для SolidJS, Vue та Svelte Vite-плагін `intlayerProxy` керує перезаписами під час розробки.
 
-> Починаючи з Intlayer v9, `intlayerProxy()` включено безпосередньо у плагін `intlayer()` і ввімкнено за замовчуванням через параметр `routing.enableProxy` (`true` за замовчуванням). Реєстрація його окремо, як показано нижче, тепер є необов'язковою — вона зберігається для зворотної сумісності та для налаштувань, які потребують контролю порядку плагінів. Встановіть `routing.enableProxy: false`, щоб відмовитися. Дивіться [примітки до випуску v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/releases/v9.md).
+> Починаючи з Intlayer v9, `intlayerProxy()` включено безпосередньо у плагін `intlayer()` і ввімкнено за замовчуванням через параметр `routing.enableProxy` (`true` за замовчуванням). Реєстрація його окремо, як показано нижче, тепер є необов'язковою, вона зберігається для зворотної сумісності та для налаштувань, які потребують контролю порядку плагінів. Встановіть `routing.enableProxy: false`, щоб відмовитися. Дивіться [примітки до випуску v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/releases/v9.md).
+
+- [примітки до випуску v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/releases/v9.md)
 
 ```typescript fileName="vite.config.ts"
 import { defineConfig } from "vite";

@@ -34,6 +34,8 @@ Intlayer에서 복수형 콘텐츠는 `plural` 함수를 통해 구현됩니다.
 
 직접 정의한 숫자 범위를 기반으로 콘텐츠를 선택하는 [`enu`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/enumeration.md)와 달리, `plural`은 선택을 CLDR 규칙에 위임합니다. 이로 인해 러시아어, 폴란드어, 아랍어 또는 웨일스어와 같이 복잡한 복수화 규칙이 있는 언어도 나머지 연산(modulo) 로직을 직접 작성하지 않고도 확장할 수 있습니다.
 
+- [`enu`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/enumeration.md)
+
 ## `plural`과 `enu` 사용 시기
 
 | 사용 사례                                              | 헬퍼     |

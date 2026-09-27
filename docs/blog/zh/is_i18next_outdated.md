@@ -92,6 +92,8 @@ style="border:none;"
 
 > 基于包含 10 个路由、10 种语言的生产环境应用测量，采用 gzip 压缩。完整数据见 [i18n 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/index.md)。
 
+- [i18n 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/index.md)
+
 ### 库的基础体积
 
 在未添加任何翻译词条之前的空白开销：
@@ -171,6 +173,9 @@ return <h1>{title}</h1>;
 
 [Intlayer 编译器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md)可以确切识别 `Hero.tsx` 访问的字段，并在生成客户端代码前剔除未引用的内容。详情请查阅[打包优化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md)。
 
+- [Intlayer 编译器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md)
+- [打包优化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md)
+
 ## 开发者体验对比
 
 ### 分离式 JSON vs. 组件就近存放
@@ -237,6 +242,8 @@ export const Hero = () => {
 通过扩展 `CustomTypeOptions` 可以获得编辑器代码提示，但这无法检查翻译是否完备。如果在 `zh/hero.json` 中删除了某个键，构建依然会成功，只在运行时降级显示兜底文本。
 
 Intlayer 直接基于内容声明推导类型，启用 [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md) 后，缺失任何一种语言的翻译都会直接导致构建失败，彻底杜绝遗漏。
+
+- [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)
 
 ### 工具链生态对比
 

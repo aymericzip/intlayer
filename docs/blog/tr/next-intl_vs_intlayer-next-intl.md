@@ -33,6 +33,8 @@ author: aymericzip
 
 Bu makale, aynı Next.js uygulamasında ikisini karşılaştırır: bir kez `next-intl` ile ve bir kez adaptör ile oluşturulmuş. Rakamlar [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom)'dan gelir; bu, tarayıcının gerçekte ne indirdiğini kaydeden açık kaynak bir süittir. Eğer `next-intl` vs Intlayer karşılaştırmasını kütüphaneler olarak istiyorsanız, [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/next-intl_vs_intlayer.md) okuyun. Bu makale adaptörün, bileşenlerinizi olduğu gibi tutarken neyi değiştirdiğiyle ilgilidir.
 
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/next-intl_vs_intlayer.md)
+
 <TOC/>
 
 > **tl;dr**: Aynı Next.js uygulamasında, `next-intl` yerine `@intlayer/next-intl` kullanmaya geçmek, sayfa başına JavaScript'i **153.6 KB'tan 147.5 KB'a** gzip, ortalama bileşeni **21.8 KB'tan 8.1 KB'a**, yabancı sayfa string sızıntısını **~%90'dan %0'a** ve hidrasyon işlemini **14.7 ms'den 12.8 ms'ye** indirdi, hiçbir bileşen düzenlenmedi. TanStack Start'ta, `use-intl` eşdeğeri (`@intlayer/use-intl`) bileşenleri **76-87 KB'tan 9-11 KB'a** ve locale değişimini **7-21 ms'den 4-9 ms'ye** düşürdü. Adaptör çalışma zamanında **8.0 KB** maliyet oluştururken `next-intl` için **14.7 KB** ve native `next-intlayer` için **5.5 KB** maliyeti vardır. Navigasyon ve middleware, Intlayer'ın routing yapılandırması üzerinde yeniden uygulanır; yerelleştirilmiş `pathnames` aktarılmayan tek özelliktir.
@@ -145,6 +147,8 @@ style="border:none;"
 
 > Tüm kütüphaneler ve stratejiler için tam tablo [Next.js benchmark raporunda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md).
 
+- [Next.js benchmark raporunda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md)
+
 ### TanStack Start üzerindeki sonuçlar (`use-intl`)
 
 `use-intl`, `next-intl`'nin framework-agnostic çekirdeğidir. Adaptörü olan `@intlayer/use-intl`, Vite plugin'i (`@intlayer/use-intl/plugin`) ile aynı tasarımı takip eder.
@@ -176,6 +180,8 @@ style="border:none;"
 />
 
 > Tam tablo [TanStack Start benchmark raporunda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md).
+
+- [TanStack Start benchmark raporunda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md)
 
 ## Sayılar neden hareket ediyor
 
@@ -329,6 +335,8 @@ Optimizasyon aşaması, hangi sözlüğün içe aktarılacağını bilmek için 
 
 Biçimlendiriciler yerel `Intl` tarafından desteklenir ve yalnızca yerel ayar çıktılarını etkiler. Hidrasyon açısından kararlı tarihler için zorunlu bir saat dilimine veya sabit bir `now` değerine güveniyorsanız, bunu çağrı noktasında yönetin. [Tarih, saat ve sayı biçimlendirmesine](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/date_time_number_formatting_locales.md) bakın.
 
+- [Tarih, saat ve sayı biçimlendirmesine](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/date_time_number_formatting_locales.md)
+
 </Accordion>
 </AccordionGroup>
 
@@ -349,6 +357,8 @@ Bugün `next-intl` kullanıyorsanız ve kodları yeniden yazmadan paket boyutu, 
 
 Yeni projeler için veya bağdaştırıcı görevini tamamladıktan sonra. Üçü arasında en hafif olanıdır (5.5 KB, sayfa başına +0.3 KB) ve senkron sunucu bileşenlerini, bileşen başına `.content.ts` dosyalarını ve eksiksiz özellik kümesini açar. [Next.js ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_16.md) ile başlayın.
 
+- [Next.js ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_16.md)
+
 </Accordion>
 </AccordionGroup>
 
@@ -365,6 +375,8 @@ Next.js'de bileşenler için evet: benchmark derlemesi yalnızca `next.config.ts
 <Question title="ICU mesajlarına ne olur?">
 
 Çalışmaya devam ederler. `t("key", { count })`, `t.rich()`, `t.markup()`, `select`, `selectordinal`, `#` ve `{ts, date, long}` Intlayer'ın ICU çözümleyicisi tarafından işlenir. [ICU mesaj formatı](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md) sayfasına bakın.
+
+- [ICU mesaj formatı](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)
 
 </Question>
 
@@ -425,3 +437,5 @@ Referans belgeler:
 Tüm ham veriler, test uygulamaları ve scriptler [Benchmark Bloom deposunda](https://github.com/intlayer-org/benchmark-bloom) bulunmaktadır. Kendiniz çalıştırın.
 
 Daha fazla detay için ['Why Intlayer?' dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/interest_of_intlayer.md) başvurun.
+
+- [Neden Intlayer? Diğer i18n kütüphanelerine göre avantajları](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/interest_of_intlayer.md)

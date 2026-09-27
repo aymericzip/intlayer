@@ -66,6 +66,8 @@ This guide sets up Lingui in a **Next.js 16 App Router** project, with:
 
 The [i18n benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/benchmark/nextjs.md) runs the same 10-page, 10-locale Next.js app with every major library and measures what the browser actually downloads.
 
+- [i18n benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/benchmark/nextjs.md)
+
 <I18nBenchmark framework="nextjs" packages="lingui,@intlayer/lingui,next-intlayer" vertical/>
 
 Key figures for `@lingui/core@6.6.0` on Next.js 16, measured on 2026-09-26 (gzip):
@@ -83,6 +85,8 @@ What to take away:
 - **The Lingui runtime weighs ~72 KB gzip.** The `@intlayer/lingui` compat adapter cuts the runtime to ~11 KB, but in this benchmark the Next.js compat setup still ships whole catalogues to the page. The native `next-intlayer` API is the setup that stays at the base app size.
 
 > See the full data: [Next.js benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/benchmark/nextjs.md), and the [benchmark repository](https://github.com/intlayer-org/benchmark-i18n).
+
+- [Next.js benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/benchmark/nextjs.md)
 
 ## Feature comparison on Next.js
 
@@ -108,6 +112,9 @@ How Lingui compares with `next-intl` and Intlayer on the features a Next.js App 
 | **Ecosystem / community**           | ⚠️ Smaller, growing fast                           | ✅ Mature                                                       | ✅ Large                                   |
 
 > Runtime sizes come from the [Next.js benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/benchmark/nextjs.md). For a detailed discussion, read [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/lingui_vs_intlayer.md).
+
+- [Next.js benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/benchmark/nextjs.md)
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/lingui_vs_intlayer.md)
 
 > Other Next.js guides:
 
@@ -1041,9 +1048,17 @@ export const sendContactMessage = async (formData: FormData) => {
 
 The [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compat/lingui.md) compat adapter keeps your source untouched: macros compile as before, and the resulting `i18n._()`, `useLingui()` and `<Trans>` calls are served by Intlayer dictionaries. In the Next.js benchmark, the runtime drops from **~72.1 KB to ~10.7 KB** gzip.
 
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compat/lingui.md)
+
 On Next.js, the adapter is wired by aliasing `@lingui/core` and `@lingui/react` to `@intlayer/lingui` in `next.config.ts` (webpack and Turbopack), and by wrapping the config with `withIntlayer` from `next-intlayer/server`. Keep `@lingui/swc-plugin` so the macros still compile first. The complete configuration is in the [Lingui compat guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compat/lingui.md).
 
+- [Lingui compat guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compat/lingui.md)
+
 As the benchmark table shows, the adapter reduces the runtime but not yet the catalogue shipped to each page on Next.js. It is best used as a migration bridge: once it runs, move components one at a time to the native `useIntlayer` API, which ships only the content each component renders. See the [Next.js + Intlayer guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_nextjs_16.md), [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/lingui_vs_intlayer-lingui.md) and all the [compat adapters](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compat/index.md).
+
+- [Next.js + Intlayer guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_nextjs_16.md)
+- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/lingui_vs_intlayer-lingui.md)
+- [compat adapters](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compat/index.md)
 
 </Step>
 <Step number={19} title="Automate Your Translations Using Intlayer" isOptional={true}>
@@ -1086,15 +1101,23 @@ Get the server instance with `getI18nInstance(locale)` and translate descriptors
 
 The [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/benchmark/nextjs.md) measures ~72 KB gzip for the runtime. With one catalogue per locale, pages weigh ~145 KB against 141 KB without i18n, but each page still receives the messages of other pages through the client provider.
 
+- [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/benchmark/nextjs.md)
+
 </Question>
 <Question title="Lingui, next-intl or next-i18next: which one should I pick for Next.js?">
 
 Lingui fits teams that like writing source text in components and working with PO files and translators. next-intl fits teams that prefer JSON catalogues and a `t("key")` API tightly integrated with Next.js. next-i18next brings the i18next plugin ecosystem. See [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/next-i18next_vs_next-intl_vs_intlayer.md) and the [Next.js benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/benchmark/nextjs.md).
 
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/next-i18next_vs_next-intl_vs_intlayer.md)
+- [Next.js benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/benchmark/nextjs.md)
+
 </Question>
 <Question title="Can I migrate from Lingui to Intlayer without rewriting my components?">
 
 Yes. The [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compat/lingui.md) adapter keeps the macros and swaps the runtime, then you can move components to `useIntlayer` progressively. See the [compat adapters](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compat/index.md).
+
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compat/lingui.md)
+- [compat adapters](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compat/index.md)
 
 </Question>
 

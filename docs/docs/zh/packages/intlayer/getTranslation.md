@@ -34,6 +34,8 @@ author: aymericzip
 
 有关如何声明翻译的更多详情，请参阅 [翻译文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/translation.md)。
 
+- [翻译文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/translation.md)
+
 ## 参数
 
 - `languageContent: CustomizableLanguageContent<Content>`

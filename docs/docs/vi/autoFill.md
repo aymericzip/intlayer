@@ -119,6 +119,8 @@ export default exampleContent;
 
 Dưới đây là một [tệp khai báo nội dung theo từng locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/per_locale_file.md) sử dụng chỉ dẫn `fill`.
 
+- [tệp khai báo nội dung theo từng locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/per_locale_file.md)
+
 Sau đó, khi bạn chạy lệnh sau:
 
 ```bash packageManager="npm"

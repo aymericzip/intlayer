@@ -31,6 +31,9 @@ Ciascun pattern mostrato di seguito funziona con qualsiasi stack i18n. Sostituis
 
 Anche gli strumenti di copertura si adattano facilmente: con il [plugin Sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/plugins/sync-json.md) collegato ai tuoi cataloghi esistenti, o un [adattatore di compatibilità](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compat/index.md) che crea alias sui tuoi import attuali, l'asserzione di copertura viene eseguita sul JSON che già possiedi.
 
+- [plugin Sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/plugins/sync-json.md)
+- [adattatore di compatibilità](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compat/index.md)
+
 ## Decidere cosa stai realmente testando
 
 La qualità della traduzione non è un test. Nessuna asserzione può dirti se il tedesco suoni naturale, e pretendere il contrario produce una suite piena di stringhe hardcodate.
@@ -46,6 +49,8 @@ Ciò che vale la pena testare è meccanico:
 | Date e numeri formattati usano la locale    | La correttezza interna di `Intl`        |
 
 La copertura appartiene a un unico test basato sui dati, non ai test dei singoli componenti. Questo argomento è approfondito in [individuare le traduzioni mancanti](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/detecting_missing_translations.md); questo articolo si concentra sul resto.
+
+- [individuare le traduzioni mancanti](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/detecting_missing_translations.md)
 
 ## Renderizzare sotto un provider e interrogare per ruolo
 
@@ -122,6 +127,8 @@ describe.each([0, 1, 2, 3, 11, 100])("conteggio %i", (count) => {
 ```
 
 Scegli valori numerici che coprano ciascuna categoria CLDR per la lingua più complessa anziché testare 1 e 2 ovunque. `Intl.PluralRules` ti indica in quale categoria rientra un numero, consentendoti di ricavare il campione di test senza tirare a indovinare. Maggiori dettagli nell'[articolo sul formato di messaggi ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/icu_message_format.md).
+
+- [articolo sul formato di messaggi ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/icu_message_format.md)
 
 ## La trappola degli snapshot
 

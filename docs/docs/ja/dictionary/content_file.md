@@ -363,6 +363,8 @@ Intlayerの辞書は`Dictionary`型で定義され、その動作を制御する
 
 > 詳細は [Intlayerにおけるロケール別コンテンツ宣言](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/per_locale_file.md) を参照してください。
 
+- [Intlayerにおけるロケール別コンテンツ宣言](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/per_locale_file.md)
+
 **例:**
 
 ```jsonc
@@ -473,6 +475,8 @@ export default aboutPageMetaContent;
 
 > 詳細は[Auto-Fill Configuration in Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/autoFill.md)を参照してください。
 
+- [Auto-Fill Configuration in Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/autoFill.md)
+
 ##### `priority` (number)
 
 辞書の優先順位を示します。複数の辞書が同じキーを持つ場合、最も高い優先順位の辞書が他を上書きします。これはコンテンツの階層管理や上書きに役立ちます。
@@ -500,6 +504,8 @@ export default aboutPageMetaContent;
 
 コレクション（Collections）と組み合わせて使用されるこのフィールドは、コレクション内での項目の位置を定义します。これにより、実行時にインデックスで選択可能なローカライズされた項目のソート済みコレクションを構築できます。
 
+- [コレクション](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/collections.md)
+
 **例:**
 
 ```typescript
@@ -515,9 +521,13 @@ export default aboutPageMetaContent;
 
 > 詳細については、[コレクション](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/collections.md)を参照してください。
 
+- [コレクション](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/collections.md)
+
 #### `variant` (string)
 
 バリアント（Variants）と組み合わせて使用されるこのフィールドは、名前付きの代替コンテンツを定義します。コードを変更することなく、実行時に同じ辞書キーの異なるバリエーションを切り替えることができます（例：A/Bテスト、季節限定バナーなど）。指定しない場合は、デフォルトのバリアントとみなされます。
+
+- [バリアント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/variants.md)
 
 **例:**
 
@@ -526,13 +536,15 @@ export default aboutPageMetaContent;
   key: "hero-banner",
   variant: "black_friday",
   content: {
-    headline: "50 % off — today only",
+    headline: "50 % off, today only",
     cta: "Shop now"
   }
 }
 ```
 
 > 詳細については、[バリアント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/variants.md)を参照してください。
+
+- [バリアント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/variants.md)
 
 ### CMSプロパティ
 
@@ -607,6 +619,8 @@ multilingualContent: t({
 
 > 詳細については、 [翻訳コンテンツ (`t`) ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/translation.md) を参照してください。
 
+- [翻訳コンテンツ (`t`) ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/translation.md)
+
 ### 条件コンテンツ (`cond`)
 
 ブール条件に基づいて変化するコンテンツ：
@@ -622,6 +636,8 @@ conditionalContent: cond({
 
 > 詳細については、 [条件コンテンツ (`cond`) ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/condition.md) を参照してください。
 
+- [条件コンテンツ (`cond`) ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/condition.md)
+
 ### 複数形コンテンツ (`plural`)
 
 複数形ルールに基づいて変わるコンテンツ:
@@ -636,6 +652,8 @@ pluralContent: plural({
 ```
 
 > 詳細については、[Plural Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/plural.md) を参照してください。
+
+- [Plural Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/plural.md)
 
 ### 列挙コンテンツ (`enu`)
 
@@ -653,6 +671,8 @@ statusContent: enu({
 
 > 詳細については、 [列挙コンテンツ (`enu`) ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/enumeration.md) を参照してください。
 
+- [列挙コンテンツ (`enu`) ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/enumeration.md)
+
 ### Plural Content (`plural`)
 
 Content that varies based on plural rules:
@@ -665,6 +685,8 @@ insertionContent: insert("This text can be inserted anywhere"); // このテキ�
 
 > 詳細については、 [挿入コンテンツ (`insert`) ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/insertion.md) を参照してください。
 
+- [挿入コンテンツ (`insert`) ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/insertion.md)
+
 ### ネストコンテンツ (`nest`)
 
 他の辞書への参照：
@@ -676,6 +698,8 @@ nestedContent: nest("about-page"); // "about-page" への参照
 ```
 
 > 詳細については、 [ネストコンテンツ (`nest`) ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/nesting.md) を参照してください。
+
+- [ネストコンテンツ (`nest`) ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/nesting.md)
 
 ### マークダウンコンテンツ (`md`)
 
@@ -690,6 +714,8 @@ markdownContent: md(
 ```
 
 > 詳細については、 [マークダウンコンテンツ (`md`) ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/markdown.md) を参照してください。
+
+- [マークダウンコンテンツ (`md`) ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/markdown.md)
 
 ### HTMLコンテンツ (`html`)
 
@@ -710,6 +736,8 @@ localizedHtmlContent: t({
 
 > 詳細については、 [HTMLコンテンツ (`html`) ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/html.md) を参照してください。
 
+- [HTMLコンテンツ (`html`) ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/html.md)
+
 ### ジェンダーコンテンツ (`gender`)
 
 ジェンダーに基づいて変化するコンテンツ:
@@ -726,9 +754,11 @@ genderContent: gender({
 
 > 詳細については、 [ジェンダーコンテンツ (`gender`) ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/gender.md) を参照してください。
 
+- [ジェンダーコンテンツ (`gender`) ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/gender.md)
+
 ### 選択ベースのコンテンツ (`select`)
 
-任意の文字列値に基づいて変化するコンテンツ — ICUの `select` と同等のものです：
+任意の文字列値に基づいて変化するコンテンツ、ICUの `select` と同等のものです：
 
 ```typescript
 import { select } from "intlayer";
@@ -745,6 +775,8 @@ selectContent: select({
 
 > 詳細については、 [選択ベースのコンテンツ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/select.md) を参照してください。
 
+- [選択ベースのコンテンツ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/select.md)
+
 ### ファイルコンテンツ (`file`)
 
 外部ファイルへの参照:
@@ -756,6 +788,8 @@ fileContent: file("./path/to/content.txt");
 ```
 
 > 詳細については、 [ファイルコンテンツ (`file`) ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/file.md) を参照してください。
+
+- [ファイルコンテンツ (`file`) ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/file.md)
 
 ## コンテンツファイルの作成
 

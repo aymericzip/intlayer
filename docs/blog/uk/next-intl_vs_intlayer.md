@@ -121,6 +121,8 @@ style="border:none;"
 
 > Повна таблиця, кожна бібліотека та кожна стратегія, у [звіті бенчмарку Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/nextjs.md).
 
+- [звіті бенчмарку Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/nextjs.md)
+
 ### Результати на TanStack Start (`use-intl`)
 
 `use-intl`, це незалежне від фреймворку ядро `next-intl`. Той самий API, той самий формат повідомлень. Порівняння його з `intlayer` на TanStack Start усуває особливості Next.js із рівняння.
@@ -151,6 +153,8 @@ style="border:none;"
 />
 
 > Повна таблиця у [звіті бенчмарку TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/tanstack.md).
+
+- [звіті бенчмарку TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/tanstack.md)
 
 ## Чому виникає різниця? Централізовані каталоги проти скомпільованих словників
 
@@ -203,6 +207,8 @@ Intlayer змінює цей підхід. Контент декларуєтьс
 Під час збирання компілятор визначає, який компонент імпортує конкретний словник, і пакує тільки ці словники для активної локалі.
 
 > Щоб отримати показники рядка `dynamic`, встановіть `dictionary.importMode: 'dynamic'` у `intlayer.config.ts`. Дивіться [документацію з оптимізації бандла](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/bundle_optimization.md).
+
+- [документацію з оптимізації бандла](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/bundle_optimization.md)
 
 ## Досвід розробника
 
@@ -414,7 +420,11 @@ export default withIntlayer(nextConfig);
 
 У бенчмарку сумісна збірка того самого додатка зменшила розмір сторінки з **153.6 КБ до 147.5 КБ**, розмір компонентів з **21.8 КБ до 8.1 КБ**, а витік сторінки знизився з **~90% до 0%** без внесення змін у код самого додатка. Ваші наявні файли `messages/{locale}.json` можуть залишатися основним джерелом даних завдяки [плагіну синхронізації JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/next-intl.md).
 
+- [плагіну синхронізації JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/next-intl.md)
+
 Дивіться [посібник із міграції з next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/migration_from_next-intl_to_intlayer.md) для отримання покрокових інструкцій.
+
+- [посібник із міграції з next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/migration_from_next-intl_to_intlayer.md)
 
 ## Що і коли обрати?
 
@@ -428,10 +438,18 @@ export default withIntlayer(nextConfig);
 
 Вам потрібен **контент з областю видимості компонента**, **суворий TypeScript**, **помилки відсутніх ключів на етапі збірки**, **автоматичний tree-shaking та ліниве завантаження**, синхронні серверні компоненти та вбудовані інструменти редагування ([Візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md), [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md), [ШІ-переклад](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/autoFill.md), [MCP-сервер](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/mcp_server.md)). Особливо актуально для великих модульних кодових баз та дизайн-систем.
 
+- [Візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)
+- [ШІ-переклад](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/autoFill.md)
+- [MCP-сервер](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/mcp_server.md)
+
 </Accordion>
 <Accordion header="Обрати @intlayer/next-intl">
 
 Ви вже використовуєте `next-intl` і хочете отримати переваги в розмірі бандла без повного переписування. [Адаптер сумісності](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/next-intl.md) зберігає ваші імпорти та файл `messages/{locale}.json` як єдине джерело правди. Порівняно пліч-о-пліч у [next-intl проти @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/next-intl_vs_intlayer-next-intl.md).
+
+- [Адаптер сумісності](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/next-intl.md)
+- [next-intl проти @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/next-intl_vs_intlayer-next-intl.md)
 
 </Accordion>
 </AccordionGroup>
@@ -450,11 +468,15 @@ export default withIntlayer(nextConfig);
 
 Так, з конфігурацією `scoped-dynamic`: розділіть `messages/{locale}.json` на простори імен для кожного маршруту, потім використовуйте `pick(messages, [...])` на кожній сторінці і підтримуйте це зіставлення правильним у міру переміщення компонентів. Рядки `scoped-*` бенчмарку якраз відображають цю роботу. Intlayer досягає 0% за замовчуванням без цього, оскільки компілятор ізолює контент по компонентах. Див. [оптимізація бандла](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/bundle_optimization.md).
 
+- [оптимізація бандла](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/bundle_optimization.md)
+
 </Question>
 
 <Question title="Чи потрібно переписувати компоненти для міграції?">
 
 Ні. `@intlayer/next-intl` зберігає `useTranslations`, `getTranslations`, `useFormatter`, `t.rich()`, множинні форми ICU та помічники навігації, надаючи їх зі скомпільованих словників. Лише один рядок плагіна в `next.config.ts`. Покроково в [посібнику з міграції next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/migration_from_next-intl_to_intlayer.md).
+
+- [посібнику з міграції next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/migration_from_next-intl_to_intlayer.md)
 
 </Question>
 
@@ -462,11 +484,15 @@ export default withIntlayer(nextConfig);
 
 Нативна підтримка ICU знаходиться в розробці. Адаптери сумісності (`@intlayer/next-intl`, `@intlayer/use-intl`) повністю підтримують ICU: множинні форми, `select`, `selectordinal`, `#` та `{ts, date, long}` обробляються резолвером ICU від Intlayer. Докладніше читайте в [формат повідомлень ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md).
 
+- [формат повідомлень ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)
+
 </Question>
 
 <Question title="Чи можу я зберегти файли messages/{locale}.json?">
 
 Так. [Плагін синхронізації JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/next-intl.md) читає їх, розбиває ключі верхнього рівня на словники та перезаписує переклади в ті самі файли під час оновлення через CLI або CMS. Робочий процес ваших перекладачів не змінюється.
+
+- [Плагін синхронізації JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/next-intl.md)
 
 </Question>
 
@@ -519,3 +545,5 @@ Intlayer переносить усю цю роботу до компілятор
 Усі вихідні дані, тестові додатки та скрипти доступні у [репозиторії Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom).
 
 Зверніться до документа ['Чому Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/interest_of_intlayer.md) для отримання детальнішої інформації.
+
+- [Чому Intlayer? Переваги над іншими i18n-бібліотеками](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/interest_of_intlayer.md)

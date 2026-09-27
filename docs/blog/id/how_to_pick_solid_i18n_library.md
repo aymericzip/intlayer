@@ -67,6 +67,8 @@ Paraglide men-generate satu fungsi per pesan. Intlayer mendeklarasikan konten pe
 
 [Sejarah JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/history_of_i18n.md) membahas setiap gelombang secara mendalam.
 
+- [Sejarah JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/history_of_i18n.md)
+
 ## Keputusan yang paling penting: di mana konten berada dan kapan dimuat
 
 Dua pilihan struktural menjelaskan sebagian besar perbedaan bundle antar setup:
@@ -80,11 +82,17 @@ Grafik ini memperkirakan payload untuk aplikasi teoritis berisi 1 hingga 10 hala
 
 `@solid-primitives/i18n` tidak menangani kedua sumbu tersebut: Anda melakukan `createResource` untuk kamus per locale, yang memberikan pemuatan dinamis, dan sisanya Anda tangani sendiri. `solid-i18next` memiliki namespace dan lazy backend, tetapi tidak ada yang memaksakan pemetaannya, sehingga komponen bersama yang mengimpor `common` menjadikannya dependensi dari setiap route. Paraglide menangani sumbu halaman melalui tree-shaking, meskipun hal tersebut tidak berpengaruh dalam implementasi [benchmark Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/solid.md). Intlayer menanganinya melalui deklarasi per-komponen.
 
+- [benchmark Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/solid.md)
+
 Jika jawaban Anda untuk pertanyaan 4 adalah "banyak halaman", pertimbangkan bagian ini lebih dari sekadar preferensi API apa pun. Artikel [per-component vs centralized i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/per-component_vs_centralized_i18n.md) membahas sisi pemeliharaan dari kompromi yang sama.
+
+- [per-component vs centralized i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/per-component_vs_centralized_i18n.md)
 
 ## Para kandidat
 
 Ukuran library diambil dari [benchmark Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/solid.md): provider ditambah accessor dalam komponen kosong, setelah bundling, tree-shaking, dan minifikasi, pada aplikasi 10 halaman dan 10 locale. Konten diukur secara terpisah.
+
+- [benchmark Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/solid.md)
 
 ![Ekosistem library Solid i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
@@ -118,6 +126,8 @@ Ukuran library Paraglide yang hampir nol didapat dari rancangannya: runtime di-g
 
 Locale harus berasal dari URL di server agar kedua sisi selaras; mendeteksinya di client sudah terlambat. `@solid-primitives/i18n` dan `solid-i18next` menyerahkan route `[[locale]]`, `matchFilters`, redirect, dan tag `entry-server.tsx` kepada Anda. Paraglide memiliki plugin Vite yang menangani routing. Intlayer menyediakan middleware dan helper route. Mana pun yang Anda pilih, letakkan `<html lang>` dan `hreflang` di `entry-server.tsx`; `@solidjs/meta` diterapkan di client setelah hydration di SolidStart v2. Artikel [Solid i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_solid_start.md) memandu penyiapan tersebut.
 
+- [Solid i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_solid_start.md)
+
 </Accordion>
 <Accordion header="Perubahan locale harus instan dan fine-grained">
 
@@ -132,6 +142,8 @@ Konten scoped yang dikompilasi saat build time. Intlayer hanya menyertakan apa y
 <Accordion header="Type safety tidak bisa dikompromikan">
 
 `@solid-primitives/i18n` memberi Anda inferred types secara gratis, yang lebih baik daripada apa yang ditawarkan sebagian besar library React. Untuk type yang di-generate dan tetap bertahan melalui lazy loading serta pemisahan per-route, Paraglide, `@lingui/solid`, dan Intlayer semuanya memproduksinya dari konten. Artikel [mendeteksi terjemahan yang hilang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/detecting_missing_translations.md) membandingkan apa yang dapat ditangkap oleh masing-masing library saat build time.
+
+- [mendeteksi terjemahan yang hilang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/detecting_missing_translations.md)
 
 </Accordion>
 <Accordion header="Terjemahan akan dibuat oleh AI">
@@ -389,6 +401,9 @@ Semua locale dalam satu file di samping komponen. `useIntlayer` mengembalikan no
 
 Pada codebase i18next yang sudah ada, [adapter kompatibilitas i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/i18next.md) meng-alias package pada level bundler sehingga katalog dan `t()` tetap berfungsi sementara Intlayer menyajikan kontennya, dan [panduan migrasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_i18next_to_intlayer.md) membahas langkah selanjutnya.
 
+- [adapter kompatibilitas i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/i18next.md)
+- [panduan migrasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_i18next_to_intlayer.md)
+
 ## Sebelum Anda menentukan pilihan
 
 Tabel fitur memberi tahu apa yang dapat dilakukan library saat ini. Poin-poin berikut memberi tahu bagaimana rasanya menggunakannya dalam jangka panjang.
@@ -411,6 +426,9 @@ Library yang paling banyak diunduh adalah yang pertama kali dirilis, bukan yang 
 
 Agen AI masih kesulitan dengan i18n: mereka melupakan locale, mengarang kunci, dan mencampur sintaks pesan. Apakah library menyediakan [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/agent_skills.md) atau [MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/mcp_server.md) sehingga agen dapat melihat daftar, mengisi, dan menguji konten? Dan apakah pemuatan konten dioptimalkan secara default, atau seseorang harus meninjau namespace dan lazy import setiap kuartal?
 
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/agent_skills.md)
+- [MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/mcp_server.md)
+
 **Type safety langsung dari awal (out of the box).**
 
 Bukan "bisa diberi type dengan konfigurasi tambahan" tetapi "kunci yang salah akan gagal pada `tsc` saat instalasi baru". Periksa apa yang terjadi dengan kunci yang tidak ada, dan dengan locale yang kehilangan satu terjemahan.
@@ -422,6 +440,13 @@ Katalog biasanya hanya akan membesar. Build Intlayer membersihkan field yang tid
 **Developer experience.**
 
 Waktu setup hingga string terjemahan pertama, [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/lsp.md) atau [ekstensi VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/vs_code_extension.md) yang menampilkan terjemahan saat kursor diarahkan (hover) dan melompat ke deklarasi, [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md) untuk fill, test, dan push, [compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md) atau ekstraktor yang mengambil string hard-coded dari komponen Anda sehingga tidak perlu mengelola setiap string satu per satu berdasarkan kunci, serta cara bagi non-developer untuk mengedit konten ([visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) atau [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)) tanpa pull request.
+
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/lsp.md)
+- [ekstensi VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/vs_code_extension.md)
+- [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md)
+- [compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md)
+- [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)
 
 ## Pertanyaan yang Sering Diajukan
 
@@ -443,11 +468,15 @@ Karena komponen Solid hanya berjalan sekali. Terjemahan yang dibaca ke dalam `co
 
 Hanya jika ukuran bundle, generated types, atau pemeriksaan kunci yang hilang saat build time adalah persyaratan nyata. Artikel [compiler vs declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/compiler_vs_declarative_i18n.md) menjelaskan apa yang diberikan compiler dan di mana compiler bisa melakukan kesalahan.
 
+- [compiler vs declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/compiler_vs_declarative_i18n.md)
+
 </Question>
 
 <Question title="Apakah pilihan library memengaruhi SEO?">
 
 Secara tidak langsung. Crawler memperhatikan routing, `hreflang`, `<html lang>`, dan apakah teks ada dalam HTML yang dirender server, yang pada SolidStart berarti `entry-server.tsx`. Lihat [panduan hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/hreflang_guide_multilingual_seo.md).
+
+- [panduan hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/hreflang_guide_multilingual_seo.md)
 
 </Question>
 

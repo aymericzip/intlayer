@@ -79,16 +79,16 @@ import "next-intlayer";
 import "next-intlayer/server";
 ```
 
-| 컴포넌트                 | 설명                                                                                                                                                                                                      | 관련 문서 |
-| ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- |
-| `IntlayerProvider`       | Next.js App Router용 통합 프로바이더입니다. 로케일 레이아웃에 한 번 마운트되어 요청 범위의 서버 컨텍스트를 초기화_하고_ 클라이언트 프로바이더를 마운트합니다. (Intlayer >= 9.4)                           | -         |
-| `IntlayerClientProvider` | **더 이상 사용되지 않음** — `next-intlayer/server`의 `IntlayerProvider`를 사용하세요. Next.js App Router의 클라이언트 측 컴포넌트용 프로바이더입니다. `react-intlayer`의 `IntlayerProvider`를 래핑합니다. | -         |
-| `IntlayerServerProvider` | **더 이상 사용되지 않음** — `next-intlayer/server`의 `IntlayerProvider`를 사용하세요. 서버에서 로케일 컨텍스트를 제공합니다. (Intlayer < 9.4)                                                             | -         |
-| `IntlayerServer`         | App Router에서 Intlayer 콘텐츠를 위한 서버 사이드 래퍼. 서버 컴포넌트에서 적절한 locale 처리를 보장합니다.                                                                                                | -         |
-| `HTMLProvider`           | HTML 관련 다국어 설정을 위한 프로바이더입니다. HTML 태그에 대한 컴포넌트 재정의를 허용합니다.                                                                                                             | -         |
-| `HTMLRenderer`           | 커스텀 컴포넌트를 사용하여 HTML 콘텐츠를 렌더링합니다.                                                                                                                                                    | -         |
-| `MarkdownProvider`       | 마크다운 렌더링 컨텍스트를 위한 프로바이더입니다. 마크다운 요소에 대한 커스텀 컴포넌트 재정의를 허용합니다.                                                                                               | -         |
-| `MarkdownRenderer`       | 커스텀 컴포넌트를 사용하여 마크다운 콘텐츠를 렌더링합니다.                                                                                                                                                | -         |
+| 컴포넌트                 | 설명                                                                                                                                                                                                     | 관련 문서 |
+| ------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- |
+| `IntlayerProvider`       | Next.js App Router용 통합 프로바이더입니다. 로케일 레이아웃에 한 번 마운트되어 요청 범위의 서버 컨텍스트를 초기화_하고_ 클라이언트 프로바이더를 마운트합니다. (Intlayer >= 9.4)                          | -         |
+| `IntlayerClientProvider` | **더 이상 사용되지 않음**, `next-intlayer/server`의 `IntlayerProvider`를 사용하세요. Next.js App Router의 클라이언트 측 컴포넌트용 프로바이더입니다. `react-intlayer`의 `IntlayerProvider`를 래핑합니다. | -         |
+| `IntlayerServerProvider` | **더 이상 사용되지 않음**, `next-intlayer/server`의 `IntlayerProvider`를 사용하세요. 서버에서 로케일 컨텍스트를 제공합니다. (Intlayer < 9.4)                                                             | -         |
+| `IntlayerServer`         | App Router에서 Intlayer 콘텐츠를 위한 서버 사이드 래퍼. 서버 컴포넌트에서 적절한 locale 처리를 보장합니다.                                                                                               | -         |
+| `HTMLProvider`           | HTML 관련 다국어 설정을 위한 프로바이더입니다. HTML 태그에 대한 컴포넌트 재정의를 허용합니다.                                                                                                            | -         |
+| `HTMLRenderer`           | 커스텀 컴포넌트를 사용하여 HTML 콘텐츠를 렌더링합니다.                                                                                                                                                   | -         |
+| `MarkdownProvider`       | 마크다운 렌더링 컨텍스트를 위한 프로바이더입니다. 마크다운 요소에 대한 커스텀 컴포넌트 재정의를 허용합니다.                                                                                              | -         |
+| `MarkdownRenderer`       | 커스텀 컴포넌트를 사용하여 마크다운 콘텐츠를 렌더링합니다.                                                                                                                                               | -         |
 
 ### 훅 (클라이언트 측)
 

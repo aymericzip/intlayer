@@ -135,6 +135,8 @@ style="border:none;"
 
 > Full table, every library and every strategy, in the [Next.js benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/nextjs.md).
 
+- [Next.js benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/nextjs.md)
+
 ### Results on TanStack Start (`react-i18next`)
 
 Same test app on TanStack Start with plain `react-i18next`, which removes the Next.js-specific wiring from the comparison.
@@ -165,6 +167,8 @@ style="border:none;"
 />
 
 > Full table in the [TanStack Start benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/tanstack.md).
+
+- [TanStack Start benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/tanstack.md)
 
 ## Why the gap? Global instance vs. compiled dictionaries
 
@@ -221,6 +225,8 @@ Intlayer removes the instance. Content is declared next to the component, and th
 `@intlayer/swc` / `@intlayer/babel` sees which component imports which dictionary, bundles only those, only for the active locale, and drops the ones nothing imports. The "scoped-dynamic" pattern becomes the output of the build instead of a discipline the team has to maintain.
 
 > To get the `dynamic` row's numbers, set `dictionary.importMode: 'dynamic'` in `intlayer.config.ts`. See the [bundle optimization doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/bundle_optimization.md).
+
+- [bundle optimization doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/bundle_optimization.md)
 
 ## Developer experience
 
@@ -461,6 +467,10 @@ In the benchmark, the compat build of the same Next.js app went from **218.5 KB 
 
 See the migration guides: [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/migration_from_i18next_to_intlayer.md), [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/migration_from_react-i18next_to_intlayer.md), [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/migration_from_next-i18next_to_intlayer.md).
 
+- [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/migration_from_i18next_to_intlayer.md)
+- [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/migration_from_react-i18next_to_intlayer.md)
+- [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/migration_from_next-i18next_to_intlayer.md)
+
 ## When to choose which?
 
 <AccordionGroup>
@@ -473,10 +483,17 @@ You need its plugin ecosystem (detectors, backends, ICU, Locize), you localize o
 
 You want **component-scoped content**, **strict TypeScript**, **build-time missing-key errors**, **zero-effort tree-shaking and lazy loading**, instant locale switching, synchronous server components, and built-in editorial tooling ([Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md), [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md), [AI translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/autoFill.md), [MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)). Especially relevant for large, modular codebases and design systems.
 
+- [Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
+- [AI translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/autoFill.md)
+- [MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)
+
 </Accordion>
 <Accordion header="Choose the @intlayer/*-i18next adapters">
 
 You are already on i18next and want the bundle and reactivity gains without a rewrite. Your `locales/{lng}/{ns}.json` files stay the source of truth. Measured side by side in [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/i18next_vs_intlayer-i18next.md).
+
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/i18next_vs_intlayer-i18next.md)
 
 </Accordion>
 </AccordionGroup>
@@ -501,17 +518,23 @@ It fixes the bytes, not the latency. Moving to `i18next-resources-to-backend` sa
 
 Yes, with `scoped-dynamic`: one namespace per route, a resources backend and a page-to-namespace map you maintain by hand. It lands at 163.4 KB per page on Next.js, still **+22 KB** over Intlayer's 141.3 KB, which needed no configuration. See [bundle optimization](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/bundle_optimization.md).
 
+- [bundle optimization](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/bundle_optimization.md)
+
 </Question>
 
 <Question title="Do I have to rewrite my components to migrate?">
 
 No. `@intlayer/i18next`, `@intlayer/react-i18next` and `@intlayer/next-i18next` keep `useTranslation`, `t()`, `<Trans>`, `{{interpolation}}`, `_one` / `_other` plurals, context suffixes and `returnObjects`. One plugin line in `next.config.ts` or `vite.config.ts`. Step by step in the [next-i18next migration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/migration_from_next-i18next_to_intlayer.md).
 
+- [next-i18next migration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/migration_from_next-i18next_to_intlayer.md)
+
 </Question>
 
 <Question title="What happens to my i18next plugins?">
 
 Backends and language detectors are accepted but inert: there is nothing left to load or detect at runtime. Locale detection becomes Intlayer's routing config (URL prefix, cookie, header). If your app fetches translations from a CMS at request time, use the [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) or `intlayer pull` / `push` instead.
+
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
 
 </Question>
 
@@ -575,3 +598,5 @@ Intlayer moves that work into the compiler. Per-component dictionaries, per-loca
 All the raw data, the test apps and the scripts are in the [Benchmark Bloom repository](https://github.com/intlayer-org/benchmark-bloom). Run it yourself.
 
 Refer to the ['Why Intlayer?' doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/interest_of_intlayer.md) for more details.
+
+- [Why Intlayer? Benefits over Other i18n Libraries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/interest_of_intlayer.md)

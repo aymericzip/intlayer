@@ -33,6 +33,8 @@ author: aymericzip
 
 تقارن هذه المقالة بين الاثنين على نفس تطبيق Next.js، تم بناؤه مرة مع `next-intl` ومرة مع المحول. تأتي الأرقام من [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom)، مجموعة مفتوحة المصدر تسجل ما يقوم المتصفح بتنزيله فعلياً. إذا كنت تريد مقارنة `next-intl` مقابل Intlayer كمكتبات، اقرأ [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/next-intl_vs_intlayer.md). هذا يتعلق بما يغيره المحول عندما تحافظ على مكوناتك كما هي.
 
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/next-intl_vs_intlayer.md)
+
 <TOC/>
 
 > **الخلاصة**: في نفس تطبيق Next.js، استبدال `next-intl` بـ `@intlayer/next-intl` قلّل JavaScript لكل صفحة من **153.6 كيلوبايت إلى 147.5 كيلوبايت** gzip، ومتوسط المكون من **21.8 كيلوبايت إلى 8.1 كيلوبايت**، وتسرب سلاسل الصفحات الأجنبية من **~90% إلى 0%**، والترطيب من **14.7 ميلي ثانية إلى 12.8 ميلي ثانية**، دون تعديل أي مكون. على TanStack Start، ما يعادل `use-intl` (`@intlayer/use-intl`) قلّل المكونات من **76-87 كيلوبايت إلى 9-11 كيلوبايت** وتبديل اللغة من **7-21 ميلي ثانية إلى 4-9 ميلي ثانية**. يكلف المحول **8.0 كيلوبايت** من وقت التشغيل مقابل **14.7 كيلوبايت** لـ `next-intl` و **5.5 كيلوبايت** لـ `next-intlayer` الأصلي. تمت إعادة تنفيذ التنقل والبرنامج الوسيط على إعدادات التوجيه الخاصة بـ Intlayer؛ `pathnames` المحلية هي الميزة الوحيدة التي لم يتم نقلها.
@@ -145,6 +147,8 @@ style="border:none;"
 
 > الجدول الكامل، لكل مكتبة واستراتيجية، في [تقرير قياس أداء Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md).
 
+- [تقرير قياس أداء Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md)
+
 ### النتائج على TanStack Start (`use-intl`)
 
 `use-intl` هو النواة المستقلة عن الإطار العمل الخاصة بـ `next-intl`. محولها، `@intlayer/use-intl`، يتبع نفس التصميم مع plugin Vite (`@intlayer/use-intl/plugin`).
@@ -176,6 +180,8 @@ style="border:none;"
 />
 
 > الجدول الكامل في [تقرير قياس أداء TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md).
+
+- [تقرير قياس أداء TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md)
 
 ## لماذا تتحرك الأرقام
 
@@ -329,6 +335,8 @@ export default withIntlayer(nextConfig);
 
 تعتمد أدوات التنسيق على `Intl` الأصلي وتؤثر اللغة فقط على مخرجاتها. إذا كنت تعتمد على منطقة زمنية مفروضة أو قيمة `now` ثابتة لتواريخ مستقرة أثناء الـ Hydration، فتعامل مع ذلك في موضع الاستدعاء. راجع [تنسيق التاريخ والوقت والأرقام](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/date_time_number_formatting_locales.md).
 
+- [تنسيق التاريخ والوقت والأرقام](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/date_time_number_formatting_locales.md)
+
 </Accordion>
 </AccordionGroup>
 
@@ -349,6 +357,8 @@ export default withIntlayer(nextConfig);
 
 للمشاريع الجديدة، أو بمجرد أن يكمل المحول مهمته الانتقالية. إنه الأخف بين الخيارات الثلاثة (5.5 كيلوبايت، +0.3 كيلوبايت لكل صفحة) ويفعل مكونات الخادم المتزامنة، وملفات `.content.ts` لكل مكون، وكامل مجموعة الميزات. ابدأ مع [Intlayer مع Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_16.md).
 
+- [Intlayer مع Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_16.md)
+
 </Accordion>
 </AccordionGroup>
 
@@ -365,6 +375,8 @@ export default withIntlayer(nextConfig);
 <Question title="ماذا يحدث لرسائل ICU؟">
 
 تستمر في العمل. يتم حل `t("key", { count })` و `t.rich()` و `t.markup()` و `select` و `selectordinal` و `#` و `{ts, date, long}` بواسطة محلل ICU الخاص بـ Intlayer. راجع [تنسيق رسائل ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md).
+
+- [تنسيق رسائل ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)
 
 </Question>
 
@@ -425,3 +437,5 @@ export default withIntlayer(nextConfig);
 جميع البيانات الأولية وتطبيقات الاختبار والبرامج النصية موجودة في [مستودع Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). قم بتشغيلها بنفسك.
 
 راجع [وثيقة 'Why Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/interest_of_intlayer.md) للمزيد من التفاصيل.
+
+- [لماذا Intlayer؟ مزاياه مقارنة بمكتبات i18n الأخرى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/interest_of_intlayer.md)

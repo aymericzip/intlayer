@@ -78,6 +78,8 @@ Intlayer 编译器会遍历你的 React、Vue 或 Svelte 组件的 AST（抽象�
 
 > 更多详情，请查阅文档：[Intlayer 编译器文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md)
 
+- [Intlayer 编译器文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md)
+
 ## 编译器的魅力（“魔法”方法）
 
 这种新方法之所以流行是有原因的。对于开发者来说，这种体验令人难以置信。

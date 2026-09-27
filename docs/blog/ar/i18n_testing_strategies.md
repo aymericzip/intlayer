@@ -31,6 +31,9 @@ author: aymericzip
 
 أدوات التغطية قابلة للنقل أيضاً: مع [إضافة Sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/plugins/sync-json.md) الموجهة إلى كتالوجاتك الحالية، أو [محول التوافق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/index.md) الذي يربط استيراداتك الحالية، يعمل تأكيد التغطية مباشرة على ملفات JSON الموجودة لديك بالفعل.
 
+- [إضافة Sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/plugins/sync-json.md)
+- [محول التوافق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/index.md)
+
 ## حدد ما تختبره بالفعل
 
 جودة الترجمة ليست شيئاً يمكن اختباره برمجياً. لا يوجد تأكيد برمجي يخبرك ما إذا كانت الألمانية طبيعية وسلسة، ومحاولة فعل ذلك تملأ اختباراتك بنصوص ثابتة غير مرنة.
@@ -46,6 +49,8 @@ author: aymericzip
 | التواريخ والأرقام المنسقة تتبع اللغة  | صحة التنفيذ الداخلي لـ `Intl`    |
 
 فحص التغطية يتبع لاختبار واحد موجه بالبيانات، وليس لاختبارات المكونات الفردية. تمت تغطية هذا بالتفصيل في [اكتشاف الترجمات المفقودة](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/detecting_missing_translations.md)؛ يتناول هذا المقال بقية الجوانب.
+
+- [اكتشاف الترجمات المفقودة](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/detecting_missing_translations.md)
 
 ## العرض داخل موفر (Provider) والتأكيد عبر الدور (Role)
 
@@ -122,6 +127,8 @@ describe.each([0, 1, 2, 3, 11, 100])("العدد %i", (count) => {
 ```
 
 اختر أعداداً تغطي كل تصنيف من تصنيفات CLDR لأصعب لغة لديك بدلاً من اختبار 1 و 2 في كل مكان. تخبرك `Intl.PluralRules` بالتصنيف الذي يقع فيه الرقم، مما يتيح لك استنتاج مجموعة العينات دون تخمين. المزيد عن التصنيفات في [مقال تنسيق رسائل ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/icu_message_format.md).
+
+- [مقال تنسيق رسائل ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/icu_message_format.md)
 
 ## فخ لقطات الشاشة (Snapshots)
 

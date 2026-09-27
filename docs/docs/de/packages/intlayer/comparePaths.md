@@ -32,9 +32,11 @@ author: aymericzip
 
 ## Beschreibung
 
-Die Funktion `comparePaths` vergleicht zwei URLs oder Pfade auf Gleichheit und ignoriert dabei das Locale-Segment, das Protokoll/den Host, die Suchanfrage (Query-String), den Hash und abschließende Schrägstriche (Trailing Slashes). Dies ist die empfohlene Methode, um festzustellen, ob ein Navigationslink auf die aktuelle Seite verweist — beispielsweise um den aktiven Link hervorzuheben —, ohne dass Sie eine eigene (fehleranfällige) Normalisierungslogik erstellen müssen.
+Die Funktion `comparePaths` vergleicht zwei URLs oder Pfade auf Gleichheit und ignoriert dabei das Locale-Segment, das Protokoll/den Host, die Suchanfrage (Query-String), den Hash und abschließende Schrägstriche (Trailing Slashes). Dies ist die empfohlene Methode, um festzustellen, ob ein Navigationslink auf die aktuelle Seite verweist, beispielsweise um den aktiven Link hervorzuheben, ohne dass Sie eine eigene (fehleranfällige) Normalisierungslogik erstellen müssen.
 
 Intern verwendet sie [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/intlayer/getPathWithoutLocale.md), um das Locale-Segment zu entfernen, sodass Ihr konfiguriertes Routing-Verfahren und Ihre Locales berücksichtigt werden.
+
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/intlayer/getPathWithoutLocale.md)
 
 Das Paket exportiert auch den zugrundeliegenden Helper [`normalizePath`](#normalizepath), der den kanonischen, Locale-unabhängigen Pfad für den Vergleich zurückgibt.
 
@@ -44,7 +46,7 @@ Das Paket exportiert auch den zugrundeliegenden Helper [`normalizePath`](#normal
 - Funktioniert sowohl mit absoluten URLs als auch mit relativen Pfaden
 - Ignoriert Query-Strings, Hashes und abschließende Schrägstriche
 - Toleriert fehlende führende Schrägstriche und leere Werte (normalisiert zu `/`)
-- Leichtgewichtig — baut auf `getPathWithoutLocale` auf
+- Leichtgewichtig, baut auf `getPathWithoutLocale` auf
 
 ## Funktionssignatur
 

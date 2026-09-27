@@ -76,6 +76,8 @@ Dependendo se você está trabalhando em componentes do lado do cliente ou do la
 
 Instruções para configurar arquivos de declaração de conteúdo estão disponíveis [aqui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/content_file.md).
 
+- [Arquivos de declaração de conteúdo (.content.ts)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/content_file.md)
+
 ## Exemplo de Uso no Next.js
 
 Veja como você pode implementar o hook `useIntlayer` dentro de uma página Next.js para carregar dinamicamente conteúdo localizado com base no locale atual da aplicação:

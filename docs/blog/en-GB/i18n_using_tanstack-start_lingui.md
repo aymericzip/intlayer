@@ -64,6 +64,8 @@ TanStack Start does not ship an i18n layer, so this guide wires Lingui into it f
 
 The [i18n benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/benchmark/tanstack.md) runs the same 10-page, 10-locale TanStack Start app with every major library and measures what the browser actually downloads.
 
+- [i18n benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/benchmark/tanstack.md)
+
 <I18nBenchmark framework="tanstack" packages="lingui,@intlayer/lingui,intlayer" vertical/>
 
 Key figures for `@lingui/core@6.6.0`, measured on 2026-09-26 (gzip):
@@ -81,6 +83,8 @@ What to take away:
 - **The runtime stays heavy** (~57 KB gzip). The `@intlayer/lingui` compat adapter (step 16) keeps your macros and cuts it to ~10 KB.
 
 > See the full data: [TanStack Start benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/benchmark/tanstack.md), and the [benchmark repository](https://github.com/intlayer-org/benchmark-i18n).
+
+- [TanStack Start benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/benchmark/tanstack.md)
 
 ## Feature comparison on TanStack Start
 
@@ -105,6 +109,8 @@ How Lingui compares with the other libraries commonly used on TanStack Start:
 | **Missing translations in CI**       | ✅ `npx intlayer test`               | ⚠️ Not built-in        | ⚠️ Not built-in                   | ✅ `lingui compile --strict`     |
 
 > Runtime size and leak figures come from the [TanStack Start benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/benchmark/tanstack.md). Leak is measured on the best setup of each library.
+
+- [TanStack Start benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/benchmark/tanstack.md)
 
 > Other TanStack Start guides:
 
@@ -934,6 +940,8 @@ export const Route = createFileRoute("/{-$locale}/$")({
 
 The [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compat/lingui.md) compat adapter keeps your source untouched: the macros compile exactly as before, and the resulting `i18n._()`, `useLingui()` and `<Trans>` calls are served by compiled Intlayer dictionaries. In the benchmark, the runtime drops from **~56.7 KB to ~9.8 KB** gzip.
 
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compat/lingui.md)
+
 ```bash packageManager="npm"
 npm install @intlayer/lingui intlayer @intlayer/sync-json-plugin
 npx intlayer init
@@ -976,6 +984,11 @@ export default defineConfig({
 
 Catalogues are synchronised with the [sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/plugins/sync-json.md) (JSON catalogues) or the [sync PO plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/plugins/sync-po.md) (PO catalogues). See the full setup in the [Lingui compat guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compat/lingui.md), and a side-by-side comparison in [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/lingui_vs_intlayer-lingui.md).
 
+- [sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/plugins/sync-json.md)
+- [sync PO plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/plugins/sync-po.md)
+- [Lingui compat guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compat/lingui.md)
+- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/lingui_vs_intlayer-lingui.md)
+
 </Step>
 <Step number={17} title="Automate Your Translations Using Intlayer" isOptional={true}>
 
@@ -1017,10 +1030,15 @@ Declare them with the `msg` macro, and translate them in the route loader with `
 
 The [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/benchmark/tanstack.md) measures ~56.7 KB gzip for the runtime. With one catalogue per locale loaded on demand, pages weigh ~115 KB against 111 KB without i18n. Importing every catalogue statically raises it to ~152 KB.
 
+- [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/benchmark/tanstack.md)
+
 </Question>
 <Question title="Can I keep Lingui macros and migrate to Intlayer?">
 
 Yes. The [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compat/lingui.md) adapter keeps the macros and swaps the runtime. You can then move components to `useIntlayer` one at a time. See the [compat adapters](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compat/index.md).
+
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compat/lingui.md)
+- [compat adapters](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compat/index.md)
 
 </Question>
 

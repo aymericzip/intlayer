@@ -322,6 +322,8 @@ Senkronize edilmiş PO dosyaları diğer `.content` dosyaları gibi değerlendir
 
 Daha fazla ayrıntı için [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md) sayfasına bakın.
 
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md)
+
 ## Sınırlamalar (güncel)
 
 - Üçüncü taraf kütüphaneleri hedeflerken ekleme veya çoğul/ICU desteği yoktur.

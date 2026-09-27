@@ -142,7 +142,7 @@ Bu mutlak URL'ler, SEO için `<link rel="alternate" hreflang="...">` etiketlerin
 ## Tür Çıkarımı
 
 `routing.domains` oluşturulan modül artışına serileştirilir, bu nedenle
-`getLocalizedUrl` ve `getLocalizedPath` dönüş tiplerini, bir etki alanı yönlendirmeli locale'in çözümlediği tam URL'ye daraltır — önek bastırma dahil.
+`getLocalizedUrl` ve `getLocalizedPath` dönüş tiplerini, bir etki alanı yönlendirmeli locale'in çözümlediği tam URL'ye daraltır, önek bastırma dahil.
 
 ```ts
 // routing: { mode: 'prefix-no-default', domains: { en: 'intlayer.org', zh: 'intlayer.zh' } }
@@ -197,7 +197,9 @@ GET intlayer.zh/about
 
 `intlayerProxy` Vite eklentisi, geliştirme sırasında aynı mantığı uygular:
 
-> Intlayer v9 itibariyle, `intlayerProxy()` doğrudan `intlayer()` eklentisine paketlenmiş ve `routing.enableProxy` seçeneği aracılığıyla varsayılan olarak etkinleştirilmiştir (`true` varsayılandır). Aşağıda gösterildiği gibi ayrı olarak kaydetmek artık isteğe bağlıdır — geriye dönük uyumluluk ve eklenti sırasını kontrol etmesi gereken kurulumlar için tutulmuştur. Devre dışı bırakmak için `routing.enableProxy: false` olarak ayarlayın. [v9 sürüm notlarına](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/releases/v9.md) bakın.
+> Intlayer v9 itibariyle, `intlayerProxy()` doğrudan `intlayer()` eklentisine paketlenmiş ve `routing.enableProxy` seçeneği aracılığıyla varsayılan olarak etkinleştirilmiştir (`true` varsayılandır). Aşağıda gösterildiği gibi ayrı olarak kaydetmek artık isteğe bağlıdır, geriye dönük uyumluluk ve eklenti sırasını kontrol etmesi gereken kurulumlar için tutulmuştur. Devre dışı bırakmak için `routing.enableProxy: false` olarak ayarlayın. [v9 sürüm notlarına](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/releases/v9.md) bakın.
+
+- [v9 sürüm notlarına](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/releases/v9.md)
 
 ```typescript fileName="vite.config.ts"
 import { defineConfig } from "vite";

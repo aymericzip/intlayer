@@ -64,6 +64,8 @@ export default config;
 
 CMS에 대해 더 알아보려면 [공식 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)를 참조하세요.
 
+- [Intlayer CMS: 다국어 콘텐츠 외부화](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)
+
 ## Husky 사용하기
 
 [Husky](https://typicode.github.io/husky/)를 사용하여 로컬 Git 워크플로우에 번역 생성 과정을 통합할 수 있습니다.
@@ -100,6 +102,8 @@ npx intlayer fill --unpushed --mode fill    # 누락된 내용만 채우며, 기
 ```
 
 > Intlayer CLI 명령어 및 사용법에 대한 자세한 내용은 [CLI 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/index.md)를 참조하세요.
+
+- [CLI 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/index.md)
 
 > 저장소에 여러 앱이 있고 각각 별도의 intlayer 인스턴스를 사용하는 경우, `--base-dir` 인수를 다음과 같이 사용할 수 있습니다:
 
@@ -200,3 +204,5 @@ jobs:
 > 기본적으로 `--git-diff` 인수는 기본 브랜치(기본값 `origin/main`)에서 현재 브랜치(기본값: `HEAD`)로 변경된 사전을 필터링합니다.
 
 > Intlayer CLI 명령어 및 사용법에 대한 자세한 내용은 [CLI 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/index.md)를 참조하세요.
+
+- [CLI 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/index.md)

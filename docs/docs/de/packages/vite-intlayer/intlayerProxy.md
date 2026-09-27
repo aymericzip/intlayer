@@ -32,6 +32,8 @@ author: aymericzip
 
 > **Seit Intlayer v9** ist `intlayerProxy` automatisch im Hauptplugin [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/vite-intlayer/intlayer.md) enthalten und standardmäßig über `routing.enableProxy: true` aktiviert. Sie müssen es nur separat registrieren, wenn Sie eine Kontrolle auf niedrigerer Ebene benötigen oder es außerhalb des Standard-Setups von `intlayer()` verwenden.
 
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/vite-intlayer/intlayer.md)
+
 ## Verwendung
 
 ### Als Teil von `intlayer()` (empfohlen, v9+)
@@ -127,7 +129,7 @@ Die Middleware spiegelt die Routing-Logik der `next-intlayer`-Middleware wider u
 | Modus           | URL im Browser sichtbar  | Verhalten                                                                                                                                        |
 | --------------- | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `prefix`        | `/de/about`              | Standard. Sprachpräfix in der URL. Die Standardsprache leitet auf die URL ohne Präfix um, es sei denn, `prefix-all` ist aktiv.                   |
-| `prefix-all`    | `/en/about`, `/de/about` | Alle Sprachen — einschließlich der Standardsprache — sind immer präfigiert.                                                                      |
+| `prefix-all`    | `/en/about`, `/de/about` | Alle Sprachen, einschließlich der Standardsprache, sind immer präfigiert.                                                                        |
 | `no-prefix`     | `/about`                 | Keine Sprache in der URL. Die Sprache wird nur in Cookies gespeichert; URL-Rewrites erfolgen intern.                                             |
 | `search-params` | `/about?locale=de`       | Sprache wird als Query-Parameter übergeben. Leitet um, um den `locale`-Parameter hinzuzufügen/zu aktualisieren, wenn er fehlt oder veraltet ist. |
 
@@ -161,7 +163,7 @@ Die Middleware verfolgt die Anzahl der Weiterleitungen pro `originalUrl → newU
 
 ## Nitro / Produktions-SSR (automatische Injektion, v9+)
 
-Wenn `intlayerProxy` als Vite-Plugin verwendet wird, trägt es eine `.nitro`-Eigenschaft. Das Build-Plugin `nitro/vite` liest diese Eigenschaft und fügt sie in `nitroConfig.modules` ein, sodass `intlayerNitroHandler` automatisch als Nitro-Server-Middleware registriert wird — für das Produktions-SSR ist keine manuelle Konfiguration erforderlich.
+Wenn `intlayerProxy` als Vite-Plugin verwendet wird, trägt es eine `.nitro`-Eigenschaft. Das Build-Plugin `nitro/vite` liest diese Eigenschaft und fügt sie in `nitroConfig.modules` ein, sodass `intlayerNitroHandler` automatisch als Nitro-Server-Middleware registriert wird, für das Produktions-SSR ist keine manuelle Konfiguration erforderlich.
 
 Der Nitro-Handler verwendet das Web Fetch API-Ereignismodell von h3 v2 (nicht `fromNodeMiddleware`), sodass er mit allen Nitro-Presets kompatibel ist: Node, Bun, Deno, Edge-Laufzeiten.
 

@@ -26,7 +26,7 @@ author: aymericzip
 
 ## Огляд
 
-[**Intlayer i18n Scanner**](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc) — офіційне розширення Chrome для **Intlayer**. Відкрийте його на будь-якому вебсайті, щоб дізнатися, як сайт обробляє інтернаціоналізацію: який фреймворк і бібліотеку i18n він використовує, які локалі надає та чи правильно налаштовані його багатомовні SEO-теги.
+[**Intlayer i18n Scanner**](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc): офіційне розширення Chrome для **Intlayer**. Відкрийте його на будь-якому вебсайті, щоб дізнатися, як сайт обробляє інтернаціоналізацію: який фреймворк і бібліотеку i18n він використовує, які локалі надає та чи правильно налаштовані його багатомовні SEO-теги.
 
 Воно працює на будь-якому вебсайті, незалежно від того, чи використовує він Intlayer.
 
@@ -119,6 +119,11 @@ author: aymericzip
 <Question title="Як виправити проблеми, виявлені аудитом?">
 
 Більшість перевірок відповідають налаштуванням маршрутизації або метаданих. З Intlayer теги hreflang, канонічне посилання, `x-default`, локалізовані посилання, sitemap та robots.txt генеруються автоматично з вашої [конфігурації](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md). Перегляньте посібник з інтеграції для вашого фреймворку, наприклад [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_nextjs_16.md), [Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_nuxt.md) або [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_tanstack.md).
+
+- [конфігурації](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md)
+- [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_nextjs_16.md)
+- [Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_nuxt.md)
+- [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_tanstack.md)
 
 </Question>
 

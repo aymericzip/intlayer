@@ -32,6 +32,8 @@ author: aymericzip
 
 > **Intlayer v9부터** `intlayerProxy`는 기본 [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/vite-intlayer/intlayer.md) 플러그인 내에 자동으로 포함되며 `routing.enableProxy: true`를 통해 기본적으로 활성화됩니다. 더 정밀한 제어가 필요하거나 표준 `intlayer()` 구성 이외의 영역에서 사용하는 경우에만 이를 별도로 등록해야 합니다.
 
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/vite-intlayer/intlayer.md)
+
 ## 사용법
 
 ### `intlayer()`의 일부로 사용 (권장, v9+)

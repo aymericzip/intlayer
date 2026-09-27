@@ -76,6 +76,8 @@ A seconda che tu stia lavorando su componenti client-side o server-side in un'ap
 
 Le istruzioni per configurare i file di dichiarazione del contenuto sono disponibili [qui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/content_file.md).
 
+- [File di dichiarazione dei contenuti (.content.ts)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/content_file.md)
+
 ## Esempio di utilizzo in Next.js
 
 Ecco come implementare il hook `useIntlayer` all'interno di una pagina Next.js per caricare dinamicamente contenuti localizzati in base alla locale corrente dell'applicazione:

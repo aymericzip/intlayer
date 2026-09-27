@@ -32,7 +32,9 @@ author: aymericzip
 
 La fonction `getLocalizedPath` résout un chemin canonique (chemin interne de l'application) en son équivalent localisé en fonction de la locale fournie et des règles de réécriture. Elle est particulièrement utile pour générer des URLs optimisées pour le SEO qui varient selon la langue.
 
-C'est l'équivalent relatif de [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/intlayer/getLocalizedUrl.md) — pour une entrée relative, les deux retournent la même valeur. Contrairement à `getLocalizedUrl`, il ne retourne jamais une URL absolue : la configuration `domains` est ignorée, donc une locale servie depuis son propre domaine produit quand même un chemin. Une entrée absolue est acceptée, mais son origine est supprimée — seuls son chemin, sa chaîne de requête et son hash sont conservés.
+C'est l'équivalent relatif de [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/intlayer/getLocalizedUrl.md), pour une entrée relative, les deux retournent la même valeur. Contrairement à `getLocalizedUrl`, il ne retourne jamais une URL absolue : la configuration `domains` est ignorée, donc une locale servie depuis son propre domaine produit quand même un chemin. Une entrée absolue est acceptée, mais son origine est supprimée, seuls son chemin, sa chaîne de requête et son hash sont conservés.
+
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/intlayer/getLocalizedUrl.md)
 
 **Fonctionnalités clés :**
 
@@ -96,6 +98,8 @@ const home = getLocalizedPath("/", Locales.FRENCH);
 ```
 
 Le même narrowing s'écoule dans [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/intlayer/getLocalizedUrl.md), qui applique les règles de réécriture avant de préfixer la locale.
+
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/intlayer/getLocalizedUrl.md)
 
 Deux cas restent élargis à `string`, car ils ne peuvent pas être résolus au moment de la compilation :
 

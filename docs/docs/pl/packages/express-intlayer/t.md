@@ -259,3 +259,5 @@ app.get("/morning", (_req, res) => {
 ## Podsumowanie
 
 Funkcja `t` jest potężnym narzędziem do internacjonalizacji backendu. Dzięki jej efektywnemu wykorzystaniu możesz stworzyć bardziej inkluzywną i przyjazną dla użytkownika aplikację dla globalnej publiczności. Dla zaawansowanego użycia i szczegółowych opcji konfiguracji, zapoznaj się z [dokumentacją](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md).
+
+- [Konfiguracja Intlayer (intlayer.config.ts)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md)

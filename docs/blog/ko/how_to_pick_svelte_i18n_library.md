@@ -67,6 +67,8 @@ Paraglide는 각 메시지를 export된 함수로 컴파일하여 번들러가 �
 
 [JavaScript i18n의 역사](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/history_of_i18n.md)에서 각 흐름을 자세히 다룹니다.
 
+- [JavaScript i18n의 역사](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/history_of_i18n.md)
+
 ## 가장 중요한 결정: 콘텐츠가 위치하는 곳과 로드되는 시점
 
 두 가지 구조적 선택이 설정 간 번들 차이의 대부분을 설명합니다.
@@ -80,11 +82,17 @@ Paraglide는 각 메시지를 export된 함수로 컴파일하여 번들러가 �
 
 `svelte-i18n`은 기본적으로 왼쪽 상단에 위치합니다. `register("fr", () => import("./fr.json"))`은 로케일별 동적 로딩을 제공하지만, 로케일 카탈로그가 하나의 객체이기 때문에 이를 로드하면 모든 페이지의 텍스트가 함께 로드됩니다. Paraglide는 흥미로운 사례입니다. 모든 메시지가 개별 export 함수이므로 tree-shaking을 통해 페이지 축의 최적화를 자동으로 얻을 수 있으며, [Svelte 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/svelte.md)에서 Vite + Svelte 환경에서 설명대로 잘 작동함을 확인했습니다 (React 및 Next.js 벤치마크에서는 그렇지 않았습니다). Intlayer는 컴포넌트별 선언을 통해 동일한 최적화 영역에 도달합니다.
 
+- [Svelte 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/svelte.md)
+
 질문 3에 대한 답이 "많은 페이지"였다면, 어떤 API 선호도보다 이 섹션의 내용을 더 중요하게 고려하세요. [컴포넌트별 vs 중앙집중식 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/per-component_vs_centralized_i18n.md) 포스트에서 동일한 트레이드오프의 유지보수 측면을 다룹니다.
+
+- [컴포넌트별 vs 중앙집중식 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/per-component_vs_centralized_i18n.md)
 
 ## 후보 라이브러리
 
 라이브러리 크기는 [Svelte 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/svelte.md)를 기준으로 합니다. 10개 페이지, 10개 로케일 앱에서 번들링, tree-shaking 및 minification을 거친 빈 컴포넌트 내 store 및 접근자 크기입니다. 콘텐츠는 별도로 측정됩니다.
+
+- [Svelte 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/svelte.md)
 
 ![Svelte i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
@@ -113,6 +121,8 @@ Paraglide의 0에 가까운 라이브러리 크기는 구조적인 결과입니�
 
 상태 공유 문제가 결정적인 요인입니다. `svelte-i18n`은 SvelteKit에서 작동하지만 요청별 연동(`hooks.server.ts`, `locals`, `load`, 그리고 `setContext`)을 직접 작성해야 하며 미묘한 실수가 발생하기 쉽습니다. Paraglide는 라우팅을 처리하고 호출 시마다 로케일을 읽는 SvelteKit 통합을 제공하여 싱글톤 문제를 우회합니다. Intlayer는 `load` 데이터의 로케일을 context에 설정합니다. [SvelteKit i18n 포스트](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_svelte_kit.md)에서 라이브러리를 선택하기 전에 먼저 결정해야 하는 `[[lang]]` 대 `reroute` 선택을 설명합니다.
 
+- [SvelteKit i18n 포스트](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_svelte_kit.md)
+
 </Accordion>
 <Accordion header="번역이 TMS나 ICU를 제공하는 에이전시에서 오는 경우">
 
@@ -127,6 +137,8 @@ Paraglide의 0에 가까운 라이브러리 크기는 구조적인 결과입니�
 <Accordion header="타입 안전성이 타협할 수 없는 조건인 경우">
 
 수동으로 작성한 union 타입이 JSON과 즉시 어긋나는 기본 `svelte-i18n` 설정을 제외한 모든 것을 고려할 수 있습니다. `typesafe-i18n`, Paraglide, Intlayer는 모두 콘텐츠로부터 타입을 자동 생성합니다. 코드베이스에 도입하기 전에 `typesafe-i18n`의 레포지토리 활성도를 확인하세요. [누락된 번역 감지](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/detecting_missing_translations.md) 포스트에서 각 라이브러리가 빌드 타임에 무엇을 잡아내는지 비교합니다.
+
+- [누락된 번역 감지](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/detecting_missing_translations.md)
 
 </Accordion>
 <Accordion header="레포지토리에 생성된 파일이 커밋되는 것을 원하지 않는 경우">
@@ -378,6 +390,8 @@ export default cartSummaryContent;
 
 이미 `svelte-i18n`을 사용 중이신가요? [`@intlayer/svelte-i18n` 호환 어댑터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/svelte-i18n.md)는 번들러 수준에서 패키지를 alias 처리하여, Intlayer가 콘텐츠를 제공하는 동안 `$_`, `$date`, `$number` 및 기존 플랫 키가 계속 작동하도록 지원합니다.
 
+- [`@intlayer/svelte-i18n` 호환 어댑터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/svelte-i18n.md)
+
 ## 결정하기 전에 확인할 사항
 
 기능 비교표는 라이브러리가 오늘 무엇을 할 수 있는지만 알려줍니다. 다음 항목들은 실제로 라이브러리를 유지보수하며 겪게 될 현실을 보여줍니다.
@@ -400,6 +414,9 @@ export default cartSummaryContent;
 
 AI 에이전트는 여전히 i18n 처리에 어려움을 겪습니다. 로케일을 빠뜨리거나, 존재하지 않는 키를 지어내고, 메시지 문법을 혼동합니다. 에이전트가 콘텐츠를 나열하고 채우고 테스트할 수 있도록 라이브러리가 [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/agent_skills.md)나 [MCP 서버](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/mcp_server.md)를 제공하나요? 또한 콘텐츠 로딩이 기본적으로 최적화되어 있나요, 아니면 분기마다 누군가가 네임스페이스와 lazy import를 검토해야 하나요?
 
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/agent_skills.md)
+- [MCP 서버](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/mcp_server.md)
+
 **기본으로 제공되는 타입 안전성.**
 
 "추가 설정을 통해 타입을 지정할 수 있음"이 아니라 "새로 설치했을 때 잘못된 키가 `tsc`에서 즉시 실패함"을 의미합니다. 존재하지 않는 키를 사용할 때, 그리고 특정 로케일에 번역이 하나 누락되었을 때 어떤 일이 발생하는지 확인하세요.
@@ -411,6 +428,13 @@ AI 에이전트는 여전히 i18n 처리에 어려움을 겪습니다. 로케일
 **개발자 경험 (DX).**
 
 첫 번역 문자열까지의 설정 시간, 마우스 호버 시 번역을 보여주고 선언부로 바로 이동하는 [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/lsp.md) 또는 [VS Code 확장 프로그램](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/vs_code_extension.md), 번역 채우기, 테스트, 푸시를 위한 [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/index.md), 컴포넌트에 하드코딩된 문자열을 추출해 키 하나하나를 직접 관리하지 않아도 되게 해주는 [컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md) 또는 추출기, 그리고 비개발자가 풀 리퀘스트 없이 콘텐츠를 편집할 수 있는 방법([시각적 편집기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md) 또는 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)).
+
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/lsp.md)
+- [VS Code 확장 프로그램](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/vs_code_extension.md)
+- [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/index.md)
+- [컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md)
+- [시각적 편집기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)
 
 ## 자주 묻는 질문
 
@@ -437,6 +461,8 @@ Rune은 자체 로케일 상태의 문법을 바꿀 뿐 상태 공유 문제를 
 <Question title="라이브러리 선택이 SEO에 영향을 미치나요?">
 
 간접적으로 영향을 미칩니다. 크롤러는 라우팅, `hreflang`, `<html lang>`, 그리고 텍스트가 서버 렌더링된 HTML에 포함되어 있는지에 관심을 둡니다. [hreflang 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/hreflang_guide_multilingual_seo.md)를 참고하세요.
+
+- [hreflang 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/hreflang_guide_multilingual_seo.md)
 
 </Question>
 

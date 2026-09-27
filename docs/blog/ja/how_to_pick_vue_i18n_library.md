@@ -66,6 +66,8 @@ Paraglideはメッセージごとに1つの関数を生成し、残りはバン�
 
 各世代の詳細については、[JavaScript i18nの歴史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/history_of_i18n.md)で解説しています。
 
+- [JavaScript i18nの歴史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/history_of_i18n.md)
+
 ## 最も重要な決定: コンテンツの配置場所と読み込みタイミング
 
 構成の違いによるバンドルサイズの差の大部分は、主に2つの構造的選択によって生じます。
@@ -81,9 +83,14 @@ Paraglideはメッセージごとに1つの関数を生成し、残りはバン�
 
 [Vueベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/vue.md)では、これを「他ルートからの漏洩」および「他ロケールからの漏洩」として測定しています。質問3の回答が「ページ数が多い」だった場合、このセクションはAPIの好み以上に重要な要素となります。[コンポーネント単位 vs 集中管理 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/per-component_vs_centralized_i18n.md)の記事では、同じトレードオフのメンテナンス面について詳しく説明しています。
 
+- [Vueベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/vue.md)
+- [コンポーネント単位 vs 集中管理 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/per-component_vs_centralized_i18n.md)
+
 ## 候補となるライブラリ
 
 ライブラリのサイズは、10ページ・10ロケールのアプリを対象に、バンドル、Tree-shaking、Minify後の空コンポーネント内のプラグイン＋Composableを測定した[Vueベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/vue.md)の数値です。コンテンツ自体は別途測定されています。
+
+- [Vueベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/vue.md)
 
 ![Vue i18nライブラリのエコシステム](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
@@ -112,6 +119,8 @@ Compositionモード（`legacy: false`）の `vue-i18n` に `@intlify/unplugin-v
 
 `@nuxtjs/i18n` を使えば、ルーティング戦略、`hreflang` タグ、ロケール検出をコードなしで実現できるため、数ページのコンテンツサイトであればこれだけで採用する価値があります。制限となるのはロケール単位のカタログです。10ページ程度を超えると、SSRペイロードにすべてのルートのコピーが含まれるようになります。その場合は、`vue-i18n` を手動でルートごとに設定するか、スコープ化されたコンテンツに移行することを検討してください。[Nuxt i18nの記事](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nuxt.md)では、まずルーティング戦略の選択について説明しています。
 
+- [Nuxt i18nの記事](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nuxt.md)
+
 </Accordion>
 <Accordion header="翻訳がTMSまたはICUを提供する翻訳会社から届く場合">
 
@@ -126,6 +135,8 @@ Compositionモード（`legacy: false`）の `vue-i18n` に `@intlify/unplugin-v
 <Accordion header="型安全性が必須条件である場合">
 
 `vue-i18n` は `createI18n` にスキーマジェネリクスを渡すことで型付けが可能です。動作はしますが、カタログが遅延ロードされた瞬間に破綻します。スキーマがまだ存在しないメッセージまで記述してしまうためです。その保守を避けたい場合は、ParaglideやIntlayerのようにコンテンツから型が自動生成されるライブラリを選択してください。[翻訳漏れの検出](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/detecting_missing_translations.md)の記事では、各ライブラリがビルド時に何をキャッチできるかを比較しています。
+
+- [翻訳漏れの検出](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/detecting_missing_translations.md)
 
 </Accordion>
 <Accordion header="コンテンツがUIラベルにとどまらない場合">
@@ -366,6 +377,10 @@ const { title, items } = useIntlayer("cart-summary");
 
 すでに `vue-i18n` をお使いですか？[`@intlayer/vue-i18n` 互換アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/vue-i18n.md)はバンドラーレベルでパッケージをエイリアス化するため、Intlayerがコンテンツを提供しながら、`useI18n()`、`$t`、パイプ複数形、`v-t` をそのまま使い続けることができます。その後のアダプターからの完全移行については[移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_vue-i18n_to_intlayer.md)で説明しており、[Nuxt専用の移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_nuxtjs_i18n_to_intlayer.md)も用意されています。
 
+- [`@intlayer/vue-i18n` 互換アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/vue-i18n.md)
+- [移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_vue-i18n_to_intlayer.md)
+- [Nuxt専用の移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_nuxtjs_i18n_to_intlayer.md)
+
 ## 採用を決める前のチェックポイント
 
 機能比較表はライブラリが現在何ができるかを示しますが、以下のポイントは実際に運用したときの体験を示します。
@@ -388,6 +403,9 @@ const { title, items } = useIntlayer("cart-summary");
 
 エージェントは依然としてi18nの扱いに苦戦します。ロケールの記述漏れ、キーの捏造、メッセージ構文の混同などが起きがちです。そのライブラリは、エージェントがコンテンツを一覧取得、補完、テストできるように[Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)や[MCPサーバー](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)を提供していますか？また、コンテンツの読み込みはデフォルトで最適化されていますか、それとも四半期ごとに名前空間や遅延インポートを見直す必要がありますか？
 
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)
+- [MCPサーバー](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)
+
 **導入直後からの型安全性。**
 
 「追加の設定で型付けできる」ではなく、「新規インストール状態で存在しないキーを指定すると `tsc` が失敗する」かどうかです。存在しないキーを指定した場合や、1つの翻訳が欠落しているロケールがある場合に何が起きるかを確認してください。
@@ -399,6 +417,13 @@ const { title, items } = useIntlayer("cart-summary");
 **開発者体験（DX）。**
 
 最初の翻訳文字列までのセットアップ時間、ホバー時に翻訳を表示して宣言にジャンプできる[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)または[VS Code拡張機能](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)、補完・テスト・pushを行うための[CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md)、コンポーネント内のハードコードされた文字列を抽出してキーごとに管理する手間をなくす[コンパイラー](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)や抽出ツール、そして開発者以外がPull Requestなしでコンテンツを編集できる手段（[ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)や[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)）が用意されているかを確認してください。
+
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)
+- [VS Code拡張機能](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)
+- [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md)
+- [コンパイラー](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)
+- [ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)
 
 ## よくある質問
 
@@ -420,11 +445,15 @@ const { title, items } = useIntlayer("cart-summary");
 
 バンドルサイズ、SSRペイロード、生成される型、ビルド時のキー欠落チェックが実際の要件である場合にのみ必要です。[コンパイラ vs 宣言的 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/compiler_vs_declarative_i18n.md)の記事では、コンパイラがもたらすメリットと注意すべき点について解説しています。
 
+- [コンパイラ vs 宣言的 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/compiler_vs_declarative_i18n.md)
+
 </Question>
 
 <Question title="ライブラリの選択はSEOに影響しますか？">
 
 間接的に影響します。クローラーはルーティング、`hreflang`、`<html lang>`、およびサーバーレンダリングされたHTML内にテキストが存在するかどうかを評価します。詳細は[hreflangガイド](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/hreflang_guide_multilingual_seo.md)を参照してください。
+
+- [hreflangガイド](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/hreflang_guide_multilingual_seo.md)
 
 </Question>
 

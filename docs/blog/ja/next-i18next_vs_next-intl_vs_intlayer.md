@@ -100,6 +100,8 @@ Next.jsは国際化されたルーティング（例：ロケールセグメン�
 
 <I18nBenchmark framework="nextjs" packages="next-i18next,next-intl,next-intlayer" vertical/>
 
+- [i18nベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md)
+
 <ClickToOpenIframe
   src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
   width="100%"
@@ -121,6 +123,9 @@ Next.js App Routerで計測した主な数値（gzip）：
 | `next-intlayer` (native Intlayer) |       **5.5 KB** | **141.3 KB** |           **0.0%** |         **0.0%** |         **6.9 KB** |
 
 > 詳細な分析については、[Next.jsベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md)と包括的な[i18nベンチマーク概要](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/index.md)を参照してください。
+
+- [Next.jsベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md)
+- [i18nベンチマーク概要](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/index.md)
 
 多言語アプリケーションのバンドルにおいて重要な2つの要素は以下の通りです：
 
@@ -1452,3 +1457,5 @@ GitHubのスターは、プロジェクトの人気、コミュニティの信�
 - [@intlayer/next-i18next 互換アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/next-i18next.md)
 
 詳細は ['Why Intlayer?' ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md) を参照してください。
+
+- [なぜ Intlayer？他の i18n ライブラリとの違い](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)

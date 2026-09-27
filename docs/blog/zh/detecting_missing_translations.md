@@ -46,7 +46,11 @@ const config = {
 export default config;
 ```
 
+- [Sync JSON 插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/plugins/sync-json.md)
+
 如果你希望同时保留运行时的 API，[兼容适配器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/index.md) 可以在打包工具层对 `useTranslation`、`$t` 等进行别名替换。无论采用哪种方式，都可以将下文的命令视作这一思想的具体实践，而非强制要求。
+
+- [兼容适配器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/index.md)
 
 ## 为什么缺失的翻译往往隐蔽无形
 
@@ -98,6 +102,8 @@ export default [
 ```
 
 `no-unused-content` 可以防止字典目录无限膨胀。无用键虽然不会破坏代码执行，但会增加翻译供应商的账单。完整规则清单请见 [ESLint 插件文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/eslint.md)。
+
+- [ESLint 插件文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/eslint.md)
 
 ## 层级 3：审计各语言环境的覆盖率
 
@@ -179,6 +185,8 @@ curl -s https://example.com/ja/checkout | grep -c "Add to cart"
 ## 填补空白
 
 确定缺失的内容后，可以使用 `intlayer fill` 自动补全空条目，而 `autoFill` 选项可以在声明内容时直接生成各语言环境的文件。详见 [autoFill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/autoFill.md)。
+
+- [autoFill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/autoFill.md)
 
 我们必须清醒地认识到：机器自动填充只是把一个**看得见的漏洞**变成了**看不见的漏洞**。键名填上了内容，审计变绿通过了，但文案还没有任何人审阅过。可以用它来解救紧急上线，但对于任何涉及付费、法律条款或转化决策的核心文案，必须安排人工复核。
 

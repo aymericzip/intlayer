@@ -36,7 +36,12 @@ La función `getDictionaryAsync` carga un **único chunk de locale** de un dicci
 
 Es el contraparte de [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer/getDictionary.md) para los mapas de loader por locale emitidos en `.intlayer/dynamic_dictionaries/`: en lugar de recibir un diccionario que contiene todos los locales, recibe el mapa de loader y espera solo el chunk que el locale solicitado necesita.
 
+- [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer/getDictionary.md)
+
 > En el código de aplicación normalmente llamas [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer/getIntlayerAsync.md), no esta función. Los [plugins de build](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/bundle_optimization.md) reescriben cada llamada `getIntlayerAsync('key', locale)` en una `getDictionaryAsync(loaderMap, 'key', locale)`. `getDictionaryAsync` se exporta para loaders personalizados y para herramientas que construyen sus propios mapas de loader.
+
+- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer/getIntlayerAsync.md)
+- [plugins de build](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/bundle_optimization.md)
 
 **Características Principales:**
 
@@ -71,7 +76,7 @@ getDictionaryAsync(
 - `localeOrSelector: LocalesValues | DictionarySelector`
   - **Description**: El locale para interpretar el contenido, o un objeto selector (`{ item }`, `{ variant }`, opcionalmente con `locale`). Ver [diccionarios dinámicos](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dynamic_dictionaries/index.md).
   - **Type**: `LocalesValues | DictionarySelector`
-  - **Required**: No (Optional) — defaults to the configured `defaultLocale`.
+  - **Required**: No (Optional), defaults to the configured `defaultLocale`.
 
 - `plugins: Plugins[]`
   - **Description**: Transformadores de nodos. Por defecto el conjunto base del intérprete.
@@ -80,7 +85,7 @@ getDictionaryAsync(
 
 ### Retorna
 
-- **Type**: `Promise<Content>` — una promesa que se resuelve al contenido interpretado del chunk cargado.
+- **Type**: `Promise<Content>`, una promesa que se resuelve al contenido interpretado del chunk cargado.
 - **Description**: Se resuelve a `null` cuando el mapa no emite ningún chunk para la locale solicitada ni para ninguno de sus fallbacks, reflejando cómo se resuelve una coordenada calificada faltante.
 
 ## Ejemplo de Uso

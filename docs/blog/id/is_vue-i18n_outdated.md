@@ -88,6 +88,8 @@ style="border:none;"
 
 > Diuji pada peramban aktual menggunakan kompresi gzip produksi. Data lengkap tercantum di [dokumentasi benchmark Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/vue.md).
 
+- [dokumentasi benchmark Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/vue.md)
+
 ### Beban Pustaka Dasar
 
 Beban awal sebelum file terjemahan dimasukkan:
@@ -178,6 +180,9 @@ const { title } = useIntlayer("hero");
 
 [Kompiler Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md) mengenali properti yang diakses dan membersihkan data yang tidak terpakai sebelum chunk klien dibuat. Baca selengkapnya di [optimasi bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/bundle_optimization.md).
 
+- [Kompiler Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md)
+- [optimasi bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/bundle_optimization.md)
+
 ## Pengalaman Pengembang (DX)
 
 ### Folder Terpisah vs. Ko-Lokasi
@@ -255,6 +260,8 @@ Menghapus atau mengubah nama `Hero.vue` akan membuat file kontennya ikut diprose
 
 Di Intlayer, kamus diverifikasi secara menyeluruh. Mode [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md) akan langsung memicu error build jika ada terjemahan yang terlewat pada bahasa mana pun.
 
+- [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md)
+
 ### Ekosistem Alat Bantu dan AI
 
 | Fitur                     | `vue-i18n`               | Intlayer                                                                                                             |
@@ -278,6 +285,8 @@ Menerjemahkan teks yang hilang menggunakan API key OpenAI, Anthropic, Mistral, a
 **CMS Visual yang Dapat Di-hosting Mandiri:**
 
 Terapkan [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md) agar tim konten dapat mengedit terjemahan secara visual dengan sinkronisasi langsung ke Git.
+
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)
 
 **Lisensi Open Source:**
 

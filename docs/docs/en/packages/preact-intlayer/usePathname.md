@@ -30,7 +30,7 @@ author: aymericzip
 
 # Preact Integration: `usePathname` Hook Documentation
 
-The `usePathname` hook returns the current browser pathname with the locale segment stripped. It is useful for building locale-aware navigation — for example, determining which nav item is active — without having to manually remove the locale prefix.
+The `usePathname` hook returns the current browser pathname with the locale segment stripped. It is useful for building locale-aware navigation (for example, determining which nav item is active) without having to manually remove the locale prefix.
 
 ## Importing `usePathname` in Preact
 

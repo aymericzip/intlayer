@@ -104,13 +104,13 @@ npx intlayer init infra --mode compose
 
        ./intlayer/.env
 
-     Either RESEND_API_KEY (resend.com) or the MAIL_SMTP_* block — the first
+     Either RESEND_API_KEY (resend.com) or the MAIL_SMTP_* block, the first
      account cannot be verified without a working mailer.
   2. Start the stack:
 
        cd ./intlayer && docker compose up -d
 
-  Then open http://localhost:3000 — first boot initialises the
+  Then open http://localhost:3000, first boot initialises the
   datastores, so give it a minute. The first account you create becomes the
   super admin.
 
@@ -118,6 +118,10 @@ npx intlayer init infra --mode compose
     Stop      docker compose down
     Upgrade   docker compose pull && docker compose up -d
 ```
+
+Если указан домен (например, `example.org`), установщик предлагает `https://cms.example.org`, `https://back.example.org` и `https://s3.example.org/intlayer` для панели управления, API и объектного хранилища, записывает их в файл окружения и переключает команду запуска на сборку из репозитория, поскольку опубликованный образ панели управления работает только на `localhost`. См. [Пользовательский домен](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/self_hosting.md#custom-domain).
+
+- [Пользовательский домен](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/self_hosting.md#custom-domain)
 
 ## Параметры установщика
 
@@ -143,6 +147,8 @@ INTLAYER_COMPOSE_DIR=./cms npx intlayer init infra --mode compose
 | `INTLAYER_SELFHOST_REF`   | `main`                    | оба           | Git ref, из которого загружаются compose-файл и шаблон env |
 
 > Переменные портов изменяют только сопоставление со стороны **хоста**. В опубликованных образах значения `http://localhost:3000`, `http://localhost:3100` и `http://localhost:9000` скомпилированы в сборку, поэтому сохраняйте значения по умолчанию, если не собираете собственные образы: смотрите [руководство по самостоятельному хостингу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/self_hosting.md#limitations).
+
+- [руководство по самостоятельному хостингу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/self_hosting.md#limitations)
 
 ## Требования
 

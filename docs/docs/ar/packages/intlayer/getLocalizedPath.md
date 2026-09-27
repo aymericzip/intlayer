@@ -32,7 +32,9 @@ author: aymericzip
 
 تقوم دالة `getLocalizedPath` بتحويل المسار القانوني (المسار الداخلي للتطبيق) إلى نظيره المحلي بناءً على الـ locale وقواعد إعادة الكتابة (rewrite rules) المقدمة. تكون هذه الدالة مفيدة بشكل خاص عند إنشاء عناوين URL صديقة لمحركات البحث تختلف بحسب اللغة.
 
-إنه نظير نسبي لـ [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getLocalizedUrl.md) — بالنسبة للمدخل النسبي يعيد كلاهما نفس القيمة. على عكس `getLocalizedUrl`، لا يعيد أبداً عنوان URL مطلق: يتم تجاهل إعداد `domains`، لذا فإن اللغة المقدمة من نطاقها الخاص لا تزال تسفر عن مسار. يتم قبول المدخل المطلق، لكن يتم حذف أصله — يتم الاحتفاظ فقط بمساره وسلسلة الاستعلام والـ hash.
+إنه نظير نسبي لـ [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getLocalizedUrl.md)، بالنسبة للمدخل النسبي يعيد كلاهما نفس القيمة. على عكس `getLocalizedUrl`، لا يعيد أبداً عنوان URL مطلق: يتم تجاهل إعداد `domains`، لذا فإن اللغة المقدمة من نطاقها الخاص لا تزال تسفر عن مسار. يتم قبول المدخل المطلق، لكن يتم حذف أصله، يتم الاحتفاظ فقط بمساره وسلسلة الاستعلام والـ hash.
+
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getLocalizedUrl.md)
 
 **الميزات الرئيسية:**
 
@@ -96,6 +98,8 @@ const home = getLocalizedPath("/", Locales.FRENCH);
 ```
 
 يتدفق التضييق نفسه إلى [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getLocalizedUrl.md)، الذي يطبق قواعد إعادة الكتابة قبل إضافة بادئة اللغة.
+
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getLocalizedUrl.md)
 
 حالتان تبقى موسعة إلى `string`، لأنه لا يمكن حلهما في وقت الترجمة:
 

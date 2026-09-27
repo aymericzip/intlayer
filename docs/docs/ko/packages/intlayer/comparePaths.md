@@ -36,6 +36,8 @@ author: aymericzip
 
 내부적으로 [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getPathWithoutLocale.md)을 재사용하여 로케일 세그먼트를 제거하므로, 설정된 라우팅 모드와 로케일을 따릅니다.
 
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getPathWithoutLocale.md)
+
 이 패키지는 또한 비교에 사용되는 로케일 독립적인 정규화된 경로명을 반환하는 기본 도우미인 [`normalizePath`](#normalizepath)를 내보냅니다.
 
 **주요 기능:**
@@ -44,7 +46,7 @@ author: aymericzip
 - 절대 URL과 상대 경로 모두에서 작동
 - 쿼리 문자열, 해시 및 후행 슬래시 무시
 - 선행 슬래시 누락 및 빈 값 허용(`/`로 정규화)
-- 가벼움 — `getPathWithoutLocale`을 기반으로 구축됨
+- 가벼움, `getPathWithoutLocale`을 기반으로 구축됨
 
 ## 함수 시그니처
 

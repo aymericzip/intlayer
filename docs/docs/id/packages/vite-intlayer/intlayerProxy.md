@@ -32,6 +32,8 @@ author: aymericzip
 
 > **Sejak Intlayer v9** `intlayerProxy` secara otomatis disertakan di dalam plugin utama [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/vite-intlayer/intlayer.md) dan diaktifkan secara default melalui `routing.enableProxy: true`. Anda hanya perlu mendaftarkannya secara terpisah jika Anda memerlukan kontrol tingkat yang lebih rendah atau menggunakannya di luar setup `intlayer()` standar.
 
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/vite-intlayer/intlayer.md)
+
 ## Penggunaan
 
 ### Sebagai bagian dari `intlayer()` (direkomendasikan, v9+)
@@ -127,7 +129,7 @@ Middleware ini mencerminkan logika perutean dari middleware `next-intlayer` dan 
 | Mode            | URL terlihat di browser  | Perilaku                                                                                                                                |
 | --------------- | ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------- |
 | `prefix`        | `/id/about`              | Default. Prefiks bahasa di URL. Bahasa default dialihkan ke URL tanpa prefiks kecuali `prefix-all` aktif.                               |
-| `prefix-all`    | `/en/about`, `/id/about` | Semua bahasa — termasuk default — selalu diberi prefiks.                                                                                |
+| `prefix-all`    | `/en/about`, `/id/about` | Semua bahasa, termasuk default, selalu diberi prefiks.                                                                                  |
 | `no-prefix`     | `/about`                 | Tidak ada bahasa di URL. Bahasa hanya disimpan di cookie; penulisan ulang URL terjadi secara internal.                                  |
 | `search-params` | `/about?locale=id`       | Bahasa diteruskan sebagai parameter kueri. Mengalihkan untuk menambahkan/memperbarui parameter `locale` ketika hilang atau kedaluwarsa. |
 
@@ -161,7 +163,7 @@ Middleware melacak jumlah pengalihan per pasangan `originalUrl → newUrl` dalam
 
 ## Nitro / SSR produksi (injeksi otomatis, v9+)
 
-Ketika `intlayerProxy` digunakan sebagai plugin Vite, ia membawa properti `.nitro`. Plugin build `nitro/vite` membaca properti ini dan memasukkannya ke dalam `nitroConfig.modules`, sehingga `intlayerNitroHandler` terdaftar sebagai middleware server Nitro secara otomatis — tidak diperlukan konfigurasi manual untuk SSR produksi.
+Ketika `intlayerProxy` digunakan sebagai plugin Vite, ia membawa properti `.nitro`. Plugin build `nitro/vite` membaca properti ini dan memasukkannya ke dalam `nitroConfig.modules`, sehingga `intlayerNitroHandler` terdaftar sebagai middleware server Nitro secara otomatis, tidak diperlukan konfigurasi manual untuk SSR produksi.
 
 Handler Nitro menggunakan model event Web Fetch API h3 v2 (bukan `fromNodeMiddleware`) sehingga kompatibel dengan semua preset Nitro: Node, Bun, Deno, edge runtimes.
 

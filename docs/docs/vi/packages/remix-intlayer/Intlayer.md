@@ -29,6 +29,8 @@ Export `Intlayer` đóng vai trò là mã định danh lưu trữ context yêu c
 
 ## Cách sử dụng
 
+Khi middleware `intlayer()` chạy, nó lưu một đối tượng `IntlayerState` vào context yêu cầu dưới khóa `Intlayer`. Bạn có thể truy xuất nó bên trong bất kỳ route handler nào:
+
 ```ts fileName="src/server.ts"
 import { createRouter } from "remix/router";
 import { intlayer, Intlayer } from "remix-intlayer";
@@ -37,20 +39,39 @@ const router = createRouter({
   middleware: [intlayer()],
 });
 
-router.get("/api/current-locale", (context) => {
-  const intlayerState = context.get(Intlayer);
+router.get("/api/profile", (context) => {
+  // Truy cập qua context.get(Intlayer)
+  const { locale, defaultLocale, availableLocales } = context.get(Intlayer);
 
   return Response.json({
-    locale: intlayerState?.locale,
+    locale,
+    defaultLocale,
+    availableLocales,
   });
 });
 ```
 
-## Mô tả
+Bạn cũng có thể truy cập nó bằng cách viết tắt qua thuộc tính trực tiếp `context.intlayer`:
 
-`Intlayer` được middleware `intlayer()` sử dụng để liên kết trạng thái phiên hiện tại với context yêu cầu của Remix (`RequestContext`). Thông thường, việc sử dụng các hook như `useLocale()` hoặc `useIntlayer()` được ưu tiên hơn. Truy cập trực tiếp qua `context.get(Intlayer)` hữu ích trong các trình xử lý middleware cấp thấp hoặc các tuyến API nơi cá thể context được truyền tường minh.
+```ts
+router.get("/api/status", (context) => {
+  const currentLocale = context.intlayer.locale;
+  return Response.json({ status: "ok", locale: currentLocale });
+});
+```
+
+## Cấu trúc `IntlayerState`
+
+Đối tượng `IntlayerState` chứa:
+
+| Thuộc tính         | Kiểu                | Mô tả                                                          |
+| ------------------ | ------------------- | -------------------------------------------------------------- |
+| `locale`           | `DeclaredLocales`   | Locale được xác định cho yêu cầu hiện tại.                     |
+| `defaultLocale`    | `DeclaredLocales`   | Locale dự phòng được định nghĩa trong `intlayer.config.ts`.    |
+| `availableLocales` | `DeclaredLocales[]` | Danh sách tất cả các locale được hỗ trợ đã cấu hình cho dự án. |
 
 ## Tài liệu liên quan
 
 - [Middleware `intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/remix-intlayer/intlayerMiddleware.md)
 - [Hook `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/remix-intlayer/useLocale.md)
+- [Hook `useIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/remix-intlayer/useIntlayer.md)

@@ -34,6 +34,8 @@ Die Funktion `getEnumeration` ruft Inhalte ab, die einer bestimmten Menge entspr
 
 Weitere Informationen zur Deklaration von Enumerationen finden Sie in der [Enumeration-Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/enumeration.md).
 
+- [Enumeration-Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/enumeration.md)
+
 ## Parameter
 
 - `enumerationContent: QuantityContent<Content>`

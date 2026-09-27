@@ -136,6 +136,9 @@ TanStack Start에서 표준 React 구현을 측정한 [Benchmark Bloom](https://
 
 > 전체 표는 [TanStack Start 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/tanstack.md)와 [i18n 벤치마크 개요](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/index.md)에서 확인하세요.
 
+- [TanStack Start 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/tanstack.md)
+- [i18n 벤치마크 개요](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/index.md)
+
 ### 6) 개발자 경험(DX), 도구 및 유지보수
 
 - **react-intl / react-i18next**: 광범위한 커뮤니티 생태계; 편집 워크플로우를 위해 일반적으로 외부 현지화 플랫폼을 채택합니다.
@@ -185,3 +188,5 @@ GitHub star는 프로젝트의 인기도, 커뮤니티 신뢰도, 장기적 관�
 - 팀이 다국어, 컴포넌트 중심의 React 앱에서 **유지보수성과 속도**를 중요시한다면, Intlayer는 오늘날 가장 **완벽한** 개발자 및 콘텐츠 워크플로우를 제공합니다.
 
 자세한 내용은 ['왜 Intlayer인가?' 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/interest_of_intlayer.md)를 참조하세요.
+
+- [왜 Intlayer인가? 다른 i18n 라이브러리 대비 장점](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/interest_of_intlayer.md)

@@ -37,17 +37,23 @@ Em vez de carregar enormes arquivos JSON em suas páginas, carregue apenas o con
 
 Criar escopos para o conteúdo da sua aplicação torna aplicações em larga escala **fáceis de manter**. Você pode duplicar ou excluir um diretório de recursos inteiro sem o esforço mental de revisar toda a sua base de código de conteúdo. Além disso, Intlayer é **fortemente tipado** para garantir a precisão do seu conteúdo.
 
-Intlayer também é a solução **desenvolvida mais ativamente** no ecossistema i18n — problemas são corrigidos rapidamente, novos adaptadores de frameworks são lançados regularmente e a API principal é continuamente refinada com base em feedback do mundo real em produção.
+Intlayer também é a solução **desenvolvida mais ativamente** no ecossistema i18n, problemas são corrigidos rapidamente, novos adaptadores de frameworks são lançados regularmente e a API principal é continuamente refinada com base em feedback do mundo real em produção.
 
 </Accordion>
 <Accordion header="Agentes de IA">
 
 A co-localização do conteúdo **reduz o contexto necessário** para Modelos de Linguagem de Grande Escala (LLMs). O Intlayer também oferece um conjunto de ferramentas como uma **CLI** para testar traduções ausentes, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/mcp_server.md)** e **[Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/agent_skills.md)** para tornar a Experiência do Desenvolvedor (DX) muito mais suave para agentes de IA.
 
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/mcp_server.md)
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/agent_skills.md)
+
 </Accordion>
 <Accordion header="Automação">
 
 Automatize as traduções em seu pipeline de CI/CD usando o LLM de sua preferência pelo custo do seu provedor de IA. O Intlayer também oferece um **compilador** para automatizar a extração de conteúdo, bem como uma [plataforma web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md) para auxiliar com **tradução em segundo plano**.
+
+- [plataforma web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="Desempenho">
@@ -58,6 +64,9 @@ Conectar enormes arquivos JSON aos componentes pode levar a problemas de desempe
 <Accordion header="Escalabilidade com não desenvolvedores">
 
 Muito mais que apenas uma solução i18n, o Intlayer fornece um **[editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md)** auto-hospedável e um **[CMS completo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md)** para ajudá-lo a gerenciar seu conteúdo multilíngue em **tempo real**, tornando perfeita a colaboração com tradutores, redatores e outros membros da equipe. O conteúdo pode ser armazenado local e/ou remotamente.
+
+- [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md)
+- [CMS completo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
@@ -70,9 +79,9 @@ Muito mais que apenas uma solução i18n, o Intlayer fornece um **[editor visual
 
 Existem duas estratégias complementares para migrar do `i18next` para o Intlayer:
 
-1. **Adaptador de Compatibilidade (Recomendado para apps existentes)** — Instale `@intlayer/i18next`. Este pacote expõe **exatamente a mesma API** do `i18next`, mas delega todo o trabalho de tradução, por baixo dos panos, ao Intlayer. Mantenha suas chamadas existentes de `i18next.t()`, `i18next.changeLanguage()` e `createInstance()` intactas — a única coisa que muda é o caminho de importação e a inicialização.
+1. **Adaptador de Compatibilidade (Recomendado para apps existentes)**: Instale `@intlayer/i18next`. Este pacote expõe **exatamente a mesma API** do `i18next`, mas delega todo o trabalho de tradução, por baixo dos panos, ao Intlayer. Mantenha suas chamadas existentes de `i18next.t()`, `i18next.changeLanguage()` e `createInstance()` intactas, a única coisa que muda é o caminho de importação e a inicialização.
 
-2. **Migração Completa** — Substitua gradualmente as APIs do `i18next` pelas ferramentas nativas do Intlayer, e co-localize seu conteúdo em arquivos `.content.ts` próximos aos seus componentes.
+2. **Migração Completa**: Substitua gradualmente as APIs do `i18next` pelas ferramentas nativas do Intlayer, e co-localize seu conteúdo em arquivos `.content.ts` próximos aos seus componentes.
 
 Este guia cobre a **Estratégia 1** (adaptador de compatibilidade) primeiro, depois discute a migração completa opcional.
 
@@ -125,7 +134,7 @@ yarn add intlayer @intlayer/i18next @intlayer/sync-json-plugin
 bun add intlayer @intlayer/i18next @intlayer/sync-json-plugin
 ```
 
-> Você pode manter o `i18next` instalado com segurança — o adaptador de compatibilidade o utiliza como uma `devDependency` / `peerDependency` para tipos TypeScript.
+> Você pode manter o `i18next` instalado com segurança, o adaptador de compatibilidade o utiliza como uma `devDependency` / `peerDependency` para tipos TypeScript.
 
 </Step>
 <Step number={2} title="Configure o Intlayer">
@@ -177,7 +186,7 @@ export default defineConfig({
 });
 ```
 
-> O `i18nextVitePlugin()` encapsula o plugin `intlayer()` do `vite-intlayer` e adiciona automaticamente o alias de `i18next` → `@intlayer/i18next` para você. Usar o plugin `intlayer()` comum do `vite-intlayer` compila os dicionários, mas **não** adiciona o alias — você teria que renomear as importações para `@intlayer/i18next` manualmente nesse caso (veja o próximo passo).
+> O `i18nextVitePlugin()` encapsula o plugin `intlayer()` do `vite-intlayer` e adiciona automaticamente o alias de `i18next` → `@intlayer/i18next` para você. Usar o plugin `intlayer()` comum do `vite-intlayer` compila os dicionários, mas **não** adiciona o alias, você teria que renomear as importações para `@intlayer/i18next` manualmente nesse caso (veja o próximo passo).
 
 </Step>
 
@@ -200,7 +209,7 @@ Se você preferir tornar a dependência explícita nos seus arquivos-fonte ou n�
 | `import { createInstance } from 'i18next'` | `import { createInstance } from '@intlayer/i18next'` |
 | `import { t } from 'i18next'`              | `import { t } from '@intlayer/i18next'`              |
 
-Essas são **substituições diretas** (drop-in) — nenhuma alteração de assinaturas de chamadas, argumentos ou tipos de retorno é necessária.
+Essas são **substituições diretas** (drop-in), nenhuma alteração de assinaturas de chamadas, argumentos ou tipos de retorno é necessária.
 
 </Step>
 <Step number={5} title="Habilite a Automação de Tradução por IA" isOptional={true}>
@@ -260,6 +269,8 @@ export default config;
 
 > Verifique a [Documentação da CLI do Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/index.md) para explorar todas as opções disponíveis.
 
+- [Documentação da CLI do Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/index.md)
+
 </Step>
 
 </Steps>
@@ -274,7 +285,7 @@ Uma vez que o adaptador de compatibilidade esteja implementado, o seguinte boile
 | `i18next.use(...)`                            | O Intlayer não usa plugins de i18next, backends ou detectores de idiomas.                                                                                      |
 | Pacotes de idiomas em JSON (`locales/*.json`) | Pacotes JSON são necessários apenas se você continuar a usar o plugin `syncJSON`. Uma vez migrado para arquivos `.content.ts`, você pode remover a pasta JSON. |
 
-Quando você estiver pronto para ir mais além, o Intlayer **descobre automaticamente todos os arquivos `.content.ts` e `.content.json` em qualquer lugar da sua base de código** (por padrão, em qualquer lugar sob `./src`). Basta colocar um arquivo `my-component.content.ts` ao lado de sua lógica, e o Intlayer o detectará em tempo de build sem necessidade de configuração adicional — não são necessários imports, registros ou um arquivo index central. Isso torna a co-localização das traduções totalmente simples e integrada.
+Quando você estiver pronto para ir mais além, o Intlayer **descobre automaticamente todos os arquivos `.content.ts` e `.content.json` em qualquer lugar da sua base de código** (por padrão, em qualquer lugar sob `./src`). Basta colocar um arquivo `my-component.content.ts` ao lado de sua lógica, e o Intlayer o detectará em tempo de build sem necessidade de configuração adicional, não são necessários imports, registros ou um arquivo index central. Isso torna a co-localização das traduções totalmente simples e integrada.
 
 ## Configuração do TypeScript
 

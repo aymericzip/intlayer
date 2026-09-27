@@ -44,7 +44,12 @@ const config = {
 export default config;
 ```
 
+- [плагин Sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/plugins/sync-json.md)
+
 Ваше приложение продолжает импортировать то, что импортировало раньше. CI-задачи затем заполняют и проверяют существующие каталоги, а в ревью будет виден обычный diff в `locales/fr/checkout.json`, а не глобальная миграция кодовой базы. Также есть [плагин Sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/plugins/sync-po.md) для gettext и [адаптеры совместимости](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/index.md) для сохранения runtime API без изменений.
+
+- [плагин Sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/plugins/sync-po.md)
+- [адаптеры совместимости](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/index.md)
 
 ## Разделяйте блокировку (gate) и заполнение (fill)
 
@@ -167,6 +172,8 @@ test("не содержит пропусков в обязательных ло�
 
 Команда `npx intlayer content test` выводит отчет в консоль, но завершается с кодом 0, поэтому она только информирует, но не блокирует сборку. Используйте ее локально, а в CI запускайте тест с ассертом. Подробнее в статье [как находить недостающие переводы](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/detecting_missing_translations.md).
 
+- [как находить недостающие переводы](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/detecting_missing_translations.md)
+
 ## `requiredLocales` делает барьер жизнеспособным
 
 Барьер, требующий полноты всех восемнадцати языков, блокирует релиз до тех пор, пока не будет готов самый медленный перевод, и в итоге отключается командой через месяц.
@@ -209,6 +216,8 @@ export default config;
 ```
 
 Это удобно командам, где текстами занимаются не-разработчики. Это осознанный компромисс: вы получаете независимость редакторов, но теряете гарантию того, что git-checkout полностью описывает состояние интерфейса. Подробнее в [документации по CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md).
+
+- [документации по CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md)
 
 Помните, что `clientSecret` является серверным секретом. Он должен храниться в переменных окружения сервера и CI, и ни при каких условиях не попадать в клиентский бандл.
 

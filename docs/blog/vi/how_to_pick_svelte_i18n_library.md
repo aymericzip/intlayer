@@ -67,6 +67,8 @@ Paraglide biên dịch mỗi message thành một export function để bundler 
 
 Bài viết về [lịch sử JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/history_of_i18n.md) phân tích chi tiết từng làn sóng.
 
+- [lịch sử JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/history_of_i18n.md)
+
 ## Quyết định quan trọng nhất: nơi lưu trữ nội dung và thời điểm tải
 
 Hai lựa chọn về mặt cấu trúc giải thích phần lớn sự khác biệt về bundle giữa các thiết lập:
@@ -80,11 +82,17 @@ Biểu đồ ước tính dung lượng payload cho một ứng dụng giả đ�
 
 `svelte-i18n` mặc định nằm ở góc trên bên trái: `register("fr", () => import("./fr.json"))` cho phép tải động theo từng locale, nhưng catalog của một locale là một object duy nhất và việc tải nó sẽ tải toàn bộ nội dung của mọi trang. Paraglide là trường hợp thú vị: vì mỗi message là một export riêng biệt, tree-shaking tự động tối ưu theo từng trang, và [Svelte benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/svelte.md) xác nhận nó hoạt động đúng như quảng cáo trên Vite + Svelte (điều này không xảy ra trong các benchmark React và Next.js). Intlayer đạt được kết quả tương tự thông qua việc khai báo theo từng component.
 
+- [Svelte benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/svelte.md)
+
 Nếu câu trả lời của bạn cho câu hỏi 3 là "nhiều trang", hãy cân nhắc phần này nhiều hơn bất kỳ sở thích API nào. Bài viết [i18n theo component so với tập trung](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/per-component_vs_centralized_i18n.md) đề cập đến khía cạnh bảo trì của cùng một sự đánh đổi này.
+
+- [i18n theo component so với tập trung](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/per-component_vs_centralized_i18n.md)
 
 ## Các ứng viên
 
 Kích thước thư viện được lấy từ [Svelte benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/svelte.md): store cùng với accessor trong một component rỗng, sau khi bundle, tree-shaking và minification, trên một ứng dụng 10 trang, 10 locale. Nội dung được đo lường riêng biệt.
+
+- [Svelte benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/svelte.md)
 
 ![Hệ sinh thái thư viện Svelte i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
@@ -113,6 +121,8 @@ Kích thước thư viện gần như bằng 0 của Paraglide là do cấu trú
 
 Vấn đề chia sẻ state sẽ quyết định trường hợp này. `svelte-i18n` hoạt động trên SvelteKit nhưng cấu hình theo từng request (`hooks.server.ts`, `locals`, `load`, sau đó là `setContext`) bạn phải tự viết và rất dễ mắc lỗi tinh vi. Paraglide cung cấp sẵn tích hợp cho SvelteKit giúp xử lý routing và đọc locale theo từng lệnh gọi, tránh được vấn đề singleton. Intlayer thiết lập locale từ dữ liệu của `load` vào context. Bài viết [SvelteKit i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_svelte_kit.md) giải thích sự lựa chọn giữa `[[lang]]` và `reroute`, điều bạn nên cân nhắc trước khi chọn thư viện.
 
+- [SvelteKit i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_svelte_kit.md)
+
 </Accordion>
 <Accordion header="Bản dịch đến từ TMS hoặc agency cung cấp chuỗi ICU">
 
@@ -127,6 +137,8 @@ Compile-time. Khả năng tree-shaking của Paraglide hoạt động tốt trê
 <Accordion header="Type safety là yêu cầu bắt buộc">
 
 Bất kỳ lựa chọn nào ngoại trừ thiết lập `svelte-i18n` thuần túy, nơi typing duy nhất là một union viết tay và sẽ nhanh chóng lệch khỏi JSON. `typesafe-i18n`, Paraglide và Intlayer đều generate type từ nội dung. Hãy kiểm tra mức độ hoạt động của repository `typesafe-i18n` trước khi áp dụng cho codebase. Bài viết [phát hiện bản dịch còn thiếu](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/detecting_missing_translations.md) so sánh những gì mỗi thư viện có thể bắt được tại thời điểm build.
+
+- [phát hiện bản dịch còn thiếu](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/detecting_missing_translations.md)
 
 </Accordion>
 <Accordion header="Bạn không muốn có file được generate trong repo">
@@ -372,6 +384,8 @@ Tất cả các locale trong một file duy nhất đặt cạnh component. `use
 
 Đang sử dụng `svelte-i18n`? [Compat adapter `@intlayer/svelte-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/svelte-i18n.md) tạo alias cho package ở cấp độ bundler để `$_`, `$date`, `$number` và các flat key của bạn tiếp tục hoạt động trong khi Intlayer cung cấp nội dung.
 
+- [Compat adapter `@intlayer/svelte-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/svelte-i18n.md)
+
 ## Trước khi bạn đưa ra cam kết
 
 Một bảng tính năng chỉ cho bạn biết thư viện làm được gì hôm nay. Những điểm sau đây cho bạn biết quá trình sử dụng thực tế sẽ như thế nào.
@@ -394,6 +408,9 @@ Thư viện được cài đặt nhiều nhất là thư viện ra mắt đầu 
 
 Agent vẫn còn gặp khó khăn với i18n: chúng quên locale, tự tạo key và trộn lẫn các cú pháp message. Thư viện có cung cấp [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/agent_skills.md) hoặc [MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/mcp_server.md) để agent có thể liệt kê, điền và kiểm thử nội dung không? Và việc tải nội dung có được tối ưu mặc định hay cần ai đó phải xem xét lại namespace và lazy import mỗi quý?
 
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/agent_skills.md)
+- [MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/mcp_server.md)
+
 **Type safety có sẵn ngay khi cài đặt.**
 
 Không phải là "có thể định kiểu bằng cấu hình thêm" mà là "sai key sẽ báo lỗi `tsc` ngay trên bản cài đặt mới". Hãy kiểm tra điều gì xảy ra với một key không tồn tại, và với một locale bị thiếu một bản dịch.
@@ -405,6 +422,13 @@ Các catalog chỉ có tăng dần theo thời gian. Quá trình build của Int
 **Trải nghiệm lập trình viên (Developer Experience).**
 
 Thời gian thiết lập cho đến chuỗi dịch đầu tiên, [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/lsp.md) hoặc [VS Code extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/vs_code_extension.md) hiển thị bản dịch khi hover và nhảy tới phần khai báo, [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md) để fill, test và push, một [trình biên dịch](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md) hoặc trình trích xuất lấy các chuỗi hard-code ra khỏi component để bạn không phải quản lý từng chuỗi theo từng khóa, cùng phương thức cho người không phải developer chỉnh sửa nội dung ([visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md) hoặc [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)) mà không cần pull request.
+
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/lsp.md)
+- [VS Code extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/vs_code_extension.md)
+- [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md)
+- [trình biên dịch](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md)
+- [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)
 
 ## Câu hỏi thường gặp
 
@@ -431,6 +455,8 @@ Chúng thay đổi cú pháp của locale state của riêng bạn, chứ không
 <Question title="Lựa chọn thư viện có ảnh hưởng đến SEO không?">
 
 Ảnh hưởng gián tiếp. Bot tìm kiếm quan tâm đến định tuyến, `hreflang`, `<html lang>` và việc văn bản có nằm trong HTML được render phía server hay không. Xem [hướng dẫn hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/hreflang_guide_multilingual_seo.md).
+
+- [hướng dẫn hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/hreflang_guide_multilingual_seo.md)
 
 </Question>
 

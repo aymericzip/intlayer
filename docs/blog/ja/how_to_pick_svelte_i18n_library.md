@@ -67,6 +67,8 @@ Paraglideは各メッセージをエクスポート関数にコンパイルし�
 
 各世代の詳細については、[JavaScript i18nの歴史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/history_of_i18n.md)で詳しく解説しています。
 
+- [JavaScript i18nの歴史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/history_of_i18n.md)
+
 ## 最も重要な意思決定: コンテンツの配置場所と読み込みタイミング
 
 構成におけるバンドルサイズの差の大部分は、主に2つの構造的な選択によって決まります。
@@ -80,11 +82,17 @@ Paraglideは各メッセージをエクスポート関数にコンパイルし�
 
 `svelte-i18n`はデフォルトで左上に位置します。`register("fr", () => import("./fr.json"))`によりロケールごとの動的読み込みは可能ですが、ロケールカタログは1つのオブジェクトであるため、それを読み込むと全ページのテキストが読み込まれます。Paraglideは興味深いケースです。すべてのメッセージが個別のエクスポートとなるため、ツリーシェイキングによってページ軸の最適化が無償で得られます。[Svelteベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/svelte.md)でも、Vite + Svelte環境で期待通りに機能することが確認されています（ReactやNext.jsのベンチマークでは機能しませんでした）。Intlayerはコンポーネントごとの宣言によって同じ領域に到達します。
 
+- [Svelteベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/svelte.md)
+
 質問3の回答が「多くのページがある」だった場合は、APIの好みよりもこのセクションを重視してください。[コンポーネント単位 vs 集中管理型 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/per-component_vs_centralized_i18n.md)の記事では、このトレードオフのメンテナンス面について解説しています。
+
+- [コンポーネント単位 vs 集中管理型 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/per-component_vs_centralized_i18n.md)
 
 ## 比較対象の候補
 
 ライブラリのサイズは、10ページ・10ロケールのアプリを対象にした[Svelteベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/svelte.md)（バンドル、ツリーシェイキング、minify後の空コンポーネントにおけるストア＋アクセサ）の数値です。コンテンツのサイズは個別に測定しています。
+
+- [Svelteベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/svelte.md)
 
 ![Svelte i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
@@ -113,6 +121,8 @@ Paraglideのライブラリサイズがほぼゼロである理由は構造に�
 
 共有問題が決定打となります。`svelte-i18n`はSvelteKitでも動作しますが、リクエストごとの連携（`hooks.server.ts`、`locals`、`load`、そして`setContext`）は自前で記述する必要があり、微妙なミスが起きやすいです。Paraglideはルーティングを処理し呼び出しごとにロケールを読み取るSvelteKit統合を提供しており、シングルトンの問題を回避できます。Intlayerは`load`データからコンテキストへとロケールを設定します。[SvelteKit i18nの記事](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_svelte_kit.md)では`[[lang]]`と`reroute`の選択について解説しています。ライブラリを選ぶ前に決めておきましょう。
 
+- [SvelteKit i18nの記事](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_svelte_kit.md)
+
 </Accordion>
 <Accordion header="翻訳がTMSまたはICUを納品する翻訳会社から提供される場合">
 
@@ -127,6 +137,8 @@ Paraglideのライブラリサイズがほぼゼロである理由は構造に�
 <Accordion header="型安全性が必須である場合">
 
 素の`svelte-i18n`以外のすべてです。`svelte-i18n`での唯一の型付けは手書きのUnion型であり、JSONとすぐに乖離してしまいます。`typesafe-i18n`、Paraglide、Intlayerはいずれもコンテンツから型を自動生成します。コードベースをコミットする前に`typesafe-i18n`のリポジトリのアクティビティを確認してください。[不足している翻訳の検出](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/detecting_missing_translations.md)の記事では、ビルド時にそれぞれが何を検知できるかを比較しています。
+
+- [不足している翻訳の検出](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/detecting_missing_translations.md)
 
 </Accordion>
 <Accordion header="リポジトリ内に生成ファイルを置きたくない場合">
@@ -381,6 +393,8 @@ export default cartSummaryContent;
 
 すでに`svelte-i18n`を使用している場合、[`@intlayer/svelte-i18n`互換アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/svelte-i18n.md)によってバンドラーレベルでパッケージがエイリアスされるため、Intlayerがコンテンツを提供しながら`$_`、`$date`、`$number`およびフラットなキーを引き続き機能させることができます。
 
+- [`@intlayer/svelte-i18n`互換アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/svelte-i18n.md)
+
 ## 採用を決める前のチェックポイント
 
 機能比較表は現在の機能を示しているに過ぎません。以下のポイントは、実際にそのライブラリを運用していく際の体験を左右します。
@@ -403,6 +417,9 @@ export default cartSummaryContent;
 
 AIエージェントは依然としてi18nの扱いに苦労することが多く、ロケールの不足、キーの捏造、メッセージ構文の混同などが起きがちです。エージェントがコンテンツのリストアップ、補完、テストを行えるように、ライブラリが[Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)や[MCPサーバー](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)を提供しているか確認してください。またコンテンツの読み込みがデフォルトで最適化されているか、あるいは四半期ごとにネームスペースや遅延インポートの見直しが必要になるかも重要です。
 
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)
+- [MCPサーバー](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)
+
 **設定なし（out of the box）での型安全性。**
 
 「追加の設定を行えば型付けできる」ではなく、「新規インストール状態で存在しないキーを指定すると`tsc`が失敗する」かどうかです。存在しないキーを指定した場合や、1つのロケールで翻訳が欠落している場合に何が起きるかを確認してください。
@@ -414,6 +431,13 @@ AIエージェントは依然としてi18nの扱いに苦労することが多�
 **開発者体験（Developer Experience）。**
 
 最初の翻訳文字列を表示するまでのセットアップ時間、ホバー時に翻訳を表示し定義元へジャンプできる[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)や[VS Code拡張機能](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)、補完・テスト・プッシュを行うための[CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md)、コンポーネント内のハードコードされた文字列を抽出してキーごとに管理する手間をなくす[コンパイラー](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)や抽出ツール、そして開発者以外でもプルリクエストなしでコンテンツを編集できる手段（[ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)や[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)）の有無を確認してください。
+
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)
+- [VS Code拡張機能](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)
+- [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md)
+- [コンパイラー](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)
+- [ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)
 
 ## よくある質問
 
@@ -440,6 +464,8 @@ Runesはロケール状態の記述構文を変えるものであり、共有問
 <Question title="ライブラリの選択はSEOに影響しますか？">
 
 間接的に影響します。クローラーはルーティング、`hreflang`、`<html lang>`、およびサーバーレンダリングされたHTML内にテキストが存在するかどうかを評価します。[hreflangガイド](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/hreflang_guide_multilingual_seo.md)を参照してください。
+
+- [hreflangガイド](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/hreflang_guide_multilingual_seo.md)
 
 </Question>
 

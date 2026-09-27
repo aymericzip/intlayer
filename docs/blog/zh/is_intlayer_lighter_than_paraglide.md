@@ -25,6 +25,8 @@ author: aymericzip
 
 `Paraglide` 作为业界公认非常轻量的 i18n 解决方案享有良好声誉，初看之下，[基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md) 也印证了这一点：其库体积几乎为零。然而，库体积为零并不代表下发到浏览器的体积为零。这只意味着字节被转移到了该指标不统计的地方。
 
+- [基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md)
+
 <TOC/>
 
 ## 核心要点
@@ -95,6 +97,9 @@ Next.js 16 App Router，同一应用：
 <I18nBenchmark framework="tanstack" packages="paraglide,intlayer" vertical/>
 
 > 完整数据请参阅 [TanStack Start 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md) 与 [Next.js 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md)。所有 bundle 均可在 [基准测试仓库](https://github.com/intlayer-org/benchmark-i18n) 中核查。
+
+- [TanStack Start 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md)
+- [Next.js 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md)
 
 实测结果呈现出两个明显特征：
 
@@ -201,6 +206,8 @@ Paraglide 最主要的主打特性是：由于每个消息都是独立的 export
 
 但在其它技术栈中并非如此。在我们针对 [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md) 的测试中，Paraglide 的页面体积比基础应用多出 14 KB，而 `next-intlayer` 仅增加了 0.3 KB。在 TanStack Start 上的早期测试也表明，来自其他页面的消息同样混入了当前路由的 bundle 中。
 
+- [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md)
+
 Tree Shaking 效果取决于你的打包工具（Turbopack、Rolldown、Rollup）、消息导入语法（`import { m }` 与 `import * as m`）以及副作用分析能力。如果你因体积小巧而选择 Paraglide，请务必打开 bundle 可视化工具并在自己的项目中实际验证。
 
 ## 无动态加载机制
@@ -240,6 +247,8 @@ export default config;
 | `fetch`      | 仅加载当前语言，直接通过 Live Sync API 获取 | N 个语言时体积**轻量 N 倍** |
 
 借助 [构建期转换优化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md) 与 `importMode: 'static'`，Intlayer 在理论上加载的内容与 Paraglide 毫无二致。而启用 `'dynamic'` 或 `'fetch'` 后，它仅加载当前语言所需的内容：对于支持 N 种语言的应用，翻译数据的网络传输量将比 Paraglide 小 N 倍。
+
+- [构建期转换优化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md)
 
 ## Paraglide 依然适用的场景
 

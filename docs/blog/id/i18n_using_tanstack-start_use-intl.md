@@ -49,6 +49,8 @@ TanStack Start tidak menyertakan lapisan i18n bawaan. Perutean, deteksi lokal, m
 
 > Menggunakan Next.js sebagai gantinya? Lihat [panduan next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18n_using_next-intl.md).
 
+- [panduan next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18n_using_next-intl.md)
+
 > Untuk memahami asal-usul pustaka-pustaka ini, baca sejarah i18n di JavaScript.
 
 - [Sejarah i18n di JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/history_of_i18n.md)
@@ -56,6 +58,8 @@ TanStack Start tidak menyertakan lapisan i18n bawaan. Perutean, deteksi lokal, m
 ## Apa yang dikatakan tolok ukur (benchmark) tentang use-intl di TanStack Start
 
 [Benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/tanstack.md) menjalankan aplikasi TanStack Start 10 halaman, 10 lokal yang sama dengan setiap library utama dan mengukur apa yang sebenarnya diunduh oleh browser.
+
+- [Benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/tanstack.md)
 
 <I18nBenchmark framework="tanstack" packages="use-intl,@intlayer/use-intl,intlayer" vertical/>
 
@@ -74,6 +78,8 @@ Poin penting yang perlu diperhatikan:
 - **Ukuran runtime tetap besar** (~76 KB gzip), karena parser ICU dikirimkan ke klien. Adapter kompatibilitas `@intlayer/use-intl` (langkah 17) mempertahankan API yang sama persis dengan runtime ~7 KB.
 
 > Lihat data lengkapnya: [Laporan benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/tanstack.md), dan [repositori benchmark](https://github.com/intlayer-org/benchmark-i18n).
+
+- [Laporan benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/tanstack.md)
 
 ## Perbandingan fitur di TanStack Start
 
@@ -98,6 +104,8 @@ Perbandingan `use-intl` dengan library lain yang umum digunakan pada TanStack St
 | **Terjemahan yang hilang di CI**               | ✅ `npx intlayer test`               | ⚠️ Tidak bawaan         | ⚠️ Tidak bawaan                           | ✅ `lingui compile --strict`  |
 
 > Angka ukuran runtime dan kebocoran berasal dari [Benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/tanstack.md). Kebocoran diukur pada setup terbaik dari setiap library.
+
+- [Benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/tanstack.md)
 
 > Panduan TanStack Start lainnya:
 
@@ -974,6 +982,8 @@ export const startInstance = createStart(() => ({
 
 Benchmark menunjukkan bagian terberat dari setup use-intl adalah runtime itu sendiri (~76 KB gzip). Adapter kompatibilitas [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/index.md) mengekspos **API yang sama** (`useTranslations`, `useFormatter`, `IntlProvider`, `createTranslator`, jamak ICU, `t.rich`), tetapi menyajikannya dari kamus Intlayer yang dikompilasi: **~6.7 KB dibandingkan ~75.9 KB**, 0% kebocoran lokal dan 0% kebocoran halaman, tanpa perubahan pada komponen Anda.
 
+- [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/index.md)
+
 ```bash packageManager="npm"
 npm install @intlayer/use-intl intlayer @intlayer/sync-json-plugin
 npx intlayer init
@@ -1034,7 +1044,11 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
+- [plugin sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/plugins/sync-json.md)
+
 > Adapter ini juga menyediakan jalur migrasi yang mulus: setelah berjalan, Anda dapat memindahkan komponen satu per satu ke API native `useIntlayer`. Lihat [panduan Intlayer TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_tanstack.md).
+
+- [panduan Intlayer TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_tanstack.md)
 
 </Step>
 <Step number={18} title="Pra-render Setiap Lokal" isOptional={true}>
@@ -1142,6 +1156,8 @@ use-intl merender terjemahan, tetapi tidak membantu Anda **membuatnya**. Intlaye
 
 Untuk mempelajari semua fitur, lihat [mengapa Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/interest_of_intlayer.md).
 
+- [mengapa Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/interest_of_intlayer.md)
+
 </Step>
 </Steps>
 
@@ -1152,6 +1168,8 @@ Untuk mempelajari semua fitur, lihat [mengapa Intlayer](https://github.com/aymer
 <Question title="Apakah use-intl pilihan yang baik untuk TanStack Start?">
 
 Ya, jika Anda menginginkan API `next-intl` di luar Next.js. Library ini memberi Anda pesan ICU, formatter, dan dukungan TypeScript yang baik, serta menghindari batasan khusus Next.js seperti `setRequestLocale`. Konsekuensinya adalah bobot: [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/tanstack.md) mengukur ~76 KB gzip untuk runtime, dan konfigurasi standar akan mengirimkan setiap lokal dan setiap halaman ke browser. Muat namespace per rute dan per lokal, seperti dalam panduan ini, untuk menghindari kebocoran tersebut.
+
+- [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/tanstack.md)
 
 </Question>
 <Question title="Apa perbedaan antara use-intl dan next-intl?">
@@ -1173,6 +1191,8 @@ Server dan browser memformat tanggal dalam zona waktu yang berbeda. Berikan `tim
 
 Pertama, pisahkan pesan berdasarkan namespace dan muat per rute serta per lokal dengan `import.meta.glob`, yang menghilangkan kebocoran lokal dan halaman. Kemudian, jika ukuran runtime penting, beralihlah ke adapter [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/index.md): API yang sama, ~6.7 KB alih-alih ~75.9 KB dalam benchmark.
 
+- [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/index.md)
+
 </Question>
 <Question title="Bagaimana cara menerjemahkan judul dan deskripsi meta dengan use-intl?">
 
@@ -1182,6 +1202,9 @@ Panggil `createTranslator` di dalam fungsi `head()` rute dengan pesan yang dikem
 <Question title="Bisakah saya bermigrasi dari use-intl ke Intlayer secara bertahap?">
 
 Ya. Pasang adapter kompatibilitas terlebih dahulu (langkah 17): komponen Anda tetap memanggil `useTranslations`, yang sekarang didukung oleh Intlayer. Kemudian pindahkan komponen satu per satu ke `useIntlayer`, dan deklarasikan konten di sampingnya. Lihat [adapter kompatibilitas](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/index.md) dan [panduan Intlayer TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_tanstack.md).
+
+- [adapter kompatibilitas](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/index.md)
+- [panduan Intlayer TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_tanstack.md)
 
 </Question>
 

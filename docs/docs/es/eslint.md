@@ -35,7 +35,7 @@ author: aymericzip
 
 1. **Texto hardcodeado** que nunca llegó a un diccionario.
 2. **Llamadas dinámicas** que pasan el chequeo de tipos y se ejecutan, pero que el compilador de Intlayer no puede optimizar.
-3. **Contenido muerto** — diccionarios y campos que nada en el proyecto lee (opcional mediante activación).
+3. **Contenido muerto**: diccionarios y campos que nada en el proyecto lee (opcional mediante activación).
 
 Las claves de diccionario desconocidas, las rutas de campo desconocidas y las locales faltantes ya son errores de compilación, así que el plugin no las repite.
 
@@ -123,7 +123,7 @@ Dos advertencias: el soporte de plugins JS en oxlint aún está en fase alfa, y 
 
 `recommended` mantiene deliberadamente `no-raw-text` en `warn`: apuntarla a una base de código existente detecta todas las cadenas no traducidas de golpe, lo cual no debería romper tu compilación desde el primer día.
 
-`enforce-adapter-import` está desactivada por defecto — actívala explícitamente si la deseas.
+`enforce-adapter-import` está desactivada por defecto, actívala explícitamente si la deseas.
 
 `no-unused-content` está desactivada en todas las configuraciones, incluida `strict`. Es la única regla que lee tu configuración de Intlayer y recorre tus archivos fuente desde el disco, por lo que activarla debe ser una elección deliberada en lugar de algo que un ajuste preestablecido haga por ti.
 

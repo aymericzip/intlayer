@@ -64,6 +64,8 @@ TanStack Start 本身不包含 i18n 层，因此本指南将从零开始将 Ling
 
 [i18n 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md)使用各大主流国际化库运行了相同的 10 页面、10 种语言的 TanStack Start 应用，并测量了浏览器实际下载的内容。
 
+- [i18n 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md)
+
 <I18nBenchmark framework="tanstack" packages="lingui,@intlayer/lingui,intlayer" vertical/>
 
 `@lingui/core@6.6.0` 的关键数据（于 2026-09-26 测得，gzip 压缩）：
@@ -81,6 +83,8 @@ TanStack Start 本身不包含 i18n 层，因此本指南将从零开始将 Ling
 - **运行时体积相对较大**（约 57 KB gzip）。`@intlayer/lingui` 兼容适配器（第 16 步）可以保留宏语法的同时将体积缩减至约 10 KB。
 
 > 查看完整数据：[TanStack Start 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md) 以及 [基准测试仓库](https://github.com/intlayer-org/benchmark-i18n)。
+
+- [TanStack Start 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md)
 
 ## TanStack Start 上的功能特性对比
 
@@ -105,6 +109,8 @@ TanStack Start 本身不包含 i18n 层，因此本指南将从零开始将 Ling
 | **CI 中的缺失翻译检测**               | ✅ `npx intlayer test`               | ⚠️ 非内置             | ⚠️ 非内置                   | ✅ `lingui compile --strict` |
 
 > 运行时体积和资源泄露数据来自 [TanStack Start 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md)。资源泄露是在每个库的最佳配置下测得的。
+
+- [TanStack Start 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md)
 
 > 其他 TanStack Start 指南：
 
@@ -933,6 +939,8 @@ export const Route = createFileRoute("/{-$locale}/$")({
 
 [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/lingui.md) 兼容适配器无需修改任何源代码：宏的编译方式完全保持原样，编译生成的 `i18n._()`、`useLingui()` 和 `<Trans>` 调用由编译后的 Intlayer 字典提供支持。在基准测试中，运行时体积从 **~56.7 KB 骤降至 ~9.8 KB** gzip。
 
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/lingui.md)
+
 ```bash packageManager="npm"
 npm install @intlayer/lingui intlayer @intlayer/sync-json-plugin
 npx intlayer init
@@ -975,6 +983,11 @@ export default defineConfig({
 
 目录可以通过 [sync JSON 插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/plugins/sync-json.md)（JSON 目录）或 [sync PO 插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/plugins/sync-po.md)（PO 目录）进行同步。在 [Lingui 兼容指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/lingui.md) 中查看完整配置，并在 [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/lingui_vs_intlayer-lingui.md) 中查看详细对比。
 
+- [sync JSON 插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/plugins/sync-json.md)
+- [sync PO 插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/plugins/sync-po.md)
+- [Lingui 兼容指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/lingui.md)
+- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/lingui_vs_intlayer-lingui.md)
+
 </Step>
 <Step number={17} title="使用 Intlayer 自动化翻译" isOptional={true}>
 
@@ -1016,10 +1029,15 @@ Lingui 负责提取消息，但手动填写数十个目录文件往往耗费绝�
 
 [基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md) 测得其运行时体积约为 56.7 KB gzip。采用每个语言独立目录按需加载时，页面体积约为 115 KB（相比之下无 i18n 基础应用为 111 KB）。如果静态导入所有语言目录，体积会上升至约 152 KB。
 
+- [基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md)
+
 </Question>
 <Question title="我可以保留 Lingui 宏并迁移到 Intlayer 吗？">
 
 可以。[`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/lingui.md) 适配器保留了宏语法并替换了底层运行时。随后你可以逐步将组件逐一迁移到 `useIntlayer`。详情请参阅 [兼容适配器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/index.md)。
+
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/lingui.md)
+- [兼容适配器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/index.md)
 
 </Question>
 

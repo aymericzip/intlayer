@@ -73,3 +73,5 @@ export const config = {
 ## 설정
 
 미들웨어를 설정하려면 `intlayer.config.ts` 파일에서 `routing` 옵션을 설정할 수 있습니다. 자세한 내용은 [설정](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)을 참조하세요.
+
+- [설정](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)

@@ -3,7 +3,7 @@ createdAt: 2026-06-12
 updatedAt: 2026-09-27
 priority: 8
 title: "Dicionários dinâmicos: coleções e variantes"
-description: Visão geral dos recursos de dicionários dinâmicos do Intlayer — coleções e variantes — para criar conteúdo i18n flexível e orientado em tempo de execução.
+description: Visão geral dos recursos de dicionários dinâmicos do Intlayer, coleções e variantes, para criar conteúdo i18n flexível e orientado em tempo de execução.
 keywords:
   - Dicionários dinâmicos
   - Coleções
@@ -20,7 +20,7 @@ history:
     changes: "Lançamento do recurso de dicionários dinâmicos"
   - version: 9.1.0
     date: 2026-06-26
-    changes: "Fusão dos registros dinâmicos nas variantes — `variant` agora aceita uma string ou um objeto"
+    changes: "Fusão dos registros dinâmicos nas variantes, `variant` agora aceita uma string ou um objeto"
 author: aymericzip
 ---
 
@@ -37,8 +37,8 @@ Ambos se combinam com o argumento de locale e suportam carregamento seletivo / p
 
 ## Quando usar cada um
 
-- **Coleções** — lista ordenada de itens gerenciados em arquivos separados (entradas de FAQ, posts de blog, produtos).
-- **Variantes** — alternativas de conteúdo nomeadas ou estruturadas:
+- **Coleções**: lista ordenada de itens gerenciados em arquivos separados (entradas de FAQ, posts de blog, produtos).
+- **Variantes**: alternativas de conteúdo nomeadas ou estruturadas:
   - uma variante de **string** para testes A/B, banners sazonais ou feature flags;
   - uma variante de **objeto** para registros de CMS, conteúdo específico do usuário ou qualquer conteúdo endereçado por um conjunto de campos (os antigos «registros dinâmicos»).
 

@@ -31,6 +31,9 @@ author: aymericzip
 
 Инструменты проверки покрытия также переносимы: с [плагином Sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/plugins/sync-json.md), направленным на ваши каталоги, или [адаптером совместимости](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/index.md), создающим псевдонимы для ваших текущих импортов, проверка покрытия выполняется прямо по существующему JSON.
 
+- [плагином Sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/plugins/sync-json.md)
+- [адаптером совместимости](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/index.md)
+
 ## Определите, что вы на самом деле тестируете
 
 Качество перевода не проверяется тестами кода. Никакой ассерт не определит, звучит ли немецкий язык естественно, и попытка проверить это лишь заполнит тесты захардкоженными строками.
@@ -46,6 +49,8 @@ author: aymericzip
 | Форматированные даты и числа учитывают локаль | Внутреннюю корректность `Intl`    |
 
 Проверка покрытия должна проводиться в отдельном тесте на основе данных, а не в компонентных тестах. Это подробно описано в статье [как находить недостающие переводы](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/detecting_missing_translations.md); данный материал посвящен остальным аспектам.
+
+- [как находить недостающие переводы](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/detecting_missing_translations.md)
 
 ## Рендеринг внутри провайдера и поиск по ролям
 
@@ -122,6 +127,8 @@ describe.each([0, 1, 2, 3, 11, 100])("число %i", (count) => {
 ```
 
 Выбирайте значения, попадающие во все категории CLDR для самого сложного языка, вместо того чтобы проверять только 1 и 2. `Intl.PluralRules` сообщает, в какую категорию попадает число, позволяя составить выборку без угадывания. Подробнее о категориях в [статье о формате сообщений ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/icu_message_format.md).
+
+- [статье о формате сообщений ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/icu_message_format.md)
 
 ## Ловушка снэпшот-тестов (Snapshots)
 

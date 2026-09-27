@@ -41,9 +41,13 @@ author: aymericzip
 
 Xem so sánh cụ thể với next-intl trong bài viết blog của chúng tôi [next-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/next-i18next_vs_next-intl_vs_intlayer.md).
 
+- [next-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/next-i18next_vs_next-intl_vs_intlayer.md)
+
 ## Tại sao kết hợp Intlayer với next-i18next?
 
 Trong khi Intlayer cung cấp một giải pháp i18n độc lập xuất sắc (xem hướng dẫn tích hợp Next.js của chúng tôi [Next.js integration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_16.md)), bạn có thể muốn kết hợp nó với next-i18next vì một số lý do sau:
+
+- [Next.js integration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_16.md)
 
 1. **Mã nguồn hiện có**: Bạn đã có một triển khai next-i18next ổn định và muốn dần dần chuyển sang trải nghiệm phát triển được cải thiện của Intlayer.
 2. **Yêu cầu kế thừa**: Dự án của bạn cần tương thích với các plugin hoặc quy trình làm việc i18next hiện có.
@@ -142,6 +146,8 @@ Nếu có thay đổi được thực hiện bằng cách sử dụng CLI để 
 
 Để xem thêm chi tiết về plugin `syncJSON`, vui lòng tham khảo [tài liệu plugin syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/plugins/sync-json.md).
 
+- [tài liệu plugin syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/plugins/sync-json.md)
+
 </Step>
 <Step number={3} title="Triển khai dịch JSON theo từng thành phần" isOptional={true}>
 
@@ -203,4 +209,4 @@ Các file này được tự động tạo lại trong quá trình build và kh�
 
 Để cải thiện trải nghiệm cho nhà phát triển, hãy cài đặt **Tiện ích mở rộng Intlayer chính thức cho VS Code**:
 
-[Cài đặt từ VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [Cài đặt từ VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

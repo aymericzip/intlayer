@@ -119,6 +119,8 @@ export default exampleContent;
 
 Berikut adalah [file deklarasi konten per-locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/per_locale_file.md) yang menggunakan instruksi `fill`.
 
+- [file deklarasi konten per-locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/per_locale_file.md)
+
 Kemudian, ketika Anda menjalankan perintah berikut:
 
 ```bash packageManager="npm"

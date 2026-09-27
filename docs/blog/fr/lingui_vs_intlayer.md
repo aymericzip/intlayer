@@ -128,6 +128,8 @@ style="border:none;"
 
 > Tableau complet, chaque bibliothèque et chaque stratégie, dans le [rapport de benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/benchmark/nextjs.md).
 
+- [rapport de benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/benchmark/nextjs.md)
+
 ### Résultats sur TanStack Start
 
 | Library                     | Strategy       | Lib size (gz) | Page JS avg (gz) | Locale leak | Page leak | Component avg (gz) | E2E reactivity | Hydration |
@@ -157,6 +159,8 @@ style="border:none;"
 />
 
 > Tableau complet dans le [rapport de benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/benchmark/tanstack.md).
+
+- [rapport de benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/benchmark/tanstack.md)
 
 ## Pourquoi l'écart ? Deux compilateurs, deux unités de travail
 
@@ -206,6 +210,8 @@ C'est pourquoi le pattern `scoped-dynamic` est une sortie de build pour Intlayer
 ![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 > Pour obtenir les numéros de la ligne `dynamic`, définissez `dictionary.importMode: 'dynamic'` dans `intlayer.config.ts`. Voir la [documentation d'optimisation du bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/bundle_optimization.md).
+
+- [documentation d'optimisation du bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/bundle_optimization.md)
 
 ## Expérience développeur
 
@@ -391,6 +397,8 @@ export default defineConfig({
 
 Conservez `@lingui/babel-plugin-lingui-macro` / `@lingui/swc-plugin` dans la build, exécutées avant le compilateur Intlayer. Consultez la [documentation de compatibilité Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compat/lingui.md).
 
+- [documentation de compatibilité Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compat/lingui.md)
+
 ## Quand choisir quoi ?
 
 <AccordionGroup>
@@ -403,10 +411,18 @@ Vous voulez **ICU MessageFormat** avec des macros typées, vos traducteurs trava
 
 Vous voulez du **contenu scopé au composant**, du **TypeScript strict**, des **erreurs de clés manquantes au build**, du **tree-shaking et lazy loading sans effort**, des composants légers, une hydratation rapide, un changement de locale instantané, et des outils éditoriaux intégrés ([Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md), [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md), [traduction par IA](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/autoFill.md), [serveur MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/mcp_server.md)). Particulièrement pertinent pour les codebases modulaires volumineuses et les design systems.
 
+- [Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md)
+- [traduction par IA](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/autoFill.md)
+- [serveur MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/mcp_server.md)
+
 </Accordion>
 <Accordion header="Choisir @intlayer/lingui">
 
 Vous utilisez déjà Lingui et souhaitez migrer vers les dictionnaires Intlayer progressivement sans toucher aux macros. Vos catalogues `.po` restent la source de vérité grâce au [plugin de synchronisation PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compat/lingui.md). Mesuré côte à côte dans [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/lingui_vs_intlayer-lingui.md).
+
+- [plugin de synchronisation PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compat/lingui.md)
+- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/lingui_vs_intlayer-lingui.md)
 
 </Accordion>
 </AccordionGroup>
@@ -437,11 +453,15 @@ Oui, et sur TanStack Start il l'emporte d'un cheveu : 115.2 KB en `dynamic` cont
 
 Non. `@intlayer/lingui` permet de compiler `` t`...` ``, `<Trans>`, `msg`, `plural`, `select` et `selectOrdinal` comme avant ; seul le mécanisme de résolution sous-jacent de `i18n._()` change. Conservez `@lingui/babel-plugin-lingui-macro` ou `@lingui/swc-plugin` dans le build. Voir la [documentation de compatibilité Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compat/lingui.md).
 
+- [documentation de compatibilité Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compat/lingui.md)
+
 </Question>
 
 <Question title="Qu'en est-il des étapes d'extraction et de compilation ?">
 
 Elles restent nécessaires pour les macros, mais disparaissent pour le contenu propre à Intlayer. Les dictionnaires `.content.ts` sont créés lors de l'exécution du bundler, sans commande CLI distincte, et [`intlayer test`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/index.md) fait échouer la CI en cas de clé manquante au lieu de basculer silencieusement sur la chaîne source.
+
+- [`intlayer test`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/index.md)
 
 </Question>
 
@@ -493,3 +513,5 @@ Ce n'est pas le cas. Le compilateur de Lingui s'arrête à la locale ; tout ce q
 Toutes les données brutes, les applications de test et les scripts se trouvent dans le [référentiel Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Exécutez-le vous-même.
 
 Consultez le [document 'Pourquoi Intlayer ?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/interest_of_intlayer.md) pour plus de détails.
+
+- [Pourquoi Intlayer ? Avantages face aux autres bibliothèques i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/interest_of_intlayer.md)

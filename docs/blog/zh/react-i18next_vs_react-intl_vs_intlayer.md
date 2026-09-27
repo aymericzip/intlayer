@@ -136,6 +136,9 @@ author: aymericzip
 
 > 完整表格见 [TanStack Start 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md) 和 [i18n 基准测试概览](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/index.md)。
 
+- [TanStack Start 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md)
+- [i18n 基准测试概览](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/index.md)
+
 ### 6) 开发体验（DX）、工具链与维护
 
 - **react-intl / react-i18next**：拥有广泛的社区生态系统；对于编辑工作流，通常采用外部本地化平台。
@@ -185,3 +188,5 @@ GitHub stars 是项目受欢迎程度、社区信任度和长期相关性的强�
 - 如果你的团队重视多语言、组件驱动的 React 应用中的**可维护性和速度**，Intlayer 提供了目前**最完整**的开发者和内容工作流。
 
 更多详情请参阅 [“为什么选择 Intlayer？”文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/interest_of_intlayer.md)。
+
+- [为什么选择 Intlayer？相比其他 i18n 库的优势](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/interest_of_intlayer.md)

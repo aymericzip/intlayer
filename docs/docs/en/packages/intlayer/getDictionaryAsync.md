@@ -36,7 +36,12 @@ The `getDictionaryAsync` function loads a **single locale chunk** of a dictionar
 
 It is the counterpart of [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getDictionary.md) for the per-locale loader maps emitted in `.intlayer/dynamic_dictionaries/`: instead of receiving a dictionary holding every locale, it receives the loader map and awaits only the chunk the requested locale needs.
 
+- [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getDictionary.md)
+
 > In application code you normally call [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getIntlayerAsync.md), not this function. The [build plugins](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/bundle_optimization.md) rewrite every `getIntlayerAsync('key', locale)` call into a `getDictionaryAsync(loaderMap, 'key', locale)` one. `getDictionaryAsync` is exported for custom loaders and for tooling that builds its own loader maps.
+
+- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getIntlayerAsync.md)
+- [build plugins](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/bundle_optimization.md)
 
 **Key Features:**
 
@@ -71,7 +76,7 @@ getDictionaryAsync(
 - `localeOrSelector: LocalesValues | DictionarySelector`
   - **Description**: The locale to interpret the content with, or a selector object (`{ item }`, `{ variant }`, optionally with `locale`). See [dynamic dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dynamic_dictionaries/index.md).
   - **Type**: `LocalesValues | DictionarySelector`
-  - **Required**: No (Optional) — defaults to the configured `defaultLocale`.
+  - **Required**: No (Optional), defaults to the configured `defaultLocale`.
 
 - `plugins: Plugins[]`
   - **Description**: Node transformers. Defaults to the base interpreter set.
@@ -80,7 +85,7 @@ getDictionaryAsync(
 
 ### Returns
 
-- **Type**: `Promise<Content>` — a promise resolving to the interpreted content of the loaded chunk.
+- **Type**: `Promise<Content>`, a promise resolving to the interpreted content of the loaded chunk.
 - **Description**: Resolves to `null` when the map emits no chunk for the requested locale nor for any of its fallbacks, mirroring how a missing qualified coordinate resolves.
 
 ## Example Usage

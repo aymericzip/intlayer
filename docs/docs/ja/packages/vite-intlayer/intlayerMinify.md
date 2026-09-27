@@ -31,6 +31,8 @@ author: aymericzip
 
 > [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/vite-intlayer/intlayer.md)を使用する場合、このプラグインはすでに自動的に含まれ、設定されています。プラグインのスタックをご自身で構成する場合にのみ、手動で登録する必要があります。
 
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/vite-intlayer/intlayer.md)
+
 ## 使用方法
 
 ```ts
@@ -63,8 +65,8 @@ export default defineConfig({
 
 プラグインは、2つの辞書の場所（`intlayer.system`から解決される場所）をターゲットにします：
 
-- `dictionariesDir` — 静的な全言語共通の辞書（例：`.intlayer/dictionaries/*.json`）
-- `dynamicDictionariesDir` — 言語ごとの動的な辞書
+- `dictionariesDir`：静的な全言語共通の辞書（例：`.intlayer/dictionaries/*.json`）
+- `dynamicDictionariesDir`：言語ごとの動的な辞書
 
 > フェッチモード辞書（`fetchDictionariesDir`）は、実行時に元のフィールド名を使用してリモートAPIから提供されるため、**決して**圧縮されません。フィールド名を変更すると、サーバーの応答とクライアント側のプロパティアクセスとの間に不一致が生じるためです。
 

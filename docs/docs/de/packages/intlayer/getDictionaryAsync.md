@@ -36,7 +36,12 @@ Die `getDictionaryAsync` Funktion lädt einen **einzelnen Locale-Chunk** eines W
 
 Sie ist das Gegenstück von [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/intlayer/getDictionary.md) für die pro-Locale Loader Maps, die in `.intlayer/dynamic_dictionaries/` emittiert werden: Anstatt ein Wörterbuch zu erhalten, das jede Locale enthält, erhält sie die Loader Map und wartet nur auf den Chunk, den die angeforderte Locale benötigt.
 
+- [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/intlayer/getDictionary.md)
+
 > Im Anwendungscode rufen Sie normalerweise [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/intlayer/getIntlayerAsync.md) auf, nicht diese Funktion. Die [Build Plugins](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/bundle_optimization.md) schreiben jeden `getIntlayerAsync('key', locale)` Aufruf in einen `getDictionaryAsync(loaderMap, 'key', locale)` Aufruf um. `getDictionaryAsync` wird für benutzerdefinierte Loader und für Tools exportiert, die ihre eigenen Loader Maps erstellen.
+
+- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/intlayer/getIntlayerAsync.md)
+- [Build Plugins](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/bundle_optimization.md)
 
 **Hauptmerkmale:**
 
@@ -71,7 +76,7 @@ getDictionaryAsync(
 - `localeOrSelector: LocalesValues | DictionarySelector`
   - **Beschreibung**: Das Locale zur Interpretation des Inhalts oder ein Selector-Objekt (`{ item }`, `{ variant }`, optional mit `locale`). Siehe [dynamische Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dynamic_dictionaries/index.md).
   - **Typ**: `LocalesValues | DictionarySelector`
-  - **Erforderlich**: Nein (Optional) — standardmäßig das konfigurierte `defaultLocale`.
+  - **Erforderlich**: Nein (Optional), standardmäßig das konfigurierte `defaultLocale`.
 
 - `plugins: Plugins[]`
   - **Beschreibung**: Node-Transformer. Standardmäßig das Base-Interpreter-Set.
@@ -80,7 +85,7 @@ getDictionaryAsync(
 
 ### Returns
 
-- **Type**: `Promise<Content>` — a promise resolving to the interpreted content of the loaded chunk.
+- **Type**: `Promise<Content>`, a promise resolving to the interpreted content of the loaded chunk.
 - **Description**: Resolves to `null` when the map emits no chunk for the requested locale nor for any of its fallbacks, mirroring how a missing qualified coordinate resolves.
 
 ## Beispielverwendung

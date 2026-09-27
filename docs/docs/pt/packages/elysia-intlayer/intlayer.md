@@ -43,7 +43,7 @@ const app = new Elysia().use(intlayer()).get("/", ({ intlayer }) =>
 );
 ```
 
-> O plugin registra seu contexto por meio de um `derive` **global**, que o Elysia tipa como `Partial<{ intlayer: IntlayerContext }>`. Em tempo de execução o valor está sempre presente para as rotas registradas após `.use(intlayer())`, portanto use a non-null assertion (`intlayer!.t`) — ou optional chaining — para satisfazer o TypeScript no modo `strict`.
+> O plugin registra seu contexto por meio de um `derive` **global**, que o Elysia tipa como `Partial<{ intlayer: IntlayerContext }>`. Em tempo de execução o valor está sempre presente para as rotas registradas após `.use(intlayer())`, portanto use a non-null assertion (`intlayer!.t`), ou optional chaining, para satisfazer o TypeScript no modo `strict`.
 
 Os mesmos helpers estão disponíveis como exports autónomos, para que possa chamá-los sem desestruturar o contexto da rota:
 
@@ -133,6 +133,8 @@ export default config;
 ```
 
 > Para mais informações sobre a configuração, visite a [documentação de configuração](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md).
+
+- [documentação de configuração](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md)
 
 ## Documentação relacionada
 

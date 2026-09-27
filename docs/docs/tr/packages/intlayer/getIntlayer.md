@@ -31,7 +31,7 @@ author: aymericzip
 
 ## Açıklama
 
-`getIntlayer` işlevi bir anahtar (key) ile bir sözlüğü seçer ve içeriğini belirli bir yerel ayar için yorumlanmış şekilde döndürür. `useIntlayer` hook'unun framework-agnostik karşılığıdır: aynı içerik, aynı seçiciler, ancak React context'in kullanılamadığı her yerde kullanılabilir — Node scriptleri, server işlevleri, route loaders, metadata builders, Express/Fastify handlers, testler.
+`getIntlayer` işlevi bir anahtar (key) ile bir sözlüğü seçer ve içeriğini belirli bir yerel ayar için yorumlanmış şekilde döndürür. `useIntlayer` hook'unun framework-agnostik karşılığıdır: aynı içerik, aynı seçiciler, ancak React context'in kullanılamadığı her yerde kullanılabilir, Node scriptleri, server işlevleri, route loaders, metadata builders, Express/Fastify handlers, testler.
 
 Intlayer tarafından `.intlayer/` içinde oluşturulan sözlükleri okur, bu nedenle `key` argümanı sizin kendi içerik bildirimlerinizden türü belirlenmiş ve otomatik tamamlanmıştır, ve döndürülen nesne her yaprakta tam olarak türü belirlenmiştir.
 
@@ -57,18 +57,18 @@ getIntlayer(
 
 - `key: DictionaryKeys`
   - **Açıklama**: İçerik dosyalarınızda bildirilen sözlüğün anahtarı.
-  - **Tür**: `DictionaryKeys` — bildirilen her sözlük anahtarının birleşimi.
+  - **Tür**: `DictionaryKeys`, bildirilen her sözlük anahtarının birleşimi.
   - **Gerekli**: Evet
 
 - `localeOrSelector: LocalesValues | DictionarySelector`
   - **Açıklama**: İçeriği yorumlamak için kullanılacak yerel ayar veya [dinamik sözlükler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dynamic_dictionaries/index.md) için bir seçici nesnesi.
-    - `'fr'` — bir yerel ayar
-    - `{ item: 2 }` — bir [koleksiyon](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dynamic_dictionaries/collections.md) öğesi (`item` öğesini atlayarak tüm öğeleri dizi olarak alabilirsiniz)
-    - `{ variant: 'black-friday' }` — adlandırılmış bir [varyant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dynamic_dictionaries/variants.md) (varsayılan olanı almak için atlayın)
-    - `{ variant: { id: 'prod_abc', userId: '123' } }` — yapılandırılmış bir varyant
+    - `'fr'`: bir yerel ayar
+    - `{ item: 2 }`: bir [koleksiyon](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dynamic_dictionaries/collections.md) öğesi (`item` öğesini atlayarak tüm öğeleri dizi olarak alabilirsiniz)
+    - `{ variant: 'black-friday' }`: adlandırılmış bir [varyant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dynamic_dictionaries/variants.md) (varsayılan olanı almak için atlayın)
+    - `{ variant: { id: 'prod_abc', userId: '123' } }`: yapılandırılmış bir varyant
     - Herhangi bir seçici yerel ayar taşıyabilir: `{ item: 2, locale: 'fr' }`
   - **Tür**: `LocalesValues | DictionarySelector`
-  - **Gerekli**: Hayır (İsteğe bağlı) — yapılandırılan `defaultLocale` değerini kullanır.
+  - **Gerekli**: Hayır (İsteğe bağlı), yapılandırılan `defaultLocale` değerini kullanır.
 
 - `plugins: Plugins[]`
   - **Açıklama**: Temel yorumlayıcı eklentilerinin yerini alan özel düğüm dönüştürücüleri. Yalnızca ileri kullanım için; varsayılan davranışı korumak için atlayın.
@@ -110,6 +110,8 @@ const { title } = getIntlayer("app", "fr"); // "Bonjour"
 ### Locale olmadan
 
 Locale'i atlarsanız, içerik [yapılandırmanızda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) belirtilen `defaultLocale` ile yorumlanır.
+
+- [yapılandırmanızda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md)
 
 ```typescript
 import { getIntlayer } from "intlayer";
@@ -161,6 +163,9 @@ Geliştirme sırasında, oluşturulmuş bir sözlüğü olmayan bir anahtarı is
 ### Bundle boyutu
 
 `getIntlayer` birleştirilmiş sözlüğü okur; bu sözlük **her** locale'i içerir. İstemci bundle'larında, [build eklentileri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md) çağrıyı yeniden yazarak yalnızca gerekli içeriğin gönderilmesini sağlar. Rendering dışında içerik okuyorsanız (metadata, loaders, server functions) ve talep üzerine tek bir locale yüklenmesini istiyorsanız, bunun yerine [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getIntlayerAsync.md) kullanın.
+
+- [build eklentileri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md)
+- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getIntlayerAsync.md)
 
 ## İlgili Fonksiyonlar
 

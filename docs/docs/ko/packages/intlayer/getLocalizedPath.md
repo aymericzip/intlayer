@@ -32,7 +32,9 @@ author: aymericzip
 
 `getLocalizedPath` 함수는 캐노니컬 경로(애플리케이션 내부 경로)를 제공된 로케일 및 리라이트 규칙에 따라 로컬라이즈된 등가 경로로 변환합니다. 언어별로 달라지는 SEO 친화적 URL을 생성할 때 특히 유용합니다.
 
-이것은 [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getLocalizedUrl.md)의 상대 경로 버전입니다 — 상대 입력의 경우 둘 다 같은 값을 반환합니다. `getLocalizedUrl`과 달리 절대 URL을 반환하지 않습니다: `domains` 설정이 무시되므로 자신의 도메인에서 제공되는 로케일도 경로를 반환합니다. 절대 입력은 허용되지만 원본은 제거됩니다 — 경로, 쿼리 문자열 및 해시만 유지됩니다.
+이것은 [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getLocalizedUrl.md)의 상대 경로 버전입니다. 상대 입력의 경우 둘 다 같은 값을 반환합니다. `getLocalizedUrl`과 달리 절대 URL을 반환하지 않습니다: `domains` 설정이 무시되므로 자신의 도메인에서 제공되는 로케일도 경로를 반환합니다. 절대 입력은 허용되지만 원본은 제거됩니다. 경로, 쿼리 문자열 및 해시만 유지됩니다.
+
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getLocalizedUrl.md)
 
 **주요 기능:**
 
@@ -70,10 +72,10 @@ getLocalizedPath(
   - **Description**: 라우팅 오버라이드. 모든 항목은 프로젝트의 구성으로 기본값이 설정됩니다.
   - **Type**: `object`
 
-  - `options.locales?: Locales[]` — 지원하는 로케일. **기본값**: `configuration.internationalization.locales`
-  - `options.defaultLocale?: Locales` — 기본 로케일. **기본값**: `configuration.internationalization.defaultLocale`
-  - `options.mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'` — 경로에 로케일이 표시되는 방식. **기본값**: `configuration.routing.mode`
-  - `options.rewrite?: RoutingConfig['rewrite']` — 사용자 정의 rewrite 규칙. **기본값**: `configuration.routing.rewrite`
+  - `options.locales?: Locales[]`: 지원하는 로케일. **기본값**: `configuration.internationalization.locales`
+  - `options.defaultLocale?: Locales`: 기본 로케일. **기본값**: `configuration.internationalization.defaultLocale`
+  - `options.mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'`: 경로에 로케일이 표시되는 방식. **기본값**: `configuration.routing.mode`
+  - `options.rewrite?: RoutingConfig['rewrite']`: 사용자 정의 rewrite 규칙. **기본값**: `configuration.routing.rewrite`
 
 ## 반환값
 
@@ -96,6 +98,8 @@ const home = getLocalizedPath("/", Locales.FRENCH);
 ```
 
 같은 좁혀진 범위가 [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getLocalizedUrl.md)으로 흐르며, 이는 locale을 prefixing하기 전에 rewrite 규칙을 적용합니다.
+
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getLocalizedUrl.md)
 
 두 가지 경우는 컴파일 타임에 해결할 수 없기 때문에 `string`으로 확대됩니다:
 

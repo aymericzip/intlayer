@@ -31,7 +31,7 @@ author: aymericzip
 
 ## Deskripsi
 
-Fungsi `getIntlayer` memilih satu kamus berdasarkan kuncinya dan mengembalikan isinya yang diinterpretasikan untuk lokal yang diberikan. Ini adalah pasangan yang independen dari kerangka kerja dari hook `useIntlayer`: konten yang sama, pemilih yang sama, tetapi dapat digunakan di mana pun konteks React tidak tersedia — skrip Node, fungsi server, pemuat rute, pembuat metadata, penangan Express/Fastify, tes.
+Fungsi `getIntlayer` memilih satu kamus berdasarkan kuncinya dan mengembalikan isinya yang diinterpretasikan untuk lokal yang diberikan. Ini adalah pasangan yang independen dari kerangka kerja dari hook `useIntlayer`: konten yang sama, pemilih yang sama, tetapi dapat digunakan di mana pun konteks React tidak tersedia, skrip Node, fungsi server, pemuat rute, pembuat metadata, penangan Express/Fastify, tes.
 
 Ini membaca kamus yang dihasilkan oleh Intlayer di `.intlayer/`, jadi argumen `key` diketik dan selesai otomatis dari deklarasi konten Anda sendiri, dan objek yang dikembalikan sepenuhnya diketik hingga setiap daun.
 
@@ -57,18 +57,18 @@ getIntlayer(
 
 - `key: DictionaryKeys`
   - **Deskripsi**: Kunci kamus yang akan dibaca, seperti yang dideklarasikan dalam file konten Anda.
-  - **Tipe**: `DictionaryKeys` — sebuah union dari setiap kunci kamus yang dideklarasikan.
+  - **Tipe**: `DictionaryKeys`, sebuah union dari setiap kunci kamus yang dideklarasikan.
   - **Diperlukan**: Ya
 
 - `localeOrSelector: LocalesValues | DictionarySelector`
   - **Deskripsi**: Locale untuk menginterpretasi konten dengan, atau objek selector untuk [dynamic dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dynamic_dictionaries/index.md).
-    - `'fr'` — sebuah locale
-    - `{ item: 2 }` — sebuah [collection](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dynamic_dictionaries/collections.md) item (abaikan `item` untuk mendapatkan setiap item sebagai array)
-    - `{ variant: 'black-friday' }` — sebuah [variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dynamic_dictionaries/variants.md) bernama (abaikan untuk yang `default`)
-    - `{ variant: { id: 'prod_abc', userId: '123' } }` — sebuah variant terstruktur
+    - `'fr'`: sebuah locale
+    - `{ item: 2 }`: sebuah [collection](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dynamic_dictionaries/collections.md) item (abaikan `item` untuk mendapatkan setiap item sebagai array)
+    - `{ variant: 'black-friday' }`: sebuah [variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dynamic_dictionaries/variants.md) bernama (abaikan untuk yang `default`)
+    - `{ variant: { id: 'prod_abc', userId: '123' } }`: sebuah variant terstruktur
     - Setiap selector dapat membawa sebuah locale: `{ item: 2, locale: 'fr' }`
   - **Tipe**: `LocalesValues | DictionarySelector`
-  - **Diperlukan**: Tidak (Opsional) — default ke `defaultLocale` yang dikonfigurasi.
+  - **Diperlukan**: Tidak (Opsional), default ke `defaultLocale` yang dikonfigurasi.
 
 - `plugins: Plugins[]`
   - **Deskripsi**: Custom node transformers menggantikan plugin interpreter dasar. Penggunaan lanjutan saja; abaikan ini untuk mempertahankan perilaku default.
@@ -110,6 +110,8 @@ const { title } = getIntlayer("app", "fr"); // "Bonjour"
 ### Tanpa locale
 
 Menghilangkan locale menginterpretasi konten dengan `defaultLocale` yang dideklarasikan dalam [konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md) Anda.
+
+- [konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md)
 
 ```typescript
 import { getIntlayer } from "intlayer";
@@ -161,6 +163,9 @@ Dalam pengembangan, meminta kunci yang tidak memiliki kamus yang dihasilkan menc
 ### Ukuran Bundle
 
 `getIntlayer` membaca dictionary yang digabungkan, yang menyimpan **setiap** locale. Dalam client bundles, [build plugins](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/bundle_optimization.md) menulis ulang panggilan sehingga hanya konten yang diperlukan yang dikirim. Ketika Anda membaca konten di luar rendering (metadata, loaders, server functions) dan ingin satu locale dimuat sesuai permintaan, gunakan [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getIntlayerAsync.md) sebagai gantinya.
+
+- [build plugins](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/bundle_optimization.md)
+- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getIntlayerAsync.md)
 
 ## Fungsi Terkait
 

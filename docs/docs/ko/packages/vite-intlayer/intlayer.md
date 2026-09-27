@@ -143,9 +143,13 @@ intlayer({ proxy: { ignore: (req) => req.url?.startsWith("/api") } });
 
 전체 라우팅 동작 참조는 [intlayerProxy documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/vite-intlayer/intlayerProxy.md)를 참조하세요.
 
+- [intlayerProxy documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/vite-intlayer/intlayerProxy.md)
+
 ### 5. Bundled compiler (v9+)
 
 `compiler.enabled`가 `true`이고 **그리고** Intlayer 설정에서 `compiler.output`이 설정되어 있으면, `intlayer()`는 `intlayerCompiler`을 자동으로 등록합니다. 컴파일러는 component 파일 내에 직접 작성된 인라인 content 선언을 추출하고 변환 시간에 dictionaries에 작성합니다. [intlayerCompiler documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/vite-intlayer/intlayerCompiler.md)을 참조하세요.
+
+- [intlayerCompiler documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/vite-intlayer/intlayerCompiler.md)
 
 ### 6. Build optimisations
 

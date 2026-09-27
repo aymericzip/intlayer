@@ -41,9 +41,13 @@ author: aymericzip
 
 Xem so sánh cụ thể với vue-i18n trong bài viết blog của chúng tôi [vue-i18n vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/vue-i18n_vs_intlayer.md).
 
+- [vue-i18n vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/vue-i18n_vs_intlayer.md)
+
 ## Tại sao kết hợp Intlayer với vue-i18n?
 
 Trong khi Intlayer cung cấp một giải pháp i18n độc lập xuất sắc (xem hướng dẫn tích hợp Vue.js của chúng tôi [Vue.js integration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_vite+vue.md)), bạn có thể muốn kết hợp nó với vue-i18n vì một số lý do:
+
+- [Vue.js integration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_vite+vue.md)
 
 1. **Mã nguồn hiện có**: Bạn đã có một triển khai vue-i18n ổn định và muốn dần dần chuyển sang trải nghiệm phát triển được cải thiện của Intlayer.
 2. **Yêu cầu kế thừa**: Dự án của bạn cần tương thích với các plugin hoặc quy trình làm việc vue-i18n hiện có.
@@ -144,6 +148,8 @@ Nếu có thay đổi được thực hiện bằng CLI để dịch JSON, hoặ
 
 Để xem thêm chi tiết về plugin `syncJSON`, vui lòng tham khảo [tài liệu plugin syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/plugins/sync-json.md).
 
+- [tài liệu plugin syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/plugins/sync-json.md)
+
 </Step>
 <Step number={3} title="Triển khai dịch JSON theo từng thành phần" isOptional={true}>
 
@@ -206,6 +212,4 @@ Các tệp này được tạo lại tự động trong quá trình xây dựng 
 
 Để cải thiện trải nghiệm phát triển, hãy cài đặt **Tiện ích mở rộng Intlayer cho VS Code** chính thức:
 
-[Cài đặt từ VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-[Install from the VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [Cài đặt từ VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

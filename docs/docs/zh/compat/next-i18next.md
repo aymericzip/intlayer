@@ -25,6 +25,8 @@ author: aymericzip
 
 有关完整详细的分步教程，请参阅我们完整的 [next-i18next 迁移指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_next-i18next_to_intlayer.md)。
 
+- [next-i18next 迁移指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_next-i18next_to_intlayer.md)
+
 Intlayer 透明地处理所有 Next.js Pages Router 和 App Router 实现。使用适配器可以让您以零代码重写的方式迁移 `next-i18next` 实现。
 
 ## 操作步骤

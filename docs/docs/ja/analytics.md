@@ -24,7 +24,7 @@ history:
     changes: "`@intlayer/analytics` がインストールされている場合、アナリティクスをデフォルトで有効化"
   - version: 9.0.0
     date: 2026-07-08
-    changes: "Init doc — @intlayer/analytics パッケージ、プロバイダ/ノードレベルのトラッキング、A/Bテスト、ダッシュボード"
+    changes: "Init doc、@intlayer/analytics パッケージ、プロバイダ/ノードレベルのトラッキング、A/Bテスト、ダッシュボード"
 author: aymericzip
 ---
 
@@ -57,6 +57,8 @@ Intlayerでは、すでにコンテンツの[バリアント (Variants)](https:/
 3. `useConversion()`を使用すると、そのバリアントに目標（例：`"cta_click"`）を紐付けることができます。
 4. ダッシュボードの実験結果エンドポイントでは、統計的有意性（Z検定）を含むバリアントごとのコンバージョン率を比較します。
 
+- [バリアント (Variants)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/index.md)
+
 ## インストール
 
 `@intlayer/analytics` は各フレームワークパッケージ（`react-intlayer`、`next-intlayer`、`vue-intlayer` など）の**オプショナル依存関係**であるため、ほとんどのプロジェクトにはすでに含まれています。オプショナル依存関係をスキップする構成（`npm install --no-optional` など）の場合は、明示的にインストールしてください:
@@ -77,7 +79,7 @@ pnpm add @intlayer/analytics
 bun add @intlayer/analytics
 ```
 
-アナリティクスを有効にするにはパッケージをインストールするだけで十分です。`analytics.enabled` のデフォルトは `true` で、パッケージがプロジェクト内に見つからない場合は `@intlayer/config` が `false` に解決します。インストールしない場合、すべての統合ポイントはNo-Op（何もしない処理）として解決されます — 以下の[未インストール時のゼロコスト](#未インストール時のゼロコスト)を参照してください。
+アナリティクスを有効にするにはパッケージをインストールするだけで十分です。`analytics.enabled` のデフォルトは `true` で、パッケージがプロジェクト内に見つからない場合は `@intlayer/config` が `false` に解決します。インストールしない場合、すべての統合ポイントはNo-Op（何もしない処理）として解決されます。以下の[未インストール時のゼロコスト](#未インストール時のゼロコスト)を参照してください。
 
 ## 設定
 
@@ -97,8 +99,8 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-- `editor.backendURL` — アナリティクスイベントが送信されるベースURL（`POST {backendURL}/api/analytics/events`）。
-- `editor.clientId` — 収集されたすべてのイベントに紐付けられる公開プロジェクトキー。これは**有効化スイッチ**としても機能します：`clientId`が設定されるまで、アナリティクスは完全に無効化されます（後述のようにツリーシェイキングで削除されます）。
+- `editor.backendURL`：アナリティクスイベントが送信されるベースURL（`POST {backendURL}/api/analytics/events`）。
+- `editor.clientId`：収集されたすべてのイベントに紐付けられる公開プロジェクトキー。これは**有効化スイッチ**としても機能します：`clientId`が設定されるまで、アナリティクスは完全に無効化されます（後述のようにツリーシェイキングで削除されます）。
 
 Intlayerをセルフホスト（self-host）している場合、`editor.backendURL`を共有しているため、アナリティクスは自動的にご自身のインスタンスを指します。
 
@@ -126,7 +128,7 @@ import type { IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
   analytics: {
-    enabled: false, // デフォルト: true — 統合全体をバンドルから除外します
+    enabled: false, // デフォルト: true, 統合全体をバンドルから除外します
     flushInterval: 20_000, // 2 回のバッチ送信の間隔（ミリ秒）
     sampleRate: 1, // 記録するセッションの割合。0（なし）から 1（すべて）
   },
@@ -614,7 +616,7 @@ export default config;
   </Tab>
 </Tabs>
 
-Weights はオプションです — スプリットを調整するために、バリアントごとに 1 つ渡します。例えば、`useExperiment("homepage-hero", ["default", "black_friday"], [9, 1])` のようにします。
+Weights はオプションです。スプリットを調整するために、バリアントごとに 1 つ渡します。例えば、`useExperiment("homepage-hero", ["default", "black_friday"], [9, 1])` のようにします。
 
 子は、一致する辞書の[Variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/variants.md)を読みます：
 
@@ -633,9 +635,13 @@ export const HeroBanner = ({ variant }: { variant: string }) => {
 };
 ```
 
+- [Variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/variants.md)
+
 > **子コンポーネント**でバリアントを読み込むことが、React の外でも機能する理由です。Vue、Svelte、Solid、Angular では、`useIntlayer` に渡されるセレクタはコンポーネントがセットアップされるときにキャプチャされるため、読み込みはバリアントが既知の後にのみマウントされるコンポーネント内で発生する必要があります。
 
-実験が単一の辞書ではなくページ全体をカバーする場合は、variant をプロバイダーにホイストしてください — [Ambient variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/variants.md#ambient-variant) を参照してください。以下のすべての `useIntlayer` は、呼び出しサイトの変更なしでそれに対して解決されます。
+実験が単一の辞書ではなくページ全体をカバーする場合は、variant をプロバイダーにホイストしてください。[Ambient variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/variants.md#ambient-variant) を参照してください。以下のすべての `useIntlayer` は、呼び出しサイトの変更なしでそれに対して解決されます。
+
+- [Ambient variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/variants.md#ambient-variant)
 
 コンポーネント外で生の割り当てが必要な場合は、クライアントに直接アクセスしてください：
 
@@ -671,7 +677,7 @@ const variant = client?.getVariant("homepage-hero", [
 
 プロジェクトがイベントを収集すると、[Intlayerダッシュボード](https://app.intlayer.org/analytics)の**Analytics**ページ（プロジェクトを選択するとサイドバーに表示されます）に以下が表示されます：
 
-- **アクティブユーザー** — 選択したローリングウィンドウ（7日 / 30日 / 90日）内のユニーク訪問者数。
+- **アクティブユーザー**：選択したローリングウィンドウ（7日 / 30日 / 90日）内のユニーク訪問者数。
 - **今日のユーザー** および **過去7日間のユーザー**。
 - 選択したウィンドウ内の**ページビュー**。
 - 日次ユニーク訪問者の**推移グラフ**。
@@ -699,6 +705,8 @@ const cms = createIntlayerCMS();
 
 const { data: audience } = await analyticsEndpoint(cms).getAudience(30);
 ```
+
+- [CMS SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)
 
 > **サーバーサイドのみ。** `createIntlayerCMS()` は `clientId` + `clientSecret` で認証され、シークレットはブラウザで利用できません。このスニペットがそこで実行されると、認証されていないリクエストが発行されます。ルートハンドラー、サーバーアクション、またはスクリプトに保つようにしてください。
 

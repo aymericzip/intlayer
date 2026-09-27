@@ -68,6 +68,8 @@ author: aymericzip
 
 يقوم [اختبار قياس i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md) بتشغيل نفس تطبيق Next.js المكون من 10 صفحات و10 لغات مع كل مكتبة رئيسية ويقيس ما يقوم المتصفح بتنزيله بالفعل.
 
+- [اختبار قياس i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md)
+
 <I18nBenchmark framework="nextjs" packages="lingui,@intlayer/lingui,next-intlayer" vertical/>
 
 الأرقام الرئيسية لحزمة `@lingui/core@6.6.0` على Next.js 16، مقاسة في 2026-09-26 (gzip):
@@ -85,6 +87,8 @@ author: aymericzip
 - **يبلغ وزن بيئة تشغيل Lingui حوالي 72 كيلوبايت (gzip).** يقلل محول التوافق `@intlayer/lingui` بيئة التشغيل إلى حوالي 11 كيلوبايت، ولكن في هذا الاختبار المعياري، لا يزال إعداد التوافق مع Next.js يرسل كتالوجات كاملة إلى الصفحة. واجهة برمجة تطبيقات `next-intlayer` الأصلية هي الإعداد الوحيد الذي يحافظ على حجم التطبيق الأساسي.
 
 > راجع البيانات الكاملة: [تقرير القياس المعياري لـ Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md)، و[مستودع القياس المعياري](https://github.com/intlayer-org/benchmark-i18n).
+
+- [تقرير القياس المعياري لـ Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md)
 
 ## مقارنة الميزات في Next.js
 
@@ -110,6 +114,9 @@ author: aymericzip
 | **النظام البيئي / المجتمع**            | ⚠️ أصغر، ينمو بسرعة                                  | ✅ ناضج                                               | ✅ كبير                                       |
 
 > تأتي أحجام وقت التشغيل من [اختبار قياس Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md). للمزيد من التفاصيل، اقرأ [Lingui مقابل Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/lingui_vs_intlayer.md).
+
+- [اختبار قياس Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md)
+- [Lingui مقابل Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/lingui_vs_intlayer.md)
 
 > أدلة Next.js أخرى:
 
@@ -1043,9 +1050,17 @@ export const sendContactMessage = async (formData: FormData) => {
 
 يحافظ محول التوافق [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/lingui.md) على الكود المصدري دون أي تعديل: يتم تجميع وحدات الماكرو كما كانت، ويتم توفير استدعاءات `i18n._()` و `useLingui()` و `<Trans>` الناتجة عبر قواميس Intlayer. في اختبار قياس Next.js، ينخفض حجم بيئة التشغيل من **~72.1 كيلوبايت إلى ~10.7 كيلوبايت** (gzip).
 
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/lingui.md)
+
 في Next.js، يتم ربط المحول عن طريق إنشاء اسم مستعار (alias) لـ `@lingui/core` و `@lingui/react` إلى `@intlayer/lingui` في `next.config.ts` (لكل من webpack و Turbopack)، وتغليف الإعدادات باستخدام `withIntlayer` من `next-intlayer/server`. احتفظ بـ `@lingui/swc-plugin` حتى يتم تجميع وحدات الماكرو أولاً. الإعداد الكامل موجود في [دليل توافق Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/lingui.md).
 
+- [دليل توافق Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/lingui.md)
+
 كما يوضح جدول القياس المعياري، يقلل المحول من حجم وقت التشغيل ولكنه لا يقلل بعد من الكتالوج المرسل إلى كل صفحة على Next.js. من الأفضل استخدامه كجسر للهجرة الانتقالية: بمجرد تشغيله، انقل المكونات واحدًا تلو الآخر إلى واجهة برمجة تطبيقات `useIntlayer` الأصلية، والتي ترسل فقط المحتوى الذي يعرضه كل مكون. راجع [دليل Next.js + Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_16.md)، و [Lingui مقابل @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/lingui_vs_intlayer-lingui.md) وجميع [محولات التوافق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/index.md).
+
+- [دليل Next.js + Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_16.md)
+- [Lingui مقابل @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/lingui_vs_intlayer-lingui.md)
+- [محولات التوافق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/index.md)
 
 </Step>
 <Step number={19} title="أتمتة ترجماتك باستخدام Intlayer" isOptional={true}>
@@ -1088,15 +1103,23 @@ export const sendContactMessage = async (formData: FormData) => {
 
 يقيس [القياس المعياري](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md) حوالي 72 كيلوبايت (gzip) لبيئة التشغيل. ومع كتالوج واحد لكل لغة، تزن الصفحات حوالي 145 كيلوبايت مقابل 141 كيلوبايت بدون i18n، ولكن كل صفحة لا تزال تتلقى رسائل الصفحات الأخرى عبر موفر العميل.
 
+- [القياس المعياري](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md)
+
 </Question>
 <Question title="Lingui أم next-intl أم next-i18next: أيهم أختار لـ Next.js؟">
 
 يناسب Lingui الفرق التي تفضل كتابة النص المصدري داخل المكونات والتعامل مع ملفات PO والمترجمين. يناسب next-intl الفرق التي تفضل كتالوجات JSON وواجهة برمجة تطبيقات `t("key")` المدمجة بإحكام مع Next.js. يوفر next-i18next النظام البيئي لإضافات i18next. راجع [next-i18next مقابل next-intl مقابل Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/next-i18next_vs_next-intl_vs_intlayer.md) و [اختبار قياس Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md).
 
+- [next-i18next مقابل next-intl مقابل Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/next-i18next_vs_next-intl_vs_intlayer.md)
+- [اختبار قياس Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md)
+
 </Question>
 <Question title="هل يمكنني الانتقال من Lingui إلى Intlayer دون إعادة كتابة مكوناتي؟">
 
 نعم. يحافظ محول [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/lingui.md) على وحدات الماكرو ويستبدل بيئة التشغيل، ثم يمكنك بعد ذلك نقل المكونات إلى `useIntlayer` تدريجيًا. راجع [محولات التوافق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/index.md).
+
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/lingui.md)
+- [محولات التوافق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/index.md)
 
 </Question>
 

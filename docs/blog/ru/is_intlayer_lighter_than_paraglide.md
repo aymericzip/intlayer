@@ -25,6 +25,8 @@ author: aymericzip
 
 У `Paraglide` сложилась отличная репутация самого легкого решения для i18n, и на первый взгляд [бенчмарк](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/tanstack.md) с этим согласен: размер его библиотеки близок к нулю. Однако нулевой размер библиотеки вовсе не означает нулевое количество отправленных байтов. Это лишь говорит о том, что байты находятся там, куда эта метрика не заглядывает.
 
+- [бенчмарк](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/tanstack.md)
+
 <TOC/>
 
 ## Ключевые выводы
@@ -95,6 +97,9 @@ Next.js 16 App Router, то же приложение:
 <I18nBenchmark framework="tanstack" packages="paraglide,intlayer" vertical/>
 
 > Полные данные приведены в [отчете о бенчмарке TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/tanstack.md) и в [отчете о бенчмарке Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/nextjs.md). Каждый бандл можно изучить в [репозитории бенчмарка](https://github.com/intlayer-org/benchmark-i18n).
+
+- [отчете о бенчмарке TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/tanstack.md)
+- [отчете о бенчмарке Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/nextjs.md)
 
 Два момента бросаются в глаза:
 
@@ -201,6 +206,8 @@ export const Hero = () => {
 
 В других окружениях этого не произошло. В нашем тесте на [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/nextjs.md) страницы Paraglide весят на 14 KB больше базового приложения, тогда как `next-intlayer` добавляет лишь 0.3 KB. Предыдущие тесты на TanStack Start также показали, что сообщения с других страниц попадали в бандл текущего маршрута.
 
+- [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/nextjs.md)
+
 Tree shaking зависит от вашего сборщика (Turbopack, Rolldown, Rollup), способа импорта сообщений (`import { m }` против `import * as m`) и анализа сайд-эффектов. Если вы выбираете Paraglide из-за размера, откройте анализатор бандла и убедитесь, что это действительно работает в вашем приложении.
 
 ## Нет динамической загрузки
@@ -240,6 +247,8 @@ export default config;
 | `fetch`      | Только активная локаль, получаемая через Live Sync API       | **В N раз меньше** при N локалях |
 
 Благодаря [трансформации на этапе сборки](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/bundle_optimization.md) и режиму `importMode: 'static'`, Intlayer теоретически загружает ровно тот же объем данных, что и Paraglide. А в режимах `'dynamic'` или `'fetch'` он загружает только то, что требуется текущей локали: для приложения на N языках объем передаваемых переводов оказывается в N раз меньше, чем у Paraglide.
+
+- [трансформации на этапе сборки](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/bundle_optimization.md)
 
 ## Где Paraglide все еще уместен
 

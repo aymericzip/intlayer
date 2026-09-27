@@ -114,6 +114,8 @@ export default config;
 
 > Úplný seznam možností naleznete v [referenci konfigurace](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/configuration.md).
 
+- [referenci konfigurace](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/configuration.md)
+
 </Step>
 <Step number={3} title="Přidání Vite pluginu do Storybooku">
 
@@ -358,6 +360,8 @@ export default copyButtonContent;
 ```
 
 > Další formáty deklarace obsahu a funkce naleznete v [dokumentaci deklarace obsahu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/dictionary/content_file.md).
+
+- [dokumentaci deklarace obsahu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/dictionary/content_file.md)
 
 ## Použití `useIntlayer` v komponentě
 

@@ -39,17 +39,23 @@ Alih-alih memuat file JSON besar ke halaman Anda, muat hanya konten yang diperlu
 
 Scoping konten aplikasi Anda **memfasilitasi pemeliharaan** untuk aplikasi skala besar. Anda dapat menduplikasi atau menghapus folder fitur tunggal tanpa beban mental meninjau seluruh codebase konten Anda. Selain itu, Intlayer **fully typed** untuk memastikan akurasi konten Anda.
 
-Intlayer juga merupakan solusi dengan **pengembangan paling aktif** dalam ekosistem i18n — masalah diperbaiki dengan cepat, adapter framework baru tiba secara teratur, dan API inti terus disempurnakan berdasarkan feedback produksi dunia nyata.
+Intlayer juga merupakan solusi dengan **pengembangan paling aktif** dalam ekosistem i18n, masalah diperbaiki dengan cepat, adapter framework baru tiba secara teratur, dan API inti terus disempurnakan berdasarkan feedback produksi dunia nyata.
 
 </Accordion>
 <Accordion header="AI Agent">
 
 Co-locating konten **mengurangi konteks yang diperlukan** oleh Large Language Models (LLMs). Intlayer juga dilengkapi dengan rangkaian tools, seperti **CLI** untuk menguji terjemahan yang hilang, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/mcp_server.md)**, dan **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/agent_skills.md)**, untuk membuat developer experience (DX) lebih lancar untuk AI agents.
 
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/mcp_server.md)
+- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/agent_skills.md)
+
 </Accordion>
 <Accordion header="Automation">
 
 Gunakan automation untuk menerjemahkan di pipeline CI/CD Anda menggunakan LLM pilihan Anda dengan biaya dari penyedia AI Anda. Intlayer juga menawarkan **compiler** untuk mengotomasi ekstraksi konten, serta [web platform](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md) untuk membantu **menerjemahkan di latar belakang**.
+
+- [web platform](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="Performance">
@@ -60,6 +66,9 @@ Menghubungkan file JSON besar ke komponen dapat menyebabkan masalah performance 
 <Accordion header="Scaling dengan non-dev">
 
 Lebih dari sekadar solusi i18n, Intlayer menyediakan **self-hosted [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md)** dan **[full CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)** untuk membantu Anda mengelola konten multibahasa Anda dalam **real-time**, membuat kolaborasi dengan penerjemah, copywriter, dan anggota tim lainnya seamless. Konten dapat disimpan secara lokal dan/atau jarak jauh.
+
+- [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md)
+- [full CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
@@ -72,9 +81,9 @@ Lebih dari sekadar solusi i18n, Intlayer menyediakan **self-hosted [visual edito
 
 Ada dua strategi komplementer untuk bermigrasi dari `react-i18next` / `i18next` ke Intlayer:
 
-1. **Compat adapter (direkomendasikan untuk aplikasi yang sudah ada)** — Install `@intlayer/react-i18next` (untuk komponen React) dan/atau `@intlayer/i18next` (untuk instance `i18n` inti). Paket-paket ini mengekspos **API yang persis sama** dengan `react-i18next` / `i18next` tetapi mendelegasikan semua pekerjaan terjemahan ke Intlayer di balik layar. Anda tetap mempertahankan panggilan `useTranslation`, `Trans`, `withTranslation`, `i18next.t()` yang ada — satu-satunya perubahan adalah path impor.
+1. **Compat adapter (direkomendasikan untuk aplikasi yang sudah ada)**: Install `@intlayer/react-i18next` (untuk komponen React) dan/atau `@intlayer/i18next` (untuk instance `i18n` inti). Paket-paket ini mengekspos **API yang persis sama** dengan `react-i18next` / `i18next` tetapi mendelegasikan semua pekerjaan terjemahan ke Intlayer di balik layar. Anda tetap mempertahankan panggilan `useTranslation`, `Trans`, `withTranslation`, `i18next.t()` yang ada, satu-satunya perubahan adalah path impor.
 
-2. **Migrasi penuh** — Secara bertahap gantikan API `react-i18next` dengan hook Intlayer native (`useIntlayer`, `IntlayerProvider`) dan co-locate konten di file `.content.ts` bersama komponen Anda.
+2. **Migrasi penuh**: Secara bertahap gantikan API `react-i18next` dengan hook Intlayer native (`useIntlayer`, `IntlayerProvider`) dan co-locate konten di file `.content.ts` bersama komponen Anda.
 
 Panduan ini mencakup **Strategi 1** terlebih dahulu (drop-in compat adapter), kemudian menjelaskan migrasi penuh yang opsional.
 
@@ -127,7 +136,7 @@ yarn add intlayer react-intlayer @intlayer/react-i18next @intlayer/i18next @intl
 bun add intlayer react-intlayer @intlayer/react-i18next @intlayer/i18next @intlayer/sync-json-plugin
 ```
 
-> Anda dapat membiarkan `react-i18next` dan `i18next` tetap terpasang — adapter kompatibilitas menggunakannya sebagai `devDependencies` / opsional `peerDependencies` untuk tipe TypeScript. Anda tidak perlu mengubah peer apapun di `package.json`.
+> Anda dapat membiarkan `react-i18next` dan `i18next` tetap terpasang, adapter kompatibilitas menggunakannya sebagai `devDependencies` / opsional `peerDependencies` untuk tipe TypeScript. Anda tidak perlu mengubah peer apapun di `package.json`.
 
 </Step>
 <Step number={2} title="Configure Intlayer">
@@ -166,7 +175,7 @@ export default config;
 </Step>
 <Step number={3} title="Add the Intlayer Plugin to your Bundler">
 
-Bungkus konfigurasi bundler yang ada dengan plugin kompatibilitas. Plugin ini menyusun plugin inti Intlayer, menghubungkan pemantauan konten, dan — yang penting — **menyuntikkan alias modul** sehingga pemanggilan `import … from 'react-i18next'` (dan `'i18next'`) yang ada secara transparan dialihkan ke `@intlayer/react-i18next` / `@intlayer/i18next` pada waktu build. Tidak ada perubahan file sumber yang diperlukan.
+Bungkus konfigurasi bundler yang ada dengan plugin kompatibilitas. Plugin ini menyusun plugin inti Intlayer, menghubungkan pemantauan konten, dan, yang penting, **menyuntikkan alias modul** sehingga pemanggilan `import … from 'react-i18next'` (dan `'i18next'`) yang ada secara transparan dialihkan ke `@intlayer/react-i18next` / `@intlayer/i18next` pada waktu build. Tidak ada perubahan file sumber yang diperlukan.
 
 **For Vite:**
 
@@ -180,7 +189,7 @@ export default defineConfig({
 });
 ```
 
-> `reactI18nextVitePlugin()` membungkus plugin `intlayer()` dari `vite-intlayer` dan menambahkan alias `react-i18next` / `i18next`. Menggunakan plugin `intlayer()` biasa dari `vite-intlayer` mengompilasi kamus tetapi **tidak** menambahkan alias tersebut — Anda kemudian harus mengganti nama impor ke `@intlayer/*` secara manual (lihat Langkah 4).
+> `reactI18nextVitePlugin()` membungkus plugin `intlayer()` dari `vite-intlayer` dan menambahkan alias `react-i18next` / `i18next`. Menggunakan plugin `intlayer()` biasa dari `vite-intlayer` mengompilasi kamus tetapi **tidak** menambahkan alias tersebut, Anda kemudian harus mengganti nama impor ke `@intlayer/*` secara manual (lihat Langkah 4).
 
 **For Next.js:**
 
@@ -211,7 +220,7 @@ export default withIntlayer(nextConfig);
 
 Itu saja untuk migrasi cepat. Aplikasi Anda sekarang berjalan di Intlayer sambil mempertahankan setiap impor dan API `react-i18next`.
 
-> **Kunci terjemahan yang diketik — otomatis.** Setelah Intlayer mengompilasi kamus Anda, `useTranslation` dan `getFixedT` diketik sesuai dengan konten aktual Anda. Kunci secara otomatis dilengkapi di IDE Anda dan jalur yang tidak valid menyebabkan kesalahan TypeScript pada waktu build — tidak ada pengaturan tambahan yang diperlukan.
+> **Kunci terjemahan yang diketik, otomatis.** Setelah Intlayer mengompilasi kamus Anda, `useTranslation` dan `getFixedT` diketik sesuai dengan konten aktual Anda. Kunci secara otomatis dilengkapi di IDE Anda dan jalur yang tidak valid menyebabkan kesalahan TypeScript pada waktu build, tidak ada pengaturan tambahan yang diperlukan.
 >
 > ```tsx
 > // 'about' adalah kunci kamus terdaftar → t() hanya menerima jalur titik yang valid
@@ -310,6 +319,8 @@ export default config;
 
 > Lihat [dokumentasi Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md) untuk semua opsi yang tersedia.
 
+- [dokumentasi Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md)
+
 </Step>
 
 </Steps>
@@ -324,7 +335,7 @@ Setelah adapter kompatibilitas berada di tempat, boilerplate `react-i18next` / `
 | `I18nextProvider` / `initReactI18next`   | Plugin Intlayer menangani injection dan bootstrapping di balik layar.                                                                                    |
 | JSON language bundles (`locales/*.json`) | Bundle JSON hanya diperlukan jika Anda masih menggunakan plugin `syncJSON`. Setelah Anda migrasi ke file `.content.ts` Anda dapat menghapus folder JSON. |
 
-Ketika Anda siap untuk melangkah lebih jauh, Intlayer **secara otomatis menemukan semua file `.content.ts` dan `.content.json` di mana saja dalam codebase Anda** (secara default, di mana saja di dalam `./src`). Anda dapat menempatkan file `my-component.content.ts` tepat di sebelah `MyComponent.tsx` Anda dan Intlayer akan mengambilnya pada waktu build tanpa konfigurasi tambahan — tidak ada imports, tidak ada registrasi, tidak ada file indeks terpusat yang diperlukan. Ini membuat co-locating translations dengan halaman dan komponen sepenuhnya tanpa hambatan.
+Ketika Anda siap untuk melangkah lebih jauh, Intlayer **secara otomatis menemukan semua file `.content.ts` dan `.content.json` di mana saja dalam codebase Anda** (secara default, di mana saja di dalam `./src`). Anda dapat menempatkan file `my-component.content.ts` tepat di sebelah `MyComponent.tsx` Anda dan Intlayer akan mengambilnya pada waktu build tanpa konfigurasi tambahan, tidak ada imports, tidak ada registrasi, tidak ada file indeks terpusat yang diperlukan. Ini membuat co-locating translations dengan halaman dan komponen sepenuhnya tanpa hambatan.
 
 ## Konfigurasi TypeScript
 

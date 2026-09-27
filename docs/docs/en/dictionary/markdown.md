@@ -143,12 +143,12 @@ You can declare Markdown content using the `md` function or simply as a string (
 Intlayer provides two independent ways to render Markdown:
 
 1. **Via `useIntlayer`**
-   — Intlayer automatically transforms the `md` node into the framework's native output (JSX, VNode, HTML string).
-   - Frontmatter is parsed and exposed as `.metadata`. You can override rendering at two levels — globally with `MarkdownProvider` (or the framework equivalent) and locally per-node with `.use()`. Both can be combined; `.use()` takes priority over `MarkdownProvider`, which takes priority over the default.
+   Intlayer automatically transforms the `md` node into the framework's native output (JSX, VNode, HTML string).
+   - Frontmatter is parsed and exposed as `.metadata`. You can override rendering at two levels, globally with `MarkdownProvider` (or the framework equivalent) and locally per-node with `.use()`. Both can be combined; `.use()` takes priority over `MarkdownProvider`, which takes priority over the default.
 
-2. **Helper utilities** — `<MarkdownRenderer />`, `useMarkdownRenderer()`, and `renderMarkdown()` are standalone tools that accept **raw Markdown strings only**. They are independent of `useIntlayer` and do not work with the decorated nodes it returns.
+2. **Helper utilities**: `<MarkdownRenderer />`, `useMarkdownRenderer()`, and `renderMarkdown()` are standalone tools that accept **raw Markdown strings only**. They are independent of `useIntlayer` and do not work with the decorated nodes it returns.
 
-Markdown rendering supports **MDX** — use any JSX/framework component by name directly in your Markdown.
+Markdown rendering supports **MDX**. Use any JSX/framework component by name directly in your Markdown.
 
 ### 1. Automatic Rendering (via `useIntlayer`)
 
@@ -865,7 +865,7 @@ These utilities render **raw Markdown strings** and are independent of `useIntla
 
 ## Global Configuration with `MarkdownProvider`
 
-`MarkdownProvider` (or its framework equivalent) configures the Markdown rendering pipeline for your entire application. It applies to both the automatic `useIntlayer` rendering and the helper utilities. Options set here are the defaults — `.use()` overrides them at the node level.
+`MarkdownProvider` (or its framework equivalent) configures the Markdown rendering pipeline for your entire application. It applies to both the automatic `useIntlayer` rendering and the helper utilities. Options set here are the defaults, `.use()` overrides them at the node level.
 
 <Tabs group="framework">
   <Tab label="React" value="react">
@@ -887,7 +887,7 @@ These utilities render **raw Markdown strings** and are independent of `useIntla
     ```
 
 
-    > MDX is supported — any component name used inside your Markdown (e.g. `<MyCustomJSXComponent />`) is resolved against the `components` map.
+    > MDX is supported, any component name used inside your Markdown (e.g. `<MyCustomJSXComponent />`) is resolved against the `components` map.
 
     You can also use your own markdown renderer:
 
@@ -929,7 +929,7 @@ These utilities render **raw Markdown strings** and are independent of `useIntla
     ```
 
 
-    > MDX is supported — any component name used inside your Markdown (e.g. `<MyCustomJSXComponent />`) is resolved against the `components` map.
+    > MDX is supported, any component name used inside your Markdown (e.g. `<MyCustomJSXComponent />`) is resolved against the `components` map.
 
     You can also use your own markdown renderer:
 
@@ -977,7 +977,7 @@ These utilities render **raw Markdown strings** and are independent of `useIntla
     ```
 
 
-    > MDX is supported — any component name used inside your Markdown (e.g. `<MyCustomJSXComponent />`) is resolved against the `components` map.
+    > MDX is supported, any component name used inside your Markdown (e.g. `<MyCustomJSXComponent />`) is resolved against the `components` map.
 
     You can also use your own markdown renderer:
 
@@ -1021,7 +1021,7 @@ These utilities render **raw Markdown strings** and are independent of `useIntla
     ```
 
 
-    > MDX is supported — any component name used inside your Markdown (e.g. `<MyCustomJSXComponent />`) is resolved against the `components` map.
+    > MDX is supported, any component name used inside your Markdown (e.g. `<MyCustomJSXComponent />`) is resolved against the `components` map.
 
     You can also use your own markdown renderer:
 
@@ -1060,7 +1060,7 @@ These utilities render **raw Markdown strings** and are independent of `useIntla
     ```
 
 
-    > MDX is supported — any component name used inside your Markdown (e.g. `<MyCustomJSXComponent />`) is resolved against the `components` map.
+    > MDX is supported, any component name used inside your Markdown (e.g. `<MyCustomJSXComponent />`) is resolved against the `components` map.
 
     You can also use your own markdown renderer:
 
@@ -1099,7 +1099,7 @@ These utilities render **raw Markdown strings** and are independent of `useIntla
     ```
 
 
-    > MDX is supported — any component name used inside your Markdown (e.g. `<MyCustomJSXComponent />`) is resolved against the `components` map.
+    > MDX is supported, any component name used inside your Markdown (e.g. `<MyCustomJSXComponent />`) is resolved against the `components` map.
 
     You can also use your own markdown renderer:
 
@@ -1138,7 +1138,7 @@ These utilities render **raw Markdown strings** and are independent of `useIntla
     ```
 
 
-    > MDX is supported — any component name used inside your Markdown (e.g. `<MyCustomJSXComponent />`) is resolved against the `components` map.
+    > MDX is supported, any component name used inside your Markdown (e.g. `<MyCustomJSXComponent />`) is resolved against the `components` map.
 
     You can also use your own markdown renderer:
 

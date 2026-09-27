@@ -31,7 +31,7 @@ author: aymericzip
 
 ## الوصف
 
-تقوم دالة `getIntlayer` باختيار قاموس واحد من خلال مفتاحه وتعيد محتواه المُفسَّر للغة محددة. وهي النظير المستقل عن الإطار (framework-agnostic) للربط `useIntlayer`: نفس المحتوى، نفس المحددات، لكنها قابلة للاستخدام في أي مكان لا يتوفر فيه سياق React — نصوص Node، دوال الخادم، محملات المسارات، منشئو البيانات الوصفية، معالجات Express/Fastify، الاختبارات.
+تقوم دالة `getIntlayer` باختيار قاموس واحد من خلال مفتاحه وتعيد محتواه المُفسَّر للغة محددة. وهي النظير المستقل عن الإطار (framework-agnostic) للربط `useIntlayer`: نفس المحتوى، نفس المحددات، لكنها قابلة للاستخدام في أي مكان لا يتوفر فيه سياق React، نصوص Node، دوال الخادم، محملات المسارات، منشئو البيانات الوصفية، معالجات Express/Fastify، الاختبارات.
 
 تقرأ القواميس التي تم إنشاؤها بواسطة Intlayer في `.intlayer/`، لذا فإن وسيط `key` له نوع ويتم إكمال سيارته تلقائياً من إعلانات المحتوى الخاصة بك، والكائن المُعاد له نوع كامل حتى كل ورقة.
 
@@ -57,18 +57,18 @@ getIntlayer(
 
 - `key: DictionaryKeys`
   - **الوصف**: مفتاح القاموس المراد قراءته، كما هو معلّن في ملفات المحتوى الخاصة بك.
-  - **النوع**: `DictionaryKeys` — اتحاد كل مفاتيح القاموس المعلنة.
+  - **النوع**: `DictionaryKeys`، اتحاد كل مفاتيح القاموس المعلنة.
   - **مطلوب**: نعم
 
 - `localeOrSelector: LocalesValues | DictionarySelector`
   - **الوصف**: اللغة المراد تفسير المحتوى بها، أو كائن محدد لـ [القواميس الديناميكية](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dynamic_dictionaries/index.md).
-    - `'fr'` — لغة
-    - `{ item: 2 }` — عنصر [مجموعة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dynamic_dictionaries/collections.md) (حذف `item` للحصول على كل عنصر كمصفوفة)
-    - `{ variant: 'black-friday' }` — [متغير](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dynamic_dictionaries/variants.md) مسمى (حذف للحصول على المتغير `default`)
-    - `{ variant: { id: 'prod_abc', userId: '123' } }` — متغير منظم
+    - `'fr'`: لغة
+    - `{ item: 2 }`: عنصر [مجموعة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dynamic_dictionaries/collections.md) (حذف `item` للحصول على كل عنصر كمصفوفة)
+    - `{ variant: 'black-friday' }`: [متغير](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dynamic_dictionaries/variants.md) مسمى (حذف للحصول على المتغير `default`)
+    - `{ variant: { id: 'prod_abc', userId: '123' } }`: متغير منظم
     - أي محدد يمكنه أن يحمل لغة: `{ item: 2, locale: 'fr' }`
   - **النوع**: `LocalesValues | DictionarySelector`
-  - **مطلوب**: لا (اختياري) — القيمة الافتراضية هي `defaultLocale` المكونة.
+  - **مطلوب**: لا (اختياري)، القيمة الافتراضية هي `defaultLocale` المكونة.
 
 - `plugins: Plugins[]`
   - **الوصف**: محولات عقدة مخصصة تحل محل مكونات المُفسّر الأساسية. للاستخدام المتقدم فقط؛ حذفها للحفاظ على السلوك الافتراضي.
@@ -110,6 +110,8 @@ const { title } = getIntlayer("app", "fr"); // "Bonjour"
 ### بدون locale
 
 حذف locale يفسر المحتوى باستخدام `defaultLocale` المعلنة في [الإعدادات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
+
+- [الإعدادات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md)
 
 ```typescript
 import { getIntlayer } from "intlayer";
@@ -161,6 +163,9 @@ const banner = getIntlayer("banner", { variant: "black-friday", locale: "fr" });
 ### حجم الحزمة
 
 يقرأ `getIntlayer` القاموس المدمج الذي يحتوي على **كل** لغة. في حزم العميل، تعيد [ملحقات البناء](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md) كتابة الاستدعاء بحيث يتم شحن المحتوى المطلوب فقط. عندما تقرأ المحتوى خارج التصيير (البيانات الوصفية، المحملات، وظائف الخادم) وتريد تحميل لغة واحدة حسب الطلب، استخدم [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getIntlayerAsync.md) بدلاً من ذلك.
+
+- [ملحقات البناء](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md)
+- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getIntlayerAsync.md)
 
 ## الدوال ذات الصلة
 

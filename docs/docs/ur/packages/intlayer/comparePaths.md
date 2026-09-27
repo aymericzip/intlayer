@@ -32,9 +32,11 @@ author: aymericzip
 
 ## تفصیل
 
-`comparePaths` فنکشن لوکیل (locale) سیگمنٹ، پروٹوکول/ہوسٹ، استفسار کی تار (query string)، ہیش اور ٹریلنگ سلیش (trailing slashes) کو نظرانداز کرتے ہوئے دو یو آر ایل (URLs) یا راستوں کی برابری کا موازنہ کرتا ہے۔ یہ اس بات کا تعین کرنے کا تجویز کردہ طریقہ ہے کہ آیا کوئی نیویگیشن لنک موجودہ صفحے کی طرف اشارہ کر رہا ہے — مثال کے طور پر فعال لنک کو اجاگر کرنے کے لیے — اپنا خود کا (غلطی کا شکار) معمول کی منطق (normalization logic) لکھے بغیر۔
+`comparePaths` فنکشن لوکیل (locale) سیگمنٹ، پروٹوکول/ہوسٹ، استفسار کی تار (query string)، ہیش اور ٹریلنگ سلیش (trailing slashes) کو نظرانداز کرتے ہوئے دو یو آر ایل (URLs) یا راستوں کی برابری کا موازنہ کرتا ہے۔ یہ اس بات کا تعین کرنے کا تجویز کردہ طریقہ ہے کہ آیا کوئی نیویگیشن لنک موجودہ صفحے کی طرف اشارہ کر رہا ہے، مثال کے طور پر فعال لنک کو اجاگر کرنے کے لیے، اپنا خود کا (غلطی کا شکار) معمول کی منطق (normalization logic) لکھے بغیر۔
 
 اندرونی طور پر یہ لوکیل سیگمنٹ کو ہٹانے کے لیے [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/packages/intlayer/getPathWithoutLocale.md) کو دوبارہ استعمال کرتا ہے، اس طرح یہ آپ کے تشکیل شدہ روٹنگ موڈ اور لوکیلز کا احترام کرتا ہے۔
+
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/packages/intlayer/getPathWithoutLocale.md)
 
 پیکیج ایک بنیادی [`normalizePath`](#normalizepath) مددگار (helper) کو بھی برآمد کرتا ہے، جو موازنہ کے لیے استعمال ہونے والا کینونیکل، لوکیل سے آزاد راستہ واپس کرتا ہے۔
 
@@ -44,7 +46,7 @@ author: aymericzip
 - مطلق (absolute) URLs اور متعلقہ (relative) راستوں دونوں کے ساتھ کام کرتا ہے
 - استفسار کی تار (query string)، ہیش اور ٹریلنگ سلیش کو نظر انداز کرتا ہے
 - غائب معروف سلیش اور خالی اقدار کو برداشت کرتا ہے (`/` میں معمول کے مطابق)
-- ہلکا پھلکا — `getPathWithoutLocale` کے اوپر بنایا گیا
+- ہلکا پھلکا، `getPathWithoutLocale` کے اوپر بنایا گیا
 
 ## فنکشن سگنیچر
 

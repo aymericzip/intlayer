@@ -34,6 +34,8 @@ author: aymericzip
 
 翻訳の宣言方法の詳細については、[翻訳ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/translation.md)を参照してください。
 
+- [翻訳ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/translation.md)
+
 ## パラメーター
 
 - `languageContent: CustomizableLanguageContent<Content>`

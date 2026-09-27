@@ -100,6 +100,8 @@ Po zbudowaniu aplikacji, bundle to JavaScript, który przeglądarka załaduje, a
 
 <I18nBenchmark framework="nextjs" packages="next-i18next,next-intl,next-intlayer" vertical/>
 
+- [Benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/nextjs.md)
+
 <ClickToOpenIframe
   src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
   width="100%"
@@ -121,6 +123,9 @@ Kluczowe wyniki zmierzone na Next.js App Router (gzip):
 | `next-intlayer` (native Intlayer) |         **5.5 KB** |     **141.3 KB** |                  **0.0%** |            **0.0%** |           **6.9 KB** |
 
 > Pełną analizę znajdziesz w [raporcie benchmarku Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/nextjs.md) oraz w szczegółowym [przeglądzie benchmarku i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/index.md).
+
+- [raporcie benchmarku Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/nextjs.md)
+- [przeglądzie benchmarku i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/index.md)
 
 Dwa komponenty są ważne w kontekście bundle aplikacji wielojęzycznej:
 
@@ -1522,3 +1527,5 @@ Wszystkie trzy biblioteki odnoszą sukces w podstawowej lokalizacji. Różnica p
 - [Adapter kompatybilności @intlayer/next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compat/next-i18next.md)
 
 Zapoznaj się z dokumentem ['Dlaczego Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/interest_of_intlayer.md) po więcej szczegółów.
+
+- [Dlaczego Intlayer? Zalety na tle innych bibliotek i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/interest_of_intlayer.md)

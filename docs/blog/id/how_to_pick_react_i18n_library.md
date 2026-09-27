@@ -26,6 +26,8 @@ React tidak menyediakan primitif i18n bawaan. Library yang Anda pilih sejak hari
 
 Panduan ini mengambil pendekatan sebaliknya: jawab beberapa pertanyaan tentang proyek Anda terlebih dahulu, lalu petakan jawabannya ke library yang paling cocok. Panduan ini berfokus pada React murni (Vite, React Router, TanStack Start). Next.js memiliki batasan dan karakteristik tersendiri, yang dibahas dalam [perbandingan Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/next-i18next_vs_next-intl_vs_intlayer.md).
 
+- [perbandingan Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/next-i18next_vs_next-intl_vs_intlayer.md)
+
 ## Daftar Isi
 
 <TOC/>
@@ -74,6 +76,8 @@ Konten dikompilasi menjadi fungsi yang mendukung tree-shaking atau kamus per kom
 
 [Sejarah JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/history_of_i18n.md) merinci bagaimana setiap gelombang menjawab masalah dari gelombang sebelumnya.
 
+- [Sejarah JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/history_of_i18n.md)
+
 ## Keputusan yang paling penting: di mana konten berada dan kapan dimuat
 
 Setiap library React i18n memiliki bentuk yang serupa: sebuah store, provider, dan hook. Apa pun yang diterima oleh provider akan berakhir di bundle klien atau dalam payload hydration. Jadi dua pilihan struktural utamanya adalah:
@@ -89,11 +93,17 @@ Konten terpusat dengan static import bertambah seiring kedua sumbu: 10 halaman d
 
 Ini bukan sekadar karakteristik library, melainkan masalah disiplin implementasi. `react-i18next` dapat di-scope dengan namespace dan backend lazy loading. `use-intl` dapat dipecah per route. Namun tidak ada yang memaksakannya, dan sebuah `<Button>` bersama yang mengakses `t("common:cta")` secara diam-diam menjadikan `common` sebagai dependensi dari setiap route. [Benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/index.md) mengukur ini sebagai "kebocoran dari route lain" dan "kebocoran dari locale lain", dan dari sinilah sebagian besar perbedaan performa antar library berasal.
 
+- [Benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/index.md)
+
 Jika jawaban Anda untuk pertanyaan 3 adalah "banyak locale, banyak halaman", pertimbangkan bagian ini lebih dari preferensi API apa pun. Artikel [i18n per komponen vs terpusat](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/per-component_vs_centralized_i18n.md) membahas lebih dalam mengenai sisi pemeliharaan dari pilihan yang sama.
+
+- [i18n per komponen vs terpusat](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/per-component_vs_centralized_i18n.md)
 
 ## Para kandidat
 
 Ukuran library diambil dari [benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/tanstack.md): provider ditambah hook dalam komponen kosong, setelah bundling, tree-shaking, dan minifikasi, 10 halaman dan 10 locale. Konten diukur secara terpisah.
+
+- [benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/tanstack.md)
 
 ![Ekosistem library React i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
@@ -119,6 +129,8 @@ Dua hal yang tidak ditampilkan dalam tabel. `Paraglide` hampir tidak memuat kode
 
 Pilih opsi paling sederhana yang berfungsi dan jangan over-invest. `react-i18next` dengan satu JSON per locale sudah cukup, dan dokumentasi serta jawaban Stack Overflow selama satu dekade akan menghemat waktu Anda. Lewati namespace sampai Anda benar-benar membutuhkannya. Jika prototipe berkembang menjadi produk, siapkan rencana migrasi ke konten scoped; [adapter kompatibilitas react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/react-i18next.md) membuat proses tersebut bertahap.
 
+- [adapter kompatibilitas react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/react-i18next.md)
+
 </Accordion>
 <Accordion header="Terjemahan berasal dari agensi atau TMS yang menggunakan ICU">
 
@@ -134,6 +146,8 @@ Pilih konten terlingkup (scoped) dan dynamic loading secara default, bukan sekad
 
 Setiap library berbasis kunci bisa diberi type, namun hampir tidak ada yang menyediakannya secara default. Jika Anda tidak ingin memelihara declaration merging yang harus bertahan di antara namespace yang dimuat secara lazy, pilih library di mana type di-generate langsung dari konten: `Lingui`, `Paraglide`, atau Intlayer. Artikel [mendeteksi terjemahan yang hilang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/detecting_missing_translations.md) membandingkan apa saja yang ditangkap oleh masing-masing library saat build.
 
+- [mendeteksi terjemahan yang hilang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/detecting_missing_translations.md)
+
 </Accordion>
 <Accordion header="Banyak konten kaya: markdown, tautan di dalam kalimat, komponen per locale">
 
@@ -148,6 +162,8 @@ Maka JSON terpusat tidak lagi menjadi keharusan, karena tidak ada TMS eksternal 
 <Accordion header="Anda mungkin akan beralih ke Next.js App Router nanti">
 
 React context tidak dapat melintasi batasan server/client. Library yang dibangun hanya berdasarkan hook klien (`react-i18next`, `react-intl`) akan memerlukan API server paralel saat Anda mengadopsi RSC. `use-intl` (sebagai `next-intl`) dan Intlayer (sebagai `next-intlayer`) sudah memiliki pemisahan tersebut. Baca artikel [i18n Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/next-i18next_vs_next-intl_vs_intlayer.md) sebelum membakukan suatu pola arsitektur.
+
+- [i18n Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/next-i18next_vs_next-intl_vs_intlayer.md)
 
 </Accordion>
 </AccordionGroup>
@@ -499,6 +515,11 @@ Semua locale dalam satu file di samping komponen. Type di-generate saat build, s
 
 Sudah menggunakan `react-i18next`, `react-intl`, atau `Lingui`? Adapter kompatibilitas ([react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/react-i18next.md), [react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/react-intl.md), [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/lingui.md)) melakukan alias pada import di level bundler sehingga API yang ada tetap berfungsi saat Anda bermigrasi komponen demi komponen. [Panduan migrasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_react-i18next_to_intlayer.md) mencakup langkah-langkah lainnya.
 
+- [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/react-i18next.md)
+- [react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/react-intl.md)
+- [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/lingui.md)
+- [Panduan migrasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_react-i18next_to_intlayer.md)
+
 ## Sebelum Anda memutuskan
 
 Tabel fitur menunjukkan apa yang bisa dilakukan library hari ini. Poin-poin berikut memberi tahu Anda seperti apa pengalaman menggunakannya dalam jangka panjang.
@@ -521,6 +542,9 @@ Library yang paling banyak diunduh adalah yang dirilis paling awal, bukan yang p
 
 Agent AI masih sering kesulitan dengan i18n: lupa menyertakan locale, membuat kunci fiktif, dan mencampur aduk sintaks pesan. Apakah library menyediakan [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/agent_skills.md) atau [server MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/mcp_server.md) agar agent dapat menampilkan daftar, mengisi, dan menguji konten? Dan apakah pemuatan konten dioptimalkan secara default, atau seseorang harus meninjau namespace dan lazy import setiap kuartal?
 
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/agent_skills.md)
+- [server MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/mcp_server.md)
+
 **Type safety bawaan.**
 
 Bukan sekadar "bisa diberi type dengan konfigurasi manual tambahan", melainkan "kunci yang salah langsung menggagalkan `tsc` pada instalasi baru". Periksa apa yang terjadi jika ada kunci yang tidak ada, atau jika sebuah locale kekurangan satu terjemahan.
@@ -532,6 +556,13 @@ Katalog terjemahan cenderung terus bertambah. Build Intlayer membersihkan field 
 **Pengalaman pengembang (Developer Experience).**
 
 Waktu setup hingga string terjemahan pertama berfungsi, [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/lsp.md) atau [ekstensi VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/vs_code_extension.md) yang menampilkan terjemahan saat kursor diarahkan (hover) dan melompat langsung ke deklarasi, [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md) untuk fill, test, dan push, [compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md) atau ekstraktor yang mengambil string hard-coded dari komponen Anda sehingga tidak perlu mengelola setiap string satu per satu berdasarkan kunci, serta cara bagi non-developer untuk mengedit konten ([editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) atau [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)) tanpa perlu membuka pull request.
+
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/lsp.md)
+- [ekstensi VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/vs_code_extension.md)
+- [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md)
+- [compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md)
+- [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)
 
 ## Pertanyaan yang Sering Diajukan
 
@@ -547,6 +578,8 @@ Ya untuk sebagian besar tim. Library ini memiliki ekosistem terbesar dan jawaban
 
 Hanya jika ukuran bundle, generated types, atau pemeriksaan kunci yang hilang saat waktu build termasuk dalam kebutuhan Anda. Untuk aplikasi kecil dengan dua locale, library runtime lebih sederhana. Artikel [i18n compiler vs deklaratif](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/compiler_vs_declarative_i18n.md) menjelaskan apa yang diberikan oleh compiler dan apa potensi kekurangannya.
 
+- [i18n compiler vs deklaratif](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/compiler_vs_declarative_i18n.md)
+
 </Question>
 
 <Question title="Bisakah saya beralih library nanti tanpa menulis ulang setiap komponen?">
@@ -558,6 +591,8 @@ Sebagian bisa. Library berbasis kunci memiliki pola yang cukup mirip sehingga ad
 <Question title="Apakah pilihan library memengaruhi SEO?">
 
 Secara tidak langsung. Apa yang dilihat oleh web crawler ditentukan oleh routing, `hreflang`, `<html lang>`, dan apakah teks ada dalam HTML yang dirender di server. Beberapa library menyediakan helper untuk hal tersebut, namun sebagian besar menyerahkannya kepada Anda. Lihat [panduan hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/hreflang_guide_multilingual_seo.md).
+
+- [panduan hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/hreflang_guide_multilingual_seo.md)
 
 </Question>
 

@@ -95,6 +95,8 @@ const exampleContent = {
 export default exampleContent;
 ```
 
+- [Archivos de declaración de contenido (.content.ts)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/content_file.md)
+
 ## Ejemplo de uso en un componente cliente de React
 
 A continuación se muestra un ejemplo de cómo usar el hook `useDictionary` en un componente React:

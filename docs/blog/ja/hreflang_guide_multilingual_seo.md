@@ -140,6 +140,9 @@ getLocalizedUrl("https://example.com/about", "fr"); // → "https://example.com/
 
 > Intlayerは`routing.mode`と`routing.domains`を通じて3つすべてをカバーしています。[カスタムドメイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/custom_domains.md)と[構成リファレンス](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を参照してください。
 
+- [カスタムドメイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/custom_domains.md)
+- [構成リファレンス](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)
+
 ## 実装
 
 これらのタグを手作業で書くことは、2番目のlocaleとの接触に耐えられません。代わりに、localeリストから導出してください。
@@ -194,6 +197,8 @@ export const generateMetadata = async ({
 
 フルセットアップ: [Next.js 16 i18n ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_16.md).
 
+- [Next.js 16 i18n ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_16.md)
+
 </Tab>
 
 <Tab label="TanStack Start" value="tanstack">
@@ -233,6 +238,8 @@ export const Route = createFileRoute("/{-$locale}/about")({
 ```
 
 `head` はサーバーで実行されるため、タグは初期 HTML に含まれます。完全なセットアップ: [TanStack Start i18n ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_tanstack.md)。
+
+- [TanStack Start i18n ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_tanstack.md)
 
 </Tab>
 

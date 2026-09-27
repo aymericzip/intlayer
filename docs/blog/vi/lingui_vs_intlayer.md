@@ -128,6 +128,8 @@ style="border:none;"
 
 > Bảng đầy đủ, từng thư viện và từng chiến lược, trong [báo cáo benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md).
 
+- [báo cáo benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md)
+
 ### Kết quả trên TanStack Start
 
 | Thư viện                         | Chiến lược     | Kích thước Lib (gz) | JS trang TB (gz) | Rò rỉ ngôn ngữ | Rò rỉ trang | TB component (gz) | Độ phản hồi E2E | Hydrate |
@@ -157,6 +159,8 @@ style="border:none;"
 />
 
 > Bảng đầy đủ trong [báo cáo benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md).
+
+- [báo cáo benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md)
 
 ## Tại sao lại có khoảng cách? Hai trình biên dịch, hai đơn vị xử lý
 
@@ -206,6 +210,8 @@ Cả hai thư viện đều thực hiện biên dịch. Sự khác biệt nằm 
 ![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 > Để có được các số liệu của hàng `dynamic`, hãy đặt `dictionary.importMode: 'dynamic'` trong `intlayer.config.ts`. Xem thêm [tài liệu tối ưu hóa bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md).
+
+- [tài liệu tối ưu hóa bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md)
 
 ## Trải nghiệm lập trình viên
 
@@ -391,6 +397,8 @@ export default defineConfig({
 
 Giữ `@lingui/babel-plugin-lingui-macro` / `@lingui/swc-plugin` chạy trước trình biên dịch Intlayer trong quá trình build. Xem thêm [tài liệu tương thích Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/lingui.md).
 
+- [tài liệu tương thích Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/lingui.md)
+
 ## Khi nào nên chọn thư viện nào?
 
 <AccordionGroup>
@@ -403,10 +411,18 @@ Bạn muốn **ICU MessageFormat** với các macro có kiểu dữ liệu, dị
 
 Bạn muốn **nội dung có phạm vi theo component**, **TypeScript chặt chẽ**, **báo lỗi thiếu khóa ngay khi build**, **tree-shaking và lazy loading không tốn công sức**, component nhỏ gọn, hydrate nhanh, chuyển đổi ngôn ngữ tức thì và các công cụ biên tập tích hợp ([Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md), [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md), [dịch thuật AI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/autoFill.md), [máy chủ MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/mcp_server.md)). Đặc biệt phù hợp cho các codebase mô-đun lớn và hệ thống thiết kế.
 
+- [Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)
+- [dịch thuật AI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/autoFill.md)
+- [máy chủ MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/mcp_server.md)
+
 </Accordion>
 <Accordion header="Chọn @intlayer/lingui">
 
 Bạn đang dùng Lingui và muốn chuyển dần sang từ điển của Intlayer mà không cần chỉnh sửa macro. Các danh mục `.po` của bạn vẫn là nguồn chân lý duy nhất thông qua [plugin đồng bộ hóa PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/lingui.md). Được đo lường cạnh nhau trong [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/lingui_vs_intlayer-lingui.md).
+
+- [plugin đồng bộ hóa PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/lingui.md)
+- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/lingui_vs_intlayer-lingui.md)
 
 </Accordion>
 </AccordionGroup>
@@ -437,11 +453,15 @@ Có, và trên TanStack Start nó thắng sít sao: 115.2 KB ở chế độ `dy
 
 Không. `@intlayer/lingui` giữ nguyên cách biên dịch `` t`...` ``, `<Trans>`, `msg`, `plural`, `select` và `selectOrdinal`; chỉ có nguồn giải quyết của `i18n._()` thay đổi. Tiếp tục giữ `@lingui/babel-plugin-lingui-macro` hoặc `@lingui/swc-plugin` trong bản build. Xem [tài liệu tương thích Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/lingui.md).
 
+- [tài liệu tương thích Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/lingui.md)
+
 </Question>
 
 <Question title="Còn các bước trích xuất và biên dịch thì sao?">
 
 Chúng được giữ lại cho macro và biến mất đối với nội dung riêng của Intlayer. Các từ điển `.content.ts` được tạo tự động khi bundler chạy mà không cần lệnh CLI riêng, và [`intlayer test`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md) sẽ làm dừng CI nếu thiếu khóa thay vì lặng lẽ quay lại chuỗi nguồn.
+
+- [`intlayer test`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md)
 
 </Question>
 
@@ -493,3 +513,5 @@ Nhưng thực tế không chỉ có vậy. Trình biên dịch của Lingui dừ
 Tất cả dữ liệu thô, ứng dụng thử nghiệm và script đều có trong [kho lưu trữ Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Bạn có thể tự mình chạy thử.
 
 Tham khảo tài liệu ['Tại sao chọn Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/interest_of_intlayer.md) để biết thêm chi tiết.
+
+- [Vì sao chọn Intlayer? Ưu điểm so với các thư viện i18n khác](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/interest_of_intlayer.md)

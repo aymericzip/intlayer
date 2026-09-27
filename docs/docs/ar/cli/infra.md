@@ -104,13 +104,13 @@ npx intlayer init infra --mode compose
 
        ./intlayer/.env
 
-     Either RESEND_API_KEY (resend.com) or the MAIL_SMTP_* block — the first
+     Either RESEND_API_KEY (resend.com) or the MAIL_SMTP_* block, the first
      account cannot be verified without a working mailer.
   2. Start the stack:
 
        cd ./intlayer && docker compose up -d
 
-  Then open http://localhost:3000 — first boot initialises the
+  Then open http://localhost:3000, first boot initialises the
   datastores, so give it a minute. The first account you create becomes the
   super admin.
 
@@ -118,6 +118,10 @@ npx intlayer init infra --mode compose
     Stop      docker compose down
     Upgrade   docker compose pull && docker compose up -d
 ```
+
+عند تحديد نطاق (على سبيل المثال `example.org`)، تقترح أداة التثبيت `https://cms.example.org` و`https://back.example.org` و`https://s3.example.org/intlayer` للوحة التحكم وواجهة API وتخزين الكائنات، وتكتبها في ملف البيئة، وتحوّل أمر التشغيل إلى بناء من المستودع، لأن صورة لوحة التحكم المنشورة لا تعمل إلا على `localhost`. راجع [نطاق مخصص](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/self_hosting.md#custom-domain).
+
+- [نطاق مخصص](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/self_hosting.md#custom-domain)
 
 ## إعدادات أداة التثبيت
 
@@ -143,6 +147,8 @@ INTLAYER_COMPOSE_DIR=./cms npx intlayer init infra --mode compose
 | `INTLAYER_SELFHOST_REF`   | `main`                    | كلاهما    | مرجع Git الذي يتم جلب ملف compose وقالب env منه  |
 
 > تغير متغيرات المنافذ جانب **المضيف** فقط من التعيين. تحتوي الصور المنشورة على `http://localhost:3000` و`http://localhost:3100` و`http://localhost:9000` مجمعة في حزمة لوحة التحكم، لذا احتفظ بالإعدادات الافتراضية ما لم تقم ببناء صورك الخاصة: راجع [دليل الاستضافة الذاتية](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/self_hosting.md#limitations).
+
+- [دليل الاستضافة الذاتية](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/self_hosting.md#limitations)
 
 ## المتطلبات
 

@@ -30,6 +30,8 @@ author: aymericzip
 
 Bài viết này đo lường sự thay đổi đó trên cùng một ứng dụng TanStack Start, được xây dựng một lần với Lingui thuần và một lần với adapter. Các số liệu được trích xuất từ [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Để so sánh trực tiếp hai thư viện độc lập, vui lòng đọc [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/lingui_vs_intlayer.md). Bài viết này tập trung vào những gì adapter thay đổi và những trường hợp adapter không mang lại lợi thế.
 
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/lingui_vs_intlayer.md)
+
 <TOC/>
 
 > **Tóm tắt (tl;dr)**: Trên cùng một ứng dụng TanStack Start, `@intlayer/lingui` đã cắt giảm kích thước trung bình của component từ **85.5 KB xuống 12.8 KB** gzip, rút ngắn thời gian hydration từ **28 ms xuống 19.7 ms**, và chuyển đổi ngôn ngữ từ **5.9 ms xuống 2.9 ms**, trong khi giữ nguyên toàn bộ macro. Ở cấu hình cơ bản (tải toàn bộ catalog ngay từ đầu), adapter còn loại bỏ **90% rò rỉ trang** và tiết kiệm 12 KB cho mỗi trang. Tuy nhiên, ở cấu hình tải lười (lazy loading), adapter chuyển tải **137 KB mỗi trang so với 115 KB** của Lingui thuần: nguyên nhân là adapter phân tích cú pháp ICU ở runtime trong khi Lingui phân phối các mảng token biên dịch sẵn. Mức rò rỉ ngôn ngữ gốc (~9-10%) tương đương ở cả hai bên, vì nó xuất phát từ chuỗi fallback `message` nhúng trực tiếp trong component chứ không phải từ runtime. Adapter là một plugin Vite và được đo lường trên TanStack Start.
@@ -230,6 +232,8 @@ export default config;
 
 Đối với catalog `.po`, thay thế `syncJSON` bằng `syncPO` từ `@intlayer/sync-po-plugin` với cùng mẫu `source` nhưng mang phần mở rộng `.po`. Xem thêm tại [tài liệu plugin Sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/plugins/sync-po.md).
 
+- [tài liệu plugin Sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/plugins/sync-po.md)
+
 `splitKeys: "key-prefix"` là chìa khóa chính giúp thu nhỏ kích thước component một cách ngoạn mục. Tệp catalog gốc giữ nguyên cấu trúc phẳng; việc phân tách chỉ diễn ra trong các từ điển được tạo ra, và quá trình ghi ngược sẽ tự động hợp nhất các khóa lại.
 
 </Step>
@@ -307,3 +311,5 @@ Plugin `lingui()` bao gói `vite-intlayer` (theo dõi nội dung, biên dịch t
 Toàn bộ dữ liệu thô, các ứng dụng thử nghiệm và tập lệnh đo lường đều có sẵn tại [kho lưu trữ Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Bạn hoàn toàn có thể tự mình chạy kiểm thử.
 
 Tham khảo tài liệu ['Tại sao nên chọn Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/interest_of_intlayer.md) để biết thêm thông tin chi tiết.
+
+- [Vì sao chọn Intlayer? Ưu điểm so với các thư viện i18n khác](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/interest_of_intlayer.md)

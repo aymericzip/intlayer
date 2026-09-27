@@ -44,10 +44,16 @@ author: aymericzip
 
 コンテンツのコロケーション（同一場所配置）により、大規模言語モデル（LLM）に必要な**コンテキストが減少**します。Intlayerには、不足している翻訳をテストするための**CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)**、および**[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)**などのツールスイートが備わっており、AIエージェントにとってよりスムーズな開発者体験（DX）を提供します。
 
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)
+- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)
+
 </Accordion>
 <Accordion header="自動化">
 
 AIプロバイダーのコストで、お好みのLLMを使用してCI/CDパイプライン内で翻訳を自動化できます。Intlayerは、コンテンツ抽出を自動化するための**コンパイラ**や、**バックグラウンドでの翻訳**を支援する[ウェブプラットフォーム](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)も提供しています。
+
+- [ウェブプラットフォーム](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="パフォーマンス">
@@ -58,6 +64,9 @@ AIプロバイダーのコストで、お好みのLLMを使用してCI/CDパイ�
 <Accordion header="非開発者とのスケーラビリティ">
 
 単なるi18nソリューションにとどまらず、Intlayerはセルフホストの**[ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)**と**[フルCMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)**を提供し、多言語コンテンツを**リアルタイム**で管理できるようにします。これにより、翻訳者やコピーライター、その他のチームメンバーとのシームレスなコラボレーションが可能になります。コンテンツはローカルおよび/またはリモートに保存できます。
+
+- [ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)
+- [フルCMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
@@ -70,9 +79,9 @@ AIプロバイダーのコストで、お好みのLLMを使用してCI/CDパイ�
 
 `i18next`からIntlayerに移行するための、互いに補完する2つの戦略があります：
 
-1. **互換性アダプター（既存のアプリに推奨）** — `@intlayer/i18next`をインストールします。このパッケージは`i18next`と**全く同じAPI**を公開しますが、裏側ですべての翻訳作業をIntlayerに委譲します。`i18next.t()`、`i18next.changeLanguage()`、および`createInstance()`への既存の呼び出しはそのまま保持されます — 変更するのはインポートパスと初期化のみです。
+1. **互換性アダプター（既存のアプリに推奨）**：`@intlayer/i18next`をインストールします。このパッケージは`i18next`と**全く同じAPI**を公開しますが、裏側ですべての翻訳作業をIntlayerに委譲します。`i18next.t()`、`i18next.changeLanguage()`、および`createInstance()`への既存の呼び出しはそのまま保持されます。変更するのはインポートパスと初期化のみです。
 
-2. **完全移行** — 徐々に`i18next`のAPIをネイティブのIntlayerツールに置き換え、コンテンツを`.content.ts`ファイル内にコロケーションします。
+2. **完全移行**：徐々に`i18next`のAPIをネイティブのIntlayerツールに置き換え、コンテンツを`.content.ts`ファイル内にコロケーションします。
 
 このガイドでは、まず**戦略1**（ドロップイン互換性アダプター）について解説し、その後オプションである完全移行について説明します。
 
@@ -125,7 +134,7 @@ yarn add intlayer @intlayer/i18next @intlayer/sync-json-plugin
 bun add intlayer @intlayer/i18next @intlayer/sync-json-plugin
 ```
 
-> `i18next`はインストールしたままにして構いません — 互換性アダプターはこれをTypeScriptの型のための`devDependency` / `peerDependency`として使用します。
+> `i18next`はインストールしたままにして構いません、互換性アダプターはこれをTypeScriptの型のための`devDependency` / `peerDependency`として使用します。
 
 </Step>
 <Step number={2} title="Intlayerの設定">
@@ -177,7 +186,7 @@ export default defineConfig({
 });
 ```
 
-> `i18nextVitePlugin()`は`vite-intlayer`の`intlayer()`プラグインをラップし、`i18next` → `@intlayer/i18next`のエイリアスを自動的に追加します。通常の`vite-intlayer`の`intlayer()`プラグインを使用すると、辞書はコンパイルされますがエイリアスは追加され**ません** — その場合、インポートを`@intlayer/i18next`に手動で名前変更する必要があります（次のステップを参照）。
+> `i18nextVitePlugin()`は`vite-intlayer`の`intlayer()`プラグインをラップし、`i18next` → `@intlayer/i18next`のエイリアスを自動的に追加します。通常の`vite-intlayer`の`intlayer()`プラグインを使用すると、辞書はコンパイルされますがエイリアスは追加され**ません**、その場合、インポートを`@intlayer/i18next`に手動で名前変更する必要があります（次のステップを参照）。
 
 </Step>
 
@@ -260,6 +269,8 @@ export default config;
 
 > 利用可能なすべてのオプションについては、[Intlayer CLIドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md)を確認してください。
 
+- [Intlayer CLIドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md)
+
 </Step>
 
 </Steps>
@@ -274,7 +285,7 @@ export default config;
 | `i18next.use(...)`                  | Intlayerはi18nextのプラグイン、バックエンド、言語検出機能を使用しません。                                                             |
 | JSON言語バンドル (`locales/*.json`) | JSONバンドルは、`syncJSON`プラグインを使用している場合にのみ必要です。`.content.ts`ファイルに移行したら、JSONフォルダを削除できます。 |
 
-さらに進める準備ができたら、Intlayerはコードベース内の**どこにある`.content.ts`および`.content.json`ファイルでも自動的に検出します**（デフォルトでは`./src`内）。`my-component.content.ts`ファイルをロジックのすぐ隣に配置するだけで、追加の設定なしでビルド時にIntlayerがそれを取得します — インポート、登録、中央のインデックスファイルは不要です。これにより、翻訳のコロケーションが完全にシームレスになります。
+さらに進める準備ができたら、Intlayerはコードベース内の**どこにある`.content.ts`および`.content.json`ファイルでも自動的に検出します**（デフォルトでは`./src`内）。`my-component.content.ts`ファイルをロジックのすぐ隣に配置するだけで、追加の設定なしでビルド時にIntlayerがそれを取得します。インポート、登録、中央のインデックスファイルは不要です。これにより、翻訳のコロケーションが完全にシームレスになります。
 
 ## TypeScriptの設定
 

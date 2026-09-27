@@ -79,16 +79,16 @@ import "next-intlayer";
 import "next-intlayer/server";
 ```
 
-| コンポーネント           | 説明                                                                                                                                                                                                   | 関連ドキュメント |
-| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------- |
-| `IntlayerProvider`       | Next.js App Router 用の統一プロバイダー。ロケールレイアウトに一度マウントされ、リクエストスコープのサーバーコンテキストをシード_し_、クライアントプロバイダーをマウントします。(Intlayer >= 9.4)       | -                |
-| `IntlayerClientProvider` | **非推奨** — `next-intlayer/server` の `IntlayerProvider` を使用してください。Next.js App Router のクライアント側コンポーネント用プロバイダー。`react-intlayer` の `IntlayerProvider` をラップします。 | -                |
-| `IntlayerServerProvider` | **非推奨** — `next-intlayer/server` の `IntlayerProvider` を使用してください。サーバー上でロケールコンテキストを提供します。(Intlayer < 9.4)                                                           | -                |
-| `IntlayerServer`         | App Router における Intlayer コンテンツのサーバー側ラッパー。サーバーコンポーネントでの適切なロケール処理を保証します。                                                                                | -                |
-| `HTMLProvider`           | HTML 関連の国際化設定用プロバイダー。HTML タグのコンポーネントオーバーライドを可能にします。                                                                                                           | -                |
-| `HTMLRenderer`           | カスタムコンポーネントを使用して HTML コンテンツをレンダリングします。                                                                                                                                 | -                |
-| `MarkdownProvider`       | Markdown レンダリングコンテキスト用プロバイダー。Markdown 要素のカスタムコンポーネントオーバーライドを可能にします。                                                                                   | -                |
-| `MarkdownRenderer`       | カスタムコンポーネントを使用して Markdown コンテンツをレンダリングします。                                                                                                                             | -                |
+| コンポーネント           | 説明                                                                                                                                                                                                  | 関連ドキュメント |
+| ------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
+| `IntlayerProvider`       | Next.js App Router 用の統一プロバイダー。ロケールレイアウトに一度マウントされ、リクエストスコープのサーバーコンテキストをシード_し_、クライアントプロバイダーをマウントします。(Intlayer >= 9.4)      | -                |
+| `IntlayerClientProvider` | **非推奨**、`next-intlayer/server` の `IntlayerProvider` を使用してください。Next.js App Router のクライアント側コンポーネント用プロバイダー。`react-intlayer` の `IntlayerProvider` をラップします。 | -                |
+| `IntlayerServerProvider` | **非推奨**、`next-intlayer/server` の `IntlayerProvider` を使用してください。サーバー上でロケールコンテキストを提供します。(Intlayer < 9.4)                                                           | -                |
+| `IntlayerServer`         | App Router における Intlayer コンテンツのサーバー側ラッパー。サーバーコンポーネントでの適切なロケール処理を保証します。                                                                               | -                |
+| `HTMLProvider`           | HTML 関連の国際化設定用プロバイダー。HTML タグのコンポーネントオーバーライドを可能にします。                                                                                                          | -                |
+| `HTMLRenderer`           | カスタムコンポーネントを使用して HTML コンテンツをレンダリングします。                                                                                                                                | -                |
+| `MarkdownProvider`       | Markdown レンダリングコンテキスト用プロバイダー。Markdown 要素のカスタムコンポーネントオーバーライドを可能にします。                                                                                  | -                |
+| `MarkdownRenderer`       | カスタムコンポーネントを使用して Markdown コンテンツをレンダリングします。                                                                                                                            | -                |
 
 ### フック（クライアント側）
 

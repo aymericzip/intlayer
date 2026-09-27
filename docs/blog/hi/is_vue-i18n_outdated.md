@@ -88,6 +88,8 @@ style="border:none;"
 
 > वास्तविक ब्राउज़रों में प्रोडक्शन gzip कंप्रेशन के साथ परीक्षण किया गया। पूर्ण विवरण [Vue बेंचमार्क दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/vue.md) में देखें।
 
+- [Vue बेंचमार्क दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/vue.md)
+
 ### शुरुआती लाइब्रेरी ओवरहेड
 
 ट्रांसलेशन फाइल्स लोड होने से पहले का भार:
@@ -178,6 +180,9 @@ const { title } = useIntlayer("hero");
 
 [Intlayer कंपाइलर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md) सटीक उपयोग का विश्लेषण करता है और क्लाइंट फाइल्स बनाने से पहले अप्रयुक्त डेटा को हटा देता है। अधिक जानकारी के लिए [बंडल ऑप्टिमाइजेशन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/bundle_optimization.md) देखें।
 
+- [Intlayer कंपाइलर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md)
+- [बंडल ऑप्टिमाइजेशन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/bundle_optimization.md)
+
 ## डेवलपर अनुभव (DX) की तुलना
 
 ### अलग फोल्डर्स बनाम को-लोकेशन
@@ -255,6 +260,8 @@ const { title } = useIntlayer("hero");
 
 Intlayer में डिक्शनरीज़ की सख्त जांच होती है। [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md) चालू करने पर किसी भी भाषा में अनुवाद छूटने पर तुरंत बिल्ड एरर आ जाता है।
 
+- [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md)
+
 ### एडिटर और एआई टूल्स
 
 | फीचर                      | `vue-i18n`            | Intlayer                                                                                                         |
@@ -278,6 +285,8 @@ Intlayer ये सभी सुविधाएं सीधे प्रदा�
 **सेल्फ-होस्टेड विजुअल सीएमएस:**
 
 [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md) के जरिए गैर-तकनीकी सदस्य सीधे वेब यूआई में टेक्स्ट एडिट करके सीधे गिट में कमिट कर सकते हैं।
+
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md)
 
 **ओपन सोर्स लाइसेंस:**
 

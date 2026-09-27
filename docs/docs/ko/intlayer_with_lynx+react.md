@@ -66,10 +66,16 @@ Intlayer는 **구성 요소 수준 콘텐츠 범위 지정**, **TypeScript 지�
 
 콘텐츠를 같은 위치에 배치하면 LLM(대형 언어 모델)에 **필요한 컨텍스트가 줄어듭니다**. Intlayer에는 누락된 번역을 테스트하기 위한 **CLI**, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** 및 **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/agent_skills.md)**, AI 에이전트를 위한 개발자 경험(DX)을 더욱 원활하게 만듭니다.
 
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)
+- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/agent_skills.md)
+
 </Accordion>
 <Accordion header="오토메이션">
 
 AI 공급자의 비용으로 선택한 LLM을 사용하여 CI/CD 파이프라인을 번역하려면 자동화를 사용하세요. Intlayer는 또한 콘텐츠 추출을 자동화하는 **컴파일러**와 **백그라운드에서 번역**을 돕는 [웹 플랫폼](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)을 제공합니다.
+
+- [웹 플랫폼](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="성능">
@@ -80,6 +86,9 @@ AI 공급자의 비용으로 선택한 LLM을 사용하여 CI/CD 파이프라인
 <Accordion header="개발자가 없는 경우 확장">
 
 Intlayer는 단순한 i18n 솔루션 그 이상으로 관리에 도움이 되는 **자체 호스팅 [비주얼 편집기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** 및 **[전체 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)**를 제공합니다. 다국어 콘텐츠를 **실시간**으로 제공하여 번역가, 카피라이터, 기타 팀원과 원활하게 협업할 수 있습니다. 콘텐츠는 로컬 및/또는 원격으로 저장될 수 있습니다.
+
+- [비주얼 편집기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)
+- [전체 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
@@ -324,6 +333,8 @@ export default appContent;
 
 > 콘텐츠 선언에 대한 자세한 내용은 [Intlayer 콘텐츠 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md)를 참조하세요.
 
+- [Intlayer 콘텐츠 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md)
+
 </Step>
 <Step number={6} title="컴포넌트에서 Intlayer 사용">
 
@@ -426,6 +437,8 @@ export const LocaleSwitcher: FC = () => {
 
 > 자세한 내용은 [`useLocale` 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/useLocale.md)를 참조하세요.
 
+- [`useLocale` 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/useLocale.md)
+
 </Step>
 
 </Steps>
@@ -464,20 +477,18 @@ Intlayer에 의해 자동 생성된 파일을 커밋하지 않으려면 `.gitign
 
 Intlayer와 함께 개발 경험을 향상시키려면 공식 **Intlayer VS Code 확장**을 설치할 수 있습니다.
 
-[VS Code 마켓플레이스에서 설치하기](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [VS Code 마켓플레이스에서 설치하기](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
-이 확장은 다음 기능을 제공합니다:
+이 확장 프로그램은 다음을 제공합니다:
 
-- **자동완성** 번역 키용.
-- **실시간 오류 감지** 누락된 번역용.
-- **인라인 미리보기** 번역된 콘텐츠용.
-- **빠른 작업** 번역을 쉽게 생성하고 업데이트하기 위해.
-
-- 번역 키에 대한 **자동 완성**.
+- 번역 키에 대한 **자동 완성(Autocompletion)**.
 - 누락된 번역에 대한 **실시간 오류 감지**.
 - 번역된 콘텐츠의 **인라인 미리보기**.
-- 번역을 쉽게 생성하고 업데이트할 수 있는 **빠른 작업**.
-  확장 프로그램 사용 방법에 대한 자세한 내용은 [Intlayer VS Code 확장 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/vs_code_extension.md)를 참조하세요.
+- 번역을 쉽게 생성하고 업데이트할 수 있는 **빠른 작업(Quick actions)**.
+
+확장 프로그램 사용법에 대한 자세한 내용은 [Intlayer VS Code 확장 프로그램 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/vs_code_extension.md)를 참조하세요.
+
+- [Intlayer VS Code 확장 프로그램 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/vs_code_extension.md)
 
 ## 더 알아보기
 

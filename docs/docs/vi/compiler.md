@@ -54,6 +54,8 @@ author: aymericzip
 
 Xem bài viết blog [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/compiler_vs_declarative_i18n.md) để có sự so sánh sâu hơn.
 
+- [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/compiler_vs_declarative_i18n.md)
+
 ## Tại sao không sử dụng Trình Biên Dịch Intlayer?
 
 Mặc dù trình biên dịch mang lại trải nghiệm "hoạt động ngay" tuyệt vời, nó cũng giới thiệu một số đánh đổi mà bạn nên biết:
@@ -65,7 +67,12 @@ Mặc dù trình biên dịch mang lại trải nghiệm "hoạt động ngay" t
 
 Để có so sánh kiến trúc sâu hơn, xem bài viết blog [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/compiler_vs_declarative_i18n.md).
 
+- [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/compiler_vs_declarative_i18n.md)
+
 Như một giải pháp thay thế, để tự động hóa quy trình i18n của bạn trong khi vẫn giữ quyền kiểm soát hoàn toàn đối với nội dung của bạn, Intlayer cũng cung cấp lệnh tự động trích xuất `intlayer extract` (xem [tài liệu CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/extract.md)), hoặc lệnh `Intlayer: extract content to Dictionary` từ tiện ích mở rộng Intlayer VS Code (xem [tài liệu tiện ích mở rộng VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/vs_code_extension.md)).
+
+- [tài liệu CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/extract.md)
+- [tài liệu tiện ích mở rộng VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/vs_code_extension.md)
 
 ## Cách sử dụng
 
@@ -97,9 +104,11 @@ export default defineConfig({
 });
 ```
 
-> Plugin `intlayerCompiler()` độc lập vẫn được export cho các setup nâng cao. Đăng ký nó cùng với `intlayer()` là an toàn — compiler tự động loại bỏ các bản sao và chỉ chạy một lần.
+> Plugin `intlayerCompiler()` độc lập vẫn được export cho các setup nâng cao. Đăng ký nó cùng với `intlayer()` là an toàn, compiler tự động loại bỏ các bản sao và chỉ chạy một lần.
 
 See complete tutorial: [Translate Vite and React with Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md)
+
+- [Translate Vite and React with Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md)
 
 #### Hỗ trợ Framework
 
@@ -384,3 +393,5 @@ bun x intlayer extract
 ```
 
 > Để biết thêm chi tiết, hãy tham khảo [tài liệu CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md)
+
+- [tài liệu CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md)

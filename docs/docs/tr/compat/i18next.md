@@ -27,6 +27,8 @@ author: aymericzip
 
 Ayrıntılı adım adım eğitim için lütfen tam [i18next Göç Kılavuzuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_i18next_to_intlayer.md) bakın.
 
+- [i18next Göç Kılavuzuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_i18next_to_intlayer.md)
+
 Intlayer mükemmel şekilde `i18next`'in core runtime özelliklerini çoğaltır. Uyumluluk paketini kullanarak, Vanilla uygulamalarınız veya iç modülleriniz tanıdık sözdizimini kullanmaya devam edebilir.
 
 ## Ne yapmalı

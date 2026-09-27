@@ -30,7 +30,7 @@ author: aymericzip
 
 # Svelte 集成：`usePathname` 文档
 
-`usePathname` 函数以 Svelte 的 `Readable<string>` store 形式返回去除了 locale 段的当前浏览器路径名（pathname）。这对于构建支持 locale 的导航非常有用——例如，判断哪个导航项是激活状态的——而无需手动去除 locale 前缀。
+`usePathname` 函数以 Svelte 的 `Readable<string>` store 形式返回去除了 locale 段的当前浏览器路径名（pathname）。这对于构建支持 locale 的导航非常有用（例如，判断哪个导航项是激活状态的）而无需手动去除 locale 前缀。
 
 ## 在 Svelte 中导入 `usePathname`
 

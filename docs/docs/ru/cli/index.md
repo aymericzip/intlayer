@@ -110,6 +110,8 @@ bun add intlayer-cli -g
 
 Пакет `intlayer-cli` предназначен для транспиляции ваших [объявлений Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/content_file.md) в словари.
 
+- [объявлений Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/content_file.md)
+
 Этот пакет транспилирует все файлы Intlayer, такие как `src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}`. [Узнайте, как объявлять файлы контента Intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
 
 Для интерпретации словарей Intlayer вы можете использовать интерпретаторы, такие как [react-intlayer](https://www.npmjs.com/package/react-intlayer) или [next-intlayer](https://www.npmjs.com/package/next-intlayer).
@@ -127,13 +129,17 @@ Intlayer принимает несколько форматов файлов к�
 
 Чтобы узнать, как настроить доступные языки или другие параметры, обратитесь к [документации по конфигурации здесь](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md).
 
+- [документации по конфигурации здесь](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md)
+
 ## Выполнение команд Intlayer
 
 ### Аутентификация
 
 - **[Login](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/login.md)** - Аутентификация в Intlayer CMS и получение учетных данных для доступа
 
-> `intlayer login` выдает **ключ доступа** (`clientId` / `clientSecret`), который используется всеми командами с учетными данными. Секрет является учетными данными на стороне сервера и никогда не попадает в ваш пакет клиента — см. [Keeping the access key safe](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/login.md#keeping-the-access-key-safe).
+> `intlayer login` выдает **ключ доступа** (`clientId` / `clientSecret`), который используется всеми командами с учетными данными. Секрет является учетными данными на стороне сервера и никогда не попадает в ваш пакет клиента, см. [Keeping the access key safe](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/login.md#keeping-the-access-key-safe).
+
+- [Keeping the access key safe](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/login.md#keeping-the-access-key-safe)
 
 ### Основные команды
 

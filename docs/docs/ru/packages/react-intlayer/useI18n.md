@@ -74,6 +74,8 @@ author: aymericzip
 
 Все ключи словаря должны быть объявлены в файлах декларации контента для повышения безопасности типов и предотвращения ошибок. [Инструкции по настройке можно найти здесь](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/content_file.md).
 
+- [Инструкции по настройке можно найти здесь](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/content_file.md)
+
 ## Примеры использования в React
 
 Примеры использования хука `useI18n` в React-компонентах:

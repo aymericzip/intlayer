@@ -142,12 +142,12 @@ Puede declarar contenido Markdown usando la función `md` o simplemente como una
 Intlayer proporciona dos formas independientes de renderizar Markdown:
 
 1. **A través de `useIntlayer`**
-   — Intlayer transforma automáticamente el nodo `md` en la salida nativa del framework (JSX, VNode, cadena HTML).
-   - El Frontmatter se analiza y expone como `.metadata`. Puede anular la renderización en dos niveles — globalmente con `MarkdownProvider` (o el equivalente en el framework) y localmente por nodo con `.use()`. Ambos pueden combinarse; `.use()` tiene prioridad sobre `MarkdownProvider`, el cual tiene prioridad sobre el predeterminado.
+   Intlayer transforma automáticamente el nodo `md` en la salida nativa del framework (JSX, VNode, cadena HTML).
+   - El Frontmatter se analiza y expone como `.metadata`. Puede anular la renderización en dos niveles, globalmente con `MarkdownProvider` (o el equivalente en el framework) y localmente por nodo con `.use()`. Ambos pueden combinarse; `.use()` tiene prioridad sobre `MarkdownProvider`, el cual tiene prioridad sobre el predeterminado.
 
-2. **Utilidades auxiliares** — `<MarkdownRenderer />`, `useMarkdownRenderer()`, y `renderMarkdown()` son herramientas independientes que aceptan **únicamente cadenas Markdown puras**. Son independientes de `useIntlayer` y no funcionan con los nodos decorados que este retorna.
+2. **Utilidades auxiliares**: `<MarkdownRenderer />`, `useMarkdownRenderer()`, y `renderMarkdown()` son herramientas independientes que aceptan **únicamente cadenas Markdown puras**. Son independientes de `useIntlayer` y no funcionan con los nodos decorados que este retorna.
 
-La renderización de Markdown admite **MDX** — use cualquier componente JSX/framework por su nombre directamente dentro de su Markdown.
+La renderización de Markdown admite **MDX**, use cualquier componente JSX/framework por su nombre directamente dentro de su Markdown.
 
 ### 1. Renderización Automática (a través de `useIntlayer`)
 
@@ -864,7 +864,7 @@ Estas utilidades renderizan **únicamente cadenas Markdown puras** y son indepen
 
 ## Configuración Global con `MarkdownProvider`
 
-`MarkdownProvider` (o su equivalente en el framework) configura el proceso de renderización Markdown para toda su aplicación. Esto se aplica tanto a la renderización automática de `useIntlayer` como a las utilidades auxiliares. Las opciones configuradas aquí son las predeterminadas — `.use()` las anula a nivel de nodo.
+`MarkdownProvider` (o su equivalente en el framework) configura el proceso de renderización Markdown para toda su aplicación. Esto se aplica tanto a la renderización automática de `useIntlayer` como a las utilidades auxiliares. Las opciones configuradas aquí son las predeterminadas, `.use()` las anula a nivel de nodo.
 
 <Tabs group="framework">
   <Tab label="React" value="react">
@@ -886,7 +886,7 @@ Estas utilidades renderizan **únicamente cadenas Markdown puras** y son indepen
     ```
 
 
-    > MDX es compatible — cualquier nombre de componente usado dentro de su Markdown (ej. `<MyCustomJSXComponent />`) se resuelve contra el mapeo de `components`.
+    > MDX es compatible, cualquier nombre de componente usado dentro de su Markdown (ej. `<MyCustomJSXComponent />`) se resuelve contra el mapeo de `components`.
 
     También puede usar su propio renderizador de markdown:
 
@@ -928,7 +928,7 @@ Estas utilidades renderizan **únicamente cadenas Markdown puras** y son indepen
     ```
 
 
-    > MDX es compatible — cualquier nombre de componente usado dentro de su Markdown (ej. `<MyCustomJSXComponent />`) se resuelve contra el mapeo de `components`.
+    > MDX es compatible, cualquier nombre de componente usado dentro de su Markdown (ej. `<MyCustomJSXComponent />`) se resuelve contra el mapeo de `components`.
 
     También puede usar su propio renderizador de markdown:
 
@@ -976,7 +976,7 @@ Estas utilidades renderizan **únicamente cadenas Markdown puras** y son indepen
     ```
 
 
-    > MDX es compatible — cualquier nombre de componente usado dentro de su Markdown (ej. `<MyCustomJSXComponent />`) se resuelve contra el mapeo de `components`.
+    > MDX es compatible, cualquier nombre de componente usado dentro de su Markdown (ej. `<MyCustomJSXComponent />`) se resuelve contra el mapeo de `components`.
 
     También puede usar su propio renderizador de markdown:
 
@@ -1020,7 +1020,7 @@ Estas utilidades renderizan **únicamente cadenas Markdown puras** y son indepen
     ```
 
 
-    > MDX es compatible — cualquier nombre de componente usado dentro de su Markdown (ej. `<MyCustomJSXComponent />`) se resuelve contra el mapeo de `components`.
+    > MDX es compatible, cualquier nombre de componente usado dentro de su Markdown (ej. `<MyCustomJSXComponent />`) se resuelve contra el mapeo de `components`.
 
     También puede usar su propio renderizador de markdown:
 
@@ -1059,7 +1059,7 @@ Estas utilidades renderizan **únicamente cadenas Markdown puras** y son indepen
     ```
 
 
-    > MDX es compatible — cualquier nombre de componente usado dentro de su Markdown (ej. `<MyCustomJSXComponent />`) se resuelve contra el mapeo de `components`.
+    > MDX es compatible, cualquier nombre de componente usado dentro de su Markdown (ej. `<MyCustomJSXComponent />`) se resuelve contra el mapeo de `components`.
 
     También puede usar su propio renderizador de markdown:
 
@@ -1098,7 +1098,7 @@ Estas utilidades renderizan **únicamente cadenas Markdown puras** y son indepen
     ```
 
 
-    > MDX es compatible — cualquier nombre de componente usado dentro de su Markdown (ej. `<MyCustomJSXComponent />`) se resuelve contra el mapeo de `components`.
+    > MDX es compatible, cualquier nombre de componente usado dentro de su Markdown (ej. `<MyCustomJSXComponent />`) se resuelve contra el mapeo de `components`.
 
     También puede usar su propio renderizador de markdown:
 
@@ -1136,7 +1136,7 @@ Estas utilidades renderizan **únicamente cadenas Markdown puras** y son indepen
     };
     ```
 
-    > MDX es compatible — cualquier nombre de componente utilizado dentro de tu Markdown (por ejemplo, `<MyCustomJSXComponent />`) se resuelve contra el mapa de `components`.
+    > MDX es compatible, cualquier nombre de componente utilizado dentro de tu Markdown (por ejemplo, `<MyCustomJSXComponent />`) se resuelve contra el mapa de `components`.
 
 También puedes usar tu propio renderizador de markdown:
 

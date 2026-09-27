@@ -22,6 +22,8 @@ author: aymericzip
 
 Canlı Senkronizasyon, uygulamanızın CMS içerik değişikliklerini çalışma zamanında yansıtmasını sağlar. Yeniden derleme veya yeniden dağıtım gerekmez. Etkinleştirildiğinde, güncellemeler uygulamanızın okuduğu sözlükleri yenileyen bir Canlı Senkronizasyon sunucusuna aktarılır. Daha fazla detay için [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) sayfasına bakın.
 
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)
+
 ```json fileName="package.json"
 "scripts": {
   "intlayer:live:start": "npx intlayer live start --with 'next dev --turbopack'"

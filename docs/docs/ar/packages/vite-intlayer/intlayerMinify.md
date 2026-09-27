@@ -31,6 +31,8 @@ author: aymericzip
 
 > تم تضمين هذا المكون الإضافي وتهيئته تلقائيًا بالفعل عند استخدامك لـ [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/vite-intlayer/intlayer.md). تحتاج فقط إلى تسجيله يدويًا إذا كنت تقوم بتركيب مصفوفة الإضافات بنفسك.
 
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/vite-intlayer/intlayer.md)
+
 ## الاستخدام
 
 ```ts
@@ -63,8 +65,8 @@ export default defineConfig({
 
 يستهدف الإضافة موقعين من القاموس (كما هو محدد من `intlayer.system`):
 
-- `dictionariesDir` — قواميس ثابتة لجميع اللغات (مثل `.intlayer/dictionaries/*.json`)
-- `dynamicDictionariesDir` — قواميس ديناميكية لكل لغة
+- `dictionariesDir`: قواميس ثابتة لجميع اللغات (مثل `.intlayer/dictionaries/*.json`)
+- `dynamicDictionariesDir`: قواميس ديناميكية لكل لغة
 
 > قواميس وضع الجلب (`fetchDictionariesDir`) **لا** يتم تصغيرها أبدًا لأنها تُقدم من واجهة برمجية (API) بعيدة في وقت التشغيل باستخدام أسماء حقولها الأصلية. إعادة تسمية الحقول ستنشئ عدم تطابق بين استجابة الخادم والوصول إلى الخصائص على جانب العميل.
 
@@ -86,7 +88,7 @@ export default defineConfig({
 
 ## قواميس الحالات الخاصة (Edge-cases)
 
-يتم تخطي القواميس المشار إليها في `pruneContext.dictionariesWithEdgeCases` (الشذوذ الهيكلي الذي تم اكتشافه أثناء مرحلة التقليم) تمامًا — لا يتم تصغيرها ولا تشويهها — لتجنب شحن بيانات تالفة.
+يتم تخطي القواميس المشار إليها في `pruneContext.dictionariesWithEdgeCases` (الشذوذ الهيكلي الذي تم اكتشافه أثناء مرحلة التقليم) تمامًا، لا يتم تصغيرها ولا تشويهها، لتجنب شحن بيانات تالفة.
 
 ## المجموعات المؤهلة (المجموعات / المتغيرات / السجلات الفوقية)
 

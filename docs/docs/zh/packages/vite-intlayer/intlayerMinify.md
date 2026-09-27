@@ -31,6 +31,8 @@ author: aymericzip
 
 > 当您使用 [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/vite-intlayer/intlayer.md) 时，该插件已自动包含并配置。只有在您自己构建插件栈时，才需要手动注册它。
 
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/vite-intlayer/intlayer.md)
+
 ## 用法
 
 ```ts
@@ -63,8 +65,8 @@ export default defineConfig({
 
 该插件针对两个字典位置（解析自 `intlayer.system`）：
 
-- `dictionariesDir` — 静态全语言字典（例如 `.intlayer/dictionaries/*.json`）
-- `dynamicDictionariesDir` — 每种语言的动态字典
+- `dictionariesDir`：静态全语言字典（例如 `.intlayer/dictionaries/*.json`）
+- `dynamicDictionariesDir`：每种语言的动态字典
 
 > 获取模式字典（`fetchDictionariesDir`）**从不**会被压缩，因为它们在运行时使用其原始字段名称从远程 API 提供服务。重命名字段将导致服务器响应与客户端属性访问之间出现不匹配。
 
@@ -86,7 +88,7 @@ export default defineConfig({
 
 ## 边缘情况字典
 
-在 `pruneContext.dictionariesWithEdgeCases` 中被标记的字典（在修剪（prune）阶段检测到结构异常）将被完全跳过 — 既不压缩也不混淆 — 以避免发布损坏的数据。
+在 `pruneContext.dictionariesWithEdgeCases` 中被标记的字典（在修剪（prune）阶段检测到结构异常）将被完全跳过，既不压缩也不混淆，以避免发布损坏的数据。
 
 ## 限饰组（集合 / 变体 / 元记录）
 

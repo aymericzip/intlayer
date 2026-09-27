@@ -258,3 +258,5 @@ app.get("/morning", (_req, res) => {
 ## Заключение
 
 Функция `t` является мощным инструментом для интернационализации на стороне сервера. Эффективно используя её, вы можете создать более инклюзивное и удобное для пользователя приложение для глобальной аудитории. Для продвинутого использования и подробных вариантов настройки обратитесь к [документации](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md).
+
+- [Конфигурация Intlayer (intlayer.config.ts)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md)

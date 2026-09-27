@@ -375,6 +375,8 @@ The ICU `other` case is renamed to `fallback`, which is the Intlayer canonical n
 
 > Please note that ICU `select` messages where the cases are gender values (`male` / `female` / `other`) are imported as a [`gender`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/gender.md) node instead.
 
+- [`gender`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/gender.md)
+
 ## Additional Resources
 
 For more detailed information on configuration and usage, please refer to the following resources:

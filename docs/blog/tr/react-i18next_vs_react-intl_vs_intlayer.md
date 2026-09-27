@@ -136,6 +136,9 @@ TanStack Start üzerinde standart React implementasyonlarını ölçen [Benchmar
 
 > Tam tablo için [TanStack Start benchmark raporu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md) ve [i18n Benchmark Genel Bakış](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/index.md) sayfalarına bakın.
 
+- [TanStack Start benchmark raporu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md)
+- [i18n Benchmark Genel Bakış](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/index.md)
+
 ### 6) DX, araçlar ve bakım
 
 - **react-intl / react-i18next**: Geniş topluluk ekosistemi; düzenleme iş akışları için genellikle harici yerelleştirme platformlarını benimser.
@@ -185,3 +188,5 @@ GitHub yıldızları, bir projenin popülaritesinin, topluluk güveninin ve uzun
 - Ekibiniz çok yerel, bileşen odaklı React uygulamalarında **bakım ve hızı** takdir ediyorsa, Intlayer bugün **en kapsamlı** geliştirici ve içerik iş akışını sunar.
 
 Daha fazla detay için ['Neden Intlayer?' dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/interest_of_intlayer.md) bakın.
+
+- [Neden Intlayer? Diğer i18n kütüphanelerine göre avantajları](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/interest_of_intlayer.md)

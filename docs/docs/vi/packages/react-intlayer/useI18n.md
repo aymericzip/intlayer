@@ -74,6 +74,8 @@ Hook này nhận hai tham số:
 
 Tất cả các khóa trong từ điển phải được khai báo trong các tệp khai báo nội dung để tăng cường an toàn kiểu và tránh lỗi. [Hướng dẫn cấu hình có thể được tìm thấy tại đây](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/content_file.md).
 
+- [Hướng dẫn cấu hình có thể được tìm thấy tại đây](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/content_file.md)
+
 ## Ví dụ sử dụng trong React
 
 Ví dụ về cách sử dụng hook `useI18n` trong các thành phần React:

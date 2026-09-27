@@ -90,6 +90,8 @@ style="border:none;"
 
 > 実ブラウザ環境で本番用gzip圧縮を適用して計測。詳細は[Next.jsベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md)に掲載しています。
 
+- [Next.jsベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md)
+
 ### ライブラリ本体のオーバーヘッド
 
 翻訳ファイル読み込み前の初期フットプリント:
@@ -138,6 +140,8 @@ JSONファイルを名前空間ごとに分けることで緩和できますが�
 
 Intlayerはこの問題を静的解析で解決します。[Intlayerコンパイラ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)が該当ルートで使用されている文言だけを過不足なく抽出するため、ページ間のデータ漏洩率は**0.0%**となります。
 
+- [Intlayerコンパイラ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)
+
 ## next-intlがTree-shakingを阻害する要因
 
 ライブラリのAPIが、実行時に文字列キーを動的評価する構造になっているためです。
@@ -176,6 +180,8 @@ export function UserProfile() {
 </Tabs>
 
 TurbopackやWebpackは、`UserProfile`内でどのキーが実際に呼ばれるかを推測できません。実行時エラーを防ぐため、**バンドラーは名前空間全体をクライアントコードに含めざるを得ません**。一方、Intlayerのようにオブジェクトのプロパティを分割代入する形式であれば、コンパイラが参照関係を把握し、未使用の文言を安全に削除できます。詳細は[バンドル最適化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)をご覧ください。
+
+- [バンドル最適化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)
 
 ## 開発体験（DX）の違い
 
@@ -276,6 +282,8 @@ declare global {
 
 Intlayerはすべての言語のコンテンツ定義から直接型を生成します。[`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を有効にすれば、いずれかの言語で翻訳が欠落している場合にビルドエラーとなり、事前にミスを防げます。
 
+- [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)
+
 ### 開発環境とAIエコシステム
 
 | 機能                              | `next-intl` | Intlayer                                                                                                             |
@@ -301,6 +309,8 @@ Intlayerはオープンなアプローチを基本に据えています。
 **セルフホスト可能なビジュアルCMS:**
 
 [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を導入すれば、非エンジニアのメンバーがWeb上で文言を直接編集し、変更をGitへ反映できます。
+
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)
 
 **オープンなライセンス:**
 

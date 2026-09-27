@@ -196,6 +196,8 @@ list(["elma", "muz", "portakal"]); // "elma, muz ve portakal"
 
 Platform API'si üzerinde bir önbellekleme ve dil varsayılanı katmanıdır; asıl formatlama mantığı tamamen `Intl` tarafından yürütülür. Ayrıntılı imzalar [formatlayıcı dokümantasyonunda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/formatters.md).
 
+- [formatlayıcı dokümantasyonunda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/formatters.md)
+
 ## Sık yapılan hatalar
 
 - **Dil belirtilmeden `toLocaleDateString()` çağırmak.** Sunucudaki kapsayıcı ayarlarına bağlı olan varsayılan dili kullanır.

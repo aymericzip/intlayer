@@ -64,6 +64,8 @@ TanStack Start में कोई अंतर्निहित i18n लेय
 
 [i18n बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/tanstack.md) हर प्रमुख लाइब्रेरी के साथ समान 10-पेज, 10-लोकेल TanStack Start ऐप चलाता है और मापता है कि ब्राउज़र वास्तव में क्या डाउनलोड करता है।
 
+- [i18n बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/tanstack.md)
+
 <I18nBenchmark framework="tanstack" packages="lingui,@intlayer/lingui,intlayer" vertical/>
 
 `@lingui/core@6.6.0` के लिए मुख्य आंकड़े, 2026-09-26 को मापे गए (gzip):
@@ -81,6 +83,8 @@ TanStack Start में कोई अंतर्निहित i18n लेय
 - **रनटाइम भारी रहता है** (~57 KB gzip)। `@intlayer/lingui` संगतता एडेप्टर (चरण 16) आपके मैक्रोज़ को बनाए रखता है और इसे घटाकर ~10 KB कर देता है।
 
 > पूरा डेटा देखें: [TanStack Start बेंचमार्क रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/tanstack.md), और [बेंचमार्क रिपॉजिटरी](https://github.com/intlayer-org/benchmark-i18n)।
+
+- [TanStack Start बेंचमार्क रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/tanstack.md)
 
 ## TanStack Start पर फीचर तुलना
 
@@ -105,6 +109,8 @@ TanStack Start पर आमतौर पर उपयोग की जाने
 | **CI में लापता अनुवाद**                  | ✅ `npx intlayer test`                | ⚠️ अंतर्निहित नहीं           | ⚠️ अंतर्निहित नहीं                | ✅ `lingui compile --strict`        |
 
 > रनटाइम आकार और लीक के आंकड़े [TanStack Start बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/tanstack.md) से लिए गए हैं। लीक प्रत्येक लाइब्रेरी के सर्वोत्तम सेटअप पर मापा जाता है।
+
+- [TanStack Start बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/tanstack.md)
 
 > अन्य TanStack Start गाइड:
 
@@ -934,6 +940,8 @@ export const Route = createFileRoute("/{-$locale}/$")({
 
 [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/lingui.md) संगतता एडेप्टर आपके स्रोत को अछूता रखता है: मैक्रोज़ पहले की तरह बिल्कुल संकलित होते हैं, और परिणामी `i18n._()`, `useLingui()` और `<Trans>` कॉल संकलित Intlayer शब्दकोशों द्वारा परोसे जाते हैं। बेंचमार्क में, रनटाइम **~56.7 KB से घटकर ~9.8 KB** gzip हो जाता है।
 
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/lingui.md)
+
 ```bash packageManager="npm"
 npm install @intlayer/lingui intlayer @intlayer/sync-json-plugin
 npx intlayer init
@@ -976,6 +984,11 @@ export default defineConfig({
 
 कैटलॉग को [sync JSON प्लगइन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-json.md) (JSON कैटलॉग) या [sync PO प्लगइन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-po.md) (PO कैटलॉग) के साथ सिंक्रनाइज़ किया जाता है। पूरा सेटअप [Lingui संगतता गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/lingui.md) में देखें, और [Lingui बनाम @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/lingui_vs_intlayer-lingui.md) में आमने-सामने तुलना देखें।
 
+- [sync JSON प्लगइन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-json.md)
+- [sync PO प्लगइन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-po.md)
+- [Lingui संगतता गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/lingui.md)
+- [Lingui बनाम @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/lingui_vs_intlayer-lingui.md)
+
 </Step>
 <Step number={17} title="Intlayer का उपयोग करके अपने अनुवादों को स्वचालित करें" isOptional={true}>
 
@@ -1017,10 +1030,15 @@ Lingui संदेश निकालता है, लेकिन दर्�
 
 [बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/tanstack.md) रनटाइम के लिए ~56.7 KB gzip मापता है। मांग पर लोड किए गए प्रति लोकेल एक कैटलॉग के साथ, पेजों का वजन बिना i18n के 111 KB के मुकाबले ~115 KB होता है। हर कैटलॉग को स्थिर रूप से आयात करने से यह बढ़कर ~152 KB हो जाता है।
 
+- [बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/tanstack.md)
+
 </Question>
 <Question title="क्या मैं Lingui मैक्रोज़ रख सकता हूँ और Intlayer पर माइग्रेट कर सकता हूँ?">
 
 हाँ। [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/lingui.md) एडेप्टर मैक्रोज़ को रखता है और रनटाइम को स्वैप करता है। फिर आप कंपोनेंट्स को एक-एक करके `useIntlayer` में स्थानांतरित कर सकते हैं। [संगतता एडेप्टर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/index.md) देखें।
+
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/lingui.md)
+- [संगतता एडेप्टर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/index.md)
 
 </Question>
 

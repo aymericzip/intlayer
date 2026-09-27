@@ -51,6 +51,8 @@ author: aymericzip
 
 > Next.js 16 App Router에 대한 단계별 전체 기술 가이드를 찾고 계신가요? 전용 문서를 확인하세요: [Intlayer로 Next.js 16 번역하기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_16.md).
 
+- [Intlayer로 Next.js 16 번역하기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_16.md)
+
 ## 목차
 
 <TOC/>
@@ -266,6 +268,8 @@ export const generateMetadata = async (): Promise<Metadata> => {
 이 글은 기존 Next.js 앱을 사후에 다국어화하는 아키텍처 개요를 설명했습니다. 미들웨어 설정, 정적 생성 (`generateStaticParams`), 서버 컴포넌트 통합을 포함한 전체 가이드는 공식 문서를 참조하세요:
 
 👉 **[Intlayer로 Next.js 16 번역하기 전체 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_16.md)**
+
+- [Intlayer로 Next.js 16 번역하기 전체 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_16.md)
 
 ## 자주 묻는 질문 (FAQ)
 

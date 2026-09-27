@@ -34,6 +34,8 @@ Fungsi `getTranslationContent` mengambil konten yang sesuai dengan locale terten
 
 Untuk detail lebih lanjut tentang cara mendeklarasikan terjemahan, lihat [dokumentasi Translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/translation.md).
 
+- [dokumentasi Translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/translation.md)
+
 ## Parameter
 
 - `languageContent: CustomizableLanguageContent<Content>`

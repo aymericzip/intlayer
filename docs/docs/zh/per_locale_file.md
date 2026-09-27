@@ -127,6 +127,8 @@ export default config;
 
 使用此配置，所有按语言区域的文件都将以默认语言区域设置为英语的方式生成。它还包括使用 `extract` 命令和编译器生成的 `.content` 文件。（有关更多信息，请参阅 [编译器 (Compiler)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md) 或 [提取 (Extract)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/extract.md)。）
 
+- [编译器 (Compiler)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md)
+
 ## 按语言区域格式
 
 此格式适用于：
@@ -265,3 +267,5 @@ console.log(JSON.stringify(intlayer, null, 2));
 ### 自动翻译生成
 
 使用 [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md) 根据您偏好的服务自动填充缺失的翻译。
+
+- [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)

@@ -376,6 +376,8 @@ Kasus `other` pada ICU dinamai ulang menjadi `fallback`, nama kanonikal di Intla
 
 > Sebagai catatan, pernyataan ICU `select` di mana kasusnya adalah nilai gender (`male` / `female` / `other`) akan diimpor sebagai node [`gender`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/gender.md).
 
+- [`gender`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/gender.md)
+
 ## Sumber Daya Tambahan
 
 Untuk informasi lebih rinci mengenai konfigurasi dan penggunaan, lihat sumber daya berikut:

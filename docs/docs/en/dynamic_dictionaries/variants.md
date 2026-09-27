@@ -26,7 +26,7 @@ history:
     changes: "Release of the variants feature"
   - version: 9.1.0
     date: 2026-06-26
-    changes: "`variant` now accepts a string or an object — the former `meta` / dynamic records are declared as object variants"
+    changes: "`variant` now accepts a string or an object, the former `meta` / dynamic records are declared as object variants"
   - version: 9.1.1
     date: 2026-07-31
     changes: "A variant declares only the keys it overrides; undeclared variants fall back to the default entry"
@@ -42,8 +42,8 @@ A **variant** is a set of content files that share the same dictionary `key` but
 
 The `variant` value can take **two forms**:
 
-- **A string** — a single named alternative (A/B tests, seasonal banners, feature flags).
-- **An object** — a structured discriminator addressed by a set of fields (CMS records, user-specific copy, any content keyed by an opaque ID). The whole object is the identity: the selector must provide an **equal** object to resolve the entry.
+- **A string**: a single named alternative (A/B tests, seasonal banners, feature flags).
+- **An object**: a structured discriminator addressed by a set of fields (CMS records, user-specific copy, any content keyed by an opaque ID). The whole object is the identity: the selector must provide an **equal** object to resolve the entry.
 
 > The object form replaces the former `meta` field. Anywhere you previously wrote `meta: { id, … }`, write `variant: { id, … }`, and select it with `{ variant: { id, … } }`.
 
@@ -77,8 +77,8 @@ const dictionary = {
   variant: "black_friday",
   content: {
     headline: t({
-      en: "50 % off — today only",
-      fr: "−50 % — aujourd'hui seulement",
+      en: "50 % off, today only",
+      fr: "−50 %, aujourd'hui seulement",
     }),
     cta: t({ en: "Shop now", fr: "Acheter maintenant" }),
   },
@@ -110,7 +110,7 @@ export default dictionary;
 
 ```tsx
 useIntlayer("hero-banner", { variant: "summer" });
-// → { headline: "Build faster all summer", cta: "Get started" } — `cta` inherited
+// → { headline: "Build faster all summer", cta: "Get started" }, `cta` inherited
 
 useIntlayer("hero-banner", { variant: "never-declared" });
 // → the default entry
@@ -281,7 +281,7 @@ const content = useIntlayer("hero-banner", {
 
 ## Object (structured) variants
 
-An object variant addresses content by an arbitrary set of key-value pairs declared in the `variant` field — making it possible to model CMS records, user-specific copy, or any content whose key is an opaque ID. The **whole object** is the identity: the selector must provide an equal object for the entry to resolve.
+An object variant addresses content by an arbitrary set of key-value pairs declared in the `variant` field, making it possible to model CMS records, user-specific copy, or any content whose key is an opaque ID. The **whole object** is the identity: the selector must provide an equal object for the entry to resolve.
 
 ```ts fileName="product.abc.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
@@ -498,7 +498,7 @@ const content = useIntlayer("product", {
 });
 ```
 
-#### Missing field — no match
+#### Missing field, no match
 
 ```ts
 // Returns null: `userId` is missing, so the object does not match the declared variant
@@ -507,7 +507,7 @@ const content = useIntlayer("product", { variant: { id: "prod_abc" } });
 
 ## Ambient variant
 
-Some variant dimensions are fixed for a whole session — the tenant, the school type, the plan tier. They are resolved once, and no component should have to pass them by hand.
+Some variant dimensions are fixed for a whole session, the tenant, the school type, the plan tier. They are resolved once, and no component should have to pass them by hand.
 
 > Do not wrap `useIntlayer` in your own hook to inject them. The build-time optimization only rewrites a literal `useIntlayer("key")` imported from the framework package, so nothing behind a wrapper gets bundled.
 
@@ -646,7 +646,7 @@ useIntlayer("hero-banner");
 // → the provider variant
 
 useIntlayer("hero-banner", { variant: "summer" });
-// → "summer" — replaces the provider variant, it is not extended
+// → "summer", replaces the provider variant, it is not extended
 ```
 
 ### Forms
@@ -661,7 +661,7 @@ The `variant` prop accepts three forms:
 
 #### Preference chain
 
-A chain is tried left to right against the entries each key declares, and the first declared one wins. When none is declared, the implicit default entry is used — exactly as for a single value.
+A chain is tried left to right against the entries each key declares, and the first declared one wins. When none is declared, the implicit default entry is used, exactly as for a single value.
 
 ```tsx
 <IntlayerProvider variant={["school1", "school2"]} />
@@ -691,9 +691,9 @@ Address each dictionary key separately. The reserved `default` entry covers ever
 />
 ```
 
-> On a provider a plain object is **always** read as the per-key map, never as an object variant — the two are structurally identical. To pin an object variant globally, nest it under an entry: `variant={{ default: { id: "prod_abc" } }}`.
+> On a provider a plain object is **always** read as the per-key map, never as an object variant, the two are structurally identical. To pin an object variant globally, nest it under an entry: `variant={{ default: { id: "prod_abc" } }}`.
 
-Because the map's keys are checked against your declared dictionary keys, a typo — or an object variant written directly, such as `variant={{ id: "prod_abc" }}` — is a compile-time error.
+Because the map's keys are checked against your declared dictionary keys, a typo (or an object variant written directly, such as `variant={{ id: "prod_abc" }}`) is a compile-time error.
 
 ## Loading mode
 
@@ -711,6 +711,8 @@ export default dictionary;
 ```
 
 See [bundle optimization](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/bundle_optimization.md) for details on `static`, `dynamic`, and `fetch` modes.
+
+- [bundle optimization](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/bundle_optimization.md)
 
 ## Typical use-cases
 

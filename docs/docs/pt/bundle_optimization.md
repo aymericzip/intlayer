@@ -19,7 +19,7 @@ slugs:
 history:
   - version: 9.2.1
     date: 2026-08-09
-    changes: "`purge` e `minify` agora funcionam no Next.js através do `@intlayer/swc` — nenhum `babel.config.js` necessário"
+    changes: "`purge` e `minify` agora funcionam no Next.js através do `@intlayer/swc`, nenhum `babel.config.js` necessário"
   - version: 8.12.0
     date: 2026-06-24
     changes: "Listar os plugins Babel na ordem de pipeline exigida (extract → purge → minify → optimize) nas tabelas de referência"
@@ -68,11 +68,11 @@ Sob este alinhamento as propostas adquirem a certeza de:
 
 ### Next.js
 
-O Next.js requer o plugin `@intlayer/swc`, porque o Next.js usa SWC para as builds. Desde a **v9.2.1**, este único pacote cobre todo o pipeline — otimização (reescrita de imports), purge e minificação.
+O Next.js requer o plugin `@intlayer/swc`, porque o Next.js usa SWC para as builds. Desde a **v9.2.1**, este único pacote cobre todo o pipeline, otimização (reescrita de imports), purge e minificação.
 
 > Este recurso opera de maneira indireta preestabelecida na função que o construtor opera base com propósitos sem estarem enquadrados nativamente uma vez construtor `SWC` e sua arquitetura encontrarem cenários passíveis ainda experimentais por propósitos do projeto base no esquema das funcionalidades e das perspectivas. Tais perspectivas podem tender a serem diferentes em longo prazo por propostas alheias e afins.
 
-> **Next.js 16.1.0 é a versão mínima.** É a primeira versão construída sobre a ABI de plugins Wasm do SWC compatível com versões futuras; versões anteriores rejeitam o plugin. O `withIntlayer` lê a sua versão do Next.js e simplesmente não registra o plugin abaixo da 16.1.0 — essas builds continuam a ser bem-sucedidas, apenas rodam sem a otimização de bundle.
+> **Next.js 16.1.0 é a versão mínima.** É a primeira versão construída sobre a ABI de plugins Wasm do SWC compatível com versões futuras; versões anteriores rejeitam o plugin. O `withIntlayer` lê a sua versão do Next.js e simplesmente não registra o plugin abaixo da 16.1.0, essas builds continuam a ser bem-sucedidas, apenas rodam sem a otimização de bundle.
 
 <Tabs>
  <Tab value="npm">
@@ -136,7 +136,7 @@ Durante o `next build`, o `withIntlayer` analisa seus fontes, reescreve os dicio
 
 > Use o `withIntlayer` assíncrono, não o `withIntlayerSync`. A variante síncrona não executa o pipeline de análise, então purge e minificação não têm efeito com ela.
 
-> Purge e minificação são executados apenas no `next build` — o pipeline de otimização fica desligado durante o `next dev`.
+> Purge e minificação são executados apenas no `next build`, o pipeline de otimização fica desligado durante o `next dev`.
 
 **Versões anteriores (antes da 9.2.1)** exigiam `@intlayer/babel` e um `babel.config.js` declarando `intlayerPurgeBabelPlugin` e `intlayerMinifyBabelPlugin`. Esse arquivo não é mais necessário e pode ser excluído.
 
@@ -262,7 +262,7 @@ O usuário da base focada na plataforma gerada do esquema no Vite não fará man
 
 ### Plugin SWC (`@intlayer/swc`)
 
-Os usuários do Next.js também **nunca configuram isto diretamente**. Desde a **v9.2.1**, o `withIntlayer()` no `next.config.ts` executa todo o pipeline — purge, minificação e reescrita de imports — apenas a partir das flags `build.purge` e `build.minify`.
+Os usuários do Next.js também **nunca configuram isto diretamente**. Desde a **v9.2.1**, o `withIntlayer()` no `next.config.ts` executa todo o pipeline (purge, minificação e reescrita de imports) apenas a partir das flags `build.purge` e `build.minify`.
 
 O trabalho é dividido em dois, porque um plugin Wasm do SWC transforma um arquivo por vez e não tem acesso ao sistema de arquivos:
 
@@ -308,6 +308,8 @@ export default config;
 
 > Consulte a extensão associada perante premissas relacionadas às formatações nas configurações em [Configurações](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md)
 
+- [Configurações](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md)
+
 ### Os Fatores Sobre Integrações E Opções
 
 | Fator do Propósito Construtivo Relativo | Suportes e Tipologias | Default Base Constante | Diretriz das Definições De Escopos Construtivos                                                                                                                                                                                                                                                                                                                                                               |
@@ -342,7 +344,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> A minificação é ignorada quando `optimize` é `false`. Quando `editor.enabled` é `true`, ela continua sendo executada, mas sem a etapa de renomeação de campos — o editor visual resolve as edições por meio do `keyPath`, portanto os nomes de campo originais precisam ser preservados.
+> A minificação é ignorada quando `optimize` é `false`. Quando `editor.enabled` é `true`, ela continua sendo executada, mas sem a etapa de renomeação de campos, o editor visual resolve as edições por meio do `keyPath`, portanto os nomes de campo originais precisam ser preservados.
 
 > No Next.js, a minificação também é ignorada quando o `@intlayer/swc` não está instalado ou não pode ser carregado (Next.js abaixo da 16.1.0). O plugin é a metade que reescreve os acessos no código-fonte, então renomear os dicionários sem ele deixaria seu código lendo nomes de campos que não existem mais.
 
@@ -374,7 +376,7 @@ export default config;
 { "title": "…", "subtitle": "…" }
 ```
 
-> A purga é ignorada quando `optimize` é `false`. Ela permanece ativa quando `editor.enabled` é `true` — um campo removido não é lido por nenhum componente, então o editor nunca o renderiza. No Next.js, ela também é ignorada quando `@intlayer/swc` está indisponível e quando há chamadores de adaptadores de compatibilidade configurados.
+> A purga é ignorada quando `optimize` é `false`. Ela permanece ativa quando `editor.enabled` é `true`, um campo removido não é lido por nenhum componente, então o editor nunca o renderiza. No Next.js, ela também é ignorada quando `@intlayer/swc` está indisponível e quando há chamadores de adaptadores de compatibilidade configurados.
 
 > Processos perante o uso na purificação também são suspensos perante focos no método nativo que limitam análises do suporte da base com dados referenciados da função de predefinições e diretrizes voltadas atrelando propósitos de extensão.
 
@@ -502,6 +504,8 @@ const content = useDictionaryAsync({
 ```
 
 > Consulte premissas: [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md)
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md)
 
 > Bases purificadas e otimizadas false nas diretivas construtos atrelando no false nas exclusões JSON e minificadas base na formatação focado no formato com exclusões limitadas num ecossistema remoto focado em API nativa da estrutura matriz de dados referenciados.
 

@@ -29,6 +29,8 @@ author: aymericzip
 
 ## 使用方法
 
+当 `intlayer()` 中间件运行时，它会将一个 `IntlayerState` 对象以 `Intlayer` 为键存储在请求上下文中。您可以在任何路由处理程序中获取它：
+
 ```ts fileName="src/server.ts"
 import { createRouter } from "remix/router";
 import { intlayer, Intlayer } from "remix-intlayer";
@@ -37,20 +39,39 @@ const router = createRouter({
   middleware: [intlayer()],
 });
 
-router.get("/api/current-locale", (context) => {
-  const intlayerState = context.get(Intlayer);
+router.get("/api/profile", (context) => {
+  // 通过 context.get(Intlayer) 访问
+  const { locale, defaultLocale, availableLocales } = context.get(Intlayer);
 
   return Response.json({
-    locale: intlayerState?.locale,
+    locale,
+    defaultLocale,
+    availableLocales,
   });
 });
 ```
 
-## 说明
+您也可以使用直接属性简写 `context.intlayer` 来访问它：
 
-`Intlayer` 由 `intlayer()` 中间件用于将当前会话状态绑定到 Remix 的请求上下文 (`RequestContext`)。通常推荐使用 `useLocale()` 或 `useIntlayer()` 等钩子。通过 `context.get(Intlayer)` 进行直接访问在底层中间件处理程序或显式传递上下文实例的 API 路由中非常有用。
+```ts
+router.get("/api/status", (context) => {
+  const currentLocale = context.intlayer.locale;
+  return Response.json({ status: "ok", locale: currentLocale });
+});
+```
+
+## `IntlayerState` 结构
+
+`IntlayerState` 对象包含：
+
+| 属性               | 类型                | 描述                                           |
+| ------------------ | ------------------- | ---------------------------------------------- |
+| `locale`           | `DeclaredLocales`   | 为当前请求解析出的语言环境。                   |
+| `defaultLocale`    | `DeclaredLocales`   | 在 `intlayer.config.ts` 中定义的回退语言环境。 |
+| `availableLocales` | `DeclaredLocales[]` | 项目中配置的所有受支持语言环境列表。           |
 
 ## 相关文档
 
 - [`intlayer` 中间件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/remix-intlayer/intlayerMiddleware.md)
 - [`useLocale` 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/remix-intlayer/useLocale.md)
+- [`useIntlayer` 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/remix-intlayer/useIntlayer.md)

@@ -41,9 +41,13 @@ author: aymericzip
 
 Consultez une comparaison concrète avec vue-i18n dans notre article de blog [vue-i18n vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/vue-i18n_vs_intlayer.md).
 
+- [vue-i18n vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/vue-i18n_vs_intlayer.md)
+
 ## Pourquoi combiner Intlayer avec vue-i18n ?
 
 Bien qu'Intlayer propose une excellente solution i18n autonome (voir notre [guide d'intégration Vue.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_vite+vue.md)), vous pourriez vouloir le combiner avec vue-i18n pour plusieurs raisons :
+
+- [guide d'intégration Vue.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_vite+vue.md)
 
 1. **Code existant** : Vous disposez d'une implémentation vue-i18n établie et souhaitez migrer progressivement vers la meilleure expérience développeur d'Intlayer.
 2. **Exigences héritées** : Votre projet nécessite une compatibilité avec les plugins ou workflows vue-i18n existants.
@@ -144,6 +148,8 @@ Si des modifications sont effectuées via la CLI pour traduire le JSON, ou via l
 
 Pour plus de détails sur le plugin `syncJSON`, veuillez consulter la [documentation du plugin syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/plugins/sync-json.md).
 
+- [documentation du plugin syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/plugins/sync-json.md)
+
 </Step>
 
 </Steps>
@@ -163,4 +169,4 @@ Ces fichiers sont automatiquement régénérés lors du processus de build et n'
 
 Pour une meilleure expérience développeur, installez l'extension officielle **Intlayer VS Code Extension** :
 
-[Installer depuis le Marketplace VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [Installer depuis le Marketplace VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

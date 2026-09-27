@@ -78,6 +78,9 @@ Intlayer सामग्री घोषणाओं (`.content.ts`) को आ�
 
 कोड-प्रथम वर्कफ़्लो से परे, Intlayer एक स्व-होस्टेड [विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) और एक [रिमोट CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md) प्रदान करता है, जिससे गैर-तकनीकी संपादकों और अनुवादकों को कोड को फिर से तैनात किए बिना सामग्री को अपडेट करने की अनुमति मिलती है।
 
+- [विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md)
+- [रिमोट CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md)
+
 </Accordion>
 </AccordionGroup>
 
@@ -204,6 +207,8 @@ module.exports = config;
 
 > अतिरिक्त कॉन्फ़िगरेशन सेटिंग्स के लिए, [कॉन्फ़िगरेशन दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md) देखें।
 
+- [कॉन्फ़िगरेशन दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md)
+
 </Step>
 <Step number={3} title="अपनी बहुभाषी सामग्री घोषित करें">
 
@@ -240,6 +245,8 @@ export default homeContent;
 ```
 
 > Intlayer JSON, YAML और CommonJS घोषणा प्रारूपों का भी समर्थन करता है। [सामग्री घोषणा दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/content_file.md) देखें।
+
+- [सामग्री घोषणा दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/content_file.md)
 
 </Step>
 <Step number={4} title="Intlayer शब्दकोश बनाएँ">
@@ -288,6 +295,8 @@ const { title } = useIntlayer("home");
 `useIntlayer("home", "fr")` या `useIntlayer("faq", { item: 2 })` एक कॉल के लिए अनुरोध लोकेल को ओवरराइड करते हैं, और `useDictionary(homeContent)` एक कुंजी के बजाय एक आयातित शब्दकोश पढ़ता है। एक अनुरोध के बाहर हुक्स डिफ़ॉल्ट लोकेल पर वापस आ जाते हैं।
 
 > मिडलवेयर सर्वर शुरू होने पर Intlayer शब्दकोशों को भी तैयार करता है, ताकि एक छूटा हुआ `intlayer build` रजिस्ट्री को खाली न छोड़े।
+
+> केवल locale रिज़ॉल्यूशन रखने और रूटिंग को स्वयं संभालने के लिए `intlayer.config.ts` में `routing.enableProxy: false` सेट करें। `intlayer({ ignore })` मेल खाने वाले अनुरोधों (उदाहरण के लिए, एक API प्रीफ़िक्स) को अपरिवर्तित छोड़ देता है, और `intlayer({ isDevServer })` यह नियंत्रित करता है कि डिफ़ॉल्ट `enableProxy` ऑटो मोड में संग्रहीत locale रीडायरेक्ट को निर्धारित करता है या नहीं।
 
 </Step>
 <Step number={6} title="टाइप-सुरक्षित रूट्स परिभाषित करें">

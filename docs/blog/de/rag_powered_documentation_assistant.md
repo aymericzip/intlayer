@@ -31,6 +31,8 @@ Ich habe einen RAG-basierten Dokumentationsassistenten entwickelt und als Boiler
 
 👉 [Live-Demo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/interest_of_intlayer.md) 👉 [Code-Boilerplate](https://github.com/aymericzip/smart_doc_RAG)
 
+- [Live-Demo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/interest_of_intlayer.md)
+
 ## Einführung
 
 Wenn Sie jemals in der Dokumentation verloren waren und endlos nach einer Antwort gesucht haben, wissen Sie, wie mühsam das sein kann. Dokumentationen sind nützlich, aber sie sind statisch, und die Suche fühlt sich oft umständlich an.
@@ -93,5 +95,7 @@ Für mich hat dieses Projekt gezeigt, dass RAG nicht nur ein technischer Trick i
 - ein Werkzeug für die Produktstrategie
 
 👉 [Probieren Sie die Demo hier aus](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/interest_of_intlayer.md) 👉 [Sehen Sie sich die Code-Vorlage auf GitHub an](https://github.com/aymericzip/smart_doc_RAG)
+
+- [Probieren Sie die Demo hier aus](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/interest_of_intlayer.md)
 
 Und wenn Sie auch mit RAG experimentieren, würde ich gerne hören, wie Sie es einsetzen.

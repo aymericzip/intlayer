@@ -34,6 +34,8 @@ The `getEnumeration` function retrieves content corresponding to a specific quan
 
 For more details on how to declare enumerations, see the [Enumeration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/enumeration.md).
 
+- [Enumeration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/enumeration.md)
+
 ## Parameters
 
 - `enumerationContent: QuantityContent<Content>`

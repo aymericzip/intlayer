@@ -44,7 +44,12 @@ const config = {
 export default config;
 ```
 
+- [plugin Sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/plugins/sync-json.md)
+
 Ứng dụng của bạn vẫn tiếp tục import những gì nó vốn import. Các tác vụ CI sau đó sẽ tự động điền và kiểm tra các danh mục hiện có, và diff mà reviewer nhìn thấy chỉ là thay đổi trên `locales/fr/checkout.json`, không phải là một đợt di chuyển kiến trúc mã nguồn. Ngoài ra còn có [plugin Sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/plugins/sync-po.md) cho quy trình gettext và [adapter tương thích](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/index.md) nếu bạn muốn giữ nguyên runtime API.
+
+- [plugin Sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/plugins/sync-po.md)
+- [adapter tương thích](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/index.md)
 
 ## Phân tách rào chắn kiểm tra (gate) khỏi quá trình điền dữ liệu (fill)
 
@@ -167,6 +172,8 @@ test("has no missing required locales", async () => {
 
 Lệnh `npx intlayer content test` in báo cáo nhưng thoát với mã 0, chỉ có tác dụng thông báo chứ không chặn quy trình. Hãy dùng nó ở máy local; còn trên CI, hãy dùng kiểm thử với assertion. Chi tiết hơn trong [phát hiện bản dịch còn thiếu](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/detecting_missing_translations.md).
 
+- [phát hiện bản dịch còn thiếu](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/detecting_missing_translations.md)
+
 ## `requiredLocales` là yếu tố giúp gate tồn tại trong thực tế
 
 Một rào chắn yêu cầu đủ cả mười tám ngôn ngữ sẽ chặn mọi đợt phát hành cho đến khi ngôn ngữ chậm nhất hoàn tất, và kết quả là nó sẽ bị vô hiệu hóa trong vòng một tháng.
@@ -209,6 +216,8 @@ export default config;
 ```
 
 Cách này phù hợp với các nhóm nơi người phụ trách nội dung không phải là lập trình viên. Đó là một sự đánh đổi: bạn có được sự tự chủ trong chỉnh sửa nhưng mất đi tính chất git checkout phản ánh chính xác 100% những gì hiển thị trên màn hình. Chi tiết tại [tài liệu CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md).
+
+- [tài liệu CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)
 
 Lưu ý rằng `clientSecret` là thông tin xác thực phía server. Nó chỉ được nằm trong CI secrets và biến môi trường server, tuyệt đối không được đưa vào bundle phía client.
 

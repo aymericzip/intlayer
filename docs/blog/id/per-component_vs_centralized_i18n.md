@@ -70,6 +70,8 @@ Namun, di dunia React, kita terutama melihat pendekatan yang berbeda, yang akan 
 > Dalam blog ini, saya tidak akan fokus pada solusi berbasis compiler, yang sudah saya bahas di sini: [Compiler vs Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/compiler_vs_declarative_i18n.md).
 > Perlu dicatat bahwa i18n berbasis compiler (mis. Lingui) hanya mengotomatisasi ekstraksi dan pemuatan konten. Di balik layar, mereka sering berbagi batasan yang sama dengan pendekatan lainnya.
 
+- [Compiler vs Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/compiler_vs_declarative_i18n.md)
+
 > Perlu dicatat bahwa semakin Anda memperinci cara mengambil konten, semakin besar risiko Anda memasukkan state dan logika tambahan ke dalam komponen Anda.
 
 Pendekatan granular lebih fleksibel daripada yang terpusat, tetapi sering kali merupakan tradeoff. Bahkan jika "tree shaking" diiklankan oleh perpustakaan tersebut, dalam praktiknya Anda sering kali akan berakhir memuat sebuah halaman dalam setiap bahasa.
@@ -154,6 +156,8 @@ locale/
 
 Sekarang Anda harus mengelola secara rinci bagian mana dari konten aplikasi Anda yang harus dimuat, dan di mana. Kesimpulannya, sebagian besar proyek justru melewatkan bagian ini karena kompleksitasnya (lihat [panduan next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18n_using_next-i18next.md) misalnya untuk melihat tantangan yang muncul hanya dengan mengikuti praktik yang baik).
 Akibatnya, proyek-proyek tersebut berakhir dengan masalah pemuatan JSON besar-besaran yang dijelaskan sebelumnya.
+
+- [panduan next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18n_using_next-i18next.md)
 
 > Perlu dicatat bahwa masalah ini bukan spesifik untuk i18next, melainkan untuk semua pendekatan terpusat yang disebutkan di atas.
 

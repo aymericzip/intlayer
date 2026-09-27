@@ -27,9 +27,11 @@ author: aymericzip
 
 # intlayerCompiler
 
-`intlayerCompiler` es un plugin de Vite que escanea los archivos de código fuente de los componentes en busca de **declaraciones de contenido inline de Intlayer** — contenido definido directamente dentro de un componente en lugar de en un archivo `.content.ts` separado — y las escribe en archivos JSON de diccionario durante la fase de transformación.
+`intlayerCompiler` es un plugin de Vite que escanea los archivos de código fuente de los componentes en busca de **declaraciones de contenido inline de Intlayer**, contenido definido directamente dentro de un componente en lugar de en un archivo `.content.ts` separado, y las escribe en archivos JSON de diccionario durante la fase de transformación.
 
 > **Desde Intlayer v9**, `intlayerCompiler` se incluye automáticamente dentro del plugin principal [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/vite-intlayer/intlayer.md) cuando tanto `compiler.enabled` es `true` como `compiler.output` están configurados en su configuración de Intlayer. Solo necesita registrarlo por separado cuando desee tener un control total sobre la configuración específica del compilador.
+
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/vite-intlayer/intlayer.md)
 
 ## Uso
 

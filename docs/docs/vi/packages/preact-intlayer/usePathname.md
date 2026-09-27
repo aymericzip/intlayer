@@ -30,7 +30,7 @@ author: aymericzip
 
 # Tích hợp Preact: Tài liệu về `usePathname` Hook
 
-`usePathname` hook trả về pathname (đường dẫn) trình duyệt hiện tại với phân đoạn locale đã được loại bỏ. Điều này rất hữu ích để xây dựng các điều hướng nhận biết locale — ví dụ: xác định mục điều hướng nào đang hoạt động — mà không cần phải loại bỏ thủ công tiền tố locale.
+`usePathname` hook trả về pathname (đường dẫn) trình duyệt hiện tại với phân đoạn locale đã được loại bỏ. Điều này rất hữu ích để xây dựng các điều hướng nhận biết locale, ví dụ: xác định mục điều hướng nào đang hoạt động, mà không cần phải loại bỏ thủ công tiền tố locale.
 
 ## Nhập `usePathname` trong Preact
 

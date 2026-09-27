@@ -130,13 +130,13 @@ Exporteert het volledige scanresultaat als een JSON-object in plaats van een gef
 
 ### Standaard configuratie-opties
 
-- **`--base-dir`** — Basismap die wordt gebruikt om het bestand `intlayer.config.*` te vinden.
-- **`-e, --env`** — Doelomgeving (bijv. `development`, `production`).
-- **`--env-file`** — Pad naar een aangepast `.env`-bestand.
-- **`--no-cache`** — Configuratiecache uitschakelen.
-- **`--ci`** — Voert het commando uit in elk Intlayer-project van de monorepo (of alleen in het huidige bij uitvoering vanuit een projectmap). Inloggegevens per project kunnen worden geïnjecteerd via `INTLAYER_PROJECT_CREDENTIALS`, een JSON-object dat elk projectpad koppelt aan `{ "clientId", "clientSecret" }`.
-- **`--verbose`** — Gedetailleerde logboekregistratie inschakelen (standaard in CLI-modus).
-- **`--prefix`** — Aangepaste logboekprefix.
+- **`--base-dir`**: Basismap die wordt gebruikt om het bestand `intlayer.config.*` te vinden.
+- **`-e, --env`**: Doelomgeving (bijv. `development`, `production`).
+- **`--env-file`**: Pad naar een aangepast `.env`-bestand.
+- **`--no-cache`**: Configuratiecache uitschakelen.
+- **`--ci`**: Voert het commando uit in elk Intlayer-project van de monorepo (of alleen in het huidige bij uitvoering vanuit een projectmap). Inloggegevens per project kunnen worden geïnjecteerd via `INTLAYER_PROJECT_CREDENTIALS`, een JSON-object dat elk projectpad koppelt aan `{ "clientId", "clientSecret" }`.
+- **`--verbose`**: Gedetailleerde logboekregistratie inschakelen (standaard in CLI-modus).
+- **`--prefix`**: Aangepaste logboekprefix.
 
 ## Routeringsstrategie
 

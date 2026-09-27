@@ -176,4 +176,6 @@ const text = t(translations);
 
 有关更详细的用法和高级功能，请参阅 [react-intlayer 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)。
 
+- [react-intlayer 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)
+
 **注意**：请记得正确设置您的 `IntlayerProvider`，以确保当前语言环境能够正确传递给您的组件。这对于 `t` 函数返回正确的翻译至关重要。

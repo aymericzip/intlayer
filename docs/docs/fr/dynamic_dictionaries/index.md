@@ -3,7 +3,7 @@ createdAt: 2026-06-12
 updatedAt: 2026-09-27
 priority: 8
 title: "Dictionnaires dynamiques : collections et variantes"
-description: Vue d'ensemble des fonctionnalités de dictionnaires dynamiques d'Intlayer — collections et variantes — pour créer du contenu i18n flexible et piloté à l'exécution.
+description: Vue d'ensemble des fonctionnalités de dictionnaires dynamiques d'Intlayer, collections et variantes, pour créer du contenu i18n flexible et piloté à l'exécution.
 keywords:
   - Dictionnaires dynamiques
   - Collections
@@ -20,7 +20,7 @@ history:
     changes: "Sortie de la fonctionnalité des dictionnaires dynamiques"
   - version: 9.1.0
     date: 2026-06-26
-    changes: "Fusion des enregistrements dynamiques dans les variantes — `variant` accepte désormais une chaîne ou un objet"
+    changes: "Fusion des enregistrements dynamiques dans les variantes, `variant` accepte désormais une chaîne ou un objet"
 author: aymericzip
 ---
 
@@ -37,8 +37,8 @@ Les deux se combinent avec l'argument de locale et prennent en charge le chargem
 
 ## Quand utiliser quoi
 
-- **Collections** — liste ordonnée d'éléments gérés dans des fichiers séparés (entrées de FAQ, articles de blog, produits).
-- **Variantes** — alternatives de contenu nommées ou structurées :
+- **Collections**: liste ordonnée d'éléments gérés dans des fichiers séparés (entrées de FAQ, articles de blog, produits).
+- **Variantes**: alternatives de contenu nommées ou structurées :
   - une variante **chaîne** pour les tests A/B, les bannières saisonnières ou les feature flags ;
   - une variante **objet** pour les enregistrements de CMS, le contenu propre à un utilisateur ou tout contenu adressé par un ensemble de champs (les anciens « enregistrements dynamiques »).
 

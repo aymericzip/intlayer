@@ -34,6 +34,8 @@ The `getEnumeration` function (also aliased as `enu`) retrieves content correspo
 
 For more details on how to declare enumerations, see the [Enumeration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/enumeration.md).
 
+- [Enumeration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/enumeration.md)
+
 ## Parameters
 
 - `enumerationContent: QuantityContent<Content>`

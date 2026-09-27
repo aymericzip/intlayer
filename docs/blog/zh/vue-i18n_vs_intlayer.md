@@ -122,6 +122,8 @@ author: aymericzip
 
 > 包含所有库和所有策略的完整表格，请参见 [Vue 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/vue.md)。
 
+- [Vue 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/vue.md)
+
 ## 差距从何而来？全局实例 vs 编译后的字典
 
 `vue-i18n` 是一个运行时。`createI18n()` 构建一个全局实例，为每种语言持有一棵消息树；`useI18n()` 把每个组件绑定到它；`t("footer.github")` 在渲染时查找键。正是这一点使 SFC `<i18n>` 块、`v-t` 和运行时消息加载成为可能，也正是因此每个组件的依赖图都包含整棵树：
@@ -157,6 +159,8 @@ Intlayer 把这些知识移到构建阶段。内容在组件旁声明，`vite-in
 编译器按字典、按语言精确输出该组件需要的 JSON，并丢弃没有任何导入的字典。按路由的作用域是按组件作用域的自然结果，而不是一项任务。
 
 > 若还想丢弃未使用的语言，在 `intlayer.config.ts` 中设置 `dictionary.importMode: 'dynamic'`。参见 [bundle 优化文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md)。
+
+- [bundle 优化文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md)
 
 ## 开发体验
 
@@ -346,6 +350,10 @@ export default defineConfig({
 
 参见 [vue-i18n 迁移指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_vue-i18n_to_intlayer.md)和[兼容性文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/vue-i18n.md)。Nuxt 用户可通过 [`@nuxtjs/i18n` 兼容性](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/nuxtjs-i18n.md)走同样的路径。
 
+- [vue-i18n 迁移指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_vue-i18n_to_intlayer.md)
+- [兼容性文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/vue-i18n.md)
+- [`@nuxtjs/i18n` 兼容性](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/nuxtjs-i18n.md)
+
 ## 何时选择哪一个？
 
 - **选择 vue-i18n**，如果你想要标准的 Vue 方式、依赖 ICU 消息或 SFC `<i18n>` 块、已经在使用 `@nuxtjs/i18n`，或者翻译平台期望集中式 JSON。如果 bundle 体积很重要，请预留时间来拆分目录并按路由懒加载。
@@ -372,17 +380,24 @@ export default defineConfig({
 
 支持。[Intlayer 与 Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nuxt.md) 涵盖多语言路由、语言检测中间件和站点地图生成。如果您目前使用的是 `@nuxtjs/i18n`，[Nuxt i18n 兼容适配器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/nuxtjs-i18n.md) 提供了理想的迁移路径。
 
+- [Intlayer 与 Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nuxt.md)
+- [Nuxt i18n 兼容适配器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/nuxtjs-i18n.md)
+
 </Question>
 
 <Question title="我可以继续将 locales/{locale}.json 作为唯一数据源吗？">
 
 可以。[JSON 同步插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/vue-i18n.md) 会以 `vue-i18n` 方言语法（`{name}`、`{0}`、`"car | cars"` 管道复数）读取它们，并在 CLI 或 CMS 进行更新时将翻译写回。
 
+- [JSON 同步插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/vue-i18n.md)
+
 </Question>
 
 <Question title="ICU 可以在 Vue 上的 Intlayer 中使用吗？">
 
 原生 ICU 支持正在开发中。`@intlayer/vue-i18n` 适配器解析 `vue-i18n` 自身的消息语法，包括管道复数以及命名和列表插值。有关 Intlayer 自身的复数模型，请参阅[枚举内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/enumeration.md)。
+
+- [枚举内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/enumeration.md)
 
 </Question>
 
@@ -431,3 +446,5 @@ Intlayer 把工作移进编译器。按组件的字典和无用内容清除是�
 所有原始数据、测试应用和脚本都在 [Benchmark Bloom 仓库](https://github.com/intlayer-org/benchmark-bloom)中。自己跑一遍吧。
 
 更多细节请参阅[“为什么选择 Intlayer？”文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/interest_of_intlayer.md)。
+
+- [为什么选择 Intlayer？相比其他 i18n 库的优势](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/interest_of_intlayer.md)

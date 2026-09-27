@@ -31,7 +31,7 @@ author: aymericzip
 
 # Integracja Next.js: Dokumentacja hooka `usePathname`
 
-Hook `usePathname` zwraca aktualną ścieżkę Next.js z usuniętym segmentem lokalizacji. Jest to przydatne do budowania nawigacji świadomej lokalizacji — na przykład określania, który element nawigacji jest aktywny — bez konieczności ręcznego usuwania prefiksu lokalizacji.
+Hook `usePathname` zwraca aktualną ścieżkę Next.js z usuniętym segmentem lokalizacji. Jest to przydatne do budowania nawigacji świadomej lokalizacji (na przykład określania, który element nawigacji jest aktywny) bez konieczności ręcznego usuwania prefiksu lokalizacji.
 
 ## Importowanie `usePathname` w Next.js
 

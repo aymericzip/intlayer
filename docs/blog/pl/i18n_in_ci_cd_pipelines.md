@@ -44,7 +44,12 @@ const config = {
 export default config;
 ```
 
+- [wtyczka Sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/plugins/sync-json.md)
+
 Twoja aplikacja nadal importuje to, co importowała dotychczas. Poniższe zadania CI uzupełniają i weryfikują istniejące katalogi, a diff widoczny dla recenzenta to zmiana w `locales/fr/checkout.json`, a nie duża migracja kodu. Dostępna jest również [wtyczka Sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/plugins/sync-po.md) dla przepływów gettext oraz [adaptery kompatybilności](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compat/index.md), jeśli zależy Ci na zachowaniu obecnego runtime API.
+
+- [wtyczka Sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/plugins/sync-po.md)
+- [adaptery kompatybilności](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compat/index.md)
 
 ## Oddziel bramkę (gate) od uzupełniania (fill)
 
@@ -167,6 +172,8 @@ test("has no missing required locales", async () => {
 
 `npx intlayer content test` drukuje raport, ale kończy się z kodem 0, więc informuje, ale nie blokuje. Używaj tego lokalnie, a w CI polegaj na asercjach w teście. Więcej szczegółów w [wykrywaniu brakujących tłumaczeń](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/detecting_missing_translations.md).
 
+- [wykrywaniu brakujących tłumaczeń](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/detecting_missing_translations.md)
+
 ## `requiredLocales` czyni bramkę znośną w praktyce
 
 Bramka wymagająca kompletności wszystkich osiemnastu języków blokuje każde wydanie do czasu przygotowania najwolniejszego tłumaczenia i zostaje wyłączona w ciągu miesiąca.
@@ -209,6 +216,8 @@ export default config;
 ```
 
 Odpowiada to zespołom, w których treścią zajmują się osoby nietechniczne. Jest to kompromis: zyskujesz autonomię edytorską, ale tracisz pewność, że checkout gita w pełni opisuje stan renderowania aplikacji. Szczegóły w [dokumentacji CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md).
+
+- [dokumentacji CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md)
 
 Pamiętaj, że `clientSecret` to poświadczenie serwerowe. Powinno znajdować się w sekretach CI i środowisku serwera, nigdy w kodzie klienta.
 

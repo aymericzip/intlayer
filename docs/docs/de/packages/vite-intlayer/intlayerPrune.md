@@ -31,6 +31,8 @@ Das `intlayerPrune` Vite-Plugin wird verwendet, um ungenutzte Wörterbücher aus
 
 > Das Plugin ist bereits enthalten und wird automatisch konfiguriert, wenn Sie [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/vite-intlayer/intlayer.md) verwenden. Sie müssen es nur manuell registrieren, wenn Sie den Plugin-Stack selbst zusammenstellen.
 
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/vite-intlayer/intlayer.md)
+
 ## Verwendung
 
 ### As part of `intlayer()` (recommended)
@@ -99,8 +101,8 @@ Wenn Vite eine kompilierte Dictionary-JSON-Datei verarbeitet, fängt `intlayerPr
 
 Zwei Content-Formen werden unterstützt:
 
-- **Static dictionaries** — `{ nodeType: "translation", translation: { en: {...}, fr: {...} } }`. Felder werden pro Locale innerhalb von `translation` entfernt.
-- **Dynamic (per-locale) dictionaries** — flach `{ fieldA: ..., fieldB: ... }`. Felder werden auf oberster Ebene entfernt.
+- **Static dictionaries**: `{ nodeType: "translation", translation: { en: {...}, fr: {...} } }`. Felder werden pro Locale innerhalb von `translation` entfernt.
+- **Dynamic (per-locale) dictionaries**: flach `{ fieldA: ..., fieldB: ... }`. Felder werden auf oberster Ebene entfernt.
 
 ### 3. Edge cases
 
@@ -108,7 +110,7 @@ Falls die Inhaltsstruktur eines Wörterbuchs nicht erkannt werden kann (z. B. ei
 
 ### 4. Field-rename map
 
-Wenn das Pruning erfolgreich ist, schreibt `intlayerPrune` auch `pruneContext.dictionaryKeyToFieldRenameMap` — eine Zuordnung von ursprünglichen Feldnamen zu kurzen Aliasen. `intlayerMinify` liest diese Map, um Felder in der Ausgabe-JSON umzubenennen, und der Babel-Umbenennungs-Pass von `intlayerOptimize` aktualisiert entsprechend Eigenschaftszugriffe in Quelldateien.
+Wenn das Pruning erfolgreich ist, schreibt `intlayerPrune` auch `pruneContext.dictionaryKeyToFieldRenameMap`, eine Zuordnung von ursprünglichen Feldnamen zu kurzen Aliasen. `intlayerMinify` liest diese Map, um Felder in der Ausgabe-JSON umzubenennen, und der Babel-Umbenennungs-Pass von `intlayerOptimize` aktualisiert entsprechend Eigenschaftszugriffe in Quelldateien.
 
 ## Aktivierungsbedingungen
 
@@ -118,4 +120,4 @@ Wenn das Pruning erfolgreich ist, schreibt `intlayerPrune` auch `pruneContext.di
 2. `build.optimize` ist `true` (oder `undefined`, was standardmäßig `true` für Builds ist).
 3. `build.purge` ist `true` in Ihrer Intlayer-Konfiguration.
 
-Es bleibt aktiv, wenn `editor.enabled` auf `true` steht: Der visuelle Editor löst jede Bearbeitung über `dictionaryKey` + `keyPath` anhand der unzusammengeführten Wörterbücher auf, die dieses Plugin nie berührt, und ein bereinigtes Feld wird von keiner Komponente gelesen — es wird also nie gerendert und ist auf der Seite nie auswählbar.
+Es bleibt aktiv, wenn `editor.enabled` auf `true` steht: Der visuelle Editor löst jede Bearbeitung über `dictionaryKey` + `keyPath` anhand der unzusammengeführten Wörterbücher auf, die dieses Plugin nie berührt, und ein bereinigtes Feld wird von keiner Komponente gelesen, es wird also nie gerendert und ist auf der Seite nie auswählbar.

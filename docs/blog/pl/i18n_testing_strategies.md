@@ -31,6 +31,9 @@ Każdy poniższy wzorzec działa na dowolnym stosie i18n. Zamień provider na `I
 
 Narzędzia pokrycia również można łatwo przenieść: dzięki [wtyczce Sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/plugins/sync-json.md) wskazującej na istniejące katalogi lub [adapterowi kompatybilności](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compat/index.md) tworzącemu aliasy dla bieżących importów, asercja pokrycia działa bezpośrednio na posiadanym pliku JSON.
 
+- [wtyczce Sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/plugins/sync-json.md)
+- [adapterowi kompatybilności](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compat/index.md)
+
 ## Zdecyduj, co tak naprawdę testujesz
 
 Jakość tłumaczenia nie podlega weryfikacji w testach kodu. Żadna asercja nie oceni, czy język niemiecki brzmi naturalnie, a próby takiego testowania kończą się jedynie kodem zaśmieconym zahardkodowanymi ciągami znaków.
@@ -46,6 +49,8 @@ To, co mechanicznie warto testować:
 | Sformatowane daty i liczby stosują locale | Wewnętrzna poprawność `Intl`      |
 
 Weryfikacja pokrycia powinna znajdować się w jednym teście opartym na danych, a nie w testach komponentów. Temat ten omawia artykuł [wykrywanie brakujących tłumaczeń](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/detecting_missing_translations.md); ten wpis skupia się na pozostałych kwestiach.
+
+- [wykrywanie brakujących tłumaczeń](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/detecting_missing_translations.md)
 
 ## Renderuj wewnątrz providera i wyszukuj po roli
 
@@ -122,6 +127,8 @@ describe.each([0, 1, 2, 3, 11, 100])("liczba %i", (count) => {
 ```
 
 Wybieraj wartości liczbowe odpowiadające każdej kategorii CLDR dla najbardziej złożonego języka, zamiast sprawdzać wszędzie 1 i 2. `Intl.PluralRules` podpowiada, do której kategorii wpada dana liczba, dzięki czemu możesz wyznaczyć próbki bez zgadywania. Więcej szczegółów w [artykule o formacie wiadomości ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/icu_message_format.md).
+
+- [artykule o formacie wiadomości ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/icu_message_format.md)
 
 ## Pułapka snapshotów
 

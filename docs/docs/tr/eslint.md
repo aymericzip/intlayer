@@ -35,7 +35,7 @@ author: aymericzip
 
 1. Bir sözlüğe hiç eklenmemiş **sabit kodlanmış metinler (hardcoded text)**.
 2. Tip kontrolünden geçen ve çalışan ancak Intlayer derleyicisinin optimize edemediği **dinamik çağrılar**.
-3. **Ölü içerik (Dead content)** — projedeki hiçbir yerin okumadığı sözlükler ve alanlar (isteğe bağlı).
+3. **Ölü içerik (Dead content)**: projedeki hiçbir yerin okumadığı sözlükler ve alanlar (isteğe bağlı).
 
 Bilinmeyen sözlük anahtarları, bilinmeyen alan yolları ve eksik yerel ayarlar zaten derleme hataları olduğundan, eklenti bunları tekrar bildirmez.
 
@@ -106,7 +106,7 @@ export default [
 }
 ```
 
-İki uyarı: oxlint'in JS eklenti desteği henüz alfa aşamasındadır ve oxlint özel ayrıştırıcıları (custom parsers) desteklemez — bu nedenle `.vue`, `.svelte`, `.astro` ve Angular şablonları orada denetlenmez. JS/TS/JSX dosyalarınız için oxlint'i çalıştırın ve geri kalanı için ESLint'i kullanın.
+İki uyarı: oxlint'in JS eklenti desteği henüz alfa aşamasındadır ve oxlint özel ayrıştırıcıları (custom parsers) desteklemez, bu nedenle `.vue`, `.svelte`, `.astro` ve Angular şablonları orada denetlenmez. JS/TS/JSX dosyalarınız için oxlint'i çalıştırın ve geri kalanı için ESLint'i kullanın.
 
 `no-unused-content` yukarıda kasıtlı olarak hariç tutulmuştur: kural bağlamından çalışma dizinine ve denetlenen dosya yoluna ihtiyaç duyar; alfa JS eklenti köprüsü bunu garanti etmez. ESLint altında çalıştırın.
 
@@ -123,7 +123,7 @@ export default [
 
 `recommended`, `no-raw-text` kuralını kasıtlı olarak `warn` seviyesinde tutar: bunu mevcut bir kod tabanına yöneltmek tüm çevrilmemiş dizeleri aynı anda ortaya çıkarır ve bu durum derlemenizi ilk günden bozmamalıdır.
 
-`enforce-adapter-import` varsayılan olarak kapalıdır — istiyorsanız açıkça etkinleştirin.
+`enforce-adapter-import` varsayılan olarak kapalıdır, istiyorsanız açıkça etkinleştirin.
 
 `no-unused-content`, `strict` dahil tüm yapılandırmalarda kapalıdır. Intlayer yapılandırmanızı okuyan ve kaynak dosyalarınızı diskten tarayan tek kuraldır; bu nedenle açılması, bir ön ayarın sizin yerinize yapmasından ziyade bilinçli bir seçim olmalıdır.
 
@@ -248,7 +248,7 @@ export default {
 };
 ```
 
-Diğer kuralların aksine, bu kural yalnızca önündeki dosyadan karar veremez — bir alan yalnızca tüm projeye göre kullanılmamış sayılır. Bir lint çalıştırmasının ilk içerik bildiriminde Intlayer yapılandırmanızı yükler, bu yapılandırmanın bildirdiği kaynak dosyaları (`build.traversePattern`, `compiler.transformPattern`) tarar ve `@intlayer/lsp` ile VS Code uzantısındaki "kullanılmayan" üstü çizili metni destekleyen aynı kullanım çözümleyicisini çalıştırır. Sonuç `cacheTtl` milisaniye boyunca önbelleğe alınır, böylece tarama dosya başına değil çalıştırma başına bir kez gerçekleşir.
+Diğer kuralların aksine, bu kural yalnızca önündeki dosyadan karar veremez, bir alan yalnızca tüm projeye göre kullanılmamış sayılır. Bir lint çalıştırmasının ilk içerik bildiriminde Intlayer yapılandırmanızı yükler, bu yapılandırmanın bildirdiği kaynak dosyaları (`build.traversePattern`, `compiler.transformPattern`) tarar ve `@intlayer/lsp` ile VS Code uzantısındaki "kullanılmayan" üstü çizili metni destekleyen aynı kullanım çözümleyicisini çalıştırır. Sonuç `cacheTtl` milisaniye boyunca önbelleğe alınır, böylece tarama dosya başına değil çalıştırma başına bir kez gerçekleşir.
 
 **Seçenekler**
 
@@ -283,9 +283,9 @@ Uzun süre çalışan bir düzenleyici sunucusundan lint işlemi yaparken ve dü
 
 > **Sessiz kalmaya meyillidir.** Buradaki yanlış bir pozitif sonuç bir çeviriyi silebilir; bu nedenle sözlük analizin izleyemeyeceği bir şekilde kullanıldığında hiçbir şey bildirilmez: içerik nesnesinin bir bütün olarak aktarılması, ondan bağlanan bir çevirici işlevi (`const t = useTranslations("home")`), doğrudan içe aktarma yoluyla ulaşılan bir bildirim (`useDictionary(myDictionary)`), başka bir sözlükten bir `nest()` veya bir yayma (spread) operatörü ile kapsamlı olmaktan çıkarılan bir alan listesi. Tek dosyalı bileşenler (`.vue`, `.svelte`, `.astro`), komut dosyası blokları burada ayrıştırılmadığı için bahsettikleri sözlüklerin her alanını kullanıyor sayılır.
 
-`reportDuplicateKeys`, derlemenin `.intlayer/` altına yazdığı birleştirilmemiş sözlükleri okur, bu nedenle proje en az bir kez derlenene kadar sessiz kalır. Bir anahtarı paylaşan iki bildirim birleştirilir ve bu meşru bir kalıptır — bu raporlama mekanizması, her iki tarafta tanımlanan bir alanın sessizce iki değerden yalnızca birini koruması nedeniyle mevcuttur.
+`reportDuplicateKeys`, derlemenin `.intlayer/` altına yazdığı birleştirilmemiş sözlükleri okur, bu nedenle proje en az bir kez derlenene kadar sessiz kalır. Bir anahtarı paylaşan iki bildirim birleştirilir ve bu meşru bir kalıptır, bu raporlama mekanizması, her iki tarafta tanımlanan bir alanın sessizce iki değerden yalnızca birini koruması nedeniyle mevcuttur.
 
-Çözümleyici, ESM olarak dağıtılan `@intlayer/lsp` paketinden yüklenir. Bu nedenle kural, bir ES modülünü `require()` edebilen bir Node sürümüne ihtiyaç duyar — Node 20.19+ veya 22.12+. Daha eski sürümlerde lint çalıştırmasını başarısız kılmak yerine hiçbir şey bildirmez.
+Çözümleyici, ESM olarak dağıtılan `@intlayer/lsp` paketinden yüklenir. Bu nedenle kural, bir ES modülünü `require()` edebilen bir Node sürümüne ihtiyaç duyar, Node 20.19+ veya 22.12+. Daha eski sürümlerde lint çalıştırmasını başarısız kılmak yerine hiçbir şey bildirmez.
 
 ## Çerçeveler (Frameworks)
 

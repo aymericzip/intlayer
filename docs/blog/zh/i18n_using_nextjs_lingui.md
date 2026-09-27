@@ -66,6 +66,8 @@ author: aymericzip
 
 [i18n 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md)在各大主流库上运行相同的包含 10 个页面和 10 种语言的 Next.js 应用，并测量浏览器实际下载的内容体积。
 
+- [i18n 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md)
+
 <I18nBenchmark framework="nextjs" packages="lingui,@intlayer/lingui,next-intlayer" vertical/>
 
 在 Next.js 16 上测试 `@lingui/core@6.6.0` 的关键数据，测量日期为 2026-09-26（gzip 压缩）：
@@ -83,6 +85,8 @@ author: aymericzip
 - **Lingui 运行时体积约为 72 KB gzip。**`@intlayer/lingui` 兼容适配器将运行时体积减少到约 11 KB，但在此基准测试中，Next.js 兼容配置仍会将完整的消息目录发送到页面。原生 `next-intlayer` API 则是能保持基础应用原始体积的配置方案。
 
 > 查看完整数据：[Next.js 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md) 以及 [基准测试仓库](https://github.com/intlayer-org/benchmark-i18n)。
+
+- [Next.js 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md)
 
 ## Next.js 上的功能特性对比
 
@@ -108,6 +112,9 @@ author: aymericzip
 | **生态系统与社区**                   | ⚠️ 规模较小但增长迅速                            | ✅ 成熟                                       | ✅ 庞大                                     |
 
 > 运行时体积来自 [Next.js 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md)。更深入的讨论请阅读 [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/lingui_vs_intlayer.md)。
+
+- [Next.js 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md)
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/lingui_vs_intlayer.md)
 
 > 其他 Next.js 指南：
 
@@ -1041,9 +1048,17 @@ export const sendContactMessage = async (formData: FormData) => {
 
 [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/lingui.md) 兼容适配器允许你保持源代码不变：宏照常编译，编译生成的 `i18n._()`、`useLingui()` 和 `<Trans>` 调用由 Intlayer 字典提供支持。在 Next.js 基准测试中，运行时体积从约 **72.1 KB 下降至约 10.7 KB** gzip。
 
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/lingui.md)
+
 在 Next.js 中，通过在 `next.config.ts`（webpack 与 Turbopack）中将 `@lingui/core` 和 `@lingui/react` 别名指向 `@intlayer/lingui`，并使用 `next-intlayer/server` 中的 `withIntlayer` 包装配置即可启用适配器。保留 `@lingui/swc-plugin` 以便宏能够先行编译。完整配置请参阅 [Lingui 兼容指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/lingui.md)。
 
+- [Lingui 兼容指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/lingui.md)
+
 正如基准测试表格所示，该适配器缩减了运行时体积，但在 Next.js 上尚未减少发送到每个页面的目录体积。它最适合作为迁移桥梁：一旦运行稳定，即可逐个组件迁移至原生 `useIntlayer` API，从而仅打包每个组件实际渲染的内容。请参阅 [Next.js + Intlayer 指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_16.md)、[Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/lingui_vs_intlayer-lingui.md) 以及所有[兼容适配器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/index.md)。
+
+- [Next.js + Intlayer 指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_16.md)
+- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/lingui_vs_intlayer-lingui.md)
+- [兼容适配器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/index.md)
 
 </Step>
 <Step number={19} title="使用 Intlayer 自动化翻译" isOptional={true}>
@@ -1086,15 +1101,23 @@ Lingui 可以提取消息，但手动填充数十个语言目录往往耗费大�
 
 [基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md)测得运行时体积约为 72 KB gzip。每个语言使用独立目录时，页面体积约为 145 KB（无 i18n 基础应用为 141 KB），但每个页面仍会通过客户端 provider 接收到其他页面的消息。
 
+- [基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md)
+
 </Question>
 <Question title="Lingui、next-intl 与 next-i18next：Next.js 项目该如何选择？">
 
 Lingui 适合喜欢在组件中编写源文本、并与 PO 文件及翻译人员协作的团队。next-intl 适合偏好 JSON 目录结构以及与 Next.js 深度集成的 `t("key")` API 的团队。next-i18next 则带来了丰富的 i18next 插件生态。详情请参阅 [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/next-i18next_vs_next-intl_vs_intlayer.md) 以及 [Next.js 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md)。
 
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/next-i18next_vs_next-intl_vs_intlayer.md)
+- [Next.js 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md)
+
 </Question>
 <Question title="能否在不重写组件的情况下从 Lingui 迁移到 Intlayer？">
 
 可以。[`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/lingui.md) 适配器保留了宏语法并替换了底层运行时，之后你可以逐步将组件迁移到 `useIntlayer`。详情请参阅[兼容适配器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/index.md)。
+
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/lingui.md)
+- [兼容适配器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/index.md)
 
 </Question>
 

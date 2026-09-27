@@ -88,6 +88,8 @@ style="border:none;"
 
 > Tests réalisés dans de vrais navigateurs avec compression gzip. Données exhaustives dans la [documentation du benchmark Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/benchmark/vue.md).
 
+- [documentation du benchmark Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/benchmark/vue.md)
+
 ### Poids initial des bibliothèques
 
 Surcharge initiale avant l'ajout des textes de traduction :
@@ -178,6 +180,9 @@ const { title } = useIntlayer("hero");
 
 Le [compilateur Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compiler.md) trace précisément les propriétés invoquées et élimine le contenu non utilisé avant l'assemblage des bundles clients. Voir [l'optimisation de bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/bundle_optimization.md) pour approfondir.
 
+- [compilateur Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compiler.md)
+- [l'optimisation de bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/bundle_optimization.md)
+
 ## Expérience développeur
 
 ### Catalogues distants ou co-localisation
@@ -255,6 +260,8 @@ Lorsque `Hero.vue` est supprimé ou renommé, son fichier de contenu est déplac
 
 Avec Intlayer, les dictionnaires sont validés strictement. L'activation du [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md) bloque la compilation dès qu'une traduction fait défaut.
 
+- [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md)
+
 ### Outillage pour les IDEs et l'IA
 
 | Fonctionnalité               | `vue-i18n`         | Intlayer                                                                                                                 |
@@ -278,6 +285,8 @@ Complète automatiquement les traductions absentes grâce à vos clés API OpenA
 **CMS visuel auto-hébergeable :**
 
 Déployez le [CMS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md) pour permettre aux équipes éditoriales de modifier le contenu avec validation directe dans Git.
+
+- [CMS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md)
 
 **Licence libre et ouverte :**
 

@@ -78,6 +78,8 @@ author: aymericzip
 
 > Для получения дополнительной информации ознакомьтесь с документацией: [Документация компилятора Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compiler.md)
 
+- [Документация компилятора Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compiler.md)
+
 ## Привлекательность компилятора (подход "магии")
 
 Есть причина, по которой этот новый подход становится популярным. Для разработчика опыт кажется невероятным.

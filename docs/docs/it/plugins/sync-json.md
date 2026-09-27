@@ -216,7 +216,7 @@ Controlla se un singolo file JSON le cui **chiavi di primo livello sono namespac
 
 Questo corrisponde al modello di namespace di librerie come `next-intl` e `react-intl`, dove un file `messages/{locale}.json` raggruppa diversi namespace tramite le sue chiavi di primo livello, ciascuna indirizzata indipendentemente (ad esempio `useTranslations('Hero')` si risolve nel dizionario `Hero`).
 
-- `undefined` (predefinito): **rilevamento automatico** — il file viene diviso quando il pattern `source` non ha un segmento `{key}` (un file contiene ogni namespace), e mantenuto come un singolo dizionario altrimenti (un file per chiave).
+- `undefined` (predefinito): **rilevamento automatico**, il file viene diviso quando il pattern `source` non ha un segmento `{key}` (un file contiene ogni namespace), e mantenuto come un singolo dizionario altrimenti (un file per chiave).
 - `true`: divide sempre ogni chiave di primo livello nel proprio dizionario.
 - `false`: non divide mai; l'intero file diventa un singolo dizionario.
 
@@ -238,7 +238,7 @@ syncJSON({
 }),
 ```
 
-Questo produce tre dizionari — `Hero`, `Nav` e `About` — quindi `useTranslations('Hero')` (next-intl) si risolve correttamente. Durante la riscrittura, tutti i namespace vengono riassemblati nello stesso file per locale.
+Questo produce tre dizionari (`Hero`, `Nav` e `About`) quindi `useTranslations('Hero')` (next-intl) si risolve correttamente. Durante la riscrittura, tutti i namespace vengono riassemblati nello stesso file per locale.
 
 > Quando mantieni il segmento `{key}` esplicito nel tuo `source` (ad esempio `./locales/${locale}/${key}.json`), ogni file è già un namespace, quindi la divisione è disabilitata per impostazione predefinita.
 
@@ -402,7 +402,7 @@ loadJSON({
 
 Stesso comportamento di [`syncJSON`](#splitkeys-boolean): quando un singolo file JSON raggruppa diversi namespace tramite le sue chiavi di primo livello, ogni chiave di primo livello diventa il proprio dizionario.
 
-- `undefined` (predefinito): **rilevamento automatico** — divide quando il pattern `source` non ha un segmento `{key}`, singolo dizionario altrimenti.
+- `undefined` (predefinito): **rilevamento automatico**, divide quando il pattern `source` non ha un segmento `{key}`, singolo dizionario altrimenti.
 - `true` / `false`: forza o disabilita la divisione.
 
 ```ts
@@ -440,6 +440,8 @@ I file JSON sincronizzati saranno considerati come altri file `.content`. Ciò s
 - `intlayer content pull` per scaricare i file JSON sincronizzati
 
 Vedi [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/cli/index.md) per maggiori dettagli.
+
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/cli/index.md)
 
 ## Limitations (current)
 

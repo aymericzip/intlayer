@@ -49,6 +49,38 @@ export const router = createRouter({
 3. **अनुरोध संदर्भ भरना**: `Intlayer` कुंजी का उपयोग करके वर्तमान हल किए गए लोकेल को Remix अनुरोध संदर्भ में सहेजता है, जिससे हुक्स (`useLocale`, `useIntlayer`, `useDictionary`) पारदर्शी रूप से इसका उपभोग कर सकें।
 4. **कुकी प्रबंधन**: उपयोगकर्ता के पसंदीदा लोकेल को बनाए रखने की आवश्यकता होने पर `Set-Cookie` हेडर सेट करता है।
 
+## पैरामीटर
+
+`intlayer` फ़ंक्शन वैकल्पिक `IntlayerMiddlewareOptions` स्वीकार करता है:
+
+```ts
+import { intlayer, type IntlayerMiddlewareOptions } from "remix-intlayer";
+
+const options: IntlayerMiddlewareOptions = {
+  // कस्टम रूटिंग कॉन्फ़िगरेशन ओवरराइड
+};
+
+const middleware = intlayer(options);
+```
+
+## संदर्भ को सीधे एक्सेस करना
+
+हुक्स का उपयोग करने के अलावा, आप हल किए गए `IntlayerState` को सीधे Remix अनुरोध संदर्भ से एक्सेस कर सकते हैं:
+
+```ts
+import { Intlayer } from "remix-intlayer";
+
+router.get("/api/locale", (context) => {
+  // context.get() के माध्यम से
+  const state = context.get(Intlayer);
+
+  // या सीधे context.intlayer प्रॉपर्टी के माध्यम से
+  const { locale } = context.intlayer;
+
+  return Response.json({ locale });
+});
+```
+
 ## संबंधित दस्तावेज़
 
 - [`Intlayer` अनुरोध संदर्भ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/remix-intlayer/Intlayer.md)

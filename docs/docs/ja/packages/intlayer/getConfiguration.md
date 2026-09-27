@@ -57,6 +57,8 @@ author: aymericzip
 
 詳細については、[Intlayer設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を参照してください。
 
+- [Intlayer設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)
+
 ## 使用例
 
 ### 完全な設定の取得

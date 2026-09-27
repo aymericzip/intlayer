@@ -100,7 +100,7 @@ npx skills add aymericzip/intlayer-skills
 
 - Enseña al agente el uso de los stores de Svelte y una sintaxis idiomática para un contenido localizado reactivo y con tipado seguro en aplicaciones Svelte y SvelteKit.
 
-**intlayer-cms**
+**intlayer-remote-content**
 
 - Permite al agente integrar y gestionar contenido remoto, permitiéndole manejar flujos de trabajo de sincronización en vivo y traducción remota a través del CMS de Intlayer.
 
@@ -115,3 +115,31 @@ npx skills add aymericzip/intlayer-skills
 **intlayer-compiler**
 
 - Simplifica el flujo de trabajo del agente al permitir la extracción automática de contenido, permitiéndole escribir cadenas traducibles directamente en su código sin archivos de diccionario manuales.
+
+**intlayer-lit**
+
+- Enseña al agente a traducir web components de Lit con los ReactiveControllers `useIntlayer` y `useLocale`.
+
+**intlayer-vanilla**
+
+- Permite al agente localizar páginas en JavaScript / TypeScript puro con `vanilla-intlayer`, con o sin bundler.
+
+**intlayer-remix**
+
+- Proporciona al agente el middleware de router de Remix 3 y los hooks `useIntlayer` / `useLocale` con ámbito de petición.
+
+**intlayer-backend**
+
+- Prepara al agente para traducir respuestas del servidor en Express, Fastify, Hono, NestJS, AdonisJS y Elysia mediante un patrón compartido de middleware + `t` / `getIntlayer`.
+
+**intlayer-dev-tools**
+
+- Permite al agente configurar las herramientas de Intlayer alrededor de su código: reglas de ESLint para cadenas codificadas, el Language Server, las extensiones de VS Code y Chrome, el servidor MCP y las comprobaciones de traducción en CI/CD.
+
+**intlayer-markdown**
+
+- Enseña al agente a declarar contenido Markdown (`md()`, archivos `.content.md`, archivos externos) y a renderizarlo con componentes MDX, un `MarkdownProvider` global, Suspense y parsing del lado del servidor.
+
+**intlayer-compat**
+
+- Guía al agente en la migración desde i18next, react-i18next, next-intl, next-i18next, react-intl, vue-i18n o Lingui con adaptadores de compatibilidad que mantienen la API original, de modo que no es necesario reescribir las llamadas de traducción.

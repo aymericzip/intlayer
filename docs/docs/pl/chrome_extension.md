@@ -120,6 +120,11 @@ Wykrywanie opiera się na informacjach, które strona ujawnia w przeglądarce: z
 
 Większość testów odnosi się do ustawień routingu lub metadanych. W Intlayer hreflang, link kanoniczny, `x-default`, zlokalizowane linki, sitemap oraz robots.txt są generowane na podstawie [konfiguracji](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md). Zobacz przewodnik integracji dla swojego frameworka, na przykład [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_nextjs_16.md), [Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_nuxt.md) lub [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_tanstack.md).
 
+- [konfiguracji](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md)
+- [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_nextjs_16.md)
+- [Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_nuxt.md)
+- [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_tanstack.md)
+
 </Question>
 
 </FAQ>

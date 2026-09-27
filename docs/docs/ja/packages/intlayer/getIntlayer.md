@@ -31,7 +31,7 @@ author: aymericzip
 
 ## Description
 
-`getIntlayer` 関数は、キーによって1つの辞書を選択し、指定されたロケールで解釈されたコンテンツを返します。これは `useIntlayer` フックのフレームワーク非依存の対応物です：同じコンテンツ、同じセレクタですが、React コンテキストが利用できない場所ならどこでも使用可能です — Node スクリプト、サーバー関数、ルートローダー、メタデータビルダー、Express/Fastify ハンドラ、テスト。
+`getIntlayer` 関数は、キーによって1つの辞書を選択し、指定されたロケールで解釈されたコンテンツを返します。これは `useIntlayer` フックのフレームワーク非依存の対応物です：同じコンテンツ、同じセレクタですが、React コンテキストが利用できない場所ならどこでも使用可能です。Node スクリプト、サーバー関数、ルートローダー、メタデータビルダー、Express/Fastify ハンドラ、テスト。
 
 Intlayer によって `.intlayer/` に生成された辞書を読み込むため、`key` 引数は型付けされており、独自のコンテンツ宣言から自動補完されます。返されるオブジェクトは各リーフまで完全に型付けされています。
 
@@ -57,18 +57,18 @@ getIntlayer(
 
 - `key: DictionaryKeys`
   - **説明**: コンテンツファイルで宣言されている、読み取る辞書のキー。
-  - **型**: `DictionaryKeys` — すべての宣言された辞書キーの共用体。
+  - **型**: `DictionaryKeys`、すべての宣言された辞書キーの共用体。
   - **必須**: Yes
 
 - `localeOrSelector: LocalesValues | DictionarySelector`
   - **説明**: コンテンツを解釈するロケール、または[動的辞書](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/index.md)のセレクタオブジェクト。
-    - `'fr'` — ロケール
-    - `{ item: 2 }` — [collection](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/collections.md)アイテム（すべてのアイテムを配列として取得するには`item`を省略）
-    - `{ variant: 'black-friday' }` — 名前付き[variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/variants.md)（`default`の場合は省略）
-    - `{ variant: { id: 'prod_abc', userId: '123' } }` — 構造化variant
+    - `'fr'`：ロケール
+    - `{ item: 2 }`：[collection](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/collections.md)アイテム（すべてのアイテムを配列として取得するには`item`を省略）
+    - `{ variant: 'black-friday' }`：名前付き[variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/variants.md)（`default`の場合は省略）
+    - `{ variant: { id: 'prod_abc', userId: '123' } }`：構造化variant
     - すべてのセレクタはロケールを持つことができます: `{ item: 2, locale: 'fr' }`
   - **型**: `LocalesValues | DictionarySelector`
-  - **必須**: No (Optional) — デフォルトは設定された`defaultLocale`。
+  - **必須**: No (Optional)、デフォルトは設定された`defaultLocale`。
 
 - `plugins: Plugins[]`
   - **説明**: ベースインタープリタプラグインを置き換えるカスタムノードトランスフォーマー。高度な使用のみ；デフォルトの動作を保つには省略してください。
@@ -110,6 +110,8 @@ const { title } = getIntlayer("app", "fr"); // "Bonjour"
 ### ロケールなし
 
 ロケールを省略すると、コンテンツは[設定](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)で宣言された `defaultLocale` で解釈されます。
+
+- [設定](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)
 
 ```typescript
 import { getIntlayer } from "intlayer";
@@ -161,6 +163,9 @@ const banner = getIntlayer("banner", { variant: "black-friday", locale: "fr" });
 ### バンドルサイズ
 
 `getIntlayer` は、**すべての**ロケールを保持するマージされた辞書を読み込みます。クライアントバンドルでは、[ビルドプラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)が呼び出しを書き換え、必要なコンテンツのみがシップされます。レンダリング外でコンテンツを読み込む場合（メタデータ、ローダー、サーバー関数）で、単一のロケールをオンデマンドで読み込みたい場合は、代わりに[`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getIntlayerAsync.md)を使用してください。
+
+- [ビルドプラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)
+- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getIntlayerAsync.md)
 
 ## 関連関数
 

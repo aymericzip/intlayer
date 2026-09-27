@@ -35,6 +35,8 @@ author: aymericzip
 
 생성된 레지스트리에서 키로 dictionary를 조회하는 [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getIntlayer.md)와 달리, `getDictionary`는 dictionary 자체를 받습니다. 이것이 런타임에 구축된 콘텐츠, API 또는 CMS에서 가져온 콘텐츠 또는 테스트에서 인라인으로 선언된 콘텐츠에 적합한 도구입니다.
 
+- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getIntlayer.md)
+
 **주요 기능:**
 
 - dictionary 구조(`{ key, content }`)를 따르는 모든 객체와 함께 작동
@@ -62,7 +64,7 @@ getDictionary(
 - `localeOrSelector: LocalesValues | DictionarySelector`
   - **설명**: 콘텐츠를 해석할 locale, 또는 selector 객체 (`{ item }`, `{ variant }`, 선택적으로 `locale` 포함). [동적 dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dynamic_dictionaries/index.md)를 참조하세요.
   - **타입**: `LocalesValues | DictionarySelector`
-  - **필수**: No (선택사항) — 설정된 `defaultLocale`로 기본값 설정.
+  - **필수**: No (선택사항), 설정된 `defaultLocale`로 기본값 설정.
 
 - `plugins: Plugins[]`
   - **설명**: 인식된 노드가 어떻게 해석되는지를 정의하는 node transformer 배열. 생략되면 기본 interpreter plugin 세트가 사용됩니다.

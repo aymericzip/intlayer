@@ -25,6 +25,8 @@ author: aymericzip
 
 Kapsamlı ve ayrıntılı adım adım eğitim için lütfen tam [react-i18next Göç Kılavuzuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_react-i18next_to_intlayer.md) bakın.
 
+- [react-i18next Göç Kılavuzuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_react-i18next_to_intlayer.md)
+
 Intlayer'ın uyumluluk adaptörünü kullanmak, kaynak kod importlarında hiçbir değişiklik yapmadan `react-i18next`'ten geçiş yapmanıza izin verir.
 
 ## Ne yapmalı

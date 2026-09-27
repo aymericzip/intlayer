@@ -67,6 +67,8 @@ O Paraglide compila cada mensagem para uma função exportada, permitindo que o 
 
 A [história do i18n em JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/history_of_i18n.md) aborda cada onda em detalhes.
 
+- [história do i18n em JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/history_of_i18n.md)
+
 ## A decisão que mais importa: onde o conteúdo fica e quando ele é carregado
 
 Duas escolhas estruturais explicam a maior parte da diferença de tamanho de bundle entre as configurações:
@@ -80,11 +82,17 @@ O gráfico estima o payload para uma aplicação teórica de 1 a 10 páginas, tr
 
 O `svelte-i18n` fica no canto superior esquerdo por padrão: `register("fr", () => import("./fr.json"))` oferece carregamento dinâmico por locale, mas um catálogo de locale é um único objeto e carregá-lo carrega os textos de todas as páginas. O Paraglide é o caso interessante: como cada mensagem é sua própria exportação, o tree-shaking resolve o eixo das páginas automaticamente, e o [benchmark do Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/benchmark/svelte.md) confirma que ele funciona conforme anunciado no Vite + Svelte (ao contrário dos benchmarks de React e Next.js). O Intlayer atinge o mesmo resultado por meio de declarações por componente.
 
+- [benchmark do Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/benchmark/svelte.md)
+
 Se a sua resposta para a pergunta 3 foi "muitas páginas", dê mais peso a esta seção do que a qualquer preferência de API. O post sobre [i18n por componente vs centralizado](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/per-component_vs_centralized_i18n.md) aborda o lado da manutenção desse mesmo trade-off.
+
+- [i18n por componente vs centralizado](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/per-component_vs_centralized_i18n.md)
 
 ## Os candidatos
 
 Os tamanhos das bibliotecas são do [benchmark do Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/benchmark/svelte.md): store mais accessor em um componente vazio, após bundling, tree-shaking e minificação, em uma aplicação de 10 páginas e 10 locales. O conteúdo é medido separadamente.
+
+- [benchmark do Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/benchmark/svelte.md)
 
 ![Ecossistema de bibliotecas de i18n para Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
@@ -113,6 +121,8 @@ O tamanho quase zero da biblioteca do Paraglide é por construção: o runtime �
 
 O problema do compartilhamento de estado define esta escolha. O `svelte-i18n` funciona no SvelteKit, mas a configuração por requisição (`hooks.server.ts`, `locals`, `load`, depois `setContext`) fica por sua conta e é fácil de errar em detalhes sutis. O Paraglide inclui uma integração com o SvelteKit que gerencia o roteamento e lê o locale a cada chamada, evitando o problema do singleton. O Intlayer define o locale no context a partir dos dados do `load`. O [post sobre i18n no SvelteKit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_with_svelte_kit.md) explica a escolha entre `[[lang]]` e `reroute`, que você deve fazer antes de escolher a biblioteca.
 
+- [post sobre i18n no SvelteKit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_with_svelte_kit.md)
+
 </Accordion>
 <Accordion header="As traduções vêm de um TMS ou de uma agência entregando ICU">
 
@@ -127,6 +137,8 @@ Tempo de compilação. O tree-shaking do Paraglide funciona no Vite + Svelte e o
 <Accordion header="Segurança de tipos (type safety) é inegociável">
 
 Qualquer opção, exceto uma configuração pura de `svelte-i18n`, onde a única tipagem é uma união escrita manualmente que rapidamente fica defasada do JSON. `typesafe-i18n`, Paraglide e Intlayer geram tipos a partir do conteúdo. Verifique a atividade do repositório do `typesafe-i18n` antes de adotar em sua codebase. O post sobre [como detectar traduções ausentes](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/detecting_missing_translations.md) compara o que cada um detecta em tempo de build.
+
+- [como detectar traduções ausentes](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/detecting_missing_translations.md)
 
 </Accordion>
 <Accordion header="Você não quer arquivos gerados no repositório">
@@ -378,6 +390,8 @@ Todos os locales em um único arquivo ao lado do componente. O `useIntlayer` ret
 
 Já utiliza o `svelte-i18n`? O [adaptador de compatibilidade `@intlayer/svelte-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/compat/svelte-i18n.md) cria um alias para o pacote no nível do bundler, permitindo que `$_`, `$date`, `$number` e suas chaves simples continuem funcionando enquanto o Intlayer entrega o conteúdo.
 
+- [adaptador de compatibilidade `@intlayer/svelte-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/compat/svelte-i18n.md)
+
 ## Antes de tomar a decisão
 
 Uma tabela de recursos mostra o que uma biblioteca faz hoje. Estes pontos mostram como será a convivência com ela no dia a dia.
@@ -400,6 +414,9 @@ O `svelte-i18n` é apoiado pelo Crowdin, assim como o `next-intl` e o `vue-i18n`
 
 Agentes ainda têm dificuldades com i18n: esquecem locales, inventam chaves e misturam sintaxes de mensagens. A biblioteca fornece [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/agent_skills.md) ou um [servidor MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/mcp_server.md) para que o agente possa listar, preencher e testar o conteúdo? E o carregamento de conteúdo é otimizado por padrão, ou alguém precisa revisar namespaces e imports lazy a cada trimestre?
 
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/agent_skills.md)
+- [servidor MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/mcp_server.md)
+
 **Segurança de tipos (type safety) pronta para uso.**
 
 Não apenas "pode ser tipado com configuração extra", mas "uma chave incorreta falha no `tsc` em uma instalação limpa". Verifique o que acontece com uma chave inexistente e com um locale que está com uma tradução ausente.
@@ -411,6 +428,13 @@ Catálogos só crescem. O build do Intlayer remove campos não utilizados e regi
 **Experiência do desenvolvedor (Developer Experience).**
 
 Tempo de configuração até a primeira string traduzida, um [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/lsp.md) ou [extensão para VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/vs_code_extension.md) que mostra a tradução ao passar o mouse e navega até a declaração, uma [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/index.md) para preenchimento, testes e envio (push), um [compilador](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/compiler.md) ou extrator que retira as strings fixas dos seus componentes para não gerir cada string chave a chave, e uma forma para não-desenvolvedores editarem o conteúdo ([editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md) ou [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md)) sem a necessidade de um pull request.
+
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/lsp.md)
+- [extensão para VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/vs_code_extension.md)
+- [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/index.md)
+- [compilador](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/compiler.md)
+- [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md)
 
 ## Perguntas Frequentes
 
@@ -437,6 +461,8 @@ Runes alteram a sintaxe do seu próprio estado de locale, não o problema de com
 <Question title="A escolha da biblioteca afeta o SEO?">
 
 Indiretamente. Os crawlers se importam com roteamento, `hreflang`, `<html lang>` e se o texto está presente no HTML renderizado pelo servidor. Consulte o [guia de hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/hreflang_guide_multilingual_seo.md).
+
+- [guia de hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/hreflang_guide_multilingual_seo.md)
 
 </Question>
 

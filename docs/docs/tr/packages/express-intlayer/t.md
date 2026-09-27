@@ -258,3 +258,5 @@ app.get("/morning", (_req, res) => {
 ## Sonuç
 
 `t` fonksiyonu, arka uç uluslararasılaştırması için güçlü bir araçtır. Bunu etkili bir şekilde kullanarak, küresel bir kitle için daha kapsayıcı ve kullanıcı dostu bir uygulama oluşturabilirsiniz. Gelişmiş kullanım ve detaylı yapılandırma seçenekleri için [dokümantasyona](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) bakın.
+
+- [Intlayer yapılandırması (intlayer.config.ts)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md)

@@ -23,7 +23,7 @@ history:
     changes: "Lançamento do recurso de variantes"
   - version: 9.1.0
     date: 2026-06-26
-    changes: "`variant` agora aceita uma string ou um objeto — os antigos `meta` / registros dinâmicos são declarados como variantes de objeto"
+    changes: "`variant` agora aceita uma string ou um objeto, os antigos `meta` / registros dinâmicos são declarados como variantes de objeto"
   - version: 9.1.1
     date: 2026-07-31
     changes: "Uma variante declara apenas as chaves que sobrescreve; as variantes não declaradas retornam para a entrada padrão"
@@ -39,8 +39,8 @@ Uma **variante** é um conjunto de arquivos de conteúdo que compartilham a mesm
 
 O valor de `variant` pode assumir **duas formas**:
 
-- **Uma string** — uma única alternativa nomeada (testes A/B, banners sazonais, feature flags).
-- **Um objeto** — um discriminador estruturado endereçado por um conjunto de campos (registros de CMS, conteúdo específico do usuário, qualquer conteúdo cuja chave é um ID opaco). O objeto inteiro é a identidade: o seletor deve fornecer um objeto **igual** para resolver a entrada.
+- **Uma string**: uma única alternativa nomeada (testes A/B, banners sazonais, feature flags).
+- **Um objeto**: um discriminador estruturado endereçado por um conjunto de campos (registros de CMS, conteúdo específico do usuário, qualquer conteúdo cuja chave é um ID opaco). O objeto inteiro é a identidade: o seletor deve fornecer um objeto **igual** para resolver a entrada.
 
 > A forma de objeto substitui o antigo campo `meta`. Onde você antes escrevia `meta: { id, … }`, escreva `variant: { id, … }` e selecione-a com `{ variant: { id, … } }`.
 
@@ -74,8 +74,8 @@ const dictionary = {
   variant: "black_friday",
   content: {
     headline: t({
-      en: "50 % off — today only",
-      fr: "−50 % — aujourd'hui seulement",
+      en: "50 % off, today only",
+      fr: "−50 %, aujourd'hui seulement",
     }),
     cta: t({ en: "Shop now", fr: "Acheter maintenant" }),
   },
@@ -107,7 +107,7 @@ export default dictionary;
 
 ```tsx
 useIntlayer("hero-banner", { variant: "summer" });
-// → { headline: "Développez plus vite tout l'été", cta: "Commencer" } — `cta` herdado
+// → { headline: "Développez plus vite tout l'été", cta: "Commencer" }, `cta` herdado
 
 useIntlayer("hero-banner", { variant: "never-declared" });
 // → a entrada padrão
@@ -278,7 +278,7 @@ const content = useIntlayer("hero-banner", {
 
 ## Variantes de objeto (estruturadas)
 
-Uma variante de objeto endereça o conteúdo por um conjunto arbitrário de pares chave-valor declarados no campo `variant` — possibilitando modelar registros de CMS, conteúdo específico do usuário ou qualquer conteúdo cuja chave seja um ID opaco. O **objeto inteiro** é a identidade: o seletor deve fornecer um objeto igual para que a entrada seja resolvida.
+Uma variante de objeto endereça o conteúdo por um conjunto arbitrário de pares chave-valor declarados no campo `variant`, possibilitando modelar registros de CMS, conteúdo específico do usuário ou qualquer conteúdo cuja chave seja um ID opaco. O **objeto inteiro** é a identidade: o seletor deve fornecer um objeto igual para que a entrada seja resolvida.
 
 ```ts fileName="product.abc.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
@@ -495,7 +495,7 @@ const content = useIntlayer("product", {
 });
 ```
 
-#### Campo ausente — sem correspondência
+#### Campo ausente, sem correspondência
 
 ```ts
 // Retorna null: `userId` está ausente, então o objeto não corresponde à variante declarada
@@ -647,7 +647,7 @@ useIntlayer("hero-banner");
 // → a variante do provedor
 
 useIntlayer("hero-banner", { variant: "summer" });
-// → "summer" — substitui a variante do provedor, não a estende
+// → "summer", substitui a variante do provedor, não a estende
 ```
 
 ### Formas
@@ -662,7 +662,7 @@ A prop `variant` aceita três formas:
 
 #### Cadeia de preferência
 
-Uma cadeia é percorrida da esquerda para a direita entre as entradas declaradas por cada chave, e a primeira declarada ganha. Quando nenhuma está declarada, usa-se a entrada padrão implícita — exatamente como para um valor único.
+Uma cadeia é percorrida da esquerda para a direita entre as entradas declaradas por cada chave, e a primeira declarada ganha. Quando nenhuma está declarada, usa-se a entrada padrão implícita, exatamente como para um valor único.
 
 ```tsx
 <IntlayerProvider variant={["school1", "school2"]} />
@@ -692,9 +692,9 @@ Enderece cada chave de dicionário separadamente. A entrada reservada `default` 
 />
 ```
 
-> Num provedor, um objeto simples é **sempre** lido como o mapa por chave, nunca como uma variante de objeto — as duas são estruturalmente idênticas. Para fixar uma variante de objeto globalmente, aninhe-a sob uma entrada: `variant={{ default: { id: "prod_abc" } }}`.
+> Num provedor, um objeto simples é **sempre** lido como o mapa por chave, nunca como uma variante de objeto, as duas são estruturalmente idênticas. Para fixar uma variante de objeto globalmente, aninhe-a sob uma entrada: `variant={{ default: { id: "prod_abc" } }}`.
 
-Como as chaves do mapa são verificadas contra as suas chaves de dicionário declaradas, um erro de escrita — ou uma variante de objeto escrita diretamente, como `variant={{ id: "prod_abc" }}` — é um erro de compilação.
+Como as chaves do mapa são verificadas contra as suas chaves de dicionário declaradas, um erro de escrita (ou uma variante de objeto escrita diretamente, como `variant={{ id: "prod_abc" }}`) é um erro de compilação.
 
 ## Modo de carregamento
 
@@ -712,6 +712,8 @@ export default dictionary;
 ```
 
 Veja [otimização do bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/bundle_optimization.md) para detalhes sobre os modos `static`, `dynamic` e `fetch`.
+
+- [otimização do bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/bundle_optimization.md)
 
 ## Casos de uso típicos
 

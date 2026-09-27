@@ -25,6 +25,8 @@ author: aymericzip
 
 एक संपूर्ण और विस्तृत चरण-दर-चरण ट्यूटोरियल के लिए, कृपया हमारी पूर्ण [react-i18next माइग्रेशन गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_react-i18next_to_intlayer.md) देखें।
 
+- [react-i18next माइग्रेशन गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_react-i18next_to_intlayer.md)
+
 Intlayer के compat adapter का उपयोग करके आप अपने स्रोत कोड आयातों में कोई बदलाव किए बिना `react-i18next` से माइग्रेट कर सकते हैं।
 
 ## क्या करना है

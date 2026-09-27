@@ -39,17 +39,23 @@ author: aymericzip
 
 对应用内容进行作用域划分**便于大规模应用的维护**。你可以复制或删除单个功能文件夹，而无需费力审查整个内容 codebase。此外，Intlayer **完全类型化**，确保你的内容准确性。
 
-Intlayer 也是 i18n 生态中**最活跃开发**的方案——问题修复速度快，新的 framework 适配器定期发布，core API 根据真实生产反馈不断改进。
+Intlayer 也是 i18n 生态中**最活跃开发**的方案，问题修复速度快，新的 framework 适配器定期发布，core API 根据真实生产反馈不断改进。
 
 </Accordion>
 <Accordion header="AI Agent">
 
 内容的共置**降低了大语言模型 (LLM) 所需的上下文**。Intlayer 还配备了一套工具，例如用于测试缺失翻译的 **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)** 和 **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)**，让 AI agent 的开发者体验 (DX) 更加顺畅。
 
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)
+- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)
+
 </Accordion>
 <Accordion header="自动化">
 
 在 CI/CD pipeline 中使用自动化翻译，使用你选择的 LLM，成本由你的 AI 提供商承担。Intlayer 还提供**编译器**来自动化内容提取，以及一个 [web 平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)来帮助**后台翻译**。
+
+- [web 平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="性能">
@@ -60,6 +66,9 @@ Intlayer 也是 i18n 生态中**最活跃开发**的方案——问题修复速�
 <Accordion header="与非开发人员协作扩展">
 
 Intlayer 不仅是一个 i18n 方案，它还提供**自托管的[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)**和**[完整的 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)**，帮助你**实时**管理多语言内容，使与翻译人员、文案编写者和其他团队成员的协作无缝衔接。内容可以存储在本地和/或远程。
+
+- [可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)
+- [完整的 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
@@ -72,9 +81,9 @@ Intlayer 不仅是一个 i18n 方案，它还提供**自托管的[可视化编�
 
 从 `react-i18next` / `i18next` 迁移到 Intlayer 有两种互补的策略：
 
-1. **兼容适配器（推荐用于现有应用）** — 安装 `@intlayer/react-i18next`（用于 React 组件）和/或 `@intlayer/i18next`（用于核心 `i18n` 实例）。这些包暴露的 **API 完全相同**，但将所有翻译工作委托给底层的 Intlayer。你可以保持现有的 `useTranslation`、`Trans`、`withTranslation`、`i18next.t()` 调用 — 唯一的改变是导入路径。
+1. **兼容适配器（推荐用于现有应用）**：安装 `@intlayer/react-i18next`（用于 React 组件）和/或 `@intlayer/i18next`（用于核心 `i18n` 实例）。这些包暴露的 **API 完全相同**，但将所有翻译工作委托给底层的 Intlayer。你可以保持现有的 `useTranslation`、`Trans`、`withTranslation`、`i18next.t()` 调用，唯一的改变是导入路径。
 
-2. **完整迁移** — 逐步将 `react-i18next` API 替换为原生 Intlayer hooks（`useIntlayer`、`IntlayerProvider`），并在组件旁的 `.content.ts` 文件中共置内容。
+2. **完整迁移**：逐步将 `react-i18next` API 替换为原生 Intlayer hooks（`useIntlayer`、`IntlayerProvider`），并在组件旁的 `.content.ts` 文件中共置内容。
 
 本指南先介绍 **策略 1**（即插即用兼容适配器），然后讲解可选的完整迁移。
 
@@ -127,7 +136,7 @@ yarn add intlayer react-intlayer @intlayer/react-i18next @intlayer/i18next @intl
 bun add intlayer react-intlayer @intlayer/react-i18next @intlayer/i18next @intlayer/sync-json-plugin
 ```
 
-> 你可以保留 `react-i18next` 和 `i18next` 已安装——兼容性适配器将它们用作 TypeScript 类型的 `devDependencies` / 可选的 `peerDependencies`。你无需更改任何 `package.json` 同级依赖。
+> 你可以保留 `react-i18next` 和 `i18next` 已安装，兼容性适配器将它们用作 TypeScript 类型的 `devDependencies` / 可选的 `peerDependencies`。你无需更改任何 `package.json` 同级依赖。
 
 </Step>
 <Step number={2} title="配置 Intlayer">
@@ -166,7 +175,7 @@ export default config;
 </Step>
 <Step number={3} title="将 Intlayer 插件添加到你的 Bundler">
 
-使用兼容性插件包装你现有的 bundler 配置。它组成核心 Intlayer 插件，连接内容监视，以及——至关重要的是——**注入模块别名**，以便你现有的 `import … from 'react-i18next'`（和 `'i18next'`）调用在构建时透明地重定向到 `@intlayer/react-i18next` / `@intlayer/i18next`。不需要更改源文件。
+使用兼容性插件包装你现有的 bundler 配置。它组成核心 Intlayer 插件，连接内容监视，以及，至关重要的是，**注入模块别名**，以便你现有的 `import … from 'react-i18next'`（和 `'i18next'`）调用在构建时透明地重定向到 `@intlayer/react-i18next` / `@intlayer/i18next`。不需要更改源文件。
 
 **对于 Vite：**
 
@@ -180,7 +189,7 @@ export default defineConfig({
 });
 ```
 
-> `reactI18nextVitePlugin()` 包装 `vite-intlayer` 的 `intlayer()` 插件并添加 `react-i18next` / `i18next` 别名。使用来自 `vite-intlayer` 的普通 `intlayer()` 插件会编译字典，但**不会**添加这些别名——之后你需要手动将导入重命名为 `@intlayer/*`（参见步骤 4）。
+> `reactI18nextVitePlugin()` 包装 `vite-intlayer` 的 `intlayer()` 插件并添加 `react-i18next` / `i18next` 别名。使用来自 `vite-intlayer` 的普通 `intlayer()` 插件会编译字典，但**不会**添加这些别名，之后你需要手动将导入重命名为 `@intlayer/*`（参见步骤 4）。
 
 **对于 Next.js：**
 
@@ -211,7 +220,7 @@ export default withIntlayer(nextConfig);
 
 快速迁移就到此为止。你的应用现在在 Intlayer 上运行，同时保持每个 `react-i18next` 导入和 API 都完整。
 
-> **类型化翻译键——自动进行。** Intlayer 编译你的字典后，`useTranslation` 和 `getFixedT` 会针对你的实际内容进行类型化。你的 IDE 中会自动完成键，无效路径会在构建时导致 TypeScript 错误——无需额外设置。
+> **类型化翻译键，自动进行。** Intlayer 编译你的字典后，`useTranslation` 和 `getFixedT` 会针对你的实际内容进行类型化。你的 IDE 中会自动完成键，无效路径会在构建时导致 TypeScript 错误，无需额外设置。
 >
 > ```tsx
 > // 'about' 是一个注册的字典键 → t() 只接受有效的点路径
@@ -310,6 +319,8 @@ export default config;
 
 > 更多可用选项，请参阅 [Intlayer CLI 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)。
 
+- [Intlayer CLI 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)
+
 </Step>
 
 </Steps>
@@ -324,7 +335,7 @@ export default config;
 | `I18nextProvider` / `initReactI18next` | Intlayer 插件在幕后处理注入和引导。                                                                    |
 | JSON 语言包（`locales/*.json`）        | JSON 包仅在您仍然使用 `syncJSON` 插件时才需要。一旦迁移到 `.content.ts` 文件，您可以删除 JSON 文件夹。 |
 
-当您准备好进一步进行时，Intlayer **会自动发现代码库中任何位置的所有 `.content.ts` 和 `.content.json` 文件**（默认情况下，在 `./src` 内的任何位置）。您可以将 `my-component.content.ts` 文件放在 `MyComponent.tsx` 旁边，Intlayer 将在构建时选择它，无需任何额外配置 — 无需导入、无需注册、无需集中索引文件。这使得将翻译与页面和组件共址变得完全无摩擦。
+当您准备好进一步进行时，Intlayer **会自动发现代码库中任何位置的所有 `.content.ts` 和 `.content.json` 文件**（默认情况下，在 `./src` 内的任何位置）。您可以将 `my-component.content.ts` 文件放在 `MyComponent.tsx` 旁边，Intlayer 将在构建时选择它，无需任何额外配置，无需导入、无需注册、无需集中索引文件。这使得将翻译与页面和组件共址变得完全无摩擦。
 
 ## 配置 TypeScript
 

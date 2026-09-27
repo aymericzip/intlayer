@@ -70,6 +70,8 @@ Ancak React dünyasında genellikle farklı yaklaşımlar görüyoruz; bunları 
 > Bu blogda, zaten burada ele aldığım derleyici tabanlı çözümlere odaklanmayacağım: [Derleyici vs Deklaratif i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/compiler_vs_declarative_i18n.md).
 > Derleyici tabanlı i18n (ör. Lingui) yalnızca içeriğin çıkarılmasını ve yüklenmesini otomatikleştirir. İçeride genellikle diğer yaklaşımlarla aynı sınırlamaları paylaşırlar.
 
+- [Derleyici vs Deklaratif i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/compiler_vs_declarative_i18n.md)
+
 > İçeriği ne kadar ince taneli alırsanız, bileşenlerinize ekstra state ve mantık ekleme riski o kadar artar.
 
 Granüler yaklaşımlar merkezi olanlardan daha esnektir, ancak bu genellikle bir ödündür. Bu kütüphaneler "tree shaking" sunduklarını iddia etseler bile, pratikte genellikle bir sayfayı her dil için yüklersiniz.
@@ -150,6 +152,8 @@ locale/
 
 Artık uygulamanızın hangi içeriğinin nerede ve ne zaman yükleneceğini ince ayrıntısına kadar yönetmeniz gerekiyor. Sonuç olarak, karmaşıklık nedeniyle projelerin büyük çoğunluğu bu kısmı atlıyor (örneğin (sadece) iyi uygulamaları takip etmenin getirdiği zorlukları görmek için [next-i18next rehberi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18n_using_next-i18next.md)'ne bakın).
 Buna bağlı olarak, bu projeler daha önce açıklanan devasa JSON yükleme sorunuyla karşılaşıyor.
+
+- [next-i18next rehberi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18n_using_next-i18next.md)
 
 > Not: Bu sorun yalnızca i18next'e özgü değildir; yukarıda listelenen tüm merkezi yaklaşımlar için geçerlidir.
 

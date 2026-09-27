@@ -175,6 +175,8 @@ export default config;
 
 > للحصول على القائمة الكاملة للخيارات، راجع [توثيق التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
 
+- [توثيق التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md)
+
 </Step>
 <Step number={3} title="أعلن عن محتواك">
 
@@ -217,6 +219,8 @@ export default appContent;
 ```
 
 > يمكن أن توجد إعلانات المحتوى في أي مكان تحت `contentDir` (بشكل افتراضي `./src`) وتطابق `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`. انظر إلى [وثائق إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md).
+
+- [وثائق إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md)
 
 </Step>
 <Step number={4} title="تسجيل middleware Intlayer">
@@ -651,7 +655,7 @@ export default config;
 
 لتحسين تجربة التطوير الخاصة بك مع Intlayer، يمكنك تثبيت **Intlayer VS Code Extension** الرسمية.
 
-[التثبيت من VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [التثبيت من VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 توفر هذا الامتداد:
 
@@ -662,9 +666,13 @@ export default config;
 
 للحصول على مزيد من التفاصيل حول كيفية استخدام الامتداد، راجع [وثائق امتداد Intlayer VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/vs_code_extension.md).
 
+- [وثائق امتداد Intlayer VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/vs_code_extension.md)
+
 ### المزيد
 
 للمتابعة، يمكنك إضفاء طابع خارجي على محتواك باستخدام [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)، حتى يتمكن المترجمون من تغيير النسخ دون نشر.
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
 
 ## الأسئلة الشائعة
 
@@ -689,6 +697,9 @@ export default config;
 
 قدم صفحاتك تحت بادئة لغة (`/fr/cart`) واقرأ اللغة من المسار في معالج المسار الخاص بك، بدلاً من ملف تعريف الارتباط، لعرض الصفحة الكاملة. يمكن للأجزاء أن تستمر في استخدام ملف تعريف الارتباط أو رأس الطلب. انظر إلى [المكونات الإضافية للإعدادات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md) لخيارات التوجيه و[إعادات كتابة عناوين URL المخصصة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/custom_url_rewrites.md).
 
+- [المكونات الإضافية للإعدادات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md)
+- [إعادات كتابة عناوين URL المخصصة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/custom_url_rewrites.md)
+
 </Question>
 <Question title="كيف أتعامل مع اللغات من اليمين إلى اليسار؟">
 
@@ -704,25 +715,44 @@ export default config;
 
 نعم. تعرض تكاملات الـ backend `t()` و `getIntlayer()` لأي معالج، لذلك رسالة خطأ معروضة في toast ونص معروض في fragment يأتيان من نفس المحتوى المُعلَّن. انظر إلى أدلة [Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_express.md) و [Fastify](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_fastify.md) و [Hono](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_hono.md) و [Elysia](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_elysia.md).
 
+- [Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_express.md)
+- [Fastify](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_fastify.md)
+- [Hono](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_hono.md)
+- [Elysia](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_elysia.md)
+
 </Question>
 <Question title="هل يجب أن أنقل المحتوى الخاص بي مفتاحًا تلو الآخر؟">
 
 لا. قم بتشغيل `npx intlayer extract` وسيقرأ Intlayer ملفات المصدر الخاصة بك، ويسحب السلاسل النصية الموجهة للمستخدم ويكتب ملف `.content` بجانب كل منها، بحيث تراجع diff بدلاً من نسخ السلاسل إلى كتالوج واحد تلو الآخر. انظر إلى [أمر الاستخراج](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/extract.md).
+
+- [أمر الاستخراج](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/extract.md)
 
 </Question>
 <Question title="هل يمكنني الاحتفاظ بملفات الترجمة JSON الموجودة لدي؟">
 
 نعم. تحافظ [مكونة مزامنة JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/plugins/sync-json.md) على ملفات `/messages/{locale}/{namespace}.json` كمصدر الحقيقة وتُنشئ قواميس Intlayer منها، في كلا الاتجاهين. تقوم [مكونة مزامنة PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/plugins/sync-po.md) بنفس العمل بالنسبة لكتالوجات gettext، و[الملفات المقسمة حسب اللغة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/per_locale_file.md) تتيح لك تقسيم المحتوى حسب اللغة بدلاً من تجميع اللغات في ملف واحد.
 
+- [مكونة مزامنة JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/plugins/sync-json.md)
+- [مكونة مزامنة PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/plugins/sync-po.md)
+- [الملفات المقسمة حسب اللغة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/per_locale_file.md)
+
 </Question>
 <Question title="كيف أترجم التطبيق تلقائياً باستخدام الذكاء الاصطناعي؟">
 
 قم بتشغيل `npx intlayer fill`، والذي يملأ الترجمات المفقودة باستخدام نموذج اللغة (LLM) من اختيارك باستخدام مزودك ومفتاح API الخاص بك. أضف `--git-diff` لترجمة المحتوى المتغير فقط على الفرع. اطلع على [أمر fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/fill.md) و [تكامل CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/CI_CD.md).
 
+- [أمر fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/fill.md)
+- [تكامل CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/CI_CD.md)
+
 </Question>
 <Question title="هل يدعم Intlayer النوع الاجتماعي والشروط والقيم المُدرجة؟">
 
 نعم: [محتوى قائم على النوع الاجتماعي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/gender.md)، الشروط، [التعديلات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/enumeration.md)، [الإدراجات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/insertion.md) للقيم المقحمة، و[المنسقات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/formatters.md) للأرقام والتواريخ والعملات.
+
+- [محتوى قائم على النوع الاجتماعي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/gender.md)
+- [التعديلات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/enumeration.md)
+- [الإدراجات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/insertion.md)
+- [المنسقات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/formatters.md)
 
 </Question>
 <Question title="ما هي أدوات المحررات والوكلاء الذكيين المتاحة؟">
@@ -739,6 +769,9 @@ export default config;
 <Question title="هل Intlayer مجاني ومفتوح المصدر؟">
 
 نعم، بموجب ترخيص Apache 2.0، بما في ذلك الاستخدام التجاري. [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md) المستضاف هو خدمة مدفوعة اختيارية يمكن أيضاً [استضافتها ذاتياً](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/self_hosting.md).
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
+- [استضافتها ذاتياً](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/self_hosting.md)
 
 </Question>
 

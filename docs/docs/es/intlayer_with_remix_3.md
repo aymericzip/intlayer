@@ -78,6 +78,9 @@ Intlayer ubica las declaraciones de contenido (`.content.ts`) junto a la lógica
 
 Más allá de los flujos de trabajo basados en código, Intlayer ofrece un [Editor Visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md) autohospedado y un [CMS Remoto](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md), permitiendo a editores y traductores actualizar el contenido sin tener que volver a desplegar la aplicación.
 
+- [Editor Visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md)
+- [CMS Remoto](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md)
+
 </Accordion>
 </AccordionGroup>
 
@@ -204,6 +207,8 @@ module.exports = config;
 
 > Para ajustes de configuración adicionales (como modo estricto o preferencias de almacenamiento de rutas), consulta la [documentación de configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md).
 
+- [documentación de configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md)
+
 </Step>
 <Step number={3} title="Declarar tu contenido multilingüe">
 
@@ -237,6 +242,8 @@ export default homeContent;
 ```
 
 > Intlayer también admite formatos JSON, YAML y CommonJS. Consulta la [Documentación de Declaración de Contenido](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/content_file.md).
+
+- [Documentación de Declaración de Contenido](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/content_file.md)
 
 </Step>
 <Step number={4} title="Compilar diccionarios Intlayer">
@@ -285,6 +292,8 @@ const { title } = useIntlayer("home");
 `useIntlayer("home", "fr")` o `useIntlayer("faq", { item: 2 })` anulan el idioma de la petición para una llamada, y `useDictionary(homeContent)` lee un diccionario importado en lugar de una clave. Fuera de una petición, los hooks recurren al idioma predeterminado.
 
 > El middleware también prepara los diccionarios de Intlayer cuando se inicia el servidor, por lo que la falta de un `intlayer build` no deja el registro vacío.
+
+> Establece `routing.enableProxy: false` en `intlayer.config.ts` para conservar solo la resolución de la locale y gestionar el enrutamiento tú mismo. `intlayer({ ignore })` deja intactas las solicitudes coincidentes (un prefijo de API, por ejemplo), e `intlayer({ isDevServer })` controla si la locale almacenada determina las redirecciones en el modo automático predeterminado de `enableProxy`.
 
 </Step>
 <Step number={6} title="Definir rutas con seguridad de tipos">

@@ -23,7 +23,7 @@ history:
     changes: "Veröffentlichung der Varianten-Funktion"
   - version: 9.1.0
     date: 2026-06-26
-    changes: "`variant` akzeptiert jetzt einen String oder ein Objekt — die früheren `meta` / dynamischen Datensätze werden als Objekt-Varianten deklariert"
+    changes: "`variant` akzeptiert jetzt einen String oder ein Objekt, die früheren `meta` / dynamischen Datensätze werden als Objekt-Varianten deklariert"
   - version: 9.1.1
     date: 2026-07-31
     changes: "Eine Variante deklariert nur die Schlüssel, die sie überschreibt; nicht deklarierte Varianten fallen auf den Standardeintrag zurück"
@@ -39,8 +39,8 @@ Eine **Variante** ist eine Gruppe von Inhaltsdateien, die denselben Wörterbuch-
 
 Der `variant`-Wert kann **zwei Formen** annehmen:
 
-- **Ein String** — eine einzelne benannte Alternative (A/B-Tests, saisonale Banner, Feature-Flags).
-- **Ein Objekt** — ein strukturierter Diskriminator, der über eine Reihe von Feldern adressiert wird (CMS-Datensätze, benutzerspezifische Inhalte, beliebige Inhalte mit einer opaken ID als Schlüssel). Das gesamte Objekt ist die Identität: Der Selektor muss ein **gleiches** Objekt liefern, um den Eintrag aufzulösen.
+- **Ein String**: eine einzelne benannte Alternative (A/B-Tests, saisonale Banner, Feature-Flags).
+- **Ein Objekt**: ein strukturierter Diskriminator, der über eine Reihe von Feldern adressiert wird (CMS-Datensätze, benutzerspezifische Inhalte, beliebige Inhalte mit einer opaken ID als Schlüssel). Das gesamte Objekt ist die Identität: Der Selektor muss ein **gleiches** Objekt liefern, um den Eintrag aufzulösen.
 
 > Die Objektform ersetzt das frühere `meta`-Feld. Überall, wo Sie zuvor `meta: { id, … }` geschrieben haben, schreiben Sie `variant: { id, … }` und wählen es mit `{ variant: { id, … } }` aus.
 
@@ -74,8 +74,8 @@ const dictionary = {
   variant: "black_friday",
   content: {
     headline: t({
-      en: "50 % off — today only",
-      fr: "−50 % — aujourd'hui seulement",
+      en: "50 % off, today only",
+      fr: "−50 %, aujourd'hui seulement",
     }),
     cta: t({ en: "Shop now", fr: "Acheter maintenant" }),
   },
@@ -107,7 +107,7 @@ export default dictionary;
 
 ```tsx
 useIntlayer("hero-banner", { variant: "summer" });
-// → { headline: "Développez plus vite tout l'été", cta: "Commencer" } — `cta` geerbt
+// → { headline: "Développez plus vite tout l'été", cta: "Commencer" }, `cta` geerbt
 
 useIntlayer("hero-banner", { variant: "never-declared" });
 // → der Standardeintrag
@@ -278,7 +278,7 @@ const content = useIntlayer("hero-banner", {
 
 ## Objekt-Varianten (strukturiert)
 
-Eine Objekt-Variante adressiert Inhalte über eine beliebige Menge von Schlüssel-Wert-Paaren, die im `variant`-Feld deklariert sind — wodurch sich CMS-Datensätze, benutzerspezifische Inhalte oder beliebige Inhalte mit einer opaken ID als Schlüssel modellieren lassen. Das **gesamte Objekt** ist die Identität: Der Selektor muss ein gleiches Objekt liefern, damit der Eintrag aufgelöst wird.
+Eine Objekt-Variante adressiert Inhalte über eine beliebige Menge von Schlüssel-Wert-Paaren, die im `variant`-Feld deklariert sind, wodurch sich CMS-Datensätze, benutzerspezifische Inhalte oder beliebige Inhalte mit einer opaken ID als Schlüssel modellieren lassen. Das **gesamte Objekt** ist die Identität: Der Selektor muss ein gleiches Objekt liefern, damit der Eintrag aufgelöst wird.
 
 ```ts fileName="product.abc.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
@@ -495,7 +495,7 @@ const content = useIntlayer("product", {
 });
 ```
 
-#### Fehlendes Feld — keine Übereinstimmung
+#### Fehlendes Feld, keine Übereinstimmung
 
 ```ts
 // Gibt null zurück: `userId` fehlt, daher passt das Objekt nicht zur deklarierten Variante
@@ -504,9 +504,9 @@ const content = useIntlayer("product", { variant: { id: "prod_abc" } });
 
 ## Ambiente Variante
 
-Manche Variantendimensionen stehen für eine ganze Sitzung fest — der Mandant, der Schultyp, die Tarifstufe. Sie werden einmal aufgelöst, und keine Komponente sollte sie von Hand durchreichen müssen.
+Manche Variantendimensionen stehen für eine ganze Sitzung fest, der Mandant, der Schultyp, die Tarifstufe. Sie werden einmal aufgelöst, und keine Komponente sollte sie von Hand durchreichen müssen.
 
-> Kapseln Sie `useIntlayer` nicht in einen eigenen Hook, um sie einzuschleusen. Die Optimierung zur Bauzeit schreibt nur einen literalen `useIntlayer("key")`-Aufruf um, der aus dem Framework-Paket importiert wurde — hinter einem Wrapper wird nichts gebündelt.
+> Kapseln Sie `useIntlayer` nicht in einen eigenen Hook, um sie einzuschleusen. Die Optimierung zur Bauzeit schreibt nur einen literalen `useIntlayer("key")`-Aufruf um, der aus dem Framework-Paket importiert wurde, hinter einem Wrapper wird nichts gebündelt.
 
 Deklarieren Sie die Variante stattdessen einmal am Provider, genau wie `locale`:
 
@@ -647,7 +647,7 @@ useIntlayer("hero-banner");
 // → die Variante des Providers
 
 useIntlayer("hero-banner", { variant: "summer" });
-// → "summer" — ersetzt die Provider-Variante, sie wird nicht erweitert
+// → "summer", ersetzt die Provider-Variante, sie wird nicht erweitert
 ```
 
 ### Formen
@@ -662,7 +662,7 @@ Die `variant`-Prop akzeptiert drei Formen:
 
 #### Präferenzkette
 
-Eine Kette wird von links nach rechts gegen die von jedem Schlüssel deklarierten Einträge geprüft; der erste deklarierte gewinnt. Ist keiner deklariert, wird der implizite Standardeintrag verwendet — genau wie bei einem Einzelwert.
+Eine Kette wird von links nach rechts gegen die von jedem Schlüssel deklarierten Einträge geprüft; der erste deklarierte gewinnt. Ist keiner deklariert, wird der implizite Standardeintrag verwendet, genau wie bei einem Einzelwert.
 
 ```tsx
 <IntlayerProvider variant={["school1", "school2"]} />
@@ -692,9 +692,9 @@ Sprechen Sie jeden Wörterbuchschlüssel einzeln an. Der reservierte Eintrag `de
 />
 ```
 
-> An einem Provider wird ein einfaches Objekt **immer** als Zuordnung je Schlüssel gelesen, nie als Objektvariante — beide sind strukturell identisch. Um eine Objektvariante global festzulegen, verschachteln Sie sie unter einem Eintrag: `variant={{ default: { id: "prod_abc" } }}`.
+> An einem Provider wird ein einfaches Objekt **immer** als Zuordnung je Schlüssel gelesen, nie als Objektvariante, beide sind strukturell identisch. Um eine Objektvariante global festzulegen, verschachteln Sie sie unter einem Eintrag: `variant={{ default: { id: "prod_abc" } }}`.
 
-Da die Schlüssel der Zuordnung gegen Ihre deklarierten Wörterbuchschlüssel geprüft werden, ist ein Tippfehler — oder eine direkt geschriebene Objektvariante wie `variant={{ id: "prod_abc" }}` — ein Compilerfehler.
+Da die Schlüssel der Zuordnung gegen Ihre deklarierten Wörterbuchschlüssel geprüft werden, ist ein Tippfehler, oder eine direkt geschriebene Objektvariante wie `variant={{ id: "prod_abc" }}`, ein Compilerfehler.
 
 ## Lademodus
 
@@ -712,6 +712,8 @@ export default dictionary;
 ```
 
 Siehe [Bundle-Optimierung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/bundle_optimization.md) für Details zu den Modi `static`, `dynamic` und `fetch`.
+
+- [Bundle-Optimierung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/bundle_optimization.md)
 
 ## Typische Anwendungsfälle
 

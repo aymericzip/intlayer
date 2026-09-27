@@ -31,6 +31,8 @@ author: aymericzip
 
 > Le plugin est déjà inclus et configuré automatiquement lorsque vous utilisez [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/vite-intlayer/intlayer.md). Vous n'avez besoin de l'enregistrer manuellement que si vous composez vous-même la pile de plugins.
 
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/vite-intlayer/intlayer.md)
+
 ## Utilisation
 
 ```ts
@@ -63,8 +65,8 @@ Lorsque `editor.enabled` est `true`, le plugin s'exécute toujours mais **ignore
 
 Le plugin cible deux emplacements de dictionnaire (tels que résolus depuis `intlayer.system`) :
 
-- `dictionariesDir` — dictionnaires statiques toutes langues (ex. `.intlayer/dictionaries/*.json`)
-- `dynamicDictionariesDir` — dictionnaires dynamiques par langue
+- `dictionariesDir`: dictionnaires statiques toutes langues (ex. `.intlayer/dictionaries/*.json`)
+- `dynamicDictionariesDir`: dictionnaires dynamiques par langue
 
 > Les dictionnaires en mode fetch (`fetchDictionariesDir`) ne sont **jamais** minifiés car ils sont servis depuis une API distante au moment de l'exécution en utilisant leurs noms de champs d'origine. Renommer les champs créerait un décalage entre la réponse du serveur et les accès aux propriétés côté client.
 
@@ -86,7 +88,7 @@ Les champs internes d'Intlayer (`nodeType`, `translation`, etc.) ne sont jamais 
 
 ## Dictionnaires de cas limites (Edge-cases)
 
-Les dictionnaires signalés dans `pruneContext.dictionariesWithEdgeCases` (anomalies structurelles détectées lors de la phase de prune) sont entièrement ignorés — ni minifiés ni masqués — pour éviter de livrer des données corrompues.
+Les dictionnaires signalés dans `pruneContext.dictionariesWithEdgeCases` (anomalies structurelles détectées lors de la phase de prune) sont entièrement ignorés, ni minifiés ni masqués, pour éviter de livrer des données corrompues.
 
 ## Groupes qualifiés (collections / variantes / enregistrements méta)
 

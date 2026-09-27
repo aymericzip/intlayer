@@ -100,7 +100,7 @@ npx skills add aymericzip/intlayer-skills
 
 - 教代理在 Svelte 和 SvelteKit 应用程序中使用 Svelte store 和惯用语法处理响应式且类型安全的本地化内容。
 
-**intlayer-cms**
+**intlayer-remote-content**
 
 - 允许代理集成和管理远程内容，使其能够通过 Intlayer CMS 处理实时同步和远程翻译工作流程。
 
@@ -115,3 +115,31 @@ npx skills add aymericzip/intlayer-skills
 **intlayer-compiler**
 
 - 通过启用自动内容提取来简化代理的工作流程，使其能够直接在代码中编写可翻译字符串，而无需手动字典文件。
+
+**intlayer-lit**
+
+- 教代理使用 `useIntlayer` 和 `useLocale` ReactiveController 翻译 Lit Web 组件。
+
+**intlayer-vanilla**
+
+- 使代理能够通过 `vanilla-intlayer` 本地化纯 JavaScript / TypeScript 页面，无论是否使用打包工具。
+
+**intlayer-remix**
+
+- 为代理提供 Remix 3 路由中间件以及请求作用域的 `useIntlayer` / `useLocale` 钩子。
+
+**intlayer-backend**
+
+- 使代理能够通过统一的中间件 + `t` / `getIntlayer` 模式，在 Express、Fastify、Hono、NestJS、AdonisJS 和 Elysia 中翻译服务器响应。
+
+**intlayer-dev-tools**
+
+- 让代理为您的代码搭建 Intlayer 工具链：用于检测硬编码字符串的 ESLint 规则、Language Server、VS Code 和 Chrome 扩展、MCP 服务器以及 CI/CD 翻译检查。
+
+**intlayer-markdown**
+
+- 教代理声明 Markdown 内容（`md()`、`.content.md` 文件、外部文件），并通过 MDX 组件、全局 `MarkdownProvider`、Suspense 和服务端解析进行渲染。
+
+**intlayer-compat**
+
+- 指导代理借助保留原有 API 的兼容适配器，从 i18next、react-i18next、next-intl、next-i18next、react-intl、vue-i18n 或 Lingui 迁移，无需重写翻译调用。

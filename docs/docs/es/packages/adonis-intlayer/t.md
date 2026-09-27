@@ -137,3 +137,5 @@ export default config;
 ### Integración con TypeScript
 
 La función `t` es segura en cuanto a tipos cuando se utiliza con diccionarios definidos. Para más detalles, consulte la [documentación de TypeScript](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md).
+
+- [documentación de TypeScript](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md)

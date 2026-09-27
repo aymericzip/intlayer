@@ -67,6 +67,8 @@ Paraglide, bir route'un asla çağırmadığı mesajların bundler tarafından t
 
 [JavaScript i18n tarihi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/history_of_i18n.md) yazısı her dalgayı ayrıntılı olarak ele almaktadır.
 
+- [JavaScript i18n tarihi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/history_of_i18n.md)
+
 ## En önemli karar: İçeriğin nerede durduğu ve ne zaman yüklendiği
 
 İki yapısal tercih, kurulumlar arasındaki bundle farkının çoğunu açıklar:
@@ -80,11 +82,15 @@ Grafik, 1 ila 10 sayfadan oluşan, 1 ila 10 locale'e çevrilmiş ve sayfa başı
 
 `svelte-i18n` varsayılan olarak sol üstte yer alır: `register("fr", () => import("./fr.json"))` locale başına dinamik yükleme sağlar, ancak bir locale kataloğu tek bir nesnedir ve onu yüklemek her sayfanın içeriğini yükler. Paraglide ilgi çekici bir örnektir: her mesaj kendi export'una sahip olduğu için tree-shaking size sayfa eksenini ek maliyetsiz sunar ve [Svelte benchmark'ı](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/svelte.md) bunun Vite + Svelte üzerinde vadedildiği gibi çalıştığını doğrular (React ve Next.js benchmark'larında bu gerçekleşmemişti). Intlayer ise bileşen başına deklarasyonlar ile aynı sonuca ulaşır.
 
+- [Svelte benchmark'ı](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/svelte.md)
+
 3. soruya yanıtınız "çok sayıda sayfa" olduysa, bu bölüme herhangi bir API tercihinden daha fazla ağırlık verin. [Bileşen başına ve merkezi i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/per-component_vs_centralized_i18n.md) yazısı aynı tercihin bakım tarafını ele almaktadır.
 
 ## Adaylar
 
 Kütüphane boyutları [Svelte benchmark'ından](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/svelte.md) alınmıştır: 10 sayfalık, 10 locale'li bir uygulamada bundling, tree-shaking ve minification sonrasında boş bir bileşendeki store ve accessor boyutu. İçerik boyutu ayrıca ölçülür.
+
+- [Svelte benchmark'ından](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/svelte.md)
 
 ![Svelte i18n kütüphane ekosistemi](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
@@ -113,6 +119,8 @@ Paraglide'ın sıfıra yakın kütüphane boyutu mimari bir sonuçtur: runtime d
 
 Bu durumu paylaşım sorunu belirler. `svelte-i18n` SvelteKit üzerinde çalışır, ancak request başına entegrasyonu (`hooks.server.ts`, `locals`, `load`, ardından `setContext`) yazmak sizin sorumluluğunuzdadır ve fark edilmesi zor hatalar yapmak kolaydır. Paraglide, routing'i yöneten ve locale'i çağrı başına okuyarak singleton sorununu ortadan kaldıran bir SvelteKit entegrasyonu sunar. Intlayer ise locale'i `load` verisinden context'e aktarır. [SvelteKit i18n yazısı](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_svelte_kit.md), kütüphaneyi seçmeden önce karar vermeniz gereken `[[lang]]` ve `reroute` tercihlerini açıklamaktadır.
 
+- [SvelteKit i18n yazısı](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_svelte_kit.md)
+
 </Accordion>
 <Accordion header="Çeviriler bir TMS'den veya ICU teslim eden bir ajanstan geliyorsa">
 
@@ -127,6 +135,8 @@ Compile-time. Paraglide'ın tree-shaking özelliği Vite + Svelte üzerinde çal
 <Accordion header="Type güvenliği vazgeçilmez ise">
 
 Yalnızca elle yazılmış ve JSON'dan hemen sapan bir union typing'e sahip olan yalın `svelte-i18n` kurulumu dışındaki tüm seçenekler. `typesafe-i18n`, Paraglide ve Intlayer içeriğe göre type üretir. Bir codebase'i bağlamadan önce `typesafe-i18n` repository etkinliğini kontrol edin. [Eksik çevirileri tespit etme](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/detecting_missing_translations.md) yazısı, her birinin build zamanında neleri yakaladığını karşılaştırır.
+
+- [Eksik çevirileri tespit etme](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/detecting_missing_translations.md)
 
 </Accordion>
 <Accordion header="Repo içinde üretilen dosyalar istenmiyorsa">
@@ -378,6 +388,8 @@ Tüm locale'ler bileşenin yanındaki tek bir dosyada. `useIntlayer` okunabilir 
 
 Halihazırda `svelte-i18n` mi kullanıyorsunuz? [`@intlayer/svelte-i18n` uyumluluk adaptörü](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/svelte-i18n.md), paketi bundler düzeyinde takma adla (alias) yönlendirir; böylece Intlayer içeriği sunarken `$_`, `$date`, `$number` ve düz anahtarlarınız çalışmaya devam eder.
 
+- [`@intlayer/svelte-i18n` uyumluluk adaptörü](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/svelte-i18n.md)
+
 ## Karar vermeden önce
 
 Bir özellik tablosu bir kütüphanenin bugün ne yaptığını gösterir. Bu maddeler ise onunla birlikte yaşamanın nasıl olacağını anlatır.
@@ -400,6 +412,9 @@ En çok indirilen kütüphane ilk çıkan kütüphanedir, 2026 yılındaki bir S
 
 Ajanlar i18n konusunda hala zorlanmaktadır: locale'leri unuturlar, key uydururlar ve mesaj sözdizimlerini karıştırırlar. Kütüphane, ajanın içeriği listeleyebilmesi, doldurabilmesi ve test edebilmesi için [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/agent_skills.md) veya bir [MCP sunucusu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/mcp_server.md) sunuyor mu? İçerik yüklemesi varsayılan olarak optimize edilmiş mi, yoksa birinin her çeyrekte namespace'leri ve lazy import'ları gözden geçirmesi mi gerekiyor?
 
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/agent_skills.md)
+- [MCP sunucusu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/mcp_server.md)
+
 **Kutudan çıktığı haliyle type güvenliği.**
 
 "Ek yapılandırmayla type eklenebilir" değil, "temiz bir kurulumda yanlış bir key `tsc`yi patlatır". Var olmayan bir key girildiğinde ve bir çevirisi eksik olan bir locale durumunda ne olduğunu kontrol edin.
@@ -411,6 +426,13 @@ Kataloglar yalnızca büyür. Intlayer'ın build işlemi kullanılmayan alanlar�
 **Geliştirici deneyimi (Developer experience).**
 
 İlk çevrilmiş string'e kadar geçen kurulum süresi, hover sırasında çeviriyi gösterip deklarasyona atlayan bir [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/lsp.md) veya [VS Code eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/vs_code_extension.md), doldurma, test etme ve push için bir [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/index.md), bileşenlerinizdeki sabit kodlanmış dizeleri çıkaran ve böylece her dizeyi anahtar anahtar yönetmenizi gerektirmeyen bir [derleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md) veya çıkarıcı ve yazılımcı olmayanların pull request açmadan içeriği düzenleyebileceği bir yöntem ([görsel editör](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) veya [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)).
+
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/lsp.md)
+- [VS Code eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/vs_code_extension.md)
+- [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/index.md)
+- [derleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md)
+- [görsel editör](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)
 
 ## Sıkça Sorulan Sorular
 
@@ -437,6 +459,8 @@ Kendi locale state'inizin sözdizimini değiştirirler, paylaşım sorununu değ
 <Question title="Kütüphane seçimi SEO'yu etkiler mi?">
 
 Dolaylı olarak. Crawler'lar routing, `hreflang`, `<html lang>` ve metnin sunucu tarafından render edilen HTML içinde bulunup bulunmadığına dikkat eder. [hreflang rehberi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/hreflang_guide_multilingual_seo.md) yazısına bakın.
+
+- [hreflang rehberi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/hreflang_guide_multilingual_seo.md)
 
 </Question>
 

@@ -27,9 +27,11 @@ author: aymericzip
 
 # intlayerCompiler
 
-`intlayerCompiler` è un plugin Vite che scansiona i file sorgente dei componenti alla ricerca di **dichiarazioni di contenuto Intlayer inline** — contenuto definito direttamente all'interno di un componente anziché in un file `.content.ts` separato — e le scrive nei file JSON del dizionario durante la fase di trasformazione.
+`intlayerCompiler` è un plugin Vite che scansiona i file sorgente dei componenti alla ricerca di **dichiarazioni di contenuto Intlayer inline**, contenuto definito direttamente all'interno di un componente anziché in un file `.content.ts` separato, e le scrive nei file JSON del dizionario durante la fase di trasformazione.
 
 > **A partire da Intlayer v9** `intlayerCompiler` è incluso automaticamente all'interno del plugin principale [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/vite-intlayer/intlayer.md) quando sia `compiler.enabled` è `true` sia `compiler.output` è impostato nella configurazione Intlayer. È necessario registrarlo separatamente solo se si desidera il controllo completo sulla configurazione specifica del compilatore.
+
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/vite-intlayer/intlayer.md)
 
 ## Utilizzo
 
@@ -118,4 +120,4 @@ Un debounce di 500 ms impedisce alla scrittura stessa del dizionario (che attiva
 
 ### Deduplica
 
-`intlayerCompiler` utilizza lo stesso meccanismo di deduplica `createPrimaryInstanceGuard` degli altri plugin inclusi. Quando sono presenti sia `intlayer()` (che include il compilatore) sia una chiamata manuale a `intlayerCompiler()`, viene eseguita solo la prima istanza registrata — nessun dizionario viene scritto due volte.
+`intlayerCompiler` utilizza lo stesso meccanismo di deduplica `createPrimaryInstanceGuard` degli altri plugin inclusi. Quando sono presenti sia `intlayer()` (che include il compilatore) sia una chiamata manuale a `intlayerCompiler()`, viene eseguita solo la prima istanza registrata, nessun dizionario viene scritto due volte.

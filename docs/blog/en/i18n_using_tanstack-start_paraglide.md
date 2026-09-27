@@ -51,6 +51,8 @@ This guide sets up all three, then covers everything Paraglide leaves to you: `l
 
 > Comparing the two compiler-based approaches? Read [is Intlayer lighter than Paraglide?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/is_intlayer_lighter_than_paraglide.md).
 
+- [is Intlayer lighter than Paraglide?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/is_intlayer_lighter_than_paraglide.md)
+
 > To understand where these libraries come from, read the history of JavaScript i18n.
 
 - [The history of JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/history_of_i18n.md)
@@ -58,6 +60,8 @@ This guide sets up all three, then covers everything Paraglide leaves to you: `l
 ## What the benchmark says about Paraglide on TanStack Start
 
 The [i18n benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/tanstack.md) runs the same 10-page, 10-locale TanStack Start app with every major library and measures what the browser actually downloads.
+
+- [i18n benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/tanstack.md)
 
 <I18nBenchmark framework="tanstack" packages="paraglide,intlayer" vertical/>
 
@@ -78,6 +82,8 @@ What to take away:
 - **Page load is the slowest of the group**, partly because the locale is resolved through strategies on each call rather than read from a React context.
 
 > See the full data: [TanStack Start benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/tanstack.md), and the [benchmark repository](https://github.com/intlayer-org/benchmark-i18n).
+
+- [TanStack Start benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/tanstack.md)
 
 ## Feature comparison on TanStack Start
 
@@ -102,6 +108,8 @@ How Paraglide JS compares with the other libraries commonly used on TanStack Sta
 | **Missing translations in CI**       | ✅ `npx intlayer test`               | ⚠️ Not built-in        | ⚠️ Not built-in                   | ✅ `lingui compile --strict`     |
 
 > Runtime size and leak figures come from the [TanStack Start benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/tanstack.md). Leak is measured on the best setup of each library.
+
+- [TanStack Start benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/tanstack.md)
 
 > Other TanStack Start guides:
 
@@ -837,7 +845,12 @@ There is no drop-in adapter from Paraglide to Intlayer, because both follow the 
 
 If you come from another library rather than Paraglide, the [compat adapters](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md) keep the `use-intl`, `next-intl`, `react-i18next`, `react-intl` or Lingui API and swap the runtime.
 
+- [compat adapters](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md)
+
 See [is Intlayer lighter than Paraglide?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/is_intlayer_lighter_than_paraglide.md) and the [Intlayer TanStack Start guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_tanstack.md).
+
+- [is Intlayer lighter than Paraglide?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/is_intlayer_lighter_than_paraglide.md)
+- [Intlayer TanStack Start guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_tanstack.md)
 
 </Step>
 <Step number={17} title="Automate Your Translations Using Intlayer" isOptional={true}>
@@ -859,6 +872,8 @@ Paraglide renders translations, but it does not help you **produce** them. Intla
 <Question title="Is Paraglide JS a good choice for TanStack Start?">
 
 It is a solid one: it is used in the official TanStack Router examples, it has the smallest runtime of the [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/tanstack.md) (~1.8 KB gzip), and messages are fully typed. The trade-offs are that every message function contains all locales, which leaks roughly half of the translated strings to visitors of other languages, and that switching locale reloads the page.
+
+- [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/tanstack.md)
 
 </Question>
 <Question title="Do I need a $locale route segment with Paraglide?">
@@ -889,6 +904,9 @@ Unused **messages** are dropped when you use `outputStructure: "message-modules"
 <Question title="Can I migrate from Paraglide to Intlayer?">
 
 Yes. Both are compiler-based, so the mental model is close. Keep your JSON files with the [sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/plugins/sync-json.md), then replace `m.key()` calls with `useIntlayer`, page by page. See the [Intlayer TanStack Start guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_tanstack.md).
+
+- [sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/plugins/sync-json.md)
+- [Intlayer TanStack Start guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_tanstack.md)
 
 </Question>
 

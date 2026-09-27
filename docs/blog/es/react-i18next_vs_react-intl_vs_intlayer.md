@@ -136,6 +136,9 @@ Cifras de [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) que
 
 > Tabla completa en el [informe de benchmark de TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/benchmark/tanstack.md) y en la [visión general del benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/benchmark/index.md).
 
+- [informe de benchmark de TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/benchmark/tanstack.md)
+- [visión general del benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/benchmark/index.md)
+
 ### 6) DX, herramientas y mantenimiento
 
 - **react-intl / react-i18next**: Ecosistema comunitario amplio; para flujos editoriales usualmente adoptas plataformas de localización externas.
@@ -185,3 +188,5 @@ Las tres bibliotecas localizan React de manera efectiva. La diferencia radica en
 - Si tu equipo valora la **mantenibilidad y la velocidad** en aplicaciones React impulsadas por componentes y con múltiples locales, Intlayer ofrece el flujo de trabajo para desarrolladores y contenido más **completo** en la actualidad.
 
 Consulta la [documentación '¿Por qué Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/interest_of_intlayer.md) para más detalles.
+
+- [¿Por qué Intlayer? Ventajas frente a otras bibliotecas i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/interest_of_intlayer.md)

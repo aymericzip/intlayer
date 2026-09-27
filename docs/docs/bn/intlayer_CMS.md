@@ -63,6 +63,8 @@ Intlayer 'স্থানীয়' এবং 'দূরবর্তী' ডি�
 
 [Intlayer ভিজ্যুয়াল](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_visual_editor.md) এডিটর হল একটি টুল যা আপনাকে স্থানীয় ডিকশনারির জন্য একটি ভিজ্যুয়াল এডিটরে কন্টেন্ট পরিচালনা করার সুযোগ দেয়। একবার পরিবর্তন করা হলে, কোডবেসে কন্টেন্ট প্রতিস্থাপিত হবে। এর অর্থ হল অ্যাপ্লিকেশনটি পুনর্নির্মাণ হবে এবং নতুন কন্টেন্ট প্রদর্শন করতে পেজটি পুনরায় লোড হবে।
 
+- [Intlayer ভিজ্যুয়াল](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_visual_editor.md)
+
 বিপরীতে, Intlayer CMS হল একটি টুল যা আপনাকে দূরবর্তী ডিকশনারির জন্য একটি ভিজ্যুয়াল এডিটরে কন্টেন্ট পরিচালনা করার সুযোগ দেয়। একবার পরিবর্তন করা হলে, কন্টেন্ট আপনার কোডবেসকে **প্রভাবিত করবে না**। এবং ওয়েবসাইটটি স্বয়ংক্রিয়ভাবে পরিবর্তিত কন্টেন্ট প্রদর্শন করবে।
 
 ## ইন্টিগ্রেট করা
@@ -73,13 +75,19 @@ Intlayer 'স্থানীয়' এবং 'দূরবর্তী' ডি�
 
 Next.js-এর সাথে ইন্টিগ্রেশনের জন্য, [সেটআপ গাইড](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_nextjs_15.md) দেখুন।
 
+- [Next.js 15 i18n - Complete guide to translate your app](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_nextjs_15.md)
+
 ### Create React App-এর সাথে ইন্টিগ্রেট করা
 
 Create React App-এর সাথে ইন্টিগ্রেশনের জন্য, [সেটআপ গাইড](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_create_react_app.md) দেখুন।
 
+- [Create React App i18n: Complete Translation Guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_create_react_app.md)
+
 ### Vite + React-এর সাথে ইন্টিগ্রেট করা
 
 Vite + React-এর সাথে ইন্টিগ্রেশনের জন্য, [সেটআপ গাইড](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_vite+react.md) দেখুন।
+
+- [Vite + React i18n - Complete guide to translate your app](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_vite+react.md)
 
 ## কনফিগারেশন
 
@@ -159,6 +167,8 @@ export default config;
 > যদি আপনার কাছে client ID এবং client secret না থাকে, তাহলে [Intlayer Dashboard - Projects](https://app.intlayer.org/projects)-এ একটি নতুন ক্লায়েন্ট তৈরি করে সেগুলি পেতে পারেন।
 
 > সমস্ত উপলব্ধ প্যারামিটার দেখতে, [কনফিগারেশন ডকুমেন্টেশন](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/configuration.md) দেখুন।
+
+- [কনফিগারেশন ডকুমেন্টেশন](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/configuration.md)
 
 ## CMS ব্যবহার করা
 
@@ -274,10 +284,10 @@ bun add @intlayer/api
 
 SDK ইচ্ছাকৃতভাবে **দুটি আলাদা ইম্পোর্টে** বিভক্ত, আপনার বান্ডেল ছোট রাখতে:
 
-১। `createIntlayerCMS` — একটি হালকা **অথেনটিকেটর** তৈরি করে। এটি শুধুমাত্র ক্রেডেনশিয়াল এবং পরিচালিত অ্যাক্সেস টোকেন বহন করে; এটি কোনো নির্দিষ্ট ডোমেইন সম্পর্কে কিছু জানে না।
-২। `dictionaryEndpoint`, `projectEndpoint`, … — প্রতি-ডোমেইন **এন্ডপয়েন্ট বাইন্ডার**, প্রতিটি তার নিজস্ব সাবপাথ থেকে ইম্পোর্ট করা হয় (`@intlayer/api/dictionary`, `@intlayer/api/project`, …)। আপনি প্রয়োজনীয় এন্ডপয়েন্টে অথেনটিকেটর পাস করেন।
+১। `createIntlayerCMS`, একটি হালকা **অথেনটিকেটর** তৈরি করে। এটি শুধুমাত্র ক্রেডেনশিয়াল এবং পরিচালিত অ্যাক্সেস টোকেন বহন করে; এটি কোনো নির্দিষ্ট ডোমেইন সম্পর্কে কিছু জানে না।
+২। `dictionaryEndpoint`, `projectEndpoint`, …, প্রতি-ডোমেইন **এন্ডপয়েন্ট বাইন্ডার**, প্রতিটি তার নিজস্ব সাবপাথ থেকে ইম্পোর্ট করা হয় (`@intlayer/api/dictionary`, `@intlayer/api/project`, …)। আপনি প্রয়োজনীয় এন্ডপয়েন্টে অথেনটিকেটর পাস করেন।
 
-যেহেতু প্রতিটি এন্ডপয়েন্ট আলাদাভাবে ইম্পোর্ট করা হয়, আপনার বান্ডেলে শুধুমাত্র আপনার ব্যবহৃত ডোমেইনগুলি অন্তর্ভুক্ত হয় — `dictionaryEndpoint` ইম্পোর্ট করলে কখনই project, AI, বা অন্য কোনো ডোমেইন ক্লায়েন্ট টেনে আনে না।
+যেহেতু প্রতিটি এন্ডপয়েন্ট আলাদাভাবে ইম্পোর্ট করা হয়, আপনার বান্ডেলে শুধুমাত্র আপনার ব্যবহৃত ডোমেইনগুলি অন্তর্ভুক্ত হয়, `dictionaryEndpoint` ইম্পোর্ট করলে কখনই project, AI, বা অন্য কোনো ডোমেইন ক্লায়েন্ট টেনে আনে না।
 
 ```typescript fileName="cms.ts" codeFormat="typescript"
 import { createIntlayerCMS } from "@intlayer/api";
@@ -383,7 +393,7 @@ await dictionaryEndpoint(cmsAuthenticator).updateDictionary({
 
 ### একটি একক মেথড এক্সট্র্যাক্ট করা
 
-প্রতিটি এন্ডপয়েন্ট মেথড ইতিমধ্যে প্রমাণীকৃত এবং স্বতন্ত্র (এটি নিজের টোকেন হ্যান্ডলিং বহন করে), তাই আপনি একটি এক্সট্র্যাক্ট করে পাস করতে পারেন — উদাহরণস্বরূপ একটি নির্ভরতা হিসেবে ইনজেক্ট করতে:
+প্রতিটি এন্ডপয়েন্ট মেথড ইতিমধ্যে প্রমাণীকৃত এবং স্বতন্ত্র (এটি নিজের টোকেন হ্যান্ডলিং বহন করে), তাই আপনি একটি এক্সট্র্যাক্ট করে পাস করতে পারেন, উদাহরণস্বরূপ একটি নির্ভরতা হিসেবে ইনজেক্ট করতে:
 
 ```typescript fileName="push.ts" codeFormat="typescript"
 import { createIntlayerCMS } from "@intlayer/api";
@@ -391,7 +401,7 @@ import { dictionaryEndpoint } from "@intlayer/api/dictionary";
 
 const dictionary = dictionaryEndpoint(createIntlayerCMS());
 
-// ইতিমধ্যে প্রমাণীকৃত — প্রতিটি কলে স্বয়ংক্রিয়ভাবে টোকেন রিফ্রেশ করে
+// ইতিমধ্যে প্রমাণীকৃত, প্রতিটি কলে স্বয়ংক্রিয়ভাবে টোকেন রিফ্রেশ করে
 export const pushDictionaries = dictionary.pushDictionaries;
 
 // ব্যবহার
@@ -550,6 +560,8 @@ curl -fsSL https://intlayer.org/install.sh | sh
 ```
 
 সম্পূর্ণ সেটআপ গাইড, পরিবেশ ভেরিয়েবল রেফারেন্স, আপগ্রেড নির্দেশাবলী, এবং ব্যাকআপ/পুনরুদ্ধার পদ্ধতির জন্য, [সেলফ-হোস্টিং গাইড](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/self_hosting.md) দেখুন।
+
+- [সেলফ-হোস্টিং গাইড](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/self_hosting.md)
 
 ## ডিবাগ
 

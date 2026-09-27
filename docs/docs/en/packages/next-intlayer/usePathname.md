@@ -31,7 +31,7 @@ author: aymericzip
 
 # Next.js Integration: `usePathname` Hook Documentation
 
-The `usePathname` hook returns the current Next.js pathname with the locale segment stripped. It is useful for building locale-aware navigation — for example, determining which nav item is active — without having to manually remove the locale prefix.
+The `usePathname` hook returns the current Next.js pathname with the locale segment stripped. It is useful for building locale-aware navigation (for example, determining which nav item is active) without having to manually remove the locale prefix.
 
 ## Importing `usePathname` in Next.js
 

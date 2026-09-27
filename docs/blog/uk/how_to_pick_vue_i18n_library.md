@@ -67,6 +67,8 @@ Paraglide генерує окрему функцію для кожного по�
 
 Стаття про [історію JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/history_of_i18n.md) детально розглядає кожну хвилю.
 
+- [історію JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/history_of_i18n.md)
+
 ## Рішення, яке має найбільше значення: де зберігається контент і коли він завантажується
 
 Два структурні рішення визначають більшу частину різниці в розмірі bundle між підходами:
@@ -82,9 +84,14 @@ Paraglide генерує окрему функцію для кожного по�
 
 [Бенчмарк Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/vue.md) вимірює це як "витік з інших маршрутів" (leakage from other routes) та "витік з інших локалей" (leakage from other locales). Якщо вашою відповіддю на запитання 3 було "багато сторінок", цей розділ важливіший за будь-які переваги API. Стаття про [покомпонентний та централізований i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/per-component_vs_centralized_i18n.md) розглядає аспект підтримки цього ж компромісу.
 
+- [Бенчмарк Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/vue.md)
+- [покомпонентний та централізований i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/per-component_vs_centralized_i18n.md)
+
 ## Кандидати
 
 Розміри бібліотек наведено на основі [бенчмарку Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/vue.md): плагін плюс composable у порожньому компоненті після збирання, tree-shaking та мініфікації в додатку на 10 сторінок і 10 локалей. Обсяг контенту вимірюється окремо.
+
+- [бенчмарку Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/vue.md)
 
 ![Екосистема бібліотек Vue i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
@@ -113,6 +120,8 @@ Paraglide генерує окрему функцію для кожного по�
 
 `@nuxtjs/i18n` надає стратегію маршрутизації, теги `hreflang` та визначення локалі без додаткового коду, і тільки це виправдовує його використання для сайтів із контентом на кілька сторінок. Його обмеження полягає в каталогах на рівні локалей: якщо сторінок більше десяти, SSR payload несе тексти кожного маршруту. Якщо це ваш випадок, налаштуйте `vue-i18n` вручну з повідомленнями для окремих маршрутів або перейдіть на ізольований контент. Стаття про [Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_nuxt.md) у першу чергу розглядає вибір стратегії маршрутизації.
 
+- [Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_nuxt.md)
+
 </Accordion>
 <Accordion header="Переклади надходять з TMS або агентства, що надає ICU">
 
@@ -127,6 +136,8 @@ Paraglide генерує окрему функцію для кожного по�
 <Accordion header="Типобезпека є обов'язковою вимогою">
 
 `vue-i18n` можна типізувати, передавши generic схеми до `createI18n`. Це працює, але ламається, щойно каталоги починають завантажуватися через lazy loading, оскільки схема описує повідомлення, які ще можуть бути не завантажені. Якщо ви не хочете підтримувати це вручну, оберіть бібліотеку, чиї типи генеруються з контенту: Paraglide або Intlayer. Публікація про [виявлення відсутніх перекладів](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/detecting_missing_translations.md) порівнює, які помилки кожен інструмент виявляє на етапі збирання.
+
+- [виявлення відсутніх перекладів](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/detecting_missing_translations.md)
 
 </Accordion>
 <Accordion header="Контент містить більше, ніж прості мітки UI">
@@ -367,6 +378,10 @@ const { title, items } = useIntlayer("cart-summary");
 
 Вже використовуєте `vue-i18n`? [Адаптер сумісності `@intlayer/vue-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/vue-i18n.md) створює alias для пакета на рівні бандлера, тому `useI18n()`, `$t`, множина через pipe та `v-t` продовжують працювати, поки Intlayer надає контент. [Посібник із міграції](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/migration_from_vue-i18n_to_intlayer.md) пояснює подальшу відмову від адаптера, також є [окремий посібник для Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/migration_from_nuxtjs_i18n_to_intlayer.md).
 
+- [Адаптер сумісності `@intlayer/vue-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/vue-i18n.md)
+- [Посібник із міграції](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/migration_from_vue-i18n_to_intlayer.md)
+- [окремий посібник для Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/migration_from_nuxtjs_i18n_to_intlayer.md)
+
 ## Перш ніж зробити вибір
 
 Таблиця функціоналу показує, що бібліотека вміє сьогодні. Наведені нижче пункти описують, яким буде її щоденне використання.
@@ -389,6 +404,9 @@ const { title, items } = useIntlayer("cart-summary");
 
 Агенти все ще стикаються з труднощами в i18n: вони забувають локалі, вигадують неіснуючі ключі та плутають синтаксис повідомлень. Чи надає бібліотека [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/agent_skills.md) або [сервер MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/mcp_server.md), щоб агент міг переглядати, заповнювати та тестувати контент? І чи оптимізовано завантаження контенту за замовчуванням, чи комусь доведеться щокварталу перевіряти namespaces та lazy imports?
 
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/agent_skills.md)
+- [сервер MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/mcp_server.md)
+
 **Типобезпека з коробки.**
 
 Не "можна типізувати за допомогою додаткового коду", а "неправильний ключ призводить до помилки `tsc` одразу після встановлення". Перевірте поведінку з ключем, якого не існує, та з локаллю, де відсутній один переклад.
@@ -400,6 +418,13 @@ const { title, items } = useIntlayer("cart-summary");
 **Досвід розробника (Developer Experience).**
 
 Час від налаштування до першого перекладеного рядка, [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/lsp.md) або [розширення VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/vs_code_extension.md), яке показує переклад при наведенні курсору та переходить до декларації, [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/index.md) для заповнення, тестування та відправки, [компілятор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compiler.md) або екстрактор, який витягує захардкоджені рядки з компонентів, щоб не керувати кожним рядком ключ за ключем, а також можливість редагування контенту без участі розробників ([візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md) або [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)) без відкриття pull request.
+
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/lsp.md)
+- [розширення VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/vs_code_extension.md)
+- [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/index.md)
+- [компілятор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compiler.md)
+- [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)
 
 ## Часті запитання
 
@@ -421,11 +446,15 @@ const { title, items } = useIntlayer("cart-summary");
 
 Лише якщо розмір bundle, SSR payload, згенеровані типи або перевірка відсутніх ключів під час збирання є критичними вимогами. Стаття про [компіляторний та декларативний i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/compiler_vs_declarative_i18n.md) пояснює можливості компіляторів і випадки, де вони можуть бути неоптимальними.
 
+- [компіляторний та декларативний i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/compiler_vs_declarative_i18n.md)
+
 </Question>
 
 <Question title="Чи впливає вибір бібліотеки на SEO?">
 
 Опосередковано. Пошукові роботи аналізують маршрутизацію, `hreflang`, `<html lang>` і наявність тексту у відрендереному на сервері HTML. Перегляньте [посібник із hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/hreflang_guide_multilingual_seo.md).
+
+- [посібник із hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/hreflang_guide_multilingual_seo.md)
 
 </Question>
 

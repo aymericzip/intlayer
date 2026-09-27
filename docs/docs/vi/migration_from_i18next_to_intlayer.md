@@ -37,17 +37,23 @@ Thay vì tải các tệp JSON khổng lồ vào các trang của bạn, chỉ t
 
 Phạm vi nội dung ứng dụng của bạn **tạo điều kiện thuận lợi cho việc bảo trì** các ứng dụng quy mô lớn. Bạn có thể sao chép hoặc xóa một thư mục tính năng duy nhất mà không cần lo lắng về việc xem lại toàn bộ codebase nội dung của mình. Ngoài ra, Intlayer **hoàn toàn được gõ kiểu** để đảm bảo độ chính xác của nội dung của bạn.
 
-Intlayer cũng là giải pháp có **phát triển tích cực nhất** trong hệ sinh thái i18n — các vấn đề được sửa chữa nhanh chóng, các adapter khung mới được phát hành thường xuyên, và API cốt lõi được liên tục cải tiến dựa trên phản hồi sản xuất thực tế.
+Intlayer cũng là giải pháp có **phát triển tích cực nhất** trong hệ sinh thái i18n, các vấn đề được sửa chữa nhanh chóng, các adapter khung mới được phát hành thường xuyên, và API cốt lõi được liên tục cải tiến dựa trên phản hồi sản xuất thực tế.
 
 </Accordion>
 <Accordion header="AI Agent">
 
 Đặt nội dung cùng nhau **giảm ngữ cảnh cần thiết** bởi Large Language Models (LLMs). Intlayer cũng đi kèm với một bộ công cụ, chẳng hạn như **CLI** để kiểm tra các bản dịch bị thiếu, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/mcp_server.md)**, và **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/agent_skills.md)**, để làm cho trải nghiệm nhà phát triển (DX) thậm chí còn mịn màng hơn cho các agent AI.
 
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/mcp_server.md)
+- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/agent_skills.md)
+
 </Accordion>
 <Accordion header="Tự động hóa">
 
 Sử dụng tự động hóa để dịch trong pipeline CI/CD của bạn bằng cách sử dụng LLM lựa chọn của bạn với chi phí của nhà cung cấp AI của bạn. Intlayer cũng cung cấp **compiler** để tự động trích xuất nội dung, cũng như [web platform](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md) để giúp **dịch ở chế độ nền**.
+
+- [web platform](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="Hiệu suất">
@@ -58,6 +64,9 @@ Kết nối các tệp JSON khổng lồ với các component có thể dẫn đ
 <Accordion header="Mở rộng quy mô với non-dev">
 
 Không chỉ là một giải pháp i18n, Intlayer cung cấp **self-hosted [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md)** và **[full CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)** để giúp bạn quản lý nội dung đa ngôn ngữ của mình **real-time**, làm cho sự cộng tác với các nhà dịch, biên tập viên và các thành viên nhóm khác diễn ra liền mạch. Nội dung có thể được lưu trữ cục bộ và/hoặc từ xa.
+
+- [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md)
+- [full CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
@@ -70,9 +79,9 @@ Không chỉ là một giải pháp i18n, Intlayer cung cấp **self-hosted [vis
 
 Có hai chiến lược bổ sung nhau để di chuyển từ `i18next` sang Intlayer:
 
-1. **Compat adapter (được khuyến nghị cho các ứng dụng hiện có)** — Cài đặt `@intlayer/i18next`. Gói này cung cấp **API giống hệt** với `i18next` nhưng ủy quyền tất cả công việc dịch cho Intlayer ở phía sau. Bạn giữ lại các lệnh gọi `i18next.t()`, `i18next.changeLanguage()` và `createInstance()` hiện có của mình — thay đổi duy nhất là đường dẫn import và khởi tạo.
+1. **Compat adapter (được khuyến nghị cho các ứng dụng hiện có)**: Cài đặt `@intlayer/i18next`. Gói này cung cấp **API giống hệt** với `i18next` nhưng ủy quyền tất cả công việc dịch cho Intlayer ở phía sau. Bạn giữ lại các lệnh gọi `i18next.t()`, `i18next.changeLanguage()` và `createInstance()` hiện có của mình, thay đổi duy nhất là đường dẫn import và khởi tạo.
 
-2. **Di chuyển toàn bộ** — Thay thế dần các API `i18next` bằng các công cụ Intlayer gốc và đồng vị trí hóa nội dung trong các tệp `.content.ts`.
+2. **Di chuyển toàn bộ**: Thay thế dần các API `i18next` bằng các công cụ Intlayer gốc và đồng vị trí hóa nội dung trong các tệp `.content.ts`.
 
 Hướng dẫn này bao gồm **Chiến lược 1** trước tiên (compat adapter plug-and-play), sau đó hướng dẫn qua quá trình di chuyển toàn bộ tùy chọn.
 
@@ -125,7 +134,7 @@ yarn add intlayer @intlayer/i18next @intlayer/sync-json-plugin
 bun add intlayer @intlayer/i18next @intlayer/sync-json-plugin
 ```
 
-> Bạn có thể giữ `i18next` được cài đặt — bộ adapter tương thích sử dụng nó như một `devDependency` / `peerDependency` cho các loại TypeScript.
+> Bạn có thể giữ `i18next` được cài đặt, bộ adapter tương thích sử dụng nó như một `devDependency` / `peerDependency` cho các loại TypeScript.
 
 </Step>
 <Step number={2} title="Cấu hình Intlayer">
@@ -179,7 +188,7 @@ export default defineConfig({
 
 > `i18nextVitePlugin()` bao bọc plugin `intlayer()` của `vite-intlayer` và thêm
 > alias `i18next` → `@intlayer/i18next` cho bạn. Sử dụng plugin `intlayer()` đơn giản
-> từ `vite-intlayer` biên dịch các từ điển nhưng **không** thêm alias đó — bạn
+> từ `vite-intlayer` biên dịch các từ điển nhưng **không** thêm alias đó, bạn
 > sẽ cần đổi tên các import thành `@intlayer/i18next` theo cách thủ công (xem bước tiếp theo).
 
 </Step>
@@ -203,7 +212,7 @@ Nếu bạn muốn làm cho dependency rõ ràng trong các tệp nguồn của 
 | `import { createInstance } from 'i18next'` | `import { createInstance } from '@intlayer/i18next'` |
 | `import { t } from 'i18next'`              | `import { t } from '@intlayer/i18next'`              |
 
-Đây là **drop-in replacements** — không cần thay đổi chữ ký hàm, đối số hoặc kiểu trả về.
+Đây là **drop-in replacements**, không cần thay đổi chữ ký hàm, đối số hoặc kiểu trả về.
 
 </Step>
 <Step number={5} title="Bật Tự động hóa Dịch được Cấp năng lượng bằng AI" isOptional={true}>
@@ -263,6 +272,8 @@ export default config;
 
 > Xem [tài liệu CLI Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md) để biết tất cả các tùy chọn có sẵn.
 
+- [tài liệu CLI Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md)
+
 </Step>
 
 </Steps>
@@ -277,7 +288,7 @@ Khi adapter tương thích được triển khai, boilerplate `i18next` sau đâ
 | `i18next.use(...)`                       | Intlayer không sử dụng các plugin, backend hoặc language detector của i18next.                                                                |
 | JSON language bundles (`locales/*.json`) | JSON bundles chỉ cần thiết nếu bạn vẫn sử dụng plugin `syncJSON`. Sau khi di chuyển sang các file `.content.ts`, bạn có thể xóa thư mục JSON. |
 
-Khi bạn sẵn sàng tiến thêm, Intlayer **tự động phát hiện tất cả các file `.content.ts` và `.content.json` ở bất kỳ đâu trong codebase của bạn** (mặc định, ở bất kỳ đâu trong `./src`). Bạn có thể đặt một file `my-component.content.ts` ngay cạnh logic của bạn và Intlayer sẽ nhận nó tại build time mà không cần cấu hình bổ sung — không cần import, registration, hay file index tập trung. Điều này giúp việc co-locating translations hoàn toàn không gặp khó khăn.
+Khi bạn sẵn sàng tiến thêm, Intlayer **tự động phát hiện tất cả các file `.content.ts` và `.content.json` ở bất kỳ đâu trong codebase của bạn** (mặc định, ở bất kỳ đâu trong `./src`). Bạn có thể đặt một file `my-component.content.ts` ngay cạnh logic của bạn và Intlayer sẽ nhận nó tại build time mà không cần cấu hình bổ sung, không cần import, registration, hay file index tập trung. Điều này giúp việc co-locating translations hoàn toàn không gặp khó khăn.
 
 ## Cấu hình TypeScript
 

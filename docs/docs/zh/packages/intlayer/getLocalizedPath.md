@@ -32,7 +32,9 @@ author: aymericzip
 
 `getLocalizedPath` 函数根据提供的 locale 和重写规则，将 canonical path（应用内路径，例如 `/about`、`/product/[id]`）解析为其本地化等价路径。它对于生成按语言变化的对 SEO 友好的 URL 非常有用。
 
-它是 [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getLocalizedUrl.md) 的相对路径对应版本 — 对于相对输入，两者都返回相同的值。与 `getLocalizedUrl` 不同的是，它永远不会返回绝对 URL：`domains` 配置被忽略，因此从其自己的域提供的区域设置仍然会产生一个路径。接受绝对输入，但其来源会被删除 — 仅保留其路径、查询字符串和哈希。
+它是 [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getLocalizedUrl.md) 的相对路径对应版本（对于相对输入，两者都返回相同的值。与 `getLocalizedUrl` 不同的是，它永远不会返回绝对 URL：`domains` 配置被忽略，因此从其自己的域提供的区域设置仍然会产生一个路径。接受绝对输入，但其来源会被删除）仅保留其路径、查询字符串和哈希。
+
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getLocalizedUrl.md)
 
 **关键特性：**
 
@@ -70,10 +72,10 @@ getLocalizedPath(
   - **Description**: 路由覆盖。每个条目都默认使用你项目的配置。
   - **Type**: `object`
 
-  - `options.locales?: Locales[]` — 支持的语言环境。**默认值**: `configuration.internationalization.locales`
-  - `options.defaultLocale?: Locales` — 默认语言环境。**默认值**: `configuration.internationalization.defaultLocale`
-  - `options.mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'` — 语言环境在路径中的显示方式。**默认值**: `configuration.routing.mode`
-  - `options.rewrite?: RoutingConfig['rewrite']` — 自定义重写规则。**默认值**: `configuration.routing.rewrite`
+  - `options.locales?: Locales[]`：支持的语言环境。**默认值**: `configuration.internationalization.locales`
+  - `options.defaultLocale?: Locales`：默认语言环境。**默认值**: `configuration.internationalization.defaultLocale`
+  - `options.mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'`：语言环境在路径中的显示方式。**默认值**: `configuration.routing.mode`
+  - `options.rewrite?: RoutingConfig['rewrite']`：自定义重写规则。**默认值**: `configuration.routing.rewrite`
 
 ## 返回值
 
@@ -96,6 +98,8 @@ const home = getLocalizedPath("/", Locales.FRENCH);
 ```
 
 同样的收窄流入 [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getLocalizedUrl.md)，它在添加区域设置前缀之前应用重写规则。
+
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getLocalizedUrl.md)
 
 两种情况保持扩展为 `string`，因为它们在编译时无法解析：
 

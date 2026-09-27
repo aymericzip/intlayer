@@ -33,6 +33,8 @@ author: aymericzip
 
 Este artigo compara os dois na mesma aplicação Next.js, construída uma vez com `next-intl` e outra com o adaptador. Os números vêm de [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom), uma suite open-source que registra o que o navegador realmente baixa. Se você quiser a comparação `next-intl` vs Intlayer como bibliotecas, leia [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/next-intl_vs_intlayer.md). Este é sobre o que o adaptador muda quando você mantém seus componentes como estão.
 
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/next-intl_vs_intlayer.md)
+
 <TOC/>
 
 > **tl;dr**: No mesmo aplicativo Next.js, trocar `next-intl` por `@intlayer/next-intl` reduziu o JavaScript por página de **153.6 KB para 147.5 KB** gzip, o componente médio de **21.8 KB para 8.1 KB**, vazamento de strings de página estrangeira de **~90% para 0%**, e hidratação de **14.7 ms para 12.8 ms**, sem editar nenhum componente. No TanStack Start, o equivalente `use-intl` (`@intlayer/use-intl`) reduziu componentes de **76-87 KB para 9-11 KB** e alternância de localidade de **7-21 ms para 4-9 ms**. O adaptador custa **8.0 KB** de runtime versus **14.7 KB** para `next-intl` e **5.5 KB** para `next-intlayer` nativo. Navegação e middleware são re-implementados na configuração de roteamento do Intlayer; nomes de caminho localizados (`pathnames`) são o único recurso não transferido.
@@ -145,6 +147,8 @@ style="border:none;"
 
 > Tabela completa, cada biblioteca e cada estratégia, no [relatório de benchmark do Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/benchmark/nextjs.md).
 
+- [relatório de benchmark do Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/benchmark/nextjs.md)
+
 ### Resultados em TanStack Start (`use-intl`)
 
 `use-intl` é o core agnóstico de framework do `next-intl`. Seu adapter, `@intlayer/use-intl`, segue o mesmo design com um plugin Vite (`@intlayer/use-intl/plugin`).
@@ -176,6 +180,8 @@ style="border:none;"
 />
 
 > Tabela completa no [relatório de benchmark do TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/benchmark/tanstack.md).
+
+- [relatório de benchmark do TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/benchmark/tanstack.md)
 
 ## Por que os números mudam
 
@@ -329,6 +335,8 @@ A etapa de otimização precisa de um namespace estático para saber qual dicion
 
 Os formatadores são baseados no `Intl` nativo e apenas o idioma influencia sua saída. Se você depende de um fuso horário forçado ou de um `now` fixo para datas estáveis na hidratação, lide com isso no local da chamada. Veja [formatação de data, hora e número](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/date_time_number_formatting_locales.md).
 
+- [formatação de data, hora e número](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/date_time_number_formatting_locales.md)
+
 </Accordion>
 </AccordionGroup>
 
@@ -349,6 +357,8 @@ Você já está no `next-intl` hoje e quer os ganhos de bundle, vazamento e hidr
 
 Para novos projetos, ou assim que o adaptador tiver cumprido seu papel. É o mais leve dos três (5.5 KB, +0.3 KB por página) e desbloqueia componentes de servidor síncronos, arquivos `.content.ts` por componente e o conjunto completo de recursos. Comece com [Intlayer com Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_with_nextjs_16.md).
 
+- [Intlayer com Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_with_nextjs_16.md)
+
 </Accordion>
 </AccordionGroup>
 
@@ -365,6 +375,8 @@ No Next.js, sim para componentes: a compilação do benchmark alterou apenas `ne
 <Question title="O que acontece com as mensagens ICU?">
 
 Elas continuam funcionando. `t("key", { count })`, `t.rich()`, `t.markup()`, `select`, `selectordinal`, `#` e `{ts, date, long}` são resolvidos pelo resolvedor ICU do Intlayer. Veja [formato de mensagem ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md).
+
+- [formato de mensagem ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)
 
 </Question>
 
@@ -425,3 +437,5 @@ Documentação de referência:
 Todos os dados brutos, os apps de teste e os scripts estão no [repositório Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Execute você mesmo.
 
 Consulte o [doc 'Por que Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/interest_of_intlayer.md) para mais detalhes.
+
+- [Por que o Intlayer? Vantagens sobre outras bibliotecas i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/interest_of_intlayer.md)

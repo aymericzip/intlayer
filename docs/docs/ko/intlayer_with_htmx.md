@@ -175,6 +175,8 @@ export default config;
 
 > 전체 옵션 목록은 [구성 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참조하세요.
 
+- [구성 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)
+
 </Step>
 <Step number={3} title="콘텐츠 선언">
 
@@ -220,6 +222,8 @@ export default appContent;
 ```
 
 > Content declarations는 `contentDir` (기본값 `./src`) 아래의 어디든 위치할 수 있으며 `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`과 일치합니다. [content declaration 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md)를 참조하세요.
+
+- [content declaration 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md)
 
 </Step>
 <Step number={4} title="Intlayer middleware 등록">
@@ -643,7 +647,7 @@ Intlayer에서 생성된 파일을 무시하는 것이 권장됩니다:
 
 Intlayer를 사용한 개발 경험을 향상시키기 위해 공식 **Intlayer VS Code Extension**을 설치할 수 있습니다.
 
-[VS Code Marketplace에서 설치](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [VS Code Marketplace에서 설치](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 이 확장은 다음을 제공합니다:
 
@@ -654,9 +658,13 @@ Intlayer를 사용한 개발 경험을 향상시키기 위해 공식 **Intlayer 
 
 확장을 사용하는 방법에 대한 자세한 내용은 [Intlayer VS Code Extension 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/vs_code_extension.md)를 참고하세요.
 
+- [Intlayer VS Code Extension 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/vs_code_extension.md)
+
 ### 더 나아가기
 
 더 나아가기 위해 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)를 사용하여 콘텐츠를 외부화할 수 있으므로 번역가가 배포 없이 복사본을 변경할 수 있습니다.
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)
 
 ## 자주 묻는 질문
 
@@ -681,6 +689,9 @@ Intlayer를 사용한 개발 경험을 향상시키기 위해 공식 **Intlayer 
 
 로케일 접두사(`/fr/cart`)로 페이지를 제공하고, 전체 페이지 렌더링을 위해 쿠키가 아닌 경로에서 로케일을 읽으십시오. 라우트 핸들러에서는 경로를 사용합니다. 프래그먼트는 쿠키나 헤더를 계속 사용할 수 있습니다. 라우팅 옵션은 [설정](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)을 참조하고 [사용자 정의 URL 재작성](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/custom_url_rewrites.md)을 참조하세요.
 
+- [설정](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)
+- [사용자 정의 URL 재작성](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/custom_url_rewrites.md)
+
 </Question>
 <Question title="오른쪽에서 왼쪽으로 읽는 언어를 어떻게 처리합니까?">
 
@@ -696,25 +707,44 @@ Intlayer를 사용한 개발 경험을 향상시키기 위해 공식 **Intlayer 
 
 예. 백엔드 통합은 모든 핸들러에 `t()`와 `getIntlayer()`를 노출하므로, 토스트에 표시되는 에러 메시지와 fragment로 렌더링되는 레이블이 동일한 선언된 콘텐츠에서 나옵니다. [Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_express.md), [Fastify](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_fastify.md), [Hono](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_hono.md) 및 [Elysia](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_elysia.md) 가이드를 참조하세요.
 
+- [Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_express.md)
+- [Fastify](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_fastify.md)
+- [Hono](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_hono.md)
+- [Elysia](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_elysia.md)
+
 </Question>
 <Question title="콘텐츠를 key별로 이동해야 하나요?">
 
 아니요. `npx intlayer extract`를 실행하면 Intlayer가 소스 파일을 읽고, 사용자 대면 문자열을 추출한 후 각 파일 옆에 `.content` 파일을 작성하므로, 카탈로그에 문자열을 하나씩 복사하는 대신 diff를 검토할 수 있습니다. [extract 명령](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/extract.md)을 참조하세요.
+
+- [extract 명령](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/extract.md)
 
 </Question>
 <Question title="기존 JSON 번역 파일을 유지할 수 있나요?">
 
 네. [sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/plugins/sync-json.md)은 `/messages/{locale}/{namespace}.json` 파일을 소스로 유지하고 양방향으로 Intlayer 사전을 생성합니다. [sync PO plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/plugins/sync-po.md)은 gettext 카탈로그에 대해 동일한 작업을 수행하며, [per locale files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/per_locale_file.md)를 통해 로케일을 한 파일에 그룹화하는 대신 언어별로 콘텐츠를 분할할 수 있습니다.
 
+- [sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/plugins/sync-json.md)
+- [sync PO plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/plugins/sync-po.md)
+- [per locale files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/per_locale_file.md)
+
 </Question>
 <Question title="AI로 앱을 자동으로 번역하려면 어떻게 해야 하나요?">
 
 `npx intlayer fill`을 실행하면 선택한 LLM을 사용하여 자신의 provider와 API 키로 누락된 번역을 채웁니다. `--git-diff`를 추가하면 branch에서 변경된 내용만 번역합니다. [fill command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/fill.md)와 [CI/CD integration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/CI_CD.md)을 참조하세요.
 
+- [fill command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/fill.md)
+- [CI/CD integration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/CI_CD.md)
+
 </Question>
 <Question title="Intlayer는 성별, 조건 및 보간된 값을 지원하나요?">
 
 예: [성별 기반 콘텐츠](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/gender.md), 조건, [열거형](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/enumeration.md), 보간 값을 위한 [삽입](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/insertion.md), 그리고 숫자, 날짜 및 통화를 위한 [포매터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/formatters.md).
+
+- [성별 기반 콘텐츠](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/gender.md)
+- [열거형](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/enumeration.md)
+- [삽입](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/insertion.md)
+- [포매터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/formatters.md)
 
 </Question>
 <Question title="어떤 에디터와 AI 에이전트 도구가 사용 가능한가요?">
@@ -731,6 +761,9 @@ Intlayer를 사용한 개발 경험을 향상시키기 위해 공식 **Intlayer 
 <Question title="Intlayer는 무료이고 오픈 소스입니까?">
 
 네, Apache 2.0 라이선스 하에서 상용 사용이 포함됩니다. 호스팅된 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)는 선택적 유료 서비스이며 [자체 호스팅](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/self_hosting.md)할 수도 있습니다.
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)
+- [자체 호스팅](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/self_hosting.md)
 
 </Question>
 

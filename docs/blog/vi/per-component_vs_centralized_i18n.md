@@ -70,6 +70,8 @@ Tuy nhiên, trong thế giới React, chúng ta chủ yếu thấy các cách ti
 > Trong blog này, tôi sẽ không tập trung vào các giải pháp dựa trên compiler, những cái tôi đã đề cập ở đây: [Compiler vs Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/compiler_vs_declarative_i18n.md).
 > Lưu ý rằng i18n dựa trên compiler (ví dụ: Lingui) chỉ đơn giản tự động hóa việc trích xuất và tải nội dung. Về bản chất, chúng thường chia sẻ những hạn chế tương tự với các phương pháp khác.
 
+- [Compiler vs Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/compiler_vs_declarative_i18n.md)
+
 > Lưu ý rằng càng phân nhỏ cách bạn truy xuất nội dung, bạn càng có nguy cơ đưa thêm trạng thái và logic vào các component.
 
 Granular approaches are more flexible than centralized ones, but it's often a tradeoff. Even if "tree shaking" is advertised by that libraries, in practice, you'll often end up loading a page in every language.
@@ -153,6 +155,8 @@ locale/
 
 Bây giờ bạn phải quản lý một cách chi tiết phần nội dung nào của ứng dụng nên được tải và ở đâu. Kết luận là đại đa số các dự án chỉ bỏ qua phần này vì tính phức tạp (xem hướng dẫn [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18n_using_next-i18next.md) để thấy các thách thức mà việc (chỉ) tuân theo các best practices mang lại).
 Do đó, các dự án đó cuối cùng gặp phải vấn đề tải JSON khổng lồ đã được giải thích ở phần trước.
+
+- [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18n_using_next-i18next.md)
 
 > Lưu ý rằng vấn đề này không đặc thù cho i18next, mà áp dụng cho tất cả các phương pháp tập trung được liệt kê ở trên.
 

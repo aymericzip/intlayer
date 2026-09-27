@@ -363,6 +363,8 @@ Transforma o dicionário em um dicionário por localidade onde cada campo declar
 
 > Veja [Declaração de Conteúdo por Idioma no Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/per_locale_file.md) para mais informações.
 
+- [Declaração de Conteúdo por Idioma no Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/per_locale_file.md)
+
 **Exemplo:**
 
 ```jsonc
@@ -473,6 +475,8 @@ Instruções para preenchimento automático do conteúdo do dicionário a partir
 
 > Veja [Configuração de Preenchimento Automático no Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/autoFill.md) para mais informações.
 
+- [Configuração de Preenchimento Automático no Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/autoFill.md)
+
 ##### `priority` (número)
 
 Indica a prioridade do dicionário para resolução de conflitos. Quando múltiplos dicionários possuem a mesma chave, o dicionário com o maior número de prioridade irá sobrescrever os demais. Isso é útil para gerenciar hierarquias de conteúdo e substituições.
@@ -500,6 +504,8 @@ Indica a prioridade do dicionário para resolução de conflitos. Quando múltip
 
 Usado em conjunto com as Coleções, este campo define a posição do item em uma coleção. Ele permite que você crie coleções ordenadas de itens localizados selecionáveis por índice em tempo de execução.
 
+- [Coleções](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dynamic_dictionaries/collections.md)
+
 **Exemplo:**
 
 ```typescript
@@ -515,9 +521,13 @@ Usado em conjunto com as Coleções, este campo define a posição do item em um
 
 > Veja [Coleções](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dynamic_dictionaries/collections.md) para mais informações.
 
+- [Coleções](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dynamic_dictionaries/collections.md)
+
 #### `variant` (string)
 
 Usado em conjunto com as Variantes, este campo define alternativas de conteúdo nomeadas. Ele permite que você alterne entre diferentes variações da mesma chave de dicionário em tempo de execução sem alterações no código (por exemplo, para testes A/B, banners sazonais). Se não for fornecido, será considerado como a variante padrão.
+
+- [Variantes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dynamic_dictionaries/variants.md)
 
 **Exemplo:**
 
@@ -526,13 +536,15 @@ Usado em conjunto com as Variantes, este campo define alternativas de conteúdo 
   key: "hero-banner",
   variant: "black_friday",
   content: {
-    headline: "50 % off — today only",
+    headline: "50 % off, today only",
     cta: "Shop now"
   }
 }
 ```
 
 > Veja [Variantes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dynamic_dictionaries/variants.md) para mais informações.
+
+- [Variantes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dynamic_dictionaries/variants.md)
 
 ### Propriedades do CMS
 
@@ -607,6 +619,8 @@ multilingualContent: t({
 
 > Veja [Conteúdo de Tradução (`t`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/translation.md) para mais informações.
 
+- [Conteúdo de Tradução (`t`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/translation.md)
+
 ### Conteúdo Condicional (`cond`)
 
 Conteúdo que muda com base em condições booleanas:
@@ -621,6 +635,8 @@ conditionalContent: cond({
 ```
 
 > Veja [Conteúdo Condicional (`cond`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/condition.md) para mais informações.
+
+- [Conteúdo Condicional (`cond`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/condition.md)
 
 ### Conteúdo de Enumeração (`enu`)
 
@@ -638,6 +654,8 @@ statusContent: enu({
 
 > Veja [Conteúdo de Enumeração (`enu`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/enumeration.md) para mais informações.
 
+- [Conteúdo de Enumeração (`enu`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/enumeration.md)
+
 ### Conteúdo Plural (`plural`)
 
 Conteúdo que varia com base nas regras de plural:
@@ -653,6 +671,8 @@ pluralContent: plural({
 
 > Veja [Conteúdo Plural Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/plural.md) para mais informações.
 
+- [Conteúdo Plural Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/plural.md)
+
 ### Conteúdo de Inserção (`insert`)
 
 Conteúdo que pode ser inserido em outros conteúdos:
@@ -665,6 +685,8 @@ insertionContent: insert("Este texto pode ser inserido em qualquer lugar");
 
 > Veja [Conteúdo de Inserção (`insert`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/insertion.md) para mais informações.
 
+- [Conteúdo de Inserção (`insert`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/insertion.md)
+
 ### Conteúdo Aninhado (`nest`)
 
 Referências a outros dicionários:
@@ -676,6 +698,8 @@ nestedContent: nest("about-page");
 ```
 
 > Veja [Conteúdo Aninhado (`nest`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/nesting.md) para mais informações.
+
+- [Conteúdo Aninhado (`nest`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/nesting.md)
 
 ### Conteúdo Markdown (`md`)
 
@@ -690,6 +714,8 @@ markdownContent: md(
 ```
 
 > Veja [Conteúdo Markdown (`md`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/markdown.md) para mais informações.
+
+- [Conteúdo Markdown (`md`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/markdown.md)
 
 ### Conteúdo HTML (`html`)
 
@@ -710,6 +736,8 @@ localizedHtmlContent: t({
 
 > Veja [Conteúdo HTML (`html`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/html.md) para mais informações.
 
+- [Conteúdo HTML (`html`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/html.md)
+
 ### Conteúdo por Gênero (`gender`)
 
 Conteúdo que varia com base no gênero:
@@ -726,9 +754,11 @@ genderContent: gender({
 
 > Veja [Conteúdo por Gênero (`gender`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/gender.md) para mais informações.
 
+- [Conteúdo por Gênero (`gender`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/gender.md)
+
 ### Conteúdo Baseado em Seleção (`select`)
 
-Conteúdo que varia com base em um valor de string arbitrário — o equivalente ao `select` do ICU:
+Conteúdo que varia com base em um valor de string arbitrário, o equivalente ao `select` do ICU:
 
 ```typescript
 import { select } from "intlayer";
@@ -745,6 +775,8 @@ Use `select` quando o discriminante não for uma quantidade (`enu`), não for um
 
 > Veja [Conteúdo Baseado em Seleção](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/select.md) para mais informações.
 
+- [Conteúdo Baseado em Seleção](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/select.md)
+
 ### Conteúdo de Arquivo (`file`)
 
 Referências a arquivos externos:
@@ -756,6 +788,8 @@ fileContent: file("./path/to/content.txt");
 ```
 
 > Veja [Conteúdo de Arquivo (`file`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/file.md) para mais informações.
+
+- [Conteúdo de Arquivo (`file`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/file.md)
 
 ## Criando Arquivos de Conteúdo
 

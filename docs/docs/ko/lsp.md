@@ -44,8 +44,8 @@ author: aymericzip
 
 알아 두면 좋은 동작이 두 가지 더 있습니다.
 
-- **병합된 사전** — 여러 콘텐츠 파일에 나뉜 키는 파일마다 하나씩 결과를 반환하므로 모든 선언으로 이동할 수 있습니다.
-- **모노레포 지원** — 서버는 각 파일에서 _가장 가까운_ `intlayer.config.*`를 해석하므로, 한 워크스페이스의 여러 프로젝트가 각자의 사전을 갖습니다.
+- **병합된 사전**: 여러 콘텐츠 파일에 나뉜 키는 파일마다 하나씩 결과를 반환하므로 모든 선언으로 이동할 수 있습니다.
+- **모노레포 지원**: 서버는 각 파일에서 _가장 가까운_ `intlayer.config.*`를 해석하므로, 한 워크스페이스의 여러 프로젝트가 각자의 사전을 갖습니다.
 
 ### 지원되는 호출
 
@@ -91,14 +91,16 @@ bun add --dev @intlayer/lsp
 <Tabs defaultTab="vscode">
   <Tab label="VS Code" value="vscode">
 
-[Intlayer VS Code 확장](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension)을 설치하세요. 언어 서버는 v8.12.0부터 포함되어 있으며 자동으로 시작됩니다 — **설정이 필요 없습니다**.
+[Intlayer VS Code 확장](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension)을 설치하세요. 언어 서버는 v8.12.0부터 포함되어 있으며 자동으로 시작됩니다. **설정이 필요 없습니다**.
 
 다른 기능은 [VS Code 확장 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/vs_code_extension.md)를 참고하세요.
+
+- [VS Code 확장 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/vs_code_extension.md)
 
   </Tab>
   <Tab label="Cursor / Windsurf" value="cursor">
 
-[Cursor](https://www.cursor.com/)와 [Windsurf](https://windsurf.com/)는 VS Code 포크로 동일한 확장 생태계를 사용합니다. [Intlayer VS Code 확장](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension)을 한 번 설치하면 서버가 자동으로 활성화됩니다 — **설정이 필요 없습니다**.
+[Cursor](https://www.cursor.com/)와 [Windsurf](https://windsurf.com/)는 VS Code 포크로 동일한 확장 생태계를 사용합니다. [Intlayer VS Code 확장](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension)을 한 번 설치하면 서버가 자동으로 활성화됩니다. **설정이 필요 없습니다**.
 
   </Tab>
   <Tab label="Claude Code" value="claude-code">
@@ -114,7 +116,7 @@ claude plugin marketplace add intlayer@github:aymericzip/intlayer
 claude plugin install intlayer-lsp@intlayer
 ```
 
-`install`은 플러그인 활성화도 함께 수행합니다. **Claude Code를 재시작하세요** — 언어 서버는 시작 시 로드되므로 그전까지는 플러그인이 적용되지 않습니다.
+`install`은 플러그인 활성화도 함께 수행합니다. **Claude Code를 재시작하세요**, 언어 서버는 시작 시 로드되므로 그전까지는 플러그인이 적용되지 않습니다.
 
 이후 Claude Code는 `.ts`, `.tsx`, `.js`, `.jsx`, `.vue`, `.astro`, `.svelte` 파일에서 서버를 시작하고, 코드를 탐색할 때 `goToDefinition`, `findReferences`, `hover`를 사용합니다.
 
@@ -240,10 +242,10 @@ language-servers = ["intlayer-lsp", "typescript-language-server"]
 
 LSP를 지원하는 모든 에디터에서 `@intlayer/lsp`를 실행할 수 있습니다. 다음을 지정하세요.
 
-- **실행 파일** — `npx @intlayer/lsp` 또는 `intlayer-lsp` 바이너리
-- **전송 방식** — stdio(표준)
-- **기능** — `definitionProvider`, `referencesProvider`, `hoverProvider`, `completionProvider`(트리거 문자 `"` `'` `` ` `` `.`), 푸시 진단, `textDocumentSync: Incremental`
-- **루트 패턴** — `intlayer.config.ts`, `intlayer.config.js`, `package.json`
+- **실행 파일**: `npx @intlayer/lsp` 또는 `intlayer-lsp` 바이너리
+- **전송 방식**: stdio(표준)
+- **기능**: `definitionProvider`, `referencesProvider`, `hoverProvider`, `completionProvider`(트리거 문자 `"` `'` `` ` `` `.`), 푸시 진단, `textDocumentSync: Incremental`
+- **루트 패턴**: `intlayer.config.ts`, `intlayer.config.js`, `package.json`
 
 정확한 설정 형식은 사용 중인 에디터의 LSP 문서를 확인하세요.
 
@@ -252,7 +254,7 @@ LSP를 지원하는 모든 에디터에서 `@intlayer/lsp`를 실행할 수 있�
 
 ## 터미널 AI 에이전트에 대한 참고
 
-**Claude Code**는 실제 LSP 클라이언트로 동작합니다 — 위 탭을 참고하세요.
+**Claude Code**는 실제 LSP 클라이언트로 동작합니다. 위 탭을 참고하세요.
 
 **OpenAI Codex**를 비롯한 대부분의 터미널 도구는 LSP 클라이언트가 아니며 파일을 직접 읽고 씁니다. 서버만 단독으로 실행해도 도움이 되지 않습니다. 에이전트가 색인을 조회할 수 있는 보조 에디터(Cursor Composer, Windsurf Cascade, Copilot Chat)에서 서버가 활성화되어 있을 때 가치가 생깁니다.
 
@@ -271,7 +273,7 @@ LSP를 지원하는 모든 에디터에서 `@intlayer/lsp`를 실행할 수 있�
 | 증상                                        | 가능한 원인               | 해결                                                                 |
 | ------------------------------------------- | ------------------------- | -------------------------------------------------------------------- |
 | 아무 일도 일어나지 않음                     | 서버가 실행되지 않음      | `@intlayer/lsp`가 설치되어 있고 에디터가 이를 실행하는지 확인하세요  |
-| 에디터에서는 되지만 Claude Code에서는 안 됨 | 세션 도중에 플러그인 설치 | Claude Code를 재시작하세요 — 언어 서버는 시작 시 로드됩니다          |
+| 에디터에서는 되지만 Claude Code에서는 안 됨 | 세션 도중에 플러그인 설치 | Claude Code를 재시작하세요, 언어 서버는 시작 시 로드됩니다           |
 | 키의 정의를 찾지 못함                       | 사전이 빌드되지 않음      | `npx intlayer build`를 실행하거나 개발 서버를 시작하세요             |
 | 모든 키가 미선언으로 보고됨                 | 설정이 해석되지 않음      | 프로젝트 루트에 `intlayer.config.ts`(또는 `.js`)가 있는지 확인하세요 |
 | 모노레포에서 잘못된 프로젝트가 사용됨       | 패키지별 설정 누락        | 자체 콘텐츠를 선언하는 각 패키지에 `intlayer.config.*`를 추가하세요  |

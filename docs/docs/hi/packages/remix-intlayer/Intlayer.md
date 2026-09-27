@@ -29,6 +29,8 @@ author: aymericzip
 
 ## उपयोग
 
+जब `intlayer()` मिडलवेयर चलता है, तो यह अनुरोध संदर्भ में `Intlayer` कुंजी के अंतर्गत एक `IntlayerState` ऑब्जेक्ट संग्रहीत करता है। आप इसे किसी भी रूट हैंडलर के भीतर प्राप्त कर सकते हैं:
+
 ```ts fileName="src/server.ts"
 import { createRouter } from "remix/router";
 import { intlayer, Intlayer } from "remix-intlayer";
@@ -37,20 +39,39 @@ const router = createRouter({
   middleware: [intlayer()],
 });
 
-router.get("/api/current-locale", (context) => {
-  const intlayerState = context.get(Intlayer);
+router.get("/api/profile", (context) => {
+  // context.get(Intlayer) के माध्यम से एक्सेस
+  const { locale, defaultLocale, availableLocales } = context.get(Intlayer);
 
   return Response.json({
-    locale: intlayerState?.locale,
+    locale,
+    defaultLocale,
+    availableLocales,
   });
 });
 ```
 
-## विवरण
+आप सीधे प्रॉपर्टी शॉर्टहैंड `context.intlayer` का उपयोग करके भी इसे एक्सेस कर सकते हैं:
 
-`Intlayer` का उपयोग `intlayer()` मिडलवेयर द्वारा वर्तमान सत्र स्थिति को Remix के अनुरोध संदर्भ (`RequestContext`) से बांधने के लिए किया जाता है। आमतौर पर `useLocale()` या `useIntlayer()` जैसे हुक्स का उपयोग करने की अनुशंसा की जाती है। `context.get(Intlayer)` के माध्यम से सीधा उपयोग निम्न-स्तरीय मिडलवेयर हैंडलर्स या API रूट्स में उपयोगी होता है जहाँ संदर्भ आवृत्ति स्पष्ट रूप से पारित की जाती है।
+```ts
+router.get("/api/status", (context) => {
+  const currentLocale = context.intlayer.locale;
+  return Response.json({ status: "ok", locale: currentLocale });
+});
+```
+
+## `IntlayerState` संरचना
+
+`IntlayerState` ऑब्जेक्ट में शामिल हैं:
+
+| प्रॉपर्टी          | प्रकार              | विवरण                                                          |
+| ------------------ | ------------------- | -------------------------------------------------------------- |
+| `locale`           | `DeclaredLocales`   | वर्तमान अनुरोध के लिए निर्धारित लोकेल।                         |
+| `defaultLocale`    | `DeclaredLocales`   | `intlayer.config.ts` में परिभाषित फ़ॉलबैक लोकेल।               |
+| `availableLocales` | `DeclaredLocales[]` | प्रोजेक्ट के लिए कॉन्फ़िगर किए गए सभी समर्थित लोकेल्स की सूची। |
 
 ## संबंधित दस्तावेज़
 
 - [`intlayer` मिडलवेयर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/remix-intlayer/intlayerMiddleware.md)
 - [`useLocale` हुक](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/remix-intlayer/useLocale.md)
+- [`useIntlayer` हुक](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/remix-intlayer/useIntlayer.md)

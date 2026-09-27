@@ -33,6 +33,8 @@ author: aymericzip
 
 This article compares the two on the same Next.js application, built once with `next-intl` and once with the adapter. The numbers come from [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom), an open-source suite that records what the browser actually downloads. If you want the `next-intl` vs Intlayer comparison as libraries, read [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/next-intl_vs_intlayer.md). This one is about what the adapter changes when you keep your components as they are.
 
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/next-intl_vs_intlayer.md)
+
 <TOC/>
 
 > **tl;dr**: On the same Next.js app, swapping `next-intl` for `@intlayer/next-intl` took the per-page JavaScript from **153.6 KB to 147.5 KB** gzip, the average component from **21.8 KB to 8.1 KB**, foreign-page string leakage from **~90% to 0%**, and hydration from **14.7 ms to 12.8 ms**, with no component edited. On TanStack Start, the `use-intl` equivalent (`@intlayer/use-intl`) cut components from **76-87 KB to 9-11 KB** and locale switching from **7-21 ms to 4-9 ms**. The adapter costs **8.0 KB** of runtime versus **14.7 KB** for `next-intl` and **5.5 KB** for native `next-intlayer`. Navigation and middleware are re-implemented on Intlayer's routing config; localized `pathnames` are the one feature not carried over.
@@ -145,6 +147,8 @@ style="border:none;"
 
 > Full table, every library and every strategy, in the [Next.js benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/nextjs.md).
 
+- [Next.js benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/nextjs.md)
+
 ### Results on TanStack Start (`use-intl`)
 
 `use-intl` is the framework-agnostic core of `next-intl`. Its adapter, `@intlayer/use-intl`, follows the same design with a Vite plugin (`@intlayer/use-intl/plugin`).
@@ -176,6 +180,8 @@ style="border:none;"
 />
 
 > Full table in the [TanStack Start benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/tanstack.md).
+
+- [TanStack Start benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/tanstack.md)
 
 ## Why the numbers move
 
@@ -329,6 +335,8 @@ The optimize pass needs a static namespace to know which dictionary to import. A
 
 The formatters are backed by native `Intl` and only the locale influences their output. If you rely on a forced time zone or a fixed `now` for hydration-stable dates, handle it at the call site. See [date, time and number formatting](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/date_time_number_formatting_locales.md).
 
+- [date, time and number formatting](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/date_time_number_formatting_locales.md)
+
 </Accordion>
 </AccordionGroup>
 
@@ -349,6 +357,8 @@ You are on `next-intl` today and want the bundle, leakage and hydration gains, t
 
 For new projects, or once the adapter has done its job. It is the lightest of the three (5.5 KB, +0.3 KB per page) and unlocks synchronous server components, per-component `.content.ts` files and the full feature set. Start with [Intlayer with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_16.md).
 
+- [Intlayer with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_16.md)
+
 </Accordion>
 </AccordionGroup>
 
@@ -365,6 +375,8 @@ On Next.js, yes for components: the benchmark build changed `next.config.ts` and
 <Question title="What happens to ICU messages?">
 
 They keep working. `t("key", { count })`, `t.rich()`, `t.markup()`, `select`, `selectordinal`, `#` and `{ts, date, long}` are resolved by Intlayer's ICU resolver. See [ICU message format](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md).
+
+- [ICU message format](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)
 
 </Question>
 
@@ -432,3 +444,5 @@ Benchmark reports:
 All the raw data, the test apps and the scripts are in the [Benchmark Bloom repository](https://github.com/intlayer-org/benchmark-bloom). Run it yourself.
 
 Refer to the ['Why Intlayer?' doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/interest_of_intlayer.md) for more details.
+
+- [Why Intlayer? Benefits over Other i18n Libraries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/interest_of_intlayer.md)

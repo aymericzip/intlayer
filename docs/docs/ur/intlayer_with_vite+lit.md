@@ -152,6 +152,8 @@ export default config;
 
 > اس کنفیگریشن فائل کے ذریعے، آپ مقامی URLs، مڈل ویئر ری ڈائریکشن، کوکی کے نام، اپنے مواد کے اعلانات کا مقام اور ایکسٹینشن سیٹ کر سکتے ہیں، کنسول میں Intlayer لاگز بند کر سکتے ہیں، اور بہت کچھ۔ دستیاب پیرامیٹرز کی مکمل فہرست کے لیے، [کنفیگریشن دستاویزات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/configuration.md) دیکھیں۔
 
+- [کنفیگریشن دستاویزات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/configuration.md)
+
 </Step>
 <Step number={3} title="اپنی Vite کنفیگریشن میں Intlayer کو مربوط کریں">
 
@@ -287,6 +289,8 @@ export default appContent;
 > آپ کے مواد کے اعلانات آپ کی ایپلی کیشن میں کہیں بھی بیان کیے جا سکتے ہیں جب تک کہ وہ `contentDir` ڈائرکٹری (بطور ڈیفالٹ، `./src`) میں شامل ہوں اور مواد کے اعلامیہ فائل کی ایکسٹینشن (بطور ڈیفالٹ، `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`) سے میل کھاتے ہوں۔
 >
 > مزید تفصیلات کے لیے، [مواد کے اعلامیہ کی دستاویزات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/dictionary/content_file.md) دیکھیں۔
+
+- [مواد کے اعلامیہ کی دستاویزات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/dictionary/content_file.md)
 
 </Step>
 <Step number={6} title="اپنے LitElement میں Intlayer کا استعمال کریں">
@@ -511,6 +515,9 @@ export class MyElement extends LitElement {
 
 اس عمل کو آسان بنانے کے لیے، Intlayer آپ کے اجزاء کو تبدیل کرنے اور مواد نکالنے کے لیے ایک [کمپائلر](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/compiler.md) / [ایکسٹریکٹر](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/extract.md) تجویز کرتا ہے۔
 
+- [کمپائلر](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/compiler.md)
+- [ایکسٹریکٹر](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/extract.md)
+
 اسے سیٹ کرنے کے لیے، آپ اپنی `intlayer.config.ts` فائل میں ایک `compiler` سیکشن شامل کر سکتے ہیں:
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
@@ -727,7 +734,7 @@ Intlayer کی طرف سے تیار کردہ فائلوں کو نظر انداز 
 
 Intlayer کے ذریعے اپنے ترقیاتی تجربے کو بہتر بنانے کے لیے، آپ آفیشل **Intlayer VS Code ایکسٹینشن** انسٹال کر سکتے ہیں۔
 
-[VS Code مارکیٹ پلیس سے انسٹال کریں](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [VS Code مارکیٹ پلیس سے انسٹال کریں](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 یہ ایکسٹینشن فراہم کرتی ہے:
 
@@ -738,6 +745,11 @@ Intlayer کے ذریعے اپنے ترقیاتی تجربے کو بہتر بنا
 
 ایکسٹینشن استعمال کرنے کے مزید تفصیلات کے لیے، [Intlayer VS Code ایکسٹینشن دستاویزات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md) دیکھیں۔
 
+- [Intlayer VS Code ایکسٹینشن دستاویزات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md)
+
 ### مزید آگے بڑھیں
 
 مزید آگے بڑھنے کے لیے، آپ [وژول ایڈیٹر](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_visual_editor.md) لاگو کر سکتے ہیں یا [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_CMS.md) استعمال کر کے اپنے مواد کو بیرونی بنا سکتے ہیں۔
+
+- [وژول ایڈیٹر](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_CMS.md)

@@ -37,11 +37,23 @@ npm install remix-intlayer
 
 ### Ara Yazılım (Middleware)
 
+İçe aktarma:
+
+```tsx
+import { intlayer } from "remix-intlayer";
+```
+
 | Dışa Aktarım | Tür                    | Açıklama                                                                                                 | İlgili Doküman                                                                                                                       |
 | ------------ | ---------------------- | -------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
 | `intlayer`   | Ara Yazılım Fonksiyonu | İstek yerel ayarını algılayan, yönlendirmeleri yöneten ve istek bağlamını dolduran Remix 3 ara yazılımı. | [intlayer Ara Yazılımı](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/remix-intlayer/intlayerMiddleware.md) |
 
 ### Bağlam Depolama
+
+İçe aktarma:
+
+```tsx
+import { Intlayer, INTLAYER_CONTEXT_PROPERTY } from "remix-intlayer";
+```
 
 | Dışa Aktarım                | Tür                            | Açıklama                                                                                                                             | İlgili Doküman                                                                                                        |
 | --------------------------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------- |
@@ -49,6 +61,12 @@ npm install remix-intlayer
 | `INTLAYER_CONTEXT_PROPERTY` | `string`                       | Doğrudan istek bağlamına yüklenen özellik adı (`'intlayer'`); `context.intlayer` ve `context.get(Intlayer)` üzerinden erişim sağlar. | -                                                                                                                     |
 
 ### Hook'lar
+
+İçe aktarma:
+
+```tsx
+import { useIntlayer, useDictionary, useLocale } from "remix-intlayer";
+```
 
 | Dışa Aktarım    | Tür  | Açıklama                                                                                                                             | İlgili Doküman                                                                                                                 |
 | --------------- | ---- | ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |

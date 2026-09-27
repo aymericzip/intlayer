@@ -54,6 +54,8 @@ author: aymericzip
 
 より詳しい比較については、[Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/compiler_vs_declarative_i18n.md) のブログ記事をご覧ください。
 
+- [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/compiler_vs_declarative_i18n.md)
+
 ## Intlayer コンパイラーを使わない理由
 
 コンパイラーは優れた「そのまま動作する」体験を提供しますが、いくつかのトレードオフも導入します：
@@ -65,7 +67,12 @@ author: aymericzip
 
 より深いアーキテクチャの比較については、ブログ記事[Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/compiler_vs_declarative_i18n.md)を参照してください。
 
+- [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/compiler_vs_declarative_i18n.md)
+
 代替として、コンテンツの完全な制御を維持しながらi18nプロセスを自動化するために、Intlayerは自動抽出コマンド `intlayer extract`（[CLIドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md)を参照）またはIntlayer VS Code拡張機能の `Intlayer: extract content to Dictionary` コマンド（[VS Code拡張機能ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)を参照）も提供しています。
+
+- [CLIドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md)
+- [VS Code拡張機能ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)
 
 ## 使い方
 
@@ -97,9 +104,11 @@ export default defineConfig({
 });
 ```
 
-> スタンドアロン `intlayerCompiler()` プラグインは、高度なセットアップのためにエクスポートされています。`intlayer()` と一緒に登録するのは安全です — コンパイラが自動的に重複を排除し、1 回だけ実行されます。
+> スタンドアロン `intlayerCompiler()` プラグインは、高度なセットアップのためにエクスポートされています。`intlayer()` と一緒に登録するのは安全です。コンパイラが自動的に重複を排除し、1 回だけ実行されます。
 
 See complete tutorial: [Translate Vite and React with Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md)
+
+- [Translate Vite and React with Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md)
 
 #### フレームワークサポート
 
@@ -385,3 +394,5 @@ bun x intlayer extract
 
 > 詳細については、[CLIドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md)
 > を参照してください。
+
+- [CLIドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md)

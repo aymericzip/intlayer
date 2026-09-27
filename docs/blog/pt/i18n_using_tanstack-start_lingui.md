@@ -64,6 +64,8 @@ O TanStack Start não possui uma camada nativa de i18n, portanto este guia confi
 
 O [benchmark de i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/benchmark/tanstack.md) executa a mesma aplicação TanStack Start de 10 páginas e 10 localidades com as principais bibliotecas e mede o que o navegador realmente baixa.
 
+- [benchmark de i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/benchmark/tanstack.md)
+
 <I18nBenchmark framework="tanstack" packages="lingui,@intlayer/lingui,intlayer" vertical/>
 
 Principais números para `@lingui/core@6.6.0`, medidos em 2026-09-26 (gzip):
@@ -81,6 +83,8 @@ Principais conclusões:
 - **O runtime permanece pesado** (~57 KB gzip). O adaptador de compatibilidade `@intlayer/lingui` (etapa 16) mantém suas macros e o reduz para ~10 KB.
 
 > Veja os dados completos: [Relatório de benchmark do TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/benchmark/tanstack.md) e o [repositório do benchmark](https://github.com/intlayer-org/benchmark-i18n).
+
+- [Relatório de benchmark do TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/benchmark/tanstack.md)
 
 ## Comparação de recursos no TanStack Start
 
@@ -105,6 +109,8 @@ Como o Lingui se compara com outras bibliotecas comumente usadas no TanStack Sta
 | **Traduções ausentes no CI**                             | ✅ `npx intlayer test`               | ⚠️ Não integrado        | ⚠️ Não integrado                         | ✅ `lingui compile --strict`   |
 
 > Os números de tamanho de runtime e vazamento vêm do [benchmark do TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/benchmark/tanstack.md). O vazamento é medido na melhor configuração de cada biblioteca.
+
+- [benchmark do TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/benchmark/tanstack.md)
 
 > Outros guias de TanStack Start:
 
@@ -934,6 +940,8 @@ export const Route = createFileRoute("/{-$locale}/$")({
 
 O adaptador de compatibilidade [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/compat/lingui.md) mantém seu código-fonte intacto: as macros compilam exatamente como antes e as chamadas resultantes de `i18n._()`, `useLingui()` e `<Trans>` são atendidas por dicionários compilados do Intlayer. No benchmark, o runtime cai de **~56.7 KB para ~9.8 KB** gzip.
 
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/compat/lingui.md)
+
 ```bash packageManager="npm"
 npm install @intlayer/lingui intlayer @intlayer/sync-json-plugin
 npx intlayer init
@@ -976,6 +984,11 @@ export default defineConfig({
 
 Os catálogos são sincronizados com o [plugin de sincronização JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/plugins/sync-json.md) (catálogos JSON) ou o [plugin de sincronização PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/plugins/sync-po.md) (catálogos PO). Veja a configuração completa no [guia de compatibilidade do Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/compat/lingui.md) e uma comparação lado a lado em [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/lingui_vs_intlayer-lingui.md).
 
+- [plugin de sincronização JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/plugins/sync-json.md)
+- [plugin de sincronização PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/plugins/sync-po.md)
+- [guia de compatibilidade do Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/compat/lingui.md)
+- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/lingui_vs_intlayer-lingui.md)
+
 </Step>
 <Step number={17} title="Automatize Suas Traduções Usando o Intlayer" isOptional={true}>
 
@@ -1017,10 +1030,15 @@ Declare-os com a macro `msg` e traduza-os no loader da rota com ``i18n._(msg`...
 
 O [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/benchmark/tanstack.md) mede ~56.7 KB gzip para o runtime. Com um catálogo por localidade carregado sob demanda, as páginas pesam ~115 KB contra 111 KB sem i18n. Importar todos os catálogos estaticamente eleva o tamanho para ~152 KB.
 
+- [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/benchmark/tanstack.md)
+
 </Question>
 <Question title="Posso manter as macros do Lingui e migrar para o Intlayer?">
 
 Sim. O adaptador [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/compat/lingui.md) mantém as macros e substitui o runtime. Depois, você pode migrar os componentes para `useIntlayer` um de cada vez. Veja os [adaptadores de compatibilidade](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/compat/index.md).
+
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/compat/lingui.md)
+- [adaptadores de compatibilidade](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/compat/index.md)
 
 </Question>
 

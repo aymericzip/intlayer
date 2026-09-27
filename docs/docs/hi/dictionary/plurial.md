@@ -34,6 +34,8 @@ Intlayer में, बहुवचन सामग्री `plural` फ़ं�
 
 [`enu`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/enumeration.md) के विपरीत, जो आपके द्वारा स्वयं परिभाषित संख्यात्मक श्रेणियों के आधार पर सामग्री चुनता है, `plural` चयन को CLDR नियमों को सौंपता है। यही कारण है कि यह जटिल बहुवचन नियमों वाली भाषाओं, जैसे रूसी, पोलिश, अरबी, या वेल्श, के लिए स्केलेबल बनाता है, बिना हस्तलिखित मोडुलो (modulo) तर्क के।
 
+- [`enu`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/enumeration.md)
+
 ## `plural` बनाम `enu` का उपयोग कब करें
 
 | उपयोग मामला                                                        | हेल्पर   |

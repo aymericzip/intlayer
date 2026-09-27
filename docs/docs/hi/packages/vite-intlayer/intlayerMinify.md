@@ -31,6 +31,8 @@ author: aymericzip
 
 > जब आप [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/vite-intlayer/intlayer.md) का उपयोग करते हैं तो यह प्लगइन पहले से ही स्वचालित रूप से शामिल और कॉन्फ़िगर होता है। यदि आप स्वयं प्लगइन स्टैक की रचना कर रहे हैं तो आपको इसे मैन्युअल रूप से पंजीकृत करने की आवश्यकता है।
 
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/vite-intlayer/intlayer.md)
+
 ## उपयोग
 
 ```ts
@@ -63,8 +65,8 @@ export default defineConfig({
 
 प्लगइन दो शब्दकोश स्थानों को लक्षित करता है (जैसा कि `intlayer.system` से हल किया गया है):
 
-- `dictionariesDir` — स्थिर सभी-लोकेल शब्दकोश (जैसे `.intlayer/dictionaries/*.json`)
-- `dynamicDictionariesDir` — प्रति-लोकेल गतिशील शब्दकोश
+- `dictionariesDir`: स्थिर सभी-लोकेल शब्दकोश (जैसे `.intlayer/dictionaries/*.json`)
+- `dynamicDictionariesDir`: प्रति-लोकेल गतिशील शब्दकोश
 
 > फ़ेच-मोड शब्दकोश (`fetchDictionariesDir`) को **कभी** छोटा नहीं किया जाता है क्योंकि वे रनटाइम पर अपने मूल फ़ील्ड नामों का उपयोग करके एक रिमोट API से परोसे जाते हैं। फ़ील्ड का नाम बदलने से सर्वर प्रतिक्रिया और क्लाइंट-साइड प्रॉपर्टी एक्सेस के बीच बेमेल पैदा होगा।
 
@@ -86,7 +88,7 @@ export default defineConfig({
 
 ## सीमांत-मामला शब्दकोश
 
-`pruneContext.dictionariesWithEdgeCases` (प्रून चरण के दौरान पाई गई संरचनात्मक विसंगतियां) में फ़्लैग किए गए शब्दकोशों को पूरी तरह से छोड़ दिया जाता है — ना तो छोटा किया जाता है और ना ही विकृत किया जाता है — ताकि टूटे हुए डेटा को शिप करने से बचा जा सके।
+`pruneContext.dictionariesWithEdgeCases` (प्रून चरण के दौरान पाई गई संरचनात्मक विसंगतियां) में फ़्लैग किए गए शब्दकोशों को पूरी तरह से छोड़ दिया जाता है, ना तो छोटा किया जाता है और ना ही विकृत किया जाता है, ताकि टूटे हुए डेटा को शिप करने से बचा जा सके।
 
 ## योग्य समूह (संग्रह / वेरिएंट / मेटा रिकॉर्ड)
 

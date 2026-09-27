@@ -67,6 +67,8 @@ Paraglide генерує одну функцію на повідомлення. 
 
 Стаття про [історію i18n у JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/history_of_i18n.md) детально розглядає кожну хвилю.
 
+- [історію i18n у JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/history_of_i18n.md)
+
 ## Найважливіше рішення: де зберігається контент і коли він завантажується
 
 Два структурні вибори пояснюють більшу частину різниці у розмірі bundle між конфігураціями:
@@ -80,11 +82,17 @@ Paraglide генерує одну функцію на повідомлення. 
 
 `@solid-primitives/i18n` не вирішує жодної з цих проблем: ви робите `createResource` для словника на кожну локаль, що дає динамічне завантаження, а решта залишається за вами. `solid-i18next` має namespaces та lazy backends, але ніщо не контролює зв'язки, тому спільний компонент, який імпортує `common`, робить його залежністю для кожного маршруту. Paraglide оптимізує сторінки за допомогою tree-shaking, хоча це не спрацювало в реалізації для [бенчмарку Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/solid.md). Intlayer досягає цього завдяки оголошенням на рівні компонентів.
 
+- [бенчмарку Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/solid.md)
+
 Якщо ваша відповідь на запитання 4 була "багато сторінок", зверніть на цей розділ більше уваги, ніж на будь-які вподобання щодо API. Стаття про [покомпонентний та централізований i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/per-component_vs_centralized_i18n.md) розглядає аспекти підтримки цього компромісу.
+
+- [покомпонентний та централізований i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/per-component_vs_centralized_i18n.md)
 
 ## Кандидати
 
 Розміри бібліотек взяті з [бенчмарку Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/solid.md): provider разом із accessor у порожньому компоненті після bundling, tree-shaking та мініфікації для застосунку на 10 сторінок та 10 локалей. Контент вимірюється окремо.
+
+- [бенчмарку Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/solid.md)
 
 ![Екосистема бібліотек i18n для Solid](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
@@ -118,6 +126,8 @@ Paraglide генерує одну функцію на повідомлення. 
 
 Локаль має надходити з URL на сервері, щоб обидві сторони були узгоджені; визначати її на клієнті вже запізно. `@solid-primitives/i18n` та `solid-i18next` залишають маршрут `[[locale]]`, `matchFilters`, редирект та теги в `entry-server.tsx` на ваш розсуд. Paraglide має Vite плагін для маршрутизації. Intlayer містить middleware та помічники маршрутизації. Що б ви не обрали, додавайте `<html lang>` та `hreflang` до `entry-server.tsx`; `@solidjs/meta` застосовується на клієнті після гідратації у SolidStart v2. Стаття про [i18n у Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_solid_start.md) детально описує це налаштування.
 
+- [i18n у Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_solid_start.md)
+
 </Accordion>
 <Accordion header="Зміна локалі має бути миттєвою та точковою">
 
@@ -132,6 +142,8 @@ Scoped контент, скомпільований під час збірки. 
 <Accordion header="Типобезпека є обов'язковою вимогою">
 
 `@solid-primitives/i18n` надає виведені типи без додаткових зусиль, що більше, ніж пропонує більшість бібліотек React. Для згенерованих типів, які зберігаються при lazy loading та розділенні за маршрутами, Paraglide, `@lingui/solid` та Intlayer генерують їх із вмісту. Стаття про [виявлення відсутніх перекладів](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/detecting_missing_translations.md) порівнює, що кожна бібліотека виявляє під час збірки.
+
+- [виявлення відсутніх перекладів](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/detecting_missing_translations.md)
 
 </Accordion>
 <Accordion header="Переклади створюватимуться за допомогою AI">
@@ -389,6 +401,9 @@ export const CartSummary: Component<{ count: number }> = (props) => {
 
 Для наявної кодової бази на i18next [адаптер сумісності i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/i18next.md) створює alias пакета на рівні збирача, тому каталоги та `t()` продовжують працювати, поки Intlayer надає контент, а [посібник з міграції](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/migration_from_i18next_to_intlayer.md) описує решту кроків.
 
+- [адаптер сумісності i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/i18next.md)
+- [посібник з міграції](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/migration_from_i18next_to_intlayer.md)
+
 ## Перш ніж зробити вибір
 
 Таблиця функцій показує, що бібліотека робить сьогодні. Ці пункти показують, як виглядатиме робота з нею на практиці.
@@ -411,6 +426,9 @@ export const CartSummary: Component<{ count: number }> = (props) => {
 
 Агенти досі відчувають труднощі з i18n: вони забувають локалі, вигадують неіснуючі ключі та плутають синтаксис повідомлень. Чи надає бібліотека [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/agent_skills.md) або [MCP-сервер](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/mcp_server.md), щоб агент міг переглядати, заповнювати та тестувати контент? І чи оптимізовано завантаження контенту за замовчуванням, або комусь доведеться щокварталу переглядати namespaces та lazy імпорти?
 
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/agent_skills.md)
+- [MCP-сервер](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/mcp_server.md)
+
 **Типобезпека з коробки.**
 
 Не "можна типізувати з додатковими налаштуваннями", а "неправильний ключ викликає помилку `tsc` на щойно встановленому проєкті". Перевірте, що відбувається з неіснуючим ключем та з локаллю, де пропущено один переклад.
@@ -422,6 +440,13 @@ export const CartSummary: Component<{ count: number }> = (props) => {
 **Досвід розробника (Developer Experience).**
 
 Час від налаштування до першого перекладеного рядка, наявність [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/lsp.md) або [розширення для VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/vs_code_extension.md), яке показує переклад при наведенні та переходить до оголошення, [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/index.md) для заповнення, тестування і відправки, [компілятор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compiler.md) або екстрактор, який витягує захардкоджені рядки з компонентів, щоб не керувати кожним рядком ключ за ключем, а також можливість редагування контенту без участі розробників ([візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md) або [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)) без відкриття pull request.
+
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/lsp.md)
+- [розширення для VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/vs_code_extension.md)
+- [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/index.md)
+- [компілятор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compiler.md)
+- [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)
 
 ## Часті запитання
 
@@ -443,11 +468,15 @@ export const CartSummary: Component<{ count: number }> = (props) => {
 
 Лише якщо розмір bundle, згенеровані типи або перевірка відсутніх ключів під час збірки є реальними вимогами. Стаття про [компіляторний та декларативний i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/compiler_vs_declarative_i18n.md) пояснює, що дають компілятори і де вони можуть помилятися.
 
+- [компіляторний та декларативний i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/compiler_vs_declarative_i18n.md)
+
 </Question>
 
 <Question title="Чи впливає вибір бібліотеки на SEO?">
 
 Опосередковано. Пошукових роботів цікавить маршрутизація, `hreflang`, `<html lang>` та наявність тексту в HTML, що відрендерений на сервері, що в SolidStart означає `entry-server.tsx`. Дивіться [посібник з hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/hreflang_guide_multilingual_seo.md).
+
+- [посібник з hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/hreflang_guide_multilingual_seo.md)
 
 </Question>
 

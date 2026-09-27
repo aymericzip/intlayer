@@ -76,6 +76,8 @@ author: aymericzip
 
 تعليمات إعداد ملفات إعلان المحتوى متاحة [هنا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md).
 
+- [ملفات تعريف المحتوى (.content.ts)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md)
+
 ## مثال على الاستخدام في Next.js
 
 إليك كيفية تنفيذ هوك `useIntlayer` داخل صفحة Next.js لتحميل المحتوى المحلي ديناميكيًا بناءً على اللغة الحالية للتطبيق:

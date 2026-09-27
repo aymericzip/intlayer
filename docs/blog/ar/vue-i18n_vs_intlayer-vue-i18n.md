@@ -30,6 +30,8 @@ author: aymericzip
 
 تقيس هذه المقالة هذا التبديل على نفس تطبيق Vite + Vue 3، تم بناؤه مرة واحدة باستخدام `vue-i18n` ومرة أخرى باستخدام المحول. تأتي الأرقام من [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). لمقارنة `vue-i18n` و Intlayer كمكتبات، اقرأ [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/vue-i18n_vs_intlayer.md) و[vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/vue-i18n_vs_intlayer.md). هذا يتعلق بما يغيره المحول عندما تحتفظ بمكوناتك كما هي.
 
+- [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/vue-i18n_vs_intlayer.md)
+
 <TOC/>
 
 > **ملخص سريع**: على نفس تطبيق Vite + Vue 3، استبدال `vue-i18n` بـ `@intlayer/vue-i18n` أخذ JavaScript لكل صفحة من **134.9 KB إلى 47.0 KB** gzip (التطبيق بدون i18n يزن 41.3 KB)، وقت التشغيل من **24.3 KB إلى 7.9 KB**، متوسط المكون من **196 KB إلى 8.4 KB**، وتسرب السلاسل النصية للصفحات الأجنبية من **90% إلى 0%**، بدون تعديل أي ملف `.vue`. `createI18n({ messages })` يستمر في العمل كخيار بديل؛ أزل استيراد JSON للحصول على الأرقام أعلاه. كتل SFC `<i18n>` و `setLocaleMessage()` في وقت التشغيل هما الميزتان اللتان لا تنتقلان.
@@ -137,6 +139,8 @@ style="border:none;"
 />
 
 > الجدول الكامل، كل مكتبة وكل استراتيجية، في [تقرير قياس أداء Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/vue.md).
+
+- [تقرير قياس أداء Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/vue.md)
 
 ## لماذا تتحرك الأرقام
 
@@ -286,6 +290,8 @@ export const i18n = createI18n({ locale: "en" });
 
 `setLocaleMessage()` و `mergeLocaleMessage()` يقومان بإصدار تحذير والعودة. تتطلب الترجمات التي يتم جلبها من نظام إدارة المحتوى (CMS) في وقت التشغيل استخدام [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)، أو أوامر `intlayer pull` / `push`.
 
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
+
 </Accordion>
 <Accordion header="messages هو خيار احتياطي، وليس مجانيًا">
 
@@ -316,6 +322,9 @@ export const i18n = createI18n({ locale: "en" });
 
 للمشاريع الجديدة، أو بمجرد أن يؤدي المحول وظيفته. يتميز بأخف وقت تشغيل (3.9 كيلوبايت) ونموذج `.content.ts` لكل مكون يحل محل كتل `<i18n>` بمحتوى ذي أنواع محددة. ابدأ مع [Intlayer مع Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+vue.md) أو [مع Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nuxt.md).
 
+- [Intlayer مع Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+vue.md)
+- [مع Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nuxt.md)
+
 </Accordion>
 </AccordionGroup>
 
@@ -339,11 +348,16 @@ export const i18n = createI18n({ locale: "en" });
 
 تم الحفاظ عليه. يتم احترام إعدادات `datetimeFormats` و `numberFormats` التي تم تمريرها إلى `createI18n()`، وهي مدعومة بواسطة واجهة `Intl` الأصلية. راجع [تنسيق التاريخ والوقت والأرقام](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/date_time_number_formatting_locales.md).
 
+- [تنسيق التاريخ والوقت والأرقام](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/date_time_number_formatting_locales.md)
+
 </Question>
 
 <Question title="هل يعمل مع Nuxt؟">
 
 `@intlayer/vue-i18n` يستهدف Vite + Vue. بالنسبة لـ `@nuxtjs/i18n`، استخدم [محول التوافق Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/nuxtjs-i18n.md)، وراجع [Intlayer مع Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nuxt.md) للإعداد الأصلي.
+
+- [محول التوافق Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/nuxtjs-i18n.md)
+- [Intlayer مع Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nuxt.md)
 
 </Question>
 
@@ -394,3 +408,5 @@ export const i18n = createI18n({ locale: "en" });
 جميع البيانات الأولية وتطبيقات الاختبار والسكريبتات موجودة في [مستودع Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). قم بتشغيلها بنفسك.
 
 راجع وثيقة ['Why Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/interest_of_intlayer.md) للحصول على مزيد من التفاصيل.
+
+- [لماذا Intlayer؟ مزاياه مقارنة بمكتبات i18n الأخرى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/interest_of_intlayer.md)

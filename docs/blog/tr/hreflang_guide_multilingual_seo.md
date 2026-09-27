@@ -140,6 +140,9 @@ Kaçınılması gereken tek yapı: `Accept-Language` veya IP'ye göre **aynı UR
 
 > Intlayer, `routing.mode` ve `routing.domains` aracılığıyla üçünü de kapsar. [Özel domainleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/custom_domains.md) ve [konfigürasyon referansını](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) görmek için.
 
+- [Özel domainleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/custom_domains.md)
+- [konfigürasyon referansını](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md)
+
 ## Uygulama
 
 Bu etiketleri el ile yazmak ikinci bir locale ile iletişime geçtiğinde başarısız olur. Bunun yerine bunları locale listinizden türetin.
@@ -188,6 +191,8 @@ export const generateMetadata = async ({
 
 Tam kurulum: [Next.js 16 i18n rehberi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_16.md).
 
+- [Next.js 16 i18n rehberi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_16.md)
+
 </Tab>
 
 <Tab label="TanStack Start" value="tanstack">
@@ -227,6 +232,8 @@ export const Route = createFileRoute("/{-$locale}/about")({
 ```
 
 `head` sunucuda çalışır, bu nedenle etiketler başlangıç HTML'ine yerleşir. Tam kurulum: [TanStack Start i18n kılavuzu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_tanstack.md).
+
+- [TanStack Start i18n kılavuzu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_tanstack.md)
 
 </Tab>
 

@@ -108,10 +108,16 @@ Het afbakenen (scoping) van de content van uw applicatie **vergemakkelijkt het o
 
 Co-locatie van content **vermindert de benodigde context** door grote taalmodellen (LLM's). Intlayer wordt ook geleverd met een reeks tools, zoals een **CLI** om te testen op ontbrekende vertalingen, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/mcp_server.md)** en **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/agent_skills.md)**, om de ontwikkelaarservaring (DX) voor AI-agenten nog soepeler te maken.
 
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/mcp_server.md)
+- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/agent_skills.md)
+
 </Accordion>
 <Accordion header="Automatisering">
 
 Gebruik automatisering om te vertalen in uw CI/CD-pijplijn met behulp van de LLM van uw keuze, ten koste van uw AI-provider. Intlayer biedt ook een **compiler** om contentextractie te automatiseren, evenals een [webplatform](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_CMS.md) om u te helpen **op de achtergrond te vertalen**.
+
+- [webplatform](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="Prestaties (Performance)">
@@ -122,6 +128,9 @@ Het verbinden van enorme JSON-bestanden aan componenten kan leiden tot prestatie
 <Accordion header="Schalen zonder ontwikkelaars (Scaling with non-dev)">
 
 Intlayer is veel meer dan alleen een i18n-oplossing en biedt een **[zelf-gehoste visuele editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_visual_editor.md)** en een **[volledig CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_CMS.md)** om u te helpen uw meertalige content in **real-time** te beheren. Dit maakt de samenwerking met vertalers, tekstschrijvers en andere teamleden naadloos. Content kan lokaal en/of op afstand worden opgeslagen.
+
+- [zelf-gehoste visuele editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_visual_editor.md)
+- [volledig CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>

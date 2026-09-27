@@ -128,6 +128,8 @@ style="border:none;"
 
 > すべてのライブラリと戦略の完全な表は、[Next.js ベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md)をご覧ください。
 
+- [Next.js ベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md)
+
 ### TanStack Startでの測定結果
 
 | ライブラリ                | 戦略           | Lib size (gz) | Page JS 平均 (gz) | 言語リーク | ページリーク | コンポーネント平均 (gz) |  E2E応答性 | ハイドレーション |
@@ -157,6 +159,8 @@ style="border:none;"
 />
 
 > 完全な表は、[TanStack Start ベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md)をご覧ください。
+
+- [TanStack Start ベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md)
 
 ## なぜ差がつくのか？ 2つのコンパイラと2つの作業単位
 
@@ -206,6 +210,8 @@ style="border:none;"
 ![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 > `dynamic` 行の測定結果を再現するには、`intlayer.config.ts` で `dictionary.importMode: 'dynamic'` を指定してください。詳細は [バンドル最適化ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md) をご覧ください。
+
+- [バンドル最適化ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)
 
 ## 開発者体験（DX）
 
@@ -391,6 +397,8 @@ export default defineConfig({
 
 ビルド設定において、Intlayerコンパイラの前に `@lingui/babel-plugin-lingui-macro` / `@lingui/swc-plugin` を実行するようにしてください。詳細は [Lingui互換性ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/lingui.md) をご覧ください。
 
+- [Lingui互換性ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/lingui.md)
+
 ## どちらを選択すべきか？
 
 <AccordionGroup>
@@ -403,10 +411,18 @@ export default defineConfig({
 
 **コンポーネントスコープのコンテンツ**、**厳格な TypeScript**、**ビルド時のキー欠落エラー**、**設定不要のツリーシェイキングと遅延読み込み**、軽量なコンポーネント、高速なハイドレーション、即時のロケール切り替え、および組み込みの編集ツール（[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)、[AI 翻訳](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/autoFill.md)、[MCP サーバー](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)）を求める場合。特に大規模でモジュール化されたコードベースやデザインシステムに適しています。
 
+- [ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)
+- [AI 翻訳](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/autoFill.md)
+- [MCP サーバー](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)
+
 </Accordion>
 <Accordion header="@intlayer/lingui を選ぶ理由">
 
 現在 Lingui を使用しており、マクロに手を加えることなく段階的に Intlayer の辞書へ移行したい場合。[PO 同期プラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/lingui.md)により、`.po` カタログは引き続き信頼できる単一の情報源として機能します。[Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/lingui_vs_intlayer-lingui.md) で詳細を測定しています。
+
+- [PO 同期プラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/lingui.md)
+- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/lingui_vs_intlayer-lingui.md)
 
 </Accordion>
 </AccordionGroup>
@@ -437,11 +453,15 @@ export default defineConfig({
 
 いいえ。`@intlayer/lingui` は `` t`...` ``、`<Trans>`、`msg`、`plural`、`select`、`selectOrdinal` を従来どおりコンパイルします。`i18n._()` が解決する参照先のみが変わります。ビルド構成で `@lingui/babel-plugin-lingui-macro` または `@lingui/swc-plugin` をそのまま維持してください。[Lingui 互換性ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/lingui.md)を参照してください。
 
+- [Lingui 互換性ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/lingui.md)
+
 </Question>
 
 <Question title="抽出とコンパイルの手順はどうなりますか？">
 
 マクロ部分には残りますが、Intlayer 独自のコンテンツでは不要になります。`.content.ts` 辞書はバンドラーの実行時に自動構築され、個別の CLI コマンドは不要です。また、[`intlayer test`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md) はキーが欠落している場合に元の文字列へ無言でフォールバックするのではなく、CI を失敗させます。
+
+- [`intlayer test`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md)
 
 </Question>
 
@@ -493,3 +513,5 @@ Linguiは、本ベンチマークにおいて最も堅牢なランタイム＋�
 すべての生データ、テストアプリ、スクリプトは [Benchmark Bloom リポジトリ](https://github.com/intlayer-org/benchmark-bloom) で公開されています。ぜひご自身でお確かめください。
 
 詳細については [「Intlayerを選ぶ理由」ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md) をご覧ください。
+
+- [なぜ Intlayer？他の i18n ライブラリとの違い](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)

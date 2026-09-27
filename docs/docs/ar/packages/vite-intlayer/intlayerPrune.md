@@ -31,6 +31,8 @@ author: aymericzip
 
 > البرنامج المساعد مضمن بالفعل ومكوّن تلقائياً عند استخدام [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/vite-intlayer/intlayer.md). تحتاج فقط إلى تسجيله يدوياً إذا كنت تقوم بتكوين مكدس المكونات الإضافية بنفسك.
 
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/vite-intlayer/intlayer.md)
+
 ## الاستخدام
 
 ### كجزء من `intlayer()` (موصى به)
@@ -99,8 +101,8 @@ const { title, description } = useIntlayer("myDict");
 
 تُدعم شكلان من المحتوى:
 
-- **القواميیس الثابتة** — `{ nodeType: "translation", translation: { en: {...}, fr: {...} } }`. يتم تقليص الحقول لكل لغة داخل `translation`.
-- **القواموس الديناميكية (لكل لغة)** — `{ fieldA: ..., fieldB: ... }` مسطحة. يتم تقليص الحقول على المستوى الأعلى.
+- **القواميیس الثابتة**: `{ nodeType: "translation", translation: { en: {...}, fr: {...} } }`. يتم تقليص الحقول لكل لغة داخل `translation`.
+- **القواموس الديناميكية (لكل لغة)**: `{ fieldA: ..., fieldB: ... }` مسطحة. يتم تقليص الحقول على المستوى الأعلى.
 
 ### 3. حالات خاصة
 
@@ -108,7 +110,7 @@ const { title, description } = useIntlayer("myDict");
 
 ### 4. خريطة إعادة تسمية الحقول
 
-عند نجاح التقليص، يكتب `intlayerPrune` أيضًا `pruneContext.dictionaryKeyToFieldRenameMap` — وهي خريطة من أسماء الحقول الأصلية إلى اسم مستعار قصير. يقرأ `intlayerMinify` هذه الخريطة لإعادة تسمية الحقول في JSON الناتج، وتحديث Babel الخاص بـ `intlayerOptimize` يحدّث عمليات الوصول إلى الخصائص في ملفات المصدر وفقًا لذلك.
+عند نجاح التقليص، يكتب `intlayerPrune` أيضًا `pruneContext.dictionaryKeyToFieldRenameMap`، وهي خريطة من أسماء الحقول الأصلية إلى اسم مستعار قصير. يقرأ `intlayerMinify` هذه الخريطة لإعادة تسمية الحقول في JSON الناتج، وتحديث Babel الخاص بـ `intlayerOptimize` يحدّث عمليات الوصول إلى الخصائص في ملفات المصدر وفقًا لذلك.
 
 ## شروط التفعيل
 
@@ -118,4 +120,4 @@ const { title, description } = useIntlayer("myDict");
 2. تكون `build.optimize` بقيمة `true` (أو `undefined`، والتي تُستخدم افتراضيًا كـ `true` لعمليات البناء).
 3. تكون `build.purge` بقيمة `true` في إعدادات Intlayer الخاصة بك.
 
-يظل نشطًا عندما يكون `editor.enabled` في وضع `true`: يقوم المحرر المرئي بحل كل تعديل عبر `dictionaryKey` و`keyPath` مقابل القواميس غير المدمجة، التي لا يلمسها هذا المكوّن الإضافي مطلقًا، والحقل الذي تمت إزالته هو حقل لا يقرأه أي مكوّن — لذا لا يُعرض أبدًا ولا يمكن اختياره في الصفحة.
+يظل نشطًا عندما يكون `editor.enabled` في وضع `true`: يقوم المحرر المرئي بحل كل تعديل عبر `dictionaryKey` و`keyPath` مقابل القواميس غير المدمجة، التي لا يلمسها هذا المكوّن الإضافي مطلقًا، والحقل الذي تمت إزالته هو حقل لا يقرأه أي مكوّن، لذا لا يُعرض أبدًا ولا يمكن اختياره في الصفحة.

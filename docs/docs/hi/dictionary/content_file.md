@@ -364,6 +364,8 @@ Intlayer में एक शब्दकोश `Dictionary` प्रकार 
 
 > अधिक जानकारी के लिए [Intlayer में प्रति-स्थान सामग्री घोषणा](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/per_locale_file.md) देखें।
 
+- [Intlayer में प्रति-स्थान सामग्री घोषणा](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/per_locale_file.md)
+
 **उदाहरण:**
 
 ```jsonc
@@ -474,6 +476,8 @@ export default aboutPageMetaContent;
 
 > अधिक जानकारी के लिए देखें [Intlayer में ऑटो-फिल कॉन्फ़िगरेशन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/autoFill.md)।
 
+- [Intlayer में ऑटो-फिल कॉन्फ़िगरेशन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/autoFill.md)
+
 ##### `priority` (संख्या)
 
 संघर्ष समाधान के लिए शब्दकोश की प्राथमिकता को दर्शाता है। जब कई शब्दकोशों में समान कुंजी होती है, तो सबसे उच्च प्राथमिकता संख्या वाला शब्दकोश अन्य को ओवरराइड कर देगा। यह सामग्री पदानुक्रम और ओवरराइड प्रबंधन के लिए उपयोगी है।
@@ -501,6 +505,8 @@ export default aboutPageMetaContent;
 
 Collections के संयोजन में उपयोग किया जाने वाला, यह फ़ील्ड किसी कलेक्शन में आइटम की स्थिति को परिभाषित करता है। यह आपको स्थानीयकृत आइटमों के व्यवस्थित संग्रह बनाने की अनुमति देता है जिन्हें रनटाइम पर इंडेक्स द्वारा चुना जा सकता है।
 
+- [Collections](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dynamic_dictionaries/collections.md)
+
 **उदाहरण:**
 
 ```typescript
@@ -516,9 +522,13 @@ Collections के संयोजन में उपयोग किया ज
 
 > अधिक जानकारी के लिए [Collections](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dynamic_dictionaries/collections.md) देखें।
 
+- [Collections](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dynamic_dictionaries/collections.md)
+
 #### `variant` (स्ट्रिंग)
 
 Variants के संयोजन में उपयोग किया जाने वाला, यह फ़ील्ड नामांकित सामग्री विकल्पों को परिभाषित करता. यह आपको कोड में बदलाव किए बिना रनटाइम पर एक ही शब्दकोश कुंजी के विभिन्न रूपों के बीच स्विच करने की अनुमति देता है (उदाहरण के लिए, A/B परीक्षण, मौसमी बैनर के लिए)। यदि प्रदान नहीं किया जाता है, तो इसे डिफ़ॉल्ट संस्करण माना जाता है।
+
+- [Variants](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dynamic_dictionaries/variants.md)
 
 **उदाहरण:**
 
@@ -527,13 +537,15 @@ Variants के संयोजन में उपयोग किया जा
   key: "hero-banner",
   variant: "black_friday",
   content: {
-    headline: "50 % off — today only",
+    headline: "50 % off, today only",
     cta: "Shop now"
   }
 }
 ```
 
 > अधिक जानकारी के लिए [Variants](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dynamic_dictionaries/variants.md) देखें।
+
+- [Variants](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dynamic_dictionaries/variants.md)
 
 ### CMS गुण
 
@@ -609,6 +621,8 @@ multilingualContent: t({
 
 > See [अनुवाद सामग्री (`t`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/translation.md) for more information.
 
+- [अनुवाद सामग्री (`t`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/translation.md)
+
 ### शर्त सामग्री (`cond`)
 
 सामग्री जो बूलियन शर्तों के आधार पर बदलती है:
@@ -623,6 +637,8 @@ conditionalContent: cond({
 ```
 
 > See [शर्त सामग्री (`cond`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/condition.md) for more information.
+
+- [शर्त सामग्री (`cond`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/condition.md)
 
 ### गणना सामग्री (`enu`)
 
@@ -640,6 +656,8 @@ statusContent: enu({
 
 > See [गणना सामग्री (`enu`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/enumeration.md) for more information.
 
+- [गणना सामग्री (`enu`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/enumeration.md)
+
 ### Plural Content (`plural`)
 
 Content that varies based on plural rules:
@@ -655,6 +673,8 @@ pluralContent: plural({
 
 > See [Plural Content Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/plural.md) for more information.
 
+- [Plural Content Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/plural.md)
+
 ### सम्मिलन सामग्री (`insert`)
 
 सामग्री जिसे अन्य सामग्री में सम्मिलित किया जा सकता है:
@@ -667,6 +687,8 @@ insertionContent: insert("यह पाठ कहीं भी सम्मि�
 
 > See [सम्मिलन सामग्री (`insert`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/insertion.md) for more information.
 
+- [सम्मिलन सामग्री (`insert`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/insertion.md)
+
 ### नेस्टेड सामग्री (`nest`)
 
 अन्य शब्दकोशों के संदर्भ:
@@ -678,6 +700,8 @@ nestedContent: nest("about-page");
 ```
 
 > See [नेस्टेड सामग्री (`nest`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/nesting.md) for more information.
+
+- [नेस्टेड सामग्री (`nest`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/nesting.md)
 
 ### मार्कडाउन सामग्री (`md`)
 
@@ -692,6 +716,8 @@ markdownContent: md(
 ```
 
 > See [मार्कडाउन सामग्री (`md`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/markdown.md) for more information.
+
+- [मार्कडाउन सामग्री (`md`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/markdown.md)
 
 ### HTML सामग्री (`html`)
 
@@ -712,6 +738,8 @@ localizedHtmlContent: t({
 
 > See [HTML सामग्री (`html`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/html.md) for more information.
 
+- [HTML सामग्री (`html`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/html.md)
+
 ### जेंडर सामग्री (`gender`)
 
 लिंग के आधार पर भिन्न सामग्री:
@@ -728,9 +756,11 @@ genderContent: gender({
 
 > See [जेंडर सामग्री (`gender`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/gender.md) for more information.
 
+- [जेंडर सामग्री (`gender`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/gender.md)
+
 ### चयन-आधारित सामग्री (`select`)
 
-किसी मनमाने स्ट्रिंग मान के आधार पर गतिशील रूप से प्रदर्शित होने वाली सामग्री — ICU `select` के बराबर:
+किसी मनमाने स्ट्रिंग मान के आधार पर गतिशील रूप से प्रदर्शित होने वाली सामग्री, ICU `select` के बराबर:
 
 ```typescript
 import { select } from "intlayer";
@@ -747,6 +777,8 @@ selectContent: select({
 
 > See [चयन-आधारित सामग्री (`select`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/select.md) for more information.
 
+- [चयन-आधारित सामग्री (`select`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/select.md)
+
 ### फ़ाइल सामग्री (`file`)
 
 बाहरी फ़ाइलों के संदर्भ:
@@ -758,6 +790,8 @@ fileContent: file("./path/to/content.txt");
 ```
 
 > See [फ़ाइल सामग्री (`file`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/file.md) for more information.
+
+- [फ़ाइल सामग्री (`file`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/file.md)
 
 ## सामग्री फ़ाइलें बनाना
 

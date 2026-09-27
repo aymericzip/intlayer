@@ -78,6 +78,8 @@ Intlayer 컴파일러는 React, Vue, Svelte 컴포넌트뿐만 아니라 기타 
 
 > 자세한 내용은 문서를 참조하세요: [Intlayer Compiler Docs](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md)
 
+- [Intlayer Compiler Docs](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md)
+
 ## 컴파일러의 매력 (일명 "마법" 접근법)
 
 이 새로운 접근법이 유행하는 데는 이유가 있습니다. 개발자 입장에서 경험이 놀랍게 느껴집니다.

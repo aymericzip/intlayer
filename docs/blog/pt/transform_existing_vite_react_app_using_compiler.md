@@ -49,6 +49,8 @@ Em 2026, você não precisa reescrever sua aplicação. Com o **Intlayer**, voc�
 
 > Procurando o guia técnico passo a passo para Vite e React? Veja a nossa documentação: [Traduzir Vite e React com Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_with_vite+react.md).
 
+- [Traduzir Vite e React com Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_with_vite+react.md)
+
 ## Índice
 
 <TOC/>
@@ -332,6 +334,8 @@ Este artigo ofereceu uma visão geral de como internacionalizar uma aplicação 
 Se você está pronto para configurar cada parte do seu projeto em detalhes, incluindo tipagem rigorosa em TypeScript, dicionários dinâmicos e editor visual, acesse nosso guia completo:
 
 👉 **[Guia completo para traduzir Vite e React com Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_with_vite+react.md)**
+
+- [Guia completo para traduzir Vite e React com Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_with_vite+react.md)
 
 ## Perguntas Frequentes (FAQ)
 

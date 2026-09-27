@@ -74,6 +74,8 @@ Hook ini menerima dua parameter:
 
 Semua kunci kamus harus dideklarasikan dalam file deklarasi konten untuk meningkatkan keamanan tipe dan mencegah kesalahan. [Instruksi konfigurasi dapat ditemukan di sini](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md).
 
+- [Instruksi konfigurasi dapat ditemukan di sini](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md)
+
 ## Contoh Penggunaan dalam React
 
 Contoh penggunaan hook `useI18n` dalam komponen React:

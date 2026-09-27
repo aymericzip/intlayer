@@ -36,7 +36,12 @@ author: aymericzip
 
 これは `.intlayer/dynamic_dictionaries/` で生成されるロケール単位のローダーマップに対する [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getDictionary.md) の対応物です。すべてのロケールを保持する辞書を受け取る代わりに、ローダーマップを受け取り、要求されたロケールが必要とするチャンクだけを待ちます。
 
+- [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getDictionary.md)
+
 > アプリケーションコードでは通常、この関数ではなく [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getIntlayerAsync.md) を呼び出します。[ビルドプラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md) は、すべての `getIntlayerAsync('key', locale)` 呼び出しを `getDictionaryAsync(loaderMap, 'key', locale)` の呼び出しに書き換えます。`getDictionaryAsync` はカスタムローダーと独自のローダーマップを構築するツールのためにエクスポートされています。
+
+- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getIntlayerAsync.md)
+- [ビルドプラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)
 
 **主な機能:**
 
@@ -71,7 +76,7 @@ getDictionaryAsync(
 - `localeOrSelector: LocalesValues | DictionarySelector`
   - **説明**: コンテンツを解釈するロケール、またはselectorオブジェクト（`{ item }`、`{ variant }`、オプションで`locale`）。[dynamic dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/index.md)を参照してください。
   - **型**: `LocalesValues | DictionarySelector`
-  - **必須**: いいえ（オプション）— 設定された`defaultLocale`がデフォルトです。
+  - **必須**: いいえ（オプション）、設定された`defaultLocale`がデフォルトです。
 
 - `plugins: Plugins[]`
   - **説明**: Nodetransformers。デフォルトではbase interpreter setです。
@@ -80,7 +85,7 @@ getDictionaryAsync(
 
 ### Returns
 
-- **Type**: `Promise<Content>` — 読み込まれたチャンクの解釈されたコンテンツに解決されるプロミス。
+- **Type**: `Promise<Content>`、読み込まれたチャンクの解釈されたコンテンツに解決されるプロミス。
 - **Description**: マップが要求されたロケール、またはそのフォールバックのいずれに対してもチャンクを出さない場合、`null` に解決されます。これは、欠落した適格な座標がどのように解決されるかを反映しています。
 
 ## 使用例

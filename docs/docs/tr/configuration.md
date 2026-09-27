@@ -727,7 +727,9 @@ Sunucu portu ve etkinleştirme durumu dahil olmak üzere yerleşik görsel edit�
 
 Intlayer analitiğiyle ilgili ayarları tanımlar: kullanıcılara gerçekten gösterilen içeriğin (sayfa görüntülemeleri, içerik gösterimleri) toplanması ve içerik üzerinde A/B testinin desteklenmesi.
 
-Analitik opt-out'tur: varsayılan olarak etkindir ve `@intlayer/analytics` paketi kurulur kurulmaz **ve** atıflandırma için bir proje anahtarı (`editor.clientId`) yapılandırıldığı anda veri toplamaya başlar. `analytics.enabled` değerini `false` yapın — ya da paketi kurmayın — analitik entegrasyonunun tamamı uygulama paketinizden kaldırılır (dead-code elimination).
+Analitik opt-out'tur: varsayılan olarak etkindir ve [`@intlayer/analytics`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/analytics.md) paketi kurulur kurulmaz **ve** atıflandırma için bir proje anahtarı (`editor.clientId`) yapılandırıldığı anda veri toplamaya başlar. `analytics.enabled` değerini `false` yapın, ya da paketi kurmayın, analitik entegrasyonunun tamamı uygulama paketinizden kaldırılır (dead-code elimination).
+
+- [`@intlayer/analytics`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/analytics.md)
 
 | Alan            | Açıklama                                                                                     | Tür       | Varsayılan | Örnek   | Not                                                                                                                                                                                 |
 | --------------- | -------------------------------------------------------------------------------------------- | --------- | ---------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -975,6 +977,8 @@ Bu sözlük yapılandırması iki ana amaca hizmet eder:
 
 İçerik bildirim dosyaları ve yapılandırma değerlerinin nasıl uygulandığı hakkında daha fazla bilgi için [İçerik Dosyası Belgesi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md) bölümüne bakın.
 
+- [İçerik Dosyası Belgesi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md)
+
 | Alan                        | Açıklama                                                                                                                                                                    | Tür                                                                                                             | Varsayılan           | Örnek                                                                                       | Not                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | -------------------- | ------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `fill`                      | Otomatik doldurma (yapay zeka çevirisi) çıktı dosyalarının nasıl oluşturulacağını kontrol eder.                                                                             | `boolean` &#124; <br/> `FilePathPattern` &#124; <br/> `Partial<Record<Locale, boolean &#124; FilePathPattern>>` | `true`               | `{ en: '/locales/en/{{key}}.json', fr: ({ key }) => '/locales/fr/${key}.json', es: false }` | • `true`: varsayılan yol (kaynakla aynı dosya).<br/>• `false`: devredışı.<br/>• Dize/fonksiyon kalıbı dil başına dosyalar oluşturur.<br/>• Dil başına nesne: her dil kendi kalıbına karşılık gelir; `false` o dili yok sayar.<br/>• `{{locale}}` eklemek dil başına oluşturmayı tetikler.<br/>• Sözlük düzeyindeki `fill` her zaman bu genel ayardan önceliklidir.                                                                     |
@@ -1111,22 +1115,38 @@ Projenizin kök dizininde, `package.json` dosyasının yanında. Intlayer çalı
 
 Ad alanı (namespace) tabanlı bir kuruluma kıyasla çok daha az, çünkü bir sayfa render etmediği bir sözlüğü asla indirmez. Sunucu tarafında render edilen markup içeriği sunucuda çözer ve derleme zamanı derleyicisi `useIntlayer` çağrılarını bileşenin kullandığı kesin sözlük kayıtlarıyla değiştirir, böylece kullanılmayan anahtarlar ve diller elenir. [Dinamik sözlükler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dynamic_dictionaries/index.md) geri kalanını yerel başına böler. Yaygın alternatiflerle karşılaştırıldığında Intlayer paket ve sayfa boyutunu %50'ye kadar azaltır. Bkz. [paket optimizasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md) ve [kıyaslama](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/index.md).
 
+- [Dinamik sözlükler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dynamic_dictionaries/index.md)
+- [paket optimizasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md)
+- [kıyaslama](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/index.md)
+
 </Question>
 <Question title="i18next, next-intl veya react-i18next'ten bileşenlerimi yeniden yazmadan geçiş yapabilir miyim?">
 
 Evet, iki yol mevcuttur. [i18next geçiş kılavuzu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_i18next_to_intlayer.md) veya [next-intl geçiş kılavuzu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_next-intl_to_intlayer.md) ile içeriği aşamalı olarak taşıyabilirsiniz. Ya da mevcut API'nizi tamamen koruyabilirsiniz: [uyumluluk adaptörleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/index.md), `i18next`, `react-i18next`, `next-intl`, `next-i18next`, `react-intl`, `use-intl`, `vue-i18n` ve `Lingui` ile tamamen aynı API'yi sunar, ancak Intlayer sözlükleri tarafından desteklenir; böylece yalnızca import satırları değişir, bileşen kodu aynı kalır.
+
+- [i18next geçiş kılavuzu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_i18next_to_intlayer.md)
+- [next-intl geçiş kılavuzu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_next-intl_to_intlayer.md)
+- [uyumluluk adaptörleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/index.md)
 
 </Question>
 <Question title="Mevcut JSON çeviri dosyalarımı koruyabilir miyim?">
 
 Evet. [sync JSON eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-json.md), `/messages/{locale}/{namespace}.json` dosyalarınızı doğruluk kaynağı olarak tutar ve her iki yönde Intlayer sözlükleri üretir. [sync PO eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-po.md) gettext katalogları için aynısını yapar ve [yerel başına dosyalar](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/per_locale_file.md), yerelleri tek bir dosyada gruplamak yerine içeriği dile göre ayırmanıza olanak tanır.
 
+- [sync JSON eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-json.md)
+- [sync PO eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-po.md)
+- [yerel başına dosyalar](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/per_locale_file.md)
+
 </Question>
 <Question title="İçeriğimi anahtar anahtar taşımak zorunda mıyım?">
 
 Hayır. `npx intlayer extract` komutunu çalıştırın; Intlayer kaynak dosyalarınızı okur, kullanıcıya dönük dizeleri çıkarır ve her birinin yanına bir `.content` dosyası yazar, böylece dizeleri tek tek kopyalamak yerine bir diff incelersiniz. Bkz. [extract komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract.md).
 
+- [extract komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract.md)
+
 Tam otomatik bir akış için [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md) derleme sırasında JSX, TSX, Vue ve Svelte kodunda aynı işlemi yapar ve sözlükleri her değişiklikte otomatik üretir, böylece elle anahtar yönetimi gerekmez. Statik analizle çalıştığından, yalnızca çalışma zamanında var olan dizeler kapsam dışı kalır.
+
+- [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md)
 
 </Question>
 <Question title="Hangi editör ve AI aracı araçları mevcuttur?">

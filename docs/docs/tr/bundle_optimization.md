@@ -19,7 +19,7 @@ slugs:
 history:
   - version: 9.2.1
     date: 2026-08-09
-    changes: "`purge` ve `minify` artık `@intlayer/swc` aracılığıyla Next.js'te çalışıyor — `babel.config.js` gerekmiyor"
+    changes: "`purge` ve `minify` artık `@intlayer/swc` aracılığıyla Next.js'te çalışıyor, `babel.config.js` gerekmiyor"
   - version: 8.12.0
     date: 2026-06-24
     changes: "Babel eklentilerini referans tablolarında gerekli pipeline sırasına göre listeleme (extract → purge → minify → optimize)"
@@ -68,11 +68,11 @@ Bu şu anlamlara gelir:
 
 ### Next.js
 
-Next.js, derlemeler için SWC kullandığından `@intlayer/swc` eklentisini gerektirir. **v9.2.1**'den itibaren bu tek paket tüm pipeline'ı kapsar — optimize (import yeniden yazımı), purge ve minify.
+Next.js, derlemeler için SWC kullandığından `@intlayer/swc` eklentisini gerektirir. **v9.2.1**'den itibaren bu tek paket tüm pipeline'ı kapsar, optimize (import yeniden yazımı), purge ve minify.
 
 > Bu eklenti varsayılan olarak yüklenmez çünkü SWC eklentileri Next.js için hala deneysel aşamadadır. İlerleyen zamanlarda bu durum değişebilir.
 
-> **Next.js 16.1.0 minimum sürümdür.** SWC'nin ileriye dönük uyumlu Wasm eklenti ABI'si üzerine kurulan ilk sürümdür; daha eski sürümler eklentiyi reddeder. `withIntlayer` projenizin Next.js sürümünü okur ve 16.1.0'ın altında eklentiyi hiç kaydetmez — bu derlemeler yine de başarılı olur, sadece paket optimizasyonu olmadan çalışır.
+> **Next.js 16.1.0 minimum sürümdür.** SWC'nin ileriye dönük uyumlu Wasm eklenti ABI'si üzerine kurulan ilk sürümdür; daha eski sürümler eklentiyi reddeder. `withIntlayer` projenizin Next.js sürümünü okur ve 16.1.0'ın altında eklentiyi hiç kaydetmez, bu derlemeler yine de başarılı olur, sadece paket optimizasyonu olmadan çalışır.
 
 <Tabs>
  <Tab value="npm">
@@ -136,7 +136,7 @@ export default config;
 
 > `withIntlayerSync` yerine asenkron `withIntlayer` kullanın. Senkron sürüm analiz pipeline'ını çalıştırmaz, bu nedenle purge ve minify onunla hiçbir etki yaratmaz.
 
-> Purge ve minify yalnızca `next build` sırasında çalışır — optimize pipeline'ı `next dev` sırasında kapalıdır.
+> Purge ve minify yalnızca `next build` sırasında çalışır, optimize pipeline'ı `next dev` sırasında kapalıdır.
 
 **Daha eski sürümler (9.2.1 öncesi)** `@intlayer/babel` paketini ve `intlayerPurgeBabelPlugin` ile `intlayerMinifyBabelPlugin` tanımlayan bir `babel.config.js` dosyasını gerektiriyordu. Bu dosya artık gerekli değildir ve silinebilir.
 
@@ -263,7 +263,7 @@ Vite kullanıcıları **bunları asla doğrudan yapılandırmaz**. Bunlar `vite.
 
 ### SWC eklentisi (`@intlayer/swc`)
 
-Next.js kullanıcıları da **bunları asla doğrudan yapılandırmaz**. **v9.2.1**'den itibaren `next.config.ts` içindeki `withIntlayer()`, yalnızca `build.purge` ve `build.minify` bayraklarına dayanarak tüm pipeline'ı — purge, minify ve import yeniden yazımını — çalıştırır.
+Next.js kullanıcıları da **bunları asla doğrudan yapılandırmaz**. **v9.2.1**'den itibaren `next.config.ts` içindeki `withIntlayer()`, yalnızca `build.purge` ve `build.minify` bayraklarına dayanarak tüm pipeline'ı (purge, minify ve import yeniden yazımını) çalıştırır.
 
 İş ikiye bölünmüştür, çünkü bir SWC Wasm eklentisi her seferinde tek bir dosyayı dönüştürür ve dosya sistemine erişimi yoktur:
 
@@ -312,6 +312,8 @@ export default config;
 
 > Tüm seçenekler için yapılandırma referansına bakın: [Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md)
 
+- [Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md)
+
 ### Derleme (Build) Seçenekleri
 
 | Özellik        | Tip                   | Varsayılan  | Açıklama                                                                                                                                                                                                                               |
@@ -322,7 +324,7 @@ export default config;
 
 ### Minification (alan anahtarını yeniden adlandırma)
 
-`build.minify` komutu JavaScript paketinizi minify **etmez** — bunu bundler'ınız (Webpack, Rollup vb.) halleder. Bunun yerine, kullanıcı tarafından tanımlanmış her içerik alanının adını kısa bir harfe çevirerek derlenmiş olan JSON sözlük dosyalarını küçültür:
+`build.minify` komutu JavaScript paketinizi minify **etmez**, bunu bundler'ınız (Webpack, Rollup vb.) halleder. Bunun yerine, kullanıcı tarafından tanımlanmış her içerik alanının adını kısa bir harfe çevirerek derlenmiş olan JSON sözlük dosyalarını küçültür:
 
 ```
 // Minify öncesi
@@ -346,11 +348,11 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> `optimize` `false` olduğunda minification atlanır. `editor.enabled` `true` olduğunda yine çalışır, ancak alan adı değiştirme adımı olmadan — görsel düzenleyici düzenlemeleri `keyPath` üzerinden çözer, bu yüzden orijinal alan adlarının korunması gerekir.
+> `optimize` `false` olduğunda minification atlanır. `editor.enabled` `true` olduğunda yine çalışır, ancak alan adı değiştirme adımı olmadan, görsel düzenleyici düzenlemeleri `keyPath` üzerinden çözer, bu yüzden orijinal alan adlarının korunması gerekir.
 
 > Next.js'te minifikasyon, `@intlayer/swc` kurulu değilse veya yüklenemiyorsa (16.1.0 altındaki Next.js) da atlanır. Eklenti, kaynak kodundaki erişimleri yeniden yazan yarıdır; onsuz sözlükleri yeniden adlandırmak kodunuzun artık var olmayan alan adlarını okumasına yol açardı.
 
-> Ayrıca, JSON'ların orijinal isimleriyle uzak (remote) API'den getirildiği durumlarda, yani sözlüklerin `importMode: 'fetch'` ile yüklendiği durumlarda da atlanır — istemci tarafındaki (client-side) isimleri değiştirmek sunucu/istemci sözleşmesini bozacaktır.
+> Ayrıca, JSON'ların orijinal isimleriyle uzak (remote) API'den getirildiği durumlarda, yani sözlüklerin `importMode: 'fetch'` ile yüklendiği durumlarda da atlanır, istemci tarafındaki (client-side) isimleri değiştirmek sunucu/istemci sözleşmesini bozacaktır.
 
 ### Purging (kullanılmayan alanların silinmesi)
 
@@ -378,7 +380,7 @@ export default config;
 { "title": "…", "subtitle": "…" }
 ```
 
-> `optimize` `false` olduğunda Purge işlemi atlanır. `editor.enabled` `true` olduğunda etkin kalmaya devam eder — temizlenen bir alan hiçbir bileşen tarafından okunmaz, bu yüzden düzenleyici onu asla render etmez. Next.js'te ayrıca `@intlayer/swc` kullanılamadığında ve uyumluluk adaptörü çağıranları yapılandırıldığında atlanır.
+> `optimize` `false` olduğunda Purge işlemi atlanır. `editor.enabled` `true` olduğunda etkin kalmaya devam eder, temizlenen bir alan hiçbir bileşen tarafından okunmaz, bu yüzden düzenleyici onu asla render etmez. Next.js'te ayrıca `@intlayer/swc` kullanılamadığında ve uyumluluk adaptörü çağıranları yapılandırıldığında atlanır.
 
 > Ayrıca, bir kaynak dosyasının ayrıştırılamadığı veya `useIntlayer` sonucunun bir değişkene atanıp (örneğin objeye yayılması, parçalama (destructuring) yapılmadan bir prop olarak iletilmesi gibi) statik analiz aracının takip edemeyeceği yollarla gönderildiği durumlarda Purge işlemi tedbir amaçlı olarak atlanır. Bu durumlarda tüm sözlük bozulmadan korunur.
 
@@ -508,6 +510,8 @@ const content = useDictionaryAsync({
 ```
 
 > CMS (İçerik Yönetim Sistemi) için doküman detayına bakın: [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)
 
 > API tarafında verilerin tamamen orijinal alan (key) bilgisi barındırması gerektiği için uzak (fetch) çalışma alanlarında (minify) küçültme ve (purge) tamamen temizleme sistemleri uygulanmaz.
 

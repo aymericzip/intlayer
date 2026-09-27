@@ -30,7 +30,7 @@ author: aymericzip
 
 # Vue 集成：`usePathname` 文档
 
-`usePathname` 函数返回当前浏览器的路径名（pathname），并以 Vue `ComputedRef<string>` 的形式提供移除了 locale 片段后的路径名。这对于构建可感知 locale 的导航非常有用——例如，确定哪个导航项处于激活状态——而无需手动移除 locale 前缀。
+`usePathname` 函数返回当前浏览器的路径名（pathname），并以 Vue `ComputedRef<string>` 的形式提供移除了 locale 片段后的路径名。这对于构建可感知 locale 的导航非常有用（例如，确定哪个导航项处于激活状态）而无需手动移除 locale 前缀。
 
 ## 在 Vue 中导入 `usePathname`
 

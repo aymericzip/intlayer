@@ -32,6 +32,8 @@ author: aymericzip
 
 > **Since Intlayer v9** `intlayerProxy` is automatically included inside the main [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/vite-intlayer/intlayer.md) plugin and enabled by default via `routing.enableProxy: true`. You only need to register it separately if you need lower-level control or are using it outside the standard `intlayer()` setup.
 
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/vite-intlayer/intlayer.md)
+
 ## Usage
 
 ### As part of `intlayer()` (recommended, v9+)
@@ -127,7 +129,7 @@ The middleware mirrors the routing logic from `next-intlayer` middleware and sup
 | Mode            | URL visible in browser      | Behaviour                                                                                               |
 | --------------- | --------------------------- | ------------------------------------------------------------------------------------------------------- |
 | `prefix`        | `/en-GB/about`              | Default. Locale prefix in the URL. Default locale redirects to the un-prefixed URL unless `prefix-all`. |
-| `prefix-all`    | `/en/about`, `/en-GB/about` | All locales — including default — are always prefixed.                                                  |
+| `prefix-all`    | `/en/about`, `/en-GB/about` | All locales, including default, are always prefixed.                                                    |
 | `no-prefix`     | `/about`                    | No locale in the URL. Locale is stored in cookies only; URL rewrites happen internally.                 |
 | `search-params` | `/about?locale=en-GB`       | Locale passed as a query parameter. Redirects to add/update the `locale` param when missing or stale.   |
 
@@ -161,7 +163,7 @@ The middleware tracks redirect counts per `originalUrl → newUrl` pair within a
 
 ## Nitro / production SSR (automatic injection, v9+)
 
-When `intlayerProxy` is used as a Vite plugin, it carries a `.nitro` property. The `nitro/vite` build plugin reads this property and pushes it into `nitroConfig.modules`, so `intlayerNitroHandler` is registered as a Nitro server middleware automatically — no manual configuration is needed for production SSR.
+When `intlayerProxy` is used as a Vite plugin, it carries a `.nitro` property. The `nitro/vite` build plugin reads this property and pushes it into `nitroConfig.modules`, so `intlayerNitroHandler` is registered as a Nitro server middleware automatically, no manual configuration is needed for production SSR.
 
 The Nitro handler uses h3 v2's Web Fetch API event model (not `fromNodeMiddleware`) so it is compatible with all Nitro presets: Node, Bun, Deno, edge runtimes.
 

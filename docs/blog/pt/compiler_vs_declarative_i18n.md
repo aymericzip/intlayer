@@ -78,6 +78,8 @@ O compilador Intlayer percorre a AST (Abstract Syntax Tree) dos seus componentes
 
 > Para mais detalhes, consulte a documentação: [Documentação do Compilador Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/compiler.md)
 
+- [Documentação do Compilador Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/compiler.md)
+
 ## O Encanto do Compilador (A Abordagem "Mágica")
 
 Há uma razão pela qual essa nova abordagem está em alta. Para um desenvolvedor, a experiência é incrível.

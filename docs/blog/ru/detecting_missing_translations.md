@@ -46,7 +46,11 @@ const config = {
 export default config;
 ```
 
+- [плагин Sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/plugins/sync-json.md)
+
 Если вы хотите сохранить привычный runtime API, [адаптеры совместимости](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/index.md) создают псевдонимы для `useTranslation`, `$t` и других функций на уровне сборщика. В любом случае воспринимайте приведенные команды как наглядную реализацию концепции, а не жесткое требование.
+
+- [адаптеры совместимости](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/index.md)
 
 ## Почему они незаметны
 
@@ -98,6 +102,8 @@ export default [
 ```
 
 `no-unused-content` предотвращает бесконтрольное разрастание каталогов. Мертвые ключи не ломают сборку, но неоправданно увеличивают счета за услуги переводчиков. Полный список правил смотрите в [документации плагина ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/eslint.md).
+
+- [документации плагина ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/eslint.md)
 
 ## Уровень 3: аудит покрытия локалей
 
@@ -179,6 +185,8 @@ curl -s https://example.com/ja/checkout | grep -c "Add to cart"
 ## Заполнение пробелов
 
 Когда вы знаете, чего не хватает, `intlayer fill` заполняет пустые значения, а опция `autoFill` может создавать файлы деклараций для каждой локали по мере их добавления. См. [autoFill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/autoFill.md).
+
+- [autoFill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/autoFill.md)
 
 Здесь важно смотреть на вещи трезво: автоматический машинный перевод превращает _видимую_ брешь в _невидимую_. Ключ заполнен, тесты зеленые, но текст никто не вычитывал. Используйте это для снятия блокировки релиза, но обязательно отдавайте на проверку человеку тексты, влияющие на финансовые и юридические решения.
 

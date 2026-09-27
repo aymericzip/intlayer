@@ -138,9 +138,9 @@ npx intlayer init infra
 
 Downloads and runs the hosted installer (`https://intlayer.org/install.sh`, or `install.ps1` on Windows), which asks how you want to run Intlayer:
 
-- **Desktop app** — installs the native dashboard on your machine, connected to the Intlayer Cloud.
-- **All-in-one Docker** — dashboard + API + MongoDB + Redis + MinIO in a single container.
-- **Docker Compose** — one container per service, for scalable self-hosting.
+- **Desktop app**: installs the native dashboard on your machine, connected to the Intlayer Cloud.
+- **All-in-one Docker**: dashboard + API + MongoDB + Redis + MinIO in a single container.
+- **Docker Compose**: one container per service, for scalable self-hosting.
 
 Skip the menu with `--mode`:
 
@@ -149,6 +149,9 @@ npx intlayer init infra --mode compose
 ```
 
 The same step is offered by `npx intlayer init --interactive`. See the [`init infra` reference](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/infra.md) for the installer settings, and the [self-hosting guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/self_hosting.md) for what each mode sets up.
+
+- [`init infra` reference](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/infra.md)
+- [self-hosting guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/self_hosting.md)
 
 ## Example output:
 

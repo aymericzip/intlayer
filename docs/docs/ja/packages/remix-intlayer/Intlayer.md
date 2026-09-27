@@ -29,6 +29,8 @@ author: aymericzip
 
 ## 使用方法
 
+`intlayer()` ミドルウェアが実行されると、`IntlayerState` オブジェクトが `Intlayer` キーの下でリクエストコンテキストに保存されます。任意のルートハンドラー内で取得できます:
+
 ```ts fileName="src/server.ts"
 import { createRouter } from "remix/router";
 import { intlayer, Intlayer } from "remix-intlayer";
@@ -37,20 +39,39 @@ const router = createRouter({
   middleware: [intlayer()],
 });
 
-router.get("/api/current-locale", (context) => {
-  const intlayerState = context.get(Intlayer);
+router.get("/api/profile", (context) => {
+  // context.get(Intlayer) 経由でアクセス
+  const { locale, defaultLocale, availableLocales } = context.get(Intlayer);
 
   return Response.json({
-    locale: intlayerState?.locale,
+    locale,
+    defaultLocale,
+    availableLocales,
   });
 });
 ```
 
-## 説明
+直接プロパティのショートハンド `context.intlayer` を使ってアクセスすることもできます:
 
-`Intlayer` は、`intlayer()` ミドルウェアが現在のセッション状態を Remix のリクエストコンテキスト（`RequestContext`）に関連付けるために使用されます。通常は `useLocale()` や `useIntlayer()` などのフックを使用することが推奨されます。`context.get(Intlayer)` による直接アクセスは、低レベルのミドルウェアハンドラーやコンテキストインスタンスが明示的に渡される API ルートで便利です。
+```ts
+router.get("/api/status", (context) => {
+  const currentLocale = context.intlayer.locale;
+  return Response.json({ status: "ok", locale: currentLocale });
+});
+```
+
+## `IntlayerState` の構造
+
+`IntlayerState` オブジェクトには以下が含まれます:
+
+| プロパティ         | 型                  | 説明                                                         |
+| ------------------ | ------------------- | ------------------------------------------------------------ |
+| `locale`           | `DeclaredLocales`   | 現在のリクエストに対して解決されたロケール。                 |
+| `defaultLocale`    | `DeclaredLocales`   | `intlayer.config.ts` で定義されたフォールバックロケール。    |
+| `availableLocales` | `DeclaredLocales[]` | プロジェクトで設定されたすべてのサポート対象ロケールの一覧。 |
 
 ## 関連ドキュメント
 
 - [`intlayer` ミドルウェア](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/remix-intlayer/intlayerMiddleware.md)
 - [`useLocale` フック](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/remix-intlayer/useLocale.md)
+- [`useIntlayer` フック](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/remix-intlayer/useIntlayer.md)

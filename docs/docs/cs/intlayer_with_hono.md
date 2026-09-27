@@ -184,6 +184,8 @@ module.exports = indexContent;
 
 > Další podrobnosti naleznete v [dokumentaci deklarace obsahu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/dictionary/content_file.md).
 
+- [dokumentaci deklarace obsahu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/dictionary/content_file.md)
+
 ### Nastavení aplikace Hono
 
 Nastavte aplikaci Hono tak, aby používala `hono-intlayer`:
@@ -251,6 +253,8 @@ Ve výchozím nastavení bude `hono-intlayer` interpretovat hlavičku `Accept-La
 
 > Další informace o konfiguraci a pokročilých tématech naleznete v naší [dokumentaci](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/configuration.md).
 
+- [Konfigurace (Configuration)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/configuration.md)
+
 ### Konfigurace TypeScriptu
 
 `hono-intlayer` využívá robustní možnosti TypeScriptu ke zlepšení procesu internacionalizace. Statické typování TypeScriptu zajišťuje, že každý překladový klíč je zohledněn, čímž se snižuje riziko chybějících překladů a zlepšuje se udržovatelnost.
@@ -275,7 +279,7 @@ Ujistěte se, že automaticky generované typy (ve výchozím nastavení v ./typ
 
 Chcete-li zlepšit svůj zážitek z vývoje s Intlayerem, můžete si nainstalovat oficiální **Rozšíření Intlayer pro VS Code**.
 
-[Nainstalovat z VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [Nainstalovat z VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 Toto rozšíření poskytuje:
 
@@ -285,6 +289,8 @@ Toto rozšíření poskytuje:
 - **Rychlé akce** pro snadné vytváření a aktualizaci překladů.
 
 Další podrobnosti o používání rozšíření naleznete v [dokumentaci Rozšíření Intlayer pro VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md).
+
+- [dokumentaci Rozšíření Intlayer pro VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md)
 
 ### Konfigurace Gitu
 

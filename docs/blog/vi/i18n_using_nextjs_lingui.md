@@ -66,6 +66,8 @@ Hướng dẫn này sẽ thiết lập Lingui trong một dự án **Next.js 16 
 
 Báo cáo [i18n benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md) chạy cùng một ứng dụng Next.js gồm 10 trang, 10 ngôn ngữ với mọi thư viện phổ biến và đo lường dung lượng thực tế mà trình duyệt tải xuống.
 
+- [i18n benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md)
+
 <I18nBenchmark framework="nextjs" packages="lingui,@intlayer/lingui,next-intlayer" vertical/>
 
 Các số liệu chính cho `@lingui/core@6.6.0` trên Next.js 16, được đo vào ngày 2026-09-26 (gzip):
@@ -83,6 +85,8 @@ Những điểm quan trọng cần lưu ý:
 - **Runtime của Lingui nặng ~72 KB gzip.** Adapter tương thích `@intlayer/lingui` cắt giảm runtime xuống ~11 KB, nhưng trong benchmark này cấu hình tương thích Next.js vẫn tải toàn bộ catalog vào trang. API gốc `next-intlayer` là giải pháp duy nhất giữ nguyên kích thước của ứng dụng cơ sở ban đầu.
 
 > Xem dữ liệu đầy đủ: [Báo cáo benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md), và [kho lưu trữ benchmark](https://github.com/intlayer-org/benchmark-i18n).
+
+- [Báo cáo benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md)
 
 ## So sánh tính năng trên Next.js
 
@@ -108,6 +112,9 @@ Bảng so sánh Lingui với `next-intl` và Intlayer về các tính năng mà 
 | **Hệ sinh thái / cộng đồng**             | ⚠️ Nhỏ hơn, đang phát triển nhanh                   | ✅ Trưởng thành                                                    | ✅ Lớn                                         |
 
 > Kích thước runtime được lấy từ [Next.js benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md). Để thảo luận chi tiết hơn, hãy đọc [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/lingui_vs_intlayer.md).
+
+- [Next.js benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md)
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/lingui_vs_intlayer.md)
 
 > Các hướng dẫn Next.js khác:
 
@@ -1041,9 +1048,17 @@ export const sendContactMessage = async (formData: FormData) => {
 
 Adapter tương thích [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/lingui.md) giữ nguyên mã nguồn của bạn: các macro vẫn biên dịch như trước, và các lời gọi `i18n._()`, `useLingui()` cùng `<Trans>` được phục vụ bởi từ điển Intlayer. Trong benchmark Next.js, runtime giảm từ **~72.1 KB xuống ~10.7 KB** gzip.
 
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/lingui.md)
+
 Trên Next.js, adapter được tích hợp bằng cách alias `@lingui/core` và `@lingui/react` sang `@intlayer/lingui` trong `next.config.ts` (cho cả webpack và Turbopack), đồng thời bọc cấu hình bằng `withIntlayer` từ `next-intlayer/server`. Hãy giữ lại `@lingui/swc-plugin` để các macro vẫn được biên dịch trước. Cấu hình chi tiết có trong [hướng dẫn tương thích Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/lingui.md).
 
+- [hướng dẫn tương thích Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/lingui.md)
+
 Như bảng benchmark đã chỉ ra, adapter giúp giảm kích thước runtime nhưng chưa thể giảm phần catalog được gửi tới từng trang trên Next.js. Nó phù hợp nhất khi được sử dụng làm cầu nối di chuyển: sau khi ứng dụng hoạt động ổn định, hãy chuyển dần từng component sang API gốc `useIntlayer`, chỉ gửi đúng nội dung mà component đó cần hiển thị. Xem [hướng dẫn Next.js + Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_16.md), [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/lingui_vs_intlayer-lingui.md) và tất cả các [adapter tương thích](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/index.md).
+
+- [hướng dẫn Next.js + Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_16.md)
+- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/lingui_vs_intlayer-lingui.md)
+- [adapter tương thích](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/index.md)
 
 </Step>
 <Step number={19} title="Tự động hóa bản dịch bằng Intlayer" isOptional={true}>
@@ -1086,15 +1101,23 @@ Lấy server instance bằng `getI18nInstance(locale)` và dịch các mô tả 
 
 Báo cáo [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md) đo được runtime khoảng ~72 KB gzip. Với một catalog cho mỗi ngôn ngữ, kích thước trang khoảng ~145 KB so với 141 KB khi không có i18n, nhưng mỗi trang vẫn nhận các thông điệp của các trang khác thông qua client provider.
 
+- [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md)
+
 </Question>
 <Question title="Lingui, next-intl hay next-i18next: tôi nên chọn thư viện nào cho Next.js?">
 
 Lingui phù hợp với các nhóm thích viết văn bản nguồn trực tiếp trong component và làm việc với các tệp PO cùng biên dịch viên. next-intl phù hợp với các nhóm thích catalog dạng JSON và API `t("key")` tích hợp chặt chẽ với Next.js. next-i18next mang lại hệ sinh thái plugin phong phú của i18next. Xem [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/next-i18next_vs_next-intl_vs_intlayer.md) và [Next.js benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md).
 
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/next-i18next_vs_next-intl_vs_intlayer.md)
+- [Next.js benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md)
+
 </Question>
 <Question title="Tôi có thể chuyển từ Lingui sang Intlayer mà không cần viết lại components không?">
 
 Có. Adapter [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/lingui.md) giữ nguyên các macro và thay thế runtime, sau đó bạn có thể chuyển dần các component sang `useIntlayer`. Xem các [adapter tương thích](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/index.md).
+
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/lingui.md)
+- [adapter tương thích](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/index.md)
 
 </Question>
 

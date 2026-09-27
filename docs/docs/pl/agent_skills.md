@@ -100,7 +100,7 @@ npx skills add aymericzip/intlayer-skills
 
 - Uczy agenta korzystania ze store'ów Svelte i idiomatycznej składni dla reaktywnych i bezpiecznych typowo zlokalizowanych treści w aplikacjach Svelte i SvelteKit.
 
-**intlayer-cms**
+**intlayer-remote-content**
 
 - Pozwala agentowi na integrację i zarządzanie zdalną treścią, umożliwiając mu obsługę synchronizacji na żywo i przepływów pracy zdalnego tłumaczenia za pośrednictwem Intlayer CMS.
 
@@ -115,3 +115,31 @@ npx skills add aymericzip/intlayer-skills
 **intlayer-compiler**
 
 - Upraszcza przepływ pracy agenta poprzez umożliwienie automatycznej ekstrakcji treści, pozwalając mu na pisanie tłumaczywalnych ciągów znaków bezpośrednio w kodzie bez konieczności ręcznego tworzenia plików słownika.
+
+**intlayer-lit**
+
+- Uczy agenta tłumaczenia komponentów webowych Lit za pomocą ReactiveControllerów `useIntlayer` i `useLocale`.
+
+**intlayer-vanilla**
+
+- Umożliwia agentowi lokalizowanie stron w czystym JavaScript / TypeScript za pomocą `vanilla-intlayer`, z bundlerem lub bez niego.
+
+**intlayer-remix**
+
+- Zapewnia agentowi middleware routera Remix 3 oraz hooki `useIntlayer` / `useLocale` o zasięgu żądania.
+
+**intlayer-backend**
+
+- Przygotowuje agenta do tłumaczenia odpowiedzi serwera w Express, Fastify, Hono, NestJS, AdonisJS i Elysia za pomocą jednego wspólnego wzorca middleware + `t` / `getIntlayer`.
+
+**intlayer-dev-tools**
+
+- Pozwala agentowi skonfigurować narzędzia Intlayer wokół Twojego kodu: reguły ESLint dla zakodowanych na sztywno ciągów znaków, Language Server, rozszerzenia VS Code i Chrome, serwer MCP oraz kontrole tłumaczeń w CI/CD.
+
+**intlayer-markdown**
+
+- Uczy agenta deklarowania treści Markdown (`md()`, pliki `.content.md`, pliki zewnętrzne) i renderowania jej za pomocą komponentów MDX, globalnego `MarkdownProvider`, Suspense oraz parsowania po stronie serwera.
+
+**intlayer-compat**
+
+- Prowadzi agenta przez migrację z i18next, react-i18next, next-intl, next-i18next, react-intl, vue-i18n lub Lingui za pomocą adapterów kompatybilności, które zachowują oryginalne API, dzięki czemu wywołań tłumaczeń nie trzeba przepisywać.

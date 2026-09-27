@@ -95,6 +95,8 @@ const exampleContent = {
 export default exampleContent;
 ```
 
+- [コンテンツ宣言ファイル（.content.ts）](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)
+
 ## Reactクライアントコンポーネントでの使用例
 
 以下は、Reactコンポーネント内で`useDictionary`フックを使用する例です:

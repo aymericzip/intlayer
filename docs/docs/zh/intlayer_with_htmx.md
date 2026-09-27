@@ -175,6 +175,8 @@ export default config;
 
 > 有关完整的选项列表，请参阅[配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
 
+- [配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)
+
 </Step>
 <Step number={3} title="声明您的内容">
 
@@ -220,6 +222,8 @@ export default appContent;
 ```
 
 > 内容声明可以存在于 `contentDir` 下的任何位置（默认为 `./src`）并匹配 `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`。见 [内容声明文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)。
+
+- [内容声明文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)
 
 </Step>
 <Step number={4} title="注册 Intlayer middleware">
@@ -649,7 +653,7 @@ export default config;
 
 为了改进你在 Intlayer 中的开发体验，你可以安装官方的 **Intlayer VS Code 扩展**。
 
-[从 VS Code Marketplace 安装](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [从 VS Code Marketplace 安装](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 该扩展提供：
 
@@ -660,9 +664,13 @@ export default config;
 
 有关如何使用该扩展的更多详细信息，请参阅 [Intlayer VS Code 扩展文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/vs_code_extension.md)。
 
+- [Intlayer VS Code 扩展文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/vs_code_extension.md)
+
 ### 进一步探索
 
 要进一步探索，您可以使用 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) 外部化您的内容，这样翻译人员可以在不需要部署的情况下更改文案。
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
 
 ## 常见问题
 
@@ -687,6 +695,9 @@ export default config;
 
 在区域设置前缀下提供您的页面（`/fr/cart`），并在您的路由处理程序中从路径而不是从 cookie 读取区域设置，以进行完整页面渲染。片段可以继续使用 cookie 或标头。请参阅[配置](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)以了解路由选项和[自定义 URL 重写](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/custom_url_rewrites.md)。
 
+- [配置](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)
+- [自定义 URL 重写](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/custom_url_rewrites.md)
+
 </Question>
 <Question title="我如何处理从右到左的语言？">
 
@@ -702,25 +713,44 @@ export default config;
 
 是的。后端集成将 `t()` 和 `getIntlayer()` 暴露给任何处理程序，因此在 toast 中显示的错误消息和在片段中呈现的标签来自相同的已声明内容。请参阅 [Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_express.md)、[Fastify](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_fastify.md)、[Hono](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_hono.md) 和 [Elysia](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_elysia.md) 指南。
 
+- [Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_express.md)
+- [Fastify](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_fastify.md)
+- [Hono](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_hono.md)
+- [Elysia](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_elysia.md)
+
 </Question>
 <Question title="我需要逐个移动我的内容键吗？">
 
 不是。运行 `npx intlayer extract`，Intlayer 会读取你的源文件，提取面向用户的字符串，并在每个文件旁边写入一个 `.content` 文件，这样你可以审查差异，而不是一次一个地将字符串复制到目录中。参见 [extract 命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/extract.md)。
+
+- [extract 命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/extract.md)
 
 </Question>
 <Question title="我可以保留我现有的 JSON 翻译文件吗？">
 
 是的。[sync JSON 插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/plugins/sync-json.md)将您的 `/messages/{locale}/{namespace}.json` 文件作为真实源，并在两个方向上从它们生成 Intlayer 字典。[sync PO 插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/plugins/sync-po.md)对 gettext 目录执行相同操作，[按语言区域的文件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/per_locale_file.md)允许您按语言拆分内容，而不是在一个文件中分组 locales。
 
+- [sync JSON 插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/plugins/sync-json.md)
+- [sync PO 插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/plugins/sync-po.md)
+- [按语言区域的文件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/per_locale_file.md)
+
 </Question>
 <Question title="我如何使用 AI 自动翻译应用？">
 
 运行 `npx intlayer fill`，它使用您选择的 LLM 通过您自己的提供商和 API 密钥填充缺失的翻译。添加 `--git-diff` 以仅翻译分支上更改的内容。请参阅 [fill 命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/fill.md) 和 [CI/CD 集成](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/CI_CD.md)。
 
+- [fill 命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/fill.md)
+- [CI/CD 集成](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/CI_CD.md)
+
 </Question>
 <Question title="Intlayer 是否支持性别、条件和插值值？">
 
 是的：[基于性别的内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/gender.md)、条件、[枚举](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/enumeration.md)、[插入](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/insertion.md)用于插值，以及[格式化器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/formatters.md)用于数字、日期和货币。
+
+- [基于性别的内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/gender.md)
+- [枚举](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/enumeration.md)
+- [插入](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/insertion.md)
+- [格式化器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/formatters.md)
 
 </Question>
 <Question title="有哪些编辑器和 AI 代理工具可用？">
@@ -737,6 +767,9 @@ export default config;
 <Question title="Intlayer 是免费和开源的吗？">
 
 是的，根据 Apache 2.0 许可证，包括商业用途。托管的 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) 是一项可选的付费服务，也可以 [自托管](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/self_hosting.md)。
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
+- [自托管](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/self_hosting.md)
 
 </Question>
 

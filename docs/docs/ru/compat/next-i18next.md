@@ -25,6 +25,8 @@ author: aymericzip
 
 Для полного и подробного пошагового учебника см. наше полное [руководство по миграции next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/migration_from_next-i18next_to_intlayer.md).
 
+- [руководство по миграции next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/migration_from_next-i18next_to_intlayer.md)
+
 Intlayer прозрачно обрабатывает все реализации Next.js Pages Router и App Router. Использование адаптера позволяет вам перенести вашу реализацию `next-i18next` без переписывания кода.
 
 ## Что делать

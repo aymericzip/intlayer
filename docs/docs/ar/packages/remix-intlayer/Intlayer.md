@@ -29,6 +29,8 @@ author: aymericzip
 
 ## الاستخدام
 
+عند تشغيل البرمجية الوسيطة `intlayer()`، فإنها تخزن كائن `IntlayerState` في سياق الطلب تحت المفتاح `Intlayer`. يمكنك استرداده داخل أي معالج مسار:
+
 ```ts fileName="src/server.ts"
 import { createRouter } from "remix/router";
 import { intlayer, Intlayer } from "remix-intlayer";
@@ -37,20 +39,39 @@ const router = createRouter({
   middleware: [intlayer()],
 });
 
-router.get("/api/current-locale", (context) => {
-  const intlayerState = context.get(Intlayer);
+router.get("/api/profile", (context) => {
+  // الوصول عبر context.get(Intlayer)
+  const { locale, defaultLocale, availableLocales } = context.get(Intlayer);
 
   return Response.json({
-    locale: intlayerState?.locale,
+    locale,
+    defaultLocale,
+    availableLocales,
   });
 });
 ```
 
-## الوصف
+يمكنك أيضًا الوصول إليه باستخدام الاختصار المباشر للخاصية `context.intlayer`:
 
-يتم استخدام `Intlayer` بواسطة البرمجية الوسيطة `intlayer()` لربط حالة الجلسة الحالية بسياق طلب Remix (`RequestContext`). من المفضل عادةً استخدام خطافات مثل `useLocale()` أو `useIntlayer()`. يُعد الوصول المباشر عبر `context.get(Intlayer)` مفيدًا في معالجات البرمجيات الوسيطة منخفضة المستوى أو مسارات API حيث يتم تمرير مثيل السياق بشكل صريح.
+```ts
+router.get("/api/status", (context) => {
+  const currentLocale = context.intlayer.locale;
+  return Response.json({ status: "ok", locale: currentLocale });
+});
+```
+
+## بنية `IntlayerState`
+
+يحتوي كائن `IntlayerState` على:
+
+| الخاصية            | النوع               | الوصف                                              |
+| ------------------ | ------------------- | -------------------------------------------------- |
+| `locale`           | `DeclaredLocales`   | اللغة المحددة للطلب الحالي.                        |
+| `defaultLocale`    | `DeclaredLocales`   | اللغة الاحتياطية المعرّفة في `intlayer.config.ts`. |
+| `availableLocales` | `DeclaredLocales[]` | قائمة بجميع اللغات المدعومة المهيأة للمشروع.       |
 
 ## المستندات ذات الصلة
 
 - [البرمجية الوسيطة `intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/remix-intlayer/intlayerMiddleware.md)
 - [خطاف `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/remix-intlayer/useLocale.md)
+- [خطاف `useIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/remix-intlayer/useIntlayer.md)

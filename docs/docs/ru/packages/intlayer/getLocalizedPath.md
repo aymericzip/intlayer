@@ -32,7 +32,9 @@ author: aymericzip
 
 Функция `getLocalizedPath` преобразует канонический путь (внутренний путь приложения) в его локализованный эквивалент на основе указанной локали и правил перезаписи. Она особенно полезна для генерации SEO-дружественных URL, которые различаются по языку.
 
-Это относительный аналог [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getLocalizedUrl.md) — для относительного входного значения оба возвращают одинаковое значение. В отличие от `getLocalizedUrl`, он никогда не возвращает абсолютный URL: конфигурация `domains` игнорируется, поэтому локаль, обслуживаемая со своего собственного домена, все равно возвращает путь. Абсолютный входной URL принимается, но его origin отбрасывается — сохраняются только путь, строка запроса и фрагмент.
+Это относительный аналог [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getLocalizedUrl.md), для относительного входного значения оба возвращают одинаковое значение. В отличие от `getLocalizedUrl`, он никогда не возвращает абсолютный URL: конфигурация `domains` игнорируется, поэтому локаль, обслуживаемая со своего собственного домена, все равно возвращает путь. Абсолютный входной URL принимается, но его origin отбрасывается, сохраняются только путь, строка запроса и фрагмент.
+
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getLocalizedUrl.md)
 
 **Ключевые возможности:**
 
@@ -96,6 +98,8 @@ const home = getLocalizedPath("/", Locales.FRENCH);
 ```
 
 То же сужение переходит в [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getLocalizedUrl.md), которая применяет правила переписи перед добавлением префикса локали.
+
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getLocalizedUrl.md)
 
 Два случая остаются расширенными до `string`, поскольку они не могут быть разрешены во время компиляции:
 

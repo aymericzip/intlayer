@@ -31,6 +31,8 @@ author: aymericzip
 
 👉 [ライブデモ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md) 👉 [コードボイラープレート](https://github.com/aymericzip/smart_doc_RAG)
 
+- [ライブデモ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)
+
 ## はじめに
 
 ドキュメントの中で迷子になり、答えを探して延々とスクロールしたことがあるなら、その苦痛はよくわかるでしょう。ドキュメントは役に立ちますが、静的であり、検索も使いづらいことが多いです。
@@ -242,6 +244,8 @@ gpt-5も試しましたが、レイテンシが高すぎました（返信に最
 
 👉 [ここでデモを試す](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md) 👉 [GitHubでコードテンプレートを確認](https://github.com/aymericzip/smart_doc_RAG)
 
+- [ここでデモを試す](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)
+
 </Step>
 <Step number={10} title="さらに進むために">
 
@@ -295,6 +299,8 @@ RAGは、LLMを実用的にする最もシンプルで強力な方法の一つ�
 - 製品戦略ツール
 
 👉 [ここでデモを試す](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md) 👉 [GitHubでコードテンプレートを確認する](https://github.com/aymericzip/smart_doc_RAG)
+
+- [ここでデモを試す](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)
 
 もしあなたもRAGを試しているなら、どのように使っているかぜひ教えてください。
 

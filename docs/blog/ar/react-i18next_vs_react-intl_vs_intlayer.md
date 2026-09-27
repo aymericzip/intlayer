@@ -136,6 +136,9 @@ author: aymericzip
 
 > الجدول الكامل في [تقرير benchmark الخاص بـ TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md) و[نظرة عامة على benchmark الـ i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/index.md).
 
+- [تقرير benchmark الخاص بـ TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md)
+- [نظرة عامة على benchmark الـ i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/index.md)
+
 ### 6) تجربة المطور، الأدوات والصيانة
 
 - **react-intl / react-i18next**: نظام بيئي واسع للمجتمع؛ في سير العمل التحريري عادةً ما تعتمد على منصات الترجمة الخارجية.
@@ -185,3 +188,5 @@ author: aymericzip
 - إذا كانت فرقك تقدر **قابلية الصيانة والسرعة** في تطبيقات React متعددة اللغات وموجهة بالمكونات، فإن Intlayer تقدم **أكمل** سير عمل للمطورين والمحتوى اليوم.
 
 راجع [وثيقة 'لماذا Intlayer؟'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/interest_of_intlayer.md) لمزيد من التفاصيل.
+
+- [لماذا Intlayer؟ مزاياه مقارنة بمكتبات i18n الأخرى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/interest_of_intlayer.md)

@@ -33,6 +33,8 @@ author: aymericzip
 
 Bài viết này so sánh hai cái trên cùng một ứng dụng Next.js, được xây dựng một lần với `next-intl` và một lần với adapter. Các con số này đến từ [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom), một bộ mã nguồn mở ghi lại những gì trình duyệt thực sự tải xuống. Nếu bạn muốn so sánh `next-intl` vs Intlayer dưới dạng các thư viện, hãy đọc [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/next-intl_vs_intlayer.md). Cái này là về những gì adapter thay đổi khi bạn giữ nguyên các component của mình.
 
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/next-intl_vs_intlayer.md)
+
 <TOC/>
 
 > **tl;dr**: Trên cùng một ứng dụng Next.js, việc thay thế `next-intl` bằng `@intlayer/next-intl` đã giảm JavaScript trên mỗi trang từ **153.6 KB xuống 147.5 KB** gzip, thành phần trung bình từ **21.8 KB xuống 8.1 KB**, rò rỉ chuỗi trang nước ngoài từ **~90% xuống 0%**, và hydration từ **14.7 ms xuống 12.8 ms**, mà không cần chỉnh sửa thành phần nào. Trên TanStack Start, equivalent `use-intl` (`@intlayer/use-intl`) đã giảm các thành phần từ **76-87 KB xuống 9-11 KB** và chuyển đổi locale từ **7-21 ms xuống 4-9 ms**. Adapter tiêu tốn **8.0 KB** runtime so với **14.7 KB** cho `next-intl` và **5.5 KB** cho `next-intlayer` gốc. Navigation và middleware được triển khai lại trên cấu hình định tuyến của Intlayer; `pathnames` được địa phương hóa là tính năng duy nhất không được chuyển qua.
@@ -145,6 +147,8 @@ style="border:none;"
 
 > Bảng đầy đủ, từng thư viện và từng chiến lược, trong [báo cáo benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md).
 
+- [báo cáo benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md)
+
 ### Kết quả trên TanStack Start (`use-intl`)
 
 `use-intl` là core framework-agnostic của `next-intl`. Adapter của nó, `@intlayer/use-intl`, tuân theo cùng design với Vite plugin (`@intlayer/use-intl/plugin`).
@@ -176,6 +180,8 @@ style="border:none;"
 />
 
 > Bảng đầy đủ trong [báo cáo benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md).
+
+- [báo cáo benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md)
 
 ## Tại sao các con số thay đổi
 
@@ -329,6 +335,8 @@ Quá trình tối ưu hóa cần một namespace tĩnh để biết cần import
 
 Các trình định dạng được hỗ trợ bởi `Intl` gốc và chỉ có ngôn ngữ mới ảnh hưởng đến kết quả. Nếu bạn phụ thuộc vào múi giờ bắt buộc hoặc một giá trị `now` cố định cho ngày tháng ổn định khi hydrate, hãy xử lý tại nơi gọi. Xem [định dạng ngày, giờ và số](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/date_time_number_formatting_locales.md).
 
+- [định dạng ngày, giờ và số](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/date_time_number_formatting_locales.md)
+
 </Accordion>
 </AccordionGroup>
 
@@ -349,6 +357,8 @@ Bạn đang dùng `next-intl` và muốn giảm kích thước bundle, hạn ch�
 
 Dành cho các dự án mới, hoặc khi adapter đã hoàn thành nhiệm vụ chuyển tiếp. Đây là giải pháp nhẹ nhất trong cả ba (5.5 KB, +0.3 KB mỗi trang) và mở khóa các server component đồng bộ, tệp `.content.ts` theo từng component cùng đầy đủ tính năng. Bắt đầu với [Intlayer với Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_16.md).
 
+- [Intlayer với Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_16.md)
+
 </Accordion>
 </AccordionGroup>
 
@@ -365,6 +375,8 @@ Trên Next.js, câu trả lời là có đối với các component: bản build
 <Question title="Điều gì xảy ra với các thông điệp ICU?">
 
 Chúng vẫn hoạt động bình thường. `t("key", { count })`, `t.rich()`, `t.markup()`, `select`, `selectordinal`, `#` và `{ts, date, long}` đều được xử lý bởi bộ giải quyết ICU của Intlayer. Xem [định dạng thông điệp ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md).
+
+- [định dạng thông điệp ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)
 
 </Question>
 
@@ -425,3 +437,5 @@ Tài liệu tham khảo:
 Tất cả dữ liệu thô, các test apps và scripts có trong [repository Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Chạy nó của bạn.
 
 Tham khảo tài liệu ['Tại sao Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/interest_of_intlayer.md) để biết thêm chi tiết.
+
+- [Vì sao chọn Intlayer? Ưu điểm so với các thư viện i18n khác](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/interest_of_intlayer.md)

@@ -19,7 +19,7 @@ slugs:
 history:
   - version: 9.2.1
     date: 2026-08-09
-    changes: "`purge` i `minify` działają teraz w Next.js poprzez `@intlayer/swc` — plik `babel.config.js` nie jest wymagany"
+    changes: "`purge` i `minify` działają teraz w Next.js poprzez `@intlayer/swc`, plik `babel.config.js` nie jest wymagany"
   - version: 8.12.0
     date: 2026-06-24
     changes: "Wypisanie wtyczek Babel w wymaganej kolejności potoku (extract → purge → minify → optimize) w tabelach referencyjnych"
@@ -68,11 +68,11 @@ Gwarantuje to, że:
 
 ### Next.js
 
-Next.js wymaga wtyczki `@intlayer/swc`, ponieważ Next.js używa SWC do budowania. Od wersji **9.2.1** ten jeden pakiet obsługuje cały potok — optymalizację (przepisywanie importów), purge i minifikację.
+Next.js wymaga wtyczki `@intlayer/swc`, ponieważ Next.js używa SWC do budowania. Od wersji **9.2.1** ten jeden pakiet obsługuje cały potok, optymalizację (przepisywanie importów), purge i minifikację.
 
 > Ta wtyczka nie jest instalowana domyślnie, ponieważ wtyczki SWC dla Next.js mają wciąż charakter eksperymentalny. Może się to zmienić w przyszłości.
 
-> **Next.js 16.1.0 to wersja minimalna.** To pierwsze wydanie zbudowane na zgodnym w przód ABI wtyczek Wasm SWC; wcześniejsze wydania odrzucają wtyczkę. `withIntlayer` odczytuje Twoją wersję Next.js i po prostu nie rejestruje wtyczki poniżej 16.1.0 — takie buildy nadal się udają, po prostu działają bez optymalizacji bundla.
+> **Next.js 16.1.0 to wersja minimalna.** To pierwsze wydanie zbudowane na zgodnym w przód ABI wtyczek Wasm SWC; wcześniejsze wydania odrzucają wtyczkę. `withIntlayer` odczytuje Twoją wersję Next.js i po prostu nie rejestruje wtyczki poniżej 16.1.0, takie buildy nadal się udają, po prostu działają bez optymalizacji bundla.
 
 <Tabs>
  <Tab value="npm">
@@ -136,7 +136,7 @@ Podczas `next build` `withIntlayer` analizuje Twoje źródła, przepisuje skompi
 
 > Używaj asynchronicznego `withIntlayer`, a nie `withIntlayerSync`. Wariant synchroniczny nie uruchamia potoku analizy, więc purge i minifikacja nie mają z nim żadnego efektu.
 
-> Purge i minifikacja działają tylko przy `next build` — potok optymalizacji jest wyłączony podczas `next dev`.
+> Purge i minifikacja działają tylko przy `next build`, potok optymalizacji jest wyłączony podczas `next dev`.
 
 **Wcześniejsze wersje (przed 9.2.1)** wymagały `@intlayer/babel` oraz pliku `babel.config.js` deklarującego `intlayerPurgeBabelPlugin` i `intlayerMinifyBabelPlugin`. Ten plik nie jest już potrzebny i można go usunąć.
 
@@ -145,7 +145,7 @@ Podczas `next build` `withIntlayer` analizuje Twoje źródła, przepisuje skompi
 
 ### Vite
 
-Vite wykorzystuje wtyczkę `@intlayer/babel`, która jest dostarczana jako zależność pakietu `vite-intlayer`. Pełen przepływ (pipeline) optymalizacji — przepisywanie importów, purge oraz minify — zostaje domyślnie uaktywniony i nie potrzebuje odrębnej instalacji wtyczek.
+Vite wykorzystuje wtyczkę `@intlayer/babel`, która jest dostarczana jako zależność pakietu `vite-intlayer`. Pełen przepływ (pipeline) optymalizacji (przepisywanie importów, purge oraz minify) zostaje domyślnie uaktywniony i nie potrzebuje odrębnej instalacji wtyczek.
 
 Aby uaktywnić flagi purge oraz minify, wskaż to za pomocą opcji w swoim `intlayer.config.ts`:
 
@@ -263,7 +263,7 @@ Użytkownicy Vite **nigdy nie konfigurują ich bezpośrednio**. Są one podłąc
 
 ### Wtyczka SWC (`@intlayer/swc`)
 
-Użytkownicy Next.js również **nigdy nie konfigurują tego bezpośrednio**. Od wersji **9.2.1** `withIntlayer()` w `next.config.ts` uruchamia cały potok — purge, minifikację i przepisywanie importów — wyłącznie na podstawie flag `build.purge` i `build.minify`.
+Użytkownicy Next.js również **nigdy nie konfigurują tego bezpośrednio**. Od wersji **9.2.1** `withIntlayer()` w `next.config.ts` uruchamia cały potok (purge, minifikację i przepisywanie importów) wyłącznie na podstawie flag `build.purge` i `build.minify`.
 
 Praca jest podzielona na dwie części, ponieważ wtyczka Wasm SWC przekształca jeden plik naraz i nie ma dostępu do systemu plików:
 
@@ -312,6 +312,8 @@ export default config;
 
 > Zobacz referencje dotyczące samej konfiguracji po resztę opcji: [Konfiguracja](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md)
 
+- [Konfiguracja](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md)
+
 ### Opcje Budowania
 
 | Właściwość     | Typ                   | Domyślnie   | Opis                                                                                                                                                                                                      |
@@ -322,7 +324,7 @@ export default config;
 
 ### Minifikacja (Zmienianie Nazw Kluczy)
 
-Opcja `build.minify` **nie zminifikuje** ogólnej zawartości Twojego JavaScript — tym zajmie się odpowiedni silnik bundlera. Jej wiodącym atutem jest to, iż potrafi znacznie skurczyć same przekształcone tablice opatrzone zwięzłym JSON o krótkie litery wygenerowanego alfabetu:
+Opcja `build.minify` **nie zminifikuje** ogólnej zawartości Twojego JavaScript, tym zajmie się odpowiedni silnik bundlera. Jej wiodącym atutem jest to, iż potrafi znacznie skurczyć same przekształcone tablice opatrzone zwięzłym JSON o krótkie litery wygenerowanego alfabetu:
 
 ```
 // Przed użyciem Minifikacji
@@ -346,7 +348,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> Minifikacja jest pomijana, gdy `optimize` ma wartość `false`. Gdy `editor.enabled` ma wartość `true`, nadal działa, ale bez etapu zmiany nazw pól — wizualny edytor odwzorowuje edycje za pomocą `keyPath`, więc oryginalne nazwy pól muszą zostać zachowane.
+> Minifikacja jest pomijana, gdy `optimize` ma wartość `false`. Gdy `editor.enabled` ma wartość `true`, nadal działa, ale bez etapu zmiany nazw pól, wizualny edytor odwzorowuje edycje za pomocą `keyPath`, więc oryginalne nazwy pól muszą zostać zachowane.
 
 > W Next.js minifikacja jest również pomijana, gdy `@intlayer/swc` nie jest zainstalowany albo nie może zostać załadowany (Next.js poniżej 16.1.0). Wtyczka to ta połowa, która przepisuje odwołania w kodzie źródłowym, więc zmiana nazw w słownikach bez niej pozostawiłaby kod odczytujący nazwy pól, które już nie istnieją.
 
@@ -378,7 +380,7 @@ export default config;
 { "title": "…", "subtitle": "…" }
 ```
 
-> Purge jest pomijany, gdy `optimize` ma wartość `false`. Pozostaje aktywny, gdy `editor.enabled` ma wartość `true` — usunięte pole nie jest odczytywane przez żaden komponent, więc edytor nigdy go nie renderuje. W Next.js jest dodatkowo pomijany, gdy `@intlayer/swc` jest niedostępny oraz gdy skonfigurowano wywołujących z adapterów kompatybilności.
+> Purge jest pomijany, gdy `optimize` ma wartość `false`. Pozostaje aktywny, gdy `editor.enabled` ma wartość `true`, usunięte pole nie jest odczytywane przez żaden komponent, więc edytor nigdy go nie renderuje. W Next.js jest dodatkowo pomijany, gdy `@intlayer/swc` jest niedostępny oraz gdy skonfigurowano wywołujących z adapterów kompatybilności.
 
 > Co rzadsze zjawiska również tyczą się tego obejścia - dla niemożności sprawdzenia wycinka czy pospolitych struktur dla `useIntlayer` - silnik bezbłędnie zablokuje akcję. Przykładowo dla wywołań w niejednoznacznych tablicach powiązanych metod bez destrukturyzacji by zachować słownikową formę naturalną.
 
@@ -507,6 +509,8 @@ const content = useDictionaryAsync({
 ```
 
 > Zaglądnij do źródeł, jeżeli brakuje Tobie stosownej wiedzy operującej opcjami dla CMS: [Rozwiązania Typu CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md)
+
+- [Rozwiązania Typu CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md)
 
 > W środowisku opartym modelem o formy z API o parametrze fetch całkowicie ominięte obłożone procesy z grupy eliminowania (purge) i ukrywania z modyfikacjami optycznymi (minify) kluczy tablicy ulegają trwałemu przeistoczeniu, z powodem opartym m.in. użyciu zapytania przez wektor o relacje klucza zachowującego swoje parametry oryginału.
 

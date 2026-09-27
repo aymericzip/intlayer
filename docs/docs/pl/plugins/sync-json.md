@@ -213,7 +213,7 @@ Kontroluje, czy pojedynczy plik JSON, którego **klucze pierwszego poziomu są p
 
 Odpowiada to modelowi przestrzeni nazw bibliotek takich jak `next-intl` i `react-intl`, gdzie jeden plik `messages/{locale}.json` grupuje kilka przestrzeni nazw według kluczy pierwszego poziomu, z których każda jest adresowana niezależnie (np. `useTranslations('Hero')` rozwiązuje się do słownika `Hero`).
 
-- `undefined` (domyślnie): **automatycznie wykrywane** — plik jest dzielony, gdy wzorzec `source` nie zawiera segmentu `{key}` (jeden plik zawiera każdą przestrzeń nazw), i zachowywany jako pojedynczy słownik w przeciwnym razie (jeden plik na klucz).
+- `undefined` (domyślnie): **automatycznie wykrywane**, plik jest dzielony, gdy wzorzec `source` nie zawiera segmentu `{key}` (jeden plik zawiera każdą przestrzeń nazw), i zachowywany jako pojedynczy słownik w przeciwnym razie (jeden plik na klucz).
 - `true`: zawsze dzieli każdy klucz najwyższego poziomu na własny słownik.
 - `false`: nigdy nie dzieli; cały plik staje się pojedynczym słownikiem.
 
@@ -235,7 +235,7 @@ syncJSON({
 }),
 ```
 
-Tworzy to trzy słowniki — `Hero`, `Nav` i `About` — dzięki czemu `useTranslations('Hero')` (next-intl) rozwiązuje się poprawnie. Podczas zapisu zwrotnego wszystkie przestrzenie nazw są ponownie składane w ten sam plik dla danej lokalizacji.
+Tworzy to trzy słowniki (`Hero`, `Nav` i `About`) dzięki czemu `useTranslations('Hero')` (next-intl) rozwiązuje się poprawnie. Podczas zapisu zwrotnego wszystkie przestrzenie nazw są ponownie składane w ten sam plik dla danej lokalizacji.
 
 > Kiedy zachowujesz jawny segment `{key}` w swoim `source` (np. `./locales/${locale}/${key}.json`), każdy plik jest już jedną przestrzenią nazw, więc dzielenie jest domyślnie wyłączone.
 
@@ -399,7 +399,7 @@ loadJSON({
 
 Takie samo zachowanie jak w [`syncJSON`](#splitkeys-boolean): gdy pojedynczy plik JSON grupuje kilka przestrzeni nazw według kluczy pierwszego poziomu, każdy klucz najwyższego poziomu staje się własnym słownikiem.
 
-- `undefined` (domyślnie): **automatycznie wykrywane** — dzieli, gdy wzorzec `source` nie zawiera segmentu `{key}`, w przeciwnym razie pojedynczy słownik.
+- `undefined` (domyślnie): **automatycznie wykrywane**, dzieli, gdy wzorzec `source` nie zawiera segmentu `{key}`, w przeciwnym razie pojedynczy słownik.
 - `true` / `false`: wymusza lub wyłącza dzielenie.
 
 ```ts
@@ -437,6 +437,8 @@ Synchronizowane pliki JSON będą traktowane jak inne pliki `.content`. Oznacza 
 - `intlayer content pull` do pobierania synchronizowanych plików JSON
 
 Zobacz [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/index.md) po więcej szczegółów.
+
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/index.md)
 
 ## Ograniczenia (aktualne)
 

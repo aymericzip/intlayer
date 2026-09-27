@@ -87,6 +87,8 @@ const MyComponent = () => {
 
 > Чтобы увидеть все возможности Intlayer, вы можете прочитать [документацию по словарям](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/content_file.md).
 
+- [документацию по словарям](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/content_file.md)
+
 ## Удалённый контент
 
 Intlayer позволяет объявлять контент локально, а затем экспортировать его в CMS, чтобы ваша нетехническая команда могла редактировать его.
@@ -99,10 +101,12 @@ Intlayer позволяет объявлять контент локально, 
 
 Intlayer также предоставляет визуальный редактор, позволяющий редактировать ваш контент визуально. Этот [визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md) доступен в отдельном пакете `intlayer-editor`.
 
+- [визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md)
+
 ![визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif?raw=true)
 
-- Сервер — это простое приложение Express, которое прослушивает запросы от клиента и получает содержимое вашего приложения, такое как `dictionaries` и конфигурация, чтобы сделать его доступным на стороне клиента.
-- С другой стороны, клиент — это приложение React, которое используется для взаимодействия с вашим содержимым через визуальный интерфейс.
+- Сервер это простое приложение Express, которое прослушивает запросы от клиента и получает содержимое вашего приложения, такое как `dictionaries` и конфигурация, чтобы сделать его доступным на стороне клиента.
+- С другой стороны, клиент это приложение React, которое используется для взаимодействия с вашим содержимым через визуальный интерфейс.
 
 - Сервер - это простое приложение на Express, которое прослушивает запросы от клиента и получает контент вашего приложения, такой как `dictionaries` и конфигурация, чтобы сделать его доступным на стороне клиента.
 - С другой стороны, клиент - это приложение на React, которое используется для взаимодействия с вашим контентом через визуальный интерфейс.
@@ -120,11 +124,15 @@ Intlayer также предоставляет визуальный редакт
 
 Активировав опцию `importMode = "dynamic"` в [конфигурации](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md), Intlayer будет использовать динамический импорт для загрузки словарей. Эта опция отключена по умолчанию, чтобы избежать асинхронной обработки при рендеринге приложения.
 
+- [конфигурации](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md)
+
 > `@intlayer/babel` доступен по умолчанию в пакете `vite-intlayer`,
 
 > `@intlayer/swc` не установлен по умолчанию в пакете `next-intlayer`, так как плагины SWC все еще являются экспериментальными в Next.js.
 
 Чтобы узнать, как настроить сборку вашего приложения, вы можете прочитать [документацию по конфигурации](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md).
+
+- [документацию по конфигурации](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md)
 
 ## Пакеты
 
@@ -346,22 +354,38 @@ Intlayer состоит из нескольких пакетов, каждый �
 
 Гораздо меньше, чем при подходе на основе пространств имён, потому что страница никогда не загружает каталог, который не отображает. Разметка, отрендеренная на сервере, разрешает свой контент на сервере, и компилятор во время сборки заменяет вызовы `useIntlayer` точными записями словаря, которые использует компонент, поэтому неиспользуемые ключи и неиспользуемые языки отбрасываются. [Динамические словари](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dynamic_dictionaries/index.md) разделяют остальное по локалям. По сравнению с обычными альтернативами Intlayer сокращает размер бандла и страницы до 50%. См. [оптимизацию бандла](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/bundle_optimization.md) и [бенчмарк](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/index.md).
 
+- [Динамические словари](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dynamic_dictionaries/index.md)
+- [оптимизацию бандла](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/bundle_optimization.md)
+- [бенчмарк](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/index.md)
+
 </Question>
 <Question title="Могу ли я мигрировать с `i18next`, `next-intl` или `react-i18next`, не переписывая свои компоненты?">
 
 Да, и есть два пути. Вы можете мигрировать контент постепенно с помощью [руководства по миграции с i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/migration_from_i18next_to_intlayer.md) или [руководства по миграции с next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/migration_from_next-intl_to_intlayer.md). Или вы можете полностью сохранить свой текущий API: [адаптеры совместимости](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/index.md) предоставляют точно такой же API, как `i18next`, `react-i18next`, `next-intl`, `next-i18next`, `react-intl`, `use-intl`, `vue-i18n` и `Lingui`, но обслуживаемый словарями Intlayer, поэтому меняются импорты, а код компонентов - нет.
+
+- [руководства по миграции с i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/migration_from_i18next_to_intlayer.md)
+- [руководства по миграции с next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/migration_from_next-intl_to_intlayer.md)
+- [адаптеры совместимости](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/index.md)
 
 </Question>
 <Question title="Могу ли я сохранить свои существующие файлы переводов JSON?">
 
 Да. [Плагин синхронизации JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/plugins/sync-json.md) сохраняет ваши файлы `/messages/{locale}/{namespace}.json` как источник истины и генерирует из них словари Intlayer, в обоих направлениях. [Плагин синхронизации PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/plugins/sync-po.md) делает то же самое для каталогов gettext, а [файлы по локали](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/per_locale_file.md) позволяют разделить контент по языкам вместо группировки локалей в одном файле.
 
+- [Плагин синхронизации JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/plugins/sync-json.md)
+- [Плагин синхронизации PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/plugins/sync-po.md)
+- [файлы по локали](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/per_locale_file.md)
+
 </Question>
 <Question title="Должен ли я переносить свой контент ключ за ключом?">
 
 Нет. Запустите `npx intlayer extract`, и Intlayer прочитает ваши исходные файлы, извлечёт строки, видимые пользователю, и запишет файл `.content` рядом с каждым из них, так что вы просматриваете diff вместо копирования строк в каталог по одной. См. [команду extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/extract.md).
 
+- [команду extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/extract.md)
+
 Для полностью автоматизированного конвейера [Компилятор Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compiler.md) делает то же самое во время сборки на исходном коде JSX, TSX, Vue и Svelte, генерируя словари при каждом изменении, поэтому нет ключей, которые нужно поддерживать вручную. Он работает через статический анализ, поэтому строки, существующие только во время выполнения, остаются недоступными, и ему нужно несколько аннотаций, чтобы отличать текст, видимый пользователю, от логики приложения.
+
+- [Компилятор Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compiler.md)
 
 </Question>
 <Question title="Какие инструменты для редактора и ИИ-агентов доступны?">
@@ -384,10 +408,14 @@ Intlayer состоит из нескольких пакетов, каждый �
 
 Из источников, перечисленных в `routing.storage`, по порядку: префикс URL, когда `routing.mode` его использует, затем cookie, затем заголовок `Accept-Language`, затем ваша локаль по умолчанию. Локаль, которую пользователь выбирает явно, сохраняется, поэтому переживает следующий визит. См. [справочник по конфигурации](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md).
 
+- [справочник по конфигурации](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md)
+
 </Question>
 <Question title="В чём разница между локальными и удалёнными словарями?">
 
 Локальный словарь объявляется в вашей кодовой базе и компилируется вместе с приложением. Удалённый словарь управляется в [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md) и разрешается во время выполнения, поэтому может меняться без развёртывания. Оба читаются через одни и те же хуки, и удалённый контент откатывается к локальному объявлению, когда недоступен.
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md)
 
 </Question>
 <Question title="Работает ли Intlayer без TypeScript?">
@@ -408,6 +436,9 @@ Intlayer состоит из нескольких пакетов, каждый �
 <Question title="Нужно ли пересобирать проект, когда я добавляю перевод?">
 
 В разработке - нет: плагин следит за вашими файлами контента и пересобирает затронутые словари при сохранении. В продакшене словари являются частью сборки, если только контент не удалённый - в этом случае [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md) и [живая синхронизация](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/live.md) применяют изменение без развёртывания.
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md)
+- [живая синхронизация](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/live.md)
 
 </Question>
 

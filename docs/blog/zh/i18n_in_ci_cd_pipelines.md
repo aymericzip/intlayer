@@ -44,7 +44,12 @@ const config = {
 export default config;
 ```
 
+- [Sync JSON 插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/plugins/sync-json.md)
+
 你的应用可以继续保持原有的导入方式。后续的 CI 任务将直接填充并校验你现有的字典，审查者在 PR 中看到的 diff 只是 `locales/fr/checkout.json` 的更新，而不是大规模的代码迁移。还有用于 gettext 工作流的 [Sync PO 插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/plugins/sync-po.md)，以及保持运行时 API 不变的 [兼容适配器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/index.md)。
+
+- [Sync PO 插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/plugins/sync-po.md)
+- [兼容适配器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/index.md)
 
 ## 将拦截门禁（Gate）与内容填充（Fill）分离
 
@@ -167,6 +172,8 @@ test("没有缺失必需的语言环境", async () => {
 
 `npx intlayer content test` 虽然会输出检查报告，但退出状态码始终为 0，仅供参考而不会阻断流水线。可以在本地使用该命令；而在 CI 中使用测试断言。更多区别参见 [如何检测缺失的翻译](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/detecting_missing_translations.md)。
 
+- [如何检测缺失的翻译](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/detecting_missing_translations.md)
+
 ## `requiredLocales` 让门禁在实际开发中可持续运行
 
 如果门禁要求所有十八种语言全部完整，就会因为最慢的一种语言未就绪而阻塞所有发布，最终在一个月内被团队彻底禁用。
@@ -209,6 +216,8 @@ export default config;
 ```
 
 这非常适合非技术人员负责文案的团队。这是一种权衡：你获得了内容编辑的自主权，但放弃了仅通过 git checkout 即可完全确定应用渲染状态的确定性。详情见 [CMS 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)。
+
+- [CMS 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
 
 请注意，`clientSecret` 属于服务端凭证。它应当保存在 CI Secrets 和服务器环境变量中，绝不能暴露给客户端 bundle。
 

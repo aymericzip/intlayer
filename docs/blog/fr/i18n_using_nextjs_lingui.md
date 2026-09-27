@@ -66,6 +66,8 @@ Ce guide configure Lingui dans un projet **Next.js 16 App Router**, avec :
 
 Le [benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/benchmark/nextjs.md) exécute la même application Next.js de 10 pages et 10 locales avec chaque bibliothèque majeure et mesure ce que le navigateur télécharge réellement.
 
+- [benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/benchmark/nextjs.md)
+
 <I18nBenchmark framework="nextjs" packages="lingui,@intlayer/lingui,next-intlayer" vertical/>
 
 Chiffres clés pour `@lingui/core@6.6.0` sur Next.js 16, mesurés le 2026-09-26 (gzip) :
@@ -83,6 +85,8 @@ Ce qu'il faut retenir :
 - **Le runtime Lingui pèse environ 72 Ko gzip.** L'adaptateur de compatibilité `@intlayer/lingui` réduit le runtime à environ 11 Ko, mais dans ce benchmark, la configuration de compatibilité Next.js envoie toujours des catalogues entiers à la page. L'API native `next-intlayer` est la configuration qui reste à la taille de l'application de base.
 
 > Consultez l'ensemble des données : [Rapport de benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/benchmark/nextjs.md), et le [dépôt du benchmark](https://github.com/intlayer-org/benchmark-i18n).
+
+- [Rapport de benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/benchmark/nextjs.md)
 
 ## Comparaison des fonctionnalités sur Next.js
 
@@ -108,6 +112,9 @@ Comment Lingui se compare à `next-intl` et Intlayer sur les fonctionnalités do
 | **Écosystème / communauté**              | ⚠️ Plus modeste, en forte croissance                        | ✅ Mature                                                          | ✅ Élevé                                   |
 
 > Les tailles de runtime proviennent du [benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/benchmark/nextjs.md). Pour une analyse détaillée, lisez [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/lingui_vs_intlayer.md).
+
+- [benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/benchmark/nextjs.md)
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/lingui_vs_intlayer.md)
 
 > Autres guides Next.js :
 
@@ -1041,9 +1048,17 @@ export const sendContactMessage = async (formData: FormData) => {
 
 L'adaptateur de compatibilité [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compat/lingui.md) conserve votre code source intact : les macros se compilent comme auparavant, et les appels résultants à `i18n._()`, `useLingui()` et `<Trans>` sont alimentés par les dictionnaires Intlayer. Dans le benchmark Next.js, le runtime passe de **~72,1 Ko à ~10,7 Ko** gzip.
 
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compat/lingui.md)
+
 Sur Next.js, l'adaptateur se configure en créant des alias de `@lingui/core` et `@lingui/react` vers `@intlayer/lingui` dans `next.config.ts` (webpack et Turbopack), et en enveloppant la configuration avec `withIntlayer` de `next-intlayer/server`. Conservez `@lingui/swc-plugin` pour que les macros continuent de se compiler en premier. La configuration complète se trouve dans le [guide de compatibilité Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compat/lingui.md).
 
+- [guide de compatibilité Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compat/lingui.md)
+
 Comme le montre le tableau du benchmark, l'adaptateur réduit la taille du runtime mais pas encore le catalogue envoyé à chaque page sur Next.js. Il est particulièrement recommandé comme passerelle de migration : une fois configuré, migrez vos composants progressivement vers l'API native `useIntlayer`, qui n'envoie que le contenu que chaque composant affiche. Consultez le [guide Next.js + Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_nextjs_16.md), [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/lingui_vs_intlayer-lingui.md) et tous les [adaptateurs de compatibilité](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compat/index.md).
+
+- [guide Next.js + Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_nextjs_16.md)
+- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/lingui_vs_intlayer-lingui.md)
+- [adaptateurs de compatibilité](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compat/index.md)
 
 </Step>
 <Step number={19} title="Automatiser vos traductions avec Intlayer" isOptional={true}>
@@ -1086,15 +1101,23 @@ Récupérez l'instance serveur avec `getI18nInstance(locale)` et traduisez les d
 
 Le [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/benchmark/nextjs.md) mesure environ 72 Ko gzip pour le runtime. Avec un catalogue par locale, les pages pèsent environ 145 Ko contre 141 Ko sans i18n, mais chaque page reçoit tout de même les messages des autres pages via le provider client.
 
+- [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/benchmark/nextjs.md)
+
 </Question>
 <Question title="Lingui, next-intl ou next-i18next : lequel choisir pour Next.js ?">
 
 Lingui convient aux équipes qui aiment écrire le texte source dans les composants et travailler avec des fichiers PO et des traducteurs. next-intl convient aux équipes qui préfèrent les catalogues JSON et une API `t("key")` étroitement intégrée à Next.js. next-i18next apporte l'écosystème de plugins i18next. Consultez [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/next-i18next_vs_next-intl_vs_intlayer.md) et le [benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/benchmark/nextjs.md).
 
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/next-i18next_vs_next-intl_vs_intlayer.md)
+- [benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/benchmark/nextjs.md)
+
 </Question>
 <Question title="Puis-je migrer de Lingui vers Intlayer sans réécrire mes composants ?">
 
 Oui. L'adaptateur [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compat/lingui.md) conserve les macros et remplace le runtime, vous permettant ensuite de migrer vos composants vers `useIntlayer` progressivement. Consultez les [adaptateurs de compatibilité](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compat/index.md).
+
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compat/lingui.md)
+- [adaptateurs de compatibilité](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compat/index.md)
 
 </Question>
 

@@ -34,7 +34,12 @@ author: aymericzip
 
 > If you prefer, you can also refer to the [next-i18next guide](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/i18n_using_next-i18next.md), or directly using [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_16.md).
 
+- [next-i18next guide](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/i18n_using_next-i18next.md)
+- [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_16.md)
+
 > See the comparison in [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/next-i18next_vs_next-intl_vs_intlayer.md).
+
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/next-i18next_vs_next-intl_vs_intlayer.md)
 
 > To understand where these libraries come from, read the history of JavaScript i18n.
 
@@ -43,6 +48,8 @@ author: aymericzip
 ## What the benchmark says about next-intl on Next.js
 
 Before implementing translations, understanding the performance profile of `next-intl` is essential. The [i18n benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/nextjs.md) evaluates the same 10-page, 10-locale Next.js application across different setups and libraries to measure real bundle footprint, string leakage, and hydration overhead.
+
+- [i18n benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/nextjs.md)
 
 <I18nBenchmark framework="nextjs" packages="next-intl,@intlayer/next-intl,next-intlayer" vertical/>
 
@@ -68,6 +75,8 @@ What to take away:
 - **Runtime weight:** The `next-intl` runtime adds ~14.7 KB gzip to each page. For existing `next-intl` apps, the [`@intlayer/next-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/next-intl.md) compat adapter preserves the same hooks (`useTranslations`, `useFormatter`, etc.) while dropping runtime size to ~8.0 KB with 0% leak. Native [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/exports.md) further reduces footprint to 5.5 KB.
 
 > See the full data: [Next.js benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/nextjs.md), and the [benchmark repository](https://github.com/intlayer-org/benchmark-i18n).
+
+- [Next.js benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/nextjs.md)
 
 ## Feature comparison on Next.js
 
@@ -96,6 +105,9 @@ How `next-intl` compares with `next-i18next` and Intlayer on the features a Next
 
 > Runtime sizes come from the [Next.js benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/nextjs.md). For a detailed discussion, read [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/next-i18next_vs_next-intl_vs_intlayer.md).
 
+- [Next.js benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/nextjs.md)
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/next-i18next_vs_next-intl_vs_intlayer.md)
+
 ## Practices you should follow
 
 Before we dive into the implementation, here are some practices you should follow:
@@ -122,6 +134,8 @@ Before we dive into the implementation, here are some practices you should follo
   Automate tests and translations help loosing time to maintain your multilingual application.
 
 > See our doc listing everything you need to know about internationalization and SEO: [Internationalization (i18n) with next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/internationalization_and_SEO.md).
+
+- [Internationalization (i18n) with next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/internationalization_and_SEO.md)
 
 ## Step-by-Step Guide to Set Up next-intl in a Next.js Application
 
@@ -854,6 +868,8 @@ Intlayer will allows your to:
   Intlayer offers an free visual editor to edit your content using a visual editor. Learn more about [visual editing your translations](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md).
 
 And more. To discover all the features provided by Intlayer, please refer to the [Interest of Intlayer documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/interest_of_intlayer.md).
+
+- [Interest of Intlayer documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/interest_of_intlayer.md)
 
 For detailed performance benchmarks and comparisons, see:
 

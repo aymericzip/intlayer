@@ -142,12 +142,12 @@ Anda dapat mendeklarasikan konten Markdown menggunakan fungsi `md` atau cukup se
 Intlayer menyediakan dua cara independen untuk merender Markdown:
 
 1. **Melalui `useIntlayer`**
-   — Intlayer secara otomatis mengubah simpul `md` menjadi keluaran asli kerangka kerja (JSX, VNode, string HTML).
-   - Frontmatter diparsing dan diekspos sebagai `.metadata`. Anda dapat mengesampingkan rendering pada dua tingkat — secara global dengan `MarkdownProvider` (atau yang setara di kerangka kerja) dan secara lokal per simpul dengan `.use()`. Keduanya dapat digabungkan; `.use()` diutamakan daripada `MarkdownProvider`, yang pada gilirannya diutamakan daripada nilai default.
+   Intlayer secara otomatis mengubah simpul `md` menjadi keluaran asli kerangka kerja (JSX, VNode, string HTML).
+   - Frontmatter diparsing dan diekspos sebagai `.metadata`. Anda dapat mengesampingkan rendering pada dua tingkat, secara global dengan `MarkdownProvider` (atau yang setara di kerangka kerja) dan secara lokal per simpul dengan `.use()`. Keduanya dapat digabungkan; `.use()` diutamakan daripada `MarkdownProvider`, yang pada gilirannya diutamakan daripada nilai default.
 
-2. **Utilitas Pembantu** — `<MarkdownRenderer />`, `useMarkdownRenderer()`, dan `renderMarkdown()` adalah alat mandiri yang menerima **hanya string Markdown mentah**. Alat-alat ini independen dari `useIntlayer` dan tidak bekerja dengan simpul dekoratif yang dikembalikannya.
+2. **Utilitas Pembantu**: `<MarkdownRenderer />`, `useMarkdownRenderer()`, dan `renderMarkdown()` adalah alat mandiri yang menerima **hanya string Markdown mentah**. Alat-alat ini independen dari `useIntlayer` dan tidak bekerja dengan simpul dekoratif yang dikembalikannya.
 
-Rendering Markdown mendukung **MDX** — gunakan komponen JSX/kerangka kerja apa pun berdasarkan namanya langsung di dalam Markdown Anda.
+Rendering Markdown mendukung **MDX**, gunakan komponen JSX/kerangka kerja apa pun berdasarkan namanya langsung di dalam Markdown Anda.
 
 ### 1. Rendering Otomatis (melalui `useIntlayer`)
 
@@ -864,7 +864,7 @@ Utilitas ini merender **hanya string Markdown mentah** dan independen dari `useI
 
 ## Konfigurasi Global dengan `MarkdownProvider`
 
-`MarkdownProvider` (atau padanan kerangka kerjanya) mengonfigurasi jalur rendering Markdown untuk seluruh aplikasi Anda. Ini berlaku baik untuk rendering `useIntlayer` otomatis maupun utilitas pembantu. Opsi yang ditetapkan di sini adalah default — `.use()` mengesampingkannya di tingkat simpul.
+`MarkdownProvider` (atau padanan kerangka kerjanya) mengonfigurasi jalur rendering Markdown untuk seluruh aplikasi Anda. Ini berlaku baik untuk rendering `useIntlayer` otomatis maupun utilitas pembantu. Opsi yang ditetapkan di sini adalah default, `.use()` mengesampingkannya di tingkat simpul.
 
 <Tabs group="framework">
   <Tab label="React" value="react">
@@ -886,7 +886,7 @@ Utilitas ini merender **hanya string Markdown mentah** dan independen dari `useI
     ```
 
 
-    > MDX didukung — nama komponen apa pun yang digunakan di dalam Markdown Anda (misalnya `<MyCustomJSXComponent />`) diselesaikan terhadap peta `components`.
+    > MDX didukung, nama komponen apa pun yang digunakan di dalam Markdown Anda (misalnya `<MyCustomJSXComponent />`) diselesaikan terhadap peta `components`.
 
     Anda juga dapat menggunakan perender markdown Anda sendiri:
 
@@ -928,7 +928,7 @@ Utilitas ini merender **hanya string Markdown mentah** dan independen dari `useI
     ```
 
 
-    > MDX didukung — nama komponen apa pun yang digunakan di dalam Markdown Anda (misalnya `<MyCustomJSXComponent />`) diselesaikan terhadap peta `components`.
+    > MDX didukung, nama komponen apa pun yang digunakan di dalam Markdown Anda (misalnya `<MyCustomJSXComponent />`) diselesaikan terhadap peta `components`.
 
     Anda juga dapat menggunakan perender markdown Anda sendiri:
 
@@ -976,7 +976,7 @@ Utilitas ini merender **hanya string Markdown mentah** dan independen dari `useI
     ```
 
 
-    > MDX didukung — nama komponen apa pun yang digunakan di dalam Markdown Anda (misalnya `<MyCustomJSXComponent />`) diselesaikan terhadap peta `components`.
+    > MDX didukung, nama komponen apa pun yang digunakan di dalam Markdown Anda (misalnya `<MyCustomJSXComponent />`) diselesaikan terhadap peta `components`.
 
     Anda juga dapat menggunakan perender markdown Anda sendiri:
 
@@ -1020,7 +1020,7 @@ Utilitas ini merender **hanya string Markdown mentah** dan independen dari `useI
     ```
 
 
-    > MDX didukung — nama komponen apa pun yang digunakan di dalam Markdown Anda (misalnya `<MyCustomJSXComponent />`) diselesaikan terhadap peta `components`.
+    > MDX didukung, nama komponen apa pun yang digunakan di dalam Markdown Anda (misalnya `<MyCustomJSXComponent />`) diselesaikan terhadap peta `components`.
 
     Anda juga dapat menggunakan perender markdown Anda sendiri:
 
@@ -1059,7 +1059,7 @@ Utilitas ini merender **hanya string Markdown mentah** dan independen dari `useI
     ```
 
 
-    > MDX didukung — nama komponen apa pun yang digunakan di dalam Markdown Anda (misalnya `<MyCustomJSXComponent />`) diselesaikan terhadap peta `components`.
+    > MDX didukung, nama komponen apa pun yang digunakan di dalam Markdown Anda (misalnya `<MyCustomJSXComponent />`) diselesaikan terhadap peta `components`.
 
     Anda juga dapat menggunakan perender markdown Anda sendiri:
 
@@ -1098,7 +1098,7 @@ Utilitas ini merender **hanya string Markdown mentah** dan independen dari `useI
     ```
 
 
-    > MDX didukung — nama komponen apa pun yang digunakan di dalam Markdown Anda (misalnya `<MyCustomJSXComponent />`) diselesaikan terhadap peta `components`.
+    > MDX didukung, nama komponen apa pun yang digunakan di dalam Markdown Anda (misalnya `<MyCustomJSXComponent />`) diselesaikan terhadap peta `components`.
 
     Anda juga dapat menggunakan perender markdown Anda sendiri:
 
@@ -1137,7 +1137,7 @@ Utilitas ini merender **hanya string Markdown mentah** dan independen dari `useI
     ```
 
 
-    > MDX didukung — nama komponen apa pun yang digunakan di dalam Markdown Anda (misalnya `<MyCustomJSXComponent />`) diselesaikan terhadap peta `components`.
+    > MDX didukung, nama komponen apa pun yang digunakan di dalam Markdown Anda (misalnya `<MyCustomJSXComponent />`) diselesaikan terhadap peta `components`.
 
     Anda juga dapat menggunakan perender markdown Anda sendiri:
 

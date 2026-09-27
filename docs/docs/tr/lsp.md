@@ -30,7 +30,7 @@ author: aymericzip
 
 # Intlayer LSP Sunucusu
 
-**Intlayer dil sunucusu**, IDE’nizi — ve yapay zekâ ajanınızı — Intlayer’dan haberdar kılan bir [Language Server Protocol (LSP)](https://microsoft.github.io/language-server-protocol/) uygulamasıdır. `useIntlayer("home")` gibi bir çağrıyı, onu bildiren `.content.ts` dosyasına iki yönlü olarak bağlar.
+**Intlayer dil sunucusu**, IDE’nizi, ve yapay zekâ ajanınızı, Intlayer’dan haberdar kılan bir [Language Server Protocol (LSP)](https://microsoft.github.io/language-server-protocol/) uygulamasıdır. `useIntlayer("home")` gibi bir çağrıyı, onu bildiren `.content.ts` dosyasına iki yönlü olarak bağlar.
 
 ## Özellikler
 
@@ -44,8 +44,8 @@ author: aymericzip
 
 Bilinmeye değer iki ek davranış vardır:
 
-- **Birleştirilmiş sözlükler** — birkaç içerik dosyasına bölünmüş bir anahtar, dosya başına bir sonuç döndürür; böylece her bildirime gidebilirsiniz.
-- **Monorepo uyumlu** — sunucu her dosyaya _en yakın_ `intlayer.config.*` dosyasını çözer; böylece tek bir çalışma alanındaki birden çok proje kendi sözlüklerine sahip olur.
+- **Birleştirilmiş sözlükler**: birkaç içerik dosyasına bölünmüş bir anahtar, dosya başına bir sonuç döndürür; böylece her bildirime gidebilirsiniz.
+- **Monorepo uyumlu**: sunucu her dosyaya _en yakın_ `intlayer.config.*` dosyasını çözer; böylece tek bir çalışma alanındaki birden çok proje kendi sözlüklerine sahip olur.
 
 ### Desteklenen çağrılar
 
@@ -84,21 +84,23 @@ pnpm add --save-dev @intlayer/lsp
 bun add --dev @intlayer/lsp
 ```
 
-Editörünüz `intlayer-lsp` komutunu `PATH` üzerinde arıyorsa bunun yerine küresel olarak kurun (`npm install -g @intlayer/lsp`) — Claude Code eklentisi ve aşağıdaki ikili dosyayı doğrudan çağıran her yapılandırma için durum budur.
+Editörünüz `intlayer-lsp` komutunu `PATH` üzerinde arıyorsa bunun yerine küresel olarak kurun (`npm install -g @intlayer/lsp`), Claude Code eklentisi ve aşağıdaki ikili dosyayı doğrudan çağıran her yapılandırma için durum budur.
 
 ## Kurulum ve yapılandırma
 
 <Tabs defaultTab="vscode">
   <Tab label="VS Code" value="vscode">
 
-[Intlayer VS Code eklentisini](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) kurun. Dil sunucusu v8.12.0’dan beri paketin içindedir ve otomatik başlar — **yapılandırma gerekmez**.
+[Intlayer VS Code eklentisini](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) kurun. Dil sunucusu v8.12.0’dan beri paketin içindedir ve otomatik başlar, **yapılandırma gerekmez**.
 
 Diğer özellikler için [VS Code eklentisi belgelerine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/vs_code_extension.md) bakın.
+
+- [VS Code eklentisi belgelerine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/vs_code_extension.md)
 
   </Tab>
   <Tab label="Cursor / Windsurf" value="cursor">
 
-[Cursor](https://www.cursor.com/) ve [Windsurf](https://windsurf.com/), VS Code çatallarıdır ve aynı eklenti ekosistemini kullanır. [Intlayer VS Code eklentisini](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) bir kez kurun; sunucu otomatik olarak etkinleşir — **yapılandırma gerekmez**.
+[Cursor](https://www.cursor.com/) ve [Windsurf](https://windsurf.com/), VS Code çatallarıdır ve aynı eklenti ekosistemini kullanır. [Intlayer VS Code eklentisini](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) bir kez kurun; sunucu otomatik olarak etkinleşir, **yapılandırma gerekmez**.
 
   </Tab>
   <Tab label="Claude Code" value="claude-code">
@@ -114,7 +116,7 @@ claude plugin marketplace add intlayer@github:aymericzip/intlayer
 claude plugin install intlayer-lsp@intlayer
 ```
 
-`install` eklentiyi aynı zamanda etkinleştirir. **Claude Code’u yeniden başlatın** — dil sunucuları başlangıçta yüklenir, bu nedenle eklenti o ana kadar etkili olmaz.
+`install` eklentiyi aynı zamanda etkinleştirir. **Claude Code’u yeniden başlatın**, dil sunucuları başlangıçta yüklenir, bu nedenle eklenti o ana kadar etkili olmaz.
 
 Claude Code ardından sunucuyu `.ts`, `.tsx`, `.js`, `.jsx`, `.vue`, `.astro` ve `.svelte` dosyalarında başlatır ve kodunuzda gezinirken `goToDefinition`, `findReferences` ve `hover` kullanır.
 
@@ -240,10 +242,10 @@ language-servers = ["intlayer-lsp", "typescript-language-server"]
 
 LSP destekleyen her editör `@intlayer/lsp` çalıştırabilir. Şunları belirtin:
 
-- **Çalıştırılabilir dosya** — `npx @intlayer/lsp` veya `intlayer-lsp` ikili dosyası
-- **Taşıma** — stdio (standart)
-- **Yetenekler** — `definitionProvider`, `referencesProvider`, `hoverProvider`, `completionProvider` (tetikleyici karakterler `"` `'` `` ` `` `.`), push tanılama, `textDocumentSync: Incremental`
-- **Kök desenleri** — `intlayer.config.ts`, `intlayer.config.js`, `package.json`
+- **Çalıştırılabilir dosya**: `npx @intlayer/lsp` veya `intlayer-lsp` ikili dosyası
+- **Taşıma**: stdio (standart)
+- **Yetenekler**: `definitionProvider`, `referencesProvider`, `hoverProvider`, `completionProvider` (tetikleyici karakterler `"` `'` `` ` `` `.`), push tanılama, `textDocumentSync: Incremental`
+- **Kök desenleri**: `intlayer.config.ts`, `intlayer.config.js`, `package.json`
 
 Tam yapılandırma biçimi için editörünüzün LSP belgelerine bakın.
 
@@ -252,7 +254,7 @@ Tam yapılandırma biçimi için editörünüzün LSP belgelerine bakın.
 
 ## Terminal yapay zekâ ajanları hakkında not
 
-**Claude Code** gerçek bir LSP istemcisi gibi davranır — yukarıdaki sekmeye bakın.
+**Claude Code** gerçek bir LSP istemcisi gibi davranır, yukarıdaki sekmeye bakın.
 
 **OpenAI Codex** ve diğer terminal araçlarının çoğu LSP istemcisi değildir: dosyaları doğrudan okur ve yazarlar. Sunucuyu tek başına çalıştırmak onlara yardımcı olmaz; asıl fayda, ajanın dizinini sorgulayabildiği bir yardımcı editörde (Cursor Composer, Windsurf Cascade, Copilot Chat) etkin olmasından gelir.
 
@@ -271,10 +273,10 @@ Bir istek geldiğinde sunucu belgeyi ([oxc](https://oxc.rs/) ile) ayrıştırır
 | Belirti                                       | Olası neden                      | Çözüm                                                                     |
 | --------------------------------------------- | -------------------------------- | ------------------------------------------------------------------------- |
 | Hiçbir şey olmuyor                            | Sunucu çalışmıyor                | `@intlayer/lsp` kurulu mu ve editörünüz onu başlatıyor mu kontrol edin    |
-| Editörde çalışıyor, Claude Code’da çalışmıyor | Eklenti oturum ortasında kuruldu | Claude Code’u yeniden başlatın — dil sunucuları başlangıçta yüklenir      |
+| Editörde çalışıyor, Claude Code’da çalışmıyor | Eklenti oturum ortasında kuruldu | Claude Code’u yeniden başlatın, dil sunucuları başlangıçta yüklenir       |
 | Bir anahtar için tanım bulunamıyor            | Sözlükler derlenmemiş            | `npx intlayer build` çalıştırın veya geliştirme sunucunuzu başlatın       |
 | Her anahtar bildirilmemiş olarak raporlanıyor | Yapılandırma çözülemedi          | Proje kökünüzde bir `intlayer.config.ts` (veya `.js`) olduğunu doğrulayın |
 | Monorepo’da yanlış proje kullanılıyor         | Paket başına yapılandırma eksik  | Kendi içeriğini bildiren her pakete bir `intlayer.config.*` ekleyin       |
 | Sunucu başlangıçta çöküyor                    | Node.js sürümü çok eski          | Node.js ≥ 14.18 gerektirir                                                |
 
-VS Code’da sunucu **Görünüm → Çıktı → “Intlayer LSP”** altına log yazar — hangi yapılandırmanın çözüldüğünü ve kaç sözlük bulunduğunu doğrulamak için kullanışlıdır.
+VS Code’da sunucu **Görünüm → Çıktı → “Intlayer LSP”** altına log yazar, hangi yapılandırmanın çözüldüğünü ve kaç sözlük bulunduğunu doğrulamak için kullanışlıdır.

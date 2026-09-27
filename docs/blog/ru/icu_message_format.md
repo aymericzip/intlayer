@@ -266,6 +266,8 @@ totalOpenings(5); // Русская локаль → "5 вакансий"
 
 Оператор `plural` делегирует выбор категории функции `Intl.PluralRules`, поэтому приведенная выше таблица CLDR работает без изменений. Форматирование остается обособленным: числа, даты, валюты и списки обрабатываются через [хуки форматирования](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/formatters.md), а не встраиваются в текст сообщения.
 
+- [хуки форматирования](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/formatters.md)
+
 Особенности и ограничения:
 
 - Intlayer требует этапа сборки: компилятор извлекает объявления во время билда. Если вам требуется простой JSON, загружаемый динамически в рантайме, это другая модель.
@@ -273,6 +275,9 @@ totalOpenings(5); // Русская локаль → "5 вакансий"
 - Экосистема моложе, чем у i18next: доступно меньше готовых интеграций с TMS и обсуждений на профильных ресурсах.
 
 При переходе с кодовой базы, уже содержащей строки ICU, [адаптер совместимости react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/react-intl.md) разбирает их напрямую: `plural`, `select`, `selectordinal`, `#` и классические аргументы `number`, `date`, `time`. Скелетоны и опция `offset:` пока не поддерживаются этим резолвером, поэтому проверьте такие сообщения при миграции. [Адаптер i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/i18next.md) сопоставляет суффиксы (`key_one`, `key_male`) через `Intl.PluralRules`.
+
+- [адаптер совместимости react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/react-intl.md)
+- [Адаптер i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/i18next.md)
 
 ## Распространенные ошибки
 

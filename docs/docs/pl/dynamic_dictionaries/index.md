@@ -3,7 +3,7 @@ createdAt: 2026-06-12
 updatedAt: 2026-09-27
 priority: 8
 title: "Dynamiczne słowniki: kolekcje i warianty"
-description: Przegląd funkcji słowników dynamicznych Intlayer — kolekcji i wariantów — do tworzenia elastycznej, sterowanej w czasie wykonywania treści i18n.
+description: Przegląd funkcji słowników dynamicznych Intlayer, kolekcji i wariantów, do tworzenia elastycznej, sterowanej w czasie wykonywania treści i18n.
 keywords:
   - Słowniki dynamiczne
   - Kolekcje
@@ -20,7 +20,7 @@ history:
     changes: "Wydanie funkcji słowników dynamicznych"
   - version: 9.1.0
     date: 2026-06-26
-    changes: "Scalono rekordy dynamiczne z wariantami — `variant` przyjmuje teraz ciąg znaków lub obiekt"
+    changes: "Scalono rekordy dynamiczne z wariantami, `variant` przyjmuje teraz ciąg znaków lub obiekt"
 author: aymericzip
 ---
 
@@ -37,8 +37,8 @@ Oba łączą się z argumentem locale i obsługują selektywne / leniwe ładowan
 
 ## Kiedy czego używać
 
-- **Kolekcje** — uporządkowana lista elementów zarządzanych w osobnych plikach (wpisy FAQ, posty na blogu, produkty).
-- **Warianty** — nazwane lub strukturalne alternatywy treści:
+- **Kolekcje**: uporządkowana lista elementów zarządzanych w osobnych plikach (wpisy FAQ, posty na blogu, produkty).
+- **Warianty**: nazwane lub strukturalne alternatywy treści:
   - wariant **tekstowy** do testów A/B, banerów sezonowych lub feature flag;
   - wariant **obiektowy** dla rekordów CMS, treści zależnej od użytkownika lub dowolnej treści adresowanej zestawem pól (dawne „rekordy dynamiczne").
 

@@ -38,17 +38,23 @@ author: aymericzip
 
 Локализация контента на уровне компонентов и разделов делает крупные приложения **удобными для поддержки**. Вы можете дублировать или удалять целые директории с фичами без необходимости пересматривать всю базу контента. Кроме того, Intlayer **строго типизирован**, что гарантирует правильность вашего контента на уровне TypeScript.
 
-Intlayer также является **наиболее активно развивающимся** решением в экосистеме i18n — проблемы решаются быстро, регулярно добавляются адаптеры для новых фреймворков, а основное API постоянно дорабатывается на основе реальных отзывов разработчиков.
+Intlayer также является **наиболее активно развивающимся** решением в экосистеме i18n, проблемы решаются быстро, регулярно добавляются адаптеры для новых фреймворков, а основное API постоянно дорабатывается на основе реальных отзывов разработчиков.
 
 </Accordion>
 <Accordion header="ИИ Агенты">
 
 Колокация контента **сокращает контекст, необходимый для работы** Больших Языковых Моделей (LLM). Intlayer также предоставляет набор инструментов, таких как **CLI** для тестирования отсутствующих переводов, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/mcp_server.md)** и **[Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/agent_skills.md)**, чтобы сделать процесс разработки (DX) еще более плавным для ИИ-агентов.
 
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/mcp_server.md)
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/agent_skills.md)
+
 </Accordion>
 <Accordion header="Автоматизация">
 
 Автоматизируйте переводы в вашем CI/CD-пайплайне, используя любую LLM по вашему выбору по цене вашего ИИ-провайдера. Intlayer также предоставляет **компилятор** для автоматического извлечения контента, а также [веб-платформу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md) для помощи с **фоновым переводом**.
+
+- [веб-платформу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="Производительность">
@@ -60,6 +66,9 @@ Intlayer также является **наиболее активно разв�
 
 Будучи больше, чем просто решением i18n, Intlayer предоставляет **[визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md)** (self-hosted) и **[полноценную CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md)**, чтобы помочь вам управлять мультиязычным контентом в **реальном времени**, делая сотрудничество с переводчиками, копирайтерами и другими членами команды бесшовным. Контент может храниться как локально, так и/или удаленно.
 
+- [визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md)
+- [полноценную CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md)
+
 </Accordion>
 </AccordionGroup>
 
@@ -69,9 +78,9 @@ Intlayer также является **наиболее активно разв�
 
 ## Стратегия миграции
 
-Рекомендуемый подход для существующих приложений — использовать **адаптер совместимости**: Установите `@intlayer/next-intl`. Этот пакет предоставляет **точно такой же API**, что и `next-intl`, но делегирует всю работу по переводу "под капотом" в Intlayer.
+Рекомендуемый подход для существующих приложений, использовать **адаптер совместимости**: Установите `@intlayer/next-intl`. Этот пакет предоставляет **точно такой же API**, что и `next-intl`, но делегирует всю работу по переводу "под капотом" в Intlayer.
 
-Ваши `useTranslations`, `getTranslations`, `NextIntlClientProvider` и прочее остаются нетронутыми в существующих файлах — **изменяется только путь импорта**. Вам не нужно переписывать сигнатуры вызовов, пропсы компонентов или логику.
+Ваши `useTranslations`, `getTranslations`, `NextIntlClientProvider` и прочее остаются нетронутыми в существующих файлах, **изменяется только путь импорта**. Вам не нужно переписывать сигнатуры вызовов, пропсы компонентов или логику.
 
 Со временем вы можете выборочно переводить отдельные файлы на формат `.content.ts` от Intlayer, чтобы раскрыть возможности визуального редактора, CMS и локализации на уровне компонента, но этот шаг не является обязательным и может быть выполнен постепенно.
 
@@ -81,7 +90,7 @@ Intlayer также является **наиболее активно разв�
 
 ## Быстрая миграция
 
-Следующие шаги — это минимум, необходимый для запуска вашего существующего приложения `next-intl` с использованием Intlayer без внесения изменений в бизнес-логику кода.
+Следующие шаги это минимум, необходимый для запуска вашего существующего приложения `next-intl` с использованием Intlayer без внесения изменений в бизнес-логику кода.
 
 <Steps>
 <Step number={1} title="Установка зависимостей">
@@ -124,7 +133,7 @@ yarn add intlayer next-intlayer @intlayer/next-intl @intlayer/sync-json-plugin
 bun add intlayer next-intlayer @intlayer/next-intl @intlayer/sync-json-plugin
 ```
 
-> Сохраните `next-intl` установленным — он всё еще требуется для **маршрутизации (URL-роутинга)** (`createNavigation`, `createMiddleware`, `Link`, `redirect`, `usePathname`, `useRouter`). Адаптер совместимости **не** заменяет слой маршрутизации.
+> Сохраните `next-intl` установленным, он всё еще требуется для **маршрутизации (URL-роутинга)** (`createNavigation`, `createMiddleware`, `Link`, `redirect`, `usePathname`, `useRouter`). Адаптер совместимости **не** заменяет слой маршрутизации.
 
 </Step>
 <Step number={2} title="Настройка Intlayer">
@@ -162,6 +171,8 @@ export default config;
 
 > См. [Документацию по Конфигурации](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md) для ознакомления со всеми доступными настройками.
 
+- [Документацию по Конфигурации](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md)
+
 </Step>
 <Step number={3} title="Внедрение плагина Intlayer в Next.js">
 
@@ -180,7 +191,7 @@ export default withIntlayer(nextConfig);
 
 > `createNextIntlPlugin()` включает в себя `withIntlayer`, автоматически определяет **Webpack** или **Turbopack**, прикрепляет наблюдатель (content watcher), прекомпилирует словари, и, самое главное, **внедряет алиасы модулей**, так что во время сборки все ваши импорты `import … from 'next-intl'` прозрачно перенаправляются на `@intlayer/next-intl`. Импорты роутинга вроде `next-intl/routing` останутся указывать на реальный пакет. Не нужно изменять исходный код.
 >
-> Предпочитаете использовать чистый плагин `withIntlayer` из `next-intlayer/server`? При его использовании словари будут скомпилированы, но алиас `next-intl` **не будет добавлен** — в таком случае вам придется вручную переименовывать импорты в `@intlayer/next-intl` (см. Шаг 4).
+> Предпочитаете использовать чистый плагин `withIntlayer` из `next-intlayer/server`? При его использовании словари будут скомпилированы, но алиас `next-intl` **не будет добавлен**, в таком случае вам придется вручную переименовывать импорты в `@intlayer/next-intl` (см. Шаг 4).
 
 > **Файл `getRequestConfig` и загрузка сообщений больше не требуются.** В `next-intl` вам приходилось создавать файл `src/i18n.ts`, который на каждый запрос загружал JSON файлы через `getRequestConfig`. Так как Intlayer компилирует все словари на этапе **сборки** (build-time), шага загрузки сообщений при каждом запросе больше не существует. Вы можете безопасно удалить этот файл (или оставить в нем только роутинг, если используете `createNavigation`).
 
@@ -190,10 +201,10 @@ export default withIntlayer(nextConfig);
 
 На этом быстрая миграция завершена. Теперь ваше приложение работает на Intlayer, при этом все ваши импорты и API `next-intl` остаются нетронутыми.
 
-> **Строгая типизация ключей перевода — автоматически.** Как только Intlayer скомпилирует словари, `useTranslations` и `getTranslations` будут типизированы на основе вашего реального контента. Ключи будут автодополняться в вашей IDE, а недействительные пути приведут к ошибкам TypeScript при компиляции — дополнительная настройка не требуется.
+> **Строгая типизация ключей перевода, автоматически.** Как только Intlayer скомпилирует словари, `useTranslations` и `getTranslations` будут типизированы на основе вашего реального контента. Ключи будут автодополняться в вашей IDE, а недействительные пути приведут к ошибкам TypeScript при компиляции, дополнительная настройка не требуется.
 >
 > ```tsx
-> // Клиентский компонент (Client component) — 'about' — это ключ словаря
+> // Клиентский компонент (Client component), 'about' это ключ словаря
 > const t = useTranslations("about");
 > t("counter.label"); // ✓ автодополнение
 > t("does.not.exist"); // ✗ Ошибка TypeScript
@@ -222,7 +233,7 @@ export default withIntlayer(nextConfig);
 | `import { setLocale } from 'next-intl/server'`       | `import { setLocale } from '@intlayer/next-intl/server'`       |
 | `import { getMessages } from 'next-intl/server'`     | `import { getMessages } from '@intlayer/next-intl/server'`     |
 
-> Оставляйте импорты маршрутизации направленными на реальный `next-intl` — адаптер совместимости **не заменяет** механизмы URL-маршрутизации `next-intl`:
+> Оставляйте импорты маршрутизации направленными на реальный `next-intl`, адаптер совместимости **не заменяет** механизмы URL-маршрутизации `next-intl`:
 >
 > ```ts
 > // ✅ Оставьте это из настоящего пакета 'next-intl'
@@ -291,6 +302,8 @@ export default config;
 
 > Ознакомьтесь с [Документацией по Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/index.md), чтобы изучить все доступные возможности.
 
+- [Документацией по Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/index.md)
+
 </Step>
 
 </Steps>
@@ -305,7 +318,7 @@ export default config;
 | Вызовы `getMessages()` в ваших Layout      | Провайдер `NextIntlClientProvider` от `@intlayer/next-intl` самостоятельно считывает скомпилированные словари, делая пропс `messages` необязательным.                                  |
 | Загрузка JSON (`messages/*.json`)          | Бандлы (наборы) JSON необходимы только в случае, если вы продолжаете использовать плагин `syncJSON`. После завершения перевода файлов в формат `.content.ts` папку JSON можно удалить. |
 
-Когда вы будете готовы двигаться дальше, Intlayer **автоматически обнаружит все файлы `.content.ts` и `.content.json` в любом месте вашей кодовой базы** (по умолчанию, в любом месте внутри `./src`). Вы можете поместить файл `about.content.ts` прямо рядом с вашим кодом `about/page.tsx`, и Intlayer обнаружит его на этапе сборки без дополнительной настройки — не нужно никаких импортов, регистрации или центрального index-файла. Это делает совместное размещение переводов невероятно удобным.
+Когда вы будете готовы двигаться дальше, Intlayer **автоматически обнаружит все файлы `.content.ts` и `.content.json` в любом месте вашей кодовой базы** (по умолчанию, в любом месте внутри `./src`). Вы можете поместить файл `about.content.ts` прямо рядом с вашим кодом `about/page.tsx`, и Intlayer обнаружит его на этапе сборки без дополнительной настройки, не нужно никаких импортов, регистрации или центрального index-файла. Это делает совместное размещение переводов невероятно удобным.
 
 ## Настройка TypeScript
 

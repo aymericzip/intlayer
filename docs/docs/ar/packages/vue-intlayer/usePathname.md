@@ -30,7 +30,7 @@ author: aymericzip
 
 # تكامل Vue: توثيق `usePathname`
 
-تعيد دالة `usePathname` مسار المتصفح الحالي (pathname) بعد إزالة جزء الـ locale منه، كقيمة محسوبة (Computed Ref) من نوع `ComputedRef<string>` في Vue. يُعد هذا مفيدًا لبناء تنقل (navigation) يراعي الـ locale — على سبيل المثال، لتحديد عنصر التنقل النشط حاليًا — دون الحاجة إلى إزالة بادئة الـ locale يدويًا.
+تعيد دالة `usePathname` مسار المتصفح الحالي (pathname) بعد إزالة جزء الـ locale منه، كقيمة محسوبة (Computed Ref) من نوع `ComputedRef<string>` في Vue. يُعد هذا مفيدًا لبناء تنقل (navigation) يراعي الـ locale، على سبيل المثال، لتحديد عنصر التنقل النشط حاليًا، دون الحاجة إلى إزالة بادئة الـ locale يدويًا.
 
 ## استيراد `usePathname` في Vue
 

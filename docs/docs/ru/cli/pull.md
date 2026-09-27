@@ -39,6 +39,8 @@ bun x intlayer pull
 
 Если установлен [редактор intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md), вы также можете загружать словари из редактора. Таким образом, вы можете перезаписать содержимое ваших словарей в соответствии с потребностями вашего приложения.
 
+- [редактор intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md)
+
 ## Псевдонимы:
 
 - `npx intlayer dictionaries pull`
@@ -67,7 +69,7 @@ bun x intlayer pull
 
   > Пример: `npx intlayer build --no-cache`
 
-- **`--ci`**: Выполняет команду в каждом проекте Intlayer монорепозитория (или только в текущем при запуске из директории проекта). Учетные данные для каждого проекта можно подставить через `INTLAYER_PROJECT_CREDENTIALS` — JSON-объект, сопоставляющий путь проекта с `{ "clientId", "clientSecret" }`.
+- **`--ci`**: Выполняет команду в каждом проекте Intlayer монорепозитория (или только в текущем при запуске из директории проекта). Учетные данные для каждого проекта можно подставить через `INTLAYER_PROJECT_CREDENTIALS`, JSON-объект, сопоставляющий путь проекта с `{ "clientId", "clientSecret" }`.
 
   > Пример: `npx intlayer pull --ci`
 

@@ -51,6 +51,8 @@ Bir Next.js projesine ilk günden i18n eklemek nispeten kolaydır. Ancak tek bir
 
 > Next.js 16 App Router için adım adım kapsamlı teknik kılavuz mu arıyorsunuz? Belgelerimize göz atın: [Intlayer ile Next.js 16 Çevirisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_16.md).
 
+- [Intlayer ile Next.js 16 Çevirisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_16.md)
+
 ## İçindekiler
 
 <TOC/>
@@ -266,6 +268,8 @@ export const generateMetadata = async (): Promise<Metadata> => {
 Mevcut Next.js uygulamanızı 2026'da dönüştürmenin temellerini öğrendiniz. Middleware, SSG (`generateStaticParams`) ve sunucu bileşenleri hakkında detaylar için tam kılavuza bakın:
 
 👉 **[Next.js 16 Çevirisi Tam Rehberi (Intlayer)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_16.md)**
+
+- [Next.js 16 Çevirisi Tam Rehberi (Intlayer)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_16.md)
 
 ## Sıkça Sorulan Sorular (FAQ)
 

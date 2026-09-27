@@ -87,6 +87,8 @@ const MyComponent = () => {
 
 > لرؤية جميع ميزات Intlayer، يمكنك قراءة [وثائق القواميس](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md).
 
+- [وثائق القواميس](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md)
+
 ## المحتوى البعيد
 
 يسمح لك Intlayer بإعلان المحتوى محليًا، ثم تصديره إلى نظام إدارة المحتوى (CMS) لجعله قابلاً للتعديل من قبل فريقك غير التقني.
@@ -98,6 +100,8 @@ const MyComponent = () => {
 ## المحرر المرئي
 
 يوفر Intlayer أيضًا محررًا مرئيًا يتيح لك تعديل المحتوى الخاص بك بطريقة مرئية. هذا [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) متاح في الحزمة الخارجية `intlayer-editor`.
+
+- [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)
 
 ![المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif?raw=true)
 
@@ -120,11 +124,15 @@ const MyComponent = () => {
 
 بتفعيل الخيار `importMode = "dynamic"` في [التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md)، سيستخدم Intlayer الاستيراد الديناميكي لتحميل القواميس. هذا الخيار معطل افتراضيًا لتجنب المعالجة غير المتزامنة عند عرض التطبيق.
 
+- [التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md)
+
 > `@intlayer/babel` متاح افتراضيًا في حزمة `vite-intlayer`،
 
 > `@intlayer/swc` غير مثبت افتراضيًا في حزمة `next-intlayer` حيث أن مكونات SWC لا تزال تجريبية في Next.js.
 
 لرؤية كيفية تكوين بناء تطبيقك، يمكنك قراءة [وثائق التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
+
+- [وثائق التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md)
 
 ## الحزم
 
@@ -346,22 +354,38 @@ const MyComponent = () => {
 
 أقل بكثير من الإعدادات القائمة على فضاءات الأسماء، لأن الصفحة لا تُحمّل أبدًا كتالوجًا لا تعرضه. يُحل المحتوى المعروض على الخادم مباشرة على الخادم، ويستبدل مترجم وقت البناء استدعاءات `useIntlayer` بإدخالات القاموس الدقيقة التي يستخدمها المكون، لذلك يتم التخلص من المفاتيح واللغات غير المستخدمة. تقسم [القواميس الديناميكية](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dynamic_dictionaries/index.md) الباقي حسب اللغة. مقارنة بالبدائل التقليدية، يقلل Intlayer حجم الحزمة والصفحة بنسبة تصل إلى 50%. انظر [تحسين الحزم](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md) و [المقارنة المعيارية](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/index.md).
 
+- [القواميس الديناميكية](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dynamic_dictionaries/index.md)
+- [تحسين الحزم](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md)
+- [المقارنة المعيارية](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/index.md)
+
 </Question>
 <Question title="هل يمكنني الترحيل من i18next أو next-intl أو react-i18next دون إعادة كتابة مكوناتي؟">
 
 نعم، وبطريقتين. يمكنك ترحيل المحتوى تدريجيًا باستخدام [دليل ترحيل i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_i18next_to_intlayer.md) أو [دليل ترحيل next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_next-intl_to_intlayer.md). أو يمكنك الاحتفاظ بواجهة برمجة التطبيقات الحالية بالكامل: تكشف [محولات التوافق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/index.md) نفس واجهات `i18next` و `react-i18next` و `next-intl` و `next-i18next` و `react-intl` و `use-intl` و `vue-i18n` و `Lingui`، ولكنها مدعومة بقواميس Intlayer، بحيث تتغير الاستيرادات فقط بينما يظل كود المكون كما هو.
+
+- [دليل ترحيل i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_i18next_to_intlayer.md)
+- [دليل ترحيل next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_next-intl_to_intlayer.md)
+- [محولات التوافق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/index.md)
 
 </Question>
 <Question title="هل يمكنني الاحتفاظ بملفات الترجمة JSON الموجودة لدي؟">
 
 نعم. تحافظ [مكونة مزامنة JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/plugins/sync-json.md) على ملفات `/messages/{locale}/{namespace}.json` الخاصة بك كمصدر الحقيقة وتُنشئ قواميس Intlayer منها، في كلا الاتجاهين. وتقوم [مكونة مزامنة PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/plugins/sync-po.md) بنفس الشيء لكتالوجات gettext، وتسمح لك [الملفات المقسمة حسب اللغة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/per_locale_file.md) بتقسيم المحتوى حسب اللغة بدلاً من تجميع كل اللغات في ملف واحد.
 
+- [مكونة مزامنة JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/plugins/sync-json.md)
+- [مكونة مزامنة PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/plugins/sync-po.md)
+- [الملفات المقسمة حسب اللغة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/per_locale_file.md)
+
 </Question>
 <Question title="هل يجب أن أنقل المحتوى الخاص بي مفتاحًا تلو الآخر؟">
 
 لا. قم بتشغيل `npx intlayer extract` وسيقرأ Intlayer ملفات المصدر الخاصة بك، ويسحب السلاسل النصية الموجهة للمستخدم ويكتب ملف `.content` بجانب كل منها، بحيث تراجع diff بدلاً من نسخ السلاسل إلى كتالوج يدويًا. راجع [أمر extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/extract.md).
 
+- [أمر extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/extract.md)
+
 لأتمتة كاملة، يقوم [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md) بالشيء نفسه في وقت البناء على كود JSX و TSX و Vue و Svelte، منشئًا القواميس عند كل تغيير دون الحاجة إلى إدارة المفاتيح يدويًا.
+
+- [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md)
 
 </Question>
 <Question title="ما هي أدوات المحررات والوكلاء الذكيين المتاحة؟">
@@ -382,12 +406,16 @@ const MyComponent = () => {
 </Question>
 <Question title="كيف يتم تحديد اللغة النشطة؟">
 
-من المصادر المدرجة في `routing.storage`، بالترتيب: بادئة URL، وملفات تعريف الارتباط، وترويسة `Accept-Language`، واللغة الافتراضية.
+من المصادر المدرجة في `routing.storage`، بالترتيب: بادئة URL عندما يستخدمها `routing.mode`، ثم ملف تعريف الارتباط (cookie)، ثم ترويسة `Accept-Language`، ثم اللغة الافتراضية لديك. يتم حفظ اللغة التي يختارها المستخدم صراحةً، لذلك تبقى محفوظة في الزيارة التالية. راجع [مرجع التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
+
+- [مرجع التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md)
 
 </Question>
 <Question title="ما الفرق بين القواميس المحلية والقواميس البعيدة (remote)؟">
 
-يتم الإعلان عن القاموس المحلي في قاعدة التعليمات البرمجية الخاصة بك ويتم تجميعه مع التطبيق. تتم إدارة القاموس البعيد في نظام إدارة المحتوى (CMS) ويتم جلبه عبر واجهة برمجة التطبيقات (API)، مما يسمح بتحديث النصوص دون إعادة بناء كود التطبيق.
+يتم الإعلان عن القاموس المحلي في قاعدة التعليمات البرمجية الخاصة بك ويتم تجميعه مع تطبيقك. أما القاموس البعيد فتتم إدارته في [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md) ويتم حله وقت التشغيل، لذا يمكن أن يتغير دون الحاجة إلى نشر جديد. تتم قراءة كليهما عبر نفس الخطافات (hooks)، ويعود المحتوى البعيد إلى التعريف المحلي عندما يكون غير متاح.
+
+- [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
 
 </Question>
 <Question title="هل يعمل Intlayer بدون TypeScript؟">
@@ -407,7 +435,10 @@ const MyComponent = () => {
 </Question>
 <Question title="هل أحتاج إلى إعادة البناء عند إضافة ترجمات؟">
 
-في بيئة التطوير لا: يراقب المكون الإضافي الملفات ويحدث القواميس على الفور. في الإنتاج نعم: يتم تجميع القواميس المحلية في حزمة التطبيق أثناء خطوة البناء.
+في بيئة التطوير لا: يراقب المكون الإضافي ملفات المحتوى الخاصة بك ويعيد بناء القواميس المتأثرة عند الحفظ. في الإنتاج تكون القواميس جزءًا من البناء، إلا إذا كان المحتوى بعيدًا، ففي هذه الحالة يطبق [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md) و[المزامنة الحية](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/live.md) التغيير دون الحاجة إلى نشر جديد.
+
+- [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
+- [المزامنة الحية](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/live.md)
 
 </Question>
 

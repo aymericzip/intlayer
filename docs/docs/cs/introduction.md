@@ -108,10 +108,16 @@ Zapouzdření obsahu vaší aplikace do scope blízko komponent **usnadňuje úd
 
 Umístění obsahu na stejném místě (co-locating) **snižuje potřebný kontext** pro velké jazykové modely (LLM). Intlayer je také dodáván se sadou nástrojů, jako je **CLI** pro testování chybějících překladů, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/mcp_server.md)** a **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/agent_skills.md)**, aby byl vývojářský zážitek (DX) pro AI agenty ještě plynulejší.
 
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/mcp_server.md)
+- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/agent_skills.md)
+
 </Accordion>
 <Accordion header="Automatizace">
 
 Využijte automatizaci k překladům ve vašem CI/CD pipeline pomocí libovolného LLM dle vašeho výběru na náklady vašeho poskytovatele AI. Intlayer nabízí také **kompilátor (compiler)** pro automatizaci extrakce obsahu a [webovou platformu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/intlayer_CMS.md), která vám pomůže s **překladem na pozadí**.
+
+- [webovou platformu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="Výkon (Performance)">
@@ -122,6 +128,9 @@ Propojování masivních souborů JSON ke komponentám může vést k problémů
 <Accordion header="Škálování bez vývojářů (Scaling with non-dev)">
 
 Víc než jen i18n řešení, Intlayer poskytuje **samostatně hostovatelný (self-hosted) [vizuální editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/intlayer_visual_editor.md)** a **[kompletní CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/intlayer_CMS.md)**, který vám pomůže spravovat vícejazyčný obsah v **reálném čase**. Díky tomu je spolupráce s překladateli, copywritery a dalšími členy týmu bezproblémová. Obsah lze ukládat lokálně a/nebo vzdáleně.
+
+- [vizuální editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/intlayer_visual_editor.md)
+- [kompletní CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>

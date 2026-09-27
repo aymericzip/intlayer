@@ -143,7 +143,7 @@ getMultilingualUrls("/about", { currentDomain: "intlayer.org" });
 
 `routing.domains` は生成されたモジュール拡張にシリアライズされるため、
 `getLocalizedUrl` と `getLocalizedPath` は、ドメインルーティングされたロケールが解決する正確な
-URL に戻り値の型を絞り込みます — プリフィックスの抑制を含みます。
+URL に戻り値の型を絞り込みます。プリフィックスの抑制を含みます。
 
 ```ts
 // routing: { mode: 'prefix-no-default', domains: { en: 'intlayer.org', zh: 'intlayer.zh' } }
@@ -201,7 +201,9 @@ GET intlayer.zh/about
 
 `intlayerProxy` Viteプラグインは、開発中に同じロジックを適用します。
 
-> Intlayer v9 以降、`intlayerProxy()` は `intlayer()` プラグインに直接バンドルされており、`routing.enableProxy` オプション (デフォルトでは `true`) で有効になっています。以下のように別々に登録することは現在オプションです — これは後方互換性とプラグインの順序を制御する必要があるセットアップのために保持されています。`routing.enableProxy: false` に設定してオプトアウトしてください。[v9 リリースノート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/releases/v9.md)を参照してください。
+> Intlayer v9 以降、`intlayerProxy()` は `intlayer()` プラグインに直接バンドルされており、`routing.enableProxy` オプション (デフォルトでは `true`) で有効になっています。以下のように別々に登録することは現在オプションです。これは後方互換性とプラグインの順序を制御する必要があるセットアップのために保持されています。`routing.enableProxy: false` に設定してオプトアウトしてください。[v9 リリースノート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/releases/v9.md)を参照してください。
+
+- [v9 リリースノート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/releases/v9.md)
 
 ```typescript fileName="vite.config.ts"
 import { defineConfig } from "vite";

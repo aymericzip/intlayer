@@ -44,9 +44,13 @@ author: aymericzip
 
 Перегляньте конкретне порівняння з next-intl у нашому дописі в блозі [next-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/next-i18next_vs_next-intl_vs_intlayer.md).
 
+- [next-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/next-i18next_vs_next-intl_vs_intlayer.md)
+
 ## Чому поєднувати Intlayer з next-i18next?
 
 Хоча **Intlayer** є відмінним самостійним i18n-рішенням (див. наш [гайд по інтеграції з Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_nextjs_16.md)), ви можете захотіти поєднати його з next-i18next з кількох причин:
+
+- [гайд по інтеграції з Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_nextjs_16.md)
 
 Intlayer пропонує широкий набір **розширених можливостей**, що виходять за рамки традиційних i18n-інструментів. Воно допомагає вам:
 
@@ -155,6 +159,8 @@ export default config;
 
 Щоб дізнатися більше про плагін `syncJSON`, див. [документацію плагіна syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/plugins/sync-json.md).
 
+- [документацію плагіна syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/plugins/sync-json.md)
+
 </Step>
 <Step number={3} title="Налаштування AI-провайдера">
 
@@ -205,6 +211,9 @@ npx intlayer fill
 > Дивіться всіх доступних AI-провайдерів у [документації Intlayer щодо конфігурації AI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md#ai-configuration).
 > Дивіться всі доступні команди у [документації Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/index.md).
 
+- [документації Intlayer щодо конфігурації AI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md#ai-configuration)
+- [документації Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/index.md)
+
 </Step>
 
 </Steps>
@@ -224,4 +233,4 @@ npx intlayer fill
 
 Для покращення досвіду розробника встановіть офіційне розширення **Intlayer для VS Code**:
 
-[Встановити з VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [Встановити з VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

@@ -32,7 +32,7 @@ author: aymericzip
 
 Dans Intlayer, le contenu basé sur la sélection est réalisé grâce à la fonction `select`, qui mappe des valeurs de chaîne arbitraires à leur contenu correspondant. C'est l'équivalent d'un message ICU `{value, select, …}`, ou d'une instruction `switch` dans le code de votre application.
 
-Utilisez `select` lorsque le discriminant est une chaîne de caractères libre — un statut, un forfait, une plateforme, un rôle. Pour les autres discriminants, Intlayer fournit des nœuds dédiés :
+Utilisez `select` lorsque le discriminant est une chaîne de caractères libre, un statut, un forfait, une plateforme, un rôle. Pour les autres discriminants, Intlayer fournit des nœuds dédiés :
 
 | Discriminant                 | Nœud       |
 | ---------------------------- | ---------- |
@@ -81,13 +81,13 @@ export default myPostContent;
 }
 ```
 
-> Si aucun `fallback` n'est déclaré, la dernière clé déclarée sera prise comme valeur par défaut lorsque la valeur fournie ne correspond à aucun cas déclaré — le même contrat que pour `cond()` et `gender()`.
+> Si aucun `fallback` n'est déclaré, la dernière clé déclarée sera prise comme valeur par défaut lorsque la valeur fournie ne correspond à aucun cas déclaré, le même contrat que pour `cond()` et `gender()`.
 
 ### Sécurité du typage
 
 L'argument accepté est déduit des cas déclarés :
 
-- Sans `fallback`, seuls les cas déclarés sont acceptés — une faute de frappe est une erreur de typage.
+- Sans `fallback`, seuls les cas déclarés sont acceptés, une faute de frappe est une erreur de typage.
 - Avec un `fallback`, n'importe quelle chaîne de caractères est acceptée (la valeur par défaut couvre les valeurs non correspondantes) tandis que les cas déclarés sont toujours proposés en autocomplétion.
 
 ## Pourquoi ne pas utiliser un objet simple ?
@@ -371,6 +371,8 @@ select(
 Le cas `other` d'ICU est renommé en `fallback`, qui est le nom canonique d'Intlayer pour la valeur par défaut de rattrapage. Le deuxième argument enregistre le nom de la variable ICU afin que le message puisse être reconverti exactement dans la même chaîne ICU lors de son exportation.
 
 > Un `select` ICU dont les cas sont des valeurs de genre (`male` / `female` / `other`) est importé en tant que nœud [`gender`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/gender.md) à la place.
+
+- [`gender`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/gender.md)
 
 ## Ressources Supplémentaires
 

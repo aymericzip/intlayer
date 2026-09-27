@@ -376,6 +376,8 @@ ICU の `other` ケースは、Intlayer において全てを捕捉する（catc
 
 > ちなみに、ケースが性別の値（`male` / `female` / `other`）である ICU `select` は、代わりに [`gender`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/gender.md) ノードとしてインポートされます。
 
+- [`gender`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/gender.md)
+
 ## 追加リソース
 
 設定と使用に関するより詳細な情報については、以下のリソースを参照してください：

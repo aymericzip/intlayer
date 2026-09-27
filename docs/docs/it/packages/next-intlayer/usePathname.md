@@ -31,7 +31,7 @@ author: aymericzip
 
 # Integrazione Next.js: Documentazione dell'Hook `usePathname`
 
-L'hook `usePathname` restituisce il percorso corrente di Next.js senza il segmento della lingua. È utile per creare una navigazione consapevole della lingua — ad esempio, per determinare quale elemento di navigazione è attivo — senza dover rimuovere manualmente il prefisso della lingua.
+L'hook `usePathname` restituisce il percorso corrente di Next.js senza il segmento della lingua. È utile per creare una navigazione consapevole della lingua (ad esempio, per determinare quale elemento di navigazione è attivo) senza dover rimuovere manualmente il prefisso della lingua.
 
 ## Importare `usePathname` in Next.js
 

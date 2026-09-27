@@ -31,6 +31,8 @@ author: aymericzip
 
 > जब आप [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/vite-intlayer/intlayer.md) का उपयोग करते हैं तो plugin स्वचालित रूप से शामिल और कॉन्फ़िगर किया जाता है। यदि आप plugin stack को स्वयं compose कर रहे हैं तो आपको इसे मैन्युअल रूप से रजिस्टर करने की आवश्यकता है।
 
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/vite-intlayer/intlayer.md)
+
 ## उपयोग
 
 ### `intlayer()` के भाग के रूप में (अनुशंसित)
@@ -99,8 +101,8 @@ const { title, description } = useIntlayer("myDict");
 
 दो content shapes समर्थित हैं:
 
-- **Static dictionaries** — `{ nodeType: "translation", translation: { en: {...}, fr: {...} } }`. Fields को `translation` के अंदर per-locale pruned किया जाता है।
-- **Dynamic (per-locale) dictionaries** — flat `{ fieldA: ..., fieldB: ... }`. Fields को top level पर pruned किया जाता है।
+- **Static dictionaries**: `{ nodeType: "translation", translation: { en: {...}, fr: {...} } }`. Fields को `translation` के अंदर per-locale pruned किया जाता है।
+- **Dynamic (per-locale) dictionaries**: flat `{ fieldA: ..., fieldB: ... }`. Fields को top level पर pruned किया जाता है।
 
 ### 3. Edge cases
 
@@ -108,7 +110,7 @@ const { title, description } = useIntlayer("myDict");
 
 ### 4. Field-rename map
 
-जब pruning सफल होता है, `intlayerPrune` `pruneContext.dictionaryKeyToFieldRenameMap` भी लिखता है — मूल field names से short aliases तक एक mapping। `intlayerMinify` इस map को output JSON में fields को rename करने के लिए पढ़ता है, और `intlayerOptimize` का Babel rename pass source files में property accesses को अपडेट करता है।
+जब pruning सफल होता है, `intlayerPrune` `pruneContext.dictionaryKeyToFieldRenameMap` भी लिखता है, मूल field names से short aliases तक एक mapping। `intlayerMinify` इस map को output JSON में fields को rename करने के लिए पढ़ता है, और `intlayerOptimize` का Babel rename pass source files में property accesses को अपडेट करता है।
 
 ## सक्रियण शर्तें
 
@@ -118,4 +120,4 @@ const { title, description } = useIntlayer("myDict");
 2. `build.optimize` `true` है (या `undefined`, जो builds के लिए डिफ़ॉल्ट रूप से `true` है)।
 3. `build.purge` आपके Intlayer config में `true` है।
 
-जब `editor.enabled` `true` होता है तब भी यह सक्रिय रहता है: विज़ुअल एडिटर बिना-मर्ज किए डिक्शनरी के विरुद्ध `dictionaryKey` + `keyPath` के माध्यम से हर संपादन को हल करता है, जिन्हें यह प्लगइन कभी नहीं छूता, और हटाया गया फ़ील्ड वह होता है जिसे कोई भी कंपोनेंट नहीं पढ़ता — इसलिए वह न कभी रेंडर होता है और न ही पेज पर चुना जा सकता है।
+जब `editor.enabled` `true` होता है तब भी यह सक्रिय रहता है: विज़ुअल एडिटर बिना-मर्ज किए डिक्शनरी के विरुद्ध `dictionaryKey` + `keyPath` के माध्यम से हर संपादन को हल करता है, जिन्हें यह प्लगइन कभी नहीं छूता, और हटाया गया फ़ील्ड वह होता है जिसे कोई भी कंपोनेंट नहीं पढ़ता, इसलिए वह न कभी रेंडर होता है और न ही पेज पर चुना जा सकता है।

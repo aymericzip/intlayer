@@ -376,6 +376,8 @@ ICU `other` 케이스는 모든 불일치 케이스에 대한 Intlayer의 정규
 
 > 참고로, 케이스가 성별 값(`male` / `female` / `other`)인 ICU `select`는 대신 [`gender`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/gender.md) 노드로 가져옵니다.
 
+- [`gender`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/gender.md)
+
 ## 추가 리소스
 
 구성 및 사용에 대한 더 자세한 정보는 다음 리소스를 참조하세요:

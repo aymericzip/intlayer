@@ -150,6 +150,8 @@ export default config;
 
 > এই কনফিগারেশন ফাইলের মাধ্যমে, আপনি স্থানীয়কৃত URL, মিডলওয়্যার রিডাইরেকশন, কুকির নাম, আপনার কন্টেন্ট ডিক্লারেশনের অবস্থান এবং এক্সটেনশন সেট করতে পারেন, কনসোলে Intlayer লগ নিষ্ক্রিয় করতে পারেন এবং আরও অনেক কিছু। উপলব্ধ প্যারামিটারগুলোর সম্পূর্ণ তালিকার জন্য [কনফিগারেশন ডকুমেন্টেশন](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/configuration.md) দেখুন।
 
+- [কনফিগারেশন ডকুমেন্টেশন](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/configuration.md)
+
 ### ধাপ ৩: আপনার Vite কনফিগারেশনে Intlayer একীভূত করুন
 
 আপনার কনফিগারেশনে intlayer প্লাগইন যোগ করুন।
@@ -319,6 +321,8 @@ module.exports = appContent;
 > আপনার কন্টেন্ট ডিক্লারেশনগুলো আপনার অ্যাপ্লিকেশনের যেকোনো জায়গায় সংজ্ঞায়িত করা যেতে পারে যতক্ষণ সেগুলো `contentDir` ডিরেক্টরিতে (ডিফল্টভাবে, `./src`) অন্তর্ভুক্ত থাকে এবং কন্টেন্ট ডিক্লারেশন ফাইল এক্সটেনশনের (ডিফল্টভাবে, `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`) সাথে মেলে।
 >
 > আরও বিস্তারিত জানার জন্য [কন্টেন্ট ডিক্লারেশন ডকুমেন্টেশন](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/dictionary/content_file.md) দেখুন।
+
+- [কন্টেন্ট ডিক্লারেশন ডকুমেন্টেশন](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/dictionary/content_file.md)
 
 ### ধাপ ৬: আপনার LitElement-এ Intlayer ব্যবহার করুন
 
@@ -536,6 +540,9 @@ export class MyElement extends LitElement {
 
 এই প্রক্রিয়া সহজ করার জন্য, Intlayer আপনার কম্পোনেন্ট পরিবর্তন এবং কন্টেন্ট এক্সট্র্যাক্ট করার জন্য একটি [কম্পাইলার](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/compiler.md) / [এক্সট্র্যাক্টর](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/cli/extract.md) প্রস্তাব করে।
 
+- [কম্পাইলার](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/compiler.md)
+- [এক্সট্র্যাক্টর](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/cli/extract.md)
+
 এটি সেট আপ করার জন্য, আপনি আপনার `intlayer.config.ts` ফাইলে একটি `compiler` বিভাগ যোগ করতে পারেন:
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
@@ -748,7 +755,7 @@ Intlayer দ্বারা উৎপন্ন ফাইলগুলো উপ�
 
 Intlayer এর মাধ্যমে আপনার ডেভেলপমেন্ট অভিজ্ঞতা উন্নত করার জন্য, আপনি অফিসিয়াল **Intlayer VS Code এক্সটেনশন** ইনস্টল করতে পারেন।
 
-[VS Code মার্কেটপ্লেস থেকে ইনস্টল করুন](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [VS Code মার্কেটপ্লেস থেকে ইনস্টল করুন](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 এই এক্সটেনশনটি প্রদান করে:
 
@@ -759,6 +766,11 @@ Intlayer এর মাধ্যমে আপনার ডেভেলপমে�
 
 এক্সটেনশন ব্যবহারের আরও বিস্তারিত জানার জন্য [Intlayer VS Code এক্সটেনশন ডকুমেন্টেশন](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md) দেখুন।
 
+- [Intlayer VS Code এক্সটেনশন ডকুমেন্টেশন](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md)
+
 ### আরও এগিয়ে যান
 
 আরও এগিয়ে যাওয়ার জন্য, আপনি [ভিজ্যুয়াল এডিটর](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_visual_editor.md) প্রয়োগ করতে পারেন অথবা [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_CMS.md) ব্যবহার করে আপনার কন্টেন্ট বাহ্যিক করতে পারেন।
+
+- [ভিজ্যুয়াল এডিটর](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_CMS.md)

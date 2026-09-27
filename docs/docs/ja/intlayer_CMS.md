@@ -66,6 +66,8 @@ Intlayerは「ローカル辞書」と「遠隔辞書」を区別しています
 
 [Intlayer Visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md) エディターは、ローカル辞書のコンテンツをビジュアルエディターで管理できるツールです。変更が行われると、コンテンツはコードベースに置き換えられます。つまり、アプリケーションが再ビルドされ、ページがリロードされて新しいコンテンツが表示されることを意味します。
 
+- [Intlayer Visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)
+
 これに対して、Intlayer CMSは、遠隔辞書のコンテンツをビジュアルエディターで管理できるツールです。変更が行われても、コンテンツはコードベースに影響を与えません。そして、ウェブサイトは自動的に変更されたコンテンツを表示します。
 
 ## 統合
@@ -76,13 +78,19 @@ Intlayerは「ローカル辞書」と「遠隔辞書」を区別しています
 
 Next.jsとの統合については、[セットアップガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_15.md)を参照してください。
 
+- [Next.js 15 i18n - あなたのアプリを翻訳する完全ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_15.md)
+
 ### Create React Appとの統合
 
 Create React Appとの統合については、[セットアップガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_create_react_app.md)を参照してください。
 
+- [Create React App の i18n：翻訳の完全ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_create_react_app.md)
+
 ### Vite + Reactとの統合
 
 Vite + Reactとの統合については、[セットアップガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_vite+react.md)を参照してください。
+
+- [Vite + React i18n - あなたのアプリを翻訳する完全ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_vite+react.md)
 
 ## 設定
 
@@ -162,6 +170,8 @@ export default config;
 > クライアントIDとクライアントシークレットをお持ちでない場合は、[Intlayerダッシュボード - プロジェクト](https://app.intlayer.org/projects)で新しいクライアントを作成して取得できます。
 
 > 利用可能なすべてのパラメータについては、[設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を参照してください。
+
+- [設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)
 
 ## CMSの使用方法
 
@@ -277,8 +287,8 @@ bun add @intlayer/api
 
 SDK は、バンドルサイズを小さくするために、意図的に**2つの別々のインポート**に分割されています。
 
-1.  `createIntlayerCMS` — 軽量な**オーセンティケーター**を作成します。これは認証情報と管理されたアクセストークンのみを保持し、特定のドメインについては何も知りません。
-2.  `dictionaryEndpoint`、`projectEndpoint`、… — ドメインごとの**エンドポイントバインダー**で、それぞれ独自のサブパス（`@intlayer/api/dictionary`、`@intlayer/api/project`、…）からインポートされます。必要なエンドポイントにオーセンティケーターを渡します。
+1.  `createIntlayerCMS`：軽量な**オーセンティケーター**を作成します。これは認証情報と管理されたアクセストークンのみを保持し、特定のドメインについては何も知りません。
+2.  `dictionaryEndpoint`、`projectEndpoint`、…、ドメインごとの**エンドポイントバインダー**で、それぞれ独自のサブパス（`@intlayer/api/dictionary`、`@intlayer/api/project`、…）からインポートされます。必要なエンドポイントにオーセンティケーターを渡します。
 
 各エンドポイントは個別にインポートされるため、バンドルには実際に使用するドメインのみが含まれます。`dictionaryEndpoint` をインポートしても、プロジェクト、AI、その他のドメインクライアントがプルインされることはありません。
 
@@ -394,7 +404,7 @@ import { dictionaryEndpoint } from "@intlayer/api/dictionary";
 
 const dictionary = dictionaryEndpoint(createIntlayerCMS());
 
-// すでに認証済み — 呼び出しごとに自動的にトークンを更新します
+// すでに認証済み, 呼び出しごとに自動的にトークンを更新します
 export const pushDictionaries = dictionary.pushDictionaries;
 
 // 使用方法
@@ -407,6 +417,8 @@ await pushDictionaries([{ key: "home", content: { title: "Home" } }]);
 
 設定方法、Live Sync サーバーの起動、ローカル開発ワークフロー、制約事項などの完全なガイドは、[Live Sync ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/live-sync.md)を参照してください。
 
+- [Live Sync ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/live-sync.md)
+
 ## セルフホスティング
 
 Intlayer は、独自のインフラストラクチャ上で完全に実行できます。Docker Compose を使用して、フルスタック（ダッシュボード、API、データベース、オブジェクトストレージ、メール）を1行でブートストラップできます。
@@ -416,6 +428,8 @@ curl -fsSL https://intlayer.org/install.sh | sh
 ```
 
 完全なセットアップガイド、環境変数リファレンス、アップグレード手順、バックアップ/復元手順については、[セルフホスティングガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/self_hosting.md)を参照してください。
+
+- [セルフホスティングガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/self_hosting.md)
 
 ## デバッグ
 
@@ -440,27 +454,45 @@ CMSで問題が発生した場合は、以下を確認してください：
 
 [ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md) はローカル辞書を編集し、その変更をコードベースに書き戻します。これにより、アプリが再ビルドされ、通常のレビューとデプロイのプロセスを経て変更が適用されます。CMS はリモート辞書を編集します。変更はコードベースに触れず、実行中のサイトはデプロイなしで変更を反映します。チームはしばしば両方を使用します。開発者が所有するコンテンツにはエディターを、マーケティングが毎週変更するコンテンツには CMS を使用します。
 
+- [ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)
+
 </Question>
 <Question title="i18n は bundle サイズにどれくらい影響しますか？">
 
 名前空間ベースのセットアップよりもはるかに少ないです。なぜなら、ページはレンダリングしないカタログをダウンロードすることがないからです。サーバーレンダリングされたマークアップはサーバー上でコンテンツを解決し、ビルド時コンパイラは `useIntlayer` の呼び出しをコンポーネントが使用する正確な辞書エントリに置き換えるため、未使用のキーや未使用の言語は削除されます。[動的辞書](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/index.md) は残りをロケールごとに分割します。一般的な代替手段と比較して、Intlayer は bundle およびページサイズを最大 50% 削減します。[bundle 最適化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md) および [ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/index.md) を参照してください。
+
+- [動的辞書](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/index.md)
+- [bundle 最適化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)
+- [ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/index.md)
 
 </Question>
 <Question title="コンポーネントを書き直すことなく、`i18next`、`next-intl`、`react-i18next` から移行できますか？">
 
 はい、2つの方法があります。[i18next 移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_i18next_to_intlayer.md) または [next-intl 移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_next-intl_to_intlayer.md) を使用して、コンテンツを段階的に移行できます。または、現在の API を完全に維持することもできます。[互換アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/index.md) は、`i18next`、`react-i18next`、`next-intl`、`next-i18next`、`react-intl`、`use-intl`、`vue-i18n`、および `Lingui` とまったく同じ API を公開しますが、Intlayer 辞書によって提供されるため、import は変更されますが、コンポーネントコードは変更されません。
 
+- [i18next 移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_i18next_to_intlayer.md)
+- [next-intl 移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_next-intl_to_intlayer.md)
+- [互換アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/index.md)
+
 </Question>
 <Question title="既存の JSON 翻訳ファイルを維持できますか？">
 
 はい。[sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md) は、`/messages/{locale}/{namespace}.json` ファイルを信頼できる情報源として保持し、それらから Intlayer 辞書を双方向に生成します。[sync PO plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-po.md) は gettext カタログに対しても同様の機能を提供し、[ロケールごとのファイル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/per_locale_file.md) を使用すると、1つのファイルにロケールをグループ化する代わりに、言語ごとにコンテンツを分割できます。
+
+- [sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md)
+- [sync PO plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-po.md)
+- [ロケールごとのファイル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/per_locale_file.md)
 
 </Question>
 <Question title="コンテンツをキーごとに移動する必要がありますか？">
 
 いいえ。`npx intlayer extract` を実行すると、Intlayer はソースファイルを読み込み、ユーザー向けの文字列を抽出し、それぞれのファイルの隣に `.content` ファイルを書き込みます。これにより、文字列をカタログに1つずつコピーする代わりに、差分を確認できます。[extract コマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md) を参照してください。
 
+- [extract コマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md)
+
 完全に自動化されたパイプラインの場合、[Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md) は、JSX、TSX、Vue、および Svelte のソースに対してビルド時に同じ処理を行い、変更があるたびに辞書を生成するため、手動でキーを管理する必要がありません。これは静的解析によって機能するため、実行時にのみ存在する文字列は対象外となり、ユーザー向けのテキストとアプリケーションロジックを区別するためにいくつかの注釈が必要です。
+
+- [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)
 
 </Question>
 <Question title="利用可能なエディターおよび AI エージェントツールは何ですか？">
@@ -488,10 +520,14 @@ CMSで問題が発生した場合は、以下を確認してください：
 
 はい。CMS は独自のインフラストラクチャで実行できます。これは、コンテンツがネットワーク外に出るべきではない場合の一般的な解決策です。[Intlayer のセルフホスティング](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/self_hosting.md) を参照してください。
 
+- [Intlayer のセルフホスティング](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/self_hosting.md)
+
 </Question>
 <Question title="コンテンツ編集者は変更を公開するために開発者を必要としますか？">
 
 いいえ。それがリモート辞書の利点です。編集者が CMS でテキストを変更すると、サイトにそれが反映され、[ライブ同期](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/live.md) によってビルドを待つことなく実行時に更新が適用されます。
+
+- [ライブ同期](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/live.md)
 
 </Question>
 <Question title="インターフェースを使用する代わりに CMS を自動化できますか？">
@@ -503,10 +539,15 @@ CMSで問題が発生した場合は、以下を確認してください：
 
 はい。リモート辞書は [コンテンツバリアント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/variants.md) をサポートしており、[アナリティクス](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/analytics.md) は各バリアントがどのように公開されているかを報告するため、文言の変更について議論するのではなく、測定することができます。
 
+- [コンテンツバリアント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/variants.md)
+- [アナリティクス](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/analytics.md)
+
 </Question>
 <Question title="CMS は無料ですか？">
 
 Intlayer ライブラリ、CLI、コンパイラ、およびビジュアルエディターは、Apache 2.0 license の下で無料かつオープンソースです。ホスト型 CMS はオプションの有料サービスであり、代わりに [セルフホスト](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/self_hosting.md) することも可能です。
+
+- [セルフホスト](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/self_hosting.md)
 
 </Question>
 

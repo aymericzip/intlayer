@@ -30,7 +30,7 @@ author: aymericzip
 
 # Integracja Vue: Dokumentacja `usePathname`
 
-Funkcja `usePathname` zwraca obecny pathname przeglądarki z usuniętym segmentem locale, w postaci `ComputedRef<string>` z Vue. Jest to przydatne do budowy nawigacji uwzględniającej locale — na przykład, aby określić, który element nawigacji jest aktywny — bez konieczności ręcznego usuwania prefiksu locale.
+Funkcja `usePathname` zwraca obecny pathname przeglądarki z usuniętym segmentem locale, w postaci `ComputedRef<string>` z Vue. Jest to przydatne do budowy nawigacji uwzględniającej locale (na przykład, aby określić, który element nawigacji jest aktywny) bez konieczności ręcznego usuwania prefiksu locale.
 
 ## Importowanie `usePathname` w Vue
 

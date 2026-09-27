@@ -120,6 +120,11 @@ Deteksi bergantung pada apa yang diekspos oleh halaman di peramban: variabel glo
 
 Sebagian besar pemeriksaan berkaitan dengan pengaturan perutean atau metadata. Dengan Intlayer, hreflang, tautan kanonikal, `x-default`, tautan yang dilokalisasi, peta situs, dan robots.txt dihasilkan dari [konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md) Anda. Lihat panduan integrasi untuk framework Anda, misalnya [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_16.md), [Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nuxt.md), atau [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_tanstack.md).
 
+- [konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md)
+- [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_16.md)
+- [Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nuxt.md)
+- [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_tanstack.md)
+
 </Question>
 
 </FAQ>

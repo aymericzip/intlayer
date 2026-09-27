@@ -31,7 +31,7 @@ author: aymericzip
 
 # Integrazione Angular: Documentazione dell'Hook `usePathname`
 
-L'hook `usePathname` restituisce il percorso del browser corrente con il segmento della locale rimosso, sotto forma di `Signal<string>` Angular. È utile per creare una navigazione consapevole della locale — ad esempio, per determinare quale voce di navigazione è attiva — senza dover rimuovere manualmente il prefisso della locale.
+L'hook `usePathname` restituisce il percorso del browser corrente con il segmento della locale rimosso, sotto forma di `Signal<string>` Angular. È utile per creare una navigazione consapevole della locale (ad esempio, per determinare quale voce di navigazione è attiva) senza dover rimuovere manualmente il prefisso della locale.
 
 ## Importare `usePathname` in Angular
 

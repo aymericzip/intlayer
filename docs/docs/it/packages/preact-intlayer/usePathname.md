@@ -30,7 +30,7 @@ author: aymericzip
 
 # Integrazione Preact: Documentazione dell'Hook `usePathname`
 
-L'hook `usePathname` restituisce il percorso corrente (pathname) del browser con il segmento della locale rimosso. È utile per creare navigazioni basate sulla locale — ad esempio, per determinare quale elemento del menu è attivo — senza dover rimuovere manualmente il prefisso della locale.
+L'hook `usePathname` restituisce il percorso corrente (pathname) del browser con il segmento della locale rimosso. È utile per creare navigazioni basate sulla locale (ad esempio, per determinare quale elemento del menu è attivo) senza dover rimuovere manualmente il prefisso della locale.
 
 ## Importare `usePathname` in Preact
 

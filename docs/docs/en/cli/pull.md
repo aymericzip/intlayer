@@ -39,6 +39,8 @@ bun x intlayer pull
 
 If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) is installed, you can also pull dictionaries from the editor. By this way, you can overwrite the content of your dictionaries for the need of your application.
 
+- [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)
+
 ## Aliases:
 
 - `npx intlayer dictionaries pull`

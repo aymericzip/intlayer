@@ -34,6 +34,8 @@ author: aymericzip
 
 على عكس [`enu`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/enumeration.md)، الذي يختار المحتوى بناءً على نطاقات رقمية تحددها بنفسك، تفوض وظيفة `plural` الاختيار لقواعد CLDR. وهذا ما يجعلها قابلة للتوسع للغات ذات قواعد الجمع المعقدة, مثل الروسية أو البولندية أو العربية أو الويلزية, دون الحاجة إلى كتابة منطق الحساب يدويًا.
 
+- [`enu`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/enumeration.md)
+
 ## متى تستخدم `plural` مقابل `enu`
 
 | حالة الاستخدام                                                        | الأداة المساعدة |

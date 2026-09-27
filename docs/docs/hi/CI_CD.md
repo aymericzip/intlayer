@@ -64,6 +64,8 @@ export default config;
 
 CMS के बारे में अधिक जानने के लिए, [आधिकारिक दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md) देखें।
 
+- [Intlayer CMS: अपना बहुभाषी कंटेंट बाहर रखें](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md)
+
 ## Husky का उपयोग करना
 
 आप अपने स्थानीय Git वर्कफ़्लो में अनुवाद निर्माण को [Husky](https://typicode.github.io/husky/) का उपयोग करके एकीकृत कर सकते हैं।
@@ -100,6 +102,8 @@ npx intlayer fill --unpushed --mode fill    # केवल गायब सा�
 ```
 
 > Intlayer CLI कमांड और उनके उपयोग के बारे में अधिक जानकारी के लिए, [CLI दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/index.md) देखें।
+
+- [CLI दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/index.md)
 
 > यदि आपके रिपॉजिटरी में कई ऐप्स अलग-अलग intlayer इंस्टेंस का उपयोग कर रहे हैं, तो आप `--base-dir` तर्क इस प्रकार उपयोग कर सकते हैं:
 
@@ -200,3 +204,5 @@ jobs:
 > डिफ़ॉल्ट रूप से, `--git-diff` तर्क उन शब्दकोशों को फ़िल्टर करता है जिनमें बेस (डिफ़ॉल्ट `origin/main`) से वर्तमान शाखा (डिफ़ॉल्ट: `HEAD`) तक के परिवर्तन शामिल होते हैं।
 
 > Intlayer CLI कमांड और उनके उपयोग के बारे में अधिक जानकारी के लिए, [CLI दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/index.md) देखें।
+
+- [CLI दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/index.md)

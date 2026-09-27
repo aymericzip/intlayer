@@ -34,6 +34,8 @@ author: aymericzip
 
 enumeration की घोषणा कैसे करें, इस पर अधिक विवरण के लिए, [Enumeration दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/enumeration.md) देखें।
 
+- [Enumeration दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/enumeration.md)
+
 ## पैरामीटर
 
 - `enumerationContent: QuantityContent<Content>`

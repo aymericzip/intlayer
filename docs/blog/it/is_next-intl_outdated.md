@@ -90,6 +90,8 @@ style="border:none;"
 
 > Eseguito in browser reali con compressione gzip da produzione. Dettagli consultabili nel [report benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/benchmark/nextjs.md).
 
+- [report benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/benchmark/nextjs.md)
+
 ### Peso base delle librerie
 
 Impatto sul client prima dell'aggiunta dei contenuti:
@@ -138,6 +140,8 @@ Il grafico seguente stima il peso del contenuto per un'app teorica da 1 a 10 pag
 
 Intlayer supera questo limite tramite analisi statica: il [compilatore Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compiler.md) pacchettizza solo le voci realmente necessarie per ciascuna route, portando la dispersione tra pagine a **0.0%**.
 
+- [compilatore Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compiler.md)
+
 ## Perché next-intl impedisce il tree-shaking
 
 L'API si fonda su chiavi testuali risolte a runtime:
@@ -176,6 +180,8 @@ export function UserProfile() {
 </Tabs>
 
 Turbopack e Webpack non possono rilevare con sicurezza quali chiavi di `UserProfile` vengano invocate. Per evitare errori, **il bundler include l'intero namespace nel chunk del client**. Con le proprietà destrutturate di Intlayer, il compilatore traccia con esattezza gli accessi ed esclude le voci non pertinenti. Maggiori informazioni nell'[ottimizzazione del bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/bundle_optimization.md).
+
+- [ottimizzazione del bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/bundle_optimization.md)
 
 ## Esperienza di sviluppo
 
@@ -276,6 +282,8 @@ Tuttavia la verifica si limita alla lingua primaria. Se viene rimossa una chiave
 
 Intlayer ricava i tipi da ogni file di contenuto. L'attivazione di [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/configuration.md) blocca la compilazione qualora manchi una traduzione in qualunque lingua configurata.
 
+- [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/configuration.md)
+
 ### Strumenti per sviluppatori e IA
 
 | Caratteristica                 | `next-intl` | Intlayer                                                                                                             |
@@ -301,6 +309,8 @@ Rileva e traduce le chiavi mancanti sfruttando le tue credenziali API (OpenAI, A
 **CMS visuale auto-ospitato:**
 
 Usa il [CMS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_CMS.md) per consentire modifiche editoriali con salvataggio diretto su Git.
+
+- [CMS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_CMS.md)
 
 **Licenza open source permissiva:**
 

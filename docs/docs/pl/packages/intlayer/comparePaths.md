@@ -32,9 +32,11 @@ author: aymericzip
 
 ## Opis
 
-Funkcja `comparePaths` porównuje dwa adresy URL lub ścieżki pod kątem równości, ignorując segment regionalny (locale), protokół/host, ciąg zapytań (query string), hash oraz końcowe ukośniki (trailing slashes). Jest to zalecany sposób na sprawdzenie, czy link nawigacyjny wskazuje na bieżącą stronę — na przykład w celu podświetlenia aktywnego linku — bez konieczności tworzenia własnej (podatnej na błędy) logiki normalizacji.
+Funkcja `comparePaths` porównuje dwa adresy URL lub ścieżki pod kątem równości, ignorując segment regionalny (locale), protokół/host, ciąg zapytań (query string), hash oraz końcowe ukośniki (trailing slashes). Jest to zalecany sposób na sprawdzenie, czy link nawigacyjny wskazuje na bieżącą stronę, na przykład w celu podświetlenia aktywnego linku, bez konieczności tworzenia własnej (podatnej na błędy) logiki normalizacji.
 
 Wewnętrznie używa [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/intlayer/getPathWithoutLocale.md) do usunięcia segmentu locale, dzięki czemu respektuje skonfigurowany tryb routingu oraz języki.
+
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/intlayer/getPathWithoutLocale.md)
 
 Pakiet eksportuje również pomocniczą funkcję [`normalizePath`](#normalizepath), która zwraca kanoniczną, niezależną od locale ścieżkę używaną do porównania.
 
@@ -44,7 +46,7 @@ Pakiet eksportuje również pomocniczą funkcję [`normalizePath`](#normalizepat
 - Działa zarówno z bezwzględnymi adresami URL, jak i względnymi ścieżkami
 - Ignoruje ciągi zapytań, hashe i końcowe ukośniki
 - Toleruje brakujące ukośniki początkowe i puste wartości (normalizuje do `/`)
-- Lekka — zbudowana w oparciu o `getPathWithoutLocale`
+- Lekka, zbudowana w oparciu o `getPathWithoutLocale`
 
 ## Sygnatura funkcji
 

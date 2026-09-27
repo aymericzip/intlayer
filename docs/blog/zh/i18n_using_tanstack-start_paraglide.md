@@ -51,6 +51,8 @@ Paraglide 是 TanStack Router 官方示例中采用的国际化方案，它通�
 
 > 对比基于编译器的两种方案？请阅读 [Intlayer 是否比 Paraglide 更轻量？](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/is_intlayer_lighter_than_paraglide.md)。
 
+- [Intlayer 是否比 Paraglide 更轻量？](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/is_intlayer_lighter_than_paraglide.md)
+
 > 想了解这些库的由来，请阅读 JavaScript i18n 的发展史。
 
 - [JavaScript i18n 的发展史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/history_of_i18n.md)
@@ -58,6 +60,8 @@ Paraglide 是 TanStack Router 官方示例中采用的国际化方案，它通�
 ## 关于 TanStack Start 上的 Paraglide 基准测试数据
 
 [i18n 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md)使用各大主流库运行了相同的 10 页面、10 种语言的 TanStack Start 应用，并测量了浏览器实际下载的数据量。
+
+- [i18n 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md)
 
 <I18nBenchmark framework="tanstack" packages="paraglide,intlayer" vertical/>
 
@@ -78,6 +82,8 @@ Paraglide 是 TanStack Router 官方示例中采用的国际化方案，它通�
 - **页面加载耗时在该组中较慢**，部分原因是每次调用都会通过策略解析语言环境，而不是直接从 React 上下文中读取。
 
 > 查看完整数据：[TanStack Start 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md) 以及 [基准测试仓库](https://github.com/intlayer-org/benchmark-i18n)。
+
+- [TanStack Start 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md)
 
 ## TanStack Start 上的功能特性对比
 
@@ -102,6 +108,8 @@ Paraglide 是 TanStack Router 官方示例中采用的国际化方案，它通�
 | **CI 中的缺失翻译检测**               | ✅ `npx intlayer test`               | ⚠️ 非内置             | ⚠️ 非内置                   | ✅ `lingui compile --strict` |
 
 > 运行时体积和资源泄露数据来自 [TanStack Start 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md)。资源泄露是在每个库的最佳配置下测得的。
+
+- [TanStack Start 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md)
 
 > 其他 TanStack Start 指南：
 
@@ -837,7 +845,12 @@ export const sendWelcomeEmail = createServerFn({ method: "POST" })
 
 如果你是从其他库而非 Paraglide 迁移，[兼容适配器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/index.md)可以保留 `use-intl`、`next-intl`、`react-i18next`、`react-intl` 或 Lingui 的 API 并替换底层运行时。
 
+- [兼容适配器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/index.md)
+
 请参阅 [Intlayer 是否比 Paraglide 更轻量？](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/is_intlayer_lighter_than_paraglide.md) 以及 [Intlayer TanStack Start 配置指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_tanstack.md)。
+
+- [Intlayer 是否比 Paraglide 更轻量？](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/is_intlayer_lighter_than_paraglide.md)
+- [Intlayer TanStack Start 配置指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_tanstack.md)
 
 </Step>
 <Step number={17} title="使用 Intlayer 自动化你的翻译流程" isOptional={true}>
@@ -859,6 +872,8 @@ Paraglide 负责渲染翻译，但它无法帮助你**生成**翻译内容。Int
 <Question title="Paraglide JS 适合 TanStack Start 吗？">
 
 是一个可靠的选择：它被用于 TanStack Router 的官方示例中，拥有[基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md)中最小的运行时体积（gzip 压缩后约 1.8 KB），且消息具备完整的类型定义。其权衡点在于每个消息函数都包含所有语言，这会导致大约一半的翻译字符串泄露给使用其他语言的访客，并且切换语言时需要重新加载页面。
+
+- [基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md)
 
 </Question>
 <Question title="使用 Paraglide 时需要 $locale 路由路径段吗？">
@@ -889,6 +904,9 @@ Paraglide 负责渲染翻译，但它无法帮助你**生成**翻译内容。Int
 <Question title="我可以从 Paraglide 迁移到 Intlayer 吗？">
 
 可以。两者都是基于编译器的方案，因此心智模型非常接近。使用 [JSON 同步插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/plugins/sync-json.md) 保留现有的 JSON 文件，然后逐个页面将 `m.key()` 调用替换为 `useIntlayer` 即可。详情请参阅 [Intlayer TanStack Start 配置指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_tanstack.md)。
+
+- [JSON 同步插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/plugins/sync-json.md)
+- [Intlayer TanStack Start 配置指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_tanstack.md)
 
 </Question>
 

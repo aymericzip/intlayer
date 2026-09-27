@@ -118,6 +118,8 @@ export default exampleContent;
 
 إليك [ملف إعلان المحتوى لكل locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/per_locale_file.md) باستخدام تعليمات `fill`.
 
+- [ملف إعلان المحتوى لكل locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/per_locale_file.md)
+
 بعد ذلك، عند تشغيل الأمر التالي:
 
 ```bash packageManager="npm"

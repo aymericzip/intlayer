@@ -25,7 +25,7 @@ author: aymericzip
 
 # Переведите ваше htmx приложение с помощью Intlayer
 
-htmx не отображает никаких собственных элементов контента. Каждый текст, который видит пользователь, — это HTML, созданный вашим сервером, и каждый swap — это отдельный HTTP-запрос. Интернационализация htmx-приложения — это поэтому ответственность сервера: локаль должна разрешаться при каждом запросе, и каждый фрагмент должен быть отрендерен на этой локали.
+htmx не отображает никаких собственных элементов контента. Каждый текст, который видит пользователь,это HTML, созданный вашим сервером, и каждый swap это отдельный HTTP-запрос. Интернационализация htmx-приложения это поэтому ответственность сервера: локаль должна разрешаться при каждом запросе, и каждый фрагмент должен быть отрендерен на этой локали.
 
 Intlayer решает эту проблему через свои backend-интеграции, которые определяют локаль для каждого запроса и предоставляют ваше объявленное содержимое обработчику, который создает HTML.
 
@@ -38,7 +38,7 @@ Intlayer решает эту проблему через свои backend-инт
 <AccordionGroup>
 <Accordion header="Локаль должна разрешаться при каждом запросе, а не только при первом">
 
-Одна страница может вызвать десятки свопов. Каждый из них — это отдельный запрос без памяти о странице, которая его инициировала. Если locale находится в переменной, установленной во время начального рендеринга, каждый фрагмент после неё попадает на язык по умолчанию.
+Одна страница может вызвать десятки свопов. Каждый из них это отдельный запрос без памяти о странице, которая его инициировала. Если locale находится в переменной, установленной во время начального рендеринга, каждый фрагмент после неё попадает на язык по умолчанию.
 
 Middleware Intlayer разрешает locale из самого запроса, поэтому фрагмент, поданный на десятой минуте, отвечает на том же языке, что и страница, поданная в нулевую минуту.
 
@@ -175,6 +175,8 @@ export default config;
 
 > Для полного списка опций см. [документацию конфигурации](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md).
 
+- [документацию конфигурации](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md)
+
 </Step>
 <Step number={3} title="Объявите Ваш Контент">
 
@@ -220,6 +222,8 @@ export default appContent;
 ```
 
 > Объявления контента могут находиться в любом месте внутри `contentDir` (по умолчанию `./src`) и совпадать с `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`. См. [документацию по объявлению контента](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/content_file.md).
+
+- [документацию по объявлению контента](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/content_file.md)
 
 </Step>
 <Step number={4} title="Зарегистрировать middleware Intlayer">
@@ -275,7 +279,7 @@ const app = new Hono();
 app.use("*", intlayer());
 ```
 
-Разрешённая локаль — это `c.get("locale")`.
+Разрешённая локаль это `c.get("locale")`.
 
   </Tab>
   <Tab label="Elysia" value="elysia">
@@ -287,7 +291,7 @@ import { intlayer } from "elysia-intlayer";
 const app = new Elysia().use(intlayer());
 ```
 
-Разрешённая локаль — это `intlayer!.locale` на контексте маршрута.
+Разрешённая локаль это `intlayer!.locale` на контексте маршрута.
 
   </Tab>
 </Tabs>
@@ -433,7 +437,7 @@ ${renderBody(locale, itemCount)}
 </Step>
 <Step number={7} title="Переключение языка">
 
-Переключение языка — это обычный запрос. Сервер сохраняет выбор в cookie, который читает middleware, затем возвращает страницу, отрендеренную в новой локали.
+Переключение языка это обычный запрос. Сервер сохраняет выбор в cookie, который читает middleware, затем возвращает страницу, отрендеренную в новой локали.
 
 Отобразите переключатель в виде `select`, который отправляет сам себя и заменяет весь `<body>`, чтобы статические метки вокруг ваших фрагментов тоже изменились:
 
@@ -647,7 +651,7 @@ export default config;
 
 Чтобы улучшить опыт разработки с Intlayer, вы можете установить официальное расширение **Intlayer VS Code Extension**.
 
-[Установите из VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [Установите из VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 Это расширение предоставляет:
 
@@ -658,9 +662,13 @@ export default config;
 
 Для получения дополнительной информации об использовании расширения см. [документацию расширения Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/vs_code_extension.md).
 
+- [документацию расширения Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/vs_code_extension.md)
+
 ### Идите дальше
 
 Чтобы пойти дальше, вы можете экстернализировать свой контент с помощью [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md), чтобы переводчики могли изменять копию без развёртывания.
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md)
 
 ## Часто задаваемые вопросы
 
@@ -685,6 +693,9 @@ export default config;
 
 Обслуживайте ваши страницы с префиксом локали (`/fr/cart`) и читайте локаль из пути в вашем обработчике маршрута, а не из cookie, для полного рендеринга страницы. Фрагменты могут продолжать использовать cookie или заголовок. См. [конфигурация](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md) для опций маршрутизации и [пользовательские переписи URL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/custom_url_rewrites.md).
 
+- [конфигурация](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md)
+- [пользовательские переписи URL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/custom_url_rewrites.md)
+
 </Question>
 <Question title="Как обрабатывать языки справа налево?">
 
@@ -700,25 +711,44 @@ export default config;
 
 Да. Backend интеграции предоставляют `t()` и `getIntlayer()` любому обработчику, поэтому сообщение об ошибке, отображаемое в toast, и метка, отображаемая во фрагменте, берутся из одного объявленного контента. See the [Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_express.md), [Fastify](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_fastify.md), [Hono](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_hono.md) и [Elysia](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_elysia.md) гайды.
 
+- [Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_express.md)
+- [Fastify](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_fastify.md)
+- [Hono](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_hono.md)
+- [Elysia](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_elysia.md)
+
 </Question>
 <Question title="Нужно ли мне перемещать контент ключ за ключом?">
 
 Нет. Запустите `npx intlayer extract` и Intlayer прочитает исходные файлы, извлечет пользовательские строки и напишет файл `.content` рядом с каждым, чтобы вы просмотрели diff вместо копирования строк в каталог по одной. См. [команду extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/extract.md).
+
+- [команду extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/extract.md)
 
 </Question>
 <Question title="Могу ли я сохранить свои существующие файлы переводов JSON?">
 
 Да. [Плагин sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/plugins/sync-json.md) сохраняет ваши файлы `/messages/{locale}/{namespace}.json` как источник истины и генерирует словари Intlayer из них в обоих направлениях. [Плагин sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/plugins/sync-po.md) делает то же самое для каталогов gettext, а [файлы по локалям](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/per_locale_file.md) позволяют вам разделить контент по языкам вместо группировки локалей в один файл.
 
+- [Плагин sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/plugins/sync-json.md)
+- [Плагин sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/plugins/sync-po.md)
+- [файлы по локалям](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/per_locale_file.md)
+
 </Question>
 <Question title="Как автоматически перевести приложение с помощью ИИ?">
 
 Выполните `npx intlayer fill`, который заполняет отсутствующие переводы с использованием выбранной вами LLM с помощью вашего собственного провайдера и API ключа. Добавьте `--git-diff` для перевода только контента, измененного в ветке. Смотрите [команду fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/fill.md) и [интеграцию CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/CI_CD.md).
 
+- [команду fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/fill.md)
+- [интеграцию CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/CI_CD.md)
+
 </Question>
 <Question title="Поддерживает ли Intlayer gender, условия и интерполированные значения?">
 
 Да: [контент на основе пола](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/gender.md), условия, [перечисления](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/enumeration.md), [вставки](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/insertion.md) для интерполированных значений и [форматеры](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/formatters.md) для чисел, дат и валют.
+
+- [контент на основе пола](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/gender.md)
+- [перечисления](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/enumeration.md)
+- [вставки](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/insertion.md)
+- [форматеры](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/formatters.md)
 
 </Question>
 <Question title="Какой редактор и инструменты AI-агентов доступны?">
@@ -735,6 +765,9 @@ export default config;
 <Question title="Является ли Intlayer бесплатным и открытым исходным кодом?">
 
 Да, под лицензией Apache 2.0, коммерческое использование включено. Размещенная [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md) - это дополнительный платный сервис, который также может быть [самостоятельно размещен](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/self_hosting.md).
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md)
+- [самостоятельно размещен](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/self_hosting.md)
 
 </Question>
 

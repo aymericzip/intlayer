@@ -23,6 +23,8 @@ author: aymericzip
 
 > `editor` komutunu kullanabilmek için, `intlayer-editor` paketinin yüklü olması gerekir. (Bkz. [Intlayer Görsel Editör](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md))
 
+- [Intlayer Görsel Editör](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md)
+
 ```json fileName="package.json"
 "scripts": {
   "intlayer:editor:start": "npx intlayer editor start --with 'next dev --turbopack'"

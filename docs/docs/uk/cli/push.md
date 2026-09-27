@@ -39,6 +39,8 @@ bun x intlayer dictionary push
 
 Якщо [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md) встановлено, ви також можете передавати словники до редактора. Ця команда дозволяє зробити словники доступними в [редакторі](https://app.intlayer.org/). Таким чином ви можете ділитися своїми словниками з командою та редагувати вміст без редагування коду вашого додатка.
 
+- [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md)
+
 ## Псевдоніми:
 
 - `npx intlayer dictionaries push`
@@ -67,7 +69,7 @@ bun x intlayer dictionary push
 
   > Приклад: `npx intlayer build --no-cache`
 
-- **`--ci`**: Виконує команду в кожному проєкті Intlayer монорепозиторію (або лише в поточному при запуску з директорії проєкту). Облікові дані для кожного проєкту можна підставити через `INTLAYER_PROJECT_CREDENTIALS` — JSON-об'єкт, що зіставляє шлях проєкту з `{ "clientId", "clientSecret" }`.
+- **`--ci`**: Виконує команду в кожному проєкті Intlayer монорепозиторію (або лише в поточному при запуску з директорії проєкту). Облікові дані для кожного проєкту можна підставити через `INTLAYER_PROJECT_CREDENTIALS`, JSON-об'єкт, що зіставляє шлях проєкту з `{ "clientId", "clientSecret" }`.
 
   > Приклад: `npx intlayer push --ci`
 

@@ -76,6 +76,8 @@ author: aymericzip
 
 Інструкції щодо налаштування файлів декларації контенту доступні [тут](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/content_file.md).
 
+- [Файли оголошення контенту (.content.ts)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/content_file.md)
+
 ## Приклад використання в Next.js
 
 Ось як ви можете реалізувати хук `useIntlayer` на сторінці Next.js, щоб динамічно завантажувати локалізований контент залежно від поточної локалі застосунку:

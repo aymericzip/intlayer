@@ -19,7 +19,7 @@ slugs:
 history:
   - version: 9.2.1
     date: 2026-08-09
-    changes: "`purge` a `minify` nyní fungují v Next.js prostřednictvím `@intlayer/swc` — žádný `babel.config.js` není potřeba"
+    changes: "`purge` a `minify` nyní fungují v Next.js prostřednictvím `@intlayer/swc`, žádný `babel.config.js` není potřeba"
   - version: 8.12.0
     date: 2026-06-24
     changes: "Uvedení Babel pluginů v požadovaném pořadí pipeline (extract → purge → minify → optimize) v referenčních tabulkách"
@@ -68,11 +68,11 @@ Tím zajistí, že:
 
 ### Next.js
 
-Next.js vyžaduje plugin `@intlayer/swc`, protože Next.js používá pro sestavení SWC. Od verze **9.2.1** pokrývá tento jediný balíček celou pipeline — optimalizaci (přepis importů), purge i minifikaci.
+Next.js vyžaduje plugin `@intlayer/swc`, protože Next.js používá pro sestavení SWC. Od verze **9.2.1** pokrývá tento jediný balíček celou pipeline, optimalizaci (přepis importů), purge i minifikaci.
 
 > Tento plugin se neinstaluje ve výchozím nastavení, jelikož SWC pluginy jsou pro Next.js zatím experimentální. V budoucnu se to může změnit.
 
-> **Next.js 16.1.0 je minimální verze.** Je to první vydání postavené na dopředně kompatibilním ABI Wasm pluginů SWC; starší vydání plugin odmítají. `withIntlayer` přečte vaši verzi Next.js a pod 16.1.0 plugin jednoduše nezaregistruje — takové buildy stále projdou, jen běží bez optimalizace bundlu.
+> **Next.js 16.1.0 je minimální verze.** Je to první vydání postavené na dopředně kompatibilním ABI Wasm pluginů SWC; starší vydání plugin odmítají. `withIntlayer` přečte vaši verzi Next.js a pod 16.1.0 plugin jednoduše nezaregistruje, takové buildy stále projdou, jen běží bez optimalizace bundlu.
 
 <Tabs>
  <Tab value="npm">
@@ -136,7 +136,7 @@ Během `next build` `withIntlayer` analyzuje vaše zdroje, přepíše zkompilova
 
 > Použijte asynchronní `withIntlayer`, ne `withIntlayerSync`. Synchronní varianta analytickou pipeline nespouští, takže purge a minifikace s ní nemají žádný efekt.
 
-> Purge a minifikace běží pouze při `next build` — optimalizační pipeline je během `next dev` vypnutá.
+> Purge a minifikace běží pouze při `next build`, optimalizační pipeline je během `next dev` vypnutá.
 
 **Starší verze (před 9.2.1)** vyžadovaly `@intlayer/babel` a soubor `babel.config.js` deklarující `intlayerPurgeBabelPlugin` a `intlayerMinifyBabelPlugin`. Tento soubor již není potřeba a lze jej smazat.
 
@@ -145,7 +145,7 @@ Během `next build` `withIntlayer` analyzuje vaše zdroje, přepíše zkompilova
 
 ### Vite
 
-Vite využívá plugin `@intlayer/babel`, který je zahrnut v závislostech u `vite-intlayer`. Kompletní pipeline optimalizace — přepis importů, purge a minify — je ve výchozím stavu aktivní a nevyžaduje žádnou další registraci pluginů.
+Vite využívá plugin `@intlayer/babel`, který je zahrnut v závislostech u `vite-intlayer`. Kompletní pipeline optimalizace (přepis importů, purge a minify) je ve výchozím stavu aktivní a nevyžaduje žádnou další registraci pluginů.
 
 Purge a minify zapnete nastavením odpovídajících příznaků v souboru `intlayer.config.ts`:
 
@@ -263,7 +263,7 @@ Uživatelé Vite **tyto pluginy nikdy nenastavují přímo**. Propojí se automa
 
 ### SWC plugin (`@intlayer/swc`)
 
-Ani uživatelé Next.js **tyto nikdy nekonfigurují přímo**. Od verze **9.2.1** spouští `withIntlayer()` v `next.config.ts` celou pipeline — purge, minifikaci i přepis importů — pouze na základě příznaků `build.purge` a `build.minify`.
+Ani uživatelé Next.js **tyto nikdy nekonfigurují přímo**. Od verze **9.2.1** spouští `withIntlayer()` v `next.config.ts` celou pipeline (purge, minifikaci i přepis importů) pouze na základě příznaků `build.purge` a `build.minify`.
 
 Práce je rozdělena na dvě části, protože SWC Wasm plugin transformuje vždy jen jeden soubor a nemá přístup k souborovému systému:
 
@@ -312,6 +312,8 @@ export default config;
 
 > Přehled všech možností naleznete v referenční příručce: [Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/configuration.md)
 
+- [Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/configuration.md)
+
 ### Volby pro sestavení (Build Options)
 
 | Vlastnost      | Typ                   | Výchozí     | Popis                                                                                                                                                                                                                 |
@@ -322,7 +324,7 @@ export default config;
 
 ### Minifikace (přejmenování klíčů)
 
-Volba `build.minify` **neminifikuje** váš JavaScriptový bundle — to má na starosti váš bundler. Namísto toho zmenšuje velikost kompilovaných JSON slovníků tak, že nahradí všechny uživatelem definované klíče obsahových polí za krátké abecední aliasy:
+Volba `build.minify` **neminifikuje** váš JavaScriptový bundle, to má na starosti váš bundler. Namísto toho zmenšuje velikost kompilovaných JSON slovníků tak, že nahradí všechny uživatelem definované klíče obsahových polí za krátké abecední aliasy:
 
 ```
 // Před minifikací
@@ -346,11 +348,11 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> K minifikaci nedojde, pokud je `optimize` nastaveno na `false`. Pokud je `editor.enabled` `true`, proces stále běží, ale bez kroku přejmenování polí — vizuální editor řeší úpravy pomocí `keyPath`, takže původní názvy polí musí zůstat zachovány.
+> K minifikaci nedojde, pokud je `optimize` nastaveno na `false`. Pokud je `editor.enabled` `true`, proces stále běží, ale bez kroku přejmenování polí, vizuální editor řeší úpravy pomocí `keyPath`, takže původní názvy polí musí zůstat zachovány.
 
 > V Next.js se minifikace přeskočí také tehdy, když `@intlayer/swc` není nainstalovaný nebo jej nelze načíst (Next.js nižší než 16.1.0). Plugin je ta polovina, která přepisuje přístupy ve zdrojovém kódu, takže přejmenování slovníků bez něj by ponechalo váš kód číst názvy polí, které již neexistují.
 
-> Stejně tak se minifikace ignoruje u slovníků načítaných přes `importMode: 'fetch'`, protože takové JSON soubory pocházejí z externího API pod svými původními názvy polí — přejmenování klíčů na straně klienta by rozbilo vazbu server-klient.
+> Stejně tak se minifikace ignoruje u slovníků načítaných přes `importMode: 'fetch'`, protože takové JSON soubory pocházejí z externího API pod svými původními názvy polí, přejmenování klíčů na straně klienta by rozbilo vazbu server-klient.
 
 ### Purge (odstranění nepoužitých polí)
 
@@ -378,7 +380,7 @@ export default config;
 { "title": "…", "subtitle": "…" }
 ```
 
-> K purge nedojde, pokud je `optimize` nastaveno na `false`. Zůstává aktivní, pokud je `editor.enabled` `true` — vyčištěné pole nečte žádná komponenta, takže editor jej nikdy nevykreslí. V Next.js se navíc přeskočí, když `@intlayer/swc` není dostupný a když jsou nakonfigurovaní volající kompatibilních adaptérů.
+> K purge nedojde, pokud je `optimize` nastaveno na `false`. Zůstává aktivní, pokud je `editor.enabled` `true`, vyčištěné pole nečte žádná komponenta, takže editor jej nikdy nevykreslí. V Next.js se navíc přeskočí, když `@intlayer/swc` není dostupný a když jsou nakonfigurovaní volající kompatibilních adaptérů.
 
 > Z bezpečnostních důvodů k purge nedojde ani tehdy, pokud nelze správně rozebrat (parse) nějaký zdrojový soubor. Dále se vynechá v situaci, kdy je výsledek z volání `useIntlayer` uložen do proměnné a předán dál způsobem, který statický analyzátor neumí sledovat (např. spread operátorem do objektu, nebo předáním přes properties (props) bez použití destrukce). V těchto případech zůstává celý slovník zachován.
 
@@ -508,6 +510,8 @@ const content = useDictionaryAsync({
 ```
 
 > Další informace hledejte přímo v dokumentaci k CMS: [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/intlayer_CMS.md)
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/intlayer_CMS.md)
 
 > Při zapnutém Fetch režimu neprobíhá žádný purge (čištění) ani minifikace, jelikož JSON poskytuje samotné externí API pod jeho původními názvy atributů.
 

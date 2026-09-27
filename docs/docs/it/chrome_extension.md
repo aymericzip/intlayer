@@ -120,6 +120,11 @@ Il rilevamento si basa su ciò che la pagina espone nel browser: variabili globa
 
 La maggior parte dei controlli corrisponde a un'impostazione di routing o di metadati. Con Intlayer, hreflang, canonico, `x-default`, link localizzati, sitemap e robots.txt vengono generati dalla tua [configurazione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/configuration.md). Consulta la guida all'integrazione per il tuo framework, ad esempio [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_nextjs_16.md), [Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_nuxt.md) o [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_tanstack.md).
 
+- [configurazione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/configuration.md)
+- [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_nextjs_16.md)
+- [Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_nuxt.md)
+- [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_tanstack.md)
+
 </Question>
 
 </FAQ>

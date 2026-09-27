@@ -86,6 +86,8 @@ Bu kanca yerel ayar algılamayı sizin için yönetecek ve mevcut yerel ayar iç
 
 > Intlayer'ın tüm özelliklerini görmek için [sözlük dokümantasyonunu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md) okuyabilirsiniz.
 
+- [sözlük dokümantasyonunu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md)
+
 ## Uzak içerik
 
 Intlayer, içeriğinizi yerel olarak bildirmenize ve ardından CMS'ye dışa aktararak teknik olmayan ekibiniz tarafından düzenlenebilir hale getirmenize izin verir.
@@ -97,6 +99,8 @@ CMS'yi kullanarak dışa aktarılan sözlükler için, Intlayer uzak sözlükler
 ## Görsel düzenleyici
 
 Intlayer ayrıca içeriğinizi görsel bir şekilde düzenlemenize izin veren bir görsel düzenleyici sağlar. Bu [görsel düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) harici `intlayer-editor` paketinde mevcuttur.
+
+- [görsel düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)
 
 ![visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif?raw=true)
 
@@ -116,11 +120,15 @@ Geliştirme modunda, Intlayer geliştirme deneyimini basitleştirmek için sözl
 
 [Konfigürasyonda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md) `importMode = "dynamic"` seçeneğini etkinleştirerek, Intlayer sözlükleri yüklemek için dinamik içe aktarmayı kullanacaktır. Bu seçenek, uygulama işlenirken eşzamansız işlemeyi önlemek için varsayılan olarak devre dışıdır.
 
+- [Konfigürasyonda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)
+
 > `@intlayer/babel` varsayılan olarak `vite-intlayer` paketinde mevcuttur,
 
 > `@intlayer/swc` Next.js'te SWC eklentileri hala deneysel olduğu için varsayılan olarak `next-intlayer` paketinde yüklü değildir.
 
 Uygulamanızın inşasını nasıl yapılandıracağınızı görmek için [konfigürasyon dokümantasyonunu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md) okuyabilirsiniz.
+
+- [konfigürasyon dokümantasyonunu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)
 
 ## Paketler
 
@@ -342,22 +350,38 @@ Derleme zamanında. Intlayer eklentisi `.content.ts` dosyalarını tarar, bunlar
 
 Ad alanı (namespace) tabanlı bir kuruluma kıyasla çok daha az, çünkü bir sayfa render etmediği bir sözlüğü asla indirmez. Sunucu tarafında render edilen markup içeriği sunucuda çözer ve derleme zamanı derleyicisi `useIntlayer` çağrılarını bileşenin kullandığı kesin sözlük kayıtlarıyla değiştirir, böylece kullanılmayan anahtarlar ve diller elenir. [Dinamik sözlükler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dynamic_dictionaries/index.md) geri kalanını yerel başına böler. Yaygın alternatiflerle karşılaştırıldığında Intlayer paket ve sayfa boyutunu %50'ye kadar azaltır. Bkz. [paket optimizasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md) ve [kıyaslama](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/index.md).
 
+- [Dinamik sözlükler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dynamic_dictionaries/index.md)
+- [paket optimizasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md)
+- [kıyaslama](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/index.md)
+
 </Question>
 <Question title="i18next, next-intl veya react-i18next'ten bileşenlerimi yeniden yazmadan geçiş yapabilir miyim?">
 
 Evet, iki yol mevcuttur. [i18next geçiş kılavuzu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_i18next_to_intlayer.md) veya [next-intl geçiş kılavuzu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_next-intl_to_intlayer.md) ile içeriği aşamalı olarak taşıyabilirsiniz. Ya da mevcut API'nizi tamamen koruyabilirsiniz: [uyumluluk adaptörleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/index.md), `i18next`, `react-i18next`, `next-intl`, `next-i18next`, `react-intl`, `use-intl`, `vue-i18n` ve `Lingui` ile tamamen aynı API'yi sunar, ancak Intlayer sözlükleri tarafından desteklenir; böylece yalnızca import satırları değişir, bileşen kodu aynı kalır.
+
+- [i18next geçiş kılavuzu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_i18next_to_intlayer.md)
+- [next-intl geçiş kılavuzu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_next-intl_to_intlayer.md)
+- [uyumluluk adaptörleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/index.md)
 
 </Question>
 <Question title="Mevcut JSON çeviri dosyalarımı koruyabilir miyim?">
 
 Evet. [sync JSON eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-json.md), `/messages/{locale}/{namespace}.json` dosyalarınızı doğruluk kaynağı olarak tutar ve her iki yönde Intlayer sözlükleri üretir. [sync PO eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-po.md) gettext katalogları için aynısını yapar ve [yerel başına dosyalar](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/per_locale_file.md), yerelleri tek bir dosyada gruplamak yerine içeriği dile göre ayırmanıza olanak tanır.
 
+- [sync JSON eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-json.md)
+- [sync PO eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-po.md)
+- [yerel başına dosyalar](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/per_locale_file.md)
+
 </Question>
 <Question title="İçeriğimi anahtar anahtar taşımak zorunda mıyım?">
 
 Hayır. `npx intlayer extract` komutunu çalıştırın; Intlayer kaynak dosyalarınızı okur, kullanıcıya dönük dizeleri çıkarır ve her birinin yanına bir `.content` dosyası yazar, böylece dizeleri tek tek kopyalamak yerine bir diff incelersiniz. Bkz. [extract komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract.md).
 
+- [extract komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract.md)
+
 Tam otomatik bir akış için [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md) derleme sırasında JSX, TSX, Vue ve Svelte kodunda aynı işlemi yapar ve sözlükleri her değişiklikte otomatik üretir, böylece elle anahtar yönetimi gerekmez. Statik analizle çalıştığından, yalnızca çalışma zamanında var olan dizeler kapsam dışı kalır.
+
+- [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md)
 
 </Question>
 <Question title="Hangi editör ve AI aracı araçları mevcuttur?">
@@ -378,12 +402,16 @@ Oluşturulan çıktıdır: derlenmiş sözlükler ve üretilen TypeScript tipler
 </Question>
 <Question title="Aktif yerel nasıl belirlenir?">
 
-`routing.storage` içinde listelenen kaynaklardan sırasıyla: URL ön eki, çerez, `Accept-Language` başlığı ve son olarak varsayılan dil.
+`routing.storage` içinde listelenen kaynaklardan sırasıyla: `routing.mode` kullanıyorsa URL ön eki, ardından çerez, ardından `Accept-Language` başlığı ve son olarak varsayılan diliniz. Kullanıcının açıkça seçtiği dil kalıcı olarak saklanır, böylece bir sonraki ziyarette de korunur. [Yapılandırma referansına](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) bakın.
+
+- [Yapılandırma referansı](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md)
 
 </Question>
 <Question title="Yerel ve uzak sözlükler arasındaki fark nedir?">
 
-Yerel bir sözlük kod tabanınızda bildirilir ve uygulamanızla birlikte derlenir. Uzak bir sözlük ise CMS içinde yönetilir ve API üzerinden çekilir, böylece kod dağıtımı olmadan metin değişiklikleri yayınlanabilir.
+Yerel bir sözlük kod tabanınızda bildirilir ve uygulamanızla birlikte derlenir. Uzak bir sözlük ise [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) içinde yönetilir ve çalışma zamanında çözümlenir, böylece dağıtım yapmadan değişebilir. Her ikisi de aynı hook'lar aracılığıyla okunur ve uzak içerik kullanılamadığında yerel bildirime geri döner.
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)
 
 </Question>
 <Question title="Intlayer TypeScript olmadan çalışır mı?">
@@ -403,7 +431,10 @@ Yerel dil sunucuda bir kez çözümlenir ve istemci sağlayıcısına iletilir, 
 </Question>
 <Question title="Bir çeviri eklediğimde uygulamayı yeniden derlemem gerekir mi?">
 
-Geliştirme ortamında hayır: eklenti içerik dosyalarını izler ve sözlükleri anında günceller. Üretim ortamında evet: yerel sözlükler derleme adımında optimize edilir.
+Geliştirme ortamında hayır: eklenti içerik dosyalarınızı izler ve kaydettiğinizde etkilenen sözlükleri yeniden oluşturur. Üretimde sözlükler derlemenin bir parçasıdır; içerik uzaksa bu durumda [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) ve [canlı senkronizasyon](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/live.md) değişikliği dağıtım yapmadan uygular.
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)
+- [canlı senkronizasyon](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/live.md)
 
 </Question>
 

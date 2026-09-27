@@ -202,3 +202,5 @@ app.get("/morning", (c) => {
 ## 結論
 
 `t` 関数は、バックエンドの国際化のための強力なツールです。これを効果的に使用することで、グローバルな視聴者にとってより包括的でユーザーフレンドリーなアプリケーションを作成できます。高度な使用法と詳細な構成オプションについては、[ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)を参照してください。
+
+- [Intlayer Configuration (intlayer.config.ts)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)

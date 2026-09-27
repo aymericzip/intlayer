@@ -31,6 +31,8 @@ I built a RAG-powered documentation assistant and packaged it into a boilerplate
 
 👉 [Live demo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/interest_of_intlayer.md) 👉 [Code boilerplate](https://github.com/aymericzip/smart_doc_RAG)
 
+- [Live demo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/interest_of_intlayer.md)
+
 ## Introduction
 
 If you’ve ever been lost in documentation, scrolling endlessly for one answer, you know how painful it can be. Docs are useful, but they’re static and searching them often feels clunky.
@@ -246,6 +248,8 @@ We experimented with gpt-5, but latency was too high (sometimes up to 15 second
 
 👉 [Try the demo here](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/interest_of_intlayer.md) 👉 [Check the code template on GitHub](https://github.com/aymericzip/smart_doc_RAG)
 
+- [Try the demo here](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/interest_of_intlayer.md)
+
 </Step>
 <Step number={10} title="Going Further">
 
@@ -311,5 +315,7 @@ For me, this project showed that RAG isn’t just a technical trick. It’s a wa
 - a product strategy tool
 
 👉 [Try the demo here](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/interest_of_intlayer.md) 👉 [Check the code template on GitHub](https://github.com/aymericzip/smart_doc_RAG)
+
+- [Try the demo here](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/interest_of_intlayer.md)
 
 And if you’re experimenting with RAG too, I’d love to hear how you’re using it.

@@ -152,6 +152,8 @@ export default config;
 
 > Prostřednictvím tohoto konfiguračního souboru můžete nastavit lokalizované URL, přesměrování middleware, názvy cookies, umístění a příponu vašich deklarací obsahu, zakázat logy Intlayer v konzoli a další. Kompletní seznam dostupných parametrů naleznete v [dokumentaci ke konfiguraci](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/configuration.md).
 
+- [dokumentaci ke konfiguraci](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/configuration.md)
+
 </Step>
 <Step number={3} title="Integrace Intlayer do vaší konfigurace Vite">
 
@@ -279,6 +281,8 @@ export default appContent;
 > Vaše deklarace obsahu mohou být definovány kdekoli ve vaší aplikaci, pokud jsou zahrnuty v adresáři `contentDir` (ve výchozím nastavení `./src`). A odpovídají příponě souboru deklarace obsahu (ve výchozím nastavení `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
 >
 > Více podrobností naleznete v [dokumentaci k deklaraci obsahu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/dictionary/content_file.md).
+
+- [dokumentaci k deklaraci obsahu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/dictionary/content_file.md)
 
 </Step>
 <Step number={6} title="Použití Intlayer v JavaScriptu">
@@ -502,6 +506,9 @@ Pokud máte existující kódovou základnu, transformace tisíců souborů mů�
 
 Aby se tento proces usnadnil, Intlayer navrhuje [kompilátor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/compiler.md) / [extraktor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/extract.md) pro transformaci vašich komponent a extrakci obsahu.
 
+- [kompilátor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/compiler.md)
+- [extraktor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/extract.md)
+
 Chcete-li jej nastavit, můžete do souboru `intlayer.config.ts` přidat sekci `compiler`:
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
@@ -713,7 +720,7 @@ Chcete-li to provést, můžete do souboru `.gitignore` přidat následující p
 
 Chcete-li zlepšit své zkušenosti s vývojem s Intlayerem, můžete si nainstalovat oficiální **rozšíření Intlayer VS Code**.
 
-[Instalovat z VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [Instalovat z VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 Toto rozšíření poskytuje:
 
@@ -724,6 +731,11 @@ Toto rozšíření poskytuje:
 
 Další podrobnosti o tom, jak rozšíření používat, naleznete v [dokumentaci k rozšíření Intlayer VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md).
 
+- [dokumentaci k rozšíření Intlayer VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md)
+
 ### Jděte dál
 
 Chcete-li jít dál, můžete implementovat [vizuální editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/intlayer_visual_editor.md) nebo externalizovat svůj obsah pomocí [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/intlayer_CMS.md).
+
+- [vizuální editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/intlayer_CMS.md)

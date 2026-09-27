@@ -90,6 +90,8 @@ style="border:none;"
 
 > Medido en navegadores reales bajo compresión gzip de producción. Datos completos en el [informe del benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/benchmark/nextjs.md).
 
+- [informe del benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/benchmark/nextjs.md)
+
 ### Peso esencial de la librería
 
 Carga del cliente previa a incorporar cualquier texto:
@@ -138,6 +140,8 @@ El gráfico siguiente estima el peso del contenido para una aplicación teórica
 
 Intlayer soluciona esto con análisis estático: el [compilador de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compiler.md) incluye únicamente los textos referenciados en cada ruta, reduciendo la fuga entre páginas al **0.0%**.
 
+- [compilador de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compiler.md)
+
 ## Por qué next-intl no admite tree-shaking
 
 Su API se apoya en resoluciones dinámicas mediante cadenas de texto en runtime:
@@ -176,6 +180,8 @@ export function UserProfile() {
 </Tabs>
 
 Turbopack y Webpack no pueden comprobar qué claves de `UserProfile` se ejecutan realmente. Para prevenir fallos de claves ausentes, **el empaquetador se ve obligado a enviar todo el namespace al bundle del cliente**. Gracias a las propiedades desestructuradas de Intlayer, el compilador rastrea los accesos reales y purga las propiedades superfluas. Consulta [optimización de bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/bundle_optimization.md) para conocer más.
+
+- [optimización de bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/bundle_optimization.md)
 
 ## Experiencia del desarrollador
 
@@ -276,6 +282,8 @@ No obstante, solo comprueba el idioma base. Si se omite una clave en `es.json`, 
 
 Intlayer deduce los tipos de cada bloque de contenido. El uso de [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md) detiene la compilación ante cualquier traducción incompleta.
 
+- [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md)
+
 ### Comparativa de herramientas y soporte IA
 
 | Característica             | `next-intl` | Intlayer                                                                                                             |
@@ -301,6 +309,8 @@ Revisa y traduce claves faltantes empleando tus credenciales personales de OpenA
 **CMS visual desplegable:**
 
 Utiliza el [CMS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md) para facilitar la edición visual al equipo no técnico integrando cambios directamente en Git.
+
+- [CMS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md)
 
 **Licencia de código abierto permisiva:**
 

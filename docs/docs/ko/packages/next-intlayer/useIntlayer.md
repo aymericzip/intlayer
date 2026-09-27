@@ -76,6 +76,8 @@ Next.js 애플리케이션에서 클라이언트 측 또는 서버 측 컴포넌
 
 콘텐츠 선언 파일 설정에 대한 지침은 [여기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md)에서 확인할 수 있습니다.
 
+- [콘텐츠 선언 파일 (.content.ts)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md)
+
 ## Next.js에서의 사용 예시
 
 다음은 Next.js 페이지 내에서 `useIntlayer` 훅을 구현하여 애플리케이션의 현재 로케일에 따라 로컬라이즈된 콘텐츠를 동적으로 로드하는 방법입니다:

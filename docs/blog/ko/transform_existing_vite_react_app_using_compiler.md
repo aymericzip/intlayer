@@ -49,6 +49,8 @@ author: aymericzip
 
 > Vite 및 React에 대한 단계별 기술 가이드를 찾고 계신가요? 전용 문서를 확인하세요: [Intlayer로 Vite 및 React 번역하기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_vite+react.md).
 
+- [Intlayer로 Vite 및 React 번역하기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_vite+react.md)
+
 ## 목차
 
 <TOC/>
@@ -327,6 +329,8 @@ console.log("SEO 파일이 성공적으로 생성되었습니다.");
 엄격한 TypeScript 타입 안전성, 동적 딕셔너리 및 비주얼 에디터를 포함한 모든 설정 단계를 자세히 확인하려면 공식 기술 가이드를 참고하세요:
 
 👉 **[Intlayer를 활용한 Vite 및 React 번역 전체 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_vite+react.md)**
+
+- [Intlayer를 활용한 Vite 및 React 번역 전체 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_vite+react.md)
 
 ## 자주 묻는 질문 (FAQ)
 

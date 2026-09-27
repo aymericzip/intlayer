@@ -100,6 +100,8 @@ Next.js는 국제화된 라우팅(예: 로케일 세그먼트)을 기본적으�
 
 <I18nBenchmark framework="nextjs" packages="next-i18next,next-intl,next-intlayer" vertical/>
 
+- [i18n 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/nextjs.md)
+
 <ClickToOpenIframe
   src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
   width="100%"
@@ -121,6 +123,9 @@ Next.js App Router에서 측정한 주요 수치 (gzip):
 | `next-intlayer` (native Intlayer) |      **5.5 KB** |   **141.3 KB** |         **0.0%** |         **0.0%** |    **6.9 KB** |
 
 > 전체 분석은 [Next.js 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/nextjs.md)와 종합적인 [i18n 벤치마크 개요](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/index.md)를 참고하세요.
+
+- [Next.js 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/nextjs.md)
+- [i18n 벤치마크 개요](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/index.md)
 
 다국어 애플리케이션 번들 맥락에서 중요한 두 가지 구성 요소는 다음과 같습니다:
 
@@ -1452,3 +1457,5 @@ GitHub 스타는 프로젝트의 인기, 커뮤니티 신뢰도, 그리고 장�
 - [@intlayer/next-i18next 호환 어댑터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/next-i18next.md)
 
 자세한 내용은 ['Why Intlayer?' 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/interest_of_intlayer.md)를 참조하세요.
+
+- [왜 Intlayer인가? 다른 i18n 라이브러리 대비 장점](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/interest_of_intlayer.md)

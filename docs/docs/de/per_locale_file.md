@@ -127,6 +127,8 @@ export default config;
 
 Mit dieser Konfiguration werden alle Per-Locale-Dateien mit der Standard-Locale Englisch generiert. Dies beinhaltet auch die Generierung von `.content`-Dateien unter Verwendung des `extract`-Befehls und des Compilers. (Siehe [Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compiler.md) oder [Extract](https://github.com/aymericzip/intlayer/edit/main/docs/docs/en/cli/extract.md) für weitere Informationen.)
 
+- [Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compiler.md)
+
 ## Pro-Locale-Format
 
 Dieses Format ist nützlich, wenn:
@@ -265,3 +267,5 @@ console.log(JSON.stringify(intlayer, null, 2));
 ### Automatische Übersetzungserstellung
 
 Verwenden Sie die [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/index.md), um fehlende Übersetzungen basierend auf Ihren bevorzugten Diensten automatisch zu ergänzen.
+
+- [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/index.md)

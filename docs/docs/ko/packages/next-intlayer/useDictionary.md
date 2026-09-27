@@ -95,6 +95,8 @@ const exampleContent = {
 export default exampleContent;
 ```
 
+- [콘텐츠 선언 파일 (.content.ts)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md)
+
 ## React 클라이언트 컴포넌트에서의 사용 예시
 
 아래는 React 컴포넌트에서 `useDictionary` 훅을 사용하는 예시입니다:

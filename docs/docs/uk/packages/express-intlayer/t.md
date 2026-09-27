@@ -260,3 +260,5 @@ app.get("/morning", (_req, res) => {
 ## Висновок
 
 Функція `t`, потужний інструмент для інтернаціоналізації бекенду. Правильно використовуючи її, ви можете створити більш інклюзивний та зручний додаток для глобальної аудиторії. Для просунутого використання та детальних опцій конфігурації див. [документацію](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md).
+
+- [Конфігурація Intlayer (intlayer.config.ts)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md)

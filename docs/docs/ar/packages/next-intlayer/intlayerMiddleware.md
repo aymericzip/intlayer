@@ -73,3 +73,5 @@ export const config = {
 ## الإعدادات
 
 لتكوين الـ middleware، يمكنك إعداد خيار `routing` في ملف `intlayer.config.ts`. انظر [الإعدادات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md) لمزيد من التفاصيل.
+
+- [الإعدادات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md)

@@ -57,6 +57,8 @@ Fungsi ini tidak menerima parameter apa pun. Sebagai gantinya, fungsi ini menggu
 
 Lihat [dokumentasi konfigurasi Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md) untuk detail lebih lanjut.
 
+- [dokumentasi konfigurasi Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md)
+
 ## Contoh Penggunaan
 
 ### Mengambil Konfigurasi Lengkap

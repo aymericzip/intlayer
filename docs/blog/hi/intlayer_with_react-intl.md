@@ -41,9 +41,13 @@ author: aymericzip
 
 react-intl के साथ एक ठोस तुलना के लिए हमारे [react-i18next vs. react-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/react-i18next_vs_react-intl_vs_intlayer.md) ब्लॉग पोस्ट देखें।
 
+- [react-i18next vs. react-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/react-i18next_vs_react-intl_vs_intlayer.md)
+
 ## Intlayer को react-intl के साथ क्यों मिलाएं?
 
 जबकि Intlayer एक उत्कृष्ट स्वतंत्र i18n समाधान प्रदान करता है (हमारे [React एकीकरण गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_vite+react.md) देखें), आप इसे कई कारणों से react-intl के साथ मिलाना चाह सकते हैं:
+
+- [React एकीकरण गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_vite+react.md)
 
 1. **मौजूदा कोडबेस**: आपके पास एक स्थापित react-intl कार्यान्वयन है और आप धीरे-धीरे Intlayer के बेहतर डेवलपर अनुभव की ओर माइग्रेट करना चाहते हैं।
 2. **पुराने आवश्यकताएँ**: आपके प्रोजेक्ट को मौजूदा react-intl प्लगइन्स या वर्कफ़्लोज़ के साथ संगतता की आवश्यकता है।
@@ -144,6 +148,8 @@ export default config;
 
 `syncJSON` प्लगइन के बारे में अधिक विवरण देखने के लिए, कृपया [syncJSON प्लगइन दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-json.md) देखें।
 
+- [syncJSON प्लगइन दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-json.md)
+
 </Step>
 <Step number={3} title="प्रति-कंपोनेंट JSON अनुवाद लागू करें">
 
@@ -206,4 +212,4 @@ export default config;
 
 बेहतर डेवलपर अनुभव के लिए, आधिकारिक **Intlayer VS Code एक्सटेंशन** इंस्टॉल करें:
 
-[VS Code मार्केटप्लेस से इंस्टॉल करें](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [VS Code मार्केटप्लेस से इंस्टॉल करें](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

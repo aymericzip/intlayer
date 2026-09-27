@@ -57,6 +57,8 @@ La función no recibe ningún parámetro. En su lugar, utiliza variables de ento
 
 Consulta la [documentación de configuración de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md) para más detalles.
 
+- [documentación de configuración de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md)
+
 ## Ejemplo de Uso
 
 ### Recuperar la Configuración Completa

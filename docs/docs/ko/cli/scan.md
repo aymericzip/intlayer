@@ -130,13 +130,13 @@ puppeteer가 활성화되어 있어도 기본 모드를 강제하려면 `--no-de
 
 ### 표준 설정 옵션
 
-- **`--base-dir`** — `intlayer.config.*` 파일을 찾는 데 사용되는 기준 디렉토리.
-- **`-e, --env`** — 대상 환경 (예: `development`, `production`).
-- **`--env-file`** — 사용자 지정 `.env` 파일의 경로.
-- **`--no-cache`** — 설정 캐시를 비활성화합니다.
-- **`--ci`** — 모노레포의 모든 Intlayer 프로젝트에서 명령어를 실행합니다(프로젝트 디렉터리 안에서 실행하면 해당 프로젝트만). 프로젝트별 자격 증명은 프로젝트 경로를 `{ "clientId", "clientSecret" }`에 매핑하는 JSON 객체인 `INTLAYER_PROJECT_CREDENTIALS`를 통해 주입할 수 있습니다.
-- **`--verbose`** — 세부 로깅을 활성화합니다 (CLI 모드에서 기본값).
-- **`--prefix`** — 사용자 지정 로그 접두사.
+- **`--base-dir`**: `intlayer.config.*` 파일을 찾는 데 사용되는 기준 디렉토리.
+- **`-e, --env`**: 대상 환경 (예: `development`, `production`).
+- **`--env-file`**: 사용자 지정 `.env` 파일의 경로.
+- **`--no-cache`**: 설정 캐시를 비활성화합니다.
+- **`--ci`**: 모노레포의 모든 Intlayer 프로젝트에서 명령어를 실행합니다(프로젝트 디렉터리 안에서 실행하면 해당 프로젝트만). 프로젝트별 자격 증명은 프로젝트 경로를 `{ "clientId", "clientSecret" }`에 매핑하는 JSON 객체인 `INTLAYER_PROJECT_CREDENTIALS`를 통해 주입할 수 있습니다.
+- **`--verbose`**: 세부 로깅을 활성화합니다 (CLI 모드에서 기본값).
+- **`--prefix`**: 사용자 지정 로그 접두사.
 
 ## 라우팅 전략
 

@@ -19,7 +19,7 @@ slugs:
 history:
   - version: 9.2.1
     date: 2026-08-09
-    changes: "`purge`와 `minify`가 이제 `@intlayer/swc`를 통해 Next.js에서 동작합니다 — `babel.config.js`가 필요 없습니다"
+    changes: "`purge`와 `minify`가 이제 `@intlayer/swc`를 통해 Next.js에서 동작합니다. `babel.config.js`가 필요 없습니다"
   - version: 8.12.0
     date: 2026-06-24
     changes: "참조 표에서 Babel 플러그인을 필수 파이프라인 순서(extract → purge → minify → optimize)로 나열"
@@ -72,7 +72,7 @@ Next.js는 빌드에 SWC를 사용하므로 `@intlayer/swc` 플러그인이 필�
 
 > Next.js에서 SWC 플러그인이 아직 실험 단계이므로 이 플러그인은 기본적으로 설치되지 않습니다. 향후 변경될 수 있습니다.
 
-> **Next.js 16.1.0이 최소 버전입니다.** SWC의 상위 호환 Wasm 플러그인 ABI 위에 구축된 첫 릴리스이며, 이전 릴리스는 플러그인을 거부합니다. `withIntlayer`는 프로젝트의 Next.js 버전을 읽고 16.1.0 미만에서는 플러그인을 아예 등록하지 않습니다 — 해당 빌드는 여전히 성공하며 단지 번들 최적화 없이 실행됩니다.
+> **Next.js 16.1.0이 최소 버전입니다.** SWC의 상위 호환 Wasm 플러그인 ABI 위에 구축된 첫 릴리스이며, 이전 릴리스는 플러그인을 거부합니다. `withIntlayer`는 프로젝트의 Next.js 버전을 읽고 16.1.0 미만에서는 플러그인을 아예 등록하지 않습니다. 해당 빌드는 여전히 성공하며 단지 번들 최적화 없이 실행됩니다.
 
 <Tabs>
  <Tab value="npm">
@@ -136,7 +136,7 @@ export default config;
 
 > `withIntlayerSync`가 아니라 비동기 `withIntlayer`를 사용하십시오. 동기 버전은 분석 파이프라인을 실행하지 않으므로 퍼지와 압축이 적용되지 않습니다.
 
-> 퍼지와 압축은 `next build`에서만 실행됩니다 — 최적화 파이프라인은 `next dev` 중에는 꺼져 있습니다.
+> 퍼지와 압축은 `next build`에서만 실행됩니다. 최적화 파이프라인은 `next dev` 중에는 꺼져 있습니다.
 
 **이전 버전(9.2.1 이전)** 에서는 `@intlayer/babel`과 `intlayerPurgeBabelPlugin` 및 `intlayerMinifyBabelPlugin`을 선언하는 `babel.config.js`가 필요했습니다. 이 파일은 더 이상 필요하지 않으며 삭제할 수 있습니다.
 
@@ -312,6 +312,8 @@ export default config;
 
 > 모든 옵션에 대해서는 설정 레퍼런스를 참조하세요: [Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)
 
+- [Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)
+
 ### 빌드 옵션
 
 | 속성           | 타입                  | 기본값      | 설명                                                                                                                                                                          |
@@ -346,7 +348,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> `optimize`가 `false`이면 최소화는 건너뜁니다. `editor.enabled`가 `true`이어도 계속 실행되지만, 필드 이름 변경 단계는 건너뜁니다 — 비주얼 에디터는 `keyPath`로 편집 내용을 해석하므로 원본 필드 이름이 그대로 유지되어야 합니다.
+> `optimize`가 `false`이면 최소화는 건너뜁니다. `editor.enabled`가 `true`이어도 계속 실행되지만, 필드 이름 변경 단계는 건너뜁니다. 비주얼 에디터는 `keyPath`로 편집 내용을 해석하므로 원본 필드 이름이 그대로 유지되어야 합니다.
 
 > Next.js에서는 `@intlayer/swc`가 설치되지 않았거나 로드할 수 없는 경우(16.1.0 미만의 Next.js)에도 압축이 건너뛰어집니다. 소스 접근을 재작성하는 쪽이 바로 이 플러그인이므로, 이것 없이 사전만 이름을 바꾸면 코드가 더 이상 존재하지 않는 필드 이름을 읽게 됩니다.
 
@@ -378,7 +380,7 @@ export default config;
 { "title": "…", "subtitle": "…" }
 ```
 
-> `optimize`가 `false`이면 파지(purge)는 건너뜁니다. `editor.enabled`가 `true`일 때도 계속 활성 상태를 유지합니다 — 정리된 필드는 어떤 컴포넌트에서도 읽지 않으므로 에디터가 이를 렌더링하는 일은 없습니다. Next.js에서는 `@intlayer/swc`를 사용할 수 없을 때, 그리고 호환 어댑터 호출자가 설정된 경우에도 추가로 건너뜁니다.
+> `optimize`가 `false`이면 파지(purge)는 건너뜁니다. `editor.enabled`가 `true`일 때도 계속 활성 상태를 유지합니다. 정리된 필드는 어떤 컴포넌트에서도 읽지 않으므로 에디터가 이를 렌더링하는 일은 없습니다. Next.js에서는 `@intlayer/swc`를 사용할 수 없을 때, 그리고 호환 어댑터 호출자가 설정된 경우에도 추가로 건너뜁니다.
 
 > 소스 파일을 구문 분석할 수 없거나 `useIntlayer`의 결과가 변수에 할당되고 정적 분석기가 추적할 수 없는 방식으로 전달될 때(예: 객체에 스프레드, 구조 분해 없이 prop으로 전달) 파지도 보수적으로 건너뜁니다. 이런 경우에는 전체 사전이 유지됩니다.
 
@@ -508,6 +510,8 @@ const content = useDictionaryAsync({
 ```
 
 > 자세한 내용은 CMS 설명서를 참조하세요: [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)
 
 > fetch 모드에서는 JSON이 원본 필드 이름을 사용하여 원격 API에서 제공되므로 purge(파지) 및 minify(최소화)가 적용되지 않습니다.
 

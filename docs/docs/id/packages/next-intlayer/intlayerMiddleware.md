@@ -73,3 +73,5 @@ Fungsi ini menerima `NextRequest` standar dari Next.js sebagai parameter ketika 
 ## Konfigurasi
 
 Untuk mengonfigurasi middleware, Anda dapat mengatur opsi `routing` pada file `intlayer.config.ts`. Lihat [konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md) untuk detail lebih lanjut.
+
+- [konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md)

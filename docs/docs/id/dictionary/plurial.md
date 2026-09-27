@@ -34,6 +34,8 @@ Di Intlayer, konten jamak dicapai melalui fungsi `plural`, yang memetakan katego
 
 Berbeda dengan [`enu`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/enumeration.md), yang memilih konten berdasarkan rentang numerik yang Anda tentukan sendiri, `plural` mendelegasikan pemilihan ke aturan CLDR. Inilah yang membuatnya skalabel untuk bahasa dengan aturan pluralisasi yang kompleks, seperti Rusia, Polandia, Arab, atau Welsh, tanpa harus menulis logika modulo secara manual.
 
+- [`enu`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/enumeration.md)
+
 ## Kapan Menggunakan `plural` vs `enu`
 
 | Kasus penggunaan                                                          | Pembantu |

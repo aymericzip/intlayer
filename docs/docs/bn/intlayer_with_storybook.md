@@ -112,6 +112,8 @@ export default config;
 
 > বিস্তারিত অপশনগুলির জন্য [কনফিগারেশন রেফারেন্স](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/configuration.md) দেখুন।
 
+- [কনফিগারেশন রেফারেন্স](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/configuration.md)
+
 ### ধাপ ৩: স্টোরিবুকে ভাইট প্লাগইন যোগ করা
 
 স্টোরিবুকের `viteFinal` হুকের মাধ্যমে ইন্টারনাল ভাইট কনফিগ বাড়ানো যায়। সেখানে `intlayer()` প্লাগইনটি ইম্পোর্ট করে যোগ করুন:
@@ -347,6 +349,8 @@ export default copyButtonContent;
 ```
 
 > আরও কন্টেন্ট ডিক্লারেশন ফরম্যাট এবং ফিচারের জন্য [কন্টেন্ট ডিক্লারেশন ডকুমেন্টেশন](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/dictionary/content_file.md) দেখুন।
+
+- [কন্টেন্ট ডিক্লারেশন ডকুমেন্টেশন](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/dictionary/content_file.md)
 
 ## কম্পোনেন্টে `useIntlayer` ব্যবহার করা
 

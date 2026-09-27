@@ -121,6 +121,8 @@ style="border:none;"
 
 > Bảng đầy đủ, từng thư viện và từng chiến lược, trong [báo cáo benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md).
 
+- [báo cáo benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md)
+
 ### Kết quả trên TanStack Start (`use-intl`)
 
 `use-intl` là lõi độc lập với framework của `next-intl`. Cùng API, cùng định dạng tin nhắn. So sánh nó với `intlayer` trên TanStack Start sẽ loại bỏ các phần đặc thù của Next.js khỏi phép so sánh.
@@ -151,6 +153,8 @@ style="border:none;"
 />
 
 > Bảng đầy đủ trong [báo cáo benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md).
+
+- [báo cáo benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md)
 
 ## Tại sao lại có sự khác biệt? Danh mục tập trung vs từ điển biên dịch
 
@@ -203,6 +207,8 @@ Intlayer đảo ngược hoàn toàn quy trình này. Nội dung được khai b
 Tại thời điểm build, trình biên dịch nhận biết component nào import từ điển nào và chỉ đóng gói những từ điển cần thiết cho ngôn ngữ đang hoạt động.
 
 > Để có được các số liệu của hàng `dynamic`, hãy đặt `dictionary.importMode: 'dynamic'` trong `intlayer.config.ts`. Xem thêm [tài liệu tối ưu hóa bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md).
+
+- [tài liệu tối ưu hóa bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md)
 
 ## Trải nghiệm lập trình viên
 
@@ -414,7 +420,11 @@ export default withIntlayer(nextConfig);
 
 Trong bài đánh giá, bản build tương thích của cùng ứng dụng đã giảm từ **153.6 KB xuống 147.5 KB** mỗi trang, kích thước component giảm từ **21.8 KB xuống 8.1 KB**, và rò rỉ trang giảm từ **~90% xuống 0%** mà không cần sửa đổi mã ứng dụng. Các tệp `messages/{locale}.json` hiện tại của bạn vẫn có thể đóng vai trò là nguồn dữ liệu chuẩn thông qua [plugin đồng bộ JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/next-intl.md).
 
+- [plugin đồng bộ JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/next-intl.md)
+
 Xem thêm [hướng dẫn chuyển đổi next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_next-intl_to_intlayer.md) để biết các bước chi tiết.
+
+- [hướng dẫn chuyển đổi next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_next-intl_to_intlayer.md)
 
 ## Khi nào nên chọn thư viện nào?
 
@@ -428,10 +438,18 @@ Bạn muốn tiêu chuẩn của hệ sinh thái cho Next.js, dựa vào ICU Mes
 
 Bạn muốn **nội dung theo phạm vi component**, **TypeScript chặt chẽ**, **lỗi thiếu khóa trong quá trình build**, **tree-shaking và tải chậm (lazy loading) hoàn toàn tự động**, server component đồng bộ và các công cụ biên tập tích hợp sẵn ([Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md), [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md), [dịch thuật AI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/autoFill.md), [máy chủ MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/mcp_server.md)). Đặc biệt phù hợp cho các codebase mô-đun lớn và design system.
 
+- [Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)
+- [dịch thuật AI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/autoFill.md)
+- [máy chủ MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/mcp_server.md)
+
 </Accordion>
 <Accordion header="Chọn @intlayer/next-intl">
 
 Bạn đã sử dụng `next-intl` và muốn tối ưu kích thước bundle mà không cần viết lại toàn bộ mã nguồn. [Adapter tương thích](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/next-intl.md) giữ nguyên các import và tệp `messages/{locale}.json` của bạn làm nguồn chân lý duy nhất. Được đo lường cạnh nhau trong [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/next-intl_vs_intlayer-next-intl.md).
+
+- [Adapter tương thích](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/next-intl.md)
+- [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/next-intl_vs_intlayer-next-intl.md)
 
 </Accordion>
 </AccordionGroup>
@@ -450,11 +468,15 @@ Không phải ở thời gian render. Sự khác biệt nằm ở lượng dữ 
 
 Có thể, với cấu hình `scoped-dynamic`: chia `messages/{locale}.json` thành một namespace cho mỗi route, sau đó dùng `pick(messages, [...])` ở mỗi trang và duy trì sự khớp nối đó khi các component thay đổi. Các hàng `scoped-*` trong benchmark chính là phản ánh công việc này. Intlayer đạt 0% mặc định mà không cần làm gì thêm vì compiler tự động giới hạn phạm vi nội dung theo từng component. Xem thêm [tối ưu hóa bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md).
 
+- [tối ưu hóa bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md)
+
 </Question>
 
 <Question title="Tôi có phải viết lại các component để di chuyển không?">
 
 Không. `@intlayer/next-intl` giữ nguyên `useTranslations`, `getTranslations`, `useFormatter`, `t.rich()`, số nhiều ICU và các navigation helper, đồng thời phục vụ chúng từ các từ điển đã biên dịch. Chỉ cần một dòng plugin trong `next.config.ts`. Chi tiết từng bước trong [hướng dẫn di chuyển next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_next-intl_to_intlayer.md).
+
+- [hướng dẫn di chuyển next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_next-intl_to_intlayer.md)
 
 </Question>
 
@@ -462,11 +484,15 @@ Không. `@intlayer/next-intl` giữ nguyên `useTranslations`, `getTranslations`
 
 Hỗ trợ ICU đang được hoàn thiện trên API gốc. Các adapter tương thích (`@intlayer/next-intl`, `@intlayer/use-intl`) đã hỗ trợ đầy đủ ICU: số nhiều, `select`, `selectordinal`, `#` và `{ts, date, long}` đều đi qua bộ phân giải ICU của Intlayer. Xem thêm [định dạng tin nhắn ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md).
 
+- [định dạng tin nhắn ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)
+
 </Question>
 
 <Question title="Tôi có thể giữ lại các tệp messages/{locale}.json không?">
 
 Có. [Plugin đồng bộ JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/next-intl.md) sẽ đọc chúng, chia các khóa cấp cao nhất thành từ điển và ghi lại các bản dịch vào chính các tệp đó khi CLI hoặc CMS cập nhật. Quy trình làm việc của đội ngũ dịch thuật hoàn toàn không bị ảnh hưởng.
+
+- [Plugin đồng bộ JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/next-intl.md)
 
 </Question>
 
@@ -519,3 +545,5 @@ Intlayer chuyển toàn bộ công việc đó sang trình biên dịch. Từ đ
 Toàn bộ dữ liệu thô, ứng dụng thử nghiệm và mã script đều có sẵn tại [kho lưu trữ Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom).
 
 Xem thêm tài liệu ['Tại sao chọn Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/interest_of_intlayer.md) để biết thêm chi tiết.
+
+- [Vì sao chọn Intlayer? Ưu điểm so với các thư viện i18n khác](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/interest_of_intlayer.md)

@@ -100,7 +100,7 @@ npx skills add aymericzip/intlayer-skills
 
 - Навчає агента використанню сторів Svelte та ідіоматичного синтаксису для реактивного та типізованого локалізованого контенту в додатках Svelte та SvelteKit.
 
-**intlayer-cms**
+**intlayer-remote-content**
 
 - Дозволяє агенту інтегрувати та керувати віддаленим контентом, забезпечуючи живу синхронізацію та робочі проекти віддаленого перекладу через Intlayer CMS.
 
@@ -115,3 +115,31 @@ npx skills add aymericzip/intlayer-skills
 **intlayer-compiler**
 
 - Спрощує робочий процес агента завдяки автоматичному вилученню контенту, дозволяючи йому писати перекладні рядки прямо в коді без ручного створення файлів словників.
+
+**intlayer-lit**
+
+- Навчає агента перекладати вебкомпоненти Lit за допомогою ReactiveControllers `useIntlayer` та `useLocale`.
+
+**intlayer-vanilla**
+
+- Дозволяє агенту локалізувати сторінки на чистому JavaScript / TypeScript за допомогою `vanilla-intlayer`, з бандлером або без нього.
+
+**intlayer-remix**
+
+- Надає агенту middleware маршрутизатора Remix 3 та хуки `useIntlayer` / `useLocale`, прив'язані до запиту.
+
+**intlayer-backend**
+
+- Дає агенту змогу перекладати відповіді сервера в Express, Fastify, Hono, NestJS, AdonisJS та Elysia за допомогою єдиного спільного шаблону middleware + `t` / `getIntlayer`.
+
+**intlayer-dev-tools**
+
+- Дозволяє агенту налаштувати інструменти Intlayer навколо вашого коду: правила ESLint для захардкоджених рядків, Language Server, розширення VS Code та Chrome, MCP-сервер і перевірки перекладів у CI/CD.
+
+**intlayer-markdown**
+
+- Навчає агента оголошувати Markdown-контент (`md()`, файли `.content.md`, зовнішні файли) та рендерити його за допомогою MDX-компонентів, глобального `MarkdownProvider`, Suspense і парсингу на стороні сервера.
+
+**intlayer-compat**
+
+- Проводить агента через міграцію з i18next, react-i18next, next-intl, next-i18next, react-intl, vue-i18n або Lingui за допомогою адаптерів сумісності, які зберігають оригінальний API, тож виклики перекладу не потрібно переписувати.

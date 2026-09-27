@@ -129,7 +129,7 @@ console.log(
 );
 ```
 
-> تسجّل الإضافة سياقها عبر `derive` **عام**، والذي يعطيه Elysia النوع `Partial<{ intlayer: IntlayerContext }>`. تكون القيمة موجودة دائماً وقت التشغيل للمسارات المسجَّلة بعد `.use(intlayer())`، لذا استخدم تأكيد عدم الفراغ (`intlayer!.locale`) — أو التسلسل الاختياري — لإرضاء TypeScript في الوضع `strict`.
+> تسجّل الإضافة سياقها عبر `derive` **عام**، والذي يعطيه Elysia النوع `Partial<{ intlayer: IntlayerContext }>`. تكون القيمة موجودة دائماً وقت التشغيل للمسارات المسجَّلة بعد `.use(intlayer())`، لذا استخدم تأكيد عدم الفراغ (`intlayer!.locale`)، أو التسلسل الاختياري، لإرضاء TypeScript في الوضع `strict`.
 
 ## وثائق ذات صلة
 

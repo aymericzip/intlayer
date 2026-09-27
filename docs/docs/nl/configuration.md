@@ -727,7 +727,7 @@ Definieert de instellingen voor de ingebouwde visuele editor, inclusief de serve
 
 Definieert instellingen voor Intlayer analytics: het verzamelen van welke content daadwerkelijk aan gebruikers wordt getoond (paginaweergaven, content-exposities) en het mogelijk maken van A/B-testen op content.
 
-Analytics is opt-out: het staat standaard aan en begint met verzamelen zodra het pakket `@intlayer/analytics` is geïnstalleerd **en** een projectsleutel (`editor.clientId`) is geconfigureerd voor attributie. Zet `analytics.enabled` op `false` — of installeer het pakket niet — en de volledige analytics-integratie wordt uit uw applicatiebundel verwijderd (dead-code elimination).
+Analytics is opt-out: het staat standaard aan en begint met verzamelen zodra het pakket `@intlayer/analytics` is geïnstalleerd **en** een projectsleutel (`editor.clientId`) is geconfigureerd voor attributie. Zet `analytics.enabled` op `false`, of installeer het pakket niet, en de volledige analytics-integratie wordt uit uw applicatiebundel verwijderd (dead-code elimination).
 
 | Veld            | Beschrijving                                                                                | Type      | Standaard | Voorbeeld | Opmerking                                                                                                                                                                             |
 | --------------- | ------------------------------------------------------------------------------------------- | --------- | --------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

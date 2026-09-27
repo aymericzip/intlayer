@@ -30,6 +30,8 @@ author: aymericzip
 
 本文在相同的 TanStack Start 应用程序上测量了这种替换，该程序分别使用纯 Lingui 和使用适配器构建了一次。这些数据来自 [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom)。关于这两个库作为独立库的对比，请阅读 [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/lingui_vs_intlayer.md)。本文主要关注适配器改变了什么，以及在哪些方面它没有帮助。
 
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/lingui_vs_intlayer.md)
+
 <TOC/>
 
 > **摘要 (tl;dr)**：在同一个 TanStack Start 应用程序中，`@intlayer/lingui` 在不改动宏的情况下，将平均组件体积从 **85.5 KB 降至 12.8 KB** gzip，水合时间从 **28 ms 降至 19.7 ms**，语言切换时间从 **5.9 ms 降至 2.9 ms**。在朴素设置（预先加载每个目录）中，它还消除了 **90% 的页面泄漏** 并减少了每页 12 KB。但在延迟加载设置中，它每页交付 **137 KB，而纯 Lingui 为 115 KB**：适配器在运行时解析 ICU，而 Lingui 交付预编译的标记数组。源语言环境泄漏（约 9-10%）在两边完全相同，因为它来自于嵌入在组件中的 `message` 回退，而不是来自运行时。该适配器是一个 Vite 插件；测试是在 TanStack Start 上进行的。
@@ -230,6 +232,8 @@ export default config;
 
 对于 `.po` 目录，将 `syncJSON` 替换为来自 `@intlayer/sync-po-plugin` 的 `syncPO`，并使用带有 `.po` 扩展名的相同 `source` 模式。请参阅 [Sync PO 插件文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/plugins/sync-po.md)。
 
+- [Sync PO 插件文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/plugins/sync-po.md)
+
 `splitKeys: "key-prefix"` 是让组件体积大幅缩小的关键。目录文件保留其扁平形态；拆分仅存在于生成的字典中，写回时会自动重新拼接 ID。
 
 </Step>
@@ -307,3 +311,5 @@ export default defineConfig({
 所有原始测试数据、测试应用和评测脚本均可在 [Benchmark Bloom 代码仓库](https://github.com/intlayer-org/benchmark-bloom) 中找到。欢迎自行复现并验证。
 
 详情请参考 [“为什么选择 Intlayer？”文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/interest_of_intlayer.md)。
+
+- [为什么选择 Intlayer？相比其他 i18n 库的优势](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/interest_of_intlayer.md)
