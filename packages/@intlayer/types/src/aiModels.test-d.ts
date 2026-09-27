@@ -1,5 +1,6 @@
+import type { OpenAIProvider } from '@ai-sdk/openai';
 import { describe, expectTypeOf, it } from 'vitest';
-import type { AiConfig, OpenAIModelId } from './config';
+import type { AiConfig, ProviderModelId } from './config';
 
 type ModelOf<Provider> = Extract<
   Partial<AiConfig>,
@@ -10,7 +11,14 @@ describe('AiConfig model', () => {
   it('suggests the models of the selected provider', () => {
     expectTypeOf<'gpt-4.1'>().toExtend<ModelOf<'openai'>>();
     expectTypeOf<'claude-haiku-4-5'>().toExtend<ModelOf<'anthropic'>>();
-    expectTypeOf<OpenAIModelId>().toExtend<ModelOf<'openai'>>();
+    expectTypeOf<Parameters<OpenAIProvider>[0]>().toEqualTypeOf<
+      ProviderModelId<OpenAIProvider>
+    >();
+  });
+
+  it('falls back to string when the provider SDK is not installed', () => {
+    // An unresolved optional peer dependency resolves to `any`
+    expectTypeOf<ProviderModelId<any>>().toEqualTypeOf<string>();
   });
 
   it('accepts unlisted model ids', () => {
