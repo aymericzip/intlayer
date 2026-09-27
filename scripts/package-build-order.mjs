@@ -57,4 +57,6 @@ export const packageBuildOrder = [
   'compat/svelte-i18n',
   'compat/nuxtjs-i18n',
   'compat/ngx-translate',
+  'compat/react-intl',
+  'compat/lingui',
 ];
