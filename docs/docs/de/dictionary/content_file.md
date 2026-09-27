@@ -539,11 +539,11 @@ Dieses Feld wird in Verbindung mit Varianten verwendet und definiert benannte In
 
 ### CMS-Eigenschaften
 
-##### `version` (string)
+#### `version` (string)
 
 Versionskennung für Remote-Wörterbücher. Hilft dabei nachzuverfolgen, welche Version des Wörterbuchs aktuell verwendet wird, besonders nützlich bei der Arbeit mit Remote-Content-Management-Systemen.
 
-##### `importMode` ('static' | 'dynamic' | 'fetch')
+#### `importMode` ('static' | 'dynamic' | 'fetch')
 
 Der Importmodus bestimmt, wie Ihr Wörterbuch in Ihrer Anwendung importiert wird.
 
@@ -557,35 +557,35 @@ Wenn gesetzt, überschreibt diese Eigenschaft den globalen `importMode`, der in 
 
 Diese Eigenschaften werden automatisch von Intlayer generiert und sollten nicht manuell verändert werden:
 
-##### `$schema` (string)
+#### `$schema` (string)
 
 JSON-Schema zur Validierung der Wörterbuchstruktur. Wird automatisch von Intlayer hinzugefügt, um die Integrität des Wörterbuchs sicherzustellen.
 
-##### `id` (string)
+#### `id` (string)
 
 Für entfernte Wörterbücher ist dies die eindeutige Kennung des Wörterbuchs auf dem entfernten Server. Wird zum Abrufen und Verwalten von entfernten Inhalten verwendet.
 
-##### `projectIds` (string[])
+#### `projectIds` (string[])
 
 For remote dictionaries, this array contains the IDs of the projects that can use this dictionary. A remote dictionary can be shared between multiple projects.
 
-##### `localId` (LocalDictionaryId)
+#### `localId` (LocalDictionaryId)
 
 Eindeutige Kennung für lokale Wörterbücher. Wird automatisch von Intlayer generiert, um das Wörterbuch zu identifizieren und festzustellen, ob es lokal oder entfernt ist, sowie dessen Standort.
 
-##### `localIds` (LocalDictionaryId[])
+#### `localIds` (LocalDictionaryId[])
 
 Für zusammengeführte Wörterbücher enthält dieses Array die IDs aller Wörterbücher, die zusammengeführt wurden. Nützlich zur Nachverfolgung der Quelle des zusammengeführten Inhalts.
 
-##### `filePath` (string)
+#### `filePath` (string)
 
 Der Dateipfad des lokalen Wörterbuchs, der angibt, aus welcher `.content`-Datei das Wörterbuch generiert wurde. Hilft bei der Fehlerbehebung und Quellenverfolgung.
 
-##### `versions` (string[])
+#### `versions` (string[])
 
 Für entfernte Wörterbücher enthält dieses Array alle verfügbaren Versionen des Wörterbuchs. Hilft dabei, nachzuvollziehen, welche Versionen verwendet werden können.
 
-##### `autoFilled` (true)
+#### `autoFilled` (true)
 
 Gibt an, ob das Wörterbuch automatisch aus externen Quellen ausgefüllt wurde. Im Falle von Konflikten überschreiben Basis-Wörterbücher automatisch ausgefüllte Wörterbücher.
 

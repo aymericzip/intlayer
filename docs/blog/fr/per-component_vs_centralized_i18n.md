@@ -91,7 +91,7 @@ En même temps, vous devez savoir que lorsque vous chargez dynamiquement votre c
 
 Mais parmi toutes ces solutions, il est clair que l'approche centralisée est la plus populaire.
 
-### Alors, pourquoi l'approche centralisée est-elle si populaire ?
+## Alors, pourquoi l'approche centralisée est-elle si populaire ?
 
 - Tout d'abord, i18next a été la première solution à devenir largement utilisée, suivant une philosophie inspirée des architectures PHP et Java (MVC), qui reposent sur une stricte séparation des préoccupations (garder le contenu séparé du code). Elle est arrivée en 2011, établissant ses standards bien avant le passage massif aux architectures basées sur les composants (comme React).
 - Ensuite, une fois qu'une bibliothèque est largement adoptée, il devient difficile de faire évoluer l'écosystème vers d'autres approches.
@@ -102,7 +102,7 @@ Mais parmi toutes ces solutions, il est clair que l'approche centralisée est la
 
 - [L'histoire de l'i18n en JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/history_of_i18n.md)
 
-### Ok, mais pourquoi ne pas simplement rester sur une approche centralisée ?
+## Ok, mais pourquoi ne pas simplement rester sur une approche centralisée ?
 
 Laissez-moi vous expliquer pourquoi cela peut poser problème pour votre application :
 
@@ -159,7 +159,7 @@ Cependant, je tiens à vous rappeler que toutes les approches granulaires ne ré
 
 De plus, sans une séparation des préoccupations appropriée, il devient beaucoup plus difficile d'extraire et de fournir vos traductions aux traducteurs pour relecture.
 
-### Comment l'approche par composant d'Intlayer résout ce problème
+## Comment l'approche par composant d'Intlayer résout ce problème
 
 Intlayer procède en plusieurs étapes :
 
@@ -246,7 +246,7 @@ export const MyComponent = () => {
 
 - Une approche par composant évite que les agents IA aient besoin de parcourir tous vos fichiers. Elle regroupe toutes les traductions au même endroit, limitant la complexité de la tâche et la quantité de tokens utilisés.
 
-### Limitations
+## Limitations
 
 Bien sûr, cette approche implique des compromis :
 

@@ -91,7 +91,7 @@ Aynı zamanda, içeriğinizi dinamik olarak yüklediğinizde sunucunuza ek istek
 
 Ancak tüm bu çözümlere bakıldığında, en popüler yaklaşımın merkezi (centralized) yaklaşım olduğu açıktır.
 
-### Peki Merkezi yaklaşım neden bu kadar popüler?
+## Peki Merkezi yaklaşım neden bu kadar popüler?
 
 - Öncelikle, i18next yaygın olarak kullanılan ilk çözümdü; PHP ve Java mimarilerinden (MVC) esinlenen, sorumlulukların sıkı bir ayrımına (içeriği koddan ayrı tutma) dayanan bir felsefeyi takip etti. 2011'de ortaya çıktı ve Component-Based Architectures (React gibi) yönündeki büyük değişimden bile önce kendi standartlarını belirledi.
 - Sonra, bir kütüphane yaygın olarak benimsendiğinde, ekosistemi farklı yaklaşımlara kaydırmak zorlaşır.
@@ -102,7 +102,7 @@ Ancak tüm bu çözümlere bakıldığında, en popüler yaklaşımın merkezi (
 
 - [JavaScript i18n tarihi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/history_of_i18n.md)
 
-### Peki, ama neden sadece Centralized bir yaklaşıma bağlı kalmayalım?
+## Peki, ama neden sadece Centralized bir yaklaşıma bağlı kalmayalım?
 
 Uygulamanız için neden sorunlu olabileceğini söyleyeyim:
 
@@ -157,7 +157,7 @@ Ancak size hatırlatmak isterim ki tüm granüler yaklaşımlar bunu çözmez. �
 
 Ayrıca, uygun bir sorumluluk ayrımı olmadan, çevirilerinizi inceleme için çevirmenlere çıkarmak ve sağlamak çok daha zor hale gelir.
 
-### Intlayer'ın bileşen başına yaklaşımı bunu nasıl çözer
+## Intlayer'ın bileşen başına yaklaşımı bunu nasıl çözer
 
 Intlayer birkaç adımda ilerler:
 
@@ -245,7 +245,7 @@ export const MyComponent = () => {
 
 - Bileşen başına yaklaşım, AI ajanlarının tüm farklı dosyalarınız arasında atlamasına gerek kalmasını engeller. Tüm çevirileri tek bir yerde ele alarak görevin karmaşıklığını ve kullanılan token miktarını sınırlar.
 
-### Sınırlamalar
+## Sınırlamalar
 
 Elbette, bu yaklaşım bazı ödünler gerektirir:
 

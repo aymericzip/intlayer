@@ -32,7 +32,7 @@ author: aymericzip
 
 > Lihat [implementasi package di GitHub](https://github.com/aymericzip/intlayer/tree/main/packages/elysia-intlayer).
 
-### Kasus Penggunaan Praktis
+## Kasus Penggunaan Praktis
 
 - **Menampilkan Error Backend dalam Bahasa Pengguna**: Ketika terjadi kesalahan, menampilkan pesan dalam bahasa asli pengguna meningkatkan pemahaman dan mengurangi frustrasi. Ini sangat berguna untuk pesan error dinamis yang mungkin ditampilkan dalam komponen front-end seperti toasts atau modals.
 - **Mengambil Konten Multibahasa**: Untuk aplikasi yang menarik konten dari database, internasionalisasi memastikan bahwa Anda dapat menyajikan konten ini dalam berbagai bahasa. Ini sangat penting untuk platform seperti situs e-commerce atau sistem manajemen konten yang perlu menampilkan deskripsi produk, artikel, dan konten lainnya dalam bahasa yang disukai pengguna.

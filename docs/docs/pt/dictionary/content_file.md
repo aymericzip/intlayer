@@ -536,11 +536,11 @@ Usado em conjunto com as Variantes, este campo define alternativas de conteúdo 
 
 ### Propriedades do CMS
 
-##### `version` (string)
+#### `version` (string)
 
 Identificador de versão para dicionários remotos. Ajuda a rastrear qual versão do dicionário está sendo usada atualmente, especialmente útil ao trabalhar com sistemas de gerenciamento de conteúdo remotos.
 
-##### `importMode` ('static' | 'dynamic' | 'fetch')
+#### `importMode` ('static' | 'dynamic' | 'fetch')
 
 O modo de importação determina como seu dicionário é importado em sua aplicação.
 
@@ -554,35 +554,35 @@ Se definido, esta propriedade substitui o `importMode` global definido em `the `
 
 Estas propriedades são geradas automaticamente pelo Intlayer e não devem ser modificadas manualmente:
 
-##### `$schema` (string)
+#### `$schema` (string)
 
 Esquema JSON usado para validação da estrutura do dicionário. Adicionado automaticamente pelo Intlayer para garantir a integridade do dicionário.
 
-##### `id` (string)
+#### `id` (string)
 
 Para dicionários remotos, este é o identificador único do dicionário no servidor remoto. Usado para buscar e gerenciar conteúdo remoto.
 
-##### `projectIds` (string[])
+#### `projectIds` (string[])
 
 Para dicionários remotos, este array contém os IDs dos projetos que podem usar este dicionário. Um dicionário remoto pode ser compartilhado entre vários projetos.
 
-##### `localId` (LocalDictionaryId)
+#### `localId` (LocalDictionaryId)
 
 Identificador único para dicionários locais. Gerado automaticamente pelo Intlayer para ajudar a identificar o dicionário e determinar se é local ou remoto, junto com sua localização.
 
-##### `localIds` (LocalDictionaryId[])
+#### `localIds` (LocalDictionaryId[])
 
 Para dicionários mesclados, este array contém os IDs de todos os dicionários que foram mesclados juntos. Útil para rastrear a origem do conteúdo mesclado.
 
-##### `filePath` (string)
+#### `filePath` (string)
 
 O caminho do arquivo do dicionário local, indicando de qual arquivo `.content` o dicionário foi gerado. Ajuda na depuração e no rastreamento da origem.
 
-##### `versions` (string[])
+#### `versions` (string[])
 
 Para dicionários remotos, este array contém todas as versões disponíveis do dicionário. Ajuda a rastrear quais versões estão disponíveis para uso.
 
-##### `autoFilled` (true)
+#### `autoFilled` (true)
 
 Indica se o dicionário foi preenchido automaticamente a partir de fontes externas. Em caso de conflitos, os dicionários base substituirão os dicionários preenchidos automaticamente.
 

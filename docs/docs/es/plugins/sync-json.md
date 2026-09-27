@@ -53,7 +53,7 @@ Notas y alcance actual:
 - Aún no hay soporte para inserciones, plurales/ICU, o funciones avanzadas en runtime de otras bibliotecas.
 - El editor visual aún no es compatible con salidas i18n de terceros.
 
-### Cuándo usar este plugin
+## Cuándo usar este plugin
 
 - Ya usas una biblioteca i18n y almacenas mensajes en archivos JSON.
 - Quieres un llenado asistido por IA, pruebas en CI y operaciones de contenido sin cambiar tu tiempo de ejecución de renderizado.

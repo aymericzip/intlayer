@@ -898,7 +898,7 @@ export const Link: FC<PropsWithChildren<NextLinkProps>> = ({
 };
 ```
 
-#### كيف يعمل
+### كيف يعمل
 
 - **كشف الروابط الخارجية**:
 - **تحديد الروابط الخارجية**:  

@@ -539,11 +539,11 @@ Digunakan bersama dengan Variants, bidang ini menentukan alternatif konten berna
 
 ### Properti CMS
 
-##### `version` (string)
+#### `version` (string)
 
 Pengidentifikasi versi untuk kamus jarak jauh. Membantu melacak versi kamus yang sedang digunakan, sangat berguna saat bekerja dengan sistem manajemen konten jarak jauh.
 
-##### `importMode` ('static' | 'dynamic' | 'fetch')
+#### `importMode` ('static' | 'dynamic' | 'fetch')
 
 Mode impor menentukan bagaimana kamus Anda diimpor ke aplikasi Anda.
 
@@ -557,35 +557,35 @@ Jika disetel, properti ini akan menggantikan `importMode` global yang didefinisi
 
 Properti ini dibuat secara otomatis oleh Intlayer dan tidak boleh dimodifikasi secara manual:
 
-##### `$schema` (string)
+#### `$schema` (string)
 
 Skema JSON yang digunakan untuk validasi struktur kamus. Ditambahkan secara otomatis oleh Intlayer untuk memastikan integritas kamus.
 
-##### `id` (string)
+#### `id` (string)
 
 Untuk kamus jarak jauh, ini adalah pengidentifikasi unik dari kamus di server jarak jauh. Digunakan untuk mengambil dan mengelola konten jarak jauh.
 
-##### `projectIds` (string[])
+#### `projectIds` (string[])
 
 Untuk kamus jarak jauh, array ini berisi ID proyek yang dapat menggunakan kamus ini. Kamus jarak jauh dapat dibagikan antara beberapa proyek.
 
-##### `localId` (LocalDictionaryId)
+#### `localId` (LocalDictionaryId)
 
 Pengidentifikasi unik untuk kamus lokal. Dibuat secara otomatis oleh Intlayer untuk membantu mengidentifikasi kamus dan menentukan apakah itu lokal atau jarak jauh, beserta lokasinya.
 
-##### `localIds` (LocalDictionaryId[])
+#### `localIds` (LocalDictionaryId[])
 
 Untuk kamus yang digabung, array ini berisi ID dari semua kamus yang digabungkan bersama. Berguna untuk melacak sumber konten yang digabung.
 
-##### `filePath` (string)
+#### `filePath` (string)
 
 Jalur file dari kamus lokal, menunjukkan dari file `.content` mana kamus tersebut dihasilkan. Membantu dalam debugging dan pelacakan sumber.
 
-##### `versions` (string[])
+#### `versions` (string[])
 
 Untuk kamus jarak jauh, array ini berisi semua versi kamus yang tersedia. Membantu melacak versi mana yang tersedia untuk digunakan.
 
-##### `filled` (true)
+#### `filled` (true)
 
 Menunjukkan apakah kamus telah diisi otomatis dari sumber eksternal. Jika terjadi konflik, kamus dasar akan mengesampingkan kamus yang diisi otomatis.
 

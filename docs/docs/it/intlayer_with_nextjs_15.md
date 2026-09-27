@@ -895,7 +895,7 @@ export const Link: FC<PropsWithChildren<NextLinkProps>> = ({
 };
 ```
 
-#### Come Funziona
+### Come Funziona
 
 - **Rilevamento dei Link Esterni**:  
   La funzione di supporto `checkIsExternalLink` determina se un URL è esterno. I link esterni vengono lasciati invariati perché non necessitano di localizzazione.

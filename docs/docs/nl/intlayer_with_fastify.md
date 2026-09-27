@@ -35,7 +35,7 @@ author: aymericzip
 
 > Bekijk de [pakketimplementatie op GitHub](https://github.com/aymericzip/intlayer/tree/main/packages/fastify-intlayer).
 
-### Praktische Use Cases
+## Praktische Use Cases
 
 - **Backend-fouten weergeven in de taal van de gebruiker**: Wanneer er een fout optreedt, verbetert het weergeven van berichten in de moedertaal van de gebruiker het begrip en vermindert het frustratie. Dit is vooral handig voor dynamische foutmeldingen die kunnen worden weergegeven in front-end componenten zoals toasts of modals.
 - **Meertalige inhoud ophalen**: Voor applicaties die inhoud uit een database ophalen, zorgt internationalisering ervoor dat u die inhoud in meerdere talen kunt aanbieden. Dit is cruciaal voor platforms zoals e-commercesites of contentmanagementsystemen die productbeschrijvingen, artikelen und andere inhoud in de voorkeurstaal van de gebruiker moeten weergeven.

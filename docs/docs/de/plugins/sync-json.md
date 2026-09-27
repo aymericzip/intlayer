@@ -53,7 +53,7 @@ Hinweise und aktueller Umfang:
 - Noch keine Unterstützung für Einfügungen, Pluralformen/ICU oder erweiterte Laufzeitfunktionen anderer Bibliotheken.
 - Der visuelle Editor wird für Ausgaben von Drittanbieter-i18n noch nicht unterstützt.
 
-### Wann Sie dieses Plugin verwenden sollten
+## Wann Sie dieses Plugin verwenden sollten
 
 - Sie verwenden bereits eine i18n-Bibliothek und speichern Nachrichten in JSON-Dateien.
 - Sie möchten KI-unterstütztes Ausfüllen, Tests in CI und Content-Operationen durchführen, ohne Ihre Rendering-Laufzeit zu ändern.

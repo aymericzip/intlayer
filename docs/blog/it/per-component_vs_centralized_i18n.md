@@ -91,7 +91,7 @@ Allo stesso tempo, dovresti sapere che quando carichi dinamicamente i tuoi conte
 
 Ma da tutte queste soluzioni risulta chiaro che l'approccio più popolare è quello centralizzato.
 
-### Perché dunque l'approccio centralizzato è così popolare?
+## Perché dunque l'approccio centralizzato è così popolare?
 
 - In primo luogo, i18next è stata la prima soluzione ad essere ampiamente adottata, seguendo una filosofia ispirata alle architetture PHP e Java (MVC), che si basano su una rigorosa separazione delle responsabilità (mantenere il contenuto separato dal codice). È arrivata nel 2011, stabilendo i suoi standard prima della grande transizione verso le architetture basate su componenti (come React).
 - Inoltre, una volta che una libreria viene ampiamente adottata, diventa difficile spostare l'intero ecosistema verso altri pattern.
@@ -102,7 +102,7 @@ Ma da tutte queste soluzioni risulta chiaro che l'approccio più popolare è que
 
 - [La storia dell'i18n in JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/history_of_i18n.md)
 
-### Ok, ma perché non limitarsi semplicemente a un approccio centralizzato?
+## Ok, ma perché non limitarsi semplicemente a un approccio centralizzato?
 
 Lasciami spiegare perché può essere problematico per la tua app:
 
@@ -160,7 +160,7 @@ Tuttavia, voglio ricordarti che non tutti gli approcci granulari risolvono quest
 
 Inoltre, senza una corretta separazione delle responsabilità, diventa molto più difficile estrarre e fornire le traduzioni ai traduttori per la revisione.
 
-### Come l'approccio per componente di Intlayer risolve questo
+## Come l'approccio per componente di Intlayer risolve questo
 
 Intlayer procede in diversi passaggi:
 
@@ -248,7 +248,7 @@ export const MyComponent = () => {
 
 - Un approccio per componente evita che gli agenti AI debbano saltare tra tutti i tuoi file. Tratta tutte le traduzioni in un unico posto, limitando la complessità del compito e la quantità di token utilizzati.
 
-### Limitazioni
+## Limitazioni
 
 Naturalmente, questo approccio comporta dei compromessi:
 

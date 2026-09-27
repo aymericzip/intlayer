@@ -30,6 +30,103 @@ interface ValidationRule {
   ) => { errors: string[]; warnings: string[] };
 }
 
+export type MarkdownHeading = {
+  /** Heading depth, 1 for `#` to 6 for `######` */
+  level: number;
+  /** 1-based line number in the source file */
+  line: number;
+  text: string;
+};
+
+const FRONTMATTER_PATTERN = /^---\s*\n[\s\S]*?\n---\s*\n/;
+const FENCE_PATTERN = /^\s*(`{3,}|~{3,})/;
+const HEADING_PATTERN = /^(#{1,6})\s+(\S.*)$/;
+
+/**
+ * Lists the ATX headings of a markdown document, ignoring the frontmatter
+ * and fenced code blocks (where `#` lines are usually shell comments).
+ */
+export const getMarkdownHeadings = (content: string): MarkdownHeading[] => {
+  const frontmatterLineCount =
+    content.match(FRONTMATTER_PATTERN)?.[0].split('\n').length ?? 1;
+  const lines = content.split('\n');
+  const headings: MarkdownHeading[] = [];
+  let openFence: string | null = null;
+
+  for (
+    let lineIndex = frontmatterLineCount - 1;
+    lineIndex < lines.length;
+    lineIndex++
+  ) {
+    const lineContent = lines[lineIndex];
+    const fence = lineContent.match(FENCE_PATTERN)?.[1];
+
+    if (fence) {
+      if (openFence === null) {
+        openFence = fence;
+      } else if (
+        fence[0] === openFence[0] &&
+        fence.length >= openFence.length
+      ) {
+        openFence = null;
+      }
+      continue;
+    }
+
+    if (openFence !== null) continue;
+
+    const headingMatch = lineContent.match(HEADING_PATTERN);
+
+    if (headingMatch) {
+      headings.push({
+        level: headingMatch[1].length,
+        line: lineIndex + 1,
+        text: headingMatch[2].replace(/\s+#*\s*$/, '').trim(),
+      });
+    }
+  }
+
+  return headings;
+};
+
+/**
+ * Checks the heading outline: a single H1 and no skipped level
+ * (e.g. an H3 directly under an H1).
+ */
+export const validateHeadingStructure = (
+  content: string
+): { errors: string[]; warnings: string[] } => {
+  const errors: string[] = [];
+  const warnings: string[] = [];
+  const headings = getMarkdownHeadings(content);
+  const firstLevelHeadings = headings.filter((heading) => heading.level === 1);
+
+  if (firstLevelHeadings.length === 0) {
+    warnings.push('Document should have at least one H1 heading (#)');
+  }
+
+  if (firstLevelHeadings.length > 1) {
+    errors.push(
+      `Multiple H1 headings detected at lines ${firstLevelHeadings
+        .map((heading) => heading.line)
+        .join(', ')}`
+    );
+  }
+
+  let previousLevel = 0;
+
+  for (const heading of headings) {
+    if (previousLevel > 0 && heading.level > previousLevel + 1) {
+      errors.push(
+        `Skipped heading level at line ${heading.line}: H${previousLevel} followed by H${heading.level} "${heading.text}"`
+      );
+    }
+    previousLevel = heading.level;
+  }
+
+  return { errors, warnings };
+};
+
 const validationRules: ValidationRule[] = [
   {
     name: 'Frontmatter Check',
@@ -65,33 +162,7 @@ const validationRules: ValidationRule[] = [
   },
   {
     name: 'Header Structure',
-    validate: (content: string) => {
-      const errors: string[] = [];
-      const warnings: string[] = [];
-
-      // Check if document has a main heading (H1)
-      const h1Match = content.match(/^# .+$/m);
-      if (!h1Match) {
-        warnings.push('Document should have at least one H1 heading (#)');
-      }
-
-      // Check for excessive heading hierarchy jumps (only flag very large jumps)
-      const headings = content.match(/^#{1,6} .+$/gm) || [];
-      let prevLevel = 0;
-      headings.forEach((heading, _index) => {
-        const level = heading.match(/^#+/)?.[0].length || 0;
-        // Only flag jumps that are 3+ levels (e.g., H1 to H4, H2 to H5, etc.)
-        // This allows common patterns like H1->H3 or H2->H4
-        if (level > prevLevel + 2 && prevLevel > 0) {
-          warnings.push(
-            `Large heading level jump detected at line: "${heading.trim()}" (from H${prevLevel} to H${level})`
-          );
-        }
-        prevLevel = level;
-      });
-
-      return { errors, warnings };
-    },
+    validate: (content: string) => validateHeadingStructure(content),
   },
   {
     name: 'Code Block Formatting',

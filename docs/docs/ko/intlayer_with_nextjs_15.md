@@ -901,7 +901,7 @@ export const Link: FC<PropsWithChildren<NextLinkProps>> = ({
 };
 ```
 
-#### 작동 방식
+### 작동 방식
 
 - **외부 링크 감지**:
 - **외부 링크 감지**:  

@@ -36,7 +36,7 @@ Note e ambito attuale:
 - Non c'è ancora supporto per inserimenti, plurali/ICU o funzionalità avanzate di runtime di altre librerie all'interno delle voci PO stesse.
 - L'editor visuale non è ancora supportato per gli output i18n di terze parti.
 
-### Quando usare questo plugin
+## Quando usare questo plugin
 
 - Usi già i file Gettext PO per le tue traduzioni.
 - Desideri il riempimento assistito da IA, i test in CI e le operazioni sui contenuti senza modificare il runtime di rendering.

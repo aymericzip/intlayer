@@ -539,11 +539,11 @@ Używane w połączeniu z Wariantami (Variants), to pole definiuje nazwane alter
 
 ### Właściwości CMS
 
-##### `version` (string)
+#### `version` (string)
 
 Identyfikator wersji dla zdalnych słowników. Pomaga śledzić, która wersja słownika jest aktualnie używana, co jest szczególnie przydatne podczas pracy z zdalnymi systemami zarządzania treścią.
 
-##### `importMode` ('static' | 'dynamic' | 'fetch')
+#### `importMode` ('static' | 'dynamic' | 'fetch')
 
 Tryb importu określa, jak słownik jest importowany w aplikacji.
 
@@ -557,35 +557,35 @@ Jeśli ustawione, ta właściwość nadpisuje globalny `importMode` zdefiniowany
 
 Te właściwości są automatycznie generowane przez Intlayer i nie powinny być modyfikowane ręcznie:
 
-##### `$schema` (string)
+#### `$schema` (string)
 
 Schemat JSON używany do walidacji struktury słownika. Automatycznie dodawany przez Intlayer, aby zapewnić integralność słownika.
 
-##### `id` (string)
+#### `id` (string)
 
 Dla słowników zdalnych, jest to unikalny identyfikator słownika na zdalnym serwerze. Używany do pobierania i zarządzania zdalną zawartością.
 
-##### `projectIds` (string[])
+#### `projectIds` (string[])
 
 Dla słowników zdalnych, ta tablica zawiera identyfikatory projektów, które mogą korzystać z tego słownika. Słownik zdalny może być współdzielony między wieloma projektami.
 
-##### `localId` (LocalDictionaryId)
+#### `localId` (LocalDictionaryId)
 
 Unikalny identyfikator dla lokalnych słowników. Automatycznie generowany przez Intlayer, aby pomóc zidentyfikować słownik oraz określić, czy jest lokalny czy zdalny, wraz z jego lokalizacją.
 
-##### `localIds` (LocalDictionaryId[])
+#### `localIds` (LocalDictionaryId[])
 
 Dla scalonych słowników, ta tablica zawiera identyfikatory wszystkich słowników, które zostały połączone. Przydatne do śledzenia źródła scalonej zawartości.
 
-##### `filePath` (string)
+#### `filePath` (string)
 
 Ścieżka pliku lokalnego słownika, wskazująca, z którego pliku `.content` słownik został wygenerowany. Pomaga w debugowaniu i śledzeniu źródła.
 
-##### `versions` (string[])
+#### `versions` (string[])
 
 Dla zdalnych słowników, ta tablica zawiera wszystkie dostępne wersje słownika. Pomaga śledzić, które wersje są dostępne do użycia.
 
-##### `filled` (true)
+#### `filled` (true)
 
 Wskazuje, czy słownik został automatycznie wypełniony z zewnętrznych źródeł. W przypadku konfliktów, słowniki bazowe mają pierwszeństwo nad automatycznie wypełnionymi słownikami.
 

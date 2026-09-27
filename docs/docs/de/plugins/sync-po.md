@@ -36,7 +36,7 @@ Hinweise und aktueller Umfang:
 - Noch keine Unterstützung für Platzhalter, Plurale/ICU oder fortgeschrittene Laufzeitfunktionen anderer Bibliotheken innerhalb der PO-Einträge selbst.
 - Der visuelle Editor wird für i18n-Ausgaben von Drittanbietern noch nicht unterstützt.
 
-### Wann Sie dieses Plugin verwenden sollten
+## Wann Sie dieses Plugin verwenden sollten
 
 - Sie verwenden bereits Gettext PO-Dateien für Ihre Übersetzungen.
 - Sie möchten KI-gestütztes Ausfüllen, Tests in der CI und Content-Ops nutzen, ohne Ihre Rendering-Laufzeit zu ändern.

@@ -535,11 +535,11 @@ Utilisé en conjonction avec les Variantes, ce champ définit des alternatives d
 
 ### Propriétés CMS
 
-##### `version` (string)
+#### `version` (string)
 
 Identifiant de version pour les dictionnaires distants. Permet de suivre quelle version du dictionnaire est actuellement utilisée, particulièrement utile lors de l'utilisation de systèmes de gestion de contenu distants.
 
-##### `importMode` ('static' | 'dynamic' | 'fetch')
+#### `importMode` ('static' | 'dynamic' | 'fetch')
 
 Le mode d'importation détermine comment votre dictionnaire est importé dans votre application.
 
@@ -553,35 +553,35 @@ Si défini, cette propriété remplace le `importMode` global défini dans `la p
 
 Ces propriétés sont générées automatiquement par Intlayer et ne doivent pas être modifiées manuellement :
 
-##### `$schema` (string)
+#### `$schema` (string)
 
 Schéma JSON utilisé pour la validation de la structure du dictionnaire. Ajouté automatiquement par Intlayer pour garantir l'intégrité du dictionnaire.
 
-##### `id` (string)
+#### `id` (string)
 
 Pour les dictionnaires distants, il s'agit de l'identifiant unique du dictionnaire sur le serveur distant. Utilisé pour récupérer et gérer le contenu distant.
 
-##### `projectIds` (string[])
+#### `projectIds` (string[])
 
 Pour les dictionnaires distants, ce tableau contient les IDs des projets qui peuvent utiliser ce dictionnaire. Un dictionnaire distant peut être partagé entre plusieurs projets.
 
-##### `localId` (LocalDictionaryId)
+#### `localId` (LocalDictionaryId)
 
 Identifiant unique pour les dictionnaires locaux. Généré automatiquement par Intlayer pour aider à identifier le dictionnaire et déterminer s'il est local ou distant, ainsi que sa localisation.
 
-##### `localIds` (LocalDictionaryId[])
+#### `localIds` (LocalDictionaryId[])
 
 Pour les dictionnaires fusionnés, ce tableau contient les identifiants de tous les dictionnaires qui ont été fusionnés ensemble. Utile pour suivre la source du contenu fusionné.
 
-##### `filePath` (string)
+#### `filePath` (string)
 
 Le chemin du fichier du dictionnaire local, indiquant à partir de quel fichier `.content` le dictionnaire a été généré. Aide au débogage et au suivi de la source.
 
-##### `versions` (string[])
+#### `versions` (string[])
 
 Pour les dictionnaires distants, ce tableau contient toutes les versions disponibles du dictionnaire. Aide à suivre quelles versions sont disponibles pour utilisation.
 
-##### `autoFilled` (true)
+#### `autoFilled` (true)
 
 Indique si le dictionnaire a été automatiquement rempli à partir de sources externes. En cas de conflits, les dictionnaires de base prévaudront sur les dictionnaires auto-remplis.
 

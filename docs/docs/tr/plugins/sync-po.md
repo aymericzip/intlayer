@@ -36,7 +36,7 @@ Notlar ve mevcut kapsam:
 - PO girişlerinin kendisinde eklemeler, çoğullar/ICU veya diğer kütüphanelerin gelişmiş çalışma zamanı özellikleri için henüz destek yoktur.
 - Görsel düzenleyici henüz üçüncü taraf i18n çıktıları için desteklenmemektedir.
 
-### Bu eklenti ne zaman kullanılmalı?
+## Bu eklenti ne zaman kullanılmalı?
 
 - Çevirileriniz için zaten Gettext PO dosyalarını kullanıyorsanız.
 - İşleme çalışma zamanınızı değiştirmeden yapay zeka destekli doldurma, CI'da test ve içerik operasyonları istiyorsanız.

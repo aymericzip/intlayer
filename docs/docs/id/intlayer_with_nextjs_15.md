@@ -950,7 +950,7 @@ export const Link: FC<PropsWithChildren<NextLinkProps>> = ({
 };
 ```
 
-#### Cara Kerjanya
+### Cara Kerjanya
 
 - **Mendeteksi Tautan Eksternal**:
   Fungsi pembantu `checkIsExternalLink` menentukan apakah sebuah URL bersifat eksternal. Tautan eksternal dibiarkan tidak berubah karena tidak memerlukan lokalisasi.

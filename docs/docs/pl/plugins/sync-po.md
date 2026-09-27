@@ -36,7 +36,7 @@ Uwagi i aktualny zakres:
 - Brak jeszcze wsparcia dla wstawek, liczb mnogich/ICU lub zaawansowanych funkcji runtime innych bibliotek wewnątrz samych wpisów PO.
 - Edytor wizualny nie jest jeszcze wspierany dla wyjść i18n firm trzecich.
 
-### Kiedy używać tego pluginu
+## Kiedy używać tego pluginu
 
 - Używasz już plików Gettext PO do swoich tłumaczeń.
 - Chcesz korzystać z wypełniania wspomaganego przez AI, testów w CI i operacji na treści bez zmiany swojego runtime'u renderowania.

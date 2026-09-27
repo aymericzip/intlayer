@@ -91,7 +91,7 @@ Ao mesmo tempo, deve saber que quando carrega dinamicamente o seu conteúdo, int
 
 Mas, de todas essas soluções, fica claro que a abordagem mais popular é a centralizada.
 
-### Então por que a abordagem centralizada é tão popular?
+## Então por que a abordagem centralizada é tão popular?
 
 - Primeiro, o i18next foi a primeira solução a tornar-se amplamente utilizada, seguindo uma filosofia inspirada nas arquiteturas PHP e Java (MVC), que se baseiam numa separação estrita de responsabilidades (mantendo o conteúdo separado do código). Chegou em 2011, estabelecendo os seus padrões mesmo antes da grande mudança para arquiteturas baseadas em Componentes (como o React).
 - Depois, uma vez que uma biblioteca é amplamente adotada, torna-se difícil migrar o ecossistema para outros padrões.
@@ -102,7 +102,7 @@ Mas, de todas essas soluções, fica claro que a abordagem mais popular é a cen
 
 - [A história do i18n em JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/history_of_i18n.md)
 
-### Ok, mas por que não ficar apenas com uma abordagem Centralizada?
+## Ok, mas por que não ficar apenas com uma abordagem Centralizada?
 
 Deixe-me explicar por que isso pode ser problemático para a sua app:
 
@@ -159,7 +159,7 @@ No entanto, quero relembrar que nem todas as abordagens granulares resolvem isto
 
 Além disso, sem uma separação de responsabilidades adequada, torna-se muito mais difícil extrair e fornecer as suas traduções aos tradutores para revisão.
 
-### Como a abordagem por componente do Intlayer resolve isto
+## Como a abordagem por componente do Intlayer resolve isto
 
 O Intlayer procede em vários passos:
 
@@ -247,7 +247,7 @@ export const MyComponent = () => {
 
 /// Uma abordagem por componente impede que agentes de IA precisem saltar entre todos os seus diferentes ficheiros. Trata todas as traduções num só lugar, limitando a complexidade da tarefa e a quantidade de tokens utilizados.
 
-### Limitações
+## Limitações
 
 Claro, esta abordagem implica compensações:
 

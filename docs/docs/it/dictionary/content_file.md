@@ -536,11 +536,11 @@ Utilizzato in combinazione con le Varianti, questo campo definisce alternative d
 
 ### Proprietà CMS
 
-##### `version` (stringa)
+#### `version` (stringa)
 
 Identificatore di versione per dizionari remoti. Aiuta a tracciare quale versione del dizionario è attualmente in uso, particolarmente utile quando si lavora con sistemi di gestione contenuti remoti.
 
-##### `importMode` ('static' | 'dynamic' | 'fetch')
+#### `importMode` ('static' | 'dynamic' | 'fetch')
 
 La modalità di importazione determina come il tuo dizionario viene importato nella tua applicazione.
 
@@ -554,35 +554,35 @@ Se impostato, questa proprietà sovrascrive il `importMode` globale definito in 
 
 Queste proprietà sono generate automaticamente da Intlayer e non devono essere modificate manualmente:
 
-##### `$schema` (stringa)
+#### `$schema` (stringa)
 
 Schema JSON utilizzato per la validazione della struttura del dizionario. Aggiunto automaticamente da Intlayer per garantire l'integrità del dizionario.
 
-##### `id` (stringa)
+#### `id` (stringa)
 
 Per i dizionari remoti, questo è l'identificatore univoco del dizionario nel server remoto. Utilizzato per il recupero e la gestione dei contenuti remoti.
 
-##### `projectIds` (string[])
+#### `projectIds` (string[])
 
 Per i dizionari remoti, questo array contiene gli ID dei progetti che possono utilizzare questo dizionario. Un dizionario remoto può essere condiviso tra più progetti.
 
-##### `localId` (LocalDictionaryId)
+#### `localId` (LocalDictionaryId)
 
 Identificatore univoco per i dizionari locali. Generato automaticamente da Intlayer per aiutare a identificare il dizionario e determinare se è locale o remoto, insieme alla sua posizione.
 
-##### `localIds` (LocalDictionaryId[])
+#### `localIds` (LocalDictionaryId[])
 
 Per i dizionari uniti, questo array contiene gli ID di tutti i dizionari che sono stati uniti insieme. Utile per tracciare la fonte del contenuto unito.
 
-##### `filePath` (string)
+#### `filePath` (string)
 
 Il percorso del file del dizionario locale, che indica da quale file `.content` è stato generato il dizionario. Aiuta nel debug e nel tracciamento della fonte.
 
-##### `versions` (string[])
+#### `versions` (string[])
 
 Per i dizionari remoti, questo array contiene tutte le versioni disponibili del dizionario. Aiuta a tracciare quali versioni sono disponibili per l'uso.
 
-##### `autoFilled` (true)
+#### `autoFilled` (true)
 
 Indica se il dizionario è stato compilato automaticamente da fonti esterne. In caso di conflitti, i dizionari base sovrascriveranno quelli compilati automaticamente.
 

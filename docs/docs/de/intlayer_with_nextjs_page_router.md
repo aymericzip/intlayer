@@ -756,7 +756,7 @@ export const Link = forwardRef<
 Link.displayName = "Link";
 ```
 
-#### Funktionsweise
+### Funktionsweise
 
 - **Erkennung externer Links**:  
   Die Hilfsfunktion `checkIsExternalLink` bestimmt, ob eine URL extern ist. Externe Links bleiben unverändert, da sie nicht lokalisiert werden müssen.

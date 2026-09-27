@@ -538,7 +538,7 @@ Uygulamanız birden fazla dili desteklediğinde, `<html>` etiketinin `lang` ve `
 
 Bunu otomatik olarak işlemek için bir hook oluşturabilirsiniz.
 
-#### Hook'u Uygulama
+### Hook'u Uygulama
 
 HTML özniteliklerini yönetmek için özel bir hook oluşturun. Hook, yerel ayar değişikliklerini dinler ve öznitelikleri buna göre günceller:
 
@@ -567,7 +567,7 @@ export const useI18nHTMLAttributes = () => {
 };
 ```
 
-#### Hook'u Uygulamanızda Kullanma
+### Hook'u Uygulamanızda Kullanma
 
 HTML özniteliklerinin yerel ayar her değiştiğinde güncellenmesi için hook'u ana bileşeninizde entegre edin:
 

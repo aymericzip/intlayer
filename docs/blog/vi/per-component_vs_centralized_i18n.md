@@ -91,7 +91,7 @@ Biểu đồ dưới đây ước tính dung lượng nội dung cho một ứng
 
 Nhưng từ tất cả các giải pháp đó, rõ ràng rằng cách tiếp cận phổ biến nhất là cách tập trung.
 
-### Vậy tại sao phương pháp tập trung lại được ưa chuộng đến vậy?
+## Vậy tại sao phương pháp tập trung lại được ưa chuộng đến vậy?
 
 - Trước hết, i18next là giải pháp đầu tiên được sử dụng rộng rãi, theo triết lý lấy cảm hứng từ các kiến trúc PHP và Java (MVC), vốn dựa trên nguyên tắc tách biệt trách nhiệm nghiêm ngặt (giữ nội dung tách khỏi mã). Nó xuất hiện vào năm 2011, thiết lập các tiêu chuẩn của mình thậm chí trước cả khi có sự dịch chuyển mạnh mẽ sang kiến trúc dựa trên component (Component-Based Architectures) như React.
 - Sau đó, một khi một thư viện được chấp nhận rộng rãi, sẽ rất khó để chuyển cả hệ sinh thái sang các mô hình khác.
@@ -102,7 +102,7 @@ Nhưng từ tất cả các giải pháp đó, rõ ràng rằng cách tiếp c�
 
 - [Lịch sử i18n trong JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/history_of_i18n.md)
 
-### Được, nhưng tại sao không chỉ gắn bó với cách tiếp cận tập trung?
+## Được, nhưng tại sao không chỉ gắn bó với cách tiếp cận tập trung?
 
 Hãy để tôi nói lý do điều đó có thể gây vấn đề cho ứng dụng của bạn:
 
@@ -160,7 +160,7 @@ Tuy nhiên, tôi muốn nhắc bạn rằng không phải mọi cách tiếp c�
 
 Hơn nữa, nếu không tách biệt rõ ràng các mối quan tâm (separation of concerns), việc trích xuất và cung cấp bản dịch cho người dịch để họ xem xét sẽ trở nên khó khăn hơn nhiều.
 
-### Cách tiếp cận per-component của Intlayer giải quyết vấn đề này
+## Cách tiếp cận per-component của Intlayer giải quyết vấn đề này
 
 Intlayer thực hiện theo một số bước:
 
@@ -247,7 +247,7 @@ export const MyComponent = () => {
 
 - Cách tiếp cận theo từng component ngăn các agent AI phải lục qua tất cả các file khác nhau của bạn. Nó xử lý tất cả các bản dịch tại một chỗ, giảm độ phức tạp của nhiệm vụ và lượng token sử dụng.
 
-### Hạn chế
+## Hạn chế
 
 Tất nhiên, cách tiếp cận này đi kèm với những đánh đổi:
 

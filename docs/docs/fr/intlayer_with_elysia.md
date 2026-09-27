@@ -32,7 +32,7 @@ author: aymericzip
 
 > Voir [l'implémentation du package sur GitHub](https://github.com/aymericzip/intlayer/tree/main/packages/elysia-intlayer).
 
-### Cas d'usage pratiques
+## Cas d'usage pratiques
 
 - **Affichage des erreurs backend dans la langue de l'utilisateur** : Quand une erreur se produit, afficher les messages dans la langue maternelle de l'utilisateur améliore la compréhension et réduit la frustration. Cela est particulièrement utile pour les messages d'erreur dynamiques qui pourraient être affichés dans des composants front-end comme des toasts ou des modales.
 - **Récupération de contenu multilingue** : Pour les applications qui extraient du contenu d'une base de données, l'internationalisation garantit que vous pouvez servir ce contenu dans plusieurs langues. Cela est crucial pour les plateformes comme les sites e-commerce ou les systèmes de gestion de contenu qui ont besoin d'afficher des descriptions de produits, des articles et d'autres contenus dans la langue préférée par l'utilisateur.

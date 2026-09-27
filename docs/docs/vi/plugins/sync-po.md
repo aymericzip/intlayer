@@ -36,7 +36,7 @@ Ghi chú và phạm vi hiện tại:
 - Chưa hỗ trợ cho việc chèn, số nhiều/ICU hoặc các tính năng runtime nâng cao của các thư viện khác trong chính các mục nhập PO.
 - Trình chỉnh sửa trực quan chưa được hỗ trợ cho các đầu ra i18n của bên thứ ba.
 
-### Khi nào nên sử dụng plugin này
+## Khi nào nên sử dụng plugin này
 
 - Bạn đã sử dụng các tệp Gettext PO cho các bản dịch của mình.
 - Bạn muốn điền dữ liệu có hỗ trợ AI, kiểm tra trong CI và vận hành nội dung mà không cần thay đổi runtime kết xuất của mình.

@@ -536,11 +536,11 @@ export default aboutPageMetaContent;
 
 ### CMSプロパティ
 
-##### `version` (string)
+#### `version` (string)
 
 リモート辞書のバージョン識別子。どのバージョンの辞書が現在使用されているかを追跡するのに役立ちます。特にリモートコンテンツ管理システムを使用する場合に有用です。
 
-##### `importMode` ('static' | 'dynamic' | 'fetch')
+#### `importMode` ('static' | 'dynamic' | 'fetch')
 
 インポートモードは、アプリケーションで辞書がどのようにインポートされるかを決定します。
 
@@ -554,35 +554,35 @@ export default aboutPageMetaContent;
 
 これらのプロパティはIntlayerによって自動的に生成され、手動での変更は推奨されません。
 
-##### `$schema` (string)
+#### `$schema` (string)
 
 辞書構造の検証に使用されるJSONスキーマ。辞書の整合性を保証するためにIntlayerによって自動的に追加されます。
 
-##### `id` (string)
+#### `id` (string)
 
 リモート辞書の場合、リモートサーバー上の辞書の一意識別子です。リモートコンテンツの取得および管理に使用されます。
 
-##### `projectIds` (string[])
+#### `projectIds` (string[])
 
 リモート辞書の場合、この配列は、この辞書を使用できるプロジェクトのIDを含みます。リモート辞書は、複数のプロジェクト間で共有できます。
 
-##### `localId` (LocalDictionaryId)
+#### `localId` (LocalDictionaryId)
 
 ローカル辞書の一意識別子。辞書がローカルかリモートか、その場所を判別するためにIntlayerによって自動生成されます。
 
-##### `localIds` (LocalDictionaryId[])
+#### `localIds` (LocalDictionaryId[])
 
 マージされた辞書の場合、この配列にはマージされたすべての辞書のIDが含まれます。マージされたコンテンツの出所を追跡するのに役立ちます。
 
-##### `filePath` (string)
+#### `filePath` (string)
 
 ローカル辞書のファイルパスで、どの `.content` ファイルから辞書が生成されたかを示します。デバッグやソースの追跡に役立ちます。
 
-##### `versions` (string[])
+#### `versions` (string[])
 
 リモート辞書の場合、この配列には辞書の利用可能なすべてのバージョンが含まれます。どのバージョンが使用可能かを追跡するのに役立ちます。
 
-##### `autoFilled` (true)
+#### `autoFilled` (true)
 
 辞書が外部ソースから自動的に補完されたかどうかを示します。競合が発生した場合、ベース辞書が自動補完された辞書より優先されます。
 

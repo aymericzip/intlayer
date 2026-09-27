@@ -35,7 +35,7 @@ author: aymericzip
 
 > Siehe [Paketimplementierung auf GitHub](https://github.com/aymericzip/intlayer/tree/main/packages/fastify-intlayer).
 
-### Praktische Anwendungsfälle
+## Praktische Anwendungsfälle
 
 - **Anzeige von Backend-Fehlern in der Sprache des Nutzers**: Wenn ein Fehler auftritt, verbessert die Anzeige von Meldungen in der Muttersprache des Nutzers das Verständnis und reduziert Frustration. Dies ist besonders nützlich für dynamische Fehlermeldungen, die in Frontend-Komponenten wie Toasts oder Modals angezeigt werden können.
 - **Abrufen mehrsprachiger Inhalte**: Für Anwendungen, die Inhalte aus einer Datenbank abrufen, stellt Internationalisierung sicher, dass Sie diese Inhalte in mehreren Sprachen bereitstellen können. Dies ist entscheidend für Plattformen wie E-Commerce-Websites oder Content-Management-Systeme, die Produktbeschreibungen, Artikel und andere Inhalte in der vom Nutzer bevorzugten Sprache anzeigen müssen.

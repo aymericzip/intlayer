@@ -895,7 +895,7 @@ export const Link: FC<PropsWithChildren<NextLinkProps>> = ({
 };
 ```
 
-#### 工作原理
+### 工作原理
 
 - **检测外部链接**：
 - **检测外部链接**：  

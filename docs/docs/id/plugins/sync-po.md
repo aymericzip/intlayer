@@ -36,7 +36,7 @@ Catatan dan cakupan saat ini:
 - Belum ada dukungan untuk penyisipan, jamak/ICU, atau fitur runtime lanjutan dari pustaka lain di dalam entri PO itu sendiri.
 - Editor visual belum didukung untuk output i18n pihak ketiga.
 
-### Kapan menggunakan plugin ini
+## Kapan menggunakan plugin ini
 
 - Anda sudah menggunakan file Gettext PO untuk terjemahan Anda.
 - Anda ingin pengisian berbantuan AI, pengujian di CI, dan operasi konten tanpa mengubah runtime rendering Anda.

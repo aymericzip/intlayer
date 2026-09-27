@@ -898,7 +898,7 @@ export const Link: FC<PropsWithChildren<NextLinkProps>> = ({
 };
 ```
 
-#### 動作の仕組み
+### 動作の仕組み
 
 - **外部リンクの検出**:
 - **外部リンクの検出**:  

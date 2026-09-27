@@ -538,7 +538,7 @@ Khi ứng dụng của bạn hỗ trợ nhiều ngôn ngữ, việc cập nhật
 
 Bằng cách cập nhật các thuộc tính này một cách động khi locale thay đổi, bạn đảm bảo trải nghiệm nhất quán và dễ tiếp cận cho người dùng trên tất cả các ngôn ngữ được hỗ trợ.
 
-#### Triển khai Hook
+### Triển khai Hook
 
 Tạo một hook tùy chỉnh để quản lý các thuộc tính HTML. Hook này lắng nghe sự thay đổi của locale và cập nhật các thuộc tính tương ứng:
 
@@ -567,7 +567,7 @@ export const useI18nHTMLAttributes = () => {
 };
 ```
 
-#### Sử dụng Hook trong Ứng dụng của Bạn
+### Sử dụng Hook trong Ứng dụng của Bạn
 
 Tích hợp hook vào thành phần chính của bạn để các thuộc tính HTML được cập nhật mỗi khi locale thay đổi:
 

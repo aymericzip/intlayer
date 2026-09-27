@@ -92,7 +92,7 @@ At the same time, you should know that when you dynamically load your content, y
 
 But from all that solution, it's clear that the most popular approach is the centralized one.
 
-### So why is the Centralized approach so popular?
+## So why is the Centralized approach so popular?
 
 - First, i18next was the first solution to become widely used, following a philosophy inspired by PHP and Java architectures (MVC), which rely on a strict separation of concerns (keeping content separate from code). It arrived in 2011, establishing its standards even before the massive shift toward Component-Based Architectures (like React).
 - Then, once a library is widely adopted, it becomes difficult to shift the ecosystem to other patterns.
@@ -103,7 +103,7 @@ But from all that solution, it's clear that the most popular approach is the cen
 
 - [The history of JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/history_of_i18n.md)
 
-### Ok, but why not just stick to a Centralized approach?
+## Ok, but why not just stick to a Centralized approach?
 
 Let me tell you why it can be problematic for your app:
 
@@ -161,7 +161,7 @@ However, I want to remember your that not all granular approaches solve this. Fo
 
 Moreover, without proper separation of concerns, it becomes much more difficult to extract and provide your translations to translators for review.
 
-### How Intlayer's per-component approach solves this
+## How Intlayer's per-component approach solves this
 
 Intlayer proceeds in several steps:
 
@@ -248,7 +248,7 @@ export const MyComponent = () => {
 
 - A per-component approach prevents AI agents from needing to jump across all your different files. It treats all translations in one place, limiting the complexity of the task, and the amount of tokens used.
 
-### Limitations
+## Limitations
 
 Of course, this approach comes with trade-offs:
 

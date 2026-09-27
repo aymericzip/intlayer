@@ -92,7 +92,7 @@ Pada saat yang sama, Anda harus tahu bahwa ketika Anda memuat konten secara dina
 
 Tetapi dari semua solusi tersebut, jelas bahwa pendekatan terpusat adalah yang paling populer.
 
-### Jadi mengapa pendekatan terpusat begitu populer?
+## Jadi mengapa pendekatan terpusat begitu populer?
 
 - Pertama, i18next adalah solusi pertama yang menjadi banyak digunakan, mengikuti filosofi yang terinspirasi dari arsitektur PHP dan Java (MVC), yang mengandalkan pemisahan tanggung jawab yang ketat (memisahkan konten dari kode). Ia hadir pada 2011, menetapkan standarnya bahkan sebelum pergeseran besar menuju Arsitektur Berbasis Komponen (seperti React).
 - Kemudian, setelah sebuah library banyak diadopsi, menjadi sulit menggeser ekosistem ke pola lain.
@@ -103,7 +103,7 @@ Tetapi dari semua solusi tersebut, jelas bahwa pendekatan terpusat adalah yang p
 
 - [Sejarah i18n di JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/history_of_i18n.md)
 
-### Oke, tapi kenapa tidak tetap berpegang pada pendekatan Terpusat?
+## Oke, tapi kenapa tidak tetap berpegang pada pendekatan Terpusat?
 
 Biarkan saya jelaskan mengapa ini bisa menjadi masalah untuk aplikasi Anda:
 
@@ -161,7 +161,7 @@ Namun, saya ingin mengingatkan Anda bahwa tidak semua pendekatan granular menyel
 
 Selain itu, tanpa separation of concerns yang tepat, akan jauh lebih sulit untuk mengekstrak dan menyediakan terjemahan Anda kepada penerjemah untuk ditinjau.
 
-### Bagaimana pendekatan per-komponen Intlayer menyelesaikan ini
+## Bagaimana pendekatan per-komponen Intlayer menyelesaikan ini
 
 Intlayer melakukan beberapa langkah:
 
@@ -249,7 +249,7 @@ export const MyComponent = () => {
 
 /// Pendekatan per-komponen mencegah agen AI perlu melompat ke semua berkas Anda yang berbeda. Pendekatan ini memperlakukan semua terjemahan di satu tempat, membatasi kompleksitas tugas dan jumlah token yang digunakan.
 
-### Keterbatasan
+## Keterbatasan
 
 Tentu saja, pendekatan ini datang dengan trade-offs:
 

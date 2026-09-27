@@ -539,7 +539,7 @@ Lorsque votre application prend en charge plusieurs langues, il est crucial de m
 
 En mettant à jour ces attributs dynamiquement lorsque la locale change, vous garantissez une expérience cohérente et accessible pour les utilisateurs dans toutes les langues prises en charge.
 
-#### Implémentation du Hook
+### Implémentation du Hook
 
 Créez un hook personnalisé pour gérer les attributs HTML. Le hook écoute les changements de locale et met à jour les attributs en conséquence :
 
@@ -568,7 +568,7 @@ export const useI18nHTMLAttributes = () => {
 };
 ```
 
-#### Utilisation du Hook dans votre application
+### Utilisation du Hook dans votre application
 
 Intégrez le hook dans votre composant principal afin que les attributs HTML soient mis à jour chaque fois que la locale change :
 

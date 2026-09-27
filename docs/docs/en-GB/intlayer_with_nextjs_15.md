@@ -896,7 +896,7 @@ export const Link: FC<PropsWithChildren<NextLinkProps>> = ({
 };
 ```
 
-#### How It Works
+### How It Works
 
 - **Detecting External Links**:  
   The helper function `checkIsExternalLink` determines whether a URL is external. External links are left unchanged because they do not need localisation.

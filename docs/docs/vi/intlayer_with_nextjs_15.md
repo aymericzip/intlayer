@@ -923,7 +923,7 @@ export const Link: FC<PropsWithChildren<NextLinkProps>> = ({
 };
 ```
 
-#### Cách hoạt động
+### Cách hoạt động
 
 - **Phát hiện các liên kết bên ngoài**:  
   Hàm trợ giúp `checkIsExternalLink` xác định xem một URL có phải là bên ngoài hay không. Các liên kết bên ngoài được để nguyên vì chúng không cần bản địa hóa.

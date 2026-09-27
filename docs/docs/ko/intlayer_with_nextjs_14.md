@@ -906,7 +906,7 @@ export const Link = forwardRef<
 Link.displayName = "Link";
 ```
 
-#### 작동 방식
+### 작동 방식
 
 - **외부 링크 감지**:  
   헬퍼 함수 `checkIsExternalLink`는 URL이 외부 링크인지 여부를 판단합니다. 외부 링크는 현지화가 필요 없기 때문에 변경하지 않고 그대로 둡니다.

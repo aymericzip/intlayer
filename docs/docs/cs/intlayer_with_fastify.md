@@ -35,7 +35,7 @@ author: aymericzip
 
 > Podívejte se na [implementaci balíčku na GitHubu](https://github.com/aymericzip/intlayer/tree/main/packages/fastify-intlayer).
 
-### Praktické případy použití
+## Praktické případy použití
 
 - **Zobrazení chyb backendu v jazyce uživatele**: Když dojde k chybě, zobrazení zpráv v rodném jazyce uživatele zlepšuje porozumění a snižuje frustraci. To je užitečné zejména pro dynamické chybové zprávy, které se mohou zobrazovat v komponentách front-endu, jako jsou toasty nebo modální okna.
 - **Načítání vícejazyčného obsahu**: U aplikací, které načítají obsah z databáze, internacionalizace zajišťuje, že můžete tento obsah podávat ve více jazycích. To je klíčové pro platformy, jako jsou e-shopy nebo systémy pro správu obsahu, které potřebují zobrazovat popisy produktů, články a další obsah v preferovaném jazyce uživatele.

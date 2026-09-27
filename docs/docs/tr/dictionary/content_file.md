@@ -535,11 +535,11 @@ Varyantlar (Variants) ile birlikte kullanılan bu alan, adlandırılmış içeri
 
 ### CMS Özellikleri
 
-##### `version` (string)
+#### `version` (string)
 
 Uzak sözlükler için sürüm tanımlayıcısı. Hangi sürümün kullanıldığını takip etmeye yardımcı olur, özellikle uzak içerik yönetim sistemleri ile çalışırken faydalıdır.
 
-##### `importMode` ('static' | 'dynamic' | 'fetch')
+#### `importMode` ('static' | 'dynamic' | 'fetch')
 
 İçe aktarma modu, sözlüğünüzün uygulamanızda nasıl içe aktarılacağını belirler.
 
@@ -553,35 +553,35 @@ Ayarlanırsa, bu özellik `intlayer.config.ts` içinde tanımlanan global `impor
 
 Bu özellikler Intlayer tarafından otomatik olarak oluşturulur ve manuel olarak değiştirilmemelidir:
 
-##### `$schema` (string)
+#### `$schema` (string)
 
 Sözlük yapısının doğrulanması için kullanılan JSON şeması. Sözlük bütünlüğünü sağlamak için Intlayer tarafından otomatik olarak eklenir.
 
-##### `id` (string)
+#### `id` (string)
 
 Uzak sözlükler için, uzak sunucudaki sözlüğün benzersiz tanımlayıcısıdır. Uzak içeriğin getirilmesi ve yönetilmesi için kullanılır.
 
-##### `projectIds` (string[])
+#### `projectIds` (string[])
 
 Uzak sözlükler için, bu dizi bu sözlüğü kullanabilen projelerin kimliklerini içerir. Uzak bir sözlük birden fazla proje arasında paylaşılabilir.
 
-##### `localId` (LocalDictionaryId)
+#### `localId` (LocalDictionaryId)
 
 Yerel sözlükler için benzersiz tanımlayıcı. Sözlüğü tanımlamaya ve yerel mi yoksa uzak mı olduğunu, ayrıca konumunu belirlemeye yardımcı olmak için Intlayer tarafından otomatik olarak oluşturulur.
 
-##### `localIds` (LocalDictionaryId[])
+#### `localIds` (LocalDictionaryId[])
 
 Birleştirilmiş sözlükler için, bu dizi birleştirilen tüm sözlüklerin kimliklerini içerir. Birleştirilmiş içeriğin kaynağını takip etmek için faydalıdır.
 
-##### `filePath` (string)
+#### `filePath` (string)
 
 Yerel sözlüğün dosya yolu, sözlüğün hangi `.content` dosyasından oluşturulduğunu gösterir. Hata ayıklama ve kaynak takibi için yardımcı olur.
 
-##### `versions` (string[])
+#### `versions` (string[])
 
 Uzak sözlükler için, bu dizi sözlüğün mevcut tüm sürümlerini içerir. Hangi sürümlerin kullanılabilir olduğunu takip etmeye yardımcı olur.
 
-##### `autoFilled` (true)
+#### `autoFilled` (true)
 
 Sözlüğün dış kaynaklardan otomatik olarak doldurulup doldurulmadığını belirtir. Çakışma durumunda, temel sözlükler otomatik doldurulan sözlüklerin üzerine yazacaktır.
 

@@ -33,7 +33,7 @@ author: aymericzip
 
 `hono-intlayer` to potężne oprogramowanie pośredniczące (middleware) do internacjonalizacji (i18n) dla aplikacji Hono, zaprojektowane w celu udostępnienia usług backendowych globalnie poprzez dostarczanie zlokalizowanych odpowiedzi opartych na preferencjach klienta.
 
-### Praktyczne Przypadki Użycia
+## Praktyczne Przypadki Użycia
 
 - **Wyświetlanie Błędów Backendowych w Języku Użytkownika**: Gdy wystąpi błąd, wyświetlanie komunikatów w ojczystym języku użytkownika poprawia zrozumienie i zmniejsza frustrację. Jest to szczególnie przydatne w przypadku dynamicznych komunikatów o błędach, które mogą być wyświetlane w komponentach front-endowych, takich jak toasty czy modale.
 

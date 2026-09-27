@@ -536,11 +536,11 @@ export default aboutPageMetaContent;
 
 ### CMS 属性
 
-##### `version`（字符串）
+#### `version`（字符串）
 
 远程字典的版本标识符。帮助跟踪当前使用的字典版本，尤其在使用远程内容管理系统时非常有用。
 
-##### `importMode`（'static' | 'dynamic' | 'fetch'）
+#### `importMode`（'static' | 'dynamic' | 'fetch'）
 
 导入模式决定字典在应用程序中的导入方式。
 
@@ -554,35 +554,35 @@ export default aboutPageMetaContent;
 
 这些属性由 Intlayer 自动生成，不应手动修改：
 
-##### `$schema`（字符串）
+#### `$schema`（字符串）
 
 用于验证字典结构的 JSON 模式。由 Intlayer 自动添加，以确保字典的完整性。
 
-##### `id`（字符串）
+#### `id`（字符串）
 
 对于远程字典，这是远程服务器中字典的唯一标识符。用于获取和管理远程内容。
 
-##### `localId`（LocalDictionaryId）
+#### `localId`（LocalDictionaryId）
 
 本地字典的唯一标识符。由 Intlayer 自动生成，用于帮助识别字典并确定其是本地还是远程，以及其位置。
 
-##### `localId` (LocalDictionaryId)
+#### `localId` (LocalDictionaryId)
 
 本地字典的唯一标识符。由 Intlayer 自动生成，用于帮助识别字典，以及确定它是本地字典还是远程字典，以及它的位置。
 
-##### `localIds`（LocalDictionaryId[]）
+#### `localIds`（LocalDictionaryId[]）
 
 对于合并的字典，此数组包含所有被合并字典的 ID。对于追踪合并内容的来源非常有用。
 
-##### `filePath` (string)
+#### `filePath` (string)
 
 本地字典的文件路径，指示该字典是从哪个 `.content` 文件生成的。便于调试和源头追踪。
 
-##### `versions` (string[])
+#### `versions` (string[])
 
 对于远程字典，此数组包含字典的所有可用版本。帮助跟踪可用的版本。
 
-##### `autoFilled` (true)
+#### `autoFilled` (true)
 
 指示字典是否已从外部来源自动填充。在发生冲突时，基础字典将覆盖自动填充的字典。
 

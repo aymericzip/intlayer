@@ -30,7 +30,7 @@ author: aymericzip
 
 `adonis-intlayer` es un potente paquete de internacionalización (i18n) para aplicaciones AdonisJS, diseñado para hacer que tus servicios de backend sean accesibles globalmente proporcionando respuestas localizadas basadas en las preferencias del cliente.
 
-### Casos de Uso Prácticos
+## Casos de Uso Prácticos
 
 - **Mostrar Errores de Backend en el Idioma del Usuario**: Cuando ocurre un error, mostrar los mensajes en el idioma nativo del usuario mejora la comprensión y reduce la frustración. Esto es especialmente útil para mensajes de error dinámicos que podrían mostrarse en componentes front-end como avisos (toasts) o modales.
 

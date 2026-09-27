@@ -32,7 +32,7 @@ author: aymericzip
 
 > GitHub'da [paket uygulamasını görüntüleyin](https://github.com/aymericzip/intlayer/tree/main/packages/elysia-intlayer).
 
-### Pratik Kullanım Senaryoları
+## Pratik Kullanım Senaryoları
 
 - **Backend Hatalarını Kullanıcının Dilinde Görüntüleme**: Bir hata oluştuğunda, mesajları kullanıcının ana dilinde görüntülemek anlayışı iyileştirir ve hayal kırıklığını azaltır. Bu, toast veya modal gibi ön-uç bileşenlerinde gösterilebilecek dinamik hata mesajları için özellikle faydalıdır.
 - **Çok Dilli İçerik Alma**: Bir veritabanından içerik çeken uygulamalar için uluslararasılaştırma, bu içeriği birden fazla dilde sunabileceğinizi sağlar. Bu, ürün açıklamaları, makaleler ve diğer içeriği kullanıcı tarafından tercih edilen dilde görüntülemesi gereken e-ticaret siteleri veya içerik yönetim sistemleri gibi platformlar için çok önemlidir.

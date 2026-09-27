@@ -53,7 +53,7 @@ Ghi chú và phạm vi hiện tại:
 - Chưa hỗ trợ chèn, số nhiều/ICU, hoặc các tính năng runtime nâng cao của các thư viện khác.
 - Trình chỉnh sửa trực quan chưa được hỗ trợ cho các đầu ra i18n của bên thứ ba.
 
-### Khi nào nên sử dụng plugin này
+## Khi nào nên sử dụng plugin này
 
 - Bạn đã sử dụng một thư viện i18n và lưu trữ các thông điệp trong các tệp JSON.
 - Bạn muốn hỗ trợ điền bằng AI, kiểm tra trong CI, và vận hành nội dung mà không thay đổi runtime kết xuất của bạn.

@@ -867,7 +867,7 @@ export const Link = forwardRef<
 Link.displayName = "Link";
 ```
 
-#### Come Funziona
+### Come Funziona
 
 - **Rilevamento dei Link Esterni**:  
   La funzione helper `checkIsExternalLink` determina se un URL è esterno. I link esterni vengono lasciati invariati perché non necessitano di localizzazione.

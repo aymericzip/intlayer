@@ -894,7 +894,7 @@ export const Link = forwardRef<
 Link.displayName = "Link";
 ```
 
-#### Cách Hoạt Động
+### Cách Hoạt Động
 
 - **Phát hiện Liên kết Ngoài**:  
   Hàm trợ giúp `checkIsExternalLink` xác định xem một URL có phải là liên kết ngoài hay không. Các liên kết ngoài được giữ nguyên vì không cần địa phương hóa.

@@ -35,7 +35,7 @@ author: aymericzip
 
 > Xem [triển khai gói trên GitHub](https://github.com/aymericzip/intlayer/tree/main/packages/fastify-intlayer).
 
-### Các trường hợp sử dụng thực tế
+## Các trường hợp sử dụng thực tế
 
 - **Hiển thị lỗi Backend bằng ngôn ngữ của người dùng**: Khi xảy ra lỗi, việc hiển thị thông báo bằng ngôn ngữ mẹ đẻ của người dùng sẽ cải thiện sự hiểu biết và giảm bớt sự khó chịu. Điều này đặc biệt hữu ích cho các thông báo lỗi động có thể được hiển thị trong các thành phần giao diện người dùng như toast hoặc modal.
 - **Truy xuất nội dung đa ngôn ngữ**: Đối với các ứng dụng lấy nội dung từ cơ sở dữ liệu, việc quốc tế hóa đảm bảo rằng bạn có thể phục vụ nội dung này bằng nhiều ngôn ngữ. Điều này rất quan trọng đối với các nền tảng như trang web thương mại điện tử hoặc hệ thống quản lý nội dung cần hiển thị mô tả sản phẩm, bài viết và nội dung khác bằng ngôn ngữ ưa thích của người dùng.

@@ -1,6 +1,10 @@
 import { validateMarkdown } from '@intlayer/core/transpiler';
 import { describe, expect, it } from 'vitest';
-import { runMarkdownFormattingTest } from './markdownFormatting';
+import {
+  getMarkdownHeadings,
+  runMarkdownFormattingTest,
+  validateHeadingStructure,
+} from './markdownFormatting';
 
 describe('validateMarkdown (via @intlayer/core)', () => {
   describe('code block validation', () => {
@@ -102,6 +106,66 @@ describe('validateMarkdown (via @intlayer/core)', () => {
       expect(valid).toBe(false);
       expect(issues.length).toBeGreaterThanOrEqual(2);
     });
+  });
+});
+
+describe('getMarkdownHeadings', () => {
+  it('should ignore frontmatter and fenced code blocks', () => {
+    const content = [
+      '---',
+      'title: Test',
+      '---',
+      '# Title',
+      '',
+      '    ```bash',
+      '# install',
+      '    ```',
+      '',
+      '## Section',
+    ].join('\n');
+
+    expect(getMarkdownHeadings(content)).toEqual([
+      { level: 1, line: 4, text: 'Title' },
+      { level: 2, line: 10, text: 'Section' },
+    ]);
+  });
+
+  it('should not close a fence with a different fence character', () => {
+    const content = ['~~~', '```', '# comment', '~~~', '## Real'].join('\n');
+
+    expect(getMarkdownHeadings(content)).toEqual([
+      { level: 2, line: 5, text: 'Real' },
+    ]);
+  });
+});
+
+describe('validateHeadingStructure', () => {
+  it('should pass for a well nested outline', () => {
+    const { errors } = validateHeadingStructure(
+      '# Title\n## A\n### A.1\n## B\n### B.1\n#### B.1.a'
+    );
+    expect(errors).toEqual([]);
+  });
+
+  it('should fail for multiple H1 headings', () => {
+    const { errors } = validateHeadingStructure('# One\n## A\n# Two');
+    expect(errors).toEqual(['Multiple H1 headings detected at lines 1, 3']);
+  });
+
+  it('should fail for an H3 directly under an H1', () => {
+    const { errors } = validateHeadingStructure('# Title\n### Orphan');
+    expect(errors[0]).toContain('H1 followed by H3');
+  });
+
+  it('should fail for an H4 directly under an H2', () => {
+    const { errors } = validateHeadingStructure('# T\n## A\n#### Deep');
+    expect(errors[0]).toContain('line 3: H2 followed by H4');
+  });
+
+  it('should warn when there is no H1', () => {
+    const { errors, warnings } = validateHeadingStructure('## A\n### B');
+    expect(errors).toEqual([]);
+    expect(warnings).toHaveLength(1);
   });
 });
 

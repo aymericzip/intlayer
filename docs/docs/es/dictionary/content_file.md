@@ -538,11 +538,11 @@ Utilizado en conjunto con las Variantes, este campo define alternativas de conte
 
 ### Propiedades del CMS
 
-##### `version` (cadena)
+#### `version` (cadena)
 
 Identificador de versión para diccionarios remotos. Ayuda a rastrear qué versión del diccionario se está utilizando actualmente, especialmente útil cuando se trabaja con sistemas de gestión de contenido remotos.
 
-##### `importMode` ('static' | 'dynamic' | 'fetch')
+#### `importMode` ('static' | 'dynamic' | 'fetch')
 
 El modo de importación determina cómo se importa tu diccionario en tu aplicación.
 
@@ -556,35 +556,35 @@ Si se establece, esta propiedad anula el `importMode` global definido en `la pro
 
 Estas propiedades son generadas automáticamente por Intlayer y no deben ser modificadas manualmente:
 
-##### `$schema` (string)
+#### `$schema` (string)
 
 Esquema JSON utilizado para la validación de la estructura del diccionario. Añadido automáticamente por Intlayer para asegurar la integridad del diccionario.
 
-##### `id` (string)
+#### `id` (string)
 
 Para diccionarios remotos, este es el identificador único del diccionario en el servidor remoto. Se usa para obtener y gestionar contenido remoto.
 
-##### `projectIds` (string[])
+#### `projectIds` (string[])
 
 Para diccionarios remotos, este array contiene los IDs de los proyectos que pueden usar este diccionario. Un diccionario remoto puede ser compartido entre múltiples proyectos.
 
-##### `localId` (LocalDictionaryId)
+#### `localId` (LocalDictionaryId)
 
 Identificador único para diccionarios locales. Generado automáticamente por Intlayer para ayudar a identificar el diccionario y determinar si es local o remoto, junto con su ubicación.
 
-##### `localIds` (LocalDictionaryId[])
+#### `localIds` (LocalDictionaryId[])
 
 Para diccionarios fusionados, este arreglo contiene los IDs de todos los diccionarios que fueron fusionados juntos. Útil para rastrear la fuente del contenido fusionado.
 
-##### `filePath` (string)
+#### `filePath` (string)
 
 La ruta del archivo del diccionario local, indicando de qué archivo `.content` se generó el diccionario. Ayuda con la depuración y el seguimiento de la fuente.
 
-##### `versions` (string[])
+#### `versions` (string[])
 
 Para diccionarios remotos, este arreglo contiene todas las versiones disponibles del diccionario. Ayuda a rastrear qué versiones están disponibles para su uso.
 
-##### `autoFilled` (true)
+#### `autoFilled` (true)
 
 Indica si el diccionario ha sido auto-rellenado desde fuentes externas. En caso de conflictos, los diccionarios base sobrescribirán a los diccionarios auto-rellenados.
 

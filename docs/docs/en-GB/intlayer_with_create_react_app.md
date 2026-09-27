@@ -541,7 +541,7 @@ When your application supports multiple languages, it is crucial to update the `
 
 By updating these attributes dynamically when the locale changes, you guarantee a consistent and accessible experience for users across all supported languages.
 
-#### Implementing the Hook
+### Implementing the Hook
 
 Create a custom hook to manage the HTML attributes. The hook listens for locale changes and updates the attributes accordingly:
 
@@ -570,7 +570,7 @@ export const useI18nHTMLAttributes = () => {
 };
 ```
 
-#### Using the Hook in Your Application
+### Using the Hook in Your Application
 
 Integrate the hook into your main component so that the HTML attributes update whenever the locale changes:
 

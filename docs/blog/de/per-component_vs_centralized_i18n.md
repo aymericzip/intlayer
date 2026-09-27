@@ -91,7 +91,7 @@ Gleichzeitig sollten Sie wissen, dass das dynamische Laden Ihrer Inhalte zusätz
 
 Trotz dieser Ansätze ist klar, dass der zentralisierte Ansatz der populärste ist.
 
-### Warum ist der zentralisierte Ansatz so beliebt?
+## Warum ist der zentralisierte Ansatz so beliebt?
 
 - Erstens war i18next die erste Lösung, die weit verbreitet wurde und einer Philosophie folgte, die von PHP- und Java-Architekturen (MVC) inspiriert ist und auf einer strikten Trennung der Verantwortlichkeiten beruht (Inhalte vom Code getrennt zu halten). Sie erschien 2011 und etablierte ihre Standards noch vor der massiven Verschiebung hin zu komponentenbasierten Architekturen (wie React).
 - Sobald eine Bibliothek einmal weit verbreitet ist, wird es schwierig, das Ökosystem auf andere Muster umzustellen.
@@ -102,7 +102,7 @@ Trotz dieser Ansätze ist klar, dass der zentralisierte Ansatz der populärste i
 
 - [Die Geschichte von i18n in JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/history_of_i18n.md)
 
-### Ok, aber warum nicht einfach beim zentralisierten Ansatz bleiben?
+## Ok, aber warum nicht einfach beim zentralisierten Ansatz bleiben?
 
 Lass mich erklären, warum das problematisch für deine App sein kann:
 
@@ -161,7 +161,7 @@ Ich möchte daran erinnern, dass nicht alle granularen Ansätze dieses Problem l
 
 Zudem wird es ohne eine saubere Separation of concerns deutlich schwieriger, deine Übersetzungen für die Überprüfung durch Übersetzer zu extrahieren und bereitzustellen.
 
-### Wie Intlayers komponentenbasierter Ansatz dieses Problem löst
+## Wie Intlayers komponentenbasierter Ansatz dieses Problem löst
 
 Intlayer geht in mehreren Schritten vor:
 
@@ -249,7 +249,7 @@ export const MyComponent = () => {
 
 - Ein pro-Komponenten-Ansatz verhindert, dass AI-Agenten durch all Ihre verschiedenen Dateien springen müssen. Er fasst alle Übersetzungen an einem Ort zusammen und begrenzt so die Komplexität der Aufgabe sowie die Anzahl der verwendeten Tokens.
 
-### Einschränkungen
+## Einschränkungen
 
 Natürlich bringt dieser Ansatz Kompromisse mit sich:
 

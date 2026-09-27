@@ -36,7 +36,7 @@ Notes et portée actuelle :
 - Pas encore de support pour les insertions, les pluriels/ICU ou les fonctionnalités avancées au moment de l'exécution d'autres bibliothèques au sein des entrées PO elles-mêmes.
 - L'éditeur visuel n'est pas encore supporté pour les sorties i18n tierces.
 
-### Quand utiliser ce plugin
+## Quand utiliser ce plugin
 
 - Vous utilisez déjà des fichiers Gettext PO pour vos traductions.
 - Vous souhaitez bénéficier du remplissage assisté par IA, des tests en CI et des opérations de contenu sans changer votre runtime de rendu.

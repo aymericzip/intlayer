@@ -91,7 +91,7 @@ Jednocześnie powinieneś wiedzieć, że gdy dynamicznie ładujesz swoją zawart
 
 Ale z tych wszystkich rozwiązań jasno wynika, że najbardziej popularnym podejściem jest podejście scentralizowane.
 
-### Dlaczego więc podejście scentralizowane jest tak popularne?
+## Dlaczego więc podejście scentralizowane jest tak popularne?
 
 - Po pierwsze, i18next było pierwszym rozwiązaniem, które zyskało szerokie zastosowanie, podążając za filozofią inspirowaną architekturami PHP i Java (MVC), które opierają się na ścisłym rozdziale odpowiedzialności (trzymaniu treści oddzielnie od kodu). Pojawiło się w 2011 roku, ustanawiając swoje standardy jeszcze przed masowym przejściem na architektury oparte na komponentach (takie jak React).
 - Po drugie, gdy biblioteka zostanie szeroko przyjęta, trudno jest przestawić ekosystem na inne wzorce.
@@ -102,7 +102,7 @@ Ale z tych wszystkich rozwiązań jasno wynika, że najbardziej popularnym podej
 
 - [Historia i18n w JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/history_of_i18n.md)
 
-### Ok, ale dlaczego nie pozostać przy podejściu scentralizowanym?
+## Ok, ale dlaczego nie pozostać przy podejściu scentralizowanym?
 
 Pozwól, że wyjaśnię, dlaczego może to być problematyczne dla Twojej aplikacji:
 
@@ -160,7 +160,7 @@ Jednak chcę przypomnieć, że nie wszystkie podejścia granularne to rozwiązuj
 
 Co więcej, bez odpowiedniego separation of concerns znacznie trudniej jest wyodrębnić tłumaczenia i udostępnić je tłumaczom do przeglądu.
 
-### Jak podejście per-component w Intlayer rozwiązuje ten problem
+## Jak podejście per-component w Intlayer rozwiązuje ten problem
 
 Intlayer działa w kilku etapach:
 
@@ -248,7 +248,7 @@ export const MyComponent = () => {
 
 /// Podejście per-component zapobiega konieczności, by agenty AI musiały przeskakiwać przez wszystkie różne pliki. Traktuje wszystkie tłumaczenia w jednym miejscu, ograniczając złożoność zadania i liczbę używanych tokenów.
 
-### Ograniczenia
+## Ograniczenia
 
 Oczywiście to podejście wiąże się z kompromisami:
 

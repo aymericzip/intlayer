@@ -36,7 +36,7 @@ Notes and current scope:
 - No support yet for insertions, plurals/ICU, or advanced runtime features of other libraries within the PO entries themselves.
 - The visual editor is not supported yet for third‑party i18n outputs.
 
-### When to use this plugin
+## When to use this plugin
 
 - You already use Gettext PO files for your translations.
 - You want AI‑assisted fill, test in CI, and content ops without changing your rendering runtime.

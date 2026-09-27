@@ -986,7 +986,7 @@ export const Link: FC<PropsWithChildren<NextLinkProps>> = ({
 };
 ```
 
-#### Як це працює
+### Як це працює
 
 - **Визначення зовнішніх посилань**:
 

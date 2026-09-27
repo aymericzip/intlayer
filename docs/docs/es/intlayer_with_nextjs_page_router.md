@@ -748,7 +748,7 @@ export const Link = forwardRef<
 Link.displayName = "Link";
 ```
 
-#### Cómo Funciona
+### Cómo Funciona
 
 - **Detección de Enlaces Externos**:  
   La función auxiliar `checkIsExternalLink` determina si una URL es externa. Los enlaces externos se dejan sin cambios porque no necesitan localización.

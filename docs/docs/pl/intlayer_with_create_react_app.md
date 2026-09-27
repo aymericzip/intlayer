@@ -538,7 +538,7 @@ Gdy Twoja aplikacja obsługuje wiele języków, kluczowe jest, aby zaktualizowa�
 
 Poprzez dynamiczną aktualizację tych atrybutów przy zmianie lokalizacji, zapewniasz spójne i dostępne doświadczenie dla użytkowników we wszystkich obsługiwanych językach.
 
-#### Implementacja hooka
+### Implementacja hooka
 
 Utwórz niestandardowy hook do zarządzania atrybutami HTML. Hook nasłuchuje zmian lokalizacji i odpowiednio aktualizuje atrybuty:
 
@@ -567,7 +567,7 @@ export const useI18nHTMLAttributes = () => {
 };
 ```
 
-#### Użycie Hooka w Twojej Aplikacji
+### Użycie Hooka w Twojej Aplikacji
 
 Zintegruj hook w swoim głównym komponencie, aby atrybuty HTML były aktualizowane za każdym razem, gdy zmienia się locale:
 

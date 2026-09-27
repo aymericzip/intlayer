@@ -537,7 +537,7 @@ Wenn Ihre Anwendung mehrere Sprachen unterstützt, ist es wichtig, die Attribute
 
 Durch die dynamische Aktualisierung dieser Attribute bei Änderungen der Lokalisierung gewährleisten Sie ein konsistentes und barrierefreies Erlebnis für Benutzer in allen unterstützten Sprachen.
 
-#### Implementierung des Hooks
+### Implementierung des Hooks
 
 Erstellen Sie einen benutzerdefinierten Hook, um die HTML-Attribute zu verwalten. Der Hook hört auf Lokalisierungsänderungen und aktualisiert die Attribute entsprechend:
 
@@ -566,7 +566,7 @@ export const useI18nHTMLAttributes = () => {
 };
 ```
 
-#### Verwendung des Hooks in Ihrer Anwendung
+### Verwendung des Hooks in Ihrer Anwendung
 
 Integrieren Sie den Hook in Ihre Hauptkomponente, sodass die HTML-Attribute aktualisiert werden, wenn sich die Lokalisierung ändert:
 

@@ -53,7 +53,7 @@ Notlar ve mevcut kapsam:
 - Henüz eklemeler, çoğullar/ICU veya diğer kütüphanelerin gelişmiş çalışma zamanı özellikleri desteklenmemektedir.
 - Görsel editör, üçüncü taraf i18n çıktıları için henüz desteklenmemektedir.
 
-### Bu eklenti ne zaman kullanılmalı
+## Bu eklenti ne zaman kullanılmalı
 
 - Zaten bir i18n kütüphanesi kullanıyor ve mesajları JSON dosyalarında saklıyorsunuz.
 - Rendering çalışma zamanınızı değiştirmeden AI destekli doldurma, CI'da test ve içerik operasyonları yapmak istiyorsunuz.

@@ -538,7 +538,7 @@ Ketika aplikasi Anda mendukung banyak bahasa, sangat penting untuk memperbarui a
 
 Dengan memperbarui atribut ini secara dinamis saat locale berubah, Anda menjamin pengalaman yang konsisten dan dapat diakses bagi pengguna di semua bahasa yang didukung.
 
-#### Mengimplementasikan Hook
+### Mengimplementasikan Hook
 
 Buat hook kustom untuk mengelola atribut HTML. Hook ini mendengarkan perubahan locale dan memperbarui atribut sesuai:
 
@@ -567,7 +567,7 @@ export const useI18nHTMLAttributes = () => {
 };
 ```
 
-#### Menggunakan Hook di Aplikasi Anda
+### Menggunakan Hook di Aplikasi Anda
 
 Integrasikan hook ini ke dalam komponen utama Anda agar atribut HTML diperbarui setiap kali locale berubah:
 

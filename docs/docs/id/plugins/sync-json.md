@@ -53,7 +53,7 @@ Catatan dan cakupan saat ini:
 - Belum mendukung penyisipan, bentuk jamak/ICU, atau fitur runtime lanjutan dari pustaka lain.
 - Editor visual belum didukung untuk output i18n pihak ketiga.
 
-### Kapan menggunakan plugin ini
+## Kapan menggunakan plugin ini
 
 - Anda sudah menggunakan perpustakaan i18n dan menyimpan pesan dalam file JSON.
 - Anda menginginkan pengisian berbantuan AI, pengujian di CI, dan operasi konten tanpa mengubah runtime rendering Anda.

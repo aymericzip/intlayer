@@ -33,7 +33,7 @@ author: aymericzip
 
 `hono-intlayer` est un puissant middleware d'internationalisation (i18n) pour les applications Hono, conçu pour rendre vos services backend accessibles mondialement en fournissant des réponses localisées basées sur les préférences du client.
 
-### Cas d'Utilisation Pratiques
+## Cas d'Utilisation Pratiques
 
 - **Affichage des Erreurs Backend dans la Langue de l'Utilisateur** : Lorsqu'une erreur survient, l'affichage de messages dans la langue maternelle de l'utilisateur améliore la compréhension et réduit la frustration. Ceci est particulièrement utile pour les messages d'erreur dynamiques qui pourraient être affichés dans des composants front-end comme des toasts ou des modales.
 

@@ -536,11 +536,11 @@ export default aboutPageMetaContent;
 
 ### CMS 속성
 
-##### `version` (string)
+#### `version` (string)
 
 원격 사전의 버전 식별자입니다. 현재 사용 중인 사전의 버전을 추적하는 데 도움이 되며, 특히 원격 콘텐츠 관리 시스템 작업 시 유용합니다.
 
-##### `importMode` ('static' | 'dynamic' | 'fetch')
+#### `importMode` ('static' | 'dynamic' | 'fetch')
 
 가져오기 모드는 애플리케이션에서 사전이 어떻게 가져오는지를 결정합니다.
 
@@ -554,35 +554,35 @@ export default aboutPageMetaContent;
 
 이 속성들은 Intlayer에 의해 자동으로 생성되며 수동으로 수정해서는 안 됩니다:
 
-##### `$schema` (string)
+#### `$schema` (string)
 
 사전 구조의 유효성을 검사하는 데 사용되는 JSON 스키마입니다. 사전 무결성을 보장하기 위해 Intlayer가 자동으로 추가합니다.
 
-##### `id` (string)
+#### `id` (string)
 
 원격 사전의 경우, 원격 서버에서 사전을 고유하게 식별하는 식별자입니다. 원격 콘텐츠를 가져오고 관리하는 데 사용됩니다.
 
-##### `projectIds` (string[])
+#### `projectIds` (string[])
 
 원격 사전의 경우, 이 배열은 이 사전을 사용할 수 있는 프로젝트의 ID를 포함합니다. 원격 사전은 여러 프로젝트 간에 공유될 수 있습니다.
 
-##### `localId` (LocalDictionaryId)
+#### `localId` (LocalDictionaryId)
 
 로컬 사전의 고유 식별자입니다. Intlayer가 자동으로 생성하며, 사전이 로컬인지 원격인지 및 위치를 식별하는 데 도움을 줍니다.
 
-##### `localIds` (LocalDictionaryId[])
+#### `localIds` (LocalDictionaryId[])
 
 병합된 사전의 경우, 이 배열에는 함께 병합된 모든 사전의 ID가 포함됩니다. 병합된 콘텐츠의 출처를 추적하는 데 유용합니다.
 
-##### `filePath` (string)
+#### `filePath` (string)
 
 로컬 사전의 파일 경로로, 사전이 생성된 `.content` 파일을 나타냅니다. 디버깅 및 출처 추적에 도움이 됩니다.
 
-##### `versions` (string[])
+#### `versions` (string[])
 
 원격 사전의 경우, 이 배열에는 사전의 모든 사용 가능한 버전이 포함됩니다. 사용 가능한 버전을 추적하는 데 도움이 됩니다.
 
-##### `autoFilled` (true)
+#### `autoFilled` (true)
 
 사전이 외부 소스에서 자동으로 채워졌는지 여부를 나타냅니다. 충돌이 발생할 경우, 기본 사전이 자동 채워진 사전을 덮어씁니다.
 

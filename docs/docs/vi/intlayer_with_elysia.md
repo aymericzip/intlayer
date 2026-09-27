@@ -32,7 +32,7 @@ author: aymericzip
 
 > Xem [triển khai package trên GitHub](https://github.com/aymericzip/intlayer/tree/main/packages/elysia-intlayer).
 
-### Các Trường Hợp Sử Dụng Thực Tế
+## Các Trường Hợp Sử Dụng Thực Tế
 
 - **Hiển Thị Lỗi Backend Theo Ngôn Ngữ của Người Dùng**: Khi một lỗi xảy ra, hiển thị thông báo bằng ngôn ngữ mẹ đẻ của người dùng sẽ cải thiện sự hiểu biết và giảm bớt sự thất vọng. Điều này đặc biệt hữu ích cho các thông báo lỗi động có thể được hiển thị trong các thành phần giao diện như toasts hoặc modals.
 - **Truy Xuất Nội Dung Đa Ngôn Ngữ**: Đối với các ứng dụng lấy nội dung từ cơ sở dữ liệu, quốc tế hóa đảm bảo rằng bạn có thể phục vụ nội dung này bằng nhiều ngôn ngữ. Điều này rất quan trọng đối với các nền tảng như các trang web thương mại điện tử hoặc hệ thống quản lý nội dung cần hiển thị mô tả sản phẩm, bài viết và nội dung khác bằng ngôn ngữ mà người dùng ưa thích.

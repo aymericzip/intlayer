@@ -35,7 +35,7 @@ author: aymericzip
 
 > Voir [l'implémentation du paquet sur GitHub](https://github.com/aymericzip/intlayer/tree/main/packages/fastify-intlayer).
 
-### Cas d'utilisation pratiques
+## Cas d'utilisation pratiques
 
 - **Afficher les erreurs backend dans la langue de l'utilisateur** : Lorsqu'une erreur survient, afficher des messages dans la langue maternelle de l'utilisateur améliore la compréhension et réduit la frustration. Cela est particulièrement utile pour les messages d'erreur dynamiques qui peuvent être affichés dans des composants frontend tels que des toasts ou des modals.
 - **Récupération de contenu multilingue** : Pour les applications récupérant du contenu depuis une base de données, l'internationalisation garantit que vous pouvez servir ce contenu en plusieurs langues. Ceci est crucial pour des plateformes comme les sites e-commerce ou les systèmes de gestion de contenu qui doivent afficher des descriptions de produits, des articles et autres contenus dans la langue préférée de l'utilisateur.

@@ -30,7 +30,7 @@ author: aymericzip
 
 `adonis-intlayer`, AdonisJS uygulamaları için tasarlanmış güçlü bir uluslararasılaştırma (i18n) paketidir. Müşterinin tercihlerine göre yerelleştirilmiş yanıtlar sunarak backend hizmetlerinizi küresel olarak erişilebilir hale getirmek için tasarlanmıştır.
 
-### Pratik Kullanım Durumları
+## Pratik Kullanım Durumları
 
 - **Backend Hatalarını Kullanıcının Dilinde Görüntüleme**: Bir hata oluştuğunda, mesajları kullanıcının ana dilinde görüntülemek anlamayı artırır ve hayal kırıklığını azaltır. Bu, özellikle toastlar veya modallar gibi front-end bileşenlerinde gösterilebilecek dinamik hata mesajları için yararlıdır.
 

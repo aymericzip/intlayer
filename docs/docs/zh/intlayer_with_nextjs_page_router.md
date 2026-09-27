@@ -760,7 +760,7 @@ export const Link = forwardRef<
 Link.displayName = "Link";
 ```
 
-#### 工作原理
+### 工作原理
 
 - **检测外部链接**：  
   辅助函数 `checkIsExternalLink` 用于判断 URL 是否为外部链接。外部链接保持不变，因为它们不需要本地化。

@@ -36,7 +36,7 @@ Notas y alcance actual:
 - Aún no hay soporte para inserciones, plurales/ICU o funciones avanzadas de tiempo de ejecución de otras librerías dentro de las propias entradas de PO.
 - El editor visual aún no es compatible con salidas de i18n de terceros.
 
-### Cuándo usar este plugin
+## Cuándo usar este plugin
 
 - Ya utilizas archivos Gettext PO para tus traducciones.
 - Quieres relleno asistido por IA, pruebas en CI y operaciones de contenido sin cambiar tu tiempo de ejecución de renderizado.

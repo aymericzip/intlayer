@@ -35,7 +35,7 @@ author: aymericzip
 
 > GitHub'daki [paket uygulamasını inceleyin](https://github.com/aymericzip/intlayer/tree/main/packages/fastify-intlayer).
 
-### Pratik Kullanım Durumları
+## Pratik Kullanım Durumları
 
 - **Backend Hatalarını Kullanıcının Dilinde Görüntüleme**: Bir hata oluştuğunda, mesajların kullanıcının ana dilinde görüntülenmesi anlayışı artırır ve hayal kırıklığını azaltır. Bu, özellikle toast'lar veya modal'lar gibi front-end bileşenlerinde gösterilebilecek dinamik hata mesajları için yararlıdır.
 - **Çok Dilli İçeriği Alma**: Bir veritabanından içerik çeken uygulamalar için uluslararasılaştırma, bu içeriği birden fazla dilde sunabilmenizi sağlar. Bu, ürün açıklamalarını, makaleleri ve diğer içerikleri kullanıcının tercih ettiği dilde görüntülemesi gereken e-ticaret siteleri veya içerik yönetim sistemleri gibi platformlar için çok önemlidir.

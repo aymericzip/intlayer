@@ -540,7 +540,7 @@ Quando sua aplicação suporta vários idiomas, é crucial atualizar os atributo
 
 Ao atualizar esses atributos dinamicamente quando o idioma muda, você garante uma experiência consistente e acessível para os usuários em todos os idiomas suportados.
 
-#### Implementando o Hook
+### Implementando o Hook
 
 Crie um hook personalizado para gerenciar os atributos HTML. O hook escuta as mudanças de idioma e atualiza os atributos de acordo:
 
@@ -565,7 +565,7 @@ export const useI18nHTMLAttributes = () => {
 };
 ```
 
-#### Usando o Hook na Sua Aplicação
+### Usando o Hook na Sua Aplicação
 
 Integre o hook no seu componente principal para que os atributos HTML sejam atualizados sempre que o idioma mudar:
 

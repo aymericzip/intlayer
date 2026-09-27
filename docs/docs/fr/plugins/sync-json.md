@@ -53,7 +53,7 @@ Notes et périmètre actuel :
 - Pas encore de support pour les insertions, pluriels/ICU, ou les fonctionnalités avancées d'exécution d'autres bibliothèques.
 - L'éditeur visuel n'est pas encore pris en charge pour les sorties i18n tierces.
 
-### Quand utiliser ce plugin
+## Quand utiliser ce plugin
 
 - Vous utilisez déjà une bibliothèque i18n et stockez les messages dans des fichiers JSON.
 - Vous souhaitez un remplissage assisté par IA, des tests en CI, et des opérations de contenu sans changer votre runtime de rendu.

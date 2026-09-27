@@ -53,7 +53,7 @@ Notes and current scope:
 - No support yet for insertions, plurals/ICU, or advanced runtime features of other libraries.
 - The visual editor is not supported yet for third‑party i18n outputs.
 
-### When to use this plugin
+## When to use this plugin
 
 - You already use an i18n library and store messages in JSON files.
 - You want AI-assisted fill, test in CI, and content operations without changing your rendering runtime.

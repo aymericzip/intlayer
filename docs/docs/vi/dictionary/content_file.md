@@ -542,11 +542,11 @@ Chỉ định độ ưu tiên của từ điển để giải quyết xung độ
 
 ### Thuộc tính CMS
 
-##### `version` (string)
+#### `version` (string)
 
 Định danh phiên bản cho các từ điển từ xa. Giúp theo dõi phiên bản của từ điển đang được sử dụng, đặc biệt hữu ích khi làm việc với các hệ thống quản lý nội dung từ xa.
 
-##### `importMode` ('static' | 'dynamic' | 'fetch')
+#### `importMode` ('static' | 'dynamic' | 'fetch')
 
 Chế độ nhập khẩu xác định cách từ điển của bạn được nhập khẩu vào ứng dụng của bạn.
 
@@ -560,35 +560,35 @@ Nếu được đặt, thuộc tính này sẽ ghi đè `importMode` toàn cục
 
 Các thuộc tính này được Intlayer tự động tạo và không nên chỉnh sửa thủ công:
 
-##### `$schema` (string)
+#### `$schema` (string)
 
 Schema JSON được sử dụng để xác thực cấu trúc của từ điển. Được Intlayer tự động thêm vào để đảm bảo tính toàn vẹn của từ điển.
 
-##### `id` (string)
+#### `id` (string)
 
 Đối với các từ điển từ xa, đây là định danh duy nhất của từ điển trên máy chủ từ xa. Được sử dụng để lấy và quản lý nội dung từ xa.
 
-##### `projectIds` (string[])
+#### `projectIds` (string[])
 
 Đối với các từ điển từ xa, mảng này chứa các ID của các dự án có thể sử dụng từ điển này. Một từ điển từ xa có thể được chia sẻ giữa nhiều dự án.
 
-##### `localId` (LocalDictionaryId)
+#### `localId` (LocalDictionaryId)
 
 Định danh duy nhất cho các từ điển cục bộ. Được Intlayer tự động tạo để giúp xác định từ điển và xác định xem nó là cục bộ hay từ xa, cùng với vị trí của nó.
 
-##### `localIds` (LocalDictionaryId[])
+#### `localIds` (LocalDictionaryId[])
 
 Đối với các từ điển được gộp, mảng này chứa các ID của tất cả các từ điển đã được gộp lại với nhau. Hữu ích để theo dõi nguồn gốc của nội dung được gộp.
 
-##### `filePath` (string)
+#### `filePath` (string)
 
 Đường dẫn tệp của từ điển cục bộ, chỉ ra tệp `.content` mà từ điển được tạo ra từ đó. Giúp trong việc gỡ lỗi và theo dõi nguồn.
 
-##### `versions` (string[])
+#### `versions` (string[])
 
 Đối với các từ điển từ xa, mảng này chứa tất cả các phiên bản có sẵn của từ điển. Giúp theo dõi các phiên bản có thể sử dụng.
 
-##### `filled` (true)
+#### `filled` (true)
 
 Chỉ ra liệu từ điển đã được tự động điền từ các nguồn bên ngoài hay chưa. Trong trường hợp có xung đột, các từ điển cơ sở sẽ ghi đè lên các từ điển được tự động điền.
 

@@ -754,7 +754,7 @@ export const Link = forwardRef<
 Link.displayName = "Link";
 ```
 
-#### 動作の仕組み
+### 動作の仕組み
 
 - **外部リンクの検出**:  
   ヘルパー関数 `checkIsExternalLink` はURLが外部リンクかどうかを判定します。外部リンクはローカライズの必要がないため、そのままにされます。

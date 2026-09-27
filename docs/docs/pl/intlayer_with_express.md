@@ -33,7 +33,7 @@ author: aymericzip
 
 `express-intlayer` to potężne middleware do internacjonalizacji (i18n) dla aplikacji Express, zaprojektowane, aby uczynić Twoje usługi backendowe globalnie dostępnymi poprzez dostarczanie zlokalizowanych odpowiedzi na podstawie preferencji klienta.
 
-### Praktyczne zastosowania
+## Praktyczne zastosowania
 
 - **Wyświetlanie błędów backendu w języku użytkownika**: Gdy wystąpi błąd, wyświetlanie komunikatów w ojczystym języku użytkownika poprawia zrozumienie i zmniejsza frustrację. Jest to szczególnie przydatne dla dynamicznych komunikatów o błędach, które mogą być wyświetlane w komponentach front-end, takich jak toasty czy modale.
 

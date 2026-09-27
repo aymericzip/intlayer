@@ -50,7 +50,7 @@ Uwagi i obecny zakres:
 - Brak jeszcze wsparcia dla wstawek, liczby mnogiej/ICU lub zaawansowanych funkcji czasu wykonywania innych bibliotek.
 - Edytor wizualny nie jest jeszcze obsługiwany dla wyjść i18n zewnętrznych bibliotek.
 
-### Kiedy używać tej wtyczki
+## Kiedy używać tej wtyczki
 
 - Już korzystasz z biblioteki i18n i przechowujesz komunikaty w plikach JSON.
 - Chcesz korzystać z wypełniania wspomaganego przez AI, testów w CI oraz operacji na treściach bez zmiany środowiska renderowania.

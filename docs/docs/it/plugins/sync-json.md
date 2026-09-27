@@ -53,7 +53,7 @@ Note e ambito attuale:
 - Non è ancora supportato l’uso di inserimenti, plurali/ICU o funzionalità runtime avanzate di altre librerie.
 - L’editor visuale non è ancora supportato per output i18n di terze parti.
 
-### Quando usare questo plugin
+## Quando usare questo plugin
 
 - Usi già una libreria i18n e memorizzi i messaggi in file JSON.
 - Vuoi un completamento assistito da AI, test in CI e operazioni sui contenuti senza modificare il runtime di rendering.

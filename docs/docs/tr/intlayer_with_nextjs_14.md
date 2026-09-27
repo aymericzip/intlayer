@@ -932,7 +932,7 @@ export const Link = forwardRef<
 Link.displayName = "Link";
 ```
 
-#### Nasıl Çalışır
+### Nasıl Çalışır
 
 - **Harici Bağlantıları Algılama**:  
   Yardımcı fonksiyon `checkIsExternalLink`, bir URL'nin harici olup olmadığını belirler. Harici bağlantılar değişmeden bırakılır çünkü yerelleştirmeye ihtiyaçları yoktur.

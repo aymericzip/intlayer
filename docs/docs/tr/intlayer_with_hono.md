@@ -33,7 +33,7 @@ author: aymericzip
 
 `hono-intlayer`, Hono uygulamaları için güçlü bir uluslararasılaştırma (i18n) ara yazılımıdır. İstemcinin tercihlerine göre yerelleştirilmiş yanıtlar sağlayarak arka uç hizmetlerinizi küresel olarak erişilebilir kılmak için tasarlanmıştır.
 
-### Pratik Kullanım Durumları
+## Pratik Kullanım Durumları
 
 - **Arka Uç Hatalarını Kullanıcının Dilinde Görüntüleme**: Bir hata oluştuğunda, mesajların kullanıcının ana dilinde görüntülenmesi anlayışı artırır ve hayal kırıklığını azaltır. Bu, özellikle toastlar veya modallar gibi ön uç bileşenlerinde gösterilebilecek dinamik hata mesajları için yararlıdır.
 

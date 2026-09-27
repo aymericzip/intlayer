@@ -35,7 +35,7 @@ author: aymericzip
 
 > Zobacz [implementację pakietu na GitHub](https://github.com/aymericzip/intlayer/tree/main/packages/fastify-intlayer).
 
-### Praktyczne przypadki użycia
+## Praktyczne przypadki użycia
 
 - **Wyświetlanie błędów backendu w języku użytkownika**: Gdy wystąpi błąd, wyświetlanie komunikatów w ojczystym języku użytkownika poprawia zrozumienie i zmniejsza frustrację. Jest to szczególnie przydatne w przypadku dynamicznych komunikatów o błędach, które mogą być wyświetlane w komponentach front-endowych, takich jak toasty czy modale.
 - **Pobieranie treści wielojęzycznych**: W przypadku aplikacji pobierających treści z bazy danych, umiędzynarodowienie zapewnia, że można serwować te treści w wielu językach. Jest to kluczowe dla platform takich jak strony e-commerce czy systemy zarządzania treścią, które muszą wyświetlać opisy produktów, artykuły i inne treści w języku preferowanym przez użytkownika.

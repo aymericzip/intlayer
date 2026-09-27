@@ -32,7 +32,7 @@ author: aymericzip
 
 > Przejrzyj [implementację pakietu na GitHubie](https://github.com/aymericzip/intlayer/tree/main/packages/elysia-intlayer).
 
-### Praktyczne przypadki użycia
+## Praktyczne przypadki użycia
 
 - **Wyświetlanie błędów backendu w języku użytkownika**: Gdy występuje błąd, wyświetlanie komunikatów w natywnym języku użytkownika poprawia zrozumienie i zmniejsza frustrację. Jest to szczególnie przydatne dla dynamicznych komunikatów błędów, które mogą być wyświetlane w komponentach front-end, takich jak toasty lub modale.
 - **Pobieranie zawartości wielojęzycznej**: W przypadku aplikacji pobierających zawartość z bazy danych, internacjonalizacja zapewnia, że możesz serwować tę zawartość w wielu językach. Jest to kluczowe dla platform takich jak witryny e-commerce lub systemy zarządzania zawartością, które muszą wyświetlać opisy produktów, artykuły i inną zawartość w preferowanym przez użytkownika języku.

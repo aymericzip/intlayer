@@ -92,7 +92,7 @@ extension Localization on String {
 
 लेकिन इन सभी समाधानों से स्पष्ट है कि सबसे लोकप्रिय तरीका केंद्रीकृत (centralized) ही है।
 
-### तो केंद्रीकृत दृष्टिकोण इतना लोकप्रिय क्यों है?
+## तो केंद्रीकृत दृष्टिकोण इतना लोकप्रिय क्यों है?
 
 - सबसे पहले, i18next वह पहला समाधान था जो व्यापक रूप से अपनाया गया, एक दर्शन का पालन करते हुए जो PHP और Java आर्किटेक्चर (MVC) से प्रेरित था और कड़े separation of concerns (content को code से अलग रखने) पर निर्भर करता है। यह 2011 में आया और Component-Based Architectures (जैसे React) की ओर बड़े बदलाव से पहले ही अपने मानक स्थापित कर चुका था।
 - फिर, एक बार कोई लाइब्रेरी व्यापक रूप से अपनाई जाने के बाद, इकोसिस्टम को अन्य पैटर्न की ओर शिफ्ट करना मुश्किल हो जाता है।
@@ -103,7 +103,7 @@ extension Localization on String {
 
 - [JavaScript i18n का इतिहास](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/history_of_i18n.md)
 
-### ठीक है, लेकिन सिर्फ़ Centralized दृष्टिकोण पर क्यों न रहें?
+## ठीक है, लेकिन सिर्फ़ Centralized दृष्टिकोण पर क्यों न रहें?
 
 Let me tell you why it can be problematic for your app:
 
@@ -161,7 +161,7 @@ locale/
 
 इसके अलावा, proper separation of concerns के बिना, translators के लिए अपने translations को निकालना और review के लिए प्रदान करना काफी मुश्किल हो जाता है।
 
-### Intlayer का per-component approach इसे कैसे हल करता है
+## Intlayer का per-component approach इसे कैसे हल करता है
 
 Intlayer कई चरणों में आगे बढ़ता है:
 
@@ -250,7 +250,7 @@ export const MyComponent = () => {
 
 - प्रति-कम्पोनेंट दृष्टिकोण AI एजेंटों को आपकी सभी अलग-अलग फ़ाइलों में उछलने की आवश्यकता से बचाता है। यह सभी अनुवादों को एक ही स्थान पर रखता है, जिससे कार्य की जटिलता और उपयोग किए जाने वाले टोकन्स की मात्रा सीमित रहती है।
 
-### सीमाएँ
+## सीमाएँ
 
 बेशक, इस दृष्टिकोण के साथ कुछ समझौते आते हैं:
 

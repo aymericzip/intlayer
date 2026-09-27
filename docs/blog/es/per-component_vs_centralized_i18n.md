@@ -92,7 +92,7 @@ Al mismo tiempo, debes saber que cuando cargas tu contenido dinámicamente, intr
 
 Pero de entre todas esas soluciones, está claro que el enfoque más popular es el centralizado.
 
-### ¿Por qué es tan popular el enfoque centralizado?
+## ¿Por qué es tan popular el enfoque centralizado?
 
 - Primero, i18next fue la primera solución en volverse ampliamente usada, siguiendo una filosofía inspirada en arquitecturas PHP y Java (MVC), que se basan en una estricta separación de responsabilidades (mantener el contenido separado del código). Llegó en 2011, estableciendo sus estándares incluso antes del gran cambio hacia arquitecturas basadas en componentes (como React).
 - Luego, una vez que una librería se adopta ampliamente, se vuelve difícil mover el ecosistema a otros patrones.
@@ -103,7 +103,7 @@ Pero de entre todas esas soluciones, está claro que el enfoque más popular es 
 
 - [La historia del i18n en JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/history_of_i18n.md)
 
-### Ok, ¿pero por qué no optar simplemente por un enfoque centralizado?
+## Ok, ¿pero por qué no optar simplemente por un enfoque centralizado?
 
 Déjame explicarte por qué puede ser problemático para tu app:
 
@@ -158,7 +158,7 @@ Sin embargo, quiero recordarte que no todos los enfoques granulares solucionan e
 
 Además, sin una separación adecuada de responsabilidades, se vuelve mucho más difícil extraer y proporcionar tus traducciones a los traductores para su revisión.
 
-### Cómo el enfoque por componente de Intlayer resuelve esto
+## Cómo el enfoque por componente de Intlayer resuelve esto
 
 Intlayer procede en varios pasos:
 
@@ -246,7 +246,7 @@ export const MyComponent = () => {
 
 - Un enfoque por componente evita que los agentes de IA tengan que saltar entre todos tus distintos archivos. Trata todas las traducciones en un solo lugar, limitando la complejidad de la tarea y la cantidad de tokens utilizados.
 
-### Limitaciones
+## Limitaciones
 
 Por supuesto, este enfoque conlleva compromisos:
 
