@@ -10,12 +10,13 @@ import {
 import { Tag } from '@intlayer/design-system/tag';
 import { ArrowRight, Check, ChevronRight, Copy, Megaphone } from 'lucide-react';
 import type { FC } from 'react';
-import { useIntlayer } from 'react-intlayer';
+import { type IntlayerNode, useIntlayer } from 'react-intlayer';
 import { BackgroundLayout } from '~/components/BackgroundLayout';
 import { Link } from '~/components/Link/Link';
 import packageJSON from '../../../../package_mock.json' with { type: 'json' };
 import { LandingList } from './LandingList';
 import { TechLogos } from './TechLogos';
+import { TypewriterTitle } from './TypewriterTitle';
 
 const SHOW_WHATS_NEW = true;
 
@@ -24,6 +25,7 @@ export const HeroSection: FC = () => {
     whatsNewLabel,
     version,
     title,
+    titleWords,
     subheading,
     description,
     supportButton,
@@ -58,9 +60,13 @@ export const HeroSection: FC = () => {
           )}
 
           {/* Title */}
-          <h1 className="mb-3 px-2 text-center font-bold text-3xl leading-tight sm:text-4xl md:text-5xl lg:text-6xl">
-            {title}
-          </h1>
+          <TypewriterTitle
+            // Remount on locale change to restart from the first word
+            key={title.value}
+            title={title.value}
+            words={titleWords.map((word: IntlayerNode<string>) => word.value)}
+            className="mb-3 px-2 text-center font-bold text-3xl leading-tight sm:text-4xl md:text-5xl lg:text-6xl"
+          />
           {/* Subtitle */}
           <h2
             className="hero-enter-sharpen mb-6 px-2 text-center font-semibold text-lg leading-snug sm:text-2xl md:text-3xl lg:mb-8 lg:text-4xl"
