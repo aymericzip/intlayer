@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-26
 priority: 8
 title: "vue-i18n vs Intlayer: Benchmark 2026"
 description: vue-i18n dan Intlayer diukur pada aplikasi Vite + Vue 3 yang sama. Ukuran pustaka, JavaScript per halaman, kebocoran konten, ukuran komponen, dan reaktivitas pergantian locale, dengan penjelasan angka-angkanya.
@@ -87,6 +87,10 @@ Untuk setiap build, suite mencatat:
 
 ### Hasil pada Vite + Vue 3
 
+Pilih metrik dan library yang Anda pedulikan:
+
+<I18nBenchmark framework="vite-vue" packages="vue-i18n,@intlayer/vue-i18n,intlayer" vertical/>
+
 | Pustaka                       | Strategi | Lib size (gz) | Lib size (min) | Page JS rata-rata (gz) | Locale leak | Page leak | Component rata-rata (gz) | Reaktivitas E2E | Page load |
 | ----------------------------- | -------- | ------------: | -------------: | ---------------------: | ----------: | --------: | -----------------------: | --------------: | --------: |
 | **base** (tanpa i18n)         | -        |        0,0 KB |         0,0 KB |                41,3 KB |        0,0% |         - |                   1,1 KB |          1,8 ms |   10,8 ms |
@@ -106,6 +110,15 @@ Untuk setiap build, suite mencatat:
 - **`@intlayer/vue-i18n`**, adapter drop-in, mempertahankan API `vue-i18n` dan terukur **47,0 KB per halaman** dan **8,4 KB per komponen**, dengan kode aplikasi tidak disentuh.
 
 > Sebagai referensi, eksekusi yang sama mengukur `fluent-vue` pada 171,8 KB per halaman, 29,7 KB runtime, dan 217 KB per komponen.
+
+<ClickToOpenIframe
+  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_vue.md"
+  width="100%"
+  height="600px"
+  style="border:none;"
+/>
+
+> Tabel lengkap, dengan setiap library dan setiap strategi, ada di [laporan benchmark Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/vue.md).
 
 ## Mengapa ada selisih? Instance global vs kamus terkompilasi
 
@@ -344,6 +357,13 @@ Lihat [panduan migrasi vue-i18n](https://github.com/aymericzip/intlayer/blob/mai
 - [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/lingui_vs_intlayer.md) (benchmark yang sama)
 - [vue-i18n vs Intlayer (fitur & DX)](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/vue-i18n_vs_intlayer.md)
 - [Apakah vue-i18n sudah usang?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/is_vue-i18n_outdated.md)
+
+Dokumentasi referensi:
+
+- [Compat adapter: vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/vue-i18n.md) dan [Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/nuxtjs-i18n.md)
+- [Panduan migrasi: vue-i18n ke Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_vue-i18n_to_intlayer.md)
+- Laporan benchmark: [Ikhtisar Benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/index.md), [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/nextjs.md), [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/tanstack.md), [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/vue.md), [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/solid.md), dan [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/svelte.md)
+- [Optimasi bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/bundle_optimization.md) dan [compiler Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md)
 
 ## GitHub STARs
 

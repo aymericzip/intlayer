@@ -104,7 +104,7 @@ Intlayer는 별도의 "scoped" 변형이 없습니다. 컴파일러가 콘텐츠
 
 관심 있는 지표와 라이브러리를 선택하세요:
 
-<I18nBenchmark framework="nextjs" vertical/>
+<I18nBenchmark framework="nextjs" packages="next-i18next,next-intlayer" vertical/>
 
 | 라이브러리                      | 전략           | Lib size (gz) | Page JS avg (gz) | Locale leak | Page leak | Component avg (gz) |  E2E 반응성 | Hydration |
 | ------------------------------- | -------------- | ------------: | ---------------: | ----------: | --------: | -----------------: | ----------: | --------: |

@@ -114,7 +114,7 @@ const AboutPage = () => {
 
 उन मेट्रिक्स और लाइब्रेरीज़ को चुनें जिनकी आपको परवाह है:
 
-<I18nBenchmark framework="nextjs" vertical/>
+<I18nBenchmark framework="nextjs" packages="next-intl,@intlayer/next-intl,next-intlayer" vertical/>
 
 | Setup                     | Strategy       | Lib size (gz) | Page JS avg (gz) | Locale leak | Page leak | Component avg (gz) | E2E reactivity |   Hydration |
 | ------------------------- | -------------- | ------------: | ---------------: | ----------: | --------: | -----------------: | -------------: | ----------: |

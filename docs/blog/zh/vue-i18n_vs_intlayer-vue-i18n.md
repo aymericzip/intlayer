@@ -110,7 +110,7 @@ const { t } = useI18n(_dicHash_footer);
 
 选择您关注的指标和库：
 
-<I18nBenchmark framework="vite-vue" vertical/>
+<I18nBenchmark framework="vite-vue" packages="vue-i18n,@intlayer/vue-i18n,intlayer" vertical/>
 
 | Setup                    | Strategy | Lib size (gz) | Lib size (min) | Page JS avg (gz) | Locale leak | Page leak | Component avg (gz) | E2E reactivity |  Page load |
 | ------------------------ | -------- | ------------: | -------------: | ---------------: | ----------: | --------: | -----------------: | -------------: | ---------: |

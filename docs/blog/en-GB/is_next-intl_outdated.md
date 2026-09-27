@@ -75,7 +75,7 @@ A small library can be complete and stable. But frontend i18n has moved forward:
 
 We benchmarked a standard App Router application with 10 routes and 10 locales:
 
-<I18nBenchmark framework="nextjs" vertical/>
+<I18nBenchmark framework="nextjs" packages="next-intl,@intlayer/next-intl,next-intlayer" vertical/>
 
 <ClickToOpenIframe
 src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"

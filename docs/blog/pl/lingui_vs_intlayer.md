@@ -101,7 +101,7 @@ Dla każdego buildu zestaw rejestruje:
 
 Wybierz metryki i biblioteki, które Cię interesują:
 
-<I18nBenchmark framework="nextjs" vertical/>
+<I18nBenchmark framework="nextjs" packages="lingui,next-intlayer" vertical/>
 
 | Biblioteka          | Strategia      | Rozmiar Lib (gz) | Średni JS strony (gz) | Wyciek języka | Wyciek strony | Śr. komponentu (gz) | Reaktywność E2E | Hydratacja |
 | ------------------- | -------------- | ---------------: | --------------------: | ------------: | ------------: | ------------------: | --------------: | ---------: |

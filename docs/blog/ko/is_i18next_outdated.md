@@ -77,7 +77,7 @@ GitHub 스타 수는 과거의 누적 인기를 반영할 뿐, 현재의 아키�
 
 ## 번들 영향 측정
 
-<I18nBenchmark framework="tanstack" vertical/>
+<I18nBenchmark framework="tanstack" packages="react-i18next,@intlayer/react-i18next,intlayer" vertical/>
 
 <ClickToOpenIframe
 src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md"
@@ -243,8 +243,6 @@ Intlayer는 선언된 콘텐츠를 기반으로 직접 타입을 생성합니다
 | **AI용 MCP 서버**         | ❌ 없음            | ✅ [MCP 서버 내장](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/mcp_server.md)               |
 | **AI 에이전트 스킬**      | ❌ 없음            | ✅ [사전 빌드된 스킬 제공](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/agent_skills.md)     |
 | **인컨텍스트 비주얼 CMS** | Locize (유료 SaaS) | ✅ [무료 & 오픈소스](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md) |
-
-LSP와 MCP 서버가 내장되어 있어 AI 코딩 어시스턴트가 프로젝트의 다국어 구조를 정확히 이해하고 정밀한 제안을 제공할 수 있습니다.
 
 ## 번역 워크플로우와 Locize 모델
 

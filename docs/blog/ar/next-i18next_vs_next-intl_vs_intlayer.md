@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-09-16
+updatedAt: 2026-09-26
 priority: 9
-title: "next-i18next مقابل next-intl مقابل Intlayer - الدليل الكامل لترجمة next-i18next vs next-intl vs Intlayer: 2026 Comparison"
-description: أفضل حل لحجم الحزمة وتحسين محركات البحث والأداء والصيانة. اجعل Next.js موقع ويب متعدد اللغات في 2026، ترجمة LLM، Agent Skills & MCP.
+title: "next-i18next مقابل next-intl مقابل Intlayer: مقارنة 2026"
+description: "أي مكتبة i18n تختار لـ Next.js؟ مقارنة بين next-i18next وnext-intl وIntlayer من حيث حجم الحزمة، وأمان TypeScript، وServer Components، والتوجيه، وتجربة المطوّر."
 keywords:
   - next-intl
   - next-i18next
@@ -21,7 +21,7 @@ author: aymericzip
 
 # next-i18next مقابل next-intl مقابل intlayer | التدويل في Next.js (i18n)
 
-<TOC/>
+![next-i18next VS next-intl VS intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
 لنلقي نظرة على أوجه التشابه والاختلاف بين ثلاثة خيارات للتدويل في Next.js: next-i18next، next-intl، و Intlayer.
 
@@ -29,13 +29,7 @@ author: aymericzip
 
 نركز على **موجه التطبيقات في Next.js 13+** (مع **مكونات خادم React**) ونقيم:
 
-1. **البنية والتنظيم المحتوى**
-2. **TypeScript والأمان**
-3. **معالجة الترجمات المفقودة**
-4. **التوجيه والوسيطات**
-5. **الأداء وسلوك التحميل**
-6. **تجربة المطور (DX)، الأدوات والصيانة**
-7. **تحسين محركات البحث (SEO) وقابلية التوسع في المشاريع الكبيرة**
+<TOC/>
 
 > **ملخص**: يمكن لجميع الثلاثة تعريب تطبيق Next.js. إذا كنت تريد **محتوى مخصص للمكونات**، **أنواع TypeScript صارمة**، **فحوصات المفاتيح المفقودة أثناء البناء**، **قواميس مُحسّنة بالتخلص من الشجر غير المستخدم**، و**موجه تطبيقات من الدرجة الأولى + مساعدات SEO**، فإن **Intlayer** هو الخيار الأكثر اكتمالًا وحداثة.
 
@@ -98,6 +92,32 @@ author: aymericzip
 
 بعد بناء التطبيق، الحزمة هي جافا سكريبت التي سيقوم المتصفح بتحميلها لعرض الصفحة. لذلك، حجم الحزمة مهم لأداء التطبيق.
 
+يقيس [معيار i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md) التأثير الفعلي لكل مكتبة على نفس تطبيق Next.js المكوّن من 10 صفحات و10 لغات:
+
+<I18nBenchmark framework="nextjs" packages="next-i18next,next-intl,next-intlayer" vertical/>
+
+<ClickToOpenIframe
+  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+  width="100%"
+  height="600px"
+  style="border:none;"
+/>
+
+الأرقام الرئيسية المقاسة على Next.js App Router (gzip):
+
+| الإعداد                           | حجم المكتبة | متوسط JS للصفحة | تسرب اللغات الأخرى | تسرب الصفحات الأخرى | متوسط المكوّن |
+| :-------------------------------- | ----------: | --------------: | -----------------: | ------------------: | ------------: |
+| الأساس (بدون i18n)                |           - |        141.0 KB |               0.0% |                0.0% |        0.9 KB |
+| `next-intl` (static)              |     14.7 KB |        153.6 KB |               4.2% |               89.8% |       21.8 KB |
+| `next-intl` (dynamic)             |     14.7 KB |        153.6 KB |               9.7% |               89.9% |       21.8 KB |
+| `@intlayer/next-intl` (compat)    |      8.0 KB |        148.7 KB |               0.0% |                0.0% |        8.1 KB |
+| `next-i18next` (static)           |     19.7 KB |        218.5 KB |               0.0% |               89.8% |       78.5 KB |
+| `next-i18next` (dynamic)          |     19.7 KB |        169.5 KB |              50.0% |               89.8% |       26.1 KB |
+| `@intlayer/next-i18next` (compat) |      9.4 KB |        150.7 KB |               0.0% |                0.0% |        9.7 KB |
+| `next-intlayer` (native Intlayer) |  **5.5 KB** |    **141.3 KB** |           **0.0%** |            **0.0%** |    **6.9 KB** |
+
+> للاطلاع على التحليل الكامل، راجع [تقرير معيار Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md) و[النظرة العامة الشاملة على معيار i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/index.md).
+
 هناك مكونان مهمان في سياق حزمة تطبيق متعدد اللغات:
 
 - كود التطبيق
@@ -111,13 +131,11 @@ author: aymericzip
 
 إذا لم نحتاج إلى أي مُنسق في التطبيق، فإن قائمة الدوال المُصدرة بعد تطبيق tree-shaking ستكون:
 
-- **next-intlayer**: `useIntlayer`, `useLocale`, `NextIntlClientProvider`، (حجم الحزمة هو 180.6 كيلوبايت -> 78.6 كيلوبايت (gzip))
+- **next-intlayer**: `useIntlayer`, `useLocale`, `NextIntlClientProvider`، (حجم الحزمة هو 180.6 كيلوبايت -> 15.24 كيلوبايت (gzip))
 - **next-intl**: `useTranslations`, `useLocale`, `NextIntlClientProvider`، (حجم الحزمة هو 101.3 كيلوبايت -> 31.4 كيلوبايت (gzip))
 - **next-i18next**: `useTranslation`, `useI18n`, `I18nextProvider`، (حجم الحزمة هو 80.7 كيلوبايت -> 25.5 كيلوبايت (gzip))
 
 هذه الدوال هي مجرد أغلفة حول سياق/حالة React، لذا فإن التأثير الكلي لمكتبة i18n على حجم الحزمة هو ضئيل.
-
-> Intlayer أكبر قليلاً من `next-intl` و `next-i18next` لأنه يتضمن منطقًا أكثر في دالة `useIntlayer`. هذا مرتبط بالتكامل مع markdown و `intlayer-editor`.
 
 ## المحتوى والترجمات
 
@@ -159,6 +177,8 @@ author: aymericzip
 
 في حالة `next-intl` و `next-i18next`، تتطلب المكتبة تحميل ملفات JSON المتعلقة باللغة الحالية، ولكن أيضًا لغة التراجع (fallback). وبالتالي، مع افتراض أن كل المحتوى قد تُرجم، ستقوم كل صفحة بتحميل محتوى غير ضروري بنسبة 100%. **بالمقارنة، تقوم `intlayer` بمعالجة التراجع أثناء وقت بناء القاموس. لذا، ستقوم كل صفحة بتحميل المحتوى المستخدم فقط.**
 
+> ملاحظة: لتحسين الحزمة باستخدام `intlayer`، يجب تعيين الخيار `importMode: 'dynamic'` في ملف `intlayer.config.ts`. وتأكد من تثبيت الإضافة `@intlayer/babel` / `@intlayer/swc` (مثبتة افتراضيًا عند استخدام `vite-intlayer`).
+
 فيما يلي مثال على تأثير تحسين حجم الحزمة باستخدام `intlayer` في تطبيق vite + react:
 
 | الحزمة المحسنة                                                                                   | الحزمة غير المحسنة                                                                                                   |
@@ -196,17 +216,30 @@ author: aymericzip
 
 ## التعامل مع الترجمات المفقودة
 
-**next-intl**
-
-- يعتمد على **الاستعادات أثناء وقت التشغيل** (مثل عرض المفتاح أو اللغة الافتراضية). البناء لا يفشل.
+<Columns>
+  <Column>
 
 **next-i18next**
 
 - يعتمد على **الاستعادات أثناء وقت التشغيل** (مثل عرض المفتاح أو اللغة الافتراضية). البناء لا يفشل.
 
+  </Column>
+  <Column>
+
+**next-intl**
+
+- يعتمد على **الاستعادات أثناء وقت التشغيل** (مثل عرض المفتاح أو اللغة الافتراضية). البناء لا يفشل.
+
+  </Column>
+  <Column>
+
 **intlayer**
 
 - **الكشف أثناء وقت البناء** مع **تحذيرات/أخطاء** للمواقع أو المفاتيح المفقودة.
+
+  </Column>
+
+</Columns>
 
 **لماذا هذا مهم:** اكتشاف الفجوات أثناء البناء يمنع ظهور "سلاسل غامضة" في الإنتاج ويتماشى مع قواعد الإصدار الصارمة.
 
@@ -1450,5 +1483,18 @@ The set up of the middleware centralized in the `intlayer.config.ts` file.
 
 - مع **Intlayer**، يكون **المحتوى المعياري**، و**TypeScript الصارم**، و**السلامة أثناء وقت البناء**، و**حزم شجرة المهملة**، و**موجه التطبيقات من الدرجة الأولى + أدوات تحسين محركات البحث** هي **الإعدادات الافتراضية**، وليست مهامًا شاقة.
 - إذا كانت فرقك تقدر **قابلية الصيانة والسرعة** في تطبيق متعدد اللغات يعتمد على المكونات، فإن Intlayer تقدم التجربة **الأكمل** اليوم.
+
+## قراءات إضافية ومعايير الأداء
+
+- [تقرير معيار Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md)
+- [نظرة عامة على معيار i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/index.md)
+- [تقرير معيار TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md)
+- [تقرير معيار Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/vue.md)
+- [تقرير معيار Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/solid.md)
+- [تقرير معيار Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/svelte.md)
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/next-intl_vs_intlayer.md)
+- [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/i18next_vs_intlayer.md)
+- [محوّل التوافق @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/next-intl.md)
+- [محوّل التوافق @intlayer/next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/next-i18next.md)
 
 راجع [وثيقة "لماذا Intlayer؟"](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/interest_of_intlayer.md) لمزيد من التفاصيل.

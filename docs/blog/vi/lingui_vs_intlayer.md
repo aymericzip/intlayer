@@ -101,7 +101,7 @@ Intlayer không có biến thể "scoped": trình biên dịch tự động gi�
 
 Chọn các chỉ số và thư viện mà bạn quan tâm:
 
-<I18nBenchmark framework="nextjs" vertical/>
+<I18nBenchmark framework="nextjs" packages="lingui,next-intlayer" vertical/>
 
 | Thư viện              | Chiến lược     | Kích thước Lib (gz) | JS trang TB (gz) | Rò rỉ ngôn ngữ | Rò rỉ trang | TB component (gz) | Độ phản hồi E2E | Hydrate |
 | --------------------- | -------------- | ------------------: | ---------------: | -------------: | ----------: | ----------------: | --------------: | ------: |

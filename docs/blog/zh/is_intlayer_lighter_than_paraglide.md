@@ -92,7 +92,7 @@ Next.js 16 App Router，同一应用：
 | `paraglide-next` | 155.3 KB          | +14.3 KB    |
 | `next-intlayer`  | **141.3 KB**      | **+0.3 KB** |
 
-<I18nBenchmark framework="tanstack" vertical/>
+<I18nBenchmark framework="tanstack" packages="paraglide,intlayer" vertical/>
 
 > 完整数据请参阅 [TanStack Start 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md) 与 [Next.js 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md)。所有 bundle 均可在 [基准测试仓库](https://github.com/intlayer-org/benchmark-i18n) 中核查。
 
@@ -208,6 +208,10 @@ Tree Shaking 效果取决于你的打包工具（Turbopack、Rolldown、Rollup�
 这是架构上的硬伤。Paraglide 无法做到一次只加载一种语言：每个消息函数都会静态导入每种语言的实现代码，因此所有语言都会全部打包到你的客户端 bundle 中。
 
 在支持 2 种语言时，有一半的翻译数据传输被浪费了，这与前文测得的 ~50% 语言泄露率完全吻合。当支持 10 种语言时，浪费率高达 90%；当支持 30 种语言时，浪费率高达 97%。
+
+下图估算了一个理论应用的 payload，该应用包含 1 到 10 个页面、1 到 10 种语言，每个页面约 30 KB 文本。按路由拆分内容消除了一个维度，按语言动态加载消除了另一个维度，只有两者结合才能让 payload 保持不变。Paraglide 最多只能覆盖第一个维度，永远无法覆盖第二个。
+
+![按架构划分的理论内容泄漏](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 即使改成动态加载也无法根治：由于每个消息是一个独立函数，如果按函数进行懒加载，将会导致成千上万次碎小的网络请求。
 

@@ -110,7 +110,7 @@ Für jeden Build zeichnet die Suite folgendes auf:
 
 Wählen Sie die Metriken und Bibliotheken aus, die für Sie wichtig sind:
 
-<I18nBenchmark framework="vite-vue" vertical/>
+<I18nBenchmark framework="vite-vue" packages="vue-i18n,@intlayer/vue-i18n,intlayer" vertical/>
 
 | Setup                    | Strategie | Lib-Größe (gz) | Lib-Größe (min) | Page JS ø (gz) | Locale Leak | Page Leak | Component ø (gz) | E2E Reaktivität | Seiten-Ladung |
 | ------------------------ | --------- | -------------: | --------------: | -------------: | ----------: | --------: | ---------------: | --------------: | ------------: |

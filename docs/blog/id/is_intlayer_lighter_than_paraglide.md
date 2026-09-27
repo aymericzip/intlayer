@@ -92,7 +92,7 @@ Next.js 16 App Router, aplikasi yang sama:
 | `paraglide-next`   | 155.3 KB              | +14.3 KB      |
 | `next-intlayer`    | **141.3 KB**          | **+0.3 KB**   |
 
-<I18nBenchmark framework="tanstack" vertical/>
+<I18nBenchmark framework="tanstack" packages="paraglide,intlayer" vertical/>
 
 > Data lengkap tersedia di [laporan benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/tanstack.md) dan [laporan benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/nextjs.md). Setiap bundle dapat diperiksa langsung di [repositori benchmark](https://github.com/intlayer-org/benchmark-i18n).
 
@@ -208,6 +208,10 @@ Tree shaking sangat bergantung pada bundler Anda (Turbopack, Rolldown, Rollup), 
 Inilah batasan struktural utamanya. Paraglide tidak memiliki mekanisme untuk memuat satu bahasa dalam satu waktu: setiap fungsi pesan secara statis mengimpor implementasi setiap bahasa, sehingga seluruh bahasa berakhir di dalam bundle klien Anda.
 
 Dengan 2 bahasa, separuh muatan terjemahan terbuang sia-sia, cocok dengan ~50% kebocoran lokal yang diukur sebelumnya. Dengan 10 bahasa, pemborosan mencapai 90%. Dengan 30 bahasa, melonjak hingga 97%.
+
+Grafik di bawah memperkirakan payload untuk aplikasi teoretis berisi 1 hingga 10 halaman dalam 1 hingga 10 bahasa, dengan sekitar 30 KB teks per halaman. Memecah konten per route menghilangkan satu sumbu, memuatnya secara dinamis per bahasa menghilangkan sumbu lainnya, dan hanya kombinasi keduanya yang menjaga payload tetap datar. Paraglide paling banter hanya menangani sumbu pertama, tidak pernah sumbu kedua.
+
+![Kebocoran konten teoretis berdasarkan arsitektur](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 Beralih ke pemuatan dinamis pun tidak serta-merta menyelesaikan masalah: dengan satu fungsi untuk setiap pesan, memuat setiap fungsi secara lazy akan memicu ribuan permintaan jaringan yang terpisah-pisah.
 

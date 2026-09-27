@@ -47,7 +47,7 @@ author: aymericzip
 
 Перед таблицами возможностей, измеренная часть. [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) собирает одно и то же приложение Vite + Vue 3 (10 страниц, 10 локалей) с каждой библиотекой и фиксирует загрузку браузером:
 
-<I18nBenchmark framework="vite-vue" vertical/>
+<I18nBenchmark framework="vite-vue" packages="vue-i18n,intlayer" vertical/>
 
 | Setup                | Lib size (gz) | Page JS avg (gz) | Page leak | Component avg (gz) |
 | -------------------- | ------------: | ---------------: | --------: | -----------------: |

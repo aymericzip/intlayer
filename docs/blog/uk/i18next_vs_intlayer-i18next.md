@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-22
+updatedAt: 2026-09-26
 priority: 8
 title: "i18next проти @intlayer/i18next: Однаковий API, інший bundle"
 description: "Що змінюється, коли додаток React або Next.js зберігає виклики i18next, react-i18next та next-i18next, але обслуговує їх через адаптери @intlayer/i18next. JavaScript на сторінку, розмір компонентів, витоки рядків та гідратація, виміряні на одному коді, а також те, що адаптери зберігають, ігнорують і не можуть замінити."
@@ -114,7 +114,7 @@ const About = () => {
 
 Виберіть метрики та бібліотеки, які вас цікавлять:
 
-<I18nBenchmark framework="nextjs" vertical/>
+<I18nBenchmark framework="nextjs" packages="next-i18next,@intlayer/next-i18next,next-intlayer" vertical/>
 
 | Конфігурація                 | Стратегія      | Lib size (gz) | Page JS avg (gz) | Locale leak | Page leak | Component avg (gz) | E2E reactivity |   Hydration |
 | ---------------------------- | -------------- | ------------: | ---------------: | ----------: | --------: | -----------------: | -------------: | ----------: |
@@ -144,6 +144,25 @@ style="border:none;"
 />
 
 > Повна таблиця, кожна бібліотека та кожна стратегія, у [звіті про бенчмарк Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/nextjs.md).
+
+### Результати на TanStack Start (`react-i18next`)
+
+Для Vite і TanStack Start бенчмарк порівнює чистий `react-i18next` з `intlayer`:
+
+| Бібліотека          | Стратегія | Lib size (gz) | Page JS avg (gz) | Locale leak | Page leak | Component avg (gz) | E2E reactivity | Hydration |
+| ------------------- | --------- | ------------: | ---------------: | ----------: | --------: | -----------------: | -------------: | --------: |
+| **base** (без i18n) | -         |        0.0 KB |         111.0 KB |        0.0% |      0.0% |             0.7 KB |         8.1 ms |   21.6 ms |
+| `react-i18next`     | dynamic   |       18.4 KB |         136.4 KB |       23.1% |     89.8% |            24.8 KB |       123.1 ms |   32.9 ms |
+| **`intlayer`**      | dynamic   |    **5.0 KB** |     **118.6 KB** |    **0.0%** |  **0.0%** |         **6.3 KB** |     **3.6 ms** |   14.1 ms |
+
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> Повна таблиця у [звіті про бенчмарк TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/tanstack.md).
 
 > Адаптер `react-i18next` на Vite / TanStack Start не брав участі у цьому тестуванні. Базові показники `react-i18next` на TanStack Start наведено у статті [i18next проти Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/i18next_vs_intlayer.md): 127-184 KB на сторінку та перемикання локалі за 123-185 ms за наявності лінивого бекенда.
 
@@ -346,6 +365,25 @@ export default defineConfig({
 
 </Accordion>
 </AccordionGroup>
+
+## Порівняння можливостей
+
+Окрім байтів, що дає кожен варіант:
+
+| Можливість                                          | `i18next` / `react-i18next` / `next-i18next` | Адаптери `@intlayer/*`                   | Нативний Intlayer                            |
+| --------------------------------------------------- | -------------------------------------------- | ---------------------------------------- | -------------------------------------------- |
+| **Ваші виклики `t()`, `useTranslation`, `<Trans>`** | ✅                                           | ✅ Без змін                              | ❌ Перенесено на `useIntlayer`               |
+| **Розмір runtime (gzip, Next.js)**                  | 19.7 KB                                      | 9.4 KB                                   | 5.5 KB                                       |
+| **Витік інших сторінок без ручних namespaces**      | ~90%                                         | 0%                                       | 0%                                           |
+| **Типізовані ключі**                                | ⚠️ Ручне оголошення                          | ✅ Зі скомпільованих словників           | ✅ Генеруються автоматично                   |
+| **Runtime-бекенди та плагіни**                      | ✅ Повна екосистема плагінів                 | ❌ Неактивні                             | ❌ Не застосовується, використовуйте CMS     |
+| **Контент поруч із компонентами**                   | ❌ Централізований JSON                      | ⚠️ JSON, `.content.ts` може співіснувати | ✅ `.content.ts` поруч із кожним компонентом |
+| **Відсутні переклади в CI**                         | ⚠️ Немає вбудованої підтримки                | ✅ `npx intlayer test`                   | ✅ `npx intlayer test`                       |
+| **AI-переклад**                                     | ❌ Ні                                        | ✅ `npx intlayer fill`                   | ✅ `npx intlayer fill`                       |
+| **Візуальний редактор / CMS**                       | ❌ Через зовнішні платформи                  | ✅ На тому самому JSON                   | ✅ Так                                       |
+| **Екосистема / спільнота**                          | ✅ Дуже велика                               | ⚠️ Менша, швидко зростає                 | ⚠️ Менша, швидко зростає                     |
+
+> Розміри runtime взято з описаного вище прогону на Next.js.
 
 ## Коли що використовувати?
 

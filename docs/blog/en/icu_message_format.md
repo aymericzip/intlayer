@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-26
 priority: 8
 title: "ICU Message Format: Syntax, Plurals and Select"
 description: A practical reference to ICU MessageFormat - argument interpolation, plural and select branching, CLDR plural categories per language, and the usual mistakes.
@@ -285,5 +285,4 @@ If you are coming from a codebase that already contains real ICU strings, the [r
 - [Insertion placeholders](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/insertion.md): `{{name}}` interpolation and automatic detection.
 - [i18n library benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/index.md): bundle size and runtime cost across the libraries listed above.
 - [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/react-i18next_vs_react-intl_vs_intlayer.md): a fuller comparison of the three message models.
-- [What is internationalization?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/what_is_internationalization.md): the wider scope beyond message formatting.
-- [i18n meaning](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/i18n_meaning.md): where the term comes from and how i18n differs from l10n.
+- [What is internationalization?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/what_is_internationalization.md): where the term i18n comes from, how it differs from l10n, and the wider scope beyond message formatting.

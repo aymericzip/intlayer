@@ -47,7 +47,7 @@ author: aymericzip
 
 सुविधा तालिकाओं से पहले, मापा गया भाग। [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) प्रत्येक लाइब्रेरी के साथ एक ही Vite + Vue 3 ऐप (10 पेज, 10 भाषाएँ) बनाता है और ब्राउज़र द्वारा डाउनलोड किए गए डेटा को रिकॉर्ड करता है:
 
-<I18nBenchmark framework="vite-vue" vertical/>
+<I18nBenchmark framework="vite-vue" packages="vue-i18n,intlayer" vertical/>
 
 | Setup                | Lib size (gz) | Page JS avg (gz) | Page leak | Component avg (gz) |
 | -------------------- | ------------: | ---------------: | --------: | -----------------: |

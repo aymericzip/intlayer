@@ -110,7 +110,7 @@ Untuk setiap build, pengujian mencatat:
 
 Pilih metrik dan pustaka yang Anda minati:
 
-<I18nBenchmark framework="vite-vue" vertical/>
+<I18nBenchmark framework="vite-vue" packages="vue-i18n,@intlayer/vue-i18n,intlayer" vertical/>
 
 | Penyiapan                | Strategi | Ukuran Lib (gz) | Ukuran Lib (min) | Rata-rata JS Halaman (gz) | Kebocoran lokal | Kebocoran halaman | Rata-rata Komponen (gz) | Reaktivitas E2E | Waktu Muat Halaman |
 | ------------------------ | -------- | --------------: | ---------------: | ------------------------: | --------------: | ----------------: | ----------------------: | --------------: | -----------------: |

@@ -92,7 +92,7 @@ Next.js 16 App Router、同一アプリケーション：
 | `paraglide-next`   | 155.3 KB            | +14.3 KB    |
 | `next-intlayer`    | **141.3 KB**        | **+0.3 KB** |
 
-<I18nBenchmark framework="tanstack" vertical/>
+<I18nBenchmark framework="tanstack" packages="paraglide,intlayer" vertical/>
 
 > 詳細なデータは [TanStack Start ベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md) および [Next.js ベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md) を参照してください。すべてのバンドルは [ベンチマークリポジトリ](https://github.com/intlayer-org/benchmark-i18n) で確認できます。
 
@@ -208,6 +208,10 @@ Tree Shaking の成否は、バンドラー（Turbopack、Rolldown、Rollup）�
 これが構造的な限界です。Paraglide には 1 言語ずつ読み込む手段がありません。各メッセージ関数が各言語の実装を静的にインポートするため、すべての言語がクライアントバンドルに含まれてしまいます。
 
 2 言語の場合、翻訳データの半分が無駄になり、上記の測定で判明した約 50% のロケール漏洩に一致します。10 言語では 90% が無駄になり、30 言語では 97% に達します。
+
+以下のグラフは、1 ページあたり約 30 KB のテキストを持つ、1〜10 ページ・1〜10 言語の理論上のアプリのペイロードを推定したものです。ルートごとのコンテンツ分割で一方の軸が、ロケールごとの動的読み込みでもう一方の軸が取り除かれ、両方を組み合わせた場合にのみペイロードが一定に保たれます。Paraglide がカバーできるのはせいぜい最初の軸だけで、2 つ目の軸は決してカバーできません。
+
+![アーキテクチャ別の理論的コンテンツ漏洩](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 動的読み込みに変更しても解決にはなりません。メッセージごとに関数が分かれているため、それぞれを遅延読み込みすると数千回ものネットワークリクエストが発生してしまうからです。
 

@@ -101,7 +101,7 @@ Per ogni build vengono registrati i seguenti parametri:
 
 Seleziona le metriche e le librerie che ti interessano:
 
-<I18nBenchmark framework="nextjs" vertical/>
+<I18nBenchmark framework="nextjs" packages="lingui,next-intlayer" vertical/>
 
 | Libreria            | Strategia      | Lib size (gz) | Page JS media (gz) | Leak lingua | Leak pagina | Componente medio (gz) | Reattività E2E | Idratazione |
 | ------------------- | -------------- | ------------: | -----------------: | ----------: | ----------: | --------------------: | -------------: | ----------: |

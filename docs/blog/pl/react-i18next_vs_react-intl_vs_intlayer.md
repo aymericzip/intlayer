@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-01-02
-updatedAt: 2026-09-16
+updatedAt: 2026-09-26
 priority: 9
 title: react-i18next vs react-intl vs Intlayer
 description: Integracja react-i18next z next-intl i Intlayer dla internacjonalizacji (i18n) aplikacji React
@@ -111,6 +111,27 @@ Poniższy wykres szacuje rozmiar treści dla teoretycznej aplikacji mającej od 
 
 ![Teoretyczny wyciek treści w zależności od architektury](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
+#### Wyniki benchmarku dla React (TanStack Start / Vite)
+
+Dane z [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom), mierzące standardowe implementacje React na TanStack Start:
+
+<I18nBenchmark framework="tanstack" vertical/>
+
+| Library            | Strategy | Lib size (gz) | Page JS avg (gz) | Locale leak | Page leak | Component avg (gz) | E2E reactivity | Hydration |
+| ------------------ | -------- | ------------: | ---------------: | ----------: | --------: | -----------------: | -------------: | --------: |
+| **base** (no i18n) | -        |        0.0 KB |         111.0 KB |        0.0% |      0.0% |             0.7 KB |         8.1 ms |   21.6 ms |
+| `react-i18next`    | dynamic  |       18.4 KB |         136.4 KB |       23.1% |     89.8% |            24.8 KB |       123.1 ms |   32.9 ms |
+| **`intlayer`**     | dynamic  |    **5.0 KB** |     **118.6 KB** |    **0.0%** |  **0.0%** |         **6.3 KB** |     **3.6 ms** |   14.1 ms |
+
+<ClickToOpenIframe
+  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md"
+  width="100%"
+  height="600px"
+  style="border:none;"
+/>
+
+> Pełna tabela w [raporcie benchmarku TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/tanstack.md) oraz w [przeglądzie benchmarków i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/index.md).
+
 ### 6) DX, narzędzia i utrzymanie
 
 - **react-intl / react-i18next**: Szeroki ekosystem społeczności; do przepływów redakcyjnych zazwyczaj korzystasz z zewnętrznych platform lokalizacyjnych.
@@ -129,6 +150,13 @@ Poniższy wykres szacuje rozmiar treści dla teoretycznej aplikacji mającej od 
 `intlayer` może również pomóc w zarządzaniu przestrzeniami nazw `react-intl` i `react-i18next`.
 
 Korzystając z `intlayer`, możesz deklarować swoją zawartość w formacie ulubionej biblioteki i18n, a intlayer wygeneruje Twoje przestrzenie nazw w wybranej lokalizacji (np. `/messages/{{locale}}/{{namespace}}.json`).
+
+## Dalsza lektura i benchmarki
+
+- Raporty benchmarków: [Przegląd benchmarków i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/index.md), [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/tanstack.md), [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/nextjs.md), [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/vue.md), [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/solid.md) i [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/svelte.md)
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/i18next_vs_intlayer-i18next.md)
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/next-intl_vs_intlayer.md)
+- [Optymalizacja bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/bundle_optimization.md) i [kompilator Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compiler.md)
 
 ## Gwiazdki GitHub
 

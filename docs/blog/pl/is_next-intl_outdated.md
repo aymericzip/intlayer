@@ -75,7 +75,7 @@ Stabilna biblioteka bywa wystarczająca. Jednak standardy i18n uległy zmianie: 
 
 Wyniki testów standardowej aplikacji App Router z 10 trasami i 10 językami:
 
-<I18nBenchmark framework="nextjs" vertical/>
+<I18nBenchmark framework="nextjs" packages="next-intl,@intlayer/next-intl,next-intlayer" vertical/>
 
 <ClickToOpenIframe
 src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"

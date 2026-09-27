@@ -92,7 +92,7 @@ Next.js 16 App Router, dieselbe Anwendung:
 | `paraglide-next`  | 155.3 KB         | +14.3 KB    |
 | `next-intlayer`   | **141.3 KB**     | **+0.3 KB** |
 
-<I18nBenchmark framework="tanstack" vertical/>
+<I18nBenchmark framework="tanstack" packages="paraglide,intlayer" vertical/>
 
 > Vollständige Daten im [TanStack Start Benchmark-Bericht](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/tanstack.md) und im [Next.js Benchmark-Bericht](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/nextjs.md). Jedes Bundle kann im [Benchmark-Repository](https://github.com/intlayer-org/benchmark-i18n) eingesehen werden.
 
@@ -208,6 +208,10 @@ Tree Shaking hängt von Ihrem Bundler (Turbopack, Rolldown, Rollup), der Import-
 Hier liegt die strukturelle Grenze. Paraglide bietet keine Möglichkeit, nur eine Locale auf einmal zu laden: Jede Nachrichtenfunktion importiert statisch die Implementierung jeder Sprache, sodass alle Sprachen im Client-Bundle landen.
 
 Bei 2 Sprachen wird die Hälfte der Übersetzungsdaten verschwendet, was den oben gemessenen ~50% Locale-Leak entspricht. Bei 10 Sprachen sind es 90%. Bei 30 Sprachen 97%.
+
+Die folgende Grafik schätzt den Payload für eine theoretische App mit 1 bis 10 Seiten in 1 bis 10 Sprachen, mit etwa 30 KB Text pro Seite. Das Aufteilen von Content pro Route entfernt eine Achse, das dynamische Laden pro Sprache die andere, und nur die Kombination beider hält den Payload konstant. Paraglide deckt bestenfalls die erste Achse ab, niemals die zweite.
+
+![Theoretisches Content-Leakage nach Architektur](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 Der Wechsel zu dynamischem Laden würde das Problem nicht beheben: Bei einer Funktion pro Nachricht würde das verzögerte Laden jeder einzelnen Funktion tausende Anfragen bedeuten.
 

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-09-16
+updatedAt: 2026-09-26
 priority: 9
-title: "next-i18next против next-intl против Intlayer - Полное руководство по переводу next-i18next vs next-intl vs Intlayer: 2026 Comparison"
-description: Лучшее решение для размера бандла, SEO, производительности & поддерживаемости. Сделайте Next.js сайт многоязычным в 2026, перевод LLM, Agent Skills & MCP.
+title: "next-i18next против next-intl против Intlayer: сравнение 2026"
+description: "Какую i18n-библиотеку выбрать для Next.js? Сравнение next-i18next, next-intl и Intlayer по размеру бандла, типобезопасности TypeScript, Server Components, маршрутизации и удобству разработки."
 keywords:
   - next-intl
   - next-i18next
@@ -21,7 +21,7 @@ author: aymericzip
 
 # next-i18next ПРОТИВ next-intl ПРОТИВ intlayer | Интернационализация (i18n) Next.js
 
-<TOC/>
+![next-i18next VS next-intl VS intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
 Давайте рассмотрим сходства и различия между тремя вариантами i18n для Next.js: next-i18next, next-intl и Intlayer.
 
@@ -29,13 +29,7 @@ author: aymericzip
 
 Мы сосредотачиваемся на **Next.js 13+ App Router** (с **React Server Components**) и оцениваем:
 
-1. **Архитектура и организация контента**
-2. **TypeScript и безопасность**
-3. **Обработка отсутствующих переводов**
-4. **Маршрутизация и промежуточное ПО**
-5. **Производительность и поведение при загрузке**
-6. **Опыт разработчика (DX), инструменты и сопровождение**
-7. **SEO и масштабируемость для крупных проектов**
+<TOC/>
 
 > **Кратко**: Все три решения могут локализовать приложение Next.js. Если вам нужен **контент, ограниченный компонентом**, **строгие типы TypeScript**, **проверки отсутствующих ключей во время сборки**, **дерево-шейкнутые словари** и **первоклассная поддержка App Router + SEO помощников**, то **Intlayer**, самый полный и современный выбор.
 
@@ -98,6 +92,32 @@ Next.js предоставляет встроенную поддержку ин�
 
 После сборки приложения, бандл, это JavaScript, который браузер загрузит для отображения страницы. Размер бандла, следовательно, важен для производительности приложения.
 
+[i18n benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/nextjs.md) измеряет реальное влияние каждой библиотеки на одно и то же Next.js-приложение из 10 страниц и 10 локалей:
+
+<I18nBenchmark framework="nextjs" packages="next-i18next,next-intl,next-intlayer" vertical/>
+
+<ClickToOpenIframe
+  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+  width="100%"
+  height="600px"
+  style="border:none;"
+/>
+
+Ключевые показатели, измеренные на Next.js App Router (gzip):
+
+| Конфигурация                      | Размер библиотеки | Средний JS страницы | Утечка других локалей | Утечка других страниц | Среднее на компонент |
+| :-------------------------------- | ----------------: | ------------------: | --------------------: | --------------------: | -------------------: |
+| Базовый (без i18n)                |                 - |            141.0 KB |                  0.0% |                  0.0% |               0.9 KB |
+| `next-intl` (static)              |           14.7 KB |            153.6 KB |                  4.2% |                 89.8% |              21.8 KB |
+| `next-intl` (dynamic)             |           14.7 KB |            153.6 KB |                  9.7% |                 89.9% |              21.8 KB |
+| `@intlayer/next-intl` (compat)    |            8.0 KB |            148.7 KB |                  0.0% |                  0.0% |               8.1 KB |
+| `next-i18next` (static)           |           19.7 KB |            218.5 KB |                  0.0% |                 89.8% |              78.5 KB |
+| `next-i18next` (dynamic)          |           19.7 KB |            169.5 KB |                 50.0% |                 89.8% |              26.1 KB |
+| `@intlayer/next-i18next` (compat) |            9.4 KB |            150.7 KB |                  0.0% |                  0.0% |               9.7 KB |
+| `next-intlayer` (native Intlayer) |        **5.5 KB** |        **141.3 KB** |              **0.0%** |              **0.0%** |           **6.9 KB** |
+
+> Полный анализ смотрите в [отчёте о бенчмарке Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/nextjs.md) и в подробном [обзоре бенчмарка i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/index.md).
+
 В контексте бандла многоязычного приложения важны два компонента:
 
 - Код приложения
@@ -111,13 +131,11 @@ Next.js предоставляет встроенную поддержку ин�
 
 Если в приложении не нужен никакой форматтер, список экспортируемых функций после tree-shaking будет следующим:
 
-- **next-intlayer**: `useIntlayer`, `useLocale`, `NextIntlClientProvider`, (Размер бандла 180.6 кБ -> 78.6 кБ (gzip))
+- **next-intlayer**: `useIntlayer`, `useLocale`, `NextIntlClientProvider`, (Размер бандла 180.6 кБ -> 15.24 кБ (gzip))
 - **next-intl**: `useTranslations`, `useLocale`, `NextIntlClientProvider`, (Размер бандла 101.3 кБ -> 31.4 кБ (gzip))
 - **next-i18next**: `useTranslation`, `useI18n`, `I18nextProvider`, (Размер бандла 80.7 кБ -> 25.5 кБ (gzip))
 
 Эти функции являются лишь обёртками вокруг контекста/состояния React, поэтому общий вклад библиотеки i18n в размер бандла минимален.
-
-> Intlayer немного больше, чем `next-intl` и `next-i18next`, потому что включает больше логики в функции `useIntlayer`. Это связано с интеграцией markdown и `intlayer-editor`.
 
 ## Контент и переводы
 
@@ -159,6 +177,8 @@ Next.js предоставляет встроенную поддержку ин�
 
 В случае с `next-intl` и `next-i18next` библиотека требует загрузки JSON, связанного с текущей локалью, а также с локалью-резервом. Таким образом, учитывая, что весь контент переведен, каждая страница загрузит 100% ненужного контента. **В сравнении с этим, `intlayer` обрабатывает резервный вариант на этапе сборки словаря. Таким образом, каждая страница загрузит только используемый контент.**
 
+> Примечание: чтобы оптимизировать bundle с помощью `intlayer`, нужно задать опцию `importMode: 'dynamic'` в файле `intlayer.config.ts`. Также убедитесь, что установлен плагин `@intlayer/babel` / `@intlayer/swc` (устанавливается по умолчанию вместе с `vite-intlayer`).
+
 Вот пример влияния оптимизации размера бандла с использованием `intlayer` в приложении на vite + react:
 
 | Оптимизированный бандл                                                                                       | Неоптимизированный бандл                                                                                                       |
@@ -196,17 +216,30 @@ Next.js предоставляет встроенную поддержку ин�
 
 ## Обработка отсутствующих переводов
 
-**next-intl**
-
-- Опирается на **запасные варианты во время выполнения** (например, показывает ключ или локаль по умолчанию). Сборка не прерывается.
+<Columns>
+  <Column>
 
 **next-i18next**
 
 - Опирается на **запасные варианты во время выполнения** (например, показывает ключ или локаль по умолчанию). Сборка не прерывается.
 
+  </Column>
+  <Column>
+
+**next-intl**
+
+- Опирается на **запасные варианты во время выполнения** (например, показывает ключ или локаль по умолчанию). Сборка не прерывается.
+
+  </Column>
+  <Column>
+
 **intlayer**
 
 - **Обнаружение на этапе сборки** с **предупреждениями/ошибками** для отсутствующих локалей или ключей.
+
+  </Column>
+
+</Columns>
 
 **Почему это важно:** Обнаружение пробелов во время сборки предотвращает появление «непонятных строк» в продакшене и соответствует строгим требованиям к выпуску.
 
@@ -386,66 +419,170 @@ Next.js предоставляет встроенную поддержку ин�
 <Tabs defaultTab="next-intl" group='techno'>
   <Tab label="next-i18next" value="next-i18next">
 
-```tsx fileName="next-i18next.config.js"
-module.exports = {
-  i18n: {
-    locales: ["en", "fr", "es"],
-    defaultLocale: "en",
-  },
-};
-```
+```ts fileName="i18n.config.ts"
+export const locales = ["en", "fr"] as const;
+export type Locale = (typeof locales)[number];
 
-```tsx fileName="src/app/_app.tsx"
-import { appWithTranslation } from "next-i18next";
+export const defaultLocale: Locale = "en";
 
-const MyApp = ({ Component, pageProps }) => <Component {...pageProps} />;
+export const rtlLocales = ["ar", "he", "fa", "ur"] as const;
+export const isRtl = (locale: string) =>
+  (rtlLocales as readonly string[]).includes(locale);
 
-export default appWithTranslation(MyApp);
-```
-
-```tsx fileName="src/app/[locale]/about/page.tsx"
-import type { GetStaticProps } from "next";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { useTranslation } from "next-i18next";
-import { I18nextProvider, initReactI18next } from "react-i18next";
-import { createInstance } from "i18next";
-import { ClientComponent, ServerComponent } from "@components";
-
-export default function HomePage({ locale }: { locale: string }) {
-  // Явно укажите пространство имён, используемое этим компонентом
-  const resources = await loadMessagesFor(locale); // ваш загрузчик (JSON и т.д.)
-
-  const i18n = createInstance();
-  i18n.use(initReactI18next).init({
-    lng: locale,
-    fallbackLng: "en",
-    resources,
-    ns: ["common", "about"],
-    defaultNS: "common",
-    interpolation: { escapeValue: false },
-  });
-
-  const { t } = useTranslation("about");
-
-  return (
-    <I18nextProvider i18n={i18n}>
-      <main>
-        <h1>{t("title")}</h1>
-        <ClientComponent />
-        <ServerComponent />
-      </main>
-    </I18nextProvider>
-  );
+export function localizedPath(locale: string, path: string) {
+  return locale === defaultLocale ? path : "/" + locale + path;
 }
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  // Предзагружайте только необходимые пространства имён для ЭТОЙ страницы
-  return {
-    props: {
-      ...(await serverSideTranslations(locale ?? "en", ["common", "about"])),
-    },
-  };
+const ORIGIN = "https://example.com";
+export function abs(locale: string, path: string) {
+  return ORIGIN + localizedPath(locale, path);
+}
+```
+
+```ts fileName="src/app/i18n/server.ts"
+import { createInstance } from "i18next";
+import { initReactI18next } from "react-i18next/initReactI18next";
+import resourcesToBackend from "i18next-resources-to-backend";
+import { defaultLocale } from "@/i18n.config";
+
+// Load JSON resources from src/locales/<locale>/<namespace>.json
+const backend = resourcesToBackend(
+  (locale: string, namespace: string) =>
+    import(`../../locales/${locale}/${namespace}.json`)
+);
+
+export async function initI18next(
+  locale: string,
+  namespaces: string[] = ["common"]
+) {
+  const i18n = createInstance();
+  await i18n
+    .use(initReactI18next)
+    .use(backend)
+    .init({
+      lng: locale,
+      fallbackLng: defaultLocale,
+      ns: namespaces,
+      defaultNS: "common",
+      interpolation: { escapeValue: false },
+      react: { useSuspense: false },
+    });
+  return i18n;
+}
+```
+
+```tsx fileName="src/components/I18nProvider.tsx"
+"use client";
+
+import * as React from "react";
+import { I18nextProvider } from "react-i18next";
+import { createInstance } from "i18next";
+import { initReactI18next } from "react-i18next/initReactI18next";
+import resourcesToBackend from "i18next-resources-to-backend";
+import { defaultLocale } from "@/i18n.config";
+
+const backend = resourcesToBackend(
+  (locale: string, namespace: string) =>
+    import(`../../locales/${locale}/${namespace}.json`)
+);
+
+type Props = {
+  locale: string;
+  namespaces?: string[];
+  resources?: Record<string, any>; // { ns: bundle }
+  children: React.ReactNode;
 };
+
+export default function I18nProvider({
+  locale,
+  namespaces = ["common"],
+  resources,
+  children,
+}: Props) {
+  const [i18n] = React.useState(() => {
+    const i = createInstance();
+
+    i.use(initReactI18next)
+      .use(backend)
+      .init({
+        lng: locale,
+        fallbackLng: defaultLocale,
+        ns: namespaces,
+        resources: resources ? { [locale]: resources } : undefined,
+        defaultNS: "common",
+        interpolation: { escapeValue: false },
+        react: { useSuspense: false },
+      });
+
+    return i;
+  });
+
+  return <I18nextProvider i18n={i18n}>{children}</I18nextProvider>;
+}
+```
+
+```tsx fileName="src/app/[locale]/layout.tsx"
+import type { ReactNode } from "react";
+import { locales, defaultLocale, isRtl, type Locale } from "@/i18n.config";
+
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return locales.map((locale) => ({ locale }));
+}
+
+export default function LocaleLayout({
+  children,
+  params,
+}: {
+  children: ReactNode;
+  params: { locale: string };
+}) {
+  const locale: Locale = (locales as readonly string[]).includes(params.locale)
+    ? params.locale
+    : defaultLocale;
+
+  const dir = isRtl(locale) ? "rtl" : "ltr";
+
+  return (
+    <html lang={locale} dir={dir}>
+      <body>{children}</body>
+    </html>
+  );
+}
+```
+
+```tsx fileName="src/app/[locale]/about.tsx"
+import I18nProvider from "@/components/I18nProvider";
+import { initI18next } from "@/app/i18n/server";
+import type { Locale } from "@/i18n.config";
+import ClientComponent from "@/components/ClientComponent";
+import ServerComponent from "@/components/ServerComponent";
+
+// Force static rendering for the page
+export const dynamic = "force-static";
+
+export default async function AboutPage({
+  params: { locale },
+}: {
+  params: { locale: Locale };
+}) {
+  const namespaces = ["common", "about"] as const;
+
+  const i18n = await initI18next(locale, [...namespaces]);
+  const tAbout = i18n.getFixedT(locale, "about");
+
+  return (
+    <I18nProvider locale={locale} namespaces={[...namespaces]}>
+      <main>
+        <h1>{tAbout("title")}</h1>
+
+        <ClientComponent />
+        <ServerComponent t={tAbout} locale={locale} count={0} />
+      </main>
+    </I18nProvider>
+  );
+}
 ```
 
   </Tab>
@@ -1300,5 +1437,18 @@ export const config = {
 
 - С **Intlayer** **модульный контент**, **строгий TS**, **безопасность на этапе сборки**, **tree-shaken бандлы** и **первоклассный App Router + инструменты SEO** являются **стандартом**, а не рутиной.
 - Если ваша команда ценит **поддерживаемость и скорость** в многоязычном приложении, ориентированном на компоненты, Intlayer предлагает сегодня **самый полный** опыт.
+
+## Дополнительные материалы и бенчмарки
+
+- [Отчёт о бенчмарке Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/nextjs.md)
+- [Обзор бенчмарка i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/index.md)
+- [Отчёт о бенчмарке TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/tanstack.md)
+- [Отчёт о бенчмарке Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/vue.md)
+- [Отчёт о бенчмарке Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/solid.md)
+- [Отчёт о бенчмарке Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/svelte.md)
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/next-intl_vs_intlayer.md)
+- [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/i18next_vs_intlayer.md)
+- [Адаптер совместимости @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/next-intl.md)
+- [Адаптер совместимости @intlayer/next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/next-i18next.md)
 
 Обратитесь к [документу «Почему Intlayer?»](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/interest_of_intlayer.md) для получения дополнительной информации.

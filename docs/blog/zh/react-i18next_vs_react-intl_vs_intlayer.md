@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-01-02
-updatedAt: 2026-09-16
+updatedAt: 2026-09-26
 priority: 9
 title: react-i18next vs react-intl vs Intlayer
 description: 将 react-i18next 与 next-intl 和 Intlayer 集成，用于 React 应用的国际化 (i18n)
@@ -21,8 +21,6 @@ author: aymericzip
 
 # react-Intl VS react-i18next VS intlayer | React 国际化 (i18n)
 
-<TOC/>
-
 本指南比较了三种成熟的 **React** 国际化方案：**react-intl**（FormatJS）、**react-i18next**（i18next）和 **Intlayer**。
 我们重点关注 **纯 React** 应用（例如 Vite、CRA、SPA）。如果您使用的是 Next.js，请参阅我们专门的 Next.js 比较。
 
@@ -35,6 +33,8 @@ author: aymericzip
 - 性能与加载行为
 - 开发者体验（DX）、工具链与维护
 - SEO/路由（依赖框架）
+
+<TOC/>
 
 > **简而言之**：这三者都能实现 React 应用的本地化。如果您需要**组件范围的内容**、**严格的 TypeScript 类型**、**构建时缺失键检查**、**支持 Tree-shaking 的字典**，以及内置的编辑工具（可视化编辑器/CMS + 可选的 AI 翻译），那么 **Intlayer** 是模块化 React 代码库中最完整的选择。
 
@@ -111,6 +111,27 @@ author: aymericzip
 
 ![按架构划分的理论内容泄漏](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
+#### React 上的基准测试结果（TanStack Start / Vite）
+
+以下数据来自 [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom)，测量了 TanStack Start 上的标准 React 实现：
+
+<I18nBenchmark framework="tanstack" vertical/>
+
+| Library            | Strategy | Lib size (gz) | Page JS avg (gz) | Locale leak | Page leak | Component avg (gz) | E2E reactivity | Hydration |
+| ------------------ | -------- | ------------: | ---------------: | ----------: | --------: | -----------------: | -------------: | --------: |
+| **base** (no i18n) | -        |        0.0 KB |         111.0 KB |        0.0% |      0.0% |             0.7 KB |         8.1 ms |   21.6 ms |
+| `react-i18next`    | dynamic  |       18.4 KB |         136.4 KB |       23.1% |     89.8% |            24.8 KB |       123.1 ms |   32.9 ms |
+| **`intlayer`**     | dynamic  |    **5.0 KB** |     **118.6 KB** |    **0.0%** |  **0.0%** |         **6.3 KB** |     **3.6 ms** |   14.1 ms |
+
+<ClickToOpenIframe
+  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md"
+  width="100%"
+  height="600px"
+  style="border:none;"
+/>
+
+> 完整表格见 [TanStack Start 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md) 和 [i18n 基准测试概览](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/index.md)。
+
 ### 6) 开发体验（DX）、工具链与维护
 
 - **react-intl / react-i18next**：拥有广泛的社区生态系统；对于编辑工作流，通常采用外部本地化平台。
@@ -124,12 +145,18 @@ author: aymericzip
 - 如果您需要**i18next 生态系统的广泛支持**（检测器、后端、ICU 插件、集成等），并且愿意接受更多配置以获得更高灵活性，**请选择 react-i18next**。
 - **选择 Intlayer** 如果你重视 **组件范围的内容管理**、**严格的 TypeScript 类型检查**、**构建时保证**、**摇树优化**，以及 **开箱即用** 的编辑工具 -- 尤其适用于 **大型、模块化** 的 React 应用。
 
-## 实用迁移建议（react-intl / react-i18next → Intlayer）
+## 与 `react-intl` 和 `react-i18next` 的互操作性
 
-- **渐进迁移**：从一个功能或路由开始；在过渡期间并行保留旧版目录。
-- **采用每组件字典**：将内容与组件共置，减少耦合。
-- **启用严格检查**：让构建时错误提前暴露缺失的键/语言，便于 CI 早期发现。
-- **测量包体积**：预期未使用的字符串被剔除后包体积会减小。
+`intlayer` 还可以帮助管理你的 `react-intl` 和 `react-i18next` 命名空间。
+
+使用 `intlayer`，你可以按照你喜欢的 i18n 库的格式声明内容，intlayer 会在你选择的位置生成命名空间（例如：`/messages/{{locale}}/{{namespace}}.json`）。
+
+## 延伸阅读与基准测试
+
+- 基准测试报告：[i18n 基准测试概览](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/index.md)、[TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md)、[Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md)、[Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/vue.md)、[Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/solid.md) 和 [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/svelte.md)
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18next_vs_intlayer-i18next.md)
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/next-intl_vs_intlayer.md)
+- [Bundle 优化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md) 和 [Intlayer 编译器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md)
 
 ## GitHub STARs
 
@@ -143,3 +170,5 @@ GitHub stars 是项目受欢迎程度、社区信任度和长期相关性的强�
 
 - 使用 **Intlayer**，**模块化内容**、**严格的 TS 类型检查**、**构建时安全性**、**摇树优化的包**以及**编辑工具**都是默认配置，而非额外负担。
 - 如果你的团队重视多语言、组件驱动的 React 应用中的**可维护性和速度**，Intlayer 提供了目前**最完整**的开发者和内容工作流。
+
+更多详情请参阅 [“为什么选择 Intlayer？”文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/interest_of_intlayer.md)。

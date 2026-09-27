@@ -47,7 +47,7 @@ author: aymericzip
 
 قبل جداول الميزات، الجزء المقاس. يقوم [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) ببناء نفس تطبيق Vite + Vue 3 (10 صفحات، 10 لغات) مع كل مكتبة ويسجل ما يقوم المتصفح بتنزيله:
 
-<I18nBenchmark framework="vite-vue" vertical/>
+<I18nBenchmark framework="vite-vue" packages="vue-i18n,intlayer" vertical/>
 
 | Setup                | Lib size (gz) | Page JS avg (gz) | Page leak | Component avg (gz) |
 | -------------------- | ------------: | ---------------: | --------: | -----------------: |

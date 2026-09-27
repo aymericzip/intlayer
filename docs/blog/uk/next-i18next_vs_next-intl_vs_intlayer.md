@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-09-16
+updatedAt: 2026-09-26
 priority: 9
-title: "next-i18next проти next-intl проти Intlayer - Повний посібник з перекладу next-i18next vs next-intl vs Intlayer: 2026 Comparison"
-description: Найкраще рішення для розміру бандлу, SEO, продуктивності & підтримуваності. Зробіть Next.js сайт багатомовним у 2026, переклад LLM, Agent Skills & MCP.
+title: "next-i18next проти next-intl проти Intlayer: порівняння 2026"
+description: "Яку i18n-бібліотеку обрати для Next.js? Порівняння next-i18next, next-intl та Intlayer за розміром бандла, типобезпекою TypeScript, Server Components, маршрутизацією та зручністю розробки."
 keywords:
   - next-intl
   - next-i18next
@@ -32,7 +32,7 @@ author: aymericzip
 <TOC/>
 
 > **tl;dr**: Усі три можуть локалізувати Next.js додаток. Якщо вам потрібні **контент, прив'язаний до компонентів**, **строгі TypeScript-типи**, **перевірка відсутніх ключів на етапі збірки**, **tree-shaken словники** та **першокласна підтримка App Router + SEO-хелперів**, **Intlayer**, найповніший, сучасний вибір.
->
+
 > Частою помилкою розробників є думка, що `next-intl`, це версія `react-intl` для Next.js. Це не так: `next-intl` підтримується [Amann](https://github.com/amannn), тоді як `react-intl` підтримується [FormatJS](https://github.com/formatjs/formatjs).
 
 ## Коротко
@@ -83,25 +83,40 @@ Next.js надає вбудовану підтримку інтернаціон�
 
 ## Архітектура та масштабованість
 
-/// **next-intl / next-i18next**: За замовчуванням використовують **централізовані каталоги** для кожної локалі (плюс **namespaces** у i18next). Добре працює на початкових етапах, але часто перетворюється на велику спільну поверхню зі зростаючою зв’язністю та хаотичністю ключів.
-/// **Intlayer**: Заохочує **per-component** (або **per-feature**) словники, **розміщені поруч** із кодом, який вони обслуговують. Це зменшує когнітивне навантаження, полегшує дублювання/міграцію UI-блоків і знижує конфлікти між командами. Невикористаний контент природно легше помітити й видалити.
-///
-/// **Чому це важливо:** У великих кодових базах або при роботі з design-system **модульний контент** масштабується краще, ніж монолітні каталоги.
-///
-/// ---
-///
-/// ## Розміри бандлів та залежності
+- **next-intl / next-i18next**: За замовчуванням використовують **централізовані каталоги** для кожної локалі (плюс **namespaces** у i18next). Добре працює на початкових етапах, але часто перетворюється на велику спільну поверхню зі зростаючою зв’язністю та хаотичністю ключів.
+- **Intlayer**: Заохочує **per-component** (або **per-feature**) словники, **розміщені поруч** із кодом, який вони обслуговують. Це зменшує когнітивне навантаження, полегшує дублювання/міграцію UI-блоків і знижує конфлікти між командами. Невикористаний контент природно легше помітити й видалити.
 
-Після збірки застосунку, bundle, це JavaScript, який браузер завантажує для відображення сторінки. Тому розмір bundle важливий для продуктивності застосунку.
-
-У контексті багатомовного застосунку важливі два складники bundle:
-
-- Код застосунку
-- Контент, який завантажує браузер
+**Чому це важливо:** У великих кодових базах або при роботі з design-system **модульний контент** масштабується краще, ніж монолітні каталоги.
 
 ## Розміри bundle та залежності
 
 Після побудови додатку bundle є JavaScript-кодом, який браузер завантажить для відображення сторінки. Тому розмір bundle є важливим для продуктивності додатку.
+
+[i18n benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/nextjs.md) вимірює реальний вплив кожної бібліотеки на той самий Next.js-застосунок із 10 сторінок і 10 локалей:
+
+<I18nBenchmark framework="nextjs" packages="next-i18next,next-intl,next-intlayer" vertical/>
+
+<ClickToOpenIframe
+  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+  width="100%"
+  height="600px"
+  style="border:none;"
+/>
+
+Ключові показники, виміряні на Next.js App Router (gzip):
+
+| Конфігурація                      | Розмір бібліотеки | Середній JS сторінки | Витік інших локалей | Витік інших сторінок | Середнє на компонент |
+| :-------------------------------- | ----------------: | -------------------: | ------------------: | -------------------: | -------------------: |
+| Базовий (без i18n)                |                 - |             141.0 KB |                0.0% |                 0.0% |               0.9 KB |
+| `next-intl` (static)              |           14.7 KB |             153.6 KB |                4.2% |                89.8% |              21.8 KB |
+| `next-intl` (dynamic)             |           14.7 KB |             153.6 KB |                9.7% |                89.9% |              21.8 KB |
+| `@intlayer/next-intl` (compat)    |            8.0 KB |             148.7 KB |                0.0% |                 0.0% |               8.1 KB |
+| `next-i18next` (static)           |           19.7 KB |             218.5 KB |                0.0% |                89.8% |              78.5 KB |
+| `next-i18next` (dynamic)          |           19.7 KB |             169.5 KB |               50.0% |                89.8% |              26.1 KB |
+| `@intlayer/next-i18next` (compat) |            9.4 KB |             150.7 KB |                0.0% |                 0.0% |               9.7 KB |
+| `next-intlayer` (native Intlayer) |        **5.5 KB** |         **141.3 KB** |            **0.0%** |             **0.0%** |           **6.9 KB** |
+
+> Повний аналіз дивіться у [звіті про бенчмарк Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/nextjs.md) та в детальному [огляді бенчмарку i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/index.md).
 
 У контексті багатомовного додатку bundle важливі два компоненти:
 
@@ -1486,5 +1501,18 @@ export const config = {
 
 - З **Intlayer**, **модульний контент**, **строгий TS**, **безпека на етапі збірки**, **tree-shaken bundles**, і **first-class App Router + SEO tooling**, це **за замовчуванням**, а не обов'язок.
 - Якщо ваша команда цінує **підтримуваність і швидкість** у багатомовному, орієнтованому на компоненти додатку, Intlayer сьогодні пропонує **найповніший** досвід.
+
+## Додаткові матеріали та бенчмарки
+
+- [Звіт про бенчмарк Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/nextjs.md)
+- [Огляд бенчмарку i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/index.md)
+- [Звіт про бенчмарк TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/tanstack.md)
+- [Звіт про бенчмарк Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/vue.md)
+- [Звіт про бенчмарк Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/solid.md)
+- [Звіт про бенчмарк Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/svelte.md)
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/next-intl_vs_intlayer.md)
+- [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/i18next_vs_intlayer.md)
+- [Адаптер сумісності @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/next-intl.md)
+- [Адаптер сумісності @intlayer/next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/next-i18next.md)
 
 Зверніться до документа ['Чому Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/interest_of_intlayer.md) для детальнішої інформації.

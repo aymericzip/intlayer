@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-11-01
-updatedAt: 2026-05-31
+updatedAt: 2026-09-26
 priority: 9
-title: 如何使用 next-i18next 国际化您的 Next.js 应用 - 完整翻译指南： Translate Next.js 16 with next-i18next — App Router Setup
-description: 最佳的包体积、SEO、性能和可维护性解决方案。让您的 Next.js 16 网站在 2026 年实现多语言化，LLM 翻译，Agent Skills & MCP。
+title: "使用 next-i18next 实现 Next.js 16 i18n：App Router 配置指南"
+description: "在 Next.js 16 App Router 应用中逐步配置 next-i18next 和 i18next：命名空间、语言路由、服务端与客户端组件，以及 SEO 元数据。"
 keywords:
   - next-i18next
   - i18next
@@ -44,6 +44,62 @@ author: aymericzip
 > 作为替代方案，您也可以参考 [next-intl 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/i18n_using_next-intl.md)，或直接使用 [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_16.md)。
 
 > 查看 [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/next-i18next_vs_next-intl_vs_intlayer.md) 中的比较。
+
+## 基准测试对 Next.js 上 next-i18next 的结论
+
+在开始配置之前，了解 i18n 库对性能和 bundle 的影响非常重要。[i18n 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md)使用主流 i18n 库运行同一个 10 页面、10 种语言的 Next.js 应用，以测量真实的 bundle 体积、字符串泄漏和 hydration 开销。
+
+<I18nBenchmark framework="nextjs" packages="next-i18next,@intlayer/next-i18next,next-intlayer" vertical/>
+
+<ClickToOpenIframe
+  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+  width="100%"
+  height="600px"
+  style="border:none;"
+/>
+
+`next-i18next` 在 Next.js 上的关键数据（gzip）：
+
+| 配置                              |  库体积 | 页面 JS 平均值 | 其他语言泄漏 | 其他页面泄漏 |
+| :-------------------------------- | ------: | -------------: | -----------: | -----------: |
+| 基线（无 i18n）                   |       - |       141.0 KB |         0.0% |         0.0% |
+| `next-i18next`                    | 19.7 KB |       169.5 KB |        50.0% |        89.8% |
+| `@intlayer/next-i18next` (compat) |  9.4 KB |       150.7 KB |         0.0% |         0.0% |
+| `next-intlayer` (原生 Intlayer)   |  5.5 KB |       141.3 KB |         0.0% |         0.0% |
+
+要点：
+
+- **必须拆分 namespace：** 在简单配置下，`next-i18next` 会把所有 namespace 发送到每个页面（约 89.8% 的页面泄漏）。按路由拆分 namespace 并进行 lazy loading 可以减少页面 JS，但需要细致的手动组织。
+- **runtime 体积：** `i18next` 客户端 runtime 在每个页面上约 19.7 KB gzip。对于现有 codebase，兼容适配器 [`@intlayer/next-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/next-i18next.md) 保留相同的 `i18next` API，同时将 runtime 缩小到 9.4 KB 并消除泄漏。原生 [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/next-intlayer/exports.md) 则降至 5.5 KB。
+
+> 查看完整数据：[Next.js 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md)，以及[基准测试仓库](https://github.com/intlayer-org/benchmark-i18n)。
+
+## Next.js 上的功能对比
+
+在 Next.js App Router 项目通常需要的功能上，`next-i18next` 与 `next-intl` 和 Intlayer 的对比：
+
+| 功能                               | `next-intlayer` (Intlayer)                         | `next-intl`                                      | `next-i18next`                  |
+| ---------------------------------- | -------------------------------------------------- | ------------------------------------------------ | ------------------------------- |
+| **翻译靠近组件**                   | ✅ 内容与每个组件放在一起                          | ❌ 集中式 JSON                                   | ❌ 集中式 JSON                  |
+| **TypeScript 集成**                | ✅ 自动生成的严格类型                              | ✅ 良好，通过 `AppConfig` augmentation           | ⚠️ 基础                         |
+| **缺失翻译检测**                   | ✅ TypeScript 错误和构建时警告                     | ⚠️ 运行时回退                                    | ⚠️ 运行时回退                   |
+| **富内容（JSX、Markdown）**        | ✅ 直接支持                                        | ⚠️ 通过 `t.rich` 使用标签，不支持 Markdown       | ⚠️ 通过 `<Trans>` 使用标签      |
+| **AI 翻译**                        | ✅ 使用你自己的服务商和 API 密钥，并带有应用上下文 | ❌ 无                                            | ❌ 无                           |
+| **可视化编辑器 / CMS**             | ✅ 本地可视化编辑器 + 可选 CMS                     | ❌ 通过外部平台                                  | ❌ 通过外部平台                 |
+| **本地化路由**                     | ✅ 内置（Next.js 和 Vite）                         | ✅ 内置 `[locale]` 路由段                        | ✅ 内置                         |
+| **复数处理**                       | ✅ 基于枚举                                        | ✅ ICU                                           | ✅ 基于后缀（`_one`、`_other`） |
+| **格式化（日期、数字、货币）**     | ✅ 基于 `Intl` 的格式化工具                        | ✅ `useFormatter`                                | ✅ 基于 `Intl`                  |
+| **内容格式**                       | ✅ `.ts`, `.tsx`, `.js`, `.json`, `.md`, `.yaml`   | ✅ `.json`, `.js`, `.ts`                         | ⚠️ `.json`                      |
+| **ICU MessageFormat**              | ✅ 通过 `format: "icu"`                            | ✅ 原生                                          | ⚠️ 通过 `i18next-icu`           |
+| **SEO 辅助（hreflang、sitemap）**  | ✅ metadata、sitemap 和 robots.txt 辅助工具        | ✅ 良好                                          | ✅ 良好                         |
+| **Server Components**              | ✅ 在任意 Server Component 中直接访问              | ⚠️ 每个组件传递 `t` 或 `await getTranslations()` | ⚠️ 沿组件树向下传递 `t`         |
+| **按组件 tree-shaking**            | ✅ 构建时（Babel / SWC）                           | ⚠️ 手动，每个路由使用 `pick()`                   | ⚠️ 手动，每个路由使用 namespace |
+| **Lazy loading**                   | ✅ 按语言和按字典                                  | ✅ 按语言，namespace 需手动管理                  | ✅ 按语言，namespace 需手动管理 |
+| **runtime 体积（gzip，基准测试）** | 4.9 KB                                             | 14.7 KB                                          | 19.7 KB                         |
+| **CI 中的缺失翻译**                | ✅ `npx intlayer test`                             | ⚠️ 未内置                                        | ⚠️ 未内置，运行时 `saveMissing` |
+| **生态 / 社区**                    | ⚠️ 较小，增长迅速                                  | ✅ 大                                            | ✅ 非常大                       |
+
+> runtime 体积数据来自 [Next.js 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md)。如需详细讨论，请阅读 [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/next-i18next_vs_next-intl_vs_intlayer.md)。
 
 ## 您应该遵循的实践
 
@@ -1117,11 +1173,6 @@ Intlayer 允许您：
   Intlayer 提供了一个 CLI 和一个 VSCode 扩展来自动化您的翻译流程。它可以集成到您的 CI/CD 管道中。了解更多关于[自动化您的翻译](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)。  
   您可以使用您**自己的 API 密钥和您选择的 AI 提供商**。它还提供上下文感知的翻译，详见[填充内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/autoFill.md)。
 
-- **连接外部内容**
-- **自动化您的翻译**，  
-  Intlayer 提供了一个 CLI 和一个 VSCode 扩展来自动化您的翻译。它可以集成到您的 CI/CD 流水线中。了解更多关于[自动化您的翻译](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)。  
-  您可以使用您**自己的 API 密钥和您选择的 AI 提供商**。它还提供上下文感知的翻译，详见[填充内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/autoFill.md)。
-
 - **连接外部内容**  
   Intlayer 允许您将内容连接到外部内容管理系统（CMS）。以优化的方式获取内容并将其插入到您的 JSON 资源中。了解更多关于[获取外部内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/function_fetching.md)。
 
@@ -1130,6 +1181,21 @@ Intlayer 允许您：
 
 以及更多功能。要发现 Intlayer 提供的所有功能，请参阅[Intlayer 的优势文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/interest_of_intlayer.md)。
 
+有关详细的性能基准测试和对比，请参阅：
+
+- [Next.js 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md)
+- [i18n 基准测试套件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/index.md)
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18next_vs_intlayer-i18next.md)
+- [@intlayer/next-i18next 兼容适配器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/next-i18next.md)
+
 </Step>
 
 </Steps>
+
+<Sponsor>
+
+一旦你通过 i18next 的 module augmentation 为 common.json 和 about.json 这样的 namespace 添加了类型，你实际上就定义了一个内容 schema。接下来的问题是：这个 schema 放在哪里，由谁来编辑。Sanity 把它当作一等公民：你在代码中建模字段、引用和校验，编辑人员在 Sanity Studio 中基于同一个模型工作，而不是为每种语言手动编辑 JSON。
+
+内容以结构化 JSON 的形式存放在 Content Lake 中，可通过 GROQ 查询并经由 API 提供，语言是一个字段而不是一个文件夹。在 Next.js App Router 配置中，你可以在服务端获取某个 namespace，按照此模式的预期将其传入 i18n provider，并让同一数据源同时服务于应用、邮件和 agent。随着语言和渠道的增加，schema 始终是契约；交付层仍然是 i18next。
+
+</Sponsor>

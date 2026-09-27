@@ -104,7 +104,7 @@ Intlayerには「scoped」バリアントが存在しません。コンパイラ
 
 関心のある指標とライブラリを選択してください:
 
-<I18nBenchmark framework="nextjs" vertical/>
+<I18nBenchmark framework="nextjs" packages="next-i18next,next-intlayer" vertical/>
 
 | ライブラリ                      | 戦略           | Lib size (gz) | Page JS avg (gz) | Locale leak | Page leak | Component avg (gz) |   E2E応答性 | Hydration |
 | ------------------------------- | -------------- | ------------: | ---------------: | ----------: | --------: | -----------------: | ----------: | --------: |

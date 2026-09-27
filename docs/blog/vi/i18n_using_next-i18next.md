@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-11-01
-updatedAt: 2026-05-31
+updatedAt: 2026-09-26
 priority: 9
-title: Cách quốc tế hóa ứng dụng Next.js của bạn bằng next-i18next - Hướng dẫn đầy đủ để dịch Translate Next.js 16 with next-i18next — App Router Setup
-description: Giải pháp tốt nhất cho kích thước bundle, SEO, hiệu suất & khả năng bảo trì. Làm cho Next.js 16 trang web của bạn đa ngôn ngữ vào năm 2026, dịch thuật LLM, Agent Skills & MCP.
+title: "i18n cho Next.js 16 với next-i18next: hướng dẫn cài đặt App Router"
+description: "Thiết lập next-i18next và i18next từng bước trong ứng dụng Next.js 16 App Router: namespace, định tuyến theo locale, component phía server và client, và metadata SEO."
 keywords:
   - next-i18next
   - i18next
@@ -44,6 +44,62 @@ Với cách tiếp cận này, bạn có thể:
 > Ngoài ra, bạn cũng có thể tham khảo [hướng dẫn next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18n_using_next-intl.md), hoặc sử dụng trực tiếp [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_16.md).
 
 > Xem so sánh tại [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/next-i18next_vs_next-intl_vs_intlayer.md).
+
+## Benchmark nói gì về next-i18next trên Next.js
+
+Trước khi đi vào cài đặt, việc hiểu tác động của thư viện i18n lên hiệu năng và bundle là rất quan trọng. [Benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md) chạy cùng một ứng dụng Next.js gồm 10 trang và 10 locale với các thư viện i18n chính để đo kích thước bundle thực tế, rò rỉ chuỗi và chi phí hydration.
+
+<I18nBenchmark framework="nextjs" packages="next-i18next,@intlayer/next-i18next,next-intlayer" vertical/>
+
+<ClickToOpenIframe
+  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+  width="100%"
+  height="600px"
+  style="border:none;"
+/>
+
+Số liệu chính cho `next-i18next` trên Next.js (gzip):
+
+| Cấu hình                          | Kích thước thư viện | JS trung bình mỗi trang | Rò rỉ locale khác | Rò rỉ trang khác |
+| :-------------------------------- | ------------------: | ----------------------: | ----------------: | ---------------: |
+| Cơ sở (không có i18n)             |                   - |                141.0 KB |              0.0% |             0.0% |
+| `next-i18next`                    |             19.7 KB |                169.5 KB |             50.0% |            89.8% |
+| `@intlayer/next-i18next` (compat) |              9.4 KB |                150.7 KB |              0.0% |             0.0% |
+| `next-intlayer` (Intlayer gốc)    |              5.5 KB |                141.3 KB |              0.0% |             0.0% |
+
+Điểm cần ghi nhớ:
+
+- **Bắt buộc phải chia namespace:** Với cấu hình đơn giản, `next-i18next` gửi mọi namespace lên mọi trang (~89.8% rò rỉ giữa các trang). Chia namespace theo route và lazy load chúng giúp giảm JS của trang, nhưng đòi hỏi tổ chức thủ công cẩn thận.
+- **Trọng lượng runtime:** Runtime phía client của `i18next` nặng ~19.7 KB gzip trên mọi trang. Với các codebase hiện có, adapter tương thích [`@intlayer/next-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/next-i18next.md) giữ nguyên API `i18next` trong khi giảm runtime xuống 9.4 KB và loại bỏ rò rỉ. [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/next-intlayer/exports.md) gốc chỉ còn 5.5 KB.
+
+> Xem dữ liệu đầy đủ: [báo cáo benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md), và [kho benchmark](https://github.com/intlayer-org/benchmark-i18n).
+
+## So sánh tính năng trên Next.js
+
+So sánh `next-i18next` với `next-intl` và Intlayer trên các tính năng mà một dự án Next.js App Router thường cần:
+
+| Tính năng                                | `next-intlayer` (Intlayer)                                  | `next-intl`                                                     | `next-i18next`                                   |
+| ---------------------------------------- | ----------------------------------------------------------- | --------------------------------------------------------------- | ------------------------------------------------ |
+| **Bản dịch đặt cạnh component**          | ✅ Nội dung đặt cùng từng component                         | ❌ JSON tập trung                                               | ❌ JSON tập trung                                |
+| **Tích hợp TypeScript**                  | ✅ Kiểu chặt chẽ được tạo tự động                           | ✅ Tốt, qua augmentation `AppConfig`                            | ⚠️ Cơ bản                                        |
+| **Phát hiện bản dịch bị thiếu**          | ✅ Lỗi TypeScript và cảnh báo khi build                     | ⚠️ Fallback khi runtime                                         | ⚠️ Fallback khi runtime                          |
+| **Nội dung phong phú (JSX, Markdown)**   | ✅ Hỗ trợ trực tiếp                                         | ⚠️ Thẻ qua `t.rich`, không có Markdown                          | ⚠️ Thẻ qua `<Trans>`                             |
+| **Dịch bằng AI**                         | ✅ Provider và API key của riêng bạn, kèm ngữ cảnh ứng dụng | ❌ Không                                                        | ❌ Không                                         |
+| **Trình chỉnh sửa trực quan / CMS**      | ✅ Trình chỉnh sửa trực quan cục bộ + CMS tùy chọn          | ❌ Qua các nền tảng bên ngoài                                   | ❌ Qua các nền tảng bên ngoài                    |
+| **Routing theo locale**                  | ✅ Tích hợp sẵn (Next.js và Vite)                           | ✅ Segment `[locale]` tích hợp sẵn                              | ✅ Tích hợp sẵn                                  |
+| **Số nhiều**                             | ✅ Dựa trên enumeration                                     | ✅ ICU                                                          | ✅ Dựa trên hậu tố (`_one`, `_other`)            |
+| **Định dạng (ngày, số, tiền tệ)**        | ✅ Formatter dựa trên `Intl`                                | ✅ `useFormatter`                                               | ✅ Dựa trên `Intl`                               |
+| **Định dạng nội dung**                   | ✅ `.ts`, `.tsx`, `.js`, `.json`, `.md`, `.yaml`            | ✅ `.json`, `.js`, `.ts`                                        | ⚠️ `.json`                                       |
+| **ICU MessageFormat**                    | ✅ Qua `format: "icu"`                                      | ✅ Gốc                                                          | ⚠️ Qua `i18next-icu`                             |
+| **Helper SEO (hreflang, sitemap)**       | ✅ Helper cho metadata, sitemap và robots.txt               | ✅ Tốt                                                          | ✅ Tốt                                           |
+| **Server Components**                    | ✅ Truy cập trực tiếp trong mọi Server Component            | ⚠️ Truyền `t` hoặc `await getTranslations()` cho từng component | ⚠️ Truyền `t` xuống cây component                |
+| **Tree-shaking theo component**          | ✅ Khi build (Babel / SWC)                                  | ⚠️ Thủ công, với `pick()` cho mỗi route                         | ⚠️ Thủ công, với namespace cho mỗi route         |
+| **Lazy loading**                         | ✅ Theo locale và theo dictionary                           | ✅ Theo locale, namespace quản lý thủ công                      | ✅ Theo locale, namespace quản lý thủ công       |
+| **Kích thước runtime (gzip, benchmark)** | 4.9 KB                                                      | 14.7 KB                                                         | 19.7 KB                                          |
+| **Bản dịch thiếu trong CI**              | ✅ `npx intlayer test`                                      | ⚠️ Không tích hợp sẵn                                           | ⚠️ Không tích hợp sẵn, `saveMissing` khi runtime |
+| **Hệ sinh thái / cộng đồng**             | ⚠️ Nhỏ hơn, đang phát triển nhanh                           | ✅ Lớn                                                          | ✅ Rất lớn                                       |
+
+> Kích thước runtime lấy từ [benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md). Để thảo luận chi tiết, hãy đọc [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/next-i18next_vs_next-intl_vs_intlayer.md).
 
 ## Các thực hành bạn nên tuân theo
 
@@ -1119,11 +1175,6 @@ Intlayer sẽ cho phép bạn:
   Intlayer cung cấp một CLI và một tiện ích mở rộng VSCode để tự động hóa việc dịch của bạn. Nó có thể được tích hợp vào pipeline CI/CD của bạn. Tìm hiểu thêm về [tự động hóa việc dịch của bạn](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md).
   Bạn có thể sử dụng **khóa API riêng của bạn và nhà cung cấp AI mà bạn chọn**. Nó cũng cung cấp các bản dịch nhận biết ngữ cảnh, xem thêm [tự động điền nội dung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/autoFill.md).
 
-- **Kết nối nội dung bên ngoài**
-- **Tự động hóa việc dịch của bạn**,  
-  Intlayer cung cấp một CLI và một tiện ích mở rộng VSCode để tự động hóa việc dịch của bạn. Nó có thể được tích hợp vào pipeline CI/CD của bạn. Tìm hiểu thêm về [tự động hóa việc dịch của bạn](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md).  
-  Bạn có thể sử dụng **khóa API riêng của bạn và nhà cung cấp AI bạn chọn**. Nó cũng cung cấp các bản dịch nhận biết ngữ cảnh, xem thêm [tự động điền nội dung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/autoFill.md).
-
 - **Kết nối nội dung bên ngoài**  
   Intlayer cho phép bạn kết nối nội dung của mình với hệ thống quản lý nội dung bên ngoài (CMS). Để lấy nội dung một cách tối ưu và chèn vào tài nguyên JSON của bạn. Tìm hiểu thêm về [lấy nội dung bên ngoài](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/function_fetching.md).
 
@@ -1132,6 +1183,21 @@ Intlayer sẽ cho phép bạn:
 
 Và còn nhiều hơn nữa. Để khám phá tất cả các tính năng mà Intlayer cung cấp, vui lòng tham khảo [Lợi ích của tài liệu Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/interest_of_intlayer.md).
 
+Để xem benchmark hiệu năng và so sánh chi tiết, tham khảo:
+
+- [Báo cáo Benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md)
+- [Bộ Benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/index.md)
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18next_vs_intlayer-i18next.md)
+- [Adapter tương thích @intlayer/next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/next-i18next.md)
+
 </Step>
 
 </Steps>
+
+<Sponsor>
+
+Khi bạn đã có các namespace như common.json và about.json được định kiểu qua module augmentation của i18next, bạn thực chất đã định nghĩa một schema nội dung. Câu hỏi tiếp theo là schema đó nằm ở đâu và ai chỉnh sửa nó. Sanity coi nó là thành phần hạng nhất: bạn mô hình hóa các field, tham chiếu và validation trong code, và biên tập viên làm việc trên chính mô hình đó trong Sanity Studio thay vì chỉnh sửa JSON thủ công cho từng locale.
+
+Nội dung nằm trong Content Lake dưới dạng JSON có cấu trúc, truy vấn được qua GROQ và phục vụ qua API, với locale là một field thay vì một thư mục. Với cấu hình Next.js App Router, bạn có thể lấy một namespace trên server, truyền nó vào i18n provider đúng như pattern này mong đợi, và để cùng một nguồn cung cấp cho ứng dụng, email và agent. Khi số locale và kênh tăng lên, schema vẫn là hợp đồng; lớp phân phối vẫn là i18next.
+
+</Sponsor>

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-01-02
-updatedAt: 2026-09-16
+updatedAt: 2026-09-26
 priority: 9
 title: react-i18next vs react-intl vs Intlayer
 description: Integrar react-i18next con next-intl e Intlayer para la internacionalización (i18n) de una aplicación React
@@ -33,6 +33,8 @@ Evaluamos:
 - Rendimiento y comportamiento de carga
 - Experiencia del desarrollador (DX), herramientas y mantenimiento
 - SEO/ruteo (dependiente del framework)
+
+<TOC/>
 
 > **resumen**: Los tres pueden localizar una aplicación React. Si quieres **contenido con alcance por componente**, **tipos estrictos en TypeScript**, **verificaciones de claves faltantes en tiempo de compilación**, **diccionarios optimizados por tree-shaking** y herramientas editoriales integradas (Editor Visual/CMS + traducción asistida por IA opcional), **Intlayer** es la opción más completa para bases de código React modulares.
 
@@ -109,6 +111,27 @@ El gráfico siguiente estima el peso del contenido para una aplicación teórica
 
 ![Fuga de contenido teórica según la arquitectura](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
+#### Resultados del benchmark en React (TanStack Start / Vite)
+
+Cifras de [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) que miden implementaciones estándar de React en TanStack Start:
+
+<I18nBenchmark framework="tanstack" vertical/>
+
+| Library            | Strategy | Lib size (gz) | Page JS avg (gz) | Locale leak | Page leak | Component avg (gz) | E2E reactivity | Hydration |
+| ------------------ | -------- | ------------: | ---------------: | ----------: | --------: | -----------------: | -------------: | --------: |
+| **base** (no i18n) | -        |        0.0 KB |         111.0 KB |        0.0% |      0.0% |             0.7 KB |         8.1 ms |   21.6 ms |
+| `react-i18next`    | dynamic  |       18.4 KB |         136.4 KB |       23.1% |     89.8% |            24.8 KB |       123.1 ms |   32.9 ms |
+| **`intlayer`**     | dynamic  |    **5.0 KB** |     **118.6 KB** |    **0.0%** |  **0.0%** |         **6.3 KB** |     **3.6 ms** |   14.1 ms |
+
+<ClickToOpenIframe
+  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md"
+  width="100%"
+  height="600px"
+  style="border:none;"
+/>
+
+> Tabla completa en el [informe de benchmark de TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/benchmark/tanstack.md) y en la [visión general del benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/benchmark/index.md).
+
 ### 6) DX, herramientas y mantenimiento
 
 - **react-intl / react-i18next**: Ecosistema comunitario amplio; para flujos editoriales usualmente adoptas plataformas de localización externas.
@@ -128,12 +151,18 @@ El gráfico siguiente estima el peso del contenido para una aplicación teórica
 
 Usando `intlayer`, puedes declarar tu contenido en el formato de tu librería i18n favorita, e intlayer generará tus namespaces en la ubicación que elijas (ejemplo: `/messages/{{locale}}/{{namespace}}.json`).
 
-## Notas prácticas para la migración (react-intl / react-i18next → Intlayer)
+## Lecturas adicionales y benchmarks
 
-- **Migra de forma incremental**: Comienza con una funcionalidad o ruta; mantén los catálogos heredados en paralelo durante la transición.
-- **Adopta diccionarios por componente**: Ubica el contenido junto con los componentes para reducir el acoplamiento.
-- **Activa verificaciones estrictas**: Permite que los errores en tiempo de compilación detecten claves/locales faltantes temprano en CI.
-- **Mide los bundles**: Espera reducciones a medida que se eliminan cadenas no usadas.
+- Informes de benchmark: [Visión general del benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/benchmark/index.md), [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/benchmark/tanstack.md), [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/benchmark/nextjs.md), [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/benchmark/vue.md), [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/benchmark/solid.md) y [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/benchmark/svelte.md)
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/i18next_vs_intlayer-i18next.md)
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/next-intl_vs_intlayer.md)
+- [Optimización del bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/bundle_optimization.md) y [el compilador de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compiler.md)
+
+## Estrellas de GitHub
+
+Las estrellas de GitHub son un indicador fuerte de la popularidad de un proyecto, la confianza de la comunidad y la relevancia a largo plazo. Aunque no son una medida directa de la calidad técnica, reflejan cuántos desarrolladores encuentran útil el proyecto, siguen su progreso y probablemente lo adopten. Para estimar el valor de un proyecto, las estrellas ayudan a comparar la tracción entre alternativas y proporcionan información sobre el crecimiento del ecosistema.
+
+[![Gráfico de Historial de Estrellas](https://api.star-history.com/chart?repos=formatjs/formatjs%2Ci18next/react-i18next%2Caymericzip/intlayer&type=date&legend=top-left)](https://star-history.com/#formatjs/formatjs&i18next/react-i18next&aymericzip/intlayer)
 
 ## Conclusión
 
@@ -141,3 +170,5 @@ Las tres bibliotecas localizan React de manera efectiva. La diferencia radica en
 
 - Con **Intlayer**, el **contenido modular**, la **tipificación estricta en TS**, la **seguridad en tiempo de compilación**, los **paquetes optimizados por tree-shaking** y las **herramientas editoriales** son valores predeterminados, no tareas.
 - Si tu equipo valora la **mantenibilidad y la velocidad** en aplicaciones React impulsadas por componentes y con múltiples locales, Intlayer ofrece el flujo de trabajo para desarrolladores y contenido más **completo** en la actualidad.
+
+Consulta la [documentación '¿Por qué Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/interest_of_intlayer.md) para más detalles.

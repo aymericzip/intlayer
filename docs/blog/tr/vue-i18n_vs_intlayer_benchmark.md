@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-26
 priority: 8
 title: "vue-i18n vs Intlayer: 2026 Benchmark"
 description: vue-i18n ve Intlayer aynı Vite + Vue 3 uygulamasında ölçüldü. Kütüphane boyutu, sayfa başına JavaScript, içerik sızıntısı, bileşen boyutu ve locale değiştirme reaktivitesi, rakamların açıklamasıyla birlikte.
@@ -87,6 +87,10 @@ Her derleme için paket şunları kaydeder:
 
 ### Vite + Vue 3 üzerindeki sonuçlar
 
+İlgilendiğiniz metrikleri ve kütüphaneleri seçin:
+
+<I18nBenchmark framework="vite-vue" packages="vue-i18n,@intlayer/vue-i18n,intlayer" vertical/>
+
 | Kütüphane                     | Strateji | Lib size (gz) | Lib size (min) | Page JS ort. (gz) | Locale leak | Page leak | Component ort. (gz) | E2E reaktivite | Page load |
 | ----------------------------- | -------- | ------------: | -------------: | ----------------: | ----------: | --------: | ------------------: | -------------: | --------: |
 | **base** (i18n yok)           | -        |        0,0 KB |         0,0 KB |           41,3 KB |        %0,0 |         - |              1,1 KB |         1,8 ms |   10,8 ms |
@@ -106,6 +110,15 @@ Her derleme için paket şunları kaydeder:
 - **`@intlayer/vue-i18n`**, drop-in adaptör, `vue-i18n` API'sini korur ve uygulama koduna dokunulmadan **sayfa başına 47,0 KB** ve **bileşen başına 8,4 KB** ölçtü.
 
 > Referans olarak, aynı çalıştırma `fluent-vue`'yu sayfa başına 171,8 KB, 29,7 KB runtime ve bileşen başına 217 KB olarak ölçtü.
+
+<ClickToOpenIframe
+  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_vue.md"
+  width="100%"
+  height="600px"
+  style="border:none;"
+/>
+
+> Tüm kütüphaneleri ve tüm stratejileri içeren tam tablo, [Vue benchmark raporunda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/vue.md).
 
 ## Fark neden? Global örnek vs derlenmiş sözlükler
 
@@ -344,6 +357,13 @@ Benchmark'ta aynı uygulamanın compat derlemesi, bileşenlere dokunulmadan sayf
 - [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/lingui_vs_intlayer.md) (aynı benchmark)
 - [vue-i18n vs Intlayer (özellikler ve DX)](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/vue-i18n_vs_intlayer.md)
 - [vue-i18n eskidi mi?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/is_vue-i18n_outdated.md)
+
+Referans dokümanlar:
+
+- [Uyumluluk adaptörü: vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/vue-i18n.md) ve [Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/nuxtjs-i18n.md)
+- [Geçiş rehberi: vue-i18n'den Intlayer'a](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_vue-i18n_to_intlayer.md)
+- Benchmark raporları: [i18n Benchmark Genel Bakış](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/index.md), [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md), [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md), [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/vue.md), [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/solid.md) ve [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/svelte.md)
+- [Bundle optimizasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md) ve [Intlayer derleyicisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md)
 
 ## GitHub Yıldızları
 

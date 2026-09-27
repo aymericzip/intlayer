@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-26
 priority: 8
 title: "vue-i18n बनाम Intlayer: 2026 बेंचमार्क"
 description: एक ही Vite + Vue 3 ऐप पर vue-i18n और Intlayer को मापा गया। लाइब्रेरी का आकार, प्रति पेज JavaScript, कंटेंट लीकेज, कंपोनेंट का आकार और लोकेल-स्विच रिएक्टिविटी, संख्याओं की व्याख्या के साथ।
@@ -87,6 +87,10 @@ author: aymericzip
 
 ### Vite + Vue 3 पर परिणाम
 
+अपनी रुचि के metrics और libraries चुनें:
+
+<I18nBenchmark framework="vite-vue" packages="vue-i18n,@intlayer/vue-i18n,intlayer" vertical/>
+
 | लाइब्रेरी                     | रणनीति | Lib size (gz) | Lib size (min) | Page JS औसत (gz) | Locale leak | Page leak | Component औसत (gz) | E2E रिएक्टिविटी | Page load |
 | ----------------------------- | ------ | ------------: | -------------: | ---------------: | ----------: | --------: | -----------------: | --------------: | --------: |
 | **base** (बिना i18n)          | -      |        0.0 KB |         0.0 KB |          41.3 KB |        0.0% |         - |             1.1 KB |          1.8 ms |   10.8 ms |
@@ -106,6 +110,15 @@ author: aymericzip
 - **`@intlayer/vue-i18n`**, ड्रॉप-इन एडाप्टर, `vue-i18n` API बनाए रखता है और एप्लिकेशन कोड को छुए बिना **प्रति पेज 47.0 KB** और **प्रति कंपोनेंट 8.4 KB** मापा गया।
 
 > संदर्भ के लिए, उसी रन ने `fluent-vue` को प्रति पेज 171.8 KB, 29.7 KB रनटाइम और प्रति कंपोनेंट 217 KB मापा।
+
+<ClickToOpenIframe
+  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_vue.md"
+  width="100%"
+  height="600px"
+  style="border:none;"
+/>
+
+> हर library और हर strategy के साथ पूरी table [Vue benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/vue.md) में देखें।
 
 ## अंतर क्यों? ग्लोबल इंस्टेंस बनाम कंपाइल की गई डिक्शनरी
 
@@ -344,6 +357,13 @@ export default defineConfig({
 - [Lingui बनाम Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/lingui_vs_intlayer.md) (वही बेंचमार्क)
 - [vue-i18n बनाम Intlayer (फीचर्स और DX)](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/vue-i18n_vs_intlayer.md)
 - [क्या vue-i18n पुराना हो गया है?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/is_vue-i18n_outdated.md)
+
+संदर्भ docs:
+
+- [Compat adapter: vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/vue-i18n.md) और [Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/nuxtjs-i18n.md)
+- [माइग्रेशन गाइड: vue-i18n से Intlayer तक](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_vue-i18n_to_intlayer.md)
+- Benchmark reports: [i18n बेंचमार्क अवलोकन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/index.md), [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/nextjs.md), [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/tanstack.md), [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/vue.md), [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/solid.md), और [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/svelte.md)
+- [बंडल ऑप्टिमाइज़ेशन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/bundle_optimization.md) और [Intlayer कंपाइलर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md)
 
 ## GitHub STARs
 

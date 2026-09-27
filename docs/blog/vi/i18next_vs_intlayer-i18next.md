@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-22
+updatedAt: 2026-09-26
 priority: 8
 title: "i18next vs @intlayer/i18next: Cùng API, Khác biệt Bundle"
 description: "Những thay đổi khi ứng dụng React hoặc Next.js giữ nguyên các lệnh gọi i18next, react-i18next và next-i18next nhưng phục vụ chúng thông qua các adapter @intlayer/i18next. JavaScript mỗi trang, kích thước component, rò rỉ chuỗi và quá trình hydrate được đo trên cùng một mã nguồn, cùng với những gì adapter giữ lại, bỏ qua và không thể thay thế."
@@ -114,7 +114,7 @@ Bộ kiểm thử [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bl
 
 Chọn số liệu và thư viện mà bạn quan tâm:
 
-<I18nBenchmark framework="nextjs" vertical/>
+<I18nBenchmark framework="nextjs" packages="next-i18next,@intlayer/next-i18next,next-intlayer" vertical/>
 
 | Cấu hình                     | Chiến lược     | Lib size (gz) | Page JS avg (gz) | Locale leak | Page leak | Component avg (gz) | E2E reactivity |   Hydration |
 | ---------------------------- | -------------- | ------------: | ---------------: | ----------: | --------: | -----------------: | -------------: | ----------: |
@@ -144,6 +144,25 @@ style="border:none;"
 />
 
 > Bảng đầy đủ, từng thư viện và từng chiến lược, trong [báo cáo benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md).
+
+### Kết quả trên TanStack Start (`react-i18next`)
+
+Với Vite và TanStack Start, benchmark so sánh `react-i18next` thuần với `intlayer`:
+
+| Thư viện                   | Chiến lược | Lib size (gz) | Page JS avg (gz) | Locale leak | Page leak | Component avg (gz) | E2E reactivity | Hydration |
+| -------------------------- | ---------- | ------------: | ---------------: | ----------: | --------: | -----------------: | -------------: | --------: |
+| **base** (không dùng i18n) | -          |        0.0 KB |         111.0 KB |        0.0% |      0.0% |             0.7 KB |         8.1 ms |   21.6 ms |
+| `react-i18next`            | dynamic    |       18.4 KB |         136.4 KB |       23.1% |     89.8% |            24.8 KB |       123.1 ms |   32.9 ms |
+| **`intlayer`**             | dynamic    |    **5.0 KB** |     **118.6 KB** |    **0.0%** |  **0.0%** |         **6.3 KB** |     **3.6 ms** |   14.1 ms |
+
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> Bảng đầy đủ trong [báo cáo benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md).
 
 > Adapter `react-i18next` trên Vite / TanStack Start không nằm trong đợt thử nghiệm này. Số liệu cơ sở của `react-i18next` trên TanStack Start có tại [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18next_vs_intlayer.md): 127-184 KB mỗi trang và mất 123-185 ms khi đổi ngôn ngữ với backend tải lười.
 
@@ -346,6 +365,25 @@ Chỉ một tệp, được hiển thị ở trên. Pages Router với `appWithT
 
 </Accordion>
 </AccordionGroup>
+
+## So sánh tính năng
+
+Ngoài kích thước byte, đây là những gì mỗi lựa chọn mang lại:
+
+| Tính năng                                                  | `i18next` / `react-i18next` / `next-i18next` | Adapter `@intlayer/*`                      | Intlayer native                     |
+| ---------------------------------------------------------- | -------------------------------------------- | ------------------------------------------ | ----------------------------------- |
+| **Các lời gọi `t()`, `useTranslation`, `<Trans>` của bạn** | ✅                                           | ✅ Giữ nguyên                              | ❌ Chuyển sang `useIntlayer`        |
+| **Kích thước runtime (gzip, Next.js)**                     | 19.7 KB                                      | 9.4 KB                                     | 5.5 KB                              |
+| **Rò rỉ trang khác khi không chia namespace thủ công**     | ~90%                                         | 0%                                         | 0%                                  |
+| **Key có kiểu**                                            | ⚠️ Khai báo thủ công                         | ✅ Từ các từ điển đã biên dịch             | ✅ Tự động sinh                     |
+| **Backend và plugin runtime**                              | ✅ Hệ sinh thái plugin đầy đủ                | ❌ Không hoạt động                         | ❌ Không áp dụng, dùng CMS          |
+| **Nội dung đặt cạnh component**                            | ❌ JSON tập trung                            | ⚠️ JSON, `.content.ts` có thể cùng tồn tại | ✅ `.content.ts` cạnh mỗi component |
+| **Bản dịch thiếu trong CI**                                | ⚠️ Không tích hợp sẵn                        | ✅ `npx intlayer test`                     | ✅ `npx intlayer test`              |
+| **Dịch bằng AI**                                           | ❌ Không                                     | ✅ `npx intlayer fill`                     | ✅ `npx intlayer fill`              |
+| **Trình soạn thảo trực quan / CMS**                        | ❌ Qua nền tảng bên ngoài                    | ✅ Trên cùng JSON                          | ✅ Có                               |
+| **Hệ sinh thái / cộng đồng**                               | ✅ Rất lớn                                   | ⚠️ Nhỏ hơn, phát triển nhanh               | ⚠️ Nhỏ hơn, phát triển nhanh        |
+
+> Kích thước runtime lấy từ lần chạy Next.js mô tả ở trên.
 
 ## Khi nào nên sử dụng giải pháp nào?
 

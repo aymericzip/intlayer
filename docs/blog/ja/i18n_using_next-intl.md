@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-11-01
-updatedAt: 2026-05-31
+updatedAt: 2026-09-26
 priority: 9
-title: next-intl を使った Next.js アプリケーションの国際化方法 - 完全な翻訳ガイド： Translate Next.js 16 with next-intl — App Router Setup
-description: バンドルサイズ、SEO、パフォーマンス、保守性のための最良のソリューション。2026年にNext.js 16 ウェブサイトを多言語化しましょう。LLM翻訳、Agent Skills & MCP。
+title: "next-intl による Next.js 16 の i18n：App Router セットアップガイド"
+description: "Next.js 16 App Routerアプリにnext-intlを段階的に導入：ロケールルーティング、ページ単位のメッセージ読み込み、サーバー／クライアントコンポーネント、SEOメタデータ。"
 keywords:
   - next-intl
   - Internationalization
@@ -35,6 +35,62 @@ author: aymericzip
 > ご希望であれば、[next-i18next ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/i18n_using_next-i18next.md)や、直接 [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_next-intl.md) を参照することもできます。
 
 > 比較については、[next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/next-i18next_vs_next-intl_vs_intlayer.md) をご覧ください。
+
+## Next.js における next-intl のベンチマーク結果
+
+翻訳を実装する前に、`next-intl` のパフォーマンス特性を理解しておくことが重要です。[i18n ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md) は、10 ページ・10 ロケールの同じ Next.js アプリケーションをさまざまな構成とライブラリで評価し、実際のバンドルサイズ、文字列の漏れ、ハイドレーションのオーバーヘッドを測定しています。
+
+<I18nBenchmark framework="nextjs" packages="next-intl,@intlayer/next-intl,next-intlayer" vertical/>
+
+<ClickToOpenIframe
+  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+  width="100%"
+  height="600px"
+  style="border:none;"
+/>
+
+Next.js における `next-intl` の主要な数値 (gzip):
+
+| 構成                                  | ライブラリサイズ | ページ JS 平均 | 他ロケールの漏れ | 他ページの漏れ |
+| :------------------------------------ | ---------------: | -------------: | ---------------: | -------------: |
+| ベース (i18n なし)                    |                - |       141.0 KB |             0.0% |           0.0% |
+| `next-intl`                           |          14.7 KB |       153.6 KB |             4.2% |          89.8% |
+| `@intlayer/next-intl` (compat)        |           8.0 KB |       148.7 KB |             0.0% |           0.0% |
+| `next-intlayer` (ネイティブ Intlayer) |           5.5 KB |       141.3 KB |             0.0% |           0.0% |
+
+ポイント:
+
+- **グローバルなメッセージカタログを避ける:** すべてのメッセージをルートレイアウトで読み込む標準的な構成では、ブラウザに送られる翻訳コンテンツの約 89.8% が他のページのものです。ルートごとに `pick(messages, ['namespace'])` を使えばこの漏れはなくなりますが、手動でのメンテナンスが必要です。
+- **ランタイムの重さ:** `next-intl` のランタイムは各ページに約 14.7 KB (gzip) を追加します。既存の `next-intl` アプリでは、[`@intlayer/next-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/next-intl.md) compat アダプターが同じフック (`useTranslations`、`useFormatter` など) を維持したまま、ランタイムを約 8.0 KB、漏れ 0% に抑えます。ネイティブの [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/next-intlayer/exports.md) なら 5.5 KB まで削減できます。
+
+> 全データはこちら: [Next.js ベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md)、および [ベンチマークリポジトリ](https://github.com/intlayer-org/benchmark-i18n)。
+
+## Next.js での機能比較
+
+Next.js App Router プロジェクトで一般的に必要となる機能について、`next-intl` を `next-i18next` および Intlayer と比較します:
+
+| 機能                                      | `next-intlayer` (Intlayer)                                 | `next-intl`                                                         | `next-i18next`                              |
+| ----------------------------------------- | ---------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------- |
+| **コンポーネントの近くに翻訳を配置**      | ✅ 各コンポーネントとコンテンツを同じ場所に配置            | ❌ 集中管理された JSON                                              | ❌ 集中管理された JSON                      |
+| **TypeScript 統合**                       | ✅ 自動生成される厳密な型                                  | ✅ 良好、`AppConfig` の拡張による                                   | ⚠️ 基本的                                   |
+| **翻訳漏れの検出**                        | ✅ TypeScript エラーとビルド時の警告                       | ⚠️ ランタイムでのフォールバック                                     | ⚠️ ランタイムでのフォールバック             |
+| **リッチコンテンツ (JSX、Markdown)**      | ✅ 直接サポート                                            | ⚠️ `t.rich` によるタグ、Markdown なし                               | ⚠️ `<Trans>` によるタグ                     |
+| **AI 翻訳**                               | ✅ 独自のプロバイダーと API キー、アプリのコンテキスト付き | ❌ なし                                                             | ❌ なし                                     |
+| **ビジュアルエディター / CMS**            | ✅ ローカルのビジュアルエディター + オプションの CMS       | ❌ 外部プラットフォーム経由                                         | ❌ 外部プラットフォーム経由                 |
+| **ローカライズされたルーティング**        | ✅ 組み込み (Next.js と Vite)                              | ✅ 組み込みの `[locale]` セグメント                                 | ✅ 組み込み                                 |
+| **複数形**                                | ✅ 列挙ベース                                              | ✅ ICU                                                              | ✅ サフィックスベース (`_one`、`_other`)    |
+| **フォーマット (日付、数値、通貨)**       | ✅ `Intl` ベースのフォーマッター                           | ✅ `useFormatter`                                                   | ✅ `Intl` ベース                            |
+| **コンテンツ形式**                        | ✅ `.ts`, `.tsx`, `.js`, `.json`, `.md`, `.yaml`           | ✅ `.json`, `.js`, `.ts`                                            | ⚠️ `.json`                                  |
+| **ICU MessageFormat**                     | ✅ `format: "icu"` 経由                                    | ✅ ネイティブ                                                       | ⚠️ `i18next-icu` 経由                       |
+| **SEO ヘルパー (hreflang、sitemap)**      | ✅ メタデータ、sitemap、robots.txt のヘルパー              | ✅ 良好                                                             | ✅ 良好                                     |
+| **Server Components**                     | ✅ 任意の Server Component で直接アクセス                  | ⚠️ コンポーネントごとに `t` または `await getTranslations()` を渡す | ⚠️ コンポーネントツリーに `t` を渡していく  |
+| **コンポーネント単位の tree-shaking**     | ✅ ビルド時 (Babel / SWC)                                  | ⚠️ 手動、ルートごとに `pick()`                                      | ⚠️ 手動、ルートごとに名前空間               |
+| **遅延読み込み**                          | ✅ ロケール単位と辞書単位                                  | ✅ ロケール単位、名前空間は手動管理                                 | ✅ ロケール単位、名前空間は手動管理         |
+| **ランタイムサイズ (gzip、ベンチマーク)** | 4.9 KB                                                     | 14.7 KB                                                             | 19.7 KB                                     |
+| **CI での翻訳漏れ検出**                   | ✅ `npx intlayer test`                                     | ⚠️ 組み込みなし                                                     | ⚠️ 組み込みなし、ランタイムで `saveMissing` |
+| **エコシステム / コミュニティ**           | ⚠️ 小さいが急成長中                                        | ✅ 大きい                                                           | ✅ 非常に大きい                             |
+
+> ランタイムサイズは [Next.js ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md) によるものです。詳しい解説は [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/next-i18next_vs_next-intl_vs_intlayer.md) をご覧ください。
 
 ## 守るべきプラクティス
 
@@ -796,6 +852,13 @@ Intlayerは以下のことを可能にします：
   Intlayerは、ビジュアルエディターを使用してコンテンツを編集できる無料のビジュアルエディターを提供しています。詳細は[翻訳のビジュアル編集について](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)をご覧ください。
 
 その他にも多数の機能があります。Intlayerが提供するすべての機能を知るには、[Intlayerの利点に関するドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)をご参照ください。
+
+詳細なパフォーマンスベンチマークと比較については、以下を参照してください:
+
+- [Next.js ベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md)
+- [i18n ベンチマークスイート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/index.md)
+- [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/next-intl_vs_intlayer-next-intl.md)
+- [@intlayer/next-intl Compat アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/next-intl.md)
 
 </Step>
 

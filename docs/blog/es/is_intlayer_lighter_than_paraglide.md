@@ -92,7 +92,7 @@ Next.js 16 App Router, misma aplicación:
 | `paraglide-next` | 155.3 KB         | +14.3 KB      |
 | `next-intlayer`  | **141.3 KB**     | **+0.3 KB**   |
 
-<I18nBenchmark framework="tanstack" vertical/>
+<I18nBenchmark framework="tanstack" packages="paraglide,intlayer" vertical/>
 
 > Datos completos en el [informe de benchmark de TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/benchmark/tanstack.md) y en el [informe de benchmark de Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/benchmark/nextjs.md). Cada bundle se puede inspeccionar en el [repositorio del benchmark](https://github.com/intlayer-org/benchmark-i18n).
 
@@ -208,6 +208,10 @@ El tree shaking depende de tu bundler (Turbopack, Rolldown, Rollup), de la forma
 Este es el límite estructural. Paraglide no dispone de un mecanismo para cargar un solo idioma a la vez: cada función de mensaje importa de manera estática la implementación de cada idioma, por lo que todos los idiomas acaban en el bundle de tu cliente.
 
 Con 2 idiomas, se desperdicia la mitad de los datos de traducción, lo cual coincide con el ~50% de fuga de locale medido anteriormente. Con 10 idiomas, el 90%. Con 30 idiomas, el 97%.
+
+El gráfico siguiente estima el payload de una aplicación teórica de 1 a 10 páginas en 1 a 10 idiomas, con unos 30 KB de texto por página. Dividir el contenido por ruta elimina un eje, cargarlo dinámicamente por idioma elimina el otro, y solo la combinación de ambos mantiene el payload estable. Paraglide cubre como mucho el primer eje, nunca el segundo.
+
+![Fuga de contenido teórica según la arquitectura](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 Pasar a una carga dinámica tampoco solucionaría el problema: al tener una función por mensaje, cargar cada función de forma diferida implicaría miles de peticiones individuales.
 

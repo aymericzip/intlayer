@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-09-16
+updatedAt: 2026-09-26
 priority: 9
 title: "next-i18next vs next-intl vs Intlayer: 2026 Comparison"
-description: Best solution for bundle size, SEO, performances & maintainability. Make your Next.js website multilingual in 2026, LLM translation, Agent Skills & MCP.
+description: "Which Next.js i18n library should you choose? next-i18next, next-intl and Intlayer compared on bundle size, TypeScript safety, Server Components, routing and developer experience."
 keywords:
   - next-intl
   - next-i18next
@@ -91,6 +91,32 @@ Many i18n libraries exist, but in the Next.js world today, three are gaining tra
 ## Bundle sizes & dependencies
 
 After building the application, the bundle is the JavaScript that the browser will load to render the page. Bundle size is therefore important for application performance.
+
+The [i18n benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/nextjs.md) measures the exact real-world impact of each library on the same 10-page, 10-locale Next.js application:
+
+<I18nBenchmark framework="nextjs" packages="next-i18next,next-intl,next-intlayer" vertical/>
+
+<ClickToOpenIframe
+  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+  width="100%"
+  height="600px"
+  style="border:none;"
+/>
+
+Key figures measured on Next.js App Router (gzip):
+
+| Setup                             | Library size |  Page JS avg | Other-locale leak | Other-page leak | Component avg |
+| :-------------------------------- | -----------: | -----------: | ----------------: | --------------: | ------------: |
+| Base (no i18n)                    |            - |     141.0 KB |              0.0% |            0.0% |        0.9 KB |
+| `next-intl` (static)              |      14.7 KB |     153.6 KB |              4.2% |           89.8% |       21.8 KB |
+| `next-intl` (dynamic)             |      14.7 KB |     153.6 KB |              9.7% |           89.9% |       21.8 KB |
+| `@intlayer/next-intl` (compat)    |       8.0 KB |     148.7 KB |              0.0% |            0.0% |        8.1 KB |
+| `next-i18next` (static)           |      19.7 KB |     218.5 KB |              0.0% |           89.8% |       78.5 KB |
+| `next-i18next` (dynamic)          |      19.7 KB |     169.5 KB |             50.0% |           89.8% |       26.1 KB |
+| `@intlayer/next-i18next` (compat) |       9.4 KB |     150.7 KB |              0.0% |            0.0% |        9.7 KB |
+| `next-intlayer` (native Intlayer) |   **5.5 KB** | **141.3 KB** |          **0.0%** |        **0.0%** |    **6.9 KB** |
+
+> For the full analysis, see the [Next.js Benchmark Report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/nextjs.md) and the comprehensive [i18n Benchmark Overview](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/index.md).
 
 Two components are important in the context of a multi-language application bundle:
 
@@ -1474,5 +1500,18 @@ All three libraries succeed at core localization. The difference is **how much w
 
 - With **Intlayer**, **modular content**, **strict TS**, **build-time safety**, **tree-shaken bundles**, and **first-class App Router + SEO tooling** are **defaults**, not chores.
 - If your team prizes **maintainability and speed** in a multi-locale, component-driven app, Intlayer offers the **most complete** experience today.
+
+## Further reading & benchmarks
+
+- [Next.js Benchmark Report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/nextjs.md)
+- [i18n Benchmark Overview](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/index.md)
+- [TanStack Start Benchmark Report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/tanstack.md)
+- [Vue Benchmark Report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/vue.md)
+- [Solid Benchmark Report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/solid.md)
+- [Svelte Benchmark Report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/svelte.md)
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/next-intl_vs_intlayer.md)
+- [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/i18next_vs_intlayer.md)
+- [@intlayer/next-intl Compat Adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/next-intl.md)
+- [@intlayer/next-i18next Compat Adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/next-i18next.md)
 
 Refer to ['Why Intlayer?' doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/interest_of_intlayer.md) for more details.

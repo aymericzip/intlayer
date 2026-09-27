@@ -92,7 +92,7 @@ Bộ công cụ ghi lại:
 
 Chọn các chỉ số và thư viện mà bạn quan tâm:
 
-<I18nBenchmark framework="nextjs" vertical/>
+<I18nBenchmark framework="nextjs" packages="next-intl,next-intlayer" vertical/>
 
 | Thư viện                            | Chiến lược     | Kích thước Lib (gz) | JS trang TB (gz) | Rò rỉ ngôn ngữ | Rò rỉ trang | TB component (gz) | Độ phản hồi E2E | Hydrate |
 | ----------------------------------- | -------------- | ------------------: | ---------------: | -------------: | ----------: | ----------------: | --------------: | ------: |

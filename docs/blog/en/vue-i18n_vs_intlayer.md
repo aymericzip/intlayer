@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-22
+updatedAt: 2026-09-26
 priority: 8
 title: vue-i18n vs Intlayer
 description: Compare vue-i18n with Intlayer for internationalization (i18n) in Vue/Nuxt apps
@@ -47,7 +47,7 @@ We focus on modern Vue tooling (Vite, Composition API) and evaluate:
 
 Before the feature tables, the measured part. [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) builds the same Vite + Vue 3 app (10 pages, 10 locales) with each library and records what the browser downloads:
 
-<I18nBenchmark framework="vite-vue" vertical/>
+<I18nBenchmark framework="vite-vue" packages="vue-i18n,intlayer" vertical/>
 
 | Setup                | Lib size (gz) | Page JS avg (gz) | Page leak | Component avg (gz) |
 | -------------------- | ------------: | ---------------: | --------: | -----------------: |
@@ -402,7 +402,7 @@ Both **vue-i18n** and **Intlayer** localize Vue apps well. The difference is **h
 - [Is vue-i18n outdated?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/is_vue-i18n_outdated.md)
 - [How to pick a Vue i18n library](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/how_to_pick_vue_i18n_library.md)
 - [Using Intlayer with vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/intlayer_with_vue-i18n.md)
-- [Vue benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/vue.md)
+- Benchmark reports: [i18n Benchmark Overview](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/index.md), [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/nextjs.md), [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/tanstack.md), [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/vue.md), [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/solid.md), and [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/svelte.md)
 - [Migration guide: vue-i18n to Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/migration_from_vue-i18n_to_intlayer.md)
 - [Bundle optimization](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/bundle_optimization.md) and [the Intlayer compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compiler.md)
 

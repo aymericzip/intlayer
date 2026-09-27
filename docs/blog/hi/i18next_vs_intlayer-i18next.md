@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-22
+updatedAt: 2026-09-26
 priority: 8
 title: "i18next बनाम @intlayer/i18next: समान API, पूरी तरह भिन्न बंडल"
 description: "क्या बदलता है जब एक React या Next.js ऐप अपने i18next, react-i18next और next-i18next कॉल्स को बरकरार रखता है लेकिन उन्हें @intlayer/i18next एडेप्टर के माध्यम से प्रस्तुत करता है। समान कोड पर मापा गया प्रति-पेज JavaScript आकार, घटक आकार, सामग्री लीकेज और हाइड्रेशन।"
@@ -114,7 +114,7 @@ const About = () => {
 
 वे मेट्रिक्स और लाइब्रेरी चुनें जिनकी आपको परवाह है:
 
-<I18nBenchmark framework="nextjs" vertical/>
+<I18nBenchmark framework="nextjs" packages="next-i18next,@intlayer/next-i18next,next-intlayer" vertical/>
 
 | सेटअप                        | रणनीति         | लाइब्रेरी आकार (gz) | पेज JS औसत (gz) | लोकेल लीकेज | पेज लीकेज | घटक औसत (gz) | E2E प्रतिक्रियाशीलता |   हाइड्रेशन |
 | ---------------------------- | -------------- | ------------------: | --------------: | ----------: | --------: | -----------: | -------------------: | ----------: |
@@ -145,7 +145,26 @@ style="border:none;"
 
 > पूरी तालिका, प्रत्येक लाइब्रेरी और रणनीति, [Next.js बेंचमार्क रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/nextjs.md) में।
 
-> Vite / TanStack Start पर `react-i18next` एडेप्टर इस परीक्षण का हिस्सा नहीं था। TanStack Start पर `react-i18next` बेसलाइन [i18next बनाम Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/i18next_vs_intlayer.md) में देखी जा सकती है।
+### TanStack Start पर परिणाम (`react-i18next`)
+
+Vite और TanStack Start के लिए, बेंचमार्क साधारण `react-i18next` की तुलना `intlayer` से करता है:
+
+| लाइब्रेरी            | रणनीति  | लाइब्रेरी आकार (gz) | पेज JS औसत (gz) | लोकेल लीकेज | पेज लीकेज | घटक औसत (gz) | E2E प्रतिक्रियाशीलता | हाइड्रेशन |
+| -------------------- | ------- | ------------------: | --------------: | ----------: | --------: | -----------: | -------------------: | --------: |
+| **base** (बिना i18n) | -       |              0.0 KB |        111.0 KB |        0.0% |      0.0% |       0.7 KB |               8.1 ms |   21.6 ms |
+| `react-i18next`      | dynamic |             18.4 KB |        136.4 KB |       23.1% |     89.8% |      24.8 KB |             123.1 ms |   32.9 ms |
+| **`intlayer`**       | dynamic |          **5.0 KB** |    **118.6 KB** |    **0.0%** |  **0.0%** |   **6.3 KB** |           **3.6 ms** |   14.1 ms |
+
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> पूरी तालिका [TanStack Start बेंचमार्क रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/tanstack.md) में।
+
+> Vite / TanStack Start पर `react-i18next` एडेप्टर इस परीक्षण का हिस्सा नहीं था। TanStack Start पर `react-i18next` बेसलाइन [i18next बनाम Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/i18next_vs_intlayer.md) में है: बैकएंड lazy होने पर प्रति पेज 127-184 KB और लोकेल स्विच में 123-185 ms।
 
 ## संख्याएँ क्यों बदलती हैं
 
@@ -346,6 +365,25 @@ export default defineConfig({
 
 </Accordion>
 </AccordionGroup>
+
+## फीचर तुलना
+
+बाइट्स से आगे, हर विकल्प आपको क्या देता है:
+
+| फीचर                                              | `i18next` / `react-i18next` / `next-i18next` | `@intlayer/*` एडेप्टर                 | नेटिव Intlayer                          |
+| ------------------------------------------------- | -------------------------------------------- | ------------------------------------- | --------------------------------------- |
+| **आपकी `t()`, `useTranslation`, `<Trans>` कॉल्स** | ✅                                           | ✅ अपरिवर्तित                         | ❌ `useIntlayer` में स्थानांतरित        |
+| **रनटाइम आकार (gzip, Next.js)**                   | 19.7 KB                                      | 9.4 KB                                | 5.5 KB                                  |
+| **मैनुअल namespaces के बिना अन्य-पेज लीकेज**      | ~90%                                         | 0%                                    | 0%                                      |
+| **टाइप्ड कुंजियाँ**                               | ⚠️ मैनुअल घोषणा                              | ✅ कंपाइल की गई डिक्शनरी से           | ✅ स्वतः जनरेट                          |
+| **रनटाइम बैकएंड और प्लगइन्स**                     | ✅ पूर्ण प्लगइन इकोसिस्टम                    | ❌ निष्क्रिय                          | ❌ लागू नहीं, CMS का उपयोग करें         |
+| **कंपोनेंट्स के साथ रखा गया कंटेंट**              | ❌ केंद्रीकृत JSON                           | ⚠️ JSON, `.content.ts` साथ रह सकता है | ✅ हर कंपोनेंट के बगल में `.content.ts` |
+| **CI में छूटे अनुवाद**                            | ⚠️ बिल्ट-इन नहीं                             | ✅ `npx intlayer test`                | ✅ `npx intlayer test`                  |
+| **AI अनुवाद**                                     | ❌ नहीं                                      | ✅ `npx intlayer fill`                | ✅ `npx intlayer fill`                  |
+| **विज़ुअल एडिटर / CMS**                           | ❌ बाहरी प्लेटफ़ॉर्म के माध्यम से            | ✅ उसी JSON पर                        | ✅ हाँ                                  |
+| **इकोसिस्टम / समुदाय**                            | ✅ बहुत बड़ा                                 | ⚠️ छोटा, तेज़ी से बढ़ रहा             | ⚠️ छोटा, तेज़ी से बढ़ रहा               |
+
+> रनटाइम आकार ऊपर वर्णित Next.js रन से लिए गए हैं।
 
 ## कब किसका उपयोग करें?
 

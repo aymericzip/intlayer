@@ -73,7 +73,7 @@ Vite + Vue 기반의 가벼운 기본 애플리케이션(31.5 KB)에 `vue-i18n`�
 
 Vite 및 Vue 3 기반 10개 페이지, 10개 언어 애플리케이션 측정:
 
-<I18nBenchmark framework="vite-vue" vertical/>
+<I18nBenchmark framework="vite-vue" packages="vue-i18n,@intlayer/vue-i18n,intlayer" vertical/>
 
 <ClickToOpenIframe
 src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_vue.md"

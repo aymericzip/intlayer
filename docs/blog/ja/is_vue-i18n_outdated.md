@@ -73,7 +73,7 @@ Language Server（LSP）、AI向けMCPサーバー、CLIを通じた自動翻訳
 
 ViteとVue 3による10ページ、10言語構成のアプリケーションで測定:
 
-<I18nBenchmark framework="vite-vue" vertical/>
+<I18nBenchmark framework="vite-vue" packages="vue-i18n,@intlayer/vue-i18n,intlayer" vertical/>
 
 <ClickToOpenIframe
 src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_vue.md"

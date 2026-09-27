@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-11-01
-updatedAt: 2026-05-31
+updatedAt: 2026-09-26
 priority: 9
-title: "next-i18next kullanarak Next.js uygulamanızı nasıl uluslararasılaştırırsınız - Eksiksiz çeviri rehberi: Translate Next.js 16 with next-i18next — App Router Setup"
-description: Bundle boyutu, SEO, performans ve sürdürülebilirlik için en iyi çözüm. Next.js 16 web sitesini'ınızı 2026'da çok dilli yapın, LLM çevirisi, Agent Skills & MCP.
+title: "next-i18next ile Next.js 16 i18n: App Router kurulum rehberi"
+description: "Next.js 16 App Router uygulamasında next-i18next ve i18next'i adım adım kurun: namespace'ler, locale yönlendirme, sunucu ve istemci bileşenleri ve SEO meta verileri."
 keywords:
   - next-i18next
   - i18next
@@ -44,6 +44,62 @@ Bu yaklaşımla şunları yapabilirsiniz:
 > Alternatif olarak, [next-intl rehberine](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/i18n_using_next-intl.md) veya doğrudan [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_16.md) kullanımına da başvurabilirsiniz.
 
 > Karşılaştırmayı [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/next-i18next_vs_next-intl_vs_intlayer.md) sayfasında görebilirsiniz.
+
+## Benchmark, Next.js üzerinde next-i18next hakkında ne söylüyor
+
+Kuruluma geçmeden önce, i18n kütüphanenizin performans ve bundle üzerindeki etkisini anlamak çok önemlidir. [i18n benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md), gerçek bundle boyutunu, string sızıntısını ve hydration yükünü ölçmek için aynı 10 sayfalı, 10 locale'li Next.js uygulamasını başlıca i18n kütüphaneleriyle çalıştırır.
+
+<I18nBenchmark framework="nextjs" packages="next-i18next,@intlayer/next-i18next,next-intlayer" vertical/>
+
+<ClickToOpenIframe
+  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+  width="100%"
+  height="600px"
+  style="border:none;"
+/>
+
+Next.js üzerinde `next-i18next` için temel rakamlar (gzip):
+
+| Kurulum                           | Kütüphane boyutu | Ort. sayfa JS | Diğer locale sızıntısı | Diğer sayfa sızıntısı |
+| :-------------------------------- | ---------------: | ------------: | ---------------------: | --------------------: |
+| Temel (i18n yok)                  |                - |      141.0 KB |                   0.0% |                  0.0% |
+| `next-i18next`                    |          19.7 KB |      169.5 KB |                  50.0% |                 89.8% |
+| `@intlayer/next-i18next` (compat) |           9.4 KB |      150.7 KB |                   0.0% |                  0.0% |
+| `next-intlayer` (yerel Intlayer)  |           5.5 KB |      141.3 KB |                   0.0% |                  0.0% |
+
+Çıkarılacak sonuçlar:
+
+- **Namespace bölme zorunludur:** Basit kurulumlarda `next-i18next` her namespace'i her sayfaya gönderir (~%89.8 sayfa sızıntısı). Namespace'leri route bazında bölüp lazy loading ile yüklemek sayfa JS'ini azaltır, ancak dikkatli bir manuel organizasyon gerektirir.
+- **Runtime ağırlığı:** `i18next` istemci runtime'ı her sayfada ~19.7 KB gzip ağırlığındadır. Mevcut codebase'ler için [`@intlayer/next-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/next-i18next.md) uyumluluk adaptörü aynı `i18next` API'sini korurken runtime'ı 9.4 KB'a düşürür ve sızıntıyı ortadan kaldırır. Yerel [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/next-intlayer/exports.md) 5.5 KB'a iner.
+
+> Tüm veriler için: [Next.js benchmark raporu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md) ve [benchmark deposu](https://github.com/intlayer-org/benchmark-i18n).
+
+## Next.js üzerinde özellik karşılaştırması
+
+Bir Next.js App Router projesinin genellikle ihtiyaç duyduğu özelliklerde `next-i18next`'in `next-intl` ve Intlayer ile karşılaştırması:
+
+| Özellik                                      | `next-intlayer` (Intlayer)                                    | `next-intl`                                                  | `next-i18next`                                  |
+| -------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------ | ----------------------------------------------- |
+| **Bileşenlerin yanında çeviriler**           | ✅ İçerik her bileşenle birlikte konumlanır                   | ❌ Merkezi JSON                                              | ❌ Merkezi JSON                                 |
+| **TypeScript entegrasyonu**                  | ✅ Otomatik üretilen katı tipler                              | ✅ İyi, `AppConfig` augmentation ile                         | ⚠️ Temel                                        |
+| **Eksik çeviri tespiti**                     | ✅ TypeScript hataları ve build zamanı uyarıları              | ⚠️ Runtime'da fallback                                       | ⚠️ Runtime'da fallback                          |
+| **Zengin içerik (JSX, Markdown)**            | ✅ Doğrudan destek                                            | ⚠️ `t.rich` ile etiketler, Markdown yok                      | ⚠️ `<Trans>` ile etiketler                      |
+| **AI çevirisi**                              | ✅ Kendi sağlayıcınız ve API anahtarınız, uygulama bağlamıyla | ❌ Hayır                                                     | ❌ Hayır                                        |
+| **Görsel editör / CMS**                      | ✅ Yerel görsel editör + isteğe bağlı CMS                     | ❌ Harici platformlar üzerinden                              | ❌ Harici platformlar üzerinden                 |
+| **Yerelleştirilmiş routing**                 | ✅ Yerleşik (Next.js ve Vite)                                 | ✅ Yerleşik `[locale]` segmenti                              | ✅ Yerleşik                                     |
+| **Çoğullaştırma**                            | ✅ Numaralandırma tabanlı                                     | ✅ ICU                                                       | ✅ Sonek tabanlı (`_one`, `_other`)             |
+| **Biçimlendirme (tarih, sayı, para birimi)** | ✅ `Intl` tabanlı biçimlendiriciler                           | ✅ `useFormatter`                                            | ✅ `Intl` tabanlı                               |
+| **İçerik formatları**                        | ✅ `.ts`, `.tsx`, `.js`, `.json`, `.md`, `.yaml`              | ✅ `.json`, `.js`, `.ts`                                     | ⚠️ `.json`                                      |
+| **ICU MessageFormat**                        | ✅ `format: "icu"` ile                                        | ✅ Yerel                                                     | ⚠️ `i18next-icu` ile                            |
+| **SEO yardımcıları (hreflang, sitemap)**     | ✅ Metadata, sitemap ve robots.txt yardımcıları               | ✅ İyi                                                       | ✅ İyi                                          |
+| **Server Components**                        | ✅ Her Server Component'te doğrudan erişim                    | ⚠️ Her bileşende `t` veya `await getTranslations()` geçirmek | ⚠️ `t`'yi bileşen ağacında aşağı geçirmek       |
+| **Bileşen bazında tree-shaking**             | ✅ Build zamanında (Babel / SWC)                              | ⚠️ Manuel, route başına `pick()` ile                         | ⚠️ Manuel, route başına namespace'lerle         |
+| **Lazy loading**                             | ✅ Locale ve sözlük bazında                                   | ✅ Locale bazında, namespace'ler elle yönetilir              | ✅ Locale bazında, namespace'ler elle yönetilir |
+| **Runtime boyutu (gzip, benchmark)**         | 4.9 KB                                                        | 14.7 KB                                                      | 19.7 KB                                         |
+| **CI'da eksik çeviriler**                    | ✅ `npx intlayer test`                                        | ⚠️ Yerleşik değil                                            | ⚠️ Yerleşik değil, runtime'da `saveMissing`     |
+| **Ekosistem / topluluk**                     | ⚠️ Daha küçük, hızla büyüyor                                  | ✅ Geniş                                                     | ✅ Çok geniş                                    |
+
+> Runtime boyutları [Next.js benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md)'ından alınmıştır. Ayrıntılı bir tartışma için [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/next-i18next_vs_next-intl_vs_intlayer.md) yazısını okuyun.
 
 ## Takip etmeniz gereken uygulamalar
 
@@ -1117,11 +1173,6 @@ Intlayer size şunları sağlar:
   Intlayer, çevirilerinizi otomatikleştirmek için bir CLI ve bir VSCode eklentisi sağlar. Bu, CI/CD pipeline'ınıza entegre edilebilir. Çevirilerinizi otomatikleştirme hakkında daha fazla bilgi edinin: [çevirilerinizi otomatikleştirme](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/index.md).
   Kendi **API anahtarınızı ve tercih ettiğiniz AI sağlayıcısını** kullanabilirsiniz. Ayrıca bağlama duyarlı çeviriler sağlar, bkz. [içerik doldurma](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/autoFill.md).
 
-- **Dış içerik bağlayın**
-- **Çevirilerinizi otomatikleştirin**,  
-  Intlayer, çevirilerinizi otomatikleştirmek için bir CLI ve bir VSCode eklentisi sağlar. Bunlar CI/CD pipeline'ınıza entegre edilebilir. [Çevirilerinizi otomatikleştirme](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/index.md) hakkında daha fazla bilgi edinin.  
-  Kendi **API anahtarınızı ve tercih ettiğiniz AI sağlayıcısını** kullanabilirsiniz. Ayrıca bağlama duyarlı çeviriler sağlar, bkz. [içerik doldurma](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/autoFill.md).
-
 - **Dış içerik bağlayın**  
   Intlayer, içeriğinizi harici bir içerik yönetim sistemi (CMS) ile bağlamanıza olanak tanır. İçeriği optimize edilmiş bir şekilde çekmek ve JSON kaynaklarınıza eklemek için. [Dış içerik çekme](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/function_fetching.md) hakkında daha fazla bilgi edinin.
 
@@ -1130,6 +1181,21 @@ Intlayer size şunları sağlar:
 
 Ve daha fazlası. Intlayer tarafından sunulan tüm özellikleri keşfetmek için lütfen [Intlayer'ın Önemi dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/interest_of_intlayer.md) bakınız.
 
+Ayrıntılı performans benchmark'ları ve karşılaştırmalar için bakınız:
+
+- [Next.js Benchmark Raporu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md)
+- [i18n Benchmark Paketi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/index.md)
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18next_vs_intlayer-i18next.md)
+- [@intlayer/next-i18next Uyumluluk Adaptörü](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/next-i18next.md)
+
 </Step>
 
 </Steps>
+
+<Sponsor>
+
+common.json ve about.json gibi namespace'leri i18next'in module augmentation'ı ile tiplendirdiğinizde, fiilen bir içerik şeması tanımlamış olursunuz. Sıradaki soru, bu şemanın nerede yaşadığı ve onu kimin düzenlediğidir. Sanity bunu birinci sınıf bir unsur olarak ele alır: alanları, referansları ve doğrulamayı kodda modellersiniz, editörler de her locale için JSON'u elle düzenlemek yerine Sanity Studio'da aynı model üzerinde çalışır.
+
+İçerik, Content Lake'te yapılandırılmış JSON olarak durur, GROQ ile sorgulanabilir ve API üzerinden sunulur; locale bir klasör değil, bir alandır. Bir Next.js App Router kurulumunda bir namespace'i sunucuda çekebilir, bu desenin beklediği şekilde i18n provider'ınıza aktarabilir ve aynı kaynağın uygulamaları, e-postaları ve ajanları beslemesini sağlayabilirsiniz. Locale'ler ve kanallar çoğaldıkça şema sözleşme olarak kalır; teslimat katmanı i18next olarak kalır.
+
+</Sponsor>

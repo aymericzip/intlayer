@@ -77,7 +77,7 @@ Une bibliothèque concise peut être mature et stable. Mais les outils d'i18n é
 
 ## Évaluation de l'impact sur le bundle
 
-<I18nBenchmark framework="tanstack" vertical/>
+<I18nBenchmark framework="tanstack" packages="react-i18next,@intlayer/react-i18next,intlayer" vertical/>
 
 <ClickToOpenIframe
 src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md"

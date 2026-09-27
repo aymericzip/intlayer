@@ -75,7 +75,7 @@ Crowdin의 공식 파트너이기 때문에, CLI 자체에 무료 로컬 AI 번�
 
 10개 라우트와 10개 언어로 구성된 일반적인 App Router 애플리케이션 측정 결과:
 
-<I18nBenchmark framework="nextjs" vertical/>
+<I18nBenchmark framework="nextjs" packages="next-intl,@intlayer/next-intl,next-intlayer" vertical/>
 
 <ClickToOpenIframe
 src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"

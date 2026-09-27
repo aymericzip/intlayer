@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-22
+updatedAt: 2026-09-26
 priority: 8
 title: "مقارنة i18next مقابل @intlayer/i18next: نفس واجهة البرمجة (API)، وحزمة برمجية مختلفة تماماً"
 description: "ما الذي يتغير عندما يحتفظ تطبيق React أو Next.js باستدعاءات i18next و react-i18next و next-i18next ولكنه يخدمها من خلال محولات @intlayer/i18next. قياسات حجم JavaScript لكل صفحة، وحجم المكونات، وتسريب النصوص، والترطيب على نفس الشيفرة البرمجية."
@@ -114,7 +114,7 @@ const About = () => {
 
 اختر المقاييس والمكتبات التي تهمك:
 
-<I18nBenchmark framework="nextjs" vertical/>
+<I18nBenchmark framework="nextjs" packages="next-i18next,@intlayer/next-i18next,next-intlayer" vertical/>
 
 | الإعداد                      | الاستراتيجية   | حجم المكتبة (gz) | متوسط JS للصفحة (gz) | تسريب اللغات | تسريب الصفحات | متوسط المكون (gz) | تفاعلية E2E |     الترطيب |
 | ---------------------------- | -------------- | ---------------: | -------------------: | -----------: | ------------: | ----------------: | ----------: | ----------: |
@@ -145,7 +145,26 @@ style="border:none;"
 
 > الجدول الكامل، كل مكتبة وكل استراتيجية، في [تقرير قياس أداء Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md).
 
-> لم يكن محول `react-i18next` على Vite / TanStack Start جزءاً من هذا الاختبار المحدد. يمكن الاطلاع على قياسات `react-i18next` على TanStack Start في مقال [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/i18next_vs_intlayer.md).
+### النتائج على TanStack Start (`react-i18next`)
+
+بالنسبة لـ Vite و TanStack Start، يقيس الاختبار `react-i18next` العادي مقابل `intlayer`:
+
+| المكتبة                | الاستراتيجية | حجم المكتبة (gz) | متوسط JS للصفحة (gz) | تسريب اللغات | تسريب الصفحات | متوسط المكون (gz) | تفاعلية E2E | الترطيب |
+| ---------------------- | ------------ | ---------------: | -------------------: | -----------: | ------------: | ----------------: | ----------: | ------: |
+| **الأساس** (بدون i18n) | -            |           0.0 KB |             111.0 KB |         0.0% |          0.0% |            0.7 KB |      8.1 ms | 21.6 ms |
+| `react-i18next`        | dynamic      |          18.4 KB |             136.4 KB |        23.1% |         89.8% |           24.8 KB |    123.1 ms | 32.9 ms |
+| **`intlayer`**         | dynamic      |       **5.0 KB** |         **118.6 KB** |     **0.0%** |      **0.0%** |        **6.3 KB** |  **3.6 ms** | 14.1 ms |
+
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> الجدول الكامل في [تقرير قياس أداء TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md).
+
+> لم يكن محول `react-i18next` على Vite / TanStack Start جزءاً من هذا الاختبار. يمكن الاطلاع على القياسات الأساسية لـ `react-i18next` على TanStack Start في مقال [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/i18next_vs_intlayer.md): 127-184 KB لكل صفحة و 123-185 ms لتبديل اللغة عند تحميل الـ backend بشكل مؤجل.
 
 ## لماذا تتحسن هذه المؤشرات
 
@@ -346,6 +365,25 @@ export default defineConfig({
 
 </Accordion>
 </AccordionGroup>
+
+## مقارنة الميزات
+
+بعيداً عن حجم البايتات، إليك ما يقدمه كل خيار:
+
+| الميزة                                                       | `i18next` / `react-i18next` / `next-i18next` | محولات `@intlayer/*`                      | Intlayer الأصلي                |
+| ------------------------------------------------------------ | -------------------------------------------- | ----------------------------------------- | ------------------------------ |
+| **استدعاءات `t()` و `useTranslation` و `<Trans>` الخاصة بك** | ✅                                           | ✅ دون تغيير                              | ❌ منقولة إلى `useIntlayer`    |
+| **حجم وقت التشغيل (gzip, Next.js)**                          | 19.7 KB                                      | 9.4 KB                                    | 5.5 KB                         |
+| **تسريب الصفحات الأخرى دون namespaces يدوية**                | ~90%                                         | 0%                                        | 0%                             |
+| **مفاتيح مُنمّطة**                                           | ⚠️ تعريف يدوي                                | ✅ من القواميس المُجمّعة                  | ✅ مُولّدة تلقائياً            |
+| **الـ backends والإضافات وقت التشغيل**                       | ✅ منظومة إضافات كاملة                       | ❌ غير فعّالة                             | ❌ غير مطبّق، استخدم الـ CMS   |
+| **المحتوى بجانب المكونات**                                   | ❌ JSON مركزي                                | ⚠️ JSON، ويمكن أن يتعايش مع `.content.ts` | ✅ `.content.ts` بجانب كل مكون |
+| **الترجمات المفقودة في CI**                                  | ⚠️ غير مدمج                                  | ✅ `npx intlayer test`                    | ✅ `npx intlayer test`         |
+| **الترجمة بالذكاء الاصطناعي**                                | ❌ لا                                        | ✅ `npx intlayer fill`                    | ✅ `npx intlayer fill`         |
+| **المحرر المرئي / CMS**                                      | ❌ عبر منصات خارجية                          | ✅ على نفس ملفات JSON                     | ✅ نعم                         |
+| **المنظومة / المجتمع**                                       | ✅ كبير جداً                                 | ⚠️ أصغر، وينمو بسرعة                      | ⚠️ أصغر، وينمو بسرعة           |
+
+> أحجام وقت التشغيل مأخوذة من اختبار Next.js الموصوف أعلاه.
 
 ## متى تستخدم كل خيار؟
 

@@ -10,12 +10,15 @@ import {
   type LibraryBenchmark,
 } from './constants';
 
+/** Library id of the baseline app, kept whatever the package filter. */
+const BASE_LIBRARY_ID = 'base';
+
 const APP_SUFFIX_PATTERN =
   /-app-(nextjs|tanstack|vite-vue|vite-solid|vite-svelte)$/;
 
 /** Human readable name of a library id from the benchmark report. */
 export const getDisplayName = (libId: string, baseAppLabel: string): string => {
-  if (libId === 'base') return baseAppLabel;
+  if (libId === BASE_LIBRARY_ID) return baseAppLabel;
 
   const cleanedId = libId.replace(APP_SUFFIX_PATTERN, '');
 
@@ -76,12 +79,22 @@ export const resolveCategoryData = (
   return null;
 };
 
-/** Libraries of a report, sorted by popularity. */
+/**
+ * Libraries of a report, sorted by popularity.
+ * When `packages` is given, only those library ids (plus the baseline) are kept.
+ */
 export const buildLibraries = (
   summary: BenchmarkSummary | undefined,
-  baseAppLabel: string
+  baseAppLabel: string,
+  packages?: readonly string[]
 ): LibInfo[] =>
   Object.entries(summary?.libs ?? {})
+    .filter(
+      ([libId]) =>
+        !packages?.length ||
+        libId === BASE_LIBRARY_ID ||
+        packages.includes(libId)
+    )
     .map(([libId, libraryData]) => ({
       id: libId,
       name: getDisplayName(libId, baseAppLabel),

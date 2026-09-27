@@ -101,7 +101,7 @@ Intlayer는 별도의 "scoped" 버전이 필요하지 않습니다. 컴파일러
 
 관심 있는 지표와 라이브러리를 선택하세요:
 
-<I18nBenchmark framework="nextjs" vertical/>
+<I18nBenchmark framework="nextjs" packages="lingui,next-intlayer" vertical/>
 
 | 라이브러리           | 전략           | Lib size (gz) | Page JS 평균 (gz) | 언어 누수율 | 페이지 누수율 | 컴포넌트 평균 (gz) |  E2E 반응성 | 하이드레이션 |
 | -------------------- | -------------- | ------------: | ----------------: | ----------: | ------------: | -----------------: | ----------: | -----------: |

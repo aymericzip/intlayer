@@ -110,7 +110,7 @@ Pour chaque build, la suite enregistre :
 
 Sélectionnez les métriques et les bibliothèques qui vous intéressent :
 
-<I18nBenchmark framework="vite-vue" vertical/>
+<I18nBenchmark framework="vite-vue" packages="vue-i18n,@intlayer/vue-i18n,intlayer" vertical/>
 
 | Configuration            | Stratégie | Taille Lib (gz) | Taille Lib (min) | Moyenne Page JS (gz) | Fuite de locale | Fuite de page | Moyenne Component (gz) | Réactivité E2E | Chargement de page |
 | ------------------------ | --------- | --------------: | ---------------: | -------------------: | --------------: | ------------: | ---------------------: | -------------: | -----------------: |

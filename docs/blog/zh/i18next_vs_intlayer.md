@@ -104,7 +104,7 @@ Intlayer 无需独立的 "scoped" 策略: 编译器会自动**以组件为粒度
 
 选择您关注的指标和库：
 
-<I18nBenchmark framework="nextjs" vertical/>
+<I18nBenchmark framework="nextjs" packages="next-i18next,next-intlayer" vertical/>
 
 | 方案                              | 策略           | 库体积 (gz) | 页面平均 JS (gz) | 语言泄露率 | 页面泄露率 | 组件平均体积 (gz) | 端到端响应时间 | 水合耗时 |
 | --------------------------------- | -------------- | ----------: | ---------------: | ---------: | ---------: | ----------------: | -------------: | -------: |

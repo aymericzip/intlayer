@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-11-01
-updatedAt: 2026-05-31
+updatedAt: 2026-09-26
 priority: 9
-title: "next-i18next का उपयोग करके अपने Next.js एप्लिकेशन का अंतरराष्ट्रीयकरण कैसे करें - अनुवाद का पूर्ण गाइड: Translate Next.js 16 with next-i18next — App Router Setup"
-description: बंडल साइज़, SEO, परफॉर्मेंस & मेंटेनेबिलिटी के लिए सबसे अच्छा समाधान। 2026 में अपने Next.js 16 वेबसाइट को बहुभाषी बनाएं, LLM ट्रांसलेशन, Agent Skills & MCP.
+title: "next-i18next के साथ Next.js 16 i18n: App Router सेटअप गाइड"
+description: "Next.js 16 App Router ऐप में next-i18next और i18next को चरण-दर-चरण सेट करें: नेमस्पेस, लोकेल रूटिंग, सर्वर और क्लाइंट कंपोनेंट, और SEO मेटाडेटा।"
 keywords:
   - next-i18next
   - i18next
@@ -44,6 +44,62 @@ author: aymericzip
 > एक विकल्प के रूप में, आप [next-intl गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/i18n_using_next-intl.md) को भी देख सकते हैं, या सीधे [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nextjs_16.md) का उपयोग कर सकते हैं।
 
 > तुलना देखें [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/next-i18next_vs_next-intl_vs_intlayer.md) में।
+
+## Next.js पर next-i18next के बारे में benchmark क्या कहता है
+
+सेटअप में जाने से पहले, यह समझना ज़रूरी है कि आपकी i18n लाइब्रेरी performance और bundle पर क्या असर डालती है। [i18n benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/nextjs.md) एक ही 10 पेज और 10 locale वाले Next.js एप्लिकेशन को प्रमुख i18n लाइब्रेरी के साथ चलाता है, ताकि असली bundle आकार, string leakage और hydration overhead को मापा जा सके।
+
+<I18nBenchmark framework="nextjs" packages="next-i18next,@intlayer/next-i18next,next-intlayer" vertical/>
+
+<ClickToOpenIframe
+  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+  width="100%"
+  height="600px"
+  style="border:none;"
+/>
+
+Next.js पर `next-i18next` के मुख्य आंकड़े (gzip):
+
+| सेटअप                             | लाइब्रेरी आकार | औसत पेज JS | अन्य locale leak | अन्य पेज leak |
+| :-------------------------------- | -------------: | ---------: | ---------------: | ------------: |
+| बेस (बिना i18n)                   |              - |   141.0 KB |             0.0% |          0.0% |
+| `next-i18next`                    |        19.7 KB |   169.5 KB |            50.0% |         89.8% |
+| `@intlayer/next-i18next` (compat) |         9.4 KB |   150.7 KB |             0.0% |          0.0% |
+| `next-intlayer` (native Intlayer) |         5.5 KB |   141.3 KB |             0.0% |          0.0% |
+
+मुख्य निष्कर्ष:
+
+- **Namespace splitting ज़रूरी है:** साधारण सेटअप में, `next-i18next` हर namespace को हर पेज पर भेजता है (~89.8% पेज leakage)। Route के अनुसार namespaces बाँटकर उन्हें lazy load करने से पेज JS कम होता है, लेकिन इसके लिए सावधानीपूर्वक मैन्युअल व्यवस्था चाहिए।
+- **Runtime का वज़न:** `i18next` का client runtime हर पेज पर ~19.7 KB gzip होता है। मौजूदा codebase के लिए, [`@intlayer/next-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/next-i18next.md) compat adapter वही `i18next` API बनाए रखते हुए runtime को 9.4 KB तक घटाता है और leakage खत्म करता है। Native [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/next-intlayer/exports.md) 5.5 KB तक आ जाता है।
+
+> पूरा डेटा देखें: [Next.js benchmark रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/nextjs.md), और [benchmark repository](https://github.com/intlayer-org/benchmark-i18n)।
+
+## Next.js पर फीचर तुलना
+
+एक Next.js App Router प्रोजेक्ट को आम तौर पर जिन फीचर्स की ज़रूरत होती है, उन पर `next-i18next` की तुलना `next-intl` और Intlayer से:
+
+| फीचर                                    | `next-intlayer` (Intlayer)                            | `next-intl`                                                  | `next-i18next`                                 |
+| --------------------------------------- | ----------------------------------------------------- | ------------------------------------------------------------ | ---------------------------------------------- |
+| **कंपोनेंट के पास अनुवाद**              | ✅ हर कंपोनेंट के साथ कंटेंट                          | ❌ केंद्रीकृत JSON                                           | ❌ केंद्रीकृत JSON                             |
+| **TypeScript इंटीग्रेशन**               | ✅ स्वचालित रूप से बने strict types                   | ✅ अच्छा, `AppConfig` augmentation के ज़रिए                  | ⚠️ बुनियादी                                    |
+| **छूटे हुए अनुवादों की पहचान**          | ✅ TypeScript errors और build-time warnings           | ⚠️ Runtime fallback                                          | ⚠️ Runtime fallback                            |
+| **रिच कंटेंट (JSX, Markdown)**          | ✅ सीधा सपोर्ट                                        | ⚠️ `t.rich` के ज़रिए tags, Markdown नहीं                     | ⚠️ `<Trans>` के ज़रिए tags                     |
+| **AI अनुवाद**                           | ✅ आपका अपना provider और API key, ऐप के संदर्भ के साथ | ❌ नहीं                                                      | ❌ नहीं                                        |
+| **विज़ुअल एडिटर / CMS**                 | ✅ लोकल विज़ुअल एडिटर + वैकल्पिक CMS                  | ❌ बाहरी प्लेटफ़ॉर्म के ज़रिए                                | ❌ बाहरी प्लेटफ़ॉर्म के ज़रिए                  |
+| **लोकलाइज़्ड रूटिंग**                   | ✅ बिल्ट-इन (Next.js और Vite)                         | ✅ बिल्ट-इन `[locale]` segment                               | ✅ बिल्ट-इन                                    |
+| **बहुवचन (Pluralization)**              | ✅ Enumeration-आधारित                                 | ✅ ICU                                                       | ✅ Suffix-आधारित (`_one`, `_other`)            |
+| **फ़ॉर्मेटिंग (तारीख, संख्या, मुद्रा)** | ✅ `Intl`-आधारित formatters                           | ✅ `useFormatter`                                            | ✅ `Intl`-आधारित                               |
+| **कंटेंट फ़ॉर्मेट**                     | ✅ `.ts`, `.tsx`, `.js`, `.json`, `.md`, `.yaml`      | ✅ `.json`, `.js`, `.ts`                                     | ⚠️ `.json`                                     |
+| **ICU MessageFormat**                   | ✅ `format: "icu"` के ज़रिए                           | ✅ Native                                                    | ⚠️ `i18next-icu` के ज़रिए                      |
+| **SEO helpers (hreflang, sitemap)**     | ✅ Metadata, sitemap और robots.txt helpers            | ✅ अच्छा                                                     | ✅ अच्छा                                       |
+| **Server Components**                   | ✅ किसी भी Server Component में सीधा एक्सेस           | ⚠️ हर कंपोनेंट में `t` या `await getTranslations()` पास करें | ⚠️ कंपोनेंट ट्री में नीचे `t` पास करें         |
+| **प्रति-कंपोनेंट tree-shaking**         | ✅ Build time पर (Babel / SWC)                        | ⚠️ मैन्युअल, हर route के लिए `pick()` के साथ                 | ⚠️ मैन्युअल, हर route के लिए namespaces के साथ |
+| **Lazy loading**                        | ✅ प्रति locale और प्रति dictionary                   | ✅ प्रति locale, namespaces हाथ से मैनेज                     | ✅ प्रति locale, namespaces हाथ से मैनेज       |
+| **Runtime आकार (gzip, benchmark)**      | 4.9 KB                                                | 14.7 KB                                                      | 19.7 KB                                        |
+| **CI में छूटे हुए अनुवाद**              | ✅ `npx intlayer test`                                | ⚠️ बिल्ट-इन नहीं                                             | ⚠️ बिल्ट-इन नहीं, runtime पर `saveMissing`     |
+| **इकोसिस्टम / कम्युनिटी**               | ⚠️ छोटा, तेज़ी से बढ़ रहा                             | ✅ बड़ा                                                      | ✅ बहुत बड़ा                                   |
+
+> Runtime आकार [Next.js benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/nextjs.md) से लिए गए हैं। विस्तृत चर्चा के लिए, [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/next-i18next_vs_next-intl_vs_intlayer.md) पढ़ें।
 
 ## आपको जिन प्रथाओं का पालन करना चाहिए
 
@@ -1119,11 +1175,6 @@ Intlayer आपको निम्नलिखित सुविधाएँ �
   Intlayer आपके अनुवादों को स्वचालित करने के लिए एक CLI और VSCode एक्सटेंशन प्रदान करता है। इसे आपके CI/CD पाइपलाइन में एकीकृत किया जा सकता है। [अपने अनुवादों को स्वचालित करने के बारे में अधिक जानें](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/index.md)।
   आप अपनी **अपनी API कुंजी और अपनी पसंद के AI प्रदाता का उपयोग कर सकते हैं**। यह संदर्भ-सचेत अनुवाद भी प्रदान करता है, देखें [सामग्री भरें](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/autoFill.md)।
 
-- **बाहरी सामग्री से कनेक्ट करें**
-- **अपने अनुवादों को स्वचालित करें**,  
-  Intlayer एक CLI और एक VSCode एक्सटेंशन प्रदान करता है ताकि आप अपने अनुवादों को स्वचालित कर सकें। इसे आपकी CI/CD पाइपलाइन में एकीकृत किया जा सकता है। [अपने अनुवादों को स्वचालित करने](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/index.md) के बारे में अधिक जानें।  
-  आप अपनी **अपनी API कुंजी और अपनी पसंद के AI प्रदाता** का उपयोग कर सकते हैं। यह संदर्भ-सचेत अनुवाद भी प्रदान करता है, देखें [सामग्री भरें](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/autoFill.md)।
-
 - **बाहरी सामग्री से कनेक्ट करें**  
   Intlayer आपको अपनी सामग्री को एक बाहरी कंटेंट मैनेजमेंट सिस्टम (CMS) से जोड़ने की अनुमति देता है। इसे एक अनुकूलित तरीके से प्राप्त करने और अपनी JSON संसाधनों में सम्मिलित करने के लिए। [बाहरी सामग्री प्राप्त करने](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/function_fetching.md) के बारे में अधिक जानें।
 
@@ -1132,6 +1183,21 @@ Intlayer आपको निम्नलिखित सुविधाएँ �
 
 और भी बहुत कुछ। Intlayer द्वारा प्रदान की गई सभी विशेषताओं को खोजने के लिए, कृपया [Intlayer के महत्व की दस्तावेज़ीकरण](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/interest_of_intlayer.md) देखें।
 
+विस्तृत performance benchmarks और तुलनाओं के लिए देखें:
+
+- [Next.js Benchmark रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/nextjs.md)
+- [i18n Benchmark Suite](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/index.md)
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/i18next_vs_intlayer-i18next.md)
+- [@intlayer/next-i18next Compat Adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/next-i18next.md)
+
 </Step>
 
 </Steps>
+
+<Sponsor>
+
+जब आपके पास common.json और about.json जैसे namespaces हों जिन्हें i18next के module augmentation से typed किया गया हो, तो आपने असल में एक content schema परिभाषित कर लिया है। अगला सवाल यह है कि वह schema कहाँ रहता है और उसे कौन edit करता है। Sanity इसे first-class मानता है: आप fields, references और validation को कोड में model करते हैं, और editors हर locale के लिए हाथ से JSON edit करने के बजाय Sanity Studio में उसी model पर काम करते हैं।
+
+कंटेंट Content Lake में structured JSON के रूप में रहता है, GROQ से query किया जा सकता है और API के ज़रिए serve होता है, जहाँ locale एक folder नहीं बल्कि एक field है। Next.js App Router सेटअप में, आप सर्वर पर एक namespace fetch कर सकते हैं, उसे अपने i18n provider में ठीक वैसे ही पास कर सकते हैं जैसा यह pattern अपेक्षा करता है, और उसी source से apps, emails और agents को feed कर सकते हैं। जैसे-जैसे locales और channels बढ़ते हैं, schema contract बना रहता है; delivery layer i18next ही रहती है।
+
+</Sponsor>

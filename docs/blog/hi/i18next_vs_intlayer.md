@@ -104,7 +104,7 @@ Intlayer में कोई "scoped" संस्करण नहीं है:
 
 वे मेट्रिक्स और लाइब्रेरीज़ चुनें जो आपके लिए महत्वपूर्ण हैं:
 
-<I18nBenchmark framework="nextjs" vertical/>
+<I18nBenchmark framework="nextjs" packages="next-i18next,next-intlayer" vertical/>
 
 | लाइब्रेरी                       | रणनीति         | Lib size (gz) | Page JS avg (gz) | Locale leak | Page leak | Component avg (gz) | E2E प्रतिक्रिया | Hydration |
 | ------------------------------- | -------------- | ------------: | ---------------: | ----------: | --------: | -----------------: | --------------: | --------: |

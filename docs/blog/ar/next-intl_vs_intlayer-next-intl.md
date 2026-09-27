@@ -114,7 +114,7 @@ const AboutPage = () => {
 
 اختر المقاييس والمكتبات التي تهمك:
 
-<I18nBenchmark framework="nextjs" vertical/>
+<I18nBenchmark framework="nextjs" packages="next-intl,@intlayer/next-intl,next-intlayer" vertical/>
 
 | الإعداد                   | الاستراتيجية   | حجم المكتبة (gz) | متوسط صفحة JS (gz) | تسرب Locale | تسرب الصفحة | متوسط المكون (gz) | التفاعل E2E | الماء (Hydration) |
 | ------------------------- | -------------- | ---------------: | -----------------: | ----------: | ----------: | ----------------: | ----------: | ----------------: |

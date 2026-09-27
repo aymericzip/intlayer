@@ -81,6 +81,15 @@ describe('buildLibraries', () => {
       { id: 'react-i18next', name: 'react-i18next', version: '15.0.0' },
     ]);
   });
+  it('keeps only the listed packages and the baseline', () => {
+    expect(
+      buildLibraries(summary, 'Base App', ['react-i18next']).map(({ id }) => id)
+    ).toEqual(['base', 'react-i18next']);
+  });
+
+  it('keeps every library when the package list is empty', () => {
+    expect(buildLibraries(summary, 'Base App', [])).toHaveLength(3);
+  });
 });
 
 describe('resolveCategoryData', () => {

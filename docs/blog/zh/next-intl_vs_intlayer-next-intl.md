@@ -114,7 +114,7 @@ const AboutPage = () => {
 
 选择您关注的指标和库：
 
-<I18nBenchmark framework="nextjs" vertical/>
+<I18nBenchmark framework="nextjs" packages="next-intl,@intlayer/next-intl,next-intlayer" vertical/>
 
 | 设置                      | 策略           | 库大小 (gz) | 页面 JS 平均 (gz) | 语言环境泄漏 | 页面泄漏 | 组件平均 (gz) |  E2E 响应性 |        水合 |
 | ------------------------- | -------------- | ----------: | ----------------: | -----------: | -------: | ------------: | ----------: | ----------: |

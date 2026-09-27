@@ -77,7 +77,7 @@ Một thư viện trưởng thành mang lại sự an tâm. Tuy nhiên, các ti�
 
 ## Đo Lường Tác Động Lên Bundle
 
-<I18nBenchmark framework="tanstack" vertical/>
+<I18nBenchmark framework="tanstack" packages="react-i18next,@intlayer/react-i18next,intlayer" vertical/>
 
 <ClickToOpenIframe
 src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md"
@@ -243,8 +243,6 @@ Intlayer tự động tạo kiểu dữ liệu từ chính các khai báo nội 
 | **MCP Server cho AI**     | ❌ Không có          | ✅ [Tích hợp sẵn MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/mcp_server.md)            |
 | **Kỹ năng cho Agent**     | ❌ Không có          | ✅ [Kỹ năng thiết lập sẵn](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/agent_skills.md)            |
 | **CMS Trực Quan**         | Locize (Trả phí)     | ✅ [Miễn phí & Mã nguồn mở](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md) |
-
-Sự hiện diện của LSP và MCP server cho phép các trợ lý AI hiểu rõ cấu trúc dịch thuật của toàn dự án.
 
 ## Dịch Thuật Và Mô Hình Locize
 

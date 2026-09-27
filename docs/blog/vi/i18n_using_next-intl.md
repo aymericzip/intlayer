@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-11-01
-updatedAt: 2026-05-31
+updatedAt: 2026-09-26
 priority: 9
-title: Cách quốc tế hóa ứng dụng Next.js của bạn bằng next-intl - Hướng dẫn đầy đủ để dịch Translate Next.js 16 with next-intl — App Router Setup
-description: Giải pháp tốt nhất cho kích thước bundle, SEO, hiệu suất & khả năng bảo trì. Làm cho Next.js 16 trang web của bạn đa ngôn ngữ vào năm 2026, dịch thuật LLM, Agent Skills & MCP.
+title: "i18n cho Next.js 16 với next-intl: hướng dẫn cài đặt App Router"
+description: "Thiết lập next-intl từng bước trong ứng dụng Next.js 16 App Router: định tuyến theo locale, tải thông điệp theo từng trang, component phía server và client, và metadata SEO."
 keywords:
   - next-intl
   - Internationalization
@@ -35,6 +35,62 @@ author: aymericzip
 > Nếu bạn muốn, bạn cũng có thể tham khảo [hướng dẫn next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18n_using_next-i18next.md), hoặc sử dụng trực tiếp [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_next-intl.md).
 
 > Xem so sánh tại [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/next-i18next_vs_next-intl_vs_intlayer.md).
+
+## Benchmark nói gì về next-intl trên Next.js
+
+Trước khi triển khai bản dịch, việc hiểu hồ sơ hiệu năng của `next-intl` là rất quan trọng. [Benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md) đánh giá cùng một ứng dụng Next.js 10 trang, 10 locale trên nhiều cấu hình và thư viện khác nhau để đo kích thước bundle thực tế, mức rò rỉ chuỗi và chi phí hydration.
+
+<I18nBenchmark framework="nextjs" packages="next-intl,@intlayer/next-intl,next-intlayer" vertical/>
+
+<ClickToOpenIframe
+  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+  width="100%"
+  height="600px"
+  style="border:none;"
+/>
+
+Số liệu chính của `next-intl` trên Next.js (gzip):
+
+| Cấu hình                          | Kích thước thư viện | JS trung bình mỗi trang | Rò rỉ locale khác | Rò rỉ trang khác |
+| :-------------------------------- | ------------------: | ----------------------: | ----------------: | ---------------: |
+| Cơ sở (không i18n)                |                   - |                141.0 KB |              0.0% |             0.0% |
+| `next-intl`                       |             14.7 KB |                153.6 KB |              4.2% |            89.8% |
+| `@intlayer/next-intl` (compat)    |              8.0 KB |                148.7 KB |              0.0% |             0.0% |
+| `next-intlayer` (Intlayer native) |              5.5 KB |                141.3 KB |              0.0% |             0.0% |
+
+Điều cần ghi nhớ:
+
+- **Tránh các catalog message toàn cục:** Trong các cấu hình tiêu chuẩn nơi mọi message được tải trong root layout, ~89.8% nội dung đã dịch gửi tới trình duyệt thuộc về các trang khác. Dùng `pick(messages, ['namespace'])` cho mỗi route sẽ loại bỏ rò rỉ này, nhưng cần bảo trì thủ công.
+- **Trọng lượng runtime:** Runtime của `next-intl` thêm ~14.7 KB gzip vào mỗi trang. Với các ứng dụng `next-intl` hiện có, compat adapter [`@intlayer/next-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/next-intl.md) giữ nguyên các hook (`useTranslations`, `useFormatter`, v.v.) đồng thời giảm kích thước runtime xuống ~8.0 KB với 0% rò rỉ. [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/next-intlayer/exports.md) native còn giảm tiếp xuống 5.5 KB.
+
+> Xem toàn bộ dữ liệu: [báo cáo benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md), và [repository benchmark](https://github.com/intlayer-org/benchmark-i18n).
+
+## So sánh tính năng trên Next.js
+
+So sánh `next-intl` với `next-i18next` và Intlayer về các tính năng mà một dự án Next.js App Router thường cần:
+
+| Tính năng                                | `next-intlayer` (Intlayer)                                  | `next-intl`                                                     | `next-i18next`                                   |
+| ---------------------------------------- | ----------------------------------------------------------- | --------------------------------------------------------------- | ------------------------------------------------ |
+| **Bản dịch gần component**               | ✅ Nội dung đặt cùng từng component                         | ❌ JSON tập trung                                               | ❌ JSON tập trung                                |
+| **Tích hợp TypeScript**                  | ✅ Kiểu nghiêm ngặt được tự động sinh                       | ✅ Tốt, qua augmentation `AppConfig`                            | ⚠️ Cơ bản                                        |
+| **Phát hiện bản dịch thiếu**             | ✅ Lỗi TypeScript và cảnh báo khi build                     | ⚠️ Fallback khi runtime                                         | ⚠️ Fallback khi runtime                          |
+| **Nội dung phong phú (JSX, Markdown)**   | ✅ Hỗ trợ trực tiếp                                         | ⚠️ Tag qua `t.rich`, không có Markdown                          | ⚠️ Tag qua `<Trans>`                             |
+| **Dịch bằng AI**                         | ✅ Provider và API key của riêng bạn, kèm ngữ cảnh ứng dụng | ❌ Không                                                        | ❌ Không                                         |
+| **Trình chỉnh sửa trực quan / CMS**      | ✅ Trình chỉnh sửa trực quan cục bộ + CMS tùy chọn          | ❌ Qua nền tảng bên ngoài                                       | ❌ Qua nền tảng bên ngoài                        |
+| **Routing bản địa hóa**                  | ✅ Tích hợp sẵn (Next.js và Vite)                           | ✅ Segment `[locale]` tích hợp sẵn                              | ✅ Tích hợp sẵn                                  |
+| **Số nhiều**                             | ✅ Dựa trên enumeration                                     | ✅ ICU                                                          | ✅ Dựa trên hậu tố (`_one`, `_other`)            |
+| **Định dạng (ngày, số, tiền tệ)**        | ✅ Formatter dựa trên `Intl`                                | ✅ `useFormatter`                                               | ✅ Dựa trên `Intl`                               |
+| **Định dạng nội dung**                   | ✅ `.ts`, `.tsx`, `.js`, `.json`, `.md`, `.yaml`            | ✅ `.json`, `.js`, `.ts`                                        | ⚠️ `.json`                                       |
+| **ICU MessageFormat**                    | ✅ Qua `format: "icu"`                                      | ✅ Native                                                       | ⚠️ Qua `i18next-icu`                             |
+| **Helper SEO (hreflang, sitemap)**       | ✅ Helper cho metadata, sitemap và robots.txt               | ✅ Tốt                                                          | ✅ Tốt                                           |
+| **Server Components**                    | ✅ Truy cập trực tiếp trong mọi Server Component            | ⚠️ Truyền `t` hoặc `await getTranslations()` cho từng component | ⚠️ Truyền `t` xuống cây component                |
+| **Tree-shaking theo component**          | ✅ Tại thời điểm build (Babel / SWC)                        | ⚠️ Thủ công, với `pick()` cho mỗi route                         | ⚠️ Thủ công, với namespace cho mỗi route         |
+| **Lazy loading**                         | ✅ Theo locale và theo dictionary                           | ✅ Theo locale, namespace quản lý thủ công                      | ✅ Theo locale, namespace quản lý thủ công       |
+| **Kích thước runtime (gzip, benchmark)** | 4.9 KB                                                      | 14.7 KB                                                         | 19.7 KB                                          |
+| **Bản dịch thiếu trong CI**              | ✅ `npx intlayer test`                                      | ⚠️ Không tích hợp sẵn                                           | ⚠️ Không tích hợp sẵn, `saveMissing` khi runtime |
+| **Hệ sinh thái / cộng đồng**             | ⚠️ Nhỏ hơn, phát triển nhanh                                | ✅ Lớn                                                          | ✅ Rất lớn                                       |
+
+> Kích thước runtime lấy từ [benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md). Để xem phân tích chi tiết, hãy đọc [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/next-i18next_vs_next-intl_vs_intlayer.md).
 
 ## Các thực hành bạn nên tuân theo
 
@@ -795,6 +851,13 @@ Intlayer sẽ cho phép bạn:
   Intlayer cung cấp một trình chỉnh sửa trực quan miễn phí để chỉnh sửa nội dung của bạn bằng trình chỉnh sửa trực quan. Tìm hiểu thêm về [chỉnh sửa trực quan bản dịch của bạn](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md).
 
 Và còn nhiều hơn thế nữa. Để khám phá tất cả các tính năng mà Intlayer cung cấp, vui lòng tham khảo [Lợi ích của tài liệu Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/interest_of_intlayer.md).
+
+Để xem benchmark hiệu năng và so sánh chi tiết, tham khảo:
+
+- [Báo cáo Benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md)
+- [Bộ Benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/index.md)
+- [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/next-intl_vs_intlayer-next-intl.md)
+- [Compat Adapter @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/next-intl.md)
 
 </Step>
 

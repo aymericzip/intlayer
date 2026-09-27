@@ -92,7 +92,7 @@ Dla każdego wariantu rejestrowano:
 
 Wybierz metryki i biblioteki, które Cię interesują:
 
-<I18nBenchmark framework="nextjs" vertical/>
+<I18nBenchmark framework="nextjs" packages="next-intl,next-intlayer" vertical/>
 
 | Biblioteka                     | Strategia      | Rozmiar Lib (gz) | Śr. JS strony (gz) | Wyciek języka | Wyciek strony | Śr. komponentu (gz) | Reaktywność E2E | Hydratacja |
 | ------------------------------ | -------------- | ---------------: | -----------------: | ------------: | ------------: | ------------------: | --------------: | ---------: |

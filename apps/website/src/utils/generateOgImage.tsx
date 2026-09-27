@@ -9,7 +9,7 @@ import {
 } from './ogAssets';
 
 export const DEFAULT_OG_TITLE =
-  'Advanced i18n for React, Next.js, Vue, Svelte | Intlayer';
+  'Advanced JS i18n - your Multi-framework Multilingual Content Management System | Intlayer';
 
 export const DEFAULT_OG_DESCRIPTION = '';
 

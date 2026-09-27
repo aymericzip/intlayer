@@ -96,6 +96,9 @@ const getPublicDirectory = (): string => {
   return resolve(dirname(fileURLToPath(serverEntryUrl)), '../public');
 };
 
+/** Resolved once per process — the public directory never moves at runtime. */
+const publicDirectory = getPublicDirectory();
+
 export default async (event: H3EventLike): Promise<Response | undefined> => {
   const method = event.req?.method ?? 'GET';
   if (!READABLE_METHODS.has(method)) return;
@@ -105,7 +108,7 @@ export default async (event: H3EventLike): Promise<Response | undefined> => {
 
   try {
     const payload = await readFile(
-      resolve(getPublicDirectory(), `.${pathname}`),
+      resolve(publicDirectory, `.${pathname}`),
       'utf-8'
     );
 

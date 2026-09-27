@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-26
 priority: 8
 title: "vue-i18n vs Intlayer：2026 基准测试"
 description: 在同一个 Vite + Vue 3 应用上测量 vue-i18n 与 Intlayer。库体积、每页 JavaScript、内容泄漏、组件体积以及语言切换的响应速度，并对数字加以解释。
@@ -87,6 +87,10 @@ author: aymericzip
 
 ### Vite + Vue 3 上的结果
 
+选择你关心的指标和库：
+
+<I18nBenchmark framework="vite-vue" packages="vue-i18n,@intlayer/vue-i18n,intlayer" vertical/>
+
 | 库                            | 策略   | Lib size (gz) | Lib size (min) | Page JS 平均 (gz) | Locale leak | Page leak | Component 平均 (gz) | E2E 响应速度 | Page load |
 | ----------------------------- | ------ | ------------: | -------------: | ----------------: | ----------: | --------: | ------------------: | -----------: | --------: |
 | **base**（无 i18n）           | -      |        0.0 KB |         0.0 KB |           41.3 KB |        0.0% |         - |              1.1 KB |       1.8 ms |   10.8 ms |
@@ -106,6 +110,15 @@ author: aymericzip
 - **`@intlayer/vue-i18n`**，即插即用的适配器，保留了 `vue-i18n` 的 API，测得**每页 47.0 KB**、**每组件 8.4 KB**，应用代码未做改动。
 
 > 作为参考，同一次运行测得 `fluent-vue` 每页 171.8 KB、运行时 29.7 KB、每组件 217 KB。
+
+<ClickToOpenIframe
+  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_vue.md"
+  width="100%"
+  height="600px"
+  style="border:none;"
+/>
+
+> 包含所有库和所有策略的完整表格，请参见 [Vue 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/vue.md)。
 
 ## 差距从何而来？全局实例 vs 编译后的字典
 
@@ -344,6 +357,13 @@ export default defineConfig({
 - [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/lingui_vs_intlayer.md)（同一基准测试）
 - [vue-i18n vs Intlayer（功能与 DX）](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/vue-i18n_vs_intlayer.md)
 - [vue-i18n 过时了吗？](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/is_vue-i18n_outdated.md)
+
+参考文档：
+
+- [兼容适配器：vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/vue-i18n.md) 和 [Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/nuxtjs-i18n.md)
+- [迁移指南：从 vue-i18n 到 Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_vue-i18n_to_intlayer.md)
+- 基准测试报告： [i18n 基准测试概览](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/index.md)、[Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md)、[TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md)、[Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/vue.md)、[Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/solid.md) 和 [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/svelte.md)
+- [Bundle 优化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md) 和 [Intlayer 编译器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md)
 
 ## GitHub Star
 

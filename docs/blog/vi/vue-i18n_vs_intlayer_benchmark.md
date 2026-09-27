@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-26
 priority: 8
 title: "vue-i18n vs Intlayer: Benchmark 2026"
 description: vue-i18n và Intlayer được đo trên cùng một ứng dụng Vite + Vue 3. Kích thước thư viện, JavaScript mỗi trang, rò rỉ nội dung, kích thước component và độ phản ứng khi đổi locale, kèm giải thích các con số.
@@ -87,6 +87,10 @@ Với mỗi bản build, bộ công cụ ghi lại:
 
 ### Kết quả trên Vite + Vue 3
 
+Chọn các chỉ số và thư viện bạn quan tâm:
+
+<I18nBenchmark framework="vite-vue" packages="vue-i18n,@intlayer/vue-i18n,intlayer" vertical/>
+
 | Thư viện                      | Chiến lược | Lib size (gz) | Lib size (min) | Page JS TB (gz) | Locale leak | Page leak | Component TB (gz) | Phản ứng E2E | Page load |
 | ----------------------------- | ---------- | ------------: | -------------: | --------------: | ----------: | --------: | ----------------: | -----------: | --------: |
 | **base** (không i18n)         | -          |        0,0 KB |         0,0 KB |         41,3 KB |        0,0% |         - |            1,1 KB |       1,8 ms |   10,8 ms |
@@ -106,6 +110,15 @@ Với mỗi bản build, bộ công cụ ghi lại:
 - **`@intlayer/vue-i18n`**, adapter drop-in, giữ nguyên API của `vue-i18n` và đo được **47,0 KB mỗi trang** và **8,4 KB mỗi component**, với mã ứng dụng không thay đổi.
 
 > Để tham khảo, cùng lần chạy đó đo `fluent-vue` ở mức 171,8 KB mỗi trang, 29,7 KB runtime và 217 KB mỗi component.
+
+<ClickToOpenIframe
+  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_vue.md"
+  width="100%"
+  height="600px"
+  style="border:none;"
+/>
+
+> Bảng đầy đủ, với mọi thư viện và mọi chiến lược, có trong [báo cáo benchmark Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/vue.md).
 
 ## Tại sao có khoảng cách? Instance toàn cục vs từ điển được biên dịch
 
@@ -344,6 +357,13 @@ Xem [hướng dẫn di chuyển từ vue-i18n](https://github.com/aymericzip/int
 - [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/lingui_vs_intlayer.md) (cùng benchmark)
 - [vue-i18n vs Intlayer (tính năng & DX)](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/vue-i18n_vs_intlayer.md)
 - [vue-i18n đã lỗi thời?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/is_vue-i18n_outdated.md)
+
+Tài liệu tham khảo:
+
+- [Compat adapter: vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/vue-i18n.md) và [Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/nuxtjs-i18n.md)
+- [Hướng dẫn migration: từ vue-i18n sang Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_vue-i18n_to_intlayer.md)
+- Báo cáo benchmark: [Tổng quan benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/index.md), [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md), [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md), [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/vue.md), [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/solid.md) và [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/svelte.md)
+- [Tối ưu bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md) và [trình biên dịch Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md)
 
 ## GitHub Stars
 

@@ -47,7 +47,7 @@ author: aymericzip
 
 在查看功能特性表之前，先来看实测数据。[Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) 使用每个库构建相同的 Vite + Vue 3 应用（10 个页面，10 种语言），并记录浏览器下载的数据：
 
-<I18nBenchmark framework="vite-vue" vertical/>
+<I18nBenchmark framework="vite-vue" packages="vue-i18n,intlayer" vertical/>
 
 | Setup                | Lib size (gz) | Page JS avg (gz) | Page leak | Component avg (gz) |
 | -------------------- | ------------: | ---------------: | --------: | -----------------: |

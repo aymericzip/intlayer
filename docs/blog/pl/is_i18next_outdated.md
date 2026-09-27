@@ -77,7 +77,7 @@ Mniejsza biblioteka może być dojrzała i stabilna. Jednak ekosystem i18n stale
 
 ## Pomiar narzutu na bundle
 
-<I18nBenchmark framework="tanstack" vertical/>
+<I18nBenchmark framework="tanstack" packages="react-i18next,@intlayer/react-i18next,intlayer" vertical/>
 
 <ClickToOpenIframe
 src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md"

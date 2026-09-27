@@ -92,7 +92,7 @@ Next.js 16 App Router, same app:
 | `paraglide-next` | 155.3 KB         | +14.3 KB    |
 | `next-intlayer`  | **141.3 KB**     | **+0.3 KB** |
 
-<I18nBenchmark framework="tanstack" vertical/>
+<I18nBenchmark framework="tanstack" packages="paraglide,intlayer" vertical/>
 
 > Full data in the [TanStack Start benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/tanstack.md) and the [Next.js benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/nextjs.md). Every bundle can be inspected in the [benchmark repository](https://github.com/intlayer-org/benchmark-i18n).
 

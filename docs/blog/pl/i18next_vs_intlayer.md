@@ -104,7 +104,7 @@ Dla każdego buildu rejestrowane są wskaźniki:
 
 Wybierz metryki i biblioteki, które Cię interesują:
 
-<I18nBenchmark framework="nextjs" vertical/>
+<I18nBenchmark framework="nextjs" packages="next-i18next,next-intlayer" vertical/>
 
 | Biblioteka                        | Strategia      | Lib size (gz) | Page JS avg (gz) | Wyciek języka | Wyciek strony | Komponent śr. (gz) | Reaktywność E2E | Hydratacja |
 | --------------------------------- | -------------- | ------------: | ---------------: | ------------: | ------------: | -----------------: | --------------: | ---------: |

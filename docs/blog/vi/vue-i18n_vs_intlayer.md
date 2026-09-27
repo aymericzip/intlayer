@@ -47,7 +47,7 @@ Chúng tôi tập trung vào công cụ Vue hiện đại (Vite, Composition API
 
 Trước bảng tính năng, phần đo lường thực tế. [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) xây dựng cùng một ứng dụng Vite + Vue 3 (10 trang, 10 ngôn ngữ) với từng thư viện và ghi lại những gì trình duyệt tải về:
 
-<I18nBenchmark framework="vite-vue" vertical/>
+<I18nBenchmark framework="vite-vue" packages="vue-i18n,intlayer" vertical/>
 
 | Setup                | Lib size (gz) | Page JS avg (gz) | Page leak | Component avg (gz) |
 | -------------------- | ------------: | ---------------: | --------: | -----------------: |

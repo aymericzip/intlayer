@@ -111,7 +111,7 @@ Dla każdego buildu, zestaw rejestruje:
 
 Wybierz metryki i biblioteki, które Cię interesują:
 
-<I18nBenchmark framework="vite-vue" vertical/>
+<I18nBenchmark framework="vite-vue" packages="vue-i18n,@intlayer/vue-i18n,intlayer" vertical/>
 
 | Setup                    | Strategy | Rozmiar lib (gz) | Rozmiar lib (min) | Średni JS strony (gz) | Wyciek locale | Wyciek strony | Średnia lib komponentu (gz) | Reaktywność E2E | Ładowanie strony |
 | ------------------------ | -------- | ---------------: | ----------------: | --------------------: | ------------: | ------------: | --------------------------: | --------------: | ---------------: |

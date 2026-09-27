@@ -104,7 +104,7 @@ Metrik yang dicatat untuk setiap build:
 
 Pilih metrik dan pustaka yang Anda minati:
 
-<I18nBenchmark framework="nextjs" vertical/>
+<I18nBenchmark framework="nextjs" packages="next-i18next,next-intlayer" vertical/>
 
 | Library                           | Strategi       | Lib size (gz) | Page JS avg (gz) | Kebocoran Bahasa | Kebocoran Halaman | Rata-rata Komp. (gz) | Reaktivitas E2E | Hydration |
 | --------------------------------- | -------------- | ------------: | ---------------: | ---------------: | ----------------: | -------------------: | --------------: | --------: |

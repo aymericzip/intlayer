@@ -47,7 +47,7 @@ author: aymericzip
 
 기능 비교표에 앞서, 실측된 데이터입니다. [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom)은 각 라이브러리를 사용하여 동일한 Vite + Vue 3 앱(10개 페이지, 10개 언어)을 빌드하고 브라우저가 다운로드하는 크기를 기록합니다:
 
-<I18nBenchmark framework="vite-vue" vertical/>
+<I18nBenchmark framework="vite-vue" packages="vue-i18n,intlayer" vertical/>
 
 | Setup                | Lib size (gz) | Page JS avg (gz) | Page leak | Component avg (gz) |
 | -------------------- | ------------: | ---------------: | --------: | -----------------: |

@@ -75,7 +75,7 @@ Uma ferramenta consolidada pode ser confiável. Mas o ecossistema de i18n se mod
 
 Benchmark conduzido em uma aplicação App Router padrão com 10 rotas e 10 idiomas:
 
-<I18nBenchmark framework="nextjs" vertical/>
+<I18nBenchmark framework="nextjs" packages="next-intl,@intlayer/next-intl,next-intlayer" vertical/>
 
 <ClickToOpenIframe
 src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"

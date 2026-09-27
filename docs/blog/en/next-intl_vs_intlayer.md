@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-22
+updatedAt: 2026-09-26
 priority: 8
 title: "next-intl vs Intlayer: 2026 Benchmark & Comparison"
 description: Bundle size, content leakage, locale-switch reactivity and developer experience measured on Next.js and TanStack Start. Which i18n library should you pick in 2026?
@@ -101,7 +101,7 @@ For each build, the suite records:
 
 Pick the metrics and the libraries you care about:
 
-<I18nBenchmark framework="nextjs" vertical/>
+<I18nBenchmark framework="nextjs" packages="next-intl,next-intlayer" vertical/>
 
 | Library                        | Strategy       | Lib size (gz) | Page JS avg (gz) | Locale leak | Page leak | Component avg (gz) | E2E reactivity | Hydration |
 | ------------------------------ | -------------- | ------------: | ---------------: | ----------: | --------: | -----------------: | -------------: | --------: |
@@ -505,7 +505,7 @@ Going further on next-intl:
 
 Reference docs:
 
-- [Next.js benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/nextjs.md) and [TanStack Start benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/tanstack.md)
+- Benchmark reports: [i18n Benchmark Overview](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/index.md), [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/nextjs.md), [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/tanstack.md), [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/vue.md), [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/solid.md), and [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/svelte.md)
 - [Compat adapter: next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/next-intl.md) and [migration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/migration_from_next-intl_to_intlayer.md)
 - [Bundle optimization](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/bundle_optimization.md) and [the Intlayer compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compiler.md)
 - [Per-component vs centralized i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/per-component_vs_centralized_i18n.md)

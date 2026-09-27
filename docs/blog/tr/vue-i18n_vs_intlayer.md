@@ -47,7 +47,7 @@ Modern Vue araçlarına (Vite, Composition API) odaklanıyoruz ve şunları değ
 
 Özellik tablolarından önce, ölçülen kısım. [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) aynı Vite + Vue 3 uygulamasını (10 sayfa, 10 dil) her kütüphaneyle derler ve tarayıcının indirdiklerini kaydeder:
 
-<I18nBenchmark framework="vite-vue" vertical/>
+<I18nBenchmark framework="vite-vue" packages="vue-i18n,intlayer" vertical/>
 
 | Setup                | Lib size (gz) | Page JS avg (gz) | Page leak | Component avg (gz) |
 | -------------------- | ------------: | ---------------: | --------: | -----------------: |

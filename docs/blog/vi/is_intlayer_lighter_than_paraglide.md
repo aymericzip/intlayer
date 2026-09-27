@@ -92,7 +92,7 @@ Next.js 16 App Router, cùng ứng dụng:
 | `paraglide-next` | 155.3 KB         | +14.3 KB    |
 | `next-intlayer`  | **141.3 KB**     | **+0.3 KB** |
 
-<I18nBenchmark framework="tanstack" vertical/>
+<I18nBenchmark framework="tanstack" packages="paraglide,intlayer" vertical/>
 
 > Dữ liệu đầy đủ có trong [báo cáo benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md) và [báo cáo benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md). Từng bundle có thể được kiểm tra tại [kho lưu trữ benchmark](https://github.com/intlayer-org/benchmark-i18n).
 
@@ -208,6 +208,10 @@ Tree shaking phụ thuộc chặt chẽ vào bundler (Turbopack, Rolldown, Rollu
 Đây là giới hạn về mặt kiến trúc. Paraglide không có cách nào để tải từng ngôn ngữ một: mỗi hàm thông điệp đều import tĩnh phần triển khai của từng ngôn ngữ, do đó toàn bộ ngôn ngữ đều kết thúc trong client bundle của bạn.
 
 Với 2 ngôn ngữ, bạn đã lãng phí một nửa dữ liệu dịch thuật, khớp với mức ~50% rò rỉ locale được đo lường ở trên. Với 10 ngôn ngữ, con số lãng phí lên tới 90%. Với 30 ngôn ngữ, con số này là 97%.
+
+Biểu đồ dưới đây ước tính payload cho một ứng dụng lý thuyết gồm 1 đến 10 trang với 1 đến 10 ngôn ngữ, khoảng 30 KB văn bản mỗi trang. Chia nội dung theo route loại bỏ một trục, tải động theo từng ngôn ngữ loại bỏ trục còn lại, và chỉ khi kết hợp cả hai thì payload mới giữ ổn định. Paraglide tốt nhất cũng chỉ xử lý được trục thứ nhất, không bao giờ xử lý được trục thứ hai.
+
+![Rò rỉ nội dung lý thuyết theo kiến trúc](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 Chuyển sang tải động cũng không thể giải quyết triệt để: với mỗi thông điệp là một hàm riêng biệt, việc lazy load từng hàm sẽ tạo ra hàng nghìn request qua mạng.
 

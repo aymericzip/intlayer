@@ -101,7 +101,7 @@ Für jeden Build erfasst die Suite:
 
 Wählen Sie die Metriken und Bibliotheken aus, die für Sie wichtig sind:
 
-<I18nBenchmark framework="nextjs" vertical/>
+<I18nBenchmark framework="nextjs" packages="lingui,next-intlayer" vertical/>
 
 | Bibliothek           | Strategie      | Lib size (gz) | Page JS Ø (gz) | Sprach-Leak | Seiten-Leak | Komponente Ø (gz) | E2E-Reaktivität | Hydratisierung |
 | -------------------- | -------------- | ------------: | -------------: | ----------: | ----------: | ----------------: | --------------: | -------------: |

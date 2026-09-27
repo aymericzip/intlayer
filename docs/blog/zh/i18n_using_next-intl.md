@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-11-01
-updatedAt: 2026-05-31
+updatedAt: 2026-09-26
 priority: 9
-title: 如何使用 next-intl 国际化你的 Next.js 应用 - 完整翻译指南： Translate Next.js 16 with next-intl — App Router Setup
-description: 最佳的包体积、SEO、性能和可维护性解决方案。让您的 Next.js 16 网站在 2026 年实现多语言化，LLM 翻译，Agent Skills & MCP。
+title: "使用 next-intl 实现 Next.js 16 i18n：App Router 配置指南"
+description: "在 Next.js 16 App Router 应用中逐步配置 next-intl：语言路由、按页面加载消息、服务端与客户端组件，以及 SEO 元数据。"
 keywords:
   - next-intl
   - Internationalization
@@ -35,6 +35,62 @@ author: aymericzip
 > 如果你愿意，也可以参考 [next-i18next 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18n_using_next-i18next.md)，或者直接使用 [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_next-intl.md)。
 
 > 查看 [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/next-i18next_vs_next-intl_vs_intlayer.md) 中的比较。
+
+## 基准测试对 Next.js 上的 next-intl 有何结论
+
+在实现翻译之前，了解 `next-intl` 的性能特征至关重要。[i18n 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md) 在不同配置和库下评估同一个包含 10 个页面、10 种语言的 Next.js 应用，以测量真实的 bundle 体积、字符串泄漏和 hydration 开销。
+
+<I18nBenchmark framework="nextjs" packages="next-intl,@intlayer/next-intl,next-intlayer" vertical/>
+
+<ClickToOpenIframe
+  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+  width="100%"
+  height="600px"
+  style="border:none;"
+/>
+
+`next-intl` 在 Next.js 上的关键数据 (gzip)：
+
+| 配置                            |  库体积 | 页面 JS 平均 | 其他语言泄漏 | 其他页面泄漏 |
+| :------------------------------ | ------: | -----------: | -----------: | -----------: |
+| 基准 (无 i18n)                  |       - |     141.0 KB |         0.0% |         0.0% |
+| `next-intl`                     | 14.7 KB |     153.6 KB |         4.2% |        89.8% |
+| `@intlayer/next-intl` (compat)  |  8.0 KB |     148.7 KB |         0.0% |         0.0% |
+| `next-intlayer` (原生 Intlayer) |  5.5 KB |     141.3 KB |         0.0% |         0.0% |
+
+要点：
+
+- **避免全局消息目录：** 在所有消息都在根 layout 中加载的标准配置下，发送到浏览器的翻译内容中约 89.8% 属于其他页面。在每个路由中使用 `pick(messages, ['namespace'])` 可以消除这种泄漏，但需要手动维护。
+- **运行时体积：** `next-intl` 运行时为每个页面增加约 14.7 KB (gzip)。对于现有的 `next-intl` 应用，[`@intlayer/next-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/next-intl.md) 兼容适配器保留相同的 hooks (`useTranslations`、`useFormatter` 等)，同时将运行时体积降至约 8.0 KB，泄漏为 0%。原生 [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/next-intlayer/exports.md) 可进一步降至 5.5 KB。
+
+> 查看完整数据：[Next.js 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md)，以及 [基准测试仓库](https://github.com/intlayer-org/benchmark-i18n)。
+
+## Next.js 上的功能对比
+
+在 Next.js App Router 项目通常需要的功能上，`next-intl` 与 `next-i18next` 和 Intlayer 的对比：
+
+| 功能                             | `next-intlayer` (Intlayer)                       | `next-intl`                                      | `next-i18next`                      |
+| -------------------------------- | ------------------------------------------------ | ------------------------------------------------ | ----------------------------------- |
+| **翻译靠近组件**                 | ✅ 内容与每个组件放在一起                        | ❌ 集中式 JSON                                   | ❌ 集中式 JSON                      |
+| **TypeScript 集成**              | ✅ 自动生成的严格类型                            | ✅ 良好，通过 `AppConfig` 扩展                   | ⚠️ 基础                             |
+| **缺失翻译检测**                 | ✅ TypeScript 错误和构建时警告                   | ⚠️ 运行时回退                                    | ⚠️ 运行时回退                       |
+| **富内容 (JSX、Markdown)**       | ✅ 直接支持                                      | ⚠️ 通过 `t.rich` 使用标签，不支持 Markdown       | ⚠️ 通过 `<Trans>` 使用标签          |
+| **AI 翻译**                      | ✅ 使用你自己的提供商和 API key，带应用上下文    | ❌ 无                                            | ❌ 无                               |
+| **可视化编辑器 / CMS**           | ✅ 本地可视化编辑器 + 可选 CMS                   | ❌ 通过外部平台                                  | ❌ 通过外部平台                     |
+| **本地化路由**                   | ✅ 内置 (Next.js 和 Vite)                        | ✅ 内置 `[locale]` 段                            | ✅ 内置                             |
+| **复数处理**                     | ✅ 基于枚举                                      | ✅ ICU                                           | ✅ 基于后缀 (`_one`、`_other`)      |
+| **格式化 (日期、数字、货币)**    | ✅ 基于 `Intl` 的格式化器                        | ✅ `useFormatter`                                | ✅ 基于 `Intl`                      |
+| **内容格式**                     | ✅ `.ts`, `.tsx`, `.js`, `.json`, `.md`, `.yaml` | ✅ `.json`, `.js`, `.ts`                         | ⚠️ `.json`                          |
+| **ICU MessageFormat**            | ✅ 通过 `format: "icu"`                          | ✅ 原生                                          | ⚠️ 通过 `i18next-icu`               |
+| **SEO 辅助 (hreflang、sitemap)** | ✅ 元数据、sitemap 和 robots.txt 辅助函数        | ✅ 良好                                          | ✅ 良好                             |
+| **Server Components**            | ✅ 在任意 Server Component 中直接访问            | ⚠️ 每个组件传递 `t` 或 `await getTranslations()` | ⚠️ 沿组件树向下传递 `t`             |
+| **按组件 tree-shaking**          | ✅ 构建时 (Babel / SWC)                          | ⚠️ 手动，每个路由使用 `pick()`                   | ⚠️ 手动，每个路由使用命名空间       |
+| **懒加载**                       | ✅ 按语言和按字典                                | ✅ 按语言，命名空间手动管理                      | ✅ 按语言，命名空间手动管理         |
+| **运行时体积 (gzip，基准测试)**  | 4.9 KB                                           | 14.7 KB                                          | 19.7 KB                             |
+| **CI 中的缺失翻译**              | ✅ `npx intlayer test`                           | ⚠️ 未内置                                        | ⚠️ 未内置，运行时使用 `saveMissing` |
+| **生态 / 社区**                  | ⚠️ 较小，增长迅速                                | ✅ 大                                            | ✅ 非常大                           |
+
+> 运行时体积来自 [Next.js 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md)。详细讨论请阅读 [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/next-i18next_vs_next-intl_vs_intlayer.md)。
 
 ## 你应该遵循的实践
 
@@ -796,6 +852,13 @@ Intlayer 允许您：
   Intlayer 提供免费的可视化编辑器，使用可视化编辑器编辑您的内容。了解更多关于[可视化编辑您的翻译](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)的信息。
 
 以及更多功能。要发现 Intlayer 提供的所有功能，请参阅[Intlayer 的优势文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/interest_of_intlayer.md)。
+
+有关详细的性能基准测试和对比，请参阅：
+
+- [Next.js 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md)
+- [i18n 基准测试套件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/index.md)
+- [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/next-intl_vs_intlayer-next-intl.md)
+- [@intlayer/next-intl 兼容适配器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/next-intl.md)
 
 </Step>
 

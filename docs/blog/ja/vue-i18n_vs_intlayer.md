@@ -47,7 +47,7 @@ author: aymericzip
 
 機能比較表の前に、実測値をご覧ください。[Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) は同じ Vite + Vue 3 アプリ（10ページ、10言語）を各ライブラリで構築し、ブラウザがダウンロードするサイズを記録しています：
 
-<I18nBenchmark framework="vite-vue" vertical/>
+<I18nBenchmark framework="vite-vue" packages="vue-i18n,intlayer" vertical/>
 
 | Setup                | Lib size (gz) | Page JS avg (gz) | Page leak | Component avg (gz) |
 | -------------------- | ------------: | ---------------: | --------: | -----------------: |

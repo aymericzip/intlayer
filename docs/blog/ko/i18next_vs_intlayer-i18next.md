@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-22
+updatedAt: 2026-09-26
 priority: 8
 title: "i18next vs @intlayer/i18next: 동일한 API, 완전히 다른 번들 크기"
 description: React 또는 Next.js 앱이 기존의 i18next, react-i18next, next-i18next 호출을 그대로 유지하면서 @intlayer/i18next 어댑터를 통해 제공될 때 무엇이 달라지는지 알아봅니다. 동일한 코드에서 측정한 페이지별 JavaScript 용량, 컴포넌트 크기, 문자열 누수 및 하이드레이션 성능과 어댑터의 지원 범위를 상세히 분석합니다.
@@ -114,7 +114,7 @@ const About = () => {
 
 관심 있는 메트릭과 라이브러리를 선택하세요:
 
-<I18nBenchmark framework="nextjs" vertical/>
+<I18nBenchmark framework="nextjs" packages="next-i18next,@intlayer/next-i18next,next-intlayer" vertical/>
 
 | 설정                         | 전략           | Lib 크기 (gz) | 페이지 JS 평균 (gz) | 로케일 누수 | 페이지 누수 | 컴포넌트 평균 (gz) | E2E 반응속도 | 하이드레이션 |
 | ---------------------------- | -------------- | ------------: | ------------------: | ----------: | ----------: | -----------------: | -----------: | -----------: |
@@ -145,7 +145,26 @@ style="border:none;"
 
 > 모든 라이브러리와 전략이 포함된 전체 표는 [Next.js 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/nextjs.md)에서 확인하세요.
 
-> Vite / TanStack Start 환경에서의 `react-i18next` 어댑터는 이번 벤치마크에 포함되지 않았습니다. TanStack Start 기준 수치는 [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/i18next_vs_intlayer.md)에서 확인할 수 있습니다.
+### TanStack Start 결과 (`react-i18next`)
+
+Vite 및 TanStack Start의 경우, 벤치마크는 순수 `react-i18next`와 `intlayer`를 비교합니다:
+
+| 라이브러리             | 전략    | Lib 크기 (gz) | 페이지 JS 평균 (gz) | 로케일 누수 | 페이지 누수 | 컴포넌트 평균 (gz) | E2E 반응속도 | 하이드레이션 |
+| ---------------------- | ------- | ------------: | ------------------: | ----------: | ----------: | -----------------: | -----------: | -----------: |
+| **base** (i18n 미사용) | -       |        0.0 KB |            111.0 KB |        0.0% |        0.0% |             0.7 KB |       8.1 ms |      21.6 ms |
+| `react-i18next`        | dynamic |       18.4 KB |            136.4 KB |       23.1% |       89.8% |            24.8 KB |     123.1 ms |      32.9 ms |
+| **`intlayer`**         | dynamic |    **5.0 KB** |        **118.6 KB** |    **0.0%** |    **0.0%** |         **6.3 KB** |   **3.6 ms** |      14.1 ms |
+
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> 전체 표는 [TanStack Start 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/tanstack.md)에서 확인할 수 있습니다.
+
+> Vite / TanStack Start 환경에서의 `react-i18next` 어댑터는 이번 벤치마크에 포함되지 않았습니다. TanStack Start의 `react-i18next` 기준 수치는 [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/i18next_vs_intlayer.md)에서 확인할 수 있습니다: 백엔드를 지연 로딩할 때 페이지당 127-184 KB, 로케일 전환에 123-185 ms.
 
 ## 수치가 개선되는 이유
 
@@ -346,6 +365,25 @@ export default defineConfig({
 
 </Accordion>
 </AccordionGroup>
+
+## 기능 비교
+
+바이트 크기 외에 각 옵션이 제공하는 것:
+
+| 기능                                              | `i18next` / `react-i18next` / `next-i18next` | `@intlayer/*` 어댑터             | 네이티브 Intlayer                 |
+| ------------------------------------------------- | -------------------------------------------- | -------------------------------- | --------------------------------- |
+| **기존 `t()`, `useTranslation`, `<Trans>` 호출**  | ✅                                           | ✅ 변경 없음                     | ❌ `useIntlayer`로 이전           |
+| **런타임 크기 (gzip, Next.js)**                   | 19.7 KB                                      | 9.4 KB                           | 5.5 KB                            |
+| **수동 namespace 없이 발생하는 다른 페이지 누수** | ~90%                                         | 0%                               | 0%                                |
+| **타입이 지정된 키**                              | ⚠️ 수동 선언                                 | ✅ 컴파일된 딕셔너리에서 생성    | ✅ 자동 생성                      |
+| **런타임 백엔드 및 플러그인**                     | ✅ 완전한 플러그인 생태계                    | ❌ 비활성                        | ❌ 해당 없음, CMS 사용            |
+| **컴포넌트와 함께 배치된 콘텐츠**                 | ❌ 중앙 집중식 JSON                          | ⚠️ JSON, `.content.ts` 공존 가능 | ✅ 각 컴포넌트 옆의 `.content.ts` |
+| **CI에서 누락된 번역 검사**                       | ⚠️ 기본 제공 안 됨                           | ✅ `npx intlayer test`           | ✅ `npx intlayer test`            |
+| **AI 번역**                                       | ❌ 없음                                      | ✅ `npx intlayer fill`           | ✅ `npx intlayer fill`            |
+| **비주얼 에디터 / CMS**                           | ❌ 외부 플랫폼 사용                          | ✅ 동일한 JSON 기반              | ✅ 지원                           |
+| **생태계 / 커뮤니티**                             | ✅ 매우 큼                                   | ⚠️ 작지만 빠르게 성장 중         | ⚠️ 작지만 빠르게 성장 중          |
+
+> 런타임 크기는 위에서 설명한 Next.js 측정 결과입니다.
 
 ## 어떤 선택을 해야 할까?
 

@@ -1,15 +1,20 @@
 ---
 createdAt: 2025-01-16
-updatedAt: 2025-06-29
+updatedAt: 2026-09-26
 priority: 9
-title: 什么是国际化？定义和挑战
-description: 了解为什么对你的网站进行国际化是必要的。了解如何加速搜索引擎，提高用户体验，并扩大你的全球影响力。
+title: "什么是国际化（i18n）？含义、定义与挑战"
+description: "i18n 是什么意思？了解什么是国际化、为什么缩写为 i18n、它与本地化（l10n）有何不同，以及实施过程中常见的挑战。"
 keywords:
+  - i18n 的含义
+  - i18n 代表什么
   - i18n
+  - 国际化
+  - 本地化
+  - 博客
+  - Web 开发
   - 多语言
   - SEO
   - 国際化
-  - 博客
   - Next.js
   - JavaScript
   - React
@@ -19,11 +24,37 @@ slugs:
 author: aymericzip
 ---
 
-# 什么是国际化 (i18n)? 定义与挑战
+# 什么是国际化（i18n）？含义、定义与挑战
 
-## 理解国际化 (i18n)
+## 目录
+
+<TOC/>
+
+## i18n 是什么意思？
+
+如果你从事软件开发、网页设计或数字营销，你可能遇到过 **i18n** 这个术语。**i18n 的真正含义**其实是 **国际化** (internationalization) 的一个数字略写。
+
+但为什么是 \"i18n\"？这个缩写是由单词 \"internationalization\" 的第一个字母 (**i**)、最后一个字母 (**n**) 以及它们之间的字母数量 (**18**) 组成的。这种惯例在科技行业经常被用来缩短冗长、繁琐的术语（另一个常见的例子是本地化 **l10n**）。
+
+## 国际化（i18n）的定义
 
 **国际化**，通常缩写为 **i18n**，是设计和准备一个应用程序以支持多种语言、文化和地区惯例的过程**而不**对代码库进行重大更改。i18n这个名称源于“国际化”这个词中**i**和**n**之间有18个字母这一事实。
+
+理解 i18n 的含义不仅仅是知道这个缩写代表什么。更重要的是识别其背后的架构原则。当一个项目被正确地 \"国际化\" 时，意味着开发人员已经将内容与代码解耦。
+
+与其将文本硬编码到应用程序中，如下所示：
+
+```javascript
+<button>提交</button>
+```
+
+支持 i18n 的应用程序使用翻译键或变量：
+
+```javascript
+<button>{t("submit_button")}</button>
+```
+
+这确保了应用程序可以根据用户的偏好动态加载正确的语言字典（例如英语、西班牙语、日语），而无需重写组件。
 
 ## 为什么国际化很重要
 
@@ -46,6 +77,15 @@ author: aymericzip
 **本地化 (l10n)** 是国际化之后进行的工作。它涉及翻译内容并调整文化细节以满足特定受众的需求。例如，一旦网站经过国际化，您可能会通过翻译所有文本、将日期格式更改为日/月/年，甚至调整图像或图标来更好地符合法国文化规范而将其本地化。
 
 总之，国际化为您的产品的全球使用做好准备，而本地化则为特定市场进行调整。
+
+把 **i18n** 想象成制造一辆方向盘可以安装在左侧或右侧的汽车。**l10n** 则是为了在英国销售而将方向盘实际安装在右侧的行为。
+
+## 关于 i18n 含义的常见误区
+
+1. **\"i18n 仅仅意味着翻译。\"**
+   虽然翻译是最终结果的重要组成部分，但 i18n 的真正含义涵盖了格式化、复数规则、文本方向和架构就绪性。
+2. **\"我们可以以后再添加 i18n。\"**
+   事后为应用程序进行国际化改造是极其困难的。硬编码的字符串、死板的 UI 组件和不兼容的日期格式可能会导致巨大的技术债务。从一开始就规划 i18n 是一项基本的最佳实践。
 
 ## 网站中应该国际化的内容是什么？
 
@@ -107,6 +147,12 @@ author: aymericzip
 - **提前规划**  
   在项目的最开始就整合国际化。提前解决国际化的问题成本较低、简单，确保从一开始就能提供更顺畅的开发过程。
 
+- **使用成熟的 i18n 框架**  
+  不要重新发明轮子。无论你使用的是 React、Vue、Next.js 还是纯 JavaScript，都有专门设计的 i18n 库来处理繁重的工作（如复数化和插值）。
+
+- **抽象所有面向用户的文本**  
+  确保你的 UI 组件中不存在硬编码文本。
+
 - **自动化翻译管理**  
   利用人工智能驱动的翻译服务，例如Intlayer提供的服务，以高效管理您的翻译。通过自动化，当您发布新文章时，所有翻译会自动生成，从而节省时间并减少人工错误。
 
@@ -133,24 +179,19 @@ author: aymericzip
 
 选择合适的工具以满足您的需求并从一开始规划您的国际化策略至关重要。**Intlayer通过结合区域内容声明与紧密集成的无头CMS提供了一个引人注目的解决方案，提供了两者的最佳组合。**
 
-### 按技术查看国际化库和工具列表
+### 按技术选择 i18n 库
 
-如果您希望查看按技术划分的国际化库和工具列表，请查看以下资源：
+如果你正在为自己的技术栈寻找合适的 i18n 库，请参阅以下指南：
 
-### 内容管理系统 (CMS)
-
-- WordPress: [查看国际化库和工具列表](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/list_i18n_technologies/CMS/wordpress.md)
-- Drupal: [查看国际化库和工具列表](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/list_i18n_technologies/CMS/drupal.md)
-
-### JavaScript 应用程序 (前端)
-
-- React: [查看国际化库和工具列表](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/list_i18n_technologies/frameworks/react.md)
-- Angular: [查看国际化库和工具列表](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/list_i18n_technologies/frameworks/angular.md)
-- Vue: [查看国际化库和工具列表](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/list_i18n_technologies/frameworks/vue.md)
-- Svelte: [查看国际化库和工具列表](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/list_i18n_technologies/frameworks/svelte.md)
-- React Native: [查看国际化库和工具列表](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/list_i18n_technologies/frameworks/react-native.md)
+- React: [如何选择 React i18n 库](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/how_to_pick_react_i18n_library.md)
+- Vue: [如何选择 Vue i18n 库](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/how_to_pick_vue_i18n_library.md)
+- Svelte: [如何选择 Svelte i18n 库](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/how_to_pick_svelte_i18n_library.md)
+- Solid: [如何选择 Solid i18n 库](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/how_to_pick_solid_i18n_library.md)
+- Next.js: [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/next-i18next_vs_next-intl_vs_intlayer.md)
 
 ## 结论
+
+**i18n 的含义** 是任何旨在产生全球影响的现代数字业务的基础概念。i18n 绝不仅仅是一个关于 \"国际化\" 的独特技术缩写，它代表了无缝地使你的软件适应多种语言、文化和地区标准所需的技术架构。
 
 国际化 (i18n) 不仅仅是一个技术任务；它是一个**战略投资**，使您的软件能够“说”用户的语言, 字面上。通过抽象掉特定于区域的元素，适应语言和文化的变化，并为未来的扩展做好规划，您能够让您的产品在全球市场中蓬勃发展。
 

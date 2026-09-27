@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-22
+updatedAt: 2026-09-26
 priority: 8
 title: "i18next vs @intlayer/i18next：相同的 API，截然不同的 Bundle"
 description: 当 React 或 Next.js 应用保持其 i18next、react-i18next 和 next-i18next 调用不变，但改由 @intlayer/i18next 适配器提供服务时会发生什么变化。基于同一套代码测量的每页 JavaScript 体积、组件大小、文本泄漏与水合性能，以及适配器保留、忽略和无法替代的功能。
@@ -114,7 +114,7 @@ const About = () => {
 
 选择您关注的指标和库：
 
-<I18nBenchmark framework="nextjs" vertical/>
+<I18nBenchmark framework="nextjs" packages="next-i18next,@intlayer/next-i18next,next-intlayer" vertical/>
 
 | 方案                         | 加载策略       | Lib 体积 (gz) | 每页 JS 均值 (gz) | 语言泄漏率 | 跨页泄漏率 | 组件均值 (gz) | E2E 响应耗时 |    水合耗时 |
 | ---------------------------- | -------------- | ------------: | ----------------: | ---------: | ---------: | ------------: | -----------: | ----------: |
@@ -144,6 +144,25 @@ style="border:none;"
 />
 
 > 完整表格、各个库及每种策略，请参阅 [Next.js 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md)。
+
+### TanStack Start 上的结果 (`react-i18next`)
+
+在 Vite 和 TanStack Start 上，基准测试对比的是原生 `react-i18next` 与 `intlayer`：
+
+| 库                 | 加载策略 | Lib 体积 (gz) | 每页 JS 均值 (gz) | 语言泄漏率 | 跨页泄漏率 | 组件均值 (gz) | E2E 响应耗时 | 水合耗时 |
+| ------------------ | -------- | ------------: | ----------------: | ---------: | ---------: | ------------: | -----------: | -------: |
+| **base** (无 i18n) | -        |        0.0 KB |          111.0 KB |       0.0% |       0.0% |        0.7 KB |       8.1 ms |  21.6 ms |
+| `react-i18next`    | dynamic  |       18.4 KB |          136.4 KB |      23.1% |      89.8% |       24.8 KB |     123.1 ms |  32.9 ms |
+| **`intlayer`**     | dynamic  |    **5.0 KB** |      **118.6 KB** |   **0.0%** |   **0.0%** |    **6.3 KB** |   **3.6 ms** |  14.1 ms |
+
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> 完整表格请参阅 [TanStack Start 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md)。
 
 > 本次评测暂未包含 Vite / TanStack Start 上的 `react-i18next` 适配器。有关 TanStack Start 的基准表现可参考 [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18next_vs_intlayer.md)：每页 127-184 KB，后端异步加载下的语言切换延迟约为 123-185 ms。
 
@@ -346,6 +365,25 @@ export default defineConfig({
 
 </Accordion>
 </AccordionGroup>
+
+## 功能对比
+
+除了体积之外，各方案还能提供什么：
+
+| 功能                                               | `i18next` / `react-i18next` / `next-i18next` | `@intlayer/*` 适配器             | 原生 Intlayer                 |
+| -------------------------------------------------- | -------------------------------------------- | -------------------------------- | ----------------------------- |
+| **现有的 `t()`、`useTranslation`、`<Trans>` 调用** | ✅                                           | ✅ 保持不变                      | ❌ 迁移至 `useIntlayer`       |
+| **运行时体积 (gzip, Next.js)**                     | 19.7 KB                                      | 9.4 KB                           | 5.5 KB                        |
+| **无需手动拆分 namespace 的跨页泄漏**              | ~90%                                         | 0%                               | 0%                            |
+| **类型化键**                                       | ⚠️ 需手动声明                                | ✅ 来自编译后的字典              | ✅ 自动生成                   |
+| **运行时 backend 与插件**                          | ✅ 完整的插件生态                            | ❌ 不生效                        | ❌ 不适用，使用 CMS           |
+| **内容与组件共置**                                 | ❌ 集中式 JSON                               | ⚠️ JSON，可与 `.content.ts` 共存 | ✅ 每个组件旁的 `.content.ts` |
+| **CI 中检测缺失翻译**                              | ⚠️ 无内置支持                                | ✅ `npx intlayer test`           | ✅ `npx intlayer test`        |
+| **AI 翻译**                                        | ❌ 无                                        | ✅ `npx intlayer fill`           | ✅ `npx intlayer fill`        |
+| **可视化编辑器 / CMS**                             | ❌ 借助外部平台                              | ✅ 基于同一份 JSON               | ✅ 支持                       |
+| **生态 / 社区**                                    | ✅ 非常庞大                                  | ⚠️ 较小，但增长迅速              | ⚠️ 较小，但增长迅速           |
+
+> 运行时体积数据来自上文所述的 Next.js 测试。
 
 ## 选型决策指南
 

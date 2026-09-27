@@ -92,7 +92,7 @@ Next.js 16 App Router, même application :
 | `paraglide-next` | 155.3 KB         | +14.3 KB             |
 | `next-intlayer`  | **141.3 KB**     | **+0.3 KB**          |
 
-<I18nBenchmark framework="tanstack" vertical/>
+<I18nBenchmark framework="tanstack" packages="paraglide,intlayer" vertical/>
 
 > Données complètes dans le [rapport de benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/benchmark/tanstack.md) et le [rapport de benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/benchmark/nextjs.md). Chaque bundle peut être inspecté dans le [dépôt du benchmark](https://github.com/intlayer-org/benchmark-i18n).
 
@@ -208,6 +208,10 @@ Le tree shaking dépend fortement de votre bundler (Turbopack, Rolldown, Rollup)
 Il s'agit d'une limite structurelle. Paraglide ne permet pas de charger une seule locale à la fois : chaque fonction de message importe statiquement l'implémentation de chaque langue, de sorte que toutes les langues finissent dans votre bundle client.
 
 Avec 2 langues, cela représente la moitié de votre payload de traduction gaspillée, ce qui correspond aux ~50% de fuite de locale mesurés plus haut. Avec 10 langues, c'est 90% de gaspillage. Avec 30 langues, 97%.
+
+Le graphique ci-dessous estime le payload d'une application théorique de 1 à 10 pages en 1 à 10 langues, avec environ 30 Ko de texte par page. Découper le contenu par route supprime un axe, le charger dynamiquement par langue supprime l'autre, et seule la combinaison des deux garde le payload constant. Paraglide couvre au mieux le premier axe, jamais le second.
+
+![Fuite de contenu théorique selon l'architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 Passer à un chargement dynamique ne résoudrait rien : avec une fonction par message, charger chaque fonction à la demande impliquerait des milliers de requêtes réseau.
 

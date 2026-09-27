@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-01-02
-updatedAt: 2026-09-16
+updatedAt: 2026-09-26
 priority: 9
 title: react-i18next против react-intl против Intlayer
 description: Интеграция react-i18next с next-intl и Intlayer для интернационализации (i18n) React-приложения
@@ -33,6 +33,8 @@ author: aymericzip
 - Производительность и поведение при загрузке
 - Опыт разработчика (DX), инструменты и сопровождение
 - SEO/маршрутизация (зависит от фреймворка)
+
+<TOC/>
 
 > **Кратко**: Все три решения могут локализовать React-приложение. Если вам нужен **контент, ограниченный компонентом**, **строгая типизация TypeScript**, **проверка отсутствующих ключей во время сборки**, **деревья сжатых словарей** и встроенные редакторские инструменты (Визуальный редактор/CMS + опциональный AI-перевод), то **Intlayer** - самый полный выбор для модульных React-кодовых баз.
 
@@ -109,6 +111,27 @@ author: aymericzip
 
 ![Теоретическая утечка контента по архитектуре](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
+#### Результаты бенчмарка на React (TanStack Start / Vite)
+
+Данные из [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom), измеряющие стандартные реализации React на TanStack Start:
+
+<I18nBenchmark framework="tanstack" vertical/>
+
+| Library            | Strategy | Lib size (gz) | Page JS avg (gz) | Locale leak | Page leak | Component avg (gz) | E2E reactivity | Hydration |
+| ------------------ | -------- | ------------: | ---------------: | ----------: | --------: | -----------------: | -------------: | --------: |
+| **base** (no i18n) | -        |        0.0 KB |         111.0 KB |        0.0% |      0.0% |             0.7 KB |         8.1 ms |   21.6 ms |
+| `react-i18next`    | dynamic  |       18.4 KB |         136.4 KB |       23.1% |     89.8% |            24.8 KB |       123.1 ms |   32.9 ms |
+| **`intlayer`**     | dynamic  |    **5.0 KB** |     **118.6 KB** |    **0.0%** |  **0.0%** |         **6.3 KB** |     **3.6 ms** |   14.1 ms |
+
+<ClickToOpenIframe
+  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md"
+  width="100%"
+  height="600px"
+  style="border:none;"
+/>
+
+> Полная таблица в [отчёте бенчмарка TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/tanstack.md) и в [обзоре i18n-бенчмарков](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/index.md).
+
 ### 6) DX, инструменты и сопровождение
 
 - **react-intl / react-i18next**: Широкая экосистема сообщества; для редакционных рабочих процессов обычно используют внешние платформы локализации.
@@ -128,12 +151,18 @@ author: aymericzip
 
 Используя `intlayer`, вы можете объявлять свой контент в формате вашей любимой библиотеки i18n, и intlayer будет генерировать ваши пространства имен в выбранном вами месте (пример: `/messages/{{locale}}/{{namespace}}.json`).
 
-## Практические заметки по миграции (react-intl / react-i18next → Intlayer)
+## Дополнительные материалы и бенчмарки
 
-- **Мигрируйте постепенно**: начните с одной функции или маршрута; в период перехода сохраняйте старые каталоги параллельно.
-- **Используйте словари на уровне компонентов**: размещайте контент рядом с компонентами, чтобы уменьшить связанность.
-- **Включите строгие проверки**: позволяйте ошибкам на этапе сборки выявлять отсутствующие ключи/локали на ранних этапах CI.
-- **Измеряйте размер бандлов**: ожидайте уменьшения размера по мере удаления неиспользуемых строк.
+- Отчёты бенчмарков: [Обзор i18n-бенчмарков](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/index.md), [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/tanstack.md), [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/nextjs.md), [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/vue.md), [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/solid.md) и [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/svelte.md)
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/i18next_vs_intlayer-i18next.md)
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/next-intl_vs_intlayer.md)
+- [Оптимизация бандла](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/bundle_optimization.md) и [компилятор Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compiler.md)
+
+## Звёзды GitHub
+
+Звёзды на GitHub являются сильным индикатором популярности проекта, доверия сообщества и его долгосрочной актуальности. Хотя они не являются прямой мерой технического качества, они отражают, сколько разработчиков считают проект полезным, следят за его развитием и, вероятно, будут его использовать. Для оценки ценности проекта звёзды помогают сравнивать популярность среди альтернатив и дают представление о росте экосистемы.
+
+[![График истории звёзд](https://api.star-history.com/chart?repos=formatjs/formatjs%2Ci18next/react-i18next%2Caymericzip/intlayer&type=date&legend=top-left)](https://star-history.com/#formatjs/formatjs&i18next/react-i18next&aymericzip/intlayer)
 
 ## Заключение
 
@@ -141,3 +170,5 @@ author: aymericzip
 
 - С **Intlayer** **модульный контент**, **строгая типизация TS**, **безопасность на этапе сборки**, **tree-shaking бандлов** и **редакционные инструменты** являются стандартом, а не рутиной.
 - Если ваша команда ценит **поддерживаемость и скорость** в многоязычных, компонентно-ориентированных React-приложениях, Intlayer предлагает сегодня **самый полный** рабочий процесс для разработчиков и контента.
+
+Подробнее см. в документе [«Почему Intlayer?»](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/interest_of_intlayer.md).

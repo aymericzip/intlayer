@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-22
+updatedAt: 2026-09-26
 priority: 8
 title: "i18next vs @intlayer/i18next: API yang Sama, Bundle Berbeda"
 description: "Apa yang berubah ketika aplikasi React atau Next.js tetap menggunakan panggilan i18next, react-i18next, dan next-i18next tetapi menyajikannya melalui adapter @intlayer/i18next. JavaScript per halaman, ukuran komponen, kebocoran, dan hidrasi diukur pada kode yang sama, serta apa yang dipertahankan, diabaikan, dan tidak dapat digantikan oleh adapter."
@@ -114,7 +114,7 @@ Untuk setiap build, suite mencatat:
 
 Pilih metrik dan pustaka yang Anda minati:
 
-<I18nBenchmark framework="nextjs" vertical/>
+<I18nBenchmark framework="nextjs" packages="next-i18next,@intlayer/next-i18next,next-intlayer" vertical/>
 
 | Setup                        | Strategi       | Lib size (gz) | Page JS avg (gz) | Locale leak | Page leak | Component avg (gz) | E2E reactivity |   Hydration |
 | ---------------------------- | -------------- | ------------: | ---------------: | ----------: | --------: | -----------------: | -------------: | ----------: |
@@ -144,6 +144,25 @@ style="border:none;"
 />
 
 > Tabel lengkap, setiap pustaka dan strategi, dalam [laporan benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/nextjs.md).
+
+### Hasil di TanStack Start (`react-i18next`)
+
+Untuk Vite dan TanStack Start, benchmark membandingkan `react-i18next` murni dengan `intlayer`:
+
+| Library               | Strategi | Lib size (gz) | Page JS avg (gz) | Locale leak | Page leak | Component avg (gz) | E2E reactivity | Hydration |
+| --------------------- | -------- | ------------: | ---------------: | ----------: | --------: | -----------------: | -------------: | --------: |
+| **base** (tanpa i18n) | -        |        0.0 KB |         111.0 KB |        0.0% |      0.0% |             0.7 KB |         8.1 ms |   21.6 ms |
+| `react-i18next`       | dynamic  |       18.4 KB |         136.4 KB |       23.1% |     89.8% |            24.8 KB |       123.1 ms |   32.9 ms |
+| **`intlayer`**        | dynamic  |    **5.0 KB** |     **118.6 KB** |    **0.0%** |  **0.0%** |         **6.3 KB** |     **3.6 ms** |   14.1 ms |
+
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> Tabel lengkap dalam [laporan benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/tanstack.md).
 
 > Adapter `react-i18next` pada Vite / TanStack Start tidak diikutsertakan dalam pengujian ini. Data dasar `react-i18next` pada TanStack Start ada di [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18next_vs_intlayer.md): 127-184 KB per halaman dan pergantian locale 123-185 ms saat backend dimuat secara malas.
 
@@ -346,6 +365,25 @@ Hanya satu berkas, ditunjukkan di atas. Pages Router dengan `appWithTranslation`
 
 </Accordion>
 </AccordionGroup>
+
+## Perbandingan fitur
+
+Di luar ukuran byte, inilah yang diberikan setiap opsi:
+
+| Fitur                                                 | `i18next` / `react-i18next` / `next-i18next` | Adapter `@intlayer/*`                     | Intlayer native                             |
+| ----------------------------------------------------- | -------------------------------------------- | ----------------------------------------- | ------------------------------------------- |
+| **Panggilan `t()`, `useTranslation`, `<Trans>` Anda** | ✅                                           | ✅ Tidak berubah                          | ❌ Dipindahkan ke `useIntlayer`             |
+| **Ukuran runtime (gzip, Next.js)**                    | 19.7 KB                                      | 9.4 KB                                    | 5.5 KB                                      |
+| **Kebocoran halaman lain tanpa namespace manual**     | ~90%                                         | 0%                                        | 0%                                          |
+| **Key bertipe**                                       | ⚠️ Deklarasi manual                          | ✅ Dari kamus yang dikompilasi            | ✅ Dibuat otomatis                          |
+| **Backend dan plugin runtime**                        | ✅ Ekosistem plugin lengkap                  | ❌ Tidak aktif                            | ❌ Tidak berlaku, gunakan CMS               |
+| **Konten berdampingan dengan komponen**               | ❌ JSON terpusat                             | ⚠️ JSON, `.content.ts` dapat berdampingan | ✅ `.content.ts` di samping setiap komponen |
+| **Terjemahan yang hilang di CI**                      | ⚠️ Tidak bawaan                              | ✅ `npx intlayer test`                    | ✅ `npx intlayer test`                      |
+| **Terjemahan AI**                                     | ❌ Tidak                                     | ✅ `npx intlayer fill`                    | ✅ `npx intlayer fill`                      |
+| **Editor visual / CMS**                               | ❌ Melalui platform eksternal                | ✅ Pada JSON yang sama                    | ✅ Ya                                       |
+| **Ekosistem / komunitas**                             | ✅ Sangat besar                              | ⚠️ Lebih kecil, tumbuh cepat              | ⚠️ Lebih kecil, tumbuh cepat                |
+
+> Ukuran runtime berasal dari pengujian Next.js yang dijelaskan di atas.
 
 ## Kapan menggunakan yang mana?
 

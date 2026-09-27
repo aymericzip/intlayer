@@ -92,7 +92,7 @@ Next.js 16 App Router, 동일 애플리케이션:
 | `paraglide-next`   | 155.3 KB            | +14.3 KB    |
 | `next-intlayer`    | **141.3 KB**        | **+0.3 KB** |
 
-<I18nBenchmark framework="tanstack" vertical/>
+<I18nBenchmark framework="tanstack" packages="paraglide,intlayer" vertical/>
 
 > 전체 데이터는 [TanStack Start 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/tanstack.md)와 [Next.js 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/nextjs.md)에서 확인할 수 있습니다. 모든 번들은 [벤치마크 저장소](https://github.com/intlayer-org/benchmark-i18n)에서 직접 분석할 수 있습니다.
 
@@ -208,6 +208,10 @@ Tree Shaking은 번들러(Turbopack, Rolldown, Rollup), 메시지 import 방식(
 이것은 구조적인 한계입니다. Paraglide에는 한 번에 하나의 로케일만 로드할 수 있는 메커니즘이 없습니다. 모든 메시지 함수가 각 언어의 구현을 정적으로 가져오므로 모든 언어가 클라이언트 번들에 고스란히 포함됩니다.
 
 2개 언어를 지원할 경우 번역 데이터의 절반이 낭비되며, 이는 위에서 측정한 ~50%의 로케일 누수와 정확히 일치합니다. 10개 언어의 경우 90%, 30개 언어의 경우 97%가 낭비됩니다.
+
+아래 그래프는 페이지당 약 30 KB의 텍스트를 가진 1~10개 페이지, 1~10개 언어로 구성된 이론적인 앱의 페이로드를 추정한 것입니다. 라우트별 콘텐츠 분할은 한 축을, 로케일별 동적 로딩은 다른 축을 제거하며, 두 가지를 결합해야만 페이로드가 일정하게 유지됩니다. Paraglide는 기껏해야 첫 번째 축만 해결할 뿐, 두 번째 축은 절대 해결하지 못합니다.
+
+![아키텍처별 이론상의 콘텐츠 누수](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 이를 동적 로딩으로 바꾼다고 해결되지는 않습니다. 메시지마다 별도의 함수가 존재하므로, 각 함수를 지연 로딩하면 수천 번의 네트워크 요청이 발생하게 됩니다.
 

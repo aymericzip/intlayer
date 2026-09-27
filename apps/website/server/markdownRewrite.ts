@@ -92,7 +92,9 @@ const getQualityValue = (acceptEntry: string): number => {
 export const prefersMarkdown = (
   acceptHeader: string | null | undefined
 ): boolean => {
-  if (!acceptHeader) return false;
+  // Runs on every request: skip parsing the browser `Accept` header, which
+  // never names markdown.
+  if (!acceptHeader?.toLowerCase().includes(MARKDOWN_MEDIA_TYPE)) return false;
 
   let markdownQuality = 0;
   let htmlQuality = 0;

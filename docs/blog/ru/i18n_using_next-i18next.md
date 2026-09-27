@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-11-01
-updatedAt: 2026-05-31
+updatedAt: 2026-09-26
 priority: 9
-title: Как интернационализировать ваше приложение Next.js с помощью next-i18next - Полное руководство по переводу Translate Next.js 16 with next-i18next — App Router Setup
-description: Лучшее решение для размера бандла, SEO, производительности & поддерживаемости. Сделайте Next.js 16 сайт многоязычным в 2026, перевод LLM, Agent Skills & MCP.
+title: "i18n в Next.js 16 с next-i18next: руководство по настройке App Router"
+description: "Пошаговая настройка next-i18next и i18next в приложении Next.js 16 с App Router: пространства имён, маршрутизация по локалям, серверные и клиентские компоненты и SEO-метаданные."
 keywords:
   - next-i18next
   - i18next
@@ -44,6 +44,62 @@ author: aymericzip
 > В качестве альтернативы вы также можете ознакомиться с [руководством next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/i18n_using_next-intl.md) или использовать напрямую [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_nextjs_16.md).
 
 > Сравнение смотрите в [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/next-i18next_vs_next-intl_vs_intlayer.md).
+
+## Что показывает бенчмарк о next-i18next в Next.js
+
+Прежде чем переходить к настройке, важно понять, как ваша i18n-библиотека влияет на производительность и bundle. [i18n-бенчмарк](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/nextjs.md) запускает одно и то же Next.js-приложение на 10 страниц и 10 локалей с основными i18n-библиотеками, чтобы измерить реальный размер bundle, утечку строк и накладные расходы на гидратацию.
+
+<I18nBenchmark framework="nextjs" packages="next-i18next,@intlayer/next-i18next,next-intlayer" vertical/>
+
+<ClickToOpenIframe
+  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+  width="100%"
+  height="600px"
+  style="border:none;"
+/>
+
+Ключевые показатели `next-i18next` в Next.js (gzip):
+
+| Конфигурация                        | Размер библиотеки | Средний JS страницы | Утечка других локалей | Утечка других страниц |
+| :---------------------------------- | ----------------: | ------------------: | --------------------: | --------------------: |
+| База (без i18n)                     |                 - |            141.0 KB |                  0.0% |                  0.0% |
+| `next-i18next`                      |           19.7 KB |            169.5 KB |                 50.0% |                 89.8% |
+| `@intlayer/next-i18next` (compat)   |            9.4 KB |            150.7 KB |                  0.0% |                  0.0% |
+| `next-intlayer` (нативный Intlayer) |            5.5 KB |            141.3 KB |                  0.0% |                  0.0% |
+
+Что важно запомнить:
+
+- **Разделение на namespaces обязательно:** в простой конфигурации `next-i18next` отправляет все namespaces на каждую страницу (~89.8% утечки между страницами). Разделение namespaces по маршрутам и их lazy loading уменьшают JS страницы, но требуют аккуратной ручной организации.
+- **Вес runtime:** клиентский runtime `i18next` весит ~19.7 KB gzip на каждой странице. Для существующих codebase адаптер совместимости [`@intlayer/next-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/next-i18next.md) сохраняет тот же API `i18next`, уменьшая runtime до 9.4 KB и устраняя утечки. Нативный [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/next-intlayer/exports.md) опускается до 5.5 KB.
+
+> Полные данные: [отчёт бенчмарка Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/nextjs.md) и [репозиторий бенчмарка](https://github.com/intlayer-org/benchmark-i18n).
+
+## Сравнение возможностей в Next.js
+
+Как `next-i18next` выглядит по сравнению с `next-intl` и Intlayer по возможностям, которые обычно нужны проекту на Next.js App Router:
+
+| Возможность                              | `next-intlayer` (Intlayer)                                       | `next-intl`                                                        | `next-i18next`                                    |
+| ---------------------------------------- | ---------------------------------------------------------------- | ------------------------------------------------------------------ | ------------------------------------------------- |
+| **Переводы рядом с компонентами**        | ✅ Контент рядом с каждым компонентом                            | ❌ Централизованный JSON                                           | ❌ Централизованный JSON                          |
+| **Интеграция с TypeScript**              | ✅ Автоматически генерируемые строгие типы                       | ✅ Хорошая, через augmentation `AppConfig`                         | ⚠️ Базовая                                        |
+| **Обнаружение отсутствующих переводов**  | ✅ Ошибки TypeScript и предупреждения при сборке                 | ⚠️ Fallback во время выполнения                                    | ⚠️ Fallback во время выполнения                   |
+| **Rich-контент (JSX, Markdown)**         | ✅ Прямая поддержка                                              | ⚠️ Теги через `t.rich`, без Markdown                               | ⚠️ Теги через `<Trans>`                           |
+| **Перевод с помощью ИИ**                 | ✅ Ваш собственный провайдер и API-ключ, с контекстом приложения | ❌ Нет                                                             | ❌ Нет                                            |
+| **Визуальный редактор / CMS**            | ✅ Локальный визуальный редактор + опциональная CMS              | ❌ Через внешние платформы                                         | ❌ Через внешние платформы                        |
+| **Локализованная маршрутизация**         | ✅ Встроенная (Next.js и Vite)                                   | ✅ Встроенный сегмент `[locale]`                                   | ✅ Встроенная                                     |
+| **Плюрализация**                         | ✅ На основе перечислений                                        | ✅ ICU                                                             | ✅ На основе суффиксов (`_one`, `_other`)         |
+| **Форматирование (даты, числа, валюты)** | ✅ Форматтеры на основе `Intl`                                   | ✅ `useFormatter`                                                  | ✅ На основе `Intl`                               |
+| **Форматы контента**                     | ✅ `.ts`, `.tsx`, `.js`, `.json`, `.md`, `.yaml`                 | ✅ `.json`, `.js`, `.ts`                                           | ⚠️ `.json`                                        |
+| **ICU MessageFormat**                    | ✅ Через `format: "icu"`                                         | ✅ Нативно                                                         | ⚠️ Через `i18next-icu`                            |
+| **SEO-хелперы (hreflang, sitemap)**      | ✅ Хелперы для metadata, sitemap и robots.txt                    | ✅ Хорошо                                                          | ✅ Хорошо                                         |
+| **Server Components**                    | ✅ Прямой доступ в любом Server Component                        | ⚠️ Передавать `t` или `await getTranslations()` в каждый компонент | ⚠️ Передавать `t` вниз по дереву компонентов      |
+| **Tree-shaking по компонентам**          | ✅ На этапе сборки (Babel / SWC)                                 | ⚠️ Вручную, через `pick()` для каждого маршрута                    | ⚠️ Вручную, через namespaces для каждого маршрута |
+| **Lazy loading**                         | ✅ По локали и по словарю                                        | ✅ По локали, namespaces управляются вручную                       | ✅ По локали, namespaces управляются вручную      |
+| **Размер runtime (gzip, бенчмарк)**      | 4.9 KB                                                           | 14.7 KB                                                            | 19.7 KB                                           |
+| **Отсутствующие переводы в CI**          | ✅ `npx intlayer test`                                           | ⚠️ Не встроено                                                     | ⚠️ Не встроено, `saveMissing` во время выполнения |
+| **Экосистема / сообщество**              | ⚠️ Меньше, но быстро растёт                                      | ✅ Большая                                                         | ✅ Очень большая                                  |
+
+> Размеры runtime взяты из [бенчмарка Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/nextjs.md). Подробное обсуждение читайте в статье [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/next-i18next_vs_next-intl_vs_intlayer.md).
 
 ## Практики, которые следует соблюдать
 
@@ -1118,11 +1174,6 @@ Intlayer позволяет вам:
   Intlayer предоставляет CLI и расширение для VSCode для автоматизации ваших переводов. Это можно интегрировать в ваш CI/CD pipeline. Узнайте больше о [автоматизации ваших переводов](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/index.md).
   Вы можете использовать **свой собственный API-ключ и выбранного вами AI-провайдера**. Также поддерживаются контекстно-зависимые переводы, см. [заполнение контента](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/autoFill.md).
 
-- **Подключение внешнего контента**
-- **Автоматизация переводов**  
-  Intlayer предоставляет CLI и расширение для VSCode для автоматизации ваших переводов. Это можно интегрировать в ваш CI/CD pipeline. Узнайте больше о [автоматизации переводов](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/index.md).  
-  Вы можете использовать **собственный API ключ и выбранного вами AI провайдера**. Также поддерживаются контекстно-зависимые переводы, смотрите [заполнение контента](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/autoFill.md).
-
 - **Подключение внешнего контента**  
   Intlayer позволяет подключать ваш контент к внешней системе управления контентом (CMS). Для оптимального получения данных и вставки их в ваши JSON ресурсы. Узнайте больше о [получении внешнего контента](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/function_fetching.md).
 
@@ -1131,6 +1182,21 @@ Intlayer позволяет вам:
 
 И многое другое. Чтобы узнать обо всех возможностях Intlayer, пожалуйста, обратитесь к [документации по интересу Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/interest_of_intlayer.md).
 
+Подробные бенчмарки производительности и сравнения смотрите здесь:
+
+- [Отчёт бенчмарка Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/nextjs.md)
+- [Набор i18n-бенчмарков](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/index.md)
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/i18next_vs_intlayer-i18next.md)
+- [Адаптер совместимости @intlayer/next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/next-i18next.md)
+
 </Step>
 
 </Steps>
+
+<Sponsor>
+
+Как только у вас есть namespaces вроде common.json и about.json, типизированные через module augmentation i18next, вы по сути определили схему контента. Следующий вопрос: где эта схема хранится и кто её редактирует. Sanity относится к ней как к полноценной сущности: вы моделируете поля, ссылки и валидацию в коде, а редакторы работают с той же моделью в Sanity Studio вместо ручного редактирования JSON для каждой локали.
+
+Контент хранится в Content Lake в виде структурированного JSON, доступен для запросов через GROQ и отдаётся через API, причём локаль является полем, а не папкой. В конфигурации Next.js App Router можно получить namespace на сервере, передать его в ваш i18n-провайдер именно так, как ожидает этот паттерн, и использовать один и тот же источник для приложений, писем и агентов. По мере роста числа локалей и каналов схема остаётся контрактом; слой доставки остаётся i18next.
+
+</Sponsor>

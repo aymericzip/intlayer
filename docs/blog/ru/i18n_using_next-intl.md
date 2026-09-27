@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-11-01
-updatedAt: 2026-05-31
+updatedAt: 2026-09-26
 priority: 9
-title: Как интернационализировать ваше приложение Next.js с помощью next-intl - Полное руководство по переводу Translate Next.js 16 with next-intl — App Router Setup
-description: Лучшее решение для размера бандла, SEO, производительности & поддерживаемости. Сделайте Next.js 16 сайт многоязычным в 2026, перевод LLM, Agent Skills & MCP.
+title: "i18n в Next.js 16 с next-intl: руководство по настройке App Router"
+description: "Пошаговая настройка next-intl в приложении Next.js 16 с App Router: маршрутизация по локалям, загрузка сообщений для каждой страницы, серверные и клиентские компоненты и SEO-метаданные."
 keywords:
   - next-intl
   - Internationalization
@@ -36,6 +36,62 @@ author: aymericzip
 
 > Сравнение доступно в статье [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/next-i18next_vs_next-intl_vs_intlayer.md).
 
+## Что показывает бенчмарк о next-intl в Next.js
+
+Прежде чем внедрять переводы, важно понимать профиль производительности `next-intl`. [Бенчмарк i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/nextjs.md) проверяет одно и то же Next.js-приложение на 10 страниц и 10 локалей в разных конфигурациях и с разными библиотеками, чтобы измерить реальный размер bundle, утечку строк и накладные расходы на гидратацию.
+
+<I18nBenchmark framework="nextjs" packages="next-intl,@intlayer/next-intl,next-intlayer" vertical/>
+
+<ClickToOpenIframe
+  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+  width="100%"
+  height="600px"
+  style="border:none;"
+/>
+
+Ключевые показатели `next-intl` в Next.js (gzip):
+
+| Конфигурация                        | Размер библиотеки | Средний JS страницы | Утечка других локалей | Утечка других страниц |
+| :---------------------------------- | ----------------: | ------------------: | --------------------: | --------------------: |
+| База (без i18n)                     |                 - |            141.0 KB |                  0.0% |                  0.0% |
+| `next-intl`                         |           14.7 KB |            153.6 KB |                  4.2% |                 89.8% |
+| `@intlayer/next-intl` (compat)      |            8.0 KB |            148.7 KB |                  0.0% |                  0.0% |
+| `next-intlayer` (нативный Intlayer) |            5.5 KB |            141.3 KB |                  0.0% |                  0.0% |
+
+Главные выводы:
+
+- **Избегайте глобальных каталогов сообщений:** в стандартных конфигурациях, где все сообщения загружаются в корневых layout, ~89.8% переведённого контента, отправляемого в браузер, относится к другим страницам. `pick(messages, ['namespace'])` на каждом маршруте устраняет эту утечку, но требует ручной поддержки.
+- **Вес runtime:** runtime `next-intl` добавляет ~14.7 KB gzip к каждой странице. Для существующих приложений на `next-intl` compat-адаптер [`@intlayer/next-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/next-intl.md) сохраняет те же хуки (`useTranslations`, `useFormatter` и т.д.), снижая размер runtime до ~8.0 KB при 0% утечки. Нативный [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/next-intlayer/exports.md) уменьшает размер ещё сильнее, до 5.5 KB.
+
+> Полные данные: [отчёт бенчмарка Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/nextjs.md) и [репозиторий бенчмарка](https://github.com/intlayer-org/benchmark-i18n).
+
+## Сравнение возможностей в Next.js
+
+Как `next-intl` выглядит на фоне `next-i18next` и Intlayer по возможностям, которые обычно нужны проекту на Next.js App Router:
+
+| Возможность                              | `next-intlayer` (Intlayer)                            | `next-intl`                                                         | `next-i18next`                                    |
+| ---------------------------------------- | ----------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------- |
+| **Переводы рядом с компонентами**        | ✅ Контент рядом с каждым компонентом                 | ❌ Централизованный JSON                                            | ❌ Централизованный JSON                          |
+| **Интеграция с TypeScript**              | ✅ Автоматически генерируемые строгие типы            | ✅ Хорошая, через расширение `AppConfig`                            | ⚠️ Базовая                                        |
+| **Обнаружение отсутствующих переводов**  | ✅ Ошибки TypeScript и предупреждения при сборке      | ⚠️ Fallback во время выполнения                                     | ⚠️ Fallback во время выполнения                   |
+| **Rich-контент (JSX, Markdown)**         | ✅ Прямая поддержка                                   | ⚠️ Теги через `t.rich`, без Markdown                                | ⚠️ Теги через `<Trans>`                           |
+| **Перевод с помощью ИИ**                 | ✅ Свой провайдер и API-ключ, с контекстом приложения | ❌ Нет                                                              | ❌ Нет                                            |
+| **Визуальный редактор / CMS**            | ✅ Локальный визуальный редактор + опциональная CMS   | ❌ Через внешние платформы                                          | ❌ Через внешние платформы                        |
+| **Локализованная маршрутизация**         | ✅ Встроенная (Next.js и Vite)                        | ✅ Встроенный сегмент `[locale]`                                    | ✅ Встроенная                                     |
+| **Плюрализация**                         | ✅ На основе перечислений                             | ✅ ICU                                                              | ✅ На основе суффиксов (`_one`, `_other`)         |
+| **Форматирование (даты, числа, валюты)** | ✅ Форматтеры на основе `Intl`                        | ✅ `useFormatter`                                                   | ✅ На основе `Intl`                               |
+| **Форматы контента**                     | ✅ `.ts`, `.tsx`, `.js`, `.json`, `.md`, `.yaml`      | ✅ `.json`, `.js`, `.ts`                                            | ⚠️ `.json`                                        |
+| **ICU MessageFormat**                    | ✅ Через `format: "icu"`                              | ✅ Нативно                                                          | ⚠️ Через `i18next-icu`                            |
+| **SEO-хелперы (hreflang, sitemap)**      | ✅ Хелперы для метаданных, sitemap и robots.txt       | ✅ Хорошо                                                           | ✅ Хорошо                                         |
+| **Server Components**                    | ✅ Прямой доступ в любом Server Component             | ⚠️ Передавать `t` или `await getTranslations()` в каждом компоненте | ⚠️ Передавать `t` вниз по дереву компонентов      |
+| **Tree-shaking по компонентам**          | ✅ Во время сборки (Babel / SWC)                      | ⚠️ Вручную, через `pick()` на каждом маршруте                       | ⚠️ Вручную, через namespace на каждом маршруте    |
+| **Ленивая загрузка**                     | ✅ По локали и по словарю                             | ✅ По локали, namespace управляются вручную                         | ✅ По локали, namespace управляются вручную       |
+| **Размер runtime (gzip, бенчмарк)**      | 4.9 KB                                                | 14.7 KB                                                             | 19.7 KB                                           |
+| **Отсутствующие переводы в CI**          | ✅ `npx intlayer test`                                | ⚠️ Не встроено                                                      | ⚠️ Не встроено, `saveMissing` во время выполнения |
+| **Экосистема / сообщество**              | ⚠️ Меньше, быстро растёт                              | ✅ Большое                                                          | ✅ Очень большое                                  |
+
+> Размеры runtime взяты из [бенчмарка Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/nextjs.md). Подробное обсуждение читайте в [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/next-i18next_vs_next-intl_vs_intlayer.md).
+
 ## Практики, которые следует соблюдать
 
 Прежде чем перейти к реализации, вот несколько рекомендаций, которым следует следовать:
@@ -67,11 +123,10 @@ author: aymericzip
 
 <iframe
   src="https://ide.intlayer.org/aymericzip/next-intl-template?file=src/i18n.ts"
-
-className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"  
-title="Демонстрация CodeSandbox - Как интернационализировать ваше приложение с помощью Intlayer"  
-sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"  
-loading="lazy"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Демонстрация CodeSandbox - Как интернационализировать ваше приложение с помощью Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
 />
 
 > См. [Шаблон приложения](https://github.com/aymericzip/next-intl-template) на GitHub.
@@ -797,6 +852,13 @@ Intlayer позволяет вам:
   Intlayer предлагает бесплатный визуальный редактор для редактирования вашего контента с помощью визуального интерфейса. Узнайте больше о [визуальном редактировании ваших переводов](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md).
 
 И многое другое. Чтобы узнать обо всех функциях, предоставляемых Intlayer, пожалуйста, обратитесь к [документации о преимуществах Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/interest_of_intlayer.md).
+
+Подробные бенчмарки производительности и сравнения:
+
+- [Отчёт бенчмарка Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/nextjs.md)
+- [Набор бенчмарков i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/index.md)
+- [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/next-intl_vs_intlayer-next-intl.md)
+- [Compat-адаптер @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/next-intl.md)
 
 </Step>
 

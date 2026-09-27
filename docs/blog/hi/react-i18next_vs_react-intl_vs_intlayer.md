@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-01-02
-updatedAt: 2026-09-16
+updatedAt: 2026-09-26
 priority: 9
 title: react-i18next बनाम react-intl बनाम Intlayer
 description: React ऐप के अंतरराष्ट्रीयकरण (i18n) के लिए react-i18next को next-intl और Intlayer के साथ एकीकृत करें
@@ -33,6 +33,8 @@ author: aymericzip
 - प्रदर्शन और लोडिंग व्यवहार
 - डेवलपर अनुभव (DX), टूलिंग और रखरखाव
 - SEO/रूटिंग (फ्रेमवर्क-निर्भर)
+
+<TOC/>
 
 > **संक्षेप में**: ये तीनों React ऐप को स्थानीयकृत कर सकते हैं। यदि आप चाहते हैं **कंपोनेंट-स्कोप्ड सामग्री**, **सख्त TypeScript प्रकार**, **बिल्ड-टाइम लापता-कुंजी जांच**, **ट्री-शेक्ड शब्दकोश**, और अंतर्निर्मित संपादकीय टूलिंग (विज़ुअल एडिटर/CMS + वैकल्पिक AI अनुवाद), तो **Intlayer** मॉड्यूलर React कोडबेस के लिए सबसे पूर्ण विकल्प है।
 
@@ -109,6 +111,27 @@ author: aymericzip
 
 ![आर्किटेक्चर के अनुसार सैद्धांतिक कंटेंट लीकेज](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
+#### React पर benchmark परिणाम (TanStack Start / Vite)
+
+[Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) के आंकड़े, जो TanStack Start पर standard React implementations को मापते हैं:
+
+<I18nBenchmark framework="tanstack" vertical/>
+
+| Library            | Strategy | Lib size (gz) | Page JS avg (gz) | Locale leak | Page leak | Component avg (gz) | E2E reactivity | Hydration |
+| ------------------ | -------- | ------------: | ---------------: | ----------: | --------: | -----------------: | -------------: | --------: |
+| **base** (no i18n) | -        |        0.0 KB |         111.0 KB |        0.0% |      0.0% |             0.7 KB |         8.1 ms |   21.6 ms |
+| `react-i18next`    | dynamic  |       18.4 KB |         136.4 KB |       23.1% |     89.8% |            24.8 KB |       123.1 ms |   32.9 ms |
+| **`intlayer`**     | dynamic  |    **5.0 KB** |     **118.6 KB** |    **0.0%** |  **0.0%** |         **6.3 KB** |     **3.6 ms** |   14.1 ms |
+
+<ClickToOpenIframe
+  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md"
+  width="100%"
+  height="600px"
+  style="border:none;"
+/>
+
+> पूरी तालिका [TanStack Start benchmark रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/tanstack.md) और [i18n Benchmark अवलोकन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/index.md) में देखें।
+
 ### 6) DX, टूलिंग और रखरखाव
 
 - **react-intl / react-i18next**: व्यापक समुदाय पारिस्थितिकी तंत्र; संपादकीय वर्कफ़्लो के लिए आप आमतौर पर बाहरी स्थानीयकरण प्लेटफ़ॉर्म अपनाते हैं।
@@ -122,12 +145,18 @@ author: aymericzip
 - **react-i18next चुनें** यदि आपको **i18next के व्यापक इकोसिस्टम** (डिटेक्टर, बैकएंड, ICU प्लगइन, एकीकरण) की आवश्यकता है और आप अधिक कॉन्फ़िगरेशन स्वीकार करते हैं ताकि लचीलापन प्राप्त हो सके।
 - **Intlayer चुनें** यदि आप **कंपोनेंट-स्कोप्ड कंटेंट**, **सख्त TypeScript**, **बिल्ड-टाइम गारंटियां**, **ट्री-शेकिंग**, और **बिल्ट-इन** संपादकीय टूलिंग को महत्व देते हैं - खासकर **बड़े, मॉड्यूलर** React ऐप्स के लिए।
 
-## व्यावहारिक माइग्रेशन नोट्स (react-intl / react-i18next → Intlayer)
+## `react-intl` और `react-i18next` के साथ इंटरऑपरेबिलिटी
 
-- **क्रमिक रूप से माइग्रेट करें**: एक फीचर या रूट से शुरू करें; संक्रमण के दौरान लेगेसी कैटलॉग्स को समानांतर रखें।
-- **प्रति-कंपोनेंट शब्दकोश अपनाएं**: कंटेंट को कंपोनेंट्स के साथ सह-स्थित करें ताकि कपलिंग कम हो।
-- **सख्त जांच सक्षम करें**: बिल्ड-टाइम त्रुटियों को CI में जल्दी ही गायब कुंजी/लोकल्स दिखाने दें।
-- **बंडल मापें**: अप्रयुक्त स्ट्रिंग्स हटाए जाने पर कमी की उम्मीद करें।
+`intlayer` आपके `react-intl` और `react-i18next` namespaces को प्रबंधित करने में भी मदद कर सकता है।
+
+`intlayer` का उपयोग करके, आप अपनी पसंदीदा i18n लाइब्रेरी के फ़ॉर्मेट में अपना कंटेंट घोषित कर सकते हैं, और intlayer आपकी पसंद के स्थान पर आपके namespaces जनरेट करेगा (उदाहरण: `/messages/{{locale}}/{{namespace}}.json`)।
+
+## आगे पढ़ें और benchmarks
+
+- Benchmark रिपोर्ट: [i18n Benchmark अवलोकन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/index.md), [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/tanstack.md), [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/nextjs.md), [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/vue.md), [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/solid.md) और [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/svelte.md)
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/i18next_vs_intlayer-i18next.md)
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/next-intl_vs_intlayer.md)
+- [Bundle optimization](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/bundle_optimization.md) और [Intlayer compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md)
 
 ## GitHub STARs
 
@@ -141,3 +170,5 @@ GitHub stars एक प्रोजेक्ट की लोकप्रिय�
 
 - **Intlayer** के साथ, **मॉड्यूलर कंटेंट**, **सख्त TS टाइपिंग**, **बिल्ड-टाइम सुरक्षा**, **ट्री-शेकन बंडल**, और **संपादकीय टूलिंग** डिफ़ॉल्ट होते हैं - न कि बोझ।
 - यदि आपकी टीम बहु-स्थानीय, कंपोनेंट-चालित React ऐप्स में **रखरखाव और गति** को महत्व देती है, तो Intlayer आज सबसे **पूर्ण** डेवलपर और कंटेंट वर्कफ़्लो प्रदान करता है।
+
+अधिक जानकारी के लिए ['Intlayer क्यों?' दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/interest_of_intlayer.md) देखें।

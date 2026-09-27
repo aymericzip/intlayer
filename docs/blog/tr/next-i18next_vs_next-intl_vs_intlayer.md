@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2026-09-16
+updatedAt: 2026-09-26
 priority: 9
-title: "next-i18next vs next-intl vs Intlayer - Eksiksiz çeviri rehberi: next-i18next vs next-intl vs Intlayer: 2026 Comparison"
-description: Bundle boyutu, SEO, performans ve sürdürülebilirlik için en iyi çözüm. Next.js web sitesini'ınızı 2026'da çok dilli yapın, LLM çevirisi, Agent Skills & MCP.
+title: "next-i18next vs next-intl vs Intlayer: 2026 Karşılaştırması"
+description: "Next.js için hangi i18n kütüphanesini seçmelisiniz? next-i18next, next-intl ve Intlayer; bundle boyutu, TypeScript güvenliği, Server Components, yönlendirme ve geliştirici deneyimi açısından karşılaştırılıyor."
 keywords:
   - next-intl
   - next-i18next
@@ -23,26 +23,32 @@ author: aymericzip
 
 ![next-i18next VS next-intl VS intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
-Bu rehber, **Next.js** için yaygın olarak kullanılan üç i18n seçeneğini karşılaştırır: **next-intl**, **next-i18next** ve **Intlayer**.
-**Next.js 13+ App Router**'a (React Server Components ile) odaklanıyoruz ve şunları değerlendiriyoruz:
+Next.js için üç i18n seçeneği arasındaki benzerliklere ve farklara bir göz atalım: next-i18next, next-intl ve Intlayer.
 
-1. **Mimari ve içerik organizasyonu**
-2. **TypeScript ve güvenlik**
-3. **Eksik çeviri işleme**
-4. **Yönlendirme ve ara yazılım**
-5. **Performans ve yükleme davranışı**
-6. **Geliştirici deneyimi (DX), araçlar ve bakım**
-7. **SEO ve büyük proje ölçeklenebilirliği**
+Bu tam bir eğitim değil. Seçim yapmanıza yardımcı olacak bir karşılaştırma.
+
+**Next.js 13+ App Router**'a (**React Server Components** ile) odaklanıyoruz ve şunları değerlendiriyoruz:
 
 <TOC/>
 
 > **tl;dr**: Üçü de bir Next.js uygulamasını yerelleştirebilir. **Bileşen kapsamlı içerik**, **katı TypeScript türleri**, **derleme zamanı eksik anahtar kontrolleri**, **ağaç sallanan sözlükler** ve **birinci sınıf App Router + SEO yardımcıları** istiyorsanız, **Intlayer** en kapsamlı, modern seçimdir.
 
-## Yüksek düzey konumlandırma
+> Geliştiricilerin sık yaptığı bir karışıklık, `next-intl`'in `react-intl`'in Next.js sürümü olduğunu düşünmektir. Öyle değil, `next-intl` [Amann](https://github.com/amannn) tarafından, `react-intl` ise [FormatJS](https://github.com/formatjs/formatjs) tarafından geliştirilmektedir.
+
+## Kısaca
 
 - **next-intl** - Hafif, doğrudan mesaj formatlaması ile sağlam Next.js desteği. Merkezi kataloglar yaygındır; DX basittir, ancak güvenlik ve büyük ölçekli bakım çoğunlukla sizin sorumluluğunuzdur.
 - **next-i18next** - Next.js'te i18next. Eklentiler aracılığıyla olgun ekosistem ve özellikler (örneğin, ICU), ancak yapılandırma ayrıntılı olabilir ve kataloglar projeler büyüdükçe merkezi olmaya eğilimlidir.
 - **Intlayer** - Next.js için bileşen merkezli içerik modeli, **katı TS yazımı**, **derleme zamanı kontrolleri**, **ağaç sallama**, **yerleşik ara yazılım ve SEO yardımcıları**, isteğe bağlı **Görsel Düzenleyici/CMS** ve **AI destekli çeviriler**.
+
+| Library                | GitHub Stars                                                                                                                                                                     | Total Commits                                                                                                                                                                        | Last Commit                                                                                                                                           | First Version | NPM Version                                                                                                         | NPM Downloads                                                                                                                  |
+| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `aymericzip/intlayer`  | [![GitHub Repo stars](https://img.shields.io/github/stars/aymericzip/intlayer?style=for-the-badge&label=%E2%AD%90%20stars)](https://github.com/aymericzip/intlayer/stargazers)   | [![GitHub commit activity](https://img.shields.io/github/commit-activity/t/aymericzip/intlayer?style=for-the-badge&label=commits)](https://github.com/aymericzip/intlayer/commits)   | [![Last Commit](https://img.shields.io/github/last-commit/aymericzip/intlayer?style=for-the-badge)](https://github.com/aymericzip/intlayer/commits)   | April 2024    | [![npm](https://img.shields.io/npm/v/intlayer?style=for-the-badge)](https://www.npmjs.com/package/intlayer)         | [![npm downloads](https://img.shields.io/npm/dm/intlayer?style=for-the-badge)](https://www.npmjs.com/package/intlayer)         |
+| `amannn/next-intl`     | [![GitHub Repo stars](https://img.shields.io/github/stars/amannn/next-intl?style=for-the-badge&label=%E2%AD%90%20stars)](https://github.com/amannn/next-intl/stargazers)         | [![GitHub commit activity](https://img.shields.io/github/commit-activity/t/amannn/next-intl?style=for-the-badge&label=commits)](https://github.com/amannn/next-intl/commits)         | [![Last Commit](https://img.shields.io/github/last-commit/amannn/next-intl?style=for-the-badge)](https://github.com/amannn/next-intl/commits)         | Nov 2020      | [![npm](https://img.shields.io/npm/v/next-intl?style=for-the-badge)](https://www.npmjs.com/package/next-intl)       | [![npm downloads](https://img.shields.io/npm/dm/next-intl?style=for-the-badge)](https://www.npmjs.com/package/next-intl)       |
+| `i18next/i18next`      | [![GitHub Repo stars](https://img.shields.io/github/stars/i18next/i18next?style=for-the-badge&label=%E2%AD%90%20stars)](https://github.com/i18next/i18next/stargazers)           | [![GitHub commit activity](https://img.shields.io/github/commit-activity/t/i18next/i18next?style=for-the-badge&label=commits)](https://github.com/i18next/i18next/commits)           | [![Last Commit](https://img.shields.io/github/last-commit/i18next/i18next?style=for-the-badge)](https://github.com/i18next/i18next/commits)           | Jan 2012      | [![npm](https://img.shields.io/npm/v/i18next?style=for-the-badge)](https://www.npmjs.com/package/i18next)           | [![npm downloads](https://img.shields.io/npm/dm/i18next?style=for-the-badge)](https://www.npmjs.com/package/i18next)           |
+| `i18next/next-i18next` | [![GitHub Repo stars](https://img.shields.io/github/stars/i18next/next-i18next?style=for-the-badge&label=%E2%AD%90%20stars)](https://github.com/i18next/next-i18next/stargazers) | [![GitHub commit activity](https://img.shields.io/github/commit-activity/t/i18next/next-i18next?style=for-the-badge&label=commits)](https://github.com/i18next/next-i18next/commits) | [![Last Commit](https://img.shields.io/github/last-commit/i18next/next-i18next?style=for-the-badge)](https://github.com/i18next/next-i18next/commits) | Nov 2018      | [![npm](https://img.shields.io/npm/v/next-i18next?style=for-the-badge)](https://www.npmjs.com/package/next-i18next) | [![npm downloads](https://img.shields.io/npm/dm/next-i18next?style=for-the-badge)](https://www.npmjs.com/package/next-i18next) |
+
+> Rozetler otomatik olarak güncellenir. Anlık görüntüler zamanla değişebilir.
 
 ## Yan Yana Özellik Karşılaştırması (Next.js odaklı)
 
@@ -84,6 +90,32 @@ Birçok i18n kütüphanesi mevcuttur, ancak günümüzde Next.js dünyasında ü
 ## Bundle boyutları & bağımlılıkları
 
 Uygulamayı derledikten sonra, bundle tarayıcının sayfayı render etmek için yükleyeceği JavaScripttir. Bu nedenle bundle boyutu, uygulama performansı için önemlidir.
+
+[i18n benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md), her kütüphanenin 10 sayfalı ve 10 locale'li aynı Next.js uygulaması üzerindeki gerçek etkisini ölçer:
+
+<I18nBenchmark framework="nextjs" packages="next-i18next,next-intl,next-intlayer" vertical/>
+
+<ClickToOpenIframe
+  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+  width="100%"
+  height="600px"
+  style="border:none;"
+/>
+
+Next.js App Router üzerinde ölçülen temel rakamlar (gzip):
+
+| Kurulum                           | Kütüphane boyutu | Ort. sayfa JS | Diğer locale sızıntısı | Diğer sayfa sızıntısı | Ort. bileşen |
+| :-------------------------------- | ---------------: | ------------: | ---------------------: | --------------------: | -----------: |
+| Temel (i18n olmadan)              |                - |      141.0 KB |                   0.0% |                  0.0% |       0.9 KB |
+| `next-intl` (static)              |          14.7 KB |      153.6 KB |                   4.2% |                 89.8% |      21.8 KB |
+| `next-intl` (dynamic)             |          14.7 KB |      153.6 KB |                   9.7% |                 89.9% |      21.8 KB |
+| `@intlayer/next-intl` (compat)    |           8.0 KB |      148.7 KB |                   0.0% |                  0.0% |       8.1 KB |
+| `next-i18next` (static)           |          19.7 KB |      218.5 KB |                   0.0% |                 89.8% |      78.5 KB |
+| `next-i18next` (dynamic)          |          19.7 KB |      169.5 KB |                  50.0% |                 89.8% |      26.1 KB |
+| `@intlayer/next-i18next` (compat) |           9.4 KB |      150.7 KB |                   0.0% |                  0.0% |       9.7 KB |
+| `next-intlayer` (native Intlayer) |       **5.5 KB** |  **141.3 KB** |               **0.0%** |              **0.0%** |   **6.9 KB** |
+
+> Tam analiz için [Next.js Benchmark Raporu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md) ve kapsamlı [i18n Benchmark Genel Bakışı](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/index.md) sayfalarına bakın.
 
 Çok dilli bir uygulama bundle'ı bağlamında önemli iki bileşen vardır:
 
@@ -1468,5 +1500,18 @@ GitHub yıldızları, bir projenin popülaritesinin, topluluk güveninin ve uzun
 
 - **Intlayer** ile, **modüler içerik**, **katı TS**, **derleme zamanı güvenliği**, **ağaç sallanan paketler** ve **birinci sınıf App Router + SEO araçları** **varsayılanlardır**, görevler değildir.
 - Ekibiniz çok yerel, bileşen odaklı bir uygulamada **bakım ve hızı** takdir ediyorsa, Intlayer bugün **en kapsamlı** deneyimi sunar.
+
+## Ek okumalar ve benchmark'lar
+
+- [Next.js Benchmark Raporu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md)
+- [i18n Benchmark Genel Bakışı](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/index.md)
+- [TanStack Start Benchmark Raporu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md)
+- [Vue Benchmark Raporu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/vue.md)
+- [Solid Benchmark Raporu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/solid.md)
+- [Svelte Benchmark Raporu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/svelte.md)
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/next-intl_vs_intlayer.md)
+- [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18next_vs_intlayer.md)
+- [@intlayer/next-intl Uyumluluk Adaptörü](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/next-intl.md)
+- [@intlayer/next-i18next Uyumluluk Adaptörü](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/next-i18next.md)
 
 Daha fazla detay için ['Neden Intlayer?' dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/interest_of_intlayer.md) bakın.

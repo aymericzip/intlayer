@@ -47,7 +47,7 @@ Kami fokus pada tooling Vue modern (Vite, Composition API) dan mengevaluasi:
 
 Sebelum tabel fitur, bagian yang diukur. [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) membangun aplikasi Vite + Vue 3 yang sama (10 halaman, 10 lokal) dengan setiap library dan mencatat apa yang diunduh browser:
 
-<I18nBenchmark framework="vite-vue" vertical/>
+<I18nBenchmark framework="vite-vue" packages="vue-i18n,intlayer" vertical/>
 
 | Setup                | Lib size (gz) | Page JS avg (gz) | Page leak | Component avg (gz) |
 | -------------------- | ------------: | ---------------: | --------: | -----------------: |

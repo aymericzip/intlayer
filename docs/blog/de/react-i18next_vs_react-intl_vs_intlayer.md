@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-01-02
-updatedAt: 2026-09-16
+updatedAt: 2026-09-26
 priority: 9
 title: react-i18next vs react-intl vs Intlayer
 description: Integration von react-i18next mit next-intl und Intlayer für die Internationalisierung (i18n) einer React-App
@@ -33,6 +33,8 @@ Wir bewerten:
 - Leistung & Ladeverhalten
 - Entwicklererfahrung (DX), Tools & Wartung
 - SEO/Routing (frameworkabhängig)
+
+<TOC/>
 
 > **Kurzfassung**: Alle drei können eine React-App lokalisieren. Wenn Sie **komponentenbezogenen Inhalt**, **strenge TypeScript-Typen**, **Build-Zeit-Prüfungen auf fehlende Schlüssel**, **baumgeschüttelte Wörterbücher** und integrierte redaktionelle Werkzeuge (Visueller Editor/CMS + optionale KI-Übersetzung) wünschen, ist **Intlayer** die vollständigste Wahl für modulare React-Codebasen.
 
@@ -109,6 +111,27 @@ Das folgende Diagramm schätzt die Payload für eine theoretische App mit 1 bis 
 
 ![Theoretisches Content-Leakage nach Architektur](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
+#### Benchmark-Ergebnisse für React (TanStack Start / Vite)
+
+Zahlen aus [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom), das Standard-React-Implementierungen auf TanStack Start misst:
+
+<I18nBenchmark framework="tanstack" vertical/>
+
+| Library            | Strategy | Lib size (gz) | Page JS avg (gz) | Locale leak | Page leak | Component avg (gz) | E2E reactivity | Hydration |
+| ------------------ | -------- | ------------: | ---------------: | ----------: | --------: | -----------------: | -------------: | --------: |
+| **base** (no i18n) | -        |        0.0 KB |         111.0 KB |        0.0% |      0.0% |             0.7 KB |         8.1 ms |   21.6 ms |
+| `react-i18next`    | dynamic  |       18.4 KB |         136.4 KB |       23.1% |     89.8% |            24.8 KB |       123.1 ms |   32.9 ms |
+| **`intlayer`**     | dynamic  |    **5.0 KB** |     **118.6 KB** |    **0.0%** |  **0.0%** |         **6.3 KB** |     **3.6 ms** |   14.1 ms |
+
+<ClickToOpenIframe
+  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md"
+  width="100%"
+  height="600px"
+  style="border:none;"
+/>
+
+> Vollständige Tabelle im [TanStack Start Benchmark-Bericht](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/tanstack.md) und in der [i18n-Benchmark-Übersicht](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/index.md).
+
 ### 6) DX, Tooling & Wartung
 
 - **react-intl / react-i18next**: Breites Community-Ökosystem; für redaktionelle Workflows verwendet man üblicherweise externe Lokalisierungsplattformen.
@@ -128,12 +151,18 @@ Das folgende Diagramm schätzt die Payload für eine theoretische App mit 1 bis 
 
 Mit `intlayer` kannst du deine Inhalte im Format deiner bevorzugten i18n-Bibliothek deklarieren, und intlayer wird deine Namespaces am Ort deiner Wahl generieren (Beispiel: `/messages/{{locale}}/{{namespace}}.json`).
 
-## Praktische Migrationshinweise (react-intl / react-i18next → Intlayer)
+## Weiterführende Links & Benchmarks
 
-- **Schrittweise migrieren**: Beginnen Sie mit einer Funktion oder Route; behalten Sie während der Umstellung die alten Kataloge parallel bei.
-- **Pro-Komponenten-Wörterbücher übernehmen**: Platzieren Sie Inhalte zusammen mit den Komponenten, um die Kopplung zu reduzieren.
-- **Strenge Prüfungen aktivieren**: Lassen Sie Build-Zeit-Fehler fehlende Schlüssel/Locales frühzeitig in der CI anzeigen.
-- **Bundles messen**: Erwarten Sie Reduzierungen, da ungenutzte Strings entfernt werden.
+- Benchmark-Berichte: [i18n-Benchmark-Übersicht](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/index.md), [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/tanstack.md), [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/nextjs.md), [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/vue.md), [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/solid.md) und [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/svelte.md)
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/i18next_vs_intlayer-i18next.md)
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/next-intl_vs_intlayer.md)
+- [Bundle-Optimierung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/bundle_optimization.md) und [der Intlayer-Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compiler.md)
+
+## GitHub-Sterne
+
+GitHub-Sterne sind ein starkes Indiz für die Popularität eines Projekts, das Vertrauen der Community und die langfristige Relevanz. Obwohl sie kein direktes Maß für die technische Qualität sind, spiegeln sie wider, wie viele Entwickler das Projekt nützlich finden, seinen Fortschritt verfolgen und es wahrscheinlich übernehmen werden. Zur Einschätzung des Werts eines Projekts helfen Sterne dabei, die Resonanz im Vergleich zu Alternativen zu vergleichen und Einblicke in das Wachstum des Ökosystems zu geben.
+
+[![Stern-Historien-Diagramm](https://api.star-history.com/chart?repos=formatjs/formatjs%2Ci18next/react-i18next%2Caymericzip/intlayer&type=date&legend=top-left)](https://star-history.com/#formatjs/formatjs&i18next/react-i18next&aymericzip/intlayer)
 
 ## Fazit
 
@@ -141,3 +170,5 @@ Alle drei Bibliotheken lokalisieren React effektiv. Der Unterschied liegt darin,
 
 - Mit **Intlayer** sind **modularer Inhalt**, **strikte TS-Typisierung**, **Build-Zeit-Sicherheit**, **baumgeschüttelte Bundles** und **redaktionelle Werkzeuge** Standard - keine lästige Pflicht.
 - Wenn Ihr Team **Wartbarkeit und Geschwindigkeit** in mehrsprachigen, komponentenbasierten React-Anwendungen schätzt, bietet Intlayer heute den **vollständigsten** Entwickler- und Inhaltsworkflow.
+
+Weitere Details findest du im Dokument ['Warum Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/interest_of_intlayer.md).

@@ -3,7 +3,7 @@
  * and for cross-domain app routes.
  *
  * Categories:
- *   1. Doc pages whose URLs changed (preserve SEO equity)
+ *   1. Doc and blog pages whose URLs changed or were merged (preserve SEO equity)
  *   2. Removed blog pages → /blog
  *   3. App-domain shortcuts (/pricing, /dashboard, /admin, /auth/*)
  */
@@ -40,10 +40,10 @@ const REMOVED_BLOG_SLUGS = new Set([
 ]);
 
 /**
- * Doc pages whose slug moved or was merged into another page.
+ * Doc and blog pages whose slug moved or was merged into another page.
  * Key: former locale-agnostic path — Value: current locale-agnostic path.
  */
-const MOVED_DOC_PATHS = new Map<string, string>([
+const MOVED_PATHS = new Map<string, string>([
   [
     '/doc/environment/vite-and-react/tanstack-start',
     '/doc/environment/tanstack-start',
@@ -58,41 +58,115 @@ const MOVED_DOC_PATHS = new Map<string, string>([
     '/doc/environment/vite-and-react/compiler',
     '/doc/environment/vite-and-react',
   ],
+  [
+    '/doc/environment/nextjs/next-with-Page-Router',
+    '/doc/environment/nextjs/next-with-page-router',
+  ],
+  ['/blog/i18n-meaning', '/blog/what-is-internationalization'],
+  [
+    '/blog/i18n-technologies/frameworks/react',
+    '/blog/how-to-pick-react-i18n-library',
+  ],
+  [
+    '/blog/i18n-technologies/frameworks/vue',
+    '/blog/how-to-pick-vue-i18n-library',
+  ],
+  [
+    '/blog/i18n-technologies/frameworks/nuxt',
+    '/blog/how-to-pick-vue-i18n-library',
+  ],
+  [
+    '/blog/i18n-technologies/frameworks/svelte',
+    '/blog/how-to-pick-svelte-i18n-library',
+  ],
+  [
+    '/blog/i18n-technologies/frameworks/sveltekit',
+    '/blog/how-to-pick-svelte-i18n-library',
+  ],
+  [
+    '/blog/i18n-technologies/frameworks/solid',
+    '/blog/how-to-pick-solid-i18n-library',
+  ],
+  [
+    '/blog/i18n-technologies/frameworks/nextjs',
+    '/blog/next-i18next-vs-next-intl-vs-intlayer',
+  ],
+  ['/blog/i18n-technologies/frameworks/angular', '/doc/environment/angular'],
+  ['/blog/i18n-technologies/frameworks/astro', '/doc/environment/astro'],
+  [
+    '/blog/i18n-technologies/frameworks/react-native',
+    '/doc/environment/react-native-and-expo',
+  ],
+  [
+    '/blog/i18n-technologies/frameworks/react-router',
+    '/doc/environment/vite-and-react/react-router-v7',
+  ],
+  [
+    '/blog/i18n-technologies/frameworks/tanstack-start',
+    '/doc/environment/tanstack-start',
+  ],
+  [
+    '/blog/i18n-technologies/build-tools/vite',
+    '/doc/environment/vite-and-react',
+  ],
+]);
+
+/** Website paths that live on the app domain under the same path. */
+const APP_SHORTCUT_PATHS = new Set([
+  '/pricing',
+  '/onboarding',
+  '/auth/login',
+  '/auth/register',
+  '/auth/password/reset',
+  '/auth/password/change',
 ]);
 
 const redirect = (location: string): Response =>
   new Response(null, { status: 301, headers: { Location: location } });
 
-export default (event: H3EventLike): Response | void => {
-  const { locale, rest } = parseLocale(event.path);
+/**
+ * Splits `event.path` — which h3 builds as `pathname + search` — so lookups
+ * match `/blog/foo?utm_source=x` and `/blog/foo/` like `/blog/foo`.
+ */
+const splitPath = (path: string): { pathname: string; search: string } => {
+  const searchIndex = path.indexOf('?');
+  const pathname = searchIndex === -1 ? path : path.slice(0, searchIndex);
+  const search = searchIndex === -1 ? '' : path.slice(searchIndex);
 
-  // ── 1. Doc pages that moved ────────────────────────────────────────────────
-  const movedDocPath = MOVED_DOC_PATHS.get(rest);
-  if (movedDocPath) return redirect(`${locale}${movedDocPath}`);
+  return {
+    pathname:
+      pathname.length > 1 && pathname.endsWith('/')
+        ? pathname.slice(0, -1)
+        : pathname,
+    search,
+  };
+};
+
+export default (event: H3EventLike): Response | void => {
+  const { pathname, search } = splitPath(event.path);
+  const { locale, rest } = parseLocale(pathname);
+
+  // ── 1. Doc and blog pages that moved ───────────────────────────────────────
+  const movedPath = MOVED_PATHS.get(rest);
+  if (movedPath) return redirect(`${locale}${movedPath}${search}`);
 
   // ── 2. Removed blog pages ──────────────────────────────────────────────────
   if (REMOVED_BLOG_SLUGS.has(rest)) {
-    return redirect(`${locale}/blog`);
+    return redirect(`${locale}/blog${search}`);
   }
 
   // ── 3. App-domain shortcuts ────────────────────────────────────────────────
-  if (rest === '/pricing') return redirect(`${APP_DOMAIN}/pricing`);
-  if (rest === '/onboarding') return redirect(`${APP_DOMAIN}/onboarding`);
-  if (rest === '/auth/login') return redirect(`${APP_DOMAIN}/auth/login`);
-  if (rest === '/auth/register') return redirect(`${APP_DOMAIN}/auth/register`);
-  if (rest === '/auth/password/reset')
-    return redirect(`${APP_DOMAIN}/auth/password/reset`);
-  if (rest === '/auth/password/change')
-    return redirect(`${APP_DOMAIN}/auth/password/change`);
+  if (APP_SHORTCUT_PATHS.has(rest))
+    return redirect(`${APP_DOMAIN}${rest}${search}`);
 
   // /dashboard → https://app.intlayer.org
   // /dashboard/:path* → https://app.intlayer.org/:path*
-  if (rest === '/dashboard') return redirect(APP_DOMAIN);
+  if (rest === '/dashboard') return redirect(`${APP_DOMAIN}${search}`);
   if (rest.startsWith('/dashboard/'))
-    return redirect(`${APP_DOMAIN}${rest.slice('/dashboard'.length)}`);
+    return redirect(`${APP_DOMAIN}${rest.slice('/dashboard'.length)}${search}`);
 
   // /admin → https://app.intlayer.org/admin
   // /admin/:path* → https://app.intlayer.org/admin/:path*
   if (rest === '/admin' || rest.startsWith('/admin/'))
-    return redirect(`${APP_DOMAIN}${rest}`);
+    return redirect(`${APP_DOMAIN}${rest}${search}`);
 };

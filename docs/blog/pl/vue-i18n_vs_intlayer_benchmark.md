@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-26
 priority: 8
 title: "vue-i18n vs Intlayer: Benchmark 2026"
 description: vue-i18n i Intlayer zmierzone na tej samej aplikacji Vite + Vue 3. Rozmiar biblioteki, JavaScript na stronę, wyciek treści, rozmiar komponentów i reaktywność przełączania locale, z objaśnieniem liczb.
@@ -87,6 +87,10 @@ Dla każdego builda zestaw rejestruje:
 
 ### Wyniki na Vite + Vue 3
 
+Wybierz metryki i biblioteki, które Cię interesują:
+
+<I18nBenchmark framework="vite-vue" packages="vue-i18n,@intlayer/vue-i18n,intlayer" vertical/>
+
 | Biblioteka                    | Strategia | Lib size (gz) | Lib size (min) | Page JS śr. (gz) | Locale leak | Page leak | Component śr. (gz) | Reaktywność E2E | Page load |
 | ----------------------------- | --------- | ------------: | -------------: | ---------------: | ----------: | --------: | -----------------: | --------------: | --------: |
 | **base** (bez i18n)           | -         |        0,0 KB |         0,0 KB |          41,3 KB |        0,0% |         - |             1,1 KB |          1,8 ms |   10,8 ms |
@@ -106,6 +110,15 @@ Dla każdego builda zestaw rejestruje:
 - **`@intlayer/vue-i18n`**, adapter drop-in, zachowuje API `vue-i18n` i zmierzył **47,0 KB na stronę** oraz **8,4 KB na komponent**, bez zmian w kodzie aplikacji.
 
 > Dla porównania, to samo uruchomienie zmierzyło `fluent-vue` na 171,8 KB na stronę, 29,7 KB runtime'u i 217 KB na komponent.
+
+<ClickToOpenIframe
+  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_vue.md"
+  width="100%"
+  height="600px"
+  style="border:none;"
+/>
+
+> Pełna tabela, ze wszystkimi bibliotekami i wszystkimi strategiami, w [raporcie benchmarku Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/vue.md).
 
 ## Skąd ta różnica? Globalna instancja vs skompilowane słowniki
 
@@ -344,6 +357,13 @@ Zobacz [przewodnik migracji z vue-i18n](https://github.com/aymericzip/intlayer/b
 - [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/lingui_vs_intlayer.md) (ten sam benchmark)
 - [vue-i18n vs Intlayer (funkcje i DX)](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/vue-i18n_vs_intlayer.md)
 - [Czy vue-i18n jest przestarzały?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/is_vue-i18n_outdated.md)
+
+Dokumentacja referencyjna:
+
+- [Adapter compat: vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compat/vue-i18n.md) i [Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compat/nuxtjs-i18n.md)
+- [Przewodnik migracji: z vue-i18n do Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/migration_from_vue-i18n_to_intlayer.md)
+- Raporty benchmarków: [Przegląd benchmarku i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/index.md), [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/nextjs.md), [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/tanstack.md), [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/vue.md), [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/solid.md) i [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/svelte.md)
+- [Optymalizacja bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/bundle_optimization.md) i [kompilator Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compiler.md)
 
 ## Gwiazdki GitHub
 

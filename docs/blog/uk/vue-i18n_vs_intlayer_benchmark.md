@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-26
 priority: 8
 title: "vue-i18n vs Intlayer: бенчмарк 2026"
 description: vue-i18n та Intlayer, виміряні на одному й тому самому застосунку Vite + Vue 3. Розмір бібліотеки, JavaScript на сторінку, витік контенту, розмір компонентів і реактивність перемикання локалі, з поясненням цифр.
@@ -87,6 +87,10 @@ author: aymericzip
 
 ### Результати на Vite + Vue 3
 
+Оберіть метрики та бібліотеки, які вас цікавлять:
+
+<I18nBenchmark framework="vite-vue" packages="vue-i18n,@intlayer/vue-i18n,intlayer" vertical/>
+
 | Бібліотека                    | Стратегія | Lib size (gz) | Lib size (min) | Page JS сер. (gz) | Locale leak | Page leak | Component сер. (gz) | Реактивність E2E | Page load |
 | ----------------------------- | --------- | ------------: | -------------: | ----------------: | ----------: | --------: | ------------------: | ---------------: | --------: |
 | **base** (без i18n)           | -         |        0,0 КБ |         0,0 КБ |           41,3 КБ |       0,0 % |         - |              1,1 КБ |           1,8 мс |   10,8 мс |
@@ -106,6 +110,15 @@ author: aymericzip
 - **`@intlayer/vue-i18n`**, drop-in адаптер, зберігає API `vue-i18n` і показав **47,0 КБ на сторінку** та **8,4 КБ на компонент**, при цьому код застосунку не змінювався.
 
 > Для довідки: той самий прогін виміряв `fluent-vue` на рівні 171,8 КБ на сторінку, 29,7 КБ рантайму та 217 КБ на компонент.
+
+<ClickToOpenIframe
+  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_vue.md"
+  width="100%"
+  height="600px"
+  style="border:none;"
+/>
+
+> Повна таблиця з усіма бібліотеками та всіма стратегіями у [звіті benchmark для Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/vue.md).
 
 ## Звідки розрив? Глобальний екземпляр проти скомпільованих словників
 
@@ -344,6 +357,13 @@ export default defineConfig({
 - [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/lingui_vs_intlayer.md) (той самий бенчмарк)
 - [vue-i18n vs Intlayer (можливості та DX)](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/vue-i18n_vs_intlayer.md)
 - [Чи застарів vue-i18n?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/is_vue-i18n_outdated.md)
+
+Довідкова документація:
+
+- [Compat-адаптер: vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/vue-i18n.md) і [Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/nuxtjs-i18n.md)
+- [Посібник з міграції: з vue-i18n на Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/migration_from_vue-i18n_to_intlayer.md)
+- Звіти benchmark: [Огляд i18n benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/index.md), [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/nextjs.md), [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/tanstack.md), [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/vue.md), [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/solid.md) і [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/svelte.md)
+- [Оптимізація бандла](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/bundle_optimization.md) і [компілятор Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compiler.md)
 
 ## Зірки GitHub
 

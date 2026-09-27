@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-26
 priority: 8
 title: "vue-i18n مقابل Intlayer: معيار الأداء 2026"
 description: قياس vue-i18n و Intlayer على نفس تطبيق Vite + Vue 3. حجم المكتبة، JavaScript لكل صفحة، تسرب المحتوى، حجم المكوّنات وتفاعلية تبديل اللغة، مع شرح الأرقام.
@@ -87,6 +87,10 @@ author: aymericzip
 
 ### النتائج على Vite + Vue 3
 
+اختر المقاييس والمكتبات التي تهمك:
+
+<I18nBenchmark framework="vite-vue" packages="vue-i18n,@intlayer/vue-i18n,intlayer" vertical/>
+
 | المكتبة                       | الاستراتيجية | Lib size (gz) | Lib size (min) | متوسط Page JS (gz) | Locale leak | Page leak | متوسط Component (gz) | تفاعلية E2E | Page load |
 | ----------------------------- | ------------ | ------------: | -------------: | -----------------: | ----------: | --------: | -------------------: | ----------: | --------: |
 | **base** (بدون i18n)          | -            |        0.0 KB |         0.0 KB |            41.3 KB |        0.0% |         - |               1.1 KB |      1.8 ms |   10.8 ms |
@@ -106,6 +110,15 @@ author: aymericzip
 - **`@intlayer/vue-i18n`**، المحوّل الجاهز، يحافظ على واجهة `vue-i18n` وسجّل **47.0 كيلوبايت لكل صفحة** و**8.4 كيلوبايت لكل مكوّن**، دون المساس بكود التطبيق.
 
 > للمرجعية، قاس نفس التشغيل `fluent-vue` عند 171.8 كيلوبايت لكل صفحة، و29.7 كيلوبايت وقت تشغيل، و217 كيلوبايت لكل مكوّن.
+
+<ClickToOpenIframe
+  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_vue.md"
+  width="100%"
+  height="600px"
+  style="border:none;"
+/>
+
+> الجدول الكامل، مع كل المكتبات وكل الاستراتيجيات، متوفر في [تقرير benchmark الخاص بـ Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/vue.md).
 
 ## لماذا الفجوة؟ المثيل العام مقابل القواميس المُصرَّفة
 
@@ -344,6 +357,13 @@ export default defineConfig({
 - [Lingui مقابل Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/lingui_vs_intlayer.md) (نفس معيار الأداء)
 - [vue-i18n مقابل Intlayer (الميزات وتجربة المطور)](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/vue-i18n_vs_intlayer.md)
 - [هل أصبح vue-i18n قديمًا؟](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/is_vue-i18n_outdated.md)
+
+وثائق مرجعية:
+
+- [محول التوافق: vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/vue-i18n.md) و [Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/nuxtjs-i18n.md)
+- [دليل الترحيل: من vue-i18n إلى Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_vue-i18n_to_intlayer.md)
+- تقارير benchmark: [نظرة عامة على benchmark الـ i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/index.md)، [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md)، [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md)، [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/vue.md)، [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/solid.md) و [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/svelte.md)
+- [تحسين الـ bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md) و [مترجم Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md)
 
 ## نجوم GitHub
 

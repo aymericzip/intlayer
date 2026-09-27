@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-22
+updatedAt: 2026-09-26
 priority: 8
 title: "i18next vs @intlayer/i18next: Aynı API, Farklı Paket Boyutu"
 description: Bir React veya Next.js uygulaması i18next, react-i18next ve next-i18next çağrılarını koruyup bunları @intlayer/i18next bağdaştırıcıları aracılığıyla sunduğunda ne değişir? Aynı kod üzerinde ölçülen sayfa başına JavaScript, bileşen boyutu, metin sızıntısı ve hidrasyon performansı.
@@ -114,7 +114,7 @@ Her derleme için şu metrikler kaydedilmiştir:
 
 İlgilendiğiniz metrikleri ve kütüphaneleri seçin:
 
-<I18nBenchmark framework="nextjs" vertical/>
+<I18nBenchmark framework="nextjs" packages="next-i18next,@intlayer/next-i18next,next-intlayer" vertical/>
 
 | Yapılandırma                 | Strateji       | Kütüphane (gz) | Sayfa JS Ort (gz) | Dil Sızıntısı | Sayfa Sızıntısı | Bileşen Ort (gz) |   E2E Tepki |   Hidrasyon |
 | ---------------------------- | -------------- | -------------: | ----------------: | ------------: | --------------: | ---------------: | ----------: | ----------: |
@@ -145,7 +145,26 @@ style="border:none;"
 
 > Tüm tablo, her kütüphane ve her strateji, [Next.js kıyaslama raporunda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md).
 
-> Vite / TanStack Start üzerindeki `react-i18next` bağdaştırıcısı bu test serisine dahil edilmemiştir. TanStack Start için temel referans [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18next_vs_intlayer.md) yazısında incelenebilir.
+### TanStack Start Sonuçları (`react-i18next`)
+
+Vite ve TanStack Start için benchmark, sade `react-i18next` ile `intlayer`'ı karşılaştırır:
+
+| Kütüphane           | Strateji | Lib boyutu (gz) | Sayfa JS Ort (gz) | Dil Sızıntısı | Sayfa Sızıntısı | Bileşen Ort (gz) |  E2E Tepki | Hidrasyon |
+| ------------------- | -------- | --------------: | ----------------: | ------------: | --------------: | ---------------: | ---------: | --------: |
+| **base** (i18n yok) | -        |          0.0 KB |          111.0 KB |          0.0% |            0.0% |           0.7 KB |     8.1 ms |   21.6 ms |
+| `react-i18next`     | dynamic  |         18.4 KB |          136.4 KB |         23.1% |           89.8% |          24.8 KB |   123.1 ms |   32.9 ms |
+| **`intlayer`**      | dynamic  |      **5.0 KB** |      **118.6 KB** |      **0.0%** |        **0.0%** |       **6.3 KB** | **3.6 ms** |   14.1 ms |
+
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> Tam tablo için [TanStack Start benchmark raporuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md) bakın.
+
+> Vite / TanStack Start üzerindeki `react-i18next` bağdaştırıcısı bu test serisine dahil edilmemiştir. TanStack Start üzerindeki `react-i18next` temel değerleri [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18next_vs_intlayer.md) yazısındadır: backend lazy yüklendiğinde sayfa başına 127-184 KB ve 123-185 ms dil değiştirme süresi.
 
 ## Rakamların Değişme Sebebi
 
@@ -346,6 +365,25 @@ Yukarıda gösterilen tek bir dosya. `appWithTranslation` kullanan Pages Router 
 
 </Accordion>
 </AccordionGroup>
+
+## Özellik karşılaştırması
+
+Byte'ların ötesinde, her seçeneğin sundukları:
+
+| Özellik                                                    | `i18next` / `react-i18next` / `next-i18next` | `@intlayer/*` bağdaştırıcıları                     | Yerel Intlayer                         |
+| ---------------------------------------------------------- | -------------------------------------------- | -------------------------------------------------- | -------------------------------------- |
+| **Mevcut `t()`, `useTranslation`, `<Trans>` çağrılarınız** | ✅                                           | ✅ Değişmeden                                      | ❌ `useIntlayer`'a taşınır             |
+| **Runtime boyutu (gzip, Next.js)**                         | 19.7 KB                                      | 9.4 KB                                             | 5.5 KB                                 |
+| **Manuel namespace olmadan diğer sayfa sızıntısı**         | ~90%                                         | 0%                                                 | 0%                                     |
+| **Tipli anahtarlar**                                       | ⚠️ Manuel tanımlama                          | ✅ Derlenmiş sözlüklerden                          | ✅ Otomatik üretilir                   |
+| **Runtime backend'leri ve eklentiler**                     | ✅ Tam eklenti ekosistemi                    | ❌ Etkisiz                                         | ❌ Uygulanamaz, CMS kullanın           |
+| **Bileşenlerle aynı yerde içerik**                         | ❌ Merkezi JSON                              | ⚠️ JSON, `.content.ts` ile birlikte kullanılabilir | ✅ Her bileşenin yanında `.content.ts` |
+| **CI'da eksik çeviriler**                                  | ⚠️ Yerleşik değil                            | ✅ `npx intlayer test`                             | ✅ `npx intlayer test`                 |
+| **Yapay zeka ile çeviri**                                  | ❌ Hayır                                     | ✅ `npx intlayer fill`                             | ✅ `npx intlayer fill`                 |
+| **Görsel editör / CMS**                                    | ❌ Harici platformlar üzerinden              | ✅ Aynı JSON üzerinde                              | ✅ Evet                                |
+| **Ekosistem / topluluk**                                   | ✅ Çok büyük                                 | ⚠️ Daha küçük, hızla büyüyor                       | ⚠️ Daha küçük, hızla büyüyor           |
+
+> Runtime boyutları yukarıda açıklanan Next.js çalıştırmasından alınmıştır.
 
 ## Hangi Çözüm Ne Zaman Tercih Edilmeli?
 

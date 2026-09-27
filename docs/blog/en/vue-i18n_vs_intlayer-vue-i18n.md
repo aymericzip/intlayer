@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-22
+updatedAt: 2026-09-26
 priority: 8
 title: "vue-i18n vs @intlayer/vue-i18n: Same API, Different Bundle"
 description: What changes when a Vue 3 app keeps its vue-i18n calls but serves them through the @intlayer/vue-i18n compat adapter. Per-page JavaScript, runtime size, component size and leakage measured on the same Vite + Vue code, plus what the adapter keeps, ignores and cannot replace.
@@ -110,7 +110,7 @@ For each build, the suite records:
 
 Pick the metrics and the libraries you care about:
 
-<I18nBenchmark framework="vite-vue" vertical/>
+<I18nBenchmark framework="vite-vue" packages="vue-i18n,@intlayer/vue-i18n,intlayer" vertical/>
 
 | Setup                    | Strategy | Lib size (gz) | Lib size (min) | Page JS avg (gz) | Locale leak | Page leak | Component avg (gz) | E2E reactivity |  Page load |
 | ------------------------ | -------- | ------------: | -------------: | ---------------: | ----------: | --------: | -----------------: | -------------: | ---------: |
@@ -376,7 +376,7 @@ Reference docs:
 
 - [Compat adapter: vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/vue-i18n.md) and [Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/nuxtjs-i18n.md)
 - [Migration guide: vue-i18n to Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/migration_from_vue-i18n_to_intlayer.md)
-- [Vue benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/vue.md)
+- Benchmark reports: [i18n Benchmark Overview](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/index.md), [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/nextjs.md), [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/tanstack.md), [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/vue.md), [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/solid.md), and [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/svelte.md)
 - [Bundle optimization](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/bundle_optimization.md) and [the Intlayer compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compiler.md)
 - [Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md), [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) and [AI translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/autoFill.md)
 

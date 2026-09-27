@@ -85,12 +85,15 @@ type I18nBenchmarkProps = {
   vertical?: boolean;
   /** Hides the loading strategy toggles and the render mode selector. */
   hideControls?: boolean;
+  /** Library ids to show (e.g. `next-intl`); others are filtered out. All shown when omitted. */
+  packages?: readonly string[];
 };
 
 export const I18nBenchmark: FC<I18nBenchmarkProps> = ({
   initialFramework,
   vertical = true,
   hideControls = false,
+  packages,
 }) => {
   const {
     title,
@@ -159,10 +162,17 @@ export const I18nBenchmark: FC<I18nBenchmarkProps> = ({
 
   // Dictionary nodes are rebuilt on every render: depend on `.value` only.
   const baseAppLabel = baseApp.value;
+  // Callers may pass a new array every render: depend on its content only.
+  const packagesKey = packages?.join(',') ?? '';
 
   const libraries = useMemo(
-    () => buildLibraries(summary, baseAppLabel),
-    [summary, baseAppLabel]
+    () =>
+      buildLibraries(
+        summary,
+        baseAppLabel,
+        packagesKey.split(',').filter(Boolean)
+      ),
+    [summary, baseAppLabel, packagesKey]
   );
 
   const chartData = useMemo(

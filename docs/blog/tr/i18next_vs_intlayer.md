@@ -104,7 +104,7 @@ Her derleme için kaydedilen metrikler:
 
 İlgilendiğiniz metrikleri ve kütüphaneleri seçin:
 
-<I18nBenchmark framework="nextjs" vertical/>
+<I18nBenchmark framework="nextjs" packages="next-i18next,next-intlayer" vertical/>
 
 | Kütüphane                         | Strateji       | Lib size (gz) | Page JS avg (gz) | Dil Sızıntısı | Sayfa Sızıntısı | Bileşen Ort. (gz) | E2E Tepki Süresi | Hydration |
 | --------------------------------- | -------------- | ------------: | ---------------: | ------------: | --------------: | ----------------: | ---------------: | --------: |

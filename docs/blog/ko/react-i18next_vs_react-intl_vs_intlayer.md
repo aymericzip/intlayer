@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-01-02
-updatedAt: 2026-09-16
+updatedAt: 2026-09-26
 priority: 9
 title: react-i18next vs react-intl vs Intlayer
 description: React 앱의 국제화(i18n)를 위해 react-i18next를 next-intl 및 Intlayer와 통합하기
@@ -33,6 +33,8 @@ author: aymericzip
 - 성능 및 로딩 동작
 - 개발자 경험(DX), 도구 및 유지보수
 - SEO/라우팅(프레임워크 의존)
+
+<TOC/>
 
 > **요약**: 세 가지 모두 React 앱을 현지화할 수 있습니다. 만약 **컴포넌트 범위 콘텐츠**, **엄격한 TypeScript 타입**, **빌드 시 누락 키 검사**, **트리 쉐이킹된 사전**, 그리고 내장된 편집 도구(비주얼 에디터/CMS + 선택적 AI 번역)를 원한다면, **Intlayer**가 모듈형 React 코드베이스에 가장 완벽한 선택입니다.
 
@@ -109,6 +111,27 @@ author: aymericzip
 
 ![아키텍처별 이론상의 콘텐츠 누수](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
+#### React 벤치마크 결과 (TanStack Start / Vite)
+
+TanStack Start에서 표준 React 구현을 측정한 [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom)의 수치:
+
+<I18nBenchmark framework="tanstack" vertical/>
+
+| Library            | Strategy | Lib size (gz) | Page JS avg (gz) | Locale leak | Page leak | Component avg (gz) | E2E reactivity | Hydration |
+| ------------------ | -------- | ------------: | ---------------: | ----------: | --------: | -----------------: | -------------: | --------: |
+| **base** (no i18n) | -        |        0.0 KB |         111.0 KB |        0.0% |      0.0% |             0.7 KB |         8.1 ms |   21.6 ms |
+| `react-i18next`    | dynamic  |       18.4 KB |         136.4 KB |       23.1% |     89.8% |            24.8 KB |       123.1 ms |   32.9 ms |
+| **`intlayer`**     | dynamic  |    **5.0 KB** |     **118.6 KB** |    **0.0%** |  **0.0%** |         **6.3 KB** |     **3.6 ms** |   14.1 ms |
+
+<ClickToOpenIframe
+  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md"
+  width="100%"
+  height="600px"
+  style="border:none;"
+/>
+
+> 전체 표는 [TanStack Start 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/tanstack.md)와 [i18n 벤치마크 개요](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/index.md)에서 확인하세요.
+
 ### 6) 개발자 경험(DX), 도구 및 유지보수
 
 - **react-intl / react-i18next**: 광범위한 커뮤니티 생태계; 편집 워크플로우를 위해 일반적으로 외부 현지화 플랫폼을 채택합니다.
@@ -122,12 +145,18 @@ author: aymericzip
 - **react-i18next**를 선택하세요, 만약 **i18next 생태계의 폭넓은 기능**(탐지기, 백엔드, ICU 플러그인, 통합 등)이 필요하고, 유연성을 얻기 위해 더 많은 설정을 감수할 수 있다면.
 - **Intlayer를 선택하세요** 만약 **컴포넌트 범위의 콘텐츠**, **엄격한 TypeScript**, **빌드 시 보장**, **트리 쉐이킹**, 그리고 **포함된 편집 도구**를 중요하게 생각한다면 - 특히 **크고 모듈화된** React 앱에 적합합니다.
 
-## 실용적인 마이그레이션 노트 (react-intl / react-i18next → Intlayer)
+## `react-intl` 및 `react-i18next`와의 상호 운용성
 
-- **점진적으로 마이그레이션하세요**: 한 기능 또는 라우트부터 시작하고, 전환 기간 동안 기존 카탈로그를 병행 유지하세요.
-- **컴포넌트별 사전 사용을 채택하세요**: 콘텐츠를 컴포넌트와 함께 배치하여 결합도를 줄이세요.
-- **엄격한 검사 활성화**: 빌드 시 오류가 누락된 키/로케일을 CI 초기에 드러내도록 하세요.
-- **번들 크기 측정**: 사용하지 않는 문자열이 제거되면서 크기 감소를 기대하세요.
+`intlayer`는 `react-intl` 및 `react-i18next` namespace 관리에도 도움을 줄 수 있습니다.
+
+`intlayer`를 사용하면 선호하는 i18n 라이브러리 형식으로 콘텐츠를 선언할 수 있으며, intlayer가 원하는 위치에 namespace를 생성합니다 (예: `/messages/{{locale}}/{{namespace}}.json`).
+
+## 추가 자료 및 벤치마크
+
+- 벤치마크 보고서: [i18n 벤치마크 개요](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/index.md), [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/tanstack.md), [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/nextjs.md), [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/vue.md), [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/solid.md), [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/svelte.md)
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/i18next_vs_intlayer-i18next.md)
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/next-intl_vs_intlayer.md)
+- [번들 최적화](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md) 및 [Intlayer 컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md)
 
 ## GitHub STARs
 
@@ -141,3 +170,5 @@ GitHub star는 프로젝트의 인기도, 커뮤니티 신뢰도, 장기적 관�
 
 - **Intlayer**는 **모듈화된 콘텐츠**, **엄격한 TS 타입 검사**, **빌드 시 안전성**, **트리 쉐이킹된 번들**, 그리고 **편집 도구**를 기본으로 제공하며, 이는 번거로운 작업이 아닙니다.
 - 팀이 다국어, 컴포넌트 중심의 React 앱에서 **유지보수성과 속도**를 중요시한다면, Intlayer는 오늘날 가장 **완벽한** 개발자 및 콘텐츠 워크플로우를 제공합니다.
+
+자세한 내용은 ['왜 Intlayer인가?' 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/interest_of_intlayer.md)를 참조하세요.

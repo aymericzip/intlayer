@@ -258,8 +258,17 @@ export const DocumentationRender: FC<DocumentationRenderProps> = ({
               maxDepth={props.maxDepth ?? tocMaxDepth}
             />
           ),
-          I18nBenchmark: (props: { framework?: FrameworkKey }) => (
-            <I18nBenchmark initialFramework={props.framework} />
+          I18nBenchmark: (props: {
+            framework?: FrameworkKey;
+            /** Comma separated library ids, e.g. `next-intl,next-intlayer`. */
+            packages?: string;
+          }) => (
+            <I18nBenchmark
+              initialFramework={props.framework}
+              packages={props.packages
+                ?.split(',')
+                .map((packageName) => packageName.trim())}
+            />
           ),
           Sponsor: ({ children, ...props }: ComponentProps<'div'>) => (
             <Container

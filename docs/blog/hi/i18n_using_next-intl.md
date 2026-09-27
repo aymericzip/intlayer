@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-11-01
-updatedAt: 2026-05-31
+updatedAt: 2026-09-26
 priority: 9
-title: "next-intl का उपयोग करके अपने Next.js एप्लिकेशन को अंतरराष्ट्रीयकृत कैसे करें - अनुवाद का पूर्ण गाइड: Translate Next.js 16 with next-intl — App Router Setup"
-description: बंडल साइज़, SEO, परफॉर्मेंस & मेंटेनेबिलिटी के लिए सबसे अच्छा समाधान। 2026 में अपने Next.js 16 वेबसाइट को बहुभाषी बनाएं, LLM ट्रांसलेशन, Agent Skills & MCP.
+title: "next-intl के साथ Next.js 16 i18n: App Router सेटअप गाइड"
+description: "Next.js 16 App Router ऐप में next-intl को चरण-दर-चरण सेट करें: लोकेल रूटिंग, प्रति पेज संदेश लोड करना, सर्वर और क्लाइंट कंपोनेंट, और SEO मेटाडेटा।"
 keywords:
   - next-intl
   - Internationalization
@@ -35,6 +35,62 @@ author: aymericzip
 > यदि आप चाहें, तो आप [next-i18next गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/i18n_using_next-i18next.md) को भी संदर्भित कर सकते हैं, या सीधे [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_next-intl.md) का उपयोग कर सकते हैं।
 
 > तुलना देखें [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/next-i18next_vs_next-intl_vs_intlayer.md) में।
+
+## Next.js पर next-intl के बारे में बेंचमार्क क्या कहता है
+
+अनुवाद लागू करने से पहले `next-intl` की परफ़ॉर्मेंस प्रोफ़ाइल समझना ज़रूरी है। [i18n बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/nextjs.md) एक ही 10-पेज, 10-लोकेल Next.js एप्लिकेशन को अलग-अलग सेटअप और लाइब्रेरी के साथ जाँचता है, ताकि असली bundle आकार, स्ट्रिंग लीकेज और hydration ओवरहेड मापा जा सके।
+
+<I18nBenchmark framework="nextjs" packages="next-intl,@intlayer/next-intl,next-intlayer" vertical/>
+
+<ClickToOpenIframe
+  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+  width="100%"
+  height="600px"
+  style="border:none;"
+/>
+
+Next.js पर `next-intl` के मुख्य आँकड़े (gzip):
+
+| सेटअप                            | लाइब्रेरी आकार | औसत पेज JS | अन्य लोकेल लीक | अन्य पेज लीक |
+| :------------------------------- | -------------: | ---------: | -------------: | -----------: |
+| बेस (बिना i18n)                  |              - |   141.0 KB |           0.0% |         0.0% |
+| `next-intl`                      |        14.7 KB |   153.6 KB |           4.2% |        89.8% |
+| `@intlayer/next-intl` (compat)   |         8.0 KB |   148.7 KB |           0.0% |         0.0% |
+| `next-intlayer` (नेटिव Intlayer) |         5.5 KB |   141.3 KB |           0.0% |         0.0% |
+
+मुख्य निष्कर्ष:
+
+- **ग्लोबल मैसेज कैटलॉग से बचें:** स्टैंडर्ड सेटअप में जहाँ सभी मैसेज रूट layout में लोड होते हैं, ब्राउज़र को भेजे गए अनुवादित कंटेंट का ~89.8% अन्य पेजों का होता है। हर route पर `pick(messages, ['namespace'])` का उपयोग इस लीकेज को हटा देता है, हालाँकि इसके लिए मैन्युअल रखरखाव चाहिए।
+- **रनटाइम वज़न:** `next-intl` रनटाइम हर पेज में ~14.7 KB gzip जोड़ता है। मौजूदा `next-intl` ऐप्स के लिए, [`@intlayer/next-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/next-intl.md) compat एडेप्टर वही hooks (`useTranslations`, `useFormatter` आदि) बनाए रखता है और रनटाइम आकार को 0% लीक के साथ ~8.0 KB तक घटाता है। नेटिव [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/next-intlayer/exports.md) आकार को और घटाकर 5.5 KB कर देता है।
+
+> पूरा डेटा देखें: [Next.js बेंचमार्क रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/nextjs.md), और [बेंचमार्क रिपॉज़िटरी](https://github.com/intlayer-org/benchmark-i18n)।
+
+## Next.js पर फ़ीचर तुलना
+
+Next.js App Router प्रोजेक्ट को आमतौर पर जिन फ़ीचर्स की ज़रूरत होती है, उन पर `next-intl` की तुलना `next-i18next` और Intlayer से:
+
+| फ़ीचर                                         | `next-intlayer` (Intlayer)                               | `next-intl`                                                  | `next-i18next`                             |
+| --------------------------------------------- | -------------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------ |
+| **कंपोनेंट के पास अनुवाद**                    | ✅ हर कंपोनेंट के साथ रखा गया कंटेंट                     | ❌ केंद्रीकृत JSON                                           | ❌ केंद्रीकृत JSON                         |
+| **TypeScript इंटीग्रेशन**                     | ✅ स्वतः जनरेट होने वाले स्ट्रिक्ट टाइप्स                | ✅ अच्छा, `AppConfig` augmentation के ज़रिए                  | ⚠️ बेसिक                                   |
+| **गायब अनुवाद की पहचान**                      | ✅ TypeScript एरर और बिल्ड-टाइम चेतावनियाँ               | ⚠️ रनटाइम fallback                                           | ⚠️ रनटाइम fallback                         |
+| **रिच कंटेंट (JSX, Markdown)**                | ✅ सीधा सपोर्ट                                           | ⚠️ `t.rich` के ज़रिए टैग, Markdown नहीं                      | ⚠️ `<Trans>` के ज़रिए टैग                  |
+| **AI अनुवाद**                                 | ✅ आपका अपना प्रोवाइडर और API key, ऐप कॉन्टेक्स्ट के साथ | ❌ नहीं                                                      | ❌ नहीं                                    |
+| **विज़ुअल एडिटर / CMS**                       | ✅ लोकल विज़ुअल एडिटर + वैकल्पिक CMS                     | ❌ बाहरी प्लेटफ़ॉर्म के ज़रिए                                | ❌ बाहरी प्लेटफ़ॉर्म के ज़रिए              |
+| **लोकलाइज़्ड रूटिंग**                         | ✅ बिल्ट-इन (Next.js और Vite)                            | ✅ बिल्ट-इन `[locale]` सेगमेंट                               | ✅ बिल्ट-इन                                |
+| **बहुवचन**                                    | ✅ एन्यूमरेशन-आधारित                                     | ✅ ICU                                                       | ✅ सफ़िक्स-आधारित (`_one`, `_other`)       |
+| **फ़ॉर्मेटिंग (तिथियाँ, संख्याएँ, मुद्राएँ)** | ✅ `Intl`-आधारित फ़ॉर्मेटर                               | ✅ `useFormatter`                                            | ✅ `Intl`-आधारित                           |
+| **कंटेंट फ़ॉर्मेट**                           | ✅ `.ts`, `.tsx`, `.js`, `.json`, `.md`, `.yaml`         | ✅ `.json`, `.js`, `.ts`                                     | ⚠️ `.json`                                 |
+| **ICU MessageFormat**                         | ✅ `format: "icu"` के ज़रिए                              | ✅ नेटिव                                                     | ⚠️ `i18next-icu` के ज़रिए                  |
+| **SEO हेल्पर (hreflang, sitemap)**            | ✅ मेटाडेटा, sitemap और robots.txt हेल्पर                | ✅ अच्छा                                                     | ✅ अच्छा                                   |
+| **Server Components**                         | ✅ किसी भी Server Component में सीधा एक्सेस              | ⚠️ हर कंपोनेंट में `t` या `await getTranslations()` पास करें | ⚠️ कंपोनेंट ट्री में नीचे `t` पास करें     |
+| **प्रति-कंपोनेंट tree-shaking**               | ✅ बिल्ड टाइम पर (Babel / SWC)                           | ⚠️ मैन्युअल, हर route पर `pick()` के साथ                     | ⚠️ मैन्युअल, हर route पर namespaces के साथ |
+| **लेज़ी लोडिंग**                              | ✅ प्रति लोकेल और प्रति डिक्शनरी                         | ✅ प्रति लोकेल, namespaces हाथ से प्रबंधित                   | ✅ प्रति लोकेल, namespaces हाथ से प्रबंधित |
+| **रनटाइम आकार (gzip, बेंचमार्क)**             | 4.9 KB                                                   | 14.7 KB                                                      | 19.7 KB                                    |
+| **CI में गायब अनुवाद**                        | ✅ `npx intlayer test`                                   | ⚠️ बिल्ट-इन नहीं                                             | ⚠️ बिल्ट-इन नहीं, रनटाइम पर `saveMissing`  |
+| **इकोसिस्टम / कम्युनिटी**                     | ⚠️ छोटा, तेज़ी से बढ़ रहा                                | ✅ बड़ा                                                      | ✅ बहुत बड़ा                               |
+
+> रनटाइम आकार [Next.js बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/nextjs.md) से लिए गए हैं। विस्तृत चर्चा के लिए, [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/next-i18next_vs_next-intl_vs_intlayer.md) पढ़ें।
 
 ## आपको जिन प्रथाओं का पालन करना चाहिए
 
@@ -795,6 +851,13 @@ Intlayer आपको निम्नलिखित की अनुमति �
   Intlayer एक मुफ्त विज़ुअल एडिटर प्रदान करता है जिससे आप अपने कंटेंट को विज़ुअल एडिटर का उपयोग करके संपादित कर सकते हैं। अधिक जानने के लिए [अपने अनुवादों का विज़ुअल संपादन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) देखें।
 
 और भी बहुत कुछ। Intlayer द्वारा प्रदान की गई सभी विशेषताओं को खोजने के लिए, कृपया [Intlayer के महत्व की दस्तावेज़ीकरण](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/interest_of_intlayer.md) देखें।
+
+विस्तृत परफ़ॉर्मेंस बेंचमार्क और तुलना के लिए देखें:
+
+- [Next.js बेंचमार्क रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/nextjs.md)
+- [i18n बेंचमार्क सूट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/index.md)
+- [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/next-intl_vs_intlayer-next-intl.md)
+- [@intlayer/next-intl Compat एडेप्टर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/next-intl.md)
 
 </Step>
 

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-09-16
+updatedAt: 2026-09-26
 priority: 9
-title: "next-i18next vs next-intl vs Intlayer - Complete guide to translate next-i18next vs next-intl vs Intlayer: 2026 Comparison"
-description: Best solution for bundle size, SEO, performances & maintainability. Make your Next.js website multilingual in 2026, LLM translation, Agent Skills & MCP.
+title: "next-i18next vs next-intl vs Intlayer: 2026 Comparison"
+description: "Which Next.js i18n library should you choose? next-i18next, next-intl and Intlayer compared on bundle size, TypeScript safety, Server Components, routing and developer experience."
 keywords:
   - next-intl
   - next-i18next
@@ -28,14 +28,6 @@ Let’s take a look into the similarities and differences between three i18n opt
 This is not a full tutorial. It’s a comparison to help you pick.
 
 We focus on **Next.js 13+ App Router** (with **React Server Components**) and evaluate:
-
-1. **Architecture & content organisation**
-2. **TypeScript & safety**
-3. **Missing translation handling**
-4. **Routing & middleware**
-5. **Performance & loading behaviour**
-6. **Developer experience (DX), tooling & maintenance**
-7. **SEO & large-project scalability**
 
 <TOC/>
 
@@ -100,6 +92,32 @@ Many i18n libraries exist, but in the Next.js ecosystem today, three are gaining
 
 After building the application, the bundle is the JavaScript that the browser will load to render the page. Bundle size is therefore important for application performance.
 
+The [i18n benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/benchmark/nextjs.md) measures the exact real-world impact of each library on the same 10-page, 10-locale Next.js application:
+
+<I18nBenchmark framework="nextjs" packages="next-i18next,next-intl,next-intlayer" vertical/>
+
+<ClickToOpenIframe
+  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+  width="100%"
+  height="600px"
+  style="border:none;"
+/>
+
+Key figures measured on Next.js App Router (gzip):
+
+| Setup                             | Library size |  Page JS avg | Other-locale leak | Other-page leak | Component avg |
+| :-------------------------------- | -----------: | -----------: | ----------------: | --------------: | ------------: |
+| Base (no i18n)                    |            - |     141.0 KB |              0.0% |            0.0% |        0.9 KB |
+| `next-intl` (static)              |      14.7 KB |     153.6 KB |              4.2% |           89.8% |       21.8 KB |
+| `next-intl` (dynamic)             |      14.7 KB |     153.6 KB |              9.7% |           89.9% |       21.8 KB |
+| `@intlayer/next-intl` (compat)    |       8.0 KB |     148.7 KB |              0.0% |            0.0% |        8.1 KB |
+| `next-i18next` (static)           |      19.7 KB |     218.5 KB |              0.0% |           89.8% |       78.5 KB |
+| `next-i18next` (dynamic)          |      19.7 KB |     169.5 KB |             50.0% |           89.8% |       26.1 KB |
+| `@intlayer/next-i18next` (compat) |       9.4 KB |     150.7 KB |              0.0% |            0.0% |        9.7 KB |
+| `next-intlayer` (native Intlayer) |   **5.5 KB** | **141.3 KB** |          **0.0%** |        **0.0%** |    **6.9 KB** |
+
+> For the full analysis, see the [Next.js Benchmark Report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/benchmark/nextjs.md) and the comprehensive [i18n Benchmark Overview](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/benchmark/index.md).
+
 Two components are important in the context of a multi-language application bundle:
 
 - The application code
@@ -159,6 +177,8 @@ How the library handles fallbacks is also important. Let us consider that the ap
 
 In the case of `next-intl` and `next-i18next`, the library requires loading the JSON related to the current locale, but also to the fallback locale. Thus, considering that all content has been translated, each page will load 100% unnecessary content. **In comparison, `intlayer` processes the fallback at dictionary build time. Thus, each page will load only the content used.**
 
+> Note: To optimise the bundle using `intlayer`, you need to set the `importMode: 'dynamic'` option in your `intlayer.config.ts` file. And ensure the plugin `@intlayer/babel` / `@intlayer/swc` is installed (installed by default using `vite-intlayer`).
+
 Here is an example of the impact of bundle size optimisation using `intlayer` in a vite + react application:
 
 | Optimised bundle                                                                                       | Bundle not optimised                                                                                                      |
@@ -196,17 +216,30 @@ Here is an example of the impact of bundle size optimisation using `intlayer` in
 
 ## Missing translation handling
 
-**next-intl**
-
-- Relies on **runtime fallbacks** (e.g., show the key or default locale). Build doesn’t fail.
+<Columns>
+  <Column>
 
 **next-i18next**
 
 - Relies on **runtime fallbacks** (e.g., show the key or default locale). Build doesn’t fail.
 
+  </Column>
+  <Column>
+
+**next-intl**
+
+- Relies on **runtime fallbacks** (e.g., show the key or default locale). Build doesn’t fail.
+
+  </Column>
+  <Column>
+
 **intlayer**
 
 - **Build-time detection** with **warnings/errors** for missing locales or keys.
+
+  </Column>
+
+</Columns>
 
 **Why it matters:** Catching gaps during build prevents “mystery strings” in production and aligns with strict release gates.
 
@@ -386,66 +419,170 @@ How the library handles content loading is important.
 <Tabs defaultTab="next-intl" group='techno'>
   <Tab label="next-i18next" value="next-i18next">
 
-```tsx fileName="next-i18next.config.js"
-module.exports = {
-  i18n: {
-    locales: ["en", "fr", "es"],
-    defaultLocale: "en",
-  },
-};
-```
+```ts fileName="i18n.config.ts"
+export const locales = ["en", "fr"] as const;
+export type Locale = (typeof locales)[number];
 
-```tsx fileName="src/app/_app.tsx"
-import { appWithTranslation } from "next-i18next";
+export const defaultLocale: Locale = "en";
 
-const MyApp = ({ Component, pageProps }) => <Component {...pageProps} />;
+export const rtlLocales = ["ar", "he", "fa", "ur"] as const;
+export const isRtl = (locale: string) =>
+  (rtlLocales as readonly string[]).includes(locale);
 
-export default appWithTranslation(MyApp);
-```
-
-```tsx fileName="src/app/[locale]/about/page.tsx"
-import type { GetStaticProps } from "next";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { useTranslation } from "next-i18next";
-import { I18nextProvider, initReactI18next } from "react-i18next";
-import { createInstance } from "i18next";
-import { ClientComponent, ServerComponent } from "@components";
-
-export default function HomePage({ locale }: { locale: string }) {
-  // Explicitly declare the namespace used by this component
-  const resources = await loadMessagesFor(locale); // your loader (JSON, etc.)
-
-  const i18n = createInstance();
-  i18n.use(initReactI18next).init({
-    lng: locale,
-    fallbackLng: "en",
-    resources,
-    ns: ["common", "about"],
-    defaultNS: "common",
-    interpolation: { escapeValue: false },
-  });
-
-  const { t } = useTranslation("about");
-
-  return (
-    <I18nextProvider i18n={i18n}>
-      <main>
-        <h1>{t("title")}</h1>
-        <ClientComponent />
-        <ServerComponent />
-      </main>
-    </I18nextProvider>
-  );
+export function localizedPath(locale: string, path: string) {
+  return locale === defaultLocale ? path : "/" + locale + path;
 }
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  // Only preload the namespaces required for THIS page
-  return {
-    props: {
-      ...(await serverSideTranslations(locale ?? "en", ["common", "about"])),
-    },
-  };
+const ORIGIN = "https://example.com";
+export function abs(locale: string, path: string) {
+  return ORIGIN + localizedPath(locale, path);
+}
+```
+
+```ts fileName="src/app/i18n/server.ts"
+import { createInstance } from "i18next";
+import { initReactI18next } from "react-i18next/initReactI18next";
+import resourcesToBackend from "i18next-resources-to-backend";
+import { defaultLocale } from "@/i18n.config";
+
+// Load JSON resources from src/locales/<locale>/<namespace>.json
+const backend = resourcesToBackend(
+  (locale: string, namespace: string) =>
+    import(`../../locales/${locale}/${namespace}.json`)
+);
+
+export async function initI18next(
+  locale: string,
+  namespaces: string[] = ["common"]
+) {
+  const i18n = createInstance();
+  await i18n
+    .use(initReactI18next)
+    .use(backend)
+    .init({
+      lng: locale,
+      fallbackLng: defaultLocale,
+      ns: namespaces,
+      defaultNS: "common",
+      interpolation: { escapeValue: false },
+      react: { useSuspense: false },
+    });
+  return i18n;
+}
+```
+
+```tsx fileName="src/components/I18nProvider.tsx"
+"use client";
+
+import * as React from "react";
+import { I18nextProvider } from "react-i18next";
+import { createInstance } from "i18next";
+import { initReactI18next } from "react-i18next/initReactI18next";
+import resourcesToBackend from "i18next-resources-to-backend";
+import { defaultLocale } from "@/i18n.config";
+
+const backend = resourcesToBackend(
+  (locale: string, namespace: string) =>
+    import(`../../locales/${locale}/${namespace}.json`)
+);
+
+type Props = {
+  locale: string;
+  namespaces?: string[];
+  resources?: Record<string, any>; // { ns: bundle }
+  children: React.ReactNode;
 };
+
+export default function I18nProvider({
+  locale,
+  namespaces = ["common"],
+  resources,
+  children,
+}: Props) {
+  const [i18n] = React.useState(() => {
+    const i = createInstance();
+
+    i.use(initReactI18next)
+      .use(backend)
+      .init({
+        lng: locale,
+        fallbackLng: defaultLocale,
+        ns: namespaces,
+        resources: resources ? { [locale]: resources } : undefined,
+        defaultNS: "common",
+        interpolation: { escapeValue: false },
+        react: { useSuspense: false },
+      });
+
+    return i;
+  });
+
+  return <I18nextProvider i18n={i18n}>{children}</I18nextProvider>;
+}
+```
+
+```tsx fileName="src/app/[locale]/layout.tsx"
+import type { ReactNode } from "react";
+import { locales, defaultLocale, isRtl, type Locale } from "@/i18n.config";
+
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return locales.map((locale) => ({ locale }));
+}
+
+export default function LocaleLayout({
+  children,
+  params,
+}: {
+  children: ReactNode;
+  params: { locale: string };
+}) {
+  const locale: Locale = (locales as readonly string[]).includes(params.locale)
+    ? params.locale
+    : defaultLocale;
+
+  const dir = isRtl(locale) ? "rtl" : "ltr";
+
+  return (
+    <html lang={locale} dir={dir}>
+      <body>{children}</body>
+    </html>
+  );
+}
+```
+
+```tsx fileName="src/app/[locale]/about.tsx"
+import I18nProvider from "@/components/I18nProvider";
+import { initI18next } from "@/app/i18n/server";
+import type { Locale } from "@/i18n.config";
+import ClientComponent from "@/components/ClientComponent";
+import ServerComponent from "@/components/ServerComponent";
+
+// Force static rendering for the page
+export const dynamic = "force-static";
+
+export default async function AboutPage({
+  params: { locale },
+}: {
+  params: { locale: Locale };
+}) {
+  const namespaces = ["common", "about"] as const;
+
+  const i18n = await initI18next(locale, [...namespaces]);
+  const tAbout = i18n.getFixedT(locale, "about");
+
+  return (
+    <I18nProvider locale={locale} namespaces={[...namespaces]}>
+      <main>
+        <h1>{tAbout("title")}</h1>
+
+        <ClientComponent />
+        <ServerComponent t={tAbout} locale={locale} count={0} />
+      </main>
+    </I18nProvider>
+  );
+}
 ```
 
   </Tab>
@@ -1298,5 +1435,18 @@ All three libraries succeed at core localisation. The difference is **how much w
 
 - With **Intlayer**, **modular content**, **strict TS**, **build-time safety**, **tree-shaken bundles**, and **first-class App Router + SEO tooling** are **defaults**, not chores.
 - If your team prizes **maintainability and speed** in a multi-locale, component-driven app, Intlayer offers the **most complete** experience today.
+
+## Further reading & benchmarks
+
+- [Next.js Benchmark Report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/benchmark/nextjs.md)
+- [i18n Benchmark Overview](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/benchmark/index.md)
+- [TanStack Start Benchmark Report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/benchmark/tanstack.md)
+- [Vue Benchmark Report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/benchmark/vue.md)
+- [Solid Benchmark Report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/benchmark/solid.md)
+- [Svelte Benchmark Report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/benchmark/svelte.md)
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/next-intl_vs_intlayer.md)
+- [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/i18next_vs_intlayer.md)
+- [@intlayer/next-intl Compat Adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compat/next-intl.md)
+- [@intlayer/next-i18next Compat Adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compat/next-i18next.md)
 
 Refer to ['Why Intlayer?' doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/interest_of_intlayer.md) for more details.

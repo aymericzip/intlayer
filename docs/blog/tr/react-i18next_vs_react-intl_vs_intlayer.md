@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2026-09-16
+updatedAt: 2026-09-26
 priority: 9
 title: react-i18next vs react-intl vs Intlayer
 description: react-i18next'i next-intl ve Intlayer ile React uygulamasının uluslararasılaştırması (i18n) için entegre edin
@@ -111,6 +111,27 @@ Aşağıdaki grafik, sayfa başına yaklaşık 30 KB metin içeren, 1 ila 10 say
 
 ![Mimariye göre teorik içerik sızıntısı](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
+#### React üzerinde benchmark sonuçları (TanStack Start / Vite)
+
+TanStack Start üzerinde standart React implementasyonlarını ölçen [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) verileri:
+
+<I18nBenchmark framework="tanstack" vertical/>
+
+| Library            | Strategy | Lib size (gz) | Page JS avg (gz) | Locale leak | Page leak | Component avg (gz) | E2E reactivity | Hydration |
+| ------------------ | -------- | ------------: | ---------------: | ----------: | --------: | -----------------: | -------------: | --------: |
+| **base** (no i18n) | -        |        0.0 KB |         111.0 KB |        0.0% |      0.0% |             0.7 KB |         8.1 ms |   21.6 ms |
+| `react-i18next`    | dynamic  |       18.4 KB |         136.4 KB |       23.1% |     89.8% |            24.8 KB |       123.1 ms |   32.9 ms |
+| **`intlayer`**     | dynamic  |    **5.0 KB** |     **118.6 KB** |    **0.0%** |  **0.0%** |         **6.3 KB** |     **3.6 ms** |   14.1 ms |
+
+<ClickToOpenIframe
+  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md"
+  width="100%"
+  height="600px"
+  style="border:none;"
+/>
+
+> Tam tablo için [TanStack Start benchmark raporu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md) ve [i18n Benchmark Genel Bakış](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/index.md) sayfalarına bakın.
+
 ### 6) DX, araçlar ve bakım
 
 - **react-intl / react-i18next**: Geniş topluluk ekosistemi; düzenleme iş akışları için genellikle harici yerelleştirme platformlarını benimser.
@@ -129,6 +150,13 @@ Aşağıdaki grafik, sayfa başına yaklaşık 30 KB metin içeren, 1 ila 10 say
 `intlayer`, `react-intl` ve `react-i18next` ad alanlarınızı yönetmenize de yardımcı olabilir.
 
 `intlayer` kullanarak, içeriğinizi favori i18n kütüphanenizin formatında beyan edebilirsiniz ve intlayer ad alanlarınızı istediğiniz konumda oluşturacaktır (örnek: `/messages/{{locale}}/{{namespace}}.json`).
+
+## Ek kaynaklar ve benchmark'lar
+
+- Benchmark raporları: [i18n Benchmark Genel Bakış](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/index.md), [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md), [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md), [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/vue.md), [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/solid.md) ve [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/svelte.md)
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18next_vs_intlayer-i18next.md)
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/next-intl_vs_intlayer.md)
+- [Bundle optimizasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md) ve [Intlayer derleyicisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md)
 
 ## GitHub YILDIZLARI
 

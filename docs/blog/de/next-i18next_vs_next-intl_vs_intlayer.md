@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-09-16
+updatedAt: 2026-09-26
 priority: 9
-title: "next-i18next vs next-intl vs Intlayer - Vollständiger Leitfaden zur Übersetzung next-i18next vs next-intl vs Intlayer: 2026 Comparison"
-description: Beste Lösung für Bundle-Größe, SEO, Performance & Wartbarkeit. Machen Sie Ihre Next.js Website 2026 mehrsprachig, LLM-Übersetzung, Agent Skills & MCP.
+title: "next-i18next vs next-intl vs Intlayer: Vergleich 2026"
+description: "Welche i18n-Bibliothek für Next.js? next-i18next, next-intl und Intlayer im Vergleich: Bundle-Größe, TypeScript-Sicherheit, Server Components, Routing und Developer Experience."
 keywords:
   - next-intl
   - next-i18next
@@ -21,8 +21,6 @@ author: aymericzip
 
 # next-i18next VS next-intl VS intlayer | Next.js Internationalisierung (i18n)
 
-<TOC/>
-
 ![next-i18next VS next-intl VS intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
 Werfen wir einen Blick auf die Gemeinsamkeiten und Unterschiede zwischen drei i18n-Optionen für Next.js: next-i18next, next-intl und Intlayer.
@@ -31,13 +29,7 @@ Dies ist kein vollständiges Tutorial. Es ist ein Vergleich, der Ihnen bei der A
 
 Wir konzentrieren uns auf den **Next.js 13+ App Router** (mit **React Server Components**) und bewerten:
 
-1. **Architektur & Inhaltsorganisation**
-2. **TypeScript & Sicherheit**
-3. **Umgang mit fehlenden Übersetzungen**
-4. **Routing & Middleware**
-5. **Performance & Ladeverhalten**
-6. **Entwicklererfahrung (DX), Tools & Wartung**
-7. **SEO & Skalierbarkeit bei großen Projekten**
+<TOC/>
 
 > **Kurzfassung**: Alle drei können eine Next.js-App lokalisieren. Wenn Sie **komponentenbezogenen Inhalt**, **strenge TypeScript-Typen**, **Build-Zeit-Prüfungen fehlender Schlüssel**, **tree-shakbare Wörterbücher** und **erstklassige App Router- und SEO-Hilfen** wünschen, ist **Intlayer** die vollständigste und modernste Wahl.
 
@@ -100,6 +92,32 @@ Es gibt viele i18n-Bibliotheken, aber in der Next.js-Welt gewinnen heute drei an
 
 Nach dem Erstellen der Anwendung ist das Bundle das JavaScript, das der Browser zum Rendern der Seite lädt. Die Bundle-Größe ist daher wichtig für die Anwendungsleistung.
 
+Der [i18n-Benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/nextjs.md) misst die tatsächlichen Auswirkungen jeder Bibliothek auf dieselbe Next.js-Anwendung mit 10 Seiten und 10 Locales:
+
+<I18nBenchmark framework="nextjs" packages="next-i18next,next-intl,next-intlayer" vertical/>
+
+<ClickToOpenIframe
+  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+  width="100%"
+  height="600px"
+  style="border:none;"
+/>
+
+Wichtige Kennzahlen, gemessen mit dem Next.js App Router (gzip):
+
+| Setup                             | Bibliotheksgröße |  Ø Seiten-JS | Leak anderer Locales | Leak anderer Seiten | Ø pro Komponente |
+| :-------------------------------- | ---------------: | -----------: | -------------------: | ------------------: | ---------------: |
+| Basis (ohne i18n)                 |                - |     141.0 KB |                 0.0% |                0.0% |           0.9 KB |
+| `next-intl` (static)              |          14.7 KB |     153.6 KB |                 4.2% |               89.8% |          21.8 KB |
+| `next-intl` (dynamic)             |          14.7 KB |     153.6 KB |                 9.7% |               89.9% |          21.8 KB |
+| `@intlayer/next-intl` (compat)    |           8.0 KB |     148.7 KB |                 0.0% |                0.0% |           8.1 KB |
+| `next-i18next` (static)           |          19.7 KB |     218.5 KB |                 0.0% |               89.8% |          78.5 KB |
+| `next-i18next` (dynamic)          |          19.7 KB |     169.5 KB |                50.0% |               89.8% |          26.1 KB |
+| `@intlayer/next-i18next` (compat) |           9.4 KB |     150.7 KB |                 0.0% |                0.0% |           9.7 KB |
+| `next-intlayer` (native Intlayer) |       **5.5 KB** | **141.3 KB** |             **0.0%** |            **0.0%** |       **6.9 KB** |
+
+> Die vollständige Analyse finden Sie im [Next.js-Benchmark-Bericht](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/nextjs.md) und in der umfassenden [i18n-Benchmark-Übersicht](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/index.md).
+
 Zwei Komponenten sind im Kontext eines mehrsprachigen Anwendungs-Bundles wichtig:
 
 - Der Anwendungscode
@@ -113,13 +131,11 @@ Hier ist ein Vergleich der JavaScript-Bundle-Größe, die der Browser für eine 
 
 Wenn wir keinen Formatter in der Anwendung benötigen, ist die Liste der exportierten Funktionen nach dem Tree-Shaking wie folgt:
 
-- **next-intlayer**: `useIntlayer`, `useLocale`, `NextIntlClientProvider`, (Paketgröße ist 180,6 kB -> 78,6 kB (gzip))
+- **next-intlayer**: `useIntlayer`, `useLocale`, `NextIntlClientProvider`, (Paketgröße ist 180,6 kB -> 15,24 kB (gzip))
 - **next-intl**: `useTranslations`, `useLocale`, `NextIntlClientProvider`, (Paketgröße ist 101,3 kB -> 31,4 kB (gzip))
 - **next-i18next**: `useTranslation`, `useI18n`, `I18nextProvider`, (Paketgröße ist 80,7 kB -> 25,5 kB (gzip))
 
 Diese Funktionen sind nur Wrapper um den React-Kontext/-Status, daher ist der Gesamteinfluss der i18n-Bibliothek auf die Paketgröße minimal.
-
-> Intlayer ist etwas größer als `next-intl` und `next-i18next`, da es mehr Logik in der Funktion `useIntlayer` enthält. Dies hängt mit der Integration von Markdown und `intlayer-editor` zusammen.
 
 ## Inhalt und Übersetzungen
 
@@ -161,6 +177,8 @@ Wie die Bibliothek mit Fallbacks umgeht, ist ebenfalls wichtig. Nehmen wir an, d
 
 Im Fall von `next-intl` und `next-i18next` erfordert die Bibliothek das Laden der JSON-Dateien, die sowohl zur aktuellen Locale als auch zur Fallback-Locale gehören. Somit lädt jede Seite, vorausgesetzt alle Inhalte sind übersetzt, 100 % unnötigen Inhalt. **Im Vergleich dazu verarbeitet `intlayer` das Fallback bereits zur Build-Zeit des Wörterbuchs. Dadurch lädt jede Seite nur den tatsächlich genutzten Inhalt.**
 
+> Hinweis: Um das Bundle mit `intlayer` zu optimieren, müssen Sie die Option `importMode: 'dynamic'` in Ihrer Datei `intlayer.config.ts` setzen. Stellen Sie außerdem sicher, dass das Plugin `@intlayer/babel` / `@intlayer/swc` installiert ist (mit `vite-intlayer` standardmäßig installiert).
+
 Hier ein Beispiel für die Auswirkung der Bundle-Größenoptimierung mit `intlayer` in einer vite + react Anwendung:
 
 | Optimiertes Bundle                                                                                       | Nicht optimiertes Bundle                                                                                                       |
@@ -198,17 +216,30 @@ Hier ein Beispiel für die Auswirkung der Bundle-Größenoptimierung mit `intlay
 
 ## Umgang mit fehlenden Übersetzungen
 
-**next-intl**
-
-- Verwendet **Fallbacks zur Laufzeit** (z. B. Anzeige des Schlüssels oder der Standardsprache). Der Build schlägt nicht fehl.
+<Columns>
+  <Column>
 
 **next-i18next**
 
 - Verwendet **Fallbacks zur Laufzeit** (z. B. Anzeige des Schlüssels oder der Standardsprache). Der Build schlägt nicht fehl.
 
+  </Column>
+  <Column>
+
+**next-intl**
+
+- Verwendet **Fallbacks zur Laufzeit** (z. B. Anzeige des Schlüssels oder der Standardsprache). Der Build schlägt nicht fehl.
+
+  </Column>
+  <Column>
+
 **intlayer**
 
 - **Erkennung zur Build-Zeit** mit **Warnungen/Fehlern** bei fehlenden Sprachen oder Schlüsseln.
+
+  </Column>
+
+</Columns>
 
 **Warum das wichtig ist:** Das Erkennen von Lücken während des Builds verhindert „mysteriöse Strings“ in der Produktion und entspricht strengen Release-Gates.
 
@@ -943,8 +974,6 @@ const ServerComponent = ({ count }: ServerComponentProps) => {
 };
 ```
 
-> Da die Server-Komponente nicht asynchron sein kann, müssen die Übersetzungen und die Formatierungsfunktion als Props übergeben werden.
-
   </Tab>
   <Tab label="next-intl" value="next-intl">
 
@@ -1440,5 +1469,18 @@ Alle drei Bibliotheken sind im Kern der Lokalisierung erfolgreich. Der Unterschi
 
 - Mit **Intlayer** sind **modularer Inhalt**, **striktes TypeScript**, **Build-Zeit-Sicherheit**, **tree-shaken Bundles** und **erstklassiger App Router + SEO-Tools** **Standard**, nicht lästige Pflicht.
 - Wenn Ihr Team **Wartbarkeit und Geschwindigkeit** in einer mehrsprachigen, komponentenbasierten Anwendung schätzt, bietet Intlayer heute die **vollständigste** Erfahrung.
+
+## Weiterführende Lektüre & Benchmarks
+
+- [Next.js-Benchmark-Bericht](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/nextjs.md)
+- [i18n-Benchmark-Übersicht](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/index.md)
+- [TanStack Start-Benchmark-Bericht](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/tanstack.md)
+- [Vue-Benchmark-Bericht](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/vue.md)
+- [Solid-Benchmark-Bericht](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/solid.md)
+- [Svelte-Benchmark-Bericht](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/svelte.md)
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/next-intl_vs_intlayer.md)
+- [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/i18next_vs_intlayer.md)
+- [@intlayer/next-intl Kompatibilitätsadapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compat/next-intl.md)
+- [@intlayer/next-i18next Kompatibilitätsadapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compat/next-i18next.md)
 
 Weitere Details finden Sie im Dokument ['Warum Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/interest_of_intlayer.md).

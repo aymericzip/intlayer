@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-09-16
+updatedAt: 2026-09-26
 priority: 9
-title: "next-i18next vs next-intl vs Intlayer - Panduan lengkap menerjemahkan next-i18next vs next-intl vs Intlayer: 2026 Comparison"
-description: Solusi terbaik untuk ukuran bundle, SEO, performa & keterpeliharaan. Jadikan Next.js situs web Anda multibahasa di 2026, terjemahan LLM, Agent Skills & MCP.
+title: "next-i18next vs next-intl vs Intlayer: Perbandingan 2026"
+description: "Library i18n mana yang sebaiknya dipilih untuk Next.js? next-i18next, next-intl, dan Intlayer dibandingkan dari ukuran bundle, keamanan TypeScript, Server Components, routing, dan pengalaman developer."
 keywords:
   - next-intl
   - next-i18next
@@ -91,6 +91,32 @@ Banyak pustaka i18n yang ada, tetapi di dunia Next.js saat ini, tiga yang sedang
 ## Ukuran bundle & dependensi
 
 Setelah membangun aplikasi, bundle adalah JavaScript yang akan dimuat oleh browser untuk merender halaman. Oleh karena itu, ukuran bundle penting untuk performa aplikasi.
+
+[Benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/nextjs.md) mengukur dampak nyata setiap library pada aplikasi Next.js yang sama dengan 10 halaman dan 10 locale:
+
+<I18nBenchmark framework="nextjs" packages="next-i18next,next-intl,next-intlayer" vertical/>
+
+<ClickToOpenIframe
+  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+  width="100%"
+  height="600px"
+  style="border:none;"
+/>
+
+Angka kunci yang diukur pada Next.js App Router (gzip):
+
+| Setup                             | Ukuran library | Rata-rata JS halaman | Kebocoran locale lain | Kebocoran halaman lain | Rata-rata komponen |
+| :-------------------------------- | -------------: | -------------------: | --------------------: | ---------------------: | -----------------: |
+| Dasar (tanpa i18n)                |              - |             141.0 KB |                  0.0% |                   0.0% |             0.9 KB |
+| `next-intl` (static)              |        14.7 KB |             153.6 KB |                  4.2% |                  89.8% |            21.8 KB |
+| `next-intl` (dynamic)             |        14.7 KB |             153.6 KB |                  9.7% |                  89.9% |            21.8 KB |
+| `@intlayer/next-intl` (compat)    |         8.0 KB |             148.7 KB |                  0.0% |                   0.0% |             8.1 KB |
+| `next-i18next` (static)           |        19.7 KB |             218.5 KB |                  0.0% |                  89.8% |            78.5 KB |
+| `next-i18next` (dynamic)          |        19.7 KB |             169.5 KB |                 50.0% |                  89.8% |            26.1 KB |
+| `@intlayer/next-i18next` (compat) |         9.4 KB |             150.7 KB |                  0.0% |                   0.0% |             9.7 KB |
+| `next-intlayer` (native Intlayer) |     **5.5 KB** |         **141.3 KB** |              **0.0%** |               **0.0%** |         **6.9 KB** |
+
+> Untuk analisis lengkap, lihat [Laporan Benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/nextjs.md) dan [Ikhtisar Benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/index.md) yang komprehensif.
 
 Ada dua komponen yang penting dalam konteks bundle aplikasi multi-bahasa:
 
@@ -1476,5 +1502,18 @@ Ketiga perpustakaan tersebut berhasil dalam lokalisasi inti. Perbedaannya adalah
 
 - Dengan **Intlayer**, **konten modular**, **TS ketat**, **keamanan saat build**, **bundle yang di-tree-shake**, dan **App Router kelas satu + alat SEO** adalah **default**, bukan tugas yang merepotkan.
 - Jika tim Anda menghargai **pemeliharaan dan kecepatan** dalam aplikasi multi-locale yang berbasis komponen, Intlayer menawarkan pengalaman yang **paling lengkap** saat ini.
+
+## Bacaan lanjutan & benchmark
+
+- [Laporan Benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/nextjs.md)
+- [Ikhtisar Benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/index.md)
+- [Laporan Benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/tanstack.md)
+- [Laporan Benchmark Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/vue.md)
+- [Laporan Benchmark Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/solid.md)
+- [Laporan Benchmark Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/svelte.md)
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/next-intl_vs_intlayer.md)
+- [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18next_vs_intlayer.md)
+- [Adaptor Kompatibilitas @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/next-intl.md)
+- [Adaptor Kompatibilitas @intlayer/next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/next-i18next.md)
 
 Lihat dokumen ['Mengapa Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/interest_of_intlayer.md) untuk detail lebih lanjut.

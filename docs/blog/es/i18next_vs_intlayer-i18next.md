@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-22
+updatedAt: 2026-09-26
 priority: 8
 title: "i18next vs @intlayer/i18next: Misma API, Distinto Bundle"
 description: Qué cambia cuando una aplicación React o Next.js mantiene sus llamadas a i18next, react-i18next y next-i18next pero las ejecuta a través de los adaptadores @intlayer/i18next. JavaScript por página, tamaño de componentes, fuga de strings e hidratación medidos sobre el mismo código, además de lo que los adaptadores conservan, ignoran y no pueden reemplazar.
@@ -114,7 +114,7 @@ Para cada build, la suite registra:
 
 Selecciona las métricas y las bibliotecas que te interesen:
 
-<I18nBenchmark framework="nextjs" vertical/>
+<I18nBenchmark framework="nextjs" packages="next-i18next,@intlayer/next-i18next,next-intlayer" vertical/>
 
 | Configuración                | Estrategia     | Tamaño lib (gz) | JS pág prom (gz) | Fuga idioma | Fuga pág | Comp prom (gz) | Reactividad E2E | Hidratación |
 | ---------------------------- | -------------- | --------------: | ---------------: | ----------: | -------: | -------------: | --------------: | ----------: |
@@ -144,6 +144,25 @@ style="border:none;"
 />
 
 > Tabla completa, cada biblioteca y cada estrategia, en el [informe de benchmark de Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/benchmark/nextjs.md).
+
+### Resultados en TanStack Start (`react-i18next`)
+
+Para Vite y TanStack Start, el benchmark compara `react-i18next` estándar con `intlayer`:
+
+| Biblioteca          | Estrategia | Tamaño lib (gz) | JS pág prom (gz) | Fuga idioma | Fuga pág | Comp prom (gz) | Reactividad E2E | Hidratación |
+| ------------------- | ---------- | --------------: | ---------------: | ----------: | -------: | -------------: | --------------: | ----------: |
+| **base** (sin i18n) | -          |          0.0 KB |         111.0 KB |        0.0% |     0.0% |         0.7 KB |          8.1 ms |     21.6 ms |
+| `react-i18next`     | dynamic    |         18.4 KB |         136.4 KB |       23.1% |    89.8% |        24.8 KB |        123.1 ms |     32.9 ms |
+| **`intlayer`**      | dynamic    |      **5.0 KB** |     **118.6 KB** |    **0.0%** | **0.0%** |     **6.3 KB** |      **3.6 ms** |     14.1 ms |
+
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> Tabla completa en el [informe de benchmark de TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/benchmark/tanstack.md).
 
 > El adaptador `react-i18next` en Vite / TanStack Start no formó parte de esta prueba. La referencia base de `react-i18next` en TanStack Start se encuentra en [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/i18next_vs_intlayer.md): 127-184 KB por página y 123-185 ms en el cambio de idioma cuando el backend se carga de forma diferida.
 
@@ -346,6 +365,25 @@ Un solo archivo, mostrado arriba. Pages Router con `appWithTranslation` no requi
 
 </Accordion>
 </AccordionGroup>
+
+## Comparación de funcionalidades
+
+Más allá de los bytes, lo que ofrece cada opción:
+
+| Funcionalidad                                         | `i18next` / `react-i18next` / `next-i18next` | Adaptadores `@intlayer/*`              | Intlayer nativo                          |
+| ----------------------------------------------------- | -------------------------------------------- | -------------------------------------- | ---------------------------------------- |
+| **Tus llamadas a `t()`, `useTranslation`, `<Trans>`** | ✅                                           | ✅ Sin cambios                         | ❌ Migradas a `useIntlayer`              |
+| **Tamaño del runtime (gzip, Next.js)**                | 19.7 KB                                      | 9.4 KB                                 | 5.5 KB                                   |
+| **Fuga de otras páginas sin namespaces manuales**     | ~90%                                         | 0%                                     | 0%                                       |
+| **Claves tipadas**                                    | ⚠️ Declaración manual                        | ✅ Desde los diccionarios compilados   | ✅ Autogeneradas                         |
+| **Backends y plugins en runtime**                     | ✅ Ecosistema completo de plugins            | ❌ Inertes                             | ❌ No aplica, usa el CMS                 |
+| **Contenido junto a los componentes**                 | ❌ JSON centralizado                         | ⚠️ JSON, `.content.ts` puede coexistir | ✅ `.content.ts` junto a cada componente |
+| **Traducciones faltantes en CI**                      | ⚠️ No integrado                              | ✅ `npx intlayer test`                 | ✅ `npx intlayer test`                   |
+| **Traducción con IA**                                 | ❌ No                                        | ✅ `npx intlayer fill`                 | ✅ `npx intlayer fill`                   |
+| **Editor visual / CMS**                               | ❌ Mediante plataformas externas             | ✅ Sobre el mismo JSON                 | ✅ Sí                                    |
+| **Ecosistema / comunidad**                            | ✅ Muy grande                                | ⚠️ Más pequeño, en rápido crecimiento  | ⚠️ Más pequeño, en rápido crecimiento    |
+
+> Los tamaños de runtime provienen de la ejecución en Next.js descrita arriba.
 
 ## ¿Cuándo elegir cada opción?
 

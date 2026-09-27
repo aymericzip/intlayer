@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-11-01
-updatedAt: 2026-05-31
+updatedAt: 2026-09-26
 priority: 9
-title: كيفية تعريب تطبيق Next.js الخاص بك باستخدام next-i18next - الدليل الكامل لترجمة Translate Next.js 16 with next-i18next — App Router Setup
-description: أفضل حل لحجم الحزمة وتحسين محركات البحث والأداء والصيانة. اجعل Next.js 16 موقع ويب متعدد اللغات في 2026، ترجمة LLM، Agent Skills & MCP.
+title: "i18n في Next.js 16 باستخدام next-i18next: دليل إعداد App Router"
+description: "إعداد next-i18next وi18next خطوة بخطوة في تطبيق Next.js 16 باستخدام App Router: مساحات الأسماء، وتوجيه اللغات، ومكوّنات الخادم والعميل، وبيانات SEO الوصفية."
 keywords:
   - next-i18next
   - i18next
@@ -44,6 +44,62 @@ author: aymericzip
 > كبديل، يمكنك أيضًا الرجوع إلى [دليل next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/i18n_using_next-intl.md)، أو استخدام [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_16.md) مباشرة.
 
 > اطلع على المقارنة في [next-i18next مقابل next-intl مقابل Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/next-i18next_vs_next-intl_vs_intlayer.md).
+
+## ماذا يقول الـ benchmark عن next-i18next في Next.js
+
+قبل البدء في الإعداد، من الضروري فهم تأثير مكتبة i18n على الأداء وحجم الـ bundle. يقوم [benchmark الـ i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md) بتشغيل نفس تطبيق Next.js المكوّن من 10 صفحات و10 لغات مع أبرز مكتبات i18n لقياس الحجم الفعلي للـ bundle وتسرّب النصوص وتكلفة الـ hydration.
+
+<I18nBenchmark framework="nextjs" packages="next-i18next,@intlayer/next-i18next,next-intlayer" vertical/>
+
+<ClickToOpenIframe
+  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+  width="100%"
+  height="600px"
+  style="border:none;"
+/>
+
+الأرقام الرئيسية لـ `next-i18next` في Next.js (gzip):
+
+| الإعداد                           | حجم المكتبة | متوسط JS للصفحة | تسرّب اللغات الأخرى | تسرّب الصفحات الأخرى |
+| :-------------------------------- | ----------: | --------------: | ------------------: | -------------------: |
+| الأساس (بدون i18n)                |           - |        141.0 KB |                0.0% |                 0.0% |
+| `next-i18next`                    |     19.7 KB |        169.5 KB |               50.0% |                89.8% |
+| `@intlayer/next-i18next` (compat) |      9.4 KB |        150.7 KB |                0.0% |                 0.0% |
+| `next-intlayer` (Intlayer الأصلي) |      5.5 KB |        141.3 KB |                0.0% |                 0.0% |
+
+ما يجب استخلاصه:
+
+- **تقسيم الـ namespaces ضروري:** في الإعدادات البسيطة، يرسل `next-i18next` كل الـ namespaces إلى كل صفحة (~89.8% تسرّب بين الصفحات). تقسيم الـ namespaces حسب المسار وتحميلها بشكل lazy يقلل JS الصفحة، لكنه يتطلب تنظيمًا يدويًا دقيقًا.
+- **وزن الـ runtime:** يزن runtime العميل الخاص بـ `i18next` حوالي ~19.7 KB gzip في كل صفحة. بالنسبة للـ codebase الحالية، يحافظ محوّل التوافق [`@intlayer/next-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/next-i18next.md) على نفس واجهة `i18next` مع تقليص الـ runtime إلى 9.4 KB وإزالة التسرّب. أما [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/next-intlayer/exports.md) الأصلي فينخفض إلى 5.5 KB.
+
+> اطّلع على البيانات الكاملة: [تقرير benchmark الخاص بـ Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md)، و[مستودع الـ benchmark](https://github.com/intlayer-org/benchmark-i18n).
+
+## مقارنة الميزات في Next.js
+
+كيف يقارن `next-i18next` مع `next-intl` وIntlayer في الميزات التي يحتاجها عادةً مشروع Next.js App Router:
+
+| الميزة                                     | `next-intlayer` (Intlayer)                           | `next-intl`                                         | `next-i18next`                           |
+| ------------------------------------------ | ---------------------------------------------------- | --------------------------------------------------- | ---------------------------------------- |
+| **الترجمات بجوار المكوّنات**               | ✅ المحتوى بجوار كل مكوّن                            | ❌ JSON مركزي                                       | ❌ JSON مركزي                            |
+| **تكامل TypeScript**                       | ✅ أنواع صارمة مولّدة تلقائيًا                       | ✅ جيد، عبر augmentation لـ `AppConfig`             | ⚠️ أساسي                                 |
+| **اكتشاف الترجمات المفقودة**               | ✅ أخطاء TypeScript وتحذيرات وقت البناء              | ⚠️ Fallback وقت التشغيل                             | ⚠️ Fallback وقت التشغيل                  |
+| **المحتوى الغني (JSX، Markdown)**          | ✅ دعم مباشر                                         | ⚠️ وسوم عبر `t.rich`، بدون Markdown                 | ⚠️ وسوم عبر `<Trans>`                    |
+| **الترجمة بالذكاء الاصطناعي**              | ✅ مزوّدك الخاص ومفتاح API الخاص بك، مع سياق التطبيق | ❌ لا                                               | ❌ لا                                    |
+| **المحرر المرئي / CMS**                    | ✅ محرر مرئي محلي + CMS اختياري                      | ❌ عبر منصات خارجية                                 | ❌ عبر منصات خارجية                      |
+| **التوجيه المحلّي**                        | ✅ مدمج (Next.js وVite)                              | ✅ مقطع `[locale]` مدمج                             | ✅ مدمج                                  |
+| **صيغ الجمع**                              | ✅ قائم على التعداد                                  | ✅ ICU                                              | ✅ قائم على اللواحق (`_one`، `_other`)   |
+| **التنسيق (التواريخ، الأرقام، العملات)**   | ✅ منسّقات قائمة على `Intl`                          | ✅ `useFormatter`                                   | ✅ قائم على `Intl`                       |
+| **صيغ المحتوى**                            | ✅ `.ts`, `.tsx`, `.js`, `.json`, `.md`, `.yaml`     | ✅ `.json`, `.js`, `.ts`                            | ⚠️ `.json`                               |
+| **ICU MessageFormat**                      | ✅ عبر `format: "icu"`                               | ✅ أصلي                                             | ⚠️ عبر `i18next-icu`                     |
+| **أدوات SEO المساعدة (hreflang، sitemap)** | ✅ أدوات مساعدة لـ metadata وsitemap وrobots.txt     | ✅ جيد                                              | ✅ جيد                                   |
+| **Server Components**                      | ✅ وصول مباشر في أي Server Component                 | ⚠️ تمرير `t` أو `await getTranslations()` لكل مكوّن | ⚠️ تمرير `t` عبر شجرة المكوّنات          |
+| **Tree-shaking لكل مكوّن**                 | ✅ وقت البناء (Babel / SWC)                          | ⚠️ يدوي، باستخدام `pick()` لكل مسار                 | ⚠️ يدوي، باستخدام namespaces لكل مسار    |
+| **Lazy loading**                           | ✅ لكل لغة ولكل قاموس                                | ✅ لكل لغة، والـ namespaces تُدار يدويًا            | ✅ لكل لغة، والـ namespaces تُدار يدويًا |
+| **حجم الـ runtime (gzip، benchmark)**      | 4.9 KB                                               | 14.7 KB                                             | 19.7 KB                                  |
+| **الترجمات المفقودة في CI**                | ✅ `npx intlayer test`                               | ⚠️ غير مدمج                                         | ⚠️ غير مدمج، `saveMissing` وقت التشغيل   |
+| **المنظومة / المجتمع**                     | ⚠️ أصغر، وينمو بسرعة                                 | ✅ كبير                                             | ✅ كبير جدًا                             |
+
+> أحجام الـ runtime مأخوذة من [benchmark الخاص بـ Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md). لنقاش مفصّل، اقرأ [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/next-i18next_vs_next-intl_vs_intlayer.md).
 
 ## الممارسات التي يجب اتباعها
 
@@ -1119,11 +1175,6 @@ Intlayer هي مكتبة **مجانية** و**مفتوحة المصدر** مصم
   يوفر Intlayer واجهة سطر أوامر (CLI) وامتداد VSCode لأتمتة ترجماتك. يمكن دمجه في خط أنابيب CI/CD الخاص بك. تعرّف على المزيد حول [أتمتة ترجماتك](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md).  
   يمكنك استخدام **مفتاح API الخاص بك، ومزود الذكاء الاصطناعي الذي تختاره**. كما يوفر ترجمات واعية للسياق، راجع [ملء المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/autoFill.md).
 
-- **ربط المحتوى الخارجي**
-- **قم بأتمتة ترجماتك**،  
-  يوفر Intlayer أداة CLI وامتداد VSCode لأتمتة ترجماتك. يمكن دمجه في خط أنابيب CI/CD الخاص بك. تعرّف على المزيد حول [أتمتة ترجماتك](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md).  
-  يمكنك استخدام **مفتاح API الخاص بك، ومزود الذكاء الاصطناعي الذي تختاره**. كما يوفر ترجمات واعية للسياق، راجع [ملء المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/autoFill.md).
-
 - **ربط المحتوى الخارجي**  
   يتيح لك Intlayer ربط محتواك بنظام إدارة محتوى خارجي (CMS). لجلبه بطريقة محسّنة وإدراجه في موارد JSON الخاصة بك. تعرّف على المزيد حول [جلب المحتوى الخارجي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/function_fetching.md).
 
@@ -1132,6 +1183,21 @@ Intlayer هي مكتبة **مجانية** و**مفتوحة المصدر** مصم
 
 والمزيد. لاكتشاف جميع الميزات التي يوفرها Intlayer، يرجى الرجوع إلى [أهمية توثيق Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/interest_of_intlayer.md).
 
+للاطلاع على benchmarks الأداء والمقارنات التفصيلية، راجع:
+
+- [تقرير benchmark الخاص بـ Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md)
+- [مجموعة benchmarks الـ i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/index.md)
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/i18next_vs_intlayer-i18next.md)
+- [محوّل التوافق @intlayer/next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/next-i18next.md)
+
 </Step>
 
 </Steps>
+
+<Sponsor>
+
+بمجرد أن تكون لديك namespaces مثل common.json وabout.json مُعرّفة الأنواع عبر module augmentation في i18next، فأنت فعليًا قد عرّفت schema للمحتوى. السؤال التالي هو أين يعيش هذا الـ schema ومن يعدّله. يتعامل Sanity معه كعنصر أساسي: تقوم بنمذجة الحقول والمراجع والتحقق في الكود، ويعمل المحررون على نفس النموذج في Sanity Studio بدلًا من تعديل JSON يدويًا لكل لغة.
+
+يعيش المحتوى في Content Lake على شكل JSON منظّم، قابل للاستعلام عبر GROQ ويُقدَّم عبر API، مع اعتبار اللغة حقلًا وليس مجلدًا. في إعداد Next.js App Router، يمكنك جلب namespace على الخادم وتمريره إلى الـ provider الخاص بـ i18n تمامًا كما يتوقع هذا النمط، وترك المصدر نفسه يغذّي التطبيقات والبريد الإلكتروني والـ agents. مع تزايد اللغات والقنوات، يبقى الـ schema هو العقد؛ وتبقى طبقة التوصيل هي i18next.
+
+</Sponsor>

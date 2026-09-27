@@ -104,7 +104,7 @@ Pour chaque build, la suite enregistre:
 
 Sélectionnez les métriques et les bibliothèques qui vous intéressent :
 
-<I18nBenchmark framework="nextjs" vertical/>
+<I18nBenchmark framework="nextjs" packages="next-i18next,next-intlayer" vertical/>
 
 | Bibliothèque                      | Stratégie      | Lib size (gz) | Page JS avg (gz) | Locale leak | Page leak | Component avg (gz) | Réactivité E2E | Hydratation |
 | --------------------------------- | -------------- | ------------: | ---------------: | ----------: | --------: | -----------------: | -------------: | ----------: |

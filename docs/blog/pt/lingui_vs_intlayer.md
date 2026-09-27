@@ -101,7 +101,7 @@ Para cada compilação, registram-se:
 
 Escolha as métricas e bibliotecas do seu interesse:
 
-<I18nBenchmark framework="nextjs" vertical/>
+<I18nBenchmark framework="nextjs" packages="lingui,next-intlayer" vertical/>
 
 | Biblioteca          | Estratégia     | Lib size (gz) | Page JS méd (gz) | Vazamento idioma | Vazamento página | Componente méd (gz) | Reatividade E2E | Hidratação |
 | ------------------- | -------------- | ------------: | ---------------: | ---------------: | ---------------: | ------------------: | --------------: | ---------: |

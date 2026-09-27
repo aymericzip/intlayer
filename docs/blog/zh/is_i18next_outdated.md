@@ -77,7 +77,7 @@ GitHub Stars 仅代表历史上的流行程度，并不代表当下的架构活�
 
 ## 测量打包体积开销
 
-<I18nBenchmark framework="tanstack" vertical/>
+<I18nBenchmark framework="tanstack" packages="react-i18next,@intlayer/react-i18next,intlayer" vertical/>
 
 <ClickToOpenIframe
 src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md"
@@ -243,8 +243,6 @@ Intlayer 直接基于内容声明推导类型，启用 [`strictMode`](https://gi
 | **AI MCP 服务**           | ❌ 无               | ✅ [内置 MCP Server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)          |
 | **AI Agent Skills**       | ❌ 无               | ✅ [预制 Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)            |
 | **上下文可视化 CMS**      | Locize（付费 SaaS） | ✅ [免费开源 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md) |
-
-内置 LSP 和 MCP 服务使 AI 编程助手能深入理解项目的多语言拓扑结构，从而提供极高准确度的补全与重构。
 
 ## 翻译机制与 Locize 的商业考量
 

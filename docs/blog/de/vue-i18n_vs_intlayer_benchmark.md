@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-26
 priority: 8
 title: "vue-i18n vs Intlayer: 2026 Benchmark"
 description: vue-i18n und Intlayer gemessen in derselben Vite + Vue 3 App. Bibliotheksgröße, Pro-Seite JavaScript, Content Leakage, Komponentengröße und Locale-Switch Reaktivität, mit erklärten Zahlen.
@@ -87,6 +87,10 @@ Für jeden Build zeichnet die Suite auf:
 
 ### Ergebnisse auf Vite + Vue 3
 
+Wählen Sie die Metriken und Libraries, die Sie interessieren:
+
+<I18nBenchmark framework="vite-vue" packages="vue-i18n,@intlayer/vue-i18n,intlayer" vertical/>
+
 | Library                       | Strategy | Lib size (gz) | Lib size (min) | Page JS avg (gz) | Locale leak | Page leak | Component avg (gz) | E2E reactivity | Page load |
 | ----------------------------- | -------- | ------------: | -------------: | ---------------: | ----------: | --------: | -----------------: | -------------: | --------: |
 | **base** (keine i18n)         | -        |        0.0 KB |         0.0 KB |          41.3 KB |        0.0% |         - |             1.1 KB |         1.8 ms |   10.8 ms |
@@ -106,6 +110,15 @@ Für jeden Build zeichnet die Suite auf:
 - **`@intlayer/vue-i18n`**, der Drop-in-Adapter, behält die `vue-i18n` API und gemessen **47.0 KB pro Seite** und **8.4 KB pro Komponente**, mit dem anwendungscode unverändert.
 
 > Zu Referenzzwecken wurde bei demselben Lauf `fluent-vue` mit 171.8 KB pro Seite, 29.7 KB Runtime und 217 KB pro Komponente gemessen.
+
+<ClickToOpenIframe
+  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_vue.md"
+  width="100%"
+  height="600px"
+  style="border:none;"
+/>
+
+> Die vollständige Tabelle mit allen Libraries und allen Strategien finden Sie im [Vue-Benchmark-Report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/vue.md).
 
 ## Warum der Unterschied? Globale Instanz vs. kompilierte Wörterbücher
 
@@ -345,6 +358,13 @@ Siehe den [vue-i18n Migrationsleitfaden](https://github.com/aymericzip/intlayer/
 - [vue-i18n vs Intlayer (Features & DX)](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/vue-i18n_vs_intlayer.md)
 - [Ist vue-i18n veraltet?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/is_vue-i18n_outdated.md)
 
+Referenzdokumentation:
+
+- [Compat-Adapter: vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compat/vue-i18n.md) und [Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compat/nuxtjs-i18n.md)
+- [Migrationsleitfaden: von vue-i18n zu Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/migration_from_vue-i18n_to_intlayer.md)
+- Benchmark-Reports: [i18n-Benchmark-Übersicht](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/index.md), [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/nextjs.md), [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/tanstack.md), [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/vue.md), [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/solid.md) und [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/svelte.md)
+- [Bundle-Optimierung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/bundle_optimization.md) und [der Intlayer-Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compiler.md)
+
 ## GitHub STARs
 
 GitHub-Sterne sind ein starker Indikator für die Popularität eines Projekts, das Vertrauen der Community und die langfristige Relevanz. Während sie kein direktes Maß für technische Qualität sind, spiegeln sie wider, wie viele Entwickler das Projekt nützlich finden, seinen Fortschritt verfolgen und es wahrscheinlich adoptieren werden.
@@ -354,3 +374,9 @@ GitHub-Sterne sind ein starker Indikator für die Popularität eines Projekts, d
 ## Fazit
 
 `vue-i18n` ist reif, flexibel und tiefgreifend in Vue integriert. Der Benchmark zeigt, welche Kosten sein Runtime-First-Design bei einem Vite-Build verursacht: eine **24 KB gzip runtime**, **134,9 KB pro Seite** für eine App, die ohne i18n 41 KB wiegt, **90% fremdinhalte** auf jeder Seite, und Komponenten, die jeweils **196 KB** erreichen, da sie in der globalen Message-Tree hängen bleiben.
+
+Intlayer verlagert die Arbeit in den Compiler. Dictionaries pro Komponente und das Entfernen von totem Content sind Build-Ergebnisse, keine Konventionen. Auf derselben App: **3,9 KB Runtime**, **57,1 KB pro Seite**, **0% Page Leakage**, Komponenten **25x kleiner**. Und wenn ein Rewrite nicht in Frage kommt, bringt Sie `@intlayer/vue-i18n` den Großteil des Weges dorthin, ohne die Komponenten anzufassen.
+
+Alle Rohdaten, die Test-Apps und die Skripte befinden sich im [Benchmark Bloom Repository](https://github.com/intlayer-org/benchmark-bloom). Führen Sie es selbst aus.
+
+Weitere Details finden Sie in der [Dokumentation „Warum Intlayer?“](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/interest_of_intlayer.md).

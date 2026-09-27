@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-01-02
-updatedAt: 2026-09-16
+updatedAt: 2026-09-26
 priority: 9
 title: react-i18next vs react-intl vs Intlayer
 description: Інтеграція react-i18next з next-intl та Intlayer для інтернаціоналізації (i18n) React-додатка
@@ -111,6 +111,27 @@ author: aymericzip
 
 ![Теоретичний витік контенту за архітектурою](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
+#### Результати бенчмарку на React (TanStack Start / Vite)
+
+Дані з [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom), що вимірюють стандартні реалізації React на TanStack Start:
+
+<I18nBenchmark framework="tanstack" vertical/>
+
+| Library            | Strategy | Lib size (gz) | Page JS avg (gz) | Locale leak | Page leak | Component avg (gz) | E2E reactivity | Hydration |
+| ------------------ | -------- | ------------: | ---------------: | ----------: | --------: | -----------------: | -------------: | --------: |
+| **base** (no i18n) | -        |        0.0 KB |         111.0 KB |        0.0% |      0.0% |             0.7 KB |         8.1 ms |   21.6 ms |
+| `react-i18next`    | dynamic  |       18.4 KB |         136.4 KB |       23.1% |     89.8% |            24.8 KB |       123.1 ms |   32.9 ms |
+| **`intlayer`**     | dynamic  |    **5.0 KB** |     **118.6 KB** |    **0.0%** |  **0.0%** |         **6.3 KB** |     **3.6 ms** |   14.1 ms |
+
+<ClickToOpenIframe
+  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md"
+  width="100%"
+  height="600px"
+  style="border:none;"
+/>
+
+> Повна таблиця у [звіті бенчмарку TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/tanstack.md) та в [огляді i18n-бенчмарків](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/index.md).
+
 ### 6) DX, інструменти та супровід
 
 - **react-intl / react-i18next**: Широка екосистема спільноти; для редакційних робочих процесів ви зазвичай використовуєте зовнішні платформи локалізації.
@@ -129,6 +150,13 @@ author: aymericzip
 `intlayer` також може допомогти керувати вашими неймспейсами `react-intl` і `react-i18next`.
 
 Використовуючи `intlayer`, ви можете оголошувати ваш контент у форматі улюбленої i18n-бібліотеки, і intlayer згенерує ваші неймспейси у вибраному місці (приклад: `/messages/{{locale}}/{{namespace}}.json`).
+
+## Додаткові матеріали та бенчмарки
+
+- Звіти бенчмарків: [Огляд i18n-бенчмарків](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/index.md), [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/tanstack.md), [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/nextjs.md), [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/vue.md), [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/solid.md) та [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/svelte.md)
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/i18next_vs_intlayer-i18next.md)
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/next-intl_vs_intlayer.md)
+- [Оптимізація бандла](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/bundle_optimization.md) та [компілятор Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compiler.md)
 
 ## Зірки GitHub
 

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-11-01
-updatedAt: 2026-05-31
+updatedAt: 2026-09-26
 priority: 9
-title: next-i18nextを使ったNext.jsアプリケーションの国際化方法 - 完全な翻訳ガイド： Translate Next.js 16 with next-i18next — App Router Setup
-description: バンドルサイズ、SEO、パフォーマンス、保守性のための最良のソリューション。2026年にNext.js 16 ウェブサイトを多言語化しましょう。LLM翻訳、Agent Skills & MCP。
+title: "next-i18next による Next.js 16 の i18n：App Router セットアップガイド"
+description: "Next.js 16 App Routerアプリにnext-i18nextとi18nextを段階的に導入：名前空間、ロケールルーティング、サーバー／クライアントコンポーネント、SEOメタデータ。"
 keywords:
   - next-i18next
   - i18next
@@ -44,6 +44,62 @@ author: aymericzip
 > 代替として、[next-intlガイド](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/i18n_using_next-intl.md)や、直接[Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_16.md)を参照することもできます。
 
 > 比較は[ next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/next-i18next_vs_next-intl_vs_intlayer.md)をご覧ください。
+
+## ベンチマークから見た Next.js での next-i18next
+
+セットアップに入る前に、i18n ライブラリがパフォーマンスと bundle に与える影響を理解しておくことが重要です。[i18n ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md)では、10 ページ・10 ロケールの同じ Next.js アプリケーションを主要な i18n ライブラリで実行し、実際の bundle サイズ、文字列の漏れ、ハイドレーションのオーバーヘッドを計測しています。
+
+<I18nBenchmark framework="nextjs" packages="next-i18next,@intlayer/next-i18next,next-intlayer" vertical/>
+
+<ClickToOpenIframe
+  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+  width="100%"
+  height="600px"
+  style="border:none;"
+/>
+
+Next.js における `next-i18next` の主要な数値（gzip）:
+
+| 構成                                  | ライブラリサイズ | ページ JS 平均 | 他ロケールの漏れ | 他ページの漏れ |
+| :------------------------------------ | ---------------: | -------------: | ---------------: | -------------: |
+| ベース（i18n なし）                   |                - |       141.0 KB |             0.0% |           0.0% |
+| `next-i18next`                        |          19.7 KB |       169.5 KB |            50.0% |          89.8% |
+| `@intlayer/next-i18next` (compat)     |           9.4 KB |       150.7 KB |             0.0% |           0.0% |
+| `next-intlayer` (ネイティブ Intlayer) |           5.5 KB |       141.3 KB |             0.0% |           0.0% |
+
+ポイント:
+
+- **namespace の分割は必須:** 単純な構成では、`next-i18next` はすべての namespace をすべてのページに送信します（ページ間の漏れ ~89.8%）。ルートごとに namespace を分割して lazy loading すればページ JS は減りますが、慎重な手動管理が必要です。
+- **runtime の重さ:** `i18next` のクライアント runtime は各ページで ~19.7 KB gzip あります。既存の codebase では、互換アダプター [`@intlayer/next-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/next-i18next.md) が同じ `i18next` API を保ったまま runtime を 9.4 KB に縮小し、漏れをなくします。ネイティブの [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/next-intlayer/exports.md) なら 5.5 KB まで下がります。
+
+> 全データはこちら: [Next.js ベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md)、および[ベンチマークリポジトリ](https://github.com/intlayer-org/benchmark-i18n)。
+
+## Next.js での機能比較
+
+Next.js App Router プロジェクトで通常必要になる機能について、`next-i18next` を `next-intl` および Intlayer と比較します:
+
+| 機能                                     | `next-intlayer` (Intlayer)                                 | `next-intl`                                                         | `next-i18next`                             |
+| ---------------------------------------- | ---------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------ |
+| **コンポーネントの近くに翻訳を配置**     | ✅ 各コンポーネントと同じ場所にコンテンツを配置            | ❌ 集中管理された JSON                                              | ❌ 集中管理された JSON                     |
+| **TypeScript 統合**                      | ✅ 自動生成される厳密な型                                  | ✅ 良好、`AppConfig` の augmentation 経由                           | ⚠️ 基本的                                  |
+| **翻訳漏れの検出**                       | ✅ TypeScript エラーとビルド時の警告                       | ⚠️ 実行時のフォールバック                                           | ⚠️ 実行時のフォールバック                  |
+| **リッチコンテンツ（JSX、Markdown）**    | ✅ 直接サポート                                            | ⚠️ `t.rich` によるタグ、Markdown なし                               | ⚠️ `<Trans>` によるタグ                    |
+| **AI 翻訳**                              | ✅ 独自のプロバイダーと API キー、アプリのコンテキスト付き | ❌ なし                                                             | ❌ なし                                    |
+| **ビジュアルエディター / CMS**           | ✅ ローカルのビジュアルエディター + 任意の CMS             | ❌ 外部プラットフォーム経由                                         | ❌ 外部プラットフォーム経由                |
+| **ローカライズされたルーティング**       | ✅ 組み込み（Next.js と Vite）                             | ✅ 組み込みの `[locale]` セグメント                                 | ✅ 組み込み                                |
+| **複数形**                               | ✅ 列挙ベース                                              | ✅ ICU                                                              | ✅ 接尾辞ベース（`_one`、`_other`）        |
+| **フォーマット（日付、数値、通貨）**     | ✅ `Intl` ベースのフォーマッター                           | ✅ `useFormatter`                                                   | ✅ `Intl` ベース                           |
+| **コンテンツ形式**                       | ✅ `.ts`, `.tsx`, `.js`, `.json`, `.md`, `.yaml`           | ✅ `.json`, `.js`, `.ts`                                            | ⚠️ `.json`                                 |
+| **ICU MessageFormat**                    | ✅ `format: "icu"` 経由                                    | ✅ ネイティブ                                                       | ⚠️ `i18next-icu` 経由                      |
+| **SEO ヘルパー（hreflang、sitemap）**    | ✅ metadata、sitemap、robots.txt のヘルパー                | ✅ 良好                                                             | ✅ 良好                                    |
+| **Server Components**                    | ✅ どの Server Component でも直接アクセス                  | ⚠️ コンポーネントごとに `t` または `await getTranslations()` を渡す | ⚠️ コンポーネントツリーに `t` を渡していく |
+| **コンポーネント単位の tree-shaking**    | ✅ ビルド時（Babel / SWC）                                 | ⚠️ 手動、ルートごとに `pick()`                                      | ⚠️ 手動、ルートごとに namespace            |
+| **Lazy loading**                         | ✅ ロケール単位および辞書単位                              | ✅ ロケール単位、namespace は手動管理                               | ✅ ロケール単位、namespace は手動管理      |
+| **runtime サイズ（gzip、ベンチマーク）** | 4.9 KB                                                     | 14.7 KB                                                             | 19.7 KB                                    |
+| **CI での翻訳漏れ検出**                  | ✅ `npx intlayer test`                                     | ⚠️ 組み込みなし                                                     | ⚠️ 組み込みなし、実行時に `saveMissing`    |
+| **エコシステム / コミュニティ**          | ⚠️ 小規模、急成長中                                        | ✅ 大規模                                                           | ✅ 非常に大規模                            |
+
+> runtime サイズは [Next.js ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md)によるものです。詳しい解説は [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/next-i18next_vs_next-intl_vs_intlayer.md) をご覧ください。
 
 ## 実装前に守るべきプラクティス
 
@@ -1117,11 +1173,6 @@ Intlayerが可能にすること：
   Intlayerは翻訳を自動化するためのCLIとVSCode拡張機能を提供します。これらはCI/CDパイプラインに統合可能です。詳細は[翻訳の自動化について](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md)をご覧ください。  
   ご自身の**APIキーやお好みのAIプロバイダーを使用**できます。また、コンテキストに応じた翻訳も提供しています。詳細は[コンテンツの自動補完](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/autoFill.md)をご覧ください。
 
-- **外部コンテンツの接続**
-- **翻訳の自動化**  
-  Intlayerは翻訳を自動化するためのCLIとVSCode拡張機能を提供しています。これらはCI/CDパイプラインに統合可能です。詳細は[翻訳の自動化について](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md)をご覧ください。  
-  ご自身の**APIキーやお好みのAIプロバイダー**を使用することもできます。また、コンテキストに応じた翻訳も提供しています。詳しくは[コンテンツの自動補完](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/autoFill.md)をご覧ください。
-
 - **外部コンテンツの接続**  
   Intlayerはコンテンツを外部のコンテンツ管理システム（CMS）に接続することを可能にします。最適化された方法で取得し、JSONリソースに挿入します。詳細は[外部コンテンツの取得](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/function_fetching.md)をご覧ください。
 
@@ -1130,6 +1181,21 @@ Intlayerが可能にすること：
 
 その他にも多数の機能があります。Intlayerが提供するすべての機能については、[Intlayerの利点に関するドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)をご参照ください。
 
+詳細なパフォーマンスベンチマークと比較については、以下を参照してください:
+
+- [Next.js ベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md)
+- [i18n ベンチマークスイート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/index.md)
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/i18next_vs_intlayer-i18next.md)
+- [@intlayer/next-i18next 互換アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/next-i18next.md)
+
 </Step>
 
 </Steps>
+
+<Sponsor>
+
+common.json や about.json のような namespace を i18next の module augmentation で型付けした時点で、実質的にコンテンツスキーマを定義したことになります。次の問題は、そのスキーマをどこに置き、誰が編集するかです。Sanity はスキーマを第一級の存在として扱います。フィールド、参照、バリデーションをコードでモデル化し、編集者はロケールごとに JSON を手で編集する代わりに、Sanity Studio で同じモデルに対して作業します。
+
+コンテンツは構造化 JSON として Content Lake に保存され、GROQ でクエリでき、API 経由で配信されます。ロケールはフォルダではなくフィールドとして扱われます。Next.js App Router 構成では、サーバー側で namespace を取得し、このパターンが想定するとおりに i18n プロバイダーへ渡し、同じソースからアプリ、メール、エージェントに供給できます。ロケールやチャネルが増えても、スキーマが契約であり続け、配信レイヤーは i18next のままです。
+
+</Sponsor>

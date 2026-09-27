@@ -77,7 +77,7 @@ Pustaka yang matang memang menawarkan stabilitas. Namun standar perkakas i18n te
 
 ## Mengukur Beban pada Bundle
 
-<I18nBenchmark framework="tanstack" vertical/>
+<I18nBenchmark framework="tanstack" packages="react-i18next,@intlayer/react-i18next,intlayer" vertical/>
 
 <ClickToOpenIframe
 src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md"
@@ -243,8 +243,6 @@ Intlayer menghasilkan tipe data langsung dari deklarasi konten, dan mode [`stric
 | **Server MCP (untuk AI)** | ❌ Tidak ada           | ✅ [Server MCP bawaan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/mcp_server.md)                |
 | **Skill Agen AI**         | ❌ Tidak ada           | ✅ [Skill siap pakai](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/agent_skills.md)               |
 | **CMS Visual in-context** | Locize (SaaS berbayar) | ✅ [Gratis & Open Source](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) |
-
-Keberadaan server LSP dan MCP membuat AI coding assistant memahami struktur terjemahan proyek secara menyeluruh.
 
 ## Alur Terjemahan dan Model Locize
 

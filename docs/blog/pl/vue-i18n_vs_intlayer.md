@@ -47,7 +47,7 @@ Skupiamy się na nowoczesnych narzędziach Vue (Vite, Composition API) i oceniam
 
 Zanim przejdziemy do tabel funkcji, oto część zmierzona. [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) buduje tę samą aplikację Vite + Vue 3 (10 stron, 10 języków) z każdą biblioteką i rejestruje pobierane dane:
 
-<I18nBenchmark framework="vite-vue" vertical/>
+<I18nBenchmark framework="vite-vue" packages="vue-i18n,intlayer" vertical/>
 
 | Setup                | Lib size (gz) | Page JS avg (gz) | Page leak | Component avg (gz) |
 | -------------------- | ------------: | ---------------: | --------: | -----------------: |

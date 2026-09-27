@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-09-16
+updatedAt: 2026-09-26
 priority: 9
-title: "next-i18next vs next-intl vs Intlayer - Hướng dẫn đầy đủ để dịch next-i18next vs next-intl vs Intlayer: 2026 Comparison"
-description: Giải pháp tốt nhất cho kích thước bundle, SEO, hiệu suất & khả năng bảo trì. Làm cho Next.js trang web của bạn đa ngôn ngữ vào năm 2026, dịch thuật LLM, Agent Skills & MCP.
+title: "next-i18next vs next-intl vs Intlayer: So sánh 2026"
+description: "Nên chọn thư viện i18n nào cho Next.js? So sánh next-i18next, next-intl và Intlayer về kích thước bundle, an toàn kiểu TypeScript, Server Components, định tuyến và trải nghiệm lập trình."
 keywords:
   - next-intl
   - next-i18next
@@ -91,6 +91,32 @@ Có nhiều thư viện i18n tồn tại, nhưng trong thế giới Next.js hi�
 ## Kích thước gói & phụ thuộc
 
 Sau khi xây dựng ứng dụng, bundle là JavaScript mà trình duyệt sẽ tải để hiển thị trang. Do đó, kích thước bundle rất quan trọng đối với hiệu suất ứng dụng.
+
+[Benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md) đo lường tác động thực tế của từng thư viện trên cùng một ứng dụng Next.js gồm 10 trang và 10 locale:
+
+<I18nBenchmark framework="nextjs" packages="next-i18next,next-intl,next-intlayer" vertical/>
+
+<ClickToOpenIframe
+  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+  width="100%"
+  height="600px"
+  style="border:none;"
+/>
+
+Các số liệu chính đo trên Next.js App Router (gzip):
+
+| Thiết lập                         | Kích thước thư viện | JS trung bình mỗi trang | Rò rỉ locale khác | Rò rỉ trang khác | Trung bình mỗi component |
+| :-------------------------------- | ------------------: | ----------------------: | ----------------: | ---------------: | -----------------------: |
+| Cơ sở (không có i18n)             |                   - |                141.0 KB |              0.0% |             0.0% |                   0.9 KB |
+| `next-intl` (static)              |             14.7 KB |                153.6 KB |              4.2% |            89.8% |                  21.8 KB |
+| `next-intl` (dynamic)             |             14.7 KB |                153.6 KB |              9.7% |            89.9% |                  21.8 KB |
+| `@intlayer/next-intl` (compat)    |              8.0 KB |                148.7 KB |              0.0% |             0.0% |                   8.1 KB |
+| `next-i18next` (static)           |             19.7 KB |                218.5 KB |              0.0% |            89.8% |                  78.5 KB |
+| `next-i18next` (dynamic)          |             19.7 KB |                169.5 KB |             50.0% |            89.8% |                  26.1 KB |
+| `@intlayer/next-i18next` (compat) |              9.4 KB |                150.7 KB |              0.0% |             0.0% |                   9.7 KB |
+| `next-intlayer` (native Intlayer) |          **5.5 KB** |            **141.3 KB** |          **0.0%** |         **0.0%** |               **6.9 KB** |
+
+> Để xem phân tích đầy đủ, hãy tham khảo [Báo cáo Benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md) và [Tổng quan Benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/index.md) chi tiết.
 
 Có hai thành phần quan trọng trong bối cảnh bundle của ứng dụng đa ngôn ngữ:
 
@@ -1496,5 +1522,18 @@ Cả ba thư viện đều thành công trong việc cốt lõi hóa localizatio
 
 - Với **Intlayer**, **nội dung mô-đun**, **TypeScript nghiêm ngặt**, **an toàn thời gian xây dựng**, **gói tree-shaken**, và **App Router + công cụ SEO hàng đầu** là **mặc định**, không phải là gánh nặng.
 - Nếu đội ngũ của bạn coi trọng **khả năng bảo trì và tốc độ** trong một ứng dụng đa ngôn ngữ, hướng thành phần, Intlayer cung cấp trải nghiệm **toàn diện nhất** hiện nay.
+
+## Đọc thêm & benchmark
+
+- [Báo cáo Benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md)
+- [Tổng quan Benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/index.md)
+- [Báo cáo Benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md)
+- [Báo cáo Benchmark Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/vue.md)
+- [Báo cáo Benchmark Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/solid.md)
+- [Báo cáo Benchmark Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/svelte.md)
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/next-intl_vs_intlayer.md)
+- [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18next_vs_intlayer.md)
+- [Adapter tương thích @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/next-intl.md)
+- [Adapter tương thích @intlayer/next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/next-i18next.md)
 
 Tham khảo tài liệu ['Tại sao chọn Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/interest_of_intlayer.md) để biết thêm chi tiết.

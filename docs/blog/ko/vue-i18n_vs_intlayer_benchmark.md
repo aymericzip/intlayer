@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-26
 priority: 8
 title: "vue-i18n vs Intlayer: 2026 벤치마크"
 description: 동일한 Vite + Vue 3 앱에서 측정한 vue-i18n과 Intlayer. 라이브러리 크기, 페이지별 JavaScript, 콘텐츠 누수, 컴포넌트 크기 및 로케일 전환 반응성, 숫자 설명 포함.
@@ -87,6 +87,10 @@ author: aymericzip
 
 ### Vite + Vue 3에서의 결과
 
+관심 있는 지표와 라이브러리를 선택하세요:
+
+<I18nBenchmark framework="vite-vue" packages="vue-i18n,@intlayer/vue-i18n,intlayer" vertical/>
+
 | Library                       | Strategy | Lib size (gz) | Lib size (min) | Page JS avg (gz) | Locale leak | Page leak | Component avg (gz) | E2E reactivity | Page load |
 | ----------------------------- | -------- | ------------: | -------------: | ---------------: | ----------: | --------: | -----------------: | -------------: | --------: |
 | **base** (i18n 없음)          | -        |        0.0 KB |         0.0 KB |          41.3 KB |        0.0% |         - |             1.1 KB |         1.8 ms |   10.8 ms |
@@ -106,6 +110,15 @@ author: aymericzip
 - **`@intlayer/vue-i18n`**, drop-in 어댑터는 `vue-i18n` API를 유지하며 페이지당 **47.0 KB**, 컴포넌트당 **8.4 KB**를 측정했으며, 애플리케이션 코드는 변경되지 않았습니다.
 
 > 참고로, 동일한 실행에서 `fluent-vue`는 페이지당 171.8 KB, 29.7 KB의 runtime, 컴포넌트당 217 KB를 측정했습니다.
+
+<ClickToOpenIframe
+  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_vue.md"
+  width="100%"
+  height="600px"
+  style="border:none;"
+/>
+
+> 모든 라이브러리와 모든 전략을 포함한 전체 표는 [Vue 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/vue.md)에서 확인할 수 있습니다.
 
 ## 왜 이러한 간격이 있을까요? 전역 인스턴스 vs. 컴파일된 딕셔너리
 
@@ -349,6 +362,13 @@ export default defineConfig({
 - [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/lingui_vs_intlayer.md) (동일한 벤치마크)
 - [vue-i18n vs Intlayer (기능 & DX)](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/vue-i18n_vs_intlayer.md)
 - [vue-i18n이 구식인가?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/is_vue-i18n_outdated.md)
+
+참고 문서:
+
+- [호환 어댑터: vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/vue-i18n.md) 및 [Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/nuxtjs-i18n.md)
+- [마이그레이션 가이드: vue-i18n에서 Intlayer로](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_vue-i18n_to_intlayer.md)
+- 벤치마크 보고서: [i18n 벤치마크 개요](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/index.md), [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/nextjs.md), [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/tanstack.md), [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/vue.md), [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/solid.md) 및 [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/svelte.md)
+- [번들 최적화](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md) 및 [Intlayer 컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md)
 
 ## GitHub STARs
 

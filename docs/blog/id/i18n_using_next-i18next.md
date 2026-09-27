@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-11-01
-updatedAt: 2026-05-31
+updatedAt: 2026-09-26
 priority: 9
-title: Cara menginternasionalisasi aplikasi Next.js Anda menggunakan next-i18next - Panduan lengkap menerjemahkan Translate Next.js 16 with next-i18next — App Router Setup
-description: Solusi terbaik untuk ukuran bundle, SEO, performa & keterpeliharaan. Jadikan Next.js 16 situs web Anda multibahasa di 2026, terjemahan LLM, Agent Skills & MCP.
+title: "i18n Next.js 16 dengan next-i18next: panduan penyiapan App Router"
+description: "Siapkan next-i18next dan i18next langkah demi langkah di aplikasi Next.js 16 App Router: namespace, routing locale, komponen server dan klien, serta metadata SEO."
 keywords:
   - next-i18next
   - i18next
@@ -44,6 +44,62 @@ Dengan pendekatan ini, Anda dapat:
 > Sebagai alternatif, Anda juga dapat merujuk ke [panduan next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18n_using_next-intl.md), atau langsung menggunakan [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_16.md).
 
 > Lihat perbandingan di [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/next-i18next_vs_next-intl_vs_intlayer.md).
+
+## Apa kata benchmark tentang next-i18next di Next.js
+
+Sebelum masuk ke setup, penting untuk memahami dampak library i18n Anda terhadap performa dan bundle. [Benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/nextjs.md) menjalankan aplikasi Next.js yang sama dengan 10 halaman dan 10 locale pada library i18n utama untuk mengukur ukuran bundle nyata, kebocoran string, dan overhead hydration.
+
+<I18nBenchmark framework="nextjs" packages="next-i18next,@intlayer/next-i18next,next-intlayer" vertical/>
+
+<ClickToOpenIframe
+  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+  width="100%"
+  height="600px"
+  style="border:none;"
+/>
+
+Angka utama untuk `next-i18next` di Next.js (gzip):
+
+| Setup                             | Ukuran library | Rata-rata JS halaman | Kebocoran locale lain | Kebocoran halaman lain |
+| :-------------------------------- | -------------: | -------------------: | --------------------: | ---------------------: |
+| Dasar (tanpa i18n)                |              - |             141.0 KB |                  0.0% |                   0.0% |
+| `next-i18next`                    |        19.7 KB |             169.5 KB |                 50.0% |                  89.8% |
+| `@intlayer/next-i18next` (compat) |         9.4 KB |             150.7 KB |                  0.0% |                   0.0% |
+| `next-intlayer` (Intlayer native) |         5.5 KB |             141.3 KB |                  0.0% |                   0.0% |
+
+Poin penting:
+
+- **Pemisahan namespace wajib dilakukan:** Pada setup sederhana, `next-i18next` mengirim setiap namespace ke setiap halaman (~89.8% kebocoran halaman). Memisahkan namespace per route dan memuatnya secara lazy mengurangi JS halaman, tetapi membutuhkan pengorganisasian manual yang cermat.
+- **Bobot runtime:** Runtime klien `i18next` berbobot ~19.7 KB gzip di setiap halaman. Untuk codebase yang sudah ada, adapter kompatibilitas [`@intlayer/next-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/next-i18next.md) mempertahankan API `i18next` yang sama sambil mengecilkan runtime menjadi 9.4 KB dan menghilangkan kebocoran. [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/next-intlayer/exports.md) native turun hingga 5.5 KB.
+
+> Lihat data lengkapnya: [laporan benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/nextjs.md), dan [repositori benchmark](https://github.com/intlayer-org/benchmark-i18n).
+
+## Perbandingan fitur di Next.js
+
+Bagaimana `next-i18next` dibandingkan dengan `next-intl` dan Intlayer pada fitur yang biasanya dibutuhkan proyek Next.js App Router:
+
+| Fitur                                       | `next-intlayer` (Intlayer)                                  | `next-intl`                                                   | `next-i18next`                              |
+| ------------------------------------------- | ----------------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------- |
+| **Terjemahan di dekat komponen**            | ✅ Konten ditempatkan bersama setiap komponen               | ❌ JSON terpusat                                              | ❌ JSON terpusat                            |
+| **Integrasi TypeScript**                    | ✅ Tipe ketat yang dihasilkan otomatis                      | ✅ Baik, melalui augmentation `AppConfig`                     | ⚠️ Dasar                                    |
+| **Deteksi terjemahan yang hilang**          | ✅ Error TypeScript dan peringatan saat build               | ⚠️ Fallback saat runtime                                      | ⚠️ Fallback saat runtime                    |
+| **Konten kaya (JSX, Markdown)**             | ✅ Dukungan langsung                                        | ⚠️ Tag melalui `t.rich`, tanpa Markdown                       | ⚠️ Tag melalui `<Trans>`                    |
+| **Terjemahan AI**                           | ✅ Provider dan API key milik Anda, dengan konteks aplikasi | ❌ Tidak                                                      | ❌ Tidak                                    |
+| **Editor visual / CMS**                     | ✅ Editor visual lokal + CMS opsional                       | ❌ Melalui platform eksternal                                 | ❌ Melalui platform eksternal               |
+| **Routing terlokalisasi**                   | ✅ Bawaan (Next.js dan Vite)                                | ✅ Segmen `[locale]` bawaan                                   | ✅ Bawaan                                   |
+| **Pluralisasi**                             | ✅ Berbasis enumerasi                                       | ✅ ICU                                                        | ✅ Berbasis sufiks (`_one`, `_other`)       |
+| **Pemformatan (tanggal, angka, mata uang)** | ✅ Formatter berbasis `Intl`                                | ✅ `useFormatter`                                             | ✅ Berbasis `Intl`                          |
+| **Format konten**                           | ✅ `.ts`, `.tsx`, `.js`, `.json`, `.md`, `.yaml`            | ✅ `.json`, `.js`, `.ts`                                      | ⚠️ `.json`                                  |
+| **ICU MessageFormat**                       | ✅ Melalui `format: "icu"`                                  | ✅ Native                                                     | ⚠️ Melalui `i18next-icu`                    |
+| **Helper SEO (hreflang, sitemap)**          | ✅ Helper metadata, sitemap, dan robots.txt                 | ✅ Baik                                                       | ✅ Baik                                     |
+| **Server Components**                       | ✅ Akses langsung di Server Component mana pun              | ⚠️ Meneruskan `t` atau `await getTranslations()` per komponen | ⚠️ Meneruskan `t` ke bawah pohon komponen   |
+| **Tree-shaking per komponen**               | ✅ Saat build (Babel / SWC)                                 | ⚠️ Manual, dengan `pick()` per route                          | ⚠️ Manual, dengan namespace per route       |
+| **Lazy loading**                            | ✅ Per locale dan per dictionary                            | ✅ Per locale, namespace dikelola manual                      | ✅ Per locale, namespace dikelola manual    |
+| **Ukuran runtime (gzip, benchmark)**        | 4.9 KB                                                      | 14.7 KB                                                       | 19.7 KB                                     |
+| **Terjemahan yang hilang di CI**            | ✅ `npx intlayer test`                                      | ⚠️ Tidak bawaan                                               | ⚠️ Tidak bawaan, `saveMissing` saat runtime |
+| **Ekosistem / komunitas**                   | ⚠️ Lebih kecil, tumbuh cepat                                | ✅ Besar                                                      | ✅ Sangat besar                             |
+
+> Ukuran runtime berasal dari [benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/nextjs.md). Untuk pembahasan mendetail, baca [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/next-i18next_vs_next-intl_vs_intlayer.md).
 
 ## Praktik yang harus Anda ikuti
 
@@ -1117,11 +1173,6 @@ Intlayer memungkinkan Anda untuk:
   Intlayer menyediakan CLI dan ekstensi VSCode untuk mengotomatisasi terjemahan Anda. Ini dapat diintegrasikan dalam pipeline CI/CD Anda. Pelajari lebih lanjut tentang [otomatisasi terjemahan Anda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md).
   Anda dapat menggunakan **kunci API Anda sendiri, dan penyedia AI pilihan Anda**. Ini juga menyediakan terjemahan yang sadar konteks, lihat [isi konten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/autoFill.md).
 
-- **Hubungkan konten eksternal**
-- **Otomatiskan terjemahan Anda**,  
-  Intlayer menyediakan CLI dan ekstensi VSCode untuk mengotomatisasi terjemahan Anda. Ini dapat diintegrasikan dalam pipeline CI/CD Anda. Pelajari lebih lanjut tentang [otomatisasi terjemahan Anda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md).  
-  Anda dapat menggunakan **API key Anda sendiri, dan penyedia AI pilihan Anda**. Ini juga menyediakan terjemahan yang sadar konteks, lihat [mengisi konten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/autoFill.md).
-
 - **Hubungkan konten eksternal**  
   Intlayer memungkinkan Anda menghubungkan konten Anda ke sistem manajemen konten eksternal (CMS). Untuk mengambilnya dengan cara yang dioptimalkan dan memasukkannya ke dalam sumber daya JSON Anda. Pelajari lebih lanjut tentang [mengambil konten eksternal](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/function_fetching.md).
 
@@ -1130,6 +1181,21 @@ Intlayer memungkinkan Anda untuk:
 
 Dan masih banyak lagi. Untuk menemukan semua fitur yang disediakan oleh Intlayer, silakan merujuk ke [Dokumentasi Manfaat Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/interest_of_intlayer.md).
 
+Untuk benchmark performa dan perbandingan yang mendetail, lihat:
+
+- [Laporan Benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/nextjs.md)
+- [Rangkaian Benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/index.md)
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18next_vs_intlayer-i18next.md)
+- [Adapter Kompatibilitas @intlayer/next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/next-i18next.md)
+
 </Step>
 
 </Steps>
+
+<Sponsor>
+
+Setelah Anda memiliki namespace seperti common.json dan about.json yang diberi tipe melalui module augmentation i18next, Anda pada dasarnya telah mendefinisikan skema konten. Pertanyaan berikutnya adalah di mana skema itu berada dan siapa yang mengeditnya. Sanity memperlakukannya sebagai elemen utama: Anda memodelkan field, referensi, dan validasi di kode, dan editor bekerja dengan model yang sama di Sanity Studio alih-alih mengedit JSON secara manual per locale.
+
+Konten tersimpan di Content Lake sebagai JSON terstruktur, dapat di-query melalui GROQ dan disajikan lewat API, dengan locale sebagai field, bukan folder. Untuk setup Next.js App Router, Anda dapat mengambil namespace di server, meneruskannya ke provider i18n Anda persis seperti yang diharapkan pola ini, dan membiarkan sumber yang sama memasok aplikasi, email, dan agen. Seiring bertambahnya locale dan kanal, skema tetap menjadi kontraknya; lapisan pengirimannya tetap i18next.
+
+</Sponsor>

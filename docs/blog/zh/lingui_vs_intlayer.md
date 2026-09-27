@@ -101,7 +101,7 @@ Intlayer 无需单独的 "scoped" 变体：编译器自动**按组件维度**界
 
 选择您关注的指标和库：
 
-<I18nBenchmark framework="nextjs" vertical/>
+<I18nBenchmark framework="nextjs" packages="lingui,next-intlayer" vertical/>
 
 | 库                  | 策略           | 库体积 (gz) | 页面 JS 平均 (gz) | 语言泄漏 | 页面泄漏 | 组件平均体积 (gz) | E2E 响应耗时 | 水合耗时 |
 | ------------------- | -------------- | ----------: | ----------------: | -------: | -------: | ----------------: | -----------: | -------: |

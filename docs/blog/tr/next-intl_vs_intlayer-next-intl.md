@@ -114,7 +114,7 @@ Her build için, suite şunları kaydeder:
 
 İlgilendiğiniz metrikleri ve kütüphaneleri seçin:
 
-<I18nBenchmark framework="nextjs" vertical/>
+<I18nBenchmark framework="nextjs" packages="next-intl,@intlayer/next-intl,next-intlayer" vertical/>
 
 | Kurulum                   | Strateji       | Kütüphane boyutu (gz) | Sayfa JS ort. (gz) | Yerel sızıntı | Sayfa sızıntı | Bileşen ort. (gz) | E2E tepkisellik |   Hidrasyon |
 | ------------------------- | -------------- | --------------------: | -----------------: | ------------: | ------------: | ----------------: | --------------: | ----------: |

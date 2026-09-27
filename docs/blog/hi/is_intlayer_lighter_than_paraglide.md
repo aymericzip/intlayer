@@ -92,7 +92,7 @@ Next.js 16 App Router, समान ऐप:
 | `paraglide-next`    | 155.3 KB        | +14.3 KB    |
 | `next-intlayer`     | **141.3 KB**    | **+0.3 KB** |
 
-<I18nBenchmark framework="tanstack" vertical/>
+<I18nBenchmark framework="tanstack" packages="paraglide,intlayer" vertical/>
 
 > संपूर्ण डेटा [TanStack Start बेंचमार्क रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/tanstack.md) और [Next.js बेंचमार्क रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/nextjs.md) में उपलब्ध है। प्रत्येक बंडल का निरीक्षण [बेंचमार्क रिपॉजिटरी](https://github.com/intlayer-org/benchmark-i18n) में किया जा सकता है।
 
@@ -208,6 +208,10 @@ Tree shaking आपके बंडलर (Turbopack, Rolldown, Rollup), सं�
 यह संरचनात्मक सीमा है। Paraglide के पास एक समय में एक लोकेल लोड करने का कोई साधन नहीं है: प्रत्येक संदेश फ़ंक्शन प्रत्येक भाषा के कार्यान्वयन को स्थैतिक रूप से आयात करता है, इसलिए सभी भाषाएं आपके क्लाइंट बंडल में समाप्त हो जाती हैं।
 
 2 भाषाओं के साथ, आपका आधा अनुवाद पेलोड बर्बाद हो जाता है, जो ऊपर मापे गए ~50% लोकेल रिसाव से मेल खाता है। 10 भाषाओं के साथ, 90% पेलोड बर्बाद होता है। 30 भाषाओं के साथ, 97%।
+
+नीचे दिया गया ग्राफ़ 1 से 10 पेजों और 1 से 10 भाषाओं वाले एक सैद्धांतिक ऐप के payload का अनुमान लगाता है, जिसमें हर पेज पर लगभग 30 KB टेक्स्ट है। रूट के अनुसार कंटेंट को विभाजित करने से एक अक्ष हट जाता है, हर भाषा के लिए उसे डायनामिक रूप से लोड करने से दूसरा अक्ष हट जाता है, और केवल दोनों का संयोजन ही payload को स्थिर रखता है। Paraglide अधिकतम पहले अक्ष को कवर करता है, दूसरे को कभी नहीं।
+
+![आर्किटेक्चर के अनुसार सैद्धांतिक कंटेंट लीकेज](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 डायनामिक लोडिंग पर स्विच करने से भी इसका समाधान नहीं होगा: प्रति संदेश एक फ़ंक्शन होने के कारण, प्रत्येक फ़ंक्शन को लेज़ी-लोड करने का अर्थ हजारों नेटवर्क अनुरोध होगा।
 

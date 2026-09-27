@@ -104,7 +104,7 @@ Các chỉ số đo lường:
 
 Chọn các chỉ số và thư viện bạn quan tâm:
 
-<I18nBenchmark framework="nextjs" vertical/>
+<I18nBenchmark framework="nextjs" packages="next-i18next,next-intlayer" vertical/>
 
 | Thư viện                               | Chiến lược     | Dung lượng Lib (gz) | JS TB mỗi trang (gz) | Rò rỉ ngôn ngữ | Rò rỉ trang | Kích thước TB Comp (gz) | Phản hồi E2E | Thời gian Hydrate |
 | -------------------------------------- | -------------- | ------------------: | -------------------: | -------------: | ----------: | ----------------------: | -----------: | ----------------: |

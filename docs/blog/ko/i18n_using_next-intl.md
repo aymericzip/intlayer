@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-11-01
-updatedAt: 2026-05-31
+updatedAt: 2026-09-26
 priority: 9
-title: "next-intl을 사용하여 Next.js 애플리케이션을 국제화하는 방법 - 완전한 번역 가이드: Translate Next.js 16 with next-intl — App Router Setup"
-description: 번들 크기, SEO, 성능 및 유지보수성을 위한 최고의 솔루션. 2026년에 Next.js 16 웹사이트를 다국어로 만드세요, LLM 번역, Agent Skills & MCP.
+title: "next-intl로 Next.js 16 i18n 구현하기: App Router 설정 가이드"
+description: "Next.js 16 App Router 앱에 next-intl을 단계별로 설정하기: 로케일 라우팅, 페이지별 메시지 로딩, 서버 및 클라이언트 컴포넌트, SEO 메타데이터."
 keywords:
   - next-intl
   - Internationalization
@@ -36,6 +36,62 @@ author: aymericzip
 
 > 비교 내용은 [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/next-i18next_vs_next-intl_vs_intlayer.md)에서 확인하세요.
 
+## Next.js에서 next-intl에 대한 벤치마크 결과
+
+번역을 구현하기 전에 `next-intl`의 성능 특성을 이해하는 것이 중요합니다. [i18n 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/nextjs.md)는 10개 페이지, 10개 로케일로 구성된 동일한 Next.js 애플리케이션을 여러 설정과 라이브러리로 평가하여 실제 번들 크기, 문자열 누출, 하이드레이션 오버헤드를 측정합니다.
+
+<I18nBenchmark framework="nextjs" packages="next-intl,@intlayer/next-intl,next-intlayer" vertical/>
+
+<ClickToOpenIframe
+  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+  width="100%"
+  height="600px"
+  style="border:none;"
+/>
+
+Next.js에서 `next-intl`의 주요 수치 (gzip):
+
+| 설정                                | 라이브러리 크기 | 페이지 JS 평균 | 다른 로케일 누출 | 다른 페이지 누출 |
+| :---------------------------------- | --------------: | -------------: | ---------------: | ---------------: |
+| 기본 (i18n 없음)                    |               - |       141.0 KB |             0.0% |             0.0% |
+| `next-intl`                         |         14.7 KB |       153.6 KB |             4.2% |            89.8% |
+| `@intlayer/next-intl` (compat)      |          8.0 KB |       148.7 KB |             0.0% |             0.0% |
+| `next-intlayer` (네이티브 Intlayer) |          5.5 KB |       141.3 KB |             0.0% |             0.0% |
+
+핵심 정리:
+
+- **전역 메시지 카탈로그를 피하세요:** 모든 메시지를 루트 레이아웃에서 로드하는 표준 설정에서는 브라우저로 전송되는 번역 콘텐츠의 약 89.8%가 다른 페이지에 속합니다. 라우트마다 `pick(messages, ['namespace'])`를 사용하면 이 누출이 사라지지만 수동 유지보수가 필요합니다.
+- **런타임 무게:** `next-intl` 런타임은 각 페이지에 약 14.7 KB (gzip)를 추가합니다. 기존 `next-intl` 앱의 경우 [`@intlayer/next-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/next-intl.md) compat 어댑터가 동일한 훅(`useTranslations`, `useFormatter` 등)을 유지하면서 런타임 크기를 약 8.0 KB, 누출 0%로 줄입니다. 네이티브 [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/next-intlayer/exports.md)는 크기를 5.5 KB까지 더 줄입니다.
+
+> 전체 데이터 보기: [Next.js 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/nextjs.md), 그리고 [벤치마크 저장소](https://github.com/intlayer-org/benchmark-i18n).
+
+## Next.js에서의 기능 비교
+
+Next.js App Router 프로젝트에 보통 필요한 기능을 기준으로 `next-intl`을 `next-i18next` 및 Intlayer와 비교합니다:
+
+| 기능                             | `next-intlayer` (Intlayer)                       | `next-intl`                                             | `next-i18next`                           |
+| -------------------------------- | ------------------------------------------------ | ------------------------------------------------------- | ---------------------------------------- |
+| **컴포넌트 가까이 있는 번역**    | ✅ 각 컴포넌트와 함께 배치된 콘텐츠              | ❌ 중앙 집중식 JSON                                     | ❌ 중앙 집중식 JSON                      |
+| **TypeScript 통합**              | ✅ 자동 생성되는 엄격한 타입                     | ✅ 좋음, `AppConfig` 확장을 통해                        | ⚠️ 기본                                  |
+| **누락된 번역 감지**             | ✅ TypeScript 오류 및 빌드 시 경고               | ⚠️ 런타임 폴백                                          | ⚠️ 런타임 폴백                           |
+| **리치 콘텐츠 (JSX, Markdown)**  | ✅ 직접 지원                                     | ⚠️ `t.rich`를 통한 태그, Markdown 없음                  | ⚠️ `<Trans>`를 통한 태그                 |
+| **AI 번역**                      | ✅ 자체 제공자와 API 키 사용, 앱 컨텍스트 포함   | ❌ 없음                                                 | ❌ 없음                                  |
+| **비주얼 에디터 / CMS**          | ✅ 로컬 비주얼 에디터 + 선택적 CMS               | ❌ 외부 플랫폼을 통해                                   | ❌ 외부 플랫폼을 통해                    |
+| **현지화된 라우팅**              | ✅ 내장 (Next.js 및 Vite)                        | ✅ 내장 `[locale]` 세그먼트                             | ✅ 내장                                  |
+| **복수형 처리**                  | ✅ 열거 기반                                     | ✅ ICU                                                  | ✅ 접미사 기반 (`_one`, `_other`)        |
+| **포맷팅 (날짜, 숫자, 통화)**    | ✅ `Intl` 기반 포매터                            | ✅ `useFormatter`                                       | ✅ `Intl` 기반                           |
+| **콘텐츠 형식**                  | ✅ `.ts`, `.tsx`, `.js`, `.json`, `.md`, `.yaml` | ✅ `.json`, `.js`, `.ts`                                | ⚠️ `.json`                               |
+| **ICU MessageFormat**            | ✅ `format: "icu"`를 통해                        | ✅ 네이티브                                             | ⚠️ `i18next-icu`를 통해                  |
+| **SEO 헬퍼 (hreflang, sitemap)** | ✅ 메타데이터, sitemap, robots.txt 헬퍼          | ✅ 좋음                                                 | ✅ 좋음                                  |
+| **Server Components**            | ✅ 모든 Server Component에서 직접 접근           | ⚠️ 컴포넌트마다 `t` 또는 `await getTranslations()` 전달 | ⚠️ 컴포넌트 트리 아래로 `t` 전달         |
+| **컴포넌트 단위 tree-shaking**   | ✅ 빌드 시점 (Babel / SWC)                       | ⚠️ 수동, 라우트마다 `pick()` 사용                       | ⚠️ 수동, 라우트마다 네임스페이스 사용    |
+| **지연 로딩**                    | ✅ 로케일별 및 딕셔너리별                        | ✅ 로케일별, 네임스페이스는 수동 관리                   | ✅ 로케일별, 네임스페이스는 수동 관리    |
+| **런타임 크기 (gzip, 벤치마크)** | 4.9 KB                                           | 14.7 KB                                                 | 19.7 KB                                  |
+| **CI에서 누락된 번역**           | ✅ `npx intlayer test`                           | ⚠️ 내장되지 않음                                        | ⚠️ 내장되지 않음, 런타임에 `saveMissing` |
+| **생태계 / 커뮤니티**            | ⚠️ 작지만 빠르게 성장 중                         | ✅ 큼                                                   | ✅ 매우 큼                               |
+
+> 런타임 크기는 [Next.js 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/nextjs.md)에서 가져왔습니다. 자세한 내용은 [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/next-i18next_vs_next-intl_vs_intlayer.md)를 참고하세요.
+
 ## 따라야 할 모범 사례
 
 구현에 들어가기 전에, 다음과 같은 모범 사례를 따라야 합니다:
@@ -48,10 +104,8 @@ author: aymericzip
   페이지에서 `NextIntlClientProvider`에 필요한 네임스페이스만 전송하세요 (예: `pick(messages, ['common', 'about'])`).
 - **정적 페이지 선호**
   성능과 SEO 향상을 위해 가능한 한 정적 페이지를 사용하세요.
-- **서버 컴포넌트에서의 i18n**
-
-서버 컴포넌트는 페이지나 `client`로 표시되지 않은 모든 컴포넌트처럼 정적이며 빌드 시 미리 렌더링할 수 있습니다. 따라서 번역 함수를 props로 전달해야 합니다.
-
+- **서버 컴포넌트에서의 i18n**  
+  서버 컴포넌트는 페이지나 `client`로 표시되지 않은 모든 컴포넌트처럼 정적이며 빌드 시 미리 렌더링할 수 있습니다. 따라서 번역 함수를 props로 전달해야 합니다.
 - **TypeScript 타입 설정**  
   애플리케이션 전반에 걸쳐 타입 안전성을 보장하기 위해 로케일에 대한 타입을 설정하세요.
 - **리디렉션을 위한 프록시**  
@@ -69,10 +123,10 @@ author: aymericzip
 
 <iframe
   src="https://ide.intlayer.org/aymericzip/next-intl-template?file=src/i18n.ts"
-className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-title="Demo CodeSandbox - Intlayer를 사용하여 애플리케이션을 국제화하는 방법"
-sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-loading="lazy"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - Intlayer를 사용하여 애플리케이션을 국제화하는 방법"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
 />
 
 > GitHub에서 [애플리케이션 템플릿](https://github.com/aymericzip/next-intl-template)을 참조하세요.
@@ -797,6 +851,13 @@ Intlayer는 다음을 가능하게 합니다:
   Intlayer는 비주얼 에디터를 사용하여 콘텐츠를 편집할 수 있는 무료 비주얼 에디터를 제공합니다. [번역 비주얼 편집](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)에서 자세히 알아보세요.
 
 그리고 더 많은 기능들이 있습니다. Intlayer가 제공하는 모든 기능을 확인하려면 [Intlayer의 관심사 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/interest_of_intlayer.md)를 참조하세요.
+
+자세한 성능 벤치마크와 비교는 다음을 참고하세요:
+
+- [Next.js 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/nextjs.md)
+- [i18n 벤치마크 모음](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/index.md)
+- [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/next-intl_vs_intlayer-next-intl.md)
+- [@intlayer/next-intl Compat 어댑터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/next-intl.md)
 
 </Step>
 

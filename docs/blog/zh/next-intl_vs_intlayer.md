@@ -101,7 +101,7 @@ Intlayer 没有"scoped"变体：编译器会自动按**组件**对内容进行�
 
 选择您关注的指标和库：
 
-<I18nBenchmark framework="nextjs" vertical/>
+<I18nBenchmark framework="nextjs" packages="next-intl,next-intlayer" vertical/>
 
 | Library                        | Strategy       | Lib size (gz) | Page JS avg (gz) | Locale leak | Page leak | Component avg (gz) | E2E reactivity | Hydration |
 | ------------------------------ | -------------- | ------------: | ---------------: | ----------: | --------: | -----------------: | -------------: | --------: |

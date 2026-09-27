@@ -73,7 +73,7 @@ Köklü bir kütüphane istikrar sağlar. Fakat günümüz web mimarisi derleme 
 
 Vite ve Vue 3 ile kurulan 10 sayfalık ve 10 dilli bir yapıda ölçülmüştür:
 
-<I18nBenchmark framework="vite-vue" vertical/>
+<I18nBenchmark framework="vite-vue" packages="vue-i18n,@intlayer/vue-i18n,intlayer" vertical/>
 
 <ClickToOpenIframe
 src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_vue.md"

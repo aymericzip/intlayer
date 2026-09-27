@@ -73,7 +73,7 @@ Una libreria matura assicura affidabilità. Tuttavia le architetture odierne imp
 
 Test eseguito su un'applicazione di 10 pagine e 10 lingue realizzata con Vite e Vue 3:
 
-<I18nBenchmark framework="vite-vue" vertical/>
+<I18nBenchmark framework="vite-vue" packages="vue-i18n,@intlayer/vue-i18n,intlayer" vertical/>
 
 <ClickToOpenIframe
 src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_vue.md"

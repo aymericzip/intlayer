@@ -92,7 +92,7 @@ Next.js 16 App Router, aynı uygulama:
 | `paraglide-next` | 155.3 KB          | +14.3 KB         |
 | `next-intlayer`  | **141.3 KB**      | **+0.3 KB**      |
 
-<I18nBenchmark framework="tanstack" vertical/>
+<I18nBenchmark framework="tanstack" packages="paraglide,intlayer" vertical/>
 
 > Tüm veriler [TanStack Start kıyaslama raporunda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md) ve [Next.js kıyaslama raporunda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md) incelenebilir. Her bir paket [kıyaslama deposunda](https://github.com/intlayer-org/benchmark-i18n) açıkça görülebilir.
 
@@ -208,6 +208,10 @@ Tree shaking başarısı paketleyicinize (Turbopack, Rolldown, Rollup), mesajlar
 Yapısal olarak en büyük sınır budur. Paraglide'ın dilleri teker teker yüklemek için bir yöntemi yoktur: her mesaj fonksiyonu tüm dillerin uygulamasını statik olarak içe aktarır, bu nedenle tüm diller istemci paketinize dahil olur.
 
 2 dilli bir projede çeviri verilerinizin yarısı boşa harcanır ve bu durum yukarıda ölçülen ~%50 dil sızıntısıyla örtüşür. 10 dilde bu oran %90'a, 30 dilde ise %97'ye ulaşır.
+
+Aşağıdaki grafik, sayfa başına yaklaşık 30 KB metin içeren, 1 ile 10 sayfa ve 1 ile 10 dilden oluşan teorik bir uygulamanın payload'unu tahmin eder. İçeriği route bazında bölmek bir ekseni ortadan kaldırır, dil bazında dinamik olarak yüklemek diğerini kaldırır ve yalnızca ikisinin birleşimi payload'u sabit tutar. Paraglide en iyi ihtimalle ilk ekseni karşılar, ikincisini asla.
+
+![Mimariye göre teorik içerik sızıntısı](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 Dinamik yüklemeye geçmek de bu sorunu çözmez: mesaj başına tek bir fonksiyon varken her fonksiyonu tembel (lazy) yüklemek binlerce ağ isteği anlamına gelir.
 

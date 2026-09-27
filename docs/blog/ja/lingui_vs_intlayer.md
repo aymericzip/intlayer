@@ -101,7 +101,7 @@ Intlayerには個別の "scoped" バリアントは存在しません。コン�
 
 関心のある指標とライブラリを選択してください：
 
-<I18nBenchmark framework="nextjs" vertical/>
+<I18nBenchmark framework="nextjs" packages="lingui,next-intlayer" vertical/>
 
 | ライブラリ          | 戦略           | Lib size (gz) | Page JS 平均 (gz) | 言語リーク | ページリーク | コンポーネント平均 (gz) |   E2E応答性 | ハイドレーション |
 | ------------------- | -------------- | ------------: | ----------------: | ---------: | -----------: | ----------------------: | ----------: | ---------------: |

@@ -92,7 +92,7 @@ src/paraglide/
 | `paraglide-next`   | 155.3 KB             | +14.3 KB          |
 | `next-intlayer`    | **141.3 KB**         | **+0.3 KB**       |
 
-<I18nBenchmark framework="tanstack" vertical/>
+<I18nBenchmark framework="tanstack" packages="paraglide,intlayer" vertical/>
 
 > البيانات الكاملة متوفرة في [تقرير مقارنة TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md) و[تقرير مقارنة Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md). يمكن فحص كل حزمة في [مستودع اختبارات الأداء](https://github.com/intlayer-org/benchmark-i18n).
 
@@ -208,6 +208,10 @@ export const Hero = () => {
 هذا هو العائق البنيوي الأبرز. لا يمتلك Paraglide وسيلة لتحميل لغة واحدة في كل مرة: فكل دالة رسالة تستورد تنفيذ كل اللغات بشكل ثابت، مما يجعل جميع اللغات تنتهي داخل حزمة العميل الخاصة بك.
 
 عند دعم لغتين، يتم هدر نصف بيانات الترجمة المنقولة، وهو ما يطابق نسبة تسريب اللغات المقدرة بـ ~50% أعلاه. ومع 10 لغات، يرتفع الهدر إلى 90%. ومع 30 لغة، يصل إلى 97%.
+
+يقدّر الرسم البياني أدناه حجم الـ payload لتطبيق نظري يضم من 1 إلى 10 صفحات بـ 1 إلى 10 لغات، مع حوالي 30 كيلوبايت من النص لكل صفحة. تقسيم المحتوى حسب المسار (route) يزيل محورًا واحدًا، وتحميله ديناميكيًا حسب اللغة يزيل المحور الآخر، والجمع بينهما فقط يُبقي حجم الـ payload ثابتًا. يغطي Paraglide المحور الأول في أحسن الأحوال، ولا يغطي الثاني أبدًا.
+
+![تسرب المحتوى النظري حسب البنية](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 والانتقال إلى التحميل الديناميكي لن يحل المشكلة أيضاً: فمع وجود دالة مستقلة لكل رسالة، فإن تحميل كل دالة بشكل كسول سيعني إطلاق آلاف الطلبات عبر الشبكة.
 

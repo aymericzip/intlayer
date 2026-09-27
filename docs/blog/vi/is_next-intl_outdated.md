@@ -75,7 +75,7 @@ Một thư viện đã ổn định mang lại cảm giác an tâm. Tuy nhiên, 
 
 Thử nghiệm trên một ứng dụng App Router tiêu chuẩn gồm 10 route và 10 ngôn ngữ:
 
-<I18nBenchmark framework="nextjs" vertical/>
+<I18nBenchmark framework="nextjs" packages="next-intl,@intlayer/next-intl,next-intlayer" vertical/>
 
 <ClickToOpenIframe
 src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"

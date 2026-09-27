@@ -77,7 +77,7 @@ author: aymericzip
 
 ## बंडल साइज प्रभाव का परीक्षण
 
-<I18nBenchmark framework="tanstack" vertical/>
+<I18nBenchmark framework="tanstack" packages="react-i18next,@intlayer/react-i18next,intlayer" vertical/>
 
 <ClickToOpenIframe
 src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md"
@@ -243,8 +243,6 @@ Intlayer सीधे कंटेंट डिक्लेरेशन से �
 | **AI के लिए MCP सर्वर**   | ❌ उपलब्ध नहीं    | ✅ [इनबिल्ट MCP सर्वर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/mcp_server.md)              |
 | **एजेंट स्किल्स**         | ❌ उपलब्ध नहीं    | ✅ [रेडी-टू-यूज़ स्किल्स](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/agent_skills.md)         |
 | **विजुअल सीएमएस**         | Locize (पेड SaaS) | ✅ [मुफ्त और ओपन सोर्स](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) |
-
-LSP और MCP सर्वर की मौजूदगी से एआई कोडिंग असिस्टेंट्स पूरे प्रोजेक्ट के ट्रांसलेशन स्ट्रक्चर को गहराई से समझ पाते हैं।
 
 ## ट्रांसलेशन और Locize मॉडल
 

@@ -115,7 +115,7 @@ Untuk setiap build, suite merekam:
 
 Pilih metrik dan pustaka yang Anda minati:
 
-<I18nBenchmark framework="nextjs" vertical/>
+<I18nBenchmark framework="nextjs" packages="next-intl,@intlayer/next-intl,next-intlayer" vertical/>
 
 | Setup                     | Strategi       | Ukuran lib (gz) | Rata-rata JS halaman (gz) | Bocor locale | Bocor halaman | Rata-rata komponen (gz) | Reaktivitas E2E |     Hidrasi |
 | ------------------------- | -------------- | --------------: | ------------------------: | -----------: | ------------: | ----------------------: | --------------: | ----------: |

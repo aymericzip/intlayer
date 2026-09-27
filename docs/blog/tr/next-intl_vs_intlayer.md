@@ -92,7 +92,7 @@ Her derleme için şunlar kaydedilir:
 
 İlgilendiğiniz metrikleri ve kütüphaneleri seçin:
 
-<I18nBenchmark framework="nextjs" vertical/>
+<I18nBenchmark framework="nextjs" packages="next-intl,next-intlayer" vertical/>
 
 | Kütüphane                      | Strateji       | Kütüphane Boyutu (gz) | Ort. Sayfa JS (gz) | Dil Sızıntısı | Sayfa Sızıntısı | Ort. Bileşen (gz) | E2E Tepkisellik | Hidrasyon |
 | ------------------------------ | -------------- | --------------------: | -----------------: | ------------: | --------------: | ----------------: | --------------: | --------: |

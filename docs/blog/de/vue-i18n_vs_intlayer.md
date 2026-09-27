@@ -47,7 +47,7 @@ Wir konzentrieren uns auf moderne Vue-Tools (Vite, Composition API) und bewerten
 
 Vor den Feature-Tabellen der gemessene Teil. [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) baut dieselbe Vite + Vue 3-App (10 Seiten, 10 Sprachen) mit jeder Bibliothek und zeichnet auf, was der Browser herunterlädt:
 
-<I18nBenchmark framework="vite-vue" vertical/>
+<I18nBenchmark framework="vite-vue" packages="vue-i18n,intlayer" vertical/>
 
 | Setup                | Lib size (gz) | Page JS avg (gz) | Page leak | Component avg (gz) |
 | -------------------- | ------------: | ---------------: | --------: | -----------------: |

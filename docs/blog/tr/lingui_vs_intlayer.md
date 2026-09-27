@@ -101,7 +101,7 @@ Her derleme için test paketi şunları kaydeder:
 
 İlgilendiğiniz metrikleri ve kütüphaneleri seçin:
 
-<I18nBenchmark framework="nextjs" vertical/>
+<I18nBenchmark framework="nextjs" packages="lingui,next-intlayer" vertical/>
 
 | Kütüphane           | Strateji       | Kütüphane Boyutu (gz) | Ort. Sayfa JS (gz) | Dil Sızıntısı | Sayfa Sızıntısı | Ort. Bileşen (gz) | E2E Tepkisellik | Hidrasyon |
 | ------------------- | -------------- | --------------------: | -----------------: | ------------: | --------------: | ----------------: | --------------: | --------: |

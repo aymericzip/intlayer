@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-09-16
+updatedAt: 2026-09-26
 priority: 9
-title: "next-i18next vs next-intl vs Intlayer - 완전한 번역 가이드: next-i18next vs next-intl vs Intlayer: 2026 Comparison"
-description: 번들 크기, SEO, 성능 및 유지보수성을 위한 최고의 솔루션. 2026년에 Next.js 웹사이트를 다국어로 만드세요, LLM 번역, Agent Skills & MCP.
+title: "next-i18next vs next-intl vs Intlayer: 2026 비교"
+description: "Next.js에는 어떤 i18n 라이브러리를 선택해야 할까요? next-i18next, next-intl, Intlayer를 번들 크기, TypeScript 안전성, Server Components, 라우팅, 개발자 경험 측면에서 비교합니다."
 keywords:
   - next-intl
   - next-i18next
@@ -21,8 +21,6 @@ author: aymericzip
 
 # next-i18next VS next-intl VS intlayer | Next.js 국제화 (i18n)
 
-<TOC/>
-
 ![next-i18next VS next-intl VS intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
 Next.js를 위한 세 가지 i18n 옵션인 next-i18next, next-intl, Intlayer의 유사점과 차이점을 살펴보겠습니다.
@@ -31,13 +29,7 @@ Next.js를 위한 세 가지 i18n 옵션인 next-i18next, next-intl, Intlayer의
 
 우리는 **Next.js 13+ App Router** (및 **React Server Components**)에 중점을 두고 다음 항목들을 평가합니다:
 
-1. **아키텍처 및 콘텐츠 구성**
-2. **TypeScript 및 안정성**
-3. **누락된 번역 처리**
-4. **라우팅 및 미들웨어**
-5. **성능 및 로딩 동작**
-6. **개발자 경험(DX), 도구 및 유지보수**
-7. **SEO 및 대규모 프로젝트 확장성**
+<TOC/>
 
 > **요약**: 세 가지 모두 Next.js 앱을 현지화할 수 있습니다. 만약 **컴포넌트 범위 콘텐츠**, **엄격한 TypeScript 타입**, **빌드 시 누락 키 검사**, **트리 쉐이킹된 사전**, 그리고 **최고급 App Router + SEO 도우미**를 원한다면, **Intlayer**가 가장 완전하고 현대적인 선택입니다.
 
@@ -100,6 +92,32 @@ Next.js는 국제화된 라우팅(예: 로케일 세그먼트)을 기본적으�
 
 애플리케이션을 빌드한 후, 번들은 브라우저가 페이지를 렌더링하기 위해 로드하는 자바스크립트입니다. 따라서 번들 크기는 애플리케이션 성능에 매우 중요합니다.
 
+[i18n 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/nextjs.md)는 10개 페이지, 10개 로케일로 구성된 동일한 Next.js 애플리케이션에서 각 라이브러리의 실제 영향을 측정합니다:
+
+<I18nBenchmark framework="nextjs" packages="next-i18next,next-intl,next-intlayer" vertical/>
+
+<ClickToOpenIframe
+  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+  width="100%"
+  height="600px"
+  style="border:none;"
+/>
+
+Next.js App Router에서 측정한 주요 수치 (gzip):
+
+| 구성                              | 라이브러리 크기 | 페이지 JS 평균 | 다른 로케일 누수 | 다른 페이지 누수 | 컴포넌트 평균 |
+| :-------------------------------- | --------------: | -------------: | ---------------: | ---------------: | ------------: |
+| 기본 (i18n 없음)                  |               - |       141.0 KB |             0.0% |             0.0% |        0.9 KB |
+| `next-intl` (static)              |         14.7 KB |       153.6 KB |             4.2% |            89.8% |       21.8 KB |
+| `next-intl` (dynamic)             |         14.7 KB |       153.6 KB |             9.7% |            89.9% |       21.8 KB |
+| `@intlayer/next-intl` (compat)    |          8.0 KB |       148.7 KB |             0.0% |             0.0% |        8.1 KB |
+| `next-i18next` (static)           |         19.7 KB |       218.5 KB |             0.0% |            89.8% |       78.5 KB |
+| `next-i18next` (dynamic)          |         19.7 KB |       169.5 KB |            50.0% |            89.8% |       26.1 KB |
+| `@intlayer/next-i18next` (compat) |          9.4 KB |       150.7 KB |             0.0% |             0.0% |        9.7 KB |
+| `next-intlayer` (native Intlayer) |      **5.5 KB** |   **141.3 KB** |         **0.0%** |         **0.0%** |    **6.9 KB** |
+
+> 전체 분석은 [Next.js 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/nextjs.md)와 종합적인 [i18n 벤치마크 개요](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/index.md)를 참고하세요.
+
 다국어 애플리케이션 번들 맥락에서 중요한 두 가지 구성 요소는 다음과 같습니다:
 
 - 애플리케이션 코드
@@ -158,6 +176,8 @@ Next.js는 국제화된 라우팅(예: 로케일 세그먼트)을 기본적으�
 라이브러리가 폴백(fallback)을 처리하는 방식도 중요합니다. 애플리케이션이 기본적으로 영어로 설정되어 있고 사용자가 `/fr/about` 페이지를 방문한다고 가정해 봅시다. 프랑스어 번역이 없는 경우 영어 폴백을 고려합니다.
 
 `next-intl` 및 `next-i18next`의 경우, 라이브러리는 현재 로케일과 폴백 로케일에 관련된 JSON을 모두 로드해야 합니다. 따라서 모든 콘텐츠가 번역되었다고 가정하면, 각 페이지는 100% 불필요한 콘텐츠를 로드하게 됩니다. **반면에, `intlayer`는 사전 빌드 시점에 폴백을 처리합니다. 따라서 각 페이지는 사용된 콘텐츠만 로드합니다.**
+
+> 참고: `intlayer`로 번들을 최적화하려면 `intlayer.config.ts` 파일에서 `importMode: 'dynamic'` 옵션을 설정해야 합니다. 또한 `@intlayer/babel` / `@intlayer/swc` 플러그인이 설치되어 있는지 확인하세요 (`vite-intlayer` 사용 시 기본으로 설치됩니다).
 
 다음은 vite + react 애플리케이션에서 `intlayer`를 사용한 번들 크기 최적화의 영향 예시입니다:
 
@@ -399,66 +419,170 @@ Next.js는 국제화된 라우팅(예: 로케일 세그먼트)을 기본적으�
 <Tabs defaultTab="next-intl" group='techno'>
   <Tab label="next-i18next" value="next-i18next">
 
-```tsx fileName="next-i18next.config.js"
-module.exports = {
-  i18n: {
-    locales: ["en", "fr", "es"],
-    defaultLocale: "en",
-  },
-};
-```
+```ts fileName="i18n.config.ts"
+export const locales = ["en", "fr"] as const;
+export type Locale = (typeof locales)[number];
 
-```tsx fileName="src/app/_app.tsx"
-import { appWithTranslation } from "next-i18next";
+export const defaultLocale: Locale = "en";
 
-const MyApp = ({ Component, pageProps }) => <Component {...pageProps} />;
+export const rtlLocales = ["ar", "he", "fa", "ur"] as const;
+export const isRtl = (locale: string) =>
+  (rtlLocales as readonly string[]).includes(locale);
 
-export default appWithTranslation(MyApp);
-```
-
-```tsx fileName="src/app/[locale]/about/page.tsx"
-import type { GetStaticProps } from "next";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { useTranslation } from "next-i18next";
-import { I18nextProvider, initReactI18next } from "react-i18next";
-import { createInstance } from "i18next";
-import { ClientComponent, ServerComponent } from "@components";
-
-export default function HomePage({ locale }: { locale: string }) {
-  // 이 컴포넌트에서 사용하는 네임스페이스를 명시적으로 선언합니다
-  const resources = await loadMessagesFor(locale); // 로더 (JSON 등)
-
-  const i18n = createInstance();
-  i18n.use(initReactI18next).init({
-    lng: locale,
-    fallbackLng: "en",
-    resources,
-    ns: ["common", "about"],
-    defaultNS: "common",
-    interpolation: { escapeValue: false },
-  });
-
-  const { t } = useTranslation("about");
-
-  return (
-    <I18nextProvider i18n={i18n}>
-      <main>
-        <h1>{t("title")}</h1>
-        <ClientComponent />
-        <ServerComponent />
-      </main>
-    </I18nextProvider>
-  );
+export function localizedPath(locale: string, path: string) {
+  return locale === defaultLocale ? path : "/" + locale + path;
 }
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  // 이 페이지에 필요한 네임스페이스만 미리 로드합니다
-  return {
-    props: {
-      ...(await serverSideTranslations(locale ?? "en", ["common", "about"])),
-    },
-  };
+const ORIGIN = "https://example.com";
+export function abs(locale: string, path: string) {
+  return ORIGIN + localizedPath(locale, path);
+}
+```
+
+```ts fileName="src/app/i18n/server.ts"
+import { createInstance } from "i18next";
+import { initReactI18next } from "react-i18next/initReactI18next";
+import resourcesToBackend from "i18next-resources-to-backend";
+import { defaultLocale } from "@/i18n.config";
+
+// Load JSON resources from src/locales/<locale>/<namespace>.json
+const backend = resourcesToBackend(
+  (locale: string, namespace: string) =>
+    import(`../../locales/${locale}/${namespace}.json`)
+);
+
+export async function initI18next(
+  locale: string,
+  namespaces: string[] = ["common"]
+) {
+  const i18n = createInstance();
+  await i18n
+    .use(initReactI18next)
+    .use(backend)
+    .init({
+      lng: locale,
+      fallbackLng: defaultLocale,
+      ns: namespaces,
+      defaultNS: "common",
+      interpolation: { escapeValue: false },
+      react: { useSuspense: false },
+    });
+  return i18n;
+}
+```
+
+```tsx fileName="src/components/I18nProvider.tsx"
+"use client";
+
+import * as React from "react";
+import { I18nextProvider } from "react-i18next";
+import { createInstance } from "i18next";
+import { initReactI18next } from "react-i18next/initReactI18next";
+import resourcesToBackend from "i18next-resources-to-backend";
+import { defaultLocale } from "@/i18n.config";
+
+const backend = resourcesToBackend(
+  (locale: string, namespace: string) =>
+    import(`../../locales/${locale}/${namespace}.json`)
+);
+
+type Props = {
+  locale: string;
+  namespaces?: string[];
+  resources?: Record<string, any>; // { ns: bundle }
+  children: React.ReactNode;
 };
+
+export default function I18nProvider({
+  locale,
+  namespaces = ["common"],
+  resources,
+  children,
+}: Props) {
+  const [i18n] = React.useState(() => {
+    const i = createInstance();
+
+    i.use(initReactI18next)
+      .use(backend)
+      .init({
+        lng: locale,
+        fallbackLng: defaultLocale,
+        ns: namespaces,
+        resources: resources ? { [locale]: resources } : undefined,
+        defaultNS: "common",
+        interpolation: { escapeValue: false },
+        react: { useSuspense: false },
+      });
+
+    return i;
+  });
+
+  return <I18nextProvider i18n={i18n}>{children}</I18nextProvider>;
+}
+```
+
+```tsx fileName="src/app/[locale]/layout.tsx"
+import type { ReactNode } from "react";
+import { locales, defaultLocale, isRtl, type Locale } from "@/i18n.config";
+
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return locales.map((locale) => ({ locale }));
+}
+
+export default function LocaleLayout({
+  children,
+  params,
+}: {
+  children: ReactNode;
+  params: { locale: string };
+}) {
+  const locale: Locale = (locales as readonly string[]).includes(params.locale)
+    ? params.locale
+    : defaultLocale;
+
+  const dir = isRtl(locale) ? "rtl" : "ltr";
+
+  return (
+    <html lang={locale} dir={dir}>
+      <body>{children}</body>
+    </html>
+  );
+}
+```
+
+```tsx fileName="src/app/[locale]/about.tsx"
+import I18nProvider from "@/components/I18nProvider";
+import { initI18next } from "@/app/i18n/server";
+import type { Locale } from "@/i18n.config";
+import ClientComponent from "@/components/ClientComponent";
+import ServerComponent from "@/components/ServerComponent";
+
+// Force static rendering for the page
+export const dynamic = "force-static";
+
+export default async function AboutPage({
+  params: { locale },
+}: {
+  params: { locale: Locale };
+}) {
+  const namespaces = ["common", "about"] as const;
+
+  const i18n = await initI18next(locale, [...namespaces]);
+  const tAbout = i18n.getFixedT(locale, "about");
+
+  return (
+    <I18nProvider locale={locale} namespaces={[...namespaces]}>
+      <main>
+        <h1>{tAbout("title")}</h1>
+
+        <ClientComponent />
+        <ServerComponent t={tAbout} locale={locale} count={0} />
+      </main>
+    </I18nProvider>
+  );
+}
 ```
 
   </Tab>
@@ -1309,5 +1433,18 @@ GitHub 스타는 프로젝트의 인기, 커뮤니티 신뢰도, 그리고 장�
 
 - **Intlayer**를 사용하면, **모듈화된 콘텐츠**, **엄격한 TS(타입스크립트)**, **빌드 타임 안전성**, **트리 쉐이킹된 번들**, 그리고 **일류 App Router + SEO 도구**가 **기본값**으로 제공되며, 번거로운 작업이 아닙니다.
 - 다국어, 컴포넌트 기반 앱에서 **유지보수성과 속도**를 중요시하는 팀이라면, Intlayer가 오늘날 가장 **완벽한** 경험을 제공합니다.
+
+## 추가 자료 및 벤치마크
+
+- [Next.js 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/nextjs.md)
+- [i18n 벤치마크 개요](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/index.md)
+- [TanStack Start 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/tanstack.md)
+- [Vue 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/vue.md)
+- [Solid 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/solid.md)
+- [Svelte 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/svelte.md)
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/next-intl_vs_intlayer.md)
+- [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/i18next_vs_intlayer.md)
+- [@intlayer/next-intl 호환 어댑터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/next-intl.md)
+- [@intlayer/next-i18next 호환 어댑터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/next-i18next.md)
 
 자세한 내용은 ['Why Intlayer?' 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/interest_of_intlayer.md)를 참조하세요.
