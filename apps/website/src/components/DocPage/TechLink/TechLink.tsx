@@ -2,7 +2,8 @@ import { Container } from '@intlayer/design-system/container';
 import { TechLogo, type TechLogoName } from '@intlayer/design-system/tech-logo';
 import { cn } from '@intlayer/design-system/utils';
 import type { DocMetadata } from '@intlayer/docs';
-import { getIntlayer } from 'intlayer';
+import { useSuspenseQuery } from '@tanstack/react-query';
+import { getIntlayerAsync, type LocalesValues } from 'intlayer';
 import { ChevronRight, Terminal } from 'lucide-react';
 import {
   Children,
@@ -10,11 +11,11 @@ import {
   isValidElement,
   type PropsWithChildren,
   type ReactNode,
+  Suspense,
   useMemo,
 } from 'react';
 import { useLocale } from 'react-intlayer';
 import { Link } from '~/components/Link/Link';
-import { getDocData } from '../docData';
 import type { Section } from '../types';
 
 export type TechLinkProps = {
@@ -376,7 +377,7 @@ const filterAutoFrameworks = (
 ): TechLogoName[] => {
   const resolved = frameworks
     .map(normalizeSingleTechLogo)
-    .filter((f): f is TechLogoName => Boolean(f));
+    .filter((framework): framework is TechLogoName => Boolean(framework));
 
   if (resolved.length <= 1) return resolved;
 
@@ -396,7 +397,61 @@ const filterAutoFrameworks = (
   return [resolved[0]];
 };
 
-export const TechLink: FC<TechLinkProps> = ({
+/** Dictionaries a {@link TechLink} resolves its target against. */
+type TechLinkSources = {
+  /** Doc and blog metadata of the current locale. */
+  allDocs: DocMetadata[];
+  /** Documentation tree of the current locale. */
+  docData: Section;
+};
+
+/**
+ * Doc/blog metadata and documentation tree of one locale.
+ *
+ * `getIntlayerAsync` is rewritten to per-locale chunks by the build plugins,
+ * whereas `getIntlayer` would ship these dictionaries in every locale.
+ */
+const getTechLinkSources = async (
+  locale: LocalesValues
+): Promise<TechLinkSources> => {
+  const [docMetadata, blogMetadata, docData] = await Promise.all([
+    getIntlayerAsync('doc-metadata', locale) as Promise<DocMetadata[]>,
+    getIntlayerAsync('blog-metadata', locale) as Promise<DocMetadata[]>,
+    getIntlayerAsync('doc-data', locale) as Promise<Section>,
+  ]);
+
+  return { allDocs: [...docMetadata, ...blogMetadata], docData };
+};
+
+type TechLinkContentProps = TechLinkProps & {
+  /** Resolved dictionaries, undefined while they load. */
+  sources?: TechLinkSources;
+};
+
+/** Reads the locale's TechLink dictionaries, suspending until loaded. */
+const TechLinkResolved: FC<TechLinkProps> = (props) => {
+  const { locale } = useLocale();
+  // Shared by every TechLink of the page, loaded once per locale
+  const { data: sources } = useSuspenseQuery({
+    queryKey: ['tech-link-sources', locale],
+    queryFn: () => getTechLinkSources(locale),
+    staleTime: Number.POSITIVE_INFINITY,
+  });
+
+  return <TechLinkContent {...props} sources={sources} />;
+};
+
+/**
+ * Card linking to a doc or blog page, completed from that page's metadata.
+ * Renders from the props alone until the metadata of the locale is loaded.
+ */
+export const TechLink: FC<TechLinkProps> = (props) => (
+  <Suspense fallback={<TechLinkContent {...props} />}>
+    <TechLinkResolved {...props} />
+  </Suspense>
+);
+
+const TechLinkContent: FC<TechLinkContentProps> = ({
   tech,
   logo,
   framework,
@@ -409,40 +464,20 @@ export const TechLink: FC<TechLinkProps> = ({
   children,
   icon,
   className,
+  sources,
 }) => {
-  const { locale } = useLocale();
   const rawTarget = to ?? href ?? doc ?? '';
 
   const docMeta = useMemo(() => {
-    if (!rawTarget) return undefined;
-    try {
-      const docMetadata = (getIntlayer('doc-metadata', locale) ??
-        []) as DocMetadata[];
-      const blogMetadata = (getIntlayer('blog-metadata', locale) ??
-        []) as DocMetadata[];
-      const allDocs = [...docMetadata, ...blogMetadata];
-      if (Array.isArray(allDocs)) {
-        return findMatchingDoc(allDocs, rawTarget);
-      }
-      return undefined;
-    } catch {
-      return undefined;
-    }
-  }, [rawTarget, locale]);
+    if (!rawTarget || !sources) return undefined;
+    return findMatchingDoc(sources.allDocs, rawTarget);
+  }, [rawTarget, sources]);
 
   const docDataEntry = useMemo(() => {
-    if (!rawTarget && !docMeta) return undefined;
-    try {
-      const docData = getDocData(locale);
-      if (docData && typeof docData === 'object') {
-        const docKey = getStringValue(docMeta?.docKey);
-        return findDocDataEntry(docData, rawTarget, docKey);
-      }
-      return undefined;
-    } catch {
-      return undefined;
-    }
-  }, [rawTarget, docMeta, locale]);
+    if (!rawTarget || !sources) return undefined;
+    const docKey = getStringValue(docMeta?.docKey);
+    return findDocDataEntry(sources.docData, rawTarget, docKey);
+  }, [rawTarget, docMeta, sources]);
 
   const displayTitle = useMemo(() => {
     if (title) return title;
