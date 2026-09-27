@@ -30,7 +30,7 @@ import type { NodeType } from '@intlayer/types/nodeType';
 import * as NodeTypes from '@intlayer/types/nodeType';
 import { reportExposure } from './analytics/exposureSink';
 import { ContentSelectorWrapperComponent } from './editor/ContentSelector.component';
-import { renderIntlayerNode } from './renderIntlayerNode';
+import { type IntlayerNode, renderIntlayerNode } from './renderIntlayerNode';
 
 type MarkdownRendererModule = Pick<
   typeof import('./markdown/installIntlayerMarkdown'),
@@ -116,11 +116,7 @@ export type IntlayerNodeCond<T> = T extends number | string
   ? IntlayerNode<T>
   : never;
 
-export interface IntlayerNode<T, P = {}> {
-  value: T;
-  children?: any;
-  additionalProps?: P;
-}
+export type { IntlayerNode };
 
 /** Translation plugin. Replaces node with a locale string if nodeType = Translation. */
 export const intlayerNodePlugins: Plugins = {

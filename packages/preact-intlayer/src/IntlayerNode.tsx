@@ -9,13 +9,21 @@ import {
   type VNode,
 } from 'preact';
 
+/**
+ * Content node returned by `useIntlayer`.
+ *
+ * Without the editor it is typed as its value (`"Hello" & { value: "Hello" }`)
+ * so it can go straight into string props (`aria-label={content.title}`).
+ * With the editor, it is a vnode wrapping the editable selector, so
+ * string props must use `.value`.
+ */
 export type IntlayerNode<
   T = NodeProps['children'],
-  AdditionalProps = {},
-> = ResolvedEditor<T, VNode> & {
-  value: T;
-} & AdditionalProps &
-  T;
+  AdditionalProps = unknown,
+> = ResolvedEditor<
+  T & { value: T } & AdditionalProps,
+  VNode & { value: T } & AdditionalProps
+>;
 
 type RenderIntlayerNodeProps<T> = {
   value: T;

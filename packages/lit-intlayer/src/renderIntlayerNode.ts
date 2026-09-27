@@ -1,25 +1,26 @@
 import { getIntlayerNodePrototype } from '@intlayer/core/utils';
 import type { ResolvedEditor } from '@intlayer/types/module_augmentation';
 
+type IntlayerNodeMembers<T> = {
+  raw: T;
+  value: T;
+  toString: () => string;
+  valueOf: () => T;
+  toJSON: () => T;
+  __update: (next: IntlayerNode<T>) => void;
+};
+
+/**
+ * Content node returned by `useIntlayer`.
+ *
+ * Without the editor it is typed as its value plus the node members, so it
+ * can be used wherever a string is expected. With the editor, the node renders the editor wrapper,
+ * so string usages must go through `.value`.
+ */
 export type IntlayerNode<T = string> = ResolvedEditor<
-  T & {
-    raw: T;
-    value: T;
-    toString: () => string;
-    valueOf: () => T;
-    toJSON: () => T;
-    __update: (next: IntlayerNode<T>) => void;
-  },
-  {
-    raw: T;
-    value: T;
-    toString: () => string;
-    valueOf: () => T;
-    toJSON: () => T;
-    __update: (next: IntlayerNode<T>) => void;
-  }
-> &
-  T;
+  T & IntlayerNodeMembers<T>,
+  IntlayerNodeMembers<T>
+>;
 
 export const renderIntlayerNode = <
   T, // Broadened to support arrays, numbers, objects, etc.

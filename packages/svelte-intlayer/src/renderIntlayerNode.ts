@@ -1,5 +1,5 @@
-// import type { ResolvedEditor } from '@intlayer/types/module_augmentation';
 import { getIntlayerNodePrototype } from '@intlayer/core/utils';
+import type { ResolvedEditor } from '@intlayer/types/module_augmentation';
 import IntlayerNodeWrapper from './IntlayerNodeWrapper.svelte';
 
 type IntlayerNodeProps = {
@@ -9,12 +9,26 @@ type IntlayerNodeProps = {
   additionalProps?: Record<string, any>;
 };
 
-export type IntlayerNode<T, AdditionalProps = Record<string, any>> = {
+type IntlayerNodeComponent<T> = {
   new (...args: any[]): any;
   (anchor: any, props: any): any;
   value: T;
-} & AdditionalProps &
-  T;
+};
+
+/**
+ * Content node returned by `useIntlayer`: a component (`<Title />`).
+ *
+ * Without the editor it is also typed as its value, so it can be used wherever
+ * a string is expected. With the editor, it renders the editable selector, so
+ * string usages must go through `.value`.
+ */
+export type IntlayerNode<
+  T,
+  AdditionalProps = Record<string, any>,
+> = ResolvedEditor<
+  IntlayerNodeComponent<T> & AdditionalProps & T,
+  IntlayerNodeComponent<T> & AdditionalProps
+>;
 
 export const renderIntlayerNode = <T, AdditionalProps = Record<string, any>>(
   args: IntlayerNodeProps

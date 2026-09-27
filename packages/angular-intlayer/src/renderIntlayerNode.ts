@@ -1,13 +1,24 @@
 import { getIntlayerNodePrototype } from '@intlayer/core/utils';
 import type { ResolvedEditor } from '@intlayer/types/module_augmentation';
 
-export type IntlayerNode<T = string, AdditionalProps = {}> = ResolvedEditor<
-  T,
-  any
-> & {
-  value: T;
-} & AdditionalProps &
-  T;
+/**
+ * Content node returned by `useIntlayer`.
+ *
+ * Without the editor it is typed as its value (`"Hello" & { value: "Hello" }`)
+ * so it can be bound straight to string inputs and attributes. With the
+ * editor, it must be rendered through `<intlayer-node>`, so string bindings
+ * must use `.value`.
+ */
+export type IntlayerNode<
+  T = string,
+  AdditionalProps = unknown,
+> = ResolvedEditor<
+  T & { value: T } & AdditionalProps,
+  IntlayerNodeRenderer & { value: T } & AdditionalProps
+>;
+
+/** Renderer the node is built on, consumed by `<intlayer-node>`. */
+type IntlayerNodeRenderer = () => unknown;
 
 type RenderIntlayerNodeProps<T> = {
   value: T;

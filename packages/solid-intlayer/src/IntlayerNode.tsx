@@ -3,13 +3,21 @@ import { getIntlayerNodePrototype } from '@intlayer/core/utils';
 import type { ResolvedEditor } from '@intlayer/types/module_augmentation';
 import type { JSX, ParentProps } from 'solid-js';
 
+/**
+ * Content node returned by `useIntlayer`.
+ *
+ * Without the editor it is typed as its value (`"Hello" & { value: "Hello" }`)
+ * so it can go straight into string props (`aria-label={content.title}`).
+ * With the editor, it is a JSX element wrapping the editable selector, so
+ * string props must use `.value`.
+ */
 export type IntlayerNode<
   T = NodeProps['children'],
-  AdditionalProps = Record<string, never>,
-> = ResolvedEditor<T, JSX.Element> & {
-  value: T;
-} & AdditionalProps &
-  T;
+  AdditionalProps = unknown,
+> = ResolvedEditor<
+  T & { value: T } & AdditionalProps,
+  JSX.Element & { value: T } & AdditionalProps
+>;
 
 type RenderIntlayerNodeProps<T> = ParentProps<{
   value: T;

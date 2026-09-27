@@ -3,13 +3,21 @@ import { getIntlayerNodePrototype } from '@intlayer/core/utils';
 import type { ResolvedEditor } from '@intlayer/types/module_augmentation';
 import { isValidElement, type PropsWithChildren, type ReactNode } from 'react';
 
+/**
+ * Content node returned by `useIntlayer`.
+ *
+ * Without the editor it is typed as its value (`"Hello" & { value: "Hello" }`)
+ * so it can go straight into string props (`aria-label={content.title}`).
+ * With the editor, it is a React node wrapping the editable selector, so
+ * string props must use `.value`.
+ */
 export type IntlayerNode<
   T = NodeProps['children'],
-  AdditionalProps = Record<string, never>,
-> = ResolvedEditor<T, ReactNode> & {
-  value: T;
-} & AdditionalProps &
-  T;
+  AdditionalProps = unknown,
+> = ResolvedEditor<
+  T & { value: T } & AdditionalProps,
+  ReactNode & { value: T } & AdditionalProps
+>;
 
 type RenderIntlayerNodeProps<T> = PropsWithChildren<{
   value: T;
