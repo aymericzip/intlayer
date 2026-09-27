@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/backend",
-  "version": "9.5.10",
+  "version": "9.5.11",
   "private": false,
   "description": "Intlayer Backend is a an application that allow you to manage your Intlayer content and interact with the intlayer editor.",
   "keywords": [
@@ -101,13 +101,13 @@
     "ioredis": "6.0.0",
     "mongodb": "7.6.0",
     "mongoose": "9.10.2",
-    "nodemailer": "10.0.10",
+    "nodemailer": "10.0.11",
     "openai": "7.23.0",
     "puppeteer": "25.12.0",
     "react": "19.3.0",
     "react-email": "6.11.0",
     "resend": "6.30.0",
-    "sharp": "0.35.4",
+    "sharp": "0.35.5",
     "stripe": "22.6.2",
     "validator": "13.15.35",
     "winston": "3.19.0",
