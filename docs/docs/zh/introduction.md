@@ -181,47 +181,47 @@ Intlayer 提供了多种功能，旨在满足现代 Web 开发的需求。以下
 
 我们在构建 Intlayer 时考虑到了灵活性，提供了在主流框架和构建工具中的无缝集成：
 
-- **[Intlayer 与 Next.js 16](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_16.md)**
-- **[Intlayer 与 Next.js 15](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_15.md)**
-- **[Intlayer 与 Next.js 14 (App Router)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_14.md)**
-- **[Intlayer 与 Next.js Page Router](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_page_router.md)**
-- **[Intlayer 与 Tanstack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_tanstack.md)**
-- **[Intlayer 与 Tanstack Start + Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_tanstack+solid.md)**
-- **[Intlayer 与 Vite + React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_vite+react.md)**
-- **[Intlayer 与 React Router v7](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_react_router_v7.md)**
-- **[Intlayer 与 React CRA](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_create_react_app.md)**
-- **[Intlayer 与 React Native 及 Expo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_react_native+expo.md)**
-- **[Intlayer 与 Lynx 及 React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_lynx+react.md)**
-- **[Intlayer 与 Astro](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_astro.md)**
-- **[Intlayer 与 Astro + React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_astro_react.md)**
-- **[Intlayer 与 Astro + Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_astro_vue.md)**
-- **[Intlayer 与 Astro + Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_astro_svelte.md)**
-- **[Intlayer 与 Astro + Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_astro_solid.md)**
-- **[Intlayer 与 Astro + Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_astro_preact.md)**
-- **[Intlayer 与 Astro + Lit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_astro_lit.md)**
-- **[Intlayer 与 Vite + Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_vite+vue.md)**
-- **[Intlayer 与 Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nuxt.md)**
-- **[Intlayer 与 Vite + Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_vite+svelte.md)**
-- **[Intlayer 与 SvelteKit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_svelte_kit.md)**
-- **[Intlayer 与 Vite + Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_vite+solid.md)**
-- **[Intlayer 与 SolidStart](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_solid_start.md)**
-- **[Intlayer 与 Vite + Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_vite+preact.md)**
-- **[Intlayer 与 Angular 22](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_angular_21.md)**
-- **[Intlayer 与 Angular 19](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_angular_19.md)**
-- **[Intlayer 与 Analog](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_analog.md)**
-- **[Intlayer 与 Vite + Lit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_vite+lit.md)**
-- **[Intlayer 与 Vite + Vanilla JS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_vite+vanilla.md)**
-- **[Intlayer 与 Vanilla JS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_vanilla.md)**
-- **[Intlayer 与 htmx](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_htmx.md)**
-- **[Intlayer 与 Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_express.md)**
-- **[Intlayer 与 NestJS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nestjs.md)**
-- **[Intlayer 与 Fastify](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_fastify.md)**
-- **[Intlayer 与 Hono](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_hono.md)**
-- **[Intlayer 与 AdonisJS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_adonisjs.md)**
-- **[Intlayer 与 Elysia](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_elysia.md)**
-- **[Intlayer 与 Storybook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_storybook.md)**
-- **[Intlayer 与 next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/intlayer_with_next-intl.md)**
-- **[Intlayer 与 next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/intlayer_with_next-i18next.md)**
+- [Intlayer 与 Next.js 16](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_16.md)
+- [Intlayer 与 Next.js 15](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_15.md)
+- [Intlayer 与 Next.js 14 (App Router)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_14.md)
+- [Intlayer 与 Next.js Page Router](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_page_router.md)
+- [Intlayer 与 Tanstack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_tanstack.md)
+- [Intlayer 与 Tanstack Start + Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_tanstack+solid.md)
+- [Intlayer 与 Vite + React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_vite+react.md)
+- [Intlayer 与 React Router v7](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_react_router_v7.md)
+- [Intlayer 与 React CRA](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_create_react_app.md)
+- [Intlayer 与 React Native 及 Expo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_react_native+expo.md)
+- [Intlayer 与 Lynx 及 React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_lynx+react.md)
+- [Intlayer 与 Astro](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_astro.md)
+- [Intlayer 与 Astro + React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_astro_react.md)
+- [Intlayer 与 Astro + Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_astro_vue.md)
+- [Intlayer 与 Astro + Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_astro_svelte.md)
+- [Intlayer 与 Astro + Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_astro_solid.md)
+- [Intlayer 与 Astro + Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_astro_preact.md)
+- [Intlayer 与 Astro + Lit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_astro_lit.md)
+- [Intlayer 与 Vite + Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_vite+vue.md)
+- [Intlayer 与 Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nuxt.md)
+- [Intlayer 与 Vite + Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_vite+svelte.md)
+- [Intlayer 与 SvelteKit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_svelte_kit.md)
+- [Intlayer 与 Vite + Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_vite+solid.md)
+- [Intlayer 与 SolidStart](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_solid_start.md)
+- [Intlayer 与 Vite + Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_vite+preact.md)
+- [Intlayer 与 Angular 22](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_angular_21.md)
+- [Intlayer 与 Angular 19](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_angular_19.md)
+- [Intlayer 与 Analog](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_analog.md)
+- [Intlayer 与 Vite + Lit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_vite+lit.md)
+- [Intlayer 与 Vite + Vanilla JS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_vite+vanilla.md)
+- [Intlayer 与 Vanilla JS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_vanilla.md)
+- [Intlayer 与 htmx](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_htmx.md)
+- [Intlayer 与 Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_express.md)
+- [Intlayer 与 NestJS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nestjs.md)
+- [Intlayer 与 Fastify](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_fastify.md)
+- [Intlayer 与 Hono](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_hono.md)
+- [Intlayer 与 AdonisJS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_adonisjs.md)
+- [Intlayer 与 Elysia](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_elysia.md)
+- [Intlayer 与 Storybook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_storybook.md)
+- [Intlayer 与 next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/intlayer_with_next-intl.md)
+- [Intlayer 与 next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/intlayer_with_next-i18next.md)
 
 每篇集成指南都包含了使用 Intlayer 功能的最佳实践，例如 **服务端渲染**、**动态路由** 或 **客户端渲染**，以便您可以维护一个快速、SEO 友好且高度可扩展的应用程序。
 

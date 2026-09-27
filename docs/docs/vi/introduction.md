@@ -181,47 +181,47 @@ Tổ chức nội dung đa ngôn ngữ của bạn gần với mã để giữ c
 
 Chúng tôi đã xây dựng Intlayer với tính linh hoạt cao, cung cấp khả năng tích hợp liền mạch trên các framework và công cụ build phổ biến:
 
-- **[Intlayer với Next.js 16](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_16.md)**
-- **[Intlayer với Next.js 15](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_15.md)**
-- **[Intlayer với Next.js 14 (App Router)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_14.md)**
-- **[Intlayer với Next.js Page Router](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_page_router.md)**
-- **[Intlayer với Tanstack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_tanstack.md)**
-- **[Intlayer với Tanstack Start + Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_tanstack+solid.md)**
-- **[Intlayer với Vite + React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_vite+react.md)**
-- **[Intlayer với React Router v7](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_react_router_v7.md)**
-- **[Intlayer với React CRA](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_create_react_app.md)**
-- **[Intlayer với React Native và Expo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_react_native+expo.md)**
-- **[Intlayer với Lynx và React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_lynx+react.md)**
-- **[Intlayer với Astro](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_astro.md)**
-- **[Intlayer với Astro + React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_astro_react.md)**
-- **[Intlayer với Astro + Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_astro_vue.md)**
-- **[Intlayer với Astro + Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_astro_svelte.md)**
-- **[Intlayer với Astro + Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_astro_solid.md)**
-- **[Intlayer với Astro + Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_astro_preact.md)**
-- **[Intlayer với Astro + Lit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_astro_lit.md)**
-- **[Intlayer với Vite + Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_vite+vue.md)**
-- **[Intlayer với Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nuxt.md)**
-- **[Intlayer với Vite + Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_vite+svelte.md)**
-- **[Intlayer với SvelteKit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_svelte_kit.md)**
-- **[Intlayer với Vite + Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_vite+solid.md)**
-- **[Intlayer với SolidStart](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_solid_start.md)**
-- **[Intlayer với Vite + Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_vite+preact.md)**
-- **[Intlayer với Angular 22](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_angular_21.md)**
-- **[Intlayer với Angular 19](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_angular_19.md)**
-- **[Intlayer với Analog](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_analog.md)**
-- **[Intlayer với Vite + Lit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_vite+lit.md)**
-- **[Intlayer với Vite + Vanilla JS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_vite+vanilla.md)**
-- **[Intlayer với Vanilla JS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_vanilla.md)**
-- **[Intlayer với htmx](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_htmx.md)**
-- **[Intlayer với Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_express.md)**
-- **[Intlayer với NestJS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nestjs.md)**
-- **[Intlayer với Fastify](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_fastify.md)**
-- **[Intlayer với Hono](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_hono.md)**
-- **[Intlayer với AdonisJS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_adonisjs.md)**
-- **[Intlayer với Elysia](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_elysia.md)**
-- **[Intlayer với Storybook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_storybook.md)**
-- **[Intlayer với next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/intlayer_with_next-intl.md)**
-- **[Intlayer với next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/intlayer_with_next-i18next.md)**
+- [Intlayer với Next.js 16](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_16.md)
+- [Intlayer với Next.js 15](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_15.md)
+- [Intlayer với Next.js 14 (App Router)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_14.md)
+- [Intlayer với Next.js Page Router](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_page_router.md)
+- [Intlayer với Tanstack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_tanstack.md)
+- [Intlayer với Tanstack Start + Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_tanstack+solid.md)
+- [Intlayer với Vite + React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_vite+react.md)
+- [Intlayer với React Router v7](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_react_router_v7.md)
+- [Intlayer với React CRA](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_create_react_app.md)
+- [Intlayer với React Native và Expo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_react_native+expo.md)
+- [Intlayer với Lynx và React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_lynx+react.md)
+- [Intlayer với Astro](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_astro.md)
+- [Intlayer với Astro + React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_astro_react.md)
+- [Intlayer với Astro + Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_astro_vue.md)
+- [Intlayer với Astro + Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_astro_svelte.md)
+- [Intlayer với Astro + Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_astro_solid.md)
+- [Intlayer với Astro + Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_astro_preact.md)
+- [Intlayer với Astro + Lit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_astro_lit.md)
+- [Intlayer với Vite + Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_vite+vue.md)
+- [Intlayer với Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nuxt.md)
+- [Intlayer với Vite + Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_vite+svelte.md)
+- [Intlayer với SvelteKit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_svelte_kit.md)
+- [Intlayer với Vite + Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_vite+solid.md)
+- [Intlayer với SolidStart](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_solid_start.md)
+- [Intlayer với Vite + Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_vite+preact.md)
+- [Intlayer với Angular 22](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_angular_21.md)
+- [Intlayer với Angular 19](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_angular_19.md)
+- [Intlayer với Analog](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_analog.md)
+- [Intlayer với Vite + Lit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_vite+lit.md)
+- [Intlayer với Vite + Vanilla JS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_vite+vanilla.md)
+- [Intlayer với Vanilla JS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_vanilla.md)
+- [Intlayer với htmx](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_htmx.md)
+- [Intlayer với Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_express.md)
+- [Intlayer với NestJS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nestjs.md)
+- [Intlayer với Fastify](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_fastify.md)
+- [Intlayer với Hono](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_hono.md)
+- [Intlayer với AdonisJS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_adonisjs.md)
+- [Intlayer với Elysia](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_elysia.md)
+- [Intlayer với Storybook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_storybook.md)
+- [Intlayer với next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/intlayer_with_next-intl.md)
+- [Intlayer với next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/intlayer_with_next-i18next.md)
 
 Mỗi hướng dẫn tích hợp bao gồm các phương pháp hay nhất để sử dụng các tính năng của Intlayer, chẳng hạn như **kết xuất phía máy chủ (SSR)**, **định tuyến động** hoặc **kết xuất phía máy khách**, để bạn có thể duy trì một ứng dụng nhanh, thân thiện với SEO và có khả năng mở rộng cao.
 

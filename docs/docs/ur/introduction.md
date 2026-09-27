@@ -181,47 +181,47 @@ Intlayer جدید ویب ڈیولپمنٹ کی ضروریات کو پورا کر
 
 ہم نے لچک کو ذہن میں رکھتے ہوئے Intlayer بنایا ہے، جو مقبول فریم ورکس اور بلڈ ٹولز میں ہموار انضمام کی پیشکش کرتا ہے:
 
-- **[Next.js 16 کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_nextjs_16.md)**
-- **[Next.js 15 کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_nextjs_15.md)**
-- **[Next.js 14 (App Router) کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_nextjs_14.md)**
-- **[Next.js Page Router کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_nextjs_page_router.md)**
-- **[Tanstack Start کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_tanstack.md)**
-- **[Tanstack Start + Solid کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_tanstack+solid.md)**
-- **[Vite + React کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_vite+react.md)**
-- **[React Router v7 کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_react_router_v7.md)**
-- **[React CRA کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_create_react_app.md)**
-- **[React Native اور Expo کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_react_native+expo.md)**
-- **[Lynx اور React کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_lynx+react.md)**
-- **[Astro کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_astro.md)**
-- **[Astro + React کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_astro_react.md)**
-- **[Astro + Vue کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_astro_vue.md)**
-- **[Astro + Svelte کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_astro_svelte.md)**
-- **[Astro + Solid کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_astro_solid.md)**
-- **[Astro + Preact کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_astro_preact.md)**
-- **[Astro + Lit کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_astro_lit.md)**
-- **[Vite + Vue کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_vite+vue.md)**
-- **[Nuxt کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_nuxt.md)**
-- **[Vite + Svelte کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_vite+svelte.md)**
-- **[SvelteKit کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_svelte_kit.md)**
-- **[Vite + Solid کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_vite+solid.md)**
-- **[SolidStart کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_solid_start.md)**
-- **[Vite + Preact کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_vite+preact.md)**
-- **[Angular 22 کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_angular_21.md)**
-- **[Angular 19 کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_angular_19.md)**
-- **[Analog کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_analog.md)**
-- **[Vite + Lit کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_vite+lit.md)**
-- **[Vite + Vanilla JS کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_vite+vanilla.md)**
-- **[Vanilla JS کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_vanilla.md)**
-- **[htmx کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_htmx.md)**
-- **[Express کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_express.md)**
-- **[NestJS کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_nestjs.md)**
-- **[Fastify کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_fastify.md)**
-- **[Hono کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_hono.md)**
-- **[AdonisJS کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_adonisjs.md)**
-- **[Elysia کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_elysia.md)**
-- **[Storybook کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_storybook.md)**
-- **[next-intl کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ur/intlayer_with_next-intl.md)**
-- **[next-i18next کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ur/intlayer_with_next-i18next.md)**
+- [Next.js 16 کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_nextjs_16.md)
+- [Next.js 15 کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_nextjs_15.md)
+- [Next.js 14 (App Router) کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_nextjs_14.md)
+- [Next.js Page Router کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_nextjs_page_router.md)
+- [Tanstack Start کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_tanstack.md)
+- [Tanstack Start + Solid کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_tanstack+solid.md)
+- [Vite + React کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_vite+react.md)
+- [React Router v7 کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_react_router_v7.md)
+- [React CRA کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_create_react_app.md)
+- [React Native اور Expo کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_react_native+expo.md)
+- [Lynx اور React کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_lynx+react.md)
+- [Astro کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_astro.md)
+- [Astro + React کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_astro_react.md)
+- [Astro + Vue کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_astro_vue.md)
+- [Astro + Svelte کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_astro_svelte.md)
+- [Astro + Solid کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_astro_solid.md)
+- [Astro + Preact کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_astro_preact.md)
+- [Astro + Lit کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_astro_lit.md)
+- [Vite + Vue کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_vite+vue.md)
+- [Nuxt کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_nuxt.md)
+- [Vite + Svelte کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_vite+svelte.md)
+- [SvelteKit کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_svelte_kit.md)
+- [Vite + Solid کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_vite+solid.md)
+- [SolidStart کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_solid_start.md)
+- [Vite + Preact کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_vite+preact.md)
+- [Angular 22 کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_angular_21.md)
+- [Angular 19 کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_angular_19.md)
+- [Analog کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_analog.md)
+- [Vite + Lit کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_vite+lit.md)
+- [Vite + Vanilla JS کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_vite+vanilla.md)
+- [Vanilla JS کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_vanilla.md)
+- [htmx کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_htmx.md)
+- [Express کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_express.md)
+- [NestJS کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_nestjs.md)
+- [Fastify کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_fastify.md)
+- [Hono کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_hono.md)
+- [AdonisJS کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_adonisjs.md)
+- [Elysia کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_elysia.md)
+- [Storybook کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_storybook.md)
+- [next-intl کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ur/intlayer_with_next-intl.md)
+- [next-i18next کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ur/intlayer_with_next-i18next.md)
 
 ہر انضمام گائیڈ میں Intlayer کی خصوصیات کو استعمال کرنے کے بہترین طریقے (best practices) شامل ہیں، جیسے **سرور سائیڈ رینڈرنگ (SSR)**، **ڈائنامک روٹنگ**، یا **کلائنٹ سائیڈ رینڈرنگ**، تاکہ آپ ایک تیز، SEO-دوست اور انتہائی قابل توسیع ایپلیکیشن کو برقرار رکھ سکیں۔
 
