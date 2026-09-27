@@ -129,14 +129,19 @@ const pidtree = <T extends ListOptions | undefined>(
 
     let root: ProcessInfo | number | undefined;
     for (let l = 0; l < processList.length; l++) {
-      if (processList[l][1] === parsedPID) {
+      const proc = processList[l];
+
+      if (!proc) continue;
+      const [ppid, pid] = proc;
+
+      if (pid === parsedPID) {
         root = normalizedOptions.advanced
-          ? { ppid: processList[l][0], pid: parsedPID }
+          ? { ppid, pid: parsedPID }
           : parsedPID;
         break;
       }
 
-      if (processList[l][0] === parsedPID) {
+      if (ppid === parsedPID) {
         root = normalizedOptions.advanced ? { pid: parsedPID } : parsedPID; // Special pids like 0 on *nix
       }
     }
@@ -150,11 +155,17 @@ const pidtree = <T extends ListOptions | undefined>(
     const tree: Record<number, number[]> = {};
     const listCopy = [...processList];
     while (listCopy.length > 0) {
-      const element = listCopy.pop()!;
-      if (tree[element[0]]) {
-        tree[element[0]].push(element[1]);
+      const element = listCopy.pop();
+
+      if (!element) continue;
+      const ppid = element[0];
+      const pid = element[1];
+      const children = tree[ppid];
+
+      if (children) {
+        children.push(pid);
       } else {
-        tree[element[0]] = [element[1]];
+        tree[ppid] = [pid];
       }
     }
 
@@ -167,13 +178,19 @@ const pidtree = <T extends ListOptions | undefined>(
       const curpid = normalizedOptions.advanced
         ? (pids[idx++] as ProcessInfo).pid
         : (pids[idx++] as number);
-      if (!tree[curpid]) continue;
-      const length = tree[curpid].length;
+      const children = tree[curpid];
+
+      if (!children) continue;
+      const length = children.length;
       for (let j = 0; j < length; j++) {
+        const childPid = children[j];
+
+        if (childPid === undefined) continue;
+
         pids.push(
           normalizedOptions.advanced
-            ? { ppid: curpid, pid: tree[curpid][j] }
-            : tree[curpid][j]
+            ? { ppid: curpid, pid: childPid }
+            : childPid
         );
       }
 

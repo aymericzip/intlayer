@@ -6,10 +6,13 @@ import { getHTMLTextDir } from 'intlayer';
 import type { ComponentChildren, FunctionComponent } from 'preact';
 import { useEffect } from 'preact/hooks';
 import { useIntlayer, useLocale } from 'preact-intlayer';
+import { getMigrationDocLinks } from '../migration/getMigrationDocLinks';
 import { useSitemapPages } from '../navigation/useSitemapPages';
+import { reportHostDetection } from '../scan/scanClient';
 import { AuditSection } from './components/AuditSection';
 import { I18nTagsSection } from './components/I18nTagsSection';
 import { LocalesSection } from './components/LocalesSection';
+import { MigrationSuggestion } from './components/MigrationSuggestion';
 import { PageNavigator } from './components/PageNavigator';
 import { ShowcaseSuggestion } from './components/ShowcaseSuggestion';
 import { SwitchThemeSwitcher } from './components/SwitchThemeSwitcher';
@@ -57,6 +60,11 @@ export const App: FunctionComponent = () => {
 
   const { resetScan } = scan;
 
+  // Store the detected stack on the backend (which may audit the host).
+  useEffect(() => {
+    if (detection) void reportHostDetection({ detection });
+  }, [detection]);
+
   // Audit results describe one URL: drop them once the tab navigates.
   useEffect(() => {
     resetScan();
@@ -72,6 +80,9 @@ export const App: FunctionComponent = () => {
     detection?.technologies.some(
       (technology) => technology.id === 'intlayer'
     ) ?? false;
+  const migrationDocLinks = detection
+    ? getMigrationDocLinks(detection.technologies)
+    : [];
 
   return (
     <main className="flex max-h-140 flex-col gap-3 overflow-y-auto p-3.5">
@@ -108,6 +119,9 @@ export const App: FunctionComponent = () => {
       {detection && (
         <>
           {isIntlayerDetected && <ShowcaseSuggestion detection={detection} />}
+          {migrationDocLinks.length > 0 && (
+            <MigrationSuggestion links={migrationDocLinks} />
+          )}
 
           <Section title={sectionTitles.technologies}>
             <TechnologyList technologies={detection.technologies} />

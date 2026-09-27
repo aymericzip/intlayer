@@ -1,6 +1,10 @@
 import type { ReactNode } from 'react';
 import { useScrollPositionPersistence } from '~/hooks/useScrollPositionPersistence';
 import {
+  collectFrameworkLogoKeys,
+  FrameworkLogoSprite,
+} from './FrameworkFilter';
+import {
   type FrameworkFilterableNode,
   filterSectionByFramework,
 } from './FrameworkFilter/filterSectionByFramework';
@@ -42,6 +46,7 @@ export const NavListContent = <
       aria-label={ariaLabel}
       className="m-auto flex max-h-[calc(100vh-8.2rem)] min-w-40 max-w-xl flex-col gap-y-4 overflow-auto px-2 pt-6 pb-20"
     >
+      <FrameworkLogoSprite logoKeys={collectFrameworkLogoKeys(data)} />
       {Object.entries(filteredData).map(([key, sectionData]) => (
         <div key={key} className="w-full">
           <NavSectionItem

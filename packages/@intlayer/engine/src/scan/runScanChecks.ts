@@ -30,6 +30,7 @@ import {
   extractMetaDescription,
   extractOgImage,
   extractOgLocale,
+  extractOgLocaleAlternates,
   extractResourceUrls,
   extractTitle,
 } from './parseHtml';
@@ -121,6 +122,7 @@ export const runScanChecks = async (
     langTag,
     dirTag: extractHtmlDir(html),
     ogLocale: extractOgLocale(html),
+    ogLocaleAlternates: extractOgLocaleAlternates(html),
     canonicalHref: extractCanonicalHref(html),
     hreflangs,
     anchors: extractAnchors(html),

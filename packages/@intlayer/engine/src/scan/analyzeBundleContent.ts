@@ -23,25 +23,34 @@ const isLocaleCode = (key: string): boolean =>
 /** Find the end index of the value following a `locale:` key. */
 const extractValueEnd = (text: string, valueStart: number): number => {
   let cursor = valueStart;
-  while (cursor < text.length && ' \t\n\r'.includes(text[cursor])) cursor++;
+
+  while (cursor < text.length && ' \t\n\r'.includes(text[cursor] ?? ''))
+    cursor++;
+
   if (cursor >= text.length) return valueStart;
 
   const char = text[cursor];
+
+  if (!char) return valueStart;
+
   if (char === '{' || char === '[') {
     const endChar = char === '{' ? '}' : ']';
     let depth = 1;
     cursor++;
     while (cursor < text.length && depth > 0) {
-      if (text[cursor] === char) depth++;
-      else if (text[cursor] === endChar) depth--;
-      else if (text[cursor] === '"' || text[cursor] === '`') {
-        const quote = text[cursor];
+      const c = text[cursor];
+
+      if (c === char) depth++;
+      else if (c === endChar) depth--;
+      else if (c === '"' || c === '`') {
+        const quote = c;
         cursor++;
         while (cursor < text.length) {
           if (text[cursor] === '\\') {
             cursor += 2;
             continue;
           }
+
           if (text[cursor] === quote) break;
           cursor++;
         }
@@ -50,6 +59,7 @@ const extractValueEnd = (text: string, valueStart: number): number => {
     }
     return cursor;
   }
+
   if (char === '"' || char === '`') {
     const quote = char;
     cursor++;
@@ -58,6 +68,7 @@ const extractValueEnd = (text: string, valueStart: number): number => {
         cursor += 2;
         continue;
       }
+
       if (text[cursor] === quote) {
         cursor++;
         break;
@@ -83,6 +94,7 @@ const LOCALE_CLUSTER_WINDOW = 10_000;
 // - contains hex/control escape sequences (ANSI codes, binary data)
 const looksLikeI18nContent = (valueText: string): boolean => {
   if (/\\x[0-9a-fA-F]{2}/.test(valueText)) return false;
+
   if (/\\u00[01][0-9a-fA-F]/.test(valueText)) return false;
   return true;
 };
@@ -110,11 +122,13 @@ const analyzeChunkLocaleContent = (
 
   while (match !== null) {
     const locale = match[1] ?? match[2];
-    if (isLocaleCode(locale)) {
+
+    if (locale && isLocaleCode(locale)) {
       const valueStart = match.index + match[0].length;
       const valueEnd = extractValueEnd(text, valueStart);
       const valueSize = valueEnd - valueStart;
       const valueText = text.slice(valueStart, valueEnd);
+
       if (valueSize >= 5 && looksLikeI18nContent(valueText)) {
         candidates.push({
           locale,
@@ -134,19 +148,29 @@ const analyzeChunkLocaleContent = (
   // discards minified object keys that happen to be locale codes (`id:{`,
   // `as:{`, `to:{`…), which never come with the page locale next to them.
   const languageOf = (candidate: LocaleMatch): string =>
-    candidate.locale.split('-')[0].toLowerCase();
+    (candidate.locale.split('-')[0] ?? '').toLowerCase();
 
   const isI18nMatch = (idx: number): boolean => {
-    const base = languageOf(candidates[idx]);
+    const currentCandidate = candidates[idx];
+
+    if (!currentCandidate) return false;
+    const base = languageOf(currentCandidate);
     let hasOtherLanguage = false;
     let hasCurrentLanguage = base === baseCurrent;
     for (let j = 0; j < candidates.length; j++) {
       if (j === idx) continue;
-      const dist = Math.abs(candidates[j].position - candidates[idx].position);
+      const neighbor = candidates[j];
+
+      if (!neighbor) continue;
+      const dist = Math.abs(neighbor.position - currentCandidate.position);
+
       if (dist > LOCALE_CLUSTER_WINDOW) continue;
-      const neighborLanguage = languageOf(candidates[j]);
+      const neighborLanguage = languageOf(neighbor);
+
       if (neighborLanguage !== base) hasOtherLanguage = true;
+
       if (neighborLanguage === baseCurrent) hasCurrentLanguage = true;
+
       if (hasOtherLanguage && hasCurrentLanguage) return true;
     }
     return false;
@@ -159,10 +183,13 @@ const analyzeChunkLocaleContent = (
   for (let i = 0; i < candidates.length; i++) {
     if (!isI18nMatch(i)) continue;
 
-    const { locale, valueSize } = candidates[i];
+    const candidate = candidates[i];
+
+    if (!candidate) continue;
+    const { locale, valueSize } = candidate;
     dictionariesFound++;
 
-    if (locale.split('-')[0].toLowerCase() === baseCurrent) {
+    if ((locale.split('-')[0] ?? '').toLowerCase() === baseCurrent) {
       usedLocaleSize += valueSize;
     } else {
       unusedLocaleSize += valueSize;
@@ -209,7 +236,7 @@ export const analyzeBundleContent = (
     renderedContentSize += byteLength(text);
   });
 
-  const baseCurrent = currentLocale.split('-')[0].toLowerCase();
+  const baseCurrent = (currentLocale.split('-')[0] ?? '').toLowerCase();
 
   const mainBundleChunks: ChunkAnalysis[] = [];
   const lazyBundleChunks: ChunkAnalysis[] = [];

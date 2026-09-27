@@ -54,6 +54,7 @@ export type * from '@controllers/publicDictionary.controller';
 export type * from '@controllers/publicToken.controller';
 export type * from '@controllers/recursiveAudit.controller';
 export type * from '@controllers/reviewer.controller';
+export type * from '@controllers/scannedHost.controller';
 export type * from '@controllers/searchDoc.controller';
 export type * from '@controllers/showcaseProject.controller';
 export type * from '@controllers/stripe.controller';
@@ -78,6 +79,16 @@ export { getShowcaseProjectRoutes } from '@routes/showcaseProject.routes';
 export { getStripeRoutes } from '@routes/stripe.routes';
 export { getTranslationsRoutes } from '@routes/translate.routes';
 export { getUserRoutes } from '@routes/user.routes';
+export type {
+  HostScan,
+  HostScanSource,
+  HostTechnology,
+} from '@schemas/scannedHost.schema';
+export type {
+  ScannedHostDetail,
+  ScannedHostSummary,
+  TechnologyUsage,
+} from '@services/audit/scannedHost.service';
 // Audit types
 export type { AuditEvent } from '@services/audit/types';
 // Utils

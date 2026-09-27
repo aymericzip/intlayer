@@ -19,8 +19,8 @@ describe('chunkJSON', () => {
 
       expect(reassembled).toEqual(data);
       expect(chunks.length).toBeGreaterThan(0);
-      expect(chunks[0].schemaVersion).toBe(1);
-      expect(chunks[0].rootType).toBe('object');
+      expect(chunks[0]?.schemaVersion).toBe(1);
+      expect(chunks[0]?.rootType).toBe('object');
     });
 
     it('should chunk and reassemble a simple array', () => {
@@ -30,7 +30,7 @@ describe('chunkJSON', () => {
       const reassembled = assembleJSON(chunks);
 
       expect(reassembled).toEqual(data);
-      expect(chunks[0].rootType).toBe('array');
+      expect(chunks[0]?.rootType).toBe('array');
     });
 
     it('should handle nested objects and arrays', () => {
@@ -199,7 +199,12 @@ describe('chunkJSON', () => {
       const chunks2 = chunkJSON(data2, 1000);
 
       // Mix chunks from different sources
-      const mixedChunks = [chunks1[0], chunks2[0]];
+      const c1 = chunks1[0];
+      const c2 = chunks2[0];
+      expect(c1).toBeDefined();
+      expect(c2).toBeDefined();
+      if (!c1 || !c2) return;
+      const mixedChunks = [c1, c2];
 
       expect(() => assembleJSON(mixedChunks)).toThrow(
         'Chunks checksum mismatch (different source objects?).'
@@ -212,7 +217,7 @@ describe('chunkJSON', () => {
       const chunks = chunkJSON(data, 600);
 
       // Force a gap in indices
-      if (chunks.length >= 2) {
+      if (chunks.length >= 2 && chunks[0] && chunks[1]) {
         chunks[1].index = chunks[0].index + 2; // create a gap
         // keep totals consistent with array length so index check triggers first
         for (const c of chunks) c.total = chunks.length;
@@ -228,7 +233,9 @@ describe('chunkJSON', () => {
       const chunks = chunkJSON(data, 1000);
 
       // Modify total count
-      chunks[0].total = 5;
+      if (chunks[0]) {
+        chunks[0].total = 5;
+      }
 
       expect(() => assembleJSON(chunks)).toThrow(
         'Chunk total does not match provided count.'
@@ -243,8 +250,13 @@ describe('chunkJSON', () => {
 
       // Mix object and array chunks with aligned checksum to ensure rootType is checked first
       // Align checksum by copying checksum from obj to arr's first chunk
-      arrChunks[0].checksum = objChunks[0].checksum;
-      const mixedChunks = [objChunks[0], arrChunks[0]];
+      const firstObj = objChunks[0];
+      const firstArr = arrChunks[0];
+      expect(firstObj).toBeDefined();
+      expect(firstArr).toBeDefined();
+      if (!firstObj || !firstArr) return;
+      firstArr.checksum = firstObj.checksum;
+      const mixedChunks = [firstObj, firstArr];
 
       expect(() => assembleJSON(mixedChunks)).toThrow(
         'Chunks rootType mismatch.'
@@ -291,7 +303,8 @@ describe('chunkJSON', () => {
       const data = { test: 'value' };
       const chunks = chunkJSON(data, 1000);
 
-      const firstChecksum = chunks[0].checksum;
+      const firstChecksum = chunks[0]?.checksum;
+      expect(firstChecksum).toBeDefined();
       chunks.forEach((chunk) => {
         expect(chunk.checksum).toBe(firstChecksum);
       });
@@ -301,7 +314,8 @@ describe('chunkJSON', () => {
       const data = { test: 'value' };
       const chunks = chunkJSON(data, 1000);
 
-      const firstRootType = chunks[0].rootType;
+      const firstRootType = chunks[0]?.rootType;
+      expect(firstRootType).toBeDefined();
       chunks.forEach((chunk) => {
         expect(chunk.rootType).toBe(firstRootType);
       });
@@ -527,9 +541,10 @@ describe('chunkJSON', () => {
 
       // Verify chunk consistency
       const firstChunk = chunks[0];
+      expect(firstChunk).toBeDefined();
       chunks.forEach((chunk) => {
         expect(chunk.total).toBe(chunks.length);
-        expect(chunk.checksum).toBe(firstChunk.checksum);
+        expect(chunk.checksum).toBe(firstChunk?.checksum);
         expect(chunk.rootType).toBe('array');
       });
 
@@ -549,6 +564,8 @@ describe('chunkJSON', () => {
       const chunks = chunkJSON(data, 1000);
 
       // Even if there's only one chunk, test that we can reconstruct it individually
+      expect(chunks[0]).toBeDefined();
+      if (!chunks[0]) return;
       const reconstructed = reconstructFromSingleChunk(chunks[0]);
       expect(reconstructed).toEqual(data);
     });
@@ -582,6 +599,8 @@ describe('chunkJSON', () => {
       expect(chunks.length).toBeGreaterThan(1);
 
       // Reconstruct just the first chunk
+      expect(chunks[0]).toBeDefined();
+      if (!chunks[0]) return;
       const partial = reconstructFromSingleChunk(chunks[0]);
       expect(partial).toHaveProperty('content');
 

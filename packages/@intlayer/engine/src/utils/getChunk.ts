@@ -30,7 +30,7 @@ export const getChunk = (text: string, options: TrunkOptions = {}): string => {
     // Sum the length of every previous line
     let idx = 0;
     for (let i = 0; i < Math.min(lineNumber, lines.length); i++) {
-      idx += lines[i].length;
+      idx += lines[i]?.length ?? 0;
     }
     return idx;
   };
@@ -41,7 +41,7 @@ export const getChunk = (text: string, options: TrunkOptions = {}): string => {
       return text.length;
     }
     const line = lines[lineNumber];
-    const lineEnd = getCharIndexOfLineStart(lineNumber) + line.length;
+    const lineEnd = getCharIndexOfLineStart(lineNumber) + (line?.length ?? 0);
 
     return lineEnd;
   };

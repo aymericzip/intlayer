@@ -26,6 +26,18 @@ describe('redirects middleware', () => {
     ).toBe('/blog/how-to-pick-react-i18n-library');
   });
 
+  it('redirects merged next-intl / next-i18next docs and the vue benchmark', () => {
+    expect(getRedirectLocation('/fr/doc/next-intl')).toBe(
+      '/fr/blog/intlayer-with-next-intl'
+    );
+    expect(getRedirectLocation('/doc/next-i18next')).toBe(
+      '/blog/intlayer-with-next-i18next'
+    );
+    expect(getRedirectLocation('/blog/vue-i18n-vs-intlayer-benchmark')).toBe(
+      '/blog/vue-i18n-vs-intlayer'
+    );
+  });
+
   it('redirects the legacy uppercase Page Router doc slug', () => {
     expect(
       getRedirectLocation('/doc/environment/nextjs/next-with-Page-Router')

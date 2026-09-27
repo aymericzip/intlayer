@@ -209,6 +209,10 @@ const toUrlSegments = (slugs: string[]): string[] =>
 /**
  * Tells whether a file answers a requested slug path.
  *
+ * Segments are compared case-insensitively, so `/doc/…/useintlayer` still
+ * resolves the `useIntlayer` page and callers can redirect to its canonical
+ * casing instead of answering a 404.
+ *
  * @param fileMetadata - Metadata of the candidate file.
  * @param requestedSegments - URL segments asked for, already flattened.
  * @param strict - Rejects files owning segments beyond the requested ones.
@@ -219,11 +223,15 @@ const matchesRequestedSegments = (
   requestedSegments: string[],
   strict: boolean
 ): boolean => {
-  const fileSegments = toUrlSegments(fileMetadata.slugs ?? []);
+  const fileSegments = toUrlSegments(fileMetadata.slugs ?? []).map((segment) =>
+    segment.toLowerCase()
+  );
 
   if (strict && fileSegments.length !== requestedSegments.length) return false;
 
-  return requestedSegments.every((segment) => fileSegments.includes(segment));
+  return requestedSegments.every((segment) =>
+    fileSegments.includes(segment.toLowerCase())
+  );
 };
 
 export const getFileMetadataBySlug = async <

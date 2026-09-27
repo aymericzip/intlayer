@@ -1,14 +1,11 @@
-import {
-  discoverSitemapUrls,
-  mutateScore,
-  type Score,
-  toScorePercent,
-} from '@intlayer/engine/scan';
+import { discoverSitemapUrls } from '@intlayer/engine/scan';
 import { logger } from '@logger';
 import { AuditJobModel, AuditJobStatus } from '@schemas/auditJob.schema';
 import { AuditPageModel, AuditPageStatus } from '@schemas/auditPage.schema';
 import { isPublicHttpUrl } from '@utils/isPublicUrl';
 import { getCachedAudit, setCachedAudit } from './auditCache.service';
+import { getAuditScorePercent } from './auditScore';
+import { saveAuditHostScan } from './scannedHost.service';
 import { runSingleAudit } from './seoAudit.service';
 
 const SLEEP_TIME = 30000;
@@ -184,16 +181,19 @@ export const processAuditJobs = async (): Promise<void> => {
         if (!cachedAudit) await setCachedAudit(pendingPage.url, events);
         isPageFromCache = Boolean(cachedAudit);
 
-        // Compute score the same way the single-page SSE controller does
-        let score: Score = { score: 0, totalScore: 0 };
-        for (const event of events) {
-          score = mutateScore(score, event);
-        }
-
         pendingPage.status = AuditPageStatus.COMPLETED;
         pendingPage.results = events;
-        pendingPage.score = toScorePercent(score);
+        pendingPage.score = getAuditScorePercent(events);
         await pendingPage.save();
+
+        if (!isPageFromCache) {
+          await saveAuditHostScan(
+            pendingPage.url,
+            events,
+            pendingPage.score,
+            'recursive'
+          );
+        }
 
         const totalPages = await AuditPageModel.countDocuments({
           jobId: job._id,

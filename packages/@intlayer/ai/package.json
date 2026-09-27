@@ -61,6 +61,7 @@
     "dev": "bun --bun tsdown --config tsdown.config.ts --watch",
     "format": "bun --bun biome format . --check",
     "format:fix": "bun --bun biome format --write .",
+    "generate:models": "bun scripts/generateAiModelTypes.ts && biome format --write ../types/src/aiModels.ts",
     "lint": "bun --bun biome lint .",
     "lint:fix": "bun --bun biome lint --write .",
     "prepublish": "cp -f ../../../README.md ./README.md",

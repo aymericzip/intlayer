@@ -13,7 +13,10 @@ import {
 import { usePathname } from 'react-intlayer';
 import { Link } from '~/components/Link/Link';
 import { useLocalizedNavigate } from '~/hooks/useLocalizedNavigate';
-import { FrameworkLogo } from './FrameworkFilter';
+import {
+  type FrameworkLogoKey,
+  FrameworkLogoReference,
+} from './FrameworkFilter';
 
 type OptionalLinkProps = Omit<ComponentProps<typeof Link>, 'to'> & {
   to?: string;
@@ -48,9 +51,9 @@ export const OptionalLink: FC<OptionalLinkProps> = ({
       {logoFrameworks.length > 0 && (
         <span className="flex shrink-0 items-center">
           {logoFrameworks.slice(0, 1).map((framework, index) => (
-            <FrameworkLogo
+            <FrameworkLogoReference
               key={framework}
-              logoKey={framework as any}
+              logoKey={framework as FrameworkLogoKey}
               className="size-3.5 shrink-0"
               style={{ zIndex: index }}
             />

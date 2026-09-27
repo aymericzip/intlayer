@@ -26,6 +26,16 @@ export const baseCheckType = (type: string): string =>
 export const fallbackCheckLabel = (type: string): string =>
   baseCheckType(type).replace(/^(url|robots|sitemap|domain)_/, '');
 
+/** Details attached to a check for its current status, if any. */
+export const getCheckDetails = (
+  check: MergedAuditData[string] | undefined
+): unknown => {
+  if (check?.status === 'success') return check.data?.successDetails;
+  if (check?.status === 'warning') return check.data?.warningsDetails;
+  if (check?.status === 'error') return check.data?.errorsDetails;
+  return undefined;
+};
+
 /**
  * Explanation lines of a failing check (message, then listed issues / links),
  * empty for a successful or pending check.

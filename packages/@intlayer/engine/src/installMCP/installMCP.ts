@@ -36,7 +36,7 @@ export const installMCP = async (
   if (platform === 'Claude') {
     configPath = CLAUDE_DESKTOP_CONFIG_PATH;
   } else {
-    const relativeDir = path.dirname(PLATFORMS_METADATA[platform].dir); // e.g. .cursor or .vscode
+    const relativeDir = path.dirname(PLATFORMS_METADATA[platform]?.dir ?? '.'); // e.g. .cursor or .vscode
     configPath = path.join(projectRoot, relativeDir, MCP_CONFIG_FILENAME);
 
     if (platform === 'VSCode') {

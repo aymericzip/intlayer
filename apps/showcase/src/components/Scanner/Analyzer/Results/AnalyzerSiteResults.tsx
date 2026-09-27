@@ -93,13 +93,14 @@ export const AnalyzerSiteResults: FC<AnalyzerSiteResultsProps> = ({
 
       <div className="flex items-center gap-8">
         <Skeleton
-          className="h-45 w-75 max-w-[30vw] rounded-lg border-4"
+          className="h-45 w-75 max-w-[30vw] rounded-2xl border-4 [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-3xl"
           isLoading={isLoading && !domainData?.image}
           renderChildren={false}
         >
           {domainData?.image && (
             <Container
-              className="max-w-[30vw] overflow-hidden bg-background"
+              className="w-75 max-w-[30vw] overflow-hidden bg-background"
+              roundedSize="2xl"
               border
               borderColor="neutral"
             >
@@ -108,6 +109,7 @@ export const AnalyzerSiteResults: FC<AnalyzerSiteResultsProps> = ({
                 alt={messages?.websitePreview?.value}
                 width={300}
                 height={180}
+                className="block aspect-[1.91/1] size-full object-cover"
               />
             </Container>
           )}

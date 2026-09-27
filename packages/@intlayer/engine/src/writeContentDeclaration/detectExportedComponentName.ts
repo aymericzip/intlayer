@@ -17,12 +17,13 @@ export const detectExportedComponentName = (
 
   // Check for default ESM function or variable
   const defaultEsmFnMatch = fileText.match(defaultEsmFnRegex);
-  if (defaultEsmFnMatch) {
+
+  if (defaultEsmFnMatch?.[1]) {
     return defaultEsmFnMatch[1];
   }
 
   const defaultEsmVarMatch = fileText.match(defaultEsmVarRegex);
-  if (defaultEsmVarMatch) {
+  if (defaultEsmVarMatch?.[1]) {
     return defaultEsmVarMatch[1];
   }
 
@@ -30,11 +31,12 @@ export const detectExportedComponentName = (
   const cjsDefaultMatch =
     fileText.match(cjsDefaultRegex) || fileText.match(cjsDefaultVarRegex);
 
-  if (cjsDefaultMatch) return cjsDefaultMatch[1];
+  if (cjsDefaultMatch?.[1]) return cjsDefaultMatch[1];
 
   // Otherwise, look for capitalized named exports
   for (const match of fileText.matchAll(namedExportRegex)) {
-    if (/^[A-Z]/.test(match[1])) return match[1];
+    const name = match[1];
+    if (name && /^[A-Z]/.test(name)) return name;
   }
 
   // If we can’t find it, return null

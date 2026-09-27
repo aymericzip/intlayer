@@ -54,7 +54,7 @@ describe('reduceObjectFormat', () => {
   it('handles non-object source when format is object by returning keys with undefined', () => {
     const source = 'not-an-object';
     const format = { a: 0, b: { c: 0 } };
-    expect(reduceObjectFormat(source as unknown as object, format)).toEqual({
+    expect(reduceObjectFormat(source, format)).toEqual({
       a: undefined,
       b: { c: undefined },
     });

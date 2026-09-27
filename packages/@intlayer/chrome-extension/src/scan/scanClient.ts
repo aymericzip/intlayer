@@ -1,3 +1,4 @@
+import type { PageDetectionResult } from '../detector/types';
 import type { AuditEvent } from './types';
 
 /** Public Intlayer backend running the audit. */
@@ -76,5 +77,51 @@ export const scanUrl = async ({
         // Ignore malformed SSE lines.
       }
     }
+  }
+};
+
+/** Most locales sent with a detection report (the backend caps at 100). */
+const MAX_REPORTED_LOCALES = 100;
+
+/** Locale shape accepted by the backend report schema. */
+const REPORTABLE_LOCALE_PATTERN = /^[a-zA-Z]{2,3}([_-][a-zA-Z0-9]{2,8})*$/;
+
+export type ReportHostDetectionOptions = {
+  /** Result of the in-page detection. */
+  detection: PageDetectionResult;
+  /** Override the backend origin (defaults to {@link DEFAULT_BACKEND_URL}). */
+  backendUrl?: string;
+};
+
+/**
+ * Send the technologies detected on the inspected page to the Intlayer
+ * backend (`POST /api/scan/hosts/detections`), which stores them on the host
+ * and may queue a full audit of it. No cookie is sent. Failures are ignored:
+ * the report must never disturb the popup.
+ */
+export const reportHostDetection = async ({
+  detection,
+  backendUrl = DEFAULT_BACKEND_URL,
+}: ReportHostDetectionOptions): Promise<void> => {
+  try {
+    await fetch(`${backendUrl}/api/scan/hosts/detections`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'omit',
+      body: JSON.stringify({
+        url: detection.url,
+        technologies: detection.technologies.map(({ id, version }) => ({
+          id,
+          ...(version ? { version } : {}),
+        })),
+        routingStrategy: detection.routing.strategy,
+        locales: detection.routing.locales
+          .filter((locale) => REPORTABLE_LOCALE_PATTERN.test(locale))
+          .slice(0, MAX_REPORTED_LOCALES),
+        ...(detection.title ? { title: detection.title.slice(0, 300) } : {}),
+      }),
+    });
+  } catch {
+    // Offline or blocked: the popup works without the backend.
   }
 };

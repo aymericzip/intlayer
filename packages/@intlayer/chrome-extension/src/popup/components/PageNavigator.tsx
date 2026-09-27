@@ -71,12 +71,15 @@ export const PageNavigator: FunctionComponent<{
                 key={url}
                 label={`${goTo.value} ${url}`}
                 title={url}
-                variant={isCurrent ? 'default' : 'outline'}
+                variant="outline"
                 color="text"
                 size="sm"
                 roundedSize="full"
-                disabled={isCurrent}
-                onClick={() => onNavigate(url)}
+                isActive={isCurrent}
+                onClick={() => {
+                  if (!isCurrent) onNavigate(url);
+                }}
+                className="aria-[current=page]:cursor-default aria-[current=page]:bg-current/15"
               >
                 {hreflang}
               </Button>

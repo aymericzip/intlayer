@@ -157,7 +157,8 @@ describe('fetchDistantDictionaries', () => {
 
     // Release a single request while the four others stay pending.
     const [slowRequest, ...fastRequests] = pendingRequests;
-    pendingRequests = [slowRequest];
+
+    pendingRequests = slowRequest ? [slowRequest] : [];
     for (const request of fastRequests) request.resolve();
 
     // The freed slot is refilled right away, so the 6th batch starts even

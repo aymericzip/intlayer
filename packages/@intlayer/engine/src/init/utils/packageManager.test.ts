@@ -600,7 +600,7 @@ describe('package manager detection', () => {
 
   describe('moveCompatPackagesToDevDependencies', () => {
     it('moves next-intl from dependencies to devDependencies', () => {
-      const packageJson = {
+      const packageJson: Record<string, any> = {
         name: 'my-app',
         dependencies: {
           next: '^15.0.0',
@@ -638,7 +638,7 @@ describe('package manager detection', () => {
     });
 
     it('handles multiple compat packages', () => {
-      const packageJson = {
+      const packageJson: Record<string, any> = {
         dependencies: {
           i18next: '^23.0.0',
           'react-i18next': '^14.0.0',

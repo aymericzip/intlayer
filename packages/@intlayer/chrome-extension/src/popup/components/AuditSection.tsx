@@ -1,4 +1,5 @@
 import { Button } from '@intlayer/design-system/button';
+import { splitCheckDetails } from '@intlayer/engine/scan/detection';
 import { relativeTime } from 'intlayer';
 import type { FunctionComponent } from 'preact';
 import { useIntlayer, useLocale } from 'preact-intlayer';
@@ -6,10 +7,12 @@ import {
   baseCheckType,
   checkSection,
   fallbackCheckLabel,
+  getCheckDetails,
   getCheckIssueLines,
 } from '../../scan/checkLabels';
 import type { MergedAuditData } from '../../scan/types';
 import type { AuditScan } from '../useAuditScan';
+import { DetailsPopover } from './DetailsPopover';
 import { ScoreRing } from './ScoreRing';
 import { StatusIcon } from './StatusIcon';
 
@@ -27,6 +30,42 @@ const formatCachedAge = (cachedAt: string, locale: string): string => {
     unit,
     numeric: 'auto',
   });
+};
+
+/**
+ * Full details of a check (message, offending links, listed items), or the
+ * raw payload as JSON when it has none of them (bundle summaries…).
+ */
+const CheckDetails: FunctionComponent<{ details: unknown }> = ({ details }) => {
+  const { message, links, items } = splitCheckDetails(details);
+
+  if (!message && links.length === 0 && items.length === 0) {
+    return (
+      <pre className="m-0 whitespace-pre-wrap break-all font-mono text-[11px]">
+        {JSON.stringify(details, null, 2)}
+      </pre>
+    );
+  }
+
+  return (
+    <>
+      {message && <p className="m-0 font-semibold">{message}</p>}
+      {links.length > 0 && (
+        <pre className="m-0 whitespace-pre-wrap break-all rounded-lg bg-text/5 p-2 font-mono text-[11px]">
+          {links.join('\n')}
+        </pre>
+      )}
+      {items.length > 0 && (
+        <ul className="m-0 flex list-disc flex-col gap-1 pl-4">
+          {items.map((item) => (
+            <li key={item} className="break-all">
+              {item}
+            </li>
+          ))}
+        </ul>
+      )}
+    </>
+  );
 };
 
 /** Keeps one check type per section and base type, in streaming order. */
@@ -159,24 +198,40 @@ export const AuditSection: FunctionComponent<{
                 </h3>
                 <ul className="m-0 flex list-none flex-col gap-1.5 p-0">
                   {checkTypes.map((type) => {
-                    const issueLines = getCheckIssueLines(
-                      scan.mergedData[type]
-                    );
+                    const check = scan.mergedData[type];
+                    const issueLines = getCheckIssueLines(check);
+                    const details = getCheckDetails(check);
 
-                    return (
-                      <li key={type} className="flex items-baseline gap-2">
-                        <StatusIcon status={scan.mergedData[type]?.status} />
+                    const row = (
+                      <div className="flex items-baseline gap-2">
+                        <StatusIcon status={check?.status} />
                         <div className="min-w-0">
                           <span>{getCheckLabel(type)}</span>
                           {issueLines[0] && (
-                            <span
-                              className="block truncate text-neutral text-xs"
-                              title={issueLines.join('\n')}
-                            >
+                            <span className="block truncate text-neutral text-xs">
                               {issueLines[0]}
                             </span>
                           )}
                         </div>
+                      </div>
+                    );
+
+                    return (
+                      <li key={type}>
+                        {details === undefined ? (
+                          row
+                        ) : (
+                          <DetailsPopover
+                            identifier={`audit-check-${type.replace(/[^\w-]/g, '-')}`}
+                            trigger={
+                              <div className="cursor-help rounded-md hover:bg-text/5">
+                                {row}
+                              </div>
+                            }
+                          >
+                            <CheckDetails details={details} />
+                          </DetailsPopover>
+                        )}
                       </li>
                     );
                   })}

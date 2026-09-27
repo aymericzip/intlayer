@@ -1,5 +1,5 @@
 import { buildCreativeWorkJsonLd } from '@intlayer/design-system/structured-data';
-import { createFileRoute, redirect } from '@tanstack/react-router';
+import { createFileRoute, notFound, redirect } from '@tanstack/react-router';
 import { defaultLocale, getPrefix } from 'intlayer';
 import { DocumentationRender } from '~/components/DocPage/DocumentationRender';
 import { loadFaqPage } from '~/serverFunctions/faq';
@@ -34,14 +34,10 @@ export const Route = createFileRoute('/{-$locale}/_docs/frequent-questions/$')({
           params: {
             locale: getPrefix(locale).localePrefix,
           },
+          statusCode: 301,
         });
       }
-      throw redirect({
-        to: `/{-$locale}`,
-        params: {
-          locale: getPrefix(locale).localePrefix,
-        },
-      });
+      throw notFound();
     }
 
     return {

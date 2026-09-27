@@ -6,6 +6,7 @@ import {
   App_Admin_Projects_Path,
   App_Admin_PromoCodes_Path,
   App_Admin_Reviewers_Path,
+  App_Admin_Scans_Path,
   App_Admin_Users_Path,
 } from '@intlayer/design-system/routes';
 import { TabSelector } from '@intlayer/design-system/tab-selector';
@@ -18,6 +19,7 @@ import {
   HandCoins,
   Languages,
   MessageCircle,
+  ScanSearch,
   Ticket,
   Users,
 } from 'lucide-react';
@@ -69,6 +71,13 @@ export const AdminTabBar: FC<AdminTabBarProps> = ({ className }) => {
       icon: MessageCircle,
       label: navigation.management.discussions.label.value,
       title: navigation.management.discussions.title,
+    },
+    {
+      key: 'scans',
+      href: App_Admin_Scans_Path,
+      icon: ScanSearch,
+      label: navigation.management.scans.label.value,
+      title: navigation.management.scans.title,
     },
     {
       key: 'affiliate',

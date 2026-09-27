@@ -2,6 +2,9 @@
 
 import type {
   GetRecursiveAuditStatusParams,
+  GetScannedHostParams,
+  GetScannedHostsQuery,
+  GetTechnologyUsageQuery,
   ScanUrlBody,
   StartRecursiveAuditBody,
 } from '@intlayer/api';
@@ -39,6 +42,52 @@ export const useGetRecursiveAuditStatus = (
     queryFn: ({ signal }) =>
       auditAPI.getRecursiveAuditStatus(params, { signal }),
     enabled: Boolean(params?.jobId),
+    ...options,
+  });
+};
+
+/** Admin — number of scanned domains using each technology. */
+export const useGetTechnologyUsage = (
+  params?: GetTechnologyUsageQuery,
+  options?: Partial<UseQueryOptions>
+) => {
+  const auditAPI = useAuditAPI();
+
+  return useAppQuery({
+    queryKey: ['audit-technology-usage', params],
+    queryFn: ({ signal }) => auditAPI.getTechnologyUsage(params, { signal }),
+    requireUser: true,
+    ...options,
+  });
+};
+
+/** Admin — scanned hosts, most recently scanned first. */
+export const useGetScannedHosts = (
+  params?: GetScannedHostsQuery,
+  options?: Partial<UseQueryOptions>
+) => {
+  const auditAPI = useAuditAPI();
+
+  return useAppQuery({
+    queryKey: ['audit-scanned-hosts', params],
+    queryFn: ({ signal }) => auditAPI.getScannedHosts(params, { signal }),
+    requireUser: true,
+    ...options,
+  });
+};
+
+/** Admin — a scanned host with its stored scans, newest first. */
+export const useGetScannedHost = (
+  params?: GetScannedHostParams,
+  options?: Partial<UseQueryOptions>
+) => {
+  const auditAPI = useAuditAPI();
+
+  return useAppQuery({
+    queryKey: ['audit-scanned-host', params?.host],
+    queryFn: ({ signal }) => auditAPI.getScannedHost(params, { signal }),
+    enabled: Boolean(params?.host),
+    requireUser: true,
     ...options,
   });
 };

@@ -1,9 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "@utils/ts-config",
-  "include": [
-    "src/**/*",
-    "types/**/*",
-    "../config/src/utils/getUsedNodeTypes.ts"
-  ]
+  "include": ["src/**/*", "types/**/*"],
+  "exclude": ["dist"]
 }

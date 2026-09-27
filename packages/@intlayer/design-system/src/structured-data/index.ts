@@ -32,6 +32,7 @@ export {
 export {
   type BuildSoftwareApplicationJsonLdParams,
   buildSoftwareApplicationJsonLd,
+  INTLAYER_AGGREGATE_RATING,
 } from './buildSoftwareApplicationJsonLd';
 export {
   type BuildWebsiteJsonLdParams,

@@ -61,7 +61,8 @@ const setAtPath = (root: any, path: Path, value: JSONValue) => {
 
   for (let i = 0; i < path.length - 1; i++) {
     const key = path[i];
-    const nextKey = path[i + 1];
+    if (key === undefined) continue;
+
     const isNextIndex = typeof nextKey === 'number';
 
     if (typeof key === 'number') {
@@ -80,14 +81,16 @@ const setAtPath = (root: any, path: Path, value: JSONValue) => {
       }
 
       if (!(key in current)) {
-        (current as any)[key] = isNextIndex ? [] : {};
+        (current as Record<string, any>)[key] = isNextIndex ? [] : {};
       }
 
-      current = (current as any)[key];
+      current = (current as Record<string, any>)[key];
     }
   }
 
   const last = path[path.length - 1];
+
+  if (last === undefined) return;
 
   if (typeof last === 'number') {
     if (!Array.isArray(current)) {
@@ -100,7 +103,7 @@ const setAtPath = (root: any, path: Path, value: JSONValue) => {
       throw new Error(`Expected object at final segment`);
     }
 
-    (current as any)[last] = value as any;
+    (current as Record<string, any>)[last] = value as any;
   }
 };
 
@@ -189,11 +192,15 @@ const flattenToPatches = (
       });
 
       for (let i = 0; i < parts.length; i++) {
-        patches.push({
-          op: 'set',
-          path: [...currentPath, String(i + 1)],
-          value: parts[i],
-        });
+        const part = parts[i];
+
+        if (part !== undefined) {
+          patches.push({
+            op: 'set',
+            path: [...currentPath, String(i + 1)],
+            value: part,
+          });
+        }
       }
 
       return;
@@ -212,11 +219,18 @@ const flattenToPatches = (
 
     if (Array.isArray(currentValue)) {
       for (let i = 0; i < currentValue.length; i++) {
-        walk(currentValue[i] as JSONValue, [...currentPath, i]);
+        const item = currentValue[i];
+        if (item !== undefined) {
+          walk(item as JSONValue, [...currentPath, i]);
+        }
       }
     } else {
       for (const key of Object.keys(currentValue)) {
-        walk((currentValue as JSONObject)[key], [...currentPath, key]);
+        const childVal = (currentValue as JSONObject)[key];
+
+        if (childVal !== undefined) {
+          walk(childVal, [...currentPath, key]);
+        }
       }
     }
 
@@ -457,11 +471,19 @@ export const assembleJSON = (chunks: JsonChunk[]): JSONObject | JSONArray => {
 
   // Basic validation & sort
   const sorted = [...chunks].sort((a, b) => a.index - b.index);
-  const { checksum, rootType } = sorted[0];
+  const firstChunk = sorted[0];
+
+  if (!firstChunk) {
+    throw new Error('No chunks provided.');
+  }
+
+  const { checksum, rootType } = firstChunk;
   const schemaVersion = 1;
 
   for (let i = 0; i < sorted.length; i++) {
     const chunk = sorted[i];
+
+    if (!chunk) continue;
 
     if (chunk.schemaVersion !== schemaVersion) {
       console.error('Unsupported schemaVersion.', {
@@ -619,6 +641,8 @@ export const assembleJSON = (chunks: JsonChunk[]): JSONObject | JSONArray => {
   // Now validate totals match provided count
   for (let i = 0; i < sorted.length; i++) {
     const chunk = sorted[i];
+
+    if (!chunk) continue;
 
     if (chunk.total !== sorted.length) {
       throw new Error(

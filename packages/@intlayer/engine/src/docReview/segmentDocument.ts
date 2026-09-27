@@ -2,8 +2,10 @@ import type { Block, BlockType } from './types';
 
 const HEADING_PATTERN = /^\s*(#{1,6})\s+/;
 
-const isBlankLine = (line: string): boolean => line.trim().length === 0;
-const isFencedCodeDelimiter = (line: string): boolean => /^\s*```/.test(line);
+const isBlankLine = (line?: string): boolean =>
+  !line || line.trim().length === 0;
+const isFencedCodeDelimiter = (line?: string): boolean =>
+  Boolean(line && /^\s*```/.test(line));
 
 /**
  * Read the depth of an ATX markdown heading (`#` → 1, `######` → 6).
@@ -11,15 +13,16 @@ const isFencedCodeDelimiter = (line: string): boolean => /^\s*```/.test(line);
  * @param line - The line to inspect.
  * @returns The heading depth, or `null` when the line is not a heading.
  */
-const parseHeadingDepth = (line: string): number | null => {
+const parseHeadingDepth = (line?: string): number | null => {
+  if (!line) return null;
   const match = HEADING_PATTERN.exec(line);
 
   return match?.[1]?.length ?? null;
 };
 
-const isHeading = (line: string): boolean => parseHeadingDepth(line) !== null;
-const isFrontmatterDelimiter = (line: string): boolean =>
-  /^\s*---\s*$/.test(line);
+const isHeading = (line?: string): boolean => parseHeadingDepth(line) !== null;
+const isFrontmatterDelimiter = (line?: string): boolean =>
+  Boolean(line && /^\s*---\s*$/.test(line));
 
 /**
  * A content unit (heading, paragraph, code block or frontmatter) spanning a
@@ -144,10 +147,11 @@ export const segmentDocument = (text: string): Block[] => {
   //    also absorbs any leading blank lines, and the last block runs to EOF.
   return units.map((unit, unitIndex): Block => {
     const blockStartIndex = unitIndex === 0 ? 0 : unit.startIndex;
+    const nextUnit = units[unitIndex + 1];
     const blockEndIndex =
-      unitIndex === units.length - 1
+      unitIndex === units.length - 1 || !nextUnit
         ? lineCount - 1
-        : units[unitIndex + 1].startIndex - 1;
+        : nextUnit.startIndex - 1;
 
     const blockLines = lines.slice(blockStartIndex, blockEndIndex + 1);
     // Re-append the boundary newline dropped by `split` for every block but the
@@ -193,8 +197,10 @@ export const segmentSections = (text: string): Block[] => {
   const flushSection = (): void => {
     if (currentBlocks.length === 0) return;
 
-    const [firstBlock] = currentBlocks;
+    const firstBlock = currentBlocks[0];
     const lastBlock = currentBlocks[currentBlocks.length - 1];
+
+    if (!firstBlock || !lastBlock) return;
 
     sections.push({
       type: firstBlock.type,

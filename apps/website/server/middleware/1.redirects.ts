@@ -63,6 +63,11 @@ const MOVED_PATHS = new Map<string, string>([
     '/doc/environment/nextjs/next-with-page-router',
   ],
   ['/blog/i18n-meaning', '/blog/what-is-internationalization'],
+  // Same intent as the blog guides: Intlayer layered on top of the library.
+  ['/doc/next-intl', '/blog/intlayer-with-next-intl'],
+  ['/doc/next-i18next', '/blog/intlayer-with-next-i18next'],
+  // Merged into the older comparison URL, like next-intl and i18next.
+  ['/blog/vue-i18n-vs-intlayer-benchmark', '/blog/vue-i18n-vs-intlayer'],
   [
     '/blog/i18n-technologies/frameworks/react',
     '/blog/how-to-pick-react-i18n-library',

@@ -41,11 +41,22 @@ export const wmic = (callback: ProcessListCallback): void => {
 
       const list: ProcessList = [];
       for (let i = 1; i < lines.length; i++) {
-        const trimmed = lines[i].trim();
+        const line = lines[i];
+
+        if (!line) continue;
+        const trimmed = line.trim();
+
         if (!trimmed) continue;
+
         const parts = trimmed.split(/\s+/);
-        const ppid = parseInt(parts[0], 10); // PPID
-        const pid = parseInt(parts[1], 10); // PID
+        const p0 = parts[0];
+        const p1 = parts[1];
+
+        if (!p0 || !p1) continue;
+
+        const ppid = parseInt(p0, 10); // PPID
+        const pid = parseInt(p1, 10); // PID
+
         if (!Number.isNaN(ppid) && !Number.isNaN(pid)) {
           list.push([ppid, pid]);
         }

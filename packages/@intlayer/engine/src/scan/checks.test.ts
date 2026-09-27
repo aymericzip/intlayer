@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import {
   checkCanonical,
   checkHreflang,
@@ -6,6 +6,8 @@ import {
   checkHtmlLang,
   checkInternalLinks,
   checkLocaleConsistency,
+  checkOgLocale,
+  checkSitemap,
   type PageSignals,
 } from './checks';
 import { detectRoutingStrategy } from './detection/detectRoutingStrategy';
@@ -15,6 +17,8 @@ import {
   extractHreflangs,
   extractHtmlDir,
   extractHtmlLang,
+  extractOgLocale,
+  extractOgLocaleAlternates,
 } from './parseHtml';
 import type { ScanEvent } from './types';
 
@@ -31,6 +35,8 @@ const getSignals = (targetUrl: string, html: string): PageSignals => {
     targetUrl,
     langTag,
     dirTag: extractHtmlDir(html),
+    ogLocale: extractOgLocale(html),
+    ogLocaleAlternates: extractOgLocaleAlternates(html),
     canonicalHref: extractCanonicalHref(html),
     hreflangs,
     anchors: extractAnchors(html),
@@ -103,6 +109,44 @@ describe('html attribute checks', () => {
   });
 });
 
+describe('og:locale check', () => {
+  const ogLocaleEvent = (html: string) =>
+    runCheck(checkOgLocale, getSignals('https://example.com/', html))
+      .url_ogLocale;
+
+  it('rejects a bare language and suggests the html lang region', () => {
+    const event = ogLocaleEvent(
+      '<html lang="en-GB"><meta property="og:locale" content="en" />'
+    );
+    expect(event?.status).toBe('error');
+    expect(JSON.stringify(event?.details)).toContain('en_GB');
+  });
+
+  it('rejects BCP 47 separators', () => {
+    expect(
+      ogLocaleEvent(
+        '<html lang="en-GB"><meta property="og:locale" content="en-GB" />'
+      )?.status
+    ).toBe('error');
+  });
+
+  it('accepts language_TERRITORY', () => {
+    expect(
+      ogLocaleEvent(
+        '<html lang="en-GB"><meta property="og:locale" content="en_GB" />'
+      )?.status
+    ).toBe('success');
+  });
+
+  it('flags invalid og:locale:alternate values', () => {
+    const event = ogLocaleEvent(
+      '<html lang="en"><meta property="og:locale" content="en_US" /><meta property="og:locale:alternate" content="fr" />'
+    );
+    expect(event?.status).toBe('warning');
+    expect(JSON.stringify(event?.details)).toContain('fr_FR');
+  });
+});
+
 describe('canonical & hreflang checks', () => {
   const alternates = {
     en: 'https://example.com/about',
@@ -149,11 +193,87 @@ describe('canonical & hreflang checks', () => {
         })}`
       )
     );
-    const details = events.url_hreflang?.details?.warning as {
+    const details = events.url_hreflang?.details?.error as {
       issues: string[];
     };
-    expect(events.url_hreflang?.status).toBe('warning');
+    expect(events.url_hreflang?.status).toBe('error');
     expect(details.issues).toHaveLength(4);
+  });
+
+  it.each([
+    ['relative', '/fr/about'],
+    ['protocol-relative', '//example.com/fr/about'],
+    ['non-HTTP', 'ftp://example.com/fr/about'],
+  ])('rejects %s hreflang URLs', (_kind, frenchHref) => {
+    const events = runCheck(
+      checkHreflang,
+      getSignals(
+        'https://example.com/en/about',
+        `<html lang="en">${head({
+          en: 'https://example.com/en/about',
+          fr: frenchHref,
+        })}`
+      )
+    );
+    expect(events.url_hreflang?.status).toBe('error');
+    expect(JSON.stringify(events.url_hreflang?.details)).toContain(frenchHref);
+  });
+
+  it('accepts fully qualified hreflang URLs', () => {
+    const events = runCheck(
+      checkHreflang,
+      getSignals(
+        'https://example.com/en/about',
+        `<html lang="en">${head({
+          en: 'https://example.com/en/about',
+          fr: 'https://example.com/fr/about',
+        })}`
+      )
+    );
+    expect(events.url_hreflang?.status).toBe('success');
+  });
+});
+
+describe('sitemap checks', () => {
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
+  const runSitemapCheck = async (alternateHref: string) => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(
+        async () =>
+          new Response(
+            `<urlset xmlns:xhtml="http://www.w3.org/1999/xhtml"><url><loc>https://example.com/en</loc><xhtml:link rel="alternate" hreflang="en" href="https://example.com/en"/><xhtml:link rel="alternate" hreflang="fr" href="${alternateHref}"/></url></urlset>`,
+            { status: 200 }
+          )
+      )
+    );
+    const events: Record<string, ScanEvent> = {};
+    await checkSitemap(
+      'https://example.com',
+      ['https://example.com/sitemap.xml'],
+      detectRoutingStrategy({
+        pageUrl: 'https://example.com/en',
+        hreflangs: [],
+      }),
+      { userAgent: 'test', timeoutMs: 1000 },
+      (event) => {
+        events[event.type] = event;
+      }
+    );
+    return events.sitemap_hasAlternates;
+  };
+
+  it('rejects relative hreflang alternates', async () => {
+    expect((await runSitemapCheck('/fr'))?.status).toBe('error');
+  });
+
+  it('accepts absolute hreflang alternates', async () => {
+    expect((await runSitemapCheck('https://example.com/fr'))?.status).toBe(
+      'success'
+    );
   });
 });
 

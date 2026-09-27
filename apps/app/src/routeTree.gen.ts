@@ -45,6 +45,7 @@ import { Route as Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRoute
 import { Route as Char123LocaleChar125DashboardAdminAdminProjectsRouteRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/projects/route'
 import { Route as Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/promo-code/route'
 import { Route as Char123LocaleChar125DashboardAdminAdminReviewersRouteRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/reviewers/route'
+import { Route as Char123LocaleChar125DashboardAdminAdminScansRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/scans'
 import { Route as Char123LocaleChar125DashboardAdminAdminUsersRouteRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/users/route'
 import { Route as Char123LocaleChar125DashboardEditorContentEditorRouteImport } from './routes/{-$locale}/_dashboard/_editor/_content/editor'
 import { Route as Char123LocaleChar125DashboardEditorContentTranslateRouteImport } from './routes/{-$locale}/_dashboard/_editor/_content/translate'
@@ -281,6 +282,12 @@ const Char123LocaleChar125DashboardAdminAdminReviewersRouteRoute =
     path: '/admin/reviewers',
     getParentRoute: () => Char123LocaleChar125DashboardAdminRouteRoute,
   } as any)
+const Char123LocaleChar125DashboardAdminAdminScansRoute =
+  Char123LocaleChar125DashboardAdminAdminScansRouteImport.update({
+    id: '/admin/scans',
+    path: '/admin/scans',
+    getParentRoute: () => Char123LocaleChar125DashboardAdminRouteRoute,
+  } as any)
 const Char123LocaleChar125DashboardAdminAdminUsersRouteRoute =
   Char123LocaleChar125DashboardAdminAdminUsersRouteRouteImport.update({
     id: '/admin/users',
@@ -497,6 +504,7 @@ export interface FileRoutesByFullPath {
   '/{-$locale}/admin/reviewers': typeof Char123LocaleChar125DashboardAdminAdminReviewersRouteRouteWithChildren
   '/{-$locale}/admin/users': typeof Char123LocaleChar125DashboardAdminAdminUsersRouteRouteWithChildren
   '/{-$locale}/admin/discussions': typeof Char123LocaleChar125DashboardAdminAdminDiscussionsRoute
+  '/{-$locale}/admin/scans': typeof Char123LocaleChar125DashboardAdminAdminScansRoute
   '/{-$locale}/editor': typeof Char123LocaleChar125DashboardEditorContentEditorRoute
   '/{-$locale}/translate': typeof Char123LocaleChar125DashboardEditorContentTranslateRoute
   '/{-$locale}/auth/2fa': typeof Char123LocaleChar125OtherAuthAuthentication2faRoute
@@ -550,6 +558,7 @@ export interface FileRoutesByTo {
   '/{-$locale}/affiliation': typeof Char123LocaleChar125OtherAffiliationIndexRoute
   '/{-$locale}/find-reviewer': typeof Char123LocaleChar125OtherFindReviewerIndexRoute
   '/{-$locale}/admin/discussions': typeof Char123LocaleChar125DashboardAdminAdminDiscussionsRoute
+  '/{-$locale}/admin/scans': typeof Char123LocaleChar125DashboardAdminAdminScansRoute
   '/{-$locale}/editor': typeof Char123LocaleChar125DashboardEditorContentEditorRoute
   '/{-$locale}/translate': typeof Char123LocaleChar125DashboardEditorContentTranslateRoute
   '/{-$locale}/auth/2fa': typeof Char123LocaleChar125OtherAuthAuthentication2faRoute
@@ -616,6 +625,7 @@ export interface FileRoutesById {
   '/{-$locale}/_dashboard/_admin/admin/reviewers': typeof Char123LocaleChar125DashboardAdminAdminReviewersRouteRouteWithChildren
   '/{-$locale}/_dashboard/_admin/admin/users': typeof Char123LocaleChar125DashboardAdminAdminUsersRouteRouteWithChildren
   '/{-$locale}/_dashboard/_admin/admin/discussions': typeof Char123LocaleChar125DashboardAdminAdminDiscussionsRoute
+  '/{-$locale}/_dashboard/_admin/admin/scans': typeof Char123LocaleChar125DashboardAdminAdminScansRoute
   '/{-$locale}/_dashboard/_editor/_content/editor': typeof Char123LocaleChar125DashboardEditorContentEditorRoute
   '/{-$locale}/_dashboard/_editor/_content/translate': typeof Char123LocaleChar125DashboardEditorContentTranslateRoute
   '/{-$locale}/_other/auth/_authentication/2fa': typeof Char123LocaleChar125OtherAuthAuthentication2faRoute
@@ -678,6 +688,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/admin/reviewers'
     | '/{-$locale}/admin/users'
     | '/{-$locale}/admin/discussions'
+    | '/{-$locale}/admin/scans'
     | '/{-$locale}/editor'
     | '/{-$locale}/translate'
     | '/{-$locale}/auth/2fa'
@@ -731,6 +742,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/affiliation'
     | '/{-$locale}/find-reviewer'
     | '/{-$locale}/admin/discussions'
+    | '/{-$locale}/admin/scans'
     | '/{-$locale}/editor'
     | '/{-$locale}/translate'
     | '/{-$locale}/auth/2fa'
@@ -796,6 +808,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/_dashboard/_admin/admin/reviewers'
     | '/{-$locale}/_dashboard/_admin/admin/users'
     | '/{-$locale}/_dashboard/_admin/admin/discussions'
+    | '/{-$locale}/_dashboard/_admin/admin/scans'
     | '/{-$locale}/_dashboard/_editor/_content/editor'
     | '/{-$locale}/_dashboard/_editor/_content/translate'
     | '/{-$locale}/_other/auth/_authentication/2fa'
@@ -1083,6 +1096,13 @@ declare module '@tanstack/react-router' {
       path: '/admin/reviewers'
       fullPath: '/{-$locale}/admin/reviewers'
       preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminReviewersRouteRouteImport
+      parentRoute: typeof Char123LocaleChar125DashboardAdminRouteRoute
+    }
+    '/{-$locale}/_dashboard/_admin/admin/scans': {
+      id: '/{-$locale}/_dashboard/_admin/admin/scans'
+      path: '/admin/scans'
+      fullPath: '/{-$locale}/admin/scans'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminScansRouteImport
       parentRoute: typeof Char123LocaleChar125DashboardAdminRouteRoute
     }
     '/{-$locale}/_dashboard/_admin/admin/users': {
@@ -1393,6 +1413,7 @@ interface Char123LocaleChar125DashboardAdminRouteRouteChildren {
   Char123LocaleChar125DashboardAdminAdminReviewersRouteRoute: typeof Char123LocaleChar125DashboardAdminAdminReviewersRouteRouteWithChildren
   Char123LocaleChar125DashboardAdminAdminUsersRouteRoute: typeof Char123LocaleChar125DashboardAdminAdminUsersRouteRouteWithChildren
   Char123LocaleChar125DashboardAdminAdminDiscussionsRoute: typeof Char123LocaleChar125DashboardAdminAdminDiscussionsRoute
+  Char123LocaleChar125DashboardAdminAdminScansRoute: typeof Char123LocaleChar125DashboardAdminAdminScansRoute
 }
 
 const Char123LocaleChar125DashboardAdminRouteRouteChildren: Char123LocaleChar125DashboardAdminRouteRouteChildren =
@@ -1411,6 +1432,8 @@ const Char123LocaleChar125DashboardAdminRouteRouteChildren: Char123LocaleChar125
       Char123LocaleChar125DashboardAdminAdminUsersRouteRouteWithChildren,
     Char123LocaleChar125DashboardAdminAdminDiscussionsRoute:
       Char123LocaleChar125DashboardAdminAdminDiscussionsRoute,
+    Char123LocaleChar125DashboardAdminAdminScansRoute:
+      Char123LocaleChar125DashboardAdminAdminScansRoute,
   }
 
 const Char123LocaleChar125DashboardAdminRouteRouteWithChildren =

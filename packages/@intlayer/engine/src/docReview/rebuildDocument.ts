@@ -41,14 +41,19 @@ export const identifySegmentsToReview = ({
   plan.actions.forEach((action, actionIndex) => {
     if (action.kind === 'review') {
       const baseBlock = baseBlocks[action.baseIndex];
+
+      if (!baseBlock) return;
+
       const targetBlockText =
         action.targetIndex !== null
-          ? targetBlocks[action.targetIndex].content
+          ? (targetBlocks[action.targetIndex]?.content ?? null)
           : null;
 
       segmentsToReview.push({ baseBlock, targetBlockText, actionIndex });
     } else if (action.kind === 'insert_new') {
       const baseBlock = baseBlocks[action.baseIndex];
+
+      if (!baseBlock) return;
 
       segmentsToReview.push({
         baseBlock,

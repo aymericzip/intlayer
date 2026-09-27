@@ -5,6 +5,7 @@ import {
   getCachedAudit,
   setCachedAudit,
 } from '@services/audit/auditCache.service';
+import { saveAuditHostScan } from '@services/audit/scannedHost.service';
 import { runSingleAudit } from '@services/audit/seoAudit.service';
 import type { AuditEvent } from '@services/audit/types';
 import { isPublicHttpUrl } from '@utils/isPublicUrl';
@@ -135,6 +136,12 @@ export const auditGetHandler = async (
     });
 
     await setCachedAudit(parsedUrl.href, events);
+    await saveAuditHostScan(
+      parsedUrl.href,
+      events,
+      scoreTracker.getScorePercent(),
+      'scan'
+    );
 
     try {
       const domain = parsedUrl.hostname;

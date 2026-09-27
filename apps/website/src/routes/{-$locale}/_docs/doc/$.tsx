@@ -1,14 +1,10 @@
-import {
-  Website_Doc_Path,
-  Website_Home,
-  Website_Home_Path,
-} from '@intlayer/design-system/routes';
+import { Website_Doc_Path, Website_Home } from '@intlayer/design-system/routes';
 import {
   buildAuthorJsonLd,
   buildBreadcrumbsJsonLd,
   buildCreativeWorkJsonLd,
 } from '@intlayer/design-system/structured-data';
-import { createFileRoute, redirect } from '@tanstack/react-router';
+import { createFileRoute, notFound, redirect } from '@tanstack/react-router';
 import { defaultLocale, getLocalizedUrl } from 'intlayer';
 import { DocHeader } from '~/components/DocPage/DocHeader/DocHeader';
 import { DocPageLayout } from '~/components/DocPage/DocPageLayout';
@@ -29,7 +25,6 @@ import {
   getCreativeWorkStructuredData,
   getSiteStructuredData,
   getSiteStructuredDataScripts,
-  getSoftwareStructuredData,
 } from '~/utils/structuredData';
 
 export const Route = createFileRoute('/{-$locale}/_docs/doc/$')({
@@ -38,29 +33,26 @@ export const Route = createFileRoute('/{-$locale}/_docs/doc/$')({
     const slugsStr = (params as any)['*'] || '';
     const slugs = getCanonicalSlugs('doc', slugsStr, locale);
 
-    const [
-      result,
-      navData,
-      siteStructuredData,
-      softwareStructuredData,
-      creativeWorkContent,
-    ] = await Promise.all([
-      loadDocPage({ data: { locale, slugs } }),
-      loadNavData({ data: { locale } }),
-      getSiteStructuredData({ data: locale }),
-      getSoftwareStructuredData({ data: locale }),
-      getCreativeWorkStructuredData({ data: locale }),
-    ]);
+    const [result, navData, siteStructuredData, creativeWorkContent] =
+      await Promise.all([
+        loadDocPage({ data: { locale, slugs } }),
+        loadNavData({ data: { locale } }),
+        getSiteStructuredData({ data: locale }),
+        getCreativeWorkStructuredData({ data: locale }),
+      ]);
 
     const { exactMatch, docsData, content } = result;
 
     if (!exactMatch) {
+      // Same page under another casing or segment order: send search engines
+      // to the canonical URL. Anything else is a real 404, not a soft one.
       if (docsData.length > 0) {
         throw redirect({
           to: getLocalizedUrl(docsData[0].relativeUrl, locale) as any,
+          statusCode: 301,
         });
       }
-      throw redirect({ to: getLocalizedUrl(Website_Home_Path, locale) as any });
+      throw notFound();
     }
 
     const {
@@ -86,7 +78,6 @@ export const Route = createFileRoute('/{-$locale}/_docs/doc/$')({
 
     return {
       siteStructuredData,
-      softwareStructuredData,
       creativeWorkContent,
       locale,
       slugs,
@@ -107,7 +98,6 @@ export const Route = createFileRoute('/{-$locale}/_docs/doc/$')({
       docData,
       locale: localeFromLoader,
       siteStructuredData,
-      softwareStructuredData,
       creativeWorkContent,
     } = loaderData;
     const locale = (localeFromLoader as string) ?? defaultLocale;
@@ -152,10 +142,6 @@ export const Route = createFileRoute('/{-$locale}/_docs/doc/$')({
       ],
       scripts: [
         ...getSiteStructuredDataScripts(siteStructuredData),
-        {
-          type: 'application/ld+json',
-          children: softwareStructuredData.application,
-        },
         {
           type: 'application/ld+json',
           children: JSON.stringify(

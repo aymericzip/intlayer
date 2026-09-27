@@ -2,7 +2,10 @@ import { describe, expect, it } from 'vitest';
 import { buildCreativeWorkJsonLd } from './buildCreativeWorkJsonLd';
 import { buildItemListJsonLd } from './buildItemListJsonLd';
 import { buildOrganizationJsonLd } from './buildOrganizationJsonLd';
-import { buildSoftwareApplicationJsonLd } from './buildSoftwareApplicationJsonLd';
+import {
+  buildSoftwareApplicationJsonLd,
+  INTLAYER_AGGREGATE_RATING,
+} from './buildSoftwareApplicationJsonLd';
 import { buildWebsiteJsonLd } from './buildWebsiteJsonLd';
 import { normalizeJsonLdUrl } from './normalizeJsonLdUrl';
 
@@ -81,18 +84,27 @@ describe('buildSoftwareApplicationJsonLd', () => {
     });
   });
 
-  it('always emits an aggregateRating within its own rating scale', () => {
+  it('omits the aggregateRating when no rating is provided', () => {
     const { aggregateRating } = buildSoftwareApplicationJsonLd(
       softwareApplicationParams
     );
 
-    expect(aggregateRating['@type']).toBe('AggregateRating');
-    expect(aggregateRating.ratingCount).toBeGreaterThan(0);
-    expect(Number(aggregateRating.ratingValue)).toBeGreaterThanOrEqual(
-      aggregateRating.worstRating
+    expect(aggregateRating).toBeUndefined();
+  });
+
+  it('emits an aggregateRating within its own rating scale when provided', () => {
+    const { aggregateRating } = buildSoftwareApplicationJsonLd({
+      ...softwareApplicationParams,
+      ...INTLAYER_AGGREGATE_RATING,
+    });
+
+    expect(aggregateRating?.['@type']).toBe('AggregateRating');
+    expect(aggregateRating?.ratingCount).toBeGreaterThan(0);
+    expect(Number(aggregateRating?.ratingValue)).toBeGreaterThanOrEqual(
+      aggregateRating?.worstRating ?? 0
     );
-    expect(Number(aggregateRating.ratingValue)).toBeLessThanOrEqual(
-      aggregateRating.bestRating
+    expect(Number(aggregateRating?.ratingValue)).toBeLessThanOrEqual(
+      aggregateRating?.bestRating ?? 0
     );
   });
 
@@ -108,9 +120,9 @@ describe('buildSoftwareApplicationJsonLd', () => {
 
     expect(offers.price).toBe('19.00');
     expect(offers.priceCurrency).toBe('EUR');
-    expect(aggregateRating.ratingValue).toBe('4.5');
-    expect(aggregateRating.ratingCount).toBe(12);
-    expect(aggregateRating.reviewCount).toBe(8);
+    expect(aggregateRating?.ratingValue).toBe('4.5');
+    expect(aggregateRating?.ratingCount).toBe(12);
+    expect(aggregateRating?.reviewCount).toBe(8);
   });
 
   // Call sites concatenate `Website_Home` (which ends with a slash) with a

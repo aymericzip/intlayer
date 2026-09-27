@@ -119,6 +119,102 @@ export const FrameworkLogo: FC<
   );
 };
 
+/** DOM id of the sprite `<symbol>` holding a framework logo. */
+const getFrameworkLogoSymbolId = (logoKey: FrameworkLogoKey): string =>
+  `framework-logo-${logoMap[logoKey]}`;
+
+const isFrameworkLogoKey = (value: string): value is FrameworkLogoKey =>
+  value in logoMap;
+
+/**
+ * Collects the logo keys a navigation tree displays, deduplicated by the logo
+ * they resolve to (`js` and `vanilla` share one).
+ *
+ * @param section - Navigation tree whose nodes may carry `frameworks`.
+ * @returns One logo key per distinct logo.
+ */
+export const collectFrameworkLogoKeys = <
+  Node extends { frameworks?: string[]; subSections?: Record<string, Node> },
+>(
+  section: Record<string, Node>
+): FrameworkLogoKey[] => {
+  const logoKeysByLogo = new Map<TechLogoName, FrameworkLogoKey>();
+
+  const visit = (nodes: Record<string, Node>): void => {
+    for (const node of Object.values(nodes)) {
+      for (const framework of node.frameworks ?? []) {
+        if (!isFrameworkLogoKey(framework)) continue;
+        const logoName = logoMap[framework];
+        if (!logoKeysByLogo.has(logoName)) {
+          logoKeysByLogo.set(logoName, framework);
+        }
+      }
+      if (node.subSections) visit(node.subSections);
+    }
+  };
+
+  visit(section);
+
+  return [...logoKeysByLogo.values()];
+};
+
+/**
+ * Renders each logo once as a `<symbol>`, so long navigation trees reference
+ * them through {@link FrameworkLogoReference} instead of inlining the same SVG
+ * paths for every entry. Hidden without `display: none`, which would break
+ * gradients referenced from inside the symbols.
+ */
+export const FrameworkLogoSprite: FC<{ logoKeys: FrameworkLogoKey[] }> = ({
+  logoKeys,
+}) => {
+  if (logoKeys.length === 0) return null;
+
+  return (
+    <svg
+      aria-hidden="true"
+      focusable="false"
+      width="0"
+      height="0"
+      className="pointer-events-none absolute size-0 overflow-hidden"
+    >
+      <defs>
+        {logoKeys.map((logoKey) => (
+          <symbol
+            key={logoKey}
+            id={getFrameworkLogoSymbolId(logoKey)}
+            viewBox="0 0 24 24"
+          >
+            <TechLogo name={logoMap[logoKey]} width="24" height="24" />
+          </symbol>
+        ))}
+      </defs>
+    </svg>
+  );
+};
+
+/**
+ * Displays a logo rendered by {@link FrameworkLogoSprite} elsewhere on the
+ * page. Decorative: the label next to it carries the meaning.
+ */
+export const FrameworkLogoReference: FC<
+  {
+    logoKey?: FrameworkLogoKey;
+  } & Omit<ComponentProps<'svg'>, 'children'>
+> = ({ logoKey, className, ...props }) => {
+  if (!logoKey || !isFrameworkLogoKey(logoKey)) return null;
+
+  return (
+    <svg
+      {...props}
+      aria-hidden="true"
+      focusable="false"
+      className={cn('size-5 shrink-0', className)}
+    >
+      <use href={`#${getFrameworkLogoSymbolId(logoKey)}`} />
+    </svg>
+  );
+};
+
 export const FRAMEWORK_STORAGE_KEY = 'doc-framework-filter';
 
 /** The selected framework ids, or null meaning "All". */

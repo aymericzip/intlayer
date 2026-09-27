@@ -1,6 +1,12 @@
 import type {
   AuditEvent,
   GetRecursiveAuditStatusResult,
+  GetScannedHostParams,
+  GetScannedHostResult,
+  GetScannedHostsQuery,
+  GetScannedHostsResult,
+  GetTechnologyUsageQuery,
+  GetTechnologyUsageResult,
   StartRecursiveAuditResult,
 } from '@intlayer/backend';
 import { editor } from '@intlayer/config/built';
@@ -11,6 +17,12 @@ import { type FetcherOptions, fetcher } from '../fetcher';
 export type {
   AuditEvent,
   GetRecursiveAuditStatusResult,
+  GetScannedHostParams,
+  GetScannedHostResult,
+  GetScannedHostsQuery,
+  GetScannedHostsResult,
+  GetTechnologyUsageQuery,
+  GetTechnologyUsageResult,
   StartRecursiveAuditResult,
 };
 
@@ -216,7 +228,53 @@ export const getAuditAPI = (
       { method: 'POST' }
     );
 
+  /**
+   * Admin — number of scanned domains using each technology.
+   */
+  const getTechnologyUsage = async (
+    params?: GetTechnologyUsageQuery,
+    otherOptions: FetcherOptions = {}
+  ) =>
+    await fetcher<GetTechnologyUsageResult>(
+      `${AUDIT_API_ROUTE}/technologies`,
+      authAPIOptions,
+      otherOptions,
+      { method: 'GET', params }
+    );
+
+  /**
+   * Admin — scanned hosts, most recently scanned first, filterable by
+   * technology.
+   */
+  const getScannedHosts = async (
+    params?: GetScannedHostsQuery,
+    otherOptions: FetcherOptions = {}
+  ) =>
+    await fetcher<GetScannedHostsResult>(
+      `${AUDIT_API_ROUTE}/hosts`,
+      authAPIOptions,
+      otherOptions,
+      { method: 'GET', params }
+    );
+
+  /**
+   * Admin — a scanned host with its stored scans, newest first.
+   */
+  const getScannedHost = async (
+    params?: GetScannedHostParams,
+    otherOptions: FetcherOptions = {}
+  ) =>
+    await fetcher<GetScannedHostResult>(
+      `${AUDIT_API_ROUTE}/hosts/${encodeURIComponent(params?.host ?? '')}`,
+      authAPIOptions,
+      otherOptions,
+      { method: 'GET' }
+    );
+
   return {
+    getTechnologyUsage,
+    getScannedHosts,
+    getScannedHost,
     discoverUrls,
     scanUrl,
     startRecursiveAudit,

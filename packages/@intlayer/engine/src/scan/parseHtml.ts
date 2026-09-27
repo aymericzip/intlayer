@@ -28,19 +28,19 @@ const readAttribute = (
 /** Extract the `lang` attribute of the `<html>` element, if present. */
 export const extractHtmlLang = (html: string): string | undefined => {
   const htmlTag = html.match(/<html\b([^>]*)>/i);
-  return htmlTag ? readAttribute(htmlTag[1], 'lang') : undefined;
+  return htmlTag?.[1] ? readAttribute(htmlTag[1], 'lang') : undefined;
 };
 
 /** Extract the `dir` attribute of the `<html>` element, if present. */
 export const extractHtmlDir = (html: string): string | undefined => {
   const htmlTag = html.match(/<html\b([^>]*)>/i);
-  return htmlTag ? readAttribute(htmlTag[1], 'dir') : undefined;
+  return htmlTag?.[1] ? readAttribute(htmlTag[1], 'dir') : undefined;
 };
 
 /** Extract the document `<title>` text. */
 export const extractTitle = (html: string): string => {
   const match = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
-  return match ? match[1].trim() : '';
+  return match?.[1] ? match[1].trim() : '';
 };
 
 /** Extract the `<meta name="description">` content. */
@@ -74,6 +74,18 @@ export const extractOgLocale = (html: string): string | undefined => {
     }
   }
   return undefined;
+};
+
+/** Extract every `<meta property="og:locale:alternate">` content. */
+export const extractOgLocaleAlternates = (html: string): string[] => {
+  const metas = html.match(/<meta\b[^>]*>/gi) ?? [];
+  return metas.flatMap((meta) => {
+    if (!/property\s*=\s*("|')?og:locale:alternate\1?[\s>/]/i.test(meta)) {
+      return [];
+    }
+    const content = readAttribute(meta, 'content');
+    return content ? [content] : [];
+  });
 };
 
 /** Extract the `href` of the `<link rel="canonical">` element, if present. */
@@ -156,16 +168,18 @@ export const extractAnchors = (html: string): Anchor[] => {
   const anchorPattern = /<a\b([^>]*)>([\s\S]*?)<\/a>/gi;
   let match = anchorPattern.exec(html);
   while (match !== null) {
-    const href = readAttribute(match[1], 'href');
+    const rawAttrs = match[1] ?? '';
+    const rawContent = match[2] ?? '';
+    const href = readAttribute(rawAttrs, 'href');
     if (href) {
-      const text = match[2]
+      const text = rawContent
         .replace(/<[^>]+>/g, ' ')
         .replace(/\s+/g, ' ')
         .trim();
       anchors.push({
         href,
         text,
-        hreflang: readAttribute(match[1], 'hreflang'),
+        hreflang: readAttribute(rawAttrs, 'hreflang'),
       });
     }
     match = anchorPattern.exec(html);

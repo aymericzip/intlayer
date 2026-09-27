@@ -28,8 +28,11 @@ export const loadLocalDictionaries = async (
 
     const relativeFilePath = relative(baseDir, contentDeclarationPath);
 
+    const firstDict = dictionary[0];
+    if (!firstDict) continue;
+
     const dictionaryWithPath: Dictionary = {
-      ...dictionary[0],
+      ...firstDict,
       filePath: relativeFilePath,
     };
 

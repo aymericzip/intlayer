@@ -100,3 +100,61 @@ export const findMatchingLocale = (
   );
   return languageMatches.length === 1 ? languageMatches[0] : undefined;
 };
+
+/** Open Graph locale shape: `language_TERRITORY` (`en_GB`, `pt_BR`). */
+const OPEN_GRAPH_LOCALE_PATTERN = /^[a-z]{2,3}_[A-Z]{2}$/;
+
+/**
+ * Whether a value is a valid `og:locale` (`en_GB`). Open Graph does not accept
+ * a bare language (`en`) nor BCP 47 separators (`en-GB`): crawlers then fall
+ * back to `en_US`.
+ */
+export const isValidOpenGraphLocale = (localeCode: string): boolean =>
+  OPEN_GRAPH_LOCALE_PATTERN.test(localeCode.trim());
+
+/** Region subtag of a locale code, if any (`en-GB` → `GB`, `zh-Hant-TW` → `TW`). */
+const getRegionCode = (localeCode: string): string | undefined => {
+  try {
+    return new Intl.Locale(normalizeLocaleCode(localeCode)).region;
+  } catch {
+    return undefined;
+  }
+};
+
+/** Most likely region of a language (`en` → `US`, `fr` → `FR`, `ja` → `JP`). */
+const getLikelyRegionCode = (languageCode: string): string | undefined => {
+  try {
+    return new Intl.Locale(languageCode).maximize().region;
+  } catch {
+    return undefined;
+  }
+};
+
+/**
+ * Suggest the `og:locale` value for a locale code. The region comes from the
+ * locale itself, then from `regionHint` (typically `<html lang>`) when it
+ * shares the language, then from the language's most likely region.
+ *
+ * @example
+ * toOpenGraphLocale('en', 'en-GB'); // 'en_GB'
+ * toOpenGraphLocale('pt-br'); // 'pt_BR'
+ * toOpenGraphLocale('fr'); // 'fr_FR'
+ */
+export const toOpenGraphLocale = (
+  localeCode: string,
+  regionHint?: string
+): string | undefined => {
+  const languageCode = getLanguageCode(localeCode);
+  if (!/^[a-z]{2,3}$/.test(languageCode)) return undefined;
+
+  const regionCode =
+    getRegionCode(localeCode) ??
+    (regionHint && isSameLanguage(localeCode, regionHint)
+      ? getRegionCode(regionHint)
+      : undefined) ??
+    getLikelyRegionCode(languageCode);
+
+  return regionCode && /^[A-Z]{2}$/.test(regionCode)
+    ? `${languageCode}_${regionCode}`
+    : undefined;
+};

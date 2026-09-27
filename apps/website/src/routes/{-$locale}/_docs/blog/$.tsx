@@ -1,14 +1,13 @@
 import {
   Website_Blog_Root,
   Website_Home,
-  Website_Home_Path,
 } from '@intlayer/design-system/routes';
 import {
   buildAuthorJsonLd,
   buildBreadcrumbsJsonLd,
   buildCreativeWorkJsonLd,
 } from '@intlayer/design-system/structured-data';
-import { createFileRoute, redirect } from '@tanstack/react-router';
+import { createFileRoute, notFound, redirect } from '@tanstack/react-router';
 import { defaultLocale, getLocalizedUrl } from 'intlayer';
 import { BlogPageLayout } from '~/components/BlogPage/BlogPageLayout';
 import { DocHeader } from '~/components/DocPage/DocHeader/DocHeader';
@@ -48,12 +47,15 @@ export const Route = createFileRoute('/{-$locale}/_docs/blog/$')({
     const { exactMatch, blogsData, content } = result;
 
     if (!exactMatch) {
+      // Same post under another casing or segment order: send search engines
+      // to the canonical URL. Anything else is a real 404, not a soft one.
       if (blogsData.length > 0) {
         throw redirect({
           to: getLocalizedUrl(blogsData[0].relativeUrl, locale) as any,
+          statusCode: 301,
         });
       }
-      throw redirect({ to: getLocalizedUrl(Website_Home_Path, locale) });
+      throw notFound();
     }
 
     const { blogParsed, codeStyleSheet, prevBlogData, nextBlogData } = content!;

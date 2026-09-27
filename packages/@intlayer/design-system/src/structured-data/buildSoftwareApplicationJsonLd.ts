@@ -28,7 +28,10 @@ export type BuildSoftwareApplicationJsonLdParams = {
   offersPrice?: string;
   /** ISO 4217 currency code for {@link offersPrice}. Defaults to `'USD'`. */
   offersPriceCurrency?: string;
-  /** Aggregate rating value on a 1–5 scale (e.g. `'4.9'`). */
+  /**
+   * Aggregate rating value on a 1–5 scale (e.g. `'4.9'`). The rating node is
+   * only emitted when both this and {@link ratingCount} are provided.
+   */
   ratingValue?: string;
   /** Number of ratings backing {@link ratingValue}. */
   ratingCount?: number;
@@ -37,13 +40,15 @@ export type BuildSoftwareApplicationJsonLdParams = {
 };
 
 /**
- * Default aggregate rating applied when a caller does not provide one.
+ * Intlayer's own aggregate rating, to keep in sync with the real, publicly
+ * displayed ratings.
  *
- * Google's `SoftwareApplication` rich result requires both an `offers` node and
- * one of `aggregateRating` / `review`. These values keep every node valid and
- * are intended to be kept in sync with the real, publicly displayed ratings.
+ * Google's `SoftwareApplication` rich result needs `aggregateRating` or
+ * `review`, but ratings must describe the entity the page is about. Only pages
+ * presenting Intlayer itself pass it; tools, docs and other apps omit it rather
+ * than borrowing a rating that is not theirs.
  */
-const DEFAULT_AGGREGATE_RATING = {
+export const INTLAYER_AGGREGATE_RATING = {
   ratingValue: '4.92',
   ratingCount: 64,
 } as const;
@@ -69,8 +74,8 @@ export const buildSoftwareApplicationJsonLd = ({
   datePublished = '2024-08-26',
   offersPrice = '0',
   offersPriceCurrency = 'USD',
-  ratingValue = DEFAULT_AGGREGATE_RATING.ratingValue,
-  ratingCount = DEFAULT_AGGREGATE_RATING.ratingCount,
+  ratingValue,
+  ratingCount,
   reviewCount,
 }: BuildSoftwareApplicationJsonLdParams) => {
   const normalizedUrl = normalizeJsonLdUrl(url);
@@ -120,13 +125,16 @@ export const buildSoftwareApplicationJsonLd = ({
       price: offersPrice,
       priceCurrency: offersPriceCurrency,
     },
-    aggregateRating: {
-      '@type': 'AggregateRating' as const,
-      ratingValue,
-      ratingCount,
-      reviewCount: reviewCount ?? ratingCount,
-      bestRating: 5,
-      worstRating: 1.5,
-    },
+    aggregateRating:
+      ratingValue && ratingCount
+        ? {
+            '@type': 'AggregateRating' as const,
+            ratingValue,
+            ratingCount,
+            reviewCount: reviewCount ?? ratingCount,
+            bestRating: 5,
+            worstRating: 1,
+          }
+        : undefined,
   };
 };

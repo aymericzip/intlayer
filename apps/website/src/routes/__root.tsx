@@ -87,11 +87,9 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
         content:
           'Intlayer - Developer-friendly internationalization & multilingual CMS',
       },
-      {
-        name: 'application-name',
-        content:
-          'i18n Solution & CMS for React, Next.js, Vue, Svelte | Intlayer',
-      },
+      // A title-like value here is picked up by search engines as a page
+      // title candidate; keep it to the bare site name.
+      { name: 'application-name', content: 'Intlayer' },
       { name: 'author', content: 'Intlayer' },
       { name: 'creator', content: 'Aymeric PINEAU' },
       { name: 'robots', content: 'index, follow' },

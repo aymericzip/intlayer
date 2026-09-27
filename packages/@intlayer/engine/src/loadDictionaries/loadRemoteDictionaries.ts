@@ -92,8 +92,9 @@ export const loadRemoteDictionaries = async (
 
     const cachedDictionaries: Dictionary[] =
       flatRemoteDictionariesRecord.filter((dictionary) => {
-        const remoteUpdatedAt =
-          distantDictionaryUpdateTimeStamp[dictionary.id!].updatedAt;
+        const remoteUpdatedAt = dictionary.id
+          ? distantDictionaryUpdateTimeStamp[dictionary.id]?.updatedAt
+          : undefined;
 
         const localUpdatedAtRaw = dictionary.updatedAt;
 

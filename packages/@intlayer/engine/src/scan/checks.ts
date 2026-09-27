@@ -9,7 +9,9 @@ import {
   isRightToLeftLocale,
   isSameLanguage,
   isValidLocaleCode,
+  isValidOpenGraphLocale,
   normalizeLocaleCode,
+  toOpenGraphLocale,
 } from './detection/localeCode';
 import { isAbsoluteUrl, normalizeUrl, parseUrl } from './detection/url';
 import { fetchText, type ScanFetchOptions } from './fetchText';
@@ -38,6 +40,8 @@ export type PageSignals = {
   langTag?: string;
   dirTag?: string;
   ogLocale?: string;
+  /** `og:locale:alternate` values. */
+  ogLocaleAlternates?: string[];
   /** Raw `href` of the canonical link (`''` when present but empty). */
   canonicalHref?: string;
   hreflangs: HreflangLink[];
@@ -196,9 +200,25 @@ export const checkLocaleConsistency = (
   );
 };
 
-/** `url_ogLocale`: `og:locale` is set and matches `<html lang>`. */
+/** Describe an invalid Open Graph locale, with the value to use instead. */
+const formatInvalidOpenGraphLocale = (
+  localeCode: string,
+  langTag: string | undefined,
+  property: string
+): string => {
+  const suggestion = toOpenGraphLocale(localeCode, langTag);
+  return `${property} "${localeCode}" is not a valid Open Graph locale (expected language_TERRITORY${
+    suggestion ? `, e.g. "${suggestion}"` : ''
+  }): crawlers ignore it and fall back to en_US`;
+};
+
+/**
+ * `url_ogLocale`: `og:locale` is set, uses the Open Graph `language_TERRITORY`
+ * format (`en_GB`, not `en` nor `en-GB`) and matches `<html lang>`.
+ * `og:locale:alternate` values must use the same format.
+ */
 export const checkOgLocale = (
-  { targetUrl, ogLocale, langTag }: PageSignals,
+  { targetUrl, ogLocale, ogLocaleAlternates = [], langTag }: PageSignals,
   emit: EmitScanEvent
 ): void => {
   const type = urlCheckType('url_ogLocale', targetUrl);
@@ -213,12 +233,44 @@ export const checkOgLocale = (
     return;
   }
 
+  if (!isValidOpenGraphLocale(ogLocale)) {
+    emitCheck(
+      emit,
+      type,
+      'error',
+      formatInvalidOpenGraphLocale(ogLocale, langTag, 'og:locale')
+    );
+    return;
+  }
+
   if (langTag && !isSameLanguage(ogLocale, langTag)) {
     emitCheck(
       emit,
       type,
       'warning',
       `og:locale "${ogLocale}" does not match html lang "${langTag}"`
+    );
+    return;
+  }
+
+  const invalidAlternates = ogLocaleAlternates.filter(
+    (alternate) => !isValidOpenGraphLocale(alternate)
+  );
+
+  if (invalidAlternates.length > 0) {
+    emitCheck(
+      emit,
+      type,
+      'warning',
+      invalidAlternates
+        .map((alternate) =>
+          formatInvalidOpenGraphLocale(
+            alternate,
+            undefined,
+            'og:locale:alternate'
+          )
+        )
+        .join('\n')
     );
     return;
   }
@@ -313,10 +365,13 @@ export const checkHreflang = (
     );
   }
 
+  // Search engines ignore alternates that are not fully qualified.
   const relativeHrefs = hreflangs.filter(({ href }) => !isAbsoluteUrl(href));
   if (relativeHrefs.length > 0) {
     issues.push(
-      `hreflang URLs must be absolute: ${relativeHrefs.map(({ href }) => href).join(', ')}`
+      `hreflang URLs must be absolute (https://…), search engines ignore: ${relativeHrefs
+        .map(({ hreflang, href }) => `${hreflang} → ${href}`)
+        .join(', ')}`
     );
   }
 
@@ -347,10 +402,17 @@ export const checkHreflang = (
     issues.push('No hreflang entry points to the page itself (self reference)');
   }
 
+  const status: ScanCheckStatus =
+    relativeHrefs.length > 0
+      ? 'error'
+      : issues.length > 0
+        ? 'warning'
+        : 'success';
+
   emitCheck(
     emit,
     type,
-    issues.length > 0 ? 'warning' : 'success',
+    status,
     issues.length > 0 ? { issues, hreflangs } : hreflangs
   );
 };
@@ -782,6 +844,8 @@ export const checkSitemap = async (
   const knownLocales = routing.locales;
   const foundLanguages = new Set<string>();
   const entriesWithoutSelfReference: string[] = [];
+  const relativeAlternates: string[] = [];
+
   let partiallyTranslatedCount = 0;
   let hasAlternates = false;
   let hasXDefault = false;
@@ -793,7 +857,10 @@ export const checkSitemap = async (
 
     hasAlternates = true;
     const entryLanguages = new Set<string>();
-    for (const { hreflang } of alternates) {
+    for (const { hreflang, href } of alternates) {
+      if (!isAbsoluteUrl(href)) {
+        relativeAlternates.push(`${loc}: ${hreflang} → ${href}`);
+      }
       if (hreflang.toLowerCase() === 'x-default') {
         hasXDefault = true;
         continue;
@@ -841,12 +908,21 @@ export const checkSitemap = async (
     );
   }
 
-  emitCheck(
-    emit,
-    'sitemap_hasAlternates',
-    hasAlternates ? 'success' : 'warning',
-    hasAlternates ? true : 'No alternate language links found in the sitemap'
-  );
+  if (!hasAlternates) {
+    emitCheck(
+      emit,
+      'sitemap_hasAlternates',
+      'warning',
+      'No alternate language links found in the sitemap'
+    );
+  } else if (relativeAlternates.length > 0) {
+    emitCheck(emit, 'sitemap_hasAlternates', 'error', {
+      message: `${relativeAlternates.length} sitemap hreflang alternates are not absolute URLs (https://…): search engines ignore them`,
+      alternates: relativeAlternates.slice(0, MAX_LISTED_LINKS),
+    });
+  } else {
+    emitCheck(emit, 'sitemap_hasAlternates', 'success', true);
+  }
 
   emitCheck(
     emit,

@@ -1,4 +1,4 @@
-import { cn } from '@intlayer/design-system/utils';
+import { Button } from '@intlayer/design-system/button';
 import {
   getLocalizedPages,
   isBaseLocalePage,
@@ -29,13 +29,15 @@ const isHreflang = (value: unknown): value is Hreflang =>
 
 /**
  * Read the hreflang tags from the `url_hreflang` check: the list itself on
- * success, `{ issues, hreflangs }` on warning.
+ * success, `{ issues, hreflangs }` on warning or error.
  */
 const getHreflangs = (
   hreflangEvent: LocalizedPagesSectionProps['hreflangEvent']
 ): Hreflang[] => {
   const details =
-    hreflangEvent?.data?.successDetails ?? hreflangEvent?.data?.warningsDetails;
+    hreflangEvent?.data?.successDetails ??
+    hreflangEvent?.data?.warningsDetails ??
+    hreflangEvent?.data?.errorsDetails;
   const list = Array.isArray(details)
     ? details
     : details && typeof details === 'object' && 'hreflangs' in details
@@ -43,16 +45,6 @@ const getHreflangs = (
       : undefined;
 
   return Array.isArray(list) ? list.filter(isHreflang) : [];
-};
-
-/** `pathname + search` of a URL, `/` for the root. */
-const getUrlPath = (url: string): string => {
-  try {
-    const { pathname, search } = new URL(url);
-    return `${pathname}${search}` || '/';
-  } catch {
-    return url;
-  }
 };
 
 /**
@@ -67,7 +59,7 @@ export const LocalizedPagesSection: FC<LocalizedPagesSectionProps> = ({
   onScanPage,
   isLoading,
 }) => {
-  const { title, description, basePageNote, current } = useIntlayer(
+  const { title, description, basePageNote } = useIntlayer(
     'localized-pages-section'
   );
 
@@ -101,28 +93,22 @@ export const LocalizedPagesSection: FC<LocalizedPagesSectionProps> = ({
       <ul className="flex flex-wrap gap-2">
         {localizedPages.map((localizedPage) => (
           <li key={localizedPage.url}>
-            <button
-              type="button"
-              disabled={localizedPage.isCurrent || isLoading}
-              onClick={() => onScanPage(localizedPage.url)}
+            <Button
+              label={localizedPage.url}
               title={localizedPage.url}
-              className={cn(
-                'flex max-w-60 items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs transition-colors',
-                localizedPage.isCurrent
-                  ? 'cursor-default border-foreground/60 font-semibold text-foreground'
-                  : 'cursor-pointer border-neutral/40 text-foreground/80 hover:border-foreground/60 disabled:cursor-not-allowed disabled:opacity-60'
-              )}
+              variant="outline"
+              color="text"
+              size="sm"
+              roundedSize="xl"
+              textAlign="left"
+              isActive={localizedPage.isCurrent}
+              disabled={isLoading && !localizedPage.isCurrent}
+              onClick={() => {
+                if (!localizedPage.isCurrent) onScanPage(localizedPage.url);
+              }}
             >
-              <span className="font-mono font-semibold">
-                {localizedPage.hreflang}
-              </span>
-              <span className="truncate text-muted-foreground">
-                {getUrlPath(localizedPage.url)}
-              </span>
-              {localizedPage.isCurrent && (
-                <span className="text-muted-foreground">({current})</span>
-              )}
-            </button>
+              {localizedPage.hreflang}
+            </Button>
           </li>
         ))}
       </ul>

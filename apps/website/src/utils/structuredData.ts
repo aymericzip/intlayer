@@ -7,6 +7,7 @@ import {
   buildOrganizationJsonLd,
   buildSoftwareApplicationJsonLd,
   buildWebsiteJsonLd,
+  INTLAYER_AGGREGATE_RATING,
 } from '@intlayer/design-system/structured-data';
 import { createServerFn } from '@tanstack/react-start';
 import { staticFunctionMiddleware } from '@tanstack/start-static-server-functions';
@@ -150,6 +151,7 @@ export const getSoftwareStructuredData = createServerFn({ method: 'GET' })
           githubUrl: External_Github,
           operatingSystem: 'Web, iOS, Android',
           mainEntityUrl: Website_Home,
+          ...INTLAYER_AGGREGATE_RATING,
         })
       ),
       content,

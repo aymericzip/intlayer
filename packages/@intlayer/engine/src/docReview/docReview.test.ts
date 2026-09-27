@@ -145,7 +145,7 @@ describe('docReview', () => {
       const sections = segmentSections(text);
 
       expect(sections[0]?.content).toContain('title: Hello');
-      expect(sections[0].lineStart).toBe(1);
+      expect(sections[0]?.lineStart).toBe(1);
       expect(sections[1]?.content).toContain('# Heading');
     });
 
@@ -266,7 +266,7 @@ describe('docReview', () => {
       );
       expect(insertActions).toHaveLength(1);
       expect(segmentsToReview).toHaveLength(1);
-      expect(segmentsToReview[0].targetBlockText).toBeNull();
+      expect(segmentsToReview[0]?.targetBlockText).toBeNull();
     });
 
     it('reuses unchanged target blocks when merging', () => {

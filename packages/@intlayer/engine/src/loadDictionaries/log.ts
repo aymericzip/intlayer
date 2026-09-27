@@ -154,7 +154,7 @@ export class DictionariesLogger {
       pluginDone,
     } = this.computeProgress();
 
-    const frame = this.spinnerFrames[this.spinnerIndex];
+    const frame = this.spinnerFrames[this.spinnerIndex] ?? '';
     const clock = colorize(frame, ANSIColors.BLUE);
     const lines: string[] = [];
 

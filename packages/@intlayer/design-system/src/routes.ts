@@ -74,6 +74,7 @@ export const App_Admin_Projects_Path = '/admin/projects' as const;
 export const App_Admin_Dashboard_Path = '/admin/dashboard' as const;
 export const App_Admin_Management_Path = '/admin/management' as const;
 export const App_Admin_Discussions_Path = '/admin/discussions' as const;
+export const App_Admin_Scans_Path = '/admin/scans' as const;
 export const App_Admin_Affiliate_Path = '/admin/affiliate' as const;
 export const getAppAdminAffiliateRoute = (id: string) =>
   `${App_Admin_Affiliate_Path}/${id}` as const;
@@ -153,6 +154,7 @@ export const App_Admin_Management =
   `${App_Origin}${App_Admin_Management_Path}` as const;
 export const App_Admin_Discussions =
   `${App_Origin}${App_Admin_Discussions_Path}` as const;
+export const App_Admin_Scans = `${App_Origin}${App_Admin_Scans_Path}` as const;
 export const App_Admin_Affiliate =
   `${App_Origin}${App_Admin_Affiliate_Path}` as const;
 export const App_Admin_PromoCodes =

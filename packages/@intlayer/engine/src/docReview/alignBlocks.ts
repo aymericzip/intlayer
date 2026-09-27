@@ -81,8 +81,10 @@ export const alignBaseAndTargetBlocks = (
     baseIndex: number,
     targetIndex: number
   ): number => {
-    const baseBlock = baseBlocks[baseIndex]!;
-    const targetBlock = targetBlocks[targetIndex]!;
+    const baseBlock = baseBlocks[baseIndex];
+    const targetBlock = targetBlocks[targetIndex];
+
+    if (!baseBlock || !targetBlock) return STRUCTURAL_MISMATCH_PENALTY;
 
     // Translating a document never changes its heading depths, so two headings
     // of different depths cannot be counterparts, however similar their content.
@@ -129,24 +131,45 @@ export const alignBaseAndTargetBlocks = (
 
   // initialize first row and column
   for (let i = 1; i <= baseLength; i += 1) {
-    scoreMatrix[i][0] = scoreMatrix[i - 1][0] + GAP_PENALTY;
-    traceMatrix[i][0] = 'up';
+    const row = scoreMatrix[i];
+    const prevRow = scoreMatrix[i - 1];
+    const traceRow = traceMatrix[i];
+
+    if (row && prevRow) {
+      row[0] = (prevRow[0] ?? 0) + GAP_PENALTY;
+    }
+    if (traceRow) {
+      traceRow[0] = 'up';
+    }
   }
+  const firstRow = scoreMatrix[0];
+  const firstTraceRow = traceMatrix[0];
+
   for (let j = 1; j <= targetLength; j += 1) {
-    scoreMatrix[0][j] = scoreMatrix[0][j - 1] + GAP_PENALTY;
-    traceMatrix[0][j] = 'left';
+    if (firstRow) {
+      firstRow[j] = (firstRow[j - 1] ?? 0) + GAP_PENALTY;
+    }
+    if (firstTraceRow) {
+      firstTraceRow[j] = 'left';
+    }
   }
 
   // fill
   for (let i = 1; i <= baseLength; i += 1) {
+    const currentRow = scoreMatrix[i];
+    const prevRow = scoreMatrix[i - 1];
+    const currentTraceRow = traceMatrix[i];
+
+    if (!currentRow || !prevRow || !currentTraceRow) continue;
+
     for (let j = 1; j <= targetLength; j += 1) {
-      const match = scoreMatrix[i - 1][j - 1] + computeMatchScore(i - 1, j - 1);
-      const deleteGap = scoreMatrix[i - 1][j] + GAP_PENALTY;
-      const insertGap = scoreMatrix[i][j - 1] + GAP_PENALTY;
+      const match = (prevRow[j - 1] ?? 0) + computeMatchScore(i - 1, j - 1);
+      const deleteGap = (prevRow[j] ?? 0) + GAP_PENALTY;
+      const insertGap = (currentRow[j - 1] ?? 0) + GAP_PENALTY;
 
       const best = Math.max(match, deleteGap, insertGap);
-      scoreMatrix[i][j] = best;
-      traceMatrix[i][j] =
+      currentRow[j] = best;
+      currentTraceRow[j] =
         best === match ? 'diagonal' : best === deleteGap ? 'up' : 'left';
     }
   }
@@ -156,25 +179,28 @@ export const alignBaseAndTargetBlocks = (
   let i = baseLength;
   let j = targetLength;
   while (i > 0 || j > 0) {
-    if (i > 0 && j > 0 && traceMatrix[i][j] === 'diagonal') {
+    const direction = traceMatrix[i]?.[j];
+    if (i > 0 && j > 0 && direction === 'diagonal') {
       const baseIndex = i - 1;
       const targetIndex = j - 1;
+      const baseAnchor = baseBlocks[baseIndex]?.anchorText ?? '';
+      const targetAnchor = targetBlocks[targetIndex]?.anchorText ?? '';
       const similarityScore = computeJaccardSimilarity(
-        baseBlocks[baseIndex].anchorText,
-        targetBlocks[targetIndex].anchorText,
+        baseAnchor,
+        targetAnchor,
         3
       );
       result.unshift({ baseIndex, targetIndex, similarityScore });
       i -= 1;
       j -= 1;
-    } else if (i > 0 && (j === 0 || traceMatrix[i][j] === 'up')) {
+    } else if (i > 0 && (j === 0 || direction === 'up')) {
       result.unshift({
         baseIndex: i - 1,
         targetIndex: null,
         similarityScore: 0,
       });
       i -= 1;
-    } else if (j > 0 && (i === 0 || traceMatrix[i][j] === 'left')) {
+    } else if (j > 0 && (i === 0 || direction === 'left')) {
       // target block has no corresponding base block (deleted)
       result.unshift({
         baseIndex: -1,

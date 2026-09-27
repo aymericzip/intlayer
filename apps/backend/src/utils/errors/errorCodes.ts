@@ -9,6 +9,7 @@ import { gitErrors } from './git.errors';
 import { organizationErrors } from './organization.errors';
 import { projectErrors } from './project.errors';
 import { reviewerErrors } from './reviewer.errors';
+import { scanErrors } from './scan.errors';
 import { showcaseErrors } from './showcase.errors';
 import { tagErrors } from './tag.errors';
 import { userErrors } from './user.errors';
@@ -33,6 +34,7 @@ export const errorData = {
   ...affiliateErrors,
   ...reviewerErrors,
   ...blogErrors,
+  ...scanErrors,
   ...commonErrors,
 } satisfies Record<string, ErrorCode>;
 

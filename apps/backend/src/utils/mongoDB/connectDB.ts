@@ -9,6 +9,7 @@ import { DiscussionModel } from '@schemas/discussion.schema';
 import { OAuth2AccessTokenModel } from '@schemas/oAuth2.schema';
 import { OrganizationModel } from '@schemas/organization.schema';
 import { ProjectModel } from '@schemas/project.schema';
+import { ScannedHostModel } from '@schemas/scannedHost.schema';
 import { ShowcaseProjectModel } from '@schemas/showcaseProject.schema';
 import { TagModel } from '@schemas/tag.schema';
 import { UserModel } from '@schemas/user.schema';
@@ -46,6 +47,7 @@ export const connectDB = async (): Promise<mongo.MongoClient> => {
     await AuditModel.syncIndexes();
     await AuditJobModel.syncIndexes();
     await AuditPageModel.syncIndexes();
+    await ScannedHostModel.syncIndexes();
     // `syncIndexes` (rather than `createIndexes`) so the superseded
     // (project, slot, locale) unique index is dropped — it would otherwise
     // reject sub-day counters for a second page in the same slot.

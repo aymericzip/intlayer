@@ -1,3 +1,4 @@
+import type { AiProviderModelMap } from './aiModels';
 import type { Locale } from './allLocales';
 import type {
   ContentAutoTransformation,
@@ -7,6 +8,8 @@ import type {
 } from './dictionary';
 import type { LocalesValues, StrictModeLocaleMap } from './module_augmentation';
 import type { Plugin } from './plugin';
+
+export type * from './aiModels';
 
 /**
  * Structural type for schema validation, compatible with Zod and other
@@ -583,16 +586,6 @@ export enum AiProviders {
 
 export type CommonAiConfig = {
   /**
-   * API model
-   *
-   * The model to use for the AI features of Intlayer.
-   *
-   * Example: 'gpt-4o-2024-11-20'
-   *
-   */
-  model?: string;
-
-  /**
    *  temperature
    *
    * The temperature to use for the AI features of Intlayer.
@@ -640,16 +633,50 @@ export type CommonAiConfig = {
   dataSerialization?: 'json' | 'toon';
 };
 
-export type AiProviderConfigMap = {};
+type AiProviderConfig<Provider extends AiProviders> = {
+  /**
+   * AI provider
+   *
+   * Example: 'openai'
+   */
+  provider: Provider | `${Provider}`;
 
+  /**
+   * API model
+   *
+   * The model to use for the AI features of Intlayer. Known models of the
+   * selected provider are suggested, any other model id is accepted.
+   *
+   * Example: 'gpt-5-mini'
+   */
+  model?: AiProviderModelMap[`${Provider}`];
+};
+
+/**
+ * One member per provider, so `model` suggests the models of the selected
+ * `provider`. The generic member of `AiConfig` keeps any provider/model pair
+ * valid.
+ */
 type AiConfigUnion = {
-  [P in keyof AiProviderConfigMap]: {
-    provider: P | `${P}`;
-  } & AiProviderConfigMap[P];
-}[keyof AiProviderConfigMap];
+  [Provider in AiProviders]: AiProviderConfig<Provider>;
+}[AiProviders];
 
 export type AiConfig = CommonAiConfig &
-  (AiConfigUnion | { provider?: AiProviders | `${AiProviders}` });
+  (
+    | AiConfigUnion
+    | {
+        provider?: AiProviders | `${AiProviders}`;
+
+        /**
+         * API model
+         *
+         * The model to use for the AI features of Intlayer.
+         *
+         * Example: 'claude-haiku-4-5'
+         */
+        model?: string;
+      }
+  );
 
 export type BuildConfig = {
   /**

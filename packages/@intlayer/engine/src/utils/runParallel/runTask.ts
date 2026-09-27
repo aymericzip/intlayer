@@ -222,7 +222,11 @@ export const runTasks = (
           }
 
           // Save the result.
-          results[task.index].code = result.code;
+          const taskResult = results[task.index];
+
+          if (taskResult) {
+            taskResult.code = result.code;
+          }
 
           // Aborts all tasks if it's an error.
           if (result.code) {

@@ -48,6 +48,16 @@ export type TechnologySignature = {
   hiddenBy?: string[];
 };
 
+/**
+ * Any string-literal quote. Minifiers such as rolldown / oxc emit template
+ * literals (`` `i18next:` ``), so bundle patterns must accept backticks too.
+ */
+const QUOTE = `["'\`]`;
+
+/** Build a bundle pattern where every `<Q>` placeholder stands for {@link QUOTE}. */
+const quoted = (source: string, flags?: string): RegExp =>
+  new RegExp(source.replaceAll('<Q>', QUOTE), flags);
+
 /** Rendering frameworks and site builders. */
 const frameworkSignatures: TechnologySignature[] = [
   {
@@ -96,6 +106,13 @@ const frameworkSignatures: TechnologySignature[] = [
     globals: ['$_TSR', '__TSR_ROUTER__'],
   },
   {
+    id: 'tanstack-router',
+    name: 'TanStack Router',
+    category: 'framework',
+    bundle: [/tsr-scroll-restoration/],
+    hiddenBy: ['tanstack-start'],
+  },
+  {
     id: 'astro',
     name: 'Astro',
     category: 'framework',
@@ -112,6 +129,13 @@ const frameworkSignatures: TechnologySignature[] = [
     resourceUrls: [/\/_app\/immutable\//],
   },
   {
+    id: 'svelte',
+    name: 'Svelte',
+    category: 'framework',
+    bundle: [/https:\/\/svelte\.dev\/e\//],
+    hiddenBy: ['sveltekit'],
+  },
+  {
     id: 'angular',
     name: 'Angular',
     category: 'framework',
@@ -122,6 +146,7 @@ const frameworkSignatures: TechnologySignature[] = [
     name: 'Vue.js',
     category: 'framework',
     html: [/data-v-app\b/],
+    bundle: [/\b__v_isRef\b/],
     globals: ['__VUE__'],
     hiddenBy: ['nuxt'],
   },
@@ -130,6 +155,7 @@ const frameworkSignatures: TechnologySignature[] = [
     name: 'SolidJS',
     category: 'framework',
     html: [/_\$HY\b/],
+    bundle: [/\b_\$HY\.done\b/],
     globals: ['_$HY'],
   },
   {
@@ -139,12 +165,24 @@ const frameworkSignatures: TechnologySignature[] = [
     html: [/q:container=/],
   },
   {
+    // `react.element` alone also appears in deepmerge's isReactElement.
     id: 'react',
     name: 'React',
     category: 'framework',
-    bundle: [/Symbol\.for\(["']react\.(?:transitional\.)?element["']\)/],
+    bundle: [
+      quoted(
+        String.raw`Symbol\.for\(<Q>react\.(?:transitional\.element|forward_ref)<Q>\)`
+      ),
+    ],
     domMarkers: ['react-fiber'],
-    hiddenBy: ['nextjs', 'gatsby', 'remix', 'react-router'],
+    hiddenBy: [
+      'nextjs',
+      'gatsby',
+      'remix',
+      'react-router',
+      'tanstack-start',
+      'tanstack-router',
+    ],
   },
   {
     id: 'wordpress',
@@ -195,14 +233,14 @@ const i18nLibrarySignatures: TechnologySignature[] = [
     id: 'next-intl',
     name: 'next-intl',
     category: 'i18n-library',
-    bundle: [/X-NEXT-INTL-LOCALE|"ENVIRONMENT_FALLBACK"/i],
+    bundle: [quoted('X-NEXT-INTL-LOCALE|<Q>ENVIRONMENT_FALLBACK<Q>', 'i')],
     requires: ['nextjs'],
   },
   {
     id: 'use-intl',
     name: 'use-intl',
     category: 'i18n-library',
-    bundle: [/"ENVIRONMENT_FALLBACK"/],
+    bundle: [quoted('<Q>ENVIRONMENT_FALLBACK<Q>')],
     hiddenBy: ['next-intl'],
   },
   {
@@ -222,7 +260,7 @@ const i18nLibrarySignatures: TechnologySignature[] = [
     id: 'i18next',
     name: 'i18next',
     category: 'i18n-library',
-    bundle: [/["']backendConnector["']|["']i18next:["']/],
+    bundle: [quoted('<Q>backendConnector<Q>|<Q>i18next:<Q>')],
     globals: ['i18next'],
     storageKeys: ['i18nextLng', 'i18next'],
     versionGlobal: 'i18next.version',
@@ -232,7 +270,7 @@ const i18nLibrarySignatures: TechnologySignature[] = [
     id: 'react-intl',
     name: 'react-intl (FormatJS)',
     category: 'i18n-library',
-    bundle: [/\[React Intl\]|"UNSUPPORTED_FORMATTER"/],
+    bundle: [quoted(String.raw`\[React Intl\]|<Q>UNSUPPORTED_FORMATTER<Q>`)],
   },
   {
     id: 'nuxt-i18n',
@@ -291,6 +329,63 @@ const i18nLibrarySignatures: TechnologySignature[] = [
     name: 'next-translate',
     category: 'i18n-library',
     html: [/"__namespaces"\s*:/],
+    bundle: [/\b__NEXT_TRANSLATE__\b/],
+    globals: ['__NEXT_TRANSLATE__'],
+  },
+  {
+    id: 'next-international',
+    name: 'next-international',
+    category: 'i18n-library',
+    bundle: [/\bI18nProviderClient\b/],
+    requires: ['nextjs'],
+  },
+  {
+    id: 'gt-next',
+    name: 'gt-next (General Translation)',
+    category: 'i18n-library',
+    bundle: [/\bgt-next\b/],
+    requires: ['nextjs'],
+  },
+  {
+    id: 'gt-react',
+    name: 'gt-react (General Translation)',
+    category: 'i18n-library',
+    bundle: [
+      /__generaltranslation|generaltranslation\/react-core|\bgt-react\b/,
+    ],
+    hiddenBy: ['gt-next'],
+  },
+  {
+    id: 'lingo-dev',
+    name: 'Lingo.dev',
+    category: 'i18n-library',
+    bundle: [/__LINGO_DEV_(?:STATE|UPDATE)__|\bLINGO_DEBUG\b/],
+    globals: ['__LINGO_DEV_STATE__'],
+  },
+  {
+    id: 'wuchale',
+    name: 'wuchale',
+    category: 'i18n-library',
+    bundle: [/i18n-404:tag/],
+  },
+  {
+    id: 'fluent-vue',
+    name: 'fluent-vue',
+    category: 'i18n-library',
+    bundle: [/\[fluent-vue\]/],
+  },
+  {
+    id: 'fluent',
+    name: 'Fluent (Project Fluent)',
+    category: 'i18n-library',
+    bundle: [quoted('ReferenceError\\(<Q>Unknown term: ')],
+    hiddenBy: ['fluent-vue'],
+  },
+  {
+    id: 'solid-primitives-i18n',
+    name: '@solid-primitives/i18n',
+    category: 'i18n-library',
+    bundle: [quoted(String.raw`RegExp\(<Q>\{\{\\\\s\*\$\{\w+\}\\\\s\*\}\}<Q>`)],
   },
   {
     id: 'next-locale',
@@ -304,6 +399,8 @@ const i18nLibrarySignatures: TechnologySignature[] = [
     id: 'polylang',
     name: 'Polylang',
     category: 'i18n-library',
+    // Language switcher items: `lang-item lang-item-2 lang-item-fr`.
+    html: [/\blang-item-\d+\b/],
     resourceUrls: [/\/wp-content\/plugins\/polylang/],
     storageKeys: ['pll_language'],
   },
@@ -313,6 +410,7 @@ const i18nLibrarySignatures: TechnologySignature[] = [
     category: 'i18n-library',
     html: [
       /<meta[^>]+name=["']generator["'][^>]+content=["']WPML ver:([\d.]+)/i,
+      /\bwpml-ls(?:-item|-statics|-legacy)?\b/,
     ],
     resourceUrls: [/\/wp-content\/plugins\/sitepress-multilingual-cms/],
     storageKeys: ['wp-wpml_current_language', '_icl_current_language'],
@@ -321,6 +419,7 @@ const i18nLibrarySignatures: TechnologySignature[] = [
     id: 'translatepress',
     name: 'TranslatePress',
     category: 'i18n-library',
+    html: [/\btrp-language-switcher\b|\bdata-trp-/],
     resourceUrls: [/\/wp-content\/plugins\/translatepress-multilingual/],
   },
 ];
@@ -331,7 +430,13 @@ const tmsSignatures: TechnologySignature[] = [
     id: 'intlayer-cms',
     name: 'Intlayer CMS',
     category: 'tms',
-    bundle: [/back\.intlayer\.org/],
+    resourceUrls: [/\/\/back\.intlayer\.org\//],
+    // The editor config always embeds the backend URL: require it enabled.
+    bundle: [
+      quoted(
+        String.raw`back\.intlayer\.org<Q>,\s*<Q>?port<Q>?:\s*[\w.]+,\s*<Q>?enabled<Q>?:\s*(?:!0|true)`
+      ),
+    ],
     requires: ['intlayer'],
   },
   {
@@ -339,6 +444,8 @@ const tmsSignatures: TechnologySignature[] = [
     name: 'Crowdin',
     category: 'tms',
     resourceUrls: [/(?:^|\.|\/\/)crowdin\.(?:com|net)\//],
+    // In-context (JIPT) snippet: `var _jipt = []; _jipt.push(['project', …])`.
+    html: [/\b_jipt\s*(?:=\s*\[|\.push\()/],
     bundle: [/distributions\.crowdin\.net|cdn\.crowdin\.com/],
     globals: ['_jipt'],
   },
@@ -346,6 +453,7 @@ const tmsSignatures: TechnologySignature[] = [
     id: 'phrase',
     name: 'Phrase',
     category: 'tms',
+    html: [/\bPHRASEAPP_CONFIG\s*=/],
     resourceUrls: [/(?:^|\.|\/\/)(?:phrase|phraseapp)\.com\//],
     bundle: [/ota\.(?:eu|us)\.phrase\.com|PHRASEAPP_CONFIG|phraseapp\.com/],
     globals: ['PHRASEAPP_CONFIG', 'phraseApp'],
@@ -354,6 +462,7 @@ const tmsSignatures: TechnologySignature[] = [
     id: 'lokalise',
     name: 'Lokalise',
     category: 'tms',
+    html: [/\bLOKALISE_CONFIG\s*=/],
     resourceUrls: [/(?:^|\.|\/\/)lokalise\.(?:com|co)\//],
     bundle: [/ota\.lokalise\.com|app\.lokalise\.com|LOKALISE_CONFIG/],
     globals: ['LOKALISE_CONFIG'],
@@ -362,6 +471,7 @@ const tmsSignatures: TechnologySignature[] = [
     id: 'locize',
     name: 'locize',
     category: 'tms',
+    html: [/\blocizer\.init\(/],
     resourceUrls: [/(?:^|\.|\/\/)locize\.(?:app|io|com)\//],
     bundle: [/api\.(?:lite\.)?locize\.(?:app|io)/],
   },
@@ -369,15 +479,17 @@ const tmsSignatures: TechnologySignature[] = [
     id: 'transifex',
     name: 'Transifex',
     category: 'tms',
+    // Transifex Live snippet: `window.liveSettings = { api_key: … }`.
+    html: [/\bliveSettings\s*=\s*\{/],
     resourceUrls: [/(?:^|\.|\/\/)transifex\.(?:com|net)\//],
     bundle: [/cds\.svc\.transifex\.net/],
-    globals: ['Transifex'],
+    globals: ['Transifex', 'liveSettings'],
   },
   {
     id: 'tolgee',
     name: 'Tolgee',
     category: 'tms',
-    resourceUrls: [/(?:^|\.|\/\/)tolgee\.io\//],
+    resourceUrls: [/(?:^|\.|\/\/)(?:tolgee\.io|tolg\.ee)\//],
     bundle: [/app\.tolgee\.io|@tolgee\//],
   },
   {
@@ -408,6 +520,41 @@ const tmsSignatures: TechnologySignature[] = [
     resourceUrls: [/(?:^|\.|\/\/)smartling\.com\//],
     bundle: [/api\.smartling\.com/],
   },
+  {
+    id: 'poeditor',
+    name: 'POEditor',
+    category: 'tms',
+    resourceUrls: [/(?:^|\.|\/\/)poeditor\.com\//],
+    bundle: [/api\.poeditor\.com/],
+  },
+  {
+    id: 'weblate',
+    name: 'Weblate',
+    category: 'tms',
+    resourceUrls: [/hosted\.weblate\.org\//],
+    bundle: [/hosted\.weblate\.org/],
+  },
+  {
+    id: 'lingohub',
+    name: 'Lingohub',
+    category: 'tms',
+    resourceUrls: [/(?:^|\.|\/\/)lingohub\.com\//],
+    bundle: [/api\.lingohub\.com/],
+  },
+  {
+    id: 'loco',
+    name: 'Loco',
+    category: 'tms',
+    resourceUrls: [/(?:^|\.|\/\/)localise\.biz\//],
+    bundle: [/localise\.biz\/api/],
+  },
+  {
+    id: 'gridly',
+    name: 'Gridly',
+    category: 'tms',
+    resourceUrls: [/(?:^|\.|\/\/)gridly\.com\//],
+    bundle: [/cdn\.gridly\.com|api\.gridly\.com/],
+  },
 ];
 
 /** Hosted website translation layers (proxy or JS overlay). */
@@ -416,6 +563,7 @@ const translationProxySignatures: TechnologySignature[] = [
     id: 'weglot',
     name: 'Weglot',
     category: 'translation-proxy',
+    html: [/\bWeglot\.initialize\(|\bdata-wg-notranslate\b/],
     resourceUrls: [/cdn\.weglot\.(?:com|us)\//],
     globals: ['Weglot'],
   },
@@ -423,6 +571,7 @@ const translationProxySignatures: TechnologySignature[] = [
     id: 'localizejs',
     name: 'Localize',
     category: 'translation-proxy',
+    html: [/\bLocalize\.initialize\(/],
     resourceUrls: [/global\.localizecdn\.com\/|cdn\.localizejs\.com\//],
     globals: ['Localize'],
   },
@@ -430,6 +579,7 @@ const translationProxySignatures: TechnologySignature[] = [
     id: 'gtranslate',
     name: 'GTranslate',
     category: 'translation-proxy',
+    html: [/\bgtranslateSettings\s*=|\bgtranslate_wrapper\b/],
     resourceUrls: [/cdn\.gtranslate\.net\//],
     globals: ['gtranslateSettings'],
   },
@@ -437,6 +587,9 @@ const translationProxySignatures: TechnologySignature[] = [
     id: 'google-translate',
     name: 'Google Translate widget',
     category: 'translation-proxy',
+    html: [
+      /\bgoogleTranslateElementInit\b|\bgoogle\.translate\.TranslateElement\(/,
+    ],
     resourceUrls: [/translate\.google\.com\/translate_a\/element\.js/],
     globals: ['googleTranslateElementInit'],
   },
@@ -444,6 +597,7 @@ const translationProxySignatures: TechnologySignature[] = [
     id: 'conveythis',
     name: 'ConveyThis',
     category: 'translation-proxy',
+    html: [/\bConveyThis_Initializer\.init\(/],
     resourceUrls: [/cdn\.conveythis\.com\//],
   },
   {
@@ -457,7 +611,20 @@ const translationProxySignatures: TechnologySignature[] = [
     id: 'linguise',
     name: 'Linguise',
     category: 'translation-proxy',
+    html: [/\blinguise_configs\b/],
     resourceUrls: [/(?:^|\.|\/\/)linguise\.com\//],
+  },
+  {
+    id: 'onelink',
+    name: 'OneLink (TransPerfect)',
+    category: 'translation-proxy',
+    resourceUrls: [/(?:^|\.|\/\/)onelink(?:js|-edge)?\.com\//],
+  },
+  {
+    id: 'motionpoint',
+    name: 'MotionPoint',
+    category: 'translation-proxy',
+    resourceUrls: [/(?:^|\.|\/\/)motionpoint\.(?:com|net)\//],
   },
 ];
 

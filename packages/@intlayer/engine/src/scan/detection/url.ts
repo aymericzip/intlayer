@@ -33,9 +33,12 @@ export const normalizeUrl = (url: string, baseUrl?: string): string => {
 export const getFirstPathSegment = (pathname: string): string | undefined =>
   pathname.split('/').find(Boolean);
 
-/** Whether the URL is absolute (has a scheme), as required by hreflang. */
+/**
+ * Whether the URL is fully qualified (`https://host/…`), as hreflang requires.
+ * Relative (`/fr`), protocol-relative (`//host/fr`) and non-HTTP URLs are not.
+ */
 export const isAbsoluteUrl = (url: string): boolean =>
-  /^[a-z][a-z\d+.-]*:\/\//i.test(url.trim());
+  /^https?:\/\/[^/\s?#]+/i.test(url.trim());
 
 /**
  * Approximate registrable domain of a hostname (`gtm.crowdin.com` →

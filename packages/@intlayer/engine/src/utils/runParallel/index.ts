@@ -24,7 +24,7 @@ export const runParallel = (proc?: string | string[]): ParallelHandle => {
   const commandText = Array.isArray(proc) ? proc.join(' ') : proc;
 
   const isArray = Array.isArray(proc);
-  const command = isArray ? (proc as string[])[0] : commandText;
+  const command = isArray ? ((proc as string[])[0] ?? '') : commandText;
   const args = isArray ? (proc as string[]).slice(1) : [];
 
   // Ensure local binaries (node_modules/.bin) are resolvable

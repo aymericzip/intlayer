@@ -171,6 +171,7 @@ const setHtmlLang = (ast: any): void => {
         if (langAttr) {
           langAttr.value = localeExpression;
         } else {
+          node.attributes = node.attributes ?? [];
           node.attributes.push(
             b.jsxAttribute(b.jsxIdentifier('lang'), localeExpression)
           );

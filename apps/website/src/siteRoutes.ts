@@ -169,10 +169,30 @@ export const staticPrerenderPaths: string[] = [
   Website_Contributors_Path,
 ];
 
+/** Sections the sitemap is split into, one child sitemap each. */
+export const sitemapSections = [
+  'pages',
+  'docs',
+  'blog',
+  'frequent-questions',
+] as const;
+
+export type SitemapSection = (typeof sitemapSections)[number];
+
+export const isSitemapSection = (value: unknown): value is SitemapSection =>
+  sitemapSections.includes(value as SitemapSection);
+
 /**
- * Builds the full list of sitemap entries including dynamic docs / blog / FAQ / legal pages.
+ * Builds the sitemap entries of every section: static pages and legal texts,
+ * docs, blog posts and FAQ.
+ *
+ * Split so each section is a child sitemap of an index, which lets Search
+ * Console report indexing coverage per section instead of for 5 000+ URLs at
+ * once. A path is kept in the first section emitting it.
  */
-export async function buildSitemapEntries(): Promise<SitemapUrlEntry[]> {
+export const buildSitemapEntriesBySection = async (): Promise<
+  Record<SitemapSection, SitemapUrlEntry[]>
+> => {
   const now = new Date().toISOString();
 
   const [docs, blogs, legal, frequentQuestions] = await Promise.all([
@@ -182,34 +202,58 @@ export async function buildSitemapEntries(): Promise<SitemapUrlEntry[]> {
     getFrequentQuestionMetadataBySlug([]).then(filterRoutableFiles),
   ]);
 
-  return dedupeEntriesByPath([
-    ...staticSitemapEntries.map((e) => ({ ...e, lastmod: now })),
-    ...legal.map((legalEl) => ({
-      path: toCanonicalPath(legalEl),
-      lastmod: toISO(legalEl.updatedAt),
-      changefreq: 'monthly',
-      priority: toSitemapPriority(legalEl, 1),
-    })),
-    ...docs.map((doc) => ({
+  const entriesBySection: Record<SitemapSection, SitemapUrlEntry[]> = {
+    pages: [
+      ...staticSitemapEntries.map((entry) => ({ ...entry, lastmod: now })),
+      ...legal.map((legalEl) => ({
+        path: toCanonicalPath(legalEl),
+        lastmod: toISO(legalEl.updatedAt),
+        changefreq: 'monthly',
+        priority: toSitemapPriority(legalEl, 1),
+      })),
+    ],
+    docs: docs.map((doc) => ({
       path: toCanonicalPath(doc),
       lastmod: toISO(doc.updatedAt),
       changefreq: 'monthly',
       priority: toSitemapPriority(doc, 2),
     })),
-    ...blogs.map((blog) => ({
+    blog: blogs.map((blog) => ({
       path: toCanonicalPath(blog),
       lastmod: toISO(blog.updatedAt),
       changefreq: 'monthly',
       priority: toSitemapPriority(blog, 8),
     })),
-    ...frequentQuestions.map((faq) => ({
+    'frequent-questions': frequentQuestions.map((faq) => ({
       path: toCanonicalPath(faq),
       lastmod: toISO(faq.updatedAt),
       changefreq: 'monthly',
       priority: toSitemapPriority(faq, 4),
     })),
-  ]);
-}
+  };
+
+  const keptEntries = new Set(
+    dedupeEntriesByPath(
+      sitemapSections.flatMap((section) => entriesBySection[section])
+    )
+  );
+
+  return Object.fromEntries(
+    sitemapSections.map((section) => [
+      section,
+      entriesBySection[section].filter((entry) => keptEntries.has(entry)),
+    ])
+  ) as Record<SitemapSection, SitemapUrlEntry[]>;
+};
+
+/**
+ * Builds the full list of sitemap entries including dynamic docs / blog / FAQ / legal pages.
+ */
+export const buildSitemapEntries = async (): Promise<SitemapUrlEntry[]> => {
+  const entriesBySection = await buildSitemapEntriesBySection();
+
+  return sitemapSections.flatMap((section) => entriesBySection[section]);
+};
 
 /**
  * Returns all dynamic route paths (docs, blogs, FAQ, legal) for use in vite.config.ts prerendering.

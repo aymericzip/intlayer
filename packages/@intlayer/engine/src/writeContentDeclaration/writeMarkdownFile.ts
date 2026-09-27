@@ -28,13 +28,16 @@ const getMarkdownBody = (content: string): string => {
   const lines = content.split(/\r?\n/);
   const firstNonEmptyIndex = lines.findIndex((line) => line.trim() !== '');
 
-  if (firstNonEmptyIndex === -1 || lines[firstNonEmptyIndex].trim() !== '---') {
+  if (
+    firstNonEmptyIndex === -1 ||
+    lines[firstNonEmptyIndex]?.trim() !== '---'
+  ) {
     return content;
   }
 
   let endIndex = -1;
   for (let i = firstNonEmptyIndex + 1; i < lines.length; i++) {
-    if (lines[i].trim() === '---') {
+    if (lines[i]?.trim() === '---') {
       endIndex = i;
       break;
     }
