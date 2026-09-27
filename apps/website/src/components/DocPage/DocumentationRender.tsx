@@ -19,9 +19,11 @@ import { useLocale } from 'react-intlayer';
 import type { FrameworkKey } from '~/components/I18nBenchmark';
 import { Link } from '~/components/Link/Link';
 import { TableOfContents } from '~/components/TableOfContents';
+import { getNodeText } from '~/utils/getNodeText';
 import { Accordion, AccordionGroup } from './AccordionGroup';
 import { ClickToOpenIframe } from './ClickToOpenIframe';
 import { FAQ, Question } from './FAQ';
+import { LinkPreviewCard } from './LinkPreviewCard';
 import { SectionScroller } from './SectionScroller';
 import { TechGrid, TechLink } from './TechLink';
 
@@ -83,7 +85,28 @@ const isConnectorText = (text: string): boolean => {
   );
 };
 
-type DocLinkItem = { href: string; title: ReactNode };
+/** Absolute http(s) URL that is not one of our doc or blog pages. */
+const isExternalPageLink = (url: string | undefined): url is string =>
+  typeof url === 'string' && /^https?:\/\//i.test(url) && !isDocOrBlogLink(url);
+
+type DocLinkItem = {
+  href: string;
+  title: ReactNode;
+  /** Rendered as an Open Graph preview card rather than a doc card. */
+  isExternal?: boolean;
+};
+
+/** Card of a standalone link: doc card, or preview card for external pages. */
+const renderDocLinkItem = (item: DocLinkItem, index: number): ReactNode =>
+  item.isExternal ? (
+    <LinkPreviewCard
+      key={item.href || index}
+      href={item.href}
+      title={item.title}
+    />
+  ) : (
+    <TechLink key={item.href || index} href={item.href} title={item.title} />
+  );
 
 const extractDocLinksFromNode = (node: ReactNode): DocLinkItem[] | null => {
   if (!isValidElement(node)) return null;
@@ -113,6 +136,16 @@ const extractDocLinksFromNode = (node: ReactNode): DocLinkItem[] | null => {
           links.push({
             href: cleanHref,
             title: props.children,
+          });
+        } else if (
+          isExternalPageLink(props.href) &&
+          // Image-only links (badges) keep their inline rendering
+          getNodeText(props.children).trim()
+        ) {
+          links.push({
+            href: props.href,
+            title: props.children,
+            isExternal: true,
           });
         } else {
           hasSubstantiveText = true;
@@ -202,17 +235,7 @@ export const DocumentationRender: FC<DocumentationRenderProps> = ({
           p: (props: ComponentProps<'p'>) => {
             const docLinks = extractLinksFromParagraph(props.children);
             if (docLinks) {
-              return (
-                <TechGrid>
-                  {docLinks.map((item, idx) => (
-                    <TechLink
-                      key={item.href || idx}
-                      href={item.href}
-                      title={item.title}
-                    />
-                  ))}
-                </TechGrid>
-              );
+              return <TechGrid>{docLinks.map(renderDocLinkItem)}</TechGrid>;
             }
             return <p {...props} />;
           },
@@ -236,17 +259,7 @@ export const DocumentationRender: FC<DocumentationRenderProps> = ({
             });
 
             if (allDocLinks && items.length > 0) {
-              return (
-                <TechGrid>
-                  {items.map((item, idx) => (
-                    <TechLink
-                      key={item.href || idx}
-                      href={item.href}
-                      title={item.title}
-                    />
-                  ))}
-                </TechGrid>
-              );
+              return <TechGrid>{items.map(renderDocLinkItem)}</TechGrid>;
             }
 
             return <ul {...props} />;

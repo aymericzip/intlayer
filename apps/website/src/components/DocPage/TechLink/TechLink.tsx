@@ -16,6 +16,8 @@ import {
 } from 'react';
 import { useLocale } from 'react-intlayer';
 import { Link } from '~/components/Link/Link';
+import { getNodeText } from '~/utils/getNodeText';
+import { LinkPreviewCard } from '../LinkPreviewCard/LinkPreviewCard';
 import type { Section } from '../types';
 
 export type TechLinkProps = {
@@ -638,11 +640,7 @@ const TechLinkContent: FC<TechLinkContentProps> = ({
         variant="invisible-link"
         underlined={false}
         className="group not-prose block min-w-60 flex-1 p-0 no-underline max-sm:min-w-full"
-        label={
-          typeof displayTitle === 'string' && displayTitle
-            ? displayTitle
-            : rawTarget || 'Guide'
-        }
+        label={getNodeText(displayTitle).trim() || rawTarget || 'Guide'}
       >
         {content}
       </Link>
@@ -683,7 +681,13 @@ export const TechGrid: FC<TechGridProps> = ({ children, className, items }) => {
         const { children: linkChildren, ...restProps } = (child.props ??
           {}) as any;
         const href = restProps.href ?? restProps.to;
-        if (href && child.type !== TechLink) {
+        // Already a card, e.g. an external link rendered as a preview
+        if (child.type === TechLink || child.type === LinkPreviewCard) {
+          result.push(child);
+          return;
+        }
+
+        if (href) {
           result.push(
             <TechLink
               key={href}
