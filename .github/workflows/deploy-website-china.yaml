@@ -8,15 +8,11 @@ on:
         type: boolean
         default: true
         required: false
-  # Optional: Uncomment if you want automatic deployments on push to main
-  # push:
-  #   branches:
-  #     - 'main'
-  #   paths:
-  #     - 'apps/website/**'
-  #     - 'packages/**'
-  #     - 'docs/**'
-  #     - '.github/workflows/deploy-website-china.yaml'
+  push:
+    branches:
+      - 'main'
+    paths:
+      - 'apps/website/**'
 
 concurrency:
   group: deploy-website-china
