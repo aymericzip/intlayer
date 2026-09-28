@@ -13,11 +13,9 @@ const LocaleLayout: FC = () => {
 
 export const Route = createFileRoute('/{-$locale}')({
   component: LocaleLayout,
-  loader: async ({ params }) => {
-    return {
-      content: await getIntlayerAsync('locale-metadata', params.locale),
-    };
-  },
+  loader: async ({ params }) => ({
+    content: await getIntlayerAsync('locale-metadata', params.locale),
+  }),
   staleTime: Infinity,
   head: ({ params, loaderData }) => {
     if (!loaderData) return {};

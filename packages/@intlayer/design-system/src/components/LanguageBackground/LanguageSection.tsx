@@ -97,7 +97,7 @@ export const LanguageSection: FC<HTMLAttributes<HTMLElement>> = ({
       className={cn('w-full overflow-hidden py-3', className)}
       {...props}
     >
-      <div className="relative flex w-full flex-col gap-5 py-3">
+      <div className="mask-[linear-gradient(to_right,transparent_0,black_170px,black_calc(100%-170px),transparent_100%)] relative flex w-full flex-col gap-5 py-3">
         <LocalCardList localeList={firstPart!} className="horizontal-loop-1" />
         <LocalCardList localeList={secondPart!} className="horizontal-loop-2" />
         <LocalCardList localeList={thirdPart!} className="horizontal-loop-1" />
