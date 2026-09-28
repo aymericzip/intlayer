@@ -31,7 +31,7 @@ import { MultiSelect, Select } from '@components/Select';
 import { useEditedContent } from '@intlayer/editor-react';
 import type { Dictionary, LocalDictionaryId } from '@intlayer/types/dictionary';
 import { cn } from '@utils/cn';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, m } from 'framer-motion';
 import { WandSparkles } from 'lucide-react';
 import { type FC, useEffect, useMemo, useState } from 'react';
 import { useWatch } from 'react-hook-form';
@@ -433,7 +433,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
 
         <AnimatePresence mode="wait">
           {isLocalChecked && (
-            <motion.div
+            <m.div
               key="filePath-input"
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
@@ -455,7 +455,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
                   });
                 }}
               />
-            </motion.div>
+            </m.div>
           )}
         </AnimatePresence>
       </div>
@@ -606,7 +606,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
         </MultiSelect>
         <AnimatePresence>
           {selectedTypes.includes('collection') && (
-            <motion.div
+            <m.div
               key="item-input"
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
@@ -639,11 +639,11 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
                   }}
                 />
               </div>
-            </motion.div>
+            </m.div>
           )}
 
           {selectedTypes.includes('variant') && (
-            <motion.div
+            <m.div
               key="variant-input"
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
@@ -682,11 +682,11 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
                   </p>
                 )}
               </div>
-            </motion.div>
+            </m.div>
           )}
 
           {selectedTypes.length === 0 && showSiblingPicker && (
-            <motion.div
+            <m.div
               key="sibling-picker"
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
@@ -733,7 +733,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
                   ))}
                 </div>
               </Container>
-            </motion.div>
+            </m.div>
           )}
         </AnimatePresence>
       </Container>

@@ -6,7 +6,7 @@ import {
   type SwitchSelectorChoices,
 } from '@intlayer/design-system/switch-selector';
 import { cn } from '@intlayer/design-system/utils';
-import { motion, useReducedMotion, type Variants } from 'framer-motion';
+import { m, useReducedMotion, type Variants } from 'framer-motion';
 import { Blocks, Layers, PackageMinus, Server, Tags, Zap } from 'lucide-react';
 import type { FC, ReactNode } from 'react';
 import { useIntlayer } from 'react-intlayer';
@@ -69,7 +69,7 @@ export const HeroSection: FC = () => {
     <>
       {/* Background gradients */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <motion.div
+        <m.div
           aria-hidden
           className="absolute -top-24 left-1/2 h-129 w-180 -translate-x-1/2 rounded-full bg-primary/15 blur-3xl"
           animate={reduced ? undefined : { y: [0, 18, 0], scale: [1, 1.03, 1] }}
@@ -79,7 +79,7 @@ export const HeroSection: FC = () => {
               : { duration: 8, repeat: Infinity, ease: 'easeInOut' }
           }
         />
-        <motion.div
+        <m.div
           aria-hidden
           className="absolute -top-12 -right-30 h-90 w-90 rounded-full bg-success/10 blur-3xl"
           animate={reduced ? undefined : { x: [0, -22, 0], y: [0, 10, 0] }}
@@ -112,7 +112,7 @@ export const HeroSection: FC = () => {
           </Pill>
         </div>
 
-        <motion.div
+        <m.div
           variants={sectionFade}
           initial="hidden"
           animate="show"
@@ -249,7 +249,7 @@ export const HeroSection: FC = () => {
               </div>
             </div>
           </Container>
-        </motion.div>
+        </m.div>
       </section>
     </>
   );

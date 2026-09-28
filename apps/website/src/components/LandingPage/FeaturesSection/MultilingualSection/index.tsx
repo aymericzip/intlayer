@@ -1,7 +1,7 @@
 import { Container } from '@intlayer/design-system/container';
 import { Input } from '@intlayer/design-system/input';
 import { Label } from '@intlayer/design-system/label';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { defaultLocale, getLocaleName, type Locale } from 'intlayer';
 import type { FC } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
@@ -60,7 +60,7 @@ export const MultilingualSection: FC<MultilingualSectionProps> = ({
         />
       </Container>
       {Object.keys(content).map((locale, index) => (
-        <motion.div
+        <m.div
           key={locale}
           animate={{
             opacity:
@@ -109,7 +109,7 @@ export const MultilingualSection: FC<MultilingualSectionProps> = ({
               }
             />
           </Container>
-        </motion.div>
+        </m.div>
       ))}
     </div>
   );

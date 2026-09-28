@@ -1,5 +1,5 @@
 import { Container } from '@intlayer/design-system/container';
-import { motion, type Variants } from 'framer-motion';
+import { m, type Variants } from 'framer-motion';
 import { CheckCircle2, GitBranch, Layers, Sparkles } from 'lucide-react';
 import type { FC } from 'react';
 import { type IntlayerNode, useIntlayer } from 'react-intlayer';
@@ -34,7 +34,7 @@ export const HowItWorksSection: FC = () => {
 
   return (
     <section className="mx-auto max-w-6xl px-8 py-20 md:py-28">
-      <motion.div
+      <m.div
         variants={sectionFade}
         initial="hidden"
         whileInView="show"
@@ -46,9 +46,9 @@ export const HowItWorksSection: FC = () => {
         <p className="mt-2 max-w-2xl text-base text-foreground/70">
           {description}
         </p>
-      </motion.div>
+      </m.div>
 
-      <motion.div
+      <m.div
         variants={stagger}
         initial="hidden"
         whileInView="show"
@@ -63,7 +63,7 @@ export const HowItWorksSection: FC = () => {
           }) => {
             const IconComponent = iconMap[s.step.value] || CheckCircle2;
             return (
-              <motion.div key={s.step.value} variants={sectionFade}>
+              <m.div key={s.step.value} variants={sectionFade}>
                 <Container
                   roundedSize="3xl"
                   transparency="md"
@@ -83,11 +83,11 @@ export const HowItWorksSection: FC = () => {
                     {s.description}
                   </p>
                 </Container>
-              </motion.div>
+              </m.div>
             );
           }
         )}
-      </motion.div>
+      </m.div>
     </section>
   );
 };

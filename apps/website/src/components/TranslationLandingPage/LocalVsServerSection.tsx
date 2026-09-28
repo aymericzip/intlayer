@@ -1,5 +1,5 @@
 import { Container } from '@intlayer/design-system/container';
-import { motion, type Variants } from 'framer-motion';
+import { m, type Variants } from 'framer-motion';
 import { CheckCircle2, Laptop, Server } from 'lucide-react';
 import type { FC } from 'react';
 import { type IntlayerNode, useIntlayer } from 'react-intlayer';
@@ -25,7 +25,7 @@ export const LocalVsServerSection: FC = () => {
 
   return (
     <section className="mx-auto max-w-6xl px-8 py-20 md:py-28">
-      <motion.div
+      <m.div
         variants={sectionFade}
         initial="hidden"
         whileInView="show"
@@ -37,16 +37,16 @@ export const LocalVsServerSection: FC = () => {
         <p className="mt-2 max-w-2xl text-base text-foreground/70">
           {description}
         </p>
-      </motion.div>
+      </m.div>
 
-      <motion.div
+      <m.div
         variants={stagger}
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, amount: 0.2 }}
         className="mt-20 grid grid-cols-1 justify-evenly gap-4 md:grid-cols-2"
       >
-        <motion.div variants={sectionFade}>
+        <m.div variants={sectionFade}>
           <Container
             roundedSize="3xl"
             transparency="md"
@@ -75,9 +75,9 @@ export const LocalVsServerSection: FC = () => {
               ))}
             </div>
           </Container>
-        </motion.div>
+        </m.div>
 
-        <motion.div variants={sectionFade}>
+        <m.div variants={sectionFade}>
           <Container
             roundedSize="3xl"
             transparency="md"
@@ -106,8 +106,8 @@ export const LocalVsServerSection: FC = () => {
               ))}
             </div>
           </Container>
-        </motion.div>
-      </motion.div>
+        </m.div>
+      </m.div>
     </section>
   );
 };

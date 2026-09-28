@@ -15,7 +15,7 @@ import { TechLogo, type TechLogoName } from '@intlayer/design-system/tech-logo';
 import { cn } from '@intlayer/design-system/utils';
 import {
   type MotionValue,
-  motion,
+  m,
   useMotionValueEvent,
   useScroll,
   useTransform,
@@ -78,7 +78,7 @@ const LogoItem: FC<LogoItemProps> = ({
   });
 
   return (
-    <motion.div
+    <m.div
       style={{
         x,
         y,
@@ -100,7 +100,7 @@ const LogoItem: FC<LogoItemProps> = ({
           }
         />
       </Link>
-    </motion.div>
+    </m.div>
   );
 };
 
@@ -239,7 +239,7 @@ export const AvailableTechnoSection: FC = () => {
       <h2 className="mb-3 text-3xl">{availableOn}</h2>
       <div className="my-10 flex flex-col items-center gap-6">
         {/* Row 1 */}
-        <motion.div className="flex justify-center gap-x-4 md:gap-x-12">
+        <m.div className="flex justify-center gap-x-4 md:gap-x-12">
           {logosRow1.map((logoConfig, index) => (
             <LogoItem
               key={logoConfig.label}
@@ -252,9 +252,9 @@ export const AvailableTechnoSection: FC = () => {
               isMobile={isMobile}
             />
           ))}
-        </motion.div>
+        </m.div>
         {/* Row 2 */}
-        <motion.div className="flex justify-center gap-x-4 md:gap-x-12">
+        <m.div className="flex justify-center gap-x-4 md:gap-x-12">
           {logosRow2.map((logoConfig, index) => (
             <LogoItem
               key={logoConfig.label}
@@ -267,9 +267,9 @@ export const AvailableTechnoSection: FC = () => {
               isMobile={isMobile}
             />
           ))}
-        </motion.div>
+        </m.div>
         {/* Row 3 */}
-        <motion.div className="flex justify-center gap-x-4 md:gap-x-12">
+        <m.div className="flex justify-center gap-x-4 md:gap-x-12">
           {logosRow3.map((logoConfig, index) => (
             <LogoItem
               key={logoConfig.label}
@@ -282,7 +282,7 @@ export const AvailableTechnoSection: FC = () => {
               isMobile={isMobile}
             />
           ))}
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

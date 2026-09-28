@@ -1,5 +1,5 @@
 import { Container } from '@intlayer/design-system/container';
-import { motion, type Variants } from 'framer-motion';
+import { m, type Variants } from 'framer-motion';
 import {
   CheckCircle2,
   Coins,
@@ -43,7 +43,7 @@ export const KeyPointsSection: FC = () => {
 
   return (
     <section className="mx-auto max-w-6xl px-8 py-20 md:py-28">
-      <motion.div
+      <m.div
         variants={sectionFade}
         initial="hidden"
         whileInView="show"
@@ -55,9 +55,9 @@ export const KeyPointsSection: FC = () => {
         <p className="mt-2 max-w-2xl text-base text-foreground/70">
           {description}
         </p>
-      </motion.div>
+      </m.div>
 
-      <motion.div
+      <m.div
         variants={stagger}
         initial="hidden"
         whileInView="show"
@@ -72,7 +72,7 @@ export const KeyPointsSection: FC = () => {
           }) => {
             const IconComponent = iconMap[feature.id.value] || Coins;
             return (
-              <motion.div key={feature.id.value} variants={sectionFade}>
+              <m.div key={feature.id.value} variants={sectionFade}>
                 <Container
                   roundedSize="3xl"
                   transparency="md"
@@ -93,11 +93,11 @@ export const KeyPointsSection: FC = () => {
                     </div>
                   </div>
                 </Container>
-              </motion.div>
+              </m.div>
             );
           }
         )}
-      </motion.div>
+      </m.div>
     </section>
   );
 };

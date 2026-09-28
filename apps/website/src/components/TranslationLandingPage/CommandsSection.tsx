@@ -1,6 +1,6 @@
 import { Container } from '@intlayer/design-system/container';
 import { CodeBlock } from '@intlayer/design-system/ide';
-import { motion, type Variants } from 'framer-motion';
+import { m, type Variants } from 'framer-motion';
 import { Braces, FileText, Languages } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
@@ -36,7 +36,7 @@ export const CommandsSection: FC = () => {
 
   return (
     <section id="commands" className="mx-auto max-w-6xl px-8 py-20 md:py-28">
-      <motion.div
+      <m.div
         variants={sectionFade}
         initial="hidden"
         whileInView="show"
@@ -48,9 +48,9 @@ export const CommandsSection: FC = () => {
         <p className="mt-2 max-w-2xl text-base text-foreground/70">
           {description}
         </p>
-      </motion.div>
+      </m.div>
 
-      <motion.div
+      <m.div
         variants={stagger}
         initial="hidden"
         whileInView="show"
@@ -60,7 +60,7 @@ export const CommandsSection: FC = () => {
         {commands.map((cmd) => {
           const IconComponent = iconMap[cmd.id.value] || Braces;
           return (
-            <motion.div key={cmd.id.value} variants={sectionFade}>
+            <m.div key={cmd.id.value} variants={sectionFade}>
               <Container
                 roundedSize="3xl"
                 transparency="md"
@@ -103,10 +103,10 @@ export const CommandsSection: FC = () => {
                   </Container>
                 </div>
               </Container>
-            </motion.div>
+            </m.div>
           );
         })}
-      </motion.div>
+      </m.div>
     </section>
   );
 };

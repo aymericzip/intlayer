@@ -1,7 +1,7 @@
 import { useDevice } from '@intlayer/design-system/hooks';
 import { Loader } from '@intlayer/design-system/loader';
 import { cn } from '@intlayer/design-system/utils';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import {
   type FC,
   lazy,
@@ -28,28 +28,28 @@ const SectionItem: FC<PropsWithChildren<SectionItemProps>> = ({
   children,
   isActive,
 }) => (
-  <motion.div
+  <m.div
     className="m-auto flex size-full max-w-5xl items-center justify-center p-10"
     initial={{ x: '100%', opacity: 0 }}
     animate={{ x: isActive ? '0%' : '100%', opacity: isActive ? 1 : 0 }}
     transition={{ duration: 0.5, ease: 'easeInOut' }}
   >
     {children}
-  </motion.div>
+  </m.div>
 );
 
 const SectionDescription: FC<PropsWithChildren<SectionItemProps>> = ({
   children,
   isActive,
 }) => (
-  <motion.p
+  <m.p
     className="flex size-full items-center justify-center px-16 text-muted-foreground text-sm md:pr-0 lg:pr-16"
     initial={{ x: '-100%', opacity: 0 }}
     animate={{ x: isActive ? '0%' : '-100%', opacity: isActive ? 1 : 0 }}
     transition={{ duration: 0.5, ease: 'easeInOut' }}
   >
     {children}
-  </motion.p>
+  </m.p>
 );
 
 export type Section = {
@@ -115,7 +115,7 @@ const INITIAL_ACTIVE_INDEX = 0;
 const Titles: FC<TitlesProps> = ({ sections, activeIndex, isMobile }) => (
   <>
     {sections.map((section, index) => (
-      <motion.h3
+      <m.h3
         key={section.id.value}
         className="absolute top-1/4 left-3 inline font-bold text-muted-foreground text-xl leading-snug drop-shadow-sm aria-selected:text-foreground"
         initial={getTitlePlacement(index, INITIAL_ACTIVE_INDEX, isMobile)}
@@ -125,7 +125,7 @@ const Titles: FC<TitlesProps> = ({ sections, activeIndex, isMobile }) => (
         aria-selected={index === activeIndex}
       >
         {section.title}
-      </motion.h3>
+      </m.h3>
     ))}
   </>
 );

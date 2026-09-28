@@ -1,6 +1,5 @@
-import { LinkColor, LinkVariant } from '@intlayer/design-system/link';
 import { App_Onboarding, App_Pricing } from '@intlayer/design-system/routes';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
@@ -26,14 +25,14 @@ export const FinalCTASection: FC = () => {
       <div className="absolute inset-0 bg-text" />
 
       <div className="relative mx-auto max-w-4xl px-4 text-center md:px-8 lg:px-12">
-        <motion.div {...fadeUp}>
+        <m.div {...fadeUp}>
           <h2 className="mb-6 font-bold text-3xl text-text-opposite/80 sm:text-4xl md:text-5xl">
             {finalCtaTitle}
           </h2>
           <p className="mx-auto mb-10 max-w-xl text-lg text-text-opposite/60">
             {finalCtaDescription}
           </p>
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
@@ -64,8 +63,8 @@ export const FinalCTASection: FC = () => {
                 <ArrowRight className="size-5 transition-transform" />
               </span>
             </Link>
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       </div>
     </section>
   );

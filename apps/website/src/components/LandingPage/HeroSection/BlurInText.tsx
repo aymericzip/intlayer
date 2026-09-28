@@ -1,5 +1,5 @@
 import { cn } from '@intlayer/design-system/utils';
-import { motion, type Variants } from 'framer-motion';
+import { m, type Variants } from 'framer-motion';
 import type { FC } from 'react';
 
 interface BlurInTextProps {
@@ -23,7 +23,7 @@ export const BlurInText: FC<BlurInTextProps> = ({
   const combinedVariants = variant || defaultVariants;
 
   return (
-    <motion.h1
+    <m.h1
       initial="hidden"
       animate="visible"
       transition={{ duration }}
@@ -34,6 +34,6 @@ export const BlurInText: FC<BlurInTextProps> = ({
       )}
     >
       {text}
-    </motion.h1>
+    </m.h1>
   );
 };

@@ -2,7 +2,7 @@ import { Container } from '@intlayer/design-system/container';
 import { CodeBlock } from '@intlayer/design-system/ide';
 import { Website_Doc_CLI_Fill_Path } from '@intlayer/design-system/routes';
 import { cn } from '@intlayer/design-system/utils';
-import { motion, useReducedMotion, type Variants } from 'framer-motion';
+import { m, useReducedMotion, type Variants } from 'framer-motion';
 import {
   CheckCircle2,
   CreditCard,
@@ -77,7 +77,7 @@ export const HeroSection: FC = () => {
     <>
       {/* Background Gradients */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <motion.div
+        <m.div
           aria-hidden
           className="absolute -top-24 left-1/2 h-129 w-180 -translate-x-1/2 rounded-full bg-primary/15 blur-3xl"
           animate={reduced ? undefined : { y: [0, 18, 0], scale: [1, 1.03, 1] }}
@@ -87,7 +87,7 @@ export const HeroSection: FC = () => {
               : { duration: 8, repeat: Infinity, ease: 'easeInOut' }
           }
         />
-        <motion.div
+        <m.div
           aria-hidden
           className="absolute -top-12 -right-30 h-90 w-90 rounded-full bg-success/10 blur-3xl"
           animate={reduced ? undefined : { x: [0, -22, 0], y: [0, 10, 0] }}
@@ -97,7 +97,7 @@ export const HeroSection: FC = () => {
               : { duration: 10, repeat: Infinity, ease: 'easeInOut' }
           }
         />
-        <motion.div
+        <m.div
           aria-hidden
           className="absolute top-130 -left-35 h-105 w-105 rounded-full bg-secondary/12 blur-3xl"
           animate={reduced ? undefined : { x: [0, 20, 0], y: [0, -16, 0] }}
@@ -129,7 +129,7 @@ export const HeroSection: FC = () => {
             {pills.localLLM}
           </Pill>
         </div>
-        <motion.div
+        <m.div
           variants={sectionFade}
           initial="hidden"
           animate="show"
@@ -211,7 +211,7 @@ export const HeroSection: FC = () => {
 
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(600px_circle_at_30%_0%,rgba(203,235,64,0.10),transparent_45%)]" />
           </Container>
-        </motion.div>
+        </m.div>
       </section>
     </>
   );

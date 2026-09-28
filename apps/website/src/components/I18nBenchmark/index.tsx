@@ -10,7 +10,7 @@ import {
 import { SwitchSelector } from '@intlayer/design-system/switch-selector';
 import { cn } from '@intlayer/design-system/utils';
 import { useQuery } from '@tanstack/react-query';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, m } from 'framer-motion';
 import { ChevronRight } from 'lucide-react';
 import { type FC, type ReactNode, useMemo, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
@@ -85,6 +85,8 @@ type I18nBenchmarkProps = {
   vertical?: boolean;
   /** Hides the loading strategy toggles and the render mode selector. */
   hideControls?: boolean;
+  /** Hides the benchmark heading, e.g. when embedded under a doc section title. */
+  hideTitle?: boolean;
   /** Library ids to show (e.g. `next-intl`); others are filtered out. All shown when omitted. */
   packages?: readonly string[];
 };
@@ -93,6 +95,7 @@ export const I18nBenchmark: FC<I18nBenchmarkProps> = ({
   initialFramework,
   vertical = true,
   hideControls = false,
+  hideTitle = false,
   packages,
 }) => {
   const {
@@ -327,7 +330,7 @@ export const I18nBenchmark: FC<I18nBenchmarkProps> = ({
 
         {/* Main content */}
         <div className="flex min-w-0 flex-1 flex-col gap-5">
-          <H2>{title}</H2>
+          {!hideTitle && <H2>{title}</H2>}
 
           <Container
             padding="md"
@@ -342,7 +345,7 @@ export const I18nBenchmark: FC<I18nBenchmarkProps> = ({
           >
             <div className="min-w-0 flex-1">
               <AnimatePresence mode="wait">
-                <motion.div
+                <m.div
                   key={`${framework}-${selectedMetric.id}-${category}`}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -351,7 +354,7 @@ export const I18nBenchmark: FC<I18nBenchmarkProps> = ({
                   className="size-full"
                 >
                   {renderChartContent()}
-                </motion.div>
+                </m.div>
               </AnimatePresence>
             </div>
 
@@ -365,7 +368,7 @@ export const I18nBenchmark: FC<I18nBenchmarkProps> = ({
               )}
             >
               <AnimatePresence mode="wait">
-                <motion.div
+                <m.div
                   key={selectedMetric.id}
                   initial={{ opacity: 0, x: 10 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -406,7 +409,7 @@ export const I18nBenchmark: FC<I18nBenchmarkProps> = ({
                       />
                     </div>
                   )}
-                </motion.div>
+                </m.div>
               </AnimatePresence>
             </div>
           </Container>

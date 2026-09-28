@@ -11,7 +11,7 @@ import {
   useForm,
 } from '@components/Form';
 import { MultiSelect, Select } from '@components/Select';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, m } from 'framer-motion';
 import type { FC } from 'react';
 import { useWatch } from 'react-hook-form';
 import { useIntlayer } from 'react-intlayer';
@@ -104,7 +104,7 @@ const DictionaryCreationFormFields: FC<{
 
       <AnimatePresence mode="wait">
         {qualifierType === 'item' && (
-          <motion.div
+          <m.div
             key="item-input"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
@@ -120,11 +120,11 @@ const DictionaryCreationFormFields: FC<{
               description={itemInput.description.value}
               min={1}
             />
-          </motion.div>
+          </m.div>
         )}
 
         {qualifierType === 'variant' && (
-          <motion.div
+          <m.div
             key="variant-input"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
@@ -138,7 +138,7 @@ const DictionaryCreationFormFields: FC<{
               placeholder={variantInput.placeholder.value}
               description={variantInput.description.value}
             />
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
 
