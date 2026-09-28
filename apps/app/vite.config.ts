@@ -88,7 +88,10 @@ export const pathList = [
  *
  * The prerender crawls without cookies, so each of these either 302s to the
  * sign-in page (whose HTML then gets written under the dashboard URL) or
- * renders its anonymous fallback. Neither is worth the render.
+ * renders its anonymous fallback. Worse, the anonymous `['session']: null` is
+ * dehydrated into the HTML as a *fetched* result: on a hard reload the client
+ * barrier trusts it and bounces a signed-in user to the sign-in page before
+ * the real session refetch lands. They must be rendered per request.
  */
 const sessionGatedPathList = [
   App_Dashboard_Editor_Path,
@@ -129,26 +132,25 @@ const cloudOnlyPathList = [
 ];
 
 /**
- * Routes whose response depends on the instance's state rather than on the
- * request alone. On a self-hosted instance the home page answers with a
- * redirect — `/init` while the first super-admin is still to be created, the
- * sign-in page afterwards — which a prerender would freeze at build time (and
+ * Routes whose response depends on the instance's state or the visitor's
+ * session rather than on the request path alone. The home page routes a
+ * signed-in user to their dashboard, boots a demo session for an anonymous
+ * cloud visitor, and on a self-hosted instance redirects to `/init` or the
+ * sign-in page — all of which a prerender would freeze at build time (and
  * serve with public cache headers). It must be rendered per request.
  */
-const stateDependentPathList = [App_Home_Path];
+const stateDependentPathList: string[] = [App_Home_Path];
 
 /**
- * Pages worth prerendering for the given build. A self-hosted image runs on
- * one box with no backend reachable at build time, so it keeps only the
- * public, anonymous-renderable pages — the cloud build keeps every route.
+ * Pages worth prerendering for the given build: only the public,
+ * anonymous-renderable ones. A self-hosted image also drops the cloud-only
+ * pages, which it redirects to the home page.
  */
 const getPrerenderPathList = (isSelfHosted: boolean): string[] => {
-  if (!isSelfHosted) return pathList;
-
   const excludedPaths = new Set<string>([
     ...sessionGatedPathList,
-    ...cloudOnlyPathList,
     ...stateDependentPathList,
+    ...(isSelfHosted ? cloudOnlyPathList : []),
   ]);
 
   return pathList.filter((path) => !excludedPaths.has(path));
@@ -446,8 +448,7 @@ export default defineConfig(({ mode }) => {
           concurrency: 10,
           // The crawl is always seeded with `/`, whatever `pages` lists, so the
           // state-dependent routes have to be dropped here as well.
-          filter: ({ path }) =>
-            !isSelfHosted || !stateDependentPathList.includes(path),
+          filter: ({ path }) => !stateDependentPathList.includes(path),
         },
         pages: getLocalizedPages(isSelfHosted),
       }),

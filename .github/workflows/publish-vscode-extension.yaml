@@ -1,0 +1,195 @@
+# Publishes platform-specific VSIX packages of apps/vscode-extension to the
+# VS Code Marketplace and Open VSX.
+#
+# Runs when a push to main changes the root package.json `version` (same gate
+# as the npm and Tauri releases), or manually from the Actions tab. Semver
+# pre-release versions (e.g. 9.6.0-canary.1) are skipped: the Marketplace only
+# accepts major.minor.patch. A `vscode-extension-v<version>` GitHub release
+# holding the VSIX files is created on publish.
+#
+# Required repository secrets:
+#   VS_CODE_MARKEPLACE_ACCESS_TOKEN
+#     Azure DevOps personal access token with the "Marketplace > Manage"
+#     scope, for the `intlayer` publisher.
+#   OPEN_VSX_ACCESS_TOKEN
+#     open-vsx.org access token for the `intlayer` namespace.
+
+name: 🧩 Publish VS Code Extension
+
+on:
+  push:
+    branches:
+      - 'main'
+    paths:
+      - 'package.json'
+  workflow_dispatch:
+    inputs:
+      dry-run:
+        description: 'Only build the VSIX packages, do not publish'
+        type: boolean
+        default: false
+      pre-release:
+        description: 'Publish as a pre-release'
+        type: boolean
+        default: false
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+permissions:
+  contents: read
+
+env:
+  EXTENSION_DIRECTORY: apps/vscode-extension
+
+jobs:
+  check-version:
+    runs-on: ubuntu-latest
+    outputs:
+      changed: ${{ steps.stable.outputs.changed }}
+      version: ${{ steps.stable.outputs.version }}
+    steps:
+      - name: ⬇️ Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: 🔎 Check version change
+        id: check
+        run: bash .github/scripts/check-version-change.sh
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          REF_TYPE: ${{ github.ref_type }}
+          BEFORE_SHA: ${{ github.event.before }}
+
+      - name: 🏷️ Resolve extension version
+        id: stable
+        env:
+          CHANGED: ${{ steps.check.outputs.changed }}
+          ROOT_VERSION: ${{ steps.check.outputs.version }}
+        run: |
+          version=$(jq -r .version "$EXTENSION_DIRECTORY/package.json")
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+          if [ "$version" != "$ROOT_VERSION" ]; then
+            echo "::warning::Extension version ($version) differs from the root version ($ROOT_VERSION)"
+          fi
+
+          case "$version" in
+            *-*)
+              echo "::notice::$version is a pre-release identifier, the Marketplace rejects it: skipping publish"
+              echo "changed=false" >> "$GITHUB_OUTPUT"
+              ;;
+            *)
+              echo "changed=$CHANGED" >> "$GITHUB_OUTPUT"
+              ;;
+          esac
+
+  package:
+    name: 📦 Package VSIX
+    needs: check-version
+    if: ${{ github.repository_owner == 'aymericzip' && needs.check-version.outputs.changed == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ Checkout
+        uses: actions/checkout@v4
+
+      - name: 🥡 Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.4.2
+
+      - name: 🟢 Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+
+      # Native bindings for every platform, not just the runner's, so each
+      # target below can ship the ones matching its VSCE_TARGET.
+      - name: 🧩 Install dependencies
+        run: bun install --frozen-lockfile --os='*' --cpu='*'
+
+      # The extension bundles the @intlayer/* workspace packages from their dist
+      - name: 🏗️ Build workspace dependencies
+        run: bun x turbo run build:ci --filter=intlayer-vs-code-extension^...
+
+      # `vsce package` runs the `vscode:prepublish` script (tsdown compile),
+      # which copies only the VSCE_TARGET native bindings into dist/.
+      - name: 📦 Package every target
+        working-directory: ${{ env.EXTENSION_DIRECTORY }}
+        env:
+          PRE_RELEASE_FLAG: ${{ inputs.pre-release && '--pre-release' || '' }}
+        run: |
+          mkdir -p vsix
+          for target in win32-x64 win32-arm64 linux-x64 linux-arm64 \
+            alpine-x64 alpine-arm64 darwin-x64 darwin-arm64; do
+            echo "::group::$target"
+            VSCE_TARGET="$target" node_modules/.bin/vsce package \
+              --no-dependencies \
+              --target "$target" \
+              $PRE_RELEASE_FLAG \
+              --out "vsix/intlayer-vs-code-extension-$target.vsix"
+
+            echo "Native bindings in VSIX:"
+            unzip -l "vsix/intlayer-vs-code-extension-$target.vsix" \
+              | awk '{print $4}' | grep -E 'node_modules/@(esbuild|oxc-parser)/' \
+              | cut -d/ -f4-5 | sort -u
+            echo "::endgroup::"
+          done
+          ls -la vsix
+
+      - name: 💾 Save VSIX to GitHub Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: intlayer-vscode-extension
+          path: ${{ env.EXTENSION_DIRECTORY }}/vsix/*.vsix
+          if-no-files-found: error
+          retention-days: 14
+
+  publish:
+    name: 🚀 Publish
+    needs: [check-version, package]
+    if: ${{ !inputs.dry-run }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # create the GitHub release holding the VSIX files
+    steps:
+      - name: 🟢 Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+
+      - name: ⬇️ Download VSIX
+        uses: actions/download-artifact@v4
+        with:
+          name: intlayer-vscode-extension
+          path: vsix
+
+      - name: 🧩 Publish to VS Code Marketplace
+        env:
+          VSCE_PAT: ${{ secrets.VS_CODE_MARKEPLACE_ACCESS_TOKEN }}
+          PRE_RELEASE_FLAG: ${{ inputs.pre-release && '--pre-release' || '' }}
+        run: >
+          npx --yes @vscode/vsce@4 publish
+          --skip-duplicate
+          $PRE_RELEASE_FLAG
+          --packagePath vsix/*.vsix
+
+      - name: 🧩 Publish to Open VSX
+        env:
+          OVSX_PAT: ${{ secrets.OPEN_VSX_ACCESS_TOKEN }}
+          PRE_RELEASE_FLAG: ${{ inputs.pre-release && '--pre-release' || '' }}
+        run: >
+          npx --yes ovsx@1 publish
+          --skip-duplicate
+          $PRE_RELEASE_FLAG
+          --packagePath vsix/*.vsix
+
+      # Separate tag: `v<version>` belongs to the Tauri app release
+      - name: 🏷️ Create GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: vscode-extension-v${{ needs.check-version.outputs.version }}
+          name: VS Code extension v${{ needs.check-version.outputs.version }}
+          files: vsix/*.vsix
+          make_latest: false
+          prerelease: ${{ inputs.pre-release || false }}
