@@ -1173,6 +1173,38 @@ For more details on how to use the extension, refer to the [Intlayer VS Code Ext
 
 - [Intlayer VS Code Extension documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md)
 
+### Vue Devtools
+
+`vue-intlayer` registers an **Intlayer** panel in [Vue Devtools](https://devtools.vuejs.org/) out of the box. The panel is only loaded in development; set the `INTLAYER_DEVTOOLS_ENABLED=false` environment variable to opt out.
+
+The panel ships with a dictionary inspector that lets you:
+
+- **Browse** the loaded dictionaries and their per-locale translations, alongside their metadata (key, title, description, source file).
+- **Switch the current locale** of the app from the "Locales" group, which always reflects the locale set by the app (locale switcher, localized routing, etc.).
+
+#### Live editing
+
+When the [Intlayer editor server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) is running, the inspector switches to live editing: dictionaries are listed with an `editable` tag, and plain-text values can be edited inline. Edits are written back to your `.content` source files through the editor server, and the running app updates instantly thanks to hot module replacement.
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import type { IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  // ... other configuration settings
+  editor: {
+    enabled: true, // disabled by default
+  },
+};
+
+export default config;
+```
+
+```bash
+npx intlayer editor start
+```
+
+Without the editor server, the panel stays read-only and lists the dictionaries loaded in the app. Note that only plain-text values are editable from the inspector; rich content nodes (Markdown, HTML, insertions, etc.) remain read-only. Use the full visual editor for those.
+
 ### Go Further
 
 To go further, you can implement the [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) or externalize your content using the [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
