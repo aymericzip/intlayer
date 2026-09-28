@@ -24,8 +24,8 @@ const getHostname = (href: string): string => {
   }
 };
 
-/** Small square slot holding the og:image, left of the text. */
-const THUMBNAIL_CLASS_NAME = 'size-16 shrink-0 rounded-xl md:size-20';
+/** 16:9 slot holding the og:image, left of the text. */
+const THUMBNAIL_CLASS_NAME = 'aspect-video w-28 shrink-0 rounded-xl md:w-36';
 
 /** Placeholder with the card's layout while the preview loads. */
 const LinkPreviewCardSkeleton: FC = () => (
