@@ -711,9 +711,9 @@ const dictionary = {
 export default dictionary;
 ```
 
-See [bundle optimization](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/bundle_optimization.md) for details on `static`, `dynamic`, and `fetch` modes.
+See [bundle optimization](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/bundle_optimization.md) for details on `static`, `dynamic`, and `fetch` modes.
 
-- [bundle optimization](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/bundle_optimization.md)
+- [bundle optimization](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/bundle_optimization.md)
 
 ## Typical use-cases
 

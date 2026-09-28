@@ -23,31 +23,43 @@ history:
 author: aymericzip
 ---
 
-# Middleware intlayer
+# Dokumentasi Middleware intlayer untuk Remix 3
 
-Fungsi middleware `intlayer` mengonfigurasi internasionalisasi per permintaan dalam aplikasi Remix 3. Middleware ini mendeteksi locale dari setiap permintaan masuk, menerapkan aturan pengalihan URL, dan menyimpan state locale dalam konteks permintaan.
+Middleware `intlayer` untuk Remix 3 mengelola lapisan internasionalisasi di seluruh aplikasi Anda. Dibangun di atas standar web (`Request` dan `Response`), middleware ini menangani routing locale (pengalihan dan penulisan ulang internal), mendeteksi locale permintaan, menyimpannya ke cookie dan header, serta membentuk scope `AsyncLocalStorage` sehingga handler dan komponen di hilir dapat mengakses terjemahan tanpa prop drilling.
 
 ## Penggunaan
 
-Daftarkan middleware di router Remix Anda:
+Daftarkan middleware `intlayer` saat menginisialisasi router Remix 3 Anda:
 
 ```ts fileName="src/server.ts"
 import { createRouter } from "remix/router";
-import { intlayer } from "remix-intlayer";
+import { intlayer, useIntlayer, useLocale } from "remix-intlayer";
 
-export const router = createRouter({
+const router = createRouter({
   middleware: [intlayer()],
+});
+
+// Melayani `/`, `/fr`, `/es`, locale diselesaikan dari permintaan
+router.get("/", () => {
+  const { title } = useIntlayer("home");
+  return new Response(title);
 });
 ```
 
-## Cara Kerjanya
+## Deskripsi
 
-Middleware melakukan tugas-tugas berikut untuk setiap permintaan yang masuk:
+Middleware `intlayer` melakukan tugas-tugas berikut:
 
-1. **Deteksi Locale**: Mengekstrak locale dari awalan jalur URL (misalnya `/id/about`), cookie, atau header `Accept-Language` sesuai dengan konfigurasi Intlayer Anda.
-2. **Pengalihan URL**: Jika jalur yang diminta tidak memiliki awalan locale dan konfigurasi memerlukan perutean berawalan, middleware mengembalikan respons pengalihan (302/307/308) ke URL berawalan yang sesuai.
-3. **Mengisi Konteks Permintaan**: Menyimpan locale yang diselesaikan saat ini dalam konteks permintaan Remix menggunakan kunci `Intlayer`, sehingga hook (`useLocale`, `useIntlayer`, `useDictionary`) dapat menggunakannya secara transparan.
-4. **Manajemen Cookie**: Menyetel header `Set-Cookie` saat perlu mempertahankan locale pilihan pengguna.
+1. **Persiapan Kamus**: Menjalankan `prepareIntlayer` saat startup untuk memastikan semua kamus yang dihasilkan telah dibangun dan tersedia.
+2. **Routing Locale**: Mengevaluasi permintaan berdasarkan strategi routing yang dikonfigurasi (`prefix_always`, `prefix_as_needed`, `no_prefix`):
+   - **Pengalihan**: Jika pengguna mengunjungi `/about` dan harus diarahkan ke awalan locale (misalnya `/fr/about`), middleware mengeluarkan respons pengalihan dengan header `location` dan `Set-Cookie` yang sesuai.
+   - **Penulisan Ulang Internal**: Saat pengguna mengakses `/fr/about`, URL ditulis ulang secara internal sehingga handler rute Anda cocok dengan `/about`, sementara locale yang diselesaikan ditangkap sebagai `fr`.
+   - **Alias URL Terlokalisasi**: Mematuhi aturan penulisan ulang URL yang didefinisikan di `intlayer.config.ts` (misalnya menulis ulang `/fr/about` menjadi `/fr/a-propos`).
+3. **Resolusi Locale**: Mendeteksi locale aktif berdasarkan awalan URL, cookie yang tersimpan, header kustom, atau preferensi browser `Accept-Language`.
+4. **Injeksi Konteks**:
+   - Melampirkan `IntlayerState` (`locale`, `defaultLocale`, `availableLocales`) ke `RequestContext` Remix di bawah kunci `Intlayer` dan `context.intlayer`.
+   - Menjalankan sisa permintaan di dalam scope `AsyncLocalStorage` (`requestStorage`), sehingga `useIntlayer`, `useDictionary`, dan `useLocale` dapat dipanggil dengan rapi di handler, view, dan komponen.
+5. **Persistensi**: Melampirkan header dan cookie locale keluar ke respons HTTP akhir untuk mempertahankan preferensi pengguna.
 
 ## Parameter
 
@@ -84,5 +96,5 @@ router.get("/api/locale", (context) => {
 ## Dokumentasi Terkait
 
 - [Konteks Permintaan `Intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/remix-intlayer/Intlayer.md)
-- [Hook `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/remix-intlayer/useLocale.md)
 - [Hook `useIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/remix-intlayer/useIntlayer.md)
+- [Hook `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/remix-intlayer/useLocale.md)

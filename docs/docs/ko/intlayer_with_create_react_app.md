@@ -659,8 +659,6 @@ Intlayer에서 생성된 파일을 무시하는 것이 좋습니다. 이를 통�
 
 ### VS Code 확장
 
-Intlayer를 사용하면서 개발 경험을 개선하기 위해 공식 **Intlayer VS Code Extension**을 설치할 수 있습니다.
-
 Intlayer와 함께 개발 경험을 향상시키려면 공식 **Intlayer VS Code 확장**을 설치할 수 있습니다.
 
 - [VS Code 마켓플레이스에서 설치하기](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

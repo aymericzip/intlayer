@@ -320,9 +320,9 @@ Les fichiers PO synchronisés seront considérés comme les autres fichiers `.co
 - `intlayer content push` pour pousser les fichiers PO synchronisés
 - `intlayer content pull` pour tirer les fichiers PO synchronisés
 
-Voir [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md) pour plus de détails.
+Voir [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/index.md) pour plus de détails.
 
-- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md)
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/index.md)
 
 ## Limitations (actuelles)
 

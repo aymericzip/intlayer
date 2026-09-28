@@ -229,7 +229,9 @@ pnpm intlayer-editor start -e development
 
 <Question title="विज़ुअल एडिटर और CMS में क्या अंतर है?">
 
-विज़ुअल एडिटर स्थानीय शब्दकोशों को संपादित करता है और परिवर्तनों को सीधे आपकी स्रोत कोड फ़ाइलों में सहेजता है, इसलिए यह मानक Git समीक्षा प्रक्रिया से गुजरता है। CMS बिना रीबिल्ड के त्वरित प्रकाशन के लिए दूरस्थ सर्वर पर सामग्री संग्रहीत करता है।
+विज़ुअल एडिटर स्थानीय शब्दकोशों को संपादित करता है और परिवर्तन को वापस आपके कोडबेस में लिखता है, इसलिए यह आपकी सामान्य समीक्षा और डिप्लॉयमेंट प्रक्रिया से गुजरता है। [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md) दूरस्थ शब्दकोशों को संपादित करता है, जो बिना डिप्लॉयमेंट के चल रही साइट पर बदल जाते हैं। एडिटर डेवलपर्स के स्वामित्व वाली सामग्री के लिए उपयुक्त है; CMS मार्केटिंग टीम के स्वामित्व वाली सामग्री के लिए उपयुक्त है।
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md)
 
 </Question>
 <Question title="i18n मेरे बंडल आकार को कितना बढ़ाता है?">
@@ -317,7 +319,10 @@ pnpm intlayer-editor start -e development
 </Question>
 <Question title="क्या विज़ुअल एडिटर मुफ़्त है?">
 
-हाँ। विज़ुअल एडिटर Apache 2.0 लाइसेंस के तहत ओपन सोर्स प्रोजेक्ट का हिस्सा है, जिसमें व्यावसायिक उपयोग भी शामिल है।
+हाँ। विज़ुअल एडिटर Apache 2.0 लाइसेंस के तहत ओपन सोर्स प्रोजेक्ट का हिस्सा है, जिसमें व्यावसायिक उपयोग भी शामिल है। केवल होस्टेड [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md) एक सशुल्क सेवा है, और इसे [सेल्फ-होस्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/self_hosting.md) भी किया जा सकता है।
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md)
+- [सेल्फ-होस्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/self_hosting.md)
 
 </Question>
 

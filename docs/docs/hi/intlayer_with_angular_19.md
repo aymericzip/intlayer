@@ -554,34 +554,29 @@ Intlayer के साथ अपने विकास अनुभव को �
 - **[ESLint plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/eslint.md)**: `no-raw-text` नियम हार्डकोडेड स्ट्रिंग्स को चिह्नित करता है।
 
 </Question>
-<Question title="क्या Intlayer Angular Signals और Standalone Components के साथ काम करता है?">
+<Question title="क्या मुझे हर भाषा के लिए एक अलग build चाहिए?">
 
-हाँ। `angular-intlayer` पैकेज `ApplicationConfig` के लिए `provideIntlayer()` प्रदाता और `useIntlayer` सिग्नल प्रदान करता है जो भाषा बदलने पर टेम्पलेट्स को तुरंत अपडेट करता है।
-
-</Question>
-<Question title="क्या भाषा बदलने के लिए पृष्ठ को पुनः लोड करने की आवश्यकता होती है?">
-
-नहीं। Intlayer का सिग्नल प्रतिक्रियाशील है, इसलिए भाषा स्विच फॉर्म इनपुट और स्क्रॉल स्थिति को बनाए रखते हुए UI को लाइव अपडेट करता है।
+नहीं। यह `@angular/localize` का मॉडल है, जहाँ प्रत्येक locale को उसके अपने bundle में compile किया जाता है और अलग से deploy किया जाता है। Intlayer के साथ एक ही build सभी घोषित locales को सर्व करता है, और सक्रिय भाषा runtime पर URL, cookie या `Accept-Language` header से निर्धारित की जाती है।
 
 </Question>
-<Question title="Angular में लोकेल रूटिंग कैसे सेट करें?">
+<Question title="क्या Intlayer Angular signals और standalone components का समर्थन करता है?">
 
-रूट्स में `:locale` उपसर्ग जोड़ें और भाषा को सिंक करने के लिए रूट गार्ड का उपयोग करें। `routing.mode` सेटिंग URL योजना को परिभाषित करती है।
-
-</Question>
-<Question title="Angular में दाएं से बाएं लिखी जाने वाली भाषाओं को कैसे संभालें?">
-
-सक्रिय लोकेल के आधार पर टेक्स्ट दिशा (`ltr` या `rtl`) निर्धारित करने के लिए `getHTMLTextDir` का उपयोग करें, और इसे रूट तत्व पर `dir` विशेषता से बाइंड करें।
+हाँ। सामग्री signals के माध्यम से उपलब्ध कराई जाती है, इसलिए locale बदलने पर टेम्पलेट पृष्ठ को पुनः लोड किए बिना फिर से रेंडर होता है, और provider को किसी भी अन्य standalone provider की तरह पंजीकृत किया जाता है।
 
 </Question>
-<Question title="SEO मेटाडेटा और hreflang टैग कैसे प्रबंधित करें?">
+<Question title="मैं runtime पर भाषा कैसे बदलूँ?">
 
-वैकल्पिक भाषाओं को मैप करने के लिए `getMultilingualUrls` के संयोजन में Angular की `Title` और `Meta` सेवाओं का उपयोग करें।
+चरण 6 इसे कवर करता है। `useLocale` सक्रिय locale, घोषित locales और एक setter प्रदान करता है जो चुनाव को सहेजता है, और `getLocalizedUrl` वर्तमान पथ को फिर से लिखता है ताकि भाषा बदलने के बाद उपयोगकर्ता उसी रूट पर बना रहे।
+
+</Question>
+<Question title="क्या यह Angular Universal सर्वर साइड रेंडरिंग के साथ काम करता है?">
+
+हाँ। locale को सर्वर पर URL या request headers से निर्धारित किया जाता है और provider को पास किया जाता है, इसलिए सर्वर द्वारा रेंडर किया गया HTML पहले से ही सही भाषा में होता है और क्लाइंट भाषा बदले बिना hydrate होता है।
 
 </Question>
 <Question title="मैं ऐप को AI के साथ स्वचालित रूप से कैसे अनुवाद करूँ?">
 
-`npx intlayer fill` चलाएं। यह कमांड आपके चुने हुए LLM का उपयोग करके आपके अपने प्रदाता और API कुंजी के साथ लापता अनुवादों को भरता है, और `--git-diff` बदली गई फ़ाइलों तक संचालन को सीमित करता है। [fill command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/fill.md) और [CI/CD integration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/CI_CD.md) देखें।
+`npx intlayer fill` चलाएं। यह आपके अपने provider और API key का उपयोग करके आपकी पसंद के LLM से लापता अनुवादों को भरता है, और `--git-diff` रन को branch पर बदली गई सामग्री तक सीमित करता है। [fill command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/fill.md) और [CI/CD integration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/CI_CD.md) देखें।
 
 - [fill command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/fill.md)
 - [CI/CD integration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/CI_CD.md)
@@ -589,18 +584,26 @@ Intlayer के साथ अपने विकास अनुभव को �
 </Question>
 <Question title="क्या Intlayer बहुवचन, लिंग और समृद्ध पाठ (rich text) का समर्थन करता है?">
 
-हाँ: [बहुवचन (plurals)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/plurial.md), [लिंग-आधारित सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/gender.md), शर्तें, [सम्मिलन (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/insertion.md), और संख्याओं, तिथियों और मुद्राओं के लिए [प्रारूपक (formatters)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/formatters.md)।
+हाँ: [बहुवचन रूप](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/plurial.md), [लिंग आधारित सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/gender.md), शर्तें, [इंसर्शन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/insertion.md), [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/markdown.md) और संख्याओं, तिथियों और मुद्राओं के लिए [formatters](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/formatters.md)।
 
-- [बहुवचन (plurals)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/plurial.md)
-- [लिंग-आधारित सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/gender.md)
-- [सम्मिलन (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/insertion.md)
-- [Intlayer में Markdown कंटेंट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/markdown.md)
-- [प्रारूपक (formatters)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/formatters.md)
+- [बहुवचन रूप](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/plurial.md)
+- [लिंग आधारित सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/gender.md)
+- [इंसर्शन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/insertion.md)
+- [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/markdown.md)
+- [formatters](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/formatters.md)
+
+</Question>
+<Question title="शिप करने से पहले लापता अनुवादों को कैसे पकड़ें?">
+
+CI में `npx intlayer test` चलाएं। जब किसी घोषित locale में सामग्री लापता होती है तो यह build को विफल कर देता है। [VS Code extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/vs_code_extension.md) टाइप करते समय वही त्रुटियाँ रिपोर्ट करता है। [अपनी सामग्री का परीक्षण](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/testing.md) देखें।
+
+- [VS Code extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/vs_code_extension.md)
+- [अपनी सामग्री का परीक्षण](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/testing.md)
 
 </Question>
 <Question title="अनुवादक कोड को छुए बिना सामग्री को कैसे संपादित कर सकते हैं?">
 
-[विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) के माध्यम से, जो किसी को भी सीधे चलते हुए ऐप में टेक्स्ट संपादित करने देता है, या [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md) के माध्यम से, जो सामग्री को अलग करता है ताकि कोड को फिर से तैनात किए बिना उसे अपडेट किया जा सके।
+[विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) के माध्यम से, जो आपके अपने इंफ्रास्ट्रक्चर पर चलता है और किसी को भी चल रहे ऐप पर सीधे टेक्स्ट संपादित करने देता है, या [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md) के माध्यम से, जो सामग्री को बाहरी बनाता है ताकि इसे deployment के बिना बदला जा सके।
 
 - [विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md)
 - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md)
@@ -608,9 +611,9 @@ Intlayer के साथ अपने विकास अनुभव को �
 </Question>
 <Question title="क्या Intlayer मुफ्त और ओपन सोर्स है?">
 
-हाँ, Apache 2.0 लाइसेंस के तहत, व्यावसायिक उपयोग सहित। होस्टेड CMS एक वैकल्पिक सशुल्क सेवा है जिसे [स्वयं होस्ट (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/self_hosting.md) भी किया जा सकता है।
+हाँ, Apache 2.0 लाइसेंस के तहत, व्यावसायिक उपयोग सहित। होस्टेड CMS एक वैकल्पिक सशुल्क सेवा है जिसे [self host](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/self_hosting.md) भी किया जा सकता है।
 
-- [स्वयं होस्ट (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/self_hosting.md)
+- [self host](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/self_hosting.md)
 
 </Question>
 

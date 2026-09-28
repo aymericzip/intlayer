@@ -106,9 +106,9 @@ export default defineConfig({
 
 > スタンドアロン `intlayerCompiler()` プラグインは、高度なセットアップのためにエクスポートされています。`intlayer()` と一緒に登録するのは安全です。コンパイラが自動的に重複を排除し、1 回だけ実行されます。
 
-See complete tutorial: [Translate Vite and React with Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md)
+See complete tutorial: [Translate Vite and React with Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_vite+react.md)
 
-- [Translate Vite and React with Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md)
+- [Translate Vite and React with Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_vite+react.md)
 
 #### フレームワークサポート
 

@@ -847,9 +847,9 @@ export const LocaleSwitcher: FC = () => {
 
 - [`useLocale` 훅 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/next-intlayer/useLocale.md)
 
-> 이 경우 `router.push`를 사용한 리디렉션 없이 서버 측 코드만 콘텐츠의 로케일을 변경합니다.
+> 또한 `onLocaleChange` 옵션에 함수를 설정하여 로케일이 변경될 때 사용자 정의 함수를 실행할 수 있습니다.
 
-```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
+```tsx fileName="src/components/LocaleSwitcher.tsx"
 "use client";
 
 import { useLocale } from "next-intlayer";

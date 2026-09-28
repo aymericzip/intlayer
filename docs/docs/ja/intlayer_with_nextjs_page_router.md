@@ -262,60 +262,60 @@ export const config = {
 
 2.  **ローカライズ対応のために `_app.tsx` を更新:**
 
-        `_app.tsx` を修正して Intlayer のプロバイダーを含めます。
+    `_app.tsx` を修正して Intlayer のプロバイダーを含めます。
 
-        ```tsx fileName="src/pages/_app.tsx" codeFormat="typescript"
-        import type { FC } from "react";
-        import type { AppProps } from "next/app";
-        import { IntlayerClientProvider } from "next-intlayer";
+    ```tsx fileName="src/pages/_app.tsx" codeFormat=["typescript", 'esm', 'cjs']
+    import type { FC } from "react";
+    import type { AppProps } from "next/app";
+    import { IntlayerProvider } from "next-intlayer";
 
-        const App = FC<AppProps>({ Component, pageProps }) => {
-          const { locale } = pageProps;
+    const App = FC<AppProps>({ Component, pageProps }) => {
+      const { locale } = pageProps;
 
-          return (
-            <IntlayerClientProvider locale={locale}>
-              <Component {...pageProps} />
-            </IntlayerClientProvider>
-          );
-        }
+      return (
+        <IntlayerProvider locale={locale}>
+          <Component {...pageProps} />
+        </IntlayerProvider>
+      );
+    }
 
-        export default MyApp;
-        ```
+    export default MyApp;
+    ```
 
 3.  **`getStaticPaths` と `getStaticProps` の設定:**
 
-`[locale]/index.tsx` ファイル内で、異なるロケールを処理するためのパスとプロパティを定義します。
+    `[locale]/index.tsx` ファイル内で、異なるロケールを処理するためのパスとプロパティを定義します。
 
-```tsx fileName="src/pages/[locale]/index.tsx" codeFormat="typescript"
-import type { FC } from "react";
-import type { GetStaticPaths, GetStaticProps } from "next";
-import { type Locales, getConfiguration } from "intlayer";
+    ```tsx fileName="src/pages/[locale]/index.tsx" codeFormat="typescript"
+    import type { FC } from "react";
+    import type { GetStaticPaths, GetStaticProps } from "next";
+    import { type Locales, getConfiguration } from "intlayer";
 
-const HomePage: FC = () => <div>{/* ここにコンテンツを記述 */}</div>;
+    const HomePage: FC = () => <div>{/* ここにコンテンツを記述 */}</div>;
 
-export const getStaticPaths: GetStaticPaths = () => {
-  const { internationalization } = getConfiguration();
-  const { locales } = internationalization;
+    export const getStaticPaths: GetStaticPaths = () => {
+      const { internationalization } = getConfiguration();
+      const { locales } = internationalization;
 
-  const paths = locales.map((locale) => ({
-    params: { locale },
-  }));
+      const paths = locales.map((locale) => ({
+        params: { locale },
+      }));
 
-  return { paths, fallback: false };
-};
+      return { paths, fallback: false };
+    };
 
-export const getStaticProps: GetStaticProps = ({ params }) => {
-  const locale = params?.locale as string;
+    export const getStaticProps: GetStaticProps = ({ params }) => {
+      const locale = params?.locale as string;
 
-  return {
-    props: {
-      locale,
-    },
-  };
-};
+      return {
+        props: {
+          locale,
+        },
+      };
+    };
 
-export default HomePage;
-```
+    export default HomePage;
+    ```
 
     ```jsx fileName="src/pages/[locale]/index.mjx" codeFormat="esm"
     import { getConfiguration } from "intlayer";

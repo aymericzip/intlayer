@@ -320,9 +320,9 @@ loadPO({
 - `intlayer content push`: 同期された PO ファイルをプッシュします
 - `intlayer content pull`: 同期された PO ファイルをプルします
 
-詳細は [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md) を参照してください。
+詳細は [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md) を参照してください。
 
-- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md)
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md)
 
 ## 制限事項（現在）
 

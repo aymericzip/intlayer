@@ -243,9 +243,9 @@ Khám phá tài liệu toàn diện của chúng tôi để bắt đầu với I
 <ul>
   <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md" rel=''>Next.js</a></li>
   <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md" rel=''>TanStack Start</a></li>
-  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/vue.md" rel=''>Vue</a></li>
-  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/solid.md" rel=''>Solid</a></li>
-  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/svelte.md" rel=''>Svelte</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/vue.md" rel=''>Vue</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/solid.md" rel=''>Solid</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/svelte.md" rel=''>Svelte</a></li>
 </ul>
 </details>
 

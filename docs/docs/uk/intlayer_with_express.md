@@ -305,14 +305,17 @@ export default config;
 </Question>
 <Question title="Скільки i18n додає до розміру серверного бандла Express?">
 
-Значно менше, ніж традиційні каталоги JSON. Компілятор Intlayer оптимізує словники під час збирання і не парсить їх заново під час кожного запиту, зменшуючи використання пам'яті та час холодного старту. Див. [оптимізацію бандла](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/bundle_optimization.md).
+Дуже мало. Словники компілюються заздалегідь, і до бандла потрапляють лише оголошені вами локалі, тому немає завантаження каталогів під час запуску та немає читання файлів під час обробки запиту. Це найважливіше для serverless- та edge-розгортань, де розмір бандла визначає час холодного старту. Див. [оптимізацію бандла](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/bundle_optimization.md).
 
 - [оптимізацію бандла](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/bundle_optimization.md)
 
 </Question>
-<Question title="Чи можу я мігрувати з i18next або інших бібліотек для бекенду без переписування обробників?">
+<Question title="Чи можу я мігрувати з `i18next` без переписування обробників?">
 
-Так. Можна мігрувати поступово або використовувати адаптери сумісності для збереження існуючих API.
+Так, і для цього є два шляхи. Ви можете мігрувати контент поступово за допомогою [посібника з міграції з i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/migration_from_i18next_to_intlayer.md). Або ви можете повністю зберегти поточний API: [compat-адаптери](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/index.md) надають точно такий самий API, як `i18next`, але працюють на словниках Intlayer, тож змінюються лише імпорти, а код обробників залишається незмінним.
+
+- [посібник з міграції з i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/migration_from_i18next_to_intlayer.md)
+- [compat-адаптери](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/index.md)
 
 </Question>
 <Question title="Чи можу я зберігати мої існуючі JSON файли перекладів?">
@@ -326,11 +329,11 @@ export default config;
 </Question>
 <Question title="Чи потрібно переносити вміст ключ за ключем?">
 
-Ні. Запустіть `npx intlayer extract`, і Intlayer прочитає ваші файли, витягне призначені для користувача рядки і створить файл `.content` поруч із кожним компонентом, завдяки чому ви переглядаєте diff замість копіювання рядків у каталог вручну. Див. [команду extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/extract.md).
+Ні. Запустіть `npx intlayer extract`, і Intlayer прочитає ваші вихідні файли, витягне призначені для користувача рядки і створить файл `.content` поруч із кожним із них, завдяки чому ви переглядаєте diff замість копіювання рядків у каталог по одному. Див. [команду extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/extract.md).
 
 - [команду extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/extract.md)
 
-Для повної автоматизації [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compiler.md) робить те саме під час збирання та генерує словники під час кожної зміни.
+На фронтенд-стороні того ж проєкту [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compiler.md) іде ще далі й генерує словники під час збирання з вашого коду JSX, TSX, Vue або Svelte, тож обидві половини застосунку спільно використовують один шар контенту без жодних ключів, які потрібно підтримувати вручну.
 
 - [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compiler.md)
 
@@ -339,73 +342,77 @@ export default config;
 
 П'ять інструментів, усі опціональні:
 
-- **[Розширення VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/vs_code_extension.md)**: перехід від ключа до файлу контенту, вилучення рядків та запуск build, fill, test, push і pull із палітри команд.
-- **[LSP сервер](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/lsp.md)**: перехід до визначення, перегляд перекладеного значення під час наведення та автодоповнення ключів у будь-якому редакторі з підтримкою LSP. Також обробляє виклики `i18next`.
-- **[MCP сервер](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/mcp_server.md)**: надає документацію та CLI Intlayer для Cursor, VS Code, Claude Desktop, Claude Code та ChatGPT.
-- **[Навички агента (Agent skills)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/agent_skills.md)**: спеціалізовані навички `intlayer-config`, `intlayer-cli` та `intlayer-content`.
-- **[Плагін ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/eslint.md)**: правило `no-raw-text` відстежує жорстко закодовані рядки.
+- **[Розширення VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/vs_code_extension.md)**: перехід від ключа `useIntlayer` до файлу контенту, який його оголошує, вилучення контенту з компонента та запуск build, fill, test, push і pull із палітри команд або окремої вкладки Intlayer.
+- **[LSP сервер](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/lsp.md)**: те саме розуміння коду в будь-якому редакторі з підтримкою LSP: перехід до визначення, пошук усіх посилань, перегляд перекладеного значення під час наведення, автодоповнення ключів і полів та попередження, коли ключ ніде не оголошено. Він також розпізнає виклики `i18next`, `react-i18next`, `next-intl` та `use-intl`, що допомагає під час міграції.
+- **[MCP сервер](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/mcp_server.md)**: надає документацію та CLI Intlayer для Cursor, VS Code, Claude Desktop, Claude Code та ChatGPT, тож асистент відповідає на основі актуальної документації замість здогадок і може сам виконувати команди, як-от `intlayer fill`.
+- **[Навички агента (Agent skills)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/agent_skills.md)**: спеціалізовані навички, такі як `intlayer-config`, `intlayer-cli` та `intlayer-content`, а також по одній для кожного фреймворку, які навчають агента вашого налаштування маршрутизації та типів вузлів контенту.
+- **[Плагін ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/eslint.md)**: правило `no-raw-text` позначає жорстко закодовані рядки, а додаткові правила стосуються статичних ключів словників і невикористаного контенту.
 
 </Question>
-<Question title="Як визначається мова клієнта у вхідних запитах?">
+<Question title="Як Intlayer визначає, якою мовою відповідати?">
 
-Middleware `app.use(intlayer())` послідовно аналізує префікс URL, файли cookie, заголовок `Accept-Language` та мову за замовчуванням. Визначена локаль записується в `req.locale`.
+За замовчуванням `express-intlayer` читає заголовок `Accept-Language` вхідного запиту й обирає найближчу оголошену локаль, повертаючись до локалі за замовчуванням. Ви можете змінити джерело через `routing.storage`, наприклад на власний заголовок або cookie, встановлений вашим фронтендом, щоб API відповідав мовою, яку користувач справді обрав, а не тією, яку повідомляє його браузер. Див. [довідник з конфігурації](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md).
 
-</Question>
-<Question title="Чи можуть одні й ті самі оголошення контенту обслуговувати відповіді API та веб-інтерфейс?">
-
-Так, у монорепозиторіях або спільних пакетах це є ключовою перевагою. Оголошений словник можна імпортувати як на бекенді (листи, помилки, відповіді API), так і на фронтенді (React, Vue, Svelte тощо), зберігаючи єдине джерело істини для всіх текстів.
+- [довідник з конфігурації](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md)
 
 </Question>
-<Question title="Чи сповільнює Intlayer обробку запитів?">
+<Question title="Чи ізольована локаль для кожного запиту?">
 
-Ні. Визначення локалі відбувається у швидкому middleware (читаються cookie, параметри або заголовок Accept-Language). Словники скомпільовані під час збирання та знаходяться в пам'яті, тому під час запиту немає читання з диска чи парсингу рядків.
-
-</Question>
-<Question title="Як локалізувати повідомлення про помилки, електронні листи та push-сповіщення?">
-
-Викликаючи функцію `getIntlayer` або `t()` з урахуванням локалі запиту. Якщо мова користувача зберігається у базі даних, у фонових завданнях цільову мову можна передати у функцію явно.
+Так. Middleware обмежує активну локаль межами запиту, тому два одночасні запити різними мовами ніколи не читають локаль один одного. Саме це робить виклики `t()` та `getIntlayer()` безпечними всередині сервісу без передавання аргументу локалі через кожну функцію.
 
 </Question>
-<Question title="Чи можу я використовувати власний механізм визначення мови?">
+<Question title="Як надсилати транзакційні листи мовою одержувача?">
 
-Так. Ви можете створити власний middleware, який зчитує мову з даних сесії чи профілю користувача та призначає її у `req.locale`.
-
-</Question>
-<Question title="Як використовувати локалізовані префікси URL у маршрутах Express?">
-
-Через налаштування маршрутизації Intlayer або додавши сегмент `/:locale/` до ваших маршрутів. `validatePrefix` перевіряє валідність мов.
+Оголосіть контент листа у файлі контенту, як і будь-який інший контент, а потім отримайте його через `getIntlayer` для збереженої локалі одержувача замість локалі запиту. Це важливо для фонових задач і черг, де мова належить до запису користувача і немає вхідного запиту, з якого можна прочитати заголовок.
 
 </Question>
-<Question title="Як автоматично перекласти додаток за допомогою AI?">
+<Question title="Як локалізувати повідомлення про помилки API?">
 
-Запустіть `npx intlayer fill`. Утиліта заповнює відсутні переклади через обрану LLM з вашим провайдером та ключем API, а прапорець `--git-diff` обмежує обробку зміненими файлами. Див. [команду fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/fill.md) та [інтеграцію CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/CI_CD.md).
+Обгорніть повідомлення в `t()` у місці, де створюється помилка. Активна локаль запиту визначає його значення, тож клієнт отримує повідомлення, яке може відобразити напряму, а вашому фронтенду не потрібен паралельний каталог кодів помилок.
+
+</Question>
+<Question title="Чи працює це з наявним застосунком Express та іншими middleware?">
+
+Так. `express-intlayer` є стандартним middleware для Express, тому він поєднується з вашим наявним стеком. Зареєструйте його перед маршрутами, які читають контент, щоб локаль була визначена на момент, коли обробник викликає `t()` або `getIntlayer()`.
+
+</Question>
+<Question title="Як автоматично перекласти контент бекенда за допомогою AI?">
+
+Запустіть `npx intlayer fill`, що заповнює відсутні переклади за допомогою обраної вами LLM, використовуючи вашого власного провайдера та API-ключ. Додайте `--git-diff`, щоб перекладати лише контент, змінений у гілці. Див. [команду fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/fill.md) та [інтеграцію CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/CI_CD.md).
 
 - [команду fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/fill.md)
 - [інтеграцію CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/CI_CD.md)
 
 </Question>
-<Question title="Чи підтримує Intlayer форми множини, стать та форматований текст (rich text)?">
+<Question title="Чи підтримує Intlayer множину, рід та інтерпольовані значення на сервері?">
 
-Так: [форми множини](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/plurial.md), [контент з урахуванням статі](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/gender.md), умови, [вставки (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/insertion.md) та [форматування](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/formatters.md).
+Так: [форми множини](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/plurial.md), [контент залежно від роду](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/gender.md), умови, [вставки (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/insertion.md) для інтерпольованих значень, [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/markdown.md) для тексту листів та [форматери](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/formatters.md) для чисел, дат і валют.
 
 - [форми множини](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/plurial.md)
-- [контент з урахуванням статі](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/gender.md)
+- [контент залежно від роду](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/gender.md)
 - [вставки (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/insertion.md)
-- [Markdown-контент в Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/markdown.md)
-- [форматування](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/formatters.md)
+- [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/markdown.md)
+- [форматери](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/formatters.md)
 
 </Question>
-<Question title="Як нетехнічні члени команди можуть редагувати шаблони листів та повідомлення про помилки без доступу до коду?">
+<Question title="Чи отримую я автодоповнення TypeScript на сервері?">
 
-Є два шляхи: [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md), яка відокремлює вміст від кодової бази і дозволяє редагувати тексти через веб-інтерфейс, або [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md), який записує зміни безпосередньо у файли коду.
-
-- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)
-- [Власний хостинг Intlayer у Docker](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/self_hosting.md)
+Так. Intlayer генерує типи ваших словників у `./types/intlayer.d.ts`, тому неіснуючий ключ стає помилкою компіляції, а не порожнім рядком під час виконання. Запускайте `npx intlayer test` у CI, щоб збирання падало, коли для оголошеної локалі бракує контенту.
 
 </Question>
-<Question title="Чи є Intlayer безкоштовним та відкритим кодом?">
+<Question title="Чи можуть фронтенд і бекенд використовувати той самий контент?">
 
-Так, під ліцензією Apache 2.0, включно з комерційним використанням. Хмарна CMS - це додаткова платна послуга, яку також можна [розгорнути самостійно (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/self_hosting.md).
+Так, і це звичайне налаштування. `express-intlayer` працює разом із `react-intlayer`, `next-intlayer` та `vite-intlayer` на тому самому оголошеному контенті, тож мітка, яка використовується і у відповіді API, і на сторінці, оголошується лише один раз. Див. [як працює Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/how_works_intlayer.md).
+
+- [як працює Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/how_works_intlayer.md)
+
+</Question>
+<Question title="Чи є Intlayer безкоштовним і з відкритим кодом?">
+
+Так, за ліцензією Apache 2.0, включно з комерційним використанням. Хостинговий [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md) є необов'язковим платним сервісом, який також можна [розгорнути на власному сервері](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/self_hosting.md).
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)
+- [розгорнути на власному сервері](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/self_hosting.md)
 
 </Question>
 

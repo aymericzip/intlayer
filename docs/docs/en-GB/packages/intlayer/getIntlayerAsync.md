@@ -69,10 +69,10 @@ getIntlayerAsync(
   - **Required**: Yes
 
 - `localeOrSelector: LocalesValues | DictionarySelector`
-  - **Description**: The locale to interpret the content with, or a selector object for [dynamic dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dynamic_dictionaries/index.md).
+  - **Description**: The locale to interpret the content with, or a selector object for [dynamic dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dynamic_dictionaries/index.md).
     - `'fr'`: a locale
-    - `{ item: 2 }`: a [collection](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dynamic_dictionaries/collections.md) item (omit `item` to get every item as an array)
-    - `{ variant: 'black-friday' }`: a named [variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dynamic_dictionaries/variants.md) (omit for the `default` one)
+    - `{ item: 2 }`: a [collection](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dynamic_dictionaries/collections.md) item (omit `item` to get every item as an array)
+    - `{ variant: 'black-friday' }`: a named [variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dynamic_dictionaries/variants.md) (omit for the `default` one)
     - `{ variant: { id: 'prod_abc', userId: '123' } }`: a structured variant
     - Any selector can carry a locale: `{ item: 2, locale: 'fr' }`
   - **Type**: `LocalesValues | DictionarySelector`

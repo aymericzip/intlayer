@@ -127,7 +127,7 @@ Thứ tự khởi động được kiểm soát bởi các phụ thuộc s6 (`mo
 
 ### 1. Cài đặt
 
-Ghi `./intlayer.env` với `BETTER_AUTH_SECRET` và `S3_SECRET_ACCESS_KEY` đã tạo, sau đó kéo `intlayer/cms-all:latest`.
+Ghi `./intlayer.env` với `BETTER_AUTH_SECRET` và `S3_SECRET_ACCESS_KEY` đã tạo, đặt một vài câu hỏi để điền phần còn lại, sau đó kéo `intlayer/cms-all:latest`.
 
 <Tabs group="os">
 <Tab label="macOS / Linux" value="unix">
@@ -148,14 +148,22 @@ $env:INTLAYER_MODE = "docker"; irm https://intlayer.org/install.ps1 | iex
 </Tab>
 <Tab label="Intlayer CLI" value="cli">
 
-CLI chạy trình cài đặt và in lệnh `docker run …` như hiển thị ở các tab khác. Hãy dán vào terminal của bạn sau khi đã định cấu hình mailer.
+```bash
+npx intlayer init infra --mode docker
+```
 
 </Tab>
 </Tabs>
 
-### 2. Cấu hình Mailer
+### 2. Trả lời các câu hỏi thiết lập
 
-Mở `intlayer.env` và điền Resend **hoặc** SMTP (xem chi tiết tại [Trình gửi thư toàn cục](#global-mailer)):
+Trình cài đặt sẽ hỏi (nhấn Enter để chấp nhận giá trị gợi ý; mọi câu trả lời đều có thể thay đổi trong tệp sau này):
+
+- **Tên miền** phục vụ Intlayer. Để trống để giữ nguyên `localhost`. Với tên miền như `example.org`, trình cài đặt gợi ý `https://cms.example.org` cho bảng điều khiển, `https://back.example.org` cho API và `https://s3.example.org/intlayer` cho kho lưu trữ đối tượng, rồi ghi `DOMAIN`, `APP_URL`, `BACKEND_URL` và `S3_PUBLIC_URL`. Xem [Tên miền tùy chỉnh](#custom-domain) cho các bước tiếp theo.
+- **Trình gửi thư**: Resend (khóa API) hoặc SMTP relay (máy chủ, cổng, thông tin xác thực), cùng với địa chỉ người gửi. Bước này có thể bỏ qua và thực hiện thủ công sau.
+- **Khóa API OpenAI** tùy chọn cho các tính năng AI.
+
+Khi không có terminal (ví dụ khi script được chạy từ CI), các câu hỏi được bỏ qua và chỉ các secret được tạo. Mở `intlayer.env` và điền Resend **hoặc** SMTP thủ công (xem chi tiết tại [Trình gửi thư toàn cục](#global-mailer)):
 
 ```sh fileName="intlayer.env"
 # Option A: Resend
@@ -171,7 +179,7 @@ MAIL_FROM=Intlayer <no-reply@example.com>
 
 ### 3. Khởi chạy
 
-Đây là lệnh khởi chạy do trình cài đặt in ra:
+Đây là lệnh khởi chạy do trình cài đặt in ra (với tên miền tùy chỉnh, trước đó sẽ chạy `docker build` để tạo `intlayer/cms-all:custom`, xem [Tên miền tùy chỉnh](#custom-domain)):
 
 <Tabs group="os">
 <Tab label="macOS / Linux" value="unix">
@@ -205,7 +213,7 @@ CLI chạy trình cài đặt và in lệnh `docker run …` như hiển thị �
 </Tab>
 </Tabs>
 
-Mở **http://localhost:3000** và làm theo hướng dẫn [Thiết lập lần đầu](#first-run-setup). Lần khởi động đầu tiên sẽ khởi tạo replica-set và bucket, vui lòng đợi trong giây lát.
+Mở **http://localhost:3000** (hoặc URL bảng điều khiển của bạn) và làm theo hướng dẫn [Thiết lập lần đầu](#first-run-setup). Lần khởi động đầu tiên sẽ khởi tạo replica-set và bucket, vui lòng đợi trong giây lát.
 
 ### Sao lưu và Nâng cấp
 
@@ -260,7 +268,7 @@ Dữ liệu được lưu trữ trong các volume `intlayer_mongo-data`, `intlay
 
 ### 1. Cài đặt
 
-Ghi `docker-compose.yml` và `.env` với các secret đã tạo vào `./intlayer/` và kéo các hình ảnh.
+Ghi `docker-compose.yml` và `.env` với các secret đã tạo vào `./intlayer/`, đặt các câu hỏi thiết lập giống như chế độ all-in-one (tên miền, trình gửi thư, khóa OpenAI) và kéo các hình ảnh.
 
 <Tabs group="os">
 <Tab label="macOS / Linux" value="unix">
@@ -308,7 +316,7 @@ npx intlayer init infra --mode compose
 
 ### 2. Cấu hình Mailer
 
-Điền Resend **hoặc** SMTP vào `intlayer/.env`, tương tự như container all-in-one (xem [Trình gửi thư toàn cục](#global-mailer)).
+Nếu bạn đã bỏ qua câu hỏi về trình gửi thư, hãy điền Resend **hoặc** SMTP vào `intlayer/.env`, tương tự như container all-in-one (xem [Trình gửi thư toàn cục](#global-mailer)).
 
 ### 3. Khởi chạy
 
@@ -316,7 +324,9 @@ npx intlayer init infra --mode compose
 cd intlayer && docker compose up -d
 ```
 
-Mở **http://localhost:3000** và làm theo hướng dẫn [Thiết lập lần đầu](#first-run-setup).
+Với tên miền tùy chỉnh, trình cài đặt cũng tải xuống `docker-compose.build.yml` và lệnh khởi chạy trở thành `docker compose -f docker-compose.yml -f docker-compose.build.yml up -d --build` (xem [Tên miền tùy chỉnh](#custom-domain)).
+
+Mở **http://localhost:3000** (hoặc URL bảng điều khiển của bạn) và làm theo hướng dẫn [Thiết lập lần đầu](#first-run-setup).
 
 ### Kho dữ liệu được quản lý
 
@@ -340,14 +350,14 @@ services:
 
 ### Xây dựng từ nguồn
 
-Từ bản sao lưu trữ, chuyển đổi hai dịch vụ Intlayer từ `image:` sang `build:` bằng cấu hình ghi đè:
+Một cấu hình ghi đè chuyển đổi hai dịch vụ Intlayer từ `image:` sang `build:`. Từ bản sao của kho lưu trữ:
 
 ```sh
 cd docker/selfhost
 docker compose -f docker-compose.yml -f docker-compose.build.yml up -d --build
 ```
 
-Sử dụng cách này khi xây dựng hình ảnh cho miền tùy chỉnh: truyền các giá trị `VITE_*` dưới dạng đối số bản dựng (xem [Giới hạn](#limitations)).
+Nếu không có bản sao, hãy trỏ ngữ cảnh build trực tiếp đến kho lưu trữ bằng cách đặt `INTLAYER_BUILD_CONTEXT=https://github.com/aymericzip/intlayer.git#main` trong `.env`. Các đối số build `VITE_*` của bảng điều khiển lấy theo `DOMAIN`, `APP_URL` và `BACKEND_URL` trong cùng tệp, đó là cách áp dụng [tên miền tùy chỉnh](#custom-domain).
 
 ### Sao lưu và Nâng cấp
 
@@ -390,6 +400,8 @@ $env:INTLAYER_MODE = "compose"; $env:INTLAYER_COMPOSE_DIR = ".\cms"; irm https:/
 | `INTLAYER_CONSOLE_PORT`   | `9001`                    | docker     | Host port for the MinIO console                            |
 | `INTLAYER_COMPOSE_DIR`    | `./intlayer`              | compose    | Where `docker-compose.yml` and `.env` are written          |
 | `INTLAYER_SELFHOST_REF`   | `main`                    | both       | Git ref the compose file and env template are fetched from |
+| `INTLAYER_BUILD_CONTEXT`  | `…/intlayer.git#main`     | both       | Build context used when a custom domain requires a rebuild |
+| `INTLAYER_CUSTOM_IMAGE`   | `intlayer/cms-all:custom` | docker     | Tag of the all-in-one image built for a custom domain      |
 
 > Các biến cổng chỉ thay đổi phía **máy chủ** của ánh xạ. Các hình ảnh đã xuất bản có `http://localhost:3000`, `http://localhost:3100`, `http://localhost:9000` được biên dịch sẵn vào gói bảng điều khiển, vì vậy hãy giữ nguyên các giá trị mặc định trừ khi bạn tự xây dựng hình ảnh, xem [Giới hạn](#limitations).
 
@@ -417,7 +429,7 @@ Cả hai chế độ Docker đều đọc cùng một tệp (tệp `intlayer.env
 
 ### Được cố định bởi việc triển khai
 
-These are set by the image (all-in-one) or by the compose file, and only need overriding for a non-standard topology.
+Các biến này được đặt bởi hình ảnh (all-in-one) hoặc bởi tệp compose, và chỉ cần ghi đè cho một cấu trúc triển khai không chuẩn. `DOMAIN`, `APP_URL`, `BACKEND_URL` và `S3_PUBLIC_URL` là ngoại lệ: khi được đặt trong tệp env, chúng được ưu tiên ở cả hai chế độ (xem [Tên miền tùy chỉnh](#custom-domain)).
 
 | Variable           | All-in-one                                          | Docker Compose                   | Description                                                                   |
 | ------------------ | --------------------------------------------------- | -------------------------------- | ----------------------------------------------------------------------------- |
@@ -434,6 +446,37 @@ These are set by the image (all-in-one) or by the compose file, and only need ov
 | `S3_ACCESS_KEY_ID` | `intlayer`                                          | `intlayer`                       | MinIO access key                                                              |
 
 Dịch vụ Compose `app` nhận thêm `INTLAYER_BACKEND_INTERNAL_URL=http://backend:3100`: trình duyệt tiếp cận API tại `localhost:3100`, nhưng quá trình kết xuất phía máy chủ chạy bên trong mạng Compose nên nó phải sử dụng tên dịch vụ.
+
+### Tên miền tùy chỉnh
+
+Backend đọc các URL công khai của nó khi chạy, nhưng bảng điều khiển đã **biên dịch sẵn** chúng: các hình ảnh đã xuất bản `intlayer/cms-frontend` và `intlayer/cms-all` chỉ hoạt động trên `http://localhost:3000`. Vì vậy, phục vụ Intlayer trên tên miền của riêng bạn cần hai thứ, cả hai đều được trình cài đặt chuẩn bị khi bạn trả lời câu hỏi về tên miền:
+
+1. **Bốn biến trong tệp env**, được backend đọc (cookie, liên kết email, callback OAuth, URL tài nguyên) và được `docker-compose.build.yml` dùng làm đối số build:
+
+   ```sh fileName="intlayer.env"
+   DOMAIN=example.org                          # cookie domain, parent of the hosts below
+   APP_URL=https://cms.example.org
+   BACKEND_URL=https://back.example.org
+   S3_PUBLIC_URL=https://s3.example.org/intlayer
+   ```
+
+2. **Một hình ảnh bảng điều khiển được build với các URL đó.** Docker build trực tiếp từ kho lưu trữ, không cần bản sao:
+
+   ```sh
+   # Docker Compose: the override reads the build args from .env
+   docker compose -f docker-compose.yml -f docker-compose.build.yml up -d --build
+
+   # All-in-one
+   docker build -f docker/selfhost/Dockerfile \
+     --build-arg VITE_DOMAIN=example.org \
+     --build-arg VITE_SITE_URL=https://cms.example.org \
+     --build-arg VITE_IDE_URL=https://cms.example.org \
+     --build-arg VITE_BACKEND_URL=https://back.example.org \
+     -t intlayer/cms-all:custom \
+     https://github.com/aymericzip/intlayer.git#main
+   ```
+
+Sau đó đặt một reverse proxy có TLS phía trước container: `cms.example.org` → cổng `3000`, `back.example.org` → `3100`, `s3.example.org` → `9000`. Ba máy chủ phải có chung hậu tố `DOMAIN`, vì cookie phiên được giới hạn trong phạm vi đó.
 
 ### Tùy chọn (các tính năng sẽ giảm cấp nhẹ nhàng khi không được đặt)
 
@@ -529,9 +572,10 @@ const { data: dictionaries } = await dictionaryEndpoint(cms).getDictionaries();
 
 ## Giới hạn
 
-- **Chưa hỗ trợ tên miền tùy chỉnh và ánh xạ lại cổng.** Tất cả các URL `VITE_*` hướng đến trình duyệt đều được nhúng sẵn vào bảng điều khiển tại thời điểm xây dựng, và các hình ảnh đã xuất bản (cùng với ứng dụng desktop) có sẵn các giá trị `localhost` / Intlayer Cloud. Bảng điều khiển phải được truy cập tại `http://localhost:3000`, API tại `:3100` và MinIO tại `:9000`. Việc lưu trữ trên miền công khai hoặc trỏ ứng dụng desktop đến backend tự lưu trữ yêu cầu xây dựng lại với các URL mục tiêu được nhúng sẵn (trên `docker/selfhost/Dockerfile` hoặc `docker-compose.build.yml` với `--build-arg VITE_BACKEND_URL=… VITE_SITE_URL=… VITE_DOMAIN=…`), điều này không được hỗ trợ sẵn ngay khi cài đặt.
+- **Tên miền tùy chỉnh đồng nghĩa với việc build lại.** Tất cả các URL `VITE_*` hướng đến trình duyệt đều được nhúng sẵn vào bảng điều khiển tại thời điểm xây dựng, và các hình ảnh đã xuất bản (cùng với ứng dụng desktop) có sẵn các giá trị `localhost` / Intlayer Cloud. Mặc định, bảng điều khiển phải được truy cập tại `http://localhost:3000`, API tại `:3100` và MinIO tại `:9000`; ánh xạ lại cổng của máy chủ cũng có tác dụng tương tự. Trình cài đặt chuẩn bị mọi thứ để build lại từ kho lưu trữ khi bạn cung cấp tên miền (xem [Tên miền tùy chỉnh](#custom-domain)), nhưng bản thân quá trình build mất vài phút. Việc trỏ ứng dụng desktop đến backend tự lưu trữ không được hỗ trợ.
 - **Gửi thư yêu cầu một mailer hoạt động.** Thiết lập lần đầu bắt buộc phải xác minh email, vì vậy phải định cấu hình `RESEND_API_KEY` hoặc một [relay SMTP](#global-mailer) (`MAIL_SMTP_*`). Sau khi quản trị viên đầu tiên đăng nhập, các tổ chức cũng có thể cấu hình mailer SMTP hoặc Resend riêng của họ từ bảng điều khiển.
 - **Ứng dụng desktop yêu cầu Node.js trên máy để khởi động máy chủ nhúng.**
+- **Không có trợ lý tài liệu.** Trợ lý tài liệu AI của intlayer.org (`/api/ai/ask`, `/api/search/doc`) dựa trên khoảng 130 MB embedding tài liệu được tính toán trước mà các hình ảnh tự lưu trữ không đi kèm; hai route này không được đăng ký ở chế độ tự lưu trữ. Các tính năng AI riêng của bảng điều khiển (dịch, kiểm tra, tự động hoàn thành, chat) không bị ảnh hưởng và chỉ cần `OPENAI_API_KEY`.
 
 ## Liên kết hữu ích
 

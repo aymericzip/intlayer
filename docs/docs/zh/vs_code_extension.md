@@ -44,32 +44,32 @@ author: aymericzip
 
 ## 功能
 
-![提取内容](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_extract_content.gif?raw=true)
+![提取内容](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_extract_content.gif?raw=true)
 
 - **提取内容** – 从您的 React / Vue / Svelte 组件中提取内容
 
-![填充词典](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_fill_active_dictionary.gif?raw=true)
+![填充词典](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_fill_active_dictionary.gif?raw=true)
 
 - **即时导航** – 点击 `useIntlayer` 键时，快速跳转到正确的内容文件。
 - **填充词典** – 使用项目中的内容填充词典。
 
-![列出命令](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_list_commands.gif?raw=true)
+![列出命令](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_list_commands.gif?raw=true)
 
 - **轻松访问 Intlayer 命令** – 轻松构建、推送、拉取、填充和测试内容词典。
 
-![创建内容文件](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_create_content_file.gif?raw=true)
+![创建内容文件](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_create_content_file.gif?raw=true)
 
 - **内容声明生成器** – 以多种格式创建词典内容文件（`.ts`、`.esm`、`.cjs`、`.json`）。
 
-![测试词典](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_test_missing_dictionary.gif?raw=true)
+![测试词典](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_test_missing_dictionary.gif?raw=true)
 
 - **测试词典** – 测试词典中缺失的翻译。
 
-![重建词典](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_rebuild_dictionary.gif?raw=true)
+![重建词典](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_rebuild_dictionary.gif?raw=true)
 
 - **保持词典最新** – 使您的词典内容保持与项目最新内容同步。
 
-![Intlayer 侧边栏标签 (活动栏)](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_search_dictionary.gif?raw=true)
+![Intlayer 侧边栏标签 (活动栏)](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_search_dictionary.gif?raw=true)
 
 - **Intlayer 侧边栏标签 (活动栏)** – 通过专用侧边标签浏览和搜索词典，带有工具栏和上下文操作（构建、拉取、推送、填充、刷新、测试、创建文件）。
 

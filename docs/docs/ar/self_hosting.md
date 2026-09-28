@@ -126,7 +126,7 @@ npx intlayer init infra --mode desktop
 
 ### 1. التثبيت
 
-يكتب `./intlayer.env` مع مفاتيح `BETTER_AUTH_SECRET` و `S3_SECRET_ACCESS_KEY` المنشأة مسبقًا، ويسحب `intlayer/cms-all:latest`.
+يكتب `./intlayer.env` مع مفاتيح `BETTER_AUTH_SECRET` و `S3_SECRET_ACCESS_KEY` المنشأة مسبقًا، ويطرح بضعة أسئلة لملء الباقي، ويسحب `intlayer/cms-all:latest`.
 
 <Tabs group="os">
 <Tab label="macOS / Linux" value="unix">
@@ -147,14 +147,22 @@ $env:INTLAYER_MODE = "docker"; irm https://intlayer.org/install.ps1 | iex
 </Tab>
 <Tab label="Intlayer CLI" value="cli">
 
-تقوم أداة CLI بتشغيل برنامج التثبيت الذي يطبع الأمر `docker run …` الموضح في علامات التبويب الأخرى. الصقه في جهازك الطرفي بعد تكوين خادم البريد.
+```bash
+npx intlayer init infra --mode docker
+```
 
 </Tab>
 </Tabs>
 
-### 2. تكوين خادم البريد
+### 2. الإجابة على أسئلة الإعداد
 
-افتح `intlayer.env` واملأ إعدادات Resend **أو** SMTP (انظر التفاصيل في [خادم البريد العام](#global-mailer)):
+يطلب برنامج التثبيت ما يلي (اضغط Enter لقبول الاقتراح، ويمكن تغيير أي إجابة في الملف لاحقًا):
+
+- **النطاق** الذي يُقدَّم عليه Intlayer. اتركه فارغًا للبقاء على `localhost`. مع نطاق مثل `example.org`، يقترح `https://cms.example.org` للوحة التحكم و `https://back.example.org` للواجهة الخلفية و `https://s3.example.org/intlayer` لتخزين الكائنات، ويكتب `DOMAIN` و `APP_URL` و `BACKEND_URL` و `S3_PUBLIC_URL`. انظر [النطاق المخصص](#custom-domain) للخطوات التالية.
+- **خادم البريد**: Resend (مفتاح API) أو مرحّل SMTP (المضيف، المنفذ، بيانات الاعتماد)، بالإضافة إلى عنوان المرسل. يمكن تخطي هذه الخطوة وإجراؤها يدويًا لاحقًا.
+- **مفتاح OpenAI API** اختياري لميزات الذكاء الاصطناعي.
+
+بدون طرفية (على سبيل المثال عند تشغيل السكربت من CI)، يتم تخطي الأسئلة ولا يتم إنشاء سوى المفاتيح السرية. افتح `intlayer.env` واملأ إعدادات Resend **أو** SMTP يدويًا (انظر التفاصيل في [خادم البريد العام](#global-mailer)):
 
 ```sh fileName="intlayer.env"
 # Option A: Resend
@@ -170,7 +178,7 @@ MAIL_FROM=Intlayer <no-reply@example.com>
 
 ### 3. التشغيل
 
-هذا هو أمر التشغيل الذي يطبعه برنامج التثبيت:
+هذا هو أمر التشغيل الذي يطبعه برنامج التثبيت (مع نطاق مخصص، يسبقه أمر `docker build` الذي ينتج `intlayer/cms-all:custom`، انظر [النطاق المخصص](#custom-domain)):
 
 <Tabs group="os">
 <Tab label="macOS / Linux" value="unix">
@@ -204,7 +212,7 @@ docker run -d --name intlayer `
 </Tab>
 </Tabs>
 
-افتح **http://localhost:3000** واتبع [إعداد التشغيل الأول](#first-run-setup). يقوم التمهيد الأول بتهيئة مجموعة النسخ والحاوية، لذا امنحه دقيقة واحدة.
+افتح **http://localhost:3000** (أو عنوان URL الخاص بلوحة التحكم) واتبع [إعداد التشغيل الأول](#first-run-setup). يقوم التمهيد الأول بتهيئة مجموعة النسخ والحاوية، لذا امنحه دقيقة واحدة.
 
 ### النسخ الاحتياطي والترقية
 
@@ -259,7 +267,7 @@ docker run --rm -v intlayer-data:/data -v "$(pwd)":/backup busybox tar xzf /back
 
 ### 1. التثبيت
 
-يكتب `docker-compose.yml` وملف `.env` مع المفاتيح السرية المنشأة في `./intlayer/` ويسحب الصور.
+يكتب `docker-compose.yml` وملف `.env` مع المفاتيح السرية المنشأة في `./intlayer/`، ويطرح أسئلة الإعداد نفسها التي يطرحها الوضع الشامل (النطاق، خادم البريد، مفتاح OpenAI)، ويسحب الصور.
 
 <Tabs group="os">
 <Tab label="macOS / Linux" value="unix">
@@ -307,7 +315,7 @@ npx intlayer init infra --mode compose
 
 ### 2. تكوين خادم البريد
 
-املأ بيانات Resend **أو** SMTP في `intlayer/.env`، تمامًا كما في الحاوية الشاملة (انظر [خادم البريد العام](#global-mailer)).
+إذا تخطيت سؤال خادم البريد، فاملأ بيانات Resend **أو** SMTP في `intlayer/.env`، تمامًا كما في الحاوية الشاملة (انظر [خادم البريد العام](#global-mailer)).
 
 ### 3. التشغيل
 
@@ -315,7 +323,9 @@ npx intlayer init infra --mode compose
 cd intlayer && docker compose up -d
 ```
 
-افتح **http://localhost:3000** واتبع [إعداد التشغيل الأول](#first-run-setup).
+مع نطاق مخصص، يقوم برنامج التثبيت أيضًا بتنزيل `docker-compose.build.yml` ويصبح أمر التشغيل `docker compose -f docker-compose.yml -f docker-compose.build.yml up -d --build` (انظر [النطاق المخصص](#custom-domain)).
+
+افتح **http://localhost:3000** (أو عنوان URL الخاص بلوحة التحكم) واتبع [إعداد التشغيل الأول](#first-run-setup).
 
 ### مخازن البيانات المُدارة
 
@@ -339,14 +349,14 @@ services:
 
 ### البناء من المصدر
 
-من استنساخ المستودع، قم بتبديل خدمتي Intlayer من `image:` إلى `build:` باستخدام ملف تجاوز:
+يقوم ملف تجاوز بتبديل خدمتي Intlayer من `image:` إلى `build:`. من استنساخ المستودع:
 
 ```sh
 cd docker/selfhost
 docker compose -f docker-compose.yml -f docker-compose.build.yml up -d --build
 ```
 
-استخدم هذا أيضًا عند إنشاء صور لنطاق مخصص: مرر قيم `VITE_*` كوسائط بناء (انظر [القيود](#limitations)).
+بدون استنساخ، وجّه سياق البناء إلى المستودع نفسه بتعيين `INTLAYER_BUILD_CONTEXT=https://github.com/aymericzip/intlayer.git#main` في `.env`. تتبع وسائط البناء `VITE_*` الخاصة بلوحة التحكم القيم `DOMAIN` و `APP_URL` و `BACKEND_URL` من الملف نفسه، وهكذا يتم تطبيق [النطاق المخصص](#custom-domain).
 
 ### النسخ الاحتياطي والترقية
 
@@ -389,6 +399,8 @@ $env:INTLAYER_MODE = "compose"; $env:INTLAYER_COMPOSE_DIR = ".\cms"; irm https:/
 | `INTLAYER_CONSOLE_PORT`   | `9001`                    | docker     | Host port for the MinIO console                            |
 | `INTLAYER_COMPOSE_DIR`    | `./intlayer`              | compose    | Where `docker-compose.yml` and `.env` are written          |
 | `INTLAYER_SELFHOST_REF`   | `main`                    | both       | Git ref the compose file and env template are fetched from |
+| `INTLAYER_BUILD_CONTEXT`  | `…/intlayer.git#main`     | both       | Build context used when a custom domain requires a rebuild |
+| `INTLAYER_CUSTOM_IMAGE`   | `intlayer/cms-all:custom` | docker     | Tag of the all-in-one image built for a custom domain      |
 
 > تغير متغيرات المنفذ جانب **المضيف** فقط من التعيين. تحتوي الصور المنشورة على `http://localhost:3000` و `http://localhost:3100` و `http://localhost:9000` المترجمة في حزمة لوحة التحكم، لذا احتفظ بالإعدادات الافتراضية ما لم تقم ببناء صورتك الخاصة، راجع [القيود](#limitations).
 
@@ -416,7 +428,7 @@ $env:INTLAYER_MODE = "compose"; $env:INTLAYER_COMPOSE_DIR = ".\cms"; irm https:/
 
 ### محدد بواسطة النشر
 
-These are set by the image (all-in-one) or by the compose file, and only need overriding for a non-standard topology.
+يتم تعيين هذه المتغيرات بواسطة الصورة (الشاملة) أو بواسطة ملف compose، ولا تحتاج إلى تجاوز إلا في حالة بنية غير قياسية. تُستثنى من ذلك `DOMAIN` و `APP_URL` و `BACKEND_URL` و `S3_PUBLIC_URL`: عند تعيينها في ملف env، تكون لها الأولوية في كلا الوضعين (انظر [النطاق المخصص](#custom-domain)).
 
 | Variable           | All-in-one                                          | Docker Compose                   | Description                                                                   |
 | ------------------ | --------------------------------------------------- | -------------------------------- | ----------------------------------------------------------------------------- |
@@ -433,6 +445,37 @@ These are set by the image (all-in-one) or by the compose file, and only need ov
 | `S3_ACCESS_KEY_ID` | `intlayer`                                          | `intlayer`                       | MinIO access key                                                              |
 
 تتلقى خدمة `app` في Compose أيضًا `INTLAYER_BACKEND_INTERNAL_URL=http://backend:3100`: يصل المتصفح إلى واجهة برمجة التطبيقات على `localhost:3100`، ولكن العرض من جانب الخادم يتم داخل شبكة Compose ولذلك يجب استخدام اسم الخدمة.
+
+### النطاق المخصص
+
+تقرأ الواجهة الخلفية عناوين URL العامة الخاصة بها وقت التشغيل، لكن لوحة التحكم تحتويها **مضمّنة أثناء البناء**: الصورتان المنشورتان `intlayer/cms-frontend` و `intlayer/cms-all` تعملان فقط على `http://localhost:3000`. لذلك يتطلب تقديم Intlayer على نطاقك الخاص أمرين، يُعدّهما برنامج التثبيت كليهما عندما تجيب على سؤال النطاق:
+
+1. **أربعة متغيرات في ملف env**، تقرؤها الواجهة الخلفية (ملفات تعريف الارتباط، روابط البريد الإلكتروني، استدعاءات OAuth، عناوين URL للأصول) ويستخدمها `docker-compose.build.yml` كوسائط بناء:
+
+   ```sh fileName="intlayer.env"
+   DOMAIN=example.org                          # cookie domain, parent of the hosts below
+   APP_URL=https://cms.example.org
+   BACKEND_URL=https://back.example.org
+   S3_PUBLIC_URL=https://s3.example.org/intlayer
+   ```
+
+2. **صورة للوحة التحكم مبنية بهذه العناوين.** يبنيها Docker مباشرة من المستودع، دون الحاجة إلى استنساخ:
+
+   ```sh
+   # Docker Compose: the override reads the build args from .env
+   docker compose -f docker-compose.yml -f docker-compose.build.yml up -d --build
+
+   # All-in-one
+   docker build -f docker/selfhost/Dockerfile \
+     --build-arg VITE_DOMAIN=example.org \
+     --build-arg VITE_SITE_URL=https://cms.example.org \
+     --build-arg VITE_IDE_URL=https://cms.example.org \
+     --build-arg VITE_BACKEND_URL=https://back.example.org \
+     -t intlayer/cms-all:custom \
+     https://github.com/aymericzip/intlayer.git#main
+   ```
+
+ثم ضع وكيلًا عكسيًا (reverse proxy) مع TLS أمام الحاوية: `cms.example.org` → المنفذ `3000`، `back.example.org` → `3100`، `s3.example.org` → `9000`. يجب أن تشترك المضيفات الثلاثة في اللاحقة `DOMAIN`، لأن ملف تعريف ارتباط الجلسة مقيّد بها.
 
 ### اختياري (تتراجع الميزات بسلاسة عند غيابها)
 
@@ -528,9 +571,10 @@ const { data: dictionaries } = await dictionaryEndpoint(cms).getDictionaries();
 
 ## القيود
 
-- **النطاقات المخصصة وإعادة تعيين المنافذ غير مدعومة بعد.** يتم تضمين جميع عناوين URL الخاصة بـ `VITE_*` الموجهة للمتصفح في لوحة التحكم أثناء وقت البناء، وتأتي الصور المنشورة (وتطبيق سطح المكتب) مع قيم `localhost` / Intlayer Cloud. يجب الوصول إلى لوحة التحكم على `http://localhost:3000`، والواجهة الخلفية على `:3100`، و MinIO على `:9000`. تتطلب الاستضافة على نطاق عام، أو توجيه تطبيق سطح المكتب إلى واجهة خلفية مستضافة ذاتيًا، إعادة البناء مع تضمين عناوين URL المستهدفة (باستخدام `--build-arg VITE_BACKEND_URL=… VITE_SITE_URL=… VITE_DOMAIN=…` في `docker/selfhost/Dockerfile`، أو عبر `docker-compose.build.yml`) وهذا غير مدعوم افتراضيًا.
+- **النطاق المخصص يتطلب إعادة البناء.** يتم تضمين جميع عناوين URL الخاصة بـ `VITE_*` الموجهة للمتصفح في لوحة التحكم أثناء وقت البناء، وتأتي الصور المنشورة (وتطبيق سطح المكتب) مع قيم `localhost` / Intlayer Cloud. افتراضيًا، يجب الوصول إلى لوحة التحكم على `http://localhost:3000`، والواجهة الخلفية على `:3100`، و MinIO على `:9000`؛ وإعادة تعيين منافذ المضيف لها التأثير نفسه. يُعدّ برنامج التثبيت كل شيء لإعادة البناء من المستودع عندما تزوده بنطاق (انظر [النطاق المخصص](#custom-domain))، لكن البناء نفسه يستغرق عدة دقائق. توجيه تطبيق سطح المكتب إلى واجهة خلفية مستضافة ذاتيًا غير مدعوم.
 - **يتطلب إرسال البريد الإلكتروني خادم بريد فعال.** يفرض إعداد التشغيل الأول التحقق من البريد الإلكتروني، لذلك يجب تكوين `RESEND_API_KEY` أو [مرحّل SMTP](#global-mailer) (`MAIL_SMTP_*`). بعد تسجيل دخول المسؤول الأول، يمكن لكل مؤسسة أيضًا تكوين خادم بريد SMTP أو Resend الخاص بها من لوحة التحكم.
 - **يحتاج تطبيق سطح المكتب إلى Node.js على الجهاز لبدء خادمه المدمج.**
+- **لا يوجد مساعد للتوثيق.** يعتمد مساعد التوثيق بالذكاء الاصطناعي في intlayer.org (`/api/ai/ask`، `/api/search/doc`) على نحو 130 ميغابايت من التضمينات (embeddings) المحسوبة مسبقًا للتوثيق والتي لا تتضمنها صور الاستضافة الذاتية؛ لذا لا يتم تسجيل هذين المسارين في وضع الاستضافة الذاتية. لا تتأثر ميزات الذكاء الاصطناعي الخاصة بلوحة التحكم (الترجمة، التدقيق، الإكمال التلقائي، الدردشة) ولا تحتاج إلا إلى `OPENAI_API_KEY`.
 
 ## روابط مفيدة
 

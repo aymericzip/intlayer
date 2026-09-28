@@ -106,9 +106,9 @@ export default defineConfig({
 
 > Il plugin standalone `intlayerCompiler()` è ancora esportato per configurazioni avanzate. Registrarlo insieme a `intlayer()` è sicuro, il compilatore si deduplica automaticamente ed esegue una sola volta.
 
-See complete tutorial: [Translate Vite and React with Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md)
+See complete tutorial: [Translate Vite and React with Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_vite+react.md)
 
-- [Translate Vite and React with Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md)
+- [Translate Vite and React with Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_vite+react.md)
 
 #### Supporto per Framework
 

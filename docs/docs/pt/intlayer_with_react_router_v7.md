@@ -806,25 +806,32 @@ export default function RootLayout() {
 ```
 
 </Step>
-<Step number={11} title="Compile e Execute Sua Aplicação">
+<Step number={11} title="Adicionar middleware">
 
-</Step>
-<Step number={12} title="Configurar TypeScript">
+Você também pode usar o `intlayerProxy` para adicionar roteamento no lado do servidor à sua aplicação. Este plugin detectará automaticamente o locale atual com base na URL e definirá o cookie de locale apropriado. Se nenhum locale for especificado, o plugin determinará o locale mais apropriado com base nas preferências de idioma do navegador do usuário. Se nenhum locale for detectado, ele redirecionará para o locale padrão.
 
-O Intlayer utiliza a ampliação de módulos para aproveitar os benefícios do TypeScript e tornar sua base de código mais robusta.
+> Observe que, para usar o `intlayerProxy` em produção, você precisa mover o pacote `vite-intlayer` de `devDependencies` para `dependencies`.
 
-Certifique-se de que sua configuração do TypeScript inclua os tipos gerados automaticamente:
+> Desde o Intlayer v9, o `intlayerProxy()` vem incluído diretamente no plugin `intlayer()` e é ativado por padrão através da opção `routing.enableProxy` (`true` por padrão). Registrá-lo separadamente, como mostrado abaixo, agora é opcional. Isso é mantido para compatibilidade com versões anteriores e para configurações que precisam controlar a ordem dos plugins. Defina `routing.enableProxy: false` para desativá-lo. Veja as [notas de lançamento da v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/releases/v9.md).
 
-```json5 fileName="tsconfig.json"
-{
-  compilerOptions: {
-    // ... suas configurações existentes do TypeScript
-  },
-  include: [
-    // ... seus includes existentes
-    ".intlayer/**/*.ts", // Incluir os tipos gerados automaticamente
+- [notas de lançamento da v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/releases/v9.md)
+
+```typescript {3,7} fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react-swc";
+import { intlayer } from "vite-intlayer";
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [
+    react(),
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
   ],
-}
+});
 ```
 
 </Step>

@@ -301,9 +301,9 @@ Las estrellas de GitHub son un fuerte indicador de la popularidad de un proyecto
 
 Usando `intlayer`, puedes declarar tu contenido en el formato de tu biblioteca de i18n favorita, e intlayer generará tus espacios de nombres en la ubicación de tu elección (ejemplo: `/messages/{{locale}}/{{namespace}}.json`).
 
-Si deseas seguir usando la API de tu biblioteca i18n actual, `intlayer` también proporciona **adaptadores de compatibilidad (compat adapters)**: paquetes que exponen exactamente la misma API que `react-i18next`, `next-intl`, `react-intl`, `vue-i18n` y otras, pero servidas por los diccionarios de Intlayer. Esto te permite migrar progresivamente sin reescribir tu código. Consulta la [documentación de los adaptadores de compatibilidad](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md).
+Si deseas seguir usando la API de tu biblioteca i18n actual, `intlayer` también proporciona **adaptadores de compatibilidad (compat adapters)**: paquetes que exponen exactamente la misma API que `react-i18next`, `next-intl`, `react-intl`, `vue-i18n` y otras, pero servidas por los diccionarios de Intlayer. Esto te permite migrar progresivamente sin reescribir tu código. Consulta la [documentación de los adaptadores de compatibilidad](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compat/index.md).
 
-- [documentación de los adaptadores de compatibilidad](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md)
+- [documentación de los adaptadores de compatibilidad](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compat/index.md)
 
 ## Preguntas frecuentes
 

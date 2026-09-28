@@ -44,32 +44,32 @@ Lien de l'extension : [https://marketplace.visualstudio.com/items?itemName=Intla
 
 ## Fonctionnalités
 
-![Extraire le contenu](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_extract_content.gif?raw=true)
+![Extraire le contenu](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_extract_content.gif?raw=true)
 
 - **Extraire le contenu** – Extrayez le contenu de vos composants React / Vue / Svelte
 
-![Remplir les dictionnaires](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_fill_active_dictionary.gif?raw=true)
+![Remplir les dictionnaires](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_fill_active_dictionary.gif?raw=true)
 
 - **Navigation instantanée** – Accédez rapidement au fichier de contenu correct en cliquant sur une clé `useIntlayer`.
 - **Remplir les dictionnaires** – Remplissez les dictionnaires avec le contenu de votre projet.
 
-![Liste des commandes](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_list_commands.gif?raw=true)
+![Liste des commandes](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_list_commands.gif?raw=true)
 
 - **Accès facile aux commandes Intlayer** – Construisez, poussez, tirez, remplissez, testez les dictionnaires de contenu en toute simplicité.
 
-![Créer un fichier de contenu](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_create_content_file.gif?raw=true)
+![Créer un fichier de contenu](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_create_content_file.gif?raw=true)
 
 - **Générateur de déclaration de contenu** – Créez des fichiers de contenu de dictionnaire dans divers formats (`.ts`, `.esm`, `.cjs`, `.json`).
 
-![Tester les dictionnaires](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_test_missing_dictionary.gif?raw=true)
+![Tester les dictionnaires](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_test_missing_dictionary.gif?raw=true)
 
 - **Tester les dictionnaires** – Testez les dictionnaires pour détecter les traductions manquantes.
 
-![Reconstruire le dictionnaire](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_rebuild_dictionary.gif?raw=true)
+![Reconstruire le dictionnaire](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_rebuild_dictionary.gif?raw=true)
 
 - **Gardez vos dictionnaires à jour** – Maintenez vos dictionnaires à jour avec le contenu le plus récent de votre projet.
 
-![Onglet Intlayer (Barre d'activité)](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_search_dictionary.gif?raw=true)
+![Onglet Intlayer (Barre d'activité)](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_search_dictionary.gif?raw=true)
 
 - **Onglet Intlayer (Barre d'activité)** – Parcourez et recherchez les dictionnaires depuis un onglet latéral dédié avec une barre d'outils et des actions contextuelles (Construire, Tirer, Pousser, Remplir, Actualiser, Tester, Créer un fichier).
 

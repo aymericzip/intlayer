@@ -1460,14 +1460,18 @@ bun run build # أو bun run dev
 - **[ESLint plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/eslint.md)**: قاعدة `no-raw-text` ترصد النصوص المكتوبة مباشرة بدون تدويل.
 
 </Question>
-<Question title="ما هي إصدارات Next.js التي يدعمها Intlayer؟">
+<Question title="هل يعمل Intlayer مع Next.js App Router ومكونات خادم React (RSC)؟">
 
-Next.js 12 و 13 و 14 و 15 و 16. يتم دعم كل من App Router و Pages Router بالكامل.
+نعم. تم بناء `next-intlayer` من أجل App Router: يتم حل المحتوى على الخادم داخل Server Components، لذلك لا يتم إرسال أي قاموس إلى العميل للنصوص المعروضة على الخادم. تستخدم مكونات العميل (Client Components) نفس الخطاف `useIntlayer` عبر الموفر (provider). لا يعيق Intlayer العرض الثابت (static rendering)، وهو متوافق مع Turbopack.
 
 </Question>
-<Question title="هل يعمل Intlayer مع مكونات خادم React (RSC)؟">
+<Question title="ما هي إصدارات Next.js التي يدعمها Intlayer؟">
 
-نعم. يتم حل المحتوى في Server Components مباشرة على الخادم، لذلك لا يتم إرسال أي قواميس إلى العميل للنصوص المعروضة على الخادم. تقرأ مكونات العميل القواميس عبر الموفر (provider).
+يدعم Intlayer الإصدارات Next.js 12 و 13 و 14 و 15 و 16. يغطي هذا الدليل Next.js 16. بالنسبة للإعدادات الأقدم، اتبع [دليل Next.js 15](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_15.md) أو [دليل Next.js 14](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_14.md) أو [دليل Pages Router](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_page_router.md).
+
+- [دليل Next.js 15](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_15.md)
+- [دليل Next.js 14](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_14.md)
+- [دليل Pages Router](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_page_router.md)
 
 </Question>
 <Question title="هل يجب تضمين اللغة في مسار URL مثل /ar/about؟">
@@ -1479,43 +1483,42 @@ Next.js 12 و 13 و 14 و 15 و 16. يتم دعم كل من App Router و Pages 
 - `"no-prefix"`: لا توجد لغة في المسار، ويتم تحديدها من ملفات تعريف الارتباط أو الترويسة أو النطاق.
 - `"search-params"`: `/about?locale=fr`.
 
-يمكنك أيضًا تعيين كل لغة لنطاق خاص بها باستخدام `routing.domains`. راجع [مرجع التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md) و [الخطوة 2](#step-2-configure-your-project) لخيارات وضع التوجيه.
+يمكنك أيضًا تعيين كل لغة لنطاق خاص بها باستخدام `routing.domains`. راجع [مرجع التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md) وبنية العمل دون مسار اللغة في الخطوة 2 من هذا الدليل.
 
 - [مرجع التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md)
 
 </Question>
 <Question title="كيف أضيف وسوم hreflang والبيانات الوصفية المترجمة لتحسين محركات البحث (SEO)؟">
 
-تغطي خطوات `generateMetadata` و `sitemap.xml` ذلك. تنشئ الدالة `getMultilingualUrls` تعيينات `alternates.languages` لكل لغة معلنة، بما في ذلك `x-default`، مما يساعد محركات البحث على الفهرسة الدقيقة.
+استخدم الدالة `generateMetadata` في Next.js مع `getMultilingualUrls` من Intlayer. فهي تنشئ خريطة `alternates.languages` لكل لغة معلنة، بما في ذلك المدخل `x-default`، بحيث تعرض محركات البحث نسخة اللغة الصحيحة. تقوم نفس الدالة المساعدة بترجمة `sitemap.ts` و `robots.ts`. تعرض الخطوتان 8 و 9 من هذا الدليل الكود الكامل.
 
 </Question>
-<Question title="هل أحتاج إلى برمجية وسيطة (middleware)؟">
+<Question title="كيف أترجم تطبيق Next.js تلقائياً باستخدام الذكاء الاصطناعي؟">
 
-يكتشف الميدلوير لغة الزائر ويعيد التوجيه إلى البادئة المناسبة، لذلك يوصى به إذا كنت لا تدير التوجيه يدويًا. يتم استبعاد مسارات API والأصول الثابتة تلقائيًا.
-
-</Question>
-<Question title="كيف أنشئ مكون رابط مترجم؟">
-
-يلف المكون وسم `Link` القياسي في Next.js ويمرر الرابط عبر `getLocalizedUrl`، لذلك يحصل الرابط `/about` تلقائيًا على بادئة اللغة النشطة مثل `/ar/about`.
-
-</Question>
-<Question title="كيف أترجم التطبيق تلقائياً باستخدام الذكاء الاصطناعي؟">
-
-قم بتشغيل `npx intlayer fill`. تكتشف واجهة CLI الترجمات المفقودة وتملؤها باستخدام نموذج اللغة (LLM) الذي تختاره مع مزودك ومفتاح API الخاص بك. يحد الخيار `--git-diff` العملية على المحتوى المعدل في الفرع الحالي فقط. راجع [أمر fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/fill.md) و [تكامل CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/CI_CD.md).
+قم بتشغيل `npx intlayer fill`. تكتشف واجهة CLI الترجمات المفقودة في ملفات المحتوى الخاصة بك وتملؤها باستخدام نموذج اللغة (LLM) الذي تختاره، مع مزودك ومفتاح API الخاص بك، لذا تدفع للمزود مباشرة ولا يمر أي شيء عبر طرف ثالث. راجع [أمر fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/fill.md) و [تكامل CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/CI_CD.md).
 
 - [أمر fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/fill.md)
 - [تكامل CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/CI_CD.md)
 
 </Question>
-<Question title="هل يدعم Intlayer صيغ الجمع والجنس والنصوص المنسقة؟">
+<Question title="هل يدعم Intlayer صيغ الجمع والجنس والشروط والنصوص المنسقة؟">
 
-نعم: [صيغ الجمع (plurals)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/plurial.md)، [المحتوى القائم على النوع الاجتماعي (gender)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/gender.md)، الشروط، [الإدراجات (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/insertion.md)، [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/markdown.md)، و [المنسقات (formatters)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/formatters.md) للأرقام والتواريخ والعملات.
+نعم. تدعم تصريحات المحتوى [صيغ الجمع (plurals)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/plurial.md)، و[المحتوى القائم على النوع الاجتماعي (gender)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/gender.md)، والشروط، و[الإدراجات (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/insertion.md) للقيم المُدرجة، و[Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/markdown.md) للنصوص المنسقة مثل الصفحات القانونية أو محتوى المدونات. تتم معالجة الأرقام والتواريخ والعملات بواسطة [المنسقات (formatters)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/formatters.md).
 
 - [صيغ الجمع (plurals)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/plurial.md)
 - [المحتوى القائم على النوع الاجتماعي (gender)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/gender.md)
 - [الإدراجات (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/insertion.md)
 - [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/markdown.md)
 - [المنسقات (formatters)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/formatters.md)
+
+</Question>
+<Question title="كيف يمكن للمترجمين وغير المطورين تحرير المحتوى؟">
+
+هناك خياران، وكلاهما اختياري. يعمل [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) على بنيتك التحتية الخاصة ويتيح لأي شخص النقر على نص موقعك لتحريره في مكانه. أما [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md) فيُخرج المحتوى خارج الكود بحيث يمكن تحديثه دون عملية نشر، مع [المزامنة الحية](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/live.md) التي تعكس التغييرات وقت التشغيل.
+
+- [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
+- [المزامنة الحية](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/live.md)
 
 </Question>
 <Question title="ما هي تكلفة المحرر المرئي؟ هل هو مبالغ فيه إذا لم أكن بحاجة إليه؟">
@@ -1527,11 +1530,20 @@ Next.js 12 و 13 و 14 و 15 و 16. يتم دعم كل من App Router و Pages 
 حتى في حال تمكينه، فإن التأثير خفيف للغاية (+5 كيلوبايت، يتم تحميلها ديناميكيًا فقط عند التنشيط) لأن الجزء الأكبر من المنطق تتم معالجته بواسطة محرر الخادم على [app.intlayer.org](https://app.intlayer.org) أو عبر حزمة `intlayer-editor`. إذا كنت بحاجة فقط إلى حل ترجمة بسيط دون تحرير مرئي، فإن Intlayer لا يضيف أي عبء على تطبيقك.
 
 </Question>
+<Question title="كيف أكتشف الترجمات المفقودة قبل النشر؟">
+
+قم بتشغيل `npx intlayer test` في CI. يُفشل هذا الأمر عملية البناء عندما تفتقد لغة معلنة إلى محتوى، لذلك لا يصل أي نص غير مترجم إلى بيئة الإنتاج أبدًا. يعرض [امتداد VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/vs_code_extension.md) نفس الأخطاء أثناء الكتابة، بينما يرصد [ESLint plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/eslint.md) وقاعدته `no-raw-text` النصوص المكتوبة مباشرة في الكود. راجع [اختبار المحتوى الخاص بك](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/testing.md).
+
+- [امتداد VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/vs_code_extension.md)
+- [ESLint plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/eslint.md)
+- [اختبار المحتوى الخاص بك](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/testing.md)
+
+</Question>
 <Question title="هل Intlayer مجاني ومفتوح المصدر؟">
 
-نعم، بموجب ترخيص Apache 2.0، بما في ذلك الاستخدام التجاري. الـ CMS السحابي المستضاف هو خدمة مدفوعة اختيارية يمكن أيضًا [استضافتها ذاتيًا (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/self_hosting.md).
+نعم. Intlayer مفتوح المصدر بموجب ترخيص Apache 2.0، والمكتبة بأكملها و CLI والمحرر المرئي والمترجم (compiler) مجانية الاستخدام، بما في ذلك الاستخدام التجاري. الـ CMS المستضاف هو خدمة مدفوعة اختيارية، ويمكن أيضًا [استضافته ذاتيًا (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/self_hosting.md).
 
-- [استضافتها ذاتيًا (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/self_hosting.md)
+- [استضافته ذاتيًا (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/self_hosting.md)
 
 </Question>
 

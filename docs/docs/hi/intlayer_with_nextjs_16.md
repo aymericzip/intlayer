@@ -1455,78 +1455,90 @@ Next.js में कोई इन-बिल्ट संदेश परत न
 - **[ESLint plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/eslint.md)**: `no-raw-text` नियम हार्डकोडेड स्ट्रिंग्स को चिह्नित करता है।
 
 </Question>
-<Question title="Intlayer किन Next.js संस्करणों का समर्थन करता है?">
+<Question title="क्या Intlayer, Next.js App Router और React Server Components के साथ काम करता है?">
 
-Next.js 12, 13, 14, 15, और 16। App Router और Pages Router दोनों पूरी तरह से समर्थित हैं।
+हाँ। `next-intlayer` App Router के लिए बनाया गया है: content को server पर Server Components के अंदर resolve किया जाता है, इसलिए server पर render होने वाले text के लिए कोई भी dictionary client को नहीं भेजी जाती। Client Components provider के माध्यम से उसी `useIntlayer` hook का उपयोग करते हैं। Intlayer static rendering को ब्लॉक नहीं करता, और यह Turbopack के साथ संगत है।
 
 </Question>
-<Question title="क्या Intlayer React Server Components के साथ काम करता है?">
+<Question title="Intlayer किन Next.js संस्करणों का समर्थन करता है?">
 
-हाँ। सर्वर घटकों में सामग्री सीधे सर्वर पर हल की जाती है, इसलिए सर्वर द्वारा रेंडर किए गए टेक्स्ट के लिए क्लाइंट को कोई शब्दकोश नहीं भेजा जाता है। क्लाइंट घटक प्रदाता के माध्यम से शब्दकोश पढ़ते हैं।
+Intlayer Next.js 12, 13, 14, 15 और 16 का समर्थन करता है। यह गाइड Next.js 16 को कवर करती है। पुराने setups के लिए, [Next.js 15 गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nextjs_15.md), [Next.js 14 गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nextjs_14.md) या [Pages Router गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nextjs_page_router.md) का पालन करें।
+
+- [Next.js 15 गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nextjs_15.md)
+- [Next.js 14 गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nextjs_14.md)
+- [Pages Router गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nextjs_page_router.md)
 
 </Question>
 <Question title="क्या मुझे URL में लोकेल शामिल करना अनिवार्य है, जैसे /hi/about?">
 
-नहीं। URL योजना एक कॉन्फ़िगरेशन विकल्प है, कोई बाध्यता नहीं। `routing.mode` स्वीकार करता है:
+नहीं। URL scheme एक configuration विकल्प है, कोई बाध्यता नहीं। `routing.mode` निम्नलिखित मान स्वीकार करता है:
 
-- `"prefix-no-default"` (डिफ़ॉल्ट): डिफ़ॉल्ट लोकेल के लिए `/about`, दूसरों के लिए `/fr/about`।
-- `"prefix-all"`: प्रत्येक लोकेल में उपसर्ग लगाया जाता है, `/en/about` और `/fr/about`।
-- `"no-prefix"`: पथ में कोई लोकेल नहीं है, कुकी, हेडर या डोमेन से निर्धारित होता है।
+- `"prefix-no-default"` (डिफ़ॉल्ट): डिफ़ॉल्ट लोकेल के लिए `/about`, अन्य के लिए `/fr/about`।
+- `"prefix-all"`: हर लोकेल के आगे prefix लगता है, `/en/about` और `/fr/about`।
+- `"no-prefix"`: path में कोई लोकेल नहीं, इसे cookie, header या domain से निर्धारित किया जाता है।
 - `"search-params"`: `/about?locale=fr`।
 
-आप `routing.domains` के साथ प्रत्येक लोकेल को उसके अपने डोमेन से भी मैप कर सकते हैं। देखें [कॉन्फ़िगरेशन संदर्भ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md) और रूटिंग मोड विकल्पों के लिए [चरण 2](#step-2-configure-your-project)।
+आप `routing.domains` के साथ प्रत्येक लोकेल को उसके अपने domain से भी map कर सकते हैं। [कॉन्फ़िगरेशन संदर्भ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md) और इस गाइड के चरण 2 में बिना locale path वाला architecture देखें।
 
 - [कॉन्फ़िगरेशन संदर्भ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md)
 
 </Question>
 <Question title="SEO के लिए hreflang टैग और स्थानीयकृत मेटाडेटा कैसे जोड़ें?">
 
-`generateMetadata` और `sitemap.xml` चरण इसे कवर करते हैं। फ़ंक्शन `getMultilingualUrls` प्रत्येक घोषित लोकेल के लिए `alternates.languages` मैपिंग उत्पन्न करता है, जिसमें `x-default` शामिल है, ताकि सर्च इंजन सही तरीके से इंडेक्स करें।
+Next.js के `generateMetadata` फ़ंक्शन का उपयोग Intlayer के `getMultilingualUrls` के साथ करें। यह हर घोषित लोकेल के लिए `alternates.languages` map बनाता है, जिसमें `x-default` entry भी शामिल है, ताकि search engines सही भाषा संस्करण दिखाएँ। यही helper `sitemap.ts` और `robots.ts` को भी localize करता है। इस गाइड के चरण 8 और चरण 9 पूरा कोड दिखाते हैं।
 
 </Question>
-<Question title="क्या मुझे मिडलवेयर की आवश्यकता है?">
+<Question title="मैं Next.js ऐप को AI के साथ स्वचालित रूप से कैसे अनुवाद करूँ?">
 
-मिडलवेयर विज़िटर की भाषा का पता लगाता है और उपयुक्त उपसर्ग पर पुनर्निर्देशित करता है, इसलिए यदि आप स्वयं रूटिंग नहीं संभाल रहे हैं तो इसकी अनुशंसा की जाती है। API रूट और स्थिर संपत्तियां स्वचालित रूप से बाहर रखी जाती हैं।
+`npx intlayer fill` चलाएँ। CLI आपकी content files में missing translations का पता लगाता है और उन्हें आपकी पसंद के LLM से भरता है, आपके अपने provider और API key का उपयोग करते हुए, इसलिए आप सीधे provider को भुगतान करते हैं और कुछ भी किसी third party से होकर नहीं जाता। [fill कमांड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/fill.md) और [CI/CD इंटीग्रेशन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/CI_CD.md) देखें।
 
-</Question>
-<Question title="स्थानीयकृत लिंक घटक कैसे बनाएं?">
-
-घटक मानक Next.js `Link` को लपेटता है और `getLocalizedUrl` के माध्यम से href पास करता है, ताकि `/about` लिंक स्वचालित रूप से सक्रिय लोकेल उपसर्ग प्राप्त करे जैसे `/hi/about`।
+- [fill कमांड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/fill.md)
+- [CI/CD इंटीग्रेशन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/CI_CD.md)
 
 </Question>
-<Question title="मैं ऐप को AI के साथ स्वचालित रूप से कैसे अनुवाद करूँ?">
+<Question title="क्या Intlayer बहुवचन, लिंग, शर्तों और समृद्ध पाठ (rich text) का समर्थन करता है?">
 
-`npx intlayer fill` चलाएं। CLI अनुपलब्ध अनुवादों का पता लगाता है और आपके द्वारा चुने गए LLM के साथ आपके स्वयं के प्रदाता और API कुंजी का उपयोग करके उन्हें भरता है। `--git-diff` ध्वज वर्तमान शाखा पर बदली गई सामग्री तक सीमित करता है। [fill command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/fill.md) और [CI/CD integration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/CI_CD.md) देखें।
+हाँ। Content declarations [बहुवचन रूपों](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/plurial.md), [लिंग-आधारित सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/gender.md), शर्तों, interpolated मानों के लिए [insertions](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/insertion.md), और legal pages या blog content जैसे rich text के लिए [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/markdown.md) का समर्थन करते हैं। संख्याएँ, तिथियाँ और मुद्राएँ [formatters](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/formatters.md) द्वारा संभाली जाती हैं।
 
-- [fill command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/fill.md)
-- [CI/CD integration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/CI_CD.md)
-
-</Question>
-<Question title="क्या Intlayer बहुवचन, लिंग और समृद्ध पाठ (rich text) का समर्थन करता है?">
-
-हाँ: [बहुवचन (plurals)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/plurial.md), [लिंग-आधारित सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/gender.md), शर्तें, [सम्मिलन (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/insertion.md), [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/markdown.md), और संख्याओं, तिथियों और मुद्राओं के लिए [प्रारूपक (formatters)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/formatters.md)।
-
-- [बहुवचन (plurals)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/plurial.md)
+- [बहुवचन रूप](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/plurial.md)
 - [लिंग-आधारित सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/gender.md)
-- [सम्मिलन (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/insertion.md)
+- [insertions](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/insertion.md)
 - [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/markdown.md)
-- [प्रारूपक (formatters)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/formatters.md)
+- [formatters](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/formatters.md)
+
+</Question>
+<Question title="अनुवादक और गैर-डेवलपर सामग्री को कैसे संपादित कर सकते हैं?">
+
+दो विकल्प हैं, दोनों वैकल्पिक। [विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) आपके अपने infrastructure पर चलता है और किसी को भी आपकी साइट के text पर क्लिक करके उसे वहीं संपादित करने देता है। [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md) content को externalize करता है ताकि उसे deployment के बिना अपडेट किया जा सके, और [live sync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/live.md) बदलावों को runtime पर दर्शाता है।
+
+- [विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md)
+- [live sync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/live.md)
 
 </Question>
 <Question title="विज़ुअल एडिटर की क्या लागत है? यदि मुझे इसकी आवश्यकता नहीं है तो क्या यह ज़रूरत से ज़्यादा है?">
 
-यदि [Intlayer विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) सेटअप नहीं किया गया है, तो इसका आपके एप्लिकेशन पर **शून्य प्रभाव (zero cost)** होता है। अतिरिक्त लॉजिक केवल तभी लोड होता है जब इसे स्पष्ट रूप से सक्षम किया गया हो और इसकी आवश्यकता हो।
+[Intlayer विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) की आपके application पर **शून्य लागत** है यदि इसे सेट अप नहीं किया गया है। अतिरिक्त logic केवल तभी load होता है जब इसे स्पष्ट रूप से enable किया गया हो और इसकी आवश्यकता हो।
 
 - [Intlayer विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md)
 
-सक्षम होने पर भी, इसका प्रभाव बेहद हल्का होता है (+5 KB, केवल सक्रिय होने पर गतिशील रूप से लोड होता है) क्योंकि मुख्य लॉजिक [app.intlayer.org](https://app.intlayer.org) पर सर्वर एडिटर या `intlayer-editor` पैकेज द्वारा संभाला जाता है। यदि आपको विज़ुअल एडिटिंग के बिना केवल एक सरल अनुवाद समाधान की आवश्यकता है, तो Intlayer आपके ऐप पर कोई अतिरिक्त बोझ नहीं डालता है।
+यदि enable किया गया है, तो लागत बेहद हल्की है (+5 KB, केवल activate होने पर dynamically load होता है) क्योंकि मुख्य logic [app.intlayer.org](https://app.intlayer.org) पर server editor द्वारा या `intlayer-editor` package के माध्यम से संभाला जाता है। यदि आपको visual editing के बिना केवल एक सरल translation setup की आवश्यकता है, तो Intlayer आपके app पर कोई overhead नहीं जोड़ता।
+
+</Question>
+<Question title="शिप करने से पहले missing translations को कैसे पकड़ें?">
+
+CI में `npx intlayer test` चलाएँ। जब किसी घोषित लोकेल में content missing होता है तो यह build को fail कर देता है, ताकि कोई untranslated string कभी production तक न पहुँचे। [VS Code एक्सटेंशन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/vs_code_extension.md) टाइप करते समय वही errors दिखाता है, और [ESLint plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/eslint.md) तथा उसका `no-raw-text` नियम hardcoded strings को पकड़ते हैं। [अपनी content का परीक्षण](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/testing.md) देखें।
+
+- [VS Code एक्सटेंशन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/vs_code_extension.md)
+- [ESLint plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/eslint.md)
+- [अपनी content का परीक्षण](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/testing.md)
 
 </Question>
 <Question title="क्या Intlayer मुफ्त और ओपन सोर्स है?">
 
-हाँ, Apache 2.0 लाइसेंस के तहत, व्यावसायिक उपयोग सहित। होस्टेड CMS एक वैकल्पिक सशुल्क सेवा है जिसे [स्वयं होस्ट (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/self_hosting.md) भी किया जा सकता है।
+हाँ। Intlayer, Apache 2.0 लाइसेंस के तहत ओपन सोर्स है, और पूरी library, CLI, visual editor और compiler उपयोग के लिए मुफ्त हैं, जिसमें व्यावसायिक उपयोग भी शामिल है। Hosted CMS एक वैकल्पिक सशुल्क सेवा है, और इसे [self host](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/self_hosting.md) भी किया जा सकता है।
 
-- [स्वयं होस्ट (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/self_hosting.md)
+- [self host](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/self_hosting.md)
 
 </Question>
 

@@ -319,9 +319,9 @@ Die synchronisierten PO-Dateien werden wie andere `.content`-Dateien behandelt. 
 - `intlayer content push`, um die synchronisierten PO-Dateien hochzuladen
 - `intlayer content pull`, um die synchronisierten PO-Dateien herunterzuladen
 
-Weitere Details finden Sie im [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md).
+Weitere Details finden Sie im [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/index.md).
 
-- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md)
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/index.md)
 
 ## Einschränkungen (aktuell)
 

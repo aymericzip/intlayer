@@ -229,7 +229,9 @@ pnpm intlayer-editor start -e development
 
 <Question title="ما الفرق بين المحرر المرئي ونظام إدارة المحتوى (CMS)؟">
 
-يعدل المحرر المرئي القواميس المحلية ويحفظ التغييرات مباشرة في ملفات الكود المصدر الخاصة بك، وبالتالي يخضع لمراجعة Git القياسية. يخزن CMS المحتوى على خادم بعيد للنشر الفوري دون إعادة البناء.
+يعدّل المحرر المرئي القواميس المحلية ويكتب التغيير مجددًا في قاعدة الكود الخاصة بك، لذا يمر عبر عملية المراجعة والنشر المعتادة. أما [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md) فيعدّل القواميس البعيدة، التي تتغير على الموقع العامل دون الحاجة إلى نشر. يناسب المحرر المحتوى الذي يملكه المطورون؛ بينما يناسب CMS المحتوى الذي يملكه فريق التسويق.
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
 
 </Question>
 <Question title="كم يضيف i18n إلى حجم حزمة (bundle) تطبيقي؟">
@@ -317,7 +319,10 @@ pnpm intlayer-editor start -e development
 </Question>
 <Question title="هل المحرر المرئي مجاني؟">
 
-نعم. المحرر المرئي جزء من المشروع مفتوح المصدر بموجب ترخيص Apache 2.0، بما في ذلك الاستخدام التجاري.
+نعم. المحرر المرئي جزء من المشروع مفتوح المصدر بموجب ترخيص Apache 2.0، بما في ذلك الاستخدام التجاري. فقط [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md) المستضاف هو خدمة مدفوعة، ويمكن أيضًا [استضافته ذاتيًا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/self_hosting.md).
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
+- [استضافته ذاتيًا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/self_hosting.md)
 
 </Question>
 

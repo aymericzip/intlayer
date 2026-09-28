@@ -461,9 +461,13 @@ Analog, Vite पर निर्मित एक Angular मेटा-फ़्�
 - [बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/index.md)
 
 </Question>
-<Question title="क्या मैं अपने टेम्पलेट को फिर से लिखे बिना ngx-translate, Transloco या @angular/localize से माइग्रेट कर सकता हूँ?">
+<Question title="क्या मैं अपने टेम्पलेट को फिर से लिखे बिना `ngx-translate`, `Transloco` या `@angular/localize` से माइग्रेट कर सकता हूँ?">
 
-काफी हद तक हाँ। [संगतता एडेप्टर अवलोकन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/index.md) देखें।
+काफी हद तक हाँ। कंटेंट को स्थानांतरित करने के लिए [ngx-translate माइग्रेशन गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/ngx-translate.md) या [Transloco माइग्रेशन गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/transloco.md) का पालन करें। आप धीरे-धीरे भी माइग्रेट कर सकते हैं: [sync JSON प्लगइन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-json.md) आपके मौजूदा JSON कैटलॉग को source of truth के रूप में रखता है और उनसे Intlayer डिक्शनरी जनरेट करता है, ताकि जब आप टेम्पलेट को एक-एक करके स्थानांतरित करें तो दोनों लेयर सिंक में रहें।
+
+- [ngx-translate माइग्रेशन गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/ngx-translate.md)
+- [Transloco माइग्रेशन गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/transloco.md)
+- [sync JSON प्लगइन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-json.md)
 
 </Question>
 <Question title="क्या मैं अपनी मौजूदा JSON translation files को रख सकता हूं?">
@@ -497,34 +501,29 @@ Analog, Vite पर निर्मित एक Angular मेटा-फ़्�
 - **[ESLint plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/eslint.md)**: `no-raw-text` नियम हार्डकोडेड स्ट्रिंग्स को चिह्नित करता है।
 
 </Question>
-<Question title="क्या Intlayer Analog में सर्वर साइड रेंडरिंग (SSR) और SSG के साथ काम करता है?">
+<Question title="क्या मुझे हर भाषा के लिए एक अलग build चाहिए?">
 
-हाँ। SSR और SSG के दौरान सामग्री का समाधान किया जाता है, इसलिए क्लाइंट को प्राप्त होने वाला पहला HTML पहले से ही अनुवादित होता है।
-
-</Question>
-<Question title="क्या भाषा बदलने के लिए पृष्ठ को पुनः लोड करने की आवश्यकता होती है?">
-
-नहीं। `useIntlayer` प्रतिक्रियाशील है और घटकों को तुरंत अपडेट करता है।
+नहीं। यह `@angular/localize` का मॉडल है, जहाँ प्रत्येक locale को उसके अपने bundle में compile किया जाता है और अलग से deploy किया जाता है। Intlayer के साथ एक ही build सभी घोषित locales को सर्व करता है, और सक्रिय भाषा runtime पर URL, cookie या `Accept-Language` header से निर्धारित की जाती है।
 
 </Question>
-<Question title="Analog फ़ाइल सिस्टम में लोकेल रूटिंग कैसे सेट करें?">
+<Question title="क्या Intlayer Angular signals और standalone components का समर्थन करता है?">
 
-`src/app/pages` में `[locale]` फ़ोल्डर बनाएं। `getLocalizedUrl` स्वचालित रूप से लिंक अपडेट करता है।
-
-</Question>
-<Question title="Analog में दाएं से बाएं लिखी जाने वाली भाषाओं को कैसे संभालें?">
-
-रूट दस्तावेज़ पर `lang` और `dir` सेट करने के लिए `getHTMLTextDir` का उपयोग करें।
+हाँ। सामग्री signals के माध्यम से उपलब्ध कराई जाती है, इसलिए locale बदलने पर टेम्पलेट पृष्ठ को पुनः लोड किए बिना फिर से रेंडर होता है, और provider को किसी भी अन्य standalone provider की तरह पंजीकृत किया जाता है।
 
 </Question>
-<Question title="SEO मेटाडेटा और hreflang टैग कैसे प्रबंधित करें?">
+<Question title="मैं runtime पर भाषा कैसे बदलूँ?">
 
-सभी घोषित लोकेल के लिए वैकल्पिक `hreflang` टैग उत्पन्न करने के लिए `getMultilingualUrls` फ़ंक्शन का उपयोग करें।
+चरण 6 इसे कवर करता है। `useLocale` सक्रिय locale, घोषित locales और एक setter प्रदान करता है जो चुनाव को सहेजता है, और `getLocalizedUrl` वर्तमान पथ को फिर से लिखता है ताकि भाषा बदलने के बाद उपयोगकर्ता उसी रूट पर बना रहे।
+
+</Question>
+<Question title="क्या यह Analog सर्वर साइड रेंडरिंग और Vite के साथ काम करता है?">
+
+हाँ। `intlayer()` Vite प्लगइन आपकी सामग्री को compile करता है और development के दौरान उस पर नज़र रखता है, और locale सर्वर पर निर्धारित होता है ताकि पहला HTML response पहले से ही सही भाषा में हो। Prerendered रूट अपनी सामग्री build के समय resolve करते हैं।
 
 </Question>
 <Question title="मैं ऐप को AI के साथ स्वचालित रूप से कैसे अनुवाद करूँ?">
 
-`npx intlayer fill` चलाएं। यह कमांड आपके चुने हुए LLM का उपयोग करके आपके अपने प्रदाता और API कुंजी के साथ लापता अनुवादों को भरता है, और `--git-diff` बदली गई फ़ाइलों तक संचालन को सीमित करता है। [fill command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/fill.md) और [CI/CD integration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/CI_CD.md) देखें।
+`npx intlayer fill` चलाएं। यह आपके अपने provider और API key का उपयोग करके आपकी पसंद के LLM से लापता अनुवादों को भरता है, और `--git-diff` रन को branch पर बदली गई सामग्री तक सीमित करता है। [fill command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/fill.md) और [CI/CD integration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/CI_CD.md) देखें।
 
 - [fill command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/fill.md)
 - [CI/CD integration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/CI_CD.md)
@@ -532,18 +531,26 @@ Analog, Vite पर निर्मित एक Angular मेटा-फ़्�
 </Question>
 <Question title="क्या Intlayer बहुवचन, लिंग और समृद्ध पाठ (rich text) का समर्थन करता है?">
 
-हाँ: [बहुवचन (plurals)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/plurial.md), [लिंग-आधारित सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/gender.md), शर्तें, [सम्मिलन (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/insertion.md), और संख्याओं, तिथियों और मुद्राओं के लिए [प्रारूपक (formatters)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/formatters.md)।
+हाँ: [बहुवचन रूप](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/plurial.md), [लिंग आधारित सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/gender.md), शर्तें, [इंसर्शन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/insertion.md), [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/markdown.md) और संख्याओं, तिथियों और मुद्राओं के लिए [formatters](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/formatters.md)।
 
-- [बहुवचन (plurals)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/plurial.md)
-- [लिंग-आधारित सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/gender.md)
-- [सम्मिलन (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/insertion.md)
-- [Intlayer में Markdown कंटेंट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/markdown.md)
-- [प्रारूपक (formatters)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/formatters.md)
+- [बहुवचन रूप](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/plurial.md)
+- [लिंग आधारित सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/gender.md)
+- [इंसर्शन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/insertion.md)
+- [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/markdown.md)
+- [formatters](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/formatters.md)
+
+</Question>
+<Question title="शिप करने से पहले लापता अनुवादों को कैसे पकड़ें?">
+
+CI में `npx intlayer test` चलाएं। जब किसी घोषित locale में सामग्री लापता होती है तो यह build को विफल कर देता है। [VS Code extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/vs_code_extension.md) टाइप करते समय वही त्रुटियाँ रिपोर्ट करता है। [अपनी सामग्री का परीक्षण](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/testing.md) देखें।
+
+- [VS Code extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/vs_code_extension.md)
+- [अपनी सामग्री का परीक्षण](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/testing.md)
 
 </Question>
 <Question title="अनुवादक कोड को छुए बिना सामग्री को कैसे संपादित कर सकते हैं?">
 
-[विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) के माध्यम से, जो किसी को भी सीधे चलते हुए ऐप में टेक्स्ट संपादित करने देता है, या [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md) के माध्यम से, जो सामग्री को अलग करता है ताकि कोड को फिर से तैनात किए बिना उसे अपडेट किया जा सके।
+[विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) के माध्यम से, जो आपके अपने इंफ्रास्ट्रक्चर पर चलता है और किसी को भी चल रहे ऐप पर सीधे टेक्स्ट संपादित करने देता है, या [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md) के माध्यम से, जो सामग्री को बाहरी बनाता है ताकि इसे deployment के बिना बदला जा सके।
 
 - [विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md)
 - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md)
@@ -551,9 +558,9 @@ Analog, Vite पर निर्मित एक Angular मेटा-फ़्�
 </Question>
 <Question title="क्या Intlayer मुफ्त और ओपन सोर्स है?">
 
-हाँ, Apache 2.0 लाइसेंस के तहत, व्यावसायिक उपयोग सहित। होस्टेड CMS एक वैकल्पिक सशुल्क सेवा है जिसे [स्वयं होस्ट (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/self_hosting.md) भी किया जा सकता है।
+हाँ, Apache 2.0 लाइसेंस के तहत, व्यावसायिक उपयोग सहित। होस्टेड CMS एक वैकल्पिक सशुल्क सेवा है जिसे [self host](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/self_hosting.md) भी किया जा सकता है।
 
-- [स्वयं होस्ट (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/self_hosting.md)
+- [self host](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/self_hosting.md)
 
 </Question>
 

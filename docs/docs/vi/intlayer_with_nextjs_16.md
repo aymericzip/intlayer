@@ -92,9 +92,12 @@ So với các giải pháp chính như `next-intl` hay `i18next`, Intlayer là g
 
 Intlayer được tối ưu hóa để hoạt động với **Thành phần máy chủ** nhằm hiển thị hiệu quả và hoàn toàn tương thích với [**Turbopack**](https://nextjs.org/docs/architecture/turbopack). Nó không chặn hiển thị tĩnh và cung cấp phần mềm trung gian cũng như tất cả các tính năng cần thiết để mở rộng quy mô quốc tế hóa (i18n).
 
-> Intlayer tương thích với Next.js 12, 13, 14, 15 và 16. Nếu đang sử dụng Bộ định tuyến trang Next.js, bạn có thể tham khảo [hướng dẫn] này(https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_page_router.md).
+> Intlayer tương thích với Next.js 12, 13, 14, 15 và 16. Nếu đang sử dụng Bộ định tuyến trang Next.js, bạn có thể tham khảo [hướng dẫn](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_page_router.md).
 > Định tuyến cục bộ hữu ích cho SEO, kích thước gói và hiệu suất. Cả hai thiết lập, có và không có định tuyến đường dẫn cục bộ, đều được hỗ trợ và đề cập trong hướng dẫn này.
-> Đối với Next.js 12, 13, 14 và 15 với Bộ định tuyến ứng dụng, hãy tham khảo [hướng dẫn] này (https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_14.md).
+> Đối với Next.js 12, 13, 14 và 15 với Bộ định tuyến ứng dụng, hãy tham khảo [hướng dẫn](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_14.md).
+
+- [i18n Next.js Pages Router: Hướng dẫn dịch thuật đầy đủ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_page_router.md)
+- [i18n Next.js 14 - Hướng dẫn đầy đủ để dịch ứng dụng của bạn](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_14.md)
 
 </Accordion>
 <Accordion header="Kích thước bundle">
@@ -1453,76 +1456,88 @@ Năm công cụ, tất cả đều là tùy chọn:
 - **[ESLint plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/eslint.md)**: quy tắc `no-raw-text` phát hiện các chuỗi chưa được bản địa hóa.
 
 </Question>
-<Question title="Intlayer hỗ trợ những phiên bản Next.js nào?">
+<Question title="Intlayer có hoạt động với Next.js App Router và React Server Components không?">
 
-Next.js 12, 13, 14, 15, và 16. Cả App Router và Pages Router đều được hỗ trợ đầy đủ.
+Có. `next-intlayer` được xây dựng cho App Router: nội dung được xử lý trên server bên trong Server Components, vì vậy không có dictionary nào được gửi đến client cho văn bản được render trên server. Client Components sử dụng cùng hook `useIntlayer` thông qua provider. Intlayer không chặn render tĩnh và tương thích với Turbopack.
 
 </Question>
-<Question title="Intlayer có hoạt động với React Server Components không?">
+<Question title="Intlayer hỗ trợ những phiên bản Next.js nào?">
 
-Có. Nội dung trong Server Components được giải quyết trực tiếp trên server, do đó không có từ điển nào được gửi tới client cho phần văn bản được render phía server. Client Components đọc từ điển qua provider.
+Intlayer hỗ trợ Next.js 12, 13, 14, 15 và 16. Hướng dẫn này dành cho Next.js 16. Với các thiết lập cũ hơn, hãy làm theo [hướng dẫn Next.js 15](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_15.md), [hướng dẫn Next.js 14](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_14.md) hoặc [hướng dẫn Pages Router](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_page_router.md).
+
+- [hướng dẫn Next.js 15](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_15.md)
+- [hướng dẫn Next.js 14](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_14.md)
+- [hướng dẫn Pages Router](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_page_router.md)
 
 </Question>
 <Question title="Tôi có bắt buộc phải đưa locale vào URL như /vi/about không?">
 
-Không. Sơ đồ URL là một tùy chọn cấu hình, không phải là một ràng buộc. `routing.mode` chấp nhận:
+Không. Cấu trúc URL là một tùy chọn cấu hình, không phải là ràng buộc. `routing.mode` chấp nhận:
 
-- `"prefix-no-default"` (mặc định): `/about` cho ngôn ngữ mặc định, `/fr/about` cho các ngôn ngữ khác.
-- `"prefix-all"`: mọi ngôn ngữ đều có tiền tố, `/en/about` và `/fr/about`.
-- `"no-prefix"`: không có ngôn ngữ trong đường dẫn, được phân giải từ cookie, header hoặc miền.
+- `"prefix-no-default"` (mặc định): `/about` cho locale mặc định, `/fr/about` cho các locale khác.
+- `"prefix-all"`: mọi locale đều có tiền tố, `/en/about` và `/fr/about`.
+- `"no-prefix"`: không có locale trong đường dẫn, locale được xác định từ cookie, header hoặc domain.
 - `"search-params"`: `/about?locale=fr`.
 
-Bạn cũng có thể ánh xạ từng ngôn ngữ với miền riêng của nó bằng `routing.domains`. Xem [tài liệu tham khảo cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md) và [Bước 2](#step-2-configure-your-project) để biết các tùy chọn chế độ định tuyến.
+Bạn cũng có thể ánh xạ mỗi locale tới domain riêng của nó bằng `routing.domains`. Xem [tài liệu tham khảo cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md) và kiến trúc không có locale trong đường dẫn ở bước 2 của hướng dẫn này.
 
 - [tài liệu tham khảo cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md)
 
 </Question>
 <Question title="Làm cách nào để thêm thẻ hreflang và metadata được bản địa hóa cho SEO?">
 
-Các bước `generateMetadata` và `sitemap.xml` hướng dẫn việc này. Hàm `getMultilingualUrls` tạo ánh xạ `alternates.languages` cho mỗi locale đã khai báo, bao gồm cả `x-default`, giúp công cụ tìm kiếm lập chỉ mục chính xác.
+Sử dụng hàm `generateMetadata` của Next.js cùng với `getMultilingualUrls` từ Intlayer. Hàm này tạo map `alternates.languages` cho mọi locale được khai báo, bao gồm cả mục `x-default`, để công cụ tìm kiếm phân phối đúng phiên bản ngôn ngữ. Cùng helper đó cũng bản địa hóa `sitemap.ts` và `robots.ts`. Bước 8 và bước 9 của hướng dẫn này trình bày mã đầy đủ.
 
 </Question>
-<Question title="Tôi có cần middleware không?">
+<Question title="Làm cách nào để dịch ứng dụng Next.js tự động bằng AI?">
 
-Middleware phát hiện ngôn ngữ của người truy cập và chuyển hướng tới tiền tố thích hợp, được khuyến nghị nếu bạn không tự quản lý định tuyến locale. Các tuyến API và tệp tĩnh tự động được loại trừ.
-
-</Question>
-<Question title="Làm cách nào để tạo component Link được bản địa hóa?">
-
-Component bọc thẻ `Link` chuẩn của Next.js và chuyển href qua hàm `getLocalizedUrl`, nhờ đó liên kết `/about` tự động nhận tiền tố locale hiện tại như `/vi/about`.
-
-</Question>
-<Question title="Làm cách nào tôi có thể dịch ứng dụng tự động bằng AI?">
-
-Chạy `npx intlayer fill`. CLI phát hiện các bản dịch còn thiếu và điền chúng bằng LLM bạn chọn sử dụng provider và API key của riêng bạn. Flag `--git-diff` giới hạn thao tác ở nội dung đã thay đổi trên branch hiện tại. Xem [lệnh fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/fill.md) và [tích hợp CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/CI_CD.md).
+Chạy `npx intlayer fill`. CLI phát hiện các bản dịch còn thiếu trong các tệp nội dung của bạn và điền chúng bằng LLM mà bạn chọn, sử dụng provider và API key của riêng bạn, vì vậy bạn thanh toán trực tiếp cho provider và không có gì đi qua bên thứ ba. Xem [lệnh fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/fill.md) và [tích hợp CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/CI_CD.md).
 
 - [lệnh fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/fill.md)
 - [tích hợp CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/CI_CD.md)
 
 </Question>
-<Question title="Intlayer có hỗ trợ dạng số nhiều, giới tính và rich text không?">
+<Question title="Intlayer có hỗ trợ dạng số nhiều, giới tính, điều kiện và rich text không?">
 
-Có: [dạng số nhiều (plurals)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/plurial.md), [nội dung dựa trên giới tính](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/gender.md), điều kiện, [chèn (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/insertion.md), [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/markdown.md), và [định dạng](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/formatters.md) cho số, ngày tháng và tiền tệ.
+Có. Khai báo nội dung hỗ trợ [dạng số nhiều](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/plurial.md), [nội dung theo giới tính](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/gender.md), điều kiện, [insertion](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/insertion.md) cho các giá trị nội suy, và [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/markdown.md) cho rich text như các trang pháp lý hoặc nội dung blog. Số, ngày tháng và tiền tệ được xử lý bởi các [formatter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/formatters.md).
 
-- [dạng số nhiều (plurals)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/plurial.md)
-- [nội dung dựa trên giới tính](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/gender.md)
-- [chèn (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/insertion.md)
+- [dạng số nhiều](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/plurial.md)
+- [nội dung theo giới tính](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/gender.md)
+- [insertion](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/insertion.md)
 - [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/markdown.md)
-- [định dạng](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/formatters.md)
+- [formatter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/formatters.md)
+
+</Question>
+<Question title="Người dịch và những người không phải lập trình viên có thể chỉnh sửa nội dung như thế nào?">
+
+Có hai lựa chọn, cả hai đều không bắt buộc. [Trình chỉnh sửa trực quan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md) chạy trên hạ tầng của riêng bạn và cho phép bất kỳ ai nhấp vào văn bản trên trang web để chỉnh sửa trực tiếp. [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md) đưa nội dung ra bên ngoài để có thể cập nhật mà không cần deploy, với [live sync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/live.md) phản ánh các thay đổi tại runtime.
+
+- [Trình chỉnh sửa trực quan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)
+- [live sync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/live.md)
 
 </Question>
 <Question title="Chi phí của trình chỉnh sửa trực quan là bao nhiêu? Nó có dư thừa nếu tôi không cần đến không?">
 
-[Trình chỉnh sửa trực quan Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md) có **chi phí bằng không** đối với ứng dụng của bạn nếu không được thiết lập. Logic bổ sung chỉ được tải nếu được bật rõ ràng và khi cần thiết.
+[Trình chỉnh sửa trực quan của Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md) có **chi phí bằng không** đối với ứng dụng của bạn nếu nó không được thiết lập. Logic bổ sung chỉ được tải khi được bật rõ ràng và khi cần thiết.
 
-- [Trình chỉnh sửa trực quan Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md)
+- [Trình chỉnh sửa trực quan của Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md)
 
-Ngay cả khi được bật, chi phí cũng cực kỳ nhẹ (+5 KB, chỉ tải động khi được kích hoạt) vì phần lớn logic được xử lý bởi trình chỉnh sửa máy chủ trên [app.intlayer.org](https://app.intlayer.org) hoặc thông qua gói `intlayer-editor`. Nếu bạn chỉ cần một giải pháp dịch thuật đơn giản mà không cần chỉnh sửa trực quan, Intlayer sẽ không tạo ra bất kỳ tải phụ nào cho ứng dụng của bạn.
+Nếu được bật, chi phí cực kỳ nhẹ (+5 KB, chỉ được tải động khi kích hoạt) vì logic chính được xử lý bởi server editor trên [app.intlayer.org](https://app.intlayer.org) hoặc thông qua package `intlayer-editor`. Nếu bạn chỉ cần một thiết lập dịch đơn giản mà không cần chỉnh sửa trực quan, Intlayer không thêm bất kỳ chi phí nào vào ứng dụng của bạn.
+
+</Question>
+<Question title="Làm cách nào để phát hiện bản dịch còn thiếu trước khi phát hành?">
+
+Chạy `npx intlayer test` trong CI. Lệnh này làm build thất bại khi một locale đã khai báo bị thiếu nội dung, vì vậy một chuỗi chưa được dịch sẽ không bao giờ đến production. [Tiện ích mở rộng VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/vs_code_extension.md) hiển thị các lỗi tương tự ngay khi bạn gõ, còn [plugin ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/eslint.md) cùng quy tắc `no-raw-text` của nó phát hiện các chuỗi được hardcode. Xem [kiểm thử nội dung của bạn](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/testing.md).
+
+- [Tiện ích mở rộng VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/vs_code_extension.md)
+- [plugin ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/eslint.md)
+- [kiểm thử nội dung của bạn](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/testing.md)
 
 </Question>
 <Question title="Intlayer có phải là mã nguồn mở và miễn phí không?">
 
-Có, theo giấy phép Apache 2.0, bao gồm cả mục đích thương mại. CMS lưu trữ trên đám mây là một dịch vụ trả phí tùy chọn và cũng có thể [tự lưu trữ (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/self_hosting.md).
+Có. Intlayer là mã nguồn mở theo giấy phép Apache 2.0, và toàn bộ thư viện, CLI, trình chỉnh sửa trực quan và compiler đều miễn phí sử dụng, kể cả cho mục đích thương mại. CMS được lưu trữ là một dịch vụ trả phí tùy chọn, và cũng có thể được [tự lưu trữ (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/self_hosting.md).
 
 - [tự lưu trữ (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/self_hosting.md)
 

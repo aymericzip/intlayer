@@ -87,18 +87,18 @@ Intlayer оптимизирован для идеальной работы с So
 </Accordion>
 <Accordion header="Агент ИИ">
 
-Совместное размещение контента **уменьшает контекст, необходимый** для моделей большого языка (LLM). Intlayer также поставляется с набором инструментов, таких как **CLI** для проверки отсутствия переводов,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, и **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/agent_skills.md)**, чтобы сделать работу разработчика (DX) еще более удобной для агентов ИИ.
+Совместное размещение контента **уменьшает контекст, необходимый** для моделей большого языка (LLM). Intlayer также поставляется с набором инструментов, таких как **CLI** для проверки отсутствия переводов,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/mcp_server.md)**, и **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/agent_skills.md)**, чтобы сделать работу разработчика (DX) еще более удобной для агентов ИИ.
 
-- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)
-- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/mcp_server.md)
 - [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/agent_skills.md)
 
 </Accordion>
 <Accordion header="Автоматизация">
 
-Используйте автоматизацию для перевода в своем конвейере CI/CD, используя LLM по вашему выбору за счет вашего поставщика ИИ. Intlayer также предлагает **компилятор** для автоматизации извлечения контента, а также [веб-платформу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md), которая помогает **переводить в фоновом режиме**.
+Используйте автоматизацию для перевода в своем конвейере CI/CD, используя LLM по вашему выбору за счет вашего поставщика ИИ. Intlayer также предлагает **компилятор** для автоматизации извлечения контента, а также [веб-платформу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md), которая помогает **переводить в фоновом режиме**.
 
-- [веб-платформу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
+- [веб-платформу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="Производительность">
@@ -108,10 +108,10 @@ Intlayer оптимизирован для идеальной работы с So
 </Accordion>
 <Accordion header="Масштабирование с помощью не-разработчиками">
 
-Intlayer это больше, чем просто решение i18n. Он предоставляет **автономный [визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** и **[полный CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)**, чтобы помочь вам управлять многоязычным контентом в **реальном времени**, упрощая сотрудничество с переводчиками, копирайтерами и другими членами команды. Контент может храниться локально и/или удаленно.
+Intlayer это больше, чем просто решение i18n. Он предоставляет **автономный [визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md)** и **[полный CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md)**, чтобы помочь вам управлять многоязычным контентом в **реальном времени**, упрощая сотрудничество с переводчиками, копирайтерами и другими членами команды. Контент может храниться локально и/или удаленно.
 
-- [визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)
-- [полный CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
+- [визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md)
+- [полный CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
@@ -269,6 +269,10 @@ export default appContent;
 ```
 
 > Ваши объявления контента могут быть определены в любом месте вашего приложения, как только они будут включены в каталог `contentDir` (по умолчанию, `./src`). И соответствовать расширению файла объявления контента (по умолчанию, `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
+>
+> Для получения дополнительной информации обратитесь к [документации по объявлению контента](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/content_file.md).
+
+- [документации по объявлению контента](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/content_file.md)
 
 </Step>
 <Step number={5} title="Использование Intlayer в вашем коде">
@@ -511,30 +515,34 @@ export const Link: ParentComponent<AnchorProps> = (props) => {
 };
 ```
 
-</Step>
-<Step number={11} title="Рендеринг Markdown" isOptional={true}>
+Параллельно вы также можете использовать `intlayerProxy` для добавления серверной маршрутизации в ваше приложение. Этот плагин автоматически определяет текущую локаль по URL и устанавливает соответствующий cookie локали. Если локаль не указана, плагин определит наиболее подходящую локаль на основе языковых предпочтений браузера пользователя. Если локаль не определена, произойдёт перенаправление на локаль по умолчанию.
 
-Intlayer поддерживает рендеринг контента Markdown непосредственно в вашем приложении Solid, используя свой собственный внутренний парсер. По умолчанию Markdown обрабатывается как обычный текст. Чтобы отрендерить его как богатый HTML, оберните ваше приложение в `MarkdownProvider`.
+> Обратите внимание, что для использования `intlayerProxy` в продакшене необходимо перенести пакет `vite-intlayer` из `devDependencies` в `dependencies`.
 
-Затем вы можете использовать его в ваших компонентах:
+> Начиная с Intlayer v9, `intlayerProxy()` встроен непосредственно в плагин `intlayer()` и включён по умолчанию через опцию `routing.enableProxy` (по умолчанию `true`). Отдельная регистрация, как показано ниже, теперь необязательна. Она сохранена для обратной совместимости и для конфигураций, которым нужно управлять порядком плагинов. Установите `routing.enableProxy: false`, чтобы отключить его. См. [примечания к выпуску v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/releases/v9.md).
 
-```tsx
-import { useIntlayer } from "solid-intlayer";
+- [примечания к выпуску v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/releases/v9.md)
 
-const MyComponent = () => {
-  const content = useIntlayer("my-content");
+```typescript {3,7} fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import solid from "vite-plugin-solid";
+import { intlayer } from "vite-intlayer";
 
-  return (
-    <div>
-      {/* Рендерится как HTML через MarkdownProvider */}
-      {content.markdownContent}
-    </div>
-  );
-};
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [
+    solid(),
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
+  ],
+});
 ```
 
 </Step>
-<Step number={1} title="Извлечение содержимого ваших компонентов" isOptional={true}>
+<Step number={11} title="Извлечение содержимого ваших компонентов" isOptional={true}>
 
 Если у вас есть существующая кодовая база, преобразование тысяч файлов может занять много времени.
 

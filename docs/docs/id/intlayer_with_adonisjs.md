@@ -349,9 +349,12 @@ Jauh lebih sedikit daripada katalog JSON konvensional. Kompiler Intlayer mengopt
 - [optimasi bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/bundle_optimization.md)
 
 </Question>
-<Question title="Bisakah saya bermigrasi dari @adonisjs/i18n tanpa menulis ulang handler saya?">
+<Question title="Bisakah saya bermigrasi dari `i18next` tanpa menulis ulang handler saya?">
 
-Sebagian besar ya. [Plugin sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/plugins/sync-json.md) menjaga file terjemahan yang ada.
+Ya, dan ada dua jalur. Anda dapat memigrasikan konten secara bertahap dengan [panduan migrasi i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_i18next_to_intlayer.md). Atau Anda dapat mempertahankan API Anda saat ini sepenuhnya: [compat adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/index.md) menyediakan API yang persis sama dengan `i18next`, tetapi dilayani oleh kamus Intlayer, sehingga hanya import yang berubah dan kode handler tidak.
+
+- [panduan migrasi i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_i18next_to_intlayer.md)
+- [compat adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/index.md)
 
 </Question>
 <Question title="Bisakah saya menyimpan file terjemahan JSON yang sudah ada?">
@@ -385,14 +388,11 @@ Lima bagian, semuanya opsional:
 - **[Plugin ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/eslint.md)**: aturan `no-raw-text` menandai string hardcoded.
 
 </Question>
-<Question title="Bagaimana bahasa klien dideteksi pada request yang masuk?">
+<Question title="Bagaimana Intlayer mengetahui bahasa apa yang harus digunakan untuk menjawab?">
 
-HTTP middleware AdonisJS memeriksa cookie dan header via `HttpContext`, menyimpan locale di `ctx.locale`.
+Secara default `adonis-intlayer` membaca header `Accept-Language` dari request yang masuk dan memilih locale terdeklarasi yang paling dekat, dengan fallback ke locale default Anda. Anda dapat mengubah sumbernya dengan `routing.storage`, misalnya header kustom atau cookie yang diatur oleh frontend Anda, sehingga API menjawab dalam bahasa yang benar-benar dipilih pengguna, bukan bahasa yang diiklankan browser mereka. Lihat [referensi konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md).
 
-</Question>
-<Question title="Bisakah deklarasi konten yang sama melayani respons API dan frontend web saya?">
-
-Ya, dalam monorepo atau paket bersama, ini adalah keunggulan utama. Kamus yang dideklarasikan dapat diimpor di backend (email, error, respons API) dan frontend (React, Vue, Svelte, dll.), menjaga satu sumber kebenaran untuk semua teks.
+- [referensi konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md)
 
 </Question>
 <Question title="Apakah Intlayer memperlambat penanganan request?">
@@ -439,17 +439,24 @@ Ya: [bentuk jamak (plurals)](https://github.com/aymericzip/intlayer/blob/main/do
 - [formatter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/formatters.md)
 
 </Question>
-<Question title="Bagaimana rekan tim non-teknis dapat mengedit template email dan pesan kesalahan tanpa menyentuh kode?">
+<Question title="Apakah saya mendapatkan autocompletion TypeScript di server?">
 
-Dua opsi tersedia: [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md), yang memisahkan konten dari codebase dan memungkinkan pengeditan teks melalui web, atau [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md), yang menyimpan perubahan langsung ke file kode lokal.
+Ya. Intlayer menghasilkan tipe kamus Anda ke dalam `./types/intlayer.d.ts`, sehingga key yang tidak ada menjadi error kompilasi, bukan string kosong saat runtime. Jalankan `npx intlayer test` di CI agar build gagal ketika locale yang dideklarasikan kekurangan konten.
 
-- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)
-- [Self-host Intlayer dengan Docker](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/self_hosting.md)
+</Question>
+<Question title="Bisakah frontend dan backend berbagi konten yang sama?">
+
+Ya, dan itulah pengaturan yang umum. `adonis-intlayer` bekerja bersama `react-intlayer`, `next-intlayer`, dan `vite-intlayer` pada konten yang dideklarasikan yang sama, sehingga label yang digunakan baik dalam respons API maupun di halaman cukup dideklarasikan sekali. Lihat [cara kerja Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/how_works_intlayer.md).
+
+- [cara kerja Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/how_works_intlayer.md)
 
 </Question>
 <Question title="Apakah Intlayer gratis dan open source?">
 
-Ya, di bawah lisensi Apache 2.0, termasuk penggunaan komersial. CMS yang di-host adalah layanan berbayar opsional yang juga dapat [di-host sendiri (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/self_hosting.md).
+Ya, di bawah lisensi Apache 2.0, termasuk penggunaan komersial. [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md) yang di-host adalah layanan berbayar opsional yang juga dapat di-[self-host](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/self_hosting.md).
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)
+- [self-host](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/self_hosting.md)
 
 </Question>
 

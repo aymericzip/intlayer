@@ -320,9 +320,9 @@ loadPO({
 - `intlayer content push` لدفع ملفات PO المتزامنة
 - `intlayer content pull` لسحب ملفات PO المتزامنة
 
-راجع [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md) لمزيد من التفاصيل.
+راجع [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md) لمزيد من التفاصيل.
 
-- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md)
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md)
 
 ## القيود (الحالية)
 

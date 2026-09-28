@@ -23,31 +23,43 @@ history:
 author: aymericzip
 ---
 
-# intlayer ミドルウェア
+# intlayer Remix 3 ミドルウェアドキュメント
 
-`intlayer` ミドルウェア関数は、Remix 3 アプリケーションでリクエスト単位の国際化を設定します。受信したリクエストごとにロケールを検出し、URL リダイレクトルールを適用し、リクエストコンテキストにロケール状態を永続化します。
+Remix 3 向けの `intlayer` ミドルウェアは、アプリケーション全体の国際化レイヤーを管理します。Web 標準（`Request` と `Response`）に基づいて構築されており、ロケールルーティング（リダイレクトと内部リライト）を処理し、リクエストのロケールを検出して、クッキーとヘッダーに永続化します。さらに `AsyncLocalStorage` スコープを確立することで、下流のハンドラーやコンポーネントが props のバケツリレーなしに翻訳へアクセスできるようにします。
 
 ## 使用方法
 
-Remix ルーターにミドルウェアを登録します。
+Remix 3 ルーターの初期化時に `intlayer` ミドルウェアを登録します。
 
 ```ts fileName="src/server.ts"
 import { createRouter } from "remix/router";
-import { intlayer } from "remix-intlayer";
+import { intlayer, useIntlayer, useLocale } from "remix-intlayer";
 
-export const router = createRouter({
+const router = createRouter({
   middleware: [intlayer()],
+});
+
+// `/`、`/fr`、`/es` を処理し、ロケールはリクエストから解決されます
+router.get("/", () => {
+  const { title } = useIntlayer("home");
+  return new Response(title);
 });
 ```
 
-## 動作の仕組み
+## 説明
 
-ミドルウェアは各受信リクエストに対して以下のタスクを実行します。
+`intlayer` ミドルウェアは以下のタスクを実行します。
 
-1. **ロケール検出**: Intlayer の設定に従い、URL パスプレフィックス（例: `/ja/about`）、クッキー、または `Accept-Language` ヘッダーからロケールを抽出します。
-2. **URL リダイレクト**: 要求されたパスにロケールプレフィックスがなく、設定でプレフィックス付きルーティングが必要な場合、プレフィックス付き URL へのリダイレクトレスポンス（302/307/308）を返します。
-3. **リクエストコンテキストの登録**: `Intlayer` キーを使用して解決された現在のロケールを Remix リクエストコンテキストに保存し、フック（`useLocale`、`useIntlayer`、`useDictionary`）が透過的に利用できるようにします。
-4. **クッキー管理**: ユーザーの優先ロケールを永続化する必要がある場合、`Set-Cookie` ヘッダーを設定します。
+1. **辞書の準備**: 起動時に `prepareIntlayer` を実行し、生成されたすべての辞書がビルドされ利用可能であることを保証します。
+2. **ロケールルーティング**: 設定されたルーティング戦略（`prefix_always`、`prefix_as_needed`、`no_prefix`）に基づいてリクエストを評価します。
+   - **リダイレクト**: ユーザーが `/about` にアクセスし、ロケールプレフィックス（例: `/fr/about`）へルーティングされるべき場合、ミドルウェアは適切な `location` および `Set-Cookie` ヘッダーを含むリダイレクトレスポンスを返します。
+   - **内部リライト**: ユーザーが `/fr/about` にアクセスすると、URL は内部的にリライトされ、ルートハンドラーは `/about` にマッチします。一方、解決されたロケールは `fr` として取得されます。
+   - **ローカライズされた URL エイリアス**: `intlayer.config.ts` で定義された URL リライトルールを尊重します（例: `/fr/about` を `/fr/a-propos` にリライト）。
+3. **ロケールの解決**: URL プレフィックス、永続化されたクッキー、カスタムヘッダー、または `Accept-Language` によるブラウザの設定に基づいてアクティブなロケールを検出します。
+4. **コンテキストの注入**:
+   - `IntlayerState`（`locale`、`defaultLocale`、`availableLocales`）を、`Intlayer` キーおよび `context.intlayer` の下で Remix の `RequestContext` にアタッチします。
+   - リクエストの残りの処理を `AsyncLocalStorage` スコープ（`requestStorage`）内で実行し、ハンドラー、ビュー、コンポーネント内で `useIntlayer`、`useDictionary`、`useLocale` をすっきりと呼び出せるようにします。
+5. **永続化**: 送信するロケールヘッダーとクッキーを最終的な HTTP レスポンスに付与し、ユーザーの設定を保持します。
 
 ## パラメーター
 
@@ -84,5 +96,5 @@ router.get("/api/locale", (context) => {
 ## 関連ドキュメント
 
 - [`Intlayer` リクエストコンテキスト](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/remix-intlayer/Intlayer.md)
-- [`useLocale` フック](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/remix-intlayer/useLocale.md)
 - [`useIntlayer` フック](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/remix-intlayer/useIntlayer.md)
+- [`useLocale` フック](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/remix-intlayer/useLocale.md)

@@ -33,7 +33,9 @@ author: aymericzip
 
 # Synchronisation en direct
 
-La synchronisation en direct permet à votre application de refléter les modifications du contenu CMS en temps réel. Aucune reconstruction ou redéploiement n'est nécessaire. Lorsqu'elle est activée, les mises à jour sont diffusées vers un serveur de synchronisation en direct qui actualise les dictionnaires que votre application utilise.
+La synchronisation en direct permet à votre application de refléter les modifications du contenu du [CMS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md) en temps réel. Aucune reconstruction ou redéploiement n'est nécessaire. Lorsqu'elle est activée, les mises à jour sont diffusées vers un serveur de synchronisation en direct qui actualise les dictionnaires que votre application utilise.
+
+- [CMS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md)
 
 ## Table des matières
 

@@ -243,9 +243,9 @@ const HomePage = () => {
 <ul>
   <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/nextjs.md" rel=''>Next.js</a></li>
   <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/tanstack.md" rel=''>TanStack Start</a></li>
-  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/vue.md" rel=''>Vue</a></li>
-  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/solid.md" rel=''>Solid</a></li>
-  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/svelte.md" rel=''>Svelte</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/vue.md" rel=''>Vue</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/solid.md" rel=''>Solid</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/svelte.md" rel=''>Svelte</a></li>
 </ul>
 </details>
 

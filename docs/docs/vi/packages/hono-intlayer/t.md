@@ -201,6 +201,6 @@ app.get("/morning", (c) => {
 
 ## Kết luận
 
-Hàm `t` là một công cụ mạnh mẽ để quốc tế hóa backend. Bằng cách sử dụng nó một cách hiệu quả, bạn có thể tạo ra một ứng dụng toàn diện và thân thiện với người dùng hơn cho khán giả toàn cầu. Để biết thêm cách sử dụng nâng cao và các tùy chọn cấu hình chi tiết, hãy tham khảo [tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md).
+Hàm `t` là một công cụ mạnh mẽ để quốc tế hóa backend. Bằng cách sử dụng nó một cách hiệu quả, bạn có thể tạo ra một ứng dụng toàn diện và thân thiện với người dùng hơn cho khán giả toàn cầu. Để biết thêm cách sử dụng nâng cao và các tùy chọn cấu hình chi tiết, hãy tham khảo [tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md).
 
-- [Intlayer Configuration (intlayer.config.ts)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)
+- [Intlayer Configuration (intlayer.config.ts)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md)

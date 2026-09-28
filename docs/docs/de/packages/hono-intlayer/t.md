@@ -201,6 +201,6 @@ app.get("/morning", (c) => {
 
 ## Fazit
 
-Die `t`-Funktion ist ein leistungsstarkes Werkzeug für die Backend-Internationalisierung. Durch ihren effektiven Einsatz können Sie eine inklusivere und benutzerfreundlichere Anwendung für ein globales Publikum erstellen. Weitere Informationen zur fortgeschrittenen Nutzung und detaillierte Konfigurationsoptionen finden Sie in der [Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md).
+Die `t`-Funktion ist ein leistungsstarkes Werkzeug für die Backend-Internationalisierung. Durch ihren effektiven Einsatz können Sie eine inklusivere und benutzerfreundlichere Anwendung für ein globales Publikum erstellen. Weitere Informationen zur fortgeschrittenen Nutzung und detaillierte Konfigurationsoptionen finden Sie in der [Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md).
 
-- [Intlayer Configuration (intlayer.config.ts)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)
+- [Intlayer Configuration (intlayer.config.ts)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md)

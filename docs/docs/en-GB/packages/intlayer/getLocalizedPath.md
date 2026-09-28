@@ -98,9 +98,9 @@ const home = getLocalizedPath("/", Locales.FRENCH);
 //    ^? '/fr'
 ```
 
-The same narrowing flows into [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocalizedUrl.md), which applies the rewrite rules before prefixing the locale.
+The same narrowing flows into [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/intlayer/getLocalizedUrl.md), which applies the rewrite rules before prefixing the locale.
 
-- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocalizedUrl.md)
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/intlayer/getLocalizedUrl.md)
 
 Two cases stay widened to `string`, because they cannot be resolved at compile time:
 

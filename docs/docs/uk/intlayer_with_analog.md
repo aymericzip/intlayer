@@ -461,9 +461,13 @@ Analog - це мета-фреймворк для Angular, побудований
 - [бенчмарк](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/index.md)
 
 </Question>
-<Question title="Чи можу я мігрувати з ngx-translate, Transloco або @angular/localize без переписування шаблонів?">
+<Question title="Чи можу я мігрувати з `ngx-translate`, `Transloco` або `@angular/localize` без переписування шаблонів?">
 
-Більшою мірою так. Скористайтеся [оглядом адаптерів сумісності](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/index.md).
+Здебільшого так. Скористайтеся [посібником з міграції з ngx-translate](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/ngx-translate.md) або [посібником з міграції з Transloco](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/transloco.md), щоб перенести вміст. Також можна мігрувати поступово: [плагін синхронізації JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/plugins/sync-json.md) зберігає ваші наявні JSON-каталоги як джерело істини та генерує з них словники Intlayer, тож обидва шари залишаються синхронізованими, поки ви переносите шаблони один за одним.
+
+- [посібник з міграції з ngx-translate](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/ngx-translate.md)
+- [посібник з міграції з Transloco](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/transloco.md)
+- [плагін синхронізації JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/plugins/sync-json.md)
 
 </Question>
 <Question title="Чи можу я зберігати мої існуючі JSON файли перекладів?">
@@ -497,53 +501,56 @@ Analog - це мета-фреймворк для Angular, побудований
 - **[Плагін ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/eslint.md)**: правило `no-raw-text` відстежує жорстко закодовані рядки.
 
 </Question>
-<Question title="Чи працює Intlayer із серверним рендерингом (SSR) та SSG в Analog?">
+<Question title="Чи потрібна окрема збірка для кожної мови?">
 
-Так. Контент вирішується під час SSR та SSG, тому перший HTML надходить клієнту вже перекладеним.
-
-</Question>
-<Question title="Чи вимагає зміна мови повторного завантаження сторінки?">
-
-Ні. `useIntlayer` є реактивним і оновлює компоненти миттєво.
+Ні. Це модель `@angular/localize`, де кожна локаль компілюється в окремий бандл і розгортається окремо. З Intlayer одна збірка обслуговує всі оголошені локалі, а активна мова визначається під час виконання з URL, cookie або заголовка `Accept-Language`.
 
 </Question>
-<Question title="Як налаштувати маршрутизацію з урахуванням локалі у файловій системі Analog?">
+<Question title="Чи підтримує Intlayer сигнали Angular (signals) та standalone компоненти?">
 
-Створивши теку `[locale]` у `src/app/pages`. Функція `getLocalizedUrl` автоматично перетворює посилання.
-
-</Question>
-<Question title="Як керувати мовами з написанням справа наліво в Analog?">
-
-Використовуючи `getHTMLTextDir` для встановлення `lang` та `dir` на кореневому документі.
+Так. Вміст надається через сигнали, тому шаблон повторно рендериться при зміні локалі без перезавантаження сторінки, а провайдер реєструється як будь-який інший standalone провайдер.
 
 </Question>
-<Question title="Як керувати SEO метаданими та тегами hreflang?">
+<Question title="Як змінити мову під час виконання?">
 
-Використовуючи функцію `getMultilingualUrls` для генерації альтернативних тегів `hreflang` для всіх оголошених локалей.
+Це описано в кроці 6. `useLocale` надає активну локаль, оголошені локалі та сеттер, який зберігає вибір, а `getLocalizedUrl` переписує поточний шлях, щоб користувач залишався на тому ж маршруті після перемикання.
+
+</Question>
+<Question title="Чи працює це з серверним рендерингом Analog та Vite?">
+
+Так. Vite-плагін `intlayer()` компілює ваш вміст і відстежує його під час розробки, а локаль визначається на сервері, тож перша HTML-відповідь уже має правильну мову. Попередньо відрендерені (prerendered) маршрути отримують свій вміст під час збірки.
 
 </Question>
 <Question title="Як автоматично перекласти додаток за допомогою AI?">
 
-Запустіть `npx intlayer fill`. Утиліта заповнює відсутні переклади через обрану LLM з вашим провайдером та ключем API, а прапорець `--git-diff` обмежує обробку зміненими файлами. Див. [команду fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/fill.md) та [інтеграцію CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/CI_CD.md).
+Запустіть `npx intlayer fill`. Команда заповнює відсутні переклади за допомогою обраної вами LLM, використовуючи ваш власний провайдер і ключ API, а `--git-diff` обмежує запуск вмістом, зміненим у гілці. Див. [команду fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/fill.md) та [інтеграцію CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/CI_CD.md).
 
-- [команду fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/fill.md)
-- [інтеграцію CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/CI_CD.md)
+- [команда fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/fill.md)
+- [інтеграція CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/CI_CD.md)
 
 </Question>
 <Question title="Чи підтримує Intlayer форми множини, стать та форматований текст (rich text)?">
 
-Так: [форми множини](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/plurial.md), [контент з урахуванням статі](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/gender.md), умови, [вставки (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/insertion.md) та [форматування](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/formatters.md) чисел, дат і валют.
+Так: [форми множини](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/plurial.md), [вміст залежно від статі](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/gender.md), умови, [вставки](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/insertion.md), [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/markdown.md) та [форматери](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/formatters.md) для чисел, дат і валют.
 
 - [форми множини](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/plurial.md)
-- [контент з урахуванням статі](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/gender.md)
-- [вставки (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/insertion.md)
-- [Markdown-контент в Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/markdown.md)
-- [форматування](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/formatters.md)
+- [вміст залежно від статі](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/gender.md)
+- [вставки](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/insertion.md)
+- [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/markdown.md)
+- [форматери](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/formatters.md)
+
+</Question>
+<Question title="Як виявити відсутні переклади перед релізом?">
+
+Запустіть `npx intlayer test` у CI. Команда перериває збірку, коли в оголошеній локалі бракує вмісту. [Розширення VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/vs_code_extension.md) повідомляє про ті самі помилки під час набору. Див. [тестування вмісту](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/testing.md).
+
+- [Розширення VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/vs_code_extension.md)
+- [тестування вмісту](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/testing.md)
 
 </Question>
 <Question title="Як перекладачі можуть редагувати вміст без втручання в код?">
 
-Через [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md), який дозволяє будь-кому редагувати тексти безпосередньо у працюючому додатку, або через [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md), яка відокремлює вміст і дозволяє оновлювати його без повторного розгортання коду.
+За допомогою [візуального редактора](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md), який працює на вашій власній інфраструктурі та дозволяє будь-кому редагувати текст безпосередньо в запущеному додатку, або [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md), яка виносить вміст назовні, щоб його можна було змінювати без розгортання.
 
 - [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md)
 - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)
@@ -551,9 +558,9 @@ Analog - це мета-фреймворк для Angular, побудований
 </Question>
 <Question title="Чи є Intlayer безкоштовним та відкритим кодом?">
 
-Так, під ліцензією Apache 2.0, включно з комерційним використанням. Хмарна CMS - це додаткова платна послуга, яку також можна [розгорнути самостійно (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/self_hosting.md).
+Так, за ліцензією Apache 2.0, включно з комерційним використанням. Хмарна CMS — це необов'язковий платний сервіс, який також можна [розгорнути самостійно](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/self_hosting.md).
 
-- [розгорнути самостійно (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/self_hosting.md)
+- [самостійне розгортання](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/self_hosting.md)
 
 </Question>
 

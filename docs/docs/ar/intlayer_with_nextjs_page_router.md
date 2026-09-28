@@ -962,24 +962,26 @@ bun add @intlayer/swc --dev
 - **[ESLint plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/eslint.md)**: قاعدة `no-raw-text` ترصد النصوص المكتوبة مباشرة بدون تدويل.
 
 </Question>
-<Question title="هل لا يزال خيار i18n المدمج في Next.js يعمل مع Pages Router؟">
-
-نعم. يتوافق إعداد `i18n` المدمج في Pages Router في Next.js تمامًا مع Intlayer: يتعامل Next.js مع التوجيه، ويدير Intlayer المحتوى.
-
-</Question>
 <Question title="هل يجب أن أبقى على Pages Router أم انتقل إلى App Router؟">
 
-يمكن للتطبيقات الحالية على Pages Router الاستمرار في العمل بشكل ممتاز. للمشاريع الجديدة أو للاستفادة من مكونات خادم React، يوصى باستخدام App Router.
+لا شيء هنا يفرض عليك الانتقال. يدعم Intlayer كلا الموجّهين، وتصريحات المحتوى متطابقة، لذا فإن ترحيل الموجّه لاحقًا لا يعني إعادة كتابة التدويل (i18n) الخاص بك. إذا كنت تخطط للانتقال بالفعل، فاتبع [دليل Next.js 16](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_16.md) بدلاً من ذلك واستفد من العرض عبر Server Components، الذي يُبقي القواميس خارج العميل تمامًا.
+
+- [دليل Next.js 16](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_16.md)
 
 </Question>
-<Question title="هل يجب تضمين اللغة في مسار URL مثل /ar/about؟">
+<Question title="هل لا يزال خيار i18n المدمج في Next.js يعمل مع Pages Router؟">
 
-لا. يقبل `routing.mode` القيمة `"prefix-no-default"` (الافتراضية: `/about` للغة الافتراضية و `/ar/about` للغات الأخرى)، و `"prefix-all"`، و `"no-prefix"`، و `"search-params"`. يعين خيار `routing.domains` كل لغة لنطاقها الخاص. انظر [مرجع الإعدادات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
+نعم، وهذا هو الفرق الرئيسي عن App Router حيث لا ينطبق هذا الخيار. فهو يوفر لك بادئات اللغة واكتشاف `Accept-Language` لكنه لا يوفر أي طبقة للرسائل على الإطلاق، لذا فهو يحل مشكلة التوجيه ويترك الترجمة لمكتبة ما. يمكنك الاحتفاظ به، أو ترك Intlayer يتولى التوجيه أيضًا عبر `routing.mode` والـ middleware في الخطوة 4.
 
 </Question>
 <Question title="كيف أضيف وسوم hreflang والبيانات الوصفية المترجمة لتحسين محركات البحث (SEO)؟">
 
-تغطي خطوات `generateMetadata` و `sitemap.xml` ذلك. تنشئ الدالة `getMultilingualUrls` تعيينات `alternates.languages` لكل لغة معلنة، بما في ذلك `x-default`، مما يساعد محركات البحث على الفهرسة الدقيقة.
+تغطي الخطوة 8 ذلك. أنشئ الروابط البديلة باستخدام `getMultilingualUrls`، بما في ذلك المدخل `x-default`، وأخرجها عبر `next/head` في كل صفحة حتى تعرض محركات البحث نسخة اللغة الصحيحة.
+
+</Question>
+<Question title="كيف أنشئ مكون رابط مترجم؟">
+
+توضح الخطوة 10 ذلك. يلف المكون وسم `Link` في Next.js ويمرر الـ href عبر `getLocalizedUrl`، بحيث يصبح الرابط الداخلي المكتوب كـ `/about` هو `/fr/about` للزائر الفرنسي دون الحاجة إلى تكرار اللغة في كل موضع استدعاء.
 
 </Question>
 <Question title="كيف أترجم التطبيق تلقائياً باستخدام الذكاء الاصطناعي؟">

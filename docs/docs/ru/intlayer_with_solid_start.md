@@ -87,18 +87,18 @@ Intlayer оптимизирован для идеальной работы с So
 </Accordion>
 <Accordion header="ИИ-агент">
 
-Совместное расположение контента **сокращает контекст**, необходимый большим языковым моделям (LLM). Intlayer также поставляется с набором инструментов, таких как **CLI** для проверки отсутствующих переводов, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** и **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/agent_skills.md)**, чтобы сделать опыт разработки (DX) ещё удобнее для ИИ-агентов.
+Совместное расположение контента **сокращает контекст**, необходимый большим языковым моделям (LLM). Intlayer также поставляется с набором инструментов, таких как **CLI** для проверки отсутствующих переводов, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/mcp_server.md)** и **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/agent_skills.md)**, чтобы сделать опыт разработки (DX) ещё удобнее для ИИ-агентов.
 
-- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)
-- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/mcp_server.md)
 - [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/agent_skills.md)
 
 </Accordion>
 <Accordion header="Автоматизация">
 
-Используйте автоматизацию для перевода в вашем CI/CD-пайплайне с помощью выбранной вами LLM за счёт вашего ИИ-провайдера. Intlayer также предлагает **компилятор** для автоматизации извлечения контента, а также [веб-платформу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md), помогающую **переводить в фоновом режиме**.
+Используйте автоматизацию для перевода в вашем CI/CD-пайплайне с помощью выбранной вами LLM за счёт вашего ИИ-провайдера. Intlayer также предлагает **компилятор** для автоматизации извлечения контента, а также [веб-платформу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md), помогающую **переводить в фоновом режиме**.
 
-- [веб-платформу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
+- [веб-платформу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="Производительность">
@@ -108,10 +108,10 @@ Intlayer оптимизирован для идеальной работы с So
 </Accordion>
 <Accordion header="Масштабирование с участием нетехнических специалистов">
 
-Intlayer это больше, чем просто решение для i18n: он предоставляет **самостоятельно размещаемый [визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** и **[полноценную CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)**, чтобы помочь вам управлять многоязычным контентом **в реальном времени**, делая совместную работу с переводчиками, копирайтерами и другими членами команды бесшовной. Контент может храниться локально и/или удалённо.
+Intlayer это больше, чем просто решение для i18n: он предоставляет **самостоятельно размещаемый [визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md)** и **[полноценную CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md)**, чтобы помочь вам управлять многоязычным контентом **в реальном времени**, делая совместную работу с переводчиками, копирайтерами и другими членами команды бесшовной. Контент может храниться локально и/или удалённо.
 
-- [визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)
-- [полноценную CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
+- [визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md)
+- [полноценную CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
@@ -161,7 +161,7 @@ bun add intlayer solid-intlayer vite-intlayer
 
 - **intlayer**
 
-  Основной пакет, предоставляющий инструменты интернационализации для управления конфигурацией, перевода, [декларации контента](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md), транспиляции и [команд CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md).
+  Основной пакет, предоставляющий инструменты интернационализации для управления конфигурацией, перевода, [декларации контента](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/content_file.md), транспиляции и [команд CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/index.md).
 
 - **solid-intlayer**
 
@@ -207,9 +207,9 @@ export default config;
 /es          /es/about       → Spanish
 ```
 
-> С помощью этого конфигурационного файла вы можете настроить локализованные URL, перенаправление через middleware, названия cookie, расположение и расширение деклараций контента, отключить логи Intlayer в консоли и многое другое. Полный список доступных параметров смотрите в [документации по конфигурации](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md).
+> С помощью этого конфигурационного файла вы можете настроить локализованные URL, перенаправление через middleware, названия cookie, расположение и расширение деклараций контента, отключить логи Intlayer в консоли и многое другое. Полный список доступных параметров смотрите в [документации по конфигурации](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md).
 
-- [документации по конфигурации](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)
+- [документации по конфигурации](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md)
 
 </Step>
 <Step number={3} title="Интеграция Intlayer в конфигурацию Vite">
@@ -309,9 +309,9 @@ export default homeContent;
 
 > Ваши декларации контента могут быть определены в любом месте приложения, если они включены в директорию `contentDir` (по умолчанию `./src`) и соответствуют расширению файла декларации контента (по умолчанию `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
 >
-> Подробнее см. в [документации по декларации контента](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md).
+> Подробнее см. в [документации по декларации контента](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/content_file.md).
 
-- [документации по декларации контента](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md)
+- [документации по декларации контента](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/content_file.md)
 
 </Step>
 <Step number={5} title="Добавление локализованной маршрутизации">
@@ -486,9 +486,9 @@ export default function Home() {
 > <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
 
-> Подробнее о хуке `useIntlayer` см. в [документации](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/solid-intlayer/useIntlayer.md).
+> Подробнее о хуке `useIntlayer` см. в [документации](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/solid-intlayer/useIntlayer.md).
 
-- [useIntlayer Hook Documentation | solid-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/solid-intlayer/useIntlayer.md)
+- [useIntlayer Hook Documentation | solid-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/solid-intlayer/useIntlayer.md)
 
 Контентные узлы не ограничиваются простыми переводами. Например, счётчик с формами множественного числа:
 
@@ -647,9 +647,9 @@ export const LocaleSwitcher: Component = () => {
 >
 > `dir` и `hreflang` на каждой ссылке сохраняют правильную ориентацию названий языков с письмом справа налево и сообщают вспомогательным технологиям и краулерам, на какой язык указывает каждая ссылка.
 >
-> Подробнее о хуке `useLocale` см. в [документации](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/solid-intlayer/useLocale.md).
+> Подробнее о хуке `useLocale` см. в [документации](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/solid-intlayer/useLocale.md).
 
-- [useLocale Hook Documentation | solid-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/solid-intlayer/useLocale.md)
+- [useLocale Hook Documentation | solid-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/solid-intlayer/useLocale.md)
 
 </Step>
 <Step number={11} title="Отправка ссылок canonical и hreflang" isOptional={true}>
@@ -869,10 +869,10 @@ export default function Page() {
 
 Если у вас уже есть существующая кодовая база, преобразование тысяч файлов может занять много времени.
 
-Чтобы упростить этот процесс, Intlayer предлагает [компилятор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compiler.md) / [экстрактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/extract.md) для преобразования ваших компонентов и извлечения контента.
+Чтобы упростить этот процесс, Intlayer предлагает [компилятор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compiler.md) / [экстрактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/extract.md) для преобразования ваших компонентов и извлечения контента.
 
-- [компилятор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compiler.md)
-- [экстрактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/extract.md)
+- [компилятор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compiler.md)
+- [экстрактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/extract.md)
 
 Чтобы настроить это, добавьте секцию `compiler` в ваш файл `intlayer.config.ts`:
 
@@ -1073,19 +1073,19 @@ node .output/server/index.mjs
 
 ## Что дальше
 
-Чтобы пойти дальше, вы можете внедрить [визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) или вынести ваш контент вовне с помощью [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
+Чтобы пойти дальше, вы можете внедрить [визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md) или вынести ваш контент вовне с помощью [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md).
 
-- [визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)
-- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
+- [визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md)
 
 ## Ссылки на документацию
 
 - [Документация Intlayer](https://intlayer.org)
 - [Документация SolidStart](https://start.solidjs.com)
-- [Хук useIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/solid-intlayer/useIntlayer.md)
-- [Хук useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/solid-intlayer/useLocale.md)
-- [Декларация контента](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md)
-- [Конфигурация](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)
+- [Хук useIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/solid-intlayer/useIntlayer.md)
+- [Хук useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/solid-intlayer/useLocale.md)
+- [Декларация контента](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/content_file.md)
+- [Конфигурация](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md)
 
 ## Часто задаваемые вопросы
 

@@ -843,9 +843,9 @@ export const LocaleSwitcher: FC = () => {
 
 - [документации хука `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/next-intlayer/useLocale.md)
 
-> В этом случае, без перенаправления с помощью `router.push`, только ваш серверный код изменит локаль контента.
+> Вы также можете установить функцию в опции `onLocaleChange` для запуска пользовательской функции при изменении локали.
 
-```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
+```tsx fileName="src/components/LocaleSwitcher.tsx"
 "use client";
 
 import { useLocale } from "next-intlayer";

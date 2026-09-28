@@ -529,9 +529,13 @@ Xem [lý do chọn Intlayer](https://github.com/aymericzip/intlayer/blob/main/do
 - [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/index.md)
 
 </Question>
-<Question title="Tôi có thể di chuyển từ ngx-translate, Transloco hoặc @angular/localize mà không cần viết lại template không?">
+<Question title="Tôi có thể di chuyển từ `ngx-translate`, `Transloco` hoặc `@angular/localize` mà không cần viết lại template không?">
 
-Phần lớn là có. Xem [tổng quan adapter tương thích](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/index.md).
+Phần lớn là có. Hãy làm theo [hướng dẫn di chuyển từ ngx-translate](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/ngx-translate.md) hoặc [hướng dẫn di chuyển từ Transloco](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/transloco.md) để chuyển nội dung. Bạn cũng có thể di chuyển dần dần: [plugin sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/plugins/sync-json.md) giữ các catalog JSON hiện có làm nguồn chân lý và tạo từ điển Intlayer từ chúng, nhờ đó hai lớp luôn đồng bộ trong khi bạn chuyển từng template một.
+
+- [hướng dẫn di chuyển từ ngx-translate](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/ngx-translate.md)
+- [hướng dẫn di chuyển từ Transloco](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/transloco.md)
+- [plugin sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/plugins/sync-json.md)
 
 </Question>
 <Question title="Tôi có thể giữ các tệp dịch JSON hiện có của mình không?">
@@ -565,29 +569,24 @@ Năm công cụ, tất cả đều là tùy chọn:
 - **[ESLint plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/eslint.md)**: quy tắc `no-raw-text` phát hiện các chuỗi chưa được bản địa hóa.
 
 </Question>
-<Question title="Intlayer có hoạt động với Angular Signals không?">
+<Question title="Intlayer có hỗ trợ Angular signals và standalone components không?">
 
-Có. `useIntlayer` trả về một signal của Angular hoạt động mượt mà trong kiến trúc Zoneless của Angular.
-
-</Question>
-<Question title="Việc thay đổi ngôn ngữ có yêu cầu tải lại trang không?">
-
-Không. Vì dựa trên signal, việc chuyển đổi ngôn ngữ được phản ánh ngay lập tức trên giao diện.
+Có. Nội dung được cung cấp thông qua signals, vì vậy template sẽ render lại khi locale thay đổi mà không cần tải lại trang, và provider được đăng ký như bất kỳ standalone provider nào khác.
 
 </Question>
-<Question title="Làm cách nào để thiết lập định tuyến có locale trong Angular?">
+<Question title="Tôi có cần một bản build cho mỗi ngôn ngữ không?">
 
-Khai báo tham số `:locale` trong các tuyến và đồng bộ hóa với provider của Intlayer.
-
-</Question>
-<Question title="Làm cách nào để xử lý các ngôn ngữ từ phải sang trái trong Angular?">
-
-Sử dụng `getHTMLTextDir` để đặt `lang` và `dir` trên phần tử gốc của ứng dụng.
+Không. Đó là mô hình của `@angular/localize`. Với Intlayer, một bản build duy nhất phục vụ mọi locale đã khai báo, ngôn ngữ đang hoạt động được xác định lúc runtime từ URL, cookie hoặc header `Accept-Language`, và chỉ nội dung của locale được render mới được tải xuống.
 
 </Question>
-<Question title="Làm cách nào tôi có thể dịch ứng dụng tự động bằng AI?">
+<Question title="Làm cách nào để chuyển đổi ngôn ngữ lúc runtime?">
 
-Chạy `npx intlayer fill`. Lệnh này điền các bản dịch còn thiếu bằng LLM bạn chọn sử dụng provider và API key của riêng bạn, và `--git-diff` giới hạn thao tác ở các tệp đã thay đổi. Xem [lệnh fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/fill.md) và [tích hợp CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/CI_CD.md).
+Bước 6 đề cập đến điều này. `useLocale` cung cấp locale đang hoạt động, các locale đã khai báo và một setter lưu lại lựa chọn, còn `getLocalizedUrl` viết lại đường dẫn hiện tại để người dùng vẫn ở cùng route sau khi chuyển đổi.
+
+</Question>
+<Question title="Làm cách nào tôi có thể dịch ứng dụng Angular tự động bằng AI?">
+
+Chạy `npx intlayer fill`, lệnh này điền các bản dịch còn thiếu bằng LLM bạn chọn, sử dụng provider và API key của riêng bạn. `--git-diff` giới hạn lần chạy ở nội dung đã thay đổi trên branch. Xem [lệnh fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/fill.md) và [tích hợp CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/CI_CD.md).
 
 - [lệnh fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/fill.md)
 - [tích hợp CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/CI_CD.md)
@@ -595,28 +594,36 @@ Chạy `npx intlayer fill`. Lệnh này điền các bản dịch còn thiếu b
 </Question>
 <Question title="Intlayer có hỗ trợ dạng số nhiều, giới tính và rich text không?">
 
-Có: [dạng số nhiều (plurals)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/plurial.md), [nội dung dựa trên giới tính](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/gender.md), điều kiện, [chèn (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/insertion.md), và [định dạng](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/formatters.md) cho số, ngày tháng và tiền tệ.
+Có: [dạng số nhiều](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/plurial.md), [nội dung theo giới tính](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/gender.md), điều kiện, [chèn giá trị](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/insertion.md), [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/markdown.md) và [formatter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/formatters.md) cho số, ngày tháng và tiền tệ.
 
-- [dạng số nhiều (plurals)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/plurial.md)
-- [nội dung dựa trên giới tính](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/gender.md)
-- [chèn (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/insertion.md)
-- [Nội dung Markdown trong Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/markdown.md)
-- [định dạng](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/formatters.md)
+- [dạng số nhiều](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/plurial.md)
+- [nội dung theo giới tính](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/gender.md)
+- [chèn giá trị](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/insertion.md)
+- [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/markdown.md)
+- [formatter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/formatters.md)
+
+</Question>
+<Question title="Làm cách nào để phát hiện các bản dịch còn thiếu trước khi phát hành?">
+
+Chạy `npx intlayer test` trong CI. Lệnh này làm build thất bại khi một locale đã khai báo bị thiếu nội dung. [Tiện ích VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/vs_code_extension.md) báo cáo cùng các lỗi đó ngay khi bạn gõ. Xem [kiểm thử nội dung của bạn](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/testing.md).
+
+- [Tiện ích VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/vs_code_extension.md)
+- [kiểm thử nội dung của bạn](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/testing.md)
 
 </Question>
 <Question title="Làm thế nào người dịch có thể chỉnh sửa nội dung mà không cần chạm vào mã nguồn?">
 
-Thông qua [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md), cho phép bất kỳ ai chỉnh sửa văn bản trực tiếp trên ứng dụng đang chạy, hoặc qua [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md), giúp tách biệt nội dung để cập nhật mà không cần triển khai lại mã nguồn.
+Thông qua [trình chỉnh sửa trực quan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md), chạy trên hạ tầng của riêng bạn và cho phép bất kỳ ai chỉnh sửa văn bản trực tiếp trên ứng dụng đang chạy, hoặc [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md), giúp tách nội dung ra bên ngoài để có thể thay đổi mà không cần triển khai.
 
-- [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md)
+- [trình chỉnh sửa trực quan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md)
 - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)
 
 </Question>
 <Question title="Intlayer có phải là mã nguồn mở và miễn phí không?">
 
-Có, theo giấy phép Apache 2.0, bao gồm cả mục đích thương mại. CMS lưu trữ trên đám mây là một dịch vụ trả phí tùy chọn và cũng có thể [tự lưu trữ (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/self_hosting.md).
+Có, theo giấy phép Apache 2.0, bao gồm cả mục đích thương mại. CMS được host là một dịch vụ trả phí tùy chọn và cũng có thể [tự host](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/self_hosting.md).
 
-- [tự lưu trữ (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/self_hosting.md)
+- [tự host](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/self_hosting.md)
 
 </Question>
 

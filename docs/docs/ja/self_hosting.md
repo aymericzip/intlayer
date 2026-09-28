@@ -126,7 +126,7 @@ npx intlayer init infra --mode desktop
 
 ### 1. インストール
 
-`BETTER_AUTH_SECRET` および `S3_SECRET_ACCESS_KEY` が生成された `./intlayer.env` を書き込み、`intlayer/cms-all:latest` を取得します。
+`BETTER_AUTH_SECRET` および `S3_SECRET_ACCESS_KEY` が生成された `./intlayer.env` を書き込み、残りの項目を埋めるためにいくつか質問をしたうえで、`intlayer/cms-all:latest` を取得します。
 
 <Tabs group="os">
 <Tab label="macOS / Linux" value="unix">
@@ -147,14 +147,22 @@ $env:INTLAYER_MODE = "docker"; irm https://intlayer.org/install.ps1 | iex
 </Tab>
 <Tab label="Intlayer CLI" value="cli">
 
-CLI がインストーラーを実行し、他のタブに示されている `docker run …` コマンドを出力します。メーラーを設定したらターミナルに貼り付けて実行してください。
+```bash
+npx intlayer init infra --mode docker
+```
 
 </Tab>
 </Tabs>
 
-### 2. メーラーの設定
+### 2. セットアップの質問に回答する
 
-`intlayer.env` を開き、Resend **または** SMTP を設定します（詳細は [グローバルメーラー](#global-mailer) を参照）:
+インストーラーは次の項目を尋ねます（Enter を押すと提案値を受け入れます。どの回答も後からファイルで変更できます）:
+
+- Intlayer を提供する**ドメイン**。空のままにすると `localhost` のままになります。`example.org` のようなドメインを指定すると、ダッシュボードに `https://cms.example.org`、API に `https://back.example.org`、オブジェクトストレージに `https://s3.example.org/intlayer` を提案し、`DOMAIN`、`APP_URL`、`BACKEND_URL`、`S3_PUBLIC_URL` を書き込みます。その後の手順は [カスタムドメイン](#custom-domain) を参照してください。
+- **メーラー**: Resend（API キー）または SMTP リレー（ホスト、ポート、認証情報）と送信元アドレス。この項目はスキップして後から手動で設定できます。
+- AI 機能用の任意の **OpenAI API キー**。
+
+ターミナルがない場合（たとえば CI からスクリプトを実行する場合）、質問はスキップされ、シークレットのみが生成されます。`intlayer.env` を開き、Resend **または** SMTP を手動で設定します（詳細は [グローバルメーラー](#global-mailer) を参照）:
 
 ```sh fileName="intlayer.env"
 # Option A: Resend
@@ -170,7 +178,7 @@ MAIL_FROM=Intlayer <no-reply@example.com>
 
 ### 3. 起動
 
-インストーラーが出力する起動コマンドです:
+インストーラーが出力する起動コマンドです（カスタムドメインの場合は、その前に `intlayer/cms-all:custom` を生成する `docker build` が実行されます。[カスタムドメイン](#custom-domain) を参照）:
 
 <Tabs group="os">
 <Tab label="macOS / Linux" value="unix">
@@ -204,7 +212,7 @@ CLI がインストーラーを実行し、他のタブに示されている `do
 </Tab>
 </Tabs>
 
-**http://localhost:3000** を開き、[初回セットアップ](#first-run-setup) に従います。初回の起動ではレプリカセットとバケットが初期化されるため、少しお待ちください。
+**http://localhost:3000**（またはダッシュボードの URL）を開き、[初回セットアップ](#first-run-setup) に従います。初回の起動ではレプリカセットとバケットが初期化されるため、少しお待ちください。
 
 ### バックアップとアップグレード
 
@@ -259,7 +267,7 @@ docker run --rm -v intlayer-data:/data -v "$(pwd)":/backup busybox tar xzf /back
 
 ### 1. インストール
 
-`docker-compose.yml` と生成されたシークレットを含む `.env` を `./intlayer/` に書き出し、イメージを取得します。
+`docker-compose.yml` と生成されたシークレットを含む `.env` を `./intlayer/` に書き出し、オールインワンモードと同じセットアップの質問（ドメイン、メーラー、OpenAI キー）をしたうえで、イメージを取得します。
 
 <Tabs group="os">
 <Tab label="macOS / Linux" value="unix">
@@ -307,7 +315,7 @@ npx intlayer init infra --mode compose
 
 ### 2. メーラーの設定
 
-オールインワン構成と同様に、`intlayer/.env` に Resend **または** SMTP を記入します（[グローバルメーラー](#global-mailer) を参照）。
+メーラーの質問をスキップした場合は、オールインワン構成と同様に、`intlayer/.env` に Resend **または** SMTP を記入します（[グローバルメーラー](#global-mailer) を参照）。
 
 ### 3. 起動
 
@@ -315,7 +323,9 @@ npx intlayer init infra --mode compose
 cd intlayer && docker compose up -d
 ```
 
-**http://localhost:3000** を開き、[初回セットアップ](#first-run-setup) に従います。
+カスタムドメインの場合、インストーラーは `docker-compose.build.yml` もダウンロードし、起動コマンドは `docker compose -f docker-compose.yml -f docker-compose.build.yml up -d --build` になります（[カスタムドメイン](#custom-domain) を参照）。
+
+**http://localhost:3000**（またはダッシュボードの URL）を開き、[初回セットアップ](#first-run-setup) に従います。
 
 ### マネージドデータストア
 
@@ -339,14 +349,14 @@ services:
 
 ### ソースからのビルド
 
-リポジトリのクローンから、オーバーライド設定により2つの Intlayer サービスを `image:` から `build:` に切り替えます:
+オーバーライド設定により、2つの Intlayer サービスを `image:` から `build:` に切り替えます。リポジトリのクローンから:
 
 ```sh
 cd docker/selfhost
 docker compose -f docker-compose.yml -f docker-compose.build.yml up -d --build
 ```
 
-カスタムドメイン用のイメージを作成する場合もこの方法を使用します: `VITE_*` の値をビルド引数として渡します（[制限事項](#limitations) を参照）。
+クローンがない場合は、`.env` に `INTLAYER_BUILD_CONTEXT=https://github.com/aymericzip/intlayer.git#main` を設定して、ビルドコンテキストをリポジトリ自体に向けます。ダッシュボードの `VITE_*` ビルド引数は同じファイルの `DOMAIN`、`APP_URL`、`BACKEND_URL` に従います。これが [カスタムドメイン](#custom-domain) を適用する方法です。
 
 ### バックアップとアップグレード
 
@@ -389,6 +399,8 @@ $env:INTLAYER_MODE = "compose"; $env:INTLAYER_COMPOSE_DIR = ".\cms"; irm https:/
 | `INTLAYER_CONSOLE_PORT`   | `9001`                    | docker     | Host port for the MinIO console                            |
 | `INTLAYER_COMPOSE_DIR`    | `./intlayer`              | compose    | Where `docker-compose.yml` and `.env` are written          |
 | `INTLAYER_SELFHOST_REF`   | `main`                    | both       | Git ref the compose file and env template are fetched from |
+| `INTLAYER_BUILD_CONTEXT`  | `…/intlayer.git#main`     | both       | Build context used when a custom domain requires a rebuild |
+| `INTLAYER_CUSTOM_IMAGE`   | `intlayer/cms-all:custom` | docker     | Tag of the all-in-one image built for a custom domain      |
 
 > ポート変数はマッピングの **ホスト** 側のみを変更します。公開されているイメージには `http://localhost:3000`、`http://localhost:3100`、`http://localhost:9000` がダッシュボードバンドルにコンパイルされているため、独自のイメージをビルドしない限りデフォルトを維持してください。[制限事項](#limitations) を参照してください。
 
@@ -416,7 +428,7 @@ $env:INTLAYER_MODE = "compose"; $env:INTLAYER_COMPOSE_DIR = ".\cms"; irm https:/
 
 ### デプロイによって固定
 
-These are set by the image (all-in-one) or by the compose file, and only need overriding for a non-standard topology.
+これらはイメージ（オールインワン）または compose ファイルで設定され、標準的でない構成の場合にのみ上書きが必要です。ただし `DOMAIN`、`APP_URL`、`BACKEND_URL`、`S3_PUBLIC_URL` は例外で、env ファイルで設定すると両方のモードで優先されます（[カスタムドメイン](#custom-domain) を参照）。
 
 | Variable           | All-in-one                                          | Docker Compose                   | Description                                                                   |
 | ------------------ | --------------------------------------------------- | -------------------------------- | ----------------------------------------------------------------------------- |
@@ -433,6 +445,37 @@ These are set by the image (all-in-one) or by the compose file, and only need ov
 | `S3_ACCESS_KEY_ID` | `intlayer`                                          | `intlayer`                       | MinIO access key                                                              |
 
 Compose の `app` サービスは追加で `INTLAYER_BACKEND_INTERNAL_URL=http://backend:3100` を受け取ります: ブラウザは `localhost:3100` で API にアクセスしますが、サーバーサイドレンダリングは Compose ネットワーク内で実行されるため、サービス名を使用する必要があります。
+
+### カスタムドメイン
+
+バックエンドは公開 URL を実行時に読み込みますが、ダッシュボードではそれらが**コンパイル時に組み込まれて**います。公開されている `intlayer/cms-frontend` および `intlayer/cms-all` イメージは `http://localhost:3000` でしか動作しません。そのため、独自のドメインで Intlayer を提供するには次の2つが必要です。どちらも、ドメインの質問に回答するとインストーラーが準備します:
+
+1. **env ファイル内の4つの変数**。バックエンドが読み込み（Cookie、メールのリンク、OAuth コールバック、アセット URL）、`docker-compose.build.yml` がビルド引数として使用します:
+
+   ```sh fileName="intlayer.env"
+   DOMAIN=example.org                          # cookie domain, parent of the hosts below
+   APP_URL=https://cms.example.org
+   BACKEND_URL=https://back.example.org
+   S3_PUBLIC_URL=https://s3.example.org/intlayer
+   ```
+
+2. **これらの URL でビルドしたダッシュボードイメージ。** Docker はリポジトリから直接ビルドするため、クローンは不要です:
+
+   ```sh
+   # Docker Compose: the override reads the build args from .env
+   docker compose -f docker-compose.yml -f docker-compose.build.yml up -d --build
+
+   # All-in-one
+   docker build -f docker/selfhost/Dockerfile \
+     --build-arg VITE_DOMAIN=example.org \
+     --build-arg VITE_SITE_URL=https://cms.example.org \
+     --build-arg VITE_IDE_URL=https://cms.example.org \
+     --build-arg VITE_BACKEND_URL=https://back.example.org \
+     -t intlayer/cms-all:custom \
+     https://github.com/aymericzip/intlayer.git#main
+   ```
+
+次に、TLS 対応のリバースプロキシをコンテナの前に配置します: `cms.example.org` → ポート `3000`、`back.example.org` → `3100`、`s3.example.org` → `9000`。セッション Cookie のスコープが `DOMAIN` に限定されるため、3つのホストはこのサフィックスを共有する必要があります。
 
 ### オプション（設定しない場合でも機能は正常にフォールバックします）
 
@@ -528,9 +571,10 @@ const { data: dictionaries } = await dictionaryEndpoint(cms).getDictionaries();
 
 ## 制限事項
 
-- **カスタムドメインおよびポート再マッピングの未対応。** ブラウザ向けのすべての `VITE_*` URL はビルド時にダッシュボードに組み込まれ、公開イメージ（およびデスクトップアプリ）には `localhost` / Intlayer Cloud の値が設定されています。ダッシュボードは `http://localhost:3000`、API は `:3100`、MinIO は `:9000` でアクセスする必要があります。公開ドメインでホストする場合、またはデスクトップアプリをセルフホストバックエンドに向ける場合は、ターゲット URL を組み込んだ状態でのリビルド（`docker/selfhost/Dockerfile` または `docker-compose.build.yml` 上で `--build-arg VITE_BACKEND_URL=… VITE_SITE_URL=… VITE_DOMAIN=…` を指定）が必要であり、初期状態ではサポートされていません。
+- **カスタムドメインにはリビルドが必要。** ブラウザ向けのすべての `VITE_*` URL はビルド時にダッシュボードに組み込まれ、公開イメージ（およびデスクトップアプリ）には `localhost` / Intlayer Cloud の値が設定されています。初期状態では、ダッシュボードは `http://localhost:3000`、API は `:3100`、MinIO は `:9000` でアクセスする必要があり、ホストポートを再マッピングしても同じ結果になります。ドメインを指定すると、インストーラーはリポジトリからのリビルドに必要なものをすべて準備しますが（[カスタムドメイン](#custom-domain) を参照）、ビルド自体には数分かかります。デスクトップアプリをセルフホストバックエンドに向けることはサポートされていません。
 - **メール送信には機能するメーラーが必要です。** 初回セットアップではメール確認が必須となるため、`RESEND_API_KEY` または [SMTP リレー](#global-mailer) (`MAIL_SMTP_*`) のいずれかを構成する必要があります。最初の管理者がサインインした後、各組織はダッシュボードから独自の SMTP または Resend メーラーを構成することもできます。
 - **デスクトップアプリは組み込みサーバーを起動するためにマシン上に Node.js を必要とします。**
+- **ドキュメントアシスタントなし。** intlayer.org の AI ドキュメントアシスタント（`/api/ai/ask`、`/api/search/doc`）は、セルフホストイメージに含まれていない約 130 MB の事前計算済みドキュメント埋め込みに依存しているため、セルフホストモードではこの2つのルートは登録されません。ダッシュボード自体の AI 機能（翻訳、監査、オートコンプリート、チャット）には影響がなく、`OPENAI_API_KEY` のみが必要です。
 
 ## 便利なリンク
 

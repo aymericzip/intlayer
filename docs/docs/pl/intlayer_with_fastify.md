@@ -328,9 +328,11 @@ Tak. Wtyczka [sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/d
 </Question>
 <Question title="Czy muszę przenosić moją zawartość klucz po kluczu?">
 
-Nie. Uruchom `npx intlayer extract`, a Intlayer odczyta Twoje komponenty, wyodrębni ciągi widoczne dla użytkownika i utworzy plik `.content` obok każdego z nich, dzięki czemu przeglądasz diff zamiast ręcznie kopiować ciągi do katalogu pojedynczo.
+Nie. Uruchom `npx intlayer extract`, a Intlayer odczyta Twoje komponenty, wyodrębni ciągi widoczne dla użytkownika i utworzy plik `.content` obok każdego z nich, dzięki czemu przeglądasz diff zamiast ręcznie kopiować ciągi do katalogu pojedynczo. Zobacz [polecenie extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/extract.md).
 
-W przypadku w pełni zautomatyzowanego procesu [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compiler.md) robi to samo w czasie budowania: skanuje kod JSX, TSX, Vue i Svelte przy każdej zmianie, generuje słowniki i utrzymuje je w synchronizacji za pośrednictwem hot module replacement, dzięki czemu nie trzeba w ogóle ręcznie utrzymywać kluczy.
+- [polecenie extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/extract.md)
+
+Po stronie frontendu tego samego projektu [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compiler.md) idzie jeszcze dalej i generuje słowniki w czasie budowania z Twojego kodu JSX, TSX, Vue lub Svelte, dzięki czemu obie połowy aplikacji współdzielą jedną warstwę treści bez ręcznie utrzymywanych kluczy.
 
 - [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compiler.md)
 
@@ -355,7 +357,7 @@ Domyślnie `fastify-intlayer` odczytuje nagłówek `Accept-Language` przychodzą
 </Question>
 <Question title="Czy lokalizacja jest izolowana per żądanie?">
 
-Tak. Middleware izoluje aktywny język w kontekście żądania, więc dwa równoległe żądania w różnych językach nigdy nie odczytują wzajemnie swoich lokalizacji. Dzięki temu wywołania `t()` i `getIntlayer()` są w pełni bezpieczne w serwisach bez konieczności przekazywania argumentu języka przez każdą funkcję.
+Tak. Wtyczka izoluje aktywny język w kontekście żądania, więc dwa równoległe żądania w różnych językach nigdy nie odczytują wzajemnie swoich lokalizacji. Dzięki temu wywołania `t()` i `getIntlayer()` są w pełni bezpieczne w serwisach bez konieczności przekazywania argumentu języka przez każdą funkcję.
 
 </Question>
 <Question title="Jak wysyłać maile transakcyjne w języku odbiorcy?">
@@ -368,9 +370,9 @@ Zadeklaruj treść wiadomości e-mail w pliku zawartości tak jak każdy inny el
 Otocz komunikat błędu funkcją `t()` w miejscu jego tworzenia. Aktywny język żądania natychmiast go rozwiąże, dzięki czemu klient otrzyma komunikat gotowy do bezpośredniego wyświetlenia, a frontend nie musi utrzymywać równoległego katalogu kodów błędów.
 
 </Question>
-<Question title="Czy to działa z istniejącą aplikacją Fastify i innymi middleware?">
+<Question title="Czy to działa z cyklem życia wtyczek Fastify i enkapsulacją?">
 
-Tak. `fastify-intlayer` to standardowy middleware dla Fastify, więc doskonale współpracuje z istniejącym stosem. Zarejestruj go przed trasami, które odczytują treść, aby język był określony w momencie wywołania `t()` lub `getIntlayer()`.
+Tak. `fastify-intlayer` rejestruje się jako standardowa wtyczka Fastify, więc przestrzega zwykłych reguł enkapsulacji. Zarejestruj ją na poziomie głównym lub wewnątrz zakresu, który jej potrzebuje, przed trasami, które odczytują treść.
 
 </Question>
 <Question title="Jak automatycznie przetłumaczyć zawartość backendu za pomocą AI?">

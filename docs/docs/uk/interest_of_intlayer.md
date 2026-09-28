@@ -52,29 +52,29 @@ author: aymericzip
 </Accordion>
 <Accordion header="Агент AI">
 
-Спільне розміщення вмісту **зменшує контекст, необхідний** для великих мовних моделей (LLM). Intlayer також постачається з набором інструментів, наприклад **CLI** для перевірки відсутніх перекладів,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** і **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/agent_skills.md)**, щоб зробити роботу розробника (DX) ще зручнішою для агентів ШІ.
+Спільне розміщення вмісту **зменшує контекст, необхідний** для великих мовних моделей (LLM). Intlayer також постачається з набором інструментів, наприклад **CLI** для перевірки відсутніх перекладів,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/mcp_server.md)** і **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/agent_skills.md)**, щоб зробити роботу розробника (DX) ще зручнішою для агентів ШІ.
 
-- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)
-- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/mcp_server.md)
 - [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/agent_skills.md)
 
 </Accordion>
 <Accordion header="Функція">
 
-Intlayer пропонує низку додаткових функцій, яких немає в інших рішеннях i18n, як-от [підтримка Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/markdown.md), [отримання зовнішніх вміст](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/function_fetching.md), [завантаження вмісту файлу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/file.md), [живий вміст оновлення](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/live.md), [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) тощо.
+Intlayer пропонує низку додаткових функцій, яких немає в інших рішеннях i18n, як-от [підтримка Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/markdown.md), [отримання зовнішніх вміст](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/function_fetching.md), [завантаження вмісту файлу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/file.md), [живий вміст оновлення](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/live.md), [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md) тощо.
 
-- [підтримка Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/markdown.md)
-- [отримання зовнішніх вміст](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/function_fetching.md)
-- [завантаження вмісту файлу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/file.md)
-- [живий вміст оновлення](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/live.md)
-- [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)
+- [підтримка Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/markdown.md)
+- [отримання зовнішніх вміст](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/function_fetching.md)
+- [завантаження вмісту файлу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/file.md)
+- [живий вміст оновлення](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/live.md)
+- [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md)
 
 </Accordion>
 <Accordion header="Автоматизація">
 
-Використовуйте автоматизацію для перекладу в конвеєрі CI/CD за допомогою LLM за вашим вибором за рахунок вашого постачальника штучного інтелекту. Intlayer також пропонує **компілятор** для автоматизації екстракція вмісту, а також [веб-платформу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md), щоб допомогти **перекладати у фоновому режимі**.
+Використовуйте автоматизацію для перекладу в конвеєрі CI/CD за допомогою LLM за вашим вибором за рахунок вашого постачальника штучного інтелекту. Intlayer також пропонує **компілятор** для автоматизації екстракція вмісту, а також [веб-платформу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md), щоб допомогти **перекладати у фоновому режимі**.
 
-- [веб-платформу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
+- [веб-платформу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="Продуктивність">
@@ -84,10 +84,10 @@ Intlayer пропонує низку додаткових функцій, яки
 </Accordion>
 <Accordion header="Співпраця з не-розробниками">
 
-Більше ніж просто рішення i18n, Intlayer пропонує **власний [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** і **[повний CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)**, щоб допомогти вам керувати своїм багатомовним вмістом у **реальному часі**, спрощуючи співпрацю з перекладачами, копірайтерами та іншими членами команди. Контент можна зберігати локально та/або віддалено.
+Більше ніж просто рішення i18n, Intlayer пропонує **власний [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md)** і **[повний CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)**, щоб допомогти вам керувати своїм багатомовним вмістом у **реальному часі**, спрощуючи співпрацю з перекладачами, копірайтерами та іншими членами команди. Контент можна зберігати локально та/або віддалено.
 
-- [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)
-- [повний CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
+- [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md)
+- [повний CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="Крос фреймворк дизайн">
@@ -303,9 +303,9 @@ export const ComponentExample = () => {
 
 За допомогою `intlayer` ви можете оголосити свій вміст у форматі вашої улюбленої бібліотеки i18n, і intlayer згенерує простори назв у вибраному вами місці (наприклад: `/messages/{{locale}}/{{namespace}}.json`).
 
-Якщо ви хочете й надалі використовувати API вашої поточної бібліотеки i18n, `intlayer` також надає **адаптери сумісності (compat adapters)**: пакети, що надають точно такий самий API, як `react-i18next`, `next-intl`, `react-intl`, `vue-i18n` та інші, але з вмістом зі словників Intlayer. Це дозволяє мігрувати поступово, не переписуючи код. Див. [документацію адаптерів сумісності](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md).
+Якщо ви хочете й надалі використовувати API вашої поточної бібліотеки i18n, `intlayer` також надає **адаптери сумісності (compat adapters)**: пакети, що надають точно такий самий API, як `react-i18next`, `next-intl`, `react-intl`, `vue-i18n` та інші, але з вмістом зі словників Intlayer. Це дозволяє мігрувати поступово, не переписуючи код. Див. [документацію адаптерів сумісності](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/index.md).
 
-- [документацію адаптерів сумісності](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md)
+- [документацію адаптерів сумісності](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/index.md)
 
 ## Часто задавані запитання
 

@@ -349,9 +349,12 @@ Xem [lý do chọn Intlayer](https://github.com/aymericzip/intlayer/blob/main/do
 - [tối ưu hóa bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md)
 
 </Question>
-<Question title="Tôi có thể di chuyển từ @adonisjs/i18n mà không cần viết lại handler không?">
+<Question title="Tôi có thể di chuyển từ `i18next` mà không cần viết lại handler không?">
 
-Phần lớn là có. [Plugin sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/plugins/sync-json.md) giữ nguyên các tệp dịch hiện có.
+Có, và có hai hướng. Bạn có thể di chuyển nội dung dần dần với [hướng dẫn di chuyển từ i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_i18next_to_intlayer.md). Hoặc bạn có thể giữ nguyên hoàn toàn API hiện tại: các [compat adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/index.md) cung cấp chính xác cùng API như `i18next`, nhưng được phục vụ bởi các dictionary của Intlayer, vì vậy chỉ import thay đổi còn code handler thì không.
+
+- [hướng dẫn di chuyển từ i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_i18next_to_intlayer.md)
+- [compat adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/index.md)
 
 </Question>
 <Question title="Tôi có thể giữ các tệp dịch JSON hiện có của mình không?">
@@ -385,14 +388,11 @@ Năm công cụ, tất cả đều là tùy chọn:
 - **[ESLint plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/eslint.md)**: quy tắc `no-raw-text` phát hiện các chuỗi chưa được bản địa hóa.
 
 </Question>
-<Question title="Ngôn ngữ của client được phát hiện như thế nào trong các request gửi đến?">
+<Question title="Làm thế nào Intlayer biết cần trả lời bằng ngôn ngữ nào?">
 
-HTTP middleware của AdonisJS kiểm tra cookie và tiêu đề qua `HttpContext`, lưu locale trong `ctx.locale`.
+Mặc định `adonis-intlayer` đọc header `Accept-Language` của request đến và chọn locale đã khai báo gần nhất, nếu không sẽ quay về locale mặc định của bạn. Bạn có thể thay đổi nguồn bằng `routing.storage`, ví dụ một header tùy chỉnh hoặc một cookie do frontend đặt, để API trả lời bằng ngôn ngữ người dùng thực sự đã chọn thay vì ngôn ngữ mà trình duyệt của họ khai báo. Xem [tài liệu tham khảo cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md).
 
-</Question>
-<Question title="Cùng một khai báo nội dung có thể phục vụ cả phản hồi API và frontend web của tôi không?">
-
-Có, trong monorepo hoặc gói dùng chung, đây là ưu điểm vượt trội. Từ điển được khai báo có thể được import ở backend (email, thông báo lỗi, phản hồi API) và frontend (React, Vue, Svelte, v.v.), duy trì một nguồn sự thật duy nhất cho toàn bộ văn bản.
+- [tài liệu tham khảo cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md)
 
 </Question>
 <Question title="Intlayer có làm chậm quá trình xử lý request không?">
@@ -439,17 +439,24 @@ Có: [dạng số nhiều (plurals)](https://github.com/aymericzip/intlayer/blob
 - [định dạng](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/formatters.md)
 
 </Question>
-<Question title="Làm thế nào các thành viên không chuyên kỹ thuật có thể chỉnh sửa mẫu email và thông báo lỗi mà không cần chạm vào mã?">
+<Question title="Tôi có được tự động hoàn thành TypeScript trên server không?">
 
-Có hai cách: [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md), giúp tách biệt nội dung khỏi codebase và cho phép chỉnh sửa văn bản qua giao diện web, hoặc [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md), giúp lưu thay đổi trực tiếp vào các tệp mã nguồn cục bộ.
+Có. Intlayer sinh các type của dictionary vào `./types/intlayer.d.ts`, vì vậy một key không tồn tại sẽ là lỗi biên dịch thay vì một chuỗi rỗng khi chạy. Chạy `npx intlayer test` trong CI để làm build thất bại khi một locale đã khai báo bị thiếu nội dung.
 
-- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)
-- [Tự host Intlayer bằng Docker](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/self_hosting.md)
+</Question>
+<Question title="Frontend và backend có thể chia sẻ cùng một nội dung không?">
+
+Có, và đó là cách thiết lập thông thường. `adonis-intlayer` hoạt động cùng với `react-intlayer`, `next-intlayer` và `vite-intlayer` trên cùng một nội dung đã khai báo, vì vậy một nhãn dùng cả trong phản hồi API và trong một trang chỉ cần khai báo một lần. Xem [cách Intlayer hoạt động](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/how_works_intlayer.md).
+
+- [cách Intlayer hoạt động](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/how_works_intlayer.md)
 
 </Question>
 <Question title="Intlayer có phải là mã nguồn mở và miễn phí không?">
 
-Có, theo giấy phép Apache 2.0, bao gồm cả mục đích thương mại. CMS lưu trữ trên đám mây là một dịch vụ trả phí tùy chọn và cũng có thể [tự lưu trữ (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/self_hosting.md).
+Có, theo giấy phép Apache 2.0, bao gồm cả sử dụng thương mại. [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md) được host là một dịch vụ trả phí tùy chọn và cũng có thể [tự host](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/self_hosting.md).
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)
+- [tự host](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/self_hosting.md)
 
 </Question>
 

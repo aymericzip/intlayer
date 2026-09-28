@@ -269,6 +269,10 @@ export default appContent;
 ```
 
 > Vos déclarations de contenu peuvent être définies n'importe où dans votre application dès qu'elles sont incluses dans le répertoire `contentDir` (par défaut, `./src`). Et correspondent à l'extension de fichier de déclaration de contenu (par défaut, `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
+>
+> Pour plus de détails, consultez la [documentation sur la déclaration de contenu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/content_file.md).
+
+- [documentation sur la déclaration de contenu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/content_file.md)
 
 </Step>
 <Step number={5} title="Utiliser Intlayer dans votre code">
@@ -511,30 +515,34 @@ export const Link: ParentComponent<AnchorProps> = (props) => {
 };
 ```
 
-</Step>
-<Step number={11} title="Rendre le Markdown" isOptional={true}>
+En parallèle, vous pouvez également utiliser `intlayerProxy` pour ajouter un routage côté serveur à votre application. Ce plugin détecte automatiquement la locale courante à partir de l'URL et définit le cookie de locale approprié. Si aucune locale n'est spécifiée, le plugin détermine la locale la plus adaptée selon les préférences linguistiques du navigateur de l'utilisateur. Si aucune locale n'est détectée, il redirige vers la locale par défaut.
 
-Intlayer prend en charge le rendu du contenu Markdown directement dans votre application Solid en utilisant son propre analyseur interne. Par défaut, Markdown est traité comme du texte brut. Pour le rendre en HTML riche, enveloppez votre application avec le `MarkdownProvider`.
+> Notez que pour utiliser `intlayerProxy` en production, vous devez déplacer le package `vite-intlayer` de `devDependencies` vers `dependencies`.
 
-Ensuite, vous pouvez l'utiliser dans vos composants :
+> Depuis Intlayer v9, `intlayerProxy()` est intégré directement au plugin `intlayer()` et activé par défaut via l'option `routing.enableProxy` (`true` par défaut). L'enregistrer séparément comme ci-dessous est désormais facultatif. Cela reste possible pour la rétrocompatibilité et pour les configurations qui doivent contrôler l'ordre des plugins. Définissez `routing.enableProxy: false` pour le désactiver. Consultez les [notes de version v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/releases/v9.md).
 
-```tsx
-import { useIntlayer } from "solid-intlayer";
+- [notes de version v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/releases/v9.md)
 
-const MyComponent = () => {
-  const content = useIntlayer("my-content");
+```typescript {3,7} fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import solid from "vite-plugin-solid";
+import { intlayer } from "vite-intlayer";
 
-  return (
-    <div>
-      {/* Rendu en HTML via MarkdownProvider */}
-      {content.markdownContent}
-    </div>
-  );
-};
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [
+    solid(),
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
+  ],
+});
 ```
 
 </Step>
-<Step number={12} title="Extraire le contenu de vos composants" isOptional={true}>
+<Step number={11} title="Extraire le contenu de vos composants" isOptional={true}>
 
 Si vous avez une base de code existante, transformer des milliers de fichiers peut prendre beaucoup de temps.
 

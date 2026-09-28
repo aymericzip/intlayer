@@ -137,7 +137,9 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-`@intlayer/analytics`를 제거하는 것은 `enabled: false`와 동일한 효과를 냅니다. 전체 필드 목록은 [구성 레퍼런스](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참고하세요.
+`@intlayer/analytics`를 제거하는 것은 `enabled: false`와 동일한 효과를 냅니다. 전체 필드 목록은 [구성 레퍼런스](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md#analytics-configuration)를 참고하세요.
+
+- [구성 레퍼런스](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md#analytics-configuration)
 
 ## 사용법
 

@@ -238,7 +238,9 @@ pnpm intlayer-editor start -e development
 
 <Question title="У чому різниця між візуальним редактором та CMS?">
 
-Візуальний редактор змінює локальні словники і записує зміни безпосередньо у файли коду, тому вони проходять стандартну процедуру Git. CMS зберігає тексти на віддаленому сервері для миттєвої публікації без нового білду.
+Візуальний редактор змінює локальні словники та записує зміни назад у вашу кодову базу, тому вони проходять звичний процес рев'ю та розгортання. [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md) редагує віддалені словники, які змінюються на працюючому сайті без розгортання. Редактор підходить для контенту, яким володіють розробники; CMS — для контенту, яким володіє маркетингова команда.
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)
 
 </Question>
 <Question title="Скільки i18n додає до розміру бандла?">
@@ -326,7 +328,10 @@ pnpm intlayer-editor start -e development
 </Question>
 <Question title="Чи є візуальний редактор безкоштовним?">
 
-Так. Візуальний редактор є частиною відкритого проекту під ліцензією Apache 2.0, включно з комерційним використанням.
+Так. Візуальний редактор є частиною відкритого проекту під ліцензією Apache 2.0, включно з комерційним використанням. Платною послугою є лише хмарна [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md), яку також можна [розгорнути самостійно](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/self_hosting.md).
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)
+- [розгорнути самостійно](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/self_hosting.md)
 
 </Question>
 

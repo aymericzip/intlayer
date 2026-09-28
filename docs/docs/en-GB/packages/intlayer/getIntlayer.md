@@ -108,9 +108,9 @@ const { title } = getIntlayer("app", "fr"); // "Bonjour"
 
 ### Without a locale
 
-Omitting the locale interprets the content with the `defaultLocale` declared in your [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md).
+Omitting the locale interprets the content with the `defaultLocale` declared in your [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md).
 
-- [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)
+- [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md)
 
 ```typescript
 import { getIntlayer } from "intlayer";

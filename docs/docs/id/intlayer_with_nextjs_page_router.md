@@ -75,9 +75,13 @@ Dibandingkan dengan solusi utama seperti `next-intl` atau `i18next`, Intlayer ad
 
 Intlayer dioptimalkan untuk bekerja dengan **Komponen Server** untuk rendering yang efisien dan sepenuhnya kompatibel dengan [**Turbopack**](https://nextjs.org/docs/architecture/turbopack). Itu tidak memblokir rendering statis dan menawarkan middleware serta semua fitur yang diperlukan untuk penskalaan internasionalisasi (i18n).
 
-> Intlayer kompatibel dengan Next.js 12, 13, 14, 15, dan 16. Jika Anda menggunakan Next.js Pages Router, Anda dapat merujuk ke [panduan] ini(https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_page_router.md).
-> Perutean lokal berguna untuk SEO, ukuran bundle, dan kinerja. Jika Anda tidak membutuhkannya, Anda dapat merujuk ke [panduan] ini(https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_no_locale_path.md).
-> Untuk Next.js 12, 13, 14, dan 15 dengan App Router, lihat [panduan] ini(https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_14.md).
+> Intlayer kompatibel dengan Next.js 12, 13, 14, 15, dan 16. Jika Anda menggunakan Next.js Pages Router, Anda dapat merujuk ke [panduan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_page_router.md).
+> Perutean lokal berguna untuk SEO, ukuran bundle, dan kinerja. Jika Anda tidak membutuhkannya, Anda dapat merujuk ke [panduan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_no_locale_path.md).
+> Untuk Next.js 12, 13, 14, dan 15 dengan App Router, lihat [panduan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_14.md).
+
+- [i18n Next.js Pages Router: Panduan Terjemahan Lengkap](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_page_router.md)
+- [panduan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_no_locale_path.md)
+- [i18n Next.js 14 - Panduan lengkap untuk menerjemahkan aplikasi Anda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_14.md)
 
 </Accordion>
 <Accordion header="Ukuran bundle">
@@ -283,100 +287,100 @@ Implementasikan routing dinamis untuk menyajikan konten yang dilokalkan berdasar
 
 3.  **Atur `getStaticPaths` dan `getStaticProps`:**
 
-        Di `[locale]/index.tsx` Anda, definisikan paths dan props untuk menangani berbagai locale.
+    Di `[locale]/index.tsx` Anda, definisikan paths dan props untuk menangani berbagai locale.
 
-```tsx fileName="src/pages/[locale]/index.tsx" codeFormat="typescript"
-import type { FC } from "react";
-import type { GetStaticPaths, GetStaticProps } from "next";
-import { type Locales, getConfiguration } from "intlayer";
+    ```tsx fileName="src/pages/[locale]/index.tsx" codeFormat="typescript"
+    import type { FC } from "react";
+    import type { GetStaticPaths, GetStaticProps } from "next";
+    import { type Locales, getConfiguration } from "intlayer";
 
-const HomePage: FC = () => <div>{/* Konten Anda di sini */}</div>;
+    const HomePage: FC = () => <div>{/* Konten Anda di sini */}</div>;
 
-export const getStaticPaths: GetStaticPaths = () => {
-  const { internationalization } = getConfiguration();
-  const { locales } = internationalization;
+    export const getStaticPaths: GetStaticPaths = () => {
+      const { internationalization } = getConfiguration();
+      const { locales } = internationalization;
 
-  const paths = locales.map((locale) => ({
-    params: { locale },
-  }));
+      const paths = locales.map((locale) => ({
+        params: { locale },
+      }));
 
-  return { paths, fallback: false };
-};
+      return { paths, fallback: false };
+    };
 
-export const getStaticProps: GetStaticProps = ({ params }) => {
-  const locale = params?.locale as string;
+    export const getStaticProps: GetStaticProps = ({ params }) => {
+      const locale = params?.locale as string;
 
-  return {
-    props: {
-      locale,
-    },
-  };
-};
+      return {
+        props: {
+          locale,
+        },
+      };
+    };
 
-export default HomePage;
-```
+    export default HomePage;
+    ```
 
-```jsx fileName="src/pages/[locale]/index.mjx" codeFormat="esm"
-import { getConfiguration } from "intlayer";
-import { ComponentExample } from "@components/ComponentExample";
+    ```jsx fileName="src/pages/[locale]/index.mjx" codeFormat="esm"
+    import { getConfiguration } from "intlayer";
+    import { ComponentExample } from "@components/ComponentExample";
 
-const HomePage = () => <div>{/* Konten Anda di sini */}</div>;
+    const HomePage = () => <div>{/* Konten Anda di sini */}</div>;
 
-export const getStaticPaths = () => {
-  const { internationalization } = getConfiguration();
-  const { locales } = internationalization;
+    export const getStaticPaths = () => {
+      const { internationalization } = getConfiguration();
+      const { locales } = internationalization;
 
-  const paths = locales.map((locale) => ({
-    params: { locale },
-  }));
+      const paths = locales.map((locale) => ({
+        params: { locale },
+      }));
 
-  return { paths, fallback: false };
-};
+      return { paths, fallback: false };
+    };
 
-export const getStaticProps = ({ params }) => {
-  const locale = params?.locale;
+    export const getStaticProps = ({ params }) => {
+      const locale = params?.locale;
 
-  return {
-    props: {
-      locale,
-    },
-  };
-};
-```
+      return {
+        props: {
+          locale,
+        },
+      };
+    };
+    ```
 
-```jsx fileName="src/pages/[locale]/index.csx" codeFormat="commonjs"
-const { getConfiguration } = require("intlayer");
-const { ComponentExample } = require("@components/ComponentExample");
+    ```jsx fileName="src/pages/[locale]/index.csx" codeFormat="commonjs"
+    const { getConfiguration } = require("intlayer");
+    const { ComponentExample } = require("@components/ComponentExample");
 
-const HomePage = () => <div>{/* Konten Anda di sini */}</div>;
+    const HomePage = () => <div>{/* Konten Anda di sini */}</div>;
 
-const getStaticPaths = async () => {
-  const { internationalization } = getConfiguration();
-  const { locales } = internationalization;
+    const getStaticPaths = async () => {
+      const { internationalization } = getConfiguration();
+      const { locales } = internationalization;
 
-  const paths = locales.map((locale) => ({
-    params: { locale },
-  }));
+      const paths = locales.map((locale) => ({
+        params: { locale },
+      }));
 
-  return { paths, fallback: false };
-};
+      return { paths, fallback: false };
+    };
 
-const getStaticProps = async ({ params }) => {
-  const locale = params?.locale;
+    const getStaticProps = async ({ params }) => {
+      const locale = params?.locale;
 
-  return {
-    props: {
-      locale,
-    },
-  };
-};
+      return {
+        props: {
+          locale,
+        },
+      };
+    };
 
-module.exports = {
-  getStaticProps,
-  getStaticPaths,
-  default: HomePage,
-};
-```
+    module.exports = {
+      getStaticProps,
+      getStaticPaths,
+      default: HomePage,
+    };
+    ```
 
 > `getStaticPaths` dan `getStaticProps` memastikan bahwa aplikasi Anda membangun terlebih dahulu halaman-halaman yang diperlukan untuk semua locale di Next.js Page Router. Pendekatan ini mengurangi komputasi saat runtime dan menghasilkan pengalaman pengguna yang lebih baik. Untuk detail lebih lanjut, lihat dokumentasi Next.js tentang [`getStaticPaths`](https://nextjs.org/docs/pages/building-your-application/data-fetching/get-static-paths) dan [`getStaticProps`](https://nextjs.org/docs/pages/building-your-application/data-fetching/get-static-props).
 
@@ -960,24 +964,26 @@ Lima bagian, semuanya opsional:
 - **[Plugin ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/eslint.md)**: aturan `no-raw-text` menandai string hardcoded.
 
 </Question>
-<Question title="Apakah opsi i18n bawaan Next.js masih berfungsi dengan Pages Router?">
-
-Ya. Konfigurasi `i18n` bawaan Next.js Pages Router sepenuhnya kompatibel dengan Intlayer: Next.js menangani routing, dan Intlayer mengelola konten.
-
-</Question>
 <Question title="Haruskah saya tetap di Pages Router atau bermigrasi ke App Router?">
 
-Aplikasi yang sudah ada di Pages Router dapat terus berjalan dengan baik. Untuk proyek baru atau ingin memanfaatkan React Server Components, disarankan menggunakan App Router.
+Tidak ada yang memaksa Anda untuk pindah. Intlayer mendukung keduanya, dan deklarasi konten identik, sehingga memigrasikan router nanti tidak berarti menulis ulang i18n Anda. Jika Anda sudah merencanakan perpindahan, ikuti [panduan Next.js 16](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_16.md) sebagai gantinya dan dapatkan rendering Server Component, yang menjaga dictionary sepenuhnya di luar client.
+
+- [panduan Next.js 16](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_16.md)
 
 </Question>
-<Question title="Apakah saya harus mencantumkan locale di URL, seperti /id/about?">
+<Question title="Apakah opsi i18n bawaan Next.js masih berfungsi dengan Pages Router?">
 
-Tidak. `routing.mode` menerima `"prefix-no-default"` (default: `/about` untuk bahasa utama dan `/id/about` untuk yang lain), `"prefix-all"`, `"no-prefix"`, dan `"search-params"`. Opsi `routing.domains` memetakan setiap bahasa ke domainnya sendiri. Lihat [referensi konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md).
+Ya, dan itulah perbedaan utama dengan App Router, di mana opsi ini tidak berlaku. Opsi ini memberi Anda prefix locale dan deteksi `Accept-Language` tetapi sama sekali tidak memiliki lapisan pesan, jadi ia menyelesaikan routing dan menyerahkan terjemahan ke sebuah library. Anda dapat mempertahankannya, atau membiarkan Intlayer juga menangani routing melalui `routing.mode` dan middleware di langkah 4.
 
 </Question>
 <Question title="Bagaimana cara menambahkan tag hreflang dan metadata terlokalisasi untuk SEO?">
 
-Langkah `generateMetadata` dan `sitemap.xml` membahas hal ini. Fungsi `getMultilingualUrls` menghasilkan pemetaan `alternates.languages` untuk setiap locale yang dideklarasikan, termasuk `x-default`, sehingga mesin pencari mengindeks halaman dengan tepat.
+Langkah 8 membahasnya. Bangun alternates dengan `getMultilingualUrls`, termasuk entri `x-default`, dan keluarkan melalui `next/head` di setiap halaman agar mesin pencari menyajikan versi bahasa yang tepat.
+
+</Question>
+<Question title="Bagaimana cara membuat komponen Link yang terlokalisasi?">
+
+Langkah 10 menunjukkannya. Komponen ini membungkus `Link` Next.js dan meneruskan href melalui `getLocalizedUrl`, sehingga tautan internal yang ditulis sebagai `/about` menjadi `/fr/about` untuk pengunjung berbahasa Prancis tanpa Anda harus mengulang locale di setiap tempat pemanggilan.
 
 </Question>
 <Question title="Bagaimana cara menerjemahkan aplikasi secara otomatis dengan AI?">

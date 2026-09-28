@@ -76,19 +76,19 @@ getLocalizedUrl(
   - **Açıklama**: Desteklenen yerel ayarlar dizisi. Sağlanmazsa, proje yapılandırmanızdan yapılandırılan yerel ayarları kullanır.
   - **Tür**: `Locales[]`
   - **Gerekli**: Hayır (İsteğe bağlı)
-  - **Varsayılan**: [`Proje Yapılandırması`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md#middleware)
+  - **Varsayılan**: [`Proje Yapılandırması`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md#middleware)
 
 - `defaultLocale?: Locales`
   - **Açıklama**: Uygulamanın varsayılan yerel ayarı. Sağlanmazsa, proje yapılandırmanızdan yapılandırılan varsayılan yerel ayarı kullanır.
   - **Tür**: `Locales`
   - **Gerekli**: Hayır (İsteğe bağlı)
-  - **Varsayılan**: [`Proje Yapılandırması`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md#middleware)
+  - **Varsayılan**: [`Proje Yapılandırması`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md#middleware)
 
 - `prefixDefault?: boolean`
   - **Açıklama**: Varsayılan yerel ayar için URL'yi öneklendirip öneklendirmeyeceğinizi belirtir. Sağlanmazsa, proje yapılandırmanızdan yapılandırılan değeri kullanır.
   - **Tür**: `boolean`
   - **Gerekli**: Hayır (İsteğe bağlı)
-  - **Varsayılan**: [`Proje Yapılandırması`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md#middleware)
+  - **Varsayılan**: [`Proje Yapılandırması`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md#middleware)
 
 ### Döndürür
 

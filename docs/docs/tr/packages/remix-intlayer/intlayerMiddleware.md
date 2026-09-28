@@ -23,31 +23,43 @@ history:
 author: aymericzip
 ---
 
-# intlayer Ara Yazılımı
+# intlayer Remix 3 Ara Yazılım Dokümantasyonu
 
-`intlayer` ara yazılım fonksiyonu, Remix 3 uygulamalarında istek başına uluslararasılaştırmayı yapılandırır. Gelen her isteğin yerel ayarını algılar, URL yönlendirme kurallarını uygular ve yerel ayar durumunu istek bağlamında saklar.
+Remix 3 için `intlayer` ara yazılımı, uygulamanız genelinde uluslararasılaştırma katmanını yönetir. Web standartları (`Request` ve `Response`) üzerine inşa edilmiştir; yerel ayar yönlendirmesini (yönlendirmeler ve dahili yeniden yazmalar) ele alır, isteğin yerel ayarını algılar, bunu çerezlerde ve başlıklarda saklar ve bir `AsyncLocalStorage` kapsamı oluşturarak alt işleyicilerin ve bileşenlerin prop aktarımı (prop drilling) olmadan çevirilere erişmesini sağlar.
 
 ## Kullanım
 
-Ara yazılımı Remix yönlendiricinize kaydedin:
+Remix 3 yönlendiricinizi başlatırken `intlayer` ara yazılımını kaydedin:
 
 ```ts fileName="src/server.ts"
 import { createRouter } from "remix/router";
-import { intlayer } from "remix-intlayer";
+import { intlayer, useIntlayer, useLocale } from "remix-intlayer";
 
-export const router = createRouter({
+const router = createRouter({
   middleware: [intlayer()],
+});
+
+// `/`, `/fr`, `/es` sunar, yerel ayar istekten çözümlenir
+router.get("/", () => {
+  const { title } = useIntlayer("home");
+  return new Response(title);
 });
 ```
 
-## Nasıl Çalışır
+## Açıklama
 
-Ara yazılım, gelen her istek için aşağıdaki görevleri gerçekleştirir:
+`intlayer` ara yazılımı aşağıdaki görevleri gerçekleştirir:
 
-1. **Yerel Ayar Algılama**: Intlayer yapılandırmanıza göre URL yolu önekinden (ör. `/tr/about`), çerezlerden veya `Accept-Language` başlığından yerel ayarı ayıklar.
-2. **URL Yönlendirmesi**: İstenen yolda yerel ayar öneki yoksa ve yapılandırma önekli yönlendirme gerektiriyorsa, ara yazılım önekli uygun URL'ye bir yönlendirme yanıtı (302/307/308) döndürür.
-3. **İstek Bağlamını Doldurma**: Geçerli çözümlenmiş yerel ayarı `Intlayer` anahtarını kullanarak Remix istek bağlamına kaydeder, böylece hook'lar (`useLocale`, `useIntlayer`, `useDictionary`) bunu şeffaf bir şekilde kullanabilir.
-4. **Çerez Yönetimi**: Kullanıcının tercih ettiği yerel ayarın kalıcı hale getirilmesi gerektiğinde `Set-Cookie` başlığını ayarlar.
+1. **Sözlük Hazırlığı**: Oluşturulan tüm sözlüklerin derlenmiş ve kullanılabilir olmasını sağlamak için başlangıçta `prepareIntlayer` çalıştırır.
+2. **Yerel Ayar Yönlendirmesi**: İsteği yapılandırılmış yönlendirme stratejisine (`prefix_always`, `prefix_as_needed`, `no_prefix`) göre değerlendirir:
+   - **Yönlendirmeler**: Bir kullanıcı `/about` sayfasını ziyaret ederse ve bir yerel ayar önekine (ör. `/fr/about`) yönlendirilmesi gerekiyorsa, ara yazılım uygun `location` ve `Set-Cookie` başlıklarıyla bir yönlendirme yanıtı döndürür.
+   - **Dahili Yeniden Yazmalar**: Bir kullanıcı `/fr/about` adresine eriştiğinde, URL dahili olarak yeniden yazılır; böylece rota işleyiciniz `/about` ile eşleşirken çözümlenen yerel ayar `fr` olarak yakalanır.
+   - **Yerelleştirilmiş URL Takma Adları**: `intlayer.config.ts` içinde tanımlanan URL yeniden yazma kurallarına uyar (ör. `/fr/about` adresini `/fr/a-propos` olarak yeniden yazma).
+3. **Yerel Ayar Çözümleme**: Etkin yerel ayarı URL önekine, saklanan çerezlere, özel başlıklara veya `Accept-Language` tarayıcı tercihlerine göre algılar.
+4. **Bağlam Enjeksiyonu**:
+   - `IntlayerState` (`locale`, `defaultLocale`, `availableLocales`) nesnesini Remix `RequestContext` bağlamına `Intlayer` anahtarı altında ve `context.intlayer` olarak ekler.
+   - İsteğin geri kalanını bir `AsyncLocalStorage` kapsamı (`requestStorage`) içinde çalıştırarak `useIntlayer`, `useDictionary` ve `useLocale` fonksiyonlarının işleyicilerde, görünümlerde ve bileşenlerde sorunsuz şekilde çağrılabilmesini sağlar.
+5. **Kalıcılık**: Kullanıcının tercihini korumak için giden yerel ayar başlıklarını ve çerezlerini nihai HTTP yanıtına ekler.
 
 ## Parametreler
 
@@ -84,5 +96,5 @@ router.get("/api/locale", (context) => {
 ## İlgili Dokümantasyon
 
 - [`Intlayer` İstek Bağlamı](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/remix-intlayer/Intlayer.md)
-- [`useLocale` Hook'u](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/remix-intlayer/useLocale.md)
 - [`useIntlayer` Hook'u](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/remix-intlayer/useIntlayer.md)
+- [`useLocale` Hook'u](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/remix-intlayer/useLocale.md)

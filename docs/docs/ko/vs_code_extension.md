@@ -44,32 +44,32 @@ author: aymericzip
 
 ## 기능
 
-![콘텐츠 추출](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_extract_content.gif?raw=true)
+![콘텐츠 추출](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_extract_content.gif?raw=true)
 
 - **콘텐츠 추출** – React / Vue / Svelte 컴포넌트에서 콘텐츠를 추출합니다
 
-![사전 채우기](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_fill_active_dictionary.gif?raw=true)
+![사전 채우기](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_fill_active_dictionary.gif?raw=true)
 
 - **즉시 탐색** – `useIntlayer` 키를 클릭하면 올바른 콘텐츠 파일로 빠르게 이동합니다.
 - **사전 채우기** – 프로젝트의 콘텐츠로 사전을 채웁니다.
 
-![명령어 목록](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_list_commands.gif?raw=true)
+![명령어 목록](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_list_commands.gif?raw=true)
 
 - **Intlayer 명령어에 쉽게 접근** – 콘텐츠 사전을 빌드, 푸시, 풀, 채우기, 테스트를 손쉽게 수행합니다.
 
-![콘텐츠 파일 생성](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_create_content_file.gif?raw=true)
+![콘텐츠 파일 생성](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_create_content_file.gif?raw=true)
 
 - **콘텐츠 선언 생성기** – 다양한 형식(`.ts`, `.esm`, `.cjs`, `.json`)으로 사전 콘텐츠 파일을 생성합니다.
 
-![사전 테스트](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_test_missing_dictionary.gif?raw=true)
+![사전 테스트](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_test_missing_dictionary.gif?raw=true)
 
 - **사전 테스트** – 누락된 번역이 있는지 사전을 테스트합니다.
 
-![사전 재구성](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_rebuild_dictionary.gif?raw=true)
+![사전 재구성](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_rebuild_dictionary.gif?raw=true)
 
 - **사전을 최신 상태로 유지** – 프로젝트의 최신 콘텐츠로 사전을 최신 상태로 유지합니다.
 
-![Intlayer 탭 (활동 표시줄)](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_search_dictionary.gif?raw=true)
+![Intlayer 탭 (활동 표시줄)](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_search_dictionary.gif?raw=true)
 
 - **Intlayer 탭 (활동 표시줄)** – 전용 사이드 탭에서 도구 모음과 컨텍스트 작업(빌드, 풀, 푸시, 채우기, 새로 고침, 테스트, 파일 생성)과 함께 사전을 탐색하고 검색합니다.
 

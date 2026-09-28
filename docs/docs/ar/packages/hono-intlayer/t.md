@@ -201,6 +201,6 @@ app.get("/morning", (c) => {
 
 ## الخاتمة
 
-دالة `t` هي أداة قوية لتدويل الواجهة الخلفية. من خلال استخدامها بفعالية، يمكنك إنشاء تطبيق أكثر شمولاً وسهولة في الاستخدام لجمهور عالمي. للحصول على استخدام متقدم وخيارات تكوين مفصلة، راجع [التوثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md).
+دالة `t` هي أداة قوية لتدويل الواجهة الخلفية. من خلال استخدامها بفعالية، يمكنك إنشاء تطبيق أكثر شمولاً وسهولة في الاستخدام لجمهور عالمي. للحصول على استخدام متقدم وخيارات تكوين مفصلة، راجع [التوثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
 
-- [Intlayer Configuration (intlayer.config.ts)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)
+- [Intlayer Configuration (intlayer.config.ts)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md)

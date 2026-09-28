@@ -232,7 +232,9 @@ export default withIntlayer(nextConfig);
 
 사용자의 선호하는 로케일을 자동으로 감지하고 처리하도록 미들웨어를 설정합니다:
 
-사용자의 선호 로케일을 자동으로 감지하고 처리하기 위해 미들웨어를 설정합니다:
+> Intlayer v9부터 이 미들웨어는 `routing.enableProxy` 옵션(기본값 `true`)을 따릅니다. 이 파일을 삭제하지 않고 pass-through로 전환하려면 설정에서 `routing.enableProxy: false`로 지정하세요. [v9 릴리스 노트](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/releases/v9.md)를 참조하세요.
+
+- [v9 릴리스 노트](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/releases/v9.md)
 
 ```typescript fileName="src/middleware.ts" codeFormat={["typescript", "esm", "commonjs"]}
 export { intlayerProxy as middleware } from "next-intlayer/middleware";
@@ -260,25 +262,25 @@ export const config = {
 
 2.  **현지화 처리를 위한 `_app.tsx` 업데이트:**
 
-        `_app.tsx`를 수정하여 Intlayer 프로바이더를 포함시킵니다.
+    `_app.tsx`를 수정하여 Intlayer 프로바이더를 포함시킵니다.
 
-        ```tsx fileName="src/pages/_app.tsx" codeFormat="typescript"
-        import type { FC } from "react";
-        import type { AppProps } from "next/app";
-        import { IntlayerClientProvider } from "next-intlayer";
+    ```tsx fileName="src/pages/_app.tsx" codeFormat=["typescript", 'esm', 'cjs']
+    import type { FC } from "react";
+    import type { AppProps } from "next/app";
+    import { IntlayerProvider } from "next-intlayer";
 
-        const App: FC<AppProps> = ({ Component, pageProps }) => {
-          const { locale } = pageProps;
+    const App = FC<AppProps>({ Component, pageProps }) => {
+      const { locale } = pageProps;
 
-          return (
-            <IntlayerClientProvider locale={locale}>
-              <Component {...pageProps} />
-            </IntlayerClientProvider>
-          );
-        };
+      return (
+        <IntlayerProvider locale={locale}>
+          <Component {...pageProps} />
+        </IntlayerProvider>
+      );
+    }
 
-        export default App;
-        ```
+    export default MyApp;
+    ```
 
 3.  **`getStaticPaths` 및 `getStaticProps` 설정:**
 
@@ -465,10 +467,11 @@ const HomePage: FC = () => {
 export default HomePage;
 ```
 
-```jsx fileName="src/components/ComponentExample.mjx" codeFormat="esm"
+```tsx fileName="src/components/ComponentExample.tsx" codeFormat={["typescript", "esm"]}
+import type { FC } from "react";
 import { useIntlayer } from "next-intlayer";
 
-const ComponentExample = () => {
+export const ComponentExample: FC = () => {
   const content = useIntlayer("component-example"); // 해당하는 콘텐츠 선언이 있는지 확인하세요
 
   return (

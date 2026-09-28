@@ -345,9 +345,11 @@ Tak. Wtyczka [sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/d
 </Question>
 <Question title="Czy muszę przenosić moją zawartość klucz po kluczu?">
 
-Nie. Uruchom `npx intlayer extract`, a Intlayer odczyta Twoje komponenty, wyodrębni ciągi widoczne dla użytkownika i utworzy plik `.content` obok każdego z nich, dzięki czemu przeglądasz diff zamiast ręcznie kopiować ciągi do katalogu pojedynczo.
+Nie. Uruchom `npx intlayer extract`, a Intlayer odczyta Twoje komponenty, wyodrębni ciągi widoczne dla użytkownika i utworzy plik `.content` obok każdego z nich, dzięki czemu przeglądasz diff zamiast ręcznie kopiować ciągi do katalogu pojedynczo. Zobacz [polecenie extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/extract.md).
 
-W przypadku w pełni zautomatyzowanego procesu [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compiler.md) robi to samo w czasie budowania: skanuje kod JSX, TSX, Vue i Svelte przy każdej zmianie, generuje słowniki i utrzymuje je w synchronizacji za pośrednictwem hot module replacement, dzięki czemu nie trzeba w ogóle ręcznie utrzymywać kluczy.
+- [polecenie extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/extract.md)
+
+Po stronie frontendu tego samego projektu [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compiler.md) idzie jeszcze dalej i generuje słowniki w czasie budowania z Twojego kodu JSX, TSX, Vue lub Svelte, dzięki czemu obie połowy aplikacji współdzielą jedną warstwę treści bez ręcznie utrzymywanych kluczy.
 
 - [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compiler.md)
 
@@ -385,9 +387,9 @@ Zadeklaruj treść wiadomości e-mail w pliku zawartości tak jak każdy inny el
 Otocz komunikat błędu funkcją `t()` w miejscu jego tworzenia. Aktywny język żądania natychmiast go rozwiąże, dzięki czemu klient otrzyma komunikat gotowy do bezpośredniego wyświetlenia, a frontend nie musi utrzymywać równoległego katalogu kodów błędów.
 
 </Question>
-<Question title="Czy to działa z istniejącą aplikacją Hono i innymi middleware?">
+<Question title="Czy to działa w środowiskach edge, takich jak Cloudflare Workers, Deno czy Bun?">
 
-Tak. `hono-intlayer` to standardowy middleware dla Hono, więc doskonale współpracuje z istniejącym stosem. Zarejestruj go przed trasami, które odczytują treść, aby język był określony w momencie wywołania `t()` lub `getIntlayer()`.
+Hono obsługuje je wszystkie, a Intlayer pobiera treść ze słowników skompilowanych w czasie budowania zamiast odczytywać pliki katalogów z dysku w czasie działania, co zwykle psuje się w środowiskach edge. Pozostaw `dictionary.importMode` z domyślną wartością `"static"`, aby treść została dołączona do bundle'a workera.
 
 </Question>
 <Question title="Jak automatycznie przetłumaczyć zawartość backendu za pomocą AI?">

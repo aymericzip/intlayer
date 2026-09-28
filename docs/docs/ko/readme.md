@@ -243,9 +243,9 @@ Intlayer를 시작하고 프로젝트에 통합하는 방법을 배우려면 종
 <ul>
   <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/nextjs.md" rel=''>Next.js</a></li>
   <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/tanstack.md" rel=''>TanStack Start</a></li>
-  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/vue.md" rel=''>Vue</a></li>
-  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/solid.md" rel=''>Solid</a></li>
-  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/svelte.md" rel=''>Svelte</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/vue.md" rel=''>Vue</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/solid.md" rel=''>Solid</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/svelte.md" rel=''>Svelte</a></li>
 </ul>
 </details>
 

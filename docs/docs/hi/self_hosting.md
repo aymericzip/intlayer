@@ -126,7 +126,7 @@ npx intlayer init infra --mode desktop
 
 ### 1. इंस्टॉल करें
 
-उत्पन्न `BETTER_AUTH_SECRET` और `S3_SECRET_ACCESS_KEY` के साथ `./intlayer.env` लिखता है और `intlayer/cms-all:latest` खींचता है।
+उत्पन्न `BETTER_AUTH_SECRET` और `S3_SECRET_ACCESS_KEY` के साथ `./intlayer.env` लिखता है, बाकी भरने के लिए कुछ प्रश्न पूछता है, और `intlayer/cms-all:latest` खींचता है।
 
 <Tabs group="os">
 <Tab label="macOS / Linux" value="unix">
@@ -147,14 +147,22 @@ $env:INTLAYER_MODE = "docker"; irm https://intlayer.org/install.ps1 | iex
 </Tab>
 <Tab label="Intlayer CLI" value="cli">
 
-CLI इंस्टॉलर चलाता है जो अन्य टैब में दिखाए गए `docker run …` कमांड को प्रिंट करता है। मेलर को कॉन्फ़िगर करने के बाद इसे अपने टर्मिनल में पेस्ट करें।
+```bash
+npx intlayer init infra --mode docker
+```
 
 </Tab>
 </Tabs>
 
-### 2. मेलर कॉन्फ़िगर करें
+### 2. सेटअप प्रश्नों के उत्तर दें
 
-`intlayer.env` खोलें और Resend **या** SMTP भरें (विवरण के लिए [ग्लोबल मेलर](#global-mailer) देखें):
+इंस्टॉलर निम्नलिखित पूछता है (किसी सुझाव को स्वीकार करने के लिए Enter दबाएँ, हर उत्तर को बाद में फ़ाइल में बदला जा सकता है):
+
+- वह **डोमेन** जिस पर Intlayer सर्व किया जाता है। `localhost` पर बने रहने के लिए इसे खाली छोड़ दें। `example.org` जैसे डोमेन के साथ, यह डैशबोर्ड के लिए `https://cms.example.org`, API के लिए `https://back.example.org` और ऑब्जेक्ट स्टोरेज के लिए `https://s3.example.org/intlayer` सुझाता है, और `DOMAIN`, `APP_URL`, `BACKEND_URL` तथा `S3_PUBLIC_URL` लिखता है। आगे के चरणों के लिए [कस्टम डोमेन](#custom-domain) देखें।
+- **मेलर**: Resend (API कुंजी) या एक SMTP रिले (होस्ट, पोर्ट, क्रेडेंशियल), साथ ही प्रेषक का पता। इसे छोड़ा जा सकता है और बाद में हाथ से किया जा सकता है।
+- AI सुविधाओं के लिए एक वैकल्पिक **OpenAI API कुंजी**।
+
+टर्मिनल के बिना (उदाहरण के लिए जब स्क्रिप्ट CI से चलाई जाती है), प्रश्न छोड़ दिए जाते हैं और केवल रहस्य उत्पन्न होते हैं। `intlayer.env` खोलें और Resend **या** SMTP हाथ से भरें (विवरण के लिए [ग्लोबल मेलर](#global-mailer) देखें):
 
 ```sh fileName="intlayer.env"
 # Option A: Resend
@@ -170,7 +178,7 @@ MAIL_FROM=Intlayer <no-reply@example.com>
 
 ### 3. चलाएं
 
-यह इंस्टॉलर द्वारा प्रिंट किया गया रन कमांड है:
+यह इंस्टॉलर द्वारा प्रिंट किया गया रन कमांड है (कस्टम डोमेन के साथ, इससे पहले वह `docker build` चलता है जो `intlayer/cms-all:custom` बनाता है, [कस्टम डोमेन](#custom-domain) देखें):
 
 <Tabs group="os">
 <Tab label="macOS / Linux" value="unix">
@@ -204,7 +212,7 @@ CLI इंस्टॉलर चलाता है जो अन्य टै�
 </Tab>
 </Tabs>
 
-**http://localhost:3000** खोलें और [प्रथम-रन सेटअप](#first-run-setup) का पालन करें। पहला बूट प्रतिकृति सेट और बकेट को इनिशियलाइज़ करता है, इसलिए इसे एक मिनट का समय दें।
+**http://localhost:3000** (या अपना डैशबोर्ड URL) खोलें और [प्रथम-रन सेटअप](#first-run-setup) का पालन करें। पहला बूट प्रतिकृति सेट और बकेट को इनिशियलाइज़ करता है, इसलिए इसे एक मिनट का समय दें।
 
 ### बैकअप और अपग्रेड
 
@@ -259,7 +267,7 @@ docker run --rm -v intlayer-data:/data -v "$(pwd)":/backup busybox tar xzf /back
 
 ### 1. इंस्टॉल करें
 
-उत्पन्न रहस्यों के साथ `docker-compose.yml` और एक `.env` को `./intlayer/` में लिखता है और इमेज खींचता है।
+उत्पन्न रहस्यों के साथ `docker-compose.yml` और एक `.env` को `./intlayer/` में लिखता है, ऑल-इन-वन मोड वाले ही सेटअप प्रश्न (डोमेन, मेलर, OpenAI कुंजी) पूछता है, और इमेज खींचता है।
 
 <Tabs group="os">
 <Tab label="macOS / Linux" value="unix">
@@ -307,7 +315,7 @@ npx intlayer init infra --mode compose
 
 ### 2. मेलर कॉन्फ़िगर करें
 
-ऑल-इन-वन कंटेनर की तरह ही `intlayer/.env` में Resend **या** SMTP भरें ([ग्लोबल मेलर](#global-mailer) देखें)।
+यदि आपने मेलर वाला प्रश्न छोड़ दिया था, तो ऑल-इन-वन कंटेनर की तरह ही `intlayer/.env` में Resend **या** SMTP भरें ([ग्लोबल मेलर](#global-mailer) देखें)।
 
 ### 3. चलाएं
 
@@ -315,7 +323,9 @@ npx intlayer init infra --mode compose
 cd intlayer && docker compose up -d
 ```
 
-**http://localhost:3000** खोलें और [प्रथम-रन सेटअप](#first-run-setup) का पालन करें।
+कस्टम डोमेन के साथ, इंस्टॉलर `docker-compose.build.yml` भी डाउनलोड करता है और स्टार्ट कमांड `docker compose -f docker-compose.yml -f docker-compose.build.yml up -d --build` बन जाता है ([कस्टम डोमेन](#custom-domain) देखें)।
+
+**http://localhost:3000** (या अपना डैशबोर्ड URL) खोलें और [प्रथम-रन सेटअप](#first-run-setup) का पालन करें।
 
 ### प्रबंधित डेटास्टोर
 
@@ -339,14 +349,14 @@ services:
 
 ### स्रोत से निर्माण
 
-रिपॉजिटरी क्लोन से, एक ओवरराइड के साथ दो Intlayer सेवाओं को `image:` से `build:` पर स्विच करें:
+एक ओवरराइड दो Intlayer सेवाओं को `image:` से `build:` पर स्विच करता है। रिपॉजिटरी क्लोन से:
 
 ```sh
 cd docker/selfhost
 docker compose -f docker-compose.yml -f docker-compose.build.yml up -d --build
 ```
 
-कस्टम डोमेन के लिए इमेज बनाते समय भी इसका उपयोग करें: निर्माण तर्क के रूप में `VITE_*` मान पास करें ([सीमाएँ](#limitations) देखें)।
+क्लोन के बिना, `.env` में `INTLAYER_BUILD_CONTEXT=https://github.com/aymericzip/intlayer.git#main` सेट करके बिल्ड कॉन्टेक्स्ट को सीधे रिपॉजिटरी पर इंगित करें। डैशबोर्ड के `VITE_*` बिल्ड आर्ग्स उसी फ़ाइल के `DOMAIN`, `APP_URL` और `BACKEND_URL` का अनुसरण करते हैं, और इसी तरह एक [कस्टम डोमेन](#custom-domain) लागू किया जाता है।
 
 ### बैकअप और अपग्रेड
 
@@ -389,6 +399,8 @@ $env:INTLAYER_MODE = "compose"; $env:INTLAYER_COMPOSE_DIR = ".\cms"; irm https:/
 | `INTLAYER_CONSOLE_PORT`   | `9001`                    | docker     | Host port for the MinIO console                            |
 | `INTLAYER_COMPOSE_DIR`    | `./intlayer`              | compose    | Where `docker-compose.yml` and `.env` are written          |
 | `INTLAYER_SELFHOST_REF`   | `main`                    | both       | Git ref the compose file and env template are fetched from |
+| `INTLAYER_BUILD_CONTEXT`  | `…/intlayer.git#main`     | both       | Build context used when a custom domain requires a rebuild |
+| `INTLAYER_CUSTOM_IMAGE`   | `intlayer/cms-all:custom` | docker     | Tag of the all-in-one image built for a custom domain      |
 
 > पोर्ट चर मैपिंग के केवल **होस्ट** पक्ष को बदलते हैं। प्रकाशित इमेज में `http://localhost:3000`, `http://localhost:3100` और `http://localhost:9000` डैशबोर्ड बंडल में संकलित होते हैं, इसलिए जब तक आप अपनी खुद की इमेज नहीं बनाते, तब तक डिफ़ॉल्ट रखें, [सीमाएँ](#limitations) देखें।
 
@@ -416,7 +428,7 @@ $env:INTLAYER_MODE = "compose"; $env:INTLAYER_COMPOSE_DIR = ".\cms"; irm https:/
 
 ### परिनियोजन द्वारा तय
 
-These are set by the image (all-in-one) or by the compose file, and only need overriding for a non-standard topology.
+ये इमेज (ऑल-इन-वन) या compose फ़ाइल द्वारा सेट किए जाते हैं, और इन्हें केवल गैर-मानक टोपोलॉजी के लिए ओवरराइड करने की आवश्यकता होती है। `DOMAIN`, `APP_URL`, `BACKEND_URL` और `S3_PUBLIC_URL` इसके अपवाद हैं: env फ़ाइल में सेट होने पर, ये दोनों मोड में प्राथमिकता लेते हैं ([कस्टम डोमेन](#custom-domain) देखें)।
 
 | Variable           | All-in-one                                          | Docker Compose                   | Description                                                                   |
 | ------------------ | --------------------------------------------------- | -------------------------------- | ----------------------------------------------------------------------------- |
@@ -433,6 +445,37 @@ These are set by the image (all-in-one) or by the compose file, and only need ov
 | `S3_ACCESS_KEY_ID` | `intlayer`                                          | `intlayer`                       | MinIO access key                                                              |
 
 Compose `app` सेवा अतिरिक्त रूप से `INTLAYER_BACKEND_INTERNAL_URL=http://backend:3100` प्राप्त करती है: ब्राउज़र `localhost:3100` पर API तक पहुँचता है, लेकिन सर्वर-साइड रेंडरिंग Compose नेटवर्क के अंदर चलती है और इसलिए इसे सेवा नाम का उपयोग करना चाहिए।
+
+### कस्टम डोमेन
+
+बैकएंड अपने सार्वजनिक URL रनटाइम पर पढ़ता है, लेकिन डैशबोर्ड में वे **कंपाइल किए हुए** होते हैं: प्रकाशित `intlayer/cms-frontend` और `intlayer/cms-all` इमेज केवल `http://localhost:3000` पर काम करती हैं। इसलिए अपने डोमेन पर Intlayer सर्व करने के लिए दो चीज़ों की आवश्यकता होती है, और डोमेन वाले प्रश्न का उत्तर देने पर इंस्टॉलर दोनों तैयार करता है:
+
+1. **env फ़ाइल में चार वेरिएबल**, जिन्हें बैकएंड पढ़ता है (कुकीज़, ईमेल लिंक, OAuth कॉलबैक, एसेट URL) और जिन्हें `docker-compose.build.yml` बिल्ड आर्ग्स के रूप में उपयोग करता है:
+
+   ```sh fileName="intlayer.env"
+   DOMAIN=example.org                          # cookie domain, parent of the hosts below
+   APP_URL=https://cms.example.org
+   BACKEND_URL=https://back.example.org
+   S3_PUBLIC_URL=https://s3.example.org/intlayer
+   ```
+
+2. **उन URL के साथ बनाई गई डैशबोर्ड इमेज।** Docker इसे सीधे रिपॉजिटरी से बनाता है, क्लोन की आवश्यकता नहीं:
+
+   ```sh
+   # Docker Compose: the override reads the build args from .env
+   docker compose -f docker-compose.yml -f docker-compose.build.yml up -d --build
+
+   # All-in-one
+   docker build -f docker/selfhost/Dockerfile \
+     --build-arg VITE_DOMAIN=example.org \
+     --build-arg VITE_SITE_URL=https://cms.example.org \
+     --build-arg VITE_IDE_URL=https://cms.example.org \
+     --build-arg VITE_BACKEND_URL=https://back.example.org \
+     -t intlayer/cms-all:custom \
+     https://github.com/aymericzip/intlayer.git#main
+   ```
+
+फिर कंटेनर के सामने TLS के साथ एक रिवर्स प्रॉक्सी लगाएँ: `cms.example.org` → पोर्ट `3000`, `back.example.org` → `3100`, `s3.example.org` → `9000`। तीनों होस्ट को `DOMAIN` प्रत्यय साझा करना होगा, क्योंकि सेशन कुकी उसी तक सीमित है।
 
 ### वैकल्पिक (अनुपस्थित होने पर सुविधाएं सुचारू रूप से कार्य करती हैं)
 
@@ -528,9 +571,10 @@ const { data: dictionaries } = await dictionaryEndpoint(cms).getDictionaries();
 
 ## सीमाएँ
 
-- **कोई कस्टम डोमेन और कोई पोर्ट रीमैपिंग नहीं।** सभी ब्राउज़र-सामना करने वाले `VITE_*` URL निर्माण के समय डैशबोर्ड में इनलाइन होते हैं, और प्रकाशित इमेज (और डेस्कटॉप ऐप) `localhost` / Intlayer Cloud मानों के साथ आते हैं। डैशबोर्ड को `http://localhost:3000` पर, API को `:3100` पर और MinIO को `:9000` पर एक्सेस किया जाना चाहिए। इसे सार्वजनिक डोमेन पर होस्ट करना, या डेस्कटॉप ऐप को सेल्फ-होस्टेड बैकएंड पर इंगित करना, लक्ष्य URL के साथ पुनर्निर्माण की आवश्यकता होती है (`docker/selfhost/Dockerfile` पर `--build-arg VITE_BACKEND_URL=… VITE_SITE_URL=… VITE_DOMAIN=…` के साथ, या `docker-compose.build.yml` के माध्यम से) और यह डिफ़ॉल्ट रूप से समर्थित नहीं है।
+- **कस्टम डोमेन का अर्थ है पुनर्निर्माण।** सभी ब्राउज़र-सामना करने वाले `VITE_*` URL निर्माण के समय डैशबोर्ड में इनलाइन होते हैं, और प्रकाशित इमेज (और डेस्कटॉप ऐप) `localhost` / Intlayer Cloud मानों के साथ आते हैं। डिफ़ॉल्ट रूप से डैशबोर्ड को `http://localhost:3000` पर, API को `:3100` पर और MinIO को `:9000` पर एक्सेस किया जाना चाहिए; होस्ट पोर्ट को रीमैप करने का भी यही प्रभाव होता है। जब आप डोमेन देते हैं तो इंस्टॉलर रिपॉजिटरी से पुनर्निर्माण के लिए सब कुछ तैयार कर देता है ([कस्टम डोमेन](#custom-domain) देखें), लेकिन बिल्ड में स्वयं कई मिनट लगते हैं। डेस्कटॉप ऐप को सेल्फ-होस्टेड बैकएंड पर इंगित करना समर्थित नहीं है।
 - **ईमेल के लिए एक कार्यशील मेलर की आवश्यकता होती है।** प्रथम-रन सेटअप ईमेल सत्यापन लागू करता है, इसलिए या तो `RESEND_API_KEY` या [SMTP रिले](#global-mailer) (`MAIL_SMTP_*`) कॉन्फ़िगर किया जाना चाहिए। पहले एडमिन के साइन इन करने के बाद, प्रत्येक संगठन डैशबोर्ड से अपना स्वयं का SMTP या Resend मेलर भी कॉन्फ़िगर कर सकता है।
 - **डेस्कटॉप ऐप को अपने एम्बेडेड सर्वर को शुरू करने के लिए मशीन पर Node.js की आवश्यकता होती है।**
+- **कोई डॉक्यूमेंटेशन असिस्टेंट नहीं।** intlayer.org का AI डॉक असिस्टेंट (`/api/ai/ask`, `/api/search/doc`) लगभग 130 MB के पूर्व-गणना किए गए डॉक्यूमेंटेशन एम्बेडिंग पर निर्भर करता है जो सेल्फ-होस्ट इमेज में शामिल नहीं होते; इसलिए सेल्फ-होस्टेड मोड में ये दो रूट पंजीकृत नहीं होते। डैशबोर्ड की अपनी AI सुविधाएँ (अनुवाद, ऑडिट, ऑटोकम्प्लीट, चैट) अप्रभावित रहती हैं और उन्हें केवल `OPENAI_API_KEY` की आवश्यकता होती है।
 
 ## उपयोगी लिंक्स
 

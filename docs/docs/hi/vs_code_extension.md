@@ -44,32 +44,32 @@ author: aymericzip
 
 ## विशेषताएँ
 
-![सामग्री निकालें](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_extract_content.gif?raw=true)
+![सामग्री निकालें](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_extract_content.gif?raw=true)
 
 - **सामग्री निकालें** – अपने React / Vue / Svelte घटकों से सामग्री निकालें
 
-![शब्दकोश भरें](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_fill_active_dictionary.gif?raw=true)
+![शब्दकोश भरें](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_fill_active_dictionary.gif?raw=true)
 
 - **तत्काल नेविगेशन** – `useIntlayer` कुंजी पर क्लिक करने पर सही सामग्री फ़ाइल पर तेजी से जाएं।
 - **शब्दकोश भरें** – अपने प्रोजेक्ट की सामग्री से शब्दकोश भरें।
 
-![कमांड सूची](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_list_commands.gif?raw=true)
+![कमांड सूची](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_list_commands.gif?raw=true)
 
 - **Intlayer कमांड्स तक आसान पहुँच** – सामग्री शब्दकोशों को आसानी से बनाएं, पुश करें, पुल करें, भरें, और परीक्षण करें।
 
-![सामग्री फ़ाइल बनाएँ](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_create_content_file.gif?raw=true)
+![सामग्री फ़ाइल बनाएँ](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_create_content_file.gif?raw=true)
 
 - **सामग्री घोषणा जनरेटर** – विभिन्न स्वरूपों (`.ts`, `.esm`, `.cjs`, `.json`) में शब्दकोश सामग्री फ़ाइलें बनाएं।
 
-![शब्दकोशों का परीक्षण करें](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_test_missing_dictionary.gif?raw=true)
+![शब्दकोशों का परीक्षण करें](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_test_missing_dictionary.gif?raw=true)
 
 - **शब्दकोश परीक्षण** – लापता अनुवादों के लिए शब्दकोशों का परीक्षण करें।
 
-![शब्दकोश पुनर्निर्माण करें](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_rebuild_dictionary.gif?raw=true)
+![शब्दकोश पुनर्निर्माण करें](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_rebuild_dictionary.gif?raw=true)
 
 - **अपने शब्दकोशों को अद्यतित रखें** – अपने प्रोजेक्ट की नवीनतम सामग्री के साथ अपने शब्दकोशों को अद्यतित रखें।
 
-![Intlayer टैब (गतिविधि बार)](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_search_dictionary.gif?raw=true)
+![Intlayer टैब (गतिविधि बार)](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_search_dictionary.gif?raw=true)
 
 - **Intlayer टैब (गतिविधि बार)** – समर्पित साइड टैब से टूलबार और संदर्भ क्रियाओं (बिल्ड, पुल, पुश, फिल, रिफ्रेश, टेस्ट, फ़ाइल बनाएँ) के साथ शब्दकोश ब्राउज़ और खोजें।
 

@@ -301,9 +301,9 @@ Le stelle su GitHub sono un forte indicatore della popolarità di un progetto, d
 
 Utilizzando `intlayer`, puoi dichiarare il tuo contenuto nel formato della tua libreria i18n preferita, e intlayer genererà i tuoi namespace nella posizione che preferisci (esempio: `/messages/{{locale}}/{{namespace}}.json`).
 
-Se desideri continuare a usare l'API della tua attuale libreria i18n, `intlayer` fornisce anche gli **adattatori di compatibilità (compat adapters)**: pacchetti che espongono esattamente la stessa API di `react-i18next`, `next-intl`, `react-intl`, `vue-i18n` e altre, ma serviti dai dizionari di Intlayer. Questo ti permette di migrare progressivamente senza riscrivere il tuo codice. Consulta la [documentazione degli adattatori di compatibilità](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md).
+Se desideri continuare a usare l'API della tua attuale libreria i18n, `intlayer` fornisce anche gli **adattatori di compatibilità (compat adapters)**: pacchetti che espongono esattamente la stessa API di `react-i18next`, `next-intl`, `react-intl`, `vue-i18n` e altre, ma serviti dai dizionari di Intlayer. Questo ti permette di migrare progressivamente senza riscrivere il tuo codice. Consulta la [documentazione degli adattatori di compatibilità](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compat/index.md).
 
-- [documentazione degli adattatori di compatibilità](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md)
+- [documentazione degli adattatori di compatibilità](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compat/index.md)
 
 ## Domande frequenti
 

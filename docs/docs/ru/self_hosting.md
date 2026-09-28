@@ -126,7 +126,7 @@ npx intlayer init infra --mode desktop
 
 ### 1. Установка
 
-Записывает `./intlayer.env` со сгенерированными `BETTER_AUTH_SECRET` и `S3_SECRET_ACCESS_KEY` и загружает `intlayer/cms-all:latest`.
+Записывает `./intlayer.env` со сгенерированными `BETTER_AUTH_SECRET` и `S3_SECRET_ACCESS_KEY`, задает несколько вопросов, чтобы заполнить остальное, и загружает `intlayer/cms-all:latest`.
 
 <Tabs group="os">
 <Tab label="macOS / Linux" value="unix">
@@ -154,9 +154,15 @@ npx intlayer init infra --mode docker
 </Tab>
 </Tabs>
 
-### 2. Настройка почтового сервиса
+### 2. Ответы на вопросы настройки
 
-Откройте `intlayer.env` и укажите Resend **или** SMTP (подробнее в разделе [Глобальный почтовый сервис](#global-mailer)):
+Установщик запрашивает (нажмите Enter, чтобы принять предложенное значение; любой ответ можно позже изменить в файле):
+
+- **Домен**, на котором работает Intlayer. Оставьте поле пустым, чтобы остаться на `localhost`. Для домена вида `example.org` он предлагает `https://cms.example.org` для панели управления, `https://back.example.org` для API и `https://s3.example.org/intlayer` для объектного хранилища и записывает `DOMAIN`, `APP_URL`, `BACKEND_URL` и `S3_PUBLIC_URL`. Дальнейшие шаги описаны в разделе [Пользовательский домен](#custom-domain).
+- **Почтовый сервис**: Resend (API-ключ) или SMTP-релей (хост, порт, учетные данные), а также адрес отправителя. Этот шаг можно пропустить и выполнить вручную позже.
+- Необязательный **API-ключ OpenAI** для функций ИИ.
+
+Без терминала (например, когда скрипт запускается из CI) вопросы пропускаются и генерируются только секреты. Откройте `intlayer.env` и вручную укажите Resend **или** SMTP (подробнее в разделе [Глобальный почтовый сервис](#global-mailer)):
 
 ```sh fileName="intlayer.env"
 # Option A: Resend
@@ -172,7 +178,7 @@ MAIL_FROM=Intlayer <no-reply@example.com>
 
 ### 3. Запуск
 
-Эту команду выводит установщик:
+Эту команду выводит установщик (при пользовательском домене ей предшествует `docker build`, который создает `intlayer/cms-all:custom`, см. [Пользовательский домен](#custom-domain)):
 
 <Tabs group="os">
 <Tab label="macOS / Linux" value="unix">
@@ -206,7 +212,7 @@ CLI запускает установщик, выводящий команду `
 </Tab>
 </Tabs>
 
-Откройте **http://localhost:3000** и выполните шаги [Первоначальной настройки](#first-run-setup). При первом запуске инициализируются набор реплик и бакет, поэтому подождите минуту.
+Откройте **http://localhost:3000** (или URL вашей панели управления) и выполните шаги [Первоначальной настройки](#first-run-setup). При первом запуске инициализируются набор реплик и бакет, поэтому подождите минуту.
 
 ### Резервное копирование и обновление
 
@@ -261,7 +267,7 @@ docker run --rm -v intlayer-data:/data -v "$(pwd)":/backup busybox tar xzf /back
 
 ### 1. Установка
 
-Записывает `docker-compose.yml` и `.env` со сгенерированными секретами в `./intlayer/` и загружает образы.
+Записывает `docker-compose.yml` и `.env` со сгенерированными секретами в `./intlayer/`, задает те же вопросы настройки, что и режим «все в одном» (домен, почтовый сервис, ключ OpenAI), и загружает образы.
 
 <Tabs group="os">
 <Tab label="macOS / Linux" value="unix">
@@ -309,7 +315,7 @@ npx intlayer init infra --mode compose
 
 ### 2. Настройка почтового сервиса
 
-Заполните Resend **или** SMTP в `intlayer/.env` точно так же, как для контейнера «все в одном» (см. [Глобальный почтовый сервис](#global-mailer)).
+Если вы пропустили вопрос о почтовом сервисе, заполните Resend **или** SMTP в `intlayer/.env` точно так же, как для контейнера «все в одном» (см. [Глобальный почтовый сервис](#global-mailer)).
 
 ### 3. Запуск
 
@@ -317,7 +323,9 @@ npx intlayer init infra --mode compose
 cd intlayer && docker compose up -d
 ```
 
-Откройте **http://localhost:3000** и выполните шаги [Первоначальной настройки](#first-run-setup).
+При пользовательском домене установщик также загружает `docker-compose.build.yml`, и команда запуска становится `docker compose -f docker-compose.yml -f docker-compose.build.yml up -d --build` (см. [Пользовательский домен](#custom-domain)).
+
+Откройте **http://localhost:3000** (или URL вашей панели управления) и выполните шаги [Первоначальной настройки](#first-run-setup).
 
 ### Управляемые хранилища данных
 
@@ -341,14 +349,14 @@ services:
 
 ### Сборка из исходного кода
 
-При клонировании репозитория файл переопределения переключает оба сервиса Intlayer с `image:` на `build:`:
+Файл переопределения переключает оба сервиса Intlayer с `image:` на `build:`. Из клона репозитория:
 
 ```sh
 cd docker/selfhost
 docker compose -f docker-compose.yml -f docker-compose.build.yml up -d --build
 ```
 
-Таким же образом создаются образы для пользовательского домена: передайте значения `VITE_*` как аргументы сборки (см. [Ограничения](#limitations)).
+Без клона укажите сам репозиторий в качестве контекста сборки, задав `INTLAYER_BUILD_CONTEXT=https://github.com/aymericzip/intlayer.git#main` в `.env`. Аргументы сборки `VITE_*` панели управления берутся из `DOMAIN`, `APP_URL` и `BACKEND_URL` того же файла — именно так применяется [пользовательский домен](#custom-domain).
 
 ### Резервное копирование и обновление
 
@@ -391,6 +399,8 @@ $env:INTLAYER_MODE = "compose"; $env:INTLAYER_COMPOSE_DIR = ".\cms"; irm https:/
 | `INTLAYER_CONSOLE_PORT`   | `9001`                    | docker     | Host port for the MinIO console                            |
 | `INTLAYER_COMPOSE_DIR`    | `./intlayer`              | compose    | Where `docker-compose.yml` and `.env` are written          |
 | `INTLAYER_SELFHOST_REF`   | `main`                    | both       | Git ref the compose file and env template are fetched from |
+| `INTLAYER_BUILD_CONTEXT`  | `…/intlayer.git#main`     | both       | Build context used when a custom domain requires a rebuild |
+| `INTLAYER_CUSTOM_IMAGE`   | `intlayer/cms-all:custom` | docker     | Tag of the all-in-one image built for a custom domain      |
 
 > Переменные портов изменяют только сторону **хоста** сопоставления. В опубликованных образах `http://localhost:3000`, `http://localhost:3100` и `http://localhost:9000` встроены в сборку панели управления, поэтому сохраняйте значения по умолчанию, если не собираете собственные образы, смотрите [Ограничения](#limitations).
 
@@ -418,7 +428,7 @@ $env:INTLAYER_MODE = "compose"; $env:INTLAYER_COMPOSE_DIR = ".\cms"; irm https:/
 
 ### Фиксированные развертыванием
 
-These are set by the image (all-in-one) or by the compose file, and only need overriding for a non-standard topology.
+Эти переменные задаются образом («все в одном») или файлом compose, и переопределять их нужно только для нестандартной топологии. Исключение составляют `DOMAIN`, `APP_URL`, `BACKEND_URL` и `S3_PUBLIC_URL`: заданные в env-файле, они имеют приоритет в обоих режимах (см. [Пользовательский домен](#custom-domain)).
 
 | Variable           | All-in-one                                          | Docker Compose                   | Description                                                                   |
 | ------------------ | --------------------------------------------------- | -------------------------------- | ----------------------------------------------------------------------------- |
@@ -435,6 +445,37 @@ These are set by the image (all-in-one) or by the compose file, and only need ov
 | `S3_ACCESS_KEY_ID` | `intlayer`                                          | `intlayer`                       | MinIO access key                                                              |
 
 Служба `app` в Compose дополнительно получает `INTLAYER_BACKEND_INTERNAL_URL=http://backend:3100`: браузер обращается к API через `localhost:3100`, но SSR выполняется внутри сети Compose и должен использовать имя службы.
+
+### Пользовательский домен
+
+Бэкенд считывает свои публичные URL во время выполнения, но в панели управления они **вкомпилированы**: опубликованные образы `intlayer/cms-frontend` и `intlayer/cms-all` работают только на `http://localhost:3000`. Поэтому для работы Intlayer на собственном домене нужны две вещи, и обе подготавливает установщик, когда вы отвечаете на вопрос о домене:
+
+1. **Четыре переменные в env-файле**, которые считывает бэкенд (cookie, ссылки в письмах, OAuth-колбэки, URL ресурсов) и которые `docker-compose.build.yml` использует как аргументы сборки:
+
+   ```sh fileName="intlayer.env"
+   DOMAIN=example.org                          # cookie domain, parent of the hosts below
+   APP_URL=https://cms.example.org
+   BACKEND_URL=https://back.example.org
+   S3_PUBLIC_URL=https://s3.example.org/intlayer
+   ```
+
+2. **Образ панели управления, собранный с этими URL.** Docker собирает его прямо из репозитория, клонировать ничего не нужно:
+
+   ```sh
+   # Docker Compose: the override reads the build args from .env
+   docker compose -f docker-compose.yml -f docker-compose.build.yml up -d --build
+
+   # All-in-one
+   docker build -f docker/selfhost/Dockerfile \
+     --build-arg VITE_DOMAIN=example.org \
+     --build-arg VITE_SITE_URL=https://cms.example.org \
+     --build-arg VITE_IDE_URL=https://cms.example.org \
+     --build-arg VITE_BACKEND_URL=https://back.example.org \
+     -t intlayer/cms-all:custom \
+     https://github.com/aymericzip/intlayer.git#main
+   ```
+
+Затем поставьте перед контейнером обратный прокси с TLS: `cms.example.org` → порт `3000`, `back.example.org` → `3100`, `s3.example.org` → `9000`. Все три хоста должны иметь общий суффикс `DOMAIN`, так как область действия сессионного cookie ограничена им.
 
 ### Необязательные (функции мягко деградируют при отсутствии)
 
@@ -530,9 +571,10 @@ const { data: dictionaries } = await dictionaryEndpoint(cms).getDictionaries();
 
 ## Ограничения
 
-- **Без пользовательского домена и без переназначения портов.** Все URL-адреса `VITE_*` для браузера встроены в панель управления во время сборки, а опубликованные образы (и десктопное приложение) поставляются со значениями `localhost` / Intlayer Cloud. Панель управления должна быть доступна по адресу `http://localhost:3000`, API (по адресу `:3100`, а MinIO) по адресу `:9000`. Размещение на публичном домене или подключение десктопного приложения к собственному бэкенду требует пересборки с внедренными целевыми URL (`--build-arg VITE_BACKEND_URL=… VITE_SITE_URL=… VITE_DOMAIN=…` в `docker/selfhost/Dockerfile` или через `docker-compose.build.yml`) и не поддерживается по умолчанию.
+- **Пользовательский домен требует пересборки.** Все URL-адреса `VITE_*` для браузера встроены в панель управления во время сборки, а опубликованные образы (и десктопное приложение) поставляются со значениями `localhost` / Intlayer Cloud. По умолчанию панель управления должна быть доступна по адресу `http://localhost:3000`, API — по адресу `:3100`, а MinIO — по адресу `:9000`; переназначение портов хоста приводит к тому же. Когда вы указываете домен, установщик готовит все для пересборки из репозитория (см. [Пользовательский домен](#custom-domain)), но сама сборка занимает несколько минут. Подключение десктопного приложения к собственному бэкенду не поддерживается.
 - **Для работы почты требуется рабочий почтовый сервис.** При первой настройке требуется подтверждение электронной почты, поэтому необходимо настроить `RESEND_API_KEY` или [SMTP-реле](#global-mailer) (`MAIL_SMTP_*`). После входа первого администратора каждая организация может настроить собственный SMTP или Resend из панели управления.
 - **Десктопному приложению требуется Node.js** на компьютере для запуска встроенного сервера.
+- **Нет ассистента по документации.** ИИ-ассистент по документации intlayer.org (`/api/ai/ask`, `/api/search/doc`) опирается на ~130 МБ предварительно вычисленных эмбеддингов документации, которые не входят в образы для самостоятельного размещения; в этом режиме эти два маршрута не регистрируются. Собственные функции ИИ панели управления (перевод, аудит, автодополнение, чат) не затронуты и требуют только `OPENAI_API_KEY`.
 
 ## Полезные ссылки
 

@@ -87,18 +87,18 @@ Uygulamanızın içeriğini kapsamlara ayırmak, büyük ölçekli uygulamalar i
 </Accordion>
 <Accordion header="Yapay Zeka Ajanı">
 
-İçeriği aynı yerde konumlandırmak, Büyük Dil Modelleri (LLM'ler) için **gereken bağlamı azaltır**. Intlayer ayrıca yapay zeka ajanları için geliştirici deneyimini (DX) daha da sorunsuz hale getirmek amacıyla eksik çevirileri test etmek için **CLI**, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** ve **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/agent_skills.md)** gibi bir dizi araçla birlikte gelir.
+İçeriği aynı yerde konumlandırmak, Büyük Dil Modelleri (LLM'ler) için **gereken bağlamı azaltır**. Intlayer ayrıca yapay zeka ajanları için geliştirici deneyimini (DX) daha da sorunsuz hale getirmek amacıyla eksik çevirileri test etmek için **CLI**, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/mcp_server.md)** ve **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/agent_skills.md)** gibi bir dizi araçla birlikte gelir.
 
-- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)
-- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/mcp_server.md)
 - [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/agent_skills.md)
 
 </Accordion>
 <Accordion header="Otomasyon">
 
-AI sağlayıcınızın maliyetiyle seçtiğiniz LLM'yi kullanarak CI/CD işlem hattınızda çeviri yapmak için otomasyonu kullanın. Intlayer ayrıca içerik çıkarmayı otomatikleştirmek için bir **derleyici (compiler)** ve **arka planda çeviri yapmaya** yardımcı olacak bir [web platformu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) sunar.
+AI sağlayıcınızın maliyetiyle seçtiğiniz LLM'yi kullanarak CI/CD işlem hattınızda çeviri yapmak için otomasyonu kullanın. Intlayer ayrıca içerik çıkarmayı otomatikleştirmek için bir **derleyici (compiler)** ve **arka planda çeviri yapmaya** yardımcı olacak bir [web platformu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) sunar.
 
-- [web platformu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
+- [web platformu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="Performans">
@@ -108,10 +108,10 @@ Devasa JSON dosyalarını bileşenlere bağlamak performans ve reaktivite sorunl
 </Accordion>
 <Accordion header="Geliştirici olmayanlarla ölçeklendirme">
 
-Bir i18n çözümünden daha fazlası olan Intlayer, çevirmenler, reklam yazarları ve diğer ekip üyeleriyle iş birliğini sorunsuz hale getirmek için çok dilli içeriğinizi **gerçek zamanlı** yönetmenize yardımcı olan **kendi sunucunuzda barındırılan bir [görsel editör](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** ve **[tam bir CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** sağlar. İçerik yerel ve/veya uzaktan depolanabilir.
+Bir i18n çözümünden daha fazlası olan Intlayer, çevirmenler, reklam yazarları ve diğer ekip üyeleriyle iş birliğini sorunsuz hale getirmek için çok dilli içeriğinizi **gerçek zamanlı** yönetmenize yardımcı olan **kendi sunucunuzda barındırılan bir [görsel editör](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md)** ve **[tam bir CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)** sağlar. İçerik yerel ve/veya uzaktan depolanabilir.
 
-- [görsel editör](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)
-- [tam bir CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
+- [görsel editör](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md)
+- [tam bir CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
@@ -161,7 +161,7 @@ bun add intlayer solid-intlayer vite-intlayer
 
 - **intlayer**
 
-  Yapılandırma yönetimi, çeviri, [içerik bildirimi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md), dönüştürme (transpilation) ve [CLI komutları](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md) için uluslararasılaştırma araçları sağlayan temel paket.
+  Yapılandırma yönetimi, çeviri, [içerik bildirimi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md), dönüştürme (transpilation) ve [CLI komutları](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/index.md) için uluslararasılaştırma araçları sağlayan temel paket.
 
 - **solid-intlayer**
 
@@ -207,9 +207,9 @@ export default config;
 /es          /es/about       → İspanyolca
 ```
 
-> Bu yapılandırma dosyası aracılığıyla yerelleştirilmiş URL'ler, ara yazılım (middleware) yönlendirmesi, çerez adları, içerik bildirimlerinizin konumu ve uzantısı ayarlayabilir, konsoldaki Intlayer günlüklerini devre dışı bırakabilir ve daha fazlasını yapabilirsiniz. Mevcut parametrelerin tam listesi için [yapılandırma dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md) bakın.
+> Bu yapılandırma dosyası aracılığıyla yerelleştirilmiş URL'ler, ara yazılım (middleware) yönlendirmesi, çerez adları, içerik bildirimlerinizin konumu ve uzantısı ayarlayabilir, konsoldaki Intlayer günlüklerini devre dışı bırakabilir ve daha fazlasını yapabilirsiniz. Mevcut parametrelerin tam listesi için [yapılandırma dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) bakın.
 
-- [yapılandırma dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)
+- [yapılandırma dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md)
 
 </Step>
 <Step number={3} title="Vite Yapılandırmanıza Intlayer'ı Entegre Edin">
@@ -309,9 +309,9 @@ export default homeContent;
 
 > İçerik bildirimleriniz `contentDir` dizinine (varsayılan olarak `./src`) dahil edildiği ve içerik bildirimi dosya uzantısıyla eşleştiği sürece (varsayılan olarak `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`) uygulamanızın herhangi bir yerinde tanımlanabilir.
 >
-> Daha fazla ayrıntı için [içerik bildirimi dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md) bakın.
+> Daha fazla ayrıntı için [içerik bildirimi dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md) bakın.
 
-- [içerik bildirimi dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md)
+- [içerik bildirimi dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md)
 
 </Step>
 <Step number={5} title="Yerelleştirilmiş yönlendirme ekleyin">
@@ -486,9 +486,9 @@ export default function Home() {
 > <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
 
-> `useIntlayer` hook'u hakkında daha fazla bilgi edinmek için [dokümantasyona](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/solid-intlayer/useIntlayer.md) bakın.
+> `useIntlayer` hook'u hakkında daha fazla bilgi edinmek için [dokümantasyona](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/solid-intlayer/useIntlayer.md) bakın.
 
-- [useIntlayer Hook Documentation | solid-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/solid-intlayer/useIntlayer.md)
+- [useIntlayer Hook Documentation | solid-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/solid-intlayer/useIntlayer.md)
 
 İçerik düğümleri yalnızca düz çevirilerle sınırlı değildir. Örneğin çoğullaştırılmış bir sayaç:
 
@@ -647,9 +647,9 @@ export const LocaleSwitcher: Component = () => {
 >
 > Her bağlantıdaki `dir` ve `hreflang`, sağdan sola dillerin isimlerini doğru şekilde yönlendirir ve yardımcı teknolojilere ve arama motoru tarayıcılarına her bağlantının hangi dili işaret ettiğini bildirir.
 >
-> `useLocale` hook'u hakkında daha fazla bilgi edinmek için [dokümantasyona](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/solid-intlayer/useLocale.md) bakın.
+> `useLocale` hook'u hakkında daha fazla bilgi edinmek için [dokümantasyona](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/solid-intlayer/useLocale.md) bakın.
 
-- [useLocale Hook Documentation | solid-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/solid-intlayer/useLocale.md)
+- [useLocale Hook Documentation | solid-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/solid-intlayer/useLocale.md)
 
 </Step>
 <Step number={11} title="Kurallı (canonical) ve hreflang bağlantılarını yayınlayın" isOptional={true}>
@@ -869,10 +869,10 @@ export default function Page() {
 
 Mevcut bir kod tabanınız varsa binlerce dosyayı dönüştürmek zaman alabilir.
 
-Bu süreci kolaylaştırmak için Intlayer, bileşenlerinizi dönüştürmek ve içeriği ayıklamak için bir [derleyici (compiler)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compiler.md) / [ayıklayıcı (extractor)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/extract.md) sunar.
+Bu süreci kolaylaştırmak için Intlayer, bileşenlerinizi dönüştürmek ve içeriği ayıklamak için bir [derleyici (compiler)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md) / [ayıklayıcı (extractor)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract.md) sunar.
 
-- [derleyici (compiler)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compiler.md)
-- [ayıklayıcı (extractor)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/extract.md)
+- [derleyici (compiler)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md)
+- [ayıklayıcı (extractor)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract.md)
 
 Bunu kurmak için `intlayer.config.ts` dosyanıza bir `compiler` bölümü ekleyebilirsiniz:
 
@@ -1073,19 +1073,19 @@ Uzantının nasıl kullanılacağı hakkında daha fazla ayrıntı için [Intlay
 
 ## Daha Fazlası
 
-Daha ileri gitmek için [görsel editör](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) uygulayabilir veya [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) kullanarak içeriğinizi dışa aktarabilirsiniz.
+Daha ileri gitmek için [görsel editör](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) uygulayabilir veya [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) kullanarak içeriğinizi dışa aktarabilirsiniz.
 
-- [görsel editör](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)
-- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
+- [görsel editör](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)
 
 ## Dokümantasyon Referansları
 
 - [Intlayer Dokümantasyonu](https://intlayer.org)
 - [SolidStart Dokümantasyonu](https://start.solidjs.com)
-- [useIntlayer hook'u](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/solid-intlayer/useIntlayer.md)
-- [useLocale hook'u](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/solid-intlayer/useLocale.md)
-- [İçerik Bildirimi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md)
-- [Yapılandırma](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)
+- [useIntlayer hook'u](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/solid-intlayer/useIntlayer.md)
+- [useLocale hook'u](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/solid-intlayer/useLocale.md)
+- [İçerik Bildirimi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md)
+- [Yapılandırma](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md)
 
 ## Sıkça Sorulan Sorular
 

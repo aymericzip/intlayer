@@ -75,9 +75,13 @@ So với các giải pháp chính như `next-intl` hay `i18next`, Intlayer là g
 
 Intlayer được tối ưu hóa để hoạt động với **Thành phần máy chủ** nhằm hiển thị hiệu quả và hoàn toàn tương thích với [**Turbopack**](https://nextjs.org/docs/architecture/turbopack). Nó không chặn hiển thị tĩnh và cung cấp phần mềm trung gian cũng như tất cả các tính năng cần thiết để mở rộng quy mô quốc tế hóa (i18n).
 
-> Intlayer tương thích với Next.js 12, 13, 14, 15 và 16. Nếu đang sử dụng Bộ định tuyến trang Next.js, bạn có thể tham khảo [hướng dẫn] này(https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_page_router.md).
-> Định tuyến ngôn ngữ rất hữu ích cho SEO, kích thước bundle và hiệu suất. Nếu không cần, bạn có thể tham khảo [hướng dẫn] này(https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_no_locale_path.md).
-> Đối với Next.js 12, 13, 14 và 15 với Bộ định tuyến ứng dụng, hãy tham khảo [hướng dẫn] này (https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_14.md).
+> Intlayer tương thích với Next.js 12, 13, 14, 15 và 16. Nếu đang sử dụng Bộ định tuyến trang Next.js, bạn có thể tham khảo [hướng dẫn](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_page_router.md).
+> Định tuyến ngôn ngữ rất hữu ích cho SEO, kích thước bundle và hiệu suất. Nếu không cần, bạn có thể tham khảo [hướng dẫn](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_no_locale_path.md).
+> Đối với Next.js 12, 13, 14 và 15 với Bộ định tuyến ứng dụng, hãy tham khảo [hướng dẫn](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_14.md).
+
+- [i18n Next.js Pages Router: Hướng dẫn dịch thuật đầy đủ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_page_router.md)
+- [hướng dẫn](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_no_locale_path.md)
+- [i18n Next.js 14 - Hướng dẫn đầy đủ để dịch ứng dụng của bạn](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_14.md)
 
 </Accordion>
 <Accordion header="Kích thước bundle">
@@ -285,97 +289,98 @@ Triển khai routing động để phục vụ nội dung được địa phươ
 
     Trong file `[locale]/index.tsx` của bạn, định nghĩa các đường dẫn và props để xử lý các locale khác nhau.
 
-```tsx fileName="src/pages/[locale]/index.tsx" codeFormat="typescript"
-import type { GetStaticPaths, GetStaticProps } from "next";
-import { getConfiguration } from "intlayer";
+    ```tsx fileName="src/pages/[locale]/index.tsx" codeFormat="typescript"
+    import type { FC } from "react";
+    import type { GetStaticPaths, GetStaticProps } from "next";
+    import { type Locales, getConfiguration } from "intlayer";
 
-const HomePage = () => <div>{/* Nội dung của bạn ở đây */}</div>;
+    const HomePage: FC = () => <div>{/* Nội dung của bạn ở đây */}</div>;
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const { internationalization } = getConfiguration();
-  const { locales } = internationalization;
+    export const getStaticPaths: GetStaticPaths = () => {
+      const { internationalization } = getConfiguration();
+      const { locales } = internationalization;
 
-  const paths = locales.map((locale: string) => ({
-    params: { locale },
-  }));
+      const paths = locales.map((locale) => ({
+        params: { locale },
+      }));
 
-  return { paths, fallback: false };
-};
+      return { paths, fallback: false };
+    };
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const locale = params?.locale;
+    export const getStaticProps: GetStaticProps = ({ params }) => {
+      const locale = params?.locale as string;
 
-  return {
-    props: {
-      locale,
-    },
-  };
-};
+      return {
+        props: {
+          locale,
+        },
+      };
+    };
 
-export default HomePage;
-```
+    export default HomePage;
+    ```
 
-```jsx fileName="src/pages/[locale]/index.mjx" codeFormat="esm"
-import { getConfiguration } from "intlayer";
-import { ComponentExample } from "@components/ComponentExample";
+    ```jsx fileName="src/pages/[locale]/index.mjx" codeFormat="esm"
+    import { getConfiguration } from "intlayer";
+    import { ComponentExample } from "@components/ComponentExample";
 
-const HomePage = () => <div>{/* Nội dung của bạn ở đây */}</div>;
+    const HomePage = () => <div>{/* Nội dung của bạn ở đây */}</div>;
 
-export const getStaticPaths = () => {
-  const { internationalization } = getConfiguration();
-  const { locales } = internationalization;
+    export const getStaticPaths = () => {
+      const { internationalization } = getConfiguration();
+      const { locales } = internationalization;
 
-  const paths = locales.map((locale) => ({
-    params: { locale },
-  }));
+      const paths = locales.map((locale) => ({
+        params: { locale },
+      }));
 
-  return { paths, fallback: false };
-};
+      return { paths, fallback: false };
+    };
 
-export const getStaticProps = ({ params }) => {
-  const locale = params?.locale;
+    export const getStaticProps = ({ params }) => {
+      const locale = params?.locale;
 
-  return {
-    props: {
-      locale,
-    },
-  };
-};
-```
+      return {
+        props: {
+          locale,
+        },
+      };
+    };
+    ```
 
-```jsx fileName="src/pages/[locale]/index.csx" codeFormat="commonjs"
-const { getConfiguration } = require("intlayer");
-const { ComponentExample } = require("@components/ComponentExample");
+    ```jsx fileName="src/pages/[locale]/index.csx" codeFormat="commonjs"
+    const { getConfiguration } = require("intlayer");
+    const { ComponentExample } = require("@components/ComponentExample");
 
-const HomePage = () => <div>{/* Nội dung của bạn ở đây */}</div>;
+    const HomePage = () => <div>{/* Nội dung của bạn ở đây */}</div>;
 
-const getStaticPaths = async () => {
-  const { internationalization } = getConfiguration();
-  const { locales } = internationalization;
+    const getStaticPaths = async () => {
+      const { internationalization } = getConfiguration();
+      const { locales } = internationalization;
 
-  const paths = locales.map((locale) => ({
-    params: { locale },
-  }));
+      const paths = locales.map((locale) => ({
+        params: { locale },
+      }));
 
-  return { paths, fallback: false };
-};
+      return { paths, fallback: false };
+    };
 
-const getStaticProps = async ({ params }) => {
-  const locale = params?.locale;
+    const getStaticProps = async ({ params }) => {
+      const locale = params?.locale;
 
-  return {
-    props: {
-      locale,
-    },
-  };
-};
+      return {
+        props: {
+          locale,
+        },
+      };
+    };
 
-module.exports = {
-  getStaticProps,
-  getStaticPaths,
-  default: HomePage,
-};
-```
+    module.exports = {
+      getStaticProps,
+      getStaticPaths,
+      default: HomePage,
+    };
+    ```
 
 > `getStaticPaths` và `getStaticProps` đảm bảo rằng ứng dụng của bạn sẽ xây dựng trước các trang cần thiết cho tất cả các locale trong Next.js Page Router. Cách tiếp cận này giảm thiểu tính toán khi chạy và mang lại trải nghiệm người dùng tốt hơn. Để biết thêm chi tiết, hãy tham khảo tài liệu Next.js về [`getStaticPaths`](https://nextjs.org/docs/pages/building-your-application/data-fetching/get-static-paths) và [`getStaticProps`](https://nextjs.org/docs/pages/building-your-application/data-fetching/get-static-props).
 
@@ -959,24 +964,26 @@ Năm công cụ, tất cả đều là tùy chọn:
 - **[ESLint plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/eslint.md)**: quy tắc `no-raw-text` phát hiện các chuỗi chưa được bản địa hóa.
 
 </Question>
-<Question title="Cấu hình i18n tích hợp của Next.js có hoạt động với Pages Router không?">
-
-Có. Cấu hình `i18n` tích hợp của Next.js Pages Router hoàn toàn tương thích với Intlayer: Next.js xử lý định tuyến, và Intlayer quản lý nội dung.
-
-</Question>
 <Question title="Tôi nên tiếp tục dùng Pages Router hay chuyển sang App Router?">
 
-Các ứng dụng hiện tại trên Pages Router có thể tiếp tục hoạt động tốt. Đối với các dự án mới hoặc muốn tận dụng React Server Components, nên sử dụng App Router.
+Không có gì ở đây buộc bạn phải chuyển đổi. Intlayer hỗ trợ cả hai, và các khai báo nội dung là giống hệt nhau, vì vậy việc di chuyển router sau này không có nghĩa là phải viết lại i18n của bạn. Nếu bạn đã lên kế hoạch chuyển đổi, hãy làm theo [hướng dẫn Next.js 16](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_16.md) thay thế và tận dụng việc render bằng Server Component, giúp giữ các dictionary hoàn toàn ngoài phía client.
+
+- [hướng dẫn Next.js 16](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_16.md)
 
 </Question>
-<Question title="Tôi có bắt buộc phải đưa locale vào URL như /vi/about không?">
+<Question title="Cấu hình i18n tích hợp của Next.js có còn hoạt động với Pages Router không?">
 
-Không. `routing.mode` chấp nhận `"prefix-no-default"` (mặc định: `/about` cho ngôn ngữ chính và `/vi/about` cho ngôn ngữ khác), `"prefix-all"`, `"no-prefix"`, và `"search-params"`. Tùy chọn `routing.domains` ánh xạ từng ngôn ngữ tới tên miền riêng. Xem [tài liệu cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md).
+Có, và đó là điểm khác biệt chính so với App Router, nơi nó không được áp dụng. Nó cung cấp cho bạn tiền tố locale và phát hiện `Accept-Language` nhưng hoàn toàn không có lớp thông điệp, vì vậy nó giải quyết phần định tuyến và để việc dịch cho một thư viện. Bạn có thể giữ nó, hoặc để Intlayer đảm nhận cả định tuyến thông qua `routing.mode` và middleware ở bước 4.
 
 </Question>
 <Question title="Làm cách nào để thêm thẻ hreflang và metadata được bản địa hóa cho SEO?">
 
-Các bước `generateMetadata` và `sitemap.xml` hướng dẫn việc này. Hàm `getMultilingualUrls` tạo ánh xạ `alternates.languages` cho mỗi locale đã khai báo, bao gồm cả `x-default`, giúp công cụ tìm kiếm lập chỉ mục chính xác.
+Bước 8 đề cập đến điều này. Tạo các alternates bằng `getMultilingualUrls`, bao gồm cả mục `x-default`, và xuất chúng từ `next/head` trên mỗi trang để công cụ tìm kiếm phân phối đúng phiên bản ngôn ngữ.
+
+</Question>
+<Question title="Làm cách nào để tạo component Link được bản địa hóa?">
+
+Bước 10 trình bày điều này. Component bao bọc `Link` của Next.js và chuyển href qua `getLocalizedUrl`, vì vậy một liên kết nội bộ được viết là `/about` sẽ trở thành `/fr/about` đối với khách truy cập tiếng Pháp mà bạn không cần lặp lại locale ở mọi nơi gọi.
 
 </Question>
 <Question title="Làm cách nào tôi có thể dịch ứng dụng tự động bằng AI?">

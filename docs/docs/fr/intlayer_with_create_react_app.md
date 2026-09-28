@@ -660,8 +660,6 @@ Pour ce faire, vous pouvez ajouter les instructions suivantes à votre fichier `
 
 ### Extension VS Code
 
-Pour améliorer votre expérience de développement avec Intlayer, vous pouvez installer l'extension officielle **Intlayer VS Code Extension**.
-
 Pour améliorer votre expérience de développement avec Intlayer, vous pouvez installer l’**extension officielle Intlayer pour VS Code**.
 
 - [Installer depuis le Marketplace VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

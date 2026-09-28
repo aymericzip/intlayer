@@ -201,6 +201,6 @@ app.get("/morning", (c) => {
 
 ## Sonuç
 
-`t` fonksiyonu, arka uç uluslararasılaştırması için güçlü bir araçtır. Bunu etkili bir şekilde kullanarak küresel bir kitle için daha kapsayıcı ve kullanıcı dostu bir uygulama oluşturabilirsiniz. Gelişmiş kullanım ve ayrıntılı yapılandırma seçenekleri için [dokümantasyona](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md) bakın.
+`t` fonksiyonu, arka uç uluslararasılaştırması için güçlü bir araçtır. Bunu etkili bir şekilde kullanarak küresel bir kitle için daha kapsayıcı ve kullanıcı dostu bir uygulama oluşturabilirsiniz. Gelişmiş kullanım ve ayrıntılı yapılandırma seçenekleri için [dokümantasyona](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) bakın.
 
-- [Intlayer Configuration (intlayer.config.ts)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)
+- [Intlayer Configuration (intlayer.config.ts)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md)

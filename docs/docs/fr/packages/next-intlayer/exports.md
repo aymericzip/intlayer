@@ -124,12 +124,12 @@ Import :
 import "next-intlayer/server";
 ```
 
-| Fonction               | Description                                                                                                                                                          | Documentation associée                                                                                         |
-| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
-| `t`                    | Version côté serveur de la fonction de traduction pour l'App Router de Next.js. Renvoie la traduction du contenu multilingue pour la locale du serveur.              | [translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/{{locale}}/dictionary/translation.md) |
-| `getLocale`            | Fonction utilitaire pour extraire la locale courante depuis les en-têtes et cookies de Next.js. Conçue pour les Server Components, Server Actions ou Route Handlers. | -                                                                                                              |
-| `generateStaticParams` | Génère des paramètres statiques pour les routes dynamiques de Next.js en fonction des locales configurées. Renvoie un tableau d'objets de locale pour le pré-rendu.  | -                                                                                                              |
-| `locale`               | Fonction pour obtenir ou définir la locale dans le contexte serveur (App Router). Fournit la gestion des locales dans les Server Components.                         | -                                                                                                              |
+| Fonction               | Description                                                                                                                                                          | Documentation associée                                                                                 |
+| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| `t`                    | Version côté serveur de la fonction de traduction pour l'App Router de Next.js. Renvoie la traduction du contenu multilingue pour la locale du serveur.              | [translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/translation.md) |
+| `getLocale`            | Fonction utilitaire pour extraire la locale courante depuis les en-têtes et cookies de Next.js. Conçue pour les Server Components, Server Actions ou Route Handlers. | -                                                                                                      |
+| `generateStaticParams` | Génère des paramètres statiques pour les routes dynamiques de Next.js en fonction des locales configurées. Renvoie un tableau d'objets de locale pour le pré-rendu.  | -                                                                                                      |
+| `locale`               | Fonction pour obtenir ou définir la locale dans le contexte serveur (App Router). Fournit la gestion des locales dans les Server Components.                         | -                                                                                                      |
 
 ### Types
 

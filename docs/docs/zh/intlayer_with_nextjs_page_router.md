@@ -232,7 +232,9 @@ export default withIntlayer(nextConfig);
 
 设置中间件以自动检测并处理用户首选的语言环境：
 
-设置中间件以自动检测并处理用户的首选语言环境：
+> 从 Intlayer v9 开始，此中间件遵循 `routing.enableProxy` 选项（默认为 `true`）。在配置中设置 `routing.enableProxy: false`，即可在不删除此文件的情况下将其变为直通（pass-through）。请参阅 [v9 发布说明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/releases/v9.md)。
+
+- [v9 发布说明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/releases/v9.md)
 
 ```typescript fileName="src/middleware.ts" codeFormat={["typescript", "esm", "commonjs"]}
 export { intlayerProxy as middleware } from "next-intlayer/middleware";
@@ -260,38 +262,38 @@ export const config = {
 
 2.  **更新 `_app.tsx` 以处理本地化：**
 
-        修改您的 `_app.tsx`，添加 Intlayer 提供者。
+    修改您的 `_app.tsx`，添加 Intlayer 提供者。
 
-        ```tsx fileName="src/pages/_app.tsx" codeFormat="typescript"
-        import type { FC } from "react";
-        import type { AppProps } from "next/app";
-        import { IntlayerClientProvider } from "next-intlayer";
+    ```tsx fileName="src/pages/_app.tsx" codeFormat=["typescript", 'esm', 'cjs']
+    import type { FC } from "react";
+    import type { AppProps } from "next/app";
+    import { IntlayerProvider } from "next-intlayer";
 
-        const App = FC<AppProps>({ Component, pageProps }) => {
-          const { locale } = pageProps;
+    const App = FC<AppProps>({ Component, pageProps }) => {
+      const { locale } = pageProps;
 
-          return (
-            <IntlayerClientProvider locale={locale}>
-              <Component {...pageProps} />
-            </IntlayerClientProvider>
-          );
-        }
+      return (
+        <IntlayerProvider locale={locale}>
+          <Component {...pageProps} />
+        </IntlayerProvider>
+      );
+    }
 
-        export default MyApp;
-        ```
+    export default MyApp;
+    ```
 
 3.  **设置 `getStaticPaths` 和 `getStaticProps`:**
 
-在你的 `[locale]/index.tsx` 文件中，定义路径和属性以处理不同的语言环境。
+    在你的 `[locale]/index.tsx` 文件中，定义路径和属性以处理不同的语言环境。
 
-````tsx fileName="src/pages/[locale]/index.tsx" codeFormat="typescript"
-import type { FC } from "react";
-import type { GetStaticPaths, GetStaticProps } from "next";
-import { type Locales, getConfiguration } from "intlayer";
+    ```tsx fileName="src/pages/[locale]/index.tsx" codeFormat="typescript"
+    import type { FC } from "react";
+    import type { GetStaticPaths, GetStaticProps } from "next";
+    import { type Locales, getConfiguration } from "intlayer";
 
-const HomePage: FC = () => <div>{/* 你的内容写在这里 */}</div>;
+    const HomePage: FC = () => <div>{/* 你的内容写在这里 */}</div>;
 
-export const getStaticPaths: GetStaticPaths = () => {
+    export const getStaticPaths: GetStaticPaths = () => {
       const { internationalization } = getConfiguration();
       const { locales } = internationalization;
 
@@ -404,7 +406,7 @@ const homeContent = {
 } satisfies Dictionary;
 
 export default homeContent;
-````
+```
 
 ```json fileName="src/pages/[locale]/home.content.json" contentDeclarationFormat="json"
 {
@@ -462,10 +464,11 @@ const HomePage: FC = () => {
 export default HomePage;
 ```
 
-```jsx fileName="src/components/ComponentExample.mjx" codeFormat="esm"
+```tsx fileName="src/components/ComponentExample.tsx" codeFormat={["typescript", "esm"]}
+import type { FC } from "react";
 import { useIntlayer } from "next-intlayer";
 
-const ComponentExample = () => {
+export const ComponentExample: FC = () => {
   const content = useIntlayer("component-example"); // 确保你有对应的内容声明
 
   return (
@@ -477,22 +480,9 @@ const ComponentExample = () => {
 };
 ```
 
-```jsx fileName="src/components/ComponentExample.csx" codeFormat="commonjs"
-const { useIntlayer } = require("next-intlayer");
+> 当在 `string` 属性中使用翻译（例如 `alt`、`title`、`href`、`aria-label`）时，调用
 
-const ComponentExample = () => {
-  const content = useIntlayer("component-example"); // 确保你有相应的内容声明
-
-  return (
-    <div>
-      <h2>{content.title}</h2>
-      <p>{content.content}</p>
-    </div>
-  );
-};
-```
-
-> 当在 `string` 属性中使用翻译（例如 `alt`、`title`、`href`、`aria-label`）时，调用函数的值如下：
+> 函数的值如下：
 
 > ```tsx
 > <img src={content.image.src.value} alt={content.image.value} />

@@ -301,9 +301,9 @@ GitHub-Sterne sind ein starker Indikator für die Popularität eines Projekts, d
 
 Durch die Verwendung von `intlayer` können Sie Ihre Inhalte im Format Ihrer bevorzugten i18n-Bibliothek deklarieren, und Intlayer generiert Ihre Namespaces am Speicherort Ihrer Wahl (Beispiel: `/messages/{{locale}}/{{namespace}}.json`).
 
-Wenn Sie die API Ihrer aktuellen i18n-Bibliothek weiterhin verwenden möchten, stellt `intlayer` außerdem **Compat-Adapter** bereit: Pakete, die exakt dieselbe API wie `react-i18next`, `next-intl`, `react-intl`, `vue-i18n` und weitere bereitstellen, jedoch aus Intlayer-Wörterbüchern bedient werden. So können Sie schrittweise migrieren, ohne Ihren Code neu zu schreiben. Siehe die [Dokumentation der Compat-Adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md).
+Wenn Sie die API Ihrer aktuellen i18n-Bibliothek weiterhin verwenden möchten, stellt `intlayer` außerdem **Compat-Adapter** bereit: Pakete, die exakt dieselbe API wie `react-i18next`, `next-intl`, `react-intl`, `vue-i18n` und weitere bereitstellen, jedoch aus Intlayer-Wörterbüchern bedient werden. So können Sie schrittweise migrieren, ohne Ihren Code neu zu schreiben. Siehe die [Dokumentation der Compat-Adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compat/index.md).
 
-- [Dokumentation der Compat-Adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md)
+- [Dokumentation der Compat-Adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compat/index.md)
 
 ## Häufig gestellte Fragen
 

@@ -320,9 +320,9 @@ loadPO({
 - `intlayer content push` для отправки синхронизированных PO-файлов
 - `intlayer content pull` для получения синхронизированных PO-файлов
 
-См. [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md) для получения более подробной информации.
+См. [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/index.md) для получения более подробной информации.
 
-- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md)
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/index.md)
 
 ## Ограничения (текущие)
 

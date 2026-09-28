@@ -243,9 +243,9 @@ Poznaj naszą obszerną dokumentację, aby rozpocząć pracę z Intlayer i dowie
 <ul>
   <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/nextjs.md" rel=''>Next.js</a></li>
   <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/tanstack.md" rel=''>TanStack Start</a></li>
-  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/vue.md" rel=''>Vue</a></li>
-  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/solid.md" rel=''>Solid</a></li>
-  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/svelte.md" rel=''>Svelte</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/vue.md" rel=''>Vue</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/solid.md" rel=''>Solid</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/svelte.md" rel=''>Svelte</a></li>
 </ul>
 </details>
 

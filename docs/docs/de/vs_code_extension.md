@@ -44,32 +44,32 @@ Erweiterungslink: [https://marketplace.visualstudio.com/items?itemName=Intlayer.
 
 ## Funktionen
 
-![Inhalt extrahieren](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_extract_content.gif?raw=true)
+![Inhalt extrahieren](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_extract_content.gif?raw=true)
 
 - **Inhalt extrahieren** – Extrahieren Sie Inhalte aus Ihren React / Vue / Svelte Komponenten
 
-![Wörterbücher füllen](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_fill_active_dictionary.gif?raw=true)
+![Wörterbücher füllen](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_fill_active_dictionary.gif?raw=true)
 
 - **Sofortige Navigation** – Schneller Sprung zur richtigen Inhaltsdatei beim Klicken auf einen `useIntlayer`-Schlüssel.
 - **Wörterbücher füllen** – Füllen Sie Wörterbücher mit Inhalten aus Ihrem Projekt.
 
-![Befehle auflisten](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_list_commands.gif?raw=true)
+![Befehle auflisten](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_list_commands.gif?raw=true)
 
 - **Einfacher Zugriff auf Intlayer-Befehle** – Erstellen, pushen, pullen, füllen und testen Sie Inhaltswörterbücher mühelos.
 
-![Inhaltsdatei erstellen](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_create_content_file.gif?raw=true)
+![Inhaltsdatei erstellen](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_create_content_file.gif?raw=true)
 
 - **Generator für Inhaltsdeklarationen** – Erstellen Sie Wörterbuch-Inhaltsdateien in verschiedenen Formaten (`.ts`, `.esm`, `.cjs`, `.json`).
 
-![Wörterbücher testen](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_test_missing_dictionary.gif?raw=true)
+![Wörterbücher testen](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_test_missing_dictionary.gif?raw=true)
 
 - **Wörterbücher testen** – Testen Sie Wörterbücher auf fehlende Übersetzungen.
 
-![Wörterbuch neu aufbauen](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_rebuild_dictionary.gif?raw=true)
+![Wörterbuch neu aufbauen](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_rebuild_dictionary.gif?raw=true)
 
 - **Halten Sie Ihre Wörterbücher aktuell** – Halten Sie Ihre Wörterbücher mit den neuesten Inhalten aus Ihrem Projekt auf dem neuesten Stand.
 
-![Intlayer-Tab (Aktivitätsleiste)](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_search_dictionary.gif?raw=true)
+![Intlayer-Tab (Aktivitätsleiste)](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_search_dictionary.gif?raw=true)
 
 - **Intlayer-Tab (Aktivitätsleiste)** – Durchsuchen und durchsuchen Sie Wörterbücher über einen dedizierten Seiten-Tab mit Symbolleiste und Kontextaktionen (Build, Pull, Push, Fill, Refresh, Test, Create File).
 

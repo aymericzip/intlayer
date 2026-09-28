@@ -126,7 +126,7 @@ El orden de inicio está regulado por las dependencias de s6 (`mongod` → inici
 
 ### 1. Instalación
 
-Escribe `./intlayer.env` con `BETTER_AUTH_SECRET` y `S3_SECRET_ACCESS_KEY` generados, y descarga `intlayer/cms-all:latest`.
+Escribe `./intlayer.env` con `BETTER_AUTH_SECRET` y `S3_SECRET_ACCESS_KEY` generados, hace algunas preguntas para completar el resto, y descarga `intlayer/cms-all:latest`.
 
 <Tabs group="os">
 <Tab label="macOS / Linux" value="unix">
@@ -154,9 +154,15 @@ npx intlayer init infra --mode docker
 </Tab>
 </Tabs>
 
-### 2. Configurar un servicio de correo
+### 2. Responder a las preguntas de configuración
 
-Abra `intlayer.env` y configure Resend **o** SMTP (detalles en [Servicio de correo global](#global-mailer)):
+El instalador solicita (pulse Intro para aceptar una sugerencia; cada respuesta puede modificarse en el archivo más adelante):
+
+- **El dominio** en el que se sirve Intlayer. Déjelo vacío para quedarse en `localhost`. Con un dominio como `example.org`, sugiere `https://cms.example.org` para el panel, `https://back.example.org` para la API y `https://s3.example.org/intlayer` para el almacenamiento de objetos, y escribe `DOMAIN`, `APP_URL`, `BACKEND_URL` y `S3_PUBLIC_URL`. Consulte [Dominio personalizado](#custom-domain) para los pasos siguientes.
+- **El servicio de correo**: Resend (clave de API) o un relé SMTP (host, puerto, credenciales), además de la dirección del remitente. Este paso puede omitirse y hacerse a mano más tarde.
+- Una **clave de API de OpenAI** opcional para las funcionalidades de IA.
+
+Sin terminal (por ejemplo, cuando el script se ejecuta desde la CI), las preguntas se omiten y solo se generan los secretos. Abra `intlayer.env` y configure Resend **o** SMTP a mano (detalles en [Servicio de correo global](#global-mailer)):
 
 ```sh fileName="intlayer.env"
 # Option A: Resend
@@ -172,7 +178,7 @@ MAIL_FROM=Intlayer <no-reply@example.com>
 
 ### 3. Iniciar
 
-Este es el comando que imprime el instalador:
+Este es el comando que imprime el instalador (con un dominio personalizado, va precedido del `docker build` que produce `intlayer/cms-all:custom`, consulte [Dominio personalizado](#custom-domain)):
 
 <Tabs group="os">
 <Tab label="macOS / Linux" value="unix">
@@ -206,7 +212,7 @@ La CLI ejecuta el instalador, que muestra el comando `docker run …` visto en l
 </Tab>
 </Tabs>
 
-Abra **http://localhost:3000** y siga la [Configuración inicial](#first-run-setup). El primer inicio inicializa el conjunto de réplicas y el bucket, por lo que puede tardar un minuto.
+Abra **http://localhost:3000** (o la URL de su panel) y siga la [Configuración inicial](#first-run-setup). El primer inicio inicializa el conjunto de réplicas y el bucket, por lo que puede tardar un minuto.
 
 ### Copia de seguridad y actualización
 
@@ -261,7 +267,7 @@ Los datos se conservan en los volúmenes `intlayer_mongo-data`, `intlayer_redis-
 
 ### 1. Instalación
 
-Escribe `docker-compose.yml` y un `.env` con los secretos generados en `./intlayer/`, y descarga las imágenes.
+Escribe `docker-compose.yml` y un `.env` con los secretos generados en `./intlayer/`, hace las mismas preguntas de configuración que el modo todo en uno (dominio, servicio de correo, clave de OpenAI), y descarga las imágenes.
 
 <Tabs group="os">
 <Tab label="macOS / Linux" value="unix">
@@ -309,7 +315,7 @@ npx intlayer init infra --mode compose
 
 ### 2. Configurar un servicio de correo
 
-Complete Resend **o** SMTP en `intlayer/.env`, exactamente igual que para el contenedor todo en uno (consulte [Servicio de correo global](#global-mailer)).
+Si omitió la pregunta sobre el servicio de correo, complete Resend **o** SMTP en `intlayer/.env`, exactamente igual que para el contenedor todo en uno (consulte [Servicio de correo global](#global-mailer)).
 
 ### 3. Iniciar
 
@@ -317,7 +323,9 @@ Complete Resend **o** SMTP en `intlayer/.env`, exactamente igual que para el con
 cd intlayer && docker compose up -d
 ```
 
-Abra **http://localhost:3000** y siga la [Configuración inicial](#first-run-setup).
+Con un dominio personalizado, el instalador también descarga `docker-compose.build.yml` y el comando de inicio pasa a ser `docker compose -f docker-compose.yml -f docker-compose.build.yml up -d --build` (consulte [Dominio personalizado](#custom-domain)).
+
+Abra **http://localhost:3000** (o la URL de su panel) y siga la [Configuración inicial](#first-run-setup).
 
 ### Almacenes de datos gestionados
 
@@ -341,14 +349,14 @@ services:
 
 ### Compilación desde el código fuente
 
-Desde una copia del repositorio, una configuración de anulación cambia los dos servicios de Intlayer de `image:` a `build:`:
+Una configuración de anulación cambia los dos servicios de Intlayer de `image:` a `build:`. Desde una copia del repositorio:
 
 ```sh
 cd docker/selfhost
 docker compose -f docker-compose.yml -f docker-compose.build.yml up -d --build
 ```
 
-Así es también como se generan imágenes para un dominio personalizado: pase los valores `VITE_*` como build args (consulte [Limitaciones](#limitations)).
+Sin una copia, apunte el contexto de build al propio repositorio definiendo `INTLAYER_BUILD_CONTEXT=https://github.com/aymericzip/intlayer.git#main` en `.env`. Los build args `VITE_*` del panel siguen `DOMAIN`, `APP_URL` y `BACKEND_URL` del mismo archivo, que es como se aplica un [dominio personalizado](#custom-domain).
 
 ### Copia de seguridad y actualización
 
@@ -391,6 +399,8 @@ $env:INTLAYER_MODE = "compose"; $env:INTLAYER_COMPOSE_DIR = ".\cms"; irm https:/
 | `INTLAYER_CONSOLE_PORT`   | `9001`                    | docker     | Host port for the MinIO console                            |
 | `INTLAYER_COMPOSE_DIR`    | `./intlayer`              | compose    | Where `docker-compose.yml` and `.env` are written          |
 | `INTLAYER_SELFHOST_REF`   | `main`                    | both       | Git ref the compose file and env template are fetched from |
+| `INTLAYER_BUILD_CONTEXT`  | `…/intlayer.git#main`     | both       | Build context used when a custom domain requires a rebuild |
+| `INTLAYER_CUSTOM_IMAGE`   | `intlayer/cms-all:custom` | docker     | Tag of the all-in-one image built for a custom domain      |
 
 > Las variables de puerto solo cambian el lado del **host** del mapeo. Las imágenes publicadas tienen `http://localhost:3000`, `http://localhost:3100` y `http://localhost:9000` compiladas en el paquete del panel, por lo que mantenga los valores predeterminados a menos que construya sus propias imágenes, consulte [Limitaciones](#limitations).
 
@@ -418,7 +428,7 @@ Ambos modos Docker leen el mismo archivo (`intlayer.env` para el contenedor, `.e
 
 ### Fijadas por el despliegue
 
-These are set by the image (all-in-one) or by the compose file, and only need overriding for a non-standard topology.
+Estas las define la imagen (todo en uno) o el archivo compose, y solo es necesario sobrescribirlas para una topología no estándar. `DOMAIN`, `APP_URL`, `BACKEND_URL` y `S3_PUBLIC_URL` son la excepción: si se definen en el archivo env, tienen prioridad en ambos modos (consulte [Dominio personalizado](#custom-domain)).
 
 | Variable           | All-in-one                                          | Docker Compose                   | Description                                                                   |
 | ------------------ | --------------------------------------------------- | -------------------------------- | ----------------------------------------------------------------------------- |
@@ -435,6 +445,37 @@ These are set by the image (all-in-one) or by the compose file, and only need ov
 | `S3_ACCESS_KEY_ID` | `intlayer`                                          | `intlayer`                       | MinIO access key                                                              |
 
 El servicio `app` de Compose recibe adicionalmente `INTLAYER_BACKEND_INTERNAL_URL=http://backend:3100`: el navegador accede a la API en `localhost:3100`, pero el renderizado del lado del servidor se ejecuta dentro de la red Compose y debe usar el nombre del servicio.
+
+### Dominio personalizado
+
+El backend lee sus URLs públicas en tiempo de ejecución, pero el panel las tiene **compiladas**: las imágenes publicadas `intlayer/cms-frontend` e `intlayer/cms-all` solo funcionan en `http://localhost:3000`. Servir Intlayer en su propio dominio requiere, por tanto, dos cosas, ambas preparadas por el instalador cuando responde a la pregunta del dominio:
+
+1. **Cuatro variables en el archivo env**, leídas por el backend (cookies, enlaces de correo, callbacks de OAuth, URLs de recursos) y usadas como build args por `docker-compose.build.yml`:
+
+   ```sh fileName="intlayer.env"
+   DOMAIN=example.org                          # cookie domain, parent of the hosts below
+   APP_URL=https://cms.example.org
+   BACKEND_URL=https://back.example.org
+   S3_PUBLIC_URL=https://s3.example.org/intlayer
+   ```
+
+2. **Una imagen del panel compilada con esas URLs.** Docker la compila directamente desde el repositorio, sin necesidad de una copia local:
+
+   ```sh
+   # Docker Compose: the override reads the build args from .env
+   docker compose -f docker-compose.yml -f docker-compose.build.yml up -d --build
+
+   # All-in-one
+   docker build -f docker/selfhost/Dockerfile \
+     --build-arg VITE_DOMAIN=example.org \
+     --build-arg VITE_SITE_URL=https://cms.example.org \
+     --build-arg VITE_IDE_URL=https://cms.example.org \
+     --build-arg VITE_BACKEND_URL=https://back.example.org \
+     -t intlayer/cms-all:custom \
+     https://github.com/aymericzip/intlayer.git#main
+   ```
+
+Después, coloque un reverse proxy con TLS delante del contenedor: `cms.example.org` → puerto `3000`, `back.example.org` → `3100`, `s3.example.org` → `9000`. Los tres hosts deben compartir el sufijo `DOMAIN`, ya que la cookie de sesión está limitada a él.
 
 ### Opcionales (las funciones se degradan suavemente si están ausentes)
 
@@ -530,9 +571,10 @@ const { data: dictionaries } = await dictionaryEndpoint(cms).getDictionaries();
 
 ## Limitaciones
 
-- **Sin dominio personalizado ni reasignación de puertos.** Todas las URLs `VITE_*` visibles para el navegador se integran en el panel durante la compilación, y las imágenes publicadas (y la aplicación de escritorio) se entregan con valores de `localhost` / Intlayer Cloud. Se debe acceder al panel en `http://localhost:3000`, a la API en `:3100` y a MinIO en `:9000`. Servirlo en un dominio público, o apuntar la aplicación de escritorio a un backend autoalojado, requiere recompilar con las URLs de destino integradas (`--build-arg VITE_BACKEND_URL=… VITE_SITE_URL=… VITE_DOMAIN=…` en `docker/selfhost/Dockerfile`, o mediante `docker-compose.build.yml`) y no se admite de forma predeterminada.
+- **Un dominio personalizado implica recompilar.** Todas las URLs `VITE_*` visibles para el navegador se integran en el panel durante la compilación, y las imágenes publicadas (y la aplicación de escritorio) se entregan con valores de `localhost` / Intlayer Cloud. Por defecto, se debe acceder al panel en `http://localhost:3000`, a la API en `:3100` y a MinIO en `:9000`; reasignar los puertos del host tiene el mismo efecto. El instalador prepara todo para una recompilación desde el repositorio cuando le indica un dominio (consulte [Dominio personalizado](#custom-domain)), pero la compilación en sí tarda varios minutos. No se admite apuntar la aplicación de escritorio a un backend autoalojado.
 - **El correo electrónico requiere un servicio funcional.** La configuración inicial exige la verificación por correo electrónico, por lo que se debe configurar `RESEND_API_KEY` o un [relay SMTP](#global-mailer) (`MAIL_SMTP_*`). Después de que el primer administrador inicie sesión, cada organización puede configurar su propio servicio SMTP o Resend desde el panel.
 - **La aplicación de escritorio necesita Node.js** en la máquina para iniciar su servidor integrado.
+- **Sin asistente de documentación.** El asistente de documentación con IA de intlayer.org (`/api/ai/ask`, `/api/search/doc`) se basa en unos 130 MB de embeddings de documentación precalculados que las imágenes autoalojadas no incluyen; esas dos rutas no se registran en modo autoalojado. Las funcionalidades de IA propias del panel (traducción, auditoría, autocompletado, chat) no se ven afectadas y solo necesitan `OPENAI_API_KEY`.
 
 ## Enlaces útiles
 

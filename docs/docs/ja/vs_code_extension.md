@@ -44,32 +44,32 @@ author: aymericzip
 
 ## 機能
 
-![コンテンツを抽出](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_extract_content.gif?raw=true)
+![コンテンツを抽出](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_extract_content.gif?raw=true)
 
 - **コンテンツを抽出** – React / Vue / Svelte コンポーネントからコンテンツを抽出します
 
-![辞書を埋める](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_fill_active_dictionary.gif?raw=true)
+![辞書を埋める](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_fill_active_dictionary.gif?raw=true)
 
 - **インスタントナビゲーション** – `useIntlayer` キーをクリックすると、正しいコンテンツファイルに素早くジャンプします。
 - **辞書の埋め込み** – プロジェクトのコンテンツで辞書を埋めます。
 
-![コマンド一覧](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_list_commands.gif?raw=true)
+![コマンド一覧](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_list_commands.gif?raw=true)
 
 - **Intlayerコマンドへの簡単アクセス** – コンテンツ辞書のビルド、プッシュ、プル、埋め込み、テストを簡単に行えます。
 
-![コンテンツファイル作成](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_create_content_file.gif?raw=true)
+![コンテンツファイル作成](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_create_content_file.gif?raw=true)
 
 - **コンテンツ宣言ジェネレーター** – さまざまな形式（`.ts`、`.esm`、`.cjs`、`.json`）で辞書コンテンツファイルを作成します。
 
-![辞書のテスト](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_test_missing_dictionary.gif?raw=true)
+![辞書のテスト](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_test_missing_dictionary.gif?raw=true)
 
 - **辞書のテスト** – 翻訳漏れがないか辞書をテストします。
 
-![辞書の再構築](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_rebuild_dictionary.gif?raw=true)
+![辞書の再構築](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_rebuild_dictionary.gif?raw=true)
 
 - **辞書を最新の状態に保つ** – プロジェクトの最新コンテンツで辞書を常に最新の状態に保ちます。
 
-![Intlayer タブ（アクティビティバー）](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_search_dictionary.gif?raw=true)
+![Intlayer タブ（アクティビティバー）](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_search_dictionary.gif?raw=true)
 
 - **Intlayer タブ（アクティビティバー）** – 専用のサイドタブからツールバーやコンテキストアクション（ビルド、プル、プッシュ、フィル、リフレッシュ、テスト、ファイル作成）を使って辞書を閲覧・検索できます。
 

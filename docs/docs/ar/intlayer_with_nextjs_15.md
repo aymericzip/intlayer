@@ -842,9 +842,9 @@ export const LocaleSwitcher: FC = () => {
 
 - [توثيق هوك `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/next-intlayer/useLocale.md)
 
-> في هذه الحالة، بدون إعادة توجيه باستخدام `router.push`، فقط كود الخادم الخاص بك سيغير لغة المحتوى.
+> يمكنك أيضًا تعيين دالة في خيار `onLocaleChange` لتشغيل دالة مخصصة عند تغيير اللغة.
 
-```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
+```tsx fileName="src/components/LocaleSwitcher.tsx"
 "use client";
 
 import { useLocale } from "next-intlayer";

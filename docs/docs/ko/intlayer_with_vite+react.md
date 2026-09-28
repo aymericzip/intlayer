@@ -487,12 +487,15 @@ const LocaleSwitcher: FC = () => {
 이 단계의 목적은 각 언어에 대한 고유한 경로를 만드는 것입니다. 이는 SEO 및 SEO 친화적인 URL에 유용합니다.
 예시:
 
-```- https://example.com/about
+```plaintext
+- https://example.com/about
 - https://example.com/ko/about
 - https://example.com/fr/about
 ```
 
-Intlayer는 단순한 i18n 솔루션 그 이상으로 관리에 도움이 되는 **자체 호스팅 [비주얼 편집기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** 및 **[전체 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)**를 제공합니다. 다국어 콘텐츠를 **실시간**으로 제공하여 번역가, 카피라이터, 기타 팀원과 원활하게 협업할 수 있습니다. 콘텐츠는 로컬 및/또는 원격으로 저장될 수 있습니다.
+> 기본적으로 기본 로케일에는 경로 접두사가 붙지 않습니다. 기본 로케일에도 접두사를 붙이려면 설정에서 `middleware.prefixDefault` 옵션을 `true`로 설정하면 됩니다. 자세한 내용은 [설정 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참조하세요.
+
+- [설정 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)
 
 애플리케이션에 로컬라이제이션된 라우팅을 추가하려면 애플리케이션의 라우트를 래핑하고 로캘 기반 라우팅을 처리하는 `LocaleRouter` 컴포넌트를 만들 수 있습니다. 다음은 [React Router](https://reactrouter.com/home)를 사용한 예시입니다:
 

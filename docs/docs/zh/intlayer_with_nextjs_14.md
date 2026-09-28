@@ -809,9 +809,9 @@ const LocaleSwitcher: FC = () => {
 
 - [`useLocale` 钩子文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/next-intlayer/useLocale.md)
 
-> 在这种情况下，不使用 `router.push` 进行重定向，只有您的服务器端代码会更改内容的语言环境。
+> 您还可以在 `onLocaleChange` 选项中设置一个函数，以在语言环境更改时触发自定义函数。
 
-```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
+```tsx fileName="src/components/LocaleSwitcher.tsx"
 "use client";
 
 import { useLocale } from "next-intlayer";

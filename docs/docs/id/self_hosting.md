@@ -126,7 +126,7 @@ Urutan booting dikelola oleh dependensi s6 (`mongod` → inisialisasi replica-se
 
 ### 1. Instalasi
 
-Menulis `./intlayer.env` dengan `BETTER_AUTH_SECRET` dan `S3_SECRET_ACCESS_KEY` yang telah dibuat, lalu menarik `intlayer/cms-all:latest`.
+Menulis `./intlayer.env` dengan `BETTER_AUTH_SECRET` dan `S3_SECRET_ACCESS_KEY` yang telah dibuat, mengajukan beberapa pertanyaan untuk mengisi sisanya, lalu menarik `intlayer/cms-all:latest`.
 
 <Tabs group="os">
 <Tab label="macOS / Linux" value="unix">
@@ -147,14 +147,22 @@ $env:INTLAYER_MODE = "docker"; irm https://intlayer.org/install.ps1 | iex
 </Tab>
 <Tab label="Intlayer CLI" value="cli">
 
-CLI menjalankan penginstal yang mencetak perintah `docker run …` yang ditunjukkan pada tab lain. Tempel ke terminal Anda setelah mengonfigurasi mailer.
+```bash
+npx intlayer init infra --mode docker
+```
 
 </Tab>
 </Tabs>
 
-### 2. Konfigurasi Mailer
+### 2. Jawab pertanyaan penyiapan
 
-Buka `intlayer.env` dan isi Resend **atau** SMTP (lihat [Mailer global](#global-mailer) untuk detailnya):
+Penginstal menanyakan (tekan Enter untuk menerima saran; setiap jawaban dapat diubah di file nanti):
+
+- **Domain** tempat Intlayer disajikan. Biarkan kosong untuk tetap di `localhost`. Dengan domain seperti `example.org`, penginstal menyarankan `https://cms.example.org` untuk dasbor, `https://back.example.org` untuk API, dan `https://s3.example.org/intlayer` untuk penyimpanan objek, lalu menulis `DOMAIN`, `APP_URL`, `BACKEND_URL`, dan `S3_PUBLIC_URL`. Lihat [Domain kustom](#custom-domain) untuk langkah selanjutnya.
+- **Mailer**: Resend (kunci API) atau relay SMTP (host, port, kredensial), serta alamat pengirim. Langkah ini dapat dilewati dan dilakukan secara manual nanti.
+- **Kunci API OpenAI** opsional untuk fitur AI.
+
+Tanpa terminal (misalnya saat skrip dijalankan dari CI), pertanyaan dilewati dan hanya secret yang dibuat. Buka `intlayer.env` dan isi Resend **atau** SMTP secara manual (lihat [Mailer global](#global-mailer) untuk detailnya):
 
 ```sh fileName="intlayer.env"
 # Option A: Resend
@@ -170,7 +178,7 @@ MAIL_FROM=Intlayer <no-reply@example.com>
 
 ### 3. Jalankan
 
-Ini adalah perintah eksekusi yang dicetak oleh penginstal:
+Ini adalah perintah eksekusi yang dicetak oleh penginstal (dengan domain kustom, perintah ini didahului oleh `docker build` yang menghasilkan `intlayer/cms-all:custom`, lihat [Domain kustom](#custom-domain)):
 
 <Tabs group="os">
 <Tab label="macOS / Linux" value="unix">
@@ -204,7 +212,7 @@ CLI menjalankan penginstal yang mencetak perintah `docker run …` yang ditunjuk
 </Tab>
 </Tabs>
 
-Buka **http://localhost:3000** dan ikuti [Pengaturan Pertama Kali](#first-run-setup). Booting pertama menginisialisasi replica-set dan bucket, jadi berikan waktu sekitar satu menit.
+Buka **http://localhost:3000** (atau URL dasbor Anda) dan ikuti [Pengaturan Pertama Kali](#first-run-setup). Booting pertama menginisialisasi replica-set dan bucket, jadi berikan waktu sekitar satu menit.
 
 ### Cadangan dan Peningkatan
 
@@ -259,7 +267,7 @@ Data disimpan dalam volume `intlayer_mongo-data`, `intlayer_redis-data`, dan `in
 
 ### 1. Instalasi
 
-Menulis `docker-compose.yml` dan `.env` dengan secret yang dihasilkan ke `./intlayer/` dan menarik image.
+Menulis `docker-compose.yml` dan `.env` dengan secret yang dihasilkan ke `./intlayer/`, mengajukan pertanyaan penyiapan yang sama seperti mode all-in-one (domain, mailer, kunci OpenAI), dan menarik image.
 
 <Tabs group="os">
 <Tab label="macOS / Linux" value="unix">
@@ -307,7 +315,7 @@ npx intlayer init infra --mode compose
 
 ### 2. Konfigurasi Mailer
 
-Isi Resend **atau** SMTP di `intlayer/.env`, persis seperti kontainer all-in-one (lihat [Mailer global](#global-mailer)).
+Jika Anda melewati pertanyaan mailer, isi Resend **atau** SMTP di `intlayer/.env`, persis seperti kontainer all-in-one (lihat [Mailer global](#global-mailer)).
 
 ### 3. Jalankan
 
@@ -315,7 +323,9 @@ Isi Resend **atau** SMTP di `intlayer/.env`, persis seperti kontainer all-in-one
 cd intlayer && docker compose up -d
 ```
 
-Buka **http://localhost:3000** dan ikuti [Pengaturan Pertama Kali](#first-run-setup).
+Dengan domain kustom, penginstal juga mengunduh `docker-compose.build.yml` dan perintah mulai menjadi `docker compose -f docker-compose.yml -f docker-compose.build.yml up -d --build` (lihat [Domain kustom](#custom-domain)).
+
+Buka **http://localhost:3000** (atau URL dasbor Anda) dan ikuti [Pengaturan Pertama Kali](#first-run-setup).
 
 ### Penyimpanan Data Terkelola
 
@@ -339,14 +349,14 @@ services:
 
 ### Membangun dari Sumber
 
-Dari hasil kloning repositori, ganti dua layanan Intlayer dari `image:` ke `build:` dengan override:
+Sebuah override mengganti dua layanan Intlayer dari `image:` ke `build:`. Dari hasil kloning repositori:
 
 ```sh
 cd docker/selfhost
 docker compose -f docker-compose.yml -f docker-compose.build.yml up -d --build
 ```
 
-Gunakan ini juga saat membuat image untuk domain kustom: berikan nilai `VITE_*` sebagai argumen build (lihat [Batasan](#limitations)).
+Tanpa kloning, arahkan konteks build ke repositori itu sendiri dengan mengatur `INTLAYER_BUILD_CONTEXT=https://github.com/aymericzip/intlayer.git#main` di `.env`. Argumen build `VITE_*` dasbor mengikuti `DOMAIN`, `APP_URL`, dan `BACKEND_URL` dari file yang sama, dan dengan cara inilah [domain kustom](#custom-domain) diterapkan.
 
 ### Cadangan dan Peningkatan
 
@@ -389,6 +399,8 @@ $env:INTLAYER_MODE = "compose"; $env:INTLAYER_COMPOSE_DIR = ".\cms"; irm https:/
 | `INTLAYER_CONSOLE_PORT`   | `9001`                    | docker     | Host port for the MinIO console                            |
 | `INTLAYER_COMPOSE_DIR`    | `./intlayer`              | compose    | Where `docker-compose.yml` and `.env` are written          |
 | `INTLAYER_SELFHOST_REF`   | `main`                    | both       | Git ref the compose file and env template are fetched from |
+| `INTLAYER_BUILD_CONTEXT`  | `…/intlayer.git#main`     | both       | Build context used when a custom domain requires a rebuild |
+| `INTLAYER_CUSTOM_IMAGE`   | `intlayer/cms-all:custom` | docker     | Tag of the all-in-one image built for a custom domain      |
 
 > Variabel port hanya mengubah sisi **host** dari pemetaan. Image yang diterbitkan memiliki `http://localhost:3000`, `http://localhost:3100`, dan `http://localhost:9000` yang dikompilasi ke dalam bundle dasbor, jadi pertahankan default kecuali Anda membuat image sendiri, lihat [Batasan](#limitations).
 
@@ -416,7 +428,7 @@ Kedua mode Docker membaca file yang sama (berupa `intlayer.env` untuk kontainer 
 
 ### Ditetapkan oleh Penerapan
 
-These are set by the image (all-in-one) or by the compose file, and only need overriding for a non-standard topology.
+Variabel ini diatur oleh image (all-in-one) atau oleh file compose, dan hanya perlu ditimpa untuk topologi non-standar. `DOMAIN`, `APP_URL`, `BACKEND_URL`, dan `S3_PUBLIC_URL` adalah pengecualian: jika diatur di file env, variabel ini diutamakan di kedua mode (lihat [Domain kustom](#custom-domain)).
 
 | Variable           | All-in-one                                          | Docker Compose                   | Description                                                                   |
 | ------------------ | --------------------------------------------------- | -------------------------------- | ----------------------------------------------------------------------------- |
@@ -433,6 +445,37 @@ These are set by the image (all-in-one) or by the compose file, and only need ov
 | `S3_ACCESS_KEY_ID` | `intlayer`                                          | `intlayer`                       | MinIO access key                                                              |
 
 Layanan Compose `app` juga menerima `INTLAYER_BACKEND_INTERNAL_URL=http://backend:3100`: browser menjangkau API di `localhost:3100`, tetapi rendering sisi server berjalan di dalam jaringan Compose sehingga harus menggunakan nama layanan.
+
+### Domain kustom
+
+Backend membaca URL publiknya saat runtime, tetapi dasbor memilikinya **terkompilasi di dalamnya**: image `intlayer/cms-frontend` dan `intlayer/cms-all` yang diterbitkan hanya berfungsi di `http://localhost:3000`. Karena itu, menyajikan Intlayer di domain Anda sendiri memerlukan dua hal, yang keduanya disiapkan oleh penginstal saat Anda menjawab pertanyaan domain:
+
+1. **Empat variabel di file env**, dibaca oleh backend (cookie, tautan email, callback OAuth, URL aset) dan digunakan sebagai argumen build oleh `docker-compose.build.yml`:
+
+   ```sh fileName="intlayer.env"
+   DOMAIN=example.org                          # cookie domain, parent of the hosts below
+   APP_URL=https://cms.example.org
+   BACKEND_URL=https://back.example.org
+   S3_PUBLIC_URL=https://s3.example.org/intlayer
+   ```
+
+2. **Image dasbor yang dibuat dengan URL tersebut.** Docker membuatnya langsung dari repositori, tanpa perlu kloning:
+
+   ```sh
+   # Docker Compose: the override reads the build args from .env
+   docker compose -f docker-compose.yml -f docker-compose.build.yml up -d --build
+
+   # All-in-one
+   docker build -f docker/selfhost/Dockerfile \
+     --build-arg VITE_DOMAIN=example.org \
+     --build-arg VITE_SITE_URL=https://cms.example.org \
+     --build-arg VITE_IDE_URL=https://cms.example.org \
+     --build-arg VITE_BACKEND_URL=https://back.example.org \
+     -t intlayer/cms-all:custom \
+     https://github.com/aymericzip/intlayer.git#main
+   ```
+
+Kemudian pasang reverse proxy dengan TLS di depan kontainer: `cms.example.org` → port `3000`, `back.example.org` → `3100`, `s3.example.org` → `9000`. Ketiga host harus berbagi sufiks `DOMAIN`, karena cookie sesi dibatasi pada domain tersebut.
 
 ### Opsional (fitur akan dinonaktifkan dengan lancar jika tidak disetel)
 
@@ -528,9 +571,10 @@ const { data: dictionaries } = await dictionaryEndpoint(cms).getDictionaries();
 
 ## Batasan
 
-- **Domain kustom dan pemetaan ulang port belum didukung.** Semua URL `VITE_*` yang ditujukan untuk browser dipanggang ke dalam dasbor pada waktu build, dan image yang diterbitkan (serta aplikasi desktop) memiliki nilai `localhost` / Intlayer Cloud. Dasbor harus diakses di `http://localhost:3000`, API di `:3100`, dan MinIO di `:9000`. Menghosting di domain publik atau mengarahkan aplikasi desktop ke backend self-hosted memerlukan pembuatan ulang dengan URL target yang dipanggang (pada `docker/selfhost/Dockerfile` atau `docker-compose.build.yml` dengan `--build-arg VITE_BACKEND_URL=… VITE_SITE_URL=… VITE_DOMAIN=…`), dan tidak didukung secara langsung.
+- **Domain kustom berarti build ulang.** Semua URL `VITE_*` yang ditujukan untuk browser dipanggang ke dalam dasbor pada waktu build, dan image yang diterbitkan (serta aplikasi desktop) memiliki nilai `localhost` / Intlayer Cloud. Secara bawaan, dasbor harus diakses di `http://localhost:3000`, API di `:3100`, dan MinIO di `:9000`; memetakan ulang port host memiliki efek yang sama. Penginstal menyiapkan semuanya untuk build ulang dari repositori saat Anda memberikan domain (lihat [Domain kustom](#custom-domain)), tetapi build itu sendiri memakan waktu beberapa menit. Mengarahkan aplikasi desktop ke backend self-hosted tidak didukung.
 - **Pengiriman email memerlukan mailer yang berfungsi.** Pengaturan pertama kali mewajibkan verifikasi email, jadi `RESEND_API_KEY` atau [relay SMTP](#global-mailer) (`MAIL_SMTP_*`) harus dikonfigurasi. Setelah admin pertama masuk, organisasi juga dapat mengonfigurasi mailer SMTP atau Resend mereka sendiri dari dasbor.
 - **Aplikasi desktop memerlukan Node.js di mesin untuk memulai server yang disematkan.**
+- **Tidak ada asisten dokumentasi.** Asisten dokumentasi AI intlayer.org (`/api/ai/ask`, `/api/search/doc`) bergantung pada sekitar 130 MB embedding dokumentasi yang telah dihitung sebelumnya, yang tidak disertakan dalam image self-host; kedua rute tersebut tidak didaftarkan dalam mode self-hosted. Fitur AI milik dasbor itu sendiri (terjemahan, audit, pelengkapan otomatis, chat) tidak terpengaruh dan hanya memerlukan `OPENAI_API_KEY`.
 
 ## Tautan Berguna
 

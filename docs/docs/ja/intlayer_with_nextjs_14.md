@@ -811,9 +811,9 @@ const LocaleSwitcher: FC = () => {
 
 - [`useLocale` フックのドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/next-intlayer/useLocale.md)
 
-> この場合、`router.push` を使ったリダイレクトなしで、サーバーサイドのコードだけがコンテンツのロケールを変更します。
+> また、 `onLocaleChange` オプションに関数を設定して、ロケールが変更されたときにカスタム関数をトリガーすることも可能です。
 
-```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
+```tsx fileName="src/components/LocaleSwitcher.tsx"
 "use client";
 
 import { useLocale } from "next-intlayer";

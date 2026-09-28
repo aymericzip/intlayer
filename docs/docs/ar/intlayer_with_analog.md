@@ -461,9 +461,13 @@ export default class HomeComponent {
 - [المقارنة المعيارية](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/index.md)
 
 </Question>
-<Question title="هل يمكنني الترحيل من ngx-translate أو Transloco أو @angular/localize دون إعادة كتابة القوالب؟">
+<Question title="هل يمكنني الترحيل من `ngx-translate` أو `Transloco` أو `@angular/localize` دون إعادة كتابة القوالب؟">
 
-إلى حد كبير نعم. انظر [نظرة عامة على محولات التوافق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/index.md).
+إلى حد كبير. اتبع [دليل الترحيل من ngx-translate](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/ngx-translate.md) أو [دليل الترحيل من Transloco](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/transloco.md) لنقل المحتوى. يمكنك أيضاً الترحيل بشكل تدريجي: تحافظ [مكونة مزامنة JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/plugins/sync-json.md) على كتالوجات JSON الحالية لديك كمصدر للحقيقة وتُنشئ قواميس Intlayer منها، بحيث تبقى الطبقتان متزامنتين أثناء نقل القوالب واحداً تلو الآخر.
+
+- [دليل الترحيل من ngx-translate](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/ngx-translate.md)
+- [دليل الترحيل من Transloco](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/transloco.md)
+- [مكونة مزامنة JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/plugins/sync-json.md)
 
 </Question>
 <Question title="هل يمكنني الاحتفاظ بملفات الترجمة JSON الموجودة لدي؟">
@@ -497,34 +501,29 @@ export default class HomeComponent {
 - **[ESLint plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/eslint.md)**: قاعدة `no-raw-text` ترصد النصوص المكتوبة مباشرة بدون تدويل.
 
 </Question>
-<Question title="هل يعمل Intlayer مع العرض من جانب الخادم (SSR) و SSG في Analog؟">
+<Question title="هل أحتاج إلى بناء منفصل لكل لغة؟">
 
-نعم. يتم حل المحتوى أثناء SSR و SSG، لذا فإن أول كود HTML يتلقاه العميل يكون مترجمًا بالفعل.
-
-</Question>
-<Question title="هل يتطلب تغيير اللغة إعادة تحميل الصفحة؟">
-
-لا. `useIntlayer` تفاعلي ويحدث المكونات فورًا.
+لا. هذا هو نموذج `@angular/localize`، حيث تُترجم كل لغة في حزمة خاصة بها وتُنشر بشكل منفصل. مع Intlayer، يخدم بناء واحد جميع اللغات المعلنة، ويتم تحديد اللغة النشطة في وقت التشغيل من عنوان URL أو ملف تعريف الارتباط (cookie) أو ترويسة `Accept-Language`.
 
 </Question>
-<Question title="كيف أقوم بإعداد التوجيه المترجم في نظام ملفات Analog؟">
+<Question title="هل يدعم Intlayer إشارات Angular (signals) والمكونات المستقلة (standalone)؟">
 
-أنشئ مجلد `[locale]` داخل `src/app/pages`. يحدث `getLocalizedUrl` الروابط تلقائيًا.
-
-</Question>
-<Question title="كيف أتعامل مع اللغات من اليمين إلى اليسار في Analog؟">
-
-استخدم `getHTMLTextDir` لتعيين `lang` و `dir` على المستند الجذري.
+نعم. يُعرض المحتوى عبر الإشارات (signals)، لذلك يُعاد عرض القالب عند تغيير اللغة دون إعادة تحميل الصفحة، ويُسجل المزود (provider) مثل أي مزود standalone آخر.
 
 </Question>
-<Question title="كيف أدير البيانات الوصفية لـ SEO ووسوم hreflang؟">
+<Question title="كيف أغير اللغة في وقت التشغيل؟">
 
-استخدم الدالة `getMultilingualUrls` لإنشاء وسوم `hreflang` بديلة لجميع اللغات المعلنة.
+تغطي الخطوة 6 ذلك. يوفر `useLocale` اللغة النشطة واللغات المعلنة ودالة لتعيين اللغة تحفظ الاختيار، بينما يعيد `getLocalizedUrl` كتابة المسار الحالي بحيث يبقى المستخدم على نفس المسار بعد التبديل.
+
+</Question>
+<Question title="هل يعمل مع العرض من جانب الخادم في Analog ومع Vite؟">
+
+نعم. تقوم إضافة Vite `intlayer()` بترجمة المحتوى الخاص بك ومراقبته أثناء التطوير، ويتم تحديد اللغة على الخادم بحيث تكون استجابة HTML الأولى باللغة الصحيحة مسبقاً. أما المسارات المعروضة مسبقاً (prerendered) فتحدد محتواها في وقت البناء.
 
 </Question>
 <Question title="كيف أترجم التطبيق تلقائياً باستخدام الذكاء الاصطناعي؟">
 
-قم بتشغيل `npx intlayer fill`. يملأ هذا الأمر الترجمات المفقودة باستخدام نموذج اللغة الذي تختاره مع مزودك ومفتاح API الخاص بك، ويحد `--git-diff` العملية على الملفات المعدلة. انظر [أمر fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/fill.md) و [تكامل CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/CI_CD.md).
+قم بتشغيل `npx intlayer fill`. يملأ هذا الأمر الترجمات المفقودة باستخدام نموذج اللغة (LLM) الذي تختاره، مع مزودك ومفتاح API الخاص بك، ويقصر `--git-diff` التنفيذ على المحتوى الذي تغير في الفرع. انظر [أمر fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/fill.md) و[تكامل CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/CI_CD.md).
 
 - [أمر fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/fill.md)
 - [تكامل CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/CI_CD.md)
@@ -532,28 +531,36 @@ export default class HomeComponent {
 </Question>
 <Question title="هل يدعم Intlayer صيغ الجمع والجنس والنصوص المنسقة؟">
 
-نعم: [صيغ الجمع (plurals)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/plurial.md)، [المحتوى القائم على النوع الاجتماعي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/gender.md)، الشروط، [الإدراجات (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/insertion.md)، والمنسقات للأرقام والتواريخ والعملات.
+نعم: [صيغ الجمع](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/plurial.md)، و[المحتوى القائم على الجنس](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/gender.md)، والشروط، و[الإدراجات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/insertion.md)، و[Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/markdown.md)، و[المنسقات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/formatters.md) للأرقام والتواريخ والعملات.
 
-- [صيغ الجمع (plurals)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/plurial.md)
-- [المحتوى القائم على النوع الاجتماعي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/gender.md)
-- [الإدراجات (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/insertion.md)
-- [محتوى Markdown في Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/markdown.md)
-- [المنسّقات: الأرقام والتواريخ والعملات حسب اللغة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/formatters.md)
+- [صيغ الجمع](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/plurial.md)
+- [المحتوى القائم على الجنس](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/gender.md)
+- [الإدراجات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/insertion.md)
+- [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/markdown.md)
+- [المنسقات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/formatters.md)
+
+</Question>
+<Question title="كيف أكتشف الترجمات المفقودة قبل النشر؟">
+
+قم بتشغيل `npx intlayer test` في CI. يُفشل هذا الأمر البناء عندما يكون هناك محتوى مفقود في إحدى اللغات المعلنة. وتُبلغ [إضافة VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/vs_code_extension.md) عن نفس الأخطاء أثناء الكتابة. انظر [اختبار المحتوى الخاص بك](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/testing.md).
+
+- [إضافة VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/vs_code_extension.md)
+- [اختبار المحتوى الخاص بك](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/testing.md)
 
 </Question>
 <Question title="كيف يمكن للمترجمين تحرير المحتوى دون لمس الكود؟">
 
-من خلال [المحرر المرئي (visual editor)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)، الذي يسمح لأي شخص بتحرير النصوص مباشرة على التطبيق قيد التشغيل، أو عبر [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)، الذي يفصل المحتوى ليتم تحديثه دون الحاجة لإعادة نشر الكود.
+من خلال [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)، الذي يعمل على البنية التحتية الخاصة بك ويسمح لأي شخص بتحرير النصوص مباشرة على التطبيق قيد التشغيل، أو عبر [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)، الذي يفصل المحتوى بحيث يمكن تغييره دون إعادة النشر.
 
-- [المحرر المرئي (visual editor)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)
+- [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)
 - [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
 
 </Question>
 <Question title="هل Intlayer مجاني ومفتوح المصدر؟">
 
-نعم، بموجب ترخيص Apache 2.0، بما في ذلك الاستخدام التجاري. الـ CMS السحابي المستضاف هو خدمة مدفوعة اختيارية يمكن أيضًا [استضافتها ذاتيًا (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/self_hosting.md).
+نعم، بموجب ترخيص Apache 2.0، بما في ذلك الاستخدام التجاري. نظام CMS المستضاف هو خدمة مدفوعة اختيارية يمكن أيضاً [استضافتها ذاتياً](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/self_hosting.md).
 
-- [استضافتها ذاتيًا (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/self_hosting.md)
+- [استضافتها ذاتياً](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/self_hosting.md)
 
 </Question>
 

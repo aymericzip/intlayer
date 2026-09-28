@@ -137,7 +137,9 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-Видалення `@intlayer/analytics` має той самий ефект, що й `enabled: false`. Повний перелік полів дивіться в [довіднику з конфігурації](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md).
+Видалення `@intlayer/analytics` має той самий ефект, що й `enabled: false`. Повний перелік полів дивіться в [довіднику з конфігурації](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md#analytics-configuration).
+
+- [Довідник з конфігурації](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md#analytics-configuration)
 
 ## Використання
 

@@ -44,32 +44,32 @@ Liên kết tiện ích mở rộng: [https://marketplace.visualstudio.com/items
 
 ## Tính năng
 
-![Trích xuất nội dung](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_extract_content.gif?raw=true)
+![Trích xuất nội dung](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_extract_content.gif?raw=true)
 
 - **Trích xuất Nội dung** – Trích xuất nội dung từ các thành phần React / Vue / Svelte của bạn
 
-![Điền từ điển](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_fill_active_dictionary.gif?raw=true)
+![Điền từ điển](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_fill_active_dictionary.gif?raw=true)
 
 - **Điều hướng tức thì** – Nhảy nhanh đến tệp nội dung chính xác khi nhấp vào khóa `useIntlayer`.
 - **Điền từ điển** – Điền từ điển với nội dung từ dự án của bạn.
 
-![Liệt kê các lệnh](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_list_commands.gif?raw=true)
+![Liệt kê các lệnh](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_list_commands.gif?raw=true)
 
 - **Truy cập dễ dàng các lệnh Intlayer** – Xây dựng, đẩy, kéo, điền, kiểm tra từ điển nội dung một cách dễ dàng.
 
-![Tạo tệp nội dung](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_create_content_file.gif?raw=true)
+![Tạo tệp nội dung](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_create_content_file.gif?raw=true)
 
 - **Trình tạo khai báo nội dung** – Tạo các tệp nội dung từ điển ở nhiều định dạng khác nhau (`.ts`, `.esm`, `.cjs`, `.json`).
 
-![Kiểm tra từ điển](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_test_missing_dictionary.gif?raw=true)
+![Kiểm tra từ điển](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_test_missing_dictionary.gif?raw=true)
 
 - **Kiểm tra từ điển** – Kiểm tra từ điển để phát hiện các bản dịch còn thiếu.
 
-![Xây dựng lại từ điển](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_rebuild_dictionary.gif?raw=true)
+![Xây dựng lại từ điển](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_rebuild_dictionary.gif?raw=true)
 
 - **Giữ cho từ điển của bạn luôn cập nhật** – Giữ cho từ điển của bạn luôn cập nhật với nội dung mới nhất từ dự án của bạn.
 
-![Tab Intlayer (Thanh hoạt động)](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_search_dictionary.gif?raw=true)
+![Tab Intlayer (Thanh hoạt động)](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_search_dictionary.gif?raw=true)
 
 - **Tab Intlayer (Thanh hoạt động)** – Duyệt và tìm kiếm từ điển từ một tab bên chuyên dụng với thanh công cụ và các hành động ngữ cảnh (Xây dựng, Kéo, Đẩy, Điền, Làm mới, Kiểm tra, Tạo tệp).
 

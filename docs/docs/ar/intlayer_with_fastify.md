@@ -305,14 +305,17 @@ export default config;
 </Question>
 <Question title="كم يضيف i18n إلى حجم حزمة خادم Fastify لدي؟">
 
-أقل بكثير من كتالوجات JSON التقليدية. يحسن مترجم Intlayer القواميس في وقت البناء ولا يعيد تحليلها عند كل طلب، مما يحافظ على استخدام الذاكرة ووقت بدء التشغيل البارد (cold start) في حده الأدنى. انظر [تحسين الحزم](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md).
+القليل جدًا. تُجمَّع القواميس مسبقًا ولا تُضمَّن إلا اللغات التي تعلن عنها، لذلك لا يوجد تحميل للكتالوجات عند الإقلاع ولا قراءة للملفات أثناء معالجة الطلب. ويكتسب ذلك أهمية أكبر في عمليات النشر على البيئات عديمة الخوادم (serverless) وبيئات الحافة (edge)، حيث يحدد حجم الحزمة زمن البدء البارد (cold start). انظر [تحسين الحزم](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md).
 
 - [تحسين الحزم](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md)
 
 </Question>
-<Question title="هل يمكنني الترحيل من i18next أو مكتبات الواجهة الخلفية الأخرى دون إعادة كتابة المعالجات؟">
+<Question title="هل يمكنني الترحيل من `i18next` دون إعادة كتابة المعالجات (handlers) الخاصة بي؟">
 
-نعم، اتبع أدلة الترحيل أو قم بمزامنة ملفات JSON تلقائيًا.
+نعم، وهناك مساران. يمكنك ترحيل المحتوى تدريجيًا باستخدام [دليل الترحيل من i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_i18next_to_intlayer.md). أو يمكنك الاحتفاظ بواجهتك البرمجية الحالية بالكامل: إذ توفّر [محولات التوافق (compat adapters)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/index.md) واجهة `i18next` نفسها تمامًا، لكن تخدمها قواميس Intlayer، فتتغير عمليات الاستيراد فقط ولا يتغير كود المعالجات.
+
+- [دليل الترحيل من i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_i18next_to_intlayer.md)
+- [محولات التوافق (compat adapters)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/index.md)
 
 </Question>
 <Question title="هل يمكنني الاحتفاظ بملفات الترجمة JSON الموجودة لدي؟">
@@ -326,11 +329,11 @@ export default config;
 </Question>
 <Question title="هل يجب أن أنقل المحتوى الخاص بي مفتاحًا تلو الآخر؟">
 
-لا. قم بتشغيل `npx intlayer extract` وسيقرأ Intlayer ملفات المصدر الخاصة بك، ويسحب السلاسل النصية الموجهة للمستخدم ويكتب ملف `.content` بجانب كل منها، بحيث تراجع diff بدلاً من نسخ السلاسل إلى كتالوج يدويًا. راجع [أمر extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/extract.md).
+لا. قم بتشغيل `npx intlayer extract` وسيقرأ Intlayer ملفات المصدر الخاصة بك، ويسحب السلاسل النصية الموجهة للمستخدم ويكتب ملف `.content` بجانب كل منها، بحيث تراجع diff بدلاً من نسخ السلاسل إلى كتالوج واحدة تلو الأخرى. راجع [أمر extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/extract.md).
 
 - [أمر extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/extract.md)
 
-لأتمتة كاملة، يقوم [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md) بالشيء نفسه في وقت البناء وينشئ القواميس عند كل تغيير.
+وعلى جانب الواجهة الأمامية من المشروع نفسه، يذهب [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md) أبعد من ذلك ويُنشئ القواميس في وقت البناء من كود JSX أو TSX أو Vue أو Svelte، بحيث يتشارك نصفا التطبيق طبقة محتوى واحدة دون أي مفاتيح تُدار يدويًا.
 
 - [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md)
 
@@ -339,73 +342,77 @@ export default config;
 
 خمس أدوات، كلها اختيارية:
 
-- **[امتداد VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/vs_code_extension.md)**: الانتقال من مفتاح إلى ملف المحتوى، استخراج السلاسل، وتشغيل build و fill و test و push و pull من لوحة الأوامر.
-- **[خادم LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/lsp.md)**: الانتقال إلى التعريف وعروض القيمة المترجمة عند التمرير والإكمال التلقائي في أي محرر يدعم LSP. يتعامل أيضًا مع استدعاءات `i18next`.
-- **[خادم MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/mcp_server.md)**: يكشف وثائق Intlayer و CLI إلى Cursor و VS Code و Claude Desktop و Claude Code و ChatGPT.
-- **[Agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)**: مهارات مخصصة مثل `intlayer-config` و `intlayer-cli` و `intlayer-content`.
-- **[ESLint plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/eslint.md)**: قاعدة `no-raw-text` ترصد النصوص المكتوبة يدويًا بدون تدويل.
+- **[امتداد VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/vs_code_extension.md)**: الانتقال من مفتاح `useIntlayer` إلى ملف المحتوى الذي يعلنه، واستخراج المحتوى من مكوّن، وتشغيل build و fill و test و push و pull من لوحة الأوامر أو من علامة تبويب Intlayer مخصصة.
+- **[خادم LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/lsp.md)**: الإدراك نفسه في أي محرر يدعم LSP، مع الانتقال إلى التعريف، والبحث عن جميع المراجع، ومعاينة القيمة المترجمة عند التمرير، والإكمال التلقائي للمفاتيح والحقول، وتحذير عندما لا يكون المفتاح معلنًا في أي مكان. كما يتعرف على استدعاءات `i18next` و `react-i18next` و `next-intl` و `use-intl`، مما يساعد أثناء الترحيل.
+- **[خادم MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/mcp_server.md)**: يكشف وثائق Intlayer و CLI إلى Cursor و VS Code و Claude Desktop و Claude Code و ChatGPT، بحيث يجيب المساعد استنادًا إلى الوثائق الحالية بدلًا من التخمين، ويمكنه تشغيل أوامر مثل `intlayer fill` بنفسه.
+- **[Agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)**: مهارات مركّزة مثل `intlayer-config` و `intlayer-cli` و `intlayer-content`، بالإضافة إلى مهارة لكل إطار عمل، تعلّم الوكيل إعداد التوجيه لديك وأنواع عُقد المحتوى.
+- **[ESLint plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/eslint.md)**: ترصد قاعدة `no-raw-text` النصوص المكتوبة مباشرة في الكود، مع قواعد إضافية لمفاتيح القواميس الثابتة والمحتوى غير المستخدم.
 
 </Question>
-<Question title="كيف يتم اكتشاف لغة العميل في الطلبات الواردة؟">
+<Question title="كيف يعرف Intlayer اللغة التي يجب أن يجيب بها؟">
 
-يفحص مكون Fastify الإضافي ملفات تعريف الارتباط أو الترويسات أو معلمات المسار ويحفظ النتيجة في `request.locale`.
+افتراضيًا، يقرأ `fastify-intlayer` ترويسة `Accept-Language` للطلب الوارد ويختار أقرب لغة معلنة، مع الرجوع إلى لغتك الافتراضية. يمكنك تغيير المصدر عبر `routing.storage`، مثل ترويسة مخصصة أو ملف تعريف ارتباط (cookie) تضبطه الواجهة الأمامية، بحيث تجيب واجهة API باللغة التي اختارها المستخدم فعليًا بدلًا من اللغة التي يعلنها متصفحه. انظر [مرجع الإعدادات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
 
-</Question>
-<Question title="هل يمكن لنفس إعلان المحتوى أن يخدم استجابات API والواجهة الأمامية للويب؟">
-
-نعم، هذه ميزة رئيسية في المستودعات الأحادية (monorepos) أو الحزم المشتركة. يمكن استيراد القاموس المصرح به في الواجهة الخلفية (رسائل البريد الإلكتروني، الأخطاء، استجابات API) والواجهة الأمامية (React, Vue, Svelte إلخ)، مما يحافظ على مصدر واحد للحقيقة لجميع النصوص.
+- [مرجع الإعدادات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md)
 
 </Question>
-<Question title="هل يؤدي Intlayer إلى إبطاء معالجة الطلبات؟">
+<Question title="هل اللغة معزولة لكل طلب؟">
 
-لا. يتم اكتشاف اللغة في برمجية وسيطة خفيفة الوزن للغاية (عن طريق قراءة ملفات تعريف الارتباط أو الاستعلام أو Accept-Language). يتم تجميع القواميس في وقت البناء وتبقى في الذاكرة، لذلك لا توجد قراءة للقرص أو تحليل للسلاسل عند وصول الطلب.
-
-</Question>
-<Question title="كيف أقوم بتوطين استجابات الأخطاء ورسائل البريد الإلكتروني وإشعارات الدفع؟">
-
-عبر استدعاء الدالة `getIntlayer` أو `t()` استنادًا إلى لغة الطلب. إذا تم تخزين لغة المستخدم في قاعدة بيانات، يمكن استدعاء الدالة خارج سياق الطلب لمهام الخلفية مع تحديد اللغة المستهدفة صراحة.
+نعم. تحصر الإضافة (plugin) اللغة النشطة ضمن نطاق الطلب، لذلك لا يقرأ طلبان متزامنان بلغتين مختلفتين لغة بعضهما أبدًا. وهذا ما يجعل استدعاء `t()` و `getIntlayer()` آمنًا من داخل خدمة (service) دون تمرير وسيط اللغة عبر كل دالة.
 
 </Question>
-<Question title="هل يمكنني استخدام كاشف لغة مخصص؟">
+<Question title="كيف أرسل رسائل البريد الإلكتروني الخاصة بالمعاملات بلغة المستلم؟">
 
-نعم. باستخدام خطاف `preHandler`، يمكنك استخراج اللغة من رموز JWT أو جلسات المستخدمين.
-
-</Question>
-<Question title="كيف أستخدم بادئات URL المترجمة في مسارات Fastify؟">
-
-أضف المعلمة `/:locale/` إلى المسارات واستخدم مدقق Intlayer لتصفية اللغات غير المعروفة.
+أعلن محتوى البريد الإلكتروني في ملف محتوى مثل أي محتوى آخر، ثم استرجعه باستخدام `getIntlayer` بلغة المستلم المخزنة بدلًا من لغة الطلب. هذا مهم في المهام (jobs) وقوائم الانتظار (queues)، حيث تنتمي اللغة إلى سجل المستخدم ولا يوجد طلب وارد لقراءة ترويسة منه.
 
 </Question>
-<Question title="كيف أترجم التطبيق تلقائياً باستخدام الذكاء الاصطناعي؟">
+<Question title="كيف أقوم بتوطين رسائل أخطاء API؟">
 
-قم بتشغيل `npx intlayer fill`. يملأ هذا الأمر الترجمات المفقودة باستخدام نموذج اللغة الذي تختاره مع مزودك ومفتاح API الخاص بك، ويحد `--git-diff` العملية على الملفات المعدلة. انظر [أمر fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/fill.md) و [تكامل CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/CI_CD.md).
+غلّف الرسالة بـ `t()` في الموضع الذي يُنشأ فيه الخطأ. تحلّها لغة الطلب النشطة، فيتلقى العميل رسالة يمكنه عرضها مباشرة، ولا تحتاج الواجهة الأمامية إلى كتالوج موازٍ لرموز الأخطاء.
+
+</Question>
+<Question title="هل يعمل مع دورة حياة إضافات Fastify والتغليف (encapsulation)؟">
+
+نعم. يُسجَّل `fastify-intlayer` كإضافة Fastify قياسية، لذا يتبع قواعد التغليف المعتادة. سجّله على مستوى الجذر، أو داخل النطاق الذي يحتاجه، قبل المسارات التي تقرأ المحتوى.
+
+</Question>
+<Question title="كيف أترجم محتوى الواجهة الخلفية تلقائيًا باستخدام الذكاء الاصطناعي؟">
+
+قم بتشغيل `npx intlayer fill`، الذي يملأ الترجمات المفقودة باستخدام نموذج اللغة (LLM) الذي تختاره عبر مزودك ومفتاح API الخاص بك. أضف `--git-diff` لترجمة المحتوى الذي تغيّر في الفرع فقط. انظر [أمر fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/fill.md) و [تكامل CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/CI_CD.md).
 
 - [أمر fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/fill.md)
 - [تكامل CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/CI_CD.md)
 
 </Question>
-<Question title="هل يدعم Intlayer صيغ الجمع والجنس والنصوص المنسقة؟">
+<Question title="هل يدعم Intlayer صيغ الجمع والجنس والقيم المُدرجة على الخادم؟">
 
-نعم: [صيغ الجمع (plurals)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/plurial.md)، [المحتوى القائم على النوع الاجتماعي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/gender.md)، الشروط، [الإدراجات (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/insertion.md)، والمنسقات للأرقام والتواريخ والعملات.
+نعم: [صيغ الجمع (plurals)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/plurial.md)، و[المحتوى القائم على النوع الاجتماعي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/gender.md)، والشروط، و[الإدراجات (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/insertion.md) للقيم المُدرجة، و[Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/markdown.md) لنصوص رسائل البريد الإلكتروني، و[المنسّقات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/formatters.md) للأرقام والتواريخ والعملات.
 
 - [صيغ الجمع (plurals)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/plurial.md)
 - [المحتوى القائم على النوع الاجتماعي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/gender.md)
 - [الإدراجات (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/insertion.md)
-- [محتوى Markdown في Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/markdown.md)
-- [المنسّقات: الأرقام والتواريخ والعملات حسب اللغة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/formatters.md)
+- [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/markdown.md)
+- [المنسّقات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/formatters.md)
 
 </Question>
-<Question title="كيف يمكن لأعضاء الفريق غير التقنيين تحرير قوالب البريد الإلكتروني ورسائل الخطأ دون لمس الكود؟">
+<Question title="هل أحصل على الإكمال التلقائي لـ TypeScript على الخادم؟">
 
-خياران متاحان: [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)، الذي يفصل المحتوى عن قاعدة الكود ويسمح بالتحرير عبر الويب، أو [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)، الذي يحفظ التغييرات مباشرة في ملفات الكود المحلية.
+نعم. يُنشئ Intlayer أنواع قواميسك في `./types/intlayer.d.ts`، لذا يصبح المفتاح غير الموجود خطأ تجميع بدلًا من سلسلة فارغة في وقت التشغيل. شغّل `npx intlayer test` في CI لإفشال البناء عندما ينقص محتوى إحدى اللغات المعلنة.
 
-- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
-- [استضافة Intlayer ذاتيًا عبر Docker](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/self_hosting.md)
+</Question>
+<Question title="هل يمكن للواجهة الأمامية والواجهة الخلفية مشاركة المحتوى نفسه؟">
+
+نعم، وهذا هو الإعداد المعتاد. يعمل `fastify-intlayer` جنبًا إلى جنب مع `react-intlayer` و `next-intlayer` و `vite-intlayer` على المحتوى المعلن نفسه، لذا فإن النص المستخدم في استجابة API وفي صفحة معًا يُعلَن مرة واحدة فقط. انظر [كيف يعمل Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/how_works_intlayer.md).
+
+- [كيف يعمل Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/how_works_intlayer.md)
 
 </Question>
 <Question title="هل Intlayer مجاني ومفتوح المصدر؟">
 
-نعم، بموجب ترخيص Apache 2.0، بما في ذلك الاستخدام التجاري. الـ CMS السحابي المستضاف هو خدمة مدفوعة اختيارية يمكن أيضًا [استضافتها ذاتيًا (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/self_hosting.md).
+نعم، بموجب ترخيص Apache 2.0، بما في ذلك الاستخدام التجاري. [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md) المستضاف خدمة مدفوعة اختيارية يمكن أيضًا [استضافتها ذاتيًا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/self_hosting.md).
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
+- [استضافتها ذاتيًا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/self_hosting.md)
 
 </Question>
 

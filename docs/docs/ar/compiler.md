@@ -106,9 +106,9 @@ export default defineConfig({
 
 > إن plugin `intlayerCompiler()` المستقل لا يزال يتم تصديره للإعدادات المتقدمة. تسجيله جنباً إلى جنب مع `intlayer()` آمن، المترجم يزيل التكرار عن نفسه ويعمل مرة واحدة فقط.
 
-See complete tutorial: [Translate Vite and React with Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md)
+See complete tutorial: [Translate Vite and React with Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+react.md)
 
-- [Translate Vite and React with Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md)
+- [Translate Vite and React with Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+react.md)
 
 #### دعم الأُطُر
 

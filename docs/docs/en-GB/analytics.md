@@ -50,14 +50,14 @@ Events are collected in memory and sent as a **single batched request roughly ev
 
 ## How it powers A/B testing on content
 
-Intlayer already lets you declare content [Variants](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dynamic_dictionaries/index.md) (e.g. a `hero-banner` dictionary with a default and a `black_friday` variant). `@intlayer/analytics` closes the loop:
+Intlayer already lets you declare content [Variants](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dynamic_dictionaries/index.md) (e.g. a `hero-banner` dictionary with a default and a `black_friday` variant). `@intlayer/analytics` closes the loop:
 
 1. `useExperiment(experimentKey, variants)` deterministically assigns each anonymous session to a variant - a pure function of the session id and the experiment key, so the assignment is **stable across the session** and requires **no server round-trip** before first render (no flicker, no layout shift).
 2. Every `content_exposure` event carries the `variant` that was shown.
 3. `useConversion()` lets you attribute a goal (e.g. `"cta_click"`) to that variant.
 4. The dashboard's experiment results endpoint compares conversion rates per variant, including statistical significance (a z-test).
 
-- [Variants](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dynamic_dictionaries/index.md)
+- [Variants](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dynamic_dictionaries/index.md)
 
 ## Installation
 
@@ -138,9 +138,9 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-Uninstalling `@intlayer/analytics` has the same effect as `enabled: false`. See the [Configuration reference](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md#analytics-configuration) for the full field list.
+Uninstalling `@intlayer/analytics` has the same effect as `enabled: false`. See the [Configuration reference](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md#analytics-configuration) for the full field list.
 
-- [Configuration reference](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md#analytics-configuration)
+- [Configuration reference](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md#analytics-configuration)
 
 ## Usage
 
@@ -621,7 +621,7 @@ Every time `useIntlayer` resolves a piece of content for display, the interprete
 
 Weights are optional - pass one per variant to skew the split, e.g. `useExperiment("homepage-hero", ["default", "black_friday"], [9, 1])`.
 
-The child then reads the [Variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dynamic_dictionaries/variants.md) of the dictionary that matches:
+The child then reads the [Variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dynamic_dictionaries/variants.md) of the dictionary that matches:
 
 ```tsx fileName="HeroBanner.tsx"
 import { useIntlayer } from "react-intlayer";
@@ -638,13 +638,13 @@ export const HeroBanner = ({ variant }: { variant: string }) => {
 };
 ```
 
-- [Variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dynamic_dictionaries/variants.md)
+- [Variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dynamic_dictionaries/variants.md)
 
 > Reading the variant in a **child** is what makes this work outside React: in Vue, Svelte, Solid, and Angular the selector passed to `useIntlayer` is captured when the component sets up, so the read has to happen in a component that only mounts once the variant is known.
 
-If the experiment covers a whole page rather than a single dictionary, hoist the variant onto the provider instead - see [Ambient variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dynamic_dictionaries/variants.md#ambient-variant). Every `useIntlayer` below then resolves against it with no call-site change.
+If the experiment covers a whole page rather than a single dictionary, hoist the variant onto the provider instead - see [Ambient variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dynamic_dictionaries/variants.md#ambient-variant). Every `useIntlayer` below then resolves against it with no call-site change.
 
-- [Ambient variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dynamic_dictionaries/variants.md#ambient-variant)
+- [Ambient variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dynamic_dictionaries/variants.md#ambient-variant)
 
 If you need the raw assignment outside of a component, reach for the client directly:
 
@@ -699,7 +699,7 @@ All read endpoints require authentication; the token exchange and ingestion are 
 | `GET`  | `/api/analytics/content-stats`              | Per-content exposure totals, grouped by dictionary key / key path / locale.      |
 | `GET`  | `/api/analytics/experiments/:experimentKey` | Per-variant conversion rates and statistical significance for an A/B experiment. |
 
-You can also call these programmatically with the [CMS SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md):
+You can also call these programmatically with the [CMS SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_CMS.md):
 
 ```ts fileName="analytics.ts"
 import { createIntlayerCMS } from "@intlayer/api";
@@ -710,14 +710,14 @@ const cms = createIntlayerCMS();
 const { data: audience } = await analyticsEndpoint(cms).getAudience(30);
 ```
 
-- [CMS SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
+- [CMS SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_CMS.md)
 
 > **Server-side only.** `createIntlayerCMS()` authenticates with `clientId` + `clientSecret`, and the secret is never available in the browser - this snippet would issue unauthenticated requests if it ran there. Keep it in a route handler, server action, or script.
 
 ## Useful links
 
-- [Dynamic Dictionaries - Collections & Variants](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dynamic_dictionaries/index.md)
-- [Intlayer CMS - CMS SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
-- [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)
-- [Configuration Reference](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)
-- [Self-Hosting Guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/self_hosting.md)
+- [Dynamic Dictionaries - Collections & Variants](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dynamic_dictionaries/index.md)
+- [Intlayer CMS - CMS SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_CMS.md)
+- [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_visual_editor.md)
+- [Configuration Reference](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md)
+- [Self-Hosting Guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/self_hosting.md)

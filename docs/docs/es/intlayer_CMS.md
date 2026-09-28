@@ -426,6 +426,8 @@ curl -fsSL https://intlayer.org/install.sh | sh
 
 Para la guía de configuración completa, referencia de variables de entorno, instrucciones de actualización y procedimientos de copia de seguridad/restauración, consulta la [Guía de Auto-hospedaje](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/self_hosting.md).
 
+- [Guía de Auto-hospedaje](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/self_hosting.md)
+
 ## Depuración
 
 Si encuentras problemas con el CMS, verifica lo siguiente:

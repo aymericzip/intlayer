@@ -292,9 +292,12 @@ Geleneksel JSON kataloglarına kıyasla çok daha az. Intlayer derleyicisi derle
 - [paket optimizasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md)
 
 </Question>
-<Question title="nestjs-i18n'den handler'larımı ve servislerimi yeniden yazmadan geçiş yapabilir miyim?">
+<Question title="Handler'larımı yeniden yazmadan `i18next`'ten geçiş yapabilir miyim?">
 
-Büyük ölçüde evet. [sync JSON eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-json.md) mevcut çeviri dosyalarınızı korurken Intlayer sözlükleri üretir.
+Evet, ve iki yol var. İçeriği [i18next geçiş rehberi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_i18next_to_intlayer.md) ile kademeli olarak taşıyabilirsiniz. Ya da mevcut API'nizi tamamen koruyabilirsiniz: [compat adaptörleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/index.md) `i18next` ile birebir aynı API'yi sunar, ancak Intlayer sözlükleri tarafından beslenir; böylece yalnızca import'lar değişir, handler kodu değişmez.
+
+- [i18next geçiş rehberi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_i18next_to_intlayer.md)
+- [compat adaptörleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/index.md)
 
 </Question>
 <Question title="Mevcut JSON çeviri dosyalarımı koruyabilir miyim?">
@@ -328,14 +331,11 @@ Beş araç, hepsi isteğe bağlı:
 - **[ESLint eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/eslint.md)**: `no-raw-text` kuralı doğrudan kodlanmış metinleri işaretler.
 
 </Question>
-<Question title="Gelen isteklerde istemcinin dili nasıl algılanır?">
+<Question title="Intlayer hangi dilde yanıt vereceğini nasıl bilir?">
 
-Bir NestJS Interceptor veya Middleware gelen istek başlıklarını ve çerezleri çözümler, dili istek kapsamına bağlar.
+Varsayılan olarak `express-intlayer`, gelen isteğin `Accept-Language` başlığını okur ve bildirilen en yakın dili seçer; bulamazsa varsayılan dilinize geri döner. Kaynağı `routing.storage` ile değiştirebilirsiniz; örneğin özel bir başlık veya frontend'inizin ayarladığı bir cookie. Böylece API, tarayıcının bildirdiği dil yerine kullanıcının gerçekten seçtiği dilde yanıt verir. Bkz. [yapılandırma referansı](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md).
 
-</Question>
-<Question title="Aynı içerik bildirimleri hem API yanıtlarıma hem de web ön yüzüme hizmet verebilir mi?">
-
-Evet, monorepo veya paylaşılan paketlerde bu en büyük avantajlardan biridir. Bildirilen bir sözlük hem arka uçta (e-posta, hata kodları, API yanıtları) hem de ön uçta (React, Vue, Svelte vb.) doğrudan içe aktarılabilir. Böylece ön yüz ve arka uç aynı metinler için tek bir doğruluk kaynağı kullanır.
+- [yapılandırma referansı](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md)
 
 </Question>
 <Question title="Intlayer istek işlemeyi yavaşlatır mı?">
@@ -377,17 +377,24 @@ Evet: [çoğul biçimleri](https://github.com/aymericzip/intlayer/blob/main/docs
 - [biçimlendiriciler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/formatters.md)
 
 </Question>
-<Question title="Teknik olmayan ekip üyeleri kod değiştirmeden e-posta şablonlarını ve hata mesajlarını nasıl düzenleyebilir?">
+<Question title="Sunucuda TypeScript otomatik tamamlama alır mıyım?">
 
-İki seçenek mevcuttur: içeriği kod tabanından ayıran ve ekibin metinleri doğrudan web üzerinden düzenlemesini sağlayan [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) veya yerel içerik dosyalarını web arayüzü üzerinden düzenleyip depoya commit oluşturan [görsel düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md).
+Evet. Intlayer sözlüklerinizin tiplerini `./types/intlayer.d.ts` içine üretir, bu nedenle var olmayan bir anahtar çalışma zamanında boş bir string yerine derleme hatası olur. Bildirilen bir dilde içerik eksik olduğunda build'i başarısız kılmak için CI'da `npx intlayer test` çalıştırın.
 
-- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)
-- [Intlayer'ı Docker ile kendiniz barındırın](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/self_hosting.md)
+</Question>
+<Question title="Frontend ve backend aynı içeriği paylaşabilir mi?">
+
+Evet, ve olağan kurulum budur. `express-intlayer`, aynı bildirilmiş içerik üzerinde `react-intlayer`, `next-intlayer` ve `vite-intlayer` ile birlikte çalışır; böylece hem bir API yanıtında hem de bir sayfada kullanılan bir etiket yalnızca bir kez bildirilir. Bkz. [Intlayer nasıl çalışır](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/how_works_intlayer.md).
+
+- [Intlayer nasıl çalışır](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/how_works_intlayer.md)
 
 </Question>
 <Question title="Intlayer ücretsiz ve açık kaynaklı mı?">
 
-Evet, ticari kullanım dahil Apache 2.0 lisansı altındadır. Barındırılan CMS isteğe bağlı ücretli bir hizmettir ve ayrıca [kendi sunucunuzda barındırılabilir (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/self_hosting.md).
+Evet, ticari kullanım dahil Apache 2.0 lisansı altında. Barındırılan [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md), [self-hosted](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/self_hosting.md) olarak da kurulabilen isteğe bağlı ücretli bir hizmettir.
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)
+- [self-hosted](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/self_hosting.md)
 
 </Question>
 

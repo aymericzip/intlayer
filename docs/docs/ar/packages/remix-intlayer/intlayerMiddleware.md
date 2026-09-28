@@ -23,31 +23,43 @@ history:
 author: aymericzip
 ---
 
-# البرمجية الوسيطة intlayer
+# توثيق البرمجية الوسيطة intlayer لـ Remix 3
 
-تُعد دالة البرمجية الوسيطة `intlayer` مسؤولة عن إعداد التدويل لكل طلب في تطبيقات Remix 3. حيث تكتشف لغة كل طلب وارد، وتطبق قواعد إعادة توجيه URL، وتحفظ حالة اللغة في سياق الطلب.
+تدير البرمجية الوسيطة `intlayer` لـ Remix 3 طبقة التدويل في جميع أنحاء تطبيقك. وهي مبنية على معايير الويب (`Request` و `Response`)، وتتولى توجيه اللغات (عمليات إعادة التوجيه وإعادة الكتابة الداخلية)، وتكتشف لغة الطلب، وتحفظها في ملفات تعريف الارتباط والترويسات، وتنشئ نطاق `AsyncLocalStorage` بحيث تتمكن المعالجات والمكونات اللاحقة من الوصول إلى الترجمات دون تمرير الخصائص (props) عبر المستويات.
 
 ## الاستخدام
 
-سجّل البرمجية الوسيطة في موجه Remix الخاص بك:
+سجّل البرمجية الوسيطة `intlayer` عند تهيئة موجه Remix 3 الخاص بك:
 
 ```ts fileName="src/server.ts"
 import { createRouter } from "remix/router";
-import { intlayer } from "remix-intlayer";
+import { intlayer, useIntlayer, useLocale } from "remix-intlayer";
 
-export const router = createRouter({
+const router = createRouter({
   middleware: [intlayer()],
+});
+
+// يخدم `/` و `/fr` و `/es`، ويتم تحديد اللغة من الطلب
+router.get("/", () => {
+  const { title } = useIntlayer("home");
+  return new Response(title);
 });
 ```
 
-## كيف تعمل
+## الوصف
 
-تؤدي البرمجية الوسيطة المهام التالية لكل طلب وارد:
+تؤدي البرمجية الوسيطة `intlayer` المهام التالية:
 
-1. **اكتشاف اللغة**: تستخرج اللغة من بادئة مسار URL (مثل `/ar/about`) أو ملفات تعريف الارتباط أو ترويسة `Accept-Language` وفقًا لتكوين Intlayer الخاص بك.
-2. **إعادة توجيه URL**: إذا كان المسار المطلوب يفتقر إلى بادئة اللغة وكان التكوين يتطلب توجيهًا بالبادئة، فإن البرمجية الوسيطة تُرجع استجابة إعادة توجيه (302/307/308) إلى عنوان URL المناسب المسبوق بالبادئة.
-3. **ملء سياق الطلب**: تحفظ اللغة المحددة الحالية في سياق طلب Remix باستخدام المفتاح `Intlayer`، مما يتيح للخطافات (`useLocale` و `useIntlayer` و `useDictionary`) استهلاكها مباشرة.
-4. **إدارة ملفات تعريف الارتباط**: تُعيّن ترويسة `Set-Cookie` عند الحاجة إلى الاحتفاظ باللغة المفضلة للمستخدم.
+1. **تحضير القواميس**: تُشغّل `prepareIntlayer` عند بدء التشغيل لضمان بناء جميع القواميس المُولَّدة وتوفرها.
+2. **توجيه اللغات**: تقيّم الطلب وفقًا لاستراتيجية التوجيه المكوّنة (`prefix_always` و `prefix_as_needed` و `no_prefix`):
+   - **عمليات إعادة التوجيه**: إذا زار المستخدم `/about` وكان يجب توجيهه إلى بادئة لغة (مثل `/fr/about`)، فإن البرمجية الوسيطة تُصدر استجابة إعادة توجيه مع ترويسات `location` و `Set-Cookie` المناسبة.
+   - **إعادة الكتابة الداخلية**: عندما يصل المستخدم إلى `/fr/about`، تتم إعادة كتابة عنوان URL داخليًا بحيث يطابق معالج المسار الخاص بك `/about`، بينما يتم التقاط اللغة المحددة على أنها `fr`.
+   - **أسماء URL المستعارة المترجمة**: تحترم قواعد إعادة كتابة URL المحددة في `intlayer.config.ts` (مثل إعادة كتابة `/fr/about` إلى `/fr/a-propos`).
+3. **تحديد اللغة**: تكتشف اللغة النشطة بناءً على بادئة URL أو ملفات تعريف الارتباط المحفوظة أو الترويسات المخصصة أو تفضيلات المتصفح عبر `Accept-Language`.
+4. **حقن السياق**:
+   - ترفق `IntlayerState` (`locale` و `defaultLocale` و `availableLocales`) بـ `RequestContext` الخاص بـ Remix تحت المفتاح `Intlayer` وفي `context.intlayer`.
+   - تُشغّل بقية الطلب داخل نطاق `AsyncLocalStorage` (`requestStorage`)، مما يتيح استدعاء `useIntlayer` و `useDictionary` و `useLocale` بسلاسة في المعالجات والعروض والمكونات.
+5. **الحفظ**: ترفق ترويسات وملفات تعريف ارتباط اللغة الصادرة بالاستجابة النهائية لـ HTTP للاحتفاظ بتفضيل المستخدم.
 
 ## المعاملات
 
@@ -84,5 +96,5 @@ router.get("/api/locale", (context) => {
 ## المستندات ذات الصلة
 
 - [سياق الطلب `Intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/remix-intlayer/Intlayer.md)
-- [خطاف `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/remix-intlayer/useLocale.md)
 - [خطاف `useIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/remix-intlayer/useIntlayer.md)
+- [خطاف `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/remix-intlayer/useLocale.md)

@@ -55,9 +55,9 @@ Fonksiyon herhangi bir parametre almaz. Bunun yerine, yapılandırma için ortam
   - `content`: İçerik dosyaları, dizinler ve desenlerle ilgili ayarlar.
   - `editor`: Düzenleyiciye özel yapılandırmalar.
 
-Daha fazla detay için [Intlayer yapılandırma dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md) bakın.
+Daha fazla detay için [Intlayer yapılandırma dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) bakın.
 
-- [Intlayer yapılandırma dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)
+- [Intlayer yapılandırma dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md)
 
 ## Kullanım Örneği
 

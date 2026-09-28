@@ -243,9 +243,9 @@ Jelajahi dokumentasi lengkap kami untuk memulai dengan Intlayer dan pelajari car
 <ul>
   <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/nextjs.md" rel=''>Next.js</a></li>
   <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/tanstack.md" rel=''>TanStack Start</a></li>
-  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/vue.md" rel=''>Vue</a></li>
-  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/solid.md" rel=''>Solid</a></li>
-  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/svelte.md" rel=''>Svelte</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/vue.md" rel=''>Vue</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/solid.md" rel=''>Solid</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/svelte.md" rel=''>Svelte</a></li>
 </ul>
 </details>
 

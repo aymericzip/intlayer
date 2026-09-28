@@ -958,24 +958,26 @@ Pages Router अभी भी `next.config.js` के इन-बिल्ट `i1
 - **[ESLint plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/eslint.md)**: `no-raw-text` नियम हार्डकोडेड स्ट्रिंग्स को चिह्नित करता है।
 
 </Question>
-<Question title="क्या Next.js का अंतर्निहित i18n Pages Router के साथ काम करता है?">
-
-हाँ। Next.js Pages Router का अंतर्निहित `i18n` कॉन्फ़िगरेशन Intlayer के साथ पूरी तरह से संगत है: Next.js रूटिंग संभालता है, और Intlayer सामग्री का प्रबंधन करता है।
-
-</Question>
 <Question title="क्या मुझे Pages Router पर रहना चाहिए या App Router पर माइग्रेट करना चाहिए?">
 
-Pages Router पर मौजूदा एप्लिकेशन सुचारू रूप से चलते रह सकते हैं। नई परियोजनाओं के लिए या React Server Components का लाभ उठाने के लिए, App Router की सिफारिश की जाती है।
+यहाँ कुछ भी आपको माइग्रेट करने के लिए बाध्य नहीं करता। Intlayer दोनों का समर्थन करता है, और content declarations एक समान हैं, इसलिए बाद में router माइग्रेट करने का मतलब अपने i18n को फिर से लिखना नहीं है। यदि आप पहले से ही माइग्रेशन की योजना बना रहे हैं, तो इसके बजाय [Next.js 16 गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nextjs_16.md) का पालन करें और Server Component rendering का लाभ उठाएँ, जो dictionaries को पूरी तरह से client से बाहर रखता है।
+
+- [Next.js 16 गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nextjs_16.md)
 
 </Question>
-<Question title="क्या मुझे URL में लोकेल शामिल करना अनिवार्य है, जैसे /hi/about?">
+<Question title="क्या Next.js का अंतर्निहित i18n विकल्प अभी भी Pages Router के साथ काम करता है?">
 
-नहीं। `routing.mode` मान `"prefix-no-default"` (डिफ़ॉल्ट: मुख्य भाषा के लिए `/about` और अन्य के लिए `/hi/about`), `"prefix-all"`, `"no-prefix"`, और `"search-params"` स्वीकार करता है। `routing.domains` विकल्प प्रत्येक भाषा को उसके अपने डोमेन से मैप करता है। [कॉन्फ़िगरेशन संदर्भ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md) देखें।
+हाँ, और यही App Router से मुख्य अंतर है, जहाँ यह लागू नहीं होता। यह आपको locale prefixes और `Accept-Language` detection देता है, लेकिन कोई message layer बिल्कुल नहीं देता, इसलिए यह routing को हल करता है और अनुवाद को किसी library पर छोड़ देता है। आप इसे रख सकते हैं, या `routing.mode` और चरण 4 के middleware के माध्यम से routing भी Intlayer को सौंप सकते हैं।
 
 </Question>
 <Question title="SEO के लिए hreflang टैग और स्थानीयकृत मेटाडेटा कैसे जोड़ें?">
 
-`generateMetadata` और `sitemap.xml` चरण इसे कवर करते हैं। फ़ंक्शन `getMultilingualUrls` प्रत्येक घोषित लोकेल के लिए `alternates.languages` मैपिंग उत्पन्न करता है, जिसमें `x-default` शामिल है, ताकि सर्च इंजन सही तरीके से इंडेक्स करें।
+चरण 8 इसे कवर करता है। `getMultilingualUrls` के साथ alternates बनाएँ, जिसमें `x-default` entry भी शामिल हो, और उन्हें हर पेज पर `next/head` से emit करें ताकि search engines सही भाषा संस्करण दिखाएँ।
+
+</Question>
+<Question title="स्थानीयकृत लिंक घटक कैसे बनाएं?">
+
+चरण 10 इसे दिखाता है। यह component Next.js के `Link` को wrap करता है और href को `getLocalizedUrl` से पास करता है, ताकि `/about` के रूप में लिखा गया internal link फ्रेंच विज़िटर के लिए `/fr/about` बन जाए, बिना हर call site पर locale दोहराए।
 
 </Question>
 <Question title="मैं ऐप को AI के साथ स्वचालित रूप से कैसे अनुवाद करूँ?">

@@ -201,6 +201,6 @@ app.get("/morning", (c) => {
 
 ## Заключение
 
-Функция `t`, мощный инструмент для интернационализации бэкенда. Эффективно используя ее, вы можете создать более инклюзивное и удобное приложение для глобальной аудитории. Для получения информации о расширенном использовании и детальных параметрах конфигурации обратитесь к [документации](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md).
+Функция `t`, мощный инструмент для интернационализации бэкенда. Эффективно используя ее, вы можете создать более инклюзивное и удобное приложение для глобальной аудитории. Для получения информации о расширенном использовании и детальных параметрах конфигурации обратитесь к [документации](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md).
 
-- [Intlayer Configuration (intlayer.config.ts)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)
+- [Intlayer Configuration (intlayer.config.ts)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md)

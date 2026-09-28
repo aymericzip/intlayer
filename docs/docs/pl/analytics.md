@@ -137,7 +137,9 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-Odinstalowanie `@intlayer/analytics` daje ten sam efekt co `enabled: false`. Pełną listę pól znajdziesz w [dokumentacji konfiguracji](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md).
+Odinstalowanie `@intlayer/analytics` daje ten sam efekt co `enabled: false`. Pełną listę pól znajdziesz w [dokumentacji konfiguracji](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md#analytics-configuration).
+
+- [Dokumentacja konfiguracji](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md#analytics-configuration)
 
 ## Użycie
 

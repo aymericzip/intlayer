@@ -238,7 +238,9 @@ Jeśli napotkasz jakiekolwiek problemy z edytorem wizualnym, sprawdź następuj�
 
 <Question title="Jaka jest różnica między edytorem wizualnym a CMS?">
 
-Edytor wizualny edytuje lokalne słowniki i zapisuje zmiany bezpośrednio w plikach kodu źródłowego, dzięki czemu przechodzą one przez normalny proces kontroli wersji Git. CMS zapisuje treść na serwerze zdalnym, umożliwiając natychmiastową publikację bez wdrażania kodu.
+Edytor wizualny edytuje lokalne słowniki i zapisuje zmiany z powrotem w Twoim codebase, więc przechodzą one przez standardowy proces review i wdrożenia. [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md) edytuje zdalne słowniki, które zmieniają się na działającej stronie bez wdrożenia. Edytor sprawdza się przy treściach zarządzanych przez programistów; CMS przy treściach zarządzanych przez zespół marketingu.
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md)
 
 </Question>
 <Question title="O ile i18n zwiększa rozmiar mojego bundle'a?">
@@ -326,7 +328,10 @@ Nawet po włączeniu narzut jest niezwykle mały (+5 KB, ładowane dynamicznie t
 </Question>
 <Question title="Czy edytor wizualny jest bezpłatny?">
 
-Tak. Edytor wizualny jest częścią projektu open source na licencji Apache 2.0, włączając zastosowania komercyjne.
+Tak. Edytor wizualny jest częścią projektu open source na licencji Apache 2.0, włączając zastosowania komercyjne. Płatną usługą jest jedynie hostowany [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md), który można również [hostować samodzielnie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/self_hosting.md).
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md)
+- [hostować samodzielnie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/self_hosting.md)
 
 </Question>
 

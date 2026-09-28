@@ -137,7 +137,9 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-`@intlayer/analytics` को अनइंस्टॉल करने का प्रभाव `enabled: false` के समान ही है। पूरी फ़ील्ड सूची के लिए [कॉन्फ़िगरेशन संदर्भ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md) देखें।
+`@intlayer/analytics` को अनइंस्टॉल करने का प्रभाव `enabled: false` के समान ही है। पूरी फ़ील्ड सूची के लिए [कॉन्फ़िगरेशन संदर्भ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md#analytics-configuration) देखें।
+
+- [कॉन्फ़िगरेशन संदर्भ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md#analytics-configuration)
 
 ## उपयोग (Usage)
 

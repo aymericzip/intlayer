@@ -461,12 +461,12 @@ Znacznie mniej niż rozwiązania oparte na przestrzeniach nazw, ponieważ strona
 - [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/index.md)
 
 </Question>
-<Question title="Czy mogę zmigrować z ngx-translate, Transloco lub @angular/localize bez przepisywania moich szablonów?">
+<Question title="Czy mogę zmigrować z `ngx-translate`, `Transloco` lub `@angular/localize` bez przepisywania moich szablonów?">
 
-W znacznej mierze tak. Postępuj zgodnie z [przeglądem adapterów kompatybilności](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compat/index.md). Możesz także migrować stopniowo: [wtyczka synchronizacji JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/plugins/sync-json.md) utrzymuje Twoje pliki JSON jako źródło prawdy i generuje z nich słowniki Intlayer.
+W dużej mierze tak. Postępuj zgodnie z [przewodnikiem migracji z ngx-translate](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compat/ngx-translate.md) lub [przewodnikiem migracji z Transloco](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compat/transloco.md), aby przenieść treść. Możesz też migrować stopniowo: [wtyczka synchronizacji JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/plugins/sync-json.md) utrzymuje Twoje istniejące katalogi JSON jako źródło prawdy i generuje z nich słowniki Intlayer, dzięki czemu obie warstwy pozostają zsynchronizowane, gdy przenosisz szablony jeden po drugim.
 
-- [Migracja z NGX-Translate do Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compat/ngx-translate.md)
-- [Transloco migration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/transloco.md)
+- [przewodnik migracji z ngx-translate](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compat/ngx-translate.md)
+- [przewodnik migracji z Transloco](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compat/transloco.md)
 - [wtyczka synchronizacji JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/plugins/sync-json.md)
 
 </Question>
@@ -481,7 +481,9 @@ Tak. Wtyczka [sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/d
 </Question>
 <Question title="Czy muszę przenosić moją zawartość klucz po kluczu?">
 
-Nie. Uruchom `npx intlayer extract`, a Intlayer odczyta Twoje pliki źródłowe, wyodrębni ciągi widoczne dla użytkownika i utworzy plik `.content` obok każdego z nich, dzięki czemu przeglądasz diff zamiast ręcznie kopiować ciągi do katalogu pojedynczo.
+Nie. Uruchom `npx intlayer extract`, a Intlayer odczyta Twoje pliki źródłowe, wyodrębni ciągi widoczne dla użytkownika i utworzy plik `.content` obok każdego z nich, dzięki czemu przeglądasz diff zamiast ręcznie kopiować ciągi do katalogu pojedynczo. Zobacz [polecenie extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/extract.md).
+
+- [polecenie extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/extract.md)
 
 W przypadku w pełni zautomatyzowanego procesu [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compiler.md) robi to samo w czasie budowania: generuje słowniki przy każdej zmianie, eliminując konieczność ręcznego utrzymywania kluczy.
 
@@ -499,63 +501,66 @@ Pięć narzędzi, wszystkie opcjonalne:
 - **[Wtyczka ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/eslint.md)**: reguła `no-raw-text` oznacza zakodowane na stałe ciągi tekstowe, z dodatkowymi regułami dla statycznych kluczy słownika i nieużywanej zawartości.
 
 </Question>
-<Question title="Czy Intlayer działa z renderowaniem po stronie serwera (SSR) i SSG w Analog?">
+<Question title="Czy potrzebuję osobnego builda dla każdego języka?">
 
-Tak. Treść jest rozwiązywana w trakcie SSR i podczas generowania statycznego (SSG), dzięki czemu pierwszy wyrenderowany HTML zawiera już poprawnie przetłumaczony tekst.
-
-</Question>
-<Question title="Czy zmiana języka wymaga ponownego przeładowania strony?">
-
-Nie. Sygnał `useIntlayer` jest reaktywny, więc zmiana języka aktualizuje komponenty w locie bez konieczności odświeżania okna przeglądarki.
+Nie. To model `@angular/localize`, w którym każde locale jest kompilowane do własnego bundle'a i wdrażane osobno. Z Intlayer jeden build obsługuje wszystkie zadeklarowane locale, a aktywny język jest ustalany w czasie działania na podstawie URL, cookie lub nagłówka `Accept-Language`.
 
 </Question>
-<Question title="Jak skonfigurować routing uwzględniający lokalizację w routingu plikowym Analog?">
+<Question title="Czy Intlayer obsługuje sygnały Angular (signals) i komponenty standalone?">
 
-Utwórz folder `[locale]` w katalogu `src/app/pages`. Segment ten staje się aktywną lokalizacją, a pomocnik `getLocalizedUrl` przepisuje linki na właściwy język. Zobacz [dokumentację konfiguracji](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md).
-
-</Question>
-<Question title="Jak obsługiwać języki od prawej do lewej w Analog?">
-
-Użyj `getHTMLTextDir`, aby ustawić właściwości `lang` i `dir` w dokumencie głównym w zależności od wybranego języka.
+Tak. Treść jest udostępniana przez sygnały, więc szablon renderuje się ponownie po zmianie locale bez przeładowania strony, a provider rejestruje się jak każdy inny provider standalone.
 
 </Question>
-<Question title="Jak zarządzać metadanymi SEO i tagami hreflang?">
+<Question title="Jak zmienić język w czasie działania aplikacji?">
 
-Skorzystaj z funkcji `getMultilingualUrls`, aby emitować tagi alternatywne `hreflang` dla wszystkich zadeklarowanych lokalizacji, informując roboty wyszukiwarek o dostępnych wersjach językowych.
+Opisuje to krok 6. `useLocale` udostępnia aktywne locale, zadeklarowane locale oraz setter, który zapamiętuje wybór, a `getLocalizedUrl` przepisuje bieżącą ścieżkę, dzięki czemu użytkownik pozostaje na tej samej trasie po zmianie języka.
+
+</Question>
+<Question title="Czy to działa z renderowaniem po stronie serwera w Analog i z Vite?">
+
+Tak. Wtyczka Vite `intlayer()` kompiluje Twoją treść i obserwuje ją w trybie deweloperskim, a locale jest ustalane na serwerze, więc pierwsza odpowiedź HTML jest już w odpowiednim języku. Trasy prerenderowane rozwiązują swoją treść w czasie budowania.
 
 </Question>
 <Question title="Jak automatycznie przetłumaczyć aplikację za pomocą AI?">
 
-Uruchom `npx intlayer fill`. Narzędzie CLI wykrywa brakujące tłumaczenia i uzupełnia je za pomocą wybranego modelu LLM, korzystając z Twojego dostawcy i klucza API. Flaga `--git-diff` ogranicza operację do treści zmienionych na bieżącej gałęzi. Zobacz [polecenie fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/fill.md) oraz [integrację CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/CI_CD.md).
+Uruchom `npx intlayer fill`. Uzupełnia brakujące tłumaczenia za pomocą wybranego LLM, korzystając z Twojego własnego dostawcy i klucza API, a `--git-diff` ogranicza działanie do treści zmienionej w gałęzi. Zobacz [polecenie fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/fill.md) i [integrację CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/CI_CD.md).
 
 - [polecenie fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/fill.md)
-- [integrację CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/CI_CD.md)
+- [integracja CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/CI_CD.md)
 
 </Question>
 <Question title="Czy Intlayer obsługuje formy mnogie, płeć i sformatowany tekst (rich text)?">
 
-Tak: [formy mnogie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/plurial.md), [treści zależne od płci](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/gender.md), warunki, [wstawki (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/insertion.md), [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/markdown.md) dla dłuższych tekstów oraz [formatowania](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/formatters.md) dla liczb, dat i walut.
+Tak: [formy mnogie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/plurial.md), [treść zależną od płci](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/gender.md), warunki, [wstawki](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/insertion.md), [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/markdown.md) oraz [formatery](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/formatters.md) dla liczb, dat i walut.
 
 - [formy mnogie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/plurial.md)
-- [treści zależne od płci](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/gender.md)
-- [wstawki (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/insertion.md)
+- [treść zależna od płci](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/gender.md)
+- [wstawki](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/insertion.md)
 - [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/markdown.md)
-- [formatowania](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/formatters.md)
+- [formatery](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/formatters.md)
+
+</Question>
+<Question title="Jak wychwycić brakujące tłumaczenia przed wdrożeniem?">
+
+Uruchom `npx intlayer test` w CI. Polecenie przerywa build, gdy w zadeklarowanym locale brakuje treści. [Rozszerzenie VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/vs_code_extension.md) zgłasza te same błędy podczas pisania. Zobacz [testowanie treści](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/testing.md).
+
+- [Rozszerzenie VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/vs_code_extension.md)
+- [testowanie treści](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/testing.md)
 
 </Question>
 <Question title="Jak tłumacze mogą edytować treść bez dotykania kodu?">
 
-Za pośrednictwem [edytora wizualnego](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md), który pozwala każdemu edytować tekst bezpośrednio w działającej aplikacji, lub systemu [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md), który wyodrębnia treść, dzięki czemu może być zmieniana bez konieczności ponownego wdrażania.
+Za pomocą [edytora wizualnego](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md), który działa na Twojej własnej infrastrukturze i pozwala każdemu edytować tekst bezpośrednio w działającej aplikacji, lub [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md), który wyodrębnia treść, dzięki czemu można ją zmieniać bez wdrożenia.
 
-- [edytora wizualnego](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md)
+- [edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md)
 - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md)
 
 </Question>
 <Question title="Czy Intlayer jest darmowy i open source?">
 
-Tak, na licencji Apache 2.0, włączając zastosowania komercyjne. Hostowany CMS to opcjonalna płatna usługa, którą można również [hostować samodzielnie (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/self_hosting.md).
+Tak, na licencji Apache 2.0, łącznie z użytkiem komercyjnym. Hostowany CMS to opcjonalna płatna usługa, którą można również [hostować samodzielnie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/self_hosting.md).
 
-- [hostować samodzielnie (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/self_hosting.md)
+- [hostowanie samodzielne](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/self_hosting.md)
 
 </Question>
 

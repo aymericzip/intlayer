@@ -124,12 +124,12 @@ Import:
 import "next-intlayer/server";
 ```
 
-| Fungsi                 | Deskripsi                                                                                                                                                 | Dokumen Terkait                                                                                                |
-| ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
-| `t`                    | Versi sisi-server dari fungsi terjemahan untuk Next.js App Router. Mengembalikan terjemahan konten multibahasa untuk locale server.                       | [translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/{{locale}}/dictionary/translation.md) |
-| `getLocale`            | Fungsi pembantu untuk mengekstrak locale saat ini dari header dan cookie Next.js. Dirancang untuk Server Components, Server Actions, atau Route Handlers. | -                                                                                                              |
-| `generateStaticParams` | Menghasilkan parameter statis untuk route dinamis Next.js berdasarkan locale yang dikonfigurasi. Mengembalikan array objek locale untuk pre-rendering.    | -                                                                                                              |
-| `locale`               | Fungsi untuk mendapatkan atau mengatur locale dalam konteks server (App Router). Menyediakan manajemen locale di Server Components.                       | -                                                                                                              |
+| Fungsi                 | Deskripsi                                                                                                                                                 | Dokumen Terkait                                                                                        |
+| ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| `t`                    | Versi sisi-server dari fungsi terjemahan untuk Next.js App Router. Mengembalikan terjemahan konten multibahasa untuk locale server.                       | [translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/translation.md) |
+| `getLocale`            | Fungsi pembantu untuk mengekstrak locale saat ini dari header dan cookie Next.js. Dirancang untuk Server Components, Server Actions, atau Route Handlers. | -                                                                                                      |
+| `generateStaticParams` | Menghasilkan parameter statis untuk route dinamis Next.js berdasarkan locale yang dikonfigurasi. Mengembalikan array objek locale untuk pre-rendering.    | -                                                                                                      |
+| `locale`               | Fungsi untuk mendapatkan atau mengatur locale dalam konteks server (App Router). Menyediakan manajemen locale di Server Components.                       | -                                                                                                      |
 
 ### Tipe
 

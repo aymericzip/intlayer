@@ -44,32 +44,32 @@ Eklenti bağlantısı: [https://marketplace.visualstudio.com/items?itemName=Intl
 
 ## Özellikler
 
-![İçerik çıkar](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_extract_content.gif?raw=true)
+![İçerik çıkar](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_extract_content.gif?raw=true)
 
 - **İçerik Çıkar** – React / Vue / Svelte bileşenlerinizden içerik çıkarın
 
-![Sözlükleri doldur](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_fill_active_dictionary.gif?raw=true)
+![Sözlükleri doldur](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_fill_active_dictionary.gif?raw=true)
 
 - **Anında Gezinme** – `useIntlayer` anahtarına tıkladığınızda doğru içerik dosyasına hızlıca atlayın.
 - **Sözlükleri Doldur** – Projenizden içeriklerle sözlükleri doldurun.
 
-![Komutları listele](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_list_commands.gif?raw=true)
+![Komutları listele](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_list_commands.gif?raw=true)
 
 - **Intlayer Komutlarına Kolay Erişim** – İçerik sözlüklerini kolayca oluşturun, gönderin, çekin, doldurun ve test edin.
 
-![İçerik dosyası oluştur](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_create_content_file.gif?raw=true)
+![İçerik dosyası oluştur](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_create_content_file.gif?raw=true)
 
 - **İçerik Beyanı Oluşturucu** – Sözlük içerik dosyalarını çeşitli formatlarda oluşturun (`.ts`, `.esm`, `.cjs`, `.json`).
 
-![Sözlükleri test et](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_test_missing_dictionary.gif?raw=true)
+![Sözlükleri test et](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_test_missing_dictionary.gif?raw=true)
 
 - **Sözlükleri Test Et** – Eksik çeviriler için sözlükleri test edin.
 
-![Sözlüğü yeniden oluştur](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_rebuild_dictionary.gif?raw=true)
+![Sözlüğü yeniden oluştur](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_rebuild_dictionary.gif?raw=true)
 
 - **Sözlüklerinizi güncel tutun** – Projenizden en son içeriklerle sözlüklerinizi güncel tutun.
 
-![Intlayer Sekmesi (Aktivite Çubuğu)](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_search_dictionary.gif?raw=true)
+![Intlayer Sekmesi (Aktivite Çubuğu)](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_search_dictionary.gif?raw=true)
 
 - **Intlayer Sekmesi (Aktivite Çubuğu)** – Araç çubuğu ve bağlam eylemleri (Oluştur, Çek, Gönder, Doldur, Yenile, Test Et, Dosya Oluştur) ile özel bir yan sekmeden sözlükleri göz atın ve arayın.
 

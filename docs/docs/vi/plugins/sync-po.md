@@ -320,9 +320,9 @@ Các tệp PO đã đồng bộ hóa sẽ được coi như các tệp `.content
 - `intlayer content push` để đẩy các tệp PO đã đồng bộ hóa
 - `intlayer content pull` để kéo các tệp PO đã đồng bộ hóa
 
-Xem [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md) để biết thêm chi tiết.
+Xem [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md) để biết thêm chi tiết.
 
-- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md)
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md)
 
 ## Hạn chế (hiện tại)
 

@@ -127,7 +127,7 @@ Her şey [s6-overlay](https://github.com/just-containers/s6-overlay) tarafından
 
 ### 1. Yükleme
 
-Oluşturulan `BETTER_AUTH_SECRET` ve `S3_SECRET_ACCESS_KEY` ile birlikte `./intlayer.env` dosyasını yazar ve `intlayer/cms-all:latest` imajını çeker.
+Oluşturulan `BETTER_AUTH_SECRET` ve `S3_SECRET_ACCESS_KEY` ile birlikte `./intlayer.env` dosyasını yazar, geri kalanını doldurmak için birkaç soru sorar ve `intlayer/cms-all:latest` imajını çeker.
 
 <Tabs group="os">
 <Tab label="macOS / Linux" value="unix">
@@ -148,14 +148,22 @@ $env:INTLAYER_MODE = "docker"; irm https://intlayer.org/install.ps1 | iex
 </Tab>
 <Tab label="Intlayer CLI" value="cli">
 
-CLI, yükleyiciyi çalıştırır ve diğer sekmelerde gösterilen `docker run …` komutunu yazdırır. E-posta göndericisini yapılandırdıktan sonra terminalinize yapıştırın.
+```bash
+npx intlayer init infra --mode docker
+```
 
 </Tab>
 </Tabs>
 
-### 2. E-posta Göndericisini Yapılandırın
+### 2. Kurulum Sorularını Yanıtlayın
 
-`intlayer.env` dosyasını açın ve Resend **veya** SMTP bilgilerini doldurun (ayrıntılar için [Genel e-posta göndericisi](#global-mailer) bölümüne bakın):
+Yükleyici şunları sorar (bir öneriyi kabul etmek için Enter'a basın; her yanıt daha sonra dosyada değiştirilebilir):
+
+- Intlayer'ın sunulacağı **alan adı**. `localhost` üzerinde kalmak için boş bırakın. `example.org` gibi bir alan adıyla, kontrol paneli için `https://cms.example.org`, API için `https://back.example.org` ve nesne depolama için `https://s3.example.org/intlayer` önerir ve `DOMAIN`, `APP_URL`, `BACKEND_URL` ile `S3_PUBLIC_URL` değerlerini yazar. Sonraki adımlar için [Özel alan adı](#custom-domain) bölümüne bakın.
+- **E-posta göndericisi**: Resend (API anahtarı) veya bir SMTP rölesi (ana bilgisayar, port, kimlik bilgileri) ile gönderen adresi. Bu adım atlanıp daha sonra elle yapılabilir.
+- Yapay zeka özellikleri için isteğe bağlı bir **OpenAI API anahtarı**.
+
+Terminal olmadan (örneğin betik CI'dan çalıştırıldığında) sorular atlanır ve yalnızca gizli anahtarlar oluşturulur. `intlayer.env` dosyasını açın ve Resend **veya** SMTP bilgilerini elle doldurun (ayrıntılar için [Genel e-posta göndericisi](#global-mailer) bölümüne bakın):
 
 ```sh fileName="intlayer.env"
 # Option A: Resend
@@ -171,7 +179,7 @@ MAIL_FROM=Intlayer <no-reply@example.com>
 
 ### 3. Başlatma
 
-Yükleyici tarafından yazdırılan çalıştırma komutudur:
+Yükleyici tarafından yazdırılan çalıştırma komutudur (özel bir alan adıyla, bundan önce `intlayer/cms-all:custom` imajını üreten `docker build` çalıştırılır, bkz. [Özel alan adı](#custom-domain)):
 
 <Tabs group="os">
 <Tab label="macOS / Linux" value="unix">
@@ -205,7 +213,7 @@ CLI, yükleyiciyi çalıştırır ve diğer sekmelerde gösterilen `docker run �
 </Tab>
 </Tabs>
 
-**http://localhost:3000** adresini açın ve [İlk Çalıştırma Kurulumu](#first-run-setup) adımlarını izleyin. İlk önyüklemede replika seti ve demet başlatılır, bu nedenle bir dakika bekleyin.
+**http://localhost:3000** adresini (veya kontrol panelinizin URL'sini) açın ve [İlk Çalıştırma Kurulumu](#first-run-setup) adımlarını izleyin. İlk önyüklemede replika seti ve demet başlatılır, bu nedenle bir dakika bekleyin.
 
 ### Yedekleme ve Güncelleme
 
@@ -260,7 +268,7 @@ Veriler `intlayer_mongo-data`, `intlayer_redis-data` ve `intlayer_minio-data` bi
 
 ### 1. Yükleme
 
-Oluşturulan gizli anahtarlarla birlikte `docker-compose.yml` ve bir `.env` dosyasını `./intlayer/` dizinine yazar ve imajları çeker.
+Oluşturulan gizli anahtarlarla birlikte `docker-compose.yml` ve bir `.env` dosyasını `./intlayer/` dizinine yazar, hepsi-bir-arada moduyla aynı kurulum sorularını (alan adı, e-posta göndericisi, OpenAI anahtarı) sorar ve imajları çeker.
 
 <Tabs group="os">
 <Tab label="macOS / Linux" value="unix">
@@ -308,7 +316,7 @@ npx intlayer init infra --mode compose
 
 ### 2. E-posta Göndericisini Yapılandırın
 
-Tıpkı hepsi-bir-arada kapsayıcısında olduğu gibi `intlayer/.env` dosyasına Resend **veya** SMTP bilgilerini girin ([Genel e-posta göndericisi](#global-mailer) bölümüne bakın).
+E-posta göndericisi sorusunu atladıysanız, tıpkı hepsi-bir-arada kapsayıcısında olduğu gibi `intlayer/.env` dosyasına Resend **veya** SMTP bilgilerini girin ([Genel e-posta göndericisi](#global-mailer) bölümüne bakın).
 
 ### 3. Başlatma
 
@@ -316,7 +324,9 @@ Tıpkı hepsi-bir-arada kapsayıcısında olduğu gibi `intlayer/.env` dosyasın
 cd intlayer && docker compose up -d
 ```
 
-**http://localhost:3000** adresini açın ve [İlk Çalıştırma Kurulumu](#first-run-setup) adımlarını izleyin.
+Özel bir alan adıyla, yükleyici ayrıca `docker-compose.build.yml` dosyasını indirir ve başlatma komutu `docker compose -f docker-compose.yml -f docker-compose.build.yml up -d --build` olur (bkz. [Özel alan adı](#custom-domain)).
+
+**http://localhost:3000** adresini (veya kontrol panelinizin URL'sini) açın ve [İlk Çalıştırma Kurulumu](#first-run-setup) adımlarını izleyin.
 
 ### Yönetilen Veri Depoları
 
@@ -340,14 +350,14 @@ services:
 
 ### Kaynaktan Derleme
 
-Depo klonundan bir geçersiz kılma (override) ile iki Intlayer hizmetini `image:` yerine `build:` kullanımına geçirin:
+Bir geçersiz kılma (override), iki Intlayer hizmetini `image:` yerine `build:` kullanımına geçirir. Depo klonundan:
 
 ```sh
 cd docker/selfhost
 docker compose -f docker-compose.yml -f docker-compose.build.yml up -d --build
 ```
 
-Özel bir alan adı için imajlar oluştururken de bunu kullanın: `VITE_*` değerlerini derleme argümanları olarak iletin (bkz. [Sınırlamalar](#limitations)).
+Klon olmadan, `.env` içinde `INTLAYER_BUILD_CONTEXT=https://github.com/aymericzip/intlayer.git#main` ayarlayarak derleme bağlamını doğrudan depoya yönlendirin. Kontrol panelinin `VITE_*` derleme argümanları aynı dosyadaki `DOMAIN`, `APP_URL` ve `BACKEND_URL` değerlerini izler; [özel alan adı](#custom-domain) bu şekilde uygulanır.
 
 ### Yedekleme ve Güncelleme
 
@@ -390,6 +400,8 @@ $env:INTLAYER_MODE = "compose"; $env:INTLAYER_COMPOSE_DIR = ".\cms"; irm https:/
 | `INTLAYER_CONSOLE_PORT`   | `9001`                    | docker     | Host port for the MinIO console                            |
 | `INTLAYER_COMPOSE_DIR`    | `./intlayer`              | compose    | Where `docker-compose.yml` and `.env` are written          |
 | `INTLAYER_SELFHOST_REF`   | `main`                    | both       | Git ref the compose file and env template are fetched from |
+| `INTLAYER_BUILD_CONTEXT`  | `…/intlayer.git#main`     | both       | Build context used when a custom domain requires a rebuild |
+| `INTLAYER_CUSTOM_IMAGE`   | `intlayer/cms-all:custom` | docker     | Tag of the all-in-one image built for a custom domain      |
 
 > Port değişkenleri yalnızca eşlemenin **ana bilgisayar** tarafını değiştirir. Yayınlanan imajlarda kontrol paneli paketine `http://localhost:3000`, `http://localhost:3100` ve `http://localhost:9000` derlenmiştir; bu nedenle kendi imajınızı derlemediğiniz sürece varsayılan değerleri koruyun, bkz. [Sınırlamalar](#limitations).
 
@@ -417,7 +429,7 @@ Her iki Docker modu da [`docker/selfhost/.env.template`](https://github.com/ayme
 
 ### Dağıtım Tarafından Sabitlenmiş
 
-These are set by the image (all-in-one) or by the compose file, and only need overriding for a non-standard topology.
+Bunlar imaj (hepsi-bir-arada) veya compose dosyası tarafından ayarlanır ve yalnızca standart dışı bir topoloji için geçersiz kılınmaları gerekir. `DOMAIN`, `APP_URL`, `BACKEND_URL` ve `S3_PUBLIC_URL` istisnadır: env dosyasında ayarlandıklarında her iki modda da önceliklidirler (bkz. [Özel alan adı](#custom-domain)).
 
 | Variable           | All-in-one                                          | Docker Compose                   | Description                                                                   |
 | ------------------ | --------------------------------------------------- | -------------------------------- | ----------------------------------------------------------------------------- |
@@ -434,6 +446,37 @@ These are set by the image (all-in-one) or by the compose file, and only need ov
 | `S3_ACCESS_KEY_ID` | `intlayer`                                          | `intlayer`                       | MinIO access key                                                              |
 
 Compose `app` hizmeti ek olarak `INTLAYER_BACKEND_INTERNAL_URL=http://backend:3100` alır: tarayıcı API'ye `localhost:3100` üzerinden erişirken, sunucu tarafı işleme Compose ağı içinde çalışır ve bu nedenle hizmet adını kullanmalıdır.
+
+### Özel alan adı
+
+Arka uç, genel URL'lerini çalışma zamanında okur, ancak kontrol panelinde bunlar **derleme sırasında gömülüdür**: yayınlanan `intlayer/cms-frontend` ve `intlayer/cms-all` imajları yalnızca `http://localhost:3000` üzerinde çalışır. Bu nedenle Intlayer'ı kendi alan adınızda sunmak iki şey gerektirir; alan adı sorusunu yanıtladığınızda yükleyici her ikisini de hazırlar:
+
+1. **env dosyasında dört değişken**; arka uç tarafından okunur (çerezler, e-posta bağlantıları, OAuth geri çağrıları, varlık URL'leri) ve `docker-compose.build.yml` tarafından derleme argümanları olarak kullanılır:
+
+   ```sh fileName="intlayer.env"
+   DOMAIN=example.org                          # cookie domain, parent of the hosts below
+   APP_URL=https://cms.example.org
+   BACKEND_URL=https://back.example.org
+   S3_PUBLIC_URL=https://s3.example.org/intlayer
+   ```
+
+2. **Bu URL'lerle derlenmiş bir kontrol paneli imajı.** Docker bunu doğrudan depodan derler, klon gerekmez:
+
+   ```sh
+   # Docker Compose: the override reads the build args from .env
+   docker compose -f docker-compose.yml -f docker-compose.build.yml up -d --build
+
+   # All-in-one
+   docker build -f docker/selfhost/Dockerfile \
+     --build-arg VITE_DOMAIN=example.org \
+     --build-arg VITE_SITE_URL=https://cms.example.org \
+     --build-arg VITE_IDE_URL=https://cms.example.org \
+     --build-arg VITE_BACKEND_URL=https://back.example.org \
+     -t intlayer/cms-all:custom \
+     https://github.com/aymericzip/intlayer.git#main
+   ```
+
+Ardından kapsayıcının önüne TLS'li bir ters proxy koyun: `cms.example.org` → port `3000`, `back.example.org` → `3100`, `s3.example.org` → `9000`. Oturum çerezi `DOMAIN` ile sınırlı olduğundan, üç ana bilgisayar bu soneki paylaşmalıdır.
 
 ### İsteğe Bağlı (ayarlanmadığında özellikler sorunsuz bir şekilde devre dışı kalır)
 
@@ -529,9 +572,10 @@ const { data: dictionaries } = await dictionaryEndpoint(cms).getDictionaries();
 
 ## Sınırlamalar
 
-- **Özel alan adları ve port yeniden eşleme desteklenmez.** Tarayıcıya yönelik tüm `VITE_*` URL'leri derleme sırasında kontrol paneline dahil edilir ve yayınlanan imajlar (ve masaüstü uygulaması) `localhost` / Intlayer Cloud değerleriyle yapılandırılmıştır. Kontrol paneline `http://localhost:3000`, API'ye `:3100` ve MinIO'ya `:9000` üzerinden erişilmelidir. Genel bir alan adında barındırmak veya masaüstü uygulamasını kendi kendine barındırılan bir arka uca yönlendirmek, hedef URL'ler ile yeniden derleme gerektirir (`docker/selfhost/Dockerfile` veya `docker-compose.build.yml` üzerinde `--build-arg VITE_BACKEND_URL=… VITE_SITE_URL=… VITE_DOMAIN=…` ile) ve kutudan çıktığı haliyle desteklenmez.
+- **Özel alan adı yeniden derleme demektir.** Tarayıcıya yönelik tüm `VITE_*` URL'leri derleme sırasında kontrol paneline dahil edilir ve yayınlanan imajlar (ve masaüstü uygulaması) `localhost` / Intlayer Cloud değerleriyle yapılandırılmıştır. Varsayılan olarak kontrol paneline `http://localhost:3000`, API'ye `:3100` ve MinIO'ya `:9000` üzerinden erişilmelidir; ana bilgisayar portlarını yeniden eşlemek de aynı etkiyi yaratır. Bir alan adı verdiğinizde yükleyici, depodan yeniden derleme için her şeyi hazırlar (bkz. [Özel alan adı](#custom-domain)), ancak derlemenin kendisi birkaç dakika sürer. Masaüstü uygulamasını kendi kendine barındırılan bir arka uca yönlendirmek desteklenmez.
 - **E-posta gönderimi çalışan bir gönderici gerektirir.** İlk çalıştırma kurulumunda e-posta doğrulaması zorunlu olduğundan `RESEND_API_KEY` veya bir [SMTP geçişi](#global-mailer) (`MAIL_SMTP_*`) yapılandırılmalıdır. İlk yönetici oturum açtıktan sonra kuruluşlar kontrol panelinden kendi SMTP veya Resend göndericilerini de yapılandırabilir.
 - **Masaüstü uygulaması yerleşik sunucuyu başlatmak için makinede Node.js gerektirir.**
+- **Dokümantasyon asistanı yok.** intlayer.org'un yapay zeka dokümantasyon asistanı (`/api/ai/ask`, `/api/search/doc`), kendi kendine barındırma imajlarında bulunmayan yaklaşık 130 MB önceden hesaplanmış dokümantasyon embedding'lerine dayanır; bu iki rota kendi kendine barındırılan modda kaydedilmez. Kontrol panelinin kendi yapay zeka özellikleri (çeviri, denetim, otomatik tamamlama, sohbet) etkilenmez ve yalnızca `OPENAI_API_KEY` gerektirir.
 
 ## Faydalı Bağlantılar
 

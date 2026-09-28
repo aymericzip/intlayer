@@ -461,9 +461,13 @@ Ad alanı tabanlı bir kuruluma kıyasla çok daha az, çünkü bir sayfa render
 - [kıyaslama](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/index.md)
 
 </Question>
-<Question title="ngx-translate, Transloco veya @angular/localize'dan şablonlarımı yeniden yazmadan geçiş yapabilir miyim?">
+<Question title="`ngx-translate`, `Transloco` veya `@angular/localize`'dan şablonlarımı yeniden yazmadan geçiş yapabilir miyim?">
 
-Büyük ölçüde evet. [Uyumluluk adaptörleri genel bakışını](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/index.md) izleyin.
+Büyük ölçüde evet. İçeriği taşımak için [ngx-translate geçiş kılavuzunu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/ngx-translate.md) veya [Transloco geçiş kılavuzunu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/transloco.md) izleyin. Kademeli olarak da geçiş yapabilirsiniz: [sync JSON eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-json.md) mevcut JSON kataloglarınızı doğruluk kaynağı olarak tutar ve Intlayer sözlüklerini bunlardan üretir; böylece şablonları tek tek taşırken iki katman senkronize kalır.
+
+- [ngx-translate geçiş kılavuzu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/ngx-translate.md)
+- [Transloco geçiş kılavuzu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/transloco.md)
+- [sync JSON eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-json.md)
 
 </Question>
 <Question title="Mevcut JSON çeviri dosyalarımı koruyabilir miyim?">
@@ -497,34 +501,29 @@ Beş araç, hepsi isteğe bağlı:
 - **[ESLint eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/eslint.md)**: `no-raw-text` kuralı doğrudan kodlanmış metinleri işaretler.
 
 </Question>
-<Question title="Intlayer Analog sunucu tarafı render (SSR) ve SSG ile çalışır mı?">
+<Question title="Her dil için ayrı bir build gerekir mi?">
 
-Evet. İçerik SSR ve statik üretim sırasında çözülür, böylece ilk HTML çevrilmiş olarak gelir.
-
-</Question>
-<Question title="Dili değiştirmek sayfanın yeniden yüklenmesini gerektirir mi?">
-
-Hayır. `useIntlayer` reaktiftir ve görünümü anında günceller.
+Hayır. Bu, her locale'in kendi bundle'ına derlendiği ve ayrı olarak dağıtıldığı `@angular/localize` modelidir. Intlayer ile tek bir build tüm tanımlı locale'lere hizmet eder ve aktif dil çalışma zamanında URL'den, bir cookie'den veya `Accept-Language` başlığından belirlenir.
 
 </Question>
-<Question title="Analog dosya sistemi yönlendirmesinde yerelleştirilmiş rotaları nasıl kurarım?">
+<Question title="Intlayer Angular signals ve standalone bileşenleri destekliyor mu?">
 
-`src/app/pages` altında `[locale]` klasörü oluşturarak. `getLocalizedUrl` bağlantıları doğru dilde tutar.
-
-</Question>
-<Question title="Analog'da sağdan sola dilleri nasıl yönetirim?">
-
-`getHTMLTextDir` ile belgede `lang` ve `dir` ayarlayarak.
+Evet. İçerik signal'ler aracılığıyla sunulur, bu nedenle locale değiştiğinde şablon sayfa yeniden yüklenmeden yeniden render edilir ve provider diğer standalone provider'lar gibi kaydedilir.
 
 </Question>
-<Question title="SEO meta verilerini ve hreflang etiketlerini nasıl yönetirim?">
+<Question title="Dili çalışma zamanında nasıl değiştiririm?">
 
-`getMultilingualUrls` işlevini kullanarak tüm diller için arama motoru bağlantılarını yayınlayarak.
+Bu konu 6. adımda ele alınıyor. `useLocale` aktif locale'i, tanımlı locale'leri ve seçimi kalıcı hale getiren bir setter'ı sunar; `getLocalizedUrl` ise mevcut yolu yeniden yazar, böylece kullanıcı dil değiştirdikten sonra aynı rotada kalır.
+
+</Question>
+<Question title="Analog sunucu tarafı render ve Vite ile çalışır mı?">
+
+Evet. `intlayer()` Vite eklentisi içeriğinizi derler ve geliştirme sırasında izler; locale sunucuda belirlenir, böylece ilk HTML yanıtı zaten doğru dildedir. Önceden render edilen (prerendered) rotalar içeriklerini build sırasında çözümler.
 
 </Question>
 <Question title="Uygulamayı AI ile otomatik olarak nasıl çevirebilirim?">
 
-`npx intlayer fill` komutunu çalıştırın. Eksik çevirileri seçtiğiniz LLM ile kendi sağlayıcınız ve API anahtarınızı kullanarak tamamlar ve `--git-diff` işlemi daldaki değişikliklerle sınırlar. Bkz. [fill komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/fill.md) ve [CI/CD entegrasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/CI_CD.md).
+`npx intlayer fill` komutunu çalıştırın. Eksik çevirileri seçtiğiniz LLM ile, kendi sağlayıcınızı ve API anahtarınızı kullanarak doldurur; `--git-diff` ise çalıştırmayı daldaki değişen içerikle sınırlar. Bkz. [fill komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/fill.md) ve [CI/CD entegrasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/CI_CD.md).
 
 - [fill komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/fill.md)
 - [CI/CD entegrasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/CI_CD.md)
@@ -532,28 +531,36 @@ Hayır. `useIntlayer` reaktiftir ve görünümü anında günceller.
 </Question>
 <Question title="Intlayer çoğulları, cinsiyeti ve zengin metni (rich text) destekliyor mu?">
 
-Evet: [çoğul biçimleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/plurial.md), [cinsiyete dayalı içerik](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/gender.md), koşullar, [eklemeler (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/insertion.md) ve [biçimlendiriciler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/formatters.md).
+Evet: [çoğul biçimler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/plurial.md), [cinsiyete dayalı içerik](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/gender.md), koşullar, [eklemeler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/insertion.md), [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/markdown.md) ve sayılar, tarihler ve para birimleri için [biçimlendiriciler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/formatters.md).
 
-- [çoğul biçimleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/plurial.md)
+- [çoğul biçimler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/plurial.md)
 - [cinsiyete dayalı içerik](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/gender.md)
-- [eklemeler (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/insertion.md)
-- [Intlayer'da Markdown içeriği](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/markdown.md)
+- [eklemeler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/insertion.md)
+- [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/markdown.md)
 - [biçimlendiriciler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/formatters.md)
+
+</Question>
+<Question title="Eksik çevirileri yayınlamadan önce nasıl yakalarım?">
+
+CI'da `npx intlayer test` komutunu çalıştırın. Tanımlı bir locale'de içerik eksik olduğunda build'i başarısız kılar. [VS Code eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/vs_code_extension.md) aynı hataları siz yazarken bildirir. Bkz. [içeriğinizi test etme](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/testing.md).
+
+- [VS Code eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/vs_code_extension.md)
+- [içeriğinizi test etme](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/testing.md)
 
 </Question>
 <Question title="Çevirmenler koda dokunmadan içeriği nasıl düzenleyebilir?">
 
-Kendi altyapınızda çalışan ve herkesin metinleri çalışan uygulamada yerinde düzenlemesine olanak tanıyan [görsel düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) veya içeriği kod dağıtımı olmadan güncellenebilecek şekilde dışsallaştıran [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) aracılığıyla.
+Kendi altyapınızda çalışan ve herkesin çalışan uygulama üzerinde metni yerinde düzenlemesine olanak tanıyan [görsel editör](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) ya da içeriği dışsallaştırarak dağıtım yapmadan değiştirilebilmesini sağlayan [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) aracılığıyla.
 
-- [görsel düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md)
+- [görsel editör](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md)
 - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)
 
 </Question>
 <Question title="Intlayer ücretsiz ve açık kaynaklı mı?">
 
-Evet, ticari kullanım dahil Apache 2.0 lisansı altındadır. Barındırılan CMS isteğe bağlı ücretli bir hizmettir ve ayrıca [kendi sunucunuzda barındırılabilir (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/self_hosting.md).
+Evet, ticari kullanım dahil Apache 2.0 lisansı altında. Barındırılan CMS, isteğe bağlı ücretli bir hizmettir ve [kendi sunucunuzda barındırılabilir](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/self_hosting.md).
 
-- [kendi sunucunuzda barındırılabilir (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/self_hosting.md)
+- [kendi sunucunuzda barındırma](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/self_hosting.md)
 
 </Question>
 

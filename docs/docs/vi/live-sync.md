@@ -33,7 +33,9 @@ author: aymericzip
 
 # Đồng bộ trực tiếp (Live sync)
 
-Live Sync cho phép ứng dụng của bạn phản ánh các thay đổi nội dung CMS trong thời gian chạy. Không cần xây dựng lại hoặc triển khai lại. Khi được bật, các cập nhật sẽ được truyền đến máy chủ Live Sync để làm mới các từ điển mà ứng dụng của bạn đang đọc.
+Live Sync cho phép ứng dụng của bạn phản ánh các thay đổi nội dung [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md) trong thời gian chạy. Không cần xây dựng lại hoặc triển khai lại. Khi được bật, các cập nhật sẽ được truyền đến máy chủ Live Sync để làm mới các từ điển mà ứng dụng của bạn đang đọc.
+
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)
 
 ## Mục lục
 

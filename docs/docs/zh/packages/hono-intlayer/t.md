@@ -203,6 +203,6 @@ app.get("/morning", (c) => {
 
 ## 结论
 
-`t` 函数是后端国际化的强大工具。通过有效地使用它，您可以为全球受众创建一个更具包容性和用户友好的应用程序。有关进阶用法和详细配置选项，请参阅[文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)。
+`t` 函数是后端国际化的强大工具。通过有效地使用它，您可以为全球受众创建一个更具包容性和用户友好的应用程序。有关进阶用法和详细配置选项，请参阅[文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
 
-- [Intlayer Configuration (intlayer.config.ts)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)
+- [Intlayer Configuration (intlayer.config.ts)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)

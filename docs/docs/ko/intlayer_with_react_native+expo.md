@@ -84,18 +84,18 @@ Intlayer는 React Native와 Expo에서 완벽하게 작동하도록 최적화되
 </Accordion>
 <Accordion header="AI 에이전트">
 
-콘텐츠를 함께 배치하면 대형 언어 모델(LLM)에 필요한 **컨텍스트가 줄어**듭니다. Intlayer는 누락된 번역을 테스트하기 위한 **CLI**, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/agent_skills.md)** 등의 도구 모음을 제공하여 AI 에이전트를 위한 개발자 경험(DX)을 더욱 원활하게 합니다.
+콘텐츠를 함께 배치하면 대형 언어 모델(LLM)에 필요한 **컨텍스트가 줄어**듭니다. Intlayer는 누락된 번역을 테스트하기 위한 **CLI**, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/mcp_server.md)**, **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/agent_skills.md)** 등의 도구 모음을 제공하여 AI 에이전트를 위한 개발자 경험(DX)을 더욱 원활하게 합니다.
 
-- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)
-- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/mcp_server.md)
 - [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/agent_skills.md)
 
 </Accordion>
 <Accordion header="자동화">
 
-AI 제공업체 비용으로 원하는 LLM을 사용하여 CI/CD 파이프라인에서 자동화로 번역하세요. Intlayer는 콘텐츠 추출을 자동화하는 **컴파일러**와 **백그라운드에서 번역**을 도와주는 [웹 플랫폼](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)도 제공합니다.
+AI 제공업체 비용으로 원하는 LLM을 사용하여 CI/CD 파이프라인에서 자동화로 번역하세요. Intlayer는 콘텐츠 추출을 자동화하는 **컴파일러**와 **백그라운드에서 번역**을 도와주는 [웹 플랫폼](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)도 제공합니다.
 
-- [웹 플랫폼](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
+- [웹 플랫폼](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="성능">
@@ -105,10 +105,10 @@ AI 제공업체 비용으로 원하는 LLM을 사용하여 CI/CD 파이프라인
 </Accordion>
 <Accordion header="비개발자와의 확장">
 
-단순한 i18n 솔루션 이상으로, Intlayer는 번역사, 카피라이터, 기타 팀원들과의 협업을 원활하게 하는 **자체 호스팅 [비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)**와 **[완전한 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)**를 제공하여 다국어 콘텐츠를 **실시간**으로 관리할 수 있게 합니다. 콘텐츠는 로컬 및/또는 원격으로 저장할 수 있습니다.
+단순한 i18n 솔루션 이상으로, Intlayer는 번역사, 카피라이터, 기타 팀원들과의 협업을 원활하게 하는 **자체 호스팅 [비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)**와 **[완전한 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)**를 제공하여 다국어 콘텐츠를 **실시간**으로 관리할 수 있게 합니다. 콘텐츠는 로컬 및/또는 원격으로 저장할 수 있습니다.
 
-- [비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)
-- [완전한 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
+- [비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)
+- [완전한 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="번들 크기">

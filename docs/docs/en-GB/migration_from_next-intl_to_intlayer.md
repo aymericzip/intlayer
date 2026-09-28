@@ -169,9 +169,9 @@ export default config;
 
 > **`source`** maps a locale to its JSON file path. **`location`** tells the Intlayer watcher which folder to monitor for changes. The `format: 'icu'` option ensures ICU placeholders like `{name}` and `{count, plural, one {# item} other {# items}}` are parsed correctly.
 
-> For a complete list of configuration options, see the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md).
+> For a complete list of configuration options, see the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md).
 
-- [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)
+- [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md)
 
 </Step>
 <Step number={3} title="Add the Intlayer Plugin to Next.js">

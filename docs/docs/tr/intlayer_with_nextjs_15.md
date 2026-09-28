@@ -842,9 +842,9 @@ export const LocaleSwitcher: FC = () => {
 
 - [`useLocale` kancası dokümantasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/next-intlayer/useLocale.md)
 
-> Bu durumda, `router.push` kullanarak yönlendirme olmadan, sadece sunucu tarafı kodunuz içeriğin yerel ayarını değiştirecektir.
+> Ayrıca, yerel ayar değiştiğinde özel bir fonksiyonu tetiklemek için `onLocaleChange` seçeneğinde bir fonksiyon ayarlayabilirsiniz.
 
-```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
+```tsx fileName="src/components/LocaleSwitcher.tsx"
 "use client";
 
 import { useLocale } from "next-intlayer";

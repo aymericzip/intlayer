@@ -241,7 +241,7 @@ Content nodes are the building blocks of dictionary content. They can be:
 
 - **Primitive values**: strings, numbers, booleans, null, undefined
 - **Typed nodes**: Special content types such as translations, conditions, markdown, etc.
-- **Functions**: Dynamic content that can be evaluated at runtime [see Function Fetching](https://github.com/aymericzip/intlayer/blob/main/docs/docs/{{locale}}/dictionary/function_fetching.md)
+- **Functions**: Dynamic content that can be evaluated at runtime [see Function Fetching](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/function_fetching.md)
 - **Plural Content**: See Plural Content [See Plural Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/plural.md)
 - **Nested content**: References to other dictionaries
 
@@ -249,16 +249,16 @@ Content nodes are the building blocks of dictionary content. They can be:
 
 Intlayer supports various content types through typed nodes:
 
-- **Translation Content**: Multilingual text with locale-specific values [see Translation Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/{{locale}}/dictionary/translation_content.md)
-- **Condition Content**: Conditional content based on boolean expressions [see Condition Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/{{locale}}/dictionary/condition_content.md)
-- **Enumeration Content**: Content that varies based on enumerated values [see Enumeration Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/{{locale}}/dictionary/enumeration_content.md)
-- **Insertion Content**: Content that can be inserted into other content [see Insertion Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/{{locale}}/dictionary/insertion_content.md)
+- **Translation Content**: Multilingual text with locale-specific values [see Translation Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/translation_content.md)
+- **Condition Content**: Conditional content based on boolean expressions [see Condition Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/condition_content.md)
+- **Enumeration Content**: Content that varies based on enumerated values [see Enumeration Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/enumeration_content.md)
+- **Insertion Content**: Content that can be inserted into other content [see Insertion Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/insertion_content.md)
 - **Markdown Content**: Rich text content in Markdown format [see Markdown Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/markdown_content.md)
 - **HTML Content**: Rich HTML content with optional custom components [see HTML Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/html.md)
-- **Nested Content**: References to other dictionaries [see Nested Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/{{locale}}/dictionary/nested_content.md)
-- **Gender Content**: Content that varies based on gender [see Gender Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/{{locale}}/dictionary/gender_content.md)
+- **Nested Content**: References to other dictionaries [see Nested Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/nested_content.md)
+- **Gender Content**: Content that varies based on gender [see Gender Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/gender_content.md)
 - **Select Content**: Content that varies based on an arbitrary string value [see Select Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/select.md)
-- **File Content**: References to external files [see File Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/{{locale}}/dictionary/file_content.md)
+- **File Content**: References to external files [see File Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/file_content.md)
 
 ## Dictionary Structure
 

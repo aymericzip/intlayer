@@ -139,7 +139,7 @@ export default config;
 Intlayer enforces this rather than only documenting it:
 
 - `clientSecret` is **stripped from the configuration your bundler inlines**, so it cannot reach a browser bundle whatever framework integration you use. It is only ever read server-side, at runtime, from the environment.
-- `clientId` is different: it is the **public** project key, safe to ship, and used by [`@intlayer/analytics`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/analytics.md#how-events-are-authenticated) to obtain a short-lived, ingest-only token.
+- `clientId` is different: it is the **public** project key, safe to ship, and used by [`@intlayer/analytics`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/analytics.md#how-events-are-authenticated) to obtain a short-lived, ingest-only token.
 
 Commenting `clientId` out is enough to disable every credentialed behaviour (remote dictionary fetching, CMS access, analytics) even when the environment variables are still defined.
 

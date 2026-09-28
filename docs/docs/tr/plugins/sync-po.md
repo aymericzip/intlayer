@@ -320,9 +320,9 @@ Senkronize edilmiş PO dosyaları diğer `.content` dosyaları gibi değerlendir
 - Senkronize edilmiş PO dosyalarını göndermek (push) için `intlayer content push`
 - Senkronize edilmiş PO dosyalarını çekmek (pull) için `intlayer content pull`
 
-Daha fazla ayrıntı için [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md) sayfasına bakın.
+Daha fazla ayrıntı için [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/index.md) sayfasına bakın.
 
-- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md)
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/index.md)
 
 ## Sınırlamalar (güncel)
 

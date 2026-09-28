@@ -137,7 +137,9 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-Menghapus `@intlayer/analytics` memberi efek yang sama dengan `enabled: false`. Lihat [referensi konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md) untuk daftar bidang lengkapnya.
+Menghapus `@intlayer/analytics` memberi efek yang sama dengan `enabled: false`. Lihat [referensi konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md#analytics-configuration) untuk daftar bidang lengkapnya.
+
+- [referensi konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md#analytics-configuration)
 
 ## Penggunaan (Usage)
 

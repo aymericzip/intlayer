@@ -38,9 +38,9 @@ Intlayer Görsel Düzenleyici, web sitenizi bir iframe içine sararak içerik bi
 
 Intlayer Görsel düzenleyici, yerel sözlüklerinizde içeriğinizi görsel düzenleyici ile yönetmenizi sağlayan bir araçtır. Bir değişiklik yapıldıktan sonra, içerik kod tabanında değiştirilecektir. Bu, uygulamanın yeniden oluşturulacağı ve yeni içeriği görüntülemek için sayfanın yeniden yükleneceği anlamına gelir.
 
-Buna karşılık, [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md), uzak sözlüklerinizde içeriğinizi görsel düzenleyici ile yönetmenizi sağlayan bir araçtır. Bir değişiklik yapıldıktan sonra, içerik **kod tabanınızı etkilemeyecektir**. Ve web sitesi otomatik olarak değiştirilen içeriği görüntüleyecektir.
+Buna karşılık, [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md), uzak sözlüklerinizde içeriğinizi görsel düzenleyici ile yönetmenizi sağlayan bir araçtır. Bir değişiklik yapıldıktan sonra, içerik **kod tabanınızı etkilemeyecektir**. Ve web sitesi otomatik olarak değiştirilen içeriği görüntüleyecektir.
 
-- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)
 
 ## Intlayer'ı uygulamanıza entegre edin
 
@@ -48,21 +48,21 @@ Intlayer'ı entegre etme hakkında daha fazla detay için aşağıdaki ilgili b�
 
 ### Next.js ile entegrasyon
 
-Next.js ile entegrasyon için [kurulum kılavuzuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_15.md) bakın.
+Next.js ile entegrasyon için [kurulum kılavuzuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_15.md) bakın.
 
-- [Next.js 15 i18n - Complete guide to translate your app](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_15.md)
+- [Next.js 15 i18n - Complete guide to translate your app](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_15.md)
 
 ### Create React App ile entegrasyon
 
-Create React App ile entegrasyon için [kurulum kılavuzuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_create_react_app.md) bakın.
+Create React App ile entegrasyon için [kurulum kılavuzuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_create_react_app.md) bakın.
 
-- [Create React App i18n: Complete Translation Guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_create_react_app.md)
+- [Create React App i18n: Complete Translation Guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_create_react_app.md)
 
 ### Vite + React ile entegrasyon
 
-Vite + React ile entegrasyon için [kurulum kılavuzuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md) bakın.
+Vite + React ile entegrasyon için [kurulum kılavuzuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_vite+react.md) bakın.
 
-- [Vite + React i18n - Complete guide to translate your app](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md)
+- [Vite + React i18n - Complete guide to translate your app](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_vite+react.md)
 
 ## Intlayer Düzenleyici Nasıl Çalışır
 
@@ -145,9 +145,9 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> Kullanılabilir tüm parametreleri görmek için [yapılandırma dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md) bakın.
+> Kullanılabilir tüm parametreleri görmek için [yapılandırma dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) bakın.
 
-- [yapılandırma dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)
+- [yapılandırma dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md)
 
 ## Düzenleyiciyi Kullanma
 
@@ -229,7 +229,9 @@ Görsel düzenleyici ile herhangi bir sorunla karşılaşırsanız, aşağıdaki
 
 <Question title="Görsel düzenleyici ile CMS arasındaki fark nedir?">
 
-Görsel düzenleyici yerel sözlükleri düzenler ve değişiklikleri doğrudan kaynak kod dosyalarınıza kaydeder, böylece normal Git inceleme sürecinden geçer. CMS ise içeriği uzak sunucuda saklar ve dağıtım olmadan yayınlar.
+Görsel düzenleyici yerel sözlükleri düzenler ve değişikliği kod tabanınıza geri yazar, böylece olağan inceleme ve dağıtım sürecinizden geçer. [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) ise uzak sözlükleri düzenler; bunlar çalışan sitede dağıtım olmadan değişir. Düzenleyici geliştiricilerin sahip olduğu içerik için, CMS ise pazarlama ekibinin sahip olduğu içerik için uygundur.
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)
 
 </Question>
 <Question title="i18n paket boyutuma ne kadar ekler?">
@@ -317,7 +319,10 @@ Etkinleştirilse bile maliyet son derece düşüktür (yalnızca etkinleştirild
 </Question>
 <Question title="Görsel düzenleyici ücretsiz mi?">
 
-Evet. Görsel düzenleyici ticari kullanım dahil Apache 2.0 lisansı altında açık kaynak projesinin bir parçasıdır.
+Evet. Görsel düzenleyici ticari kullanım dahil Apache 2.0 lisansı altında açık kaynak projesinin bir parçasıdır. Yalnızca barındırılan [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) ücretli bir hizmettir ve [kendi sunucunuzda da barındırılabilir](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/self_hosting.md).
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)
+- [kendi sunucunuzda barındırma](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/self_hosting.md)
 
 </Question>
 

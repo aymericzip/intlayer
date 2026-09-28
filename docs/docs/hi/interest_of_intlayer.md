@@ -52,29 +52,29 @@ author: aymericzip
 </Accordion>
 <Accordion header="AI Agent">
 
-सामग्री का सह-स्थानीकरण **बड़े भाषा मॉडल (एलएलएम) द्वारा आवश्यक संदर्भ को कम करता है**। इंटलेयर टूल के एक सूट के साथ भी आता है, जैसे **CLI** ताकि लापता अनुवादों का परीक्षण किया जा सके,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, और **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/agent_skills.md)**, AI एजेंटों के लिए डेवलपर अनुभव (DX) को और भी आसान बनाने के लिए।
+सामग्री का सह-स्थानीकरण **बड़े भाषा मॉडल (एलएलएम) द्वारा आवश्यक संदर्भ को कम करता है**। इंटलेयर टूल के एक सूट के साथ भी आता है, जैसे **CLI** ताकि लापता अनुवादों का परीक्षण किया जा सके,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/mcp_server.md)**, और **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/agent_skills.md)**, AI एजेंटों के लिए डेवलपर अनुभव (DX) को और भी आसान बनाने के लिए।
 
-- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)
-- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/mcp_server.md)
 - [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/agent_skills.md)
 
 </Accordion>
 <Accordion header="फीचर">
 
-इंटलेयर अतिरिक्त सुविधाओं की एक श्रृंखला प्रदान करता है जो अन्य i18n समाधानों में नहीं है, जैसे [मार्कडाउन समर्थन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/markdown.md), [बाहरी ला रहा है सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/function_fetching.md), [फ़ाइल सामग्री लोड हो रही है](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/file.md), [लाइव सामग्री अपडेट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/live.md), [विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) और बहुत कुछ।
+इंटलेयर अतिरिक्त सुविधाओं की एक श्रृंखला प्रदान करता है जो अन्य i18n समाधानों में नहीं है, जैसे [मार्कडाउन समर्थन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/markdown.md), [बाहरी ला रहा है सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/function_fetching.md), [फ़ाइल सामग्री लोड हो रही है](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/file.md), [लाइव सामग्री अपडेट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/live.md), [विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) और बहुत कुछ।
 
-- [मार्कडाउन समर्थन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/markdown.md)
-- [बाहरी ला रहा है सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/function_fetching.md)
-- [फ़ाइल सामग्री लोड हो रही है](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/file.md)
-- [लाइव सामग्री अपडेट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/live.md)
-- [विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)
+- [मार्कडाउन समर्थन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/markdown.md)
+- [बाहरी ला रहा है सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/function_fetching.md)
+- [फ़ाइल सामग्री लोड हो रही है](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/file.md)
+- [लाइव सामग्री अपडेट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/live.md)
+- [विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md)
 
 </Accordion>
 <Accordion header="Automation">
 
-अपने एआई प्रदाता की कीमत पर अपनी पसंद के एलएलएम का उपयोग करके अपने सीआई/सीडी पाइपलाइन में अनुवाद करने के लिए स्वचालन का उपयोग करें। इंटलेयर सामग्री निष्कर्षण को स्वचालित करने के लिए एक **कंपाइलर** के साथ-साथ **पृष्ठभूमि में अनुवाद** में मदद करने के लिए एक [वेब प्लेटफ़ॉर्म](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) भी प्रदान करता है।
+अपने एआई प्रदाता की कीमत पर अपनी पसंद के एलएलएम का उपयोग करके अपने सीआई/सीडी पाइपलाइन में अनुवाद करने के लिए स्वचालन का उपयोग करें। इंटलेयर सामग्री निष्कर्षण को स्वचालित करने के लिए एक **कंपाइलर** के साथ-साथ **पृष्ठभूमि में अनुवाद** में मदद करने के लिए एक [वेब प्लेटफ़ॉर्म](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md) भी प्रदान करता है।
 
-- [वेब प्लेटफ़ॉर्म](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
+- [वेब प्लेटफ़ॉर्म](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="परफॉर्मेंस">
@@ -84,9 +84,9 @@ author: aymericzip
 </Accordion>
 <Accordion header="किसी भी देव के साथ स्केलिंग">
 
-सिर्फ एक i18n समाधान से अधिक, Intlayer एक **स्व-होस्टेड [विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** और एक **[पूर्ण] प्रदान करता है सीएमएस](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** आपकी बहुभाषी सामग्री को **वास्तविक समय** में प्रबंधित करने में मदद करता है, जिससे अनुवादकों, कॉपीराइटरों और टीम के अन्य सदस्यों के साथ सहयोग सहज हो जाता है। सामग्री को स्थानीय और/या दूरस्थ रूप से संग्रहीत किया जा सकता है।
+सिर्फ एक i18n समाधान से अधिक, Intlayer एक **स्व-होस्टेड [विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md)** और एक **[पूर्ण] प्रदान करता है सीएमएस](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md)** आपकी बहुभाषी सामग्री को **वास्तविक समय** में प्रबंधित करने में मदद करता है, जिससे अनुवादकों, कॉपीराइटरों और टीम के अन्य सदस्यों के साथ सहयोग सहज हो जाता है। सामग्री को स्थानीय और/या दूरस्थ रूप से संग्रहीत किया जा सकता है।
 
-- [विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)
+- [विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md)
 - [Intlayer CMS: अपना बहुभाषी कंटेंट बाहर रखें](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md)
 
 </Accordion>
@@ -304,9 +304,9 @@ GitHub सितारे किसी प्रोजेक्ट की लो
 
 `intlayer` का उपयोग करके, आप अपनी पसंदीदा i18n लाइब्रेरी के प्रारूप में अपनी सामग्री घोषित कर सकते हैं, और intlayer आपकी पसंद के स्थान पर आपके नेमस्पेस उत्पन्न करेगा (उदाहरण: `/messages/{{locale}}/{{namespace}}.json)।
 
-यदि आप अपनी वर्तमान i18n लाइब्रेरी का API उपयोग करना जारी रखना चाहते हैं, तो `intlayer` **compat adapters** भी प्रदान करता है: ऐसे पैकेज जो `react-i18next`, `next-intl`, `react-intl`, `vue-i18n` और अन्य के बिल्कुल समान API उपलब्ध कराते हैं, लेकिन सामग्री Intlayer डिक्शनरी से आती है। इससे आप अपना कोड दोबारा लिखे बिना क्रमिक रूप से माइग्रेट कर सकते हैं। देखें [Compat Adapters दस्तावेज़ीकरण](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md)।
+यदि आप अपनी वर्तमान i18n लाइब्रेरी का API उपयोग करना जारी रखना चाहते हैं, तो `intlayer` **compat adapters** भी प्रदान करता है: ऐसे पैकेज जो `react-i18next`, `next-intl`, `react-intl`, `vue-i18n` और अन्य के बिल्कुल समान API उपलब्ध कराते हैं, लेकिन सामग्री Intlayer डिक्शनरी से आती है। इससे आप अपना कोड दोबारा लिखे बिना क्रमिक रूप से माइग्रेट कर सकते हैं। देखें [Compat Adapters दस्तावेज़ीकरण](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/index.md)।
 
-- [Compat Adapters दस्तावेज़ीकरण](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md)
+- [Compat Adapters दस्तावेज़ीकरण](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/index.md)
 
 ## अक्सर पूछे जाने वाले प्रश्न
 

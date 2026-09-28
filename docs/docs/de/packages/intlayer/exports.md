@@ -59,13 +59,13 @@ Import:
 import "intlayer";
 ```
 
-| Variable           | Typ                    | Beschreibung                                                                                          | Zugehöriges Dokument                                                                                                            |
-| ------------------ | ---------------------- | ----------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| `configuration`    | `IntlayerConfig`       | Das Intlayer-Konfigurationsobjekt.                                                                    | [getConfiguration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/intlayer/getConfiguration.md)         |
-| `getConfiguration` | `() => IntlayerConfig` | Gibt das Intlayer-Konfigurationsobjekt zurück. (**Deprecated**: Verwende stattdessen `configuration`) | [getConfiguration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/{{locale}}/packages/intlayer/getConfiguration.md) |
-| `locales`          | `Locales[]`            | Die Liste aller unterstützten Locales.                                                                | -                                                                                                                               |
-| `requiredLocales`  | `Locales[]`            | Die Liste aller erforderlichen Locales.                                                               | -                                                                                                                               |
-| `defaultLocale`    | `Locales`              | Die Standard-Locale.                                                                                  | -                                                                                                                               |
+| Variable           | Typ                    | Beschreibung                                                                                          | Zugehöriges Dokument                                                                                                    |
+| ------------------ | ---------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| `configuration`    | `IntlayerConfig`       | Das Intlayer-Konfigurationsobjekt.                                                                    | [getConfiguration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/intlayer/getConfiguration.md) |
+| `getConfiguration` | `() => IntlayerConfig` | Gibt das Intlayer-Konfigurationsobjekt zurück. (**Deprecated**: Verwende stattdessen `configuration`) | [getConfiguration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/intlayer/getConfiguration.md) |
+| `locales`          | `Locales[]`            | Die Liste aller unterstützten Locales.                                                                | -                                                                                                                       |
+| `requiredLocales`  | `Locales[]`            | Die Liste aller erforderlichen Locales.                                                               | -                                                                                                                       |
+| `defaultLocale`    | `Locales`              | Die Standard-Locale.                                                                                  | -                                                                                                                       |
 
 ### Typen
 

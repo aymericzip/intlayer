@@ -52,29 +52,29 @@ Mencakup konten aplikasi Anda **memfasilitasi pemeliharaan** untuk aplikasi bers
 </Accordion>
 <Accordion header="Agen AI">
 
-Menempatkan konten bersama **mengurangi konteks yang diperlukan** dengan Model Bahasa Besar (LLM). Intlayer juga dilengkapi dengan serangkaian alat, seperti **CLI** untuk menguji terjemahan yang hilang,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, dan **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/agent_skills.md)**, untuk menjadikan pengalaman pengembang (DX) lebih lancar bagi agen AI.
+Menempatkan konten bersama **mengurangi konteks yang diperlukan** dengan Model Bahasa Besar (LLM). Intlayer juga dilengkapi dengan serangkaian alat, seperti **CLI** untuk menguji terjemahan yang hilang,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/mcp_server.md)**, dan **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/agent_skills.md)**, untuk menjadikan pengalaman pengembang (DX) lebih lancar bagi agen AI.
 
-- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)
-- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/mcp_server.md)
 - [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/agent_skills.md)
 
 </Accordion>
 <Accordion header="Fitur">
 
-Intlayer menawarkan sejumlah fitur tambahan yang tidak dimiliki solusi i18n lainnya, seperti [Dukungan penurunan harga](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/markdown.md), [mengambil konten eksternal](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/function_fetching.md), [file pemuatan konten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/file.md), [pembaruan konten langsung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/live.md), [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) dan banyak lagi.
+Intlayer menawarkan sejumlah fitur tambahan yang tidak dimiliki solusi i18n lainnya, seperti [Dukungan penurunan harga](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/markdown.md), [mengambil konten eksternal](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/function_fetching.md), [file pemuatan konten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/file.md), [pembaruan konten langsung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/live.md), [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) dan banyak lagi.
 
-- [Dukungan penurunan harga](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/markdown.md)
-- [mengambil konten eksternal](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/function_fetching.md)
-- [file pemuatan konten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/file.md)
-- [pembaruan konten langsung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/live.md)
-- [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)
+- [Dukungan penurunan harga](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/markdown.md)
+- [mengambil konten eksternal](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/function_fetching.md)
+- [file pemuatan konten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/file.md)
+- [pembaruan konten langsung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/live.md)
+- [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md)
 
 </Accordion>
 <Accordion header="Otomatisasi">
 
-Gunakan otomatisasi untuk menerjemahkan dalam saluran CI/CD Anda menggunakan LLM pilihan Anda dengan biaya penyedia AI Anda. Intlayer juga menawarkan **compiler** untuk mengotomatiskan ekstraksi konten, serta [platform web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) untuk membantu **menerjemahkan di latar belakang**.
+Gunakan otomatisasi untuk menerjemahkan dalam saluran CI/CD Anda menggunakan LLM pilihan Anda dengan biaya penyedia AI Anda. Intlayer juga menawarkan **compiler** untuk mengotomatiskan ekstraksi konten, serta [platform web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md) untuk membantu **menerjemahkan di latar belakang**.
 
-- [platform web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
+- [platform web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="Pertunjukan">
@@ -84,10 +84,10 @@ Menghubungkan file JSON berukuran besar ke komponen dapat menyebabkan masalah ki
 </Accordion>
 <Accordion header="Menskalakan tanpa pengembang">
 
-Lebih dari sekedar solusi i18n, Intlayer menyediakan **[editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** yang dihosting sendiri dan **[CMS lengkap](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** untuk membantu Anda mengelola konten multibahasa secara **real-time**, membuat kolaborasi dengan penerjemah, copywriter, dan anggota tim lainnya menjadi lancar. Konten dapat disimpan secara lokal dan/atau jarak jauh.
+Lebih dari sekedar solusi i18n, Intlayer menyediakan **[editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md)** yang dihosting sendiri dan **[CMS lengkap](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)** untuk membantu Anda mengelola konten multibahasa secara **real-time**, membuat kolaborasi dengan penerjemah, copywriter, dan anggota tim lainnya menjadi lancar. Konten dapat disimpan secara lokal dan/atau jarak jauh.
 
-- [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)
-- [CMS lengkap](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
+- [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md)
+- [CMS lengkap](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="Desain lintas kerangka">
@@ -302,9 +302,9 @@ Bintang GitHub adalah indikator kuat dari popularitas proyek, kepercayaan komuni
 
 Menggunakan `intlayer`, Anda dapat mendeklarasikan konten dalam format pustaka i18n favorit Anda, dan intlayer akan menghasilkan namespace Anda di lokasi pilihan Anda (contoh: `/messages/{{locale}}/{{namespace}}.json`).
 
-Jika Anda ingin tetap menggunakan API pustaka i18n Anda saat ini, `intlayer` juga menyediakan **compat adapter**: paket yang mengekspos API yang persis sama dengan `react-i18next`, `next-intl`, `react-intl`, `vue-i18n`, dan lainnya, tetapi dilayani oleh kamus Intlayer. Ini memungkinkan Anda bermigrasi secara bertahap tanpa menulis ulang kode Anda. Lihat [dokumentasi Compat Adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md).
+Jika Anda ingin tetap menggunakan API pustaka i18n Anda saat ini, `intlayer` juga menyediakan **compat adapter**: paket yang mengekspos API yang persis sama dengan `react-i18next`, `next-intl`, `react-intl`, `vue-i18n`, dan lainnya, tetapi dilayani oleh kamus Intlayer. Ini memungkinkan Anda bermigrasi secara bertahap tanpa menulis ulang kode Anda. Lihat [dokumentasi Compat Adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/index.md).
 
-- [dokumentasi Compat Adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md)
+- [dokumentasi Compat Adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/index.md)
 
 ## Pertanyaan yang Sering Diajukan
 

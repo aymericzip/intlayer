@@ -201,6 +201,6 @@ app.get("/morning", (c) => {
 
 ## निष्कर्ष
 
-`t` फ़ंक्शन बैकएंड अंतर्राष्ट्रीयकरण के लिए एक शक्तिशाली उपकरण है। इसका प्रभावी ढंग से उपयोग करके, आप वैश्विक दर्शकों के लिए अधिक समावेशी और उपयोगकर्ता के अनुकूल एप्लिकेशन बना सकते हैं। उन्नत उपयोग और विस्तृत कॉन्फ़िगरेशन विकल्पों के लिए, [दस्तावेज़ीकरण](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md) देखें।
+`t` फ़ंक्शन बैकएंड अंतर्राष्ट्रीयकरण के लिए एक शक्तिशाली उपकरण है। इसका प्रभावी ढंग से उपयोग करके, आप वैश्विक दर्शकों के लिए अधिक समावेशी और उपयोगकर्ता के अनुकूल एप्लिकेशन बना सकते हैं। उन्नत उपयोग और विस्तृत कॉन्फ़िगरेशन विकल्पों के लिए, [दस्तावेज़ीकरण](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md) देखें।
 
-- [Intlayer Configuration (intlayer.config.ts)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)
+- [Intlayer Configuration (intlayer.config.ts)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md)

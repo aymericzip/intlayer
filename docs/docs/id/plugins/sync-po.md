@@ -320,9 +320,9 @@ File PO yang disinkronkan akan dianggap sebagai file `.content` lainnya. Itu ber
 - `intlayer content push` untuk mendorong file PO yang disinkronkan
 - `intlayer content pull` untuk menarik file PO yang disinkronkan
 
-Lihat [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md) untuk detail lebih lanjut.
+Lihat [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md) untuk detail lebih lanjut.
 
-- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md)
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md)
 
 ## Batasan (saat ini)
 

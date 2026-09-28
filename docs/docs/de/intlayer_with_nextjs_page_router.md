@@ -469,10 +469,11 @@ const HomePage: FC = () => {
 export default HomePage;
 ```
 
-```jsx fileName="src/components/ComponentExample.mjx" codeFormat="esm"
+```tsx fileName="src/components/ComponentExample.tsx" codeFormat={["typescript", "esm"]}
+import type { FC } from "react";
 import { useIntlayer } from "next-intlayer";
 
-const ComponentExample = () => {
+export const ComponentExample: FC = () => {
   const content = useIntlayer("component-example"); // Stellen Sie sicher, dass Sie eine entsprechende Inhaltsdeklaration haben
 
   return (

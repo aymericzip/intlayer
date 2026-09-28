@@ -47,32 +47,32 @@ author: aymericzip
 
 ## Особливості
 
-![Витяг вмісту](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_extract_content.gif?raw=true)
+![Витяг вмісту](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_extract_content.gif?raw=true)
 
 - **Витяг вмісту** – Витягує вміст із ваших компонентів React / Vue / Svelte
 
-![Заповнення словників](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_fill_active_dictionary.gif?raw=true)
+![Заповнення словників](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_fill_active_dictionary.gif?raw=true)
 
 - **Миттєва навігація** – Швидко переходьте до відповідного файлу вмісту, натиснувши на ключ `useIntlayer`.
 - **Заповнення словників** – Заповнює словники вмістом із вашого проєкту.
 
-![Список команд](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_list_commands.gif?raw=true)
+![Список команд](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_list_commands.gif?raw=true)
 
 - **Простий доступ до команд Intlayer** – Build, push, pull, fill, test словників вмісту з легкістю.
 
-![Створити файл вмісту](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_create_content_file.gif?raw=true)
+![Створити файл вмісту](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_create_content_file.gif?raw=true)
 
 - **Генератор декларацій вмісту** – Створюйте файли словників вмісту в різних форматах (`.ts`, `.esm`, `.cjs`, `.json`).
 
-![Тест словників](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_test_missing_dictionary.gif?raw=true)
+![Тест словників](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_test_missing_dictionary.gif?raw=true)
 
 - **Тестування словників** – Перевірка словників на наявність відсутніх перекладів.
 
-![Перебудова словника](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_rebuild_dictionary.gif?raw=true)
+![Перебудова словника](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_rebuild_dictionary.gif?raw=true)
 
 - **Тримайте свої словники в актуальному стані** – Оновлюйте словники останнім вмістом з вашого проєкту.
 
-![Вкладка Intlayer (Панель активності)](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_search_dictionary.gif?raw=true)
+![Вкладка Intlayer (Панель активності)](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_search_dictionary.gif?raw=true)
 
 - **Вкладка Intlayer (Панель активності)** – Оглядайте та шукайте словники у виділеній бічній вкладці з панеллю інструментів і контекстними діями (Build, Pull, Push, Fill, Refresh, Test, Create File).
 

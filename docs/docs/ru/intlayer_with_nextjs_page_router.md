@@ -264,18 +264,18 @@ export const config = {
 
     Измените ваш `_app.tsx`, чтобы включить провайдеры Intlayer.
 
-    ```tsx fileName="src/pages/_app.tsx" codeFormat="typescript"
+    ```tsx fileName="src/pages/_app.tsx" codeFormat=["typescript", 'esm', 'cjs']
     import type { FC } from "react";
     import type { AppProps } from "next/app";
-    import { IntlayerClientProvider } from "next-intlayer";
+    import { IntlayerProvider } from "next-intlayer";
 
     const App = FC<AppProps>({ Component, pageProps }) => {
-      const { locale } = pageProps; // извлекаем локаль из свойств страницы
+      const { locale } = pageProps;
 
       return (
-        <IntlayerClientProvider locale={locale}>
+        <IntlayerProvider locale={locale}>
           <Component {...pageProps} />
-        </IntlayerClientProvider>
+        </IntlayerProvider>
       );
     }
 

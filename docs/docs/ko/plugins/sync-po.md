@@ -320,9 +320,9 @@ loadPO({
 - `intlayer content push`: 동기화된 PO 파일을 푸시합니다.
 - `intlayer content pull`: 동기화된 PO 파일을 풀합니다.
 
-자세한 내용은 [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md)를 참조하세요.
+자세한 내용은 [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/index.md)를 참조하세요.
 
-- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md)
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/index.md)
 
 ## 제한 사항 (현재)
 

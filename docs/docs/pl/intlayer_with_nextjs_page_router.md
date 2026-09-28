@@ -290,98 +290,98 @@ Zaimplementuj dynamiczne routowanie, aby serwować zlokalizowane treści w zale�
 
     W pliku `[locale]/index.tsx` zdefiniuj ścieżki i propsy, aby obsłużyć różne lokalizacje.
 
-```tsx fileName="src/pages/[locale]/index.tsx" codeFormat="typescript"
-import type { FC } from "react";
-import type { GetStaticPaths, GetStaticProps } from "next";
-import { type Locales, getConfiguration } from "intlayer";
+    ```tsx fileName="src/pages/[locale]/index.tsx" codeFormat="typescript"
+    import type { FC } from "react";
+    import type { GetStaticPaths, GetStaticProps } from "next";
+    import { type Locales, getConfiguration } from "intlayer";
 
-const HomePage: FC = () => <div>{/* Twoja zawartość tutaj */}</div>;
+    const HomePage: FC = () => <div>{/* Twoja zawartość tutaj */}</div>;
 
-export const getStaticPaths: GetStaticPaths = () => {
-  const { internationalization } = getConfiguration();
-  const { locales } = internationalization;
+    export const getStaticPaths: GetStaticPaths = () => {
+      const { internationalization } = getConfiguration();
+      const { locales } = internationalization;
 
-  const paths = locales.map((locale) => ({
-    params: { locale },
-  }));
+      const paths = locales.map((locale) => ({
+        params: { locale },
+      }));
 
-  return { paths, fallback: false };
-};
+      return { paths, fallback: false };
+    };
 
-export const getStaticProps: GetStaticProps = ({ params }) => {
-  const locale = params?.locale as string;
+    export const getStaticProps: GetStaticProps = ({ params }) => {
+      const locale = params?.locale as string;
 
-  return {
-    props: {
-      locale,
-    },
-  };
-};
+      return {
+        props: {
+          locale,
+        },
+      };
+    };
 
-export default HomePage;
-```
+    export default HomePage;
+    ```
 
-```jsx fileName="src/pages/[locale]/index.mjx" codeFormat="esm"
-import { getConfiguration } from "intlayer";
-import { ComponentExample } from "@components/ComponentExample";
+    ```jsx fileName="src/pages/[locale]/index.mjx" codeFormat="esm"
+    import { getConfiguration } from "intlayer";
+    import { ComponentExample } from "@components/ComponentExample";
 
-const HomePage = () => <div>{/* Twoja zawartość tutaj */}</div>;
+    const HomePage = () => <div>{/* Twoja zawartość tutaj */}</div>;
 
-export const getStaticPaths = () => {
-  const { internationalization } = getConfiguration();
-  const { locales } = internationalization;
+    export const getStaticPaths = () => {
+      const { internationalization } = getConfiguration();
+      const { locales } = internationalization;
 
-  const paths = locales.map((locale) => ({
-    params: { locale },
-  }));
+      const paths = locales.map((locale) => ({
+        params: { locale },
+      }));
 
-  return { paths, fallback: false };
-};
+      return { paths, fallback: false };
+    };
 
-export const getStaticProps = ({ params }) => {
-  const locale = params?.locale;
+    export const getStaticProps = ({ params }) => {
+      const locale = params?.locale;
 
-  return {
-    props: {
-      locale,
-    },
-  };
-};
-```
+      return {
+        props: {
+          locale,
+        },
+      };
+    };
+    ```
 
-```jsx fileName="src/pages/[locale]/index.csx" codeFormat="commonjs"
-const { getConfiguration } = require("intlayer");
-const { ComponentExample } = require("@components/ComponentExample");
+    ```jsx fileName="src/pages/[locale]/index.csx" codeFormat="commonjs"
+    const { getConfiguration } = require("intlayer");
+    const { ComponentExample } = require("@components/ComponentExample");
 
-const HomePage = () => <div>{/* Twoja zawartość tutaj */}</div>;
+    const HomePage = () => <div>{/* Twoja zawartość tutaj */}</div>;
 
-const getStaticPaths = async () => {
-  const { internationalization } = getConfiguration();
-  const { locales } = internationalization;
+    const getStaticPaths = async () => {
+      const { internationalization } = getConfiguration();
+      const { locales } = internationalization;
 
-  const paths = locales.map((locale) => ({
-    params: { locale },
-  }));
+      const paths = locales.map((locale) => ({
+        params: { locale },
+      }));
 
-  return { paths, fallback: false };
-};
+      return { paths, fallback: false };
+    };
 
-const getStaticProps = async ({ params }) => {
-  const locale = params?.locale;
+    const getStaticProps = async ({ params }) => {
+      const locale = params?.locale;
 
-  return {
-    props: {
-      locale,
-    },
-  };
-};
+      return {
+        props: {
+          locale,
+        },
+      };
+    };
 
-module.exports = {
-  getStaticProps,
-  getStaticPaths,
-  default: HomePage,
-};
-```
+    module.exports = {
+      getStaticProps,
+      getStaticPaths,
+      default: HomePage,
+    };
+    ```
 
 > `getStaticPaths` i `getStaticProps` zapewniają, że Twoja aplikacja w Next.js Page Router wstępnie buduje niezbędne strony dla wszystkich lokalizacji. Takie podejście zmniejsza obciążenie podczas działania aplikacji i prowadzi do lepszego doświadczenia użytkownika. Aby uzyskać więcej informacji, zapoznaj się z dokumentacją Next.js dotyczącą [`getStaticPaths`](https://nextjs.org/docs/pages/building-your-application/data-fetching/get-static-paths) oraz [`getStaticProps`](https://nextjs.org/docs/pages/building-your-application/data-fetching/get-static-props).
 

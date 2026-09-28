@@ -529,9 +529,13 @@ Jauh lebih sedikit daripada solusi berbasis namespace, karena halaman tidak pern
 - [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/index.md)
 
 </Question>
-<Question title="Bisakah saya bermigrasi dari ngx-translate, Transloco atau @angular/localize tanpa menulis ulang template saya?">
+<Question title="Bisakah saya bermigrasi dari `ngx-translate`, `Transloco` atau `@angular/localize` tanpa menulis ulang template saya?">
 
-Sebagian besar ya. Ikuti [ikhtisar adapter kompatibilitas](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/index.md).
+Sebagian besar bisa. Ikuti [panduan migrasi ngx-translate](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/ngx-translate.md) atau [panduan migrasi Transloco](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/transloco.md) untuk memindahkan konten. Anda juga dapat bermigrasi secara bertahap: [plugin sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/plugins/sync-json.md) menjaga katalog JSON yang sudah ada sebagai sumber kebenaran dan menghasilkan kamus Intlayer darinya, sehingga kedua lapisan tetap sinkron selama Anda memindahkan template satu per satu.
+
+- [panduan migrasi ngx-translate](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/ngx-translate.md)
+- [panduan migrasi Transloco](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/transloco.md)
+- [plugin sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/plugins/sync-json.md)
 
 </Question>
 <Question title="Bisakah saya menyimpan file terjemahan JSON yang sudah ada?">
@@ -565,29 +569,24 @@ Lima bagian, semuanya opsional:
 - **[Plugin ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/eslint.md)**: aturan `no-raw-text` menandai string hardcoded.
 
 </Question>
-<Question title="Apakah Intlayer bekerja dengan sinyal Angular (Signals)?">
+<Question title="Apakah Intlayer mendukung Angular signals dan standalone components?">
 
-Ya. `useIntlayer` mengembalikan signal Angular yang bekerja mulus dalam arsitektur Zoneless Angular.
-
-</Question>
-<Question title="Apakah pergantian bahasa memerlukan reload halaman?">
-
-Tidak. Karena berbasis signal, pengalihan bahasa langsung tercermin pada tampilan.
+Ya. Konten diekspos melalui signals, sehingga template dirender ulang ketika locale berubah tanpa reload halaman, dan provider didaftarkan seperti standalone provider lainnya.
 
 </Question>
-<Question title="Bagaimana cara mengatur routing dengan locale di Angular?">
+<Question title="Apakah saya memerlukan satu build per bahasa?">
 
-Deklarasikan parameter `:locale` di rute dan sinkronkan dengan provider Intlayer.
-
-</Question>
-<Question title="Bagaimana cara menangani bahasa dari kanan ke kiri di Angular?">
-
-Gunakan `getHTMLTextDir` untuk menyetel `lang` dan `dir` pada elemen root aplikasi.
+Tidak. Itu adalah model `@angular/localize`. Dengan Intlayer, satu build melayani semua locale yang dideklarasikan, bahasa aktif ditentukan saat runtime dari URL, cookie, atau header `Accept-Language`, dan hanya konten dari locale yang dirender yang diunduh.
 
 </Question>
-<Question title="Bagaimana cara menerjemahkan aplikasi secara otomatis dengan AI?">
+<Question title="Bagaimana cara mengganti bahasa saat runtime?">
 
-Jalankan `npx intlayer fill`. Perintah ini mengisi terjemahan yang hilang menggunakan LLM pilihan Anda dengan provider dan API key Anda sendiri, dan `--git-diff` membatasi proses ke file yang diubah. Lihat [perintah fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/fill.md) dan [integrasi CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/CI_CD.md).
+Langkah 6 membahasnya. `useLocale` mengekspos locale aktif, locale yang dideklarasikan, dan setter yang menyimpan pilihan, sementara `getLocalizedUrl` menulis ulang path saat ini sehingga pengguna tetap berada di rute yang sama setelah berganti bahasa.
+
+</Question>
+<Question title="Bagaimana cara menerjemahkan aplikasi Angular secara otomatis dengan AI?">
+
+Jalankan `npx intlayer fill`, yang mengisi terjemahan yang hilang dengan LLM pilihan Anda menggunakan provider dan API key Anda sendiri. `--git-diff` membatasi proses pada konten yang berubah di branch. Lihat [perintah fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/fill.md) dan [integrasi CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/CI_CD.md).
 
 - [perintah fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/fill.md)
 - [integrasi CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/CI_CD.md)
@@ -595,18 +594,26 @@ Jalankan `npx intlayer fill`. Perintah ini mengisi terjemahan yang hilang menggu
 </Question>
 <Question title="Apakah Intlayer mendukung bentuk jamak, gender dan rich text?">
 
-Ya: [bentuk jamak (plurals)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/plurial.md), [konten berbasis gender](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/gender.md), kondisi, [penyisipan (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/insertion.md), dan [formatter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/formatters.md) untuk angka, tanggal, dan mata uang.
+Ya: [bentuk jamak](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/plurial.md), [konten berbasis gender](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/gender.md), kondisi, [penyisipan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/insertion.md), [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/markdown.md), dan [formatter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/formatters.md) untuk angka, tanggal, dan mata uang.
 
-- [bentuk jamak (plurals)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/plurial.md)
+- [bentuk jamak](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/plurial.md)
 - [konten berbasis gender](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/gender.md)
-- [penyisipan (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/insertion.md)
-- [Konten Markdown di Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/markdown.md)
+- [penyisipan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/insertion.md)
+- [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/markdown.md)
 - [formatter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/formatters.md)
+
+</Question>
+<Question title="Bagaimana cara mendeteksi terjemahan yang hilang sebelum rilis?">
+
+Jalankan `npx intlayer test` di CI. Perintah ini menggagalkan build ketika sebuah locale yang dideklarasikan kehilangan konten. [Ekstensi VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/vs_code_extension.md) melaporkan kesalahan yang sama saat Anda mengetik. Lihat [menguji konten Anda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/testing.md).
+
+- [Ekstensi VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/vs_code_extension.md)
+- [menguji konten Anda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/testing.md)
 
 </Question>
 <Question title="Bagaimana penerjemah dapat mengedit konten tanpa menyentuh kode?">
 
-Melalui [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md), yang memungkinkan siapa saja mengedit teks langsung di aplikasi yang berjalan, atau melalui [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md), yang memisahkan konten sehingga dapat diubah tanpa perlu redeploy kode.
+Melalui [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md), yang berjalan di infrastruktur Anda sendiri dan memungkinkan siapa pun mengedit teks langsung di aplikasi yang sedang berjalan, atau [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md), yang mengeksternalisasi konten sehingga dapat diubah tanpa deployment.
 
 - [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md)
 - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)
@@ -614,9 +621,9 @@ Melalui [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/do
 </Question>
 <Question title="Apakah Intlayer gratis dan open source?">
 
-Ya, di bawah lisensi Apache 2.0, termasuk penggunaan komersial. CMS yang di-host adalah layanan berbayar opsional yang juga dapat [di-host sendiri (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/self_hosting.md).
+Ya, di bawah lisensi Apache 2.0, termasuk penggunaan komersial. CMS yang di-host adalah layanan berbayar opsional yang juga dapat [di-self-host](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/self_hosting.md).
 
-- [di-host sendiri (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/self_hosting.md)
+- [self-host](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/self_hosting.md)
 
 </Question>
 

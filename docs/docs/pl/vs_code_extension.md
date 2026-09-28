@@ -44,32 +44,32 @@ Link do rozszerzenia: [https://marketplace.visualstudio.com/items?itemName=Intla
 
 ## Funkcje
 
-![Wyodrębnij zawartość](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_extract_content.gif?raw=true)
+![Wyodrębnij zawartość](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_extract_content.gif?raw=true)
 
 - **Wyodrębnij Zawartość** – Wyodrębnij zawartość z komponentów React / Vue / Svelte
 
-![Wypełnianie słowników](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_fill_active_dictionary.gif?raw=true)
+![Wypełnianie słowników](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_fill_active_dictionary.gif?raw=true)
 
 - **Natychmiastowa Nawigacja** – Szybko przejdź do odpowiedniego pliku z treścią, klikając na klucz `useIntlayer`.
 - **Wypełnianie Słowników** – Wypełnij słowniki treściami z Twojego projektu.
 
-![Lista poleceń](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_list_commands.gif?raw=true)
+![Lista poleceń](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_list_commands.gif?raw=true)
 
 - **Łatwy dostęp do poleceń Intlayer** – Buduj, pushuj, pulluj, wypełniaj, testuj słowniki treści z łatwością.
 
-![Tworzenie pliku z treścią](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_create_content_file.gif?raw=true)
+![Tworzenie pliku z treścią](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_create_content_file.gif?raw=true)
 
 - **Generator deklaracji treści** – Twórz pliki słowników treści w różnych formatach (`.ts`, `.esm`, `.cjs`, `.json`).
 
-![Testowanie słowników](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_test_missing_dictionary.gif?raw=true)
+![Testowanie słowników](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_test_missing_dictionary.gif?raw=true)
 
 - **Testowanie słowników** – Testuj słowniki pod kątem brakujących tłumaczeń.
 
-![Odbudowa słownika](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_rebuild_dictionary.gif?raw=true)
+![Odbudowa słownika](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_rebuild_dictionary.gif?raw=true)
 
 - **Aktualizuj swoje słowniki** – Utrzymuj swoje słowniki na bieżąco z najnowszą zawartością z Twojego projektu.
 
-![Zakładka Intlayer (pasek aktywności)](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_search_dictionary.gif?raw=true)
+![Zakładka Intlayer (pasek aktywności)](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_search_dictionary.gif?raw=true)
 
 - **Zakładka Intlayer (pasek aktywności)** – Przeglądaj i wyszukuj słowniki z dedykowanej bocznej zakładki z paskiem narzędzi i akcjami kontekstowymi (Build, Pull, Push, Fill, Refresh, Test, Create File).
 

@@ -321,14 +321,17 @@ Bkz. [neden Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs
 </Question>
 <Question title="i18n Hono sunucu paket boyutuma ne kadar ekler?">
 
-Geleneksel JSON kataloglarına kıyasla çok daha az. Intlayer derleyicisi derleme zamanında optimize eder ve sunucu tarafında her istek için tüm sözlükleri bellekten tekrar ayrıştırmaz, böylece bellek ayak izi ve soğuk başlatma süreleri minimumda kalır. Bkz. [paket optimizasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md).
+Çok az. Sözlükler önceden derlenir ve yalnızca bildirdiğiniz yerel ayarlar dahil edilir, bu nedenle açılışta katalog yüklemesi ve istek yolunda dosya okuması yoktur. Bu, paket boyutunun soğuk başlatma süresini belirlediği serverless ve edge dağıtımlarında en çok önem taşır. Bkz. [paket optimizasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md).
 
 - [paket optimizasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md)
 
 </Question>
-<Question title="i18next veya diğer arka uç kütüphanelerinden handler'larımı yeniden yazmadan geçiş yapabilir miyim?">
+<Question title="`i18next`'ten handler'larımı yeniden yazmadan geçiş yapabilir miyim?">
 
-Evet. Aşamalı geçiş yapabilir veya mevcut JSON sözlüklerinizi senkronize edebilirsiniz.
+Evet, ve iki yol vardır. İçeriği [i18next geçiş rehberi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_i18next_to_intlayer.md) ile aşamalı olarak taşıyabilirsiniz. Ya da mevcut API'nizi tamamen koruyabilirsiniz: [uyumluluk adaptörleri (compat adapters)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/index.md), `i18next` ile birebir aynı API'yi sunar ancak Intlayer sözlükleriyle beslenir; böylece yalnızca import'lar değişir, handler kodu değişmez.
+
+- [i18next geçiş rehberi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_i18next_to_intlayer.md)
+- [uyumluluk adaptörleri (compat adapters)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/index.md)
 
 </Question>
 <Question title="Mevcut JSON çeviri dosyalarımı koruyabilir miyim?">
@@ -342,86 +345,90 @@ Evet. [sync JSON eklentisi](https://github.com/aymericzip/intlayer/blob/main/doc
 </Question>
 <Question title="İçeriğimi anahtar anahtar taşımak zorunda mıyım?">
 
-Hayır. `npx intlayer extract` komutunu çalıştırın; Intlayer kaynak dosyalarınızı okur, kullanıcıya dönük dizeleri çıkarır ve her birinin yanına bir `.content` dosyası yazar, böylece dizeleri tek tek kopyalamak yerine bir diff incelersiniz. Bkz. [extract komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract.md).
+Hayır. `npx intlayer extract` komutunu çalıştırın; Intlayer kaynak dosyalarınızı okur, kullanıcıya dönük dizeleri çıkarır ve her birinin yanına bir `.content` dosyası yazar, böylece dizeleri bir kataloğa tek tek kopyalamak yerine bir diff incelersiniz. Bkz. [extract komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract.md).
 
 - [extract komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract.md)
 
-Tam otomatik bir süreç için [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md) derleme sırasında aynı işlemi yapar ve sözlükleri her değişiklikte otomatik üretir.
+Aynı projenin ön uç tarafında [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md) daha da ileri gider ve sözlükleri derleme zamanında JSX, TSX, Vue veya Svelte kaynağınızdan üretir; böylece uygulamanın iki yarısı, elle yönetilen hiçbir anahtar olmadan tek bir içerik katmanını paylaşır.
 
 - [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md)
 
 </Question>
-<Question title="Hangi editör ve AI aracı araçları mevcuttur?">
+<Question title="Hangi editör ve AI ajan araçları mevcuttur?">
 
 Beş araç, hepsi isteğe bağlı:
 
-- **[VS Code eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/vs_code_extension.md)**: bir anahtardan onu tanımlayan içerik dosyasına atlayın ve komut paletinden build, fill, test, push ve pull komutlarını çalıştırın.
-- **[LSP sunucusu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/lsp.md)**: LSP destekleyen tüm editörlerde tanıma gitme, tüm referansları bulma, çevrilmiş değerlerin fareyle üzerine gelindiğinde önizlemesi ve otomatik tamamlama. `i18next` çağrılarını da çözer.
-- **[MCP sunucusu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/mcp_server.md)**: Intlayer dokümantasyonunu ve CLI'sini Cursor, VS Code, Claude Desktop, Claude Code ve ChatGPT'ye sunar.
-- **[Ajan becerileri (Agent skills)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/agent_skills.md)**: `intlayer-config`, `intlayer-cli` ve `intlayer-content` gibi odaklanmış beceriler.
-- **[ESLint eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/eslint.md)**: `no-raw-text` kuralı doğrudan kodlanmış metinleri işaretler.
+- **[VS Code eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/vs_code_extension.md)**: bir `useIntlayer` anahtarından onu tanımlayan içerik dosyasına atlayın, bir bileşenden içerik çıkarın ve komut paletinden veya özel bir Intlayer sekmesinden build, fill, test, push ve pull komutlarını çalıştırın.
+- **[LSP sunucusu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/lsp.md)**: LSP destekleyen her editörde aynı farkındalık: tanıma gitme, tüm referansları bulma, çevrilmiş değerin fareyle üzerine gelindiğinde önizlemesi, anahtar ve alanların otomatik tamamlanması ve bir anahtar hiçbir yerde tanımlanmadığında uyarı. Ayrıca `i18next`, `react-i18next`, `next-intl` ve `use-intl` çağrılarını da çözer; bu da geçiş sırasında yardımcı olur.
+- **[MCP sunucusu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/mcp_server.md)**: Intlayer dokümantasyonunu ve CLI'sini Cursor, VS Code, Claude Desktop, Claude Code ve ChatGPT'ye sunar; böylece asistan tahmin etmek yerine güncel dokümantasyona dayanarak yanıt verir ve `intlayer fill` gibi komutları kendisi çalıştırabilir.
+- **[Ajan becerileri (Agent skills)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/agent_skills.md)**: `intlayer-config`, `intlayer-cli` ve `intlayer-content` gibi odaklanmış beceriler ile her framework için bir beceri; ajana yönlendirme kurulumunuzu ve içerik düğümü türlerini öğretir.
+- **[ESLint eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/eslint.md)**: `no-raw-text` doğrudan kodlanmış metinleri işaretler; statik sözlük anahtarları ve kullanılmayan içerik için ek kurallar da vardır.
 
 </Question>
-<Question title="Gelen isteklerde istemcinin dili nasıl algılanır?">
+<Question title="Intlayer hangi dilde yanıt vereceğini nasıl bilir?">
 
-Hono middleware'i `c.req` üzerinden çerez ve `Accept-Language` başlığını okur, çözümlenen dili `c.get('locale')` ile erişilebilir kılar.
+Varsayılan olarak `hono-intlayer`, gelen isteğin `Accept-Language` başlığını okur ve bildirilen en yakın yerel ayarı seçer, gerekirse varsayılan yerel ayarınıza geri döner. Kaynağı `routing.storage` ile değiştirebilirsiniz; örneğin özel bir başlık veya ön ucunuzun ayarladığı bir çerez kullanarak API'nin, tarayıcının bildirdiği dil yerine kullanıcının gerçekten seçtiği dilde yanıt vermesini sağlayabilirsiniz. Bkz. [yapılandırma referansı](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md).
 
-</Question>
-<Question title="Aynı içerik bildirimleri hem API yanıtlarıma hem de web ön yüzüme hizmet verebilir mi?">
-
-Evet, monorepo veya paylaşılan paketlerde bu en büyük avantajlardan biridir. Bildirilen bir sözlük hem arka uçta (e-posta, hata kodları, API yanıtları) hem de ön uçta (React, Vue, Svelte vb.) doğrudan içe aktarılabilir. Böylece ön yüz ve arka uç aynı metinler için tek bir doğruluk kaynağı kullanır.
+- [yapılandırma referansı](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md)
 
 </Question>
-<Question title="Intlayer istek işlemeyi yavaşlatır mı?">
+<Question title="Yerel ayar her istek için izole mi?">
 
-Hayır. Dil algılama hafif bir middleware içinde gerçekleştirilir (çerez, sorgu veya Accept-Language başlığı taranır). Sözlükler derleme zamanında derlenip bellekte hazır tutulduğundan, istek anında disk okuması veya şablon ayrıştırması yapılmaz.
-
-</Question>
-<Question title="Hata yanıtlarını, e-postaları ve push bildirimlerini nasıl yerelleştiririm?">
-
-İstek bağlamındaki yerel dil bilgisine göre `getIntlayer` veya `t()` fonksiyonunu çağırarak. Kullanıcının tercih ettiği dil profilde veya veritabanında saklanıyorsa, istek dışı arka plan işlerinde de hedef yerel açıkça fonksiyona iletilebilir.
+Evet. Middleware etkin yerel ayarı isteğin kapsamıyla sınırlar, bu nedenle farklı dillerdeki iki eşzamanlı istek hiçbir zaman birbirinin yerel ayarını okumaz. `t()` ve `getIntlayer()` fonksiyonlarını, her fonksiyona bir yerel ayar argümanı geçirmeden bir servis içinden güvenle çağırabilmenizi sağlayan da budur.
 
 </Question>
-<Question title="Intlayer Cloudflare Workers veya edge ortamlarında çalışır mı?">
+<Question title="İşlemsel e-postaları alıcının dilinde nasıl gönderirim?">
 
-Evet. Intlayer derlenmiş JavaScript çıktısı verir ve çalışma zamanında yerel dosya sistemi bağımlılığı gerektirmez, bu nedenle Cloudflare Workers, Deno ve Vercel Edge Functions ortamlarında sorunsuz çalışır.
-
-</Question>
-<Question title="Hono rotalarımda yerelleştirilmiş URL ön eklerini nasıl kullanırım?">
-
-Hono rota tanımlarınızda `/:locale/` segmenti kullanarak veya alt yönlendiriciler (sub-routers) oluşturarak.
+E-posta içeriğini diğer içerikler gibi bir içerik dosyasında bildirin, ardından istek yerel ayarı yerine alıcının kayıtlı yerel ayarı için `getIntlayer` ile çözümleyin. Bu, dilin kullanıcı kaydına ait olduğu ve başlık okunacak gelen bir isteğin bulunmadığı işler (jobs) ve kuyruklar için önemlidir.
 
 </Question>
-<Question title="Uygulamayı AI ile otomatik olarak nasıl çevirebilirim?">
+<Question title="API hata mesajlarını nasıl yerelleştiririm?">
 
-`npx intlayer fill` komutunu çalıştırın. Eksik çevirileri seçtiğiniz LLM ile kendi sağlayıcınız ve API anahtarınızı kullanarak tamamlar ve `--git-diff` işlemi daldaki değişikliklerle sınırlar. Bkz. [fill komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/fill.md) ve [CI/CD entegrasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/CI_CD.md).
+Mesajı, hatanın oluşturulduğu noktada `t()` ile sarın. Etkin istek yerel ayarı onu çözümler; böylece istemci doğrudan gösterebileceği bir mesaj alır ve ön ucunuzun hata kodları için paralel bir kataloğa ihtiyacı kalmaz.
+
+</Question>
+<Question title="Cloudflare Workers, Deno veya Bun gibi edge çalışma ortamlarında çalışır mı?">
+
+Hono bunların hepsini hedefler ve Intlayer, içeriği çalışma zamanında diskten katalog dosyaları okuyarak değil, derleme zamanında derlenen sözlüklerden çözümler; edge ortamlarında genellikle bozulan da bu disk okumasıdır. İçeriğin worker ile birlikte paketlenmesi için `dictionary.importMode` değerini varsayılan `"static"` olarak bırakın.
+
+</Question>
+<Question title="Arka uç içeriğini AI ile otomatik olarak nasıl çevirebilirim?">
+
+`npx intlayer fill` komutunu çalıştırın; eksik çevirileri kendi sağlayıcınız ve API anahtarınızla, seçtiğiniz LLM kullanarak tamamlar. Yalnızca dalda değişen içeriği çevirmek için `--git-diff` ekleyin. Bkz. [fill komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/fill.md) ve [CI/CD entegrasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/CI_CD.md).
 
 - [fill komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/fill.md)
 - [CI/CD entegrasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/CI_CD.md)
 
 </Question>
-<Question title="Intlayer çoğulları, cinsiyeti ve zengin metni (rich text) destekliyor mu?">
+<Question title="Intlayer sunucu tarafında çoğulları, cinsiyeti ve enterpolasyonlu değerleri destekliyor mu?">
 
-Evet: [çoğul biçimleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/plurial.md), [cinsiyete dayalı içerik](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/gender.md), koşullar, [eklemeler (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/insertion.md) ve [biçimlendiriciler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/formatters.md).
+Evet: [çoğul biçimleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/plurial.md), [cinsiyete dayalı içerik](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/gender.md), koşullar, enterpolasyonlu değerler için [eklemeler (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/insertion.md), e-posta gövdeleri için [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/markdown.md) ve sayılar, tarihler ve para birimleri için [biçimlendiriciler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/formatters.md).
 
 - [çoğul biçimleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/plurial.md)
 - [cinsiyete dayalı içerik](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/gender.md)
 - [eklemeler (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/insertion.md)
-- [Intlayer'da Markdown içeriği](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/markdown.md)
+- [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/markdown.md)
 - [biçimlendiriciler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/formatters.md)
 
 </Question>
-<Question title="Teknik olmayan ekip üyeleri kod değiştirmeden e-posta şablonlarını ve hata mesajlarını nasıl düzenleyebilir?">
+<Question title="Sunucu tarafında TypeScript otomatik tamamlama alır mıyım?">
 
-İki seçenek mevcuttur: içeriği kod tabanından ayıran ve ekibin metinleri doğrudan web üzerinden düzenlemesini sağlayan [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) veya yerel içerik dosyalarını web arayüzü üzerinden düzenleyip depoya commit oluşturan [görsel düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md).
+Evet. Intlayer sözlüklerinizin tiplerini `./types/intlayer.d.ts` içine üretir; bu nedenle var olmayan bir anahtar çalışma zamanında boş bir dize değil, bir derleme hatası olur. Bildirilen bir yerel ayarda içerik eksik olduğunda derlemeyi başarısız kılmak için CI'da `npx intlayer test` çalıştırın.
 
-- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)
-- [Intlayer'ı Docker ile kendiniz barındırın](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/self_hosting.md)
+</Question>
+<Question title="Ön uç ve arka uç aynı içeriği paylaşabilir mi?">
+
+Evet, olağan kurulum da budur. `hono-intlayer`, aynı bildirilen içerik üzerinde `react-intlayer`, `next-intlayer` ve `vite-intlayer` ile birlikte çalışır; böylece hem bir API yanıtında hem de bir sayfada kullanılan bir etiket yalnızca bir kez bildirilir. Bkz. [Intlayer nasıl çalışır](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/how_works_intlayer.md).
+
+- [Intlayer nasıl çalışır](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/how_works_intlayer.md)
 
 </Question>
 <Question title="Intlayer ücretsiz ve açık kaynaklı mı?">
 
-Evet, ticari kullanım dahil Apache 2.0 lisansı altındadır. Barındırılan CMS isteğe bağlı ücretli bir hizmettir ve ayrıca [kendi sunucunuzda barındırılabilir (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/self_hosting.md).
+Evet, ticari kullanım dahil Apache 2.0 lisansı altındadır. Barındırılan [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) isteğe bağlı ücretli bir hizmettir ve ayrıca [kendi sunucunuzda barındırılabilir](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/self_hosting.md).
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)
+- [kendi sunucunuzda barındırma](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/self_hosting.md)
 
 </Question>
 

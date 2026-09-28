@@ -262,25 +262,25 @@ Implement dynamic routing to serve localised content based on the user's locale.
 
 2.  **Update `_app.tsx` to Handle Localisation:**
 
-        Modify your `_app.tsx` to include Intlayer providers.
+    Modify your `_app.tsx` to include Intlayer providers.
 
-        ```tsx fileName="src/pages/_app.tsx" codeFormat="typescript"
-        import type { FC } from "react";
-        import type { AppProps } from "next/app";
-        import { IntlayerClientProvider } from "next-intlayer";
+    ```tsx fileName="src/pages/_app.tsx" codeFormat=["typescript", 'esm', 'cjs']
+    import type { FC } from "react";
+    import type { AppProps } from "next/app";
+    import { IntlayerProvider } from "next-intlayer";
 
-        const App = FC<AppProps>({ Component, pageProps }) => {
-          const { locale } = pageProps;
+    const App = FC<AppProps>({ Component, pageProps }) => {
+      const { locale } = pageProps;
 
-          return (
-            <IntlayerClientProvider locale={locale}>
-              <Component {...pageProps} />
-            </IntlayerClientProvider>
-          );
-        }
+      return (
+        <IntlayerProvider locale={locale}>
+          <Component {...pageProps} />
+        </IntlayerProvider>
+      );
+    }
 
-        export default MyApp;
-        ```
+    export default MyApp;
+    ```
 
 3.  **Set Up `getStaticPaths` and `getStaticProps`:**
 
@@ -468,10 +468,11 @@ const HomePage: FC = () => {
 export default HomePage;
 ```
 
-```jsx fileName="src/components/ComponentExample.mjx" codeFormat="esm"
+```tsx fileName="src/components/ComponentExample.tsx" codeFormat={["typescript", "esm"]}
+import type { FC } from "react";
 import { useIntlayer } from "next-intlayer";
 
-const ComponentExample = () => {
+export const ComponentExample: FC = () => {
   const content = useIntlayer("component-example"); // Ensure you have a corresponding content declaration
 
   return (
@@ -878,14 +879,17 @@ For more details on how to use the extension, refer to the [Intlayer VS Code Ext
 ## Additional Resources
 
 - **Intlayer Documentation:** [GitHub Repository](https://github.com/aymericzip/intlayer)
-- **Dictionary Guide:** [Dictionary](https://github.com/aymericzip/intlayer/blob/main/docs/docs/{{locale}}/dictionary/content_file.md)
-- **Configuration Documentation:** [Configuration Guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/{{locale}}/configuration.md)
+- **Dictionary Guide:** [Dictionary](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/content_file.md)
+- **Configuration Documentation:** [Configuration Guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md)
 
 By following this guide, you can effectively integrate Intlayer into your Next.js application using the Page Router, enabling robust and scalable internationalisation support for your web projects.
 
 ### Go Further
 
-To go further, you can implement the [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/{{locale}}/intlayer_visual_editor.md) or externalise your content using the [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/{{locale}}/intlayer_CMS.md).
+To go further, you can implement the [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_visual_editor.md) or externalise your content using the [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_CMS.md).
+
+- [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_CMS.md)
 
 ## Frequently Asked Questions
 

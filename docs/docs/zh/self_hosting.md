@@ -126,7 +126,7 @@ npx intlayer init infra --mode desktop
 
 ### 1. 执行安装
 
-在当前目录写入包含自动生成的 `BETTER_AUTH_SECRET` 和 `S3_SECRET_ACCESS_KEY` 的 `./intlayer.env`，并拉取 `intlayer/cms-all:latest` 镜像。
+在当前目录写入包含自动生成的 `BETTER_AUTH_SECRET` 和 `S3_SECRET_ACCESS_KEY` 的 `./intlayer.env`，通过几个问题补全其余配置，并拉取 `intlayer/cms-all:latest` 镜像。
 
 <Tabs group="os">
 <Tab label="macOS / Linux" value="unix">
@@ -147,14 +147,22 @@ $env:INTLAYER_MODE = "docker"; irm https://intlayer.org/install.ps1 | iex
 </Tab>
 <Tab label="Intlayer CLI" value="cli">
 
-CLI 会调用安装程序并打印其他标签页中所示的 `docker run …` 命令。配置好邮件发送服务后，将其粘贴到终端中运行即可。
+```bash
+npx intlayer init infra --mode docker
+```
 
 </Tab>
 </Tabs>
 
-### 2. 配置邮件服务
+### 2. 回答配置问题
 
-打开 `intlayer.env` 并配置 Resend **或** SMTP（详情参见[全局邮件服务](#global-mailer)）：
+安装程序会询问以下内容（按 Enter 接受建议值，所有答案之后都可以在文件中修改）：
+
+- Intlayer 对外提供服务的**域名**。留空则保持使用 `localhost`。若填写 `example.org` 这样的域名，它会建议控制面板使用 `https://cms.example.org`、API 使用 `https://back.example.org`、对象存储使用 `https://s3.example.org/intlayer`，并写入 `DOMAIN`、`APP_URL`、`BACKEND_URL` 和 `S3_PUBLIC_URL`。后续步骤参见[自定义域名](#custom-domain)。
+- **邮件服务**：Resend（API 密钥）或 SMTP 中继（主机、端口、凭据），以及发件人地址。此步骤可以跳过，稍后手动配置。
+- 可选的 **OpenAI API 密钥**，用于 AI 功能。
+
+在没有终端的情况下（例如从 CI 中运行脚本），这些问题会被跳过，仅生成密钥。打开 `intlayer.env` 并手动配置 Resend **或** SMTP（详情参见[全局邮件服务](#global-mailer)）：
 
 ```sh fileName="intlayer.env"
 # Option A: Resend
@@ -170,7 +178,7 @@ MAIL_FROM=Intlayer <no-reply@example.com>
 
 ### 3. 启动容器
 
-这是安装程序输出的启动命令：
+这是安装程序输出的启动命令（使用自定义域名时，它之前还会先执行生成 `intlayer/cms-all:custom` 的 `docker build`，参见[自定义域名](#custom-domain)）：
 
 <Tabs group="os">
 <Tab label="macOS / Linux" value="unix">
@@ -204,7 +212,7 @@ CLI 会调用安装程序并打印其他标签页中所示的 `docker run …` �
 </Tab>
 </Tabs>
 
-打开 **http://localhost:3000** 并按照[首次运行设置](#first-run-setup)进行操作。初次启动需要初始化数据库副本集和存储桶，请稍候约一分钟。
+打开 **http://localhost:3000**（或您的控制面板 URL）并按照[首次运行设置](#first-run-setup)进行操作。初次启动需要初始化数据库副本集和存储桶，请稍候约一分钟。
 
 ### 备份与升级
 
@@ -259,7 +267,7 @@ docker run --rm -v intlayer-data:/data -v "$(pwd)":/backup busybox tar xzf /back
 
 ### 1. 执行安装
 
-在 `./intlayer/` 目录中写入 `docker-compose.yml` 和包含自动生成密钥的 `.env`，并拉取所需的镜像。
+在 `./intlayer/` 目录中写入 `docker-compose.yml` 和包含自动生成密钥的 `.env`，询问与多合一模式相同的配置问题（域名、邮件服务、OpenAI 密钥），并拉取所需的镜像。
 
 <Tabs group="os">
 <Tab label="macOS / Linux" value="unix">
@@ -307,7 +315,7 @@ npx intlayer init infra --mode compose
 
 ### 2. 配置邮件服务
 
-在 `intlayer/.env` 中填入 Resend **或** SMTP 配置，配置方式与多合一容器完全相同（参见[全局邮件服务](#global-mailer)）。
+如果您跳过了邮件服务问题，请在 `intlayer/.env` 中填入 Resend **或** SMTP 配置，配置方式与多合一容器完全相同（参见[全局邮件服务](#global-mailer)）。
 
 ### 3. 启动堆栈
 
@@ -315,7 +323,9 @@ npx intlayer init infra --mode compose
 cd intlayer && docker compose up -d
 ```
 
-打开 **http://localhost:3000** 并按照[首次运行设置](#first-run-setup)进行操作。
+使用自定义域名时，安装程序还会下载 `docker-compose.build.yml`，启动命令变为 `docker compose -f docker-compose.yml -f docker-compose.build.yml up -d --build`（参见[自定义域名](#custom-domain)）。
+
+打开 **http://localhost:3000**（或您的控制面板 URL）并按照[首次运行设置](#first-run-setup)进行操作。
 
 ### 使用外部托管数据库
 
@@ -339,14 +349,14 @@ services:
 
 ### 从源码编译构建
 
-在代码仓库的根目录下，可以使用 override 文件将两个 Intlayer 服务的镜像拉取模式 `image:` 切换为源码构建 `build:`：
+可以使用 override 文件将两个 Intlayer 服务的镜像拉取模式 `image:` 切换为源码构建 `build:`。在代码仓库的检出目录中：
 
 ```sh
 cd docker/selfhost
 docker compose -f docker-compose.yml -f docker-compose.build.yml up -d --build
 ```
 
-为自定义域名生成专属镜像也是通过这种方式完成的：将 `VITE_*` 配置作为构建参数传入（参见[限制条件](#limitations)）。
+如果没有检出仓库，可在 `.env` 中设置 `INTLAYER_BUILD_CONTEXT=https://github.com/aymericzip/intlayer.git#main`，将构建上下文直接指向仓库本身。控制面板的 `VITE_*` 构建参数取自同一文件中的 `DOMAIN`、`APP_URL` 和 `BACKEND_URL`，[自定义域名](#custom-domain)正是通过这种方式生效的。
 
 ### 备份与升级
 
@@ -389,6 +399,8 @@ $env:INTLAYER_MODE = "compose"; $env:INTLAYER_COMPOSE_DIR = ".\cms"; irm https:/
 | `INTLAYER_CONSOLE_PORT`   | `9001`                    | docker     | Host port for the MinIO console                            |
 | `INTLAYER_COMPOSE_DIR`    | `./intlayer`              | compose    | Where `docker-compose.yml` and `.env` are written          |
 | `INTLAYER_SELFHOST_REF`   | `main`                    | both       | Git ref the compose file and env template are fetched from |
+| `INTLAYER_BUILD_CONTEXT`  | `…/intlayer.git#main`     | both       | Build context used when a custom domain requires a rebuild |
+| `INTLAYER_CUSTOM_IMAGE`   | `intlayer/cms-all:custom` | docker     | Tag of the all-in-one image built for a custom domain      |
 
 > 端口变量仅影响宿主机 **host** 端的端口映射。由于官方发布的镜像已将 `http://localhost:3000`、`http://localhost:3100` 和 `http://localhost:9000` 预编译到了前端静态代码中，因此除非您自行重新构建镜像，否则请保持这些默认端口不变，详情请参阅[限制条件](#limitations)。
 
@@ -416,7 +428,7 @@ $env:INTLAYER_MODE = "compose"; $env:INTLAYER_COMPOSE_DIR = ".\cms"; irm https:/
 
 ### 部署环境固定变量
 
-These are set by the image (all-in-one) or by the compose file, and only need overriding for a non-standard topology.
+这些变量由镜像（多合一）或 compose 文件设置，仅在非标准拓扑下才需要覆盖。`DOMAIN`、`APP_URL`、`BACKEND_URL` 和 `S3_PUBLIC_URL` 是例外：在 env 文件中设置后，它们在两种模式下都具有优先权（参见[自定义域名](#custom-domain)）。
 
 | Variable           | All-in-one                                          | Docker Compose                   | Description                                                                   |
 | ------------------ | --------------------------------------------------- | -------------------------------- | ----------------------------------------------------------------------------- |
@@ -433,6 +445,37 @@ These are set by the image (all-in-one) or by the compose file, and only need ov
 | `S3_ACCESS_KEY_ID` | `intlayer`                                          | `intlayer`                       | MinIO access key                                                              |
 
 在 Compose 模式下，`app` 服务还会额外注入 `INTLAYER_BACKEND_INTERNAL_URL=http://backend:3100`：浏览器在宿主机上通过 `localhost:3100` 访问 API，但前端的服务端渲染（SSR）在容器内网运行，必须通过服务名通信。
+
+### 自定义域名
+
+后端在运行时读取其公开 URL，但控制面板已将这些 URL **编译进代码**：官方发布的 `intlayer/cms-frontend` 和 `intlayer/cms-all` 镜像只能在 `http://localhost:3000` 上使用。因此，要在您自己的域名上提供 Intlayer 服务需要两样东西，在您回答域名问题时，安装程序会把两者都准备好：
+
+1. **env 文件中的四个变量**，由后端读取（Cookie、邮件链接、OAuth 回调、资源 URL），并由 `docker-compose.build.yml` 用作构建参数：
+
+   ```sh fileName="intlayer.env"
+   DOMAIN=example.org                          # cookie domain, parent of the hosts below
+   APP_URL=https://cms.example.org
+   BACKEND_URL=https://back.example.org
+   S3_PUBLIC_URL=https://s3.example.org/intlayer
+   ```
+
+2. **使用这些 URL 构建的控制面板镜像。** Docker 直接从仓库构建，无需检出代码：
+
+   ```sh
+   # Docker Compose: the override reads the build args from .env
+   docker compose -f docker-compose.yml -f docker-compose.build.yml up -d --build
+
+   # All-in-one
+   docker build -f docker/selfhost/Dockerfile \
+     --build-arg VITE_DOMAIN=example.org \
+     --build-arg VITE_SITE_URL=https://cms.example.org \
+     --build-arg VITE_IDE_URL=https://cms.example.org \
+     --build-arg VITE_BACKEND_URL=https://back.example.org \
+     -t intlayer/cms-all:custom \
+     https://github.com/aymericzip/intlayer.git#main
+   ```
+
+然后在容器前放置一个启用 TLS 的反向代理：`cms.example.org` → 端口 `3000`，`back.example.org` → `3100`，`s3.example.org` → `9000`。这三个主机必须共享 `DOMAIN` 后缀，因为会话 Cookie 的作用域限定在该域名。
 
 ### 可选变量（未配置时相关功能优雅降级）
 
@@ -528,9 +571,10 @@ const { data: dictionaries } = await dictionaryEndpoint(cms).getDictionaries();
 
 ## 限制条件
 
-- **不支持自定义域名与端口重映射。** 所有面向浏览器的 `VITE_*` 接口地址均在镜像构建阶段静态固化到了前端代码中，且官方镜像（及桌面应用）默认硬编码了 `localhost` / Intlayer Cloud 地址。控制面板必须通过 `http://localhost:3000` 访问，API 为 `:3100`，MinIO 为 `:9000`。若需部署在公网自定义域名下，或将桌面应用连接至自建后端，必须在构建时通过构建参数（在 `docker/selfhost/Dockerfile` 或 `docker-compose.build.yml` 中传入 `--build-arg VITE_BACKEND_URL=… VITE_SITE_URL=… VITE_DOMAIN=…`）重新编译镜像，目前暂不支持开箱即用的动态配置。
+- **自定义域名需要重新构建。** 所有面向浏览器的 `VITE_*` 接口地址均在镜像构建阶段静态固化到了前端代码中，且官方镜像（及桌面应用）默认硬编码了 `localhost` / Intlayer Cloud 地址。默认情况下，控制面板必须通过 `http://localhost:3000` 访问，API 为 `:3100`，MinIO 为 `:9000`；重映射宿主机端口也会导致同样的问题。当您提供域名时，安装程序会为从仓库重新构建准备好一切（参见[自定义域名](#custom-domain)），但构建本身需要几分钟。不支持将桌面应用连接至自建后端。
 - **必须配置可用的邮件发送服务。** 系统的首次初始化要求必须通过邮件链接完成身份验证，因此在启动前必须配置好 `RESEND_API_KEY` 或 [SMTP 中继](#global-mailer)（`MAIL_SMTP_*`）。在首个超级管理员成功登录后，各个子组织可以在控制面板中单独配置属于自己的 SMTP 或 Resend 凭证。
 - **桌面版应用需要在宿主机上安装 Node.js** 运行时以启动其内嵌的本地前端服务。
+- **没有文档助手。** intlayer.org 的 AI 文档助手（`/api/ai/ask`、`/api/search/doc`）依赖约 130 MB 预先计算的文档 embeddings，而自托管镜像并未包含这些数据；因此在自托管模式下不会注册这两个路由。控制面板自身的 AI 功能（翻译、审计、自动补全、聊天）不受影响，只需要 `OPENAI_API_KEY`。
 
 ## 相关参考链接
 

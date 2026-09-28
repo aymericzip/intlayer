@@ -278,10 +278,10 @@ Bu kurulum, içeriğin kullanıcının dil tercihine göre dinamik olarak alınm
 
 Intlayer'da dosya gömmenin yapılandırılması ve kullanımı hakkında daha fazla ayrıntı için aşağıdaki kaynaklara başvurun:
 
-- [Intlayer CLI Dokümantasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md)
-- [React Intlayer Dokümantasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_create_react_app.md)
-- [Next Intlayer Dokümantasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_15.md)
-- [Markdown İçerik Dokümantasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/markdown.md)
-- [Çeviri İçerik Dokümantasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/translation.md)
+- [Intlayer CLI Dokümantasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/index.md)
+- [React Intlayer Dokümantasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_create_react_app.md)
+- [Next Intlayer Dokümantasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_15.md)
+- [Markdown İçerik Dokümantasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/markdown.md)
+- [Çeviri İçerik Dokümantasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/translation.md)
 
 Bu kaynaklar, dosya gömmesi, içerik yönetimi ve çeşitli çerçevelerle Intlayer'ın entegrasyonu hakkında daha fazla bilgi sağlar.

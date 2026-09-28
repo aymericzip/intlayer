@@ -23,31 +23,43 @@ history:
 author: aymericzip
 ---
 
-# Middleware intlayer
+# Документація middleware intlayer для Remix 3
 
-Функція middleware `intlayer` налаштовує інтернаціоналізацію для кожного запиту в додатках Remix 3. Вона визначає локаль кожного вхідного запиту, застосовує правила перенаправлення URL та зберігає стан локалі в контексті запиту.
+Middleware `intlayer` для Remix 3 керує шаром інтернаціоналізації у всьому вашому додатку. Побудований на веб-стандартах (`Request` і `Response`), він обробляє маршрутизацію за локалями (перенаправлення та внутрішні перезаписи), визначає локаль запиту, зберігає її в cookie та заголовках, а також створює область `AsyncLocalStorage`, щоб подальші обробники й компоненти могли отримувати доступ до перекладів без передавання props по ланцюжку.
 
 ## Використання
 
-Зареєструйте middleware у своєму маршрутизаторі Remix:
+Зареєструйте middleware `intlayer` під час ініціалізації маршрутизатора Remix 3:
 
 ```ts fileName="src/server.ts"
 import { createRouter } from "remix/router";
-import { intlayer } from "remix-intlayer";
+import { intlayer, useIntlayer, useLocale } from "remix-intlayer";
 
-export const router = createRouter({
+const router = createRouter({
   middleware: [intlayer()],
+});
+
+// Обслуговує `/`, `/fr`, `/es`, локаль визначається із запиту
+router.get("/", () => {
+  const { title } = useIntlayer("home");
+  return new Response(title);
 });
 ```
 
-## Як це працює
+## Опис
 
-Middleware виконує такі завдання для кожного вхідного запиту:
+Middleware `intlayer` виконує такі завдання:
 
-1. **Визначення локалі**: Витягує локаль із префікса шляху URL (наприклад, `/uk/about`), файлів cookie або заголовка `Accept-Language` відповідно до вашої конфігурації Intlayer.
-2. **Перенаправлення URL**: Якщо запитаний шлях не містить префікса локалі, а конфігурація вимагає маршрутизації з префіксом, middleware повертає відповідь із перенаправленням (302/307/308) на відповідний URL із префіксом.
-3. **Заповнення контексту запиту**: Зберігає поточну визначену локаль у контексті запиту Remix за допомогою ключа `Intlayer`, що дозволяє хукам (`useLocale`, `useIntlayer`, `useDictionary`) прозоро її використовувати.
-4. **Керування cookie**: Встановлює заголовок `Set-Cookie`, коли потрібно зберегти бажану локаль користувача.
+1. **Підготовка словників**: Запускає `prepareIntlayer` під час старту, щоб усі згенеровані словники були зібрані та доступні.
+2. **Маршрутизація за локалями**: Оцінює запит відповідно до налаштованої стратегії маршрутизації (`prefix_always`, `prefix_as_needed`, `no_prefix`):
+   - **Перенаправлення**: Якщо користувач відкриває `/about` і має бути спрямований на шлях із префіксом локалі (наприклад, `/fr/about`), middleware повертає відповідь із перенаправленням і відповідними заголовками `location` та `Set-Cookie`.
+   - **Внутрішні перезаписи**: Коли користувач звертається до `/fr/about`, URL внутрішньо перезаписується, щоб ваш обробник маршруту збігався з `/about`, а визначена локаль фіксується як `fr`.
+   - **Локалізовані псевдоніми URL**: Враховує правила перезапису URL, визначені в `intlayer.config.ts` (наприклад, перезапис `/fr/about` на `/fr/a-propos`).
+3. **Визначення локалі**: Визначає активну локаль за префіксом URL, збереженими cookie, користувацькими заголовками або вподобаннями браузера `Accept-Language`.
+4. **Впровадження контексту**:
+   - Прикріплює `IntlayerState` (`locale`, `defaultLocale`, `availableLocales`) до `RequestContext` Remix під ключем `Intlayer` та в `context.intlayer`.
+   - Виконує решту запиту всередині області `AsyncLocalStorage` (`requestStorage`), що дозволяє коректно викликати `useIntlayer`, `useDictionary` і `useLocale` в обробниках, представленнях і компонентах.
+5. **Збереження**: Додає вихідні заголовки та cookie локалі до фінальної HTTP-відповіді, щоб зберегти вподобання користувача.
 
 ## Параметри
 
@@ -84,5 +96,5 @@ router.get("/api/locale", (context) => {
 ## Пов'язана документація
 
 - [Контекст запиту `Intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/remix-intlayer/Intlayer.md)
-- [Хук `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/remix-intlayer/useLocale.md)
 - [Хук `useIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/remix-intlayer/useIntlayer.md)
+- [Хук `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/remix-intlayer/useLocale.md)

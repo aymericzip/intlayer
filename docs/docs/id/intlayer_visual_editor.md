@@ -238,7 +238,9 @@ Jika Anda mengalami masalah dengan visual editor, periksa hal-hal berikut:
 
 <Question title="Apa perbedaan antara editor visual dan CMS?">
 
-Editor visual mengedit kamus lokal dan menyimpan perubahan langsung ke file kode sumber Anda, sehingga melalui proses review Git standar. CMS menyimpan konten di server remote untuk publikasi instan tanpa build ulang.
+Editor visual mengedit kamus lokal dan menulis perubahan kembali ke codebase Anda, sehingga melewati proses review dan deployment seperti biasa. [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md) mengedit kamus remote, yang berubah di situs yang sedang berjalan tanpa deployment. Editor cocok untuk konten yang dikelola developer; CMS cocok untuk konten yang dikelola tim marketing.
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)
 
 </Question>
 <Question title="Berapa banyak i18n menambah ukuran bundle saya?">
@@ -326,7 +328,10 @@ Bahkan jika diaktifkan, bebannya sangat ringan (+5 KB, dimuat secara dinamis han
 </Question>
 <Question title="Apakah editor visual gratis?">
 
-Ya. Editor visual adalah bagian dari proyek open source di bawah lisensi Apache 2.0, termasuk untuk penggunaan komersial.
+Ya. Editor visual adalah bagian dari proyek open source di bawah lisensi Apache 2.0, termasuk untuk penggunaan komersial. Hanya [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md) yang di-host yang merupakan layanan berbayar, dan CMS tersebut juga dapat di-[self-host](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/self_hosting.md).
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)
+- [self-host](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/self_hosting.md)
 
 </Question>
 

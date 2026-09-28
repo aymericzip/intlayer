@@ -51,12 +51,12 @@ Yani iki ana adım vardır:
 İnşa adımı üç şekilde yapılabilir:
 
 - CLI ile `npx intlayer build` kullanarak
-- [vscode uzantısı](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md) kullanarak
+- [vscode uzantısı](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/vs_code_extension.md) kullanarak
 - [`vite-intlayer` paketi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/vite-intlayer/index.md) gibi uygulama eklentileri veya [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/index.md) için eşdeğerleri kullanarak. Bu eklentilerden birini kullandığınızda, Intlayer uygulamanızı başlattığınızda (dev) veya oluşturduğunuzda (prod) sözlüklerinizi otomatik olarak oluşturacaktır.
 
 1. İçerik dosyalarının bildirimi
    - İçerik dosyaları TypeScript, ECMAScript, CommonJS veya JSON gibi çeşitli formatlarda tanımlanabilir.
-   - İçerik dosyaları projenin her yerinde tanımlanabilir, bu da daha iyi bakım ve ölçeklenebilirlik sağlar. İçerik dosyaları için dosya uzantısı kurallarına uymak önemlidir. Bu uzantı varsayılan olarak `*.content.{js|cjs|mjs|ts|tsx|json}`'dur, ancak [konfigürasyon dosyasında](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md) değiştirilebilir.
+   - İçerik dosyaları projenin her yerinde tanımlanabilir, bu da daha iyi bakım ve ölçeklenebilirlik sağlar. İçerik dosyaları için dosya uzantısı kurallarına uymak önemlidir. Bu uzantı varsayılan olarak `*.content.{js|cjs|mjs|ts|tsx|json}`'dur, ancak [konfigürasyon dosyasında](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) değiştirilebilir.
 
 2. `Sözlüklerin` oluşturulması
    - Sözlükler içerik dosyalarından oluşturulur. Varsayılan olarak, Intlayer sözlükleri projenin `.intlayer/dictionaries` dizininde oluşturulur.
@@ -84,9 +84,9 @@ const MyComponent = () => {
 
 Bu kanca yerel ayar algılamayı sizin için yönetecek ve mevcut yerel ayar için içeriği döndürecektir. Bu kancayı kullanarak, markdown'ı yorumlayabilir, çoğullaştırmayı yönetebilir ve daha fazlasını yapabilirsiniz.
 
-> Intlayer'ın tüm özelliklerini görmek için [sözlük dokümantasyonunu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md) okuyabilirsiniz.
+> Intlayer'ın tüm özelliklerini görmek için [sözlük dokümantasyonunu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md) okuyabilirsiniz.
 
-- [sözlük dokümantasyonunu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md)
+- [sözlük dokümantasyonunu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md)
 
 ## Uzak içerik
 
@@ -98,9 +98,9 @@ CMS'yi kullanarak dışa aktarılan sözlükler için, Intlayer uzak sözlükler
 
 ## Görsel düzenleyici
 
-Intlayer ayrıca içeriğinizi görsel bir şekilde düzenlemenize izin veren bir görsel düzenleyici sağlar. Bu [görsel düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) harici `intlayer-editor` paketinde mevcuttur.
+Intlayer ayrıca içeriğinizi görsel bir şekilde düzenlemenize izin veren bir görsel düzenleyici sağlar. Bu [görsel düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) harici `intlayer-editor` paketinde mevcuttur.
 
-- [görsel düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)
+- [görsel düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md)
 
 ![visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif?raw=true)
 
@@ -118,17 +118,17 @@ Babel ve SWC eklentileri, uygulamanızın Soyut Sözdizimi Ağacını (AST) anal
 
 Geliştirme modunda, Intlayer geliştirme deneyimini basitleştirmek için sözlükler için merkezi bir statik içe aktarma kullanır.
 
-[Konfigürasyonda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md) `importMode = "dynamic"` seçeneğini etkinleştirerek, Intlayer sözlükleri yüklemek için dinamik içe aktarmayı kullanacaktır. Bu seçenek, uygulama işlenirken eşzamansız işlemeyi önlemek için varsayılan olarak devre dışıdır.
+[Konfigürasyonda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) `importMode = "dynamic"` seçeneğini etkinleştirerek, Intlayer sözlükleri yüklemek için dinamik içe aktarmayı kullanacaktır. Bu seçenek, uygulama işlenirken eşzamansız işlemeyi önlemek için varsayılan olarak devre dışıdır.
 
-- [Konfigürasyonda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)
+- [Konfigürasyonda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md)
 
 > `@intlayer/babel` varsayılan olarak `vite-intlayer` paketinde mevcuttur,
 
 > `@intlayer/swc` Next.js'te SWC eklentileri hala deneysel olduğu için varsayılan olarak `next-intlayer` paketinde yüklü değildir.
 
-Uygulamanızın inşasını nasıl yapılandıracağınızı görmek için [konfigürasyon dokümantasyonunu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md) okuyabilirsiniz.
+Uygulamanızın inşasını nasıl yapılandıracağınızı görmek için [konfigürasyon dokümantasyonunu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) okuyabilirsiniz.
 
-- [konfigürasyon dokümantasyonunu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)
+- [konfigürasyon dokümantasyonunu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md)
 
 ## Paketler
 

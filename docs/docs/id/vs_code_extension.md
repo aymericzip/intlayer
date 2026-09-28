@@ -44,32 +44,32 @@ Tautan ekstensi: [https://marketplace.visualstudio.com/items?itemName=Intlayer.i
 
 ## Fitur
 
-![Ekstrak konten](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_extract_content.gif?raw=true)
+![Ekstrak konten](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_extract_content.gif?raw=true)
 
 - **Ekstrak Konten** – Ekstrak konten dari komponen React / Vue / Svelte Anda
 
-![Isi kamus](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_fill_active_dictionary.gif?raw=true)
+![Isi kamus](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_fill_active_dictionary.gif?raw=true)
 
 - **Navigasi Instan** – Melompat dengan cepat ke file konten yang benar saat mengklik kunci `useIntlayer`.
 - **Isi Kamus** – Mengisi kamus dengan konten dari proyek Anda.
 
-![Daftar perintah](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_list_commands.gif?raw=true)
+![Daftar perintah](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_list_commands.gif?raw=true)
 
 - **Akses Mudah ke Perintah Intlayer** – Membangun, mendorong, menarik, mengisi, menguji kamus konten dengan mudah.
 
-![Buat file konten](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_create_content_file.gif?raw=true)
+![Buat file konten](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_create_content_file.gif?raw=true)
 
 - **Generator Deklarasi Konten** – Membuat file konten kamus dalam berbagai format (`.ts`, `.esm`, `.cjs`, `.json`).
 
-![Uji kamus](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_test_missing_dictionary.gif?raw=true)
+![Uji kamus](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_test_missing_dictionary.gif?raw=true)
 
 - **Uji Kamus** – Uji kamus untuk terjemahan yang hilang.
 
-![Bangun ulang kamus](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_rebuild_dictionary.gif?raw=true)
+![Bangun ulang kamus](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_rebuild_dictionary.gif?raw=true)
 
 - **Perbarui kamus Anda** – Perbarui kamus Anda dengan konten terbaru dari proyek Anda.
 
-![Tab Intlayer (Activity Bar)](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_search_dictionary.gif?raw=true)
+![Tab Intlayer (Activity Bar)](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_search_dictionary.gif?raw=true)
 
 - **Tab Intlayer (Activity Bar)** – Jelajahi dan cari kamus dari tab samping khusus dengan toolbar dan aksi konteks (Build, Pull, Push, Fill, Refresh, Test, Create File).
 

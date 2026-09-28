@@ -137,7 +137,9 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-Gỡ cài đặt `@intlayer/analytics` có tác dụng tương tự `enabled: false`. Xem [tài liệu tham chiếu cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md) để biết danh sách đầy đủ các trường.
+Gỡ cài đặt `@intlayer/analytics` có tác dụng tương tự `enabled: false`. Xem [tài liệu tham chiếu cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md#analytics-configuration) để biết danh sách đầy đủ các trường.
+
+- [tài liệu tham chiếu cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md#analytics-configuration)
 
 ## Cách sử dụng
 

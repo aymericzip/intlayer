@@ -72,9 +72,9 @@ This hook accepts two parameters:
 
 ## Dictionary
 
-All dictionary keys must be declared within content declaration files to enhance type safety and prevent errors. [Configuration instructions can be found here](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md).
+All dictionary keys must be declared within content declaration files to enhance type safety and prevent errors. [Configuration instructions can be found here](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md).
 
-- [Configuration instructions can be found here](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md)
+- [Configuration instructions can be found here](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md)
 
 ## Usage Examples in React
 
@@ -177,6 +177,6 @@ When localizing attributes, access the translation values appropriately:
 
 ## Additional Resources
 
-- **Intlayer Visual Editor**: For a more intuitive content management experience, refer to the visual editor documentation [here](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md).
+- **Intlayer Visual Editor**: For a more intuitive content management experience, refer to the visual editor documentation [here](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md).
 
 This section specifically covers the integration of the `useI18n` hook in React applications, simplifying the localization process and ensuring content consistency across different locales.

@@ -1454,14 +1454,18 @@ Beş araç, hepsi isteğe bağlı:
 - **[ESLint eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/eslint.md)**: `no-raw-text` kuralı doğrudan kodlanmış metinleri işaretler.
 
 </Question>
-<Question title="Intlayer hangi Next.js sürümlerini destekler?">
+<Question title="Intlayer, Next.js App Router ve React Server Components ile çalışır mı?">
 
-Next.js 12, 13, 14, 15 ve 16. App Router ve Pages Router mimarilerinin her ikisi de tam olarak desteklenir.
+Evet. `next-intlayer` App Router için tasarlanmıştır: içerik sunucuda Server Components içinde çözümlenir, böylece sunucuda render edilen metinler için istemciye hiçbir sözlük gönderilmez. Client Components ise sağlayıcı (provider) üzerinden aynı `useIntlayer` hook'unu kullanır. Intlayer statik render'ı engellemez ve Turbopack ile uyumludur.
 
 </Question>
-<Question title="Intlayer React Server Components ile çalışır mı?">
+<Question title="Intlayer hangi Next.js sürümlerini destekler?">
 
-Evet. İçerik sunucuda Server Components içinde çözümlenir, böylece sunucuda render edilen metinler için istemciye hiçbir sözlük gönderilmez. Client Components ise sağlayıcı üzerinden aynı sözlükleri okur.
+Intlayer; Next.js 12, 13, 14, 15 ve 16 sürümlerini destekler. Bu rehber Next.js 16'yı kapsar. Daha eski kurulumlar için [Next.js 15 rehberini](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_15.md), [Next.js 14 rehberini](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_14.md) veya [Pages Router rehberini](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_page_router.md) izleyin.
+
+- [Next.js 15 rehberi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_15.md)
+- [Next.js 14 rehberi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_14.md)
+- [Pages Router rehberi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_page_router.md)
 
 </Question>
 <Question title="URL'ye /tr/about gibi yerel koymak zorunda mıyım?">
@@ -1473,43 +1477,42 @@ Hayır. URL şeması bir yapılandırma seçeneğidir, bir kısıtlama değildir
 - `"no-prefix"`: yolda yerel ayar yoktur, çerezden, başlıktan veya etki alanından çözümlenir.
 - `"search-params"`: `/about?locale=fr`.
 
-Ayrıca `routing.domains` ile her yerel ayarı kendi etki alanına eşleyebilirsiniz. Bkz. [yapılandırma referansı](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) ve yönlendirme modu seçenekleri için [Adım 2](#step-2-configure-your-project).
+Ayrıca `routing.domains` ile her yerel ayarı kendi etki alanına eşleyebilirsiniz. Bkz. [yapılandırma referansı](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) ve bu rehberin 2. adımındaki yerel yolu olmayan mimari.
 
 - [yapılandırma referansı](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md)
 
 </Question>
 <Question title="SEO için hreflang etiketlerini ve yerelleştirilmiş meta verileri nasıl eklerim?">
 
-`generateMetadata` ve `sitemap.xml` adımları bunu kapsar. `getMultilingualUrls` işlevi, `x-default` dahil bildirilen her yerel için `alternates.languages` eşlemesini oluşturur, böylece arama motorları doğru sürümü dizine ekler.
+Next.js `generateMetadata` fonksiyonunu Intlayer'ın `getMultilingualUrls` fonksiyonuyla birlikte kullanın. Bu fonksiyon, `x-default` girdisi dahil bildirilen her yerel ayar için `alternates.languages` eşlemesini oluşturur, böylece arama motorları doğru dil sürümünü sunar. Aynı yardımcı `sitemap.ts` ve `robots.ts` dosyalarını da yerelleştirir. Bu rehberin 8. ve 9. adımları kodun tamamını gösterir.
 
 </Question>
-<Question title="Middleware'e ihtiyacım var mı?">
+<Question title="Bir Next.js uygulamasını AI ile otomatik olarak nasıl çevirebilirim?">
 
-Middleware ziyaretçinin dilini algılar ve uygun ön eke yönlendirir, bu nedenle yerel yönlendirmesini kendiniz yönetmiyorsanız önerilir. API rotaları ve statik varlıklar kural dışı bırakılır.
-
-</Question>
-<Question title="Yerelleştirilmiş bir Link bileşeni nasıl oluşturulur?">
-
-Bileşen Next.js `Link` bileşenini sarar ve href değerini `getLocalizedUrl` üzerinden geçirir, böylece `/about` olarak yazılan dahili bağlantı geçerli yerelde otomatik olarak `/tr/about` olur.
-
-</Question>
-<Question title="Uygulamayı AI ile otomatik olarak nasıl çevirebilirim?">
-
-`npx intlayer fill` komutunu çalıştırın. Eksik çevirileri seçtiğiniz LLM ile kendi sağlayıcınız ve API anahtarınızı kullanarak tamamlar. `--git-diff` bayrağı işlemi geçerli daldaki değiştirilmiş içerikle sınırlar. Bkz. [fill komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/fill.md) ve [CI/CD entegrasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/CI_CD.md).
+`npx intlayer fill` komutunu çalıştırın. CLI, içerik dosyalarınızdaki eksik çevirileri algılar ve bunları kendi sağlayıcınızı ve API anahtarınızı kullanarak seçtiğiniz LLM ile doldurur; böylece ödemeyi doğrudan sağlayıcıya yaparsınız ve hiçbir şey üçüncü bir taraftan geçmez. Bkz. [fill komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/fill.md) ve [CI/CD entegrasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/CI_CD.md).
 
 - [fill komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/fill.md)
 - [CI/CD entegrasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/CI_CD.md)
 
 </Question>
-<Question title="Intlayer çoğulları, cinsiyeti ve zengin metni (rich text) destekliyor mu?">
+<Question title="Intlayer çoğulları, cinsiyeti, koşulları ve zengin metni (rich text) destekliyor mu?">
 
-Evet: [çoğul biçimleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/plurial.md), [cinsiyete dayalı içerik](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/gender.md), koşullar, [eklemeler (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/insertion.md), uzun metinler için [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/markdown.md) ve sayılar, tarihler ve para birimleri için [biçimlendiriciler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/formatters.md).
+Evet. İçerik bildirimleri [çoğul biçimleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/plurial.md), [cinsiyete dayalı içeriği](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/gender.md), koşulları, değişken değerler için [eklemeleri (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/insertion.md) ve yasal sayfalar veya blog içerikleri gibi zengin metinler için [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/markdown.md) desteğini içerir. Sayılar, tarihler ve para birimleri [biçimlendiriciler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/formatters.md) tarafından yönetilir.
 
 - [çoğul biçimleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/plurial.md)
 - [cinsiyete dayalı içerik](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/gender.md)
 - [eklemeler (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/insertion.md)
 - [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/markdown.md)
 - [biçimlendiriciler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/formatters.md)
+
+</Question>
+<Question title="Çevirmenler ve geliştirici olmayanlar içeriği nasıl düzenleyebilir?">
+
+İki seçenek vardır, ikisi de isteğe bağlıdır. [Görsel düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) kendi altyapınızda çalışır ve herkesin sitenizdeki metne tıklayarak onu yerinde düzenlemesine olanak tanır. [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) ise içeriği dışsallaştırır, böylece içerik bir dağıtım (deployment) gerekmeden güncellenebilir; [canlı senkronizasyon](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/live.md) değişiklikleri çalışma zamanında yansıtır.
+
+- [Görsel düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)
+- [canlı senkronizasyon](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/live.md)
 
 </Question>
 <Question title="Görsel düzenleyicinin maliyeti nedir? İhtiyacım yoksa gereksiz yere yük oluşturur mu?">
@@ -1521,9 +1524,18 @@ Evet: [çoğul biçimleri](https://github.com/aymericzip/intlayer/blob/main/docs
 Etkinleştirilse bile maliyet son derece düşüktür (yalnızca etkinleştirildiğinde dinamik olarak yüklenen +5 kB), çünkü mantığın ana kısmı [app.intlayer.org](https://app.intlayer.org) üzerindeki sunucu düzenleyicisi veya `intlayer-editor` paketi tarafından işlenir. Görsel düzenlemeye ihtiyaç duymadan yalnızca basit bir çeviri çözümüne ihtiyacınız varsa, Intlayer uygulamanıza hiçbir ek yük getirmez.
 
 </Question>
+<Question title="Eksik çevirileri yayına almadan önce nasıl yakalarım?">
+
+CI'da `npx intlayer test` komutunu çalıştırın. Bildirilen bir yerel ayarda içerik eksik olduğunda build başarısız olur, böylece çevrilmemiş bir metin asla production'a ulaşmaz. [VS Code eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/vs_code_extension.md) aynı hataları siz yazarken gösterir; [ESLint eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/eslint.md) ve onun `no-raw-text` kuralı ise koda gömülü metinleri yakalar. Bkz. [içeriğinizi test etme](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/testing.md).
+
+- [VS Code eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/vs_code_extension.md)
+- [ESLint eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/eslint.md)
+- [içeriğinizi test etme](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/testing.md)
+
+</Question>
 <Question title="Intlayer ücretsiz ve açık kaynaklı mı?">
 
-Evet, ticari kullanım dahil Apache 2.0 lisansı altındadır. Barındırılan CMS isteğe bağlı ücretli bir hizmettir ve ayrıca [kendi sunucunuzda barındırılabilir (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/self_hosting.md).
+Evet. Intlayer, Apache 2.0 lisansı altında açık kaynaklıdır; kütüphanenin tamamı, CLI, görsel düzenleyici ve derleyici, ticari kullanım dahil ücretsiz olarak kullanılabilir. Barındırılan CMS isteğe bağlı ücretli bir hizmettir ve ayrıca [kendi sunucunuzda barındırılabilir (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/self_hosting.md).
 
 - [kendi sunucunuzda barındırılabilir (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/self_hosting.md)
 

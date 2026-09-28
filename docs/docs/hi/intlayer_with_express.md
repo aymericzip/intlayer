@@ -306,14 +306,17 @@ export default config;
 </Question>
 <Question title="i18n मेरे Express सर्वर बंडल आकार को कितना बढ़ाता है?">
 
-पारंपरिक JSON कैटलॉग की तुलना में बहुत कम। Intlayer कंपाइलर बिल्ड समय पर शब्दकोशों को अनुकूलित करता है और प्रत्येक अनुरोध पर उन्हें फिर से पार्स नहीं करता है, जिससे मेमोरी उपयोग और कोल्ड स्टार्ट समय न्यूनतम रहता है। [बंडल अनुकूलन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/bundle_optimization.md) देखें।
+बहुत कम। शब्दकोश पहले से (ahead of time) संकलित होते हैं और केवल वही लोकेल शामिल किए जाते हैं जिन्हें आप घोषित करते हैं, इसलिए बूट पर कोई कैटलॉग लोडिंग नहीं होती और अनुरोध पथ पर कोई फ़ाइल रीड नहीं होता। यह सर्वरलेस और एज डिप्लॉयमेंट पर सबसे अधिक मायने रखता है, जहाँ बंडल का आकार कोल्ड स्टार्ट समय तय करता है। [बंडल अनुकूलन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/bundle_optimization.md) देखें।
 
 - [बंडल अनुकूलन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/bundle_optimization.md)
 
 </Question>
-<Question title="क्या मैं अपने हैंडलर को फिर से लिखे बिना i18next या अन्य बैकएंड लाइब्रेरी से माइग्रेट कर सकता हूँ?">
+<Question title="क्या मैं अपने हैंडलर को फिर से लिखे बिना `i18next` से माइग्रेट कर सकता हूँ?">
 
-हाँ। आप धीरे-धीरे माइग्रेट कर सकते हैं या मौजूदा API को बनाए रखने के लिए संगतता एडेप्टर का उपयोग कर सकते हैं।
+हाँ, और इसके दो रास्ते हैं। आप [i18next माइग्रेशन गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_i18next_to_intlayer.md) के साथ सामग्री को धीरे-धीरे माइग्रेट कर सकते हैं। या आप अपना मौजूदा API पूरी तरह रख सकते हैं: [compat adapters](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/index.md) बिल्कुल `i18next` जैसा ही API प्रदान करते हैं, लेकिन Intlayer शब्दकोशों द्वारा परोसा जाता है, इसलिए केवल imports बदलते हैं और हैंडलर कोड नहीं बदलता।
+
+- [i18next माइग्रेशन गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_i18next_to_intlayer.md)
+- [compat adapters](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/index.md)
 
 </Question>
 <Question title="क्या मैं अपनी मौजूदा JSON translation files को रख सकता हूं?">
@@ -331,7 +334,7 @@ export default config;
 
 - [extract command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/extract.md)
 
-पूर्ण स्वचालन के लिए, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md) बिल्ड समय पर यही काम करता है और प्रत्येक परिवर्तन पर शब्दकोश उत्पन्न करता है।
+उसी प्रोजेक्ट के फ्रंटएंड पक्ष पर, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md) इससे भी आगे जाता है और बिल्ड समय पर आपके JSX, TSX, Vue या Svelte स्रोत से शब्दकोश उत्पन्न करता है, ताकि ऐप के दोनों हिस्से बिना किसी हाथ से बनाए गए key के एक ही content layer साझा करें।
 
 - [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md)
 
@@ -340,73 +343,77 @@ export default config;
 
 पाँच उपकरण, सभी वैकल्पिक:
 
-- **[VS Code extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/vs_code_extension.md)**: एक कुंजी से सामग्री फ़ाइल तक जाएं, स्ट्रिंग्स निकालें, और कमांड पैलेट से build, fill, test, push और pull चलाएं।
-- **[LSP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/lsp.md)**: LSP का समर्थन करने वाले किसी भी संपादक में परिभाषा पर जाएं, अनुवादित मान का पूर्वावलोकन देखें, और कुंजी पूर्णता प्राप्त करें। `i18next` कॉल को भी संभालता है।
-- **[MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/mcp_server.md)**: Cursor, VS Code, Claude Desktop, Claude Code और ChatGPT के लिए Intlayer दस्तावेज़ और CLI प्रदान करता है।
-- **[Agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/agent_skills.md)**: केंद्रित कौशल जैसे `intlayer-config`, `intlayer-cli` और `intlayer-content`।
-- **[ESLint plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/eslint.md)**: `no-raw-text` नियम हार्डकोडेड स्ट्रिंग्स को चिह्नित करता है।
+- **[VS Code extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/vs_code_extension.md)**: किसी `useIntlayer` key से उसे घोषित करने वाली content फ़ाइल पर जाएं, किसी component से content निकालें, और कमांड पैलेट या एक समर्पित Intlayer टैब से build, fill, test, push और pull चलाएं।
+- **[LSP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/lsp.md)**: LSP का समर्थन करने वाले किसी भी संपादक में वही समझ, जिसमें go to definition, find all references, अनुवादित मान का hover पूर्वावलोकन, keys और fields की ऑटो-कम्प्लीशन, और कोई key कहीं घोषित न होने पर चेतावनी शामिल है। यह `i18next`, `react-i18next`, `next-intl` और `use-intl` कॉल्स को भी हल करता है, जो माइग्रेशन के दौरान मदद करता है।
+- **[MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/mcp_server.md)**: Cursor, VS Code, Claude Desktop, Claude Code और ChatGPT को Intlayer दस्तावेज़ और CLI उपलब्ध कराता है, ताकि असिस्टेंट अनुमान लगाने के बजाय वर्तमान दस्तावेज़ों से उत्तर दे और `intlayer fill` जैसी कमांड स्वयं चला सके।
+- **[Agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/agent_skills.md)**: `intlayer-config`, `intlayer-cli` और `intlayer-content` जैसी केंद्रित skills, साथ ही हर फ़्रेमवर्क के लिए एक, जो एजेंट को आपका रूटिंग सेटअप और content node प्रकार सिखाती हैं।
+- **[ESLint plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/eslint.md)**: `no-raw-text` हार्डकोडेड स्ट्रिंग्स को चिह्नित करता है, साथ ही स्थिर dictionary keys और अप्रयुक्त content के लिए अतिरिक्त नियम भी हैं।
 
 </Question>
-<Question title="आने वाले अनुरोधों पर क्लाइंट भाषा का पता कैसे लगाया जाता है?">
+<Question title="Intlayer को कैसे पता चलता है कि किस भाषा में उत्तर देना है?">
 
-`app.use(intlayer())` मिडलवेयर क्रमिक रूप से URL उपसर्ग, कुकी, `Accept-Language` हेडर की जांच करता है, और डिफ़ॉल्ट भाषा पर वापस लौटता है। पहचानी गई लोकेल `req.locale` में संग्रहीत होती है।
+डिफ़ॉल्ट रूप से `express-intlayer` आने वाले अनुरोध का `Accept-Language` हेडर पढ़ता है और सबसे निकटतम घोषित लोकेल चुनता है, और आवश्यकता होने पर आपके डिफ़ॉल्ट लोकेल पर लौट आता है। आप `routing.storage` के साथ स्रोत बदल सकते हैं, उदाहरण के लिए एक कस्टम हेडर या आपके फ्रंटएंड द्वारा सेट की गई कुकी, ताकि API उस भाषा में उत्तर दे जिसे उपयोगकर्ता ने वास्तव में चुना है, न कि वह जो उनका ब्राउज़र बताता है। [कॉन्फ़िगरेशन संदर्भ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md) देखें।
 
-</Question>
-<Question title="क्या वही सामग्री घोषणा मेरी API प्रतिक्रियाओं और वेब फ़्रंटएंड दोनों की सेवा कर सकती है?">
-
-हाँ, मोनोरेपो या साझा पैकेजों में यह एक प्रमुख लाभ है। घोषित शब्दकोश को बैकएंड (ईमेल, त्रुटियां, API प्रतिक्रियाएं) और फ़्रंटएंड (React, Vue, Svelte आदि) में आयात किया जा सकता है, जिससे सभी टेक्स्ट के लिए सत्य का एक ही स्रोत बना रहता है।
+- [कॉन्फ़िगरेशन संदर्भ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md)
 
 </Question>
-<Question title="क्या Intlayer अनुरोध हैंडलिंग को धीमा करता है?">
+<Question title="क्या लोकेल प्रति अनुरोध अलग-थलग (isolated) रहता है?">
 
-नहीं। भाषा का पता लगाना बेहद हल्के मिडलवेयर (कुकी, क्वेरी, या Accept-Language पढ़कर) में किया जाता है। शब्दकोश बिल्ड समय पर संकलित होते हैं और मेमोरी में रहते हैं, इसलिए अनुरोध आने पर कोई डिस्क रीडिंग या स्ट्रिंग पार्सिंग नहीं होती है।
-
-</Question>
-<Question title="त्रुटि प्रतिक्रियाओं, ईमेल और पुश सूचनाओं को स्थानीयकृत कैसे करें?">
-
-अनुरोध लोकेल के आधार पर `getIntlayer` या `t()` फ़ंक्शन को कॉल करके। यदि उपयोगकर्ता की भाषा डेटाबेस में संग्रहीत है, तो फ़ंक्शन को अनुरोध के बाहर पृष्ठभूमि नौकरियों के लिए स्पष्ट रूप से लक्षित लोकेल के साथ कॉल किया जा सकता है।
+हाँ। मिडलवेयर सक्रिय लोकेल को अनुरोध तक सीमित रखता है, इसलिए अलग-अलग भाषाओं में आने वाले दो समवर्ती अनुरोध कभी एक-दूसरे का लोकेल नहीं पढ़ते। यही कारण है कि हर फ़ंक्शन में लोकेल आर्ग्युमेंट पास किए बिना किसी सर्विस से `t()` और `getIntlayer()` को कॉल करना सुरक्षित है।
 
 </Question>
-<Question title="क्या मैं कस्टम भाषा डिटेक्टर का उपयोग कर सकता हूँ?">
+<Question title="मैं प्राप्तकर्ता की भाषा में ट्रांजेक्शनल ईमेल कैसे भेजूँ?">
 
-हाँ। आप एक कस्टम मिडलवेयर लिख सकते हैं जो उपयोगकर्ता सत्र या डेटाबेस प्रोफ़ाइल से लोकेल निकालता है और इसे `req.locale` को सौंपता है।
-
-</Question>
-<Question title="Express रूट्स में स्थानीयकृत URL उपसर्गों का उपयोग कैसे करें?">
-
-Intlayer रूटिंग विकल्पों के माध्यम से या अपने मार्गों में `/:locale/` सेगमेंट जोड़कर। `validatePrefix` मान्य भाषाओं को मान्य करता है।
+ईमेल की सामग्री को किसी भी अन्य सामग्री की तरह एक content फ़ाइल में घोषित करें, फिर अनुरोध लोकेल के बजाय प्राप्तकर्ता के संग्रहीत लोकेल के लिए `getIntlayer` से उसे प्राप्त करें। यह jobs और queues के लिए महत्वपूर्ण है, जहाँ भाषा उपयोगकर्ता रिकॉर्ड से संबंधित होती है और हेडर पढ़ने के लिए कोई आने वाला अनुरोध नहीं होता।
 
 </Question>
-<Question title="मैं ऐप को AI के साथ स्वचालित रूप से कैसे अनुवाद करूँ?">
+<Question title="मैं API त्रुटि संदेशों को स्थानीयकृत कैसे करूँ?">
 
-`npx intlayer fill` चलाएं। यह कमांड आपके चुने हुए LLM का उपयोग करके आपके अपने प्रदाता और API कुंजी के साथ लापता अनुवादों को भरता है, और `--git-diff` बदली गई फ़ाइलों तक संचालन को सीमित करता है। [fill command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/fill.md) और [CI/CD integration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/CI_CD.md) देखें।
+जहाँ त्रुटि बनाई जाती है, उसी स्थान पर संदेश को `t()` में लपेटें। सक्रिय अनुरोध लोकेल उसे हल करता है, इसलिए क्लाइंट को ऐसा संदेश मिलता है जिसे वह सीधे प्रदर्शित कर सकता है, और आपके फ्रंटएंड को त्रुटि कोड के समानांतर कैटलॉग की आवश्यकता नहीं होती।
+
+</Question>
+<Question title="क्या यह किसी मौजूदा Express ऐप और अन्य मिडलवेयर के साथ काम करता है?">
+
+हाँ। `express-intlayer` एक मानक Express मिडलवेयर है, इसलिए यह आपके मौजूदा स्टैक के साथ सहजता से जुड़ जाता है। इसे उन रूट्स से पहले पंजीकृत करें जो सामग्री पढ़ते हैं, ताकि जब कोई हैंडलर `t()` या `getIntlayer()` को कॉल करे तब तक लोकेल हल हो चुका हो।
+
+</Question>
+<Question title="मैं बैकएंड सामग्री का AI के साथ स्वचालित रूप से अनुवाद कैसे करूँ?">
+
+`npx intlayer fill` चलाएं, जो आपके अपने प्रदाता और API कुंजी का उपयोग करके आपकी पसंद के LLM से लापता अनुवाद भरता है। केवल ब्रांच पर बदली गई सामग्री का अनुवाद करने के लिए `--git-diff` जोड़ें। [fill command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/fill.md) और [CI/CD integration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/CI_CD.md) देखें।
 
 - [fill command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/fill.md)
 - [CI/CD integration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/CI_CD.md)
 
 </Question>
-<Question title="क्या Intlayer बहुवचन, लिंग और समृद्ध पाठ (rich text) का समर्थन करता है?">
+<Question title="क्या Intlayer सर्वर पर बहुवचन, लिंग और इंटरपोलेटेड मानों का समर्थन करता है?">
 
-हाँ: [बहुवचन (plurals)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/plurial.md), [लिंग-आधारित सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/gender.md), शर्तें, [सम्मिलन (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/insertion.md), और [प्रारूपक (formatters)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/formatters.md)।
+हाँ: [बहुवचन (plurals)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/plurial.md), [लिंग-आधारित सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/gender.md), शर्तें, इंटरपोलेटेड मानों के लिए [सम्मिलन (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/insertion.md), ईमेल बॉडी के लिए [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/markdown.md), और संख्याओं, तिथियों और मुद्राओं के लिए [प्रारूपक (formatters)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/formatters.md)।
 
 - [बहुवचन (plurals)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/plurial.md)
 - [लिंग-आधारित सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/gender.md)
 - [सम्मिलन (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/insertion.md)
-- [Intlayer में Markdown कंटेंट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/markdown.md)
+- [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/markdown.md)
 - [प्रारूपक (formatters)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/formatters.md)
 
 </Question>
-<Question title="गैर-तकनीकी टीम के सदस्य कोड को छुए बिना ईमेल टेम्पलेट और त्रुटि संदेशों को कैसे संपादित कर सकते हैं?">
+<Question title="क्या मुझे सर्वर पर TypeScript ऑटो-कम्प्लीशन मिलता है?">
 
-दो विकल्प उपलब्ध हैं: [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md), जो सामग्री को कोडबेस से अलग करता है और वेब के माध्यम से संपादन की अनुमति देता है, या [विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md), जो परिवर्तनों को सीधे स्थानीय कोड फ़ाइलों में सहेजता है।
+हाँ। Intlayer आपके शब्दकोशों के types को `./types/intlayer.d.ts` में उत्पन्न करता है, इसलिए कोई मौजूद न होने वाली key रनटाइम पर खाली स्ट्रिंग के बजाय कंपाइल त्रुटि बन जाती है। जब किसी घोषित लोकेल में सामग्री गायब हो तो बिल्ड विफल करने के लिए CI में `npx intlayer test` चलाएं।
 
-- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md)
-- [Docker से Intlayer सेल्फ-होस्ट करें](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/self_hosting.md)
+</Question>
+<Question title="क्या फ्रंटएंड और बैकएंड एक ही सामग्री साझा कर सकते हैं?">
+
+हाँ, और यही सामान्य सेटअप है। `express-intlayer` उसी घोषित सामग्री पर `react-intlayer`, `next-intlayer` और `vite-intlayer` के साथ काम करता है, इसलिए API प्रतिक्रिया और किसी पेज दोनों में उपयोग किया जाने वाला लेबल केवल एक बार घोषित होता है। [Intlayer कैसे काम करता है](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/how_works_intlayer.md) देखें।
+
+- [Intlayer कैसे काम करता है](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/how_works_intlayer.md)
 
 </Question>
 <Question title="क्या Intlayer मुफ्त और ओपन सोर्स है?">
 
-हाँ, Apache 2.0 लाइसेंस के तहत, व्यावसायिक उपयोग सहित। होस्टेड CMS एक वैकल्पिक सशुल्क सेवा है जिसे [स्वयं होस्ट (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/self_hosting.md) भी किया जा सकता है।
+हाँ, Apache 2.0 लाइसेंस के तहत, व्यावसायिक उपयोग सहित। होस्टेड [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md) एक वैकल्पिक सशुल्क सेवा है जिसे [स्वयं होस्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/self_hosting.md) भी किया जा सकता है।
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md)
+- [स्वयं होस्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/self_hosting.md)
 
 </Question>
 

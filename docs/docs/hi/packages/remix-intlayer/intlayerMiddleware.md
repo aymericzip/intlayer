@@ -23,31 +23,43 @@ history:
 author: aymericzip
 ---
 
-# intlayer मिडलवेयर
+# intlayer Remix 3 मिडलवेयर दस्तावेज़
 
-`intlayer` मिडलवेयर फ़ंक्शन Remix 3 एप्लिकेशनों में प्रति-अनुरोध अंतर्राष्ट्रीयकरण कॉन्फ़िगर करता है। यह प्रत्येक आने वाले अनुरोध के लोकेल का पता लगाता है, URL रीडायरेक्ट नियम लागू करता है, और अनुरोध संदर्भ में लोकेल स्थिति बनाए रखता है।
+Remix 3 के लिए `intlayer` मिडलवेयर आपके पूरे एप्लिकेशन में अंतर्राष्ट्रीयकरण परत का प्रबंधन करता है। वेब मानकों (`Request` और `Response`) पर निर्मित, यह लोकेल रूटिंग (रीडायरेक्ट और आंतरिक रीराइट) को संभालता है, अनुरोध के लोकेल का पता लगाता है, उसे कुकीज़ और हेडर में सहेजता है, और एक `AsyncLocalStorage` स्कोप स्थापित करता है ताकि आगे के हैंडलर और कंपोनेंट्स props ड्रिलिंग के बिना अनुवादों तक पहुँच सकें।
 
 ## उपयोग
 
-अपने Remix राउटर में मिडलवेयर पंजीकृत करें:
+अपने Remix 3 राउटर को इनिशियलाइज़ करते समय `intlayer` मिडलवेयर पंजीकृत करें:
 
 ```ts fileName="src/server.ts"
 import { createRouter } from "remix/router";
-import { intlayer } from "remix-intlayer";
+import { intlayer, useIntlayer, useLocale } from "remix-intlayer";
 
-export const router = createRouter({
+const router = createRouter({
   middleware: [intlayer()],
+});
+
+// `/`, `/fr`, `/es` को सर्व करता है, लोकेल अनुरोध से हल किया जाता है
+router.get("/", () => {
+  const { title } = useIntlayer("home");
+  return new Response(title);
 });
 ```
 
-## यह कैसे काम करता है
+## विवरण
 
-मिडलवेयर प्रत्येक आने वाले अनुरोध के लिए निम्नलिखित कार्य करता है:
+`intlayer` मिडलवेयर निम्नलिखित कार्य करता है:
 
-1. **लोकेल का पता लगाना**: आपके Intlayer कॉन्फ़िगरेशन के अनुसार URL पथ उपसर्ग (उदा. `/hi/about`), कुकीज़, या `Accept-Language` हेडर से लोकेल निकालता है।
-2. **URL रीडायरेक्शन**: यदि अनुरोधित पथ में लोकेल उपसर्ग नहीं है और कॉन्फ़िगरेशन को उपसर्ग रूटिंग की आवश्यकता है, तो मिडलवेयर संबंधित उपसर्ग वाले URL पर एक रीडायरेक्ट प्रतिक्रिया (302/307/308) लौटाता है।
-3. **अनुरोध संदर्भ भरना**: `Intlayer` कुंजी का उपयोग करके वर्तमान हल किए गए लोकेल को Remix अनुरोध संदर्भ में सहेजता है, जिससे हुक्स (`useLocale`, `useIntlayer`, `useDictionary`) पारदर्शी रूप से इसका उपभोग कर सकें।
-4. **कुकी प्रबंधन**: उपयोगकर्ता के पसंदीदा लोकेल को बनाए रखने की आवश्यकता होने पर `Set-Cookie` हेडर सेट करता है।
+1. **डिक्शनरी तैयारी**: स्टार्टअप पर `prepareIntlayer` चलाता है ताकि यह सुनिश्चित हो सके कि सभी जनरेट की गई डिक्शनरी बिल्ड हो चुकी हैं और उपलब्ध हैं।
+2. **लोकेल रूटिंग**: कॉन्फ़िगर की गई रूटिंग रणनीति (`prefix_always`, `prefix_as_needed`, `no_prefix`) के अनुसार अनुरोध का मूल्यांकन करता है:
+   - **रीडायरेक्ट**: यदि कोई उपयोगकर्ता `/about` पर जाता है और उसे लोकेल उपसर्ग (उदा. `/fr/about`) पर रूट किया जाना चाहिए, तो मिडलवेयर उपयुक्त `location` और `Set-Cookie` हेडर के साथ एक रीडायरेक्ट प्रतिक्रिया जारी करता है।
+   - **आंतरिक रीराइट**: जब कोई उपयोगकर्ता `/fr/about` तक पहुँचता है, तो URL को आंतरिक रूप से रीराइट किया जाता है ताकि आपका रूट हैंडलर `/about` से मेल खाए, जबकि हल किया गया लोकेल `fr` के रूप में दर्ज किया जाता है।
+   - **स्थानीयकृत URL उपनाम**: `intlayer.config.ts` में परिभाषित URL रीराइट नियमों का पालन करता है (उदा. `/fr/about` को `/fr/a-propos` में रीराइट करना)।
+3. **लोकेल समाधान**: URL उपसर्ग, सहेजी गई कुकीज़, कस्टम हेडर, या `Accept-Language` ब्राउज़र प्राथमिकताओं के आधार पर सक्रिय लोकेल का पता लगाता है।
+4. **संदर्भ इंजेक्शन**:
+   - `IntlayerState` (`locale`, `defaultLocale`, `availableLocales`) को Remix `RequestContext` में `Intlayer` कुंजी के तहत और `context.intlayer` में संलग्न करता है।
+   - अनुरोध के शेष भाग को एक `AsyncLocalStorage` स्कोप (`requestStorage`) के भीतर चलाता है, जिससे `useIntlayer`, `useDictionary`, और `useLocale` को हैंडलर, व्यू और कंपोनेंट्स में सहजता से कॉल किया जा सकता है।
+5. **स्थायित्व**: उपयोगकर्ता की प्राथमिकता को बनाए रखने के लिए आउटगोइंग लोकेल हेडर और कुकीज़ को अंतिम HTTP प्रतिक्रिया में संलग्न करता है।
 
 ## पैरामीटर
 
@@ -84,5 +96,5 @@ router.get("/api/locale", (context) => {
 ## संबंधित दस्तावेज़
 
 - [`Intlayer` अनुरोध संदर्भ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/remix-intlayer/Intlayer.md)
-- [`useLocale` हुक](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/remix-intlayer/useLocale.md)
 - [`useIntlayer` हुक](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/remix-intlayer/useIntlayer.md)
+- [`useLocale` हुक](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/remix-intlayer/useLocale.md)

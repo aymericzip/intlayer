@@ -291,9 +291,12 @@ Intlayer के साथ अपने विकास अनुभव को �
 - [बंडल अनुकूलन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/bundle_optimization.md)
 
 </Question>
-<Question title="क्या मैं अपने हैंडलर और सेवाओं को फिर से लिखे बिना nestjs-i18n से माइग्रेट कर सकता हूँ?">
+<Question title="क्या मैं अपने हैंडलर फिर से लिखे बिना `i18next` से माइग्रेट कर सकता हूँ?">
 
-काफी हद तक हाँ। [sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-json.md) Intlayer शब्दकोश उत्पन्न करते हुए मौजूदा फ़ाइलों को बनाए रखता है।
+हाँ, और इसके दो रास्ते हैं। आप [i18next माइग्रेशन गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_i18next_to_intlayer.md) के साथ content को धीरे-धीरे माइग्रेट कर सकते हैं। या आप अपनी मौजूदा API को पूरी तरह बनाए रख सकते हैं: [compat adapters](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/index.md) बिल्कुल वही API प्रदान करते हैं जो `i18next` की है, लेकिन उसे Intlayer dictionaries परोसती हैं, इसलिए केवल imports बदलते हैं और handler code नहीं बदलता।
+
+- [i18next माइग्रेशन गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_i18next_to_intlayer.md)
+- [compat adapters](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/index.md)
 
 </Question>
 <Question title="क्या मैं अपनी मौजूदा JSON translation files को रख सकता हूं?">
@@ -327,14 +330,11 @@ Intlayer के साथ अपने विकास अनुभव को �
 - **[ESLint plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/eslint.md)**: `no-raw-text` नियम हार्डकोडेड स्ट्रिंग्स को चिह्नित करता है।
 
 </Question>
-<Question title="आने वाले अनुरोधों पर क्लाइंट भाषा का पता कैसे लगाया जाता है?">
+<Question title="Intlayer को कैसे पता चलता है कि किस भाषा में जवाब देना है?">
 
-NestJS इंटरसेप्टर या मिडलवेयर हेडर और कुकीज़ की जांच करता है, लोकेल को अनुरोध संदर्भ से जोड़ता है।
+डिफ़ॉल्ट रूप से `express-intlayer` आने वाले request के `Accept-Language` header को पढ़ता है और सबसे नज़दीकी घोषित locale चुनता है, अन्यथा आपके default locale पर लौट आता है। आप `routing.storage` के साथ स्रोत बदल सकते हैं, उदाहरण के लिए एक custom header या आपके frontend द्वारा सेट की गई cookie, ताकि API उस भाषा में जवाब दे जिसे उपयोगकर्ता ने वास्तव में चुना है, न कि उसमें जो उसका browser बताता है। देखें [configuration reference](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md)।
 
-</Question>
-<Question title="क्या वही सामग्री घोषणा मेरी API प्रतिक्रियाओं और वेब फ़्रंटएंड दोनों की सेवा कर सकती है?">
-
-हाँ, मोनोरेपो या साझा पैकेजों में यह एक प्रमुख लाभ है। घोषित शब्दकोश को बैकएंड (ईमेल, त्रुटियां, API प्रतिक्रियाएं) और फ़्रंटएंड (React, Vue, Svelte आदि) में आयात किया जा सकता है, जिससे सभी टेक्स्ट के लिए सत्य का एक ही स्रोत बना रहता है।
+- [configuration reference](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md)
 
 </Question>
 <Question title="क्या Intlayer अनुरोध हैंडलिंग को धीमा करता है?">
@@ -376,17 +376,24 @@ Intlayer सेवाओं और इंटरसेप्टर्स को N
 - [प्रारूपक (formatters)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/formatters.md)
 
 </Question>
-<Question title="गैर-तकनीकी टीम के सदस्य कोड को छुए बिना ईमेल टेम्पलेट और त्रुटि संदेशों को कैसे संपादित कर सकते हैं?">
+<Question title="क्या मुझे सर्वर पर TypeScript autocompletion मिलता है?">
 
-दो विकल्प उपलब्ध हैं: [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md), जो सामग्री को कोडबेस से अलग करता है और वेब के माध्यम से संपादन की अनुमति देता है, या [विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md), जो परिवर्तनों को सीधे स्थानीय कोड फ़ाइलों में सहेजता है।
+हाँ। Intlayer आपकी dictionaries के types को `./types/intlayer.d.ts` में generate करता है, इसलिए जो key मौजूद नहीं है वह runtime पर खाली string के बजाय एक compile error बन जाती है। CI में `npx intlayer test` चलाएँ ताकि किसी घोषित locale में content गायब होने पर build fail हो जाए।
 
-- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md)
-- [Docker से Intlayer सेल्फ-होस्ट करें](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/self_hosting.md)
+</Question>
+<Question title="क्या frontend और backend एक ही content साझा कर सकते हैं?">
+
+हाँ, और यही सामान्य सेटअप है। `express-intlayer` उसी घोषित content पर `react-intlayer`, `next-intlayer` और `vite-intlayer` के साथ काम करता है, इसलिए API response और किसी पेज दोनों में उपयोग होने वाला label केवल एक बार घोषित किया जाता है। देखें [Intlayer कैसे काम करता है](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/how_works_intlayer.md)।
+
+- [Intlayer कैसे काम करता है](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/how_works_intlayer.md)
 
 </Question>
 <Question title="क्या Intlayer मुफ्त और ओपन सोर्स है?">
 
-हाँ, Apache 2.0 लाइसेंस के तहत, व्यावसायिक उपयोग सहित। होस्टेड CMS एक वैकल्पिक सशुल्क सेवा है जिसे [स्वयं होस्ट (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/self_hosting.md) भी किया जा सकता है।
+हाँ, Apache 2.0 लाइसेंस के तहत, व्यावसायिक उपयोग सहित। होस्टेड [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md) एक वैकल्पिक सशुल्क सेवा है जिसे [self-hosted](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/self_hosting.md) भी किया जा सकता है।
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md)
+- [self-hosted](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/self_hosting.md)
 
 </Question>
 

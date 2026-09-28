@@ -201,6 +201,6 @@ app.get("/morning", (c) => {
 
 ## 결론
 
-`t` 함수는 백엔드 국제화를 위한 강력한 도구입니다. 이를 효과적으로 사용하여 글로벌 사용자를 위해 더 포용적이고 사용자 친화적인 애플리케이션을 만들 수 있습니다. 고급 사용법 및 자세한 구성 옵션은 [문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)를 참조하세요.
+`t` 함수는 백엔드 국제화를 위한 강력한 도구입니다. 이를 효과적으로 사용하여 글로벌 사용자를 위해 더 포용적이고 사용자 친화적인 애플리케이션을 만들 수 있습니다. 고급 사용법 및 자세한 구성 옵션은 [문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참조하세요.
 
-- [Intlayer Configuration (intlayer.config.ts)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)
+- [Intlayer Configuration (intlayer.config.ts)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)

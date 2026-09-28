@@ -28,10 +28,10 @@ author: aymericzip
 
 Intlayer supports two mechanisms for expressing content that goes beyond a single static dictionary per key. Each is declared through a **top-level metadata field** in the content file; no wrapper function is needed.
 
-| Feature                                                                                                          | Metadata field                          | Selector in `useIntlayer`                       |
-| ---------------------------------------------------------------------------------------------------------------- | --------------------------------------- | ----------------------------------------------- |
-| [Collections](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dynamic_dictionaries/collections.md) | `item: N`                               | `{ item: N }`                                   |
-| [Variants](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dynamic_dictionaries/variants.md)       | `variant: "name"` _or_ `variant: { … }` | `{ variant: "name" }` _or_ `{ variant: { … } }` |
+| Feature                                                                                                             | Metadata field                          | Selector in `useIntlayer`                       |
+| ------------------------------------------------------------------------------------------------------------------- | --------------------------------------- | ----------------------------------------------- |
+| [Collections](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dynamic_dictionaries/collections.md) | `item: N`                               | `{ item: N }`                                   |
+| [Variants](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dynamic_dictionaries/variants.md)       | `variant: "name"` _or_ `variant: { … }` | `{ variant: "name" }` _or_ `{ variant: { … } }` |
 
 Both compose with the locale argument and support selective / lazy loading via `importMode`.
 

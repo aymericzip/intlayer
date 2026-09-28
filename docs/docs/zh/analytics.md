@@ -137,7 +137,9 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-卸载 `@intlayer/analytics` 与设置 `enabled: false` 效果相同。完整字段列表请参阅[配置参考](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
+卸载 `@intlayer/analytics` 与设置 `enabled: false` 效果相同。完整字段列表请参阅[配置参考](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md#analytics-configuration)。
+
+- [配置参考](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md#analytics-configuration)
 
 ## 使用方法
 

@@ -958,24 +958,26 @@ Beş araç, hepsi isteğe bağlı:
 - **[ESLint eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/eslint.md)**: `no-raw-text` kuralı doğrudan kodlanmış metinleri işaretler.
 
 </Question>
-<Question title="Next.js'in yerleşik i18n seçeneği Pages Router ile hala çalışır mı?">
-
-Evet. Next.js Pages Router'ın yerleşik `i18n` yapılandırması Intlayer ile tamamen uyumludur; Intlayer yönlendirmeyi Next.js'e bırakırken içerik katmanını yönetir.
-
-</Question>
 <Question title="Pages Router'da mı kalmalıyım yoksa App Router'a mı geçmeliyim?">
 
-Mevcut projeler Pages Router ile sorunsuz devam edebilir. Yeni projeler veya React Server Components avantajlarından yararlanmak isteyenler için App Router önerilir.
+Burada hiçbir şey sizi geçişe zorlamaz. Intlayer her ikisini de destekler ve içerik bildirimleri aynıdır; bu nedenle router'ı daha sonra taşımak i18n yapınızı yeniden yazmak anlamına gelmez. Geçişi zaten planlıyorsanız, bunun yerine [Next.js 16 rehberini](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_16.md) izleyin ve sözlükleri istemciden tamamen uzak tutan Server Component render'ından yararlanın.
+
+- [Next.js 16 rehberi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_16.md)
 
 </Question>
-<Question title="URL'ye /tr/about gibi yerel koymak zorunda mıyım?">
+<Question title="Next.js'in yerleşik i18n seçeneği Pages Router ile hala çalışır mı?">
 
-Hayır. `routing.mode` ayarı `"prefix-no-default"` (varsayılan: varsayılan dilde `/about`, diğerlerinde `/tr/about`), `"prefix-all"`, `"no-prefix"` ve `"search-params"` değerlerini kabul eder. `routing.domains` ise her dili kendi alan adına eşler. Bkz. [yapılandırma belgeleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) ve [yerel yolu olmayan kılavuz](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_no_locale_path.md).
+Evet ve App Router'dan temel farkı da budur; App Router'da bu seçenek geçerli değildir. Size yerel ayar önekleri ve `Accept-Language` algılaması sağlar ancak hiçbir mesaj katmanı sunmaz; yani yönlendirmeyi çözer ve çeviriyi bir kütüphaneye bırakır. Onu koruyabilir ya da `routing.mode` ve 4. adımdaki middleware aracılığıyla yönlendirmeyi de Intlayer'a bırakabilirsiniz.
 
 </Question>
 <Question title="SEO için hreflang etiketlerini ve yerelleştirilmiş meta verileri nasıl eklerim?">
 
-`generateMetadata` ve `sitemap.xml` adımları bunu kapsar. `getMultilingualUrls` işlevi, `x-default` dahil bildirilen her yerel için `alternates.languages` eşlemesini oluşturur, böylece arama motorları doğru sürümü dizine ekler.
+Bunu 8. adım kapsar. Alternatifleri `x-default` girdisi dahil `getMultilingualUrls` ile oluşturun ve arama motorlarının doğru dil sürümünü sunması için her sayfada `next/head` üzerinden ekleyin.
+
+</Question>
+<Question title="Yerelleştirilmiş bir Link bileşeni nasıl oluşturulur?">
+
+10. adım bunu gösterir. Bileşen Next.js `Link` bileşenini sarar ve href değerini `getLocalizedUrl` üzerinden geçirir; böylece `/about` olarak yazılan dahili bir bağlantı, yerel ayarı her kullanım yerinde tekrarlamanıza gerek kalmadan Fransız bir ziyaretçi için `/fr/about` olur.
 
 </Question>
 <Question title="Uygulamayı AI ile otomatik olarak nasıl çevirebilirim?">

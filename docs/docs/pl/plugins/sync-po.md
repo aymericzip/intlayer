@@ -320,9 +320,9 @@ Zsynchronizowane pliki PO będą traktowane jak inne pliki `.content`. Oznacza t
 - `intlayer content push` aby wysłać zsynchronizowane pliki PO
 - `intlayer content pull` aby pobrać zsynchronizowane pliki PO
 
-Zobacz [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md) po więcej szczegółów.
+Zobacz [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/index.md) po więcej szczegółów.
 
-- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md)
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/index.md)
 
 ## Ograniczenia (aktualne)
 

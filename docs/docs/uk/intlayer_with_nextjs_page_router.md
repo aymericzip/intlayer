@@ -969,24 +969,26 @@ Pages Router все ще підтримує вбудоване поле `i18n` �
 - **[Плагін ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/eslint.md)**: правило `no-raw-text` відстежує жорстко закодовані рядки.
 
 </Question>
-<Question title="Чи працює вбудована опція i18n у Pages Router із Intlayer?">
-
-Так. Вбудована конфігурація `i18n` у Next.js Pages Router повністю сумісна з Intlayer: Next.js відповідає за маршрутизацію, а Intlayer керує контентом.
-
-</Question>
 <Question title="Чи залишатися на Pages Router, чи мігрувати на App Router?">
 
-Існуючі проекти на Pages Router працюють надійно. Для нових проектів або використання переваг React Server Components рекомендується App Router.
+Ніщо тут не змушує вас переходити. Intlayer підтримує обидва варіанти, а декларації контенту ідентичні, тож міграція роутера пізніше не означає переписування вашої i18n. Якщо ви вже плануєте перехід, дотримуйтесь натомість [посібника з Next.js 16](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_nextjs_16.md) і отримайте рендеринг через Server Components, який повністю тримає словники поза клієнтом.
+
+- [Посібник з Next.js 16](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_nextjs_16.md)
 
 </Question>
-<Question title="Чи обов'язково додавати локаль до URL, наприклад /uk/about?">
+<Question title="Чи працює вбудована опція i18n Next.js з Pages Router?">
 
-Ні. Налаштування `routing.mode` приймає `"prefix-no-default"` (за замовчуванням: `/about` для основної мови та `/uk/about` для інших), `"prefix-all"`, `"no-prefix"` та `"search-params"`. Налаштування `routing.domains` прив'язує кожну мову до власного домену. Див. [довідник конфігурації](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md).
+Так, і це головна відмінність від App Router, де вона не застосовується. Вона дає префікси локалей і визначення `Accept-Language`, але не має жодного шару повідомлень, тож вирішує маршрутизацію, а переклад залишає бібліотеці. Ви можете залишити її або довірити маршрутизацію також Intlayer через `routing.mode` та middleware з кроку 4.
 
 </Question>
 <Question title="Як додати теги hreflang та локалізовані метадані для SEO?">
 
-Кроки `generateMetadata` та `sitemap.xml` описують це. Функція `getMultilingualUrls` створює відображення `alternates.languages` для кожної оголошеної локалі, включно з `x-default`, щоб пошукові системи правильно індексували сторінки.
+Це описано в кроці 8. Сформуйте alternates за допомогою `getMultilingualUrls`, включно із записом `x-default`, і виводьте їх через `next/head` на кожній сторінці, щоб пошукові системи показували правильну мовну версію.
+
+</Question>
+<Question title="Як створити компонент локалізованого посилання (Link)?">
+
+Це показано в кроці 10. Компонент обгортає `Link` з Next.js і передає href через `getLocalizedUrl`, тож внутрішнє посилання, записане як `/about`, стає `/fr/about` для франкомовного відвідувача без повторення локалі в кожному місці виклику.
 
 </Question>
 <Question title="Як автоматично перекласти додаток за допомогою AI?">

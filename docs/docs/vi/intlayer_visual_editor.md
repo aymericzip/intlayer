@@ -238,7 +238,9 @@ Nếu bạn gặp bất kỳ vấn đề nào với trình chỉnh sửa trực 
 
 <Question title="Sự khác biệt giữa visual editor và CMS là gì?">
 
-Visual editor chỉnh sửa các từ điển cục bộ và lưu thay đổi trực tiếp vào các tệp mã nguồn của bạn, do đó trải qua quy trình review Git chuẩn. CMS lưu trữ nội dung trên server từ xa để xuất bản tức thì mà không cần build lại.
+Visual editor chỉnh sửa các từ điển cục bộ và ghi thay đổi trở lại codebase của bạn, do đó đi qua quy trình review và triển khai thông thường. [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md) chỉnh sửa các từ điển từ xa, vốn thay đổi trên trang đang chạy mà không cần triển khai. Editor phù hợp với nội dung do developer quản lý; CMS phù hợp với nội dung do đội marketing quản lý.
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)
 
 </Question>
 <Question title="i18n làm tăng kích thước bundle của tôi bao nhiêu?">
@@ -326,7 +328,10 @@ Ngay cả khi được bật, chi phí cũng cực kỳ nhẹ (+5 KB, chỉ tả
 </Question>
 <Question title="Visual editor có miễn phí không?">
 
-Có. Visual editor là một phần của dự án mã nguồn mở theo giấy phép Apache 2.0, bao gồm cả mục đích thương mại.
+Có. Visual editor là một phần của dự án mã nguồn mở theo giấy phép Apache 2.0, bao gồm cả mục đích thương mại. Chỉ [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md) được host là dịch vụ trả phí, và nó cũng có thể được [tự host](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/self_hosting.md).
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)
+- [tự host](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/self_hosting.md)
 
 </Question>
 

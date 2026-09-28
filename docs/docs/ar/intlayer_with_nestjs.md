@@ -293,9 +293,12 @@ export default config;
 - [تحسين الحزم](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md)
 
 </Question>
-<Question title="هل يمكنني الترحيل من nestjs-i18n دون إعادة كتابة المعالجات والخدمات؟">
+<Question title="هل يمكنني الترحيل من `i18next` دون إعادة كتابة المعالجات؟">
 
-إلى حد كبير نعم. تحافظ [مكونة مزامنة JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/plugins/sync-json.md) على الملفات الحالية وتنشئ قواميس Intlayer منها.
+نعم، وهناك مساران. يمكنك ترحيل المحتوى تدريجيًا باستخدام [دليل الترحيل من i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_i18next_to_intlayer.md). أو يمكنك الاحتفاظ بواجهة API الحالية بالكامل: تكشف [محولات التوافق (compat adapters)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/index.md) نفس واجهة API الخاصة بـ `i18next` تمامًا، لكن تخدمها قواميس Intlayer، لذا تتغير الاستيرادات فقط ولا يتغير كود المعالجات.
+
+- [دليل الترحيل من i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_i18next_to_intlayer.md)
+- [محولات التوافق (compat adapters)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/index.md)
 
 </Question>
 <Question title="هل يمكنني الاحتفاظ بملفات الترجمة JSON الموجودة لدي؟">
@@ -329,14 +332,11 @@ export default config;
 - **[ESLint plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/eslint.md)**: قاعدة `no-raw-text` ترصد النصوص المكتوبة يدويًا بدون تدويل.
 
 </Question>
-<Question title="كيف يتم اكتشاف لغة العميل في الطلبات الواردة؟">
+<Question title="كيف يعرف Intlayer اللغة التي يجب أن يجيب بها؟">
 
-يفحص معترض أو برمجية NestJS الوسيطة الترويسات وملفات تعريف الارتباط، ويربط اللغة بسياق الطلب.
+افتراضيًا، يقرأ `express-intlayer` ترويسة `Accept-Language` للطلب الوارد ويختار أقرب لغة مُعلنة، مع الرجوع إلى لغتك الافتراضية. يمكنك تغيير المصدر عبر `routing.storage`، مثل ترويسة مخصصة أو ملف تعريف ارتباط (cookie) تضبطه واجهتك الأمامية، بحيث تجيب الـ API باللغة التي اختارها المستخدم فعليًا بدلاً من تلك التي يعلن عنها متصفحه. انظر [مرجع الإعدادات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
 
-</Question>
-<Question title="هل يمكن لنفس إعلان المحتوى أن يخدم استجابات API والواجهة الأمامية للويب؟">
-
-نعم، هذه ميزة رئيسية في المستودعات الأحادية (monorepos) أو الحزم المشتركة. يمكن استيراد القاموس المصرح به في الواجهة الخلفية (رسائل البريد الإلكتروني، الأخطاء، استجابات API) والواجهة الأمامية (React, Vue, Svelte إلخ)، مما يحافظ على مصدر واحد للحقيقة لجميع النصوص.
+- [مرجع الإعدادات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md)
 
 </Question>
 <Question title="هل يؤدي Intlayer إلى إبطاء معالجة الطلبات؟">
@@ -378,17 +378,24 @@ export default config;
 - [المنسّقات: الأرقام والتواريخ والعملات حسب اللغة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/formatters.md)
 
 </Question>
-<Question title="كيف يمكن لأعضاء الفريق غير التقنيين تحرير قوالب البريد الإلكتروني ورسائل الخطأ دون لمس الكود؟">
+<Question title="هل أحصل على الإكمال التلقائي لـ TypeScript على الخادم؟">
 
-خياران متاحان: [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)، الذي يفصل المحتوى عن قاعدة الكود ويسمح بالتحرير عبر الويب، أو [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)، الذي يحفظ التغييرات مباشرة في ملفات الكود المحلية.
+نعم. يُنشئ Intlayer أنواع القواميس الخاصة بك في `./types/intlayer.d.ts`، لذا فإن المفتاح غير الموجود يصبح خطأً في الترجمة البرمجية (compile error) بدلاً من سلسلة فارغة وقت التشغيل. شغّل `npx intlayer test` في CI لإفشال البناء عندما تفتقد لغة مُعلنة إلى محتوى.
 
-- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
-- [استضافة Intlayer ذاتيًا عبر Docker](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/self_hosting.md)
+</Question>
+<Question title="هل يمكن للواجهة الأمامية والواجهة الخلفية مشاركة نفس المحتوى؟">
+
+نعم، وهذا هو الإعداد المعتاد. يعمل `express-intlayer` جنبًا إلى جنب مع `react-intlayer` و `next-intlayer` و `vite-intlayer` على نفس المحتوى المُعلن، لذا فإن التسمية المستخدمة في استجابة API وفي صفحة معًا تُعلن مرة واحدة فقط. انظر [كيف يعمل Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/how_works_intlayer.md).
+
+- [كيف يعمل Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/how_works_intlayer.md)
 
 </Question>
 <Question title="هل Intlayer مجاني ومفتوح المصدر؟">
 
-نعم، بموجب ترخيص Apache 2.0، بما في ذلك الاستخدام التجاري. الـ CMS السحابي المستضاف هو خدمة مدفوعة اختيارية يمكن أيضًا [استضافتها ذاتيًا (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/self_hosting.md).
+نعم، بموجب ترخيص Apache 2.0، بما في ذلك الاستخدام التجاري. [الـ CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md) المستضاف هو خدمة مدفوعة اختيارية يمكن أيضًا [استضافتها ذاتيًا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/self_hosting.md).
+
+- [الـ CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
+- [استضافتها ذاتيًا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/self_hosting.md)
 
 </Question>
 

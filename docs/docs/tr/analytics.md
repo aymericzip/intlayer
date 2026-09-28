@@ -137,7 +137,9 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-`@intlayer/analytics` paketini kaldırmak `enabled: false` ile aynı etkiye sahiptir. Alanların tam listesi için [yapılandırma referansına](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) bakın.
+`@intlayer/analytics` paketini kaldırmak `enabled: false` ile aynı etkiye sahiptir. Alanların tam listesi için [yapılandırma referansına](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md#analytics-configuration) bakın.
+
+- [Yapılandırma referansı](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md#analytics-configuration)
 
 ## Kullanım
 

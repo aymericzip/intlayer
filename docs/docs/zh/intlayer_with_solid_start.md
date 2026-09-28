@@ -87,18 +87,18 @@ Intlayer 经过优化，可与 Solid 完美配合，提供**组件级内容划�
 </Accordion>
 <Accordion header="AI 代理">
 
-将内容协同定位**减少了大语言模型 (LLM) 所需的上下文**。Intlayer 还附带了一套工具，例如用于测试缺失翻译的 **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** 和 **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)**，使 AI 代理的开发人员体验 (DX) 更加顺畅。
+将内容协同定位**减少了大语言模型 (LLM) 所需的上下文**。Intlayer 还附带了一套工具，例如用于测试缺失翻译的 **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)** 和 **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)**，使 AI 代理的开发人员体验 (DX) 更加顺畅。
 
-- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)
-- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)
 - [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)
 
 </Accordion>
 <Accordion header="自动化">
 
-在 CI/CD 流水线中使用你选择的 LLM 按照 AI 提供商的成本自动进行翻译。Intlayer 还提供了一个**编译器**来自动提取内容，以及一个 [Web 平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) 来帮助**在后台进行翻译**。
+在 CI/CD 流水线中使用你选择的 LLM 按照 AI 提供商的成本自动进行翻译。Intlayer 还提供了一个**编译器**来自动提取内容，以及一个 [Web 平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) 来帮助**在后台进行翻译**。
 
-- [Web 平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
+- [Web 平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="性能">
@@ -108,10 +108,10 @@ Intlayer 经过优化，可与 Solid 完美配合，提供**组件级内容划�
 </Accordion>
 <Accordion header="与非开发人员协同扩展">
 
-Intlayer 不仅仅是一个 i18n 解决方案，还提供了一个**自托管的[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** 和一个 **[完整 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)**，帮助你**实时**管理多语言内容，使与翻译人员、文案人员和其他团队成员的协作更加无缝。内容可以存储在本地和/或远程。
+Intlayer 不仅仅是一个 i18n 解决方案，还提供了一个**自托管的[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)** 和一个 **[完整 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)**，帮助你**实时**管理多语言内容，使与翻译人员、文案人员和其他团队成员的协作更加无缝。内容可以存储在本地和/或远程。
 
-- [可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)
-- [完整 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
+- [可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)
+- [完整 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
@@ -161,7 +161,7 @@ bun add intlayer solid-intlayer vite-intlayer
 
 - **intlayer**
 
-  核心包，提供用于配置管理、翻译、[内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md)、转译和 [CLI 命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md) 的国际化工具。
+  核心包，提供用于配置管理、翻译、[内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)、转译和 [CLI 命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md) 的国际化工具。
 
 - **solid-intlayer**
 
@@ -207,9 +207,9 @@ export default config;
 /es          /es/about       → 西班牙语
 ```
 
-> 通过此配置文件，你可以设置本地化 URL、中间件重定向、cookie 名称、内容声明的位置和扩展名、禁用控制台中的 Intlayer 日志等。有关可用参数的完整列表，请参阅[配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)。
+> 通过此配置文件，你可以设置本地化 URL、中间件重定向、cookie 名称、内容声明的位置和扩展名、禁用控制台中的 Intlayer 日志等。有关可用参数的完整列表，请参阅[配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
 
-- [配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)
+- [配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)
 
 </Step>
 <Step number={3} title="在 Vite 配置中集成 Intlayer">
@@ -309,9 +309,9 @@ export default homeContent;
 
 > 只要你的内容声明包含在 `contentDir` 目录（默认为 `./src`）中，并匹配内容声明文件扩展名（默认为 `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`），就可以在应用程序的任何位置定义它们。
 >
-> 有关更多详细信息，请参阅[内容声明文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md)。
+> 有关更多详细信息，请参阅[内容声明文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)。
 
-- [内容声明文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md)
+- [内容声明文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)
 
 </Step>
 <Step number={5} title="添加本地化路由">
@@ -486,9 +486,9 @@ export default function Home() {
 > <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
 
-> 要了解有关 `useIntlayer` 钩子的更多信息，请参阅[文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/solid-intlayer/useIntlayer.md)。
+> 要了解有关 `useIntlayer` 钩子的更多信息，请参阅[文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/solid-intlayer/useIntlayer.md)。
 
-- [useIntlayer Hook Documentation | solid-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/solid-intlayer/useIntlayer.md)
+- [useIntlayer Hook Documentation | solid-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/solid-intlayer/useIntlayer.md)
 
 内容节点不仅限于纯文本翻译。例如复数形式的计数器：
 
@@ -646,9 +646,9 @@ export const LocaleSwitcher: Component = () => {
 >
 > 每个链接上的 `dir` 和 `hreflang` 属性可使从右到左的语言名称保持正确的方向，并告知辅助技术和网络爬虫每个链接指向哪种语言。
 >
-> 要了解有关 `useLocale` 钩子的更多信息，请参阅[文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/solid-intlayer/useLocale.md)。
+> 要了解有关 `useLocale` 钩子的更多信息，请参阅[文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/solid-intlayer/useLocale.md)。
 
-- [useLocale Hook Documentation | solid-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/solid-intlayer/useLocale.md)
+- [useLocale Hook Documentation | solid-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/solid-intlayer/useLocale.md)
 
 </Step>
 <Step number={11} title="生成规范 canonical 和 hreflang 链接" isOptional={true}>
@@ -868,10 +868,10 @@ export default function Page() {
 
 如果你有一个现有的代码库，转换数千个文件可能会非常耗时。
 
-为了简化此过程，Intlayer 提议使用 [编译器 (compiler)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compiler.md) / [提取器 (extractor)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/extract.md) 来转换组件并提取内容。
+为了简化此过程，Intlayer 提议使用 [编译器 (compiler)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md) / [提取器 (extractor)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/extract.md) 来转换组件并提取内容。
 
-- [编译器 (compiler)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compiler.md)
-- [提取器 (extractor)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/extract.md)
+- [编译器 (compiler)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md)
+- [提取器 (extractor)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/extract.md)
 
 要进行设置，你可以在 `intlayer.config.ts` 文件中添加一个 `compiler` 部分：
 

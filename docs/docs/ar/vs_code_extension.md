@@ -44,32 +44,32 @@ author: aymericzip
 
 ## الميزات
 
-![استخراج المحتوى](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_extract_content.gif?raw=true)
+![استخراج المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_extract_content.gif?raw=true)
 
 - **استخراج المحتوى** – استخرج المحتوى من مكونات React / Vue / Svelte الخاصة بك
 
-![ملء القواميس](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_fill_active_dictionary.gif?raw=true)
+![ملء القواميس](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_fill_active_dictionary.gif?raw=true)
 
 - **التنقل الفوري** – القفز بسرعة إلى ملف المحتوى الصحيح عند النقر على مفتاح `useIntlayer`.
 - **ملء القواميس** – ملء القواميس بالمحتوى من مشروعك.
 
-![قائمة الأوامر](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_list_commands.gif?raw=true)
+![قائمة الأوامر](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_list_commands.gif?raw=true)
 
 - **الوصول السهل إلى أوامر Intlayer** – بناء، دفع، سحب، ملء، اختبار قواميس المحتوى بسهولة.
 
-![إنشاء ملف محتوى](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_create_content_file.gif?raw=true)
+![إنشاء ملف محتوى](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_create_content_file.gif?raw=true)
 
 - **مولد إعلان المحتوى** – إنشاء ملفات محتوى القاموس بصيغ مختلفة (`.ts`, `.esm`, `.cjs`, `.json`).
 
-![اختبار القواميس](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_test_missing_dictionary.gif?raw=true)
+![اختبار القواميس](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_test_missing_dictionary.gif?raw=true)
 
 - **اختبار القواميس** – اختبار القواميس للترجمات المفقودة.
 
-![إعادة بناء القاموس](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_rebuild_dictionary.gif?raw=true)
+![إعادة بناء القاموس](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_rebuild_dictionary.gif?raw=true)
 
 - **حافظ على تحديث قواميسك** – حافظ على تحديث قواميسك بأحدث المحتويات من مشروعك.
 
-![علامة تبويب Intlayer (شريط النشاط)](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_search_dictionary.gif?raw=true)
+![علامة تبويب Intlayer (شريط النشاط)](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_search_dictionary.gif?raw=true)
 
 - **علامة تبويب Intlayer (شريط النشاط)** – تصفح وابحث في القواميس من علامة تبويب جانبية مخصصة مع شريط أدوات وإجراءات سياقية (بناء، سحب، دفع، ملء، تحديث، اختبار، إنشاء ملف).
 

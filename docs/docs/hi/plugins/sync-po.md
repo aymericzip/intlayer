@@ -320,9 +320,9 @@ loadPO({
 - सिंक्रनाइज़ की गई PO फ़ाइलों को पुश करने के लिए `intlayer content push`
 - सिंक्रनाइज़ की गई PO फ़ाइलों को पुल करने के लिए `intlayer content pull`
 
-अधिक जानकारी के लिए [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md) देखें।
+अधिक जानकारी के लिए [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/index.md) देखें।
 
-- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md)
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/index.md)
 
 ## सीमाएँ (वर्तमान)
 

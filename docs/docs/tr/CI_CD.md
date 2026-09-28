@@ -62,9 +62,9 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-CMS hakkında daha fazla bilgi için [resmi dokümantasyona](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) bakın.
+CMS hakkında daha fazla bilgi için [resmi dokümantasyona](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) bakın.
 
-- [Intlayer CMS: Externalize Your Multilingual Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
+- [Intlayer CMS: Externalize Your Multilingual Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)
 
 ## Husky Kullanarak
 
@@ -101,9 +101,9 @@ npx intlayer build                          # Sözlüklerin güncel olduğundan 
 npx intlayer fill --unpushed --mode fill    # Sadece eksik içeriği doldurun, mevcut olanları güncellemez
 ```
 
-> Intlayer CLI komutları ve kullanımları hakkında daha fazla bilgi için [CLI dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md) bakın.
+> Intlayer CLI komutları ve kullanımları hakkında daha fazla bilgi için [CLI dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/index.md) bakın.
 
-- [CLI dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md)
+- [CLI dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/index.md)
 
 > Deponuzda ayrı intlayer örnekleri kullanan birden fazla uygulama varsa, `--base-dir` argümanını şu şekilde kullanabilirsiniz:
 
@@ -203,6 +203,6 @@ Ortam değişkenlerini ayarlamak için GitHub → Settings → Secrets and varia
 
 > Varsayılan olarak, `--git-diff` argümanı base'den (varsayılan `origin/main`) mevcut branch'e (varsayılan: `HEAD`) kadar olan değişiklikleri içeren sözlükleri filtreler.
 
-> Intlayer CLI komutları ve kullanımları hakkında daha fazla bilgi için [CLI dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md) bakın.
+> Intlayer CLI komutları ve kullanımları hakkında daha fazla bilgi için [CLI dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/index.md) bakın.
 
-- [CLI dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md)
+- [CLI dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/index.md)

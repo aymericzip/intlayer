@@ -349,9 +349,12 @@ export default config;
 - [оптимізацію бандла](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/bundle_optimization.md)
 
 </Question>
-<Question title="Чи можу я мігрувати з @adonisjs/i18n без переписування обробників?">
+<Question title="Чи можу я мігрувати з `i18next` без переписування обробників?">
 
-Більшою мірою так. [sync JSON плагін](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/plugins/sync-json.md) зберігає існуючі файли перекладів.
+Так, і є два шляхи. Ви можете поступово мігрувати вміст за допомогою [посібника з міграції з i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/migration_from_i18next_to_intlayer.md). Або ви можете повністю зберегти поточний API: [compat-адаптери](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/index.md) надають точно такий самий API, як `i18next`, але обслуговуються словниками Intlayer, тож змінюються лише імпорти, а код обробників — ні.
+
+- [посібник з міграції з i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/migration_from_i18next_to_intlayer.md)
+- [compat-адаптери](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/index.md)
 
 </Question>
 <Question title="Чи можу я зберігати мої існуючі JSON файли перекладів?">
@@ -385,14 +388,11 @@ export default config;
 - **[Плагін ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/eslint.md)**: правило `no-raw-text` відстежує жорстко закодовані рядки.
 
 </Question>
-<Question title="Як визначається мова клієнта у вхідних запитах?">
+<Question title="Як Intlayer визначає, якою мовою відповідати?">
 
-HTTP middleware AdonisJS перевіряє cookie та заголовки через `HttpContext`, зберігаючи локаль у `ctx.locale`.
+За замовчуванням `adonis-intlayer` читає заголовок `Accept-Language` вхідного запиту й обирає найближчу оголошену локаль, повертаючись до локалі за замовчуванням. Ви можете змінити джерело через `routing.storage`, наприклад на власний заголовок або cookie, встановлений вашим фронтендом, щоб API відповідав мовою, яку користувач дійсно обрав, а не тією, яку повідомляє його браузер. Дивіться [довідник з конфігурації](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md).
 
-</Question>
-<Question title="Чи можуть одні й ті самі оголошення контенту обслуговувати відповіді API та веб-інтерфейс?">
-
-Так, у монорепозиторіях або спільних пакетах це є ключовою перевагою. Оголошений словник можна імпортувати як на бекенді (листи, помилки, відповіді API), так і на фронтенді (React, Vue, Svelte тощо), зберігаючи єдине джерело істини для всіх текстів.
+- [довідник з конфігурації](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md)
 
 </Question>
 <Question title="Чи сповільнює Intlayer обробку запитів?">
@@ -439,17 +439,24 @@ HTTP middleware AdonisJS перевіряє cookie та заголовки че�
 - [форматування](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/formatters.md)
 
 </Question>
-<Question title="Як нетехнічні члени команди можуть редагувати шаблони листів та повідомлення про помилки без доступу до коду?">
+<Question title="Чи отримую я автодоповнення TypeScript на сервері?">
 
-Є два шляхи: [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md), яка відокремлює вміст від кодової бази і дозволяє редагувати тексти через веб-інтерфейс, або [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md), який записує зміни безпосередньо у файли коду.
+Так. Intlayer генерує типи ваших словників у `./types/intlayer.d.ts`, тож неіснуючий ключ стає помилкою компіляції, а не порожнім рядком під час виконання. Запускайте `npx intlayer test` у CI, щоб збірка падала, коли для оголошеної локалі бракує вмісту.
 
-- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)
-- [Власний хостинг Intlayer у Docker](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/self_hosting.md)
+</Question>
+<Question title="Чи можуть фронтенд і бекенд використовувати той самий вміст?">
+
+Так, і це типове налаштування. `adonis-intlayer` працює разом із `react-intlayer`, `next-intlayer` та `vite-intlayer` над тим самим оголошеним вмістом, тож мітка, яка використовується і у відповіді API, і на сторінці, оголошується лише один раз. Дивіться [як працює Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/how_works_intlayer.md).
+
+- [як працює Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/how_works_intlayer.md)
 
 </Question>
 <Question title="Чи є Intlayer безкоштовним та відкритим кодом?">
 
-Так, під ліцензією Apache 2.0, включно з комерційним використанням. Хмарна CMS - це додаткова платна послуга, яку також можна [розгорнути самостійно (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/self_hosting.md).
+Так, за ліцензією Apache 2.0, включно з комерційним використанням. Хмарна [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md) — це необов'язковий платний сервіс, який також можна [розгорнути на власному сервері](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/self_hosting.md).
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)
+- [розгортання на власному сервері](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/self_hosting.md)
 
 </Question>
 
