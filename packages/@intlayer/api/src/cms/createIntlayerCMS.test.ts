@@ -1,7 +1,7 @@
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { dictionaryEndpoint } from '../getIntlayerAPI/dictionary';
-import { createAuthManager } from './createAuthManager';
+import { clearAccessTokenCache, createAuthManager } from './createAuthManager';
 import { createIntlayerCMS } from './createIntlayerCMS';
 
 const BACKEND_URL = 'https://back.test.intlayer.org';
@@ -57,6 +57,7 @@ describe('createIntlayerCMS', () => {
   afterEach(() => {
     vi.unstubAllGlobals();
     vi.restoreAllMocks();
+    clearAccessTokenCache();
   });
 
   it('fetches an access token, then injects it on dictionary reads', async () => {
@@ -86,6 +87,23 @@ describe('createIntlayerCMS', () => {
     const dictionary = dictionaryEndpoint(cms);
     await dictionary.getDictionaries();
     await dictionary.pushDictionaries([]);
+
+    const tokenCalls = calls.filter((call) =>
+      call.url.includes('/oauth2/token')
+    );
+
+    expect(tokenCalls).toHaveLength(1);
+  });
+
+  it('shares the token across instances built with the same credentials', async () => {
+    const { fetchMock, calls } = createFetchMock();
+    vi.stubGlobal('fetch', fetchMock);
+
+    await Promise.all([
+      dictionaryEndpoint(createIntlayerCMS(config)).getDictionaries(),
+      dictionaryEndpoint(createIntlayerCMS(config)).getDictionaries(),
+    ]);
+    await dictionaryEndpoint(createIntlayerCMS(config)).getDictionaries();
 
     const tokenCalls = calls.filter((call) =>
       call.url.includes('/oauth2/token')
@@ -136,6 +154,7 @@ describe('createAuthManager', () => {
   afterEach(() => {
     vi.unstubAllGlobals();
     vi.restoreAllMocks();
+    clearAccessTokenCache();
   });
 
   it('exposes withAuth to authenticate a single bound method', async () => {
@@ -153,5 +172,26 @@ describe('createAuthManager', () => {
 
     expect(header).toBe('Bearer single-token');
     expect(calls.some((call) => call.url.includes('/oauth2/token'))).toBe(true);
+  });
+
+  it('only refreshes the token when a call fails on authentication', async () => {
+    const { fetchMock, calls } = createFetchMock();
+    vi.stubGlobal('fetch', fetchMock);
+
+    const authManager = createAuthManager(config);
+    const failWithStatus = (status: number) =>
+      authManager.withAuth(async () => {
+        throw Object.assign(new Error(`status ${status}`), { status });
+      });
+
+    await expect(failWithStatus(404)()).rejects.toThrow('status 404');
+    expect(
+      calls.filter((call) => call.url.includes('/oauth2/token'))
+    ).toHaveLength(1);
+
+    await expect(failWithStatus(401)()).rejects.toThrow('status 401');
+    expect(
+      calls.filter((call) => call.url.includes('/oauth2/token'))
+    ).toHaveLength(2);
   });
 });

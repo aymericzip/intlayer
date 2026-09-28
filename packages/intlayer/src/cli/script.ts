@@ -1,4 +1,4 @@
 #!/usr/bin/env node
-import { setAPI } from '@intlayer/cli';
+import { setAPI } from '@intlayer/cli/cli';
 
 setAPI();

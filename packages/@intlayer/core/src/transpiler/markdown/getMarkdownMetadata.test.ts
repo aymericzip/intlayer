@@ -143,4 +143,36 @@ describe('getMarkdownMetadata', () => {
     const metadata = getMarkdownMetadata(markdownEmpty);
     expect(metadata).toEqual({});
   });
+
+  it('should read metadata preceded by blank lines', () => {
+    const markdownWithLeadingBlankLines = ['', '', '---', 'title: Hi', '---'];
+
+    const metadata = getMarkdownMetadata(
+      markdownWithLeadingBlankLines.join('\n')
+    );
+    expect(metadata).toEqual({ title: 'Hi' });
+  });
+
+  it('should handle CRLF line endings', () => {
+    const markdownCrlf = ['---', 'title: Hi', 'lang: en', '---', 'Body'].join(
+      '\r\n'
+    );
+
+    const metadata = getMarkdownMetadata(markdownCrlf);
+    expect(metadata).toEqual({ title: 'Hi', lang: 'en' });
+  });
+
+  it('should ignore delimiters in the body', () => {
+    const markdownWithBodyRule = [
+      '---',
+      'title: Hi',
+      '---',
+      'Intro',
+      '---',
+      'key: not-metadata',
+    ].join('\n');
+
+    const metadata = getMarkdownMetadata(markdownWithBodyRule);
+    expect(metadata).toEqual({ title: 'Hi' });
+  });
 });

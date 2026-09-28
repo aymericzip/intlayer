@@ -131,7 +131,7 @@ const config: CustomIntlayerConfig = {
   //   ].join('\n'),
   // },
   log: {
-    // mode: 'verbose',
+    mode: 'verbose',
   },
   analytics: {
     enabled: true,

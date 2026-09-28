@@ -2,7 +2,7 @@ import {
   type GetConfigurationOptions,
   getConfiguration,
 } from '@intlayer/config/node';
-import { logConfigDetails } from '@intlayer/engine/cli';
+import { logConfigDetails } from '@intlayer/engine/logConfigDetails';
 import {
   claimCliContentWatcher,
   type ParallelHandle,

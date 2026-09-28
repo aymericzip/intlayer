@@ -6,6 +6,7 @@ import type {
 import { defu } from 'defu';
 import type { LoadExternalFileOptions } from '../loadExternalFile/loadExternalFile';
 import type { SandBoxContextOptions } from '../loadExternalFile/parseFileContent';
+import { clearPersistedTranspilation } from '../loadExternalFile/transpileTSToCJS';
 import { cacheMemory } from '../utils/cacheMemory';
 import { getPackageJsonPath } from '../utils/getPackageJsonPath';
 import { buildConfigurationFields } from './buildConfigurationFields';
@@ -85,7 +86,7 @@ export const getConfigurationAndFilePath = (
       additionalEnvVars: options?.additionalEnvVars,
       aliases: options?.aliases,
       // Build options for TypeScript transpilation (e.g. custom esbuild instance)
-      buildOptions: options?.buildOptions,
+      buildOptions: { cache: options?.cache, ...options?.buildOptions },
     });
 
     // Save the configuration to avoid reading the file again
@@ -122,6 +123,12 @@ export const getConfigurationAndFilePath = (
     options?.override ?? {},
     configWithProjectRequire
   ) as IntlayerConfig;
+
+  // `build.cache` is only known once the file is transpiled, so the entry it
+  // may have persisted is removed afterwards
+  if (configurationFilePath && configuration.build.cache === false) {
+    clearPersistedTranspilation(configurationFilePath);
+  }
 
   cacheMemory.set(options, {
     configuration,

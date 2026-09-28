@@ -5,7 +5,10 @@ export default defineConfig({
     environment: 'node',
     globals: true,
     passWithNoTests: true,
-    include: ['tools/**/*.test.{ts,tsx,js,jsx}'],
+    include: [
+      'tools/**/*.test.{ts,tsx,js,jsx}',
+      'src/**/*.test.{ts,tsx,js,jsx}',
+    ],
     exclude: ['**/node_modules/**', '**/dist/**'],
   },
 });

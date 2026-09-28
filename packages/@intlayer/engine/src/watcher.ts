@@ -26,7 +26,6 @@ import {
   getFormatFromExtension,
   parseContentDeclarationFileName,
 } from './utils';
-import { writeContentDeclaration } from './writeContentDeclaration';
 
 // Map to track files that were recently unlinked: oldPath -> { timer, timestamp }
 const pendingUnlinks = new Map<
@@ -162,7 +161,10 @@ export const watch = async (options?: WatchOptions) => {
               // `import()`, which leaked a permanent record into Node's ESM
               // registry on every rebuild since that registry is never evicted.
               const entryCode = await readFile(event.path, 'utf-8');
-              await transpileTSToCJS(entryCode, event.path);
+              await transpileTSToCJS(entryCode, event.path, {
+                cache: configuration.build.cache,
+                cacheDir: configuration.system.cacheDir,
+              });
             } catch {
               appLogger(
                 `Entry point ${basename(event.path)} failed to load, running clean rebuild...`,
@@ -330,6 +332,11 @@ export const watch = async (options?: WatchOptions) => {
                   (isMarkdown
                     ? configuration.internationalization.defaultLocale
                     : undefined);
+
+                // Lazy: pulls recast/ast-types, only needed for new empty files
+                const { writeContentDeclaration } = await import(
+                  './writeContentDeclaration'
+                );
 
                 await writeContentDeclaration(
                   {

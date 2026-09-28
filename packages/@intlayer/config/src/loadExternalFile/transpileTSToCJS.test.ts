@@ -1,9 +1,17 @@
-import { mkdtempSync, rmSync, utimesSync, writeFileSync } from 'node:fs';
+import {
+  existsSync,
+  mkdtempSync,
+  readdirSync,
+  rmSync,
+  utimesSync,
+  writeFileSync,
+} from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import * as esbuild from 'esbuild';
 import { afterAll, beforeEach, describe, expect, it, vi } from 'vitest';
 import {
+  clearPersistedTranspilation,
   clearTranspileCache,
   transpileTSToCJS,
   transpileTSToCJSSync,
@@ -149,5 +157,126 @@ describe('transpileTSToCJS', () => {
     expect(firstOutput).toBeDefined();
     expect(secondOutput).toBe(firstOutput);
     expect(buildSyncSpy).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('transpileTSToCJS disk cache', () => {
+  const projectDirectory = mkdtempSync(join(tmpdir(), 'intlayer-disk-cache-'));
+  const diskCacheDirectory = join(
+    projectDirectory,
+    '.intlayer',
+    'cache',
+    'transpile'
+  );
+
+  writeFileSync(
+    join(projectDirectory, 'package.json'),
+    JSON.stringify({ name: 'disk-cache-fixture', private: true })
+  );
+
+  beforeEach(() => {
+    // Simulates a new process: the in-memory cache starts empty
+    clearTranspileCache();
+  });
+
+  afterAll(() => {
+    rmSync(projectDirectory, { recursive: true, force: true });
+  });
+
+  it('reuses the output persisted by a previous process', () => {
+    const { esbuildInstance, buildSyncSpy } = createSpiedEsbuildInstance();
+    const filePath = join(projectDirectory, 'persisted.content.ts');
+    const code = `export default { key: 'persisted' };`;
+
+    const firstOutput = transpileTSToCJSSync(code, filePath, {
+      esbuildInstance,
+    });
+
+    expect(readdirSync(diskCacheDirectory)).toHaveLength(1);
+
+    clearTranspileCache();
+
+    const secondOutput = transpileTSToCJSSync(code, filePath, {
+      esbuildInstance,
+    });
+
+    expect(secondOutput).toBe(firstOutput);
+    expect(buildSyncSpy).toHaveBeenCalledTimes(1);
+  });
+
+  it('rebuilds when a bundled import changed since it was persisted', async () => {
+    const { esbuildInstance, buildSpy } = createSpiedEsbuildInstance();
+    const dependencyPath = join(projectDirectory, 'persistedDependency.ts');
+    const entryPath = join(projectDirectory, 'persistedEntry.content.ts');
+    const entryCode = `import { value } from './persistedDependency';\nexport default { key: value };`;
+
+    writeFileSync(dependencyPath, `export const value = 'first-value';`);
+    await transpileTSToCJS(entryCode, entryPath, { esbuildInstance });
+
+    clearTranspileCache();
+
+    writeFileSync(dependencyPath, `export const value = 'second-value';`);
+    const futureTime = new Date(Date.now() + 5_000);
+    utimesSync(dependencyPath, futureTime, futureTime);
+
+    const output = await transpileTSToCJS(entryCode, entryPath, {
+      esbuildInstance,
+    });
+
+    expect(buildSpy).toHaveBeenCalledTimes(2);
+    expect(output).toContain('second-value');
+  });
+
+  it('does not persist outputs produced with esbuild plugins', async () => {
+    const filePath = join(projectDirectory, 'plugin.content.ts');
+    const code = `export default { key: 'plugin' };`;
+
+    rmSync(diskCacheDirectory, { recursive: true, force: true });
+
+    await transpileTSToCJS(code, filePath, {
+      plugins: [{ name: 'noop', setup: () => {} }],
+    });
+
+    expect(existsSync(diskCacheDirectory)).toBe(false);
+  });
+
+  it('keeps the output in memory only when cache is disabled', () => {
+    const { esbuildInstance, buildSyncSpy } = createSpiedEsbuildInstance();
+    const filePath = join(projectDirectory, 'uncached.content.ts');
+    const code = `export default { key: 'uncached' };`;
+
+    rmSync(diskCacheDirectory, { recursive: true, force: true });
+
+    transpileTSToCJSSync(code, filePath, { esbuildInstance, cache: false });
+    transpileTSToCJSSync(code, filePath, { esbuildInstance, cache: false });
+
+    expect(existsSync(diskCacheDirectory)).toBe(false);
+    expect(buildSyncSpy).toHaveBeenCalledTimes(1);
+  });
+
+  it('persists into the given cacheDir and clears it on demand', () => {
+    const { esbuildInstance, buildSyncSpy } = createSpiedEsbuildInstance();
+    const customCacheDirectory = join(projectDirectory, 'custom-cache');
+    const filePath = join(projectDirectory, 'custom.content.ts');
+    const code = `export default { key: 'custom' };`;
+
+    transpileTSToCJSSync(code, filePath, {
+      esbuildInstance,
+      cacheDir: customCacheDirectory,
+    });
+
+    expect(readdirSync(join(customCacheDirectory, 'transpile'))).toHaveLength(
+      1
+    );
+
+    clearPersistedTranspilation(filePath, customCacheDirectory);
+    clearTranspileCache();
+
+    transpileTSToCJSSync(code, filePath, {
+      esbuildInstance,
+      cacheDir: customCacheDirectory,
+    });
+
+    expect(buildSyncSpy).toHaveBeenCalledTimes(2);
   });
 });

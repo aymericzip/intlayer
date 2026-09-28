@@ -1,6 +1,6 @@
 import * as Locales from '@intlayer/types/locales';
 import { describe, expect, it } from 'vitest';
-import { getRewriteRules } from './rewriteMatch';
+import { extractParams, getRewriteRules } from './rewriteMatch';
 
 describe('getRewriteRules', () => {
   it('should normalize legacy rewrite format', () => {
@@ -23,5 +23,15 @@ describe('getRewriteRules', () => {
       },
     });
     expect(rules?.rules[1].canonical).toBe('/products/:id');
+  });
+});
+
+describe('extractParams', () => {
+  it('stays correct when the same pattern is matched repeatedly', () => {
+    const pattern = '/docs/:slug*';
+
+    expect(extractParams('/docs/a/b', pattern)).toEqual(['a/b']);
+    expect(extractParams('/docs/c', pattern)).toEqual(['c']);
+    expect(extractParams('/blog/c', pattern)).toBeNull();
   });
 });

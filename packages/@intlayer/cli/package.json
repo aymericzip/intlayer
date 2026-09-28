@@ -38,6 +38,11 @@
       "require": "./dist/cjs/index.cjs",
       "import": "./dist/esm/index.mjs"
     },
+    "./cli": {
+      "types": "./dist/types/cli.d.ts",
+      "require": "./dist/cjs/cli.cjs",
+      "import": "./dist/esm/cli.mjs"
+    },
     "./package.json": "./package.json"
   },
   "main": "dist/cjs/index.cjs",

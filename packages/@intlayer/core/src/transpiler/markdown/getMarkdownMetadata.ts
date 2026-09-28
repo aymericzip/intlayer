@@ -1,44 +1,56 @@
 import { parseYaml } from '../../utils/parseYaml';
 
+/**
+ * Extracts the raw content between the leading `---` delimiters.
+ *
+ * Walks the markdown line by line and stops at the closing delimiter, so the
+ * document body (often far larger than its front matter) is never split.
+ *
+ * @returns The metadata block, or `undefined` when there is none.
+ */
+const extractMetadataBlock = (markdown: string): string | undefined => {
+  let lineStart = 0;
+  let isInsideMetadata = false;
+  let metadataStart = 0;
+
+  while (lineStart <= markdown.length) {
+    const newlineIndex = markdown.indexOf('\n', lineStart);
+    const lineEnd = newlineIndex === -1 ? markdown.length : newlineIndex;
+    const trimmedLine = markdown.slice(lineStart, lineEnd).trim();
+
+    if (isInsideMetadata) {
+      if (trimmedLine === '---') {
+        return markdown
+          .slice(metadataStart, lineStart)
+          .replace(/\r?\n$/, '')
+          .replace(/\r\n/g, '\n');
+      }
+    } else if (trimmedLine !== '') {
+      // The very first non-empty line must open the metadata block
+      if (trimmedLine !== '---') return undefined;
+
+      isInsideMetadata = true;
+      metadataStart = lineEnd + 1;
+    }
+
+    if (newlineIndex === -1) return undefined;
+
+    lineStart = newlineIndex + 1;
+  }
+
+  return undefined;
+};
+
 export const getMarkdownMetadata = <T extends Record<string, any>>(
   markdown: string
 ): T => {
   try {
-    const lines = markdown.split(/\r?\n/);
+    const metadataContent = extractMetadataBlock(markdown);
 
-    // Check if the very first non-empty line is the metadata start delimiter.
-    const firstNonEmptyLine = lines.find((line) => line.trim() !== '');
+    if (metadataContent === undefined) return {} as T;
 
-    if (firstNonEmptyLine?.trim() !== '---') {
-      const result: T = {} as T;
-      return result;
-    }
-
-    // Find the end of the metadata block
-    let metadataEndIndex = -1;
-    for (let i = 1; i < lines.length; i++) {
-      if (lines[i]?.trim() === '---') {
-        metadataEndIndex = i;
-        break;
-      }
-    }
-
-    if (metadataEndIndex === -1) {
-      // No closing delimiter found
-      const result: T = {} as T;
-      return result;
-    }
-
-    // Extract the metadata content between the delimiters
-    const metadataLines = lines.slice(1, metadataEndIndex);
-    const metadataContent = metadataLines.join('\n');
-
-    // Use the improved parseYaml function to parse the entire metadata block
-    const metadata = parseYaml<T>(metadataContent);
-
-    return metadata ?? ({} as T);
+    return parseYaml<T>(metadataContent) ?? ({} as T);
   } catch {
-    const result: T = {} as T;
-    return result;
+    return {} as T;
   }
 };

@@ -3,6 +3,7 @@ import { getLocalizedUrl } from '@intlayer/core/localization';
 import { getMarkdownMetadata } from '@intlayer/core/transpiler';
 import * as Locales from '@intlayer/types/locales';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
+import { isLazyDocument } from './readMarkdownHead';
 
 export const defaultLocale = Locales.ENGLISH;
 
@@ -28,12 +29,20 @@ export const getFiles = async <
   return filesResult;
 };
 
+/** Reads the whole document, or only its front matter when supported. */
+const readDocument = (
+  document: Promise<string> | undefined,
+  headOnly: boolean
+): Promise<string> | undefined =>
+  headOnly && isLazyDocument(document) ? document.readHead() : document;
+
 export const getFile = async <
   F extends Record<string, Record<LocalesValues, Promise<string>>>,
 >(
   files: F,
   docKey: keyof F,
-  locale: LocalesValues = defaultLocale as LocalesValues
+  locale: LocalesValues = defaultLocale as LocalesValues,
+  { headOnly = false }: { headOnly?: boolean } = {}
 ): Promise<string> => {
   const fileRecord = files[docKey];
 
@@ -41,10 +50,13 @@ export const getFile = async <
     throw new Error(`File ${docKey as string} not found`);
   }
 
-  const file = await files[docKey]?.[locale];
+  const file = await readDocument(fileRecord[locale], headOnly);
 
   if (!file) {
-    const englishFile = await files[docKey]?.[defaultLocale as LocalesValues];
+    const englishFile = await readDocument(
+      fileRecord[defaultLocale as LocalesValues],
+      headOnly
+    );
 
     if (!englishFile) {
       throw new Error(`File ${docKey as string} not found`);
@@ -128,7 +140,8 @@ export const getFileMetadata = async <
   docKey: keyof F,
   locale: LocalesValues = defaultLocale as LocalesValues
 ): Promise<R> => {
-  const file = await getFile(files, docKey, locale);
+  // Metadata lives in the front matter: skip reading the document body
+  const file = await getFile(files, docKey, locale, { headOnly: true });
 
   return formatMetadata(docKey as string, file, locale) as R;
 };

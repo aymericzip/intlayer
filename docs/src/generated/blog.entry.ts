@@ -6,6 +6,7 @@ import { join, dirname as pathDirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { getPackageJsonPath, getProjectRequire } from '@intlayer/config/utils';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
+import { type LazyDocument, readMarkdownHead } from '../readMarkdownHead';
 
 // Robustly resolve the base directory of the @intlayer/docs package in both
 // bundled environments (Next.js) and standalone CLIs (MCP via npx).
@@ -37,21 +38,25 @@ try {
  */
 const readLocaleFile = async (
   relativeAfterLocale: string,
-  locale: LocalesValues
+  locale: LocalesValues,
+  readContent: (filePath: string) => Promise<string>
 ): Promise<string> => {
   const target1 = join(baseDir, `./blog/${locale}/${relativeAfterLocale}`);
   if (existsSync(target1)) {
-    return await readFile(target1, 'utf8');
+    return await readContent(target1);
   }
   const target2 = join(baseDir, `./blog/en/${relativeAfterLocale}`);
   if (existsSync(target2)) {
-    return await readFile(target2, 'utf8');
+    return await readContent(target2);
   }
 
   throw new Error(
     `[docs] File not found: ${relativeAfterLocale} - locale: ${locale} - path: ${target1} - path: ${target2}`
   );
 };
+
+const readWholeFile = (filePath: string): Promise<string> =>
+  readFile(filePath, 'utf8');
 
 /**
  * Builds a lazy, awaitable handle over a document.
@@ -63,17 +68,27 @@ const readLocaleFile = async (
  *
  * The returned value is a thenable rather than a promise: consumers only ever
  * `await` it, and `await` triggers `then`, so the file is read on first use and
- * the resulting promise is cached for subsequent reads.
+ * the resulting promise is cached for subsequent reads. `readHead` reads only
+ * the front matter, for callers that only need the metadata.
  */
 const readLocale = (
   relativeAfterLocale: string,
   locale: LocalesValues
-): Promise<string> => {
+): LazyDocument => {
   let pendingRead: Promise<string> | undefined;
+  let pendingHeadRead: Promise<string> | undefined;
 
   const read = (): Promise<string> => {
-    pendingRead ??= readLocaleFile(relativeAfterLocale, locale);
+    pendingRead ??= readLocaleFile(relativeAfterLocale, locale, readWholeFile);
     return pendingRead;
+  };
+
+  // A whole read already in flight holds the front matter too
+  const readHead = (): Promise<string> => {
+    pendingHeadRead ??=
+      pendingRead ??
+      readLocaleFile(relativeAfterLocale, locale, readMarkdownHead);
+    return pendingHeadRead;
   };
 
   return {
@@ -81,7 +96,8 @@ const readLocale = (
     then: (onFulfilled, onRejected) => read().then(onFulfilled, onRejected),
     catch: (onRejected) => read().catch(onRejected),
     finally: (onFinally) => read().finally(onFinally),
-  } as Promise<string>;
+    readHead,
+  } as LazyDocument;
 };
 
 export const blogEntry = {

@@ -1,5 +1,3 @@
-import { createIntlayerCMS } from '@intlayer/api';
-import { dictionaryEndpoint } from '@intlayer/api/dictionary';
 // @ts-ignore @intlayer/backend is not build yet
 import type { DictionaryAPI } from '@intlayer/backend';
 import { getConfiguration } from '@intlayer/config/node';
@@ -9,7 +7,6 @@ import type {
   DictionaryId,
   DictionaryKey,
 } from '@intlayer/types/dictionary';
-import { fetchDistantDictionaries } from '../fetchDistantDictionaries';
 import { sortAlphabetically } from '../utils/sortAlphabetically';
 import type { DictionariesStatus } from './loadDictionaries';
 
@@ -41,7 +38,11 @@ export const loadRemoteDictionaries = async (
   try {
     options?.onStartRemoteCheck?.();
 
-    const dictionary = dictionaryEndpoint(createIntlayerCMS(configuration));
+    // Lazy: the CMS client is only needed when remote credentials are set
+    const { createRemoteDictionaryClient, fetchDistantDictionaries } =
+      await import('./remoteDictionaryClient');
+
+    const dictionary = createRemoteDictionaryClient(configuration);
 
     // Get the list of dictionary keys
     const getDictionariesKeysResult =

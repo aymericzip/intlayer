@@ -36,6 +36,63 @@ type SectionFactory<Section extends Record<string, unknown>> = (
 
 const ONE_MINUTE_MS = 60_000;
 
+/**
+ * OAuth2 token state for one set of credentials, shared by every manager
+ * built with them.
+ */
+type AccessTokenState = {
+  accessToken?: string;
+  expiryTimestamp?: number;
+  pendingRefresh?: Promise<void>;
+};
+
+/**
+ * Process-wide token states, keyed by backend URL and credentials. Build
+ * steps and watch rebuilds each create their own manager; sharing the state
+ * lets them reuse one token instead of awaiting a new exchange every time.
+ */
+const accessTokenStates = new Map<string, AccessTokenState>();
+
+/** Clears every cached access token, forcing the next call to re-authenticate. */
+export const clearAccessTokenCache = (): void => {
+  accessTokenStates.clear();
+};
+
+/** Returns the shared token state for the given credentials, creating it if missing. */
+const getAccessTokenState = (
+  editorConfig: IntlayerConfig['editor'] | undefined
+): AccessTokenState => {
+  const stateKey = [
+    editorConfig?.backendURL,
+    editorConfig?.clientId,
+    editorConfig?.clientSecret,
+  ].join('\0');
+
+  let accessTokenState = accessTokenStates.get(stateKey);
+
+  if (!accessTokenState) {
+    accessTokenState = {};
+    accessTokenStates.set(stateKey, accessTokenState);
+  }
+
+  return accessTokenState;
+};
+
+/** HTTP statuses meaning the access token was rejected. */
+const AUTHENTICATION_ERROR_STATUSES = new Set([401, 403]);
+
+/**
+ * Whether a failed call may succeed with a fresh token: an auth rejection, or
+ * an error without HTTP status. A `404` or `500` would fail again regardless.
+ */
+const isAuthenticationError = (error: unknown): boolean => {
+  const status = (error as { status?: unknown } | undefined)?.status;
+
+  return (
+    typeof status !== 'number' || AUTHENTICATION_ERROR_STATUSES.has(status)
+  );
+};
+
 /** Whether the current runtime is a browser rather than a server. */
 const isBrowser = (): boolean => typeof window !== 'undefined';
 
@@ -158,8 +215,8 @@ export type AuthManager = {
  * Creates an instance-scoped {@link AuthManager} handling the OAuth2
  * `client_credentials` flow (or a pre-issued CLI session token).
  *
- * Unlike a global token cache, each manager keeps its own token state, so
- * independent SDK instances never interfere with one another.
+ * Managers built with the same backend URL and credentials share one token
+ * state, so a process never exchanges credentials more than needed.
  *
  * @param intlayerConfig - Intlayer configuration carrying the `editor`
  * credentials. Defaults to the build-time configuration.
@@ -211,11 +268,11 @@ export const createAuthManager = (
     } as HeadersInit;
   }
 
-  let accessToken: string | undefined;
-  let expiryTimestamp: number | undefined;
-  let pendingRefresh: Promise<void> | undefined;
+  const accessTokenState = getAccessTokenState(resolvedConfig?.editor);
 
   const needsRefresh = (): boolean => {
+    const { accessToken, expiryTimestamp } = accessTokenState;
+
     if (!accessToken) return true;
     if (!expiryTimestamp) return false; // Unknown expiry: assume usable until failure.
 
@@ -229,23 +286,23 @@ export const createAuthManager = (
       const response = await oAuthAPI.getOAuth2AccessToken();
       const tokenData = response?.data as OAuthTokenLike | undefined;
 
-      accessToken = tokenData?.accessToken;
-      expiryTimestamp = getExpiryTimestamp(tokenData);
+      accessTokenState.accessToken = tokenData?.accessToken;
+      accessTokenState.expiryTimestamp = getExpiryTimestamp(tokenData);
     };
 
     // De-duplicate concurrent refreshes so a burst of calls triggers one fetch.
-    pendingRefresh ??= doRefresh().finally(() => {
-      pendingRefresh = undefined;
+    accessTokenState.pendingRefresh ??= doRefresh().finally(() => {
+      accessTokenState.pendingRefresh = undefined;
     });
 
-    await pendingRefresh;
+    await accessTokenState.pendingRefresh;
   };
 
   const applyAuthHeader = (): void => {
-    if (!accessToken) return;
+    if (!accessTokenState.accessToken) return;
     fetcherOptions.headers = {
       ...(fetcherOptions.headers ?? {}),
-      Authorization: `Bearer ${accessToken}`,
+      Authorization: `Bearer ${accessTokenState.accessToken}`,
     } as HeadersInit;
   };
 
@@ -258,8 +315,8 @@ export const createAuthManager = (
   };
 
   const reset = (): void => {
-    accessToken = undefined;
-    expiryTimestamp = undefined;
+    accessTokenState.accessToken = undefined;
+    accessTokenState.expiryTimestamp = undefined;
   };
 
   const withAuth = <Arguments extends unknown[], Result>(
@@ -293,7 +350,7 @@ export const createAuthManager = (
         // The token may have been revoked or expired early: refresh once and
         // retry before surfacing the error. A session token cannot be
         // refreshed, so re-throw immediately in that case.
-        if (sessionToken) throw error;
+        if (sessionToken || !isAuthenticationError(error)) throw error;
 
         await refreshToken();
         applyAuthHeader();

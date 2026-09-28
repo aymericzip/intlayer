@@ -173,6 +173,32 @@ export const loadDictionaries = async (
 
   appLogger('Dictionaries:', { isVerbose: true });
 
+  const hasRemoteDictionaries = Boolean(
+    configuration.editor.clientId && configuration.editor.clientSecret
+  );
+
+  if (hasRemoteDictionaries) {
+    // We expect to fetch remote dictionaries soon; suppress a transient local-only render
+    logger.setExpectRemote(true);
+  }
+
+  // Started first so the CMS round trips (OAuth2 token, update timestamps)
+  // overlap plugin and local loading instead of running after them.
+  const remoteDictionariesPromise: Promise<Dictionary[]> = hasRemoteDictionaries
+    ? loadRemoteDictionaries(configuration, setLoadDictionariesStatus, {
+        onStartRemoteCheck: () => logger.startRemoteCheck(),
+        onStopRemoteCheck: () => logger.stopRemoteCheck(),
+        onError: (error) => logger.setRemoteError(error),
+      })
+        .then((dictionaries) =>
+          filterInvalidDictionaries(dictionaries, configuration)
+        )
+        .then((dictionaries) => formatDictionaries(dictionaries))
+    : Promise.resolve([]);
+
+  // Awaited later; this keeps an early rejection from being reported as unhandled
+  remoteDictionariesPromise.catch(() => undefined);
+
   // Load additional dictionaries via plugins (e.g., ICU JSON ingestion)
   const resolvedPlugins = await Promise.all(plugins ?? []);
 
@@ -239,32 +265,7 @@ export const loadDictionaries = async (
 
   setLoadDictionariesStatus(localDictionariesStatus);
 
-  const hasRemoteDictionaries = Boolean(
-    configuration.editor.clientId && configuration.editor.clientSecret
-  );
-
-  if (hasRemoteDictionaries) {
-    // We expect to fetch remote dictionaries soon; suppress a transient local-only render
-    logger.setExpectRemote(true);
-  }
-
-  let remoteDictionaries: Dictionary[] = [];
-
-  if (hasRemoteDictionaries) {
-    remoteDictionaries = await loadRemoteDictionaries(
-      configuration,
-      setLoadDictionariesStatus,
-      {
-        onStartRemoteCheck: () => logger.startRemoteCheck(),
-        onStopRemoteCheck: () => logger.stopRemoteCheck(),
-        onError: (e) => logger.setRemoteError(e),
-      }
-    )
-      .then((dictionaries) =>
-        filterInvalidDictionaries(dictionaries, configuration)
-      )
-      .then((dictionaries) => formatDictionaries(dictionaries));
-  }
+  const remoteDictionaries: Dictionary[] = await remoteDictionariesPromise;
 
   const remoteDictionariesTime = Date.now();
 

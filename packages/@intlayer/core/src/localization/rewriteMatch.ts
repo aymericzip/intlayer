@@ -55,6 +55,13 @@ export const getRewriteRules = <
 };
 
 /**
+ * Compiled regexes by pattern. Patterns come from the finite set of rewrite
+ * rules, while URL localization runs per link, so compiling once pays off.
+ * The regexes have no `g` flag, so sharing them is stateless.
+ */
+const patternRegexCache = new Map<string, RegExp>();
+
+/**
  * Converts normalized pattern to Regex.
  * Internal syntax supports:
  * - :param -> ([^/]+) (one segment)
@@ -62,7 +69,11 @@ export const getRewriteRules = <
  * - :param+ -> (.+) (one or more segments)
  * - :param? -> ([^/]*) (zero or one segment)
  */
-const patternToRegex = (pattern: string) => {
+const patternToRegex = (pattern: string): RegExp => {
+  const cachedRegex = patternRegexCache.get(pattern);
+
+  if (cachedRegex) return cachedRegex;
+
   const regexString = pattern
     .replace(/\//g, '\\/') // Escape slashes
     .replace(/\\\/:(?:[^/\\*+?]+)\*/g, '(?:\\/(.*))?') // /:param*
@@ -72,7 +83,10 @@ const patternToRegex = (pattern: string) => {
     .replace(/:([^/\\*+?]+)\+/g, '(.+)') // :param+
     .replace(/:([^/\\*+?]+)/g, '([^\\/]+)'); // :param
 
-  return new RegExp(`^${regexString}$`);
+  const regex = new RegExp(`^${regexString}$`);
+  patternRegexCache.set(pattern, regex);
+
+  return regex;
 };
 
 /**
