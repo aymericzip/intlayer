@@ -1,4 +1,4 @@
-# syntax=docker/dockerfile:1.26.0
+# syntax=docker/dockerfile:1.27.0
 
 # Base stage: system deps shared between builder and runner
 FROM node:26-alpine AS base
@@ -71,6 +71,7 @@ COPY \
     --exclude=apps/website \
     --exclude=apps/showcase \
     --exclude=apps/app \
+    --exclude=apps/vscode-extension \
     --exclude=**/*.stories.* \
     . .
 

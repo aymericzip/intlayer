@@ -1,4 +1,4 @@
-# syntax=docker/dockerfile:1.26.0
+# syntax=docker/dockerfile:1.27.0
 # check=skip=SecretsUsedInArgOrEnv
 #
 # Intlayer self-hosting images. One Dockerfile, three build targets:
@@ -72,6 +72,7 @@ COPY \
     --exclude=apps/website \
     --exclude=apps/showcase \
     --exclude=apps/app \
+    --exclude=apps/vscode-extension \
     --exclude=**/*.stories.* \
     . .
 
@@ -147,6 +148,7 @@ COPY \
     --exclude=packages/eslint-plugin-intlayer \
     --exclude=apps/website \
     --exclude=apps/showcase \
+    --exclude=apps/vscode-extension \
     --exclude=docs/assets \
     --exclude=examples \
     --exclude=plugins \

@@ -1,4 +1,4 @@
-# syntax=docker/dockerfile:1.26.0
+# syntax=docker/dockerfile:1.27.0
 
 # Builder stage
 FROM node:26-alpine AS builder
@@ -39,6 +39,7 @@ COPY \
   --exclude=apps/app \
   --exclude=apps/showcase \
   --exclude=apps/website \
+  --exclude=apps/vscode-extension \
   --exclude=docs/assets \
   --exclude=docs/docs \
   --exclude=docs/blog \
