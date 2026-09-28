@@ -164,7 +164,7 @@ export const scan = async (
       appLogger(
         `  ${colorize(categoryLabels[technology.category], ANSIColors.GREY)} ${technology.name}${
           technology.version ? ` ${technology.version}` : ''
-        } ${colorize(`(${technology.evidence})`, ANSIColors.GREY)}`
+        }`
       );
     }
   }

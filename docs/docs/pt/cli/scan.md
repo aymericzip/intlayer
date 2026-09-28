@@ -74,10 +74,9 @@ Locales: fr, en, es, de
 Routing: locale prefix except for the default locale (every hreflang alternate but "en" starts with a locale segment, default locale: en)
 
 Stack:
-  Framework Next.js 15.1.0 (window.next.version)
-  i18n library next-intl (JavaScript bundle contains "X-NEXT-INTL-LOCALE")
-  TMS Crowdin (loads https://distributions.crowdin.net/…)
-
+  Framework Next.js 15.1.0
+  i18n library next-intl
+  TMS Crowdin
 Checks:
   ✓ html lang attribute
   ✓ html dir attribute
