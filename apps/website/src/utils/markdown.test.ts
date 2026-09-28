@@ -63,6 +63,20 @@ vi.mock('intlayer', () => {
       relativeUrl: '/doc/environment/create-react-app',
       locale: 'ja',
     },
+    {
+      githubUrl:
+        'https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_astro.md',
+      url: '/doc/environment/astro',
+      relativeUrl: '/doc/environment/astro',
+      locale: 'en',
+    },
+    {
+      githubUrl:
+        'https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_astro_react.md',
+      url: '/doc/environment/astro/react',
+      relativeUrl: '/doc/environment/astro/react',
+      locale: 'en',
+    },
   ];
 
   // Return the mocked helpers expected by `apps/website/src/utils/markdown.ts`.
@@ -119,7 +133,9 @@ describe('formatRegExp', () => {
   const result =
     'https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_react_native+expo.md';
 
-  expect(formatRegExp(entry).exec(result)?.length).toEqual(1);
+  it('should match an URL containing regexp characters', () => {
+    expect(formatRegExp(entry).exec(result)?.length).toEqual(1);
+  });
 });
 
 describe('urlRenamer', () => {
@@ -136,5 +152,23 @@ describe('urlRenamer', () => {
   it('rewrites GitHub & localized URLs to in-site routes (French)', () => {
     const output = urlRenamer(textEntry, 'fr' as any).trim();
     expect(output).toEqual(textFrExpected);
+  });
+
+  it('should not rewrite a doc URL that another one prefixes', () => {
+    const output = urlRenamer(
+      [
+        '- [Astro + React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_astro_react.md)',
+        '- [Astro](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_astro.md#setup)',
+        '- [Astro](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_astro)',
+      ].join('\n'),
+      'en' as any
+    );
+    expect(output).toEqual(
+      [
+        '- [Astro + React](/doc/environment/astro/react)',
+        '- [Astro](/doc/environment/astro#setup)',
+        '- [Astro](/doc/environment/astro)',
+      ].join('\n')
+    );
   });
 });

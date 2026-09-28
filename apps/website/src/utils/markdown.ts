@@ -47,12 +47,19 @@ export const urlRenamer = (
   // en|fr|ru|ja|it|hi
   const localePattern = localeMap(({ locale }) => locale).join('|');
 
+  // The URL must end there, else `intlayer_with_astro` would rewrite the
+  // beginning of `intlayer_with_astro_react.md`
+  const urlEndPattern = String.raw`(?![\w+\-/]|\.\w)`;
+
   const getGithubUrlRegex = (githubUrl: string) =>
-    formatRegExp(
-      githubUrl.replace(
-        new RegExp(`/(${localePattern})/`),
-        `/(${localePattern})/`
-      )
+    new RegExp(
+      `${escapeRegExp(
+        githubUrl.replace(
+          new RegExp(`/(${localePattern})/`),
+          `/(${localePattern})/`
+        )
+      )}${urlEndPattern}`,
+      'g'
     );
 
   for (const meta of [...docMetadata, ...blogMetadata]) {
