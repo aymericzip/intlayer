@@ -30,7 +30,7 @@ Intlayer CLI, intlayer içeriğinizi yönetmek için (sözlük oluşturma, çevi
 Intlayer komutlarına şu şekillerde erişebilirsiniz:
 
 - `intlayer` cli komutunu doğrudan kullanarak
-- [VSCode eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md) ile
+- [VSCode eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/vs_code_extension.md) ile
 - `@intlayer/cli` SDK ile
 
 ## Sorun

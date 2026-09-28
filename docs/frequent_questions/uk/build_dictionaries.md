@@ -48,7 +48,7 @@ npx intlayer dictionaries build --watch
 
 ### Використання розширення VSCode
 
-Ви також можете використовувати [розширення Intlayer для VSCode](https://github.com/aymericzip/intlayer/tree/main/docs/uk/vs_code_extension.md), щоб покращити роботу з Intlayer у VSCode.
+Ви також можете використовувати [розширення Intlayer для VSCode](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/vs_code_extension.md), щоб покращити роботу з Intlayer у VSCode.
 
 ### Використання плагіна для вашого улюбленого фреймворка
 

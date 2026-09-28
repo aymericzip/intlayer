@@ -374,9 +374,9 @@ export default withIntlayer(nextConfig);
 
 <Question title="ICU 消息支持情况如何？">
 
-它们可以继续正常工作。`t("key", { count })`、`t.rich()`、`t.markup()`、`select`、`selectordinal`、`#` 和 `{ts, date, long}` 均由 Intlayer 的 ICU 解析器处理。参见 [ICU 消息格式](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)。
+它们可以继续正常工作。`t("key", { count })`、`t.rich()`、`t.markup()`、`select`、`selectordinal`、`#` 和 `{ts, date, long}` 均由 Intlayer 的 ICU 解析器处理。参见 [ICU 消息格式](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/icu_message_format.md)。
 
-- [ICU 消息格式](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)
+- [ICU 消息格式](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/icu_message_format.md)
 
 </Question>
 

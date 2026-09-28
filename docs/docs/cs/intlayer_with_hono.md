@@ -288,9 +288,9 @@ Toto rozšíření poskytuje:
 - **Inline náhledy** přeloženého obsahu.
 - **Rychlé akce** pro snadné vytváření a aktualizaci překladů.
 
-Další podrobnosti o používání rozšíření naleznete v [dokumentaci Rozšíření Intlayer pro VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md).
+Další podrobnosti o používání rozšíření naleznete v [dokumentaci Rozšíření Intlayer pro VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/vs_code_extension.md).
 
-- [dokumentaci Rozšíření Intlayer pro VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md)
+- [dokumentaci Rozšíření Intlayer pro VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/vs_code_extension.md)
 
 ### Konfigurace Gitu
 

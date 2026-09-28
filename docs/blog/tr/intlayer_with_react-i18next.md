@@ -37,15 +37,15 @@ author: aymericzip
 
 **Intlayer**, geleneksel i18n çözümlerinin eksikliklerini gidermek için tasarlanmış yenilikçi, açık kaynaklı bir uluslararasılaştırma kütüphanesidir. React uygulamalarında içerik yönetimi için modern bir yaklaşım sunar.
 
-react-i18next ile somut bir karşılaştırma için [react-i18next vs. react-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/react-i18next_vs_react-intl_vs_intlayer.md) blog yazımıza bakabilirsiniz.
+react-i18next ile somut bir karşılaştırma için [react-i18next vs. react-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/react-i18next_vs_react-intl_vs_intlayer.md) blog yazımıza bakabilirsiniz.
 
-- [react-i18next vs. react-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/react-i18next_vs_react-intl_vs_intlayer.md)
+- [react-i18next vs. react-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/react-i18next_vs_react-intl_vs_intlayer.md)
 
 ## Neden Intlayer'ı react-i18next ile Birleştirmelisiniz?
 
-Intlayer mükemmel bir bağımsız i18n çözümü sunarken (bakınız [React entegrasyon rehberimiz](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md)), react-i18next ile birkaç nedenle birleştirmek isteyebilirsiniz:
+Intlayer mükemmel bir bağımsız i18n çözümü sunarken (bakınız [React entegrasyon rehberimiz](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_vite+react.md)), react-i18next ile birkaç nedenle birleştirmek isteyebilirsiniz:
 
-- [React entegrasyon rehberimiz](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md)
+- [React entegrasyon rehberimiz](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_vite+react.md)
 
 1. **Mevcut kod tabanı**: Yerleşik bir react-i18next uygulamanız var ve Intlayer'ın geliştirilmiş geliştirici deneyimine kademeli olarak geçmek istiyorsunuz.
 2. **Eski gereksinimler**: Projeniz mevcut react-i18next eklentileri veya iş akışları ile uyumluluk gerektiriyor.

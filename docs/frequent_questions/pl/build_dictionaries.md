@@ -48,7 +48,7 @@ W tym trybie Intlayer będzie skanować i budować słowniki za każdym razem, g
 
 ### Korzystanie z rozszerzenia VSCode
 
-Możesz również użyć [rozszerzenia Intlayer dla VSCode](https://github.com/aymericzip/intlayer/tree/main/docs/pl/vs_code_extension.md), aby ulepszyć swoje doświadczenie z Intlayer w VSCode.
+Możesz również użyć [rozszerzenia Intlayer dla VSCode](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/vs_code_extension.md), aby ulepszyć swoje doświadczenie z Intlayer w VSCode.
 
 ### Korzystanie z wtyczki dla Twojego ulubionego frameworka aplikacji
 

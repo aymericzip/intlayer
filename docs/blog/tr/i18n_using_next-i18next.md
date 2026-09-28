@@ -41,14 +41,14 @@ Bu yaklaşımla şunları yapabilirsiniz:
 - **TypeScript desteğini garanti altına alın**; tür güvenli yerel ayar yapılandırması ve çeviri anahtarları kullanın.
 - **SEO için optimize edin**; uygun metadata, sitemap ve robots.txt uluslararasılaştırması ile.
 
-> Alternatif olarak, [next-intl rehberine](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/i18n_using_next-intl.md) veya doğrudan [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_16.md) kullanımına da başvurabilirsiniz.
+> Alternatif olarak, [next-intl rehberine](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18n_using_next-intl.md) veya doğrudan [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_16.md) kullanımına da başvurabilirsiniz.
 
-- [next-intl rehberine](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/i18n_using_next-intl.md)
-- [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_16.md)
+- [next-intl rehberine](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18n_using_next-intl.md)
+- [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_16.md)
 
-> Karşılaştırmayı [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/next-i18next_vs_next-intl_vs_intlayer.md) sayfasında görebilirsiniz.
+> Karşılaştırmayı [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/next-i18next_vs_next-intl_vs_intlayer.md) sayfasında görebilirsiniz.
 
-- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/next-i18next_vs_next-intl_vs_intlayer.md)
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/next-i18next_vs_next-intl_vs_intlayer.md)
 
 > Bu kütüphanelerin nereden geldiğini anlamak için JavaScript i18n tarihini okuyun.
 

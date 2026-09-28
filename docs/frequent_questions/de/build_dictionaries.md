@@ -48,7 +48,7 @@ In diesem Modus durchsucht und erstellt Intlayer Wörterbücher, sobald Änderun
 
 ### Verwendung der VSCode-Erweiterung
 
-Sie können auch die [Intlayer VSCode-Erweiterung](https://github.com/aymericzip/intlayer/tree/main/docs/de/vs_code_extension.md) verwenden, um Ihre Intlayer-Erfahrung in VSCode zu verbessern.
+Sie können auch die [Intlayer VSCode-Erweiterung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/vs_code_extension.md) verwenden, um Ihre Intlayer-Erfahrung in VSCode zu verbessern.
 
 ### Verwendung des Plugins für Ihr bevorzugtes Anwendungsframework
 

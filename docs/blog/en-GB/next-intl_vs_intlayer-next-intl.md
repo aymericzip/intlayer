@@ -374,9 +374,9 @@ On Next.js, yes for components: the benchmark build changed `next.config.ts` and
 
 <Question title="What happens to ICU messages?">
 
-They keep working. `t("key", { count })`, `t.rich()`, `t.markup()`, `select`, `selectordinal`, `#` and `{ts, date, long}` are resolved by Intlayer's ICU resolver. See [ICU message format](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md).
+They keep working. `t("key", { count })`, `t.rich()`, `t.markup()`, `select`, `selectordinal`, `#` and `{ts, date, long}` are resolved by Intlayer's ICU resolver. See [ICU message format](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/icu_message_format.md).
 
-- [ICU message format](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)
+- [ICU message format](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/icu_message_format.md)
 
 </Question>
 

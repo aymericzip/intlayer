@@ -352,7 +352,7 @@ const changeLocale = (event: Event) => {
 
 Intlayer支持在您的Svelte应用中直接渲染Markdown内容。默认情况下，Markdown被视为纯文本。要将Markdown转换为丰富的HTML，您可以集成`@humanspeak/svelte-markdown`或其他markdown解析器。
 
-> 要了解如何使用`intlayer`包声明markdown内容，请参阅[markdown文档](https://github.com/aymericzip/intlayer/tree/main/docs/zh/dictionary/markdown.md)。
+> 要了解如何使用`intlayer`包声明markdown内容，请参阅[markdown文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/markdown.md)。
 
 ```svelte fileName="src/App.svelte"
 <script>

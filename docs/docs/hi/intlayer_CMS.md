@@ -174,7 +174,7 @@ export default config;
 
 ### अपनी कॉन्फ़िगरेशन पुश करें
 
-Intlayer CMS को कॉन्फ़िगर करने के लिए, आप [intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/hi/cli/index.md) कमांड्स का उपयोग कर सकते हैं।
+Intlayer CMS को कॉन्फ़िगर करने के लिए, आप [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/index.md) कमांड्स का उपयोग कर सकते हैं।
 
 ```bash packageManager="npm"
 npx intlayer config push
@@ -214,7 +214,7 @@ bun x intlayer config push --env production
 
 ### एक शब्दकोश (डिक्शनरी) पुश करें
 
-अपने लोकल शब्दकोशों को दूरस्थ शब्दकोश में बदलने के लिए, आप [intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/hi/cli/index.md) कमांड्स का उपयोग कर सकते हैं।
+अपने लोकल शब्दकोशों को दूरस्थ शब्दकोश में बदलने के लिए, आप [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/index.md) कमांड्स का उपयोग कर सकते हैं।
 
 ```bash packageManager="npm"
 npx intlayer dictionary push -d my-first-dictionary-key

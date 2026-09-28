@@ -41,14 +41,14 @@ With this approach, you can:
 - **Ensure TypeScript support** with type-safe locale configuration and translation keys.
 - **Optimise for SEO** with proper metadata, sitemap, and robots.txt internationalisation.
 
-> As an alternative, you can also refer to the [next-intl guide](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/i18n_using_next-intl.md), or directly using [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_16.md).
+> As an alternative, you can also refer to the [next-intl guide](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/i18n_using_next-intl.md), or directly using [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_nextjs_16.md).
 
-- [next-intl guide](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/i18n_using_next-intl.md)
-- [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_16.md)
+- [next-intl guide](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/i18n_using_next-intl.md)
+- [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_nextjs_16.md)
 
-> See the comparison in [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/next-i18next_vs_next-intl_vs_intlayer.md).
+> See the comparison in [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/next-i18next_vs_next-intl_vs_intlayer.md).
 
-- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/next-i18next_vs_next-intl_vs_intlayer.md)
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/next-i18next_vs_next-intl_vs_intlayer.md)
 
 > To understand where these libraries come from, read the history of JavaScript i18n.
 
@@ -1186,7 +1186,7 @@ Intlayer will allow you to:
   Intlayer allows you to declare your content wherever you want in your codebase using `.content.{ts|js|json}` files. This enables better organisation of your content, ensuring improved readability and maintainability of your codebase.
 
 - **Test missing translations**  
-  Intlayer provides test functions that can be integrated into your CI/CD pipeline or your unit tests. Learn more about [testing your translations](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/testing.md).
+  Intlayer provides test functions that can be integrated into your CI/CD pipeline or your unit tests. Learn more about [testing your translations](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/testing.md).
 
 - **Automate your translations**  
   Intlayer provides a CLI and a VSCode extension to automate your translations. It can be integrated into your CI/CD pipeline. Learn more about [automating your translations](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/index.md).  

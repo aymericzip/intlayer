@@ -271,9 +271,9 @@ Deze extensie biedt:
 - **Inline voorbeelden** van vertaalde inhoud.
 - **Snelle acties** om eenvoudig vertalingen aan te maken en bij te werken.
 
-Voor meer details over het gebruik van de extensie, zie de [Intlayer VS Code Extension-documentatie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md).
+Voor meer details over het gebruik van de extensie, zie de [Intlayer VS Code Extension-documentatie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/vs_code_extension.md).
 
-- [Intlayer VS Code Extension-documentatie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md)
+- [Intlayer VS Code Extension-documentatie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/vs_code_extension.md)
 
 ### Git-configuratie
 

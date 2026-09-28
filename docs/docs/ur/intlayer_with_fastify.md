@@ -271,9 +271,9 @@ Intlayer کے ساتھ اپنے ترقیاتی تجربے کو بہتر بنان
 - ترجمہ شدہ مواد کا **ان لائن پیش نظارہ**۔
 - آسانی سے ترجمے بنانے اور اپ ڈیٹ کرنے کے لیے **فوری اقدامات**۔
 
-ایکسٹینشن کے استعمال کے بارے میں مزید تفصیلات کے لیے، [Intlayer VS Code Extension دستاویزات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md) دیکھیں۔
+ایکسٹینشن کے استعمال کے بارے میں مزید تفصیلات کے لیے، [Intlayer VS Code Extension دستاویزات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/vs_code_extension.md) دیکھیں۔
 
-- [Intlayer VS Code Extension دستاویزات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md)
+- [Intlayer VS Code Extension دستاویزات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/vs_code_extension.md)
 
 ### Git ترتیب
 

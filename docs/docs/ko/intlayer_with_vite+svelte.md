@@ -352,7 +352,7 @@ const changeLocale = (event: Event) => {
 
 Intlayer는 Svelte 애플리케이션에서 마크다운 콘텐츠를 직접 렌더링하는 것을 지원합니다. 기본적으로 마크다운은 일반 텍스트로 처리됩니다. 마크다운을 풍부한 HTML로 변환하려면 `@humanspeak/svelte-markdown` 또는 다른 마크다운 파서를 통합할 수 있습니다.
 
-> `intlayer` 패키지를 사용하여 마크다운 콘텐츠를 선언하는 방법은 [마크다운 문서](https://github.com/aymericzip/intlayer/tree/main/docs/docs/ko/dictionary/markdown.md)를 참조하세요.
+> `intlayer` 패키지를 사용하여 마크다운 콘텐츠를 선언하는 방법은 [마크다운 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/markdown.md)를 참조하세요.
 
 ```svelte fileName="src/App.svelte"
 <script>

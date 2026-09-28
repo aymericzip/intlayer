@@ -352,7 +352,7 @@ const changeLocale = (event: Event) => {
 
 Intlayer mendukung rendering konten Markdown langsung di aplikasi Svelte Anda. Secara default, Markdown diperlakukan sebagai teks biasa. Untuk mengubah Markdown menjadi HTML kaya, Anda dapat mengintegrasikan `@humanspeak/svelte-markdown`, atau parser markdown lainnya.
 
-> Untuk melihat cara mendeklarasikan konten markdown menggunakan paket `intlayer`, lihat [dokumen markdown](https://github.com/aymericzip/intlayer/tree/main/docs/docs/id/dictionary/markdown.md).
+> Untuk melihat cara mendeklarasikan konten markdown menggunakan paket `intlayer`, lihat [dokumen markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/markdown.md).
 
 ```svelte fileName="src/App.svelte"
 <script>

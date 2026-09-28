@@ -498,9 +498,9 @@ Non. `@intlayer/next-intl` conserve `useTranslations`, `getTranslations`, `useFo
 
 <Question title="Intlayer prend-il en charge ICU MessageFormat ?">
 
-Le support natif d'ICU est en cours de développement sur l'API native. Les adaptateurs de compatibilité (`@intlayer/next-intl`, `@intlayer/use-intl`) exécutent bien ICU : les pluriels, `select`, `selectordinal`, `#` et `{ts, date, long}` passent par le résolveur ICU d'Intlayer. Consultez [format de message ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md) pour plus de détails.
+Le support natif d'ICU est en cours de développement sur l'API native. Les adaptateurs de compatibilité (`@intlayer/next-intl`, `@intlayer/use-intl`) exécutent bien ICU : les pluriels, `select`, `selectordinal`, `#` et `{ts, date, long}` passent par le résolveur ICU d'Intlayer. Consultez [format de message ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/icu_message_format.md) pour plus de détails.
 
-- [format de message ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)
+- [format de message ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/icu_message_format.md)
 
 </Question>
 

@@ -39,15 +39,15 @@ author: aymericzip
 
 **Intlayer**は、従来のi18nソリューションの欠点を解決するために設計された革新的なオープンソースの国際化ライブラリです。Reactアプリケーションにおけるコンテンツ管理に対して、モダンなアプローチを提供します。
 
-具体的な比較については、当社のブログ記事[react-i18next vs. react-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/react-i18next_vs_react-intl_vs_intlayer.md)をご覧ください。
+具体的な比較については、当社のブログ記事[react-i18next vs. react-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/react-i18next_vs_react-intl_vs_intlayer.md)をご覧ください。
 
-- [react-i18next vs. react-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/react-i18next_vs_react-intl_vs_intlayer.md)
+- [react-i18next vs. react-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/react-i18next_vs_react-intl_vs_intlayer.md)
 
 ## なぜIntlayerをreact-intlと組み合わせるのか？
 
-Intlayerは優れた単独のi18nソリューションを提供します（[React統合ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md)を参照）が、以下のような理由でreact-intlと組み合わせたい場合があります：
+Intlayerは優れた単独のi18nソリューションを提供します（[React統合ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_vite+react.md)を参照）が、以下のような理由でreact-intlと組み合わせたい場合があります：
 
-- [React統合ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md)
+- [React統合ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_vite+react.md)
 
 1. **既存のコードベース**: 既にreact-intlの実装があり、Intlayerの向上した開発者体験へ段階的に移行したい場合。
 2. **レガシー要件**: プロジェクトが既存のreact-intlプラグインやワークフローとの互換性を必要とする場合。

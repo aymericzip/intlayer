@@ -374,9 +374,9 @@ No Next.js, sim para componentes: a compilação do benchmark alterou apenas `ne
 
 <Question title="O que acontece com as mensagens ICU?">
 
-Elas continuam funcionando. `t("key", { count })`, `t.rich()`, `t.markup()`, `select`, `selectordinal`, `#` e `{ts, date, long}` são resolvidos pelo resolvedor ICU do Intlayer. Veja [formato de mensagem ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md).
+Elas continuam funcionando. `t("key", { count })`, `t.rich()`, `t.markup()`, `select`, `selectordinal`, `#` e `{ts, date, long}` são resolvidos pelo resolvedor ICU do Intlayer. Veja [formato de mensagem ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/icu_message_format.md).
 
-- [formato de mensagem ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)
+- [formato de mensagem ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/icu_message_format.md)
 
 </Question>
 

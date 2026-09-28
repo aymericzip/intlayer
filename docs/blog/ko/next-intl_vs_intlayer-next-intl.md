@@ -374,9 +374,9 @@ Next.js에서 컴포넌트 코드는 변경되지 않습니다. 벤치마크 빌
 
 <Question title="ICU 메시지는 어떻게 처리되나요?">
 
-정상적으로 계속 작동합니다. `t("key", { count })`, `t.rich()`, `t.markup()`, `select`, `selectordinal`, `#`, `{ts, date, long}`은 Intlayer의 ICU 해석기를 통해 처리됩니다. [ICU 메시지 형식](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)을 참조하세요.
+정상적으로 계속 작동합니다. `t("key", { count })`, `t.rich()`, `t.markup()`, `select`, `selectordinal`, `#`, `{ts, date, long}`은 Intlayer의 ICU 해석기를 통해 처리됩니다. [ICU 메시지 형식](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/icu_message_format.md)을 참조하세요.
 
-- [ICU 메시지 형식](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)
+- [ICU 메시지 형식](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/icu_message_format.md)
 
 </Question>
 

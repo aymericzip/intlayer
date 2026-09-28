@@ -573,7 +573,7 @@ Znacznie mniej niż rozwiązania oparte na przestrzeniach nazw, ponieważ strona
 
 Tak, i są dwie drogi. Możesz migrować treść stopniowo za pomocą [przewodnika migracji z react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/migration_from_react-i18next_to_intlayer.md). Możesz także zachować dotychczasowe API za pośrednictwem adapterów kompatybilności.
 
-- [i18n-js migration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/i18n-js.md)
+- [i18n-js migration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compat/i18n-js.md)
 - [przewodnika migracji z react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/migration_from_react-i18next_to_intlayer.md)
 - [Adaptery zgodności Intlayer dla bibliotek i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compat/index.md)
 

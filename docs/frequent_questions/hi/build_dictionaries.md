@@ -48,7 +48,7 @@ npx intlayer dictionaries build --watch
 
 ### VSCode एक्सटेंशन का उपयोग करना
 
-आप अपने VSCode में Intlayer अनुभव को बेहतर बनाने के लिए [Intlayer VSCode एक्सटेंशन](https://github.com/aymericzip/intlayer/tree/main/docs/hi/vs_code_extension.md) का भी उपयोग कर सकते हैं।
+आप अपने VSCode में Intlayer अनुभव को बेहतर बनाने के लिए [Intlayer VSCode एक्सटेंशन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/vs_code_extension.md) का भी उपयोग कर सकते हैं।
 
 ### अपने पसंदीदा एप्लिकेशन फ्रेमवर्क के लिए प्लगइन का उपयोग करना
 

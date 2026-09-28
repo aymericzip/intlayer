@@ -282,7 +282,7 @@ Intlayer 由多个包组成，每个包在翻译过程中都有特定的角色�
 
 ### @intlayer/cli
 
-`@intlayer/cli` 包是一个 NPM 包，用于声明与 Intlayer 命令行接口相关的脚本。它确保了所有 Intlayer CLI 命令的一致性。此包主要被 [intlayer-cli](https://github.com/aymericzip/intlayer/tree/main/docs/zh/packages/intlayer-cli/index.md) 和 [intlayer](https://github.com/aymericzip/intlayer/tree/main/docs/zh/packages/intlayer/index.md) 包所使用。
+`@intlayer/cli` 包是一个 NPM 包，用于声明与 Intlayer 命令行接口相关的脚本。它确保了所有 Intlayer CLI 命令的一致性。此包主要被 [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer-cli/index.md) 和 [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/index.md) 包所使用。
 
 ### @intlayer/mcp
 

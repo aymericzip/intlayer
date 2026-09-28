@@ -482,9 +482,9 @@ Không. `@intlayer/next-intl` giữ nguyên `useTranslations`, `getTranslations`
 
 <Question title="Intlayer có hỗ trợ ICU MessageFormat không?">
 
-Hỗ trợ ICU đang được hoàn thiện trên API gốc. Các adapter tương thích (`@intlayer/next-intl`, `@intlayer/use-intl`) đã hỗ trợ đầy đủ ICU: số nhiều, `select`, `selectordinal`, `#` và `{ts, date, long}` đều đi qua bộ phân giải ICU của Intlayer. Xem thêm [định dạng tin nhắn ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md).
+Hỗ trợ ICU đang được hoàn thiện trên API gốc. Các adapter tương thích (`@intlayer/next-intl`, `@intlayer/use-intl`) đã hỗ trợ đầy đủ ICU: số nhiều, `select`, `selectordinal`, `#` và `{ts, date, long}` đều đi qua bộ phân giải ICU của Intlayer. Xem thêm [định dạng tin nhắn ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/icu_message_format.md).
 
-- [định dạng tin nhắn ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)
+- [định dạng tin nhắn ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/icu_message_format.md)
 
 </Question>
 

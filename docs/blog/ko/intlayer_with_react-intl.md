@@ -39,15 +39,15 @@ author: aymericzip
 
 **Intlayer**는 전통적인 i18n 솔루션의 한계를 해결하기 위해 설계된 혁신적이고 오픈 소스인 국제화 라이브러리입니다. React 애플리케이션에서 콘텐츠 관리를 위한 현대적인 접근 방식을 제공합니다.
 
-react-intl과의 구체적인 비교는 저희 블로그 게시물 [react-i18next vs. react-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/react-i18next_vs_react-intl_vs_intlayer.md)에서 확인할 수 있습니다.
+react-intl과의 구체적인 비교는 저희 블로그 게시물 [react-i18next vs. react-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/react-i18next_vs_react-intl_vs_intlayer.md)에서 확인할 수 있습니다.
 
-- [react-i18next vs. react-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/react-i18next_vs_react-intl_vs_intlayer.md)
+- [react-i18next vs. react-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/react-i18next_vs_react-intl_vs_intlayer.md)
 
 ## 왜 Intlayer를 react-intl과 함께 사용해야 할까요?
 
-Intlayer는 훌륭한 독립형 i18n 솔루션을 제공하지만(자세한 내용은 [React 통합 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md)를 참조), 다음과 같은 여러 이유로 react-intl과 결합하여 사용하고자 할 수 있습니다:
+Intlayer는 훌륭한 독립형 i18n 솔루션을 제공하지만(자세한 내용은 [React 통합 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_vite+react.md)를 참조), 다음과 같은 여러 이유로 react-intl과 결합하여 사용하고자 할 수 있습니다:
 
-- [React 통합 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md)
+- [React 통합 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_vite+react.md)
 
 1. **기존 코드베이스**: 이미 구축된 react-intl 구현이 있으며 Intlayer의 향상된 개발자 경험으로 점진적으로 마이그레이션하고자 합니다.
 2. **레거시 요구사항**: 프로젝트가 기존 react-intl 플러그인 또는 워크플로우와의 호환성을 필요로 합니다.

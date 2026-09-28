@@ -39,9 +39,9 @@ author: aymericzip
 
 **Intlayer** is an innovative, open-source internationalisation library designed to address the shortcomings of traditional i18n solutions. It offers a modern approach to content management in React applications.
 
-See a concrete comparison with react-intl in our [react-i18next vs. react-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/react-i18next_vs_react-intl_vs_intlayer.md) blog post.
+See a concrete comparison with react-intl in our [react-i18next vs. react-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/react-i18next_vs_react-intl_vs_intlayer.md) blog post.
 
-- [react-i18next vs. react-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/react-i18next_vs_react-intl_vs_intlayer.md)
+- [react-i18next vs. react-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/react-i18next_vs_react-intl_vs_intlayer.md)
 
 ## Why Combine Intlayer with react-intl?
 
@@ -155,9 +155,9 @@ If you want to make that JSON coexist with Intlayer content declaration files (`
 
 If changes are made using the CLI to translate the JSON, or using the CMS, Intlayer will update the JSON file with the new translations.
 
-To see more details about the `syncJSON` plugin, please refer to the [syncJSON plugin documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/plugins/sync-json.md).
+To see more details about the `syncJSON` plugin, please refer to the [syncJSON plugin documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/plugins/sync-json.md).
 
-- [syncJSON plugin documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/plugins/sync-json.md)
+- [syncJSON plugin documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/plugins/sync-json.md)
 
 </Step>
 

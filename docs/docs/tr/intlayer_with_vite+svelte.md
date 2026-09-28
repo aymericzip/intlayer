@@ -354,7 +354,7 @@ const changeLocale = (event: Event) => {
 
 Intlayer, Markdown içeriğini doğrudan Svelte uygulamanızda render etmeyi destekler. Varsayılan olarak, Markdown düz metin olarak işlenir. Markdown'u zengin HTML'ye dönüştürmek için `@humanspeak/svelte-markdown` veya başka bir markdown ayrıştırıcı entegre edebilirsiniz.
 
-> `intlayer` paketi kullanarak markdown içeriğinin nasıl tanımlanacağını görmek için [markdown dokümanına](https://github.com/aymericzip/intlayer/tree/main/docs/tr/dictionary/markdown.md) bakınız.
+> `intlayer` paketi kullanarak markdown içeriğinin nasıl tanımlanacağını görmek için [markdown dokümanına](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/markdown.md) bakınız.
 
 ```svelte fileName="src/App.svelte"
 <script>

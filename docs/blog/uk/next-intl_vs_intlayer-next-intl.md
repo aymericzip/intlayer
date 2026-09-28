@@ -374,9 +374,9 @@ export default withIntlayer(nextConfig);
 
 <Question title="Що відбувається з повідомленнями ICU?">
 
-Вони продовжують працювати. `t("key", { count })`, `t.rich()`, `t.markup()`, `select`, `selectordinal`, `#` та `{ts, date, long}` обробляються резолвером ICU в Intlayer. Див. [формат повідомлень ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md).
+Вони продовжують працювати. `t("key", { count })`, `t.rich()`, `t.markup()`, `select`, `selectordinal`, `#` та `{ts, date, long}` обробляються резолвером ICU в Intlayer. Див. [формат повідомлень ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/icu_message_format.md).
 
-- [формат повідомлень ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)
+- [формат повідомлень ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/icu_message_format.md)
 
 </Question>
 

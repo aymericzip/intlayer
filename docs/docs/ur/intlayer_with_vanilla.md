@@ -437,9 +437,9 @@ Intlayer کے ساتھ اپنے ترقی کے تجربے کو بہتر بنان�
 - ترجمہ شدہ مواد کا **ان لائن پری ویو**۔
 - تراجم کو آسانی سے تخلیق اور اپ ڈیٹ کرنے کے لیے **فوری اقدامات**۔
 
-ایکسٹینشن کو استعمال کرنے کے طریقے کے بارے में مزید تفصیلات کے لیے، [Intlayer VS Code ایکسٹینشن دستاویزات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md) دیکھیں۔
+ایکسٹینشن کو استعمال کرنے کے طریقے کے بارے में مزید تفصیلات کے لیے، [Intlayer VS Code ایکسٹینشن دستاویزات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/vs_code_extension.md) دیکھیں۔
 
-- [Intlayer VS Code ایکسٹینشن دستاویزات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md)
+- [Intlayer VS Code ایکسٹینشن دستاویزات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/vs_code_extension.md)
 
 ### مزید آگے بڑھیں
 

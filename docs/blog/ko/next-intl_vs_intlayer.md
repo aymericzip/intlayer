@@ -482,9 +482,9 @@ Next.js의 생태계 표준을 원하고, ICU MessageFormat에 의존하며, 앱
 
 <Question title="Intlayer는 ICU MessageFormat을 지원하나요?">
 
-네이티브 API에서 ICU 지원은 지속적으로 확장 중입니다. 호환 어댑터(`@intlayer/next-intl`, `@intlayer/use-intl`)는 이미 ICU를 지원합니다: 복수형, `select`, `selectordinal`, `#`, `{ts, date, long}`은 Intlayer의 ICU 리졸버를 통해 처리됩니다. 자세한 내용은 [ICU 메시지 포맷 설명](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)을 참조하세요.
+네이티브 API에서 ICU 지원은 지속적으로 확장 중입니다. 호환 어댑터(`@intlayer/next-intl`, `@intlayer/use-intl`)는 이미 ICU를 지원합니다: 복수형, `select`, `selectordinal`, `#`, `{ts, date, long}`은 Intlayer의 ICU 리졸버를 통해 처리됩니다. 자세한 내용은 [ICU 메시지 포맷 설명](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/icu_message_format.md)을 참조하세요.
 
-- [ICU 메시지 포맷 설명](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)
+- [ICU 메시지 포맷 설명](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/icu_message_format.md)
 
 </Question>
 

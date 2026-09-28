@@ -496,9 +496,9 @@ export default withIntlayer(nextConfig);
 
 <Question title="Поддерживает ли Intlayer формат сообщений ICU?">
 
-Нативная поддержка ICU находится в разработке. Адаптеры совместимости (`@intlayer/next-intl`, `@intlayer/use-intl`) полностью поддерживают ICU: множественные формы, `select`, `selectordinal`, `#` и `{ts, date, long}` обрабатываются резолвером ICU от Intlayer. Подробнее читайте в [формат сообщений ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md).
+Нативная поддержка ICU находится в разработке. Адаптеры совместимости (`@intlayer/next-intl`, `@intlayer/use-intl`) полностью поддерживают ICU: множественные формы, `select`, `selectordinal`, `#` и `{ts, date, long}` обрабатываются резолвером ICU от Intlayer. Подробнее читайте в [формат сообщений ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/icu_message_format.md).
 
-- [формат сообщений ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)
+- [формат сообщений ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/icu_message_format.md)
 
 </Question>
 

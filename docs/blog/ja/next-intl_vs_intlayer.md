@@ -501,9 +501,9 @@ Next.js のエコシステム標準を求め、ICU MessageFormat に依存して
 
 <Question title="Intlayer は ICU MessageFormat をサポートしていますか？">
 
-ネイティブAPIでのICUサポートは順次拡張中です。互換アダプター（`@intlayer/next-intl`、`@intlayer/use-intl`）はすでにICUを実行可能です。複数形、`select`、`selectordinal`、`#`、`{ts, date, long}` は Intlayer のICUリゾルバーを介して処理されます。詳しくは [ICU メッセージ形式の解説](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md) をお読みください。
+ネイティブAPIでのICUサポートは順次拡張中です。互換アダプター（`@intlayer/next-intl`、`@intlayer/use-intl`）はすでにICUを実行可能です。複数形、`select`、`selectordinal`、`#`、`{ts, date, long}` は Intlayer のICUリゾルバーを介して処理されます。詳しくは [ICU メッセージ形式の解説](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/icu_message_format.md) をお読みください。
 
-- [ICU メッセージ形式の解説](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)
+- [ICU メッセージ形式の解説](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/icu_message_format.md)
 
 </Question>
 

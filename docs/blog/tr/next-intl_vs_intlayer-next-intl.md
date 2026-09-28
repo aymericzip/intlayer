@@ -374,9 +374,9 @@ Next.js'de bileşenler için evet: benchmark derlemesi yalnızca `next.config.ts
 
 <Question title="ICU mesajlarına ne olur?">
 
-Çalışmaya devam ederler. `t("key", { count })`, `t.rich()`, `t.markup()`, `select`, `selectordinal`, `#` ve `{ts, date, long}` Intlayer'ın ICU çözümleyicisi tarafından işlenir. [ICU mesaj formatı](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md) sayfasına bakın.
+Çalışmaya devam ederler. `t("key", { count })`, `t.rich()`, `t.markup()`, `select`, `selectordinal`, `#` ve `{ts, date, long}` Intlayer'ın ICU çözümleyicisi tarafından işlenir. [ICU mesaj formatı](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/icu_message_format.md) sayfasına bakın.
 
-- [ICU mesaj formatı](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)
+- [ICU mesaj formatı](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/icu_message_format.md)
 
 </Question>
 

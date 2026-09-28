@@ -281,7 +281,7 @@ Le package `@intlayer/webpack` est utilisé pour fournir une configuration Webpa
 
 ### @intlayer/cli
 
-Le package `@intlayer/cli` est un package NPM utilisé pour déclarer les scripts liés aux interfaces en ligne de commande d'Intlayer. Il garantit l'uniformité de toutes les commandes CLI d'Intlayer. Ce package est notamment consommé par les packages [intlayer-cli](https://github.com/aymericzip/intlayer/tree/main/docs/fr/packages/intlayer-cli/index.md) et [intlayer](https://github.com/aymericzip/intlayer/tree/main/docs/fr/packages/intlayer/index.md).
+Le package `@intlayer/cli` est un package NPM utilisé pour déclarer les scripts liés aux interfaces en ligne de commande d'Intlayer. Il garantit l'uniformité de toutes les commandes CLI d'Intlayer. Ce package est notamment consommé par les packages [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/intlayer-cli/index.md) et [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/intlayer/index.md).
 
 ### @intlayer/mcp
 

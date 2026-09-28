@@ -48,7 +48,7 @@ npx intlayer dictionaries build --watch
 
 ### استخدام إضافة VSCode
 
-يمكنك أيضًا استخدام [إضافة Intlayer لـ VSCode](https://github.com/aymericzip/intlayer/tree/main/docs/ar/vs_code_extension.md) لتعزيز تجربتك مع Intlayer في VSCode.
+يمكنك أيضًا استخدام [إضافة Intlayer لـ VSCode](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/vs_code_extension.md) لتعزيز تجربتك مع Intlayer في VSCode.
 
 ### استخدام الإضافة لإطار عمل التطبيق المفضل لديك
 

@@ -573,7 +573,7 @@ Jauh lebih sedikit daripada solusi berbasis namespace, karena halaman tidak pern
 
 Ya. Ikuti [panduan migrasi react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_react-i18next_to_intlayer.md) atau gunakan adapter kompatibilitas.
 
-- [i18n-js migration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/i18n-js.md)
+- [i18n-js migration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/i18n-js.md)
 - [panduan migrasi react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_react-i18next_to_intlayer.md)
 - [Adaptor kompatibilitas Intlayer untuk library i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/index.md)
 

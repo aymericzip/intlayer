@@ -575,7 +575,7 @@ import "@formatjs/intl-datetimeformat/polyfill";
 
 Так. Дотримуйтесь [посібника з міграції з react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/migration_from_react-i18next_to_intlayer.md) або адаптерів сумісності.
 
-- [i18n-js migration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/i18n-js.md)
+- [i18n-js migration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/i18n-js.md)
 - [посібника з міграції з react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/migration_from_react-i18next_to_intlayer.md)
 - [Адаптери сумісності Intlayer для i18n-бібліотек](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/index.md)
 

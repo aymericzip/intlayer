@@ -375,9 +375,9 @@ Next.js において、コンポーネントは変更不要です。ベンチマ
 
 <Question title="ICU メッセージはどうなりますか？">
 
-そのまま動作し続けます。`t("key", { count })`、`t.rich()`、`t.markup()`、`select`、`selectordinal`、`#`、`{ts, date, long}` は Intlayer の ICU リゾルバーによって解決されます。[ICU メッセージフォーマット](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)を参照してください。
+そのまま動作し続けます。`t("key", { count })`、`t.rich()`、`t.markup()`、`select`、`selectordinal`、`#`、`{ts, date, long}` は Intlayer の ICU リゾルバーによって解決されます。[ICU メッセージフォーマット](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/icu_message_format.md)を参照してください。
 
-- [ICU メッセージフォーマット](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)
+- [ICU メッセージフォーマット](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/icu_message_format.md)
 
 </Question>
 

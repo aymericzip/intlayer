@@ -355,7 +355,7 @@ const changeLocale = (event: Event) => {
 
 Intlayer поддерживает отображение контента в формате Markdown непосредственно в вашем приложении на Svelte. По умолчанию Markdown обрабатывается как простой текст. Чтобы преобразовать Markdown в насыщенный HTML, вы можете интегрировать `@humanspeak/svelte-markdown` или другой парсер Markdown.
 
-> Чтобы узнать, как объявлять контент в формате markdown с использованием пакета `intlayer`, смотрите [документацию по markdown](https://github.com/aymericzip/intlayer/tree/main/docs/docs/ru/dictionary/markdown.md).
+> Чтобы узнать, как объявлять контент в формате markdown с использованием пакета `intlayer`, смотрите [документацию по markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/markdown.md).
 
 ```svelte fileName="src/App.svelte"
 <script>

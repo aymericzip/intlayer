@@ -48,7 +48,7 @@ npx intlayer dictionaries build --watch
 
 ### Sử dụng tiện ích mở rộng VSCode
 
-Bạn cũng có thể sử dụng [tiện ích mở rộng Intlayer cho VSCode](https://github.com/aymericzip/intlayer/tree/main/docs/vi/vs_code_extension.md) để nâng cao trải nghiệm Intlayer trong VSCode.
+Bạn cũng có thể sử dụng [tiện ích mở rộng Intlayer cho VSCode](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/vs_code_extension.md) để nâng cao trải nghiệm Intlayer trong VSCode.
 
 ### Sử dụng plugin cho framework ứng dụng yêu thích của bạn
 

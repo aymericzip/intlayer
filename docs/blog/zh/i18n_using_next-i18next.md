@@ -41,14 +41,14 @@ author: aymericzip
 - **确保 TypeScript 支持**，提供类型安全的语言配置和翻译键。
 - **通过适当的元数据、站点地图和 robots.txt 国际化优化 SEO。**
 
-> 作为替代方案，您也可以参考 [next-intl 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/i18n_using_next-intl.md)，或直接使用 [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_16.md)。
+> 作为替代方案，您也可以参考 [next-intl 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18n_using_next-intl.md)，或直接使用 [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_16.md)。
 
-- [next-intl 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/i18n_using_next-intl.md)
-- [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_16.md)
+- [next-intl 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18n_using_next-intl.md)
+- [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_16.md)
 
-> 查看 [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/next-i18next_vs_next-intl_vs_intlayer.md) 中的比较。
+> 查看 [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/next-i18next_vs_next-intl_vs_intlayer.md) 中的比较。
 
-- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/next-i18next_vs_next-intl_vs_intlayer.md)
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/next-i18next_vs_next-intl_vs_intlayer.md)
 
 > 想了解这些库的由来，请阅读 JavaScript i18n 的发展史。
 

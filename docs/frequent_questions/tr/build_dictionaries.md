@@ -48,7 +48,7 @@ Bu modda, Intlayer içerik bildirim dosyalarında değişiklik olduğunda sözl�
 
 ### VSCode eklentisini kullanma
 
-[Intlayer VSCode eklentisini](https://github.com/aymericzip/intlayer/tree/main/docs/en/vs_code_extension.md) kullanarak Intlayer deneyiminizi VSCode'da geliştirebilirsiniz.
+[Intlayer VSCode eklentisini](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/vs_code_extension.md) kullanarak Intlayer deneyiminizi VSCode'da geliştirebilirsiniz.
 
 ### Favori uygulama framework'ünüz için eklenti kullanma
 

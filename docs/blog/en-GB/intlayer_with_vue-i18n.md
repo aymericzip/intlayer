@@ -39,9 +39,9 @@ author: aymericzip
 
 **Intlayer** is an innovative, open-source internationalisation library designed to address the shortcomings of traditional i18n solutions. It offers a modern approach to content management in Vue.js and Nuxt applications.
 
-See a concrete comparison with vue-i18n in our [vue-i18n vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/vue-i18n_vs_intlayer.md) blog post.
+See a concrete comparison with vue-i18n in our [vue-i18n vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/vue-i18n_vs_intlayer.md) blog post.
 
-- [vue-i18n vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/vue-i18n_vs_intlayer.md)
+- [vue-i18n vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/vue-i18n_vs_intlayer.md)
 
 ## Why Combine Intlayer with vue-i18n?
 

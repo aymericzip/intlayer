@@ -484,7 +484,7 @@ Indo além:
 - [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/lingui_vs_intlayer-lingui.md)
 - [Compiler-driven vs declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/compiler_vs_declarative_i18n.md)
 - [Per-component vs centralized i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/per-component_vs_centralized_i18n.md)
-- [ICU message format explained](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)
+- [ICU message format explained](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/icu_message_format.md)
 
 Documentação de referência:
 

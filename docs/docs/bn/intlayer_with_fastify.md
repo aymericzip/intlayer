@@ -271,9 +271,9 @@ export default config;
 - অনুবাদিত কন্টেন্টের **ইনলাইন প্রিভিউ**।
 - সহজে অনুবাদ তৈরি এবং আপডেট করার জন্য **কুইক অ্যাকশন**।
 
-এক্সটেনশন ব্যবহারের আরও বিস্তারিত জানতে, দেখুন [ইন্টলেয়ার ভিএস কোড এক্সটেনশন ডকুমেন্টেশন](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md)।
+এক্সটেনশন ব্যবহারের আরও বিস্তারিত জানতে, দেখুন [ইন্টলেয়ার ভিএস কোড এক্সটেনশন ডকুমেন্টেশন](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/vs_code_extension.md)।
 
-- [ইন্টলেয়ার ভিএস কোড এক্সটেনশন ডকুমেন্টেশন](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md)
+- [ইন্টলেয়ার ভিএস কোড এক্সটেনশন ডকুমেন্টেশন](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/vs_code_extension.md)
 
 ### Git কনফিগারেশন
 

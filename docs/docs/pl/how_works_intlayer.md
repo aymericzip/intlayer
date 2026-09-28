@@ -279,7 +279,7 @@ Pakiet `@intlayer/webpack` służy do dostarczania konfiguracji Webpack, aby apl
 
 ### @intlayer/cli
 
-Pakiet `@intlayer/cli` jest pakietem NPM, który służy do deklarowania skryptów związanych z interfejsami wiersza poleceń Intlayer. Zapewnia jednolitość wszystkich poleceń CLI Intlayer. Ten pakiet jest szczególnie wykorzystywany przez pakiety [intlayer-cli](https://github.com/aymericzip/intlayer/tree/main/docs/pl/packages/intlayer-cli/index.md) oraz [intlayer](https://github.com/aymericzip/intlayer/tree/main/docs/pl/packages/intlayer/index.md).
+Pakiet `@intlayer/cli` jest pakietem NPM, który służy do deklarowania skryptów związanych z interfejsami wiersza poleceń Intlayer. Zapewnia jednolitość wszystkich poleceń CLI Intlayer. Ten pakiet jest szczególnie wykorzystywany przez pakiety [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/intlayer-cli/index.md) oraz [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/intlayer/index.md).
 
 ### @intlayer/mcp
 

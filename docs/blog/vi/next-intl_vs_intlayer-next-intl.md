@@ -374,9 +374,9 @@ Trên Next.js, câu trả lời là có đối với các component: bản build
 
 <Question title="Điều gì xảy ra với các thông điệp ICU?">
 
-Chúng vẫn hoạt động bình thường. `t("key", { count })`, `t.rich()`, `t.markup()`, `select`, `selectordinal`, `#` và `{ts, date, long}` đều được xử lý bởi bộ giải quyết ICU của Intlayer. Xem [định dạng thông điệp ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md).
+Chúng vẫn hoạt động bình thường. `t("key", { count })`, `t.rich()`, `t.markup()`, `select`, `selectordinal`, `#` và `{ts, date, long}` đều được xử lý bởi bộ giải quyết ICU của Intlayer. Xem [định dạng thông điệp ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/icu_message_format.md).
 
-- [định dạng thông điệp ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)
+- [định dạng thông điệp ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/icu_message_format.md)
 
 </Question>
 

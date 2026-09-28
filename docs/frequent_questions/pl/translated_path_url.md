@@ -33,7 +33,7 @@ es -> /es/producto
 
 Aby to zaimplementować, możesz skonfigurować sekcję `routing` w pliku `intlayer.config.ts`.
 
-Więcej informacji na temat implementacji tej funkcji znajdziesz w [dokumentacji Niestandardowych Przekierowań URL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/custom_url_rewrites.md).
+Więcej informacji na temat implementacji tej funkcji znajdziesz w [dokumentacji Niestandardowych Przekierowań URL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/custom_url_rewrites.md).
 
 Możesz również użyć funkcji `getMultilingualUrl` i `getLocalizedUrl`, aby generować te adresy URL programowo, a będą one respektować Twoje reguły przekierowań.
 

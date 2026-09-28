@@ -283,7 +283,7 @@ Express를 기반으로 한 서버는 시각적 편집기 요청을 수신하고
 
 ### @intlayer/cli
 
-`@intlayer/cli` 패키지는 Intlayer 명령줄 인터페이스와 관련된 스크립트를 선언하는 데 사용되는 NPM 패키지입니다. 이 패키지는 모든 Intlayer CLI 명령어의 일관성을 보장합니다. 이 패키지는 특히 [intlayer-cli](https://github.com/aymericzip/intlayer/tree/main/docs/ko/packages/intlayer-cli/index.md) 및 [intlayer](https://github.com/aymericzip/intlayer/tree/main/docs/ko/packages/intlayer/index.md) 패키지에서 사용됩니다.
+`@intlayer/cli` 패키지는 Intlayer 명령줄 인터페이스와 관련된 스크립트를 선언하는 데 사용되는 NPM 패키지입니다. 이 패키지는 모든 Intlayer CLI 명령어의 일관성을 보장합니다. 이 패키지는 특히 [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer-cli/index.md) 및 [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/index.md) 패키지에서 사용됩니다.
 
 ### @intlayer/mcp
 

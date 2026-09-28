@@ -72,4 +72,4 @@ Bu middleware, `prefixDefault` false olduğunda `/en/about`'u `/about`'a yönlen
 - Fransızca: `/about`
 - İspanyolca: `/about`
 
-Bu yapılandırma seçenekleri hakkında daha fazla bilgi için [Yapılandırma Dokümantasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md) sayfasına bakın.
+Bu yapılandırma seçenekleri hakkında daha fazla bilgi için [Yapılandırma Dokümantasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) sayfasına bakın.

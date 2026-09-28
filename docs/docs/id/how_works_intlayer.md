@@ -279,7 +279,7 @@ Paket `@intlayer/webpack` digunakan untuk menyediakan konfigurasi Webpack agar a
 
 ### @intlayer/cli
 
-Paket `@intlayer/cli` adalah paket NPM yang digunakan untuk mendeklarasikan skrip yang terkait dengan antarmuka baris perintah Intlayer. Paket ini memastikan keseragaman semua perintah CLI Intlayer. Paket ini terutama digunakan oleh paket [intlayer-cli](https://github.com/aymericzip/intlayer/tree/main/docs/id/packages/intlayer-cli/index.md), dan [intlayer](https://github.com/aymericzip/intlayer/tree/main/docs/id/packages/intlayer/index.md).
+Paket `@intlayer/cli` adalah paket NPM yang digunakan untuk mendeklarasikan skrip yang terkait dengan antarmuka baris perintah Intlayer. Paket ini memastikan keseragaman semua perintah CLI Intlayer. Paket ini terutama digunakan oleh paket [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer-cli/index.md), dan [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/index.md).
 
 ### @intlayer/mcp
 

@@ -279,7 +279,7 @@ Gói `@intlayer/webpack` được sử dụng để cung cấp cấu hình Webpa
 
 ### @intlayer/cli
 
-Gói `@intlayer/cli` là một gói NPM được sử dụng để khai báo các script liên quan đến giao diện dòng lệnh Intlayer. Nó đảm bảo tính đồng nhất của tất cả các lệnh CLI của Intlayer. Gói này đặc biệt được sử dụng bởi các gói [intlayer-cli](https://github.com/aymericzip/intlayer/tree/main/docs/vi/packages/intlayer-cli/index.md) và [intlayer](https://github.com/aymericzip/intlayer/tree/main/docs/vi/packages/intlayer/index.md).
+Gói `@intlayer/cli` là một gói NPM được sử dụng để khai báo các script liên quan đến giao diện dòng lệnh Intlayer. Nó đảm bảo tính đồng nhất của tất cả các lệnh CLI của Intlayer. Gói này đặc biệt được sử dụng bởi các gói [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer-cli/index.md) và [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/index.md).
 
 ### @intlayer/mcp
 

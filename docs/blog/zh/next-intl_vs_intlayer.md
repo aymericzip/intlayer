@@ -501,9 +501,9 @@ export default withIntlayer(nextConfig);
 
 <Question title="Intlayer 支持 ICU MessageFormat 吗？">
 
-原生 API 正在积极完善 ICU 支持。兼容适配器（`@intlayer/next-intl`、`@intlayer/use-intl`）均能完美执行 ICU：复数、`select`、`selectordinal`、`#` 和 `{ts, date, long}` 都会经过 Intlayer 的 ICU 解析器处理。详情请参阅 [ICU 消息格式解析](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)。
+原生 API 正在积极完善 ICU 支持。兼容适配器（`@intlayer/next-intl`、`@intlayer/use-intl`）均能完美执行 ICU：复数、`select`、`selectordinal`、`#` 和 `{ts, date, long}` 都会经过 Intlayer 的 ICU 解析器处理。详情请参阅 [ICU 消息格式解析](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/icu_message_format.md)。
 
-- [ICU 消息格式解析](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)
+- [ICU 消息格式解析](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/icu_message_format.md)
 
 </Question>
 

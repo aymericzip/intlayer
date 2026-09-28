@@ -281,7 +281,7 @@ The `@intlayer/webpack` package is used to provide a Webpack configuration to ma
 
 ### @intlayer/cli
 
-Пакет `@intlayer/cli` є NPM-пакетом, який використовується для оголошення скриптів, пов’язаних із командними інтерфейсами Intlayer. Він забезпечує узгодженість усіх CLI-команд Intlayer. Цей пакет, зокрема, використовується пакетами [intlayer-cli](https://github.com/aymericzip/intlayer/tree/main/docs/uk/packages/intlayer-cli/index.md) та [intlayer](https://github.com/aymericzip/intlayer/tree/main/docs/uk/packages/intlayer/index.md).
+Пакет `@intlayer/cli` є NPM-пакетом, який використовується для оголошення скриптів, пов’язаних із командними інтерфейсами Intlayer. Він забезпечує узгодженість усіх CLI-команд Intlayer. Цей пакет, зокрема, використовується пакетами [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer-cli/index.md) та [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer/index.md).
 
 ### @intlayer/mcp
 

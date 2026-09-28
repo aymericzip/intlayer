@@ -283,7 +283,7 @@ const MyComponent = () => {
 
 ### @intlayer/cli
 
-حزمة `@intlayer/cli` هي حزمة NPM تُستخدم لإعلان السكربتات المتعلقة بواجهات سطر الأوامر الخاصة بـ Intlayer. تضمن توحيد جميع أوامر CLI الخاصة بـ Intlayer. يتم استهلاك هذه الحزمة بشكل خاص من قبل حزم [intlayer-cli](https://github.com/aymericzip/intlayer/tree/main/docs/ar/packages/intlayer-cli/index.md)، و[intlayer](https://github.com/aymericzip/intlayer/tree/main/docs/ar/packages/intlayer/index.md).
+حزمة `@intlayer/cli` هي حزمة NPM تُستخدم لإعلان السكربتات المتعلقة بواجهات سطر الأوامر الخاصة بـ Intlayer. تضمن توحيد جميع أوامر CLI الخاصة بـ Intlayer. يتم استهلاك هذه الحزمة بشكل خاص من قبل حزم [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer-cli/index.md)، و[intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/index.md).
 
 ### @intlayer/mcp
 

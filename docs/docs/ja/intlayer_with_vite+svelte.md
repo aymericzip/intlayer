@@ -352,7 +352,7 @@ const changeLocale = (event: Event) => {
 
 Intlayerは、Markdownコンテンツを直接Svelteアプリケーション内でレンダリングすることをサポートしています。デフォルトでは、Markdownはプレーンテキストとして扱われます。MarkdownをリッチなHTMLに変換するには、`@humanspeak/svelte-markdown`や他のMarkdownパーサーを統合することができます。
 
-> `intlayer`パッケージを使ってMarkdownコンテンツを宣言する方法については、[markdownドキュメント](https://github.com/aymericzip/intlayer/tree/main/docs/docs/ja/dictionary/markdown.md)をご覧ください。
+> `intlayer`パッケージを使ってMarkdownコンテンツを宣言する方法については、[markdownドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/markdown.md)をご覧ください。
 
 ```svelte fileName="src/App.svelte"
 <script>

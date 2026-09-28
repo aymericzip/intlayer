@@ -54,6 +54,7 @@
     "build:ci": "bun --bun tsdown --config tsdown.config.ts",
     "clean": "bun --bun rimraf ./dist .turbo",
     "dev": "tsdown --config tsdown.config.ts --watch",
+    "fix:links": "bun tools/fixLocalizedLinks.ts",
     "format": "bun --bun biome format . --check",
     "format:fix": "bun --bun biome format --write .",
     "lint": "bun --bun biome lint .",

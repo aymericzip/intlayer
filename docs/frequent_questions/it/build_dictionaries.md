@@ -48,7 +48,7 @@ In questa modalità, Intlayer scansionerà e costruirà i dizionari ogni volta c
 
 ### Utilizzo dell'estensione VSCode
 
-Puoi anche utilizzare l'[estensione Intlayer per VSCode](https://github.com/aymericzip/intlayer/tree/main/docs/it/vs_code_extension.md) per migliorare la tua esperienza con Intlayer in VSCode.
+Puoi anche utilizzare l'[estensione Intlayer per VSCode](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/vs_code_extension.md) per migliorare la tua esperienza con Intlayer in VSCode.
 
 ### Utilizzo del plugin per il tuo framework applicativo preferito
 

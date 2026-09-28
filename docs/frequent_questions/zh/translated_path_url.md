@@ -33,7 +33,7 @@ es -> /es/producto
 
 要实现此功能，您可以配置 `intlayer.config.ts` 文件中的 `routing` 部分。
 
-有关如何实现此功能的更多信息，请参阅 [自定义 URL 重写文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/custom_url_rewrites.md)。
+有关如何实现此功能的更多信息，请参阅 [自定义 URL 重写文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/custom_url_rewrites.md)。
 
 您还可以使用 `getMultilingualUrl` 和 `getLocalizedUrl` 函数以编程方式生成这些 URL，它们将遵循您的重写规则。
 

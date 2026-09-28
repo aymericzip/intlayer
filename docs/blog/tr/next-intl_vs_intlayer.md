@@ -482,9 +482,9 @@ Hayır. `@intlayer/next-intl`, `useTranslations`, `getTranslations`, `useFormatt
 
 <Question title="Intlayer, ICU MessageFormat'ı destekliyor mu?">
 
-Yerel API'de ICU desteği üzerinde çalışılmaktadır. Uyumluluk bağdaştırıcıları (`@intlayer/next-intl`, `@intlayer/use-intl`) ICU'yu çalıştırır: çoğullar, `select`, `selectordinal`, `#` ve `{ts, date, long}` Intlayer'ın ICU çözücüsünden geçer. Ayrıntılar için [ICU mesaj formatı](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md) sayfasına bakın.
+Yerel API'de ICU desteği üzerinde çalışılmaktadır. Uyumluluk bağdaştırıcıları (`@intlayer/next-intl`, `@intlayer/use-intl`) ICU'yu çalıştırır: çoğullar, `select`, `selectordinal`, `#` ve `{ts, date, long}` Intlayer'ın ICU çözücüsünden geçer. Ayrıntılar için [ICU mesaj formatı](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/icu_message_format.md) sayfasına bakın.
 
-- [ICU mesaj formatı](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)
+- [ICU mesaj formatı](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/icu_message_format.md)
 
 </Question>
 

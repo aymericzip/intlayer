@@ -32,14 +32,14 @@ author: aymericzip
 
 **next-intl**, özellikle Next.js App Router için tasarlanmış popüler bir uluslararasılaştırma (i18n) kütüphanesidir. Mükemmel TypeScript desteği ve yerleşik optimizasyonlarla çok dilli Next.js uygulamaları oluşturmanın sorunsuz bir yolunu sağlar.
 
-> Tercih ederseniz, ayrıca [next-i18next rehberine](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/i18n_using_next-i18next.md) veya doğrudan [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_16.md) kullanmaya da başvurabilirsiniz.
+> Tercih ederseniz, ayrıca [next-i18next rehberine](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18n_using_next-i18next.md) veya doğrudan [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_16.md) kullanmaya da başvurabilirsiniz.
 
-- [next-i18next rehberine](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/i18n_using_next-i18next.md)
-- [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_16.md)
+- [next-i18next rehberine](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18n_using_next-i18next.md)
+- [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_16.md)
 
-> Karşılaştırmayı [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/next-i18next_vs_next-intl_vs_intlayer.md) sayfasında görebilirsiniz.
+> Karşılaştırmayı [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/next-i18next_vs_next-intl_vs_intlayer.md) sayfasında görebilirsiniz.
 
-- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/next-i18next_vs_next-intl_vs_intlayer.md)
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/next-i18next_vs_next-intl_vs_intlayer.md)
 
 > Bu kütüphanelerin nereden geldiğini anlamak için JavaScript i18n tarihini okuyun.
 

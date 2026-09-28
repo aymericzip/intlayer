@@ -375,9 +375,9 @@ Pada Next.js, ya untuk komponen: build tolok ukur hanya mengubah `next.config.ts
 
 <Question title="Apa yang terjadi dengan pesan ICU?">
 
-Mereka tetap berfungsi. `t("key", { count })`, `t.rich()`, `t.markup()`, `select`, `selectordinal`, `#`, dan `{ts, date, long}` diselesaikan oleh resolver ICU Intlayer. Lihat [format pesan ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md).
+Mereka tetap berfungsi. `t("key", { count })`, `t.rich()`, `t.markup()`, `select`, `selectordinal`, `#`, dan `{ts, date, long}` diselesaikan oleh resolver ICU Intlayer. Lihat [format pesan ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/icu_message_format.md).
 
-- [format pesan ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)
+- [format pesan ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/icu_message_format.md)
 
 </Question>
 

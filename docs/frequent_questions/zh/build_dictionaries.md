@@ -48,7 +48,7 @@ npx intlayer dictionaries build --watch
 
 ### 使用 VSCode 扩展
 
-您还可以使用[Intlayer VSCode 扩展](https://github.com/aymericzip/intlayer/tree/main/docs/zh/vs_code_extension.md)来增强您在 VSCode 中的 Intlayer 体验。
+您还可以使用[Intlayer VSCode 扩展](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/vs_code_extension.md)来增强您在 VSCode 中的 Intlayer 体验。
 
 ### 使用您喜欢的应用框架插件
 

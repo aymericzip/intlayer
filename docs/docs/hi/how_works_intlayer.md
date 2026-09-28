@@ -283,7 +283,7 @@ Intlayer को [Vite बंडलर](https://vite.dev/guide/why.html#why-bundl
 
 ### @intlayer/cli
 
-`@intlayer/cli` पैकेज एक NPM पैकेज है जिसका उपयोग Intlayer कमांड लाइन इंटरफेस से संबंधित स्क्रिप्ट्स को घोषित करने के लिए किया जाता है। यह सभी Intlayer CLI कमांड्स की एकरूपता सुनिश्चित करता है। यह पैकेज विशेष रूप से [intlayer-cli](https://github.com/aymericzip/intlayer/tree/main/docs/hi/packages/intlayer-cli/index.md) और [intlayer](https://github.com/aymericzip/intlayer/tree/main/docs/hi/packages/intlayer/index.md) पैकेजों द्वारा उपयोग किया जाता है।
+`@intlayer/cli` पैकेज एक NPM पैकेज है जिसका उपयोग Intlayer कमांड लाइन इंटरफेस से संबंधित स्क्रिप्ट्स को घोषित करने के लिए किया जाता है। यह सभी Intlayer CLI कमांड्स की एकरूपता सुनिश्चित करता है। यह पैकेज विशेष रूप से [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer-cli/index.md) और [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/index.md) पैकेजों द्वारा उपयोग किया जाता है।
 
 ### @intlayer/mcp
 

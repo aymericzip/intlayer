@@ -374,9 +374,9 @@ export default withIntlayer(nextConfig);
 
 <Question title="ماذا يحدث لرسائل ICU؟">
 
-تستمر في العمل. يتم حل `t("key", { count })` و `t.rich()` و `t.markup()` و `select` و `selectordinal` و `#` و `{ts, date, long}` بواسطة محلل ICU الخاص بـ Intlayer. راجع [تنسيق رسائل ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md).
+تستمر في العمل. يتم حل `t("key", { count })` و `t.rich()` و `t.markup()` و `select` و `selectordinal` و `#` و `{ts, date, long}` بواسطة محلل ICU الخاص بـ Intlayer. راجع [تنسيق رسائل ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/icu_message_format.md).
 
-- [تنسيق رسائل ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)
+- [تنسيق رسائل ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/icu_message_format.md)
 
 </Question>
 

@@ -134,9 +134,9 @@ Next.js App Router प्रोजेक्ट को आमतौर पर ज
 - **टेस्ट और अनुवाद को स्वचालित करें**  
   टेस्ट और अनुवाद को स्वचालित करने से आपके बहुभाषी एप्लिकेशन के रखरखाव में समय की बचत होती है।
 
-> हमारे डॉक्यूमेंट में देखें जो अंतरराष्ट्रीयकरण और SEO के बारे में आपको सब कुछ जानना आवश्यक है: [next-intl के साथ अंतरराष्ट्रीयकरण (i18n)](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/internationalization_and_SEO.md)।
+> हमारे डॉक्यूमेंट में देखें जो अंतरराष्ट्रीयकरण और SEO के बारे में आपको सब कुछ जानना आवश्यक है: [next-intl के साथ अंतरराष्ट्रीयकरण (i18n)](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/internationalization_and_SEO.md)।
 
-- [next-intl के साथ अंतरराष्ट्रीयकरण (i18n)](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/internationalization_and_SEO.md)
+- [next-intl के साथ अंतरराष्ट्रीयकरण (i18n)](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/internationalization_and_SEO.md)
 
 ## Next.js एप्लिकेशन में next-intl सेटअप करने के लिए चरण-दर-चरण मार्गदर्शिका
 

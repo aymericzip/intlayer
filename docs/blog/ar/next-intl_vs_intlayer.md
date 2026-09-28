@@ -482,9 +482,9 @@ export default withIntlayer(nextConfig);
 
 <Question title="هل يدعم Intlayer تنسيق رسائل ICU؟">
 
-دعم ICU الأصلي قيد التطوير في واجهة برمجة التطبيقات الأساسية. لكن محولات التوافق (`@intlayer/next-intl`، `@intlayer/use-intl`) تدعم ICU بالكامل: صيغ الجمع، و `select`، و `selectordinal`، و `#` و `{ts, date, long}` تتم معالجتها عبر محلل ICU في Intlayer. اقرأ [تنسيق رسائل ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md) لمزيد من التفاصيل.
+دعم ICU الأصلي قيد التطوير في واجهة برمجة التطبيقات الأساسية. لكن محولات التوافق (`@intlayer/next-intl`، `@intlayer/use-intl`) تدعم ICU بالكامل: صيغ الجمع، و `select`، و `selectordinal`، و `#` و `{ts, date, long}` تتم معالجتها عبر محلل ICU في Intlayer. اقرأ [تنسيق رسائل ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/icu_message_format.md) لمزيد من التفاصيل.
 
-- [تنسيق رسائل ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)
+- [تنسيق رسائل ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/icu_message_format.md)
 
 </Question>
 

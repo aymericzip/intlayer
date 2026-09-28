@@ -48,7 +48,7 @@ In this mode, Intlayer will scan and build dictionaries whenever changes are mad
 
 ### Using the VSCode extension
 
-You can also use the [Intlayer VSCode extension](https://github.com/aymericzip/intlayer/tree/main/docs/en/vs_code_extension.md) to enhance your Intlayer experience in VSCode.
+You can also use the [Intlayer VSCode extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md) to enhance your Intlayer experience in VSCode.
 
 ### Using the plugin for your favorite application framework
 

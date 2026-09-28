@@ -482,9 +482,9 @@ export default withIntlayer(nextConfig);
 
 <Question title="क्या Intlayer ICU MessageFormat का समर्थन करता है?">
 
-मूल API पर ICU समर्थन पर कार्य प्रगति पर है। कम्पैटिबिलिटी एडेप्टर (`@intlayer/next-intl`, `@intlayer/use-intl`) ICU चलाते हैं: बहुवचन, `select`, `selectordinal`, `#` और `{ts, date, long}` Intlayer के ICU रिज़ॉल्वर से गुजरते हैं। विवरण के लिए [ICU संदेश प्रारूप](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md) पढ़ें।
+मूल API पर ICU समर्थन पर कार्य प्रगति पर है। कम्पैटिबिलिटी एडेप्टर (`@intlayer/next-intl`, `@intlayer/use-intl`) ICU चलाते हैं: बहुवचन, `select`, `selectordinal`, `#` और `{ts, date, long}` Intlayer के ICU रिज़ॉल्वर से गुजरते हैं। विवरण के लिए [ICU संदेश प्रारूप](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/icu_message_format.md) पढ़ें।
 
-- [ICU संदेश प्रारूप](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)
+- [ICU संदेश प्रारूप](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/icu_message_format.md)
 
 </Question>
 

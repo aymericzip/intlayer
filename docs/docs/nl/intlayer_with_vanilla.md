@@ -437,9 +437,9 @@ Deze extensie biedt:
 - **Inline voorvertoningen** van vertaalde inhoud.
 - **Sneltoetsen** om eenvoudig vertalingen aan te maken en bij te werken.
 
-Raadpleeg de [Intlayer VS Code-extensie documentatie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md) voor meer details over het gebruik van de extensie.
+Raadpleeg de [Intlayer VS Code-extensie documentatie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/vs_code_extension.md) voor meer details over het gebruik van de extensie.
 
-- [Intlayer VS Code-extensie documentatie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md)
+- [Intlayer VS Code-extensie documentatie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/vs_code_extension.md)
 
 ### Ga verder
 

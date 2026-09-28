@@ -482,9 +482,9 @@ Tidak. `@intlayer/next-intl` mempertahankan `useTranslations`, `getTranslations`
 
 <Question title="Apakah Intlayer mendukung ICU MessageFormat?">
 
-Dukungan ICU sedang dikembangkan pada API asli. Adaptor kompatibilitas (`@intlayer/next-intl`, `@intlayer/use-intl`) sudah menjalankan ICU: bentuk jamak, `select`, `selectordinal`, `#`, dan `{ts, date, long}` diproses melalui penyelesai ICU Intlayer. Baca [format pesan ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md) untuk detailnya.
+Dukungan ICU sedang dikembangkan pada API asli. Adaptor kompatibilitas (`@intlayer/next-intl`, `@intlayer/use-intl`) sudah menjalankan ICU: bentuk jamak, `select`, `selectordinal`, `#`, dan `{ts, date, long}` diproses melalui penyelesai ICU Intlayer. Baca [format pesan ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/icu_message_format.md) untuk detailnya.
 
-- [format pesan ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)
+- [format pesan ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/icu_message_format.md)
 
 </Question>
 

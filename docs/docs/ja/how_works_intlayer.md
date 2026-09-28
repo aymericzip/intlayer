@@ -283,7 +283,7 @@ Expressに基づいたサーバーは、ビジュアルエディターのリク�
 
 ### @intlayer/cli
 
-`@intlayer/cli`パッケージは、Intlayerコマンドラインインターフェースに関連するスクリプトを宣言するために使用されるNPMパッケージです。すべてのIntlayer CLIコマンドの一貫性を確保します。このパッケージは特に、[intlayer-cli](https://github.com/aymericzip/intlayer/tree/main/docs/ja/packages/intlayer-cli/index.md)や[intlayer](https://github.com/aymericzip/intlayer/tree/main/docs/ja/packages/intlayer/index.md)パッケージによって使用されます。
+`@intlayer/cli`パッケージは、Intlayerコマンドラインインターフェースに関連するスクリプトを宣言するために使用されるNPMパッケージです。すべてのIntlayer CLIコマンドの一貫性を確保します。このパッケージは特に、[intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer-cli/index.md)や[intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/index.md)パッケージによって使用されます。
 
 ### @intlayer/mcp
 

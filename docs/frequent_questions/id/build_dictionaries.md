@@ -48,7 +48,7 @@ Dalam mode ini, Intlayer akan memindai dan membangun kamus setiap kali terjadi p
 
 ### Menggunakan ekstensi VSCode
 
-Anda juga dapat menggunakan [ekstensi Intlayer VSCode](https://github.com/aymericzip/intlayer/tree/main/docs/id/vs_code_extension.md) untuk meningkatkan pengalaman Intlayer Anda di VSCode.
+Anda juga dapat menggunakan [ekstensi Intlayer VSCode](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/vs_code_extension.md) untuk meningkatkan pengalaman Intlayer Anda di VSCode.
 
 ### Menggunakan plugin untuk framework aplikasi favorit Anda
 

@@ -374,9 +374,9 @@ Next.js पर, घटकों के लिए हाँ: बेंचमा�
 
 <Question title="ICU संदेशों का क्या होता है?">
 
-वे काम करते रहते हैं। `t("key", { count })`, `t.rich()`, `t.markup()`, `select`, `selectordinal`, `#` और `{ts, date, long}` Intlayer के ICU रिज़ॉल्वर द्वारा हल किए जाते हैं। [ICU संदेश प्रारूप](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md) देखें।
+वे काम करते रहते हैं। `t("key", { count })`, `t.rich()`, `t.markup()`, `select`, `selectordinal`, `#` और `{ts, date, long}` Intlayer के ICU रिज़ॉल्वर द्वारा हल किए जाते हैं। [ICU संदेश प्रारूप](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/icu_message_format.md) देखें।
 
-- [ICU संदेश प्रारूप](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)
+- [ICU संदेश प्रारूप](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/icu_message_format.md)
 
 </Question>
 

@@ -573,7 +573,7 @@ Xem [lý do chọn Intlayer](https://github.com/aymericzip/intlayer/blob/main/do
 
 Có. Làm theo [hướng dẫn di chuyển react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_react-i18next_to_intlayer.md) hoặc sử dụng adapter tương thích.
 
-- [i18n-js migration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/i18n-js.md)
+- [i18n-js migration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/i18n-js.md)
 - [hướng dẫn di chuyển react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_react-i18next_to_intlayer.md)
 - [Adapter tương thích Intlayer cho các thư viện i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/index.md)
 

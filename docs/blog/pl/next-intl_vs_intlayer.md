@@ -482,9 +482,9 @@ Nie. `@intlayer/next-intl` zachowuje `useTranslations`, `getTranslations`, `useF
 
 <Question title="Czy Intlayer obsługuje ICU MessageFormat?">
 
-Natywna obsługa ICU jest w trakcie opracowywania. Adaptery zgodności (`@intlayer/next-intl`, `@intlayer/use-intl`) w pełni obsługują ICU: liczba mnoga, `select`, `selectordinal`, `#` i `{ts, date, long}` przechodzą przez mechanizm ICU Intlayera. Szczegóły znajdziesz w [format wiadomości ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md).
+Natywna obsługa ICU jest w trakcie opracowywania. Adaptery zgodności (`@intlayer/next-intl`, `@intlayer/use-intl`) w pełni obsługują ICU: liczba mnoga, `select`, `selectordinal`, `#` i `{ts, date, long}` przechodzą przez mechanizm ICU Intlayera. Szczegóły znajdziesz w [format wiadomości ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/icu_message_format.md).
 
-- [format wiadomości ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)
+- [format wiadomości ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/icu_message_format.md)
 
 </Question>
 

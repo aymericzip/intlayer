@@ -764,9 +764,9 @@ Intlayer এর মাধ্যমে আপনার ডেভেলপমে�
 - অনুবাদিত কন্টেন্টের **ইনলাইন প্রিভিউ**।
 - সহজেই অনুবাদ তৈরি এবং আপডেট করার জন্য **দ্রুত কাজ (Quick actions)**।
 
-এক্সটেনশন ব্যবহারের আরও বিস্তারিত জানার জন্য [Intlayer VS Code এক্সটেনশন ডকুমেন্টেশন](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md) দেখুন।
+এক্সটেনশন ব্যবহারের আরও বিস্তারিত জানার জন্য [Intlayer VS Code এক্সটেনশন ডকুমেন্টেশন](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/vs_code_extension.md) দেখুন।
 
-- [Intlayer VS Code এক্সটেনশন ডকুমেন্টেশন](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md)
+- [Intlayer VS Code এক্সটেনশন ডকুমেন্টেশন](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/vs_code_extension.md)
 
 ### আরও এগিয়ে যান
 

@@ -282,7 +282,7 @@ El paquete `@intlayer/webpack` se utiliza para proporcionar una configuración d
 
 ### @intlayer/cli
 
-El paquete `@intlayer/cli` es un paquete de NPM que se utiliza para declarar los scripts relacionados con las interfaces de línea de comandos de Intlayer. Garantiza la uniformidad de todos los comandos CLI de Intlayer. Este paquete es consumido notablemente por los paquetes [intlayer-cli](https://github.com/aymericzip/intlayer/tree/main/docs/es/packages/intlayer-cli/index.md) y [intlayer](https://github.com/aymericzip/intlayer/tree/main/docs/es/packages/intlayer/index.md).
+El paquete `@intlayer/cli` es un paquete de NPM que se utiliza para declarar los scripts relacionados con las interfaces de línea de comandos de Intlayer. Garantiza la uniformidad de todos los comandos CLI de Intlayer. Este paquete es consumido notablemente por los paquetes [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer-cli/index.md) y [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer/index.md).
 
 ### @intlayer/mcp
 

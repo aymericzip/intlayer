@@ -177,7 +177,7 @@ export default config;
 
 ### 구성 푸시하기
 
-Intlayer CMS를 구성하려면 [intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/ko/cli/index.md) 명령어를 사용할 수 있습니다.
+Intlayer CMS를 구성하려면 [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/index.md) 명령어를 사용할 수 있습니다.
 
 ```bash packageManager="npm"
 npx intlayer config push
@@ -217,7 +217,7 @@ bun x intlayer config push --env production
 
 ### 사전 푸시하기
 
-로케일 사전을 원격 사전으로 변환하려면 [intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/ko/cli/index.md) 명령어를 사용할 수 있습니다.
+로케일 사전을 원격 사전으로 변환하려면 [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/index.md) 명령어를 사용할 수 있습니다.
 
 ```bash packageManager="npm"
 npx intlayer dictionary push -d my-first-dictionary-key

@@ -174,7 +174,7 @@ export default config;
 
 ### আপনার কনফিগারেশন পুশ করুন
 
-Intlayer CMS কনফিগার করতে, আপনি [intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/bn/cli/index.md) কমান্ডগুলি ব্যবহার করতে পারেন।
+Intlayer CMS কনফিগার করতে, আপনি [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/cli/index.md) কমান্ডগুলি ব্যবহার করতে পারেন।
 
 ```bash packageManager="npm"
 npx intlayer config push
@@ -214,7 +214,7 @@ bun x intlayer config push --env production
 
 ### একটি ডিকশনারি পুশ করুন
 
-আপনার লোকেল ডিকশনারিগুলিকে দূরবর্তী ডিকশনারিতে রূপান্তর করতে, আপনি [intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/bn/cli/index.md) কমান্ডগুলি ব্যবহার করতে পারেন।
+আপনার লোকেল ডিকশনারিগুলিকে দূরবর্তী ডিকশনারিতে রূপান্তর করতে, আপনি [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/cli/index.md) কমান্ডগুলি ব্যবহার করতে পারেন।
 
 ```bash packageManager="npm"
 npx intlayer dictionary push -d my-first-dictionary-key

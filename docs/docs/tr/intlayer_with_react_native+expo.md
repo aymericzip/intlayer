@@ -570,7 +570,7 @@ Ad alanı tabanlı bir kuruluma kıyasla çok daha az, çünkü bir sayfa render
 
 Evet. [react-i18next geçiş kılavuzunu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_react-i18next_to_intlayer.md) izleyin veya uyumluluk adaptörlerini kullanın.
 
-- [i18n-js migration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/i18n-js.md)
+- [i18n-js migration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/i18n-js.md)
 - [react-i18next geçiş kılavuzunu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_react-i18next_to_intlayer.md)
 - [i18n kütüphaneleri için Intlayer uyumluluk adaptörleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/index.md)
 

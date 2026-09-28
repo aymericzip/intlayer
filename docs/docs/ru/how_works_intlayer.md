@@ -283,7 +283,7 @@ Intlayer состоит из нескольких пакетов, каждый �
 
 ### @intlayer/cli
 
-Пакет `@intlayer/cli` является пакетом NPM, который используется для объявления скриптов, связанных с интерфейсами командной строки Intlayer. Он обеспечивает единообразие всех команд CLI Intlayer. Этот пакет, в частности, используется пакетами [intlayer-cli](https://github.com/aymericzip/intlayer/tree/main/docs/ru/packages/intlayer-cli/index.md) и [intlayer](https://github.com/aymericzip/intlayer/tree/main/docs/ru/packages/intlayer/index.md).
+Пакет `@intlayer/cli` является пакетом NPM, который используется для объявления скриптов, связанных с интерфейсами командной строки Intlayer. Он обеспечивает единообразие всех команд CLI Intlayer. Этот пакет, в частности, используется пакетами [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer-cli/index.md) и [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/index.md).
 
 ### @intlayer/mcp
 

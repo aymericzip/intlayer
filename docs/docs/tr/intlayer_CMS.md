@@ -174,7 +174,7 @@ export default config;
 
 ### Konfigürasyonunuzu Gönderme
 
-Intlayer CMS'yi yapılandırmak için [intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/tr/cli/index.md) komutlarını kullanabilirsiniz.
+Intlayer CMS'yi yapılandırmak için [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/index.md) komutlarını kullanabilirsiniz.
 
 ```bash packageManager="npm"
 npx intlayer config push
@@ -214,7 +214,7 @@ Bu komut yapılandırmanızı Intlayer CMS'ye yükler.
 
 ### Bir sözlük yükleme
 
-Yerel sözlüklerinizi uzak bir sözlüğe dönüştürmek için [intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/tr/cli/index.md) komutlarını kullanabilirsiniz.
+Yerel sözlüklerinizi uzak bir sözlüğe dönüştürmek için [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/index.md) komutlarını kullanabilirsiniz.
 
 ```bash packageManager="npm"
 npx intlayer dictionary push -d my-first-dictionary-key

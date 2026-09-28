@@ -48,7 +48,7 @@ npx intlayer dictionaries build --watch
 
 ### VSCode拡張機能の使用
 
-また、[Intlayer VSCode拡張機能](https://github.com/aymericzip/intlayer/tree/main/docs/ja/vs_code_extension.md)を使用して、VSCodeでのIntlayerの体験を向上させることもできます。
+また、[Intlayer VSCode拡張機能](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)を使用して、VSCodeでのIntlayerの体験を向上させることもできます。
 
 ### お気に入りのアプリケーションフレームワーク用プラグインの使用
 

@@ -171,7 +171,7 @@ export default config;
 
 ### 推送您的配置
 
-要配置 Intlayer CMS，您可以使用[intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/zh/cli/index.md)命令。
+要配置 Intlayer CMS，您可以使用[intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)命令。
 
 ```bash packageManager="npm"
 npx intlayer config push
@@ -211,7 +211,7 @@ bun x intlayer config push --env production
 
 ### 推送字典
 
-要将您的本地化字典转换为远程字典，您可以使用[intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/zh/cli/index.md)命令。
+要将您的本地化字典转换为远程字典，您可以使用[intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)命令。
 
 ```bash packageManager="npm"
 npx intlayer dictionary push -d my-first-dictionary-key

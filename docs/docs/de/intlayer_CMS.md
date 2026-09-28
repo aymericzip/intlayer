@@ -174,7 +174,7 @@ export default config;
 
 ### Konfiguraton hochladen
 
-Um das Intlayer CMS zu konfigurieren, können Sie die [intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/docs/de/cli/index.md) Befehle verwenden.
+Um das Intlayer CMS zu konfigurieren, können Sie die [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/index.md) Befehle verwenden.
 
 ```bash packageManager="npm"
 npx intlayer config push
@@ -214,7 +214,7 @@ Dieser Befehl lädt Ihre Konfiguration in das Intlayer CMS hoch.
 
 ### Ein Wörterbuch hochladen
 
-Um Ihre Lokalisierungswörterbücher in ein entferntes Wörterbuch zu transformieren, können Sie die [intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/docs/de/cli/index.md) Befehle verwenden.
+Um Ihre Lokalisierungswörterbücher in ein entferntes Wörterbuch zu transformieren, können Sie die [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/index.md) Befehle verwenden.
 
 ```bash packageManager="npm"
 npx intlayer dictionary push -d my-first-dictionary-key

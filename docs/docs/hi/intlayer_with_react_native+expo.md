@@ -573,7 +573,7 @@ import "@formatjs/intl-datetimeformat/polyfill";
 
 हाँ। [react-i18next माइग्रेशन गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_react-i18next_to_intlayer.md) का पालन करें या संगतता एडेप्टर का उपयोग करें।
 
-- [i18n-js migration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/i18n-js.md)
+- [i18n-js migration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/i18n-js.md)
 - [react-i18next माइग्रेशन गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_react-i18next_to_intlayer.md)
 - [i18n लाइब्रेरी के लिए Intlayer कम्पैट एडैप्टर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/index.md)
 
