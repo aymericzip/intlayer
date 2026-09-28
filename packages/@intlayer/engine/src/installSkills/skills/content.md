@@ -304,6 +304,7 @@ import {
   html,
   md,
   nest,
+  select,
   t,
   type Dictionary,
 } from "intlayer";
@@ -312,7 +313,7 @@ const content = {
   key: "test",
   title: "Test component content",
   description:
-    "Content declarations for the Test component, including examples of plurals, conditions, gender-specific messages, dynamic insertions, markdown, file-based content and nested dictionaries used for demonstration and testing purposes.",
+    "Content declarations for the Test component, including examples of plurals, conditions, gender-specific messages, string-based selections, dynamic insertions, markdown, file-based content and nested dictionaries used for demonstration and testing purposes.",
   content: {
     baseContent: "Intlayer", // Content that no need to be i18n
     welcomeMessage: t({
@@ -341,6 +342,11 @@ const content = {
       male: "my content for male users",
       female: "my content for female users",
       fallback: "my content when gender is not specified", // Optional but avoid undefined type
+    }),
+    mySelect: select({
+      draft: "my content when the status is draft",
+      published: "my content when the status is published",
+      fallback: "my content for any other status", // Optional but avoid undefined type
     }),
     myInsertion: insert(
       "Hello, my name is {{name}} and I am {{age}} years old!"

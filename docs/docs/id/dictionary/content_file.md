@@ -79,6 +79,7 @@ import {
   enu,
   plural,
   cond,
+  select,
   nest,
   md,
   insert,
@@ -99,6 +100,7 @@ interface Content {
   quantityContent: string;
   pluralContent: string;
   conditionalContent: string;
+  selectContent: string;
   markdownContent: never;
   htmlContent: never;
   externalContent: string;
@@ -140,6 +142,11 @@ export default {
     conditionalContent: cond({
       true: "Validasi diaktifkan",
       false: "Validasi dinonaktifkan",
+    }),
+    selectContent: select({
+      draft: "Postingan ini adalah draf",
+      published: "Postingan ini sudah tayang",
+      fallback: "Status tidak diketahui",
     }),
     insertionContent: insert("Halo {{name}}!"),
     nestedContent: nest(
@@ -204,6 +211,14 @@ export default {
       "condition": {
         "true": "Validasi diaktifkan",
         "false": "Validasi dinonaktifkan",
+      },
+    },
+    "selectContent": {
+      "nodeType": "select",
+      "select": {
+        "draft": "Postingan ini adalah draf",
+        "published": "Postingan ini sudah tayang",
+        "fallback": "Status tidak diketahui",
       },
     },
     "insertionContent": {

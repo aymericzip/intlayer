@@ -76,6 +76,7 @@ import {
   enu,
   plural,
   cond,
+  select,
   nest,
   md,
   insert,
@@ -96,6 +97,7 @@ interface Content {
   quantityContent: string;
   pluralContent: string;
   conditionalContent: string;
+  selectContent: string;
   markdownContent: never;
   htmlContent: never;
   externalContent: string;
@@ -137,6 +139,11 @@ export default {
     conditionalContent: cond({
       true: "La validation est activée",
       false: "La validation est désactivée",
+    }),
+    selectContent: select({
+      draft: "Cet article est un brouillon",
+      published: "Cet article est en ligne",
+      fallback: "Statut inconnu",
     }),
     insertionContent: insert("Bonjour {{name}} !"),
     nestedContent: nest(
@@ -201,6 +208,14 @@ export default {
       "condition": {
         "true": "La validation est activée",
         "false": "La validation est désactivée",
+      },
+    },
+    "selectContent": {
+      "nodeType": "select",
+      "select": {
+        "draft": "Cet article est un brouillon",
+        "published": "Cet article est en ligne",
+        "fallback": "Statut inconnu",
       },
     },
     "insertionContent": {

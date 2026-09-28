@@ -39,7 +39,7 @@ Find locales to declare in config file. Supported configuration files:
 
 ## Enumeration (`enu`)
 
-Map content to specific keys, numbers, or ranges (useful for pluralization).
+Map content to custom numeric values or ranges (`<5`, `>=10`). For grammatical plural forms, use `plural` instead.
 
 [Doc](references/concept_content_enumeration.md)
 
@@ -53,6 +53,33 @@ const carCount = enu({
   fallback: "Unknown amount",
 });
 ```
+
+## Plural (`plural`)
+
+Select the grammatical plural form from a count, using the CLDR categories (`zero`, `one`, `two`, `few`, `many`, `other`) of the active locale. `other` is required and used as fallback.
+
+[Doc](references/concept_content_plural.md)
+
+```typescript
+import { plural, t } from "intlayer";
+
+const totalOpenings = t({
+  en: plural({
+    one: "{{count}} opening",
+    other: "{{count}} openings",
+  }),
+  ru: plural({
+    one: "{{count}} вакансия",
+    few: "{{count}} вакансии",
+    many: "{{count}} вакансий",
+    other: "{{count}} вакансий",
+  }),
+});
+
+// Usage: totalOpenings(3) or totalOpenings({ count: 3, name: "Alice" })
+```
+
+> `plural` must be the leaf: wrap it in `t()`, never put `t()` inside `plural()`.
 
 ## Condition (`cond`)
 
@@ -165,7 +192,37 @@ const greeting = gender({
 });
 ```
 
-### Example Directory Structure (react)
+## Select (`select`)
+
+Map any string value (status, plan, role…) to content: the equivalent of an ICU `select` or a `switch`. Without `fallback`, only the declared cases are type-accepted.
+
+[Doc](references/concept_content_select.md)
+
+```typescript
+import { select } from "intlayer";
+
+const publishStatus = select({
+  draft: "This post is a draft",
+  published: "This post is live",
+  fallback: "Unknown status", // Optional
+});
+
+// Usage: publishStatus(post.status)
+```
+
+> Prefer `select()` over indexing a plain object (`content[status]`): dynamic property access prevents the compiler from pruning and minifying the content.
+
+### Choosing a node by discriminant
+
+| Discriminant             | Node       |
+| ------------------------ | ---------- |
+| A count (grammar)        | `plural()` |
+| A number / custom ranges | `enu()`    |
+| A boolean                | `cond()`   |
+| A gender                 | `gender()` |
+| Any other string value   | `select()` |
+
+## Example Directory Structure (react)
 
 ```
 src/
@@ -247,6 +304,7 @@ import {
   html,
   md,
   nest,
+  select,
   t,
   type Dictionary,
 } from "intlayer";
@@ -255,7 +313,7 @@ const content = {
   key: "test",
   title: "Test component content",
   description:
-    "Content declarations for the Test component, including examples of plurals, conditions, gender-specific messages, dynamic insertions, markdown, file-based content and nested dictionaries used for demonstration and testing purposes.",
+    "Content declarations for the Test component, including examples of plurals, conditions, gender-specific messages, string-based selections, dynamic insertions, markdown, file-based content and nested dictionaries used for demonstration and testing purposes.",
   content: {
     baseContent: "Intlayer", // Content that no need to be i18n
     welcomeMessage: t({
@@ -284,6 +342,11 @@ const content = {
       male: "my content for male users",
       female: "my content for female users",
       fallback: "my content when gender is not specified", // Optional but avoid undefined type
+    }),
+    mySelect: select({
+      draft: "my content when the status is draft",
+      published: "my content when the status is published",
+      fallback: "my content for any other status", // Optional but avoid undefined type
     }),
     myInsertion: insert(
       "Hello, my name is {{name}} and I am {{age}} years old!"
@@ -357,14 +420,14 @@ Core Metadata
 
 Content & Localization
 
-- locale: Specifies the language of the content for (per-locale file)[references/concept_per-locale-file.md]
+- locale: Specifies the language of the content for a [per-locale file](references/concept_per-locale-file.md)
 - contentAutoTransformation: A toggle to automatically convert raw strings into specialized formats like Markdown, HTML, or Insertions (variables).
 - fill: An instruction indicating whether the dictionary should be automatically populated by AI/automation tools.
 
 Behaviorals Settings
 
 - priority: A numeric value used to resolve conflicts during merge of dictionaries under a same key.
-- importMode: Defines how content is loaded (`static`, `dynamic`, or `live`). AI can recommend the best mode based on performance needs.
+- importMode: Defines how content is loaded (`static`, `dynamic`, or `fetch`). AI can recommend the best mode based on performance needs.
 - location: Controls CMS synchronization (`hybrid`, `remote`, `local`). AI can manage where the source of truth resides.
 - schema: string that use zod schema declared in config file to validate data
 
@@ -373,5 +436,22 @@ Behaviorals Settings
 - [Website](https://intlayer.org)
 - [Doc](https://intlayer.org/doc)
 
-- [Content Overview](references/concept_content.md)
+### Content Nodes
+
+- [Content File](references/concept_content.md)
+- [Translation](references/concept_content_translation.md)
+- [Enumeration](references/concept_content_enumeration.md)
+- [Plural](references/concept_content_plural.md)
+- [Condition](references/concept_content_condition.md)
+- [Gender](references/concept_content_gender.md)
+- [Select](references/concept_content_select.md)
+- [Insertion](references/concept_content_insertion.md)
+- [Markdown](references/concept_content_markdown.md)
+- [HTML](references/concept_content_html.md)
+- [Nesting](references/concept_content_nesting.md)
+- [File](references/concept_content_file.md)
+- [Function Fetching](references/concept_content_function-fetching.md)
+
+### Packages
+
 - [Exports intlayer package](references/packages_intlayer_exports.md)

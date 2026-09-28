@@ -76,6 +76,7 @@ import {
   enu,
   plural,
   cond,
+  select,
   nest,
   md,
   insert,
@@ -96,6 +97,7 @@ interface Content {
   quantityContent: string;
   pluralContent: string;
   conditionalContent: string;
+  selectContent: string;
   markdownContent: never;
   htmlContent: never;
   externalContent: string;
@@ -138,6 +140,11 @@ export default {
     conditionalContent: cond({
       true: "검증이 활성화됨",
       false: "검증이 비활성화됨",
+    }),
+    selectContent: select({
+      draft: "이 게시물은 초안입니다",
+      published: "이 게시물은 게시되었습니다",
+      fallback: "알 수 없는 상태",
     }),
     insertionContent: insert("안녕하세요 {{name}}!"),
     nestedContent: nest(
@@ -202,6 +209,14 @@ export default {
       "condition": {
         "true": "검증이 활성화됨",
         "false": "검증이 비활성화됨",
+      },
+    },
+    "selectContent": {
+      "nodeType": "select",
+      "select": {
+        "draft": "이 게시물은 초안입니다",
+        "published": "이 게시물은 게시되었습니다",
+        "fallback": "알 수 없는 상태",
       },
     },
     "insertionContent": {

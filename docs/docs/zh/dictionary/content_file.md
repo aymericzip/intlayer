@@ -79,6 +79,7 @@ import {
   enu,
   plural,
   cond,
+  select,
   nest,
   md,
   html,
@@ -100,6 +101,7 @@ interface Content {
   quantityContent: string;
   pluralContent: string; // 数量内容
   conditionalContent: string; // 条件内容
+  selectContent: string; // 选择内容
   markdownContent: never; // Markdown 内容
   htmlContent: never; // HTML 内容
   externalContent: string; // 外部内容
@@ -143,6 +145,11 @@ export default {
       true: "验证已启用",
       false: "验证已禁用",
     }), // 条件内容
+    selectContent: select({
+      draft: "这篇文章是草稿",
+      published: "这篇文章已发布",
+      fallback: "未知状态",
+    }), // 选择内容
     insertionContent: insert("你好 {{name}}!"), // 插入内容
     nestedContent: nest(
       "navbar", // 要嵌套的字典键
@@ -206,6 +213,14 @@ export default {
       "condition": {
         "true": "验证已启用",
         "false": "验证已禁用",
+      },
+    },
+    "selectContent": {
+      "nodeType": "select",
+      "select": {
+        "draft": "这篇文章是草稿",
+        "published": "这篇文章已发布",
+        "fallback": "未知状态",
       },
     },
     "insertionContent": {

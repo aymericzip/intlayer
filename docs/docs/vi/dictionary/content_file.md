@@ -82,6 +82,7 @@ import {
   enu,
   plural,
   cond,
+  select,
   nest,
   md,
   insert,
@@ -102,6 +103,7 @@ interface Content {
   quantityContent: string;
   pluralContent: string;
   conditionalContent: string;
+  selectContent: string;
   markdownContent: never;
   htmlContent: never;
   externalContent: string;
@@ -143,6 +145,11 @@ export default {
     conditionalContent: cond({
       true: "Xác thực được bật",
       false: "Xác thực bị tắt",
+    }),
+    selectContent: select({
+      draft: "Bài viết này là bản nháp",
+      published: "Bài viết này đã được đăng",
+      fallback: "Trạng thái không xác định",
     }),
     insertionContent: insert("Xin chào {{name}}!"),
     nestedContent: nest(
@@ -207,6 +214,14 @@ export default {
       "condition": {
         "true": "Xác thực được bật",
         "false": "Xác thực bị tắt",
+      },
+    },
+    "selectContent": {
+      "nodeType": "select",
+      "select": {
+        "draft": "Bài viết này là bản nháp",
+        "published": "Bài viết này đã được đăng",
+        "fallback": "Trạng thái không xác định",
       },
     },
     "insertionContent": {

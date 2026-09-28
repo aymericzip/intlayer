@@ -79,6 +79,7 @@ import {
   enu,
   plural,
   cond,
+  select,
   nest,
   md,
   insert,
@@ -99,6 +100,7 @@ interface Content {
   quantityContent: string;
   pluralContent: string;
   conditionalContent: string;
+  selectContent: string;
   markdownContent: never;
   htmlContent: never;
   externalContent: string;
@@ -140,6 +142,11 @@ export default {
     conditionalContent: cond({
       true: "Walidacja jest włączona",
       false: "Walidacja jest wyłączona",
+    }),
+    selectContent: select({
+      draft: "Ten wpis jest szkicem",
+      published: "Ten wpis jest opublikowany",
+      fallback: "Nieznany status",
     }),
     insertionContent: insert("Witaj {{name}}!"),
     nestedContent: nest(
@@ -204,6 +211,14 @@ export default {
       "condition": {
         "true": "Walidacja jest włączona",
         "false": "Walidacja jest wyłączona",
+      },
+    },
+    "selectContent": {
+      "nodeType": "select",
+      "select": {
+        "draft": "Ten wpis jest szkicem",
+        "published": "Ten wpis jest opublikowany",
+        "fallback": "Nieznany status",
       },
     },
     "insertionContent": {

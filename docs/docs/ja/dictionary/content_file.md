@@ -76,6 +76,7 @@ import {
   enu,
   plural,
   cond,
+  select,
   nest,
   md,
   insert,
@@ -96,6 +97,7 @@ interface Content {
   quantityContent: string;
   pluralContent: string;
   conditionalContent: string;
+  selectContent: string;
   markdownContent: never;
   htmlContent: never;
   externalContent: string;
@@ -138,6 +140,11 @@ export default {
     conditionalContent: cond({
       true: "検証が有効です",
       false: "検証が無効です",
+    }),
+    selectContent: select({
+      draft: "この投稿は下書きです",
+      published: "この投稿は公開中です",
+      fallback: "不明なステータス",
     }),
     insertionContent: insert("こんにちは {{name}}!"),
     nestedContent: nest(
@@ -202,6 +209,14 @@ export default {
       "condition": {
         "true": "検証が有効です",
         "false": "検証が無効です",
+      },
+    },
+    "selectContent": {
+      "nodeType": "select",
+      "select": {
+        "draft": "この投稿は下書きです",
+        "published": "この投稿は公開中です",
+        "fallback": "不明なステータス",
       },
     },
     "insertionContent": {

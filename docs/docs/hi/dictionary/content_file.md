@@ -76,6 +76,7 @@ import {
   enu,
   plural,
   cond,
+  select,
   nest,
   md,
   html,
@@ -97,6 +98,7 @@ interface Content {
   quantityContent: string;
   pluralContent: string;
   conditionalContent: string;
+  selectContent: string;
   markdownContent: never;
   htmlContent: never;
   externalContent: string;
@@ -139,6 +141,11 @@ export default {
     conditionalContent: cond({
       true: "सत्यापन सक्षम है",
       false: "सत्यापन अक्षम है",
+    }),
+    selectContent: select({
+      draft: "यह पोस्ट एक ड्राफ्ट है",
+      published: "यह पोस्ट लाइव है",
+      fallback: "अज्ञात स्थिति",
     }),
     insertionContent: insert("नमस्ते {{name}}!"),
     nestedContent: nest(
@@ -203,6 +210,14 @@ export default {
       "condition": {
         "true": "सत्यापन सक्षम है",
         "false": "सत्यापन अक्षम है",
+      },
+    },
+    "selectContent": {
+      "nodeType": "select",
+      "select": {
+        "draft": "यह पोस्ट एक ड्राफ्ट है",
+        "published": "यह पोस्ट लाइव है",
+        "fallback": "अज्ञात स्थिति",
       },
     },
     "insertionContent": {

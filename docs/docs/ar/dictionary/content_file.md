@@ -79,6 +79,7 @@ import {
   enu,
   plural,
   cond,
+  select,
   nest,
   md,
   insert,
@@ -99,6 +100,7 @@ interface Content {
   quantityContent: string;
   pluralContent: string;
   conditionalContent: string;
+  selectContent: string;
   markdownContent: never;
   htmlContent: never;
   externalContent: string;
@@ -141,6 +143,11 @@ export default {
     conditionalContent: cond({
       true: "التحقق مفعل",
       false: "التحقق معطل",
+    }),
+    selectContent: select({
+      draft: "هذا المنشور مسودة",
+      published: "هذا المنشور منشور",
+      fallback: "حالة غير معروفة",
     }),
     insertionContent: insert("مرحبًا {{name}}!"),
     nestedContent: nest(
@@ -205,6 +212,14 @@ export default {
       "condition": {
         "true": "التحقق مفعّل",
         "false": "التحقق معطّل",
+      },
+    },
+    "selectContent": {
+      "nodeType": "select",
+      "select": {
+        "draft": "هذا المنشور مسودة",
+        "published": "هذا المنشور منشور",
+        "fallback": "حالة غير معروفة",
       },
     },
     "insertionContent": {

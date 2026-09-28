@@ -79,6 +79,7 @@ import {
   enu,
   plural,
   cond,
+  select,
   nest,
   md,
   insert,
@@ -99,6 +100,7 @@ interface Content {
   quantityContent: string;
   pluralContent: string; // контент с количеством
   conditionalContent: string; // условный контент
+  selectContent: string; // контент выбора
   markdownContent: never; // markdown контент (никогда не используется)
   htmlContent: never; // HTML контент
   externalContent: string; // внешний контент
@@ -141,6 +143,11 @@ export default {
     conditionalContent: cond({
       true: "Валидация включена",
       false: "Валидация отключена",
+    }),
+    selectContent: select({
+      draft: "Эта запись является черновиком",
+      published: "Эта запись опубликована",
+      fallback: "Неизвестный статус",
     }),
     insertionContent: insert("Привет {{name}}!"),
     nestedContent: nest(
@@ -205,6 +212,14 @@ export default {
       "condition": {
         "true": "Валидация включена",
         "false": "Валидация отключена",
+      },
+    },
+    "selectContent": {
+      "nodeType": "select",
+      "select": {
+        "draft": "Эта запись является черновиком",
+        "published": "Эта запись опубликована",
+        "fallback": "Неизвестный статус",
       },
     },
     "insertionContent": {

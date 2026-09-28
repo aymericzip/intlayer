@@ -76,6 +76,7 @@ import {
   enu,
   plural,
   cond,
+  select,
   nest,
   md,
   insert,
@@ -96,6 +97,7 @@ interface Content {
   quantityContent: string;
   pluralContent: string;
   conditionalContent: string;
+  selectContent: string;
   markdownContent: never;
   htmlContent: never;
   externalContent: string;
@@ -137,6 +139,11 @@ export default {
     conditionalContent: cond({
       true: "Doğrulama etkin",
       false: "Doğrulama devre dışı",
+    }),
+    selectContent: select({
+      draft: "Bu gönderi bir taslak",
+      published: "Bu gönderi yayında",
+      fallback: "Bilinmeyen durum",
     }),
     insertionContent: insert("Merhaba {{name}}!"),
     nestedContent: nest(
@@ -201,6 +208,14 @@ export default {
       "condition": {
         "true": "Doğrulama etkin",
         "false": "Doğrulama devre dışı",
+      },
+    },
+    "selectContent": {
+      "nodeType": "select",
+      "select": {
+        "draft": "Bu gönderi bir taslak",
+        "published": "Bu gönderi yayında",
+        "fallback": "Bilinmeyen durum",
       },
     },
     "insertionContent": {

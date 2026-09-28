@@ -82,6 +82,7 @@ import {
   enu,
   plural,
   cond,
+  select,
   nest,
   md,
   insert,
@@ -102,6 +103,7 @@ interface Content {
   quantityContent: string;
   pluralContent: string;
   conditionalContent: string;
+  selectContent: string;
   markdownContent: never;
   htmlContent: never;
   externalContent: string;
@@ -143,6 +145,11 @@ export default {
     conditionalContent: cond({
       true: "Validation is enabled",
       false: "Validation is disabled",
+    }),
+    selectContent: select({
+      draft: "This post is a draft",
+      published: "This post is live",
+      fallback: "Unknown status",
     }),
     insertionContent: insert("Hello {{name}}!"),
     nestedContent: nest(
@@ -207,6 +214,14 @@ export default {
       "condition": {
         "true": "Validation is enabled",
         "false": "Validation is disabled",
+      },
+    },
+    "selectContent": {
+      "nodeType": "select",
+      "select": {
+        "draft": "This post is a draft",
+        "published": "This post is live",
+        "fallback": "Unknown status",
       },
     },
     "insertionContent": {
