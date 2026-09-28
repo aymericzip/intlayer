@@ -1,8 +1,11 @@
+import { buildDatasetJsonLd } from '@intlayer/design-system/structured-data';
 import { SwitchSelector } from '@intlayer/design-system/switch-selector';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { type FC, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { JsonLd } from '~/components/JsonLd';
 import {
+  getNpmDateRange,
   loadDownloadCounts,
   NPM_DOWNLOAD_PERIODS,
   type NpmDownloadPeriod,
@@ -21,11 +24,20 @@ export const NpmDownloadsComparison: FC<NpmDownloadsComparisonProps> = ({
   packageNames,
   initialPeriod = 'last-6-months',
 }) => {
-  const { downloads, unavailable, downloadsSource, periods } = useIntlayer(
-    'repository-comparison'
-  );
+  const {
+    downloads,
+    unavailable,
+    downloadsSource,
+    periods,
+    downloadsDatasetName,
+    downloadsDatasetDescription,
+  } = useIntlayer('repository-comparison');
   const [period, setPeriod] = useState<NpmDownloadPeriod>(initialPeriod);
-  const { data: downloadCounts, isPending } = useQuery({
+  const {
+    data: downloadCounts,
+    isPending,
+    isPlaceholderData,
+  } = useQuery({
     queryKey: ['npm-download-counts', packageNames, period],
     queryFn: () => loadDownloadCounts({ data: { packageNames, period } }),
     staleTime: Number.POSITIVE_INFINITY,
@@ -43,26 +55,49 @@ export const NpmDownloadsComparison: FC<NpmDownloadsComparisonProps> = ({
   }));
 
   return (
-    <ComparisonBarChart
-      items={items}
-      isPending={isPending}
-      unit={downloads}
-      unavailableLabel={unavailable}
-      header={
-        <div className="overflow-x-auto">
-          <SwitchSelector<NpmDownloadPeriod>
-            size="sm"
-            color="text"
-            choices={NPM_DOWNLOAD_PERIODS.map((downloadPeriod) => ({
-              content: periods[downloadPeriod],
-              value: downloadPeriod,
-            }))}
-            value={period}
-            onChange={setPeriod}
-          />
-        </div>
-      }
-      footer={downloadsSource}
-    />
+    <>
+      <JsonLd
+        jsonLd={buildDatasetJsonLd({
+          name: `${downloadsDatasetName.value} (${periods[period].value})`,
+          description: `${downloadsDatasetDescription.value} ${packageNames.join(', ')}.`,
+          keywords: ['i18n', 'npm', 'downloads', ...packageNames],
+          isBasedOn: packageNames.map(
+            (packageName) => `https://www.npmjs.com/package/${packageName}`
+          ),
+          measurementTechnique: 'npm registry downloads API',
+          // Only once loaded: the range depends on the day it is computed,
+          // which would differ between the prerendered HTML and hydration.
+          ...(downloadCounts && !isPlaceholderData
+            ? { temporalCoverage: getNpmDateRange(period).replace(':', '/') }
+            : {}),
+          variableMeasured: items.map((item) => ({
+            name: item.label,
+            value: item.value,
+            unitText: downloads.value,
+          })),
+        })}
+      />
+      <ComparisonBarChart
+        items={items}
+        isPending={isPending}
+        unit={downloads}
+        unavailableLabel={unavailable}
+        header={
+          <div className="overflow-x-auto">
+            <SwitchSelector<NpmDownloadPeriod>
+              size="sm"
+              color="text"
+              choices={NPM_DOWNLOAD_PERIODS.map((downloadPeriod) => ({
+                content: periods[downloadPeriod],
+                value: downloadPeriod,
+              }))}
+              value={period}
+              onChange={setPeriod}
+            />
+          </div>
+        }
+        footer={downloadsSource}
+      />
+    </>
   );
 };

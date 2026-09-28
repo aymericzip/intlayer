@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { buildCreativeWorkJsonLd } from './buildCreativeWorkJsonLd';
+import { buildDatasetJsonLd } from './buildDatasetJsonLd';
 import { buildItemListJsonLd } from './buildItemListJsonLd';
 import { buildOrganizationJsonLd } from './buildOrganizationJsonLd';
 import {
@@ -292,5 +293,80 @@ describe('buildItemListJsonLd', () => {
     expect(buildItemListJsonLd({ items, name: 'Why Intlayer' }).name).toBe(
       'Why Intlayer'
     );
+  });
+});
+
+describe('buildDatasetJsonLd', () => {
+  const datasetParams = {
+    name: 'GitHub commits comparison',
+    description:
+      'Number of commits on the default branch of each compared repository.',
+  };
+
+  it('emits the fields Google Dataset Search requires', () => {
+    const dataset = buildDatasetJsonLd(datasetParams);
+
+    expect(dataset['@type']).toBe('Dataset');
+    expect(dataset.name).toBe(datasetParams.name);
+    expect(dataset.description.length).toBeGreaterThanOrEqual(
+      MINIMUM_DATASET_DESCRIPTION_LENGTH
+    );
+    expect(dataset.creator).toEqual({
+      '@type': 'Organization',
+      name: 'Intlayer',
+    });
+  });
+
+  it('omits the value of a variable that is not known yet', () => {
+    const { variableMeasured } = buildDatasetJsonLd({
+      ...datasetParams,
+      variableMeasured: [
+        { name: 'next-intl', value: 1200, unitText: 'commits' },
+        { name: 'react-i18next', value: null, unitText: 'commits' },
+      ],
+    });
+
+    expect(variableMeasured).toEqual([
+      {
+        '@type': 'PropertyValue',
+        name: 'next-intl',
+        value: 1200,
+        unitText: 'commits',
+      },
+      { '@type': 'PropertyValue', name: 'react-i18next', unitText: 'commits' },
+    ]);
+  });
+
+  it('declares each distribution as a DataDownload with normalized URLs', () => {
+    const { distribution, isBasedOn } = buildDatasetJsonLd({
+      ...datasetParams,
+      isBasedOn: ['https://api.github.com//repos'],
+      distribution: [
+        {
+          contentUrl: 'https://example.com//report.json',
+          encodingFormat: 'application/json',
+        },
+      ],
+    });
+
+    expect(isBasedOn).toEqual(['https://api.github.com/repos']);
+    expect(distribution).toEqual([
+      {
+        '@type': 'DataDownload',
+        contentUrl: 'https://example.com/report.json',
+        encodingFormat: 'application/json',
+      },
+    ]);
+  });
+
+  it('leaves out every optional field that is not provided', () => {
+    expect(Object.keys(buildDatasetJsonLd(datasetParams))).toEqual([
+      '@context',
+      '@type',
+      'name',
+      'description',
+      'creator',
+      'isAccessibleForFree',
+    ]);
   });
 });

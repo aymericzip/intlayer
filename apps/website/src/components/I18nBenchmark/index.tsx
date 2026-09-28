@@ -7,6 +7,7 @@ import {
   External_Github_i18n_benchmark,
   Website_Benchmark_Path,
 } from '@intlayer/design-system/routes';
+import { buildDatasetJsonLd } from '@intlayer/design-system/structured-data';
 import { SwitchSelector } from '@intlayer/design-system/switch-selector';
 import { cn } from '@intlayer/design-system/utils';
 import { useQuery } from '@tanstack/react-query';
@@ -14,10 +15,15 @@ import { AnimatePresence, m } from 'framer-motion';
 import { ChevronRight } from 'lucide-react';
 import { type FC, type ReactNode, useMemo, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { JsonLd } from '~/components/JsonLd';
 import { Link } from '~/components/Link/Link';
 import { useTheme } from '~/providers/ThemeProvider';
 import { BenchmarkTable } from './BenchmarkTable';
-import { fetchBenchmarkData } from './benchmarkData';
+import {
+  BENCHMARK_CATEGORIES,
+  fetchBenchmarkData,
+  getBenchmarkReportUrl,
+} from './benchmarkData';
 import { BENCHMARK_METRICS, type MetricId } from './benchmarkMetrics';
 import { buildChartData, buildLibraries } from './benchmarkUtils';
 import { ChartComponent, useLogoImages } from './ChartComponent';
@@ -100,6 +106,7 @@ export const I18nBenchmark: FC<I18nBenchmarkProps> = ({
 }) => {
   const {
     title,
+    description,
     framework: frameworkLabel,
     seeBenchmark,
     readFullReport,
@@ -127,6 +134,14 @@ export const I18nBenchmark: FC<I18nBenchmarkProps> = ({
     vite_solid,
     vite_svelte,
   } = useIntlayer('i18n-benchmark');
+
+  const frameworkLabels = {
+    nextjs,
+    tanstack,
+    'vite-vue': vite_vue,
+    'vite-solid': vite_solid,
+    'vite-svelte': vite_svelte,
+  } satisfies Record<FrameworkKey, ReactNode>;
 
   const { resolvedTheme } = useTheme();
   const isDarkMode = resolvedTheme === 'dark';
@@ -253,6 +268,24 @@ export const I18nBenchmark: FC<I18nBenchmarkProps> = ({
 
   return (
     <>
+      <JsonLd
+        jsonLd={buildDatasetJsonLd({
+          name: `${title.value} (${frameworkLabels[framework].value})`,
+          description: description.value,
+          keywords: ['i18n', 'benchmark', 'bundle size', 'performance'],
+          isBasedOn: [External_Github_i18n_benchmark],
+          distribution: BENCHMARK_CATEGORIES.map((benchmarkCategory) => ({
+            name: benchmarkCategory,
+            contentUrl: getBenchmarkReportUrl(framework, benchmarkCategory),
+            encodingFormat: 'application/json',
+          })),
+          variableMeasured: BENCHMARK_METRICS.map((metric) => ({
+            name: metricsContent[metric.id].label.value,
+            description: metricsContent[metric.id].whatIsIt.value,
+            unitText: metric.unit,
+          })),
+        })}
+      />
       <div
         className={cn(
           'flex flex-col gap-8',
@@ -270,13 +303,7 @@ export const I18nBenchmark: FC<I18nBenchmarkProps> = ({
                 <FrameworkSelector
                   value={framework}
                   onChange={setFramework}
-                  labels={{
-                    nextjs,
-                    tanstack,
-                    'vite-vue': vite_vue,
-                    'vite-solid': vite_solid,
-                    'vite-svelte': vite_svelte,
-                  }}
+                  labels={frameworkLabels}
                 />
               </div>
             )}

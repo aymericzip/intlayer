@@ -41,7 +41,7 @@ const DAY_IN_MS = 24 * 60 * 60 * 1000;
 const toNpmDate = (date: Date): string => date.toISOString().slice(0, 10);
 
 /** `start:end` range covering `period`, ending yesterday (npm's last full day). */
-const getNpmDateRange = (period: NpmDownloadPeriod): string => {
+export const getNpmDateRange = (period: NpmDownloadPeriod): string => {
   const endDate = new Date(Date.now() - DAY_IN_MS);
   const startDate = new Date(
     endDate.getTime() - (NPM_DOWNLOAD_PERIOD_DAYS[period] - 1) * DAY_IN_MS

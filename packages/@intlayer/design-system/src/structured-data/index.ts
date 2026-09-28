@@ -11,6 +11,12 @@ export {
   type SchemaOrgPersonNode,
 } from './buildCreativeWorkJsonLd';
 export {
+  type BuildDatasetJsonLdParams,
+  buildDatasetJsonLd,
+  type DatasetDistribution,
+  type DatasetVariable,
+} from './buildDatasetJsonLd';
+export {
   type BuildFAQPageJsonLdParams,
   buildFAQPageJsonLd,
   type FAQItem,
