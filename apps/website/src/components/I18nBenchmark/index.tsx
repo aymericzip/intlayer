@@ -1,4 +1,3 @@
-import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { H2 } from '@intlayer/design-system/headers';
 import { CodeBlock } from '@intlayer/design-system/ide';
@@ -18,6 +17,7 @@ import { useIntlayer } from 'react-intlayer';
 import { JsonLd } from '~/components/JsonLd';
 import { Link } from '~/components/Link/Link';
 import { useTheme } from '~/providers/ThemeProvider';
+import { AdaptiveSwitchSelector } from './AdaptiveSwitchSelector';
 import { BenchmarkTable } from './BenchmarkTable';
 import {
   BENCHMARK_CATEGORIES,
@@ -36,14 +36,6 @@ export type { FrameworkKey };
 type RenderMode = 'graph' | 'table' | 'json';
 
 const BENCHMARK_STALE_TIME_MS = 60 * 60 * 1000;
-
-/** Metric tabs per row: bundle metrics first, then runtime metrics. */
-const METRICS_PER_ROW = 4;
-
-const METRIC_ROWS = [
-  BENCHMARK_METRICS.slice(0, METRICS_PER_ROW),
-  BENCHMARK_METRICS.slice(METRICS_PER_ROW),
-];
 
 /** Keys of invisible flex items keeping the last library row from stretching. */
 const LIB_GRID_FILLER_KEYS = Array.from(
@@ -108,6 +100,7 @@ export const I18nBenchmark: FC<I18nBenchmarkProps> = ({
     title,
     description,
     framework: frameworkLabel,
+    metric: metricLabel,
     seeBenchmark,
     readFullReport,
     whatIsThisMetric,
@@ -293,11 +286,11 @@ export const I18nBenchmark: FC<I18nBenchmarkProps> = ({
         )}
       >
         {/* Left sidebar */}
-        <div className="flex h-auto flex-1 flex-col justify-between gap-10">
+        <div className="flex h-auto min-w-1/4 flex-col gap-10">
           <div className="w-full shrink-0 space-y-6">
             {!initialFramework && (
               <div>
-                <p className="mb-10 font-bold text-base text-muted-foreground">
+                <p className="mb-4 font-bold text-base text-muted-foreground">
                   {frameworkLabel}
                 </p>
                 <FrameworkSelector
@@ -307,6 +300,20 @@ export const I18nBenchmark: FC<I18nBenchmarkProps> = ({
                 />
               </div>
             )}
+
+            <div>
+              <p className="mb-4 font-bold text-base text-muted-foreground">
+                {metricLabel}
+              </p>
+              <AdaptiveSwitchSelector<MetricId>
+                choices={BENCHMARK_METRICS.map((metric) => ({
+                  value: metric.id,
+                  content: metricsContent[metric.id].label.value,
+                }))}
+                value={selectedMetric.id}
+                onChange={setSelectedMetricId}
+              />
+            </div>
 
             {!hideControls && (
               <div className="space-y-4">
@@ -325,39 +332,40 @@ export const I18nBenchmark: FC<I18nBenchmarkProps> = ({
               </div>
             )}
           </div>
-
-          {!vertical && (
-            <div className="flex flex-col gap-4">
-              <Link
-                label={seeBenchmark.value}
-                variant="button-outlined"
-                color="text"
-                size="md"
-                roundedSize="sm"
-                to={External_Github_i18n_benchmark}
-              >
-                {seeBenchmark}
-              </Link>
-              <Link
-                label={readFullReport.value}
-                variant="button"
-                color="text"
-                size="md"
-                roundedSize="sm"
-                to={Website_Benchmark_Path}
-              >
-                <span className="flex items-center gap-1">
-                  {readFullReport}
-                  <ChevronRight />
-                </span>
-              </Link>
-            </div>
-          )}
         </div>
 
         {/* Main content */}
         <div className="flex min-w-0 flex-1 flex-col gap-5">
-          {!hideTitle && <H2>{title}</H2>}
+          <div className="flex flex-wrap justify-between gap-4 align-middle">
+            {!hideTitle && <H2>{title}</H2>}
+            {!vertical && (
+              <div className="mb-2 flex flex-wrap items-center justify-end gap-4">
+                <Link
+                  label={seeBenchmark.value}
+                  variant="button-outlined"
+                  color="text"
+                  size="md"
+                  roundedSize="sm"
+                  to={External_Github_i18n_benchmark}
+                >
+                  {seeBenchmark}
+                </Link>
+                <Link
+                  label={readFullReport.value}
+                  variant="button"
+                  color="text"
+                  size="md"
+                  roundedSize="sm"
+                  to={Website_Benchmark_Path}
+                >
+                  <span className="flex items-center gap-1">
+                    {readFullReport}
+                    <ChevronRight />
+                  </span>
+                </Link>
+              </div>
+            )}
+          </div>
 
           <Container
             padding="md"
@@ -440,33 +448,6 @@ export const I18nBenchmark: FC<I18nBenchmarkProps> = ({
               </AnimatePresence>
             </div>
           </Container>
-
-          <div className="flex w-full flex-col items-center gap-1.5">
-            {METRIC_ROWS.map((metricRow) => (
-              <div
-                key={metricRow[0].id}
-                className="flex flex-wrap justify-center gap-1.5"
-              >
-                {metricRow.map((metric) => {
-                  const metricLabel = metricsContent[metric.id].label.value;
-
-                  return (
-                    <Button
-                      key={metric.id}
-                      label={metricLabel}
-                      color="text"
-                      variant="hoverable"
-                      onClick={() => setSelectedMetricId(metric.id)}
-                      className="cursor-pointer rounded-full px-3 py-1 font-semibold text-xs transition"
-                      isActive={selectedMetric.id === metric.id}
-                    >
-                      {metricLabel}
-                    </Button>
-                  );
-                })}
-              </div>
-            ))}
-          </div>
         </div>
       </div>
 

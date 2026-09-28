@@ -1,6 +1,6 @@
-import { VerticalSwitchSelector } from '@intlayer/design-system/switch-selector';
 import { TechLogo, type TechLogoName } from '@intlayer/design-system/tech-logo';
 import type { FC, ReactNode } from 'react';
+import { AdaptiveSwitchSelector } from './AdaptiveSwitchSelector';
 import type { FrameworkKey } from './constants';
 
 const FRAMEWORK_LOGOS: Record<FrameworkKey, TechLogoName> = {
@@ -22,8 +22,7 @@ export const FrameworkSelector: FC<FrameworkSelectorProps> = ({
   onChange,
   labels,
 }) => (
-  <VerticalSwitchSelector<FrameworkKey>
-    size="sm"
+  <AdaptiveSwitchSelector<FrameworkKey>
     choices={(Object.keys(FRAMEWORK_LOGOS) as FrameworkKey[]).map(
       (framework) => ({
         value: framework,
@@ -37,7 +36,5 @@ export const FrameworkSelector: FC<FrameworkSelectorProps> = ({
     )}
     value={value}
     onChange={onChange}
-    className="w-full"
-    color="text"
   />
 );
