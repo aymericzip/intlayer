@@ -1,4 +1,4 @@
-name: 🇨🇳 Deploy Website (China VPS)
+name: 🇨🇳 Deploy Chinese Website (Alibaba Cloud VPS)
 
 on:
   workflow_dispatch:
