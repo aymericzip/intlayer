@@ -1072,11 +1072,6 @@ return (
 > - [`dir` attribute`](https://developer.mozilla.org/es/docs/Web/HTML/Atributos_globales/dir)
 > - [`aria-current` attribute`](https://developer.mozilla.org/es/docs/Web/Accessibility/ARIA/Atributos/aria-current)
 
-- [`useLocale` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/next-intlayer/useLocale.md)
-- [`getLocaleName` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer/getLocaleName.md)
-- [`getLocalizedUrl` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer/getLocalizedUrl.md)
-- [`getHTMLTextDir` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer/getHTMLTextDir.md)
-
 </Step>
 <Step number={11} title="Creación de un Componente de Enlace Localizado" isOptional={true}>
 
