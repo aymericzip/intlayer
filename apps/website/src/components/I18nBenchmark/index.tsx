@@ -257,7 +257,7 @@ export const I18nBenchmark: FC<I18nBenchmarkProps> = ({
         )}
       >
         {/* Left sidebar */}
-        <div className="flex h-auto flex-1 flex-col justify-between gap-10 lg:max-w-64">
+        <div className="flex h-auto flex-1 flex-col justify-between gap-10">
           <div className="w-full shrink-0 space-y-6">
             {!initialFramework && (
               <div>
@@ -279,7 +279,7 @@ export const I18nBenchmark: FC<I18nBenchmarkProps> = ({
             )}
 
             {!hideControls && (
-              <div className="mt-20 space-y-4">
+              <div className="space-y-4">
                 <CategoryToggle
                   label={dynamicLoading}
                   description={dynamicLoadingDesc}
