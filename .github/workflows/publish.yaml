@@ -137,25 +137,38 @@ jobs:
         env:
           PUBLISH_DRY_RUN: ${{ inputs.dry-run || false }}
         # turbo builds each package (dependsOn build + prepublish) before
-        # publishing it, in dependency order. Retries up to 3 times to handle
-        # any transient registry flakes or staging delays.
+        # publishing it, in dependency order. `--continue` (in `publish:ci`)
+        # keeps publishing the other packages when one fails. After each pass
+        # the registry is checked for every package: missing ones trigger a
+        # new pass (already published packages are skipped), up to 3 passes,
+        # then the job fails so the run can be re-run.
         run: |
-          MAX_RETRIES=3
-          COUNT=0
-          until [ $COUNT -ge $MAX_RETRIES ]
-          do
-            COUNT=$((COUNT+1))
-            echo "🚀 Publishing packages (attempt $COUNT/$MAX_RETRIES)..."
+          MAX_PASSES=3
+          for PASS in $(seq 1 $MAX_PASSES); do
+            echo "🚀 Publishing packages (pass $PASS/$MAX_PASSES)..."
             if bun run publish:ci; then
-              echo "✅ All packages published successfully!"
-              exit 0
+              PUBLISH_OK=true
+            else
+              PUBLISH_OK=false
+              echo "⚠️ Some packages failed to publish in pass $PASS"
             fi
-            if [ $COUNT -lt $MAX_RETRIES ]; then
-              echo "⚠️ Publish attempt $COUNT failed. Waiting 15s before retrying..."
-              sleep 15
+
+            # A dry run publishes nothing, so the registry cannot be checked.
+            if [ "$PUBLISH_DRY_RUN" = "true" ]; then
+              [ "$PUBLISH_OK" = "true" ] && exit 0
+            else
+              echo "🔎 Checking the registry..."
+              if bun scripts/verify-published-packages.mjs; then
+                exit 0
+              fi
+            fi
+
+            if [ "$PASS" -lt "$MAX_PASSES" ]; then
+              echo "⏳ Waiting 30s before the next pass..."
+              sleep 30
             fi
           done
-          echo "❌ Publishing failed after $MAX_RETRIES attempts."
+          echo "❌ Some packages are still not published after $MAX_PASSES passes."
           exit 1
 
   publish-crate:
