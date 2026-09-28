@@ -180,6 +180,22 @@ GitHub yıldızları, bir projenin popülaritesinin, topluluk güveninin ve uzun
 
 [![Yıldız Geçmişi Grafiği](https://api.star-history.com/chart?repos=formatjs/formatjs%2Ci18next/react-i18next%2Caymericzip/intlayer&type=date&legend=top-left)](https://star-history.com/#formatjs/formatjs&i18next/react-i18next&aymericzip/intlayer)
 
+## Commit etkinliği
+
+Yıldızlar popülerliği gösterir. Commit sayısı ise bir projeye ne kadar emek verildiğini gösterir. Bu yazı yazıldığında Intlayer yaklaşık 7.500 commit içeriyor; bu, burada karşılaştırılan kütüphanelerin çoğundan fazla ve `next-intl` ya da `next-i18next` kütüphanesinin yaklaşık 5 katı.
+
+<GithubCommits repositories="formatjs/formatjs,i18next/react-i18next,aymericzip/intlayer" />
+
+> Intlayer bir monorepo olduğundan bu sayı her framework paketini, CLI'yi ve dokümantasyonu kapsar. Commit sayısını kalitenin değil, etkinliğin bir göstergesi olarak okuyun.
+
+## npm indirmeleri
+
+<NpmDownloads packages="react-i18next,react-intl,react-intlayer" period="last-6-months" />
+
+İndirme sayıları en iyi çözümleri değil, en eski çözümleri ödüllendirir. Yıllar önce yayımlanmış bir kütüphane, onu o zaman seçen her proje, her CI çalışması ve ona bağımlı her paket tarafından hâlâ kurulur. Bu sayı yeni bir tercihten çok ataleti ölçer.
+
+Yapay zekâ asistanları bu etkiyi büyütür. `next-intl`, `i18next` ve `vue-i18n` eğitildikleri kodun her yerinde bulunduğu için, alternatifleri karşılaştırmadan bunları varsayılan olarak önerirler. Her öneri indirme sayısını artırır, bu da bir sonraki öneriyi besler. İndirme sayısına değil, benchmark sonuçlarına göre karşılaştırın.
+
 ## Sonuç
 
 Üç kütüphane de React'i etkili bir şekilde yerelleştirir. Farklılaştırıcı, **güvenli, ölçeklenebilir** bir kurulum elde etmek için ne kadar **altyapı** inşa etmeniz gerektiğidir:

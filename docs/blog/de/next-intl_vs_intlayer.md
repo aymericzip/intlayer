@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-22
+updatedAt: 2026-09-27
 priority: 8
 title: "next-intl vs Intlayer: 2026 Benchmark & Comparison"
 description: Bundle size, content leakage, locale-switch reactivity and developer experience measured on Next.js and TanStack Start. Which i18n library should you pick in 2026?
@@ -547,6 +547,22 @@ Referenzdokumente:
 GitHub-Sterne sind ein starker Indikator für die Beliebtheit eines Projekts, das Vertrauen der Community und die langfristige Relevanz. Obwohl sie kein direktes Maß für technische Qualität sind, spiegeln sie wider, wie viele Entwickler das Projekt für nützlich befinden, dessen Fortschritt verfolgen und es wahrscheinlich einführen werden.
 
 [![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#amannn/next-intl&aymericzip/intlayer)
+
+## Commit-Aktivität
+
+Sterne zeigen Popularität. Commits zeigen, wie viel Arbeit in einem Projekt steckt. Zum Zeitpunkt des Schreibens zählt Intlayer rund 7.500 Commits, mehr als die meisten hier verglichenen Bibliotheken und etwa 5-mal so viele wie `next-intl` oder `next-i18next`.
+
+<GithubCommits repositories="amannn/next-intl,aymericzip/intlayer" />
+
+> Intlayer ist ein Monorepo: Die Zahl umfasst jedes Framework-Paket, die CLI und die Dokumentation. Commits sind ein Signal für Aktivität, nicht für Qualität.
+
+## npm-Downloads
+
+<NpmDownloads packages="next-intl,next-intlayer" period="last-6-months" />
+
+Downloads belohnen die ältesten Lösungen, nicht die besten. Eine vor Jahren veröffentlichte Bibliothek wird weiterhin von jedem Projekt installiert, das sie damals gewählt hat, von jedem CI-Lauf und von jedem Paket, das davon abhängt. Die Zahl misst Trägheit mehr als eine bewusste Wahl.
+
+KI-Assistenten verstärken diesen Effekt. `next-intl`, `i18next` und `vue-i18n` sind im Code, mit dem sie trainiert wurden, allgegenwärtig, also schlagen sie diese standardmäßig vor, ohne Alternativen zu vergleichen. Jeder Vorschlag erzeugt Downloads, die den nächsten Vorschlag verstärken. Vergleichen Sie anhand des Benchmarks, nicht anhand der Downloadzahlen.
 
 ## Fazit
 

@@ -180,6 +180,22 @@ GitHub stars are a strong indicator of a project's popularity, community trust, 
 
 [![Star History Chart](https://api.star-history.com/chart?repos=formatjs/formatjs%2Ci18next/react-i18next%2Caymericzip/intlayer&type=date&legend=top-left)](https://star-history.com/#formatjs/formatjs&i18next/react-i18next&aymericzip/intlayer)
 
+## Commit activity
+
+Stars show popularity. Commits show how much work goes into a project. At the time of writing, Intlayer counts about 7,500 commits, more than most libraries compared here, and about 5 times more than `next-intl` or `next-i18next`.
+
+<GithubCommits repositories="formatjs/formatjs,i18next/react-i18next,aymericzip/intlayer" />
+
+> Intlayer is a monorepo, so its count includes every framework package, the CLI and the docs. Read commits as a signal of activity, not of quality.
+
+## npm downloads
+
+<NpmDownloads packages="react-i18next,react-intl,react-intlayer" period="last-6-months" />
+
+Downloads reward the oldest solutions, not the best ones. A library released years ago is still installed by every project that picked it back then, by every CI run and by every package that depends on it. The count measures inertia more than a fresh choice.
+
+AI assistants amplify the effect. `next-intl`, `i18next` and `vue-i18n` are everywhere in the code they were trained on, so they suggest them by default, without comparing the alternatives. Each suggestion adds downloads, which feeds the next suggestion. Compare on the benchmark rather than on the download count.
+
 ## Conclusion
 
 All three libraries localize React effectively. The differentiator is how much **infrastructure** you must build to reach a **safe, scalable** setup:

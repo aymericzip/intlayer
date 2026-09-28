@@ -295,6 +295,22 @@ As estrelas no GitHub são um forte indicador da popularidade de um projeto, da 
 
 [![Star History Chart](https://api.star-history.com/chart?repos=aymericzip/intlayer%2Cformatjs/formatjs%2Ci18next/react-i18next%2Ci18next/i18next%2Ci18next/next-i18next%2Clingui/js-lingui%2Camannn/next-intl%2Cintlify/vue-i18n%2Ccodingcommons/typesafe-i18n%2Copral/paraglide-js&type=date&legend=top-left)](https://star-history.com/#aymericzip/intlayer&formatjs/formatjs&i18next/react-i18next&i18next/i18next&i18next/next-i18next&lingui/js-lingui&amannn/next-intl&intlify/vue-i18n&codingcommons/typesafe-i18n&opral/paraglide-js)
 
+## Atividade de commits
+
+As estrelas mostram popularidade. Os commits mostram quanto trabalho é investido num projeto. No momento em que este texto foi escrito, o Intlayer soma cerca de 7.500 commits, mais do que a maioria das bibliotecas comparadas aqui e cerca de 5 vezes mais do que `next-intl` ou `next-i18next`.
+
+<GithubCommits repositories="aymericzip/intlayer,formatjs/formatjs,i18next/i18next,lingui/js-lingui,amannn/next-intl,intlify/vue-i18n,codingcommons/typesafe-i18n,opral/paraglide-js" />
+
+> O Intlayer é um monorepo, então o total inclui cada pacote de framework, a CLI e a documentação. Leia os commits como um sinal de atividade, não de qualidade.
+
+## Downloads no npm
+
+<NpmDownloads packages="intlayer,i18next,react-intl,@lingui/core,next-intl,vue-i18n,typesafe-i18n,@inlang/paraglide-js" period="last-6-months" />
+
+Os downloads recompensam as soluções mais antigas, não as melhores. Uma biblioteca lançada há anos continua sendo instalada por cada projeto que a escolheu na época, por cada execução de CI e por cada pacote que depende dela. O número mede a inércia mais do que uma escolha atual.
+
+Os assistentes de IA amplificam o efeito. `next-intl`, `i18next` e `vue-i18n` estão por toda parte no código com que foram treinados, então eles os sugerem por padrão, sem comparar as alternativas. Cada sugestão gera downloads, que alimentam a próxima sugestão. Compare pelo benchmark, não pelo número de downloads.
+
 ## Interoperabilidade
 
 `intlayer` também pode ajudar a gerenciar seus namespaces para `react-intl`, `react-i18next`, `next-intl`, `next-i18next` e `vue-i18n`.

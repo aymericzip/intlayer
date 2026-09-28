@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-22
+updatedAt: 2026-09-27
 priority: 8
 title: "next-intl vs Intlayer: Benchmark & Comparison 2026"
 description: Dimensione del bundle, perdita di contenuti, reattività del cambio locale e esperienza dello sviluppatore misurate su Next.js e TanStack Start. Quale libreria i18n dovresti scegliere nel 2026?
@@ -550,6 +550,22 @@ Documenti di riferimento:
 Le star su GitHub sono un forte indicatore della popolarità di un progetto, della fiducia della comunità e della rilevanza a lungo termine. Anche se non sono una misura diretta della qualità tecnica, riflettono quanti developer trovano il progetto utile, seguono il suo progresso e sono propensi ad adottarlo.
 
 [![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#amannn/next-intl&aymericzip/intlayer)
+
+## Attività dei commit
+
+Le stelle indicano la popolarità. I commit indicano quanto lavoro viene investito in un progetto. Al momento della scrittura, Intlayer conta circa 7.500 commit, più della maggior parte delle librerie confrontate qui e circa 5 volte più di `next-intl` o `next-i18next`.
+
+<GithubCommits repositories="amannn/next-intl,aymericzip/intlayer" />
+
+> Intlayer è un monorepo, quindi il totale include ogni pacchetto framework, la CLI e la documentazione. Leggi i commit come un segnale di attività, non di qualità.
+
+## Download npm
+
+<NpmDownloads packages="next-intl,next-intlayer" period="last-6-months" />
+
+I download premiano le soluzioni più vecchie, non le migliori. Una libreria pubblicata anni fa viene ancora installata da ogni progetto che l'ha scelta allora, da ogni esecuzione della CI e da ogni pacchetto che ne dipende. Il numero misura l'inerzia più che una scelta attuale.
+
+Gli assistenti IA amplificano l'effetto. `next-intl`, `i18next` e `vue-i18n` sono ovunque nel codice su cui sono stati addestrati, quindi li suggeriscono di default, senza confrontare le alternative. Ogni suggerimento aggiunge download, che alimentano il suggerimento successivo. Confronta sul benchmark, non sul numero di download.
 
 ## Conclusione
 

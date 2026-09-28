@@ -1505,6 +1505,22 @@ Bintang GitHub adalah indikator kuat dari popularitas sebuah proyek, kepercayaan
 
 [![Grafik Sejarah Bintang](https://api.star-history.com/chart?repos=i18next/next-i18next%2Camannn/next-intl%2Caymericzip/intlayer&type=date&legend=top-left)](https://star-history.com/#i18next/next-i18next&amannn/next-intl&aymericzip/intlayer)
 
+## Aktivitas commit
+
+Bintang menunjukkan popularitas. Commit menunjukkan seberapa banyak kerja yang masuk ke sebuah proyek. Saat tulisan ini dibuat, Intlayer memiliki sekitar 7.500 commit, lebih banyak dari sebagian besar library yang dibandingkan di sini, dan sekitar 5 kali lebih banyak dari `next-intl` atau `next-i18next`.
+
+<GithubCommits repositories="i18next/next-i18next,amannn/next-intl,aymericzip/intlayer" />
+
+> Intlayer adalah monorepo, jadi jumlah ini mencakup setiap paket framework, CLI, dan dokumentasi. Baca commit sebagai sinyal aktivitas, bukan kualitas.
+
+## Unduhan npm
+
+<NpmDownloads packages="next-i18next,next-intl,next-intlayer" period="last-6-months" />
+
+Jumlah unduhan menghargai solusi yang paling lama, bukan yang terbaik. Library yang dirilis bertahun-tahun lalu masih diinstal oleh setiap proyek yang memilihnya saat itu, oleh setiap eksekusi CI, dan oleh setiap paket yang bergantung padanya. Angka ini lebih mengukur inersia daripada pilihan baru.
+
+Asisten AI memperkuat efek ini. `next-intl`, `i18next`, dan `vue-i18n` ada di mana-mana dalam kode yang menjadi data latih mereka, sehingga mereka menyarankannya secara default tanpa membandingkan alternatif. Setiap saran menambah unduhan, yang kemudian mendorong saran berikutnya. Bandingkan berdasarkan benchmark, bukan jumlah unduhan.
+
 ## Kesimpulan
 
 Ketiga perpustakaan tersebut berhasil dalam lokalisasi inti. Perbedaannya adalah **seberapa banyak pekerjaan yang harus Anda lakukan** untuk mencapai pengaturan yang kuat dan skalabel di **Next.js modern**:

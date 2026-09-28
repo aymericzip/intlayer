@@ -56,9 +56,8 @@ height="600px"
 style="border:none;"
 />
 
-> [Lihat data benchmark lengkap](https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md)
-
-Lihat repositori benchmark lengkap [di sini](https://github.com/intlayer-org/benchmark-i18n).
+- [Lihat data benchmark lengkap](https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md)
+- [Lihat repositori benchmark lengkap](https://github.com/intlayer-org/benchmark-i18n)
 
 ## Pendahuluan
 
@@ -182,6 +181,22 @@ Saya menjalankan aplikasi multibahasa yang sama di browser asli untuk setiap sta
 Bintang GitHub adalah indikator kuat dari popularitas proyek, kepercayaan komunitas, dan relevansi jangka panjang. Meskipun bukan ukuran langsung dari kualitas teknis, bintang-bintang tersebut mencerminkan berapa banyak pengembang yang menganggap proyek tersebut berguna, mengikuti kemajuannya, dan kemungkinan akan mengadopsinya. Untuk memperkirakan nilai suatu proyek, bintang membantu membandingkan daya tarik di berbagai alternatif dan memberikan wawasan tentang pertumbuhan ekosistem.
 
 [![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fnext-i18next%2Camannn%2Fnext-intl%2Clingui%2Fjs-lingui%2Cvinissimus%2Fnext-translate%2Cinostudio%2Fnext-international%2Copral%2Fparaglide-js%2Ctolgee%2Ftolgee-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/next-i18next&amannn/next-intl&lingui/js-lingui&vinissimus/next-translate&inostudio/next-international&opral/paraglide-js&tolgee/tolgee-js&aymericzip/intlayer)
+
+## Aktivitas commit
+
+Bintang menunjukkan popularitas. Commit menunjukkan seberapa banyak kerja yang masuk ke sebuah proyek. Saat tulisan ini dibuat, Intlayer memiliki sekitar 7.500 commit, lebih banyak dari sebagian besar library yang dibandingkan di sini, dan sekitar 5 kali lebih banyak dari `next-intl` atau `next-i18next`.
+
+<GithubCommits repositories="i18next/next-i18next,amannn/next-intl,lingui/js-lingui,aralroca/next-translate,QuiiBz/next-international,opral/paraglide-js,tolgee/tolgee-js,aymericzip/intlayer" />
+
+> Intlayer adalah monorepo, jadi jumlah ini mencakup setiap paket framework, CLI, dan dokumentasi. Baca commit sebagai sinyal aktivitas, bukan kualitas.
+
+## Unduhan npm
+
+<NpmDownloads packages="next-i18next,next-intl,@lingui/react,next-translate,next-international,@inlang/paraglide-js,@tolgee/react,next-intlayer" period="last-6-months" />
+
+Jumlah unduhan menghargai solusi yang paling lama, bukan yang terbaik. Library yang dirilis bertahun-tahun lalu masih diinstal oleh setiap proyek yang memilihnya saat itu, oleh setiap eksekusi CI, dan oleh setiap paket yang bergantung padanya. Angka ini lebih mengukur inersia daripada pilihan baru.
+
+Asisten AI memperkuat efek ini. `next-intl`, `i18next`, dan `vue-i18n` ada di mana-mana dalam kode yang menjadi data latih mereka, sehingga mereka menyarankannya secara default tanpa membandingkan alternatif. Setiap saran menambah unduhan, yang kemudian mendorong saran berikutnya. Bandingkan berdasarkan benchmark, bukan jumlah unduhan.
 
 ## Hasil secara terperinci
 

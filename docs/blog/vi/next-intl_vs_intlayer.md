@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-22
+updatedAt: 2026-09-27
 priority: 8
 title: "next-intl vs Intlayer: Điểm chuẩn & So sánh 2026"
 description: "So sánh chi tiết giữa next-intl và Intlayer trên Next.js App Router và TanStack Start. Kích thước bundle, rò rỉ nội dung, kích thước component, hydrate và trải nghiệm lập trình viên."
@@ -535,6 +535,22 @@ Tài liệu tham khảo:
 Số sao GitHub là một thước đo rõ ràng về mức độ phổ biến, sự tin cậy của cộng đồng và tính bền vững lâu dài của dự án.
 
 [![Biểu đồ lịch sử sao](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#amannn/next-intl&aymericzip/intlayer)
+
+## Hoạt động commit
+
+Số sao thể hiện độ phổ biến. Số commit thể hiện lượng công sức đổ vào một dự án. Tại thời điểm viết bài, Intlayer có khoảng 7.500 commit, nhiều hơn phần lớn các thư viện được so sánh ở đây và gấp khoảng 5 lần `next-intl` hoặc `next-i18next`.
+
+<GithubCommits repositories="amannn/next-intl,aymericzip/intlayer" />
+
+> Intlayer là một monorepo, nên con số này bao gồm mọi gói framework, CLI và tài liệu. Hãy xem commit là tín hiệu về mức độ hoạt động, không phải về chất lượng.
+
+## Lượt tải npm
+
+<NpmDownloads packages="next-intl,next-intlayer" period="last-6-months" />
+
+Lượt tải ưu ái các giải pháp lâu đời nhất, không phải các giải pháp tốt nhất. Một thư viện ra mắt từ nhiều năm trước vẫn được cài đặt bởi mọi dự án đã chọn nó khi đó, mọi lần chạy CI và mọi gói phụ thuộc vào nó. Con số này đo sức ì nhiều hơn là một lựa chọn mới.
+
+Các trợ lý AI khuếch đại hiệu ứng này. `next-intl`, `i18next` và `vue-i18n` xuất hiện khắp nơi trong mã nguồn mà chúng được huấn luyện, nên chúng đề xuất các thư viện này theo mặc định, mà không so sánh các lựa chọn khác. Mỗi đề xuất lại tăng lượt tải, và lượt tải đó thúc đẩy đề xuất tiếp theo. Hãy so sánh dựa trên benchmark thay vì số lượt tải.
 
 ## Kết luận
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-22
+updatedAt: 2026-09-27
 priority: 8
 title: "next-intl ve Intlayer Karşılaştırması: 2026 Kıyaslama Testi"
 description: "Next.js App Router ve TanStack Start üzerinde next-intl ve Intlayer karşılaştırması. Paket boyutu, içerik sızıntısı, bileşen boyutu, hidrasyon ve geliştirici deneyimi."
@@ -535,6 +535,22 @@ Referans belgeleri:
 GitHub yıldızları, bir projenin popülaritesinin ve topluluk güveninin önemli bir göstergesidir.
 
 [![Yıldız Geçmişi Grafiği](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#amannn/next-intl&aymericzip/intlayer)
+
+## Commit etkinliği
+
+Yıldızlar popülerliği gösterir. Commit sayısı ise bir projeye ne kadar emek verildiğini gösterir. Bu yazı yazıldığında Intlayer yaklaşık 7.500 commit içeriyor; bu, burada karşılaştırılan kütüphanelerin çoğundan fazla ve `next-intl` ya da `next-i18next` kütüphanesinin yaklaşık 5 katı.
+
+<GithubCommits repositories="amannn/next-intl,aymericzip/intlayer" />
+
+> Intlayer bir monorepo olduğundan bu sayı her framework paketini, CLI'yi ve dokümantasyonu kapsar. Commit sayısını kalitenin değil, etkinliğin bir göstergesi olarak okuyun.
+
+## npm indirmeleri
+
+<NpmDownloads packages="next-intl,next-intlayer" period="last-6-months" />
+
+İndirme sayıları en iyi çözümleri değil, en eski çözümleri ödüllendirir. Yıllar önce yayımlanmış bir kütüphane, onu o zaman seçen her proje, her CI çalışması ve ona bağımlı her paket tarafından hâlâ kurulur. Bu sayı yeni bir tercihten çok ataleti ölçer.
+
+Yapay zekâ asistanları bu etkiyi büyütür. `next-intl`, `i18next` ve `vue-i18n` eğitildikleri kodun her yerinde bulunduğu için, alternatifleri karşılaştırmadan bunları varsayılan olarak önerirler. Her öneri indirme sayısını artırır, bu da bir sonraki öneriyi besler. İndirme sayısına değil, benchmark sonuçlarına göre karşılaştırın.
 
 ## Sonuç
 

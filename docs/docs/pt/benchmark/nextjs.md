@@ -56,9 +56,8 @@ height="600px"
 style="border:none;"
 />
 
-> [Ver dados completos do benchmark](https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md)
-
-Veja o repositório completo do benchmark [aqui](https://github.com/intlayer-org/benchmark-i18n).
+- [Ver dados completos do benchmark](https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md)
+- [Ver o repositório completo do benchmark](https://github.com/intlayer-org/benchmark-i18n)
 
 ## Introdução
 
@@ -182,6 +181,22 @@ Executei a mesma aplicação multilíngue em um navegador real para cada stack e
 As estrelas do GitHub são um forte indicador da popularidade de um projeto, da confiança da comunidade e da relevância a longo prazo. Embora não sejam uma medida direta da qualidade técnica, elas refletem quantos desenvolvedores consideram o projeto útil, acompanham seu progresso e têm probabilidade de adotá-lo. Para estimar o valor de um projeto, as estrelas ajudam a comparar a tração entre as alternativas e fornecem insights sobre o crescimento do ecossistema.
 
 [![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fnext-i18next%2Camannn%2Fnext-intl%2Clingui%2Fjs-lingui%2Cvinissimus%2Fnext-translate%2Cinostudio%2Fnext-international%2Copral%2Fparaglide-js%2Ctolgee%2Ftolgee-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/next-i18next&amannn/next-intl&lingui/js-lingui&vinissimus/next-translate&inostudio/next-international&opral/paraglide-js&tolgee/tolgee-js&aymericzip/intlayer)
+
+## Atividade de commits
+
+As estrelas mostram popularidade. Os commits mostram quanto trabalho é investido num projeto. No momento em que este texto foi escrito, o Intlayer soma cerca de 7.500 commits, mais do que a maioria das bibliotecas comparadas aqui e cerca de 5 vezes mais do que `next-intl` ou `next-i18next`.
+
+<GithubCommits repositories="i18next/next-i18next,amannn/next-intl,lingui/js-lingui,aralroca/next-translate,QuiiBz/next-international,opral/paraglide-js,tolgee/tolgee-js,aymericzip/intlayer" />
+
+> O Intlayer é um monorepo, então o total inclui cada pacote de framework, a CLI e a documentação. Leia os commits como um sinal de atividade, não de qualidade.
+
+## Downloads no npm
+
+<NpmDownloads packages="next-i18next,next-intl,@lingui/react,next-translate,next-international,@inlang/paraglide-js,@tolgee/react,next-intlayer" period="last-6-months" />
+
+Os downloads recompensam as soluções mais antigas, não as melhores. Uma biblioteca lançada há anos continua sendo instalada por cada projeto que a escolheu na época, por cada execução de CI e por cada pacote que depende dela. O número mede a inércia mais do que uma escolha atual.
+
+Os assistentes de IA amplificam o efeito. `next-intl`, `i18next` e `vue-i18n` estão por toda parte no código com que foram treinados, então eles os sugerem por padrão, sem comparar as alternativas. Cada sugestão gera downloads, que alimentam a próxima sugestão. Compare pelo benchmark, não pelo número de downloads.
 
 ## Resultados em detalhe
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-14
-updatedAt: 2026-05-31
+updatedAt: 2026-09-27
 priority: 8
 title: "Vì sao chọn Intlayer? Ưu điểm so với các thư viện i18n khác"
 description: Khám phá những lợi ích và ưu điểm của việc sử dụng Intlayer trong các dự án của bạn. Hiểu tại sao Intlayer nổi bật giữa các khung khác.
@@ -295,6 +295,22 @@ Cách tiếp cận này cho phép bạn:
 Sao GitHub là một chỉ số mạnh mẽ về mức độ phổ biến của dự án, sự tin tưởng của cộng đồng và mức độ phù hợp lâu dài. Mặc dù không phải là thước đo trực tiếp về chất lượng kỹ thuật, chúng phản ánh số lượng nhà phát triển thấy dự án hữu ích, theo dõi tiến trình của nó và có khả năng áp dụng nó. Để ước tính giá trị của một dự án, các ngôi sao giúp so sánh sức hút giữa các lựa chọn thay thế và cung cấp thông tin chi tiết về sự phát triển của hệ sinh thái.
 
 [![Star History Chart](https://api.star-history.com/chart?repos=aymericzip/intlayer%2Cformatjs/formatjs%2Ci18next/react-i18next%2Ci18next/i18next%2Ci18next/next-i18next%2Clingui/js-lingui%2Camannn/next-intl%2Cintlify/vue-i18n%2Ccodingcommons/typesafe-i18n%2Copral/paraglide-js&type=date&legend=top-left)](https://star-history.com/#aymericzip/intlayer&formatjs/formatjs&i18next/react-i18next&i18next/i18next&i18next/next-i18next&lingui/js-lingui&amannn/next-intl&intlify/vue-i18n&codingcommons/typesafe-i18n&opral/paraglide-js)
+
+## Hoạt động commit
+
+Số sao thể hiện độ phổ biến. Số commit thể hiện lượng công sức đổ vào một dự án. Tại thời điểm viết bài, Intlayer có khoảng 7.500 commit, nhiều hơn phần lớn các thư viện được so sánh ở đây và gấp khoảng 5 lần `next-intl` hoặc `next-i18next`.
+
+<GithubCommits repositories="aymericzip/intlayer,formatjs/formatjs,i18next/i18next,lingui/js-lingui,amannn/next-intl,intlify/vue-i18n,codingcommons/typesafe-i18n,opral/paraglide-js" />
+
+> Intlayer là một monorepo, nên con số này bao gồm mọi gói framework, CLI và tài liệu. Hãy xem commit là tín hiệu về mức độ hoạt động, không phải về chất lượng.
+
+## Lượt tải npm
+
+<NpmDownloads packages="intlayer,i18next,react-intl,@lingui/core,next-intl,vue-i18n,typesafe-i18n,@inlang/paraglide-js" period="last-6-months" />
+
+Lượt tải ưu ái các giải pháp lâu đời nhất, không phải các giải pháp tốt nhất. Một thư viện ra mắt từ nhiều năm trước vẫn được cài đặt bởi mọi dự án đã chọn nó khi đó, mọi lần chạy CI và mọi gói phụ thuộc vào nó. Con số này đo sức ì nhiều hơn là một lựa chọn mới.
+
+Các trợ lý AI khuếch đại hiệu ứng này. `next-intl`, `i18next` và `vue-i18n` xuất hiện khắp nơi trong mã nguồn mà chúng được huấn luyện, nên chúng đề xuất các thư viện này theo mặc định, mà không so sánh các lựa chọn khác. Mỗi đề xuất lại tăng lượt tải, và lượt tải đó thúc đẩy đề xuất tiếp theo. Hãy so sánh dựa trên benchmark thay vì số lượt tải.
 
 ## Khả năng tương tác
 

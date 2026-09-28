@@ -589,6 +589,22 @@ GitHubスターは、プロジェクトの認知度、コミュニティの信�
 
 [![スター履歴グラフ](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
 
+## コミット数
+
+スター数は人気を示し、コミット数はプロジェクトに注がれた作業量を示します。執筆時点で Intlayer のコミット数は約 7,500 件で、ここで比較している多くのライブラリを上回り、`next-intl` や `next-i18next` の約 5 倍です。
+
+<GithubCommits repositories="i18next/i18next,i18next/react-i18next,i18next/next-i18next,aymericzip/intlayer" />
+
+> Intlayer はモノレポのため、この数には各フレームワーク向けパッケージ、CLI、ドキュメントがすべて含まれます。コミット数は品質ではなく活動量の指標として捉えてください。
+
+## npm ダウンロード数
+
+<NpmDownloads packages="i18next,react-i18next,next-i18next,intlayer" period="last-6-months" />
+
+ダウンロード数が評価するのは最良のソリューションではなく、最も古いソリューションです。何年も前に公開されたライブラリは、当時それを選んだすべてのプロジェクト、すべての CI 実行、それに依存するすべてのパッケージによって今もインストールされ続けます。この数値は新たな選択よりも惰性を表しています。
+
+AI アシスタントはこの効果をさらに強めます。`next-intl`、`i18next`、`vue-i18n` は学習元のコードに大量に含まれているため、AI は代替手段を比較することなく、それらをデフォルトで提案します。提案のたびにダウンロード数が増え、それが次の提案を後押しします。ダウンロード数ではなく、ベンチマークで比較してください。
+
 ## 結論
 
 `i18next`は10年以上にわたるメンテナンスと抜群の汎用性により、現在の地位を確立しました。しかし、今回のベンチマークはそのランタイム依存型アーキテクチャのコストを浮き彫りにしています。一般的な構成では**1ページあたり+70〜77 KB gzip**が加算され、**別ページの文字列が約90%漏洩**し、遅延ロード時の言語切り替えに**100 ms以上**かかります。リークを0%に抑えることも可能ですが、それには手動での名前空間マッピングが必要であり、それでもなおIntlayerより**9〜22 KB**重くなります。

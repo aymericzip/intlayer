@@ -1506,6 +1506,22 @@ Gwiazdy na GitHubie są silnym wskaźnikiem popularności projektu, zaufania spo
 
 [![Wykres historii gwiazd](https://api.star-history.com/chart?repos=i18next/next-i18next%2Camannn/next-intl%2Caymericzip/intlayer&type=date&legend=top-left)](https://star-history.com/#i18next/next-i18next&amannn/next-intl&aymericzip/intlayer)
 
+## Aktywność commitów
+
+Gwiazdki pokazują popularność. Commity pokazują, ile pracy włożono w projekt. W chwili pisania Intlayer ma około 7 500 commitów, więcej niż większość porównywanych tu bibliotek i mniej więcej 5 razy więcej niż `next-intl` czy `next-i18next`.
+
+<GithubCommits repositories="i18next/next-i18next,amannn/next-intl,aymericzip/intlayer" />
+
+> Intlayer to monorepo, więc ta liczba obejmuje każdy pakiet dla frameworków, CLI i dokumentację. Traktuj commity jako sygnał aktywności, a nie jakości.
+
+## Pobrania z npm
+
+<NpmDownloads packages="next-i18next,next-intl,next-intlayer" period="last-6-months" />
+
+Liczba pobrań nagradza najstarsze rozwiązania, a nie najlepsze. Biblioteka wydana lata temu wciąż jest instalowana przez każdy projekt, który ją wtedy wybrał, przez każde uruchomienie CI i przez każdy pakiet, który od niej zależy. Ta liczba mierzy bezwładność bardziej niż świadomy wybór.
+
+Asystenci AI wzmacniają ten efekt. `next-intl`, `i18next` i `vue-i18n` są wszędzie w kodzie, na którym ich trenowano, więc proponują je domyślnie, bez porównywania alternatyw. Każda sugestia dodaje pobrań, które napędzają kolejną sugestię. Porównuj na podstawie benchmarku, a nie liczby pobrań.
+
 ## Podsumowanie
 
 Wszystkie trzy biblioteki odnoszą sukces w podstawowej lokalizacji. Różnica polega na tym, **ile pracy musisz włożyć**, aby osiągnąć solidną, skalowalną konfigurację w **nowoczesnym Next.js**:

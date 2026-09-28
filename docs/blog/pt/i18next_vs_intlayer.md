@@ -589,6 +589,22 @@ As estrelas no GitHub são um indicador sólido da popularidade, confiança da c
 
 [![Gráfico de histórico de estrelas](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
 
+## Atividade de commits
+
+As estrelas mostram popularidade. Os commits mostram quanto trabalho é investido num projeto. No momento em que este texto foi escrito, o Intlayer soma cerca de 7.500 commits, mais do que a maioria das bibliotecas comparadas aqui e cerca de 5 vezes mais do que `next-intl` ou `next-i18next`.
+
+<GithubCommits repositories="i18next/i18next,i18next/react-i18next,i18next/next-i18next,aymericzip/intlayer" />
+
+> O Intlayer é um monorepo, então o total inclui cada pacote de framework, a CLI e a documentação. Leia os commits como um sinal de atividade, não de qualidade.
+
+## Downloads no npm
+
+<NpmDownloads packages="i18next,react-i18next,next-i18next,intlayer" period="last-6-months" />
+
+Os downloads recompensam as soluções mais antigas, não as melhores. Uma biblioteca lançada há anos continua sendo instalada por cada projeto que a escolheu na época, por cada execução de CI e por cada pacote que depende dela. O número mede a inércia mais do que uma escolha atual.
+
+Os assistentes de IA amplificam o efeito. `next-intl`, `i18next` e `vue-i18n` estão por toda parte no código com que foram treinados, então eles os sugerem por padrão, sem comparar as alternativas. Cada sugestão gera downloads, que alimentam a próxima sugestão. Compare pelo benchmark, não pelo número de downloads.
+
 ## Conclusão
 
 O `i18next` conquistou sua posição de destaque: roda em qualquer lugar, conta com plugins para tudo e possui mais de dez anos de manutenção contínua. O benchmark demonstra o custo de um design centrado no runtime. A configuração padrão da maioria dos times adiciona **+70-77 KB gzip por página**, vaza **~90% do conteúdo de outras páginas** e leva **mais de 100 ms** para trocar de idioma com lazy loading. Chegar a 0% de vazamento é viável, mas requer backend, namespaces por rota e mapeamento manual, permanecendo ainda **+9-22 KB** acima do Intlayer.

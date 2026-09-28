@@ -504,6 +504,22 @@ As estrelas no GitHub expressam a aprovação do público, a confiança técnica
 
 [![Histórico de estrelas](https://api.star-history.com/chart?repos=lingui%2Fjs-lingui%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#lingui/js-lingui&aymericzip/intlayer)
 
+## Atividade de commits
+
+As estrelas mostram popularidade. Os commits mostram quanto trabalho é investido num projeto. No momento em que este texto foi escrito, o Intlayer soma cerca de 7.500 commits, mais do que a maioria das bibliotecas comparadas aqui e cerca de 5 vezes mais do que `next-intl` ou `next-i18next`.
+
+<GithubCommits repositories="lingui/js-lingui,aymericzip/intlayer" />
+
+> O Intlayer é um monorepo, então o total inclui cada pacote de framework, a CLI e a documentação. Leia os commits como um sinal de atividade, não de qualidade.
+
+## Downloads no npm
+
+<NpmDownloads packages="@lingui/core,intlayer" period="last-6-months" />
+
+Os downloads recompensam as soluções mais antigas, não as melhores. Uma biblioteca lançada há anos continua sendo instalada por cada projeto que a escolheu na época, por cada execução de CI e por cada pacote que depende dela. O número mede a inércia mais do que uma escolha atual.
+
+Os assistentes de IA amplificam o efeito. `next-intl`, `i18next` e `vue-i18n` estão por toda parte no código com que foram treinados, então eles os sugerem por padrão, sem comparar as alternativas. Cada sugestão gera downloads, que alimentam a próxima sugestão. Compare pelo benchmark, não pelo número de downloads.
+
 ## Conclusão
 
 O Lingui desponta como a biblioteca híbrida de runtime e compilador mais robusta deste teste comparativo. Seus catálogos compactados com chaves hasheadas proporcionam uma contagem de JavaScript por página a escassos kilobytes do Intlayer, chegando a superá-lo por fração mínima no TanStack Start. Se o peso total por página fosse a única meta, teríamos um empate prático.

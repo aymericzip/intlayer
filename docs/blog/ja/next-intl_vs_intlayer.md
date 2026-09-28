@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-22
+updatedAt: 2026-09-27
 priority: 8
 title: "next-intl vs Intlayer: 2026 ベンチマーク＆比較"
 description: Bundle size、content leakage、locale-switch の反応性、および Next.js と TanStack Start での開発者体験を測定。2026年ではどのi18nライブラリを選ぶべきでしょうか？
@@ -554,6 +554,22 @@ next-intl についてさらに詳しく:
 GitHub のスター数は、プロジェクトの人気、コミュニティの信頼、長期的な持続可能性を示す強力な指標です。技術的な品質を直接測るものではありませんが、どれだけ多くの開発者がそのプロジェクトを有用だと感じ、その進捗を追い、採用しているかを反映しています。
 
 [![スター履歴チャート](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#amannn/next-intl&aymericzip/intlayer)
+
+## コミット数
+
+スター数は人気を示し、コミット数はプロジェクトに注がれた作業量を示します。執筆時点で Intlayer のコミット数は約 7,500 件で、ここで比較している多くのライブラリを上回り、`next-intl` や `next-i18next` の約 5 倍です。
+
+<GithubCommits repositories="amannn/next-intl,aymericzip/intlayer" />
+
+> Intlayer はモノレポのため、この数には各フレームワーク向けパッケージ、CLI、ドキュメントがすべて含まれます。コミット数は品質ではなく活動量の指標として捉えてください。
+
+## npm ダウンロード数
+
+<NpmDownloads packages="next-intl,next-intlayer" period="last-6-months" />
+
+ダウンロード数が評価するのは最良のソリューションではなく、最も古いソリューションです。何年も前に公開されたライブラリは、当時それを選んだすべてのプロジェクト、すべての CI 実行、それに依存するすべてのパッケージによって今もインストールされ続けます。この数値は新たな選択よりも惰性を表しています。
+
+AI アシスタントはこの効果をさらに強めます。`next-intl`、`i18next`、`vue-i18n` は学習元のコードに大量に含まれているため、AI は代替手段を比較することなく、それらをデフォルトで提案します。提案のたびにダウンロード数が増え、それが次の提案を後押しします。ダウンロード数ではなく、ベンチマークで比較してください。
 
 ## 結論
 

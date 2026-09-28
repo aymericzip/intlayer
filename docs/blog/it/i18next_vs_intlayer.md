@@ -589,6 +589,22 @@ Le stelle su GitHub rispecchiano la popolarità, la fiducia della community e la
 
 [![Grafico dello storico delle stelle](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
 
+## Attività dei commit
+
+Le stelle indicano la popolarità. I commit indicano quanto lavoro viene investito in un progetto. Al momento della scrittura, Intlayer conta circa 7.500 commit, più della maggior parte delle librerie confrontate qui e circa 5 volte più di `next-intl` o `next-i18next`.
+
+<GithubCommits repositories="i18next/i18next,i18next/react-i18next,i18next/next-i18next,aymericzip/intlayer" />
+
+> Intlayer è un monorepo, quindi il totale include ogni pacchetto framework, la CLI e la documentazione. Leggi i commit come un segnale di attività, non di qualità.
+
+## Download npm
+
+<NpmDownloads packages="i18next,react-i18next,next-i18next,intlayer" period="last-6-months" />
+
+I download premiano le soluzioni più vecchie, non le migliori. Una libreria pubblicata anni fa viene ancora installata da ogni progetto che l'ha scelta allora, da ogni esecuzione della CI e da ogni pacchetto che ne dipende. Il numero misura l'inerzia più che una scelta attuale.
+
+Gli assistenti IA amplificano l'effetto. `next-intl`, `i18next` e `vue-i18n` sono ovunque nel codice su cui sono stati addestrati, quindi li suggeriscono di default, senza confrontare le alternative. Ogni suggerimento aggiunge download, che alimentano il suggerimento successivo. Confronta sul benchmark, non sul numero di download.
+
 ## Conclusione
 
 `i18next` ha meritato il proprio ruolo di riferimento: funziona ovunque, dispone di plugin per ogni esigenza ed è supportato da oltre un decennio. Il benchmark dimostra tuttavia il costo di un'architettura focalizzata sul runtime. Il setup comunemente adottato aggiunge **+70-77 KB gzip per pagina**, disperde **~90% dei contenuti di altre pagine** e richiede **più di 100 ms** per un cambio lingua con lazy loading. Raggiungere lo 0% di dispersione è possibile, ma impone un backend, un namespace per route e un mapping manuale continuo, rimanendo comunque **+9-22 KB** sopra Intlayer.

@@ -56,9 +56,8 @@ height="600px"
 style="border:none;"
 />
 
-> [完全なベンチマークデータを見る](https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_svelte.md)
-
-完全なベンチマークリポジトリは[こちら](https://github.com/intlayer-org/benchmark-i18n/tree/main)でご覧いただけます。
+- [完全なベンチマークデータを見る](https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_svelte.md)
+- [ベンチマークのリポジトリ全体を見る](https://github.com/intlayer-org/benchmark-i18n/tree/main)
 
 ## はじめに
 
@@ -159,6 +158,22 @@ i18nリークの問題を素早く特定するために、無料のスキャナ�
 GitHubのスターは、プロジェクトの普及度、コミュニティの信頼、および長期的な関連性を示す強力な指標です。技術的な品質を直接測定するものではありませんが、どれだけの開発者がプロジェクトを有用だと感じ、その進捗をフォローし、採用する可能性があるかを反映しています。プロジェクトの価値を見積もる際、スターは代替案との勢いの比較を助け、エコシステムの成長に関する洞察を提供します。
 
 [![Star History Chart](https://api.star-history.com/chart?repos=kaisermann%2Fsvelte-i18n%2Copral%2Fparaglide-js%2Ctolgee%2Ftolgee-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#kaisermann/svelte-i18n&opral/paraglide-js&tolgee/tolgee-js&aymericzip/intlayer)
+
+## コミット数
+
+スター数は人気を示し、コミット数はプロジェクトに注がれた作業量を示します。執筆時点で Intlayer のコミット数は約 7,500 件で、ここで比較している多くのライブラリを上回り、`next-intl` や `next-i18next` の約 5 倍です。
+
+<GithubCommits repositories="kaisermann/svelte-i18n,opral/paraglide-js,tolgee/tolgee-js,aymericzip/intlayer" />
+
+> Intlayer はモノレポのため、この数には各フレームワーク向けパッケージ、CLI、ドキュメントがすべて含まれます。コミット数は品質ではなく活動量の指標として捉えてください。
+
+## npm ダウンロード数
+
+<NpmDownloads packages="svelte-i18n,@inlang/paraglide-js,@tolgee/svelte,svelte-intlayer" period="last-6-months" />
+
+ダウンロード数が評価するのは最良のソリューションではなく、最も古いソリューションです。何年も前に公開されたライブラリは、当時それを選んだすべてのプロジェクト、すべての CI 実行、それに依存するすべてのパッケージによって今もインストールされ続けます。この数値は新たな選択よりも惰性を表しています。
+
+AI アシスタントはこの効果をさらに強めます。`next-intl`、`i18next`、`vue-i18n` は学習元のコードに大量に含まれているため、AI は代替手段を比較することなく、それらをデフォルトで提案します。提案のたびにダウンロード数が増え、それが次の提案を後押しします。ダウンロード数ではなく、ベンチマークで比較してください。
 
 ## 結果の詳細
 

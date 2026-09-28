@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-22
+updatedAt: 2026-09-27
 priority: 8
 title: "vue-i18n vs Intlayer: Benchmark & Comparação 2026"
 description: "vue-i18n e Intlayer medidos no mesmo app Vite + Vue 3: tamanho da biblioteca, JavaScript por página, vazamento, tamanho de componentes e reatividade."
@@ -435,6 +435,22 @@ Relatórios de benchmark:
 As estrelas no GitHub são um forte indicador da popularidade de um projeto, da confiança da comunidade e da relevância a longo prazo. Embora não sejam uma medida direta da qualidade técnica, refletem quantos desenvolvedores acham o projeto útil, acompanham seu progresso e tendem a adotá-lo.
 
 [![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
+
+## Atividade de commits
+
+As estrelas mostram popularidade. Os commits mostram quanto trabalho é investido num projeto. No momento em que este texto foi escrito, o Intlayer soma cerca de 7.500 commits, mais do que a maioria das bibliotecas comparadas aqui e cerca de 5 vezes mais do que `next-intl` ou `next-i18next`.
+
+<GithubCommits repositories="intlify/vue-i18n,aymericzip/intlayer" />
+
+> O Intlayer é um monorepo, então o total inclui cada pacote de framework, a CLI e a documentação. Leia os commits como um sinal de atividade, não de qualidade.
+
+## Downloads no npm
+
+<NpmDownloads packages="vue-i18n,vue-intlayer" period="last-6-months" />
+
+Os downloads recompensam as soluções mais antigas, não as melhores. Uma biblioteca lançada há anos continua sendo instalada por cada projeto que a escolheu na época, por cada execução de CI e por cada pacote que depende dela. O número mede a inércia mais do que uma escolha atual.
+
+Os assistentes de IA amplificam o efeito. `next-intl`, `i18next` e `vue-i18n` estão por toda parte no código com que foram treinados, então eles os sugerem por padrão, sem comparar as alternativas. Cada sugestão gera downloads, que alimentam a próxima sugestão. Compare pelo benchmark, não pelo número de downloads.
 
 ## Conclusão
 

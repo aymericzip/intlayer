@@ -589,6 +589,22 @@ GitHub yıldızları bir projenin popülerliğini, topluluk güvenini ve uzun va
 
 [![Yıldız Geçmiş Grafiği](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
 
+## Commit etkinliği
+
+Yıldızlar popülerliği gösterir. Commit sayısı ise bir projeye ne kadar emek verildiğini gösterir. Bu yazı yazıldığında Intlayer yaklaşık 7.500 commit içeriyor; bu, burada karşılaştırılan kütüphanelerin çoğundan fazla ve `next-intl` ya da `next-i18next` kütüphanesinin yaklaşık 5 katı.
+
+<GithubCommits repositories="i18next/i18next,i18next/react-i18next,i18next/next-i18next,aymericzip/intlayer" />
+
+> Intlayer bir monorepo olduğundan bu sayı her framework paketini, CLI'yi ve dokümantasyonu kapsar. Commit sayısını kalitenin değil, etkinliğin bir göstergesi olarak okuyun.
+
+## npm indirmeleri
+
+<NpmDownloads packages="i18next,react-i18next,next-i18next,intlayer" period="last-6-months" />
+
+İndirme sayıları en iyi çözümleri değil, en eski çözümleri ödüllendirir. Yıllar önce yayımlanmış bir kütüphane, onu o zaman seçen her proje, her CI çalışması ve ona bağımlı her paket tarafından hâlâ kurulur. Bu sayı yeni bir tercihten çok ataleti ölçer.
+
+Yapay zekâ asistanları bu etkiyi büyütür. `next-intl`, `i18next` ve `vue-i18n` eğitildikleri kodun her yerinde bulunduğu için, alternatifleri karşılaştırmadan bunları varsayılan olarak önerirler. Her öneri indirme sayısını artırır, bu da bir sonraki öneriyi besler. İndirme sayısına değil, benchmark sonuçlarına göre karşılaştırın.
+
 ## Sonuç
 
 `i18next` hak ettiği konuma sahiptir: Her ortamda çalışır, her senaryo için bir eklentisi vardır ve 10 yılı aşkın süredir geliştirilmektedir. Ancak bu benchmark, çalışma zamanı odaklı mimarinin getirdiği maliyeti açıkça göstermektedir. Standart yapılandırma **sayfa başına +70-77 KB gzip** ek yük getirmekte, **diğer sayfalara ait içeriğin ~%90'ını sızdırmakta** ve dil değişimi **100 ms'nin üzerinde** sürmektedir. Sızıntıyı sıfıra indirmek mümkündür ancak bu da karmaşık bir manuel takip gerektirir ve yine de Intlayer'dan **9-22 KB daha ağırdır**.

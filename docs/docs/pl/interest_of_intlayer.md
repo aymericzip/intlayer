@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-14
-updatedAt: 2026-05-31
+updatedAt: 2026-09-27
 priority: 8
 title: "Dlaczego Intlayer? Zalety na tle innych bibliotek i18n"
 description: Odkryj korzyści i zalety korzystania z Intlayer w swoich projektach. Zrozum, dlaczego Intlayer wyróżnia się na tle innych frameworków.
@@ -294,6 +294,22 @@ Takie podejście pozwala na:
 Gwiazdki na GitHubie są silnym wskaźnikiem popularności projektu, zaufania społeczności i długoterminowej trajektorii. Choć nie są bezpośrednią miarą jakości technicznej, odzwierciedlają liczbę programistów, którzy uważają projekt za przydatny, śledzą jego postępy i prawdopodobnie go wdrożą. Do szacowania wartości projektu gwiazdki pomagają porównać atrakcyjność alternatyw i dostarczają wglądu w rozwój ekosystemu.
 
 [![Star History Chart](https://api.star-history.com/chart?repos=aymericzip/intlayer%2Cformatjs/formatjs%2Ci18next/react-i18next%2Ci18next/i18next%2Ci18next/next-i18next%2Clingui/js-lingui%2Camannn/next-intl%2Cintlify/vue-i18n%2Ccodingcommons/typesafe-i18n%2Copral/paraglide-js&type=date&legend=top-left)](https://star-history.com/#aymericzip/intlayer&formatjs/formatjs&i18next/react-i18next&i18next/i18next&i18next/next-i18next&lingui/js-lingui&amannn/next-intl&intlify/vue-i18n&codingcommons/typesafe-i18n&opral/paraglide-js)
+
+## Aktywność commitów
+
+Gwiazdki pokazują popularność. Commity pokazują, ile pracy włożono w projekt. W chwili pisania Intlayer ma około 7 500 commitów, więcej niż większość porównywanych tu bibliotek i mniej więcej 5 razy więcej niż `next-intl` czy `next-i18next`.
+
+<GithubCommits repositories="aymericzip/intlayer,formatjs/formatjs,i18next/i18next,lingui/js-lingui,amannn/next-intl,intlify/vue-i18n,codingcommons/typesafe-i18n,opral/paraglide-js" />
+
+> Intlayer to monorepo, więc ta liczba obejmuje każdy pakiet dla frameworków, CLI i dokumentację. Traktuj commity jako sygnał aktywności, a nie jakości.
+
+## Pobrania z npm
+
+<NpmDownloads packages="intlayer,i18next,react-intl,@lingui/core,next-intl,vue-i18n,typesafe-i18n,@inlang/paraglide-js" period="last-6-months" />
+
+Liczba pobrań nagradza najstarsze rozwiązania, a nie najlepsze. Biblioteka wydana lata temu wciąż jest instalowana przez każdy projekt, który ją wtedy wybrał, przez każde uruchomienie CI i przez każdy pakiet, który od niej zależy. Ta liczba mierzy bezwładność bardziej niż świadomy wybór.
+
+Asystenci AI wzmacniają ten efekt. `next-intl`, `i18next` i `vue-i18n` są wszędzie w kodzie, na którym ich trenowano, więc proponują je domyślnie, bez porównywania alternatyw. Każda sugestia dodaje pobrań, które napędzają kolejną sugestię. Porównuj na podstawie benchmarku, a nie liczby pobrań.
 
 ## Interoperacyjność
 

@@ -589,6 +589,22 @@ Las estrellas en GitHub son un reflejo de la popularidad, la confianza de la com
 
 [![Gráfico de historial de estrellas](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
 
+## Actividad de commits
+
+Las estrellas reflejan la popularidad. Los commits reflejan el trabajo invertido en un proyecto. En el momento de escribir esto, Intlayer suma unos 7.500 commits, más que la mayoría de las bibliotecas comparadas aquí, y unas 5 veces más que `next-intl` o `next-i18next`.
+
+<GithubCommits repositories="i18next/i18next,i18next/react-i18next,i18next/next-i18next,aymericzip/intlayer" />
+
+> Intlayer es un monorepo, así que el total incluye cada paquete de framework, la CLI y la documentación. Lee los commits como una señal de actividad, no de calidad.
+
+## Descargas en npm
+
+<NpmDownloads packages="i18next,react-i18next,next-i18next,intlayer" period="last-6-months" />
+
+Las descargas premian a las soluciones más antiguas, no a las mejores. Una biblioteca publicada hace años se sigue instalando en cada proyecto que la eligió entonces, en cada ejecución de CI y en cada paquete que depende de ella. La cifra mide la inercia más que una elección actual.
+
+Los asistentes de IA amplifican el efecto. `next-intl`, `i18next` y `vue-i18n` están por todas partes en el código con el que se entrenaron, así que los sugieren por defecto, sin comparar las alternativas. Cada sugerencia suma descargas, que alimentan la siguiente sugerencia. Compara con el benchmark y no con el número de descargas.
+
 ## Conclusión
 
 `i18next` se ganó su lugar: funciona en todas partes, dispone de plugins para todo y acumula más de una década de soporte. El benchmark evidencia el coste de un enfoque centrado en el runtime. La configuración habitual en la mayoría de equipos añade **+70-77 KB gzip por página**, fuga **~90% del contenido de páginas ajenas** y requiere **más de 100 ms** para un cambio de idioma diferido. Lograr 0% de fuga es factible, pero demanda un backend, un namespace por ruta y un mapa manual, quedando todavía **+9-22 KB** por encima de Intlayer.

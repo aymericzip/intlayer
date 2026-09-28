@@ -504,6 +504,22 @@ GitHub stars are a strong indicator of a project's popularity, community trust, 
 
 [![Star History Chart](https://api.star-history.com/chart?repos=lingui%2Fjs-lingui%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#lingui/js-lingui&aymericzip/intlayer)
 
+## Commit activity
+
+Stars show popularity. Commits show how much work goes into a project. At the time of writing, Intlayer counts about 7,500 commits, more than most libraries compared here, and about 5 times more than `next-intl` or `next-i18next`.
+
+<GithubCommits repositories="lingui/js-lingui,aymericzip/intlayer" />
+
+> Intlayer is a monorepo, so its count includes every framework package, the CLI and the docs. Read commits as a signal of activity, not of quality.
+
+## npm downloads
+
+<NpmDownloads packages="@lingui/core,intlayer" period="last-6-months" />
+
+Downloads reward the oldest solutions, not the best ones. A library released years ago is still installed by every project that chose it back then, by every CI run and by every package that depends on it. The count measures inertia more than a fresh choice.
+
+AI assistants amplify the effect. `next-intl`, `i18next` and `vue-i18n` are everywhere in the code they were trained on, so they suggest them by default, without comparing the alternatives. Each suggestion adds downloads, which feeds the next suggestion. Compare on the benchmark rather than on the download count.
+
 ## Conclusion
 
 Lingui is the strongest runtime-plus-compiler library in this benchmark. Its compiled, hashed catalogues give it per-page JavaScript within a few KB of Intlayer, and even slightly under it on TanStack Start. If per-page bytes were the only metric, this would be a tie.

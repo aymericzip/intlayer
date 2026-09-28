@@ -56,9 +56,8 @@ height="600px"
 style="border:none;"
 />
 
-> [Xem dữ liệu benchmark đầy đủ](https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_svelte.md)
-
-Xem toàn bộ kho lưu trữ benchmark [tại đây](https://github.com/intlayer-org/benchmark-i18n/tree/main).
+- [Xem dữ liệu benchmark đầy đủ](https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_svelte.md)
+- [Xem kho lưu trữ benchmark đầy đủ](https://github.com/intlayer-org/benchmark-i18n/tree/main)
 
 ## Giới thiệu
 
@@ -159,6 +158,22 @@ Tôi đã chạy cùng một ứng dụng đa ngôn ngữ trong trình duyệt t
 Sao GitHub là một chỉ số mạnh mẽ về mức độ phổ biến của dự án, sự tin tưởng của cộng đồng và mức độ phù hợp lâu dài. Mặc dù không phải là thước đo trực tiếp về chất lượng kỹ thuật, chúng phản ánh số lượng nhà phát triển thấy dự án hữu ích, theo dõi tiến trình của nó và có khả năng áp dụng nó. Để ước tính giá trị của một dự án, các ngôi sao giúp so sánh sức hút giữa các lựa chọn thay thế và cung cấp thông tin chi tiết về sự phát triển của hệ sinh thái.
 
 [![Star History Chart](https://api.star-history.com/chart?repos=kaisermann%2Fsvelte-i18n%2Copral%2Fparaglide-js%2Ctolgee%2Ftolgee-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#kaisermann/svelte-i18n&opral/paraglide-js&tolgee/tolgee-js&aymericzip/intlayer)
+
+## Hoạt động commit
+
+Số sao thể hiện độ phổ biến. Số commit thể hiện lượng công sức đổ vào một dự án. Tại thời điểm viết bài, Intlayer có khoảng 7.500 commit, nhiều hơn phần lớn các thư viện được so sánh ở đây và gấp khoảng 5 lần `next-intl` hoặc `next-i18next`.
+
+<GithubCommits repositories="kaisermann/svelte-i18n,opral/paraglide-js,tolgee/tolgee-js,aymericzip/intlayer" />
+
+> Intlayer là một monorepo, nên con số này bao gồm mọi gói framework, CLI và tài liệu. Hãy xem commit là tín hiệu về mức độ hoạt động, không phải về chất lượng.
+
+## Lượt tải npm
+
+<NpmDownloads packages="svelte-i18n,@inlang/paraglide-js,@tolgee/svelte,svelte-intlayer" period="last-6-months" />
+
+Lượt tải ưu ái các giải pháp lâu đời nhất, không phải các giải pháp tốt nhất. Một thư viện ra mắt từ nhiều năm trước vẫn được cài đặt bởi mọi dự án đã chọn nó khi đó, mọi lần chạy CI và mọi gói phụ thuộc vào nó. Con số này đo sức ì nhiều hơn là một lựa chọn mới.
+
+Các trợ lý AI khuếch đại hiệu ứng này. `next-intl`, `i18next` và `vue-i18n` xuất hiện khắp nơi trong mã nguồn mà chúng được huấn luyện, nên chúng đề xuất các thư viện này theo mặc định, mà không so sánh các lựa chọn khác. Mỗi đề xuất lại tăng lượt tải, và lượt tải đó thúc đẩy đề xuất tiếp theo. Hãy so sánh dựa trên benchmark thay vì số lượt tải.
 
 ## Kết quả chi tiết
 

@@ -180,6 +180,22 @@ GitHub stars 是项目受欢迎程度、社区信任度和长期相关性的强�
 
 [![Star History Chart](https://api.star-history.com/chart?repos=formatjs/formatjs%2Ci18next/react-i18next%2Caymericzip/intlayer&type=date&legend=top-left)](https://star-history.com/#formatjs/formatjs&i18next/react-i18next&aymericzip/intlayer)
 
+## 提交活跃度
+
+Star 反映受欢迎程度，提交次数反映项目投入的工作量。截至撰写时，Intlayer 约有 7,500 次提交，多于这里比较的大多数库，约为 `next-intl` 或 `next-i18next` 的 5 倍。
+
+<GithubCommits repositories="formatjs/formatjs,i18next/react-i18next,aymericzip/intlayer" />
+
+> Intlayer 是一个 monorepo，因此该数字包含每个框架包、CLI 和文档。请把提交次数视为活跃度的信号，而不是质量的衡量。
+
+## npm 下载量
+
+<NpmDownloads packages="react-i18next,react-intl,react-intlayer" period="last-6-months" />
+
+下载量奖励的是最老的方案，而不是最好的方案。一个多年前发布的库，仍会被当年选择它的每个项目、每次 CI 运行以及每个依赖它的包持续安装。这个数字衡量的更多是惯性，而不是新的选择。
+
+AI 助手放大了这种效应。`next-intl`、`i18next` 和 `vue-i18n` 在它们的训练代码中随处可见，因此 AI 会默认推荐它们，而不去比较其他方案。每一次推荐都带来下载，又进一步推动下一次推荐。请以基准测试而不是下载量来比较。
+
 ## 结论
 
 所有三个库都能有效地实现 React 的本地化。区别在于你需要构建多少**基础设施**，才能达到一个**安全、可扩展**的环境：

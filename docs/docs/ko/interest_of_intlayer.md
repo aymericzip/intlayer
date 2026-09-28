@@ -295,6 +295,22 @@ GitHub Star 수는 프로젝트의 인지도, 커뮤니티의 신뢰도 및 장�
 
 [![Star History Chart](https://api.star-history.com/chart?repos=aymericzip/intlayer%2Cformatjs/formatjs%2Ci18next/react-i18next%2Ci18next/i18next%2Ci18next/next-i18next%2Clingui/js-lingui%2Camannn/next-intl%2Cintlify/vue-i18n%2Ccodingcommons/typesafe-i18n%2Copral/paraglide-js&type=date&legend=top-left)](https://star-history.com/#aymericzip/intlayer&formatjs/formatjs&i18next/react-i18next&i18next/i18next&i18next/next-i18next&lingui/js-lingui&amannn/next-intl&intlify/vue-i18n&codingcommons/typesafe-i18n&opral/paraglide-js)
 
+## 커밋 활동
+
+스타는 인기를, 커밋은 프로젝트에 투입된 작업량을 보여줍니다. 작성 시점 기준으로 Intlayer의 커밋 수는 약 7,500개로, 여기서 비교한 대부분의 라이브러리보다 많고 `next-intl`이나 `next-i18next`의 약 5배입니다.
+
+<GithubCommits repositories="aymericzip/intlayer,formatjs/formatjs,i18next/i18next,lingui/js-lingui,amannn/next-intl,intlify/vue-i18n,codingcommons/typesafe-i18n,opral/paraglide-js" />
+
+> Intlayer는 모노레포이므로 이 수치에는 모든 프레임워크 패키지, CLI, 문서가 포함됩니다. 커밋 수는 품질이 아닌 활동의 지표로 읽어 주세요.
+
+## npm 다운로드
+
+<NpmDownloads packages="intlayer,i18next,react-intl,@lingui/core,next-intl,vue-i18n,typesafe-i18n,@inlang/paraglide-js" period="last-6-months" />
+
+다운로드 수는 가장 좋은 솔루션이 아니라 가장 오래된 솔루션에 보상을 줍니다. 수년 전에 출시된 라이브러리는 당시 이를 선택한 모든 프로젝트, 모든 CI 실행, 이에 의존하는 모든 패키지에 의해 여전히 설치됩니다. 이 수치는 새로운 선택보다 관성을 측정합니다.
+
+AI 어시스턴트는 이 효과를 더 키웁니다. `next-intl`, `i18next`, `vue-i18n`은 AI가 학습한 코드 곳곳에 있으므로, AI는 대안을 비교하지 않고 이들을 기본으로 추천합니다. 추천이 다운로드를 늘리고, 그 다운로드가 다음 추천을 부추깁니다. 다운로드 수가 아니라 벤치마크로 비교하세요.
+
 ## 상호 운용성
 
 `intlayer`는 기존의 `react-intl`, `react-i18next`, `next-intl`, `next-i18next` 및 `vue-i18n` 사전 네임스페이스들을 동시에 손쉽게 지배하고 가공하도록 지원합니다.

@@ -589,6 +589,22 @@ Les étoiles GitHub reflètent la popularité d'un projet, la confiance de la co
 
 [![Graphique d'historique des étoiles](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
 
+## Activité des commits
+
+Les étoiles mesurent la popularité. Les commits mesurent le travail investi dans un projet. Au moment de l'écriture, Intlayer compte environ 7 500 commits, plus que la plupart des bibliothèques comparées ici, et environ 5 fois plus que `next-intl` ou `next-i18next`.
+
+<GithubCommits repositories="i18next/i18next,i18next/react-i18next,i18next/next-i18next,aymericzip/intlayer" />
+
+> Intlayer est un monorepo : ce total inclut chaque package de framework, la CLI et la documentation. Lisez les commits comme un signal d'activité, pas de qualité.
+
+## Téléchargements npm
+
+<NpmDownloads packages="i18next,react-i18next,next-i18next,intlayer" period="last-6-months" />
+
+Le nombre de téléchargements récompense les solutions les plus anciennes, pas les meilleures. Une bibliothèque publiée il y a des années est toujours installée par chaque projet qui l'a choisie à l'époque, par chaque exécution de CI et par chaque package qui en dépend. Ce chiffre mesure l'inertie plus qu'un choix réfléchi.
+
+Les assistants IA amplifient cet effet. `next-intl`, `i18next` et `vue-i18n` sont omniprésents dans le code sur lequel ils ont été entraînés : ils les proposent donc par défaut, sans faire l'effort de comparer les alternatives. Chaque suggestion ajoute des téléchargements, qui alimentent la suggestion suivante. Comparez sur le benchmark plutôt que sur le nombre de téléchargements.
+
 ## Conclusion
 
 `i18next` a gagné sa place: il s'exécute partout, propose un plugin pour chaque besoin et bénéficie de plus d'une décennie de maintenance. Le benchmark met toutefois en lumière le coût d'une architecture centrée sur le runtime. La configuration déployée par la majorité des équipes ajoute **+70 à 77 KB gzip par page**, laisse fuiter **~90% du contenu des autres pages**, et un changement de langue avec chargement dynamique prend **plus de 100 ms**. Atteindre 0% de fuite reste envisageable, mais impose un backend, un namespace par route et une table de correspondance maintenue manuellement, tout en restant **+9 à 22 KB** plus lourd qu'Intlayer.

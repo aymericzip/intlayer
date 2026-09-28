@@ -56,9 +56,8 @@ height="600px"
 style="border:none;"
 />
 
-> [पूर्ण बेंचमार्क डेटा देखें](https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_solid.md)
-
-संपूर्ण बेंचमार्क रिपॉजिटरी [यहाँ](https://github.com/intlayer-org/benchmark-i18n/tree/main) देखें।
+- [पूर्ण बेंचमार्क डेटा देखें](https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_solid.md)
+- [पूरा बेंचमार्क रिपॉजिटरी देखें](https://github.com/intlayer-org/benchmark-i18n/tree/main)
 
 ## परिचय
 
@@ -161,6 +160,22 @@ i18n लीकेज समस्याओं को तुरंत पहच�
 GitHub सितारे किसी प्रोजेक्ट की लोकप्रियता, सामुदायिक विश्वास और दीर्घकालिक प्रासंगिकता का एक मजबूत संकेतक हैं। हालांकि यह तकनीकी गुणवत्ता का प्रत्यक्ष माप नहीं है, वे दर्शाते हैं कि कितने डेवलपर्स प्रोजेक्ट को उपयोगी पाते हैं, इसकी प्रगति का पालन करते हैं, और इसे अपनाने की संभावना रखते हैं। किसी प्रोजेक्ट के मूल्य का अनुमान लगाने के लिए, सितारे विकल्पों के बीच कर्षण की तुलना करने में मदद करते हैं और पारिस्थितिकी तंत्र के विकास में अंतर्दृष्टि प्रदान करते हैं।
 
 [![Star History Chart](https://api.star-history.com/chart?repos=solidjs-community%2Fsolid-primitives%2Cmbarzda%2Fsolid-i18next%2Copral%2Fparaglide-js%2Ctolgee%2Ftolgee-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#solidjs-community/solid-primitives&mbarzda/solid-i18next&opral/paraglide-js&tolgee/tolgee-js&aymericzip/intlayer)
+
+## कमिट गतिविधि
+
+स्टार लोकप्रियता दिखाते हैं। कमिट दिखाते हैं कि किसी प्रोजेक्ट में कितना काम लगा है। लिखते समय Intlayer में लगभग 7,500 कमिट हैं, जो यहाँ तुलना की गई अधिकांश लाइब्रेरी से ज़्यादा हैं और `next-intl` या `next-i18next` से लगभग 5 गुना।
+
+<GithubCommits repositories="solidjs-community/solid-primitives,mbarzda/solid-i18next,opral/paraglide-js,tolgee/tolgee-js,aymericzip/intlayer" />
+
+> Intlayer एक मोनोरेपो है, इसलिए इस संख्या में हर फ़्रेमवर्क पैकेज, CLI और डॉक्स शामिल हैं। कमिट को गुणवत्ता नहीं, गतिविधि का संकेत मानें।
+
+## npm डाउनलोड
+
+<NpmDownloads packages="@solid-primitives/i18n,@mbarzda/solid-i18next,@inlang/paraglide-js,@tolgee/web,solid-intlayer" period="last-6-months" />
+
+डाउनलोड सबसे पुराने समाधानों को पुरस्कृत करते हैं, सबसे अच्छे को नहीं। वर्षों पहले जारी हुई लाइब्रेरी आज भी हर उस प्रोजेक्ट में इंस्टॉल होती है जिसने उसे तब चुना था, हर CI रन में और हर उस पैकेज में जो उस पर निर्भर है। यह संख्या नए चुनाव से ज़्यादा जड़ता को मापती है।
+
+AI असिस्टेंट इस प्रभाव को और बढ़ाते हैं। `next-intl`, `i18next` और `vue-i18n` उस कोड में हर जगह हैं जिस पर वे प्रशिक्षित हुए, इसलिए वे विकल्पों की तुलना किए बिना इन्हें डिफ़ॉल्ट रूप से सुझाते हैं। हर सुझाव डाउनलोड बढ़ाता है, जो अगले सुझाव को बढ़ावा देता है। डाउनलोड की संख्या नहीं, बेंचमार्क के आधार पर तुलना करें।
 
 ## विवरण में परिणाम
 

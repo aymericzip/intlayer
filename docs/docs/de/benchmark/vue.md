@@ -56,9 +56,8 @@ height="600px"
 style="border:none;"
 />
 
-> [Vollständige Benchmark-Daten anzeigen](https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_vue.md)
-
-Das vollständige Benchmark-Repository finden Sie [hier](https://github.com/intlayer-org/benchmark-i18n/tree/main).
+- [Vollständige Benchmark-Daten anzeigen](https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_vue.md)
+- [Vollständiges Benchmark-Repository ansehen](https://github.com/intlayer-org/benchmark-i18n/tree/main)
 
 ## Einleitung
 
@@ -160,6 +159,22 @@ Ich habe dieselbe mehrsprachige App in einem echten Browser für jeden Stack aus
 GitHub-Sterne sind ein starker Indikator für die Popularität eines Projekts, das Vertrauen der Community und die langfristige Relevanz. Sie sind zwar kein direktes Maß für die technische Qualität, spiegeln jedoch wider, wie viele Entwickler das Projekt nützlich finden, seinen Fortschritt verfolgen und es wahrscheinlich übernehmen werden. Um den Wert eines Projekts einzuschätzen, helfen Sterne dabei, die Traktion verschiedener Alternativen zu vergleichen und Einblicke in das Wachstum des Ökosystems zu gewinnen.
 
 [![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Cfluent-vue%2Ffluent-vue%2Ctolgee%2Ftolgee-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&fluent-vue/fluent-vue&tolgee/tolgee-js&aymericzip/intlayer)
+
+## Commit-Aktivität
+
+Sterne zeigen Popularität. Commits zeigen, wie viel Arbeit in einem Projekt steckt. Zum Zeitpunkt des Schreibens zählt Intlayer rund 7.500 Commits, mehr als die meisten hier verglichenen Bibliotheken und etwa 5-mal so viele wie `next-intl` oder `next-i18next`.
+
+<GithubCommits repositories="intlify/vue-i18n,fluent-vue/fluent-vue,tolgee/tolgee-js,aymericzip/intlayer" />
+
+> Intlayer ist ein Monorepo: Die Zahl umfasst jedes Framework-Paket, die CLI und die Dokumentation. Commits sind ein Signal für Aktivität, nicht für Qualität.
+
+## npm-Downloads
+
+<NpmDownloads packages="vue-i18n,fluent-vue,@tolgee/vue,vue-intlayer" period="last-6-months" />
+
+Downloads belohnen die ältesten Lösungen, nicht die besten. Eine vor Jahren veröffentlichte Bibliothek wird weiterhin von jedem Projekt installiert, das sie damals gewählt hat, von jedem CI-Lauf und von jedem Paket, das davon abhängt. Die Zahl misst Trägheit mehr als eine bewusste Wahl.
+
+KI-Assistenten verstärken diesen Effekt. `next-intl`, `i18next` und `vue-i18n` sind im Code, mit dem sie trainiert wurden, allgegenwärtig, also schlagen sie diese standardmäßig vor, ohne Alternativen zu vergleichen. Jeder Vorschlag erzeugt Downloads, die den nächsten Vorschlag verstärken. Vergleichen Sie anhand des Benchmarks, nicht anhand der Downloadzahlen.
 
 ## Ergebnisse im Detail
 

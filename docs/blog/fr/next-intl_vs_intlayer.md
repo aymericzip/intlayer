@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-22
+updatedAt: 2026-09-27
 priority: 8
 title: "next-intl vs Intlayer: Benchmark et Comparaison 2026"
 description: Taille du bundle, fuite de contenu, réactivité du changement de locale et expérience développeur mesurés sur Next.js et TanStack Start. Quelle bibliothèque i18n devriez-vous choisir en 2026 ?
@@ -551,6 +551,22 @@ Documentation de référence :
 Les stars GitHub sont un indicateur fort de la popularité d'un projet, de la confiance de la communauté et de sa pertinence à long terme. Bien que ce ne soit pas une mesure directe de la qualité technique, ils reflètent le nombre de développeurs qui trouvent le projet utile, suivent sa progression et sont susceptibles de l'adopter.
 
 [![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#amannn/next-intl&aymericzip/intlayer)
+
+## Activité des commits
+
+Les étoiles mesurent la popularité. Les commits mesurent le travail investi dans un projet. Au moment de l'écriture, Intlayer compte environ 7 500 commits, plus que la plupart des bibliothèques comparées ici, et environ 5 fois plus que `next-intl` ou `next-i18next`.
+
+<GithubCommits repositories="amannn/next-intl,aymericzip/intlayer" />
+
+> Intlayer est un monorepo : ce total inclut chaque package de framework, la CLI et la documentation. Lisez les commits comme un signal d'activité, pas de qualité.
+
+## Téléchargements npm
+
+<NpmDownloads packages="next-intl,next-intlayer" period="last-6-months" />
+
+Le nombre de téléchargements récompense les solutions les plus anciennes, pas les meilleures. Une bibliothèque publiée il y a des années est toujours installée par chaque projet qui l'a choisie à l'époque, par chaque exécution de CI et par chaque package qui en dépend. Ce chiffre mesure l'inertie plus qu'un choix réfléchi.
+
+Les assistants IA amplifient cet effet. `next-intl`, `i18next` et `vue-i18n` sont omniprésents dans le code sur lequel ils ont été entraînés : ils les proposent donc par défaut, sans faire l'effort de comparer les alternatives. Chaque suggestion ajoute des téléchargements, qui alimentent la suggestion suivante. Comparez sur le benchmark plutôt que sur le nombre de téléchargements.
 
 ## Conclusion
 

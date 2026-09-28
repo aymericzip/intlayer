@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-22
+updatedAt: 2026-09-27
 priority: 8
 title: "vue-i18n vs Intlayer: 2026 벤치마크 및 비교"
 description: "같은 Vite + Vue 3 앱에서 vue-i18n과 Intlayer를 측정: 라이브러리 크기, 페이지별 JavaScript, 누출, 컴포넌트 크기, 반응성."
@@ -440,6 +440,22 @@ export default defineConfig({
 GitHub 별은 프로젝트의 인기도, 커뮤니티의 신뢰, 그리고 장기적 관련성을 나타내는 강력한 지표입니다. 기술적 품질의 직접적인 척도는 아니지만, 얼마나 많은 개발자가 프로젝트를 유용하다고 생각하고, 그 진행 상황을 따라가며, 이를 채택할 가능성이 높은지를 반영합니다.
 
 [![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
+
+## 커밋 활동
+
+스타는 인기를, 커밋은 프로젝트에 투입된 작업량을 보여줍니다. 작성 시점 기준으로 Intlayer의 커밋 수는 약 7,500개로, 여기서 비교한 대부분의 라이브러리보다 많고 `next-intl`이나 `next-i18next`의 약 5배입니다.
+
+<GithubCommits repositories="intlify/vue-i18n,aymericzip/intlayer" />
+
+> Intlayer는 모노레포이므로 이 수치에는 모든 프레임워크 패키지, CLI, 문서가 포함됩니다. 커밋 수는 품질이 아닌 활동의 지표로 읽어 주세요.
+
+## npm 다운로드
+
+<NpmDownloads packages="vue-i18n,vue-intlayer" period="last-6-months" />
+
+다운로드 수는 가장 좋은 솔루션이 아니라 가장 오래된 솔루션에 보상을 줍니다. 수년 전에 출시된 라이브러리는 당시 이를 선택한 모든 프로젝트, 모든 CI 실행, 이에 의존하는 모든 패키지에 의해 여전히 설치됩니다. 이 수치는 새로운 선택보다 관성을 측정합니다.
+
+AI 어시스턴트는 이 효과를 더 키웁니다. `next-intl`, `i18next`, `vue-i18n`은 AI가 학습한 코드 곳곳에 있으므로, AI는 대안을 비교하지 않고 이들을 기본으로 추천합니다. 추천이 다운로드를 늘리고, 그 다운로드가 다음 추천을 부추깁니다. 다운로드 수가 아니라 벤치마크로 비교하세요.
 
 ## 결론
 

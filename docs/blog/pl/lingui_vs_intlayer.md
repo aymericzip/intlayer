@@ -504,6 +504,22 @@ Gwiazdki na GitHubie to silny wskaźnik popularności projektu, zaufania społec
 
 [![Wykres historii gwiazdek](https://api.star-history.com/chart?repos=lingui%2Fjs-lingui%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#lingui/js-lingui&aymericzip/intlayer)
 
+## Aktywność commitów
+
+Gwiazdki pokazują popularność. Commity pokazują, ile pracy włożono w projekt. W chwili pisania Intlayer ma około 7 500 commitów, więcej niż większość porównywanych tu bibliotek i mniej więcej 5 razy więcej niż `next-intl` czy `next-i18next`.
+
+<GithubCommits repositories="lingui/js-lingui,aymericzip/intlayer" />
+
+> Intlayer to monorepo, więc ta liczba obejmuje każdy pakiet dla frameworków, CLI i dokumentację. Traktuj commity jako sygnał aktywności, a nie jakości.
+
+## Pobrania z npm
+
+<NpmDownloads packages="@lingui/core,intlayer" period="last-6-months" />
+
+Liczba pobrań nagradza najstarsze rozwiązania, a nie najlepsze. Biblioteka wydana lata temu wciąż jest instalowana przez każdy projekt, który ją wtedy wybrał, przez każde uruchomienie CI i przez każdy pakiet, który od niej zależy. Ta liczba mierzy bezwładność bardziej niż świadomy wybór.
+
+Asystenci AI wzmacniają ten efekt. `next-intl`, `i18next` i `vue-i18n` są wszędzie w kodzie, na którym ich trenowano, więc proponują je domyślnie, bez porównywania alternatyw. Każda sugestia dodaje pobrań, które napędzają kolejną sugestię. Porównuj na podstawie benchmarku, a nie liczby pobrań.
+
 ## Podsumowanie
 
 Lingui to najsilniejsza biblioteka łącząca runtime i kompilator w tym zestawieniu. Skompilowane katalogi z haszami dają rozmiar JavaScript na stronę bardzo zbliżony do Intlayera, a w TanStack Start nawet nieznacznie mniejszy. Gdyby jedynym kryterium była waga kodu na stronę, mielibyśmy remis.

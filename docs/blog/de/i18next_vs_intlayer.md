@@ -589,6 +589,22 @@ GitHub-Sterne sind ein aussagekräftiger Indikator für Popularität, Vertrauen 
 
 [![Star-Verlaufsgrafik](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
 
+## Commit-Aktivität
+
+Sterne zeigen Popularität. Commits zeigen, wie viel Arbeit in einem Projekt steckt. Zum Zeitpunkt des Schreibens zählt Intlayer rund 7.500 Commits, mehr als die meisten hier verglichenen Bibliotheken und etwa 5-mal so viele wie `next-intl` oder `next-i18next`.
+
+<GithubCommits repositories="i18next/i18next,i18next/react-i18next,i18next/next-i18next,aymericzip/intlayer" />
+
+> Intlayer ist ein Monorepo: Die Zahl umfasst jedes Framework-Paket, die CLI und die Dokumentation. Commits sind ein Signal für Aktivität, nicht für Qualität.
+
+## npm-Downloads
+
+<NpmDownloads packages="i18next,react-i18next,next-i18next,intlayer" period="last-6-months" />
+
+Downloads belohnen die ältesten Lösungen, nicht die besten. Eine vor Jahren veröffentlichte Bibliothek wird weiterhin von jedem Projekt installiert, das sie damals gewählt hat, von jedem CI-Lauf und von jedem Paket, das davon abhängt. Die Zahl misst Trägheit mehr als eine bewusste Wahl.
+
+KI-Assistenten verstärken diesen Effekt. `next-intl`, `i18next` und `vue-i18n` sind im Code, mit dem sie trainiert wurden, allgegenwärtig, also schlagen sie diese standardmäßig vor, ohne Alternativen zu vergleichen. Jeder Vorschlag erzeugt Downloads, die den nächsten Vorschlag verstärken. Vergleichen Sie anhand des Benchmarks, nicht anhand der Downloadzahlen.
+
 ## Fazit
 
 `i18next` hat seinen Platz verdient: Es läuft überall, bietet Plugins für jeden Anwendungsfall und wird seit über zehn Jahren gepflegt. Der Benchmark verdeutlicht jedoch die Kosten dieser runtime-fokussierten Architektur. Das typische Setup kostet **+70-77 KB gzip pro Seite**, transportiert **~90% Daten fremder Seiten** mit sich und benötigt bei Lazy Loading **über 100 ms** für einen Sprachwechsel. 0% Leckage ist machbar, erfordert aber ein Backend, getrennte Namespaces pro Route und manuelle Pflege - und bleibt dennoch **+9-22 KB** schwerer als Intlayer.

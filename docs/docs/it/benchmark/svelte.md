@@ -56,9 +56,8 @@ height="600px"
 style="border:none;"
 />
 
-> [Visualizza i dati completi del benchmark](https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_svelte.md)
-
-Vedi il repository completo del benchmark [qui](https://github.com/intlayer-org/benchmark-i18n/tree/main).
+- [Visualizza i dati completi del benchmark](https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_svelte.md)
+- [Vedi il repository completo del benchmark](https://github.com/intlayer-org/benchmark-i18n/tree/main)
 
 ## Introduzione
 
@@ -159,6 +158,22 @@ Ho eseguito la stessa app multilingue in un vero browser per ogni stack, quindi 
 Le stelle di GitHub sono un forte indicatore della popolarità di un progetto, della fiducia della comunità e della pertinenza a lungo termine. Sebbene non siano una misura diretta della qualità tecnica, riflettono quanti sviluppatori trovano il progetto utile, ne seguono i progressi e sono propensi ad adottarlo. Per stimare il valore di un progetto, le stelle aiutano a confrontare la trazione tra le alternative e forniscono approfondimenti sulla crescita dell'ecosistema.
 
 [![Star History Chart](https://api.star-history.com/chart?repos=kaisermann%2Fsvelte-i18n%2Copral%2Fparaglide-js%2Ctolgee%2Ftolgee-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#kaisermann/svelte-i18n&opral/paraglide-js&tolgee/tolgee-js&aymericzip/intlayer)
+
+## Attività dei commit
+
+Le stelle indicano la popolarità. I commit indicano quanto lavoro viene investito in un progetto. Al momento della scrittura, Intlayer conta circa 7.500 commit, più della maggior parte delle librerie confrontate qui e circa 5 volte più di `next-intl` o `next-i18next`.
+
+<GithubCommits repositories="kaisermann/svelte-i18n,opral/paraglide-js,tolgee/tolgee-js,aymericzip/intlayer" />
+
+> Intlayer è un monorepo, quindi il totale include ogni pacchetto framework, la CLI e la documentazione. Leggi i commit come un segnale di attività, non di qualità.
+
+## Download npm
+
+<NpmDownloads packages="svelte-i18n,@inlang/paraglide-js,@tolgee/svelte,svelte-intlayer" period="last-6-months" />
+
+I download premiano le soluzioni più vecchie, non le migliori. Una libreria pubblicata anni fa viene ancora installata da ogni progetto che l'ha scelta allora, da ogni esecuzione della CI e da ogni pacchetto che ne dipende. Il numero misura l'inerzia più che una scelta attuale.
+
+Gli assistenti IA amplificano l'effetto. `next-intl`, `i18next` e `vue-i18n` sono ovunque nel codice su cui sono stati addestrati, quindi li suggeriscono di default, senza confrontare le alternative. Ogni suggerimento aggiunge download, che alimentano il suggerimento successivo. Confronta sul benchmark, non sul numero di download.
 
 ## Risultati in dettaglio
 

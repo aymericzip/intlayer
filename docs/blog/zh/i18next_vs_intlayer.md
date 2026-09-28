@@ -589,6 +589,22 @@ GitHub Stars 是衡量开源项目普及度、社区信赖度以及长期活力�
 
 [![Star 历史趋势图](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
 
+## 提交活跃度
+
+Star 反映受欢迎程度，提交次数反映项目投入的工作量。截至撰写时，Intlayer 约有 7,500 次提交，多于这里比较的大多数库，约为 `next-intl` 或 `next-i18next` 的 5 倍。
+
+<GithubCommits repositories="i18next/i18next,i18next/react-i18next,i18next/next-i18next,aymericzip/intlayer" />
+
+> Intlayer 是一个 monorepo，因此该数字包含每个框架包、CLI 和文档。请把提交次数视为活跃度的信号，而不是质量的衡量。
+
+## npm 下载量
+
+<NpmDownloads packages="i18next,react-i18next,next-i18next,intlayer" period="last-6-months" />
+
+下载量奖励的是最老的方案，而不是最好的方案。一个多年前发布的库，仍会被当年选择它的每个项目、每次 CI 运行以及每个依赖它的包持续安装。这个数字衡量的更多是惯性，而不是新的选择。
+
+AI 助手放大了这种效应。`next-intl`、`i18next` 和 `vue-i18n` 在它们的训练代码中随处可见，因此 AI 会默认推荐它们，而不去比较其他方案。每一次推荐都带来下载，又进一步推动下一次推荐。请以基准测试而不是下载量来比较。
+
 ## 总结
 
 `i18next` 赢得了属于它的行业地位: 跨平台通用，插件应有尽有，且经过了十多年的稳定维护。然而基准测试揭示了以运行时为中心的设计所带来的高昂代价。常规配置会让页面增加 **+70-77 KB gzip**，**泄露约 90% 的异地内容**，且通过懒加载切换语言需要 **100 ms 以上**。尽管通过严苛的人工优化可以解决泄露，但这需要建立路由与命名空间的手动映射表，且最终体积依然比 Intlayer **重 9-22 KB**。

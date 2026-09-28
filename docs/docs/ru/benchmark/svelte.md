@@ -56,9 +56,8 @@ height="600px"
 style="border:none;"
 />
 
-> [Посмотреть полные данные бенчмарка](https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_svelte.md)
-
-Полный репозиторий бенчмарка можно найти [здесь](https://github.com/intlayer-org/benchmark-i18n/tree/main).
+- [Посмотреть полные данные бенчмарка](https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_svelte.md)
+- [Посмотреть полный репозиторий бенчмарка](https://github.com/intlayer-org/benchmark-i18n/tree/main)
 
 ## Введение
 
@@ -159,6 +158,22 @@ style="border:none;"
 Звезды на GitHub - это сильный индикатор популярности проекта, доверия сообщества и долгосрочной актуальности. Хотя они не являются прямым показателем технического качества, они отражают, сколько разработчиков считают проект полезным, следят за его прогрессом и, вероятно, будут его использовать. Для оценки ценности проекта звезды помогают сравнивать популярность альтернатив и дают представление о росте экосистемы.
 
 [![Star History Chart](https://api.star-history.com/chart?repos=kaisermann%2Fsvelte-i18n%2Copral%2Fparaglide-js%2Ctolgee%2Ftolgee-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#kaisermann/svelte-i18n&opral/paraglide-js&tolgee/tolgee-js&aymericzip/intlayer)
+
+## Активность коммитов
+
+Звёзды показывают популярность. Коммиты показывают, сколько работы вкладывается в проект. На момент написания у Intlayer около 7 500 коммитов: больше, чем у большинства сравниваемых здесь библиотек, и примерно в 5 раз больше, чем у `next-intl` или `next-i18next`.
+
+<GithubCommits repositories="kaisermann/svelte-i18n,opral/paraglide-js,tolgee/tolgee-js,aymericzip/intlayer" />
+
+> Intlayer это монорепозиторий, поэтому в счёт входят все пакеты для фреймворков, CLI и документация. Считайте коммиты показателем активности, а не качества.
+
+## Загрузки npm
+
+<NpmDownloads packages="svelte-i18n,@inlang/paraglide-js,@tolgee/svelte,svelte-intlayer" period="last-6-months" />
+
+Число загрузок вознаграждает самые старые решения, а не лучшие. Библиотеку, выпущенную много лет назад, до сих пор устанавливает каждый проект, который выбрал её тогда, каждый запуск CI и каждый зависящий от неё пакет. Эта цифра измеряет инерцию, а не осознанный выбор.
+
+ИИ-ассистенты усиливают этот эффект. `next-intl`, `i18next` и `vue-i18n` повсюду встречаются в коде, на котором они обучались, поэтому ассистенты предлагают их по умолчанию, не сравнивая альтернативы. Каждая подсказка добавляет загрузки, которые подпитывают следующую. Сравнивайте по бенчмарку, а не по числу загрузок.
 
 ## Результаты в деталях
 

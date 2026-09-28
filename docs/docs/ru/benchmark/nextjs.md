@@ -56,9 +56,8 @@ height="600px"
 style="border:none;"
 />
 
-> [Посмотреть полные данные бенчмарка](https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md)
-
-Полный репозиторий бенчмарка можно найти [здесь](https://github.com/intlayer-org/benchmark-i18n).
+- [Посмотреть полные данные бенчмарка](https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md)
+- [Посмотреть полный репозиторий бенчмарка](https://github.com/intlayer-org/benchmark-i18n)
 
 ## Введение
 
@@ -182,6 +181,22 @@ Intlayer пытается оптимизировать все эти аспек�
 Звезды на GitHub - это сильный индикатор популярности проекта, доверия сообщества и долгосрочной актуальности. Хотя они не являются прямым показателем технического качества, они отражают, сколько разработчиков считают проект полезным, следят за его прогрессом и, вероятно, будут его использовать. Для оценки ценности проекта звезды помогают сравнивать популярность альтернатив и дают представление о росте экосистемы.
 
 [![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fnext-i18next%2Camannn%2Fnext-intl%2Clingui%2Fjs-lingui%2Cvinissimus%2Fnext-translate%2Cinostudio%2Fnext-international%2Copral%2Fparaglide-js%2Ctolgee%2Ftolgee-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/next-i18next&amannn/next-intl&lingui/js-lingui&vinissimus/next-translate&inostudio/next-international&opral/paraglide-js&tolgee/tolgee-js&aymericzip/intlayer)
+
+## Активность коммитов
+
+Звёзды показывают популярность. Коммиты показывают, сколько работы вкладывается в проект. На момент написания у Intlayer около 7 500 коммитов: больше, чем у большинства сравниваемых здесь библиотек, и примерно в 5 раз больше, чем у `next-intl` или `next-i18next`.
+
+<GithubCommits repositories="i18next/next-i18next,amannn/next-intl,lingui/js-lingui,aralroca/next-translate,QuiiBz/next-international,opral/paraglide-js,tolgee/tolgee-js,aymericzip/intlayer" />
+
+> Intlayer это монорепозиторий, поэтому в счёт входят все пакеты для фреймворков, CLI и документация. Считайте коммиты показателем активности, а не качества.
+
+## Загрузки npm
+
+<NpmDownloads packages="next-i18next,next-intl,@lingui/react,next-translate,next-international,@inlang/paraglide-js,@tolgee/react,next-intlayer" period="last-6-months" />
+
+Число загрузок вознаграждает самые старые решения, а не лучшие. Библиотеку, выпущенную много лет назад, до сих пор устанавливает каждый проект, который выбрал её тогда, каждый запуск CI и каждый зависящий от неё пакет. Эта цифра измеряет инерцию, а не осознанный выбор.
+
+ИИ-ассистенты усиливают этот эффект. `next-intl`, `i18next` и `vue-i18n` повсюду встречаются в коде, на котором они обучались, поэтому ассистенты предлагают их по умолчанию, не сравнивая альтернативы. Каждая подсказка добавляет загрузки, которые подпитывают следующую. Сравнивайте по бенчмарку, а не по числу загрузок.
 
 ## Результаты в деталях
 

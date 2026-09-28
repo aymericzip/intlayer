@@ -589,6 +589,22 @@ Gwiazdki na GitHubie to przejrzysty wskaźnik popularności, zaufania społeczno
 
 [![Wykres historii gwiazdek](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
 
+## Aktywność commitów
+
+Gwiazdki pokazują popularność. Commity pokazują, ile pracy włożono w projekt. W chwili pisania Intlayer ma około 7 500 commitów, więcej niż większość porównywanych tu bibliotek i mniej więcej 5 razy więcej niż `next-intl` czy `next-i18next`.
+
+<GithubCommits repositories="i18next/i18next,i18next/react-i18next,i18next/next-i18next,aymericzip/intlayer" />
+
+> Intlayer to monorepo, więc ta liczba obejmuje każdy pakiet dla frameworków, CLI i dokumentację. Traktuj commity jako sygnał aktywności, a nie jakości.
+
+## Pobrania z npm
+
+<NpmDownloads packages="i18next,react-i18next,next-i18next,intlayer" period="last-6-months" />
+
+Liczba pobrań nagradza najstarsze rozwiązania, a nie najlepsze. Biblioteka wydana lata temu wciąż jest instalowana przez każdy projekt, który ją wtedy wybrał, przez każde uruchomienie CI i przez każdy pakiet, który od niej zależy. Ta liczba mierzy bezwładność bardziej niż świadomy wybór.
+
+Asystenci AI wzmacniają ten efekt. `next-intl`, `i18next` i `vue-i18n` są wszędzie w kodzie, na którym ich trenowano, więc proponują je domyślnie, bez porównywania alternatyw. Każda sugestia dodaje pobrań, które napędzają kolejną sugestię. Porównuj na podstawie benchmarku, a nie liczby pobrań.
+
 ## Podsumowanie
 
 `i18next` w pełni zasłużył na swoją pozycję: działa wszędzie, posiada wtyczki do wszystkiego i jest rozwijany od ponad dekady. Benchmark ten ujawnia jednak koszty architektury zorientowanej na runtime. Typowa konfiguracja dodaje **+70-77 KB gzip na stronę**, przesyła **~90% zbędnych tekstów z innych podstron**, a zmiana języka z leniwym ładowaniem trwa **ponad 100 ms**. Osiągnięcie 0% wycieków jest możliwe, lecz wymaga backendów i manualnego mapowania, a i tak pozostaje o **+9-22 KB cięższe** niż Intlayer.

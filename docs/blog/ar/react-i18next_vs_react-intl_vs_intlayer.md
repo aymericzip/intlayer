@@ -180,6 +180,22 @@ author: aymericzip
 
 [![Star History Chart](https://api.star-history.com/chart?repos=formatjs/formatjs%2Ci18next/react-i18next%2Caymericzip/intlayer&type=date&legend=top-left)](https://star-history.com/#formatjs/formatjs&i18next/react-i18next&aymericzip/intlayer)
 
+## نشاط الالتزامات (commits)
+
+تعكس النجوم الشعبية، بينما تعكس الالتزامات حجم العمل المبذول في المشروع. عند كتابة هذا المقال، يضم Intlayer نحو 7,500 التزام، أي أكثر من معظم المكتبات المقارنة هنا، ونحو 5 أضعاف `next-intl` أو `next-i18next`.
+
+<GithubCommits repositories="formatjs/formatjs,i18next/react-i18next,aymericzip/intlayer" />
+
+> Intlayer مستودع أحادي (monorepo)، لذا يشمل هذا العدد كل حزم أطر العمل وأداة CLI والتوثيق. اقرأ الالتزامات كمؤشر على النشاط، لا على الجودة.
+
+## تنزيلات npm
+
+<NpmDownloads packages="react-i18next,react-intl,react-intlayer" period="last-6-months" />
+
+تكافئ أعداد التنزيل الحلول الأقدم، لا الأفضل. فالمكتبة التي صدرت قبل سنوات لا تزال تُثبَّت في كل مشروع اختارها آنذاك، وفي كل تشغيل لـ CI، وفي كل حزمة تعتمد عليها. هذا الرقم يقيس الجمود أكثر مما يقيس اختيارًا جديدًا.
+
+تضخّم مساعدات الذكاء الاصطناعي هذا الأثر. فـ `next-intl` و`i18next` و`vue-i18n` منتشرة في الشيفرة التي تدربت عليها، لذا تقترحها افتراضيًا دون مقارنة البدائل. كل اقتراح يضيف تنزيلات، تغذي بدورها الاقتراح التالي. قارن بناءً على الاختبار المعياري لا على عدد التنزيلات.
+
 ## الخلاصة
 
 جميع المكتبات الثلاث تقوم بتوطين React بفعالية. الفارق هو مقدار **البنية التحتية** التي يجب عليك بناؤها للوصول إلى إعداد **آمن وقابل للتوسع**:

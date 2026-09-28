@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-22
+updatedAt: 2026-09-27
 priority: 8
 title: "vue-i18n vs Intlayer: Benchmark et Comparaison 2026"
 description: "vue-i18n et Intlayer mesurés sur la même app Vite + Vue 3 : taille de la bibliothèque, JavaScript par page, fuites, taille des composants et réactivité."
@@ -435,6 +435,22 @@ Rapports de benchmark :
 Les étoiles GitHub sont un indicateur fort de la popularité d'un projet, de la confiance de la communauté et de sa pertinence à long terme. Bien qu'elles ne mesurent pas directement la qualité technique, elles reflètent combien de développeurs trouvent le projet utile, suivent ses progrès et sont susceptibles de l'adopter.
 
 [![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
+
+## Activité des commits
+
+Les étoiles mesurent la popularité. Les commits mesurent le travail investi dans un projet. Au moment de l'écriture, Intlayer compte environ 7 500 commits, plus que la plupart des bibliothèques comparées ici, et environ 5 fois plus que `next-intl` ou `next-i18next`.
+
+<GithubCommits repositories="intlify/vue-i18n,aymericzip/intlayer" />
+
+> Intlayer est un monorepo : ce total inclut chaque package de framework, la CLI et la documentation. Lisez les commits comme un signal d'activité, pas de qualité.
+
+## Téléchargements npm
+
+<NpmDownloads packages="vue-i18n,vue-intlayer" period="last-6-months" />
+
+Le nombre de téléchargements récompense les solutions les plus anciennes, pas les meilleures. Une bibliothèque publiée il y a des années est toujours installée par chaque projet qui l'a choisie à l'époque, par chaque exécution de CI et par chaque package qui en dépend. Ce chiffre mesure l'inertie plus qu'un choix réfléchi.
+
+Les assistants IA amplifient cet effet. `next-intl`, `i18next` et `vue-i18n` sont omniprésents dans le code sur lequel ils ont été entraînés : ils les proposent donc par défaut, sans faire l'effort de comparer les alternatives. Chaque suggestion ajoute des téléchargements, qui alimentent la suggestion suivante. Comparez sur le benchmark plutôt que sur le nombre de téléchargements.
 
 ## Conclusion
 

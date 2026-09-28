@@ -56,9 +56,8 @@ history:
   style="border:none;"
 />
 
-> [شاهد بيانات المقارنة الكاملة](https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md)
-
-شاهد مستودع المقارنة الكامل [هنا](https://github.com/intlayer-org/benchmark-i18n/tree/main).
+- [شاهد بيانات المقارنة الكاملة](https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md)
+- [شاهد مستودع المقارنة الكامل](https://github.com/intlayer-org/benchmark-i18n/tree/main)
 
 ## مقدمة
 
@@ -168,6 +167,22 @@ history:
 تعد نجوم GitHub مؤشرًا قويًا على شعبية المشروع وثقة المجتمع وأهميته على المدى الطويل. على الرغم من أنها ليست مقياسًا مباشرًا للجودة التقنية، إلا أنها تعكس عدد المطورين الذين يجدون المشروع مفيدًا ويتابعون تقدمه ومن المحتمل أن يتبنوه. لتقدير قيمة المشروع، تساعد النجوم في مقارنة الجاذبية عبر البدائل وتوفر رؤى حول نمو النظام البيئي.
 
 [![Star History Chart](https://api.star-history.com/chart?repos=formatjs%2Fformatjs%2Ci18next%2Freact-i18next%2Clingui%2Fjs-lingui%2Camannn%2Fnext-intl%2Copral%2Fparaglide-js%2Ctolgee%2Ftolgee-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#formatjs/formatjs&i18next/react-i18next&lingui/js-lingui&amannn/next-intl&opral/paraglide-js&tolgee/tolgee-js&aymericzip/intlayer)
+
+## نشاط الالتزامات (commits)
+
+تعكس النجوم الشعبية، بينما تعكس الالتزامات حجم العمل المبذول في المشروع. عند كتابة هذا المقال، يضم Intlayer نحو 7,500 التزام، أي أكثر من معظم المكتبات المقارنة هنا، ونحو 5 أضعاف `next-intl` أو `next-i18next`.
+
+<GithubCommits repositories="formatjs/formatjs,i18next/react-i18next,lingui/js-lingui,amannn/next-intl,opral/paraglide-js,tolgee/tolgee-js,aymericzip/intlayer" />
+
+> Intlayer مستودع أحادي (monorepo)، لذا يشمل هذا العدد كل حزم أطر العمل وأداة CLI والتوثيق. اقرأ الالتزامات كمؤشر على النشاط، لا على الجودة.
+
+## تنزيلات npm
+
+<NpmDownloads packages="react-intl,react-i18next,@lingui/react,use-intl,@inlang/paraglide-js,@tolgee/react,react-intlayer" period="last-6-months" />
+
+تكافئ أعداد التنزيل الحلول الأقدم، لا الأفضل. فالمكتبة التي صدرت قبل سنوات لا تزال تُثبَّت في كل مشروع اختارها آنذاك، وفي كل تشغيل لـ CI، وفي كل حزمة تعتمد عليها. هذا الرقم يقيس الجمود أكثر مما يقيس اختيارًا جديدًا.
+
+تضخّم مساعدات الذكاء الاصطناعي هذا الأثر. فـ `next-intl` و`i18next` و`vue-i18n` منتشرة في الشيفرة التي تدربت عليها، لذا تقترحها افتراضيًا دون مقارنة البدائل. كل اقتراح يضيف تنزيلات، تغذي بدورها الاقتراح التالي. قارن بناءً على الاختبار المعياري لا على عدد التنزيلات.
 
 ## النتائج بالتفصيل
 

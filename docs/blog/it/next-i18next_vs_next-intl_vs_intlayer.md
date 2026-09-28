@@ -1437,6 +1437,22 @@ Le stelle di GitHub sono un forte indicatore della popolarità di un progetto, d
 
 [![Grafico della Storia delle Stelle](https://api.star-history.com/chart?repos=i18next/next-i18next%2Camannn/next-intl%2Caymericzip/intlayer&type=date&legend=top-left)](https://star-history.com/#i18next/next-i18next&amannn/next-intl&aymericzip/intlayer)
 
+## Attività dei commit
+
+Le stelle indicano la popolarità. I commit indicano quanto lavoro viene investito in un progetto. Al momento della scrittura, Intlayer conta circa 7.500 commit, più della maggior parte delle librerie confrontate qui e circa 5 volte più di `next-intl` o `next-i18next`.
+
+<GithubCommits repositories="i18next/next-i18next,amannn/next-intl,aymericzip/intlayer" />
+
+> Intlayer è un monorepo, quindi il totale include ogni pacchetto framework, la CLI e la documentazione. Leggi i commit come un segnale di attività, non di qualità.
+
+## Download npm
+
+<NpmDownloads packages="next-i18next,next-intl,next-intlayer" period="last-6-months" />
+
+I download premiano le soluzioni più vecchie, non le migliori. Una libreria pubblicata anni fa viene ancora installata da ogni progetto che l'ha scelta allora, da ogni esecuzione della CI e da ogni pacchetto che ne dipende. Il numero misura l'inerzia più che una scelta attuale.
+
+Gli assistenti IA amplificano l'effetto. `next-intl`, `i18next` e `vue-i18n` sono ovunque nel codice su cui sono stati addestrati, quindi li suggeriscono di default, senza confrontare le alternative. Ogni suggerimento aggiunge download, che alimentano il suggerimento successivo. Confronta sul benchmark, non sul numero di download.
+
 ## Conclusione
 
 Tutte e tre le librerie riescono nella localizzazione di base. La differenza è **quanto lavoro devi fare** per ottenere una configurazione robusta e scalabile in **Next.js moderno**:

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-22
+updatedAt: 2026-09-27
 priority: 8
 title: "next-intl vs Intlayer: Benchmark y Comparación 2026"
 description: Tamaño del bundle, fuga de contenido, reactividad del cambio de idioma y experiencia del desarrollador medidos en Next.js y TanStack Start. ¿Qué librería i18n deberías elegir en 2026?
@@ -549,6 +549,22 @@ Documentos de referencia:
 Las estrellas de GitHub son un indicador fuerte de la popularidad de un proyecto, la confianza de la comunidad y su relevancia a largo plazo. Aunque no es una medida directa de la calidad técnica, reflejan cuántos desarrolladores encuentran útil el proyecto, siguen su progreso y es probable que lo adopten.
 
 [![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#amannn/next-intl&aymericzip/intlayer)
+
+## Actividad de commits
+
+Las estrellas reflejan la popularidad. Los commits reflejan el trabajo invertido en un proyecto. En el momento de escribir esto, Intlayer suma unos 7.500 commits, más que la mayoría de las bibliotecas comparadas aquí, y unas 5 veces más que `next-intl` o `next-i18next`.
+
+<GithubCommits repositories="amannn/next-intl,aymericzip/intlayer" />
+
+> Intlayer es un monorepo, así que el total incluye cada paquete de framework, la CLI y la documentación. Lee los commits como una señal de actividad, no de calidad.
+
+## Descargas en npm
+
+<NpmDownloads packages="next-intl,next-intlayer" period="last-6-months" />
+
+Las descargas premian a las soluciones más antiguas, no a las mejores. Una biblioteca publicada hace años se sigue instalando en cada proyecto que la eligió entonces, en cada ejecución de CI y en cada paquete que depende de ella. La cifra mide la inercia más que una elección actual.
+
+Los asistentes de IA amplifican el efecto. `next-intl`, `i18next` y `vue-i18n` están por todas partes en el código con el que se entrenaron, así que los sugieren por defecto, sin comparar las alternativas. Cada sugerencia suma descargas, que alimentan la siguiente sugerencia. Compara con el benchmark y no con el número de descargas.
 
 ## Conclusión
 

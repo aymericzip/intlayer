@@ -19,11 +19,16 @@ import { useLocale } from 'react-intlayer';
 import type { FrameworkKey } from '~/components/I18nBenchmark';
 import { Link } from '~/components/Link/Link';
 import { TableOfContents } from '~/components/TableOfContents';
+import type { NpmDownloadPeriod } from '~/serverFunctions/repositoryStats';
 import { getNodeText } from '~/utils/getNodeText';
 import { Accordion, AccordionGroup } from './AccordionGroup';
 import { ClickToOpenIframe } from './ClickToOpenIframe';
 import { FAQ, Question } from './FAQ';
 import { LinkPreviewCard } from './LinkPreviewCard';
+import {
+  GithubCommitsComparison,
+  NpmDownloadsComparison,
+} from './RepositoryComparison';
 import { SectionScroller } from './SectionScroller';
 import { TechGrid, TechLink } from './TechLink';
 
@@ -49,6 +54,13 @@ const AUTHORED_WEBSITE_ORIGIN_PATTERN =
  */
 const toDeploymentOrigin = (src: string | undefined): string | undefined =>
   src?.replace(AUTHORED_WEBSITE_ORIGIN_PATTERN, Website_Origin);
+
+/** Splits a comma separated markdown attribute into trimmed, non-empty items. */
+const splitCommaList = (value: string | undefined): string[] =>
+  (value ?? '')
+    .split(',')
+    .map((item) => item.trim())
+    .filter(Boolean);
 
 type DocumentationRenderProps = {
   children: string | ParsedMarkdown;
@@ -278,9 +290,28 @@ export const DocumentationRender: FC<DocumentationRenderProps> = ({
           }) => (
             <I18nBenchmark
               initialFramework={props.framework}
+              hideTitle
               packages={props.packages
                 ?.split(',')
                 .map((packageName) => packageName.trim())}
+            />
+          ),
+          GithubCommits: (props: {
+            /** Comma separated `owner/name`, e.g. `amannn/next-intl`. */
+            repositories?: string;
+          }) => (
+            <GithubCommitsComparison
+              repositories={splitCommaList(props.repositories)}
+            />
+          ),
+          NpmDownloads: (props: {
+            /** Comma separated package names, e.g. `next-intl,next-intlayer`. */
+            packages?: string;
+            period?: NpmDownloadPeriod;
+          }) => (
+            <NpmDownloadsComparison
+              packageNames={splitCommaList(props.packages)}
+              initialPeriod={props.period}
             />
           ),
           Sponsor: ({ children, ...props }: ComponentProps<'div'>) => (

@@ -504,6 +504,22 @@ GitHub-Sterne sind ein aussagekräftiger Indikator für Popularität, Community-
 
 [![Star History Chart](https://api.star-history.com/chart?repos=lingui%2Fjs-lingui%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#lingui/js-lingui&aymericzip/intlayer)
 
+## Commit-Aktivität
+
+Sterne zeigen Popularität. Commits zeigen, wie viel Arbeit in einem Projekt steckt. Zum Zeitpunkt des Schreibens zählt Intlayer rund 7.500 Commits, mehr als die meisten hier verglichenen Bibliotheken und etwa 5-mal so viele wie `next-intl` oder `next-i18next`.
+
+<GithubCommits repositories="lingui/js-lingui,aymericzip/intlayer" />
+
+> Intlayer ist ein Monorepo: Die Zahl umfasst jedes Framework-Paket, die CLI und die Dokumentation. Commits sind ein Signal für Aktivität, nicht für Qualität.
+
+## npm-Downloads
+
+<NpmDownloads packages="@lingui/core,intlayer" period="last-6-months" />
+
+Downloads belohnen die ältesten Lösungen, nicht die besten. Eine vor Jahren veröffentlichte Bibliothek wird weiterhin von jedem Projekt installiert, das sie damals gewählt hat, von jedem CI-Lauf und von jedem Paket, das davon abhängt. Die Zahl misst Trägheit mehr als eine bewusste Wahl.
+
+KI-Assistenten verstärken diesen Effekt. `next-intl`, `i18next` und `vue-i18n` sind im Code, mit dem sie trainiert wurden, allgegenwärtig, also schlagen sie diese standardmäßig vor, ohne Alternativen zu vergleichen. Jeder Vorschlag erzeugt Downloads, die den nächsten Vorschlag verstärken. Vergleichen Sie anhand des Benchmarks, nicht anhand der Downloadzahlen.
+
 ## Fazit
 
 Lingui ist die stärkste Runtime-plus-Compiler-Bibliothek in diesem Benchmark. Seine kompakten, gehashten Kataloge bringen das JavaScript-Volumen pro Seite bis auf wenige Kilobyte an Intlayer heran – auf TanStack Start sogar knapp darunter. Wären reine Seitengrößen das einzige Kriterium, läge hier ein Gleichstand vor.

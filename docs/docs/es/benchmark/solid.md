@@ -56,9 +56,8 @@ height="600px"
 style="border:none;"
 />
 
-> [Ver datos completos del benchmark](https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_solid.md)
-
-Vea el repositorio completo del benchmark [aquí](https://github.com/intlayer-org/benchmark-i18n/tree/main).
+- [Ver datos completos del benchmark](https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_solid.md)
+- [Ver el repositorio completo del benchmark](https://github.com/intlayer-org/benchmark-i18n/tree/main)
 
 ## Introducción
 
@@ -161,6 +160,22 @@ Ejecuté la misma aplicación multilingüe en un navegador real para cada stack,
 Las estrellas de GitHub son un fuerte indicador de la popularidad de un proyecto, la confianza de la comunidad y la relevancia a largo plazo. Si bien no son una medida directa de la calidad técnica, reflejan cuántos desarrolladores encuentran útil el proyecto, siguen su progreso y es probable que lo adopten. Para estimar el valor de un proyecto, las estrellas ayudan a comparar la tracción entre alternativas y brindan información sobre el crecimiento del ecosistema.
 
 [![Star History Chart](https://api.star-history.com/chart?repos=solidjs-community%2Fsolid-primitives%2Cmbarzda%2Fsolid-i18next%2Copral%2Fparaglide-js%2Ctolgee%2Ftolgee-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#solidjs-community/solid-primitives&mbarzda/solid-i18next&opral/paraglide-js&tolgee/tolgee-js&aymericzip/intlayer)
+
+## Actividad de commits
+
+Las estrellas reflejan la popularidad. Los commits reflejan el trabajo invertido en un proyecto. En el momento de escribir esto, Intlayer suma unos 7.500 commits, más que la mayoría de las bibliotecas comparadas aquí, y unas 5 veces más que `next-intl` o `next-i18next`.
+
+<GithubCommits repositories="solidjs-community/solid-primitives,mbarzda/solid-i18next,opral/paraglide-js,tolgee/tolgee-js,aymericzip/intlayer" />
+
+> Intlayer es un monorepo, así que el total incluye cada paquete de framework, la CLI y la documentación. Lee los commits como una señal de actividad, no de calidad.
+
+## Descargas en npm
+
+<NpmDownloads packages="@solid-primitives/i18n,@mbarzda/solid-i18next,@inlang/paraglide-js,@tolgee/web,solid-intlayer" period="last-6-months" />
+
+Las descargas premian a las soluciones más antiguas, no a las mejores. Una biblioteca publicada hace años se sigue instalando en cada proyecto que la eligió entonces, en cada ejecución de CI y en cada paquete que depende de ella. La cifra mide la inercia más que una elección actual.
+
+Los asistentes de IA amplifican el efecto. `next-intl`, `i18next` y `vue-i18n` están por todas partes en el código con el que se entrenaron, así que los sugieren por defecto, sin comparar las alternativas. Cada sugerencia suma descargas, que alimentan la siguiente sugerencia. Compara con el benchmark y no con el número de descargas.
 
 ## Resultados detallados
 

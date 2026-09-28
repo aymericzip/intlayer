@@ -504,6 +504,22 @@ GitHubスターは、プロジェクトの人気、コミュニティの信頼�
 
 [![スター履歴チャート](https://api.star-history.com/chart?repos=lingui%2Fjs-lingui%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#lingui/js-lingui&aymericzip/intlayer)
 
+## コミット数
+
+スター数は人気を示し、コミット数はプロジェクトに注がれた作業量を示します。執筆時点で Intlayer のコミット数は約 7,500 件で、ここで比較している多くのライブラリを上回り、`next-intl` や `next-i18next` の約 5 倍です。
+
+<GithubCommits repositories="lingui/js-lingui,aymericzip/intlayer" />
+
+> Intlayer はモノレポのため、この数には各フレームワーク向けパッケージ、CLI、ドキュメントがすべて含まれます。コミット数は品質ではなく活動量の指標として捉えてください。
+
+## npm ダウンロード数
+
+<NpmDownloads packages="@lingui/core,intlayer" period="last-6-months" />
+
+ダウンロード数が評価するのは最良のソリューションではなく、最も古いソリューションです。何年も前に公開されたライブラリは、当時それを選んだすべてのプロジェクト、すべての CI 実行、それに依存するすべてのパッケージによって今もインストールされ続けます。この数値は新たな選択よりも惰性を表しています。
+
+AI アシスタントはこの効果をさらに強めます。`next-intl`、`i18next`、`vue-i18n` は学習元のコードに大量に含まれているため、AI は代替手段を比較することなく、それらをデフォルトで提案します。提案のたびにダウンロード数が増え、それが次の提案を後押しします。ダウンロード数ではなく、ベンチマークで比較してください。
+
 ## 結論
 
 Linguiは、本ベンチマークにおいて最も堅牢なランタイム＋コンパイラ型ライブラリです。ハッシュ化されたコンパイル済みカタログにより、1ページあたりのJavaScript容量はIntlayerに肉薄し、TanStack Startではわずかに下回るほどです。もしページサイズのみが評価軸であれば、実質的な引き分けと言えます。

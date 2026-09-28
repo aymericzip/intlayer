@@ -295,6 +295,22 @@ export const ComponentExample = () => {
 
 [![Star History Chart](https://api.star-history.com/chart?repos=aymericzip/intlayer%2Cformatjs/formatjs%2Ci18next/react-i18next%2Ci18next/i18next%2Ci18next/next-i18next%2Clingui/js-lingui%2Camannn/next-intl%2Cintlify/vue-i18n%2Ccodingcommons/typesafe-i18n%2Copral/paraglide-js&type=date&legend=top-left)](https://star-history.com/#aymericzip/intlayer&formatjs/formatjs&i18next/react-i18next&i18next/i18next&i18next/next-i18next&lingui/js-lingui&amannn/next-intl&intlify/vue-i18n&codingcommons/typesafe-i18n&opral/paraglide-js)
 
+## Активность коммитов
+
+Звёзды показывают популярность. Коммиты показывают, сколько работы вкладывается в проект. На момент написания у Intlayer около 7 500 коммитов: больше, чем у большинства сравниваемых здесь библиотек, и примерно в 5 раз больше, чем у `next-intl` или `next-i18next`.
+
+<GithubCommits repositories="aymericzip/intlayer,formatjs/formatjs,i18next/i18next,lingui/js-lingui,amannn/next-intl,intlify/vue-i18n,codingcommons/typesafe-i18n,opral/paraglide-js" />
+
+> Intlayer это монорепозиторий, поэтому в счёт входят все пакеты для фреймворков, CLI и документация. Считайте коммиты показателем активности, а не качества.
+
+## Загрузки npm
+
+<NpmDownloads packages="intlayer,i18next,react-intl,@lingui/core,next-intl,vue-i18n,typesafe-i18n,@inlang/paraglide-js" period="last-6-months" />
+
+Число загрузок вознаграждает самые старые решения, а не лучшие. Библиотеку, выпущенную много лет назад, до сих пор устанавливает каждый проект, который выбрал её тогда, каждый запуск CI и каждый зависящий от неё пакет. Эта цифра измеряет инерцию, а не осознанный выбор.
+
+ИИ-ассистенты усиливают этот эффект. `next-intl`, `i18next` и `vue-i18n` повсюду встречаются в коде, на котором они обучались, поэтому ассистенты предлагают их по умолчанию, не сравнивая альтернативы. Каждая подсказка добавляет загрузки, которые подпитывают следующую. Сравнивайте по бенчмарку, а не по числу загрузок.
+
 ## Совместимость
 
 `intlayer` также может помочь управлять вашими пространствами имен `react-intl`, `react-i18next`, `next-intl`, `next-i18next` и `vue-i18n`.

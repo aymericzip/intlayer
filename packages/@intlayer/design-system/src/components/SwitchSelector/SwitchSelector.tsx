@@ -66,7 +66,7 @@ export const switchSelectorVariant = cva(
 );
 
 export const choiceVariant = cva(
-  'z-1 flex-1 cursor-pointer font-medium text-sm transition-all duration-300 ease-in-out aria-selected:cursor-default data-[indicator=true]:text-background motion-reduce:transition-none',
+  'z-1 flex-1 cursor-pointer whitespace-nowrap font-medium text-sm transition-all duration-300 ease-in-out aria-selected:cursor-default data-[indicator=true]:text-background motion-reduce:transition-none',
   {
     variants: {
       size: {

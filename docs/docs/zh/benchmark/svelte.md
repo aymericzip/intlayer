@@ -56,9 +56,8 @@ history:
   style="border:none;"
 />
 
-> [查看完整的基准测试数据](https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_svelte.md)
-
-查看完整的基准仓库 [此处](https://github.com/intlayer-org/benchmark-i18n/tree/main)。
+- [查看完整的基准测试数据](https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_svelte.md)
+- [查看完整的基准测试仓库](https://github.com/intlayer-org/benchmark-i18n/tree/main)
 
 ## 简介
 
@@ -159,6 +158,22 @@ history:
 GitHub 星数是项目受欢迎程度、社区信任和长期相关性的有力指标。虽然星数不是技术质量的直接衡量标准，但它们反映了有多少开发人员发现该项目有用、关注其进展并可能采用它。在评估项目价值时，星数有助于比较不同方案的吸引力，并提供对生态系统增长的见解。
 
 [![Star History Chart](https://api.star-history.com/chart?repos=kaisermann%2Fsvelte-i18n%2Copral%2Fparaglide-js%2Ctolgee%2Ftolgee-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#kaisermann/svelte-i18n&opral/paraglide-js&tolgee/tolgee-js&aymericzip/intlayer)
+
+## 提交活跃度
+
+Star 反映受欢迎程度，提交次数反映项目投入的工作量。截至撰写时，Intlayer 约有 7,500 次提交，多于这里比较的大多数库，约为 `next-intl` 或 `next-i18next` 的 5 倍。
+
+<GithubCommits repositories="kaisermann/svelte-i18n,opral/paraglide-js,tolgee/tolgee-js,aymericzip/intlayer" />
+
+> Intlayer 是一个 monorepo，因此该数字包含每个框架包、CLI 和文档。请把提交次数视为活跃度的信号，而不是质量的衡量。
+
+## npm 下载量
+
+<NpmDownloads packages="svelte-i18n,@inlang/paraglide-js,@tolgee/svelte,svelte-intlayer" period="last-6-months" />
+
+下载量奖励的是最老的方案，而不是最好的方案。一个多年前发布的库，仍会被当年选择它的每个项目、每次 CI 运行以及每个依赖它的包持续安装。这个数字衡量的更多是惯性，而不是新的选择。
+
+AI 助手放大了这种效应。`next-intl`、`i18next` 和 `vue-i18n` 在它们的训练代码中随处可见，因此 AI 会默认推荐它们，而不去比较其他方案。每一次推荐都带来下载，又进一步推动下一次推荐。请以基准测试而不是下载量来比较。
 
 ## 结果详情
 

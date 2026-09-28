@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-22
+updatedAt: 2026-09-27
 priority: 8
 title: "next-intl مقابل Intlayer: معيار ومقارنة 2026"
 description: "مقارنة دقيقة بين next-intl وIntlayer على Next.js App Router وTanStack Start. حجم الحزمة، تسرب المحتوى، حجم المكونات، وسرعة تبديل اللغة وتجربة المطور."
@@ -535,6 +535,22 @@ export default withIntlayer(nextConfig);
 تعد نجوم GitHub مؤشراً قوياً على شعبية المشروع وثقة المجتمع وأهميته على المدى الطويل.
 
 [![رسم بياني لتاريخ النجوم](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#amannn/next-intl&aymericzip/intlayer)
+
+## نشاط الالتزامات (commits)
+
+تعكس النجوم الشعبية، بينما تعكس الالتزامات حجم العمل المبذول في المشروع. عند كتابة هذا المقال، يضم Intlayer نحو 7,500 التزام، أي أكثر من معظم المكتبات المقارنة هنا، ونحو 5 أضعاف `next-intl` أو `next-i18next`.
+
+<GithubCommits repositories="amannn/next-intl,aymericzip/intlayer" />
+
+> Intlayer مستودع أحادي (monorepo)، لذا يشمل هذا العدد كل حزم أطر العمل وأداة CLI والتوثيق. اقرأ الالتزامات كمؤشر على النشاط، لا على الجودة.
+
+## تنزيلات npm
+
+<NpmDownloads packages="next-intl,next-intlayer" period="last-6-months" />
+
+تكافئ أعداد التنزيل الحلول الأقدم، لا الأفضل. فالمكتبة التي صدرت قبل سنوات لا تزال تُثبَّت في كل مشروع اختارها آنذاك، وفي كل تشغيل لـ CI، وفي كل حزمة تعتمد عليها. هذا الرقم يقيس الجمود أكثر مما يقيس اختيارًا جديدًا.
+
+تضخّم مساعدات الذكاء الاصطناعي هذا الأثر. فـ `next-intl` و`i18next` و`vue-i18n` منتشرة في الشيفرة التي تدربت عليها، لذا تقترحها افتراضيًا دون مقارنة البدائل. كل اقتراح يضيف تنزيلات، تغذي بدورها الاقتراح التالي. قارن بناءً على الاختبار المعياري لا على عدد التنزيلات.
 
 ## الخاتمة
 

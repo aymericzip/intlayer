@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-14
-updatedAt: 2026-05-31
+updatedAt: 2026-09-27
 priority: 8
 title: "Чому Intlayer? Переваги над іншими i18n-бібліотеками"
 description: Відкрийте для себе переваги та користь використання Intlayer у ваших проектах. Зрозумійте, чому Intlayer виділяється серед інших фреймворків.
@@ -296,6 +296,22 @@ export const ComponentExample = () => {
 Зірки на GitHub є потужним індикатором популярності проекту, довіри спільноти та довгострокової актуальності. Хоча вони не є прямим показником технічної якості, вони відображають, скільки розробників вважають проект корисним, стежать за його розвитком і, ймовірно, впровадять його. Для оцінки цінності проекту зірки допомагають порівняти інтерес до альтернатив і дають уявлення про зростання екосистеми.
 
 [![Star History Chart](https://api.star-history.com/chart?repos=aymericzip/intlayer%2Cformatjs/formatjs%2Ci18next/react-i18next%2Ci18next/i18next%2Ci18next/next-i18next%2Clingui/js-lingui%2Camannn/next-intl%2Cintlify/vue-i18n%2Ccodingcommons/typesafe-i18n%2Copral/paraglide-js&type=date&legend=top-left)](https://star-history.com/#aymericzip/intlayer&formatjs/formatjs&i18next/react-i18next&i18next/i18next&i18next/next-i18next&lingui/js-lingui&amannn/next-intl&intlify/vue-i18n&codingcommons/typesafe-i18n&opral/paraglide-js)
+
+## Активність комітів
+
+Зірки показують популярність. Коміти показують, скільки роботи вкладено в проєкт. На момент написання Intlayer має близько 7 500 комітів: більше, ніж більшість порівнюваних тут бібліотек, і приблизно в 5 разів більше, ніж `next-intl` чи `next-i18next`.
+
+<GithubCommits repositories="aymericzip/intlayer,formatjs/formatjs,i18next/i18next,lingui/js-lingui,amannn/next-intl,intlify/vue-i18n,codingcommons/typesafe-i18n,opral/paraglide-js" />
+
+> Intlayer це монорепозиторій, тож до підрахунку входять усі пакети для фреймворків, CLI та документація. Сприймайте коміти як показник активності, а не якості.
+
+## Завантаження npm
+
+<NpmDownloads packages="intlayer,i18next,react-intl,@lingui/core,next-intl,vue-i18n,typesafe-i18n,@inlang/paraglide-js" period="last-6-months" />
+
+Кількість завантажень винагороджує найстаріші рішення, а не найкращі. Бібліотеку, випущену багато років тому, досі встановлює кожен проєкт, що обрав її тоді, кожен запуск CI і кожен пакет, який від неї залежить. Ця цифра вимірює інерцію, а не свідомий вибір.
+
+ШІ-асистенти посилюють цей ефект. `next-intl`, `i18next` і `vue-i18n` трапляються всюди в коді, на якому їх навчали, тож вони пропонують їх за замовчуванням, не порівнюючи альтернатив. Кожна підказка додає завантажень, які живлять наступну підказку. Порівнюйте за бенчмарком, а не за кількістю завантажень.
 
 ## Взаємосумісність
 

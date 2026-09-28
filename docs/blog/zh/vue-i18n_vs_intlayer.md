@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-22
+updatedAt: 2026-09-27
 priority: 8
 title: "vue-i18n vs Intlayer: 2026 基准测试与对比"
 description: "在同一个 Vite + Vue 3 应用中测量 vue-i18n 与 Intlayer：库体积、每页 JavaScript、内容泄漏、组件大小与响应性。"
@@ -436,6 +436,22 @@ export default defineConfig({
 GitHub star 是项目受欢迎程度、社区信任度和长期相关性的有力指标。虽然不是技术质量的直接衡量，但它反映了有多少开发者认为该项目有用、关注其进展并可能采用它。
 
 [![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
+
+## 提交活跃度
+
+Star 反映受欢迎程度，提交次数反映项目投入的工作量。截至撰写时，Intlayer 约有 7,500 次提交，多于这里比较的大多数库，约为 `next-intl` 或 `next-i18next` 的 5 倍。
+
+<GithubCommits repositories="intlify/vue-i18n,aymericzip/intlayer" />
+
+> Intlayer 是一个 monorepo，因此该数字包含每个框架包、CLI 和文档。请把提交次数视为活跃度的信号，而不是质量的衡量。
+
+## npm 下载量
+
+<NpmDownloads packages="vue-i18n,vue-intlayer" period="last-6-months" />
+
+下载量奖励的是最老的方案，而不是最好的方案。一个多年前发布的库，仍会被当年选择它的每个项目、每次 CI 运行以及每个依赖它的包持续安装。这个数字衡量的更多是惯性，而不是新的选择。
+
+AI 助手放大了这种效应。`next-intl`、`i18next` 和 `vue-i18n` 在它们的训练代码中随处可见，因此 AI 会默认推荐它们，而不去比较其他方案。每一次推荐都带来下载，又进一步推动下一次推荐。请以基准测试而不是下载量来比较。
 
 ## 结论
 

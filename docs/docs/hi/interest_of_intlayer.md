@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-14
-updatedAt: 2026-05-31
+updatedAt: 2026-09-27
 priority: 8
 title: "Intlayer क्यों? अन्य i18n लाइब्रेरी से बेहतर क्या है"
 description: अपने प्रोजेक्ट्स में Intlayer का उपयोग करने के लाभों और फायदों की खोज करें। समझें कि Intlayer अन्य फ्रेमवर्क के बीच क्यों अलग खड़ा है।
@@ -297,6 +297,22 @@ export const ComponentExample = () => {
 GitHub सितारे किसी प्रोजेक्ट की लोकप्रियता, सामुदायिक विश्वास और दीर्घकालिक प्रासंगिकता का एक मजबूत संकेतक हैं। हालांकि यह तकनीकी गुणवत्ता का प्रत्यक्ष माप नहीं है, वे दर्शाते हैं कि कितने डेवलपर्स प्रोजेक्ट को उपयोगी पाते हैं, इसकी प्रगति का पालन करते हैं, और इसे अपनाने की संभावना रखते हैं। किसी प्रोजेक्ट के मूल्य का अनुमान लगाने के लिए, सितारे विकल्पों के बीच कर्षण की तुलना करने में मदद करते हैं और पारिस्थितिकी तंत्र के विकास में अंतर्दृष्टि प्रदान करते हैं।
 
 [![Star History Chart](https://api.star-history.com/chart?repos=aymericzip/intlayer%2Cformatjs/formatjs%2Ci18next/react-i18next%2Ci18next/i18next%2Ci18next/next-i18next%2Clingui/js-lingui%2Camannn/next-intl%2Cintlify/vue-i18n%2Ccodingcommons/typesafe-i18n%2Copral/paraglide-js&type=date&legend=top-left)](https://star-history.com/#aymericzip/intlayer&formatjs/formatjs&i18next/react-i18next&i18next/i18next&i18next/next-i18next&lingui/js-lingui&amannn/next-intl&intlify/vue-i18n&codingcommons/typesafe-i18n&opral/paraglide-js)
+
+## कमिट गतिविधि
+
+स्टार लोकप्रियता दिखाते हैं। कमिट दिखाते हैं कि किसी प्रोजेक्ट में कितना काम लगा है। लिखते समय Intlayer में लगभग 7,500 कमिट हैं, जो यहाँ तुलना की गई अधिकांश लाइब्रेरी से ज़्यादा हैं और `next-intl` या `next-i18next` से लगभग 5 गुना।
+
+<GithubCommits repositories="aymericzip/intlayer,formatjs/formatjs,i18next/i18next,lingui/js-lingui,amannn/next-intl,intlify/vue-i18n,codingcommons/typesafe-i18n,opral/paraglide-js" />
+
+> Intlayer एक मोनोरेपो है, इसलिए इस संख्या में हर फ़्रेमवर्क पैकेज, CLI और डॉक्स शामिल हैं। कमिट को गुणवत्ता नहीं, गतिविधि का संकेत मानें।
+
+## npm डाउनलोड
+
+<NpmDownloads packages="intlayer,i18next,react-intl,@lingui/core,next-intl,vue-i18n,typesafe-i18n,@inlang/paraglide-js" period="last-6-months" />
+
+डाउनलोड सबसे पुराने समाधानों को पुरस्कृत करते हैं, सबसे अच्छे को नहीं। वर्षों पहले जारी हुई लाइब्रेरी आज भी हर उस प्रोजेक्ट में इंस्टॉल होती है जिसने उसे तब चुना था, हर CI रन में और हर उस पैकेज में जो उस पर निर्भर है। यह संख्या नए चुनाव से ज़्यादा जड़ता को मापती है।
+
+AI असिस्टेंट इस प्रभाव को और बढ़ाते हैं। `next-intl`, `i18next` और `vue-i18n` उस कोड में हर जगह हैं जिस पर वे प्रशिक्षित हुए, इसलिए वे विकल्पों की तुलना किए बिना इन्हें डिफ़ॉल्ट रूप से सुझाते हैं। हर सुझाव डाउनलोड बढ़ाता है, जो अगले सुझाव को बढ़ावा देता है। डाउनलोड की संख्या नहीं, बेंचमार्क के आधार पर तुलना करें।
 
 ## पारस्परिक संचालन (Interoperability)
 
