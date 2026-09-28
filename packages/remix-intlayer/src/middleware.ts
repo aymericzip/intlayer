@@ -1,7 +1,7 @@
 import { internationalization, routing } from '@intlayer/config/built';
 import { getConfiguration } from '@intlayer/config/node';
 import { getLocaleFromRequest } from '@intlayer/core/localization';
-import { prepareIntlayer } from '@intlayer/engine/build';
+import { prepareIntlayerServer } from '@intlayer/engine/build';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { DeclaredLocales } from '@intlayer/types/module_augmentation';
 import type { Middleware } from 'remix/router';
@@ -85,7 +85,7 @@ export const intlayer = (
   // Ensures the generated dictionaries exist when the server starts without a
   // prior `intlayer build`. Fire-and-forget, like the other server integrations.
   const configuration = getConfiguration();
-  prepareIntlayer(configuration);
+  prepareIntlayerServer(configuration, { label: 'remix-intlayer' });
 
   const resolveLocaleRouting = createLocaleRouting(
     {

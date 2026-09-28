@@ -56,6 +56,7 @@ import {
 } from '../defaultValues/system';
 import { getProjectRequire, isPackageInstalled } from '../utils';
 import {
+  bindLogFunction,
   buildAnalyticsFields,
   buildBrowserConfiguration,
   buildEditorFields,
@@ -796,7 +797,7 @@ export const buildConfigurationFields = (
     );
 
     if (!result.success) {
-      const logError = logFunctions?.error ?? console.error;
+      const logError = bindLogFunction(logFunctions, 'error') ?? console.error;
 
       for (const issue of result.error.issues) {
         logError(`${issue.path.join('.')}: ${issue.message}`);

@@ -26,7 +26,7 @@
     "format:fix": "bun --bun biome format --write .",
     "lint": "bun --bun biome lint .",
     "lint:fix": "bun --bun biome lint --write .",
-    "start": "bun dist/esm/index.mjs",
+    "start": "bun dist/index.mjs",
     "test": ""
   },
   "dependencies": {
@@ -41,6 +41,6 @@
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
     "tsdown": "0.23.0",
-    "typescript": "6.0.3"
+    "typescript": "7.0.2"
   }
 }

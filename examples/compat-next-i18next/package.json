@@ -29,6 +29,6 @@
     "i18next": "26.4.2",
     "react-i18next": "17.0.11",
     "tailwindcss": "4",
-    "typescript": "6.0.3"
+    "typescript": "7.0.2"
   }
 }

@@ -53,6 +53,7 @@ export const commonOptions = {
   clean: process.env.NODE_ENV === 'production',
   sourcemap: true,
   platform: 'browser',
+  define: { 'process.env.NODE_ENV': 'process.env.NODE_ENV' },
   unbundle: true,
   treeshake: true,
   minify: false,

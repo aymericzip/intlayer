@@ -12,7 +12,7 @@ import {
 } from './index';
 
 vi.mock('@intlayer/engine/build', () => ({
-  prepareIntlayer: vi.fn().mockResolvedValue(undefined),
+  prepareIntlayerServer: vi.fn(),
 }));
 
 const greetingDictionary = {

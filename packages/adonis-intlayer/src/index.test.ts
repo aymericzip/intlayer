@@ -17,7 +17,7 @@ vi.mock('@intlayer/config/node', () => ({
 vi.mock('@intlayer/config/built', () => ({ default: mockConfig }));
 
 vi.mock('@intlayer/engine/build', () => ({
-  prepareIntlayer: vi.fn(),
+  prepareIntlayerServer: vi.fn(),
 }));
 
 import { getLocale, t } from './index';

@@ -30,6 +30,6 @@
     "eslint-config-next": "16.3.0",
     "intlayer-editor": "workspace:*",
     "tailwindcss": "4.3.3",
-    "typescript": "6.0.3"
+    "typescript": "7.0.2"
   }
 }

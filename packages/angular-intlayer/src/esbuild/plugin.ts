@@ -25,7 +25,7 @@ import {
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 import { prepareIntlayer } from '@intlayer/engine/build';
 import { logConfigDetails } from '@intlayer/engine/cli';
-import { watch } from '@intlayer/engine/watcher';
+import { startContentWatcher } from '@intlayer/engine/utils';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { isInHiddenDirectory } from './hiddenDirectory';
 import { resolvePackageExport } from './resolvePackageExport';
@@ -214,7 +214,6 @@ export const intlayerEsbuildPlugin = (
 
   // Shared across parallel setup() calls (Angular spawns one per bundle context).
   let preparePromise: Promise<void> | null = null;
-  let watcherStarted = false;
   // Once any esbuild context (browser or server) detects a production build,
   // suppress the watcher for all contexts so `ng build` can exit cleanly.
   let isBuildMode = false;
@@ -445,10 +444,8 @@ export const intlayerEsbuildPlugin = (
         // 3. esbuild's own watch mode is a positive signal
         const shouldWatch = options?.watch ?? !isBuildMode;
 
-        if (shouldWatch && !watcherStarted) {
-          watcherStarted = true;
-
-          await watch({ configuration: config! });
+        if (shouldWatch) {
+          startContentWatcher(config!, { label: 'angular-intlayer' });
         }
       });
     },

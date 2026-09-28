@@ -28,7 +28,11 @@ import { getNestedDictionaryGraph } from '@intlayer/core/dictionaryManipulator';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 import { prepareIntlayer } from '@intlayer/engine/build';
 import { logConfigDetails } from '@intlayer/engine/cli';
-import { buildComponentFilesList, runOnce } from '@intlayer/engine/utils';
+import {
+  buildComponentFilesList,
+  runOnce,
+  startContentWatcher,
+} from '@intlayer/engine/utils';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import { defu } from 'defu';
@@ -41,7 +45,6 @@ import {
   prepareSwcOptimization,
   resolveSwcLogLevel,
 } from './prepareSwcOptimization';
-import { startContentWatcher } from './startContentWatcher';
 import {
   getIsSwcPluginSupported,
   MINIMUM_SWC_PLUGIN_NEXT_VERSION,
@@ -500,24 +503,24 @@ type WithIntlayerOptions = GetConfigurationOptions & {
 };
 
 /**
- * Pin the env file used to resolve the Intlayer configuration to the Next.js
- * command being run (`dev` → `development`, `build`/`start` → `production`).
+ * Next.js helper processes that evaluate `next.config.*` without being the dev
+ * server, matched on their entry script.
  *
- * Next.js loads the config file in several processes during a single command
- * (the main `build` process plus one or more Turbopack/webpack workers), and
- * `process.env.NODE_ENV` is not guaranteed to hold the same value in all of
- * them. Since `getConfiguration` falls back to `NODE_ENV` to pick its env file
- * (`.env.development.local` vs `.env.production.local`), those processes could
- * otherwise resolve *different* env values (e.g. `applicationURL`,
- * `INTLAYER_CLIENT_ID`). The resulting configuration would differ between
- * processes, defeating the `isCachedConfigurationUpToDate` check and forcing a
- * redundant full dictionary rebuild.
- *
- * Passing an explicit `env` keeps configuration resolution deterministic across
- * every process of the command. An `env` already set by the caller is
- * respected, and when the command cannot be determined we fall back to
- * `getConfiguration`'s own default (i.e. leave `env` unset).
+ * `detached-flush` is the telemetry flusher Next spawns **detached**: it loads
+ * the config and outlives the dev server, so if it took the watcher lock it
+ * would keep watching after Ctrl-C and leave the next `next dev` unwatched.
  */
+const NEXT_HELPER_ENTRY_SCRIPTS = ['detached-flush'];
+
+/**
+ * Whether this process is a Next.js helper rather than the dev server itself;
+ * the watcher must follow the process the user actually stops.
+ */
+const getIsNextHelperProcess = (): boolean =>
+  process.argv.some((argument) =>
+    NEXT_HELPER_ENTRY_SCRIPTS.some((script) => argument.includes(script))
+  );
+
 const resolveConfigOptions = (
   configOptions?: WithIntlayerOptions
 ): WithIntlayerOptions | undefined => {
@@ -605,7 +608,10 @@ export const withIntlayerSync = <T extends Partial<NextConfig>>(
   // webpack this replaces `IntlayerPlugin`, whose watcher took no ownership
   // lock and so kept rebuilding alongside a parallel `intlayer watch`.
   if (isDevCommand) {
-    startContentWatcher(intlayerConfig);
+    startContentWatcher(intlayerConfig, {
+      label: 'next-intlayer',
+      getShouldSkip: getIsNextHelperProcess,
+    });
   }
 
   // Only provide turbo-specific config if user explicitly sets it

@@ -42,7 +42,7 @@
     "react-intlayer": "workspace:*",
     "react-router-dom": "7.18.3",
     "react-scripts": "5.0.1",
-    "typescript": "6.0.3"
+    "typescript": "7.0.2"
   },
   "devDependencies": {
     "@craco/craco": "7.1.0",

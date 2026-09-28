@@ -20,6 +20,7 @@ import {
 import { resolveProxyMode } from '@intlayer/core/localization';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 import { logConfigDetails } from '@intlayer/engine/logConfigDetails';
+import { startContentWatcher } from '@intlayer/engine/utils';
 import type { PluginOption } from 'vite';
 import { intlayerCompiler } from './IntlayerCompilerPlugin';
 import { intlayerChunk } from './intlayerChunkPlugin';
@@ -31,7 +32,6 @@ import {
   intlayerProxy,
 } from './intlayerProxyPlugin';
 import { intlayerPrune } from './intlayerPrunePlugin';
-import { startContentWatcher } from './startContentWatcher';
 
 /**
  * Packages that must go through Vite's transform pipeline instead of being
@@ -262,7 +262,7 @@ export const intlayerPlugin = (
           // Takes the content watcher lock first, so a parallel
           // `intlayer watch` (or the VS Code extension) does not rebuild the
           // same dictionaries alongside this dev server.
-          startContentWatcher(intlayerConfig);
+          startContentWatcher(intlayerConfig, { label: 'vite-intlayer' });
         }
       },
     },

@@ -6,7 +6,7 @@ import {
 } from '@intlayer/core/interpreter';
 import { localeDetector } from '@intlayer/core/localization';
 import { getLocaleFromStorageServer } from '@intlayer/core/utils';
-import { prepareIntlayer } from '@intlayer/engine/build';
+import { prepareIntlayerServer } from '@intlayer/engine/build';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { StrictModeLocaleMap } from '@intlayer/types/module_augmentation';
 import { createNamespace } from 'cls-hooked';
@@ -75,7 +75,7 @@ const fastifyIntlayer: FastifyPluginAsync = async (fastify, _opts) => {
       getHeader: (name: string) => req.headers?.[name] as string | undefined,
     });
 
-  prepareIntlayer(configuration);
+  prepareIntlayerServer(configuration, { label: 'fastify-intlayer' });
 
   const translateFunction =
     (req: FastifyRequest) =>

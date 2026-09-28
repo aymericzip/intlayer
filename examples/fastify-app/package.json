@@ -20,17 +20,17 @@
   ],
   "scripts": {
     "build:ci": "bun --bun tsdown --config tsdown.config.ts",
-    "dev": "bun --watch  --hot ./src/index.ts",
+    "dev": "bun --watch ./src/index.ts",
     "email": "email dev --dir ./src/emails",
     "format": "bun --bun biome format . --check",
     "format:fix": "bun --bun biome format --write .",
     "lint": "bun --bun biome lint .",
     "lint:fix": "bun --bun biome lint --write .",
-    "start": "bun dist/esm/index.mjs",
+    "start": "bun dist/index.mjs",
     "test": ""
   },
   "dependencies": {
-    "fastify": "5.9.0",
+    "fastify": "5.12.5",
     "fastify-intlayer": "workspace:*",
     "intlayer": "workspace:*"
   },
@@ -40,6 +40,6 @@
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
     "tsdown": "0.23.0",
-    "typescript": "6.0.3"
+    "typescript": "7.0.2"
   }
 }

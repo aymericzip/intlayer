@@ -20,5 +20,6 @@ export * from './runOnce';
 export * from './runParallel/index';
 export * from './sortAlphabetically';
 export * from './splitTextByLine';
+export * from './startContentWatcher';
 export * from './verifyIdenticObjectFormat';
 export * from './withFileLock';

@@ -433,6 +433,21 @@ export const buildAnalyticsFields = (
 });
 
 /**
+ * Binds a custom log function to its owner, so logger instances whose methods
+ * read their state from `this` (e.g. pino, used as `fastify.log`) keep working
+ * once the method is detached and called on its own.
+ *
+ * @param logFunctions - The object holding the custom log functions.
+ * @param level - The log function to bind.
+ * @returns The bound function, or `undefined` when not provided.
+ */
+export const bindLogFunction = <Level extends keyof LogFunctions>(
+  logFunctions: LogFunctions | undefined,
+  level: Level
+): LogFunctions[Level] =>
+  logFunctions?.[level]?.bind(logFunctions) as LogFunctions[Level];
+
+/**
  * Build the log section of the Intlayer configuration.
  *
  * @param customConfiguration - Partial user-supplied log config.
@@ -466,10 +481,10 @@ export const buildLogFields = (
   /**
    * Functions to log
    */
-  error: logFunctions?.error,
-  log: logFunctions?.log,
-  info: logFunctions?.info,
-  warn: logFunctions?.warn,
+  error: bindLogFunction(logFunctions, 'error'),
+  log: bindLogFunction(logFunctions, 'log'),
+  info: bindLogFunction(logFunctions, 'info'),
+  warn: bindLogFunction(logFunctions, 'warn'),
 });
 
 // ---------------------------------------------------------------------------

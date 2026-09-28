@@ -5,6 +5,7 @@ export * from './createType/index';
 export * from './formatDictionary';
 export * from './loadDictionaries/index';
 export * from './prepareIntlayer';
+export * from './prepareIntlayerServer';
 export * from './utils/readDictionariesFromDisk';
 export * from './writeConfiguration/index';
 export * from './writeContentDeclaration/index';

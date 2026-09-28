@@ -4,7 +4,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { useDictionary, useIntlayer } from './index';
 
 vi.mock('@intlayer/engine/build', () => ({
-  prepareIntlayer: vi.fn().mockResolvedValue(undefined),
+  prepareIntlayerServer: vi.fn(),
 }));
 
 const pageDictionary = {

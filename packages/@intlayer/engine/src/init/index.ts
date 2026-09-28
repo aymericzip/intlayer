@@ -46,7 +46,6 @@ import {
   parseJSONWithComments,
   readFileFromRoot,
   replaceViteConfigPluginImportSource,
-  resolveDevScript,
   resolveGithubWorkflowsContext,
   setupNextCompilerBabelConfig,
   updateAstroConfig,
@@ -123,7 +122,7 @@ export type InitOptions = {
   noEslint?: boolean;
   /**
    * Skip the project setup: tsconfig types/aliases, the Intlayer config file,
-   * bundler/framework configs, the dev script and framework-specific
+   * bundler/framework configs and framework-specific
    * scaffolding (middleware/proxy, providers in layout/page). Defaults to
    * enabled.
    */
@@ -566,7 +565,7 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
 
   // PROJECT SETUP
   // Everything below edits the project itself: tsconfig types and aliases, the
-  // Intlayer config file, bundler/framework configs, the dev script and the
+  // Intlayer config file, bundler/framework configs and the
   // framework scaffolding. It only runs with the framework setup step, so
   // picking e.g. only the CI or editor steps never creates project files.
   if (!options?.noFrameworkSetup) {
@@ -1041,30 +1040,6 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
           `${v} Created ${colorizePath(newMetroConfigFile)} with the Intlayer Metro plugin`
         );
       }
-    }
-
-    // UPDATE PACKAGE.JSON DEV SCRIPT
-    // Only frameworks with no bundler plugin to host the content watcher get
-    // their dev server wrapped; a Next.js app is always left alone. See
-    // `resolveDevScript`.
-    const newDevScript = resolveDevScript({
-      devScript: packageJson.scripts?.dev,
-      allDeps,
-      isNextJsProject,
-    });
-
-    if (newDevScript) {
-      packageJson.scripts.dev = newDevScript;
-
-      await writeFileToRoot(
-        rootDir,
-        packageJsonPath,
-        JSON.stringify(packageJson, null, 2)
-      );
-
-      logger(
-        `${v} Updated ${colorizePath('package.json')} dev script to run intlayer watch`
-      );
     }
 
     // CHECK WEBPACK CONFIG

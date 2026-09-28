@@ -14,7 +14,7 @@ import {
 } from '@intlayer/config/utils';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 import { prepareIntlayer } from '@intlayer/engine/build';
-import { watch } from '@intlayer/engine/watcher';
+import { startContentWatcher } from '@intlayer/engine/utils';
 import type { RsbuildPlugin } from '@rsbuild/core';
 
 /**
@@ -47,9 +47,9 @@ export const pluginIntlayerLynx = (): RsbuildPlugin => {
 
       await prepareIntlayer(configuration);
 
-      // If file watching is enabled in Intlayer's config, start it.
-      if (configuration.content.watch) {
-        await watch({ configuration });
+      // Only the dev server watches: a build must be able to exit.
+      if (api.context.action === 'dev') {
+        startContentWatcher(configuration, { label: 'lynx-intlayer' });
       }
 
       const isBuild = api.context.action === 'build';

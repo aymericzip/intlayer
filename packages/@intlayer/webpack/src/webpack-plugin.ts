@@ -12,7 +12,7 @@ import {
 } from '@intlayer/config/utils';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 import { prepareIntlayer } from '@intlayer/engine/build';
-import { watch } from '@intlayer/engine/watcher';
+import { startContentWatcher } from '@intlayer/engine/utils';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Compiler } from 'webpack';
 
@@ -168,9 +168,8 @@ export class IntlayerPlugin {
     // Only watch content declarations for the dev server. A production build is
     // a one-off compilation: starting a file watcher there serves no purpose and
     // keeps a live `fsevents`/chokidar stream open for the whole build.
-    if (!isBuild && this.configuration.content.watch) {
-      // Start watching (assuming watch is also async)
-      await watch({ configuration: this.configuration });
+    if (!isBuild) {
+      startContentWatcher(this.configuration, { label: '@intlayer/webpack' });
     }
   }
 }

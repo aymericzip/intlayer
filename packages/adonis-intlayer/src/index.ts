@@ -6,7 +6,7 @@ import {
   getTranslation,
 } from '@intlayer/core/interpreter';
 import { getLocaleFromStorageServer } from '@intlayer/core/utils';
-import { prepareIntlayer } from '@intlayer/engine/build';
+import { prepareIntlayerServer } from '@intlayer/engine/build';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { StrictModeLocaleMap } from '@intlayer/types/module_augmentation';
 import { createNamespace } from 'cls-hooked';
@@ -28,7 +28,7 @@ if (process.env['NODE_ENV'] === 'development') {
 
 export const appNamespace = createNamespace('app');
 
-prepareIntlayer(configuration);
+prepareIntlayerServer(configuration, { label: 'adonis-intlayer' });
 
 /**
  * Retrieves the locale from storage (cookies, headers).

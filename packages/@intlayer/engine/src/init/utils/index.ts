@@ -1,6 +1,6 @@
 export * from './astImports';
+export * from './backendPackages';
 export * from './configManipulation';
-export * from './devScript';
 export * from './fileSystem';
 export * from './githubActions';
 export * from './intlayerDependencies';

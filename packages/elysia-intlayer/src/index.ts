@@ -7,7 +7,7 @@ import {
 } from '@intlayer/core/interpreter';
 import { localeDetector } from '@intlayer/core/localization';
 import { getLocaleFromStorageServer } from '@intlayer/core/utils';
-import { prepareIntlayer } from '@intlayer/engine/build';
+import { prepareIntlayerServer } from '@intlayer/engine/build';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { StrictModeLocaleMap } from '@intlayer/types/module_augmentation';
 import { Elysia } from 'elysia';
@@ -151,7 +151,7 @@ export const intlayer = () => {
     debug = (message: string) => console.debug(message);
   }
 
-  prepareIntlayer(configuration);
+  prepareIntlayerServer(configuration, { label: 'elysia-intlayer' });
 
   return new Elysia({ name: 'elysia-intlayer' })
     .derive({ as: 'global' }, ({ request, cookie }) => {
