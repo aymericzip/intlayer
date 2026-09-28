@@ -69,12 +69,13 @@ jobs:
 
       - name: 🚀 Upload and Publish to Chrome Web Store
         run: |
-          if [ "${{ github.event.inputs.auto_publish_chrome }}" = "false" ]; then
+          if [ "$AUTO_PUBLISH_CHROME" = "false" ]; then
             bunx chrome-webstore-upload-cli@3 upload --source extension-chrome.zip
           else
             bunx chrome-webstore-upload-cli@3 upload --source extension-chrome.zip --auto-publish
           fi
         env:
+          AUTO_PUBLISH_CHROME: ${{ github.event.inputs.auto_publish_chrome }}
           EXTENSION_ID: ${{ secrets.CHROME_EXTENSION_ID }}
           CLIENT_ID: ${{ secrets.CHROME_CLIENT_ID }}
           CLIENT_SECRET: ${{ secrets.CHROME_CLIENT_SECRET }}

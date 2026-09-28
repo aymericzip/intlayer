@@ -16,7 +16,7 @@
 
 import { spawn } from 'node:child_process';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
-import { dirname } from 'node:path';
+import { dirname, resolve } from 'node:path';
 import { localeMap } from '@intlayer/core/localization';
 import * as fg from 'fast-glob';
 import { locales } from '../intlayer.config';
@@ -251,6 +251,9 @@ const buildEntryContent = (
 /* -------------------------------------------------------------------------- */
 
 const generate = async () => {
+  // Globs, entry paths and generated map keys are package-relative
+  process.chdir(resolve(import.meta.dirname, '..'));
+
   console.log('🔄 Generating entry & type files…');
 
   for (const cfg of categories) {
