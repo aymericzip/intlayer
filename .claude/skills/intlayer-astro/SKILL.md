@@ -37,6 +37,10 @@ const content = useIntlayer("my-dictionary-key");
 
 Islands use their framework package (`react-intlayer`, `vue-intlayer`, `svelte-intlayer`, `solid-intlayer`, `preact-intlayer`, `lit-intlayer`) and receive the server-detected locale as a prop.
 
+## Bundle Optimization
+
+Read content fields by name (dot access or destructuring) so the build can purge and minify the dictionary. Never index content at runtime (`content.statuses[status]`, use `select()`), and call `useIntlayer` in each child component instead of passing content as a prop. See the `intlayer-bundle-optimization` skill.
+
 ## Compiler
 
 The [Intlayer Compiler](references/compiler.md) can extract all your content keys from your components, using one CLI command (`npx intlayer extract`) or automatically at app build.

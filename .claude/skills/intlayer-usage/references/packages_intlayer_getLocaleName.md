@@ -1,8 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
+updatedAt: 2026-09-27
+priority: 5
 title: getLocaleName Function Documentation | intlayer
-description: See how to use the getLocaleName function for intlayer package
+description: "Use getLocaleName to get the name of a locale in another language, for example 'French' or 'français', to label a locale switcher."
 keywords:
   - getLocaleName
   - translation

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-24
 updatedAt: 2026-08-24
+priority: 5
 title: elysia-intlayer Package Documentation
 description: Elysia plugin for Intlayer, providing translation functions and locale detection.
 keywords:
@@ -126,7 +127,7 @@ console.log(
 );
 ```
 
-> The plugin registers its context through a **global** `derive`, which Elysia types as `Partial<{ intlayer: IntlayerContext }>`. The value is always present at runtime for routes registered after `.use(intlayer())`, so use the non-null assertion (`intlayer!.locale`) — or optional chaining — to satisfy TypeScript in `strict` mode.
+> The plugin registers its context through a **global** `derive`, which Elysia types as `Partial<{ intlayer: IntlayerContext }>`. The value is always present at runtime for routes registered after `.use(intlayer())`, so use the non-null assertion (`intlayer!.locale`), or optional chaining, to satisfy TypeScript in `strict` mode.
 
 ## Related Doc
 

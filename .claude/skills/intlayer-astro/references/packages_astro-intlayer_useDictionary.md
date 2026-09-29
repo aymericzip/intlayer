@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: useDictionary Hook Documentation | astro-intlayer
 description: See how to use the useDictionary hook in Astro components and scripts to resolve dictionary objects.
 keywords:

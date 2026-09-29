@@ -1,7 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
-title: Watch Dictionaries
+updatedAt: 2026-09-27
+priority: 5
+title: "intlayer watch: Rebuild Dictionaries on Change"
 description: Learn how to watch for changes in your content declaration files and automatically build dictionaries.
 keywords:
   - Watch

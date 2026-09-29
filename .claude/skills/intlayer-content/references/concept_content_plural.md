@@ -1,8 +1,9 @@
 ---
 createdAt: 2026-05-04
-updatedAt: 2026-05-04
-title: Plural
-description: Discover how to declare and use locale-aware plural content (CLDR-based) in your multilingual website. Follow the steps in this online documentation to set up your project in a few minutes.
+updatedAt: 2026-09-27
+priority: 8
+title: "Plural Content: CLDR Plural Rules"
+description: "Declare locale-aware plurals in Intlayer with CLDR categories (zero, one, two, few, many, other) resolved from a count at runtime."
 keywords:
   - Plural
   - Pluralization
@@ -32,6 +33,8 @@ author: aymericzip
 In Intlayer, plural content is achieved through the `plural` function, which maps CLDR plural categories, `zero`, `one`, `two`, `few`, `many`, `other`, to their corresponding content. The correct category is selected automatically based on the active locale and a count value, using the platform's built-in [`Intl.PluralRules`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Intl/PluralRules) API.
 
 Unlike [`enu`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/enumeration.md), which selects content based on numeric ranges you define yourself, `plural` delegates the selection to CLDR rules. This is what makes it scalable to languages with complex pluralization rules, such as Russian, Polish, Arabic, or Welsh, without having to hand-write modulo logic.
+
+- [`enu`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/enumeration.md)
 
 ## When to Use `plural` vs `enu`
 

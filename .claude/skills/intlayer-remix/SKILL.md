@@ -64,6 +64,10 @@ export const HomePage = () => () => {
 > - Remix JSX is not React: `class` is written as-is, and re-renders are triggered with `handle.update()`.
 > - Outside of a request, the hooks fall back to the default locale.
 
+## Bundle Optimization
+
+Read content fields by name (dot access or destructuring) so the build can purge and minify the dictionary. Never index content at runtime (`content.statuses[status]`, use `select()`), and call `useIntlayer` in each child component instead of passing content as a prop. See the `intlayer-bundle-optimization` skill.
+
 ## Compiler
 
 The [Intlayer Compiler](references/compiler.md) can extract all your content keys from your components, using one CLI command (`npx intlayer extract`) or automatically at app build.

@@ -1,7 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
-title: Translate Document
+updatedAt: 2026-09-27
+priority: 5
+title: "intlayer doc translate: Translate Markdown Docs"
 description: Learn how to automatically translate documentation files using AI translation services.
 keywords:
   - Translate

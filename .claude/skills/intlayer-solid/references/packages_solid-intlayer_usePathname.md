@@ -1,8 +1,9 @@
 ---
 createdAt: 2026-06-22
-updatedAt: 2026-06-22
+updatedAt: 2026-09-27
+priority: 5
 title: usePathname Hook Documentation | solid-intlayer
-description: See how to use the usePathname hook for solid-intlayer package
+description: "Use usePathname in Solid to read the current pathname without its locale segment, as an accessor for locale-aware navigation."
 keywords:
   - usePathname
   - pathname
@@ -30,7 +31,7 @@ author: aymericzip
 
 # Solid Integration: `usePathname` Hook Documentation
 
-The `usePathname` hook returns the current browser pathname with the locale segment stripped, as a Solid `Accessor<string>`. It is useful for building locale-aware navigation — for example, determining which nav item is active — without having to manually remove the locale prefix.
+The `usePathname` hook returns the current browser pathname with the locale segment stripped, as a Solid `Accessor<string>`. It is useful for building locale-aware navigation (for example, determining which nav item is active) without having to manually remove the locale prefix.
 
 ## Importing `usePathname` in Solid
 
@@ -115,5 +116,5 @@ export default Sidebar;
 
 ## Related
 
-- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/solid-intlayer/useLocale.md) — current locale + locale switcher
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getPathWithoutLocale.md) — the underlying utility used by this hook
+- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/solid-intlayer/useLocale.md)
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getPathWithoutLocale.md)

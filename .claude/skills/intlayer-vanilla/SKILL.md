@@ -82,6 +82,10 @@ const unsubscribe = subscribe((newLocale) => {
 setLocale("fr");
 ```
 
+## Bundle Optimization
+
+Read content fields by name (dot access or destructuring) so the build can purge and minify the dictionary. Never index content at runtime (`content.statuses[status]`, use `select()`), and call `useIntlayer` where the fields are read instead of passing content around. See the `intlayer-bundle-optimization` skill.
+
 ## Compiler
 
 The [Intlayer Compiler](references/compiler.md) can extract all your content keys from your components, using one CLI command (`npx intlayer extract`) or automatically at app build.

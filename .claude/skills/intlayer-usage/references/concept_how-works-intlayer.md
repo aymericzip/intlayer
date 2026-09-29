@@ -1,7 +1,8 @@
 ---
 createdAt: 2024-08-12
-updatedAt: 2026-09-19
-title: How Intlayer Works
+updatedAt: 2026-09-28
+priority: 8
+title: "How Intlayer Works: Architecture Overview"
 description: Learn how Intlayer operates internally. Understand the architecture and components that make Intlayer powerful.
 keywords:
   - Intlayer
@@ -85,6 +86,8 @@ This hook will manage the locale detection for you and will return the content f
 
 > To see all the features of Intlayer, you can read the [dictionary documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md).
 
+- [dictionary documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md)
+
 ## Distant content
 
 Intlayer allows you to declare content locally, and then export them to the CMS to make it editable by your non-technical team.
@@ -96,6 +99,8 @@ For externalized dictionaries using the CMS, Intlayer performs a basic fetch ope
 ## Visual editor
 
 Intlayer also provides a visual editor to allow you to edit your content in a visual way. This [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) is available in the external `intlayer-editor` package.
+
+- [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)
 
 ![visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif?raw=true)
 
@@ -115,11 +120,15 @@ In development mode, Intlayer uses a centralized static import for dictionaries 
 
 By activating the option `importMode = "dynamic"` in the `dictionary` configuration within your [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md), Intlayer will use the dynamic import to load the dictionaries. This option is disabled by default to avoid async processing when rendering the application.
 
+- [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)
+
 > `@intlayer/babel` is available by default on `vite-intlayer` package,
 
 > `@intlayer/swc` is not installed by default on `next-intlayer` package as SWC plugins are still experimental on Next.js.
 
 To see how to configure the build of your application, you can read the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md).
+
+- [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)
 
 ## Packages
 
@@ -270,7 +279,7 @@ The `@intlayer/webpack` package is used to provide a Webpack configuration to ma
 
 ### @intlayer/cli
 
-The `@intlayer/cli` package is an NPM package that is used to declare the scripts related to the Intlayer command line interfaces. It ensures the uniformity of all Intlayer CLI commands. This package is notably consumed by the [intlayer-cli](https://github.com/aymericzip/intlayer/tree/main/docs/en/packages/intlayer-cli/index.md), and the [intlayer](https://github.com/aymericzip/intlayer/tree/main/docs/en/packages/intlayer/index.md) packages.
+The `@intlayer/cli` package is an NPM package that is used to declare the scripts related to the Intlayer command line interfaces. It ensures the uniformity of all Intlayer CLI commands. This package is notably consumed by the [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer-cli/index.md), and the [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/index.md) packages.
 
 ### @intlayer/mcp
 
@@ -341,22 +350,38 @@ At build time. The bundler plugin, or `npx intlayer build`, scans your `.content
 
 Much less than a namespace based setup, because a page never downloads a catalog it does not render. Server rendered markup resolves its content on the server, and the build time compiler replaces `useIntlayer` calls with the exact dictionary entries a component uses, so unused keys and unused languages are dropped. [Dynamic dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dynamic_dictionaries/index.md) split the rest per locale. Measured against the usual alternatives, Intlayer reduces bundle and page size by up to 50%. See [bundle optimization](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/bundle_optimization.md) and the [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/index.md).
 
+- [Dynamic dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dynamic_dictionaries/index.md)
+- [bundle optimization](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/bundle_optimization.md)
+- [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/index.md)
+
 </Question>
 <Question title="Can I migrate from `i18next`, `next-intl` or `react-i18next` without rewriting my components?">
 
 Yes, and there are two paths. You can migrate the content progressively with the [i18next migration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/migration_from_i18next_to_intlayer.md) or the [next-intl migration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/migration_from_next-intl_to_intlayer.md). Or you can keep your current API entirely: the [compat adapters](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md) expose the exact same API as `i18next`, `react-i18next`, `next-intl`, `next-i18next`, `react-intl`, `use-intl`, `vue-i18n` and `Lingui`, but served by Intlayer dictionaries, so imports change and component code does not.
+
+- [i18next migration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/migration_from_i18next_to_intlayer.md)
+- [next-intl migration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/migration_from_next-intl_to_intlayer.md)
+- [compat adapters](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md)
 
 </Question>
 <Question title="Can I keep my existing JSON translation files?">
 
 Yes. The [sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/plugins/sync-json.md) keeps your `/messages/{locale}/{namespace}.json` files as the source of truth and generates Intlayer dictionaries from them, in both directions. A [sync PO plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/plugins/sync-po.md) does the same for gettext catalogs, and [per locale files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/per_locale_file.md) let you split content by language instead of grouping locales in one file.
 
+- [sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/plugins/sync-json.md)
+- [sync PO plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/plugins/sync-po.md)
+- [per locale files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/per_locale_file.md)
+
 </Question>
 <Question title="Do I have to move my content key by key?">
 
 No. Run `npx intlayer extract` and Intlayer reads your source files, pulls the user facing strings out and writes a `.content` file next to each one, so you review a diff instead of copying strings into a catalog one at a time. See the [extract command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/extract.md).
 
+- [extract command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/extract.md)
+
 For a fully automated pipeline, the [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compiler.md) does the same at build time on JSX, TSX, Vue and Svelte source, generating the dictionaries on every change so there are no keys to maintain by hand. It works by static analysis, so strings that only exist at runtime stay out of reach, and it needs a few annotations to tell user facing text apart from application logic.
+
+- [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compiler.md)
 
 </Question>
 <Question title="What editor and AI agent tooling is available?">
@@ -379,10 +404,14 @@ It is the generated output: the compiled dictionaries and the generated types. I
 
 From the sources listed in `routing.storage`, in order: the URL prefix when `routing.mode` uses one, then a cookie, then the `Accept-Language` header, then your default locale. A locale the user picks explicitly is persisted, so it survives the next visit. See the [configuration reference](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md).
 
+- [configuration reference](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)
+
 </Question>
 <Question title="What is the difference between local and remote dictionaries?">
 
 A local dictionary is declared in your code base and compiled with your application. A remote dictionary is managed in the [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) and resolved at runtime, so it can change without a deployment. Both are read through the same hooks, and remote content falls back to the local declaration when it is unavailable.
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
 
 </Question>
 <Question title="Does Intlayer work without TypeScript?">
@@ -400,9 +429,26 @@ The server resolves the content of server rendered components directly, so no di
 The locale is resolved once on the server and passed to the provider, rather than being detected again in the browser. Because the client starts from the same locale the server rendered, the markup matches, which is what usually breaks with client side locale detection.
 
 </Question>
+<Question title="Can I use Intlayer without a global provider?">
+
+Yes. `getIntlayer` and `getDictionary` are plain functions that need no provider, and `useIntlayer` also works outside of one. When no locale is passed, they resolve the locale of the current request on the server (through the Intlayer middleware of Express, Fastify, Hono, AdonisJS, Elysia, Remix and Astro, or `IntlayerProvider` in React Server Components), then the locale stored in the browser by your locale switcher, then the `defaultLocale`. `getIntlayerAsync` can also await the request locale where it is only readable asynchronously, such as the Next.js `headers()` and `cookies()`. Each request resolves its own cookies and headers, so concurrent users never share a locale. See [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getIntlayer.md#without-a-locale).
+
+- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getIntlayer.md#without-a-locale)
+
+The difference is about reactivity and rendering cost, not about the content:
+
+- **With a provider**, the locale lives in the framework state. Every `useIntlayer` subscribes to it, so a locale switch re-renders the components in place, without a reload. On a server-rendered page, the provider hands the client the locale the server rendered, so the markup always matches. The cost is the provider code in the bundle and the re-render of its consumers on each switch.
+- **Without a provider**, a read is a memoized function call: no context lookup, no subscription, and the same object is returned for the same `key + locale`. Nothing re-renders on a locale switch: the new locale shows on the next call, typically after a navigation or a reload. The stored locale is read once and cached until the locale changes, which adds about 100 bytes (gzipped) to a bundle already shipping Intlayer. The trade-off is on server-rendered pages outside of any request integration: the server renders the `defaultLocale` while the browser reads the stored one, which can cause a hydration mismatch.
+
+Keep the provider for interactive apps that switch locale in place or render on the server. Go without one for backends, scripts, static pages whose locale comes from the URL (pass it explicitly), or code that reads content once.
+
+</Question>
 <Question title="Do I need to rebuild when I add a translation?">
 
 In development, no: the plugin watches your content files and rebuilds the affected dictionaries on save. In production the dictionaries are part of the build, unless the content is remote, in which case the [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) and [live sync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/live.md) apply the change without a deployment.
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
+- [live sync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/live.md)
 
 </Question>
 

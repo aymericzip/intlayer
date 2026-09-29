@@ -1,8 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-08-22
+updatedAt: 2026-09-27
+priority: 5
 title: useIntlayer Hook Documentation | next-intlayer
-description: See how to use the useIntlayer hook for next-intlayer package
+description: "Use useIntlayer in Next.js to read a dictionary's localized content by key in Client and Server Components."
 keywords:
   - useIntlayer
   - dictionary
@@ -77,6 +78,8 @@ Depending on whether you're working on client-side or server-side components in 
 It's crucial that all content keys are defined within content declaration files to prevent runtime errors and ensure type safety. This approach also facilitates TypeScript integration for compile-time validation.
 
 Instructions for setting up content declaration files are available [here](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md).
+
+- [Content Declaration Files (.content.ts)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md)
 
 ## Example Usage in Next.js
 

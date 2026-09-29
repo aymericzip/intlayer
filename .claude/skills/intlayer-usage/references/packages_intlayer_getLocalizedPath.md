@@ -1,8 +1,9 @@
 ---
 createdAt: 2026-01-22
-updatedAt: 2026-01-22
+updatedAt: 2026-09-27
+priority: 5
 title: getLocalizedPath Function Documentation | intlayer
-description: See how to use the getLocalizedPath function for intlayer package
+description: "Use getLocalizedPath to turn an internal path into its localized form, applying your custom rewrite rules and the locale prefix."
 keywords:
   - getLocalizedPath
   - translation
@@ -34,7 +35,9 @@ author: aymericzip
 
 The `getLocalizedPath` function localizes a canonical path (internal application path): it resolves the custom rewrite rules, then applies the locale prefix of your routing mode. It is particularly useful for generating SEO-friendly URLs that vary by language.
 
-It is the relative counterpart of [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocalizedUrl.md) — for a relative input both return the same value. Unlike `getLocalizedUrl`, it never returns an absolute URL: the `domains` configuration is ignored, so a locale served from its own domain still yields a path. An absolute input is accepted, but its origin is dropped — only its path, query string and hash are kept.
+It is the relative counterpart of [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocalizedUrl.md), for a relative input both return the same value. Unlike `getLocalizedUrl`, it never returns an absolute URL: the `domains` configuration is ignored, so a locale served from its own domain still yields a path. An absolute input is accepted, but its origin is dropped, only its path, query string and hash are kept.
+
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocalizedUrl.md)
 
 **Key Features:**
 
@@ -79,10 +82,10 @@ getLocalizedPath(
   - **Description**: Routing overrides. Every entry defaults to your project's configuration.
   - **Type**: `object`
 
-  - `options.locales?: Locales[]` — supported locales. **Default**: `configuration.internationalization.locales`
-  - `options.defaultLocale?: Locales` — the default locale. **Default**: `configuration.internationalization.defaultLocale`
-  - `options.mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'` — how the locale appears in the path. **Default**: `configuration.routing.mode`
-  - `options.rewrite?: RoutingConfig['rewrite']` — custom rewrite rules. **Default**: `configuration.routing.rewrite`
+  - `options.locales?: Locales[]`: supported locales. **Default**: `configuration.internationalization.locales`
+  - `options.defaultLocale?: Locales`: the default locale. **Default**: `configuration.internationalization.defaultLocale`
+  - `options.mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'`: how the locale appears in the path. **Default**: `configuration.routing.mode`
+  - `options.rewrite?: RoutingConfig['rewrite']`: custom rewrite rules. **Default**: `configuration.routing.rewrite`
 
 ## Returns
 
@@ -105,6 +108,8 @@ const home = getLocalizedPath("/", Locales.FRENCH);
 ```
 
 The same narrowing flows into [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocalizedUrl.md), which applies the rewrite rules before prefixing the locale.
+
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocalizedUrl.md)
 
 Two cases stay widened to `string`, because they cannot be resolved at compile time:
 
@@ -171,5 +176,6 @@ getLocalizedPath("/about");
 
 ## Related Functions
 
-- [`getCanonicalPath`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getCanonicalPath.md): Resolves a localized path back to its internal canonical path. Note that it undoes the rewrite rules only — strip the locale prefix with [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getPathWithoutLocale.md) first.
-- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocalizedUrl.md): Same localization, but able to return an absolute URL (protocol, host, domain routing).
+- [`getCanonicalPath`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getCanonicalPath.md)
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getPathWithoutLocale.md)
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocalizedUrl.md)

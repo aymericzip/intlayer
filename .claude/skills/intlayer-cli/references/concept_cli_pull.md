@@ -1,8 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
-title: Pull Dictionaries
-description: Learn how to pull dictionaries from the Intlayer editor and CMS.
+updatedAt: 2026-09-27
+priority: 5
+title: "intlayer pull: Pull Dictionaries from the CMS"
+description: "Download the dictionaries edited in the Intlayer visual editor or CMS into your project, so remote content changes land in your codebase."
 keywords:
   - Pull
   - Dictionaries
@@ -37,6 +38,8 @@ bun x intlayer pull
 ```
 
 If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) is installed, you can also pull dictionaries from the editor. By this way, you can overwrite the content of your dictionaries for the need of your application.
+
+- [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)
 
 ## Aliases:
 

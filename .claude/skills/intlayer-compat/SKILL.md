@@ -51,7 +51,7 @@ To keep the current library **and** its message files, register a sync plugin in
 
 - `sync*` reads **and writes back** the files, keeping them in sync with the dictionaries.
 - `load*` only loads the files into dictionaries (never writes back), e.g. for catalogs fetched from a remote source.
-- `syncJSON` accepts `format: 'intlayer' | 'icu' | 'i18next'` to match the message syntax of the existing library.
+- `syncJSON` accepts `format: 'intlayer' | 'icu' | 'i18next' | 'vue-i18n'` to match the message syntax of the existing library.
 - Current scope: plain text and translations; insertions, plurals/ICU and the visual editor are not supported yet for synced files.
 
 ## After migrating
@@ -80,4 +80,5 @@ Once the app runs on Intlayer, components can be moved progressively to the nati
 - [Lingui](references/compatibility_lingui.md)
 - [NuxtJS I18n](references/compatibility_nuxtjs-i18n.md)
 - [NGX Translate](references/compatibility_ngx-translate.md)
+- [Transloco](https://intlayer.org/doc/compatibility/transloco.md)
 - [Svelte I18n](references/compatibility_svelte-i18n.md)

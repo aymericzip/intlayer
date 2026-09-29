@@ -1,8 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-01-06
+updatedAt: 2026-09-27
+priority: 5
 title: List Content Declaration Files
-description: Learn how to list all content declaration files in your project.
+description: "List every content declaration file in your project with the Intlayer CLI, to audit where your dictionaries are declared."
 keywords:
   - List
   - Content Declaration

@@ -1,8 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
-title: Push Dictionaries
-description: Learn how to push your dictionaries to the Intlayer editor and CMS.
+updatedAt: 2026-09-27
+priority: 5
+title: "intlayer push: Push Dictionaries to the CMS"
+description: "Upload your local Intlayer dictionaries to the visual editor and CMS so translators and content managers can edit them."
 keywords:
   - Push
   - Dictionaries
@@ -37,6 +38,8 @@ bun x intlayer dictionary push
 ```
 
 If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) is installed, you can also push dictionaries to the editor. This command will allow to make the dictionaries available to [the editor](https://app.intlayer.org/). By this way, you can share your dictionaries with your team and edit your content without editing the code of your application.
+
+- [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)
 
 ## Aliases:
 

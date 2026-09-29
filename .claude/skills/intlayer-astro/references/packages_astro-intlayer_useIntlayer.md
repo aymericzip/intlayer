@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: useIntlayer Hook Documentation | astro-intlayer
 description: See how to use the useIntlayer hook in Astro components and client scripts to access localized content.
 keywords:

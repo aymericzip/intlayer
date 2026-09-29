@@ -1,8 +1,9 @@
 ---
 createdAt: 2026-06-22
-updatedAt: 2026-06-22
+updatedAt: 2026-09-27
+priority: 5
 title: usePathname Function Documentation | svelte-intlayer
-description: See how to use the usePathname function for svelte-intlayer package
+description: "Use usePathname in Svelte to read the current pathname without its locale segment, as a readable store for locale-aware navigation."
 keywords:
   - usePathname
   - pathname
@@ -29,7 +30,7 @@ author: aymericzip
 
 # Svelte Integration: `usePathname` Documentation
 
-The `usePathname` function returns the current browser pathname with the locale segment stripped, as a Svelte `Readable<string>` store. It is useful for building locale-aware navigation — for example, determining which nav item is active — without having to manually remove the locale prefix.
+The `usePathname` function returns the current browser pathname with the locale segment stripped, as a Svelte `Readable<string>` store. It is useful for building locale-aware navigation (for example, determining which nav item is active) without having to manually remove the locale prefix.
 
 ## Importing `usePathname` in Svelte
 
@@ -99,5 +100,5 @@ import { usePathname } from "svelte-intlayer";
 
 ## Related
 
-- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/svelte-intlayer/exports.md) — current locale + locale switcher
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getPathWithoutLocale.md) — the underlying utility used by this function
+- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/svelte-intlayer/exports.md)
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getPathWithoutLocale.md)

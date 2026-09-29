@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-25
 updatedAt: 2026-06-25
+priority: 5
 title: intlayerMinify Vite Plugin Documentation | vite-intlayer
 description: Vite plugin that minifies compiled Intlayer dictionary JSON files and optionally mangles content field names to reduce bundle size.
 keywords:
@@ -29,6 +30,8 @@ author: aymericzip
 `intlayerMinify` is a Vite plugin that minifies compiled dictionary JSON files during a production build. It strips all unnecessary whitespace and, when combined with `intlayerPrune`, optionally renames content field names to short alphabetic aliases (`a`, `b`, `c`, …) to further reduce bundle size.
 
 > The plugin is already included and configured automatically when you use [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/vite-intlayer/intlayer.md). You only need to register it manually if you are composing the plugin stack yourself.
+
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/vite-intlayer/intlayer.md)
 
 ## Usage
 
@@ -62,8 +65,8 @@ When `editor.enabled` is `true`, the plugin still runs but **skips field renamin
 
 The plugin targets two dictionary locations (as resolved from `intlayer.system`):
 
-- `dictionariesDir` — static all-locale dictionaries (e.g. `.intlayer/dictionaries/*.json`)
-- `dynamicDictionariesDir` — per-locale dynamic dictionaries
+- `dictionariesDir`: static all-locale dictionaries (e.g. `.intlayer/dictionaries/*.json`)
+- `dynamicDictionariesDir`: per-locale dynamic dictionaries
 
 > Fetch-mode dictionaries (`fetchDictionariesDir`) are **never** minified because they are served from a remote API at runtime using their original field names. Renaming fields would create a mismatch between the server response and client-side property accesses.
 
@@ -85,7 +88,7 @@ Internal Intlayer fields (`nodeType`, `translation`, etc.) are never renamed.
 
 ## Edge-case dictionaries
 
-Dictionaries flagged in `pruneContext.dictionariesWithEdgeCases` (structural anomalies detected during the prune phase) are skipped entirely — neither minified nor mangled — to avoid shipping broken data.
+Dictionaries flagged in `pruneContext.dictionariesWithEdgeCases` (structural anomalies detected during the prune phase) are skipped entirely, neither minified nor mangled, to avoid shipping broken data.
 
 ## Qualified groups (collections / variants / meta records)
 

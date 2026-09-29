@@ -1,8 +1,9 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
-title: "Migrate from react-i18next to Intlayer"
-description: "Learn how to migrate your React application from react-i18next to Intlayer using the compat adapter."
+updatedAt: 2026-09-27
+priority: 7
+title: "@intlayer/react-i18next: Compat Adapter for react-i18next"
+description: "Keep your react-i18next code and serve it from Intlayer: install @intlayer/react-i18next, alias the imports, and see what the adapter changes under the hood."
 keywords:
   - react-i18next
   - i18next
@@ -20,9 +21,11 @@ history:
 author: aymericzip
 ---
 
-# Migrate from react-i18next to Intlayer
+# @intlayer/react-i18next: Compat Adapter for react-i18next
 
-For a complete and detailed step-by-step tutorial, please see our full [react-i18next Migration Guide](../migration_from_react-i18next_to_intlayer.md).
+For a complete and detailed step-by-step tutorial, please see our full [react-i18next Migration Guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/migration_from_react-i18next_to_intlayer.md).
+
+- [react-i18next Migration Guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/migration_from_react-i18next_to_intlayer.md)
 
 Using Intlayer's compat adapter allows you to migrate from `react-i18next` without any changes to your source code imports.
 
@@ -56,3 +59,7 @@ Under the hood:
 - **Plurals & Context:** Handles i18next's suffix-based pluralization (`key_one`, `key_other`) using native `Intl.PluralRules` and context suffixes (`key_male`).
 - **`<Trans>` Component:** Re-implemented to support the `components` prop, object and array forms, and numbered tags `<1>...</1>` directly mapping to your React nodes.
 - **`i18n` instance:** Resolves keys directly from Intlayer without fetching large JSON files, resulting in significantly lower bundle sizes.
+
+> To understand where these libraries come from, read the history of JavaScript i18n.
+
+- [The history of JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/history_of_i18n.md)

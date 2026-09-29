@@ -1,8 +1,9 @@
 ---
 createdAt: 2026-08-12
-updatedAt: 2026-08-13
+updatedAt: 2026-09-27
+priority: 6
 title: ESLint Plugin | Lint rules for Intlayer
-description: Catch hardcoded strings, dynamic calls the Intlayer compiler cannot optimize, and unused dictionary content, with eslint-plugin-intlayer. Works with ESLint and oxlint, across React, Vue, Svelte, Angular and Astro.
+description: "Catch hardcoded strings, dynamic calls the Intlayer compiler cannot optimize and unused content with eslint-plugin-intlayer, for ESLint and oxlint."
 keywords:
   - Intlayer
   - ESLint
@@ -34,7 +35,7 @@ author: aymericzip
 
 1. **Hardcoded text** that never made it into a dictionary.
 2. **Dynamic calls** that type-check and run, but that the Intlayer compiler cannot optimize.
-3. **Dead content** — dictionaries and fields nothing in the project reads (opt-in).
+3. **Dead content**: dictionaries and fields nothing in the project reads (opt-in).
 
 Unknown dictionary keys, unknown field paths and missing locales are already compile errors, so the plugin does not repeat them.
 
@@ -52,11 +53,15 @@ pnpm add --save-dev eslint-plugin-intlayer
 yarn add --dev eslint-plugin-intlayer
 ```
 
+```bash packageManager="bun"
+bun add --dev eslint-plugin-intlayer
+```
+
 Requires ESLint 9 or later (flat config). ESLint 10 is supported.
 
 ## Usage
 
-The plugin runs in both ESLint and [oxlint](https://oxc.rs) — the same rules, the same options.
+The plugin runs in both ESLint and [oxlint](https://oxc.rs), the same rules, the same options.
 
 <Tabs defaultTab="eslint">
   <Tab label="ESLint" value="eslint">
@@ -101,7 +106,7 @@ export default [
 }
 ```
 
-Two caveats: oxlint's JS plugin support is still alpha, and oxlint does not support custom parsers — so `.vue`, `.svelte`, `.astro` and Angular templates are not linted there. Run oxlint over your JS/TS/JSX files and keep ESLint for the rest.
+Two caveats: oxlint's JS plugin support is still alpha, and oxlint does not support custom parsers, so `.vue`, `.svelte`, `.astro` and Angular templates are not linted there. Run oxlint over your JS/TS/JSX files and keep ESLint for the rest.
 
 `no-unused-content` is left out above on purpose: it needs the working directory and the linted file path from the rule context, which the alpha JS plugin bridge does not guarantee. Run it under ESLint.
 
@@ -118,7 +123,7 @@ Two caveats: oxlint's JS plugin support is still alpha, and oxlint does not supp
 
 `recommended` keeps `no-raw-text` at `warn` on purpose: pointing it at an existing codebase surfaces every untranslated string at once, which should not break your build on day one.
 
-`enforce-adapter-import` is off by default — enable it explicitly if you want it.
+`enforce-adapter-import` is off by default. Enable it explicitly if you want it.
 
 `no-unused-content` is off in every config, `strict` included. It is the one rule that reads your Intlayer configuration and walks your source files from disk, so turning it on should be a deliberate choice rather than something a preset does for you.
 
@@ -243,7 +248,7 @@ export default {
 };
 ```
 
-Unlike the other rules, this one cannot answer from the file in front of it — a field is unused only relative to the whole project. On the first content declaration of a lint run it loads your Intlayer configuration, globs the source files that configuration declares (`build.traversePattern`, `compiler.transformPattern`) and runs the same usage analyser that powers `@intlayer/lsp` and the "unused" strikethrough in the VS Code extension. The result is cached for `cacheTtl` milliseconds, so the scan happens once per run rather than once per file.
+Unlike the other rules, this one cannot answer from the file in front of it, a field is unused only relative to the whole project. On the first content declaration of a lint run it loads your Intlayer configuration, globs the source files that configuration declares (`build.traversePattern`, `compiler.transformPattern`) and runs the same usage analyser that powers `@intlayer/lsp` and the "unused" strikethrough in the VS Code extension. The result is cached for `cacheTtl` milliseconds, so the scan happens once per run rather than once per file.
 
 **Options**
 
@@ -278,9 +283,9 @@ Lower `cacheTtl` when you lint from a long-lived editor server and want your edi
 
 > **It errs towards silence.** A false positive here deletes a translation, so nothing is reported when the dictionary is consumed in a way the analysis cannot follow: the content object passed on as a whole, a translator function bound from it (`const t = useTranslations("home")`), a declaration reached through a direct import (`useDictionary(myDictionary)`), a `nest()` from another dictionary, or a field list made non-exhaustive by a spread. Single-file components (`.vue`, `.svelte`, `.astro`) count as using every field of the dictionaries they mention, because their script blocks are not parsed here.
 
-`reportDuplicateKeys` reads the unmerged dictionaries the build writes under `.intlayer/`, so it stays quiet until the project has been built at least once. Two declarations sharing a key are merged, which is a legitimate pattern — the report exists because a field defined on both sides silently keeps only one of the two values.
+`reportDuplicateKeys` reads the unmerged dictionaries the build writes under `.intlayer/`, so it stays quiet until the project has been built at least once. Two declarations sharing a key are merged, which is a legitimate pattern, the report exists because a field defined on both sides silently keeps only one of the two values.
 
-The analyser is loaded from `@intlayer/lsp`, which ships as ESM. The rule therefore needs a Node version that can `require()` an ES module — Node 20.19+ or 22.12+. On anything older it reports nothing rather than failing the lint run.
+The analyser is loaded from `@intlayer/lsp`, which ships as ESM. The rule therefore needs a Node version that can `require()` an ES module, Node 20.19+ or 22.12+. On anything older it reports nothing rather than failing the lint run.
 
 ## Frameworks
 

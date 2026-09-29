@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: onRequest Middleware Documentation | astro-intlayer
 description: See how to use the onRequest middleware in Astro applications to resolve the request locale and populate Astro.locals.intlayer.
 keywords:

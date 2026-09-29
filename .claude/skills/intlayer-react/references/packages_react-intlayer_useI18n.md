@@ -1,8 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-08-22
+updatedAt: 2026-09-27
+priority: 5
 title: useI18n Hook Documentation | react-intlayer
-description: Learn how to use the useI18n hook in the react-intlayer package
+description: "Use useI18n in React to get a translation function scoped to a dictionary, handy when migrating from key-based libraries."
 keywords:
   - useI18n
   - i18n
@@ -75,6 +76,8 @@ This hook accepts two parameters:
 ## Dictionary
 
 All dictionary keys must be declared within content declaration files to enhance type safety and prevent errors. [Configuration instructions can be found here](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md).
+
+- [Configuration instructions can be found here](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md)
 
 ## Usage Examples in React
 

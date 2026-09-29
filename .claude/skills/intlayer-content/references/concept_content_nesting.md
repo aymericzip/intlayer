@@ -1,8 +1,9 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2025-06-29
-title: Dictionary's nesting
-description: Learn how to use content nesting in Intlayer to reuse and structure your multilingual content efficiently. Follow this documentation to implement nesting seamlessly in your project.
+updatedAt: 2026-09-27
+priority: 8
+title: "Nesting: Reuse Content Across Dictionaries"
+description: "Reference one dictionary from another with Intlayer's nest() node to reuse shared content without duplicating translations."
 keywords:
   - Nesting
   - Content Reusability

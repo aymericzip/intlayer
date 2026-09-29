@@ -33,6 +33,7 @@ npm install intlayer-cli
 | `npx intlayer push`      | Pushes dictionaries to a remote source.                       |
 | `npx intlayer test`      | Runs tests on dictionaries.                                   |
 | `npx intlayer extract`   | Extract content from component to create dictionary.          |
+| `npx intlayer upgrade`   | Upgrades every Intlayer package of the repo to latest.        |
 
 ## References
 
@@ -62,6 +63,7 @@ npm install intlayer-cli
 - [CLI SDK](references/concept_cli_sdk.md)
 - [Standalone Bundle](references/concept_cli_standalone.md)
 - [Test Missing Translations](references/concept_cli_test.md)
+- [Upgrade Intlayer Packages](references/concept_cli_upgrade.md)
 - [Check CLI Version](references/concept_cli_version.md)
 - [Watch Dictionaries](references/concept_cli_watch.md)
 

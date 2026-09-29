@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-08-22
+priority: 5
 title: next-intlayer Package Documentation
 description: Next.js-specific integration for Intlayer, providing middleware and providers for App Router and Page Router.
 keywords:
@@ -81,8 +82,8 @@ import "next-intlayer/server";
 | Component                | Description                                                                                                                                                                    | Related Doc |
 | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------- |
 | `IntlayerProvider`       | Unified provider for the Next.js App Router. Mounted once in the locale layout, it seeds the request-scoped server context _and_ mounts the client provider. (Intlayer >= 9.4) | -           |
-| `IntlayerClientProvider` | **Deprecated** — use `IntlayerProvider` from `next-intlayer/server`. Provider for client-side components in Next.js App Router. Wraps `IntlayerProvider` from react-intlayer.  | -           |
-| `IntlayerServerProvider` | **Deprecated** — use `IntlayerProvider` from `next-intlayer/server`. Provides locale context on the server. (Intlayer < 9.4)                                                   | -           |
+| `IntlayerClientProvider` | **Deprecated**. Use `IntlayerProvider` from `next-intlayer/server`. Provider for client-side components in Next.js App Router. Wraps `IntlayerProvider` from react-intlayer.   | -           |
+| `IntlayerServerProvider` | **Deprecated**. Use `IntlayerProvider` from `next-intlayer/server`. Provides locale context on the server. (Intlayer < 9.4)                                                    | -           |
 | `IntlayerServer`         | Server-side wrapper for Intlayer content in App Router. Ensures proper locale handling in Server Components.                                                                   | -           |
 | `HTMLProvider`           | Provider for HTML-related internationalization settings. Allows component overrides for HTML tags.                                                                             | -           |
 | `HTMLRenderer`           | Renders HTML content with custom components.                                                                                                                                   | -           |

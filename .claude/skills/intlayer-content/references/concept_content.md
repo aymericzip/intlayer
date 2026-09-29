@@ -1,8 +1,9 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-07-30
-title: Content File
-description: Learn how to customize the extensions for your content declaration files. Follow this documentation to implement conditions efficiently in your project.
+updatedAt: 2026-09-27
+priority: 8
+title: "Content Declaration Files (.content.ts)"
+description: "Declare your multilingual content in .content files next to your components: supported formats, file extensions and how Intlayer discovers them."
 keywords:
   - Content File
   - Documentation
@@ -81,6 +82,8 @@ import {
   enu,
   plural,
   cond,
+  select,
+  gender,
   nest,
   md,
   insert,
@@ -101,6 +104,8 @@ interface Content {
   quantityContent: string;
   pluralContent: string;
   conditionalContent: string;
+  selectContent: string;
+  genderContent: string;
   markdownContent: never;
   htmlContent: never;
   externalContent: string;
@@ -142,6 +147,16 @@ export default {
     conditionalContent: cond({
       true: "Validation is enabled",
       false: "Validation is disabled",
+    }),
+    selectContent: select({
+      draft: "This post is a draft",
+      published: "This post is live",
+      fallback: "Unknown status",
+    }),
+    genderContent: gender({
+      male: "He is a developer",
+      female: "She is a developer",
+      fallback: "They are a developer",
     }),
     insertionContent: insert("Hello {{name}}!"),
     nestedContent: nest(
@@ -208,6 +223,22 @@ export default {
         "false": "Validation is disabled",
       },
     },
+    "selectContent": {
+      "nodeType": "select",
+      "select": {
+        "draft": "This post is a draft",
+        "published": "This post is live",
+        "fallback": "Unknown status",
+      },
+    },
+    "genderContent": {
+      "nodeType": "gender",
+      "gender": {
+        "male": "He is a developer",
+        "female": "She is a developer",
+        "fallback": "They are a developer",
+      },
+    },
     "insertionContent": {
       "nodeType": "insertion",
       "insertion": "Hello {{name}}!",
@@ -261,7 +292,7 @@ Intlayer supports various content types through typed nodes:
 - **Markdown Content**: Rich text content in Markdown format [see Markdown Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/markdown_content.md)
 - **HTML Content**: Rich HTML content with optional custom components [see HTML Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/html.md)
 - **Nested Content**: References to other dictionaries [see Nested Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/nested_content.md)
-- **Gender Content**: Content that varies based on gender [see Gender Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/gender_content.md)
+- **Gender Content**: Content that varies based on gender [see Gender Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/gender.md)
 - **Select Content**: Content that varies based on an arbitrary string value [see Select Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/select.md)
 - **File Content**: References to external files [see File Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/file_content.md)
 
@@ -366,6 +397,8 @@ Transforms the dictionary into a per-locale dictionary where each field declared
 - If missing, the dictionary will be treated as a multilingual dictionary
 
 > See [Per-Locale Content Declaration in Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/per_locale_file.md) for more information.
+
+- [Per-Locale Content Declaration in Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/per_locale_file.md)
 
 **Example:**
 
@@ -478,6 +511,8 @@ Instructions for automatically filling dictionary content from external sources.
 
 > See [Auto-Fill Configuration in Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/fill.md) for more information.
 
+- [Auto-Fill Configuration in Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/fill.md)
+
 ##### `priority` (number)
 
 Indicates the priority of the dictionary for conflict resolution. When multiple dictionaries have the same key, the dictionary with the highest priority number will override the others. This is useful for managing content hierarchies and overrides.
@@ -505,6 +540,8 @@ Indicates the priority of the dictionary for conflict resolution. When multiple 
 
 Used in conjunction with [Collections](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dynamic_dictionaries/collections.md), this field defines the item's position in a collection. It allows you to build ordered collections of localized items selectable by index at runtime.
 
+- [Collections](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dynamic_dictionaries/collections.md)
+
 **Example:**
 
 ```typescript
@@ -520,9 +557,13 @@ Used in conjunction with [Collections](https://github.com/aymericzip/intlayer/bl
 
 > See [Collections](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dynamic_dictionaries/collections.md) for more information.
 
+- [Collections](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dynamic_dictionaries/collections.md)
+
 #### `variant` (string)
 
 Used in conjunction with [Variants](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dynamic_dictionaries/variants.md), this field defines named content alternatives. It allows you to switch between different variations of the same dictionary key at runtime without code changes (e.g., for A/B testing, seasonal banners). If not provided, it is considered as the default variant.
+
+- [Variants](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dynamic_dictionaries/variants.md)
 
 **Example:**
 
@@ -531,7 +572,7 @@ Used in conjunction with [Variants](https://github.com/aymericzip/intlayer/blob/
   key: "hero-banner",
   variant: "black_friday",
   content: {
-    headline: "50 % off — today only",
+    headline: "50 % off, today only",
     cta: "Shop now"
   }
 }
@@ -539,13 +580,15 @@ Used in conjunction with [Variants](https://github.com/aymericzip/intlayer/blob/
 
 > See [Variants](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dynamic_dictionaries/variants.md) for more information.
 
+- [Variants](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dynamic_dictionaries/variants.md)
+
 ### CMS Properties
 
-##### `version` (string)
+#### `version` (string)
 
 Version identifier for remote dictionaries. Helps track which version of the dictionary is currently being used, especially useful when working with remote content management systems.
 
-##### `importMode` ('static' | 'dynamic' | 'fetch')
+#### `importMode` ('static' | 'dynamic' | 'fetch')
 
 The import mode determines how your dictionary is imported in your application.
 
@@ -559,35 +602,35 @@ If set, this property overrides the global `importMode` defined in the `dictiona
 
 These properties are automatically generated by Intlayer and should not be manually modified:
 
-##### `$schema` (string)
+#### `$schema` (string)
 
 JSON schema used for validation of the dictionary structure. Automatically added by Intlayer to ensure dictionary integrity.
 
-##### `id` (string)
+#### `id` (string)
 
 For remote dictionaries, this is the unique identifier of the dictionary in the remote server. Used for fetching and managing remote content.
 
-##### `projectIds` (string[])
+#### `projectIds` (string[])
 
 For remote dictionaries, this array contains the IDs of the projects that can use this dictionary. A remote dictionary can be shared between multiple projects.
 
-##### `localId` (LocalDictionaryId)
+#### `localId` (LocalDictionaryId)
 
 Unique identifier for local dictionaries. Auto-generated by Intlayer to help identify the dictionary and determine if it's local or remote, along with its location.
 
-##### `localIds` (LocalDictionaryId[])
+#### `localIds` (LocalDictionaryId[])
 
 For merged dictionaries, this array contains the IDs of all dictionaries that were merged together. Useful for tracking the source of merged content.
 
-##### `filePath` (string)
+#### `filePath` (string)
 
 The file path of the local dictionary, indicating which `.content` file the dictionary was generated from. Helps with debugging and source tracking.
 
-##### `versions` (string[])
+#### `versions` (string[])
 
 For remote dictionaries, this array contains all available versions of the dictionary. Helps track which versions are available for use.
 
-##### `filled` (true)
+#### `filled` (true)
 
 Indicates whether the dictionary has been auto-filled from external sources. In case of conflicts, base dictionaries will override auto-filled dictionaries.
 
@@ -612,6 +655,8 @@ multilingualContent: t({
 
 > See [Translation Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/translation.md) for more information.
 
+- [Translation Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/translation.md)
+
 ### Condition Content (`cond`)
 
 Content that changes based on boolean conditions:
@@ -627,6 +672,8 @@ conditionalContent: cond({
 
 > See [Condition Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/condition.md) for more information.
 
+- [Condition Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/condition.md)
+
 ### Plural Content (`plural`)
 
 Content that varies based on plural rules:
@@ -641,6 +688,8 @@ pluralContent: plural({
 ```
 
 > See [Plural Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/plural.md) for more information.
+
+- [Plural Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/plural.md)
 
 ### Enumeration Content (`enu`)
 
@@ -658,6 +707,8 @@ statusContent: enu({
 
 > See [Enumeration Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/enumeration.md) for more information.
 
+- [Enumeration Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/enumeration.md)
+
 ### Insertion Content (`insert`)
 
 Content that can be inserted into other content:
@@ -670,6 +721,8 @@ insertionContent: insert("This text can be inserted anywhere");
 
 > See [Insertion Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/insertion.md) for more information.
 
+- [Insertion Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/insertion.md)
+
 ### Nested Content (`nest`)
 
 References to other dictionaries:
@@ -681,6 +734,8 @@ nestedContent: nest("about-page");
 ```
 
 > See [Nested Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/nesting.md) for more information.
+
+- [Nested Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/nesting.md)
 
 ### Markdown Content (`md`)
 
@@ -701,6 +756,8 @@ localizedMarkdownContent: t({
 
 > See [Markdown Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/markdown.md) for more information.
 
+- [Markdown Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/markdown.md)
+
 ### HTML Content (`html`)
 
 Rich HTML content that can use standard tags or custom components:
@@ -720,6 +777,8 @@ localizedHtmlContent: t({
 
 > See [HTML Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/html.md) for more information.
 
+- [HTML Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/html.md)
+
 ### Gender Content (`gender`)
 
 Content that varies based on gender:
@@ -730,15 +789,17 @@ import { gender } from "intlayer";
 genderContent: gender({
   male: "He is a developer",
   female: "She is a developer",
-  other: "They are a developer",
+  fallback: "They are a developer",
 });
 ```
 
 > See [Gender Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/gender.md) for more information.
 
+- [Gender Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/gender.md)
+
 ### Select Content (`select`)
 
-Content that varies based on an arbitrary string value — the ICU `select` equivalent:
+Content that varies based on an arbitrary string value, the ICU `select` equivalent:
 
 ```typescript
 import { select } from "intlayer";
@@ -755,6 +816,8 @@ Use it when the discriminant is neither a quantity (`enu`), a boolean (`cond`), 
 
 > See [Select Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/select.md) for more information.
 
+- [Select Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/select.md)
+
 ### File Content (`file`)
 
 References to external files:
@@ -766,6 +829,8 @@ fileContent: file("./path/to/content.txt");
 ```
 
 > See [File Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/file.md) for more information.
+
+- [File Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/file.md)
 
 ## Creating Content Files
 

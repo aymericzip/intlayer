@@ -1,8 +1,9 @@
 ---
 createdAt: 2026-09-21
-updatedAt: 2026-09-21
-title: CLI - Init Infra
-description: Learn how to use the Intlayer CLI init infra command to install the desktop app or self-host the Intlayer CMS with Docker (all-in-one container or Docker Compose stack).
+updatedAt: 2026-09-27
+priority: 5
+title: "intlayer init infra: Self-Host the Intlayer CMS"
+description: "Install the Intlayer desktop app or self-host the Intlayer CMS with Docker, as an all-in-one container or a Docker Compose stack."
 keywords:
   - CLI
   - Infrastructure
@@ -131,6 +132,8 @@ npx intlayer init infra --mode compose
 
 Given a domain (for instance `example.org`), the installer suggests `https://cms.example.org`, `https://back.example.org` and `https://s3.example.org/intlayer` for the dashboard, the API and the object storage, writes them to the environment file, and switches the start command to a build from the repository, since the published dashboard image only works on `localhost`. See [Custom domain](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/self_hosting.md#custom-domain).
 
+- [Custom domain](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/self_hosting.md#custom-domain)
+
 ## Installer settings
 
 The installer reads a few environment variables, which the CLI passes through untouched. Set them in your shell before running the command:
@@ -156,6 +159,8 @@ INTLAYER_COMPOSE_DIR=./cms npx intlayer init infra --mode compose
 
 > The port variables only change the **host** side of the mapping. The published images have `http://localhost:3000`, `http://localhost:3100` and `http://localhost:9000` compiled into the dashboard bundle, so keep the defaults unless you build your own images: see the [self-hosting guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/self_hosting.md#limitations).
 
+- [self-hosting guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/self_hosting.md#limitations)
+
 ## Requirements
 
 - **Desktop app** needs [Node.js](https://nodejs.org): the app embeds the dashboard's server and starts it with the machine's own `node` binary.
@@ -170,6 +175,6 @@ INTLAYER_COMPOSE_DIR=./cms npx intlayer init infra --mode compose
 
 ## Related
 
-- [Self-hosting guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/self_hosting.md) - Architecture, first-run steps and limitations of each mode
-- [Initialize Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/init.md) - The parent `init` command and its interactive checklist
-- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) - What the dashboard you just installed does
+- [Self-hosting guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/self_hosting.md)
+- [Initialize Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/init.md)
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)

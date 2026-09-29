@@ -1,7 +1,8 @@
 ---
 createdAt: 2026-05-10
-updatedAt: 2026-05-10
-title: Sync PO plugin
+updatedAt: 2026-09-27
+priority: 6
+title: "Sync PO Plugin: Gettext Files with Intlayer"
 description: Synchronize Intlayer dictionaries with Gettext PO files. Keep your existing i18n while using Intlayer to manage, translate, and test your messages.
 keywords:
   - Intlayer
@@ -35,7 +36,7 @@ Notes and current scope:
 - No support yet for insertions, plurals/ICU, or advanced runtime features of other libraries within the PO entries themselves.
 - The visual editor is not supported yet for third‑party i18n outputs.
 
-### When to use this plugin
+## When to use this plugin
 
 - You already use Gettext PO files for your translations.
 - You want AI‑assisted fill, test in CI, and content ops without changing your rendering runtime.
@@ -320,6 +321,8 @@ The synchronized PO files will be considered as other `.content` files. That mea
 - `intlayer content pull` to pull the synchronized PO files
 
 See [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md) for more details.
+
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md)
 
 ## Limitations (current)
 

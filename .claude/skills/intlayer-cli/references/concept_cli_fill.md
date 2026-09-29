@@ -1,8 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
-title: Fill Dictionaries
-description: Learn how to fill, audit, and translate your dictionaries using AI.
+updatedAt: 2026-09-27
+priority: 5
+title: "intlayer fill: Translate Dictionaries with AI"
+description: "Fill missing translations, audit existing ones and translate your Intlayer dictionaries with AI from the CLI, locally or in CI."
 keywords:
   - Fill
   - Audit

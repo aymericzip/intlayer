@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-06-25
+priority: 5
 title: intlayer Vite Plugin Documentation | vite-intlayer
 description: Complete guide to the intlayer() Vite plugin – dictionary preparation, aliases, dev watcher, locale-routing proxy, and compiler.
 keywords:
@@ -146,9 +147,13 @@ intlayer({ proxy: { ignore: (req) => req.url?.startsWith("/api") } });
 
 See the [intlayerProxy documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/vite-intlayer/intlayerProxy.md) for the full routing behaviour reference.
 
+- [intlayerProxy documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/vite-intlayer/intlayerProxy.md)
+
 ### 5. Bundled compiler (v9+)
 
 When `compiler.enabled` is `true` **and** `compiler.output` is set in your Intlayer config, `intlayer()` registers `intlayerCompiler` automatically. The compiler extracts inline content declarations written directly inside component files and writes them to dictionaries at transform time. See [intlayerCompiler documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/vite-intlayer/intlayerCompiler.md).
+
+- [intlayerCompiler documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/vite-intlayer/intlayerCompiler.md)
 
 ### 6. Build optimisations
 

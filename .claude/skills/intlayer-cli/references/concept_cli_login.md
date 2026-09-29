@@ -1,7 +1,8 @@
 ---
 createdAt: 2025-12-16
-updatedAt: 2026-09-12
-title: CLI - Login
+updatedAt: 2026-09-27
+priority: 5
+title: "intlayer login: Authenticate with the CMS"
 description: Learn how to use the Intlayer CLI login command to authenticate with the Intlayer CMS and obtain access credentials.
 keywords:
   - CLI
@@ -133,14 +134,14 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> **`clientSecret` is a server-side credential.** It grants full project-scoped API access — reading and writing your dictionaries, your project and your organization. Keep it in `.env` (git-ignored) or your CI secret store, and never inline it in the configuration file.
+> **`clientSecret` is a server-side credential.** It grants full project-scoped API access, reading and writing your dictionaries, your project and your organization. Keep it in `.env` (git-ignored) or your CI secret store, and never inline it in the configuration file.
 
 Intlayer enforces this rather than only documenting it:
 
 - `clientSecret` is **stripped from the configuration your bundler inlines**, so it cannot reach a browser bundle whatever framework integration you use. It is only ever read server-side, at runtime, from the environment.
 - `clientId` is different: it is the **public** project key, safe to ship, and used by [`@intlayer/analytics`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/analytics.md#how-events-are-authenticated) to obtain a short-lived, ingest-only token.
 
-Commenting `clientId` out is enough to disable every credentialed behaviour — remote dictionary fetching, CMS access, analytics — even when the environment variables are still defined.
+Commenting `clientId` out is enough to disable every credentialed behaviour (remote dictionary fetching, CMS access, analytics) even when the environment variables are still defined.
 
 For CI pipelines, prefer the `--ci` flag, which injects the credentials for the duration of a single run instead of persisting them.
 
@@ -233,9 +234,9 @@ After completing the login:
 1. Add the credentials to your `.env` file
 2. Configure your `intlayer.config.*` file with the credentials
 3. Use CLI commands to manage your dictionaries:
-   - [`npx intlayer push`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/push.md) - Push dictionaries to the CMS
-   - [`npx intlayer pull`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/pull.md) - Pull dictionaries from the CMS
-   - [`npx intlayer fill`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/fill.md) - Fill missing translations
+   - [`npx intlayer push`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/push.md)
+   - [`npx intlayer pull`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/pull.md)
+   - [`npx intlayer fill`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/fill.md)
 
 ## See Also
 

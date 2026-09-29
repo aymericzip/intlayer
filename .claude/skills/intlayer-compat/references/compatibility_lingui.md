@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
+priority: 7
 title: "Migrate from Lingui to Intlayer"
 description: "Learn how to migrate your application from Lingui to Intlayer using the compat adapter."
 keywords:
@@ -42,3 +43,7 @@ Under the hood:
 - **Macros:** They compile precisely as they did before, ensuring no disruption in your source syntax.
 - **Runtime translation:** The aliased `i18n._()` uses Intlayer dictionaries. Both explicitly named IDs and hashed IDs are fully mapped using Intlayer's `.po` sync plugins to aggregate and prune keys securely.
 - **ICU capabilities:** Support for pluralization, selection, and ICU variants remains robust due to Intlayer's unified ICU parser, ensuring identical rendering outputs.
+
+> To understand where these libraries come from, read the history of JavaScript i18n.
+
+- [The history of JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/history_of_i18n.md)

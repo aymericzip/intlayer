@@ -1,7 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
-title: Build Dictionaries
+updatedAt: 2026-09-27
+priority: 5
+title: "intlayer build: Build Dictionaries from Content"
 description: Learn how to build your Intlayer dictionaries from content declaration files.
 keywords:
   - Build

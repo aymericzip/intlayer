@@ -30,6 +30,8 @@ To use Intlayer effectively:
     - `react-intlayer`: React components and hooks (e.g., `useIntlayer`).
     - `vite-intlayer`: Vite plugin for integration.
 
+    **Read fields statically** (`content.title`, never `content.statuses[status]`) so the build can purge and minify dictionaries. See the `intlayer-bundle-optimization` skill.
+
 4.  **CLI Commands**:
     Useful commands for managing your content:
     - `npx intlayer build`: Build the dictionaries from your content declarations.

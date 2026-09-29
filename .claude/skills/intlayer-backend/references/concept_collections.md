@@ -1,7 +1,8 @@
 ---
 createdAt: 2026-06-12
-updatedAt: 2026-06-12
-title: Collections
+updatedAt: 2026-09-27
+priority: 8
+title: "Collections: Ordered Lists of Localized Items"
 description: Use the item metadata field in Intlayer content files to build ordered collections of localized items selectable by index at runtime.
 keywords:
   - Collections

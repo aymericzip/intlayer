@@ -1,8 +1,9 @@
 ---
 createdAt: 2025-06-07
-updatedAt: 2026-08-21
-title: MCP Server Documentation
-description: Explore the features and setup of the MCP Server to optimize your server management and operations.
+updatedAt: 2026-09-27
+priority: 6
+title: "Intlayer MCP Server for AI Assistants"
+description: "Connect the Intlayer MCP server to Cursor, VS Code or Claude Desktop so your AI assistant can read the docs and help set up Intlayer."
 keywords:
   - MCP Server
   - Server Management

@@ -1,8 +1,9 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
-title: "Migrate from NuxtJS I18n to Intlayer"
-description: "Learn how to migrate your Nuxt.js application from @nuxtjs/i18n to Intlayer using the compat adapter."
+updatedAt: 2026-09-27
+priority: 7
+title: "@intlayer/nuxt-i18n: Compat Adapter for @nuxtjs/i18n"
+description: "Keep your @nuxtjs/i18n code and serve it from Intlayer: install @intlayer/nuxt-i18n, alias the imports, and see what the adapter changes under the hood."
 keywords:
   - nuxtjs-i18n
   - nuxt
@@ -21,7 +22,7 @@ history:
 author: aymericzip
 ---
 
-# Migrate from NuxtJS I18n to Intlayer
+# @intlayer/nuxt-i18n: Compat Adapter for @nuxtjs/i18n
 
 Migrating your Nuxt application from `@nuxtjs/i18n` to Intlayer is a seamless process using the Nuxt adapter module.
 
@@ -44,3 +45,7 @@ Under the hood:
 - **Translations:** Relies natively on the `@intlayer/vue-i18n` compat layer for all string translation tasks (fully supporting `vue-i18n` formats, pipe plurals, and reactivity).
 - **Routing:** Mirrors the routing composables using Intlayer's localized URL helpers.
 - **Configuration:** Reads the `availableLocales` and default settings straight from your `intlayer.config.ts` to coordinate Nuxt pages automatically.
+
+> To understand where these libraries come from, read the history of JavaScript i18n.
+
+- [The history of JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/history_of_i18n.md)

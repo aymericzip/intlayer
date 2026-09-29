@@ -75,6 +75,10 @@ export const MyComponent = () => {
 
 [Next.js package Documentation](references/packages_next-intlayer_exports.md)
 
+## Bundle Optimization
+
+Read content fields by name (dot access or destructuring) so the build can purge and minify the dictionary. Never index content at runtime (`content.statuses[status]`, use `select()`), and call `useIntlayer` in each child component instead of passing content as a prop. See the `intlayer-bundle-optimization` skill.
+
 ## Compiler
 
 The [Intlayer Compiler](references/compiler.md) can extract all your content keys from your components, using one CLI command (`npx intlayer extract`) or automatically at app build.
@@ -90,8 +94,8 @@ The [Intlayer Compiler](references/compiler.md) can extract all your content key
 - [Next.js 14](references/environment_nextjs_14.md)
 - [Next.js 15](references/environment_nextjs_15.md)
 - [Next.js with Page Router](references/environment_nextjs_next-with-page-router.md)
-- [Intlayer with next-intl](references/next-intl.md)
-- [Intlayer with next-i18next](references/next-i18next.md)
+- [Intlayer with next-intl](https://intlayer.org/doc/next-intl.md)
+- [Intlayer with next-i18next](https://intlayer.org/doc/next-i18next.md)
 
 ### Concepts
 

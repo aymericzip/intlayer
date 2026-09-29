@@ -1,8 +1,9 @@
 ---
 createdAt: 2026-09-09
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
+priority: 9
 title: "Remix 3 i18n - Complete guide to translate your app"
-description: "No more i18next. The 2026 guide to building a multilingual (i18n) Remix 3 app. Translate with AI agents and optimize bundle size, SEO and performances."
+description: "Set up Intlayer in Remix 3: locale detection in router middleware, translated route handlers and views, and localized URLs."
 keywords:
   - Internationalization
   - Documentation
@@ -28,7 +29,7 @@ history:
 author: aymericzip
 ---
 
-# Translate your Remix 3 website using Intlayer | Internationalization (i18n)
+# Translate your Remix 3 website using Intlayer
 
 This guide demonstrates how to integrate **Intlayer** for seamless internationalization in **Remix 3** applications with locale-aware routing, type-safe content declarations, server-rendered JSX components, and cross-runtime support across Node.js, Bun, Deno, and Cloudflare Workers.
 
@@ -76,6 +77,9 @@ Intlayer co-locates content declarations (`.content.ts`) with your route logic, 
 <Accordion header="Visual Editor & CMS Integration">
 
 Beyond code-first workflows, Intlayer provides a self-hosted [Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) and a [Remote CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) allowing non-technical editors, translators, and copywriters to update content without redeploying code.
+
+- [Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)
+- [Remote CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
@@ -203,6 +207,8 @@ module.exports = config;
 
 > For additional configuration settings (such as strict mode or routing storage preferences), refer to the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md).
 
+- [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)
+
 </Step>
 <Step number={3} title="Declare Your Multilingual Content">
 
@@ -236,6 +242,8 @@ export default homeContent;
 ```
 
 > Intlayer also supports JSON, YAML, and CommonJS declaration formats. See the [Content Declaration Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md).
+
+- [Content Declaration Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md)
 
 </Step>
 <Step number={4} title="Build Intlayer Dictionaries">

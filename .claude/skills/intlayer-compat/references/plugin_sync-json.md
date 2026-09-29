@@ -1,8 +1,9 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2026-06-21
-title: Sync JSON plugin
-description: Synchronize Intlayer dictionaries with third‑party i18n JSON files (i18next, next-intl, react-intl, vue-i18n, and more). Keep your existing i18n while using Intlayer to manage, translate, and test your messages.
+updatedAt: 2026-09-27
+priority: 6
+title: "Sync JSON Plugin: Keep Your i18n JSON Files"
+description: "Sync Intlayer dictionaries with i18next, next-intl, react-intl or vue-i18n JSON files, and manage, translate and test them with Intlayer."
 keywords:
   - Intlayer
   - Sync JSON
@@ -52,7 +53,7 @@ Notes and current scope:
 - No support yet for insertions, plurals/ICU, or advanced runtime features of other libraries.
 - The visual editor is not supported yet for third‑party i18n outputs.
 
-### When to use this plugin
+## When to use this plugin
 
 - You already use an i18n library and store messages in JSON files.
 - You want AI‑assisted fill, test in CI, and content ops without changing your rendering runtime.
@@ -215,7 +216,7 @@ Controls whether a single JSON file whose **first-level keys are namespaces** sh
 
 This matches the namespace model of libraries like `next-intl` and `react-intl`, where one `messages/{locale}.json` file groups several namespaces by its first-level keys, each addressed independently (e.g. `useTranslations('Hero')` resolves to the `Hero` dictionary).
 
-- `undefined` (default): **auto-detected** — the file is split when the `source` pattern has no `{key}` segment (one file holds every namespace), and kept as a single dictionary otherwise (one file per key).
+- `undefined` (default): **auto-detected**, the file is split when the `source` pattern has no `{key}` segment (one file holds every namespace), and kept as a single dictionary otherwise (one file per key).
 - `true`: always split each top-level key into its own dictionary.
 - `false`: never split; the whole file becomes a single dictionary.
 
@@ -237,7 +238,7 @@ syncJSON({
 }),
 ```
 
-This produces three dictionaries — `Hero`, `Nav`, and `About` — so `useTranslations('Hero')` (next-intl) resolves correctly. On write-back, all namespaces are re-assembled into the same per-locale file.
+This produces three dictionaries (`Hero`, `Nav`, and `About`) so `useTranslations('Hero')` (next-intl) resolves correctly. On write-back, all namespaces are re-assembled into the same per-locale file.
 
 > When you keep the explicit `{key}` segment in your `source` (e.g. `./locales/${locale}/${key}.json`), each file is already one namespace, so splitting is disabled by default.
 
@@ -401,7 +402,7 @@ loadJSON({
 
 Same behavior as in [`syncJSON`](#splitkeys-boolean): when a single JSON file groups several namespaces by its first-level keys, each top-level key becomes its own dictionary.
 
-- `undefined` (default): **auto-detected** — split when the `source` pattern has no `{key}` segment, single dictionary otherwise.
+- `undefined` (default): **auto-detected**, split when the `source` pattern has no `{key}` segment, single dictionary otherwise.
 - `true` / `false`: force or disable splitting.
 
 ```ts
@@ -439,6 +440,8 @@ The synchronized JSON files will be considered as other `.content` files. That m
 - `intlayer content pull` to pull the synchronized JSON files
 
 See [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md) for more details.
+
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md)
 
 ## Limitations (current)
 

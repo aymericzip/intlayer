@@ -1,8 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
+updatedAt: 2026-09-27
+priority: 5
 title: t Function Documentation | react-intlayer
-description: See how to use the t function for react-intlayer package
+description: "Use the t function from react-intlayer to declare translations inline in your React components, without a separate content file."
 keywords:
   - t
   - translation
@@ -176,5 +177,7 @@ const text = t(translations);
 The `t` function in `react-intlayer` is a powerful and convenient tool for managing inline translations in your React applications. By integrating it effectively, you enhance the internationalization capabilities of your app, providing a better experience for users worldwide.
 
 For more detailed usage and advanced features, refer to the [react-intlayer documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md).
+
+- [react-intlayer documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)
 
 **Note**: Remember to set up your `IntlayerProvider` properly to ensure that the current locale is correctly passed down to your components. This is crucial for the `t` function to return the correct translations.

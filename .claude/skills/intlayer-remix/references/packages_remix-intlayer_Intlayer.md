@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: Intlayer Context Documentation | remix-intlayer
 description: See how to use the Intlayer request context key and property in Remix 3 applications.
 keywords:

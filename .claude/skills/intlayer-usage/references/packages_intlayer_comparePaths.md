@@ -1,8 +1,9 @@
 ---
 createdAt: 2026-06-22
-updatedAt: 2026-06-22
+updatedAt: 2026-09-27
+priority: 5
 title: comparePaths Function Documentation | intlayer
-description: See how to use the comparePaths function for intlayer package
+description: "Use comparePaths to check whether two URLs point to the same page, ignoring the locale segment, host, query string, hash and trailing slash."
 keywords:
   - comparePaths
   - normalizePath
@@ -31,9 +32,11 @@ author: aymericzip
 
 ## Description
 
-The `comparePaths` function compares two URLs or pathnames for equality while ignoring the locale segment, the protocol/host, the query string, the hash and trailing slashes. It is the recommended way to determine whether a navigation link points to the current page — for example to highlight the active link — without having to roll your own (error-prone) normalization logic.
+The `comparePaths` function compares two URLs or pathnames for equality while ignoring the locale segment, the protocol/host, the query string, the hash and trailing slashes. It is the recommended way to determine whether a navigation link points to the current page, for example to highlight the active link, without having to roll your own (error-prone) normalization logic.
 
 Internally it reuses [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getPathWithoutLocale.md) to strip the locale segment, so it respects your configured routing mode and locales.
+
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getPathWithoutLocale.md)
 
 The package also exports the underlying [`normalizePath`](#normalizepath) helper, which returns the canonical, locale-agnostic pathname used for the comparison.
 
@@ -43,7 +46,7 @@ The package also exports the underlying [`normalizePath`](#normalizepath) helper
 - Works with both absolute URLs and relative pathnames
 - Ignores query string, hash and trailing slashes
 - Tolerates missing leading slashes and empty values (normalized to `/`)
-- Lightweight — built on top of `getPathWithoutLocale`
+- Lightweight, built on top of `getPathWithoutLocale`
 
 ## Function Signature
 
@@ -144,9 +147,9 @@ normalizePath("https://example.com/ru/path"); // "/path"
 
 ## Related Functions
 
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getPathWithoutLocale.md): Removes the locale segment from a URL or pathname.
-- [`getPrefix`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getPrefix.md): Determines the URL prefix for a given locale.
-- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocalizedUrl.md): Generates a localized URL for a specific locale.
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getPathWithoutLocale.md)
+- [`getPrefix`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getPrefix.md)
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocalizedUrl.md)
 
 ## TypeScript
 

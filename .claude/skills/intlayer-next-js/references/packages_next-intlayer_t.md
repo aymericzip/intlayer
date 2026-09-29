@@ -1,8 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-08-22
+updatedAt: 2026-09-27
+priority: 5
 title: t Function Documentation | next-intlayer
-description: See how to use the t function for next-intlayer package
+description: "Use the t function from next-intlayer to declare translations inline in your Next.js components, without a separate content file."
 keywords:
   - t
   - translation
@@ -223,5 +224,7 @@ const text = t(translations);
 The `t` function in `next-intlayer` is a powerful and convenient tool for managing inline translations in your Next.js applications. By integrating it effectively, you enhance the internationalization capabilities of your app, providing a better experience for users worldwide.
 
 For more detailed usage and advanced features, refer to the [next-intlayer documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md).
+
+- [next-intlayer documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)
 
 **Note**: Remember to set up your `IntlayerProvider` (or `IntlayerClientProvider` and `IntlayerServerProvider`) properly to ensure that the current locale is correctly passed down to your components. This is crucial for the `t` function to return the correct translations.

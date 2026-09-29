@@ -34,7 +34,7 @@ const content = t({
 
 Find locales to declare in config file. Supported configuration files:
 
-- `intlayer.config.{ts|js|json|json5|jsonc|cjs|mjs}`
+- `intlayer.config.{ts|js|cjs|mjs|json|json5|jsonc|md|mdx|yml|yaml}`
 - `.intlayerrc`
 
 ## Enumeration (`enu`)
@@ -210,7 +210,7 @@ const publishStatus = select({
 // Usage: publishStatus(post.status)
 ```
 
-> Prefer `select()` over indexing a plain object (`content[status]`): dynamic property access prevents the compiler from pruning and minifying the content.
+> Prefer `select()` over indexing a plain object (`content.statuses[status]`): dynamic property access prevents the compiler from pruning and minifying the content, and the build warns `Opaque field`.
 
 ### Choosing a node by discriminant
 
@@ -304,6 +304,7 @@ import {
   html,
   md,
   nest,
+  select,
   t,
   type Dictionary,
 } from "intlayer";
@@ -312,7 +313,7 @@ const content = {
   key: "test",
   title: "Test component content",
   description:
-    "Content declarations for the Test component, including examples of plurals, conditions, gender-specific messages, dynamic insertions, markdown, file-based content and nested dictionaries used for demonstration and testing purposes.",
+    "Content declarations for the Test component, including examples of plurals, conditions, gender-specific messages, string-based selections, dynamic insertions, markdown, file-based content and nested dictionaries used for demonstration and testing purposes.",
   content: {
     baseContent: "Intlayer", // Content that no need to be i18n
     welcomeMessage: t({
@@ -341,6 +342,11 @@ const content = {
       male: "my content for male users",
       female: "my content for female users",
       fallback: "my content when gender is not specified", // Optional but avoid undefined type
+    }),
+    mySelect: select({
+      draft: "my content when the status is draft",
+      published: "my content when the status is published",
+      fallback: "my content for any other status", // Optional but avoid undefined type
     }),
     myInsertion: insert(
       "Hello, my name is {{name}} and I am {{age}} years old!"

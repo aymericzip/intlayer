@@ -1,8 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
+updatedAt: 2026-09-27
+priority: 5
 title: getEnumeration Function Documentation | intlayer
-description: See how to use the getEnumeration function for intlayer package
+description: "Use getEnumeration (alias enu) to pick the content matching a quantity from an enumeration object, based on its conditions."
 keywords:
   - getEnumeration
   - translation
@@ -32,6 +33,8 @@ author: aymericzip
 The `getEnumeration` function (also aliased as `enu`) retrieves content corresponding to a specific quantity based on predefined conditions in an enumeration object. The conditions are defined as keys, and their priority is determined by their order in the object.
 
 For more details on how to declare enumerations, see the [Enumeration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/enumeration.md).
+
+- [Enumeration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/enumeration.md)
 
 ## Parameters
 

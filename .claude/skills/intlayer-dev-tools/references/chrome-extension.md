@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-22
 updatedAt: 2026-09-22
+priority: 6
 title: Chrome & Firefox Extension, i18n & SEO Scanner
 description: Inspect the i18n setup of any website with the Intlayer Chrome extension. Detect the framework, i18n library, locales, hreflang and SEO tags, and run a full i18n SEO audit.
 keywords:
@@ -118,6 +119,11 @@ Detection relies on what the page exposes in the browser: global variables, cook
 <Question title="How do I fix the issues found by the audit?">
 
 Most checks map to a routing or metadata setting. With Intlayer, hreflang, canonical, `x-default`, localized links, sitemap and robots.txt are generated from your [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md). See the integration guide for your framework, for example [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_16.md), [Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nuxt.md) or [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_tanstack.md).
+
+- [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)
+- [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_16.md)
+- [Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nuxt.md)
+- [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_tanstack.md)
 
 </Question>
 

@@ -1,8 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
+updatedAt: 2026-09-27
+priority: 5
 title: getTranslation Function Documentation | intlayer
-description: See how to use the getTranslation function for intlayer package
+description: "Use getTranslation (alias t) to pick the content of a given locale from a translation map, with a fallback to the default locale."
 keywords:
   - getTranslation
   - translation
@@ -32,6 +33,8 @@ author: aymericzip
 The `getTranslation` function (also aliased as `t`) retrieves the content corresponding to a specific locale from a set of customizable language content. If the specified locale is not found, it defaults to returning the content for the default locale configured in the project.
 
 For more details on how to declare translations, see the [Translation documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/translation.md).
+
+- [Translation documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/translation.md)
 
 ## Parameters
 
