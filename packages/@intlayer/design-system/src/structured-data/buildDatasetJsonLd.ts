@@ -2,6 +2,33 @@
 
 import { normalizeJsonLdUrl, normalizeJsonLdUrls } from './normalizeJsonLdUrl';
 
+/** Google rejects a Dataset whose description is shorter than this. */
+export const MINIMUM_DATASET_DESCRIPTION_LENGTH = 50;
+
+/**
+ * Appends supplements to a description until it reaches the minimum length
+ * Google accepts. CJK translations of a sentence are often below 50 characters.
+ *
+ * @param description - Description provided by the caller.
+ * @param supplements - Extra sentences appended in order, while too short.
+ * @returns The description, completed when it was too short.
+ */
+const completeDatasetDescription = (
+  description: string,
+  supplements: (string | undefined)[]
+): string =>
+  supplements.reduce<string>((completedDescription, supplement) => {
+    if (
+      completedDescription.length >= MINIMUM_DATASET_DESCRIPTION_LENGTH ||
+      !supplement ||
+      completedDescription.includes(supplement)
+    ) {
+      return completedDescription;
+    }
+
+    return `${completedDescription} ${supplement}`;
+  }, description.trim());
+
 /** One measured variable of a dataset, e.g. the commit count of a repository. */
 export type DatasetVariable = {
   name: string;
@@ -23,7 +50,10 @@ export type DatasetDistribution = {
 
 export type BuildDatasetJsonLdParams = {
   name: string;
-  /** Google Dataset Search expects at least 50 characters. */
+  /**
+   * Google Dataset Search expects at least 50 characters. A shorter one is
+   * completed with the name, measured variables and keywords.
+   */
   description: string;
   /** Page the dataset is presented on. */
   url?: string;
@@ -49,6 +79,8 @@ export type BuildDatasetJsonLdParams = {
  * Search engines render no rich result for charts, but a `Dataset` makes the
  * data behind one eligible for Google Dataset Search. Variables with a known
  * value are emitted as `PropertyValue` nodes, the others by name only.
+ * A description below {@link MINIMUM_DATASET_DESCRIPTION_LENGTH} characters
+ * is completed, since Google marks the whole item invalid otherwise.
  *
  * @param params - Metadata, sources and measured variables of the dataset.
  * @returns A JSON-LD Dataset object ready for serialization.
@@ -71,7 +103,12 @@ export const buildDatasetJsonLd = ({
   '@context': 'https://schema.org' as const,
   '@type': 'Dataset' as const,
   name,
-  description,
+  description: completeDatasetDescription(description, [
+    `${name}.`,
+    variableMeasured?.map((variable) => variable.name).join(', '),
+    ...(variableMeasured?.map((variable) => variable.description) ?? []),
+    keywords?.join(', '),
+  ]),
   ...(url ? { url: normalizeJsonLdUrl(url) } : {}),
   ...(keywords?.length ? { keywords } : {}),
   creator: {

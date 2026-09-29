@@ -1,6 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import { buildCreativeWorkJsonLd } from './buildCreativeWorkJsonLd';
-import { buildDatasetJsonLd } from './buildDatasetJsonLd';
+import {
+  buildDatasetJsonLd,
+  MINIMUM_DATASET_DESCRIPTION_LENGTH,
+} from './buildDatasetJsonLd';
 import { buildItemListJsonLd } from './buildItemListJsonLd';
 import { buildOrganizationJsonLd } from './buildOrganizationJsonLd';
 import {
@@ -9,9 +12,6 @@ import {
 } from './buildSoftwareApplicationJsonLd';
 import { buildWebsiteJsonLd } from './buildWebsiteJsonLd';
 import { normalizeJsonLdUrl } from './normalizeJsonLdUrl';
-
-/** Minimum description length Google expects on a Dataset node. */
-const MINIMUM_DATASET_DESCRIPTION_LENGTH = 50;
 
 const websiteParams = {
   url: 'https://intlayer.org',
@@ -368,5 +368,30 @@ describe('buildDatasetJsonLd', () => {
       'creator',
       'isAccessibleForFree',
     ]);
+  });
+
+  it('completes a description too short for Google, e.g. in Chinese', () => {
+    const shortDescription =
+      '比较 React 和 Next.js 中最受欢迎的国际化库的性能。';
+    const { description } = buildDatasetJsonLd({
+      name: 'I18n 性能基准测试 (Next.js)',
+      description: shortDescription,
+      variableMeasured: [{ name: '包大小' }, { name: '加载时间' }],
+    });
+
+    expect(shortDescription.length).toBeLessThan(
+      MINIMUM_DATASET_DESCRIPTION_LENGTH
+    );
+    expect(description.startsWith(shortDescription)).toBe(true);
+    expect(description).toContain('I18n 性能基准测试 (Next.js)');
+    expect(description.length).toBeGreaterThanOrEqual(
+      MINIMUM_DATASET_DESCRIPTION_LENGTH
+    );
+  });
+
+  it('keeps a description that is already long enough untouched', () => {
+    expect(buildDatasetJsonLd(datasetParams).description).toBe(
+      datasetParams.description
+    );
   });
 });
