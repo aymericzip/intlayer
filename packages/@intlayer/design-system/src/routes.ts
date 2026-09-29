@@ -283,6 +283,9 @@ export const Website_Benchmark_Path = '/doc/benchmark' as const;
 export const Website_Benchmark_NextJS_Path = '/doc/benchmark/nextjs' as const;
 export const Website_Benchmark_Tanstack_Path =
   '/doc/benchmark/tanstack' as const;
+export const Website_Benchmark_Vue_Path = '/doc/benchmark/vue' as const;
+export const Website_Benchmark_Svelte_Path = '/doc/benchmark/svelte' as const;
+export const Website_Benchmark_Solid_Path = '/doc/benchmark/solid' as const;
 
 export const Website_Doc_MCP_Path = '/doc/mcp-server' as const;
 export const Website_Doc_ChromeExtension_Path =
@@ -336,6 +339,12 @@ export const Website_Benchmark_NextJS =
   `${Website_Origin}${Website_Benchmark_NextJS_Path}` as const;
 export const Website_Benchmark_Tanstack =
   `${Website_Origin}${Website_Benchmark_Tanstack_Path}` as const;
+export const Website_Benchmark_Vue =
+  `${Website_Origin}${Website_Benchmark_Vue_Path}` as const;
+export const Website_Benchmark_Svelte =
+  `${Website_Origin}${Website_Benchmark_Svelte_Path}` as const;
+export const Website_Benchmark_Solid =
+  `${Website_Origin}${Website_Benchmark_Solid_Path}` as const;
 
 export const Website_Doc_Root =
   `${Website_Origin}${Website_Doc_Root_Path}` as const;
