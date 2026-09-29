@@ -80,8 +80,4 @@ Once the app runs on Intlayer, components can be moved progressively to the nati
 - [Lingui](https://intlayer.org/doc/compatibility/lingui.md)
 - [NuxtJS I18n](https://intlayer.org/doc/compatibility/nuxtjs-i18n.md)
 - [NGX Translate](https://intlayer.org/doc/compatibility/ngx-translate.md)
-- [Transloco](https://intlayer.org/doc/compatibility/transloco.md)
 - [Svelte I18n](https://intlayer.org/doc/compatibility/svelte-i18n.md)
-- [Next Translate](https://intlayer.org/doc/compatibility/next-translate.md)
-- [Polyglot.js](https://intlayer.org/doc/compatibility/polyglot.md)
-- [i18n-js](https://intlayer.org/doc/compatibility/i18n-js.md)

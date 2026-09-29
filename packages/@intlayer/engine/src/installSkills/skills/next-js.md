@@ -90,8 +90,8 @@ The [Intlayer Compiler](https://intlayer.org/doc/compiler.md) can extract all yo
 - [Next.js 14](https://intlayer.org/doc/environment/nextjs/14.md)
 - [Next.js 15](https://intlayer.org/doc/environment/nextjs/15.md)
 - [Next.js with Page Router](https://intlayer.org/doc/environment/nextjs/next-with-page-router.md)
-- [Intlayer with next-intl](https://intlayer.org/doc/next-intl.md)
-- [Intlayer with next-i18next](https://intlayer.org/doc/next-i18next.md)
+- [Intlayer with next-intl](https://intlayer.org/doc/migration/next-intl.md)
+- [Intlayer with next-i18next](https://intlayer.org/doc/migration/next-i18next.md)
 
 ### Concepts
 
