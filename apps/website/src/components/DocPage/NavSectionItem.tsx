@@ -43,7 +43,7 @@ export const OptionalLink: FC<OptionalLinkProps> = ({
   const content = (
     <span
       className={cn(
-        'flex w-full items-center',
+        'flex w-full min-w-0 items-center',
         hasLeftIcon ? 'gap-3' : 'gap-2'
       )}
     >
@@ -60,7 +60,11 @@ export const OptionalLink: FC<OptionalLinkProps> = ({
           ))}
         </span>
       )}
-      <span className="flex flex-1 items-center gap-3 truncate whitespace-nowrap">
+      {/* Block (not flex) so text-overflow can render the ellipsis */}
+      <span
+        className="min-w-0 flex-1 truncate whitespace-nowrap"
+        title={typeof children === 'string' ? children : undefined}
+      >
         {children}
       </span>
     </span>
@@ -71,9 +75,9 @@ export const OptionalLink: FC<OptionalLinkProps> = ({
       <span
         className={cn(
           inAccordion
-            ? 'flex flex-1 items-center truncate text-nowrap text-left font-medium text-sm'
+            ? 'flex min-w-0 flex-1 items-center truncate text-nowrap text-left font-medium text-sm'
             : cn(
-                'flex w-full items-center truncate text-nowrap px-2.5 py-1.5 text-left text-sm',
+                'flex w-full min-w-0 items-center truncate text-nowrap px-2.5 py-1.5 text-left text-sm',
                 isLevel1 ? 'font-medium text-text' : 'font-medium text-neutral'
               ),
           className
@@ -211,6 +215,8 @@ export const NavAccordion: FC<NavAccordionProps> = ({
         isDeployed ? 'text-text' : 'text-neutral',
         headerClassName
       )}
+      // Lets the grid item shrink so long titles ellipsize instead of scrolling
+      contentClassName="min-w-0"
       iconClassName="size-3 opacity-70 transition-[transform,opacity] duration-300 group-hover:opacity-100"
       isActive={isSelfActive && !isSubSectionActive}
     >
