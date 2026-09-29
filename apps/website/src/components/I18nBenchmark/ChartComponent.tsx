@@ -17,6 +17,11 @@ import {
   LOGO_URLS,
 } from './constants';
 
+/** Vertical space reserved per bar so every library label stays readable. */
+const ROW_HEIGHT_PIXELS = 28;
+/** Room for the x axis ticks and chart padding. */
+const AXIS_HEIGHT_PIXELS = 40;
+
 Chart.register(
   BarController,
   BarElement,
@@ -200,7 +205,11 @@ export const ChartComponent: FC<{
           },
           y: {
             grid: { display: false },
-            ticks: { color: '#9ca3af', font: { size: 11, weight: 'bold' } },
+            ticks: {
+              color: '#9ca3af',
+              font: { size: 11, weight: 'bold' },
+              autoSkip: false,
+            },
           },
         },
       },
@@ -213,5 +222,14 @@ export const ChartComponent: FC<{
     };
   }, [data, unit, logoImages, isDarkMode]);
 
-  return <canvas ref={canvasRef} className="size-full" />;
+  return (
+    <div
+      className="relative size-full"
+      style={{
+        minHeight: data.length * ROW_HEIGHT_PIXELS + AXIS_HEIGHT_PIXELS,
+      }}
+    >
+      <canvas ref={canvasRef} />
+    </div>
+  );
 };
