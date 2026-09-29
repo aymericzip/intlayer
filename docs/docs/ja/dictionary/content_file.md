@@ -77,6 +77,7 @@ import {
   plural,
   cond,
   select,
+  gender,
   nest,
   md,
   insert,
@@ -98,6 +99,7 @@ interface Content {
   pluralContent: string;
   conditionalContent: string;
   selectContent: string;
+  genderContent: string;
   markdownContent: never;
   htmlContent: never;
   externalContent: string;
@@ -145,6 +147,11 @@ export default {
       draft: "この投稿は下書きです",
       published: "この投稿は公開中です",
       fallback: "不明なステータス",
+    }),
+    genderContent: gender({
+      male: "彼は開発者です",
+      female: "彼女は開発者です",
+      fallback: "彼らは開発者です",
     }),
     insertionContent: insert("こんにちは {{name}}!"),
     nestedContent: nest(
@@ -219,6 +226,14 @@ export default {
         "fallback": "不明なステータス",
       },
     },
+    "genderContent": {
+      "nodeType": "gender",
+      "gender": {
+        "male": "彼は開発者です",
+        "female": "彼女は開発者です",
+        "fallback": "彼らは開発者です",
+      },
+    },
     "insertionContent": {
       "nodeType": "insertion",
       "insertion": "こんにちは {{name}}！",
@@ -272,7 +287,7 @@ Intlayerは型付きノードを通じて様々なコンテンツタイプをサ
 - **Markdown Content**: Markdown形式のリッチテキストコンテンツ [Markdown Contentを参照](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/markdown_content.md)
 - **HTML Content**: オプションのカスタムコンポーネントを使用したリッチHTMLコンテンツ [HTML Contentを参照](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/html.md)
 - **Nested Content**: 他の辞書への参照 [Nested Contentを参照](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/nested_content.md)
-- **Gender Content**: 性別に応じて変わるコンテンツ [Gender Contentを参照](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/gender_content.md)
+- **Gender Content**: 性別に応じて変わるコンテンツ [Gender Contentを参照](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/gender.md)
 - **Select Content**: 任意の文字列値に基づいて変化するコンテンツ [Select Contentを参照](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/select.md)
 - **File Content**: 外部ファイルへの参照 [File Contentを参照](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/file_content.md)
 
@@ -763,7 +778,7 @@ import { gender } from "intlayer";
 genderContent: gender({
   male: "彼は開発者です",
   female: "彼女は開発者です",
-  other: "彼らは開発者です",
+  fallback: "彼らは開発者です",
 });
 ```
 

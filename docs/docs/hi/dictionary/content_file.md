@@ -77,6 +77,7 @@ import {
   plural,
   cond,
   select,
+  gender,
   nest,
   md,
   html,
@@ -99,6 +100,7 @@ interface Content {
   pluralContent: string;
   conditionalContent: string;
   selectContent: string;
+  genderContent: string;
   markdownContent: never;
   htmlContent: never;
   externalContent: string;
@@ -146,6 +148,11 @@ export default {
       draft: "यह पोस्ट एक ड्राफ्ट है",
       published: "यह पोस्ट लाइव है",
       fallback: "अज्ञात स्थिति",
+    }),
+    genderContent: gender({
+      male: "वह एक डेवलपर है",
+      female: "वह एक डेवलपर है",
+      fallback: "वे एक डेवलपर हैं",
     }),
     insertionContent: insert("नमस्ते {{name}}!"),
     nestedContent: nest(
@@ -220,6 +227,14 @@ export default {
         "fallback": "अज्ञात स्थिति",
       },
     },
+    "genderContent": {
+      "nodeType": "gender",
+      "gender": {
+        "male": "वह एक डेवलपर है",
+        "female": "वह एक डेवलपर है",
+        "fallback": "वे एक डेवलपर हैं",
+      },
+    },
     "insertionContent": {
       "nodeType": "insertion",
       "insertion": "नमस्ते {{name}}!",
@@ -273,7 +288,7 @@ Intlayer टाइप्ड नोड्स के माध्यम से व
 - **मार्कडाउन सामग्री**: मार्कडाउन प्रारूप में समृद्ध पाठ सामग्री [देखें मार्कडाउन सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/markdown_content.md)
 - **HTML सामग्री**: समृद्ध HTML सामग्री जो मानक टैग या कस्टम कंपोनेंट्स का उपयोग कर सकती है [देखें HTML सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/html.md)
 - **नेस्टेड सामग्री**: अन्य शब्दकोशों के संदर्भ [देखें नेस्टेड सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/nested_content.md)
-- **लिंग सामग्री**: लिंग के आधार पर भिन्न सामग्री [देखें लिंग सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/gender_content.md)
+- **लिंग सामग्री**: लिंग के आधार पर भिन्न सामग्री [देखें लिंग सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/gender.md)
 - **चयन-आधारित सामग्री**: किसी मनमाने स्ट्रिंग मान के आधार पर गतिशील रूप से प्रदर्शित होने वाली सामग्री [देखें चयन-आधारित सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/select.md)
 - **फ़ाइल सामग्री**: बाहरी फ़ाइलों के संदर्भ [देखें फ़ाइल सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/file_content.md)
 
@@ -765,7 +780,7 @@ import { gender } from "intlayer";
 genderContent: gender({
   male: "वह एक डेवलपर है",
   female: "वह एक डेवलपर है",
-  other: "वे एक डेवलपर हैं",
+  fallback: "वे एक डेवलपर हैं",
 });
 ```
 

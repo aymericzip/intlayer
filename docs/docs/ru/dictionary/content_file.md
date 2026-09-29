@@ -80,6 +80,7 @@ import {
   plural,
   cond,
   select,
+  gender,
   nest,
   md,
   insert,
@@ -101,6 +102,7 @@ interface Content {
   pluralContent: string; // контент с количеством
   conditionalContent: string; // условный контент
   selectContent: string; // контент выбора
+  genderContent: string; // контент по полу
   markdownContent: never; // markdown контент (никогда не используется)
   htmlContent: never; // HTML контент
   externalContent: string; // внешний контент
@@ -148,6 +150,11 @@ export default {
       draft: "Эта запись является черновиком",
       published: "Эта запись опубликована",
       fallback: "Неизвестный статус",
+    }),
+    genderContent: gender({
+      male: "Он разработчик",
+      female: "Она разработчик",
+      fallback: "Они разработчики",
     }),
     insertionContent: insert("Привет {{name}}!"),
     nestedContent: nest(
@@ -222,6 +229,14 @@ export default {
         "fallback": "Неизвестный статус",
       },
     },
+    "genderContent": {
+      "nodeType": "gender",
+      "gender": {
+        "male": "Он разработчик",
+        "female": "Она разработчик",
+        "fallback": "Они разработчики",
+      },
+    },
     "insertionContent": {
       "nodeType": "insertion",
       "insertion": "Привет, {{name}}!",
@@ -275,7 +290,7 @@ Intlayer поддерживает различные типы содержимо
 - **Содержимое Markdown**: Форматированный текст в формате Markdown [см. Содержимое Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/markdown_content.md)
 - **HTML-содержимое**: Богатое HTML-содержимое с необязательными пользовательскими компонентами [см. HTML-содержимое](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/html.md)
 - **Вложенное содержимое**: Ссылки на другие словари [см. Вложенное содержимое](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/nested_content.md)
-- **Содержимое по половому признаку**: Содержимое, зависящее от пола [см. Содержимое по половому признаку](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/gender_content.md)
+- **Содержимое по половому признаку**: Содержимое, зависящее от пола [см. Содержимое по половому признаку](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/gender.md)
 - **Контент на основе выбора**: Контент, изменяющийся в зависимости от произвольного строкового значения [см. Контент на основе выбора](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/select.md)
 - **Содержимое файла**: Ссылки на внешние файлы [см. Содержимое файла](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/file_content.md)
 
@@ -766,7 +781,7 @@ import { gender } from "intlayer";
 genderContent: gender({
   male: "Он разработчик",
   female: "Она разработчик",
-  other: "Они разработчики",
+  fallback: "Они разработчики",
 });
 ```
 

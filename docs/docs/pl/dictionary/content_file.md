@@ -80,6 +80,7 @@ import {
   plural,
   cond,
   select,
+  gender,
   nest,
   md,
   insert,
@@ -101,6 +102,7 @@ interface Content {
   pluralContent: string;
   conditionalContent: string;
   selectContent: string;
+  genderContent: string;
   markdownContent: never;
   htmlContent: never;
   externalContent: string;
@@ -147,6 +149,11 @@ export default {
       draft: "Ten wpis jest szkicem",
       published: "Ten wpis jest opublikowany",
       fallback: "Nieznany status",
+    }),
+    genderContent: gender({
+      male: "On jest programistą",
+      female: "Ona jest programistką",
+      fallback: "Oni są programistami",
     }),
     insertionContent: insert("Witaj {{name}}!"),
     nestedContent: nest(
@@ -221,6 +228,14 @@ export default {
         "fallback": "Nieznany status",
       },
     },
+    "genderContent": {
+      "nodeType": "gender",
+      "gender": {
+        "male": "On jest programistą",
+        "female": "Ona jest programistką",
+        "fallback": "Oni są programistami",
+      },
+    },
     "insertionContent": {
       "nodeType": "insertion",
       "insertion": "Witaj {{name}}!",
@@ -274,7 +289,7 @@ Intlayer obsługuje różne typy zawartości poprzez węzły typowane:
 - **Zawartość Markdown**: Zawartość tekstu sformatowanego w formacie Markdown [zobacz Zawartość Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/markdown_content.md)
 - **Zawartość HTML**: Zawartość HTML z opcjonalnymi niestandardowymi komponentami [zobacz Zawartość HTML](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/html.md)
 - **Zagnieżdżona zawartość**: Odwołania do innych słowników [zobacz Zagnieżdżoną zawartość](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/nested_content.md)
-- **Zawartość zależna od płci**: Zawartość zmieniająca się w zależności od płci [zobacz Zawartość zależną od płci](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/gender_content.md)
+- **Zawartość zależna od płci**: Zawartość zmieniająca się w zależności od płci [zobacz Zawartość zależną od płci](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/gender.md)
 - **Treść Oparta na Wyborze**: Treść zmieniająca się w zależności od dowolnej wartości znakowej [zobacz Treść Opartą na Wyborze](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/select.md)
 - **Zawartość plikowa**: Odwołania do plików zewnętrznych [zobacz Zawartość plikową](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/file_content.md)
 
@@ -766,7 +781,7 @@ import { gender } from "intlayer";
 genderContent: gender({
   male: "On jest programistą",
   female: "Ona jest programistką",
-  other: "Oni są programistami",
+  fallback: "Oni są programistami",
 });
 ```
 

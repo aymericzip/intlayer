@@ -80,6 +80,7 @@ import {
   plural,
   cond,
   select,
+  gender,
   nest,
   md,
   html,
@@ -102,6 +103,7 @@ interface Content {
   pluralContent: string; // 数量内容
   conditionalContent: string; // 条件内容
   selectContent: string; // 选择内容
+  genderContent: string; // 性别内容
   markdownContent: never; // Markdown 内容
   htmlContent: never; // HTML 内容
   externalContent: string; // 外部内容
@@ -150,6 +152,11 @@ export default {
       published: "这篇文章已发布",
       fallback: "未知状态",
     }), // 选择内容
+    genderContent: gender({
+      male: "他是一名开发者",
+      female: "她是一名开发者",
+      fallback: "他们是一名开发者",
+    }), // 性别内容
     insertionContent: insert("你好 {{name}}!"), // 插入内容
     nestedContent: nest(
       "navbar", // 要嵌套的字典键
@@ -223,6 +230,14 @@ export default {
         "fallback": "未知状态",
       },
     },
+    "genderContent": {
+      "nodeType": "gender",
+      "gender": {
+        "male": "他是一名开发者",
+        "female": "她是一名开发者",
+        "fallback": "他们是一名开发者",
+      },
+    },
     "insertionContent": {
       "nodeType": "insertion",
       "insertion": "你好 {{name}}！",
@@ -272,7 +287,7 @@ Intlayer 通过类型化节点支持多种内容类型：
 - **Markdown 内容**：以 Markdown 格式的富文本内容 [参见 Markdown 内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/markdown_content.md)
 - **HTML 内容**：富 HTML 内容，可使用标准标签或自定义组件 [参见 HTML 内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/html.md)
 - **嵌套内容**：对其他字典的引用 [参见 嵌套内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/nested_content.md)
-- **性别内容**：基于性别变化的内容 [参见 性别内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/gender_content.md)
+- **性别内容**：基于性别变化的内容 [参见 性别内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/gender.md)
 - **基于选择的内容**：基于任意字符串值变化的内容 [参见 基于选择的内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/select.md)
 - **文件内容**：对外部文件的引用 [参见 文件内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/file_content.md)
 
@@ -763,7 +778,7 @@ import { gender } from "intlayer";
 genderContent: gender({
   male: "他是一名开发者",
   female: "她是一名开发者",
-  other: "他们是一名开发者",
+  fallback: "他们是一名开发者",
 });
 ```
 

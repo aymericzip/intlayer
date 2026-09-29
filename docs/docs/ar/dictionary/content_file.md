@@ -80,6 +80,7 @@ import {
   plural,
   cond,
   select,
+  gender,
   nest,
   md,
   insert,
@@ -101,6 +102,7 @@ interface Content {
   pluralContent: string;
   conditionalContent: string;
   selectContent: string;
+  genderContent: string;
   markdownContent: never;
   htmlContent: never;
   externalContent: string;
@@ -148,6 +150,11 @@ export default {
       draft: "هذا المنشور مسودة",
       published: "هذا المنشور منشور",
       fallback: "حالة غير معروفة",
+    }),
+    genderContent: gender({
+      male: "هو مطور",
+      female: "هي مطورة",
+      fallback: "هم مطورون",
     }),
     insertionContent: insert("مرحبًا {{name}}!"),
     nestedContent: nest(
@@ -222,6 +229,14 @@ export default {
         "fallback": "حالة غير معروفة",
       },
     },
+    "genderContent": {
+      "nodeType": "gender",
+      "gender": {
+        "male": "هو مطور",
+        "female": "هي مطورة",
+        "fallback": "هم مطورون",
+      },
+    },
     "insertionContent": {
       "nodeType": "insertion",
       "insertion": "مرحبًا {{name}}!",
@@ -275,7 +290,7 @@ export default {
 - **محتوى ماركداون**: محتوى نص غني بصيغة ماركداون [انظر محتوى ماركداون](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/markdown_content.md)
 - **محتوى HTML**: محتوى HTML غني مع مكونات مخصصة اختيارية [انظر محتوى HTML](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/html.md)
 - **محتوى متداخل**: مراجع إلى قواميس أخرى [انظر المحتوى المتداخل](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/nested_content.md)
-- **محتوى حسب الجنس**: محتوى يختلف بناءً على الجنس [انظر محتوى الجنس](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/gender_content.md)
+- **محتوى حسب الجنس**: محتوى يختلف بناءً على الجنس [انظر محتوى الجنس](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/gender.md)
 - **محتوى يعتمد على الاختيار**: محتوى يتغير بناءً على قيمة نصية عشوائية [انظر المحتوى المعتمد على الاختيار](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/select.md)
 - **محتوى ملف**: مراجع إلى ملفات خارجية [انظر محتوى الملف](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/file_content.md)
 
@@ -766,7 +781,7 @@ import { gender } from "intlayer";
 genderContent: gender({
   male: "هو مطور",
   female: "هي مطورة",
-  other: "هم مطورون",
+  fallback: "هم مطورون",
 });
 ```
 

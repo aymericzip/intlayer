@@ -77,6 +77,7 @@ import {
   plural,
   cond,
   select,
+  gender,
   nest,
   md,
   insert,
@@ -98,6 +99,7 @@ interface Content {
   pluralContent: string;
   conditionalContent: string;
   selectContent: string;
+  genderContent: string;
   markdownContent: never;
   htmlContent: never;
   externalContent: string;
@@ -145,6 +147,11 @@ export default {
       draft: "이 게시물은 초안입니다",
       published: "이 게시물은 게시되었습니다",
       fallback: "알 수 없는 상태",
+    }),
+    genderContent: gender({
+      male: "그는 개발자입니다",
+      female: "그녀는 개발자입니다",
+      fallback: "그들은 개발자입니다",
     }),
     insertionContent: insert("안녕하세요 {{name}}!"),
     nestedContent: nest(
@@ -219,6 +226,14 @@ export default {
         "fallback": "알 수 없는 상태",
       },
     },
+    "genderContent": {
+      "nodeType": "gender",
+      "gender": {
+        "male": "그는 개발자입니다",
+        "female": "그녀는 개발자입니다",
+        "fallback": "그들은 개발자입니다",
+      },
+    },
     "insertionContent": {
       "nodeType": "insertion",
       "insertion": "안녕하세요 {{name}}!",
@@ -272,7 +287,7 @@ Intlayer는 타입이 지정된 노드를 통해 다양한 콘텐츠 유형을 �
 - **Markdown Content**: 마크다운 형식의 리치 텍스트 콘텐츠 [Markdown Content 보기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/markdown_content.md)
 - **HTML Content**: 선택적 사용자 정의 컴포넌트가 있는 리치 HTML 콘텐츠 [HTML Content 보기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/html.md)
 - **Nested Content**: 다른 사전을 참조하는 콘텐츠 [Nested Content 보기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/nested_content.md)
-- **Gender Content**: 성별에 따라 달라지는 콘텐츠 [Gender Content 보기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/gender_content.md)
+- **Gender Content**: 성별에 따라 달라지는 콘텐츠 [Gender Content 보기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/gender.md)
 - **Select Content**: 임의의 문자열 값에 따라 달라지는 콘텐츠 [Select Content 보기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/select.md)
 - **File Content**: 외부 파일을 참조하는 콘텐츠 [File Content 보기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/file_content.md)
 
@@ -763,7 +778,7 @@ import { gender } from "intlayer";
 genderContent: gender({
   male: "그는 개발자입니다",
   female: "그녀는 개발자입니다",
-  other: "그들은 개발자입니다",
+  fallback: "그들은 개발자입니다",
 });
 ```
 

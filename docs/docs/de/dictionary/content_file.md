@@ -80,6 +80,7 @@ import {
   plural,
   cond,
   select,
+  gender,
   nest,
   md,
   insert,
@@ -101,6 +102,7 @@ interface Content {
   pluralContent: string; // Mengeninhalt
   conditionalContent: string; // Bedingter Inhalt
   selectContent: string; // Auswahlinhalt
+  genderContent: string; // Geschlechtsspezifischer Inhalt
   markdownContent: never; // Markdown-Inhalt
   htmlContent: never; // HTML-Inhalt
   externalContent: string; // Externer Inhalt
@@ -148,6 +150,11 @@ export default {
       draft: "Dieser Beitrag ist ein Entwurf",
       published: "Dieser Beitrag ist online",
       fallback: "Unbekannter Status",
+    }),
+    genderContent: gender({
+      male: "Er ist Entwickler",
+      female: "Sie ist Entwicklerin",
+      fallback: "Sie sind Entwickler",
     }),
     insertionContent: insert("Hallo {{name}}!"),
     nestedContent: nest(
@@ -222,6 +229,14 @@ export default {
         "fallback": "Unbekannter Status",
       },
     },
+    "genderContent": {
+      "nodeType": "gender",
+      "gender": {
+        "male": "Er ist Entwickler",
+        "female": "Sie ist Entwicklerin",
+        "fallback": "Sie sind Entwickler",
+      },
+    },
     "insertionContent": {
       "nodeType": "insertion",
       "insertion": "Hallo {{name}}!",
@@ -275,7 +290,7 @@ Intlayer unterstützt verschiedene Inhaltstypen durch typisierte Knoten:
 - **Markdown-Inhalt**: Rich-Text-Inhalt im Markdown-Format [siehe Markdown-Inhalt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/markdown_content.md)
 - **HTML-Inhalt**: Rich-HTML-Inhalt mit optionalen benutzerdefinierten Komponenten [siehe HTML-Inhalt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/html.md)
 - **Verschachtelter Inhalt**: Verweise auf andere Wörterbücher [siehe Verschachtelter Inhalt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/nested_content.md)
-- **Geschlechtsabhängiger Inhalt**: Inhalt, der sich je nach Geschlecht unterscheidet [siehe Geschlechtsabhängiger Inhalt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/gender_content.md)
+- **Geschlechtsabhängiger Inhalt**: Inhalt, der sich je nach Geschlecht unterscheidet [siehe Geschlechtsabhängiger Inhalt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/gender.md)
 - **Auswahlbasierter Inhalt**: Inhalt, der basierend auf einem beliebigen Zeichenfolgenwert variiert [siehe Auswahlbasierter Inhalt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/select.md)
 - **Dateiinhalt**: Verweise auf externe Dateien [siehe Dateiinhalt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/file_content.md)
 
@@ -766,7 +781,7 @@ import { gender } from "intlayer";
 genderContent: gender({
   male: "Er ist Entwickler",
   female: "Sie ist Entwicklerin",
-  other: "Sie sind Entwickler",
+  fallback: "Sie sind Entwickler",
 });
 ```
 

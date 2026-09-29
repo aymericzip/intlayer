@@ -83,6 +83,7 @@ import {
   plural,
   cond,
   select,
+  gender,
   nest,
   md,
   html,
@@ -105,6 +106,7 @@ interface Content {
   pluralContent: string;
   conditionalContent: string;
   selectContent: string;
+  genderContent: string;
   markdownContent: never;
   htmlContent: never;
   externalContent: string;
@@ -152,6 +154,11 @@ export default {
       draft: "Цей допис є чернеткою",
       published: "Цей допис опубліковано",
       fallback: "Невідомий статус",
+    }),
+    genderContent: gender({
+      male: "Він розробник",
+      female: "Вона розробниця",
+      fallback: "Вони розробники",
     }),
     insertionContent: insert("Привіт {{name}}!"),
     nestedContent: nest(
@@ -227,6 +234,14 @@ export default {
         "fallback": "Невідомий статус",
       },
     },
+    "genderContent": {
+      "nodeType": "gender",
+      "gender": {
+        "male": "Він розробник",
+        "female": "Вона розробниця",
+        "fallback": "Вони розробники",
+      },
+    },
     "insertionContent": {
       "nodeType": "insertion",
       "insertion": "Привіт {{name}}!",
@@ -280,7 +295,7 @@ Intlayer підтримує різні типи контенту через ти
 - **Markdown-контент**: Багатий текстовий контент у форматі Markdown [див. Markdown-контент](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/markdown_content.md)
 - **HTML-вміст**: Багатий HTML-вміст з опційними власними компонентами [див. HTML-вміст](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/html.md)
 - **Вкладений вміст**: Посилання на інші словники [див. Вкладений вміст](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/nested_content.md)
-- **Гендерний вміст**: Вміст, що змінюється залежно від статі [див. Гендерний вміст](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/gender_content.md)
+- **Гендерний вміст**: Вміст, що змінюється залежно від статі [див. Гендерний вміст](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/gender.md)
 - **Контент на основі вибору**: Контент, який змінюється залежно від довільного рядкового значення [див. Контент на основі вибору](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/select.md)
 - **Вміст файлу**: Посилання на зовнішні файли [див. Вміст файлу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/file_content.md)
 
@@ -773,7 +788,7 @@ import { gender } from "intlayer";
 genderContent: gender({
   male: "Він розробник",
   female: "Вона розробниця",
-  other: "Вони розробники",
+  fallback: "Вони розробники",
 });
 ```
 

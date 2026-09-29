@@ -77,6 +77,7 @@ import {
   plural,
   cond,
   select,
+  gender,
   nest,
   md,
   insert,
@@ -98,6 +99,7 @@ interface Content {
   pluralContent: string;
   conditionalContent: string;
   selectContent: string;
+  genderContent: string;
   markdownContent: never;
   htmlContent: never;
   externalContent: string;
@@ -144,6 +146,11 @@ export default {
       draft: "Bu gönderi bir taslak",
       published: "Bu gönderi yayında",
       fallback: "Bilinmeyen durum",
+    }),
+    genderContent: gender({
+      male: "O bir geliştiricidir",
+      female: "O bir geliştiricidir",
+      fallback: "Onlar bir geliştiricidir",
     }),
     insertionContent: insert("Merhaba {{name}}!"),
     nestedContent: nest(
@@ -218,6 +225,14 @@ export default {
         "fallback": "Bilinmeyen durum",
       },
     },
+    "genderContent": {
+      "nodeType": "gender",
+      "gender": {
+        "male": "O bir geliştiricidir",
+        "female": "O bir geliştiricidir",
+        "fallback": "Onlar bir geliştiricidir",
+      },
+    },
     "insertionContent": {
       "nodeType": "insertion",
       "insertion": "Merhaba {{name}}!",
@@ -271,7 +286,7 @@ Intlayer, tiplenmiş düğümler aracılığıyla çeşitli içerik türlerini d
 - **Markdown İçeriği**: Markdown formatında zengin metin içeriği [bkz. Markdown İçeriği](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/markdown_content.md)
 - **HTML İçeriği**: İsteğe bağlı özel bileşenlerle zengin HTML içeriği [bkz. HTML İçeriği](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/html.md)
 - **İç İçe İçerik**: Diğer sözlüklere referanslar [bkz. İç İçe İçerik](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/nested_content.md)
-- **Cinsiyet İçeriği**: Cinsiyete göre değişen içerik [bkz. Cinsiyet İçeriği](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/gender_content.md)
+- **Cinsiyet İçeriği**: Cinsiyete göre değişen içerik [bkz. Cinsiyet İçeriği](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/gender.md)
 - **Seçime Dayalı İçerik**: Rastgele bir dize değerine göre değişen içerik [bkz. Seçime Dayalı İçerik](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/select.md)
 - **Dosya İçeriği**: Harici dosyalara referanslar [bkz. Dosya İçeriği](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/file_content.md)
 
@@ -762,7 +777,7 @@ import { gender } from "intlayer";
 genderContent: gender({
   male: "O bir geliştiricidir",
   female: "O bir geliştiricidir",
-  other: "Onlar bir geliştiricidir",
+  fallback: "Onlar bir geliştiricidir",
 });
 ```
 

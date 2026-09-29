@@ -83,6 +83,7 @@ import {
   plural,
   cond,
   select,
+  gender,
   nest,
   md,
   insert,
@@ -104,6 +105,7 @@ interface Content {
   pluralContent: string;
   conditionalContent: string;
   selectContent: string;
+  genderContent: string;
   markdownContent: never;
   htmlContent: never;
   externalContent: string;
@@ -150,6 +152,11 @@ export default {
       draft: "Bài viết này là bản nháp",
       published: "Bài viết này đã được đăng",
       fallback: "Trạng thái không xác định",
+    }),
+    genderContent: gender({
+      male: "Anh ấy là một nhà phát triển",
+      female: "Cô ấy là một nhà phát triển",
+      fallback: "Họ là một nhà phát triển",
     }),
     insertionContent: insert("Xin chào {{name}}!"),
     nestedContent: nest(
@@ -224,6 +231,14 @@ export default {
         "fallback": "Trạng thái không xác định",
       },
     },
+    "genderContent": {
+      "nodeType": "gender",
+      "gender": {
+        "male": "Anh ấy là một nhà phát triển",
+        "female": "Cô ấy là một nhà phát triển",
+        "fallback": "Họ là một nhà phát triển",
+      },
+    },
     "insertionContent": {
       "nodeType": "insertion",
       "insertion": "Xin chào {{name}}!",
@@ -277,7 +292,7 @@ Intlayer hỗ trợ nhiều loại nội dung thông qua các node kiểu:
 - **Nội dung Markdown**: Nội dung văn bản phong phú ở định dạng Markdown [xem Nội dung Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/markdown_content.md)
 - **Nội dung HTML**: Nội dung HTML phong phú với các component tùy chỉnh tùy chọn [xem Nội dung HTML](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/html.md)
 - **Nội dung Lồng nhau**: Tham chiếu đến các từ điển khác [xem Nội dung Lồng nhau](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/nested_content.md)
-- **Nội dung Giới tính**: Nội dung thay đổi dựa trên giới tính [xem Nội dung Giới tính](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/gender_content.md)
+- **Nội dung Giới tính**: Nội dung thay đổi dựa trên giới tính [xem Nội dung Giới tính](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/gender.md)
 - **Nội dung dựa trên lựa chọn**: Nội dung thay đổi dựa trên các giá trị chuỗi tùy ý [xem Nội dung dựa trên lựa chọn](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/select.md)
 - **Nội dung Tệp**: Tham chiếu đến các tệp bên ngoài [xem Nội dung Tệp](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/file_content.md)
 
@@ -769,7 +784,7 @@ import { gender } from "intlayer";
 genderContent: gender({
   male: "Anh ấy là một nhà phát triển",
   female: "Cô ấy là một nhà phát triển",
-  other: "Họ là một nhà phát triển",
+  fallback: "Họ là một nhà phát triển",
 });
 ```
 

@@ -80,6 +80,7 @@ import {
   plural,
   cond,
   select,
+  gender,
   nest,
   md,
   insert,
@@ -101,6 +102,7 @@ interface Content {
   pluralContent: string;
   conditionalContent: string;
   selectContent: string;
+  genderContent: string;
   markdownContent: never;
   htmlContent: never;
   externalContent: string;
@@ -147,6 +149,11 @@ export default {
       draft: "Postingan ini adalah draf",
       published: "Postingan ini sudah tayang",
       fallback: "Status tidak diketahui",
+    }),
+    genderContent: gender({
+      male: "Dia adalah seorang pengembang",
+      female: "Dia adalah seorang pengembang",
+      fallback: "Mereka adalah seorang pengembang",
     }),
     insertionContent: insert("Halo {{name}}!"),
     nestedContent: nest(
@@ -221,6 +228,14 @@ export default {
         "fallback": "Status tidak diketahui",
       },
     },
+    "genderContent": {
+      "nodeType": "gender",
+      "gender": {
+        "male": "Dia adalah seorang pengembang",
+        "female": "Dia adalah seorang pengembang",
+        "fallback": "Mereka adalah seorang pengembang",
+      },
+    },
     "insertionContent": {
       "nodeType": "insertion",
       "insertion": "Halo {{name}}!",
@@ -274,7 +289,7 @@ Intlayer mendukung berbagai jenis konten melalui node bertipe:
 - **Konten Markdown**: Konten teks kaya dalam format Markdown [lihat Konten Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/markdown_content.md)
 - **Konten HTML**: Konten HTML kaya dengan komponen kustom opsional [lihat Konten HTML](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/html.md)
 - **Konten Bersarang**: Referensi ke kamus lain [lihat Konten Bersarang](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/nested_content.md)
-- **Konten Gender**: Konten yang bervariasi berdasarkan gender [lihat Konten Gender](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/gender_content.md)
+- **Konten Gender**: Konten yang bervariasi berdasarkan gender [lihat Konten Gender](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/gender.md)
 - **Konten Berbasis Pilihan**: Konten yang bervariasi berdasarkan nilai string sembarang [lihat Konten Berbasis Pilihan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/select.md)
 - **Konten File**: Referensi ke file eksternal [lihat Konten File](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/file_content.md)
 
@@ -766,7 +781,7 @@ import { gender } from "intlayer";
 genderContent: gender({
   male: "Dia adalah seorang pengembang",
   female: "Dia adalah seorang pengembang",
-  other: "Mereka adalah seorang pengembang",
+  fallback: "Mereka adalah seorang pengembang",
 });
 ```
 
