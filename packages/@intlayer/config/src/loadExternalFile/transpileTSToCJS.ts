@@ -1,27 +1,14 @@
-import {
-  existsSync,
-  mkdirSync,
-  readFileSync,
-  renameSync,
-  rmSync,
-  statSync,
-  writeFileSync,
-} from 'node:fs';
+import { existsSync, statSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { dirname, extname, isAbsolute, join, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import configPackageJson from '@intlayer/types/package.json' with {
-  type: 'json',
-};
 import {
   type BuildOptions,
   type BuildResult,
   build,
   buildSync,
-  version as esbuildVersion,
   type Metafile,
 } from 'esbuild';
-import { CACHE_DIR } from '../defaultValues/system';
 import { computeKeyId } from '../utils/cacheMemory';
 import { getPackageJsonPath } from '../utils/getPackageJsonPath';
 import { getLoader } from './bundleFile';
@@ -35,19 +22,6 @@ export type TranspileOptions = BuildOptions & {
    * the ones imported from the `esbuild` package.
    */
   esbuildInstance?: typeof import('esbuild');
-  /**
-   * Persist the transpiled output on disk so later processes can reuse it.
-   * When `false`, the output is only cached in memory. Mirrors `build.cache`.
-   *
-   * @default true
-   */
-  cache?: boolean;
-  /**
-   * Directory the persisted outputs are stored in (under `transpile/`).
-   * Mirrors `system.cacheDir`. Defaults to `<project root>/.intlayer/cache`,
-   * as the configuration file is transpiled before any configuration exists.
-   */
-  cacheDir?: string;
 };
 
 /**
@@ -136,150 +110,6 @@ type TranspileCacheEntry = {
  */
 const transpileCache = new Map<string, TranspileCacheEntry>();
 
-/** Bumped whenever the shape or semantics of a persisted entry changes. */
-const DISK_CACHE_VERSION = 1;
-
-/** Stamped on persisted entries so an Intlayer upgrade invalidates them. */
-const INTLAYER_VERSION = configPackageJson.version;
-
-type PersistedTranspileCacheEntry = TranspileCacheEntry & {
-  version: number;
-  intlayerVersion: string;
-  filePath: string;
-};
-
-/**
- * Default cache directory per file directory, resolved from the project root.
- * `null` when no package.json is found up the tree (nothing is written then).
- */
-const defaultCacheDirectoryCache = new Map<string, string | null>();
-
-const getDefaultCacheDirectory = (filePath: string): string | null => {
-  const fileDirectory = dirname(filePath);
-  const cachedDirectory = defaultCacheDirectoryCache.get(fileDirectory);
-
-  if (cachedDirectory !== undefined) return cachedDirectory;
-
-  let cacheDirectory: string | null = null;
-  try {
-    cacheDirectory = join(getPackageJsonPath(fileDirectory).baseDir, CACHE_DIR);
-  } catch {
-    // No package.json found up the tree — keep the cache in memory only
-  }
-
-  defaultCacheDirectoryCache.set(fileDirectory, cacheDirectory);
-
-  return cacheDirectory;
-};
-
-const getDiskCacheFilePath = (
-  filePath: string,
-  cacheDir: string | undefined
-): string | null => {
-  const cacheDirectory = cacheDir ?? getDefaultCacheDirectory(filePath);
-
-  if (!cacheDirectory) return null;
-
-  return join(cacheDirectory, 'transpile', `${computeKeyId([filePath])}.json`);
-};
-
-const readDiskCacheEntry = (
-  filePath: string,
-  cacheDir: string | undefined
-): TranspileCacheEntry | undefined => {
-  const diskCacheFilePath = getDiskCacheFilePath(filePath, cacheDir);
-
-  if (!diskCacheFilePath) return undefined;
-
-  try {
-    const persistedEntry = JSON.parse(
-      readFileSync(diskCacheFilePath, 'utf-8')
-    ) as PersistedTranspileCacheEntry;
-
-    // Guards against format changes, upgrades and file name hash collisions
-    if (persistedEntry.version !== DISK_CACHE_VERSION) return undefined;
-    if (persistedEntry.intlayerVersion !== INTLAYER_VERSION) return undefined;
-    if (persistedEntry.filePath !== filePath) return undefined;
-
-    return persistedEntry;
-  } catch {
-    // Missing or corrupted cache file
-    return undefined;
-  }
-};
-
-const writeDiskCacheEntry = (
-  filePath: string,
-  cacheDir: string | undefined,
-  cacheEntry: TranspileCacheEntry
-): void => {
-  const diskCacheFilePath = getDiskCacheFilePath(filePath, cacheDir);
-
-  if (!diskCacheFilePath) return;
-
-  const persistedEntry: PersistedTranspileCacheEntry = {
-    version: DISK_CACHE_VERSION,
-    intlayerVersion: INTLAYER_VERSION,
-    filePath,
-    ...cacheEntry,
-  };
-
-  try {
-    mkdirSync(dirname(diskCacheFilePath), { recursive: true });
-
-    // Write then rename, so concurrent processes never read a partial file
-    const temporaryFilePath = `${diskCacheFilePath}.${process.pid}.tmp`;
-    writeFileSync(temporaryFilePath, JSON.stringify(persistedEntry));
-    renameSync(temporaryFilePath, diskCacheFilePath);
-  } catch {
-    // Read-only file system or similar — the cache is an optimization only
-  }
-};
-
-/**
- * Removes the persisted transpilation of a file, if any.
- * Used when `build.cache` turns out to be disabled after the file was loaded.
- */
-export const clearPersistedTranspilation = (
-  filePath: string,
-  cacheDir?: string
-): void => {
-  const diskCacheFilePath = getDiskCacheFilePath(filePath, cacheDir);
-
-  if (!diskCacheFilePath) return;
-
-  try {
-    rmSync(diskCacheFilePath, { force: true });
-  } catch {
-    // Nothing to remove, or not removable — the entry is harmless either way
-  }
-};
-
-/**
- * Persists unless disabled. esbuild plugins can change the output without any
- * input file changing, so their results are never persisted across processes.
- */
-const canUseDiskCache = (
-  cache: boolean | undefined,
-  buildOptions: BuildOptions
-): boolean => cache !== false && !buildOptions.plugins?.length;
-
-/**
- * Key of the build options, including the esbuild version so an upgrade
- * invalidates outputs persisted by a previous version.
- */
-const getOptionsKey = (
-  buildOptions: BuildOptions,
-  esbuildInstance?: typeof import('esbuild')
-): string =>
-  computeKeyId([buildOptions, esbuildInstance?.version ?? esbuildVersion]);
-
-/** Whether (and where) a transpilation is persisted on disk. */
-type DiskCacheTarget = {
-  enabled: boolean;
-  cacheDir: string | undefined;
-};
-
 const isInputUnchanged = (input: TranspileCacheInput): boolean => {
   try {
     const stats = statSync(input.path);
@@ -290,44 +120,19 @@ const isInputUnchanged = (input: TranspileCacheInput): boolean => {
   }
 };
 
-const isCacheEntryValid = (
-  cacheEntry: TranspileCacheEntry,
-  codeHash: string,
-  optionsKey: string
-): boolean =>
-  cacheEntry.codeHash === codeHash &&
-  cacheEntry.optionsKey === optionsKey &&
-  cacheEntry.inputs.every(isInputUnchanged);
-
 const getCachedTranspilation = (
   filePath: string,
   codeHash: string,
-  optionsKey: string,
-  diskCacheTarget: DiskCacheTarget
+  optionsKey: string
 ): string | undefined => {
-  const memoryCacheEntry = transpileCache.get(filePath);
+  const cacheEntry = transpileCache.get(filePath);
 
-  if (
-    memoryCacheEntry &&
-    isCacheEntryValid(memoryCacheEntry, codeHash, optionsKey)
-  ) {
-    return memoryCacheEntry.output;
-  }
+  if (!cacheEntry) return undefined;
+  if (cacheEntry.codeHash !== codeHash) return undefined;
+  if (cacheEntry.optionsKey !== optionsKey) return undefined;
+  if (!cacheEntry.inputs.every(isInputUnchanged)) return undefined;
 
-  if (!diskCacheTarget.enabled) return undefined;
-
-  const diskCacheEntry = readDiskCacheEntry(filePath, diskCacheTarget.cacheDir);
-
-  if (
-    !diskCacheEntry ||
-    !isCacheEntryValid(diskCacheEntry, codeHash, optionsKey)
-  ) {
-    return undefined;
-  }
-
-  transpileCache.set(filePath, diskCacheEntry);
-
-  return diskCacheEntry.output;
+  return cacheEntry.output;
 };
 
 /**
@@ -372,58 +177,25 @@ const getInputFingerprints = (
   return inputs;
 };
 
-/**
- * Fingerprints the tsconfig used for the transpilation: it is not part of the
- * esbuild metafile, but changes the output (paths, JSX settings...).
- */
-const getTsConfigFingerprint = (
-  filePath: string
-): TranspileCacheInput[] | undefined => {
-  const tsConfigPath = getTsConfigPath(filePath);
-
-  if (!tsConfigPath) return [];
-
-  try {
-    const stats = statSync(tsConfigPath);
-    return [{ path: tsConfigPath, mtimeMs: stats.mtimeMs, size: stats.size }];
-  } catch {
-    return undefined;
-  }
-};
-
 const setCachedTranspilation = (
   filePath: string,
   codeHash: string,
   optionsKey: string,
   moduleResult: BuildResult,
-  output: string,
-  diskCacheTarget: DiskCacheTarget
+  output: string
 ): void => {
   const inputs = getInputFingerprints(moduleResult.metafile, filePath);
-  const tsConfigInputs = getTsConfigFingerprint(filePath);
 
   // Without a usable metafile the cache cannot be invalidated reliably — skip
-  if (!inputs || !tsConfigInputs) return;
+  if (!inputs) return;
 
-  const cacheEntry: TranspileCacheEntry = {
-    codeHash,
-    optionsKey,
-    output,
-    inputs: [...inputs, ...tsConfigInputs],
-  };
-
-  transpileCache.set(filePath, cacheEntry);
-
-  if (diskCacheTarget.enabled) {
-    writeDiskCacheEntry(filePath, diskCacheTarget.cacheDir, cacheEntry);
-  }
+  transpileCache.set(filePath, { codeHash, optionsKey, output, inputs });
 };
 
 /** Clears the in-memory transpilation cache (mainly for tests). */
 export const clearTranspileCache = (): void => {
   transpileCache.clear();
   tsConfigPathCache.clear();
-  defaultCacheDirectoryCache.clear();
 };
 
 export const transpileTSToCJSSync = (
@@ -434,21 +206,12 @@ export const transpileTSToCJSSync = (
   const extension = extname(filePath);
   const loader = getLoader(extension);
 
-  const { esbuildInstance, cache, cacheDir, ...buildOptions } = options ?? {};
+  const { esbuildInstance, ...buildOptions } = options ?? {};
 
   const codeHash = computeKeyId([code]);
-  const optionsKey = getOptionsKey(buildOptions, esbuildInstance);
-  const diskCacheTarget: DiskCacheTarget = {
-    enabled: canUseDiskCache(cache, buildOptions),
-    cacheDir,
-  };
+  const optionsKey = computeKeyId([buildOptions]);
 
-  const cachedOutput = getCachedTranspilation(
-    filePath,
-    codeHash,
-    optionsKey,
-    diskCacheTarget
-  );
+  const cachedOutput = getCachedTranspilation(filePath, codeHash, optionsKey);
   if (typeof cachedOutput === 'string') return cachedOutput;
 
   const esbuildBuildSync = esbuildInstance?.buildSync ?? buildSync;
@@ -517,8 +280,7 @@ export const transpileTSToCJSSync = (
       codeHash,
       optionsKey,
       moduleResult!,
-      moduleResultString,
-      diskCacheTarget
+      moduleResultString
     );
   }
 
@@ -533,21 +295,12 @@ export const transpileTSToCJS = async (
   const extension = extname(filePath);
   const loader = getLoader(extension);
 
-  const { esbuildInstance, cache, cacheDir, ...buildOptions } = options ?? {};
+  const { esbuildInstance, ...buildOptions } = options ?? {};
 
   const codeHash = computeKeyId([code]);
-  const optionsKey = getOptionsKey(buildOptions, esbuildInstance);
-  const diskCacheTarget: DiskCacheTarget = {
-    enabled: canUseDiskCache(cache, buildOptions),
-    cacheDir,
-  };
+  const optionsKey = computeKeyId([buildOptions]);
 
-  const cachedOutput = getCachedTranspilation(
-    filePath,
-    codeHash,
-    optionsKey,
-    diskCacheTarget
-  );
+  const cachedOutput = getCachedTranspilation(filePath, codeHash, optionsKey);
   if (typeof cachedOutput === 'string') return cachedOutput;
 
   // A one-shot build() releases its Go-side resources on completion and costs a
@@ -573,8 +326,7 @@ export const transpileTSToCJS = async (
       codeHash,
       optionsKey,
       moduleResult,
-      moduleResultString,
-      diskCacheTarget
+      moduleResultString
     );
   }
 

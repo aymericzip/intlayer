@@ -161,10 +161,7 @@ export const watch = async (options?: WatchOptions) => {
               // `import()`, which leaked a permanent record into Node's ESM
               // registry on every rebuild since that registry is never evicted.
               const entryCode = await readFile(event.path, 'utf-8');
-              await transpileTSToCJS(entryCode, event.path, {
-                cache: configuration.build.cache,
-                cacheDir: configuration.system.cacheDir,
-              });
+              await transpileTSToCJS(entryCode, event.path);
             } catch {
               appLogger(
                 `Entry point ${basename(event.path)} failed to load, running clean rebuild...`,

@@ -124,8 +124,6 @@ export const loadContentDeclaration = async (
       logError: options?.logError,
       projectRequire: build.require ?? getProjectRequire(),
       buildOptions: {
-        cache: build.cache,
-        cacheDir: system.cacheDir,
         packages: undefined, // It fixes the import of ESM packages in the content declaration
         external: externalDeps,
         banner: {
