@@ -7,7 +7,7 @@ const TITLE_SUFFIX = 'Layer';
 const BRAND_SEGMENT = 'Int';
 
 /** Time the server-rendered phrase stays untouched before the first rewrite. */
-const INITIAL_HOLD_MS = 3000;
+const INITIAL_HOLD_MS = 1000;
 /** Time a fully typed phrase stays before being erased. */
 const PHRASE_HOLD_MS = 2200;
 const TYPE_STEP_MS = 70;
@@ -156,14 +156,22 @@ export const TypewriterTitle: FC<TypewriterTitleProps> = ({
       </span>
       <span className="col-start-1 row-start-1">
         {visibleBrand}
-        <span
-          className={cn(
-            'transition-colors duration-500',
-            state.phase !== 'holding' && 'text-text/60'
-          )}
-        >
-          {visibleRest}
-        </span>
+        {/* Each letter fades in from the dimmed color as soon as it is typed
+            (@starting-style), so the color follows the caret left to right */}
+        {Array.from(visibleRest, (letter, letterIndex) => (
+          <span
+            // Index key: kept letters stay mounted, only new ones animate
+            // biome-ignore lint/suspicious/noArrayIndexKey: position is the identity
+            key={letterIndex}
+            className={cn(
+              'starting:text-text/60 transition-colors duration-500 ease-out',
+              // Delayed so the color trails a few letters behind the caret
+              state.phase === 'erasing' ? 'text-text/60' : 'delay-200'
+            )}
+          >
+            {letter}
+          </span>
+        ))}
         {caret}
         {separator}
         {TITLE_SUFFIX}
