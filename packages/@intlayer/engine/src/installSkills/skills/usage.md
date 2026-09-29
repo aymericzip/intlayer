@@ -19,7 +19,7 @@ To use Intlayer effectively:
 1.  **Retrieve Locales**: Check `intlayer.config.{ts,js,json,json5,jsonc,cjs,mjs}`, `.intlayerrc` to see the configured locales.
 
 2.  **Declare Content**:
-    We recommend creating one content declaration file per component, located alongside the component file. This keeps translations close to the code.
+    We recommend creating one content declaration file per component or per section of your application, located alongside the component file. This keeps translations close to the code.
 
 3.  **Consume Content**: Use the provided hooks and functions to access your content.
     - [Intlayer Exports](https://intlayer.org/doc/packages/intlayer/exports.md)

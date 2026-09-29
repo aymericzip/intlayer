@@ -28,6 +28,8 @@ const config: IntlayerConfig = {
     optimize: undefined, // auto: enabled in production builds only
     purge: true, // drop fields never read in source code
     minify: true, // rename field keys to short aliases (title → a)
+    chunkGrouping: true, // dynamic mode: one dictionary chunk per split boundary
+    dictionariesPreload: true, // dynamic mode: fetch content with its chunk
   },
 };
 
@@ -37,6 +39,19 @@ export default config;
 - `purge` and `minify` do nothing when `optimize` is `false`.
 - `minify` skips key renaming while `editor.enabled` is `true`, and for `importMode: 'fetch'` dictionaries.
 - `importMode: 'dynamic'` ships only the current locale's JSON; it can also be set per dictionary.
+
+## Dictionaries Follow Their Chunk
+
+The build optimization rewrites each `useIntlayer('key')` / `getIntlayer('key')` into a direct import of that dictionary, then empties the global dictionary registry:
+
+- A dictionary is bundled with the component that reads it, so a lazy-loaded route only ships its own content.
+
+With `importMode: 'dynamic'`, `vite-intlayer` adds two more build plugins (build only, not in dev):
+
+- `intlayerChunk` (`build.chunkGrouping`, default `true`) merges the per-dictionary, per-locale chunks by the code-split boundary that uses them (`React.lazy`, split route). Each boundary loads its content in one request per locale. Dictionaries used by several boundaries go to a shared chunk.
+- `intlayerPreload` (`build.dictionariesPreload`, default `true`) starts the dictionary fetch when its chunk is loaded, instead of when the component renders, so navigation does not flash a loading state.
+
+Keep dictionaries scoped to their component or page. A dictionary read from many routes ends up in a shared chunk.
 
 ## Write Code the Analyzer Can Follow
 
