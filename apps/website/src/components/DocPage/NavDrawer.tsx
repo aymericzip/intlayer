@@ -1,7 +1,11 @@
 import { Button } from '@intlayer/design-system/button';
 import { ClickOutsideDiv } from '@intlayer/design-system/click-outside-div';
 import { Container } from '@intlayer/design-system/container';
-import { useDevice, usePersistedStore } from '@intlayer/design-system/hooks';
+import {
+  useAreTransitionsReady,
+  useDevice,
+  usePersistedStore,
+} from '@intlayer/design-system/hooks';
 import { KeyboardShortcut } from '@intlayer/design-system/keyboard-shortcut';
 import { PopoverStatic } from '@intlayer/design-system/popover';
 import { cn } from '@intlayer/design-system/utils';
@@ -38,6 +42,7 @@ export const NavDrawer: FC<NavDrawerProps> = ({
     storeKey,
     defaultIsHidden
   );
+  const areTransitionsReady = useAreTransitionsReady();
 
   useEffect(() => {
     if (checkFocusParam && typeof window !== 'undefined') {
@@ -91,6 +96,9 @@ export const NavDrawer: FC<NavDrawerProps> = ({
         className={cn(
           'relative top-0 left-0 z-40 flex h-full justify-end max-md:fixed',
           'max-md:transition-transform max-md:duration-300 max-md:ease-in-out',
+          // The drawer and section states persisted in localStorage are only
+          // applied after hydration: switch to them without animating.
+          !areTransitionsReady && 'transition-none! [&_*]:transition-none!',
           isHidden === false
             ? 'max-md:translate-x-0'
             : 'max-md:pointer-events-none max-md:-translate-x-full'

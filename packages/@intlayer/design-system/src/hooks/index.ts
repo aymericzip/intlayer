@@ -1,3 +1,4 @@
+export * from './useAreTransitionsReady';
 export * from './useDevice';
 export * from './useGetElementById';
 export * from './useGetElementOrWindow';
