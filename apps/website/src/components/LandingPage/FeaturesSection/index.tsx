@@ -94,6 +94,9 @@ const getTitlePlacement = (
 
   const fontConst = isMobile ? 2 : 3;
 
+  // On narrow screens the upcoming titles fall onto the description below
+  const isHiddenUpcomingTitle = isMobile && index > activeIndex;
+
   return {
     // Convert polar coords to Cartesian (rem units)
     translateX: isActive ? '5rem' : `${(radius * Math.cos(angle)) / 4 + 3}rem`,
@@ -104,7 +107,12 @@ const getTitlePlacement = (
             (radius * Math.sin(angle) * 2 + 2 / (absIndexDiff / 5 + 1)) +
           3
         }rem`,
-    opacity: absIndexDiff > 2 ? 0 : absIndexDiff > 1 ? 0.5 : 1,
+    opacity:
+      isHiddenUpcomingTitle || absIndexDiff > 2
+        ? 0
+        : absIndexDiff > 1
+          ? 0.5
+          : 1,
     fontSize: `${fontConst / (absIndexDiff + 1)}rem`,
   };
 };
@@ -132,18 +140,20 @@ const Titles: FC<TitlesProps> = ({ sections, activeIndex, isMobile }) => (
 
 type FeaturesCarouselProps = {
   sections: Section[];
+  activeIndex: number;
+  setActiveIndex: (activeIndex: number) => void;
   progress: number;
   setProgress: (progress: number) => void;
 };
 
 export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({
   sections,
+  activeIndex,
+  setActiveIndex,
   progress,
   setProgress,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  // Track which section is currently "active"
-  const [activeIndex, setActiveIndex] = useState(0);
 
   // We keep references to compare old vs new, so we only update state if changed
   const activeIndexRef = useRef(activeIndex);
@@ -189,19 +199,22 @@ export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({
             });
           }
 
-          // Check boundaries
-          const isOverflowing = scrollYInContainer > scrollableHeight;
-          const isUnderflowing = scrollYInContainer < 0;
+          // Clamp so scrolling past (or loading below) the container shows the
+          // last section fully played, and above it shows the first unplayed
+          const progressInSection = Math.max(
+            0,
+            Math.min(
+              (scrollYInContainer - clampedIndex * sectionHeight) /
+                sectionHeight,
+              1
+            )
+          );
 
-          if (!isOverflowing && !isUnderflowing) {
-            const progressInSection =
-              (scrollYInContainer % sectionHeight) / sectionHeight;
-            // Only update if progress changed
-            if (progressRef.current !== progressInSection) {
-              startTransition(() => {
-                setProgress(progressInSection);
-              });
-            }
+          // Only update if progress changed
+          if (progressRef.current !== progressInSection) {
+            startTransition(() => {
+              setProgress(progressInSection);
+            });
           }
 
           ticking = false;
@@ -210,11 +223,14 @@ export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({
       }
     };
 
+    // Sync with the restored scroll position (refresh below the section)
+    handleScroll();
+
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [nbSections, setProgress]);
+  }, [nbSections, setActiveIndex, setProgress]);
 
   return (
     <section
@@ -322,19 +338,32 @@ const TestSection = lazy(() =>
 /* -------------------------------------------------------------------------- */
 
 export const FeaturesSection: FC = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
   const [progress, setProgress] = useState(0);
   const sectionsData = useIntlayer('features-section');
 
+  /**
+   * Inactive sections stay mounted, so they must not play the active one's
+   * progress: sections already scrolled past stay complete, later ones empty.
+   */
+  const getSectionProgress = (sectionIndex: number): number => {
+    if (sectionIndex < activeIndex) return 1;
+    if (sectionIndex > activeIndex) return 0;
+    return progress;
+  };
+
   const sections: Section[] = sectionsData
     // Filter out anything you don’t want to display
-    .map((sectionData) => {
+    .map((sectionData, sectionIndex) => {
+      const sectionProgress = getSectionProgress(sectionIndex);
+
       switch (sectionData.id.value) {
         case 'codebase':
           return {
             ...sectionData,
             children: (
               <Suspense fallback={<Loader />}>
-                <IDESection scrollProgress={progress} />
+                <IDESection scrollProgress={sectionProgress} />
               </Suspense>
             ),
           };
@@ -352,7 +381,7 @@ export const FeaturesSection: FC = () => {
             ...sectionData,
             children: (
               <Suspense fallback={<Loader />}>
-                <MultilingualSection scrollProgress={progress} />
+                <MultilingualSection scrollProgress={sectionProgress} />
               </Suspense>
             ),
           };
@@ -361,7 +390,7 @@ export const FeaturesSection: FC = () => {
             ...sectionData,
             children: (
               <Suspense fallback={<Loader />}>
-                <TestSection scrollProgress={progress} />
+                <TestSection scrollProgress={sectionProgress} />
               </Suspense>
             ),
           };
@@ -370,7 +399,7 @@ export const FeaturesSection: FC = () => {
             ...sectionData,
             children: (
               <Suspense fallback={<Loader />}>
-                <CompilerSection scrollProgress={progress} />
+                <CompilerSection scrollProgress={sectionProgress} />
               </Suspense>
             ),
           };
@@ -379,7 +408,7 @@ export const FeaturesSection: FC = () => {
         //     ...sectionData,
         //     children: (
         //       <Suspense fallback={<Loader />}>
-        //         <AutocompletionSection scrollProgress={progress} />
+        //         <AutocompletionSection scrollProgress={sectionProgress} />
         //       </Suspense>
         //     ),
         //   };
@@ -395,6 +424,8 @@ export const FeaturesSection: FC = () => {
     <FrameworkProvider>
       <FeaturesCarousel
         sections={sections}
+        activeIndex={activeIndex}
+        setActiveIndex={setActiveIndex}
         progress={progress}
         setProgress={setProgress}
       />

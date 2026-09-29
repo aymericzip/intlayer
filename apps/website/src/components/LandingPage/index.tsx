@@ -1,3 +1,4 @@
+import { useDevice } from '@intlayer/design-system/hooks';
 import { Loader } from '@intlayer/design-system/loader';
 import { type FC, lazy, Suspense } from 'react';
 import { useIntlayer } from 'react-intlayer';
@@ -56,6 +57,7 @@ const ProductsSection = lazy(() =>
 
 export const LandingPage: FC = () => {
   const content = useIntlayer('landing-page');
+  const { isMobile } = useDevice();
 
   return (
     <>
@@ -103,11 +105,14 @@ export const LandingPage: FC = () => {
           </Suspense>
         </section>
 
-        <section aria-label={content.liveDemoSection.value}>
-          <Suspense fallback={<Loader />}>
-            <DemoSection />
-          </Suspense>
-        </section>
+        {/* The CodeSandbox embed is unusable on narrow screens */}
+        {!isMobile && (
+          <section aria-label={content.liveDemoSection.value}>
+            <Suspense fallback={<Loader />}>
+              <DemoSection />
+            </Suspense>
+          </section>
+        )}
         <section aria-label={content.contributorsSection.value}>
           <Suspense fallback={<Loader />}>
             <ContributorSection />
