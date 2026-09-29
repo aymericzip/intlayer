@@ -339,13 +339,14 @@ export const I18nBenchmark: FC<I18nBenchmarkProps> = ({
           <div className="flex flex-wrap justify-between gap-4 align-middle">
             {!hideTitle && <H2>{title}</H2>}
             {!vertical && (
-              <div className="mb-2 flex flex-wrap items-center justify-end gap-4">
+              <div className="mb-2 flex flex-wrap items-center justify-end gap-4 max-md:w-full">
                 <Link
                   label={seeBenchmark.value}
                   variant="button-outlined"
                   color="text"
                   size="md"
                   roundedSize="sm"
+                  className="max-md:w-full"
                   to={External_Github_i18n_benchmark}
                 >
                   {seeBenchmark}
@@ -356,6 +357,7 @@ export const I18nBenchmark: FC<I18nBenchmarkProps> = ({
                   color="text"
                   size="md"
                   roundedSize="sm"
+                  className="max-md:w-full"
                   to={Website_Benchmark_Path}
                 >
                   <span className="flex items-center gap-1">

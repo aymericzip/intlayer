@@ -16,7 +16,7 @@ export const WhyToChoseIntlayerSection: FC = () => {
   const { title, content } = useIntlayer('why-to-chose-intlayer-section');
 
   return (
-    <section className="flex w-full flex-col items-center justify-center gap-10 border-neutral border-b py-10">
+    <section className="flex w-full flex-col items-center justify-center gap-10 border-neutral border-b px-6 py-10">
       <h2 className="text-4xl">{title}</h2>
 
       <div className="m-auto mt-3 grid w-full grid-cols-[auto_auto] place-items-center justify-evenly gap-x-2 gap-y-10 px-3 py-2 md:grid-cols-[1fr_1fr_1fr]">
@@ -26,7 +26,7 @@ export const WhyToChoseIntlayerSection: FC = () => {
 
           return (
             <AnimatedDiv
-              className="flex max-w-45 flex-col items-center gap-5 self-start p-6 text-center md:max-w-100"
+              className="flex max-w-45 flex-col items-center gap-5 self-start text-center md:max-w-100 md:p-6"
               key={asset.title.value}
             >
               <div className="flex w-full flex-col items-center gap-4 md:flex-row">

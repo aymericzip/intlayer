@@ -160,21 +160,8 @@
   }
 }
 
-/* The code block settles slightly above where it starts. */
-@keyframes hero-enter-lift {
-  from {
-    opacity: 0;
-    transform: none;
-  }
-  to {
-    opacity: 1;
-    transform: translateY(-30px);
-  }
-}
-
 .hero-enter,
-.hero-enter-sharpen,
-.hero-enter-lift {
+.hero-enter-sharpen {
   animation-duration: 0.6s;
   animation-timing-function: ease-out;
   animation-fill-mode: both;
@@ -188,18 +175,9 @@
   animation-name: hero-enter-sharpen;
 }
 
-.hero-enter-lift {
-  animation-name: hero-enter-lift;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .hero-enter,
-  .hero-enter-sharpen,
-  .hero-enter-lift {
+  .hero-enter-sharpen {
     animation: none;
-  }
-
-  .hero-enter-lift {
-    transform: translateY(-30px);
   }
 }

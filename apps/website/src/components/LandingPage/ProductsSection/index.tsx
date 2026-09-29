@@ -51,7 +51,7 @@ export const ProductsSection: FC = () => {
       <Carousel initialIndex={1} className="space-y-10 overflow-visible">
         {PRODUCTS.map(({ Component, key }) => (
           <Carousel.Item key={key}>
-            <div className="max-w-2xl rounded-2xl border bg-card p-6">
+            <div className="max-w-2xl rounded-2xl border bg-card p-6 max-sm:min-w-[80vw]">
               <Component />
             </div>
           </Carousel.Item>

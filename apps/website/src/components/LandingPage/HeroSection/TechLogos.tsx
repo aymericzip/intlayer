@@ -127,7 +127,7 @@ const LogoItem: FC<{
     <TechLogo
       name={name}
       className={cn(
-        'size-12 shrink-0 opacity-70 transition-opacity duration-200 hover:opacity-100 md:size-10 lg:size-15',
+        'size-9 shrink-0 opacity-70 transition-opacity duration-200 hover:opacity-100 sm:size-12 md:size-10 lg:size-15',
         className
       )}
     />

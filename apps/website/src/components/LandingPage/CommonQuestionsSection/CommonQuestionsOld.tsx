@@ -66,7 +66,7 @@ export const CommonQuestionsSection: FC = () => {
     useIntlayer('common-questions');
 
   return (
-    <section className="relative flex w-full flex-col items-center justify-center gap-8 p-16">
+    <section className="relative flex w-full flex-col items-center justify-center gap-8 p-6 md:p-16">
       <BackgroundLayout />
 
       <h2 className="text-3xl">{title}</h2>

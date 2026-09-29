@@ -40,9 +40,9 @@ export const HeroSection: FC = () => {
     <section className="relative flex min-h-[calc(100dvh-60px)] flex-col">
       <section className="relative flex w-full flex-1 flex-col px-4 sm:px-6 md:px-8 lg:px-12">
         <BackgroundLayout />
-        <div className="flex flex-1 flex-col items-center justify-center py-10 sm:py-16">
+        <div className="flex flex-1 flex-col items-center justify-evenly gap-4 py-3 sm:gap-3">
           {SHOW_WHATS_NEW && (
-            <div className="hero-enter mb-6 flex items-center justify-center gap-2 sm:mb-8">
+            <div className="hero-enter flex items-center justify-center gap-2">
               <Link to={Website_ReleasesV9_Path} label={whatsNewLabel.value}>
                 <Tag
                   size="md"
@@ -59,28 +59,30 @@ export const HeroSection: FC = () => {
             </div>
           )}
 
-          {/* Title */}
-          <TypewriterTitle
-            // Remount on locale change to restart from the first word
-            key={title.value}
-            title={title.value}
-            words={titleWords.map((word: IntlayerNode<string>) => word.value)}
-            className="mb-3 px-2 text-center font-bold text-3xl leading-tight sm:text-4xl md:text-5xl lg:text-6xl"
-          />
-          {/* Subtitle */}
-          <h2
-            className="hero-enter-sharpen mb-6 px-2 text-center font-semibold text-lg leading-snug sm:text-2xl md:text-3xl lg:mb-8 lg:text-4xl"
-            style={{ animationDelay: '0.5s' }}
-          >
-            {subheading}
-          </h2>
+          {/* Title and subtitle stay grouped so the spare height goes around them */}
+          <div className="flex flex-col items-center">
+            <TypewriterTitle
+              // Remount on locale change to restart from the first word
+              key={title.value}
+              title={title.value}
+              words={titleWords.map((word: IntlayerNode<string>) => word.value)}
+              className="mb-3 px-2 text-center font-bold text-3xl leading-tight sm:text-4xl md:text-5xl lg:text-6xl"
+            />
+            {/* Subtitle */}
+            <h2
+              className="hero-enter-sharpen px-2 text-center font-semibold text-lg leading-snug sm:text-2xl md:text-3xl lg:text-4xl"
+              style={{ animationDelay: '0.5s' }}
+            >
+              {subheading}
+            </h2>
+          </div>
           {/* Description */}
 
           {/* Copyable code block */}
           <Container
             onClick={copy}
             roundedSize="xl"
-            className="hero-enter-lift mt-8 flex w-full max-w-xl cursor-pointer flex-row items-center justify-between gap-1 overflow-hidden border bg-card p-1 py-2 pr-2 pl-3 sm:pl-4"
+            className="hero-enter-lift flex w-full max-w-xl cursor-pointer flex-row items-center justify-between gap-1 overflow-hidden border bg-card p-1 py-2 pr-2 pl-3 sm:pl-4"
             style={{ animationDelay: '0.7s' }}
           >
             <ChevronRight className="size-6 shrink-0 text-neutral" />
@@ -102,7 +104,7 @@ export const HeroSection: FC = () => {
             />
           </Container>
           <p
-            className="hero-enter mx-auto mt-4 mb-8 max-w-xl px-2 text-center text-muted-foreground text-sm leading-relaxed sm:text-lg lg:mb-12"
+            className="hero-enter mx-auto max-w-xl px-2 text-center text-muted-foreground text-sm leading-relaxed sm:text-lg"
             style={{ animationDelay: '0.6s' }}
           >
             {description}
@@ -110,7 +112,7 @@ export const HeroSection: FC = () => {
 
           {/* Action Buttons */}
           <div
-            className="hero-enter flex w-full max-w-xs flex-col justify-center gap-3 sm:max-w-none sm:flex-row sm:gap-4"
+            className="hero-enter flex w-full flex-row flex-wrap justify-center gap-3 sm:gap-4"
             style={{ animationDelay: '0.8s' }}
           >
             <Link
@@ -148,7 +150,7 @@ export const HeroSection: FC = () => {
       <section className="relative w-full overflow-x-auto border-neutral border-t">
         <LandingList />
       </section>
-      <div className="flex items-center justify-between gap-4 border-neutral border-y px-4 py-3">
+      <div className="flex items-center justify-between gap-4 border-neutral border-y px-4 py-2 sm:py-3">
         <p className="truncate font-mono text-foreground text-xs uppercase tracking-wider sm:text-sm md:text-base">
           {availableFor}
         </p>
