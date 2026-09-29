@@ -1,4 +1,5 @@
 import { useGetElementById } from '@intlayer/design-system/hooks';
+import { cn } from '@intlayer/design-system/utils';
 import { type FC, useRef } from 'react';
 import { useActiveSection } from '../useActiveSection';
 import { useTitlesTree } from '../useTitlesTree';
@@ -63,11 +64,10 @@ export const TOCProgressBar: FC = () => {
             onClick={() => handleScrollTo(id)}
           >
             <span
-              className={`h-0.5 w-4.5 rounded-full transition-all duration-300 ${
-                isActive
-                  ? 'bg-foreground'
-                  : 'bg-muted-foreground/40 group-hover:bg-muted-foreground/80'
-              }`}
+              className={cn(
+                'h-0.5 w-4.5 rounded-full transition-all duration-300',
+                isActive ? 'h-0.75 bg-text' : 'bg-text/65 dark:bg-text/50'
+              )}
             />
           </button>
         );

@@ -274,7 +274,7 @@ export const DocumentationRender: FC<DocumentationRenderProps> = ({
               return <TechGrid>{items.map(renderDocLinkItem)}</TechGrid>;
             }
 
-            return <ul {...props} />;
+            return <ul {...props} className="flex flex-col gap-4" />;
           },
           Toc: (props: ComponentProps<typeof TableOfContents>) => (
             <TableOfContents
@@ -350,7 +350,7 @@ export const DocumentationRender: FC<DocumentationRenderProps> = ({
           <>
             <SectionScroller />
             <div
-              className="flex flex-col gap-8 py-10 text-text/65"
+              className="flex flex-col gap-8 py-10 text-text/65 dark:text-text/50"
               {...props}
             />
           </>
