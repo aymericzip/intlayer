@@ -21,8 +21,3 @@ export const useEditorLocale = (): Locale | undefined => {
 
   return locale;
 };
-
-export const useSetEditorLocale = () => {
-  const manager = useEditorStateManager();
-  return (locale: Locale) => manager?.currentLocale.set(locale);
-};

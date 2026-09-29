@@ -7,13 +7,12 @@ import { cn } from '@intlayer/design-system/utils';
 import {
   useConfiguration,
   useCrossURLPathState,
+  useEditedContentPersistence,
   useEditorEnabled,
   useEditorPingClient,
-  useIframeClickMerger,
 } from '@intlayer/editor-react';
 import { type FC, type RefObject, useEffect, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { useEditedContentPersistence } from '../../hooks/useEditedContentPersistence';
 import { NoApplicationURLView } from './NoApplicationURLView/NoApplicationURLView';
 
 export const IframeController: FC<{
@@ -28,17 +27,10 @@ export const IframeController: FC<{
   const pingClient = useEditorPingClient();
 
   useEditedContentPersistence();
-  useIframeClickMerger();
 
   const [loading, setLoading] = useState(true);
 
-  /**
-   * We need to enable the editor to receive messages from the iframe
-   */
-  const [iframePath] = useCrossURLPathState(undefined, {
-    receive: true,
-    emit: false,
-  });
+  const iframePath = useCrossURLPathState();
 
   useEffect(() => {
     if (typeof iframePath !== 'string') return;

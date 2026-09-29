@@ -17,10 +17,7 @@ import { createPortal } from 'react-dom';
 import { useIntlayer } from 'react-intlayer';
 import { useDashboardRightPanel } from '#hooks/useDashboardRightPanel';
 import { dictionaryListDrawerIdentifier } from '../DictionaryListDrawer/dictionaryListDrawerIdentifier';
-import {
-  getDrawerIdentifier,
-  useDictionaryEditionDrawer,
-} from './useDictionaryEditionDrawer';
+import { useDictionaryEditionDrawer } from './useDictionaryEditionDrawer';
 
 type DictionaryEditionDrawerProps = {
   dictionaryKey: string;
@@ -36,11 +33,9 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
     openDictionaryEditor,
     modalTitle,
     openDictionaryInEditor,
+    noDictionaryFocused,
+    focusedDictionaryNotFound,
   } = useIntlayer('dictionary-edition-drawer');
-  const id = getDrawerIdentifier(dictionaryKey);
-  const { noDictionaryFocused, focusedDictionaryNotFound } = useIntlayer(
-    'dictionary-edition-drawer'
-  );
 
   const { close, isOpen } = useDictionaryEditionDrawer(dictionaryKey);
   const { open } = useDashboardRightPanel();

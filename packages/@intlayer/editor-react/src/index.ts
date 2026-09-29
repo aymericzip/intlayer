@@ -1,5 +1,4 @@
 export { MessageKey } from '@intlayer/editor';
-export * from './CommunicatorContext';
 export * from './ConfigurationContext';
 export * from './DictionariesRecordContext';
 export * from './EditedContentContext';
@@ -7,9 +6,8 @@ export * from './EditorEnabledContext';
 export * from './EditorProvider';
 export * from './EditorStateContext';
 export * from './FocusDictionaryContext';
-export * from './useCrossFrameMessageListener';
 export * from './useCrossFrameState';
 export * from './useCrossURLPathState';
+export * from './useEditedContentPersistence';
 export * from './useEditorLocale';
 export * from './useFocusUnmergedDictionary';
-export * from './useIframeClickInterceptor';

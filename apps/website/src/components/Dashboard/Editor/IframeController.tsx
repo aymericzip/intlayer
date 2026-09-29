@@ -1,20 +1,16 @@
 import { Browser } from '@intlayer/design-system/browser';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
-import { Loader } from '@intlayer/design-system/loader';
-import { cn } from '@intlayer/design-system/utils';
 import {
   useConfiguration,
   useCrossURLPathState,
+  useEditedContentPersistence,
   useEditorEnabled,
-  useGetEditorEnabledState,
-  useIframeClickMerger,
-  usePostEditorEnabledState,
+  useEditorPingClient,
 } from '@intlayer/editor-react';
-import { type FC, type RefObject, useState } from 'react';
+import type { FC, RefObject } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { NoApplicationURLView } from './NoApplicationURLView/NoApplicationURLView';
-import { useEditedContentPersistence } from './useEditedContentPersistence';
 
 /**
  * Sandbox applied to the framed application. Dropped for same-origin embeds —
@@ -44,27 +40,13 @@ export const IframeController: FC<{
 
   const { editor } = useConfiguration() ?? {};
 
-  // Post - Allow to set the editor enabled state on the client side
-  const postEditorEnabled = usePostEditorEnabledState();
-
-  // Enable the editor depending of the configuration
-  const enableEditor = () => postEditorEnabled(editor?.enabled ?? false);
-
-  // State received from the client
+  // Driven by the CLIENT_READY → EDITOR_ACTIVATE handshake
   const { enabled } = useEditorEnabled();
-
-  // Listen if the client ask if the editor is connected and send enable state
-  useGetEditorEnabledState(enableEditor);
+  const pingClient = useEditorPingClient();
 
   useEditedContentPersistence();
-  useIframeClickMerger();
 
-  const [iframePath] = useCrossURLPathState(undefined, {
-    receive: true,
-    emit: false,
-  });
-
-  const [loading, setLoading] = useState(false);
+  const iframePath = useCrossURLPathState();
 
   if (!editor?.applicationURL) {
     return (
@@ -76,27 +58,20 @@ export const IframeController: FC<{
 
   return (
     <div className="contents size-full flex-1">
-      <Loader isLoading={loading} />
       <Browser
         path={iframePath}
         initialUrl={editor.applicationURL}
         domainRestriction={editor.applicationURL}
-        className={cn(
-          'size-full flex-1 overflow-hidden rounded-lg',
-          loading && 'hidden'
-        )}
+        className="size-full flex-1 overflow-hidden rounded-lg"
         sandbox={getApplicationSandbox(editor.applicationURL)}
         ref={iframeRef}
-        onLoad={() => {
-          setLoading(false);
-          enableEditor();
-        }}
+        onLoad={pingClient}
       />
       {!enabled && (
         <div className="absolute right-4 bottom-4 z-20">
           <Button
             label={content.enableEditor.value}
-            onClick={enableEditor}
+            onClick={pingClient}
             color="text"
           >
             {content.enableEditor}

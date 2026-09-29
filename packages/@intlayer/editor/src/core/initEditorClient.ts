@@ -1,4 +1,4 @@
-import { editor, internationalization } from '@intlayer/config/built';
+import { editor } from '@intlayer/config/built';
 import { defineIntlayerElements } from '../components';
 import type { MessengerConfig } from './CrossFrameMessenger';
 import { EditorStateManager } from './EditorStateManager';
@@ -7,7 +7,7 @@ import {
   setGlobalEditorManager,
 } from './globalManager';
 
-export const buildClientMessengerConfig = (): MessengerConfig => {
+const buildClientMessengerConfig = (): MessengerConfig => {
   // The editor/CMS origins are baked into the bundle at build time, so they can
   // diverge from the actual serving origin (e.g. a production build served on
   // localhost, or a preview deployment). A same-origin parent is always safe to

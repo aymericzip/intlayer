@@ -1,6 +1,4 @@
 import { defineIntlayerContentSelectorWrapper } from './ContentSelectorWrapper';
-import { defineIntlayerEditedContent } from './EditedContent';
-import { defineIntlayerEditorElement } from './IntlayerEditor';
 
 const DEFAULT_PRESS_DURATION = 250;
 
@@ -208,6 +206,4 @@ export const defineIntlayerElements = (): void => {
     );
   }
   defineIntlayerContentSelectorWrapper();
-  defineIntlayerEditedContent();
-  defineIntlayerEditorElement();
 };

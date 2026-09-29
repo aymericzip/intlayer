@@ -35,8 +35,6 @@ type EditedContentActionsContextType = {
     keyPath: KeyPath[]
   ) => void;
   restoreEditedContent: (localDictionaryId: LocalDictionaryId) => void;
-  clearEditedDictionaryContent: (localDictionaryId: LocalDictionaryId) => void;
-  clearEditedContent: () => void;
   getEditedContentValue: (
     localDictionaryIdOrKey: LocalDictionaryId | Dictionary['key'] | string,
     keyPath: KeyPath[]
@@ -62,8 +60,6 @@ export const useEditedContentActions = (): EditedContentActionsContextType => {
     removeEditedContent: (localId, keyPath) =>
       manager?.removeContent(localId, keyPath),
     restoreEditedContent: (localId) => manager?.restoreContent(localId),
-    clearEditedDictionaryContent: (localId) => manager?.clearContent(localId),
-    clearEditedContent: () => manager?.clearAllContent(),
     getEditedContentValue: (localIdOrKey, keyPath) =>
       manager?.getContentValue(localIdOrKey, keyPath),
   };
@@ -85,24 +81,4 @@ export const useEditedContent = () => {
 
   const actions = useEditedContentActions();
   return { editedContent, ...actions };
-};
-
-export const usePostEditedContentState = <S,>(
-  onEventTriggered?: (data: S) => void
-) => {
-  const manager = useEditorStateManager();
-  useEffect(() => {
-    if (!onEventTriggered || !manager) return;
-    return manager.messenger.subscribe(
-      `INTLAYER_EDITED_CONTENT_CHANGED/post`,
-      onEventTriggered as (data: unknown) => void
-    );
-  }, [manager, onEventTriggered]);
-};
-
-export const useGetEditedContentState = () => {
-  const manager = useEditorStateManager();
-  return () => {
-    manager?.messenger.send('INTLAYER_EDITED_CONTENT_CHANGED/get');
-  };
 };

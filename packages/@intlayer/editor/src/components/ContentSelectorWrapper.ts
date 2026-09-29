@@ -16,6 +16,59 @@ import { MessageKey } from '../messageKey';
 
 type RenderState = 'simple' | 'wrapped-slot' | 'wrapped-text';
 
+/**
+ * Share of the viewport height left above content scrolled into view (30vh),
+ * keeping it clear of fixed navbars.
+ */
+const SCROLL_TOP_OFFSET_RATIO = 0.3;
+
+/** Parent in the flattened tree, crossing shadow roots up to their host. */
+const getComposedParent = (element: Element): Element | null =>
+  element.parentElement ??
+  ((element.getRootNode() as ShadowRoot).host as Element | undefined) ??
+  null;
+
+/** Vertical translation applied to an element, by `transform` or `translate`. */
+const getTranslateY = (style: CSSStyleDeclaration): number => {
+  const transformOffset =
+    style.transform && style.transform !== 'none'
+      ? new DOMMatrixReadOnly(style.transform).m42
+      : 0;
+  // `translate: <x> <y>` — a single value only moves along x
+  const translateOffset = Number.parseFloat(
+    style.translate?.split(' ')[1] ?? ''
+  );
+
+  return (
+    transformOffset + (Number.isNaN(translateOffset) ? 0 : translateOffset)
+  );
+};
+
+/**
+ * Vertical offset the element will lose once its reveal animations end.
+ *
+ * Scroll-reveal effects (`whileInView`, AOS…) keep off-screen content
+ * transparent and shifted until it enters the viewport, then slide it into
+ * place: measuring it as-is would scroll too far by that shift. Only
+ * translucent ancestors are counted, so permanent transforms (centering…)
+ * stay part of the position.
+ */
+const getPendingRevealOffset = (element: Element): number => {
+  let offset = 0;
+
+  for (
+    let ancestor: Element | null = element;
+    ancestor;
+    ancestor = getComposedParent(ancestor)
+  ) {
+    const style = getComputedStyle(ancestor);
+
+    if (Number.parseFloat(style.opacity) < 1) offset += getTranslateY(style);
+  }
+
+  return offset;
+};
+
 const _HTMLElement =
   typeof HTMLElement !== 'undefined'
     ? HTMLElement
@@ -47,30 +100,11 @@ export class IntlayerContentSelectorWrapperElement extends _HTMLElement {
   private _selector: HTMLElement | null = null;
 
   private _unsubManager: (() => void) | null = null;
-  private _unsubEnabled: (() => void) | null = null;
-  private _unsubFocused: (() => void) | null = null;
-  private _unsubEditedContent: (() => void) | null = null;
+  /** Removes the listeners attached to the current manager's states */
+  private _unsubManagerState: (() => void) | null = null;
 
   static get observedAttributes(): string[] {
     return ['key-path', 'dictionary-key'];
-  }
-
-  get keyPathJson(): string {
-    return this._keyPathJson;
-  }
-  set keyPathJson(v: string) {
-    this._keyPathJson = v;
-    const manager = getGlobalEditorManager();
-    if (manager) this._updateEditedValue(manager);
-  }
-
-  get dictionaryKey(): string {
-    return this._dictionaryKey;
-  }
-  set dictionaryKey(v: string) {
-    this._dictionaryKey = v;
-    const manager = getGlobalEditorManager();
-    if (manager) this._updateEditedValue(manager);
   }
 
   constructor() {
@@ -83,18 +117,17 @@ export class IntlayerContentSelectorWrapperElement extends _HTMLElement {
 
   attributeChangedCallback(
     name: string,
-    _oldVal: string | null,
-    newVal: string | null
+    _oldValue: string | null,
+    newValue: string | null
   ): void {
     if (name === 'key-path') {
-      this._keyPathJson = newVal ?? '[]';
-      const manager = getGlobalEditorManager();
-      if (manager) this._updateEditedValue(manager);
-    } else if (name === 'dictionary-key') {
-      this._dictionaryKey = newVal ?? '';
-      const manager = getGlobalEditorManager();
-      if (manager) this._updateEditedValue(manager);
+      this._keyPathJson = newValue ?? '[]';
+    } else {
+      this._dictionaryKey = newValue ?? '';
     }
+
+    const manager = getGlobalEditorManager();
+    if (manager) this._updateEditedValue(manager);
   }
 
   connectedCallback(): void {
@@ -106,18 +139,10 @@ export class IntlayerContentSelectorWrapperElement extends _HTMLElement {
   }
 
   disconnectedCallback(): void {
-    this._teardown();
-  }
-
-  private _teardown(): void {
     this._unsubManager?.();
-    this._unsubEnabled?.();
-    this._unsubFocused?.();
-    this._unsubEditedContent?.();
     this._unsubManager = null;
-    this._unsubEnabled = null;
-    this._unsubFocused = null;
-    this._unsubEditedContent = null;
+    this._unsubManagerState?.();
+    this._unsubManagerState = null;
   }
 
   private _getRawKeyPath(): KeyPath[] {
@@ -200,73 +225,54 @@ export class IntlayerContentSelectorWrapperElement extends _HTMLElement {
       isSameKeyPath(focusedContent.keyPath ?? [], keyPath);
     this._updateSelectorAttr();
 
-    // Scroll into view when this element becomes selected and is not already
-    // visible in the iframe viewport. This covers the case where the editor
-    // focuses a content block that is off-screen in the client app.
+    // Reveal content the editor focuses while it is off-screen in the app
     if (this._isSelected && !wasSelected) {
       this._scrollIntoViewIfNeeded();
     }
   }
 
+  /**
+   * Scrolls the selected content to 30vh, unless it is already fully visible
+   * in this frame's viewport.
+   */
   private _scrollIntoViewIfNeeded(): void {
-    try {
-      let rect: DOMRect | undefined;
+    // `.wrapper` is the only real box: this host and the selector are
+    // `display: contents`. No selector means the editor UI is inactive.
+    const target = this._selector?.shadowRoot?.querySelector('.wrapper');
+    if (!target) return;
 
-      // Primary: the .wrapper span inside the selector's open shadow DOM has a
-      // real CSS box (display:inline-block) for both wrapped-text and wrapped-slot.
-      // This is the only reliable source for simple-string nodes where this host's
-      // light DOM is empty and this.getBoundingClientRect() returns zeros.
-      if (this._selector) {
-        const innerWrapper = this._selector.shadowRoot?.querySelector(
-          '.wrapper'
-        ) as HTMLElement | null;
-        if (innerWrapper) {
-          const r = innerWrapper.getBoundingClientRect();
-          if (r.width > 0 || r.height > 0) rect = r;
-        }
-      }
+    const rect = target.getBoundingClientRect();
+    // Where the content settles once revealed
+    const top = rect.top - getPendingRevealOffset(target);
+    const bottom = top + rect.height;
 
-      // Fallback: range over light-DOM children for wrapped-slot nodes rendered
-      // by a framework (React/markdown) before _selector is available.
-      if (!rect && this.childNodes.length > 0) {
-        const range = document.createRange();
-
-        range.selectNodeContents(this);
-
-        const r = range.getBoundingClientRect();
-
-        if (r.width > 0 || r.height > 0) rect = r;
-      }
-
-      if (!rect) {
-        rect = this.getBoundingClientRect();
-      }
-
-      const viewportHeight =
-        window.innerHeight || document.documentElement.clientHeight;
-      const viewportWidth =
-        window.innerWidth || document.documentElement.clientWidth;
-
-      const isVisible =
-        rect.width > 0 &&
-        rect.height > 0 &&
-        rect.bottom > 0 &&
-        rect.right > 0 &&
-        rect.top < viewportHeight &&
-        rect.left < viewportWidth;
-
-      if (!isVisible) {
-        // Scroll so the element lands at 25 % from the top of the viewport.
-        const scrollY = window.scrollY ?? document.documentElement.scrollTop;
-        const targetScrollY = rect.top + scrollY - viewportHeight * 0.25;
-        window.scrollTo({
-          top: Math.max(0, targetScrollY),
-          behavior: 'smooth',
-        });
-      }
-    } catch {
-      // scroll APIs may not be available in all environments
+    const isFullyVisible = top >= 0 && bottom <= window.innerHeight;
+    if (
+      isFullyVisible &&
+      !this._isCoveredAt((rect.left + rect.right) / 2, top + 1)
+    ) {
+      return;
     }
+
+    window.scrollBy({
+      top: top - window.innerHeight * SCROLL_TOP_OFFSET_RATIO,
+      behavior: 'smooth',
+    });
+  }
+
+  /**
+   * Whether another element (a fixed navbar, a sticky header…) is painted over
+   * this content at the given viewport point.
+   */
+  private _isCoveredAt(x: number, y: number): boolean {
+    // Query from this element's own root so apps rendered in a shadow root
+    // (Lit…) don't get their outer host back
+    const root = this.getRootNode() as Document | ShadowRoot;
+    if (typeof root.elementFromPoint !== 'function') return false;
+
+    const topElement = root.elementFromPoint(x, y);
+
+    return Boolean(topElement) && !this.contains(topElement);
   }
 
   private _updateSelectorAttr(): void {
@@ -284,15 +290,11 @@ export class IntlayerContentSelectorWrapperElement extends _HTMLElement {
       this._setupManagerSubscriptions(manager);
     }
     // Keep listening for manager changes (handles stop + re-init cycles)
-    this._unsubManager = onGlobalEditorManagerChange((m) => {
-      this._unsubEnabled?.();
-      this._unsubFocused?.();
-      this._unsubEditedContent?.();
-      this._unsubEnabled = null;
-      this._unsubFocused = null;
-      this._unsubEditedContent = null;
-      if (m) {
-        this._setupManagerSubscriptions(m);
+    this._unsubManager = onGlobalEditorManagerChange((nextManager) => {
+      this._unsubManagerState?.();
+      this._unsubManagerState = null;
+      if (nextManager) {
+        this._setupManagerSubscriptions(nextManager);
       } else {
         this._editorEnabled = false;
         this._isSelected = false;
@@ -322,15 +324,14 @@ export class IntlayerContentSelectorWrapperElement extends _HTMLElement {
     manager.focusedContent.addEventListener('change', handleFocusedChange);
     manager.editedContent.addEventListener('change', handleEditedContentChange);
 
-    this._unsubEnabled = () =>
+    this._unsubManagerState = () => {
       manager.editorEnabled.removeEventListener('change', handleEnabledChange);
-    this._unsubFocused = () =>
       manager.focusedContent.removeEventListener('change', handleFocusedChange);
-    this._unsubEditedContent = () =>
       manager.editedContent.removeEventListener(
         'change',
         handleEditedContentChange
       );
+    };
   }
 
   private _handlePress(e: Event): void {

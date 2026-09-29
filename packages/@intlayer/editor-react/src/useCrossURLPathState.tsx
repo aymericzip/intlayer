@@ -1,18 +1,13 @@
 'use client';
 
 import { MessageKey } from '@intlayer/editor';
-import {
-  type CrossFrameStateOptions,
-  useCrossFrameState,
-} from './useCrossFrameState';
+import { useCrossFrameState } from './useCrossFrameState';
 
-export const useCrossURLPathState = (
-  initialState?: string,
-  options?: CrossFrameStateOptions
-) => useCrossFrameState(MessageKey.INTLAYER_URL_CHANGE, initialState, options);
-
-export const useCrossURLPathSetter = (initialState?: string) => {
-  // The EditorStateManager already handles URL tracking in client mode via
-  // UrlStateManager.start(). This hook remains for explicit use cases.
-  return useCrossURLPathState(initialState, { emit: true, receive: false });
-};
+/**
+ * Returns the path currently displayed by the client application.
+ */
+export const useCrossURLPathState = (): string | undefined =>
+  useCrossFrameState<string | undefined>(
+    MessageKey.INTLAYER_URL_CHANGE,
+    undefined
+  );

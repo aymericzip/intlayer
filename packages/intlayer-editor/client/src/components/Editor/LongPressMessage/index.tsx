@@ -11,7 +11,7 @@ import { useIntlayer } from 'react-intlayer';
 
 export const LongPressMessage: FC = () => {
   const { message } = useIntlayer('long-press-message');
-  const [hoveredContent] = useCrossFrameState<FileContent | null>(
+  const hoveredContent = useCrossFrameState<FileContent | null>(
     MessageKey.INTLAYER_HOVERED_CONTENT_CHANGED,
     null
   );

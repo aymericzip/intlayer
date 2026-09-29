@@ -18,22 +18,22 @@ import {
   type MessengerConfig,
 } from './CrossFrameMessenger';
 import { CrossFrameStateManager } from './CrossFrameStateManager';
-import {
-  getGlobalEditedContent,
-  setGlobalEditedContent,
-  subscribeToGlobalEditedContent,
-} from './editedContentBus';
-import {
-  getGlobalFocusedContent,
-  setGlobalFocusedContent,
-  subscribeToGlobalFocusedContent,
-} from './focusedContentBus';
 import { IframeClickInterceptor } from './IframeClickInterceptor';
+import {
+  createSharedWindowState,
+  type SharedWindowState,
+} from './sharedWindowState';
 import { UrlStateManager } from './UrlStateManager';
 
 export type DictionaryContent = Record<LocalDictionaryId, Dictionary>;
 
 type EditorConfig = Pick<IntlayerConfig, 'editor'>;
+
+const sharedEditedContent =
+  createSharedWindowState<DictionaryContent>('edited_content');
+const sharedFocusedContent = createSharedWindowState<FileContent | null>(
+  'focused_content'
+);
 
 export type FileContent = {
   dictionaryKey: string;
@@ -84,15 +84,8 @@ export class EditorStateManager {
   private _displayedKeysTimer: ReturnType<typeof setTimeout> | null = null;
   private _displayedKeysListeners: Array<[string, EventListener]> = [];
 
-  // Global editedContent bus sync
-  private _editedContentFromBus = false;
-  private _unsubGlobalEditedContent: (() => void) | null = null;
-  private _editedContentBusHandler: ((e: Event) => void) | null = null;
-
-  // Global focusedContent bus sync
-  private _focusedContentFromBus = false;
-  private _unsubGlobalFocusedContent: (() => void) | null = null;
-  private _focusedContentBusHandler: ((e: Event) => void) | null = null;
+  // Sync with the other managers of this window
+  private _stopSharedStateSyncs: Array<() => void> = [];
 
   constructor(config: EditorStateManagerConfig) {
     this._mode = config.mode;
@@ -166,8 +159,15 @@ export class EditorStateManager {
     this.configuration.start();
     this.currentLocale.start();
     this.displayedDictionaryKeys.start();
-    this._startEditedContentBusSync();
-    this._startFocusedContentBusSync();
+    this._stopSharedStateSyncs = [
+      this._syncWithSharedState(
+        this.editedContent,
+        sharedEditedContent,
+        // An empty record carries no edit worth broadcasting to the client
+        (content) => Object.keys(content).length > 0
+      ),
+      this._syncWithSharedState(this.focusedContent, sharedFocusedContent),
+    ];
 
     if (this._mode === 'client') {
       this._urlManager.start();
@@ -202,8 +202,8 @@ export class EditorStateManager {
     this.currentLocale.stop();
     this.displayedDictionaryKeys.stop();
     this._stopDisplayedDictionariesTracking();
-    this._stopEditedContentBusSync();
-    this._stopFocusedContentBusSync();
+    for (const stopSync of this._stopSharedStateSyncs) stopSync();
+    this._stopSharedStateSyncs = [];
     this._urlManager.stop();
     this._iframeInterceptor.stopInterceptor();
     this._iframeInterceptor.stopMerger();
@@ -219,6 +219,8 @@ export class EditorStateManager {
     if (this._mode !== 'editor') return;
 
     this.messenger.send(MessageKey.INTLAYER_ARE_YOU_THERE);
+    // Clients older than v8.9.4 have no handshake and wait for this instead
+    this.messenger.send(`${MessageKey.INTLAYER_EDITOR_ENABLED}/post`, true);
   }
 
   // ─── Focus helpers ──────────────────────────────────────────────────────────
@@ -377,25 +379,10 @@ export class EditorStateManager {
   }
 
   restoreContent(localDictionaryId: LocalDictionaryId): void {
-    const current = this.editedContent.value ?? {};
-    const updated = { ...current };
+    const { [localDictionaryId]: _restored, ...remainingContent } =
+      this.editedContent.value ?? {};
 
-    delete updated[localDictionaryId];
-
-    this.editedContent.set(updated);
-  }
-
-  clearContent(localDictionaryId: LocalDictionaryId): void {
-    const current = this.editedContent.value ?? {};
-    const filtered = { ...current };
-
-    delete filtered[localDictionaryId];
-
-    this.editedContent.set(filtered);
-  }
-
-  clearAllContent(): void {
-    this.editedContent.set({});
+    this.editedContent.set(remainingContent);
   }
 
   getContentValue(
@@ -453,91 +440,49 @@ export class EditorStateManager {
     return undefined;
   }
 
-  // ─── Global editedContent bus sync ───────────────────────────────────────
+  // ─── Shared window state sync ───────────────────────────────────────────
 
-  private _startEditedContentBusSync(): void {
-    // Push local changes to the global bus (loop-guarded)
-    this._editedContentBusHandler = (e: Event) => {
-      if (this._editedContentFromBus) return;
-      const content = (e as CustomEvent<DictionaryContent>).detail;
-      setGlobalEditedContent(content, this.messenger.senderId);
+  /**
+   * Mirrors a state with the managers of the same window, seeding it with the
+   * shared value when there is one. Returns a function stopping the sync.
+   */
+  private _syncWithSharedState<T>(
+    state: CrossFrameStateManager<T>,
+    sharedState: SharedWindowState<T>,
+    shouldSeed: (sharedValue: T) => boolean = () => true
+  ): () => void {
+    // Guards against echoing back a value received from the shared state
+    let isApplyingSharedValue = false;
+
+    const applySharedValue = (value: T) => {
+      isApplyingSharedValue = true;
+      state.set(value);
+      isApplyingSharedValue = false;
     };
-    this.editedContent.addEventListener(
-      'change',
-      this._editedContentBusHandler
-    );
 
-    // Receive bus changes from other managers
-    this._unsubGlobalEditedContent = subscribeToGlobalEditedContent(
-      (content, sourceId) => {
-        if (sourceId === this.messenger.senderId) return;
-        this._editedContentFromBus = true;
-        this.editedContent.set(content);
-        this._editedContentFromBus = false;
-      }
-    );
-
-    // Seed local value from the bus if bus already has content
-    const existing = getGlobalEditedContent();
-    if (Object.keys(existing).length > 0) {
-      this._editedContentFromBus = true;
-      this.editedContent.set(existing);
-      this._editedContentFromBus = false;
-    }
-  }
-
-  private _stopEditedContentBusSync(): void {
-    if (this._editedContentBusHandler) {
-      this.editedContent.removeEventListener(
-        'change',
-        this._editedContentBusHandler
+    const publishLocalChange = (event: Event) => {
+      if (isApplyingSharedValue) return;
+      sharedState.set(
+        (event as CustomEvent<T>).detail,
+        this.messenger.senderId
       );
-      this._editedContentBusHandler = null;
-    }
-    this._unsubGlobalEditedContent?.();
-    this._unsubGlobalEditedContent = null;
-  }
-
-  // ─── Global focusedContent bus sync ──────────────────────────────────────
-
-  private _startFocusedContentBusSync(): void {
-    this._focusedContentBusHandler = (e: Event) => {
-      if (this._focusedContentFromBus) return;
-      const content = (e as CustomEvent<FileContent | null>).detail;
-      setGlobalFocusedContent(content, this.messenger.senderId);
     };
-    this.focusedContent.addEventListener(
-      'change',
-      this._focusedContentBusHandler
-    );
 
-    this._unsubGlobalFocusedContent = subscribeToGlobalFocusedContent(
-      (content, sourceId) => {
-        if (sourceId === this.messenger.senderId) return;
-        this._focusedContentFromBus = true;
-        this.focusedContent.set(content);
-        this._focusedContentFromBus = false;
-      }
-    );
+    state.addEventListener('change', publishLocalChange);
 
-    const existing = getGlobalFocusedContent();
-    if (existing !== undefined) {
-      this._focusedContentFromBus = true;
-      this.focusedContent.set(existing);
-      this._focusedContentFromBus = false;
+    const unsubscribeShared = sharedState.subscribe((value, sourceId) => {
+      if (sourceId !== this.messenger.senderId) applySharedValue(value);
+    });
+
+    const sharedValue = sharedState.get();
+    if (sharedValue !== undefined && shouldSeed(sharedValue)) {
+      applySharedValue(sharedValue);
     }
-  }
 
-  private _stopFocusedContentBusSync(): void {
-    if (this._focusedContentBusHandler) {
-      this.focusedContent.removeEventListener(
-        'change',
-        this._focusedContentBusHandler
-      );
-      this._focusedContentBusHandler = null;
-    }
-    this._unsubGlobalFocusedContent?.();
-    this._unsubGlobalFocusedContent = null;
+    return () => {
+      state.removeEventListener('change', publishLocalChange);
+      unsubscribeShared();
+    };
   }
 
   // ─── Displayed dictionaries tracking (client mode only) ──────────────────

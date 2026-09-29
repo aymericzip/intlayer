@@ -1,14 +1,27 @@
-import { mergeIframeClick } from '../mergeIframeClick';
 import { MessageKey } from '../messageKey';
 import type { CrossFrameMessenger } from './CrossFrameMessenger';
 
 /**
- * IframeClickInterceptor handles click events across iframe boundaries.
+ * Replays a click made inside the iframe on the editor window, so the editor's
+ * "click outside" handlers (popovers, drawers) react to it.
+ */
+const replayIframeClick = (): void => {
+  for (const eventType of ['mousedown', 'click']) {
+    window.dispatchEvent(
+      new MouseEvent(eventType, {
+        bubbles: true,
+        cancelable: true,
+        view: window,
+      })
+    );
+  }
+};
+
+/**
+ * Forwards clicks across the iframe boundary.
  *
- * - startInterceptor(): called in the client (iframe) — broadcasts mousedown to parent
- * - startMerger(): called in the editor (parent) — merges received clicks into DOM events
- *
- * Replaces useIframeClickInterceptor / useIframeClickMerger across all frameworks.
+ * - startInterceptor(): client (iframe) side — reports each mousedown to the editor
+ * - startMerger(): editor (parent) side — replays reported clicks on its window
  */
 export class IframeClickInterceptor {
   private readonly _messenger: CrossFrameMessenger;
@@ -19,7 +32,6 @@ export class IframeClickInterceptor {
     this._messenger = messenger;
   }
 
-  /** Called on the client side (inside iframe). Broadcasts click events to parent. */
   startInterceptor(): void {
     if (typeof window === 'undefined') return;
     this._mousedownHandler = () => {
@@ -28,11 +40,10 @@ export class IframeClickInterceptor {
     window.addEventListener('mousedown', this._mousedownHandler);
   }
 
-  /** Called on the editor side (parent frame). Merges incoming iframe clicks into DOM. */
   startMerger(): void {
     this._unsubscribeMerge = this._messenger.subscribe(
       MessageKey.INTLAYER_IFRAME_CLICKED,
-      mergeIframeClick as (data: unknown) => void
+      replayIframeClick
     );
   }
 
