@@ -36,10 +36,12 @@ async function buildSW() {
           expiration: { maxEntries: 4, maxAgeSeconds: 365 * 24 * 60 * 60 },
         },
       },
-      // Cache Static Images (in public folder)
+      // Cache Static Images (in public folder). Their filenames are not
+      // hashed, so revalidate in the background instead of serving the
+      // previous deploy's file for 30 days.
       {
         urlPattern: /\.(?:png|jpg|jpeg|svg|gif|webp|ico)$/i,
-        handler: 'CacheFirst',
+        handler: 'StaleWhileRevalidate',
         options: {
           cacheName: 'static-images',
           expiration: { maxEntries: 50, maxAgeSeconds: 30 * 24 * 60 * 60 },

@@ -83,16 +83,14 @@ beforeAll(async () => {
 });
 
 describe('staticServerFnCache middleware', () => {
-  it('serves a prerendered payload verbatim', async () => {
+  it('leaves a prerendered payload to staticPages', async () => {
     const response = await handleStaticServerFnCache(
       createEvent(`/__tsr/staticServerFnCache/${CACHED_NAME}`)
     );
 
-    expect(response?.status).toBe(200);
-    expect(await response?.text()).toBe(cachedJson);
-    expect(response?.headers.get('Cache-Control')).toBe(
-      'public, max-age=31536000, immutable'
-    );
+    // `server/staticPages.ts` serves it with compression, ETag and
+    // `must-revalidate` — the filename does not change when the content does.
+    expect(response).toBeUndefined();
   });
 
   it('answers a miss with a body that deserializes to undefined', async () => {
@@ -130,8 +128,7 @@ describe('staticServerFnCache middleware', () => {
       createEvent(`/__tsr/staticServerFnCache/${MISSING_NAME}`, 'HEAD')
     );
 
-    expect(hit?.status).toBe(200);
-    expect(await hit?.text()).toBe('');
+    expect(hit).toBeUndefined();
     expect(miss?.status).toBe(404);
     expect(await miss?.text()).toBe('');
   });

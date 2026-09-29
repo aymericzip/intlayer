@@ -1,7 +1,6 @@
 /**
- * Nitro production middleware — serves the TanStack Start static server
- * function payloads that Nitro's baked public-asset manifest does not know
- * about.
+ * Nitro production middleware — answers TanStack Start static server
+ * function payload requests that have nothing on disk.
  *
  * Nitro scans `.output/public` and inlines the resulting asset manifest into
  * `.output/server/index.mjs` *before* TanStack Start's prerender step runs.
@@ -13,19 +12,23 @@
  * `staticFunctionMiddleware` then calls `response.json()` on that HTML and
  * throws `Unexpected token '<', "<!DOCTYPE "... is not valid JSON`.
  *
- * Reading the payload straight off disk here restores the intended behaviour.
+ * Payloads that exist fall through to `server/staticPages.ts`, which serves
+ * them with its precompressed `.br` / `.gz` variants, a stat-based ETag and
+ * `must-revalidate`. Revalidation matters: filenames hash the function id and
+ * its arguments, not the result, so one URL carries new content after every
+ * deploy that changes it.
  *
- * Requests that reach this handler with nothing on disk are answered too, and
- * deliberately so — see `CACHE_MISS_BODY`. A miss is the normal case whenever
- * the prerender pass is disabled, and letting it fall through is what turns a
- * plain cache miss into a page-level crash.
+ * Requests with nothing on disk are answered here — see `CACHE_MISS_BODY`. A
+ * miss is the normal case whenever the prerender pass is disabled (which also
+ * disables `staticPages`), and letting it fall through is what turns a plain
+ * cache miss into a page-level crash.
  *
  * Intentionally avoids importing from 'h3' — Nitro bundles h3 internally and
  * provides a populated event at runtime. Using a structural type keeps this
  * file runtime-agnostic and resolves without h3 in devDependencies.
  */
 
-import { readFile } from 'node:fs/promises';
+import { stat } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -68,19 +71,13 @@ const READABLE_METHODS = new Set(['GET', 'HEAD']);
 const CACHE_MISS_BODY = '{"t":{"t":2,"s":1},"f":127,"m":[]}';
 
 /**
- * Payload filenames are content-addressed, so a hit is immutable for as long as
- * the browser cares to keep it.
- */
-const HIT_CACHE_CONTROL = 'public, max-age=31536000, immutable';
-
-/**
  * A miss is only a miss for the deployment that answered it: the next build may
  * prerender the very same function and arguments under the same filename, so
  * the absence must not be cached the way a hit is.
  */
 const MISS_CACHE_CONTROL = 'no-store';
 
-/** Both a stored payload and a miss are seroval nodes encoded as JSON. */
+/** A miss is a seroval node encoded as JSON, like a stored payload. */
 const CONTENT_TYPE = 'application/json; charset=utf-8';
 
 /**
@@ -106,29 +103,22 @@ export default async (event: H3EventLike): Promise<Response | undefined> => {
   const pathname = event.path.split('?')[0];
   if (!STATIC_SERVER_FN_CACHE_PATTERN.test(pathname)) return;
 
-  try {
-    const payload = await readFile(
-      resolve(publicDirectory, `.${pathname}`),
-      'utf-8'
-    );
+  const isStoredPayload = await stat(resolve(publicDirectory, `.${pathname}`))
+    .then((payloadStats) => payloadStats.isFile())
+    .catch(() => false);
 
-    return new Response(method === 'HEAD' ? null : payload, {
-      headers: {
-        'Content-Type': CONTENT_TYPE,
-        'Cache-Control': HIT_CACHE_CONTROL,
-      },
-    });
-  } catch {
-    // Answer misses with a deserializable payload rather than letting the
-    // locale catch-all return the HTML shell, which surfaces as an opaque JSON
-    // parse error. The 404 stays for anything reading the status; the body is
-    // what the client middleware actually acts on.
-    return new Response(method === 'HEAD' ? null : CACHE_MISS_BODY, {
-      status: 404,
-      headers: {
-        'Content-Type': CONTENT_TYPE,
-        'Cache-Control': MISS_CACHE_CONTROL,
-      },
-    });
-  }
+  // Served by `server/staticPages.ts`, registered after this middleware.
+  if (isStoredPayload) return;
+
+  // Answer misses with a deserializable payload rather than letting the
+  // locale catch-all return the HTML shell, which surfaces as an opaque JSON
+  // parse error. The 404 stays for anything reading the status; the body is
+  // what the client middleware actually acts on.
+  return new Response(method === 'HEAD' ? null : CACHE_MISS_BODY, {
+    status: 404,
+    headers: {
+      'Content-Type': CONTENT_TYPE,
+      'Cache-Control': MISS_CACHE_CONTROL,
+    },
+  });
 };

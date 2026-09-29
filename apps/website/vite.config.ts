@@ -448,6 +448,8 @@ export default defineConfig(async ({ mode }) => {
         routeRules: {
           '/**': { headers },
           '/assets/**': { headers: immutableAssetHeaders },
+          // Must revalidate so a deploy reaches the worker update check.
+          '/sw.js': { headers: { ...headers, 'Cache-Control': 'no-cache' } },
 
           '/Geist-VariableFont_wght.woff2': { headers: immutableAssetHeaders },
           '/logo.svg': { headers: immutableAssetHeaders },
