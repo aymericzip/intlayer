@@ -184,7 +184,12 @@ export const FrameworkLogoSprite: FC<{ logoKeys: FrameworkLogoKey[] }> = ({
             id={getFrameworkLogoSymbolId(logoKey)}
             viewBox="0 0 24 24"
           >
-            <TechLogo name={logoMap[logoKey]} width="24" height="24" />
+            <TechLogo
+              name={logoMap[logoKey]}
+              width="24"
+              height="24"
+              fallback={null}
+            />
           </symbol>
         ))}
       </defs>

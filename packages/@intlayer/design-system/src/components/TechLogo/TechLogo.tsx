@@ -1,9 +1,21 @@
-import { type FC, type JSX, lazy, Suspense, type SVGProps } from 'react';
+import {
+  type FC,
+  type JSX,
+  lazy,
+  type ReactNode,
+  Suspense,
+  type SVGProps,
+} from 'react';
 import { cn } from '../../utils/cn';
 import type { TechLogoName } from './types';
 
 export type TechLogoProps = SVGProps<SVGSVGElement> & {
   name: TechLogoName;
+  /**
+   * Rendered while the logo chunk loads. Defaults to a pulsing `<div>`; pass
+   * `null` inside SVG markup, where an HTML element breaks the SSR parse.
+   */
+  fallback?: ReactNode;
 };
 
 /**
@@ -61,6 +73,7 @@ const logoRecord: Record<TechLogoName, ReturnType<typeof dynamicLogo>> = {
 
 export const TechLogo: FC<TechLogoProps> = ({
   name,
+  fallback,
   ...props
 }): JSX.Element => {
   const LazyLogo = logoRecord[name as TechLogoName];
@@ -72,7 +85,13 @@ export const TechLogo: FC<TechLogoProps> = ({
   return (
     <Suspense
       fallback={
-        <div className={cn('animate-pulse bg-neutral-200', props.className)} />
+        fallback === undefined ? (
+          <div
+            className={cn('animate-pulse bg-neutral-200', props.className)}
+          />
+        ) : (
+          fallback
+        )
       }
     >
       <LazyLogo {...(props as any)} />
