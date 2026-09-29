@@ -244,8 +244,6 @@ export default defineConfig(({ mode }) => {
 
   const headers = {
     'Content-Security-Policy': cspString,
-    'Cache-Control':
-      'public, max-age=86400, s-maxage=86400, stale-while-revalidate=172800',
     'Cross-Origin-Opener-Policy': 'same-origin',
     'Cross-Origin-Embedder-Policy': 'same-origin',
     'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
@@ -261,9 +259,8 @@ export default defineConfig(({ mode }) => {
 
   /**
    * Content-hashed bundle output and the handful of never-changing public
-   * assets can be cached for a year. The global rule above only grants a day,
-   * which sends the browser back to revalidate assets whose name already
-   * guarantees their content.
+   * assets can be cached for a year: a deploy renames them instead of
+   * overwriting, so no CDN purge is needed.
    */
   const immutableAssetHeaders = {
     ...headers,

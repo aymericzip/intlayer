@@ -372,8 +372,10 @@ export default defineConfig(({ mode }) => {
 
   const headers = {
     'Content-Security-Policy': cspString,
-    'Cache-Control':
-      'public, max-age=86400, s-maxage=86400, stale-while-revalidate=172800',
+    // Documents and `/__tsr` payloads keep their URL across deploys, so they
+    // revalidate (ETag → 304) instead of being cached; `private` keeps
+    // signed-in HTML out of the CDN. Hashed assets override this below.
+    'Cache-Control': 'private, no-cache',
     'Cross-Origin-Opener-Policy': 'same-origin',
     'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
     'X-Frame-Options': 'SAMEORIGIN',
@@ -389,9 +391,8 @@ export default defineConfig(({ mode }) => {
 
   /**
    * Content-hashed bundle output and the handful of never-changing public
-   * assets can be cached for a year. The global rule above only grants a day,
-   * which sends the browser back to revalidate assets whose name already
-   * guarantees their content.
+   * assets can be cached for a year: a deploy renames them instead of
+   * overwriting, so no CDN purge is needed.
    */
   const immutableAssetHeaders = {
     ...headers,

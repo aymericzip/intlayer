@@ -28,7 +28,6 @@
     "dev": "bun --bun vite dev --port 3000",
     "format": "bun --bun biome format",
     "lint": "bun --bun biome lint",
-    "preserve": "bun --env-file=.env.production ./scripts/purge-cloudflare-cache.ts",
     "preview": "bun --bun vite preview",
     "publish": "bash scripts/electron-publish.sh",
     "start": "bun run .output/server/index.mjs",

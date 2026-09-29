@@ -165,8 +165,7 @@ WORKDIR /workspace/apps/app
 
 ENV NODE_ENV=production
 
-# Build the SSR app + service worker. "preserve" (Cloudflare cache purge) is
-# intentionally skipped — it is a cloud-deploy concern, not a self-host one.
+# Build the SSR app + service worker.
 RUN bun run build && bun scripts/generate-sw.ts
 
 # ---------------------------------------------------------------------------
