@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: هل أصبحت مكتبة i18next قديمة في عام 2026؟
 description: تدير i18next ملايين المواقع، لكن بنية وقت التشغيل التي صُممت في عام 2011 بدأت تظهر عليها علامات القدم. تحليل لحجم الحزم وقيود Tree-shaking وركود التطوير.
@@ -73,11 +73,21 @@ author: aymericzip
 
 [![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
 
+<GithubCommits repositories="i18next/i18next,i18next/react-i18next,i18next/next-i18next,aymericzip/intlayer" />
+
 المكتبات المستقرة توفر الأمان البرمجي، لكن أدوات التدويل تشهد تطوراً سريعاً: حزم البناء الحديثة تستبعد النصوص غير المستخدمة وقت البناء، ونماذج الذكاء الاصطناعي تترجم آلياً في مرحلة CI، وبيئات التطوير تستفيد من خوادم اللغات (LSP) والوكلاء الأذكياء. نموذج i18next المعتمد كلياً على وقت التشغيل يواجه صعوبة في مواكبة هذه التحولات.
 
 > لفهم أصل هذه المكتبات، اقرأ تاريخ i18n في JavaScript.
 
 - [تاريخ i18n في JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/history_of_i18n.md)
+
+## تنزيلات npm
+
+<NpmDownloads packages="i18next,react-i18next,next-i18next,intlayer" period="last-6-months" />
+
+تكافئ أعداد التنزيل الحلول الأقدم، لا الأفضل. فالمكتبة التي صدرت قبل سنوات لا تزال تُثبَّت في كل مشروع اختارها آنذاك، وفي كل تشغيل لـ CI، وفي كل حزمة تعتمد عليها. هذا الرقم يقيس الجمود أكثر مما يقيس اختيارًا جديدًا.
+
+تضخّم مساعدات الذكاء الاصطناعي هذا الأثر. فـ `next-intl` و`i18next` و`vue-i18n` منتشرة في الشيفرة التي تدربت عليها، لذا تقترحها افتراضيًا دون مقارنة البدائل. كل اقتراح يضيف تنزيلات، تغذي بدورها الاقتراح التالي. قارن بناءً على الاختبار المعياري لا على عدد التنزيلات.
 
 ## قياس التأثير على الحزم
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: Czy vue-i18n jest przestarzały w 2026 roku?
 description: vue-i18n był standardem dla ekosystemu Vue i Nuxt przez dekadę. Jednak w naszych testach okazał się najcięższym runtime i18n w sieci. Wyjaśniamy dlaczego.
@@ -67,11 +67,21 @@ Ostatnie 12 miesięcy:
 
 [![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
+<GithubCommits repositories="intlify/vue-i18n,aymericzip/intlayer" />
+
 Sprawdzona biblioteka gwarantuje przewidywalność. Jednak nowoczesne technologie opierają się na modyfikacjach AST w trakcie budowania, czyszczeniu nieużywanego kodu i automatycznym tłumaczeniu przez AI. Rozwiązanie zakorzenione wyłącznie w runtime nie wykorzystuje łatwo tych możliwości.
 
 > Aby zrozumieć, skąd wzięły się te biblioteki, przeczytaj historię i18n w JavaScript.
 
 - [Historia i18n w JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/history_of_i18n.md)
+
+## Pobrania z npm
+
+<NpmDownloads packages="vue-i18n,vue-intlayer" period="last-6-months" />
+
+Liczba pobrań nagradza najstarsze rozwiązania, a nie najlepsze. Biblioteka wydana lata temu wciąż jest instalowana przez każdy projekt, który ją wtedy wybrał, przez każde uruchomienie CI i przez każdy pakiet, który od niej zależy. Ta liczba mierzy bezwładność bardziej niż świadomy wybór.
+
+Asystenci AI wzmacniają ten efekt. `next-intl`, `i18next` i `vue-i18n` są wszędzie w kodzie, na którym ich trenowano, więc proponują je domyślnie, bez porównywania alternatyw. Każda sugestia dodaje pobrań, które napędzają kolejną sugestię. Porównuj na podstawie benchmarku, a nie liczby pobrań.
 
 ## Pomiary w Vite + Vue
 

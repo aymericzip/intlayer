@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: Czy i18next jest przestarzały w 2026 roku?
 description: i18next napędza miliony stron internetowych, ale jego architektura runtime z 2011 roku zaczyna odstawać od standardów. Spojrzenie na rozmiar bundle, ograniczenia tree-shakingu i spowolniony rozwój.
@@ -73,11 +73,21 @@ Aktywność w ostatnich dwunastu miesiącach:
 
 [![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
 
+<GithubCommits repositories="i18next/i18next,i18next/react-i18next,i18next/next-i18next,aymericzip/intlayer" />
+
 Mniejsza biblioteka może być dojrzała i stabilna. Jednak ekosystem i18n stale się rozwija: współczesne bundlery eliminują nieużywane treści już podczas budowania, modele LLM automatyzują tłumaczenia w CI, a edytory polegają na serwerach językowych (LSP) i agentach AI. Architektura i18next oparta na runtime utrudnia korzystanie z tych innowacji.
 
 > Aby zrozumieć, skąd wzięły się te biblioteki, przeczytaj historię i18n w JavaScript.
 
 - [Historia i18n w JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/history_of_i18n.md)
+
+## Pobrania z npm
+
+<NpmDownloads packages="i18next,react-i18next,next-i18next,intlayer" period="last-6-months" />
+
+Liczba pobrań nagradza najstarsze rozwiązania, a nie najlepsze. Biblioteka wydana lata temu wciąż jest instalowana przez każdy projekt, który ją wtedy wybrał, przez każde uruchomienie CI i przez każdy pakiet, który od niej zależy. Ta liczba mierzy bezwładność bardziej niż świadomy wybór.
+
+Asystenci AI wzmacniają ten efekt. `next-intl`, `i18next` i `vue-i18n` są wszędzie w kodzie, na którym ich trenowano, więc proponują je domyślnie, bez porównywania alternatyw. Każda sugestia dodaje pobrań, które napędzają kolejną sugestię. Porównuj na podstawie benchmarku, a nie liczby pobrań.
 
 ## Pomiar narzutu na bundle
 

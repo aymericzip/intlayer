@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: 2026 年，vue-i18n 已经过时了吗？
 description: vue-i18n 在过去十年中一直是 Vue 和 Nuxt 的标准配置。但在我们的基准测试中，它却是主流框架中最庞大的 i18n 运行时。本文将探讨其深层原因。
@@ -67,11 +67,21 @@ author: aymericzip
 
 [![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
+<GithubCommits repositories="intlify/vue-i18n,aymericzip/intlayer" />
+
 久经考验的库往往代表稳定，但现代化前端开发已全面转向构建期 AST 转换、无用代码精简和 AI 赋能。受制于纯运行时的架构设计，旧模型较难自如融入这些革新。
 
 > 想了解这些库的由来，请阅读 JavaScript i18n 的发展史。
 
 - [JavaScript i18n 的发展史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/history_of_i18n.md)
+
+## npm 下载量
+
+<NpmDownloads packages="vue-i18n,vue-intlayer" period="last-6-months" />
+
+下载量奖励的是最老的方案，而不是最好的方案。一个多年前发布的库，仍会被当年选择它的每个项目、每次 CI 运行以及每个依赖它的包持续安装。这个数字衡量的更多是惯性，而不是新的选择。
+
+AI 助手放大了这种效应。`next-intl`、`i18next` 和 `vue-i18n` 在它们的训练代码中随处可见，因此 AI 会默认推荐它们，而不去比较其他方案。每一次推荐都带来下载，又进一步推动下一次推荐。请以基准测试而不是下载量来比较。
 
 ## 基于 Vite + Vue 的实测数据
 

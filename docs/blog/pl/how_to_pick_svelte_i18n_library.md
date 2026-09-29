@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: "Jak wybrać odpowiednią bibliotekę i18n dla Svelte w 2026 roku"
 description: "Przewodnik wyboru i18n dla Svelte i SvelteKit: pytania przed porównaniem svelte-i18n, Paraglide, typesafe-i18n, wuchale i Intlayer."
@@ -109,6 +109,20 @@ Rozmiary bibliotek pochodzą z [benchmarku Svelte](https://github.com/aymericzip
 > Bezpieczeństwo typów: 5/5 oznacza, że klucze, parametry i każda lokalizacja są sprawdzane bez ręcznej konfiguracji, w tym formatery URL i helpery.
 
 Rozmiar biblioteki Paraglide bliski zeru wynika z jej konstrukcji: runtime jest generowany bezpośrednio do Twojego repozytorium. Intlayer wymaga wtyczki `vite-intlayer`, więc nie działa bez kroku budowania.
+
+## Aktywność commitów
+
+Commity pokazują, ile pracy trafia do każdego projektu. Monorepo liczy każdy publikowany pakiet, więc traktuj tę liczbę jako sygnał aktywności, a nie jakości.
+
+<GithubCommits repositories="kaisermann/svelte-i18n,codingcommons/typesafe-i18n,opral/paraglide-js,wuchalejs/wuchale,aymericzip/intlayer" />
+
+## Pobrania z npm
+
+<NpmDownloads packages="svelte-i18n,typesafe-i18n,@inlang/paraglide-js,wuchale,svelte-intlayer" period="last-6-months" />
+
+Liczba pobrań nagradza najstarsze rozwiązania, a nie najlepsze. Biblioteka wydana lata temu wciąż jest instalowana przez każdy projekt, który ją wtedy wybrał, przez każde uruchomienie CI i przez każdy pakiet, który od niej zależy. Ta liczba mierzy bezwładność bardziej niż świadomy wybór.
+
+Asystenci AI wzmacniają ten efekt. `next-intl`, `i18next` i `vue-i18n` są wszędzie w kodzie, na którym ich trenowano, więc proponują je domyślnie, bez porównywania alternatyw. Każda sugestia dodaje pobrań, które napędzają kolejną sugestię. Porównuj na podstawie benchmarku, a nie liczby pobrań.
 
 ## Dopasuj swoje odpowiedzi do biblioteki
 

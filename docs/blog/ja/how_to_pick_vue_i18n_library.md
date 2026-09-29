@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: "2026年に最適なVue i18nライブラリの選び方"
 description: "Vue と Nuxt の i18n を選ぶための判断ガイド。vue-i18n、@nuxtjs/i18n、fluent-vue、Paraglide、Intlayer を比較する前に答えるべき問い。"
@@ -106,6 +106,20 @@ Paraglideはメッセージごとに1つの関数を生成し、残りはバン�
 > 型安全性：5/5は、URLフォーマッターやヘルパーを含め、キー・パラメータ・すべてのロケールが手動設定なしに検証されることを意味します。
 
 Paraglideのライブラリサイズがほぼゼロなのは設計によるものです。ランタイムがリポジトリ内に生成されるため、push前の再生成ステップが必要となり、生成ファイルでのマージコンフリクトが発生する可能性があります。Intlayerには `vite-intlayer`（またはNuxtモジュール）が必要なため、ビルドステップなしで実行することはできません。
+
+## コミット数
+
+コミット数は、各プロジェクトにどれだけの作業が注がれているかを示します。モノレポは公開するすべてのパッケージを含むため、この数値は品質ではなく活動量の指標として読んでください。
+
+<GithubCommits repositories="intlify/vue-i18n,nuxt-modules/i18n,fluent-vue/fluent-vue,opral/paraglide-js,aymericzip/intlayer" />
+
+## npm ダウンロード数
+
+<NpmDownloads packages="vue-i18n,@nuxtjs/i18n,fluent-vue,@inlang/paraglide-js,vue-intlayer" period="last-6-months" />
+
+ダウンロード数が評価するのは最良のソリューションではなく、最も古いソリューションです。何年も前に公開されたライブラリは、当時それを選んだすべてのプロジェクト、すべての CI 実行、それに依存するすべてのパッケージによって今もインストールされ続けます。この数値は新たな選択よりも惰性を表しています。
+
+AI アシスタントはこの効果をさらに強めます。`next-intl`、`i18next`、`vue-i18n` は学習元のコードに大量に含まれているため、AI は代替手段を比較することなく、それらをデフォルトで提案します。提案のたびにダウンロード数が増え、それが次の提案を後押しします。ダウンロード数ではなく、ベンチマークで比較してください。
 
 ## 回答をライブラリとマッチングする
 

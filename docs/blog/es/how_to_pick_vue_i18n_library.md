@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: "Cómo elegir la librería de i18n adecuada para Vue en 2026"
 description: "Una guía de decisión para i18n en Vue y Nuxt: las preguntas a responder antes de comparar vue-i18n, @nuxtjs/i18n, fluent-vue, Paraglide e Intlayer."
@@ -106,6 +106,20 @@ Los tamaños de las librerías provienen del [benchmark de Vue](https://github.c
 > Seguridad de tipos: 5/5 significa que las claves, los parámetros y cada locale se comprueban sin configuración manual, incluidos el formateador de URL y los helpers.
 
 El tamaño casi nulo de Paraglide es por diseño: el runtime se genera en tu repositorio, lo que implica un paso de regeneración antes de cada push y posibles conflictos de merge en archivos generados. Intlayer requiere `vite-intlayer` (o el módulo de Nuxt), por lo que no puede funcionar sin un paso de build.
+
+## Actividad de commits
+
+Los commits muestran cuánto trabajo recibe cada proyecto. Un monorepo cuenta todos los paquetes que publica, así que lee la cifra como una señal de actividad, no de calidad.
+
+<GithubCommits repositories="intlify/vue-i18n,nuxt-modules/i18n,fluent-vue/fluent-vue,opral/paraglide-js,aymericzip/intlayer" />
+
+## Descargas en npm
+
+<NpmDownloads packages="vue-i18n,@nuxtjs/i18n,fluent-vue,@inlang/paraglide-js,vue-intlayer" period="last-6-months" />
+
+Las descargas premian a las soluciones más antiguas, no a las mejores. Una biblioteca publicada hace años se sigue instalando en cada proyecto que la eligió entonces, en cada ejecución de CI y en cada paquete que depende de ella. La cifra mide la inercia más que una elección actual.
+
+Los asistentes de IA amplifican el efecto. `next-intl`, `i18next` y `vue-i18n` están por todas partes en el código con el que se entrenaron, así que los sugieren por defecto, sin comparar las alternativas. Cada sugerencia suma descargas, que alimentan la siguiente sugerencia. Compara con el benchmark y no con el número de descargas.
 
 ## Empareja tus respuestas con una librería
 

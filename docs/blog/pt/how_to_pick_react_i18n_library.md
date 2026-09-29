@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: "Como escolher a biblioteca de i18n certa para React em 2026"
 description: "Um guia de decisão para i18n em React: as perguntas a responder antes de comparar react-i18next, react-intl, Lingui, use-intl, Paraglide e Intlayer."
@@ -122,6 +122,20 @@ Os tamanhos das bibliotecas vêm do [benchmark no TanStack Start](https://github
 > Segurança de tipos: 5/5 significa que chaves, parâmetros e cada locale são verificados sem configuração manual, incluindo formatadores de URL e helpers.
 
 Duas coisas que a tabela não mostra. O `Paraglide` quase não envia biblioteca porque gera código dentro do seu repositório, o que significa uma etapa de regeneração antes de cada commit e conflitos de merge em arquivos gerados. E o `Intlayer` requer um plugin de bundler (`vite-intlayer` ou equivalente), portanto não pode rodar em uma configuração sem build.
+
+## Atividade de commits
+
+Os commits mostram quanto trabalho cada projeto recebe. Um monorepo conta todos os pacotes que publica, então leia o número como um sinal de atividade, não de qualidade.
+
+<GithubCommits repositories="i18next/react-i18next,formatjs/formatjs,amannn/next-intl,tolgee/tolgee-js,lingui/js-lingui,opral/paraglide-js,aymericzip/intlayer" />
+
+## Downloads no npm
+
+<NpmDownloads packages="react-i18next,react-intl,use-intl,@tolgee/react,@lingui/react,@inlang/paraglide-js,react-intlayer" period="last-6-months" />
+
+Os downloads recompensam as soluções mais antigas, não as melhores. Uma biblioteca lançada há anos continua sendo instalada por cada projeto que a escolheu na época, por cada execução de CI e por cada pacote que depende dela. O número mede a inércia mais do que uma escolha atual.
+
+Os assistentes de IA amplificam o efeito. `next-intl`, `i18next` e `vue-i18n` estão por toda parte no código com que foram treinados, então eles os sugerem por padrão, sem comparar as alternativas. Cada sugestão gera downloads, que alimentam a próxima sugestão. Compare pelo benchmark, não pelo número de downloads.
 
 ## Mapeie suas respostas para uma biblioteca
 

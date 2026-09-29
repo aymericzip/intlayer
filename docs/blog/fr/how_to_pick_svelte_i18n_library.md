@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: "Comment choisir la bonne bibliothèque i18n pour Svelte en 2026"
 description: "Un guide de décision pour l'i18n Svelte et SvelteKit : les questions à se poser avant de comparer svelte-i18n, Paraglide, typesafe-i18n, wuchale et Intlayer."
@@ -108,6 +108,20 @@ Les tailles des bibliothèques sont issues du [benchmark Svelte](https://github.
 > Sûreté des types : 5/5 signifie que les clés, les paramètres et chaque locale sont vérifiés sans configuration manuelle, y compris le formateur d'URL et les helpers.
 
 La taille quasi nulle de la bibliothèque Paraglide est obtenue par construction : le runtime est généré dans votre dépôt. Intlayer nécessite `vite-intlayer`, il ne peut donc pas fonctionner sans étape de build.
+
+## Activité des commits
+
+Les commits mesurent le travail investi dans chaque projet. Un monorepo compte chaque package qu'il publie : lisez ce chiffre comme un signal d'activité, pas de qualité.
+
+<GithubCommits repositories="kaisermann/svelte-i18n,codingcommons/typesafe-i18n,opral/paraglide-js,wuchalejs/wuchale,aymericzip/intlayer" />
+
+## Téléchargements npm
+
+<NpmDownloads packages="svelte-i18n,typesafe-i18n,@inlang/paraglide-js,wuchale,svelte-intlayer" period="last-6-months" />
+
+Le nombre de téléchargements récompense les solutions les plus anciennes, pas les meilleures. Une bibliothèque publiée il y a des années est toujours installée par chaque projet qui l'a choisie à l'époque, par chaque exécution de CI et par chaque package qui en dépend. Ce chiffre mesure l'inertie plus qu'un choix réfléchi.
+
+Les assistants IA amplifient cet effet. `next-intl`, `i18next` et `vue-i18n` sont omniprésents dans le code sur lequel ils ont été entraînés : ils les proposent donc par défaut, sans faire l'effort de comparer les alternatives. Chaque suggestion ajoute des téléchargements, qui alimentent la suggestion suivante. Comparez sur le benchmark plutôt que sur le nombre de téléchargements.
 
 ## Associer vos réponses à une bibliothèque
 

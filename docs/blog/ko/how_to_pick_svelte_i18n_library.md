@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: "2026년 올바른 Svelte i18n 라이브러리를 선택하는 방법"
 description: "Svelte와 SvelteKit i18n 선택 가이드: svelte-i18n, Paraglide, typesafe-i18n, wuchale, Intlayer를 비교하기 전에 답해야 할 질문들."
@@ -108,6 +108,20 @@ Paraglide는 각 메시지를 export된 함수로 컴파일하여 번들러가 �
 > 타입 안전성: 5/5는 URL 포맷터와 헬퍼를 포함하여 키, 매개변수, 모든 로케일이 수동 설정 없이 검사됨을 의미합니다.
 
 Paraglide의 0에 가까운 라이브러리 크기는 구조적인 결과입니다. 런타임이 레포지토리 내에 직접 생성되기 때문입니다. Intlayer는 `vite-intlayer`가 필요하므로 빌드 단계 없이 실행할 수 없습니다.
+
+## 커밋 활동
+
+커밋 수는 각 프로젝트에 얼마나 많은 작업이 투입되는지를 보여줍니다. 모노레포는 배포하는 모든 패키지를 포함하므로, 이 수치는 품질이 아닌 활동량의 신호로 읽어야 합니다.
+
+<GithubCommits repositories="kaisermann/svelte-i18n,codingcommons/typesafe-i18n,opral/paraglide-js,wuchalejs/wuchale,aymericzip/intlayer" />
+
+## npm 다운로드
+
+<NpmDownloads packages="svelte-i18n,typesafe-i18n,@inlang/paraglide-js,wuchale,svelte-intlayer" period="last-6-months" />
+
+다운로드 수는 가장 좋은 솔루션이 아니라 가장 오래된 솔루션에 보상을 줍니다. 수년 전에 출시된 라이브러리는 당시 이를 선택한 모든 프로젝트, 모든 CI 실행, 이에 의존하는 모든 패키지에 의해 여전히 설치됩니다. 이 수치는 새로운 선택보다 관성을 측정합니다.
+
+AI 어시스턴트는 이 효과를 더 키웁니다. `next-intl`, `i18next`, `vue-i18n`은 AI가 학습한 코드 곳곳에 있으므로, AI는 대안을 비교하지 않고 이들을 기본으로 추천합니다. 추천이 다운로드를 늘리고, 그 다운로드가 다음 추천을 부추깁니다. 다운로드 수가 아니라 벤치마크로 비교하세요.
 
 ## 답변에 맞는 라이브러리 매칭
 

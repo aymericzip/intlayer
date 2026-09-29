@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: "Jak wybrać odpowiednią bibliotekę i18n dla React w 2026 roku"
 description: "Przewodnik wyboru i18n dla React: pytania, na które warto odpowiedzieć przed porównaniem react-i18next, react-intl, Lingui, use-intl, Paraglide i Intlayer."
@@ -122,6 +122,20 @@ Rozmiary bibliotek pochodzą z [benchmarku TanStack Start](https://github.com/ay
 > Bezpieczeństwo typów: 5/5 oznacza, że klucze, parametry i każda lokalizacja są sprawdzane bez ręcznej konfiguracji, w tym formatery URL i helpery.
 
 Dwie rzeczy, których tabela nie pokazuje: `Paraglide` nie dodaje niemal żadnej biblioteki runtime, ponieważ generuje kod bezpośrednio w Twoim repozytorium, co oznacza krok regeneracji przed każdym commitem i potencjalne konflikty scalania w wygenerowanych plikach. Z kolei `Intlayer` wymaga wtyczki do bundlera (`vite-intlayer` lub odpowiednika), więc nie może działać w środowisku bez etapu budowania.
+
+## Aktywność commitów
+
+Commity pokazują, ile pracy trafia do każdego projektu. Monorepo liczy każdy publikowany pakiet, więc traktuj tę liczbę jako sygnał aktywności, a nie jakości.
+
+<GithubCommits repositories="i18next/react-i18next,formatjs/formatjs,amannn/next-intl,tolgee/tolgee-js,lingui/js-lingui,opral/paraglide-js,aymericzip/intlayer" />
+
+## Pobrania z npm
+
+<NpmDownloads packages="react-i18next,react-intl,use-intl,@tolgee/react,@lingui/react,@inlang/paraglide-js,react-intlayer" period="last-6-months" />
+
+Liczba pobrań nagradza najstarsze rozwiązania, a nie najlepsze. Biblioteka wydana lata temu wciąż jest instalowana przez każdy projekt, który ją wtedy wybrał, przez każde uruchomienie CI i przez każdy pakiet, który od niej zależy. Ta liczba mierzy bezwładność bardziej niż świadomy wybór.
+
+Asystenci AI wzmacniają ten efekt. `next-intl`, `i18next` i `vue-i18n` są wszędzie w kodzie, na którym ich trenowano, więc proponują je domyślnie, bez porównywania alternatyw. Każda sugestia dodaje pobrań, które napędzają kolejną sugestię. Porównuj na podstawie benchmarku, a nie liczby pobrań.
 
 ## Dopasuj swoje odpowiedzi do biblioteki
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: 2026年においてvue-i18nは時代遅れなのか？
 description: vue-i18nは10年以上にわたりVueとNuxtの標準として親しまれてきました。しかしベンチマークではWebで最も重いi18nランタイムという結果に。その理由を紐解きます。
@@ -67,11 +67,21 @@ Language Server（LSP）、AI向けMCPサーバー、CLIを通じた自動翻訳
 
 [![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
+<GithubCommits repositories="intlify/vue-i18n,aymericzip/intlayer" />
+
 歴史あるライブラリには安定性の利点があります。しかし近年の開発手法は、ビルド時のAST解析、デッドコード除去、AIによる自動化を前提としています。クライアント上での実行に依存するアーキテクチャでは、こうした進化を取り入れるのが難しくなります。
 
 > これらのライブラリがどのように生まれたのかを知るには、JavaScript i18n の歴史をご覧ください。
 
 - [JavaScript i18n の歴史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/history_of_i18n.md)
+
+## npm ダウンロード数
+
+<NpmDownloads packages="vue-i18n,vue-intlayer" period="last-6-months" />
+
+ダウンロード数が評価するのは最良のソリューションではなく、最も古いソリューションです。何年も前に公開されたライブラリは、当時それを選んだすべてのプロジェクト、すべての CI 実行、それに依存するすべてのパッケージによって今もインストールされ続けます。この数値は新たな選択よりも惰性を表しています。
+
+AI アシスタントはこの効果をさらに強めます。`next-intl`、`i18next`、`vue-i18n` は学習元のコードに大量に含まれているため、AI は代替手段を比較することなく、それらをデフォルトで提案します。提案のたびにダウンロード数が増え、それが次の提案を後押しします。ダウンロード数ではなく、ベンチマークで比較してください。
 
 ## Vite + Vueでの性能測定
 

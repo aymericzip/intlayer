@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: "如何在 2026 年选择合适的 React i18n 库"
 description: "React i18n 选型指南：在比较 react-i18next、react-intl、Lingui、use-intl、Paraglide 和 Intlayer 之前需要回答的问题。"
@@ -121,6 +121,20 @@ React 本身并没有提供内置的 i18n 原语。你在项目第一天选择�
 > 类型安全：5/5 表示键、参数和每个语言环境均无需手动配置即可得到校验，包括 URL 格式化工具与辅助函数。
 
 表格中未体现的两点细节：`Paraglide` 本身体积接近于零，是因为它将代码直接生成到你的代码库中，这意味着每次 commit 前都需要重新生成，并且生成的文件可能产生 merge conflict；而 `Intlayer` 依赖打包工具插件（`vite-intlayer` 或等效插件），因此无法在无需构建工具（no-build）的环境中运行。
+
+## 提交活跃度
+
+提交次数反映了每个项目投入的工作量。Monorepo 会统计其发布的所有包，因此请将这个数字视为活跃度的信号，而不是质量的信号。
+
+<GithubCommits repositories="i18next/react-i18next,formatjs/formatjs,amannn/next-intl,tolgee/tolgee-js,lingui/js-lingui,opral/paraglide-js,aymericzip/intlayer" />
+
+## npm 下载量
+
+<NpmDownloads packages="react-i18next,react-intl,use-intl,@tolgee/react,@lingui/react,@inlang/paraglide-js,react-intlayer" period="last-6-months" />
+
+下载量奖励的是最老的方案，而不是最好的方案。一个多年前发布的库，仍会被当年选择它的每个项目、每次 CI 运行以及每个依赖它的包持续安装。这个数字衡量的更多是惯性，而不是新的选择。
+
+AI 助手放大了这种效应。`next-intl`、`i18next` 和 `vue-i18n` 在它们的训练代码中随处可见，因此 AI 会默认推荐它们，而不去比较其他方案。每一次推荐都带来下载，又进一步推动下一次推荐。请以基准测试而不是下载量来比较。
 
 ## 根据你的答案匹配合适的库
 

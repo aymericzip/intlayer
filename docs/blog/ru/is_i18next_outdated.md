@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: Устарел ли i18next в 2026 году?
 description: i18next используется на миллионах сайтов, но его runtime-архитектура 2011 года устаревает. Анализ раздувания бандла, ограничений tree-shaking и замедления инноваций.
@@ -73,11 +73,21 @@ author: aymericzip
 
 [![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
 
+<GithubCommits repositories="i18next/i18next,i18next/react-i18next,i18next/next-i18next,aymericzip/intlayer" />
+
 Компактная библиотека может быть стабильной, но инструменты локализации не стоят на месте: сборщики удаляют неиспользуемый контент во время сборки, языковые модели переводят прямо в CI, а среды разработки используют Language Server (LSP) и ИИ-агентов. Ограниченная временем выполнения архитектура i18next затрудняет внедрение этих инноваций.
 
 > Чтобы понять, откуда взялись эти библиотеки, прочитайте историю i18n в JavaScript.
 
 - [История i18n в JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/history_of_i18n.md)
+
+## Загрузки npm
+
+<NpmDownloads packages="i18next,react-i18next,next-i18next,intlayer" period="last-6-months" />
+
+Число загрузок вознаграждает самые старые решения, а не лучшие. Библиотеку, выпущенную много лет назад, до сих пор устанавливает каждый проект, который выбрал её тогда, каждый запуск CI и каждый зависящий от неё пакет. Эта цифра измеряет инерцию, а не осознанный выбор.
+
+ИИ-ассистенты усиливают этот эффект. `next-intl`, `i18next` и `vue-i18n` повсюду встречаются в коде, на котором они обучались, поэтому ассистенты предлагают их по умолчанию, не сравнивая альтернативы. Каждая подсказка добавляет загрузки, которые подпитывают следующую. Сравнивайте по бенчмарку, а не по числу загрузок.
 
 ## Оценка влияния на бандл
 

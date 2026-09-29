@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: next-intl est-il obsolète en 2026 ?
 description: next-intl est devenu le choix privilégié pour Next.js App Router. Pourtant, il impose encore un surpoids de bundle runtime et une gestion manuelle fastidieuse des namespaces.
@@ -69,11 +69,21 @@ Activité sur les 12 derniers mois :
 
 [![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#amannn/next-intl&aymericzip/intlayer)
 
+<GithubCommits repositories="amannn/next-intl,aymericzip/intlayer" />
+
 Une bibliothèque établie peut être stable. Mais l'i18n frontend progresse : les compilateurs retirent les traductions non référencées au moment du build, les LLMs automatisent la localisation en CI et les développeurs s'appuient sur des serveurs LSP et des agents IA. Une architecture cantonnée au runtime peine à suivre ce rythme.
 
 > Pour comprendre d'où viennent ces bibliothèques, lisez l'histoire de l'i18n en JavaScript.
 
 - [L'histoire de l'i18n en JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/history_of_i18n.md)
+
+## Téléchargements npm
+
+<NpmDownloads packages="next-intl,next-intlayer" period="last-6-months" />
+
+Le nombre de téléchargements récompense les solutions les plus anciennes, pas les meilleures. Une bibliothèque publiée il y a des années est toujours installée par chaque projet qui l'a choisie à l'époque, par chaque exécution de CI et par chaque package qui en dépend. Ce chiffre mesure l'inertie plus qu'un choix réfléchi.
+
+Les assistants IA amplifient cet effet. `next-intl`, `i18next` et `vue-i18n` sont omniprésents dans le code sur lequel ils ont été entraînés : ils les proposent donc par défaut, sans faire l'effort de comparer les alternatives. Chaque suggestion ajoute des téléchargements, qui alimentent la suggestion suivante. Comparez sur le benchmark plutôt que sur le nombre de téléchargements.
 
 ## Mesure des performances sur Next.js 16 App Router
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: Apakah vue-i18n Sudah Ketinggalan Zaman di Tahun 2026?
 description: vue-i18n telah menjadi standar untuk Vue dan Nuxt selama satu dekade. Namun dalam pengujian tolok ukur kami, pustaka ini menjadi runtime i18n terberat di web. Simak ulasannya.
@@ -67,11 +67,21 @@ Catatan selama 12 bulan terakhir:
 
 [![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
+<GithubCommits repositories="intlify/vue-i18n,aymericzip/intlayer" />
+
 Pustaka yang matang memang menjamin keandalan. Namun paradigma frontend modern kini berpusat pada transformasi AST saat build time, pembersihan dead code, dan otomatisasi AI. Sistem yang terpaku pada eksekusi di browser sulit mengadopsi kemudahan ini.
 
 > Untuk memahami asal-usul pustaka-pustaka ini, baca sejarah i18n di JavaScript.
 
 - [Sejarah i18n di JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/history_of_i18n.md)
+
+## Unduhan npm
+
+<NpmDownloads packages="vue-i18n,vue-intlayer" period="last-6-months" />
+
+Jumlah unduhan menghargai solusi yang paling lama, bukan yang terbaik. Library yang dirilis bertahun-tahun lalu masih diinstal oleh setiap proyek yang memilihnya saat itu, oleh setiap eksekusi CI, dan oleh setiap paket yang bergantung padanya. Angka ini lebih mengukur inersia daripada pilihan baru.
+
+Asisten AI memperkuat efek ini. `next-intl`, `i18next`, dan `vue-i18n` ada di mana-mana dalam kode yang menjadi data latih mereka, sehingga mereka menyarankannya secara default tanpa membandingkan alternatif. Setiap saran menambah unduhan, yang kemudian mendorong saran berikutnya. Bandingkan berdasarkan benchmark, bukan jumlah unduhan.
 
 ## Hasil Tolok Ukur di Vite + Vue
 

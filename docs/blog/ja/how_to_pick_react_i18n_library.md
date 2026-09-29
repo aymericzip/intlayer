@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: "2026年に最適なReact i18nライブラリを選ぶ方法"
 description: "React の i18n を選ぶための判断ガイド。react-i18next、react-intl、Lingui、use-intl、Paraglide、Intlayer を比較する前に答えるべき問い。"
@@ -121,6 +121,20 @@ SSRおよびServer Componentsを考慮して設計されています。サーバ
 > 型安全性：5/5は、URLフォーマッターやヘルパーを含め、キー・パラメータ・すべてのロケールが手動設定なしに検証されることを意味します。
 
 この表に現れていない点が2つあります。`Paraglide`はコードをリポジトリ内に直接生成するためライブラリサイズがほぼゼロになりますが、コミット前ごとの再生成ステップが必要になり、生成ファイルでマージコンフリクトが発生しやすくなります。また、`Intlayer`はバンドラープラグイン（`vite-intlayer`など）を必須とするため、ビルドステップのない環境（no-build setup）では動作しません。
+
+## コミット数
+
+コミット数は、各プロジェクトにどれだけの作業が注がれているかを示します。モノレポは公開するすべてのパッケージを含むため、この数値は品質ではなく活動量の指標として読んでください。
+
+<GithubCommits repositories="i18next/react-i18next,formatjs/formatjs,amannn/next-intl,tolgee/tolgee-js,lingui/js-lingui,opral/paraglide-js,aymericzip/intlayer" />
+
+## npm ダウンロード数
+
+<NpmDownloads packages="react-i18next,react-intl,use-intl,@tolgee/react,@lingui/react,@inlang/paraglide-js,react-intlayer" period="last-6-months" />
+
+ダウンロード数が評価するのは最良のソリューションではなく、最も古いソリューションです。何年も前に公開されたライブラリは、当時それを選んだすべてのプロジェクト、すべての CI 実行、それに依存するすべてのパッケージによって今もインストールされ続けます。この数値は新たな選択よりも惰性を表しています。
+
+AI アシスタントはこの効果をさらに強めます。`next-intl`、`i18next`、`vue-i18n` は学習元のコードに大量に含まれているため、AI は代替手段を比較することなく、それらをデフォルトで提案します。提案のたびにダウンロード数が増え、それが次の提案を後押しします。ダウンロード数ではなく、ベンチマークで比較してください。
 
 ## 回答に基づいたライブラリの選択
 

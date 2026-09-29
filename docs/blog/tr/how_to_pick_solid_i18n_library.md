@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: "2026'da Doğru Solid i18n Kütüphanesini Seçme Rehberi"
 description: "SolidJS ve SolidStart i18n için karar rehberi: @solid-primitives/i18n, solid-i18next, Paraglide, Lingui ve Intlayer'ı karşılaştırmadan önceki sorular."
@@ -106,6 +106,20 @@ Kütüphane boyutları [Solid benchmark](https://github.com/aymericzip/intlayer/
 > Tip güvenliği: 5/5; anahtarların, parametrelerin ve her locale'in, URL biçimlendirici ve yardımcılar (helpers) dahil olmak üzere manuel kurulum olmadan kontrol edildiği anlamına gelir.
 
 Paraglide'ın sıfıra yakın kütüphane boyutu yapısı gereğidir: runtime doğrudan projenize üretilir (generate edilir). Intlayer `vite-intlayer` gerektirir, bu yüzden bir build adımı olmadan çalışamaz.
+
+## Commit etkinliği
+
+Commit'ler her projeye ne kadar emek harcandığını gösterir. Bir monorepo yayımladığı her paketi sayar, bu yüzden bu sayıyı kalite değil, aktivite sinyali olarak okuyun.
+
+<GithubCommits repositories="solidjs-community/solid-primitives,mbarzda/solid-i18next,opral/paraglide-js,lingui/js-lingui,aymericzip/intlayer" />
+
+## npm indirmeleri
+
+<NpmDownloads packages="@solid-primitives/i18n,solid-i18next,@inlang/paraglide-js,@lingui/solid,solid-intlayer" period="last-6-months" />
+
+İndirme sayıları en iyi çözümleri değil, en eski çözümleri ödüllendirir. Yıllar önce yayımlanmış bir kütüphane, onu o zaman seçen her proje, her CI çalışması ve ona bağımlı her paket tarafından hâlâ kurulur. Bu sayı yeni bir tercihten çok ataleti ölçer.
+
+Yapay zekâ asistanları bu etkiyi büyütür. `next-intl`, `i18next` ve `vue-i18n` eğitildikleri kodun her yerinde bulunduğu için, alternatifleri karşılaştırmadan bunları varsayılan olarak önerirler. Her öneri indirme sayısını artırır, bu da bir sonraki öneriyi besler. İndirme sayısına değil, benchmark sonuçlarına göre karşılaştırın.
 
 ## Yanıtlarınızı bir kütüphaneyle eşleştirin
 

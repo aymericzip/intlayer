@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: 2026년에도 vue-i18n을 계속 써야 할까요?
 description: vue-i18n은 지난 10년간 Vue 및 Nuxt 생태계의 표준이었습니다. 하지만 벤치마크 결과 웹에서 가장 무거운 i18n 런타임으로 나타났습니다. 그 원인을 분석합니다.
@@ -67,11 +67,21 @@ Vite + Vue 기반의 가벼운 기본 애플리케이션(31.5 KB)에 `vue-i18n`�
 
 [![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
+<GithubCommits repositories="intlify/vue-i18n,aymericzip/intlayer" />
+
 오래된 라이브러리는 안정성이 뛰어납니다. 하지만 오늘날의 프론트엔드는 빌드 타임 AST 변환, 데드 코드 제거, AI 자동화에 기반하고 있습니다. 런타임에 종속된 구조로는 이러한 혁신을 온전히 따라잡기 어렵습니다.
 
 > 이러한 라이브러리가 어디에서 왔는지 이해하려면 JavaScript i18n의 역사를 읽어보세요.
 
 - [JavaScript i18n의 역사](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/history_of_i18n.md)
+
+## npm 다운로드
+
+<NpmDownloads packages="vue-i18n,vue-intlayer" period="last-6-months" />
+
+다운로드 수는 가장 좋은 솔루션이 아니라 가장 오래된 솔루션에 보상을 줍니다. 수년 전에 출시된 라이브러리는 당시 이를 선택한 모든 프로젝트, 모든 CI 실행, 이에 의존하는 모든 패키지에 의해 여전히 설치됩니다. 이 수치는 새로운 선택보다 관성을 측정합니다.
+
+AI 어시스턴트는 이 효과를 더 키웁니다. `next-intl`, `i18next`, `vue-i18n`은 AI가 학습한 코드 곳곳에 있으므로, AI는 대안을 비교하지 않고 이들을 기본으로 추천합니다. 추천이 다운로드를 늘리고, 그 다운로드가 다음 추천을 부추깁니다. 다운로드 수가 아니라 벤치마크로 비교하세요.
 
 ## Vite + Vue 성능 측정 결과
 

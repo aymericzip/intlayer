@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: "How to pick the right React i18n library in 2026"
 description: "A decision guide for React i18n: the questions to answer before comparing react-i18next, react-intl, Lingui, use-intl, Paraglide and Intlayer."
@@ -121,6 +121,20 @@ Library sizes come from the [TanStack Start benchmark](https://github.com/aymeri
 > Type safety: 5/5 means keys, parameters and every locale are checked without manual setup, including url formater and helpers.
 
 Two things the table does not show. `Paraglide` ships almost no library because it generates code into your repo, which means a regeneration step before every commit and merge conflicts on generated files. And `Intlayer` requires a bundler plugin (`vite-intlayer` or equivalent), so it cannot run in a no-build setup.
+
+## Commit activity
+
+Commits show how much work goes into each project. Monorepos count every package they ship, so read the number as a signal of activity, not of quality.
+
+<GithubCommits repositories="i18next/react-i18next,formatjs/formatjs,amannn/next-intl,tolgee/tolgee-js,lingui/js-lingui,opral/paraglide-js,aymericzip/intlayer" />
+
+## npm downloads
+
+<NpmDownloads packages="react-i18next,react-intl,use-intl,@tolgee/react,@lingui/react,@inlang/paraglide-js,react-intlayer" period="last-6-months" />
+
+Downloads reward the oldest solutions, not the best ones. A library released years ago is still installed by every project that chose it back then, by every CI run and by every package that depends on it. The count measures inertia more than a fresh choice.
+
+AI assistants amplify the effect. `next-intl`, `i18next` and `vue-i18n` are everywhere in the code they were trained on, so they suggest them by default, without comparing the alternatives. Each suggestion adds downloads, which feeds the next suggestion. Compare on the benchmark rather than on the download count.
 
 ## Match your answers to a library
 

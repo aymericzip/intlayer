@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: 2026年においてnext-intlは時代遅れなのか？
 description: next-intlはNext.js App Routerの定番となりました。しかし、ランタイムによるバンドルの肥大化や手動での名前空間管理という課題は残されています。
@@ -69,11 +69,21 @@ Crowdinの公式パートナーであるため、CLIに完全無料で使える�
 
 [![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#amannn/next-intl&aymericzip/intlayer)
 
+<GithubCommits repositories="amannn/next-intl,aymericzip/intlayer" />
+
 成熟したライブラリは安心感をもたらします。しかし現在のi18n環境は大きく変化しました。ビルド時に不要文言を自動削除し、CI環境でLLMが翻訳を行い、開発者はLanguage Server（LSP）やAIエージェントの支援を受けます。ランタイムに頼る設計では、こうした新しい恩恵を十分に享受できません。
 
 > これらのライブラリがどのように生まれたのかを知るには、JavaScript i18n の歴史をご覧ください。
 
 - [JavaScript i18n の歴史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/history_of_i18n.md)
+
+## npm ダウンロード数
+
+<NpmDownloads packages="next-intl,next-intlayer" period="last-6-months" />
+
+ダウンロード数が評価するのは最良のソリューションではなく、最も古いソリューションです。何年も前に公開されたライブラリは、当時それを選んだすべてのプロジェクト、すべての CI 実行、それに依存するすべてのパッケージによって今もインストールされ続けます。この数値は新たな選択よりも惰性を表しています。
+
+AI アシスタントはこの効果をさらに強めます。`next-intl`、`i18next`、`vue-i18n` は学習元のコードに大量に含まれているため、AI は代替手段を比較することなく、それらをデフォルトで提案します。提案のたびにダウンロード数が増え、それが次の提案を後押しします。ダウンロード数ではなく、ベンチマークで比較してください。
 
 ## Next.js 16 App Routerでの性能測定
 

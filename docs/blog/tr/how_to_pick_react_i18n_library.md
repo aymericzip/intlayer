@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: "2026'da Doğru React i18n Kütüphanesini Seçme Rehberi"
 description: "React i18n için karar rehberi: react-i18next, react-intl, Lingui, use-intl, Paraglide ve Intlayer'ı karşılaştırmadan önce yanıtlanması gereken sorular."
@@ -119,6 +119,20 @@ Kütüphane boyutları [TanStack Start benchmark](https://github.com/aymericzip/
 > Tip güvenliği: 5/5; anahtarların, parametrelerin ve her locale'in, URL biçimlendirici ve yardımcılar (helpers) dahil olmak üzere manuel kurulum olmadan kontrol edildiği anlamına gelir.
 
 Tablonun göstermediği iki nokta var. `Paraglide`, kodları doğrudan deponuza (repo) ürettiği için neredeyse hiçbir kütüphane kodu içermez; bu da her commit öncesinde bir yeniden üretim adımı ve üretilen dosyalarda merge conflict'leri anlamına gelir. `Intlayer` ise bir bundler eklentisi (`vite-intlayer` veya eşdeğeri) gerektirir, bu nedenle build adımı olmayan bir kurulumda çalışamaz.
+
+## Commit etkinliği
+
+Commit'ler her projeye ne kadar emek harcandığını gösterir. Bir monorepo yayımladığı her paketi sayar, bu yüzden bu sayıyı kalite değil, aktivite sinyali olarak okuyun.
+
+<GithubCommits repositories="i18next/react-i18next,formatjs/formatjs,amannn/next-intl,tolgee/tolgee-js,lingui/js-lingui,opral/paraglide-js,aymericzip/intlayer" />
+
+## npm indirmeleri
+
+<NpmDownloads packages="react-i18next,react-intl,use-intl,@tolgee/react,@lingui/react,@inlang/paraglide-js,react-intlayer" period="last-6-months" />
+
+İndirme sayıları en iyi çözümleri değil, en eski çözümleri ödüllendirir. Yıllar önce yayımlanmış bir kütüphane, onu o zaman seçen her proje, her CI çalışması ve ona bağımlı her paket tarafından hâlâ kurulur. Bu sayı yeni bir tercihten çok ataleti ölçer.
+
+Yapay zekâ asistanları bu etkiyi büyütür. `next-intl`, `i18next` ve `vue-i18n` eğitildikleri kodun her yerinde bulunduğu için, alternatifleri karşılaştırmadan bunları varsayılan olarak önerirler. Her öneri indirme sayısını artırır, bu da bir sonraki öneriyi besler. İndirme sayısına değil, benchmark sonuçlarına göre karşılaştırın.
 
 ## Yanıtlarınızı bir kütüphaneyle eşleştirin
 

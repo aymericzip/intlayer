@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: 2026년에도 i18next를 계속 써야 할까요?
 description: i18next는 수많은 웹사이트를 지원하지만, 2011년에 설계된 런타임 아키텍처는 한계를 보이기 시작했습니다. 번들 크기, 트리 쉐이킹 제약, 정체된 혁신을 분석합니다.
@@ -73,11 +73,21 @@ GitHub 스타 수는 과거의 누적 인기를 반영할 뿐, 현재의 아키�
 
 [![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
 
+<GithubCommits repositories="i18next/i18next,i18next/react-i18next,i18next/next-i18next,aymericzip/intlayer" />
+
 성숙한 라이브러리는 안정성을 제공합니다. 하지만 i18n 도구의 패러다임은 완전히 바뀌었습니다. 빌드 타임에 불필요한 콘텐츠를 제거하고, CI에서 LLM으로 자동 번역하며, Language Server (LSP)와 AI 에이전트를 IDE에 통합합니다. 런타임에 전적으로 의존하는 아키텍처는 이러한 현대적 기술을 수용하기 어렵습니다.
 
 > 이러한 라이브러리가 어디에서 왔는지 이해하려면 JavaScript i18n의 역사를 읽어보세요.
 
 - [JavaScript i18n의 역사](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/history_of_i18n.md)
+
+## npm 다운로드
+
+<NpmDownloads packages="i18next,react-i18next,next-i18next,intlayer" period="last-6-months" />
+
+다운로드 수는 가장 좋은 솔루션이 아니라 가장 오래된 솔루션에 보상을 줍니다. 수년 전에 출시된 라이브러리는 당시 이를 선택한 모든 프로젝트, 모든 CI 실행, 이에 의존하는 모든 패키지에 의해 여전히 설치됩니다. 이 수치는 새로운 선택보다 관성을 측정합니다.
+
+AI 어시스턴트는 이 효과를 더 키웁니다. `next-intl`, `i18next`, `vue-i18n`은 AI가 학습한 코드 곳곳에 있으므로, AI는 대안을 비교하지 않고 이들을 기본으로 추천합니다. 추천이 다운로드를 늘리고, 그 다운로드가 다음 추천을 부추깁니다. 다운로드 수가 아니라 벤치마크로 비교하세요.
 
 ## 번들 영향 측정
 

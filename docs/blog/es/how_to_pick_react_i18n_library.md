@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: "Cómo elegir la librería de i18n adecuada para React en 2026"
 description: "Una guía de decisión para i18n en React: las preguntas a responder antes de comparar react-i18next, react-intl, Lingui, use-intl, Paraglide e Intlayer."
@@ -121,6 +121,20 @@ Los tamaños de las librerías provienen del [benchmark de TanStack Start](https
 > Seguridad de tipos: 5/5 significa que las claves, los parámetros y cada locale se comprueban sin configuración manual, incluidos el formateador de URL y los helpers.
 
 Dos cosas que la tabla no muestra. `Paraglide` casi no incluye librería porque genera código directamente en tu repo, lo que implica un paso de regeneración antes de cada commit y conflictos de fusión en archivos generados. E `Intlayer` requiere un plugin para el bundler (`vite-intlayer` o equivalente), por lo que no puede ejecutarse en un entorno sin build.
+
+## Actividad de commits
+
+Los commits muestran cuánto trabajo recibe cada proyecto. Un monorepo cuenta todos los paquetes que publica, así que lee la cifra como una señal de actividad, no de calidad.
+
+<GithubCommits repositories="i18next/react-i18next,formatjs/formatjs,amannn/next-intl,tolgee/tolgee-js,lingui/js-lingui,opral/paraglide-js,aymericzip/intlayer" />
+
+## Descargas en npm
+
+<NpmDownloads packages="react-i18next,react-intl,use-intl,@tolgee/react,@lingui/react,@inlang/paraglide-js,react-intlayer" period="last-6-months" />
+
+Las descargas premian a las soluciones más antiguas, no a las mejores. Una biblioteca publicada hace años se sigue instalando en cada proyecto que la eligió entonces, en cada ejecución de CI y en cada paquete que depende de ella. La cifra mide la inercia más que una elección actual.
+
+Los asistentes de IA amplifican el efecto. `next-intl`, `i18next` y `vue-i18n` están por todas partes en el código con el que se entrenaron, así que los sugieren por defecto, sin comparar las alternativas. Cada sugerencia suma descargas, que alimentan la siguiente sugerencia. Compara con el benchmark y no con el número de descargas.
 
 ## Asigna tus respuestas a una librería
 

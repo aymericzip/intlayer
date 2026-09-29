@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: "Come scegliere la giusta libreria i18n per Svelte nel 2026"
 description: "Una guida decisionale per l'i18n in Svelte e SvelteKit: le domande da porsi prima di confrontare svelte-i18n, Paraglide, typesafe-i18n, wuchale e Intlayer."
@@ -109,6 +109,20 @@ Le dimensioni delle librerie provengono dal [benchmark per Svelte](https://githu
 > Type safety: 5/5 significa che chiavi, parametri e ogni locale vengono verificati senza configurazione manuale, inclusi formattatori di URL e helper.
 
 La dimensione quasi nulla della libreria Paraglide è dovuta alla sua architettura: il runtime viene generato direttamente nel repository. Intlayer richiede `vite-intlayer`, quindi non può funzionare senza una fase di build.
+
+## Attività dei commit
+
+I commit mostrano quanto lavoro riceve ogni progetto. Un monorepo conta ogni pacchetto che pubblica, quindi leggi il numero come un segnale di attività, non di qualità.
+
+<GithubCommits repositories="kaisermann/svelte-i18n,codingcommons/typesafe-i18n,opral/paraglide-js,wuchalejs/wuchale,aymericzip/intlayer" />
+
+## Download npm
+
+<NpmDownloads packages="svelte-i18n,typesafe-i18n,@inlang/paraglide-js,wuchale,svelte-intlayer" period="last-6-months" />
+
+I download premiano le soluzioni più vecchie, non le migliori. Una libreria pubblicata anni fa viene ancora installata da ogni progetto che l'ha scelta allora, da ogni esecuzione della CI e da ogni pacchetto che ne dipende. Il numero misura l'inerzia più che una scelta attuale.
+
+Gli assistenti IA amplificano l'effetto. `next-intl`, `i18next` e `vue-i18n` sono ovunque nel codice su cui sono stati addestrati, quindi li suggeriscono di default, senza confrontare le alternative. Ogni suggerimento aggiunge download, che alimentano il suggerimento successivo. Confronta sul benchmark, non sul numero di download.
 
 ## Mappate le vostre risposte sulla libreria ideale
 

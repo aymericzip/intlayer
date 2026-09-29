@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: "Jak wybrać odpowiednią bibliotekę Vue i18n w 2026 roku"
 description: "Przewodnik wyboru i18n dla Vue i Nuxt: pytania przed porównaniem vue-i18n, @nuxtjs/i18n, fluent-vue, Paraglide i Intlayer."
@@ -106,6 +106,20 @@ Rozmiary bibliotek pochodzą z dokumentu [benchmark Vue](https://github.com/ayme
 > Bezpieczeństwo typów: 5/5 oznacza, że klucze, parametry i każda lokalizacja są sprawdzane bez ręcznej konfiguracji, w tym formatery URL i helpery.
 
 Niemal zerowy rozmiar biblioteki Paraglide wynika z jej konstrukcji: środowisko uruchomieniowe jest generowane w Twoim repozytorium, co oznacza konieczność regeneracji przed każdym pushem i ryzyko konfliktów scalania (merge conflicts) w wygenerowanych plikach. Intlayer wymaga `vite-intlayer` (lub modułu Nuxt), więc nie może działać bez etapu budowania.
+
+## Aktywność commitów
+
+Commity pokazują, ile pracy trafia do każdego projektu. Monorepo liczy każdy publikowany pakiet, więc traktuj tę liczbę jako sygnał aktywności, a nie jakości.
+
+<GithubCommits repositories="intlify/vue-i18n,nuxt-modules/i18n,fluent-vue/fluent-vue,opral/paraglide-js,aymericzip/intlayer" />
+
+## Pobrania z npm
+
+<NpmDownloads packages="vue-i18n,@nuxtjs/i18n,fluent-vue,@inlang/paraglide-js,vue-intlayer" period="last-6-months" />
+
+Liczba pobrań nagradza najstarsze rozwiązania, a nie najlepsze. Biblioteka wydana lata temu wciąż jest instalowana przez każdy projekt, który ją wtedy wybrał, przez każde uruchomienie CI i przez każdy pakiet, który od niej zależy. Ta liczba mierzy bezwładność bardziej niż świadomy wybór.
+
+Asystenci AI wzmacniają ten efekt. `next-intl`, `i18next` i `vue-i18n` są wszędzie w kodzie, na którym ich trenowano, więc proponują je domyślnie, bez porównywania alternatyw. Każda sugestia dodaje pobrań, które napędzają kolejną sugestię. Porównuj na podstawie benchmarku, a nie liczby pobrań.
 
 ## Dopasuj swoje odpowiedzi do biblioteki
 

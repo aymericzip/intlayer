@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: "Come scegliere la giusta libreria i18n per Solid nel 2026"
 description: "Una guida decisionale per l'i18n in SolidJS e SolidStart: le domande da porsi prima di confrontare @solid-primitives/i18n, solid-i18next, Paraglide, Lingui e Intlayer."
@@ -108,6 +108,20 @@ Le dimensioni delle librerie provengono dal [benchmark Solid](https://github.com
 > Type safety: 5/5 significa che chiavi, parametri e ogni locale vengono verificati senza configurazione manuale, inclusi formattatori di URL e helper.
 
 La dimensione quasi nulla della libreria Paraglide è dovuta alla sua architettura: il runtime viene generato direttamente nella codebase. Intlayer richiede `vite-intlayer`, pertanto non può essere eseguito senza una fase di build.
+
+## Attività dei commit
+
+I commit mostrano quanto lavoro riceve ogni progetto. Un monorepo conta ogni pacchetto che pubblica, quindi leggi il numero come un segnale di attività, non di qualità.
+
+<GithubCommits repositories="solidjs-community/solid-primitives,mbarzda/solid-i18next,opral/paraglide-js,lingui/js-lingui,aymericzip/intlayer" />
+
+## Download npm
+
+<NpmDownloads packages="@solid-primitives/i18n,solid-i18next,@inlang/paraglide-js,@lingui/solid,solid-intlayer" period="last-6-months" />
+
+I download premiano le soluzioni più vecchie, non le migliori. Una libreria pubblicata anni fa viene ancora installata da ogni progetto che l'ha scelta allora, da ogni esecuzione della CI e da ogni pacchetto che ne dipende. Il numero misura l'inerzia più che una scelta attuale.
+
+Gli assistenti IA amplificano l'effetto. `next-intl`, `i18next` e `vue-i18n` sono ovunque nel codice su cui sono stati addestrati, quindi li suggeriscono di default, senza confrontare le alternative. Ogni suggerimento aggiunge download, che alimentano il suggerimento successivo. Confronta sul benchmark, non sul numero di download.
 
 ## Abbinare le risposte a una libreria
 

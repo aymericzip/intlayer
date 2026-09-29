@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: 2026년에도 next-intl을 계속 써야 할까요?
 description: next-intl은 Next.js App Router의 표준으로 자리잡았습니다. 하지만 런타임 번들 오버헤드와 수동 네임스페이스 관리라는 부담은 여전히 남아 있습니다.
@@ -69,11 +69,21 @@ Crowdin의 공식 파트너이기 때문에, CLI 자체에 무료 로컬 AI 번�
 
 [![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#amannn/next-intl&aymericzip/intlayer)
 
+<GithubCommits repositories="amannn/next-intl,aymericzip/intlayer" />
+
 성숙한 라이브러리는 안정감을 줍니다. 하지만 i18n 환경은 달라졌습니다. 빌드 시 미사용 텍스트를 걸러내고, CI에서 LLM이 번역을 수행하며, 에디터는 Language Server (LSP) 및 AI 어시스턴트와 밀접하게 연동됩니다. 런타임 처리에 갇힌 아키텍처는 이러한 진보를 온전히 누리기 어렵습니다.
 
 > 이러한 라이브러리가 어디에서 왔는지 이해하려면 JavaScript i18n의 역사를 읽어보세요.
 
 - [JavaScript i18n의 역사](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/history_of_i18n.md)
+
+## npm 다운로드
+
+<NpmDownloads packages="next-intl,next-intlayer" period="last-6-months" />
+
+다운로드 수는 가장 좋은 솔루션이 아니라 가장 오래된 솔루션에 보상을 줍니다. 수년 전에 출시된 라이브러리는 당시 이를 선택한 모든 프로젝트, 모든 CI 실행, 이에 의존하는 모든 패키지에 의해 여전히 설치됩니다. 이 수치는 새로운 선택보다 관성을 측정합니다.
+
+AI 어시스턴트는 이 효과를 더 키웁니다. `next-intl`, `i18next`, `vue-i18n`은 AI가 학습한 코드 곳곳에 있으므로, AI는 대안을 비교하지 않고 이들을 기본으로 추천합니다. 추천이 다운로드를 늘리고, 그 다운로드가 다음 추천을 부추깁니다. 다운로드 수가 아니라 벤치마크로 비교하세요.
 
 ## Next.js 16 App Router 성능 측정
 

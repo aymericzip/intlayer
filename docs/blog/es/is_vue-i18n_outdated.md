@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: ¿Está vue-i18n obsoleto en 2026?
 description: vue-i18n ha sido el estándar para aplicaciones Vue y Nuxt durante una década. Sin embargo, en nuestros benchmarks resultó ser el runtime de i18n más pesado de la web. Descubre por qué.
@@ -67,11 +67,21 @@ Historial del último año:
 
 [![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
+<GithubCommits repositories="intlify/vue-i18n,aymericzip/intlayer" />
+
 Una librería madura puede ser estable. No obstante, las aplicaciones contemporáneas aprovechan el procesado AST durante el build, la eliminación de código en desuso y la traducción con IA. Un esquema vinculado exclusivamente al runtime no asimila fácilmente estas posibilidades.
 
 > Para entender de dónde vienen estas bibliotecas, lee la historia del i18n en JavaScript.
 
 - [La historia del i18n en JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/history_of_i18n.md)
+
+## Descargas en npm
+
+<NpmDownloads packages="vue-i18n,vue-intlayer" period="last-6-months" />
+
+Las descargas premian a las soluciones más antiguas, no a las mejores. Una biblioteca publicada hace años se sigue instalando en cada proyecto que la eligió entonces, en cada ejecución de CI y en cada paquete que depende de ella. La cifra mide la inercia más que una elección actual.
+
+Los asistentes de IA amplifican el efecto. `next-intl`, `i18next` y `vue-i18n` están por todas partes en el código con el que se entrenaron, así que los sugieren por defecto, sin comparar las alternativas. Cada sugerencia suma descargas, que alimentan la siguiente sugerencia. Compara con el benchmark y no con el número de descargas.
 
 ## Rendimiento práctico en Vite + Vue
 

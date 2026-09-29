@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: "Cách chọn thư viện i18n phù hợp cho Svelte vào năm 2026"
 description: "Hướng dẫn chọn i18n cho Svelte và SvelteKit: những câu hỏi trước khi so sánh svelte-i18n, Paraglide, typesafe-i18n, wuchale và Intlayer."
@@ -108,6 +108,20 @@ Kích thước thư viện được lấy từ [Svelte benchmark](https://github
 > An toàn kiểu: 5/5 nghĩa là khóa, tham số và mọi locale đều được kiểm tra mà không cần thiết lập thủ công, bao gồm cả trình định dạng URL và các helper.
 
 Kích thước thư viện gần như bằng 0 của Paraglide là do cấu trúc: runtime được generate trực tiếp vào repository của bạn. Intlayer cần `vite-intlayer`, vì vậy nó không thể chạy nếu thiếu bước build.
+
+## Hoạt động commit
+
+Số commit cho thấy lượng công việc được đầu tư vào mỗi dự án. Một monorepo tính cả mọi package mà nó phát hành, vì vậy hãy xem con số này là tín hiệu về mức độ hoạt động, không phải chất lượng.
+
+<GithubCommits repositories="kaisermann/svelte-i18n,codingcommons/typesafe-i18n,opral/paraglide-js,wuchalejs/wuchale,aymericzip/intlayer" />
+
+## Lượt tải npm
+
+<NpmDownloads packages="svelte-i18n,typesafe-i18n,@inlang/paraglide-js,wuchale,svelte-intlayer" period="last-6-months" />
+
+Lượt tải ưu ái các giải pháp lâu đời nhất, không phải các giải pháp tốt nhất. Một thư viện ra mắt từ nhiều năm trước vẫn được cài đặt bởi mọi dự án đã chọn nó khi đó, mọi lần chạy CI và mọi gói phụ thuộc vào nó. Con số này đo sức ì nhiều hơn là một lựa chọn mới.
+
+Các trợ lý AI khuếch đại hiệu ứng này. `next-intl`, `i18next` và `vue-i18n` xuất hiện khắp nơi trong mã nguồn mà chúng được huấn luyện, nên chúng đề xuất các thư viện này theo mặc định, mà không so sánh các lựa chọn khác. Mỗi đề xuất lại tăng lượt tải, và lượt tải đó thúc đẩy đề xuất tiếp theo. Hãy so sánh dựa trên benchmark thay vì số lượt tải.
 
 ## Đối chiếu câu trả lời của bạn với thư viện phù hợp
 

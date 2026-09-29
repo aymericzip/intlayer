@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: "Comment choisir la bonne bibliothèque i18n Vue en 2026"
 description: "Un guide de décision pour l'i18n Vue et Nuxt : les questions à se poser avant de comparer vue-i18n, @nuxtjs/i18n, fluent-vue, Paraglide et Intlayer."
@@ -106,6 +106,20 @@ Les tailles des bibliothèques sont issues du [benchmark Vue](https://github.com
 > Sûreté des types : 5/5 signifie que les clés, les paramètres et chaque locale sont vérifiés sans configuration manuelle, y compris le formateur d'URL et les helpers.
 
 La taille quasi nulle de la bibliothèque Paraglide découle de sa conception : le runtime est généré dans votre repository, ce qui implique une étape de regénération avant chaque push et des conflits de fusion sur les fichiers générés. Intlayer nécessite `vite-intlayer` (ou le module Nuxt), il ne peut donc pas fonctionner sans étape de build.
+
+## Activité des commits
+
+Les commits mesurent le travail investi dans chaque projet. Un monorepo compte chaque package qu'il publie : lisez ce chiffre comme un signal d'activité, pas de qualité.
+
+<GithubCommits repositories="intlify/vue-i18n,nuxt-modules/i18n,fluent-vue/fluent-vue,opral/paraglide-js,aymericzip/intlayer" />
+
+## Téléchargements npm
+
+<NpmDownloads packages="vue-i18n,@nuxtjs/i18n,fluent-vue,@inlang/paraglide-js,vue-intlayer" period="last-6-months" />
+
+Le nombre de téléchargements récompense les solutions les plus anciennes, pas les meilleures. Une bibliothèque publiée il y a des années est toujours installée par chaque projet qui l'a choisie à l'époque, par chaque exécution de CI et par chaque package qui en dépend. Ce chiffre mesure l'inertie plus qu'un choix réfléchi.
+
+Les assistants IA amplifient cet effet. `next-intl`, `i18next` et `vue-i18n` sont omniprésents dans le code sur lequel ils ont été entraînés : ils les proposent donc par défaut, sans faire l'effort de comparer les alternatives. Chaque suggestion ajoute des téléchargements, qui alimentent la suggestion suivante. Comparez sur le benchmark plutôt que sur le nombre de téléchargements.
 
 ## Associez vos réponses à une bibliothèque
 

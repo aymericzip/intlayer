@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: "Come scegliere la giusta libreria i18n per React nel 2026"
 description: "Una guida decisionale per l'i18n in React: le domande da porsi prima di confrontare react-i18next, react-intl, Lingui, use-intl, Paraglide e Intlayer."
@@ -122,6 +122,20 @@ Le dimensioni delle librerie provengono dal [benchmark TanStack Start](https://g
 > Type safety: 5/5 significa che chiavi, parametri e ogni locale vengono verificati senza configurazione manuale, inclusi formattatori di URL e helper.
 
 Due aspetti che la tabella non mostra. `Paraglide` non include quasi alcuna libreria a runtime perché genera codice direttamente nella vostra repository, il che implica uno step di rigenerazione prima di ogni commit e possibili conflitti di merge sui file generati. `Intlayer` richiede un plugin per il bundler (`vite-intlayer` o equivalente), quindi non può funzionare in configurazioni prive di build step.
+
+## Attività dei commit
+
+I commit mostrano quanto lavoro riceve ogni progetto. Un monorepo conta ogni pacchetto che pubblica, quindi leggi il numero come un segnale di attività, non di qualità.
+
+<GithubCommits repositories="i18next/react-i18next,formatjs/formatjs,amannn/next-intl,tolgee/tolgee-js,lingui/js-lingui,opral/paraglide-js,aymericzip/intlayer" />
+
+## Download npm
+
+<NpmDownloads packages="react-i18next,react-intl,use-intl,@tolgee/react,@lingui/react,@inlang/paraglide-js,react-intlayer" period="last-6-months" />
+
+I download premiano le soluzioni più vecchie, non le migliori. Una libreria pubblicata anni fa viene ancora installata da ogni progetto che l'ha scelta allora, da ogni esecuzione della CI e da ogni pacchetto che ne dipende. Il numero misura l'inerzia più che una scelta attuale.
+
+Gli assistenti IA amplificano l'effetto. `next-intl`, `i18next` e `vue-i18n` sono ovunque nel codice su cui sono stati addestrati, quindi li suggeriscono di default, senza confrontare le alternative. Ogni suggerimento aggiunge download, che alimentano il suggerimento successivo. Confronta sul benchmark, non sul numero di download.
 
 ## Abbinare le risposte a una libreria
 

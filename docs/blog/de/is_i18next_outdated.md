@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: Ist i18next im Jahr 2026 veraltet?
 description: i18next treibt Millionen Websites an, aber seine Runtime-Architektur von 2011 zeigt ihr Alter. Ein Blick auf Bundle-Overhead, Tree-Shaking-Grenzen und verlangsamte Innovation.
@@ -73,11 +73,21 @@ Aktivität in den vergangenen zwölf Monaten:
 
 [![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
 
+<GithubCommits repositories="i18next/i18next,i18next/react-i18next,i18next/next-i18next,aymericzip/intlayer" />
+
 Eine fokussierte Bibliothek kann stabil sein. Doch i18n-Tooling entwickelt sich stetig: Moderne Bundler entfernen ungenutzte Texte bereits beim Build, LLMs übersetzen direkt in der CI und Editoren nutzen dedizierte Language Server (LSP) sowie KI-Assistenten. Wegen seines reinen Runtime-Modells kann i18next diese Neuerungen kaum übernehmen.
 
 > Um zu verstehen, woher diese Bibliotheken kommen, lesen Sie die Geschichte von i18n in JavaScript.
 
 - [Die Geschichte von i18n in JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/history_of_i18n.md)
+
+## npm-Downloads
+
+<NpmDownloads packages="i18next,react-i18next,next-i18next,intlayer" period="last-6-months" />
+
+Downloads belohnen die ältesten Lösungen, nicht die besten. Eine vor Jahren veröffentlichte Bibliothek wird weiterhin von jedem Projekt installiert, das sie damals gewählt hat, von jedem CI-Lauf und von jedem Paket, das davon abhängt. Die Zahl misst Trägheit mehr als eine bewusste Wahl.
+
+KI-Assistenten verstärken diesen Effekt. `next-intl`, `i18next` und `vue-i18n` sind im Code, mit dem sie trainiert wurden, allgegenwärtig, also schlagen sie diese standardmäßig vor, ohne Alternativen zu vergleichen. Jeder Vorschlag erzeugt Downloads, die den nächsten Vorschlag verstärken. Vergleichen Sie anhand des Benchmarks, nicht anhand der Downloadzahlen.
 
 ## Messung der Bundle-Kosten
 

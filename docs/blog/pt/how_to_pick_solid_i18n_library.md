@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: "Como escolher a biblioteca de i18n certa para Solid em 2026"
 description: "Um guia de decisão para i18n em SolidJS e SolidStart: as perguntas a responder antes de comparar @solid-primitives/i18n, solid-i18next, Paraglide, Lingui e Intlayer."
@@ -108,6 +108,20 @@ Os tamanhos das bibliotecas foram obtidos no [benchmark de Solid](https://github
 > Segurança de tipos: 5/5 significa que chaves, parâmetros e cada locale são verificados sem configuração manual, incluindo formatadores de URL e helpers.
 
 O tamanho quase zero da biblioteca Paraglide se deve à sua construção: o runtime é gerado dentro do seu repositório. O Intlayer necessita do `vite-intlayer`, portanto não pode ser executado sem uma etapa de build.
+
+## Atividade de commits
+
+Os commits mostram quanto trabalho cada projeto recebe. Um monorepo conta todos os pacotes que publica, então leia o número como um sinal de atividade, não de qualidade.
+
+<GithubCommits repositories="solidjs-community/solid-primitives,mbarzda/solid-i18next,opral/paraglide-js,lingui/js-lingui,aymericzip/intlayer" />
+
+## Downloads no npm
+
+<NpmDownloads packages="@solid-primitives/i18n,solid-i18next,@inlang/paraglide-js,@lingui/solid,solid-intlayer" period="last-6-months" />
+
+Os downloads recompensam as soluções mais antigas, não as melhores. Uma biblioteca lançada há anos continua sendo instalada por cada projeto que a escolheu na época, por cada execução de CI e por cada pacote que depende dela. O número mede a inércia mais do que uma escolha atual.
+
+Os assistentes de IA amplificam o efeito. `next-intl`, `i18next` e `vue-i18n` estão por toda parte no código com que foram treinados, então eles os sugerem por padrão, sem comparar as alternativas. Cada sugestão gera downloads, que alimentam a próxima sugestão. Compare pelo benchmark, não pelo número de downloads.
 
 ## Combine suas respostas com uma biblioteca
 

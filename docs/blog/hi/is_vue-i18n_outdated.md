@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: क्या 2026 में vue-i18n पुराना हो चुका है?
 description: vue-i18n एक दशक से Vue और Nuxt का मानक रहा है। लेकिन हमारे बेंचमार्क में यह वेब पर सबसे भारी i18n रनटाइम साबित हुआ। इसके कारणों का विश्लेषण।
@@ -67,11 +67,21 @@ Vite + Vue पर आधारित केवल 31.5 KB के बुनिय
 
 [![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
+<GithubCommits repositories="intlify/vue-i18n,aymericzip/intlayer" />
+
 एक पुरानी लाइब्रेरी स्थिरता तो देती है, लेकिन आधुनिक फ्रंटएंड अब बिल्ड-टाइम AST ट्रांसफॉर्मेशन, डेड-कोड रिमूवल और एआई ऑटोमेशन पर आधारित है। केवल रनटाइम पर चलने वाली लाइब्रेरी इन आधुनिक तकनीकों को सहजता से नहीं अपना पाती।
 
 > ये लाइब्रेरी कहाँ से आईं, यह समझने के लिए JavaScript i18n का इतिहास पढ़ें।
 
 - [JavaScript i18n का इतिहास](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/history_of_i18n.md)
+
+## npm डाउनलोड
+
+<NpmDownloads packages="vue-i18n,vue-intlayer" period="last-6-months" />
+
+डाउनलोड सबसे पुराने समाधानों को पुरस्कृत करते हैं, सबसे अच्छे को नहीं। वर्षों पहले जारी हुई लाइब्रेरी आज भी हर उस प्रोजेक्ट में इंस्टॉल होती है जिसने उसे तब चुना था, हर CI रन में और हर उस पैकेज में जो उस पर निर्भर है। यह संख्या नए चुनाव से ज़्यादा जड़ता को मापती है।
+
+AI असिस्टेंट इस प्रभाव को और बढ़ाते हैं। `next-intl`, `i18next` और `vue-i18n` उस कोड में हर जगह हैं जिस पर वे प्रशिक्षित हुए, इसलिए वे विकल्पों की तुलना किए बिना इन्हें डिफ़ॉल्ट रूप से सुझाते हैं। हर सुझाव डाउनलोड बढ़ाता है, जो अगले सुझाव को बढ़ावा देता है। डाउनलोड की संख्या नहीं, बेंचमार्क के आधार पर तुलना करें।
 
 ## Vite + Vue परफॉर्मेंस टेस्ट
 

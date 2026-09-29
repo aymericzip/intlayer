@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: "So wählst du die richtige Vue i18n-Bibliothek im Jahr 2026"
 description: "Ein Entscheidungsleitfaden für Vue- und Nuxt-i18n: die Fragen vor dem Vergleich von vue-i18n, @nuxtjs/i18n, fluent-vue, Paraglide und Intlayer."
@@ -106,6 +106,20 @@ Die Bibliotheksgrößen stammen aus dem [Vue-Benchmark](https://github.com/aymer
 > Typsicherheit: 5/5 bedeutet, dass Schlüssel, Parameter und jede Locale ohne manuelle Einrichtung geprüft werden, einschließlich URL-Formatierer und Helfer.
 
 Paraglides Bibliotheksgröße von nahezu null ist konstruktionsbedingt: Die Runtime wird in dein Repository generiert, was einen Regenerierungsschritt vor jedem Push und potenzielle Merge-Konflikte bei generierten Dateien bedeutet. Intlayer benötigt `vite-intlayer` (oder das Nuxt-Modul) und kann daher nicht ohne Build-Schritt ausgeführt werden.
+
+## Commit-Aktivität
+
+Commits zeigen, wie viel Arbeit in ein Projekt fließt. Ein Monorepo zählt jedes Paket, das es veröffentlicht. Lies die Zahl daher als Signal für Aktivität, nicht für Qualität.
+
+<GithubCommits repositories="intlify/vue-i18n,nuxt-modules/i18n,fluent-vue/fluent-vue,opral/paraglide-js,aymericzip/intlayer" />
+
+## npm-Downloads
+
+<NpmDownloads packages="vue-i18n,@nuxtjs/i18n,fluent-vue,@inlang/paraglide-js,vue-intlayer" period="last-6-months" />
+
+Downloads belohnen die ältesten Lösungen, nicht die besten. Eine vor Jahren veröffentlichte Bibliothek wird weiterhin von jedem Projekt installiert, das sie damals gewählt hat, von jedem CI-Lauf und von jedem Paket, das davon abhängt. Die Zahl misst Trägheit mehr als eine bewusste Wahl.
+
+KI-Assistenten verstärken diesen Effekt. `next-intl`, `i18next` und `vue-i18n` sind im Code, mit dem sie trainiert wurden, allgegenwärtig, also schlagen sie diese standardmäßig vor, ohne Alternativen zu vergleichen. Jeder Vorschlag erzeugt Downloads, die den nächsten Vorschlag verstärken. Vergleichen Sie anhand des Benchmarks, nicht anhand der Downloadzahlen.
 
 ## Ordne deine Antworten einer Bibliothek zu
 

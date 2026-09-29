@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: Liệu vue-i18n Đã Lỗi Thời Vào Năm 2026?
 description: vue-i18n là chuẩn mực cho Vue và Nuxt suốt cả thập kỷ. Nhưng trong các bài kiểm tra benchmark, nó lại là runtime i18n nặng nhất trên web. Tìm hiểu nguyên nhân tại đây.
@@ -67,11 +67,21 @@ Số liệu 12 tháng qua:
 
 [![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
+<GithubCommits repositories="intlify/vue-i18n,aymericzip/intlayer" />
+
 Một thư viện lâu năm luôn có tính ổn định cao. Tuy nhiên, lập trình web ngày nay dựa trên phân tích AST khi build, loại bỏ mã không dùng và dịch tự động bằng AI. Một hệ thống phụ thuộc vào việc thực thi trên trình duyệt khó lòng áp dụng hiệu quả các tiện ích này.
 
 > Để hiểu các thư viện này đến từ đâu, hãy đọc lịch sử i18n trong JavaScript.
 
 - [Lịch sử i18n trong JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/history_of_i18n.md)
+
+## Lượt tải npm
+
+<NpmDownloads packages="vue-i18n,vue-intlayer" period="last-6-months" />
+
+Lượt tải ưu ái các giải pháp lâu đời nhất, không phải các giải pháp tốt nhất. Một thư viện ra mắt từ nhiều năm trước vẫn được cài đặt bởi mọi dự án đã chọn nó khi đó, mọi lần chạy CI và mọi gói phụ thuộc vào nó. Con số này đo sức ì nhiều hơn là một lựa chọn mới.
+
+Các trợ lý AI khuếch đại hiệu ứng này. `next-intl`, `i18next` và `vue-i18n` xuất hiện khắp nơi trong mã nguồn mà chúng được huấn luyện, nên chúng đề xuất các thư viện này theo mặc định, mà không so sánh các lựa chọn khác. Mỗi đề xuất lại tăng lượt tải, và lượt tải đó thúc đẩy đề xuất tiếp theo. Hãy so sánh dựa trên benchmark thay vì số lượt tải.
 
 ## Đo Lường Hiệu Năng Trên Vite + Vue
 

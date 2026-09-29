@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: "Cách chọn đúng thư viện Vue i18n năm 2026"
 description: "Hướng dẫn chọn i18n cho Vue và Nuxt: những câu hỏi trước khi so sánh vue-i18n, @nuxtjs/i18n, fluent-vue, Paraglide và Intlayer."
@@ -106,6 +106,20 @@ Kích thước thư viện được lấy từ bài [benchmark Vue](https://gith
 > An toàn kiểu: 5/5 nghĩa là khóa, tham số và mọi locale đều được kiểm tra mà không cần thiết lập thủ công, bao gồm cả trình định dạng URL và các helper.
 
 Kích thước thư viện gần như bằng 0 của Paraglide đạt được nhờ thiết kế: runtime được sinh trực tiếp vào repository của bạn, điều này đồng nghĩa với việc cần một bước sinh lại mã (regeneration) trước mỗi lần push và nguy cơ merge conflict trên các file được sinh ra. Intlayer cần `vite-intlayer` (hoặc Nuxt module), vì vậy nó không thể chạy nếu không có một build step.
+
+## Hoạt động commit
+
+Số commit cho thấy lượng công việc được đầu tư vào mỗi dự án. Một monorepo tính cả mọi package mà nó phát hành, vì vậy hãy xem con số này là tín hiệu về mức độ hoạt động, không phải chất lượng.
+
+<GithubCommits repositories="intlify/vue-i18n,nuxt-modules/i18n,fluent-vue/fluent-vue,opral/paraglide-js,aymericzip/intlayer" />
+
+## Lượt tải npm
+
+<NpmDownloads packages="vue-i18n,@nuxtjs/i18n,fluent-vue,@inlang/paraglide-js,vue-intlayer" period="last-6-months" />
+
+Lượt tải ưu ái các giải pháp lâu đời nhất, không phải các giải pháp tốt nhất. Một thư viện ra mắt từ nhiều năm trước vẫn được cài đặt bởi mọi dự án đã chọn nó khi đó, mọi lần chạy CI và mọi gói phụ thuộc vào nó. Con số này đo sức ì nhiều hơn là một lựa chọn mới.
+
+Các trợ lý AI khuếch đại hiệu ứng này. `next-intl`, `i18next` và `vue-i18n` xuất hiện khắp nơi trong mã nguồn mà chúng được huấn luyện, nên chúng đề xuất các thư viện này theo mặc định, mà không so sánh các lựa chọn khác. Mỗi đề xuất lại tăng lượt tải, và lượt tải đó thúc đẩy đề xuất tiếp theo. Hãy so sánh dựa trên benchmark thay vì số lượt tải.
 
 ## Đối chiếu câu trả lời với thư viện phù hợp
 

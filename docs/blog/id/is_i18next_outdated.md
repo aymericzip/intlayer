@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: Apakah i18next Sudah Ketinggalan Zaman di Tahun 2026?
 description: i18next memberdayakan jutaan situs web, tetapi arsitektur runtime buatan 2011 mulai menunjukkan usianya. Analisis ukuran bundle, batas tree-shaking, dan laju inovasi.
@@ -73,11 +73,21 @@ Aktivitas pengembangan selama 12 bulan terakhir:
 
 [![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
 
+<GithubCommits repositories="i18next/i18next,i18next/react-i18next,i18next/next-i18next,aymericzip/intlayer" />
+
 Pustaka yang matang memang menawarkan stabilitas. Namun standar perkakas i18n telah berubah: bundler modern memangkas teks tak terpakai saat build, model bahasa (LLM) menerjemahkan langsung di pipeline CI, dan editor terintegrasi dengan Language Server (LSP) serta AI agent. Arsitektur i18next yang murni mengandalkan runtime kesulitan mengadopsi kemajuan ini.
 
 > Untuk memahami asal-usul pustaka-pustaka ini, baca sejarah i18n di JavaScript.
 
 - [Sejarah i18n di JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/history_of_i18n.md)
+
+## Unduhan npm
+
+<NpmDownloads packages="i18next,react-i18next,next-i18next,intlayer" period="last-6-months" />
+
+Jumlah unduhan menghargai solusi yang paling lama, bukan yang terbaik. Library yang dirilis bertahun-tahun lalu masih diinstal oleh setiap proyek yang memilihnya saat itu, oleh setiap eksekusi CI, dan oleh setiap paket yang bergantung padanya. Angka ini lebih mengukur inersia daripada pilihan baru.
+
+Asisten AI memperkuat efek ini. `next-intl`, `i18next`, dan `vue-i18n` ada di mana-mana dalam kode yang menjadi data latih mereka, sehingga mereka menyarankannya secara default tanpa membandingkan alternatif. Setiap saran menambah unduhan, yang kemudian mendorong saran berikutnya. Bandingkan berdasarkan benchmark, bukan jumlah unduhan.
 
 ## Mengukur Beban pada Bundle
 

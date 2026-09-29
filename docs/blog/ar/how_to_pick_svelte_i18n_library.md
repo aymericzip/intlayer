@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: "كيفية اختيار مكتبة Svelte i18n المناسبة في عام 2026"
 description: "دليل لاختيار i18n في Svelte وSvelteKit: الأسئلة قبل مقارنة svelte-i18n وParaglide وtypesafe-i18n وwuchale وIntlayer."
@@ -108,6 +108,20 @@ author: aymericzip
 > أمان الأنواع: 5/5 يعني أن المفاتيح والمعاملات وكل لغة يتم التحقق منها دون إعداد يدوي، بما في ذلك منسق العناوين (URL formatter) والدوال المساعدة (helpers).
 
 حجم مكتبة Paraglide الشبه منعدم هو نتيجة لتصميمها: يتم إنشاء وقت التشغيل (runtime) مباشرة داخل مستودعك. وتحتاج Intlayer إلى `vite-intlayer`، لذا لا يمكن تشغيلها بدون خطوة بناء (build step).
+
+## نشاط الالتزامات (commits)
+
+تُظهر عمليات الإيداع (commits) حجم العمل المبذول في كل مشروع. يحتسب المستودع الأحادي (monorepo) كل حزمة ينشرها، لذا اقرأ هذا الرقم كمؤشر على النشاط، لا على الجودة.
+
+<GithubCommits repositories="kaisermann/svelte-i18n,codingcommons/typesafe-i18n,opral/paraglide-js,wuchalejs/wuchale,aymericzip/intlayer" />
+
+## تنزيلات npm
+
+<NpmDownloads packages="svelte-i18n,typesafe-i18n,@inlang/paraglide-js,wuchale,svelte-intlayer" period="last-6-months" />
+
+تكافئ أعداد التنزيل الحلول الأقدم، لا الأفضل. فالمكتبة التي صدرت قبل سنوات لا تزال تُثبَّت في كل مشروع اختارها آنذاك، وفي كل تشغيل لـ CI، وفي كل حزمة تعتمد عليها. هذا الرقم يقيس الجمود أكثر مما يقيس اختيارًا جديدًا.
+
+تضخّم مساعدات الذكاء الاصطناعي هذا الأثر. فـ `next-intl` و`i18next` و`vue-i18n` منتشرة في الشيفرة التي تدربت عليها، لذا تقترحها افتراضيًا دون مقارنة البدائل. كل اقتراح يضيف تنزيلات، تغذي بدورها الاقتراح التالي. قارن بناءً على الاختبار المعياري لا على عدد التنزيلات.
 
 ## مطابقة إجاباتك مع المكتبة المناسبة
 

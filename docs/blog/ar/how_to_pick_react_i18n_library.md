@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: "كيفية اختيار مكتبة React i18n المناسبة في عام 2026"
 description: "دليل لاختيار i18n في React: الأسئلة التي يجب الإجابة عنها قبل مقارنة react-i18next وreact-intl وLingui وuse-intl وParaglide وIntlayer."
@@ -121,6 +121,20 @@ author: aymericzip
 > أمان الأنواع: 5/5 يعني أن المفاتيح والمعاملات وكل لغة يتم التحقق منها دون إعداد يدوي، بما في ذلك منسق العناوين (URL formatter) والدوال المساعدة (helpers).
 
 أمران لا يظهرهما الجدول: لا تشحن `Paraglide` أي مكتبة تقريباً لأنها تولد الكود داخل مستودعك، مما يعني خطوة إعادة توليد قبل كل commit وتعارضات دمج (merge conflicts) محتملة في الملفات المولدة. كما تتطلب `Intlayer` إضافة أداة تجميع (`vite-intlayer` أو ما يعادلها)، لذا لا يمكن تشغيلها في بيئة بدون أدوات بناء (no-build setup).
+
+## نشاط الالتزامات (commits)
+
+تُظهر عمليات الإيداع (commits) حجم العمل المبذول في كل مشروع. يحتسب المستودع الأحادي (monorepo) كل حزمة ينشرها، لذا اقرأ هذا الرقم كمؤشر على النشاط، لا على الجودة.
+
+<GithubCommits repositories="i18next/react-i18next,formatjs/formatjs,amannn/next-intl,tolgee/tolgee-js,lingui/js-lingui,opral/paraglide-js,aymericzip/intlayer" />
+
+## تنزيلات npm
+
+<NpmDownloads packages="react-i18next,react-intl,use-intl,@tolgee/react,@lingui/react,@inlang/paraglide-js,react-intlayer" period="last-6-months" />
+
+تكافئ أعداد التنزيل الحلول الأقدم، لا الأفضل. فالمكتبة التي صدرت قبل سنوات لا تزال تُثبَّت في كل مشروع اختارها آنذاك، وفي كل تشغيل لـ CI، وفي كل حزمة تعتمد عليها. هذا الرقم يقيس الجمود أكثر مما يقيس اختيارًا جديدًا.
+
+تضخّم مساعدات الذكاء الاصطناعي هذا الأثر. فـ `next-intl` و`i18next` و`vue-i18n` منتشرة في الشيفرة التي تدربت عليها، لذا تقترحها افتراضيًا دون مقارنة البدائل. كل اقتراح يضيف تنزيلات، تغذي بدورها الاقتراح التالي. قارن بناءً على الاختبار المعياري لا على عدد التنزيلات.
 
 ## مطابقة إجاباتك مع المكتبة المناسبة
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: vue-i18n 2026'da Güncelliğini Yitirdi mi?
 description: vue-i18n on yıl boyunca Vue ve Nuxt uygulamalarının standardı oldu. Fakat benchmarklarımızda web üzerindeki en ağır i18n çalışma zamanı çıktı. İşte nedenleri.
@@ -67,11 +67,21 @@ Son on iki ay:
 
 [![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
+<GithubCommits repositories="intlify/vue-i18n,aymericzip/intlayer" />
+
 Köklü bir kütüphane istikrar sağlar. Fakat günümüz web mimarisi derleme anında AST dönüşümleri, ölü kod temizliği ve yapay zeka destekli yerelleştirme kullanır. Yalnızca çalışma zamanında çalışan bir sistemin bu yenilikleri benimsemesi zordur.
 
 > Bu kütüphanelerin nereden geldiğini anlamak için JavaScript i18n tarihini okuyun.
 
 - [JavaScript i18n tarihi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/history_of_i18n.md)
+
+## npm indirmeleri
+
+<NpmDownloads packages="vue-i18n,vue-intlayer" period="last-6-months" />
+
+İndirme sayıları en iyi çözümleri değil, en eski çözümleri ödüllendirir. Yıllar önce yayımlanmış bir kütüphane, onu o zaman seçen her proje, her CI çalışması ve ona bağımlı her paket tarafından hâlâ kurulur. Bu sayı yeni bir tercihten çok ataleti ölçer.
+
+Yapay zekâ asistanları bu etkiyi büyütür. `next-intl`, `i18next` ve `vue-i18n` eğitildikleri kodun her yerinde bulunduğu için, alternatifleri karşılaştırmadan bunları varsayılan olarak önerirler. Her öneri indirme sayısını artırır, bu da bir sonraki öneriyi besler. İndirme sayısına değil, benchmark sonuçlarına göre karşılaştırın.
 
 ## Vite + Vue Performans Sonuçları
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: "如何在 2026 年选择合适的 Solid i18n 库"
 description: "SolidJS 与 SolidStart i18n 选型指南：在比较 @solid-primitives/i18n、solid-i18next、Paraglide、Lingui 和 Intlayer 之前需要回答的问题。"
@@ -108,6 +108,20 @@ Paraglide 为每条消息生成一个独立函数。Intlayer 在 `.content.ts` �
 > 类型安全：5/5 表示键、参数和每个语言环境均无需手动配置即可得到校验，包括 URL 格式化工具与辅助函数。
 
 Paraglide 接近于零的库体积是由其架构决定的：运行时代码直接生成到你的代码仓库中。Intlayer 依赖 `vite-intlayer`，因此无法脱离构建步骤运行。
+
+## 提交活跃度
+
+提交次数反映了每个项目投入的工作量。Monorepo 会统计其发布的所有包，因此请将这个数字视为活跃度的信号，而不是质量的信号。
+
+<GithubCommits repositories="solidjs-community/solid-primitives,mbarzda/solid-i18next,opral/paraglide-js,lingui/js-lingui,aymericzip/intlayer" />
+
+## npm 下载量
+
+<NpmDownloads packages="@solid-primitives/i18n,solid-i18next,@inlang/paraglide-js,@lingui/solid,solid-intlayer" period="last-6-months" />
+
+下载量奖励的是最老的方案，而不是最好的方案。一个多年前发布的库，仍会被当年选择它的每个项目、每次 CI 运行以及每个依赖它的包持续安装。这个数字衡量的更多是惯性，而不是新的选择。
+
+AI 助手放大了这种效应。`next-intl`、`i18next` 和 `vue-i18n` 在它们的训练代码中随处可见，因此 AI 会默认推荐它们，而不去比较其他方案。每一次推荐都带来下载，又进一步推动下一次推荐。请以基准测试而不是下载量来比较。
 
 ## 根据你的需求匹配最佳库
 

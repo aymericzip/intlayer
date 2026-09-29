@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: क्या 2026 में next-intl पुराना हो चुका है?
 description: next-intl, Next.js App Router का डिफ़ॉल्ट समाधान बन चुका है। लेकिन यह अभी भी रनटाइम बंडल ओवरहेड और मैन्युअल नेमस्पेस प्रबंधन का बोझ उठाता है।
@@ -69,11 +69,21 @@ Crowdin का आधिकारिक पार्टनर होने क�
 
 [![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#amannn/next-intl&aymericzip/intlayer)
 
+<GithubCommits repositories="amannn/next-intl,aymericzip/intlayer" />
+
 एक स्थापित लाइब्रेरी सुरक्षा का अनुभव कराती है। लेकिन आधुनिक i18n की दुनिया बदल चुकी है: कंपाइलर्स अप्रयुक्त टेक्स्ट को बिल्ड के समय हटाते हैं, एलएलएम सीआई पाइपलाइन में अनुवाद करते हैं, और डेवलपर्स लैंग्वेज सर्वर (LSP) और एआई एजेंट्स की मदद लेते हैं। रनटाइम-केंद्रित लाइब्रेरी इन सुविधाओं को आसानी से आत्मसात नहीं कर पाती।
 
 > ये लाइब्रेरी कहाँ से आईं, यह समझने के लिए JavaScript i18n का इतिहास पढ़ें।
 
 - [JavaScript i18n का इतिहास](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/history_of_i18n.md)
+
+## npm डाउनलोड
+
+<NpmDownloads packages="next-intl,next-intlayer" period="last-6-months" />
+
+डाउनलोड सबसे पुराने समाधानों को पुरस्कृत करते हैं, सबसे अच्छे को नहीं। वर्षों पहले जारी हुई लाइब्रेरी आज भी हर उस प्रोजेक्ट में इंस्टॉल होती है जिसने उसे तब चुना था, हर CI रन में और हर उस पैकेज में जो उस पर निर्भर है। यह संख्या नए चुनाव से ज़्यादा जड़ता को मापती है।
+
+AI असिस्टेंट इस प्रभाव को और बढ़ाते हैं। `next-intl`, `i18next` और `vue-i18n` उस कोड में हर जगह हैं जिस पर वे प्रशिक्षित हुए, इसलिए वे विकल्पों की तुलना किए बिना इन्हें डिफ़ॉल्ट रूप से सुझाते हैं। हर सुझाव डाउनलोड बढ़ाता है, जो अगले सुझाव को बढ़ावा देता है। डाउनलोड की संख्या नहीं, बेंचमार्क के आधार पर तुलना करें।
 
 ## Next.js 16 App Router परफॉर्मेंस टेस्ट
 

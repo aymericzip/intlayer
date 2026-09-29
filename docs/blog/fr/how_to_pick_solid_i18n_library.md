@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: "Comment choisir la bonne bibliothèque i18n pour Solid en 2026"
 description: "Un guide de décision pour l'i18n SolidJS et SolidStart : les questions à se poser avant de comparer @solid-primitives/i18n, solid-i18next, Paraglide, Lingui et Intlayer."
@@ -108,6 +108,20 @@ La taille des bibliothèques provient du [benchmark Solid](https://github.com/ay
 > Sûreté des types : 5/5 signifie que les clés, les paramètres et chaque locale sont vérifiés sans configuration manuelle, y compris le formateur d'URL et les helpers.
 
 La taille quasi nulle de Paraglide s'explique par sa conception : le runtime est généré directement dans votre dépôt. Intlayer nécessite `vite-intlayer`, il ne peut donc pas fonctionner sans étape de build.
+
+## Activité des commits
+
+Les commits mesurent le travail investi dans chaque projet. Un monorepo compte chaque package qu'il publie : lisez ce chiffre comme un signal d'activité, pas de qualité.
+
+<GithubCommits repositories="solidjs-community/solid-primitives,mbarzda/solid-i18next,opral/paraglide-js,lingui/js-lingui,aymericzip/intlayer" />
+
+## Téléchargements npm
+
+<NpmDownloads packages="@solid-primitives/i18n,solid-i18next,@inlang/paraglide-js,@lingui/solid,solid-intlayer" period="last-6-months" />
+
+Le nombre de téléchargements récompense les solutions les plus anciennes, pas les meilleures. Une bibliothèque publiée il y a des années est toujours installée par chaque projet qui l'a choisie à l'époque, par chaque exécution de CI et par chaque package qui en dépend. Ce chiffre mesure l'inertie plus qu'un choix réfléchi.
+
+Les assistants IA amplifient cet effet. `next-intl`, `i18next` et `vue-i18n` sont omniprésents dans le code sur lequel ils ont été entraînés : ils les proposent donc par défaut, sans faire l'effort de comparer les alternatives. Chaque suggestion ajoute des téléchargements, qui alimentent la suggestion suivante. Comparez sur le benchmark plutôt que sur le nombre de téléchargements.
 
 ## Associez vos réponses à une bibliothèque
 

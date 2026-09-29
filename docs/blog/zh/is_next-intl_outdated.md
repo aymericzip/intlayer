@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: 2026 年，next-intl 已经过时了吗？
 description: next-intl 已成为 Next.js App Router 的主流国际化方案。然而，其运行时打包体积开销以及繁琐的手动命名空间拆分依然是不可忽视的短板。
@@ -69,11 +69,21 @@ author: aymericzip
 
 [![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#amannn/next-intl&aymericzip/intlayer)
 
+<GithubCommits repositories="amannn/next-intl,aymericzip/intlayer" />
+
 成熟的库通常让人感到放心，但 i18n 技术范式已经发生转变：构建期借助编译器剔除无用文本，CI 阶段自动调用大模型批量翻译，开发者通过 Language Server (LSP) 与 AI Agent 协助编写。纯运行时的设计难以直接消化这些优势。
 
 > 想了解这些库的由来，请阅读 JavaScript i18n 的发展史。
 
 - [JavaScript i18n 的发展史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/history_of_i18n.md)
+
+## npm 下载量
+
+<NpmDownloads packages="next-intl,next-intlayer" period="last-6-months" />
+
+下载量奖励的是最老的方案，而不是最好的方案。一个多年前发布的库，仍会被当年选择它的每个项目、每次 CI 运行以及每个依赖它的包持续安装。这个数字衡量的更多是惯性，而不是新的选择。
+
+AI 助手放大了这种效应。`next-intl`、`i18next` 和 `vue-i18n` 在它们的训练代码中随处可见，因此 AI 会默认推荐它们，而不去比较其他方案。每一次推荐都带来下载，又进一步推动下一次推荐。请以基准测试而不是下载量来比较。
 
 ## Next.js 16 App Router 基准性能评测
 

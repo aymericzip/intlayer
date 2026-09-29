@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: 2026 年，i18next 已经过时了吗？
 description: i18next 为数百万个网站提供多语言支持，但其始于 2011 年的运行时架构已显老态。本文深入剖析其打包体积膨胀、Tree-shaking 限制与创新停滞问题。
@@ -73,11 +73,21 @@ GitHub Stars 仅代表历史上的流行程度，并不代表当下的架构活�
 
 [![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
 
+<GithubCommits repositories="i18next/i18next,i18next/react-i18next,i18next/next-i18next,aymericzip/intlayer" />
+
 成熟的代码库能提供稳定性，但现代 i18n 工具链已经发生质变：现代打包工具在构建期剔除无用文本，CI 阶段借助大语言模型实现自动化翻译，编辑器环境深度融合 Language Server (LSP) 与 AI Agent。纯运行时的架构设计很难融入这些前沿技术。
 
 > 想了解这些库的由来，请阅读 JavaScript i18n 的发展史。
 
 - [JavaScript i18n 的发展史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/history_of_i18n.md)
+
+## npm 下载量
+
+<NpmDownloads packages="i18next,react-i18next,next-i18next,intlayer" period="last-6-months" />
+
+下载量奖励的是最老的方案，而不是最好的方案。一个多年前发布的库，仍会被当年选择它的每个项目、每次 CI 运行以及每个依赖它的包持续安装。这个数字衡量的更多是惯性，而不是新的选择。
+
+AI 助手放大了这种效应。`next-intl`、`i18next` 和 `vue-i18n` 在它们的训练代码中随处可见，因此 AI 会默认推荐它们，而不去比较其他方案。每一次推荐都带来下载，又进一步推动下一次推荐。请以基准测试而不是下载量来比较。
 
 ## 测量打包体积开销
 

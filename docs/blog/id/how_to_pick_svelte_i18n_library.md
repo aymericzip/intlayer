@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: "Cara Memilih Library Svelte i18n yang Tepat di Tahun 2026"
 description: "Panduan memilih i18n untuk Svelte dan SvelteKit: pertanyaan sebelum membandingkan svelte-i18n, Paraglide, typesafe-i18n, wuchale, dan Intlayer."
@@ -108,6 +108,20 @@ Ukuran library diambil dari [benchmark Svelte](https://github.com/aymericzip/int
 > Keamanan tipe: 5/5 berarti kunci, parameter, dan setiap locale diperiksa tanpa penyiapan manual, termasuk pemformat URL dan pembantu (helpers).
 
 Ukuran library Paraglide yang hampir nol diperoleh dari rancangannya: runtime di-generate langsung ke dalam repository Anda. Intlayer memerlukan `vite-intlayer`, sehingga tidak dapat berjalan tanpa langkah build.
+
+## Aktivitas commit
+
+Commit menunjukkan seberapa banyak pekerjaan yang masuk ke setiap proyek. Monorepo menghitung setiap paket yang dipublikasikannya, jadi baca angka ini sebagai sinyal aktivitas, bukan kualitas.
+
+<GithubCommits repositories="kaisermann/svelte-i18n,codingcommons/typesafe-i18n,opral/paraglide-js,wuchalejs/wuchale,aymericzip/intlayer" />
+
+## Unduhan npm
+
+<NpmDownloads packages="svelte-i18n,typesafe-i18n,@inlang/paraglide-js,wuchale,svelte-intlayer" period="last-6-months" />
+
+Jumlah unduhan menghargai solusi yang paling lama, bukan yang terbaik. Library yang dirilis bertahun-tahun lalu masih diinstal oleh setiap proyek yang memilihnya saat itu, oleh setiap eksekusi CI, dan oleh setiap paket yang bergantung padanya. Angka ini lebih mengukur inersia daripada pilihan baru.
+
+Asisten AI memperkuat efek ini. `next-intl`, `i18next`, dan `vue-i18n` ada di mana-mana dalam kode yang menjadi data latih mereka, sehingga mereka menyarankannya secara default tanpa membandingkan alternatif. Setiap saran menambah unduhan, yang kemudian mendorong saran berikutnya. Bandingkan berdasarkan benchmark, bukan jumlah unduhan.
 
 ## Mencocokkan jawaban Anda dengan library
 

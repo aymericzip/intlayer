@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: "How to pick the right Solid i18n library in 2026"
 description: "A decision guide for SolidJS and SolidStart i18n: the questions to answer before comparing @solid-primitives/i18n, solid-i18next, Paraglide, Lingui and Intlayer."
@@ -108,6 +108,20 @@ Library sizes are from the [Solid benchmark](https://github.com/aymericzip/intla
 > Type safety: 5/5 means keys, parameters and every locale are checked without manual setup, including url formater and helpers.
 
 Paraglide's near-zero library size is by construction: the runtime is generated into your repository. Intlayer needs `vite-intlayer`, so it cannot run without a build step.
+
+## Commit activity
+
+Commits show how much work goes into each project. Monorepos count every package they ship, so read the number as a signal of activity, not of quality.
+
+<GithubCommits repositories="solidjs-community/solid-primitives,mbarzda/solid-i18next,opral/paraglide-js,lingui/js-lingui,aymericzip/intlayer" />
+
+## npm downloads
+
+<NpmDownloads packages="@solid-primitives/i18n,solid-i18next,@inlang/paraglide-js,@lingui/solid,solid-intlayer" period="last-6-months" />
+
+Downloads reward the oldest solutions, not the best ones. A library released years ago is still installed by every project that picked it back then, by every CI run and by every package that depends on it. The count measures inertia more than a fresh choice.
+
+AI assistants amplify the effect. `next-intl`, `i18next` and `vue-i18n` are everywhere in the code they were trained on, so they suggest them by default, without comparing the alternatives. Each suggestion adds downloads, which feeds the next suggestion. Compare on the benchmark rather than on the download count.
 
 ## Match your answers to a library
 

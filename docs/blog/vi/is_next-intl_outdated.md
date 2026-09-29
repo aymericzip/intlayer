@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: Liệu next-intl Đã Lỗi Thời Vào Năm 2026?
 description: next-intl đã trở thành lựa chọn phổ biến cho Next.js App Router. Nhưng nó vẫn mang gánh nặng bundle lúc runtime và yêu cầu quản lý namespace thủ công.
@@ -69,11 +69,21 @@ Tổng kết một năm qua:
 
 [![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#amannn/next-intl&aymericzip/intlayer)
 
+<GithubCommits repositories="amannn/next-intl,aymericzip/intlayer" />
+
 Một thư viện đã ổn định mang lại cảm giác an tâm. Tuy nhiên, tiêu chuẩn công cụ i18n đã thay đổi: trình biên dịch loại bỏ văn bản không dùng khi build, LLM dịch tự động trong CI, và lập trình viên được hỗ trợ bởi Language Server (LSP) cùng AI agent. Kiến trúc phụ thuộc hoàn toàn vào runtime khó có thể tận dụng những bước tiến này.
 
 > Để hiểu các thư viện này đến từ đâu, hãy đọc lịch sử i18n trong JavaScript.
 
 - [Lịch sử i18n trong JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/history_of_i18n.md)
+
+## Lượt tải npm
+
+<NpmDownloads packages="next-intl,next-intlayer" period="last-6-months" />
+
+Lượt tải ưu ái các giải pháp lâu đời nhất, không phải các giải pháp tốt nhất. Một thư viện ra mắt từ nhiều năm trước vẫn được cài đặt bởi mọi dự án đã chọn nó khi đó, mọi lần chạy CI và mọi gói phụ thuộc vào nó. Con số này đo sức ì nhiều hơn là một lựa chọn mới.
+
+Các trợ lý AI khuếch đại hiệu ứng này. `next-intl`, `i18next` và `vue-i18n` xuất hiện khắp nơi trong mã nguồn mà chúng được huấn luyện, nên chúng đề xuất các thư viện này theo mặc định, mà không so sánh các lựa chọn khác. Mỗi đề xuất lại tăng lượt tải, và lượt tải đó thúc đẩy đề xuất tiếp theo. Hãy so sánh dựa trên benchmark thay vì số lượt tải.
 
 ## Đánh Giá Hiệu Năng Trên Next.js 16 App Router
 

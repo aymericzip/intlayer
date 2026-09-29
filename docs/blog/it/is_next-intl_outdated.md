@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: next-intl è obsoleto nel 2026?
 description: next-intl è diventato il riferimento per Next.js App Router. Tuttavia comporta ancora un aumento del bundle a runtime e la gestione manuale complessa dei namespace.
@@ -69,11 +69,21 @@ Attività negli ultimi 12 mesi:
 
 [![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#amannn/next-intl&aymericzip/intlayer)
 
+<GithubCommits repositories="amannn/next-intl,aymericzip/intlayer" />
+
 Una libreria matura può risultare stabile. Tuttavia, l'i18n frontend si è trasformata: i compilatori escludono i testi superflui in fase di build, i modelli LLM automatizzano le traduzioni in CI e gli ambienti di sviluppo sfruttano Language Server (LSP) e agenti intelligenti. Un'architettura basata sul runtime difficilmente recepisce tali vantaggi.
 
 > Per capire da dove vengono queste librerie, leggi la storia dell'i18n in JavaScript.
 
 - [La storia dell'i18n in JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/history_of_i18n.md)
+
+## Download npm
+
+<NpmDownloads packages="next-intl,next-intlayer" period="last-6-months" />
+
+I download premiano le soluzioni più vecchie, non le migliori. Una libreria pubblicata anni fa viene ancora installata da ogni progetto che l'ha scelta allora, da ogni esecuzione della CI e da ogni pacchetto che ne dipende. Il numero misura l'inerzia più che una scelta attuale.
+
+Gli assistenti IA amplificano l'effetto. `next-intl`, `i18next` e `vue-i18n` sono ovunque nel codice su cui sono stati addestrati, quindi li suggeriscono di default, senza confrontare le alternative. Ogni suggerimento aggiunge download, che alimentano il suggerimento successivo. Confronta sul benchmark, non sul numero di download.
 
 ## Misurazione delle performance in Next.js 16 App Router
 

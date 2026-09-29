@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: i18next est-il obsolète en 2026 ?
 description: i18next propulse des millions de sites web, mais son architecture runtime de 2011 accuse son âge. Analyse du surpoids des bundles, des limites de tree-shaking et du manque d'innovations.
@@ -73,11 +73,21 @@ Activité sur les douze derniers mois :
 
 [![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
 
+<GithubCommits repositories="i18next/i18next,i18next/react-i18next,i18next/next-i18next,aymericzip/intlayer" />
+
 Une bibliothèque concise peut être mature et stable. Mais les outils d'i18n évoluent vite : les bundlers modernes éliminent le contenu inutile au build, les LLMs traduisent automatiquement en CI, et les éditeurs reposent sur des serveurs de langage (LSP) et des agents IA. L'architecture runtime d'i18next limite sa capacité à adopter ces nouveautés.
 
 > Pour comprendre d'où viennent ces bibliothèques, lisez l'histoire de l'i18n en JavaScript.
 
 - [L'histoire de l'i18n en JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/history_of_i18n.md)
+
+## Téléchargements npm
+
+<NpmDownloads packages="i18next,react-i18next,next-i18next,intlayer" period="last-6-months" />
+
+Le nombre de téléchargements récompense les solutions les plus anciennes, pas les meilleures. Une bibliothèque publiée il y a des années est toujours installée par chaque projet qui l'a choisie à l'époque, par chaque exécution de CI et par chaque package qui en dépend. Ce chiffre mesure l'inertie plus qu'un choix réfléchi.
+
+Les assistants IA amplifient cet effet. `next-intl`, `i18next` et `vue-i18n` sont omniprésents dans le code sur lequel ils ont été entraînés : ils les proposent donc par défaut, sans faire l'effort de comparer les alternatives. Chaque suggestion ajoute des téléchargements, qui alimentent la suggestion suivante. Comparez sur le benchmark plutôt que sur le nombre de téléchargements.
 
 ## Évaluation de l'impact sur le bundle
 

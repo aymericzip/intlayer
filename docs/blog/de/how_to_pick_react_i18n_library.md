@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: "Wie man 2026 die richtige React i18n-Bibliothek auswählt"
 description: "Ein Entscheidungsleitfaden für React-i18n: die Fragen, die Sie klären sollten, bevor Sie react-i18next, react-intl, Lingui, use-intl, Paraglide und Intlayer vergleichen."
@@ -121,6 +121,20 @@ Die Bibliotheksgrößen stammen aus dem [TanStack Start-Benchmark](https://githu
 > Typsicherheit: 5/5 bedeutet, dass Schlüssel, Parameter und jede Locale ohne manuelle Einrichtung geprüft werden, einschließlich URL-Formatierer und Helfer.
 
 Zwei Aspekte, die die Tabelle nicht zeigt: `Paraglide` liefert kaum eigenen Bibliothekscode aus, da es Code direkt in Ihr Repository generiert. Das bedeutet einen Regenerierungsschritt vor jedem Commit und potenzielle Merge-Konflikte in generierten Dateien. Und `Intlayer` benötigt ein Bundler-Plugin (`vite-intlayer` oder ein Äquivalent), weshalb es nicht in einem No-Build-Setup laufen kann.
+
+## Commit-Aktivität
+
+Commits zeigen, wie viel Arbeit in ein Projekt fließt. Ein Monorepo zählt jedes Paket, das es veröffentlicht. Lies die Zahl daher als Signal für Aktivität, nicht für Qualität.
+
+<GithubCommits repositories="i18next/react-i18next,formatjs/formatjs,amannn/next-intl,tolgee/tolgee-js,lingui/js-lingui,opral/paraglide-js,aymericzip/intlayer" />
+
+## npm-Downloads
+
+<NpmDownloads packages="react-i18next,react-intl,use-intl,@tolgee/react,@lingui/react,@inlang/paraglide-js,react-intlayer" period="last-6-months" />
+
+Downloads belohnen die ältesten Lösungen, nicht die besten. Eine vor Jahren veröffentlichte Bibliothek wird weiterhin von jedem Projekt installiert, das sie damals gewählt hat, von jedem CI-Lauf und von jedem Paket, das davon abhängt. Die Zahl misst Trägheit mehr als eine bewusste Wahl.
+
+KI-Assistenten verstärken diesen Effekt. `next-intl`, `i18next` und `vue-i18n` sind im Code, mit dem sie trainiert wurden, allgegenwärtig, also schlagen sie diese standardmäßig vor, ohne Alternativen zu vergleichen. Jeder Vorschlag erzeugt Downloads, die den nächsten Vorschlag verstärken. Vergleichen Sie anhand des Benchmarks, nicht anhand der Downloadzahlen.
 
 ## Ordnen Sie Ihre Antworten einer Bibliothek zu
 

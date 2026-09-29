@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: Liệu i18next Đã Lỗi Thời Vào Năm 2026?
 description: i18next đang vận hành hàng triệu trang web, nhưng kiến trúc runtime từ năm 2011 đang bộc lộ giới hạn. Phân tích về dung lượng bundle, hạn chế tree-shaking và tốc độ đổi mới.
@@ -73,11 +73,21 @@ Hoạt động phát triển trong 12 tháng qua:
 
 [![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
 
+<GithubCommits repositories="i18next/i18next,i18next/react-i18next,i18next/next-i18next,aymericzip/intlayer" />
+
 Một thư viện trưởng thành mang lại sự an tâm. Tuy nhiên, các tiêu chuẩn của công cụ i18n đã thay đổi: bundler hiện đại loại bỏ nội dung không sử dụng khi build, LLM tự động dịch trên CI, và lập trình viên tận dụng Language Server (LSP) cùng AI agent. Mô hình chỉ dựa vào runtime của i18next gặp khó khăn trong việc đón nhận những tiến bộ này.
 
 > Để hiểu các thư viện này đến từ đâu, hãy đọc lịch sử i18n trong JavaScript.
 
 - [Lịch sử i18n trong JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/history_of_i18n.md)
+
+## Lượt tải npm
+
+<NpmDownloads packages="i18next,react-i18next,next-i18next,intlayer" period="last-6-months" />
+
+Lượt tải ưu ái các giải pháp lâu đời nhất, không phải các giải pháp tốt nhất. Một thư viện ra mắt từ nhiều năm trước vẫn được cài đặt bởi mọi dự án đã chọn nó khi đó, mọi lần chạy CI và mọi gói phụ thuộc vào nó. Con số này đo sức ì nhiều hơn là một lựa chọn mới.
+
+Các trợ lý AI khuếch đại hiệu ứng này. `next-intl`, `i18next` và `vue-i18n` xuất hiện khắp nơi trong mã nguồn mà chúng được huấn luyện, nên chúng đề xuất các thư viện này theo mặc định, mà không so sánh các lựa chọn khác. Mỗi đề xuất lại tăng lượt tải, và lượt tải đó thúc đẩy đề xuất tiếp theo. Hãy so sánh dựa trên benchmark thay vì số lượt tải.
 
 ## Đo Lường Tác Động Lên Bundle
 

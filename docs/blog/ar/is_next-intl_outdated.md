@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: هل أصبحت مكتبة next-intl قديمة في عام 2026؟
 description: أصبحت next-intl الخيار الشائع لـ Next.js App Router. لكنها ما زالت تثقل حزم التشغيل وتتطلب إدارة يدوية معقدة للمساحات الاسمية.
@@ -69,11 +69,21 @@ author: aymericzip
 
 [![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#amannn/next-intl&aymericzip/intlayer)
 
+<GithubCommits repositories="amannn/next-intl,aymericzip/intlayer" />
+
 الاستقرار ميزة بلا شك، لكن مفاهيم التدويل تغيرت: فالمترجمات أصبحت تتخلص من النصوص غير المطلوبة أثناء التجميع، والذكاء الاصطناعي يتولى الترجمة في مراحل البناء، والمطورون يعتمدون على خوادم اللغات والوكلاء الأذكياء. نموذج يعتمد كلياً على وقت التشغيل يجد صعوبة في الاستفادة من هذه القفزات.
 
 > لفهم أصل هذه المكتبات، اقرأ تاريخ i18n في JavaScript.
 
 - [تاريخ i18n في JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/history_of_i18n.md)
+
+## تنزيلات npm
+
+<NpmDownloads packages="next-intl,next-intlayer" period="last-6-months" />
+
+تكافئ أعداد التنزيل الحلول الأقدم، لا الأفضل. فالمكتبة التي صدرت قبل سنوات لا تزال تُثبَّت في كل مشروع اختارها آنذاك، وفي كل تشغيل لـ CI، وفي كل حزمة تعتمد عليها. هذا الرقم يقيس الجمود أكثر مما يقيس اختيارًا جديدًا.
+
+تضخّم مساعدات الذكاء الاصطناعي هذا الأثر. فـ `next-intl` و`i18next` و`vue-i18n` منتشرة في الشيفرة التي تدربت عليها، لذا تقترحها افتراضيًا دون مقارنة البدائل. كل اقتراح يضيف تنزيلات، تغذي بدورها الاقتراح التالي. قارن بناءً على الاختبار المعياري لا على عدد التنزيلات.
 
 ## قياس الأداء في Next.js 16 App Router
 
