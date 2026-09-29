@@ -3,6 +3,7 @@ import {
   getDictionary as getDictionaryFunction,
   getIntlayer as getIntlayerFunction,
   getTranslation,
+  registerAmbientLocaleResolver,
 } from '@intlayer/core/interpreter';
 import { localeDetector } from '@intlayer/core/localization';
 import { getLocaleFromStorageServer } from '@intlayer/core/utils';
@@ -32,6 +33,10 @@ declare module 'fastify' {
 }
 
 const appNamespace = createNamespace('app');
+
+// Lets a bare `getIntlayer` / `getDictionary` from any Intlayer package resolve
+// to the locale of the request being handled.
+registerAmbientLocaleResolver(() => appNamespace.get('locale'));
 
 // Zero-cost fallback, will be updated with fastify logger in dev mode
 let debug: (message: string) => void = () => {};
@@ -159,7 +164,7 @@ const fastifyIntlayer: FastifyPluginAsync = async (fastify, _opts) => {
     ) =>
       getIntlayerFunction(
         key,
-        (localeArg ?? localeDetected) as typeof localeArg,
+        (localeArg ?? locale) as typeof localeArg,
         ...props
       );
 
@@ -170,7 +175,7 @@ const fastifyIntlayer: FastifyPluginAsync = async (fastify, _opts) => {
     ) =>
       getDictionaryFunction(
         key,
-        (localeArg ?? localeDetected) as typeof localeArg,
+        (localeArg ?? locale) as typeof localeArg,
         ...props
       );
 
@@ -191,6 +196,7 @@ const fastifyIntlayer: FastifyPluginAsync = async (fastify, _opts) => {
 
     // Run CLS context
     appNamespace.run(() => {
+      appNamespace.set('locale', locale);
       appNamespace.set('t', t);
       appNamespace.set('getIntlayer', getIntlayerWrapped);
       appNamespace.set('getDictionary', getDictionaryWrapped);

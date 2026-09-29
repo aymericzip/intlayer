@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 5
 title: Dokumentasi Fungsi getIntlayer | intlayer
 description: "Gunakan getIntlayer untuk membaca konten kamus untuk suatu locale di mana saja, padanan hook useIntlayer yang tidak bergantung framework."
@@ -21,9 +21,12 @@ slugs:
   - intlayer
   - getIntlayer
 history:
+  - version: 9.5.12
+    date: 2026-09-28
+    changes: "Tanpa locale, me-resolve locale request atau locale tersimpan sebelum locale default"
   - version: 9.4.0
     date: 2026-08-23
-    changes: "Initial documentation"
+    changes: "Dokumentasi awal"
 author: aymericzip
 ---
 
@@ -43,7 +46,7 @@ Ini membaca kamus yang dihasilkan oleh Intlayer di `.intlayer/`, jadi argumen `k
 - Hasil di-cache per `key + locale + selector`
 - Kembali ke proksi yang aman dalam pengembangan ketika kamus hilang, alih-alih mengalami kegagalan
 
-## Function Signature
+## Signature Fungsi
 
 ```typescript
 getIntlayer(
@@ -68,7 +71,7 @@ getIntlayer(
     - `{ variant: { id: 'prod_abc', userId: '123' } }`: sebuah variant terstruktur
     - Setiap selector dapat membawa sebuah locale: `{ item: 2, locale: 'fr' }`
   - **Tipe**: `LocalesValues | DictionarySelector`
-  - **Diperlukan**: Tidak (Opsional), default ke `defaultLocale` yang dikonfigurasi.
+  - **Diperlukan**: Tidak (opsional). Jika dihilangkan, lihat [Tanpa locale](#tanpa-locale).
 
 - `plugins: Plugins[]`
   - **Deskripsi**: Custom node transformers menggantikan plugin interpreter dasar. Penggunaan lanjutan saja; abaikan ini untuk mempertahankan perilaku default.
@@ -77,8 +80,8 @@ getIntlayer(
 
 ### Returns
 
-- **Type**: Konten dictionary yang diinterpretasi, diketik dari deklarasi Anda.
-- **Description**: Objek biasa yang mencerminkan bidang `content` dari dictionary Anda, di mana setiap node Intlayer telah diselesaikan ke nilai akhirnya untuk locale yang diminta.
+- **Tipe**: Konten dictionary yang diinterpretasi, diketik dari deklarasi Anda.
+- **Deskripsi**: Objek biasa yang mencerminkan bidang `content` dari dictionary Anda, di mana setiap node Intlayer telah diselesaikan ke nilai akhirnya untuk locale yang diminta.
 
 ## Contoh Penggunaan
 
@@ -109,15 +112,25 @@ const { title } = getIntlayer("app", "fr"); // "Bonjour"
 
 ### Tanpa locale
 
-Menghilangkan locale menginterpretasi konten dengan `defaultLocale` yang dideklarasikan dalam [konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md) Anda.
+Ketika tidak ada locale yang diberikan, `getIntlayer` tidak langsung beralih ke locale default. Fungsi ini me-resolve secara berurutan:
+
+1. **Locale dari request saat ini**, di server, ketika sebuah integrasi Intlayer menanganinya: middleware `express-intlayer`, `fastify-intlayer`, `hono-intlayer`, `adonis-intlayer`, dan `elysia-intlayer`, middleware `remix-intlayer` dan `astro-intlayer`, serta `IntlayerProvider` / `setLocale` di React Server Components. Setiap request di-resolve dari cookies dan headers miliknya sendiri, sehingga pengguna yang bersamaan tidak pernah berbagi locale.
+2. **Locale yang tersimpan di browser** (cookie, `localStorage`, `sessionStorage`), yaitu yang disimpan oleh locale switcher.
+3. **`defaultLocale`** yang dideklarasikan di [konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md) Anda.
 
 - [konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md)
 
 ```typescript
 import { getIntlayer } from "intlayer";
 
-const { title } = getIntlayer("app"); // Diinterpretasi dengan locale default
+const { title } = getIntlayer("app"); // Locale request, jika tidak ada locale tersimpan, jika tidak ada locale default
 ```
+
+Resolusi yang sama berlaku untuk `getDictionary`, untuk pemanggilan yang ditulis ulang oleh [plugin build](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/bundle_optimization.md), dan untuk `useIntlayer` / `useDictionaryDynamic` yang di-render di luar provider. Locale yang diberikan secara eksplisit selalu diutamakan.
+
+- [plugin build](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/bundle_optimization.md)
+
+> `getIntlayer` tidak reaktif: setelah locale berubah, panggil lagi untuk membaca locale baru. Pada halaman yang di-render di server, pemanggilan di luar provider mana pun me-render locale default di server dan locale tersimpan di browser, yang dapat menyebabkan hydration mismatch. Dalam kasus itu, pasang provider framework Anda atau berikan locale-nya.
 
 ### Di dalam server handler
 

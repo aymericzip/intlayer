@@ -1,4 +1,3 @@
-import { internationalization } from '@intlayer/config/built';
 import type {
   Dictionary,
   DictionarySelector,
@@ -28,6 +27,7 @@ import type {
   Plugins,
 } from './getContent';
 import { getDictionary } from './getDictionary';
+import { resolveInterpreterLocaleAsync } from './resolveInterpreterLocale';
 
 /**
  * Content already resolved for a `key + locale + selector` triple, or the
@@ -107,7 +107,7 @@ export const getDictionaryAsync = async <
     locale = localeOrSelector as LocalesValues | undefined;
   }
 
-  const localeTarget = locale ?? internationalization.defaultLocale;
+  const localeTarget = locale ?? (await resolveInterpreterLocaleAsync());
 
   const cacheKey = `${key}_${localeTarget}_${getDictionarySelectorCacheKey(
     selector

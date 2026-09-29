@@ -14,4 +14,5 @@ export * from './getPlural';
 export * from './getSelect';
 export * from './getTranslation';
 export * from './interpolableNode';
+export * from './resolveInterpreterLocale';
 export * from './splitAndJoinInsertion';

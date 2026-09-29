@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 5
 title: توثيق دالة getIntlayerAsync | intlayer
 description: "استخدم getIntlayerAsync لتحميل محتوى قاموس وقراءته للغة واحدة فقط، دون تضمين اللغات الأخرى في الحزمة."
@@ -22,9 +22,12 @@ slugs:
   - intlayer
   - getIntlayerAsync
 history:
+  - version: 9.5.12
+    date: 2026-09-28
+    changes: "عند غياب locale، تنتظر locale الطلب (headers و cookies في Next.js)"
   - version: 9.4.0
     date: 2026-08-23
-    changes: "Initial documentation"
+    changes: "التوثيق الأولي"
 author: aymericzip
 ---
 
@@ -51,7 +54,7 @@ author: aymericzip
 - الاستدعاءات المتزامنة لنفس الجزء تشارك تحميلاً واحداً
 - آمن للاستخدام في منشئات `async` metadata و loaders و server functions
 
-## Function Signature
+## توقيع الدالة
 
 ```typescript
 getIntlayerAsync(
@@ -76,7 +79,7 @@ getIntlayerAsync(
     - `{ variant: { id: 'prod_abc', userId: '123' } }`: متغير منظم
     - أي محدد يمكن أن يحمل إعدادات محلية: `{ item: 2, locale: 'fr' }`
   - **النوع**: `LocalesValues | DictionarySelector`
-  - **مطلوب**: لا (اختياري)، الافتراضي هو `defaultLocale` المُكوّن.
+  - **مطلوب**: لا (اختياري). عند حذفها، تُحل كما في [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getIntlayer.md) (locale الطلب، ثم locale المخزنة، ثم `defaultLocale`). ولأنها غير متزامنة، يمكنها أيضًا انتظار locale الطلب عندما لا يمكن قراءتها إلا بشكل غير متزامن: في Server Components الخاصة بـ Next.js و`generateMetadata` و route handlers، تقرأ `headers()` و`cookies()` الخاصة بالطلب، مثل `getLocale()` من `next-intlayer/server`. تنقل هذه القراءة المسار إلى العرض الديناميكي، لذلك لا تحدث إلا إذا لم يوفر `IntlayerProvider` الـ locale مسبقًا.
 
 - `plugins: Plugins[]`
   - **الوصف**: محولات عقدة مخصصة تحل محل مكونات المُفسّر الأساسية. للاستخدام المتقدم فقط.
@@ -85,7 +88,7 @@ getIntlayerAsync(
 
 ### المخرجات
 
-- **Type**: `Promise<Content>`، وعد يتم حله إلى المحتوى المفسر للقاموس، مكتوب من إعلانك.
+- **النوع**: `Promise<Content>`، وعد يتم حله إلى المحتوى المفسر للقاموس، مكتوب من إعلانك.
 
 ## مثال الاستخدام
 

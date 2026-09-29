@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 5
 title: Documentation de la fonction getIntlayer | intlayer
 description: "Utilisez getIntlayer pour lire le contenu d'un dictionnaire pour une locale n'importe où, l'équivalent agnostique du hook useIntlayer."
@@ -21,6 +21,9 @@ slugs:
   - intlayer
   - getIntlayer
 history:
+  - version: 9.5.12
+    date: 2026-09-28
+    changes: "Sans locale, résolution de la locale de la requête ou de la locale stockée avant la locale par défaut"
   - version: 9.4.0
     date: 2026-08-23
     changes: "Documentation initiale"
@@ -58,7 +61,7 @@ getIntlayer(
 - `key: DictionaryKeys`
   - **Description**: La clé du dictionnaire à lire, telle que déclarée dans vos fichiers de contenu.
   - **Type**: `DictionaryKeys`, une union de chaque clé de dictionnaire déclarée.
-  - **Required**: Yes
+  - **Requis**: Oui
 
 - `localeOrSelector: LocalesValues | DictionarySelector`
   - **Description**: La locale pour interpréter le contenu avec, ou un objet sélecteur pour [les dictionnaires dynamiques](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dynamic_dictionaries/index.md).
@@ -68,12 +71,12 @@ getIntlayer(
     - `{ variant: { id: 'prod_abc', userId: '123' } }`: une variante structurée
     - Tout sélecteur peut porter une locale: `{ item: 2, locale: 'fr' }`
   - **Type**: `LocalesValues | DictionarySelector`
-  - **Required**: No (Optional), defaults to the configured `defaultLocale`.
+  - **Requis** : Non (optionnel). Si elle est omise, voir [Sans locale](#sans-locale).
 
 - `plugins: Plugins[]`
   - **Description**: Des transformateurs de nœuds personnalisés remplaçant les plugins interpréteur de base. Usage avancé uniquement; omettez-le pour conserver le comportement par défaut.
   - **Type**: `Plugins[]`
-  - **Required**: No (Optional)
+  - **Requis**: Non (optionnel)
 
 ### Retours
 
@@ -108,15 +111,25 @@ const { title } = getIntlayer("app", "fr"); // "Bonjour"
 
 ### Sans locale
 
-Omettre la locale interprète le contenu avec la `defaultLocale` déclarée dans votre [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md).
+Lorsqu'aucune locale n'est passée, `getIntlayer` ne se rabat pas directement sur la locale par défaut. Elle résout, dans l'ordre :
+
+1. **La locale de la requête en cours**, côté serveur, lorsqu'une intégration Intlayer la gère : les middlewares `express-intlayer`, `fastify-intlayer`, `hono-intlayer`, `adonis-intlayer` et `elysia-intlayer`, les middlewares `remix-intlayer` et `astro-intlayer`, ainsi que `IntlayerProvider` / `setLocale` dans les React Server Components. Chaque requête est résolue à partir de ses propres cookies et headers : des utilisateurs simultanés ne partagent jamais leur locale.
+2. **La locale stockée dans le navigateur** (cookie, `localStorage`, `sessionStorage`), celle que persiste un sélecteur de langue.
+3. **La `defaultLocale`** déclarée dans votre [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md).
 
 - [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md)
 
 ```typescript
 import { getIntlayer } from "intlayer";
 
-const { title } = getIntlayer("app"); // Interprété avec la locale par défaut
+const { title } = getIntlayer("app"); // Locale de la requête, sinon locale stockée, sinon locale par défaut
 ```
+
+La même résolution s'applique à `getDictionary`, aux appels réécrits par les [plugins de build](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/bundle_optimization.md), et à `useIntlayer` / `useDictionaryDynamic` rendus en dehors d'un provider. Une locale passée explicitement l'emporte toujours.
+
+- [plugins de build](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/bundle_optimization.md)
+
+> `getIntlayer` n'est pas réactive : après un changement de locale, appelez-la de nouveau pour lire la nouvelle locale. Sur une page rendue côté serveur, un appel fait en dehors de tout provider rend la locale par défaut sur le serveur et la locale stockée dans le navigateur, ce qui peut provoquer une incohérence d'hydratation. Dans ce cas, montez le provider de votre framework ou passez la locale.
 
 ### À l'intérieur d'un gestionnaire de serveur
 

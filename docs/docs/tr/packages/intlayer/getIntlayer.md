@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 5
 title: getIntlayer Fonksiyonu Dokümantasyonu | intlayer
 description: "getIntlayer ile bir sözlüğün bir locale için içeriğini her yerde okuyun; useIntlayer hook'unun framework'ten bağımsız karşılığı."
@@ -21,9 +21,12 @@ slugs:
   - intlayer
   - getIntlayer
 history:
+  - version: 9.5.12
+    date: 2026-09-28
+    changes: "Locale verilmediğinde varsayılan locale'den önce isteğin locale'i veya saklanan locale çözümlenir"
   - version: 9.4.0
     date: 2026-08-23
-    changes: "Initial documentation"
+    changes: "İlk dokümantasyon"
 author: aymericzip
 ---
 
@@ -68,7 +71,7 @@ getIntlayer(
     - `{ variant: { id: 'prod_abc', userId: '123' } }`: yapılandırılmış bir varyant
     - Herhangi bir seçici yerel ayar taşıyabilir: `{ item: 2, locale: 'fr' }`
   - **Tür**: `LocalesValues | DictionarySelector`
-  - **Gerekli**: Hayır (İsteğe bağlı), yapılandırılan `defaultLocale` değerini kullanır.
+  - **Gerekli**: Hayır (İsteğe bağlı). Verilmezse [Locale olmadan](#locale-olmadan) bölümüne bakın.
 
 - `plugins: Plugins[]`
   - **Açıklama**: Temel yorumlayıcı eklentilerinin yerini alan özel düğüm dönüştürücüleri. Yalnızca ileri kullanım için; varsayılan davranışı korumak için atlayın.
@@ -77,8 +80,8 @@ getIntlayer(
 
 ### Döndürülen Değerler
 
-- **Type**: Sözlüğünüzün deklarasyonundan yazılan, yorumlanan içerik.
-- **Description**: Sözlüğünüzün `content` alanını yansıtan düz bir nesne; burada her Intlayer düğümü, istenen locale için nihai değerine çözülmüştür.
+- **Tür**: Sözlüğünüzün deklarasyonundan yazılan, yorumlanan içerik.
+- **Açıklama**: Sözlüğünüzün `content` alanını yansıtan düz bir nesne; burada her Intlayer düğümü, istenen locale için nihai değerine çözülmüştür.
 
 ## Örnek Kullanım
 
@@ -109,15 +112,25 @@ const { title } = getIntlayer("app", "fr"); // "Bonjour"
 
 ### Locale olmadan
 
-Locale'i atlarsanız, içerik [yapılandırmanızda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) belirtilen `defaultLocale` ile yorumlanır.
+Hiçbir locale verilmediğinde `getIntlayer` doğrudan varsayılan locale'e düşmez. Sırasıyla şunları çözümler:
 
-- [yapılandırmanızda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md)
+1. **Geçerli isteğin locale'i**, sunucuda, isteği bir Intlayer entegrasyonu işlediğinde: `express-intlayer`, `fastify-intlayer`, `hono-intlayer`, `adonis-intlayer` ve `elysia-intlayer` middleware'leri, `remix-intlayer` ve `astro-intlayer` middleware'leri ve React Server Components içindeki `IntlayerProvider` / `setLocale`. Her istek kendi cookie'lerinden ve header'larından çözümlenir, bu nedenle eşzamanlı kullanıcılar asla aynı locale'i paylaşmaz.
+2. **Tarayıcıda saklanan locale** (cookie, `localStorage`, `sessionStorage`), yani bir dil değiştiricinin kaydettiği locale.
+3. [Yapılandırmanızda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) tanımlanan **`defaultLocale`**.
+
+- [Yapılandırmanızda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md)
 
 ```typescript
 import { getIntlayer } from "intlayer";
 
-const { title } = getIntlayer("app"); // Varsayılan locale ile yorumlanır
+const { title } = getIntlayer("app"); // İsteğin locale'i, yoksa saklanan, yoksa varsayılan locale
 ```
+
+Aynı çözümleme `getDictionary` için, [build eklentilerinin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md) yeniden yazdığı çağrılar için ve bir provider dışında render edilen `useIntlayer` / `useDictionaryDynamic` için de geçerlidir. Açıkça verilen bir locale her zaman önceliklidir.
+
+- [build eklentilerinin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md)
+
+> `getIntlayer` reaktif değildir: bir locale değişikliğinden sonra yeni locale'i okumak için onu tekrar çağırın. Sunucuda render edilen bir sayfada, herhangi bir provider dışında yapılan bir çağrı sunucuda varsayılan locale'i, tarayıcıda ise saklanan locale'i render eder ve bu bir hydration mismatch'e yol açabilir. Bu durumda framework'ünüzün provider'ını ekleyin veya locale'i verin.
 
 ### Bir sunucu işleyicisinin içinde
 

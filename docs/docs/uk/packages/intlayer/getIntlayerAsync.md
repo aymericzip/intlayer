@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 5
 title: Документація функції getIntlayerAsync | intlayer
 description: "Використовуйте getIntlayerAsync, щоб завантажити й прочитати контент словника лише для однієї локалі, не включаючи інші мови в бандл."
@@ -22,9 +22,12 @@ slugs:
   - intlayer
   - getIntlayerAsync
 history:
+  - version: 9.5.12
+    date: 2026-09-28
+    changes: "Без локалі очікується локаль запиту (заголовки та cookies Next.js)"
   - version: 9.4.0
     date: 2026-08-23
-    changes: "Initial documentation"
+    changes: "Початкова документація"
 author: aymericzip
 ---
 
@@ -51,7 +54,7 @@ author: aymericzip
 - Одночасні виклики для одного й того ж фрагмента діляться одним завантаженням
 - Безпечна для використання в асинхронних конструкторах метаданих, лодерах та серверних функціях
 
-## Function Signature
+## Сигнатура функції
 
 ```typescript
 getIntlayerAsync(
@@ -76,7 +79,7 @@ getIntlayerAsync(
     - `{ variant: { id: 'prod_abc', userId: '123' } }`: структурований варіант
     - Будь-який селектор може містити локаль: `{ item: 2, locale: 'fr' }`
   - **Тип**: `LocalesValues | DictionarySelector`
-  - **Обов'язково**: Ні (Опціонально), за замовчуванням використовується налаштована `defaultLocale`.
+  - **Обов'язково**: Ні (необов'язково). Якщо не вказано, визначається так само, як у [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer/getIntlayer.md) (локаль запиту, потім збережена локаль, потім `defaultLocale`). Оскільки функція асинхронна, вона також може дочекатися локалі запиту, коли її можна прочитати лише асинхронно: у Server Components Next.js, `generateMetadata` та route handlers вона читає `headers()` і `cookies()` запиту, як `getLocale()` з `next-intlayer/server`. Таке читання переводить маршрут у динамічний рендеринг, тому воно відбувається, лише якщо `IntlayerProvider` ще не надав локаль.
 
 - `plugins: Plugins[]`
   - **Опис**: Користувацькі трансформатори вузлів, що замінюють базові плагіни інтерпретатора. Тільки для розширеного використання.

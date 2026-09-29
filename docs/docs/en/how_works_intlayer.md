@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-12
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: "How Intlayer Works: Architecture Overview"
 description: Learn how Intlayer operates internally. Understand the architecture and components that make Intlayer powerful.
@@ -427,6 +427,20 @@ The server resolves the content of server rendered components directly, so no di
 <Question title="How does Intlayer avoid a hydration mismatch on locale?">
 
 The locale is resolved once on the server and passed to the provider, rather than being detected again in the browser. Because the client starts from the same locale the server rendered, the markup matches, which is what usually breaks with client side locale detection.
+
+</Question>
+<Question title="Can I use Intlayer without a global provider?">
+
+Yes. `getIntlayer` and `getDictionary` are plain functions that need no provider, and `useIntlayer` also works outside of one. When no locale is passed, they resolve the locale of the current request on the server (through the Intlayer middleware of Express, Fastify, Hono, AdonisJS, Elysia, Remix and Astro, or `IntlayerProvider` in React Server Components), then the locale stored in the browser by your locale switcher, then the `defaultLocale`. `getIntlayerAsync` can also await the request locale where it is only readable asynchronously, such as the Next.js `headers()` and `cookies()`. Each request resolves its own cookies and headers, so concurrent users never share a locale. See [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getIntlayer.md#without-a-locale).
+
+- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getIntlayer.md#without-a-locale)
+
+The difference is about reactivity and rendering cost, not about the content:
+
+- **With a provider**, the locale lives in the framework state. Every `useIntlayer` subscribes to it, so a locale switch re-renders the components in place, without a reload. On a server-rendered page, the provider hands the client the locale the server rendered, so the markup always matches. The cost is the provider code in the bundle and the re-render of its consumers on each switch.
+- **Without a provider**, a read is a memoized function call: no context lookup, no subscription, and the same object is returned for the same `key + locale`. Nothing re-renders on a locale switch: the new locale shows on the next call, typically after a navigation or a reload. The stored locale is read once and cached until the locale changes, which adds about 100 bytes (gzipped) to a bundle already shipping Intlayer. The trade-off is on server-rendered pages outside of any request integration: the server renders the `defaultLocale` while the browser reads the stored one, which can cause a hydration mismatch.
+
+Keep the provider for interactive apps that switch locale in place or render on the server. Go without one for backends, scripts, static pages whose locale comes from the URL (pass it explicitly), or code that reads content once.
 
 </Question>
 <Question title="Do I need to rebuild when I add a translation?">

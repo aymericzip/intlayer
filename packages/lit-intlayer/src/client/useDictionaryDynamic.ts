@@ -1,4 +1,3 @@
-import { internationalization } from '@intlayer/config/built';
 import {
   getPreloadedDictionary,
   isQualifiedDynamicLoaderMap,
@@ -7,6 +6,7 @@ import {
   resolveDictionaryArgument,
   resolveQualifiedDynamicContentAsync,
 } from '@intlayer/core/dictionaryManipulator';
+import { resolveInterpreterLocale } from '@intlayer/core/interpreter';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import type {
   DeclaredLocales,
@@ -135,7 +135,7 @@ export const useDictionaryDynamic = <
   const getActiveLocale = (): LocalesValues =>
     (explicitLocale ??
       client.locale ??
-      internationalization.defaultLocale) as LocalesValues;
+      resolveInterpreterLocale()) as LocalesValues;
 
   /** Holds the most recently loaded content so the proxy can serve real values. */
   let loadedContent: unknown;

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-12
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: "Як працює Intlayer: огляд архітектури"
 description: Дізнайтеся, як Intlayer працює всередині. Зрозумійте архітектуру та компоненти, що роблять Intlayer потужним.
@@ -52,10 +52,10 @@ author: aymericzip
 
 - за допомогою CLI з `npx intlayer build`
 - використовуючи [розширення VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/vs_code_extension.md)
-- using the app plugins such as [`vite-intlayer` package](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/vite-intlayer/index.md), or their equivalents for [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/next-intlayer/index.md). When you use one of those plugins, Intlayer will automatically build your dictionaries when you start (dev) or build (prod) your application.
+- за допомогою плагінів застосунку, таких як [пакет `vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/vite-intlayer/index.md), або їхніх еквівалентів для [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/next-intlayer/index.md). Коли ви використовуєте один із цих плагінів, Intlayer автоматично збирає ваші словники під час запуску (dev) або збірки (prod) застосунку.
 
-1. Declaration of content files
-   - Content files can be defined in various formats, such as TypeScript, ECMAScript, CommonJS, or JSON.
+1. Оголошення файлів контенту
+   - Файли контенту можна визначати в різних форматах, таких як TypeScript, ECMAScript, CommonJS або JSON.
    - Файли контенту можуть бути визначені в будь-якому місці проєкту, що дозволяє кращу підтримку та масштабованість. Важливо дотримуватися конвенцій щодо розширень файлів контенту. Це розширення за замовчуванням, `*.content.{js|cjs|mjs|ts|tsx|json}`, але його можна змінити у [файлі конфігурації](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md).
 
 2. Генерація `dictionaries`
@@ -162,22 +162,22 @@ Intlayer складається з кількох пакетів, кожен і�
   </Tab>
   <Tab label="Nuxt" value="nuxt">
 
-The `nuxt-intlayer` package is as Nuxt module to make Intlayer dictionaries usable in Nuxt applications. It integrates essential features to make Intlayer work in a Nuxt environment, such as translation middleware, routing, or the `nuxt.config.js` file configuration.
+Пакет `nuxt-intlayer` є модулем Nuxt, який робить словники Intlayer доступними в застосунках Nuxt. Він інтегрує основні можливості для роботи Intlayer у середовищі Nuxt, такі як middleware перекладу, маршрутизація або конфігурація файлу `nuxt.config.js`.
 
   </Tab>
   <Tab label="Svelte" value="svelte">
 
-The `svelte-intlayer` package is used to interpret Intlayer dictionaries and make them usable in Svelte applications.
+Пакет `svelte-intlayer` використовується для інтерпретації словників Intlayer і їх використання в застосунках Svelte.
 
   </Tab>
   <Tab label="Solid" value="solid">
 
-The `solid-intlayer` package is used to interpret Intlayer dictionaries and make them usable in Solid.js applications.
+Пакет `solid-intlayer` використовується для інтерпретації словників Intlayer і їх використання в застосунках Solid.js.
 
   </Tab>
   <Tab label="Preact" value="preact">
 
-The `preact-intlayer` package is used to interpret Intlayer dictionaries and make them usable in Preact applications.
+Пакет `preact-intlayer` використовується для інтерпретації словників Intlayer і їх використання в застосунках Preact.
 
   </Tab>
   <Tab label="Angular" value="angular">
@@ -277,7 +277,7 @@ The `preact-intlayer` package is used to interpret Intlayer dictionaries and mak
 
 ### @intlayer/webpack
 
-The `@intlayer/webpack` package is used to provide a Webpack configuration to make a Webpack-based application work with Intlayer. The package also provides a plugin to add to an existing Webpack application.
+Пакет `@intlayer/webpack` використовується для надання конфігурації Webpack, щоб застосунок на основі Webpack працював з Intlayer. Пакет також надає плагін, який можна додати до наявного застосунку Webpack.
 
 ### @intlayer/cli
 
@@ -309,23 +309,23 @@ The `@intlayer/webpack` package is used to provide a Webpack configuration to ma
 
 ### @intlayer/editor
 
-The `@intlayer/editor` package provides the utilities related to the dictionary editor. It notably includes the API to interface an application with the Intlayer editor, and utilities to manipulate dictionaries. This package is cross-platform.
+Пакет `@intlayer/editor` надає утиліти, пов'язані з редактором словників. Зокрема, він містить API для з'єднання застосунку з редактором Intlayer, а також утиліти для роботи зі словниками. Цей пакет є кросплатформним.
 
 ### @intlayer/editor-react
 
-The `@intlayer/editor-react` package provides states, contexts, hooks and components to interface a React application with the Intlayer editor.
+Пакет `@intlayer/editor-react` надає стани, контексти, хуки та компоненти для з'єднання застосунку React з редактором Intlayer.
 
 ### @intlayer/babel
 
-The `@intlayer/babel` package provides tools that optimize bundling of dictionaries for Vite and Webpack based applications.
+Пакет `@intlayer/babel` надає інструменти, що оптимізують bundling словників для застосунків на основі Vite та Webpack.
 
 ### @intlayer/swc
 
-The `@intlayer/swc` package provides tools that optimize bundling of dictionaries for Next.js applications.
+Пакет `@intlayer/swc` надає інструменти, що оптимізують bundling словників для застосунків Next.js.
 
 ### @intlayer/api
 
-The `@intlayer/api` package is an API SDK to interact with the backend.
+Пакет `@intlayer/api` є API SDK для взаємодії з бекендом.
 
 ### @intlayer/design-system
 
@@ -429,6 +429,20 @@ The `@intlayer/api` package is an API SDK to interact with the backend.
 <Question title="Як Intlayer уникає помилок гідратації (hydration mismatch), пов'язаних із мовою?">
 
 Мова визначається один раз на сервері й передається клієнтському провайдеру замість повторного визначення в браузері, що гарантує повну відповідність серверного та клієнтського HTML.
+
+</Question>
+<Question title="Чи можна використовувати Intlayer без глобального провайдера?">
+
+Так. `getIntlayer` і `getDictionary` є звичайними функціями, яким не потрібен провайдер, і `useIntlayer` теж працює поза провайдером. Якщо локаль не передано, вони визначають на сервері локаль поточного запиту (через middleware Intlayer для Express, Fastify, Hono, AdonisJS, Elysia, Remix і Astro або `IntlayerProvider` у React Server Components), потім локаль, збережену в браузері вашим перемикачем мови, потім `defaultLocale`. `getIntlayerAsync` також може дочекатися локалі запиту, коли її можна прочитати лише асинхронно, наприклад через `headers()` і `cookies()` у Next.js. Кожен запит визначає локаль за власними cookies і заголовками, тому одночасні користувачі ніколи не ділять одну локаль. Див. [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer/getIntlayer.md).
+
+- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer/getIntlayer.md)
+
+Різниця стосується реактивності та вартості рендерингу, а не контенту:
+
+- **З провайдером** локаль зберігається у стані фреймворку. Кожен `useIntlayer` підписаний на неї, тому зміна локалі перерендерює компоненти на місці, без перезавантаження. На сторінці із серверним рендерингом провайдер передає клієнту локаль, яку відрендерив сервер, тому розмітка завжди збігається. Ціна: код провайдера в бандлі та перерендеринг його споживачів під час кожної зміни.
+- **Без провайдера** читання є мемоізованим викликом функції: без звернення до контексту, без підписки, і для тієї самої `key + locale` повертається той самий об'єкт. Під час зміни локалі нічого не перерендерюється: нова локаль з'являється під час наступного виклику, зазвичай після навігації або перезавантаження. Збережена локаль читається один раз і кешується до наступної зміни, що додає близько 100 байт (gzip) до бандла, який уже містить Intlayer. Компроміс стосується сторінок із серверним рендерингом поза будь-якою інтеграцією запитів: сервер рендерить `defaultLocale`, а браузер читає збережену, що може спричинити hydration mismatch.
+
+Залиште провайдер для інтерактивних застосунків, які змінюють локаль на місці або рендеряться на сервері. Обходьтеся без нього в бекендах, скриптах, статичних сторінках, де локаль береться з URL (передавайте її явно), або в коді, який читає контент один раз.
 
 </Question>
 <Question title="Чи потрібно перезбирати додаток під час додавання перекладу?">

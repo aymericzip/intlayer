@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 5
 title: Dokumentacja funkcji getIntlayerAsync | intlayer
 description: "Użyj getIntlayerAsync, aby załadować i odczytać treść słownika tylko dla jednego locale, bez dołączania pozostałych języków."
@@ -22,9 +22,12 @@ slugs:
   - intlayer
   - getIntlayerAsync
 history:
+  - version: 9.5.12
+    date: 2026-09-28
+    changes: "Bez locale oczekuje na locale żądania (nagłówki i cookies Next.js)"
   - version: 9.4.0
     date: 2026-08-23
-    changes: "Initial documentation"
+    changes: "Pierwsza wersja dokumentacji"
 author: aymericzip
 ---
 
@@ -64,24 +67,24 @@ getIntlayerAsync(
 ## Parametry
 
 - `key: DictionaryKeys`
-  - **Description**: Klucz słownika do odczytania, zadeklarowany w plikach zawartości.
-  - **Type**: `DictionaryKeys`, unija wszystkich zadeklarowanych kluczy słownika.
-  - **Required**: Yes
+  - **Opis**: Klucz słownika do odczytania, zadeklarowany w plikach zawartości.
+  - **Typ**: `DictionaryKeys`, unija wszystkich zadeklarowanych kluczy słownika.
+  - **Wymagane**: Tak
 
 - `localeOrSelector: LocalesValues | DictionarySelector`
-  - **Description**: Locale do interpretacji zawartości lub obiekt selektora dla [słowników dynamicznych](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dynamic_dictionaries/index.md).
+  - **Opis**: Locale do interpretacji zawartości lub obiekt selektora dla [słowników dynamicznych](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dynamic_dictionaries/index.md).
     - `'fr'`: locale
     - `{ item: 2 }`: element [kolekcji](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dynamic_dictionaries/collections.md) (pomiń `item`, aby otrzymać wszystkie elementy jako tablicę)
     - `{ variant: 'black-friday' }`: nazwana [wariant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dynamic_dictionaries/variants.md) (pomiń dla wariantu `default`)
     - `{ variant: { id: 'prod_abc', userId: '123' } }`: wariant strukturyzowany
     - Każdy selektor może zawierać locale: `{ item: 2, locale: 'fr' }`
-  - **Type**: `LocalesValues | DictionarySelector`
-  - **Required**: No (Optional), domyślnie skonfigurowany `defaultLocale`.
+  - **Typ**: `LocalesValues | DictionarySelector`
+  - **Wymagane**: Nie (opcjonalne). Jeśli pominięte, jest rozwiązywane tak jak w [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/intlayer/getIntlayer.md) (locale żądania, potem zapisane locale, potem `defaultLocale`). Jako funkcja asynchroniczna może też poczekać na locale żądania, gdy da się je odczytać tylko asynchronicznie: w Server Components Next.js, `generateMetadata` i route handlerach odczytuje `headers()` i `cookies()` żądania, jak `getLocale()` z `next-intlayer/server`. Ten odczyt przełącza trasę na renderowanie dynamiczne, dlatego następuje tylko wtedy, gdy `IntlayerProvider` nie dostarczył już locale.
 
 - `plugins: Plugins[]`
-  - **Description**: Niestandardowe transformatory węzłów zastępujące podstawowe pluginy interpretera. Zaawansowane użycie tylko.
-  - **Type**: `Plugins[]`
-  - **Required**: No (Optional)
+  - **Opis**: Niestandardowe transformatory węzłów zastępujące podstawowe pluginy interpretera. Zaawansowane użycie tylko.
+  - **Typ**: `Plugins[]`
+  - **Wymagane**: Nie (opcjonalne)
 
 ### Zwracane
 

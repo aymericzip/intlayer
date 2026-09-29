@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-12
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: "Intlayer 작동 방식: 아키텍처 개요"
 description: Intlayer가 내부적으로 어떻게 작동하는지 알아보세요. Intlayer를 강력하게 만드는 아키텍처와 구성 요소를 이해하십시오.
@@ -431,6 +431,20 @@ Express를 기반으로 한 서버는 시각적 편집기 요청을 수신하고
 <Question title="Intlayer는 로케일로 인한 하이드레이션 불일치(hydration mismatch)를 어떻게 방지하나요?">
 
 로케일은 브라우저에서 다시 감지되는 대신 서버에서 한 번 확인되어 프로바이더로 전달됩니다. 클라이언트는 서버가 렌더링한 것과 동일한 로케일에서 시작하므로 마크업이 정확히 일치하여 클라이언트 측 로케일 감지에서 흔히 발생하는 문제가 해결됩니다.
+
+</Question>
+<Question title="전역 provider 없이 Intlayer를 사용할 수 있나요?">
+
+네. `getIntlayer`와 `getDictionary`는 provider가 필요 없는 일반 함수이며, `useIntlayer`도 provider 밖에서 동작합니다. 로케일을 전달하지 않으면 서버에서는 현재 요청의 로케일(Express, Fastify, Hono, AdonisJS, Elysia, Remix, Astro용 Intlayer middleware 또는 React Server Components의 `IntlayerProvider`를 통해), 그다음 로케일 전환기가 브라우저에 저장한 로케일, 마지막으로 `defaultLocale`을 해석합니다. `getIntlayerAsync`는 Next.js의 `headers()`와 `cookies()`처럼 요청의 로케일을 비동기로만 읽을 수 있는 경우 이를 기다릴 수도 있습니다. 각 요청은 자신의 cookies와 headers를 해석하므로, 동시에 접속한 사용자끼리 로케일을 공유하는 일은 없습니다. [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getIntlayer.md)를 참고하세요.
+
+- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getIntlayer.md)
+
+차이는 콘텐츠가 아니라 반응성과 렌더링 비용에 있습니다.
+
+- **provider가 있으면** 로케일은 프레임워크의 state에 있습니다. 모든 `useIntlayer`가 이를 구독하므로, 로케일을 바꾸면 새로고침 없이 컴포넌트가 그 자리에서 다시 렌더링됩니다. 서버에서 렌더링되는 페이지에서는 provider가 서버가 렌더링한 로케일을 클라이언트에 넘겨주므로 마크업이 항상 일치합니다. 비용은 bundle에 포함되는 provider 코드와 변경할 때마다 발생하는 consumer의 재렌더링입니다.
+- **provider가 없으면** 읽기는 메모이즈된 함수 호출입니다. context 조회도 구독도 없고, 같은 `key + locale`에는 같은 객체가 반환됩니다. 로케일을 바꿔도 아무것도 다시 렌더링되지 않으며, 새 로케일은 다음 호출, 보통 내비게이션이나 새로고침 후에 반영됩니다. 저장된 로케일은 한 번만 읽고 다음 변경까지 캐시되며, 이미 Intlayer를 포함한 bundle에 약 100바이트(gzip)를 더합니다. 트레이드오프는 요청 통합 밖에 있는 서버 렌더링 페이지에 있습니다. 서버는 `defaultLocale`을 렌더링하고 브라우저는 저장된 로케일을 읽기 때문에 hydration mismatch가 발생할 수 있습니다.
+
+로케일을 그 자리에서 바꾸거나 서버에서 렌더링하는 인터랙티브 앱에서는 provider를 유지하세요. 백엔드, 스크립트, URL에서 로케일을 얻는 정적 페이지(명시적으로 전달하세요), 콘텐츠를 한 번만 읽는 코드에서는 provider 없이 사용해도 됩니다.
 
 </Question>
 <Question title="번역을 추가할 때 다시 빌드해야 하나요?">

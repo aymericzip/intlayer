@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 5
 title: "getIntlayerAsync-Funktionsdokumentation | intlayer"
 description: "Nutzen Sie getIntlayerAsync, um Wörterbuchinhalte für eine einzelne Locale zu laden und zu lesen, ohne die anderen Sprachen zu bündeln."
@@ -22,9 +22,12 @@ slugs:
   - intlayer
   - getIntlayerAsync
 history:
+  - version: 9.5.12
+    date: 2026-09-28
+    changes: "Ohne Locale wird auf die Locale der Anfrage gewartet (Next.js-Header und -Cookies)"
   - version: 9.4.0
     date: 2026-08-23
-    changes: "Initial documentation"
+    changes: "Erste Dokumentation"
 author: aymericzip
 ---
 
@@ -76,7 +79,7 @@ getIntlayerAsync(
     - `{ variant: { id: 'prod_abc', userId: '123' } }`: eine strukturierte Variante
     - Jeder Selector kann eine Locale tragen: `{ item: 2, locale: 'fr' }`
   - **Typ**: `LocalesValues | DictionarySelector`
-  - **Erforderlich**: Nein (Optional), standardmäßig auf die konfigurierte `defaultLocale`.
+  - **Erforderlich**: Nein (optional). Wenn weggelassen, wird sie wie bei [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/intlayer/getIntlayer.md) aufgelöst (Locale der Anfrage, dann gespeicherte Locale, dann `defaultLocale`). Da sie asynchron ist, kann sie außerdem auf die Locale der Anfrage warten, wenn diese nur asynchron lesbar ist: In Next.js Server Components, `generateMetadata` und Route Handlern liest sie die `headers()` und `cookies()` der Anfrage, wie `getLocale()` aus `next-intlayer/server`. Dieses Lesen schaltet die Route auf dynamisches Rendering um und findet daher nur statt, wenn `IntlayerProvider` die Locale nicht bereits bereitgestellt hat.
 
 - `plugins: Plugins[]`
   - **Beschreibung**: Benutzerdefinierte Node-Transformer, die die Standard-Interpreter-Plugins ersetzen. Nur für fortgeschrittene Verwendung.
@@ -85,7 +88,7 @@ getIntlayerAsync(
 
 ### Rückgabewert
 
-- **Type**: `Promise<Content>`, ein Promise, das sich zum interpretierten Inhalt des Wörterbuchs auflöst, typisiert aus Ihrer Deklaration.
+- **Typ**: `Promise<Content>`, ein Promise, das sich zum interpretierten Inhalt des Wörterbuchs auflöst, typisiert aus Ihrer Deklaration.
 
 ## Beispielverwendung
 

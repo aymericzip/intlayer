@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-12
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: "Cách Intlayer hoạt động: tổng quan kiến trúc"
 description: Tìm hiểu cách Intlayer hoạt động bên trong. Hiểu kiến trúc và các thành phần làm cho Intlayer mạnh mẽ.
@@ -427,6 +427,20 @@ Server giải quyết nội dung của các component render trên server trực
 <Question title="Làm thế nào Intlayer tránh lỗi hydration mismatch liên quan đến ngôn ngữ?">
 
 Ngôn ngữ được xác định một lần trên server và truyền tới client provider thay vì phát hiện lại trong trình duyệt, đảm bảo đầu ra HTML của server và client khớp nhau hoàn toàn.
+
+</Question>
+<Question title="Tôi có thể dùng Intlayer mà không cần provider toàn cục không?">
+
+Có. `getIntlayer` và `getDictionary` là các hàm thông thường không cần provider nào, và `useIntlayer` cũng hoạt động bên ngoài provider. Khi không truyền locale, chúng resolve locale của request hiện tại trên server (qua middleware Intlayer của Express, Fastify, Hono, AdonisJS, Elysia, Remix và Astro, hoặc `IntlayerProvider` trong React Server Components), sau đó là locale mà bộ chuyển ngôn ngữ của bạn lưu trong trình duyệt, rồi đến `defaultLocale`. `getIntlayerAsync` cũng có thể chờ locale của request khi locale này chỉ đọc được bất đồng bộ, như `headers()` và `cookies()` của Next.js. Mỗi request resolve cookies và headers của riêng nó, nên những người dùng đồng thời không bao giờ dùng chung locale. Xem [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getIntlayer.md).
+
+- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getIntlayer.md)
+
+Khác biệt nằm ở tính reactive và chi phí render, không phải nội dung:
+
+- **Với provider**, locale nằm trong state của framework. Mỗi `useIntlayer` đăng ký theo dõi nó, nên khi đổi locale các component được render lại tại chỗ, không cần reload. Trên trang được render ở server, provider chuyển cho client đúng locale mà server đã render, nên markup luôn khớp. Chi phí là code của provider trong bundle và việc render lại các consumer ở mỗi lần đổi.
+- **Không có provider**, một lần đọc là một lời gọi hàm được memoize: không đọc context, không đăng ký, và cùng một object được trả về cho cùng `key + locale`. Không có gì được render lại khi đổi locale: locale mới xuất hiện ở lời gọi tiếp theo, thường là sau khi điều hướng hoặc reload. Locale đã lưu được đọc một lần và được cache đến lần đổi tiếp theo, thêm khoảng 100 byte (gzip) vào một bundle vốn đã có Intlayer. Đánh đổi nằm ở các trang render ở server nằm ngoài mọi tích hợp request: server render `defaultLocale` trong khi trình duyệt đọc locale đã lưu, có thể gây ra hydration mismatch.
+
+Giữ provider cho các ứng dụng tương tác đổi locale tại chỗ hoặc render ở server. Bỏ provider cho backend, script, trang tĩnh có locale lấy từ URL (hãy truyền nó rõ ràng), hoặc code chỉ đọc nội dung một lần.
 
 </Question>
 <Question title="Tôi có cần rebuild khi thêm bản dịch không?">

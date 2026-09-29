@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-12
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: "Wie Intlayer funktioniert: Architektur"
 description: Erfahren Sie, wie Intlayer intern funktioniert. Verstehen Sie die Architektur und die Komponenten, die Intlayer leistungsstark machen.
@@ -431,6 +431,20 @@ Der Server löst den Inhalt serverseitig gerenderter Komponenten direkt auf, sod
 <Question title="Wie vermeidet Intlayer eine Hydration-Diskrepanz bei der Locale?">
 
 Die Locale wird einmal auf dem Server aufgelöst und an den Provider übergeben, statt im Browser erneut erkannt zu werden. Weil der Client mit derselben Locale startet, die der Server gerendert hat, passt das Markup, was bei clientseitiger Locale-Erkennung üblicherweise bricht.
+
+</Question>
+<Question title="Kann ich Intlayer ohne globalen Provider verwenden?">
+
+Ja. `getIntlayer` und `getDictionary` sind einfache Funktionen, die keinen Provider benötigen, und `useIntlayer` funktioniert auch außerhalb eines Providers. Wird keine Locale übergeben, lösen sie auf dem Server die Locale der aktuellen Anfrage auf (über die Intlayer-Middleware für Express, Fastify, Hono, AdonisJS, Elysia, Remix und Astro oder `IntlayerProvider` in React Server Components), dann die von deinem Sprachumschalter im Browser gespeicherte Locale, dann die `defaultLocale`. `getIntlayerAsync` kann außerdem auf die Locale der Anfrage warten, wenn diese nur asynchron lesbar ist, etwa über `headers()` und `cookies()` in Next.js. Jede Anfrage löst ihre eigenen Cookies und Header auf, gleichzeitige Nutzer teilen sich also nie eine Locale. Siehe [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/intlayer/getIntlayer.md).
+
+- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/intlayer/getIntlayer.md)
+
+Der Unterschied betrifft Reaktivität und Rendering-Kosten, nicht den Inhalt:
+
+- **Mit einem Provider** liegt die Locale im Zustand des Frameworks. Jedes `useIntlayer` abonniert sie, ein Locale-Wechsel rendert die Komponenten also direkt neu, ohne Neuladen. Auf einer serverseitig gerenderten Seite übergibt der Provider dem Client die vom Server gerenderte Locale, das Markup stimmt also immer überein. Die Kosten sind der Provider-Code im Bundle und das erneute Rendern seiner Konsumenten bei jedem Wechsel.
+- **Ohne Provider** ist ein Lesezugriff ein memoisierter Funktionsaufruf: kein Kontextzugriff, kein Abonnement, und für dieselbe `key + locale` wird dasselbe Objekt zurückgegeben. Bei einem Locale-Wechsel wird nichts neu gerendert: Die neue Locale erscheint beim nächsten Aufruf, typischerweise nach einer Navigation oder einem Neuladen. Die gespeicherte Locale wird einmal gelesen und bis zum nächsten Wechsel zwischengespeichert, was einem Bundle, das Intlayer bereits enthält, etwa 100 Byte (gzip) hinzufügt. Der Kompromiss betrifft serverseitig gerenderte Seiten außerhalb jeder Anfrage-Integration: Der Server rendert die `defaultLocale`, während der Browser die gespeicherte liest, was zu einem Hydration-Mismatch führen kann.
+
+Behalte den Provider für interaktive Apps, die die Locale direkt wechseln oder auf dem Server rendern. Verzichte darauf bei Backends, Skripten, statischen Seiten, deren Locale aus der URL kommt (übergib sie explizit), oder Code, der Inhalte nur einmal liest.
 
 </Question>
 <Question title="Muss ich neu bauen, wenn ich eine Übersetzung hinzufüge?">

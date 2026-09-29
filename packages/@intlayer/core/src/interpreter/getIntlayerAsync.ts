@@ -12,6 +12,7 @@ import type {
   Plugins,
 } from './getContent';
 import { getIntlayer } from './getIntlayer';
+import { resolveInterpreterLocaleAsync } from './resolveInterpreterLocale';
 
 /**
  * Picks one dictionary by its key and resolves its content for the given
@@ -53,4 +54,21 @@ export const getIntlayerAsync = async <
     IInterpreterPluginState,
     ExtractSelectorLocale<A>
   >
-> => getIntlayer<T, A>(key, localeOrSelector, plugins);
+> => {
+  const isSelector =
+    typeof localeOrSelector === 'object' && localeOrSelector !== null;
+  const requestedLocale = isSelector
+    ? (localeOrSelector as DictionarySelector).locale
+    : (localeOrSelector as LocalesValues | undefined);
+
+  if (requestedLocale) return getIntlayer<T, A>(key, localeOrSelector, plugins);
+
+  // Only the async read can await request-bound locale sources
+  const locale = await resolveInterpreterLocaleAsync();
+
+  return getIntlayer<T, A>(
+    key,
+    (isSelector ? { ...localeOrSelector, locale } : locale) as A,
+    plugins
+  );
+};

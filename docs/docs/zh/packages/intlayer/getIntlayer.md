@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 5
 title: getIntlayer 函数文档 | intlayer
 description: "使用 getIntlayer 在任何地方读取某个语言的字典内容，是 useIntlayer hook 的框架无关版本。"
@@ -21,9 +21,12 @@ slugs:
   - intlayer
   - getIntlayer
 history:
+  - version: 9.5.12
+    date: 2026-09-28
+    changes: "省略语言环境时，先解析请求的语言环境或已保存的语言环境，再回退到默认语言环境"
   - version: 9.4.0
     date: 2026-08-23
-    changes: "Initial documentation"
+    changes: "初始文档"
 author: aymericzip
 ---
 
@@ -56,29 +59,29 @@ getIntlayer(
 ## 参数
 
 - `key: DictionaryKeys`
-  - **Description**: 要读取的字典的键，如在您的内容文件中声明的那样。
-  - **Type**: `DictionaryKeys`，每个声明的字典键的联合。
-  - **Required**: Yes
+  - **描述**: 要读取的字典的键，如在您的内容文件中声明的那样。
+  - **类型**: `DictionaryKeys`，每个声明的字典键的联合。
+  - **必需**: 是
 
 - `localeOrSelector: LocalesValues | DictionarySelector`
-  - **Description**: 用于解释内容的语言环境，或用于[动态字典](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dynamic_dictionaries/index.md)的选择器对象。
+  - **描述**: 用于解释内容的语言环境，或用于[动态字典](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dynamic_dictionaries/index.md)的选择器对象。
     - `'fr'`：一个语言环境
     - `{ item: 2 }`：一个[集合](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dynamic_dictionaries/collections.md)项目（省略 `item` 以获取每个项目作为数组）
     - `{ variant: 'black-friday' }`：一个命名的[变体](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dynamic_dictionaries/variants.md)（省略以使用 `default` 版本）
     - `{ variant: { id: 'prod_abc', userId: '123' } }`：一个结构化变体
     - 任何选择器都可以携带一个语言环境：`{ item: 2, locale: 'fr' }`
-  - **Type**: `LocalesValues | DictionarySelector`
-  - **Required**: No (Optional)，默认为配置的 `defaultLocale`。
+  - **类型**: `LocalesValues | DictionarySelector`
+  - **必需**：否（可选）。省略时，请参阅[不指定语言](#不指定语言)。
 
 - `plugins: Plugins[]`
-  - **Description**: 自定义节点转换器，替换基础解释器插件。仅用于高级用法；省略它以保持默认行为。
-  - **Type**: `Plugins[]`
-  - **Required**: No (Optional)
+  - **描述**: 自定义节点转换器，替换基础解释器插件。仅用于高级用法；省略它以保持默认行为。
+  - **类型**: `Plugins[]`
+  - **必需**: 否（可选）
 
 ### 返回值
 
-- **Type**: 字典的解释内容，根据您的声明进行类型化。
-- **Description**: 一个纯对象，镜像您字典的 `content` 字段，其中每个 Intlayer 节点都已解析为请求的语言环境的最终值。
+- **类型**: 字典的解释内容，根据您的声明进行类型化。
+- **描述**: 一个纯对象，镜像您字典的 `content` 字段，其中每个 Intlayer 节点都已解析为请求的语言环境的最终值。
 
 ## 示例用法
 
@@ -109,15 +112,25 @@ const { title } = getIntlayer("app", "fr"); // "Bonjour"
 
 ### 不指定语言
 
-省略语言参数会使用你在[配置](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)中声明的 `defaultLocale` 来解释内容。
+未传入语言环境时，`getIntlayer` 不会直接回退到默认语言环境，而是按以下顺序解析：
+
+1. **当前请求的语言环境**：在服务器上，由 Intlayer 集成处理该请求时。包括 `express-intlayer`、`fastify-intlayer`、`hono-intlayer`、`adonis-intlayer` 和 `elysia-intlayer` 的 middleware，`remix-intlayer` 和 `astro-intlayer` 的 middleware，以及 React Server Components 中的 `IntlayerProvider` / `setLocale`。每个请求都根据自己的 cookies 和 headers 解析，因此并发用户之间绝不会共享语言环境。
+2. **浏览器中保存的语言环境**（cookie、`localStorage`、`sessionStorage`），即语言切换器保存的语言环境。
+3. 在[配置](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)中声明的 **`defaultLocale`**。
 
 - [配置](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)
 
 ```typescript
 import { getIntlayer } from "intlayer";
 
-const { title } = getIntlayer("app"); // 使用默认语言解释
+const { title } = getIntlayer("app"); // 请求的语言环境，否则为已保存的，否则为默认语言环境
 ```
+
+同样的解析也适用于 `getDictionary`、被[构建插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md)重写的调用，以及在 provider 之外渲染的 `useIntlayer` / `useDictionaryDynamic`。显式传入的语言环境始终优先。
+
+- [构建插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md)
+
+> `getIntlayer` 不是响应式的：切换语言环境后，需要再次调用它才能读取新的语言环境。在服务端渲染的页面上，在任何 provider 之外的调用会在服务器上渲染默认语言环境，在浏览器中渲染已保存的语言环境，可能导致 hydration mismatch。这种情况下，请挂载你所用框架的 provider，或传入语言环境。
 
 ### 在服务器处理程序内
 

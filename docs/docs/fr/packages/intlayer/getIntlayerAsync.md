@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 5
 title: Documentation de la fonction getIntlayerAsync | intlayer
 description: "Utilisez getIntlayerAsync pour charger et lire le contenu d'un dictionnaire pour une seule locale, sans embarquer les autres langues."
@@ -22,9 +22,12 @@ slugs:
   - intlayer
   - getIntlayerAsync
 history:
+  - version: 9.5.12
+    date: 2026-09-28
+    changes: "Sans locale, attend la locale de la requête (headers et cookies Next.js)"
   - version: 9.4.0
     date: 2026-08-23
-    changes: "Initial documentation"
+    changes: "Documentation initiale"
 author: aymericzip
 ---
 
@@ -66,7 +69,7 @@ getIntlayerAsync(
 - `key: DictionaryKeys`
   - **Description**: La clé du dictionnaire à lire, telle que déclarée dans vos fichiers de contenu.
   - **Type**: `DictionaryKeys`, une union de chaque clé de dictionnaire déclarée.
-  - **Required**: Yes
+  - **Requis**: Oui
 
 - `localeOrSelector: LocalesValues | DictionarySelector`
   - **Description**: La locale pour interpréter le contenu avec, ou un objet sélecteur pour les [dictionnaires dynamiques](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dynamic_dictionaries/index.md).
@@ -76,12 +79,12 @@ getIntlayerAsync(
     - `{ variant: { id: 'prod_abc', userId: '123' } }`: une variante structurée
     - N'importe quel sélecteur peut porter une locale: `{ item: 2, locale: 'fr' }`
   - **Type**: `LocalesValues | DictionarySelector`
-  - **Required**: No (Optional), defaults to the configured `defaultLocale`.
+  - **Requis** : Non (optionnel). Si elle est omise, elle est résolue comme pour [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/intlayer/getIntlayer.md) (locale de la requête, puis locale stockée, puis `defaultLocale`). Étant asynchrone, elle peut aussi attendre la locale de la requête lorsqu'elle n'est lisible que de façon asynchrone : dans les Server Components Next.js, `generateMetadata` et les route handlers, elle lit les `headers()` et `cookies()` de la requête, comme `getLocale()` de `next-intlayer/server`. Cette lecture fait passer la route en rendu dynamique, elle n'a donc lieu que si `IntlayerProvider` n'a pas déjà fourni la locale.
 
 - `plugins: Plugins[]`
   - **Description**: Des transformateurs de nœuds personnalisés remplaçant les plugins d'interpréteur de base. Utilisation avancée uniquement.
   - **Type**: `Plugins[]`
-  - **Required**: No (Optional)
+  - **Requis**: Non (optionnel)
 
 ### Retours
 
@@ -106,7 +109,7 @@ const { title } = await getIntlayerAsync("app", "fr"); // "Bonjour"
 | Best suited for    | Rendu, chemins de code synchrone                                                                                | Métadonnées, loaders, fonctions serveur                    |
 | Requires a plugin? | Non                                                                                                             | Non, la division par locale nécessite les plugins de build |
 
-Both accept the same arguments and return the same content: switching from one to the other only changes **when** and **how much** is loaded.
+Les deux acceptent les mêmes arguments et renvoient le même contenu : passer de l'une à l'autre ne change que **quand** et **combien** est chargé.
 
 ## Fonctions Associées
 

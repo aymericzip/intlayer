@@ -1,4 +1,3 @@
-import { internationalization } from '@intlayer/config/built';
 import {
   getDictionarySelectorCacheKey,
   getPreloadedDictionary,
@@ -9,6 +8,7 @@ import {
   resolveDictionaryArgument,
   resolveQualifiedDynamicContentAsync,
 } from '@intlayer/core/dictionaryManipulator';
+import { resolveInterpreterLocale } from '@intlayer/core/interpreter';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import type {
   DeclaredLocales,
@@ -61,7 +61,6 @@ export const useDictionaryDynamic = <
   const context: Partial<IntlayerValue> =
     useContext(IntlayerClientContext) ?? {};
   const { locale: currentLocale } = context;
-  const defaultLocale = internationalization.defaultLocale;
   const dictionaryKey = String(key);
 
   if (
@@ -93,7 +92,7 @@ export const useDictionaryDynamic = <
       qualifierTypes.includes('item') && callSelector?.item === undefined;
 
     const localeAccessor = () =>
-      selectorLocale ?? currentLocale?.() ?? defaultLocale;
+      selectorLocale ?? currentLocale?.() ?? resolveInterpreterLocale();
 
     if (!isCollection) {
       // Single entry (variant / selected item). Reuse the plain
@@ -186,7 +185,8 @@ export const useDictionaryDynamic = <
     Record<LocalesValues, () => Promise<T>>
   >;
   const locale = localeOrSelector as LocalesValues | undefined;
-  const localeAccessor = () => locale ?? currentLocale?.() ?? defaultLocale;
+  const localeAccessor = () =>
+    locale ?? currentLocale?.() ?? resolveInterpreterLocale();
   const dictionarySourceAccessor = (): DynamicDictionarySource => {
     const localeTarget = localeAccessor();
 

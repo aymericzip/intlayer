@@ -1,3 +1,4 @@
+import { resolveInterpreterLocale } from '@intlayer/core/interpreter';
 import { Elysia } from 'elysia';
 import { describe, expect, it } from 'vitest';
 import { intlayer, t } from './index';
@@ -16,6 +17,14 @@ const app = new Elysia()
     contextTranslation: intlayer.t(greeting),
     globalTranslation: t(greeting),
   }))
+  .get('/ambient', async ({ request }) => {
+    // Lets a later request start before this one reads its locale
+    await new Promise((resolve) =>
+      setTimeout(resolve, Number(request.headers.get('x-delay') ?? 0))
+    );
+
+    return { locale: resolveInterpreterLocale() };
+  })
   .get('/throwing', () => {
     throw new Error('Route failure');
   });
@@ -76,6 +85,25 @@ describe('elysia-intlayer', () => {
     await request({ 'accept-language': 'fr-FR,fr;q=0.9' });
 
     expect(t(greeting)).toBe('Hello');
+  });
+
+  it('resolves a bare dictionary read to each concurrent request locale', async () => {
+    const readAmbientLocale = async (headers: Record<string, string>) => {
+      const response = await app.handle(
+        new Request('http://localhost/ambient', { headers })
+      );
+
+      return ((await response.json()) as { locale: string }).locale;
+    };
+
+    const [slowFrench, fastEnglish] = await Promise.all([
+      readAmbientLocale({ cookie: 'INTLAYER_LOCALE=fr', 'x-delay': '30' }),
+      readAmbientLocale({ cookie: 'INTLAYER_LOCALE=en', 'x-delay': '0' }),
+    ]);
+
+    expect(slowFrench).toBe('fr');
+    expect(fastEnglish).toBe('en');
+    expect(resolveInterpreterLocale()).toBe('en');
   });
 
   it('releases the request context when the route throws', async () => {

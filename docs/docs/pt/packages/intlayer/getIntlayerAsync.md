@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 5
 title: "Documentação da função getIntlayerAsync | intlayer"
 description: "Use getIntlayerAsync para carregar e ler o conteúdo de um dicionário para um único locale, sem incluir os outros idiomas."
@@ -22,9 +22,12 @@ slugs:
   - intlayer
   - getIntlayerAsync
 history:
+  - version: 9.5.12
+    date: 2026-09-28
+    changes: "Sem locale, aguarda o locale da requisição (headers e cookies do Next.js)"
   - version: 9.4.0
     date: 2026-08-23
-    changes: "Initial documentation"
+    changes: "Documentação inicial"
 author: aymericzip
 ---
 
@@ -51,7 +54,7 @@ Sem esses plugins, uma build não otimizada, a chamada é resolvida através do 
 - Chamadas simultâneas para o mesmo chunk compartilham um único carregamento
 - Seguro de usar em construtores de metadados `async`, loaders e funções de servidor
 
-## Function Signature
+## Assinatura da função
 
 ```typescript
 getIntlayerAsync(
@@ -64,28 +67,28 @@ getIntlayerAsync(
 ## Parâmetros
 
 - `key: DictionaryKeys`
-  - **Description**: A chave do dicionário a ser lida, conforme declarado em seus arquivos de conteúdo.
-  - **Type**: `DictionaryKeys`, uma união de todas as chaves de dicionário declaradas.
-  - **Required**: Yes
+  - **Descrição**: A chave do dicionário a ser lida, conforme declarado em seus arquivos de conteúdo.
+  - **Tipo**: `DictionaryKeys`, uma união de todas as chaves de dicionário declaradas.
+  - **Obrigatório**: Sim
 
 - `localeOrSelector: LocalesValues | DictionarySelector`
-  - **Description**: A localidade para interpretar o conteúdo, ou um objeto seletor para [dicionários dinâmicos](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dynamic_dictionaries/index.md).
+  - **Descrição**: A localidade para interpretar o conteúdo, ou um objeto seletor para [dicionários dinâmicos](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dynamic_dictionaries/index.md).
     - `'fr'`: uma localidade
     - `{ item: 2 }`: um item de [coleção](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dynamic_dictionaries/collections.md) (omita `item` para obter todos os itens como um array)
     - `{ variant: 'black-friday' }`: uma [variante](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dynamic_dictionaries/variants.md) nomeada (omita para a `default`)
     - `{ variant: { id: 'prod_abc', userId: '123' } }`: uma variante estruturada
     - Qualquer seletor pode carregar uma localidade: `{ item: 2, locale: 'fr' }`
-  - **Type**: `LocalesValues | DictionarySelector`
-  - **Required**: No (Optional), defaults to the configured `defaultLocale`.
+  - **Tipo**: `LocalesValues | DictionarySelector`
+  - **Obrigatório**: Não (opcional). Se omitido, é resolvido como em [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/intlayer/getIntlayer.md) (locale da requisição, depois locale armazenado, depois `defaultLocale`). Por ser assíncrona, também pode aguardar o locale da requisição quando ele só pode ser lido de forma assíncrona: nos Server Components do Next.js, em `generateMetadata` e nos route handlers, ela lê os `headers()` e `cookies()` da requisição, como `getLocale()` de `next-intlayer/server`. Essa leitura faz a rota passar para renderização dinâmica, por isso só acontece quando o `IntlayerProvider` ainda não forneceu o locale.
 
 - `plugins: Plugins[]`
-  - **Description**: Transformadores de nó customizados que substituem os plugins do interpretador base. Apenas para uso avançado.
-  - **Type**: `Plugins[]`
-  - **Required**: No (Optional)
+  - **Descrição**: Transformadores de nó customizados que substituem os plugins do interpretador base. Apenas para uso avançado.
+  - **Tipo**: `Plugins[]`
+  - **Obrigatório**: Não (opcional)
 
 ### Retorna
 
-- **Type**: `Promise<Content>`, uma promessa que resolve para o conteúdo interpretado do dicionário, tipado a partir da sua declaração.
+- **Tipo**: `Promise<Content>`, uma promessa que resolve para o conteúdo interpretado do dicionário, tipado a partir da sua declaração.
 
 ## Exemplo de Uso
 
@@ -106,7 +109,7 @@ const { title } = await getIntlayerAsync("app", "fr"); // "Bonjour"
 | Best suited for    | Renderização, caminhos de código síncronos                                                                      | Metadata, loaders, funções de servidor                   |
 | Requires a plugin? | Não                                                                                                             | Não, a divisão por locale necessita dos plugins de build |
 
-Both accept the same arguments and return the same content: switching from one to the other only changes **when** and **how much** is loaded.
+Ambas aceitam os mesmos argumentos e retornam o mesmo conteúdo: trocar uma pela outra só muda **quando** e **quanto** é carregado.
 
 ## Funções Relacionadas
 

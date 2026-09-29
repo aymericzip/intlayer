@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 5
 title: Documentación de la Función getIntlayer | intlayer
 description: "Usa getIntlayer para leer el contenido de un diccionario para una locale en cualquier lugar, el equivalente agnóstico del hook useIntlayer."
@@ -21,9 +21,12 @@ slugs:
   - intlayer
   - getIntlayer
 history:
+  - version: 9.5.12
+    date: 2026-09-28
+    changes: "Sin locale, se resuelve la locale de la solicitud o la locale almacenada antes que la locale por defecto"
   - version: 9.4.0
     date: 2026-08-23
-    changes: "Initial documentation"
+    changes: "Documentación inicial"
 author: aymericzip
 ---
 
@@ -56,29 +59,29 @@ getIntlayer(
 ## Parámetros
 
 - `key: DictionaryKeys`
-  - **Description**: The key of the dictionary to read, as declared in your content files.
-  - **Type**: `DictionaryKeys`, a union of every declared dictionary key.
-  - **Required**: Yes
+  - **Descripción**: La clave del diccionario a leer, tal como se declara en tus archivos de contenido.
+  - **Tipo**: `DictionaryKeys`, una unión de todas las claves de diccionario declaradas.
+  - **Requerido**: Sí
 
 - `localeOrSelector: LocalesValues | DictionarySelector`
-  - **Description**: The locale to interpret the content with, or a selector object for [dynamic dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dynamic_dictionaries/index.md).
-    - `'fr'`: a locale
-    - `{ item: 2 }`: a [collection](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dynamic_dictionaries/collections.md) item (omit `item` to get every item as an array)
-    - `{ variant: 'black-friday' }`: a named [variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dynamic_dictionaries/variants.md) (omit for the `default` one)
-    - `{ variant: { id: 'prod_abc', userId: '123' } }`: a structured variant
-    - Any selector can carry a locale: `{ item: 2, locale: 'fr' }`
-  - **Type**: `LocalesValues | DictionarySelector`
-  - **Required**: No (Optional), defaults to the configured `defaultLocale`.
+  - **Descripción**: La locale con la que interpretar el contenido, o un objeto selector para [diccionarios dinámicos](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dynamic_dictionaries/index.md).
+    - `'fr'`: una locale
+    - `{ item: 2 }`: un elemento de una [colección](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dynamic_dictionaries/collections.md) (omite `item` para obtener todos los elementos como un array)
+    - `{ variant: 'black-friday' }`: una [variante](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dynamic_dictionaries/variants.md) con nombre (omítela para la `default`)
+    - `{ variant: { id: 'prod_abc', userId: '123' } }`: una variante estructurada
+    - Cualquier selector puede llevar una locale: `{ item: 2, locale: 'fr' }`
+  - **Tipo**: `LocalesValues | DictionarySelector`
+  - **Requerido**: No (opcional). Si se omite, consulta [Sin locale](#sin-locale).
 
 - `plugins: Plugins[]`
-  - **Description**: Custom node transformers replacing the base interpreter plugins. Advanced use only; omit it to keep the default behaviour.
-  - **Type**: `Plugins[]`
-  - **Required**: No (Optional)
+  - **Descripción**: Transformadores de nodos personalizados que reemplazan los plugins base del intérprete. Solo para uso avanzado; omítelo para conservar el comportamiento por defecto.
+  - **Tipo**: `Plugins[]`
+  - **Requerido**: No (opcional)
 
 ### Retorna
 
-- **Type**: El contenido interpretado del diccionario, tipado desde tu declaración.
-- **Description**: Un objeto plano que refleja el campo `content` de tu diccionario, donde cada nodo de Intlayer ha sido resuelto a su valor final para la locale solicitada.
+- **Tipo**: El contenido interpretado del diccionario, tipado desde tu declaración.
+- **Descripción**: Un objeto plano que refleja el campo `content` de tu diccionario, donde cada nodo de Intlayer ha sido resuelto a su valor final para la locale solicitada.
 
 ## Ejemplo de uso
 
@@ -109,15 +112,25 @@ const { title } = getIntlayer("app", "es"); // "Hola"
 
 ### Sin locale
 
-Omitir el locale interpreta el contenido con el `defaultLocale` declarado en tu [configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md).
+Cuando no se pasa ninguna locale, `getIntlayer` no recurre directamente a la locale por defecto. Resuelve, en orden:
+
+1. **La locale de la solicitud en curso**, en el servidor, cuando una integración de Intlayer la gestiona: los middlewares `express-intlayer`, `fastify-intlayer`, `hono-intlayer`, `adonis-intlayer` y `elysia-intlayer`, los middlewares `remix-intlayer` y `astro-intlayer`, y `IntlayerProvider` / `setLocale` en los React Server Components. Cada solicitud se resuelve a partir de sus propias cookies y headers, así que usuarios simultáneos nunca comparten locale.
+2. **La locale almacenada en el navegador** (cookie, `localStorage`, `sessionStorage`), la que persiste un selector de idioma.
+3. **La `defaultLocale`** declarada en tu [configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md).
 
 - [configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md)
 
 ```typescript
 import { getIntlayer } from "intlayer";
 
-const { title } = getIntlayer("app"); // Interpretado con el locale por defecto
+const { title } = getIntlayer("app"); // Locale de la solicitud, si no la almacenada, si no la locale por defecto
 ```
+
+La misma resolución se aplica a `getDictionary`, a las llamadas que reescriben los [plugins de build](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/bundle_optimization.md), y a `useIntlayer` / `useDictionaryDynamic` renderizados fuera de un provider. Una locale pasada explícitamente siempre tiene prioridad.
+
+- [plugins de build](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/bundle_optimization.md)
+
+> `getIntlayer` no es reactiva: tras un cambio de locale, vuelve a llamarla para leer la nueva locale. En una página renderizada en el servidor, una llamada hecha fuera de cualquier provider renderiza la locale por defecto en el servidor y la locale almacenada en el navegador, lo que puede provocar un error de hidratación. En ese caso, monta el provider de tu framework o pasa la locale.
 
 ### Dentro de un manejador del servidor
 

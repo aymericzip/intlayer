@@ -4,6 +4,7 @@ import {
   getDictionary as getDictionaryFunction,
   getIntlayer as getIntlayerFunction,
   getTranslation,
+  registerAmbientLocaleResolver,
 } from '@intlayer/core/interpreter';
 import { getLocaleFromStorageServer } from '@intlayer/core/utils';
 import { prepareIntlayerServer } from '@intlayer/engine/build';
@@ -27,6 +28,10 @@ if (process.env['NODE_ENV'] === 'development') {
 }
 
 export const appNamespace = createNamespace('app');
+
+// Lets a bare `getIntlayer` / `getDictionary` from any Intlayer package resolve
+// to the locale of the request being handled.
+registerAmbientLocaleResolver(() => appNamespace.get('locale'));
 
 prepareIntlayerServer(configuration, { label: 'adonis-intlayer' });
 

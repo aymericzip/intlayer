@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 5
 title: "getIntlayerAsync फ़ंक्शन दस्तावेज़ | intlayer"
 description: "getIntlayerAsync से किसी डिक्शनरी का कंटेंट सिर्फ़ एक लोकेल के लिए लोड करके पढ़ें, बाकी भाषाएँ बंडल में न जाएँ।"
@@ -22,9 +22,12 @@ slugs:
   - intlayer
   - getIntlayerAsync
 history:
+  - version: 9.5.12
+    date: 2026-09-28
+    changes: "locale न देने पर, request के locale की प्रतीक्षा करता है (Next.js headers और cookies)"
   - version: 9.4.0
     date: 2026-08-23
-    changes: "Initial documentation"
+    changes: "प्रारंभिक दस्तावेज़ीकरण"
 author: aymericzip
 ---
 
@@ -51,7 +54,7 @@ author: aymericzip
 - एक ही chunk के लिए Concurrent calls एक single load share करती हैं
 - `async` metadata builders, loaders और server functions में उपयोग के लिए सुरक्षित
 
-## Function Signature
+## फ़ंक्शन सिग्नेचर
 
 ```typescript
 getIntlayerAsync(
@@ -65,7 +68,7 @@ getIntlayerAsync(
 
 - `key: DictionaryKeys`
   - **विवरण**: डिक्शनरी की कुंजी जिसे पढ़ना है, जैसा कि आपकी content files में घोषित किया गया है।
-  - **Type**: `DictionaryKeys`, हर घोषित डिक्शनरी कुंजी का एक union।
+  - **प्रकार**: `DictionaryKeys`, हर घोषित डिक्शनरी कुंजी का एक union।
   - **आवश्यक**: हाँ
 
 - `localeOrSelector: LocalesValues | DictionarySelector`
@@ -75,17 +78,17 @@ getIntlayerAsync(
     - `{ variant: 'black-friday' }`: एक नाम दिया गया [variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dynamic_dictionaries/variants.md) (`default` के लिए omit करें)
     - `{ variant: { id: 'prod_abc', userId: '123' } }`: एक structured variant
     - कोई भी selector एक locale ले सकता है: `{ item: 2, locale: 'fr' }`
-  - **Type**: `LocalesValues | DictionarySelector`
-  - **आवश्यक**: नहीं (Optional), configured `defaultLocale` को default करता है।
+  - **प्रकार**: `LocalesValues | DictionarySelector`
+  - **आवश्यक**: नहीं (वैकल्पिक)। छोड़ने पर, यह [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getIntlayer.md) की तरह resolve होता है (request का locale, फिर संग्रहीत locale, फिर `defaultLocale`)। asynchronous होने के कारण, यह request के locale की प्रतीक्षा भी कर सकता है जब वह केवल asynchronous रूप से पढ़ा जा सके: Next.js Server Components, `generateMetadata` और route handlers में, यह request के `headers()` और `cookies()` पढ़ता है, जैसे `next-intlayer/server` का `getLocale()`। यह पढ़ना route को dynamic rendering में ले जाता है, इसलिए यह तभी होता है जब `IntlayerProvider` ने पहले से locale न दिया हो।
 
 - `plugins: Plugins[]`
   - **विवरण**: Custom node transformers जो base interpreter plugins को replace करते हैं। Advanced use only।
-  - **Type**: `Plugins[]`
+  - **प्रकार**: `Plugins[]`
   - **आवश्यक**: नहीं (Optional)
 
 ### Returns
 
-- **Type**: `Promise<Content>`, एक promise जो आपकी घोषणा से टाइप किए गए dictionary की interpreted content को resolve करता है।
+- **प्रकार**: `Promise<Content>`, एक promise जो आपकी घोषणा से टाइप किए गए dictionary की interpreted content को resolve करता है।
 
 ## उदाहरण उपयोग
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 5
 title: توثيق دالة getIntlayer | intlayer
 description: "استخدم getIntlayer لقراءة محتوى قاموس للغة معيّنة في أي مكان، النسخة المستقلة عن إطار العمل من الخطاف useIntlayer."
@@ -21,9 +21,12 @@ slugs:
   - intlayer
   - getIntlayer
 history:
+  - version: 9.5.12
+    date: 2026-09-28
+    changes: "عند غياب locale، تُحل locale الطلب أو locale المخزنة قبل locale الافتراضية"
   - version: 9.4.0
     date: 2026-08-23
-    changes: "Initial documentation"
+    changes: "التوثيق الأولي"
 author: aymericzip
 ---
 
@@ -68,7 +71,7 @@ getIntlayer(
     - `{ variant: { id: 'prod_abc', userId: '123' } }`: متغير منظم
     - أي محدد يمكنه أن يحمل لغة: `{ item: 2, locale: 'fr' }`
   - **النوع**: `LocalesValues | DictionarySelector`
-  - **مطلوب**: لا (اختياري)، القيمة الافتراضية هي `defaultLocale` المكونة.
+  - **مطلوب**: لا (اختياري). عند حذفها، راجع [بدون locale](#بدون-locale).
 
 - `plugins: Plugins[]`
   - **الوصف**: محولات عقدة مخصصة تحل محل مكونات المُفسّر الأساسية. للاستخدام المتقدم فقط؛ حذفها للحفاظ على السلوك الافتراضي.
@@ -109,15 +112,25 @@ const { title } = getIntlayer("app", "fr"); // "Bonjour"
 
 ### بدون locale
 
-حذف locale يفسر المحتوى باستخدام `defaultLocale` المعلنة في [الإعدادات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
+عند عدم تمرير أي locale، لا تنتقل `getIntlayer` مباشرة إلى locale الافتراضية. بل تحل بالترتيب:
+
+1. **locale الطلب الحالي**، على الخادم، عندما يعالجه تكامل من Intlayer: الـ middlewares `express-intlayer` و`fastify-intlayer` و`hono-intlayer` و`adonis-intlayer` و`elysia-intlayer`، والـ middlewares `remix-intlayer` و`astro-intlayer`، و`IntlayerProvider` / `setLocale` في React Server Components. يُحل كل طلب من ملفات cookies والـ headers الخاصة به، لذا لا يتشارك المستخدمون المتزامنون الـ locale أبدًا.
+2. **locale المخزنة في المتصفح** (cookie، `localStorage`، `sessionStorage`)، وهي التي يحفظها مبدّل اللغة.
+3. **`defaultLocale`** المعلنة في [الإعدادات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
 
 - [الإعدادات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md)
 
 ```typescript
 import { getIntlayer } from "intlayer";
 
-const { title } = getIntlayer("app"); // يتم تفسيره باستخدام locale الافتراضية
+const { title } = getIntlayer("app"); // locale الطلب، وإلا المخزنة، وإلا الافتراضية
 ```
+
+ينطبق الحل نفسه على `getDictionary`، وعلى الاستدعاءات التي تعيد كتابتها [إضافات البناء](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md)، وعلى `useIntlayer` / `useDictionaryDynamic` عند عرضها خارج provider. الـ locale الممررة صراحةً لها الأولوية دائمًا.
+
+- [إضافات البناء](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md)
+
+> `getIntlayer` ليست تفاعلية: بعد تغيير الـ locale، استدعها من جديد لقراءة الـ locale الجديدة. في صفحة معروضة على الخادم، يعرض الاستدعاء خارج أي provider الـ locale الافتراضية على الخادم والـ locale المخزنة في المتصفح، مما قد يسبب hydration mismatch. في هذه الحالة، أضف provider الخاص بإطار عملك أو مرّر الـ locale.
 
 ### داخل معالج الخادم
 

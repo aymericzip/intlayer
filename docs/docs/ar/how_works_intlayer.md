@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-12
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: "كيف يعمل Intlayer: نظرة عامة على البنية"
 description: تعلم كيف يعمل Intlayer داخليًا. افهم البنية والمكونات التي تجعل Intlayer قويًا.
@@ -431,6 +431,20 @@ const MyComponent = () => {
 <Question title="كيف يتجنب Intlayer أخطاء عدم تطابق الترطيب (hydration mismatch) المتعلقة باللغة؟">
 
 يتم تحديد اللغة مرة واحدة على الخادم وتمريرها إلى موفر العميل بدلاً من إعادة اكتشافها في المتصفح، مما يضمن تطابق مخرجات HTML للخادم والعميل تمامًا.
+
+</Question>
+<Question title="هل يمكنني استخدام Intlayer بدون provider عام؟">
+
+نعم. `getIntlayer` و`getDictionary` دوال بسيطة لا تحتاج إلى أي provider، و`useIntlayer` تعمل أيضًا خارج provider. عند عدم تمرير أي locale، تحل على الخادم locale الطلب الحالي (عبر middleware الخاص بـ Intlayer لـ Express و Fastify و Hono و AdonisJS و Elysia و Remix و Astro، أو `IntlayerProvider` في React Server Components)، ثم الـ locale التي خزّنها مبدّل اللغة في المتصفح، ثم `defaultLocale`. ويمكن لـ `getIntlayerAsync` أيضًا انتظار locale الطلب عندما لا يمكن قراءتها إلا بشكل غير متزامن، مثل `headers()` و`cookies()` في Next.js. يحل كل طلب ملفات cookies والـ headers الخاصة به، لذا لا يتشارك المستخدمون المتزامنون الـ locale أبدًا. راجع [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getIntlayer.md).
+
+- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getIntlayer.md)
+
+الفرق يتعلق بالتفاعلية وتكلفة العرض، وليس بالمحتوى:
+
+- **مع provider**، تعيش الـ locale في حالة إطار العمل. كل `useIntlayer` يشترك فيها، لذا يعيد تغيير الـ locale عرض المكونات في مكانها دون إعادة تحميل. في صفحة معروضة على الخادم، يسلّم الـ provider إلى العميل الـ locale التي عرضها الخادم، لذا يتطابق الـ markup دائمًا. التكلفة هي كود الـ provider في الـ bundle وإعادة عرض مستهلكيه عند كل تغيير.
+- **بدون provider**، القراءة هي استدعاء دالة مخزن مؤقتًا (memoized): لا قراءة للسياق، ولا اشتراك، ويُعاد الكائن نفسه لنفس `key + locale`. لا يُعاد عرض أي شيء عند تغيير الـ locale: تظهر الـ locale الجديدة في الاستدعاء التالي، عادةً بعد تنقل أو إعادة تحميل. تُقرأ الـ locale المخزنة مرة واحدة وتُخزن مؤقتًا حتى التغيير التالي، مما يضيف نحو 100 بايت (gzip) إلى bundle يتضمن Intlayer أصلًا. المقايضة تخص الصفحات المعروضة على الخادم خارج أي تكامل للطلبات: يعرض الخادم `defaultLocale` بينما يقرأ المتصفح الـ locale المخزنة، مما قد يسبب hydration mismatch.
+
+احتفظ بالـ provider للتطبيقات التفاعلية التي تغيّر الـ locale في مكانها أو تُعرض على الخادم. واستغنِ عنه في الـ backends والسكربتات والصفحات الثابتة التي تأتي الـ locale فيها من الـ URL (مرّرها صراحةً)، أو الكود الذي يقرأ المحتوى مرة واحدة.
 
 </Question>
 <Question title="هل أحتاج إلى إعادة البناء عند إضافة ترجمات؟">

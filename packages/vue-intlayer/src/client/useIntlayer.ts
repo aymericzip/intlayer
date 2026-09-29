@@ -1,8 +1,8 @@
-import { internationalization } from '@intlayer/config/built';
 import {
   parseDictionarySelector,
   resolveDictionaryArgument,
 } from '@intlayer/core/dictionaryManipulator';
+import { resolveInterpreterLocale } from '@intlayer/core/interpreter';
 import type { DictionarySelector } from '@intlayer/types/dictionary';
 import type {
   DeclaredLocales,
@@ -73,7 +73,7 @@ export const useIntlayer = <
   // normalize provider locale
   const providerLocale = isRef(intlayer?.locale)
     ? intlayer.locale
-    : ref(intlayer?.locale ?? internationalization.defaultLocale);
+    : ref(intlayer?.locale ?? resolveInterpreterLocale());
 
   // split the (possibly reactive) second argument into selector + locale,
   // layering the provider's ambient variant under it

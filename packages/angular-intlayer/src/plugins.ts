@@ -14,6 +14,7 @@ import {
   nestedPlugin,
   type Plugins,
   pluralPlugin,
+  resolveInterpreterLocale,
   selectPlugin,
   transformInterpolableNode,
   translationPlugin,
@@ -501,7 +502,7 @@ export const getPlugins = (
   locale?: LocalesValues,
   fallback: boolean = true
 ): Plugins[] => {
-  const currentLocale = locale ?? internationalization.defaultLocale;
+  const currentLocale = resolveInterpreterLocale(locale);
   // Tracked read: called inside the dictionary `computed` of the hooks, so the
   // computed re-evaluates once the renderer chunk lands. The core interpreter
   // memoizes transformed content per plugin-array identity, and the transform
@@ -519,13 +520,13 @@ export const getPlugins = (
     // First: most nodes are plain strings, which every other plugin rejects
     intlayerNodePlugins,
     translationPlugin(
-      locale ?? internationalization.defaultLocale,
+      currentLocale,
       fallback ? internationalization.defaultLocale : undefined
     ),
     enumerationPlugin,
-    pluralPlugin(locale ?? internationalization.defaultLocale),
+    pluralPlugin(currentLocale),
     conditionPlugin,
-    nestedPlugin(locale ?? internationalization.defaultLocale),
+    nestedPlugin(currentLocale),
     filePlugin,
     genderPlugin,
     selectPlugin,

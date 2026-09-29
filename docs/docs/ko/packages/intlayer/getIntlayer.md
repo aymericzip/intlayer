@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 5
 title: getIntlayer 함수 문서 | intlayer
 description: "getIntlayer로 어디서든 로케일에 맞는 사전 콘텐츠를 읽습니다. useIntlayer 훅의 프레임워크 독립적인 버전입니다."
@@ -21,9 +21,12 @@ slugs:
   - intlayer
   - getIntlayer
 history:
+  - version: 9.5.12
+    date: 2026-09-28
+    changes: "로케일을 생략하면 기본 로케일보다 먼저 요청의 로케일 또는 저장된 로케일을 해석"
   - version: 9.4.0
     date: 2026-08-23
-    changes: "Initial documentation"
+    changes: "초기 문서"
 author: aymericzip
 ---
 
@@ -56,29 +59,29 @@ getIntlayer(
 ## Parameters
 
 - `key: DictionaryKeys`
-  - **Description**: 콘텐츠 파일에 선언된 대로 읽을 사전의 키입니다.
-  - **Type**: `DictionaryKeys`, 선언된 모든 사전 키의 합집합입니다.
-  - **Required**: Yes
+  - **설명**: 콘텐츠 파일에 선언된 대로 읽을 사전의 키입니다.
+  - **타입**: `DictionaryKeys`, 선언된 모든 사전 키의 합집합입니다.
+  - **필수**: 예
 
 - `localeOrSelector: LocalesValues | DictionarySelector`
-  - **Description**: 콘텐츠를 해석할 locale이거나, [dynamic dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dynamic_dictionaries/index.md)용 selector 객체입니다.
-    - `'fr'`: a locale
-    - `{ item: 2 }`: a [collection](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dynamic_dictionaries/collections.md) item (omit `item` to get every item as an array)
-    - `{ variant: 'black-friday' }`: a named [variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dynamic_dictionaries/variants.md) (omit for the `default` one)
-    - `{ variant: { id: 'prod_abc', userId: '123' } }`: a structured variant
-    - Any selector can carry a locale: `{ item: 2, locale: 'fr' }`
-  - **Type**: `LocalesValues | DictionarySelector`
-  - **Required**: No (Optional), 설정된 `defaultLocale`으로 기본 설정됩니다.
+  - **설명**: 콘텐츠를 해석할 locale이거나, [dynamic dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dynamic_dictionaries/index.md)용 selector 객체입니다.
+    - `'fr'`: 로케일
+    - `{ item: 2 }`: [컬렉션](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dynamic_dictionaries/collections.md) 항목 (`item`을 생략하면 모든 항목을 배열로 가져옵니다)
+    - `{ variant: 'black-friday' }`: 이름이 있는 [variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dynamic_dictionaries/variants.md) (`default` variant는 생략)
+    - `{ variant: { id: 'prod_abc', userId: '123' } }`: 구조화된 variant
+    - 모든 selector에 로케일을 함께 지정할 수 있습니다: `{ item: 2, locale: 'fr' }`
+  - **타입**: `LocalesValues | DictionarySelector`
+  - **필수**: 아니요 (선택). 생략하면 [로케일 없이](#로케일-없이)를 참고하세요.
 
 - `plugins: Plugins[]`
-  - **Description**: 기본 interpreter plugins를 대체하는 커스텀 node transformers입니다. 고급 사용법이므로, 기본 동작을 유지하려면 생략하세요.
-  - **Type**: `Plugins[]`
-  - **Required**: No (Optional)
+  - **설명**: 기본 interpreter plugins를 대체하는 커스텀 node transformers입니다. 고급 사용법이므로, 기본 동작을 유지하려면 생략하세요.
+  - **타입**: `Plugins[]`
+  - **필수**: 아니요 (선택)
 
 ### Returns
 
-- **Type**: 선언된 타입으로 입력된 사전의 해석된 콘텐츠.
-- **Description**: 사전의 `content` 필드를 반영하는 일반 객체로, 모든 Intlayer 노드가 요청된 로케일에 대한 최종 값으로 해석됩니다.
+- **타입**: 선언된 타입으로 입력된 사전의 해석된 콘텐츠.
+- **설명**: 사전의 `content` 필드를 반영하는 일반 객체로, 모든 Intlayer 노드가 요청된 로케일에 대한 최종 값으로 해석됩니다.
 
 ## 사용 예시
 
@@ -109,15 +112,25 @@ const { title } = getIntlayer("app", "fr"); // "Bonjour"
 
 ### 로케일 없이
 
-로케일을 생략하면 [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)에서 선언된 `defaultLocale`로 콘텐츠를 해석합니다.
+로케일을 전달하지 않으면 `getIntlayer`는 바로 기본 로케일로 넘어가지 않습니다. 다음 순서로 해석합니다.
 
-- [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)
+1. **현재 요청의 로케일**: 서버에서 Intlayer 통합이 요청을 처리할 때입니다. `express-intlayer`, `fastify-intlayer`, `hono-intlayer`, `adonis-intlayer`, `elysia-intlayer` middleware, `remix-intlayer` 및 `astro-intlayer` middleware, 그리고 React Server Components의 `IntlayerProvider` / `setLocale`이 해당합니다. 각 요청은 자신의 cookies와 headers로 해석되므로, 동시에 접속한 사용자끼리 로케일을 공유하는 일은 없습니다.
+2. **브라우저에 저장된 로케일**(cookie, `localStorage`, `sessionStorage`): 로케일 전환기가 저장하는 로케일입니다.
+3. [설정](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)에 선언된 **`defaultLocale`**.
+
+- [설정](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)
 
 ```typescript
 import { getIntlayer } from "intlayer";
 
-const { title } = getIntlayer("app"); // 기본 로케일로 해석됨
+const { title } = getIntlayer("app"); // 요청의 로케일, 없으면 저장된 로케일, 없으면 기본 로케일
 ```
+
+같은 해석이 `getDictionary`, [빌드 플러그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md)이 다시 작성한 호출, 그리고 provider 밖에서 렌더링되는 `useIntlayer` / `useDictionaryDynamic`에도 적용됩니다. 명시적으로 전달한 로케일이 항상 우선합니다.
+
+- [빌드 플러그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md)
+
+> `getIntlayer`는 반응형이 아닙니다. 로케일을 바꾼 뒤에는 새 로케일을 읽기 위해 다시 호출하세요. 서버에서 렌더링되는 페이지에서 어떤 provider 밖에서든 호출하면 서버에서는 기본 로케일, 브라우저에서는 저장된 로케일이 렌더링되어 hydration mismatch가 발생할 수 있습니다. 이 경우 프레임워크의 provider를 마운트하거나 로케일을 전달하세요.
 
 ### 서버 핸들러 내부
 

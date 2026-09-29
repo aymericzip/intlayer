@@ -1,4 +1,3 @@
-import { internationalization } from '@intlayer/config/built';
 import type {
   Dictionary,
   DictionarySelector,
@@ -27,6 +26,7 @@ import type {
   Plugins,
 } from './getContent';
 import { getBasePlugins, getContent } from './getContent/getContent';
+import { resolveInterpreterLocale } from './resolveInterpreterLocale';
 
 /**
  * Dictionaries whose transform is running. Content is transformed eagerly, so a
@@ -58,19 +58,20 @@ export const getDictionary = <
 > => {
   // The selector checks stay inline so bundlers can drop the whole
   // qualified-dictionary module when no dictionary declares a qualifier.
-  const { locale, selector } =
+  const { locale: requestedLocale, selector } =
     process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false'
       ? parseDictionarySelector(localeOrSelector)
       : {
           locale: localeOrSelector as LocalesValues | undefined,
           selector: undefined,
         };
+  const locale = resolveInterpreterLocale(requestedLocale);
 
   // The base plugins are rebuilt on every call, so they cannot identify
   // themselves — but they are fully determined by the locale, which the key
   // already carries. Only an explicitly passed array needs its own identity.
   const cacheKey = getDictionaryTransformCacheKey(
-    locale ?? internationalization.defaultLocale,
+    locale,
     process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false'
       ? getDictionarySelectorCacheKey(selector)
       : '',

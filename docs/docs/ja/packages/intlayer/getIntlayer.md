@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 5
 title: "getIntlayer 関数ドキュメント | intlayer"
 description: "getIntlayer で、どこからでもロケールに応じた辞書のコンテンツを取得。useIntlayer フックのフレームワーク非依存版です。"
@@ -21,6 +21,9 @@ slugs:
   - intlayer
   - getIntlayer
 history:
+  - version: 9.5.12
+    date: 2026-09-28
+    changes: "ロケール省略時、デフォルトロケールより先にリクエストのロケールまたは保存済みロケールを解決"
   - version: 9.4.0
     date: 2026-08-23
     changes: "初期ドキュメント"
@@ -58,7 +61,7 @@ getIntlayer(
 - `key: DictionaryKeys`
   - **説明**: コンテンツファイルで宣言されている、読み取る辞書のキー。
   - **型**: `DictionaryKeys`、すべての宣言された辞書キーの共用体。
-  - **必須**: Yes
+  - **必須**: はい
 
 - `localeOrSelector: LocalesValues | DictionarySelector`
   - **説明**: コンテンツを解釈するロケール、または[動的辞書](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/index.md)のセレクタオブジェクト。
@@ -68,17 +71,17 @@ getIntlayer(
     - `{ variant: { id: 'prod_abc', userId: '123' } }`：構造化variant
     - すべてのセレクタはロケールを持つことができます: `{ item: 2, locale: 'fr' }`
   - **型**: `LocalesValues | DictionarySelector`
-  - **必須**: No (Optional)、デフォルトは設定された`defaultLocale`。
+  - **必須**: いいえ（任意）。省略した場合は[ロケールなし](#ロケールなし)を参照してください。
 
 - `plugins: Plugins[]`
   - **説明**: ベースインタープリタプラグインを置き換えるカスタムノードトランスフォーマー。高度な使用のみ；デフォルトの動作を保つには省略してください。
   - **型**: `Plugins[]`
-  - **必須**: No (Optional)
+  - **必須**: いいえ（任意）
 
 ### 戻り値
 
-- **Type**: 宣言から型付けされた、辞書の解釈されたコンテンツ。
-- **Description**: 辞書の `content` フィールドをミラーリングしたプレーンオブジェクト。すべての Intlayer ノードが要求されたロケールの最終値に解決されます。
+- **型**: 宣言から型付けされた、辞書の解釈されたコンテンツ。
+- **説明**: 辞書の `content` フィールドをミラーリングしたプレーンオブジェクト。すべての Intlayer ノードが要求されたロケールの最終値に解決されます。
 
 ## 使用例
 
@@ -109,15 +112,25 @@ const { title } = getIntlayer("app", "fr"); // "Bonjour"
 
 ### ロケールなし
 
-ロケールを省略すると、コンテンツは[設定](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)で宣言された `defaultLocale` で解釈されます。
+ロケールが渡されない場合、`getIntlayer` はすぐにデフォルトロケールへフォールバックしません。次の順序で解決します。
+
+1. **現在のリクエストのロケール**。サーバー上で Intlayer のインテグレーションがリクエストを処理している場合です: `express-intlayer`、`fastify-intlayer`、`hono-intlayer`、`adonis-intlayer`、`elysia-intlayer` の middleware、`remix-intlayer` と `astro-intlayer` の middleware、そして React Server Components の `IntlayerProvider` / `setLocale`。各リクエストは自身の cookies と headers から解決されるため、同時アクセスのユーザー同士がロケールを共有することはありません。
+2. **ブラウザに保存されたロケール**（cookie、`localStorage`、`sessionStorage`）。ロケールスイッチャーが保存するロケールです。
+3. [設定](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)で宣言した **`defaultLocale`**。
 
 - [設定](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)
 
 ```typescript
 import { getIntlayer } from "intlayer";
 
-const { title } = getIntlayer("app"); // デフォルトロケールで解釈されます
+const { title } = getIntlayer("app"); // リクエストのロケール、なければ保存済みロケール、なければデフォルトロケール
 ```
+
+同じ解決は `getDictionary`、[ビルドプラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)が書き換えた呼び出し、そして provider の外でレンダリングされる `useIntlayer` / `useDictionaryDynamic` にも適用されます。明示的に渡したロケールが常に優先されます。
+
+- [ビルドプラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)
+
+> `getIntlayer` はリアクティブではありません。ロケールを切り替えた後は、新しいロケールを読むためにもう一度呼び出してください。サーバーでレンダリングされるページでは、どの provider の外で呼び出してもサーバーではデフォルトロケール、ブラウザでは保存済みロケールがレンダリングされ、hydration mismatch の原因になることがあります。その場合はフレームワークの provider をマウントするか、ロケールを渡してください。
 
 ### サーバーハンドラー内
 

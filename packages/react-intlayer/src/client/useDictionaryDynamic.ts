@@ -1,6 +1,5 @@
 'use client';
 
-import { internationalization } from '@intlayer/config/built';
 import {
   getPreloadedDictionary,
   isQualifiedDynamicLoaderMap,
@@ -9,6 +8,7 @@ import {
   resolveDictionaryArgument,
   resolveQualifiedDynamicContent,
 } from '@intlayer/core/dictionaryManipulator';
+import { resolveInterpreterLocale } from '@intlayer/core/interpreter';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import type {
   DeclaredLocales,
@@ -68,7 +68,7 @@ export const useDictionaryDynamic = <
         };
 
   const localeTarget =
-    selectorLocale ?? currentLocale ?? internationalization.defaultLocale;
+    selectorLocale ?? currentLocale ?? resolveInterpreterLocale();
 
   if (
     process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false' &&

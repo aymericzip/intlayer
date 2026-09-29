@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 5
 title: "getIntlayerAsync Fonksiyon Dokümantasyonu | intlayer"
 description: "getIntlayerAsync ile bir sözlüğün içeriğini yalnızca tek bir locale için yükleyip okuyun, diğer diller bundle'a eklenmez."
@@ -22,9 +22,12 @@ slugs:
   - intlayer
   - getIntlayerAsync
 history:
+  - version: 9.5.12
+    date: 2026-09-28
+    changes: "Locale verilmediğinde isteğin locale'i beklenir (Next.js header'ları ve cookie'leri)"
   - version: 9.4.0
     date: 2026-08-23
-    changes: "Initial documentation"
+    changes: "İlk dokümantasyon"
 author: aymericzip
 ---
 
@@ -64,28 +67,28 @@ getIntlayerAsync(
 ## Parametreler
 
 - `key: DictionaryKeys`
-  - **Description**: İçerik dosyalarınızda bildirildiği şekilde okunacak sözlüğün anahtarı.
-  - **Type**: `DictionaryKeys`, bildirilen her sözlük anahtarının birleşimi.
-  - **Required**: Evet
+  - **Açıklama**: İçerik dosyalarınızda bildirildiği şekilde okunacak sözlüğün anahtarı.
+  - **Tür**: `DictionaryKeys`, bildirilen her sözlük anahtarının birleşimi.
+  - **Gerekli**: Evet
 
 - `localeOrSelector: LocalesValues | DictionarySelector`
-  - **Description**: İçeriği yorumlamak için kullanılacak yerel ayar veya [dinamik sözlükler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dynamic_dictionaries/index.md) için seçici nesnesi.
+  - **Açıklama**: İçeriği yorumlamak için kullanılacak yerel ayar veya [dinamik sözlükler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dynamic_dictionaries/index.md) için seçici nesnesi.
     - `'fr'`: bir yerel ayar
     - `{ item: 2 }`: bir [koleksiyon](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dynamic_dictionaries/collections.md) öğesi (tüm öğeleri dizi olarak almak için `item` atlanmalıdır)
     - `{ variant: 'black-friday' }`: adlandırılmış bir [varyant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dynamic_dictionaries/variants.md) (varsayılan olan için atlanmalıdır)
     - `{ variant: { id: 'prod_abc', userId: '123' } }`: yapılandırılmış varyant
     - Herhangi bir seçici yerel ayar taşıyabilir: `{ item: 2, locale: 'fr' }`
-  - **Type**: `LocalesValues | DictionarySelector`
-  - **Required**: Hayır (İsteğe bağlı), yapılandırılan `defaultLocale` değerini kullanır.
+  - **Tür**: `LocalesValues | DictionarySelector`
+  - **Gerekli**: Hayır (İsteğe bağlı). Verilmezse [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getIntlayer.md) ile aynı şekilde çözümlenir (isteğin locale'i, sonra saklanan locale, sonra `defaultLocale`). Asenkron olduğu için, yalnızca asenkron okunabildiği durumlarda isteğin locale'ini de bekleyebilir: Next.js Server Components, `generateMetadata` ve route handler'larda, `next-intlayer/server` içindeki `getLocale()` gibi isteğin `headers()` ve `cookies()` değerlerini okur. Bu okuma route'u dinamik render'a geçirir, bu yüzden yalnızca `IntlayerProvider` locale'i henüz sağlamamışsa yapılır.
 
 - `plugins: Plugins[]`
-  - **Description**: Temel yorumlayıcı eklentilerini değiştiren özel düğüm dönüştürücüleri. Yalnızca ileri kullanım için.
-  - **Type**: `Plugins[]`
-  - **Required**: Hayır (İsteğe bağlı)
+  - **Açıklama**: Temel yorumlayıcı eklentilerini değiştiren özel düğüm dönüştürücüleri. Yalnızca ileri kullanım için.
+  - **Tür**: `Plugins[]`
+  - **Gerekli**: Hayır (İsteğe bağlı)
 
 ### Döndürülen Değer
 
-- **Type**: `Promise<Content>`, sözlüğün yorumlanan içeriğine çözümlenen bir promise, deklarasyonunuzdan yazılmıştır.
+- **Tür**: `Promise<Content>`, sözlüğün yorumlanan içeriğine çözümlenen bir promise, deklarasyonunuzdan yazılmıştır.
 
 ## Örnek Kullanım
 

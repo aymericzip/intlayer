@@ -1,4 +1,3 @@
-import { internationalization } from '@intlayer/config/built';
 import {
   isQualifiedDynamicLoaderMap,
   parseDictionarySelector,
@@ -6,6 +5,7 @@ import {
   resolveDictionaryArgument,
   resolveQualifiedDynamicContentAsync,
 } from '@intlayer/core/dictionaryManipulator';
+import { resolveInterpreterLocale } from '@intlayer/core/interpreter';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import type {
   DeclaredLocales,
@@ -63,7 +63,7 @@ export const useDictionaryDynamic = async <
 
     const localeTarget = (selectorLocale ??
       intlayer?.locale?.value ??
-      internationalization.defaultLocale) as LocalesValues;
+      resolveInterpreterLocale()) as LocalesValues;
 
     return resolveQualifiedDynamicContentAsync({
       loaderMap: dictionaryPromise,

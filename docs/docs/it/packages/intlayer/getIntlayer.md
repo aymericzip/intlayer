@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 5
 title: Documentazione della funzione getIntlayer | intlayer
 description: "Usa getIntlayer per leggere il contenuto di un dizionario per una locale ovunque, l'equivalente agnostico dell'hook useIntlayer."
@@ -21,9 +21,12 @@ slugs:
   - intlayer
   - getIntlayer
 history:
+  - version: 9.5.12
+    date: 2026-09-28
+    changes: "Senza locale, risolve la locale della richiesta o la locale salvata prima della locale predefinita"
   - version: 9.4.0
     date: 2026-08-23
-    changes: "Initial documentation"
+    changes: "Documentazione iniziale"
 author: aymericzip
 ---
 
@@ -56,29 +59,29 @@ getIntlayer(
 ## Parametri
 
 - `key: DictionaryKeys`
-  - **Description**: La chiave del dizionario da leggere, come dichiarato nei tuoi file di contenuto.
-  - **Type**: `DictionaryKeys`, un'unione di ogni chiave di dizionario dichiarata.
-  - **Required**: Yes
+  - **Descrizione**: La chiave del dizionario da leggere, come dichiarato nei tuoi file di contenuto.
+  - **Tipo**: `DictionaryKeys`, un'unione di ogni chiave di dizionario dichiarata.
+  - **Obbligatorio**: Sì
 
 - `localeOrSelector: LocalesValues | DictionarySelector`
-  - **Description**: La locale per interpretare il contenuto con, o un oggetto selettore per [dizionari dinamici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dynamic_dictionaries/index.md).
+  - **Descrizione**: La locale per interpretare il contenuto con, o un oggetto selettore per [dizionari dinamici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dynamic_dictionaries/index.md).
     - `'fr'`: una locale
     - `{ item: 2 }`: un elemento [collection](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dynamic_dictionaries/collections.md) (ometti `item` per ottenere ogni elemento come array)
     - `{ variant: 'black-friday' }`: un [variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dynamic_dictionaries/variants.md) denominato (ometti per quello `default`)
     - `{ variant: { id: 'prod_abc', userId: '123' } }`: un variant strutturato
     - Qualsiasi selettore può portare una locale: `{ item: 2, locale: 'fr' }`
-  - **Type**: `LocalesValues | DictionarySelector`
-  - **Required**: No (Optional), defaults to the configured `defaultLocale`.
+  - **Tipo**: `LocalesValues | DictionarySelector`
+  - **Obbligatorio**: No (opzionale). Se omessa, vedi [Senza una locale](#senza-una-locale).
 
 - `plugins: Plugins[]`
-  - **Description**: Custom node transformers che sostituiscono i plugin dell'interprete base. Solo uso avanzato; omettilo per mantenere il comportamento predefinito.
-  - **Type**: `Plugins[]`
-  - **Required**: No (Optional)
+  - **Descrizione**: Custom node transformers che sostituiscono i plugin dell'interprete base. Solo uso avanzato; omettilo per mantenere il comportamento predefinito.
+  - **Tipo**: `Plugins[]`
+  - **Obbligatorio**: No (opzionale)
 
 ### Restituzioni
 
-- **Type**: Il contenuto interpretato del dizionario, tipizzato dalla tua dichiarazione.
-- **Description**: Un oggetto semplice che rispecchia il campo `content` del tuo dizionario, dove ogni nodo Intlayer è stato risolto al suo valore finale per la locale richiesta.
+- **Tipo**: Il contenuto interpretato del dizionario, tipizzato dalla tua dichiarazione.
+- **Descrizione**: Un oggetto semplice che rispecchia il campo `content` del tuo dizionario, dove ogni nodo Intlayer è stato risolto al suo valore finale per la locale richiesta.
 
 ## Esempio di utilizzo
 
@@ -109,15 +112,25 @@ const { title } = getIntlayer("app", "it"); // "Ciao"
 
 ### Senza una locale
 
-Omettendo la locale il contenuto viene interpretato con la `defaultLocale` dichiarata nella tua [configurazione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/configuration.md).
+Quando non viene passata alcuna locale, `getIntlayer` non ricade subito sulla locale predefinita. Risolve, in ordine:
+
+1. **La locale della richiesta corrente**, sul server, quando un'integrazione Intlayer la gestisce: i middleware `express-intlayer`, `fastify-intlayer`, `hono-intlayer`, `adonis-intlayer` ed `elysia-intlayer`, i middleware `remix-intlayer` e `astro-intlayer`, e `IntlayerProvider` / `setLocale` nei React Server Components. Ogni richiesta viene risolta dai propri cookie e header, quindi utenti simultanei non condividono mai la locale.
+2. **La locale salvata nel browser** (cookie, `localStorage`, `sessionStorage`), quella che un selettore di lingua rende persistente.
+3. **La `defaultLocale`** dichiarata nella tua [configurazione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/configuration.md).
 
 - [configurazione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/configuration.md)
 
 ```typescript
 import { getIntlayer } from "intlayer";
 
-const { title } = getIntlayer("app"); // Interpretato con la locale predefinita
+const { title } = getIntlayer("app"); // Locale della richiesta, altrimenti quella salvata, altrimenti quella predefinita
 ```
+
+La stessa risoluzione si applica a `getDictionary`, alle chiamate riscritte dai [plugin di build](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/bundle_optimization.md) e a `useIntlayer` / `useDictionaryDynamic` renderizzati fuori da un provider. Una locale passata esplicitamente ha sempre la precedenza.
+
+- [plugin di build](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/bundle_optimization.md)
+
+> `getIntlayer` non è reattiva: dopo un cambio di locale, richiamala per leggere la nuova locale. In una pagina renderizzata sul server, una chiamata fatta fuori da qualsiasi provider renderizza la locale predefinita sul server e quella salvata nel browser, il che può causare un hydration mismatch. In quel caso, monta il provider del tuo framework o passa la locale.
 
 ### All'interno di un server handler
 

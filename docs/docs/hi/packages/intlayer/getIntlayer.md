@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 5
 title: getIntlayer फंक्शन डॉक्यूमेंटेशन | intlayer
 description: "getIntlayer से किसी लोकेल के लिए डिक्शनरी कंटेंट कहीं भी पढ़ें, यह useIntlayer हुक का फ़्रेमवर्क-स्वतंत्र रूप है।"
@@ -21,6 +21,9 @@ slugs:
   - intlayer
   - getIntlayer
 history:
+  - version: 9.5.12
+    date: 2026-09-28
+    changes: "locale न देने पर, default locale से पहले request का locale या संग्रहीत locale resolve होता है"
   - version: 9.4.0
     date: 2026-08-23
     changes: "प्रारंभिक डॉक्यूमेंटेशन"
@@ -56,29 +59,29 @@ getIntlayer(
 ## पैरामीटर
 
 - `key: DictionaryKeys`
-  - **Description**: डिक्शनरी की कुंजी जिसे पढ़ना है, जैसा कि आपकी कंटेंट फाइलों में घोषित किया गया है।
-  - **Type**: `DictionaryKeys`, हर घोषित डिक्शनरी कुंजी का एक union।
-  - **Required**: Yes
+  - **विवरण**: डिक्शनरी की कुंजी जिसे पढ़ना है, जैसा कि आपकी कंटेंट फाइलों में घोषित किया गया है।
+  - **प्रकार**: `DictionaryKeys`, हर घोषित डिक्शनरी कुंजी का एक union।
+  - **आवश्यक**: हाँ
 
 - `localeOrSelector: LocalesValues | DictionarySelector`
-  - **Description**: कंटेंट को interpret करने के लिए locale, या [dynamic dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dynamic_dictionaries/index.md) के लिए एक selector object।
+  - **विवरण**: कंटेंट को interpret करने के लिए locale, या [dynamic dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dynamic_dictionaries/index.md) के लिए एक selector object।
     - `'fr'`: एक locale
     - `{ item: 2 }`: एक [collection](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dynamic_dictionaries/collections.md) item (सभी items को array के रूप में प्राप्त करने के लिए `item` को omit करें)
     - `{ variant: 'black-friday' }`: एक named [variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dynamic_dictionaries/variants.md) (`default` के लिए omit करें)
     - `{ variant: { id: 'prod_abc', userId: '123' } }`: एक structured variant
     - कोई भी selector एक locale ले सकता है: `{ item: 2, locale: 'fr' }`
-  - **Type**: `LocalesValues | DictionarySelector`
-  - **Required**: No (Optional), configured `defaultLocale` को default करता है।
+  - **प्रकार**: `LocalesValues | DictionarySelector`
+  - **आवश्यक**: नहीं (वैकल्पिक)। छोड़ने पर, [बिना locale के](#बिना-locale-के) देखें।
 
 - `plugins: Plugins[]`
-  - **Description**: Custom node transformers जो base interpreter plugins को replace करते हैं। Advanced use only; default behaviour रखने के लिए इसे omit करें।
-  - **Type**: `Plugins[]`
-  - **Required**: No (Optional)
+  - **विवरण**: Custom node transformers जो base interpreter plugins को replace करते हैं। Advanced use only; default behaviour रखने के लिए इसे omit करें।
+  - **प्रकार**: `Plugins[]`
+  - **आवश्यक**: नहीं (वैकल्पिक)
 
 ### रिटर्न्स
 
-- **Type**: शब्दकोश की व्याख्या की गई सामग्री, आपकी घोषणा से टाइप की गई।
-- **Description**: आपके शब्दकोश के `content` फील्ड को दर्शाने वाली एक सादी object, जहां प्रत्येक Intlayer नोड को अनुरोधित locale के लिए अंतिम मान में resolve किया गया है।
+- **प्रकार**: शब्दकोश की व्याख्या की गई सामग्री, आपकी घोषणा से टाइप की गई।
+- **विवरण**: आपके शब्दकोश के `content` फील्ड को दर्शाने वाली एक सादी object, जहां प्रत्येक Intlayer नोड को अनुरोधित locale के लिए अंतिम मान में resolve किया गया है।
 
 ## उदाहरण उपयोग
 
@@ -109,15 +112,25 @@ const { title } = getIntlayer("app", "fr"); // "Bonjour"
 
 ### बिना locale के
 
-Locale को छोड़ देने से content को आपके [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md) में घोषित `defaultLocale` के साथ interpret किया जाता है।
+जब कोई locale नहीं दिया जाता, तो `getIntlayer` सीधे default locale पर नहीं जाता। यह इस क्रम में resolve करता है:
+
+1. **वर्तमान request का locale**, server पर, जब कोई Intlayer integration उसे संभालता है: `express-intlayer`, `fastify-intlayer`, `hono-intlayer`, `adonis-intlayer` और `elysia-intlayer` middlewares, `remix-intlayer` और `astro-intlayer` middlewares, और React Server Components में `IntlayerProvider` / `setLocale`। हर request अपनी cookies और headers से resolve होती है, इसलिए एक साथ आने वाले users कभी locale साझा नहीं करते।
+2. **browser में संग्रहीत locale** (cookie, `localStorage`, `sessionStorage`), जिसे locale switcher सहेजता है।
+3. आपके [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md) में घोषित **`defaultLocale`**।
 
 - [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md)
 
 ```typescript
 import { getIntlayer } from "intlayer";
 
-const { title } = getIntlayer("app"); // Default locale के साथ interpret किया गया
+const { title } = getIntlayer("app"); // request का locale, वरना संग्रहीत, वरना default locale
 ```
+
+यही resolution `getDictionary` पर, [build plugins](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/bundle_optimization.md) द्वारा दोबारा लिखे गए calls पर, और provider के बाहर render किए गए `useIntlayer` / `useDictionaryDynamic` पर भी लागू होता है। स्पष्ट रूप से दिया गया locale हमेशा प्राथमिकता पाता है।
+
+- [build plugins](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/bundle_optimization.md)
+
+> `getIntlayer` reactive नहीं है: locale बदलने के बाद, नया locale पढ़ने के लिए इसे फिर से call करें। server-rendered page पर, किसी भी provider के बाहर किया गया call server पर default locale और browser में संग्रहीत locale render करता है, जिससे hydration mismatch हो सकता है। ऐसी स्थिति में अपने framework का provider mount करें या locale पास करें।
 
 ### एक सर्वर हैंडलर के अंदर
 

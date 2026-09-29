@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 5
 title: "getIntlayerAsync 関数ドキュメント | intlayer"
 description: "getIntlayerAsync で辞書のコンテンツを 1 つのロケール分だけ読み込み、他の言語をバンドルせずに取得します。"
@@ -22,9 +22,12 @@ slugs:
   - intlayer
   - getIntlayerAsync
 history:
+  - version: 9.5.12
+    date: 2026-09-28
+    changes: "ロケール省略時、リクエストのロケール（Next.js の headers と cookies）を待機"
   - version: 9.4.0
     date: 2026-08-23
-    changes: "Initial documentation"
+    changes: "初版ドキュメント"
 author: aymericzip
 ---
 
@@ -66,7 +69,7 @@ getIntlayerAsync(
 - `key: DictionaryKeys`
   - **説明**: コンテンツファイルで宣言されたとおりの辞書キー。
   - **型**: `DictionaryKeys`、すべての宣言された辞書キーの Union。
-  - **必須**: Yes
+  - **必須**: はい
 
 - `localeOrSelector: LocalesValues | DictionarySelector`
   - **説明**: コンテンツを解釈するロケール、または[動的辞書](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/index.md)のセレクタオブジェクト。
@@ -76,7 +79,7 @@ getIntlayerAsync(
     - `{ variant: { id: 'prod_abc', userId: '123' } }`：構造化された variant
     - 任意のセレクタがロケールを持つ可能性: `{ item: 2, locale: 'fr' }`
   - **型**: `LocalesValues | DictionarySelector`
-  - **必須**: No (オプション)、設定された `defaultLocale` がデフォルト。
+  - **必須**: いいえ（任意）。省略した場合は [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getIntlayer.md) と同じように解決されます（リクエストのロケール、次に保存済みロケール、次に `defaultLocale`）。非同期関数のため、リクエストのロケールが非同期でしか読めない場合はそれを待つこともできます。Next.js の Server Components、`generateMetadata`、route handler では、`next-intlayer/server` の `getLocale()` と同様に、リクエストの `headers()` と `cookies()` を読み取ります。この読み取りはルートを動的レンダリングに切り替えるため、`IntlayerProvider` がまだロケールを提供していない場合にのみ行われます。
 
 - `plugins: Plugins[]`
   - **説明**: 基本インタープリタプラグインを置き換えるカスタムノード トランスフォーマー。高度な使用のみ。
@@ -85,7 +88,7 @@ getIntlayerAsync(
 
 ### Returns
 
-- **Type**: `Promise<Content>`、辞書の解釈されたコンテンツに解決する promise。型は宣言から取得されます。
+- **型**: `Promise<Content>`、辞書の解釈されたコンテンツに解決する promise。型は宣言から取得されます。
 
 ## 使用例
 

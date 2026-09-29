@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 5
 title: getIntlayer Function Documentation | intlayer
 description: "Use getIntlayer to read a dictionary's content for a locale anywhere, the framework-agnostic counterpart of the useIntlayer hook."
@@ -21,6 +21,9 @@ slugs:
   - intlayer
   - getIntlayer
 history:
+  - version: 9.5.12
+    date: 2026-09-28
+    changes: "Omitted locale resolves to the request or stored locale before the default locale"
   - version: 9.4.0
     date: 2026-08-23
     changes: "Initial documentation"
@@ -68,7 +71,7 @@ getIntlayer(
     - `{ variant: { id: 'prod_abc', userId: '123' } }`: a structured variant
     - Any selector can carry a locale: `{ item: 2, locale: 'fr' }`
   - **Type**: `LocalesValues | DictionarySelector`
-  - **Required**: No (Optional), defaults to the configured `defaultLocale`.
+  - **Required**: No (Optional). When omitted, see [Without a locale](#without-a-locale).
 
 - `plugins: Plugins[]`
   - **Description**: Custom node transformers replacing the base interpreter plugins. Advanced use only; omit it to keep the default behaviour.
@@ -108,15 +111,25 @@ const { title } = getIntlayer("app", "fr"); // "Bonjour"
 
 ### Without a locale
 
-Omitting the locale interprets the content with the `defaultLocale` declared in your [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md).
+When no locale is passed, `getIntlayer` does not jump straight to the default locale. It resolves, in order:
+
+1. **The locale of the current request**, on the server, when an Intlayer integration handles it: the `express-intlayer`, `fastify-intlayer`, `hono-intlayer`, `adonis-intlayer` and `elysia-intlayer` middlewares, the `remix-intlayer` and `astro-intlayer` middlewares, and `IntlayerProvider` / `setLocale` in React Server Components. Each request is resolved from its own cookies and headers, so concurrent users never share a locale.
+2. **The locale stored in the browser** (cookie, `localStorage`, `sessionStorage`), the one a locale switcher persists.
+3. **The `defaultLocale`** declared in your [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md).
 
 - [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md)
 
 ```typescript
 import { getIntlayer } from "intlayer";
 
-const { title } = getIntlayer("app"); // Interpreted with the default locale
+const { title } = getIntlayer("app"); // Request locale, else stored locale, else default locale
 ```
+
+The same resolution applies to `getDictionary`, to the calls the [build plugins](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/bundle_optimization.md) rewrite, and to `useIntlayer` / `useDictionaryDynamic` rendered outside of a provider. Passing a locale explicitly always wins.
+
+- [build plugins](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/bundle_optimization.md)
+
+> `getIntlayer` is not reactive: after a locale switch, call it again to read the new locale. On a server-rendered page, a call made outside of any provider renders the default locale on the server and the stored locale in the browser, which can cause a hydration mismatch. Mount the provider of your framework, or pass the locale, in that case.
 
 ### Inside a server handler
 

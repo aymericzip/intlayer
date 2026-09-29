@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: "Intlayer nasıl çalışır: mimari genel bakış"
 description: Intlayer'ın dahili olarak nasıl çalıştığını öğrenin. Intlayer'ı güçlü kılan mimari ve bileşenleri anlayın.
@@ -427,6 +427,20 @@ Sunucu, sunucu bileşenlerinin içeriğini doğrudan çözer, bu nedenle bu bile
 <Question title="Intlayer yerel ile ilgili hidrasyon uyumsuzluğunu (hydration mismatch) nasıl önler?">
 
 Yerel dil sunucuda bir kez çözümlenir ve istemci sağlayıcısına iletilir, tarayıcıda yeniden algılanmaya çalışılmaz; bu sayede sunucu ve istemci HTML çıktıları birebir eşleşir.
+
+</Question>
+<Question title="Intlayer'ı global bir provider olmadan kullanabilir miyim?">
+
+Evet. `getIntlayer` ve `getDictionary` herhangi bir provider gerektirmeyen basit fonksiyonlardır ve `useIntlayer` da bir provider dışında çalışır. Hiçbir locale verilmediğinde, sunucuda geçerli isteğin locale'ini (Express, Fastify, Hono, AdonisJS, Elysia, Remix ve Astro için Intlayer middleware'i veya React Server Components içindeki `IntlayerProvider` aracılığıyla), ardından dil değiştiricinizin tarayıcıda sakladığı locale'i, ardından `defaultLocale`'i çözümlerler. `getIntlayerAsync`, Next.js'in `headers()` ve `cookies()` değerleri gibi yalnızca asenkron okunabilen durumlarda isteğin locale'ini de bekleyebilir. Her istek kendi cookie'lerini ve header'larını çözümler, bu nedenle eşzamanlı kullanıcılar asla aynı locale'i paylaşmaz. Bkz. [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getIntlayer.md).
+
+- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getIntlayer.md)
+
+Fark içerikte değil, reaktivite ve render maliyetindedir:
+
+- **Bir provider ile** locale framework'ün state'inde yaşar. Her `useIntlayer` ona abone olur, bu yüzden bir locale değişikliği bileşenleri sayfa yenilenmeden yerinde yeniden render eder. Sunucuda render edilen bir sayfada provider, sunucunun render ettiği locale'i istemciye aktarır, böylece markup her zaman eşleşir. Maliyeti, bundle içindeki provider kodu ve her değişiklikte tüketicilerinin yeniden render edilmesidir.
+- **Provider olmadan** bir okuma, memoize edilmiş bir fonksiyon çağrısıdır: context okuması yok, abonelik yok ve aynı `key + locale` için aynı nesne döndürülür. Bir locale değişikliğinde hiçbir şey yeniden render edilmez: yeni locale bir sonraki çağrıda, genellikle bir navigasyon veya sayfa yenilemesinden sonra görünür. Saklanan locale bir kez okunur ve bir sonraki değişikliğe kadar önbelleğe alınır, bu da Intlayer'ı zaten içeren bir bundle'a yaklaşık 100 bayt (gzip) ekler. Ödünleşim, herhangi bir istek entegrasyonu dışındaki sunucu render'lı sayfalardadır: sunucu `defaultLocale`'i render ederken tarayıcı saklanan locale'i okur ve bu bir hydration mismatch'e yol açabilir.
+
+Locale'i yerinde değiştiren veya sunucuda render eden etkileşimli uygulamalarda provider'ı koruyun. Backend'lerde, script'lerde, locale'i URL'den gelen statik sayfalarda (açıkça verin) veya içeriği bir kez okuyan kodda provider olmadan ilerleyin.
 
 </Question>
 <Question title="Bir çeviri eklediğimde uygulamayı yeniden derlemem gerekir mi?">

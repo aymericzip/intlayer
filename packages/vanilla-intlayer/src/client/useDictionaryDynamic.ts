@@ -1,4 +1,3 @@
-import { internationalization } from '@intlayer/config/built';
 import {
   getDictionarySelectorCacheKey,
   getPreloadedDictionary,
@@ -8,6 +7,7 @@ import {
   resolveDictionaryArgument,
   resolveQualifiedDynamicContentAsync,
 } from '@intlayer/core/dictionaryManipulator';
+import { resolveInterpreterLocale } from '@intlayer/core/interpreter';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import type {
   DeclaredLocales,
@@ -85,7 +85,6 @@ export const useDictionaryDynamic = <
   localeOrSelector?: A
 ): WithOnChange<DeepTransformContent<T['content']>> => {
   const client = getIntlayerClient();
-  const defaultLocale = internationalization.defaultLocale;
 
   // --- Qualified loader map (collection / variant) ---
   if (
@@ -120,7 +119,7 @@ export const useDictionaryDynamic = <
 
     const currentLocale = (selectorLocale ??
       client.locale ??
-      defaultLocale) as LocalesValues;
+      resolveInterpreterLocale()) as LocalesValues;
     const cacheKey = buildKey(currentLocale);
 
     const attachOnChange = (content: any) => {
@@ -167,7 +166,9 @@ export const useDictionaryDynamic = <
     typeof localeOrSelector === 'string'
       ? (localeOrSelector as LocalesValues)
       : undefined;
-  const currentLocale = (locale ?? client.locale ?? defaultLocale) as A;
+  const currentLocale = (locale ??
+    client.locale ??
+    resolveInterpreterLocale()) as A;
 
   const cacheKey = `${String(key)}.${currentLocale}`;
   const loader = (dictionaryLoaders as Record<string, () => Promise<T>>)[

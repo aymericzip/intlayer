@@ -13,6 +13,7 @@ import {
   type Plugins,
   pluralPlugin,
   resolveInsertedSelector,
+  resolveInterpreterLocale,
   selectPlugin,
   splitInsertionTemplate,
   transformInterpolableNode,
@@ -467,7 +468,7 @@ export const getPlugins = (
   locale?: LocalesValues,
   fallback = true
 ): Plugins[] => {
-  const currentLocale = locale ?? internationalization.defaultLocale;
+  const currentLocale = resolveInterpreterLocale(locale);
   const cacheKey = `${currentLocale}_${fallback}`;
 
   if (pluginsCache.has(cacheKey)) {
@@ -478,13 +479,13 @@ export const getPlugins = (
     // First: most nodes are plain strings, which every other plugin rejects
     intlayerNodePlugins,
     translationPlugin(
-      locale ?? internationalization.defaultLocale,
+      currentLocale,
       fallback ? internationalization.defaultLocale : undefined
     ),
     enumerationPlugin,
-    pluralPlugin(locale ?? internationalization.defaultLocale),
+    pluralPlugin(currentLocale),
     conditionPlugin,
-    nestedPlugin(locale ?? internationalization.defaultLocale),
+    nestedPlugin(currentLocale),
     filePlugin,
     genderPlugin,
     selectPlugin,

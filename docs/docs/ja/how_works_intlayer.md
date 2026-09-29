@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-12
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: "Intlayer の仕組み：アーキテクチャ概要"
 description: Intlayerが内部でどのように機能するかを学びます。Intlayerを強力にするアーキテクチャとコンポーネントを理解しましょう。
@@ -432,6 +432,20 @@ Expressに基づいたサーバーは、ビジュアルエディターのリク�
 <Question title="Intlayerはロケールでのhydrationミスマッチをどのように回避しますか？">
 
 ロケールはサーバーで一度解決され、providerに渡されます。ブラウザで再度検出されることはありません。クライアントはサーバーがレンダリングしたのと同じロケールから開始するため、マークアップが一致します。これは通常、クライアント側のロケール検出で問題となる点です。
+
+</Question>
+<Question title="グローバルな provider なしで Intlayer を使えますか？">
+
+はい。`getIntlayer` と `getDictionary` は provider を必要としない通常の関数で、`useIntlayer` も provider の外で動作します。ロケールが渡されない場合、サーバーでは現在のリクエストのロケール（Express、Fastify、Hono、AdonisJS、Elysia、Remix、Astro 向けの Intlayer middleware、または React Server Components の `IntlayerProvider` 経由）、次にロケールスイッチャーがブラウザに保存したロケール、最後に `defaultLocale` を解決します。`getIntlayerAsync` は、Next.js の `headers()` や `cookies()` のようにリクエストのロケールが非同期でしか読めない場合、それを待つこともできます。各リクエストは自身の cookies と headers を解決するため、同時アクセスのユーザー同士がロケールを共有することはありません。[`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getIntlayer.md) を参照してください。
+
+- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getIntlayer.md)
+
+違いはコンテンツではなく、リアクティビティとレンダリングコストにあります。
+
+- **provider あり**の場合、ロケールはフレームワークの state に置かれます。各 `useIntlayer` がそれを購読するため、ロケールを切り替えるとリロードなしでコンポーネントがその場で再レンダリングされます。サーバーでレンダリングされるページでは、provider がサーバーのレンダリングしたロケールをクライアントに渡すため、マークアップは常に一致します。コストは bundle 内の provider のコードと、切り替えのたびの consumer の再レンダリングです。
+- **provider なし**の場合、読み取りはメモ化された関数呼び出しです。context の参照も購読もなく、同じ `key + locale` には同じオブジェクトが返されます。ロケールを切り替えても何も再レンダリングされず、新しいロケールは次の呼び出し、通常はナビゲーションやリロードの後に反映されます。保存済みロケールは一度だけ読み取られ、次の切り替えまでキャッシュされます。これは Intlayer をすでに含む bundle に約 100 バイト（gzip）を追加します。トレードオフは、リクエストのインテグレーションの外にあるサーバーレンダリングのページです。サーバーは `defaultLocale` をレンダリングし、ブラウザは保存済みロケールを読むため、hydration mismatch が起こる可能性があります。
+
+その場でロケールを切り替える、またはサーバーでレンダリングするインタラクティブなアプリでは provider を使い続けてください。バックエンド、スクリプト、URL からロケールを得る静的ページ（明示的に渡してください）、コンテンツを一度だけ読むコードでは provider なしで構いません。
 
 </Question>
 <Question title="翻訳を追加するたびに再ビルドする必要がありますか？">

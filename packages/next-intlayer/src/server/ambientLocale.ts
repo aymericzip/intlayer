@@ -1,3 +1,4 @@
+import { registerAsyncAmbientLocaleResolver } from '@intlayer/core/interpreter';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { getServerContext, IntlayerServer } from 'react-intlayer/server';
@@ -103,3 +104,42 @@ export const resolveAmbientLocale = (
   locale ??
   getServerContext<LocalesValues>(IntlayerServer) ??
   resolveFallbackLocale(locale);
+
+/**
+ * Whether `error` is one Next.js throws for control flow (dynamic usage,
+ * postpone, bailout…) and must therefore reach the framework.
+ */
+const isNextControlFlowError = (error: unknown): boolean =>
+  typeof error === 'object' &&
+  error !== null &&
+  ('digest' in error || '$$typeof' in error);
+
+/**
+ * Locale carried by the request, for `getIntlayerAsync` / `getDictionaryAsync`
+ * calls without a locale. Read per request from the incoming headers and
+ * cookies, never from shared module state.
+ *
+ * Outside of a request scope (e.g. `generateStaticParams`) the locale is
+ * unknown rather than an error.
+ */
+const readRequestLocale = async (): Promise<Locale | undefined> => {
+  try {
+    return await getFallbackLocale();
+  } catch (error) {
+    if (isNextControlFlowError(error)) throw error;
+
+    return undefined;
+  }
+};
+
+/**
+ * Lets the asynchronous core reads resolve to the request locale. Idempotent;
+ * a no-op in the browser, where `next/headers` is unavailable.
+ */
+export const registerRequestLocaleResolver = (): void => {
+  if (typeof window !== 'undefined') return;
+
+  registerAsyncAmbientLocaleResolver(readRequestLocale);
+};
+
+registerRequestLocaleResolver();

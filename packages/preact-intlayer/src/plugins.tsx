@@ -12,6 +12,7 @@ import {
   type Plugins,
   pluralPlugin,
   resolveInsertedSelector,
+  resolveInterpreterLocale,
   selectPlugin,
   transformInterpolableNode,
   translationPlugin,
@@ -225,8 +226,8 @@ const splitAndJoinInsertion = (
     }
 
     // Add the replaced value
-    const key = match[1].trim();
-    const value = values[key];
+    const key = match[1]?.trim();
+    const value = key && values[key];
     if (value !== undefined && value !== null) {
       parts.push(typeof value === 'number' ? String(value) : value);
     }
@@ -596,7 +597,7 @@ export const getPlugins = (
   locale?: LocalesValues,
   fallback: boolean = true
 ): Plugins[] => {
-  const currentLocale = locale ?? internationalization.defaultLocale;
+  const currentLocale = resolveInterpreterLocale(locale);
   const cacheKey = `${currentLocale}_${fallback}`;
 
   if (pluginsCache.has(cacheKey)) {
@@ -607,13 +608,13 @@ export const getPlugins = (
     // First: most nodes are plain strings, which every other plugin rejects
     intlayerNodePlugins,
     translationPlugin(
-      locale ?? internationalization.defaultLocale,
+      currentLocale,
       fallback ? internationalization.defaultLocale : undefined
     ),
     enumerationPlugin,
-    pluralPlugin(locale ?? internationalization.defaultLocale),
+    pluralPlugin(currentLocale),
     conditionPlugin,
-    nestedPlugin(locale ?? internationalization.defaultLocale),
+    nestedPlugin(currentLocale),
     filePlugin,
     genderPlugin,
     selectPlugin,

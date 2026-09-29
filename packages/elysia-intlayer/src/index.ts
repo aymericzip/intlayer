@@ -4,6 +4,7 @@ import {
   getDictionary as getDictionaryFunction,
   getIntlayer as getIntlayerFunction,
   getTranslation,
+  registerAmbientLocaleResolver,
 } from '@intlayer/core/interpreter';
 import { localeDetector } from '@intlayer/core/localization';
 import { getLocaleFromStorageServer } from '@intlayer/core/utils';
@@ -61,6 +62,10 @@ const intlayerStorage = new AsyncLocalStorage<IntlayerContextRef>();
  */
 const getRequestContext = (): IntlayerContext | undefined =>
   intlayerStorage.getStore()?.current;
+
+// Lets a bare `getIntlayer` / `getDictionary` from any Intlayer package resolve
+// to the locale of the request being handled.
+registerAmbientLocaleResolver(() => getRequestContext()?.locale);
 
 // Zero-cost fallback, will be updated with console logger in dev mode
 let debug: (message: string) => void = () => {};

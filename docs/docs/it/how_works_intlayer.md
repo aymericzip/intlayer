@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-12
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: "Come funziona Intlayer: architettura"
 description: Scopri come funziona Intlayer internamente. Comprendi l'architettura e i componenti che rendono Intlayer potente.
@@ -431,6 +431,20 @@ Il server risolve direttamente il contenuto dei componenti renderizzati lato ser
 <Question title="Come evita Intlayer una discrepanza di idratazione sulla locale?">
 
 La locale viene risolta una volta sul server e passata al provider, invece di essere rilevata di nuovo nel browser. Poiché il client parte dalla stessa locale che il server ha renderizzato, il markup corrisponde, cosa che di solito si rompe con il rilevamento della locale lato client.
+
+</Question>
+<Question title="Posso usare Intlayer senza un provider globale?">
+
+Sì. `getIntlayer` e `getDictionary` sono semplici funzioni che non richiedono alcun provider, e anche `useIntlayer` funziona fuori da un provider. Quando non viene passata alcuna locale, risolvono sul server la locale della richiesta corrente (tramite il middleware Intlayer di Express, Fastify, Hono, AdonisJS, Elysia, Remix e Astro, o `IntlayerProvider` nei React Server Components), poi la locale salvata nel browser dal tuo selettore di lingua, poi la `defaultLocale`. `getIntlayerAsync` può anche attendere la locale della richiesta quando è leggibile solo in modo asincrono, come `headers()` e `cookies()` di Next.js. Ogni richiesta risolve i propri cookie e header, quindi utenti simultanei non condividono mai la locale. Vedi [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/intlayer/getIntlayer.md).
+
+- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/intlayer/getIntlayer.md)
+
+La differenza riguarda la reattività e il costo di rendering, non il contenuto:
+
+- **Con un provider**, la locale vive nello stato del framework. Ogni `useIntlayer` vi si iscrive, quindi un cambio di locale ri-renderizza i componenti sul posto, senza ricaricare. In una pagina renderizzata sul server, il provider consegna al client la locale renderizzata dal server, quindi il markup corrisponde sempre. Il costo è il codice del provider nel bundle e il nuovo rendering dei suoi consumer a ogni cambio.
+- **Senza provider**, una lettura è una chiamata di funzione memoizzata: nessuna lettura del contesto, nessuna sottoscrizione, e viene restituito lo stesso oggetto per la stessa `key + locale`. Nulla viene ri-renderizzato a un cambio di locale: la nuova locale compare alla chiamata successiva, di solito dopo una navigazione o un ricaricamento. La locale salvata viene letta una volta e messa in cache fino al cambio successivo, il che aggiunge circa 100 byte (gzip) a un bundle che include già Intlayer. Il compromesso riguarda le pagine renderizzate sul server fuori da qualsiasi integrazione di richiesta: il server renderizza la `defaultLocale` mentre il browser legge quella salvata, il che può causare un hydration mismatch.
+
+Tieni il provider per le app interattive che cambiano locale sul posto o renderizzano sul server. Fanne a meno per backend, script, pagine statiche la cui locale viene dall'URL (passala esplicitamente) o codice che legge il contenuto una sola volta.
 
 </Question>
 <Question title="Devo ricostruire quando aggiungo una traduzione?">

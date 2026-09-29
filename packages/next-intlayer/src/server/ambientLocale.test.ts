@@ -8,6 +8,13 @@ vi.mock('react-intlayer/server', () => ({
   IntlayerServer: {},
 }));
 
+const registerAsyncAmbientLocaleResolverMock = vi.fn();
+
+vi.mock('@intlayer/core/interpreter', () => ({
+  registerAsyncAmbientLocaleResolver: (...args: unknown[]) =>
+    registerAsyncAmbientLocaleResolverMock(...args),
+}));
+
 vi.mock('./getLocale', () => ({
   getLocale: (...args: unknown[]) => getLocaleMock(...args),
 }));
@@ -31,7 +38,11 @@ vi.mock('react', async (importOriginal) => {
   return { ...actual, cache, default: { ...actual, cache } };
 });
 
-import { getFallbackLocale, resolveFallbackLocale } from './ambientLocale';
+import {
+  getFallbackLocale,
+  registerRequestLocaleResolver,
+  resolveFallbackLocale,
+} from './ambientLocale';
 
 /**
  * Simulates React's suspense loop: calls the reader, awaits any thrown
@@ -155,5 +166,56 @@ describe('getFallbackLocale', () => {
 
     await expect(getFallbackLocale()).resolves.toBeUndefined();
     expect(getLocaleMock).not.toHaveBeenCalled();
+  });
+});
+
+describe('registerRequestLocaleResolver', () => {
+  /** Registers off-browser and returns the resolver handed to core. */
+  const getRegisteredResolver = (): (() => Promise<unknown>) => {
+    registerAsyncAmbientLocaleResolverMock.mockReset();
+    vi.stubGlobal('window', undefined);
+
+    try {
+      registerRequestLocaleResolver();
+    } finally {
+      vi.unstubAllGlobals();
+    }
+
+    return registerAsyncAmbientLocaleResolverMock.mock.calls[0]![0];
+  };
+
+  beforeEach(() => {
+    getServerContextMock.mockReset();
+    getLocaleMock.mockReset();
+  });
+
+  it('does not register in the browser', () => {
+    registerAsyncAmbientLocaleResolverMock.mockReset();
+    registerRequestLocaleResolver();
+
+    expect(registerAsyncAmbientLocaleResolverMock).not.toHaveBeenCalled();
+  });
+
+  it('resolves to the locale carried by the request', async () => {
+    getLocaleMock.mockResolvedValue('es');
+
+    await expect(getRegisteredResolver()()).resolves.toBe('es');
+  });
+
+  it('reports an unknown locale outside of a request scope', async () => {
+    getLocaleMock.mockRejectedValue(
+      new Error('`headers` was called outside a request scope')
+    );
+
+    await expect(getRegisteredResolver()()).resolves.toBeUndefined();
+  });
+
+  it('propagates Next.js control-flow errors', async () => {
+    const dynamicUsage = Object.assign(new Error('Dynamic server usage'), {
+      digest: 'DYNAMIC_SERVER_USAGE',
+    });
+    getLocaleMock.mockRejectedValue(dynamicUsage);
+
+    await expect(getRegisteredResolver()()).rejects.toBe(dynamicUsage);
   });
 });

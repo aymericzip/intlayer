@@ -3,6 +3,7 @@ import {
   getDictionary as getDictionaryFunction,
   getIntlayer as getIntlayerFunction,
   getTranslation,
+  registerAmbientLocaleResolver,
 } from '@intlayer/core/interpreter';
 import { localeDetector } from '@intlayer/core/localization';
 import { getLocaleFromStorageServer } from '@intlayer/core/utils';
@@ -33,6 +34,10 @@ const getStorageLocale = (context: Context): Locale | undefined =>
   });
 
 const appNamespace = createNamespace('app');
+
+// Lets a bare `getIntlayer` / `getDictionary` from any Intlayer package resolve
+// to the locale of the request being handled.
+registerAmbientLocaleResolver(() => appNamespace.get('locale'));
 
 prepareIntlayerServer(configuration, { label: 'hono-intlayer' });
 
@@ -134,6 +139,7 @@ export const intlayer =
 
     return new Promise<void>((resolve) => {
       appNamespace.run(async () => {
+        appNamespace.set('locale', locale);
         appNamespace.set('t', t);
         appNamespace.set('getIntlayer', getIntlayer);
         appNamespace.set('getDictionary', getDictionary);

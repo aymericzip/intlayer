@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-12
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: "Cómo funciona Intlayer: arquitectura"
 description: Aprenda cómo funciona Intlayer internamente. Comprenda la arquitectura y los componentes que hacen que Intlayer sea potente.
@@ -430,6 +430,20 @@ El servidor resuelve el contenido de los componentes renderizados en el servidor
 <Question title="¿Cómo evita Intlayer una discrepancia de hidratación en el idioma?">
 
 El idioma se resuelve una sola vez en el servidor y se pasa al proveedor, en lugar de detectarse de nuevo en el navegador. Como el cliente parte del mismo idioma que renderizó el servidor, el marcado coincide, que es lo que suele romperse con la detección del idioma en el lado del cliente.
+
+</Question>
+<Question title="¿Puedo usar Intlayer sin un provider global?">
+
+Sí. `getIntlayer` y `getDictionary` son funciones simples que no necesitan ningún provider, y `useIntlayer` también funciona fuera de uno. Cuando no se pasa ninguna locale, resuelven la locale de la solicitud en curso en el servidor (mediante el middleware de Intlayer para Express, Fastify, Hono, AdonisJS, Elysia, Remix y Astro, o `IntlayerProvider` en los React Server Components), luego la locale almacenada en el navegador por tu selector de idioma y, por último, la `defaultLocale`. `getIntlayerAsync` también puede esperar la locale de la solicitud cuando solo se puede leer de forma asíncrona, como los `headers()` y `cookies()` de Next.js. Cada solicitud resuelve sus propias cookies y headers, así que usuarios simultáneos nunca comparten locale. Consulta [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer/getIntlayer.md).
+
+- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer/getIntlayer.md)
+
+La diferencia está en la reactividad y el coste de renderizado, no en el contenido:
+
+- **Con un provider**, la locale vive en el estado del framework. Cada `useIntlayer` se suscribe a ella, así que un cambio de locale vuelve a renderizar los componentes en el sitio, sin recargar. En una página renderizada en el servidor, el provider entrega al cliente la locale que renderizó el servidor, así que el marcado siempre coincide. El coste es el código del provider en el bundle y el nuevo renderizado de sus consumidores en cada cambio.
+- **Sin provider**, una lectura es una llamada a función memoizada: sin lectura de contexto, sin suscripción, y se devuelve el mismo objeto para la misma `key + locale`. Nada se vuelve a renderizar al cambiar de locale: la nueva locale aparece en la siguiente llamada, normalmente tras una navegación o una recarga. La locale almacenada se lee una vez y se guarda en caché hasta el siguiente cambio, lo que añade unos 100 bytes (gzip) a un bundle que ya incluye Intlayer. La contrapartida está en las páginas renderizadas en el servidor fuera de cualquier integración de solicitud: el servidor renderiza la `defaultLocale` mientras el navegador lee la almacenada, lo que puede provocar un error de hidratación.
+
+Mantén el provider en aplicaciones interactivas que cambian de locale en el sitio o renderizan en el servidor. Prescinde de él en backends, scripts, páginas estáticas cuya locale viene de la URL (pásala explícitamente) o código que lee el contenido una sola vez.
 
 </Question>
 <Question title="¿Necesito reconstruir cuando añado una traducción?">

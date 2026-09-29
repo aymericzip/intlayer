@@ -1,4 +1,4 @@
-import { internationalization } from '@intlayer/config/built';
+import { resolveInterpreterLocale } from '@intlayer/core/interpreter';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import type {
   DeclaredLocales,
@@ -22,8 +22,7 @@ export const useDictionaryAsync = async <
   locale?: L
 ) => {
   const { locale: currentLocale } = useContext(IntlayerClientContext) ?? {};
-  const defaultLocale = internationalization.defaultLocale;
-  const localeTarget = locale ?? currentLocale() ?? defaultLocale;
+  const localeTarget = locale ?? currentLocale() ?? resolveInterpreterLocale();
 
   const dictionary =
     await dictionaryPromise[localeTarget as keyof typeof dictionaryPromise]?.();

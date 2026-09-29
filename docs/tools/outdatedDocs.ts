@@ -40,7 +40,7 @@ const extractUpdatedAt = (content: string): string | null => {
   const match = fm.match(/updatedAt:\s*([^\n]+)/);
   if (!match?.[1]) return null;
 
-  const raw = match[1].trim();
+  const raw = match[1]?.trim();
 
   return raw.replace(/^['"]|['"]$/g, '') || null;
 };

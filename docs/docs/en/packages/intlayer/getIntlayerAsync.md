@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 5
 title: getIntlayerAsync Function Documentation | intlayer
 description: "Use getIntlayerAsync to load and read a dictionary's content for a single locale, without bundling the other languages."
@@ -22,6 +22,9 @@ slugs:
   - intlayer
   - getIntlayerAsync
 history:
+  - version: 9.5.12
+    date: 2026-09-28
+    changes: "Omitted locale awaits the request locale (Next.js headers and cookies)"
   - version: 9.4.0
     date: 2026-08-23
     changes: "Initial documentation"
@@ -76,7 +79,7 @@ getIntlayerAsync(
     - `{ variant: { id: 'prod_abc', userId: '123' } }`: a structured variant
     - Any selector can carry a locale: `{ item: 2, locale: 'fr' }`
   - **Type**: `LocalesValues | DictionarySelector`
-  - **Required**: No (Optional), defaults to the configured `defaultLocale`.
+  - **Required**: No (Optional). When omitted, it resolves like [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getIntlayer.md#without-a-locale) (request locale, then stored locale, then `defaultLocale`). Being asynchronous, it can also await the request locale where it is only readable asynchronously: in Next.js Server Components, `generateMetadata` and route handlers, it reads the `headers()` and `cookies()` of the request, like `getLocale()` from `next-intlayer/server`. That read opts the route into dynamic rendering, so it only happens when `IntlayerProvider` has not already provided the locale.
 
 - `plugins: Plugins[]`
   - **Description**: Custom node transformers replacing the base interpreter plugins. Advanced use only.

@@ -1,5 +1,5 @@
-import { internationalization } from '@intlayer/config/built';
 import { resolveDictionaryArgument } from '@intlayer/core/dictionaryManipulator';
+import { resolveInterpreterLocale } from '@intlayer/core/interpreter';
 import type { DictionarySelector } from '@intlayer/types/dictionary';
 import type {
   DeclaredLocales,
@@ -91,7 +91,7 @@ export const useIntlayer = <
 
       const currentLocale = (explicitLocale ??
         client.locale ??
-        internationalization.defaultLocale) as string;
+        resolveInterpreterLocale()) as string;
 
       // Recompute dictionary only when locale changed.
       if (!hasComputed || cachedLocale !== currentLocale) {

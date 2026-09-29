@@ -1,4 +1,5 @@
 import { internationalization } from '@intlayer/config/built';
+import { registerAmbientLocaleResolver } from '@intlayer/core/interpreter';
 import type {
   LocalesValues,
   ProviderVariant,
@@ -14,6 +15,12 @@ const { defaultLocale } = internationalization ?? {};
  */
 export const IntlayerServerContext =
   createServerContext<LocalesValues>(defaultLocale);
+
+// Lets a bare `getIntlayer` / `getDictionary` rendered on the server resolve to
+// the locale seeded by `IntlayerServerProvider` / `setLocale`. Read from the
+// store rather than `getServerContext`, whose default locale would shadow the
+// other resolvers.
+registerAmbientLocaleResolver(() => IntlayerServerContext._storage()?.value);
 
 /**
  * Context that stores the ambient variant on the server side.

@@ -1,7 +1,6 @@
 'use client';
 
 import { computed, inject, signal } from '@angular/core';
-import { internationalization } from '@intlayer/config/built';
 import {
   getPreloadedDictionary,
   isQualifiedDynamicLoaderMap,
@@ -10,6 +9,7 @@ import {
   resolveDictionaryArgument,
   resolveQualifiedDynamicContentAsync,
 } from '@intlayer/core/dictionaryManipulator';
+import { resolveInterpreterLocale } from '@intlayer/core/interpreter';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import type {
   DeclaredLocales,
@@ -63,7 +63,7 @@ export const useDictionaryDynamic = <
         })
       );
 
-    const localeTarget = selectorLocale ?? internationalization.defaultLocale;
+    const localeTarget = selectorLocale ?? resolveInterpreterLocale();
 
     const container = signal<unknown>(undefined);
 
@@ -84,7 +84,7 @@ export const useDictionaryDynamic = <
       : undefined;
 
   const localeTarget = computed(
-    () => locale ?? intlayer?.locale() ?? internationalization.defaultLocale
+    () => locale ?? intlayer?.locale() ?? resolveInterpreterLocale()
   );
 
   // A build-tool plugin may have started this locale's chunk while the entry

@@ -3,6 +3,7 @@ import {
   getDictionary as getDictionaryFunction,
   getIntlayer as getIntlayerFunction,
   getTranslation,
+  registerAmbientLocaleResolver,
 } from '@intlayer/core/interpreter';
 import { localeDetector } from '@intlayer/core/localization';
 import { getLocaleFromStorageServer } from '@intlayer/core/utils';
@@ -32,6 +33,10 @@ const getStorageLocale = (req: Request): Locale | undefined =>
   });
 
 const appNamespace = createNamespace('app');
+
+// Lets a bare `getIntlayer` / `getDictionary` from any Intlayer package resolve
+// to the locale of the request being handled.
+registerAmbientLocaleResolver(() => appNamespace.get('locale'));
 
 prepareIntlayerServer(configuration, { label: 'express-intlayer' });
 
@@ -119,7 +124,9 @@ export const intlayer = (): RequestHandler => async (req, res, next) => {
 
   res.locals.locale_storage = localeFromStorage;
   res.locals.locale_detected = localeDetected;
-  res.locals.locale = localeFromStorage ?? localeDetected;
+  const locale = localeFromStorage ?? localeDetected;
+
+  res.locals.locale = locale;
   res.locals.defaultLocale = internationalization.defaultLocale;
 
   const t = translateFunction(req, res, next);
@@ -127,7 +134,7 @@ export const intlayer = (): RequestHandler => async (req, res, next) => {
   const getIntlayer: typeof getIntlayerFunction = (key, localeArg, ...props) =>
     getIntlayerFunction(
       key,
-      (localeArg ?? localeDetected) as typeof localeArg,
+      (localeArg ?? locale) as typeof localeArg,
       ...props
     );
 
@@ -138,7 +145,7 @@ export const intlayer = (): RequestHandler => async (req, res, next) => {
   ) =>
     getDictionaryFunction(
       key,
-      (localeArg ?? localeDetected) as typeof localeArg,
+      (localeArg ?? locale) as typeof localeArg,
       ...props
     );
 
@@ -147,6 +154,7 @@ export const intlayer = (): RequestHandler => async (req, res, next) => {
   res.locals.getDictionary = getDictionary;
 
   appNamespace.run(() => {
+    appNamespace.set('locale', locale);
     appNamespace.set('t', t);
     appNamespace.set('getIntlayer', getIntlayer);
     appNamespace.set('getDictionary', getDictionary);

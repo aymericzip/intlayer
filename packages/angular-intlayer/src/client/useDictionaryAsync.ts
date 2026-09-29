@@ -1,7 +1,7 @@
 'use client';
 
 import { computed, inject } from '@angular/core';
-import { internationalization } from '@intlayer/config/built';
+import { resolveInterpreterLocale } from '@intlayer/core/interpreter';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import type {
   LocalesValues,
@@ -22,7 +22,7 @@ export const useDictionaryAsync = async <const T extends Dictionary>(
   const intlayer = inject<IntlayerProvider>(INTLAYER_TOKEN);
 
   const localeTarget = computed(
-    () => locale ?? intlayer?.locale() ?? internationalization.defaultLocale
+    () => locale ?? intlayer?.locale() ?? resolveInterpreterLocale()
   );
 
   const dictionary = await (dictionaryPromise as any)[localeTarget()]?.();

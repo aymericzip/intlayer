@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 5
 title: "getIntlayerAsync 함수 문서 | intlayer"
 description: "getIntlayerAsync로 사전 콘텐츠를 하나의 로케일만 로드해 읽습니다. 다른 언어는 번들에 포함되지 않습니다."
@@ -22,6 +22,9 @@ slugs:
   - intlayer
   - getIntlayerAsync
 history:
+  - version: 9.5.12
+    date: 2026-09-28
+    changes: "로케일을 생략하면 요청의 로케일(Next.js headers 및 cookies)을 기다림"
   - version: 9.4.0
     date: 2026-08-23
     changes: "초기 문서화"
@@ -64,28 +67,28 @@ getIntlayerAsync(
 ## 매개변수
 
 - `key: DictionaryKeys`
-  - **Description**: 콘텐츠 파일에 선언된 대로 읽을 사전의 키입니다.
-  - **Type**: `DictionaryKeys`, 선언된 모든 사전 키의 합집합입니다.
-  - **Required**: Yes
+  - **설명**: 콘텐츠 파일에 선언된 대로 읽을 사전의 키입니다.
+  - **타입**: `DictionaryKeys`, 선언된 모든 사전 키의 합집합입니다.
+  - **필수**: 예
 
 - `localeOrSelector: LocalesValues | DictionarySelector`
-  - **Description**: 콘텐츠를 해석할 로케일 또는 [동적 사전](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dynamic_dictionaries/index.md)에 대한 선택자 객체입니다.
+  - **설명**: 콘텐츠를 해석할 로케일 또는 [동적 사전](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dynamic_dictionaries/index.md)에 대한 선택자 객체입니다.
     - `'fr'`: 로케일
     - `{ item: 2 }`: [컬렉션](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dynamic_dictionaries/collections.md) 항목 (`item`을 생략하면 배열로 모든 항목을 얻습니다)
     - `{ variant: 'black-friday' }`: 명명된 [변형](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dynamic_dictionaries/variants.md) (`default`를 원할 경우 생략)
     - `{ variant: { id: 'prod_abc', userId: '123' } }`: 구조화된 변형
     - 모든 선택자는 로케일을 포함할 수 있습니다: `{ item: 2, locale: 'fr' }`
-  - **Type**: `LocalesValues | DictionarySelector`
-  - **Required**: No (Optional), 기본값은 구성된 `defaultLocale`입니다.
+  - **타입**: `LocalesValues | DictionarySelector`
+  - **필수**: 아니요 (선택). 생략하면 [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getIntlayer.md)와 같은 방식으로 해석됩니다(요청의 로케일, 그다음 저장된 로케일, 그다음 `defaultLocale`). 비동기 함수이므로 요청의 로케일을 비동기로만 읽을 수 있는 경우 이를 기다릴 수도 있습니다. Next.js Server Components, `generateMetadata`, route handler에서는 `next-intlayer/server`의 `getLocale()`처럼 요청의 `headers()`와 `cookies()`를 읽습니다. 이 읽기는 라우트를 동적 렌더링으로 전환하므로, `IntlayerProvider`가 아직 로케일을 제공하지 않은 경우에만 수행됩니다.
 
 - `plugins: Plugins[]`
-  - **Description**: 기본 인터프리터 플러그인을 대체하는 커스텀 노드 변환기입니다. 고급 사용만 해당합니다.
-  - **Type**: `Plugins[]`
-  - **Required**: No (Optional)
+  - **설명**: 기본 인터프리터 플러그인을 대체하는 커스텀 노드 변환기입니다. 고급 사용만 해당합니다.
+  - **타입**: `Plugins[]`
+  - **필수**: 아니요 (선택)
 
 ### Returns
 
-- **Type**: `Promise<Content>`, 선언에서 입력한 타입으로 지정된 dictionary의 해석된 내용으로 resolve되는 promise입니다.
+- **타입**: `Promise<Content>`, 선언에서 입력한 타입으로 지정된 dictionary의 해석된 내용으로 resolve되는 promise입니다.
 
 ## 사용 예시
 

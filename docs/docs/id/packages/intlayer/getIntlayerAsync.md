@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 5
 title: Dokumentasi Fungsi getIntlayerAsync | intlayer
 description: "Gunakan getIntlayerAsync untuk memuat dan membaca konten kamus hanya untuk satu locale, tanpa menyertakan bahasa lain."
@@ -22,9 +22,12 @@ slugs:
   - intlayer
   - getIntlayerAsync
 history:
+  - version: 9.5.12
+    date: 2026-09-28
+    changes: "Tanpa locale, menunggu locale request (headers dan cookies Next.js)"
   - version: 9.4.0
     date: 2026-08-23
-    changes: "Initial documentation"
+    changes: "Dokumentasi awal"
 author: aymericzip
 ---
 
@@ -51,7 +54,7 @@ Tanpa plugin tersebut, build yang tidak dioptimalkan, panggilan diselesaikan mel
 - Panggilan bersamaan untuk chunk yang sama berbagi satu load
 - Aman digunakan dalam pembangun metadata `async`, loaders dan server functions
 
-## Function Signature
+## Signature Fungsi
 
 ```typescript
 getIntlayerAsync(
@@ -64,28 +67,28 @@ getIntlayerAsync(
 ## Parameters
 
 - `key: DictionaryKeys`
-  - **Description**: Kunci kamus yang akan dibaca, seperti yang dideklarasikan dalam file konten Anda.
-  - **Type**: `DictionaryKeys`, union dari setiap kunci kamus yang dideklarasikan.
-  - **Required**: Yes
+  - **Deskripsi**: Kunci kamus yang akan dibaca, seperti yang dideklarasikan dalam file konten Anda.
+  - **Tipe**: `DictionaryKeys`, union dari setiap kunci kamus yang dideklarasikan.
+  - **Diperlukan**: Ya
 
 - `localeOrSelector: LocalesValues | DictionarySelector`
-  - **Description**: Locale untuk menginterpretasi konten, atau objek selector untuk [kamus dinamis](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dynamic_dictionaries/index.md).
+  - **Deskripsi**: Locale untuk menginterpretasi konten, atau objek selector untuk [kamus dinamis](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dynamic_dictionaries/index.md).
     - `'fr'`: sebuah locale
     - `{ item: 2 }`: item [collection](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dynamic_dictionaries/collections.md) (abaikan `item` untuk mendapatkan setiap item sebagai array)
     - `{ variant: 'black-friday' }`: [variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dynamic_dictionaries/variants.md) bernama (abaikan untuk yang `default`)
     - `{ variant: { id: 'prod_abc', userId: '123' } }`: variant terstruktur
     - Setiap selector dapat membawa locale: `{ item: 2, locale: 'fr' }`
-  - **Type**: `LocalesValues | DictionarySelector`
-  - **Required**: No (Optional), defaults ke `defaultLocale` yang dikonfigurasi.
+  - **Tipe**: `LocalesValues | DictionarySelector`
+  - **Diperlukan**: Tidak (opsional). Jika dihilangkan, di-resolve seperti pada [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getIntlayer.md) (locale request, lalu locale tersimpan, lalu `defaultLocale`). Karena asinkron, fungsi ini juga bisa menunggu locale request ketika hanya bisa dibaca secara asinkron: di Server Components Next.js, `generateMetadata`, dan route handler, fungsi ini membaca `headers()` dan `cookies()` dari request, seperti `getLocale()` dari `next-intlayer/server`. Pembacaan ini membuat route beralih ke rendering dinamis, sehingga hanya dilakukan jika `IntlayerProvider` belum menyediakan locale.
 
 - `plugins: Plugins[]`
-  - **Description**: Custom node transformers yang menggantikan base interpreter plugins. Penggunaan advanced only.
-  - **Type**: `Plugins[]`
-  - **Required**: No (Optional)
+  - **Deskripsi**: Custom node transformers yang menggantikan base interpreter plugins. Penggunaan advanced only.
+  - **Tipe**: `Plugins[]`
+  - **Diperlukan**: Tidak (opsional)
 
 ### Returns
 
-- **Type**: `Promise<Content>`, a promise yang resolve ke konten yang diinterpretasi dari dictionary, yang diketik dari declaration Anda.
+- **Tipe**: `Promise<Content>`, sebuah promise yang me-resolve ke konten dictionary yang telah diinterpretasi, dengan tipe dari deklarasi Anda.
 
 ## Contoh Penggunaan
 

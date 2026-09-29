@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-12
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: "Cara kerja Intlayer: gambaran arsitektur"
 description: Pelajari bagaimana Intlayer beroperasi secara internal. Pahami arsitektur dan komponen yang membuat Intlayer kuat.
@@ -427,6 +427,20 @@ Server menyelesaikan konten komponen yang dirender di server secara langsung, se
 <Question title="Bagaimana Intlayer menghindari hydration mismatch terkait bahasa?">
 
 Bahasa diselesaikan satu kali di server dan diteruskan ke provider klien, bukan dideteksi ulang di browser, sehingga output HTML server dan klien cocok secara identik.
+
+</Question>
+<Question title="Bisakah saya menggunakan Intlayer tanpa provider global?">
+
+Bisa. `getIntlayer` dan `getDictionary` adalah fungsi biasa yang tidak memerlukan provider apa pun, dan `useIntlayer` juga berfungsi di luar provider. Ketika tidak ada locale yang diberikan, fungsi-fungsi ini me-resolve locale dari request saat ini di server (melalui middleware Intlayer untuk Express, Fastify, Hono, AdonisJS, Elysia, Remix, dan Astro, atau `IntlayerProvider` di React Server Components), lalu locale yang disimpan di browser oleh locale switcher Anda, lalu `defaultLocale`. `getIntlayerAsync` juga bisa menunggu locale request ketika hanya bisa dibaca secara asinkron, seperti `headers()` dan `cookies()` di Next.js. Setiap request me-resolve cookies dan headers miliknya sendiri, sehingga pengguna yang bersamaan tidak pernah berbagi locale. Lihat [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getIntlayer.md).
+
+- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getIntlayer.md)
+
+Perbedaannya ada pada reaktivitas dan biaya rendering, bukan pada konten:
+
+- **Dengan provider**, locale berada di state framework. Setiap `useIntlayer` berlangganan padanya, sehingga perubahan locale me-render ulang komponen di tempat, tanpa reload. Pada halaman yang di-render di server, provider meneruskan ke client locale yang di-render oleh server, sehingga markup selalu cocok. Biayanya adalah kode provider di bundle dan render ulang consumer-nya di setiap perubahan.
+- **Tanpa provider**, sebuah pembacaan adalah pemanggilan fungsi yang di-memoize: tanpa lookup context, tanpa langganan, dan objek yang sama dikembalikan untuk `key + locale` yang sama. Tidak ada yang di-render ulang saat locale berubah: locale baru muncul pada pemanggilan berikutnya, biasanya setelah navigasi atau reload. Locale tersimpan dibaca sekali lalu di-cache hingga perubahan berikutnya, yang menambah sekitar 100 byte (gzip) ke bundle yang sudah menyertakan Intlayer. Kompromi ada pada halaman yang di-render di server di luar integrasi request mana pun: server me-render `defaultLocale` sementara browser membaca locale tersimpan, yang dapat menyebabkan hydration mismatch.
+
+Pertahankan provider untuk aplikasi interaktif yang mengganti locale di tempat atau me-render di server. Tidak perlu provider untuk backend, script, halaman statis yang locale-nya berasal dari URL (berikan secara eksplisit), atau kode yang membaca konten sekali saja.
 
 </Question>
 <Question title="Apakah saya perlu me-rebuild saat menambahkan terjemahan?">

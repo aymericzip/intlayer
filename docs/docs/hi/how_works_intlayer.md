@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-12
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: "Intlayer कैसे काम करता है: आर्किटेक्चर का अवलोकन"
 description: जानें कि Intlayer आंतरिक रूप से कैसे काम करता है। समझें कि Intlayer को शक्तिशाली बनाने वाली संरचना और घटक क्या हैं।
@@ -431,6 +431,20 @@ Intlayer को [Vite बंडलर](https://vite.dev/guide/why.html#why-bundl
 <Question title="Intlayer भाषा-संबंधी हाइड्रेशन बेमेल त्रुटियों (hydration mismatch) से कैसे बचता है?">
 
 भाषा सर्वर पर एक बार तय की जाती है और क्लाइंट प्रदाता को दी जाती है, बजाय इसके कि इसे ब्राउज़र में फिर से खोजा जाए, जिससे सर्वर और क्लाइंट HTML आउटपुट पूरी तरह मेल खाते हैं।
+
+</Question>
+<Question title="क्या मैं Intlayer को global provider के बिना उपयोग कर सकता हूँ?">
+
+हाँ। `getIntlayer` और `getDictionary` साधारण functions हैं जिन्हें किसी provider की ज़रूरत नहीं होती, और `useIntlayer` भी provider के बाहर काम करता है। जब कोई locale नहीं दिया जाता, तो ये server पर वर्तमान request का locale resolve करते हैं (Express, Fastify, Hono, AdonisJS, Elysia, Remix और Astro के Intlayer middleware, या React Server Components में `IntlayerProvider` के माध्यम से), फिर आपके locale switcher द्वारा browser में संग्रहीत locale, फिर `defaultLocale`। `getIntlayerAsync` request के locale की प्रतीक्षा भी कर सकता है जब वह केवल asynchronous रूप से पढ़ा जा सके, जैसे Next.js के `headers()` और `cookies()`। हर request अपनी cookies और headers resolve करती है, इसलिए एक साथ आने वाले users कभी locale साझा नहीं करते। देखें [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getIntlayer.md)।
+
+- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getIntlayer.md)
+
+अंतर reactivity और rendering cost का है, content का नहीं:
+
+- **provider के साथ**, locale framework की state में रहता है। हर `useIntlayer` उसे subscribe करता है, इसलिए locale बदलने पर components बिना reload के वहीं re-render होते हैं। server-rendered page पर, provider client को वही locale देता है जो server ने render किया, इसलिए markup हमेशा मेल खाता है। इसकी कीमत है bundle में provider का code और हर बदलाव पर उसके consumers का re-render।
+- **provider के बिना**, एक read एक memoized function call है: कोई context lookup नहीं, कोई subscription नहीं, और एक ही `key + locale` के लिए वही object लौटता है। locale बदलने पर कुछ भी re-render नहीं होता: नया locale अगले call पर दिखता है, आमतौर पर navigation या reload के बाद। संग्रहीत locale एक बार पढ़ा जाता है और अगले बदलाव तक cache रहता है, जो पहले से Intlayer वाले bundle में लगभग 100 bytes (gzip) जोड़ता है। समझौता उन server-rendered pages पर है जो किसी request integration के बाहर हैं: server `defaultLocale` render करता है जबकि browser संग्रहीत locale पढ़ता है, जिससे hydration mismatch हो सकता है।
+
+उन interactive apps के लिए provider रखें जो locale वहीं बदलते हैं या server पर render करते हैं। backends, scripts, URL से locale लेने वाले static pages (उसे स्पष्ट रूप से पास करें), या content को एक बार पढ़ने वाले code के लिए provider के बिना काम करें।
 
 </Question>
 <Question title="अनुवाद जोड़ते समय क्या मुझे फिर से रीबिल्ड करने की आवश्यकता है?">

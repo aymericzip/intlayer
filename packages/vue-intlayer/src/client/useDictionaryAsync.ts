@@ -1,5 +1,5 @@
-import { internationalization } from '@intlayer/config/built';
 import { getPreloadedDictionary } from '@intlayer/core/dictionaryManipulator';
+import { resolveInterpreterLocale } from '@intlayer/core/interpreter';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import type {
   LocalesValues,
@@ -29,9 +29,7 @@ export const useDictionaryAsync = async <const T extends Dictionary>(
 
   const localeTarget = computed(
     () =>
-      toValue(locale) ??
-      intlayer?.locale?.value ??
-      internationalization.defaultLocale
+      toValue(locale) ?? intlayer?.locale?.value ?? resolveInterpreterLocale()
   );
 
   // A build-tool plugin may have started this locale's chunk while the entry

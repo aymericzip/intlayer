@@ -1,4 +1,5 @@
 import { AsyncLocalStorage } from 'node:async_hooks';
+import { registerAmbientLocaleResolver } from '@intlayer/core/interpreter';
 import type { DeclaredLocales } from '@intlayer/types/module_augmentation';
 import type { IntlayerLocals } from './middleware';
 
@@ -22,3 +23,7 @@ export const getIntlayerLocals = (): IntlayerLocals | undefined =>
  */
 export const getRequestLocale = (): DeclaredLocales | undefined =>
   getIntlayerLocals()?.locale;
+
+// Lets a bare `getIntlayer` / `getDictionary` from any Intlayer package resolve
+// to the locale of the request being handled.
+registerAmbientLocaleResolver(getRequestLocale);

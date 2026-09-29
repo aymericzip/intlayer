@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 5
 title: "Tài liệu hàm getIntlayerAsync | intlayer"
 description: "Dùng getIntlayerAsync để tải và đọc nội dung từ điển chỉ cho một locale, không đóng gói các ngôn ngữ khác."
@@ -22,9 +22,12 @@ slugs:
   - intlayer
   - getIntlayerAsync
 history:
+  - version: 9.5.12
+    date: 2026-09-28
+    changes: "Khi không có locale, chờ locale của request (headers và cookies của Next.js)"
   - version: 9.4.0
     date: 2026-08-23
-    changes: "Initial documentation"
+    changes: "Tài liệu ban đầu"
 author: aymericzip
 ---
 
@@ -51,7 +54,7 @@ Nếu không có các plugins này, một build chưa được tối ưu hóa, c
 - Các cuộc gọi đồng thời cho cùng một chunk chia sẻ một lần tải
 - An toàn để sử dụng trong `async` metadata builders, loaders và server functions
 
-## Function Signature
+## Chữ ký hàm
 
 ```typescript
 getIntlayerAsync(
@@ -64,28 +67,28 @@ getIntlayerAsync(
 ## Tham số
 
 - `key: DictionaryKeys`
-  - **Description**: Khóa của từ điển cần đọc, như được khai báo trong các tệp nội dung của bạn.
-  - **Type**: `DictionaryKeys`, một union của mọi khóa từ điển được khai báo.
-  - **Required**: Yes
+  - **Mô tả**: Khóa của từ điển cần đọc, như được khai báo trong các tệp nội dung của bạn.
+  - **Kiểu**: `DictionaryKeys`, một union của mọi khóa từ điển được khai báo.
+  - **Bắt buộc**: Có
 
 - `localeOrSelector: LocalesValues | DictionarySelector`
-  - **Description**: Locale để giải thích nội dung với, hoặc một đối tượng selector cho [dynamic dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dynamic_dictionaries/index.md).
+  - **Mô tả**: Locale để giải thích nội dung với, hoặc một đối tượng selector cho [dynamic dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dynamic_dictionaries/index.md).
     - `'fr'`: một locale
     - `{ item: 2 }`: một mục [collection](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dynamic_dictionaries/collections.md) (bỏ qua `item` để lấy mọi mục dưới dạng mảng)
     - `{ variant: 'black-friday' }`: một [variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dynamic_dictionaries/variants.md) có tên (bỏ qua để lấy `default`)
     - `{ variant: { id: 'prod_abc', userId: '123' } }`: một variant có cấu trúc
     - Bất kỳ selector nào cũng có thể mang theo một locale: `{ item: 2, locale: 'fr' }`
-  - **Type**: `LocalesValues | DictionarySelector`
-  - **Required**: No (Optional), mặc định là `defaultLocale` được cấu hình.
+  - **Kiểu**: `LocalesValues | DictionarySelector`
+  - **Bắt buộc**: Không (tùy chọn). Nếu bỏ qua, được resolve giống như [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getIntlayer.md) (locale của request, sau đó locale đã lưu, sau đó `defaultLocale`). Vì là hàm bất đồng bộ, nó cũng có thể chờ locale của request khi locale này chỉ đọc được bất đồng bộ: trong Server Components của Next.js, `generateMetadata` và route handler, nó đọc `headers()` và `cookies()` của request, giống `getLocale()` từ `next-intlayer/server`. Việc đọc này chuyển route sang rendering động, nên nó chỉ diễn ra khi `IntlayerProvider` chưa cung cấp locale.
 
 - `plugins: Plugins[]`
-  - **Description**: Các node transformers tùy chỉnh thay thế các plugin interpreter cơ bản. Chỉ sử dụng nâng cao.
-  - **Type**: `Plugins[]`
-  - **Required**: No (Optional)
+  - **Mô tả**: Các node transformers tùy chỉnh thay thế các plugin interpreter cơ bản. Chỉ sử dụng nâng cao.
+  - **Kiểu**: `Plugins[]`
+  - **Bắt buộc**: Không (tùy chọn)
 
 ### Returns
 
-- **Type**: `Promise<Content>`, a promise resolving to the interpreted content of the dictionary, typed from your declaration.
+- **Kiểu**: `Promise<Content>`, một promise resolve thành nội dung đã được diễn giải của từ điển, được định kiểu từ khai báo của bạn.
 
 ## Ví dụ Sử dụng
 

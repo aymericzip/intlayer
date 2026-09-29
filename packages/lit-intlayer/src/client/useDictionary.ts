@@ -1,5 +1,5 @@
-import { internationalization } from '@intlayer/config/built';
 import { resolveDictionaryArgument } from '@intlayer/core/dictionaryManipulator';
+import { resolveInterpreterLocale } from '@intlayer/core/interpreter';
 import type {
   Dictionary,
   DictionarySelector,
@@ -72,7 +72,7 @@ export const useDictionary = <
   const getActiveLocale = (): LocalesValues =>
     (explicitLocale ??
       client.locale ??
-      internationalization.defaultLocale) as LocalesValues;
+      resolveInterpreterLocale()) as LocalesValues;
 
   let currentContent: unknown = compute(getActiveLocale());
 

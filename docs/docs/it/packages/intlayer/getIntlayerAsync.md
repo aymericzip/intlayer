@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 5
 title: "Documentazione della funzione getIntlayerAsync | intlayer"
 description: "Usa getIntlayerAsync per caricare e leggere il contenuto di un dizionario per una sola locale, senza includere le altre lingue."
@@ -22,9 +22,12 @@ slugs:
   - intlayer
   - getIntlayerAsync
 history:
+  - version: 9.5.12
+    date: 2026-09-28
+    changes: "Senza locale, attende la locale della richiesta (header e cookie di Next.js)"
   - version: 9.4.0
     date: 2026-08-23
-    changes: "Initial documentation"
+    changes: "Documentazione iniziale"
 author: aymericzip
 ---
 
@@ -64,28 +67,28 @@ getIntlayerAsync(
 ## Parametri
 
 - `key: DictionaryKeys`
-  - **Description**: La chiave del dizionario da leggere, come dichiarato nei tuoi file di contenuto.
-  - **Type**: `DictionaryKeys`, un'unione di ogni chiave di dizionario dichiarata.
-  - **Required**: Yes
+  - **Descrizione**: La chiave del dizionario da leggere, come dichiarato nei tuoi file di contenuto.
+  - **Tipo**: `DictionaryKeys`, un'unione di ogni chiave di dizionario dichiarata.
+  - **Obbligatorio**: Sì
 
 - `localeOrSelector: LocalesValues | DictionarySelector`
-  - **Description**: La locale per interpretare il contenuto, o un oggetto selector per [dizionari dinamici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dynamic_dictionaries/index.md).
+  - **Descrizione**: La locale per interpretare il contenuto, o un oggetto selector per [dizionari dinamici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dynamic_dictionaries/index.md).
     - `'fr'`: una locale
     - `{ item: 2 }`: un elemento di [collection](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dynamic_dictionaries/collections.md) (ometti `item` per ottenere ogni elemento come array)
     - `{ variant: 'black-friday' }`: un [variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dynamic_dictionaries/variants.md) denominato (ometti per quello `default`)
     - `{ variant: { id: 'prod_abc', userId: '123' } }`: una variante strutturata
     - Qualsiasi selector può contenere una locale: `{ item: 2, locale: 'fr' }`
-  - **Type**: `LocalesValues | DictionarySelector`
-  - **Required**: No (Optional), defaults to the configured `defaultLocale`.
+  - **Tipo**: `LocalesValues | DictionarySelector`
+  - **Obbligatorio**: No (opzionale). Se omessa, viene risolta come in [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/intlayer/getIntlayer.md) (locale della richiesta, poi locale salvata, poi `defaultLocale`). Essendo asincrona, può anche attendere la locale della richiesta quando è leggibile solo in modo asincrono: nei Server Components di Next.js, in `generateMetadata` e nei route handler, legge `headers()` e `cookies()` della richiesta, come `getLocale()` di `next-intlayer/server`. Questa lettura porta la route al rendering dinamico, quindi avviene solo se `IntlayerProvider` non ha già fornito la locale.
 
 - `plugins: Plugins[]`
-  - **Description**: Custom node transformers che sostituiscono i plugin base dell'interprete. Uso avanzato soltanto.
-  - **Type**: `Plugins[]`
-  - **Required**: No (Optional)
+  - **Descrizione**: Custom node transformers che sostituiscono i plugin base dell'interprete. Uso avanzato soltanto.
+  - **Tipo**: `Plugins[]`
+  - **Obbligatorio**: No (opzionale)
 
 ### Restituisce
 
-- **Type**: `Promise<Content>`, una promise che si risolve nel contenuto interpretato del dizionario, tipizzato dalla tua dichiarazione.
+- **Tipo**: `Promise<Content>`, una promise che si risolve nel contenuto interpretato del dizionario, tipizzato dalla tua dichiarazione.
 
 ## Esempio di utilizzo
 

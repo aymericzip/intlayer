@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 5
 title: Документація функції getIntlayer | intlayer
 description: "Використовуйте getIntlayer, щоб читати контент словника для локалі будь-де: це незалежний від фреймворку аналог хука useIntlayer."
@@ -21,9 +21,12 @@ slugs:
   - intlayer
   - getIntlayer
 history:
+  - version: 9.5.12
+    date: 2026-09-28
+    changes: "Без локалі використовується локаль запиту або збережена локаль, перш ніж локаль за замовчуванням"
   - version: 9.4.0
     date: 2026-08-23
-    changes: "Initial documentation"
+    changes: "Початкова документація"
 author: aymericzip
 ---
 
@@ -43,7 +46,7 @@ author: aymericzip
 - Результати кешуються для кожної комбінації `key + locale + selector`
 - Під час розробки повертається до безпечного проксі, коли словник відсутній, замість краху
 
-## Function Signature
+## Сигнатура функції
 
 ```typescript
 getIntlayer(
@@ -56,24 +59,24 @@ getIntlayer(
 ## Параметри
 
 - `key: DictionaryKeys`
-  - **Description**: The key of the dictionary to read, as declared in your content files.
-  - **Type**: `DictionaryKeys`, a union of every declared dictionary key.
-  - **Required**: Yes
+  - **Опис**: Ключ словника для читання, як оголошено у ваших файлах контенту.
+  - **Тип**: `DictionaryKeys`, об'єднання всіх оголошених ключів словників.
+  - **Обов'язково**: Так
 
 - `localeOrSelector: LocalesValues | DictionarySelector`
-  - **Description**: The locale to interpret the content with, or a selector object for [dynamic dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dynamic_dictionaries/index.md).
-    - `'fr'`: a locale
-    - `{ item: 2 }`: a [collection](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dynamic_dictionaries/collections.md) item (omit `item` to get every item as an array)
-    - `{ variant: 'black-friday' }`: a named [variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dynamic_dictionaries/variants.md) (omit for the `default` one)
-    - `{ variant: { id: 'prod_abc', userId: '123' } }`: a structured variant
-    - Any selector can carry a locale: `{ item: 2, locale: 'fr' }`
-  - **Type**: `LocalesValues | DictionarySelector`
-  - **Required**: No (Optional), defaults to the configured `defaultLocale`.
+  - **Опис**: Локаль для інтерпретації контенту або об'єкт селектора для [динамічних словників](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dynamic_dictionaries/index.md).
+    - `'fr'`: локаль
+    - `{ item: 2 }`: елемент [колекції](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dynamic_dictionaries/collections.md) (не вказуйте `item`, щоб отримати всі елементи як масив)
+    - `{ variant: 'black-friday' }`: іменований [варіант](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dynamic_dictionaries/variants.md) (не вказуйте для варіанта `default`)
+    - `{ variant: { id: 'prod_abc', userId: '123' } }`: структурований варіант
+    - Будь-який селектор може містити локаль: `{ item: 2, locale: 'fr' }`
+  - **Тип**: `LocalesValues | DictionarySelector`
+  - **Обов'язково**: Ні (необов'язково). Якщо не вказано, див. [Без локалі](#без-локалі).
 
 - `plugins: Plugins[]`
-  - **Description**: Custom node transformers replacing the base interpreter plugins. Advanced use only; omit it to keep the default behaviour.
-  - **Type**: `Plugins[]`
-  - **Required**: No (Optional)
+  - **Опис**: Власні трансформери вузлів, що замінюють базові плагіни інтерпретатора. Лише для просунутого використання; не вказуйте, щоб зберегти поведінку за замовчуванням.
+  - **Тип**: `Plugins[]`
+  - **Обов'язково**: Ні (необов'язково)
 
 ### Повертає
 
@@ -109,15 +112,25 @@ const { title } = getIntlayer("app", "fr"); // "Bonjour"
 
 ### Без локалі
 
-Пропуск локалі інтерпретує вміст за допомогою `defaultLocale`, декларованої у вашій [конфігурації](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md).
+Якщо локаль не передано, `getIntlayer` не переходить одразу до локалі за замовчуванням. Вона визначає локаль у такому порядку:
+
+1. **Локаль поточного запиту**, на сервері, коли його обробляє інтеграція Intlayer: middleware `express-intlayer`, `fastify-intlayer`, `hono-intlayer`, `adonis-intlayer` та `elysia-intlayer`, middleware `remix-intlayer` та `astro-intlayer`, а також `IntlayerProvider` / `setLocale` у React Server Components. Кожен запит визначається за його власними cookies і заголовками, тому одночасні користувачі ніколи не ділять одну локаль.
+2. **Локаль, збережена в браузері** (cookie, `localStorage`, `sessionStorage`), яку зберігає перемикач мови.
+3. **`defaultLocale`**, оголошена у вашій [конфігурації](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md).
 
 - [конфігурації](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md)
 
 ```typescript
 import { getIntlayer } from "intlayer";
 
-const { title } = getIntlayer("app"); // Інтерпретується з локаллю за замовчуванням
+const { title } = getIntlayer("app"); // Локаль запиту, інакше збережена, інакше локаль за замовчуванням
 ```
+
+Те саме визначення застосовується до `getDictionary`, до викликів, які переписують [плагіни збірки](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/bundle_optimization.md), і до `useIntlayer` / `useDictionaryDynamic`, відрендерених поза провайдером. Явно передана локаль завжди має пріоритет.
+
+- [плагіни збірки](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/bundle_optimization.md)
+
+> `getIntlayer` не реактивна: після зміни локалі викличте її знову, щоб прочитати нову локаль. На сторінці із серверним рендерингом виклик поза будь-яким провайдером рендерить локаль за замовчуванням на сервері та збережену локаль у браузері, що може спричинити hydration mismatch. У такому разі підключіть провайдер вашого фреймворку або передайте локаль.
 
 ### Усередині серверного обробника
 

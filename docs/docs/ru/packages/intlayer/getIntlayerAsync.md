@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 5
 title: Документация функции getIntlayerAsync | intlayer
 description: "Используйте getIntlayerAsync, чтобы загрузить и прочитать контент словаря только для одной локали, не включая другие языки в бандл."
@@ -22,9 +22,12 @@ slugs:
   - intlayer
   - getIntlayerAsync
 history:
+  - version: 9.5.12
+    date: 2026-09-28
+    changes: "Без локали ожидается локаль запроса (заголовки и cookies Next.js)"
   - version: 9.4.0
     date: 2026-08-23
-    changes: "Initial documentation"
+    changes: "Первоначальная документация"
 author: aymericzip
 ---
 
@@ -66,7 +69,7 @@ getIntlayerAsync(
 - `key: DictionaryKeys`
   - **Описание**: Ключ словаря для чтения, как объявлено в ваших файлах контента.
   - **Тип**: `DictionaryKeys`, объединение всех объявленных ключей словаря.
-  - **Обязательно**: Yes
+  - **Обязательно**: Да
 
 - `localeOrSelector: LocalesValues | DictionarySelector`
   - **Описание**: Локаль для интерпретации контента или объект селектора для [динамических словарей](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dynamic_dictionaries/index.md).
@@ -76,16 +79,16 @@ getIntlayerAsync(
     - `{ variant: { id: 'prod_abc', userId: '123' } }`: структурированный вариант
     - Любой селектор может содержать локаль: `{ item: 2, locale: 'fr' }`
   - **Тип**: `LocalesValues | DictionarySelector`
-  - **Обязательно**: No (Optional), по умолчанию используется настроенный `defaultLocale`.
+  - **Обязательно**: Нет (необязательно). Если не указана, определяется так же, как в [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getIntlayer.md) (локаль запроса, затем сохранённая локаль, затем `defaultLocale`). Будучи асинхронной, функция также может дождаться локали запроса, если её можно прочитать только асинхронно: в Server Components Next.js, `generateMetadata` и route handlers она читает `headers()` и `cookies()` запроса, как `getLocale()` из `next-intlayer/server`. Такое чтение переводит маршрут в динамический рендеринг, поэтому оно выполняется, только если `IntlayerProvider` ещё не предоставил локаль.
 
 - `plugins: Plugins[]`
   - **Описание**: Пользовательские трансформаторы узлов, заменяющие базовые плагины интерпретатора. Только для продвинутого использования.
   - **Тип**: `Plugins[]`
-  - **Обязательно**: No (Optional)
+  - **Обязательно**: Нет (необязательно)
 
 ### Возвращаемое значение
 
-- **Type**: `Promise<Content>`, обещание, разрешаемое в интерпретированное содержимое словаря, типизированное из вашего объявления.
+- **Тип**: `Promise<Content>`, обещание, разрешаемое в интерпретированное содержимое словаря, типизированное из вашего объявления.
 
 ## Пример использования
 

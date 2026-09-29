@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 5
 title: getIntlayerAsync 函数文档 | intlayer
 description: "使用 getIntlayerAsync 只加载并读取某一个语言的字典内容，不打包其他语言。"
@@ -22,9 +22,12 @@ slugs:
   - intlayer
   - getIntlayerAsync
 history:
+  - version: 9.5.12
+    date: 2026-09-28
+    changes: "省略语言环境时，等待请求的语言环境（Next.js 的 headers 和 cookies）"
   - version: 9.4.0
     date: 2026-08-23
-    changes: "Initial documentation"
+    changes: "初始文档"
 author: aymericzip
 ---
 
@@ -76,7 +79,7 @@ getIntlayerAsync(
     - `{ variant: { id: 'prod_abc', userId: '123' } }`：一个结构化变体
     - 任何选择器都可以携带一个区域设置: `{ item: 2, locale: 'fr' }`
   - **类型**: `LocalesValues | DictionarySelector`
-  - **必需**: 否（可选），默认为配置的 `defaultLocale`。
+  - **必需**：否（可选）。省略时，按与 [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getIntlayer.md) 相同的方式解析（请求的语言环境，然后是已保存的语言环境，然后是 `defaultLocale`）。由于是异步函数，当请求的语言环境只能异步读取时，它还可以等待该语言环境：在 Next.js 的 Server Components、`generateMetadata` 和 route handler 中，它会像 `next-intlayer/server` 的 `getLocale()` 一样读取请求的 `headers()` 和 `cookies()`。这次读取会让路由切换为动态渲染，因此只有在 `IntlayerProvider` 尚未提供语言环境时才会进行。
 
 - `plugins: Plugins[]`
   - **描述**: 替换基础解释器插件的自定义节点转换器。仅限高级使用。

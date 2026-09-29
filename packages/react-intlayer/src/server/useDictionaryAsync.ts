@@ -1,4 +1,4 @@
-import { internationalization } from '@intlayer/config/built';
+import { resolveInterpreterLocale } from '@intlayer/core/interpreter';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import type {
   DeclaredLocales,
@@ -26,7 +26,7 @@ export const useDictionaryAsync = async <
     locale ??
     getServerContext<LocalesValues>(IntlayerServerContext) ??
     fallbackLocale ??
-    internationalization.defaultLocale;
+    resolveInterpreterLocale();
 
   const dictionary = await (dictionaryPromise as any)[localeTarget]?.();
 

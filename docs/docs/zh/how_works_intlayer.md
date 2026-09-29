@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-12
-updatedAt: 2026-09-27
+updatedAt: 2026-09-28
 priority: 8
 title: "Intlayer 的工作原理：架构概览"
 description: 了解Intlayer的内部运作方式。理解使Intlayer强大的架构和组件。
@@ -431,6 +431,20 @@ Intlayer 由多个包组成，每个包在翻译过程中都有特定的角色�
 <Question title="Intlayer 如何避免语言环境的水合不匹配 (hydration mismatch)？">
 
 语言环境在服务端仅解析一次并传递给 Provider，而不是在浏览器中重新检测。因为客户端以服务端渲染所用的相同语言环境作为初始状态，所以生成的标记完全匹配，从而避免了客户端单独检测语言时常出现的水合不匹配问题。
+
+</Question>
+<Question title="可以在没有全局 provider 的情况下使用 Intlayer 吗？">
+
+可以。`getIntlayer` 和 `getDictionary` 是不需要任何 provider 的普通函数，`useIntlayer` 在 provider 之外也能工作。未传入语言环境时，它们会在服务器上解析当前请求的语言环境（通过 Express、Fastify、Hono、AdonisJS、Elysia、Remix 和 Astro 的 Intlayer middleware，或 React Server Components 中的 `IntlayerProvider`），然后是语言切换器保存在浏览器中的语言环境，最后是 `defaultLocale`。当请求的语言环境只能异步读取时（例如 Next.js 的 `headers()` 和 `cookies()`），`getIntlayerAsync` 还可以等待它。每个请求都解析自己的 cookies 和 headers，因此并发用户之间绝不会共享语言环境。请参阅 [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getIntlayer.md)。
+
+- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getIntlayer.md)
+
+区别在于响应性和渲染成本，而不是内容：
+
+- **使用 provider 时**，语言环境保存在框架的 state 中。每个 `useIntlayer` 都会订阅它，因此切换语言环境时组件会在原地重新渲染，无需刷新。在服务端渲染的页面上，provider 会把服务器渲染时使用的语言环境交给客户端，因此标记始终一致。代价是 bundle 中的 provider 代码，以及每次切换时其所有 consumer 的重新渲染。
+- **不使用 provider 时**，一次读取就是一次记忆化的函数调用：没有 context 查找，没有订阅，相同的 `key + locale` 返回同一个对象。切换语言环境时不会重新渲染任何内容：新的语言环境会在下一次调用时生效，通常是在导航或刷新之后。已保存的语言环境只读取一次并缓存到下一次切换，这会为已经包含 Intlayer 的 bundle 增加约 100 字节（gzip）。代价在于处于任何请求集成之外的服务端渲染页面：服务器渲染 `defaultLocale`，而浏览器读取已保存的语言环境，可能导致 hydration mismatch。
+
+对于需要原地切换语言环境或在服务器上渲染的交互式应用，请保留 provider。对于后端、脚本、语言环境来自 URL 的静态页面（请显式传入），或只读取一次内容的代码，可以不使用 provider。
 
 </Question>
 <Question title="添加翻译后需要重新构建吗？">

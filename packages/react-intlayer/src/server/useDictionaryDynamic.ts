@@ -1,4 +1,3 @@
-import { internationalization } from '@intlayer/config/built';
 import {
   isQualifiedDynamicLoaderMap,
   parseDictionarySelector,
@@ -6,6 +5,7 @@ import {
   resolveDictionaryArgument,
   resolveQualifiedDynamicContent,
 } from '@intlayer/core/dictionaryManipulator';
+import { resolveInterpreterLocale } from '@intlayer/core/interpreter';
 import type {
   Dictionary,
   DictionarySelector,
@@ -74,7 +74,7 @@ export const useDictionaryDynamic = <
     selectorLocale ??
     contextLocale ??
     fallbackLocale ??
-    internationalization.defaultLocale;
+    resolveInterpreterLocale();
 
   if (
     process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false' &&

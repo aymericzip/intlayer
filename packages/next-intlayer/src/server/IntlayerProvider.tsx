@@ -5,6 +5,11 @@ import {
   type IntlayerServerProviderProps,
 } from 'react-intlayer/server';
 import { IntlayerClientProvider } from '../client/IntlayerClientProvider';
+import { registerRequestLocaleResolver } from './ambientLocale';
+
+// The provider sits in the root layout, so every route under it can await the
+// request locale from `getIntlayerAsync` / `getDictionaryAsync`.
+registerRequestLocaleResolver();
 
 export type IntlayerProviderProps = IntlayerClientProviderProps &
   IntlayerServerProviderProps;
