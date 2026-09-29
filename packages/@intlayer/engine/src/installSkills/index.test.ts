@@ -15,6 +15,7 @@ const BASE_SKILLS = [
   'Config',
   'CLI',
   'Compiler',
+  'BundleOptimization',
   'DevTools',
 ];
 

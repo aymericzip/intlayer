@@ -210,7 +210,7 @@ const publishStatus = select({
 // Usage: publishStatus(post.status)
 ```
 
-> Prefer `select()` over indexing a plain object (`content[status]`): dynamic property access prevents the compiler from pruning and minifying the content.
+> Prefer `select()` over indexing a plain object (`content.statuses[status]`): dynamic property access prevents the compiler from pruning and minifying the content, and the build warns `Opaque field`.
 
 ### Choosing a node by discriminant
 
