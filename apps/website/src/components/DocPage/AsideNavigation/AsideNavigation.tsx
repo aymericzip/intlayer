@@ -2,11 +2,17 @@ import { Button } from '@intlayer/design-system/button';
 import { HeightResizer } from '@intlayer/design-system/height-resizer';
 import { useDevice } from '@intlayer/design-system/hooks';
 import { Modal } from '@intlayer/design-system/modal';
+import { cn } from '@intlayer/design-system/utils';
 import { MoveDiagonal } from 'lucide-react';
-import { type FC, useState } from 'react';
+import { type FC, useEffect, useRef, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { ChatBot } from '~/components/ChatBot';
 import { NavTitles } from '../NavTitles/NavTitles';
+
+/** Height of the chat panel until the user resizes it */
+const CHAT_INITIAL_HEIGHT = 250;
+/** Lets the nav finish its smooth scroll before deciding to hide the chat */
+const CHAT_VISIBILITY_DELAY_MS = 300;
 
 export const AsideNavigation: FC = () => {
   const { title } = useIntlayer('aside-navigation');
@@ -21,6 +27,51 @@ export const AsideNavigation: FC = () => {
 
   const { isMobile } = useDevice();
 
+  const navigationAreaRef = useRef<HTMLDivElement>(null);
+  const [activeLink, setActiveLink] = useState<HTMLElement | null>(null);
+  const [hasResizedChat, setHasResizedChat] = useState(false);
+  const [isChatHidden, setIsChatHidden] = useState(false);
+
+  /**
+   * Slides the chat out while it covers the active nav link (e.g. the last
+   * title of the page, which the list cannot scroll above the chat).
+   * Skipped once the user resized the chat: they chose its size.
+   */
+  useEffect(() => {
+    const navigationArea = navigationAreaRef.current;
+
+    if (!activeLink || !navigationArea || hasResizedChat) {
+      setIsChatHidden(false);
+      return;
+    }
+
+    let visibilityTimeout: ReturnType<typeof setTimeout> | undefined;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        clearTimeout(visibilityTimeout);
+        const isCoveredByChat = entry.intersectionRatio < 1;
+        visibilityTimeout = setTimeout(
+          () => setIsChatHidden(isCoveredByChat),
+          CHAT_VISIBILITY_DELAY_MS
+        );
+      },
+      {
+        root: navigationArea,
+        // Visible area = navigation area minus the chat overlay
+        rootMargin: `0px 0px -${CHAT_INITIAL_HEIGHT}px 0px`,
+        threshold: [0, 1],
+      }
+    );
+
+    observer.observe(activeLink);
+
+    return () => {
+      clearTimeout(visibilityTimeout);
+      observer.disconnect();
+    };
+  }, [activeLink, hasResizedChat]);
+
   const { button } = useIntlayer('chatbot-modal');
 
   return (
@@ -31,32 +82,45 @@ export const AsideNavigation: FC = () => {
             {title}
           </h2>
         </div>
-        <div className="relative flex min-h-0 w-full flex-1 overflow-hidden rounded-2xl md:pt-0">
+        <div
+          ref={navigationAreaRef}
+          className="relative flex min-h-0 w-full flex-1 overflow-hidden rounded-2xl md:pt-0"
+        >
           <div className="mt-4 flex pl-3">
-            <NavTitles />
+            <NavTitles onActiveLinkChange={setActiveLink} />
           </div>
-          <HeightResizer
-            initialHeight={250}
-            isDisabled={isMobile}
-            className="absolute bottom-0 left-0 size-full bg-background"
+          {/* Slides the chat out without slowing the resizer's own height transition */}
+          <div
+            inert={isChatHidden}
+            className={cn(
+              'pointer-events-none absolute inset-0 transition-transform duration-500 ease-in-out',
+              isChatHidden && 'translate-y-full'
+            )}
           >
-            <div className="justify-bottom size-full text-sm">
-              <ChatBot
-                additionalButtons={
-                  <Button
-                    Icon={MoveDiagonal}
-                    color="text"
-                    size="icon-md"
-                    variant="outline"
-                    label={button.label.value}
-                    onClick={openModal}
-                  />
-                }
-                isLarge={false}
-                stateReloaderTrigger={isModalOpen}
-              />
-            </div>
-          </HeightResizer>
+            <HeightResizer
+              initialHeight={CHAT_INITIAL_HEIGHT}
+              isDisabled={isMobile}
+              onHeightChange={() => setHasResizedChat(true)}
+              className="pointer-events-auto absolute bottom-0 left-0 size-full bg-background"
+            >
+              <div className="justify-bottom size-full text-sm">
+                <ChatBot
+                  additionalButtons={
+                    <Button
+                      Icon={MoveDiagonal}
+                      color="text"
+                      size="icon-md"
+                      variant="outline"
+                      label={button.label.value}
+                      onClick={openModal}
+                    />
+                  }
+                  isLarge={false}
+                  stateReloaderTrigger={isModalOpen}
+                />
+              </div>
+            </HeightResizer>
+          </div>
         </div>
       </div>
       <Modal

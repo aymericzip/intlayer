@@ -47,6 +47,10 @@ type HeightResizerProps = {
    * @default false
    */
   isDisabled?: boolean;
+  /**
+   * Called whenever the user changes the height, by dragging or double-clicking the handle
+   */
+  onHeightChange?: (height: number) => void;
 } & DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 
 /**
@@ -122,6 +126,7 @@ export const HeightResizer: FC<PropsWithChildren<HeightResizerProps>> = ({
   maxHeight,
   minHeight = 0,
   isDisabled = false,
+  onHeightChange,
   children,
   className,
   ...props
@@ -188,9 +193,10 @@ export const HeightResizer: FC<PropsWithChildren<HeightResizerProps>> = ({
         }
 
         setHeight(correctedHeight);
+        onHeightChange?.(correctedHeight);
       }
     },
-    [isResizing, minHeight, maxHeight]
+    [isResizing, minHeight, maxHeight, onHeightChange]
   );
 
   /**
@@ -234,6 +240,7 @@ export const HeightResizer: FC<PropsWithChildren<HeightResizerProps>> = ({
 
       if (height > minHeight) {
         setHeight(minHeight);
+        onHeightChange?.(minHeight);
         return;
       }
 
@@ -241,12 +248,16 @@ export const HeightResizer: FC<PropsWithChildren<HeightResizerProps>> = ({
         maxHeight !== undefined
           ? Math.min(lastExpandedHeightRef.current, maxHeight)
           : lastExpandedHeightRef.current;
-      setHeight(Math.max(capped, minHeight));
+      const expandedHeight = Math.max(capped, minHeight);
+      setHeight(expandedHeight);
+      onHeightChange?.(expandedHeight);
     },
-    [height, maxHeight, minHeight, isDisabled]
+    [height, maxHeight, minHeight, isDisabled, onHeightChange]
   );
 
   return (
+    // biome-ignore lint/a11y/useAriaPropsSupportedByRole: role is "slider" whenever the aria-value* props are set
+    // biome-ignore lint/a11y/noStaticElementInteractions: role is "slider" whenever the handlers are attached
     <div
       className={cn(
         'relative h-full w-full border-dashed transition',

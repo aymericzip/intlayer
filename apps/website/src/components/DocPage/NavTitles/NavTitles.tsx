@@ -59,7 +59,12 @@ const NavTitles2: FC<NavTitles2Props> = ({
   );
 };
 
-export const NavTitles: FC = () => {
+type NavTitlesProps = {
+  /** Called with the active link once the list has been scrolled toward it */
+  onActiveLinkChange?: (activeLink: HTMLElement | null) => void;
+};
+
+export const NavTitles: FC<NavTitlesProps> = ({ onActiveLinkChange }) => {
   const navRef = useRef<HTMLDivElement>(null);
   const { pathname } = useLocation();
   const { linkLabel } = useIntlayer('nav-titles');
@@ -82,7 +87,10 @@ export const NavTitles: FC = () => {
   const activeId = activeChild?.id ?? activeParent?.id ?? null;
 
   useEffect(() => {
-    if (!activeId || !navRef.current) return;
+    if (!activeId || !navRef.current) {
+      onActiveLinkChange?.(null);
+      return;
+    }
 
     // Measured on the shared frame rather than straight from the effect: the
     // active link has just been re-styled by this very commit, so reading its
@@ -100,6 +108,8 @@ export const NavTitles: FC = () => {
           : null;
       const scrollContainer =
         navigationElement.querySelector<HTMLElement>('ul');
+
+      onActiveLinkChange?.(activeLink);
 
       if (!activeLink || !scrollContainer) return;
 
@@ -121,7 +131,7 @@ export const NavTitles: FC = () => {
     });
 
     return cancelScrollIntoView;
-  }, [activeId]);
+  }, [activeId, onActiveLinkChange]);
 
   return (
     <nav ref={navRef} className="flex h-full min-h-0 flex-col">
