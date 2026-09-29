@@ -24,7 +24,7 @@ export const LibCard: FC<{
       onClick={onToggle}
       className="relative h-auto min-h-12 w-full min-w-max overflow-hidden py-2 text-left"
     >
-      <div className="flex w-full flex-row items-center gap-2 px-2 py-1.5">
+      <div className="flex w-full flex-row items-center gap-2">
         <input
           type="checkbox"
           name={lib.id}
