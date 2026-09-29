@@ -12,7 +12,7 @@ import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate';
 import { refetchFreshSession } from '#utils/auth';
 
 export const useDemoBootstrap = () => {
-  const content = useIntlayer('demo-route');
+  const { failedToCreateDemoSession } = useIntlayer('demo-route');
   const navigate = useLocalizedNavigate();
   const queryClient = useQueryClient();
   const [isBootstrapping, setIsBootstrapping] = useState(false);
@@ -26,7 +26,7 @@ export const useDemoBootstrap = () => {
       } as any).getDemoSession();
 
       if (!ok) {
-        throw new Error(content.failedToCreateDemoSession.value);
+        throw new Error(failedToCreateDemoSession.value);
       }
 
       const freshSession = await refetchFreshSession(queryClient);
@@ -37,7 +37,7 @@ export const useDemoBootstrap = () => {
       });
 
       if (!freshSession?.user) {
-        throw new Error(content.failedToCreateDemoSession.value);
+        throw new Error(failedToCreateDemoSession.value);
       }
 
       if (freshSession.organization && freshSession.project) {
@@ -52,7 +52,7 @@ export const useDemoBootstrap = () => {
       navigate({ to: App_Auth_SignIn_Path });
       setIsBootstrapping(false);
     }
-  }, [navigate, queryClient, content]);
+  }, [navigate, queryClient, failedToCreateDemoSession]);
 
   return {
     switchToDemoSession,

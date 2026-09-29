@@ -8,7 +8,7 @@ import type { RepositoryProvider } from '../types';
 export const useProviderLink = () => {
   const { session } = useSession();
   const { toast } = useToast();
-  const content = useIntlayer('repository-link');
+  const { authentication } = useIntlayer('repository-link');
 
   const [selectedProvider, setSelectedProvider] =
     useState<RepositoryProvider | null>(null);
@@ -43,7 +43,7 @@ export const useProviderLink = () => {
         setIsProviderLinked(hasProvider);
       } catch (error) {
         toast({
-          title: content.authentication?.failed,
+          title: authentication?.failed,
           description: (error as Error).message,
           variant: 'error',
         });
@@ -52,7 +52,7 @@ export const useProviderLink = () => {
         setIsCheckingProvider(false);
       }
     },
-    [session?.user, toast, content]
+    [session?.user, toast, authentication]
   );
 
   useEffect(() => {
@@ -115,7 +115,7 @@ export const useProviderLink = () => {
     } catch {
       setIsLinking(false);
       toast({
-        title: content.authentication?.failed,
+        title: authentication?.failed,
         variant: 'error',
       });
     }

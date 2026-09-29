@@ -696,8 +696,8 @@ export const planDetails = {
         'Premium destek',
       ],
       pl: [
-        null,
-        null,
+        'Dostęp do wszystkich pakietów Intlayer',
+        'Nieograniczone korzystanie z edytora wizualnego',
         'Nieograniczone zdalne słowniki',
         'Ponad 2 GB miejsca',
         'Nieograniczona liczba projektów',

@@ -85,9 +85,7 @@ export const PricingCarousel: FC<PricingCarouselProps> = ({
     }
   }, [affiliatePromo, promoCode, navigate]);
 
-  const { pricing: pricingContent, priceFrequency } = useIntlayer(
-    'pricing'
-  ) as any;
+  const { pricing: pricingContent, priceFrequency } = useIntlayer('pricing');
   const pricing = pricingContent as any;
   const plans =
     focusedPeriod === 'lifetime' ? lifetimePlans : subscriptionPlans;

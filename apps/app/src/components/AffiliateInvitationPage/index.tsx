@@ -105,7 +105,6 @@ const AffiliationContent: FC<AffiliateInvitationPageProps> = ({
 
       return (
         <AffiliateInvitationPending
-          content={content}
           referralLink={referralLink || undefined}
           onRefresh={refetchAffiliate}
           isRefreshing={isRefetching}
@@ -243,18 +242,17 @@ const AffiliationContent: FC<AffiliateInvitationPageProps> = ({
 };
 
 type AffiliateInvitationPendingProps = {
-  content: ReturnType<typeof useIntlayer<'affiliate-invitation-page'>>;
   referralLink?: string;
   onRefresh: () => void;
   isRefreshing: boolean;
 };
 
 const AffiliateInvitationPending: FC<AffiliateInvitationPendingProps> = ({
-  content,
   referralLink,
   onRefresh,
   isRefreshing,
 }) => {
+  const content = useIntlayer('affiliate-invitation-page');
   const [copied, setCopied] = useState(false);
 
   const handleCopy = useCallback(async () => {

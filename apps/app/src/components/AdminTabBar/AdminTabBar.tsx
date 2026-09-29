@@ -83,22 +83,22 @@ export const AdminTabBar: FC<AdminTabBarProps> = ({ className }) => {
       key: 'affiliate',
       href: App_Admin_Affiliate_Path,
       icon: HandCoins,
-      label: (navigation.management as any).affiliate.label.value,
-      title: (navigation.management as any).affiliate.title,
+      label: navigation.management.affiliate.label.value,
+      title: navigation.management.affiliate.title,
     },
     {
       key: 'promo-code',
       href: App_Admin_PromoCodes_Path,
       icon: Ticket,
-      label: (navigation.management as any).promoCodes.label.value,
-      title: (navigation.management as any).promoCodes.title,
+      label: navigation.management.promoCodes.label.value,
+      title: navigation.management.promoCodes.title,
     },
     {
       key: 'reviewers',
       href: App_Admin_Reviewers_Path,
       icon: Languages,
-      label: (navigation.management as any).reviewers.label.value,
-      title: (navigation.management as any).reviewers.title,
+      label: navigation.management.reviewers.label.value,
+      title: navigation.management.reviewers.title,
     },
   ].filter(
     (item) => !(IS_SELF_HOSTED && SELF_HOSTED_HIDDEN_KEYS.has(item.key))
