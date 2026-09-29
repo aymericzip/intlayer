@@ -108,6 +108,31 @@ export const getUsageCheckRegex = (
  */
 export const SOURCE_FILE_REGEX = /\.(tsx?|[mc]?jsx?|vue|svelte|astro)$/;
 
+/**
+ * Transform options shared by every internal Babel pass.
+ *
+ * Project Babel configs are never loaded: these passes only analyse or rewrite
+ * intlayer calls, so applying user presets here would transform the code a
+ * second time — and looking the config files up costs a filesystem walk per
+ * file (about two thirds of each pass's time).
+ */
+const INTERNAL_TRANSFORM_OPTIONS = {
+  parserOpts: BABEL_PARSER_OPTIONS,
+  babelrc: false,
+  configFile: false,
+} as const;
+
+/**
+ * Returns `true` when `code` is a raw SFC (Vue / Svelte / Astro source with
+ * script-block delimiters) rather than plain or already-compiled JS.
+ */
+const isRawSfcSource = (sourceFilePath: string, code: string): boolean => {
+  const scriptBlocks = extractScriptBlocks(sourceFilePath, code);
+  return (
+    scriptBlocks.length > 1 || (scriptBlocks[0]?.contentStartOffset ?? 0) > 0
+  );
+};
+
 // ── High-level transformer functions ──────────────────────────────────────────
 
 /**
@@ -125,7 +150,7 @@ const analyzeScriptContent = async (
   await transformAsync(scriptContent, {
     filename: sourceFilePath,
     plugins: [makeUsageAnalyzerBabelPlugin(pruneContext, { compatCallers })],
-    parserOpts: BABEL_PARSER_OPTIONS,
+    ...INTERNAL_TRANSFORM_OPTIONS,
     ast: false,
     code: false, // analysis only – no output needed
   });
@@ -182,7 +207,7 @@ export const renameFieldsInCode = async (
     const result = await transformAsync(code, {
       filename: sourceFilePath,
       plugins: [makeFieldRenameBabelPlugin(pruneContext)],
-      parserOpts: BABEL_PARSER_OPTIONS,
+      ...INTERNAL_TRANSFORM_OPTIONS,
       ast: false,
     });
     return result?.code ?? null;
@@ -206,13 +231,9 @@ export const renameFieldsInSourceFile = async (
   if (pruneContext.dictionaryKeyToFieldRenameMap.size === 0) return null;
   if (!INTLAYER_USAGE_REGEX.test(code)) return null;
 
-  const scriptBlocks = extractScriptBlocks(sourceFilePath, code);
+  if (isRawSfcSource(sourceFilePath, code)) {
+    const scriptBlocks = extractScriptBlocks(sourceFilePath, code);
 
-  const isSFC =
-    scriptBlocks.length > 0 &&
-    ((scriptBlocks[0]?.contentStartOffset ?? 0) > 0 || scriptBlocks.length > 1);
-
-  if (isSFC) {
     // Raw SFC: rename each script block individually and inject back.
     const modifications: Array<{
       block: (typeof scriptBlocks)[number];
@@ -245,21 +266,38 @@ export const renameFieldsInSourceFile = async (
  * `useIntlayer('key')` / `getIntlayer('key')` calls into `useDictionary(_hash)`
  * / `getDictionary(_hash)` and injecting the corresponding dictionary imports.
  *
+ * When `fieldRenamePruneContext` is given, dictionary field accesses are
+ * renamed in the same Babel pass (see {@link renameFieldsInSourceFile}): the
+ * rename plugin is listed first, so its `Program.exit` sees the dictionary
+ * keys before the optimize plugin's `Program.exit` erases them — saving a
+ * full parse and code generation per file. `code` must be plain or compiled
+ * JS, as in a bundler's post-transform hook.
+ *
  * Returns `{ code, map }` on success, or `null` if the transformation produced
  * no output.
  */
 export const optimizeSourceFile = async (
   code: string,
   sourceFilePath: string,
-  options: OptimizePluginOptions
+  options: OptimizePluginOptions,
+  fieldRenamePruneContext?: PruneContext
 ): Promise<{
   code: string;
   map: string | object | null | undefined;
 } | null> => {
+  const isRenaming =
+    fieldRenamePruneContext !== undefined &&
+    fieldRenamePruneContext.dictionaryKeyToFieldRenameMap.size > 0;
+
   const result = await transformAsync(code, {
     filename: sourceFilePath,
-    plugins: [[intlayerOptimizeBabelPlugin, options]],
-    parserOpts: BABEL_PARSER_OPTIONS,
+    plugins: [
+      ...(isRenaming
+        ? [makeFieldRenameBabelPlugin(fieldRenamePruneContext)]
+        : []),
+      [intlayerOptimizeBabelPlugin, options],
+    ],
+    ...INTERNAL_TRANSFORM_OPTIONS,
   });
 
   if (!result?.code) return null;

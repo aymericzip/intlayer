@@ -6,13 +6,7 @@
 //! which both the Wasm host and a native embedder capture.
 
 use crate::config::LogLevel;
-use swc_core::{
-    common::{sync::Lrc, SourceMap},
-    ecma::{
-        ast::Program,
-        codegen::{text_writer::JsWriter, Config as CodegenConfig, Emitter},
-    },
-};
+use swc_core::ecma::ast::Program;
 
 /// Prefix every line carries so plugin output is greppable in a build log.
 const LOG_PREFIX: &str = "[intlayer/swc]";
@@ -110,7 +104,13 @@ impl TransformSummary {
 
 /// Emits a `Program` AST back to JavaScript/TypeScript source code as a `String`.
 /// Used exclusively for debug logging.
+#[cfg(any(test, feature = "debug-output"))]
 pub fn program_to_code(program: &Program) -> String {
+    use swc_core::{
+        common::{sync::Lrc, SourceMap},
+        ecma::codegen::{text_writer::JsWriter, Config as CodegenConfig, Emitter},
+    };
+
     let source_map = Lrc::new(SourceMap::default());
     let mut buffer = vec![];
     {
@@ -124,4 +124,11 @@ pub fn program_to_code(program: &Program) -> String {
         let _ = emitter.emit_program(program);
     }
     String::from_utf8_lossy(&buffer).into_owned()
+}
+
+/// Stand-in used when the code generator is not compiled in (see the
+/// `debug-output` Cargo feature), so debug logs explain how to get the output.
+#[cfg(not(any(test, feature = "debug-output")))]
+pub fn program_to_code(_program: &Program) -> String {
+    String::from("(emitted code not available: build with `--features plugin,debug-output`)")
 }

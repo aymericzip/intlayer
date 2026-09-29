@@ -166,9 +166,7 @@ fn collect_caller_map(program: &Program, extra_callers: &[ExtraCallerConfig]) ->
                     .iter()
                     .any(|source| source == package_specifier)
             })
-            .map(|(extra_index, extra_caller)| {
-                (extra_index, extra_caller.caller_name.as_str())
-            })
+            .map(|(extra_index, extra_caller)| (extra_index, extra_caller.caller_name.as_str()))
             .collect();
 
         if !is_native_package && extra_callers_for_package.is_empty() {
@@ -192,8 +190,8 @@ fn collect_caller_map(program: &Program, extra_callers: &[ExtraCallerConfig]) ->
                     package: None,
                 })
                 .or_else(|| {
-                    let is_native_caller = is_native_package
-                        && NATIVE_CALLER_NAMES.contains(&imported_name.as_str());
+                    let is_native_caller =
+                        is_native_package && NATIVE_CALLER_NAMES.contains(&imported_name.as_str());
 
                     is_native_caller.then(|| CallerMeta {
                         original_name: imported_name.clone(),

@@ -301,6 +301,170 @@ describe('makeUsageAnalyzerBabelPlugin', () => {
     });
   });
 
+  describe('Promise.all destructuring', () => {
+    it('tracks each element of the destructured array pattern', () => {
+      const ctx = analyze(`
+        import { getIntlayerAsync } from 'intlayer';
+        export const load = async (locale) => {
+          const [data, page, { description }] = await Promise.all([
+            fetchData(),
+            getIntlayerAsync('page', locale),
+            getIntlayerAsync('product', locale),
+          ]);
+          return [data, page.metadata.title, description];
+        };
+      `);
+
+      expect(ctx.dictionaryKeyToFieldUsageMap.get('page')).toEqual(
+        new Set(['metadata'])
+      );
+      expect(ctx.dictionaryKeyToFieldUsageMap.get('product')).toEqual(
+        new Set(['description'])
+      );
+      expect(ctx.dictionaryKeysWithUntrackedBindings.size).toBe(0);
+    });
+
+    it('records nothing for an element skipped by a hole', () => {
+      const ctx = analyze(`
+        import { getIntlayerAsync } from 'intlayer';
+        export const load = async () => {
+          const [, product] = await Promise.all([
+            getIntlayerAsync('page'),
+            getIntlayerAsync('product'),
+          ]);
+          return product.title;
+        };
+      `);
+
+      expect(ctx.dictionaryKeyToFieldUsageMap.has('page')).toBe(false);
+      expect(ctx.dictionaryKeyToFieldUsageMap.get('product')).toEqual(
+        new Set(['title'])
+      );
+    });
+
+    it('marks "all" when the Promise.all result is not destructured', () => {
+      const ctx = analyze(`
+        import { getIntlayerAsync } from 'intlayer';
+        export const load = async () => {
+          const results = await Promise.all([getIntlayerAsync('page')]);
+          return results[0].title;
+        };
+      `);
+
+      expect(ctx.dictionaryKeyToFieldUsageMap.get('page')).toBe('all');
+    });
+
+    it('marks "all" when a rest element covers the call', () => {
+      const ctx = analyze(`
+        import { getIntlayerAsync } from 'intlayer';
+        export const load = async () => {
+          const [...all] = await Promise.all([getIntlayerAsync('page')]);
+          return all;
+        };
+      `);
+
+      expect(ctx.dictionaryKeyToFieldUsageMap.get('page')).toBe('all');
+    });
+  });
+
+  describe('TypeScript casts', () => {
+    it('looks through a cast on the call before destructuring', () => {
+      const ctx = analyze(`
+        import { useIntlayer } from 'react-intlayer';
+        const Table = () => {
+          const { comparisonTable } = useIntlayer('pricing') as any;
+          const { title, features } = comparisonTable;
+          return [title, features.storage];
+        };
+      `);
+
+      expect(ctx.dictionaryKeyToFieldUsageMap.get('pricing')).toEqual(
+        new Set(['comparisonTable'])
+      );
+      expect(ctx.dictionaryKeysWithUntrackedBindings.size).toBe(0);
+      expect(ctx.dictionaryKeysWithOpaqueFields.has('pricing')).toBe(false);
+    });
+
+    it('looks through a cast inside a member chain', () => {
+      const ctx = analyze(`
+        import { useIntlayer } from 'react-intlayer';
+        const Bar = () => {
+          const { navigation } = useIntlayer('admin');
+          return (navigation.management as any).affiliate.label.value;
+        };
+      `);
+
+      const opaque = ctx.dictionaryKeysWithOpaqueFields.get('admin');
+      expect(opaque?.has('navigation.management')).not.toBe(true);
+    });
+  });
+
+  describe('field aliases and test-only uses', () => {
+    it('follows a const alias and ignores truthiness guards', () => {
+      const ctx = analyze(`
+        import { useIntlayer } from 'react-intlayer';
+        const Summary = () => {
+          const { labels } = useIntlayer('results');
+          const chunkTable = labels?.summary?.chunkTable;
+          if (!chunkTable) return null;
+          return chunkTable.file;
+        };
+      `);
+
+      const opaque = ctx.dictionaryKeysWithOpaqueFields.get('results');
+      expect(opaque?.has('labels.summary.chunkTable')).not.toBe(true);
+      expect(opaque?.has('labels.summary.chunkTable.file')).toBe(true);
+    });
+
+    it('keeps an alias opaque in SFC files, whose templates Babel cannot see', () => {
+      for (const filePath of [
+        '/app/src/Summary.vue',
+        '/app/src/Summary.svelte',
+        '/app/src/pages/index.astro',
+      ]) {
+        const ctx = analyze(
+          `
+          import { useIntlayer } from 'vue-intlayer';
+          const { labels } = useIntlayer('results');
+          const table = labels.table;
+          `,
+          filePath
+        );
+
+        const opaque = ctx.dictionaryKeysWithOpaqueFields.get('results');
+        expect(opaque?.has('labels.table')).toBe(true);
+      }
+    });
+
+    it('keeps a reassigned alias opaque', () => {
+      const ctx = analyze(`
+        import { useIntlayer } from 'react-intlayer';
+        const Summary = () => {
+          const { labels } = useIntlayer('results');
+          let table = labels.table;
+          table = other;
+          return table.file;
+        };
+      `);
+
+      const opaque = ctx.dictionaryKeysWithOpaqueFields.get('results');
+      expect(opaque?.has('labels.table')).toBe(true);
+    });
+
+    it('keeps a field opaque when used as the left side of ||', () => {
+      const ctx = analyze(`
+        import { useIntlayer } from 'react-intlayer';
+        const Summary = () => {
+          const { labels } = useIntlayer('results');
+          return render(labels.table || fallback);
+        };
+      `);
+
+      const opaque = ctx.dictionaryKeysWithOpaqueFields.get('results');
+      expect(opaque?.has('labels.table')).toBe(true);
+    });
+  });
+
   describe('aliased imports', () => {
     it('tracks aliased caller names', () => {
       const ctx = analyze(`

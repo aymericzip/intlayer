@@ -364,3 +364,78 @@ fn renames_member_access_on_an_awaited_async_getter() {
         "#,
     );
 }
+
+#[test]
+fn renames_elements_destructured_from_promise_all() {
+    // Each element of the array pattern is renamed with the table of the value
+    // at the same index; `fetchData()` and the hole keep their positions.
+    test_rename(
+        r#"
+        import { getIntlayerAsync } from "intlayer";
+        export const load = async (locale) => {
+            const [data, , about, { section: { title } }] = await Promise.all([
+                fetchData(),
+                getIntlayerAsync("about", locale),
+                getIntlayerAsync("about", locale),
+                getIntlayerAsync("about", locale),
+            ]);
+            return [data, about.subtitle, title];
+        };
+        "#,
+        r#"
+        import { getIntlayerAsync } from "intlayer";
+        export const load = async (locale) => {
+            const [data, , about, { b: { b: title } }] = await Promise.all([
+                fetchData(),
+                getIntlayerAsync("about", locale),
+                getIntlayerAsync("about", locale),
+                getIntlayerAsync("about", locale),
+            ]);
+            return [data, about.c, title];
+        };
+        "#,
+    );
+}
+
+#[test]
+fn leaves_promise_all_elements_after_a_rest_element_untouched() {
+    test_rename(
+        r#"
+        import { getIntlayerAsync } from "intlayer";
+        export const load = async () => {
+            const [...contents] = await Promise.all([getIntlayerAsync("about")]);
+            return contents[0].title;
+        };
+        "#,
+        r#"
+        import { getIntlayerAsync } from "intlayer";
+        export const load = async () => {
+            const [...contents] = await Promise.all([getIntlayerAsync("about")]);
+            return contents[0].title;
+        };
+        "#,
+    );
+}
+
+#[test]
+fn renames_through_an_angle_bracket_type_assertion() {
+    test_transform(
+        Syntax::Typescript(Default::default()),
+        None,
+        |_| FieldRenameFolder {
+            field_rename_map: about_rename_map(),
+        },
+        r#"
+        import { useIntlayer } from "react-intlayer";
+        const about = useIntlayer("about");
+        const heading = (<any>about.section).title;
+        "#,
+        // The harness's fixer drops the parentheses around `<any>…`; once the
+        // type is erased both forms are the same `about.b.b`.
+        r#"
+        import { useIntlayer } from "react-intlayer";
+        const about = useIntlayer("about");
+        const heading = <any>about.b.b;
+        "#,
+    );
+}

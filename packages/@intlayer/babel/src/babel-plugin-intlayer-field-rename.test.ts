@@ -376,6 +376,95 @@ describe('makeFieldRenameBabelPlugin', () => {
     });
   });
 
+  describe('Promise.all destructuring', () => {
+    it('renames the element bound to each getIntlayerAsync call', () => {
+      const ctx = makeContext(
+        new Map([
+          ...buildSimpleRenameMap(),
+          [
+            'product',
+            // sorted: audienceType → 'a', description → 'b'
+            buildNestedRenameMapFromContent({
+              audienceType: 'x',
+              description: 'y',
+            }),
+          ],
+        ])
+      );
+      const code = `
+        import { getIntlayerAsync } from 'intlayer';
+        export const load = async (locale) => {
+          const [data, content, { description }] = await Promise.all([
+            fetchData(),
+            getIntlayerAsync('homepage', locale),
+            getIntlayerAsync('product', locale),
+          ]);
+          return [data, content.title, description];
+        };
+      `;
+      const output = rename(code, ctx);
+      expect(output).toContain('content.b');
+      expect(output).toContain('b: description');
+      expect(output).not.toMatch(/content\.title\b/);
+    });
+  });
+
+  describe('TypeScript casts and aliases', () => {
+    const nestedRenameMap = () =>
+      new Map([
+        [
+          'pricing',
+          // table → 'a' (children: file → 'a', title → 'b')
+          buildNestedRenameMapFromContent({ table: { file: 'F', title: 'T' } }),
+        ],
+      ]);
+
+    it('renames through a cast on the call and a secondary destructuring', () => {
+      const ctx = makeContext(nestedRenameMap());
+      const code = `
+        import { useIntlayer } from 'react-intlayer';
+        const Table = () => {
+          const { table } = useIntlayer('pricing') as any;
+          const { title } = table;
+          return title;
+        };
+      `;
+      const output = rename(code, ctx);
+      expect(output).toContain('a: table');
+      expect(output).toContain('b: title');
+    });
+
+    it('renames through a cast inside a member chain', () => {
+      const ctx = makeContext(nestedRenameMap());
+      const code = `
+        import { useIntlayer } from 'react-intlayer';
+        const Table = () => {
+          const content = useIntlayer('pricing');
+          return (content.table as any).title;
+        };
+      `;
+      const output = rename(code, ctx);
+      expect(output).toContain('(content.a as any).b');
+    });
+
+    it('renames accesses made through a const alias', () => {
+      const ctx = makeContext(nestedRenameMap());
+      const code = `
+        import { useIntlayer } from 'react-intlayer';
+        const Table = () => {
+          const content = useIntlayer('pricing');
+          const table = content?.table;
+          if (!table) return null;
+          return table.file;
+        };
+      `;
+      const output = rename(code, ctx);
+      expect(output).toContain('content?.a');
+      expect(output).toContain('table.a');
+      expect(output).not.toMatch(/table\.file\b/);
+    });
+  });
+
   describe('no-op cases', () => {
     it('leaves code unchanged when no rename map entry exists for the key', () => {
       const ctx = makeContext(buildSimpleRenameMap());

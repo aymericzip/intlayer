@@ -24,6 +24,10 @@ default = []
 # Enables the Wasm plugin entry point (`#[plugin_transform]`).
 # Required when compiling to wasm32-wasip1 / wasm32-unknown-unknown for use with SWC/Next.js.
 plugin = ["swc_core/ecma_plugin_transform"]
+# Prints the emitted code of every transformed file at `logLevel: 'debug'`.
+# Off in the published binary: the ECMAScript code generator it needs is about
+# two thirds of the Wasm size. Build with `--features plugin,debug-output`.
+debug-output = ["swc_core/ecma_codegen"]
 
 [profile.release]
 lto = true
@@ -61,21 +65,25 @@ pathdiff = "0.2"
 # builds fall back to running unoptimised instead of failing. Whenever this pin
 # moves, update `MINIMUM_SWC_PLUGIN_NEXT_VERSION` in
 # `packages/next-intlayer/src/server/withIntlayer.ts` to match.
+# Keep this list minimal — every feature is compiled into the Wasm binary.
+# The parser and code generator are only needed by the tests (dev-dependency
+# below) and by the opt-in `debug-output` feature.
 swc_core = { version = "54.0.0", features = [
-  "ecma_utils",
   "ecma_visit",
   "ecma_ast",
-  "ecma_parser",
-  "ecma_codegen",
   "common",
 ] }
 twox-hash = "2.1.0"
 base62 = "2.2.1"
 
 [dev-dependencies]
+# Dev-only features never reach the release Wasm (resolver 2 keeps dev and
+# normal dependency features apart).
 swc_core = { version = "54.0.0", features = [
   "testing_transform",
   "ecma_plugin_transform",
+  "ecma_parser",
+  "ecma_codegen",
 ] }
 
 [lints.rust]

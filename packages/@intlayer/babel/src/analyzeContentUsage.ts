@@ -6,7 +6,11 @@ import {
   type PruneContext,
   recordFieldUsage,
 } from './pruneContext';
-import { unwrapAwait } from './staticAstReaders';
+import {
+  isTestOnlyUse,
+  resolveContentRoot,
+  skipTransparentWrappers,
+} from './staticAstReaders';
 
 /**
  * Analyses how the result of a single `useIntlayer('key')` / `getIntlayer('key')`
@@ -17,7 +21,12 @@ import { unwrapAwait } from './staticAstReaders';
  *   useIntlayer('key').fieldA                       → records {fieldA}
  *   useIntlayer('key')['fieldA']                    → records {fieldA}
  *   const { ...rest } = useIntlayer('key')          → records 'all' (spread)
- *   const result = useIntlayer('key')               → records 'all' (untracked binding)
+ *   const result = useIntlayer('key')               → records the fields read on `result`
+ *   const [a, { b }] = await Promise.all([getIntlayerAsync('x'), …])
+ *                                                   → each element tracked like a declarator
+ *
+ * TypeScript casts (`as`, `satisfies`, `!`) are looked through, and test-only
+ * uses (`!field`, `field && …`) expose no key names.
  */
 export const analyzeCallExpressionUsage = (
   babelTypes: typeof BabelTypes,
@@ -95,9 +104,14 @@ export const analyzeCallExpressionUsage = (
    * so the children of that value keep their original key names.
    */
   const analyzeOpaqueUsage = (
-    refPath: NodePath<BabelTypes.Node>,
+    referencePath: NodePath<BabelTypes.Node>,
     fieldPath: string[]
   ): void => {
+    const refPath = skipTransparentWrappers(babelTypes, referencePath);
+
+    // `!field`, `field && …`: only tested, no key name escapes.
+    if (isTestOnlyUse(babelTypes, refPath)) return;
+
     const parentNode = refPath.parent;
     const parentPath = refPath.parentPath;
 
@@ -159,12 +173,31 @@ export const analyzeCallExpressionUsage = (
       return;
     }
 
-    // 3. Ignored patterns (e.g. array literals [content])
+    // 3. Alias (e.g. const table = content.summary.table): follow the alias.
+    //    A reassigned alias may hold anything, and an SFC template can read
+    //    the alias out of Babel's sight, so both stay opaque.
+    if (
+      babelTypes.isVariableDeclarator(parentNode) &&
+      babelTypes.isIdentifier(parentNode.id) &&
+      parentNode.init === refPath.node
+    ) {
+      const aliasBinding = refPath.scope.getBinding(parentNode.id.name);
+      if (isSfcFile || !aliasBinding?.constant) {
+        markOpaqueField(fieldPath, refPath.node.loc?.start.line);
+        return;
+      }
+      for (const aliasReferencePath of aliasBinding.referencePaths) {
+        analyzeOpaqueUsage(aliasReferencePath, fieldPath);
+      }
+      return;
+    }
+
+    // 4. Ignored patterns (e.g. array literals [content])
     if (babelTypes.isArrayExpression(parentNode)) {
       return;
     }
 
-    // 4. Opaque consumption (passed to prop, function, etc.)
+    // 5. Opaque consumption (passed to prop, function, etc.)
     markOpaqueField(fieldPath, refPath.node.loc?.start.line);
   };
 
@@ -398,7 +431,15 @@ export const analyzeCallExpressionUsage = (
     variableBinding: { referencePaths: NodePath<BabelTypes.Node>[] },
     accessedTopLevelFieldNames: Set<string>
   ): boolean => {
-    for (const variableReferencePath of variableBinding.referencePaths) {
+    for (const bindingReferencePath of variableBinding.referencePaths) {
+      const variableReferencePath = skipTransparentWrappers(
+        babelTypes,
+        bindingReferencePath
+      );
+
+      // `if (!content)`: only tested, no key name escapes.
+      if (isTestOnlyUse(babelTypes, variableReferencePath)) continue;
+
       const referenceParentNode = variableReferencePath.parent;
 
       if (
@@ -535,34 +576,82 @@ export const analyzeCallExpressionUsage = (
   };
 
   /**
-   * Analyses how the content root referenced by `rootPath` is consumed.
+   * Records the fields read through `variableName`, the local binding that
+   * receives the content root at `rootPath`.
+   */
+  const analyzeContentVariable = (
+    rootPath: NodePath<BabelTypes.Node>,
+    variableName: string
+  ): void => {
+    const variableBinding = rootPath.scope.getBinding(variableName);
+    if (!variableBinding) {
+      markUntrackedBinding();
+      return;
+    }
+
+    const accessedTopLevelFieldNames = new Set<string>();
+    const hasUntrackedReferenceAccess = analyzeContentBindingReferences(
+      variableBinding,
+      accessedTopLevelFieldNames
+    );
+
+    if (hasUntrackedReferenceAccess) {
+      markUntrackedBinding();
+    } else if (isSfcFile) {
+      // Vue / Svelte SFC: defer to the framework-specific extractor because
+      // Babel scope analysis cannot see through `.value` or `$` indirection.
+      deferFrameworkAnalysis(variableName);
+    } else if (variableBinding.referencePaths.length === 0) {
+      // Non-SFC file with no visible references – keep all fields.
+      markUntrackedBinding();
+    } else {
+      recordFieldUsage(pruneContext, dictionaryKey, accessedTopLevelFieldNames);
+    }
+  };
+
+  /**
+   * Analyses how the content root produced by `expressionPath` is consumed.
    *
-   * `rootPath` is the `useIntlayer('key')` call itself, or any expression that
+   * `expressionPath` is the `useIntlayer('key')` call itself, or any expression that
    * evaluates back to the same content object — currently the result of a
    * chainable runtime helper such as `.onChange(…)`.
    */
-  const analyzeContentRoot = (rootPath: NodePath<BabelTypes.Node>): void => {
-    const parentNode = rootPath.parent;
+  const analyzeContentRoot = (
+    expressionPath: NodePath<BabelTypes.Node>
+  ): void => {
+    const resolution = resolveContentRoot(babelTypes, expressionPath);
 
-    // ── Pattern 1: const { fieldA, fieldB } = useIntlayer('key') ────────────
-    if (
-      babelTypes.isVariableDeclarator(parentNode) &&
-      babelTypes.isObjectPattern(parentNode.id)
-    ) {
-      const accessedFieldNames = new Set<string>();
-      if (
-        collectFieldsFromObjectPattern(
-          parentNode.id,
-          rootPath,
-          accessedFieldNames
-        )
-      ) {
-        recordFieldUsage(pruneContext, dictionaryKey, accessedFieldNames);
-      } else {
-        recordFieldUsage(pruneContext, dictionaryKey, 'all');
+    // const [, b] = await Promise.all([getIntlayerAsync('skipped'), …])
+    if (resolution.kind === 'discarded') return;
+
+    const { rootPath } = resolution;
+
+    if (resolution.kind === 'binding') {
+      const { bindingTarget } = resolution;
+
+      // ── Pattern 1: const { fieldA, fieldB } = useIntlayer('key') ──────────
+      if (babelTypes.isObjectPattern(bindingTarget)) {
+        const accessedFieldNames = new Set<string>();
+        if (
+          collectFieldsFromObjectPattern(
+            bindingTarget,
+            rootPath,
+            accessedFieldNames
+          )
+        ) {
+          recordFieldUsage(pruneContext, dictionaryKey, accessedFieldNames);
+        } else {
+          recordFieldUsage(pruneContext, dictionaryKey, 'all');
+        }
+        return;
       }
+
+      // ── Pattern 3: const content = useIntlayer('key') ─────────────────────
+      analyzeContentVariable(rootPath, bindingTarget.name);
       return;
     }
+
+    const parentNode = rootPath.parent;
 
     // ── Pattern 2: useIntlayer('key').fieldA / useIntlayer('key')?.fieldA ────
     if (
@@ -611,44 +700,6 @@ export const analyzeCallExpressionUsage = (
       return;
     }
 
-    // ── Pattern 3: const content = useIntlayer('key') ───────────────────────
-    if (
-      babelTypes.isVariableDeclarator(parentNode) &&
-      babelTypes.isIdentifier(parentNode.id)
-    ) {
-      const variableName = parentNode.id.name;
-      const variableBinding = rootPath.scope.getBinding(variableName);
-
-      if (!variableBinding) {
-        markUntrackedBinding();
-        return;
-      }
-
-      const accessedTopLevelFieldNames = new Set<string>();
-      const hasUntrackedReferenceAccess = analyzeContentBindingReferences(
-        variableBinding,
-        accessedTopLevelFieldNames
-      );
-
-      if (hasUntrackedReferenceAccess) {
-        markUntrackedBinding();
-      } else if (isSfcFile) {
-        // Vue / Svelte SFC: defer to the framework-specific extractor because
-        // Babel scope analysis cannot see through `.value` or `$` indirection.
-        deferFrameworkAnalysis(variableName);
-      } else if (variableBinding.referencePaths.length === 0) {
-        // Non-SFC file with no visible references – keep all fields.
-        markUntrackedBinding();
-      } else {
-        recordFieldUsage(
-          pruneContext,
-          dictionaryKey,
-          accessedTopLevelFieldNames
-        );
-      }
-      return;
-    }
-
     // ── Pattern 4: bare call – result is discarded ──────────────────────────
     if (babelTypes.isExpressionStatement(parentNode)) {
       return; // no usage to record
@@ -661,5 +712,5 @@ export const analyzeCallExpressionUsage = (
   // `getIntlayerAsync('key')` is consumed through its `await`, so the content
   // root is the await expression — reading the call's own parent would see
   // only the `AwaitExpression` and give up on every field.
-  analyzeContentRoot(unwrapAwait(babelTypes, callExpressionPath));
+  analyzeContentRoot(callExpressionPath);
 };

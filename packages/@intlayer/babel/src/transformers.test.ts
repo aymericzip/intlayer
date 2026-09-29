@@ -1,14 +1,23 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
+import { buildNestedRenameMapFromContent } from './babel-plugin-intlayer-field-rename';
+import type { OptimizePluginOptions } from './babel-plugin-intlayer-optimize';
 import {
   createPruneContext,
   INTLAYER_CALLER_NAMES,
+  type PruneContext,
 } from './babel-plugin-intlayer-usage-analyzer';
 import {
   analyzeFieldUsageInFile,
   buildUsageCheckRegex,
   getUsageCheckRegex,
   INTLAYER_USAGE_REGEX,
+  optimizeSourceFile,
+  renameFieldsInSourceFile,
 } from './transformers';
+
+vi.mock('@intlayer/engine/utils', () => ({
+  getPathHash: (key: string) => `dicHash_${key}`,
+}));
 
 /**
  * TanStack Start route shape: the dictionary is read from an async `head`,
@@ -78,5 +87,65 @@ describe('analyzeFieldUsageInFile', () => {
     expect(
       pruneContext.dictionaryKeyToFieldUsageMap.get('locale-metadata')
     ).toEqual(new Set(['title', 'keywords']));
+  });
+});
+
+describe('optimizeSourceFile with field renaming', () => {
+  const makeOptions = (filePath: string): OptimizePluginOptions => ({
+    dictionariesDir: '/app/.intlayer/dictionary',
+    dictionariesEntryPath: '/app/.intlayer/main/dictionaries.mjs',
+    dynamicDictionariesDir: '/app/.intlayer/dynamic_dictionary',
+    dynamicDictionariesEntryPath:
+      '/app/.intlayer/main/dynamic_dictionaries.mjs',
+    fetchDictionariesDir: '/app/.intlayer/fetch_dictionary',
+    fetchDictionariesEntryPath: '/app/.intlayer/main/fetch_dictionaries.mjs',
+    unmergedDictionariesDir: '/app/.intlayer/unmerged_dictionary',
+    unmergedDictionariesEntryPath: '/app/.intlayer/main/unmerged.mjs',
+    replaceDictionaryEntry: false,
+    importMode: 'static',
+    filesList: [filePath],
+    dictionaryModeMap: {},
+  });
+
+  /** `about` dictionary renamed as `subtitle` → `a`, `title` → `b`. */
+  const makeRenameContext = (): PruneContext => {
+    const pruneContext = createPruneContext();
+    pruneContext.dictionaryKeyToFieldRenameMap.set(
+      'about',
+      buildNestedRenameMapFromContent({ subtitle: 'S', title: 'T' })
+    );
+    return pruneContext;
+  };
+
+  it('renames and optimizes in one pass, matching two separate passes', async () => {
+    const filePath = '/app/src/About.tsx';
+    const code = `
+      import { useIntlayer } from 'react-intlayer';
+      export const About = () => {
+        const { title } = useIntlayer('about');
+        return title;
+      };
+    `;
+    const options = makeOptions(filePath);
+
+    const renamedCode =
+      (await renameFieldsInSourceFile(filePath, code, makeRenameContext())) ??
+      code;
+    const twoPassResult = await optimizeSourceFile(
+      renamedCode,
+      filePath,
+      options
+    );
+    const onePassResult = await optimizeSourceFile(
+      code,
+      filePath,
+      options,
+      makeRenameContext()
+    );
+
+    expect(onePassResult?.code).toBe(twoPassResult?.code);
+    expect(onePassResult?.code).toContain('b: title');
+    expect(onePassResult?.code).toContain('useDictionary');
+    expect(onePassResult?.code).not.toContain("useIntlayer('about')");
   });
 });

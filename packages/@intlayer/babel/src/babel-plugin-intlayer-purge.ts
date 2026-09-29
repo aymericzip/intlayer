@@ -363,6 +363,8 @@ const analyzeCodeBlockSync = (
       filename: sourceFilePath,
       plugins: [makeUsageAnalyzerBabelPlugin(pruneContext, { compatCallers })],
       parserOpts: BABEL_PARSER_OPTIONS,
+      babelrc: false,
+      configFile: false,
       ast: false,
       code: false,
     });

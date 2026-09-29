@@ -206,3 +206,194 @@ export const unwrapAwait = (
   }
   return path;
 };
+
+/**
+ * Returns `true` when `node` wraps `innerNode` without changing its runtime
+ * value: TypeScript casts (`as`, `satisfies`, `!`, `<T>x`) and parentheses.
+ */
+const isTransparentWrapper = (
+  babelTypes: typeof BabelTypes,
+  node: BabelTypes.Node,
+  innerNode: BabelTypes.Node
+): boolean =>
+  (babelTypes.isTSAsExpression(node) ||
+    babelTypes.isTSSatisfiesExpression(node) ||
+    babelTypes.isTSNonNullExpression(node) ||
+    babelTypes.isTSTypeAssertion(node) ||
+    babelTypes.isParenthesizedExpression(node)) &&
+  node.expression === innerNode;
+
+/**
+ * Climbs past every enclosing value-preserving wrapper (see
+ * {@link isTransparentWrapper}), so `(content.field as any).sub` is walked the
+ * same way as `content.field.sub`.
+ */
+export const skipTransparentWrappers = (
+  babelTypes: typeof BabelTypes,
+  path: NodePath<BabelTypes.Node>
+): NodePath<BabelTypes.Node> => {
+  let currentPath = path;
+  while (
+    currentPath.parentPath &&
+    isTransparentWrapper(
+      babelTypes,
+      currentPath.parentPath.node,
+      currentPath.node
+    )
+  ) {
+    currentPath = currentPath.parentPath;
+  }
+  return currentPath;
+};
+
+/** Climbs past wrappers and an `await`, in any nesting order. */
+const skipWrappersAndAwait = (
+  babelTypes: typeof BabelTypes,
+  path: NodePath<BabelTypes.Node>
+): NodePath<BabelTypes.Node> =>
+  skipTransparentWrappers(
+    babelTypes,
+    unwrapAwait(babelTypes, skipTransparentWrappers(babelTypes, path))
+  );
+
+/**
+ * Returns `true` for `Promise.all(…)`. `allSettled` is excluded on purpose: it
+ * wraps each value in `{ status, value }`.
+ */
+const isPromiseAllCall = (
+  babelTypes: typeof BabelTypes,
+  node: BabelTypes.Node
+): node is BabelTypes.CallExpression =>
+  babelTypes.isCallExpression(node) &&
+  babelTypes.isMemberExpression(node.callee) &&
+  !node.callee.computed &&
+  babelTypes.isIdentifier(node.callee.object, { name: 'Promise' }) &&
+  babelTypes.isIdentifier(node.callee.property, { name: 'all' });
+
+/** How the value of a content-producing expression is consumed. */
+export type ContentRootResolution =
+  /** Consumed inline — inspect `rootPath.parent` (member access, argument…). */
+  | { kind: 'expression'; rootPath: NodePath<BabelTypes.Node> }
+  /** Stored into a local binding (`const x = …` / `const { a } = …`). */
+  | {
+      kind: 'binding';
+      rootPath: NodePath<BabelTypes.Node>;
+      bindingTarget: BabelTypes.Identifier | BabelTypes.ObjectPattern;
+    }
+  /** Skipped by an array-pattern hole (`const [, b] = await Promise.all(…)`). */
+  | { kind: 'discarded' };
+
+/**
+ * Resolves where the content returned by `path` (a `useIntlayer('key')` call
+ * or any expression evaluating to the same content) ends up.
+ *
+ * Looks through TypeScript casts, parentheses and `await`, and through
+ * `const [a, { b }] = await Promise.all([getIntlayerAsync('x'), …])`, where the
+ * array-pattern element at the call's index is the binding target.
+ *
+ * Both the usage analyser and the field renamer resolve roots through this
+ * function, so every shape the analyser tracks is one the renamer rewrites.
+ */
+export const resolveContentRoot = (
+  babelTypes: typeof BabelTypes,
+  path: NodePath<BabelTypes.Node>
+): ContentRootResolution => {
+  const rootPath = skipWrappersAndAwait(babelTypes, path);
+  const parentNode = rootPath.parent;
+
+  if (
+    babelTypes.isVariableDeclarator(parentNode) &&
+    parentNode.init === rootPath.node &&
+    (babelTypes.isIdentifier(parentNode.id) ||
+      babelTypes.isObjectPattern(parentNode.id))
+  ) {
+    return { kind: 'binding', rootPath, bindingTarget: parentNode.id };
+  }
+
+  // const [a, b] = await Promise.all([getIntlayerAsync('a'), …])
+  const promiseAllPath = rootPath.parentPath?.parentPath;
+  if (
+    !babelTypes.isArrayExpression(parentNode) ||
+    !promiseAllPath ||
+    !isPromiseAllCall(babelTypes, promiseAllPath.node) ||
+    promiseAllPath.node.arguments[0] !== parentNode
+  ) {
+    return { kind: 'expression', rootPath };
+  }
+
+  const promiseAllRootPath = skipWrappersAndAwait(babelTypes, promiseAllPath);
+  const declaratorNode = promiseAllRootPath.parent;
+  if (
+    !babelTypes.isVariableDeclarator(declaratorNode) ||
+    declaratorNode.init !== promiseAllRootPath.node ||
+    !babelTypes.isArrayPattern(declaratorNode.id)
+  ) {
+    return { kind: 'expression', rootPath };
+  }
+
+  const elementIndex = parentNode.elements.indexOf(
+    rootPath.node as BabelTypes.Expression
+  );
+  const patternElements = declaratorNode.id.elements;
+
+  // A preceding spread in the input, or a rest element at or before this
+  // index in the pattern, makes the position ambiguous.
+  const hasSpreadBefore = parentNode.elements
+    .slice(0, elementIndex)
+    .some((element) => babelTypes.isSpreadElement(element));
+  const hasRestUpTo = patternElements
+    .slice(0, elementIndex + 1)
+    .some((element) => babelTypes.isRestElement(element));
+  if (hasSpreadBefore || hasRestUpTo) return { kind: 'expression', rootPath };
+
+  const patternElement = patternElements[elementIndex];
+  if (!patternElement) return { kind: 'discarded' };
+
+  // A default value ([a = fallback]) wraps the actual binding target.
+  const bindingTarget = babelTypes.isAssignmentPattern(patternElement)
+    ? patternElement.left
+    : patternElement;
+
+  if (
+    babelTypes.isIdentifier(bindingTarget) ||
+    babelTypes.isObjectPattern(bindingTarget)
+  ) {
+    return { kind: 'binding', rootPath, bindingTarget };
+  }
+
+  return { kind: 'expression', rootPath };
+};
+
+/**
+ * Returns `true` when the value at `path` is only tested, never read: `!x`,
+ * `typeof x`, `if (x)`, `x ? … : …`, `x && …`, `x === y`. Such uses expose no
+ * key names, so they neither block pruning nor make a field opaque.
+ */
+export const isTestOnlyUse = (
+  babelTypes: typeof BabelTypes,
+  path: NodePath<BabelTypes.Node>
+): boolean => {
+  const parentNode = path.parent;
+  const node = path.node;
+
+  if (babelTypes.isUnaryExpression(parentNode)) {
+    return parentNode.operator === '!' || parentNode.operator === 'typeof';
+  }
+  if (
+    babelTypes.isIfStatement(parentNode) ||
+    babelTypes.isWhileStatement(parentNode) ||
+    babelTypes.isDoWhileStatement(parentNode) ||
+    babelTypes.isConditionalExpression(parentNode)
+  ) {
+    return parentNode.test === node;
+  }
+  if (babelTypes.isForStatement(parentNode)) return parentNode.test === node;
+  // `x && y` yields x only when it is falsy — a value without keys.
+  if (babelTypes.isLogicalExpression(parentNode)) {
+    return parentNode.operator === '&&' && parentNode.left === node;
+  }
+  if (babelTypes.isBinaryExpression(parentNode)) {
+    return ['===', '!==', '==', '!='].includes(parentNode.operator);
+  }
+  return false;
+};

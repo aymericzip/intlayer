@@ -56,8 +56,9 @@ struct FieldRenameContext<'a> {
     caller_local_names: HashSet<String>,
     /// Dictionary key → rename table of its content root.
     field_rename_map: &'a BTreeMap<String, FieldRenameMap>,
-    /// Local binding → rename table of the value it holds.
-    bindings: HashMap<Id, FieldRenameMap>,
+    /// Local binding → rename table of the value it holds. Tables are borrowed
+    /// from `field_rename_map`, so resolving never copies a subtree.
+    bindings: HashMap<Id, &'a FieldRenameMap>,
 }
 
 impl<'a> FieldRenameContext<'a> {
@@ -98,16 +99,19 @@ impl<'a> FieldRenameContext<'a> {
 
     /// Rename table of the value `expr` evaluates to, resolved through caller
     /// calls, known bindings and member chains — without mutating anything.
-    fn resolve_value_map(&self, expr: &Expr) -> Option<FieldRenameMap> {
+    fn resolve_value_map(&self, expr: &Expr) -> Option<&'a FieldRenameMap> {
         match expr {
             Expr::Paren(paren) => self.resolve_value_map(&paren.expr),
             Expr::TsAs(ts_as) => self.resolve_value_map(&ts_as.expr),
             Expr::TsNonNull(ts_non_null) => self.resolve_value_map(&ts_non_null.expr),
             Expr::TsSatisfies(ts_satisfies) => self.resolve_value_map(&ts_satisfies.expr),
+            Expr::TsTypeAssertion(ts_type_assertion) => {
+                self.resolve_value_map(&ts_type_assertion.expr)
+            }
             // `await getIntlayerAsync('key')` resolves to the content the call
             // returns, so the await is transparent to the rename walk.
             Expr::Await(await_expr) => self.resolve_value_map(&await_expr.arg),
-            Expr::Ident(ident) => self.bindings.get(&ident.to_id()).cloned(),
+            Expr::Ident(ident) => self.bindings.get(&ident.to_id()).copied(),
             Expr::Call(call) => self.resolve_call_map(call),
             Expr::Member(member) => self.resolve_member_map(member),
             Expr::OptChain(opt_chain) => match &*opt_chain.base {
@@ -122,9 +126,9 @@ impl<'a> FieldRenameContext<'a> {
 
     /// Rename table produced by a call: either a caller call, or a signal-style
     /// accessor over a known binding (`const t = useIntlayer('k'); t().title`).
-    fn resolve_call_map(&self, call: &CallExpr) -> Option<FieldRenameMap> {
+    fn resolve_call_map(&self, call: &CallExpr) -> Option<&'a FieldRenameMap> {
         if let Some(root_map) = self.root_map_for_caller_call(call) {
-            return Some(root_map.clone());
+            return Some(root_map);
         }
         match &call.callee {
             Callee::Expr(callee) => self.resolve_accessor_call_map(callee),
@@ -133,15 +137,15 @@ impl<'a> FieldRenameContext<'a> {
     }
 
     /// Rename table of `binding()` when `binding` itself holds a renamed value.
-    fn resolve_accessor_call_map(&self, callee: &Expr) -> Option<FieldRenameMap> {
+    fn resolve_accessor_call_map(&self, callee: &Expr) -> Option<&'a FieldRenameMap> {
         match callee {
-            Expr::Ident(ident) => self.bindings.get(&ident.to_id()).cloned(),
+            Expr::Ident(ident) => self.bindings.get(&ident.to_id()).copied(),
             _ => None,
         }
     }
 
     /// Rename table of a member access, using the **original** field names.
-    fn resolve_member_map(&self, member: &MemberExpr) -> Option<FieldRenameMap> {
+    fn resolve_member_map(&self, member: &MemberExpr) -> Option<&'a FieldRenameMap> {
         let object_map = self.resolve_value_map(&member.obj)?;
 
         // Numeric index accesses (`field[0]`) are transparent: the element
@@ -151,9 +155,41 @@ impl<'a> FieldRenameContext<'a> {
         }
 
         let field_name = read_member_prop_name(&member.prop)?;
-        object_map
-            .get(&field_name)
-            .map(|entry| entry.children.clone())
+        object_map.get(&field_name).map(|entry| &entry.children)
+    }
+
+    /// Pairs each element of `const [a, { b }] = await Promise.all([…])` with
+    /// the rename table of the value at the same index: returns
+    /// `(pattern element index, rename table)` for every element that resolves.
+    ///
+    /// Stops at the first spread (`...rest` / `...promises`): past it, pattern
+    /// and array indices no longer line up.
+    fn promise_all_element_maps(
+        &self,
+        pattern: &ArrayPat,
+        init: &Expr,
+    ) -> Vec<(usize, &'a FieldRenameMap)> {
+        let mut element_maps = Vec::new();
+        let Some(promise_elements) = promise_all_elements(init) else {
+            return element_maps;
+        };
+
+        for (index, (promise_element, pattern_element)) in
+            promise_elements.iter().zip(&pattern.elems).enumerate()
+        {
+            let (Some(promise_element), Some(pattern_element)) = (promise_element, pattern_element)
+            else {
+                continue;
+            };
+            if promise_element.spread.is_some() || matches!(pattern_element, Pat::Rest(_)) {
+                break;
+            }
+            if let Some(rename_map) = self.resolve_value_map(&promise_element.expr) {
+                element_maps.push((index, rename_map));
+            }
+        }
+
+        element_maps
     }
 }
 
@@ -170,9 +206,9 @@ struct BindingCollector<'a, 'ctx> {
     registered_new_binding: bool,
 }
 
-impl BindingCollector<'_, '_> {
+impl<'a> BindingCollector<'a, '_> {
     /// Registers `binding_id → rename_map` unless it is already known.
-    fn register(&mut self, binding_id: Id, rename_map: FieldRenameMap) {
+    fn register(&mut self, binding_id: Id, rename_map: &'a FieldRenameMap) {
         if rename_map.is_empty() || self.context.bindings.contains_key(&binding_id) {
             return;
         }
@@ -182,7 +218,7 @@ impl BindingCollector<'_, '_> {
 
     /// Registers the locals bound by an object pattern destructuring a value
     /// whose fields are described by `rename_map`.
-    fn collect_object_pattern(&mut self, pattern: &ObjectPat, rename_map: &FieldRenameMap) {
+    fn collect_object_pattern(&mut self, pattern: &ObjectPat, rename_map: &'a FieldRenameMap) {
         for property in &pattern.props {
             match property {
                 // `{ field }` / `{ field = fallback }`
@@ -190,7 +226,7 @@ impl BindingCollector<'_, '_> {
                     let Some(entry) = rename_map.get(assign_prop.key.sym.as_ref()) else {
                         continue;
                     };
-                    self.register(assign_prop.key.to_id(), entry.children.clone());
+                    self.register(assign_prop.key.to_id(), &entry.children);
                 }
                 // `{ field: local }` / `{ field: { nested } }` / `{ field: local = fallback }`
                 ObjectPatProp::KeyValue(key_value_prop) => {
@@ -214,9 +250,9 @@ impl BindingCollector<'_, '_> {
 
     /// Registers the locals bound by a destructuring target, looking through a
     /// default value (`= fallback`) and recursing into nested patterns.
-    fn collect_pattern_target(&mut self, pattern: &Pat, rename_map: &FieldRenameMap) {
+    fn collect_pattern_target(&mut self, pattern: &Pat, rename_map: &'a FieldRenameMap) {
         match pattern {
-            Pat::Ident(binding) => self.register(binding.id.to_id(), rename_map.clone()),
+            Pat::Ident(binding) => self.register(binding.id.to_id(), rename_map),
             Pat::Object(nested_pattern) => self.collect_object_pattern(nested_pattern, rename_map),
             Pat::Assign(assign_pattern) => {
                 self.collect_pattern_target(&assign_pattern.left, rename_map)
@@ -233,6 +269,17 @@ impl Visit for BindingCollector<'_, '_> {
         let Some(init) = &declarator.init else {
             return;
         };
+
+        // `const [a, { b }] = await Promise.all([getIntlayerAsync('a'), …])`
+        if let Pat::Array(pattern) = &declarator.name {
+            for (index, rename_map) in self.context.promise_all_element_maps(pattern, init) {
+                if let Some(Some(element)) = pattern.elems.get(index) {
+                    self.collect_pattern_target(element, rename_map);
+                }
+            }
+            return;
+        }
+
         let Some(rename_map) = self.context.resolve_value_map(init) else {
             return;
         };
@@ -241,7 +288,7 @@ impl Visit for BindingCollector<'_, '_> {
             // `const about = useIntlayer('about')` / `const section = about.section`
             Pat::Ident(binding) => self.register(binding.id.to_id(), rename_map),
             // `const { title } = useIntlayer('about')`
-            Pat::Object(pattern) => self.collect_object_pattern(pattern, &rename_map),
+            Pat::Object(pattern) => self.collect_object_pattern(pattern, rename_map),
             _ => {}
         }
     }
@@ -258,15 +305,18 @@ struct FieldRenameVisitor<'a> {
     renamed_fields: usize,
 }
 
-impl FieldRenameVisitor<'_> {
+impl<'a> FieldRenameVisitor<'a> {
     /// Renames every level of the member chain rooted at `expr` and returns the
     /// rename table of the value the chain evaluates to.
-    fn rename_chain(&mut self, expr: &mut Expr) -> Option<FieldRenameMap> {
+    fn rename_chain(&mut self, expr: &mut Expr) -> Option<&'a FieldRenameMap> {
         match expr {
             Expr::Paren(paren) => self.rename_chain(&mut paren.expr),
             Expr::TsAs(ts_as) => self.rename_chain(&mut ts_as.expr),
             Expr::TsNonNull(ts_non_null) => self.rename_chain(&mut ts_non_null.expr),
             Expr::TsSatisfies(ts_satisfies) => self.rename_chain(&mut ts_satisfies.expr),
+            Expr::TsTypeAssertion(ts_type_assertion) => {
+                self.rename_chain(&mut ts_type_assertion.expr)
+            }
             Expr::Member(member) => self.rename_member(member),
             Expr::OptChain(opt_chain) => match &mut *opt_chain.base {
                 OptChainBase::Member(member) => self.rename_member(member),
@@ -281,7 +331,7 @@ impl FieldRenameVisitor<'_> {
     }
 
     /// Renames one member access after renaming everything it reads from.
-    fn rename_member(&mut self, member: &mut MemberExpr) -> Option<FieldRenameMap> {
+    fn rename_member(&mut self, member: &mut MemberExpr) -> Option<&'a FieldRenameMap> {
         let object_map = self.rename_chain(&mut member.obj)?;
 
         if is_numeric_index_prop(&member.prop) {
@@ -294,7 +344,7 @@ impl FieldRenameVisitor<'_> {
         write_member_prop_name(&mut member.prop, &entry.short_name);
         self.renamed_fields += 1;
 
-        Some(entry.children.clone())
+        Some(&entry.children)
     }
 
     /// Visits the sub-expressions a member chain contains without re-entering
@@ -305,6 +355,9 @@ impl FieldRenameVisitor<'_> {
             Expr::TsAs(ts_as) => self.visit_chain_children(&mut ts_as.expr),
             Expr::TsNonNull(ts_non_null) => self.visit_chain_children(&mut ts_non_null.expr),
             Expr::TsSatisfies(ts_satisfies) => self.visit_chain_children(&mut ts_satisfies.expr),
+            Expr::TsTypeAssertion(ts_type_assertion) => {
+                self.visit_chain_children(&mut ts_type_assertion.expr)
+            }
             Expr::Member(member) => {
                 if let MemberProp::Computed(computed) = &mut member.prop {
                     computed.expr.visit_mut_with(self);
@@ -375,8 +428,7 @@ impl FieldRenameVisitor<'_> {
                         other => other,
                     };
                     if let Pat::Object(nested_pattern) = nested_target {
-                        let children = entry.children.clone();
-                        self.rename_object_pattern(nested_pattern, &children);
+                        self.rename_object_pattern(nested_pattern, &entry.children);
                     }
                 }
                 ObjectPatProp::Rest(_) => {}
@@ -401,11 +453,31 @@ impl VisitMut for FieldRenameVisitor<'_> {
         // Resolve the rename table from the initialiser **before** the
         // initialiser itself is rewritten, since resolution keys off the
         // original field names.
-        if let (Pat::Object(_), Some(init)) = (&declarator.name, &declarator.init) {
-            if let Some(rename_map) = self.context.resolve_value_map(init) {
-                if let Pat::Object(pattern) = &mut declarator.name {
-                    self.rename_object_pattern(pattern, &rename_map);
+        if let Some(init) = &declarator.init {
+            match &mut declarator.name {
+                Pat::Object(pattern) => {
+                    if let Some(rename_map) = self.context.resolve_value_map(init) {
+                        self.rename_object_pattern(pattern, rename_map);
+                    }
                 }
+                // `const [a, { b }] = await Promise.all([getIntlayerAsync('a'), …])`
+                Pat::Array(pattern) => {
+                    for (index, rename_map) in self.context.promise_all_element_maps(pattern, init)
+                    {
+                        let Some(Some(element)) = pattern.elems.get_mut(index) else {
+                            continue;
+                        };
+                        // A default value (`[a = fallback]`) wraps the target.
+                        let target = match element {
+                            Pat::Assign(assign_pattern) => &mut *assign_pattern.left,
+                            other => other,
+                        };
+                        if let Pat::Object(object_pattern) = target {
+                            self.rename_object_pattern(object_pattern, rename_map);
+                        }
+                    }
+                }
+                _ => {}
             }
         }
 
@@ -417,6 +489,44 @@ impl VisitMut for FieldRenameVisitor<'_> {
 //  HELPERS
 // ─────────────────────────────────────────────────────────────────────────────
 
+/// Elements of the array literal handed to `Promise.all(…)`, looking through
+/// the `await`, parentheses and TypeScript casts around the call.
+///
+/// `Promise.allSettled` is excluded on purpose: it wraps each value in
+/// `{ status, value }`.
+fn promise_all_elements(expr: &Expr) -> Option<&Vec<Option<ExprOrSpread>>> {
+    match expr {
+        Expr::Paren(paren) => promise_all_elements(&paren.expr),
+        Expr::Await(await_expr) => promise_all_elements(&await_expr.arg),
+        Expr::TsAs(ts_as) => promise_all_elements(&ts_as.expr),
+        Expr::TsNonNull(ts_non_null) => promise_all_elements(&ts_non_null.expr),
+        Expr::TsSatisfies(ts_satisfies) => promise_all_elements(&ts_satisfies.expr),
+        Expr::TsTypeAssertion(ts_type_assertion) => promise_all_elements(&ts_type_assertion.expr),
+        Expr::Call(call) => {
+            let Callee::Expr(callee) = &call.callee else {
+                return None;
+            };
+            let Expr::Member(member) = &**callee else {
+                return None;
+            };
+            let is_promise_all = matches!(&*member.obj, Expr::Ident(object) if &*object.sym == "Promise")
+                && matches!(&member.prop, MemberProp::Ident(property) if &*property.sym == "all");
+            if !is_promise_all {
+                return None;
+            }
+            match call
+                .args
+                .first()
+                .map(|argument| (&argument.spread, &*argument.expr))
+            {
+                Some((None, Expr::Array(array))) => Some(&array.elems),
+                _ => None,
+            }
+        }
+        _ => None,
+    }
+}
+
 /// Whether the expression is a (possibly optional) member access chain that
 /// [`FieldRenameVisitor::rename_chain`] handles as a whole.
 fn is_member_chain(expr: &Expr) -> bool {
@@ -427,6 +537,7 @@ fn is_member_chain(expr: &Expr) -> bool {
         Expr::TsAs(ts_as) => is_member_chain(&ts_as.expr),
         Expr::TsNonNull(ts_non_null) => is_member_chain(&ts_non_null.expr),
         Expr::TsSatisfies(ts_satisfies) => is_member_chain(&ts_satisfies.expr),
+        Expr::TsTypeAssertion(ts_type_assertion) => is_member_chain(&ts_type_assertion.expr),
         _ => false,
     }
 }

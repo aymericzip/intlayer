@@ -6,8 +6,11 @@ import {
   type NestedRenameEntry,
   type NestedRenameMap,
   type PruneContext,
-  unwrapAwait,
 } from './babel-plugin-intlayer-usage-analyzer';
+import {
+  resolveContentRoot,
+  skipTransparentWrappers,
+} from './staticAstReaders';
 
 // ── Field-name helpers ────────────────────────────────────────────────────────
 
@@ -238,6 +241,7 @@ export const serializeFieldRenameMap = (
  * as transparent pass-throughs: the rename map is kept unchanged and the walk
  * continues past the index.  This means `content.field[0].sub` is handled
  * correctly — `field` and `sub` are both renamed while `[0]` is left intact.
+ * TypeScript casts are looked through as well: `(content.field as any).sub`.
  */
 const walkRenameChain = (
   babelTypes: typeof BabelTypes,
@@ -251,6 +255,8 @@ const walkRenameChain = (
   let renameMap = currentRenameMap;
 
   while (true) {
+    refPath = skipTransparentWrappers(babelTypes, refPath);
+
     const parentPath = refPath.parentPath;
     if (!parentPath) break;
 
@@ -395,12 +401,7 @@ const renameObjectPatternProperties = (
       if (!localVarBinding) continue;
 
       for (const nestedRefPath of localVarBinding.referencePaths) {
-        const { finalPath, finalRenameMap } = walkRenameChain(
-          babelTypes,
-          nestedRefPath,
-          renameEntry.children
-        );
-        walkObjectDestructuring(babelTypes, finalPath, finalRenameMap);
+        renameFieldConsumers(babelTypes, nestedRefPath, renameEntry.children);
       }
     }
   }
@@ -445,6 +446,59 @@ const walkObjectDestructuring = (
 };
 
 /**
+ * Renames the field accesses reachable from `refPath`, a reference to a
+ * content value: a member-access chain, then a destructuring assignment or an
+ * alias (`const table = content.summary.table`) of where the chain ends.
+ */
+const renameFieldConsumers = (
+  babelTypes: typeof BabelTypes,
+  refPath: NodePath<BabelTypes.Node>,
+  renameMap: NestedRenameMap
+): {
+  finalPath: NodePath<BabelTypes.Node>;
+  finalRenameMap: NestedRenameMap;
+} => {
+  const chainEnd = walkRenameChain(babelTypes, refPath, renameMap);
+  walkObjectDestructuring(
+    babelTypes,
+    chainEnd.finalPath,
+    chainEnd.finalRenameMap
+  );
+  renameAliasReferences(
+    babelTypes,
+    chainEnd.finalPath,
+    chainEnd.finalRenameMap
+  );
+  return chainEnd;
+};
+
+/**
+ * Follows `const alias = <valuePath>` and renames the accesses made through
+ * `alias`, mirroring the analyser's alias tracking.
+ */
+const renameAliasReferences = (
+  babelTypes: typeof BabelTypes,
+  valuePath: NodePath<BabelTypes.Node>,
+  renameMap: NestedRenameMap
+): void => {
+  if (renameMap.size === 0) return;
+
+  const parentNode = valuePath.parent;
+  if (
+    !babelTypes.isVariableDeclarator(parentNode) ||
+    !babelTypes.isIdentifier(parentNode.id) ||
+    parentNode.init !== valuePath.node
+  ) {
+    return;
+  }
+
+  const aliasBinding = valuePath.scope.getBinding(parentNode.id.name);
+  for (const aliasReferencePath of aliasBinding?.referencePaths ?? []) {
+    renameFieldConsumers(babelTypes, aliasReferencePath, renameMap);
+  }
+};
+
+/**
  * Renames every field access reachable from `rootPath`, whose value is the
  * dictionary content root.
  *
@@ -457,12 +511,11 @@ const renameContentConsumers = (
   rootPath: NodePath<BabelTypes.Node>,
   renameMap: NestedRenameMap
 ): void => {
-  const { finalPath, finalRenameMap } = walkRenameChain(
+  const { finalPath, finalRenameMap } = renameFieldConsumers(
     babelTypes,
     rootPath,
     renameMap
   );
-  walkObjectDestructuring(babelTypes, finalPath, finalRenameMap);
   renameChainedRuntimeCall(babelTypes, finalPath, finalRenameMap);
 };
 
@@ -701,40 +754,30 @@ export const renameIntlayerFieldAccesses = (
         pruneContext.dictionaryKeyToFieldRenameMap.get(dictionaryKey);
       if (!fieldRenameMap || fieldRenameMap.size === 0) return;
 
-      // `getIntlayerAsync('key')` is consumed through its `await`, so the
-      // content root is the await expression — the three cases below would
-      // otherwise only ever see an `AwaitExpression` parent.
-      const contentRootPath = unwrapAwait(babelTypes, callExpressionPath);
-      const parentNode = contentRootPath.parent;
+      // Looks through `await`, TypeScript casts and `Promise.all` array
+      // destructuring — the same resolution the usage analyser applies.
+      const resolution = resolveContentRoot(babelTypes, callExpressionPath);
+      if (resolution.kind === 'discarded') return;
 
-      // ── Case 1: const { fieldA, fieldB } = useIntlayer('key') ────────
-      if (
-        babelTypes.isVariableDeclarator(parentNode) &&
-        babelTypes.isObjectPattern(parentNode.id)
-      ) {
-        walkObjectDestructuring(babelTypes, contentRootPath, fieldRenameMap);
-        return;
-      }
+      const { rootPath: contentRootPath } = resolution;
 
-      // ── Case 2: useIntlayer('key').fieldA.nested ─────────────────────
-      //           (also useIntlayer('key').onChange(cb))
-      if (
-        (babelTypes.isMemberExpression(parentNode) ||
-          babelTypes.isOptionalMemberExpression(parentNode)) &&
-        (parentNode as BabelTypes.MemberExpression).object ===
-          contentRootPath.node
-      ) {
-        renameContentConsumers(babelTypes, contentRootPath, fieldRenameMap);
-        return;
-      }
+      if (resolution.kind === 'binding') {
+        const { bindingTarget } = resolution;
 
-      // ── Case 3: const result = useIntlayer('key'); result.fieldA ─────
-      if (
-        babelTypes.isVariableDeclarator(parentNode) &&
-        babelTypes.isIdentifier(parentNode.id)
-      ) {
-        const variableBinding = callExpressionPath.scope.getBinding(
-          parentNode.id.name
+        // ── Case 1: const { fieldA, fieldB } = useIntlayer('key') ──────
+        if (babelTypes.isObjectPattern(bindingTarget)) {
+          renameObjectPatternProperties(
+            babelTypes,
+            bindingTarget,
+            contentRootPath,
+            fieldRenameMap
+          );
+          return;
+        }
+
+        // ── Case 3: const result = useIntlayer('key'); result.fieldA ───
+        const variableBinding = contentRootPath.scope.getBinding(
+          bindingTarget.name
         );
         if (!variableBinding) return;
 
@@ -763,6 +806,19 @@ export const renameIntlayerFieldAccesses = (
             }
           }
         }
+        return;
+      }
+
+      // ── Case 2: useIntlayer('key').fieldA.nested ─────────────────────
+      //           (also useIntlayer('key').onChange(cb))
+      const parentNode = contentRootPath.parent;
+      if (
+        (babelTypes.isMemberExpression(parentNode) ||
+          babelTypes.isOptionalMemberExpression(parentNode)) &&
+        (parentNode as BabelTypes.MemberExpression).object ===
+          contentRootPath.node
+      ) {
+        renameContentConsumers(babelTypes, contentRootPath, fieldRenameMap);
       }
     },
   });

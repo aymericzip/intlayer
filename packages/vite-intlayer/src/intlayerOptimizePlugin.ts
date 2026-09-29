@@ -10,7 +10,6 @@ import {
   optimizeSourceFile,
   type PruneContext,
   preserveNestedDictionaryFields,
-  renameFieldsInSourceFile,
   SOURCE_FILE_REGEX,
 } from '@intlayer/babel';
 import { requiresDictionaryRegistry } from '@intlayer/config/callers';
@@ -674,24 +673,16 @@ export const intlayerOptimize = async (
           const isUsingIntlayer = optimizeUsageRegex.test(sourceCode);
           if (!isUsingIntlayer && !isDictionaryEntryFile) return null;
 
-          // Step 1: Field rename (must run before the optimize pass, which
-          // replaces useIntlayer → useDictionary and erases the dictionary key)
-          let codeToOptimize = sourceCode;
+          // Field rename + optimize (useIntlayer('key') → useDictionary(_hash))
+          // in a single Babel pass: the rename runs first, before the optimize
+          // step erases the dictionary key it keys off.
+          const fieldRenamePruneContext =
+            isFieldRenameEnabled && pruneContext && isUsingIntlayer
+              ? pruneContext
+              : undefined;
 
-          if (isFieldRenameEnabled && pruneContext && isUsingIntlayer) {
-            const renamedCode = await renameFieldsInSourceFile(
-              sourceFilePath,
-              sourceCode,
-              pruneContext
-            );
-            if (renamedCode) {
-              codeToOptimize = renamedCode;
-            }
-          }
-
-          // Step 2: Optimize (useIntlayer('key') → useDictionary(_hash))
           const transformResult = await optimizeSourceFile(
-            codeToOptimize,
+            sourceCode,
             sourceFilePath,
             {
               optimize,
@@ -715,7 +706,8 @@ export const intlayerOptimize = async (
               dictionaryModeMap: dictionaryKeyToImportModeMap,
               isServer: options?.ssr === true,
               compatCallers,
-            }
+            },
+            fieldRenamePruneContext
           );
 
           if (!transformResult) return null;
