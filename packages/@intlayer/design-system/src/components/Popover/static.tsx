@@ -274,9 +274,9 @@ const Detail: FC<DetailProps> = ({
         'absolute z-60 min-w-full rounded-md ring-1 ring-neutral',
 
         /* Positioning */
-        xAlign === 'start' && 'left-0',
+        xAlign === 'start' && 'start-0',
         xAlign === 'center' && 'left-1/2 -translate-x-1/2',
-        xAlign === 'end' && 'right-0',
+        xAlign === 'end' && 'end-0',
         yAlign === 'below' && 'top-[calc(100%+1rem)]',
         yAlign === 'above' && 'bottom-[calc(100%+1rem)]',
 
@@ -285,11 +285,11 @@ const Detail: FC<DetailProps> = ({
           'before:absolute before:z-[999] before:h-0 before:w-0 before:content-[""]',
 
         /* Horizontal positioning */
-        displayArrow && xAlign === 'start' && 'before:left-2',
+        displayArrow && xAlign === 'start' && 'before:start-2',
         displayArrow &&
           xAlign === 'center' &&
           'before:left-1/2 before:-translate-x-1/2',
-        displayArrow && xAlign === 'end' && 'before:right-2',
+        displayArrow && xAlign === 'end' && 'before:end-2',
 
         /* Arrow pointing up (when popover is below trigger) */
         displayArrow &&

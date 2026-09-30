@@ -126,15 +126,20 @@ const Detail: FC<DetailProps> = ({
         let newXAlign = xAlign;
         const spaceRight = viewportWidth - triggerRect.left - VIEWPORT_PADDING;
         const spaceLeft = triggerRect.right - VIEWPORT_PADDING;
+        // `start`/`end` are logical: a start-aligned popover grows leftwards in RTL
+        const isRightToLeft =
+          getComputedStyle(triggerElement).direction === 'rtl';
+        const spaceTowardEnd = isRightToLeft ? spaceLeft : spaceRight;
+        const spaceTowardStart = isRightToLeft ? spaceRight : spaceLeft;
 
-        if (xAlign === 'start' && spaceRight < popoverRect.width) {
-          // Not enough space on the right, try left
-          if (spaceLeft >= popoverRect.width) {
+        if (xAlign === 'start' && spaceTowardEnd < popoverRect.width) {
+          // Not enough space toward the end, try aligning on the end side
+          if (spaceTowardStart >= popoverRect.width) {
             newXAlign = 'end';
           }
-        } else if (xAlign === 'end' && spaceLeft < popoverRect.width) {
-          // Not enough space on the left, try right
-          if (spaceRight >= popoverRect.width) {
+        } else if (xAlign === 'end' && spaceTowardStart < popoverRect.width) {
+          // Not enough space toward the start, try aligning on the start side
+          if (spaceTowardEnd >= popoverRect.width) {
             newXAlign = 'start';
           }
         }

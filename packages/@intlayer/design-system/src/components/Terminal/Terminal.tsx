@@ -114,6 +114,8 @@ export const Terminal: FC<TerminalProps> = ({
         'flex min-w-0 max-w-full flex-col overflow-hidden border font-mono',
         className
       )}
+      // Terminal output reads left-to-right even inside right-to-left locales
+      dir="ltr"
       {...containerProps}
     >
       {/* Tab bar */}

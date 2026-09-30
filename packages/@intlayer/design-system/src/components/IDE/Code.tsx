@@ -205,6 +205,8 @@ export const Code: FC<CodeCompProps> = ({
           className
         )}
         transparency="lg"
+        // Code reads left-to-right even inside right-to-left locales
+        dir="ltr"
         {...props}
       >
         {showHeader && (
