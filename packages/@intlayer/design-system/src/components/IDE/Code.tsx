@@ -201,7 +201,7 @@ export const Code: FC<CodeCompProps> = ({
       <Container
         className={cn(
           'relative min-w-0 max-w-full text-sm leading-6',
-          showLineNumbers && 'with-line-number ml-0',
+          showLineNumbers && 'with-line-number ms-0',
           className
         )}
         transparency="lg"
@@ -211,7 +211,7 @@ export const Code: FC<CodeCompProps> = ({
       >
         {showHeader && (
           <>
-            <div className="grid w-full grid-cols-[1fr_auto] items-center justify-between rounded-t-xl border-b bg-card/50 py-1.5 pr-12 pl-4 text-muted-foreground text-xs">
+            <div className="grid w-full grid-cols-[1fr_auto] items-center justify-between rounded-t-xl border-b bg-card/50 py-1.5 ps-4 pe-12 text-muted-foreground text-xs">
               <span className="truncate">{displayedFileName ?? language}</span>
               <div className="flex items-center gap-2">
                 {packageManager && <PackageManagerSelector />}
@@ -226,7 +226,7 @@ export const Code: FC<CodeCompProps> = ({
             <div className="sticky top-46 z-20">
               <div
                 className={cn(
-                  'absolute right-2 bottom-0 flex h-7 items-center',
+                  'absolute inset-e-2 bottom-0 flex h-7 items-center',
                   hadSelectInHeader && 'h-11'
                 )}
               >

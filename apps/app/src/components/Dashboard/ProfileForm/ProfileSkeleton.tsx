@@ -14,7 +14,7 @@ export const ProfileSkeleton: FC = () => (
         <Skeleton className="h-9 w-48" />
         <Skeleton className="h-6 w-36" />
       </div>
-      <div className="mt-auto ml-auto flex flex-row gap-2">
+      <div className="ms-auto mt-auto flex flex-row gap-2">
         <Skeleton className="h-9 w-36 rounded-lg" />
         <Skeleton className="h-9 w-24 rounded-lg" />
       </div>

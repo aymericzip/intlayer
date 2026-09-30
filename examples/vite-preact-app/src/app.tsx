@@ -433,7 +433,7 @@ const AppContent: FunctionComponent = () => {
 
       <p className="read-the-docs">{content.readTheDocs}</p>
 
-      <div className="absolute right-5 bottom-5 z-50">
+      <div className="absolute inset-e-5 bottom-5 z-50">
         <LocaleSwitcher />
       </div>
     </>

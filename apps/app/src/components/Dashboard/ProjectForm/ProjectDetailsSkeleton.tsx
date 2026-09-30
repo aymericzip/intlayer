@@ -25,7 +25,7 @@ export const ProjectDetailsSkeleton: FC = () => (
             <div key={i} className="flex items-center gap-3">
               <Skeleton className="size-8 rounded-full" />
               <Skeleton className="h-5 w-32" />
-              <Skeleton className="ml-auto h-7 w-16 rounded-lg" />
+              <Skeleton className="ms-auto h-7 w-16 rounded-lg" />
             </div>
           ))}
         </Container>

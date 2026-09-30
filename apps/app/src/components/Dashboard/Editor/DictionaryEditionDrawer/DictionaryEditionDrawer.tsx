@@ -97,13 +97,13 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
             Icon={ChevronLeft}
             onClick={handleOnBack}
             label={backButtonText.value}
-            className="absolute top-0 left-0"
+            className="absolute inset-s-0 top-0"
           />
           <h3 className="w-full px-10 text-center font-medium text-lg">
             {dictionary.title ? dictionary.title : dictionary.key}
           </h3>
 
-          <div className="absolute top-0 right-0">
+          <div className="absolute inset-e-0 top-0">
             <Popover identifier="open-dictionary-editor">
               <Button
                 variant="hoverable"

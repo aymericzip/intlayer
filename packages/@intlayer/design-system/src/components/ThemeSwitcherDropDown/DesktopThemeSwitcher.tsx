@@ -10,7 +10,7 @@ import type { Modes } from './types';
 const ButtonItem: FC<ButtonProps> = ({ Icon, children, ...props }) => (
   <div className="relative w-full p-0.5">
     <Button
-      className="w-full cursor-pointer rounded-lg p-1 text-left hover:bg-text/10 focus:bg-text-opposite/20 focus:outline-hidden disabled:text-white/25"
+      className="w-full cursor-pointer rounded-lg p-1 text-start hover:bg-text/10 focus:bg-text-opposite/20 focus:outline-hidden disabled:text-white/25"
       Icon={Icon}
       role="option"
       variant="none"

@@ -13,7 +13,7 @@ export const ToastViewport: FC<
 > = ({ className, ...props }) => (
   <ToastPrimitives.Viewport
     className={cn(
-      'fixed top-0 z-100 flex max-h-screen w-full flex-col-reverse p-4 sm:top-auto sm:right-0 sm:bottom-0 sm:flex-col md:max-w-105',
+      'fixed top-0 z-100 flex max-h-screen w-full flex-col-reverse p-4 sm:inset-e-0 sm:top-auto sm:bottom-0 sm:flex-col md:max-w-105',
       className
     )}
     {...props}
@@ -39,7 +39,7 @@ export const ToastViewport: FC<
  * ```
  */
 export const toastVariants = cva(
-  'group data-[state=closed]:fade-out-80 data-[state=closed]:slide-out-to-right-full data-[state=open]:slide-in-from-top-full data-[state=open]:sm:slide-in-from-bottom-full pointer-events-auto relative flex w-full items-center justify-between space-x-2 overflow-hidden rounded-xl p-4 pr-6 shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur transition-all [corner-shape:squircle] data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-[var(--radix-toast-swipe-end-x)] data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[state=closed]:animate-out data-[state=open]:animate-in data-[swipe=end]:animate-out data-[swipe=move]:transition-none supports-[corner-shape:squircle]:rounded-3xl',
+  'group data-[state=closed]:fade-out-80 data-[state=closed]:slide-out-to-right-full data-[state=open]:slide-in-from-top-full data-[state=open]:sm:slide-in-from-bottom-full pointer-events-auto relative flex w-full items-center justify-between space-x-2 overflow-hidden rounded-xl p-4 pe-6 shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur transition-all [corner-shape:squircle] data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-[var(--radix-toast-swipe-end-x)] data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[state=closed]:animate-out data-[state=open]:animate-in data-[swipe=end]:animate-out data-[swipe=move]:transition-none supports-[corner-shape:squircle]:rounded-3xl',
   {
     variants: {
       /** Toast visual variants for different message types */
@@ -164,7 +164,7 @@ export const ToastClose: FC<ComponentProps<typeof ToastPrimitives.Close>> = ({
 }) => (
   <ToastPrimitives.Close
     className={cn(
-      'absolute top-1 right-1 rounded-md p-1 text-foreground/50 opacity-0 transition-opacity hover:text-foreground/80 focus:opacity-100 focus:outline-hidden focus:ring-1 group-hover:opacity-100 group-[.error]:text-red-300 group-[.error]:focus:ring-red-400 group-[.error]:focus:ring-offset-red-600 group-[.error]:hover:text-red-50',
+      'absolute inset-e-1 top-1 rounded-md p-1 text-foreground/50 opacity-0 transition-opacity hover:text-foreground/80 focus:opacity-100 focus:outline-hidden focus:ring-1 group-hover:opacity-100 group-[.error]:text-red-300 group-[.error]:focus:ring-red-400 group-[.error]:focus:ring-offset-red-600 group-[.error]:hover:text-red-50',
       className
     )}
     toast-close=""

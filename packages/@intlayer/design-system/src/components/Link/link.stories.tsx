@@ -467,7 +467,7 @@ export const NavigationMenu: Story = {
           isActive={true}
           className="px-3 py-2"
         >
-          <Home className="mr-2 inline h-4 w-4" />
+          <Home className="me-2 inline h-4 w-4" />
           Home
         </Link>
         <Link
@@ -486,7 +486,7 @@ export const NavigationMenu: Story = {
           label="Go to user profile"
           className="px-3 py-2"
         >
-          <User className="mr-2 inline h-4 w-4" />
+          <User className="me-2 inline h-4 w-4" />
           Profile
         </Link>
         <Link
@@ -496,7 +496,7 @@ export const NavigationMenu: Story = {
           label="Go to settings page"
           className="px-3 py-2"
         >
-          <Settings className="mr-2 inline h-4 w-4" />
+          <Settings className="me-2 inline h-4 w-4" />
           Settings
         </Link>
       </div>

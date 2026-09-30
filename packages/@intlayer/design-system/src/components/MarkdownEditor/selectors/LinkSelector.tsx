@@ -62,7 +62,7 @@ export const LinkSelector: FC = () => {
       </button>
 
       {isOpen && (
-        <div className="absolute top-[calc(100%+0.5rem)] left-0 z-50">
+        <div className="absolute inset-s-0 top-[calc(100%+0.5rem)] z-50">
           <form
             key={currentHref ?? 'no-link'}
             className="flex w-60 gap-1 rounded-md border bg-popover p-1 shadow-md"

@@ -111,7 +111,7 @@ export const Loader: FC<LoaderProps> = ({
       <div className="relative size-full">
         <div
           className={cn(
-            'absolute top-0 left-0 flex size-full max-h-screen max-w-[100vw] flex-1 items-center justify-center',
+            'absolute inset-s-0 top-0 flex size-full max-h-screen max-w-[100vw] flex-1 items-center justify-center',
             className
           )}
           role="status"

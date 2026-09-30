@@ -86,7 +86,7 @@ export const LocalePicker: FC<LocalePickerProps> = ({
                 <li key={locale} className="py-0.5">
                   <button
                     type="button"
-                    className="w-full rounded-lg px-3 py-1.5 text-left transition-colors hover:bg-text/5 focus:bg-text/5 focus:outline-none"
+                    className="w-full rounded-lg px-3 py-1.5 text-start transition-colors hover:bg-text/5 focus:bg-text/5 focus:outline-none"
                     onClick={(e) => {
                       onChange(locale);
                       (e.currentTarget as HTMLButtonElement).blur();

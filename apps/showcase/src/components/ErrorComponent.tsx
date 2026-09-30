@@ -20,7 +20,7 @@ export const ErrorComponent = ({ error, reset }: ErrorComponentProps) => {
       <Container
         padding="lg"
         roundedSize="2xl"
-        className="my-10 max-w-xl gap-4 text-left"
+        className="my-10 max-w-xl gap-4 text-start"
       >
         <p className="font-bold text-lg">
           {error.message || content.unexpectedError}

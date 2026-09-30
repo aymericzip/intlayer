@@ -22,7 +22,7 @@ type CommonQuestion = {
 const FAQItem: FC<CommonQuestion> = ({ question, answer, callToAction }) => (
   <Accordion label={question} header={question} defaultIsOpen={false}>
     <div className="overflow-hidden px-8 pb-4">
-      <p className="pt-2 text-left text-[15px] text-muted-foreground leading-5">
+      <p className="pt-2 text-start text-[15px] text-muted-foreground leading-5">
         {answer}
         {callToAction && (
           <Link

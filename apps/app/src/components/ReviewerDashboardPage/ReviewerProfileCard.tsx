@@ -200,7 +200,7 @@ export const ReviewerProfileCard: FC<ReviewerProfileCardProps> = ({
         )}
         {/* Round profile avatar overlapping the cover bottom */}
         <div
-          className={`absolute top-4 right-4 ${sc.avatarSize} overflow-hidden rounded-full border-4 border-card bg-card`}
+          className={`absolute inset-e-4 top-4 ${sc.avatarSize} overflow-hidden rounded-full border-4 border-card bg-card`}
         >
           {displayAvatar ? (
             <img

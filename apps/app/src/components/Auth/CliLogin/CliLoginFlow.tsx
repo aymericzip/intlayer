@@ -86,7 +86,7 @@ const AccessKeySelector: FC<{
             className="flex-1 gap-3 divide-y divide-dashed divide-neutral"
           >
             <div className="flex items-center justify-center px-3 pb-3">
-              <KeyRound className="mr-2 size-5" size={16} />
+              <KeyRound className="me-2 size-5" size={16} />
               <span className="m-auto w-full font-bold text-lg">
                 {accessKey.name}
               </span>
@@ -103,7 +103,7 @@ const AccessKeySelector: FC<{
                   <HideShow
                     text={accessKey.clientId}
                     visiblePrefixChars={6}
-                    className="ml-1 p-1 text-neutral text-sm"
+                    className="ms-1 p-1 text-neutral text-sm"
                   />
                 </div>
                 {/* Simplified view for selection - hidden secret as it might not be retrievable fully? 
@@ -116,7 +116,7 @@ const AccessKeySelector: FC<{
                   <HideShow
                     text={accessKey.clientSecret}
                     visiblePrefixChars={6}
-                    className="ml-1 p-1 text-neutral text-sm"
+                    className="ms-1 p-1 text-neutral text-sm"
                   />
                 </div>
               </div>
@@ -355,7 +355,7 @@ export const CliLoginFlow: FC<CliLoginFlowProps> = ({
                 <div className="z-10 mb-6 border-neutral/20 border-b border-dotted p-2 pb-6">
                   <H2 className="mb-5">{context}</H2>
                   <Container
-                    className="z-10 mr-auto w-fit flex-row items-center gap-2 p-2"
+                    className="z-10 me-auto w-fit flex-row items-center gap-2 p-2"
                     border
                     borderColor="text"
                     roundedSize="2xl"

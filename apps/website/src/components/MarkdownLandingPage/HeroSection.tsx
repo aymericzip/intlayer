@@ -81,7 +81,7 @@ export const HeroSection: FC = () => {
         />
         <m.div
           aria-hidden
-          className="absolute -top-12 -right-30 h-90 w-90 rounded-full bg-success/10 blur-3xl"
+          className="absolute -inset-e-30 -top-12 h-90 w-90 rounded-full bg-success/10 blur-3xl"
           animate={reduced ? undefined : { x: [0, -22, 0], y: [0, 10, 0] }}
           transition={
             reduced

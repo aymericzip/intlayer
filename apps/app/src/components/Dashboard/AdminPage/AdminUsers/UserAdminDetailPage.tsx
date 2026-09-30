@@ -117,7 +117,7 @@ const ProjectAccessModal: FC<ProjectAccessModalProps> = ({
             size="sm"
           />
           {restrictEnvironments && (
-            <div className="ml-6 flex flex-col gap-2">
+            <div className="ms-6 flex flex-col gap-2">
               {environments.map((env) => {
                 const envId = env.id === 'production' ? null : env.id;
                 const isChecked = selectedEnvIds.some((id) =>
@@ -163,7 +163,7 @@ const ProjectAccessModal: FC<ProjectAccessModalProps> = ({
             size="sm"
           />
           {restrictLocales && (
-            <div className="ml-6">
+            <div className="ms-6">
               <LocaleCheckboxList
                 locales={locales}
                 selectedLocales={selectedLocales}

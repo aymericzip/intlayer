@@ -62,7 +62,7 @@ export const TagDetails: FC<TagDetailsProps> = ({ tagKey }) => {
         <Button
           onClick={() => navigate({ to: App_Dashboard_Tags_Path })}
           variant="hoverable"
-          className="z-10 mr-auto ml-5"
+          className="z-10 ms-5 me-auto"
           color="text"
           Icon={ArrowLeft}
           label={returnToTagList.label.value}

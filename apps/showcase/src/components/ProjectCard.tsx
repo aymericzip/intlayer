@@ -68,7 +68,7 @@ export const ProjectCard = ({ project, ...props }: ProjectCardProps) => {
             <Container
               roundedSize="xl"
               transparency="lg"
-              className="absolute bottom-3 left-3 size-5 shrink-0 overflow-hidden bg-background shadow-md"
+              className="absolute inset-s-3 bottom-3 size-5 shrink-0 overflow-hidden bg-background shadow-md"
             >
               {/* Favicon Skeleton */}
               {!isFaviconLoaded && (
@@ -95,7 +95,7 @@ export const ProjectCard = ({ project, ...props }: ProjectCardProps) => {
         </div>
       </Link>
 
-      <div className="absolute top-3 right-3 flex gap-2">
+      <div className="absolute inset-e-3 top-3 flex gap-2">
         <a
           to={project.websiteUrl}
           target="_blank"

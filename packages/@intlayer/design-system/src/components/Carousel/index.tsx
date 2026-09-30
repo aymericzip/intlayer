@@ -152,6 +152,8 @@ const CarouselIndicators: FC<CarouselIndicatorsProps> = ({
         'absolute bottom-0 left-1/2 z-50 flex -translate-x-1/2 flex-row items-center gap-2',
         className
       )}
+      // Slides and ←/→ shortcuts move physically, so the controls must too
+      dir="ltr"
       {...props}
     >
       <Popover identifier="carousel-prev">

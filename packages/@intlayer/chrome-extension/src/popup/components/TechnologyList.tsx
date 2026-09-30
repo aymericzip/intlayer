@@ -92,7 +92,7 @@ export const TechnologyList: FunctionComponent<{
                     >
                       <p className="m-0 font-semibold">
                         {technology.name}
-                        <span className="ml-1.5 font-normal text-neutral">
+                        <span className="ms-1.5 font-normal text-neutral">
                           {getCategoryLabel(technology.category)}
                         </span>
                       </p>

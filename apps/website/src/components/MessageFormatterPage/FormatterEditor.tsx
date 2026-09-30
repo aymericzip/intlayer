@@ -356,12 +356,12 @@ export const FormatterEditor: FC<{ dialect: FormatterDialect }> = ({
             </div>
 
             <div className="relative">
-              <Search className="absolute top-1/2 left-3 size-3.5 -translate-y-1/2 text-muted-foreground" />
+              <Search className="absolute inset-s-3 top-1/2 size-3.5 -translate-y-1/2 text-muted-foreground" />
               <Input
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder={content.editor.searchPlaceholder.value}
-                className="h-8 pl-9 font-sans text-xs"
+                className="h-8 ps-9 font-sans text-xs"
               />
             </div>
           </div>
@@ -370,7 +370,7 @@ export const FormatterEditor: FC<{ dialect: FormatterDialect }> = ({
           <div className="flex min-h-0 flex-1 overflow-hidden">
             {/* Category selection sidebar (visible when not searching) */}
             {!searchQuery && (
-              <div className="w-35 shrink-0 space-y-1 overflow-y-auto border-border/50 border-r bg-muted/10 p-1.5">
+              <div className="w-35 shrink-0 space-y-1 overflow-y-auto border-border/50 border-e bg-muted/10 p-1.5">
                 {categoriesWithCounts.map((cat) => {
                   const Icon = CATEGORY_ICONS[cat.id] || Type;
                   const isSelected = activeCategory === cat.id;
@@ -381,7 +381,7 @@ export const FormatterEditor: FC<{ dialect: FormatterDialect }> = ({
                       type="button"
                       onClick={() => setActiveCategory(cat.id)}
                       className={cn(
-                        'flex w-full cursor-pointer items-center justify-between gap-1.5 rounded-lg px-2.5 py-2 text-left font-medium text-xs transition-all',
+                        'flex w-full cursor-pointer items-center justify-between gap-1.5 rounded-lg px-2.5 py-2 text-start font-medium text-xs transition-all',
                         isSelected
                           ? 'border border-border/80 bg-muted/90 text-foreground shadow-xs'
                           : 'border border-transparent text-muted-foreground hover:bg-muted/40 hover:text-foreground'
@@ -423,14 +423,14 @@ export const FormatterEditor: FC<{ dialect: FormatterDialect }> = ({
                       label={template.title}
                       onClick={() => handleSelectTemplate(template)}
                       className={cn(
-                        'h-auto w-full cursor-pointer select-none justify-start p-3 text-left transition-all duration-150 [corner-shape:squircle]',
+                        'h-auto w-full cursor-pointer select-none justify-start p-3 text-start transition-all duration-150 [corner-shape:squircle]',
                         '[&>span]:block [&>span]:w-full [&>span]:whitespace-normal',
                         isSelected
                           ? 'border border-border/90 bg-muted/50 shadow-sm ring-1 ring-border'
                           : 'border border-border/60 bg-card/40 hover:border-border hover:bg-card/80'
                       )}
                     >
-                      <div className="flex w-full flex-col text-left">
+                      <div className="flex w-full flex-col text-start">
                         <div className="mb-1.5 flex items-start gap-2.5">
                           <div
                             className={cn(
@@ -552,7 +552,7 @@ export const FormatterEditor: FC<{ dialect: FormatterDialect }> = ({
                   </Button>
 
                   {isInsertMenuOpen && (
-                    <div className="fade-in zoom-in-95 absolute top-full right-0 z-50 mt-1.5 w-64 animate-in rounded-xl border border-border/80 bg-background/95 p-1.5 shadow-xl backdrop-blur-md">
+                    <div className="fade-in zoom-in-95 absolute inset-e-0 top-full z-50 mt-1.5 w-64 animate-in rounded-xl border border-border/80 bg-background/95 p-1.5 shadow-xl backdrop-blur-md">
                       <span className="block px-2 py-1 font-semibold text-[10px] text-muted-foreground uppercase">
                         {content.editor.quickInsertSnippets}
                       </span>
@@ -562,7 +562,7 @@ export const FormatterEditor: FC<{ dialect: FormatterDialect }> = ({
                             key={snip.id}
                             type="button"
                             onClick={() => handleInsertSnippet(snip)}
-                            className="flex w-full cursor-pointer items-start gap-2 rounded-lg px-2 py-1.5 text-left text-xs transition-colors hover:bg-muted/60"
+                            className="flex w-full cursor-pointer items-start gap-2 rounded-lg px-2 py-1.5 text-start text-xs transition-colors hover:bg-muted/60"
                           >
                             <Code2 className="mt-0.5 size-3.5 shrink-0 text-foreground" />
                             <div className="min-w-0 flex-1">

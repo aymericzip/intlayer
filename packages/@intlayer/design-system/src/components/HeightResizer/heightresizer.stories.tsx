@@ -234,7 +234,7 @@ export const RichContent: Story = {
           This area contains rich content to better visualize resizing behavior.
           Drag the handle above to adjust the visible height.
         </p>
-        <ul className="list-disc space-y-1 pl-5">
+        <ul className="list-disc space-y-1 ps-5">
           <li>Interactive resizing with visual handle</li>
           <li>Touch-friendly for mobile devices</li>
           <li>Accessibility support with ARIA attributes</li>
@@ -242,7 +242,7 @@ export const RichContent: Story = {
           <li>Smooth CSS transitions for polished UX</li>
           <li>Overflow handling for content that exceeds bounds</li>
         </ul>
-        <div className="mt-4 rounded border-blue-400 border-l-4 bg-blue-50 p-3">
+        <div className="mt-4 rounded border-blue-400 border-s-4 bg-blue-50 p-3">
           <p className="text-blue-800 text-sm">
             <strong>Tip:</strong> This content will be clipped when the
             container height is smaller than the content height.
@@ -313,17 +313,17 @@ export const CodeEditorSimulation: Story = {
               <span className="text-yellow-300">CodePanel</span> = () =&gt;{' '}
               {'{'}
             </div>
-            <div className="ml-4">
+            <div className="ms-4">
               <span className="text-purple-300">return</span> (
             </div>
-            <div className="ml-8">{'<HeightResizer'}</div>
-            <div className="ml-10">{'initialHeight={400}'}</div>
-            <div className="ml-10">{'minHeight={200}'}</div>
-            <div className="ml-10">{'maxHeight={800}'}</div>
-            <div className="ml-8">{'>'}</div>
-            <div className="ml-10">{'<CodeEditor />'}</div>
-            <div className="ml-8">{'</HeightResizer>'}</div>
-            <div className="ml-4">);</div>
+            <div className="ms-8">{'<HeightResizer'}</div>
+            <div className="ms-10">{'initialHeight={400}'}</div>
+            <div className="ms-10">{'minHeight={200}'}</div>
+            <div className="ms-10">{'maxHeight={800}'}</div>
+            <div className="ms-8">{'>'}</div>
+            <div className="ms-10">{'<CodeEditor />'}</div>
+            <div className="ms-8">{'</HeightResizer>'}</div>
+            <div className="ms-4">);</div>
             <div>{'}'};</div>
           </div>
         </div>

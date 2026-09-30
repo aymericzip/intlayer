@@ -12,7 +12,7 @@ export const ExpandButton: FC<ExpandButtonProps> = ({ setIsModalOpen }) => {
   const { modal: modalContent } = useIntlayer('table');
 
   return (
-    <div className="pointer-events-none absolute inset-y-0 right-4 z-10">
+    <div className="pointer-events-none absolute inset-e-4 inset-y-0 z-10">
       <div className="pointer-events-auto sticky top-48 pt-4">
         <Popover identifier="expand">
           <Button

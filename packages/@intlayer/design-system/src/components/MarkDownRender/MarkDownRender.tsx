@@ -103,7 +103,7 @@ const BlockquoteRenderer = ({
 }: ComponentProps<'blockquote'>) => (
   <blockquote
     className={cn(
-      'mt-5 gap-3 border-card border-l-4 pl-5 text-muted-foreground [&_strong]:text-neutral',
+      'mt-5 gap-3 border-card border-s-4 ps-5 text-muted-foreground [&_strong]:text-neutral',
       className
     )}
     {...props}
@@ -113,7 +113,7 @@ const BlockquoteRenderer = ({
 const UlRenderer = ({ className, ...props }: ComponentProps<'ul'>) => (
   <ul
     className={cn(
-      'mt-5 flex list-disc flex-col gap-3 pl-5 marker:text-neutral/80',
+      'mt-5 flex list-disc flex-col gap-3 ps-5 marker:text-neutral/80',
       className
     )}
     {...props}
@@ -123,7 +123,7 @@ const UlRenderer = ({ className, ...props }: ComponentProps<'ul'>) => (
 const OlRenderer = ({ className, ...props }: ComponentProps<'ol'>) => (
   <ol
     className={cn(
-      'mt-5 flex list-decimal flex-col gap-3 pl-5 marker:text-neutral/80',
+      'mt-5 flex list-decimal flex-col gap-3 ps-5 marker:text-neutral/80',
       className
     )}
     {...props}

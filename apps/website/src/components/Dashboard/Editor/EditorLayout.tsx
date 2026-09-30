@@ -19,7 +19,7 @@ export const EditorLayout: FC<EditorLayoutProps> = ({ children }) => {
         className="relative size-full flex-1 flex-col items-center justify-center overflow-hidden"
       >
         {children}
-        <div className="absolute right-2 bottom-2">
+        <div className="absolute inset-e-2 bottom-2">
           <LongPressMessage />
         </div>
       </Container>

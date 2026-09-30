@@ -83,7 +83,7 @@ export const ReviewerMissionPage: FC<ReviewerMissionPageProps> = ({
       {/* Left panel — mission details */}
       <aside
         aria-label={content.missionDetailsAriaLabel.value}
-        className="flex w-full flex-col gap-5 overflow-y-auto pr-0 md:w-80 md:shrink-0 md:pr-6"
+        className="flex w-full flex-col gap-5 overflow-y-auto pe-0 md:w-80 md:shrink-0 md:pe-6"
       >
         <div>
           <Link

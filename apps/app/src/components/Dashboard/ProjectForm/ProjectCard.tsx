@@ -98,7 +98,7 @@ export const ProjectCard: FC<ProjectCardProps> = ({
             ))}
           </div>
           {remainingCount > 0 && (
-            <span className="ml-1 text-neutral text-xs">+{remainingCount}</span>
+            <span className="ms-1 text-neutral text-xs">+{remainingCount}</span>
           )}
         </div>
       )}

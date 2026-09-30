@@ -36,7 +36,7 @@ export const MaxWidthSmoother = ({
         style={{
           minWidth: `${minWidth}px`,
         }}
-        className={cn(align === 'right' && 'ml-auto')}
+        className={cn(align === 'right' && 'ms-auto')}
       >
         {children}
       </div>

@@ -65,7 +65,7 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
           <Button
             onClick={onClickDictionaryList}
             variant="hoverable"
-            className="z-10 mr-auto mb-6 ml-5 shrink-0"
+            className="z-10 ms-5 me-auto mb-6 shrink-0"
             color="text"
             Icon={ArrowLeft}
             label={returnToDictionaryList.label.value}

@@ -22,7 +22,7 @@ const NavTitles2: FC<NavTitles2Props> = ({
   const { pathname } = useLocation();
 
   return (
-    <ul className="my-3 flex w-full min-w-52 flex-col gap-2 border-neutral border-l-[0.5px] pl-3">
+    <ul className="my-3 flex w-full min-w-52 flex-col gap-2 border-neutral border-s-[0.5px] ps-3">
       {title2.map((h3) => {
         const { id } = h3;
         const title = headingTexts.get(h3) ?? '';
@@ -135,7 +135,7 @@ export const NavTitles: FC<NavTitlesProps> = ({ onActiveLinkChange }) => {
 
   return (
     <nav ref={navRef} className="flex h-full min-h-0 flex-col">
-      <ul className="flex min-h-0 flex-1 flex-col gap-3 overflow-auto pt-8 pr-3 pb-20">
+      <ul className="flex min-h-0 flex-1 flex-col gap-3 overflow-auto pe-3 pt-8 pb-20">
         {topLevelHeadings.map((h2) => {
           const id = h2.id;
           const title = headingTexts.get(h2) ?? '';

@@ -118,7 +118,7 @@ const ProfileFormContent: FC = () => {
           <span className="text-4xl text-text">{user?.name}</span>
           <span className="text-lg text-neutral">{user?.email}</span>
         </div>
-        <div className="mt-auto ml-auto flex flex-row gap-2">
+        <div className="ms-auto mt-auto flex flex-row gap-2">
           {hasPasswordColumn ? (
             <Button
               onClick={() => setIsChangePasswordOpen(true)}

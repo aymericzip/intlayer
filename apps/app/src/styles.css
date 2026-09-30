@@ -8,134 +8,138 @@
 @import "@intlayer/design-system/markdown-editor.css";
 
 @layer base {
-	html {
-		font-size: 12px;
-		/* Reduced base font size to match previous Next.js app scaling */
-	}
+  html {
+    font-size: 12px;
+    /* Reduced base font size to match previous Next.js app scaling */
+  }
 
-	/* 1. Standard Scale (Landing Page) */
-	:root {
-		--text-3xl: 1.875rem;
-		/* 30px */
-		--text-3xl-leading: 2.25rem;
-		/* 36px */
+  /* 1. Standard Scale (Landing Page) */
+  :root {
+    --text-3xl: 1.875rem;
+    /* 30px */
+    --text-3xl-leading: 2.25rem;
+    /* 36px */
 
-		/* Add text-base for context */
-		--text-base: 1rem;
-		/* 16px */
-		--text-base-leading: 1.5rem;
-		/* 24px */
-	}
+    /* Add text-base for context */
+    --text-base: 1rem;
+    /* 16px */
+    --text-base-leading: 1.5rem;
+    /* 24px */
+  }
 }
-
 
 /* Price range slider thumb styles */
 .price-range-thumb {
-	-webkit-appearance: none;
-	appearance: none;
-	pointer-events: none;
-	background: transparent;
-	outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+  pointer-events: none;
+  background: transparent;
+  outline: none;
 }
 
 .price-range-thumb::-webkit-slider-thumb {
-	-webkit-appearance: none;
-	appearance: none;
-	pointer-events: all;
-	width: 18px;
-	height: 18px;
-	border-radius: 50%;
-	background: var(--color-text);
-	border: 2px solid var(--color-card);
-	cursor: pointer;
-	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  -webkit-appearance: none;
+  appearance: none;
+  pointer-events: all;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--color-text);
+  border: 2px solid var(--color-card);
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .price-range-thumb::-moz-range-thumb {
-	pointer-events: all;
-	width: 18px;
-	height: 18px;
-	border-radius: 50%;
-	background: var(--color-text);
-	border: 2px solid var(--color-card);
-	cursor: pointer;
-	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  pointer-events: all;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--color-text);
+  border: 2px solid var(--color-card);
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .price-range-thumb::-webkit-slider-runnable-track {
-	background: transparent;
+  background: transparent;
 }
 
 .price-range-thumb::-moz-range-track {
-	background: transparent;
+  background: transparent;
 }
-
-
 
 @keyframes shrink-title {
-	to {
-		font-size: 1.2rem;
-		padding-top: 0.8rem;
-		padding-bottom: 0.6rem;
-	}
+  to {
+    font-size: 1.2rem;
+    padding-top: 0.8rem;
+    padding-bottom: 0.6rem;
+  }
 }
 
+/*
+ * `--loop-direction` flips the travel in RTL: the duplicated strip then
+ * overflows to the left, so it must slide right to reveal its second half.
+ */
 @keyframes infiniteScroll {
-	from {
-		transform: translateX(0);
-	}
+  from {
+    transform: translateX(0);
+  }
 
-	to {
-		transform: translateX(-50%);
-	}
+  to {
+    transform: translateX(calc(-50% * var(--loop-direction, 1)));
+  }
 }
 
 @keyframes infiniteScrollInverse {
-	from {
-		transform: translateX(-50%);
-	}
+  from {
+    transform: translateX(calc(-50% * var(--loop-direction, 1)));
+  }
 
-	to {
-		transform: translateX(0);
-	}
+  to {
+    transform: translateX(0);
+  }
 }
 
 @keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
 
-	0%,
-	100% {
-		transform: translateY(0);
-	}
-
-	50% {
-		transform: translateY(var(--float-distance, 10px));
-	}
+  50% {
+    transform: translateY(var(--float-distance, 10px));
+  }
 }
 
 .horizontal-loop-1 {
-	animation-name: infiniteScroll;
-	animation-duration: 85s;
-	animation-iteration-count: infinite;
-	animation-timing-function: linear;
+  animation-name: infiniteScroll;
+  animation-duration: 85s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
 }
 
 .horizontal-loop-2 {
-	animation-name: infiniteScrollInverse;
-	animation-duration: 45s;
-	animation-iteration-count: infinite;
-	animation-timing-function: linear;
+  animation-name: infiniteScrollInverse;
+  animation-duration: 45s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
 }
 
 .horizontal-loop-4 {
-	animation-name: infiniteScroll;
-	animation-duration: 50s;
-	animation-iteration-count: infinite;
-	animation-timing-function: linear;
+  animation-name: infiniteScroll;
+  animation-duration: 50s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+:is(.horizontal-loop-1, .horizontal-loop-2, .horizontal-loop-4):dir(rtl) {
+  --loop-direction: -1;
 }
 
 .animate-float {
-	animation-name: float;
-	animation-duration: 3s;
-	animation-iteration-count: infinite;
-	animation-timing-function: ease-in-out;
+  animation-name: float;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
 }

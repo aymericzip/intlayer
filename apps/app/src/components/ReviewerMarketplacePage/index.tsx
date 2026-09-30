@@ -137,7 +137,7 @@ export const ReviewerMarketplacePage: FC = () => {
           {totalPages > 1 && (
             <nav
               aria-label={paginationAriaLabel.value}
-              className="flex items-center justify-center gap-1"
+              className="rtl-mirror-icons flex items-center justify-center gap-1"
             >
               <button
                 type="button"

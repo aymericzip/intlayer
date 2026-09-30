@@ -17,7 +17,7 @@ export const NoApplicationURLView: FC = () => {
         label={documentationLink.label.value}
         to={`${Website_Doc_IntlayerCMS_Path}#configuration`}
         color="text"
-        className="ml-auto"
+        className="ms-auto"
         variant="button"
         isExternalLink
       >

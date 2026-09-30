@@ -207,7 +207,7 @@ export const ProjectSidebar: FC<ProjectSidebarProps> = ({
 
                 <Loader isLoading={true} />
 
-                <div className="my-4 flex w-full max-w-md flex-col gap-4 border-l border-l-neutral/30 pl-4">
+                <div className="my-4 flex w-full max-w-md flex-col gap-4 border-s border-s-neutral/30 ps-4">
                   <ul className="space-y-3 text-neutral text-sm">
                     <ScanStepItem
                       label={submitFormContent.modal.steps.verifyBundle.value}

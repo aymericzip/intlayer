@@ -264,8 +264,8 @@ const Panel: FC<PanelProps> = ({
     className={cn(
       'absolute z-100 min-w-full',
       /* Horizontal positioning */
-      align === 'start' && 'left-0',
-      align === 'end' && 'right-0',
+      align === 'start' && 'inset-s-0',
+      align === 'end' && 'inset-e-0',
       /* Vertical positioning */
       yAlign === 'below' && 'top-[calc(100%+0.5rem)]',
       yAlign === 'above' && 'bottom-[calc(100%+0.5rem)]',

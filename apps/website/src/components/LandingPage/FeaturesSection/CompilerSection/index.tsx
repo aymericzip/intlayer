@@ -116,10 +116,13 @@ export const CompilerSection: FC<CompilerSectionProps> = ({
   return (
     <div className="flex size-full flex-1 flex-col items-center justify-center gap-3">
       <FrameworkSelector />
-      <div className="flex size-full max-h-110 flex-1 scale-90 flex-row rounded-3xl bg-neutral-200 [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-4xl dark:bg-neutral-950">
+      <div
+        dir="ltr"
+        className="flex size-full max-h-110 flex-1 scale-90 flex-row rounded-3xl bg-neutral-200 [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-4xl dark:bg-neutral-950"
+      >
         <IDE
           pages={tabs}
-          className="mx-auto flex-1 rounded-r-none! text-xs"
+          className="mx-auto flex-1 rounded-e-none! text-xs"
           key={framework}
         />
         <WithResizer initialWidth={300} handlePosition="left">

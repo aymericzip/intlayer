@@ -16,7 +16,7 @@ export const LastUsedIndicator: FC<LastUsedIndicatorProps> = ({ method }) => {
     return null;
 
   return (
-    <span className="pointer-events-none block text-right text-neutral text-xs">
+    <span className="pointer-events-none block text-end text-neutral text-xs">
       {label}
     </span>
   );

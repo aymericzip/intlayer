@@ -40,7 +40,7 @@ export const InformationTag: FC<PropsWithChildren<{ id: string }>> = ({
     <Info className="size-3 text-neutral/50" />
     <Popover.Detail
       identifier={`information-tag-${id}`}
-      className="flex min-w-100 flex-col gap-4 bg-background/50 p-4 text-left text-sm"
+      className="flex min-w-100 flex-col gap-4 bg-background/50 p-4 text-start text-sm"
       isFocusable
       isOverable
     >
@@ -101,7 +101,7 @@ export const EventTag: FC<
         </span>
         <Popover.Detail
           identifier={`information-tag-${id}`}
-          className="flex max-h-80 w-auto max-w-125 flex-col gap-4 overflow-auto bg-background/50 p-4 text-left text-sm"
+          className="flex max-h-80 w-auto max-w-125 flex-col gap-4 overflow-auto bg-background/50 p-4 text-start text-sm"
           isFocusable
           isOverable
         >
@@ -112,7 +112,7 @@ export const EventTag: FC<
                 <CodeBlock lang="html">{links.join('\n')}</CodeBlock>
               )}
               {listedItems && (
-                <ul className="list-disc pl-4">
+                <ul className="list-disc ps-4">
                   {listedItems.map((item) => (
                     <li key={item} className="break-all">
                       {item}
@@ -160,7 +160,7 @@ export const FieldItem: FC<FieldItemProps> = ({
   <div className="grid grid-cols-[auto_auto_1fr_auto] items-center gap-2 rounded-lg px-2 py-1 text-muted-foreground">
     {icon}
     <strong className="min-w-28">{label}:</strong>
-    <span className="flex items-center justify-end gap-2 text-left text-foreground/70">
+    <span className="flex items-center justify-end gap-2 text-start text-foreground/70">
       <EventTag id={`${id}-success`} event={event} isLoading={isLoading}>
         {children}
       </EventTag>

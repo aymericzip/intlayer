@@ -163,7 +163,7 @@ function EditorLayout() {
       locale={locale}
     >
       <DashboardContentLayout title={dynamicTitle}>
-        <div className="mr-3 ml-auto flex justify-end gap-2 py-3">
+        <div className="ms-auto me-3 flex justify-end gap-2 py-3">
           <TabSelector
             selectedChoice={currentTabValue}
             tabs={tabItems.map(({ label, value, icon }) => (

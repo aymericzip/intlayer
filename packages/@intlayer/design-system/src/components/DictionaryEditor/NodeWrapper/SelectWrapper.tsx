@@ -15,7 +15,7 @@ export const SelectWrapper: FC<SelectWrapperProps> = (props) => {
   const cases = section[NodeTypes.SELECT] as Record<string, ContentNode>;
 
   return (
-    <div className="ml-2 grid grid-cols-[auto,1fr] gap-2">
+    <div className="ms-2 grid grid-cols-[auto,1fr] gap-2">
       {Object.keys(cases).map((caseKey) => {
         const newKeyPathEl: KeyPath = {
           type: NodeTypes.SELECT,

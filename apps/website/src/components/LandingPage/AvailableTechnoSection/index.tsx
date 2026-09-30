@@ -20,9 +20,10 @@ import {
   useScroll,
   useTransform,
 } from 'framer-motion';
+import { getHTMLTextDir } from 'intlayer';
 import type { CSSProperties, FC } from 'react';
 import { useRef, useState } from 'react';
-import { useIntlayer } from 'react-intlayer';
+import { useIntlayer, useLocale } from 'react-intlayer';
 import { Link } from '~/components/Link/Link';
 
 const BASE_SCREEN_WIDTH = 1500;
@@ -215,6 +216,9 @@ const logosRow3 = [
 
 export const AvailableTechnoSection: FC = () => {
   const { availableOn, icons } = useIntlayer('available-techno-section');
+  const { locale } = useLocale();
+  // Rows mirror in RTL, so the scattered start offsets must mirror with them
+  const directionFactor = getHTMLTextDir(locale) === 'rtl' ? -1 : 1;
 
   const { isMobile } = useDevice();
   const { screenWidth } = useScreenWidth();
@@ -229,7 +233,7 @@ export const AvailableTechnoSection: FC = () => {
   const animationProgress = useTransform(scrollYProgress, [0.4, 1], [0, 1]);
 
   const getXPosition = (index: number) =>
-    index * (screenWidth / BASE_SCREEN_WIDTH);
+    index * directionFactor * (screenWidth / BASE_SCREEN_WIDTH);
 
   return (
     <section

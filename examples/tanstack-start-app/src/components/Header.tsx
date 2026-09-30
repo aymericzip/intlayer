@@ -14,7 +14,7 @@ export default function Header() {
           onClick={() => setIsOpen(true)}
           type="button"
         ></button>
-        <h1 className="ml-4 font-semibold text-xl">
+        <h1 className="ms-4 font-semibold text-xl">
           <LocalizedLink to="/">
             <img
               alt="TanStack Logo"
@@ -26,8 +26,8 @@ export default function Header() {
       </header>
 
       <aside
-        className={`fixed top-0 left-0 z-50 flex h-full w-80 transform flex-col bg-gray-900 text-white shadow-2xl transition-transform duration-300 ease-in-out ${
-          isOpen ? 'translate-x-0' : '-translate-x-full'
+        className={`fixed inset-s-0 top-0 z-50 flex h-full w-80 transform flex-col bg-gray-900 text-white shadow-2xl transition-transform duration-300 ease-in-out ${
+          isOpen ? 'translate-x-0' : '-translate-x-full rtl:translate-x-full'
         }`}
       >
         <div className="flex items-center justify-between border-gray-700 border-b p-4">

@@ -73,8 +73,8 @@ const PaymentDetails: FC<PaymentDetailsProps> = ({
           </span>
 
           {hasDiscount && (
-            <span className="absolute top-1/5 left-full m-auto scale-80 text-center font-bold text-2xl text-neutral">
-              <span className="absolute top-1/2 left-0 h-0.5 w-full bg-neutral" />
+            <span className="absolute inset-s-full top-1/5 m-auto scale-80 text-center font-bold text-2xl text-neutral">
+              <span className="absolute inset-s-0 top-1/2 h-0.5 w-full bg-neutral" />
 
               <span itemProp="price" className="hidden">
                 {subtotal.toFixed(2)}
@@ -251,7 +251,7 @@ export const PaymentStepContent: FC<PaymentDetailsProps> = ({
                 target="_blank"
                 rel="noreferrer"
                 color="text"
-                className="ml-auto"
+                className="ms-auto"
               >
                 {morePaymentOptions}
               </Link>

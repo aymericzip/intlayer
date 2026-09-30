@@ -28,19 +28,19 @@ export const ProjectsAdminSkeleton: FC<ProjectsAdminSkeletonProps> = ({
                 <Skeleton className="h-4 w-4" />
               </th>
               {/* name */}
-              <th className="px-4 py-3 text-left">
+              <th className="px-4 py-3 text-start">
                 <Skeleton className="h-4 w-16" />
               </th>
               {/* id */}
-              <th className="px-4 py-3 text-left">
+              <th className="px-4 py-3 text-start">
                 <Skeleton className="h-4 w-8" />
               </th>
               {/* createdAt */}
-              <th className="px-4 py-3 text-left">
+              <th className="px-4 py-3 text-start">
                 <Skeleton className="h-4 w-24" />
               </th>
               {/* updatedAt */}
-              <th className="px-4 py-3 text-left">
+              <th className="px-4 py-3 text-start">
                 <Skeleton className="h-4 w-24" />
               </th>
             </tr>

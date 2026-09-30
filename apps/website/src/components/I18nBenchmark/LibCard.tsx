@@ -22,7 +22,7 @@ export const LibCard: FC<{
       size="sm"
       variant="hoverable"
       onClick={onToggle}
-      className="relative h-auto min-h-12 w-full min-w-max overflow-hidden py-2 text-left"
+      className="relative h-auto min-h-12 w-full min-w-max overflow-hidden py-2 text-start"
     >
       <div className="flex w-full flex-row items-center gap-2">
         <input
@@ -52,7 +52,7 @@ export const LibCard: FC<{
         </div>
 
         {/* Text container */}
-        <div className="flex min-w-0 flex-1 flex-col items-start justify-center gap-1 text-left">
+        <div className="flex min-w-0 flex-1 flex-col items-start justify-center gap-1 text-start">
           <span className="whitespace-nowrap font-semibold text-xs leading-tight">
             {lib.name}
           </span>

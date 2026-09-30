@@ -22,7 +22,7 @@ export const MarkdownWrapper: FC<MarkdownWrapperProps> = (props) => {
   const subSection = section[NodeTypes.MARKDOWN] as ContentNode;
 
   return (
-    <div className="ml-2 grid grid-cols-[auto,1fr] gap-2">
+    <div className="ms-2 grid grid-cols-[auto,1fr] gap-2">
       <NodeWrapper {...props} keyPath={newKeyPath} section={subSection} />
     </div>
   );

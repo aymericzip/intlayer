@@ -31,17 +31,20 @@ export const DropDown: UnrollablePanelType = ({
   <div
     aria-hidden={isHidden}
     aria-labelledby={`unrollable-panel-button-${identifier}`}
-    className="absolute right-0 translate-y-2"
+    className="absolute inset-e-0 translate-y-2"
     id={`unrollable-panel-${identifier}`}
   >
     <MaxHeightSmoother
-      className={
-        `overflow-x-hidden${isOverable}`
-          ? `group-hover/unrollable-panel:grid-rows-[1fr] group-hover/unrollable-panel:overflow-x-auto`
-          : `${isFocusable}`
-            ? `group-focus/unrollable-panel:grid-rows-[1fr] group-focus/unrollable-panel:overflow-x-auto`
-            : `${className}`
-      }
+      className={[
+        'overflow-x-hidden',
+        isOverable &&
+          'group-hover/unrollable-panel:grid-rows-[1fr] group-hover/unrollable-panel:overflow-x-auto',
+        isFocusable &&
+          'group-focus/unrollable-panel:grid-rows-[1fr] group-focus/unrollable-panel:overflow-x-auto',
+        className,
+      ]
+        .filter(Boolean)
+        .join(' ')}
       {...props}
     >
       {children}

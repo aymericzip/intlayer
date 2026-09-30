@@ -59,7 +59,7 @@ export const ElectronUpdater = () => {
   if (update.status === 'idle') return null;
 
   return (
-    <div className="fixed right-4 bottom-4 z-50 flex max-w-sm flex-col gap-2 rounded-xl border border-neutral-200 bg-white p-4 shadow-lg dark:border-neutral-700 dark:bg-neutral-900">
+    <div className="fixed inset-e-4 bottom-4 z-50 flex max-w-sm flex-col gap-2 rounded-xl border border-neutral-200 bg-white p-4 shadow-lg dark:border-neutral-700 dark:bg-neutral-900">
       {update.status === 'available' && (
         <>
           <p className="font-medium text-sm">

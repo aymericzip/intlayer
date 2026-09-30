@@ -241,19 +241,19 @@ export const WithBackButton: Story = {
                 <div className="grid grid-cols-2 gap-3 text-sm">
                   <div>
                     <span className="font-medium">SKU:</span>
-                    <span className="ml-2 text-gray-600">PRD-001</span>
+                    <span className="ms-2 text-gray-600">PRD-001</span>
                   </div>
                   <div>
                     <span className="font-medium">Stock:</span>
-                    <span className="ml-2 text-gray-600">24 units</span>
+                    <span className="ms-2 text-gray-600">24 units</span>
                   </div>
                   <div>
                     <span className="font-medium">Price:</span>
-                    <span className="ml-2 text-gray-600">$29.99</span>
+                    <span className="ms-2 text-gray-600">$29.99</span>
                   </div>
                   <div>
                     <span className="font-medium">Category:</span>
-                    <span className="ml-2 text-gray-600">Electronics</span>
+                    <span className="ms-2 text-gray-600">Electronics</span>
                   </div>
                 </div>
               </div>

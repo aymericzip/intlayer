@@ -358,7 +358,7 @@ const PageBreakdownRow: FC<PageBreakdownRowProps> = ({
       </div>
       {description && (
         <p
-          className="line-clamp-2 pl-5 text-neutral text-xs leading-relaxed"
+          className="line-clamp-2 ps-5 text-neutral text-xs leading-relaxed"
           title={description}
         >
           {description}

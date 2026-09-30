@@ -84,7 +84,7 @@ export const ProjectReadme = React.memo(({ githubUrl }: ProjectReadmeProps) => {
 
   return (
     <>
-      <H2 className="py-10 pl-10">Readme</H2>
+      <H2 className="py-10 ps-10">Readme</H2>
       <Container
         roundedSize="2xl"
         border

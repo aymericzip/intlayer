@@ -85,7 +85,7 @@ export const GithubStarCount: FC = () => {
   const formattedStars = format(stars, compactFormat);
 
   return (
-    <strong className="relative inline-grid text-right text-xs tabular-nums leading-none">
+    <strong className="relative inline-grid text-end text-xs tabular-nums leading-none">
       {/* Reserve the final label's width; screen readers get only the final count. */}
       <span
         className="invisible col-start-1 row-start-1 motion-reduce:visible"

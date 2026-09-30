@@ -53,7 +53,7 @@ export const ItemLayout: FC<ItemWrapperProps> = ({
             )}
           </div>
           {description && (
-            <p className="pl-3 text-card-foreground text-sm">{description}</p>
+            <p className="ps-3 text-card-foreground text-sm">{description}</p>
           )}
         </div>
       }

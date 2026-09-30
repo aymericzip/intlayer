@@ -24,7 +24,7 @@ export const DiscussionsAdminSkeleton: FC<DiscussionsAdminSkeletonProps> = ({
           <thead>
             <tr>
               {/* id */}
-              <th className="px-4 py-3 text-left">
+              <th className="px-4 py-3 text-start">
                 <Skeleton className="h-4 w-8" />
               </th>
               {/* numberOfMessages */}
@@ -32,15 +32,15 @@ export const DiscussionsAdminSkeleton: FC<DiscussionsAdminSkeletonProps> = ({
                 <Skeleton className="mx-auto h-4 w-20" />
               </th>
               {/* userName */}
-              <th className="px-4 py-3 text-left">
+              <th className="px-4 py-3 text-start">
                 <Skeleton className="h-4 w-20" />
               </th>
               {/* createdAt */}
-              <th className="px-4 py-3 text-left">
+              <th className="px-4 py-3 text-start">
                 <Skeleton className="h-4 w-24" />
               </th>
               {/* updatedAt */}
-              <th className="px-4 py-3 text-left">
+              <th className="px-4 py-3 text-start">
                 <Skeleton className="h-4 w-24" />
               </th>
             </tr>

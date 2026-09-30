@@ -64,3 +64,12 @@ src/
 ## Styling
 
 Tailwind CSS v4. Use `cn()` from `@intlayer/design-system/utils`. Shared config: `src/tailwind.config.ts`.
+
+## RTL support
+
+Components render in RTL locales (e.g. `ar`), where `<html dir="rtl">` is set.
+
+- Use logical utilities, never physical ones: `ms`/`me`, `ps`/`pe`, `inset-s`/`inset-e`, `border-s`/`border-e`, `text-start`/`text-end`.
+- Keep LTR islands with `dir="ltr"` on content that must not flip: code (`IDE/Code`, `IDE`), `Terminal`, `Carousel` controls.
+- Directional lucide icons (arrow/chevron left/right) are mirrored by the `rtl-mirror-icons` utility (`styles/globals.css`). `Button`, `Link` and `Breadcrumb` already apply it; add it to other containers with directional icons. Rotated icons (`rotate-*`) are excluded, and external-link (↗) icons are not mirrored.
+- JS that positions or drags in pixels must read the direction at runtime: `getComputedStyle(element).direction === 'rtl'` (see `Popover/dynamic.tsx`, `WithResizer`).

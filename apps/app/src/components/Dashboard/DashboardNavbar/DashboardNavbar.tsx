@@ -121,10 +121,10 @@ export const DashboardNavbar: FC<DashboardNavbarProps> = ({ items = [] }) => {
                 size="icon-sm"
                 label={content.organizationAndProject.value}
                 onClick={() => setIsBreadcrumbOpen((prev) => !prev)}
-                className="ml-6"
+                className="ms-6"
               />
               {isBreadcrumbOpen && (
-                <div className="absolute top-[calc(100%+0.5rem)] left-0 z-50 min-w-max">
+                <div className="absolute inset-s-0 top-[calc(100%+0.5rem)] z-50 min-w-max">
                   <Container
                     className="flex min-h-20 min-w-20 flex-col gap-2 p-2"
                     roundedSize="lg"
@@ -160,7 +160,7 @@ export const DashboardNavbar: FC<DashboardNavbarProps> = ({ items = [] }) => {
           </div>
         </div>
         <div className="flex items-center gap-4">
-          <div className="mr-1 flex items-center gap-2">
+          <div className="me-1 flex items-center gap-2">
             {project && isEditorDrawerVisible && (
               <Suspense fallback={<div className="size-10" />}>
                 <VisualEditorDrawer />
@@ -179,14 +179,14 @@ export const DashboardNavbar: FC<DashboardNavbarProps> = ({ items = [] }) => {
           <Burger
             isActive={isMenuOpen}
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="mr-0 md:hidden"
+            className="me-0 md:hidden"
           />
         </div>
       </div>
 
       <nav
         aria-label={content.mobileNavAriaLabel.value}
-        className="fixed top-12 left-0 mt-4 flex w-full flex-col gap-2 md:hidden"
+        className="fixed inset-s-0 top-12 mt-4 flex w-full flex-col gap-2 md:hidden"
       >
         <MaxHeightSmoother isHidden={!isMenuOpen}>
           <Container
@@ -219,7 +219,7 @@ export const DashboardNavbar: FC<DashboardNavbarProps> = ({ items = [] }) => {
                   className={cn(
                     'flex items-center gap-3 rounded-lg px-4 py-3 hover:bg-text/5',
                     activeKey === item.key && 'bg-text/10 font-bold',
-                    isChild && 'pl-10'
+                    isChild && 'ps-10'
                   )}
                   aria-current={activeKey === item.key ? 'page' : undefined}
                 >

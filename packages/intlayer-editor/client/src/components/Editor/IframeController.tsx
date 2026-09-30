@@ -64,7 +64,7 @@ export const IframeController: FC<{
         }}
       />
       {!enabled && (
-        <div className="fixed right-4 bottom-4">
+        <div className="fixed inset-e-4 bottom-4">
           <Button
             label={content.enableEditor.value}
             onClick={pingClient}

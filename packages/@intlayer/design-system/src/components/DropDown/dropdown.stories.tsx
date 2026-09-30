@@ -784,7 +784,7 @@ export const ContextMenu: Story = {
         <h3 className="mb-2 font-medium text-lg">Document.pdf</h3>
         <p className="mb-4 text-gray-600 text-sm">Last modified: 2 hours ago</p>
 
-        <div className="absolute top-2 right-2">
+        <div className="absolute inset-e-2 top-2">
           <DropDown identifier="context-menu">
             <DropDown.Trigger identifier="context-menu">
               <div className="rounded-lg p-2 text-gray-500 transition-colors hover:bg-gray-200">

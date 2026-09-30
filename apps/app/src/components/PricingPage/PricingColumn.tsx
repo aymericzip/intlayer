@@ -86,8 +86,8 @@ export const PricingColumn: FC<PricingColumnProps> = ({
             </span>
 
             {totalPrice !== basePrice && (
-              <span className="absolute top-0 left-full m-auto scale-90 text-center font-bold text-2xl text-neutral">
-                <span className="absolute top-1/2 left-0 h-0.5 w-full bg-neutral" />
+              <span className="absolute inset-s-full top-0 m-auto scale-90 text-center font-bold text-2xl text-neutral">
+                <span className="absolute inset-s-0 top-1/2 h-0.5 w-full bg-neutral" />
 
                 <span itemProp="price" className="hidden">
                   {basePrice.toFixed(2)}

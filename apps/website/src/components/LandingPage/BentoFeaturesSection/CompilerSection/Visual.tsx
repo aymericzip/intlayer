@@ -45,13 +45,13 @@ export const VisualEditorSection: FC<VisualEditorSectionProps> = ({
     useIntlayer('compiler-section', locale);
 
   return (
-    <div className="relative z-0 flex size-full flex-col justify-center gap-10 overflow-hidden rounded-r-lg border bg-background p-6 text-center">
+    <div className="relative z-0 flex size-full flex-col justify-center gap-10 overflow-hidden rounded-e-lg border bg-background p-6 text-center">
       <H3>{title}</H3>
       <p className="text-muted-foreground text-sm">{paragraph}</p>
-      <div className="absolute right-6 bottom-6">
+      <div className="absolute inset-e-6 bottom-6">
         <Select value={locale} onValueChange={setManualLocale}>
           <Select.Trigger
-            className="ml-auto py-1 text-sm"
+            className="ms-auto py-1 text-sm"
             aria-label={localeSelectorTrigger.value}
           >
             <Select.Value placeholder={selectPlaceholder.value} />

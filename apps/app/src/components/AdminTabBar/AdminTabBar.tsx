@@ -130,7 +130,7 @@ export const AdminTabBar: FC<AdminTabBarProps> = ({ className }) => {
   ));
 
   return (
-    <nav aria-label={adminSectionNavigation.value} className="relative ml-auto">
+    <nav aria-label={adminSectionNavigation.value} className="relative ms-auto">
       <Container
         className={cn('m-auto flex w-auto self-start p-4', className)}
         roundedSize="none"

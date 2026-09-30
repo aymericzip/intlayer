@@ -19,7 +19,7 @@ export const FormLabelLayout: FC<FormLabelLayoutProps> = ({
   htmlFor,
   className,
 }) => (
-  <div className="ml-1 flex gap-1 align-middle text-base leading-none">
+  <div className="ms-1 flex gap-1 align-middle text-base leading-none">
     {children && (
       <FormLabel
         htmlFor={htmlFor}

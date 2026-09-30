@@ -41,7 +41,7 @@ export const ProductSectionLayout: FC<ProductSectionLayoutProps> = ({
       </h2>
 
       {/* Description */}
-      <div className="mb-10 grow text-left text-muted-foreground leading-relaxed">
+      <div className="mb-10 grow text-start text-muted-foreground leading-relaxed">
         {description}
       </div>
 

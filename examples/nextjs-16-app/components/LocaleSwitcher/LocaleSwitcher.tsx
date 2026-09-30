@@ -32,7 +32,7 @@ export const LocaleSwitcher: FC = () => {
       </button>
 
       {isOpen && (
-        <div className="absolute top-full right-0 z-10 mt-1 min-w-60 rounded-xl bg-neutral-900 shadow-lg">
+        <div className="absolute inset-e-0 top-full z-10 mt-1 min-w-60 rounded-xl bg-neutral-900 shadow-lg">
           <div className="p-3">
             <input
               type="search"
@@ -51,7 +51,7 @@ export const LocaleSwitcher: FC = () => {
                 <li key={localeItem} className="p-1">
                   <Link
                     href={getLocalizedUrl(pathWithoutLocale, localeItem)}
-                    className={`flex w-full flex-row items-center justify-between gap-3 rounded-xl p-2 text-left ${
+                    className={`flex w-full flex-row items-center justify-between gap-3 rounded-xl p-2 text-start ${
                       locale === localeItem
                         ? 'bg-neutral-800'
                         : 'cursor-pointer hover:bg-neutral-800'

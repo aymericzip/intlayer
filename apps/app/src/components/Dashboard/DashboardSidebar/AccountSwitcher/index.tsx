@@ -152,7 +152,7 @@ export const AccountSwitcher: FC<AccountSwitcherProps> = ({ className }) => {
                     }}
                     size={16}
                     className={cn(
-                      'ml-1 rounded-xl p-1 text-neutral transition-colors duration-200',
+                      'ms-1 rounded-xl p-1 text-neutral transition-colors duration-200',
                       'hover:bg-error/10 hover:text-error'
                     )}
                   />

@@ -108,7 +108,7 @@ export const SignInForm: FC<SignInFormProps> = ({
         </div>
 
         <FormButton
-          className="mt-2 ml-auto block"
+          className="ms-auto mt-2 block"
           variant="link"
           label={forgotPasswordLink.ariaLabel.value}
           color="text"

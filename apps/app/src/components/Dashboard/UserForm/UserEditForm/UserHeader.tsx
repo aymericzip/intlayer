@@ -34,7 +34,7 @@ export const UserHeader: FC<UserHeaderProps> = ({ user }) => {
 
         <Badge
           variant="outline"
-          className="absolute top-3 right-10"
+          className="absolute inset-e-10 top-3"
           color={user.emailVerified ? 'text' : 'error'}
         >
           {user.emailVerified ? statusLabels.verified : statusLabels.pending}

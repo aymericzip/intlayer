@@ -69,7 +69,7 @@ const PageRow: FC<{ page: Page }> = ({ page }) => {
         onClick={() => hasResults && setExpanded((value) => !value)}
       >
         <td className="p-3">
-          <div className="flex items-center gap-1.5">
+          <div className="rtl-mirror-icons flex items-center gap-1.5">
             {hasResults ? (
               expanded ? (
                 <ChevronDown className="size-3.5 shrink-0 text-foreground/40" />
@@ -163,7 +163,7 @@ export const RecursiveAuditResults: FC<RecursiveAuditResultsProps> = memo(
       job.status === 'paused';
 
     return (
-      <div className="mt-6 flex flex-col gap-4 border-neutral border-t border-dotted pt-6 text-left">
+      <div className="mt-6 flex flex-col gap-4 border-neutral border-t border-dotted pt-6 text-start">
         <div className="flex items-center justify-between gap-4">
           <h3 className="font-semibold text-lg">{title}</h3>
           <div className="flex items-center gap-2">
@@ -219,7 +219,7 @@ export const RecursiveAuditResults: FC<RecursiveAuditResultsProps> = memo(
         </div>
 
         <div className="max-h-[32rem] overflow-auto rounded-lg border border-neutral/20 bg-card/50">
-          <table className="w-full text-left text-sm">
+          <table className="w-full text-start text-sm">
             <thead className="sticky top-0 z-10 bg-card shadow-sm">
               <tr>
                 <th className="p-3">{columnUrl}</th>

@@ -289,7 +289,7 @@ export const DictionaryListDashboardContent: FC = () => {
               <Button
                 variant="hoverable"
                 color="error"
-                className="ml-auto text-text hover:text-error"
+                className="ms-auto text-text hover:text-error"
                 size="icon-sm"
                 onClick={(e: React.MouseEvent) => {
                   e.stopPropagation();

@@ -34,7 +34,7 @@ export const FileReference: FC<{
   if (relatedFiles.length === 0) return <></>;
 
   return (
-    <div className="pl-4">
+    <div className="ps-4">
       <span className="text-muted-foreground text-sm">{relatedFilesLabel}</span>
       <div className="flex min-w-full flex-row gap-2 overflow-x-auto pb-1">
         {uniqFiles.map((fileKey) => {

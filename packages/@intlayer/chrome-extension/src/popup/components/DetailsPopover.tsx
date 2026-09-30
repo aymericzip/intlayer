@@ -17,7 +17,7 @@ export const DetailsPopover: FunctionComponent<{
     {trigger}
     <Popover.Detail
       identifier={identifier}
-      className="flex max-h-72 w-80 flex-col gap-2 overflow-auto bg-background p-3 text-left text-xs"
+      className="flex max-h-72 w-80 flex-col gap-2 overflow-auto bg-background p-3 text-start text-xs"
       isFocusable
       isOverable
       displayArrow={false}

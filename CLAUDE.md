@@ -4,6 +4,9 @@ Sub-CLAUDE.md per workspace:
 
 - `apps/backend/CLAUDE.md` — Fastify REST API
 - `apps/app/CLAUDE.md` — TanStack Start CMS dashboard
+- `apps/website/CLAUDE.md` — TanStack Start marketing/docs site
+- `apps/showcase/CLAUDE.md` — TanStack Start showcase app
+- `packages/@intlayer/chrome-extension/CLAUDE.md` — i18n inspector Chrome extension
 - `packages/@intlayer/design-system/CLAUDE.md` — shared UI + TanStack Query hooks
 - `packages/@intlayer/api/CLAUDE.md` — typed fetch client
 - `packages/@intlayer/core/CLAUDE.md` — dictionary interpreter & transpiler

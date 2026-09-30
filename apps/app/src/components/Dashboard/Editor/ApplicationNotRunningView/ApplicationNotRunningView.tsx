@@ -47,14 +47,14 @@ export const ApplicationNotRunningView: FC<ApplicationNotRunningViewProps> = ({
           {applicationUrl ? (
             <Link
               to={applicationUrl}
-              className="ml-4 font-bold"
+              className="ms-4 font-bold"
               label={urlLinkLabel.value}
               color="neutral"
             >
               {applicationUrl}
             </Link>
           ) : (
-            <span className="ml-4 font-bold">-</span>
+            <span className="ms-4 font-bold">-</span>
           )}
         </span>
         <p className="mb-4 block text-neutral">{description}</p>
@@ -97,7 +97,7 @@ export const ApplicationNotRunningView: FC<ApplicationNotRunningViewProps> = ({
 
         <div className="mb-4">
           <h4 className="mb-2 font-semibold">{tipsTitle}</h4>
-          <ul className="list-inside list-disc space-y-2 pl-3">
+          <ul className="list-inside list-disc space-y-2 ps-3">
             {tips.map((tip, index) => (
               // biome-ignore lint/suspicious/noArrayIndexKey: static list
               <li key={index} className="text-neutral">
@@ -124,7 +124,7 @@ export const ApplicationNotRunningView: FC<ApplicationNotRunningViewProps> = ({
           label={documentationLink.label.value}
           to={`${Website_Doc_IntlayerCMS}#configuration`}
           color="text"
-          className="ml-auto underline"
+          className="ms-auto underline"
         >
           {documentationLink.text}
         </Link>

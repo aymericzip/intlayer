@@ -176,7 +176,7 @@ export const Link: FC<LinkProps> = (props) => {
       >
         {isButton && isChildrenString ? <span>{children}</span> : children}
         {isExternalLink && isChildrenString && (
-          <ExternalLink className="ml-2 inline-block size-4" />
+          <ExternalLink className="ms-2 inline-block size-4" />
         )}
       </a>
     );
@@ -207,7 +207,7 @@ export const Link: FC<LinkProps> = (props) => {
     >
       {isButton && isChildrenString ? <span>{children}</span> : children}
       {isExternalLink && isChildrenString && (
-        <ExternalLink className="ml-2 inline-block size-4" />
+        <ExternalLink className="ms-2 inline-block size-4" />
       )}
     </TanStackLink>
   );

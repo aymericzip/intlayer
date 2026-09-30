@@ -265,7 +265,7 @@ export const ChatBot: FC<ChatBotProps> = ({
               <PopoverStatic identifier="chat-info">
                 <InfoIcon
                   size={18}
-                  className="z-50 mr-3 text-muted-foreground"
+                  className="z-50 me-3 text-muted-foreground"
                 />
                 <PopoverStatic.Detail
                   identifier="chat-info"

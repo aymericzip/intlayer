@@ -19,7 +19,7 @@ export const LocaleSwitcher: FC = () => {
   const pathWithoutLocale = getPathWithoutLocale(pathname);
 
   return (
-    <ol className="absolute top-10 right-10 divide-y divide-dashed divide-text/20 overflow-y-auto rounded-2xl bg-cyan-600 p-1">
+    <ol className="absolute inset-e-10 top-10 divide-y divide-dashed divide-text/20 overflow-y-auto rounded-2xl bg-cyan-600 p-1">
       {availableLocales.map((localeEl) => (
         <li className="py-1" key={localeEl}>
           <LocalizedLink

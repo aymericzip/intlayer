@@ -70,7 +70,7 @@ export const ProjectFormContent: FC = () => {
               ))}
             </div>
             {remainingCount > 0 && (
-              <span className="ml-1 text-neutral text-xs">
+              <span className="ms-1 text-neutral text-xs">
                 +{remainingCount}
               </span>
             )}

@@ -32,7 +32,7 @@ export const EditorLayout: FC<EditorLayoutProps> = ({
         className="size-full flex-1 flex-col items-center justify-center overflow-hidden border-text/10"
       >
         {children}
-        <div className="absolute right-2 bottom-2">
+        <div className="absolute inset-e-2 bottom-2">
           <LongPressMessage />
         </div>
       </Container>

@@ -98,12 +98,12 @@ export const MonacoCode: FC<CodeCompProps> = ({
 
   return (
     <div
-      className={cn('relative size-full text-sm', showLineNumbers && 'ml-0')}
+      className={cn('relative size-full text-sm', showLineNumbers && 'ms-0')}
     >
       {showCopyButton && (
         <div className="sticky top-5 z-10">
           <div
-            className={cn('absolute right-2 bottom-0 flex h-7 items-center')}
+            className={cn('absolute inset-e-2 bottom-0 flex h-7 items-center')}
           >
             <CopyButton content={children} />
           </div>

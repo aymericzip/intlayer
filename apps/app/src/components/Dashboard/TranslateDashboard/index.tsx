@@ -179,7 +179,7 @@ const TranslateRow: FC<{
                       }
                     >
                       {nodes.length > 1 && dictionary.localId && (
-                        <span className="mb-0.5 ml-8 block text-neutral/60 text-xs">
+                        <span className="ms-8 mb-0.5 block text-neutral/60 text-xs">
                           {dictionary.localId}
                         </span>
                       )}
@@ -241,7 +241,7 @@ const TranslateRow: FC<{
                 }
               >
                 {nodes.length > 1 && dictionary.localId && (
-                  <span className="mb-0.5 ml-8 ml-8 block text-neutral/60 text-xs">
+                  <span className="ms-8 ms-8 mb-0.5 block text-neutral/60 text-xs">
                     {dictionary.localId.split('::').slice(-2).join('  :  ')}
                   </span>
                 )}
@@ -539,7 +539,7 @@ const TranslateDashboardList: FC = () => {
               </PopoverStatic.Detail>
             </PopoverStatic>
             {(params.location !== 'none' || !!params.tags) && (
-              <span className="absolute -top-1 -right-1 flex size-4 items-center justify-center rounded-full bg-text text-card text-xs">
+              <span className="absolute -inset-e-1 -top-1 flex size-4 items-center justify-center rounded-full bg-text text-card text-xs">
                 {(params.tags ? params.tags.split(',').length : 0) +
                   (params.location === 'both'
                     ? 2
@@ -581,7 +581,7 @@ const TranslateDashboardList: FC = () => {
               }}
             />
             <PopoverStatic.Detail identifier="scroll-to-top">
-              <span className="flex gap-4 text-nowrap py-2 pr-2 pl-4 text-neutral">
+              <span className="flex gap-4 text-nowrap py-2 ps-4 pe-2 text-neutral">
                 {scrollToTop}
                 <KeyboardShortcut
                   shortcut="Alt + ArrowUp"
@@ -599,7 +599,7 @@ const TranslateDashboardList: FC = () => {
             </PopoverStatic.Detail>
           </PopoverStatic>
 
-          <span className="ml-10">{currentDictionaryKey}</span>
+          <span className="ms-10">{currentDictionaryKey}</span>
 
           {currentDictionaryKey && (
             <PopoverStatic identifier="go-to-dictionary">
@@ -616,14 +616,14 @@ const TranslateDashboardList: FC = () => {
                 />
               </Link>
               <PopoverStatic.Detail identifier="go-to-dictionary">
-                <span className="flex gap-4 text-nowrap py-2 pr-2 pl-4 text-neutral">
+                <span className="flex gap-4 text-nowrap py-2 ps-4 pe-2 text-neutral">
                   {goToDictionary}
                 </span>
               </PopoverStatic.Detail>
             </PopoverStatic>
           )}
 
-          <PopoverStatic identifier="translate-dictionary" className="ml-auto">
+          <PopoverStatic identifier="translate-dictionary" className="ms-auto">
             <Button
               label={translateDictionary.value}
               variant="hoverable"
@@ -633,7 +633,7 @@ const TranslateDashboardList: FC = () => {
               onClick={handleTranslateCurrentDictionary}
             />
             <PopoverStatic.Detail identifier="translate-dictionary">
-              <span className="flex gap-4 text-nowrap py-2 pr-2 pl-4 text-neutral">
+              <span className="flex gap-4 text-nowrap py-2 ps-4 pe-2 text-neutral">
                 {translateDictionary}
               </span>
             </PopoverStatic.Detail>
@@ -649,7 +649,7 @@ const TranslateDashboardList: FC = () => {
             {selectedLocales.map((locale) => (
               <div
                 key={locale}
-                className="ml-4 min-w-md flex-1 font-medium text-neutral"
+                className="ms-4 min-w-md flex-1 font-medium text-neutral"
                 suppressHydrationWarning
               >
                 {getLocaleName(locale, currentLocale)}

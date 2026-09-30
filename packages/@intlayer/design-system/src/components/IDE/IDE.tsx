@@ -63,6 +63,8 @@ export const IDE: FC<IDEProps> = ({
       )}
       roundedSize="lg"
       transparency="none"
+      // The IDE mimics an editor, which stays left-to-right in RTL locales
+      dir="ltr"
       {...props}
     >
       <div className="flex w-auto flex-row items-center justify-start gap-1 border-b bg-card text-muted-foreground text-xs">
@@ -95,7 +97,7 @@ export const IDE: FC<IDEProps> = ({
         </div>
       </div>
       <div className="relative flex size-full flex-1 flex-row justify-start">
-        <div className="absolute top-0 left-0 size-full">
+        <div className="absolute inset-s-0 top-0 size-full">
           <div className="flex size-full">
             <WithResizer initialWidth={150}>
               <div className="max-h-full flex-1 overflow-y-auto">

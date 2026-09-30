@@ -12,7 +12,7 @@ const PageDemoUsageComponents: Next14PageIntlayer = () => {
         <ServerComponentExample />
         <NestedServerComponentExample />
       </main>
-      <div className="absolute right-5 bottom-5 z-50">
+      <div className="absolute inset-e-5 bottom-5 z-50">
         <LocaleSwitcher />
       </div>
     </>

@@ -44,16 +44,16 @@ const results = computed(() => [
       <table class="w-full text-sm">
         <thead class="bg-muted">
           <tr>
-            <th class="px-4 py-3 text-left font-medium text-muted-foreground">
+            <th class="px-4 py-3 text-start font-medium text-muted-foreground">
               {{ t("home.resultsTable.library") }}
             </th>
-            <th class="px-4 py-3 text-left font-medium text-muted-foreground">
+            <th class="px-4 py-3 text-start font-medium text-muted-foreground">
               {{ t("home.resultsTable.bundleSize") }}
             </th>
-            <th class="px-4 py-3 text-left font-medium text-muted-foreground">
+            <th class="px-4 py-3 text-start font-medium text-muted-foreground">
               {{ t("home.resultsTable.lookupTime") }}
             </th>
-            <th class="px-4 py-3 text-left font-medium text-muted-foreground">
+            <th class="px-4 py-3 text-start font-medium text-muted-foreground">
               {{ t("home.resultsTable.lazyLoading") }}
             </th>
           </tr>

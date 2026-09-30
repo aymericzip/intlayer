@@ -101,7 +101,7 @@ const AccessKeyItem: FC<{
       >
         <div className="flex items-center justify-center px-3 pb-3">
           <KeyRound className="size-5" size={16} />
-          <span className="m-auto ml-4 w-full text-center font-bold text-lg">
+          <span className="m-auto ms-4 w-full text-center font-bold text-lg">
             {accessKey.name}
           </span>
         </div>
@@ -117,7 +117,7 @@ const AccessKeyItem: FC<{
               <HideShow
                 text={accessKey.clientId}
                 visiblePrefixChars={6}
-                className="ml-1 p-1 text-neutral text-sm"
+                className="ms-1 p-1 text-neutral text-sm"
               />
             </div>
             <div className="flex flex-col gap-1">
@@ -129,14 +129,14 @@ const AccessKeyItem: FC<{
                 {labels.clientSecret}
               </CopyToClipboard>
               {accessKey.clientSecret.endsWith('*') ? (
-                <span className="ml-1 break-all p-1 text-neutral text-sm">
+                <span className="ms-1 break-all p-1 text-neutral text-sm">
                   {accessKey.clientSecret}
                 </span>
               ) : (
                 <HideShow
                   text={accessKey.clientSecret}
                   visiblePrefixChars={6}
-                  className="ml-1 p-1 text-neutral text-sm"
+                  className="ms-1 p-1 text-neutral text-sm"
                 />
               )}
             </div>
@@ -146,7 +146,7 @@ const AccessKeyItem: FC<{
               </span>
 
               <span className="block text-wrap break-all text-neutral text-xs">
-                <span className="ml-1 font-bold">{rights.organization}</span>
+                <span className="ms-1 font-bold">{rights.organization}</span>
                 {accessKey?.grants?.includes('organization:read')
                   ? rights.read
                   : '- '}
@@ -158,7 +158,7 @@ const AccessKeyItem: FC<{
                   : '-'}
               </span>
               <span className="block text-wrap break-all text-neutral text-xs">
-                <span className="ml-1 font-bold">{rights.project}</span>
+                <span className="ms-1 font-bold">{rights.project}</span>
                 {accessKey?.grants?.includes('project:read')
                   ? rights.read
                   : '- '}
@@ -170,7 +170,7 @@ const AccessKeyItem: FC<{
                   : '-'}
               </span>
               <span className="block text-wrap break-all text-neutral text-xs">
-                <span className="ml-1 font-bold">{rights.dictionary}</span>
+                <span className="ms-1 font-bold">{rights.dictionary}</span>
                 {accessKey?.grants?.includes('dictionary:read')
                   ? rights.read
                   : '- '}
@@ -187,7 +187,7 @@ const AccessKeyItem: FC<{
                 <span className="text-wrap font-bold text-sm">
                   {labels.addedOn}
                 </span>
-                <span className="ml-1 break-all text-neutral text-xs">
+                <span className="ms-1 break-all text-neutral text-xs">
                   {new Date(accessKey.createdAt).toLocaleDateString()}
                 </span>
               </div>
@@ -195,7 +195,7 @@ const AccessKeyItem: FC<{
                 <span className="text-wrap font-bold text-sm">
                   {labels.expireOn}
                 </span>
-                <span className="ml-1 break-all text-neutral text-xs">
+                <span className="ms-1 break-all text-neutral text-xs">
                   {accessKey.expiresAt
                     ? new Date(accessKey.expiresAt).toLocaleDateString()
                     : '-'}
@@ -301,7 +301,7 @@ export const AccessKeyForm: FC = () => {
           </span>
         ) : (
           <>
-            <blockquote className="mb-6 flex flex-col gap-3 border-card border-l-4 pl-5 text-neutral">
+            <blockquote className="mb-6 flex flex-col gap-3 border-card border-s-4 ps-5 text-neutral">
               <ul className="">
                 {tuto.map((el: (typeof tuto)[number]) => (
                   <li key={el.value}>

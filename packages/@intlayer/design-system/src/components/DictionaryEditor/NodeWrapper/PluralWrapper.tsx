@@ -13,7 +13,7 @@ export const PluralWrapper: FC<PluralWrapperProps> = (props) => {
   const { keyPath, section } = props;
 
   return (
-    <div className="ml-2 grid grid-cols-[auto,1fr] gap-2">
+    <div className="ms-2 grid grid-cols-[auto,1fr] gap-2">
       {Object.keys(section)
         .filter((key) => !traceKeys.includes(key))
         .map((key) => {

@@ -584,7 +584,7 @@ const TechLinkContent: FC<TechLinkContentProps> = ({
       transparency="md"
       padding="md"
       className={cn(
-        'group/tech-link flex h-full w-full min-w-60 flex-row items-center gap-4 transition-all duration-200 hover:border-neutral-focus hover:shadow-xs max-sm:min-w-full',
+        'group/tech-link rtl-mirror-icons flex h-full w-full min-w-60 flex-row items-center gap-4 transition-all duration-200 hover:border-neutral-focus hover:shadow-xs max-sm:min-w-full',
         className
       )}
     >
@@ -629,7 +629,7 @@ const TechLinkContent: FC<TechLinkContentProps> = ({
         )}
       </div>
 
-      <ChevronRight className="ml-auto size-4 shrink-0 text-text/40 transition-all group-hover/tech-link:translate-x-0.5 group-hover/tech-link:text-primary" />
+      <ChevronRight className="ms-auto size-4 shrink-0 text-text/40 transition-all group-hover/tech-link:translate-x-0.5 group-hover/tech-link:text-primary rtl:group-hover/tech-link:-translate-x-0.5" />
     </Container>
   );
 

@@ -33,7 +33,7 @@ export const Step: FC<StepProps> = ({
       {...props}
     >
       <div className="flex flex-col max-md:hidden" aria-hidden="true">
-        <div className="ml-4 h-10 border-text/20 border-l border-dashed group-first-of-type:hidden" />
+        <div className="ms-4 h-10 border-text/20 border-s border-dashed group-first-of-type:hidden" />
         <span
           className={cn(
             'flex size-8 shrink-0 items-center justify-center rounded-full border-2 border-text/30 border-dotted bg-background font-black text-base text-foreground/70 max-md:hidden',
@@ -44,7 +44,7 @@ export const Step: FC<StepProps> = ({
         </span>
         <div
           className={cn(
-            'ml-4 flex-1 border-text/20 border-l border-dashed',
+            'ms-4 flex-1 border-text/20 border-s border-dashed',
             'group-last-of-type:h-40 group-last-of-type:flex-none group-last-of-type:[-webkit-mask-image:linear-gradient(to_bottom,black,transparent)] group-last-of-type:[mask-image:linear-gradient(to_bottom,black,transparent)]'
           )}
         />
@@ -62,7 +62,7 @@ export const Step: FC<StepProps> = ({
               {title}
             </H3>
             {isOptional && (
-              <span className="mb-2 ml-4 rounded-full bg-neutral/15 px-3 py-1 text-foreground/90 text-xs">
+              <span className="ms-4 mb-2 rounded-full bg-neutral/15 px-3 py-1 text-foreground/90 text-xs">
                 {optionalLabel}
               </span>
             )}

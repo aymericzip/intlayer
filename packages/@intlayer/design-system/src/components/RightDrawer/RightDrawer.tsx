@@ -220,10 +220,10 @@ export const RightDrawer: FC<RightDrawerProps> = ({
   if (!containerElement) return <></>;
 
   return createPortal(
-    <div className="fixed top-0 right-0 z-50 flex h-full justify-end">
+    <div className="fixed inset-e-0 top-0 z-50 flex h-full justify-end">
       <MaxWidthSmoother isHidden={!isVisuallyOpen} align="right">
         <Container
-          className="relative flex h-screen w-screen flex-col border-l text-foreground md:w-100"
+          className="relative flex h-screen w-screen flex-col border-s text-foreground md:w-100"
           ref={panelRef}
           roundedSize="none"
           borderColor="neutral"
@@ -250,7 +250,7 @@ export const RightDrawer: FC<RightDrawerProps> = ({
                     variant="hoverable"
                     color="text"
                     label="Close"
-                    className="ml-auto"
+                    className="ms-auto"
                     onClick={() => {
                       closeDrawer(identifier);
                       onClose?.();

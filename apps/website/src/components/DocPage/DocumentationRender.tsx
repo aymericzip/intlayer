@@ -340,11 +340,6 @@ export const DocumentationRender: FC<DocumentationRenderProps> = ({
           AccordionGroup,
           FAQ,
           Question,
-          TechLink,
-          TechCard: TechLink,
-          TechGrid,
-          TechList: TechGrid,
-          TechLinks: TechGrid,
         }}
         wrapper={(props) => (
           <>

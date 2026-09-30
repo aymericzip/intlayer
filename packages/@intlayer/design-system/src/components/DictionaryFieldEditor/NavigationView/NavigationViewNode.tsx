@@ -181,7 +181,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
                 onClick={() => setFocusedContentKeyPath(childKeyPath)}
               >
                 <div className="mt-2 flex w-full max-w-full">
-                  <div className="flex-1 pl-10">
+                  <div className="flex-1 ps-10">
                     <NavigationViewNode
                       keyPath={childKeyPath}
                       section={sectionProp}
@@ -282,7 +282,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
               header={camelCaseToSentence(key)}
             >
               <div className="mt-2 flex w-full max-w-full">
-                <div className="flex-1 pl-10">
+                <div className="flex-1 ps-10">
                   <NavigationViewNode
                     keyPath={childKeyPath}
                     section={sectionProp}

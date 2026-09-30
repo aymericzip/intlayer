@@ -41,7 +41,7 @@ const FAQItem: FC<{
         >
           <p
             itemProp="text"
-            className="pt-2 text-left text-[15px] text-muted-foreground leading-5"
+            className="pt-2 text-start text-[15px] text-muted-foreground leading-5"
           >
             {answer}
             {callToAction && (

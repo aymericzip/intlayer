@@ -21,7 +21,7 @@ export const FileList: FC<FileListProps> = ({ filePaths, ...props }) => (
       </div>
     </div>
     <div className="relative flex size-full flex-1 flex-row justify-start shadow-lg">
-      <div className="absolute top-0 left-0 size-full">
+      <div className="absolute inset-s-0 top-0 size-full">
         <div className="flex size-full">
           <FileTree filesPaths={filePaths} />
         </div>

@@ -20,7 +20,7 @@ const { t } = useI18n();
       <p class="text-sm text-muted-foreground">
         {{ t("home.understandingImpact.singleJsonIntro") }}
       </p>
-      <ul class="mt-3 space-y-2 text-sm text-muted-foreground list-disc pl-5">
+      <ul class="mt-3 space-y-2 text-sm text-muted-foreground list-disc ps-5">
         <li>
           {{ t("home.understandingImpact.singleJsonBullet1") }}
         </li>
@@ -40,7 +40,7 @@ const { t } = useI18n();
       <p class="text-sm text-muted-foreground">
         {{ t("home.understandingImpact.tradeOffsIntro") }}
       </p>
-      <ul class="mt-3 space-y-2 text-sm text-muted-foreground list-disc pl-5">
+      <ul class="mt-3 space-y-2 text-sm text-muted-foreground list-disc ps-5">
         <li>
           <strong class="text-foreground">
             {{ t("home.understandingImpact.waterfallLabel") }}

@@ -131,15 +131,15 @@ export const Default: Story = {
 
           <Command.Group heading="Suggestions">
             <Command.Item>
-              <Calendar className="mr-2 h-4 w-4" />
+              <Calendar className="me-2 h-4 w-4" />
               <span>Calendar</span>
             </Command.Item>
             <Command.Item>
-              <Smile className="mr-2 h-4 w-4" />
+              <Smile className="me-2 h-4 w-4" />
               <span>Search Emoji</span>
             </Command.Item>
             <Command.Item>
-              <Calculator className="mr-2 h-4 w-4" />
+              <Calculator className="me-2 h-4 w-4" />
               <span>Calculator</span>
             </Command.Item>
           </Command.Group>
@@ -148,17 +148,17 @@ export const Default: Story = {
 
           <Command.Group heading="Settings">
             <Command.Item>
-              <User className="mr-2 h-4 w-4" />
+              <User className="me-2 h-4 w-4" />
               <span>Profile</span>
               <Command.Shortcut>⌘P</Command.Shortcut>
             </Command.Item>
             <Command.Item>
-              <CreditCard className="mr-2 h-4 w-4" />
+              <CreditCard className="me-2 h-4 w-4" />
               <span>Billing</span>
               <Command.Shortcut>⌘B</Command.Shortcut>
             </Command.Item>
             <Command.Item>
-              <Settings className="mr-2 h-4 w-4" />
+              <Settings className="me-2 h-4 w-4" />
               <span>Settings</span>
               <Command.Shortcut>⌘S</Command.Shortcut>
             </Command.Item>
@@ -217,12 +217,12 @@ export const DialogMode: Story = {
 
             <Command.Group heading="Quick Actions">
               <Command.Item>
-                <FileText className="mr-2 h-4 w-4" />
+                <FileText className="me-2 h-4 w-4" />
                 <span>New Document</span>
                 <Command.Shortcut>⌘N</Command.Shortcut>
               </Command.Item>
               <Command.Item>
-                <Plus className="mr-2 h-4 w-4" />
+                <Plus className="me-2 h-4 w-4" />
                 <span>Create Project</span>
                 <Command.Shortcut>⌘Shift+N</Command.Shortcut>
               </Command.Item>
@@ -232,17 +232,17 @@ export const DialogMode: Story = {
 
             <Command.Group heading="Navigation">
               <Command.Item>
-                <Home className="mr-2 h-4 w-4" />
+                <Home className="me-2 h-4 w-4" />
                 <span>Go to Dashboard</span>
                 <Command.Shortcut>⌘D</Command.Shortcut>
               </Command.Item>
               <Command.Item>
-                <Mail className="mr-2 h-4 w-4" />
+                <Mail className="me-2 h-4 w-4" />
                 <span>Open Inbox</span>
                 <Command.Shortcut>⌘I</Command.Shortcut>
               </Command.Item>
               <Command.Item>
-                <MessageSquare className="mr-2 h-4 w-4" />
+                <MessageSquare className="me-2 h-4 w-4" />
                 <span>Messages</span>
                 <Command.Shortcut>⌘M</Command.Shortcut>
               </Command.Item>
@@ -298,15 +298,15 @@ export const EmptyState: Story = {
 
           <Command.Group heading="Available Commands">
             <Command.Item>
-              <Calendar className="mr-2 h-4 w-4" />
+              <Calendar className="me-2 h-4 w-4" />
               <span>Calendar</span>
             </Command.Item>
             <Command.Item>
-              <Settings className="mr-2 h-4 w-4" />
+              <Settings className="me-2 h-4 w-4" />
               <span>Settings</span>
             </Command.Item>
             <Command.Item>
-              <User className="mr-2 h-4 w-4" />
+              <User className="me-2 h-4 w-4" />
               <span>Profile</span>
             </Command.Item>
           </Command.Group>
@@ -347,23 +347,23 @@ export const SimpleList: Story = {
           <Command.Empty>No results found.</Command.Empty>
 
           <Command.Item>
-            <Calendar className="mr-2 h-4 w-4" />
+            <Calendar className="me-2 h-4 w-4" />
             <span>Open Calendar</span>
           </Command.Item>
           <Command.Item>
-            <Mail className="mr-2 h-4 w-4" />
+            <Mail className="me-2 h-4 w-4" />
             <span>Check Email</span>
           </Command.Item>
           <Command.Item>
-            <FileText className="mr-2 h-4 w-4" />
+            <FileText className="me-2 h-4 w-4" />
             <span>New Document</span>
           </Command.Item>
           <Command.Item>
-            <Settings className="mr-2 h-4 w-4" />
+            <Settings className="me-2 h-4 w-4" />
             <span>Open Settings</span>
           </Command.Item>
           <Command.Item>
-            <User className="mr-2 h-4 w-4" />
+            <User className="me-2 h-4 w-4" />
             <span>View Profile</span>
           </Command.Item>
         </Command.List>
@@ -388,7 +388,7 @@ export const WithShortcuts: Story = {
 
           <Command.Group heading="File">
             <Command.Item>
-              <FileText className="mr-2 h-4 w-4" />
+              <FileText className="me-2 h-4 w-4" />
               <span>New File</span>
               <Command.Shortcut>⌘N</Command.Shortcut>
             </Command.Item>
@@ -482,17 +482,17 @@ export const AccessibilityTest: Story = {
             aria-labelledby="actions-heading"
           >
             <Command.Item role="option" aria-describedby="calendar-desc">
-              <Calendar className="mr-2 h-4 w-4" />
+              <Calendar className="me-2 h-4 w-4" />
               <span>Open Calendar</span>
               <Command.Shortcut>⌘K C</Command.Shortcut>
             </Command.Item>
             <Command.Item role="option" aria-describedby="mail-desc">
-              <Mail className="mr-2 h-4 w-4" />
+              <Mail className="me-2 h-4 w-4" />
               <span>Check Mail</span>
               <Command.Shortcut>⌘K M</Command.Shortcut>
             </Command.Item>
             <Command.Item role="option" aria-describedby="settings-desc">
-              <Settings className="mr-2 h-4 w-4" />
+              <Settings className="me-2 h-4 w-4" />
               <span>Settings</span>
               <Command.Shortcut>⌘,</Command.Shortcut>
             </Command.Item>
@@ -618,7 +618,7 @@ export const InteractiveSearch: Story = {
                     const IconComponent = item.icon;
                     return (
                       <Command.Item key={item.name} value={item.name}>
-                        <IconComponent className="mr-2 h-4 w-4" />
+                        <IconComponent className="me-2 h-4 w-4" />
                         <span>{item.name}</span>
                         <Command.Shortcut>{item.shortcut}</Command.Shortcut>
                       </Command.Item>

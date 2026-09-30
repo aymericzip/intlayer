@@ -33,7 +33,7 @@ export const DashboardFooter: FC<DashboardFooterProps> = ({ links }) => {
         <AppDownloadButton />
 
         {isMobile && (
-          <div className="ml-auto flex flex-row items-center justify-start gap-x-2">
+          <div className="ms-auto flex flex-row items-center justify-start gap-x-2">
             <LocaleSwitcher />
             <SwitchThemeSwitcher />
           </div>
@@ -56,7 +56,7 @@ export const DashboardFooter: FC<DashboardFooterProps> = ({ links }) => {
         ))}
       </div>
       {!isMobile && (
-        <div className="ml-auto flex flex-row items-center justify-start gap-x-2">
+        <div className="ms-auto flex flex-row items-center justify-start gap-x-2">
           <LocaleSwitcher />
           <SwitchThemeSwitcher />
         </div>

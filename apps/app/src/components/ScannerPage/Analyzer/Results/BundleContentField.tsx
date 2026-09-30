@@ -63,7 +63,7 @@ const TH: FC<{ children: ReactNode; right?: boolean }> = ({
   <th
     className={cn(
       'px-3 pt-3 pb-2 font-medium text-neutral/60 text-xs',
-      right ? 'text-right' : 'text-left'
+      right ? 'text-end' : 'text-start'
     )}
   >
     {children}
@@ -78,7 +78,7 @@ const TD: FC<{ children: ReactNode; right?: boolean; className?: string }> = ({
   <td
     className={cn(
       'whitespace-nowrap px-3 py-2 text-sm',
-      right ? 'text-right tabular-nums' : 'text-left',
+      right ? 'text-end tabular-nums' : 'text-start',
       className
     )}
   >
@@ -214,7 +214,7 @@ const BundleSummaryLabel: FC<BundleSummaryLabelProps> = ({ summary }) => {
       </div>
 
       {bundleContentLabels?.impactDescription && (
-        <p className="text-left text-neutral/70 text-sm">
+        <p className="text-start text-neutral/70 text-sm">
           {bundleContentLabels.impactDescription}
         </p>
       )}

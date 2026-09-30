@@ -115,7 +115,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
             GitHub
             <StarIcon
               width={18}
-              className="mr-1 group-hover/github:fill-text"
+              className="me-1 group-hover/github:fill-text"
             />
           </Link>
 
@@ -175,7 +175,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
             <TechLogos.GITHUB width={25} />
             <StarIcon
               width={18}
-              className="mr-1 group-hover/github:fill-text-opposite"
+              className="me-1 group-hover/github:fill-text-opposite"
             />
           </Link>
 

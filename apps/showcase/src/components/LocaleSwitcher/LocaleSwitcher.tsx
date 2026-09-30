@@ -121,7 +121,7 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({ panelProps }) => {
                     >
                       <div
                         className={cn(
-                          'rounded-xl pr-3 hover:bg-text/5!',
+                          'rounded-xl pe-3 hover:bg-text/5!',
                           // Mirrors the hover background so keyboard and
                           // pointer selection look the same
                           index === highlightedIndex && 'bg-text/5'

@@ -172,7 +172,7 @@ export const WithActions: Story = {
               onClick={() => simulateUpload()}
               color="white"
             >
-              <RefreshCw className="mr-2 h-4 w-4" />
+              <RefreshCw className="me-2 h-4 w-4" />
               Retry
             </ToastAction>
           ),
@@ -331,7 +331,7 @@ export const RealWorldScenarios: Story = {
             altText="Retry connection"
             onClick={() => simulateNetworkError()}
           >
-            <RefreshCw className="mr-2 h-4 w-4" />
+            <RefreshCw className="me-2 h-4 w-4" />
             Retry
           </ToastAction>
         ),
@@ -349,8 +349,14 @@ export const RealWorldScenarios: Story = {
             <h3 className="font-medium text-lg">Form Validation</h3>
             <form onSubmit={handleFormSubmit} className="space-y-3">
               <div>
-                <label className="mb-1 block font-medium text-sm">Name *</label>
+                <label
+                  htmlFor="toaster-name"
+                  className="mb-1 block font-medium text-sm"
+                >
+                  Name *
+                </label>
                 <input
+                  id="toaster-name"
                   type="text"
                   value={formData.name}
                   onChange={(e) =>
@@ -361,10 +367,14 @@ export const RealWorldScenarios: Story = {
                 />
               </div>
               <div>
-                <label className="mb-1 block font-medium text-sm">
+                <label
+                  htmlFor="toaster-email"
+                  className="mb-1 block font-medium text-sm"
+                >
                   Email *
                 </label>
                 <input
+                  id="toaster-email"
                   type="email"
                   value={formData.email}
                   onChange={(e) =>

@@ -235,7 +235,7 @@ export const CountrySelector: FC<CountrySelectorProps> = ({
                 <li key={code}>
                   <button
                     type="button"
-                    className="flex w-full items-center gap-2 rounded-lg px-3 py-1.5 text-left text-sm transition-colors hover:bg-text/5 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-text/20"
+                    className="flex w-full items-center gap-2 rounded-lg px-3 py-1.5 text-start text-sm transition-colors hover:bg-text/5 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-text/20"
                     onClick={() => handleSelect(code)}
                   >
                     <div className="flex w-full items-center gap-6 p-1">
@@ -243,7 +243,7 @@ export const CountrySelector: FC<CountrySelectorProps> = ({
                         {toFlag(code)}
                       </span>
                       <span>{name}</span>
-                      <span className="ml-auto text-neutral/40 text-xs">
+                      <span className="ms-auto text-neutral/40 text-xs">
                         {code}
                       </span>
                     </div>

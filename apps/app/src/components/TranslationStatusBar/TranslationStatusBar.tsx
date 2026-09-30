@@ -47,7 +47,7 @@ export const TranslationStatusBar: FC = () => {
       type="button"
       onClick={() => openPanel('translation-status')}
       aria-label={content.openTranslationStatus.value}
-      className="group relative flex w-full shrink-0 items-center gap-3 border-neutral/20 border-t bg-background px-4 py-1.5 text-left transition-colors hover:bg-neutral/5"
+      className="group rtl-mirror-icons relative flex w-full shrink-0 items-center gap-3 border-neutral/20 border-t bg-background px-4 py-1.5 text-start transition-colors hover:bg-neutral/5"
     >
       {/* Progress track */}
       <div
@@ -97,7 +97,7 @@ export const TranslationStatusBar: FC = () => {
       {/* Percentage + open hint */}
       <span className="flex shrink-0 items-center gap-1 text-neutral-500 text-xs">
         <span className="font-mono">{Math.round(percentage)}%</span>
-        <ChevronRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
+        <ChevronRight className="size-3.5 transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5" />
       </span>
     </button>
   );

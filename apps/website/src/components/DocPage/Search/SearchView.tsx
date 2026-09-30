@@ -67,7 +67,7 @@ const SearchResultItem: FC<{
       onClick={onClickLink}
     >
       <div className="flex items-center justify-between gap-2 text-wrap p-3">
-        <div className="flex flex-1 flex-col gap-2 text-left">
+        <div className="flex flex-1 flex-col gap-2 text-start">
           <strong className="text-base">{doc.title}</strong>
           <p className="text-muted-foreground text-sm">{doc.description}</p>
           <Breadcrumb links={breadcrumbLinks} className="text-xs opacity-30" />

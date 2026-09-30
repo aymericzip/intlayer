@@ -118,7 +118,7 @@ export const SaveAllButton: FC<SaveAllButtonProps> = ({ dictionaries }) => {
   };
 
   return (
-    <div className="fixed right-10 bottom-42 z-50 md:bottom-24">
+    <div className="fixed inset-e-10 bottom-42 z-50 md:bottom-24">
       <DropDown identifier="save-all-dictionaries">
         <DropDown.Trigger
           identifier="save-all-dictionaries"

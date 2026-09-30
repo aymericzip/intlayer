@@ -259,7 +259,7 @@ export const CollapsibleTable: FC<CollapsibleTableProps> = ({
                   <th
                     key={column}
                     className={cn(
-                      'pb-2 text-left font-medium text-foreground/70 text-sm',
+                      'pb-2 text-start font-medium text-foreground/70 text-sm',
                       thClassName
                     )}
                   >

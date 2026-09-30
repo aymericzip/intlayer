@@ -132,7 +132,7 @@ export const PageNavigator: FunctionComponent<{
                 </li>
               ))}
             </ul>
-            <p className="mt-1 mb-0 text-right text-[11px] text-neutral">
+            <p className="mt-1 mb-0 text-end text-[11px] text-neutral">
               {pageCount({
                 shown: matchingPages.length,
                 total: sitemap.pageCount,

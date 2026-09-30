@@ -526,7 +526,7 @@ export const DocumentationPage: Story = {
           <li>
             <a
               href="#installation"
-              className="ml-4 text-blue-600 hover:underline"
+              className="ms-4 text-blue-600 hover:underline"
             >
               Installation
             </a>
@@ -534,7 +534,7 @@ export const DocumentationPage: Story = {
           <li>
             <a
               href="#basic-usage"
-              className="ml-4 text-blue-600 hover:underline"
+              className="ms-4 text-blue-600 hover:underline"
             >
               Basic Usage
             </a>
@@ -547,13 +547,13 @@ export const DocumentationPage: Story = {
           <li>
             <a
               href="#components"
-              className="ml-4 text-blue-600 hover:underline"
+              className="ms-4 text-blue-600 hover:underline"
             >
               Components
             </a>
           </li>
           <li>
-            <a href="#hooks" className="ml-4 text-blue-600 hover:underline">
+            <a href="#hooks" className="ms-4 text-blue-600 hover:underline">
               Hooks
             </a>
           </li>

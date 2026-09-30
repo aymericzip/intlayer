@@ -178,8 +178,14 @@ export const RowLimits: Story = {
     <div className="w-full max-w-3xl space-y-8">
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <div>
-          <label className="mb-2 block font-medium text-sm">3 Row Limit</label>
+          <label
+            htmlFor="autosizedTextarea-3-row-limit"
+            className="mb-2 block font-medium text-sm"
+          >
+            3 Row Limit
+          </label>
           <AutoSizedTextArea
+            id="autosizedTextarea-3-row-limit"
             placeholder="I'll grow up to 3 lines..."
             autoSize={true}
             maxRows={3}
@@ -192,8 +198,14 @@ export const RowLimits: Story = {
         </div>
 
         <div>
-          <label className="mb-2 block font-medium text-sm">8 Row Limit</label>
+          <label
+            htmlFor="autosizedTextarea-8-row-limit"
+            className="mb-2 block font-medium text-sm"
+          >
+            8 Row Limit
+          </label>
           <AutoSizedTextArea
+            id="autosizedTextarea-8-row-limit"
             placeholder="I can grow up to 8 lines..."
             autoSize={true}
             maxRows={8}
@@ -308,8 +320,8 @@ export const ChatInterface: Story = {
               <div
                 className={`max-w-xs rounded-2xl px-4 py-2 ${
                   msg.sender === 'you'
-                    ? 'rounded-br-md bg-blue-600 text-white'
-                    : 'rounded-bl-md border border-gray-200 bg-white text-gray-800'
+                    ? 'rounded-ee-md bg-blue-600 text-white'
+                    : 'rounded-es-md border border-gray-200 bg-white text-gray-800'
                 }`}
               >
                 <div>{msg.text}</div>
@@ -501,10 +513,14 @@ export const DisabledAutoSizing: Story = {
     <div className="w-full max-w-2xl space-y-6">
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <div>
-          <label className="mb-2 block font-medium text-sm">
+          <label
+            htmlFor="autosizedTextarea-auto-sizing-enabled"
+            className="mb-2 block font-medium text-sm"
+          >
             Auto-sizing Enabled
           </label>
           <AutoSizedTextArea
+            id="autosizedTextarea-auto-sizing-enabled"
             placeholder="I will grow with content..."
             autoSize={true}
             maxRows={5}
@@ -516,10 +532,14 @@ export const DisabledAutoSizing: Story = {
         </div>
 
         <div>
-          <label className="mb-2 block font-medium text-sm">
+          <label
+            htmlFor="autosizedTextarea-auto-sizing-disabled"
+            className="mb-2 block font-medium text-sm"
+          >
             Auto-sizing Disabled
           </label>
           <AutoSizedTextArea
+            id="autosizedTextarea-auto-sizing-disabled"
             placeholder="I have fixed height..."
             autoSize={false}
             rows={4}

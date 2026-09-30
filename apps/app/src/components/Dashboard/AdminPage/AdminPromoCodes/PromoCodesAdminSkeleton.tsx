@@ -32,7 +32,7 @@ export const PromoCodesAdminSkeleton: FC<PromoCodesAdminSkeletonProps> = ({
                 'Created',
                 'Actions',
               ].map((h) => (
-                <th key={h} className="px-4 py-3 text-left">
+                <th key={h} className="px-4 py-3 text-start">
                   <Skeleton className="h-4 w-16" />
                 </th>
               ))}

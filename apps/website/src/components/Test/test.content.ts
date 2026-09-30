@@ -96,7 +96,7 @@ const content = {
       es: md('## test es'),
       'en-GB': md('## test en-GB'),
       pl: md('## test pl'),
-      'pl-PL': md('## test pl-PL'),
+      'ps-PL': md('## test ps-PL'),
       pt: md('## test pt'),
       ru: md('## test ru'),
       tr: md('## test tr'),

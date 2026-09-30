@@ -52,7 +52,7 @@ const DataTableComponent = <TData extends RowData>({
                       'whitespace-nowrap px-4 py-3 font-medium text-neutral',
                       ['selection', 'actions'].includes(header.id)
                         ? 'text-center'
-                        : 'text-left'
+                        : 'text-start'
                     )}
                   >
                     {header.isPlaceholder
@@ -101,9 +101,9 @@ const DataTableComponent = <TData extends RowData>({
                       key={cell.id}
                       className={cn(
                         'whitespace-nowrap px-4 py-3',
-                        cellIndex === 0 && 'first:rounded-l-2xl',
+                        cellIndex === 0 && 'first:rounded-s-2xl',
                         cellIndex === visibleCells.length - 1 &&
-                          'last:rounded-r-2xl'
+                          'last:rounded-e-2xl'
                       )}
                     >
                       <div

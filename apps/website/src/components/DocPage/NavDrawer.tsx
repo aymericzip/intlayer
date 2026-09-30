@@ -63,7 +63,7 @@ export const NavDrawer: FC<NavDrawerProps> = ({
       {isHidden !== false && (
         <div
           className={cn(
-            'fixed top-20 left-2 z-30 flex flex-col gap-1 md:left-4',
+            'fixed inset-s-2 top-20 z-30 flex flex-col gap-1 md:inset-s-4',
             // Undecided: the panel is open on desktop, so this belongs to mobile only.
             isHidden === undefined && 'md:hidden'
           )}
@@ -94,14 +94,14 @@ export const NavDrawer: FC<NavDrawerProps> = ({
       )}
       <ClickOutsideDiv
         className={cn(
-          'relative top-0 left-0 z-40 flex h-full justify-end max-md:fixed',
+          'relative inset-s-0 top-0 z-40 flex h-full justify-end max-md:fixed',
           'max-md:transition-transform max-md:duration-300 max-md:ease-in-out',
           // The drawer and section states persisted in localStorage are only
           // applied after hydration: switch to them without animating.
           !areTransitionsReady && 'transition-none! [&_*]:transition-none!',
           isHidden === false
             ? 'max-md:translate-x-0'
-            : 'max-md:pointer-events-none max-md:-translate-x-full'
+            : 'max-md:pointer-events-none max-md:-translate-x-full max-md:rtl:translate-x-full'
         )}
         onClickOutSide={() => {
           if (isMobile) {
@@ -116,7 +116,7 @@ export const NavDrawer: FC<NavDrawerProps> = ({
               : isHidden
                 ? 'top-25'
                 : 'h-full',
-            'sticky top-15 rounded-br-2xl'
+            'sticky top-15 rounded-ee-2xl'
           )}
           roundedSize="none"
           transparency="xs"
@@ -169,7 +169,7 @@ export const NavDrawer: FC<NavDrawerProps> = ({
                         />
                       </PopoverStatic.Detail>
                     </PopoverStatic>
-                    <div className="absolute bottom-0 left-0 h-8 w-full translate-y-full bg-linear-to-b from-card/90 backdrop-blur" />
+                    <div className="absolute inset-s-0 bottom-0 h-8 w-full translate-y-full bg-linear-to-b from-card/90 backdrop-blur" />
                   </div>
                 </Container>
 

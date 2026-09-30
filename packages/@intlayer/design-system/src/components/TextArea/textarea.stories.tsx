@@ -178,10 +178,14 @@ export const SizeVariations: Story = {
         <h4 className="mb-4 font-semibold text-lg">Different Sizes</h4>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <div>
-            <label className="mb-2 block font-medium text-sm">
+            <label
+              htmlFor="textarea-compact"
+              className="mb-2 block font-medium text-sm"
+            >
               Compact (2 rows)
             </label>
             <TextArea
+              id="textarea-compact"
               placeholder="Brief message..."
               rows={2}
               className="w-full"
@@ -189,10 +193,14 @@ export const SizeVariations: Story = {
           </div>
 
           <div>
-            <label className="mb-2 block font-medium text-sm">
+            <label
+              htmlFor="textarea-standard"
+              className="mb-2 block font-medium text-sm"
+            >
               Standard (4 rows)
             </label>
             <TextArea
+              id="textarea-standard"
               placeholder="Standard message length..."
               rows={4}
               className="w-full"
@@ -200,10 +208,14 @@ export const SizeVariations: Story = {
           </div>
 
           <div>
-            <label className="mb-2 block font-medium text-sm">
+            <label
+              htmlFor="textarea-large"
+              className="mb-2 block font-medium text-sm"
+            >
               Large (8 rows)
             </label>
             <TextArea
+              id="textarea-large"
               placeholder="Long form content..."
               rows={8}
               className="w-full"
@@ -211,10 +223,14 @@ export const SizeVariations: Story = {
           </div>
 
           <div>
-            <label className="mb-2 block font-medium text-sm">
+            <label
+              htmlFor="textarea-fixed-width"
+              className="mb-2 block font-medium text-sm"
+            >
               Fixed Width (40 cols)
             </label>
             <TextArea
+              id="textarea-fixed-width"
               placeholder="Fixed column width..."
               rows={4}
               cols={40}
@@ -261,8 +277,14 @@ export const StyleVariants: Story = {
     <div className="w-full max-w-3xl space-y-6">
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <div>
-          <label className="mb-2 block font-medium text-sm">Default</label>
+          <label
+            htmlFor="textarea-default"
+            className="mb-2 block font-medium text-sm"
+          >
+            Default
+          </label>
           <TextArea
+            id="textarea-default"
             placeholder="Default styling with borders..."
             variant="default"
             rows={3}
@@ -270,8 +292,14 @@ export const StyleVariants: Story = {
         </div>
 
         <div>
-          <label className="mb-2 block font-medium text-sm">Invisible</label>
+          <label
+            htmlFor="textarea-invisible"
+            className="mb-2 block font-medium text-sm"
+          >
+            Invisible
+          </label>
           <TextArea
+            id="textarea-invisible"
             placeholder="Minimal styling, no borders..."
             variant="invisible"
             rows={3}
@@ -328,8 +356,14 @@ export const ValidationStates: Story = {
     <div className="w-full max-w-2xl space-y-6">
       <div className="space-y-4">
         <div>
-          <label className="mb-2 block font-medium text-sm">Valid Input</label>
+          <label
+            htmlFor="textarea-valid-input"
+            className="mb-2 block font-medium text-sm"
+          >
+            Valid Input
+          </label>
           <TextArea
+            id="textarea-valid-input"
             defaultValue="This is a valid message that meets all requirements."
             validationStyleEnabled={true}
             aria-invalid={false}
@@ -342,10 +376,14 @@ export const ValidationStates: Story = {
         </div>
 
         <div>
-          <label className="mb-2 block font-medium text-sm">
+          <label
+            htmlFor="textarea-invalid-input"
+            className="mb-2 block font-medium text-sm"
+          >
             Invalid Input
           </label>
           <TextArea
+            id="textarea-invalid-input"
             defaultValue="Too short"
             validationStyleEnabled={true}
             aria-invalid={true}
@@ -358,10 +396,14 @@ export const ValidationStates: Story = {
         </div>
 
         <div>
-          <label className="mb-2 block font-medium text-sm">
+          <label
+            htmlFor="textarea-with-character-limit"
+            className="mb-2 block font-medium text-sm"
+          >
             With Character Limit
           </label>
           <TextArea
+            id="textarea-with-character-limit"
             placeholder="Maximum 100 characters..."
             maxLength={100}
             rows={3}
@@ -619,7 +661,7 @@ export const CommentSystem: Story = {
           {/* Comments List */}
           <div className="space-y-4">
             {comments.map((comment) => (
-              <div key={comment.id} className="border-gray-200 border-l-2 pl-4">
+              <div key={comment.id} className="border-gray-200 border-s-2 ps-4">
                 <div className="space-y-2">
                   <div className="flex items-center gap-2">
                     <span className="font-medium text-gray-900">
@@ -640,11 +682,11 @@ export const CommentSystem: Story = {
 
                 {/* Replies */}
                 {comment.replies.length > 0 && (
-                  <div className="mt-3 ml-4 space-y-2">
+                  <div className="ms-4 mt-3 space-y-2">
                     {comment.replies.map((reply) => (
                       <div
                         key={reply.id}
-                        className="border-gray-100 border-l py-2 pl-3"
+                        className="border-gray-100 border-s py-2 ps-3"
                       >
                         <div className="mb-1 flex items-center gap-2">
                           <span className="font-medium text-gray-900 text-sm">
@@ -662,7 +704,7 @@ export const CommentSystem: Story = {
 
                 {/* Reply Form */}
                 {replyingTo === comment.id && (
-                  <div className="mt-3 ml-4 space-y-2">
+                  <div className="ms-4 mt-3 space-y-2">
                     <TextArea
                       value={replyContent}
                       onChange={(e) => setReplyContent(e.target.value)}

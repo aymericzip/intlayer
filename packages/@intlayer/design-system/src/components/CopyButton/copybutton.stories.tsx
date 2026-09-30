@@ -375,7 +375,7 @@ export const CopyFeedbackDemo: Story = {
               key={index}
               className="flex items-center justify-between rounded-lg border border-gray-200 p-3 hover:bg-gray-50"
             >
-              <div className="mr-4 flex-1">
+              <div className="me-4 flex-1">
                 <div className="mb-1 font-medium text-gray-900 text-sm">
                   {item.label}
                 </div>
@@ -383,13 +383,12 @@ export const CopyFeedbackDemo: Story = {
                   {item.content}
                 </div>
               </div>
-              <div onClick={() => handleCopyClick(item.content)}>
-                <CopyButton
-                  content={item.content}
-                  label={`Copy ${item.label}`}
-                  size="icon-sm"
-                />
-              </div>
+              <CopyButton
+                content={item.content}
+                label={`Copy ${item.label}`}
+                size="icon-sm"
+                onClick={() => handleCopyClick(item.content)}
+              />
             </div>
           ))}
         </div>
@@ -557,12 +556,11 @@ export const KeyboardNavigation: Story = {
                   Use keyboard to focus and copy this content
                 </div>
               </div>
-              <div onClick={() => logAction(`Copied: ${content}`)}>
-                <CopyButton
-                  content={content}
-                  label={`Copy item ${index + 1}`}
-                />
-              </div>
+              <CopyButton
+                content={content}
+                label={`Copy item ${index + 1}`}
+                onClick={() => logAction(`Copied: ${content}`)}
+              />
             </div>
           ))}
         </div>
@@ -711,7 +709,7 @@ export const CodeDocumentation: Story = {
             </pre>
             <CopyButton
               content="npm install @intlayer/design-system"
-              className="absolute top-2 right-2"
+              className="absolute inset-e-2 top-2"
               label="Copy installation command"
               color="neutral"
             />
@@ -744,7 +742,7 @@ function MyComponent() {
     />
   );
 }`}
-              className="absolute top-2 right-2"
+              className="absolute inset-e-2 top-2"
               label="Copy code example"
               color="neutral"
             />
@@ -773,7 +771,7 @@ function MyComponent() {
     "lucide-react": "0.263.0"
   }
 }`}
-              className="absolute top-2 right-2"
+              className="absolute inset-e-2 top-2"
               label="Copy package.json configuration"
               color="neutral"
             />

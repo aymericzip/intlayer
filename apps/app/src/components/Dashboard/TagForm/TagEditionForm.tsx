@@ -126,7 +126,7 @@ export const TagEditionForm: FC<TagEditionFormProps> = ({ tag }) => {
             variant="outline"
             color="text"
             size="icon-md"
-            className="ml-auto max-md:w-full"
+            className="ms-auto max-md:w-full"
             onClick={handleOnAuditFile}
             disabled={isSubmitting || isAuditing}
             isLoading={isAuditing}

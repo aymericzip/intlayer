@@ -356,13 +356,13 @@ export const DataTableLoading: Story = {
           <table className="w-full">
             <thead className="bg-gray-50">
               <tr>
-                <th className="px-6 py-3 text-left font-medium text-gray-500 text-xs uppercase tracking-wider">
+                <th className="px-6 py-3 text-start font-medium text-gray-500 text-xs uppercase tracking-wider">
                   Name
                 </th>
-                <th className="px-6 py-3 text-left font-medium text-gray-500 text-xs uppercase tracking-wider">
+                <th className="px-6 py-3 text-start font-medium text-gray-500 text-xs uppercase tracking-wider">
                   Email
                 </th>
-                <th className="px-6 py-3 text-left font-medium text-gray-500 text-xs uppercase tracking-wider">
+                <th className="px-6 py-3 text-start font-medium text-gray-500 text-xs uppercase tracking-wider">
                   Role
                 </th>
               </tr>

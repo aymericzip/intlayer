@@ -82,12 +82,14 @@ export const HeroSection: FC = () => {
           <Container
             onClick={copy}
             roundedSize="xl"
-            className="hero-enter-lift flex w-full max-w-xl cursor-pointer flex-row items-center justify-between gap-1 overflow-hidden border bg-card p-1 py-2 pr-2 pl-3 sm:pl-4"
+            // Shell prompt + command read left-to-right in every locale
+            dir="ltr"
+            className="hero-enter-lift flex w-full max-w-xl cursor-pointer flex-row items-center justify-between gap-1 overflow-hidden border bg-card p-1 py-2 ps-3 pe-2 sm:ps-4"
             style={{ animationDelay: '0.7s' }}
           >
             <ChevronRight className="size-6 shrink-0 text-neutral" />
             <CodeBlock
-              className="justify-left min-w-0 flex-1 overflow-x-auto whitespace-nowrap pl-6 text-sm sm:text-base"
+              className="justify-left min-w-0 flex-1 overflow-x-auto whitespace-nowrap ps-6 text-sm sm:text-base"
               lang="bash"
             >
               npx intlayer init

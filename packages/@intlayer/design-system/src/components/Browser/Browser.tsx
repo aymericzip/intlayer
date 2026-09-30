@@ -395,7 +395,7 @@ export const Browser = ({
             spellCheck={false}
             autoCapitalize="off"
             variant="invisible"
-            className="ml-3 p-0!"
+            className="ms-3 p-0!"
             size="sm"
             autoCorrect="off"
             value={inputUrl}
@@ -487,14 +487,14 @@ export const Browser = ({
                           variant="hoverable"
                           color="text"
                           size="sm"
-                          className="w-full text-left"
+                          className="w-full text-start"
                           label={url}
                           onClick={() => {
                             handleNavigateTo(url);
                             setSitemapOpen(false);
                           }}
                         >
-                          <span className="max-w-64 truncate text-left text-base">
+                          <span className="max-w-64 truncate text-start text-base">
                             <UrlPath url={url} />
                           </span>
                         </Button>
@@ -509,7 +509,7 @@ export const Browser = ({
 
         {/* Error Message Tooltip */}
         {showError && (
-          <div className="absolute top-full left-4 z-20 mt-1">
+          <div className="absolute inset-s-4 top-full z-20 mt-1">
             <p
               id="browser-url-error"
               role="alert"

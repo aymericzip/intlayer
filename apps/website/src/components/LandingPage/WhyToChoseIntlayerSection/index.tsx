@@ -33,12 +33,12 @@ export const WhyToChoseIntlayerSection: FC = () => {
                 <span className="flex aspect-square size-12 items-center justify-center rounded-full border text-2xl">
                   <Icon className="size-5 text-foreground" />
                 </span>
-                <h3 className="w-full text-left text-md leading-6">
+                <h3 className="w-full text-start text-md leading-6">
                   {asset.title}
                 </h3>
               </div>
               <AnimatedDiv>
-                <p className="text-left text-muted-foreground text-sm leading-5">
+                <p className="text-start text-muted-foreground text-sm leading-5">
                   {asset.description}
                 </p>
               </AnimatedDiv>

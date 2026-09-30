@@ -49,7 +49,7 @@ export const Question: FC<QuestionProps> = ({
     <Accordion
       label={title}
       header={
-        <span id={slugify(title)} className="text-left text-sm">
+        <span id={slugify(title)} className="text-start text-sm">
           {title}
         </span>
       }
@@ -122,7 +122,7 @@ export const FAQ: FC<PropsWithChildren> = ({ children }) => {
             variant="hoverable"
             color="text"
             size="md"
-            className="mt-4 ml-auto"
+            className="ms-auto mt-4"
             label={toggleButton.label(isExpanded).value}
             IconRight={ChevronDown}
             iconClassName={cn(

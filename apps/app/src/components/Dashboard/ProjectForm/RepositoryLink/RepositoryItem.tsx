@@ -66,7 +66,7 @@ export const RepositoryItem: FC<RepositoryItemProps> = ({
       border
       background="none"
       borderColor="neutral"
-      className="mr-4 flex flex-row items-center justify-between border-neutral/20 p-4 transition-colors hover:border-neutral/50"
+      className="me-4 flex flex-row items-center justify-between border-neutral/20 p-4 transition-colors hover:border-neutral/50"
     >
       <div className="flex items-center gap-4">
         <div className="flex size-12 items-center justify-center rounded-full text-text">
@@ -119,7 +119,7 @@ export const RepositoryItem: FC<RepositoryItemProps> = ({
         size="sm"
         variant="outline"
         color="text"
-        className="ml-auto"
+        className="ms-auto"
         onClick={onImport}
         isLoading={isProcessing}
         disabled={isProcessing || disabled}

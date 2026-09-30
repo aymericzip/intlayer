@@ -252,7 +252,7 @@ export const AffiliateAdminDetailPage: FC<{ affiliateId: string }> = ({
                 unattachedCodes.map((promo) => (
                   <Select.Item key={promo.id} value={promo.id}>
                     <span className="font-medium font-mono">{promo.code}</span>
-                    <span className="ml-2 text-neutral/60 text-xs">
+                    <span className="ms-2 text-neutral/60 text-xs">
                       {promo.discountType === 'percentage'
                         ? `${promo.discountValue}%`
                         : `$${promo.discountValue}`}

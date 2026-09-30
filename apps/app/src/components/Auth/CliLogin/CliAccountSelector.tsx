@@ -126,7 +126,7 @@ export const CliAccountSelector: FC<CliAccountSelectorProps> = ({
                     size="md"
                     isLoggedIn
                   />
-                  <div className="flex min-w-0 flex-1 flex-col text-left">
+                  <div className="flex min-w-0 flex-1 flex-col text-start">
                     <span className="truncate font-semibold text-sm text-text leading-tight">
                       {displayName}
                     </span>

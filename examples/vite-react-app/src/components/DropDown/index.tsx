@@ -32,7 +32,7 @@ export const DropDown: UnrollablePanelType = ({
     aria-hidden={isHidden}
     aria-description="Hidden panel controlled by trigger button"
     aria-labelledby={`unrollable-panel-button-${identifier}`}
-    className="absolute right-0 translate-y-2"
+    className="absolute inset-e-0 translate-y-2"
     id={`unrollable-panel-${identifier}`}
   >
     <MaxHeightSmoother

@@ -159,7 +159,7 @@ export const DashboardChatBot: FC = () => {
           isActive={isOpen}
         />
         <PopoverStatic.Detail identifier={DRAWER_ID} xAlign="end">
-          <span className="flex gap-4 text-nowrap py-2 pr-2 pl-4 text-neutral text-sm">
+          <span className="flex gap-4 text-nowrap py-2 ps-4 pe-2 text-neutral text-sm">
             {aiAssistant}
           </span>
         </PopoverStatic.Detail>

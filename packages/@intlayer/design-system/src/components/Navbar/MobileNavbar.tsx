@@ -250,7 +250,7 @@ export const MobileNavbar = <T extends TabSelectorItemProps>({
       <div
         className={cn(
           bgStyle,
-          'absolute bottom-0 left-0 w-full translate-y-full'
+          'absolute inset-s-0 bottom-0 w-full translate-y-full'
         )}
       >
         <MaxHeightSmoother isHidden={!isUnrolled}>

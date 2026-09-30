@@ -23,8 +23,8 @@ function App() {
   return (
     <main class="page-wrap px-4 pt-14 pb-8">
       <section class="island-shell rise-in relative overflow-hidden rounded-[2rem] px-6 py-10 sm:px-10 sm:py-14">
-        <div class="pointer-events-none absolute -top-24 -left-20 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(79,184,178,0.32),transparent_66%)]" />
-        <div class="pointer-events-none absolute -right-20 -bottom-20 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(47,106,74,0.18),transparent_66%)]" />
+        <div class="pointer-events-none absolute -inset-s-20 -top-24 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(79,184,178,0.32),transparent_66%)]" />
+        <div class="pointer-events-none absolute -inset-e-20 -bottom-20 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(47,106,74,0.18),transparent_66%)]" />
         <p class="island-kicker mb-3">{content.kicker}</p>
         <h1 class="display-title mb-5 max-w-3xl font-bold text-4xl text-[var(--sea-ink)] leading-[1.02] tracking-tight sm:text-6xl">
           {content.heroTitle}
@@ -66,7 +66,7 @@ function App() {
 
       <section class="island-shell mt-8 rounded-2xl p-6">
         <p class="island-kicker mb-2">{content.quickStart.kicker}</p>
-        <ul class="m-0 list-disc space-y-2 pl-5 text-[var(--sea-ink-soft)] text-sm">
+        <ul class="m-0 list-disc space-y-2 ps-5 text-[var(--sea-ink-soft)] text-sm">
           <li>{content.quickStart.editIndex}</li>
           <li>{content.quickStart.editHeader}</li>
           <li>{content.quickStart.editRoutes}</li>

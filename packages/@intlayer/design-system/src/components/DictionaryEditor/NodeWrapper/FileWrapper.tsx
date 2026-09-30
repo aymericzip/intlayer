@@ -30,7 +30,7 @@ export const FileWrapper: FC<FileWrapperProps> = (props) => {
   ];
 
   return (
-    <div className="ml-2 grid grid-cols-[auto,1fr] gap-2">
+    <div className="ms-2 grid grid-cols-[auto,1fr] gap-2">
       <span className="text-neutral text-sm">{subSection} </span>
       <StringWrapper
         {...props}

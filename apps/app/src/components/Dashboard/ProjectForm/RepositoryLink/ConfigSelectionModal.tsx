@@ -122,7 +122,7 @@ export const ConfigSelectionModal: FC<ConfigSelectionModalProps> = ({
           {content.modal?.selectConfigDescriptionEnd}
         </p>
 
-        <div className="flex min-h-0 flex-1 flex-col gap-2 overflow-y-auto pr-2">
+        <div className="flex min-h-0 flex-1 flex-col gap-2 overflow-y-auto pe-2">
           {detectedConfigs.map((fullPath) => {
             const { fileName, directory } = formatPath(fullPath);
 
@@ -143,7 +143,7 @@ export const ConfigSelectionModal: FC<ConfigSelectionModalProps> = ({
                   borderColor: 'neutral',
                   background: 'none',
                   className:
-                    'shrink-0 cursor-pointer flex-row items-center gap-3 border-neutral/20 p-3 text-left transition-colors hover:border-neutral/50',
+                    'shrink-0 cursor-pointer flex-row items-center gap-3 border-neutral/20 p-3 text-start transition-colors hover:border-neutral/50',
                 })}
                 disabled={processingConfigPath !== null}
               >

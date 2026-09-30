@@ -14,7 +14,7 @@ const PageContent: FC = () => {
   return (
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
       {/* Language Switcher - Fixed position in top right */}
-      <div className="fixed top-4 right-4 z-50">
+      <div className="fixed inset-e-4 top-4 z-50">
         <LocaleSwitcher />
       </div>
 
@@ -30,7 +30,7 @@ const PageContent: FC = () => {
           height={20}
           priority
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
+        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-start">
           <h1 className="max-w-xs font-semibold text-3xl text-black leading-10 tracking-tight dark:text-zinc-50">
             {content.title}
           </h1>

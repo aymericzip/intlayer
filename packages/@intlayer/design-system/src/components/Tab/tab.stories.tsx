@@ -490,21 +490,21 @@ export const SettingsPanel: Story = {
                   </div>
 
                   <div className="space-y-3">
-                    <button className="w-full rounded-lg border border-gray-200 p-3 text-left hover:bg-gray-50">
+                    <button className="w-full rounded-lg border border-gray-200 p-3 text-start hover:bg-gray-50">
                       <div className="font-medium">Change Password</div>
                       <div className="text-gray-500 text-sm">
                         Update your account password
                       </div>
                     </button>
 
-                    <button className="w-full rounded-lg border border-gray-200 p-3 text-left hover:bg-gray-50">
+                    <button className="w-full rounded-lg border border-gray-200 p-3 text-start hover:bg-gray-50">
                       <div className="font-medium">Login Sessions</div>
                       <div className="text-gray-500 text-sm">
                         Manage active sessions
                       </div>
                     </button>
 
-                    <button className="w-full rounded-lg border border-gray-200 p-3 text-left hover:bg-gray-50">
+                    <button className="w-full rounded-lg border border-gray-200 p-3 text-start hover:bg-gray-50">
                       <div className="font-medium">API Keys</div>
                       <div className="text-gray-500 text-sm">
                         Manage API access keys
@@ -678,10 +678,16 @@ Let's dive deeper into each of these concepts...`}
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="mb-1 block font-medium text-sm">
+                  <label
+                    htmlFor="tab-category"
+                    className="mb-1 block font-medium text-sm"
+                  >
                     Category
                   </label>
-                  <select className="w-full rounded-lg border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                  <select
+                    id="tab-category"
+                    className="w-full rounded-lg border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  >
                     <option>Web Development</option>
                     <option>React</option>
                     <option>JavaScript</option>
@@ -690,10 +696,16 @@ Let's dive deeper into each of these concepts...`}
                 </div>
 
                 <div>
-                  <label className="mb-1 block font-medium text-sm">
+                  <label
+                    htmlFor="tab-status"
+                    className="mb-1 block font-medium text-sm"
+                  >
                     Status
                   </label>
-                  <select className="w-full rounded-lg border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                  <select
+                    id="tab-status"
+                    className="w-full rounded-lg border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  >
                     <option>Draft</option>
                     <option>In Review</option>
                     <option>Published</option>
@@ -703,7 +715,7 @@ Let's dive deeper into each of these concepts...`}
               </div>
 
               <div>
-                <label className="mb-1 block font-medium text-sm">Tags</label>
+                <span className="mb-1 block font-medium text-sm">Tags</span>
                 <div className="mb-2 flex gap-2">
                   <span className="rounded-lg bg-blue-100 px-2 py-1 text-blue-800 text-xs">
                     react
@@ -723,10 +735,14 @@ Let's dive deeper into each of these concepts...`}
               </div>
 
               <div>
-                <label className="mb-1 block font-medium text-sm">
+                <label
+                  htmlFor="tab-seo-description"
+                  className="mb-1 block font-medium text-sm"
+                >
                   SEO Description
                 </label>
                 <textarea
+                  id="tab-seo-description"
                   placeholder="Brief description for search engines..."
                   defaultValue="Learn how to build effective React components with best practices, patterns, and optimization techniques in this comprehensive guide."
                   className="h-20 w-full resize-none rounded-lg border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"

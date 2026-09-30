@@ -112,7 +112,7 @@ export const CompilerSection: FC = () => {
     <div className="flex size-full min-h-90 flex-1 flex-row rounded-3xl bg-neutral-200 [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-4xl dark:bg-neutral-950">
       <IDE
         pages={tabs}
-        className="mx-auto flex-1 rounded-r-none! border-r-none! text-xs"
+        className="mx-auto flex-1 rounded-e-none! border-e-none! text-xs"
         key={framework}
       />
       <WithResizer initialWidth={300} handlePosition="left">

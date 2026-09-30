@@ -21,7 +21,7 @@ export default function Header() {
           <LocaleSwitcher />
         </div>
 
-        <div class="order-3 ml-auto flex w-full flex-wrap items-center gap-x-4 gap-y-1 pb-1 font-semibold text-sm sm:order-2 sm:w-auto sm:flex-nowrap sm:pb-0">
+        <div class="order-3 ms-auto flex w-full flex-wrap items-center gap-x-4 gap-y-1 pb-1 font-semibold text-sm sm:order-2 sm:w-auto sm:flex-nowrap sm:pb-0">
           <Link
             to="/"
             class="nav-link"

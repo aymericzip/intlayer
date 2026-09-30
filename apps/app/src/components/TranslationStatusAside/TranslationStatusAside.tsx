@@ -580,13 +580,13 @@ export const TranslationStatusAside: FC = () => {
         >
           <div className="relative">
             {hasUnseenChanges && (
-              <span className="absolute -top-1 -right-1 h-3 w-3 rounded-full bg-error ring-2" />
+              <span className="absolute -inset-e-1 -top-1 h-3 w-3 rounded-full bg-error ring-2" />
             )}
           </div>
         </Button>
 
         <PopoverStatic.Detail identifier="translation-status" xAlign="end">
-          <span className="flex gap-4 text-nowrap py-2 pr-2 pl-4 text-neutral text-sm">
+          <span className="flex gap-4 text-nowrap py-2 ps-4 pe-2 text-neutral text-sm">
             {content.translationStatusButtonDescription}
           </span>
         </PopoverStatic.Detail>

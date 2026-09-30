@@ -106,7 +106,7 @@ export const ProjectList: FC = () => {
         type="submit"
         color="text"
         label={createProjectButton.ariaLabel.value}
-        className="mt-12 ml-auto"
+        className="ms-auto mt-12"
         variant="outline"
         onClick={() => setIsCreationModalOpen(true)}
         Icon={Plus}

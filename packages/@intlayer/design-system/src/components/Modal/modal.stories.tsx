@@ -233,16 +233,16 @@ export const ExtraLargeSize: Story = {
             <table className="min-w-full border-collapse border border-neutral-200">
               <thead>
                 <tr className="bg-neutral-50">
-                  <th className="border border-neutral-200 p-2 text-left">
+                  <th className="border border-neutral-200 p-2 text-start">
                     ID
                   </th>
-                  <th className="border border-neutral-200 p-2 text-left">
+                  <th className="border border-neutral-200 p-2 text-start">
                     Name
                   </th>
-                  <th className="border border-neutral-200 p-2 text-left">
+                  <th className="border border-neutral-200 p-2 text-start">
                     Status
                   </th>
-                  <th className="border border-neutral-200 p-2 text-left">
+                  <th className="border border-neutral-200 p-2 text-start">
                     Actions
                   </th>
                 </tr>

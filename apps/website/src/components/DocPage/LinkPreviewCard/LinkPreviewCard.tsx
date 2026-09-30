@@ -81,6 +81,9 @@ export const LinkPreviewCard: FC<LinkPreviewCardProps> = ({
         transparency="md"
         padding="md"
         aria-busy={isPending}
+        // Preview of an external page, so it keeps the left-to-right layout
+        // even inside right-to-left locales
+        dir="ltr"
         className={cn(
           'group/link-preview flex h-full w-full flex-row items-center gap-4 transition-all duration-200 hover:border-neutral-focus hover:shadow-xs',
           className

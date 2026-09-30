@@ -127,10 +127,11 @@ export const ProductHunt: FC = () => {
   return (
     <Container
       className={cn([
-        'group fixed bottom-5 left-5 z-100 mr-5 border-2 border-text p-2 transition-all duration-500',
-        'hover:translate-x-0 hover:translate-y-0 hover:scale-100',
-        isMiniaturizable && '-translate-x-1/4 translate-y-1/4 scale-50',
-        !isVisible && 'translate-x-[120%]!',
+        'group fixed inset-s-5 bottom-5 z-100 me-5 border-2 border-text p-2 transition-all duration-500',
+        'hover:translate-x-0 hover:translate-y-0 hover:scale-100 rtl:hover:translate-x-0',
+        isMiniaturizable &&
+          '-translate-x-1/4 translate-y-1/4 scale-50 rtl:translate-x-1/4',
+        !isVisible && 'translate-x-[120%]! rtl:-translate-x-[120%]!',
       ])}
       roundedSize="2xl"
     >
@@ -177,7 +178,7 @@ export const ProductHunt: FC = () => {
         }}
         color="text"
         variant="hoverable"
-        className="absolute! top-2 right-2 cursor-pointer"
+        className="absolute! inset-e-2 top-2 cursor-pointer"
         size="icon-md"
       />
     </Container>

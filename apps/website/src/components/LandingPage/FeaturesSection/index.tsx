@@ -2,6 +2,7 @@ import { useDevice } from '@intlayer/design-system/hooks';
 import { Loader } from '@intlayer/design-system/loader';
 import { cn } from '@intlayer/design-system/utils';
 import { m } from 'framer-motion';
+import { getHTMLTextDir } from 'intlayer';
 import {
   type FC,
   lazy,
@@ -13,25 +14,34 @@ import {
   useRef,
   useState,
 } from 'react';
-import { type IntlayerNode, useIntlayer } from 'react-intlayer';
+import { type IntlayerNode, useIntlayer, useLocale } from 'react-intlayer';
 import { FrameworkProvider } from './FrameworkContext';
 
 /* -------------------------------------------------------------------------- */
 /*                               Subcomponents                                */
 /* -------------------------------------------------------------------------- */
 
+/** `1` in left-to-right locales, `-1` in right-to-left ones. */
+type DirectionFactor = 1 | -1;
+
 type SectionItemProps = {
   isActive: boolean;
+  /** Mirrors the horizontal slide in right-to-left locales. */
+  directionFactor: DirectionFactor;
 };
 
 const SectionItem: FC<PropsWithChildren<SectionItemProps>> = ({
   children,
   isActive,
+  directionFactor,
 }) => (
   <m.div
     className="m-auto flex size-full max-w-5xl items-center justify-center p-10"
-    initial={{ x: '100%', opacity: 0 }}
-    animate={{ x: isActive ? '0%' : '100%', opacity: isActive ? 1 : 0 }}
+    initial={{ x: `${100 * directionFactor}%`, opacity: 0 }}
+    animate={{
+      x: isActive ? '0%' : `${100 * directionFactor}%`,
+      opacity: isActive ? 1 : 0,
+    }}
     transition={{ duration: 0.5, ease: 'easeInOut' }}
   >
     {children}
@@ -41,11 +51,15 @@ const SectionItem: FC<PropsWithChildren<SectionItemProps>> = ({
 const SectionDescription: FC<PropsWithChildren<SectionItemProps>> = ({
   children,
   isActive,
+  directionFactor,
 }) => (
   <m.p
-    className="flex size-full items-center justify-center px-16 text-muted-foreground text-sm md:pr-0 lg:pr-16"
-    initial={{ x: '-100%', opacity: 0 }}
-    animate={{ x: isActive ? '0%' : '-100%', opacity: isActive ? 1 : 0 }}
+    className="flex size-full items-center justify-center px-16 text-muted-foreground text-sm md:pe-0 lg:pe-16"
+    initial={{ x: `${-100 * directionFactor}%`, opacity: 0 }}
+    animate={{
+      x: isActive ? '0%' : `${-100 * directionFactor}%`,
+      opacity: isActive ? 1 : 0,
+    }}
     transition={{ duration: 0.5, ease: 'easeInOut' }}
   >
     {children}
@@ -63,6 +77,7 @@ type TitlesProps = {
   sections: Section[];
   activeIndex: number;
   isMobile: boolean;
+  directionFactor: DirectionFactor;
 };
 
 /**
@@ -77,11 +92,13 @@ type TitlesProps = {
  * @param index - Position of the title being placed.
  * @param activeIndex - Position of the title currently in focus.
  * @param isMobile - Whether the narrow-screen type scale applies.
+ * @param directionFactor - Mirrors the arc in right-to-left locales.
  */
 const getTitlePlacement = (
   index: number,
   activeIndex: number,
-  isMobile: boolean
+  isMobile: boolean,
+  directionFactor: DirectionFactor
 ) => {
   const isActive = index === activeIndex;
   // Define the angle step (in radians) between items.
@@ -99,7 +116,7 @@ const getTitlePlacement = (
 
   return {
     // Convert polar coords to Cartesian (rem units)
-    translateX: isActive ? '5rem' : `${(radius * Math.cos(angle)) / 4 + 3}rem`,
+    translateX: `${directionFactor * (isActive ? 5 : (radius * Math.cos(angle)) / 4 + 3)}rem`,
     translateY: isActive
       ? '3rem'
       : `${
@@ -120,14 +137,29 @@ const getTitlePlacement = (
 /** The carousel always opens on the first section. */
 const INITIAL_ACTIVE_INDEX = 0;
 
-const Titles: FC<TitlesProps> = ({ sections, activeIndex, isMobile }) => (
+const Titles: FC<TitlesProps> = ({
+  sections,
+  activeIndex,
+  isMobile,
+  directionFactor,
+}) => (
   <>
     {sections.map((section, index) => (
       <m.h3
         key={section.id.value}
-        className="absolute top-1/4 left-3 inline font-bold text-muted-foreground text-xl leading-snug drop-shadow-sm aria-selected:text-foreground"
-        initial={getTitlePlacement(index, INITIAL_ACTIVE_INDEX, isMobile)}
-        animate={getTitlePlacement(index, activeIndex, isMobile)}
+        className="absolute inset-s-3 top-1/4 inline font-bold text-muted-foreground text-xl leading-snug drop-shadow-sm aria-selected:text-foreground"
+        initial={getTitlePlacement(
+          index,
+          INITIAL_ACTIVE_INDEX,
+          isMobile,
+          directionFactor
+        )}
+        animate={getTitlePlacement(
+          index,
+          activeIndex,
+          isMobile,
+          directionFactor
+        )}
         role="tab"
         transition={{ duration: 0.3 }}
         aria-selected={index === activeIndex}
@@ -170,6 +202,10 @@ export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({
 
   const nbSections = sections.length;
   const { isMobile } = useDevice();
+  const { locale } = useLocale();
+  // Titles are anchored to the inline start, so their offsets must follow it
+  const directionFactor: DirectionFactor =
+    getHTMLTextDir(locale) === 'rtl' ? -1 : 1;
 
   useEffect(() => {
     let ticking = false;
@@ -242,9 +278,9 @@ export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({
       ref={containerRef}
     >
       {/* Sticky container */}
-      <div className="sticky top-0 left-0 mb-[70vh] h-[30vh] w-full">
+      <div className="sticky inset-s-0 top-0 mb-[70vh] h-[30vh] w-full">
         {/* Progress Bar */}
-        <div className="absolute top-20 left-10 flex h-3/5 w-0.5 md:top-[20vh]">
+        <div className="absolute inset-s-10 top-20 flex h-3/5 w-0.5 md:top-[20vh]">
           <div className="size-full rounded-full bg-border">
             <div
               className="w-full bg-text"
@@ -256,12 +292,13 @@ export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({
         {/* Titles */}
         <div
           role="tablist"
-          className="absolute top-15 left-0 z-30 size-full md:top-[15vh] md:w-0 md:text-nowrap"
+          className="absolute inset-s-0 top-15 z-30 size-full md:top-[15vh] md:w-0 md:text-nowrap"
         >
           <Titles
             sections={sections}
             activeIndex={activeIndex}
             isMobile={isMobile ?? true}
+            directionFactor={directionFactor}
           />
         </div>
 
@@ -269,12 +306,15 @@ export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({
         {sections.map((section, index) => (
           <div
             className={cn(
-              'absolute top-[50vh] right-0 z-0 h-[50vh] w-full overflow-hidden md:top-0 md:h-screen md:w-2/3',
+              'absolute inset-e-0 top-[50vh] z-0 h-[50vh] w-full overflow-hidden md:top-0 md:h-screen md:w-2/3',
               index === activeIndex && 'z-20'
             )}
             key={section.id.value}
           >
-            <SectionItem isActive={index === activeIndex}>
+            <SectionItem
+              isActive={index === activeIndex}
+              directionFactor={directionFactor}
+            >
               {section.children}
             </SectionItem>
           </div>
@@ -284,12 +324,15 @@ export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({
         {sections.map((section, index) => (
           <div
             className={cn(
-              'absolute top-[30vh] left-0 z-0 h-[20vh] w-full overflow-hidden max-md:bg-background md:top-[35vh] md:h-[50vh] md:w-1/3',
+              'absolute inset-s-0 top-[30vh] z-0 h-[20vh] w-full overflow-hidden max-md:bg-background md:top-[35vh] md:h-[50vh] md:w-1/3',
               index === activeIndex && 'z-10'
             )}
             key={section.id.value}
           >
-            <SectionDescription isActive={index === activeIndex}>
+            <SectionDescription
+              isActive={index === activeIndex}
+              directionFactor={directionFactor}
+            >
               {section.description}
             </SectionDescription>
           </div>

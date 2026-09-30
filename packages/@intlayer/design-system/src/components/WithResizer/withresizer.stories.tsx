@@ -235,7 +235,7 @@ export const ApplicationLayout: Story = {
             <h1 className="font-semibold text-white">My Application</h1>
           </div>
 
-          <div className="ml-auto flex items-center gap-2">
+          <div className="ms-auto flex items-center gap-2">
             <span className="text-sm text-white/80">
               Sidebar: {currentWidth}px
             </span>
@@ -437,7 +437,7 @@ export const CodeEditorLayout: Story = {
           <div className="h-3 w-3 rounded-full bg-yellow-500"></div>
           <div className="h-3 w-3 rounded-full bg-green-500"></div>
         </div>
-        <div className="ml-4 text-gray-300 text-sm">
+        <div className="ms-4 text-gray-300 text-sm">
           Code Editor - project/src/components/App.tsx
         </div>
       </div>
@@ -458,7 +458,7 @@ export const CodeEditorLayout: Story = {
                   <span>📁</span>
                   <span>src</span>
                 </div>
-                <div className="ml-4 space-y-1">
+                <div className="ms-4 space-y-1">
                   <div className="flex items-center gap-1 text-blue-400">
                     <span>📄</span>
                     <span>App.tsx</span>
@@ -501,28 +501,28 @@ export const CodeEditorLayout: Story = {
                     <span className="text-purple-400">function</span>{' '}
                     <span className="text-yellow-400">App</span>() {'{'}
                   </div>
-                  <div className="ml-4">
+                  <div className="ms-4">
                     <span className="text-purple-400">return</span> (
                   </div>
-                  <div className="ml-8">
+                  <div className="ms-8">
                     &lt;<span className="text-red-400">div</span>{' '}
                     <span className="text-blue-400">className</span>=
                     <span className="text-green-400">"App"</span>&gt;
                   </div>
-                  <div className="ml-12">
+                  <div className="ms-12">
                     &lt;<span className="text-red-400">header</span>&gt;
                   </div>
-                  <div className="ml-16">
+                  <div className="ms-16">
                     &lt;<span className="text-red-400">h1</span>&gt;Hello
                     World&lt;/<span className="text-red-400">h1</span>&gt;
                   </div>
-                  <div className="ml-12">
+                  <div className="ms-12">
                     &lt;/<span className="text-red-400">header</span>&gt;
                   </div>
-                  <div className="ml-8">
+                  <div className="ms-8">
                     &lt;/<span className="text-red-400">div</span>&gt;
                   </div>
-                  <div className="ml-4">);</div>
+                  <div className="ms-4">);</div>
                   <div>{'}'}</div>
                   <div className="mt-4"></div>
                   <div>

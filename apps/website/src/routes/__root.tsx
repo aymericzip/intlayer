@@ -219,11 +219,15 @@ function RootDocument({ children }: { children: React.ReactNode }) {
               <Toaster />
               <ChunkErrorListener />
               <ServiceWorkerSubscriber />
+              {/* The script derives its endpoints from its own origin, so the
+                  proxied copy needs them pointed back at Ahrefs explicitly. */}
               {import.meta.env.VITE_AHREFS_KEY && (
                 <script
                   async
                   src="/api/proxy/ahrefs-analytics"
                   data-key={import.meta.env.VITE_AHREFS_KEY}
+                  data-api="https://analytics.ahrefs.com/api/event"
+                  data-error="https://analytics.ahrefs.com/api/error"
                 />
               )}
               {/* Session/OAuth are not needed to render this site, so they

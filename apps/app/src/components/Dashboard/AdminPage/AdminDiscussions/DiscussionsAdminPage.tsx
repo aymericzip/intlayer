@@ -117,7 +117,7 @@ export const DiscussionsAdminPageContent: FC = () => {
       cell: ({ row }) => {
         const discussion = row.original as DiscussionAPI;
         return (
-          <div className="ml-3 font-mono text-sm">
+          <div className="ms-3 font-mono text-sm">
             ...
             {String(discussion.id).slice(-5)}
           </div>
@@ -184,7 +184,7 @@ export const DiscussionsAdminPageContent: FC = () => {
               fullname={user?.name ?? ''}
             />
             {user?.id && (
-              <div className="ml-3">
+              <div className="ms-3">
                 {user?.name ? (
                   <Link
                     to={getAppAdminUserRoute(user.id)}
@@ -348,7 +348,7 @@ export const DiscussionsAdminPageContent: FC = () => {
                           'whitespace-nowrap px-4 py-3 font-medium text-neutral',
                           header.id === 'numberOfMessages'
                             ? 'text-center'
-                            : 'text-left',
+                            : 'text-start',
                           header.column.getCanSort() &&
                             'cursor-pointer select-none hover:text-neutral-600'
                         )}
@@ -390,9 +390,9 @@ export const DiscussionsAdminPageContent: FC = () => {
                           key={cell.id}
                           className={cn(
                             'whitespace-nowrap px-4 py-3',
-                            cellIndex === 0 && 'first:rounded-l-2xl',
+                            cellIndex === 0 && 'first:rounded-s-2xl',
                             cellIndex === visibleCells.length - 1 &&
-                              'last:rounded-r-2xl'
+                              'last:rounded-e-2xl'
                           )}
                         >
                           <div

@@ -202,7 +202,7 @@ export const CopyToClipboard: FC<CopyToClipboardProps> = ({
 
       {text && (
         <IconComponent
-          className="ml-1 ml-auto shrink-0"
+          className="ms-1 ms-auto shrink-0"
           size={size}
           aria-hidden="true"
         />

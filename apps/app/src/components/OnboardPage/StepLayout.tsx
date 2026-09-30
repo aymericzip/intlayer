@@ -63,7 +63,7 @@ export const StepLayout: FC<StepLayoutProps> = ({
             onClick={onSkipStep}
             color="text"
             textAlign="center"
-            className="ml-auto"
+            className="ms-auto"
             variant="link"
             IconRight={ChevronRight}
           >

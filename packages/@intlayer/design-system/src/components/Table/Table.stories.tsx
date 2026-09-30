@@ -76,25 +76,25 @@ export const Default: Story = {
           <tr className="border-gray-200 border-b bg-gray-50">
             <th
               scope="col"
-              className="px-6 py-3 text-left font-medium text-gray-500 text-xs uppercase tracking-wider"
+              className="px-6 py-3 text-start font-medium text-gray-500 text-xs uppercase tracking-wider"
             >
               Name
             </th>
             <th
               scope="col"
-              className="px-6 py-3 text-left font-medium text-gray-500 text-xs uppercase tracking-wider"
+              className="px-6 py-3 text-start font-medium text-gray-500 text-xs uppercase tracking-wider"
             >
               Email
             </th>
             <th
               scope="col"
-              className="px-6 py-3 text-left font-medium text-gray-500 text-xs uppercase tracking-wider"
+              className="px-6 py-3 text-start font-medium text-gray-500 text-xs uppercase tracking-wider"
             >
               Role
             </th>
             <th
               scope="col"
-              className="px-6 py-3 text-left font-medium text-gray-500 text-xs uppercase tracking-wider"
+              className="px-6 py-3 text-start font-medium text-gray-500 text-xs uppercase tracking-wider"
             >
               Status
             </th>
@@ -305,7 +305,7 @@ export const ProductInventory: Story = {
             <tr>
               <th
                 scope="col"
-                className="cursor-pointer px-6 py-3 text-left font-medium text-gray-500 text-xs uppercase tracking-wider hover:bg-gray-100"
+                className="cursor-pointer px-6 py-3 text-start font-medium text-gray-500 text-xs uppercase tracking-wider hover:bg-gray-100"
                 onClick={() => handleSort('name')}
               >
                 <div className="flex items-center gap-1">
@@ -319,13 +319,13 @@ export const ProductInventory: Story = {
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left font-medium text-gray-500 text-xs uppercase tracking-wider"
+                className="px-6 py-3 text-start font-medium text-gray-500 text-xs uppercase tracking-wider"
               >
                 Category
               </th>
               <th
                 scope="col"
-                className="cursor-pointer px-6 py-3 text-left font-medium text-gray-500 text-xs uppercase tracking-wider hover:bg-gray-100"
+                className="cursor-pointer px-6 py-3 text-start font-medium text-gray-500 text-xs uppercase tracking-wider hover:bg-gray-100"
                 onClick={() => handleSort('price')}
               >
                 <div className="flex items-center gap-1">
@@ -339,7 +339,7 @@ export const ProductInventory: Story = {
               </th>
               <th
                 scope="col"
-                className="cursor-pointer px-6 py-3 text-left font-medium text-gray-500 text-xs uppercase tracking-wider hover:bg-gray-100"
+                className="cursor-pointer px-6 py-3 text-start font-medium text-gray-500 text-xs uppercase tracking-wider hover:bg-gray-100"
                 onClick={() => handleSort('stock')}
               >
                 <div className="flex items-center gap-1">
@@ -353,7 +353,7 @@ export const ProductInventory: Story = {
               </th>
               <th
                 scope="col"
-                className="cursor-pointer px-6 py-3 text-left font-medium text-gray-500 text-xs uppercase tracking-wider hover:bg-gray-100"
+                className="cursor-pointer px-6 py-3 text-start font-medium text-gray-500 text-xs uppercase tracking-wider hover:bg-gray-100"
                 onClick={() => handleSort('rating')}
               >
                 <div className="flex items-center gap-1">
@@ -367,7 +367,7 @@ export const ProductInventory: Story = {
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left font-medium text-gray-500 text-xs uppercase tracking-wider"
+                className="px-6 py-3 text-start font-medium text-gray-500 text-xs uppercase tracking-wider"
               >
                 Actions
               </th>
@@ -519,31 +519,31 @@ export const FinancialReport: Story = {
             <tr className="bg-linear-to-r from-gray-50 to-gray-100">
               <th
                 scope="col"
-                className="px-8 py-4 text-left font-bold text-gray-700 text-sm uppercase tracking-wider"
+                className="px-8 py-4 text-start font-bold text-gray-700 text-sm uppercase tracking-wider"
               >
                 Period
               </th>
               <th
                 scope="col"
-                className="px-8 py-4 text-right font-bold text-gray-700 text-sm uppercase tracking-wider"
+                className="px-8 py-4 text-end font-bold text-gray-700 text-sm uppercase tracking-wider"
               >
                 Revenue
               </th>
               <th
                 scope="col"
-                className="px-8 py-4 text-right font-bold text-gray-700 text-sm uppercase tracking-wider"
+                className="px-8 py-4 text-end font-bold text-gray-700 text-sm uppercase tracking-wider"
               >
                 Expenses
               </th>
               <th
                 scope="col"
-                className="px-8 py-4 text-right font-bold text-gray-700 text-sm uppercase tracking-wider"
+                className="px-8 py-4 text-end font-bold text-gray-700 text-sm uppercase tracking-wider"
               >
                 Net Profit
               </th>
               <th
                 scope="col"
-                className="px-8 py-4 text-right font-bold text-gray-700 text-sm uppercase tracking-wider"
+                className="px-8 py-4 text-end font-bold text-gray-700 text-sm uppercase tracking-wider"
               >
                 Growth Rate
               </th>
@@ -563,19 +563,19 @@ export const FinancialReport: Story = {
                     Quarter {index + 1}
                   </div>
                 </td>
-                <td className="whitespace-nowrap px-8 py-6 text-right">
+                <td className="whitespace-nowrap px-8 py-6 text-end">
                   <div className="font-bold text-gray-900 text-lg">
                     {formatCurrency(quarter.revenue)}
                   </div>
                   <div className="text-gray-500 text-xs">Total Revenue</div>
                 </td>
-                <td className="whitespace-nowrap px-8 py-6 text-right">
+                <td className="whitespace-nowrap px-8 py-6 text-end">
                   <div className="font-medium text-lg text-red-600">
                     {formatCurrency(quarter.expenses)}
                   </div>
                   <div className="text-gray-500 text-xs">Operating Costs</div>
                 </td>
-                <td className="whitespace-nowrap px-8 py-6 text-right">
+                <td className="whitespace-nowrap px-8 py-6 text-end">
                   <div className="font-bold text-green-600 text-lg">
                     {formatCurrency(quarter.profit)}
                   </div>
@@ -584,7 +584,7 @@ export const FinancialReport: Story = {
                     {((quarter.profit / quarter.revenue) * 100).toFixed(1)}%
                   </div>
                 </td>
-                <td className="whitespace-nowrap px-8 py-6 text-right">
+                <td className="whitespace-nowrap px-8 py-6 text-end">
                   <div
                     className={`font-bold text-lg ${getGrowthColor(quarter.growth)}`}
                   >
@@ -611,22 +611,22 @@ export const FinancialReport: Story = {
           <tfoot className="bg-gray-800 text-white">
             <tr>
               <td className="px-8 py-4 font-bold text-sm">TOTAL</td>
-              <td className="px-8 py-4 text-right font-bold text-lg">
+              <td className="px-8 py-4 text-end font-bold text-lg">
                 {formatCurrency(
                   financialData.reduce((sum, q) => sum + q.revenue, 0)
                 )}
               </td>
-              <td className="px-8 py-4 text-right font-bold text-lg">
+              <td className="px-8 py-4 text-end font-bold text-lg">
                 {formatCurrency(
                   financialData.reduce((sum, q) => sum + q.expenses, 0)
                 )}
               </td>
-              <td className="px-8 py-4 text-right font-bold text-green-400 text-lg">
+              <td className="px-8 py-4 text-end font-bold text-green-400 text-lg">
                 {formatCurrency(
                   financialData.reduce((sum, q) => sum + q.profit, 0)
                 )}
               </td>
-              <td className="px-8 py-4 text-right font-bold text-lg">
+              <td className="px-8 py-4 text-end font-bold text-lg">
                 {(
                   financialData.reduce((sum, q) => sum + q.growth, 0) /
                   financialData.length
@@ -708,43 +708,43 @@ export const CollapsibleLargeTable: Story = {
             <tr>
               <th
                 scope="col"
-                className="px-6 py-3 text-left font-medium text-gray-500 text-xs uppercase"
+                className="px-6 py-3 text-start font-medium text-gray-500 text-xs uppercase"
               >
                 ID
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left font-medium text-gray-500 text-xs uppercase"
+                className="px-6 py-3 text-start font-medium text-gray-500 text-xs uppercase"
               >
                 Employee
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left font-medium text-gray-500 text-xs uppercase"
+                className="px-6 py-3 text-start font-medium text-gray-500 text-xs uppercase"
               >
                 Department
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left font-medium text-gray-500 text-xs uppercase"
+                className="px-6 py-3 text-start font-medium text-gray-500 text-xs uppercase"
               >
                 Position
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left font-medium text-gray-500 text-xs uppercase"
+                className="px-6 py-3 text-start font-medium text-gray-500 text-xs uppercase"
               >
                 Salary
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left font-medium text-gray-500 text-xs uppercase"
+                className="px-6 py-3 text-start font-medium text-gray-500 text-xs uppercase"
               >
                 Start Date
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left font-medium text-gray-500 text-xs uppercase"
+                className="px-6 py-3 text-start font-medium text-gray-500 text-xs uppercase"
               >
                 Status
               </th>
@@ -820,19 +820,19 @@ export const EmptyState: Story = {
           <tr>
             <th
               scope="col"
-              className="px-6 py-3 text-left font-medium text-gray-500 text-xs uppercase tracking-wider"
+              className="px-6 py-3 text-start font-medium text-gray-500 text-xs uppercase tracking-wider"
             >
               Name
             </th>
             <th
               scope="col"
-              className="px-6 py-3 text-left font-medium text-gray-500 text-xs uppercase tracking-wider"
+              className="px-6 py-3 text-start font-medium text-gray-500 text-xs uppercase tracking-wider"
             >
               Email
             </th>
             <th
               scope="col"
-              className="px-6 py-3 text-left font-medium text-gray-500 text-xs uppercase tracking-wider"
+              className="px-6 py-3 text-start font-medium text-gray-500 text-xs uppercase tracking-wider"
             >
               Status
             </th>

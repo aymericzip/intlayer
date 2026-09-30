@@ -158,7 +158,7 @@ export const OrganizationList: FC<OrganizationListProps> = ({
         label={addOrganizationButton.ariaLabel.value}
         Icon={Plus}
         color="text"
-        className="mt-12 ml-auto"
+        className="ms-auto mt-12"
         variant="outline"
         onClick={() => setIsCreationModalOpen(true)}
       >

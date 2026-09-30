@@ -27,7 +27,7 @@ export const MigrationSuggestion: FunctionComponent<{
           <li key={link.url}>
             <button
               type="button"
-              className="flex w-full cursor-pointer items-center gap-1 rounded-md bg-transparent px-1 py-0.5 text-left text-text text-xs hover:bg-text/5"
+              className="flex w-full cursor-pointer items-center gap-1 rounded-md bg-transparent px-1 py-0.5 text-start text-text text-xs hover:bg-text/5"
               onClick={() => openGuide(link.url)}
             >
               <span>

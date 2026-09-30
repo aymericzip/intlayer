@@ -30,7 +30,7 @@ const App = () => (
       {/* To use the useIntlayer hook properly, you should access your data in a children component */}
       <AppContent />
     </div>
-    <div className="absolute right-5 bottom-5 z-50">
+    <div className="absolute inset-e-5 bottom-5 z-50">
       <LocaleSwitcher />
     </div>
   </LocaleRouter>

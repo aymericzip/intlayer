@@ -28,7 +28,7 @@ export default async function HomePage({
             />
             <LocaleSwitcher />
           </div>
-          <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
+          <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-start">
             <h1 className="max-w-xs font-semibold text-3xl text-black leading-10 tracking-tight dark:text-zinc-50">
               {tHome('welcome')}
             </h1>

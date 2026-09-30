@@ -41,12 +41,12 @@ const NavTitlesChildren: FC<NavTitlesChildrenProps> = ({
     <ul
       className={cn(
         'my-2 flex flex-1 flex-col gap-2',
-        depth === 1 && 'ml-6',
-        depth === 2 && 'ml-8',
-        depth === 3 && 'ml-12',
-        depth === 4 && 'ml-16',
-        depth === 5 && 'ml-20',
-        depth === 6 && 'ml-24'
+        depth === 1 && 'ms-6',
+        depth === 2 && 'ms-8',
+        depth === 3 && 'ms-12',
+        depth === 4 && 'ms-16',
+        depth === 5 && 'ms-20',
+        depth === 6 && 'ms-24'
       )}
     >
       {headings.map((heading) => {
@@ -76,7 +76,7 @@ const NavTitlesChildren: FC<NavTitlesChildrenProps> = ({
                 window.history.pushState(null, '', `#${id}`);
               }}
               className={cn(
-                'flex flex-1 items-center justify-between text-wrap p-2 pr-4 text-base transition-colors',
+                'flex flex-1 items-center justify-between text-wrap p-2 pe-4 text-base transition-colors',
                 depth === 1 && 'text-muted-foreground/75 text-sm',
                 depth === 2 && 'text-muted-foreground/60 text-sm',
                 depth === 3 && 'text-muted-foreground/50 text-sm',
@@ -88,7 +88,7 @@ const NavTitlesChildren: FC<NavTitlesChildrenProps> = ({
               {title}
             </Link>
             {hasChildren && (
-              <div className="border-neutral/20 border-l">
+              <div className="border-neutral/20 border-s">
                 <NavTitlesChildren
                   headings={subChildren}
                   childrenMap={childrenMap}
@@ -152,12 +152,12 @@ export const TableOfContents: FC<TableOfContentsProps> = ({
                   }
                   window.history.pushState(null, '', `#${id}`);
                 }}
-                className="flex w-full items-center justify-between text-wrap p-2 pr-4 text-base text-muted-foreground transition-colors"
+                className="flex w-full items-center justify-between text-wrap p-2 pe-4 text-base text-muted-foreground transition-colors"
               >
                 {title}
               </Link>
               {hasChildren && (
-                <div className="border-neutral/20 border-l">
+                <div className="border-neutral/20 border-s">
                   <NavTitlesChildren
                     headings={children}
                     childrenMap={headingMap}

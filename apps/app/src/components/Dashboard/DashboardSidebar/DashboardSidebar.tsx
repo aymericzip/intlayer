@@ -309,7 +309,7 @@ const SidebarTabItem = forwardRef<HTMLDivElement, SidebarTabItemProps>(
     const showPinButton = !isCollapsed && isPinnableItem && !isItemPinned;
     const showUnpinButton = !isCollapsed && isPinnableItem && isItemPinned;
 
-    // Find index in flatNavItems to determine parent level-1 item and whether we need a straight line at left-4
+    // Find index in flatNavItems to determine parent level-1 item and whether we need a straight line at inset-s-4
     const currentIndex = flatNavItems.findIndex((x) => x.key === item.key);
     let parentLevel1: FlatSidebarItem | null = null;
     for (let i = currentIndex - 1; i >= 0; i--) {
@@ -331,10 +331,10 @@ const SidebarTabItem = forwardRef<HTMLDivElement, SidebarTabItemProps>(
             'relative flex w-full items-center justify-center rounded-lg px-2 py-2 text-text/80 aria-[current]:bg-current/0',
             !isCollapsed && 'justify-start gap-3 px-4',
             // Indentation by level
-            !isCollapsed && item.level === 1 && 'pl-10',
-            !isCollapsed && item.level >= 2 && 'pl-16',
+            !isCollapsed && item.level === 1 && 'ps-10',
+            !isCollapsed && item.level >= 2 && 'ps-16',
             // Leave room for pin/unpin/remove buttons
-            !isCollapsed && isPinnableItem && 'pr-16'
+            !isCollapsed && isPinnableItem && 'pe-16'
           )}
           isActive={activeKey === item.key}
         >
@@ -343,9 +343,9 @@ const SidebarTabItem = forwardRef<HTMLDivElement, SidebarTabItemProps>(
             <>
               {/* Straight vertical line for level 1 parent if we are at level 2+ and parent level 1 is not the last child */}
               {item.level >= 2 && parentLevel1 && !parentLevel1.isLastChild && (
-                <div className="absolute top-0 bottom-0 left-4 w-4 scale-110">
+                <div className="absolute inset-s-4 top-0 bottom-0 w-4 scale-110">
                   <div className="pointer-events-none relative h-full w-4">
-                    <div className="absolute top-0 bottom-0 left-0 w-px bg-neutral/70" />
+                    <div className="absolute inset-s-0 top-0 bottom-0 w-px bg-neutral/70" />
                   </div>
                 </div>
               )}
@@ -353,14 +353,14 @@ const SidebarTabItem = forwardRef<HTMLDivElement, SidebarTabItemProps>(
               <div
                 className={cn(
                   'absolute top-0 h-full w-4 scale-110',
-                  item.level === 1 && 'left-4',
-                  item.level >= 2 && 'left-10'
+                  item.level === 1 && 'inset-s-4',
+                  item.level >= 2 && 'inset-s-10'
                 )}
               >
                 <div className="pointer-events-none relative h-full w-4">
-                  <div className="absolute top-0 left-0 h-1/2 w-3 rounded-bl-lg border-neutral/70 border-b border-l" />
+                  <div className="absolute inset-s-0 top-0 h-1/2 w-3 rounded-es-lg border-neutral/70 border-s border-b" />
                   {!item.isLastChild && (
-                    <div className="absolute top-1/2 left-0 h-1/2 w-px bg-neutral/70" />
+                    <div className="absolute inset-s-0 top-1/2 h-1/2 w-px bg-neutral/70" />
                   )}
                 </div>
               </div>
@@ -391,7 +391,7 @@ const SidebarTabItem = forwardRef<HTMLDivElement, SidebarTabItemProps>(
 
         {/* Action buttons wrapper — shown on hover */}
         {!isCollapsed && isPinnableItem && (
-          <div className="absolute top-1/2 right-2 z-10 flex -translate-y-1/2 items-center gap-0.5 opacity-0 transition-opacity group-hover:opacity-100">
+          <div className="absolute inset-e-2 top-1/2 z-10 flex -translate-y-1/2 items-center gap-0.5 opacity-0 transition-opacity group-hover:opacity-100">
             {isItemPinned ? (
               <PopoverStatic identifier={`unpin-${item.key}`}>
                 <Button
@@ -718,7 +718,7 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
                 >
                   <div className="flex w-full items-center gap-3 px-2 py-1">
                     <Layers className="size-4 shrink-0 text-neutral" />
-                    <span className="flex-1 truncate text-left font-medium text-sm text-text">
+                    <span className="flex-1 truncate text-start font-medium text-sm text-text">
                       {currentEnv?.name}
                     </span>
                     {currentEnv?.isDefault && (
@@ -771,7 +771,7 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
                         >
                           {env.name}
                           {env.isDefault && (
-                            <span className="ml-auto rounded bg-text/10 px-1 text-xs">
+                            <span className="ms-auto rounded bg-text/10 px-1 text-xs">
                               {defaultEnv}
                             </span>
                           )}
@@ -804,7 +804,7 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
               onClick={() => setIsCollapsed((prev) => !prev)}
             >
               {!isCollapsed && (
-                <span className="ml-4 block w-full text-left">
+                <span className="ms-4 block w-full text-start">
                   {collapseButton.text}
                 </span>
               )}

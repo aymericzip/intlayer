@@ -173,7 +173,7 @@ export const ConfigPreviewModal: FC<ConfigPreviewModalProps> = ({
               </div>
             ) : (
               <div className="flex h-64 items-center justify-center text-error">
-                <XCircle className="mr-2 size-6" />
+                <XCircle className="me-2 size-6" />
                 <p>{content.modal?.failedToLoad}</p>
               </div>
             )}

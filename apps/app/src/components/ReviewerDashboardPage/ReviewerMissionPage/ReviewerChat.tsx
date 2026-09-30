@@ -115,8 +115,8 @@ export const ReviewerChat: FC<ReviewerChatProps> = ({
               <div
                 className={`max-w-xs rounded-2xl px-4 py-2 text-sm ${
                   isMe
-                    ? 'rounded-br-sm bg-text/10 text-text'
-                    : 'rounded-bl-sm border border-neutral/20 bg-card'
+                    ? 'rounded-ee-sm bg-text/10 text-text'
+                    : 'rounded-es-sm border border-neutral/20 bg-card'
                 }`}
               >
                 <p>{msg.content}</p>

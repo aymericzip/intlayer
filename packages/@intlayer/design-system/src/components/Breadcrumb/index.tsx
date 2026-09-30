@@ -318,7 +318,7 @@ export const Breadcrumb: FC<BreadcrumbProps> = ({
       : links;
 
   return (
-    <nav aria-label={ariaLabel}>
+    <nav aria-label={ariaLabel} className="rtl-mirror-icons">
       <ol
         className={cn(breadcrumbVariants({ size, spacing }), className)}
         {...(includeStructuredData && {

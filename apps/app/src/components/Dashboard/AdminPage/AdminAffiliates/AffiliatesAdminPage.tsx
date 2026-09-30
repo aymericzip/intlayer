@@ -57,19 +57,19 @@ const PendingInvitationsSection: FC = () => {
       <Table className="w-full border-separate border-spacing-0 overflow-scroll">
         <thead>
           <tr>
-            <th className="whitespace-nowrap px-4 py-3 text-left font-medium text-neutral">
+            <th className="whitespace-nowrap px-4 py-3 text-start font-medium text-neutral">
               {content.id}
             </th>
-            <th className="whitespace-nowrap px-4 py-3 text-left font-medium text-neutral">
+            <th className="whitespace-nowrap px-4 py-3 text-start font-medium text-neutral">
               {content.email}
             </th>
-            <th className="whitespace-nowrap px-4 py-3 text-left font-medium text-neutral">
+            <th className="whitespace-nowrap px-4 py-3 text-start font-medium text-neutral">
               {content.commission}
             </th>
-            <th className="whitespace-nowrap px-4 py-3 text-left font-medium text-neutral">
+            <th className="whitespace-nowrap px-4 py-3 text-start font-medium text-neutral">
               {content.status}
             </th>
-            <th className="whitespace-nowrap px-4 py-3 text-left font-medium text-neutral">
+            <th className="whitespace-nowrap px-4 py-3 text-start font-medium text-neutral">
               {content.created}
             </th>
           </tr>
@@ -289,7 +289,7 @@ export const AffiliatesAdminPage: FC = () => {
           <SearchInput
             placeholder={content.searchByReferralCode.value}
             onChange={(e) => setParams({ search: e.target.value, page: 1 })}
-            className="max-w-md pl-10"
+            className="max-w-md ps-10"
           />
           <Button
             label={content.clickToSendAnInvitation.value}
@@ -316,7 +316,7 @@ export const AffiliatesAdminPage: FC = () => {
                     <th
                       key={header.id}
                       className={cn(
-                        'whitespace-nowrap px-4 py-3 text-left font-medium text-neutral',
+                        'whitespace-nowrap px-4 py-3 text-start font-medium text-neutral',
                         header.column.getCanSort() &&
                           'cursor-pointer select-none hover:text-neutral-600'
                       )}
@@ -355,9 +355,9 @@ export const AffiliatesAdminPage: FC = () => {
                         key={cell.id}
                         className={cn(
                           'whitespace-nowrap px-4 py-3',
-                          cellIndex === 0 && 'first:rounded-l-2xl',
+                          cellIndex === 0 && 'first:rounded-s-2xl',
                           cellIndex === visibleCells.length - 1 &&
-                            'last:rounded-r-2xl'
+                            'last:rounded-e-2xl'
                         )}
                       >
                         <div className="flex items-center justify-start">

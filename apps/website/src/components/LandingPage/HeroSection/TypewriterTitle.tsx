@@ -139,8 +139,8 @@ export const TypewriterTitle: FC<TypewriterTitleProps> = ({
     <span
       aria-hidden
       className={cn(
-        'ml-0.5 inline-block h-[0.9em] w-0.75 animate-pulse bg-current align-[-0.1em]',
-        separator ? '-mr-1.25' : 'mr-0.5'
+        'ms-0.5 inline-block h-[0.9em] w-0.75 animate-pulse bg-current align-[-0.1em]',
+        separator ? '-me-1.25' : 'me-0.5'
       )}
     />
   );

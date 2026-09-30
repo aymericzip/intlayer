@@ -269,7 +269,7 @@ export const RepositoryLink: FC = () => {
                   </p>
                 </div>
               </div>
-              <div className="ml-auto flex gap-3">
+              <div className="ms-auto flex gap-3">
                 <Button
                   onClick={handleConnectClick}
                   isLoading={isLinking}

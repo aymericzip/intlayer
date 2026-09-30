@@ -7,7 +7,6 @@ import {
 import { DiscordLogo } from '@intlayer/design-system/social-networks';
 import { cn } from '@intlayer/design-system/utils';
 import { motion } from 'framer-motion';
-import { getHTMLTextDir } from 'intlayer';
 import { ArrowRight } from 'lucide-react';
 import {
   type CSSProperties,
@@ -16,7 +15,7 @@ import {
   useRef,
   useState,
 } from 'react';
-import { useIntlayer, useLocale } from 'react-intlayer';
+import { useIntlayer } from 'react-intlayer';
 import type { Contributor } from '~/components/Contributors/ContributorsList';
 import { Link } from '~/components/Link/Link';
 
@@ -96,9 +95,10 @@ const ContributorAvatar: FC<ContributorAvatarProps> = ({
     const elementW = elementRef.current.offsetWidth;
     const elementH = elementRef.current.offsetHeight;
 
-    // Convert the percentage position (from props) to pixels
-    const initialLeftPx = (position.x / 100) * containerW;
-    const initialTopPx = (position.y / 100) * containerH;
+    // Read the laid-out offset: the position is logical, so in right-to-left
+    // locales its physical left is measured from the other edge
+    const initialLeftPx = elementRef.current.offsetLeft;
+    const initialTopPx = elementRef.current.offsetTop;
 
     setConstraints({
       // How far can I go left? (Negative value to reach 0)
@@ -129,8 +129,6 @@ const ContributorAvatar: FC<ContributorAvatarProps> = ({
       whileDrag={{ scale: 1.1, cursor: 'grabbing', zIndex: 50 }}
       whileHover={{ scale: 1.05, zIndex: 40 }}
       initial={{
-        left: `${position.x}%`,
-        top: `${position.y}%`,
         opacity: 0,
         scale: 0,
       }}
@@ -147,7 +145,12 @@ const ContributorAvatar: FC<ContributorAvatarProps> = ({
         damping: 18,
       }}
       className="absolute cursor-grab select-none"
-      style={{ zIndex }}
+      style={{
+        zIndex,
+        // Logical offset, so the cloud mirrors with the text in RTL locales
+        insetInlineStart: `${position.x}%`,
+        top: `${position.y}%`,
+      }}
       onDragStart={(e) => e.preventDefault()}
     >
       <Avatar
@@ -170,14 +173,15 @@ const ContributorAvatar: FC<ContributorAvatarProps> = ({
 };
 
 // ... [Keep generateCloudPositions] ...
-const generateCloudPositions = (count: number, isRTL = false) => {
+/** Positions in percent; `x` is measured from the inline start. */
+const generateCloudPositions = (count: number) => {
   const positions = [];
   const goldenAngle = Math.PI * (3 - Math.sqrt(5));
   const maxRadiusX = 20;
   const maxRadiusY = 30;
   const cX = count > 1 ? maxRadiusX / Math.sqrt(count - 1) : 0;
   const cY = count > 1 ? maxRadiusY / Math.sqrt(count - 1) : 0;
-  const centerX = isRTL ? 75 : 25;
+  const centerX = 25;
   const centerY = 40;
 
   for (let i = 0; i < count; i++) {
@@ -197,9 +201,7 @@ export const ContributorCloud: FC<ContributorCloudProps> = ({
   const { discordLinkLabel, seeAllLink, title, subtitle } = useIntlayer(
     'contributor-section'
   );
-  const { locale } = useLocale();
-  const isRTL = getHTMLTextDir(locale) === 'rtl';
-  const positions = generateCloudPositions(contributors.length, isRTL);
+  const positions = generateCloudPositions(contributors.length);
   const sectionRef = useRef<HTMLElement>(null);
 
   // State to track the exact pixel size of the container

@@ -20,7 +20,7 @@ const ProductIdPageContent = ({ productId }: { productId: string }) => {
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <div className="fixed top-4 right-4 z-50">
+      <div className="fixed inset-e-4 top-4 z-50">
         <LocaleSwitcher />
       </div>
       <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-center bg-white px-16 py-32 dark:bg-black">

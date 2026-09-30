@@ -96,7 +96,7 @@ export const PlanDetails: FC<PlanDetailsProps> = () => {
           <H3 className="mb-0">{title}</H3>
         </div>
 
-        <div className="absolute top-0 right-0 flex flex-row gap-2">
+        <div className="absolute inset-e-0 top-0 flex flex-row gap-2">
           <Tag color={getTypeTagColor(plan)} size="xs" border="none">
             {plan?.type ?? 'FREE'}
           </Tag>

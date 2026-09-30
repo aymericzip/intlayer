@@ -49,7 +49,7 @@ const verticalChoiceVariant = cva(
 );
 
 const verticalIndicatorVariant = cva(
-  'absolute left-0 z-0 h-auto w-full rounded-xl transition-all duration-300 ease-in-out motion-reduce:transition-none',
+  'absolute inset-s-0 z-0 h-auto w-full rounded-xl transition-all duration-300 ease-in-out motion-reduce:transition-none',
   {
     variants: {
       color: {

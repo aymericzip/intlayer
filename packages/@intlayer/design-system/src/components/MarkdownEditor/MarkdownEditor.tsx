@@ -127,7 +127,7 @@ export const MarkdownEditor: FC<MarkdownEditorProps> = ({
               // Content typography (headings, lists, spacing) is defined in
               // `markdown-editor.css`, scoped to `.ProseMirror` — this project
               // has no Tailwind `prose` plugin.
-              class: 'max-w-full pl-6 focus:outline-none',
+              class: 'max-w-full ps-6 focus:outline-none',
             },
           }}
           onUpdate={handleUpdate}
@@ -142,7 +142,7 @@ export const MarkdownEditor: FC<MarkdownEditorProps> = ({
                 <EditorCommandItem
                   value={item.title}
                   onCommand={(val) => item.command?.(val)}
-                  className="flex w-full items-center space-x-2 rounded-md px-2 py-1 text-left text-sm hover:bg-accent aria-selected:bg-accent"
+                  className="flex w-full items-center space-x-2 rounded-md px-2 py-1 text-start text-sm hover:bg-accent aria-selected:bg-accent"
                   key={item.title}
                 >
                   <div className="flex size-10 items-center justify-center rounded-md border border-card bg-background">

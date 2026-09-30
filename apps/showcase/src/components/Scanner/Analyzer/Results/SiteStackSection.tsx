@@ -23,7 +23,7 @@ export const SiteStackSection: FC<SiteStackSectionProps> = ({ domainData }) => {
   if (!routing && !technologies) return null;
 
   return (
-    <div className="mt-3 grid grid-cols-1 gap-4 border-neutral border-t border-dotted pt-3 text-left text-sm sm:grid-cols-2">
+    <div className="mt-3 grid grid-cols-1 gap-4 border-neutral border-t border-dotted pt-3 text-start text-sm sm:grid-cols-2">
       {routing && (
         <div className="flex flex-col gap-1">
           <strong className="flex items-center gap-2 text-muted-foreground">
@@ -67,7 +67,7 @@ export const SiteStackSection: FC<SiteStackSectionProps> = ({ domainData }) => {
                   )}
                   <span
                     className={cn(
-                      'ml-auto rounded-full border px-1.5 py-0.5 text-[10px] uppercase tracking-wide',
+                      'ms-auto rounded-full border px-1.5 py-0.5 text-[10px] uppercase tracking-wide',
                       technology.category === 'i18n-library' ||
                         technology.category === 'tms'
                         ? 'border-foreground/60 text-foreground/80'

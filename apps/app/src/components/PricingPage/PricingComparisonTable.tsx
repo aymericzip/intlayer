@@ -165,7 +165,7 @@ export const PricingComparisonTable: FC = () => {
                 <Tr key={`cat-${catIndex}`} className="bg-background!">
                   <Td
                     colSpan={5}
-                    className="h-20 pt-6 pb-2 pl-30 font-semibold text-2xl text-neutral uppercase tracking-wider"
+                    className="h-20 ps-30 pt-6 pb-2 font-semibold text-2xl text-neutral uppercase tracking-wider"
                   >
                     {category.label}
                   </Td>

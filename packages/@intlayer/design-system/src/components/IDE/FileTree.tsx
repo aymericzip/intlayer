@@ -75,7 +75,7 @@ const FileItem: FC<FileItemProps> = ({
           }
         }}
       >
-        <span className={cn('whitespace-pre', isFile && 'ml-2')}>
+        <span className={cn('whitespace-pre', isFile && 'ms-2')}>
           {indentation}
         </span>
 

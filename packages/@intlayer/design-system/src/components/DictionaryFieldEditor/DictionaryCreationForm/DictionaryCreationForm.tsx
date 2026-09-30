@@ -143,7 +143,7 @@ const DictionaryCreationFormFields: FC<{
       </AnimatePresence>
 
       <FormButton
-        className="mt-12 ml-auto"
+        className="ms-auto mt-12"
         type="submit"
         color="text"
         isLoading={isSubmitting || isPending}

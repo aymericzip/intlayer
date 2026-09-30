@@ -13,7 +13,7 @@ const ButtonItem: FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
     <button
       aria-label="language switcher"
       data-mode="system"
-      className="my-1 w-full cursor-pointer rounded-lg p-2 text-left hover:bg-white/10 focus:bg-white/10 focus:outline-hidden disabled:text-white/25"
+      className="my-1 w-full cursor-pointer rounded-lg p-2 text-start hover:bg-white/10 focus:bg-white/10 focus:outline-hidden disabled:text-white/25"
       {...props}
     >
       {children}

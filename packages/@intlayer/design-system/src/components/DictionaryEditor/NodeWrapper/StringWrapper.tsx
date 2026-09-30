@@ -41,7 +41,7 @@ export const StringWrapper: FC<StringWrapperProps> = ({
     <button
       type="button"
       className={cn(
-        'w-full rounded-md p-2 text-left transition',
+        'w-full rounded-md p-2 text-start transition',
         'hover:bg-card/30 [&:has(.section:hover)]:bg-transparent',
         level === 2 && 'hover:bg-card/30',
         level >= 3 && ''

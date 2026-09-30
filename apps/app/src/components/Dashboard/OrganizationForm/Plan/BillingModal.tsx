@@ -71,7 +71,7 @@ export const BillingModal: FC<BillingModalProps> = ({ isOpen, onClose }) => {
                   <CreditCard size={24} />
                 </div>
                 {isLoadingPaymentMethod ? (
-                  <Loader className="ml-2 size-5" />
+                  <Loader className="ms-2 size-5" />
                 ) : paymentMethod ? (
                   <p className="text-sm text-text">
                     {paymentMethod.card?.brand.charAt(0).toUpperCase() +
@@ -107,7 +107,7 @@ export const BillingModal: FC<BillingModalProps> = ({ isOpen, onClose }) => {
           </div>
           <table className="w-full border-collapse pt-sm" aria-label="Invoices">
             <thead>
-              <tr className="text-left">
+              <tr className="text-start">
                 <th className="py-2 font-medium text-sm text-text">
                   {billingModal.dateHeader}
                 </th>
@@ -147,7 +147,7 @@ export const BillingModal: FC<BillingModalProps> = ({ isOpen, onClose }) => {
                           style: 'currency',
                           currency: invoice.currency,
                         })}
-                        <Info size={12} className="ml-2 text-neutral" />
+                        <Info size={12} className="ms-2 text-neutral" />
                       </div>
                     </td>
                     <td className="py-2 text-sm text-text">

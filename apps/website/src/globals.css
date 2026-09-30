@@ -1,9 +1,9 @@
-@import '@intlayer/design-system/css';
-@import 'tailwindcss';
+@import "@intlayer/design-system/css";
+@import "tailwindcss";
 /* Inlined rather than linked separately: as their own <link> elements these
    blocked the first render for a round trip each, for a few KB of rules. */
-@import './shiki.css';
-@import './monaco.css';
+@import "./shiki.css";
+@import "./monaco.css";
 
 @media (min-width: 1024px) {
   .no-scrollbar {
@@ -67,22 +67,30 @@
   }
 }
 
+/*
+ * `--loop-direction` flips the travel in RTL: the duplicated strip then
+ * overflows to the left, so it must slide right to reveal its second half.
+ */
 @keyframes infiniteScroll {
   from {
     transform: translateX(0);
   }
   to {
-    transform: translateX(-50%);
+    transform: translateX(calc(-50% * var(--loop-direction, 1)));
   }
 }
 
 @keyframes infiniteScrollInverse {
   from {
-    transform: translateX(-50%);
+    transform: translateX(calc(-50% * var(--loop-direction, 1)));
   }
   to {
     transform: translateX(0);
   }
+}
+
+:is(.horizontal-loop-1, .horizontal-loop-2, .horizontal-loop-4):dir(rtl) {
+  --loop-direction: -1;
 }
 
 @keyframes float {

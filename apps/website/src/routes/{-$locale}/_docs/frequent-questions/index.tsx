@@ -81,7 +81,7 @@ function FrequentQuestionsPage() {
   return (
     <div className="m-auto flex max-w-2xl flex-col gap-10 p-10 text-center">
       <h1 className="font-bold text-2xl">{h1}</h1>
-      <div className="flex flex-col gap-4 text-left">
+      <div className="flex flex-col gap-4 text-start">
         {frequentQuestionsList.map((frequentQuestion) => (
           <Link
             key={frequentQuestion.docKey}

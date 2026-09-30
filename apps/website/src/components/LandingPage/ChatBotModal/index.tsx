@@ -40,7 +40,7 @@ export const ChatBotModal: FC = () => {
         )}
       </Modal>
       <Button
-        className="fixed! right-5 bottom-5 z-50 rounded-full! hover:scale-110"
+        className="fixed! inset-e-5 bottom-5 z-50 rounded-full! hover:scale-110"
         size="icon-xl"
         onClick={openModal}
       >

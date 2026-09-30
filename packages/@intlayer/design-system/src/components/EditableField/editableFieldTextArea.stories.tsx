@@ -475,9 +475,15 @@ export const CodeSnippetContent: Story = {
   },
   render: (args) => (
     <div className="max-w-lg p-4">
-      <label className="mb-2 block font-medium text-sm">Code Snippet</label>
+      <label
+        htmlFor="editableFieldTextArea-code-snippet"
+        className="mb-2 block font-medium text-sm"
+      >
+        Code Snippet
+      </label>
       <div className="font-mono text-sm">
         <EditableFieldTextArea
+          id="editableFieldTextArea-code-snippet"
           {...args}
           onSave={(value) => console.log('Code saved:', value)}
           onCancel={() => console.log('Code cancelled')}
@@ -532,10 +538,14 @@ After completing the setup, you can:
   },
   render: (args) => (
     <div className="max-w-2xl p-4">
-      <label className="mb-2 block font-medium text-sm">
+      <label
+        htmlFor="editableFieldTextArea-documentation-content"
+        className="mb-2 block font-medium text-sm"
+      >
         Documentation Content
       </label>
       <EditableFieldTextArea
+        id="editableFieldTextArea-documentation-content"
         {...args}
         onSave={(value) => console.log('Rich text saved:', value)}
         onCancel={() => console.log('Rich text cancelled')}
@@ -636,10 +646,14 @@ export const BlogPostEditor: Story = {
 
       <div className="space-y-6">
         <div>
-          <label className="mb-2 block font-medium text-gray-700 text-sm">
+          <label
+            htmlFor="editableFieldTextArea-post-title"
+            className="mb-2 block font-medium text-gray-700 text-sm"
+          >
             Post Title
           </label>
           <EditableFieldTextArea
+            id="editableFieldTextArea-post-title"
             defaultValue="Getting Started with React Hooks"
             autoSize={true}
             maxRows={2}
@@ -649,10 +663,14 @@ export const BlogPostEditor: Story = {
         </div>
 
         <div>
-          <label className="mb-2 block font-medium text-gray-700 text-sm">
+          <label
+            htmlFor="editableFieldTextArea-introduction"
+            className="mb-2 block font-medium text-gray-700 text-sm"
+          >
             Introduction
           </label>
           <EditableFieldTextArea
+            id="editableFieldTextArea-introduction"
             defaultValue="React Hooks revolutionized how we write React components. In this comprehensive guide, we'll explore the most commonly used hooks and learn how to implement them effectively in your projects."
             autoSize={true}
             maxRows={6}
@@ -662,10 +680,14 @@ export const BlogPostEditor: Story = {
         </div>
 
         <div>
-          <label className="mb-2 block font-medium text-gray-700 text-sm">
+          <label
+            htmlFor="editableFieldTextArea-main-content"
+            className="mb-2 block font-medium text-gray-700 text-sm"
+          >
             Main Content
           </label>
           <EditableFieldTextArea
+            id="editableFieldTextArea-main-content"
             defaultValue={`## What are React Hooks?
 
 React Hooks are functions that let you "hook into" React state and lifecycle features from function components. They were introduced in React 16.8 and provide a more direct API to the React concepts you already know.
@@ -732,7 +754,7 @@ export const CommentSystem: Story = {
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-500 font-medium text-sm text-white">
               JD
             </div>
-            <div className="ml-3">
+            <div className="ms-3">
               <p className="font-medium text-gray-900 text-sm">John Doe</p>
               <p className="text-gray-500 text-xs">2 hours ago</p>
             </div>
@@ -751,7 +773,7 @@ export const CommentSystem: Story = {
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-green-500 font-medium text-sm text-white">
               AS
             </div>
-            <div className="ml-3">
+            <div className="ms-3">
               <p className="font-medium text-gray-900 text-sm">Alice Smith</p>
               <p className="text-gray-500 text-xs">5 hours ago</p>
             </div>

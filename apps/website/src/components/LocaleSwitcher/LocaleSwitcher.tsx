@@ -125,7 +125,7 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
                   index
                 ) => (
                   <li
-                    className="py-1 pr-3"
+                    className="py-1 pe-3"
                     key={localeItem}
                     ref={(element) => setItemElement(index, element)}
                   >

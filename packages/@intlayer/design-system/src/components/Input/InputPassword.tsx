@@ -28,12 +28,12 @@ export const InputPassword: FC<InputPasswordProps> = (props) => {
       <button
         data-testid="eye-icon"
         type="button"
-        className="absolute right-2 h-full flex-row items-center"
+        className="absolute inset-e-2 h-full flex-row items-center"
         onClick={handlePasswordReveal}
         aria-label={isPasswordRevealed ? 'Hide password' : 'Show password'}
       >
         <EyeIconComponent
-          className="mr-2 inline-block cursor-pointer text-neutral"
+          className="me-2 inline-block cursor-pointer text-neutral"
           size={20}
         />
       </button>

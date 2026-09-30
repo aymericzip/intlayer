@@ -304,7 +304,7 @@ export const FormatterCheatSheet: FC<{ dialect: FormatterDialect }> = ({
 
       {/* Table */}
       <div className="overflow-x-auto">
-        <table className="w-full text-left text-xs sm:text-sm">
+        <table className="w-full text-start text-xs sm:text-sm">
           <thead>
             <tr className="border-border/60 border-b bg-muted/40 font-semibold text-muted-foreground">
               <th className="px-4 py-3">{content.cheatSheet.featureHeader}</th>

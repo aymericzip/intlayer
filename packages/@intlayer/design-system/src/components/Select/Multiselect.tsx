@@ -521,7 +521,7 @@ const MultiSelectInput: FC<ComponentProps<typeof Command.Input>> = ({
       onFocus={() => setOpen(true)}
       onClick={() => setActiveIndex(-1)}
       className={cn(
-        'ml-2 flex-1 cursor-pointer outline-hidden',
+        'ms-2 flex-1 cursor-pointer outline-hidden',
         className,
         activeIndex !== -1 && 'caret-transparent'
       )}

@@ -56,7 +56,7 @@ const CheckDetails: FunctionComponent<{ details: unknown }> = ({ details }) => {
         </pre>
       )}
       {items.length > 0 && (
-        <ul className="m-0 flex list-disc flex-col gap-1 pl-4">
+        <ul className="m-0 flex list-disc flex-col gap-1 ps-4">
           {items.map((item) => (
             <li key={item} className="break-all">
               {item}

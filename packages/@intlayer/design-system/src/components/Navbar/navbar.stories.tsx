@@ -413,7 +413,7 @@ export const ResponsiveBehavior: Story = {
     rightItemsDesktop: <MockRightItems />,
     rightItemsMobile: <MockRightItems />,
     mobileTopChildren: (
-      <Container className="border-primary border-l-4 bg-primary/5 p-3">
+      <Container className="border-primary border-s-4 bg-primary/5 p-3">
         <p className="text-sm">
           📱 <strong>Mobile View:</strong> This content only appears in the
           mobile menu

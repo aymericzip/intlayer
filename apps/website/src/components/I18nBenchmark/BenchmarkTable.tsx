@@ -20,12 +20,10 @@ export const BenchmarkTable: FC<BenchmarkTableProps> = ({
       <thead>
         <tr>
           <th className="px-4 py-2 font-semibold">{headers.library}</th>
-          <th className="px-4 py-2 text-right font-semibold">
+          <th className="px-4 py-2 text-end font-semibold">
             {headers.value} ({unit})
           </th>
-          <th className="px-4 py-2 text-right font-semibold">
-            {headers.range}
-          </th>
+          <th className="px-4 py-2 text-end font-semibold">{headers.range}</th>
           <th className="px-4 py-2 font-semibold">{headers.version}</th>
         </tr>
       </thead>
@@ -38,10 +36,10 @@ export const BenchmarkTable: FC<BenchmarkTableProps> = ({
                 {item.label}
               </span>
             </td>
-            <td className="px-4 py-2 text-right text-neutral-800 dark:text-neutral-200">
+            <td className="px-4 py-2 text-end text-neutral-800 dark:text-neutral-200">
               {item.value.toFixed(1)}
             </td>
-            <td className="px-4 py-2 text-right text-neutral-800 dark:text-neutral-200">
+            <td className="px-4 py-2 text-end text-neutral-800 dark:text-neutral-200">
               {item.min !== item.max
                 ? `${item.min.toFixed(1)} - ${item.max.toFixed(1)}`
                 : '-'}

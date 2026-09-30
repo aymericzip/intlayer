@@ -102,7 +102,7 @@ export const HideShow: FC<HideShowProps> = ({
       <span className="min-w-0 break-all">
         {isRevealed ? text : maskedText}
       </span>
-      <IconComponent className="ml-1 ml-auto size-4 min-w-4 shrink-0" />
+      <IconComponent className="ms-1 ms-auto size-4 min-w-4 shrink-0" />
     </span>
   );
 };

@@ -668,7 +668,7 @@ export const UserProfileTags: Story = {
                     className="group relative"
                   >
                     {skill.name}
-                    <span className="ml-1 text-xs opacity-70">
+                    <span className="ms-1 text-xs opacity-70">
                       {skill.level === 'expert'
                         ? '⭐'
                         : skill.level === 'advanced'
@@ -722,7 +722,7 @@ export const UserProfileTags: Story = {
               </div>
             </div>
 
-            <div className="rounded-lg border-blue-500 border-l-4 bg-gray-50 p-4">
+            <div className="rounded-lg border-blue-500 border-s-4 bg-gray-50 p-4">
               <div className="mb-2 flex items-center gap-2">
                 <Tag size="xs" color="success">
                   📊

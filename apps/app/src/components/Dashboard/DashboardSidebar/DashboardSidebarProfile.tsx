@@ -107,7 +107,7 @@ export const DashboardSidebarProfile: FC<DashboardSidebarProfileProps> = ({
                 src={user?.image ?? undefined}
                 size="sm"
               />
-              <div className="flex min-w-0 flex-1 flex-col text-left">
+              <div className="flex min-w-0 flex-1 flex-col text-start">
                 <span className="truncate font-semibold text-sm text-text leading-tight">
                   {userName}
                 </span>
@@ -143,7 +143,7 @@ export const DashboardSidebarProfile: FC<DashboardSidebarProfileProps> = ({
                 className="flex w-full flex-row justify-center px-3 py-2"
               >
                 <User2 size={10} />
-                <span className="ml-2 w-full text-center text-text text-xs">
+                <span className="ms-2 w-full text-center text-text text-xs">
                   {goToProfile}
                 </span>
               </Link>

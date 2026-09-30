@@ -17,9 +17,9 @@ export const LocaleSwitcher: FC = () => {
   const pathWithoutLocale = getPathWithoutLocale(pathname);
 
   return (
-    <ol className="absolute top-10 right-10 divide-y divide-dashed divide-text/20 overflow-y-auto p-1">
+    <ol className="absolute inset-e-10 top-10 divide-y divide-dashed divide-text/20 overflow-y-auto p-1">
       {availableLocales.map((localeEl) => (
-        <li className="py-1 pr-1.5" key={localeEl}>
+        <li className="py-1 pe-1.5" key={localeEl}>
           <Link
             aria-current={localeEl === locale ? 'page' : undefined}
             aria-label={`${localeSwitcherLabel.value} ${getLocaleName(localeEl)}`}

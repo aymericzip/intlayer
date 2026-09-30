@@ -282,7 +282,7 @@ export const StatusIndicator: Story = {
 
 export const FeatureAnnouncement: Story = {
   render: (args) => (
-    <div className="border-blue-500 border-l-4 bg-blue-50 p-4">
+    <div className="border-blue-500 border-s-4 bg-blue-50 p-4">
       <h4 className="font-medium text-blue-800">New Feature Available</h4>
       <p className="mt-1 text-blue-700">
         Try our new keyboard shortcuts for faster navigation.

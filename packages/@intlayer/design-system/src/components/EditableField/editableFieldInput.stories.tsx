@@ -423,8 +423,14 @@ export const EmailInputType: Story = {
   },
   render: (args) => (
     <div className="p-4">
-      <label className="mb-2 block font-medium text-sm">Email Address</label>
+      <label
+        htmlFor="editableFieldInput-email-address-2"
+        className="mb-2 block font-medium text-sm"
+      >
+        Email Address
+      </label>
       <EditableFieldInput
+        id="editableFieldInput-email-address-2"
         {...args}
         onSave={(value) => console.log('Email saved:', value)}
         onCancel={() => console.log('Email cancelled')}
@@ -458,10 +464,14 @@ export const RequiredField: Story = {
   },
   render: (args) => (
     <div className="p-4">
-      <label className="mb-2 block font-medium text-sm">
+      <label
+        htmlFor="editableFieldInput-required-field"
+        className="mb-2 block font-medium text-sm"
+      >
         Required Field <span className="text-error">*</span>
       </label>
       <EditableFieldInput
+        id="editableFieldInput-required-field"
         {...args}
         onSave={(value) => console.log('Required saved:', value)}
         onCancel={() => console.log('Required cancelled')}
@@ -553,10 +563,14 @@ export const UserProfileForm: Story = {
 
       <div className="space-y-4">
         <div>
-          <label className="mb-1 block font-medium text-gray-700 text-sm">
+          <label
+            htmlFor="editableFieldInput-full-name"
+            className="mb-1 block font-medium text-gray-700 text-sm"
+          >
             Full Name
           </label>
           <EditableFieldInput
+            id="editableFieldInput-full-name"
             defaultValue="John Doe"
             placeholder="Enter your full name"
             onSave={(value) => console.log('Name updated:', value)}
@@ -564,10 +578,14 @@ export const UserProfileForm: Story = {
         </div>
 
         <div>
-          <label className="mb-1 block font-medium text-gray-700 text-sm">
+          <label
+            htmlFor="editableFieldInput-email-address"
+            className="mb-1 block font-medium text-gray-700 text-sm"
+          >
             Email Address
           </label>
           <EditableFieldInput
+            id="editableFieldInput-email-address"
             type="email"
             defaultValue="john.doe@example.com"
             placeholder="Enter your email"
@@ -577,10 +595,14 @@ export const UserProfileForm: Story = {
         </div>
 
         <div>
-          <label className="mb-1 block font-medium text-gray-700 text-sm">
+          <label
+            htmlFor="editableFieldInput-job-title"
+            className="mb-1 block font-medium text-gray-700 text-sm"
+          >
             Job Title
           </label>
           <EditableFieldInput
+            id="editableFieldInput-job-title"
             defaultValue="Senior Developer"
             placeholder="Enter your job title"
             onSave={(value) => console.log('Title updated:', value)}
@@ -588,10 +610,14 @@ export const UserProfileForm: Story = {
         </div>
 
         <div>
-          <label className="mb-1 block font-medium text-gray-700 text-sm">
+          <label
+            htmlFor="editableFieldInput-phone-number"
+            className="mb-1 block font-medium text-gray-700 text-sm"
+          >
             Phone Number
           </label>
           <EditableFieldInput
+            id="editableFieldInput-phone-number"
             type="tel"
             defaultValue="+1 (555) 123-4567"
             placeholder="Enter your phone number"
@@ -636,13 +662,13 @@ export const ContentManagementTable: Story = {
         <table className="min-w-full rounded-lg border border-gray-200">
           <thead className="bg-gray-50">
             <tr>
-              <th className="px-4 py-3 text-left font-medium text-gray-700 text-sm">
+              <th className="px-4 py-3 text-start font-medium text-gray-700 text-sm">
                 Title
               </th>
-              <th className="px-4 py-3 text-left font-medium text-gray-700 text-sm">
+              <th className="px-4 py-3 text-start font-medium text-gray-700 text-sm">
                 Author
               </th>
-              <th className="px-4 py-3 text-left font-medium text-gray-700 text-sm">
+              <th className="px-4 py-3 text-start font-medium text-gray-700 text-sm">
                 Status
               </th>
             </tr>

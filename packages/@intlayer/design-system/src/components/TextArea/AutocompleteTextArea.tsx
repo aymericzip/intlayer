@@ -133,6 +133,7 @@ export const AutoCompleteTextarea: FC<AutocompleteTextAreaProps> = ({
       validationStyleEnabled={props.validationStyleEnabled}
       className={props.className}
       dir={props.dir as 'ltr' | 'rtl' | 'auto'}
+      id={props.id}
       aria-label={props['aria-label']}
       aria-invalid={props['aria-invalid']}
       aria-describedby={props['aria-describedby']}

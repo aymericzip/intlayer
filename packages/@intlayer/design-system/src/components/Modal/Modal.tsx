@@ -188,7 +188,7 @@ export const Modal: FC<ModalProps> = ({
 
   return createPortal(
     <m.div
-      className="invisible fixed top-0 left-0 z-50 flex size-full cursor-pointer items-center justify-center overflow-hidden bg-background/40 backdrop-blur"
+      className="invisible fixed inset-s-0 top-0 z-50 flex size-full cursor-pointer items-center justify-center overflow-hidden bg-background/40 backdrop-blur"
       animate={isOpen ? 'visible' : 'invisible'}
       variants={{
         visible: {
@@ -234,7 +234,7 @@ export const Modal: FC<ModalProps> = ({
           )}
         >
           {hasTitle && (
-            <H3 className="mb-2 ml-1 flex items-center justify-center font-bold text-lg">
+            <H3 className="ms-1 mb-2 flex items-center justify-center font-bold text-lg">
               {title}
             </H3>
           )}
@@ -243,7 +243,7 @@ export const Modal: FC<ModalProps> = ({
               variant="hoverable"
               color={closeButtonColor}
               label="Close modal"
-              className="ml-auto"
+              className="ms-auto"
               onClick={(e) => {
                 e.stopPropagation();
                 onClose?.();

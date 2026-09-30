@@ -91,7 +91,7 @@ export const AdaptiveSwitchSelector = <Value extends string>({
         <div
           ref={measuredRef}
           className={switchSelectorVariant({
-            className: 'absolute top-0 left-0',
+            className: 'absolute inset-s-0 top-0',
           })}
           // Inline so the variant's `w-fit` cannot cap it to the container.
           style={{ width: 'max-content' }}

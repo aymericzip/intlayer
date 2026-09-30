@@ -7,7 +7,7 @@ const SampleContent = () => (
   <div className="space-y-2 p-4">
     <p>This is the accordion content that can be expanded and collapsed.</p>
     <p>It supports rich content including:</p>
-    <ul className="ml-4 list-disc">
+    <ul className="ms-4 list-disc">
       <li>Lists</li>
       <li>Links</li>
       <li>Images</li>

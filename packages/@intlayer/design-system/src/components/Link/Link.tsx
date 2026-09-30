@@ -44,7 +44,7 @@ export type LinkSize = 'sm' | 'md' | 'lg' | 'xl' | 'custom';
 export type LinkUnderlined = 'default' | 'true' | 'false';
 
 export const linkVariants = cva(
-  'gap-3 transition-all duration-300 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50',
+  'rtl-mirror-icons gap-3 transition-all duration-300 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       variant: {
@@ -312,9 +312,9 @@ export const Link: FC<LinkProps> = (props) => {
       {isButton && isChildrenString ? <span>{children}</span> : children}
 
       {isExternalLink && isChildrenString && (
-        <ExternalLink className="ml-2 inline-block size-4" />
+        <ExternalLink className="ms-2 inline-block size-4" />
       )}
-      {isPageSection && <MoveRight className="ml-2 inline-block size-4" />}
+      {isPageSection && <MoveRight className="ms-2 inline-block size-4" />}
     </a>
   );
 };

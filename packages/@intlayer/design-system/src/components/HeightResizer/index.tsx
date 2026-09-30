@@ -296,7 +296,7 @@ export const HeightResizer: FC<PropsWithChildren<HeightResizerProps>> = ({
       {/* biome-ignore lint/a11y/noStaticElementInteractions: Stops content clicks from triggering resize on the parent slider */}
       <div
         role="presentation"
-        className="absolute top-0 left-0 size-full cursor-default overflow-hidden"
+        className="absolute inset-s-0 top-0 size-full cursor-default overflow-hidden"
         onMouseDown={(e) => e.stopPropagation()}
         onTouchStart={(e) => e.stopPropagation()}
       >

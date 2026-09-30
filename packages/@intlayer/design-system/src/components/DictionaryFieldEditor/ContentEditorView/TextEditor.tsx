@@ -329,7 +329,7 @@ const EnumerationTextEditor: FC<TextEditorProps> = ({
                         variant="hoverable"
                         size="sm"
                         color="error"
-                        className="ml-auto text-muted-foreground hover:text-error"
+                        className="ms-auto text-muted-foreground hover:text-error"
                         Icon={Trash}
                         onClick={() =>
                           addEditedContent(
@@ -451,7 +451,7 @@ const SelectTextEditor: FC<TextEditorProps> = ({
                         variant="hoverable"
                         size="sm"
                         color="error"
-                        className="ml-auto text-muted-foreground hover:text-error"
+                        className="ms-auto text-muted-foreground hover:text-error"
                         Icon={Trash}
                         onClick={() =>
                           addEditedContent(
@@ -699,7 +699,7 @@ const ArrayTextEditor: FC<TextEditorProps> = ({
                         variant="hoverable"
                         size="sm"
                         color="error"
-                        className="ml-auto text-muted-foreground hover:text-error"
+                        className="ms-auto text-muted-foreground hover:text-error"
                         onClick={() => {
                           const newKeyPath: KeyPath[] = [
                             ...keyPath,
@@ -885,7 +885,7 @@ const HtmlTextEditor: FC<TextEditorProps> = ({
         onChange={setMode}
         color="text"
         size="sm"
-        className="ml-auto"
+        className="ms-auto"
       />
 
       <TextEditorContainer
@@ -972,7 +972,7 @@ const MarkdownTextEditor: FC<TextEditorProps> = ({
         onChange={setMode}
         color="text"
         size="sm"
-        className="ml-auto"
+        className="ms-auto"
       />
 
       <TextEditorContainer

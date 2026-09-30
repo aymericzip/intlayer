@@ -203,7 +203,7 @@ export const ScansAdminPageContent: FC = () => {
           >
             <Table className="w-full border-separate border-spacing-0 text-sm">
               <thead>
-                <tr className="text-left text-neutral">
+                <tr className="text-start text-neutral">
                   <th className="px-4 py-3 font-medium">{tableHeaders.host}</th>
                   <th className="px-4 py-3 font-medium">
                     {tableHeaders.technologies}
@@ -214,10 +214,10 @@ export const ScansAdminPageContent: FC = () => {
                   <th className="px-4 py-3 font-medium">
                     {tableHeaders.locales}
                   </th>
-                  <th className="px-4 py-3 text-right font-medium">
+                  <th className="px-4 py-3 text-end font-medium">
                     {tableHeaders.score}
                   </th>
-                  <th className="px-4 py-3 text-right font-medium">
+                  <th className="px-4 py-3 text-end font-medium">
                     {tableHeaders.scanCount}
                   </th>
                   <th className="px-4 py-3 font-medium">
@@ -258,10 +258,10 @@ export const ScansAdminPageContent: FC = () => {
                     <td className="px-4 py-3 font-mono text-xs">
                       {scannedHost.locales?.join(', ')}
                     </td>
-                    <td className="px-4 py-3 text-right font-semibold">
+                    <td className="px-4 py-3 text-end font-semibold">
                       {scannedHost.lastScore}
                     </td>
-                    <td className="px-4 py-3 text-right">
+                    <td className="px-4 py-3 text-end">
                       {scannedHost.scanCount}
                     </td>
                     <td className="whitespace-nowrap px-4 py-3 text-neutral text-xs">

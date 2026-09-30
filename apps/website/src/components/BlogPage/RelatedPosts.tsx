@@ -91,7 +91,7 @@ export const RelatedPosts: FC<RelatedPostsProps> = ({
               to={post.relativeUrl}
               variant="invisible-link"
               label={content.visitBlogTitle({ title: post.title })}
-              className="group flex flex-col gap-2.5 py-5 no-underline sm:px-5 last:sm:pr-0 first:sm:pl-0"
+              className="group flex flex-col gap-2.5 py-5 no-underline sm:px-5 last:sm:pe-0 first:sm:ps-0"
             >
               <p className="line-clamp-2 font-medium text-foreground text-sm transition-colors group-hover:text-foreground-secondary group-hover:underline">
                 {post.title}
@@ -159,7 +159,7 @@ export const LastPosts: FC<LastPostsProps> = ({
               to={post.relativeUrl}
               variant="invisible-link"
               label={content.visitBlogTitle({ title: post.title })}
-              className="group flex flex-col gap-2.5 py-5 no-underline sm:px-5 last:sm:pr-0 first:sm:pl-0"
+              className="group flex flex-col gap-2.5 py-5 no-underline sm:px-5 last:sm:pe-0 first:sm:ps-0"
             >
               <p className="line-clamp-2 font-medium text-foreground text-sm transition-colors group-hover:text-foreground-secondary group-hover:underline">
                 {post.title}

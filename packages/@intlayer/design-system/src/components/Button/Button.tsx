@@ -74,7 +74,7 @@ export type ButtonTextAlign = 'left' | 'center' | 'right';
  * Enhanced button variants with improved accessibility and focus states
  */
 export const buttonVariants = cva(
-  'relative inline-flex cursor-pointer items-center justify-center font-medium ring-0 transition-all duration-300 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50',
+  'rtl-mirror-icons relative inline-flex cursor-pointer items-center justify-center font-medium ring-0 transition-all duration-300 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       size: {
@@ -177,9 +177,9 @@ export const buttonVariants = cva(
       },
 
       textAlign: {
-        left: 'justify-start text-left',
+        left: 'justify-start text-start',
         center: 'justify-center text-center',
-        right: 'justify-end text-right',
+        right: 'justify-end text-end',
       },
 
       isFullWidth: {
@@ -381,7 +381,7 @@ export const Button: FC<ButtonProps> = ({
         <Icon
           className={buttonIconVariants({
             size,
-            className: cn(!isSquareButton && 'mr-3', iconClassName),
+            className: cn(!isSquareButton && 'me-3', iconClassName),
           })}
           aria-hidden="true"
         />
@@ -399,7 +399,7 @@ export const Button: FC<ButtonProps> = ({
         <Loader
           className={buttonIconVariants({
             size,
-            className: cn(!isSquareButton && 'mr-3', iconClassName),
+            className: cn(!isSquareButton && 'me-3', iconClassName),
           })}
           isLoading={isLoading}
           aria-hidden="true"
@@ -417,7 +417,7 @@ export const Button: FC<ButtonProps> = ({
         <IconRight
           className={buttonIconVariants({
             size,
-            className: cn(!isSquareButton && 'ml-3', iconClassName),
+            className: cn(!isSquareButton && 'ms-3', iconClassName),
           })}
           aria-hidden="true"
         />

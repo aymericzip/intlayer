@@ -78,7 +78,7 @@ export const AsideNavigation: FC = () => {
     <>
       <div className="relative flex min-h-0 w-70 flex-1 flex-col">
         <div className="relative z-10 mt-10 flex w-full flex-row items-center pt-2">
-          <h2 className="ml-3 text-nowrap font-mono text-foreground text-sm uppercase">
+          <h2 className="ms-3 text-nowrap font-mono text-foreground text-sm uppercase">
             {title}
           </h2>
         </div>
@@ -86,7 +86,7 @@ export const AsideNavigation: FC = () => {
           ref={navigationAreaRef}
           className="relative flex min-h-0 w-full flex-1 overflow-hidden rounded-2xl md:pt-0"
         >
-          <div className="mt-4 flex pl-3">
+          <div className="mt-4 flex ps-3">
             <NavTitles onActiveLinkChange={setActiveLink} />
           </div>
           {/* Slides the chat out without slowing the resizer's own height transition */}
@@ -101,7 +101,7 @@ export const AsideNavigation: FC = () => {
               initialHeight={CHAT_INITIAL_HEIGHT}
               isDisabled={isMobile}
               onHeightChange={() => setHasResizedChat(true)}
-              className="pointer-events-auto absolute bottom-0 left-0 size-full bg-background"
+              className="pointer-events-auto absolute inset-s-0 bottom-0 size-full bg-background"
             >
               <div className="justify-bottom size-full text-sm">
                 <ChatBot

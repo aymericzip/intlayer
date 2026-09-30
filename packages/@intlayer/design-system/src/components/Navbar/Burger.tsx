@@ -72,11 +72,12 @@ export const Burger = ({
   ...props
 }: BurgerProps) => (
   <div
-    className={cn('relative mr-3 size-10 cursor-pointer', className)}
+    className={cn('relative me-3 size-10 cursor-pointer', className)}
     aria-checked={isActive}
     aria-expanded={isActive}
     aria-controls="mobile-menu"
     role="switch"
+    tabIndex={0}
     aria-label={isActive ? 'Close menu' : 'Open menu'}
     {...props}
   >

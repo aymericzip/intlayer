@@ -160,7 +160,7 @@ export const Badge: React.FC<BadgeProps> = ({
         badgeVariants({ variant, color, size }),
         clickable &&
           'cursor-pointer hover:opacity-80 focus-visible:ring-2 focus-visible:ring-offset-2',
-        dismissible && 'pr-1',
+        dismissible && 'pe-1',
         className
       )}
       onClick={clickable ? onClick : undefined}
@@ -174,7 +174,7 @@ export const Badge: React.FC<BadgeProps> = ({
       {dismissible && (
         <button
           type="button"
-          className="ml-1 inline-flex h-4 w-4 items-center justify-center rounded-full hover:bg-black/10 focus:outline-none focus:ring-1 focus:ring-offset-1"
+          className="ms-1 inline-flex h-4 w-4 items-center justify-center rounded-full hover:bg-black/10 focus:outline-none focus:ring-1 focus:ring-offset-1"
           onClick={handleDismiss}
           aria-label={`Remove ${children} badge`}
         >

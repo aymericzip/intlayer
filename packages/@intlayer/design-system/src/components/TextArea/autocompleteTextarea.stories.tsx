@@ -227,10 +227,14 @@ export const ManualSuggestions: Story = {
         <div className="w-full max-w-3xl space-y-6">
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
             <div>
-              <label className="mb-2 block font-medium text-sm">
+              <label
+                htmlFor="autocompleteTextarea-content-with-manual-suggestion"
+                className="mb-2 block font-medium text-sm"
+              >
                 Content with Manual Suggestion
               </label>
               <AutoCompleteTextarea
+                id="autocompleteTextarea-content-with-manual-suggestion"
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
                 suggestion={manualSuggestion}
@@ -242,15 +246,19 @@ export const ManualSuggestions: Story = {
             </div>
 
             <div>
-              <label className="mb-2 block font-medium text-sm">
+              <span className="mb-2 block font-medium text-sm">
                 Suggestion Controls
-              </label>
+              </span>
               <div className="space-y-3">
                 <div>
-                  <label className="mb-1 block text-gray-600 text-xs">
+                  <label
+                    htmlFor="autocompleteTextarea-current-suggestion"
+                    className="mb-1 block text-gray-600 text-xs"
+                  >
                     Current Suggestion
                   </label>
                   <input
+                    id="autocompleteTextarea-current-suggestion"
                     type="text"
                     value={manualSuggestion}
                     onChange={(e) => setManualSuggestion(e.target.value)}
@@ -260,15 +268,15 @@ export const ManualSuggestions: Story = {
                 </div>
 
                 <div>
-                  <label className="mb-2 block text-gray-600 text-xs">
+                  <span className="mb-2 block text-gray-600 text-xs">
                     Quick Suggestions
-                  </label>
+                  </span>
                   <div className="space-y-1">
                     {suggestionOptions.map((suggestion, index) => (
                       <button
                         key={index}
                         onClick={() => setManualSuggestion(suggestion)}
-                        className="block w-full rounded bg-gray-100 px-2 py-1 text-left text-xs hover:bg-gray-200"
+                        className="block w-full rounded bg-gray-100 px-2 py-1 text-start text-xs hover:bg-gray-200"
                       >
                         {suggestion}
                       </button>
@@ -502,10 +510,14 @@ export const CodeDocumentation: Story = {
 
             <div className="space-y-4">
               <div>
-                <label className="mb-2 block font-medium text-sm">
+                <label
+                  htmlFor="autocompleteTextarea-jsdoc-comment"
+                  className="mb-2 block font-medium text-sm"
+                >
                   JSDoc Comment
                 </label>
                 <AutoCompleteTextarea
+                  id="autocompleteTextarea-jsdoc-comment"
                   value={docComment}
                   onChange={(e) => setDocComment(e.target.value)}
                   isActive={isActive}

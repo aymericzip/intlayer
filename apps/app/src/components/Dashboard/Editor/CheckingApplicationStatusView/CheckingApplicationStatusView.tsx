@@ -17,7 +17,7 @@ export const CheckingApplicationStatusView: FC = () => {
         borderColor="neutral"
       >
         <Loader />
-        <span className="ml-2">{checkingApplicationStatus}</span>
+        <span className="ms-2">{checkingApplicationStatus}</span>
       </Container>
     </div>
   );

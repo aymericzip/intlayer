@@ -164,7 +164,7 @@ export const Avatar: FC<AvatarProps> = ({
     <Container
       isClickable={isClickable}
       className={cn(
-        `rounded-full border-[1.3px] border-text p-0.38 ring-offset-0 transition-ring duration-200`,
+        `rounded-full border-[1.3px] border-text p-0.5 ring-offset-0 transition-ring duration-200`,
         size === 'sm' && 'size-7 border-[1px] p-0.25',
         size === 'md' && 'size-9',
         size === 'lg' && 'size-12',
@@ -180,12 +180,13 @@ export const Avatar: FC<AvatarProps> = ({
         displayLoader && 'animate-pulse',
         className
       )}
+      dir="ltr"
       onClick={onClick}
       {...accessibilityProps}
       {...props}
     >
       <div className="relative flex aspect-square size-full flex-row items-center justify-center">
-        <div className="absolute top-0 left-0 flex aspect-square size-full flex-col items-center justify-center rounded-full bg-text text-foreground-opposite">
+        <div className="absolute inset-s-0 top-0 flex aspect-square size-full flex-col items-center justify-center rounded-full bg-text text-foreground-opposite">
           {displayLoader && (
             <Loader className="w-3/4" aria-label="Loading user avatar" />
           )}

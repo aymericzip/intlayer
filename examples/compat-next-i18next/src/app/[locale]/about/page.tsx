@@ -27,7 +27,7 @@ export default async function AboutPage({
             </LocalizedLink>
             <LocaleSwitcher />
           </div>
-          <div className="flex w-full flex-col items-center gap-8 text-center sm:items-start sm:text-left">
+          <div className="flex w-full flex-col items-center gap-8 text-center sm:items-start sm:text-start">
             <h1 className="font-bold text-4xl text-black dark:text-zinc-50">
               {tAbout('title')}
             </h1>

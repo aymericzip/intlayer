@@ -95,7 +95,7 @@ export const ConnectedAccounts: FC = () => {
                     <provider.Icon className="h-6 w-6" />
                   </div>
                   {connected && (
-                    <CircleCheck className="absolute -right-0.5 -bottom-0.5 h-4 w-4 rounded-full bg-card text-success" />
+                    <CircleCheck className="absolute -inset-e-0.5 -bottom-0.5 h-4 w-4 rounded-full bg-card text-success" />
                   )}
                 </div>
                 <div>

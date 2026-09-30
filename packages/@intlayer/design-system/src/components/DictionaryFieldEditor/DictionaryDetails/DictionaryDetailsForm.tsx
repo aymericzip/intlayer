@@ -395,8 +395,8 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
 
             return (
               <FormItem className="flex flex-col gap-2 px-1">
-                <FormLabel className="ml-1">{locationSelect.label}</FormLabel>
-                <div className="ml-2 flex items-center gap-4 py-2">
+                <FormLabel className="ms-1">{locationSelect.label}</FormLabel>
+                <div className="ms-2 flex items-center gap-4 py-2">
                   <Checkbox
                     id="location-local"
                     name="location-local"
@@ -577,8 +577,8 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
         borderColor="card"
       >
         <div className="flex flex-col gap-1">
-          <p className="ml-1 font-semibold text-sm">{typeSwitch.label}</p>
-          <p className="ml-1 text-muted text-xs">{typeSwitch.description}</p>
+          <p className="ms-1 font-semibold text-sm">{typeSwitch.label}</p>
+          <p className="ms-1 text-muted text-xs">{typeSwitch.description}</p>
         </div>
         <MultiSelect
           values={selectedTypes}
@@ -616,7 +616,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
               <div className="flex flex-col gap-2 px-1">
                 <label
                   htmlFor="qualifier-item-value"
-                  className="ml-1 font-medium text-sm"
+                  className="ms-1 font-medium text-sm"
                 >
                   {typeSwitch.itemValueLabel}
                 </label>
@@ -653,7 +653,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
               <div className="flex flex-col gap-2 px-1">
                 <label
                   htmlFor="qualifier-variant-value"
-                  className="ml-1 font-medium text-sm"
+                  className="ms-1 font-medium text-sm"
                 >
                   {typeSwitch.variantValueLabel}
                 </label>
@@ -677,7 +677,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
                   }}
                 />
                 {variantJsonError && (
-                  <p className="ml-1 text-destructive text-xs">
+                  <p className="ms-1 text-destructive text-xs">
                     {typeSwitch.variantJsonError}
                   </p>
                 )}

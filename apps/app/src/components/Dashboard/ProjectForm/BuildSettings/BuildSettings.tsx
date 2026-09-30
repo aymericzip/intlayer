@@ -272,7 +272,7 @@ export const BuildSettings: FC = () => {
               </p>
             </div>
           </div>
-          <div className="ml-auto flex flex-0 gap-2">
+          <div className="ms-auto flex flex-0 gap-2">
             <Button
               variant="outline"
               color="text"

@@ -212,13 +212,13 @@ export const DocHeader: FC<DocHeaderProps> = ({
           {createdAt && (
             <span className="block">
               {creationLabel}:
-              <span className="ml-2 text-muted-foreground">{createdAt}</span>
+              <span className="ms-2 text-muted-foreground">{createdAt}</span>
             </span>
           )}
           {updatedAt && (
             <span className="block">
               {lastUpdateLabel}:
-              <span className="ml-2 text-muted-foreground">{updatedAt}</span>
+              <span className="ms-2 text-muted-foreground">{updatedAt}</span>
             </span>
           )}
         </div>

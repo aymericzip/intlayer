@@ -83,7 +83,7 @@ export const UrlDiscoveryList: FC<UrlDiscoveryListProps> = ({
   const noneSelected = selected.size === 0;
 
   return (
-    <div className="mt-6 flex flex-col gap-4 border-neutral border-t border-dotted pt-6 text-left">
+    <div className="mt-6 flex flex-col gap-4 border-neutral border-t border-dotted pt-6 text-start">
       <div className="flex items-center justify-between gap-4">
         <div>
           <h3 className="font-semibold text-lg">{title}</h3>
@@ -108,7 +108,7 @@ export const UrlDiscoveryList: FC<UrlDiscoveryListProps> = ({
       />
 
       <div className="max-h-80 overflow-auto rounded-lg border border-neutral/20 bg-card/50">
-        <table className="w-full text-left text-sm">
+        <table className="w-full text-start text-sm">
           <thead className="sticky top-0 z-10 bg-card shadow-sm">
             <tr>
               <th className="p-3">

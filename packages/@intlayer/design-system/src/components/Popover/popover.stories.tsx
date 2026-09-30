@@ -245,26 +245,26 @@ export const ContextMenu: Story = {
           <Container className="py-1" transparency="xl">
             <button
               type="button"
-              className="flex w-full px-4 py-2 text-left text-sm transition-colors hover:bg-neutral-100"
+              className="flex w-full px-4 py-2 text-start text-sm transition-colors hover:bg-neutral-100"
             >
               Cut
             </button>
             <button
               type="button"
-              className="flex w-full px-4 py-2 text-left text-sm transition-colors hover:bg-neutral-100"
+              className="flex w-full px-4 py-2 text-start text-sm transition-colors hover:bg-neutral-100"
             >
               Copy
             </button>
             <button
               type="button"
-              className="flex w-full px-4 py-2 text-left text-sm transition-colors hover:bg-neutral-100"
+              className="flex w-full px-4 py-2 text-start text-sm transition-colors hover:bg-neutral-100"
             >
               Paste
             </button>
             <hr className="my-1 border-neutral-200" />
             <button
               type="button"
-              className="flex w-full px-4 py-2 text-left text-error text-sm transition-colors hover:bg-error/10"
+              className="flex w-full px-4 py-2 text-start text-error text-sm transition-colors hover:bg-error/10"
             >
               Delete
             </button>

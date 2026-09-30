@@ -39,7 +39,7 @@ export const MessagesList: FC<MessagesListProps> = ({
       Footer: () => (
         <Loader
           isLoading={isLoading}
-          className="sticky bottom-0 left-0 m-auto h-14 w-auto rounded-full p-2"
+          className="sticky inset-s-0 bottom-0 m-auto h-14 w-auto rounded-full p-2"
         />
       ),
     }}

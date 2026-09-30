@@ -124,7 +124,7 @@ export const OrganizationsAdminPageContent: FC = () => {
         const organization = row.original as OrganizationAPI;
         return (
           <div className="flex items-center">
-            <div className="ml-3">
+            <div className="ms-3">
               {organization.name ? (
                 <CopyToClipboard text={organization.name} size={10}>
                   {organization.name}
@@ -160,7 +160,7 @@ export const OrganizationsAdminPageContent: FC = () => {
       cell: ({ row }) => {
         const organization = row.original as OrganizationAPI;
         return (
-          <div className="ml-3 font-mono text-sm">
+          <div className="ms-3 font-mono text-sm">
             ...
             {organization.id.slice(-5)}
           </div>
@@ -333,7 +333,7 @@ export const OrganizationsAdminPageContent: FC = () => {
                           'whitespace-nowrap px-4 py-3 font-medium text-neutral',
                           ['selection', 'actions'].includes(header.id)
                             ? 'text-center'
-                            : 'text-left',
+                            : 'text-start',
                           header.column.getCanSort() &&
                             'cursor-pointer select-none hover:text-neutral-600'
                         )}
@@ -374,9 +374,9 @@ export const OrganizationsAdminPageContent: FC = () => {
                           key={cell.id}
                           className={cn(
                             'whitespace-nowrap px-4 py-3',
-                            cellIndex === 0 && 'first:rounded-l-2xl',
+                            cellIndex === 0 && 'first:rounded-s-2xl',
                             cellIndex === visibleCells.length - 1 &&
-                              'last:rounded-r-2xl'
+                              'last:rounded-e-2xl'
                           )}
                         >
                           <div

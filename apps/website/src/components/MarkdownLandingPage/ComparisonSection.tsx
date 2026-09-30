@@ -135,7 +135,7 @@ const SupportCell: FC<SupportCellProps> = ({
         identifier="comparison-cell"
         xAlign="center"
         yAlign={yAlign}
-        className="flex w-max max-w-56 flex-col gap-1 p-3 text-left text-xs"
+        className="flex w-max max-w-56 flex-col gap-1 p-3 text-start text-xs"
       >
         <strong className="text-foreground">{libraryName}</strong>
         <span className="text-muted-foreground">{feature}</span>
@@ -237,7 +237,7 @@ export const ComparisonSection: FC = () => {
                           'items-center gap-2 px-6 py-4 text-sm hover:bg-neutral/5'
                         )}
                       >
-                        <div className="pr-4 font-medium text-foreground">
+                        <div className="pe-4 font-medium text-foreground">
                           {row.feature}
                         </div>
                         {support.map((level, index) => (
@@ -285,7 +285,7 @@ export const ComparisonSection: FC = () => {
             (noteKey) => (
               <li
                 key={noteKey}
-                className="before:mr-2 before:text-neutral/50 before:content-['—']"
+                className="before:me-2 before:text-neutral/50 before:content-['—']"
               >
                 {notes[noteKey]}
               </li>

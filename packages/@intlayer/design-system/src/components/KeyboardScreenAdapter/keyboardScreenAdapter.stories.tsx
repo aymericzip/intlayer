@@ -245,9 +245,9 @@ export const SearchInterface: Story = {
               <input
                 type="search"
                 placeholder="Search for anything..."
-                className="w-full rounded-full border border-gray-300 px-4 py-3 pr-4 pl-12 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full rounded-full border border-gray-300 px-4 py-3 ps-12 pe-4 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
-              <div className="absolute top-1/2 left-4 -translate-y-1/2 transform">
+              <div className="absolute inset-s-4 top-1/2 -translate-y-1/2 transform">
                 <svg
                   className="h-5 w-5 text-gray-400"
                   fill="none"

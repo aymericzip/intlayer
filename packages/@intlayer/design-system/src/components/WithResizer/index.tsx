@@ -50,7 +50,10 @@ type WithResizerProps = {
   maxWidth?: number;
   /** Minimum allowed width in pixels */
   minWidth?: number;
-  /** Position of the resize handle (default: 'right') */
+  /**
+   * Position of the resize handle (default: 'right').
+   * Logical: 'right' is the inline end, so it mirrors to the left in RTL.
+   */
   handlePosition?: 'left' | 'right';
   /** Apply base styles */
   style?: boolean;
@@ -85,7 +88,7 @@ type WithResizerProps = {
  * - **Touch Events**: Full support for mobile touch interactions
  *
  * ## Visual Design
- * - **Resize Handle**: Rounded handle positioned on the right border
+ * - **Resize Handle**: Handle on the inline-end border (mirrored in RTL)
  * - **Border Indicator**: Visual border showing resizable edge
  * - **State Feedback**: Different colors for normal, hover, and active states
  * - **Dark Mode**: Full support with appropriate color scheme
@@ -191,7 +194,17 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
     startX: 0,
     startWidth: 0,
     factor: 1,
+    isHandleOnPhysicalLeft: false,
   });
+
+  /** Whether the handle renders on the physical left, given the text direction. */
+  const getIsHandleOnPhysicalLeft = useCallback(() => {
+    const container = containerRef.current;
+    const isRightToLeft =
+      !!container && getComputedStyle(container).direction === 'rtl';
+
+    return (handlePosition === 'left') !== isRightToLeft;
+  }, [handlePosition]);
 
   // Handler to resize the div
   const resize = useCallback(
@@ -208,10 +221,11 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
         clientX = mouseMoveEvent.touches[0].clientX;
       }
 
-      const { startX, startWidth, factor } = resizeState.current;
+      const { startX, startWidth, factor, isHandleOnPhysicalLeft } =
+        resizeState.current;
       const delta = (clientX - startX) / factor;
-      // Invert delta for left handle (moving left decreases width, moving right increases width)
-      const adjustedDelta = handlePosition === 'left' ? -delta : delta;
+      // Invert delta for a left handle (dragging left grows the panel)
+      const adjustedDelta = isHandleOnPhysicalLeft ? -delta : delta;
       const newWidth = startWidth + adjustedDelta;
 
       const constrainedWidth = Math.max(
@@ -221,7 +235,7 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
 
       setWidth(constrainedWidth);
     },
-    [maxWidth, minWidth, handlePosition]
+    [maxWidth, minWidth]
   );
 
   // Handler to stop resizing
@@ -263,6 +277,7 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
         startX: clientX,
         startWidth: offsetWidth,
         factor,
+        isHandleOnPhysicalLeft: getIsHandleOnPhysicalLeft(),
       };
 
       setIsResizing(true);
@@ -274,7 +289,7 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
       window.addEventListener('touchmove', resize, { passive: true });
       window.addEventListener('touchend', stopResizing);
     },
-    [isOpen, resize, stopResizing]
+    [isOpen, resize, stopResizing, getIsHandleOnPhysicalLeft]
   );
 
   useEffect(() => {
@@ -311,10 +326,9 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
       if (!el) return;
 
       const { left, right } = el.getBoundingClientRect();
-      const inHandleZone =
-        handlePosition === 'right'
-          ? right - event.clientX <= HANDLE_DOUBLE_CLICK_ZONE_PX
-          : event.clientX - left <= HANDLE_DOUBLE_CLICK_ZONE_PX;
+      const inHandleZone = getIsHandleOnPhysicalLeft()
+        ? event.clientX - left <= HANDLE_DOUBLE_CLICK_ZONE_PX
+        : right - event.clientX <= HANDLE_DOUBLE_CLICK_ZONE_PX;
 
       if (!inHandleZone) return;
 
@@ -332,14 +346,14 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
       );
       setWidth(target);
     },
-    [handlePosition, maxWidth, minWidth, width]
+    [getIsHandleOnPhysicalLeft, maxWidth, minWidth, width]
   );
 
   return (
     <div
       className={cn(
         'relative size-full max-w-[80%] shrink-0',
-        style && (handlePosition === 'right' ? 'border-r-2' : 'border-l-2'),
+        style && (handlePosition === 'right' ? 'border-e-2' : 'border-s-2'),
         style &&
           'border-neutral-200 transition active:border-neutral-400 dark:border-neutral-950 dark:active:border-neutral-600',
         minWidth && `min-w-[${minWidth}px]`,
@@ -361,7 +375,7 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
       {/* biome-ignore lint/a11y/noStaticElementInteractions: This div stops event propagation to prevent content clicks from triggering resize */}
       <div
         role="presentation"
-        className="absolute top-0 left-0 size-full cursor-default overflow-hidden"
+        className="absolute inset-s-0 top-0 size-full cursor-default overflow-hidden"
         onMouseDown={(e) => e.stopPropagation()}
         onTouchStart={(e) => e.stopPropagation()}
       >
@@ -373,7 +387,7 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
         className={cn(
           'absolute top-0 z-10 h-full w-3',
           isOpen !== false ? 'cursor-ew-resize' : 'cursor-default',
-          handlePosition === 'right' ? 'right-0' : 'left-0'
+          handlePosition === 'right' ? 'inset-e-0' : 'inset-s-0'
         )}
         onMouseDown={startResizing}
         onTouchStart={startResizing}

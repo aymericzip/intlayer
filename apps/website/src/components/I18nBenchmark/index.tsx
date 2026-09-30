@@ -401,7 +401,7 @@ export const I18nBenchmark: FC<I18nBenchmarkProps> = ({
                 'relative flex w-full flex-col gap-3 border-neutral/10 pt-10',
                 vertical
                   ? 'md:w-full'
-                  : 'md:w-56 md:shrink-0 md:border-l md:pl-6'
+                  : 'md:w-56 md:shrink-0 md:border-s md:ps-6'
               )}
             >
               <AnimatePresence mode="wait">
@@ -460,7 +460,7 @@ export const I18nBenchmark: FC<I18nBenchmarkProps> = ({
             <div
               key={libraryInfo.id}
               className={cn(
-                'min-w-max border-border border-r border-b border-dashed p-2',
+                'min-w-max border-border border-e border-b border-dashed p-2',
                 index < 2 ? 'flex-[2_2_16rem]' : 'flex-[1_1_10rem]'
               )}
             >

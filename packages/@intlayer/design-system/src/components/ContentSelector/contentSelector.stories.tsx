@@ -195,7 +195,7 @@ export const ContentTypes: Story = {
                   Image Placeholder
                 </span>
               </div>
-              <div className="absolute bottom-2 left-2 rounded bg-black bg-opacity-50 px-2 py-1 text-white text-xs">
+              <div className="absolute inset-s-2 bottom-2 rounded bg-black bg-opacity-50 px-2 py-1 text-white text-xs">
                 Selectable media content
               </div>
             </div>
@@ -466,7 +466,7 @@ export const MultiSelectionInterface: Story = {
                     <p className="mt-1 text-gray-600 text-sm">{item.snippet}</p>
                   </div>
                   {selectedContentIds.includes(item.id) && (
-                    <div className="ml-2 font-medium text-blue-500 text-sm">
+                    <div className="ms-2 font-medium text-blue-500 text-sm">
                       ✓
                     </div>
                   )}
@@ -877,8 +877,9 @@ export const ContentManagementSystem: Story = {
                         <p className="text-gray-600 text-sm">{block.content}</p>
                       </div>
                       {selectedContent === block.id && (
-                        <div className="ml-3 text-blue-500">
+                        <div className="ms-3 text-blue-500">
                           <svg
+                            aria-hidden="true"
                             className="h-5 w-5"
                             fill="currentColor"
                             viewBox="0 0 20 20"

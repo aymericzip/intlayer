@@ -82,7 +82,7 @@ export const ConverterCheatSheet: FC = () => {
         transparency="sm"
         className="overflow-x-auto border border-border/80 bg-card/60 p-0 shadow-sm backdrop-blur-md"
       >
-        <table className="w-full border-collapse text-left text-xs sm:text-sm">
+        <table className="w-full border-collapse text-start text-xs sm:text-sm">
           <thead>
             <tr className="border-border/60 border-b bg-muted/40 font-medium text-foreground">
               <th className="p-4">{content.cheatSheetColumns.feature}</th>

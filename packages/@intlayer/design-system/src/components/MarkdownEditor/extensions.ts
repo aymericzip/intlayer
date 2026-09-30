@@ -55,7 +55,7 @@ const updatedImage = UpdatedImage.configure({
 
 const taskList = TaskList.configure({
   HTMLAttributes: {
-    class: cx('not-prose pl-2'),
+    class: cx('not-prose ps-2'),
   },
 });
 

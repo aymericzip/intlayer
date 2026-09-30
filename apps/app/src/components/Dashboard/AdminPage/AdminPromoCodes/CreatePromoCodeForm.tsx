@@ -133,7 +133,7 @@ export const CreatePromoCodeForm: FC<CreatePromoCodeFormProps> = ({
       />
 
       <div className="flex w-full flex-col gap-1 px-1">
-        <span className="mb-1 ml-1 select-none font-bold text-sm leading-none">
+        <span className="ms-1 mb-1 select-none font-bold text-sm leading-none">
           {content.expiresAtLabel.value}
         </span>
         <Select value={expirationPreset} onValueChange={handlePresetChange}>

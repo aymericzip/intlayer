@@ -61,7 +61,7 @@ type SpotlightProps = {
  * Basic hero section spotlight:
  * ```tsx
  * <div className="relative min-h-screen bg-dark">
- *   <Spotlight className="top-0 left-0" />
+ *   <Spotlight className="top-0 inset-s-0" />
  *   <div className="relative z-10 flex items-center justify-center h-screen">
  *     <h1 className="text-6xl font-bold text-white">
  *       Welcome to the Future
@@ -76,7 +76,7 @@ type SpotlightProps = {
  * <Spotlight
  *   fill="#3b82f6"
  *   opacity={0.3}
- *   className="top-10 -left-20"
+ *   className="top-10 -inset-s-20"
  * />
  * ```
  *
@@ -104,7 +104,7 @@ type SpotlightProps = {
  * Responsive positioning:
  * ```tsx
  * <Spotlight
- *   className="top-0 left-1/2 transform -translate-x-1/2 lg:left-0 lg:transform-none"
+ *   className="top-0 left-1/2 transform -translate-x-1/2 lg:inset-s-0 lg:transform-none"
  *   opacity={0.25}
  * />
  * ```

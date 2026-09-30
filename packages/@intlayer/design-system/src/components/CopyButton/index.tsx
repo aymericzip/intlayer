@@ -89,19 +89,25 @@ type CopyButtonProps = {
  *   </pre>
  *   <CopyButton
  *     content="npm install @intlayer/design-system"
- *     className="absolute top-2 right-2"
+ *     className="absolute top-2 inset-e-2"
  *     label="Copy installation command"
  *   />
  * </div>
  * ```
  */
 
-export const CopyButton: FC<CopyButtonProps> = ({ content, ...props }) => {
+export const CopyButton: FC<CopyButtonProps> = ({
+  content,
+  onClick,
+  ...props
+}) => {
   const [copied, setCopied] = useState(false);
   const [error, setError] = useState(false);
   const { label } = useIntlayer('copy-button');
 
-  const handleCopy = async () => {
+  const handleCopy: ButtonProps['onClick'] = async (event) => {
+    onClick?.(event);
+
     try {
       setError(false);
       const text = typeof content === 'function' ? await content() : content;

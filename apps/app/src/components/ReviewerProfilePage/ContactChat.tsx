@@ -87,7 +87,7 @@ export const ContactChat: FC<ContactChatProps> = ({ reviewer }) => {
         {messages.map((msg) => (
           <div key={msg.id} className="flex justify-end">
             <div
-              className={`max-w-xs rounded-2xl rounded-br-sm px-4 py-2 text-sm transition-opacity ${
+              className={`max-w-xs rounded-2xl rounded-ee-sm px-4 py-2 text-sm transition-opacity ${
                 msg.sent ? 'bg-text/10 text-text' : 'bg-text/5 text-neutral'
               }`}
             >

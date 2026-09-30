@@ -41,7 +41,7 @@ export const VersionSwitcher: FC<VersionSwitcherProps> = ({ panelProps }) => {
           identifier={DROPDOWN_IDENTIFIER}
           isOverable
           isFocusable
-          className="right-0 left-auto"
+          className="inset-e-0 inset-s-auto"
           {...panelProps}
         >
           <Container

@@ -153,7 +153,7 @@ export const FormSection: FC<FormSectionProps> = ({
         onKeyDown={handleKeyDown}
         disabled={isLoading}
       />
-      <div className="ml-auto flex items-center justify-end gap-2 max-md:w-full">
+      <div className="ms-auto flex items-center justify-end gap-2 max-md:w-full">
         {additionalButtons}
 
         <FormButton

@@ -342,7 +342,7 @@ function DashboardLayout() {
             className={cn(
               'md:min-w-2',
               activePanel !== null &&
-                'max-md:absolute! max-md:inset-y-0 max-md:right-0 max-md:z-50 max-md:w-full! max-md:max-w-none!'
+                'max-md:absolute! max-md:inset-e-0 max-md:inset-y-0 max-md:z-50 max-md:w-full! max-md:max-w-none!'
             )}
           >
             <aside
@@ -351,7 +351,7 @@ function DashboardLayout() {
                   ? PANEL_TITLES[activePanel]
                   : sidePanelAriaLabel.value
               }
-              className="ml-3 flex h-full min-h-0 flex-col overflow-hidden rounded-2xl border border-neutral/40 bg-background md:mx-2"
+              className="ms-3 flex h-full min-h-0 flex-col overflow-hidden rounded-2xl border border-neutral/40 bg-background md:mx-2"
             >
               <div className="flex shrink-0 items-center justify-between border-neutral/20 border-b px-3 py-2">
                 <span className="font-medium text-sm" aria-hidden="true">

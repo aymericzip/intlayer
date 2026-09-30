@@ -30,10 +30,10 @@ export const ScannedHostDetail: FC<{ host: string }> = ({ host }) => {
     <div className="overflow-x-auto p-4">
       <Table className="w-full border-separate border-spacing-0 text-sm">
         <thead>
-          <tr className="text-left text-neutral">
+          <tr className="text-start text-neutral">
             <th className="px-3 py-2 font-medium">{scanHeaders.page}</th>
             <th className="px-3 py-2 font-medium">{scanHeaders.source}</th>
-            <th className="px-3 py-2 text-right font-medium">
+            <th className="px-3 py-2 text-end font-medium">
               {scanHeaders.score}
             </th>
             <th className="px-3 py-2 font-medium">{scanHeaders.stack}</th>
@@ -60,9 +60,7 @@ export const ScannedHostDetail: FC<{ host: string }> = ({ host }) => {
               <td className="whitespace-nowrap px-3 py-2">
                 {sources[scan.source]}
               </td>
-              <td className="px-3 py-2 text-right font-semibold">
-                {scan.score}
-              </td>
+              <td className="px-3 py-2 text-end font-semibold">{scan.score}</td>
               <td className="px-3 py-2">
                 <TechnologyTags technologies={scan.technologies} />
               </td>

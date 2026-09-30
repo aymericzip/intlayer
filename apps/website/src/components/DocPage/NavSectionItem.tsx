@@ -75,9 +75,9 @@ export const OptionalLink: FC<OptionalLinkProps> = ({
       <span
         className={cn(
           inAccordion
-            ? 'flex min-w-0 flex-1 items-center truncate text-nowrap text-left font-medium text-sm'
+            ? 'flex min-w-0 flex-1 items-center truncate text-nowrap text-start font-medium text-sm'
             : cn(
-                'flex w-full min-w-0 items-center truncate text-nowrap px-2.5 py-1.5 text-left text-sm',
+                'flex w-full min-w-0 items-center truncate text-nowrap px-2.5 py-1.5 text-start text-sm',
                 isLevel1 ? 'font-medium text-text' : 'font-medium text-neutral'
               ),
           className
@@ -96,7 +96,7 @@ export const OptionalLink: FC<OptionalLinkProps> = ({
       color={isLevel1 || isActive ? 'text' : 'neutral'}
       isActive={isActive}
       className={cn(
-        'block w-full truncate text-nowrap px-2.5 py-1.5 text-left text-sm',
+        'block w-full truncate text-nowrap px-2.5 py-1.5 text-start text-sm',
         isLevel1 ? 'font-medium text-text' : 'text-neutral',
         isActive && 'font-medium text-text',
         className
@@ -211,7 +211,7 @@ export const NavAccordion: FC<NavAccordionProps> = ({
         </OptionalLink>
       }
       headerClassName={cn(
-        'group flex w-full items-center justify-between px-2.5 py-1.5 text-left font-medium text-sm',
+        'group flex w-full items-center justify-between px-2.5 py-1.5 text-start font-medium text-sm',
         isDeployed ? 'text-text' : 'text-neutral',
         headerClassName
       )}
@@ -325,7 +325,7 @@ export const NavSectionItem: FC<NavSectionItemProps> = ({
       isLevel1={level === 1}
       hasDefaultSection={isDefaultShowed}
     >
-      <ul className="m-0 mt-1.5 ml-3 flex list-none flex-col gap-y-2 border-border/60 border-l p-0 pl-2 text-sm">
+      <ul className="m-0 ms-3 mt-1.5 flex list-none flex-col gap-y-2 border-border/60 border-s p-0 ps-2 text-sm">
         {sectionDefault?.relativeUrl && (
           <li>
             <OptionalLink
@@ -350,7 +350,7 @@ export const NavSectionItem: FC<NavSectionItemProps> = ({
           };
 
           return (
-            <li key={subKey} className={cn(isDefaultShowed && 'ml-2')}>
+            <li key={subKey} className={cn(isDefaultShowed && 'ms-2')}>
               <NavSectionItem
                 sectionKey={subKey}
                 sectionData={subDataWithInheritedFrameworks}

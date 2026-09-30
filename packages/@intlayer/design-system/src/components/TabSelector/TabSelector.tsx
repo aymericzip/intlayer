@@ -48,7 +48,7 @@ const indicatorVariant = cva(
       },
       orientation: {
         horizontal: 'top-0 h-full w-auto transition-[left,width]',
-        vertical: 'left-0 h-auto w-full transition-[top,height]',
+        vertical: 'inset-s-0 h-auto w-full transition-[top,height]',
       },
     },
     defaultVariants: {

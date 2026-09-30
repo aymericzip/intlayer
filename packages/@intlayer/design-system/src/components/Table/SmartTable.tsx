@@ -89,19 +89,19 @@ type SmartTableProps = TableProps & {
  * >
  *   <thead className="bg-gray-50">
  *     <tr>
- *       <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+ *       <th scope="col" className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">
  *         Product ID
  *       </th>
- *       <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+ *       <th scope="col" className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">
  *         Name
  *       </th>
- *       <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+ *       <th scope="col" className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">
  *         Category
  *       </th>
- *       <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+ *       <th scope="col" className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">
  *         Price
  *       </th>
- *       <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+ *       <th scope="col" className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">
  *         Stock
  *       </th>
  *     </tr>
@@ -133,24 +133,24 @@ type SmartTableProps = TableProps & {
  * <SmartTable className="w-full border-collapse">
  *   <thead>
  *     <tr className="border-b-2 border-gray-300">
- *       <th scope="col" className="text-left py-3 px-4">Quarter</th>
- *       <th scope="col" className="text-right py-3 px-4">Revenue</th>
- *       <th scope="col" className="text-right py-3 px-4">Profit</th>
- *       <th scope="col" className="text-right py-3 px-4">Growth</th>
+ *       <th scope="col" className="text-start py-3 px-4">Quarter</th>
+ *       <th scope="col" className="text-end py-3 px-4">Revenue</th>
+ *       <th scope="col" className="text-end py-3 px-4">Profit</th>
+ *       <th scope="col" className="text-end py-3 px-4">Growth</th>
  *     </tr>
  *   </thead>
  *   <tbody>
  *     <tr className="border-b border-gray-200">
  *       <td className="py-3 px-4 font-medium">Q1 2024</td>
- *       <td className="py-3 px-4 text-right">$2,450,000</td>
- *       <td className="py-3 px-4 text-right text-green-600">$345,000</td>
- *       <td className="py-3 px-4 text-right text-green-600">+12.5%</td>
+ *       <td className="py-3 px-4 text-end">$2,450,000</td>
+ *       <td className="py-3 px-4 text-end text-green-600">$345,000</td>
+ *       <td className="py-3 px-4 text-end text-green-600">+12.5%</td>
  *     </tr>
  *     <tr className="border-b border-gray-200">
  *       <td className="py-3 px-4 font-medium">Q2 2024</td>
- *       <td className="py-3 px-4 text-right">$2,780,000</td>
- *       <td className="py-3 px-4 text-right text-green-600">$398,000</td>
- *       <td className="py-3 px-4 text-right text-green-600">+13.5%</td>
+ *       <td className="py-3 px-4 text-end">$2,780,000</td>
+ *       <td className="py-3 px-4 text-end text-green-600">$398,000</td>
+ *       <td className="py-3 px-4 text-end text-green-600">+13.5%</td>
  *     </tr>
  *   </tbody>
  * </SmartTable>
@@ -216,7 +216,7 @@ export const SmartTable: FC<SmartTableProps> = ({
 
       <ExpandCollapse
         isRollable={isRollable}
-        className="max-w-full overflow-x-auto bg-background text-left"
+        className="max-w-full overflow-x-auto bg-background text-start"
       >
         <Table
           ref={tableRef}
@@ -245,7 +245,7 @@ export const SmartTable: FC<SmartTableProps> = ({
           <div className="grid">
             <Table
               ref={modalTableRef}
-              className={cn('min-w-full max-w-full text-left', className)}
+              className={cn('min-w-full max-w-full text-start', className)}
               isInteractive={isInteractive}
               {...props}
             />

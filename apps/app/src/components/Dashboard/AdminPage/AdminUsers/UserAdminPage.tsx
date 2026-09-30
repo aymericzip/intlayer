@@ -153,7 +153,7 @@ export const UsersAdminPageContent: FC = () => {
               fullname={user.name}
               size="sm"
             />
-            <div className="ml-3">
+            <div className="ms-3">
               {user.name ? (
                 <CopyToClipboard text={user.name} size={10}>
                   {user.name}
@@ -190,7 +190,7 @@ export const UsersAdminPageContent: FC = () => {
         const user = row.original as UserAPI;
         return (
           <div className="flex items-center">
-            <div className="ml-3">
+            <div className="ms-3">
               <CopyToClipboard text={user.id} size={10}>
                 <span className="font-mono text-sm">
                   ...{user.id.slice(-5)}
@@ -441,7 +441,7 @@ export const UsersAdminPageContent: FC = () => {
             <SearchInput
               placeholder={searchPlaceholder.value}
               onChange={(e) => handleSearch(e.target.value)}
-              className="max-w-md pl-10"
+              className="max-w-md ps-10"
             />
 
             <div className="flex gap-2">
@@ -500,7 +500,7 @@ export const UsersAdminPageContent: FC = () => {
                           'whitespace-nowrap px-4 py-3 font-medium text-neutral',
                           ['selection', 'actions', 'active'].includes(header.id)
                             ? 'text-center'
-                            : 'text-left',
+                            : 'text-start',
                           header.column.getCanSort() &&
                             'cursor-pointer select-none hover:text-neutral-600'
                         )}
@@ -539,9 +539,9 @@ export const UsersAdminPageContent: FC = () => {
                           key={cell.id}
                           className={cn(
                             'whitespace-nowrap px-4 py-3',
-                            cellIndex === 0 && 'first:rounded-l-2xl',
+                            cellIndex === 0 && 'first:rounded-s-2xl',
                             cellIndex === visibleCells.length - 1 &&
-                              'last:rounded-r-2xl'
+                              'last:rounded-e-2xl'
                           )}
                         >
                           <div

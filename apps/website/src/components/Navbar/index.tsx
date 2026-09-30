@@ -144,7 +144,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
                     downloadFile('/logo.svg', 'intlayer-logo.svg');
                   }}
                 >
-                  <span className="ml-2 flex w-full text-foreground">
+                  <span className="ms-2 flex w-full text-foreground">
                     {logo.downloadSvg.label}
                   </span>
                 </Button>
@@ -163,7 +163,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
                     );
                   }}
                 >
-                  <span className="ml-2 flex w-full text-foreground">
+                  <span className="ms-2 flex w-full text-foreground">
                     {logo.downloadPng.label}
                   </span>
                 </Button>
@@ -179,7 +179,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
                     copySvg();
                   }}
                 >
-                  <span className="ml-2 flex w-full text-foreground">
+                  <span className="ms-2 flex w-full text-foreground">
                     {logo.copyAsSvg.label}
                   </span>
                 </Button>
@@ -195,7 +195,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
                     copyImage();
                   }}
                 >
-                  <span className="ml-2 flex w-full text-foreground">
+                  <span className="ms-2 flex w-full text-foreground">
                     {logo.copyAsImage.label}
                   </span>
                 </Button>
@@ -259,7 +259,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
             <GithubStarCount />
             <StarIcon
               width={18}
-              className="mr-1 group-hover/github:fill-text"
+              className="me-1 group-hover/github:fill-text"
             />
           </Link>
 
@@ -328,7 +328,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
             <GithubStarCount />
             <StarIcon
               width={18}
-              className="mr-1 group-hover/github:fill-text-opposite"
+              className="me-1 group-hover/github:fill-text-opposite"
             />
           </Link>
         </>

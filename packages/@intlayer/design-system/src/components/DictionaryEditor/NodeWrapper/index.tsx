@@ -73,7 +73,7 @@ export const NodeWrapper: FC<NodeWrapperProps> = memo((props) => {
 
     if (nodeType === NodeTypes.NESTED) {
       return (
-        <div className="ml-2 grid grid-cols-[auto,1fr] gap-2">
+        <div className="ms-2 grid grid-cols-[auto,1fr] gap-2">
           [Nested] Dictionary
         </div>
       );

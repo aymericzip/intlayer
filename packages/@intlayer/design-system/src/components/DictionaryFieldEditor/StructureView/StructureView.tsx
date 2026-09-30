@@ -122,7 +122,7 @@ const NodeTypeView: FC<NodeTypeViewProps> = ({
             )
           }
         />
-        <div className="mt-6 ml-10">
+        <div className="ms-10 mt-6">
           <StructureView
             keyPath={keyPath}
             section={section}
@@ -212,7 +212,7 @@ export const NodeView: FC<NodeWrapperProps> = ({
               />
             </div>
 
-            <span className="ml-3 text-muted-foreground text-sm">
+            <span className="ms-3 text-muted-foreground text-sm">
               ( {camelCaseToSentence(sectionKey)} )
             </span>
           </div>
@@ -251,7 +251,7 @@ export const ObjectView: FC<ObjectViewProps> = ({
 
   return (
     <div className="flex flex-col gap-2 overflow-y-auto">
-      <ul className="mr-auto flex flex-col gap-4">
+      <ul className="me-auto flex flex-col gap-4">
         {Object.keys(section).map((key) => (
           <li
             key={`${JSON.stringify(keyPath)}-object-${key}`}
