@@ -1,7 +1,7 @@
 import { dirname } from 'node:path';
 import { configurationFilesCandidates } from '@intlayer/config/node';
 import fg from 'fast-glob';
-import simpleGit from 'simple-git';
+import { simpleGit } from 'simple-git';
 
 export type ListProjectsOptions = {
   /**

@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/use-intl",
-  "version": "9.5.12",
+  "version": "9.6.0",
   "private": false,
   "description": "use-intl API adapter for intlayer — useTranslations, useLocale, useFormatter, IntlProvider, createTranslator backed by react-intlayer",
   "keywords": [
@@ -109,7 +109,7 @@
     "typescript": "7.0.2",
     "use-intl": "4.14.5",
     "vite": "8.3.1",
-    "vitest": "5.0.2"
+    "vitest": "5.0.3"
   },
   "peerDependencies": {
     "react": ">=16.0.0",

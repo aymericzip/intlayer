@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/svelte-i18n",
-  "version": "9.5.12",
+  "version": "9.6.0",
   "private": false,
   "description": "svelte-i18n API adapter for intlayer — drop-in compatibility layer",
   "keywords": [
@@ -88,7 +88,7 @@
     "tsdown": "0.23.0",
     "typescript": "7.0.2",
     "vite": "8.3.1",
-    "vitest": "5.0.2"
+    "vitest": "5.0.3"
   },
   "peerDependencies": {
     "svelte": ">=5.0.0",

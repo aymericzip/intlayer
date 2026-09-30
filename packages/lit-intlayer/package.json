@@ -1,6 +1,6 @@
 {
   "name": "lit-intlayer",
-  "version": "9.5.12",
+  "version": "9.6.0",
   "private": false,
   "description": "Easily internationalize i18n your Lit applications with type-safe multilingual content management.",
   "keywords": [
@@ -122,7 +122,7 @@
     "typescript": "7.0.2",
     "vite": "8.3.1",
     "vite-plugin-dts": "5.1.1",
-    "vitest": "5.0.2"
+    "vitest": "5.0.3"
   },
   "peerDependencies": {
     "intlayer": "workspace:*",

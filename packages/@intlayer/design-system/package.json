@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/design-system",
-  "version": "9.5.12",
+  "version": "9.6.0",
   "private": false,
   "description": "Intlayer design system, including UI components used in the Intlayer editor, website, and visual editor/CMS.",
   "keywords": [
@@ -558,7 +558,7 @@
     "typescript": "7.0.2",
     "vite": "8.3.1",
     "vite-intlayer": "workspace:*",
-    "vitest": "5.0.2"
+    "vitest": "5.0.3"
   },
   "peerDependencies": {
     "@hookform/resolvers": "5.9.1",

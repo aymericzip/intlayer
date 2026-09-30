@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/i18next",
-  "version": "9.5.12",
+  "version": "9.6.0",
   "private": false,
   "description": "i18next API adapter for intlayer — drop-in compatibility layer that exposes the i18next interface while using @intlayer/core under the hood",
   "keywords": [
@@ -92,7 +92,7 @@
     "tsdown": "0.23.0",
     "typescript": "7.0.2",
     "vite": "8.3.1",
-    "vitest": "5.0.2"
+    "vitest": "5.0.3"
   },
   "peerDependencies": {
     "i18next": ">=20.0.0",

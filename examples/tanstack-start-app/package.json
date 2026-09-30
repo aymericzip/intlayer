@@ -18,11 +18,11 @@
   "dependencies": {
     "@tailwindcss/vite": "4.3.3",
     "@tanstack/react-query": "5.104.0",
-    "@tanstack/react-router": "1.170.40",
+    "@tanstack/react-router": "1.170.41",
     "@tanstack/react-router-devtools": "1.167.2",
     "@tanstack/react-router-ssr-query": "1.167.3",
-    "@tanstack/react-start": "1.168.59",
-    "@tanstack/router-plugin": "1.168.41",
+    "@tanstack/react-start": "1.168.60",
+    "@tanstack/router-plugin": "1.168.42",
     "intlayer": "workspace:*",
     "nitro": "latest",
     "react": "19.3.0",
@@ -40,7 +40,7 @@
     "typescript": "7.0.2",
     "vite": "8.3.1",
     "vite-intlayer": "workspace:*",
-    "vitest": "5.0.2",
+    "vitest": "5.0.3",
     "web-vitals": "6.1.0"
   }
 }

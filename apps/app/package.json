@@ -1,6 +1,6 @@
 {
   "name": "app",
-  "version": "9.5.12",
+  "version": "9.6.0",
   "private": true,
   "description": "Intlayer app",
   "homepage": "https://intlayer.org",
@@ -60,14 +60,14 @@
     "@tanstack/react-devtools": "0.10.13",
     "@tanstack/react-query": "5.104.0",
     "@tanstack/react-query-persist-client": "5.104.0",
-    "@tanstack/react-router": "1.170.40",
+    "@tanstack/react-router": "1.170.41",
     "@tanstack/react-router-devtools": "1.167.2",
     "@tanstack/react-router-ssr-query": "1.167.3",
-    "@tanstack/react-start": "1.168.59",
+    "@tanstack/react-start": "1.168.60",
     "@tanstack/react-table": "9.2.4",
     "@tanstack/react-virtual": "3.14.13",
-    "@tanstack/router-plugin": "1.168.41",
-    "@tanstack/start-static-server-functions": "^1.167.38",
+    "@tanstack/router-plugin": "1.168.42",
+    "@tanstack/start-static-server-functions": "1.167.39",
     "defu": "6.1.7",
     "framer-motion": "13.4.6",
     "fuse.js": "7.5.0",
@@ -106,7 +106,7 @@
     "vite": "8.3.1",
     "vite-intlayer": "workspace:*",
     "vite-plugin-wasm": "3.6.0",
-    "vitest": "5.0.2",
+    "vitest": "5.0.3",
     "workbox-build": "7.4.1"
   }
 }

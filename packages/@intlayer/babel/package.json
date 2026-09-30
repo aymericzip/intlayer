@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/babel",
-  "version": "9.5.12",
+  "version": "9.6.0",
   "private": false,
   "description": "A Babel plugin for Intlayer that transforms declaration files and provides internationalization features during the build process according to the Intlayer configuration.",
   "keywords": [
@@ -84,12 +84,12 @@
     "typecheck": "tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
-    "@babel/core": "8.0.5",
-    "@babel/generator": "8.0.5",
-    "@babel/parser": "8.0.5",
+    "@babel/core": "8.0.6",
+    "@babel/generator": "8.0.6",
+    "@babel/parser": "7.29.9",
     "@babel/plugin-syntax-jsx": "8.0.1",
-    "@babel/traverse": "8.0.5",
-    "@babel/types": "8.0.5",
+    "@babel/traverse": "8.0.6",
+    "@babel/types": "8.0.6",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/dictionaries-entry": "workspace:*",
@@ -109,7 +109,7 @@
     "rimraf": "6.1.3",
     "tsdown": "0.23.0",
     "typescript": "7.0.2",
-    "vitest": "5.0.2"
+    "vitest": "5.0.3"
   },
   "peerDependencies": {
     "@intlayer/svelte-compiler": "workspace:*",

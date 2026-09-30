@@ -1,6 +1,6 @@
 {
   "name": "intlayer-editor",
-  "version": "9.5.12",
+  "version": "9.6.0",
   "private": false,
   "description": "Integrate the Intlayer visual editor into your Intlayer projects, enabling CMS-like content management with multilingual support.",
   "keywords": [
@@ -128,7 +128,7 @@
     "typescript": "7.0.2",
     "vite": "8.3.1",
     "vite-intlayer": "workspace:*",
-    "vitest": "5.0.2"
+    "vitest": "5.0.3"
   },
   "engines": {
     "node": ">=18.0.0"

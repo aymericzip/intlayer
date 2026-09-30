@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/vue-i18n",
-  "version": "9.5.12",
+  "version": "9.6.0",
   "private": false,
   "description": "vue-i18n API adapter for intlayer — useI18n, createI18n, and installIntlayer backed by vue-intlayer",
   "keywords": [
@@ -93,7 +93,7 @@
     "tsdown": "0.23.0",
     "typescript": "7.0.2",
     "vite": "8.3.1",
-    "vitest": "5.0.2",
+    "vitest": "5.0.3",
     "vue": "3.5.43",
     "vue-i18n": "11.4.12"
   },
