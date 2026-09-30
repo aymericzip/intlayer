@@ -1,6 +1,6 @@
 import { getEditorAPI } from '@intlayer/api/editor';
 import type { Dictionary } from '@intlayer/types/dictionary';
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { createEditorServerSession } from './editorServer';
 
 vi.mock('@intlayer/api/editor', () => ({
@@ -26,10 +26,6 @@ describe('createEditorServerSession', () => {
       getDictionaries: getDictionariesMock,
       writeDictionary: writeDictionaryMock,
     } as unknown as ReturnType<typeof getEditorAPI>);
-  });
-
-  afterEach(() => {
-    vi.useRealTimers();
   });
 
   it('returns null and reports offline when the server is unreachable', async () => {
@@ -59,11 +55,7 @@ describe('createEditorServerSession', () => {
     expect(getEditorAPIMock).toHaveBeenCalledWith({ credentials: 'omit' });
   });
 
-  it('shadows the fetched declaration with the written one until the server catches up', async () => {
-    getDictionariesMock.mockResolvedValue({
-      'app-content': [buildDeclaration('Old note')],
-    });
-
+  it('writes the declaration through the editor API', async () => {
     const session = createEditorServerSession();
     const writtenDeclaration = buildDeclaration('New note');
 
@@ -72,51 +64,19 @@ describe('createEditorServerSession', () => {
     expect(writeDictionaryMock).toHaveBeenCalledWith({
       dictionary: writtenDeclaration,
     });
-
-    // The server still serves the pre-edit content: the written
-    // declaration shadows it so the panel does not revert.
-    const shadowed = await session.fetchUnmergedDictionaries();
-    expect(shadowed?.['app-content']?.[0]?.content).toEqual({
-      note: 'New note',
-    });
-
-    // Once the regenerated files serve the written content, the shadow is
-    // dropped and the server content is returned as-is.
-    getDictionariesMock.mockResolvedValue({
-      'app-content': [buildDeclaration('New note')],
-    });
-
-    const caughtUp = await session.fetchUnmergedDictionaries();
-    expect(caughtUp?.['app-content']?.[0]?.content).toEqual({
-      note: 'New note',
-    });
   });
 
-  it('lets the shadow expire so an external edit cannot stay hidden forever', async () => {
-    vi.useFakeTimers();
+  it('returns the server content as-is after a write', async () => {
     getDictionariesMock.mockResolvedValue({
-      'app-content': [buildDeclaration('Old note')],
+      'app-content': [buildDeclaration('External edit')],
     });
 
     const session = createEditorServerSession();
 
     await session.writeDictionary(buildDeclaration('New note'));
 
-    // The user then edits the source file by hand: the server content
-    // diverges from both the pre-edit and the written content.
-    getDictionariesMock.mockResolvedValue({
-      'app-content': [buildDeclaration('External edit')],
-    });
-
-    const shadowed = await session.fetchUnmergedDictionaries();
-    expect(shadowed?.['app-content']?.[0]?.content).toEqual({
-      note: 'New note',
-    });
-
-    vi.advanceTimersByTime(60_000);
-
-    const expired = await session.fetchUnmergedDictionaries();
-    expect(expired?.['app-content']?.[0]?.content).toEqual({
+    const result = await session.fetchUnmergedDictionaries();
+    expect(result?.['app-content']?.[0]?.content).toEqual({
       note: 'External edit',
     });
   });

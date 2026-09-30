@@ -34,6 +34,27 @@ const defaultOptions = {
 } as const satisfies BuildDictionariesOptions;
 
 /**
+ * Appends the already-built declarations sharing a key with
+ * `localDictionaries` (other `localId`), so a partial rebuild does not drop
+ * the declarations coming from other content files.
+ */
+export const addStoredSiblingDictionaries = (
+  localDictionaries: Dictionary[],
+  configuration: IntlayerConfig
+): Dictionary[] => {
+  const storedUnmergedDictionaries: Record<string, Dictionary[]> =
+    readDictionariesFromDisk(configuration.system.unmergedDictionariesDir);
+
+  const siblingDictionaries = localDictionaries.flatMap((localDictionary) =>
+    (storedUnmergedDictionaries[localDictionary.key] ?? []).filter(
+      (storedDictionary) => storedDictionary.localId !== localDictionary.localId
+    )
+  );
+
+  return [...localDictionaries, ...siblingDictionaries];
+};
+
+/**
  * This function transpile the bundled code to to make dictionaries as JSON files
  */
 export const buildDictionary = async (
@@ -51,31 +72,10 @@ export const buildDictionary = async (
     ...options,
   };
 
-  const unmergedDictionariesToUpdate: Dictionary[] = [
-    ...localDictionariesEntries,
-  ];
-
-  if (importOtherDictionaries) {
-    const prevUnmergedDictionaries: Record<string, Dictionary[]> =
-      readDictionariesFromDisk(configuration.system.unmergedDictionariesDir);
-
-    // Reinsert other dictionaries with the same key to avoid merging errors
-    for (const dictionaryToWrite of localDictionariesEntries) {
-      const allPrebuiltUnmergedDictionaries =
-        prevUnmergedDictionaries[dictionaryToWrite.key]!;
-
-      if (allPrebuiltUnmergedDictionaries?.length > 0) {
-        // Do not add the same dictionary again by filtering out the one with the same localId
-        const otherUnmergedDictionaries =
-          allPrebuiltUnmergedDictionaries?.filter(
-            (unmergedDictionary) =>
-              unmergedDictionary.localId !== dictionaryToWrite.localId
-          );
-
-        unmergedDictionariesToUpdate.push(...(otherUnmergedDictionaries ?? []));
-      }
-    }
-  }
+  // Reinsert other dictionaries with the same key to avoid merging errors
+  const unmergedDictionariesToUpdate: Dictionary[] = importOtherDictionaries
+    ? addStoredSiblingDictionaries(localDictionariesEntries, configuration)
+    : [...localDictionariesEntries];
 
   const unmergedDictionaries = await writeUnmergedDictionaries(
     unmergedDictionariesToUpdate,

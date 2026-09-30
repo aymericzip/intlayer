@@ -1,4 +1,6 @@
 import type { Dictionary } from '@intlayer/types/dictionary';
+import type { KeyPath } from '@intlayer/types/keyPath';
+import * as NodeTypes from '@intlayer/types/nodeType';
 
 /**
  * Flattened representation of a dictionary content for the devtools
@@ -9,6 +11,16 @@ export type FlattenedDictionary = Record<
   string,
   Record<string, string> | string
 >;
+
+/**
+ * One inspector row: the displayed label, the `KeyPath` addressing the node
+ * in the dictionary content, and the displayed value.
+ */
+export type InspectorEntry = {
+  label: string;
+  keyPath: KeyPath[];
+  value: Record<string, string> | string;
+};
 
 /**
  * Label used for a typed node sitting at the root of the dictionary content.
@@ -25,7 +37,7 @@ const isRecord = (value: unknown): value is Record<string, unknown> =>
 
 const isTranslationNode = (value: unknown): value is TranslationNode =>
   isRecord(value) &&
-  value.nodeType === 'translation' &&
+  value.nodeType === NodeTypes.TRANSLATION &&
   isRecord(value.translation);
 
 /**
@@ -41,42 +53,84 @@ const stringifyFallback = (value: unknown): string => {
   }
 };
 
-const flattenContent = (
+/**
+ * Dot-joined label of a key path. Keys holding a dot are quoted so that
+ * `{ 'a.b': … }` and `{ a: { b: … } }` never share a label.
+ */
+const formatLabel = (keyPath: KeyPath[]): string =>
+  keyPath.length === 0
+    ? ROOT_PATH
+    : keyPath
+        .map(({ key }) => {
+          const segment = String(key);
+
+          return segment.includes('.') ? JSON.stringify(segment) : segment;
+        })
+        .join('.');
+
+const collectEntries = (
   node: unknown,
-  path: string[],
-  result: FlattenedDictionary
+  keyPath: KeyPath[],
+  entries: InspectorEntry[]
 ): void => {
-  const leafPath = path.length === 0 ? ROOT_PATH : path.join('.');
+  const label = formatLabel(keyPath);
 
   if (isTranslationNode(node)) {
-    result[leafPath] = node.translation;
+    entries.push({ label, keyPath, value: node.translation });
     return;
   }
 
   if (isRecord(node) && typeof node.nodeType === 'string') {
     // Non-translation typed node (markdown, html, insertion, plural…):
     // render its own content as a fallback string instead of recursing.
-    result[leafPath] = stringifyFallback(node[node.nodeType]);
+    entries.push({
+      label,
+      keyPath,
+      value: stringifyFallback(node[node.nodeType]),
+    });
     return;
   }
 
   if (Array.isArray(node)) {
     node.forEach((item, index) => {
-      flattenContent(item, [...path, String(index)], result);
+      collectEntries(
+        item,
+        [...keyPath, { type: NodeTypes.ARRAY, key: index }],
+        entries
+      );
     });
     return;
   }
 
   if (isRecord(node)) {
     for (const [key, value] of Object.entries(node)) {
-      flattenContent(value, [...path, key], result);
+      collectEntries(
+        value,
+        [...keyPath, { type: NodeTypes.OBJECT, key }],
+        entries
+      );
     }
     return;
   }
 
-  if (path.length > 0) {
-    result[path.join('.')] = stringifyFallback(node);
+  if (keyPath.length > 0) {
+    entries.push({ label, keyPath, value: stringifyFallback(node) });
   }
+};
+
+/**
+ * Recursively list the inspector rows of a dictionary content, each one
+ * carrying the `KeyPath` of its node so edits can target it with the core
+ * `dictionaryManipulator` helpers.
+ */
+export const listInspectorEntries = (
+  dictionary: Dictionary
+): InspectorEntry[] => {
+  const entries: InspectorEntry[] = [];
+
+  collectEntries(dictionary.content, [], entries);
+
+  return entries;
 };
 
 /**
@@ -86,10 +140,7 @@ const flattenContent = (
  */
 export const formatDictionaryForInspector = (
   dictionary: Dictionary
-): FlattenedDictionary => {
-  const result: FlattenedDictionary = {};
-
-  flattenContent(dictionary.content, [], result);
-
-  return result;
-};
+): FlattenedDictionary =>
+  Object.fromEntries(
+    listInspectorEntries(dictionary).map(({ label, value }) => [label, value])
+  );

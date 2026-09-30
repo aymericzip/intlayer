@@ -664,11 +664,18 @@ describe('enableIntlayerDevtools with the editor server online', () => {
     expect(writtenContent.note).toBe('Edited note');
   });
 
-  it('keeps showing the written value while the server regenerates', async () => {
-    // The server keeps answering the pre-edit content until its file watcher
-    // regenerates the unmerged dictionaries; the written declaration shadows
-    // it in the meantime
-    writeDictionaryMock.mockResolvedValue({ data: { status: 'updated' } });
+  it('shows the server content rebuilt by the write', async () => {
+    // The editor server rebuilds the unmerged dictionaries before answering
+    // the write, so the next fetch already serves the written declaration
+    writeDictionaryMock.mockImplementation(
+      async ({ dictionary }: { dictionary: Dictionary }) => {
+        getEditorDictionariesMock.mockResolvedValue({
+          'app-content': [dictionary],
+        });
+
+        return { data: { status: 'updated' } };
+      }
+    );
 
     const { editHandler, stateHandler } = setupDevtools();
 
@@ -687,6 +694,32 @@ describe('enableIntlayerDevtools with the editor server online', () => {
       key: 'title',
       value: { en: 'Hi there', fr: 'Bonjour' },
       editable: true,
+    });
+  });
+
+  it('builds a second edit on the outcome of the first', async () => {
+    writeDictionaryMock.mockImplementation(
+      async ({ dictionary }: { dictionary: Dictionary }) => {
+        getEditorDictionariesMock.mockResolvedValue({
+          'app-content': [dictionary],
+        });
+
+        return { data: { status: 'updated' } };
+      }
+    );
+
+    const { editHandler } = setupDevtools();
+    const nodeId = 'app-content::local::src/app.content.ts';
+
+    void editHandler(buildEditPayload(nodeId, ['title', 'en'], 'Hi'));
+    await editHandler(buildEditPayload(nodeId, ['title', 'fr'], 'Salut'));
+
+    const lastWrittenContent = writeDictionaryMock.mock.calls[1]?.[0].dictionary
+      .content as Record<string, any>;
+
+    expect(lastWrittenContent.title.translation).toEqual({
+      en: 'Hi',
+      fr: 'Salut',
     });
   });
 

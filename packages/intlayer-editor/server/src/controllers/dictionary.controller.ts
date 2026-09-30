@@ -7,6 +7,7 @@ import {
 } from '@intlayer/dictionaries-entry/unmerged';
 import {
   type DictionaryStatus,
+  rebuildUnmergedDictionaries,
   writeContentDeclaration as writeContentDeclarationEditor,
 } from '@intlayer/engine/build';
 import type { Dictionary } from '@intlayer/types/dictionary';
@@ -69,6 +70,15 @@ export const writeContentDeclaration = async (
     const config = getConfiguration();
 
     const result = await writeContentDeclarationEditor(dictionaryData, config);
+
+    // Rebuild the unmerged dictionaries before answering, so a read right
+    // after the write returns the new content instead of waiting for the app
+    // watcher. The write itself succeeded: a failed rebuild only delays it.
+    if (result.status !== 'up-to-date') {
+      await rebuildUnmergedDictionaries(result.path, config).catch((error) =>
+        console.error(error)
+      );
+    }
 
     // Clear cache to hot reload the dictionaries
     const dictionariesPath = join(

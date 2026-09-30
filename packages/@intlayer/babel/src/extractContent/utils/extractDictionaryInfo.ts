@@ -4,6 +4,8 @@ import { colorize } from '@intlayer/config/logger';
 import { assertPathWithin, parseStringPattern } from '@intlayer/config/utils';
 import { getUnmergedDictionaries } from '@intlayer/dictionaries-entry/unmerged';
 import {
+  type Format,
+  getExtensionFromFormat,
   getFormatFromExtension,
   resolveRelativePath,
 } from '@intlayer/engine/utils';
@@ -76,7 +78,8 @@ export const resolveContentFilePaths = async (
   filePath: string,
   componentKey: string,
   configuration: IntlayerConfig,
-  locale?: Locale
+  locale?: Locale,
+  format?: Format
 ): Promise<ResolveContentFilePaths> => {
   const { baseDir } = configuration.system;
   const { defaultLocale } = configuration.internationalization;
@@ -95,8 +98,15 @@ export const resolveContentFilePaths = async (
         dictionary.locale === (locale ?? defaultLocale)
     );
 
-  if (existingDicts?.[0]?.filePath) {
-    const existingPath = existingDicts[0].filePath;
+  const matchingExistingDict = format
+    ? existingDicts?.find(
+        (d) =>
+          d.filePath && getFormatFromExtension(extname(d.filePath)) === format
+      )
+    : existingDicts?.[0];
+
+  if (matchingExistingDict?.filePath) {
+    const existingPath = matchingExistingDict.filePath;
     const resolvedAbsolutePath = resolve(baseDir, existingPath);
 
     assertPathWithin(resolvedAbsolutePath, baseDir);
@@ -126,6 +136,14 @@ export const resolveContentFilePaths = async (
   ) as FilePathPatternContext['componentFormat'];
 
   const targetLocale = (locale ?? defaultLocale) as Locale;
+  const targetFormatExtension = format
+    ? getExtensionFromFormat(format)
+    : undefined;
+  const targetExtension = targetFormatExtension
+    ? (configuration.content?.fileExtensions?.find((ext) =>
+        ext.endsWith(targetFormatExtension)
+      ) ?? targetFormatExtension)
+    : (configuration.content?.fileExtensions?.[0] ?? '.ts');
 
   const context: FilePathPatternContext = {
     key: componentKey,
@@ -134,9 +152,9 @@ export const resolveContentFilePaths = async (
     fileName: uncapitalizedName,
     componentFormat,
     componentExtension: extension,
-    format: componentFormat!,
+    format: format ?? componentFormat!,
     locale: targetLocale,
-    extension: configuration.content.fileExtensions[0] ?? '.ts',
+    extension: targetExtension,
   };
 
   // Object output: each locale has its own pattern → always per-locale
@@ -198,7 +216,8 @@ export type ExtractDictionaryInfoOptions = {
 export const extractDictionaryInfo = async (
   filePath: string,
   fileText: string,
-  configuration: IntlayerConfig
+  configuration: IntlayerConfig,
+  format?: Format
 ): Promise<
   {
     dictionaryKey: string;
@@ -209,7 +228,9 @@ export const extractDictionaryInfo = async (
   const resolvedPaths = await resolveContentFilePaths(
     filePath,
     dictionaryKey,
-    configuration
+    configuration,
+    undefined,
+    format
   );
 
   return {

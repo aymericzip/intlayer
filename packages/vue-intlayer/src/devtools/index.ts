@@ -19,13 +19,17 @@ import {
 import {
   applyDictionaryEdit,
   getEditability,
+  getEditKeyPath,
   parseEditPath,
 } from './editDictionaryContent';
 import {
   createEditorServerSession,
   type UnmergedDictionaries,
 } from './editorServer';
-import { formatDictionaryForInspector } from './formatDictionaryForInspector';
+import {
+  formatDictionaryForInspector,
+  listInspectorEntries,
+} from './formatDictionaryForInspector';
 
 export const INTLAYER_DEVTOOLS_PLUGIN_ID = 'intlayer';
 export const INTLAYER_DICTIONARIES_INSPECTOR_ID =
@@ -46,26 +50,23 @@ const registerDevtoolsPlugin: (
 ) => void = setupDevtoolsPlugin;
 
 /**
- * Find the unmerged declaration matching a devtools node id. The node id is
- * the declaration `localId`, falling back to the dictionary key for
- * declarations that do not carry one.
+ * Devtools node id of an unmerged declaration: its `localId` — the id the
+ * visual editor keys declarations by — falling back to the dictionary key
+ * for declarations that do not carry one.
  */
-const findDeclarationByNodeId = (
+const getDeclarationNodeId = (declaration: Dictionary): string =>
+  declaration.localId ?? declaration.key;
+
+/**
+ * Find the unmerged declaration behind a devtools node id.
+ */
+const findDeclaration = (
   unmergedDictionaries: UnmergedDictionaries,
   nodeId: string
-): Dictionary | undefined => {
-  for (const [dictionaryKey, declarations] of Object.entries(
-    unmergedDictionaries
-  )) {
-    const declaration = declarations.find(
-      (declaration) => (declaration.localId ?? dictionaryKey) === nodeId
-    );
-
-    if (declaration) return declaration;
-  }
-
-  return undefined;
-};
+): Dictionary | undefined =>
+  Object.values(unmergedDictionaries)
+    .flat()
+    .find((declaration) => getDeclarationNodeId(declaration) === nodeId);
 
 /**
  * Suffix distinguishing the declarations of a same dictionary key: the
@@ -166,7 +167,7 @@ export const enableIntlayerDevtools = (app: App): void => {
           const declarationNodes = Object.entries(unmergedDictionaries).flatMap(
             ([dictionaryKey, declarations]) =>
               declarations.map((declaration) => ({
-                id: declaration.localId ?? dictionaryKey,
+                id: getDeclarationNodeId(declaration),
                 label:
                   declarations.length > 1
                     ? `${dictionaryKey} (${getDeclarationSuffix(declaration)})`
@@ -277,18 +278,18 @@ export const enableIntlayerDevtools = (app: App): void => {
         const unmergedDictionaries =
           await editorServer.fetchUnmergedDictionaries();
         const declaration = unmergedDictionaries
-          ? findDeclarationByNodeId(unmergedDictionaries, payload.nodeId)
+          ? findDeclaration(unmergedDictionaries, payload.nodeId)
           : undefined;
 
         if (declaration) {
-          const translations = formatDictionaryForInspector(declaration);
-
           payload.state = {
-            Translations: Object.entries(translations).map(([path, value]) => ({
-              key: path,
-              value,
-              editable: getEditability(declaration, path) !== null,
-            })),
+            Translations: listInspectorEntries(declaration).map(
+              ({ label, keyPath, value }) => ({
+                key: label,
+                value,
+                editable: getEditability(declaration, keyPath) !== null,
+              })
+            ),
             Metadata: [
               { key: 'key', value: declaration.key, editable: false },
               {
@@ -339,8 +340,8 @@ export const enableIntlayerDevtools = (app: App): void => {
       });
 
       // Serialize edits: each edit writes the whole declaration back, so a
-      // second edit must build on the outcome of the first (the session
-      // shadows the written declaration until the server catches up).
+      // second edit must build on the outcome of the first (the server has
+      // rebuilt the unmerged dictionaries once a write resolves).
       let editQueue: Promise<void> = Promise.resolve();
 
       api.on.editInspectorState((payload) => {
@@ -363,16 +364,20 @@ export const enableIntlayerDevtools = (app: App): void => {
 
             if (!unmergedDictionaries) return;
 
-            const declaration = findDeclarationByNodeId(
+            const declaration = findDeclaration(
               unmergedDictionaries,
               payload.nodeId
             );
 
             if (!declaration) return;
 
+            const keyPath = getEditKeyPath(declaration, edit);
+
+            if (!keyPath) return;
+
             const updatedDictionary = applyDictionaryEdit(
               declaration,
-              edit,
+              keyPath,
               newValue
             );
 
