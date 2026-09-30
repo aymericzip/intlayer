@@ -22,6 +22,7 @@ For both:
 - avoid '---' to separate sections
 - add links to other benchmarks docs and links to other docs, compat adapters etc where possible
 - For translations check `docs/tools/prompts/CUSTOM_INSTRUCTIONS.md`
+- Don't hesitate to remove part that are not relevant, duplicated or obsolete for the user
 
 Doc are multilingual.
 
