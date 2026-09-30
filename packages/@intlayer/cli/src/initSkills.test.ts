@@ -1,4 +1,4 @@
-import { mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
@@ -91,6 +91,25 @@ describe('init skills and MCP without a terminal', () => {
     expect(installSkillsMock).toHaveBeenCalledWith(projectRoot, 'Claude', [
       'Usage',
     ]);
+  });
+
+  it('detects the platform from its config folder', async () => {
+    mkdirSync(join(projectRoot, '.cursor'));
+
+    await initSkills(projectRoot, { skills: ['Usage'] });
+
+    expect(installSkillsMock).toHaveBeenCalledWith(projectRoot, 'Cursor', [
+      'Usage',
+    ]);
+  });
+
+  it('prefers the running tool over a config folder', async () => {
+    mkdirSync(join(projectRoot, '.cursor'));
+    vi.stubEnv('CLAUDECODE', '1');
+
+    await initMCP(projectRoot);
+
+    expect(installMCPMock).toHaveBeenCalledWith(projectRoot, 'Claude', 'stdio');
   });
 
   it('fails with the platform list when none is given or detected', async () => {

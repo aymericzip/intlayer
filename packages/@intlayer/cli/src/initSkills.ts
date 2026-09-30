@@ -1,4 +1,5 @@
 import {
+  detectPlatform,
   getInitialSkills,
   installSkills,
   PLATFORMS,
@@ -14,14 +15,6 @@ import { loadPrompts } from './loadPrompts';
 import { isInteractiveTerminal } from './utils/isInteractiveTerminal';
 import { parseChoice } from './utils/parseChoice';
 
-const PLATFORM_CHECKS: Array<{ check: () => boolean; platform: Platform }> =
-  PLATFORMS.filter((platform) => PLATFORMS_METADATA[platform]?.check).map(
-    (platform) => ({
-      check: PLATFORMS_METADATA[platform]?.check ?? (() => false),
-      platform,
-    })
-  );
-
 export const PLATFORM_OPTIONS: Array<{
   value: Platform;
   label: string;
@@ -32,15 +25,14 @@ export const PLATFORM_OPTIONS: Array<{
   hint: `(${PLATFORMS_METADATA[platform]?.dir})`,
 }));
 
-export const getDetectedPlatform = (): Platform | undefined =>
-  PLATFORM_CHECKS.find(({ check }) => check())?.platform;
-
 /**
  * Asks which AI platform the user is using, preselecting the detected one.
  * Resolves to `undefined` when the prompt is cancelled.
  */
-export const promptPlatform = async (): Promise<Platform | undefined> => {
-  const detectedPlatform = getDetectedPlatform();
+export const promptPlatform = async (
+  projectRoot: string
+): Promise<Platform | undefined> => {
+  const detectedPlatform = detectPlatform(projectRoot);
 
   try {
     const response = await enquirer.prompt<{ platform: Platform }>({
@@ -88,10 +80,11 @@ export const parseSkills = (values: string[]): Skill[] =>
  * one. Logs how to pass it and sets a failing exit code when neither exists.
  */
 export const resolvePlatformWithoutPrompt = async (
+  projectRoot: string,
   platform: Platform | undefined,
   command: string
 ): Promise<Platform | undefined> => {
-  const resolvedPlatform = platform ?? getDetectedPlatform();
+  const resolvedPlatform = platform ?? detectPlatform(projectRoot);
 
   if (!resolvedPlatform) {
     const p = await loadPrompts();
@@ -146,8 +139,9 @@ export const initSkills = async (
   }
 
   const platform = isInteractive
-    ? (options.platform ?? (await promptPlatform()))
+    ? (options.platform ?? (await promptPlatform(root)))
     : await resolvePlatformWithoutPrompt(
+        root,
         options.platform,
         'intlayer init skills'
       );

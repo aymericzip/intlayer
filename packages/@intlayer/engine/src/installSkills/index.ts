@@ -1,4 +1,4 @@
-import { promises as fs } from 'node:fs';
+import { existsSync, promises as fs } from 'node:fs';
 import path from 'node:path';
 import { readAsset } from 'utils:asset';
 import { v } from '@intlayer/config/logger';
@@ -306,6 +306,43 @@ export const PLATFORMS_METADATA: Record<string, PlatformMetadata> = {
 export type Platform = keyof typeof PLATFORMS_METADATA;
 
 export const PLATFORMS = Object.keys(PLATFORMS_METADATA) as Platform[];
+
+/**
+ * Root folders too common to identify a platform on their own (e.g. `.github`
+ * exists in most repositories regardless of the AI tool in use).
+ */
+const AMBIGUOUS_PLATFORM_DIRECTORIES = new Set([
+  '.github',
+  '.vscode',
+  'skills',
+]);
+
+/** Root config folder of a platform (e.g. `.cursor`), if it identifies it. */
+const getPlatformDirectory = (platform: Platform): string | undefined => {
+  const [rootDirectory] = (PLATFORMS_METADATA[platform]?.dir ?? '').split('/');
+
+  if (!rootDirectory || AMBIGUOUS_PLATFORM_DIRECTORIES.has(rootDirectory)) {
+    return undefined;
+  }
+
+  return rootDirectory;
+};
+
+/**
+ * Detects the AI platform in use. The environment of the running tool wins;
+ * otherwise the first platform whose config folder (`.claude`, `.cursor`…)
+ * exists in the project root is returned.
+ */
+export const detectPlatform = (projectRoot: string): Platform | undefined =>
+  PLATFORMS.find((platform) => PLATFORMS_METADATA[platform]?.check?.()) ??
+  PLATFORMS.find((platform) => {
+    const platformDirectory = getPlatformDirectory(platform);
+
+    return (
+      platformDirectory !== undefined &&
+      existsSync(path.join(projectRoot, platformDirectory))
+    );
+  });
 
 /**
  * Maps specific skill keys to special filenames if they differ from standard snake_case.

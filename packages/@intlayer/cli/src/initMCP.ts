@@ -39,8 +39,12 @@ export const initMCP = async (
   p.intro('Initializing Intlayer MCP Server');
 
   const platform = isInteractive
-    ? (options.platform ?? (await promptPlatform()))
-    : await resolvePlatformWithoutPrompt(options.platform, 'intlayer init mcp');
+    ? (options.platform ?? (await promptPlatform(root)))
+    : await resolvePlatformWithoutPrompt(
+        root,
+        options.platform,
+        'intlayer init mcp'
+      );
 
   if (!platform) {
     p.cancel('Operation cancelled. No platform selected.');

@@ -1,11 +1,18 @@
-import { readdirSync, readFileSync } from 'node:fs';
+import {
+  mkdirSync,
+  mkdtempSync,
+  readdirSync,
+  readFileSync,
+  rmSync,
+} from 'node:fs';
+import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { getMarkdownMetadata } from '@intlayer/core/markdown';
-import { describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 vi.mock('utils:asset', () => ({ readAsset: () => '' }));
 
-const { getInitialSkills, SKILLS } = await import('./index');
+const { detectPlatform, getInitialSkills, SKILLS } = await import('./index');
 
 const SKILLS_DIRECTORY = join(__dirname, 'skills');
 const ENGLISH_DOCS_DIRECTORY = join(__dirname, '../../../../../docs/docs/en');
@@ -79,6 +86,59 @@ describe('getInitialSkills', () => {
 
   it('does not preselect React for a backend-only project', () => {
     expect(getInitialSkills({ express: '5.0.0' })).not.toContain('React');
+  });
+});
+
+describe('detectPlatform', () => {
+  let projectRoot: string;
+
+  beforeEach(() => {
+    projectRoot = mkdtempSync(join(tmpdir(), 'intlayer-detect-platform-'));
+    for (const variable of [
+      'CURSOR',
+      'TERM_PROGRAM',
+      'WINDSURF',
+      'TRAE',
+      'TRAE_CN',
+      'VSCODE',
+      'OPENCODE',
+      'CLAUDE',
+      'CLAUDECODE',
+      'GITHUB_ACTIONS',
+      'GITHUB_WORKSPACE',
+    ]) {
+      vi.stubEnv(variable, '');
+    }
+  });
+
+  afterEach(() => {
+    rmSync(projectRoot, { recursive: true, force: true });
+    vi.unstubAllEnvs();
+  });
+
+  it('returns undefined without environment or config folder', () => {
+    expect(detectPlatform(projectRoot)).toBeUndefined();
+  });
+
+  it('detects the platform from its config folder', () => {
+    mkdirSync(join(projectRoot, '.claude'));
+
+    expect(detectPlatform(projectRoot)).toBe('Claude');
+  });
+
+  it('ignores folders that do not identify a platform', () => {
+    mkdirSync(join(projectRoot, '.github'));
+    mkdirSync(join(projectRoot, '.vscode'));
+    mkdirSync(join(projectRoot, 'skills'));
+
+    expect(detectPlatform(projectRoot)).toBeUndefined();
+  });
+
+  it('prefers the running tool environment over config folders', () => {
+    mkdirSync(join(projectRoot, '.claude'));
+    vi.stubEnv('TERM_PROGRAM', 'cursor');
+
+    expect(detectPlatform(projectRoot)).toBe('Cursor');
   });
 });
 
