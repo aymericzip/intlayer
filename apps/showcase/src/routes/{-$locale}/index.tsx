@@ -20,6 +20,7 @@ import { ProjectCard } from '#/components/ProjectCard';
 import { ProjectCardSkeleton } from '#/components/ProjectCardSkeleton';
 import { ShowcaseHeader } from '#/components/ShowcaseHeader';
 import { useSearchParamState } from '#/hooks/useSearchParamState';
+import { getOgImageUrl } from '#/lib/site';
 import type { ShowcaseProject } from '#/utils/projectActions/types';
 import { getAbsoluteUrl, getHreflangLinks } from '#/utils/seo';
 
@@ -63,6 +64,10 @@ export const Route = createFileRoute('/{-$locale}/')({
     const content = await getIntlayerAsync('showcase-index', locale);
 
     const canonicalUrl = getAbsoluteUrl(path, locale);
+    const ogImage = getOgImageUrl({
+      title: content.metadata.openGraph.title,
+      locale,
+    });
 
     return {
       links: [
@@ -79,6 +84,8 @@ export const Route = createFileRoute('/{-$locale}/')({
         { property: 'og:title', content: content.metadata.openGraph.title },
         { property: 'og:description', content: content.metadata.description },
         { property: 'og:url', content: canonicalUrl },
+        { property: 'og:image', content: ogImage },
+        { name: 'twitter:image', content: ogImage },
         { name: 'twitter:title', content: content.metadata.title },
         { name: 'twitter:description', content: content.metadata.description },
       ],

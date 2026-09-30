@@ -24,6 +24,7 @@ bun run typecheck    # tsc --noEmit
 | `@intlayer/design-system/libs`            | Low-level helpers (e.g., `getAuthAPI`)           |
 | `@intlayer/design-system/utils`           | Pure utilities (`cn`, class merging, etc.)       |
 | `@intlayer/design-system/routes`          | Route path constants (`App_*_Path`)              |
+| `@intlayer/design-system/og-image`        | Server-only `/api/og` card renderer + handlers   |
 | `@intlayer/design-system/tailwind-config` | Shared Tailwind config                           |
 | `@intlayer/design-system/css`             | Source Tailwind CSS                              |
 | `@intlayer/design-system/css-output`      | Pre-built CSS                                    |

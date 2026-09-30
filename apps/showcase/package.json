@@ -30,6 +30,7 @@
     "@intlayer/design-system": "workspace:*",
     "@intlayer/types": "workspace:*",
     "@posthog/react": "1.11.2",
+    "@resvg/resvg-wasm": "2.6.2",
     "@tailwindcss/aspect-ratio": "0.4.2",
     "@tailwindcss/vite": "4.3.3",
     "@tanstack/match-sorter-utils": "9.1.2",
@@ -52,6 +53,7 @@
     "react-dom": "19.3.0",
     "react-hook-form": "7.89.0",
     "react-intlayer": "workspace:*",
+    "satori": "0.33.5",
     "server-only": "0.0.1",
     "tailwindcss": "4.3.3",
     "zod": "4.6.5"

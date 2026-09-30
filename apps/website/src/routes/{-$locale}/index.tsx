@@ -57,7 +57,7 @@ export const Route = createFileRoute('/{-$locale}/')({
       productContent,
     } = loaderData;
     const { title, description, keywords } = metadata;
-    const ogImage = getOgImageUrl(title);
+    const ogImage = getOgImageUrl({ title, locale });
 
     const offers = formatStructuredDataOffers(loaderData.pricings ?? null);
 

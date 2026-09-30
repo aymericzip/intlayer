@@ -103,7 +103,7 @@ export const Route = createFileRoute('/{-$locale}/_docs/doc/$')({
     const locale = (localeFromLoader as string) ?? defaultLocale;
     const absoluteUrl = docData.url;
     const pageTitle = `${docData.title} | Intlayer`;
-    const ogImage = getOgImageUrl(pageTitle);
+    const ogImage = getOgImageUrl({ title: pageTitle, locale });
 
     return {
       meta: [

@@ -30,7 +30,10 @@ export const Route = createFileRoute('/{-$locale}')({
     if (!loaderData) return {};
 
     const { title, description, keywords, openGraph } = loaderData.content;
-    const ogImage = getOgImageUrl(openGraph?.title || title);
+    const ogImage = getOgImageUrl({
+      title: openGraph?.title || title,
+      locale: params.locale ?? defaultLocale,
+    });
 
     return {
       meta: [

@@ -2,6 +2,7 @@ import { Showcase_Submit_Path } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
 import { getIntlayerAsync, type Locale } from 'intlayer';
 import { SubmitProjectForm } from '#/components/SubmitProjectForm/SubmitProjectForm';
+import { getOgImageUrl } from '#/lib/site';
 import { getAbsoluteUrl, getHreflangLinks } from '#/utils/seo';
 
 /**
@@ -33,6 +34,7 @@ export const Route = createFileRoute('/{-$locale}/submit')({
     const path = Showcase_Submit_Path;
     const content = await getIntlayerAsync('showcase-submit', locale);
     const canonicalUrl = getAbsoluteUrl(path, locale);
+    const ogImage = getOgImageUrl({ title: content.metadata.title, locale });
 
     return {
       links: [
@@ -58,6 +60,8 @@ export const Route = createFileRoute('/{-$locale}/submit')({
           content: content.metadata.description,
         },
         { property: 'og:url', content: canonicalUrl },
+        { property: 'og:image', content: ogImage },
+        { name: 'twitter:image', content: ogImage },
         { name: 'twitter:title', content: content.metadata.title },
         {
           name: 'twitter:description',

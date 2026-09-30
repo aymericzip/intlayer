@@ -37,6 +37,7 @@ import {
 import { useDictionarySidebar } from '#hooks/useDictionarySidebar';
 import { useEditorPagesSidebar } from '#hooks/useEditorPagesSidebar';
 import { useTagSidebar } from '#hooks/useTagSidebar';
+import { getOgImageUrl } from '#utils/ogImage';
 
 export const Route = createFileRoute('/{-$locale}/_dashboard')({
   pendingComponent: DashboardSkeleton,
@@ -54,6 +55,7 @@ export const Route = createFileRoute('/{-$locale}/_dashboard')({
     const { content } = loaderData;
     const siteUrl = import.meta.env.VITE_SITE_URL;
     const pageUrl = locale ? `${siteUrl}/${locale}` : siteUrl;
+    const ogImage = getOgImageUrl({ title: content.metadata.title, locale });
 
     return {
       title: content.metadata.title,
@@ -69,7 +71,8 @@ export const Route = createFileRoute('/{-$locale}/_dashboard')({
         { property: 'og:title', content: content.metadata.title },
         { property: 'og:description', content: content.metadata.description },
         { property: 'og:url', content: pageUrl },
-        { property: 'og:image', content: `${siteUrl}/cover.png` },
+        { property: 'og:image', content: ogImage },
+        { name: 'twitter:image', content: ogImage },
         { name: 'twitter:title', content: content.metadata.title },
         {
           name: 'twitter:description',

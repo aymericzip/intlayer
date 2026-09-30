@@ -3,6 +3,7 @@ import { getIntlayerAsync, getLocalizedUrl } from 'intlayer';
 import type { FC } from 'react';
 import { useHotDataLoading } from '#hooks/useHotDataLoading.tsx';
 import { useSessionRouterListener } from '#hooks/useSessionRouterListener.ts';
+import { getOgImageUrl } from '#utils/ogImage';
 
 const LocaleLayout: FC = () => {
   useHotDataLoading();
@@ -21,6 +22,10 @@ export const Route = createFileRoute('/{-$locale}')({
     if (!loaderData) return {};
 
     const { title, description, keywords, openGraph } = loaderData.content;
+    const ogImage = getOgImageUrl({
+      title: openGraph.title,
+      locale: params.locale,
+    });
 
     return {
       meta: [
@@ -42,10 +47,10 @@ export const Route = createFileRoute('/{-$locale}')({
             params.locale
           ),
         },
-        { property: 'og:image', content: '/github-social-preview.png' },
+        { property: 'og:image', content: ogImage },
         { name: 'twitter:title', content: title },
         { name: 'twitter:description', content: description },
-        { name: 'twitter:image', content: '/github-social-preview.png' },
+        { name: 'twitter:image', content: ogImage },
       ],
     };
   },

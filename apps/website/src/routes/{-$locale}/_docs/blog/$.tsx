@@ -98,7 +98,7 @@ export const Route = createFileRoute('/{-$locale}/_docs/blog/$')({
       loaderData as any;
     const absoluteUrl = blogData.url;
     const pageTitle = `${blogData.title} | Intlayer`;
-    const ogImage = getOgImageUrl(pageTitle);
+    const ogImage = getOgImageUrl({ title: pageTitle, locale });
     const keywords = blogData.keywords;
 
     return {

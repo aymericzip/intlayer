@@ -411,6 +411,8 @@ export default defineConfig(({ mode }) => {
     plugins: [
       nitro({
         preset: 'bun',
+        // The /api/og renderer loads resvg's wasm binary from disk at runtime.
+        traceDeps: ['@resvg/resvg-wasm*'],
         routeRules: {
           '/**': { headers },
           '/assets/**': { headers: immutableAssetHeaders },
@@ -421,6 +423,13 @@ export default defineConfig(({ mode }) => {
           '/logo.svg': { headers: immutableAssetHeaders },
           '/cover.png': { headers: immutableAssetHeaders },
           '/github-social-preview.png': { headers: immutableAssetHeaders },
+          '/api/og': {
+            headers: {
+              ...headers,
+              'Cross-Origin-Resource-Policy': 'cross-origin',
+              'Access-Control-Allow-Origin': '*',
+            },
+          },
         },
         rollupConfig: {
           onwarn(warning, warn) {

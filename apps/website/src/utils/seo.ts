@@ -1,4 +1,8 @@
 import {
+  getOgImagePath,
+  type OgImageParams,
+} from '@intlayer/design-system/og-image';
+import {
   defaultLocale,
   getLocalizedUrl,
   type LocalesValues,
@@ -51,21 +55,12 @@ export const getHreflangLinks = (path: string) => [
 ];
 
 /**
- * Generates an absolute URL for the Open Graph image route (/api/og)
- * with the specified title and optional description.
- * If no title is provided, it returns the default Open Graph image route (/api/og).
+ * Absolute URL of the Open Graph card (/api/og) for a page. Without a title
+ * it is the default card. `locale` picks the regional glyph forms of the
+ * title (e.g. Chinese vs Japanese ideographs).
  */
-export const getOgImageUrl = (title?: string, description?: string): string => {
-  const params = new URLSearchParams();
-  if (title) {
-    params.set('title', title);
-  }
-  if (description) {
-    params.set('description', description);
-  }
-  const query = params.toString();
-  return toAbsoluteUrl(query ? `/api/og?${query}` : '/api/og');
-};
+export const getOgImageUrl = (params?: OgImageParams): string =>
+  toAbsoluteUrl(getOgImagePath(params));
 
 const OG_LOCALE_MAP: Record<string, string> = {
   en: 'en_US',

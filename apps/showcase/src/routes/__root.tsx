@@ -16,7 +16,12 @@ import Header from '#/components/Header';
 import { IntlayerMarkdownProvider } from '#/components/IntlayerMarkdownProvider';
 import { ThemeProvider } from '#/components/ThemeProvider';
 import PostHogProvider from '#/integrations/posthog/provider';
-import { SITE_DESCRIPTION, SITE_TITLE, SITE_URL } from '#/lib/site';
+import {
+  getOgImageUrl,
+  SITE_DESCRIPTION,
+  SITE_TITLE,
+  SITE_URL,
+} from '#/lib/site';
 import appCss from '#/styles.css?url';
 import { getRootStructuredDataScripts } from '#/utils/structuredData';
 
@@ -48,7 +53,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
         { property: 'og:type', content: 'website' },
         {
           property: 'og:image',
-          content: `${SITE_URL}/github-social-preview.png`,
+          content: getOgImageUrl(),
         },
         { property: 'og:image:width', content: '1200' },
         { property: 'og:image:height', content: '630' },
@@ -57,7 +62,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
         { name: 'twitter:creator', content: '@aymericzip' },
         {
           name: 'twitter:image',
-          content: `${SITE_URL}/github-social-preview.png`,
+          content: getOgImageUrl(),
         },
       ],
       links: [

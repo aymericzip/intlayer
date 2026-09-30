@@ -9,6 +9,7 @@ import { getIntlayerAsync, getLocalizedUrl } from 'intlayer';
 import { useIntlayer } from 'react-intlayer';
 import { ProjectFocus } from '#/components/ProjectFocus/ProjectFocus';
 import { ShowcaseHeader } from '#/components/ShowcaseHeader';
+import { getOgImageUrl } from '#/lib/site';
 import type { ShowcaseProject } from '#/utils/projectActions/types';
 import { getAbsoluteUrl, getHreflangLinks } from '#/utils/seo';
 import { Link } from '#components/Link/Link';
@@ -55,6 +56,7 @@ export const Route = createFileRoute('/{-$locale}/project/$projectId')({
     const description = project?.description ?? content.metadata.description;
 
     const canonicalUrl = getAbsoluteUrl(path, locale);
+    const ogImage = getOgImageUrl({ title, locale });
 
     return {
       links: [
@@ -71,6 +73,8 @@ export const Route = createFileRoute('/{-$locale}/project/$projectId')({
         { property: 'og:title', content: title },
         { property: 'og:description', content: description },
         { property: 'og:url', content: canonicalUrl },
+        { property: 'og:image', content: ogImage },
+        { name: 'twitter:image', content: ogImage },
         { name: 'twitter:title', content: title },
         { name: 'twitter:description', content: description },
       ],

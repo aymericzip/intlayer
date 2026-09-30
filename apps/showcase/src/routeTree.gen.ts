@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as Char123LocaleChar125RouteRouteImport } from './routes/{-$locale}/route'
+import { Route as ApiOgRouteImport } from './routes/api/og'
 import { Route as Char123LocaleChar125IndexRouteImport } from './routes/{-$locale}/index'
 import { Route as Char123LocaleChar125SplatRouteImport } from './routes/{-$locale}/$'
 import { Route as Char123LocaleChar125404RouteImport } from './routes/{-$locale}/404'
@@ -28,6 +29,11 @@ const Char123LocaleChar125RouteRoute =
     path: '/{-$locale}',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiOgRoute = ApiOgRouteImport.update({
+  id: '/api/og',
+  path: '/api/og',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const Char123LocaleChar125IndexRoute =
   Char123LocaleChar125IndexRouteImport.update({
     id: '/',
@@ -61,6 +67,7 @@ const Char123LocaleChar125ProjectProjectIdRoute =
 export interface FileRoutesByFullPath {
   '/{-$locale}': typeof Char123LocaleChar125RouteRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/api/og': typeof ApiOgRoute
   '/{-$locale}/$': typeof Char123LocaleChar125SplatRoute
   '/{-$locale}/404': typeof Char123LocaleChar125404Route
   '/{-$locale}/submit': typeof Char123LocaleChar125SubmitRoute
@@ -69,6 +76,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/api/og': typeof ApiOgRoute
   '/{-$locale}/$': typeof Char123LocaleChar125SplatRoute
   '/{-$locale}/404': typeof Char123LocaleChar125404Route
   '/{-$locale}/submit': typeof Char123LocaleChar125SubmitRoute
@@ -79,6 +87,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/{-$locale}': typeof Char123LocaleChar125RouteRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/api/og': typeof ApiOgRoute
   '/{-$locale}/$': typeof Char123LocaleChar125SplatRoute
   '/{-$locale}/404': typeof Char123LocaleChar125404Route
   '/{-$locale}/submit': typeof Char123LocaleChar125SubmitRoute
@@ -90,6 +99,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/{-$locale}'
     | '/sitemap.xml'
+    | '/api/og'
     | '/{-$locale}/$'
     | '/{-$locale}/404'
     | '/{-$locale}/submit'
@@ -98,6 +108,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/sitemap.xml'
+    | '/api/og'
     | '/{-$locale}/$'
     | '/{-$locale}/404'
     | '/{-$locale}/submit'
@@ -107,6 +118,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/{-$locale}'
     | '/sitemap.xml'
+    | '/api/og'
     | '/{-$locale}/$'
     | '/{-$locale}/404'
     | '/{-$locale}/submit'
@@ -117,6 +129,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   Char123LocaleChar125RouteRoute: typeof Char123LocaleChar125RouteRouteWithChildren
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  ApiOgRoute: typeof ApiOgRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -133,6 +146,13 @@ declare module '@tanstack/react-router' {
       path: '/{-$locale}'
       fullPath: '/{-$locale}'
       preLoaderRoute: typeof Char123LocaleChar125RouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/og': {
+      id: '/api/og'
+      path: '/api/og'
+      fullPath: '/api/og'
+      preLoaderRoute: typeof ApiOgRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/{-$locale}/': {
@@ -199,6 +219,7 @@ const Char123LocaleChar125RouteRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   Char123LocaleChar125RouteRoute: Char123LocaleChar125RouteRouteWithChildren,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  ApiOgRoute: ApiOgRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

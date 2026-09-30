@@ -1,3 +1,7 @@
+import {
+  getOgImagePath,
+  type OgImageParams,
+} from '@intlayer/design-system/og-image';
 import { Showcase_Root } from '@intlayer/design-system/routes';
 
 export const SITE_TITLE = 'Intlayer Showcase';
@@ -16,3 +20,13 @@ export const SITE_DESCRIPTION =
 export const SITE_URL: string = (
   import.meta.env?.VITE_SITE_URL || Showcase_Root
 ).replace(/\/$/, '');
+
+/**
+ * Absolute URL of the Open Graph card (/api/og) for a page, defaulting to the
+ * site title. `locale` picks the regional glyph forms of the title.
+ */
+export const getOgImageUrl = ({
+  title = SITE_TITLE,
+  ...params
+}: OgImageParams = {}): string =>
+  `${SITE_URL}${getOgImagePath({ title, ...params })}`;
