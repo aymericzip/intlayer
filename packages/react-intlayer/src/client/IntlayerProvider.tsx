@@ -11,9 +11,11 @@ import {
   createContext,
   type FC,
   type PropsWithChildren,
+  startTransition,
   useCallback,
   useContext,
   useEffect,
+  useMemo,
   useState,
 } from 'react';
 import { AnalyticsProvider } from '../analytics/AnalyticsProvider';
@@ -150,7 +152,10 @@ export const IntlayerProviderContent: FC<IntlayerProviderProps> = ({
         return;
       }
 
-      setCurrentLocale(newLocale);
+      // A transition keeps the current UI while the new locale's dynamic
+      // dictionaries load. Suspending a sync update would hide the page behind
+      // the Suspense fallback, and memoized consumers skip the reveal.
+      startTransition(() => setCurrentLocale(newLocale));
       setLocaleInStorage(newLocale, isCookieEnabled);
     },
     [currentLocale, availableLocales, isCookieEnabled]
@@ -161,18 +166,19 @@ export const IntlayerProviderContent: FC<IntlayerProviderProps> = ({
   // Resolve based on currentLocale (the state), not the prop directly
   const resolvedLocale = localeResolver(currentLocale);
 
-  // Not memoized on purpose: a fresh value re-propagates on every provider
-  // render. With a stable one, consumers skipped by a locale switch that
-  // suspended (dynamic dictionary chunks) never re-render.
+  // Stable value so a parent re-render does not re-render every consumer
+  const contextValue = useMemo<IntlayerValue>(
+    () => ({
+      locale: resolvedLocale,
+      setLocale,
+      variant,
+      disableEditor,
+    }),
+    [resolvedLocale, setLocale, variant, disableEditor]
+  );
+
   return (
-    <IntlayerClientContext.Provider
-      value={{
-        locale: resolvedLocale,
-        setLocale,
-        variant,
-        disableEditor,
-      }}
-    >
+    <IntlayerClientContext.Provider value={contextValue}>
       {children}
     </IntlayerClientContext.Provider>
   );
