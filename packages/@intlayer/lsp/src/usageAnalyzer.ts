@@ -909,10 +909,13 @@ const getTranslatorCalleeIdentifier = (
 /**
  * ngx-translate template forms, which live in HTML (component templates or
  * inline `template:` strings) and never reach the JS AST:
- * `{{ 'home.title' | translate }}` and `[translate]="'home.title'"`.
+ * - `{{ 'home.title' | translate }}` pipe
+ * - `[translate]="'home.title'"` bound directive
+ * - `translate="home.title"` static directive
+ * - `<h2 translate>home.title</h2>` directive keyed by the element text
  */
 const TRANSLATE_PIPE_PATTERN =
-  /(['"])([^'"\r\n{}|]+)\1\s*\|\s*translate\b|\[translate\]\s*=\s*"'([^'"\r\n]+)'"/g;
+  /(['"])([^'"\r\n{}|]+)\1\s*\|\s*translate\b|\[translate\]\s*=\s*"'([^'"\r\n]+)'"|\stranslate\s*=\s*"([^'"\r\n{}]+)"|<[\w-]+(?:\s[^<>]*)?\stranslate(?=[\s/>])[^<>]*>\s*([^\s<>{}]+)\s*</g;
 
 const collectTranslatePipeUsages = (text: string): MessageUsage[] => {
   if (!text.includes('translate')) return [];
@@ -920,14 +923,24 @@ const collectTranslatePipeUsages = (text: string): MessageUsage[] => {
   const usages: MessageUsage[] = [];
 
   for (const match of text.matchAll(TRANSLATE_PIPE_PATTERN)) {
-    const split = splitMessageIdAtFirstSegment(match[2] ?? match[3] ?? '');
+    const elementTextKey = match[5];
+    const split = splitMessageIdAtFirstSegment(
+      match[2] ?? match[3] ?? match[4] ?? elementTextKey ?? ''
+    );
 
     if (!split) continue;
 
+    // Element-text form: span the key only, not the whole opening tag.
+    const start = elementTextKey
+      ? match.index + match[0].lastIndexOf(elementTextKey)
+      : match.index;
+
     usages.push({
       ...split,
-      start: match.index,
-      end: match.index + match[0].length,
+      start,
+      end: elementTextKey
+        ? start + elementTextKey.length
+        : match.index + match[0].length,
       kind: 'call',
       callerName: 'translate',
       library: '@ngx-translate/core',

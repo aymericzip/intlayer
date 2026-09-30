@@ -314,6 +314,21 @@ const COMPAT_CASES: { library: string; form: string; source: string[] }[] = [
     form: 'translate pipe with params',
     source: [`<p>{{ "home.hero.title" | translate: { name: user } }}</p>`],
   },
+  {
+    library: '@ngx-translate/core',
+    form: '[translate] directive',
+    source: [`<p [translate]="'home.hero.title'"></p>`],
+  },
+  {
+    library: '@ngx-translate/core',
+    form: 'static translate directive',
+    source: [`<p translate="home.hero.title"></p>`],
+  },
+  {
+    library: '@ngx-translate/core',
+    form: 'translate directive keyed by element text',
+    source: [`<h2 class="title" translate>\n  home.hero.title\n</h2>`],
+  },
 ];
 
 describe('compat library coverage', () => {
