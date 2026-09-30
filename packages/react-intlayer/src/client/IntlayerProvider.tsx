@@ -14,6 +14,7 @@ import {
   startTransition,
   useCallback,
   useContext,
+  useDeferredValue,
   useEffect,
   useMemo,
   useState,
@@ -118,6 +119,12 @@ export const IntlayerProviderContent: FC<IntlayerProviderProps> = ({
   const { locales: availableLocales, defaultLocale: defaultLocaleConfig } =
     internationalization ?? {};
 
+  // A router usually changes the prop through a sync update, which would
+  // suspend on the new locale's dynamic dictionaries and hide the page behind
+  // the Suspense fallback. Deferred, the new locale renders in the background
+  // and the current UI stays until it is ready.
+  const deferredLocaleProp = useDeferredValue(localeProp);
+
   // Storage is only read when no locale is passed, and only on mount
   const [currentLocale, setCurrentLocale] = useState<LocalesValues>(
     () =>
@@ -126,16 +133,17 @@ export const IntlayerProviderContent: FC<IntlayerProviderProps> = ({
       defaultLocaleProp ??
       defaultLocaleConfig
   );
-  const [adoptedLocaleProp, setAdoptedLocaleProp] = useState(localeProp);
+  const [adoptedLocaleProp, setAdoptedLocaleProp] =
+    useState(deferredLocaleProp);
 
   // Adopt a new `locale` prop during render rather than in an effect: an
   // effect commits the whole subtree once with the stale locale, then renders
   // it again with the new one.
-  if (localeProp !== adoptedLocaleProp) {
-    setAdoptedLocaleProp(localeProp);
+  if (deferredLocaleProp !== adoptedLocaleProp) {
+    setAdoptedLocaleProp(deferredLocaleProp);
 
-    if (localeProp && localeProp !== currentLocale) {
-      setCurrentLocale(localeProp);
+    if (deferredLocaleProp && deferredLocaleProp !== currentLocale) {
+      setCurrentLocale(deferredLocaleProp);
     }
   }
 
@@ -152,16 +160,17 @@ export const IntlayerProviderContent: FC<IntlayerProviderProps> = ({
         return;
       }
 
-      // A transition keeps the current UI while the new locale's dynamic
-      // dictionaries load. Suspending a sync update would hide the page behind
-      // the Suspense fallback, and memoized consumers skip the reveal.
-      startTransition(() => setCurrentLocale(newLocale));
+      setCurrentLocale(newLocale);
       setLocaleInStorage(newLocale, isCookieEnabled);
     },
     [currentLocale, availableLocales, isCookieEnabled]
   );
 
-  const setLocale = setLocaleProp ?? setLocaleBase;
+  const setLocale = useCallback(
+    (newLocale: LocalesValues) =>
+      startTransition(() => (setLocaleProp ?? setLocaleBase)(newLocale)),
+    [setLocaleProp, setLocaleBase]
+  );
 
   // Resolve based on currentLocale (the state), not the prop directly
   const resolvedLocale = localeResolver(currentLocale);
