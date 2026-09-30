@@ -1,13 +1,17 @@
 import { execSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
 import { writeFile } from 'node:fs/promises';
-import { basename } from 'node:path';
+import { basename, extname, relative } from 'node:path';
 import { extractDictionaryInfo } from '@intlayer/babel';
 import { getConfiguration } from '@intlayer/config/node';
 import {
   detectFormatCommand,
   getContentDeclarationFileTemplate,
 } from '@intlayer/engine/cli';
+import {
+  getExtensionFromFormat,
+  getFormatFromExtension,
+} from '@intlayer/engine/utils';
 import {
   Position,
   Range,
@@ -20,11 +24,19 @@ import { invalidateConfigurationCaches } from './utils/cacheInvalidation';
 import { findProjectRoot } from './utils/findProjectRoot';
 import { getConfigurationOptions } from './utils/getConfiguration';
 
-/** Position right after the opening brace of the `content` object. */
+/** Position right after the opening brace of the `content` object or after frontmatter. */
 const getContentPosition = (fileContent: string): Position => {
   const lines = fileContent.split('\n');
 
+  let frontmatterCount = 0;
   for (const [lineIndex, line] of lines.entries()) {
+    if (line.trim() === '---') {
+      frontmatterCount++;
+      if (frontmatterCount === 2) {
+        return new Position(lineIndex + 1, 0);
+      }
+    }
+
     // `content: {`, `"content": {` or `'content': {`
     const match = /["']?content["']?\s*:\s*\{/.exec(line);
 
@@ -36,17 +48,16 @@ const getContentPosition = (fileContent: string): Position => {
   return new Position(0, 0);
 };
 
-/**
- * Formats the extension can scaffold a content file for. Narrower than
- * `Format` from `@intlayer/engine/utils`, which also covers `md` / `yaml`.
- */
+/** Formats the extension can scaffold a content file for. */
 export type ContentFileFormat =
   | 'ts'
   | 'esm'
   | 'cjs'
   | 'json'
   | 'jsonc'
-  | 'json5';
+  | 'json5'
+  | 'md'
+  | 'yaml';
 
 export const generateDictionaryContent = async (format: ContentFileFormat) => {
   const editor = window.activeTextEditor;
@@ -83,12 +94,25 @@ export const generateDictionaryContent = async (format: ContentFileFormat) => {
 
   // Derive base name (without extension) from something like 'MyComponent.tsx' => 'MyComponent'
   //    or from 'index.jsx' => 'index'
-  const { dictionaryKey, absolutePath, relativePath } =
+  const { dictionaryKey, absolutePath: rawAbsolutePath } =
     await extractDictionaryInfo(
       editor.document.uri.fsPath,
       fileText,
-      configuration
+      configuration,
+      format
     );
+
+  let absolutePath = rawAbsolutePath;
+  const currentExtension = extname(rawAbsolutePath);
+  const detectedFormat = getFormatFromExtension(currentExtension);
+
+  if (detectedFormat !== format) {
+    const targetExtension = getExtensionFromFormat(format);
+    absolutePath =
+      rawAbsolutePath.slice(0, -currentExtension.length) + targetExtension;
+  }
+
+  const relativePath = relative(configuration.system.baseDir, absolutePath);
 
   // Create the actual content using shared template logic
   const fileData = await getContentDeclarationFileTemplate(

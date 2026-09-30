@@ -57,7 +57,7 @@ Extension link: [https://marketplace.visualstudio.com/items?itemName=Intlayer.in
 
 ![Create content file](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_create_content_file.gif?raw=true)
 
-- **Content Declaration Generator** – Create dictionary content files in various formats (`.ts`, `.esm`, `.cjs`, `.json`).
+- **Content Declaration Generator** – Create dictionary content files in various formats (`.ts`, `.esm`, `.cjs`, `.json`, `.md`, `.yaml`).
 
 ![Test dictionaties](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extention_test_missing_dictionary.gif?raw=true)
 

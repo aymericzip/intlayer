@@ -150,6 +150,16 @@
         "icon": "$(symbol-parameter)"
       },
       {
+        "command": "extension.createDictionaryFile.md",
+        "title": "Intlayer: Create Content File (Markdown)",
+        "icon": "$(symbol-parameter)"
+      },
+      {
+        "command": "extension.createDictionaryFile.yaml",
+        "title": "Intlayer: Create Content File (YAML)",
+        "icon": "$(symbol-parameter)"
+      },
+      {
         "command": "extension.createDictionaryFile",
         "title": "Intlayer: Create Content File",
         "icon": "$(new-file)"
@@ -263,17 +273,17 @@
     "menus": {
       "editor/title": [
         {
-          "when": "resourceFilename =~ /.*\\.content\\.(ts|tsx|js|jsx|mjs|cjs|json|jsonc|json5)$/",
+          "when": "resourceFilename =~ /.*\\.content\\.(ts|tsx|js|jsx|mjs|cjs|json|jsonc|json5|md|mdx|yaml|yml)$/",
           "command": "extension.buildActiveDictionary",
           "group": "navigation@902"
         },
         {
-          "when": "resourceFilename =~ /.*\\.content\\.(ts|tsx|js|jsx|mjs|cjs|json|jsonc|json5)$/",
+          "when": "resourceFilename =~ /.*\\.content\\.(ts|tsx|js|jsx|mjs|cjs|json|jsonc|json5|md|mdx|yaml|yml)$/",
           "command": "extension.fillActiveDictionary",
           "group": "navigation@903"
         },
         {
-          "when": "(editorLangId == javascript || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == typescriptreact || editorLangId == vue || editorLangId == svelte || editorLangId == astro || editorLangId == html) && (resourceFilename =~ /\\.(js|jsx|mjs|cjs|ts|tsx|svelte|vue|astro|html)$/) && !(resourceFilename =~ /.*\\.content\\..*$/)",
+          "when": "(editorLangId == javascript || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == typescriptreact || editorLangId == vue || editorLangId == svelte || editorLangId == astro || editorLangId == html || editorLangId == markdown || editorLangId == yaml) && (resourceFilename =~ /\\.(js|jsx|mjs|cjs|ts|tsx|svelte|vue|astro|html|md|mdx|yaml|yml)$/) && !(resourceFilename =~ /.*\\.content\\..*$/)",
           "command": "extension.createDictionaryFile",
           "group": "navigation@901"
         },
@@ -405,7 +415,9 @@
     "onLanguage:vue",
     "onLanguage:svelte",
     "onLanguage:astro",
-    "onLanguage:html"
+    "onLanguage:html",
+    "onLanguage:markdown",
+    "onLanguage:yaml"
   ],
   "dependencies": {
     "esbuild": "0.28.2",

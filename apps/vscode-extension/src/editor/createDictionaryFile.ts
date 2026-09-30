@@ -9,17 +9,11 @@ import {
 export const createDictionaryFile = async () => {
   const filePath = window.activeTextEditor?.document.uri.fsPath;
 
-  let format: ContentFileFormat;
+  let format: ContentFileFormat | undefined;
 
   if (filePath) {
     const extension = extname(filePath) as Extension;
-    const detected = getFormatFromExtension(extension);
-    // The command is only exposed on source files, so `md` / `yaml` cannot be
-    // detected here — fall back to `ts` rather than widening the scaffolder.
-    format =
-      detected === 'md' || detected === 'yaml'
-        ? 'ts'
-        : (detected as ContentFileFormat);
+    format = getFormatFromExtension(extension) as ContentFileFormat;
   } else {
     format = await window
       .showQuickPick(
@@ -30,10 +24,16 @@ export const createDictionaryFile = async () => {
           { label: 'JSON (.json)', value: 'json' },
           { label: 'JSONC (.jsonc)', value: 'jsonc' },
           { label: 'JSON5 (.json5)', value: 'json5' },
+          { label: 'Markdown (.md)', value: 'md' },
+          { label: 'YAML (.yaml)', value: 'yaml' },
         ],
         { placeHolder: 'Select content file format' }
       )
-      .then((choice) => choice?.value as ContentFileFormat);
+      .then((choice) => choice?.value as ContentFileFormat | undefined);
+  }
+
+  if (!format) {
+    return;
   }
 
   await generateDictionaryContent(format);

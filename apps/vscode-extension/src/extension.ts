@@ -72,6 +72,8 @@ const CONTENT_FILE_FORMATS: ContentFileFormat[] = [
   'json',
   'json5',
   'jsonc',
+  'md',
+  'yaml',
 ];
 
 const registerLanguageProviders = (context: ExtensionContext): void => {
