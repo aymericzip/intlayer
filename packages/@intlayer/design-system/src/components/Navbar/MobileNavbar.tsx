@@ -158,7 +158,7 @@ export const MobileNavbar = <T extends TabSelectorItemProps>({
   const navRef = useRef<HTMLDivElement>(null);
 
   useScrollBlockage({
-    disableScroll: isActive && rollable,
+    disableScroll: isActive && isUnrolled,
     key: 'mobile_nav',
   });
 
