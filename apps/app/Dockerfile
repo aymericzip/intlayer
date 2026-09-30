@@ -62,7 +62,7 @@ WORKDIR /workspace/apps/app
 ENV NODE_ENV=production
 
 # Build the app
-RUN bun run build && bun scripts/generate-sw.ts && bun run preserve
+RUN bun run build && bun scripts/generate-sw.ts
 
 # Runner — use oven/bun base image to avoid npm install overhead
 FROM oven/bun:1.4.2-alpine AS runner
