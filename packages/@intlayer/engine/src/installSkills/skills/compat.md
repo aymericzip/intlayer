@@ -18,7 +18,7 @@ Compat adapters expose the **exact same public API** as an existing i18n library
 
 ## How it works
 
-1. Run `npx intlayer init --interactive`: it creates `intlayer.config.ts`, installs the adapter and can keep existing JSON catalogs as the source of truth via a sync plugin.
+1. Run `npx intlayer init`: it creates `intlayer.config.ts`, installs the adapter and can keep existing JSON catalogs as the source of truth via a sync plugin.
 2. Register the adapter's bundler plugin (`<adapter>/plugin`). It aliases the original imports to the adapter at build time, so no import is rewritten by hand.
 
 ## Adapters

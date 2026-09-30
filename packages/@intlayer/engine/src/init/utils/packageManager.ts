@@ -225,6 +225,11 @@ export type DetectMissingPackagesOptions = {
    * The project's development dependencies (from `package.json` `devDependencies`).
    */
   devDependencies?: Record<string, string>;
+  /**
+   * Skip `eslint-plugin-intlayer`, even when the project lints. Set when the
+   * lint step is not part of the setup.
+   */
+  skipLintPlugin?: boolean;
 };
 
 /** An existing i18n library Intlayer ships a compat adapter for. */
@@ -579,7 +584,7 @@ export const detectMissingIntlayerPackages = (
   }
 
   // Lint rules — only when the project already lints.
-  if (hasLintTooling(allDependencies)) {
+  if (!options.skipLintPlugin && hasLintTooling(allDependencies)) {
     addDevIfMissing('eslint-plugin-intlayer');
   }
 

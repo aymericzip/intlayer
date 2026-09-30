@@ -89,7 +89,8 @@ export const loadCLITools: LoadCLITools = async (server) => {
     'intlayer-init',
     {
       title: 'Initialize Intlayer',
-      description: 'Initialize Intlayer in the project',
+      description:
+        'Initialize Intlayer in the project: install the Intlayer packages and set up the framework (config, bundler plugin, middleware, providers). Other setup steps run through the `intlayer init <step>` CLI commands (github-actions, skills, mcp, vscode-extension, lsp, eslint)',
       inputSchema: {
         projectRoot: z.string().register(z.globalRegistry, {
           description: 'Project root directory',

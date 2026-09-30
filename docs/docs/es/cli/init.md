@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2026-09-27
+updatedAt: 2026-09-29
 priority: 5
 title: "intlayer init: instalar Intlayer en tu proyecto"
 description: "Ejecuta intlayer init para añadir Intlayer a un proyecto existente: detecta tu framework, instala los paquetes y escribe la configuración."
@@ -15,6 +15,9 @@ slugs:
   - cli
   - init
 history:
+  - version: 9.5.13
+    date: 2026-09-29
+    changes: "init solo instala los paquetes y configura el framework; se añade un subcomando por paso; --interactive falla sin terminal"
   - version: 9.5.6
     date: 2026-09-21
     changes: "Agregar el subcomando init infra"
@@ -45,7 +48,9 @@ pnpm intlayer init
 bun x intlayer init
 ```
 
-El comando `init` configura automáticamente Intlayer en su proyecto ajustando los archivos y configuraciones necesarios. Es la forma recomendada de comenzar con Intlayer.
+El comando `init` instala los paquetes de Intlayer y configura tu framework (archivo de configuración, TypeScript, plugin del bundler, middleware/proxy, providers). Es la forma recomendada de empezar con Intlayer.
+
+Todo lo demás (workflows de CI, skills de IA, servidor MCP, herramientas del editor, reglas de lint, CMS, infraestructura) es opcional: elígelo en la checklist de `--interactive` o ejecuta su subcomando dedicado (ver más abajo).
 
 ## Alias:
 
@@ -55,17 +60,58 @@ El comando `init` configura automáticamente Intlayer en su proyecto ajustando l
 
 - `--project-root [projectRoot]` - Opcional. Especifique el directorio raíz del proyecto. Si no se proporciona, el comando buscará la raíz del proyecto comenzando desde el directorio de trabajo actual.
 - `--no-gitignore` - Opcional. Omite la actualización automática del archivo `.gitignore`. Si se establece esta bandera, `.intlayer` no se agregará a `.gitignore`.
+- `--no-framework-setup` - Opcional. Solo instala los paquetes, sin tocar los archivos del proyecto.
+- `--routing <routing>` - Opcional. Enrutamiento de locales: `prefix-no-default` (por defecto), `prefix-all`, `no-prefix`, `search-params` o `none`.
+- `-i, --interactive` - Opcional. Elige los pasos en una checklist (paquetes, CI, skills, MCP, VS Code, LSP, lint, CMS, infraestructura, …) en lugar del conjunto por defecto. Necesita un terminal: sin él (agente de IA, CI), el comando falla y lista los subcomandos que ejecutar en su lugar.
+- `--no-github-actions` - Opcional. Con `--interactive`, nunca genera los workflows de GitHub Actions, aunque estén seleccionados.
 
 ## Qué hace:
 
 El comando `init` realiza las siguientes tareas de configuración:
 
 1. **Valida la estructura del proyecto** - Asegura que se encuentra en un directorio de proyecto válido con un archivo `package.json`.
-2. **Actualiza el `.gitignore`** - Agrega `.intlayer` a su archivo `.gitignore` para excluir los archivos generados del control de versiones (puede omitirse con `--no-gitignore`).
-3. **Configura TypeScript** - Actualiza todos los archivos `tsconfig.json` para incluir las definiciones de tipos de Intlayer (`.intlayer/**/*.ts`).
-4. **Crea el archivo de configuración** - Genera un `intlayer.config.ts` (para proyectos TypeScript) o `intlayer.config.mjs` (para proyectos JavaScript) con la configuración predeterminada.
-5. **Actualiza la configuración de Vite** - Si se detecta un archivo de configuración de Vite, agrega la importación del complemento `vite-intlayer`.
-6. **Actualiza la configuración de Next.js** - Si se detecta un archivo de configuración de Next.js, agrega la importación del complemento `next-intlayer`.
+2. **Instala los paquetes** - Instala los paquetes de Intlayer que faltan para tu stack (p. ej. `react-intlayer`, `vite-intlayer`) y actualiza los que están desactualizados.
+3. **Actualiza el `.gitignore`** - Agrega `.intlayer` a su archivo `.gitignore` para excluir los archivos generados del control de versiones (puede omitirse con `--no-gitignore`).
+4. **Configura TypeScript** - Actualiza todos los archivos `tsconfig.json` para incluir las definiciones de tipos de Intlayer (`.intlayer/**/*.ts`).
+5. **Crea el archivo de configuración** - Genera un `intlayer.config.ts` (para proyectos TypeScript) o `intlayer.config.mjs` (para proyectos JavaScript) con la configuración predeterminada.
+6. **Actualiza la configuración del bundler / framework** - Añade el plugin de Intlayer a tu configuración de Vite, Next.js, Nuxt, Astro, …, y genera el middleware/proxy y los providers cuando el framework lo permite.
+
+## Configurar un paso cada vez
+
+Cada paso de la checklist de `--interactive` tiene su propio subcomando. No hacen preguntas cuando sus valores se pasan como flags, así que puedes ejecutarlos desde un agente de IA o un job de CI.
+
+| Comando                                                               | Qué configura                                                                                        |
+| --------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `intlayer init packages`                                              | Instala los paquetes de Intlayer que faltan y actualiza los desactualizados                          |
+| `intlayer init project [--routing <routing>]`                         | Archivo de configuración, TypeScript, plugin del bundler, middleware/proxy, providers y `.gitignore` |
+| `intlayer init github-actions`                                        | Los workflows de GitHub Actions `fill` y `test`                                                      |
+| `intlayer init vscode-extension`                                      | Recomienda la extensión de Intlayer en `.vscode/extensions.json`                                     |
+| `intlayer init lsp`                                                   | El servidor de lenguaje de Intlayer en `.vscode/settings.json`                                       |
+| `intlayer init eslint`                                                | Las reglas de lint de Intlayer (ESLint / oxlint), si el proyecto ya usa un linter                    |
+| `intlayer init skills [--platform <platform>] [--skills <skills…>]`   | La documentación de Intlayer como skills para agentes de IA                                          |
+| `intlayer init mcp [--platform <platform>] [--transport <stdio/sse>]` | El servidor MCP de Intlayer                                                                          |
+| `intlayer init extension [--browser <chrome/firefox>]`                | Abre la página de la tienda de la extensión de navegador de Intlayer                                 |
+| `intlayer init cms`                                                   | Inicia sesión en el CMS de Intlayer desde tu navegador y guarda las credenciales en `.env`           |
+| `intlayer init infra --mode <desktop/docker/compose>`                 | La aplicación de escritorio o un stack autoalojado                                                   |
+
+### Desde un agente de IA o un job de CI
+
+El shell de un agente de IA no tiene terminal, así que una pregunta no puede responderse. Usa el comando por defecto y luego los subcomandos que necesites:
+
+```bash
+npx intlayer init
+npx intlayer init skills --platform Claude
+npx intlayer init mcp --platform Claude --transport stdio
+```
+
+Sin terminal:
+
+- `init skills` instala las skills que corresponden a tu stack, salvo si se define `--skills` (p. ej. `--skills Usage Content React`).
+- `init skills` e `init mcp` usan la plataforma de IA detectada (Claude Code, Cursor, VS Code, Windsurf, …), salvo si se define `--platform`, y fallan con la lista de plataformas si no se detecta ninguna.
+- `init mcp` usa el transporte `stdio`, salvo si se define `--transport`.
+- `init infra` requiere `--mode`, e `init extension` solo muestra los enlaces de la tienda, salvo si se define `--browser`.
+
+El servidor MCP siempre se configura dentro del proyecto (para Claude Code, en `.mcp.json`).
 
 ## Ejemplos:
 

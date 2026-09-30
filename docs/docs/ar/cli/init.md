@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2026-09-27
+updatedAt: 2026-09-29
 priority: 5
 title: "intlayer init: إعداد Intlayer في مشروعك"
 description: "شغّل intlayer init لإضافة Intlayer إلى مشروع موجود: يكتشف إطار العمل، ويثبّت الحزم، ويكتب ملفات الإعداد."
@@ -15,6 +15,9 @@ slugs:
   - cli
   - init
 history:
+  - version: 9.5.13
+    date: 2026-09-29
+    changes: "أصبح init يثبّت الحزم ويُعدّ إطار العمل فقط؛ إضافة أمر فرعي لكل خطوة؛ يفشل --interactive دون طرفية"
   - version: 9.5.6
     date: 2026-09-21
     changes: "إضافة الأمر الفرعي init infra"
@@ -45,7 +48,9 @@ pnpm intlayer init
 bun x intlayer init
 ```
 
-يقوم الأمر `init` بتكوين Intlayer تلقائيًا في مشروعك عن طريق إنشاء الملفات والإعدادات اللازمة. هذه هي الطريقة الموصى بها للبدء مع Intlayer.
+يثبّت الأمر `init` حزم Intlayer ويُعدّ إطار العمل لديك (ملف الإعداد، TypeScript، إضافة المُجمِّع، middleware/proxy، المزوّدات). وهو الطريقة الموصى بها للبدء مع Intlayer.
+
+كل ما عدا ذلك (مسارات عمل CI، مهارات الذكاء الاصطناعي، خادم MCP، أدوات المحرر، قواعد lint، CMS، البنية التحتية) اختياري: اختره من قائمة `--interactive`، أو شغّل الأمر الفرعي المخصص له (انظر أدناه).
 
 ## الأسماء المستعارة:
 
@@ -55,17 +60,58 @@ bun x intlayer init
 
 - `--project-root [projectRoot]` - اختياري. حدد الدليل الجذر للمشروع. إذا لم يتم توفيره ، فسيقوم الأمر بالبحث عن جذر المشروع بدءًا من دليل العمل الحالي.
 - `--no-gitignore` - اختياري. يتخطى التحديث التلقائي لملف `.gitignore`. إذا تم تعيين هذا العلم ، فلن يتم إضافة `.intlayer` إلى `.gitignore`.
+- `--no-framework-setup` - اختياري. يثبّت الحزم فقط، دون تعديل ملفات المشروع.
+- `--routing <routing>` - اختياري. توجيه اللغات: `prefix-no-default` (افتراضي)، `prefix-all`، `no-prefix`، `search-params` أو `none`.
+- `-i, --interactive` - اختياري. اختر خطوات الإعداد من قائمة (الحزم، CI، المهارات، MCP، VS Code، LSP، lint، CMS، البنية التحتية، …) بدلًا من المجموعة الافتراضية. يتطلب طرفية: بدونها (وكيل ذكاء اصطناعي، CI) يفشل الأمر ويعرض الأوامر الفرعية التي يجب تشغيلها بدلًا منه.
+- `--no-github-actions` - اختياري. مع `--interactive`، لا يُنشئ أبدًا مسارات عمل GitHub Actions، حتى لو كانت محددة.
 
 ## ماذا يفعل:
 
 يقوم أمر `init` بمهام الإعداد التالية:
 
 1. **التحقق من صحة هيكل المشروع** - يضمن أنك في دليل مشروع صالح مع ملف `package.json`.
-2. **تحديث `.gitignore`** - يضيف `.intlayer` إلى ملف `.gitignore` الخاص بك لاستبعاد الملفات التي تم إنشاؤها من التحكم في الإصدار (يمكن تخطيه باستخدام `--no-gitignore`).
-3. **تكوين TypeScript** - يقوم بتحديث أي ملفات `tsconfig.json` لتشمل تعريفات أنواع Intlayer (`.intlayer/**/*.ts`).
-4. **إنشاء ملف التكوين** - ينشئ `intlayer.config.ts` (لمشاريع TypeScript) أو `intlayer.config.mjs` (لمشاريع JavaScript) مع الإعدادات الافتراضية.
-5. **تحديث تكوين Vite** - إذا تم اكتشاف ملف تكوين Vite ، فسيضيف استيراد لبرنامج المساعدة `vite-intlayer`.
-6. **تحديث تكوين Next.js** - إذا تم اكتشاف ملف تكوين Next.js ، فسيضيف استيراد لبرنامج المساعدة `next-intlayer`.
+2. **يثبّت الحزم** - يثبّت حزم Intlayer الناقصة لمكدّسك التقني (مثل `react-intlayer` و`vite-intlayer`) ويحدّث القديمة منها.
+3. **تحديث `.gitignore`** - يضيف `.intlayer` إلى ملف `.gitignore` الخاص بك لاستبعاد الملفات التي تم إنشاؤها من التحكم في الإصدار (يمكن تخطيه باستخدام `--no-gitignore`).
+4. **تكوين TypeScript** - يقوم بتحديث أي ملفات `tsconfig.json` لتشمل تعريفات أنواع Intlayer (`.intlayer/**/*.ts`).
+5. **إنشاء ملف التكوين** - ينشئ `intlayer.config.ts` (لمشاريع TypeScript) أو `intlayer.config.mjs` (لمشاريع JavaScript) مع الإعدادات الافتراضية.
+6. **يحدّث إعداد المُجمِّع / إطار العمل** - يضيف إضافة Intlayer إلى إعداد Vite أو Next.js أو Nuxt أو Astro أو غيرها، ويُنشئ middleware/proxy والمزوّدات عندما يدعم إطار العمل ذلك.
+
+## الإعداد خطوة بخطوة
+
+لكل خطوة في قائمة `--interactive` أمر فرعي خاص بها. لا تطرح هذه الأوامر أي سؤال عند تمرير القيم كخيارات، لذا يمكن تشغيلها بأمان من وكيل ذكاء اصطناعي أو من مهمة CI.
+
+| الأمر                                                                 | ما يُعدّه                                                                             |
+| --------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| `intlayer init packages`                                              | يثبّت حزم Intlayer الناقصة ويحدّث القديمة                                             |
+| `intlayer init project [--routing <routing>]`                         | ملف الإعداد، TypeScript، إضافة المُجمِّع، middleware/proxy، المزوّدات و`.gitignore`   |
+| `intlayer init github-actions`                                        | مسارا عمل GitHub Actions `fill` و`test`                                               |
+| `intlayer init vscode-extension`                                      | يوصي بإضافة Intlayer في `.vscode/extensions.json`                                     |
+| `intlayer init lsp`                                                   | خادم لغة Intlayer في `.vscode/settings.json`                                          |
+| `intlayer init eslint`                                                | قواعد lint الخاصة بـ Intlayer (ESLint / oxlint)، إذا كان المشروع يستخدم linter بالفعل |
+| `intlayer init skills [--platform <platform>] [--skills <skills…>]`   | توثيق Intlayer على شكل مهارات لوكلاء الذكاء الاصطناعي                                 |
+| `intlayer init mcp [--platform <platform>] [--transport <stdio/sse>]` | خادم MCP الخاص بـ Intlayer                                                            |
+| `intlayer init extension [--browser <chrome/firefox>]`                | يفتح صفحة إضافة المتصفح Intlayer في المتجر                                            |
+| `intlayer init cms`                                                   | تسجيل الدخول إلى Intlayer CMS عبر المتصفح وحفظ بيانات الاعتماد في `.env`              |
+| `intlayer init infra --mode <desktop/docker/compose>`                 | تطبيق سطح المكتب أو مكدّس مستضاف ذاتيًا                                               |
+
+### من وكيل ذكاء اصطناعي أو مهمة CI
+
+لا تملك صدفة وكيل الذكاء الاصطناعي طرفية، لذا لا يمكن الإجابة عن أي سؤال. استخدم الأمر الافتراضي، ثم الأوامر الفرعية التي تحتاجها:
+
+```bash
+npx intlayer init
+npx intlayer init skills --platform Claude
+npx intlayer init mcp --platform Claude --transport stdio
+```
+
+دون طرفية:
+
+- يثبّت `init skills` المهارات المناسبة لمكدّسك ما لم يُحدَّد `--skills` (مثل `--skills Usage Content React`).
+- يستخدم `init skills` و`init mcp` منصة الذكاء الاصطناعي المكتشفة (Claude Code، Cursor، VS Code، Windsurf، …) ما لم يُحدَّد `--platform`، ويفشلان مع قائمة المنصات إذا لم تُكتشف أي منصة.
+- يستخدم `init mcp` النقل `stdio` ما لم يُحدَّد `--transport`.
+- يتطلب `init infra` الخيار `--mode`، ويكتفي `init extension` بطباعة روابط المتجر ما لم يُحدَّد `--browser`.
+
+يُعَدّ خادم MCP دائمًا داخل المشروع (بالنسبة إلى Claude Code، في `.mcp.json`).
 
 ## أمثلة:
 

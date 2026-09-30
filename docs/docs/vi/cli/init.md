@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2026-09-27
+updatedAt: 2026-09-29
 priority: 5
 title: "intlayer init: thiết lập Intlayer trong dự án"
 description: "Chạy intlayer init để thêm Intlayer vào dự án hiện có: lệnh phát hiện framework, cài gói và ghi file cấu hình."
@@ -15,6 +15,9 @@ slugs:
   - cli
   - init
 history:
+  - version: 9.5.13
+    date: 2026-09-29
+    changes: "init chỉ cài đặt các gói và thiết lập framework; thêm một lệnh con cho mỗi bước; --interactive thất bại khi không có terminal"
   - version: 9.5.6
     date: 2026-09-21
     changes: "Thêm lệnh con init infra"
@@ -45,7 +48,9 @@ pnpm intlayer init
 bun x intlayer init
 ```
 
-Lệnh `init` tự động định cấu hình Intlayer cho dự án của bạn bằng cách tạo các tệp và cài đặt cần thiết. Đây là cách bắt đầu được khuyến nghị với Intlayer.
+Lệnh `init` cài đặt các gói Intlayer và thiết lập framework của bạn (tệp cấu hình, TypeScript, plugin bundler, middleware/proxy, provider). Đây là cách được khuyến nghị để bắt đầu với Intlayer.
+
+Mọi thứ khác (workflow CI, skill AI, máy chủ MCP, công cụ editor, quy tắc lint, CMS, hạ tầng) đều là tùy chọn: chọn trong checklist `--interactive`, hoặc chạy lệnh con tương ứng (xem bên dưới).
 
 ## Tên thay thế (Aliases):
 
@@ -55,17 +60,58 @@ Lệnh `init` tự động định cấu hình Intlayer cho dự án của bạn
 
 - `--project-root [projectRoot]` - Tùy chọn. Chỉ định thư mục gốc của dự án. Nếu không được cung cấp, lệnh sẽ tìm kiếm thư mục dự án bắt đầu từ thư mục làm việc hiện tại.
 - `--no-gitignore` - Tùy chọn. Bỏ qua việc tự động cập nhật tệp `.gitignore`. Nếu cờ này được đặt, `.intlayer` sẽ không được thêm vào `.gitignore`.
+- `--no-framework-setup` - Tùy chọn. Chỉ cài đặt các gói, không thay đổi các tệp của dự án.
+- `--routing <routing>` - Tùy chọn. Định tuyến locale: `prefix-no-default` (mặc định), `prefix-all`, `no-prefix`, `search-params` hoặc `none`.
+- `-i, --interactive` - Tùy chọn. Chọn các bước thiết lập từ một checklist (gói, CI, skill, MCP, VS Code, LSP, lint, CMS, hạ tầng, …) thay vì bộ mặc định. Cần có terminal: nếu không có (agent AI, CI), lệnh sẽ thất bại và liệt kê các lệnh con cần chạy thay thế.
+- `--no-github-actions` - Tùy chọn. Với `--interactive`, không bao giờ tạo các workflow GitHub Actions, kể cả khi chúng được chọn.
 
 ## Cách thức hoạt động:
 
 Lệnh `init` thực hiện các tác vụ thiết lập sau:
 
 1. **Xác thực cấu trúc dự án** - Đảm bảo bạn đang ở trong một thư mục dự án hợp lệ có tệp `package.json`.
-2. **Cập nhật `.gitignore`** - Thêm `.intlayer` vào tệp `.gitignore` của bạn để loại bỏ các tệp được tạo tự động khỏi trình quản lý phiên bản (có thể bỏ qua bằng `--no-gitignore`).
-3. **Cấu hình TypeScript** - Cập nhật bất kỳ tệp `tsconfig.json` nào để bao gồm các định nghĩa kiểu của Intlayer (`.intlayer/**/*.ts`).
-4. **Tạo tệp cấu hình** - Tạo `intlayer.config.ts` (cho các dự án TypeScript) hoặc `intlayer.config.mjs` (cho các dự án JavaScript) với các cài đặt mặc định.
-5. **Cập nhật cấu hình Vite** - Nếu phát hiện tệp cấu hình Vite, nó sẽ thêm phần nhập cho plugin `vite-intlayer`.
-6. **Cập nhật cấu hình Next.js** - Nếu phát hiện tệp cấu hình Next.js, nó sẽ thêm phần nhập cho plugin `next-intlayer`.
+2. **Cài đặt các gói** - Cài đặt các gói Intlayer còn thiếu cho stack của bạn (ví dụ `react-intlayer`, `vite-intlayer`) và nâng cấp các gói đã cũ.
+3. **Cập nhật `.gitignore`** - Thêm `.intlayer` vào tệp `.gitignore` của bạn để loại bỏ các tệp được tạo tự động khỏi trình quản lý phiên bản (có thể bỏ qua bằng `--no-gitignore`).
+4. **Cấu hình TypeScript** - Cập nhật bất kỳ tệp `tsconfig.json` nào để bao gồm các định nghĩa kiểu của Intlayer (`.intlayer/**/*.ts`).
+5. **Tạo tệp cấu hình** - Tạo `intlayer.config.ts` (cho các dự án TypeScript) hoặc `intlayer.config.mjs` (cho các dự án JavaScript) với các cài đặt mặc định.
+6. **Cập nhật cấu hình bundler / framework** - Thêm plugin Intlayer vào cấu hình Vite, Next.js, Nuxt, Astro, … và tạo middleware/proxy cùng provider khi framework hỗ trợ.
+
+## Thiết lập từng bước một
+
+Mỗi bước trong checklist `--interactive` đều có lệnh con riêng. Chúng không hỏi gì khi các giá trị được truyền dưới dạng flag, nên có thể chạy an toàn từ agent AI hoặc job CI.
+
+| Lệnh                                                                  | Thiết lập gì                                                                         |
+| --------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| `intlayer init packages`                                              | Cài đặt các gói Intlayer còn thiếu và nâng cấp các gói đã cũ                         |
+| `intlayer init project [--routing <routing>]`                         | Tệp cấu hình, TypeScript, plugin bundler, middleware/proxy, provider và `.gitignore` |
+| `intlayer init github-actions`                                        | Các workflow GitHub Actions `fill` và `test`                                         |
+| `intlayer init vscode-extension`                                      | Đề xuất tiện ích Intlayer trong `.vscode/extensions.json`                            |
+| `intlayer init lsp`                                                   | Máy chủ ngôn ngữ Intlayer trong `.vscode/settings.json`                              |
+| `intlayer init eslint`                                                | Các quy tắc lint của Intlayer (ESLint / oxlint), khi dự án đã dùng linter            |
+| `intlayer init skills [--platform <platform>] [--skills <skills…>]`   | Tài liệu Intlayer dưới dạng skill cho agent AI                                       |
+| `intlayer init mcp [--platform <platform>] [--transport <stdio/sse>]` | Máy chủ MCP của Intlayer                                                             |
+| `intlayer init extension [--browser <chrome/firefox>]`                | Mở trang cửa hàng của tiện ích trình duyệt Intlayer                                  |
+| `intlayer init cms`                                                   | Đăng nhập Intlayer CMS qua trình duyệt và lưu thông tin xác thực vào `.env`          |
+| `intlayer init infra --mode <desktop/docker/compose>`                 | Ứng dụng desktop hoặc một stack tự lưu trữ                                           |
+
+### Từ agent AI hoặc job CI
+
+Shell của agent AI không có terminal, nên không thể trả lời câu hỏi. Hãy dùng lệnh mặc định, sau đó là các lệnh con bạn cần:
+
+```bash
+npx intlayer init
+npx intlayer init skills --platform Claude
+npx intlayer init mcp --platform Claude --transport stdio
+```
+
+Khi không có terminal:
+
+- `init skills` cài đặt các skill phù hợp với stack của bạn, trừ khi đặt `--skills` (ví dụ `--skills Usage Content React`).
+- `init skills` và `init mcp` dùng nền tảng AI được phát hiện (Claude Code, Cursor, VS Code, Windsurf, …), trừ khi đặt `--platform`, và thất bại kèm danh sách nền tảng nếu không phát hiện được nền tảng nào.
+- `init mcp` dùng transport `stdio`, trừ khi đặt `--transport`.
+- `init infra` bắt buộc có `--mode`, còn `init extension` chỉ in ra các liên kết cửa hàng, trừ khi đặt `--browser`.
+
+Máy chủ MCP luôn được cấu hình bên trong dự án (với Claude Code là trong `.mcp.json`).
 
 ## Ví dụ:
 

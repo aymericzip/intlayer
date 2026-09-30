@@ -22,7 +22,7 @@ metadata:
 npm install --save-dev eslint-plugin-intlayer
 ```
 
-Then spread `intlayer.configs.recommended` in your `eslint.config.mjs` (oxlint is also supported).
+Then spread `intlayer.configs.recommended` in your `eslint.config.mjs` (oxlint is also supported). `npx intlayer init eslint` installs the plugin and wires the oxlint config for you (for an ESLint flat config, it prints the snippet to add).
 
 | Config          | `no-raw-text` | `static-dictionary-key` | `no-dynamic-field-access` |
 | --------------- | ------------- | ----------------------- | ------------------------- |
@@ -38,25 +38,27 @@ Then spread `intlayer.configs.recommended` in your `eslint.config.mjs` (oxlint i
 npm install --save-dev @intlayer/lsp
 ```
 
+`npx intlayer init lsp` writes the language server settings to `.vscode/settings.json`.
+
 ## VS Code Extension
 
-Jump from a dictionary key to its content file, extract content from a component, and run build, fill, test, push and pull from the command palette.
+Jump from a dictionary key to its content file, extract content from a component, and run build, fill, test, push and pull from the command palette. `npx intlayer init vscode-extension` recommends it in `.vscode/extensions.json`.
 
 ## MCP Server
 
 Gives AI assistants access to the Intlayer documentation and CLI.
 
 ```bash
-npx intlayer init mcp
+npx intlayer init mcp --platform Claude --transport stdio
 ```
 
-This writes the MCP configuration for your IDE (local `@intlayer/mcp` over stdio, or the hosted `https://mcp.intlayer.org`).
+This writes the MCP configuration inside the project for your IDE or agent (`.mcp.json` for Claude Code, `.cursor/mcp.json`, `.vscode/mcp.json`, …), using the local `@intlayer/mcp` over stdio or the hosted `https://mcp.intlayer.org` over SSE. Both flags are optional: without them the platform is detected and the transport is prompted for, or defaults to `stdio` when there is no terminal.
 
 A WebMCP is also available for the main website and documentation at `https://intlayer.org`.
 
 ## CI/CD
 
-Fill missing translations with AI on each change, and fail the build on missing ones:
+Fill missing translations with AI on each change, and fail the build on missing ones. `npx intlayer init github-actions` scaffolds both workflows:
 
 ```bash
 npx intlayer fill --git-diff --mode complete
@@ -65,7 +67,7 @@ npx intlayer test
 
 ## Chrome Extension
 
-Inspect the i18n setup of any website: framework, i18n library, locales, hreflang and SEO tags.
+Inspect the i18n setup of any website: framework, i18n library, locales, hreflang and SEO tags. `npx intlayer init extension --browser chrome` opens its store page.
 
 ## References
 

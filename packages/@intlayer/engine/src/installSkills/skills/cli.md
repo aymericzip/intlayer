@@ -1,6 +1,6 @@
 ---
 name: intlayer-cli
-description: Manages Intlayer dictionaries and configuration via the Command Line Interface. Use when the user asks to "audit translations", "build dictionaries", "sync content", or run "intlayer" commands.
+description: Sets up Intlayer and manages its dictionaries and configuration via the Command Line Interface. Use when the user asks to "set up Intlayer", "audit translations", "build dictionaries", "sync content", or run "intlayer" commands.
 metadata:
   author: Intlayer
   url: https://intlayer.org
@@ -21,6 +21,33 @@ The `intlayer-cli` package provides a set of commands to manage Intlayer diction
 ```bash
 npm install intlayer-cli
 ```
+
+## Set Up Intlayer
+
+`npx intlayer init` installs the Intlayer packages and sets up the framework (config file, tsconfig, bundler plugin, middleware/proxy, providers). Every other setup step is opt-in, through its own sub-command:
+
+| Command                                                   | Sets up                                                   |
+| --------------------------------------------------------- | --------------------------------------------------------- |
+| `npx intlayer init packages`                              | Missing Intlayer packages, and upgrades the outdated ones |
+| `npx intlayer init project --routing <routing>`           | The framework only (no install)                           |
+| `npx intlayer init github-actions`                        | The `fill` and `test` GitHub Actions workflows            |
+| `npx intlayer init vscode-extension`                      | The VS Code extension recommendation                      |
+| `npx intlayer init lsp`                                   | The language server settings                              |
+| `npx intlayer init eslint`                                | The lint rules, when the project already lints            |
+| `npx intlayer init skills --platform <p> --skills <s…>`   | The Intlayer skills for an AI agent                       |
+| `npx intlayer init mcp --platform <p> --transport stdio`  | The Intlayer MCP server, inside the project               |
+| `npx intlayer init extension --browser chrome`            | Opens the browser extension store page                    |
+| `npx intlayer init cms`                                   | CMS login through the browser (needs a person)            |
+| `npx intlayer init infra --mode <desktop/docker/compose>` | Desktop app or self-hosted stack                          |
+
+`--routing` accepts `prefix-no-default` (default), `prefix-all`, `no-prefix`, `search-params` or `none`.
+
+### As an AI agent
+
+- Never run `npx intlayer init --interactive`: its checklist needs a terminal. Without one it exits with code 1 and lists the sub-commands above.
+- Run `npx intlayer init`, then only the sub-commands the user asked for.
+- Pass the values as flags so nothing is prompted. When omitted without a terminal: `--skills` defaults to the project stack, `--platform` to the detected agent (e.g. `Claude` for Claude Code), `--transport` to `stdio`; `init infra` requires `--mode`.
+- Leave `init cms` and `init extension` to the user: both finish in their browser.
 
 ## Main CLI Commands
 

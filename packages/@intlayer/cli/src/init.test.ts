@@ -1,16 +1,39 @@
 import { mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import {
+  DEFAULT_INIT_STEPS,
   getInitialInitSteps,
+  getInitOptionsForSteps,
   getRoutingInitOptions,
+  INIT_STEP_COMMANDS,
   INIT_STEP_GROUPS,
+  init,
   isEslintInstalled,
   LOCALE_ROUTING_CHOICES,
   OPT_IN_INIT_STEPS,
   parseLocaleRoutingChoice,
 } from './init';
+
+const initIntlayerMock = vi.hoisted(() =>
+  vi.fn(async () => ({ guideUrl: '' }))
+);
+const logErrorMock = vi.hoisted(() => vi.fn());
+const isInteractiveTerminalMock = vi.hoisted(() => vi.fn(() => false));
+
+vi.mock('@intlayer/engine/cli', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('@intlayer/engine/cli')>()),
+  initIntlayer: initIntlayerMock,
+}));
+
+vi.mock('./loadPrompts', () => ({
+  loadPrompts: async () => ({ log: { error: logErrorMock } }),
+}));
+
+vi.mock('./utils/isInteractiveTerminal', () => ({
+  isInteractiveTerminal: isInteractiveTerminalMock,
+}));
 
 describe('getRoutingInitOptions', () => {
   it('routes through the proxy for a routing mode', () => {
@@ -101,5 +124,87 @@ describe('getInitialInitSteps', () => {
     expect(steps).not.toContain('eslint');
     expect(steps).not.toContain('infra');
     expect(steps).not.toContain('chromeExtension');
+  });
+});
+
+describe('getInitOptionsForSteps', () => {
+  it('only installs the packages and sets up the framework by default', () => {
+    expect(getInitOptionsForSteps(DEFAULT_INIT_STEPS)).toEqual({
+      noInstallPackages: false,
+      noGitignore: false,
+      noGithubActions: true,
+      noFrameworkSetup: false,
+      noVscodeExtension: true,
+      noLsp: true,
+      noEslint: true,
+      skipFinalMessage: false,
+    });
+  });
+
+  it('runs a single step on its own', () => {
+    expect(getInitOptionsForSteps(['lsp'])).toMatchObject({
+      noInstallPackages: true,
+      noFrameworkSetup: true,
+      noGithubActions: true,
+      noLsp: false,
+      skipFinalMessage: true,
+    });
+  });
+
+  it('keeps explicit --no-* flags over a selected step', () => {
+    expect(
+      getInitOptionsForSteps(['projectSetup', 'githubActions'], {
+        noGitignore: true,
+        noGithubActions: true,
+        routingMode: 'prefix-all',
+      })
+    ).toMatchObject({
+      noGitignore: true,
+      noGithubActions: true,
+      noFrameworkSetup: false,
+      routingMode: 'prefix-all',
+    });
+  });
+});
+
+describe('INIT_STEP_COMMANDS', () => {
+  it('gives every interactive step a dedicated init subcommand', () => {
+    for (const { value } of Object.values(INIT_STEP_GROUPS).flat()) {
+      expect(INIT_STEP_COMMANDS[value]).toMatch(/^intlayer init [a-z-]+/);
+    }
+  });
+});
+
+describe('init', () => {
+  afterEach(() => {
+    process.exitCode = undefined;
+    vi.clearAllMocks();
+  });
+
+  it('runs only the default steps without --interactive', async () => {
+    const projectRoot = mkdtempSync(join(tmpdir(), 'intlayer-init-'));
+
+    try {
+      writeFileSync(join(projectRoot, 'package.json'), '{}');
+
+      await init(projectRoot);
+
+      expect(initIntlayerMock).toHaveBeenCalledExactlyOnceWith(
+        projectRoot,
+        getInitOptionsForSteps(DEFAULT_INIT_STEPS)
+      );
+    } finally {
+      rmSync(projectRoot, { recursive: true, force: true });
+    }
+  });
+
+  it('fails and lists the step commands when --interactive has no terminal', async () => {
+    await init(undefined, undefined, true);
+
+    expect(initIntlayerMock).not.toHaveBeenCalled();
+    expect(process.exitCode).toBe(1);
+    expect(logErrorMock).toHaveBeenCalledWith(
+      expect.stringContaining(INIT_STEP_COMMANDS.skills)
+    );
   });
 });

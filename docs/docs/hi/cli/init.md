@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2026-09-27
+updatedAt: 2026-09-29
 priority: 5
 title: "intlayer init: प्रोजेक्ट में Intlayer सेट करें"
 description: "मौजूदा प्रोजेक्ट में Intlayer जोड़ने के लिए intlayer init चलाएँ: यह फ़्रेमवर्क पहचानता है, पैकेज इंस्टॉल करता है और कॉन्फ़िगरेशन लिखता है।"
@@ -15,6 +15,9 @@ slugs:
   - cli
   - init
 history:
+  - version: 9.5.13
+    date: 2026-09-29
+    changes: "init अब केवल पैकेज इंस्टॉल करता है और फ़्रेमवर्क सेट करता है; हर चरण के लिए अलग सब-कमांड; टर्मिनल के बिना --interactive विफल होता है"
   - version: 9.5.6
     date: 2026-09-21
     changes: "init infra सब-कमांड जोड़ें"
@@ -45,7 +48,9 @@ pnpm intlayer init
 bun x intlayer init
 ```
 
-`init` कमांड आवश्यक फ़ाइलें और सेटिंग्स बनाकर आपके प्रोजेक्ट में Intlayer को स्वचालित रूप से कॉन्फ़िगर करता है। यह Intlayer के साथ शुरुआत करने का अनुशंसित तरीका है।
+`init` कमांड Intlayer पैकेज इंस्टॉल करता है और आपका फ़्रेमवर्क सेट करता है (कॉन्फ़िगरेशन फ़ाइल, TypeScript, बंडलर प्लगइन, middleware/proxy, प्रोवाइडर)। Intlayer शुरू करने का यही अनुशंसित तरीका है।
+
+बाकी सब कुछ (CI वर्कफ़्लो, AI स्किल्स, MCP सर्वर, एडिटर टूल, lint नियम, CMS, इन्फ्रास्ट्रक्चर) वैकल्पिक है: इसे `--interactive` चेकलिस्ट से चुनें, या इसका समर्पित सब-कमांड चलाएँ (नीचे देखें)।
 
 ## उपनाम (Aliases):
 
@@ -55,17 +60,58 @@ bun x intlayer init
 
 - `--project-root [projectRoot]` - वैकल्पिक। प्रोजेक्ट रूट निर्देशिका निर्दिष्ट करें। यदि प्रदान नहीं किया जाता है, तो कमांड वर्तमान कार्य निर्देशिका से शुरू होकर प्रोजेक्ट रूट की खोज करेगा।
 - `--no-gitignore` - वैकल्पिक। `.gitignore` फ़ाइल के स्वचालित अपडेट को छोड़ देता है। यदि यह फ़्लैग सेट है, तो `.intlayer` को `.gitignore` में नहीं जोड़ा जाएगा।
+- `--no-framework-setup` - वैकल्पिक। प्रोजेक्ट फ़ाइलों को छुए बिना केवल पैकेज इंस्टॉल करता है।
+- `--routing <routing>` - वैकल्पिक। लोकेल रूटिंग: `prefix-no-default` (डिफ़ॉल्ट), `prefix-all`, `no-prefix`, `search-params` या `none`।
+- `-i, --interactive` - वैकल्पिक। डिफ़ॉल्ट सेट के बजाय एक चेकलिस्ट (पैकेज, CI, स्किल्स, MCP, VS Code, LSP, lint, CMS, इन्फ्रास्ट्रक्चर, …) से सेटअप चरण चुनें। टर्मिनल ज़रूरी है: टर्मिनल न होने पर (AI एजेंट, CI) कमांड विफल होता है और उसकी जगह चलाने के लिए सब-कमांड की सूची दिखाता है।
+- `--no-github-actions` - वैकल्पिक। `--interactive` के साथ, चुने जाने पर भी GitHub Actions वर्कफ़्लो कभी नहीं बनाता।
 
 ## यह क्या करता है:
 
 `init` कमांड निम्नलिखित सेटअप कार्य करता है:
 
 1. **प्रोजेक्ट संरचना सत्यापित करना** - सुनिश्चित करता है कि आप `package.json` फ़ाइल वाली वैध प्रोजेक्ट निर्देशिका में हैं।
-2. **`.gitignore` अपडेट करना** - जनरेट की गई फ़ाइलों को संस्करण नियंत्रण से बाहर करने के लिए आपकी `.gitignore` फ़ाइल में `.intlayer` जोड़ता है (`--no-gitignore` के साथ छोड़ा जा सकता है)।
-3. **TypeScript कॉन्फ़िगर करना** - Intlayer प्रकार परिभाषाओं (`.intlayer/**/*.ts`) को शामिल करने के लिए किसी भी `tsconfig.json` फ़ाइलों को अपडेट करता है।
-4. **कॉन्फ़िगरेशन फ़ाइल बनाना** - डिफ़ॉल्ट सेटिंग्स के साथ `intlayer.config.ts` (TypeScript प्रोजेक्ट्स के लिए) या `intlayer.config.mjs` (JavaScript प्रोजेक्ट्स के लिए) जनरेट करता है।
-5. **Vite कॉन्फ़िगरेशन अपडेट करना** - यदि Vite कॉन्फ़िगरेशन फ़ाइल पाई जाती है, तो `vite-intlayer` प्लगइन के लिए आयात जोड़ता है।
-6. **Next.js कॉन्फ़िगरेशन अपडेट करना** - यदि Next.js कॉन्फ़िगरेशन फ़ाइल पाई जाती है, तो `next-intlayer` प्लगइन के लिए आयात जोड़ता है।
+2. **पैकेज इंस्टॉल करता है** - आपके स्टैक के लिए ग़ायब Intlayer पैकेज (जैसे `react-intlayer`, `vite-intlayer`) इंस्टॉल करता है और पुराने पैकेज अपग्रेड करता है।
+3. **`.gitignore` अपडेट करना** - जनरेट की गई फ़ाइलों को संस्करण नियंत्रण से बाहर करने के लिए आपकी `.gitignore` फ़ाइल में `.intlayer` जोड़ता है (`--no-gitignore` के साथ छोड़ा जा सकता है)।
+4. **TypeScript कॉन्फ़िगर करना** - Intlayer प्रकार परिभाषाओं (`.intlayer/**/*.ts`) को शामिल करने के लिए किसी भी `tsconfig.json` फ़ाइलों को अपडेट करता है।
+5. **कॉन्फ़िगरेशन फ़ाइल बनाना** - डिफ़ॉल्ट सेटिंग्स के साथ `intlayer.config.ts` (TypeScript प्रोजेक्ट्स के लिए) या `intlayer.config.mjs` (JavaScript प्रोजेक्ट्स के लिए) जनरेट करता है।
+6. **बंडलर / फ़्रेमवर्क कॉन्फ़िग अपडेट करता है** - आपके Vite, Next.js, Nuxt, Astro, … कॉन्फ़िगरेशन में Intlayer प्लगइन जोड़ता है, और फ़्रेमवर्क के समर्थन करने पर middleware/proxy और प्रोवाइडर बनाता है।
+
+## एक-एक चरण सेट करें
+
+`--interactive` चेकलिस्ट के हर चरण का अपना सब-कमांड है। जब मान फ़्लैग के रूप में दिए जाते हैं तो ये कोई सवाल नहीं पूछते, इसलिए इन्हें AI एजेंट या CI जॉब से सुरक्षित रूप से चलाया जा सकता है।
+
+| कमांड                                                                 | क्या सेट करता है                                                                          |
+| --------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| `intlayer init packages`                                              | ग़ायब Intlayer पैकेज इंस्टॉल करता है और पुराने अपग्रेड करता है                            |
+| `intlayer init project [--routing <routing>]`                         | कॉन्फ़िगरेशन फ़ाइल, TypeScript, बंडलर प्लगइन, middleware/proxy, प्रोवाइडर और `.gitignore` |
+| `intlayer init github-actions`                                        | `fill` और `test` GitHub Actions वर्कफ़्लो                                                 |
+| `intlayer init vscode-extension`                                      | `.vscode/extensions.json` में Intlayer एक्सटेंशन की सिफ़ारिश करता है                      |
+| `intlayer init lsp`                                                   | `.vscode/settings.json` में Intlayer लैंग्वेज सर्वर                                       |
+| `intlayer init eslint`                                                | प्रोजेक्ट पहले से lint करता हो तो Intlayer lint नियम (ESLint / oxlint)                    |
+| `intlayer init skills [--platform <platform>] [--skills <skills…>]`   | AI एजेंट स्किल्स के रूप में Intlayer दस्तावेज़                                            |
+| `intlayer init mcp [--platform <platform>] [--transport <stdio/sse>]` | Intlayer MCP सर्वर                                                                        |
+| `intlayer init extension [--browser <chrome/firefox>]`                | Intlayer ब्राउज़र एक्सटेंशन का स्टोर पेज खोलता है                                         |
+| `intlayer init cms`                                                   | ब्राउज़र से Intlayer CMS में लॉग इन करता है और क्रेडेंशियल `.env` में सहेजता है           |
+| `intlayer init infra --mode <desktop/docker/compose>`                 | डेस्कटॉप ऐप या सेल्फ़-होस्टेड स्टैक                                                       |
+
+### AI एजेंट या CI जॉब से
+
+AI एजेंट के शेल में टर्मिनल नहीं होता, इसलिए किसी सवाल का जवाब नहीं दिया जा सकता। डिफ़ॉल्ट कमांड चलाएँ, फिर अपनी ज़रूरत के सब-कमांड:
+
+```bash
+npx intlayer init
+npx intlayer init skills --platform Claude
+npx intlayer init mcp --platform Claude --transport stdio
+```
+
+टर्मिनल के बिना:
+
+- `init skills` आपके स्टैक से मेल खाने वाली स्किल्स इंस्टॉल करता है, जब तक `--skills` सेट न हो (जैसे `--skills Usage Content React`)।
+- `init skills` और `init mcp` पहचाने गए AI प्लेटफ़ॉर्म (Claude Code, Cursor, VS Code, Windsurf, …) का उपयोग करते हैं, जब तक `--platform` सेट न हो, और कोई प्लेटफ़ॉर्म न मिलने पर प्लेटफ़ॉर्म की सूची के साथ विफल होते हैं।
+- `init mcp` `stdio` ट्रांसपोर्ट का उपयोग करता है, जब तक `--transport` सेट न हो।
+- `init infra` के लिए `--mode` ज़रूरी है, और `init extension` केवल स्टोर लिंक दिखाता है, जब तक `--browser` सेट न हो।
+
+MCP सर्वर हमेशा प्रोजेक्ट के अंदर कॉन्फ़िगर होता है (Claude Code के लिए `.mcp.json` में)।
 
 ## उदाहरण:
 

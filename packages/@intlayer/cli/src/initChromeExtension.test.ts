@@ -4,11 +4,17 @@ import {
   CHROME_EXTENSION_URL,
   initChromeExtension,
   MOZILLA_EXTENSION_URL,
+  parseExtensionBrowsers,
 } from './initChromeExtension';
 
 const openBrowserMock = vi.fn();
 const multiselectMock = vi.fn();
 const logInfoMock = vi.fn();
+const isInteractiveTerminalMock = vi.fn(() => true);
+
+vi.mock('./utils/isInteractiveTerminal', () => ({
+  isInteractiveTerminal: () => isInteractiveTerminalMock(),
+}));
 
 vi.mock('./utils/openBrowser', () => ({
   openBrowser: (...args: any[]) => openBrowserMock(...args),
@@ -77,5 +83,41 @@ describe('initChromeExtension', () => {
     await initChromeExtension();
 
     expect(openBrowserMock).not.toHaveBeenCalled();
+  });
+
+  it('opens the given browsers without prompting', async () => {
+    await initChromeExtension({ browsers: ['firefox'] });
+
+    expect(multiselectMock).not.toHaveBeenCalled();
+    expect(openBrowserMock).toHaveBeenCalledExactlyOnceWith(
+      MOZILLA_EXTENSION_URL
+    );
+  });
+
+  it('only prints the store links without a terminal', async () => {
+    isInteractiveTerminalMock.mockReturnValueOnce(false);
+
+    await initChromeExtension();
+
+    expect(multiselectMock).not.toHaveBeenCalled();
+    expect(openBrowserMock).not.toHaveBeenCalled();
+    expect(logInfoMock).toHaveBeenCalledWith(
+      expect.stringContaining(CHROME_EXTENSION_URL)
+    );
+  });
+});
+
+describe('parseExtensionBrowsers', () => {
+  it('accepts comma-separated values, ignoring case', () => {
+    expect(parseExtensionBrowsers(['Chrome,firefox'])).toEqual([
+      'chrome',
+      'firefox',
+    ]);
+  });
+
+  it('rejects an unknown browser', () => {
+    expect(() => parseExtensionBrowsers(['safari'])).toThrow(
+      'Invalid --browser value'
+    );
   });
 });

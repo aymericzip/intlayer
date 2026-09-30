@@ -16,6 +16,8 @@ import { initInfra } from './initInfra';
 import { initMCP } from './initMCP';
 import { initSkills } from './initSkills';
 import { loadPrompts } from './loadPrompts';
+import { isInteractiveTerminal } from './utils/isInteractiveTerminal';
+import { parseChoice } from './utils/parseChoice';
 
 export const findProjectRoot = (startDir: string) => {
   let currentDir = startDir;
@@ -31,6 +33,10 @@ export const findProjectRoot = (startDir: string) => {
   // The initIntlayer function will handle the missing package.json error.
   return startDir;
 };
+
+/** Resolves the project root from `--project-root`, else the working directory. */
+export const resolveProjectRoot = (projectRoot?: string): string =>
+  findProjectRoot(projectRoot ? resolve(projectRoot) : process.cwd());
 
 /** Individually selectable setup steps exposed by the interactive init flow. */
 export type InitStep =
@@ -59,6 +65,101 @@ export type InitStepOption = {
  * rather than modifying the project, so they must be an explicit choice.
  */
 export const OPT_IN_INIT_STEPS: InitStep[] = ['infra', 'chromeExtension'];
+
+/**
+ * Steps run by `intlayer init` without `--interactive`: install the packages
+ * and set up the framework. Every other step has its own command
+ * ({@link INIT_STEP_COMMANDS}), so nothing outside the app code is touched
+ * unless asked for.
+ */
+export const DEFAULT_INIT_STEPS: InitStep[] = ['packages', 'projectSetup'];
+
+/**
+ * Command running each interactive step on its own, without prompts when every
+ * value is passed as a flag. Printed when `--interactive` has no terminal.
+ */
+export const INIT_STEP_COMMANDS: Record<InitStep, string> = {
+  packages: 'intlayer init packages',
+  projectSetup: 'intlayer init project [--routing <routing>]',
+  githubActions: 'intlayer init github-actions',
+  vscodeExtension: 'intlayer init vscode-extension',
+  eslint: 'intlayer init eslint',
+  chromeExtension: 'intlayer init extension [--browser <chrome|firefox>]',
+  skills: 'intlayer init skills [--platform <platform>] [--skills <skills...>]',
+  mcp: 'intlayer init mcp [--platform <platform>] [--transport <stdio|sse>]',
+  lsp: 'intlayer init lsp',
+  cms: 'intlayer init cms',
+  infra: 'intlayer init infra --mode <desktop|docker|compose>',
+};
+
+/**
+ * Maps setup steps to the {@link initIntlayer} options: every step handled by
+ * `initIntlayer` that is not listed is skipped. Explicit `--no-*` flags in
+ * `baseOptions` still win over a listed step.
+ */
+export const getInitOptionsForSteps = (
+  steps: InitStep[],
+  baseOptions?: InitOptions
+): InitOptions => ({
+  ...baseOptions,
+  noInstallPackages:
+    baseOptions?.noInstallPackages || !steps.includes('packages'),
+  // The `.gitignore` entry is tied to project setup.
+  noGitignore: baseOptions?.noGitignore || !steps.includes('projectSetup'),
+  noGithubActions:
+    baseOptions?.noGithubActions || !steps.includes('githubActions'),
+  noFrameworkSetup:
+    baseOptions?.noFrameworkSetup || !steps.includes('projectSetup'),
+  noVscodeExtension:
+    baseOptions?.noVscodeExtension || !steps.includes('vscodeExtension'),
+  noLsp: baseOptions?.noLsp || !steps.includes('lsp'),
+  noEslint: baseOptions?.noEslint || !steps.includes('eslint'),
+  // The documentation link only matters once the project itself is set up.
+  skipFinalMessage:
+    baseOptions?.skipFinalMessage || !steps.includes('projectSetup'),
+});
+
+/**
+ * Runs the given {@link initIntlayer} steps only (packages, project setup, CI,
+ * VS Code extension, LSP, lint rules). Backs `intlayer init` and its
+ * single-step subcommands.
+ */
+export const initSteps = async (
+  projectRoot: string | undefined,
+  steps: InitStep[],
+  options?: InitOptions
+): Promise<void> => {
+  await initIntlayer(
+    resolveProjectRoot(projectRoot),
+    getInitOptionsForSteps(steps, options)
+  );
+};
+
+/**
+ * Logs in to the Intlayer CMS through the browser, then stores the access-key
+ * credentials in `.env` and enables the editor in the config file.
+ */
+export const initCms = async (projectRoot?: string): Promise<void> => {
+  const root = resolveProjectRoot(projectRoot);
+  const p = await loadPrompts();
+
+  p.log.info('Opening your browser to log in to the Intlayer CMS...');
+  // `exitAfter: false` keeps the process alive so the flow can finish; the
+  // credentials are persisted to `.env` and the editor enabled in the config.
+  await login({
+    exitAfter: false,
+    onCredentials: (credentials) => setupCmsCredentials(root, credentials),
+  });
+};
+
+/** Explains why `--interactive` cannot run, and what to run instead. */
+const getNoTerminalMessage = (): string =>
+  [
+    '`intlayer init --interactive` needs a terminal to answer its prompts (none is attached, e.g. when run by an AI agent or in CI).',
+    'Run the steps directly instead:',
+    '  intlayer init    (installs the packages and sets up the framework)',
+    ...Object.values(INIT_STEP_COMMANDS).map((command) => `  ${command}`),
+  ].join('\n');
 
 /** Grouped checkbox entries of the interactive init flow, in display order. */
 export const INIT_STEP_GROUPS: Record<string, InitStepOption[]> = {
@@ -172,19 +273,8 @@ export const LOCALE_ROUTING_CHOICES = ROUTING_OPTIONS.map(
 );
 
 /** Validates a `--routing` value, throwing on an unknown choice. */
-export const parseLocaleRoutingChoice = (
-  value: string
-): LocaleRoutingChoice => {
-  const choice = LOCALE_ROUTING_CHOICES.find((routing) => routing === value);
-
-  if (!choice) {
-    throw new Error(
-      `Invalid --routing value "${value}". Expected one of: ${LOCALE_ROUTING_CHOICES.join(', ')}.`
-    );
-  }
-
-  return choice;
-};
+export const parseLocaleRoutingChoice = (value: string): LocaleRoutingChoice =>
+  parseChoice(value, LOCALE_ROUTING_CHOICES, '--routing');
 
 /** Maps a routing choice to the init options it sets. */
 export const getRoutingInitOptions = (
@@ -340,20 +430,7 @@ const runInteractiveInit = async (
   }
 
   const options: InitOptions = {
-    ...baseOptions,
-    ...routingOptions,
-    noInstallPackages: !steps.includes('packages'),
-    // The `.gitignore` entry is tied to project setup.
-    noGitignore: baseOptions?.noGitignore || !steps.includes('projectSetup'),
-    // Respect explicit `--no-*` flags from the command line even when the
-    // corresponding step is selected in the checkbox.
-    noGithubActions:
-      baseOptions?.noGithubActions || !steps.includes('githubActions'),
-    noFrameworkSetup:
-      baseOptions?.noFrameworkSetup || !steps.includes('projectSetup'),
-    noVscodeExtension: !steps.includes('vscodeExtension'),
-    noLsp: !steps.includes('lsp'),
-    noEslint: !steps.includes('eslint'),
+    ...getInitOptionsForSteps(steps, { ...baseOptions, ...routingOptions }),
     skipFinalMessage: true,
   };
 
@@ -365,7 +442,7 @@ const runInteractiveInit = async (
     : undefined;
 
   if (steps.includes('mcp')) {
-    await initMCP(root, skillsPlatform);
+    await initMCP(root, { platform: skillsPlatform });
   }
 
   // Delegated to the hosted install script, which owns its own menu.
@@ -381,13 +458,7 @@ const runInteractiveInit = async (
   // credentials to `.env` and enables the editor in the config file. Kept last
   // so the browser flow does not interrupt setup.
   if (steps.includes('cms')) {
-    p.log.info('Opening your browser to log in to the Intlayer CMS...');
-    // `exitAfter: false` keeps the process alive so the flow can finish; the
-    // credentials are persisted to `.env` and the editor enabled in the config.
-    await login({
-      exitAfter: false,
-      onCredentials: (credentials) => setupCmsCredentials(root, credentials),
-    });
+    await initCms(root);
   }
 
   p.outro('Intlayer initialization complete');
@@ -397,19 +468,28 @@ const runInteractiveInit = async (
   }
 };
 
+/**
+ * `intlayer init`: installs the packages and sets up the framework, or, with
+ * `interactive`, lets the user pick every setup step. `--interactive` needs a
+ * terminal; without one it fails and lists the single-step commands instead.
+ */
 export const init = async (
   projectRoot?: string,
   options?: InitOptions,
   interactive?: boolean
 ) => {
-  const root = projectRoot
-    ? findProjectRoot(resolve(projectRoot))
-    : findProjectRoot(process.cwd());
-
-  if (interactive) {
-    await runInteractiveInit(root, options);
+  if (!interactive) {
+    await initSteps(projectRoot, DEFAULT_INIT_STEPS, options);
     return;
   }
 
-  await initIntlayer(root, options);
+  if (!isInteractiveTerminal()) {
+    const p = await loadPrompts();
+
+    p.log.error(getNoTerminalMessage());
+    process.exitCode = 1;
+    return;
+  }
+
+  await runInteractiveInit(resolveProjectRoot(projectRoot), options);
 };

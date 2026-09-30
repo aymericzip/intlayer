@@ -184,7 +184,8 @@ export const PLATFORMS_METADATA: Record<string, PlatformMetadata> = {
   Claude: {
     label: 'Claude Code',
     dir: '.claude/skills',
-    check: () => process.env.CLAUDE === 'true',
+    check: () =>
+      process.env.CLAUDE === 'true' || process.env.CLAUDECODE === '1',
   },
   GitHub: {
     label: 'GitHub Copilot Workspace',

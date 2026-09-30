@@ -314,12 +314,18 @@ export const setAPI = (): Command => {
    */
   const initCmd = program
     .command('init')
-    .description('Initialize Intlayer in the project')
+    // Options after a subcommand belong to it: `init project --routing` and
+    // `init skills --project-root` must not be consumed by `init` itself,
+    // which declares the same options. Needs the root to be positional too.
+    .enablePositionalOptions()
+    .description(
+      'Install the Intlayer packages and set up the framework. Use --interactive, or the init subcommands, for the other setup steps (CI, skills, MCP, VS Code, LSP, lint, CMS, …)'
+    )
     .option('--project-root [projectRoot]', 'Project root directory')
     .option('--no-gitignore', 'Do not add .intlayer to .gitignore')
     .option(
       '--no-github-actions',
-      'Do not scaffold the fill and test GitHub Actions workflows'
+      'With --interactive: do not scaffold the GitHub Actions workflows, even if selected'
     )
     .option(
       '--no-framework-setup',
@@ -327,7 +333,7 @@ export const setAPI = (): Command => {
     )
     .option(
       '-i, --interactive',
-      'Interactively choose what to set up (packages, skills, MCP, VS Code extension, LSP, …)'
+      'Interactively choose what to set up (packages, skills, MCP, VS Code extension, LSP, …). Needs a terminal'
     )
     .option(
       '--routing <routing>',
@@ -352,21 +358,148 @@ export const setAPI = (): Command => {
     });
 
   initCmd
+    .command('packages')
+    .description(
+      'Install the missing Intlayer packages and upgrade the outdated ones'
+    )
+    .option('--project-root [projectRoot]', 'Project root directory')
+    .action(async (options) => {
+      const { initSteps } = await import('./init');
+      return initSteps(options.projectRoot, ['packages'], {
+        upgradeToVersion: packageJson.version,
+      });
+    });
+
+  initCmd
+    .command('project')
+    .alias('framework')
+    .description(
+      'Set up the project: Intlayer config, tsconfig, bundler plugin, middleware/proxy, providers in layout/page and .gitignore'
+    )
+    .option('--project-root [projectRoot]', 'Project root directory')
+    .option('--no-gitignore', 'Do not add .intlayer to .gitignore')
+    .option(
+      '--routing <routing>',
+      'Locale routing: prefix-no-default | prefix-all | no-prefix | search-params | none'
+    )
+    .action(async (options) => {
+      const { initSteps, parseLocaleRoutingChoice, getRoutingInitOptions } =
+        await import('./init');
+      return initSteps(options.projectRoot, ['projectSetup'], {
+        noGitignore: options.gitignore === false,
+        ...(options.routing
+          ? getRoutingInitOptions(parseLocaleRoutingChoice(options.routing))
+          : {}),
+      });
+    });
+
+  initCmd
+    .command('github-actions')
+    .alias('ci')
+    .description(
+      'Scaffold the fill and test GitHub Actions workflows that run on every pull request'
+    )
+    .option('--project-root [projectRoot]', 'Project root directory')
+    .action(async (options) => {
+      const { initSteps } = await import('./init');
+      return initSteps(options.projectRoot, ['githubActions']);
+    });
+
+  initCmd
+    .command('vscode-extension')
+    .alias('vscode')
+    .description(
+      'Recommend the Intlayer VS Code extension in .vscode/extensions.json'
+    )
+    .option('--project-root [projectRoot]', 'Project root directory')
+    .action(async (options) => {
+      const { initSteps } = await import('./init');
+      return initSteps(options.projectRoot, ['vscodeExtension']);
+    });
+
+  initCmd
+    .command('lsp')
+    .description(
+      'Configure the Intlayer language server in .vscode/settings.json'
+    )
+    .option('--project-root [projectRoot]', 'Project root directory')
+    .action(async (options) => {
+      const { initSteps } = await import('./init');
+      return initSteps(options.projectRoot, ['lsp']);
+    });
+
+  initCmd
+    .command('eslint')
+    .alias('lint')
+    .description(
+      'Enable the Intlayer lint rules (ESLint / oxlint), when the project already lints'
+    )
+    .option('--project-root [projectRoot]', 'Project root directory')
+    .action(async (options) => {
+      const { initSteps } = await import('./init');
+      return initSteps(options.projectRoot, ['eslint'], {
+        upgradeToVersion: packageJson.version,
+      });
+    });
+
+  initCmd
     .command('skills')
     .description('Initialize Intlayer skills in the project')
     .option('--project-root [projectRoot]', 'Project root directory')
+    .option(
+      '-p, --platform <platform>',
+      'AI platform (e.g. Claude, Cursor, VSCode). Detected when omitted'
+    )
+    .option(
+      '-s, --skills <skills...>',
+      'Skills to install (e.g. Usage Content React). Defaults to the project stack without a terminal'
+    )
     .action(async (options) => {
-      const { initSkills } = await import('./initSkills');
-      await initSkills(options.projectRoot);
+      const { initSkills, parsePlatform, parseSkills } = await import(
+        './initSkills'
+      );
+      await initSkills(options.projectRoot, {
+        platform: options.platform
+          ? parsePlatform(options.platform)
+          : undefined,
+        skills: options.skills ? parseSkills(options.skills) : undefined,
+      });
     });
 
   initCmd
     .command('mcp')
     .description('Initialize Intlayer MCP server in the project')
     .option('--project-root [projectRoot]', 'Project root directory')
+    .option(
+      '-p, --platform <platform>',
+      'AI platform (e.g. Claude, Cursor, VSCode). Detected when omitted'
+    )
+    .option(
+      '-t, --transport <transport>',
+      'stdio (local server, default without a terminal) | sse (hosted)'
+    )
     .action(async (options) => {
-      const { initMCP } = await import('./initMCP');
-      return initMCP(options.projectRoot);
+      const { initMCP, parseMCPTransport } = await import('./initMCP');
+      const { parsePlatform } = await import('./initSkills');
+      return initMCP(options.projectRoot, {
+        platform: options.platform
+          ? parsePlatform(options.platform)
+          : undefined,
+        transport: options.transport
+          ? parseMCPTransport(options.transport)
+          : undefined,
+      });
+    });
+
+  initCmd
+    .command('cms')
+    .description(
+      'Log in to the Intlayer CMS through your browser, then store the credentials in your .env'
+    )
+    .option('--project-root [projectRoot]', 'Project root directory')
+    .action(async (options) => {
+      const { initCms } = await import('./init');
+      return initCms(options.projectRoot);
     });
 
   initCmd
@@ -374,7 +507,10 @@ export const setAPI = (): Command => {
     .description(
       'Set up the Intlayer infrastructure: desktop app, all-in-one Docker container or Docker Compose stack (runs https://intlayer.org/install.sh, or install.ps1 on Windows)'
     )
-    .option('-m, --mode <mode>', 'Skip the menu: desktop | docker | compose')
+    .option(
+      '-m, --mode <mode>',
+      'Skip the menu: desktop | docker | compose (required without a terminal)'
+    )
     .action(async (options) => {
       const { initInfra, parseInfraMode } = await import('./initInfra');
       return initInfra({
@@ -388,9 +524,19 @@ export const setAPI = (): Command => {
     .description(
       'Install the Intlayer Chrome extension or Firefox add-on in your browser'
     )
-    .action(async () => {
-      const { initChromeExtension } = await import('./initChromeExtension');
-      return initChromeExtension();
+    .option(
+      '-b, --browser <browsers...>',
+      'Browsers to open the store page for: chrome | firefox. Without a terminal, the links are only printed'
+    )
+    .action(async (options) => {
+      const { initChromeExtension, parseExtensionBrowsers } = await import(
+        './initChromeExtension'
+      );
+      return initChromeExtension({
+        browsers: options.browser
+          ? parseExtensionBrowsers(options.browser)
+          : undefined,
+      });
     });
 
   /**
@@ -1147,6 +1293,11 @@ export const setAPI = (): Command => {
       const { runCI } = await import('./ci');
       process.exit(await runCI(args));
     });
+
+  // Hand the arguments after a subcommand name to that subcommand in order, so
+  // `init` can let its subcommands own the options it declares too (see
+  // `initCmd`). Set last: commands created before do not inherit it.
+  program.enablePositionalOptions();
 
   // Every command must be registered before parsing: commander dispatches
   // synchronously, so anything added after this line is an unknown command.

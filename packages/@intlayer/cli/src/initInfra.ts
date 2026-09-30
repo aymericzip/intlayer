@@ -3,6 +3,7 @@ import { mkdtemp, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { loadPrompts } from './loadPrompts';
+import { isInteractiveTerminal } from './utils/isInteractiveTerminal';
 
 /** Setup modes understood by the hosted installer. */
 export const INFRA_MODES = ['desktop', 'docker', 'compose'] as const;
@@ -99,6 +100,17 @@ export const initInfra = async (
   options: InitInfraOptions = {}
 ): Promise<void> => {
   const p = await loadPrompts();
+
+  // The installer's menu reads from the terminal: without one it cannot be
+  // answered, so the mode has to be passed explicitly.
+  if (!options.mode && !isInteractiveTerminal()) {
+    p.log.error(
+      `No terminal to show the setup menu. Pass the mode explicitly: intlayer init infra --mode <${INFRA_MODES.join(' | ')}>`
+    );
+    process.exitCode = 1;
+    return;
+  }
+
   const runner = getInstallerRunner();
   const scriptUrl = options.scriptUrl ?? runner.url;
 

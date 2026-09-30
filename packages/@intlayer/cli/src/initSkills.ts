@@ -1,5 +1,3 @@
-import { existsSync, readFileSync } from 'node:fs';
-import { join, resolve } from 'node:path';
 import {
   getInitialSkills,
   installSkills,
@@ -8,10 +6,13 @@ import {
   type Platform,
   SKILLS,
   SKILLS_METADATA,
+  type Skill,
 } from '@intlayer/engine/cli';
 import enquirer from 'enquirer';
-import { findProjectRoot } from './init';
+import { getProjectDependencies, resolveProjectRoot } from './init';
 import { loadPrompts } from './loadPrompts';
+import { isInteractiveTerminal } from './utils/isInteractiveTerminal';
+import { parseChoice } from './utils/parseChoice';
 
 const PLATFORM_CHECKS: Array<{ check: () => boolean; platform: Platform }> =
   PLATFORMS.filter((platform) => PLATFORMS_METADATA[platform]?.check).map(
@@ -33,20 +34,6 @@ export const PLATFORM_OPTIONS: Array<{
 
 export const getDetectedPlatform = (): Platform | undefined =>
   PLATFORM_CHECKS.find(({ check }) => check())?.platform;
-
-const getDependencies = (root: string): Record<string, string> => {
-  try {
-    const packageJsonPath = join(root, 'package.json');
-    if (!existsSync(packageJsonPath)) return {};
-
-    const { dependencies = {}, devDependencies = {} } = JSON.parse(
-      readFileSync(packageJsonPath, 'utf-8')
-    );
-    return { ...dependencies, ...devDependencies };
-  } catch {
-    return {};
-  }
-};
 
 /**
  * Asks which AI platform the user is using, preselecting the detected one.
@@ -77,47 +64,93 @@ export const promptPlatform = async (): Promise<Platform | undefined> => {
   }
 };
 
+/** Options of {@link initSkills}; anything omitted is prompted for. */
+export type InitSkillsOptions = {
+  /** AI platform to install the skills for. */
+  platform?: Platform;
+  /** Skills to install. Defaults to the ones matching the project stack. */
+  skills?: Skill[];
+};
+
+/** Validates a `--platform` value, ignoring case. */
+export const parsePlatform = (value: string): Platform =>
+  parseChoice(value, PLATFORMS, '--platform');
+
+/** Validates the `--skills` values, ignoring case. */
+export const parseSkills = (values: string[]): Skill[] =>
+  values
+    .flatMap((value) => value.split(','))
+    .filter((value) => value.trim() !== '')
+    .map((value) => parseChoice(value, SKILLS, '--skills'));
+
+/**
+ * Resolves the platform without prompting: the given one, else the detected
+ * one. Logs how to pass it and sets a failing exit code when neither exists.
+ */
+export const resolvePlatformWithoutPrompt = async (
+  platform: Platform | undefined,
+  command: string
+): Promise<Platform | undefined> => {
+  const resolvedPlatform = platform ?? getDetectedPlatform();
+
+  if (!resolvedPlatform) {
+    const p = await loadPrompts();
+
+    p.log.error(
+      `No AI platform detected. Pass it explicitly: ${command} --platform <platform>\nPlatforms: ${PLATFORMS.join(', ')}`
+    );
+    process.exitCode = 1;
+  }
+
+  return resolvedPlatform;
+};
+
 /**
  * Installs the Intlayer documentation skills. The skills are picked first, then
- * the platform (unless preselected). Resolves to the platform used, so a
- * following step (e.g. MCP) can reuse it without asking again.
+ * the platform. Without a terminal (AI agents, CI), nothing is prompted: the
+ * skills default to the project stack and the platform to the detected one.
+ * Resolves to the platform used, so a following step (e.g. MCP) can reuse it
+ * without asking again.
  */
 export const initSkills = async (
   projectRoot?: string,
-  preselectedPlatform?: Platform
+  options: InitSkillsOptions = {}
 ): Promise<Platform | undefined> => {
   const p = await loadPrompts();
 
-  const root = findProjectRoot(
-    projectRoot ? resolve(projectRoot) : process.cwd()
-  );
+  const root = resolveProjectRoot(projectRoot);
+  const isInteractive = isInteractiveTerminal();
 
   p.intro('Initializing Intlayer skills');
 
-  const dependencies = getDependencies(root);
-  const initialValues = getInitialSkills(dependencies);
+  const initialSkills = getInitialSkills(getProjectDependencies(root));
 
-  const selectedSkills = await p.multiselect({
-    message: 'Select the documentation skills to provide to your AI:',
-    initialValues,
-    options: SKILLS.map((skill) => ({
-      value: skill,
-      label: skill,
-      hint: SKILLS_METADATA[skill],
-    })),
-    required: false,
-  });
+  const selectedSkills =
+    options.skills ??
+    (isInteractive
+      ? await p.multiselect({
+          message: 'Select the documentation skills to provide to your AI:',
+          initialValues: initialSkills,
+          options: SKILLS.map((skill) => ({
+            value: skill,
+            label: skill,
+            hint: SKILLS_METADATA[skill],
+          })),
+          required: false,
+        })
+      : initialSkills);
 
-  if (
-    p.isCancel(selectedSkills) ||
-    !selectedSkills ||
-    (selectedSkills as string[]).length === 0
-  ) {
+  if (p.isCancel(selectedSkills) || selectedSkills.length === 0) {
     p.cancel('Operation cancelled. No skills selected.');
     return;
   }
 
-  const platform = preselectedPlatform ?? (await promptPlatform());
+  const platform = isInteractive
+    ? (options.platform ?? (await promptPlatform()))
+    : await resolvePlatformWithoutPrompt(
+        options.platform,
+        'intlayer init skills'
+      );
 
   if (!platform) {
     p.cancel('Operation cancelled. No platform selected.');
@@ -136,6 +169,7 @@ export const initSkills = async (
   } catch (error) {
     s.stop('Failed to install skills');
     p.log.error(error instanceof Error ? error.message : String(error));
+    process.exitCode = 1;
   }
 
   p.outro('Intlayer skills initialization complete');

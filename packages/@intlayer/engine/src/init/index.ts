@@ -193,7 +193,10 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
   };
 
   // MOVE COMPAT PACKAGES (e.g. next-intl) REPLACED BY @INTLAYER/* TO DEVDEPENDENCIES
-  const movedPackages = moveCompatPackagesToDevDependencies(packageJson);
+  // Part of the package step: the move pairs with installing the adapters.
+  const movedPackages = options?.noInstallPackages
+    ? []
+    : moveCompatPackagesToDevDependencies(packageJson);
   if (movedPackages.length > 0) {
     const indentation = packageJsonContent.match(/^[ \t]+(?=")/m)?.[0] ?? 2;
     const trailingNewline = packageJsonContent.endsWith('\n') ? '\n' : '';
@@ -241,6 +244,7 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
     linguiCatalogFormat,
     dependencies: packageJson.dependencies,
     devDependencies: packageJson.devDependencies,
+    skipLintPlugin: options?.noEslint,
   });
 
   /** Whether the compat adapter for a library is not released yet. */
@@ -511,6 +515,26 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
   }
 
   if (!options?.noEslint && hasLintTooling(allDeps)) {
+    // Without the package step (`intlayer init eslint`), the lint step
+    // installs its own plugin so the rules it enables can resolve.
+    if (options?.noInstallPackages && !allDeps[LINT_PLUGIN_PACKAGE_NAME]) {
+      const lintPluginSpecifier = options.upgradeToVersion
+        ? `${LINT_PLUGIN_PACKAGE_NAME}@${options.upgradeToVersion}`
+        : LINT_PLUGIN_PACKAGE_NAME;
+
+      try {
+        installPackages(rootDir, [lintPluginSpecifier], packageManager, true);
+        logger(
+          `${v} Installed: ${colorize(LINT_PLUGIN_PACKAGE_NAME, ANSIColors.MAGENTA)}`
+        );
+      } catch {
+        logger(
+          `${x} Failed to install ${LINT_PLUGIN_PACKAGE_NAME}. Please install it manually.`,
+          { level: 'warn' }
+        );
+      }
+    }
+
     const oxlintConfigPath = '.oxlintrc.json';
     const hasOxlintConfig = await exists(rootDir, oxlintConfigPath);
     // An oxlint-only project without a config gets one; with ESLint around,

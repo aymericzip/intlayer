@@ -115,6 +115,21 @@ describe('detectMissingIntlayerPackages', () => {
     expect(result.devPackagesToInstall).not.toContain('eslint-plugin-intlayer');
   });
 
+  it('adds the lint plugin when the project lints', () => {
+    const result = detectMissingIntlayerPackages({ eslint: '^9.0.0' });
+
+    expect(result.devPackagesToInstall).toContain('eslint-plugin-intlayer');
+  });
+
+  it('skips the lint plugin when the lint step is excluded', () => {
+    const result = detectMissingIntlayerPackages(
+      { eslint: '^9.0.0' },
+      { skipLintPlugin: true }
+    );
+
+    expect(result.devPackagesToInstall).not.toContain('eslint-plugin-intlayer');
+  });
+
   describe('meta-framework integrations', () => {
     it('installs nuxt-intlayer for Nuxt', () => {
       const result = detectMissingIntlayerPackages({ nuxt: '^4.0.0' });
