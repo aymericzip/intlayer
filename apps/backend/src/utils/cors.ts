@@ -47,6 +47,7 @@ export const corsOptions: FastifyCorsOptions = {
         'x-file-name',
         'x-alt-text',
         'x-caption',
+        'x-intlayer-locale',
       ],
       exposedHeaders: [],
       methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],

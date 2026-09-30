@@ -26,8 +26,10 @@ import { getStripeAPI } from '@intlayer/api/stripe';
 import { getTagAPI } from '@intlayer/api/tag';
 import { getTranslateAPI } from '@intlayer/api/translate';
 import { getUserAPI } from '@intlayer/api/user';
+import { HEADER_NAME } from '@intlayer/config/defaultValues';
 import { useConfiguration } from '@intlayer/editor-react';
 import type { IntlayerConfig } from '@intlayer/types/config';
+import { useLocale } from 'react-intlayer';
 import { type AuthAPI, getAuthAPI } from '../libs/auth';
 
 export type UseIntlayerAuthProps = {
@@ -49,16 +51,20 @@ export type UseIntlayerAuthProps = {
 
 export const useIntlayerOAuthOptions = (props?: UseIntlayerAuthProps) => {
   const configuration = useConfiguration();
+  const { locale } = useLocale();
 
   // On a first-party origin the session cookie authenticates every call (the
   // fetcher sends `credentials: 'include'`), so no header is needed. Elsewhere
   // the caller supplies a user session token.
-  const options = {
-    ...(props?.sessionToken && {
-      headers: {
+  // The locale travels as a header: the locale cookie is host-only, so it never
+  // reaches a backend served from another host (e.g. `back.intlayer.org`).
+  const options: FetcherOptions = {
+    headers: {
+      [HEADER_NAME]: locale,
+      ...(props?.sessionToken && {
         Authorization: `Bearer ${props.sessionToken}`,
-      },
-    }),
+      }),
+    },
     ...(props?.options ?? {}),
   };
 
