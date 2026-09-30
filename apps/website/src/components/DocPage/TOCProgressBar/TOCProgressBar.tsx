@@ -66,7 +66,7 @@ export const TOCProgressBar: FC = () => {
             <span
               className={cn(
                 'h-0.5 w-4.5 rounded-full transition-all duration-300',
-                isActive ? 'h-0.75 bg-text' : 'bg-text/65 dark:bg-text/50'
+                isActive ? 'h-0.75 bg-text' : 'bg-text/50 dark:bg-text/35'
               )}
             />
           </button>
