@@ -1177,6 +1177,12 @@ Tiện ích mở rộng này cung cấp:
 
 - [tài liệu Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/vs_code_extension.md)
 
+### Vue Devtools
+
+`vue-intlayer` đăng ký sẵn một bảng **Intlayer** trong [Vue Devtools](https://devtools.vuejs.org/). Mở tab **Vue** trong công cụ phát triển của trình duyệt và chọn **Intlayer** ở thanh bên để xem các từ điển cùng bản dịch theo từng locale, hoặc để chuyển locale hiện tại của ứng dụng.
+
+Khi đã thiết lập [trình chỉnh sửa trực quan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md), các bản dịch văn bản thuần túy cũng có thể được chỉnh sửa trực tiếp từ bảng: thay đổi được ghi lại vào tệp khai báo nội dung của bạn và tải lại nóng ngay trong ứng dụng.
+
 ### Tiến xa hơn
 
 Để tiến xa hơn, bạn có thể triển khai [trình soạn thảo trực quan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md) hoặc tách nội dung của bạn ra ngoài bằng cách sử dụng [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md).

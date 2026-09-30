@@ -707,6 +707,12 @@ Intlayerでの開発体験を向上させるために、公式の**Intlayer VS C
 
 - [Intlayer VS Code拡張機能のドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)
 
+### Vue Devtools
+
+`vue-intlayer` は [Vue Devtools](https://devtools.vuejs.org/) に **Intlayer** パネルを標準で登録します。ブラウザの開発者ツールで **Vue** タブを開き、サイドバーで **Intlayer** を選択すると、辞書とロケールごとの翻訳を確認したり、アプリの現在のロケールを切り替えたりできます。
+
+[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md) をセットアップしている場合は、プレーンテキストの翻訳をパネルから直接インライン編集することもできます。編集内容はコンテンツ宣言ファイルに書き戻され、アプリに即座にホットリロードされます。
+
 ### さらに進む
 
 さらに進めるには、[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を実装するか、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を使用してコンテンツを外部化することができます。

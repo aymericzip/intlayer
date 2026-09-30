@@ -1180,6 +1180,12 @@ Aby uzyskać więcej szczegółów na temat korzystania z rozszerzenia, zapoznaj
 
 - [dokumentacją rozszerzenia Intlayer VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/vs_code_extension.md)
 
+### Vue Devtools
+
+`vue-intlayer` domyślnie rejestruje panel **Intlayer** w [Vue Devtools](https://devtools.vuejs.org/). Otwórz zakładkę **Vue** w narzędziach deweloperskich przeglądarki i wybierz **Intlayer** na pasku bocznym, aby przeglądać słowniki i ich tłumaczenia dla poszczególnych ustawień regionalnych albo przełączyć bieżące ustawienia regionalne aplikacji.
+
+Gdy [edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md) jest skonfigurowany, tłumaczenia w postaci zwykłego tekstu można także edytować bezpośrednio w panelu: zmiany są zapisywane z powrotem w plikach deklaracji treści i natychmiast przeładowywane w aplikacji.
+
 ### Idź dalej
 
 Aby iść dalej, możesz zaimplementować [edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md) lub wyodrębnić swoją zawartość, korzystając z [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md).

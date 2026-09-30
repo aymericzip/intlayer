@@ -721,6 +721,12 @@ import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
 
 - [документації Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/vs_code_extension.md)
 
+### Vue Devtools
+
+`vue-intlayer` реєструє панель **Intlayer** у [Vue Devtools](https://devtools.vuejs.org/) за замовчуванням. Відкрийте вкладку **Vue** в інструментах розробника браузера та виберіть **Intlayer** на бічній панелі, щоб переглядати словники та їхні переклади для кожної локалі або перемикати поточну локаль застосунку.
+
+Коли налаштовано [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md), прості текстові переклади також можна редагувати безпосередньо в панелі: зміни записуються назад у файли декларацій контенту та миттєво застосовуються в застосунку через гаряче перезавантаження.
+
 ### Далі
 
 Щоб просунутися далі, ви можете реалізувати [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md) або винести свій контент, використовуючи [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md).
