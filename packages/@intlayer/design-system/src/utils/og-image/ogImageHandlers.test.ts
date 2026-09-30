@@ -1,6 +1,7 @@
 // @vitest-environment node
 import { describe, expect, it } from 'vitest';
-import { getOgImagePath, ogImageHandlers } from './ogImageHandlers';
+import { ogImageHandlers } from './ogImageHandlers';
+import { getOgImagePath } from './ogImagePath';
 
 describe('getOgImagePath', () => {
   it('returns the bare route without params', () => {

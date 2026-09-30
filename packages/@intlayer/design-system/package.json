@@ -83,6 +83,11 @@
       "import": "./dist/esm/utils/og-image/index.mjs",
       "default": "./dist/esm/utils/og-image/index.mjs"
     },
+    "./og-image/server": {
+      "types": "./dist/types/utils/og-image/server.d.ts",
+      "import": "./dist/esm/utils/og-image/server.mjs",
+      "default": "./dist/esm/utils/og-image/server.mjs"
+    },
     "./tailwind-config": {
       "types": "./dist/types/tailwind.config.d.ts",
       "import": "./dist/esm/tailwind.config.mjs",

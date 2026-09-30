@@ -1,8 +1,6 @@
 import { generateOgImage } from './generateOgImage';
 import { THUMBNAIL_JPEG_BASE64 } from './ogAssets';
-
-/** Path the handlers are mounted on in every app. */
-export const OG_IMAGE_PATH = '/api/og';
+import type { OgImageParams } from './ogImagePath';
 
 /**
  * Upper bounds for the user-controlled query parameters. `/api/og` is public,
@@ -21,32 +19,6 @@ const CORS_HEADERS: Record<string, string> = {
   'Access-Control-Allow-Methods': 'GET, HEAD, OPTIONS',
   'Access-Control-Allow-Headers': '*',
   'Cross-Origin-Resource-Policy': 'cross-origin',
-};
-
-export type OgImageParams = {
-  title?: string;
-  description?: string;
-  /** Locale of the page the card is for, e.g. `params.locale`. */
-  locale?: string;
-};
-
-/**
- * Builds the `/api/og` path (with query) for a page. Prefix it with the site
- * origin: crawlers ignore relative `og:image` URLs.
- */
-export const getOgImagePath = ({
-  title,
-  description,
-  locale,
-}: OgImageParams = {}): string => {
-  const searchParams = new URLSearchParams();
-  if (title) searchParams.set('title', title);
-  if (description) searchParams.set('description', description);
-  // Only meaningful alongside text: the default card is locale-independent.
-  if (locale && (title || description)) searchParams.set('locale', locale);
-
-  const query = searchParams.toString();
-  return query ? `${OG_IMAGE_PATH}?${query}` : OG_IMAGE_PATH;
 };
 
 /**
