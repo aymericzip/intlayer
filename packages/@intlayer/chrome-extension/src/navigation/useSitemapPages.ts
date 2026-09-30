@@ -18,8 +18,11 @@ export type SitemapPages = {
   status: SitemapStatus;
   /** Number of URLs listed by the sitemap. */
   pageCount: number;
-  /** Starts reading the sitemap; no-op once loading or loaded. */
-  loadSitemap: () => void;
+  /**
+   * Starts reading the sitemap, once per origin. Resolves with its URLs, or
+   * an empty list when the sitemap cannot be read.
+   */
+  loadSitemap: () => Promise<string[]>;
   /** Fuzzy search over the sitemap URLs, capped at `limit`. */
   searchPages: (query: string, limit: number) => SitePage[];
 };
@@ -66,15 +69,18 @@ export const useSitemapPages = (
   const [status, setStatus] = useState<SitemapStatus>('idle');
   const [urls, setUrls] = useState<string[]>([]);
   const originRef = useRef(origin);
+  const sitemapRequestRef = useRef<Promise<string[]> | null>(null);
 
   useEffect(() => {
     originRef.current = origin;
+    sitemapRequestRef.current = null;
     setStatus('idle');
     setUrls([]);
   }, [origin]);
 
-  const loadSitemap = useCallback(() => {
-    if (tabId === null || !tabUrl || status !== 'idle') return;
+  const loadSitemap = useCallback((): Promise<string[]> => {
+    if (tabId === null || !tabUrl) return Promise.resolve([]);
+    if (sitemapRequestRef.current) return sitemapRequestRef.current;
 
     const requestOrigin = originRef.current;
     // Drops the result when the tab moved to another origin meanwhile.
@@ -82,16 +88,25 @@ export const useSitemapPages = (
 
     setStatus('loading');
 
-    extractUrlFromSitemap(tabUrl, { fetchText: createTabTextFetcher(tabId) })
+    const sitemapRequest = extractUrlFromSitemap(tabUrl, {
+      fetchText: createTabTextFetcher(tabId),
+    })
       .then((sitemapUrls) => {
-        if (isStale()) return;
-        setUrls(sitemapUrls);
-        setStatus('loaded');
+        if (!isStale()) {
+          setUrls(sitemapUrls);
+          setStatus('loaded');
+        }
+        return sitemapUrls;
       })
       .catch(() => {
         if (!isStale()) setStatus('error');
+        return [];
       });
-  }, [tabId, tabUrl, status]);
+
+    sitemapRequestRef.current = sitemapRequest;
+
+    return sitemapRequest;
+  }, [tabId, tabUrl]);
 
   const searchPages = useMemo(() => createPageSearch(urls), [urls]);
 

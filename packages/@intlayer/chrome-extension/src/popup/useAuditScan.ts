@@ -1,39 +1,23 @@
 import { useCallback, useRef, useState } from 'preact/hooks';
+import {
+  type AuditScanState,
+  applyAuditEvent,
+  initialAuditScanState,
+} from '../scan/auditScanState';
 import { scanUrl } from '../scan/scanClient';
-import type { DomainData, MergedAuditData } from '../scan/types';
 
-export type AuditScanState = {
-  isScanning: boolean;
-  /** True once a scan reached 100% progress. */
-  isDone: boolean;
-  progress: number;
-  score: number;
-  stepMessage: string;
-  error: string | null;
-  domainData: Partial<DomainData> | null;
-  mergedData: MergedAuditData;
-  /** ISO date of the audit when replayed from the one-hour backend cache. */
-  cachedAt: string | null;
-};
-
-const initialState: AuditScanState = {
-  isScanning: false,
-  isDone: false,
-  progress: 0,
-  score: 0,
-  stepMessage: '',
-  error: null,
-  domainData: null,
-  mergedData: {},
-  cachedAt: null,
-};
+export type { AuditScanState };
 
 export type AuditScan = AuditScanState & {
   /**
    * Starts (or restarts) a streamed audit of the given URL. `refresh`
-   * bypasses the one-hour backend cache.
+   * bypasses the one-hour backend cache. Resolves with the final state, or
+   * the state reached when the audit was aborted.
    */
-  startScan: (url: string, options?: { refresh?: boolean }) => void;
+  startScan: (
+    url: string,
+    options?: { refresh?: boolean }
+  ) => Promise<AuditScanState>;
   /** Aborts the in-flight audit, keeping the results received so far. */
   cancelScan: () => void;
   /** Aborts the in-flight audit and clears every result. */
@@ -45,7 +29,7 @@ export type AuditScan = AuditScanState & {
  * renderable state: global score/progress plus one entry per check type.
  */
 export const useAuditScan = (): AuditScan => {
-  const [state, setState] = useState<AuditScanState>(initialState);
+  const [state, setState] = useState<AuditScanState>(initialAuditScanState);
   const abortControllerRef = useRef<AbortController | null>(null);
 
   const cancelScan = useCallback(() => {
@@ -57,76 +41,56 @@ export const useAuditScan = (): AuditScan => {
   const resetScan = useCallback(() => {
     abortControllerRef.current?.abort();
     abortControllerRef.current = null;
-    setState(initialState);
+    setState(initialAuditScanState);
   }, []);
 
   const startScan = useCallback(
-    (url: string, { refresh = false }: { refresh?: boolean } = {}) => {
+    async (
+      url: string,
+      { refresh = false }: { refresh?: boolean } = {}
+    ): Promise<AuditScanState> => {
       abortControllerRef.current?.abort();
       const abortController = new AbortController();
       abortControllerRef.current = abortController;
 
-      setState({ ...initialState, isScanning: true });
+      // Tracked outside React so the caller gets the final state back.
+      let scanState: AuditScanState = {
+        ...initialAuditScanState,
+        isScanning: true,
+      };
+      const commit = (nextState: AuditScanState): void => {
+        scanState = nextState;
+        setState(nextState);
+      };
 
-      scanUrl({
-        url,
-        refresh,
-        signal: abortController.signal,
-        onMessage: (event) => {
-          setState((previous) => {
-            const next = { ...previous };
+      setState(scanState);
 
-            if (typeof event.globalError === 'string') {
-              next.error = event.globalError;
-              next.isScanning = false;
-              return next;
-            }
-            if (typeof event.cachedAt === 'string') {
-              next.cachedAt = event.cachedAt;
-            }
-            if (typeof event.message === 'string') {
-              next.stepMessage = event.message;
-            }
-            if (typeof event.progress === 'number') {
-              next.progress = event.progress;
-              if (event.progress >= 100) {
-                next.isScanning = false;
-                next.isDone = true;
-              }
-            }
-            if (typeof event.score === 'number') {
-              next.score = event.score;
-            }
-            if (typeof event.type === 'string') {
-              next.mergedData = {
-                ...previous.mergedData,
-                [event.type]: { status: event.status, data: event.data },
-              };
-            }
-            if (event.domainData) {
-              next.domainData = { ...previous.domainData, ...event.domainData };
-            }
-
-            return next;
-          });
-        },
-      })
-        .then(() => {
-          setState((previous) => ({
-            ...previous,
-            isScanning: false,
-            isDone: previous.error === null,
-          }));
-        })
-        .catch((scanError: unknown) => {
-          if ((scanError as Error).name === 'AbortError') return;
-          setState((previous) => ({
-            ...previous,
-            isScanning: false,
-            error:
-              scanError instanceof Error ? scanError.message : 'Scan failed',
-          }));
+      try {
+        await scanUrl({
+          url,
+          refresh,
+          signal: abortController.signal,
+          onMessage: (event) => commit(applyAuditEvent(scanState, event)),
         });
+
+        commit({
+          ...scanState,
+          isScanning: false,
+          isDone: scanState.error === null,
+        });
+      } catch (scanError) {
+        if ((scanError as Error).name === 'AbortError') {
+          return { ...scanState, isScanning: false };
+        }
+
+        commit({
+          ...scanState,
+          isScanning: false,
+          error: scanError instanceof Error ? scanError.message : 'Scan failed',
+        });
+      }
+
+      return scanState;
     },
     []
   );

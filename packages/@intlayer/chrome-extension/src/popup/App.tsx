@@ -1,3 +1,7 @@
+import {
+  useRemoteMcpTools,
+  useWebMCPTools,
+} from '@intlayer/design-system/hooks';
 import { Link } from '@intlayer/design-system/link';
 import { LocaleSwitcher } from '@intlayer/design-system/locale-switcher-drop-down';
 import { Logo } from '@intlayer/design-system/logo';
@@ -19,6 +23,7 @@ import { SwitchThemeSwitcher } from './components/SwitchThemeSwitcher';
 import { TechnologyList } from './components/TechnologyList';
 import { useActiveTabDetection } from './useActiveTabDetection';
 import { useAuditScan } from './useAuditScan';
+import { useExtensionWebMCPTools } from './useExtensionWebMCPTools';
 
 /** Scanner page URL, prefilled with the tab URL so the report runs on open. */
 const getScannerPageUrl = (tabUrl: string | null): string => {
@@ -74,6 +79,20 @@ export const App: FunctionComponent = () => {
     if (tabId === null) return;
     void chrome.tabs.update(tabId, { url });
   };
+
+  // Lets a browser agent inspect and audit the tab the way a user would,
+  // alongside the documentation tools of the Intlayer MCP server.
+  const extensionTools = useExtensionWebMCPTools({
+    tabUrl,
+    detection,
+    detectionError: error,
+    sitemap,
+    scan,
+    navigateTab,
+  });
+  const remoteTools = useRemoteMcpTools();
+
+  useWebMCPTools([...extensionTools, ...remoteTools]);
 
   const hostname = tabUrl ? new URL(tabUrl).hostname : null;
   const isIntlayerDetected =
