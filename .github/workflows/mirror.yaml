@@ -1,0 +1,55 @@
+name: 🪞 Mirror to GitLab & Bitbucket
+
+# GitHub is the source of truth: every branch and tag is force-pushed to the
+# mirrors. Anything committed directly on GitLab/Bitbucket gets overwritten,
+# so merge contributions coming from there through GitHub.
+
+on:
+  push:
+    branches:
+      - '**'
+    tags:
+      - '**'
+  workflow_dispatch:
+
+# Queue runs instead of running them in parallel so pushes never race
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
+jobs:
+  mirror:
+    # Prevents the workflow from running on forks
+    if: ${{ github.repository_owner == 'aymericzip' }}
+
+    name: 🪞 Mirror to ${{ matrix.name }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: GitLab
+            url: https://oauth2:MIRROR_TOKEN@gitlab.com/ay.pineau/intlayer.git
+            secret: GITLAB_TOKEN
+          - name: Bitbucket
+            url: https://x-token-auth:MIRROR_TOKEN@bitbucket.org/intlayer/intlayer.git
+            secret: BITBUCKET_TOKEN
+    steps:
+      - name: ⬇️ Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: 🚀 Push branches and tags
+        env:
+          MIRROR_TOKEN: ${{ secrets[matrix.secret] }}
+          MIRROR_URL: ${{ matrix.url }}
+        run: |
+          git remote add mirror "${MIRROR_URL/MIRROR_TOKEN/$MIRROR_TOKEN}"
+          # refs/remotes/origin/* holds every GitHub branch (checkout only
+          # creates one local branch, so `git push --all` would miss them)
+          git push --force mirror \
+            'refs/remotes/origin/*:refs/heads/*' \
+            '^refs/remotes/origin/HEAD' \
+            'refs/tags/*:refs/tags/*'
