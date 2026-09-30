@@ -1212,11 +1212,3 @@ Intlayer는 다음을 가능하게 합니다:
 </Step>
 
 </Steps>
-
-<Sponsor>
-
-common.json과 about.json 같은 namespace를 i18next의 module augmentation으로 타입 지정했다면, 사실상 콘텐츠 스키마를 정의한 것입니다. 다음 질문은 그 스키마가 어디에 있고 누가 편집하느냐입니다. Sanity는 스키마를 일급 요소로 다룹니다. 필드, 참조, 유효성 검사를 코드로 모델링하고, 에디터는 로케일마다 JSON을 직접 편집하는 대신 Sanity Studio에서 동일한 모델을 기반으로 작업합니다.
-
-콘텐츠는 Content Lake에 구조화된 JSON으로 저장되고, GROQ로 쿼리할 수 있으며 API를 통해 제공됩니다. 로케일은 폴더가 아니라 필드입니다. Next.js App Router 구성에서는 서버에서 namespace를 가져와 이 패턴이 기대하는 그대로 i18n provider에 전달하고, 같은 소스로 앱, 이메일, 에이전트를 모두 공급할 수 있습니다. 로케일과 채널이 늘어나도 스키마는 계약으로 남고, 전달 계층은 계속 i18next입니다.
-
-</Sponsor>

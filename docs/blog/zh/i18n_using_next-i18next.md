@@ -1211,11 +1211,3 @@ Intlayer 允许您：
 </Step>
 
 </Steps>
-
-<Sponsor>
-
-一旦你通过 i18next 的 module augmentation 为 common.json 和 about.json 这样的 namespace 添加了类型，你实际上就定义了一个内容 schema。接下来的问题是：这个 schema 放在哪里，由谁来编辑。Sanity 把它当作一等公民：你在代码中建模字段、引用和校验，编辑人员在 Sanity Studio 中基于同一个模型工作，而不是为每种语言手动编辑 JSON。
-
-内容以结构化 JSON 的形式存放在 Content Lake 中，可通过 GROQ 查询并经由 API 提供，语言是一个字段而不是一个文件夹。在 Next.js App Router 配置中，你可以在服务端获取某个 namespace，按照此模式的预期将其传入 i18n provider，并让同一数据源同时服务于应用、邮件和 agent。随着语言和渠道的增加，schema 始终是契约；交付层仍然是 i18next。
-
-</Sponsor>

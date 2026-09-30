@@ -1212,11 +1212,3 @@ Para benchmarks de desempenho e comparações detalhadas, consulte:
 </Step>
 
 </Steps>
-
-<Sponsor>
-
-Depois que você tem namespaces como common.json e about.json tipados pela module augmentation do i18next, na prática você definiu um schema de conteúdo. A próxima pergunta é onde esse schema fica e quem o edita. O Sanity o trata como algo de primeira classe: você modela campos, referências e validação no código, e os editores trabalham sobre esse mesmo modelo no Sanity Studio em vez de editar JSON à mão para cada locale.
-
-O conteúdo fica no Content Lake como JSON estruturado, consultável via GROQ e servido por API, com o locale como um campo em vez de uma pasta. Em uma configuração Next.js App Router, você pode buscar um namespace no servidor, passá-lo ao seu provider i18n exatamente como este padrão espera, e deixar a mesma fonte alimentar apps, emails e agentes. À medida que locales e canais crescem, o schema continua sendo o contrato; a camada de entrega continua sendo o i18next.
-
-</Sponsor>

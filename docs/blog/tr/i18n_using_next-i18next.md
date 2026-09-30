@@ -1211,11 +1211,3 @@ Ayrıntılı performans benchmark'ları ve karşılaştırmalar için bakınız:
 </Step>
 
 </Steps>
-
-<Sponsor>
-
-common.json ve about.json gibi namespace'leri i18next'in module augmentation'ı ile tiplendirdiğinizde, fiilen bir içerik şeması tanımlamış olursunuz. Sıradaki soru, bu şemanın nerede yaşadığı ve onu kimin düzenlediğidir. Sanity bunu birinci sınıf bir unsur olarak ele alır: alanları, referansları ve doğrulamayı kodda modellersiniz, editörler de her locale için JSON'u elle düzenlemek yerine Sanity Studio'da aynı model üzerinde çalışır.
-
-İçerik, Content Lake'te yapılandırılmış JSON olarak durur, GROQ ile sorgulanabilir ve API üzerinden sunulur; locale bir klasör değil, bir alandır. Bir Next.js App Router kurulumunda bir namespace'i sunucuda çekebilir, bu desenin beklediği şekilde i18n provider'ınıza aktarabilir ve aynı kaynağın uygulamaları, e-postaları ve ajanları beslemesini sağlayabilirsiniz. Locale'ler ve kanallar çoğaldıkça şema sözleşme olarak kalır; teslimat katmanı i18next olarak kalır.
-
-</Sponsor>

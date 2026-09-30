@@ -1212,7 +1212,7 @@ For detailed performance benchmarks and comparisons, see:
 
 </Steps>
 
-<Sponsor>
+<Sponsor startDate="2026-08-24" endDate="2027-08-24">
 
 Once you have namespaces like common.json and about.json typed through i18next's module augmentation, you've effectively defined a content schema. The next question is where that schema lives and who edits it. Sanity treats it as first-class: you model fields, references, and validation in code, and editors work against that same model in Sanity Studio instead of hand-editing JSON per locale.
 

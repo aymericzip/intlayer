@@ -1213,11 +1213,3 @@ Ausführliche Performance-Benchmarks und Vergleiche finden Sie hier:
 </Step>
 
 </Steps>
-
-<Sponsor>
-
-Sobald Sie Namespaces wie common.json und about.json über die Module Augmentation von i18next typisiert haben, haben Sie im Grunde ein Content-Schema definiert. Die nächste Frage ist, wo dieses Schema liegt und wer es bearbeitet. Sanity behandelt es als zentrales Element: Sie modellieren Felder, Referenzen und Validierung im Code, und Redakteure arbeiten in Sanity Studio mit genau diesem Modell, statt JSON pro Locale von Hand zu bearbeiten.
-
-Der Content liegt im Content Lake als strukturiertes JSON, abfragbar über GROQ und per API ausgeliefert, wobei die Locale ein Feld ist und kein Ordner. In einem Next.js App Router-Setup können Sie einen Namespace auf dem Server abrufen, ihn genau so an Ihren i18n-Provider übergeben, wie es dieses Pattern erwartet, und dieselbe Quelle Apps, E-Mails und Agents versorgen lassen. Wenn Locales und Kanäle wachsen, bleibt das Schema der Vertrag; die Auslieferungsschicht bleibt i18next.
-
-</Sponsor>

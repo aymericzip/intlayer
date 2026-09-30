@@ -1,5 +1,3 @@
-import { Container } from '@intlayer/design-system/container';
-import { H4 } from '@intlayer/design-system/headers';
 import {
   MarkDownIframe,
   MarkdownRenderer,
@@ -30,6 +28,7 @@ import {
   NpmDownloadsComparison,
 } from './RepositoryComparison';
 import { SectionScroller } from './SectionScroller';
+import { Sponsor } from './Sponsor';
 import { TechGrid, TechLink } from './TechLink';
 
 export const preloadI18nBenchmark = () => import('~/components/I18nBenchmark');
@@ -314,20 +313,7 @@ export const DocumentationRender: FC<DocumentationRenderProps> = ({
               initialPeriod={props.period}
             />
           ),
-          Sponsor: ({ children, ...props }: ComponentProps<'div'>) => (
-            <Container
-              background="none"
-              transparency="xs"
-              border
-              borderColor="neutral"
-              padding="lg"
-              roundedSize="2xl"
-              {...props}
-            >
-              <H4 className="mb-4 text-text/80">Sponsor</H4>
-              <div className="text-sm text-text/80">{children}</div>
-            </Container>
-          ),
+          Sponsor,
           iframe: ({ src, ...props }: ComponentProps<'iframe'>) => (
             <MarkDownIframe {...props} src={toDeploymentOrigin(src)} />
           ),

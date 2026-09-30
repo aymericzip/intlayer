@@ -1213,11 +1213,3 @@ Và còn nhiều hơn nữa. Để khám phá tất cả các tính năng mà In
 </Step>
 
 </Steps>
-
-<Sponsor>
-
-Khi bạn đã có các namespace như common.json và about.json được định kiểu qua module augmentation của i18next, bạn thực chất đã định nghĩa một schema nội dung. Câu hỏi tiếp theo là schema đó nằm ở đâu và ai chỉnh sửa nó. Sanity coi nó là thành phần hạng nhất: bạn mô hình hóa các field, tham chiếu và validation trong code, và biên tập viên làm việc trên chính mô hình đó trong Sanity Studio thay vì chỉnh sửa JSON thủ công cho từng locale.
-
-Nội dung nằm trong Content Lake dưới dạng JSON có cấu trúc, truy vấn được qua GROQ và phục vụ qua API, với locale là một field thay vì một thư mục. Với cấu hình Next.js App Router, bạn có thể lấy một namespace trên server, truyền nó vào i18n provider đúng như pattern này mong đợi, và để cùng một nguồn cung cấp cho ứng dụng, email và agent. Khi số locale và kênh tăng lên, schema vẫn là hợp đồng; lớp phân phối vẫn là i18next.
-
-</Sponsor>

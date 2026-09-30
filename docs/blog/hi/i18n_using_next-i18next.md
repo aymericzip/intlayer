@@ -1213,11 +1213,3 @@ Intlayer आपको निम्नलिखित सुविधाएँ �
 </Step>
 
 </Steps>
-
-<Sponsor>
-
-जब आपके पास common.json और about.json जैसे namespaces हों जिन्हें i18next के module augmentation से typed किया गया हो, तो आपने असल में एक content schema परिभाषित कर लिया है। अगला सवाल यह है कि वह schema कहाँ रहता है और उसे कौन edit करता है। Sanity इसे first-class मानता है: आप fields, references और validation को कोड में model करते हैं, और editors हर locale के लिए हाथ से JSON edit करने के बजाय Sanity Studio में उसी model पर काम करते हैं।
-
-कंटेंट Content Lake में structured JSON के रूप में रहता है, GROQ से query किया जा सकता है और API के ज़रिए serve होता है, जहाँ locale एक folder नहीं बल्कि एक field है। Next.js App Router सेटअप में, आप सर्वर पर एक namespace fetch कर सकते हैं, उसे अपने i18n provider में ठीक वैसे ही पास कर सकते हैं जैसा यह pattern अपेक्षा करता है, और उसी source से apps, emails और agents को feed कर सकते हैं। जैसे-जैसे locales और channels बढ़ते हैं, schema contract बना रहता है; delivery layer i18next ही रहती है।
-
-</Sponsor>

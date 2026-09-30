@@ -1211,11 +1211,3 @@ Untuk benchmark performa dan perbandingan yang mendetail, lihat:
 </Step>
 
 </Steps>
-
-<Sponsor>
-
-Setelah Anda memiliki namespace seperti common.json dan about.json yang diberi tipe melalui module augmentation i18next, Anda pada dasarnya telah mendefinisikan skema konten. Pertanyaan berikutnya adalah di mana skema itu berada dan siapa yang mengeditnya. Sanity memperlakukannya sebagai elemen utama: Anda memodelkan field, referensi, dan validasi di kode, dan editor bekerja dengan model yang sama di Sanity Studio alih-alih mengedit JSON secara manual per locale.
-
-Konten tersimpan di Content Lake sebagai JSON terstruktur, dapat di-query melalui GROQ dan disajikan lewat API, dengan locale sebagai field, bukan folder. Untuk setup Next.js App Router, Anda dapat mengambil namespace di server, meneruskannya ke provider i18n Anda persis seperti yang diharapkan pola ini, dan membiarkan sumber yang sama memasok aplikasi, email, dan agen. Seiring bertambahnya locale dan kanal, skema tetap menjadi kontraknya; lapisan pengirimannya tetap i18next.
-
-</Sponsor>
