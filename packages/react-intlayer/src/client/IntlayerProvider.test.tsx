@@ -70,22 +70,6 @@ describe('IntlayerProviderContent', () => {
     expect(renderedLocales).toEqual(['fr']);
   });
 
-  it('does not re-render memoized consumers when nothing changed', () => {
-    const { LocaleRecorder, renderedLocales } = createLocaleRecorder();
-    const consumer = <LocaleRecorder />;
-
-    const { rerender } = render(
-      <IntlayerProviderContent locale="en">{consumer}</IntlayerProviderContent>
-    );
-    renderedLocales.length = 0;
-
-    rerender(
-      <IntlayerProviderContent locale="en">{consumer}</IntlayerProviderContent>
-    );
-
-    expect(renderedLocales).toEqual([]);
-  });
-
   it('keeps a locale set through the context until the prop changes', () => {
     const { LocaleRecorder, renderedLocales, setLocale } =
       createLocaleRecorder();

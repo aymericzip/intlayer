@@ -14,7 +14,6 @@ import {
   useCallback,
   useContext,
   useEffect,
-  useMemo,
   useState,
 } from 'react';
 import { AnalyticsProvider } from '../analytics/AnalyticsProvider';
@@ -162,19 +161,18 @@ export const IntlayerProviderContent: FC<IntlayerProviderProps> = ({
   // Resolve based on currentLocale (the state), not the prop directly
   const resolvedLocale = localeResolver(currentLocale);
 
-  // Stable value so a parent re-render does not re-render every consumer
-  const contextValue = useMemo<IntlayerValue>(
-    () => ({
-      locale: resolvedLocale,
-      setLocale,
-      variant,
-      disableEditor,
-    }),
-    [resolvedLocale, setLocale, variant, disableEditor]
-  );
-
+  // Not memoized on purpose: a fresh value re-propagates on every provider
+  // render. With a stable one, consumers skipped by a locale switch that
+  // suspended (dynamic dictionary chunks) never re-render.
   return (
-    <IntlayerClientContext.Provider value={contextValue}>
+    <IntlayerClientContext.Provider
+      value={{
+        locale: resolvedLocale,
+        setLocale,
+        variant,
+        disableEditor,
+      }}
+    >
       {children}
     </IntlayerClientContext.Provider>
   );
