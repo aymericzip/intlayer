@@ -5,6 +5,7 @@ import { buildCommand } from './commands/buildAllCommand';
 import { extractCommand } from './commands/extractCommand';
 import { fillCommand } from './commands/fillAllCommand';
 import { initMCP } from './commands/initMCP';
+import { initProject } from './commands/initProject';
 import { initSkills } from './commands/initSkills';
 import { pullCommand } from './commands/pullCommand';
 import { pushCommand } from './commands/pushCommand';
@@ -20,6 +21,7 @@ import { pullDictionary } from './explorer/pullDictionary';
 import { pushDictionary } from './explorer/pushDictionary';
 import { SearchBarViewProvider } from './explorer/searchBarViewProvider';
 import { startLSPClient } from './lsp/client';
+import { promptCompatSetup } from './prompts/compatSetupPrompt';
 import { intlayerContentDefinitionProvider } from './providers/intlayerContentDefinitionProvider';
 import { intlayerContentRedirectionProvider } from './providers/intlayerContentRedirectionProvider';
 import { intlayerDecorationProvider } from './providers/intlayerDecoration';
@@ -35,6 +37,9 @@ import { contentFileSaveWatcher } from './watchers/contentFileSaveWatcher';
 export const activate = (context: ExtensionContext) => {
   initializeEnvironmentStore(context);
   startLSPClient(context);
+
+  // Suggest `intlayer init` for projects using a compat-compatible i18n library
+  void promptCompatSetup(context);
 
   const selector = [
     { language: 'javascript', scheme: 'file' },
@@ -134,7 +139,8 @@ export const activate = (context: ExtensionContext) => {
     commands.registerCommand('extension.testDictionaries', testCommand),
     commands.registerCommand('intlayer.extract', extractCommand),
     commands.registerCommand('intlayer.initSkills', initSkills),
-    commands.registerCommand('intlayer.initMCP', initMCP)
+    commands.registerCommand('intlayer.initMCP', initMCP),
+    commands.registerCommand('intlayer.initProject', () => initProject())
   );
 
   const treeDataProvider = new DictionaryTreeDataProvider();

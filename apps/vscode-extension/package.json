@@ -183,6 +183,11 @@
         "command": "intlayer.initMCP",
         "title": "Intlayer: Setup MCP",
         "icon": "$(gear)"
+      },
+      {
+        "command": "intlayer.initProject",
+        "title": "Intlayer: Initialize Project",
+        "icon": "$(rocket)"
       }
     ],
     "menus": {
@@ -307,6 +312,8 @@
     "onCommand:intlayer.extract",
     "onCommand:intlayer.initSkills",
     "onCommand:intlayer.initMCP",
+    "onCommand:intlayer.initProject",
+    "workspaceContains:package.json",
     "onLanguage:javascript",
     "onLanguage:javascriptreact",
     "onLanguage:typescript",

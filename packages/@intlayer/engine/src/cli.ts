@@ -15,6 +15,7 @@ export {
   type CompatI18nLibrary,
   detectCompatI18nLibraries,
   detectPackageManager,
+  findLockFileDir,
   hasLintTooling,
   installPackages,
   type PackageManager,
