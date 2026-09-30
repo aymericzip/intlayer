@@ -54,4 +54,59 @@ describe('localeDetector', () => {
     const result = localeDetector(headers, available, Locales.ENGLISH);
     expect(result).toBe(Locales.ENGLISH);
   });
+
+  it('should resolve a missing header and an empty header differently', () => {
+    const available = [Locales.FRENCH, Locales.ENGLISH];
+
+    // No header means `*`: the first available locale wins
+    expect(localeDetector({}, available, Locales.ENGLISH)).toBe(Locales.FRENCH);
+    // An empty header matches nothing: the default locale wins
+    expect(
+      localeDetector({ 'accept-language': '' }, available, Locales.ENGLISH)
+    ).toBe(Locales.ENGLISH);
+  });
+
+  it('should return the same locale when served from the cache', () => {
+    const headers = { 'accept-language': 'fr-CA,fr;q=0.9,en;q=0.8' };
+    const available = [Locales.ENGLISH, Locales.FRENCH];
+
+    const firstResult = localeDetector(headers, available, Locales.ENGLISH);
+    const cachedResult = localeDetector(headers, available, Locales.ENGLISH);
+
+    expect(firstResult).toBe(Locales.FRENCH);
+    expect(cachedResult).toBe(Locales.FRENCH);
+  });
+
+  it('should not reuse a result computed for other available locales', () => {
+    const headers = { 'accept-language': 'es-MX,es;q=0.9' };
+
+    expect(
+      localeDetector(
+        headers,
+        [Locales.ENGLISH, Locales.SPANISH],
+        Locales.ENGLISH
+      )
+    ).toBe(Locales.SPANISH);
+    expect(
+      localeDetector(
+        headers,
+        [Locales.ENGLISH, Locales.FRENCH],
+        Locales.ENGLISH
+      )
+    ).toBe(Locales.ENGLISH);
+  });
+
+  it('should resolve headers too long to be cached', () => {
+    const headers = {
+      'accept-language': `${'x-unknown;q=0.1,'.repeat(20)}fr;q=0.9`,
+    };
+
+    expect(
+      localeDetector(
+        headers,
+        [Locales.ENGLISH, Locales.FRENCH],
+        Locales.ENGLISH
+      )
+    ).toBe(Locales.FRENCH);
+  });
 });

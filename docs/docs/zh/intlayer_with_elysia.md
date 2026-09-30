@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-09-27
+updatedAt: 2026-09-29
 priority: 9
 title: "Elysia i18n - 完整指南翻译你的应用"
 description: "在 Elysia 中配置 Intlayer：通过插件按请求检测语言，翻译 API 响应，并在 Bun 上保持内容类型安全。"
@@ -93,8 +93,6 @@ yarn add intlayer elysia-intlayer
 ```bash packageManager="bun"
 bun add intlayer elysia-intlayer
 ```
-
-> Elysia 面向 **Bun** 运行时。`elysia-intlayer` 之所以依赖 `AsyncLocalStorage`（而不是基于 Node 的 Intlayer 插件所使用的 `cls-hooked` 库），正是因为 Bun 没有实现 `async_hooks.createHook`。
 
 ### 设置
 

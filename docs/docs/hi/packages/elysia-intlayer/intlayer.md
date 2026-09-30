@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-24
-updatedAt: 2026-09-27
+updatedAt: 2026-09-29
 priority: 5
 title: intlayer Elysia प्लगइन दस्तावेज़ | elysia-intlayer
 description: "Elysia के लिए intlayer प्लगइन उपयोगकर्ता का लोकेल पहचानता है और हर रिक्वेस्ट के रूट कॉन्टेक्स्ट में अनुवाद फ़ंक्शन जोड़ता है।"
@@ -67,8 +67,7 @@ const app = new Elysia().use(intlayer()).get("/", () =>
 
 1. **लोकेल पहचान**: यह क्लाइंट द्वारा स्पष्ट रूप से सेट की गई locale को storage (cookie, header) से पढ़ता है, फिर `Accept-Language` header से नेगोशिएट की गई locale पर fallback करता है।
 2. **कॉन्टेक्स्ट इंजेक्शन**: यह Elysia route context में एक `intlayer` प्रॉपर्टी जोड़ता है (नीचे दी गई Route Context तालिका देखें)।
-3. **Context Management**: यह एक असिंक्रोनस संदर्भ प्रबंधित करने के लिए `AsyncLocalStorage` का उपयोग करता है, जिससे वैश्विक Intlayer फ़ंक्शन (`t`, `getIntlayer`, `getDictionary`) संदर्भ ऑब्जेक्ट पास किए बिना रिक्वेस्ट-विशिष्ट locale तक पहुंच सकें।
-4. **Dictionaries की तैयारी**: प्लगइन बनते समय यह `prepareIntlayer` को कॉल करता है, ताकि ऐप के बूट होने पर dictionaries बन जाएँ।
+3. **Dictionaries की तैयारी**: प्लगइन बनते समय यह `prepareIntlayer` को कॉल करता है, ताकि ऐप के बूट होने पर dictionaries बन जाएँ।
 
 ### Route Context
 
@@ -82,9 +81,7 @@ const app = new Elysia().use(intlayer()).get("/", () =>
 | `getIntlayer`     | `typeof getIntlayer`   | कुंजी द्वारा dictionaries प्राप्त करने वाला फ़ंक्शन।                                                         |
 | `getDictionary`   | `typeof getDictionary` | dictionary ऑब्जेक्ट्स को प्रोसेस करने वाला फ़ंक्शन।                                                          |
 
-> Node पर आधारित Intlayer प्लगइनों के विपरीत, `elysia-intlayer` `cls-hooked` के बजाय `AsyncLocalStorage` पर निर्भर करता है, क्योंकि `cls-hooked` `async_hooks.createHook` पर निर्भर है, जिसे Bun लागू नहीं करता।
-
-रिस्पॉन्स मैप होते ही रिक्वेस्ट संदर्भ मुक्त कर दिया जाता है, ताकि स्टैंडअलोन helpers कभी भी पहले से समाप्त हो चुके अनुरोध के विरुद्ध हल न हों। जब उन्हें प्लगइन द्वारा संभाले गए अनुरोध के बाहर कॉल किया जाता है, तो वे कॉन्फ़िगर की गई डिफ़ॉल्ट locale पर fallback करते हैं।
+जब स्टैंडअलोन helpers को प्लगइन द्वारा संभाले गए अनुरोध के बाहर कॉल किया जाता है, तो वे कॉन्फ़िगर की गई डिफ़ॉल्ट locale पर fallback करते हैं।
 
 ## Locale हल करने का क्रम
 

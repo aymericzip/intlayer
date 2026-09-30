@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-29
-updatedAt: 2026-09-27
+updatedAt: 2026-09-29
 priority: 5
 title: intlayer Hono 中间件文档 | hono-intlayer
 description: "Hono 的 intlayer 中间件会检测用户语言，并将 Intlayer 翻译函数添加到请求上下文中。"
@@ -59,4 +59,3 @@ app.get("/", async (c) => {
    - `t`：翻译函数。
    - `getIntlayer`：检索字典的函数。
    - `getDictionary`：处理字典对象的函数。
-3. **上下文管理**：使用 `cls-hooked` 管理异步上下文，允许全局 Intlayer 函数（`t`、`getIntlayer`、`getDictionary`）访问特定于请求的语言，而无需传递上下文对象。

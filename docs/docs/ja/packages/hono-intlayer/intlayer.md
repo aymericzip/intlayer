@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-29
-updatedAt: 2026-09-27
+updatedAt: 2026-09-29
 priority: 5
 title: intlayer Hono ミドルウェア ドキュメント | hono-intlayer
 description: "Hono 向け intlayer ミドルウェアは、ユーザーのロケールを検出し、リクエストコンテキストに Intlayer の翻訳関数を追加します。"
@@ -59,4 +59,3 @@ app.get("/", async (c) => {
    - `t`: 翻訳関数。
    - `getIntlayer`: 辞書を取得するための関数。
    - `getDictionary`: 辞書オブジェクトを処理するための関数。
-3. **コンテキスト管理**: `cls-hooked` を使用して非同期コンテキストを管理し、グローバルな Intlayer 関数 (`t`、`getIntlayer`、`getDictionary`) がコンテキスト オブジェクトを渡すことなくリクエスト固有のロケールにアクセスできるようにします。

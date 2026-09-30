@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-09-27
+updatedAt: 2026-09-29
 priority: 5
 title: توثيق مكوّن intlayer لـ Fastify | fastify-intlayer
 description: "تكتشف إضافة intlayer لـ Fastify لغة المستخدم وتضيف دوال الترجمة من Intlayer إلى كل طلب."
@@ -58,4 +58,3 @@ fastify.get("/", async (req, reply) => {
    - `locale`: اللغة المكتشفة.
    - `t`: دالة ترجمة.
    - `getIntlayer`: دالة لاسترجاع القواميس.
-3. **إدارة السياق**: يستخدم `cls-hooked` لإدارة سياق غير متزامن، مما يسمح لدوال Intlayer العامة بالوصول إلى اللغة الخاصة بكل طلب.

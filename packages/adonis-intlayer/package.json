@@ -84,11 +84,9 @@
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/engine": "workspace:*",
-    "@intlayer/types": "workspace:*",
-    "cls-hooked": "4.2.2"
+    "@intlayer/types": "workspace:*"
   },
   "devDependencies": {
-    "@types/cls-hooked": "4.3.9",
     "@types/node": "^22",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",

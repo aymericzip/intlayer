@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-24
-updatedAt: 2026-09-27
+updatedAt: 2026-09-29
 priority: 5
 title: Dokumentacja wtyczki intlayer dla Elysia | elysia-intlayer
 description: "Plugin intlayer dla Elysia wykrywa locale użytkownika i wstrzykuje funkcje tłumaczenia do kontekstu trasy każdego żądania."
@@ -67,8 +67,7 @@ Wtyczka wykonuje następujące zadania:
 
 1. **Wykrywanie locale**: Odczytuje locale ustawione jawnie przez klienta ze storage (cookie, header), a następnie wraca do locale wynegocjowanego z nagłówka `Accept-Language`.
 2. **Wstrzyknięcie do kontekstu**: Dodaje właściwość `intlayer` do kontekstu trasy Elysia (zobacz tabelę Kontekst trasy poniżej).
-3. **Zarządzanie kontekstem**: Używa `AsyncLocalStorage` do zarządzania asynchronicznym kontekstem, dzięki czemu globalne funkcje Intlayer (`t`, `getIntlayer`, `getDictionary`) mają dostęp do locale specyficznego dla żądania bez przekazywania obiektu kontekstu.
-4. **Przygotowanie słowników**: Wywołuje `prepareIntlayer` przy tworzeniu pluginu, dzięki czemu słowniki są budowane przy starcie aplikacji.
+3. **Przygotowanie słowników**: Wywołuje `prepareIntlayer` przy tworzeniu pluginu, dzięki czemu słowniki są budowane przy starcie aplikacji.
 
 ### Kontekst trasy
 
@@ -82,9 +81,7 @@ Wtyczka wykonuje następujące zadania:
 | `getIntlayer`     | `typeof getIntlayer`   | Funkcja pobierająca słowniki po kluczu.                                                               |
 | `getDictionary`   | `typeof getDictionary` | Funkcja przetwarzająca obiekty słowników.                                                             |
 
-> W przeciwieństwie do wtyczek Intlayer opartych na Node, `elysia-intlayer` opiera się na `AsyncLocalStorage` zamiast `cls-hooked`, ponieważ `cls-hooked` zależy od `async_hooks.createHook`, którego Bun nie implementuje.
-
-Kontekst żądania jest zwalniany po zmapowaniu odpowiedzi, więc samodzielne helpery nigdy nie rozwiązują się względem już zakończonego żądania. Wywołane poza żądaniem obsługiwanym przez wtyczkę, wracają do skonfigurowanego domyślnego locale.
+Samodzielne helpery wywołane poza żądaniem obsługiwanym przez wtyczkę wracają do skonfigurowanego domyślnego locale.
 
 ## Kolejność rozwiązywania locale
 

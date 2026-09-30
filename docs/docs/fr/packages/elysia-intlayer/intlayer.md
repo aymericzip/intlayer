@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-24
-updatedAt: 2026-09-27
+updatedAt: 2026-09-29
 priority: 5
 title: Documentation du plugin intlayer pour Elysia | elysia-intlayer
 description: "Le plugin intlayer pour Elysia détecte la locale de l'utilisateur et injecte les fonctions de traduction dans le contexte de chaque route."
@@ -65,8 +65,7 @@ Le plugin effectue les opérations suivantes :
 
 1. **Détection de la locale** : Il lit la locale explicitement définie par le client depuis le storage (cookie, header), puis se rabat sur la locale négociée à partir du header `Accept-Language`.
 2. **Injection dans le contexte** : Il ajoute une propriété `intlayer` au contexte de route Elysia (voir le tableau Contexte de la route ci-dessous).
-3. **Gestion du contexte** : Il utilise `AsyncLocalStorage` pour gérer un contexte asynchrone, permettant aux fonctions globales d'Intlayer (`t`, `getIntlayer`, `getDictionary`) d'accéder à la locale spécifique à la requête sans avoir à transmettre l'objet de contexte.
-4. **Préparation des dictionnaires** : Il appelle `prepareIntlayer` à la création du plugin, afin que les dictionnaires soient construits au démarrage de l'application.
+3. **Préparation des dictionnaires** : Il appelle `prepareIntlayer` à la création du plugin, afin que les dictionnaires soient construits au démarrage de l'application.
 
 ### Contexte de la route
 
@@ -80,9 +79,7 @@ Le plugin effectue les opérations suivantes :
 | `getIntlayer`     | `typeof getIntlayer`   | Une fonction pour récupérer les dictionnaires par clé.                                             |
 | `getDictionary`   | `typeof getDictionary` | Une fonction pour traiter les objets dictionnaire.                                                 |
 
-> Contrairement aux plugins Intlayer basés sur Node, `elysia-intlayer` s'appuie sur `AsyncLocalStorage` plutôt que sur `cls-hooked`, car `cls-hooked` dépend de `async_hooks.createHook`, que Bun n'implémente pas.
-
-Le contexte de requête est libéré une fois la réponse mappée, afin que les helpers autonomes ne se résolvent jamais sur une requête déjà terminée. Lorsqu'ils sont appelés en dehors d'une requête gérée par le plugin, ils se rabattent sur la locale par défaut configurée.
+Lorsque les helpers autonomes sont appelés en dehors d'une requête gérée par le plugin, ils se rabattent sur la locale par défaut configurée.
 
 ## Ordre de résolution de la locale
 

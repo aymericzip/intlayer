@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-09-27
+updatedAt: 2026-09-29
 priority: 5
 title: intlayer Fastify 플러그인 문서 | fastify-intlayer
 description: "Fastify용 intlayer 플러그인은 사용자 로케일을 감지하고 각 요청에 Intlayer 번역 함수를 추가합니다."
@@ -58,4 +58,3 @@ fastify.get("/", async (req, reply) => {
    - `locale`: 감지된 로케일.
    - `t`: 번역 함수.
    - `getIntlayer`: 사전을 가져오는 함수.
-3. **컨텍스트 관리**: 비동기 컨텍스트를 관리하기 위해 `cls-hooked`를 사용하여, 전역 Intlayer 함수들이 요청별 로케일에 접근할 수 있도록 합니다.

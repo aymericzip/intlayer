@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-08-24
+updatedAt: 2026-09-29
 priority: 9
 title: "Elysia i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
 description: "Elysia'da Intlayer kurulumu: eklentiyle her istekte locale algılama, API yanıtlarını çevirme ve Bun üzerinde tipli içerik."
@@ -93,8 +93,6 @@ yarn add intlayer elysia-intlayer
 ```bash packageManager="bun"
 bun add intlayer elysia-intlayer
 ```
-
-> Elysia **Bun** runtime'ını hedefler. `elysia-intlayer`, Node tabanlı Intlayer pluginlerinin kullandığı `cls-hooked` kütüphanesi yerine `AsyncLocalStorage`'a dayanır; çünkü Bun `async_hooks.createHook` fonksiyonunu implemente etmez.
 
 ### Kurulum
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-24
-updatedAt: 2026-09-27
+updatedAt: 2026-09-29
 priority: 5
 title: intlayer Elysia Plugin Documentation | elysia-intlayer
 description: "The intlayer plugin for Elysia detects the user's locale and injects translation functions into the route context of each request."
@@ -65,8 +65,7 @@ The plugin performs the following tasks:
 
 1. **Locale Detection**: It reads the locale explicitly set by the client from storage (cookie, header), then falls back to the locale negotiated from the `Accept-Language` header. If no supported locale matches, it falls back to the configured `defaultLocale`.
 2. **Context Injection**: It adds an `intlayer` property to the Elysia route context (see the table below).
-3. **Context Management**: It uses `AsyncLocalStorage` to manage an asynchronous context, allowing the standalone Intlayer functions (`t`, `getIntlayer`, `getDictionary`) to access the request-specific locale without passing the context object around.
-4. **Dictionary Preparation**: It calls `prepareIntlayer` when the plugin is created, so the dictionaries are built when the app boots.
+3. **Dictionary Preparation**: It calls `prepareIntlayer` when the plugin is created, so the dictionaries are built when the app boots.
 
 ### Route Context
 
@@ -80,9 +79,7 @@ The plugin performs the following tasks:
 | `getIntlayer`     | `typeof getIntlayer`   | Reads a dictionary by key, defaulting to the request locale.                                  |
 | `getDictionary`   | `typeof getDictionary` | Reads an imported dictionary, defaulting to the request locale.                               |
 
-> Unlike the Node-based Intlayer plugins, `elysia-intlayer` relies on `AsyncLocalStorage` instead of `cls-hooked`, because `cls-hooked` depends on `async_hooks.createHook`, which Bun does not implement.
-
-The request context is released once the response is mapped, so the standalone helpers never resolve against an already terminated request. When called outside of a request handled by the plugin, they fall back to the configured default locale.
+When called outside of a request handled by the plugin, the standalone helpers fall back to the configured default locale.
 
 ## Locale Resolution Order
 

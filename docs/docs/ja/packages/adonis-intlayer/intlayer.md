@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-30
-updatedAt: 2026-09-27
+updatedAt: 2026-09-29
 priority: 5
 title: intlayer AdonisJS ミドルウェアドキュメント | adonis-intlayer
 description: "AdonisJS 向け intlayer ミドルウェアは、ユーザーのロケールを検出し、リクエストコンテキストを通じて翻訳関数を提供します。"
@@ -51,6 +51,5 @@ router.get("/", async () => {
 
 1. **ロケール検出**: リクエスト（ヘッダー、クッキーなど）を分析して、ユーザーの優先ロケールを決定します。
 2. **コンテキスト設定**: リクエストコンテキストにロケール情報を設定します。
-3. **Async Local Storage**: `cls-hooked`（または同等の仕組み）を使用して非同期コンテキストを管理し、`t`、`getIntlayer`、`getDictionary` などのグローバルな Intlayer 関数が、手動で渡すことなくリクエスト固有のロケールにアクセスできるようにします。
 
 > 注: ロケール検出にクッキーを使用するには、`@adonisjs/cookie` が構成され、アプリケーションで使用されていることを確認してください。

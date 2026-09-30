@@ -5,6 +5,9 @@
   "exclude": ["**/*.test.*"],
   "compilerOptions": {
     "rootDir": "./src",
-    "outDir": "dist/types"
+    "outDir": "dist/types",
+    // Elysia marks a derive `Partial` when its value may be `undefined`, which
+    // is always the case without null checks: `intlayer` would be optional.
+    "strictNullChecks": true
   }
 }

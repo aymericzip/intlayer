@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-24
-updatedAt: 2026-09-27
+updatedAt: 2026-09-29
 priority: 5
 title: intlayer Elysia Plugin Dokumentation | elysia-intlayer
 description: "Das intlayer-Plugin für Elysia erkennt die Locale des Nutzers und fügt Übersetzungsfunktionen in den Routen-Kontext jedes Requests ein."
@@ -67,8 +67,7 @@ Das Plugin führt die folgenden Aufgaben aus:
 
 1. **Locale-Erkennung**: Es liest die vom Client explizit gesetzte Locale aus dem Storage (Cookie, Header) und greift anschließend auf die aus dem `Accept-Language`-Header ausgehandelte Locale zurück.
 2. **Kontext-Injektion**: Es fügt dem Elysia-Route-Context eine `intlayer`-Eigenschaft hinzu (siehe die Tabelle Route-Context weiter unten).
-3. **Kontextverwaltung**: Es verwendet `AsyncLocalStorage`, um einen asynchronen Kontext zu verwalten, wodurch die globalen Intlayer-Funktionen (`t`, `getIntlayer`, `getDictionary`) auf die anfragebezogene Locale zugreifen können, ohne das Kontextobjekt weiterreichen zu müssen.
-4. **Vorbereitung der Dictionaries**: Es ruft `prepareIntlayer` beim Erstellen des Plugins auf, sodass die Dictionaries beim Start der Anwendung gebaut werden.
+3. **Vorbereitung der Dictionaries**: Es ruft `prepareIntlayer` beim Erstellen des Plugins auf, sodass die Dictionaries beim Start der Anwendung gebaut werden.
 
 ### Route-Context
 
@@ -82,9 +81,7 @@ Das Plugin führt die folgenden Aufgaben aus:
 | `getIntlayer`     | `typeof getIntlayer`   | Eine Funktion zum Abrufen von Wörterbüchern anhand ihres Schlüssels.                                   |
 | `getDictionary`   | `typeof getDictionary` | Eine Funktion zum Verarbeiten von Wörterbuchobjekten.                                                  |
 
-> Anders als die Node-basierten Intlayer-Plugins setzt `elysia-intlayer` auf `AsyncLocalStorage` statt auf `cls-hooked`, da `cls-hooked` von `async_hooks.createHook` abhängt, das Bun nicht implementiert.
-
-Der Request-Kontext wird freigegeben, sobald die Response gemappt wurde, sodass die eigenständigen Helper niemals gegen eine bereits beendete Anfrage auflösen. Werden sie außerhalb einer vom Plugin behandelten Anfrage aufgerufen, greifen sie auf die konfigurierte Standard-Locale zurück.
+Werden die eigenständigen Helper außerhalb einer vom Plugin behandelten Anfrage aufgerufen, greifen sie auf die konfigurierte Standard-Locale zurück.
 
 ## Reihenfolge der Locale-Auflösung
 

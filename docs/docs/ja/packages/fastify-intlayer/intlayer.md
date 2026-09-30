@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-09-27
+updatedAt: 2026-09-29
 priority: 5
 title: intlayer Fastify プラグインドキュメント | fastify-intlayer
 description: "Fastify 向け intlayer プラグインは、ユーザーのロケールを検出し、各リクエストに Intlayer の翻訳関数を追加します。"
@@ -58,4 +58,3 @@ fastify.get("/", async (req, reply) => {
    - `locale`: 検出されたロケール。
    - `t`: 翻訳関数。
    - `getIntlayer`: 辞書を取得する関数。
-3. **コンテキスト管理**: 非同期コンテキストを管理するために `cls-hooked` を使用し、グローバルな Intlayer 関数がリクエスト固有のロケールにアクセスできるようにします。

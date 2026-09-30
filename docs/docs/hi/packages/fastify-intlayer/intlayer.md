@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-09-27
+updatedAt: 2026-09-29
 priority: 5
 title: intlayer Fastify प्लगइन दस्तावेज़ | fastify-intlayer
 description: "Fastify के लिए intlayer प्लगइन उपयोगकर्ता का लोकेल पहचानता है और हर रिक्वेस्ट में Intlayer अनुवाद फ़ंक्शन जोड़ता है।"
@@ -58,4 +58,3 @@ fastify.get("/", async (req, reply) => {
    - `locale`: पता चला हुआ locale।
    - `t`: एक अनुवाद फ़ंक्शन।
    - `getIntlayer`: डिक्शनरी को प्राप्त करने का एक फ़ंक्शन।
-3. **Context Management**: यह एक असिंक्रोनस संदर्भ प्रबंधित करने के लिए `cls-hooked` का उपयोग करता है, जिससे वैश्विक Intlayer फ़ंक्शन रिक्वेस्ट-विशिष्ट locale तक पहुंच सकें।

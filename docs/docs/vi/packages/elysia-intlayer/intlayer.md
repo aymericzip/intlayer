@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-24
-updatedAt: 2026-09-27
+updatedAt: 2026-09-29
 priority: 5
 title: Tài liệu Plugin intlayer cho Elysia | elysia-intlayer
 description: "Plugin intlayer cho Elysia nhận diện locale của người dùng và đưa các hàm dịch vào ngữ cảnh route của mỗi request."
@@ -67,8 +67,7 @@ Plugin thực hiện các nhiệm vụ sau:
 
 1. **Phát hiện locale**: Nó đọc locale được client thiết lập một cách tường minh từ storage (cookie, header), sau đó quay về locale được thương lượng từ header `Accept-Language`.
 2. **Tiêm vào ngữ cảnh**: Nó thêm thuộc tính `intlayer` vào context route của Elysia (xem bảng Context của route bên dưới).
-3. **Quản lý ngữ cảnh**: Nó sử dụng `AsyncLocalStorage` để quản lý ngữ cảnh bất đồng bộ, cho phép các hàm Intlayer toàn cục (`t`, `getIntlayer`, `getDictionary`) truy cập locale cụ thể của request mà không cần truyền đối tượng ngữ cảnh.
-4. **Chuẩn bị dictionary**: Nó gọi `prepareIntlayer` khi plugin được tạo, nhờ vậy dictionary được build khi ứng dụng khởi động.
+3. **Chuẩn bị dictionary**: Nó gọi `prepareIntlayer` khi plugin được tạo, nhờ vậy dictionary được build khi ứng dụng khởi động.
 
 ### Context của route
 
@@ -82,9 +81,7 @@ Plugin thực hiện các nhiệm vụ sau:
 | `getIntlayer`     | `typeof getIntlayer`   | Hàm để lấy dictionary theo key.                                                   |
 | `getDictionary`   | `typeof getDictionary` | Hàm để xử lý các đối tượng dictionary.                                            |
 
-> Không giống các plugin Intlayer dựa trên Node, `elysia-intlayer` dựa vào `AsyncLocalStorage` thay vì `cls-hooked`, bởi vì `cls-hooked` phụ thuộc vào `async_hooks.createHook`, thứ mà Bun không triển khai.
-
-Ngữ cảnh của request được giải phóng ngay khi response được map, nên các helper độc lập không bao giờ phân giải dựa trên một request đã kết thúc. Khi được gọi bên ngoài một request do plugin xử lý, chúng quay về locale mặc định đã được cấu hình.
+Khi các helper độc lập được gọi bên ngoài một request do plugin xử lý, chúng quay về locale mặc định đã được cấu hình.
 
 ## Thứ tự phân giải locale
 

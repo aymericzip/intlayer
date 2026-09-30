@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-29
-updatedAt: 2026-09-27
+updatedAt: 2026-09-29
 priority: 5
 title: Tài liệu Middleware intlayer cho Hono | hono-intlayer
 description: "Middleware intlayer cho Hono nhận diện locale của người dùng và thêm các hàm dịch Intlayer vào ngữ cảnh request."
@@ -59,4 +59,3 @@ Middleware thực hiện các nhiệm vụ sau:
    - `t`: Một hàm dịch.
    - `getIntlayer`: Một hàm để lấy từ điển.
    - `getDictionary`: Một hàm để xử lý các đối tượng từ điển.
-3. **Quản lý ngữ cảnh**: Sử dụng `cls-hooked` để quản lý một ngữ cảnh không đồng bộ, cho phép các hàm Intlayer toàn cục (`t`, `getIntlayer`, `getDictionary`) truy cập vào ngôn ngữ cụ thể của yêu cầu mà không cần truyền đối tượng ngữ cảnh.

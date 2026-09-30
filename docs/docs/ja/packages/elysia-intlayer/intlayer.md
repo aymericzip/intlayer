@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-24
-updatedAt: 2026-09-27
+updatedAt: 2026-09-29
 priority: 5
 title: intlayer Elysia プラグインドキュメント | elysia-intlayer
 description: "Elysia 向け intlayer プラグインは、ユーザーのロケールを検出し、各リクエストのルートコンテキストに翻訳関数を注入します。"
@@ -67,8 +67,7 @@ const app = new Elysia().use(intlayer()).get("/", () =>
 
 1. **ロケール検出**: クライアントが明示的に設定したロケールをストレージ（クッキー、ヘッダー）から読み取り、その後 `Accept-Language` ヘッダーからネゴシエートされたロケールにフォールバックします。
 2. **コンテキストへの注入**: Elysia のルートコンテキストに `intlayer` プロパティを追加します（下記の「ルートコンテキスト」表を参照）。
-3. **コンテキスト管理**: 非同期コンテキストを管理するために `AsyncLocalStorage` を使用し、グローバルな Intlayer 関数（`t`、`getIntlayer`、`getDictionary`）がコンテキストオブジェクトを渡さずにリクエスト固有のロケールにアクセスできるようにします。
-4. **辞書の準備**: プラグインの生成時に `prepareIntlayer` を呼び出すため、アプリの起動時に辞書がビルドされます。
+3. **辞書の準備**: プラグインの生成時に `prepareIntlayer` を呼び出すため、アプリの起動時に辞書がビルドされます。
 
 ### ルートコンテキスト
 
@@ -82,9 +81,7 @@ const app = new Elysia().use(intlayer()).get("/", () =>
 | `getIntlayer`     | `typeof getIntlayer`   | キーで辞書を取得する関数。                                                                 |
 | `getDictionary`   | `typeof getDictionary` | 辞書オブジェクトを処理する関数。                                                           |
 
-> Node ベースの Intlayer プラグインとは異なり、`elysia-intlayer` は `cls-hooked` ではなく `AsyncLocalStorage` に依存します。`cls-hooked` は Bun が実装していない `async_hooks.createHook` に依存しているためです。
-
-リクエストコンテキストはレスポンスがマップされた時点で解放されるため、スタンドアロンのヘルパーが既に終了したリクエストに対して解決されることはありません。プラグインが処理するリクエストの外部で呼び出された場合は、設定されたデフォルトロケールにフォールバックします。
+スタンドアロンのヘルパーは、プラグインが処理するリクエストの外部で呼び出された場合、設定されたデフォルトロケールにフォールバックします。
 
 ## ロケールの解決順序
 

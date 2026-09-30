@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-29
-updatedAt: 2026-09-27
+updatedAt: 2026-09-29
 priority: 5
 title: توثيق وسيط intlayer لـ Hono | hono-intlayer
 description: "يكتشف وسيط intlayer لـ Hono لغة المستخدم ويضيف دوال الترجمة من Intlayer إلى سياق الطلب."
@@ -59,4 +59,3 @@ app.get("/", async (c) => {
    - `t`: دالة ترجمة.
    - `getIntlayer`: دالة لاسترجاع القواميس.
    - `getDictionary`: دالة لمعالجة كائنات القاموس.
-3. **إدارة السياق**: يستخدم `cls-hooked` لإدارة سياق غير متزامن، مما يسمح لدوال Intlayer العالمية (`t` و `getIntlayer` و `getDictionary`) بالوصول إلى اللغة الخاصة بالطلب دون تمرير كائن السياق.

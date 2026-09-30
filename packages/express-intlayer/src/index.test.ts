@@ -1,7 +1,7 @@
 import { resolveInterpreterLocale } from '@intlayer/core/interpreter';
 import type { NextFunction, Request, Response } from 'express';
 import { describe, expect, it } from 'vitest';
-import { intlayer } from './index';
+import { intlayer, t } from './index';
 
 /**
  * Runs the middleware for a request carrying `cookies`, then reads the bare
@@ -37,5 +37,50 @@ describe('express-intlayer', () => {
     await readAmbientLocale({ INTLAYER_LOCALE: 'fr' }, 0);
 
     expect(resolveInterpreterLocale()).toBe('en');
+  });
+
+  it('keeps the request locale for the standalone `t` across awaits', async () => {
+    const translation = await new Promise<string>((resolve, reject) => {
+      const request = {
+        cookies: { INTLAYER_LOCALE: 'fr' },
+        headers: {},
+      } as unknown as Request;
+      const response = { locals: {} } as unknown as Response;
+
+      const next: NextFunction = async () => {
+        await new Promise((resolveTimer) => setTimeout(resolveTimer, 5));
+        await Promise.resolve();
+
+        resolve(t({ en: 'Hello', fr: 'Bonjour' } as never));
+      };
+
+      Promise.resolve(intlayer()(request, response, next)).catch(reject);
+    });
+
+    expect(translation).toBe('Bonjour');
+  });
+
+  it('reads the locale cookie without `cookie-parser`', () => {
+    const request = {
+      headers: { cookie: 'theme=dark; INTLAYER_LOCALE=fr' },
+    } as unknown as Request;
+    const response = { locals: {} } as unknown as Response;
+
+    intlayer()(request, response, () => {});
+
+    expect(response.locals.locale).toBe('fr');
+    expect(response.locals.t({ en: 'Hello', fr: 'Bonjour' })).toBe('Bonjour');
+  });
+
+  it('negotiates the locale from the `Accept-Language` header', () => {
+    const request = {
+      headers: { 'accept-language': 'fr-CA,fr;q=0.9,en;q=0.5' },
+    } as unknown as Request;
+    const response = { locals: {} } as unknown as Response;
+
+    intlayer()(request, response, () => {});
+
+    expect(response.locals.locale_storage).toBeUndefined();
+    expect(response.locals.locale_detected).toBe('fr');
   });
 });

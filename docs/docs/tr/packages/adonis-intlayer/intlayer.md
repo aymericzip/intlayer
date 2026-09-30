@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-30
-updatedAt: 2026-09-27
+updatedAt: 2026-09-29
 priority: 5
 title: intlayer AdonisJS Middleware Belgeleri | adonis-intlayer
 description: "AdonisJS için intlayer middleware'i kullanıcının locale'ini algılar ve çeviri fonksiyonlarını istek bağlamı üzerinden sunar."
@@ -51,6 +51,5 @@ Middleware aşağıdaki görevleri gerçekleştirir:
 
 1. **Yerel Ayar Tespiti**: Kullanıcının tercih ettiği yerel ayarı belirlemek için isteği (başlıklar, çerezler vb.) analiz eder.
 2. **Bağlam Kurulumu**: İstek bağlamını yerel ayar bilgileriyle doldurur.
-3. **Async Local Storage**: Bir asenkron bağlamı yönetmek için `cls-hooked` kullanır ve `t`, `getIntlayer` ve `getDictionary` gibi küresel Intlayer fonksiyonlarının istek-özel yerel ayarına manuel olarak geçirmeden erişmesini sağlar.
 
 > Not: Yerel ayar tespiti için çerezleri kullanmak için, uygulamanızda `@adonisjs/cookie`'nin yapılandırıldığından ve kullanıldığından emin olun.

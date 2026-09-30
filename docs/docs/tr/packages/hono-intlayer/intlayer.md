@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-29
-updatedAt: 2026-09-27
+updatedAt: 2026-09-29
 priority: 5
 title: intlayer Hono Ara Yazılım Dokümantasyonu | hono-intlayer
 description: "Hono için intlayer middleware'i kullanıcının locale'ini algılar ve Intlayer çeviri fonksiyonlarını istek bağlamına ekler."
@@ -59,4 +59,3 @@ Ara yazılım aşağıdaki görevleri gerçekleştirir:
    - `t`: Bir çeviri fonksiyonu.
    - `getIntlayer`: Sözlükleri almak için bir fonksiyon.
    - `getDictionary`: Sözlük nesnelerini işlemek için bir fonksiyon.
-3. **Bağlam Yönetimi**: `cls-hooked` kullanarak asenkron bir bağlam yönetir ve genel Intlayer fonksiyonlarının (`t`, `getIntlayer`, `getDictionary`) bağlam nesnesini geçmeden isteğe özel yerel ayara erişmesine olanak tanır.

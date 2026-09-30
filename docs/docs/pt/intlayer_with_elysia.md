@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-09-27
+updatedAt: 2026-09-29
 priority: 9
 title: "Elysia i18n - Guia completo para traduzir sua aplicação"
 description: "Configure o Intlayer no Elysia: detecte o locale por requisição com o plugin, traduza respostas de API e mantenha o conteúdo tipado no Bun."
@@ -93,8 +93,6 @@ yarn add intlayer elysia-intlayer
 ```bash packageManager="bun"
 bun add intlayer elysia-intlayer
 ```
-
-> O Elysia tem como alvo o runtime **Bun**. O `elysia-intlayer` se apoia em `AsyncLocalStorage` (em vez da biblioteca `cls-hooked` usada pelos plugins Intlayer baseados em Node) justamente porque o Bun não implementa `async_hooks.createHook`.
 
 ### Configuração
 

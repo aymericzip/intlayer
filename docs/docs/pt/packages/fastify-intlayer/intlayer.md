@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-09-27
+updatedAt: 2026-09-29
 priority: 5
 title: Documentação do Plugin intlayer para Fastify | fastify-intlayer
 description: "O plugin intlayer para Fastify detecta o locale do usuário e adiciona as funções de tradução do Intlayer a cada requisição."
@@ -58,4 +58,3 @@ O plugin realiza as seguintes tarefas:
    - `locale`: O locale detectado.
    - `t`: Uma função de tradução.
    - `getIntlayer`: Uma função para recuperar dicionários.
-3. **Gerenciamento de contexto**: Utiliza `cls-hooked` para gerir um contexto assíncrono, permitindo que funções globais do Intlayer acedam ao locale específico da request.

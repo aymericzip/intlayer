@@ -1,3 +1,5 @@
+import { AsyncLocalStorage } from 'node:async_hooks';
+import { internationalization } from '@intlayer/config/built';
 import { getConfiguration } from '@intlayer/config/node';
 import {
   getDictionary as getDictionaryFunction,
@@ -6,48 +8,138 @@ import {
   registerAmbientLocaleResolver,
 } from '@intlayer/core/interpreter';
 import { localeDetector } from '@intlayer/core/localization';
-import { getLocaleFromStorageServer } from '@intlayer/core/utils';
+import { getCookie, getLocaleFromStorageServer } from '@intlayer/core/utils';
 import { prepareIntlayerServer } from '@intlayer/engine/build';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { StrictModeLocaleMap } from '@intlayer/types/module_augmentation';
-import { createNamespace } from 'cls-hooked';
 import type { FastifyPluginAsync, FastifyRequest } from 'fastify';
 import fp from 'fastify-plugin';
+
+/**
+ * Intlayer state of the request being handled.
+ */
+export type IntlayerRequestContext = {
+  /** Locale to use for this request, `locale_storage` taking precedence. */
+  locale: Locale;
+  /** Locale configured as fallback in `intlayer.config.ts`. */
+  defaultLocale: Locale;
+  /** Locale explicitly requested by the client through a cookie or a header. */
+  locale_storage?: Locale;
+  /** Locale negotiated from the `Accept-Language` header. */
+  locale_detected?: Locale;
+  /** Translates an inline locale map. */
+  t: <T extends string>(
+    content: StrictModeLocaleMap<T> | string,
+    locale?: Locale
+  ) => T;
+  /** Reads a dictionary by key, defaulting to the request locale. */
+  getIntlayer: typeof getIntlayerFunction;
+  /** Reads an imported dictionary, defaulting to the request locale. */
+  getDictionary: typeof getDictionaryFunction;
+};
 
 // Module augmentation to type the request decoration
 declare module 'fastify' {
   interface FastifyRequest {
-    intlayer: {
-      locale: Locale;
-      defaultLocale: Locale;
-      locale_storage?: Locale;
-      locale_detected?: Locale;
-      t: <T extends string>(
-        content: StrictModeLocaleMap<T> | string,
-        locale?: Locale
-      ) => T;
-      getIntlayer: typeof getIntlayerFunction;
-      getDictionary: typeof getDictionaryFunction;
-    };
+    intlayer: IntlayerRequestContext;
   }
 }
 
-const appNamespace = createNamespace('app');
+/**
+ * Request-scoped Intlayer context, holding the `req.intlayer` object itself.
+ */
+const intlayerStorage = new AsyncLocalStorage<IntlayerRequestContext>();
 
 // Lets a bare `getIntlayer` / `getDictionary` from any Intlayer package resolve
 // to the locale of the request being handled.
-registerAmbientLocaleResolver(() => appNamespace.get('locale'));
+registerAmbientLocaleResolver(() => intlayerStorage.getStore()?.locale);
 
 // Zero-cost fallback, will be updated with fastify logger in dev mode
 let debug: (message: string) => void = () => {};
 
 /**
+ * Translates `content` into `locale`, falling back to the default locale.
+ */
+const translate = <T extends string>(
+  content: StrictModeLocaleMap<T> | string,
+  locale: Locale
+): T =>
+  typeof content === 'string'
+    ? (content as T)
+    : getTranslation(content, locale, internationalization.defaultLocale);
+
+/**
+ * Reads a single-valued request header.
+ */
+const getHeader = (
+  request: FastifyRequest,
+  name: string
+): string | undefined => {
+  const value = request.headers[name];
+
+  return Array.isArray(value) ? value.join(',') : value;
+};
+
+/**
+ * Builds the Intlayer state of a request.
+ */
+const createRequestContext = (
+  request: FastifyRequest
+): IntlayerRequestContext => {
+  const { locales, defaultLocale } = internationalization;
+
+  // Parsed cookies need `@fastify/cookie`: read the raw header otherwise
+  const parsedCookies = (
+    request as FastifyRequest & { cookies?: Record<string, string | undefined> }
+  ).cookies;
+
+  const localeFromStorage = getLocaleFromStorageServer({
+    getCookie: (name: string) =>
+      parsedCookies
+        ? parsedCookies[name]
+        : getCookie(name, request.headers.cookie ?? ''),
+    getHeader: (name: string) => getHeader(request, name),
+  });
+
+  const localeDetected = localeDetector(
+    { 'accept-language': getHeader(request, 'accept-language') },
+    locales,
+    defaultLocale
+  );
+
+  const locale = localeFromStorage ?? localeDetected;
+
+  return {
+    locale_storage: localeFromStorage,
+    locale_detected: localeDetected,
+    locale,
+    defaultLocale,
+    t: (content, localeArg) => translate(content, localeArg ?? locale),
+    getIntlayer: (key, localeArg, ...props) =>
+      getIntlayerFunction(
+        key,
+        (localeArg ?? locale) as typeof localeArg,
+        ...props
+      ),
+    getDictionary: (key, localeArg, ...props) =>
+      getDictionaryFunction(
+        key,
+        (localeArg ?? locale) as typeof localeArg,
+        ...props
+      ),
+  };
+};
+
+/**
  * Fastify Plugin that integrates Intlayer into your Fastify application.
  *
  * It handles:
- * 1. Locale detection from storage (cookies, headers).
+ * 1. Locale detection from storage (cookies, headers) then from `Accept-Language`.
  * 2. Decorating the request object with `intlayer` data containing `t`, `getIntlayer`, and `getDictionary`.
- * 3. Setting up a `cls-hooked` namespace for programmatic access during the request lifecycle.
+ * 3. Setting up an `AsyncLocalStorage` context for programmatic access during the request lifecycle.
+ *
+ * The context is set in `onRequest`, so it also covers the app hooks, schema
+ * validation errors and error handlers.
  *
  * @example
  * ```ts
@@ -58,165 +150,45 @@ let debug: (message: string) => void = () => {};
  * fastify.register(intlayer);
  * ```
  */
-const fastifyIntlayer: FastifyPluginAsync = async (fastify, _opts) => {
-  const configuration = getConfiguration({
-    logFunctions: fastify.log, // Req not defined yet
-  });
-  const { internationalization } = configuration;
-
+const fastifyIntlayer: FastifyPluginAsync = async (fastify) => {
   // In dev mode, use fastify logger to debug messages
   if (process.env['NODE_ENV'] === 'development') {
-    debug = (msg: string) => fastify.log.debug(msg);
+    debug = (message: string) => fastify.log.debug(message);
   }
 
-  /**
-   * Retrieves the locale from storage (cookies, headers).
-   * Note: req.cookies requires @fastify/cookie to be registered.
-   * We cast req to any to avoid hard dependency on @fastify/cookie types.
-   */
-  const getStorageLocale = (req: FastifyRequest): Locale | undefined =>
-    getLocaleFromStorageServer({
-      getCookie: (name: string) => (req as any).cookies?.[name],
-      getHeader: (name: string) => req.headers?.[name] as string | undefined,
-    });
+  prepareIntlayerServer(getConfiguration({ logFunctions: fastify.log }), {
+    label: 'fastify-intlayer',
+  });
 
-  prepareIntlayerServer(configuration, { label: 'fastify-intlayer' });
-
-  const translateFunction =
-    (req: FastifyRequest) =>
-    <T extends string>(
-      content: StrictModeLocaleMap<T> | string,
-      locale?: Locale
-    ): T => {
-      // Access the decorated state from the request
-      const { locale: currentLocale, defaultLocale } = req.intlayer;
-
-      const targetLocale = locale ?? currentLocale;
-
-      if (typeof content === 'undefined') {
-        return '' as unknown as T;
-      }
-
-      if (typeof content === 'string') {
-        return content as unknown as T;
-      }
-
-      if (
-        typeof content?.[
-          targetLocale as unknown as keyof StrictModeLocaleMap<T>
-        ] === 'undefined'
-      ) {
-        if (
-          typeof content?.[
-            defaultLocale as unknown as keyof StrictModeLocaleMap<T>
-          ] === 'undefined'
-        ) {
-          return content as unknown as T;
-        } else {
-          return getTranslation(content, defaultLocale);
-        }
-      }
-
-      return getTranslation(content, targetLocale);
-    };
-
-  // Decorate the request object to ensure types are stable.
-  // We use 'null as any' to bypass the initial type check, knowing
-  // the preHandler will populate it before any route handler runs.
+  // Declared upfront so every request object keeps the same shape
   if (!fastify.hasRequestDecorator('intlayer')) {
-    fastify.decorateRequest('intlayer', null as any);
+    fastify.decorateRequest(
+      'intlayer',
+      null as unknown as IntlayerRequestContext
+    );
   }
 
-  fastify.addHook('preHandler', (req, _reply, done) => {
-    // Detect if locale is set by intlayer frontend lib in the headers
-    const localeFromStorage = getStorageLocale(req);
+  fastify.addHook('onRequest', (request, _reply, done) => {
+    const context = createRequestContext(request);
 
-    const negotiatorHeaders: Record<string, string> = {};
+    request.intlayer = context;
 
-    // Copy all headers from the request to negotiatorHeaders
-    if (req && typeof req.headers === 'object') {
-      for (const key in req.headers) {
-        const value = req.headers[key];
-
-        if (typeof value === 'string') {
-          negotiatorHeaders[key] = value;
-        } else if (Array.isArray(value)) {
-          // Handle array headers (unlikely for accept-language but possible in Fastify)
-          negotiatorHeaders[key] = value.join(',');
-        }
-      }
-    }
-
-    const localeDetected = localeDetector(
-      negotiatorHeaders,
-      internationalization.locales,
-      internationalization.defaultLocale
-    );
-
-    const locale = localeFromStorage ?? localeDetected;
-    const defaultLocale = internationalization.defaultLocale;
-
-    // Helper functions bound to the current request context
-    const getIntlayerWrapped: typeof getIntlayerFunction = (
-      key,
-      localeArg,
-      ...props
-    ) =>
-      getIntlayerFunction(
-        key,
-        (localeArg ?? locale) as typeof localeArg,
-        ...props
-      );
-
-    const getDictionaryWrapped: typeof getDictionaryFunction = (
-      key,
-      localeArg,
-      ...props
-    ) =>
-      getDictionaryFunction(
-        key,
-        (localeArg ?? locale) as typeof localeArg,
-        ...props
-      );
-
-    // Assign data to request decoration
-    req.intlayer = {
-      locale_storage: localeFromStorage,
-      locale_detected: localeDetected,
-      locale,
-      defaultLocale,
-      getIntlayer: getIntlayerWrapped,
-      getDictionary: getDictionaryWrapped,
-      t: undefined as unknown as any, // Placeholder
-    };
-
-    // Now bind t using the updated req
-    const t = translateFunction(req);
-    req.intlayer.t = t;
-
-    // Run CLS context
-    appNamespace.run(() => {
-      appNamespace.set('locale', locale);
-      appNamespace.set('t', t);
-      appNamespace.set('getIntlayer', getIntlayerWrapped);
-      appNamespace.set('getDictionary', getDictionaryWrapped);
-
-      done();
-    });
+    // Run the rest of the request lifecycle inside the Intlayer context
+    intlayerStorage.run(context, done);
   });
 };
 
 // Export as a Fastify Plugin (wrapped in fp to skip encapsulation)
-export const intlayer = fp(fastifyIntlayer as any, {
+export const intlayer = fp(fastifyIntlayer, {
   name: 'fastify-intlayer',
   fastify: '5.x',
-}) as unknown as FastifyPluginAsync;
+});
 
 /**
  * Global translation function that retrieves content for the current locale in Fastify.
  *
- * This function utilizes CLS (Async Local Storage) and must be used within a request context
- * managed by the `intlayer` plugin.
+ * Falls back to the configured default locale when called outside of a request
+ * handled by the `intlayer` plugin.
  *
  * @param content - A map of locales to content.
  * @param locale - Optional locale override.
@@ -239,67 +211,45 @@ export const t = <Content = string>(
   content: StrictModeLocaleMap<Content>,
   locale?: Locale
 ): Content => {
-  try {
-    if (typeof appNamespace === 'undefined') {
-      throw new Error(
-        'Intlayer is not initialized. Register the plugin `fastify.register(intlayer)`.'
-      );
-    }
+  const context = intlayerStorage.getStore();
 
-    if (typeof appNamespace.get('t') !== 'function') {
-      throw new Error(
-        'Using the import { t } from "fastify-intlayer" is not supported in your environment outside of a request context or proper setup. Use req.intlayer.t instead.'
-      );
-    }
-
-    return appNamespace.get('t')(content, locale);
-  } catch (error) {
-    debug((error as Error).message);
-
-    return getTranslation(content, locale ?? 'en');
+  if (context) {
+    return context.t(content as StrictModeLocaleMap<string>, locale) as Content;
   }
+
+  debug(
+    'Using the import { t } from "fastify-intlayer" outside of a request context. Use req.intlayer.t instead.'
+  );
+
+  return getTranslation(content, locale ?? internationalization.defaultLocale);
 };
 
+/**
+ * Retrieves a dictionary by key, using the locale of the current request by default.
+ */
 export const getIntlayer: typeof getIntlayerFunction = (...args) => {
-  try {
-    if (typeof appNamespace === 'undefined') {
-      throw new Error(
-        'Intlayer is not initialized. Register the plugin `fastify.register(intlayer)`.'
-      );
-    }
+  const context = intlayerStorage.getStore();
 
-    if (typeof appNamespace.get('getIntlayer') !== 'function') {
-      throw new Error(
-        'Context not found. Ensure you are inside a request handling flow.'
-      );
-    }
-
-    return appNamespace.get('getIntlayer')(...args);
-  } catch (error) {
-    debug((error as Error).message);
-
-    return getIntlayerFunction(...args);
+  if (context) {
+    return context.getIntlayer(...args);
   }
+
+  debug('Context not found. Ensure you are inside a request handling flow.');
+
+  return getIntlayerFunction(...args);
 };
 
+/**
+ * Retrieves an imported dictionary, using the locale of the current request by default.
+ */
 export const getDictionary: typeof getDictionaryFunction = (...args) => {
-  try {
-    if (typeof appNamespace === 'undefined') {
-      throw new Error(
-        'Intlayer is not initialized. Register the plugin `fastify.register(intlayer)`.'
-      );
-    }
+  const context = intlayerStorage.getStore();
 
-    if (typeof appNamespace.get('getDictionary') !== 'function') {
-      throw new Error(
-        'Context not found. Ensure you are inside a request handling flow.'
-      );
-    }
-
-    return appNamespace.get('getDictionary')(...args);
-  } catch (error) {
-    debug((error as Error).message);
-
-    return getDictionaryFunction(...args);
+  if (context) {
+    return context.getDictionary(...args);
   }
+
+  debug('Context not found. Ensure you are inside a request handling flow.');
+
+  return getDictionaryFunction(...args);
 };

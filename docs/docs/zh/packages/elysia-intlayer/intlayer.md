@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-24
-updatedAt: 2026-09-27
+updatedAt: 2026-09-29
 priority: 5
 title: intlayer Elysia 插件文档 | elysia-intlayer
 description: "Elysia 的 intlayer 插件会检测用户语言，并将翻译函数注入每个请求的路由上下文。"
@@ -67,8 +67,7 @@ const app = new Elysia().use(intlayer()).get("/", () =>
 
 1. **Locale 检测**：它先从 storage（cookie、header）读取客户端显式设置的 locale，然后回退到从 `Accept-Language` 请求头协商得到的 locale。
 2. **上下文注入**：它向 Elysia 路由上下文添加一个 `intlayer` 属性（参见下方的“路由上下文”表格）。
-3. **上下文管理**：它使用 `AsyncLocalStorage` 管理异步上下文，使全局 Intlayer 函数（`t`、`getIntlayer`、`getDictionary`）无需传递上下文对象即可访问该请求特定的 locale。
-4. **字典准备**：它在创建插件时调用 `prepareIntlayer`，因此字典会在应用启动时构建。
+3. **字典准备**：它在创建插件时调用 `prepareIntlayer`，因此字典会在应用启动时构建。
 
 ### 路由上下文
 
@@ -82,9 +81,7 @@ const app = new Elysia().use(intlayer()).get("/", () =>
 | `getIntlayer`     | `typeof getIntlayer`   | 按 key 获取字典的函数。                                              |
 | `getDictionary`   | `typeof getDictionary` | 处理字典对象的函数。                                                 |
 
-> 与基于 Node 的 Intlayer 插件不同，`elysia-intlayer` 依赖 `AsyncLocalStorage` 而非 `cls-hooked`，因为 `cls-hooked` 依赖于 Bun 未实现的 `async_hooks.createHook`。
-
-请求上下文会在响应被映射后释放，因此独立的 helper 永远不会针对已经结束的请求进行解析。当在插件处理的请求之外调用时，它们会回退到配置的默认 locale。
+当在插件处理的请求之外调用独立的 helper 时，它们会回退到配置的默认 locale。
 
 ## 语言环境解析顺序
 

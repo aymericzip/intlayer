@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-24
-updatedAt: 2026-09-27
+updatedAt: 2026-09-29
 priority: 5
 title: Dokumentasi Plugin intlayer untuk Elysia | elysia-intlayer
 description: "Plugin intlayer untuk Elysia mendeteksi locale pengguna dan menyisipkan fungsi terjemahan ke konteks rute setiap request."
@@ -67,8 +67,7 @@ Plugin melakukan tugas-tugas berikut:
 
 1. **Deteksi locale**: Membaca locale yang ditetapkan secara eksplisit oleh klien dari storage (cookie, header), lalu beralih ke locale yang dinegosiasikan dari header `Accept-Language`.
 2. **Injeksi Konteks**: Menambahkan properti `intlayer` ke context route Elysia (lihat tabel Context Route di bawah).
-3. **Manajemen Konteks**: Menggunakan `AsyncLocalStorage` untuk mengelola konteks asinkron, memungkinkan fungsi Intlayer global (`t`, `getIntlayer`, `getDictionary`) mengakses locale spesifik request tanpa harus meneruskan objek konteks.
-4. **Penyiapan Dictionary**: Memanggil `prepareIntlayer` saat plugin dibuat, sehingga dictionary dibangun ketika aplikasi melakukan boot.
+3. **Penyiapan Dictionary**: Memanggil `prepareIntlayer` saat plugin dibuat, sehingga dictionary dibangun ketika aplikasi melakukan boot.
 
 ### Context Route
 
@@ -82,9 +81,7 @@ Plugin melakukan tugas-tugas berikut:
 | `getIntlayer`     | `typeof getIntlayer`   | Fungsi untuk mengambil dictionary berdasarkan key.                                                                |
 | `getDictionary`   | `typeof getDictionary` | Fungsi untuk memproses objek dictionary.                                                                          |
 
-> Tidak seperti plugin Intlayer berbasis Node, `elysia-intlayer` mengandalkan `AsyncLocalStorage` alih-alih `cls-hooked`, karena `cls-hooked` bergantung pada `async_hooks.createHook`, yang tidak diimplementasikan oleh Bun.
-
-Konteks request dilepaskan setelah response dipetakan, sehingga helper mandiri tidak pernah diselesaikan terhadap request yang sudah berakhir. Ketika dipanggil di luar request yang ditangani plugin, keduanya beralih ke locale default yang dikonfigurasi.
+Ketika helper mandiri dipanggil di luar request yang ditangani plugin, helper tersebut beralih ke locale default yang dikonfigurasi.
 
 ## Urutan Resolusi Locale
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-09-27
+updatedAt: 2026-09-29
 priority: 9
 title: "Elysia i18n - アプリを翻訳するための完全ガイド"
 description: "Elysia に Intlayer を導入：プラグインでリクエストごとにロケールを検出し、API レスポンスを翻訳、Bun 上でコンテンツを型付きで管理。"
@@ -93,8 +93,6 @@ yarn add intlayer elysia-intlayer
 ```bash packageManager="bun"
 bun add intlayer elysia-intlayer
 ```
-
-> Elysia は **Bun** ランタイムを対象としています。`elysia-intlayer` が（Node ベースの Intlayer プラグインが使う `cls-hooked` ライブラリではなく）`AsyncLocalStorage` に依存しているのは、まさに Bun が `async_hooks.createHook` を実装していないためです。
 
 ### セットアップ
 

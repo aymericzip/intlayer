@@ -10,6 +10,18 @@ const LANGUAGE_FORMAT_REGULAR_EXPRESSION =
 const DEFAULT_QUALITY_SCORE = 1;
 
 /**
+ * Upper bound of the memoization caches below. Browsers send a handful of
+ * distinct `Accept-Language` values, so a small cache holds the working set.
+ */
+const MAX_CACHE_ENTRIES = 512;
+
+/**
+ * Longer headers are resolved without being memoized, so a client sending
+ * arbitrary headers cannot grow the cache memory.
+ */
+const MAX_CACHEABLE_HEADER_LENGTH = 128;
+
+/**
  * Enumeration for specificity weights.
  * Higher values indicate a more precise match.
  */
@@ -27,6 +39,10 @@ type LanguagePreference = {
   languageCode: string;
   regionCode?: string;
   fullLocale: string;
+  /** `fullLocale` lower-cased once, for case-insensitive matching */
+  fullLocaleLower: string;
+  /** `languageCode` lower-cased once, for case-insensitive matching */
+  languageCodeLower: string;
   qualityScore: number;
   originalIndex: number;
 };
@@ -39,6 +55,23 @@ type MatchResult = {
   headerIndex: number;
   qualityScore: number;
   specificityScore: number;
+};
+
+/**
+ * Inserts an entry in a bounded cache, evicting the oldest entry when full.
+ */
+const setBoundedCacheEntry = <Value>(
+  cache: Map<string, Value>,
+  key: string,
+  value: Value
+): Value => {
+  if (cache.size >= MAX_CACHE_ENTRIES) {
+    cache.delete(cache.keys().next().value as string);
+  }
+
+  cache.set(key, value);
+
+  return value;
 };
 
 /**
@@ -84,11 +117,36 @@ const parseLanguageTag = (
     qualityScore,
     originalIndex: index,
     fullLocale,
+    fullLocaleLower: fullLocale.toLowerCase(),
+    languageCodeLower: languageCode.toLowerCase(),
   };
 };
 
 /**
- * Parses the entire Accept-Language header string into a list of preferences.
+ * Parsed available languages. They come from the configuration, so the same
+ * few tags are parsed on every request: parse each one once.
+ */
+const availableLanguageCache = new Map<string, LanguagePreference | null>();
+
+/**
+ * Parses an available language, reusing the previous parse of the same tag.
+ */
+const parseAvailableLanguage = (
+  language: string
+): LanguagePreference | null => {
+  const cachedLanguage = availableLanguageCache.get(language);
+
+  if (cachedLanguage !== undefined) return cachedLanguage;
+
+  return setBoundedCacheEntry(
+    availableLanguageCache,
+    language,
+    parseLanguageTag(language, 0)
+  );
+};
+
+/**
+ * Parses the full Accept-Language header into a list of language preferences.
  */
 const parseAcceptLanguageHeader = (
   headerValue: string
@@ -112,30 +170,20 @@ const parseAcceptLanguageHeader = (
 };
 
 /**
- * Calculates the specificity of a match between a provided language and a requested preference.
+ * Determines how well a specific available language matches a requested language preference.
  */
 const calculateMatchSpecificity = (
-  providedLanguage: string,
+  parsedProvided: LanguagePreference,
   preference: LanguagePreference,
   providedIndex: number
 ): MatchResult | null => {
-  const parsedProvided = parseLanguageTag(providedLanguage, providedIndex);
-  if (!parsedProvided) {
-    return null;
-  }
-
   let specificityScore = SpecificityWeight.None;
 
-  const preferenceFullLower = preference.fullLocale.toLowerCase();
-  const preferencePrefixLower = preference.languageCode.toLowerCase();
-  const providedFullLower = parsedProvided.fullLocale.toLowerCase();
-  const providedPrefixLower = parsedProvided.languageCode.toLowerCase();
-
-  if (preferenceFullLower === providedFullLower) {
+  if (preference.fullLocaleLower === parsedProvided.fullLocaleLower) {
     specificityScore |= SpecificityWeight.Exact;
-  } else if (preferencePrefixLower === providedFullLower) {
+  } else if (preference.languageCodeLower === parsedProvided.fullLocaleLower) {
     specificityScore |= SpecificityWeight.Prefix;
-  } else if (preferenceFullLower === providedPrefixLower) {
+  } else if (preference.fullLocaleLower === parsedProvided.languageCodeLower) {
     specificityScore |= SpecificityWeight.Broad;
   } else if (preference.fullLocale !== '*') {
     return null;
@@ -150,7 +198,7 @@ const calculateMatchSpecificity = (
 };
 
 /**
- * Determines the best match for a specific available language against the list of user accepted languages.
+ * Finds the best matching preference from the header for a specific available language.
  */
 const getBestMatchForLanguage = (
   providedLanguage: string,
@@ -165,9 +213,15 @@ const getBestMatchForLanguage = (
     providedIndex,
   };
 
+  const parsedProvided = parseAvailableLanguage(providedLanguage);
+
+  if (!parsedProvided) {
+    return bestMatch;
+  }
+
   for (const preference of acceptedPreferences) {
     const matchSpec = calculateMatchSpecificity(
-      providedLanguage,
+      parsedProvided,
       preference,
       providedIndex
     );
@@ -190,12 +244,8 @@ const getBestMatchForLanguage = (
 };
 
 /**
- * Comparator function to sort language matches.
- * Sorting order:
- * 1. Quality Score (Descending)
- * 2. Specificity Score (Descending)
- * 3. Order in Header (Ascending - lower index is better)
- * 4. Order in Provided List (Ascending)
+ * Comparator function to sort MatchResults.
+ * Order: Quality (desc) -> Specificity (desc) -> Header Order (asc) -> Provided Order (asc)
  */
 const compareMatchResults = (a: MatchResult, b: MatchResult): number => {
   return (
@@ -239,10 +289,17 @@ export const getPreferredLanguages = (
 };
 
 /**
+ * Detected locales, keyed by header, available locales and default locale.
+ */
+const detectedLocaleCache = new Map<string, DeclaredLocales>();
+
+/**
  * Detects the locale from the request headers.
  *
  * Headers are provided by the browser/client and can be used to determine the user's preferred language.
  * This function intersects the user's `Accept-Language` header with the application's available locales.
+ *
+ * The result is memoized, as it only depends on its arguments.
  */
 export const localeDetector = (
   headers: Record<string, string | undefined>,
@@ -251,14 +308,34 @@ export const localeDetector = (
 ): DeclaredLocales => {
   const acceptLanguageHeader = headers['accept-language'];
 
+  const isCacheable =
+    (acceptLanguageHeader?.length ?? 0) <= MAX_CACHEABLE_HEADER_LENGTH;
+
+  // A missing header (`*`) and an empty header resolve differently
+  const cacheKey = isCacheable
+    ? `${acceptLanguageHeader === undefined ? '\u0000' : `=${acceptLanguageHeader}`}\u0001${availableLocales?.join(',') ?? '\u0000'}\u0001${defaultLocale ?? '\u0000'}`
+    : undefined;
+
+  if (cacheKey !== undefined) {
+    const cachedLocale = detectedLocaleCache.get(cacheKey);
+
+    if (cachedLocale !== undefined) return cachedLocale;
+  }
+
   const preferredLocaleStrings = getPreferredLanguages(
     acceptLanguageHeader,
     availableLocales as string[]
   );
 
-  return localeResolver(
+  const detectedLocale = localeResolver(
     preferredLocaleStrings as Locale[],
     availableLocales,
     defaultLocale
   );
+
+  if (cacheKey !== undefined) {
+    setBoundedCacheEntry(detectedLocaleCache, cacheKey, detectedLocale);
+  }
+
+  return detectedLocale;
 };

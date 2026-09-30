@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-09-27
+updatedAt: 2026-09-29
 priority: 5
 title: Tài liệu Plugin intlayer cho Fastify | fastify-intlayer
 description: "Plugin intlayer cho Fastify nhận diện locale của người dùng và thêm các hàm dịch Intlayer vào mỗi request."
@@ -58,4 +58,3 @@ Plugin thực hiện các nhiệm vụ sau:
    - `locale`: Locale được phát hiện.
    - `t`: Một hàm dịch.
    - `getIntlayer`: Một hàm để lấy các từ điển.
-3. **Quản lý ngữ cảnh**: Nó sử dụng `cls-hooked` để quản lý ngữ cảnh bất đồng bộ, cho phép các hàm Intlayer toàn cục truy cập locale cụ thể của request.

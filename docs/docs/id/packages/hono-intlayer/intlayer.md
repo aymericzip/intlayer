@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-29
-updatedAt: 2026-09-27
+updatedAt: 2026-09-29
 priority: 5
 title: Dokumentasi Middleware Hono intlayer | hono-intlayer
 description: "Middleware intlayer untuk Hono mendeteksi locale pengguna dan menambahkan fungsi terjemahan Intlayer ke konteks request."
@@ -59,4 +59,3 @@ Middleware melakukan tugas-tugas berikut:
    - `t`: Fungsi terjemahan.
    - `getIntlayer`: Fungsi untuk mengambil kamus.
    - `getDictionary`: Fungsi untuk memproses objek kamus.
-3. **Manajemen Konteks**: Menggunakan `cls-hooked` untuk mengelola konteks asinkron, memungkinkan fungsi Intlayer global (`t`, `getIntlayer`, `getDictionary`) untuk mengakses locale khusus permintaan tanpa meneruskan objek konteks.

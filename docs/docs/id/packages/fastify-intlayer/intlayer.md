@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-09-27
+updatedAt: 2026-09-29
 priority: 5
 title: "Dokumentasi Plugin intlayer untuk Fastify | fastify-intlayer"
 description: "Plugin intlayer untuk Fastify mendeteksi locale pengguna dan menambahkan fungsi terjemahan Intlayer ke setiap request."
@@ -57,4 +57,3 @@ Plugin melakukan tugas-tugas berikut:
    - `locale`: Locale yang terdeteksi.
    - `t`: Fungsi terjemahan.
    - `getIntlayer`: Fungsi untuk mengambil kamus.
-3. **Manajemen Konteks**: Menggunakan `cls-hooked` untuk mengelola konteks asinkron, memungkinkan fungsi Intlayer global mengakses locale spesifik request.

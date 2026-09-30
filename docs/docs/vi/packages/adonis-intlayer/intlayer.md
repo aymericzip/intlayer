@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-30
-updatedAt: 2026-09-27
+updatedAt: 2026-09-29
 priority: 5
 title: Tài liệu Middleware intlayer cho AdonisJS | adonis-intlayer
 description: "Middleware intlayer cho AdonisJS nhận diện locale của người dùng và cung cấp các hàm dịch qua ngữ cảnh request."
@@ -51,6 +51,5 @@ Middleware thực hiện các nhiệm vụ sau:
 
 1. **Phát hiện ngôn ngữ**: Nó phân tích yêu cầu (tiêu đề, cookie, v.v.) để xác định ngôn ngữ ưa thích của người dùng.
 2. **Thiết lập ngữ cảnh**: Nó điền thông tin ngôn ngữ vào ngữ cảnh yêu cầu.
-3. **Async Local Storage**: Nó sử dụng `cls-hooked` để quản lý ngữ cảnh bất đồng bộ, cho phép các hàm Intlayer toàn cục như `t`, `getIntlayer` và `getDictionary` truy cập ngôn ngữ cụ thể của yêu cầu mà không cần truyền thủ công.
 
 > Lưu ý: Để sử dụng cookie để phát hiện ngôn ngữ, hãy đảm bảo `@adonisjs/cookie` được cấu hình và sử dụng trong ứng dụng của bạn.

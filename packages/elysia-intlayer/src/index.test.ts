@@ -29,6 +29,17 @@ const app = new Elysia()
     throw new Error('Route failure');
   });
 
+const appWithLifecycleHooks = new Elysia()
+  .use(intlayer())
+  .onError(() => ({ message: t(greeting) }))
+  .mapResponse(({ responseValue }) =>
+    responseValue === 'mapped' ? new Response(t(greeting)) : undefined
+  )
+  .get('/throwing', () => {
+    throw new Error('Route failure');
+  })
+  .get('/mapped', () => 'mapped');
+
 const request = async (headers: Record<string, string>) => {
   const response = await app.handle(
     new Request('http://localhost/', { headers })
@@ -114,6 +125,39 @@ describe('elysia-intlayer', () => {
     );
 
     expect(response.status).toBe(500);
+    expect(t(greeting)).toBe('Hello');
+  });
+
+  it('exposes the request locale to app-level `onError` hooks', async () => {
+    const response = await appWithLifecycleHooks.handle(
+      new Request('http://localhost/throwing', {
+        headers: { cookie: 'INTLAYER_LOCALE=fr' },
+      })
+    );
+
+    expect(await response.json()).toEqual({ message: 'Bonjour' });
+  });
+
+  it('exposes the request locale to app-level `mapResponse` hooks', async () => {
+    const response = await appWithLifecycleHooks.handle(
+      new Request('http://localhost/mapped', {
+        headers: { cookie: 'INTLAYER_LOCALE=fr' },
+      })
+    );
+
+    expect(await response.text()).toBe('Bonjour');
+  });
+
+  it('never exposes the request locale to the caller of `app.handle`', async () => {
+    const pendingResponse = app.handle(
+      new Request('http://localhost/', {
+        headers: { cookie: 'INTLAYER_LOCALE=fr' },
+      })
+    );
+
+    // Synchronously after the call, then once the response is ready
+    expect(t(greeting)).toBe('Hello');
+    await pendingResponse;
     expect(t(greeting)).toBe('Hello');
   });
 });

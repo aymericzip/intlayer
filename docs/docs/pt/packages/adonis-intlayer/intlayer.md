@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-30
-updatedAt: 2026-09-27
+updatedAt: 2026-09-29
 priority: 5
 title: Documentação do Middleware intlayer para AdonisJS | adonis-intlayer
 description: "O middleware intlayer para AdonisJS detecta o locale do usuário e expõe as funções de tradução pelo contexto da requisição."
@@ -51,6 +51,5 @@ O middleware realiza as seguintes tarefas:
 
 1. **Detecção de Locale**: Ele analisa a solicitação (cabeçalhos, cookies, etc.) para determinar o locale de preferência do usuário.
 2. **Configuração de Contexto**: Ele preenche o contexto da solicitação com informações de locale.
-3. **Async Local Storage**: Ele usa `cls-hooked` para gerenciar um contexto assíncrono, permitindo que funções globais do Intlayer como `t`, `getIntlayer` e `getDictionary` acessem o locale específico da solicitação sem passá-lo manualmente.
 
 > Nota: Para usar cookies para detecção de locale, certifique-se de que `@adonisjs/cookie` esteja configurado e sendo usado em sua aplicação.

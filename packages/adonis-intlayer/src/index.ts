@@ -1,4 +1,6 @@
+import { AsyncLocalStorage } from 'node:async_hooks';
 import type { HttpContext } from '@adonisjs/core/http';
+import { internationalization } from '@intlayer/config/built';
 import { getConfiguration } from '@intlayer/config/node';
 import {
   getDictionary as getDictionaryFunction,
@@ -10,13 +12,9 @@ import { getLocaleFromStorageServer } from '@intlayer/core/utils';
 import { prepareIntlayerServer } from '@intlayer/engine/build';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { StrictModeLocaleMap } from '@intlayer/types/module_augmentation';
-import { createNamespace } from 'cls-hooked';
 
 // Zero-cost fallback, will be updated with AdonisJS logger or console in dev mode
 let debug: (message: string) => void = () => {};
-
-const configuration = getConfiguration();
-const { internationalization } = configuration;
 
 if (process.env['NODE_ENV'] === 'development') {
   try {
@@ -27,65 +25,61 @@ if (process.env['NODE_ENV'] === 'development') {
   }
 }
 
-export const appNamespace = createNamespace('app');
+/**
+ * Intlayer helpers bound to the request being handled.
+ */
+export type IntlayerRequestContext = {
+  locale: Locale;
+  t: ReturnType<typeof translateFunction>;
+  getIntlayer: typeof getIntlayerFunction;
+  getDictionary: typeof getDictionaryFunction;
+};
+
+/**
+ * Request-scoped Intlayer context, entered by `IntlayerMiddleware`.
+ *
+ * `AsyncLocalStorage` rather than `cls-hooked`: the latter relies on
+ * `async_hooks.createHook`, which Bun does not implement, and is several times
+ * slower on Node.
+ */
+export const intlayerStorage = new AsyncLocalStorage<IntlayerRequestContext>();
 
 // Lets a bare `getIntlayer` / `getDictionary` from any Intlayer package resolve
 // to the locale of the request being handled.
-registerAmbientLocaleResolver(() => appNamespace.get('locale'));
+registerAmbientLocaleResolver(() => intlayerStorage.getStore()?.locale);
 
-prepareIntlayerServer(configuration, { label: 'adonis-intlayer' });
+prepareIntlayerServer(getConfiguration(), { label: 'adonis-intlayer' });
 
 /**
  * Retrieves the locale from storage (cookies, headers).
+ *
+ * `request.cookie` only reads signed cookies: the locale cookie set by the
+ * Intlayer client libraries is a plain one.
  */
 export const getStorageLocale = (ctx: HttpContext): Locale | undefined =>
   getLocaleFromStorageServer({
-    getCookie: (name: string) => ctx.request.cookie(name),
+    getCookie: (name: string) =>
+      ctx.request.cookie(name) ??
+      ctx.request.plainCookie(name, { encoded: false }),
     getHeader: (name: string) => ctx.request.header(name),
   });
 
 /**
- * Translation function for context
+ * Builds the translation function bound to the locale stored on the HTTP context.
  */
 export const translateFunction =
   (ctx: HttpContext) =>
   <T extends string>(
     content: StrictModeLocaleMap<T> | string,
     locale?: Locale
-  ): T => {
-    const { locale: currentLocale, defaultLocale } = ctx as unknown as {
-      locale: Locale;
-      defaultLocale: Locale;
-    };
-
-    const targetLocale = locale ?? currentLocale;
-
-    if (typeof content === 'undefined') {
-      return '' as unknown as T;
-    }
-
-    if (typeof content === 'string') {
-      return content as unknown as T;
-    }
-
-    if (
-      typeof content?.[
-        targetLocale as unknown as keyof StrictModeLocaleMap<T>
-      ] === 'undefined'
-    ) {
-      if (
-        typeof content?.[
-          defaultLocale as unknown as keyof StrictModeLocaleMap<T>
-        ] === 'undefined'
-      ) {
-        return content as unknown as T;
-      } else {
-        return getTranslation(content, defaultLocale);
-      }
-    }
-
-    return getTranslation(content, targetLocale);
-  };
+  ): T =>
+    typeof content === 'string'
+      ? (content as T)
+      : getTranslation(
+          content,
+          locale ?? (ctx as HttpContext & { locale: Locale }).locale,
+          internationalization.defaultLocale
+        );
 
 /**
  * Translation function to retrieve content for the current locale.
@@ -113,100 +107,56 @@ export const t = <Content = string>(
   content: StrictModeLocaleMap<Content>,
   locale?: Locale
 ): Content => {
-  try {
-    if (typeof appNamespace === 'undefined') {
-      throw new Error(
-        'Intlayer is not initialized. Add the `intlayer` middleware to your kernel before using this function.'
-      );
-    }
+  const context = intlayerStorage.getStore();
 
-    if (typeof appNamespace.get('t') !== 'function') {
-      throw new Error(
-        'Using the import { t } from "adonis-intlayer" is not supported in your environment. Ensure you are within a request context.'
-      );
-    }
-
-    return appNamespace.get('t')(content, locale);
-  } catch (error) {
-    debug((error as Error).message);
+  if (!context) {
+    debug(
+      'Using the import { t } from "adonis-intlayer" outside of a request handled by the `intlayer` middleware. Ensure you are within a request context.'
+    );
 
     return getTranslation(
       content,
       locale ?? internationalization.defaultLocale
     );
   }
+
+  return context.t(content as StrictModeLocaleMap<string>, locale) as Content;
 };
 
-export const getIntlayer: typeof getIntlayerFunction = ((
-  key: any,
-  localeArg?: any,
-  ...props: any[]
-) => {
-  try {
-    if (typeof appNamespace === 'undefined') {
-      throw new Error(
-        'Intlayer is not initialized. Add the `intlayer` middleware to your kernel before using this function.'
-      );
-    }
+export const getIntlayer: typeof getIntlayerFunction = (...args) => {
+  const context = intlayerStorage.getStore();
 
-    const getIntlayerWrapped = appNamespace.get('getIntlayer');
-
-    if (typeof getIntlayerWrapped !== 'function') {
-      throw new Error(
-        'Using the import { getIntlayer } from "adonis-intlayer" is not supported in your environment. Ensure you are within a request context.'
-      );
-    }
-
-    return getIntlayerWrapped(key, localeArg, ...props);
-  } catch (error) {
-    debug((error as Error).message);
-
-    return getIntlayerFunction(key, localeArg, ...props);
-  }
-}) as typeof getIntlayerFunction;
-
-export const getDictionary: typeof getDictionaryFunction = ((
-  key: any,
-  localeArg?: any,
-  ...props: any[]
-) => {
-  try {
-    if (typeof appNamespace === 'undefined') {
-      throw new Error(
-        'Intlayer is not initialized. Add the `intlayer` middleware to your kernel before using this function.'
-      );
-    }
-
-    const getDictionaryWrapped = appNamespace.get('getDictionary');
-
-    if (typeof getDictionaryWrapped !== 'function') {
-      throw new Error(
-        'Using the import { getDictionary } from "adonis-intlayer" is not supported in your environment. Ensure you are within a request context.'
-      );
-    }
-
-    return getDictionaryWrapped(key, localeArg, ...props);
-  } catch (error) {
-    debug((error as Error).message);
-
-    return getDictionaryFunction(key, localeArg, ...props);
-  }
-}) as typeof getDictionaryFunction;
-
-export const getLocale = (locale?: Locale): Locale => {
-  try {
-    if (typeof appNamespace === 'undefined') {
-      throw new Error(
-        'Intlayer is not initialized. Add the `intlayer` middleware to your kernel before using this function.'
-      );
-    }
-
-    return (
-      appNamespace.get('locale') ?? locale ?? internationalization.defaultLocale
+  if (!context) {
+    debug(
+      'Using the import { getIntlayer } from "adonis-intlayer" outside of a request handled by the `intlayer` middleware. Ensure you are within a request context.'
     );
-  } catch (_error) {
-    return locale ?? internationalization.defaultLocale;
+
+    return getIntlayerFunction(...args);
   }
+
+  return context.getIntlayer(...args);
 };
+
+export const getDictionary: typeof getDictionaryFunction = (...args) => {
+  const context = intlayerStorage.getStore();
+
+  if (!context) {
+    debug(
+      'Using the import { getDictionary } from "adonis-intlayer" outside of a request handled by the `intlayer` middleware. Ensure you are within a request context.'
+    );
+
+    return getDictionaryFunction(...args);
+  }
+
+  return context.getDictionary(...args);
+};
+
+/**
+ * Returns the locale of the request being handled, else `locale`, else the default locale.
+ */
+export const getLocale = (locale?: Locale): Locale =>
+  intlayerStorage.getStore()?.locale ??
+  locale ??
+  internationalization.defaultLocale;
 
 export { default as IntlayerMiddleware } from './middleware';

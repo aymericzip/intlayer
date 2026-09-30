@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-08-24
+updatedAt: 2026-09-29
 priority: 9
 title: "Elysia i18n - Hướng dẫn đầy đủ để dịch ứng dụng của bạn"
 description: "Thiết lập Intlayer trong Elysia: nhận diện locale theo từng request bằng plugin, dịch phản hồi API và giữ nội dung có kiểu trên Bun."
@@ -93,8 +93,6 @@ yarn add intlayer elysia-intlayer
 ```bash packageManager="bun"
 bun add intlayer elysia-intlayer
 ```
-
-> Elysia nhắm tới runtime **Bun**. `elysia-intlayer` dựa trên `AsyncLocalStorage` (thay vì thư viện `cls-hooked` mà các plugin Intlayer chạy trên Node sử dụng) chính vì Bun không triển khai `async_hooks.createHook`.
 
 ### Thiết lập
 

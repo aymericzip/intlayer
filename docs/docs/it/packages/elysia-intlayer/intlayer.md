@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-24
-updatedAt: 2026-09-27
+updatedAt: 2026-09-29
 priority: 5
 title: Documentazione del plugin intlayer per Elysia | elysia-intlayer
 description: "Il plugin intlayer per Elysia rileva la locale dell'utente e inserisce le funzioni di traduzione nel contesto di ogni route."
@@ -67,8 +67,7 @@ Il plugin esegue le seguenti operazioni:
 
 1. **Rilevamento della locale**: Legge la locale impostata esplicitamente dal client dallo storage (cookie, header), quindi ricade sulla locale negoziata a partire dall'header `Accept-Language`.
 2. **Iniezione nel contesto**: Aggiunge una proprietà `intlayer` al contesto della route di Elysia (vedi la tabella Contesto della route qui sotto).
-3. **Gestione del contesto**: Utilizza `AsyncLocalStorage` per gestire un contesto asincrono, consentendo alle funzioni globali di Intlayer (`t`, `getIntlayer`, `getDictionary`) di accedere alla locale specifica della richiesta senza dover passare l'oggetto di contesto.
-4. **Preparazione dei dizionari**: Richiama `prepareIntlayer` alla creazione del plugin, così i dizionari vengono costruiti all'avvio dell'applicazione.
+3. **Preparazione dei dizionari**: Richiama `prepareIntlayer` alla creazione del plugin, così i dizionari vengono costruiti all'avvio dell'applicazione.
 
 ### Contesto della route
 
@@ -82,9 +81,7 @@ Il plugin esegue le seguenti operazioni:
 | `getIntlayer`     | `typeof getIntlayer`   | Una funzione per recuperare i dizionari tramite chiave.                                                  |
 | `getDictionary`   | `typeof getDictionary` | Una funzione per elaborare gli oggetti dizionario.                                                       |
 
-> A differenza dei plugin Intlayer basati su Node, `elysia-intlayer` si affida ad `AsyncLocalStorage` anziché a `cls-hooked`, poiché `cls-hooked` dipende da `async_hooks.createHook`, che Bun non implementa.
-
-Il contesto della richiesta viene rilasciato una volta mappata la risposta, così gli helper autonomi non si risolvono mai su una richiesta già terminata. Quando vengono chiamati al di fuori di una richiesta gestita dal plugin, ricadono sulla locale predefinita configurata.
+Quando gli helper autonomi vengono chiamati al di fuori di una richiesta gestita dal plugin, ricadono sulla locale predefinita configurata.
 
 ## Ordine di risoluzione della locale
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-30
-updatedAt: 2026-09-27
+updatedAt: 2026-09-29
 priority: 5
 title: intlayer AdonisJS 中间件文档 | adonis-intlayer
 description: "AdonisJS 的 intlayer 中间件会检测用户语言，并通过请求上下文提供翻译函数。"
@@ -51,6 +51,5 @@ router.get("/", async () => {
 
 1. **语言区域检测**：它分析请求（标头、cookie 等）以确定用户的首选语言区域。
 2. **上下文设置**：它使用语言区域信息填充请求上下文。
-3. **Async Local Storage**：它使用 `cls-hooked` 管理异步上下文，允许全局 Intlayer 函数（如 `t`、`getIntlayer` 和 `getDictionary`）访问请求特定的语言区域，而无需手动传递。
 
 > 注意：要使用 cookie 进行语言区域检测，请确保在您的应用程序中配置并使用了 `@adonisjs/cookie`。

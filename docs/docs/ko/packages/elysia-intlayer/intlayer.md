@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-24
-updatedAt: 2026-09-27
+updatedAt: 2026-09-29
 priority: 5
 title: intlayer Elysia 플러그인 문서 | elysia-intlayer
 description: "Elysia용 intlayer 플러그인은 사용자 로케일을 감지하고 각 요청의 라우트 컨텍스트에 번역 함수를 주입합니다."
@@ -67,8 +67,7 @@ const app = new Elysia().use(intlayer()).get("/", () =>
 
 1. **로케일 감지**: 클라이언트가 명시적으로 설정한 로케일을 스토리지(쿠키, 헤더)에서 읽고, 그다음 `Accept-Language` 헤더에서 협상된 로케일로 폴백합니다.
 2. **컨텍스트 주입**: Elysia 라우트 컨텍스트에 `intlayer` 속성을 추가합니다 (아래 라우트 컨텍스트 표 참조).
-3. **컨텍스트 관리**: 비동기 컨텍스트를 관리하기 위해 `AsyncLocalStorage`를 사용하여, 전역 Intlayer 함수(`t`, `getIntlayer`, `getDictionary`)가 컨텍스트 객체를 전달하지 않고도 요청별 로케일에 접근할 수 있도록 합니다.
-4. **사전 준비**: 플러그인이 생성될 때 `prepareIntlayer`를 호출하므로, 앱이 부팅될 때 사전이 빌드됩니다.
+3. **사전 준비**: 플러그인이 생성될 때 `prepareIntlayer`를 호출하므로, 앱이 부팅될 때 사전이 빌드됩니다.
 
 ### 라우트 컨텍스트
 
@@ -82,9 +81,7 @@ const app = new Elysia().use(intlayer()).get("/", () =>
 | `getIntlayer`     | `typeof getIntlayer`   | 키로 사전을 가져오는 함수.                                                        |
 | `getDictionary`   | `typeof getDictionary` | 사전 객체를 처리하는 함수.                                                        |
 
-> Node 기반 Intlayer 플러그인과 달리, `elysia-intlayer`는 `cls-hooked` 대신 `AsyncLocalStorage`를 사용합니다. `cls-hooked`는 Bun이 구현하지 않는 `async_hooks.createHook`에 의존하기 때문입니다.
-
-요청 컨텍스트는 응답이 매핑되면 해제되므로, 독립 헬퍼가 이미 종료된 요청에 대해 해석되는 일은 없습니다. 플러그인이 처리하는 요청 외부에서 호출되면 설정된 기본 로케일로 폴백합니다.
+독립 헬퍼는 플러그인이 처리하는 요청 외부에서 호출되면 설정된 기본 로케일로 폴백합니다.
 
 ## 로케일 결정 순서
 

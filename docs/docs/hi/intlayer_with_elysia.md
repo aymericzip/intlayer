@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-08-24
+updatedAt: 2026-09-29
 priority: 9
 title: "Elysia i18n - अपने ऐप्लिकेशन को अनुवाद करने के लिए संपूर्ण गाइड"
 description: "Elysia में Intlayer सेट करें: प्लगइन से हर रिक्वेस्ट पर लोकेल पहचानें, API रिस्पॉन्स का अनुवाद करें और Bun पर कंटेंट टाइप्ड रखें।"
@@ -93,8 +93,6 @@ yarn add intlayer elysia-intlayer
 ```bash packageManager="bun"
 bun add intlayer elysia-intlayer
 ```
-
-> Elysia **Bun** रनटाइम को लक्षित करता है। `elysia-intlayer` `AsyncLocalStorage` पर निर्भर करता है (Node-आधारित Intlayer प्लगइन्स द्वारा उपयोग की जाने वाली `cls-hooked` लाइब्रेरी के बजाय), ठीक इसलिए क्योंकि Bun `async_hooks.createHook` को लागू नहीं करता।
 
 ### सेटअप
 

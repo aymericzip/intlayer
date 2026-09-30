@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-24
-updatedAt: 2026-09-27
+updatedAt: 2026-09-29
 priority: 5
 title: Documentação do Plugin intlayer para Elysia | elysia-intlayer
 description: "O plugin intlayer para Elysia detecta o locale do usuário e injeta as funções de tradução no contexto de cada rota."
@@ -67,8 +67,7 @@ O plugin realiza as seguintes tarefas:
 
 1. **Detecção de locale**: Lê o locale definido explicitamente pelo cliente a partir do storage (cookie, header) e, em seguida, recorre ao locale negociado a partir do header `Accept-Language`.
 2. **Injeção no contexto**: Adiciona uma propriedade `intlayer` ao contexto de rota do Elysia (veja a tabela Contexto da rota abaixo).
-3. **Gerenciamento de contexto**: Utiliza `AsyncLocalStorage` para gerir um contexto assíncrono, permitindo que as funções globais do Intlayer (`t`, `getIntlayer`, `getDictionary`) acedam ao locale específico da request sem terem de passar o objeto de contexto.
-4. **Preparação dos dicionários**: Chama `prepareIntlayer` quando o plugin é criado, de modo que os dicionários são construídos na inicialização da aplicação.
+3. **Preparação dos dicionários**: Chama `prepareIntlayer` quando o plugin é criado, de modo que os dicionários são construídos na inicialização da aplicação.
 
 ### Contexto da rota
 
@@ -82,9 +81,7 @@ O plugin realiza as seguintes tarefas:
 | `getIntlayer`     | `typeof getIntlayer`   | Uma função para obter dicionários pela sua chave.                                              |
 | `getDictionary`   | `typeof getDictionary` | Uma função para processar objetos de dicionário.                                               |
 
-> Ao contrário dos plugins Intlayer baseados em Node, `elysia-intlayer` apoia-se em `AsyncLocalStorage` em vez de `cls-hooked`, porque `cls-hooked` depende de `async_hooks.createHook`, que o Bun não implementa.
-
-O contexto da request é libertado assim que a resposta é mapeada, para que os helpers autónomos nunca sejam resolvidos contra uma request já terminada. Quando chamados fora de uma request tratada pelo plugin, recorrem ao locale por omissão configurado.
+Quando os helpers autónomos são chamados fora de uma request tratada pelo plugin, recorrem ao locale por omissão configurado.
 
 ## Ordem de resolução da locale
 

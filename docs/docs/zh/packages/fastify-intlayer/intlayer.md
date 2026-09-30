@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-09-27
+updatedAt: 2026-09-29
 priority: 5
 title: intlayer Fastify 插件文档 | fastify-intlayer
 description: "Fastify 的 intlayer 插件会检测用户语言，并为每个请求添加 Intlayer 翻译函数。"
@@ -57,4 +57,3 @@ fastify.get("/", async (req, reply) => {
    - `locale`：检测到的区域设置。
    - `t`：翻译函数。
    - `getIntlayer`：用于检索字典的函数。
-3. **上下文管理**：它使用 `cls-hooked` 管理异步上下文，使全局 Intlayer 函数能够访问请求特定的区域设置。

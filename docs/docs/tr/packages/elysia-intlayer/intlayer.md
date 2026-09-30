@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-24
-updatedAt: 2026-09-27
+updatedAt: 2026-09-29
 priority: 5
 title: intlayer Elysia Eklenti Dokümantasyonu | elysia-intlayer
 description: "Elysia için intlayer eklentisi kullanıcının locale'ini algılar ve çeviri fonksiyonlarını her isteğin rota bağlamına ekler."
@@ -67,8 +67,7 @@ Eklenti aşağıdaki görevleri yerine getirir:
 
 1. **Locale Algılama**: İstemcinin açıkça belirlediği locale'i storage'dan (çerez, başlık) okur, ardından `Accept-Language` başlığından müzakere edilen locale'e geri döner.
 2. **Bağlama Enjeksiyon**: Elysia route context'ine bir `intlayer` özelliği ekler (aşağıdaki Route Context tablosuna bakın).
-3. **Bağlam Yönetimi**: Asenkron bir bağlamı yönetmek için `AsyncLocalStorage` kullanır; böylece global Intlayer fonksiyonları (`t`, `getIntlayer`, `getDictionary`) bağlam nesnesini taşımaya gerek kalmadan isteğe özel locale'e erişebilir.
-4. **Sözlük Hazırlığı**: Plugin oluşturulduğunda `prepareIntlayer` çağrılır, böylece sözlükler uygulama açılırken derlenir.
+3. **Sözlük Hazırlığı**: Plugin oluşturulduğunda `prepareIntlayer` çağrılır, böylece sözlükler uygulama açılırken derlenir.
 
 ### Route Context
 
@@ -82,9 +81,7 @@ Eklenti aşağıdaki görevleri yerine getirir:
 | `getIntlayer`     | `typeof getIntlayer`   | Sözlükleri anahtarına göre almak için bir fonksiyon.                                        |
 | `getDictionary`   | `typeof getDictionary` | Sözlük nesnelerini işlemek için bir fonksiyon.                                              |
 
-> Node tabanlı Intlayer eklentilerinin aksine, `elysia-intlayer` `cls-hooked` yerine `AsyncLocalStorage`'a dayanır; çünkü `cls-hooked`, Bun'un uygulamadığı `async_hooks.createHook`'a bağımlıdır.
-
-İstek bağlamı, yanıt map'lendiği anda serbest bırakılır; böylece bağımsız helper'lar hiçbir zaman sonlanmış bir isteğe karşı çözümlenmez. Eklentinin işlediği bir isteğin dışında çağrıldıklarında, yapılandırılmış varsayılan locale'e geri dönerler.
+Bağımsız helper'lar, eklentinin işlediği bir isteğin dışında çağrıldıklarında yapılandırılmış varsayılan locale'e geri dönerler.
 
 ## Locale Çözümleme Sırası
 

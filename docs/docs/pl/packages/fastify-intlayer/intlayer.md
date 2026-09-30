@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-09-27
+updatedAt: 2026-09-29
 priority: 5
 title: Dokumentacja wtyczki intlayer dla Fastify | fastify-intlayer
 description: "Plugin intlayer dla Fastify wykrywa locale użytkownika i dodaje do każdego żądania funkcje tłumaczenia Intlayer."
@@ -58,4 +58,3 @@ Wtyczka wykonuje następujące zadania:
    - `locale`: Wykryta lokalizacja.
    - `t`: Funkcja tłumacząca.
    - `getIntlayer`: Funkcja do pobierania słowników.
-3. **Zarządzanie kontekstem**: Używa `cls-hooked` do zarządzania asynchronicznym kontekstem, umożliwiając globalnym funkcjom Intlayer dostęp do lokalizacji specyficznej dla żądania.

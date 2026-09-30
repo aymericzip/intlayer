@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-29
-updatedAt: 2026-09-27
+updatedAt: 2026-09-29
 priority: 5
 title: Documentación del Middleware de Hono intlayer | hono-intlayer
 description: "El middleware intlayer para Hono detecta la locale del usuario y añade las funciones de traducción de Intlayer al contexto de la petición."
@@ -58,4 +58,3 @@ El middleware realiza las siguientes tareas:
    - `t`: Una función de traducción.
    - `getIntlayer`: Una función para recuperar diccionarios.
    - `getDictionary`: Una función para procesar objetos de diccionario.
-3. **Gestión del contexto**: Utiliza `cls-hooked` para gestionar un contexto asíncrono, permitiendo que las funciones globales de Intlayer (`t`, `getIntlayer`, `getDictionary`) accedan al idioma específico de la solicitud sin pasar el objeto de contexto.

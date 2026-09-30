@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-09-27
+updatedAt: 2026-09-29
 priority: 5
 title: intlayer Fastify Eklenti Dokümantasyonu | fastify-intlayer
 description: "Fastify için intlayer eklentisi kullanıcının locale'ini algılar ve her isteğe Intlayer çeviri fonksiyonlarını ekler."
@@ -58,4 +58,3 @@ Eklenti aşağıdaki görevleri yerine getirir:
    - `locale`: Algılanan locale.
    - `t`: Bir çeviri fonksiyonu.
    - `getIntlayer`: Sözlükleri almak için bir fonksiyon.
-3. **Bağlam Yönetimi**: Asenkron bir bağlamı yönetmek için `cls-hooked` kullanır; böylece global Intlayer fonksiyonlarının istek-özel locale'e erişmesine olanak tanır.

@@ -1,3 +1,5 @@
+import { AsyncLocalStorage } from 'node:async_hooks';
+import { internationalization } from '@intlayer/config/built';
 import { getConfiguration } from '@intlayer/config/node';
 import {
   getDictionary as getDictionaryFunction,
@@ -6,79 +8,86 @@ import {
   registerAmbientLocaleResolver,
 } from '@intlayer/core/interpreter';
 import { localeDetector } from '@intlayer/core/localization';
-import { getLocaleFromStorageServer } from '@intlayer/core/utils';
+import { getCookie, getLocaleFromStorageServer } from '@intlayer/core/utils';
 import { prepareIntlayerServer } from '@intlayer/engine/build';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { StrictModeLocaleMap } from '@intlayer/types/module_augmentation';
-import { createNamespace } from 'cls-hooked';
 import type { NextFunction, Request, RequestHandler, Response } from 'express';
 
 // Zero-cost fallback, will be updated with console logger in dev mode
 let debug: (message: string) => void = () => {};
-
-const configuration = getConfiguration();
-const { internationalization } = configuration;
 
 if (process.env['NODE_ENV'] === 'development') {
   debug = (msg: string) => console.debug(msg);
 }
 
 /**
- * Retrieves the locale from storage (cookies, localStorage, sessionStorage).
+ * Reads a single-valued request header.
  */
-const getStorageLocale = (req: Request): Locale | undefined =>
-  getLocaleFromStorageServer({
-    getCookie: (name: string) => req.cookies?.[name],
-    getHeader: (name: string) => req.headers?.[name] as string | undefined,
-  });
+const getHeader = (req: Request, name: string): string | undefined => {
+  const value = req.headers[name];
 
-const appNamespace = createNamespace('app');
+  return Array.isArray(value) ? value.join(',') : value;
+};
+
+/**
+ * Retrieves the locale from storage (cookies, headers).
+ *
+ * Parsed cookies need `cookie-parser`: the raw header is read otherwise.
+ */
+const getStorageLocale = (req: Request): Locale | undefined => {
+  const parsedCookies = req.cookies as Record<string, string> | undefined;
+
+  return getLocaleFromStorageServer({
+    getCookie: (name: string) =>
+      parsedCookies
+        ? parsedCookies[name]
+        : getCookie(name, req.headers.cookie ?? ''),
+    getHeader: (name: string) => getHeader(req, name),
+  });
+};
+
+/**
+ * Intlayer helpers bound to the request being handled.
+ */
+type IntlayerRequestContext = {
+  locale: Locale;
+  t: ReturnType<typeof translateFunction>;
+  getIntlayer: typeof getIntlayerFunction;
+  getDictionary: typeof getDictionaryFunction;
+};
+
+/**
+ * Request-scoped Intlayer context.
+ *
+ * `AsyncLocalStorage` rather than `cls-hooked`: the latter relies on
+ * `async_hooks.createHook`, which Bun does not implement, and is several times
+ * slower on Node.
+ */
+const intlayerStorage = new AsyncLocalStorage<IntlayerRequestContext>();
 
 // Lets a bare `getIntlayer` / `getDictionary` from any Intlayer package resolve
 // to the locale of the request being handled.
-registerAmbientLocaleResolver(() => appNamespace.get('locale'));
+registerAmbientLocaleResolver(() => intlayerStorage.getStore()?.locale);
 
-prepareIntlayerServer(configuration, { label: 'express-intlayer' });
+prepareIntlayerServer(getConfiguration(), { label: 'express-intlayer' });
 
+/**
+ * Builds the translation function bound to the locale stored in `res.locals`.
+ */
 export const translateFunction =
   (_req: Request, res: Response, _next?: NextFunction) =>
   <T extends string>(
     content: StrictModeLocaleMap<T> | string,
     locale?: Locale
-  ): T => {
-    const { locale: currentLocale, defaultLocale } = res.locals as {
-      locale: Locale;
-      defaultLocale: Locale;
-    };
-
-    const targetLocale = locale ?? currentLocale;
-
-    if (typeof content === 'undefined') {
-      return '' as unknown as T;
-    }
-
-    if (typeof content === 'string') {
-      return content as unknown as T;
-    }
-
-    if (
-      typeof content?.[
-        targetLocale as unknown as keyof StrictModeLocaleMap<T>
-      ] === 'undefined'
-    ) {
-      if (
-        typeof content?.[
-          defaultLocale as unknown as keyof StrictModeLocaleMap<T>
-        ] === 'undefined'
-      ) {
-        return content as unknown as T;
-      } else {
-        return getTranslation(content, defaultLocale);
-      }
-    }
-
-    return getTranslation(content, targetLocale);
-  };
+  ): T =>
+    typeof content === 'string'
+      ? (content as T)
+      : getTranslation(
+          content,
+          locale ?? (res.locals.locale as Locale),
+          internationalization.defaultLocale
+        );
 
 /**
  * Express middleware that detects the user's locale and populates `res.locals` with Intlayer data.
@@ -86,7 +95,7 @@ export const translateFunction =
  * It performs:
  * 1. Locale detection from cookies, headers, or default settings.
  * 2. Injects `t`, `getIntlayer`, and `getDictionary` functions into `res.locals`.
- * 3. Sets up a `cls-hooked` namespace for accessing these functions anywhere in the request lifecycle.
+ * 3. Sets up an `AsyncLocalStorage` context for accessing these functions anywhere in the request lifecycle.
  *
  * @returns An Express middleware function.
  *
@@ -99,25 +108,13 @@ export const translateFunction =
  * app.use(intlayer());
  * ```
  */
-export const intlayer = (): RequestHandler => async (req, res, next) => {
+export const intlayer = (): RequestHandler => (req, res, next) => {
   // Detect if locale is set by intlayer frontend lib in the headers
   const localeFromStorage = getStorageLocale(req);
+
   // Interpret browser locale
-
-  const negotiatorHeaders: Record<string, string> = {};
-
-  // // Check if req.headers exists and is an object
-  if (req && typeof req.headers === 'object') {
-    // Copy all headers from the request to negotiatorHeaders
-    for (const key in req.headers) {
-      if (typeof req.headers[key] === 'string') {
-        negotiatorHeaders[key] = req.headers[key];
-      }
-    }
-  }
-
   const localeDetected = localeDetector(
-    negotiatorHeaders,
+    { 'accept-language': getHeader(req, 'accept-language') },
     internationalization.locales,
     internationalization.defaultLocale
   );
@@ -153,14 +150,7 @@ export const intlayer = (): RequestHandler => async (req, res, next) => {
   res.locals.getIntlayer = getIntlayer;
   res.locals.getDictionary = getDictionary;
 
-  appNamespace.run(() => {
-    appNamespace.set('locale', locale);
-    appNamespace.set('t', t);
-    appNamespace.set('getIntlayer', getIntlayer);
-    appNamespace.set('getDictionary', getDictionary);
-
-    next();
-  });
+  intlayerStorage.run({ locale, t, getIntlayer, getDictionary }, next);
 };
 
 /**
@@ -189,70 +179,46 @@ export const t = <Content = string>(
   content: StrictModeLocaleMap<Content>,
   locale?: Locale
 ): Content => {
-  try {
-    if (typeof appNamespace === 'undefined') {
-      throw new Error(
-        'Intlayer is not initialized. Add the `app.use(intlayer());` middleware before using this function.'
-      );
-    }
+  const context = intlayerStorage.getStore();
 
-    if (typeof appNamespace.get('t') !== 'function') {
-      throw new Error(
-        'Using the import { t } from "express-intlayer" is not supported in your environment. Use the res.locals.t syntax instead.'
-      );
-    }
-
-    return appNamespace.get('t')(content, locale);
-  } catch (error) {
-    debug((error as Error).message);
+  if (!context) {
+    debug(
+      'Using the import { t } from "express-intlayer" outside of a request handled by the `intlayer()` middleware. Use the res.locals.t syntax instead.'
+    );
 
     return getTranslation(
       content,
       locale ?? internationalization.defaultLocale
     );
   }
+
+  return context.t(content as StrictModeLocaleMap<string>, locale) as Content;
 };
 
 export const getIntlayer: typeof getIntlayerFunction = (...args) => {
-  try {
-    if (typeof appNamespace === 'undefined') {
-      throw new Error(
-        'Intlayer is not initialized. Add the `app.use(intlayer());` middleware before using this function.'
-      );
-    }
+  const context = intlayerStorage.getStore();
 
-    if (typeof appNamespace.get('getIntlayer') !== 'function') {
-      throw new Error(
-        'Using the import { t } from "express-intlayer" is not supported in your environment. Use the res.locals.t syntax instead.'
-      );
-    }
-
-    return appNamespace.get('getIntlayer')(...args);
-  } catch (error) {
-    debug((error as Error).message);
+  if (!context) {
+    debug(
+      'Using the import { getIntlayer } from "express-intlayer" outside of a request handled by the `intlayer()` middleware. Use the res.locals.getIntlayer syntax instead.'
+    );
 
     return getIntlayerFunction(...args);
   }
+
+  return context.getIntlayer(...args);
 };
 
 export const getDictionary: typeof getDictionaryFunction = (...args) => {
-  try {
-    if (typeof appNamespace === 'undefined') {
-      throw new Error(
-        'Intlayer is not initialized. Add the `app.use(intlayer());` middleware before using this function.'
-      );
-    }
+  const context = intlayerStorage.getStore();
 
-    if (typeof appNamespace.get('getDictionary') !== 'function') {
-      throw new Error(
-        'Using the import { t } from "express-intlayer" is not supported in your environment. Use the res.locals.t syntax instead.'
-      );
-    }
-
-    return appNamespace.get('getDictionary')(...args);
-  } catch (error) {
-    debug((error as Error).message);
+  if (!context) {
+    debug(
+      'Using the import { getDictionary } from "express-intlayer" outside of a request handled by the `intlayer()` middleware. Use the res.locals.getDictionary syntax instead.'
+    );
 
     return getDictionaryFunction(...args);
   }
+
+  return context.getDictionary(...args);
 };

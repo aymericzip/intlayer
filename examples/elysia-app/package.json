@@ -1,0 +1,23 @@
+{
+  "name": "elysia-app",
+  "version": "9.5.12",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "intlayer build",
+    "dev": "bun --watch ./src/index.ts",
+    "start": "bun ./src/index.ts",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "elysia": "1.4.29",
+    "elysia-intlayer": "workspace:*",
+    "intlayer": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/bun": "1.4.2",
+    "@types/node": "^22",
+    "@utils/ts-config": "workspace:*",
+    "typescript": "7.0.2"
+  }
+}

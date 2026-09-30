@@ -1,4 +1,5 @@
 import { AsyncLocalStorage } from 'node:async_hooks';
+import { internationalization } from '@intlayer/config/built';
 import { getConfiguration } from '@intlayer/config/node';
 import {
   getDictionary as getDictionaryFunction,
@@ -7,7 +8,7 @@ import {
   registerAmbientLocaleResolver,
 } from '@intlayer/core/interpreter';
 import { localeDetector } from '@intlayer/core/localization';
-import { getLocaleFromStorageServer } from '@intlayer/core/utils';
+import { getCookie, getLocaleFromStorageServer } from '@intlayer/core/utils';
 import { prepareIntlayerServer } from '@intlayer/engine/build';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { StrictModeLocaleMap } from '@intlayer/types/module_augmentation';
@@ -42,18 +43,16 @@ export type IntlayerContext = {
 };
 
 /**
- * Mutable holder for the context of the request being handled.
+ * Holder for the context of the request being handled.
  *
- * The context is held behind a reference because `AsyncLocalStorage.enterWith(undefined)`
- * is a no-op in Bun: clearing the reference is the only reliable way to release it.
+ * The request scope is opened around the whole request (see `wrap` below),
+ * before Elysia builds the route context: the context is filled in later by
+ * `derive`, once the locale is known.
  */
 type IntlayerContextRef = { current?: IntlayerContext };
 
 /**
  * Per-request storage backing the standalone `t`, `getIntlayer` and `getDictionary` exports.
- *
- * `cls-hooked` (used by the Node-based Intlayer plugins) relies on `async_hooks.createHook`,
- * which Bun does not implement. `AsyncLocalStorage` is supported by both runtimes.
  */
 const intlayerStorage = new AsyncLocalStorage<IntlayerContextRef>();
 
@@ -71,58 +70,15 @@ registerAmbientLocaleResolver(() => getRequestContext()?.locale);
 let debug: (message: string) => void = () => {};
 
 /**
- * Builds the translation function bound to a resolved request locale.
+ * Translates `content` into `locale`, falling back to the default locale.
  */
-const createTranslateFunction =
-  (locale: Locale, defaultLocale: Locale): TranslateFunction =>
-  <Content extends string>(
-    content: StrictModeLocaleMap<Content> | string,
-    localeArg?: Locale
-  ): Content => {
-    const targetLocale = localeArg ?? locale;
-
-    if (typeof content === 'undefined') {
-      return '' as unknown as Content;
-    }
-
-    if (typeof content === 'string') {
-      return content as unknown as Content;
-    }
-
-    if (
-      typeof content?.[
-        targetLocale as unknown as keyof StrictModeLocaleMap<Content>
-      ] === 'undefined'
-    ) {
-      if (
-        typeof content?.[
-          defaultLocale as unknown as keyof StrictModeLocaleMap<Content>
-        ] === 'undefined'
-      ) {
-        return content as unknown as Content;
-      }
-
-      return getTranslation(content, defaultLocale);
-    }
-
-    return getTranslation(content, targetLocale);
-  };
-
-/**
- * Releases the request context once the response is mapped, so the standalone helpers
- * never resolve against an already terminated request.
- *
- * Returns `undefined` so Elysia keeps running the remaining `mapResponse` handlers.
- */
-const releaseContext = (): undefined => {
-  const contextRef = intlayerStorage.getStore();
-
-  if (contextRef) {
-    contextRef.current = undefined;
-  }
-
-  return undefined;
-};
+const translate = <Content extends string>(
+  content: StrictModeLocaleMap<Content> | string,
+  locale: Locale
+): Content =>
+  typeof content === 'string'
+    ? (content as Content)
+    : getTranslation(content, locale, internationalization.defaultLocale);
 
 /**
  * Elysia plugin that integrates Intlayer into your Elysia application.
@@ -131,7 +87,7 @@ const releaseContext = (): undefined => {
  * 1. Locale detection from storage (cookies, headers) then from `Accept-Language`.
  * 2. Decorating the route context with an `intlayer` object exposing `t`, `getIntlayer` and `getDictionary`.
  * 3. Exposing the same helpers to the standalone `t`, `getIntlayer` and `getDictionary` exports
- *    for the duration of the request, through `AsyncLocalStorage`.
+ *    for the whole request, through `AsyncLocalStorage`.
  *
  * @example
  * ```ts
@@ -149,70 +105,73 @@ const releaseContext = (): undefined => {
  * ```
  */
 export const intlayer = () => {
-  const configuration = getConfiguration();
-  const { internationalization } = configuration;
-
   if (process.env['NODE_ENV'] === 'development') {
     debug = (message: string) => console.debug(message);
   }
 
-  prepareIntlayerServer(configuration, { label: 'elysia-intlayer' });
+  prepareIntlayerServer(getConfiguration(), { label: 'elysia-intlayer' });
 
-  return new Elysia({ name: 'elysia-intlayer' })
-    .derive({ as: 'global' }, ({ request, cookie }) => {
-      /**
-       * Retrieves the locale from storage (cookies, headers).
-       */
-      const localeFromStorage = getLocaleFromStorageServer({
-        getCookie: (name: string) =>
-          cookie?.[name]?.value as string | undefined,
-        getHeader: (name: string) => request.headers.get(name) ?? undefined,
-      });
+  const { locales, defaultLocale } = internationalization;
 
-      const negotiatorHeaders: Record<string, string> = {};
-      request.headers.forEach((value, key) => {
-        negotiatorHeaders[key] = value;
-      });
+  return (
+    new Elysia({ name: 'elysia-intlayer' })
+      // Runs the whole request, hooks and streamed body included, in its own
+      // scope, so the context never leaks to the caller of `app.handle`
+      .wrap(
+        (handle) =>
+          (...parameters: unknown[]) =>
+            intlayerStorage.run({}, () => handle(...parameters))
+      )
+      .derive({ as: 'global' }, ({ request, cookie }) => {
+        const localeFromStorage = getLocaleFromStorageServer({
+          getCookie: (name: string) =>
+            (cookie?.[name]?.value as string | undefined) ??
+            getCookie(name, request.headers.get('cookie') ?? ''),
+          getHeader: (name: string) => request.headers.get(name) ?? undefined,
+        });
 
-      const localeDetected = localeDetector(
-        negotiatorHeaders,
-        internationalization.locales,
-        internationalization.defaultLocale
-      );
+        const localeDetected = localeDetector(
+          {
+            'accept-language':
+              request.headers.get('accept-language') ?? undefined,
+          },
+          locales,
+          defaultLocale
+        );
 
-      const locale = localeFromStorage ?? localeDetected;
-      const defaultLocale = internationalization.defaultLocale;
+        const locale = localeFromStorage ?? localeDetected;
 
-      const getIntlayer: typeof getIntlayerFunction = (
-        key: Parameters<typeof getIntlayerFunction>[0],
-        localeArg = locale as Parameters<typeof getIntlayerFunction>[1],
-        ...props: any[]
-      ) => getIntlayerFunction(key, localeArg, ...props);
+        const context: IntlayerContext = {
+          locale_storage: localeFromStorage,
+          locale_detected: localeDetected,
+          locale,
+          defaultLocale,
+          t: (content, localeArg) => translate(content, localeArg ?? locale),
+          getIntlayer: (
+            key,
+            localeArg = locale as typeof localeArg,
+            ...props
+          ) => getIntlayerFunction(key, localeArg, ...props),
+          getDictionary: (
+            key,
+            localeArg = locale as typeof localeArg,
+            ...props
+          ) => getDictionaryFunction(key, localeArg, ...props),
+        };
 
-      const getDictionary: typeof getDictionaryFunction = (
-        key: Parameters<typeof getDictionaryFunction>[0],
-        localeArg = locale as Parameters<typeof getDictionaryFunction>[1],
-        ...props: any[]
-      ) => getDictionaryFunction(key, localeArg, ...props);
+        const contextRef = intlayerStorage.getStore();
 
-      const context: IntlayerContext = {
-        locale_storage: localeFromStorage,
-        locale_detected: localeDetected,
-        locale,
-        defaultLocale,
-        t: createTranslateFunction(locale, defaultLocale),
-        getIntlayer,
-        getDictionary,
-      };
+        if (contextRef) {
+          contextRef.current = context;
+        } else {
+          // Handler not wrapped (plugin registered after the handler was
+          // compiled): scope the context to the rest of this request instead
+          intlayerStorage.enterWith({ current: context });
+        }
 
-      // Elysia awaits every lifecycle hook of a request on the same async chain,
-      // so entering the store here keeps it available to the route handler.
-      intlayerStorage.enterWith({ current: context });
-
-      return { intlayer: context };
-    })
-    .mapResponse({ as: 'global' }, releaseContext)
-    .onError({ as: 'global' }, releaseContext);
+        return { intlayer: context };
+      })
+  );
 };
 
 /**
@@ -242,20 +201,13 @@ export const t = <Content extends string>(
     'Intlayer context not found. Add `.use(intlayer())` to your Elysia app, or use `context.intlayer.t` instead.'
   );
 
-  const { internationalization } = getConfiguration();
-
-  return getTranslation(
-    content as StrictModeLocaleMap<Content>,
-    locale ?? internationalization.defaultLocale
-  );
+  return translate(content, locale ?? internationalization.defaultLocale);
 };
 
 /**
  * Retrieves a dictionary by key, using the locale of the current request by default.
  */
-export const getIntlayer: typeof getIntlayerFunction = (
-  ...args: Parameters<typeof getIntlayerFunction>
-) => {
+export const getIntlayer: typeof getIntlayerFunction = (...args) => {
   const context = getRequestContext();
 
   if (context) {
@@ -272,9 +224,7 @@ export const getIntlayer: typeof getIntlayerFunction = (
 /**
  * Retrieves an imported dictionary, using the locale of the current request by default.
  */
-export const getDictionary: typeof getDictionaryFunction = (
-  ...args: Parameters<typeof getDictionaryFunction>
-) => {
+export const getDictionary: typeof getDictionaryFunction = (...args) => {
   const context = getRequestContext();
 
   if (context) {
