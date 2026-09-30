@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-22
-updatedAt: 2026-09-22
+updatedAt: 2026-09-30
 priority: 6
 title: Chrome ve Firefox Uzantısı, i18n & SEO Tarayıcısı
 description: Intlayer Chrome uzantısı ile herhangi bir web sitesinin i18n yapılandırmasını inceleyin. Framework'ü, i18n kütüphanesini, dilleri, hreflang ve SEO etiketlerini tespit edin ve tam bir i18n SEO denetimi gerçekleştirin.
@@ -16,6 +16,9 @@ slugs:
   - doc
   - chrome-extension
 history:
+  - version: 9.5.13
+    date: 2026-09-30
+    changes: "Tarayıcı yapay zeka ajanları için WebMCP desteği eklendi"
   - version: 9.5.6
     date: 2026-09-22
     changes: "Başlangıç geçmişi"
@@ -44,6 +47,7 @@ Intlayer kullansın veya kullanmasın tüm web sitelerinde çalışır.
 - **Locale'ler arasında gezinme**: hreflang etiketlerine göre mevcut sayfayı tek tıkla yerelleştirilmiş sürümlerinden birine geçirir.
 - **Site haritasında arama**: sitenin site haritasında listelenen tüm sayfalarda arama yapar ve bunları mevcut sekmede açar.
 - **Tam denetim**: [i18n SEO Scanner](https://intlayer.org/i18n-seo-scanner) ile aynı denetimi çalıştırır ve canlı bir puan görüntüler.
+- **Yapay zeka ajanı araçları (WebMCP)**: tarayıcıda çalışan bir yapay zeka ajanının mevcut web sitesini sizin yerinize incelemesini, gezmesini ve denetlemesini sağlar.
 
 ## Kurulum
 
@@ -93,12 +97,22 @@ Tespit işlemi tarayıcınızda yerel olarak ve yalnızca geçerli sekmede çal�
 
 Her kontrol başarılı, uyarı veya başarısız olarak işaretlenir ve puan, sayfanın genel i18n SEO sağlığını özetler.
 
+### Bir yapay zeka ajanıyla kullanım (WebMCP)
+
+Eklenti, web sitelerinin ve eklentilerin tarayıcıda çalışan yapay zeka ajanlarına araç sunmasını sağlayan tarayıcı standardı [WebMCP](https://webmachinelearning.github.io/webmcp/)'yi destekler. Açılır pencere açıkken bir ajan eklentiyi sizin gibi kullanabilir, örneğin:
+
+- Mevcut web sitesinin uluslararasılaştırmayı nasıl ele aldığını ve i18n kütüphanesine hangi Intlayer geçiş rehberinin uyduğunu açıklamak.
+- Sitede gezinmek: sayfanın yerelleştirilmiş bir sürümüne geçmek veya site haritasındaki bir sayfayı bulup açmak.
+- Tam bir denetim çalıştırmak, başarısız kontrolleri özetlemek ve nasıl düzeltileceğini önermek.
+- Intlayer hakkındaki soruları dokümantasyonuna dayanarak yanıtlamak.
+
 ## Gizlilik ve izinler
 
 Uzantı minimum izin talep eder:
 
 - **activeTab** ve **scripting**: algılayıcı yalnızca görüntülediğiniz sekmede ve yalnızca açılır pencereyi açtığınızda çalışır.
 - **back.intlayer.org**: yalnızca tam bir denetim çalıştırdığınızda kullanılır. Geçerli sayfanın URL'si taranmak üzere Intlayer API'sine gönderilir.
+- **mcp.intlayer.org**: yalnızca bir WebMCP tarayıcı ajanı mevcut olduğunda, Intlayer dokümantasyon araçlarını yüklemek için kullanılır.
 
 Hiçbir tarama geçmişi toplanmaz ve arka planda hiçbir şey çalışmaz.
 

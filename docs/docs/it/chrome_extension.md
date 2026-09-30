@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-22
-updatedAt: 2026-09-22
+updatedAt: 2026-09-30
 priority: 6
 title: Estensione Chrome & Firefox, Scanner i18n & SEO
 description: Ispeziona la configurazione i18n di qualsiasi sito web con l'estensione Chrome di Intlayer. Rileva framework, libreria i18n, lingue, tag hreflang e SEO ed esegui un audit SEO i18n completo.
@@ -16,6 +16,9 @@ slugs:
   - doc
   - chrome-extension
 history:
+  - version: 9.5.13
+    date: 2026-09-30
+    changes: "Aggiunto il supporto WebMCP per gli agenti IA del browser"
   - version: 9.5.6
     date: 2026-09-22
     changes: "Inizializzazione cronologia"
@@ -44,6 +47,7 @@ Funziona su qualsiasi sito web, indipendentemente dal fatto che utilizzi o meno 
 - **Navigazione tra le locale**: passa con un clic dalla pagina corrente a una delle sue versioni localizzate, in base ai suoi tag hreflang.
 - **Ricerca nella sitemap**: cerca tra tutte le pagine elencate nella sitemap del sito e le apre nella scheda corrente.
 - **Audit completo**: esegue lo stesso audit dello [Scanner SEO i18n](https://intlayer.org/i18n-seo-scanner) e mostra un punteggio in tempo reale.
+- **Strumenti per agenti IA (WebMCP)**: consente a un agente IA in esecuzione nel browser di ispezionare, navigare e analizzare il sito corrente al posto tuo.
 
 ## Installazione
 
@@ -93,12 +97,22 @@ Scorri fino alla sezione **Audit completo** e fai clic su **Esegui audit i18n co
 
 Ogni controllo è contrassegnato come superato, avviso o fallito e il punteggio riassume lo stato generale del SEO i18n della pagina.
 
+### Uso con un agente IA (WebMCP)
+
+L'estensione supporta [WebMCP](https://webmachinelearning.github.io/webmcp/), lo standard che consente a siti web ed estensioni di esporre strumenti agli agenti IA in esecuzione nel browser. Finché il popup è aperto, un agente può usare l'estensione come te, ad esempio per:
+
+- Spiegare come il sito corrente gestisce l'internazionalizzazione e quale guida di migrazione Intlayer si adatta alla sua libreria i18n.
+- Navigare nel sito: passare a una versione localizzata della pagina, oppure trovare e aprire una pagina elencata nella sitemap.
+- Eseguire un audit completo, riassumere i controlli non superati e suggerire come correggerli.
+- Rispondere a domande su Intlayer a partire dalla sua documentazione.
+
 ## Privacy e autorizzazioni
 
 L'estensione richiede autorizzazioni minime:
 
 - **activeTab** e **scripting**: il rilevatore viene eseguito solo sulla scheda attualmente visualizzata e solo quando si apre il popup.
 - **back.intlayer.org**: utilizzato solo quando si esegue un audit completo. L'URL della pagina corrente viene inviato all'API di Intlayer per essere scansionato.
+- **mcp.intlayer.org**: contattato solo quando è disponibile un agente del browser WebMCP, per caricare gli strumenti di documentazione di Intlayer.
 
 Non viene raccolta alcuna cronologia di navigazione e nulla viene eseguito in background.
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-22
-updatedAt: 2026-09-22
+updatedAt: 2026-09-30
 priority: 6
 title: Chrome- & Firefox-Erweiterung, i18n & SEO Scanner
 description: Untersuchen Sie das i18n-Setup einer beliebigen Website mit der Intlayer Chrome-Erweiterung. Erkennen Sie Framework, i18n-Bibliothek, Locales, Hreflang- und SEO-Tags und führen Sie ein vollständiges i18n-SEO-Audit durch.
@@ -16,6 +16,9 @@ slugs:
   - doc
   - chrome-extension
 history:
+  - version: 9.5.13
+    date: 2026-09-30
+    changes: "WebMCP-Unterstützung für KI-Agenten im Browser hinzugefügt"
   - version: 9.5.6
     date: 2026-09-22
     changes: "Historie initialisiert"
@@ -44,6 +47,7 @@ Sie funktioniert auf jeder Website, unabhängig davon, ob sie Intlayer verwendet
 - **Navigation zwischen Locales**: wechselt die aktuelle Seite mit einem Klick zu einer ihrer lokalisierten Versionen, basierend auf ihren hreflang-Tags.
 - **Suche in der Sitemap**: durchsucht alle in der Sitemap der Website aufgeführten Seiten und öffnet sie im aktuellen Tab.
 - **Vollständiges Audit**: führt dasselbe Audit wie der [i18n SEO Scanner](https://intlayer.org/i18n-seo-scanner) aus und zeigt eine Live-Bewertung an.
+- **Tools für KI-Agenten (WebMCP)**: lässt einen im Browser laufenden KI-Agenten die aktuelle Website für Sie untersuchen, durchsuchen und auditieren.
 
 ## Installation
 
@@ -93,12 +97,22 @@ Scrollen Sie zum Abschnitt **Vollständiges Audit** und klicken Sie auf **Vollst
 
 Jede Prüfung wird als bestanden, Warnung oder fehlgeschlagen markiert, und die Punktzahl fasst den gesamten i18n-SEO-Zustand der Seite zusammen.
 
+### Mit einem KI-Agenten verwenden (WebMCP)
+
+Die Erweiterung unterstützt [WebMCP](https://webmachinelearning.github.io/webmcp/), den Browser-Standard, mit dem Websites und Erweiterungen Tools für im Browser laufende KI-Agenten bereitstellen. Solange das Popup geöffnet ist, kann ein Agent die Erweiterung genauso nutzen wie Sie, zum Beispiel um:
+
+- zu erklären, wie die aktuelle Website die Internationalisierung umsetzt und welcher Intlayer-Migrationsleitfaden zu ihrer i18n-Bibliothek passt.
+- die Website zu durchsuchen: zu einer lokalisierten Version der Seite wechseln oder eine in der Sitemap aufgeführte Seite finden und öffnen.
+- ein vollständiges Audit auszuführen, die fehlgeschlagenen Prüfungen zusammenzufassen und Korrekturen vorzuschlagen.
+- Fragen zu Intlayer anhand der Dokumentation zu beantworten.
+
 ## Datenschutz und Berechtigungen
 
 Die Erweiterung fordert minimale Berechtigungen an:
 
 - **activeTab** und **scripting**: Der Detektor läuft nur auf dem Tab, den Sie gerade betrachten, und nur, wenn Sie das Popup öffnen.
 - **back.intlayer.org**: Wird nur verwendet, wenn Sie ein vollständiges Audit ausführen. Die URL der aktuellen Seite wird zur Analyse an die Intlayer-API gesendet.
+- **mcp.intlayer.org**: wird nur kontaktiert, wenn ein WebMCP-Browser-Agent verfügbar ist, um die Dokumentations-Tools von Intlayer zu laden.
 
 Es wird kein Browserverlauf erfasst und nichts läuft im Hintergrund.
 

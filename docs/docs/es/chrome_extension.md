@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-22
-updatedAt: 2026-09-22
+updatedAt: 2026-09-30
 priority: 6
 title: Extensión de Chrome y Firefox, Escáner i18n y SEO
 description: Inspecciona la configuración i18n de cualquier sitio web con la extensión de Chrome de Intlayer. Detecta el framework, la biblioteca i18n, los idiomas, etiquetas hreflang y SEO, y ejecuta una auditoría i18n SEO completa.
@@ -16,6 +16,9 @@ slugs:
   - doc
   - chrome-extension
 history:
+  - version: 9.5.13
+    date: 2026-09-30
+    changes: "Añadir compatibilidad con WebMCP para agentes de IA del navegador"
   - version: 9.5.6
     date: 2026-09-22
     changes: "Historial inicial"
@@ -44,6 +47,7 @@ Funciona en cualquier sitio web, utilice o no Intlayer.
 - **Navegación entre locales**: cambia la página actual a cualquiera de sus versiones localizadas con un clic, según sus etiquetas hreflang.
 - **Búsqueda en el sitemap**: busca entre todas las páginas listadas en el sitemap del sitio y las abre en la pestaña actual.
 - **Auditoría completa**: ejecuta la misma auditoría que el [Escáner SEO i18n](https://intlayer.org/i18n-seo-scanner) y muestra una puntuación en vivo.
+- **Herramientas para agentes de IA (WebMCP)**: permite que un agente de IA que se ejecuta en el navegador inspeccione, navegue y audite el sitio actual por ti.
 
 ## Instalación
 
@@ -93,12 +97,22 @@ Desplázate hasta la sección **Auditoría completa** y haz clic en **Ejecutar a
 
 Cada verificación se marca como aprobada, advertencia o fallida, y la puntuación resume la salud general de SEO i18n de la página.
 
+### Uso con un agente de IA (WebMCP)
+
+La extensión es compatible con [WebMCP](https://webmachinelearning.github.io/webmcp/), el estándar que permite a sitios web y extensiones exponer herramientas a los agentes de IA que se ejecutan en el navegador. Mientras el popup está abierto, un agente puede usar la extensión igual que tú, por ejemplo para:
+
+- Explicar cómo gestiona la internacionalización el sitio actual y qué guía de migración de Intlayer corresponde a su biblioteca i18n.
+- Navegar por el sitio: cambiar a una versión localizada de la página, o buscar y abrir una página listada en el sitemap.
+- Ejecutar una auditoría completa, resumir las comprobaciones fallidas y sugerir cómo corregirlas.
+- Responder preguntas sobre Intlayer a partir de su documentación.
+
 ## Privacidad y permisos
 
 La extensión solicita permisos mínimos:
 
 - **activeTab** y **scripting**: el detector solo se ejecuta en la pestaña que estás viendo y únicamente cuando abres la ventana emergente.
 - **back.intlayer.org**: se utiliza únicamente cuando ejecutas una auditoría completa. La URL de la página actual se envía a la API de Intlayer para ser escaneada.
+- **mcp.intlayer.org**: solo se contacta cuando hay un agente de navegador WebMCP disponible, para cargar las herramientas de documentación de Intlayer.
 
 No se recopila ningún historial de navegación y nada se ejecuta en segundo plano.
 

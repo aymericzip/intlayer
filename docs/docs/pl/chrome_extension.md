@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-22
-updatedAt: 2026-09-22
+updatedAt: 2026-09-30
 priority: 6
 title: Rozszerzenie Chrome i Firefox, skaner i18n i SEO
 description: Sprawdź konfigurację i18n dowolnej witryny za pomocą rozszerzenia Intlayer dla Chrome. Wykrywaj framework, bibliotekę i18n, ustawienia regionalne, tagi hreflang i SEO oraz przeprowadzaj pełny audyt i18n SEO.
@@ -16,6 +16,9 @@ slugs:
   - doc
   - chrome-extension
 history:
+  - version: 9.5.13
+    date: 2026-09-30
+    changes: "Dodano obsługę WebMCP dla agentów AI w przeglądarce"
   - version: 9.5.6
     date: 2026-09-22
     changes: "Inicjalizacja historii"
@@ -44,6 +47,7 @@ Działa na każdej stronie internetowej, niezależnie od tego, czy używa Intlay
 - **Przechodzenie między lokalizacjami**: jednym kliknięciem przełącza bieżącą stronę na dowolną z jej wersji zlokalizowanych, na podstawie tagów hreflang.
 - **Wyszukiwanie w mapie witryny**: przeszukuje wszystkie strony wymienione w mapie witryny i otwiera je w bieżącej karcie.
 - **Pełny audyt**: przeprowadza ten sam audyt, co [i18n SEO Scanner](https://intlayer.org/i18n-seo-scanner), i wyświetla wynik na żywo.
+- **Narzędzia dla agentów AI (WebMCP)**: pozwalają agentowi AI działającemu w przeglądarce analizować, przeglądać i audytować bieżącą stronę za Ciebie.
 
 ## Instalacja
 
@@ -93,12 +97,22 @@ Przewiń do sekcji **Pełny audyt** i kliknij **Uruchom pełny audyt i18n**. Wyn
 
 Każdy test jest oznaczany jako zaliczony, ostrzeżenie lub niezaliczony, a ogólny wynik podsumowuje stan SEO i18n strony.
 
+### Użycie z agentem AI (WebMCP)
+
+Rozszerzenie obsługuje [WebMCP](https://webmachinelearning.github.io/webmcp/), standard przeglądarkowy, który pozwala stronom i rozszerzeniom udostępniać narzędzia agentom AI działającym w przeglądarce. Gdy popup jest otwarty, agent może korzystać z rozszerzenia tak jak Ty, na przykład aby:
+
+- Wyjaśnić, jak bieżąca strona obsługuje internacjonalizację i który przewodnik migracji do Intlayer pasuje do jej biblioteki i18n.
+- Przeglądać stronę: przełączyć się na zlokalizowaną wersję strony albo znaleźć i otworzyć stronę z mapy witryny.
+- Uruchomić pełny audyt, podsumować nieudane testy i zaproponować poprawki.
+- Odpowiadać na pytania o Intlayer na podstawie jego dokumentacji.
+
 ## Prywatność i uprawnienia
 
 Rozszerzenie wymaga minimalnych uprawnień:
 
 - **activeTab** i **scripting**: detektor działa tylko na aktualnie przeglądanej karcie i tylko wtedy, gdy otworzysz wyskakujące okienko.
 - **back.intlayer.org**: używane wyłącznie podczas uruchamiania pełnego audytu. Adres URL bieżącej strony jest wysyłany do API Intlayer w celu przeskanowania.
+- **mcp.intlayer.org**: kontaktowany tylko wtedy, gdy dostępny jest agent przeglądarkowy WebMCP, aby załadować narzędzia dokumentacji Intlayer.
 
 Historia przeglądania nie jest gromadzona, a w tle nic nie działa.
 

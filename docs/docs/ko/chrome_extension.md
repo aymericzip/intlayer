@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-22
-updatedAt: 2026-09-22
+updatedAt: 2026-09-30
 priority: 6
 title: Chrome & Firefox 확장 프로그램, i18n & SEO 스캐너
 description: Intlayer Chrome 확장 프로그램을 사용하여 모든 웹사이트의 i18n 설정을 검사하세요. 프레임워크, i18n 라이브러리, 로케일, hreflang 및 SEO 태그를 감지하고 전체 i18n SEO 감사를 실행합니다.
@@ -16,6 +16,9 @@ slugs:
   - doc
   - chrome-extension
 history:
+  - version: 9.5.13
+    date: 2026-09-30
+    changes: "브라우저 AI 에이전트를 위한 WebMCP 지원 추가"
   - version: 9.5.6
     date: 2026-09-22
     changes: "초기 이력"
@@ -44,6 +47,7 @@ Intlayer 사용 여부와 상관없이 모든 웹사이트에서 작동합니다
 - **로케일 간 이동**: hreflang 태그를 기반으로 현재 페이지를 클릭 한 번으로 현지화된 버전으로 전환합니다.
 - **사이트맵 검색**: 사이트의 사이트맵에 나열된 모든 페이지를 검색하고 현재 탭에서 엽니다.
 - **전체 감사**: [i18n SEO Scanner](https://intlayer.org/i18n-seo-scanner)와 동일한 감사를 실행하고 실시간 점수를 표시합니다.
+- **AI 에이전트 도구(WebMCP)**: 브라우저에서 실행되는 AI 에이전트가 현재 웹사이트를 대신 검사하고, 탐색하고, 감사할 수 있습니다.
 
 ## 설치
 
@@ -93,12 +97,22 @@ Firefox 부가 기능에서 [**Intlayer i18n Scanner**](https://addons.mozilla.o
 
 각 검사는 통과, 경고 또는 실패로 표시되며, 점수는 페이지의 전반적인 i18n SEO 상태를 요약합니다.
 
+### AI 에이전트와 함께 사용하기(WebMCP)
+
+이 확장 프로그램은 웹사이트와 확장 프로그램이 브라우저에서 실행되는 AI 에이전트에 도구를 제공할 수 있게 하는 브라우저 표준 [WebMCP](https://webmachinelearning.github.io/webmcp/)를 지원합니다. 팝업이 열려 있는 동안 에이전트는 사용자와 같은 방식으로 확장 프로그램을 사용할 수 있습니다. 예를 들면 다음과 같습니다.
+
+- 현재 웹사이트가 국제화를 어떻게 처리하는지, 그리고 해당 i18n 라이브러리에 맞는 Intlayer 마이그레이션 가이드를 설명합니다.
+- 사이트 탐색: 페이지의 현지화된 버전으로 전환하거나, 사이트맵에 있는 페이지를 찾아 엽니다.
+- 전체 감사를 실행하고, 실패한 검사를 요약하며, 수정 방법을 제안합니다.
+- 문서를 바탕으로 Intlayer에 관한 질문에 답합니다.
+
 ## 개인정보 보호 및 권한
 
 확장 프로그램은 최소한의 권한만 요청합니다.
 
 - **activeTab** 및 **scripting**: 감지기는 사용자가 보고 있는 탭에서 팝업을 열 때만 실행됩니다.
 - **back.intlayer.org**: 전체 감사를 실행할 때만 사용됩니다. 현재 페이지의 URL이 검사를 위해 Intlayer API로 전송됩니다.
+- **mcp.intlayer.org**: WebMCP 브라우저 에이전트를 사용할 수 있을 때만 Intlayer 문서 도구를 불러오기 위해 연결됩니다.
 
 브라우징 기록은 수집되지 않으며 백그라운드에서 실행되는 항목이 없습니다.
 

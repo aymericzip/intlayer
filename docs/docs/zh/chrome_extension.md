@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-22
-updatedAt: 2026-09-22
+updatedAt: 2026-09-30
 priority: 6
 title: Chrome 与 Firefox 扩展，i18n 与 SEO 扫描器
 description: 使用 Intlayer Chrome 扩展检查任何网站的 i18n 配置。检测框架、i18n 库、语言区域、hreflang 和 SEO 标签，并运行完整的 i18n SEO 审计。
@@ -16,6 +16,9 @@ slugs:
   - doc
   - chrome-extension
 history:
+  - version: 9.5.13
+    date: 2026-09-30
+    changes: "新增面向浏览器 AI 代理的 WebMCP 支持"
   - version: 9.5.6
     date: 2026-09-22
     changes: "初始化历史"
@@ -44,6 +47,7 @@ author: aymericzip
 - **跨语言环境导航**：根据 hreflang 标签，一键将当前页面切换到任一本地化版本。
 - **站点地图搜索**：搜索网站站点地图中列出的所有页面，并在当前标签页中打开。
 - **完整审计**：运行与 [i18n SEO Scanner](https://intlayer.org/i18n-seo-scanner) 相同的审计，并显示实时评分。
+- **AI 代理工具（WebMCP）**：让在浏览器中运行的 AI 代理代替您检查、浏览和审计当前网站。
 
 ## 安装
 
@@ -93,12 +97,22 @@ author: aymericzip
 
 每项检查都会标记为通过、警告或未通过，综合评分总结了页面的整体 i18n SEO 健康状况。
 
+### 与 AI 代理配合使用（WebMCP）
+
+该扩展支持 [WebMCP](https://webmachinelearning.github.io/webmcp/)，这是一项让网站和扩展向浏览器中运行的 AI 代理提供工具的浏览器标准。弹出窗口打开期间，代理可以像您一样使用该扩展，例如：
+
+- 说明当前网站如何处理国际化，以及哪篇 Intlayer 迁移指南适用于其 i18n 库。
+- 浏览网站：切换到页面的本地化版本，或查找并打开站点地图中列出的页面。
+- 运行完整审计，总结未通过的检查项并给出修复建议。
+- 根据 Intlayer 文档回答相关问题。
+
 ## 隐私与权限
 
 该扩展仅申请最少权限：
 
 - **activeTab** 和 **scripting**：检测器仅在您正在查看的标签页上运行，且仅在您打开弹出窗口时运行。
 - **back.intlayer.org**：仅在您运行完整审计时使用。当前页面的 URL 会发送到 Intlayer API 进行扫描。
+- **mcp.intlayer.org**：仅在有可用的 WebMCP 浏览器代理时连接，用于加载 Intlayer 文档工具。
 
 不会收集任何浏览历史记录，后台也不会运行任何程序。
 

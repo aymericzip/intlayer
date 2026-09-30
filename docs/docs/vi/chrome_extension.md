@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-22
-updatedAt: 2026-09-22
+updatedAt: 2026-09-30
 priority: 6
 title: Tiện ích mở rộng Chrome & Firefox, Trình quét i18n & SEO
 description: Kiểm tra cấu hình i18n của bất kỳ trang web nào bằng tiện ích mở rộng Intlayer cho Chrome. Phát hiện framework, thư viện i18n, ngôn ngữ, thẻ hreflang và SEO, đồng thời chạy kiểm tra toàn diện i18n SEO.
@@ -16,6 +16,9 @@ slugs:
   - doc
   - chrome-extension
 history:
+  - version: 9.5.13
+    date: 2026-09-30
+    changes: "Thêm hỗ trợ WebMCP cho các tác nhân AI trong trình duyệt"
   - version: 9.5.6
     date: 2026-09-22
     changes: "Khởi tạo lịch sử"
@@ -44,6 +47,7 @@ Tiện ích hoạt động trên mọi trang web, cho dù trang web đó có s�
 - **Điều hướng giữa các locale**: chuyển trang hiện tại sang bất kỳ phiên bản bản địa hóa nào chỉ với một cú nhấp, dựa trên các thẻ hreflang.
 - **Tìm kiếm trong sitemap**: tìm kiếm mọi trang được liệt kê trong sitemap của trang web và mở trang đó trong tab hiện tại.
 - **Kiểm tra toàn diện**: chạy cùng một quy trình kiểm tra như [Trình quét SEO i18n](https://intlayer.org/i18n-seo-scanner) và hiển thị điểm số trực tiếp.
+- **Công cụ cho tác nhân AI (WebMCP)**: cho phép một tác nhân AI chạy trong trình duyệt kiểm tra, điều hướng và kiểm định trang web hiện tại thay bạn.
 
 ## Cài đặt
 
@@ -93,12 +97,22 @@ Cuộn xuống phần **Kiểm tra toàn diện** và nhấp vào **Chạy kiể
 
 Mỗi mục kiểm tra được đánh dấu là đạt, cảnh báo hoặc không đạt, và điểm số sẽ tóm tắt tình trạng SEO i18n tổng thể của trang.
 
+### Sử dụng với tác nhân AI (WebMCP)
+
+Tiện ích hỗ trợ [WebMCP](https://webmachinelearning.github.io/webmcp/), tiêu chuẩn trình duyệt cho phép trang web và tiện ích cung cấp công cụ cho các tác nhân AI chạy trong trình duyệt. Khi cửa sổ bật lên đang mở, tác nhân có thể dùng tiện ích giống như bạn, ví dụ để:
+
+- Giải thích cách trang web hiện tại xử lý quốc tế hóa và hướng dẫn chuyển đổi sang Intlayer nào phù hợp với thư viện i18n của nó.
+- Duyệt trang web: chuyển sang phiên bản bản địa hóa của trang, hoặc tìm và mở một trang có trong sitemap.
+- Chạy kiểm định đầy đủ, tóm tắt các mục kiểm tra thất bại và đề xuất cách khắc phục.
+- Trả lời các câu hỏi về Intlayer dựa trên tài liệu của nó.
+
 ## Quyền riêng tư và cấp phép
 
 Tiện ích mở rộng chỉ yêu cầu các quyền tối thiểu:
 
 - **activeTab** và **scripting**: bộ phát hiện chỉ chạy trên tab bạn đang xem và chỉ khi bạn mở cửa sổ bật lên.
 - **back.intlayer.org**: chỉ được sử dụng khi bạn chạy kiểm tra toàn diện. URL của trang hiện tại sẽ được gửi đến Intlayer API để quét.
+- **mcp.intlayer.org**: chỉ được kết nối khi có tác nhân trình duyệt WebMCP, để tải các công cụ tài liệu của Intlayer.
 
 Không có lịch sử duyệt web nào được thu thập và không có gì chạy ngầm.
 

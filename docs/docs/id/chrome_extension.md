@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-22
-updatedAt: 2026-09-22
+updatedAt: 2026-09-30
 priority: 6
 title: Ekstensi Chrome & Firefox, Pemindai i18n & SEO
 description: Periksa konfigurasi i18n dari situs web mana pun dengan ekstensi Chrome Intlayer. Deteksi framework, pustaka i18n, lokal, tag hreflang dan SEO, serta jalankan audit SEO i18n lengkap.
@@ -16,6 +16,9 @@ slugs:
   - doc
   - chrome-extension
 history:
+  - version: 9.5.13
+    date: 2026-09-30
+    changes: "Menambahkan dukungan WebMCP untuk agen AI di browser"
   - version: 9.5.6
     date: 2026-09-22
     changes: "Inisialisasi riwayat"
@@ -44,6 +47,7 @@ Ekstensi ini berfungsi di setiap situs web, baik yang menggunakan Intlayer maupu
 - **Navigasi antar locale**: mengalihkan halaman saat ini ke salah satu versi yang dilokalkan dengan satu klik, berdasarkan tag hreflang-nya.
 - **Pencarian di sitemap**: mencari semua halaman yang tercantum di sitemap situs dan membukanya di tab saat ini.
 - **Audit lengkap**: menjalankan audit yang sama dengan [Pemindai SEO i18n](https://intlayer.org/i18n-seo-scanner) dan menampilkan skor langsung.
+- **Alat untuk agen AI (WebMCP)**: memungkinkan agen AI yang berjalan di browser memeriksa, menjelajahi, dan mengaudit situs saat ini untuk Anda.
 
 ## Instalasi
 
@@ -93,12 +97,22 @@ Gulir ke bagian **Audit lengkap** dan klik **Jalankan audit i18n lengkap**. Hasi
 
 Setiap pemeriksaan ditandai sebagai lolos, peringatan, atau gagal, dan skor merangkum kesehatan SEO i18n secara keseluruhan dari halaman tersebut.
 
+### Gunakan dengan agen AI (WebMCP)
+
+Ekstensi ini mendukung [WebMCP](https://webmachinelearning.github.io/webmcp/), standar browser yang memungkinkan situs web dan ekstensi menyediakan alat bagi agen AI yang berjalan di browser. Selama popup terbuka, agen dapat menggunakan ekstensi seperti Anda, misalnya untuk:
+
+- Menjelaskan bagaimana situs saat ini menangani internasionalisasi, dan panduan migrasi Intlayer mana yang sesuai dengan library i18n-nya.
+- Menjelajahi situs: beralih ke versi halaman yang dilokalkan, atau menemukan dan membuka halaman yang tercantum di sitemap.
+- Menjalankan audit lengkap, merangkum pemeriksaan yang gagal, dan menyarankan cara memperbaikinya.
+- Menjawab pertanyaan tentang Intlayer berdasarkan dokumentasinya.
+
 ## Privasi dan izin
 
 Ekstensi hanya meminta izin minimal:
 
 - **activeTab** dan **scripting**: pendeteksi hanya berjalan pada tab yang sedang Anda lihat, dan hanya saat Anda membuka popup.
 - **back.intlayer.org**: hanya digunakan saat Anda menjalankan audit lengkap. URL halaman saat ini dikirim ke API Intlayer untuk dipindai.
+- **mcp.intlayer.org**: hanya dihubungi saat agen browser WebMCP tersedia, untuk memuat alat dokumentasi Intlayer.
 
 Tidak ada riwayat penjelajahan yang dikumpulkan dan tidak ada yang berjalan di latar belakang.
 

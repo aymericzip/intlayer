@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-22
-updatedAt: 2026-09-22
+updatedAt: 2026-09-30
 priority: 6
 title: Chrome & Firefox Extension, i18n & SEO Scanner
 description: Inspect the i18n setup of any website with the Intlayer Chrome extension. Detect the framework, i18n library, locales, hreflang and SEO tags, and run a full i18n SEO audit.
@@ -16,6 +16,9 @@ slugs:
   - doc
   - chrome-extension
 history:
+  - version: 9.5.13
+    date: 2026-09-30
+    changes: "Add WebMCP support for browser AI agents"
   - version: 9.5.6
     date: 2026-09-22
     changes: "Initial history"
@@ -44,6 +47,7 @@ It works on every website, whether or not it uses Intlayer.
 - **Navigate across locales**: switches the current page to any of its localised versions in one click, based on its hreflang tags.
 - **Search in sitemap**: searches every page listed in the site's sitemap and opens it in the current tab.
 - **Full audit**: runs the same audit as the [i18n SEO Scanner](https://intlayer.org/i18n-seo-scanner) and shows a live score.
+- **AI agent tools (WebMCP)**: lets an AI agent running in the browser inspect, navigate and audit the current website for you.
 
 ## Installation
 
@@ -93,12 +97,22 @@ Scroll to the **Full audit** section and click **Run full i18n audit**. Results 
 
 Each check is marked as passed, warning or failed, and the score summarises the overall i18n SEO health of the page.
 
+### Use with an AI agent (WebMCP)
+
+The extension supports [WebMCP](https://webmachinelearning.github.io/webmcp/), the browser standard that lets websites and extensions expose tools to AI agents running in the browser. While the popup is open, an agent can use the extension the same way you do, for example to:
+
+- Explain how the current website handles internationalisation, and which Intlayer migration guide fits its i18n library.
+- Browse the site: switch to a localised version of the page, or find and open a page listed in the sitemap.
+- Run a full audit, summarise the failing checks and suggest how to fix them.
+- Answer questions about Intlayer from its documentation.
+
 ## Privacy and permissions
 
 The extension requests minimal permissions:
 
 - **activeTab** and **scripting**: the detector runs only on the tab you are viewing, and only when you open the popup.
 - **back.intlayer.org**: used only when you run a full audit. The URL of the current page is sent to the Intlayer API to be scanned.
+- **mcp.intlayer.org**: contacted only when a WebMCP browser agent is available, to load the Intlayer documentation tools.
 
 No browsing history is collected and nothing runs in the background.
 
