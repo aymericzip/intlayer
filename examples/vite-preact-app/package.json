@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "intlayer": "workspace:*",
-    "preact": "10.29.8",
+    "preact": "11.0.0",
     "preact-intlayer": "workspace:*",
     "preact-iso": "2.12.2"
   },

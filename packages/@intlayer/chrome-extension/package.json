@@ -55,7 +55,7 @@
     "fuse.js": "7.5.0",
     "intlayer": "workspace:*",
     "lucide-react": "1.49.0",
-    "preact": "10.29.8",
+    "preact": "11.0.0",
     "preact-intlayer": "workspace:*"
   },
   "devDependencies": {
