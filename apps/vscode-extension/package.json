@@ -140,6 +140,16 @@
         "icon": "$(symbol-parameter)"
       },
       {
+        "command": "extension.createDictionaryFile.jsonc",
+        "title": "Intlayer: Create Content File (JSONC)",
+        "icon": "$(symbol-parameter)"
+      },
+      {
+        "command": "extension.createDictionaryFile.json5",
+        "title": "Intlayer: Create Content File (JSON5)",
+        "icon": "$(symbol-parameter)"
+      },
+      {
         "command": "extension.createDictionaryFile",
         "title": "Intlayer: Create Content File",
         "icon": "$(new-file)"
@@ -165,6 +175,11 @@
         "icon": "$(wand)"
       },
       {
+        "command": "intlayer.reviewDictionaries",
+        "title": "Intlayer: Review Dictionaries",
+        "icon": "$(checklist)"
+      },
+      {
         "command": "extension.testDictionaries",
         "title": "Intlayer: Test Dictionaries",
         "icon": "$(beaker)"
@@ -172,6 +187,61 @@
       {
         "command": "intlayer.selectEnvironment",
         "title": "Intlayer: Select Environment",
+        "icon": "$(gear)"
+      },
+      {
+        "command": "intlayer.login",
+        "title": "Intlayer: Login",
+        "icon": "$(account)"
+      },
+      {
+        "command": "intlayer.pushConfiguration",
+        "title": "Intlayer: Push Configuration",
+        "icon": "$(cloud-upload)"
+      },
+      {
+        "command": "intlayer.startEditor",
+        "title": "Intlayer: Start Visual Editor",
+        "icon": "$(edit)"
+      },
+      {
+        "command": "intlayer.upgrade",
+        "title": "Intlayer: Upgrade Packages",
+        "icon": "$(arrow-up)"
+      },
+      {
+        "command": "intlayer.translateDoc",
+        "title": "Intlayer: Translate Documentation",
+        "icon": "$(book)"
+      },
+      {
+        "command": "intlayer.reviewDoc",
+        "title": "Intlayer: Review Documentation Translations",
+        "icon": "$(book)"
+      },
+      {
+        "command": "intlayer.scan",
+        "title": "Intlayer: Scan Website",
+        "icon": "$(search)"
+      },
+      {
+        "command": "intlayer.standalone",
+        "title": "Intlayer: Create Standalone Content Bundle",
+        "icon": "$(package)"
+      },
+      {
+        "command": "intlayer.initLSP",
+        "title": "Intlayer: Setup Language Server",
+        "icon": "$(gear)"
+      },
+      {
+        "command": "intlayer.initESLint",
+        "title": "Intlayer: Setup Lint Rules",
+        "icon": "$(gear)"
+      },
+      {
+        "command": "intlayer.initGitHubActions",
+        "title": "Intlayer: Setup GitHub Actions",
         "icon": "$(gear)"
       },
       {
@@ -238,33 +308,68 @@
         },
         {
           "command": "extension.buildDictionaries",
-          "when": "view == intlayer.dictionaries && (viewItem == intlayer.environment || viewItem == intlayer.environment.cms)",
+          "when": "view == intlayer.dictionaries && viewItem == intlayer.environment",
           "group": "inline@1"
         },
         {
           "command": "extension.fillDictionaries",
-          "when": "view == intlayer.dictionaries && (viewItem == intlayer.environment || viewItem == intlayer.environment.cms)",
+          "when": "view == intlayer.dictionaries && viewItem == intlayer.environment",
           "group": "inline@2"
         },
         {
+          "command": "intlayer.reviewDictionaries",
+          "when": "view == intlayer.dictionaries && viewItem == intlayer.environment",
+          "group": "context@1"
+        },
+        {
           "command": "extension.testDictionaries",
-          "when": "view == intlayer.dictionaries && (viewItem == intlayer.environment || viewItem == intlayer.environment.cms)",
+          "when": "view == intlayer.dictionaries && viewItem == intlayer.environment",
           "group": "inline@3"
         },
         {
           "command": "intlayer.pullDictionary",
-          "when": "view == intlayer.dictionaries && viewItem == intlayer.environment.cms",
+          "when": "view == intlayer.dictionaries && viewItem == intlayer.environment",
           "group": "inline@4"
         },
         {
           "command": "intlayer.pushDictionary",
-          "when": "view == intlayer.dictionaries && viewItem == intlayer.environment.cms",
+          "when": "view == intlayer.dictionaries && viewItem == intlayer.environment",
           "group": "inline@5"
         },
         {
           "command": "intlayer.selectEnvironment",
-          "when": "view == intlayer.dictionaries && (viewItem == intlayer.environment || viewItem == intlayer.environment.cms)",
+          "when": "view == intlayer.dictionaries && viewItem == intlayer.environment",
           "group": "inline@6"
+        },
+        {
+          "command": "intlayer.pullDictionary",
+          "when": "view == intlayer.dictionaries && viewItem == intlayer.dictionary",
+          "group": "inline@1"
+        },
+        {
+          "command": "intlayer.pushDictionary",
+          "when": "view == intlayer.dictionaries && viewItem == intlayer.dictionary",
+          "group": "inline@2"
+        },
+        {
+          "command": "intlayer.login",
+          "when": "view == intlayer.dictionaries && viewItem == intlayer.environment",
+          "group": "context@2"
+        },
+        {
+          "command": "intlayer.pushConfiguration",
+          "when": "view == intlayer.dictionaries && viewItem == intlayer.environment",
+          "group": "context@3"
+        },
+        {
+          "command": "intlayer.startEditor",
+          "when": "view == intlayer.dictionaries && viewItem == intlayer.environment",
+          "group": "context@4"
+        },
+        {
+          "command": "intlayer.upgrade",
+          "when": "view == intlayer.dictionaries && viewItem == intlayer.environment",
+          "group": "context@5"
         }
       ]
     },
@@ -292,27 +397,6 @@
     }
   },
   "activationEvents": [
-    "onView:intlayer.searchBar",
-    "onView:intlayer.dictionaries",
-    "onCommand:intlayer.refreshDictionaries",
-    "onCommand:intlayer.pullDictionary",
-    "onCommand:extension.createDictionaryFile",
-    "onCommand:extension.createDictionaryFile.ts",
-    "onCommand:extension.createDictionaryFile.esm",
-    "onCommand:extension.createDictionaryFile.cjs",
-    "onCommand:extension.createDictionaryFile.json",
-    "onCommand:extension.buildDictionaries",
-    "onCommand:extension.buildActiveDictionary",
-    "onCommand:extension.fillActiveDictionary",
-    "onCommand:extension.pushDictionaries",
-    "onCommand:extension.pullDictionaries",
-    "onCommand:extension.fillDictionaries",
-    "onCommand:extension.testDictionaries",
-    "onCommand:intlayer.selectEnvironment",
-    "onCommand:intlayer.extract",
-    "onCommand:intlayer.initSkills",
-    "onCommand:intlayer.initMCP",
-    "onCommand:intlayer.initProject",
     "workspaceContains:package.json",
     "onLanguage:javascript",
     "onLanguage:javascriptreact",

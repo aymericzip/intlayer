@@ -13,21 +13,18 @@ import type {
 import { dedupeDefinitionLinks } from '../utils/dedupeDefinitionLinks';
 import { findProjectRoot } from '../utils/findProjectRoot';
 import {
-  findUsagesOfDictionary,
-  type UsageLocation,
+  ALL_FIELDS_USED,
+  findCachedUsagesOfDictionary,
 } from '../utils/findUsages';
 import { getKeyOriginRange } from '../utils/getKeyOriginRange';
 
-const usageCache = new Map<
-  string,
-  { timestamp: number; data: UsageLocation[] }
->();
-const CACHE_TTL = 5 * 60 * 1000; // 5min
+/** Usage scans are reused this long across Go-to-Definition requests. */
+const USAGE_SCAN_MAX_AGE = 5 * 60 * 1000;
 
+/** Go-to-Definition from a content file's key or field to its usages. */
 export const intlayerContentDefinitionProvider: DefinitionProvider = {
   provideDefinition: async (document: TextDocument, position: Position) => {
-    const fileDir = dirname(document.uri.fsPath);
-    const projectDir = findProjectRoot(fileDir);
+    const projectDir = findProjectRoot(dirname(document.uri.fsPath));
 
     if (!projectDir) {
       return null;
@@ -40,58 +37,30 @@ export const intlayerContentDefinitionProvider: DefinitionProvider = {
 
     const { dictionaryKey, clickedField, originSelectionRange } = target;
 
-    // --- Cache Lookup ---
-    const cacheKey = `${projectDir}:${dictionaryKey}`;
-    const now = Date.now();
-    let usages: UsageLocation[] | undefined;
+    const usages = await findCachedUsagesOfDictionary(
+      projectDir,
+      dictionaryKey,
+      USAGE_SCAN_MAX_AGE
+    );
 
-    const cached = usageCache.get(cacheKey);
-    if (cached && now - cached.timestamp < CACHE_TTL) {
-      usages = cached.data;
-    } else {
-      usages = await findUsagesOfDictionary(projectDir, dictionaryKey);
-      usageCache.set(cacheKey, { timestamp: now, data: usages });
-    }
+    const links = usages.flatMap((usage) => {
+      const toLink = (range: Range): DefinitionLink => ({
+        originSelectionRange,
+        targetUri: usage.uri,
+        targetRange: range,
+        targetSelectionRange: range,
+      });
 
-    if (!usages || usages.length === 0) {
-      return null;
-    }
+      // Dictionary key: where the dictionary is instantiated
+      if (clickedField === 'key') return [toLink(usage.range)];
 
-    const links: DefinitionLink[] = [];
+      // Content field: where it is read, else where the whole content escapes
+      const fieldRanges = usage.keyLocations.get(clickedField) ?? [];
 
-    for (const usage of usages) {
-      // Clicked the main key: show where the dictionary is instantiated
-      if (clickedField === 'key') {
-        links.push({
-          originSelectionRange,
-          targetUri: usage.uri,
-          targetRange: usage.range,
-          targetSelectionRange: usage.range,
-        });
-        continue;
-      }
+      if (fieldRanges.length > 0) return fieldRanges.map(toLink);
 
-      // Clicked a specific content field (e.g. 'title')
-      const preciseRanges = usage.keyLocations.get(clickedField);
-
-      if (preciseRanges && preciseRanges.length > 0) {
-        for (const range of preciseRanges) {
-          links.push({
-            originSelectionRange,
-            targetUri: usage.uri,
-            targetRange: range,
-            targetSelectionRange: range,
-          });
-        }
-      } else if (usage.keysUsed.has('__ALL__')) {
-        links.push({
-          originSelectionRange,
-          targetUri: usage.uri,
-          targetRange: usage.range,
-          targetSelectionRange: usage.range,
-        });
-      }
-    }
+      return usage.keysUsed.has(ALL_FIELDS_USED) ? [toLink(usage.range)] : [];
+    });
 
     const uniqueLinks = dedupeDefinitionLinks(links);
 

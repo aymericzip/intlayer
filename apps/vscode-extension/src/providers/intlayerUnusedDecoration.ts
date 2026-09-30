@@ -1,122 +1,43 @@
 import { dirname, extname, join } from 'node:path';
 import {
-  type DecorationOptions,
-  type Disposable,
-  Range,
-  type TextEditor,
-  window,
-  workspace,
-} from 'vscode';
-import { extractScriptContent } from '../utils/extractScript';
-import { findProjectRoot } from '../utils/findProjectRoot';
-import {
-  findUsagesOfDictionary,
-  type UsageLocation,
-} from '../utils/findUsages';
-import { getCachedConfig, getCachedDictionary } from '../utils/intlayerCache';
-import {
-  findAllOfType,
   getPropertyKeyName,
   nodeEnd,
   nodeStart,
   type OxcNode,
-  parseFile,
-} from '../utils/oxcParser';
+  parseText,
+  walkAst,
+} from '@intlayer/lsp/utils';
+import {
+  type DecorationOptions,
+  type Disposable,
+  Range,
+  type TextDocument,
+  type TextEditor,
+  window,
+} from 'vscode';
+import {
+  onDidChangeConfiguration,
+  onDidChangeDictionaries,
+} from '../utils/cacheInvalidation';
+import { extractScriptContent } from '../utils/extractScript';
+import { findProjectRoot } from '../utils/findProjectRoot';
+import {
+  ALL_FIELDS_USED,
+  findCachedUsagesOfDictionary,
+} from '../utils/findUsages';
+import {
+  getCachedConfig,
+  getCachedUnmergedDictionaries,
+  isContentDeclarationFile,
+} from '../utils/intlayerCache';
+import { watchActiveEditor } from '../utils/watchActiveEditor';
 
 const DEBOUNCE_DELAY = 1000;
 
-// --- Caching Strategy ---
-const usageCache = new Map<
-  string,
-  { timestamp: number; data: UsageLocation[] }
->();
-const CACHE_TTL = 5 * 1000; // 5 sec
+/** Usage scans are reused this long between keystrokes. */
+const USAGE_SCAN_MAX_AGE = 5 * 1000;
 
-// 1. Strikethrough for the KEY itself
-const strikeDecorationType = window.createTextEditorDecorationType({
-  textDecoration: 'line-through',
-  opacity: '0.6',
-});
-
-// 2. Text Label: Unused
-const unusedTextDecorationType = window.createTextEditorDecorationType({
-  after: {
-    contentText: ' (unused)',
-    color: 'rgba(128, 128, 128, 0.3)',
-    fontStyle: 'italic',
-    margin: '0 0 0 1ch',
-  },
-});
-
-export const intlayerUnusedDecorationProvider = (): Disposable[] => {
-  let activeEditor = window.activeTextEditor;
-  let timeout: NodeJS.Timeout | undefined;
-
-  const triggerUpdate = () => {
-    if (timeout) {
-      clearTimeout(timeout);
-    }
-    timeout = setTimeout(() => {
-      if (activeEditor) {
-        updateUnusedDecorations(activeEditor);
-      }
-    }, DEBOUNCE_DELAY);
-  };
-
-  if (activeEditor) {
-    triggerUpdate();
-  }
-
-  return [
-    window.onDidChangeActiveTextEditor((editor) => {
-      activeEditor = editor;
-
-      if (editor) {
-        triggerUpdate();
-      }
-    }),
-    workspace.onDidChangeTextDocument((event) => {
-      if (activeEditor && event.document === activeEditor.document) {
-        triggerUpdate();
-      }
-    }),
-  ];
-};
-
-const getKeysFromObject = (
-  obj: OxcNode,
-  prefix = ''
-): { key: string; node: OxcNode }[] => {
-  const keys: { key: string; node: OxcNode }[] = [];
-  for (const prop of (obj['properties'] as OxcNode[]) ?? []) {
-    if (prop['type'] !== 'Property' && prop['type'] !== 'ObjectProperty')
-      continue;
-
-    const nameNode = prop['key'] as OxcNode;
-    const name = getPropertyKeyName(nameNode);
-    const fullKey = prefix ? `${prefix}.${name}` : name;
-
-    const initializer = prop['value'] as OxcNode | undefined;
-
-    if (initializer?.['type'] === 'CallExpression') {
-      const callee = initializer['callee'] as OxcNode | undefined;
-      if (callee?.['type'] === 'Identifier' && callee['name'] === 't') {
-        keys.push({ key: fullKey, node: nameNode });
-        continue;
-      }
-    }
-
-    if (initializer?.['type'] === 'ObjectExpression') {
-      keys.push({ key: fullKey, node: nameNode });
-      keys.push(...getKeysFromObject(initializer, fullKey));
-    } else {
-      keys.push({ key: fullKey, node: nameNode });
-    }
-  }
-  return keys;
-};
-
-const allowedExtensions = [
+const SUPPORTED_EXTENSIONS = new Set([
   '.ts',
   '.tsx',
   '.js',
@@ -128,222 +49,238 @@ const allowedExtensions = [
   '.json5',
   '.vue',
   '.svelte',
-];
+]);
 
+/** Strikethrough on the unused key itself. */
+const strikeDecorationType = window.createTextEditorDecorationType({
+  textDecoration: 'line-through',
+  opacity: '0.6',
+});
+
+/** End-of-line label: `(unused)`, or the duplicate declarations count. */
+const lineLabelDecorationType = window.createTextEditorDecorationType({
+  after: {
+    contentText: ' (unused)',
+    color: 'rgba(128, 128, 128, 0.3)',
+    fontStyle: 'italic',
+    margin: '0 0 0 1ch',
+  },
+});
+
+type ContentField = { dottedKey: string; keyNode: OxcNode };
+
+const isObjectProperty = (node: OxcNode): boolean =>
+  node['type'] === 'Property' || node['type'] === 'ObjectProperty';
+
+const getObjectProperties = (objectNode: OxcNode): OxcNode[] =>
+  ((objectNode['properties'] as OxcNode[] | undefined) ?? []).filter(
+    isObjectProperty
+  );
+
+/**
+ * Every field declared in a `content` object literal, nested ones as dotted
+ * keys. `t({ … })` translation maps are leaves, not nested fields.
+ */
+const collectContentFields = (
+  objectNode: OxcNode,
+  parentKey = ''
+): ContentField[] =>
+  getObjectProperties(objectNode).flatMap((property) => {
+    const keyNode = property['key'] as OxcNode;
+    const name = getPropertyKeyName(keyNode) ?? '';
+    const dottedKey = parentKey ? `${parentKey}.${name}` : name;
+    const value = property['value'] as OxcNode | undefined;
+    const field = { dottedKey, keyNode };
+
+    return value?.['type'] === 'ObjectExpression'
+      ? [field, ...collectContentFields(value, dottedKey)]
+      : [field];
+  });
+
+/** The `content` object literal of the dictionary declared in `program`. */
+const findContentObject = (program: OxcNode): OxcNode | null => {
+  let contentObject: OxcNode | null = null;
+
+  walkAst(program, (node) => {
+    // Prune everything once found
+    if (contentObject) return true;
+
+    if (node['type'] !== 'ObjectExpression') return false;
+
+    const properties = getObjectProperties(node);
+    const findProperty = (name: string) =>
+      properties.find(
+        (property) =>
+          getPropertyKeyName(property['key'] as OxcNode | undefined) === name
+      );
+    const contentProperty = findProperty('content');
+    const contentValue = contentProperty?.['value'] as OxcNode | undefined;
+
+    if (findProperty('key') && contentValue?.['type'] === 'ObjectExpression') {
+      contentObject = contentValue;
+    }
+
+    return false;
+  });
+
+  return contentObject;
+};
+
+/** End-of-line label for another declaration of the same dictionary. */
+const getDuplicateLabel = async (
+  document: TextDocument,
+  projectDir: string,
+  dictionaryKey: string
+): Promise<string | null> => {
+  const configuration = await getCachedConfig(projectDir);
+  const dictionaries =
+    (await getCachedUnmergedDictionaries(configuration, dictionaryKey)) ?? [];
+
+  const remoteCount = dictionaries.filter(
+    (dictionary) => dictionary.location === 'remote'
+  ).length;
+  const localCount = dictionaries.filter(
+    (dictionary) =>
+      dictionary.filePath &&
+      join(projectDir, dictionary.filePath) !== document.uri.fsPath
+  ).length;
+
+  if (localCount + remoteCount === 0) return null;
+
+  return [
+    `(used by ${localCount + remoteCount} more`,
+    localCount > 0 ? ` - ${localCount} local` : '',
+    remoteCount > 0 ? ` - ${remoteCount} remote` : '',
+    ')',
+  ].join('');
+};
+
+/**
+ * In a content declaration file, strike the dictionary key when no source
+ * file uses the dictionary, and each content field no source file reads.
+ */
 const updateUnusedDecorations = async (editor: TextEditor) => {
-  const document = editor.document;
+  const { document } = editor;
+  const filePath = document.uri.fsPath;
+  const extension = extname(filePath).toLowerCase();
 
-  const extension = extname(document.uri.fsPath).toLowerCase();
-
-  if (!allowedExtensions.includes(extension)) {
-    return;
-  }
+  if (!SUPPORTED_EXTENSIONS.has(extension)) return;
 
   const text = document.getText();
 
-  if (!text.includes('key:') || !text.includes('content:')) {
-    return;
-  }
+  // Cheap pre-filter before resolving the project
+  if (!text.includes('key:') || !text.includes('content:')) return;
 
-  const projectDir = findProjectRoot(dirname(document.uri.fsPath));
+  const projectDir = findProjectRoot(dirname(filePath));
 
-  if (!projectDir) {
-    return;
-  }
-
-  const scriptContent = extractScriptContent(text, extension);
+  if (!projectDir) return;
 
   const keyMatch = /key\s*:\s*(["'])(.*?)\1/.exec(text);
 
-  if (!keyMatch) {
+  if (!keyMatch) return;
+
+  const dictionaryKey = keyMatch[2]!;
+  const keyRange = new Range(
+    document.positionAt(keyMatch.index),
+    document.positionAt(keyMatch.index + keyMatch[0].length)
+  );
+
+  const configuration = await getCachedConfig(projectDir);
+
+  if (!isContentDeclarationFile(filePath, configuration)) return;
+
+  // Compiler-managed content: components are not scanned, nothing to judge
+  if (
+    configuration.compiler?.enabled &&
+    !configuration.compiler?.saveComponents
+  ) {
+    editor.setDecorations(strikeDecorationType, []);
+    editor.setDecorations(lineLabelDecorationType, []);
     return;
-  }
-  const dictionaryKey = keyMatch[2];
-  const keyIndex = text.indexOf(keyMatch[0]);
-
-  let isDuplicated = false;
-  let duplicateDecoration: DecorationOptions | null = null;
-
-  try {
-    const config = await getCachedConfig(projectDir);
-
-    if (config.compiler?.enabled && !config.compiler?.saveComponents) {
-      editor.setDecorations(strikeDecorationType, []);
-      editor.setDecorations(unusedTextDecorationType, []);
-      return;
-    }
-
-    const filePath = document.uri.fsPath;
-    if (
-      !config.content.fileExtensions.some((extension) =>
-        filePath.endsWith(extension)
-      )
-    ) {
-      // It's not a content file
-      return;
-    }
-
-    const dictionaryJsonPath = join(
-      config.system.unmergedDictionariesDir,
-      `${dictionaryKey}.json`
-    );
-    const existingDictionaries = await getCachedDictionary(dictionaryJsonPath);
-
-    if (existingDictionaries && existingDictionaries.length > 0) {
-      const currentAbsPath = document.uri.fsPath;
-      let localDuplicates = 0;
-      let remoteDuplicates = 0;
-
-      for (const dict of existingDictionaries) {
-        if (dict.location === 'remote') {
-          remoteDuplicates++;
-        }
-
-        if (dict.filePath) {
-          const dictAbsPath = join(projectDir, dict.filePath);
-
-          if (dictAbsPath !== currentAbsPath) {
-            localDuplicates++;
-          }
-        }
-      }
-
-      const totalOther = localDuplicates + remoteDuplicates;
-
-      if (totalOther > 0) {
-        isDuplicated = true;
-        let label = `(used by ${totalOther} more`;
-
-        if (localDuplicates > 0) {
-          label += ` - ${localDuplicates} local`;
-        }
-
-        if (remoteDuplicates > 0) {
-          label += ` - ${remoteDuplicates} remote`;
-        }
-        label += ')';
-
-        if (keyIndex !== -1) {
-          const line = document.lineAt(document.positionAt(keyIndex).line);
-          duplicateDecoration = {
-            range: new Range(line.range.end, line.range.end),
-            renderOptions: {
-              after: { contentText: label },
-            },
-          };
-        }
-      }
-    }
-  } catch (error) {
-    console.error('Error checking for duplicates:', error);
-  }
-
-  const cacheKey = `${projectDir}:${dictionaryKey}`;
-  const now = Date.now();
-  let usages: UsageLocation[] | undefined;
-
-  const cached = usageCache.get(cacheKey);
-
-  if (cached && now - cached.timestamp < CACHE_TTL) {
-    usages = cached.data;
-  } else {
-    try {
-      usages = await findUsagesOfDictionary(projectDir, dictionaryKey);
-      usageCache.set(cacheKey, { timestamp: now, data: usages });
-    } catch (error) {
-      console.error(error);
-      return;
-    }
-  }
-
-  const isDictionaryUsed = usages && usages.length > 0;
-  const usedKeys = new Set<string>();
-
-  if (isDictionaryUsed && usages) {
-    for (const usage of usages) {
-      usage.keysUsed.forEach((keyItem) => {
-        usedKeys.add(keyItem);
-      });
-    }
   }
 
   const strikeDecorations: DecorationOptions[] = [];
-  const unusedTextDecorations: DecorationOptions[] = [];
-  const duplicateDecorations: DecorationOptions[] = [];
+  const lineLabelDecorations: DecorationOptions[] = [];
 
-  if (duplicateDecoration) {
-    duplicateDecorations.push(duplicateDecoration);
-  }
+  const endOfLine = (line: number): Range => {
+    const { end } = document.lineAt(line).range;
 
-  const addUnused = (range: Range, hover: string) => {
-    strikeDecorations.push({ range, hoverMessage: hover });
-    const line = document.lineAt(range.start.line);
-    unusedTextDecorations.push({
-      range: new Range(line.range.end, line.range.end),
-    });
+    return new Range(end, end);
   };
 
-  if (!isDictionaryUsed && !isDuplicated) {
-    if (keyIndex !== -1) {
-      const startPos = document.positionAt(keyIndex);
-      const endPos = document.positionAt(keyIndex + keyMatch[0].length);
-      addUnused(
-        new Range(startPos, endPos),
-        'This dictionary is never used in the project'
-      );
-    }
+  const markUnused = (range: Range, hoverMessage: string) => {
+    strikeDecorations.push({ range, hoverMessage });
+    lineLabelDecorations.push({ range: endOfLine(range.start.line) });
+  };
+
+  const duplicateLabel = await getDuplicateLabel(
+    document,
+    projectDir,
+    dictionaryKey
+  ).catch(() => null);
+
+  if (duplicateLabel) {
+    lineLabelDecorations.push({
+      range: endOfLine(keyRange.start.line),
+      renderOptions: { after: { contentText: duplicateLabel } },
+    });
   }
 
-  const program = parseFile(scriptContent);
-  if (!program) {
-    editor.setDecorations(strikeDecorationType, strikeDecorations);
-    editor.setDecorations(unusedTextDecorationType, unusedTextDecorations);
-    editor.setDecorations(unusedTextDecorationType, duplicateDecorations);
+  let usages: Awaited<ReturnType<typeof findCachedUsagesOfDictionary>>;
+
+  try {
+    usages = await findCachedUsagesOfDictionary(
+      projectDir,
+      dictionaryKey,
+      USAGE_SCAN_MAX_AGE
+    );
+  } catch (error) {
+    console.error(error);
     return;
   }
 
-  const dictionaryObj = findAllOfType(program, 'ObjectExpression').find(
-    (obj) => {
-      const propNames = (obj['properties'] as OxcNode[])
-        .filter(
-          (p) => p['type'] === 'Property' || p['type'] === 'ObjectProperty'
-        )
-        .map((p) => getPropertyKeyName(p['key'] as OxcNode));
-      return propNames.includes('key') && propNames.includes('content');
+  if (usages.length === 0) {
+    // Another declaration may be the one in use
+    if (!duplicateLabel) {
+      markUnused(keyRange, 'This dictionary is never used in the project');
     }
-  );
+  } else {
+    const usedKeys = new Set(usages.flatMap((usage) => [...usage.keysUsed]));
+    const program = parseText(extractScriptContent(text, extension));
+    const contentObject = program ? findContentObject(program) : null;
 
-  if (dictionaryObj) {
-    const contentProp = (dictionaryObj['properties'] as OxcNode[]).find(
-      (p) =>
-        (p['type'] === 'Property' || p['type'] === 'ObjectProperty') &&
-        getPropertyKeyName(p['key'] as OxcNode) === 'content'
-    );
+    if (contentObject && !usedKeys.has(ALL_FIELDS_USED)) {
+      for (const { dottedKey, keyNode } of collectContentFields(
+        contentObject
+      )) {
+        if (usedKeys.has(dottedKey)) continue;
 
-    if (contentProp) {
-      const contentValue = contentProp['value'] as OxcNode | undefined;
-
-      if (contentValue?.['type'] === 'ObjectExpression') {
-        const allKeys = getKeysFromObject(contentValue);
-
-        for (const { key: rawKey, node } of allKeys) {
-          if (!isDictionaryUsed) continue;
-
-          if (!usedKeys.has(rawKey) && !usedKeys.has('__ALL__')) {
-            const startPos = document.positionAt(nodeStart(node));
-            const endPos = document.positionAt(nodeEnd(node));
-
-            addUnused(
-              new Range(startPos, endPos),
-              `Property '${rawKey}' is unused`
-            );
-          }
-        }
+        markUnused(
+          new Range(
+            document.positionAt(nodeStart(keyNode)),
+            document.positionAt(nodeEnd(keyNode))
+          ),
+          `Property '${dottedKey}' is unused`
+        );
       }
     }
   }
 
   editor.setDecorations(strikeDecorationType, strikeDecorations);
-  editor.setDecorations(unusedTextDecorationType, unusedTextDecorations);
-  editor.setDecorations(unusedTextDecorationType, duplicateDecorations);
+  editor.setDecorations(lineLabelDecorationType, lineLabelDecorations);
+};
+
+export const intlayerUnusedDecorationProvider = (): Disposable[] => {
+  const { disposables, trigger } = watchActiveEditor(
+    updateUnusedDecorations,
+    DEBOUNCE_DELAY
+  );
+
+  // Duplicate counts come from the built dictionaries, scanned patterns from
+  // the configuration
+  return [
+    ...disposables,
+    onDidChangeDictionaries(trigger),
+    onDidChangeConfiguration(trigger),
+  ];
 };

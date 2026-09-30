@@ -1,61 +1,37 @@
-import { readFile } from 'node:fs/promises';
 import { push } from '@intlayer/cli';
-import { getConfiguration } from '@intlayer/config/node';
-import { getBuiltDictionariesPath } from '@intlayer/engine/build';
-import type { Dictionary } from '@intlayer/types';
 import { window } from 'vscode';
-import { findProjectRoot } from '../utils/findProjectRoot';
+import { pushCommand } from '../commands/pushCommand';
 import { getConfigurationOptions } from '../utils/getConfiguration';
 import { prefix } from '../utils/logFunctions';
+import type { IntlayerTreeNode } from './dictionaryExplorer';
 
-export const pushDictionary = async (element?: unknown) => {
-  const node = element as {
-    type?: string;
-    key?: string;
-    projectDir?: string;
-  };
+/** Push a tree dictionary (or project) node to the CMS. */
+export const pushDictionary = async (node?: IntlayerTreeNode) => {
+  // Project node: pick the dictionaries of that project
+  if (node?.type === 'project') {
+    await pushCommand(node);
+    return;
+  }
 
-  // Push can only be made for merged dictionaries (dictionary nodes without filePath)
-  if (node?.type !== 'dictionary' || !node.projectDir || !node.key) {
+  if (node?.type !== 'dictionary') {
     window.showWarningMessage(
-      `${prefix}Push is only available for merged dictionaries.`
+      `${prefix}Push is only available for projects and dictionaries.`
     );
     return;
   }
 
-  const projectDir = findProjectRoot();
-  if (!projectDir) {
-    await window.showErrorMessage(
-      `${prefix}Could not find intlayer project root.`
-    );
-    return;
-  }
+  const { projectDir, key } = node;
 
   try {
-    const configOptions = await getConfigurationOptions(projectDir);
-    const configuration = getConfiguration(configOptions);
-    const builtDictionariesPath = await getBuiltDictionariesPath(configuration);
+    // Not awaited: it resolves only once the notification is closed
+    window.showInformationMessage(`${prefix}Pushing ${key}…`);
 
-    const dictionaryPath = builtDictionariesPath.find((p) =>
-      p.endsWith(`${node.key}.json`)
-    );
-
-    if (!dictionaryPath) {
-      await window.showErrorMessage(`${prefix}Dictionary not found.`);
-      return;
-    }
-
-    const dictionaryString = await readFile(dictionaryPath, 'utf8');
-    const dictionary = JSON.parse(dictionaryString) as Dictionary;
-
-    const displayName = dictionary.key;
-
-    await window.showInformationMessage(`${prefix}Pushing ${displayName}…`);
     await push({
-      configOptions,
-      dictionaries: [dictionary.key],
+      configOptions: await getConfigurationOptions(projectDir),
+      dictionaries: [key],
     });
-    await window.showInformationMessage(`${prefix}Pushed ${displayName}`);
+
+    await window.showInformationMessage(`${prefix}Pushed ${key}`);
   } catch (error) {
     await window.showErrorMessage(
       `${prefix}Push failed: ${(error as Error).message}`

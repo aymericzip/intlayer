@@ -1011,7 +1011,7 @@ export const setAPI = (): Command => {
       ...(options.dictionary ?? []),
     ];
 
-    return fill({
+    await fill({
       ...options,
       keys: keys.length > 0 ? keys : undefined,
       excludedKeys: excludedKeys.length > 0 ? excludedKeys : undefined,

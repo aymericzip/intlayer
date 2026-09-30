@@ -1,44 +1,28 @@
 import { basename } from 'node:path';
 import { fill } from '@intlayer/cli';
-import { getConfiguration } from '@intlayer/config/node';
-import { prepareIntlayer } from '@intlayer/engine/cli';
 import { window } from 'vscode';
-import { findProjectRoot } from '../utils/findProjectRoot';
 import { getConfigurationOptions } from '../utils/getConfiguration';
 import { prefix } from '../utils/logFunctions';
+import { showFillResult } from '../utils/showFillResult';
+import { getActiveFileProject } from './getActiveFileProject';
 
 export const fillActiveDictionary = async () => {
-  const editor = window.activeTextEditor;
-  if (!editor) {
+  const activeFileProject = await getActiveFileProject();
+
+  if (!activeFileProject) return;
+
+  const { filePath, projectDir } = activeFileProject;
+
+  try {
+    const fillResult = await fill({
+      configOptions: await getConfigurationOptions(projectDir),
+      file: filePath,
+    });
+
+    await showFillResult(fillResult, 'Fill', basename(filePath));
+  } catch (error) {
     await window.showErrorMessage(
-      `${prefix}No active editor. Open a content declaration file.`
+      `${prefix}Fill failed: ${(error as Error).message}`
     );
-    return;
   }
-
-  const filePath = editor.document.uri.fsPath;
-  const projectDir = findProjectRoot(filePath);
-
-  if (!projectDir) {
-    await window.showErrorMessage(
-      `${prefix}Could not find intlayer project root.`
-    );
-    return;
-  }
-
-  const configOptions = await getConfigurationOptions(projectDir);
-  const configuration = getConfiguration(configOptions);
-
-  await prepareIntlayer(configuration, { clean: false });
-
-  await fill({
-    configOptions,
-    file: filePath,
-    build: false,
-  });
-
-  const fileName = basename(filePath);
-  await window.showInformationMessage(
-    `${prefix}Fill completed successfully for ${fileName}`
-  );
 };

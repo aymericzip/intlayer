@@ -622,3 +622,80 @@ describe('collectMessageUsages', () => {
     });
   });
 });
+
+// ---------------------------------------------------------------------------
+// Editor-only forms
+// ---------------------------------------------------------------------------
+
+describe('editor-only usages', () => {
+  const summarize = (text: string) =>
+    collectMessageUsages(text)
+      .filter((usage) => usage.kind !== 'namespace')
+      .map((usage) => [usage.dictionaryKey, usage.fieldPath.join('.')]);
+
+  it('resolves i18next instance calls by their first id segment', () => {
+    const text = [
+      `import i18n from 'i18next';`,
+      `i18n.t('home.hero.title');`,
+    ].join('\n');
+
+    expect(summarize(text)).toEqual([['home', 'hero.title']]);
+  });
+
+  it('ignores `.t()` methods in files importing no i18n library', () => {
+    expect(summarize(`router.t('home.title');`)).toEqual([]);
+  });
+
+  it('resolves svelte-i18n store calls written with `$`', () => {
+    const text = [
+      `import { _ } from 'svelte-i18n';`,
+      `const label = $_('shared.contactEmail');`,
+    ].join('\n');
+
+    expect(collectMessageUsages(text)).toMatchObject([
+      {
+        dictionaryKey: 'shared',
+        fieldPath: ['contactEmail'],
+        library: 'svelte-i18n',
+      },
+    ]);
+  });
+
+  it('resolves the vue-i18n global `$t`', () => {
+    expect(summarize(`this.$t('home.title');`)).toEqual([['home', 'title']]);
+  });
+
+  it('splits a namespace-less <Trans i18nKey> at its first segment', () => {
+    const text = [
+      `import { Trans, useTranslation } from 'react-i18next';`,
+      `const { t } = useTranslation();`,
+      `const element = <Trans i18nKey="home.richText" />;`,
+    ].join('\n');
+
+    expect(summarize(text)).toEqual([['home', 'richText']]);
+  });
+
+  it('resolves local wrappers prefixing a self caller id', () => {
+    const text = [
+      `import { useLingui } from '@lingui/react';`,
+      'const { i18n } = useLingui();',
+      // biome-ignore lint/suspicious/noTemplateCurlyInString: source text under test
+      'const t = (id: string) => i18n._(`footer.${id}`);',
+      `t('github');`,
+    ].join('\n');
+
+    expect(summarize(text)).toContainEqual(['footer', 'github']);
+  });
+
+  it('resolves local wrappers prefixing a translator binding', () => {
+    const text = [
+      `import { useTranslations } from 'next-intl';`,
+      `const t = useTranslations('contact');`,
+      // biome-ignore lint/suspicious/noTemplateCurlyInString: source text under test
+      'const tf = (key: string) => t(`form.${key}`);',
+      `tf('name');`,
+    ].join('\n');
+
+    expect(summarize(text)).toContainEqual(['contact', 'form.name']);
+  });
+});

@@ -23,3 +23,4 @@ export * from './scan';
 export * from './searchDoc';
 export * from './test';
 export * from './translateDoc/translateDoc';
+export { checkCMSAuth, getAuthenticatedAPI } from './utils/checkAccess';

@@ -1,4 +1,11 @@
 /**
+ * Angular inline component template (`template: \`…\``); group 2 is its body.
+ * Global: use with `matchAll` / `replace`.
+ */
+export const ANGULAR_INLINE_TEMPLATE_PATTERN =
+  /template\s*:\s*(["'`])([\s\S]*?)\1/g;
+
+/**
  * Extracts script content from Svelte, Vue, and Astro files while preserving offsets.
  * Non-script content is replaced with spaces (same length) so byte offsets stay valid.
  */

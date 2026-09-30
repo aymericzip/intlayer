@@ -1,15 +1,12 @@
-import { FILE_EXTENSIONS } from '@intlayer/config/defaultValues';
-import { getConfiguration } from '@intlayer/config/node';
-import {
-  buildDictionary,
-  createTypes,
-  loadLocalDictionaries,
-} from '@intlayer/engine/build';
 import { getContentWatcherOwner } from '@intlayer/engine/utils';
 import { type Disposable, window, workspace } from 'vscode';
 import { findProjectRoot } from '../utils/findProjectRoot';
-import { getConfigurationOptions } from '../utils/getConfiguration';
+import {
+  getCachedConfig,
+  isContentDeclarationFile,
+} from '../utils/intlayerCache';
 import { prefix } from '../utils/logFunctions';
+import { rebuildContentDeclaration } from '../utils/rebuildContentDeclaration';
 
 /** Debounces bursts of saves on the same file (e.g. format on save). */
 const REBUILD_DELAY_MS = 300;
@@ -29,17 +26,14 @@ export const contentFileSaveWatcher = (): Disposable => {
   const subscription = workspace.onDidSaveTextDocument(async (document) => {
     const filePath = document.uri.fsPath;
     const projectDir = findProjectRoot(filePath);
+
     if (!projectDir) return;
 
-    const configOptions = await getConfigurationOptions(projectDir, false);
-    const config = getConfiguration(configOptions);
+    const configuration = await getCachedConfig(projectDir);
 
-    const fileExtensions = config.content?.fileExtensions ?? FILE_EXTENSIONS;
+    if (!isContentDeclarationFile(filePath, configuration)) return;
 
-    if (!fileExtensions.some((ext) => filePath.endsWith(ext))) return;
-
-    const existing = pendingTimers.get(filePath);
-    if (existing) clearTimeout(existing);
+    clearTimeout(pendingTimers.get(filePath));
 
     const timer = setTimeout(async () => {
       pendingTimers.delete(filePath);
@@ -48,25 +42,11 @@ export const contentFileSaveWatcher = (): Disposable => {
         // Checked at rebuild time rather than on save: a watcher may have
         // started or stopped in between. Stale locks from dead processes are
         // reclaimed by `getContentWatcherOwner` and read as "no owner".
-        if (await getContentWatcherOwner(config)) return;
+        if (await getContentWatcherOwner(configuration)) return;
 
-        const localeDictionaries = await loadLocalDictionaries(
-          filePath,
-          config
-        );
-        if (!localeDictionaries.length) return;
-
-        const dictionariesOutput = await buildDictionary(
-          localeDictionaries,
-          config
-        );
-        const updatedDictionaries = Object.values(
-          dictionariesOutput?.mergedDictionaries ?? {}
-        ).map((updatedDictionary) => updatedDictionary.dictionary);
-
-        await createTypes(updatedDictionaries, config);
-
-        await window.showInformationMessage(`${prefix}Dictionary rebuilt.`);
+        if (await rebuildContentDeclaration(filePath, configuration)) {
+          await window.showInformationMessage(`${prefix}Dictionary rebuilt.`);
+        }
       } catch (error) {
         await window.showErrorMessage(
           `${prefix}Auto-rebuild failed: ${(error as Error).message}`
@@ -80,9 +60,11 @@ export const contentFileSaveWatcher = (): Disposable => {
   return {
     dispose: () => {
       subscription.dispose();
+
       for (const timer of pendingTimers.values()) {
         clearTimeout(timer);
       }
+
       pendingTimers.clear();
     },
   };

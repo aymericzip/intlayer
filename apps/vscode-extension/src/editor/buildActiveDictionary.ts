@@ -1,58 +1,31 @@
 import { basename } from 'node:path';
 import { getConfiguration } from '@intlayer/config/node';
-import {
-  buildDictionary,
-  createTypes,
-  loadLocalDictionaries,
-} from '@intlayer/engine/build';
 import { window } from 'vscode';
-import { findProjectRoot } from '../utils/findProjectRoot';
 import { getConfigurationOptions } from '../utils/getConfiguration';
 import { prefix } from '../utils/logFunctions';
+import { rebuildContentDeclaration } from '../utils/rebuildContentDeclaration';
+import { getActiveFileProject } from './getActiveFileProject';
 
 export const buildActiveDictionary = async () => {
-  const editor = window.activeTextEditor;
+  const activeFileProject = await getActiveFileProject();
 
-  if (!editor) {
-    await window.showErrorMessage(
-      `${prefix}No active editor. Open a content declaration file.`
-    );
-    return;
-  }
+  if (!activeFileProject) return;
 
-  const filePath = editor.document.uri.fsPath;
-  const projectDir = findProjectRoot(filePath);
-
-  if (!projectDir) {
-    await window.showErrorMessage(
-      `${prefix}Could not find intlayer project root.`
-    );
-    return;
-  }
-
-  const configOptions = await getConfigurationOptions(projectDir);
-  const config = getConfiguration(configOptions);
+  const { filePath, projectDir } = activeFileProject;
 
   try {
-    const localeDictionaries = await loadLocalDictionaries(filePath, config);
-    const dictionariesOutput = await buildDictionary(
-      localeDictionaries,
-      config
+    const configuration = getConfiguration(
+      await getConfigurationOptions(projectDir)
     );
 
-    const updatedDictionaries = Object.values(
-      dictionariesOutput?.mergedDictionaries ?? {}
-    ).map((dictionary) => dictionary.dictionary);
+    await rebuildContentDeclaration(filePath, configuration);
 
-    await createTypes(updatedDictionaries, config);
-
-    const fileName = basename(filePath);
     await window.showInformationMessage(
-      `${prefix}Build completed successfully for ${fileName}`
+      `${prefix}Build completed successfully for ${basename(filePath)}`
     );
   } catch (error) {
     await window.showErrorMessage(
-      `${prefix} single-dictionary build failed: ${(error as Error).message}`
+      `${prefix}Single-dictionary build failed: ${(error as Error).message}`
     );
   }
 };

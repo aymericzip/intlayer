@@ -1,129 +1,121 @@
-import { FILE_EXTENSIONS } from '@intlayer/config/defaultValues';
-import { getConfiguration } from '@intlayer/config/node';
 import { commands, type ExtensionContext, languages, window } from 'vscode';
 import { buildCommand } from './commands/buildAllCommand';
 import { extractCommand } from './commands/extractCommand';
-import { fillCommand } from './commands/fillAllCommand';
+import { fillCommand, reviewCommand } from './commands/fillAllCommand';
 import { initMCP } from './commands/initMCP';
 import { initProject } from './commands/initProject';
 import { initSkills } from './commands/initSkills';
 import { pullCommand } from './commands/pullCommand';
 import { pushCommand } from './commands/pushCommand';
 import { selectEnvironment } from './commands/selectEnvironment';
+import {
+  initESLintCommand,
+  initGitHubActionsCommand,
+  initLSPCommand,
+  loginCommand,
+  pushConfigurationCommand,
+  reviewDocCommand,
+  scanCommand,
+  standaloneCommand,
+  startEditorCommand,
+  translateDocCommand,
+  upgradeCommand,
+} from './commands/terminalCommands';
 import { testCommand } from './commands/testCommand';
-import { generateDictionaryContent } from './createDictionaryContent';
+import {
+  type ContentFileFormat,
+  generateDictionaryContent,
+} from './createDictionaryContent';
+import { PROVIDER_DOCUMENT_SELECTOR } from './documentSelector';
 import { buildActiveDictionary } from './editor/buildActiveDictionary';
 import { createDictionaryFile } from './editor/createDictionaryFile';
 import { fillActiveDictionary } from './editor/fillActiveDictionary';
-import { DictionaryTreeDataProvider } from './explorer/dictionaryExplorer';
+import {
+  DictionaryTreeDataProvider,
+  type IntlayerTreeNode,
+} from './explorer/dictionaryExplorer';
 import { fillDictionary } from './explorer/fillDictionary';
 import { pullDictionary } from './explorer/pullDictionary';
 import { pushDictionary } from './explorer/pushDictionary';
 import { SearchBarViewProvider } from './explorer/searchBarViewProvider';
 import { startLSPClient } from './lsp/client';
 import { promptCompatSetup } from './prompts/compatSetupPrompt';
+import { dictionaryKeyDefinitionProvider } from './providers/dictionaryKeyDefinitionProvider';
 import { intlayerContentDefinitionProvider } from './providers/intlayerContentDefinitionProvider';
 import { intlayerContentRedirectionProvider } from './providers/intlayerContentRedirectionProvider';
 import { intlayerDecorationProvider } from './providers/intlayerDecoration';
 import { intlayerDefinitionProvider } from './providers/intlayerDefinitionProvider';
 import { intlayerHoverProvider } from './providers/intlayerHoverProvider';
 import { intlayerUnusedDecorationProvider } from './providers/intlayerUnusedDecoration';
-import { redirectUseIntlayerKeyToDictionary } from './redirectUseIntlayerKeyToDictionary';
+import {
+  invalidateConfigurationCaches,
+  onDidChangeConfiguration,
+  onDidChangeDictionaries,
+  watchCacheInvalidation,
+} from './utils/cacheInvalidation';
 import { initializeEnvironmentStore } from './utils/envStore';
 import { findProjectRoot } from './utils/findProjectRoot';
-import { getConfigurationOptions } from './utils/getConfiguration';
+import {
+  getCachedConfig,
+  isContentDeclarationFile,
+} from './utils/intlayerCache';
 import { contentFileSaveWatcher } from './watchers/contentFileSaveWatcher';
 
-export const activate = (context: ExtensionContext) => {
-  initializeEnvironmentStore(context);
-  startLSPClient(context);
+/** Delay before revealing the active content file in the dictionaries tree. */
+const REVEAL_DEBOUNCE_DELAY = 500;
 
-  // Suggest `intlayer init` for projects using a compat-compatible i18n library
-  void promptCompatSetup(context);
+/** Formats with a dedicated `extension.createDictionaryFile.<format>` command. */
+const CONTENT_FILE_FORMATS: ContentFileFormat[] = [
+  'ts',
+  'esm',
+  'cjs',
+  'json',
+  'json5',
+  'jsonc',
+];
 
-  const selector = [
-    { language: 'javascript', scheme: 'file' },
-    { language: 'javascriptreact', scheme: 'file' },
-    { language: 'typescript', scheme: 'file' },
-    { language: 'typescriptreact', scheme: 'file' },
-    { language: 'vue', scheme: 'file' },
-    { language: 'svelte', scheme: 'file' },
-    { language: 'astro', scheme: 'file' },
-    { language: 'html', scheme: 'file' },
-    { language: 'json', scheme: 'file' },
-    { language: 'jsonc', scheme: 'file' },
-    { language: 'json5', scheme: 'file' },
-    { language: 'yaml', scheme: 'file' },
-    { language: 'markdown', scheme: 'file' },
-  ];
-
-  // String keys (useIntlayer(->'my-key'<-)
+const registerLanguageProviders = (context: ExtensionContext): void => {
   context.subscriptions.push(
+    // `useIntlayer('my-key')` → dictionary declarations
     languages.registerDefinitionProvider(
-      selector,
-      redirectUseIntlayerKeyToDictionary
-    )
-  );
-
-  context.subscriptions.push(
-    languages.registerDefinitionProvider(selector, intlayerDefinitionProvider)
-  );
-
-  context.subscriptions.push(
+      PROVIDER_DOCUMENT_SELECTOR,
+      dictionaryKeyDefinitionProvider
+    ),
+    // `content.title` / `t('title')` → field declaration
     languages.registerDefinitionProvider(
-      selector,
+      PROVIDER_DOCUMENT_SELECTOR,
+      intlayerDefinitionProvider
+    ),
+    // `file()` / `nest()` in content files → referenced file / dictionary
+    languages.registerDefinitionProvider(
+      PROVIDER_DOCUMENT_SELECTOR,
       intlayerContentRedirectionProvider
-    )
-  );
-
-  context.subscriptions.push(
-    languages.registerHoverProvider(selector, intlayerHoverProvider)
-  );
-
-  // Returns an array of disposables (listeners)
-  const decorationDisposables = intlayerDecorationProvider();
-  context.subscriptions.push(...decorationDisposables);
-
-  // Register Reverse Lookup (Content -> Component)
-  // Allows Cmd+Click on content keys
-  context.subscriptions.push(
+    ),
+    // Content file key / field → its usages in components
     languages.registerDefinitionProvider(
-      selector,
+      PROVIDER_DOCUMENT_SELECTOR,
       intlayerContentDefinitionProvider
-    )
+    ),
+    languages.registerHoverProvider(
+      PROVIDER_DOCUMENT_SELECTOR,
+      intlayerHoverProvider
+    ),
+    ...intlayerDecorationProvider(),
+    ...intlayerUnusedDecorationProvider()
   );
+};
 
-  // Register Unused Key Decoration (Strikethrough)
-  const unusedDecorations = intlayerUnusedDecorationProvider();
-  context.subscriptions.push(...unusedDecorations);
-
-  // Register the definition provider
+const registerCommands = (context: ExtensionContext): void => {
   context.subscriptions.push(
-    commands.registerCommand(
-      'extension.createDictionaryFile.ts',
-      async () => await generateDictionaryContent('ts')
+    ...CONTENT_FILE_FORMATS.map((format) =>
+      commands.registerCommand(`extension.createDictionaryFile.${format}`, () =>
+        generateDictionaryContent(format)
+      )
     ),
     commands.registerCommand(
-      'extension.createDictionaryFile.esm',
-      async () => await generateDictionaryContent('esm')
+      'extension.createDictionaryFile',
+      createDictionaryFile
     ),
-    commands.registerCommand(
-      'extension.createDictionaryFile.cjs',
-      async () => await generateDictionaryContent('cjs')
-    ),
-    commands.registerCommand(
-      'extension.createDictionaryFile.json',
-      async () => await generateDictionaryContent('json')
-    ),
-    commands.registerCommand(
-      'extension.createDictionaryFile.json5',
-      async () => await generateDictionaryContent('json5')
-    ),
-    commands.registerCommand(
-      'extension.createDictionaryFile.jsonc',
-      async () => await generateDictionaryContent('jsonc')
-    ),
-
     commands.registerCommand('extension.buildDictionaries', buildCommand),
     commands.registerCommand(
       'extension.buildActiveDictionary',
@@ -137,134 +129,133 @@ export const activate = (context: ExtensionContext) => {
     commands.registerCommand('extension.pullDictionaries', pullCommand),
     commands.registerCommand('extension.fillDictionaries', fillCommand),
     commands.registerCommand('extension.testDictionaries', testCommand),
+    commands.registerCommand('intlayer.reviewDictionaries', reviewCommand),
+    commands.registerCommand('intlayer.login', loginCommand),
+    commands.registerCommand(
+      'intlayer.pushConfiguration',
+      pushConfigurationCommand
+    ),
+    commands.registerCommand('intlayer.startEditor', startEditorCommand),
+    commands.registerCommand('intlayer.upgrade', upgradeCommand),
+    commands.registerCommand('intlayer.translateDoc', translateDocCommand),
+    commands.registerCommand('intlayer.reviewDoc', reviewDocCommand),
+    commands.registerCommand('intlayer.scan', scanCommand),
+    commands.registerCommand('intlayer.standalone', standaloneCommand),
+    commands.registerCommand('intlayer.initLSP', initLSPCommand),
+    commands.registerCommand('intlayer.initESLint', initESLintCommand),
+    commands.registerCommand(
+      'intlayer.initGitHubActions',
+      initGitHubActionsCommand
+    ),
     commands.registerCommand('intlayer.extract', extractCommand),
     commands.registerCommand('intlayer.initSkills', initSkills),
     commands.registerCommand('intlayer.initMCP', initMCP),
     commands.registerCommand('intlayer.initProject', () => initProject())
   );
+};
 
+/**
+ * The dictionaries tree and its search bar. The active content file is
+ * selected in the tree — revealed right away when the tree is visible, else
+ * once it becomes visible.
+ */
+const registerDictionaryExplorer = (context: ExtensionContext): void => {
   const treeDataProvider = new DictionaryTreeDataProvider();
   const treeView = window.createTreeView('intlayer.dictionaries', {
     treeDataProvider,
     showCollapseAll: true,
   });
 
+  let pendingRevealNode: IntlayerTreeNode | undefined;
+  let revealTimeout: NodeJS.Timeout | undefined;
+
+  const revealNode = async (node: IntlayerTreeNode): Promise<void> => {
+    try {
+      await treeView.reveal(node, { select: true, focus: false, expand: true });
+    } catch {
+      // Best effort: the node may be gone after a refresh
+    }
+  };
+
+  const revealActiveContentFile = async (filePath: string): Promise<void> => {
+    const projectDir = findProjectRoot(filePath);
+
+    if (
+      projectDir &&
+      !isContentDeclarationFile(filePath, await getCachedConfig(projectDir))
+    ) {
+      return;
+    }
+
+    const fileNode =
+      await treeDataProvider.findFileNodeByAbsolutePath(filePath);
+
+    if (!fileNode) return;
+
+    if (treeView.visible) {
+      pendingRevealNode = undefined;
+      await revealNode(fileNode);
+    } else {
+      pendingRevealNode = fileNode;
+    }
+  };
+
   context.subscriptions.push(
-    commands.registerCommand('intlayer.refreshDictionaries', () =>
-      treeDataProvider.refresh()
-    ),
+    treeView,
+    // Also the manual escape hatch for changes no watcher sees
+    // (e.g. a file imported by the configuration)
+    commands.registerCommand('intlayer.refreshDictionaries', () => {
+      invalidateConfigurationCaches();
+      treeDataProvider.refresh();
+    }),
+    onDidChangeConfiguration(() => treeDataProvider.refresh()),
+    onDidChangeDictionaries(() => treeDataProvider.refresh()),
     commands.registerCommand(
       'intlayer.selectEnvironment',
-      async (node?: any) =>
-        await selectEnvironment(node?.projectDir, treeDataProvider)
+      (node?: IntlayerTreeNode) =>
+        selectEnvironment(node?.projectDir, treeDataProvider)
     ),
     commands.registerCommand('intlayer.fillDictionary', fillDictionary),
     commands.registerCommand('intlayer.pullDictionary', pullDictionary),
     commands.registerCommand('intlayer.pushDictionary', pushDictionary),
-    treeView
-  );
-
-  // Keep track of a node we want selected without forcing the view to reveal
-  let pendingRevealNode: unknown | undefined;
-
-  // When the tree view becomes visible, reveal the last pending node selection
-  context.subscriptions.push(
-    treeView.onDidChangeVisibility(async (element) => {
-      if (element.visible && pendingRevealNode) {
-        try {
-          await treeView.reveal(pendingRevealNode as any, {
-            select: true,
-            focus: false,
-            expand: true,
-          });
-        } catch (_error) {
-          // best effort
-        } finally {
-          pendingRevealNode = undefined;
-        }
-      }
-    })
-  );
-
-  context.subscriptions.push(
     window.registerWebviewViewProvider(
       'intlayer.searchBar',
       new SearchBarViewProvider(context.extensionUri, treeDataProvider)
-    )
+    ),
+    treeView.onDidChangeVisibility(async ({ visible }) => {
+      if (!visible || !pendingRevealNode) return;
+
+      const node = pendingRevealNode;
+
+      pendingRevealNode = undefined;
+      await revealNode(node);
+    }),
+    window.onDidChangeActiveTextEditor((editor) => {
+      clearTimeout(revealTimeout);
+
+      if (!editor) return;
+
+      revealTimeout = setTimeout(
+        () => void revealActiveContentFile(editor.document.uri.fsPath),
+        REVEAL_DEBOUNCE_DELAY
+      );
+    }),
+    { dispose: () => clearTimeout(revealTimeout) }
   );
+};
 
-  let debounceTimer: NodeJS.Timeout;
+export const activate = (context: ExtensionContext) => {
+  initializeEnvironmentStore(context);
+  startLSPClient(context);
 
-  // Reveal currently active editor if it matches an unmerged dictionary file path
-  const activeEditorDisposable = window.onDidChangeActiveTextEditor(
-    async (editorDisposable) => {
-      if (debounceTimer) {
-        clearTimeout(debounceTimer);
-      }
+  // Suggest `intlayer init` for projects using a compat-compatible i18n library
+  void promptCompatSetup(context);
 
-      // Debounce: Wait 500ms before querying file system / tree
-      debounceTimer = setTimeout(async () => {
-        try {
-          if (!editorDisposable) {
-            return;
-          }
-
-          const activeFilePath = editorDisposable.document.uri.fsPath;
-          const projectRoot = findProjectRoot();
-
-          if (projectRoot) {
-            const configOptions = await getConfigurationOptions(
-              projectRoot,
-              false
-            );
-            const configuration = getConfiguration(configOptions);
-            const fileExtensions =
-              configuration.content?.fileExtensions ?? FILE_EXTENSIONS;
-
-            const isContentFile = fileExtensions.some((ext) =>
-              activeFilePath.endsWith(ext)
-            );
-
-            if (!isContentFile) {
-              return;
-            }
-          }
-
-          treeDataProvider.refresh();
-          const node =
-            await treeDataProvider.findFileNodeByAbsolutePath(activeFilePath);
-
-          if (!node) {
-            return;
-          }
-
-          // Store the intended selection and only reveal if the view is already visible
-          pendingRevealNode = node;
-
-          if (treeView.visible) {
-            await treeView.reveal(node, {
-              select: true,
-              focus: false,
-              expand: true,
-            });
-            pendingRevealNode = undefined;
-          }
-        } catch {
-          // best effort
-        }
-      }, 500);
-    }
-  );
-
-  context.subscriptions.push(activeEditorDisposable);
+  // First: the views below subscribe to its change events
+  watchCacheInvalidation(context);
+  registerLanguageProviders(context);
+  registerCommands(context);
+  registerDictionaryExplorer(context);
 
   context.subscriptions.push(contentFileSaveWatcher());
-
-  // Quick create dictionary command with format selection
-  context.subscriptions.push(
-    commands.registerCommand(
-      'extension.createDictionaryFile',
-      async () => await createDictionaryFile()
-    )
-  );
 };

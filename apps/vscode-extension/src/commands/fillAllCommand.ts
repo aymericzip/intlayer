@@ -1,97 +1,77 @@
-import { relative } from 'node:path';
-import { fill } from '@intlayer/cli';
+import { type FillOptions, fill } from '@intlayer/cli';
 import { getConfiguration } from '@intlayer/config/node';
-import { listDictionaries, prepareIntlayer } from '@intlayer/engine/cli';
 import { window } from 'vscode';
-import { findAllProjectRoots, findProjectRoot } from '../utils/findProjectRoot';
+import {
+  type CommandSource,
+  resolveProjectDirOrPick,
+} from '../utils/findProjectRoot';
 import { getConfigurationOptions } from '../utils/getConfiguration';
 import { prefix } from '../utils/logFunctions';
+import { pickContentDeclarationFiles } from '../utils/selectContentDeclaration';
+import { showFillResult } from '../utils/showFillResult';
 
-export const fillCommand = async (dictionariesPath?: string[]) => {
-  let projectDir = findProjectRoot();
+type FillMode = NonNullable<FillOptions['mode']>;
 
-  if (!projectDir) {
-    const roots = await findAllProjectRoots();
-    if (roots.length === 1) {
-      projectDir = roots[0];
-    } else if (roots.length > 1) {
-      const picked = await window.showQuickPick(roots, {
-        placeHolder: 'Select the Intlayer project to fill',
-      });
-      if (!picked) return;
-      projectDir = picked;
-    } else {
-      await window.showErrorMessage(
-        `${prefix}Could not find intlayer project root.`
-      );
-      return;
-    }
-  }
+/**
+ * Fill the picked content declaration files of a project.
+ *
+ * @param mode - `complete` fills missing translations only, `review` also
+ * re-translates the existing ones.
+ */
+const fillProjectDictionaries = async (
+  source: CommandSource | undefined,
+  mode: FillMode
+): Promise<void> => {
+  const actionLabel = mode === 'review' ? 'Review' : 'Fill';
+  const projectDir = await resolveProjectDirOrPick(
+    `Select the Intlayer project to ${actionLabel.toLowerCase()}`,
+    source
+  );
+
+  if (!projectDir) return;
 
   try {
-    const configOptions = await getConfigurationOptions(projectDir);
-    const configuration = getConfiguration(configOptions);
+    const configurationOptions = await getConfigurationOptions(projectDir);
+    const configuration = getConfiguration(configurationOptions);
 
-    const dictionaries = await listDictionaries(configuration);
+    const contentDeclarationFiles = await pickContentDeclarationFiles(
+      projectDir,
+      configuration,
+      `Select dictionaries to ${actionLabel.toLowerCase()}`
+    );
 
-    if (!dictionaries.length) {
-      window.showWarningMessage(`${prefix}No dictionaries available.`);
+    if (!contentDeclarationFiles?.length) {
+      window.showWarningMessage(`${prefix}No dictionary selected.`);
       return;
     }
 
-    // Compute active file relative path to preselect if it is a content file
-    const activeEditor = window.activeTextEditor;
-    const activeRelativePath = activeEditor
-      ? relative(projectDir, activeEditor.document.uri.fsPath)
-      : undefined;
+    window.showInformationMessage(
+      `${prefix}${actionLabel}ing ${contentDeclarationFiles.length} file(s)…`
+    );
 
-    let selectedDictionariesPath = dictionariesPath;
+    // `fill` builds the dictionaries first, reusing the build cache
+    const fillResult = await fill({
+      configOptions: configurationOptions,
+      file: contentDeclarationFiles,
+      mode,
+    });
 
-    if (!selectedDictionariesPath) {
-      // Show a selection dialog with multiple choices
-      const quickPickItems = dictionaries
-        .map((path) => relative(projectDir, path))
-        .map((dictionaryPath) => ({
-          label: dictionaryPath,
-          picked: dictionaryPath === activeRelativePath,
-        }));
-
-      // Place the preselected item(s) at the top of the list
-      quickPickItems.sort((a, b) =>
-        a.picked === b.picked ? 0 : a.picked ? -1 : 1
-      );
-
-      const selectedDictionaries = await window.showQuickPick(quickPickItems, {
-        canPickMany: true,
-        placeHolder: 'Select dictionaries to fill',
-      });
-
-      if (!selectedDictionaries || selectedDictionaries.length === 0) {
-        window.showWarningMessage(`${prefix}No dictionary selected.`);
-        return;
-      }
-
-      selectedDictionariesPath = selectedDictionaries.map(({ label }) => label);
-    }
-
-    await prepareIntlayer(configuration, { clean: false });
-
-    for (const dictionary of selectedDictionariesPath) {
-      await window.showInformationMessage(`${prefix}Filling ${dictionary}…`);
-
-      await fill({
-        configOptions,
-        keys: dictionary,
-        build: false,
-      });
-    }
-
-    await window.showInformationMessage(
-      `${prefix} fill completed successfully!`
+    await showFillResult(
+      fillResult,
+      actionLabel,
+      `${contentDeclarationFiles.length} file(s)`
     );
   } catch (error) {
     await window.showErrorMessage(
-      `${prefix} fill failed: ${(error as Error).message}`
+      `${prefix}${actionLabel} failed: ${(error as Error).message}`
     );
   }
 };
+
+/** `intlayer fill`: translate the missing content of the picked files. */
+export const fillCommand = (source?: CommandSource): Promise<void> =>
+  fillProjectDictionaries(source, 'complete');
+
+/** `intlayer fill --mode review`: also re-translate the existing content. */
+export const reviewCommand = (source?: CommandSource): Promise<void> =>
+  fillProjectDictionaries(source, 'review');

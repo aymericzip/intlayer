@@ -4,6 +4,7 @@ import {
   type CallerValueSource,
   isCallerActive,
 } from './callers';
+import { EDITOR_CALLERS } from './callers/editorCallers';
 import {
   buildParentMap,
   getObjectPropertyNode,
@@ -123,6 +124,12 @@ type BindingScope = {
  * when building field paths.
  */
 const ACCESSOR_PROPERTY_NAMES = new Set(['value', 'raw', 'use']);
+
+/** The shared registry plus the callers only the editor tooling resolves. */
+const ANALYZED_CALLERS: CallerDescriptor[] = [
+  ...ALL_CALLERS,
+  ...EDITOR_CALLERS,
+];
 
 // ---------------------------------------------------------------------------
 // Match helpers
@@ -272,10 +279,23 @@ const resolveMessageId = (
 };
 
 /**
+ * Split a namespace-less message id at its first dot: the first segment is the
+ * dictionary key, the rest the field path (`'home.hero.title'` → `home`,
+ * `['hero', 'title']`).
+ */
+const splitMessageIdAtFirstSegment = (
+  messageId: string
+): { dictionaryKey: string; fieldPath: string[] } | null => {
+  const [dictionaryKey, ...fieldPath] = messageId.split('.');
+
+  return dictionaryKey ? { dictionaryKey, fieldPath } : null;
+};
+
+/**
  * The whole-file catalog a library falls back to when an id-derived key names
  * no dictionary, declared on any of its callers (`useLingui` → `messages`).
  */
-const getLibraryRootDictionaryKey = (
+export const getLibraryRootDictionaryKey = (
   library: CallerDescriptor['library']
 ): string | undefined =>
   ALL_CALLERS.find(
@@ -456,17 +476,40 @@ const matchDescriptorForCallee = (
 
   if (!callee) return null;
 
-  for (const descriptor of state.activeDescriptors) {
-    if (descriptor.callerName !== callee.name) continue;
+  // An imported store read through `$` takes precedence over a caller that
+  // happens to share the prefixed name (svelte-i18n `$t` vs vue-i18n `$t`).
+  const storeName = getSvelteStoreName(state, callee);
+  const calleeNames = storeName ? [storeName, callee.name] : [callee.name];
 
-    if (callee.isMethod && !descriptor.matchAsMethod) continue;
+  for (const calleeName of calleeNames) {
+    for (const descriptor of state.activeDescriptors) {
+      if (descriptor.callerName !== calleeName) continue;
 
-    if (filter && !filter(descriptor)) continue;
+      if (callee.isMethod && !descriptor.matchAsMethod) continue;
 
-    return descriptor;
+      if (filter && !filter(descriptor)) continue;
+
+      return descriptor;
+    }
   }
 
   return null;
+};
+
+/**
+ * Svelte auto-subscribes an imported store through a `$` prefix:
+ * `import { _ } from 'svelte-i18n'` is read as `$_('home.title')`. Returns the
+ * store's imported name for such a callee.
+ */
+const getSvelteStoreName = (
+  state: AnalyzerState,
+  callee: { name: string; isMethod: boolean }
+): string | null => {
+  if (callee.isMethod || !callee.name.startsWith('$')) return null;
+
+  const storeName = callee.name.slice(1);
+
+  return state.importedLocalNames.has(storeName) ? storeName : null;
 };
 
 /** The module specifier a caller local name was imported from, if any. */
@@ -592,6 +635,14 @@ const collectBindings = (state: AnalyzerState, program: OxcNode): void => {
 
     const initializer = unwrapAwait(node['init'] as OxcNode | undefined);
 
+    if (
+      initializer?.['type'] === 'ArrowFunctionExpression' ||
+      initializer?.['type'] === 'FunctionExpression'
+    ) {
+      collectPrefixingWrapperBinding(state, node, initializer);
+      return;
+    }
+
     if (initializer?.['type'] !== 'CallExpression') return;
 
     const descriptor = matchDescriptorForCallee(
@@ -709,6 +760,183 @@ const collectBindings = (state: AnalyzerState, program: OxcNode): void => {
   });
 };
 
+/** The single returned expression of a function body, if any. */
+const getReturnedExpression = (functionNode: OxcNode): OxcNode | undefined => {
+  const body = functionNode['body'] as OxcNode | undefined;
+
+  if (body?.['type'] !== 'BlockStatement') return body;
+
+  const statements = (body['body'] as OxcNode[] | undefined) ?? [];
+  const onlyStatement = statements.length === 1 ? statements[0] : undefined;
+
+  return onlyStatement?.['type'] === 'ReturnStatement'
+    ? (onlyStatement['argument'] as OxcNode | undefined)
+    : undefined;
+};
+
+/**
+ * The static prefix of a `` `footer.${id}` `` template whose only
+ * substitution is `parameterName`, split into path segments.
+ */
+const getTemplatePrefixSegments = (
+  templateNode: OxcNode | undefined,
+  parameterName: string
+): string[] | null => {
+  if (templateNode?.['type'] !== 'TemplateLiteral') return null;
+
+  const quasis = (templateNode['quasis'] as OxcNode[] | undefined) ?? [];
+  const expressions =
+    (templateNode['expressions'] as OxcNode[] | undefined) ?? [];
+  const readQuasi = (quasi: OxcNode | undefined): string | undefined => {
+    const value = quasi?.['value'] as OxcNode | undefined;
+
+    return (value?.['cooked'] as string | undefined) ?? undefined;
+  };
+
+  if (
+    expressions.length !== 1 ||
+    expressions[0]?.['type'] !== 'Identifier' ||
+    expressions[0]['name'] !== parameterName ||
+    readQuasi(quasis[1]) !== ''
+  ) {
+    return null;
+  }
+
+  const prefix = readQuasi(quasis[0]);
+
+  if (!prefix?.endsWith('.')) return null;
+
+  return prefix.slice(0, -1).split('.');
+};
+
+/**
+ * Register a local wrapper that prefixes every id before translating it as a
+ * translator binding:
+ *
+ *   const t = (id: string) => i18n._(`footer.${id}`);   t('github')
+ *   const tf = (key) => t(`form.${key}`);               tf('name')
+ */
+const collectPrefixingWrapperBinding = (
+  state: AnalyzerState,
+  declaratorNode: OxcNode,
+  functionNode: OxcNode
+): void => {
+  const idNode = declaratorNode['id'] as OxcNode | undefined;
+  const parameterNode = (functionNode['params'] as OxcNode[] | undefined)?.[0];
+  const callNode = getReturnedExpression(functionNode);
+
+  if (
+    idNode?.['type'] !== 'Identifier' ||
+    parameterNode?.['type'] !== 'Identifier' ||
+    callNode?.['type'] !== 'CallExpression'
+  ) {
+    return;
+  }
+
+  const prefixSegments = getTemplatePrefixSegments(
+    (callNode['arguments'] as OxcNode[] | undefined)?.[0],
+    parameterNode['name'] as string
+  );
+
+  if (!prefixSegments) return;
+
+  const scope: BindingScope = {
+    ...getEnclosingScope(state, declaratorNode),
+    declarationEnd: nodeEnd(declaratorNode),
+  };
+  const calleeNode = callNode['callee'] as OxcNode | undefined;
+  const wrappedBinding =
+    calleeNode?.['type'] === 'Identifier'
+      ? resolveBinding(
+          state.translatorBindings,
+          calleeNode['name'] as string,
+          nodeStart(callNode)
+        )
+      : undefined;
+
+  if (wrappedBinding) {
+    addBinding(state.translatorBindings, idNode['name'] as string, {
+      ...wrappedBinding,
+      keyPrefix: [...wrappedBinding.keyPrefix, ...prefixSegments],
+      ...scope,
+    });
+    return;
+  }
+
+  const descriptor = matchDescriptorForCallee(
+    state,
+    calleeNode,
+    (candidate) => candidate.translationFunction === 'self'
+  );
+
+  if (!descriptor) return;
+
+  addBinding(state.translatorBindings, idNode['name'] as string, {
+    // `null` = root scope: the first prefixed segment names the dictionary.
+    dictionaryKey: readValueSources(callNode, descriptor.namespaceSources),
+    keyPrefix: prefixSegments,
+    descriptor,
+    moduleSource: getModuleSource(state, descriptor),
+    ...scope,
+  });
+};
+
+/** Methods of a translation function that take a message id first. */
+const TRANSLATOR_METHOD_NAMES = new Set(['rich', 'markup', 'raw', 'has']);
+
+/**
+ * The translator identifier a call goes through: `t` in `t('id')` and in
+ * `t.rich('id')`.
+ */
+const getTranslatorCalleeIdentifier = (
+  calleeNode: OxcNode | undefined
+): OxcNode | null => {
+  if (calleeNode?.['type'] === 'Identifier') return calleeNode;
+
+  if (calleeNode?.['type'] !== 'MemberExpression' || calleeNode['computed']) {
+    return null;
+  }
+
+  const objectNode = calleeNode['object'] as OxcNode | undefined;
+  const propertyNode = calleeNode['property'] as OxcNode | undefined;
+
+  return objectNode?.['type'] === 'Identifier' &&
+    TRANSLATOR_METHOD_NAMES.has(propertyNode?.['name'] as string)
+    ? objectNode
+    : null;
+};
+
+/**
+ * ngx-translate template forms, which live in HTML (component templates or
+ * inline `template:` strings) and never reach the JS AST:
+ * `{{ 'home.title' | translate }}` and `[translate]="'home.title'"`.
+ */
+const TRANSLATE_PIPE_PATTERN =
+  /(['"])([^'"\r\n{}|]+)\1\s*\|\s*translate\b|\[translate\]\s*=\s*"'([^'"\r\n]+)'"/g;
+
+const collectTranslatePipeUsages = (text: string): MessageUsage[] => {
+  if (!text.includes('translate')) return [];
+
+  const usages: MessageUsage[] = [];
+
+  for (const match of text.matchAll(TRANSLATE_PIPE_PATTERN)) {
+    const split = splitMessageIdAtFirstSegment(match[2] ?? match[3] ?? '');
+
+    if (!split) continue;
+
+    usages.push({
+      ...split,
+      start: match.index,
+      end: match.index + match[0].length,
+      kind: 'call',
+      callerName: 'translate',
+      library: '@ngx-translate/core',
+    });
+  }
+
+  return usages;
+};
+
 /**
  * Record `t('path.to.field')` calls on translator bindings, and self-caller
  * calls (`formatMessage({ id })`, `i18n._('id')`).
@@ -724,11 +952,14 @@ const collectCallUsages = (state: AnalyzerState, program: OxcNode): void => {
 
     const callee = node['callee'] as OxcNode | undefined;
 
-    // Translator binding call: t('path.to.field')
-    if (callee?.['type'] === 'Identifier') {
+    // Translator binding call: t('path.to.field'), or one of its methods
+    // (next-intl `t.rich('path')`, `t.markup`, `t.raw`, `t.has`).
+    const translatorNode = getTranslatorCalleeIdentifier(callee);
+
+    if (translatorNode) {
       const binding = resolveBinding(
         state.translatorBindings,
-        callee['name'] as string,
+        translatorNode['name'] as string,
         nodeStart(node)
       );
 
@@ -747,9 +978,11 @@ const collectCallUsages = (state: AnalyzerState, program: OxcNode): void => {
           // Root-scope translator (`useTranslations()`): the first id
           // segment is the dictionary key.
           if (dictionaryKey === null) {
-            const segments = messagePath.split('.');
-            dictionaryKey = segments[0] ?? null;
-            fieldPath = segments.slice(1);
+            const split = splitMessageIdAtFirstSegment(
+              [...binding.keyPrefix, messagePath].join('.')
+            );
+            dictionaryKey = split?.dictionaryKey ?? null;
+            fieldPath = split?.fieldPath ?? [];
           }
 
           if (dictionaryKey) {
@@ -952,7 +1185,12 @@ const collectJsxUsages = (state: AnalyzerState, program: OxcNode): void => {
           fieldPath: descriptor.flatKey ? [messageId] : messageId.split('.'),
         };
       } else {
-        resolved = resolveMessageId(descriptor, null, messageId);
+        // No namespace anywhere (`<Trans i18nKey="home.title" />` under a
+        // root-scope `useTranslation()`): the first id segment names the
+        // dictionary, as for root-scope `t()` calls.
+        resolved =
+          resolveMessageId(descriptor, null, messageId) ??
+          splitMessageIdAtFirstSegment(messageId);
       }
 
       if (!resolved) continue;
@@ -1175,9 +1413,10 @@ const collectMemberUsages = (
  * @returns Usages ordered by start offset.
  */
 export const collectMessageUsages = (text: string): MessageUsage[] => {
+  const pipeUsages = collectTranslatePipeUsages(text);
   const program = parseText(text);
 
-  if (!program) return [];
+  if (!program) return pipeUsages;
 
   const fileImportSources = collectImportSources(program);
   const parentMap = buildParentMap(program);
@@ -1185,7 +1424,7 @@ export const collectMessageUsages = (text: string): MessageUsage[] => {
     usages: [],
     translatorBindings: new Map(),
     contentBindings: new Map(),
-    activeDescriptors: ALL_CALLERS.filter((descriptor) =>
+    activeDescriptors: ANALYZED_CALLERS.filter((descriptor) =>
       isCallerActive(descriptor, fileImportSources)
     ),
     importedLocalNames: collectImportedLocalNames(program),
@@ -1198,7 +1437,9 @@ export const collectMessageUsages = (text: string): MessageUsage[] => {
   collectJsxUsages(state, program);
   collectMemberUsages(state, program, parentMap);
 
-  return state.usages.sort((first, second) => first.start - second.start);
+  return [...state.usages, ...pipeUsages].sort(
+    (first, second) => first.start - second.start
+  );
 };
 
 /**
@@ -1301,7 +1542,7 @@ export const collectNamespaceReferences = (
   if (!program) return [];
 
   const fileImportSources = collectImportSources(program);
-  const activeDescriptors = ALL_CALLERS.filter(
+  const activeDescriptors = ANALYZED_CALLERS.filter(
     (descriptor) =>
       descriptor.translationFunction !== 'self' &&
       isCallerActive(descriptor, fileImportSources)
@@ -1393,7 +1634,7 @@ export const collectCallerBindings = (
     usages: [],
     translatorBindings: new Map(),
     contentBindings: new Map(),
-    activeDescriptors: ALL_CALLERS.filter((descriptor) =>
+    activeDescriptors: ANALYZED_CALLERS.filter((descriptor) =>
       isCallerActive(descriptor, fileImportSources)
     ),
     importedLocalNames: collectImportedLocalNames(program),

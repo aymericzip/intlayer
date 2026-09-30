@@ -10,8 +10,30 @@
       "type": "extensionHost",
       "request": "launch",
       "args": ["--extensionDevelopmentPath=${workspaceFolder}"],
-      "outFiles": ["${workspaceFolder}/dist/**/*.cjs"],
+      // Bundles are emitted at the dist root; dist/node_modules holds copied
+      // runtime deps (esbuild, oxc-parser) that must not be scanned
+      "outFiles": ["${workspaceFolder}/dist/*.js", "!**/node_modules/**"],
+      "sourceMaps": true,
       "preLaunchTask": "${defaultBuildTask}"
+    },
+    {
+      // The LSP server runs in a child process forked by the extension. In
+      // debug mode it listens on this port (LSP_DEBUG_PORT in
+      // src/lsp/client.ts). Start "Run Extension" first.
+      "name": "Attach to LSP Server",
+      "type": "node",
+      "request": "attach",
+      "port": 6009,
+      "restart": true,
+      "outFiles": ["${workspaceFolder}/dist/*.js", "!**/node_modules/**"],
+      "sourceMaps": true
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Extension + LSP Server",
+      "configurations": ["Run Extension", "Attach to LSP Server"],
+      "stopAll": true
     }
   ]
 }

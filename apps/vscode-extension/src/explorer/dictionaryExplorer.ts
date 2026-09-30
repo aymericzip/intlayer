@@ -1,11 +1,5 @@
-import {
-  existsSync,
-  promises as fsPromises,
-  readdirSync,
-  readFileSync,
-} from 'node:fs';
+import { readdir, readFile } from 'node:fs/promises';
 import { basename, extname, join, relative, resolve, sep } from 'node:path';
-import { getConfiguration } from '@intlayer/config/node';
 import { listProjects } from '@intlayer/engine/cli';
 import {
   type Event,
@@ -19,18 +13,22 @@ import {
 } from 'vscode';
 import { getSelectedEnvironment } from '../utils/envStore';
 import { findProjectRoot } from '../utils/findProjectRoot';
-import { getConfigurationOptions } from '../utils/getConfiguration';
-import { hasClientId } from '../utils/hasClientId';
+import { getCachedConfig, getCachedDictionary } from '../utils/intlayerCache';
 
-type DictionaryEntry = {
-  filePath?: string;
+/** An Intlayer project and its built unmerged dictionaries. */
+type Project = {
+  projectDir: string;
+  label: string;
+  /** Unmerged dictionaries directory. */
+  dictionariesDir: string;
+  /** Dictionary JSON file names, sorted. */
+  dictionaryFileNames: string[];
 };
 
-type EnvironmentNode = {
-  type: 'environment';
+type ProjectNode = {
+  type: 'project';
   label: string;
   projectDir: string;
-  dir: string; // unmerged dictionaries dir
 };
 
 type DictionaryNode = {
@@ -38,17 +36,121 @@ type DictionaryNode = {
   key: string;
   jsonPath: string;
   projectDir: string;
-  envLabel: string;
+  projectLabel: string;
 };
 
 type FileNode = {
   type: 'file';
+  /** Content declaration file, relative to the project. */
   filePath: string;
   projectDir: string;
   dictionaryJsonPath: string;
 };
 
-export type IntlayerTreeNode = EnvironmentNode | DictionaryNode | FileNode;
+export type IntlayerTreeNode = ProjectNode | DictionaryNode | FileNode;
+
+/** Source file paths declared by a built dictionary JSON file. */
+const readDeclarationFilePaths = async (
+  jsonPath: string
+): Promise<string[]> => {
+  const dictionaries = await getCachedDictionary(jsonPath);
+
+  // A malformed build output may hold a non-array JSON value
+  if (!Array.isArray(dictionaries)) return [];
+
+  return dictionaries
+    .map((dictionary) => dictionary?.filePath)
+    .filter((filePath): filePath is string => typeof filePath === 'string');
+};
+
+/** Dictionary JSON file names of a directory, sorted; none when missing. */
+const readDictionaryFileNames = async (
+  dictionariesDir: string
+): Promise<string[]> => {
+  try {
+    return (await readdir(dictionariesDir))
+      .filter((fileName) => extname(fileName) === '.json')
+      .sort();
+  } catch {
+    // Dictionaries not built yet
+    return [];
+  }
+};
+
+/** Name from the project's package.json, else its directory name. */
+const readProjectLabel = async (projectDir: string): Promise<string> => {
+  try {
+    const { name } = JSON.parse(
+      await readFile(join(projectDir, 'package.json'), 'utf8')
+    );
+
+    if (typeof name === 'string' && name) return name;
+  } catch {
+    // No or malformed package.json
+  }
+
+  return basename(projectDir);
+};
+
+/** Whether one directory contains the other (or both are the same). */
+const isSameOrNested = (firstDir: string, secondDir: string): boolean => {
+  const first = resolve(firstDir);
+  const second = resolve(secondDir);
+
+  return (
+    first === second ||
+    first.startsWith(second + sep) ||
+    second.startsWith(first + sep)
+  );
+};
+
+/** Projects that have built dictionaries; unloadable projects are skipped. */
+const loadProjects = async (projectDirs: string[]): Promise<Project[]> => {
+  const projects: Project[] = [];
+
+  for (const projectDir of projectDirs) {
+    try {
+      const { unmergedDictionariesDir: dictionariesDir } = (
+        await getCachedConfig(projectDir)
+      ).system;
+      const dictionaryFileNames =
+        await readDictionaryFileNames(dictionariesDir);
+
+      // Projects without any built dictionary are hidden
+      if (dictionaryFileNames.length === 0) continue;
+
+      projects.push({
+        projectDir,
+        label: await readProjectLabel(projectDir),
+        dictionariesDir,
+        dictionaryFileNames,
+      });
+    } catch {
+      // Configuration failed to load
+    }
+  }
+
+  return projects;
+};
+
+/** Every Intlayer project found in the workspace folders. */
+const listWorkspaceProjectDirs = async (): Promise<string[]> => {
+  const projectDirs = new Set<string>();
+
+  for (const folder of workspace.workspaceFolders ?? []) {
+    try {
+      const { projectsPath } = await listProjects({
+        baseDir: folder.uri.fsPath,
+      });
+
+      for (const projectDir of projectsPath) projectDirs.add(projectDir);
+    } catch {
+      // Folder scan failed
+    }
+  }
+
+  return [...projectDirs];
+};
 
 export class DictionaryTreeDataProvider
   implements TreeDataProvider<IntlayerTreeNode>
@@ -60,15 +162,16 @@ export class DictionaryTreeDataProvider
     this.changeEmitter.event;
 
   private searchQuery: string | undefined;
+  /** Dictionary kept visible by search, because it holds the revealed file. */
   private forcedRevealJsonPath: string | undefined;
-  private cachedEnvironments:
-    | { projectDir: string; dir: string; files: string[]; label: string }[]
-    | undefined;
+  private cachedProjects: Project[] | undefined;
+  /** Load shared by concurrent root requests (tree view and reveal lookup). */
+  private pendingProjects: Promise<Project[]> | undefined;
 
+  /** Refilters the listed projects; the workspace is not rescanned. */
   setSearchQuery(query: string | undefined) {
-    this.searchQuery =
-      query && query.trim().length > 0 ? query.trim() : undefined;
-    this.refresh();
+    this.searchQuery = query?.trim() || undefined;
+    this.changeEmitter.fire(undefined);
   }
 
   getSearchQuery(): string {
@@ -76,249 +179,78 @@ export class DictionaryTreeDataProvider
   }
 
   refresh(): void {
-    this.cachedEnvironments = undefined;
+    this.cachedProjects = undefined;
+    this.pendingProjects = undefined;
     this.changeEmitter.fire(undefined);
   }
 
+  /** A listed project; paths are compared resolved (glob paths use `/`). */
+  private findProject(projectDir: string): Project | undefined {
+    const resolvedProjectDir = resolve(projectDir);
+
+    return this.cachedProjects?.find(
+      (project) => resolve(project.projectDir) === resolvedProjectDir
+    );
+  }
+
   /**
-   * Find a file node by its project-relative path across all dictionaries.
+   * The file node of a content declaration file, searched in the projects
+   * currently listed. When its project is not listed (filtered out for the
+   * previously active editor, or new), refreshes once and searches again.
    */
   async findFileNodeByAbsolutePath(
     absolutePath: string
-  ): Promise<IntlayerTreeNode | undefined> {
-    this.forcedRevealJsonPath = undefined;
-    if (!this.cachedEnvironments) {
-      await this.getChildren();
-    }
-    const envs = this.cachedEnvironments ?? [];
-    for (const env of envs) {
-      const relPath = relative(env.projectDir, absolutePath);
-      // If the absolute path is outside this env, the relative path will start with ..
-      if (relPath.startsWith('..')) {
-        continue;
+  ): Promise<FileNode | undefined> {
+    const searchProjects = async (): Promise<FileNode | undefined> => {
+      if (!this.cachedProjects) {
+        await this.getChildren();
       }
-      for (const file of env.files) {
-        try {
-          const jsonPath = join(env.dir, file);
-          const content = readFileSync(jsonPath, 'utf8');
-          const dictionaries = JSON.parse(content) as DictionaryEntry[];
-          const hasMatch = (dictionaries ?? [])
-            .filter(Boolean)
-            .some((d) => d.filePath === relPath);
-          if (hasMatch) {
-            this.forcedRevealJsonPath = jsonPath;
+
+      for (const project of this.cachedProjects ?? []) {
+        const filePath = relative(project.projectDir, absolutePath);
+
+        if (filePath.startsWith('..')) continue;
+
+        for (const fileName of project.dictionaryFileNames) {
+          const jsonPath = join(project.dictionariesDir, fileName);
+
+          if ((await readDeclarationFilePaths(jsonPath)).includes(filePath)) {
             return {
               type: 'file',
-              filePath: relPath,
-              projectDir: env.projectDir,
+              filePath,
+              projectDir: project.projectDir,
               dictionaryJsonPath: jsonPath,
             };
           }
-        } catch {
-          // ignore malformed files
         }
       }
+
+      return undefined;
+    };
+
+    let fileNode = await searchProjects();
+    const projectDir = findProjectRoot(absolutePath);
+
+    // A listed project missing the file is only unbuilt: refreshing won't help
+    if (!fileNode && projectDir && !this.findProject(projectDir)) {
+      this.refresh();
+      fileNode = await searchProjects();
     }
-    return undefined;
+
+    this.forcedRevealJsonPath = fileNode?.dictionaryJsonPath;
+
+    return fileNode;
   }
 
   async getChildren(element?: IntlayerTreeNode): Promise<IntlayerTreeNode[]> {
     try {
-      if (!element) {
-        // Retrieve all project roots by scanning workspace folders for Intlayer configs
-        const workspaceFolders = workspace.workspaceFolders ?? [];
-        const foundRoots: string[] = [];
+      if (!element) return await this.getProjectNodes();
 
-        for (const folder of workspaceFolders) {
-          try {
-            const { projectsPath } = await listProjects({
-              baseDir: folder.uri.fsPath,
-            });
-            foundRoots.push(...projectsPath);
-          } catch {
-            // Ignore folders where scan fails
-          }
-        }
+      if (element.type === 'project')
+        return await this.getDictionaryNodes(element);
 
-        let uniqueRoots = Array.from(new Set(foundRoots));
-
-        if (!uniqueRoots.length) {
-          return [];
-        }
-
-        // If multiple projects exist, show only the one matching the active file
-        const allRoots = uniqueRoots;
-        let wasFiltered = false;
-        if (uniqueRoots.length > 1) {
-          const activeProjectRoot = findProjectRoot();
-          if (activeProjectRoot) {
-            const normalizedActive = resolve(activeProjectRoot);
-            const filtered = uniqueRoots.filter((r) => {
-              const normalizedRoot = resolve(r);
-              return (
-                normalizedRoot === normalizedActive ||
-                normalizedRoot.startsWith(normalizedActive + sep) ||
-                normalizedActive.startsWith(normalizedRoot + sep)
-              );
-            });
-            if (filtered.length > 0) {
-              uniqueRoots = filtered;
-              wasFiltered = true;
-            }
-          }
-        }
-
-        const buildEnvs = async (roots: string[]) => {
-          const result: {
-            projectDir: string;
-            dir: string;
-            files: string[];
-            label: string;
-          }[] = [];
-
-          for (const projectDir of roots) {
-            try {
-              const configOptions = await getConfigurationOptions(
-                projectDir,
-                false
-              );
-              const config = getConfiguration(configOptions);
-              const dir =
-                (config.system.unmergedDictionariesDir as string | undefined) ??
-                projectDir;
-
-              const files = existsSync(dir)
-                ? readdirSync(dir)
-                    .filter((f) => extname(f) === '.json')
-                    .sort()
-                : [];
-
-              // FILTER: Skip project if it has no .content (empty dictionary files)
-              if (files.length === 0) {
-                continue;
-              }
-
-              // derive label from package.json name or fallback to directory name
-              let label = basename(projectDir);
-              try {
-                const fileContent = await fsPromises.readFile(
-                  join(projectDir, 'package.json'),
-                  'utf8'
-                );
-                const pkg = JSON.parse(fileContent);
-                if (pkg?.name && typeof pkg.name === 'string') {
-                  label = pkg.name;
-                }
-              } catch {}
-
-              result.push({ projectDir, dir, files, label });
-            } catch {
-              // If configuration loading fails, skip this project
-            }
-          }
-          return result;
-        };
-
-        let envs = await buildEnvs(uniqueRoots);
-
-        // If the active-project filter yielded nothing, fall back to all projects
-        if (envs.length === 0 && wasFiltered) {
-          envs = await buildEnvs(allRoots);
-        }
-
-        this.cachedEnvironments = envs;
-
-        // Always return environments as roots (keep grouping by project)
-        const envNodes: EnvironmentNode[] = envs.map((env) => ({
-          type: 'environment',
-          label: env.label,
-          projectDir: env.projectDir,
-          dir: env.dir,
-        }));
-        return envNodes;
-      }
-
-      if (element.type === 'environment') {
-        // List dictionaries for this environment
-        const env = (this.cachedEnvironments ?? []).find(
-          (e) => e.projectDir === element.projectDir
-        );
-        if (!env) {
-          return [];
-        }
-        let files = env.files;
-        if (this.searchQuery) {
-          const lowered = this.searchQuery.toLowerCase();
-          files = files.filter((file) => {
-            const jsonPath = join(env.dir, file);
-            if (this.forcedRevealJsonPath === jsonPath) {
-              return true;
-            }
-
-            const key = basename(file, '.json').toLowerCase();
-            if (key.includes(lowered)) {
-              return true;
-            }
-            try {
-              const raw = readFileSync(join(env.dir, file), 'utf8');
-              let contentString = '';
-              try {
-                contentString = JSON.stringify(JSON.parse(raw));
-              } catch {
-                contentString = raw;
-              }
-              return contentString.toLowerCase().includes(lowered);
-            } catch {
-              return false;
-            }
-          });
-        }
-        return files.map((file) => ({
-          type: 'dictionary' as const,
-          key: basename(file, '.json'),
-          jsonPath: join(env.dir, file),
-          projectDir: env.projectDir,
-          envLabel: env.label,
-        }));
-      }
-
-      if (element.type === 'dictionary') {
-        try {
-          const content = readFileSync(element.jsonPath, 'utf8');
-          const dictionaries = JSON.parse(content) as DictionaryEntry[];
-          const entries = (dictionaries ?? []).filter(Boolean);
-
-          let filePaths = entries
-            .map((d) => d.filePath)
-            .filter((p): p is string => typeof p === 'string');
-
-          if (this.searchQuery) {
-            const lowered = this.searchQuery.toLowerCase();
-            // Reorder by path match; do not refilter dictionaries here
-            filePaths = filePaths
-              .filter((p) => p.toLowerCase().includes(lowered))
-              .concat(
-                filePaths.filter((p) => !p.toLowerCase().includes(lowered))
-              );
-          }
-
-          const uniquePaths = Array.from(new Set(filePaths));
-
-          return uniquePaths.map((filePath) => ({
-            type: 'file',
-            filePath,
-            projectDir: element.projectDir,
-            dictionaryJsonPath: element.jsonPath,
-          }));
-        } catch (error) {
-          window.showWarningMessage(
-            `Failed to read dictionary ${element.key}: ${
-              (error as Error).message
-            }`
-          );
-          return [];
-        }
-      }
+      if (element.type === 'dictionary')
+        return await this.getFileNodes(element);
 
       return [];
     } catch (error) {
@@ -329,56 +261,178 @@ export class DictionaryTreeDataProvider
     }
   }
 
-  getParent(element: IntlayerTreeNode) {
+  /**
+   * Root nodes, from the cached projects until the next refresh. With several
+   * projects, only those related to the active editor's project are listed
+   * (all of them when none matches).
+   */
+  private async getProjectNodes(): Promise<ProjectNode[]> {
+    if (!this.cachedProjects) {
+      this.pendingProjects ??= this.loadVisibleProjects();
+      const pendingProjects = this.pendingProjects;
+
+      try {
+        const projects = await pendingProjects;
+
+        // A refresh during the load outdated it: wait for the newer one
+        if (this.pendingProjects !== pendingProjects) {
+          return await this.getProjectNodes();
+        }
+
+        this.cachedProjects = projects;
+      } finally {
+        if (this.pendingProjects === pendingProjects) {
+          this.pendingProjects = undefined;
+        }
+      }
+    }
+
+    return this.cachedProjects.map(({ label, projectDir }) => ({
+      type: 'project',
+      label,
+      projectDir,
+    }));
+  }
+
+  private async loadVisibleProjects(): Promise<Project[]> {
+    const allProjectDirs = await listWorkspaceProjectDirs();
+    const activeProjectDir =
+      allProjectDirs.length > 1 ? findProjectRoot() : undefined;
+    const activeProjectDirs = activeProjectDir
+      ? allProjectDirs.filter((projectDir) =>
+          isSameOrNested(projectDir, activeProjectDir)
+        )
+      : [];
+
+    let projects = await loadProjects(
+      activeProjectDirs.length > 0 ? activeProjectDirs : allProjectDirs
+    );
+
+    if (projects.length === 0 && activeProjectDirs.length > 0) {
+      projects = await loadProjects(allProjectDirs);
+    }
+
+    return projects;
+  }
+
+  /** Whether a dictionary matches the search query by key or content. */
+  private async matchesSearch(
+    project: Project,
+    fileName: string,
+    loweredQuery: string
+  ): Promise<boolean> {
+    const jsonPath = join(project.dictionariesDir, fileName);
+
+    if (this.forcedRevealJsonPath === jsonPath) return true;
+
+    if (basename(fileName, '.json').toLowerCase().includes(loweredQuery)) {
+      return true;
+    }
+
+    const dictionaries = await getCachedDictionary(jsonPath);
+
+    return JSON.stringify(dictionaries ?? '')
+      .toLowerCase()
+      .includes(loweredQuery);
+  }
+
+  private async getDictionaryNodes(
+    node: ProjectNode
+  ): Promise<DictionaryNode[]> {
+    const project = this.findProject(node.projectDir);
+
+    if (!project) return [];
+
+    let fileNames = project.dictionaryFileNames;
+
+    if (this.searchQuery) {
+      const loweredQuery = this.searchQuery.toLowerCase();
+      const matches = await Promise.all(
+        fileNames.map((fileName) =>
+          this.matchesSearch(project, fileName, loweredQuery)
+        )
+      );
+
+      fileNames = fileNames.filter((_fileName, index) => matches[index]);
+    }
+
+    return fileNames.map((fileName) => ({
+      type: 'dictionary',
+      key: basename(fileName, '.json'),
+      jsonPath: join(project.dictionariesDir, fileName),
+      projectDir: project.projectDir,
+      projectLabel: project.label,
+    }));
+  }
+
+  private async getFileNodes(node: DictionaryNode): Promise<FileNode[]> {
+    let filePaths = [...new Set(await readDeclarationFilePaths(node.jsonPath))];
+
+    if (this.searchQuery) {
+      // Files matching the query first; dictionaries are not refiltered here
+      const loweredQuery = this.searchQuery.toLowerCase();
+      const isMatch = (filePath: string) =>
+        filePath.toLowerCase().includes(loweredQuery);
+
+      filePaths = [
+        ...filePaths.filter(isMatch),
+        ...filePaths.filter((filePath) => !isMatch(filePath)),
+      ];
+    }
+
+    return filePaths.map((filePath) => ({
+      type: 'file',
+      filePath,
+      projectDir: node.projectDir,
+      dictionaryJsonPath: node.jsonPath,
+    }));
+  }
+
+  getParent(element: IntlayerTreeNode): IntlayerTreeNode | undefined {
     if (element.type === 'file') {
       return {
         type: 'dictionary',
         key: basename(element.dictionaryJsonPath, '.json'),
         jsonPath: element.dictionaryJsonPath,
         projectDir: element.projectDir,
-        envLabel:
-          (this.cachedEnvironments ?? []).find(
-            (e) => e.projectDir === element.projectDir
-          )?.label ?? basename(element.projectDir),
-      } as DictionaryNode;
+        projectLabel:
+          this.findProject(element.projectDir)?.label ??
+          basename(element.projectDir),
+      };
     }
+
     if (element.type === 'dictionary') {
-      const dict = element as DictionaryNode;
-      const env = (this.cachedEnvironments ?? []).find(
-        (e) => e.projectDir === dict.projectDir
-      );
-      if (!env) {
-        return undefined;
-      }
-      return {
-        type: 'environment',
-        label: env.label,
-        projectDir: env.projectDir,
-        dir: env.dir,
-      } as EnvironmentNode;
+      const project = this.findProject(element.projectDir);
+
+      return project
+        ? {
+            type: 'project',
+            label: project.label,
+            projectDir: project.projectDir,
+          }
+        : undefined;
     }
+
     return undefined;
   }
 
   async getTreeItem(element: IntlayerTreeNode): Promise<TreeItem> {
-    if (element.type === 'environment') {
-      const selectedEnv = getSelectedEnvironment(element.projectDir);
+    if (element.type === 'project') {
+      const selectedEnvironment = getSelectedEnvironment(element.projectDir);
       const item = new TreeItem(
-        selectedEnv ? `${element.label} [${selectedEnv}]` : element.label,
+        selectedEnvironment
+          ? `${element.label} [${selectedEnvironment}]`
+          : element.label,
         TreeItemCollapsibleState.Collapsed
       );
 
-      // Set context value based on whether the project has clientId
-      const clientIdExists = await hasClientId(element.projectDir);
-      item.contextValue = clientIdExists
-        ? 'intlayer.environment.cms'
-        : 'intlayer.environment';
-
+      // Context values are referenced by the `view/item/context` menus
+      item.contextValue = 'intlayer.environment';
       item.id = `env:${element.projectDir}`;
-      item.tooltip = selectedEnv
-        ? `${element.projectDir} — env: ${selectedEnv}`
+      item.tooltip = selectedEnvironment
+        ? `${element.projectDir} — env: ${selectedEnvironment}`
         : element.projectDir;
-      (item as any).projectDir = element.projectDir;
+
       return item;
     }
 
@@ -387,33 +441,32 @@ export class DictionaryTreeDataProvider
         element.key,
         TreeItemCollapsibleState.Collapsed
       );
+
       item.contextValue = 'intlayer.dictionary';
       item.id = `dict:${element.jsonPath}`;
-      item.tooltip = `${element.envLabel} • ${element.jsonPath}`;
-      // Pass metadata for context commands
-      (item as any).key = element.key;
-      (item as any).projectDir = element.projectDir;
+      item.tooltip = `${element.projectLabel} • ${element.jsonPath}`;
+
       return item;
     }
 
-    const fileAbs = join(element.projectDir, element.filePath);
-    const wsFolder = workspace.getWorkspaceFolder(Uri.file(fileAbs));
-    const workspaceRelative = wsFolder
-      ? relative(wsFolder.uri.fsPath, fileAbs)
-      : element.filePath;
-    const item = new TreeItem(workspaceRelative, TreeItemCollapsibleState.None);
+    const fileUri = Uri.file(join(element.projectDir, element.filePath));
+    const workspaceFolder = workspace.getWorkspaceFolder(fileUri);
+    const item = new TreeItem(
+      workspaceFolder
+        ? relative(workspaceFolder.uri.fsPath, fileUri.fsPath)
+        : element.filePath,
+      TreeItemCollapsibleState.None
+    );
+
     item.contextValue = 'intlayer.file';
     item.id = `file:${element.dictionaryJsonPath}::${element.filePath}`;
-    item.resourceUri = Uri.file(fileAbs);
+    item.resourceUri = fileUri;
     item.command = {
       command: 'vscode.open',
       title: 'Open File',
-      arguments: [Uri.file(fileAbs)],
+      arguments: [fileUri],
     };
-    // Pass metadata for context commands
-    (item as any).jsonPath = element.dictionaryJsonPath;
-    (item as any).projectDir = element.projectDir;
-    (item as any).filePath = element.filePath;
+
     return item;
   }
 }

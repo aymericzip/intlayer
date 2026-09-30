@@ -247,15 +247,33 @@ export const loadCLITools: LoadCLITools = async (server) => {
           fillOptions.gitOptions = { ...restGit, mode };
         }
 
-        await fill(fillOptions);
+        const fillResult = await fill(fillOptions);
+
+        if (fillResult.status !== 'completed') {
+          return {
+            content: [
+              {
+                type: 'text',
+                text:
+                  fillResult.status === 'no-ai-access'
+                    ? `Fill skipped: no AI access. ${fillResult.error ?? 'Run "intlayer login" or configure an AI API key.'}`
+                    : 'Fill skipped: no dictionary matched the filters.',
+              },
+            ],
+            isError: true,
+          };
+        }
+
+        const failedCount = fillResult.taskCount - fillResult.writtenCount;
 
         return {
           content: [
             {
               type: 'text',
-              text: 'Fill successful.',
+              text: `Fill completed for ${fillResult.dictionaryKeys.join(', ')}: ${fillResult.writtenCount}/${fillResult.taskCount} translation(s) written${failedCount > 0 ? `, ${failedCount} failed` : ''}.`,
             },
           ],
+          isError: failedCount > 0,
         };
       } catch (error) {
         const errorMessage =

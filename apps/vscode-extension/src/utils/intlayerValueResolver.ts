@@ -26,6 +26,25 @@ const BRANCH_NODE_TYPES = new Set([
   'gender',
 ]);
 
+/** Framework accessors that read a node's value rather than a field. */
+const ACCESSOR_NAMES = new Set(['use', 'value', 'raw']);
+
+/**
+ * Drop a trailing framework accessor (`content.title.value`).
+ *
+ * @returns The field path, and whether an accessor was dropped.
+ */
+export const stripAccessorSuffix = (
+  fieldPath: string[]
+): { fieldPath: string[]; hasAccessor: boolean } => {
+  const hasAccessor = ACCESSOR_NAMES.has(fieldPath.at(-1) ?? '');
+
+  return {
+    fieldPath: hasAccessor ? fieldPath.slice(0, -1) : fieldPath,
+    hasAccessor,
+  };
+};
+
 /** Guard against cyclic nest() references. */
 const MAX_RESOLUTION_DEPTH = 12;
 
@@ -35,7 +54,8 @@ const MAX_RESOLUTION_DEPTH = 12;
  */
 export type NestedDictionaryResolver = (dictionaryKey: string) => any | null;
 
-const isReactElementLike = (value: any): boolean =>
+/** Whether `value` is a (serialised) React element. */
+export const isReactElementLike = (value: any): boolean =>
   typeof value === 'object' &&
   value !== null &&
   ('$$typeof' in value || 'props' in value);
@@ -197,8 +217,8 @@ export const getValueFromPath = (
   let consumedKeys = 0;
 
   for (const key of path) {
-    // Skip framework-specific methods that might be in the path
-    if (key === 'use' || key === 'value' || key === 'raw') {
+    // Skip framework-specific accessors that might be in the path
+    if (ACCESSOR_NAMES.has(key)) {
       continue;
     }
 

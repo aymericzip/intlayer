@@ -10,32 +10,18 @@ import {
 } from '@intlayer/config/node';
 import { getUnmergedDictionaries } from '@intlayer/dictionaries-entry/unmerged';
 import { RelativePattern, Uri, window, workspace } from 'vscode';
-import { findAllProjectRoots, findProjectRoot } from '../utils/findProjectRoot';
-import {
-  clearConfigurationCache,
-  getConfigurationOptions,
-} from '../utils/getConfiguration';
-import { clearIntlayerConfigCache } from '../utils/intlayerCache';
+import { invalidateConfigurationCaches } from '../utils/cacheInvalidation';
+import { resolveProjectDirOrPick } from '../utils/findProjectRoot';
+import { getConfigurationOptions } from '../utils/getConfiguration';
 
 export const extractCommand = async (resource?: Uri): Promise<void> => {
   // Resolve project root: prefer the resource URI, then the active editor, then ask the user.
-  let projectDir = findProjectRoot(resource?.fsPath);
+  const projectDir = await resolveProjectDirOrPick(
+    'Select the Intlayer project to extract from',
+    { filePath: resource?.fsPath }
+  );
 
-  if (!projectDir) {
-    const roots = await findAllProjectRoots();
-    if (roots.length === 1) {
-      projectDir = roots[0];
-    } else if (roots.length > 1) {
-      const picked = await window.showQuickPick(roots, {
-        placeHolder: 'Select the Intlayer project to extract from',
-      });
-      if (!picked) return;
-      projectDir = picked;
-    } else {
-      await window.showErrorMessage('Intlayer project root not found.');
-      return;
-    }
-  }
+  if (!projectDir) return;
 
   const configOptions: GetConfigurationOptions =
     await getConfigurationOptions(projectDir);
@@ -47,8 +33,8 @@ export const extractCommand = async (resource?: Uri): Promise<void> => {
   const { output } = configuration.compiler;
 
   if (!output) {
-    clearConfigurationCache(projectDir);
-    clearIntlayerConfigCache();
+    // The user is asked to edit the configuration before retrying
+    invalidateConfigurationCaches();
 
     const action = await window.showErrorMessage(
       `No output configuration found. Add a 'compiler.output' in your configuration, then retry.`,
@@ -188,8 +174,8 @@ export const extractCommand = async (resource?: Uri): Promise<void> => {
   const unmergedDictionaries = getUnmergedDictionaries(configuration);
   let errorCount = 0;
 
-  const editor = window.activeTextEditor;
-  const fileText = editor?.document.getText();
+  // Unsaved text of the active editor; other files are read from disk
+  const activeDocument = window.activeTextEditor?.document;
 
   await Promise.all(
     filesToTransform.map(async (filePath) => {
@@ -197,7 +183,10 @@ export const extractCommand = async (resource?: Uri): Promise<void> => {
         await extractContent(filePath, packageName, {
           unmergedDictionaries,
           configuration,
-          code: fileText,
+          code:
+            activeDocument?.uri.fsPath === filePath
+              ? activeDocument.getText()
+              : undefined,
         });
       } catch (error) {
         errorCount++;

@@ -1,35 +1,48 @@
-import { dirname, extname, join } from 'node:path';
+import { dirname, extname } from 'node:path';
 import { DEFAULT_LOCALE } from '@intlayer/config/defaultValues';
 import {
   collectCallerBindings,
   collectMessageUsages,
+  resolveDictionaryTarget,
 } from '@intlayer/lsp/utils';
+import type { Dictionary } from '@intlayer/types';
 import {
   type DecorationOptions,
+  DecorationRangeBehavior,
   type Disposable,
   Range,
   type TextEditor,
   window,
-  workspace,
 } from 'vscode';
 import {
+  onDidChangeConfiguration,
+  onDidChangeDictionaries,
+} from '../utils/cacheInvalidation';
+import {
+  ANGULAR_INLINE_TEMPLATE_PATTERN,
   extractScriptContent,
   findTemplateBlock,
 } from '../utils/extractScript';
 import { findProjectRoot } from '../utils/findProjectRoot';
-import { getCachedConfig, getCachedDictionary } from '../utils/intlayerCache';
+import {
+  getCachedConfig,
+  getCachedUnmergedDictionaries,
+} from '../utils/intlayerCache';
 import {
   collectNestedDictionaryKeys,
   getValueFromPath,
+  isReactElementLike,
   resolveIntlayerNode,
 } from '../utils/intlayerValueResolver';
+import {
+  collectTemplateCallUsages,
+  TEMPLATE_EXTENSIONS,
+} from '../utils/templateUsages';
+import { watchActiveEditor } from '../utils/watchActiveEditor';
 
 // Configuration
 const DEBOUNCE_DELAY = 500;
 const TRUNCATE_LENGTH = 60;
-
-// Built unmerged dictionaries — the source the previews below are read from.
-const DICTIONARY_OUTPUT_GLOB = '**/.intlayer/unmerged_dictionary/*.json';
 
 // Decoration Style: Appears at the end of the line (Translation Preview)
 const translationDecorationType = window.createTextEditorDecorationType({
@@ -38,56 +51,26 @@ const translationDecorationType = window.createTextEditorDecorationType({
     color: 'rgba(128, 128, 128, 0.3)',
     fontStyle: 'italic',
   },
-  rangeBehavior: 1, // ClosedOpen
+  rangeBehavior: DecorationRangeBehavior.ClosedOpen,
 });
 
 export const intlayerDecorationProvider = (): Disposable[] => {
-  let activeEditor = window.activeTextEditor;
-  let timeout: NodeJS.Timeout | undefined;
-
-  const triggerUpdate = () => {
-    if (timeout) {
-      clearTimeout(timeout);
-    }
-    timeout = setTimeout(() => {
-      if (activeEditor) {
-        updateDecorations(activeEditor);
-      }
-    }, DEBOUNCE_DELAY);
-  };
-
-  if (activeEditor) {
-    triggerUpdate();
-  }
+  const { disposables, trigger } = watchActiveEditor(
+    updateDecorations,
+    DEBOUNCE_DELAY
+  );
 
   // The previews are read from the built dictionaries, not from the source
   // content files — without this the active editor keeps showing stale (or no)
   // previews until it is edited or reopened.
-  const dictionaryWatcher = workspace.createFileSystemWatcher(
-    DICTIONARY_OUTPUT_GLOB
-  );
-
   return [
-    window.onDidChangeActiveTextEditor((editor) => {
-      activeEditor = editor;
-
-      if (editor) {
-        triggerUpdate();
-      }
-    }),
-    workspace.onDidChangeTextDocument((event) => {
-      if (activeEditor && event.document === activeEditor.document) {
-        triggerUpdate();
-      }
-    }),
-    dictionaryWatcher,
-    dictionaryWatcher.onDidCreate(triggerUpdate),
-    dictionaryWatcher.onDidChange(triggerUpdate),
-    dictionaryWatcher.onDidDelete(triggerUpdate),
+    ...disposables,
+    onDidChangeDictionaries(trigger),
+    onDidChangeConfiguration(trigger),
   ];
 };
 
-const allowedExtensions = [
+const SUPPORTED_EXTENSIONS = new Set([
   '.ts',
   '.tsx',
   '.js',
@@ -100,20 +83,20 @@ const allowedExtensions = [
   '.vue',
   '.svelte',
   '.astro',
-];
+  // Angular component templates (`{{ 'home.title' | translate }}`).
+  '.html',
+]);
 
 const updateDecorations = async (editor: TextEditor) => {
   const document = editor.document;
 
   const extension = extname(document.uri.fsPath).toLowerCase();
 
-  if (!allowedExtensions.includes(extension)) {
+  if (!SUPPORTED_EXTENSIONS.has(extension)) {
     return;
   }
 
-  const filePath = document.uri.fsPath;
-  const fileDir = dirname(filePath);
-  const projectDir = findProjectRoot(fileDir);
+  const projectDir = findProjectRoot(dirname(document.uri.fsPath));
 
   if (!projectDir) {
     return;
@@ -123,51 +106,67 @@ const updateDecorations = async (editor: TextEditor) => {
   const defaultLocale =
     config.internationalization?.defaultLocale || DEFAULT_LOCALE;
 
-  const scriptContent = extractScriptContent(document.getText(), extension);
+  const fileContent = document.getText();
+  const scriptContent = extractScriptContent(fileContent, extension);
 
   // Registry-driven analysis from @intlayer/lsp: covers useIntlayer member
   // chains AND every compat form — t('path') calls, formatMessage({ id }),
-  // <FormattedMessage id>, <Trans i18nKey|id>, lingui t`…` / i18n._().
-  const usages = collectMessageUsages(scriptContent);
+  // <FormattedMessage id>, <Trans i18nKey|id>, lingui t`…` / i18n._(),
+  // ngx-translate pipes — plus the calls written in Vue / Svelte templates.
+  const usages = [
+    ...collectMessageUsages(scriptContent),
+    ...(TEMPLATE_EXTENSIONS.has(extension)
+      ? collectTemplateCallUsages(fileContent, scriptContent)
+      : []),
+  ];
   const bindings = collectCallerBindings(scriptContent);
 
   const translationDecorations: DecorationOptions[] = [];
   const duplicateDecorations: DecorationOptions[] = [];
   const processedLines = new Set<number>();
 
-  const localDictionaryCache = new Map<string, any[]>();
+  // Dictionaries loaded during this pass, for synchronous `nest()` resolution
+  const loadedDictionaries = new Map<string, Dictionary[]>();
 
-  const getDictionaries = async (dictionaryKey: string): Promise<any[]> => {
-    let dictionaries = localDictionaryCache.get(dictionaryKey);
+  const getDictionaries = async (
+    dictionaryKey: string
+  ): Promise<Dictionary[]> => {
+    let dictionaries = loadedDictionaries.get(dictionaryKey);
 
     if (!dictionaries) {
-      const dictionaryJsonPath = join(
-        config.system.unmergedDictionariesDir,
-        `${dictionaryKey}.json`
-      );
-      dictionaries = (await getCachedDictionary(dictionaryJsonPath)) || [];
-      localDictionaryCache.set(dictionaryKey, dictionaries!);
+      dictionaries =
+        (await getCachedUnmergedDictionaries(config, dictionaryKey)) ?? [];
+      loadedDictionaries.set(dictionaryKey, dictionaries);
     }
 
-    return dictionaries!;
+    return dictionaries;
+  };
+
+  /**
+   * The content previews are read from. Per-locale catalogs build one
+   * dictionary per locale file: the default locale's wins, then a
+   * multilingual one (no `locale`), then any.
+   */
+  const pickPreviewContent = (dictionaries: Dictionary[]): any | null => {
+    const withContent = dictionaries.filter((dictionary) => dictionary.content);
+
+    return (
+      (
+        withContent.find((dictionary) => dictionary.locale === defaultLocale) ??
+        withContent.find((dictionary) => !dictionary.locale) ??
+        withContent[0]
+      )?.content ?? null
+    );
   };
 
   const getDictionaryContent = async (
     dictionaryKey: string
-  ): Promise<any | null> => {
-    const dictionaries = await getDictionaries(dictionaryKey);
-    const localDictionary = dictionaries.find(
-      (dictionary) => dictionary.content
-    );
-
-    return localDictionary?.content ?? null;
-  };
+  ): Promise<any | null> =>
+    pickPreviewContent(await getDictionaries(dictionaryKey));
 
   /** Content of an already loaded dictionary — for `nest()` resolution. */
   const getLoadedDictionaryContent = (dictionaryKey: string): any | null =>
-    localDictionaryCache
-      .get(dictionaryKey)
-      ?.find((dictionary) => dictionary.content)?.content ?? null;
+    pickPreviewContent(loadedDictionaries.get(dictionaryKey) ?? []);
 
   /** Load the dictionaries a `nest()` chain points at, so previews resolve. */
   const preloadNestedDictionaries = async (
@@ -177,7 +176,7 @@ const updateDecorations = async (editor: TextEditor) => {
     if (depth > 2) return;
 
     for (const nestedKey of collectNestedDictionaryKeys(node)) {
-      if (localDictionaryCache.has(nestedKey)) continue;
+      if (loadedDictionaries.has(nestedKey)) continue;
 
       await getDictionaries(nestedKey);
 
@@ -237,33 +236,24 @@ const updateDecorations = async (editor: TextEditor) => {
   for (const usage of usages) {
     // Dictionary-level call site → show the multi-declaration label
     if (usage.kind === 'namespace') {
-      const dictionaries = await getDictionaries(usage.dictionaryKey);
+      const dictionaries = getDeclarations(
+        await getDictionaries(usage.dictionaryKey)
+      );
 
       if (dictionaries.length > 1) {
-        let localCount = 0;
-        let remoteCount = 0;
-
-        dictionaries.forEach((dictionary) => {
-          if (
+        const localCount = dictionaries.filter(
+          (dictionary) =>
             dictionary.filePath ||
             dictionary.location === 'local' ||
             dictionary.location === 'hybrid' ||
             dictionary.location === undefined
-          ) {
-            localCount++;
-          }
-
-          if (dictionary.location === 'remote') {
-            remoteCount++;
-          }
-        });
-
-        let label = `(${dictionaries.length} declarations - ${localCount} local`;
-
-        if (remoteCount > 0) {
-          label += ` / ${remoteCount} remote`;
-        }
-        label += `)`;
+        ).length;
+        const remoteCount = dictionaries.filter(
+          (dictionary) => dictionary.location === 'remote'
+        ).length;
+        const label = `(${dictionaries.length} declarations - ${localCount} local${
+          remoteCount > 0 ? ` / ${remoteCount} remote` : ''
+        })`;
 
         // Anchored at the end of the line, not at the end of the call node —
         // otherwise the label lands inside the expression, e.g. before the
@@ -292,15 +282,22 @@ const updateDecorations = async (editor: TextEditor) => {
     // Declarations (destructure keys) are not decorated — only usages.
     if (usage.kind === 'destructure') continue;
 
-    if (usage.fieldPath.length === 0) continue;
+    // A bare content variable reads the whole dictionary: nothing to preview.
+    if (usage.kind === 'member' && usage.fieldPath.length === 0) continue;
 
-    const dictionaryContent = await getDictionaryContent(usage.dictionaryKey);
+    // Compat catalogs: `t('shared.footer.github')` may live in the whole-file
+    // `index` dictionary under a flat `'shared.footer.github'` key.
+    const resolved = await resolveDictionaryTarget(usage, getDictionaries);
+
+    if (!resolved?.isFieldResolved) continue;
+
+    const dictionaryContent = pickPreviewContent(resolved.dictionaries);
 
     if (!dictionaryContent) continue;
 
     const displayText = await resolveDisplayText(
       dictionaryContent,
-      usage.fieldPath
+      resolved.fieldPath
     );
 
     if (!displayText) continue;
@@ -310,14 +307,12 @@ const updateDecorations = async (editor: TextEditor) => {
 
   // ---------------------------------------------------------------------
   // Template regions (Angular inline templates, Vue <template>) — the AST
-  // does not reach them, so bound variables are traced with regexes.
+  // does not reach them, so content variables are traced with regexes.
+  // Translation calls there are already in `usages`.
   // ---------------------------------------------------------------------
 
   const contentBindings = bindings.filter(
     (binding) => binding.bindingKind === 'content'
-  );
-  const translatorBindings = bindings.filter(
-    (binding) => binding.bindingKind === 'translator'
   );
 
   const decorateTemplate = async (
@@ -374,44 +369,13 @@ const updateDecorations = async (editor: TextEditor) => {
         }
       }
     }
-
-    // Translation calls in templates: {{ t('path.to.field') }} (vue-i18n)
-    for (const binding of translatorBindings) {
-      const dictionaryContent = await getDictionaryContent(
-        binding.dictionaryKey
-      );
-
-      if (!dictionaryContent) continue;
-
-      const callRegex = new RegExp(
-        `\\b${binding.variableName}\\(\\s*['"\`]([^'"\`]+)['"\`]`,
-        'g'
-      );
-
-      for (const callMatch of templateContent.matchAll(callRegex)) {
-        const contentPath = [...binding.basePath, ...callMatch[1]!.split('.')];
-
-        const displayText = await resolveDisplayText(
-          dictionaryContent,
-          contentPath
-        );
-
-        if (!displayText) continue;
-
-        addTranslationDecoration(
-          templateStart + callMatch.index! + callMatch[0].length,
-          displayText
-        );
-      }
-    }
   };
 
   // Angular inline templates
-  if (extension === '.ts' && document.getText().includes('@Component')) {
-    const text = document.getText();
-    const templateRegex = /template\s*:\s*(["'`])([\s\S]*?)\1/g;
-
-    for (const templateMatch of text.matchAll(templateRegex)) {
+  if (extension === '.ts' && fileContent.includes('@Component')) {
+    for (const templateMatch of fileContent.matchAll(
+      ANGULAR_INLINE_TEMPLATE_PATTERN
+    )) {
       const templateStart =
         templateMatch.index! + templateMatch[0].indexOf(templateMatch[2]);
       await decorateTemplate(templateStart, templateMatch[2]);
@@ -420,7 +384,7 @@ const updateDecorations = async (editor: TextEditor) => {
 
   // Vue <template> block (stripped from the parsed script, searched here)
   if (extension === '.vue') {
-    const templateBlock = findTemplateBlock(document.getText());
+    const templateBlock = findTemplateBlock(fileContent);
 
     if (templateBlock) {
       await decorateTemplate(templateBlock.start, templateBlock.content);
@@ -431,6 +395,28 @@ const updateDecorations = async (editor: TextEditor) => {
     ...translationDecorations,
     ...duplicateDecorations,
   ]);
+};
+
+/**
+ * One entry per declaration: the per-locale dictionaries a single source
+ * builds (`./locales/{{locale}}.json`, per-locale content files) count once,
+ * so they are not reported as competing declarations.
+ */
+const getDeclarations = (dictionaries: Dictionary[]): Dictionary[] => {
+  const seen = new Set<string>();
+
+  return dictionaries.filter((dictionary) => {
+    const declarationId = dictionary.locale
+      ? `${dictionary.location}|${dictionary.fill ?? ''}`
+      : (dictionary.localId ??
+        dictionary.filePath ??
+        JSON.stringify(dictionary));
+
+    if (seen.has(declarationId)) return false;
+
+    seen.add(declarationId);
+    return true;
+  });
 };
 
 // Content Parsing Helpers
@@ -453,7 +439,7 @@ const parseContentValue = (value: any): string | null => {
   } else if (typeof value === 'number' || typeof value === 'boolean') {
     text = String(value);
   } else if (typeof value === 'object') {
-    if (isValidElementLike(value)) {
+    if (isReactElementLike(value)) {
       text = extractTextFromReactNode(value);
     } else {
       text = stringifyStructure(value);
@@ -479,19 +465,13 @@ const parseContentValue = (value: any): string | null => {
 const stringifyStructure = (value: any): string => {
   try {
     return JSON.stringify(value, (_key, entry) =>
-      isValidElementLike(entry) ? extractTextFromReactNode(entry) : entry
+      isReactElementLike(entry) ? extractTextFromReactNode(entry) : entry
     );
   } catch {
     // Cyclic or non-serialisable value — nothing meaningful to preview.
     return '';
   }
 };
-
-const isValidElementLike = (obj: any): boolean =>
-  obj &&
-  typeof obj === 'object' &&
-  'props' in obj &&
-  (!('key' in obj) || obj.key === null || typeof obj.key === 'string');
 
 const extractTextFromReactNode = (node: any): string => {
   if (!node) {

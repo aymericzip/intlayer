@@ -5,9 +5,18 @@ import {
 } from '@intlayer/lsp/utils';
 import fg from 'fast-glob';
 import { Range, Uri, workspace } from 'vscode';
-import { extractScriptContent } from './extractScript';
+import {
+  ANGULAR_INLINE_TEMPLATE_PATTERN,
+  extractScriptContent,
+} from './extractScript';
 import { getCachedConfig } from './intlayerCache';
-import { offsetToLineCol } from './oxcParser';
+import { createOffsetToPosition } from './textPosition';
+
+/** Usage marker: field usage cannot be tracked, every field may be read. */
+export const ALL_FIELDS_USED = '__ALL__';
+
+/** Usage marker: the dictionary is only referenced, no field is read. */
+const EXISTENCE_CHECK_ONLY = '__EXISTENCE_CHECK__';
 
 export interface UsageLocation {
   uri: Uri;
@@ -20,17 +29,15 @@ export interface UsageLocation {
  * Extracts script content from a given file text, with special handling for Angular templates
  * when the file is a TypeScript component.
  */
-const extractScriptContentWithAngular = (
+const extractScriptContentWithAngularTemplate = (
   text: string,
   extension: string
 ): string => {
   let processedText = extractScriptContent(text, extension);
 
   if (extension === '.ts' && text.includes('@Component')) {
-    const templateRegex = /template\s*:\s*(["'`])([\s\S]*?)\1/g;
-
     processedText = processedText.replace(
-      templateRegex,
+      ANGULAR_INLINE_TEMPLATE_PATTERN,
       (_match, _quote, content) => {
         const expressions: string[] = [];
         const sanitize = (e: string) => {
@@ -68,81 +75,96 @@ const extractScriptContentWithAngular = (
   return processedText;
 };
 
+/**
+ * Source files of the project: those matched by the build traverse and
+ * compiler transform patterns, across the base and code directories, content
+ * declaration files excluded.
+ */
+const listProjectSourceFiles = async (projectDir: string): Promise<Uri[]> => {
+  const { build, compiler, content, system } =
+    await getCachedConfig(projectDir);
+
+  const patterns = [
+    ...[build.traversePattern ?? []].flat(),
+    ...[compiler.transformPattern ?? []].flat(),
+  ].filter((pattern): pattern is string => typeof pattern === 'string');
+
+  const includePatterns = patterns.filter(
+    (pattern) => !pattern.startsWith('!')
+  );
+  const ignorePatterns = [
+    ...patterns
+      .filter((pattern) => pattern.startsWith('!'))
+      .map((pattern) => pattern.slice(1)),
+    ...(content.fileExtensions ?? []).map((extension) => `**/*${extension}`),
+  ];
+
+  const searchRoots = new Set(
+    [system.baseDir, ...(content.codeDir ?? [])].map((directory) =>
+      resolve(directory)
+    )
+  );
+  const filePaths = new Set<string>();
+
+  for (const searchRoot of searchRoots) {
+    const matchedPaths = await fg(includePatterns, {
+      cwd: searchRoot,
+      ignore: ignorePatterns,
+      absolute: true,
+      dot: false,
+    });
+
+    for (const filePath of matchedPaths) filePaths.add(filePath);
+  }
+
+  return [...filePaths].map((filePath) => Uri.file(filePath));
+};
+
+/** Files read in parallel while scanning the project. */
+const FILE_READ_CONCURRENCY = 10;
+
+/**
+ * Every source file of the project using `dictionaryKey`, with the fields it
+ * reads. Scans the files matched by the build traverse / compiler patterns.
+ */
 export const findUsagesOfDictionary = async (
   projectDir: string,
   dictionaryKey: string
 ): Promise<UsageLocation[]> => {
-  const config = await getCachedConfig(projectDir);
-
-  const traversePatterns = (config.build.traversePattern ?? []) as string[];
-  const compilerPatterns: string[] = config.compiler.transformPattern
-    ? ((Array.isArray(config.compiler.transformPattern)
-        ? config.compiler.transformPattern
-        : [config.compiler.transformPattern]) as string[])
-    : [];
-
-  const allPatterns = [...traversePatterns, ...compilerPatterns].filter(
-    (p): p is string => typeof p === 'string'
-  );
-  const includePatterns = allPatterns.filter((p) => !p.startsWith('!'));
-  const excludePatterns = [
-    ...allPatterns.filter((p) => p.startsWith('!')).map((p) => p.slice(1)),
-    ...(config.content.fileExtensions ?? []).map((ext) => `**/*${ext}`),
-  ];
-
-  const allRoots = [config.system.baseDir, ...(config.content.codeDir ?? [])];
-  const uniqueRoots = [...new Set(allRoots.map((d) => resolve(d)))];
-
-  const seenPaths = new Set<string>();
-  const relevantFiles: Uri[] = [];
-
-  for (const root of uniqueRoots) {
-    const files = await fg(includePatterns, {
-      cwd: root,
-      ignore: excludePatterns,
-      absolute: true,
-      dot: false,
-    });
-    for (const f of files) {
-      if (!seenPaths.has(f)) {
-        seenPaths.add(f);
-        relevantFiles.push(Uri.file(f));
-      }
-    }
-  }
+  const relevantFiles = await listProjectSourceFiles(projectDir);
 
   const usageLocations: UsageLocation[] = [];
-  const CONCURRENCY_LIMIT = 10;
-  const chunks: Uri[][] = [];
 
-  for (let i = 0; i < relevantFiles.length; i += CONCURRENCY_LIMIT) {
-    chunks.push(relevantFiles.slice(i, i + CONCURRENCY_LIMIT));
-  }
+  const analyzeFile = async (fileUri: Uri): Promise<void> => {
+    try {
+      const text = new TextDecoder('utf-8').decode(
+        await workspace.fs.readFile(fileUri)
+      );
 
-  for (const chunk of chunks) {
+      // Cheap pre-filter before parsing
+      if (!text.includes(dictionaryKey)) return;
+
+      const scriptContent = extractScriptContentWithAngularTemplate(
+        text,
+        extname(fileUri.fsPath).toLowerCase()
+      );
+      const fileUsage = analyzeFileForUsages(scriptContent, dictionaryKey);
+
+      if (fileUsage) {
+        usageLocations.push({ uri: fileUri, ...fileUsage });
+      }
+    } catch (error) {
+      console.error(`Error parsing ${fileUri.fsPath}`, error);
+    }
+  };
+
+  for (
+    let index = 0;
+    index < relevantFiles.length;
+    index += FILE_READ_CONCURRENCY
+  ) {
     await Promise.all(
-      chunk.map(async (fileUri) => {
-        try {
-          const content = await workspace.fs.readFile(fileUri);
-          const text = new TextDecoder('utf-8').decode(content);
-
-          if (!text.includes(dictionaryKey)) return;
-
-          const extension = extname(fileUri.fsPath).toLowerCase();
-          const scriptContent = extractScriptContentWithAngular(
-            text,
-            extension
-          );
-
-          const fileUsage = analyzeFileForUsages(scriptContent, dictionaryKey);
-
-          if (fileUsage) {
-            usageLocations.push({ uri: fileUri, ...fileUsage });
-          }
-        } catch (e) {
-          console.error(`Error parsing ${fileUri.fsPath}`, e);
-        }
-      })
+      relevantFiles.slice(index, index + FILE_READ_CONCURRENCY).map(analyzeFile)
     );
   }
 
@@ -179,9 +201,10 @@ const analyzeFileForUsages = (
   const keysUsed = new Set<string>();
   const keyLocations = new Map<string, Range[]>();
 
+  const offsetToPosition = createOffsetToPosition(scriptContent);
   const offsetsToRange = (start: number, end: number): Range => {
-    const startPosition = offsetToLineCol(scriptContent, start);
-    const endPosition = offsetToLineCol(scriptContent, end);
+    const startPosition = offsetToPosition(start);
+    const endPosition = offsetToPosition(end);
     return new Range(
       startPosition.line,
       startPosition.character,
@@ -212,7 +235,7 @@ const analyzeFileForUsages = (
     if (usage.fieldPath.length === 0) {
       // Bare reference to the whole content object — the variable escapes,
       // any field may be read.
-      keysUsed.add('__ALL__');
+      keysUsed.add(ALL_FIELDS_USED);
       continue;
     }
 
@@ -234,14 +257,14 @@ const analyzeFileForUsages = (
   // Translator functions (t) may be forwarded, called with dynamic keys or
   // used inside stripped template regions — stay conservative.
   if (bindings.some((binding) => binding.bindingKind === 'translator')) {
-    keysUsed.add('__ALL__');
+    keysUsed.add(ALL_FIELDS_USED);
   }
 
   if (!hasFieldUsage && keysUsed.size === 0) {
     // Content binding without any tracked field usage: the usages are likely
     // in a stripped template region (Vue/Svelte) — don't flag fields unused.
     // Without any binding at all, the call only proves the dictionary exists.
-    keysUsed.add(bindings.length > 0 ? '__ALL__' : '__EXISTENCE_CHECK__');
+    keysUsed.add(bindings.length > 0 ? ALL_FIELDS_USED : EXISTENCE_CHECK_ONLY);
   }
 
   const firstUsage = usages[0]!;
@@ -251,4 +274,43 @@ const analyzeFileForUsages = (
     keysUsed,
     keyLocations,
   };
+};
+
+/**
+ * Scan results per `${projectDir}:${dictionaryKey}`. Cleared by the workspace
+ * watchers when a source file is saved, created, deleted or renamed; the
+ * `maxAge` of each caller bounds staleness from edits made outside VS Code.
+ */
+const usageCache = new Map<
+  string,
+  { timestamp: number; usages: UsageLocation[] }
+>();
+
+/**
+ * `findUsagesOfDictionary`, reusing a scan younger than `maxAge` — a project
+ * scan reads every source file.
+ *
+ * @param maxAge - Maximum age of a reused scan, in milliseconds.
+ */
+export const findCachedUsagesOfDictionary = async (
+  projectDir: string,
+  dictionaryKey: string,
+  maxAge: number
+): Promise<UsageLocation[]> => {
+  const cacheKey = `${projectDir}:${dictionaryKey}`;
+  const cached = usageCache.get(cacheKey);
+
+  if (cached && Date.now() - cached.timestamp < maxAge) {
+    return cached.usages;
+  }
+
+  const usages = await findUsagesOfDictionary(projectDir, dictionaryKey);
+
+  usageCache.set(cacheKey, { timestamp: Date.now(), usages });
+
+  return usages;
+};
+
+export const clearUsageCache = (): void => {
+  usageCache.clear();
 };

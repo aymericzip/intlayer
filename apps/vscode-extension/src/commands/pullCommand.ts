@@ -1,95 +1,85 @@
-import { getIntlayerAPIProxy } from '@intlayer/api';
-import { pull } from '@intlayer/cli';
+import { checkCMSAuth, getAuthenticatedAPI, pull } from '@intlayer/cli';
 import { FILE_EXTENSIONS } from '@intlayer/config/defaultValues';
 import { getConfiguration } from '@intlayer/config/node';
 import type { Dictionary } from '@intlayer/types';
 import { window } from 'vscode';
-import { findAllProjectRoots, findProjectRoot } from '../utils/findProjectRoot';
+import {
+  type CommandSource,
+  resolveProjectDirOrPick,
+} from '../utils/findProjectRoot';
 import { getConfigurationOptions } from '../utils/getConfiguration';
 import { prefix } from '../utils/logFunctions';
+import { sortPickedFirst } from '../utils/selectContentDeclaration';
 
-export const pullCommand = async () => {
-  let projectDir = findProjectRoot();
+export const pullCommand = async (source?: CommandSource) => {
+  const projectDir = await resolveProjectDirOrPick(
+    'Select the Intlayer project to pull',
+    source
+  );
 
-  if (!projectDir) {
-    const roots = await findAllProjectRoots();
-    if (roots.length === 1) {
-      projectDir = roots[0];
-    } else if (roots.length > 1) {
-      const picked = await window.showQuickPick(roots, {
-        placeHolder: 'Select the Intlayer project to pull',
-      });
-      if (!picked) return;
-      projectDir = picked;
-    } else {
-      await window.showErrorMessage(
-        `${prefix}Could not find intlayer project root.`
+  if (!projectDir) return;
+
+  // Not awaited: it resolves only once the notification is closed
+  window.showInformationMessage(`${prefix}Fetching dictionaries...`);
+
+  try {
+    const configurationOptions = await getConfigurationOptions(projectDir);
+    const configuration = getConfiguration(configurationOptions);
+    // Uses the CLI session or access key, else opens the browser to log in
+    if (!(await checkCMSAuth(configuration))) {
+      window.showErrorMessage(
+        `${prefix}Not authenticated to the CMS. Run "Intlayer: Login".`
       );
       return;
     }
-  }
 
-  await window.showInformationMessage(`${prefix}Fetching dictionaries...`);
+    const { data } = await (
+      await getAuthenticatedAPI(configuration)
+    ).dictionary.getDictionariesKeys();
+    const dictionaryKeys = (data ?? []) as Dictionary['key'][];
 
-  try {
-    const configOptions = await getConfigurationOptions(projectDir);
-    const configuration = getConfiguration(configOptions);
-    const apiProxy = getIntlayerAPIProxy(undefined, configuration);
-    const dictionariesKeysResult =
-      await apiProxy.dictionary.getDictionariesKeys();
-    const dictionariesKeys = dictionariesKeysResult.data as Dictionary['key'][];
-
-    if (!dictionariesKeys.length) {
+    if (!dictionaryKeys.length) {
       window.showWarningMessage(`${prefix}No dictionaries available.`);
       return;
     }
 
-    // Try to preselect based on the active editor file name matching a dictionary key
-    const activeEditor = window.activeTextEditor;
-    const activeFileName = activeEditor
-      ? activeEditor.document.uri.fsPath
-      : undefined;
-
+    // Preselect the dictionary named after the active content file
+    const activeFilePath = window.activeTextEditor?.document.uri.fsPath ?? '';
     const fileExtensions =
       configuration.content?.fileExtensions ?? FILE_EXTENSIONS;
+    const isActiveContentFile = (dictionaryKey: string) =>
+      fileExtensions.some((extension) =>
+        activeFilePath.endsWith(`${dictionaryKey}${extension}`)
+      );
 
-    const quickPickItems = dictionariesKeys.map((dictionariesKey) => ({
-      label: dictionariesKey,
-      picked:
-        !!activeFileName &&
-        fileExtensions.some((ext) =>
-          activeFileName.endsWith(`${dictionariesKey}${ext}`)
-        ),
-    }));
-
-    // Place the preselected item(s) at the top of the list
-    quickPickItems.sort((a, b) =>
-      a.picked === b.picked ? 0 : a.picked ? -1 : 1
+    const pickedItems = await window.showQuickPick(
+      sortPickedFirst(
+        dictionaryKeys.map((dictionaryKey) => ({
+          label: dictionaryKey,
+          picked: isActiveContentFile(dictionaryKey),
+        }))
+      ),
+      { canPickMany: true, placeHolder: 'Select dictionaries to pull' }
     );
 
-    const selectedDictionaries = await window.showQuickPick(quickPickItems, {
-      canPickMany: true,
-      placeHolder: 'Select dictionaries to pull',
-    });
-
-    if (!selectedDictionaries || selectedDictionaries.length === 0) {
+    if (!pickedItems?.length) {
       window.showWarningMessage(`${prefix}No dictionary selected.`);
       return;
     }
 
-    await window.showInformationMessage(`${prefix}Pulling...`);
+    window.showInformationMessage(`${prefix}Pulling...`);
 
     await pull({
-      configOptions,
-      dictionaries: selectedDictionaries.map((d) => d.label),
+      configOptions: configurationOptions,
+      dictionaries: pickedItems.map(({ label }) => label),
     });
 
     await window.showInformationMessage(
-      `${prefix} pull completed successfully!`
+      `${prefix}Pull completed successfully!`
     );
   } catch (error) {
     await window.showErrorMessage(
-      `${prefix} pull failed: ${(error as Error).message}`
+      `${prefix}Pull failed: ${(error as Error).message}`
     );
   }
 };

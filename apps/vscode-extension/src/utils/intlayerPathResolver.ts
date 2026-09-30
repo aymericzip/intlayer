@@ -2,11 +2,17 @@ import { extname } from 'node:path';
 import { findMessageUsageAtOffset } from '@intlayer/lsp/utils';
 import type { Position, TextDocument } from 'vscode';
 import { extractScriptContent } from './extractScript';
+import {
+  findTemplateCallUsageAtOffset,
+  TEMPLATE_EXTENSIONS,
+} from './templateUsages';
 
 interface IntlayerOrigin {
   dictionaryKey: string;
   fieldPath: string[];
   moduleSource: string | null;
+  /** Caller library, e.g. `'vue-i18n'` — drives the catalog fallbacks. */
+  library?: string;
 }
 
 /**
@@ -33,7 +39,11 @@ export const resolveIntlayerPath = async (
     const scriptContent = extractScriptContent(fileContent, extension);
     const offset = document.offsetAt(position);
 
-    const usage = findMessageUsageAtOffset(scriptContent, offset);
+    const usage =
+      findMessageUsageAtOffset(scriptContent, offset) ??
+      (TEMPLATE_EXTENSIONS.has(extension)
+        ? findTemplateCallUsageAtOffset(fileContent, scriptContent, offset)
+        : null);
 
     if (usage) {
       // Dictionary-level call sites (cursor on `useIntlayer('key')` itself)
@@ -45,6 +55,7 @@ export const resolveIntlayerPath = async (
         dictionaryKey: usage.dictionaryKey,
         fieldPath: usage.fieldPath,
         moduleSource: usage.moduleSource ?? null,
+        library: usage.library,
       };
     }
 
@@ -55,68 +66,77 @@ export const resolveIntlayerPath = async (
   }
 };
 
+/** Getters taking the dictionary key as first argument. */
+const GETTER_NAMES =
+  'useIntlayer|getIntlayer|useTranslation|useTranslations|getTranslations|getFixedT|useI18n|useDictionary';
+
+/** `const content = useIntlayer('key')` / `const { a, b } = …('key')`. */
+const GETTER_ASSIGNMENT_PATTERN = new RegExp(
+  `(?:const|let|var)\\s+(?:([a-zA-Z0-9_$]+)|\\{\\s*([^}]+)\\s*\\})\\s*=\\s*(?:await\\s+)?(?:${GETTER_NAMES})\\s*\\(\\s*['"]([^'"]+)['"]\\s*\\)`
+);
+
+/** Any getter call: `useIntlayer('key')`. */
+const GETTER_CALL_PATTERN = new RegExp(
+  `(?:${GETTER_NAMES})\\s*\\(\\s*['"]([^'"]+)['"]\\s*\\)`
+);
+
+/** The dotted member chain (`content.a.b`) spanning `offset`. */
+const getMemberChainAt = (fileContent: string, offset: number): string => {
+  let start = offset;
+
+  while (start > 0 && /[a-zA-Z0-9_.$]/.test(fileContent[start - 1]!)) start--;
+
+  let end = offset;
+
+  while (end < fileContent.length && /[a-zA-Z0-9_.]/.test(fileContent[end]!)) {
+    end++;
+  }
+
+  return fileContent.slice(start, end);
+};
+
 /**
  * Regex fallback for Vue/Svelte/Astro/Angular templates where AST parsing may
- * fail or the cursor sits outside the extracted script region.
+ * fail or the cursor sits outside the extracted script region. Uses the first
+ * getter of the file and reads the member chain under the cursor.
  */
-function regexResolveIntlayerPath(
+const regexResolveIntlayerPath = (
   fileContent: string,
   offset: number
-): IntlayerOrigin | null {
-  let dictionaryKey: string | null = null;
-  let rootVarName: string | null = null;
-  let destructuredKeys: string[] = [];
+): IntlayerOrigin | null => {
+  const assignmentMatch = GETTER_ASSIGNMENT_PATTERN.exec(fileContent);
+  const contentVariableName = assignmentMatch?.[1];
+  const destructuredNames =
+    assignmentMatch?.[2]
+      ?.split(',')
+      .map((property) => property.split(':')[0]!.trim()) ?? [];
+  const dictionaryKey =
+    assignmentMatch?.[3] ?? GETTER_CALL_PATTERN.exec(fileContent)?.[1];
 
-  const hookRegex =
-    /(?:const|let|var)\s+(?:([a-zA-Z0-9_$]+)|\{\s*([^}]+)\s*\})\s*=\s*(?:await\s+)?(?:useIntlayer|getIntlayer|useTranslation|useTranslations|getTranslations|getFixedT|useI18n|useDictionary)\s*\(\s*['"]([^'"]+)['"]\s*\)/g;
+  if (!dictionaryKey) return null;
 
-  const match = hookRegex.exec(fileContent);
-  if (match !== null) {
-    if (match[1]) rootVarName = match[1];
-    else if (match[2])
-      destructuredKeys = match[2].split(',').map((s) => s.split(':')[0].trim());
-    dictionaryKey = match[3] ?? null;
-  }
+  const memberChain = getMemberChainAt(fileContent, offset);
 
-  if (!dictionaryKey) {
-    const simpleMatch =
-      /(?:useIntlayer|getIntlayer|useTranslation|useTranslations|getTranslations|getFixedT|useI18n|useDictionary)\s*\(\s*['"]([^'"]+)['"]\s*\)/.exec(
-        fileContent
-      );
-    if (simpleMatch) dictionaryKey = simpleMatch[1] ?? null;
-    else return null;
-  }
+  if (!memberChain) return null;
 
-  let start = offset;
-  while (start > 0 && /[a-zA-Z0-9_.$]/.test(fileContent[start - 1]!)) start--;
-  let end = offset;
-  while (end < fileContent.length && /[a-zA-Z0-9_.]/.test(fileContent[end]!))
-    end++;
+  const segments = memberChain.split('.');
+  // Svelte stores are read as `$content`
+  const rootName = segments[0]!.replace(/^\$/, '');
 
-  const chainStr = fileContent.slice(start, end);
-  if (!chainStr) return null;
+  const isContentVariable =
+    contentVariableName !== undefined &&
+    (rootName === contentVariableName ||
+      rootName === `${contentVariableName}Store`);
+  const isConventionalContentName =
+    segments.length > 1 &&
+    (rootName === 'content' || rootName === 'dictionary');
 
-  const parts = chainStr.split('.');
-  const firstPart = parts[0]!.replace(/^\$/, '');
-  let fieldPath: string[] = [];
-
-  if (
-    rootVarName &&
-    (firstPart === rootVarName || firstPart === `${rootVarName}Store`)
-  ) {
-    fieldPath = parts.slice(1);
-  } else if (destructuredKeys.includes(firstPart)) {
-    fieldPath = parts;
-  } else if (
-    parts.length > 1 &&
-    (firstPart === 'content' || firstPart === 'dictionary')
-  ) {
-    fieldPath = parts.slice(1);
-  } else if (parts.length > 0) {
-    fieldPath = parts;
-  } else {
-    return null;
-  }
+  // Destructured names and bare chains already start at a field
+  const fieldPath =
+    (isContentVariable || isConventionalContentName) &&
+    !destructuredNames.includes(rootName)
+      ? segments.slice(1)
+      : segments;
 
   return { dictionaryKey, fieldPath, moduleSource: null };
-}
+};

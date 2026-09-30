@@ -16,30 +16,23 @@ import {
   window,
   workspace,
 } from 'vscode';
+import { invalidateConfigurationCaches } from './utils/cacheInvalidation';
 import { findProjectRoot } from './utils/findProjectRoot';
-import {
-  clearConfigurationCache,
-  getConfigurationOptions,
-} from './utils/getConfiguration';
-import { clearIntlayerConfigCache } from './utils/intlayerCache';
+import { getConfigurationOptions } from './utils/getConfiguration';
 
-const getContentPosition = (content: string): Position => {
-  const lines = content.split('\n');
-  for (let i = 0; i < lines.length; i++) {
-    // Match content key in various styles: content: { ... }, "content": { ... }, 'content': { ... }
-    const patterns = [
-      /content\s*:\s*\{/,
-      /"content"\s*:\s*\{/,
-      /'content'\s*:\s*\{/,
-    ];
-    for (const pattern of patterns) {
-      const match = lines[i].match(pattern);
-      console.log(match);
-      if (match && match.index !== undefined) {
-        return new Position(i, match.index + match[0].length);
-      }
+/** Position right after the opening brace of the `content` object. */
+const getContentPosition = (fileContent: string): Position => {
+  const lines = fileContent.split('\n');
+
+  for (const [lineIndex, line] of lines.entries()) {
+    // `content: {`, `"content": {` or `'content': {`
+    const match = /["']?content["']?\s*:\s*\{/.exec(line);
+
+    if (match) {
+      return new Position(lineIndex, match.index + match[0].length);
     }
   }
+
   return new Position(0, 0);
 };
 
@@ -75,8 +68,8 @@ export const generateDictionaryContent = async (format: ContentFileFormat) => {
   const { output } = configuration.compiler;
 
   if (!output) {
-    clearConfigurationCache(projectDir);
-    clearIntlayerConfigCache();
+    // The user is asked to edit the configuration before retrying
+    invalidateConfigurationCaches();
 
     await window.showErrorMessage(
       `No output configuration found. Add a 'compiler.output' in your configuration, then retry.`

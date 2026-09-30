@@ -1,4 +1,4 @@
-import { existsSync, readFileSync } from 'node:fs';
+import { readFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { join } from 'node:path';
 import {
@@ -7,143 +7,117 @@ import {
 } from '@intlayer/config/node';
 import { getSelectedEnvironment } from './envStore';
 import { loadEnvFromWorkspace } from './loadEnvFromWorkspace';
-import { prefix } from './logFunctions';
+import { backgroundLogFunctions, logFunctions, prefix } from './logFunctions';
 
-// --- Cache Definition ---
-interface EnvCacheEntry {
-  data: Record<string, string> | undefined;
-  timestamp: number;
-}
-
-// Cache key will be `${projectDir}:${envName}`
-const envCache = new Map<string, EnvCacheEntry>();
-const ENV_CACHE_TTL = 10 * 60 * 1000; // 10min
+type EnvironmentVariables = Record<string, string>;
 
 /**
- * Checks if the Intlayer configuration file contains usage of environment variables.
- * It looks for "process.env" or "import.meta.env".
+ * Env vars loaded per `${projectDir}:${environment}` (`undefined` when the
+ * configuration reads none). Cleared by the workspace watchers when an env or
+ * configuration file changes.
  */
-const checkConfigFileForEnvUsage = (projectDir: string): boolean => {
-  try {
-    const result = searchConfigurationFile(projectDir);
+const environmentVariablesCache = new Map<
+  string,
+  EnvironmentVariables | undefined
+>();
 
-    if (
-      result?.configurationFilePath &&
-      existsSync(result.configurationFilePath)
-    ) {
-      const content = readFileSync(result.configurationFilePath, 'utf8');
-      // Regex to check for process.env or import.meta.env
-      if (/\bprocess\.env\b|\bimport\.meta\.env\b/.test(content)) {
-        return true;
-      }
-    }
+/** Whether the project's configuration file reads environment variables. */
+const configurationReadsEnvironment = (projectDir: string): boolean => {
+  try {
+    const { configurationFilePath } = searchConfigurationFile(projectDir);
+
+    if (!configurationFilePath) return false;
+
+    return /\bprocess\.env\b|\bimport\.meta\.env\b/.test(
+      readFileSync(configurationFilePath, 'utf8')
+    );
   } catch {
-    // If search or read fails, assume false
     return false;
   }
-
-  return false;
 };
 
-export const getConfigurationOptionsSync = (
-  projectDir: string
+/**
+ * Options shared by every configuration load: log to VS Code notifications,
+ * resolve modules from the project, and prefer the project's own esbuild — it
+ * carries the right platform binary, whereas the extension may ship another
+ * platform's one.
+ */
+const createConfigurationOptions = (
+  projectDir: string,
+  extraOptions: Partial<GetConfigurationOptions> = {}
 ): GetConfigurationOptions => {
   const projectRequire = createRequire(join(projectDir, 'package.json'));
 
-  const configOptions: GetConfigurationOptions = {
+  const configurationOptions: GetConfigurationOptions = {
     baseDir: projectDir,
-    override: {
-      log: {
-        prefix,
-      },
-    },
+    override: { log: { prefix } },
     require: projectRequire,
+    ...extraOptions,
   };
 
-  // Try to use the project's own esbuild instance (which has the correct
-  // platform-specific binary). This fixes config loading on Windows when the
-  // extension was built on macOS and only ships the darwin binary.
-  // buildOptions.esbuildInstance is available in @intlayer/config >= 8.4.2
   try {
-    const projectEsbuild = projectRequire('esbuild');
-    (configOptions as Record<string, unknown>).buildOptions = {
-      esbuildInstance: projectEsbuild,
+    (configurationOptions as Record<string, unknown>).buildOptions = {
+      esbuildInstance: projectRequire('esbuild'),
     };
   } catch {
-    // Project doesn't have esbuild — fall back to the extension's bundled binary
+    // Project has no esbuild — fall back to the extension's bundled binary
   }
 
-  return configOptions;
+  return configurationOptions;
 };
 
-export const clearConfigurationCache = (projectDir: string): void => {
-  for (const key of envCache.keys()) {
-    if (key.startsWith(`${projectDir}:`)) {
-      envCache.delete(key);
-    }
+/** Synchronous variant, without env files — for the built config shim. */
+export const getConfigurationOptionsSync = (
+  projectDir: string
+): GetConfigurationOptions =>
+  createConfigurationOptions(projectDir, {
+    logFunctions: backgroundLogFunctions,
+  });
+
+export const clearEnvironmentVariablesCache = (): void => {
+  environmentVariablesCache.clear();
+};
+
+/** Env vars of the selected environment, when the configuration reads any. */
+const getEnvironmentVariables = async (
+  projectDir: string,
+  logEnvFileName: boolean
+): Promise<EnvironmentVariables | undefined> => {
+  const environment = getSelectedEnvironment(projectDir);
+  const cacheKey = `${projectDir}:${environment ?? 'default'}`;
+  if (environmentVariablesCache.has(cacheKey)) {
+    return environmentVariablesCache.get(cacheKey);
   }
+
+  const variables = configurationReadsEnvironment(projectDir)
+    ? await loadEnvFromWorkspace(projectDir, environment, logEnvFileName)
+    : undefined;
+
+  // Cached even when undefined, to skip re-reading the configuration file
+  environmentVariablesCache.set(cacheKey, variables);
+
+  return variables;
 };
 
+/**
+ * Options to load a project's configuration with, including the env vars of
+ * the environment selected for the project.
+ *
+ * @param options.isBackground - Not triggered by the user: only warnings and
+ * errors notify, and the loaded env file is not announced.
+ */
 export const getConfigurationOptions = async (
   projectDir: string,
-  logEnvFileName: boolean = true
+  options: { isBackground?: boolean } = {}
 ): Promise<GetConfigurationOptions> => {
-  const env = getSelectedEnvironment(projectDir);
-  const cacheKey = `${projectDir}:${env || 'default'}`;
-  const now = Date.now();
+  const additionalEnvVars = await getEnvironmentVariables(
+    projectDir,
+    !options.isBackground
+  );
 
-  let additionalEnvVars: Record<string, string> | undefined;
-
-  // Check Cache
-  const cached = envCache.get(cacheKey);
-  if (cached && now - cached.timestamp < ENV_CACHE_TTL) {
-    additionalEnvVars = cached.data;
-  } else {
-    // Check if Config uses Env Vars
-    const hasEnvUsage = checkConfigFileForEnvUsage(projectDir);
-
-    if (hasEnvUsage) {
-      // Load Fresh Env Vars if needed
-      additionalEnvVars = await loadEnvFromWorkspace(
-        projectDir,
-        env,
-        logEnvFileName
-      );
-    }
-
-    // Update Cache (store undefined if not loaded, to avoid re-checking)
-    envCache.set(cacheKey, {
-      data: additionalEnvVars,
-      timestamp: now,
-    });
-  }
-
-  const projectRequire = createRequire(join(projectDir, 'package.json'));
-
-  const configOptions: GetConfigurationOptions = {
-    baseDir: projectDir,
-    override: {
-      log: {
-        prefix,
-      },
-    },
+  return createConfigurationOptions(projectDir, {
     ...(additionalEnvVars && { additionalEnvVars }),
-    require: projectRequire,
+    logFunctions: options.isBackground ? backgroundLogFunctions : logFunctions,
     cache: false,
-  };
-
-  // Try to use the project's own esbuild instance (which has the correct
-  // platform-specific binary). This fixes config loading on Windows when the
-  // extension was built on macOS and only ships the darwin binary.
-  // buildOptions.esbuildInstance is available in @intlayer/config >= 8.4.2
-  try {
-    const projectEsbuild = projectRequire('esbuild');
-    (configOptions as Record<string, unknown>).buildOptions = {
-      esbuildInstance: projectEsbuild,
-    };
-  } catch {
-    // Project doesn't have esbuild — fall back to the extension's bundled binary
-  }
-
-  return configOptions;
+  });
 };

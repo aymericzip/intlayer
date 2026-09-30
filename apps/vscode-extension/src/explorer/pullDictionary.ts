@@ -1,43 +1,37 @@
 import { pull } from '@intlayer/cli';
 import { window } from 'vscode';
-import { findProjectRoot } from '../utils/findProjectRoot';
+import { pullCommand } from '../commands/pullCommand';
 import { getConfigurationOptions } from '../utils/getConfiguration';
 import { prefix } from '../utils/logFunctions';
+import type { IntlayerTreeNode } from './dictionaryExplorer';
 
-export const pullDictionary = async (element?: unknown) => {
-  const node = element as {
-    type?: string;
-    key?: string;
-    projectDir?: string;
-  };
+/** Pull the remote version of a tree dictionary (or project) node. */
+export const pullDictionary = async (node?: IntlayerTreeNode) => {
+  // Project node: pick the dictionaries of that project
+  if (node?.type === 'project') {
+    await pullCommand(node);
+    return;
+  }
 
-  // Pull can only be made for merged dictionaries (dictionary nodes without filePath)
-  if (node?.type !== 'dictionary' || !node.projectDir || !node.key) {
+  if (node?.type !== 'dictionary') {
     window.showWarningMessage(
-      `${prefix}Pull is only available for merged dictionaries.`
+      `${prefix}Pull is only available for projects and dictionaries.`
     );
     return;
   }
 
-  const projectDir = findProjectRoot();
-  if (!projectDir) {
-    await window.showErrorMessage(
-      `${prefix}Could not find intlayer project root.`
-    );
-    return;
-  }
+  const { projectDir, key } = node;
 
   try {
-    const displayName = node.key;
-    const configOptions = await getConfigurationOptions(projectDir);
+    // Not awaited: it resolves only once the notification is closed
+    window.showInformationMessage(`${prefix}Pulling ${key}…`);
 
-    await window.showInformationMessage(`${prefix}Pulling ${displayName}…`);
     await pull({
-      configOptions,
-      dictionaries: [node.key],
+      configOptions: await getConfigurationOptions(projectDir),
+      dictionaries: [key],
     });
 
-    await window.showInformationMessage(`${prefix}Pulled ${displayName}`);
+    await window.showInformationMessage(`${prefix}Pulled ${key}`);
   } catch (error) {
     await window.showErrorMessage(
       `${prefix}Pull failed: ${(error as Error).message}`

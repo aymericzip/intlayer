@@ -1,50 +1,30 @@
-import { dirname } from 'node:path';
 import { fill } from '@intlayer/cli';
-import { getConfiguration } from '@intlayer/config/node';
-import { prepareIntlayer } from '@intlayer/engine/cli';
 import { window } from 'vscode';
-import { findProjectRoot } from '../utils/findProjectRoot';
 import { getConfigurationOptions } from '../utils/getConfiguration';
 import { prefix } from '../utils/logFunctions';
+import { showFillResult } from '../utils/showFillResult';
+import type { IntlayerTreeNode } from './dictionaryExplorer';
 
-export const fillDictionary = async (element?: unknown) => {
-  const node = element as {
-    type?: string;
-    filePath?: string;
-    projectDir?: string;
-  };
-
-  // Fill can only be made for unmerged dictionaries (file nodes with filePath)
-  if (node?.type !== 'file' || !node.projectDir || !node.filePath) {
+/** Fill the content declaration file of a tree file node. */
+export const fillDictionary = async (node?: IntlayerTreeNode) => {
+  if (node?.type !== 'file') {
     window.showWarningMessage(
       `${prefix}Fill is only available for unmerged dictionary files.`
     );
     return;
   }
 
-  const projectDir = findProjectRoot();
-  if (!projectDir) {
-    await window.showErrorMessage(
-      `${prefix}Could not find intlayer project root.`
-    );
-    return;
-  }
+  const { projectDir, filePath } = node;
 
   try {
-    const configOptions = await getConfigurationOptions(projectDir);
-    const configuration = getConfiguration(configOptions);
+    window.showInformationMessage(`${prefix}Filling ${filePath}…`);
 
-    await prepareIntlayer(configuration, { clean: false });
-
-    await window.showInformationMessage(
-      `${prefix}Filling ${dirname(node.filePath)}…`
-    );
-    await fill({
-      configOptions,
-      file: node.filePath,
-      build: false,
+    const fillResult = await fill({
+      configOptions: await getConfigurationOptions(projectDir),
+      file: filePath,
     });
-    await window.showInformationMessage(`${prefix}Filled ${node.filePath}`);
+
+    await showFillResult(fillResult, 'Fill', filePath);
   } catch (error) {
     await window.showErrorMessage(
       `${prefix}Fill failed: ${(error as Error).message}`

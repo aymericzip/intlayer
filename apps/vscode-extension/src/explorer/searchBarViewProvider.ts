@@ -1,61 +1,68 @@
-import type {
-  CancellationToken,
-  WebviewView,
-  WebviewViewProvider,
-  WebviewViewResolveContext,
+import { randomUUID } from 'node:crypto';
+import {
+  Uri,
+  type WebviewView,
+  type WebviewViewProvider,
+  workspace,
 } from 'vscode';
-import { Uri, workspace } from 'vscode';
 import type { DictionaryTreeDataProvider } from './dictionaryExplorer';
 
+/** Message posted by the search input webview. */
+type SearchMessage = { type: 'query'; value: string };
+
+const isSearchMessage = (message: unknown): message is SearchMessage =>
+  typeof message === 'object' &&
+  message !== null &&
+  (message as SearchMessage).type === 'query' &&
+  typeof (message as SearchMessage).value === 'string';
+
+/** Escapes a value interpolated into an HTML attribute. */
+const escapeHtmlAttribute = (value: string): string =>
+  value
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+
+/** Search bar filtering the dictionaries tree. */
 export class SearchBarViewProvider implements WebviewViewProvider {
-  // 1. Accept extensionUri in constructor
   constructor(
     private readonly extensionUri: Uri,
     private readonly treeDataProvider: DictionaryTreeDataProvider
   ) {}
 
-  resolveWebviewView(
-    webviewView: WebviewView,
-    _context: WebviewViewResolveContext,
-    _token: CancellationToken
-  ) {
-    const webview = webviewView.webview;
+  resolveWebviewView(webviewView: WebviewView) {
+    const { webview } = webviewView;
     webview.options = { enableScripts: true };
 
-    // Resolve path relative to extension root
-    // Note: Ensure your build script copies this file to the matching path in dist/
-    // or adjust this path to where your assets live (e.g., "resources/searchInput.html")
+    // Copied next to the bundle by tsdown.config.ts
     const searchInputUri = Uri.joinPath(
       this.extensionUri,
       'dist',
       'searchInput.html'
     );
 
-    // 3. Read file asynchronously using VS Code FS
     workspace.fs.readFile(searchInputUri).then(
-      (uint8Array) => {
-        const htmlContent = new TextDecoder('utf-8').decode(uint8Array);
+      (fileContent) => {
+        const nonce = randomUUID().replace(/-/g, '');
 
-        webview.html = htmlContent.replace(
-          '{{searchQuery}}',
-          this.treeDataProvider.getSearchQuery().replace(/"/g, '&quot;')
-        );
+        webview.html = new TextDecoder('utf-8')
+          .decode(fileContent)
+          .replaceAll('{{nonce}}', nonce)
+          .replace(
+            '{{searchQuery}}',
+            escapeHtmlAttribute(this.treeDataProvider.getSearchQuery())
+          );
       },
-      (error) => {
+      (error: Error) => {
         console.error('Failed to load searchInput.html', error);
-        webview.html = `<p style="color:red">Error loading search bar: ${error.message}</p>`;
+        webview.html = `<p style="color:red">Error loading search bar: ${escapeHtmlAttribute(error.message)}</p>`;
       }
     );
 
-    webview.onDidReceiveMessage((msg) => {
-      if (msg?.type === 'query') {
-        const v = typeof msg.value === 'string' ? msg.value : '';
-        this.treeDataProvider.setSearchQuery(v);
-        return;
-      }
-      if (msg?.type === 'refresh') {
-        this.treeDataProvider.refresh();
-        return;
+    webview.onDidReceiveMessage((message: unknown) => {
+      if (isSearchMessage(message)) {
+        this.treeDataProvider.setSearchQuery(message.value);
       }
     });
   }

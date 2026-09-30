@@ -1,39 +1,62 @@
-import { dirname } from 'node:path';
+import { dirname, extname } from 'node:path';
 import {
   configurationFilesCandidates,
   searchConfigurationFile,
 } from '@intlayer/config/node';
 import { window, workspace } from 'vscode';
-
-const getActiveFilePath = () => window.activeTextEditor?.document.uri.fsPath;
+import { prefix } from './logFunctions';
 
 /**
- * Find the intlayer project root for a given path (or the active editor's file
- * when no path is supplied). Uses `searchConfigurationFile` from `@intlayer/config`
- * which checks for all known intlayer config file names, so monorepo sub-projects
- * are resolved correctly even when intlayer is hoisted to the workspace root.
+ * Project root per start directory. Every hover, definition and decoration
+ * pass resolves the project root, and each resolution walks the file system.
+ * Cleared when an Intlayer configuration file is created or deleted.
+ */
+const projectRootByDirectory = new Map<string, string | undefined>();
+
+export const clearProjectRootCache = (): void => {
+  projectRootByDirectory.clear();
+};
+
+/**
+ * Find the Intlayer project root for a given path (or the active editor's file
+ * when no path is supplied). Uses `searchConfigurationFile` from
+ * `@intlayer/config`, which checks every known configuration file name, so
+ * monorepo sub-projects resolve correctly even when intlayer is hoisted.
  */
 export const findProjectRoot = (startPath?: string): string | undefined => {
-  const resolvedPath = startPath ?? getActiveFilePath();
+  const resolvedPath =
+    startPath ?? window.activeTextEditor?.document.uri.fsPath;
 
   if (!resolvedPath) {
     return undefined;
   }
 
-  // searchConfigurationFile expects a directory; if we have a file path, go up one level
-  const startDir =
-    resolvedPath.includes('.') && !resolvedPath.endsWith('/')
-      ? dirname(resolvedPath)
-      : resolvedPath;
+  // `searchConfigurationFile` expects a directory
+  const startDirectory = extname(resolvedPath)
+    ? dirname(resolvedPath)
+    : resolvedPath;
 
-  const { configurationFilePath } = searchConfigurationFile(startDir);
-
-  if (configurationFilePath) {
-    return dirname(configurationFilePath);
+  if (projectRootByDirectory.has(startDirectory)) {
+    return projectRootByDirectory.get(startDirectory);
   }
 
-  return undefined;
+  const { configurationFilePath } = searchConfigurationFile(startDirectory);
+  const projectRoot = configurationFilePath
+    ? dirname(configurationFilePath)
+    : undefined;
+
+  projectRootByDirectory.set(startDirectory, projectRoot);
+
+  return projectRoot;
 };
+
+/** Whether a parsed package.json lists `intlayer` as a dependency. */
+const dependsOnIntlayer = (packageJson: Record<string, any>): boolean =>
+  Boolean(
+    packageJson?.dependencies?.intlayer ||
+      packageJson?.devDependencies?.intlayer ||
+      packageJson?.peerDependencies?.intlayer
+  );
 
 /**
  * Discover all Intlayer project roots in the workspace.
@@ -41,41 +64,82 @@ export const findProjectRoot = (startPath?: string): string | undefined => {
  * falls back to package.json files that list intlayer as a dependency.
  */
 export const findAllProjectRoots = async (): Promise<string[]> => {
-  const rootSet = new Set<string>();
+  const projectRoots = new Set<string>();
 
-  // Primary: directories that contain an intlayer config file
-  const configPattern = `**/{${configurationFilesCandidates.join(',')}}`;
-  const configUris = await workspace.findFiles(
-    configPattern,
+  const configurationFileUris = await workspace.findFiles(
+    `**/{${configurationFilesCandidates.join(',')}}`,
     '**/node_modules/**'
   );
-  for (const uri of configUris) {
-    rootSet.add(dirname(uri.fsPath));
+
+  for (const uri of configurationFileUris) {
+    projectRoots.add(dirname(uri.fsPath));
   }
 
-  // Fallback: package.json files that explicitly list intlayer as a dependency
   const packageJsonUris = await workspace.findFiles(
     '**/package.json',
     '**/node_modules/**'
   );
+
   for (const uri of packageJsonUris) {
-    if (rootSet.has(dirname(uri.fsPath))) {
-      continue; // already found via config file
-    }
+    const directory = dirname(uri.fsPath);
+
+    if (projectRoots.has(directory)) continue;
+
     try {
       const content = await workspace.fs.readFile(uri);
-      const fileStr = new TextDecoder('utf-8').decode(content);
-      const pkg = JSON.parse(fileStr);
+      const packageJson = JSON.parse(new TextDecoder('utf-8').decode(content));
 
-      if (
-        pkg?.dependencies?.intlayer ||
-        pkg?.devDependencies?.intlayer ||
-        pkg?.peerDependencies?.intlayer
-      ) {
-        rootSet.add(dirname(uri.fsPath));
+      if (dependsOnIntlayer(packageJson)) {
+        projectRoots.add(directory);
       }
-    } catch {}
+    } catch {
+      // Unreadable or malformed package.json
+    }
   }
 
-  return Array.from(rootSet);
+  return [...projectRoots];
+};
+
+/** Where a command was invoked from. */
+export type CommandSource = {
+  /** Project of the tree node the command was invoked on. */
+  projectDir?: string;
+  /** File the command was invoked on (explorer / editor title menus). */
+  filePath?: string;
+};
+
+/**
+ * Project a command runs on: the invoking tree node's project, else the
+ * project of the invoking file (or of the active editor), else the only
+ * project of the workspace, else the one the user picks. Shows an error when
+ * the workspace holds no Intlayer project.
+ *
+ * @param placeHolder - Quick pick prompt shown when several projects match.
+ * @returns The project root, or `undefined` when none was found or picked.
+ */
+export const resolveProjectDirOrPick = async (
+  placeHolder: string,
+  source: CommandSource = {}
+): Promise<string | undefined> => {
+  const projectDir = source.projectDir ?? findProjectRoot(source.filePath);
+
+  if (projectDir) {
+    return projectDir;
+  }
+
+  const projectRoots = await findAllProjectRoots();
+
+  if (projectRoots.length === 1) {
+    return projectRoots[0];
+  }
+
+  if (projectRoots.length > 1) {
+    return window.showQuickPick(projectRoots, { placeHolder });
+  }
+
+  await window.showErrorMessage(
+    `${prefix}Could not find intlayer project root.`
+  );
+
+  return undefined;
 };

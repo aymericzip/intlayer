@@ -54,10 +54,35 @@ export type FillOptions = {
   skipMetadata?: boolean;
 } & GetTargetDictionaryOptions;
 
+/** Outcome of a {@link fill} run. */
+export type FillResult =
+  | {
+      /** No AI provider is reachable: nothing was translated. */
+      status: 'no-ai-access';
+      /** Why the AI provider could not be used, when known. */
+      error?: string;
+    }
+  | {
+      /** No dictionary matched the filters: nothing was translated. */
+      status: 'no-dictionaries';
+    }
+  | {
+      status: 'completed';
+      /** Keys of the dictionaries processed. */
+      dictionaryKeys: string[];
+      /** Translation tasks (one per dictionary and locale set) run. */
+      taskCount: number;
+      /** Tasks whose translation was written. */
+      writtenCount: number;
+    };
+
 /**
  * Fill translations based on the provided options.
+ *
+ * @returns What was done, so callers without a terminal (editor extension,
+ * MCP) can tell a completed run from one that translated nothing.
  */
-export const fill = async (options?: FillOptions): Promise<void> => {
+export const fill = async (options?: FillOptions): Promise<FillResult> => {
   const configuration = getConfiguration(options?.configOptions);
   logConfigDetails(options?.configOptions);
 
@@ -79,7 +104,7 @@ export const fill = async (options?: FillOptions): Promise<void> => {
 
   const aiResult = await setupAI(configuration, options?.aiOptions);
 
-  if (!aiResult?.hasAIAccess) return;
+  if (!aiResult?.hasAIAccess) return { status: 'no-ai-access' };
 
   const { aiClient, aiConfig, isCustomAI } = aiResult;
 
@@ -87,7 +112,7 @@ export const fill = async (options?: FillOptions): Promise<void> => {
     const { hasAIAccess, error } = await aiClient.checkAISDKAccess(aiConfig);
     if (!hasAIAccess) {
       appLogger(`${x} ${error}`);
-      return;
+      return { status: 'no-ai-access', error };
     }
   }
 
@@ -145,7 +170,7 @@ export const fill = async (options?: FillOptions): Promise<void> => {
       : colorize('No keys found', ANSIColors.YELLOW),
   ]);
 
-  if (keysToProcess.length === 0) return;
+  if (keysToProcess.length === 0) return { status: 'no-dictionaries' };
 
   /**
    * List the translations tasks
@@ -177,6 +202,8 @@ export const fill = async (options?: FillOptions): Promise<void> => {
   );
 
   const taskLimiter = getTaskLimiter(nbConcurrentTasks);
+
+  let writtenCount = 0;
 
   const runners = translationTasks.map((task) =>
     taskLimiter(async () => {
@@ -256,8 +283,10 @@ export const fill = async (options?: FillOptions): Promise<void> => {
           [sourceLocale],
           configuration
         );
+        writtenCount++;
       } else {
         await writeContentDeclaration(dictionaryOutput, configuration);
+        writtenCount++;
 
         if (dictionaryOutput.filePath) {
           appLogger(
@@ -271,4 +300,11 @@ export const fill = async (options?: FillOptions): Promise<void> => {
 
   await Promise.all(runners);
   await (globalLimiter as any).onIdle();
+
+  return {
+    status: 'completed',
+    dictionaryKeys: keysToProcess,
+    taskCount: translationTasks.length,
+    writtenCount,
+  };
 };

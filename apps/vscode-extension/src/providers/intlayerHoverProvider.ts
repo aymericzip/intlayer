@@ -1,181 +1,168 @@
 import { dirname, join } from 'node:path';
-import { isValidElement } from '@intlayer/core/utils';
+import type { Dictionary } from '@intlayer/types';
 import { Hover, type HoverProvider, MarkdownString, Uri } from 'vscode';
 import { findProjectRoot } from '../utils/findProjectRoot';
-import { getCachedConfig, getCachedDictionary } from '../utils/intlayerCache';
+import { getCachedConfig } from '../utils/intlayerCache';
 import { resolveIntlayerPath } from '../utils/intlayerPathResolver';
-import { getValueFromPath } from '../utils/intlayerValueResolver';
+import {
+  getValueFromPath,
+  isReactElementLike,
+  stripAccessorSuffix,
+} from '../utils/intlayerValueResolver';
+import { resolveProjectTarget } from '../utils/resolveDeclaration';
 
+const REACT_NODE_PREVIEW = '`<ReactNode />`';
+
+const isTranslationNode = (node: any): boolean =>
+  typeof node === 'object' &&
+  node?.nodeType === 'translation' &&
+  Boolean(node.translation);
+
+/**
+ * Type shown for a field. Framework packages wrap translations in
+ * `IntlayerNode`, unless read through an accessor (`.value`, `.raw`) or from
+ * the core `intlayer` package, which returns content directly.
+ */
+const describeNodeType = (
+  node: any,
+  moduleSource: string | null,
+  hasAccessor: boolean
+): string => {
+  if (isTranslationNode(node)) {
+    const firstTranslation = Object.values(node.translation)[0];
+    const primitiveType =
+      firstTranslation === undefined
+        ? 'unknown'
+        : isReactElementLike(firstTranslation)
+          ? 'ReactNode'
+          : typeof firstTranslation;
+
+    return moduleSource === 'intlayer' || hasAccessor
+      ? primitiveType
+      : `IntlayerNode<${primitiveType}>`;
+  }
+
+  if (typeof node === 'object') {
+    return isReactElementLike(node) ? 'ReactNode' : 'Object';
+  }
+
+  return typeof node;
+};
+
+/** Markdown preview of a field's value: a locale table for translations. */
+const appendNodePreview = (markdown: MarkdownString, node: any): void => {
+  if (isTranslationNode(node)) {
+    markdown.appendMarkdown('| Locale | Translation |\n| :--- | :--- |\n');
+
+    for (const [locale, value] of Object.entries(node.translation)) {
+      const preview = isReactElementLike(value) ? REACT_NODE_PREVIEW : value;
+
+      markdown.appendMarkdown(`| **${locale}** | ${preview} |\n`);
+    }
+
+    return;
+  }
+
+  if (typeof node !== 'object') {
+    markdown.appendMarkdown(`**Value**: ${node}`);
+  } else if (isReactElementLike(node)) {
+    markdown.appendMarkdown(`**Value**: ${REACT_NODE_PREVIEW}`);
+  } else {
+    markdown.appendCodeblock(JSON.stringify(node, null, 2), 'json');
+  }
+};
+
+/** Hover over a field usage: its type, then its value per declaration. */
 export const intlayerHoverProvider: HoverProvider = {
   provideHover: async (document, position) => {
-    // Resolve Path (Fast AST check)
     const origin = await resolveIntlayerPath(document, position);
-    if (!origin) {
-      return null;
-    }
 
-    const { dictionaryKey, fieldPath, moduleSource } = origin;
-    const cleanPath = [...fieldPath];
-    const lastKey = cleanPath[cleanPath.length - 1];
+    if (!origin) return null;
 
-    // Check if accessing properties specific to frameworks
-    const isAccessor =
-      lastKey === 'value' || lastKey === 'raw' || lastKey === 'use';
+    const projectDir = findProjectRoot(dirname(document.uri.fsPath));
 
-    if (isAccessor) {
-      cleanPath.pop();
-    }
+    if (!projectDir) return null;
 
-    // Find Root
-    const fileDir = dirname(document.uri.fsPath);
-    const projectDir = findProjectRoot(fileDir);
-    if (!projectDir) {
-      return null;
-    }
+    const { fieldPath, hasAccessor } = stripAccessorSuffix(origin.fieldPath);
 
-    // Get Config (OPTIMIZED: Uses Cache)
-    const config = await getCachedConfig(projectDir);
+    // Compat catalogs: `t('shared.footer.github')` may live in the whole-file
+    // `index` dictionary under a flat `'shared.footer.github'` key.
+    const resolved = await resolveProjectTarget(projectDir, {
+      ...origin,
+      fieldPath,
+    });
 
-    const dictionaryJsonPath = join(
-      config.system.unmergedDictionariesDir,
-      `${dictionaryKey}.json`
+    if (!resolved) return null;
+
+    const { dictionaryKey, dictionaries } = resolved;
+    const configuration = await getCachedConfig(projectDir);
+    const defaultLocale = configuration.internationalization?.defaultLocale;
+
+    const getFieldNode = (dictionary: Dictionary) =>
+      getValueFromPath(
+        dictionary.content,
+        resolved.fieldPath,
+        defaultLocale,
+        false
+      );
+
+    const fieldNodes = dictionaries.map((dictionary) =>
+      dictionary.location === 'remote' ? null : getFieldNode(dictionary)
+    );
+    const typedNode = fieldNodes.find(Boolean);
+
+    const header = new MarkdownString();
+
+    header.appendMarkdown(`### Intlayer: \`${dictionaryKey}\``);
+    header.appendMarkdown(
+      `\n\n**Path**: \`${resolved.fieldPath.join('.') || 'root'}\``
+    );
+    header.appendMarkdown(
+      `\n\n**Type**: \`${
+        typedNode
+          ? describeNodeType(typedNode, origin.moduleSource, hasAccessor)
+          : 'unknown'
+      }\``
     );
 
-    // Get Dictionary (OPTIMIZED: Async & Cached)
-    const dictionaries = await getCachedDictionary(dictionaryJsonPath);
+    const sections: MarkdownString[] = [header];
 
-    if (!dictionaries) {
-      return null;
-    }
+    dictionaries.forEach((dictionary, index) => {
+      const section = new MarkdownString();
 
-    // --- DETERMINE TYPE (Pre-calculation) ---
-    let displayType = 'unknown';
+      section.isTrusted = true;
 
-    // Scan dictionaries to find the first valid node to determine the type
-    for (const dict of dictionaries) {
-      if (dict.location === 'remote') {
-        continue;
-      }
+      if (dictionary.location === 'remote') {
+        const dashboardUrl = `${configuration.editor.cmsURL}/dictionary/${dictionaryKey}`;
 
-      const targetNode = getValueFromPath(
-        dict.content,
-        cleanPath,
-        config.internationalization?.defaultLocale,
-        false
-      );
-      if (targetNode) {
-        if (
-          typeof targetNode === 'object' &&
-          targetNode.nodeType === 'translation' &&
-          targetNode.translation
-        ) {
-          const translationValues = Object.values(targetNode.translation);
-          let primitiveType = 'unknown';
-
-          // Check the first value to determine the type (String, Number, or ReactNode)
-          if (translationValues.length > 0) {
-            const firstValue = translationValues[0];
-            if (isValidElement(firstValue)) {
-              primitiveType = 'ReactNode';
-            } else {
-              primitiveType = typeof firstValue;
-            }
-          }
-
-          // Core 'intlayer' package returns content directly
-          if (moduleSource === 'intlayer') {
-            displayType = primitiveType;
-          }
-          // Framework wrappers return Nodes, unless we accessed .value/.raw
-          else {
-            displayType = isAccessor
-              ? primitiveType
-              : `IntlayerNode<${primitiveType}>`;
-          }
-        } else if (typeof targetNode === 'object') {
-          // If the node itself is a React Node (e.g. flat content)
-          if (isValidElement(targetNode)) {
-            displayType = 'ReactNode';
-          } else {
-            displayType = 'Object';
-          }
-        } else {
-          displayType = typeof targetNode;
-        }
-        // Stop once we find the first valid definition to determine the type
-        break;
-      }
-    }
-
-    const hoverTexts: MarkdownString[] = [];
-
-    // --- BUILD HEADER ---
-    const header = new MarkdownString();
-    header.appendMarkdown(`### Intlayer: \`${dictionaryKey}\``);
-    header.appendMarkdown(`\n\n**Path**: \`${cleanPath.join('.') || 'root'}\``);
-    // Type is now added to the header section
-    header.appendMarkdown(`\n\n**Type**: \`${displayType}\``);
-    hoverTexts.push(header);
-
-    // --- BUILD CONTENT BODY ---
-    for (const dict of dictionaries) {
-      if (dict.location === 'remote') {
-        const url = `${config.editor.cmsURL}/dictionary/${dictionaryKey}`;
-        const md = new MarkdownString();
-        md.isTrusted = true;
-        md.appendMarkdown(
-          `\n---\n### Remote Dictionary\n[Open Dashboard](${url})`
+        section.appendMarkdown(
+          `\n---\n### Remote Dictionary\n[Open Dashboard](${dashboardUrl})`
         );
-        hoverTexts.push(md);
-        continue;
+        sections.push(section);
+        return;
       }
 
-      const targetNode = getValueFromPath(
-        dict.content,
-        cleanPath,
-        config.internationalization?.defaultLocale,
-        false
-      );
+      const fieldNode = fieldNodes[index];
 
-      if (targetNode) {
-        const md = new MarkdownString();
-        md.isTrusted = true;
-        md.supportHtml = true;
+      if (!fieldNode) return;
 
-        if (dict.filePath) {
-          const fileUri = Uri.file(join(projectDir, dict.filePath));
-          md.appendMarkdown(
-            `**File Location:**\n[${dict.filePath}](${fileUri})`
-          );
-        } else {
-          md.appendMarkdown(`### Local Content`);
-        }
-        md.appendMarkdown(`\n\n---\n\n`);
+      section.supportHtml = true;
 
-        if (
-          typeof targetNode === 'object' &&
-          targetNode.nodeType === 'translation' &&
-          targetNode.translation
-        ) {
-          md.appendMarkdown(`| Locale | Translation |\n| :--- | :--- |\n`);
-          for (const [locale, val] of Object.entries(targetNode.translation)) {
-            // If the value is a React Node object, show "ReactNode" instead of [object Object]
-            const valStr = isValidElement(val) ? '`<ReactNode />`' : val;
-            md.appendMarkdown(`| **${locale}** | ${valStr} |\n`);
-          }
-        } else if (typeof targetNode === 'object') {
-          if (isValidElement(targetNode)) {
-            md.appendMarkdown('**Value**: `<ReactNode />`');
-          } else {
-            md.appendCodeblock(JSON.stringify(targetNode, null, 2), 'json');
-          }
-        } else {
-          md.appendMarkdown(`**Value**: ${targetNode}`);
-        }
-        hoverTexts.push(md);
+      if (dictionary.filePath) {
+        const fileUri = Uri.file(join(projectDir, dictionary.filePath));
+
+        section.appendMarkdown(
+          `**File Location:**\n[${dictionary.filePath}](${fileUri})`
+        );
+      } else {
+        section.appendMarkdown('### Local Content');
       }
-    }
 
-    return new Hover(hoverTexts);
+      section.appendMarkdown('\n\n---\n\n');
+      appendNodePreview(section, fieldNode);
+      sections.push(section);
+    });
+
+    return new Hover(sections);
   },
 };

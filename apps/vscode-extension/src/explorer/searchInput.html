@@ -3,6 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; style-src 'unsafe-inline'; script-src 'nonce-{{nonce}}';"
+    />
     <style>
       body {
         margin: 0;
@@ -47,20 +51,20 @@
         value="{{searchQuery}}"
       />
     </div>
-    <script>
+    <script nonce="{{nonce}}">
       const vscode = acquireVsCodeApi();
       const input = document.getElementById("q");
-      const refreshBtn = document.getElementById("refreshBtn");
-      let last = input.value || "";
-      const post = (value) => vscode.postMessage({ type: "query", value });
+      const SEARCH_DEBOUNCE_DELAY = 150;
+      let lastValue = input.value || "";
+      let searchTimeout;
       input.addEventListener("input", () => {
-        const v = input.value || "";
-        if (v === last) return;
-        last = v;
-        post(v);
-      });
-      refreshBtn.addEventListener("click", () => {
-        vscode.postMessage({ type: "refresh" });
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => {
+          const value = input.value || "";
+          if (value === lastValue) return;
+          lastValue = value;
+          vscode.postMessage({ type: "query", value });
+        }, SEARCH_DEBOUNCE_DELAY);
       });
     </script>
   </body>

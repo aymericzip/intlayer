@@ -14,14 +14,26 @@ import {
   TransportKind,
 } from 'vscode-languageclient/node';
 import { buildProjectDictionaries } from '../commands/buildAllCommand';
+import { LSP_DOCUMENT_SELECTOR } from '../documentSelector';
+import {
+  CONFIGURATION_GLOB,
+  onDidChangeConfiguration,
+  onDidChangeDictionaries,
+  UNMERGED_DICTIONARIES_GLOB,
+} from '../utils/cacheInvalidation';
 import { getKeyOriginRange } from '../utils/getKeyOriginRange';
 import { prefix } from '../utils/logFunctions';
 
 let client: LanguageClient | undefined;
 
+/** Inspector port of the LSP server in debug mode — keep in sync with `.vscode/launch.json`. */
+const LSP_DEBUG_PORT = 6009;
+
 /**
  * Projects already built in response to the server, so a burst of notifications
  * (or a project that genuinely declares no content) cannot loop the build.
+ * Cleared when the configuration or the built dictionaries change: a later
+ * production build that drops the dictionaries is then rebuilt again.
  */
 const autoBuiltProjects = new Set<string>();
 
@@ -53,24 +65,6 @@ const buildUnbuiltProject = async ({
   );
 };
 
-/**
- * Languages the server is registered for. Kept in sync with the
- * `documentSelector` below — the extension-side providers use it to know
- * whether the server is answering for a given document.
- */
-export const LSP_LANGUAGES = new Set([
-  'javascript',
-  'javascriptreact',
-  'typescript',
-  'typescriptreact',
-  'vue',
-  'svelte',
-  'astro',
-  'html',
-  'yaml',
-  'markdown',
-]);
-
 /** True once the server process is up and answering requests. */
 export const isLSPClientRunning = (): boolean =>
   client?.state === State.Running;
@@ -80,7 +74,13 @@ export const startLSPClient = (context: ExtensionContext): void => {
 
   const serverOptions: ServerOptions = {
     run: { module: serverModule, transport: TransportKind.stdio },
-    debug: { module: serverModule, transport: TransportKind.stdio },
+    // Used when the extension host runs under a debugger (F5): opens an
+    // inspector so the "Attach to LSP Server" launch config can connect.
+    debug: {
+      module: serverModule,
+      transport: TransportKind.stdio,
+      options: { execArgv: ['--nolazy', `--inspect=${LSP_DEBUG_PORT}`] },
+    },
   };
 
   // Named output channel — visible in VS Code's Output panel drop-down as
@@ -90,24 +90,28 @@ export const startLSPClient = (context: ExtensionContext): void => {
     log: true,
   });
 
+  // Any event on these makes the server drop its caches
+  const serverFileWatchers = [
+    workspace.createFileSystemWatcher(
+      '**/*.content.{ts,tsx,js,jsx,json,jsonc,json5,yaml,yml,md,mdx}'
+    ),
+    // The server answers from the built dictionaries, so a rebuild
+    // triggered outside the extension (CLI, dev server) must invalidate
+    // its caches too — otherwise diagnostics stay stale.
+    workspace.createFileSystemWatcher(UNMERGED_DICTIONARIES_GLOB),
+    // Configuration and env changes move every path the server reads
+    workspace.createFileSystemWatcher(CONFIGURATION_GLOB),
+  ];
+
+  context.subscriptions.push(
+    ...serverFileWatchers,
+    onDidChangeConfiguration(() => autoBuiltProjects.clear()),
+    onDidChangeDictionaries(() => autoBuiltProjects.clear())
+  );
+
   const clientOptions: LanguageClientOptions = {
-    documentSelector: [...LSP_LANGUAGES].map((language) => ({
-      scheme: 'file',
-      language,
-    })),
-    synchronize: {
-      fileEvents: [
-        workspace.createFileSystemWatcher(
-          '**/*.content.{ts,tsx,js,jsx,json,jsonc,json5,yaml,yml,md,mdx}'
-        ),
-        // The server answers from the built dictionaries, so a rebuild
-        // triggered outside the extension (CLI, dev server) must invalidate
-        // its caches too — otherwise diagnostics stay stale.
-        workspace.createFileSystemWatcher(
-          '**/.intlayer/unmerged_dictionary/*.json'
-        ),
-      ],
-    },
+    documentSelector: LSP_DOCUMENT_SELECTOR,
+    synchronize: { fileEvents: serverFileWatchers },
     outputChannel,
     // Never auto-reveal — user opens it manually when needed.
     revealOutputChannelOn: RevealOutputChannelOn.Never,
@@ -165,5 +169,3 @@ export const startLSPClient = (context: ExtensionContext): void => {
   client.start();
   context.subscriptions.push(client);
 };
-
-export const stopLSPClient = (): Thenable<void> | undefined => client?.stop();

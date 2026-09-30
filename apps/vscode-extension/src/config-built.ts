@@ -2,15 +2,31 @@ import { existsSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { join } from 'node:path';
 import { getConfiguration } from '@intlayer/config/node';
-import { getAlias } from '@intlayer/config/utils';
+import { clearModuleCache, getAlias } from '@intlayer/config/utils';
 import { window } from 'vscode';
 import { findProjectRoot } from './utils/findProjectRoot';
 import { getConfigurationOptionsSync } from './utils/getConfiguration';
 import { prefix } from './utils/logFunctions';
 
-// Cache the result globally
+// Configuration of the last resolved project, and the built file it came from
 let cachedConfig: any = null;
 let lastProjectDir: string | null = null;
+let loadedBuiltConfigPath: string | null = null;
+
+/**
+ * Forget the resolved configuration, and evict the built configuration module
+ * from the require cache, so the next access re-reads it. Called when the
+ * configuration file or the built configuration changes.
+ */
+export const clearBuiltConfigCache = (): void => {
+  if (loadedBuiltConfigPath) {
+    clearModuleCache(loadedBuiltConfigPath);
+  }
+
+  cachedConfig = null;
+  lastProjectDir = null;
+  loadedBuiltConfigPath = null;
+};
 
 // Fallback used when no project config can be resolved (no active editor,
 // no built config yet, ...). Computed lazily and holds Intlayer defaults.
@@ -36,17 +52,14 @@ const loadConfig = () => {
 
   const filePath = editor.document.uri.fsPath;
 
-  // Optimization: Do not look for project root if we are in the same workspace folder as last time
-  // (You might want to refine this based on workspace.workspaceFolders)
-
+  // Cached per directory: property accesses resolve it repeatedly
   const projectDir = findProjectRoot(filePath);
 
   if (!projectDir) {
     return cachedConfig ?? getDefaultConfig();
   }
 
-  // 2. Return cached config if project hasn't changed
-  // (Optional: add a Time-To-Live check here if config changes often, e.g., 5 seconds)
+  // Invalidated by `clearBuiltConfigCache` when the configuration changes
   if (cachedConfig && lastProjectDir === projectDir) {
     return cachedConfig;
   }
@@ -65,12 +78,18 @@ const loadConfig = () => {
 
     // Before the first build, the built config does not exist yet:
     // use the configuration computed from the project config file.
-    const result = existsSync(configFilePath)
+    const hasBuiltConfig = existsSync(configFilePath);
+    const result = hasBuiltConfig
       ? createRequire(join(projectDir, 'package.json'))(configFilePath)
       : JSON.parse(JSON.stringify(configuration));
 
+    if (loadedBuiltConfigPath && loadedBuiltConfigPath !== configFilePath) {
+      clearModuleCache(loadedBuiltConfigPath);
+    }
+
     cachedConfig = result;
     lastProjectDir = projectDir;
+    loadedBuiltConfigPath = hasBuiltConfig ? configFilePath : null;
 
     return result;
   } catch (error) {

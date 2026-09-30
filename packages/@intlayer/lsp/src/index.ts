@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-import { existsSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
 import { dirname, isAbsolute, join } from 'node:path';
 import { pathToFileURL } from 'node:url';
@@ -7,9 +6,11 @@ import {
   getConfiguration,
   searchConfigurationFile,
 } from '@intlayer/config/node';
+import { clearAllCache } from '@intlayer/config/utils';
 import { getUnmergedDictionaries } from '@intlayer/dictionaries-entry/unmerged';
 import { buildComponentFilesList } from '@intlayer/engine/utils';
 import type { IntlayerConfig } from '@intlayer/types/config';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import {
   type CompletionItem,
   CompletionItemKind,
@@ -43,6 +44,7 @@ import {
   getFieldByPath,
   getFieldsAtPath,
 } from './dictionaryUtils';
+import { findFieldDeclaration } from './findFieldDeclaration';
 import {
   escapeRegularExpression,
   findFieldRangesInFile,
@@ -58,6 +60,11 @@ import {
   DICTIONARIES_NOT_BUILT_NOTIFICATION,
   type DictionariesNotBuiltParams,
 } from './protocol';
+import {
+  type ResolvedDictionaryTarget,
+  resolveDictionaryTarget,
+  type UsageTarget,
+} from './resolveDictionaryTarget';
 import {
   collectNamespaceReferences,
   findMessageUsageAtOffset,
@@ -83,7 +90,7 @@ let workspaceRoot: string | null | undefined;
 
 type WorkspaceConfig = Pick<
   IntlayerConfig,
-  'system' | 'build' | 'content' | 'compiler'
+  'system' | 'build' | 'content' | 'compiler' | 'internationalization'
 >;
 
 /**
@@ -121,6 +128,9 @@ const projectRoots = new Map<string, string>();
 const buildRequestedProjects = new Set<string>();
 
 const invalidateConfigCaches = () => {
+  // `getConfiguration` memoizes by options: without this a changed
+  // configuration file would keep resolving to its previous evaluation.
+  clearAllCache();
   projectConfigs.clear();
   projectDictionaries.clear();
   projectRoots.clear();
@@ -156,11 +166,18 @@ const getProjectConfig = (absolutePath: string): WorkspaceConfig | null => {
   try {
     // Find the closest intlayer config relative to the file.
     const baseDir = getProjectRoot(dirname(absolutePath));
-    const { system, build, content, compiler } = getConfiguration({ baseDir });
+    const { system, build, content, compiler, internationalization } =
+      getConfiguration({ baseDir });
     const cacheKey = system.baseDir;
 
     if (!projectConfigs.has(cacheKey)) {
-      projectConfigs.set(cacheKey, { system, build, content, compiler });
+      projectConfigs.set(cacheKey, {
+        system,
+        build,
+        content,
+        compiler,
+        internationalization,
+      });
       log(
         `getProjectConfig — OK baseDir=${system.baseDir} unmergedDictionariesDir=${system.unmergedDictionariesDir}`
       );
@@ -231,72 +248,90 @@ const runConcurrent = async <T>(
   );
 };
 
-/** Find the `key: "<key>"` line inside a content file so the cursor lands on it. */
-const getKeyRange = async (
-  absolutePath: string,
-  key: string
-): Promise<Range> => {
-  try {
-    const content = await readFile(absolutePath, 'utf-8');
-    const lines = content.split(/\r?\n/);
-    const keyRegularExpression = new RegExp(
-      `key\\s*:\\s*['"\`]${key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}['"\`]`
-    );
-
-    for (let lineIndex = 0; lineIndex < lines.length; lineIndex++) {
-      const column = lines[lineIndex]?.search(keyRegularExpression);
-
-      if (column !== undefined && column !== -1) {
-        return Range.create(
-          Position.create(lineIndex, column),
-          Position.create(lineIndex, lines[lineIndex]!.length)
-        );
-      }
-    }
-  } catch {
-    // fall through to the top of the file
-  }
-
-  return Range.create(Position.create(0, 0), Position.create(0, 0));
-};
+/** Built dictionaries registered under `dictionaryKey`. */
+const getDictionariesForKey = (
+  config: WorkspaceConfig,
+  dictionaryKey: string
+): Dictionary[] =>
+  (
+    getUnmergedDictionariesCached(config) as Record<
+      string,
+      Dictionary[] | undefined
+    >
+  )[dictionaryKey] ?? [];
 
 /**
- * Return every `.content` file location that declares the given key.
- * A key can be split across several content files (merged dictionaries), so we
- * return one `Location` per source file, pointing at the `key:` declaration.
+ * Match a usage (or a bare dictionary key) against the built dictionaries,
+ * following the compat adapters' fallbacks (`index` whole-file catalog, flat
+ * dotted keys) — see `resolveDictionaryTarget`.
  */
-const getContentDeclarationLocations = async (
-  key: string,
+const resolveTarget = (
+  target: UsageTarget,
+  config: WorkspaceConfig
+): Promise<ResolvedDictionaryTarget<Dictionary> | null> =>
+  resolveDictionaryTarget(target, (dictionaryKey) =>
+    getDictionariesForKey(config, dictionaryKey)
+  );
+
+/**
+ * Where a resolved target is declared: one location per source file (content
+ * file, or one JSON catalog per locale), the default locale first so VS Code
+ * previews it.
+ */
+const getDeclarationLocations = async (
+  target: UsageTarget,
   absolutePath: string
 ): Promise<Location[]> => {
   const config = getProjectConfig(absolutePath);
 
   if (!config) return [];
 
-  const unmergedDictionaries = getUnmergedDictionariesCached(config);
-  const dictionaries = Object.values(unmergedDictionaries)
-    .flat()
-    .filter((dictionary) => dictionary?.key === key && dictionary.filePath);
+  const resolved = await resolveTarget(target, config);
 
-  const locations: Location[] = [];
+  if (!resolved) return [];
 
-  await runConcurrent(dictionaries, async (dictionary) => {
-    const filePath = dictionary.filePath!;
-    const absolutePath = isAbsolute(filePath)
-      ? filePath
-      : join(config.system.baseDir, filePath);
+  const defaultLocale = config.internationalization?.defaultLocale;
+  const sourcePaths = [
+    ...new Set(
+      [...resolved.dictionaries]
+        .sort(
+          (first, second) =>
+            Number(second.locale === defaultLocale) -
+            Number(first.locale === defaultLocale)
+        )
+        .map((dictionary) => dictionary.filePath)
+        .filter((filePath): filePath is string => Boolean(filePath))
+        .map((filePath) =>
+          isAbsolute(filePath)
+            ? filePath
+            : join(config.system.baseDir, filePath)
+        )
+    ),
+  ];
 
-    if (!existsSync(absolutePath)) return;
+  const locations = await Promise.all(
+    sourcePaths.map(async (sourcePath) => {
+      const text = await tryReadFile(sourcePath);
 
-    locations.push(
-      Location.create(
-        pathToFileURL(absolutePath).href,
-        await getKeyRange(absolutePath, key)
-      )
-    );
-  });
+      if (text === null) return null;
 
-  return locations;
+      const span = findFieldDeclaration(
+        text,
+        sourcePath,
+        resolved.dictionaryKey,
+        resolved.fieldPath
+      );
+      const range = span
+        ? offsetToRange(text, span.start, span.end)
+        : Range.create(Position.create(0, 0), Position.create(0, 0));
+
+      return Location.create(pathToFileURL(sourcePath).href, range);
+    })
+  );
+
+  return locations.filter(
+    (location): location is Location => location !== null
+  );
 };
 
 /**
@@ -438,87 +473,6 @@ const getFieldUsageLocations = async (
   log(
     `getFieldUsageLocations("${dictionaryKey}.${fieldPath.join('.')}") — ${filePaths.length} file(s) searched in ${Date.now() - startTime}ms → ${locations.length} hit(s)`
   );
-  return locations;
-};
-
-/**
- * Find the line/column of the field's leaf name as a property key inside a
- * content file. Looks for `fieldName:` or `'field.name':` (flat keys with
- * dots, as used by lingui catalogs), not just any occurrence. Falls back to
- * the top of the file if the field cannot be located.
- */
-const getFieldRangeInContentFile = async (
-  absolutePath: string,
-  fieldPath: string[]
-): Promise<Range> => {
-  const content = await tryReadFile(absolutePath);
-  const fieldName = fieldPath[fieldPath.length - 1];
-
-  if (!content || !fieldName)
-    return Range.create(Position.create(0, 0), Position.create(0, 0));
-
-  // Match `fieldName:` at an object property key position (not a value),
-  // allowing an optional quoted form for keys containing dots or dashes.
-  const fieldRegularExpression = new RegExp(
-    `(?<![.\\w])(['"\`]?)${escapeRegularExpression(fieldName)}\\1\\s*:`
-  );
-  const lines = content.split(/\r?\n/);
-
-  for (let lineIndex = 0; lineIndex < lines.length; lineIndex++) {
-    const line = lines[lineIndex]!;
-    const matchPosition = line.search(fieldRegularExpression);
-
-    if (matchPosition === -1) continue;
-    const column = line.indexOf(fieldName, matchPosition);
-
-    if (column === -1) continue;
-    return Range.create(
-      Position.create(lineIndex, column),
-      Position.create(lineIndex, column + fieldName.length)
-    );
-  }
-
-  return Range.create(Position.create(0, 0), Position.create(0, 0));
-};
-
-/**
- * Return every content-file location where the field at `fieldPath` is
- * defined as a property of the dictionary with the given `dictionaryKey`.
- */
-const getContentFieldLocations = async (
-  dictionaryKey: string,
-  fieldPath: string[],
-  absolutePath: string
-): Promise<Location[]> => {
-  const config = getProjectConfig(absolutePath);
-
-  if (!config) return [];
-
-  const unmergedDictionaries = getUnmergedDictionariesCached(config);
-  const dictionaries = Object.values(unmergedDictionaries)
-    .flat()
-    .filter(
-      (dictionary) => dictionary?.key === dictionaryKey && dictionary.filePath
-    );
-
-  const locations: Location[] = [];
-
-  await runConcurrent(dictionaries, async (dictionary) => {
-    const filePath = dictionary.filePath!;
-    const absolutePath = isAbsolute(filePath)
-      ? filePath
-      : join(config.system.baseDir, filePath);
-
-    if (!existsSync(absolutePath)) return;
-
-    locations.push(
-      Location.create(
-        pathToFileURL(absolutePath).href,
-        await getFieldRangeInContentFile(absolutePath, fieldPath)
-      )
-    );
-  });
-
   return locations;
 };
 
@@ -782,7 +736,10 @@ connection.onDefinition(async (parameters) => {
     log(
       `onDefinition — useIntlayer key: "${key}" → searching content declarations`
     );
-    const locations = await getContentDeclarationLocations(key, absolutePath);
+    const locations = await getDeclarationLocations(
+      { dictionaryKey: key, fieldPath: [] },
+      absolutePath
+    );
     log(
       `onDefinition — found ${locations.length} content declaration(s) for key "${key}"`
     );
@@ -793,27 +750,13 @@ connection.onDefinition(async (parameters) => {
   // t('path.to.field') call, formatMessage({ id }), <Trans>, lingui t`…`, …
   const usage = findMessageUsageAtOffset(text, offset);
 
-  if (usage && usage.fieldPath.length > 0) {
-    log(
-      `onDefinition — usage field: "${usage.dictionaryKey}.${usage.fieldPath.join('.')}" (${usage.callerName}) → searching content field`
-    );
-    const locations = await getContentFieldLocations(
-      usage.dictionaryKey,
-      usage.fieldPath,
-      absolutePath
-    );
-    log(
-      `onDefinition — found ${locations.length} content file(s) with field "${usage.fieldPath.join('.')}"`
-    );
-    return locations.length ? locations : null;
-  }
-
+  // Dictionary-level usages (a bare content variable) land on the dictionary.
   if (usage) {
-    // Dictionary-level usage (e.g. bare content variable) → content files.
-    const locations = await getContentDeclarationLocations(
-      usage.dictionaryKey,
-      absolutePath
+    log(
+      `onDefinition — usage: "${[usage.dictionaryKey, ...usage.fieldPath].join('.')}" (${usage.callerName}) → searching declaration`
     );
+    const locations = await getDeclarationLocations(usage, absolutePath);
+    log(`onDefinition — found ${locations.length} declaration(s)`);
     return locations.length ? locations : null;
   }
 
@@ -883,7 +826,10 @@ connection.onReferences(async (parameters: ReferenceParams) => {
   const key = findKeyAtOffset(text, offset);
 
   if (key) {
-    const locations = await getContentDeclarationLocations(key, absolutePath);
+    const locations = await getDeclarationLocations(
+      { dictionaryKey: key, fieldPath: [] },
+      absolutePath
+    );
     log(`onReferences — key "${key}" → ${locations.length} declaration(s)`);
     return locations.length ? locations : null;
   }
@@ -893,11 +839,7 @@ connection.onReferences(async (parameters: ReferenceParams) => {
   const usage = findMessageUsageAtOffset(text, offset);
 
   if (usage && usage.fieldPath.length > 0) {
-    const locations = await getContentFieldLocations(
-      usage.dictionaryKey,
-      usage.fieldPath,
-      absolutePath
-    );
+    const locations = await getDeclarationLocations(usage, absolutePath);
     log(
       `onReferences — field "${usage.fieldPath.join('.')}" → ${locations.length} content definition(s)`
     );
@@ -924,18 +866,12 @@ connection.onHover(async (parameters: HoverParams): Promise<Hover | null> => {
 
   if (!config) return null;
 
-  const unmergedDictionaries = getUnmergedDictionariesCached(config);
-  const getDicts = (key: string) =>
-    Object.values(unmergedDictionaries)
-      .flat()
-      .filter((d) => d?.key === key);
-
   if (isContentFile(uri, config)) {
     // Cursor on `key: "..."` declaration
     const key = findKeyInContentFile(text, offset);
 
     if (key) {
-      const dicts = getDicts(key);
+      const dicts = getDictionariesForKey(config, key);
 
       if (dicts.length > 0) {
         return {
@@ -952,7 +888,7 @@ connection.onHover(async (parameters: HoverParams): Promise<Hover | null> => {
     const fieldInfo = findContentFieldAtOffset(text, offset, ext);
 
     if (fieldInfo) {
-      const dicts = getDicts(fieldInfo.dictionaryKey);
+      const dicts = getDictionariesForKey(config, fieldInfo.dictionaryKey);
 
       if (dicts.length > 0) {
         const hoverText = formatFieldHover(
@@ -975,52 +911,40 @@ connection.onHover(async (parameters: HoverParams): Promise<Hover | null> => {
   // Source file: cursor on key string inside useIntlayer("key")
   const key = findKeyAtOffset(text, offset);
 
-  if (key) {
-    const dicts = getDicts(key);
+  // Source file: cursor on the key string inside useIntlayer("key"), or on
+  // any message usage (field property, t('field'), formatMessage({ id }),
+  // <Trans>, lingui t`…`, …)
+  const target: UsageTarget | null = key
+    ? { dictionaryKey: key, fieldPath: [] }
+    : findMessageUsageAtOffset(text, offset);
 
-    if (dicts.length > 0) {
-      return {
-        contents: {
-          kind: MarkupKind.Markdown,
-          value: formatDictionaryHover(dicts, key),
-        },
-      };
-    }
-    return null;
+  if (!target) return null;
+
+  const resolved = await resolveTarget(target, config);
+
+  if (!resolved) return null;
+
+  if (resolved.fieldPath.length === 0) {
+    return {
+      contents: {
+        kind: MarkupKind.Markdown,
+        value: formatDictionaryHover(
+          resolved.dictionaries,
+          resolved.dictionaryKey
+        ),
+      },
+    };
   }
 
-  // Source file: cursor on any message usage (field property, t('field'),
-  // formatMessage({ id }), <Trans>, lingui t`…`, …)
-  const usage = findMessageUsageAtOffset(text, offset);
+  const hoverText = formatFieldHover(
+    resolved.dictionaries,
+    resolved.dictionaryKey,
+    resolved.fieldPath
+  );
 
-  if (usage) {
-    const dicts = getDicts(usage.dictionaryKey);
-
-    if (dicts.length > 0) {
-      if (usage.fieldPath.length === 0) {
-        return {
-          contents: {
-            kind: MarkupKind.Markdown,
-            value: formatDictionaryHover(dicts, usage.dictionaryKey),
-          },
-        };
-      }
-
-      const hoverText = formatFieldHover(
-        dicts,
-        usage.dictionaryKey,
-        usage.fieldPath
-      );
-
-      if (hoverText) {
-        return {
-          contents: { kind: MarkupKind.Markdown, value: hoverText },
-        };
-      }
-    }
-  }
-
-  return null;
+  return hoverText
+    ? { contents: { kind: MarkupKind.Markdown, value: hoverText } }
+    : null;
 });
 
 // ---------------------------------------------------------------------------

@@ -1,91 +1,57 @@
-import {
-  installMCP,
-  type MCPTransport,
-  PLATFORMS,
-  PLATFORMS_METADATA,
-  type Platform,
-} from '@intlayer/engine/cli';
-import { type QuickPickItem, window } from 'vscode';
+import { installMCP, type MCPTransport } from '@intlayer/engine/cli';
+import { ProgressLocation, window } from 'vscode';
 import { findProjectRoot } from '../utils/findProjectRoot';
 import { formatResult } from '../utils/formatResult';
+import {
+  getPlatformQuickPickItems,
+  type QuickPickItemWithValue,
+} from '../utils/platformQuickPick';
 
-interface QuickPickItemWithValue<T> extends QuickPickItem {
-  value: T;
-}
-
-export const PLATFORM_OPTIONS: Array<{
-  value: Platform;
-  label: string;
-  hint: string;
-}> = PLATFORMS.map((platform) => ({
-  value: platform,
-  label: PLATFORMS_METADATA[platform].label,
-  hint: `(${PLATFORMS_METADATA[platform].dir})`,
-}));
+const TRANSPORT_QUICK_PICK_ITEMS: QuickPickItemWithValue<MCPTransport>[] = [
+  {
+    value: 'stdio',
+    label: 'Local server (stdio)',
+    detail:
+      'Recommended. Integrates all features including CLI tools. Directly uses npx.',
+  },
+  {
+    value: 'sse',
+    label: 'Remote server (SSE)',
+    detail: 'Hosted by Intlayer. Focuses on documentation only.',
+  },
+];
 
 export const initMCP = async () => {
-  const root = findProjectRoot();
+  const projectDir = findProjectRoot();
 
-  if (!root) {
+  if (!projectDir) {
     await window.showErrorMessage('Could not find project root.');
     return;
   }
 
-  const selectedPlatform = await window.showQuickPick<
-    QuickPickItemWithValue<Platform>
-  >(
-    PLATFORM_OPTIONS.map((platform) => ({
-      label: platform.label,
-      detail: platform.hint,
-      value: platform.value,
-    })),
-    {
-      placeHolder: 'Which platform are you using?',
-      canPickMany: false,
-    }
+  const selectedPlatform = await window.showQuickPick(
+    getPlatformQuickPickItems(),
+    { placeHolder: 'Which platform are you using?' }
   );
 
-  if (!selectedPlatform) {
-    return;
-  }
+  if (!selectedPlatform) return;
 
-  const selectedTransport = await window.showQuickPick<
-    QuickPickItemWithValue<MCPTransport>
-  >(
-    [
-      {
-        value: 'stdio',
-        label: 'Local server (stdio)',
-        detail:
-          'Recommended. Integrates all features including CLI tools. Directly uses npx.',
-      },
-      {
-        value: 'sse',
-        label: 'Remote server (SSE)',
-        detail: 'Hosted by Intlayer. Focuses on documentation only.',
-      },
-    ],
-    {
-      placeHolder: 'Which transport method do you want to use?',
-      canPickMany: false,
-    }
+  const selectedTransport = await window.showQuickPick(
+    TRANSPORT_QUICK_PICK_ITEMS,
+    { placeHolder: 'Which transport method do you want to use?' }
   );
 
-  if (!selectedTransport) {
-    return;
-  }
+  if (!selectedTransport) return;
 
-  // Call installMCP
   await window.withProgress(
     {
-      location: 15, // Notification
+      location: ProgressLocation.Notification,
       title: 'Configuring Intlayer MCP Server...',
-      cancellable: false,
     },
     async () => {
       try {
         const result = await installMCP(
-          root,
+          projectDir,
           selectedPlatform.value,
           selectedTransport.value
         );

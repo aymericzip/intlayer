@@ -1,7 +1,7 @@
 import { cp, mkdir } from 'node:fs/promises';
 import { createRequire } from 'node:module';
 import { basename, dirname, resolve } from 'node:path';
-import { defineConfig } from 'tsdown';
+import { defineConfig, type TsdownPlugin } from 'tsdown';
 
 const require = createRequire(import.meta.url);
 
@@ -142,12 +142,9 @@ const sharedDeps = {
     'picocolors',
     '@intlayer/ai',
     'fsevents',
-    // oxc-parser ships platform-specific native binaries — cannot be inlined
+    // oxc-parser loads platform-specific native bindings — cannot be inlined
+    // (its bindings are then only required by the external package itself)
     'oxc-parser',
-    '@oxc-parser/binding-darwin-arm64',
-    '@oxc-parser/binding-darwin-x64',
-    '@oxc-parser/binding-linux-x64-gnu',
-    '@oxc-parser/binding-win32-x64-msvc',
     'node:fs',
     'node:fs/promises',
     'node:path',
@@ -169,7 +166,6 @@ const sharedAlias = {
     resolvePackageRoot('@intlayer/lsp'),
     'dist/esm/utils.mjs'
   ),
-  'utils:asset': resolve('src/utils/assets.ts'),
 };
 
 // Extension-only alias: redirect @intlayer/config/built to the VS Code–aware
@@ -181,38 +177,78 @@ const extensionAlias = {
   '@intlayer/config/built': resolve('src/config-built.ts'),
 };
 
-export default defineConfig([
-  // ── Extension host process ────────────────────────────────────────────────
-  {
-    entry: {
-      extension: './src/extension.ts',
+/**
+ * Line printed once every bundle of the current build is on disk. The
+ * `watch` task in `.vscode/tasks.json` waits for it before F5 launches
+ * the extension host — keep both in sync.
+ */
+const BUILD_READY_MESSAGE = '[intlayer-vscode] build ready';
+
+/**
+ * Logs {@link BUILD_READY_MESSAGE} once every named bundle has been written at
+ * least once, then after each rebuild. The bundles build in parallel, so a
+ * single "Rebuilt" line would fire before the other one (and the assets
+ * copied in `writeBundle`) is ready.
+ */
+const createBuildReadyPlugin = (
+  bundleNames: readonly string[]
+): ((bundleName: string) => TsdownPlugin) => {
+  const writtenBundles = new Set<string>();
+
+  return (bundleName) => ({
+    name: `build-ready-signal:${bundleName}`,
+    writeBundle: {
+      // Run after the asset copy plugin's writeBundle
+      order: 'post',
+      handler() {
+        writtenBundles.add(bundleName);
+
+        if (writtenBundles.size === bundleNames.length) {
+          console.log(BUILD_READY_MESSAGE);
+        }
+      },
     },
-    format: 'cjs',
-    outExtensions: () => ({ js: '.js' }),
-    target: 'node20',
-    clean: true,
-    platform: 'node',
-    minify: true,
-    treeshake: true,
-    sourcemap: false,
+  });
+};
 
-    deps: sharedDeps,
-    alias: extensionAlias,
+export default defineConfig((inlineConfig) => {
+  // `tsdown --watch` (F5 / `bun run watch`): readable, source-mapped output
+  // so breakpoints bind to src/ and stack traces are legible.
+  const isWatchMode = Boolean(inlineConfig.watch);
+  const buildReadyPlugin = createBuildReadyPlugin(['extension', 'lsp-server']);
 
-    plugins: [
-      /**
-       * PLUGIN: Asset Loader Patch
-       * Intercepts the internal virtual module used by @intlayer packages.
-       * Injects a "Smart Search" readAsset function.
-       */
-      {
-        name: 'patch-asset-loader',
-        transform(_code, id) {
-          // Match the virtual file path used inside @intlayer dependencies
-          if (/[\\/]_virtual[\\/]_utils_asset\.(mjs|cjs|js)$/.test(id)) {
-            console.log(`⚡ Patching asset loader in: ${basename(id)}`);
+  return [
+    // ── Extension host process ────────────────────────────────────────────────
+    {
+      entry: {
+        extension: './src/extension.ts',
+      },
+      format: 'cjs',
+      outExtensions: () => ({ js: '.js' }),
+      target: 'node20',
+      clean: true,
+      platform: 'node',
+      minify: !isWatchMode,
+      treeshake: true,
+      sourcemap: isWatchMode,
 
-            return `
+      deps: sharedDeps,
+      alias: extensionAlias,
+
+      plugins: [
+        /**
+         * PLUGIN: Asset Loader Patch
+         * Intercepts the internal virtual module used by @intlayer packages.
+         * Injects a "Smart Search" readAsset function.
+         */
+        {
+          name: 'patch-asset-loader',
+          transform(_code, id) {
+            // Match the virtual file path used inside @intlayer dependencies
+            if (/[\\/]_virtual[\\/]_utils_asset\.(mjs|cjs|js)$/.test(id)) {
+              console.log(`⚡ Patching asset loader in: ${basename(id)}`);
+
+              return `
             import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs';
             import { join, basename } from 'node:path';
 
@@ -252,56 +288,60 @@ export default defineConfig([
               return readFileSync(foundPath, encoding);
             };
           `;
-          }
-          return null;
+            }
+            return null;
+          },
         },
-      },
 
-      /**
-       * PLUGIN 2: Explicit Copy
-       * Copies known dependency assets to dist/assets/SUBFOLDER
-       */
-      {
-        name: 'copy-dependency-assets',
-        async writeBundle() {
-          const destRoot = resolve('dist/assets');
+        /**
+         * PLUGIN 2: Explicit Copy
+         * Copies known dependency assets to dist/assets/SUBFOLDER
+         */
+        {
+          name: 'copy-dependency-assets',
+          async writeBundle() {
+            const destRoot = resolve('dist/assets');
 
-          // Copy your local HTML (not flattened, stays in dist root as per your request)
-          await cp(
-            resolve('src/explorer/searchInput.html'),
-            resolve('dist/searchInput.html')
-          ).catch(() => {});
+            // Copy your local HTML (not flattened, stays in dist root as per your request)
+            await cp(
+              resolve('src/explorer/searchInput.html'),
+              resolve('dist/searchInput.html')
+            ).catch(() => {});
 
-          // Copy dependencies into namespaced folders to avoid collisions
-          await copyPackageAssets('@intlayer/engine', 'engine', destRoot);
-          await copyPackageAssets('@intlayer/cli', 'cli', destRoot);
-          await copyPackageAssets('@intlayer/ai', 'ai', destRoot);
+            // Copy dependencies into namespaced folders to avoid collisions
+            await copyPackageAssets('@intlayer/engine', 'engine', destRoot);
+            await copyPackageAssets('@intlayer/cli', 'cli', destRoot);
+            await copyPackageAssets('@intlayer/ai', 'ai', destRoot);
 
-          // Externals that must remain requireable from the packaged extension
-          const nodeModulesRoot = resolve('dist/node_modules');
-          await copyRuntimeDependency('esbuild', nodeModulesRoot);
-          await copyRuntimeDependency('oxc-parser', nodeModulesRoot);
+            // Externals that must remain requireable from the packaged extension
+            const nodeModulesRoot = resolve('dist/node_modules');
+            await copyRuntimeDependency('esbuild', nodeModulesRoot);
+            await copyRuntimeDependency('oxc-parser', nodeModulesRoot);
+          },
         },
-      },
-    ],
-  },
 
-  // LSP server process
-  // Bundled separately so it can run as a forked child process.
-  // treeshake is disabled because @intlayer/lsp declares "sideEffects: false"
-  // even though the server runs entirely through top-level side effects
-  // (connection.listen(), documents.listen(), …).
-  {
-    entry: { 'lsp-server': './src/lsp-server.ts' },
-    format: 'cjs',
-    outExtensions: () => ({ js: '.js' }),
-    target: 'node20',
-    clean: false,
-    platform: 'node',
-    minify: true,
-    treeshake: false,
-    sourcemap: false,
-    deps: sharedDeps,
-    alias: sharedAlias,
-  },
-]);
+        buildReadyPlugin('extension'),
+      ],
+    },
+
+    // LSP server process
+    // Bundled separately so it can run as a forked child process.
+    // treeshake is disabled because @intlayer/lsp declares "sideEffects: false"
+    // even though the server runs entirely through top-level side effects
+    // (connection.listen(), documents.listen(), …).
+    {
+      entry: { 'lsp-server': './src/lsp-server.ts' },
+      format: 'cjs',
+      outExtensions: () => ({ js: '.js' }),
+      target: 'node20',
+      clean: false,
+      platform: 'node',
+      minify: !isWatchMode,
+      treeshake: false,
+      sourcemap: isWatchMode,
+      deps: sharedDeps,
+      alias: sharedAlias,
+      plugins: [buildReadyPlugin('lsp-server')],
+    },
+  ];
+});

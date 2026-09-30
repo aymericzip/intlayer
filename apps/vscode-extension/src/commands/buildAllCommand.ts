@@ -2,7 +2,10 @@ import { basename } from 'node:path';
 import { getConfiguration } from '@intlayer/config/node';
 import { prepareIntlayer } from '@intlayer/engine/build';
 import { window } from 'vscode';
-import { findAllProjectRoots, findProjectRoot } from '../utils/findProjectRoot';
+import {
+  type CommandSource,
+  resolveProjectDirOrPick,
+} from '../utils/findProjectRoot';
 import { getConfigurationOptions } from '../utils/getConfiguration';
 import { prefix } from '../utils/logFunctions';
 
@@ -14,8 +17,9 @@ import { prefix } from '../utils/logFunctions';
  * left behind by the production build that dropped the unmerged dictionaries.
  *
  * @param projectDir - Root directory of the project to build.
- * @param options.silent - Skip the progress toasts. Used when the build is
- * triggered automatically rather than by the user.
+ * @param options.silent - Skip the progress toasts, and only notify the build
+ * logger's warnings and errors. Used when the build is triggered
+ * automatically rather than by the user.
  * @returns Whether the build completed without throwing.
  */
 export const buildProjectDictionaries = async (
@@ -23,8 +27,11 @@ export const buildProjectDictionaries = async (
   options?: { silent?: boolean }
 ): Promise<boolean> => {
   try {
-    const configOptions = await getConfigurationOptions(projectDir);
-    const configuration = getConfiguration(configOptions);
+    const configuration = getConfiguration(
+      await getConfigurationOptions(projectDir, {
+        isBackground: options?.silent,
+      })
+    );
 
     if (!options?.silent) {
       await window.showInformationMessage(`${prefix}Building dictionaries...`);
@@ -48,26 +55,13 @@ export const buildProjectDictionaries = async (
   }
 };
 
-export const buildCommand = async () => {
-  let projectDir = findProjectRoot();
+export const buildCommand = async (source?: CommandSource) => {
+  const projectDir = await resolveProjectDirOrPick(
+    'Select the Intlayer project to build',
+    source
+  );
 
-  if (!projectDir) {
-    const roots = await findAllProjectRoots();
-    if (roots.length === 1) {
-      projectDir = roots[0];
-    } else if (roots.length > 1) {
-      const picked = await window.showQuickPick(roots, {
-        placeHolder: 'Select the Intlayer project to build',
-      });
-      if (!picked) return;
-      projectDir = picked;
-    } else {
-      await window.showErrorMessage(
-        `${prefix}Could not find intlayer project root.`
-      );
-      return;
-    }
-  }
+  if (!projectDir) return;
 
   await buildProjectDictionaries(projectDir);
 };

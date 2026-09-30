@@ -2,8 +2,11 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "type": "npm",
-      "script": "watch",
+      // A shell task, not `"type": "npm"`: VS Code's package-manager
+      // auto-detection picks yarn here, which fails on the bun
+      // `packageManager` field of the monorepo root
+      "type": "shell",
+      "command": "bun run watch",
       "isBackground": true,
       "group": {
         "kind": "build",
@@ -22,11 +25,12 @@
         },
         "background": {
           "activeOnStart": true,
-          "beginsPattern": "Build start",
-          "endsPattern": "(Build complete|Rebuilt|Copied assets)"
+          "beginsPattern": "(Build start|rebuilding)",
+          // Printed by tsdown.config.ts once every bundle and asset is written
+          "endsPattern": "\\[intlayer-vscode\\] build ready"
         }
       },
-      "label": "npm: watch"
+      "label": "watch"
     }
   ]
 }

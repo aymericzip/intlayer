@@ -19,6 +19,10 @@ export {
   getCallerNamesAlternation,
 } from './callers/patterns';
 export {
+  findFieldDeclaration,
+  type OffsetSpan,
+} from './findFieldDeclaration';
+export {
   escapeRegularExpression,
   findFieldRangesInFile,
   offsetToRange,
@@ -50,6 +54,15 @@ export {
   DICTIONARIES_NOT_BUILT_NOTIFICATION,
   type DictionariesNotBuiltParams,
 } from './protocol';
+export {
+  type DictionaryLoader,
+  type DictionaryTarget,
+  findContentPath,
+  getUsageTargetCandidates,
+  type ResolvedDictionaryTarget,
+  resolveDictionaryTarget,
+  type UsageTarget,
+} from './resolveDictionaryTarget';
 export {
   type CallerVariableBinding,
   collectCallerBindings,

@@ -1,159 +1,129 @@
 import { existsSync } from 'node:fs';
 import { dirname, isAbsolute, join } from 'node:path';
 import {
-  type DefinitionLink,
   type DefinitionProvider,
   type Position,
   Range,
   type TextDocument,
   Uri,
-  Position as VSCodePosition,
 } from 'vscode';
-import { dedupeDefinitionLinks } from '../utils/dedupeDefinitionLinks';
-import { findFieldLocation } from '../utils/findFieldLocation';
 import { findProjectRoot } from '../utils/findProjectRoot';
-import { getCachedConfig, getCachedDictionary } from '../utils/intlayerCache';
+import { getDeclarationLinks } from '../utils/resolveDeclaration';
 
+/** `file('./a.md')` in content files, `"filePath": "./a.md"` in JSON. */
+const FILE_REFERENCE_PATTERNS = [
+  /file\(\s*["']([^"']+)["']\s*\)/,
+  /"filePath"\s*:\s*["']([^"']+)["']/,
+];
+
+/** `nest('other-key')` in content files, `"key": "other-key"` in JSON. */
+const DICTIONARY_REFERENCE_PATTERNS = [
+  /nest\(\s*["']([^"']+)["']\s*\)/,
+  /"key"\s*:\s*["']([^"']+)["']/,
+];
+
+/**
+ * The quoted value of the first pattern matching at `position`, with the
+ * range it spans (quotes excluded).
+ */
+const findQuotedReference = (
+  document: TextDocument,
+  position: Position,
+  patterns: RegExp[]
+): { value: string; range: Range } | null => {
+  for (const pattern of patterns) {
+    const referenceRange = document.getWordRangeAtPosition(position, pattern);
+
+    if (!referenceRange) continue;
+
+    const match = /["']([^"']+)["']/.exec(document.getText(referenceRange));
+
+    if (!match) return null;
+
+    const valueStart =
+      document.offsetAt(referenceRange.start) + match.index + 1;
+
+    return {
+      value: match[1]!,
+      range: new Range(
+        document.positionAt(valueStart),
+        document.positionAt(valueStart + match[1]!.length)
+      ),
+    };
+  }
+
+  return null;
+};
+
+/** Resolve a `file()` path: relative to the content file, else the project. */
+const resolveReferencedFilePath = (
+  referencedPath: string,
+  fileDir: string,
+  projectDir: string
+): string | null => {
+  if (isAbsolute(referencedPath)) {
+    return existsSync(referencedPath) ? referencedPath : null;
+  }
+
+  return (
+    [join(fileDir, referencedPath), join(projectDir, referencedPath)].find(
+      existsSync
+    ) ?? null
+  );
+};
+
+/**
+ * Go-to-Definition inside content files: from `file()` paths to the file, and
+ * from `nest()` references to the nested dictionary's declarations.
+ */
 export const intlayerContentRedirectionProvider: DefinitionProvider = {
-  provideDefinition: async (document: TextDocument, position: Position) => {
+  provideDefinition: async (document, position) => {
     const fileDir = dirname(document.uri.fsPath);
     const projectDir = findProjectRoot(fileDir);
 
-    if (!projectDir) {
-      return null;
-    }
+    if (!projectDir) return null;
 
-    // 1. Detection of file() and nest() calls (TS/JS) or nodeType fields (JSON)
-    const fileRange = document.getWordRangeAtPosition(
+    const fileReference = findQuotedReference(
+      document,
       position,
-      /file\(\s*["']([^"']+)["']\s*\)/
-    );
-    const nestRange = document.getWordRangeAtPosition(
-      position,
-      /nest\(\s*["']([^"']+)["']\s*\)/
-    );
-    const jsonFileRange = document.getWordRangeAtPosition(
-      position,
-      /"filePath"\s*:\s*["']([^"']+)["']/
-    );
-    const jsonNestRange = document.getWordRangeAtPosition(
-      position,
-      /"key"\s*:\s*["']([^"']+)["']/
+      FILE_REFERENCE_PATTERNS
     );
 
-    // --- Case 1: file() or "filePath" ---
-    if (fileRange || jsonFileRange) {
-      const range = fileRange ?? jsonFileRange!;
-      const text = document.getText(range);
-      const match = text.match(/["']([^"']+)["']/);
-
-      if (!match || typeof match.index === 'undefined') {
-        return null;
-      }
-
-      const path = match[1];
-      const startOffset = match.index + 1;
-      const endOffset = startOffset + path.length;
-
-      const originSelectionRange = new Range(
-        document.positionAt(document.offsetAt(range.start) + startOffset),
-        document.positionAt(document.offsetAt(range.start) + endOffset)
+    if (fileReference) {
+      const targetPath = resolveReferencedFilePath(
+        fileReference.value,
+        fileDir,
+        projectDir
       );
 
-      let targetPath = path;
+      if (!targetPath) return null;
 
-      if (!isAbsolute(targetPath)) {
-        const relativeToFile = join(fileDir, targetPath);
-        if (existsSync(relativeToFile)) {
-          targetPath = relativeToFile;
-        } else {
-          targetPath = join(projectDir, targetPath);
-        }
-      }
+      const targetRange = new Range(0, 0, 0, 0);
 
-      if (existsSync(targetPath)) {
-        const targetUri = Uri.file(targetPath);
-        const targetRange = new Range(
-          new VSCodePosition(0, 0),
-          new VSCodePosition(0, 0)
-        );
-
-        return [
-          {
-            originSelectionRange,
-            targetUri,
-            targetRange,
-            targetSelectionRange: targetRange,
-          },
-        ] as DefinitionLink[];
-      }
-    }
-
-    // --- Case 2: nest() or "key" ---
-    if (nestRange || jsonNestRange) {
-      const range = nestRange ?? jsonNestRange!;
-      const text = document.getText(range);
-      const match = text.match(/["']([^"']+)["']/);
-
-      if (!match || typeof match.index === 'undefined') {
-        return null;
-      }
-
-      const word = match[1];
-      const startOffset = match.index + 1;
-      const endOffset = startOffset + word.length;
-
-      const originSelectionRange = new Range(
-        document.positionAt(document.offsetAt(range.start) + startOffset),
-        document.positionAt(document.offsetAt(range.start) + endOffset)
-      );
-
-      const config = await getCachedConfig(projectDir);
-      const dictionaryPath = join(
-        config.system.unmergedDictionariesDir,
-        `${word}.json`
-      );
-
-      const dictionaries = await getCachedDictionary(dictionaryPath);
-
-      if (!dictionaries) {
-        return null;
-      }
-
-      const links: DefinitionLink[] = [];
-
-      for (const dictionary of dictionaries) {
-        if (!dictionary.filePath) {
-          continue;
-        }
-
-        const absoluteSourcePath = join(projectDir, dictionary.filePath);
-        const sourceUri = Uri.file(absoluteSourcePath);
-
-        const location = await findFieldLocation(absoluteSourcePath, [
-          'content',
-        ]);
-
-        const targetRange = location
-          ? new Range(
-              new VSCodePosition(location.line, location.character),
-              new VSCodePosition(location.line, location.character)
-            )
-          : new Range(new VSCodePosition(0, 0), new VSCodePosition(0, 0));
-
-        links.push({
-          originSelectionRange,
-          targetUri: sourceUri,
-          targetRange: targetRange,
+      return [
+        {
+          originSelectionRange: fileReference.range,
+          targetUri: Uri.file(targetPath),
+          targetRange,
           targetSelectionRange: targetRange,
-        });
-      }
-
-      const uniqueLinks = dedupeDefinitionLinks(links);
-
-      return uniqueLinks.length ? uniqueLinks : null;
+        },
+      ];
     }
 
-    return null;
+    const dictionaryReference = findQuotedReference(
+      document,
+      position,
+      DICTIONARY_REFERENCE_PATTERNS
+    );
+
+    if (!dictionaryReference) return null;
+
+    const links = await getDeclarationLinks(
+      projectDir,
+      { dictionaryKey: dictionaryReference.value, fieldPath: [] },
+      dictionaryReference.range
+    );
+
+    return links.length ? links : null;
   },
 };

@@ -1,12 +1,17 @@
-import { listMissingTranslations } from '@intlayer/cli';
+import { listMissingTranslationsWithConfig } from '@intlayer/cli';
+import { getConfiguration } from '@intlayer/config/node';
+import { prepareIntlayer } from '@intlayer/engine/cli';
 import { window, workspace } from 'vscode';
-import { findAllProjectRoots, findProjectRoot } from '../utils/findProjectRoot';
+import {
+  type CommandSource,
+  resolveProjectDirOrPick,
+} from '../utils/findProjectRoot';
 import { getConfigurationOptions } from '../utils/getConfiguration';
 import { prefix } from '../utils/logFunctions';
 
 // Helper to pretty-print details into a temporary editor document
 const writeMissingReport = async (
-  result: Awaited<ReturnType<typeof listMissingTranslations>>
+  result: Awaited<ReturnType<typeof listMissingTranslationsWithConfig>>
 ) => {
   const lines: string[] = [];
   lines.push('## Intlayer — Missing Translations Report');
@@ -48,31 +53,23 @@ const writeMissingReport = async (
   await window.showTextDocument(doc, { preview: false });
 };
 
-export const testCommand = async () => {
-  let projectDir = findProjectRoot();
+export const testCommand = async (source?: CommandSource) => {
+  const projectDir = await resolveProjectDirOrPick(
+    'Select the Intlayer project to test',
+    source
+  );
 
-  if (!projectDir) {
-    const roots = await findAllProjectRoots();
-    if (roots.length === 1) {
-      projectDir = roots[0];
-    } else if (roots.length > 1) {
-      const picked = await window.showQuickPick(roots, {
-        placeHolder: 'Select the Intlayer project to test',
-      });
-      if (!picked) return;
-      projectDir = picked;
-    } else {
-      await window.showErrorMessage(
-        `${prefix}Could not find intlayer project root.`
-      );
-      return;
-    }
-  }
+  if (!projectDir) return;
 
   try {
-    const configOptions = await getConfigurationOptions(projectDir);
+    const configuration = getConfiguration(
+      await getConfigurationOptions(projectDir)
+    );
 
-    const result = listMissingTranslations(configOptions);
+    // Like `intlayer test`: refresh the dictionaries, reusing the build cache
+    await prepareIntlayer(configuration);
+
+    const result = listMissingTranslationsWithConfig(configuration);
 
     const hasIssues =
       result.missingTranslations.length > 0 || result.missingLocales.length > 0;
@@ -86,7 +83,7 @@ export const testCommand = async () => {
     }
   } catch (error) {
     await window.showErrorMessage(
-      `${prefix} test failed: ${(error as Error).message}`
+      `${prefix}Test failed: ${(error as Error).message}`
     );
   }
 };

@@ -1,87 +1,58 @@
-import { existsSync, readFileSync } from 'node:fs';
+import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import {
   getInitialSkills,
   installSkills,
-  PLATFORMS,
-  PLATFORMS_METADATA,
-  type Platform,
   SKILLS,
   SKILLS_METADATA,
   type Skill,
 } from '@intlayer/engine/cli';
-import { type QuickPickItem, window } from 'vscode';
+import { ProgressLocation, window } from 'vscode';
 import { findProjectRoot } from '../utils/findProjectRoot';
 import { formatResult } from '../utils/formatResult';
+import { getPlatformQuickPickItems } from '../utils/platformQuickPick';
 
-interface QuickPickItemWithValue<T> extends QuickPickItem {
-  value: T;
-}
+/** Dependencies and dev dependencies of the project, `{}` when unreadable. */
+const readProjectDependencies = async (
+  projectDir: string
+): Promise<Record<string, string>> => {
+  try {
+    const { dependencies, devDependencies } = JSON.parse(
+      await readFile(join(projectDir, 'package.json'), 'utf8')
+    );
 
-export const PLATFORM_OPTIONS: Array<{
-  value: Platform;
-  label: string;
-  hint: string;
-}> = PLATFORMS.map((platform) => ({
-  value: platform,
-  label: PLATFORMS_METADATA[platform].label,
-  hint: `(${PLATFORMS_METADATA[platform].dir})`,
-}));
+    return { ...dependencies, ...devDependencies };
+  } catch {
+    return {};
+  }
+};
 
 export const initSkills = async () => {
-  const root = findProjectRoot();
+  const projectDir = findProjectRoot();
 
-  if (!root) {
+  if (!projectDir) {
     await window.showErrorMessage('Could not find project root.');
     return;
   }
 
-  const selectedPlatforms = await window.showQuickPick<
-    QuickPickItemWithValue<Platform>
-  >(
-    PLATFORM_OPTIONS.map((platform) => ({
-      label: platform.label,
-      detail: platform.hint,
-      value: platform.value,
-      picked: platform.value === 'VSCode',
-    })),
-    {
-      placeHolder: 'Which platforms are you using?',
-      canPickMany: false,
-    }
+  const selectedPlatform = await window.showQuickPick(
+    getPlatformQuickPickItems(),
+    { placeHolder: 'Which platforms are you using?' }
   );
 
-  if (!selectedPlatforms) {
-    return;
-  }
+  if (!selectedPlatform) return;
 
-  // Detect framework skills
-  let dependencies: Record<string, string> = {};
-  try {
-    const packageJsonPath = join(root, 'package.json');
+  // Preselect the skills of the frameworks the project depends on
+  const initialSkills: Skill[] = getInitialSkills(
+    await readProjectDependencies(projectDir)
+  );
 
-    if (existsSync(packageJsonPath)) {
-      const packageJson = JSON.parse(readFileSync(packageJsonPath, 'utf-8'));
-
-      dependencies = {
-        ...packageJson.dependencies,
-        ...packageJson.devDependencies,
-      };
-    }
-  } catch {
-    // Ignore errors reading package.json
-  }
-
-  const initialValues: Skill[] = getInitialSkills(dependencies);
-
-  const selectedSkills = await window.showQuickPick<
-    QuickPickItemWithValue<Skill>
-  >(
+  const selectedSkills = await window.showQuickPick(
     SKILLS.map((skill: Skill) => ({
       label: skill,
       detail: SKILLS_METADATA[skill],
       value: skill,
-      picked: initialValues.includes(skill),
+      picked: initialSkills.includes(skill),
     })),
     {
       placeHolder: 'Select the documentation skills to provide to your AI',
@@ -89,26 +60,22 @@ export const initSkills = async () => {
     }
   );
 
-  if (!selectedSkills || selectedSkills.length === 0) {
-    return;
-  }
+  if (!selectedSkills?.length) return;
 
-  // Call installSkills for each platform
   await window.withProgress(
     {
-      location: 15, // Notification
+      location: ProgressLocation.Notification,
       title: 'Installing Intlayer skills...',
-      cancellable: false,
     },
     async () => {
-      const originalCwd = process.cwd();
+      const originalWorkingDirectory = process.cwd();
 
       try {
-        process.chdir(root);
+        process.chdir(projectDir);
 
         const result = await installSkills(
-          root,
-          selectedPlatforms.value,
+          projectDir,
+          selectedPlatform.value,
           selectedSkills.map((skill) => skill.value)
         );
 
@@ -119,8 +86,8 @@ export const initSkills = async () => {
         await window.showErrorMessage(
           `Failed to install skills: ${String(error)}`
         );
-
-        process.chdir(originalCwd);
+      } finally {
+        process.chdir(originalWorkingDirectory);
       }
     }
   );

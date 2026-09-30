@@ -30,7 +30,3 @@ export const setSelectedEnvironment = async (
     await workspaceState.update(STORE_KEY, { ...inMemoryStore });
   }
 };
-
-export const getAllSelectedEnvironments = (): ProjectEnvMap => ({
-  ...inMemoryStore,
-});

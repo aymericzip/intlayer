@@ -1,31 +1,6 @@
 import { basename } from 'node:path';
-import {
-  detectPackageManager,
-  findLockFileDir,
-  type PackageManager,
-} from '@intlayer/engine/cli';
 import { window, workspace } from 'vscode';
-
-/** Command prefix that runs a package binary without installing it. */
-const PACKAGE_RUNNER_COMMANDS: Record<PackageManager, string> = {
-  npm: 'npx',
-  bun: 'bunx',
-  pnpm: 'pnpm dlx',
-  yarn: 'yarn dlx',
-};
-
-/**
- * Builds the interactive `intlayer init` command for the package manager of
- * the project (resolved from the nearest lock file, so monorepo packages use
- * the workspace package manager).
- */
-export const getInitCommand = (projectDir: string): string => {
-  const packageManager = detectPackageManager(
-    findLockFileDir(projectDir) ?? projectDir
-  );
-
-  return `${PACKAGE_RUNNER_COMMANDS[packageManager]} intlayer init --interactive`;
-};
+import { runIntlayerCliInTerminal } from '../utils/runIntlayerCli';
 
 /** Asks which project to initialize when several candidates are available. */
 const pickProjectDir = async (
@@ -69,11 +44,9 @@ export const initProject = async (projectDirs?: string[]): Promise<void> => {
     return;
   }
 
-  const terminal = window.createTerminal({
-    name: 'Intlayer init',
-    cwd: projectDir,
+  runIntlayerCliInTerminal(projectDir, {
+    terminalName: 'Intlayer init',
+    args: ['init', '--interactive'],
+    remote: true,
   });
-
-  terminal.show();
-  terminal.sendText(getInitCommand(projectDir));
 };

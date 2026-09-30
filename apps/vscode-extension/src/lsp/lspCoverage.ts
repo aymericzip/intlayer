@@ -1,7 +1,11 @@
 import { extname } from 'node:path';
 import type { TextDocument } from 'vscode';
-import { getCachedConfig } from '../utils/intlayerCache';
-import { isLSPClientRunning, LSP_LANGUAGES } from './client';
+import { LSP_LANGUAGES } from '../documentSelector';
+import {
+  getCachedConfig,
+  isContentDeclarationFile,
+} from '../utils/intlayerCache';
+import { isLSPClientRunning } from './client';
 
 /**
  * Single-file components. The server analyses the raw file text, and its parser
@@ -44,8 +48,5 @@ export const isDefinitionHandledByLSPServer = async (
 
   // Content files: the server bails out and delegates to the extension
   // providers (reverse lookup, `file()` / `nest()` redirection).
-  const config = await getCachedConfig(projectDir);
-  const contentExtensions = config.content?.fileExtensions ?? [];
-
-  return !contentExtensions.some((extension) => filePath.endsWith(extension));
+  return !isContentDeclarationFile(filePath, await getCachedConfig(projectDir));
 };
