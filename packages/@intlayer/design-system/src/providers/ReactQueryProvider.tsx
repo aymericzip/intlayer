@@ -111,6 +111,21 @@ declare module '@tanstack/react-query' {
 const formatErrorCode = (errorCode: string) => errorCode.split('_').join(' ');
 
 /**
+ * Flattens the per-field validation messages of an `*_INVALID_FIELDS` API
+ * error (`{ errors: { name: ['Name must be…'] } }`) into a single line.
+ * Returns `undefined` when the error carries no field messages.
+ */
+const formatFieldErrors = (fieldErrors: unknown): string | undefined => {
+  if (!fieldErrors || typeof fieldErrors !== 'object') return undefined;
+
+  const messages = Object.values(fieldErrors as Record<string, unknown>)
+    .flat()
+    .filter((message): message is string => typeof message === 'string');
+
+  return messages.length > 0 ? messages.join(' ') : undefined;
+};
+
+/**
  * Hook to handle error logging and toast notifications
  */
 const useToastEvents = () => {
@@ -144,6 +159,7 @@ const useToastEvents = () => {
             : (apiError?.title ?? err?.title ?? 'Error')
         ),
         description:
+          formatFieldErrors(apiError?.errors) ??
           apiError?.message ??
           err?.message ??
           String(apiError ?? 'An error occurred'),
@@ -157,7 +173,10 @@ const useToastEvents = () => {
       toast({
         title: formatErrorCode(data.error.title ?? data.error.code ?? 'Error'),
         description:
-          data.error.message ?? data.error.code ?? 'An error occurred',
+          formatFieldErrors(data.error.errors) ??
+          data.error.message ??
+          data.error.code ??
+          'An error occurred',
         variant: 'error',
       });
     }

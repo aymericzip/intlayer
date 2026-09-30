@@ -16,7 +16,7 @@ type ValidationErrors = Partial<
   Record<(typeof defaultFieldsToCheck)[number], string[]>
 >;
 
-export const NAME_MIN_LENGTH = 4;
+export const NAME_MIN_LENGTH = 1;
 export const NAME_MAX_LENGTH = 100;
 
 export const MEMBERS_MIN_LENGTH = 1;
