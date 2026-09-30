@@ -705,6 +705,12 @@ Untuk detail lebih lanjut tentang cara menggunakan ekstensi ini, lihat [dokument
 
 - [dokumentasi Ekstensi VS Code Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/vs_code_extension.md)
 
+### Vue Devtools
+
+`vue-intlayer` mendaftarkan panel **Intlayer** di [Vue Devtools](https://devtools.vuejs.org/) secara bawaan. Buka tab **Vue** di devtools browser Anda dan pilih **Intlayer** di bilah sisi untuk memeriksa kamus beserta terjemahannya per lokal, atau untuk mengganti lokal aktif aplikasi.
+
+Saat [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) telah disiapkan, terjemahan teks biasa juga dapat diedit langsung dari panel: perubahan ditulis kembali ke file deklarasi konten Anda dan dimuat ulang secara instan di aplikasi.
+
 ### Melangkah Lebih Jauh
 
 Untuk melangkah lebih jauh, Anda dapat mengimplementasikan [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) atau mengeksternalisasi konten Anda menggunakan [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md).

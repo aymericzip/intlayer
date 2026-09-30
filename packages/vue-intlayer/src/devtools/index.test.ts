@@ -1,3 +1,4 @@
+import { getEditorAPI } from '@intlayer/api/editor';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { Dictionary } from '@intlayer/types/dictionary';
@@ -13,6 +14,7 @@ import {
   LOCALES_GROUP_NODE_ID,
 } from './buildLocalesInspectorNode';
 import {
+  EDITOR_OFFLINE_NODE_ID,
   enableIntlayerDevtools,
   INTLAYER_DEVTOOLS_PLUGIN_ID,
   INTLAYER_DICTIONARIES_INSPECTOR_ID,
@@ -33,6 +35,10 @@ vi.mock('@intlayer/config/built', () => ({
   },
 }));
 
+vi.mock('@intlayer/api/editor', () => ({
+  getEditorAPI: vi.fn(),
+}));
+
 vi.mock('../client/installIntlayer', () => ({
   createIntlayerClient: vi.fn(),
 }));
@@ -43,8 +49,11 @@ vi.mock('../client/useLocaleStorage', () => ({
 
 const setupDevtoolsPluginMock = vi.mocked(setupDevtoolsPlugin);
 const getDictionariesMock = vi.mocked(getDictionaries);
+const getEditorAPIMock = vi.mocked(getEditorAPI);
 const createIntlayerClientMock = vi.mocked(createIntlayerClient);
 const setLocaleInStorageMock = vi.mocked(setLocaleInStorage);
+const getEditorDictionariesMock = vi.fn();
+const writeDictionaryMock = vi.fn();
 const clientLocale = ref('en');
 const setLocaleMock = vi.fn((locale: string) => {
   clientLocale.value = locale;
@@ -62,6 +71,12 @@ type StatePayload = {
   inspectorId: string;
   nodeId: string;
   state: Record<string, StateEntry[]>;
+};
+type EditPayload = {
+  inspectorId: string;
+  nodeId: string;
+  path: string[];
+  state: { value?: unknown; newKey?: string | null; remove?: boolean };
 };
 type InspectorOptions = {
   id: string;
@@ -85,6 +100,33 @@ const fakeDictionary = {
   },
 } as unknown as Dictionary;
 
+const fakeDeclaration = {
+  key: 'app-content',
+  title: 'App content',
+  description: 'Content of the app',
+  localId: 'app-content::local::src/app.content.ts',
+  filePath: 'src/app.content.ts',
+  content: {
+    title: {
+      nodeType: 'translation',
+      translation: { en: 'Hello', fr: 'Bonjour' },
+    },
+    note: 'Plain note',
+    intro: { nodeType: 'markdown', markdown: 'Hello **World**!' },
+  },
+} as unknown as Dictionary;
+
+const editableTag = {
+  label: 'editable',
+  textColor: 0xffffff,
+  backgroundColor: 0x42b883,
+};
+
+const offlineNode = {
+  id: EDITOR_OFFLINE_NODE_ID,
+  label: 'Enable live editing (editor server)',
+};
+
 /**
  * Run `enableIntlayerDevtools` and capture the handlers registered on the
  * mocked devtools API.
@@ -107,8 +149,9 @@ const setupDevtools = (currentLocale = 'en') => {
 
   const [descriptor, setupCallback] = registrationCall;
 
-  let treeHandler: (payload: TreePayload) => void = () => {};
-  let stateHandler: (payload: StatePayload) => void = () => {};
+  let treeHandler: (payload: TreePayload) => Promise<void> = async () => {};
+  let stateHandler: (payload: StatePayload) => Promise<void> = async () => {};
+  let editHandler: (payload: EditPayload) => Promise<void> = async () => {};
   const addInspector = vi.fn();
   const sendInspectorTree = vi.fn();
   const sendInspectorState = vi.fn();
@@ -118,12 +161,21 @@ const setupDevtools = (currentLocale = 'en') => {
     sendInspectorTree,
     sendInspectorState,
     on: {
-      getInspectorTree: vi.fn((handler: (payload: TreePayload) => void) => {
-        treeHandler = handler;
-      }),
-      getInspectorState: vi.fn((handler: (payload: StatePayload) => void) => {
-        stateHandler = handler;
-      }),
+      getInspectorTree: vi.fn(
+        (handler: (payload: TreePayload) => Promise<void>) => {
+          treeHandler = handler;
+        }
+      ),
+      getInspectorState: vi.fn(
+        (handler: (payload: StatePayload) => Promise<void>) => {
+          stateHandler = handler;
+        }
+      ),
+      editInspectorState: vi.fn(
+        (handler: (payload: EditPayload) => Promise<void>) => {
+          editHandler = handler;
+        }
+      ),
     },
   } as never);
 
@@ -135,6 +187,7 @@ const setupDevtools = (currentLocale = 'en') => {
     inspectorOptions,
     treeHandler,
     stateHandler,
+    editHandler,
     sendInspectorTree,
     sendInspectorState,
   };
@@ -151,9 +204,29 @@ const buildStatePayload = (nodeId: string): StatePayload => ({
   state: {},
 });
 
+const buildEditPayload = (
+  nodeId: string,
+  path: string[],
+  value: unknown
+): EditPayload => ({
+  inspectorId: INTLAYER_DICTIONARIES_INSPECTOR_ID,
+  nodeId,
+  path,
+  state: { value, newKey: null },
+});
+
 describe('enableIntlayerDevtools', () => {
   beforeEach(() => {
     vi.clearAllMocks();
+
+    // Editor server unreachable by default: the inspector stays read-only
+    getEditorDictionariesMock.mockRejectedValue(
+      new Error('connect ECONNREFUSED')
+    );
+    getEditorAPIMock.mockReturnValue({
+      getDictionaries: getEditorDictionariesMock,
+      writeDictionary: writeDictionaryMock,
+    } as never);
   });
 
   it('registers the plugin and the dictionaries inspector', () => {
@@ -169,7 +242,7 @@ describe('enableIntlayerDevtools', () => {
     );
   });
 
-  it('lists one root node per loaded dictionary', () => {
+  it('lists one root node per loaded dictionary', async () => {
     getDictionariesMock.mockReturnValue({
       'app-content': fakeDictionary,
       'other-dictionary': { ...fakeDictionary, key: 'other-dictionary' },
@@ -178,29 +251,45 @@ describe('enableIntlayerDevtools', () => {
     const { treeHandler } = setupDevtools();
     const payload = buildTreePayload();
 
-    treeHandler(payload);
+    await treeHandler(payload);
 
     expect(payload.rootNodes).toEqual([
       { id: 'app-content', label: 'app-content' },
       { id: 'other-dictionary', label: 'other-dictionary' },
+      offlineNode,
       buildLocalesInspectorNode('en' as Locale),
     ]);
   });
 
-  it('shows a hint node when no dictionary is loaded', () => {
+  it('shows a hint node when no dictionary is loaded', async () => {
     getDictionariesMock.mockReturnValue({});
 
     const { treeHandler } = setupDevtools();
     const payload = buildTreePayload();
 
-    treeHandler(payload);
+    await treeHandler(payload);
 
-    expect(payload.rootNodes).toHaveLength(2);
+    expect(payload.rootNodes).toHaveLength(3);
     expect(payload.rootNodes[0]?.label).toContain('No dictionaries loaded');
-    expect(payload.rootNodes[1]?.id).toBe(LOCALES_GROUP_NODE_ID);
+    expect(payload.rootNodes[1]?.id).toBe(EDITOR_OFFLINE_NODE_ID);
+    expect(payload.rootNodes[2]?.id).toBe(LOCALES_GROUP_NODE_ID);
   });
 
-  it('ignores tree requests from other inspectors', () => {
+  it('explains how to enable live editing on the offline node', async () => {
+    const { stateHandler } = setupDevtools();
+    const payload = buildStatePayload(EDITOR_OFFLINE_NODE_ID);
+
+    await stateHandler(payload);
+
+    expect(payload.state['Live editing']?.map((entry) => entry.value)).toEqual([
+      'Intlayer editor server not detected',
+      'Set `editor.enabled: true` in intlayer.config, run ' +
+        '`npx intlayer editor start`, then reopen this panel',
+      'Edits are written back to your .content source files',
+    ]);
+  });
+
+  it('ignores tree requests from other inspectors', async () => {
     getDictionariesMock.mockReturnValue({ 'app-content': fakeDictionary });
 
     const { treeHandler } = setupDevtools();
@@ -209,18 +298,18 @@ describe('enableIntlayerDevtools', () => {
       rootNodes: [{ id: 'existing', label: 'existing' }],
     };
 
-    treeHandler(payload);
+    await treeHandler(payload);
 
     expect(payload.rootNodes).toEqual([{ id: 'existing', label: 'existing' }]);
   });
 
-  it('exposes flattened translations and metadata as read-only state', () => {
+  it('exposes flattened translations and metadata as read-only state', async () => {
     getDictionariesMock.mockReturnValue({ 'app-content': fakeDictionary });
 
     const { stateHandler } = setupDevtools();
     const payload = buildStatePayload('app-content');
 
-    stateHandler(payload);
+    await stateHandler(payload);
 
     expect(payload.state.Translations).toEqual([
       {
@@ -236,24 +325,24 @@ describe('enableIntlayerDevtools', () => {
     ]);
   });
 
-  it('returns an empty state for an unknown dictionary node', () => {
+  it('returns an empty state for an unknown dictionary node', async () => {
     getDictionariesMock.mockReturnValue({ 'app-content': fakeDictionary });
 
     const { stateHandler } = setupDevtools();
     const payload = buildStatePayload('unknown');
 
-    stateHandler(payload);
+    await stateHandler(payload);
 
     expect(payload.state).toEqual({});
   });
 
-  it('lists a child node per available locale under the Locales group', () => {
+  it('lists a child node per available locale under the Locales group', async () => {
     getDictionariesMock.mockReturnValue({ 'app-content': fakeDictionary });
 
     const { treeHandler } = setupDevtools('fr');
     const payload = buildTreePayload();
 
-    treeHandler(payload);
+    await treeHandler(payload);
 
     const localesNode = payload.rootNodes.find(
       (node) => node.id === LOCALES_GROUP_NODE_ID
@@ -276,11 +365,11 @@ describe('enableIntlayerDevtools', () => {
     ]);
   });
 
-  it('exposes the locale availability as state of the Locales group', () => {
+  it('exposes the locale availability as state of the Locales group', async () => {
     const { stateHandler } = setupDevtools('fr');
     const payload = buildStatePayload(LOCALES_GROUP_NODE_ID);
 
-    stateHandler(payload);
+    await stateHandler(payload);
 
     expect(payload.state).toEqual({
       Locales: [
@@ -291,11 +380,11 @@ describe('enableIntlayerDevtools', () => {
     });
   });
 
-  it('exposes the locale details as state of a locale node', () => {
+  it('exposes the locale details as state of a locale node', async () => {
     const { stateHandler } = setupDevtools('fr');
     const payload = buildStatePayload(`${LOCALE_NODE_ID_PREFIX}fr`);
 
-    stateHandler(payload);
+    await stateHandler(payload);
 
     expect(payload.state).toEqual({
       Locale: [
@@ -305,13 +394,13 @@ describe('enableIntlayerDevtools', () => {
     });
   });
 
-  it('parses the locale from a node id carrying the current suffix', () => {
+  it('parses the locale from a node id carrying the current suffix', async () => {
     const { stateHandler } = setupDevtools('fr');
     const payload = buildStatePayload(
       `${LOCALE_NODE_ID_PREFIX}fr${CURRENT_LOCALE_NODE_ID_SUFFIX}`
     );
 
-    stateHandler(payload);
+    await stateHandler(payload);
 
     expect(payload.state).toEqual({
       Locale: [
@@ -385,13 +474,13 @@ describe('enableIntlayerDevtools', () => {
     consoleErrorSpy.mockRestore();
   });
 
-  it('moves the current tag when the tree is refetched after a switch', () => {
+  it('moves the current tag when the tree is refetched after a switch', async () => {
     getDictionariesMock.mockReturnValue({ 'app-content': fakeDictionary });
 
     const { inspectorOptions, treeHandler } = setupDevtools();
 
     const initialPayload = buildTreePayload();
-    treeHandler(initialPayload);
+    await treeHandler(initialPayload);
 
     const initialLocalesNode = initialPayload.rootNodes.find(
       (node) => node.id === LOCALES_GROUP_NODE_ID
@@ -404,7 +493,7 @@ describe('enableIntlayerDevtools', () => {
 
     // Simulate the devtools backend refetching the tree on sendInspectorTree
     const refreshedPayload = buildTreePayload();
-    treeHandler(refreshedPayload);
+    await treeHandler(refreshedPayload);
 
     const refreshedLocalesNode = refreshedPayload.rootNodes.find(
       (node) => node.id === LOCALES_GROUP_NODE_ID
@@ -438,5 +527,277 @@ describe('enableIntlayerDevtools', () => {
     expect(sendInspectorState).toHaveBeenCalledWith(
       INTLAYER_DICTIONARIES_INSPECTOR_ID
     );
+  });
+});
+
+describe('enableIntlayerDevtools with the editor server online', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+
+    getEditorDictionariesMock.mockResolvedValue({
+      'app-content': [fakeDeclaration],
+    });
+    getEditorAPIMock.mockReturnValue({
+      getDictionaries: getEditorDictionariesMock,
+      writeDictionary: writeDictionaryMock,
+    } as never);
+  });
+
+  it('lists one editable node per unmerged declaration', async () => {
+    const { treeHandler } = setupDevtools();
+    const payload = buildTreePayload();
+
+    await treeHandler(payload);
+
+    expect(payload.rootNodes).toEqual([
+      {
+        id: 'app-content::local::src/app.content.ts',
+        label: 'app-content',
+        tags: [editableTag],
+      },
+      buildLocalesInspectorNode('en' as Locale),
+    ]);
+  });
+
+  it('labels the declarations of a same key with their locale', async () => {
+    getEditorDictionariesMock.mockResolvedValue({
+      'app-content': [
+        {
+          ...fakeDeclaration,
+          localId: 'app-content::local::src/app.en.content.ts',
+          filePath: 'src/app.en.content.ts',
+          locale: 'en',
+        },
+        {
+          ...fakeDeclaration,
+          localId: 'app-content::local::src/app.fr.content.ts',
+          filePath: 'src/app.fr.content.ts',
+          locale: 'fr',
+        },
+      ],
+    });
+
+    const { treeHandler } = setupDevtools();
+    const payload = buildTreePayload();
+
+    await treeHandler(payload);
+
+    expect(payload.rootNodes.map((node) => node.label)).toEqual([
+      'app-content (en)',
+      'app-content (fr)',
+      'Locales',
+    ]);
+  });
+
+  it('flags only plain-text rows as editable', async () => {
+    const { stateHandler } = setupDevtools();
+    const payload = buildStatePayload('app-content::local::src/app.content.ts');
+
+    await stateHandler(payload);
+
+    expect(payload.state.Translations).toEqual([
+      {
+        key: 'title',
+        value: { en: 'Hello', fr: 'Bonjour' },
+        editable: true,
+      },
+      { key: 'note', value: 'Plain note', editable: true },
+      { key: 'intro', value: 'Hello **World**!', editable: false },
+    ]);
+    expect(payload.state.Metadata).toEqual([
+      { key: 'key', value: 'app-content', editable: false },
+      { key: 'title', value: 'App content', editable: false },
+      { key: 'description', value: 'Content of the app', editable: false },
+      { key: 'file', value: 'src/app.content.ts', editable: false },
+    ]);
+  });
+
+  it('writes a translation edit back through the editor server', async () => {
+    writeDictionaryMock.mockResolvedValue({ data: { status: 'updated' } });
+
+    const { editHandler, sendInspectorState } = setupDevtools();
+
+    await editHandler(
+      buildEditPayload(
+        'app-content::local::src/app.content.ts',
+        ['title', 'fr'],
+        'Salut'
+      )
+    );
+
+    expect(writeDictionaryMock).toHaveBeenCalledTimes(1);
+
+    const writtenDictionary = writeDictionaryMock.mock.calls[0]?.[0]
+      .dictionary as Dictionary;
+    const writtenContent = writtenDictionary.content as Record<string, any>;
+
+    expect(writtenDictionary.localId).toBe(
+      'app-content::local::src/app.content.ts'
+    );
+    expect(writtenDictionary.filePath).toBe('src/app.content.ts');
+    expect(writtenContent.title.translation).toEqual({
+      en: 'Hello',
+      fr: 'Salut',
+    });
+    expect(sendInspectorState).toHaveBeenCalledWith(
+      INTLAYER_DICTIONARIES_INSPECTOR_ID
+    );
+  });
+
+  it('writes a plain string edit back through the editor server', async () => {
+    writeDictionaryMock.mockResolvedValue({ data: { status: 'updated' } });
+
+    const { editHandler } = setupDevtools();
+
+    await editHandler(
+      buildEditPayload(
+        'app-content::local::src/app.content.ts',
+        ['note'],
+        'Edited note'
+      )
+    );
+
+    const writtenDictionary = writeDictionaryMock.mock.calls[0]?.[0]
+      .dictionary as Dictionary;
+    const writtenContent = writtenDictionary.content as Record<string, any>;
+
+    expect(writtenContent.note).toBe('Edited note');
+  });
+
+  it('keeps showing the written value while the server regenerates', async () => {
+    // The server keeps answering the pre-edit content until its file watcher
+    // regenerates the unmerged dictionaries; the written declaration shadows
+    // it in the meantime
+    writeDictionaryMock.mockResolvedValue({ data: { status: 'updated' } });
+
+    const { editHandler, stateHandler } = setupDevtools();
+
+    await editHandler(
+      buildEditPayload(
+        'app-content::local::src/app.content.ts',
+        ['title', 'en'],
+        'Hi there'
+      )
+    );
+
+    const payload = buildStatePayload('app-content::local::src/app.content.ts');
+    await stateHandler(payload);
+
+    expect(payload.state.Translations?.[0]).toEqual({
+      key: 'title',
+      value: { en: 'Hi there', fr: 'Bonjour' },
+      editable: true,
+    });
+  });
+
+  it('ignores edits on non-editable rows', async () => {
+    const { editHandler } = setupDevtools();
+
+    await editHandler(
+      buildEditPayload(
+        'app-content::local::src/app.content.ts',
+        ['intro'],
+        'nope'
+      )
+    );
+
+    expect(writeDictionaryMock).not.toHaveBeenCalled();
+  });
+
+  it('ignores edits for unknown nodes and removals', async () => {
+    const { editHandler } = setupDevtools();
+
+    await editHandler(buildEditPayload('unknown-node', ['title', 'en'], 'x'));
+    await editHandler({
+      ...buildEditPayload(
+        'app-content::local::src/app.content.ts',
+        ['title', 'en'],
+        undefined
+      ),
+      state: { remove: true },
+    });
+
+    expect(writeDictionaryMock).not.toHaveBeenCalled();
+  });
+
+  it('still resends the state when the write fails', async () => {
+    writeDictionaryMock.mockRejectedValue(new Error('write failed'));
+    const consoleErrorSpy = vi
+      .spyOn(console, 'error')
+      .mockImplementation(() => {});
+
+    const { editHandler, sendInspectorState } = setupDevtools();
+
+    await editHandler(
+      buildEditPayload(
+        'app-content::local::src/app.content.ts',
+        ['title', 'fr'],
+        'Salut'
+      )
+    );
+
+    expect(consoleErrorSpy).toHaveBeenCalled();
+    expect(sendInspectorState).toHaveBeenCalledWith(
+      INTLAYER_DICTIONARIES_INSPECTOR_ID
+    );
+
+    consoleErrorSpy.mockRestore();
+  });
+
+  it('ignores edits targeting other inspectors', async () => {
+    const { editHandler } = setupDevtools();
+
+    await editHandler({
+      ...buildEditPayload(
+        'app-content::local::src/app.content.ts',
+        ['title', 'fr'],
+        'Salut'
+      ),
+      inspectorId: 'other-inspector',
+    });
+
+    expect(writeDictionaryMock).not.toHaveBeenCalled();
+  });
+});
+
+describe('enableIntlayerDevtools editor server recovery', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+
+    getEditorAPIMock.mockReturnValue({
+      getDictionaries: getEditorDictionariesMock,
+      writeDictionary: writeDictionaryMock,
+    } as never);
+  });
+
+  it('switches to editable declarations when the server comes online', async () => {
+    getEditorDictionariesMock.mockRejectedValue(
+      new Error('connect ECONNREFUSED')
+    );
+    getDictionariesMock.mockReturnValue({ 'app-content': fakeDictionary });
+
+    const { treeHandler } = setupDevtools();
+
+    const offlinePayload = buildTreePayload();
+    await treeHandler(offlinePayload);
+
+    expect(offlinePayload.rootNodes.map((node) => node.id)).toEqual([
+      'app-content',
+      EDITOR_OFFLINE_NODE_ID,
+      LOCALES_GROUP_NODE_ID,
+    ]);
+
+    // The server starts; the next tree fetch picks the declarations up
+    getEditorDictionariesMock.mockResolvedValue({
+      'app-content': [fakeDeclaration],
+    });
+
+    const onlinePayload = buildTreePayload();
+    await treeHandler(onlinePayload);
+
+    expect(onlinePayload.rootNodes.map((node) => node.id)).toEqual([
+      'app-content::local::src/app.content.ts',
+      LOCALES_GROUP_NODE_ID,
+    ]);
   });
 });

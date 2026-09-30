@@ -1184,6 +1184,12 @@ Intlayer와 함께하는 개발 환경을 개선하기 위해 공식 **Intlayer 
 
 - [Intlayer VS Code 확장 프로그램 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/vs_code_extension.md)
 
+### Vue Devtools
+
+`vue-intlayer`는 [Vue Devtools](https://devtools.vuejs.org/)에 **Intlayer** 패널을 기본으로 등록합니다. 브라우저 개발자 도구의 **Vue** 탭을 열고 사이드바에서 **Intlayer**를 선택하면 사전과 로케일별 번역을 확인하거나 앱의 현재 로케일을 전환할 수 있습니다.
+
+[비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)가 설정되어 있으면 일반 텍스트 번역도 패널에서 직접 인라인으로 편집할 수 있습니다. 편집 내용은 콘텐츠 선언 파일에 다시 기록되고 앱에 즉시 핫 리로드됩니다.
+
 ### 더 나아가기
 
 더 나아가려면 [비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)를 구현하거나 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)를 사용하여 콘텐츠를 외부화할 수 있습니다.

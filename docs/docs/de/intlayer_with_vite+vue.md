@@ -1182,6 +1182,12 @@ Weitere Details zur Verwendung der Extension finden Sie in der [Intlayer VS Code
 
 - [Intlayer VS Code Extension Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/vs_code_extension.md)
 
+### Vue Devtools
+
+`vue-intlayer` registriert standardmäßig ein **Intlayer**-Panel in den [Vue Devtools](https://devtools.vuejs.org/). Öffne den **Vue**-Tab in den Browser-Devtools und wähle **Intlayer** in der Seitenleiste, um deine Dictionaries und ihre Übersetzungen pro Locale zu durchsuchen oder die aktuelle Locale der App zu wechseln.
+
+Wenn der [visuelle Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md) eingerichtet ist, können reine Textübersetzungen auch direkt im Panel bearbeitet werden: Änderungen werden zurück in deine Content-Deklarationsdateien geschrieben und per Hot-Reload in der App aktualisiert.
+
 ### Weiterführende Schritte
 
 Um weiterzugehen, können Sie den [visuellen Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md) implementieren oder Ihre Inhalte mit dem [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md) auslagern.

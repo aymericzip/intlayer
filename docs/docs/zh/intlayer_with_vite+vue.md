@@ -1177,6 +1177,12 @@ Intlayer 使用模块扩展 (module augmentation) 来利用 TypeScript 的优势
 
 - [Intlayer VS Code 扩展文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/vs_code_extension.md)
 
+### Vue Devtools
+
+`vue-intlayer` 默认会在 [Vue Devtools](https://devtools.vuejs.org/) 中注册一个 **Intlayer** 面板。打开浏览器开发者工具的 **Vue** 标签页，在侧边栏选择 **Intlayer**，即可查看各个字典及其各语言翻译，或切换应用当前的语言。
+
+配置好[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)后，纯文本翻译还可以直接在面板中内联编辑：修改会写回你的内容声明文件，并在应用中即时热更新。
+
 ### 深入了解
 
 要进一步使用，您可以实现[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)或使用[内容管理系统（CMS）](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)将内容外部化。

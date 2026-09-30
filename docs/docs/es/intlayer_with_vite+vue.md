@@ -1215,6 +1215,12 @@ Para más detalles sobre cómo usar la extensión, consulta la [documentación d
 
 - [documentación de la extensión Intlayer para VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/vs_code_extension.md)
 
+### Vue Devtools
+
+`vue-intlayer` registra un panel de **Intlayer** en [Vue Devtools](https://devtools.vuejs.org/) de forma predeterminada. Abre la pestaña **Vue** de las herramientas de desarrollo del navegador y selecciona **Intlayer** en la barra lateral para inspeccionar tus diccionarios y sus traducciones por idioma, o para cambiar el idioma actual de la aplicación.
+
+Cuando el [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md) está configurado, las traducciones de texto plano también se pueden editar directamente desde el panel: los cambios se escriben de nuevo en tus archivos de declaración de contenido y se recargan en caliente en la aplicación.
+
 ### Ir más allá
 
 Para ir más allá, puedes implementar el [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md) o externalizar tu contenido usando el [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md).

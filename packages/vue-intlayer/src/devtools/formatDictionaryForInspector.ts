@@ -10,6 +10,11 @@ export type FlattenedDictionary = Record<
   Record<string, string> | string
 >;
 
+/**
+ * Label used for a typed node sitting at the root of the dictionary content.
+ */
+export const ROOT_PATH = '(root)';
+
 type TranslationNode = {
   nodeType: 'translation';
   translation: Record<string, string>;
@@ -41,7 +46,7 @@ const flattenContent = (
   path: string[],
   result: FlattenedDictionary
 ): void => {
-  const leafPath = path.length === 0 ? '(root)' : path.join('.');
+  const leafPath = path.length === 0 ? ROOT_PATH : path.join('.');
 
   if (isTranslationNode(node)) {
     result[leafPath] = node.translation;

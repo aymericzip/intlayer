@@ -1165,6 +1165,12 @@ Uzantının nasıl kullanılacağı hakkında daha fazla ayrıntı için [Intlay
 
 - [Intlayer VS Code Uzantısı belgelerine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/vs_code_extension.md)
 
+### Vue Devtools
+
+`vue-intlayer`, [Vue Devtools](https://devtools.vuejs.org/) içinde hazır olarak bir **Intlayer** paneli kaydeder. Sözlüklerinizi ve yerel ayar başına çevirilerini incelemek ya da uygulamanın geçerli yerel ayarını değiştirmek için tarayıcı geliştirici araçlarının **Vue** sekmesini açın ve kenar çubuğunda **Intlayer** öğesini seçin.
+
+[Görsel düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) kurulduğunda, düz metin çevirileri panelden satır içi olarak da düzenlenebilir: düzenlemeler içerik bildirim dosyalarınıza geri yazılır ve uygulamada anında yeniden yüklenir.
+
 ### Daha Fazla İlerle
 
 Daha ileri gitmek için [görsel düzenleyiciyi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) uygulayabilir veya içeriğinizi [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) kullanarak dışa aktarabilirsiniz.

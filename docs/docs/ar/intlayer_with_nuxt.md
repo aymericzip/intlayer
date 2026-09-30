@@ -706,6 +706,12 @@ import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
 
 - [توثيق امتداد Intlayer لـ VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/vs_code_extension.md)
 
+### Vue Devtools
+
+يسجّل `vue-intlayer` لوحة **Intlayer** في [Vue Devtools](https://devtools.vuejs.org/) بشكل جاهز. افتح تبويب **Vue** في أدوات المطوّر بالمتصفح واختر **Intlayer** من الشريط الجانبي لفحص القواميس وترجماتها لكل لغة، أو لتبديل اللغة الحالية للتطبيق.
+
+عند إعداد [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)، يمكن أيضًا تحرير الترجمات النصية البسيطة مباشرة من اللوحة: تُكتب التعديلات مرة أخرى في ملفات تعريف المحتوى وتُطبَّق فورًا في التطبيق عبر إعادة التحميل السريع.
+
 ### التعمق أكثر
 
 للتقدم أكثر، يمكنك تنفيذ [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) أو تعريض محتواك باستخدام [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).

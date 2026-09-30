@@ -706,6 +706,12 @@ Intlayer के साथ अपने विकास अनुभव को �
 
 - [Intlayer VS Code एक्सटेंशन दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/vs_code_extension.md)
 
+### Vue Devtools
+
+`vue-intlayer` [Vue Devtools](https://devtools.vuejs.org/) में **Intlayer** पैनल स्वतः पंजीकृत करता है। अपने ब्राउज़र डेवटूल्स का **Vue** टैब खोलें और साइडबार में **Intlayer** चुनें — वहाँ आप अपनी डिक्शनरी और उनके प्रति-लोकेल अनुवाद देख सकते हैं या ऐप की वर्तमान लोकेल बदल सकते हैं।
+
+जब [विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) सेट अप होता है, तो साधारण टेक्स्ट अनुवादों को पैनल से ही इनलाइन संपादित भी किया जा सकता है: बदलाव आपकी कंटेंट डिक्लेरेशन फ़ाइलों में वापस लिखे जाते हैं और ऐप में तुरंत हॉट-रिलोड हो जाते हैं।
+
 ### आगे बढ़ें
 
 आगे बढ़ने के लिए, आप [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) को लागू कर सकते हैं या अपने कंटेंट को [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md) का उपयोग करके बाहरी रूप से प्रबंधित कर सकते हैं।

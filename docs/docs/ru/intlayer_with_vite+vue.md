@@ -1173,6 +1173,12 @@ Intlayer использует расширение модулей (module augmen
 
 - [документации Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/vs_code_extension.md)
 
+### Vue Devtools
+
+`vue-intlayer` регистрирует панель **Intlayer** в [Vue Devtools](https://devtools.vuejs.org/) по умолчанию. Откройте вкладку **Vue** в инструментах разработчика браузера и выберите **Intlayer** на боковой панели, чтобы просматривать словари и их переводы для каждой локали или переключать текущую локаль приложения.
+
+Когда настроен [визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md), простые текстовые переводы также можно редактировать прямо в панели: изменения записываются обратно в файлы деклараций контента и мгновенно применяются в приложении через горячую перезагрузку.
+
 ### Продвинутые возможности
 
 Для расширения возможностей вы можете реализовать [визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md) или вынести ваш контент во внешний [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md).

@@ -709,6 +709,12 @@ For more details on how to use the extension, refer to the [Intlayer VS Code Ext
 
 - [Intlayer VS Code Extension documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md)
 
+### Vue Devtools
+
+`vue-intlayer` registers an **Intlayer** panel in [Vue Devtools](https://devtools.vuejs.org/) out of the box. Open the **Vue** tab of your browser devtools and select **Intlayer** in the sidebar to inspect your dictionaries and their per-locale translations, or to switch the current locale of the app.
+
+When the [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) is set up, plain-text translations can also be edited inline from the panel: edits are written back to your content declaration files and hot-reloaded in the app.
+
 ### Go Further
 
 To go further, you can implement the [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) or externalize your content using the [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
