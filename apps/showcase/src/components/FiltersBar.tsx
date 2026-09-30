@@ -28,6 +28,8 @@ export const FiltersBar = ({
 
   return (
     <Container
+      border
+      borderColor="neutral"
       className="sticky top-20 z-10 mx-auto my-3 w-full max-w-5xl shadow"
       roundedSize="3xl"
       padding="sm"
@@ -64,7 +66,13 @@ export const FiltersBar = ({
             isFocusable
             isOverable
           >
-            <Container className="min-w-45" roundedSize="xl" padding="sm">
+            <Container
+              border
+              borderColor="neutral"
+              className="min-w-45"
+              roundedSize="xl"
+              padding="sm"
+            >
               <div className="z-50 flex flex-col gap-2">
                 {useCasesList.map((uc) => (
                   <Checkbox

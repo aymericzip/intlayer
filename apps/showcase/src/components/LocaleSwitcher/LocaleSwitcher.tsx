@@ -73,7 +73,9 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({ panelProps }) => {
           {...panelProps}
         >
           <Container
-            className="max-h-[80vh] min-w-42 border border-text/5"
+            border
+            borderColor="neutral"
+            className="max-h-[80vh] min-w-42"
             separator="y"
             roundedSize="xl"
             transparency="xs"

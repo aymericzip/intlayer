@@ -246,7 +246,13 @@ export const ProjectSidebar: FC<ProjectSidebarProps> = ({
         </Modal>
       )}
 
-      <Container padding="xl" roundedSize="3xl" transparency="lg">
+      <Container
+        border
+        borderColor="neutral"
+        padding="xl"
+        roundedSize="3xl"
+        transparency="lg"
+      >
         <div className="flex items-start gap-4">
           {project.logoUrl && (
             <Container
@@ -283,6 +289,8 @@ export const ProjectSidebar: FC<ProjectSidebarProps> = ({
       </Container>
 
       <Container
+        border
+        borderColor="neutral"
         className="flex flex-col"
         roundedSize="3xl"
         padding="lg"
@@ -309,6 +317,8 @@ export const ProjectSidebar: FC<ProjectSidebarProps> = ({
       {/* Owner-only actions */}
       {initialProject.isOwner && (
         <Container
+          border
+          borderColor="neutral"
           className="flex flex-col"
           roundedSize="3xl"
           padding="md"
@@ -416,6 +426,8 @@ export const ProjectSidebar: FC<ProjectSidebarProps> = ({
 
       {/* Rating Section inside Sidebar */}
       <Container
+        border
+        borderColor="neutral"
         className="flex flex-col"
         roundedSize="3xl"
         padding="lg"
@@ -460,6 +472,8 @@ export const ProjectSidebar: FC<ProjectSidebarProps> = ({
       {/* Package Details Section */}
       {packageEntries.length > 0 && (
         <Container
+          border
+          borderColor="neutral"
           className="flex flex-col"
           roundedSize="3xl"
           padding="lg"

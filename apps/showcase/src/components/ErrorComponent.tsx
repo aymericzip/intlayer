@@ -18,6 +18,8 @@ export const ErrorComponent = ({ error, reset }: ErrorComponentProps) => {
         {content.somethingWentWrong}
       </h1>
       <Container
+        border
+        borderColor="neutral"
         padding="lg"
         roundedSize="2xl"
         className="my-10 max-w-xl gap-4 text-start"

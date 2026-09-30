@@ -18,6 +18,8 @@ export const ScanItem: FC<ScanItemProps> = ({
   success,
 }) => (
   <Container
+    border
+    borderColor="neutral"
     className="flex flex-col shadow-sm transition-all"
     roundedSize="2xl"
     padding="md"

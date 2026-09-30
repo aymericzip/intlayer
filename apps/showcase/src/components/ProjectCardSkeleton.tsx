@@ -3,6 +3,8 @@ import { Container } from '@intlayer/design-system/container';
 export const ProjectCardSkeleton = () => {
   return (
     <Container
+      border
+      borderColor="neutral"
       className="group relative h-full overflow-hidden shadow-lg transition-all [-webkit-mask-image:-webkit-radial-gradient(white,black)]"
       roundedSize="3xl"
       transparency="lg"

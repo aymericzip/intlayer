@@ -88,7 +88,7 @@ export const ProjectReadme = React.memo(({ githubUrl }: ProjectReadmeProps) => {
       <Container
         roundedSize="2xl"
         border
-        borderColor="text"
+        borderColor="neutral"
         className="max-h-[80vh] overflow-scroll bg-text-opposite"
       >
         <MemoizedMarkdown content={readme} />

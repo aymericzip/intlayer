@@ -78,7 +78,13 @@ export const ProjectScanDetails: FC<ProjectScanDetailsProps> = ({
         <H2 className="font-bold text-text text-xl">{content.seoHeader}</H2>
         <p className="text-neutral text-xs">{content.seoDescription}</p>
       </div>
-      <Container roundedSize="3xl" padding="lg" transparency="lg">
+      <Container
+        border
+        borderColor="neutral"
+        roundedSize="3xl"
+        padding="lg"
+        transparency="lg"
+      >
         <AnalyzerPageResults data={mergedData} url={url} />
 
         <div className="mt-8 grid grid-cols-1 gap-8 border-neutral/20 border-t border-dotted pt-8 md:grid-cols-2">

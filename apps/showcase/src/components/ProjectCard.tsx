@@ -34,6 +34,8 @@ export const ProjectCard = ({ project, ...props }: ProjectCardProps) => {
 
   return (
     <Container
+      border
+      borderColor="neutral"
       key={project.id}
       className="group relative h-full overflow-hidden shadow-lg transition-all [-webkit-mask-image:-webkit-radial-gradient(white,black)] hover:shadow-xl"
       roundedSize="3xl"

@@ -35,7 +35,7 @@ export const MoreProjects: FC<MoreProjectsProps> = ({ excludeId }) => {
         roundedSize="3xl"
         background="none"
         border
-        borderColor="text"
+        borderColor="neutral"
       >
         {isPending ? (
           <div className="flex flex-col gap-6">
@@ -49,6 +49,8 @@ export const MoreProjects: FC<MoreProjectsProps> = ({ excludeId }) => {
           </div>
         ) : otherProjects.length === 0 ? (
           <Container
+            border
+            borderColor="neutral"
             roundedSize="3xl"
             transparency="lg"
             className="size-full min-h-36 flex-col items-center justify-center"
