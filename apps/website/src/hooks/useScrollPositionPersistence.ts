@@ -10,12 +10,22 @@ export const useScrollPositionPersistence = <T extends HTMLElement>(
 ) => {
   const elementRef = useRef<T>(null);
 
-  // Restore scroll position on mount
+  // Restore scroll position on mount, deferred to an animation frame
+  // to avoid forced reflow during initial mount/hydration commit.
   useEffect(() => {
     const savedScrollPosition = sessionStorage.getItem(storageKey);
-    if (savedScrollPosition && elementRef.current) {
-      elementRef.current.scrollTop = parseInt(savedScrollPosition, 10);
-    }
+    if (!savedScrollPosition) return;
+
+    const parsedPosition = parseInt(savedScrollPosition, 10);
+    if (Number.isNaN(parsedPosition)) return;
+
+    const rafId = requestAnimationFrame(() => {
+      if (elementRef.current) {
+        elementRef.current.scrollTop = parsedPosition;
+      }
+    });
+
+    return () => cancelAnimationFrame(rafId);
   }, [storageKey]);
 
   // Save scroll position on scroll

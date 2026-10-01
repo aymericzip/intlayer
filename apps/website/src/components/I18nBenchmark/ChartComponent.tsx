@@ -160,63 +160,77 @@ export const ChartComponent: FC<{
       },
     };
 
-    chartRef.current = new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: data.map((d) => d.label),
-        datasets: [
-          {
-            data: data.map((d) => d.value),
-            backgroundColor: data.map((d) => d.color),
-            borderRadius: 6,
-            borderSkipped: false,
+    let isCancelled = false;
+
+    // Defer chart instantiation to the next animation frame so that
+    // Framer Motion's mounting animations have finished applying styles,
+    // avoiding a forced reflow when Chart.js measures canvas dimensions.
+    const rafId = requestAnimationFrame(() => {
+      if (isCancelled || !canvasRef.current) return;
+
+      const currentCtx = canvasRef.current.getContext('2d');
+      if (!currentCtx) return;
+
+      chartRef.current = new Chart(currentCtx, {
+        type: 'bar',
+        data: {
+          labels: data.map((d) => d.label),
+          datasets: [
+            {
+              data: data.map((d) => d.value),
+              backgroundColor: data.map((d) => d.color),
+              borderRadius: 6,
+              borderSkipped: false,
+            },
+          ],
+        },
+        options: {
+          indexAxis: 'y',
+          responsive: true,
+          maintainAspectRatio: false,
+          animation: { duration: 350 },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: (context) => {
+                  const item = data[context.dataIndex];
+                  let text = `${context.parsed.x?.toFixed(1)} ${unit}`;
+                  if (item.min !== item.value || item.max !== item.value) {
+                    text += ` (range: ${item.min.toFixed(1)} - ${item.max.toFixed(1)})`;
+                  }
+                  if (item.version) text += ` · v${item.version}`;
+                  return text;
+                },
+              },
+            },
           },
-        ],
-      },
-      options: {
-        indexAxis: 'y',
-        responsive: true,
-        maintainAspectRatio: false,
-        animation: { duration: 350 },
-        plugins: {
-          legend: { display: false },
-          tooltip: {
-            callbacks: {
-              label: (context) => {
-                const item = data[context.dataIndex];
-                let text = `${context.parsed.x?.toFixed(1)} ${unit}`;
-                if (item.min !== item.value || item.max !== item.value) {
-                  text += ` (range: ${item.min.toFixed(1)} - ${item.max.toFixed(1)})`;
-                }
-                if (item.version) text += ` · v${item.version}`;
-                return text;
+          layout: { padding: { left: 26, right: 16 } },
+          scales: {
+            x: {
+              grid: { display: false },
+              ticks: { color: '#9ca3af' },
+              suggestedMax: Math.max(
+                ...data.map((d) => Math.max(d.value, d.max))
+              ),
+            },
+            y: {
+              grid: { display: false },
+              ticks: {
+                color: '#9ca3af',
+                font: { size: 11, weight: 'bold' },
+                autoSkip: false,
               },
             },
           },
         },
-        layout: { padding: { left: 26, right: 16 } },
-        scales: {
-          x: {
-            grid: { display: false },
-            ticks: { color: '#9ca3af' },
-            suggestedMax: Math.max(
-              ...data.map((d) => Math.max(d.value, d.max))
-            ),
-          },
-          y: {
-            grid: { display: false },
-            ticks: {
-              color: '#9ca3af',
-              font: { size: 11, weight: 'bold' },
-              autoSkip: false,
-            },
-          },
-        },
-      },
-      plugins: [logoPlugin, rangePlugin],
+        plugins: [logoPlugin, rangePlugin],
+      });
     });
 
     return () => {
+      isCancelled = true;
+      cancelAnimationFrame(rafId);
       chartRef.current?.destroy();
       chartRef.current = null;
     };
@@ -229,7 +243,7 @@ export const ChartComponent: FC<{
         minHeight: data.length * ROW_HEIGHT_PIXELS + AXIS_HEIGHT_PIXELS,
       }}
     >
-      <canvas ref={canvasRef} />
+      <canvas ref={canvasRef} className="block size-full" />
     </div>
   );
 };

@@ -83,6 +83,8 @@ export const NavTitles: FC<NavTitlesProps> = ({ onActiveLinkChange }) => {
       return;
     }
 
+    let scrollRafId: number | null = null;
+
     // Measured on the shared frame rather than straight from the effect: the
     // active link has just been re-styled by this very commit, so reading its
     // box here would force the browser to lay the nav out again.
@@ -109,19 +111,30 @@ export const NavTitles: FC<NavTitlesProps> = ({ onActiveLinkChange }) => {
       const maxTop = window.innerHeight * 0.5;
 
       if (relativeTop < minTop) {
-        scrollContainer.scrollBy({
-          top: relativeTop - minTop,
-          behavior: 'smooth',
+        const delta = relativeTop - minTop;
+        scrollRafId = requestAnimationFrame(() => {
+          scrollContainer.scrollBy({
+            top: delta,
+            behavior: 'smooth',
+          });
         });
       } else if (relativeTop > maxTop) {
-        scrollContainer.scrollBy({
-          top: relativeTop - maxTop,
-          behavior: 'smooth',
+        const delta = relativeTop - maxTop;
+        scrollRafId = requestAnimationFrame(() => {
+          scrollContainer.scrollBy({
+            top: delta,
+            behavior: 'smooth',
+          });
         });
       }
     });
 
-    return cancelScrollIntoView;
+    return () => {
+      cancelScrollIntoView();
+      if (scrollRafId !== null) {
+        cancelAnimationFrame(scrollRafId);
+      }
+    };
   }, [activeId, onActiveLinkChange]);
 
   return (

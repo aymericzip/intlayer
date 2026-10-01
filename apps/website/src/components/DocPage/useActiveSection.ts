@@ -25,6 +25,32 @@ type UseActiveSectionReturn = {
 };
 
 /**
+ * Computes an element's vertical offset relative to its scroll container
+ * using `offsetTop` rather than `getBoundingClientRect()`, avoiding forced reflows
+ * from full matrix and viewport calculations.
+ */
+const getElementOffsetRelativeTo = (
+  element: HTMLElement,
+  container: HTMLElement
+): number => {
+  let top = 0;
+  let current: HTMLElement | null = element;
+  while (current && current !== container) {
+    top += current.offsetTop;
+    current = current.offsetParent as HTMLElement | null;
+  }
+  if (current === container) {
+    return top;
+  }
+  // Fallback if not in the offsetParent hierarchy
+  return (
+    element.getBoundingClientRect().top -
+    container.getBoundingClientRect().top +
+    container.scrollTop
+  );
+};
+
+/**
  * Custom hook to detect and track the currently active section based on scroll position
  * @param options Configuration options for the hook
  * @returns Object containing active parent and child headings
@@ -55,19 +81,31 @@ export const useActiveSection = ({
     const measureOffsets = () => {
       headingOffsets.clear();
 
-      const containerTop = contentElement?.getBoundingClientRect().top ?? 0;
-      const containerScroll = contentElement?.scrollTop ?? window.scrollY;
+      if (!contentElement) {
+        const windowScroll = window.scrollY;
+        for (const [parent, children] of headingMap) {
+          for (const heading of [parent, ...children]) {
+            headingOffsets.set(
+              heading,
+              heading.getBoundingClientRect().top + windowScroll
+            );
+          }
+        }
+        containerHeight = window.innerHeight;
+        areOffsetsStale = false;
+        return;
+      }
 
       for (const [parent, children] of headingMap) {
         for (const heading of [parent, ...children]) {
           headingOffsets.set(
             heading,
-            heading.getBoundingClientRect().top - containerTop + containerScroll
+            getElementOffsetRelativeTo(heading, contentElement)
           );
         }
       }
 
-      containerHeight = contentElement?.clientHeight ?? window.innerHeight;
+      containerHeight = contentElement.clientHeight;
       areOffsetsStale = false;
     };
 

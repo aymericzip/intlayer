@@ -154,22 +154,7 @@
   }
 }
 
-/* The subheading additionally sharpens as it arrives. */
-@keyframes hero-enter-sharpen {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-    filter: blur(10px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-    filter: blur(0);
-  }
-}
-
-.hero-enter,
-.hero-enter-sharpen {
+.hero-enter {
   animation-duration: 0.6s;
   animation-timing-function: ease-out;
   animation-fill-mode: both;
@@ -179,13 +164,8 @@
   animation-name: hero-enter;
 }
 
-.hero-enter-sharpen {
-  animation-name: hero-enter-sharpen;
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .hero-enter,
-  .hero-enter-sharpen {
+  .hero-enter {
     animation: none;
   }
 }

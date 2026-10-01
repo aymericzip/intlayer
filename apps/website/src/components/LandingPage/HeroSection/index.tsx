@@ -69,10 +69,7 @@ export const HeroSection: FC = () => {
               className="mb-3 px-2 text-center font-bold text-3xl leading-tight sm:text-4xl md:text-5xl lg:text-6xl"
             />
             {/* Subtitle */}
-            <h2
-              className="hero-enter-sharpen px-2 text-center font-semibold text-lg leading-snug sm:text-2xl md:text-3xl lg:text-4xl"
-              style={{ animationDelay: '0.5s' }}
-            >
+            <h2 className="px-2 text-center font-semibold text-lg leading-snug sm:text-2xl md:text-3xl lg:text-4xl">
               {subheading}
             </h2>
           </div>
