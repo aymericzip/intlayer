@@ -1,5 +1,15 @@
-import { createFileRoute, Outlet, redirect } from '@tanstack/react-router';
-import { defaultLocale, getIntlayerAsync, getLocalizedUrl } from 'intlayer';
+import {
+  createFileRoute,
+  notFound,
+  Outlet,
+  redirect,
+} from '@tanstack/react-router';
+import {
+  defaultLocale,
+  getIntlayerAsync,
+  getLocalizedUrl,
+  locales,
+} from 'intlayer';
 import { getOgImageUrl, getOgLocale, toAbsoluteUrl } from '~/utils/seo';
 
 function getRedirectUrl(_pathname: string): string | null {
@@ -7,7 +17,17 @@ function getRedirectUrl(_pathname: string): string | null {
 }
 
 export const Route = createFileRoute('/{-$locale}')({
-  beforeLoad: ({ location }) => {
+  beforeLoad: ({ location, params }) => {
+    // An unknown single-segment path (`/sitemap_index.xml`, `/foo`) matches
+    // this optional segment and would render the home page with a 200 — a soft
+    // 404 that crawlers index and audit tools mistake for real pages.
+    if (
+      params.locale &&
+      !(locales as readonly string[]).includes(params.locale)
+    ) {
+      throw notFound();
+    }
+
     const pathname = location.pathname;
 
     if (pathname.includes('/assets/') && !pathname.startsWith('/assets/')) {

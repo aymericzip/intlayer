@@ -6,6 +6,7 @@
  *   1. Doc and blog pages whose URLs changed or were merged (preserve SEO equity)
  *   2. Removed blog pages → /blog
  *   3. App-domain shortcuts (/pricing, /dashboard, /admin, /auth/*)
+ *   4. Conventional sitemap locations → the sitemap index
  */
 /**
  * Intentionally avoids importing from 'h3' — Nitro bundles h3 internally and
@@ -126,6 +127,17 @@ const APP_SHORTCUT_PATHS = new Set([
   '/auth/password/change',
 ]);
 
+/**
+ * Sitemap locations crawlers and audit tools probe by convention. The index is
+ * served at `/sitemap.xml` only, so each one points there instead of falling
+ * through to the not-found page.
+ */
+const SITEMAP_ALIAS_PATHS = new Set([
+  '/sitemap_index.xml',
+  '/sitemap-index.xml',
+  '/sitemaps.xml',
+]);
+
 const redirect = (location: string): Response =>
   new Response(null, { status: 301, headers: { Location: location } });
 
@@ -149,6 +161,10 @@ const splitPath = (path: string): { pathname: string; search: string } => {
 
 export default (event: H3EventLike): Response | void => {
   const { pathname, search } = splitPath(event.path);
+
+  // ── 4. Conventional sitemap locations ──────────────────────────────────────
+  if (SITEMAP_ALIAS_PATHS.has(pathname)) return redirect('/sitemap.xml');
+
   const { locale, rest } = parseLocale(pathname);
 
   // ── 1. Doc and blog pages that moved ───────────────────────────────────────
