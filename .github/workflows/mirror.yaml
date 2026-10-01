@@ -3,13 +3,9 @@ name: 🪞 Mirror to GitLab & Bitbucket
 # GitHub is the source of truth: every branch and tag is force-pushed to the
 # mirrors. Anything committed directly on GitLab/Bitbucket gets overwritten,
 # so merge contributions coming from there through GitHub.
+# Triggered manually from the Actions tab (or `gh workflow run mirror.yaml`).
 
 on:
-  push:
-    branches:
-      - '**'
-    tags:
-      - '**'
   workflow_dispatch:
 
 # Queue runs instead of running them in parallel so pushes never race
