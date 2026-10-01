@@ -15,6 +15,7 @@ import {
   Website_POFormatter_Path,
   Website_Scanner_Path,
   Website_TMS_Path,
+  Website_Translate_Path,
   Website_VueI18nFormatter_Path,
 } from '@intlayer/design-system/routes';
 import {
@@ -124,6 +125,7 @@ export const staticSitemapEntries: Omit<SitemapUrlEntry, 'lastmod'>[] = [
   { path: Website_Contributors_Path, changefreq: 'weekly', priority: 0.2 },
   { path: Website_CMS_Path, changefreq: 'monthly', priority: 0.8 },
   { path: Website_TMS_Path, changefreq: 'monthly', priority: 0.8 },
+  { path: Website_Translate_Path, changefreq: 'monthly', priority: 0.8 },
   { path: Website_Markdown_Path, changefreq: 'monthly', priority: 0.8 },
   { path: Website_Demo_Path, changefreq: 'monthly', priority: 0.8 },
   { path: Website_Playground_Path, changefreq: 'monthly', priority: 0.8 },

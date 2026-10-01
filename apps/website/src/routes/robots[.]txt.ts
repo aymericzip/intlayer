@@ -1,6 +1,7 @@
 import {
   Website_Domain,
   Website_NotFound_Path,
+  Website_Origin,
   WellKnown_AiCatalog_Path,
 } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
@@ -46,9 +47,12 @@ const getContentSignalDirective = (): string =>
     .join(', ')}`;
 
 /**
- * AI crawler and agent user agents explicitly allowed on public content, so
- * auditors that look for them by name see the permission stated rather than
- * inferred from `User-agent: *`.
+ * AI crawler and agent user agents, named so auditors that look for them see
+ * the permission stated rather than inferred from `User-agent: *`.
+ *
+ * They join the `*` group instead of getting an `Allow: /` group of their own:
+ * a crawler obeys only the most specific group matching it, so a separate group
+ * would reopen every `Disallow` below to them.
  */
 const AI_BOT_USER_AGENTS = [
   // OpenAI: training crawler, search index, on-demand fetches for ChatGPT
@@ -65,9 +69,12 @@ const AI_BOT_USER_AGENTS = [
   // Perplexity: index crawler and on-demand fetches
   'PerplexityBot',
   'Perplexity-User',
-  // Apple Intelligence, Meta AI, Common Crawl
+  // Apple Intelligence, Amazon, Meta AI, Mistral, DuckDuckGo, Common Crawl
   'Applebot-Extended',
+  'Amazonbot',
   'meta-externalagent',
+  'MistralAI-User',
+  'DuckAssistBot',
   'CCBot',
 ];
 
@@ -75,38 +82,37 @@ export const Route = createFileRoute('/robots.txt')({
   server: {
     handlers: {
       GET: () => {
-        const disallow = getAllUrls([Website_NotFound_Path]);
-        const siteUrl =
-          import.meta.env.VITE_URL ?? import.meta.env.VITE_SITE_URL ?? '';
-        const cmsUrl = import.meta.env.VITE_CMS_URL ?? '';
+        const siteUrl = (
+          import.meta.env.VITE_URL ||
+          import.meta.env.VITE_SITE_URL ||
+          Website_Origin
+        ).replace(/\/$/, '');
 
-        let text = '';
-        for (const bot of AI_BOT_USER_AGENTS) {
-          text += `User-agent: ${bot}\n`;
-          text += 'Allow: /\n\n';
-        }
+        const lines = [
+          ...[...AI_BOT_USER_AGENTS, '*'].map(
+            (userAgent) => `User-agent: ${userAgent}`
+          ),
+          // Must sit inside the User-agent group it applies to.
+          getContentSignalDirective(),
+          'Allow: /',
+          ...getAllUrls([Website_NotFound_Path]).map(
+            (path) => `Disallow: ${path}`
+          ),
+          '',
+          // Only this host's sitemap: a sitemap may only submit URLs of its
+          // own host, and every subdomain advertises its own in its robots.txt.
+          `Sitemap: ${siteUrl}/sitemap.xml`,
+          // Points agents at the ARD capability manifest, the way `Sitemap`
+          // points crawlers at the sitemap. `Agentmap` is not a registered
+          // directive, and validators (Lighthouse included) report an unknown
+          // one as a malformed robots.txt — which risks the whole file being
+          // mistrusted. The manifest is already advertised by the
+          // `Link: rel="ai-catalog"` response header and its well-known path,
+          // so this stays a comment: still readable, never invalid.
+          `# Agentmap: https://${Website_Domain}${WellKnown_AiCatalog_Path}`,
+        ];
 
-        text += '# General robots rules\n';
-        text += 'User-agent: *\n';
-        // Must sit inside the User-agent block it applies to.
-        text += `${getContentSignalDirective()}\n`;
-        text += 'Allow: /\n';
-        for (const path of disallow) {
-          text += `Disallow: ${path}\n`;
-        }
-        if (siteUrl) text += `Host: ${siteUrl}\n`;
-        text += `Sitemap: ${siteUrl}/sitemap.xml\n`;
-        if (cmsUrl) text += `Sitemap: ${cmsUrl}/sitemap.xml\n`;
-        // Points agents at the ARD capability manifest, the way `Sitemap`
-        // points crawlers at the sitemap. `Agentmap` is not a registered
-        // directive, and validators (Lighthouse included) report an unknown
-        // one as a malformed robots.txt — which risks the whole file being
-        // mistrusted. The manifest is already advertised by the
-        // `Link: rel="ai-catalog"` response header and its well-known path, so
-        // this stays a comment: still readable, never invalid.
-        text += `# Agentmap: https://${Website_Domain}${WellKnown_AiCatalog_Path}\n`;
-
-        return new Response(text, {
+        return new Response(`${lines.join('\n')}\n`, {
           headers: { 'Content-Type': 'text/plain; charset=utf-8' },
         });
       },

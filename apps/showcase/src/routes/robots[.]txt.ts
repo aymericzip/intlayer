@@ -1,62 +1,14 @@
-import {
-  App_Admin_Path,
-  App_Affiliation_Path,
-  App_Auth_Path,
-  App_Dashboard_Analytics_Path,
-  App_Dashboard_Assets_Path,
-  App_Dashboard_Dictionaries_Path,
-  App_Dashboard_Editor_Path,
-  App_Dashboard_IDE_Path,
-  App_Dashboard_Organization_Path,
-  App_Dashboard_Profile_Path,
-  App_Dashboard_Projects_Path,
-  App_Dashboard_Scanner_Path,
-  App_Dashboard_Tags_Path,
-  App_Dashboard_Translate_Path,
-  App_Init_Path,
-  App_NotFound_Path,
-  App_Onboarding_Path,
-  App_Origin,
-} from '@intlayer/design-system/routes';
+import { App_NotFound_Path } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
 import { getMultilingualUrls } from 'intlayer';
+import { SITE_URL } from '#/lib/site';
+
+/** Paths kept out of the index: the not-found page shares the app's `/404`. */
+const PRIVATE_PATHS = [App_NotFound_Path];
 
 /**
- * Paths a signed-out crawler can only ever receive an empty app shell for.
- *
- * Leaving them crawlable produced hundreds of near-duplicate, content-less URLs
- * — every dashboard route answers with the same `Project | Dashboard` title —
- * which is why none of them belongs in `routes/sitemap[.]xml.ts` either.
- */
-const PRIVATE_PATHS = [
-  App_NotFound_Path,
-  App_Init_Path,
-  App_Auth_Path,
-  App_Admin_Path,
-  App_Onboarding_Path,
-  App_Affiliation_Path,
-  App_Dashboard_Editor_Path,
-  App_Dashboard_Translate_Path,
-  App_Dashboard_Dictionaries_Path,
-  App_Dashboard_Projects_Path,
-  App_Dashboard_Tags_Path,
-  App_Dashboard_Organization_Path,
-  App_Dashboard_Profile_Path,
-  App_Dashboard_IDE_Path,
-  App_Dashboard_Scanner_Path,
-  App_Dashboard_Assets_Path,
-  App_Dashboard_Analytics_Path,
-];
-
-/** Absolute origin of the dashboard, without a trailing slash. */
-const SITE_URL = (import.meta.env.VITE_SITE_URL || App_Origin).replace(
-  /\/$/,
-  ''
-);
-
-/**
- * Expands every path into its localized variants, so `/fr/admin` is disallowed
- * alongside `/admin` — a `Disallow` matches a URL prefix, not a route.
+ * Expands every path into its localized variants, so `/fr/404` is disallowed
+ * alongside `/404` — a `Disallow` matches a URL prefix, not a route.
  *
  * @param paths - The unprefixed paths to disallow.
  * @returns Every localized URL to list under `Disallow`.

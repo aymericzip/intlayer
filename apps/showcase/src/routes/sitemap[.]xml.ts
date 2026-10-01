@@ -1,77 +1,84 @@
+import { getIntlayerAPI } from '@intlayer/api';
 import {
   Showcase_Root_Path,
   Showcase_Submit_Path,
 } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
-import { generateSitemap } from 'intlayer';
+import { generateSitemap, type SitemapUrlEntry } from 'intlayer';
 import { SITE_URL } from '#/lib/site';
 
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL ?? '';
-const SHOWCASE_API = `${BACKEND_URL}/api/showcase-project`;
+/** Projects requested per showcase page. */
+const PROJECT_PAGE_SIZE = 100;
 
-type ProjectEntry = { _id: string; createdAt?: string };
+/** A page of a paginated backend listing, as the sitemap reads it. */
+type PaginatedItems<Item> = {
+  data: Item[] | null;
+  total_pages: number | null;
+};
 
-const fetchAllProjects = async (): Promise<ProjectEntry[]> => {
-  const all: ProjectEntry[] = [];
-  let page = 1;
-  const pageSize = 100;
+/**
+ * Collects every item of a paginated backend listing.
+ *
+ * A failing page stops the walk and keeps what was already collected: a
+ * partial sitemap beats a 500 that drops every URL.
+ *
+ * @param fetchPage - Fetches one 1-indexed page.
+ * @returns The items of every page fetched.
+ */
+const fetchAllPages = async <Item>(
+  fetchPage: (page: number) => Promise<PaginatedItems<Item>>
+): Promise<Item[]> => {
+  const items: Item[] = [];
 
-  while (true) {
-    const params = new URLSearchParams({
-      page: String(page),
-      pageSize: String(pageSize),
-    });
+  for (let page = 1; ; page++) {
     try {
-      const res = await fetch(`${SHOWCASE_API}?${params}`);
+      const result = await fetchPage(page);
 
-      if (!res.ok) break;
+      items.push(...(result.data ?? []));
 
-      const result = await res.json();
-      const data: ProjectEntry[] = (result.data ?? []).map(
-        (project: Record<string, unknown>) => ({
-          ...(project as object),
-          _id: (project.id ?? project._id) as string,
-        })
-      );
-
-      all.push(...data);
-
-      if (page >= (result.total_pages ?? 1)) break;
-
-      page++;
+      if (page >= (result.total_pages ?? 1)) return items;
     } catch {
-      break;
+      return items;
     }
   }
-  return all;
+};
+
+/** Converts a backend date to the `YYYY-MM-DD` form of `<lastmod>`. */
+const toLastmod = (date: string | undefined): string | undefined =>
+  date ? new Date(date).toISOString().split('T')[0] : undefined;
+
+/**
+ * Builds one entry per showcased project. A rescan refreshes the page, so it
+ * dates the entry when there is one.
+ */
+const getProjectEntries = async (): Promise<SitemapUrlEntry[]> => {
+  const { showcaseProject } = getIntlayerAPI();
+
+  const projects = await fetchAllPages((page) =>
+    showcaseProject.getShowcaseProjects({ page, pageSize: PROJECT_PAGE_SIZE })
+  );
+
+  return projects.map((project) => ({
+    path: `/project/${project.id}`,
+    changefreq: 'weekly',
+    priority: 0.8,
+    lastmod: toLastmod(project.lastScanDate ?? project.createdAt),
+  }));
 };
 
 export const Route = createFileRoute('/sitemap.xml')({
   server: {
     handlers: {
       GET: async () => {
-        const projects = await fetchAllProjects();
-
         const sitemap = generateSitemap(
           [
-            {
-              path: Showcase_Root_Path,
-              changefreq: 'daily',
-              priority: 1.0,
-            },
+            { path: Showcase_Root_Path, changefreq: 'daily', priority: 1.0 },
             {
               path: Showcase_Submit_Path,
               changefreq: 'monthly',
               priority: 0.5,
             },
-            ...projects.map((project) => ({
-              path: `/project/${project._id}`,
-              changefreq: 'weekly',
-              priority: 0.8,
-              lastmod: project.createdAt
-                ? new Date(project.createdAt).toISOString().split('T')[0]
-                : undefined,
-            })),
+            ...(await getProjectEntries()),
           ],
           {
             siteUrl: SITE_URL,

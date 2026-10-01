@@ -312,10 +312,6 @@ export default defineConfig(({ mode }) => {
           routeFileIgnorePattern:
             '.content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5|md|mdx|yaml|yml)$',
         },
-        sitemap: {
-          enabled: true,
-          host: 'https://showcase.intlayer.org',
-        },
         prerender: {
           enabled: true,
           crawlLinks: false,
