@@ -4,10 +4,15 @@ import { useDevice } from '@intlayer/design-system/hooks';
 import { Modal } from '@intlayer/design-system/modal';
 import { cn } from '@intlayer/design-system/utils';
 import { MoveDiagonal } from 'lucide-react';
-import { type FC, useEffect, useRef, useState } from 'react';
+import { type FC, lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { ChatBot } from '~/components/ChatBot';
 import { NavTitles } from '../NavTitles/NavTitles';
+
+const ChatBot = lazy(() =>
+  import('~/components/ChatBot').then((module) => ({
+    default: module.ChatBot,
+  }))
+);
 
 /** Height of the chat panel until the user resizes it */
 const CHAT_INITIAL_HEIGHT = 250;
@@ -104,20 +109,28 @@ export const AsideNavigation: FC = () => {
               className="pointer-events-auto absolute inset-s-0 bottom-0 size-full bg-background"
             >
               <div className="justify-bottom size-full text-sm">
-                <ChatBot
-                  additionalButtons={
-                    <Button
-                      Icon={MoveDiagonal}
-                      color="text"
-                      size="icon-md"
-                      variant="outline"
-                      label={button.label.value}
-                      onClick={openModal}
-                    />
+                <Suspense
+                  fallback={
+                    <div className="flex size-full items-center justify-center p-4">
+                      <div className="size-full animate-pulse rounded-xl bg-neutral/10" />
+                    </div>
                   }
-                  isLarge={false}
-                  stateReloaderTrigger={isModalOpen}
-                />
+                >
+                  <ChatBot
+                    additionalButtons={
+                      <Button
+                        Icon={MoveDiagonal}
+                        color="text"
+                        size="icon-md"
+                        variant="outline"
+                        label={button.label.value}
+                        onClick={openModal}
+                      />
+                    }
+                    isLarge={false}
+                    stateReloaderTrigger={isModalOpen}
+                  />
+                </Suspense>
               </div>
             </HeightResizer>
           </div>
@@ -133,7 +146,18 @@ export const AsideNavigation: FC = () => {
         hasCloseButton
       >
         {hasOpenedModal && (
-          <ChatBot stateReloaderTrigger={isModalOpen} isActive={isModalOpen} />
+          <Suspense
+            fallback={
+              <div className="flex size-full items-center justify-center p-4">
+                <div className="size-full animate-pulse rounded-xl bg-neutral/10" />
+              </div>
+            }
+          >
+            <ChatBot
+              stateReloaderTrigger={isModalOpen}
+              isActive={isModalOpen}
+            />
+          </Suspense>
         )}
       </Modal>
     </>

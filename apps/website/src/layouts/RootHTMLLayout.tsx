@@ -31,13 +31,22 @@ export const RootHTMLLayout: FC<LocalParams> = ({
       />
       <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
 
-      {/* Preconnect and DNS Prefetch for your first-party backend */}
-      <link
-        rel="preconnect"
-        href={import.meta.env.VITE_BACKEND_URL}
-        crossOrigin=""
-      />
-      <link rel="dns-prefetch" href={import.meta.env.VITE_BACKEND_URL} />
+      {/* DNS Prefetch for first-party backend without unused preconnect */}
+      {import.meta.env.VITE_BACKEND_URL && (
+        <link rel="dns-prefetch" href={import.meta.env.VITE_BACKEND_URL} />
+      )}
+
+      {/* Preconnect and DNS Prefetch for Ahrefs analytics if enabled */}
+      {import.meta.env.VITE_AHREFS_KEY && (
+        <>
+          <link
+            rel="preconnect"
+            href="https://analytics.ahrefs.com"
+            crossOrigin=""
+          />
+          <link rel="dns-prefetch" href="https://analytics.ahrefs.com" />
+        </>
+      )}
     </>
     <body
       className={cn(

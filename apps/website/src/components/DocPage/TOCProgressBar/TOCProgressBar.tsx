@@ -1,27 +1,17 @@
-import { useGetElementById } from '@intlayer/design-system/hooks';
 import { cn } from '@intlayer/design-system/utils';
 import { type FC, useRef } from 'react';
-import { useActiveSection } from '../useActiveSection';
-import { useTitlesTree } from '../useTitlesTree';
+import { useDocTitles } from '../DocTitlesContext';
 
 export const TOCProgressBar: FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Extract headings (h2 and h3) from the document
-  const { topLevelHeadings, headingMap, headingTexts } = useTitlesTree({
-    levels: [2, 3],
-    contentId: 'content',
-  });
-
-  const contentElement = useGetElementById('content');
-
-  // Track the active h2 and h3 headings
-  const { activeParent, activeChild } = useActiveSection({
-    contentElement,
-    headings: topLevelHeadings,
+  const {
+    topLevelHeadings,
     headingMap,
-    navRef: containerRef,
-  });
+    headingTexts,
+    activeParent,
+    activeChild,
+  } = useDocTitles();
 
   // Flatten the headings tree for sequential display
   const flatHeadings: HTMLElement[] = [];

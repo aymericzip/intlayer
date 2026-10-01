@@ -140,6 +140,7 @@ const ImgRenderer = ({
     {...props}
     alt={alt ?? ''}
     loading="lazy"
+    decoding="async"
     className={cn(
       'max-h-[80vh] max-w-full rounded-md [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-lg',
       className

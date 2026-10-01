@@ -97,6 +97,8 @@ export const LinkPreviewCard: FC<LinkPreviewCardProps> = ({
               <img
                 src={imageUrl}
                 alt=""
+                width={112}
+                height={63}
                 loading="lazy"
                 decoding="async"
                 referrerPolicy="no-referrer"
@@ -121,6 +123,8 @@ export const LinkPreviewCard: FC<LinkPreviewCardProps> = ({
                   <img
                     src={faviconUrl}
                     alt=""
+                    width={16}
+                    height={16}
                     loading="lazy"
                     referrerPolicy="no-referrer"
                     onError={() => setHasFaviconFailed(true)}

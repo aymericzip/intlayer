@@ -1,8 +1,6 @@
 import { useGetElementById, useScrollY } from '@intlayer/design-system/hooks';
-import { AnimatePresence, m } from 'framer-motion';
 import type { FC, SVGProps } from 'react';
-import { useActiveSection } from './useActiveSection';
-import { useTitlesTree } from './useTitlesTree';
+import { useDocTitles } from './DocTitlesContext';
 
 const RADIUS = 5;
 const BORDER_WIDTH = 1;
@@ -52,17 +50,7 @@ export const ScrollWell: FC<SVGProps<SVGSVGElement>> = (props) => {
 };
 
 const Title: FC = () => {
-  const { topLevelHeadings, headingMap, headingTexts } = useTitlesTree({
-    levels: [2, 3],
-    contentId: 'content',
-  });
-
-  const contentElement = useGetElementById('content');
-  const { activeParent, activeChild } = useActiveSection({
-    contentElement,
-    headings: topLevelHeadings,
-    headingMap,
-  });
+  const { headingTexts, activeParent, activeChild } = useDocTitles();
 
   const parentTitle = activeParent ? headingTexts.get(activeParent) : undefined;
   const childTitle = activeChild ? headingTexts.get(activeChild) : undefined;
@@ -75,46 +63,23 @@ const Title: FC = () => {
 
   return (
     <div className="ms-5 flex min-w-0 flex-1 flex-col justify-center overflow-hidden">
-      <AnimatePresence mode="wait" initial={false}>
-        <m.span
-          key={firstTitle ?? 'empty-parent'}
-          initial={{ opacity: 0, y: -2 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 2 }}
-          transition={{ duration: 0.2, ease: 'easeOut' }}
-          className="block truncate text-muted-foreground text-xs leading-tight"
-          title={firstTitle}
-        >
-          {firstTitle ?? ''}
-        </m.span>
-      </AnimatePresence>
+      <span
+        className="block truncate text-muted-foreground text-xs leading-tight transition-opacity duration-200"
+        title={firstTitle}
+      >
+        {firstTitle ?? ''}
+      </span>
 
-      <AnimatePresence initial={false}>
-        {secondTitle && (
-          <m.div
-            key="second-title-container"
-            initial={{ opacity: 0, height: 0, y: -3 }}
-            animate={{ opacity: 1, height: 'auto', y: 0 }}
-            exit={{ opacity: 0, height: 0, y: -3 }}
-            transition={{ duration: 0.25, ease: 'easeInOut' }}
-            className="w-full min-w-0 overflow-hidden"
+      {secondTitle && (
+        <div className="w-full min-w-0 overflow-hidden transition-all duration-200">
+          <span
+            className="block truncate text-[10px] text-muted-foreground/60 leading-tight transition-opacity duration-150"
+            title={secondTitle}
           >
-            <AnimatePresence mode="wait" initial={false}>
-              <m.span
-                key={secondTitle}
-                initial={{ opacity: 0, y: -2 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 2 }}
-                transition={{ duration: 0.15, ease: 'easeOut' }}
-                className="block truncate text-[10px] text-muted-foreground/60 leading-tight"
-                title={secondTitle}
-              >
-                {secondTitle}
-              </m.span>
-            </AnimatePresence>
-          </m.div>
-        )}
-      </AnimatePresence>
+            {secondTitle}
+          </span>
+        </div>
+      )}
     </div>
   );
 };

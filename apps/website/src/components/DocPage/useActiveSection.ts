@@ -98,6 +98,7 @@ export const useActiveSection = ({
     };
 
     let cancelScheduledRead: (() => void) | null = null;
+    let debounceTimer: ReturnType<typeof setTimeout> | null = null;
 
     const scheduleActiveSectionRead = () => {
       if (cancelScheduledRead) return;
@@ -110,7 +111,11 @@ export const useActiveSection = ({
 
     const invalidateOffsets = () => {
       areOffsetsStale = true;
-      scheduleActiveSectionRead();
+      if (debounceTimer) clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => {
+        debounceTimer = null;
+        scheduleActiveSectionRead();
+      }, 150);
     };
 
     // Initial detection, deferred so that it shares the frame of every other
@@ -134,6 +139,7 @@ export const useActiveSection = ({
     window.addEventListener('orientationchange', invalidateOffsets);
 
     return () => {
+      if (debounceTimer) clearTimeout(debounceTimer);
       cancelScheduledRead?.();
       stopObservingContent?.();
 

@@ -176,14 +176,27 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
         type: 'application/ai-catalog+json',
         href: `https://${Website_Domain}${WellKnown_AiCatalog_Path}`,
       },
-      {
-        rel: 'preconnect',
-        // Left uncredentialed on purpose: the API client sends
-        // `credentials: 'include'`, which reuses the credentialed socket this
-        // hint opens. `DeferredAuthProvider` only fires that request after the
-        // load event, which is why Lighthouse reports the hint as unused.
-        href: import.meta.env.VITE_BACKEND_URL,
-      },
+      ...(import.meta.env.VITE_BACKEND_URL
+        ? [
+            {
+              rel: 'dns-prefetch',
+              href: import.meta.env.VITE_BACKEND_URL,
+            },
+          ]
+        : []),
+      ...(import.meta.env.VITE_AHREFS_KEY
+        ? [
+            {
+              rel: 'preconnect',
+              href: 'https://analytics.ahrefs.com',
+              crossOrigin: '',
+            },
+            {
+              rel: 'dns-prefetch',
+              href: 'https://analytics.ahrefs.com',
+            },
+          ]
+        : []),
       ...(googleAnalyticsId
         ? [
             {

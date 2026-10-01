@@ -24,7 +24,17 @@ const dynamicFlag = (importFn: () => Promise<any>) =>
     // We wrap it in a simple img component
     if (typeof asset === 'string') {
       return {
-        default: (props: any) => <img src={asset} alt="flag" {...props} />,
+        default: (props: any) => (
+          <img
+            src={asset}
+            alt="flag"
+            width={props.width ?? 24}
+            height={props.height ?? 16}
+            loading="lazy"
+            decoding="async"
+            {...props}
+          />
+        ),
       };
     }
 

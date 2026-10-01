@@ -1,11 +1,9 @@
-import { useGetElementById } from '@intlayer/design-system/hooks';
 import { scheduleFrameTask } from '@intlayer/design-system/utils';
 import { useLocation } from '@tanstack/react-router';
 import { type FC, useEffect, useRef } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { Link } from '~/components/Link/Link';
-import { useActiveSection } from '../useActiveSection';
-import { useTitlesTree } from '../useTitlesTree';
+import { useDocTitles } from '../DocTitlesContext';
 
 type NavTitles2Props = {
   title2: HTMLElement[];
@@ -69,20 +67,13 @@ export const NavTitles: FC<NavTitlesProps> = ({ onActiveLinkChange }) => {
   const { pathname } = useLocation();
   const { linkLabel } = useIntlayer('nav-titles');
 
-  // Use the custom hook to extract and organize headings
-  const { topLevelHeadings, headingMap, headingTexts } = useTitlesTree({
-    levels: [2, 3],
-    contentId: 'content',
-  });
-
-  const contentElement = useGetElementById('content');
-  // Use the custom hook to detect active sections
-  const { activeParent, activeChild } = useActiveSection({
-    contentElement,
-    headings: topLevelHeadings,
+  const {
+    topLevelHeadings,
     headingMap,
-    navRef,
-  });
+    headingTexts,
+    activeParent,
+    activeChild,
+  } = useDocTitles();
 
   const activeId = activeChild?.id ?? activeParent?.id ?? null;
 

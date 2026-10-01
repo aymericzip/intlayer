@@ -163,12 +163,21 @@ export const useTitlesTree = ({
     let bodyObserver: MutationObserver | null = null;
     let contentObserver: MutationObserver | null = null;
 
+    let updateRafId: number | null = null;
+    const scheduleUpdateHeadings = () => {
+      if (updateRafId !== null) return;
+      updateRafId = requestAnimationFrame(() => {
+        updateRafId = null;
+        updateHeadings();
+      });
+    };
+
     const tryObserveContent = () => {
       const contentEl = document.getElementById(contentId);
       if (!contentEl) return false;
 
       if (contentObserver) contentObserver.disconnect();
-      contentObserver = new MutationObserver(() => updateHeadings());
+      contentObserver = new MutationObserver(scheduleUpdateHeadings);
       contentObserver.observe(contentEl, { childList: true, subtree: true });
       // Initial update once content is available
       updateHeadings();
@@ -188,6 +197,7 @@ export const useTitlesTree = ({
     }
 
     return () => {
+      if (updateRafId !== null) cancelAnimationFrame(updateRafId);
       if (contentObserver) contentObserver.disconnect();
       if (bodyObserver) bodyObserver.disconnect();
     };
