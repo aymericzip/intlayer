@@ -77,12 +77,12 @@ const NavTitlesChildren: FC<NavTitlesChildrenProps> = ({
               }}
               className={cn(
                 'flex flex-1 items-center justify-between text-wrap p-2 pe-4 text-base transition-colors',
-                depth === 1 && 'text-muted-foreground/75 text-sm',
-                depth === 2 && 'text-muted-foreground/60 text-sm',
-                depth === 3 && 'text-muted-foreground/50 text-sm',
-                depth === 4 && 'text-muted-foreground/40 text-xs',
-                depth === 5 && 'text-muted-foreground/30 text-xs',
-                depth === 6 && 'text-muted-foreground/20 text-xs'
+                depth === 1 && 'text-sm text-text/65 dark:text-text/50',
+                depth === 2 && 'text-sm text-text/60 dark:text-text/45',
+                depth === 3 && 'text-sm text-text/50 dark:text-text/40',
+                depth === 4 && 'text-text/40 text-xs dark:text-text/35',
+                depth === 5 && 'text-text/30 text-xs dark:text-text/30',
+                depth === 6 && 'text-text/20 text-xs dark:text-text/20'
               )}
             >
               {title}
