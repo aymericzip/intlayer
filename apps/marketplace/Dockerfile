@@ -43,7 +43,7 @@ COPY \
     --exclude=apps/website \
     --exclude=apps/showcase \
     --exclude=apps/vscode-extension \
-    --exclude=apps/app \    
+    --exclude=apps/app \
     --exclude=docs/assets \
     --exclude=examples \
     --exclude=plugins \
@@ -74,7 +74,7 @@ ENV NODE_ENV=production
 
 RUN addgroup -S app && adduser -S app -G app
 
-COPY --from=builder --chown=app:app /workspace/apps/app/.output ./.output
+COPY --from=builder --chown=app:app /workspace/apps/marketplace/.output ./.output
 
 USER app
 
