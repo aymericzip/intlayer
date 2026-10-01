@@ -9,6 +9,7 @@ const ENVIRONMENT_KEYS = [
   'WEBSITE_URL',
   'APP_URL',
   'SHOWCASE_URL',
+  'MARKETPLACE_URL',
   'BACKEND_URL',
   'TRUSTED_ORIGINS',
 ] as const;

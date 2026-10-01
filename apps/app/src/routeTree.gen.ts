@@ -37,8 +37,6 @@ import { Route as Char123LocaleChar125OtherAuthAuthenticatedRouteRouteImport } f
 import { Route as Char123LocaleChar125OtherAuthAuthenticationRouteRouteImport } from './routes/{-$locale}/_other/auth/_authentication/route'
 import { Route as Char123LocaleChar125OtherAuthCliLoginRouteImport } from './routes/{-$locale}/_other/auth/cli-login'
 import { Route as Char123LocaleChar125OtherAuthDemoRouteImport } from './routes/{-$locale}/_other/auth/demo'
-import { Route as Char123LocaleChar125OtherFindReviewerIndexRouteImport } from './routes/{-$locale}/_other/find-reviewer/index'
-import { Route as Char123LocaleChar125OtherFindReviewerReviewerIdRouteImport } from './routes/{-$locale}/_other/find-reviewer/$reviewerId'
 import { Route as Char123LocaleChar125OtherOnboardingStepRouteImport } from './routes/{-$locale}/_other/onboarding.$step'
 import { Route as Char123LocaleChar125DashboardAdminAdminAffiliateRouteRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/affiliate/route'
 import { Route as Char123LocaleChar125DashboardAdminAdminDiscussionsRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/discussions'
@@ -53,7 +51,6 @@ import { Route as Char123LocaleChar125DashboardEditorContentTranslateRouteImport
 import { Route as Char123LocaleChar125OtherAuthAuthentication2faRouteImport } from './routes/{-$locale}/_other/auth/_authentication/2fa'
 import { Route as Char123LocaleChar125OtherAuthAuthenticationLoginRouteImport } from './routes/{-$locale}/_other/auth/_authentication/login'
 import { Route as Char123LocaleChar125OtherAuthAuthenticationRegisterRouteImport } from './routes/{-$locale}/_other/auth/_authentication/register'
-import { Route as Char123LocaleChar125OtherFindReviewerDashboardIndexRouteImport } from './routes/{-$locale}/_other/find-reviewer/dashboard/index'
 import { Route as Char123LocaleChar125DashboardAdminAdminAffiliateIndexRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/affiliate/index'
 import { Route as Char123LocaleChar125DashboardAdminAdminAffiliateIdRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/affiliate/$id'
 import { Route as Char123LocaleChar125DashboardAdminAdminOrganizationsIndexRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/organizations/index'
@@ -73,7 +70,6 @@ import { Route as Char123LocaleChar125DashboardEditorContentTagsTagKeyRouteImpor
 import { Route as Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRouteImport } from './routes/{-$locale}/_other/auth/_authenticated/password.change'
 import { Route as Char123LocaleChar125OtherAuthAuthenticationPasswordAskResetRouteImport } from './routes/{-$locale}/_other/auth/_authentication/password/ask-reset'
 import { Route as Char123LocaleChar125OtherAuthAuthenticationPasswordResetRouteImport } from './routes/{-$locale}/_other/auth/_authentication/password/reset'
-import { Route as Char123LocaleChar125OtherFindReviewerDashboardMissionMissionIdRouteImport } from './routes/{-$locale}/_other/find-reviewer/dashboard/mission.$missionId'
 
 const HealthzRoute = HealthzRouteImport.update({
   id: '/healthz',
@@ -234,18 +230,6 @@ const Char123LocaleChar125OtherAuthDemoRoute =
     path: '/auth/demo',
     getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
   } as any)
-const Char123LocaleChar125OtherFindReviewerIndexRoute =
-  Char123LocaleChar125OtherFindReviewerIndexRouteImport.update({
-    id: '/find-reviewer/',
-    path: '/find-reviewer/',
-    getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
-  } as any)
-const Char123LocaleChar125OtherFindReviewerReviewerIdRoute =
-  Char123LocaleChar125OtherFindReviewerReviewerIdRouteImport.update({
-    id: '/find-reviewer/$reviewerId',
-    path: '/find-reviewer/$reviewerId',
-    getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
-  } as any)
 const Char123LocaleChar125OtherOnboardingStepRoute =
   Char123LocaleChar125OtherOnboardingStepRouteImport.update({
     id: '/onboarding/$step',
@@ -329,12 +313,6 @@ const Char123LocaleChar125OtherAuthAuthenticationRegisterRoute =
     id: '/register',
     path: '/register',
     getParentRoute: () => Char123LocaleChar125OtherAuthAuthenticationRouteRoute,
-  } as any)
-const Char123LocaleChar125OtherFindReviewerDashboardIndexRoute =
-  Char123LocaleChar125OtherFindReviewerDashboardIndexRouteImport.update({
-    id: '/find-reviewer/dashboard/',
-    path: '/find-reviewer/dashboard/',
-    getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
   } as any)
 const Char123LocaleChar125DashboardAdminAdminAffiliateIndexRoute =
   Char123LocaleChar125DashboardAdminAdminAffiliateIndexRouteImport.update({
@@ -468,14 +446,6 @@ const Char123LocaleChar125OtherAuthAuthenticationPasswordResetRoute =
     path: '/password/reset',
     getParentRoute: () => Char123LocaleChar125OtherAuthAuthenticationRouteRoute,
   } as any)
-const Char123LocaleChar125OtherFindReviewerDashboardMissionMissionIdRoute =
-  Char123LocaleChar125OtherFindReviewerDashboardMissionMissionIdRouteImport.update(
-    {
-      id: '/find-reviewer/dashboard/mission/$missionId',
-      path: '/find-reviewer/dashboard/mission/$missionId',
-      getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
-    } as any,
-  )
 
 export interface FileRoutesByFullPath {
   '/{-$locale}': typeof Char123LocaleChar125RouteRouteWithChildren
@@ -500,10 +470,8 @@ export interface FileRoutesByFullPath {
   '/{-$locale}/affiliation/$invitationId': typeof Char123LocaleChar125OtherAffiliationInvitationIdRoute
   '/{-$locale}/auth/cli-login': typeof Char123LocaleChar125OtherAuthCliLoginRoute
   '/{-$locale}/auth/demo': typeof Char123LocaleChar125OtherAuthDemoRoute
-  '/{-$locale}/find-reviewer/$reviewerId': typeof Char123LocaleChar125OtherFindReviewerReviewerIdRoute
   '/{-$locale}/onboarding/$step': typeof Char123LocaleChar125OtherOnboardingStepRoute
   '/{-$locale}/affiliation/': typeof Char123LocaleChar125OtherAffiliationIndexRoute
-  '/{-$locale}/find-reviewer/': typeof Char123LocaleChar125OtherFindReviewerIndexRoute
   '/{-$locale}/admin/affiliate': typeof Char123LocaleChar125DashboardAdminAdminAffiliateRouteRouteWithChildren
   '/{-$locale}/admin/organizations': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRouteWithChildren
   '/{-$locale}/admin/projects': typeof Char123LocaleChar125DashboardAdminAdminProjectsRouteRouteWithChildren
@@ -517,7 +485,6 @@ export interface FileRoutesByFullPath {
   '/{-$locale}/auth/2fa': typeof Char123LocaleChar125OtherAuthAuthentication2faRoute
   '/{-$locale}/auth/login': typeof Char123LocaleChar125OtherAuthAuthenticationLoginRoute
   '/{-$locale}/auth/register': typeof Char123LocaleChar125OtherAuthAuthenticationRegisterRoute
-  '/{-$locale}/find-reviewer/dashboard/': typeof Char123LocaleChar125OtherFindReviewerDashboardIndexRoute
   '/{-$locale}/admin/affiliate/$id': typeof Char123LocaleChar125DashboardAdminAdminAffiliateIdRoute
   '/{-$locale}/admin/organizations/$id': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIdRoute
   '/{-$locale}/admin/projects/$id': typeof Char123LocaleChar125DashboardAdminAdminProjectsIdRoute
@@ -529,7 +496,6 @@ export interface FileRoutesByFullPath {
   '/{-$locale}/auth/password/change': typeof Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRoute
   '/{-$locale}/auth/password/ask-reset': typeof Char123LocaleChar125OtherAuthAuthenticationPasswordAskResetRoute
   '/{-$locale}/auth/password/reset': typeof Char123LocaleChar125OtherAuthAuthenticationPasswordResetRoute
-  '/{-$locale}/find-reviewer/dashboard/mission/$missionId': typeof Char123LocaleChar125OtherFindReviewerDashboardMissionMissionIdRoute
   '/{-$locale}/admin/affiliate/': typeof Char123LocaleChar125DashboardAdminAdminAffiliateIndexRoute
   '/{-$locale}/admin/organizations/': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIndexRoute
   '/{-$locale}/admin/projects/': typeof Char123LocaleChar125DashboardAdminAdminProjectsIndexRoute
@@ -561,10 +527,8 @@ export interface FileRoutesByTo {
   '/{-$locale}/affiliation/$invitationId': typeof Char123LocaleChar125OtherAffiliationInvitationIdRoute
   '/{-$locale}/auth/cli-login': typeof Char123LocaleChar125OtherAuthCliLoginRoute
   '/{-$locale}/auth/demo': typeof Char123LocaleChar125OtherAuthDemoRoute
-  '/{-$locale}/find-reviewer/$reviewerId': typeof Char123LocaleChar125OtherFindReviewerReviewerIdRoute
   '/{-$locale}/onboarding/$step': typeof Char123LocaleChar125OtherOnboardingStepRoute
   '/{-$locale}/affiliation': typeof Char123LocaleChar125OtherAffiliationIndexRoute
-  '/{-$locale}/find-reviewer': typeof Char123LocaleChar125OtherFindReviewerIndexRoute
   '/{-$locale}/admin/discussions': typeof Char123LocaleChar125DashboardAdminAdminDiscussionsRoute
   '/{-$locale}/admin/scans': typeof Char123LocaleChar125DashboardAdminAdminScansRoute
   '/{-$locale}/editor': typeof Char123LocaleChar125DashboardEditorContentEditorRoute
@@ -572,7 +536,6 @@ export interface FileRoutesByTo {
   '/{-$locale}/auth/2fa': typeof Char123LocaleChar125OtherAuthAuthentication2faRoute
   '/{-$locale}/auth/login': typeof Char123LocaleChar125OtherAuthAuthenticationLoginRoute
   '/{-$locale}/auth/register': typeof Char123LocaleChar125OtherAuthAuthenticationRegisterRoute
-  '/{-$locale}/find-reviewer/dashboard': typeof Char123LocaleChar125OtherFindReviewerDashboardIndexRoute
   '/{-$locale}/admin/affiliate/$id': typeof Char123LocaleChar125DashboardAdminAdminAffiliateIdRoute
   '/{-$locale}/admin/organizations/$id': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIdRoute
   '/{-$locale}/admin/projects/$id': typeof Char123LocaleChar125DashboardAdminAdminProjectsIdRoute
@@ -584,7 +547,6 @@ export interface FileRoutesByTo {
   '/{-$locale}/auth/password/change': typeof Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRoute
   '/{-$locale}/auth/password/ask-reset': typeof Char123LocaleChar125OtherAuthAuthenticationPasswordAskResetRoute
   '/{-$locale}/auth/password/reset': typeof Char123LocaleChar125OtherAuthAuthenticationPasswordResetRoute
-  '/{-$locale}/find-reviewer/dashboard/mission/$missionId': typeof Char123LocaleChar125OtherFindReviewerDashboardMissionMissionIdRoute
   '/{-$locale}/admin/affiliate': typeof Char123LocaleChar125DashboardAdminAdminAffiliateIndexRoute
   '/{-$locale}/admin/organizations': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIndexRoute
   '/{-$locale}/admin/projects': typeof Char123LocaleChar125DashboardAdminAdminProjectsIndexRoute
@@ -623,10 +585,8 @@ export interface FileRoutesById {
   '/{-$locale}/_other/affiliation/$invitationId': typeof Char123LocaleChar125OtherAffiliationInvitationIdRoute
   '/{-$locale}/_other/auth/cli-login': typeof Char123LocaleChar125OtherAuthCliLoginRoute
   '/{-$locale}/_other/auth/demo': typeof Char123LocaleChar125OtherAuthDemoRoute
-  '/{-$locale}/_other/find-reviewer/$reviewerId': typeof Char123LocaleChar125OtherFindReviewerReviewerIdRoute
   '/{-$locale}/_other/onboarding/$step': typeof Char123LocaleChar125OtherOnboardingStepRoute
   '/{-$locale}/_other/affiliation/': typeof Char123LocaleChar125OtherAffiliationIndexRoute
-  '/{-$locale}/_other/find-reviewer/': typeof Char123LocaleChar125OtherFindReviewerIndexRoute
   '/{-$locale}/_dashboard/_admin/admin/affiliate': typeof Char123LocaleChar125DashboardAdminAdminAffiliateRouteRouteWithChildren
   '/{-$locale}/_dashboard/_admin/admin/organizations': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRouteWithChildren
   '/{-$locale}/_dashboard/_admin/admin/projects': typeof Char123LocaleChar125DashboardAdminAdminProjectsRouteRouteWithChildren
@@ -640,7 +600,6 @@ export interface FileRoutesById {
   '/{-$locale}/_other/auth/_authentication/2fa': typeof Char123LocaleChar125OtherAuthAuthentication2faRoute
   '/{-$locale}/_other/auth/_authentication/login': typeof Char123LocaleChar125OtherAuthAuthenticationLoginRoute
   '/{-$locale}/_other/auth/_authentication/register': typeof Char123LocaleChar125OtherAuthAuthenticationRegisterRoute
-  '/{-$locale}/_other/find-reviewer/dashboard/': typeof Char123LocaleChar125OtherFindReviewerDashboardIndexRoute
   '/{-$locale}/_dashboard/_admin/admin/affiliate/$id': typeof Char123LocaleChar125DashboardAdminAdminAffiliateIdRoute
   '/{-$locale}/_dashboard/_admin/admin/organizations/$id': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIdRoute
   '/{-$locale}/_dashboard/_admin/admin/projects/$id': typeof Char123LocaleChar125DashboardAdminAdminProjectsIdRoute
@@ -652,7 +611,6 @@ export interface FileRoutesById {
   '/{-$locale}/_other/auth/_authenticated/password/change': typeof Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRoute
   '/{-$locale}/_other/auth/_authentication/password/ask-reset': typeof Char123LocaleChar125OtherAuthAuthenticationPasswordAskResetRoute
   '/{-$locale}/_other/auth/_authentication/password/reset': typeof Char123LocaleChar125OtherAuthAuthenticationPasswordResetRoute
-  '/{-$locale}/_other/find-reviewer/dashboard/mission/$missionId': typeof Char123LocaleChar125OtherFindReviewerDashboardMissionMissionIdRoute
   '/{-$locale}/_dashboard/_admin/admin/affiliate/': typeof Char123LocaleChar125DashboardAdminAdminAffiliateIndexRoute
   '/{-$locale}/_dashboard/_admin/admin/organizations/': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIndexRoute
   '/{-$locale}/_dashboard/_admin/admin/projects/': typeof Char123LocaleChar125DashboardAdminAdminProjectsIndexRoute
@@ -687,10 +645,8 @@ export interface FileRouteTypes {
     | '/{-$locale}/affiliation/$invitationId'
     | '/{-$locale}/auth/cli-login'
     | '/{-$locale}/auth/demo'
-    | '/{-$locale}/find-reviewer/$reviewerId'
     | '/{-$locale}/onboarding/$step'
     | '/{-$locale}/affiliation/'
-    | '/{-$locale}/find-reviewer/'
     | '/{-$locale}/admin/affiliate'
     | '/{-$locale}/admin/organizations'
     | '/{-$locale}/admin/projects'
@@ -704,7 +660,6 @@ export interface FileRouteTypes {
     | '/{-$locale}/auth/2fa'
     | '/{-$locale}/auth/login'
     | '/{-$locale}/auth/register'
-    | '/{-$locale}/find-reviewer/dashboard/'
     | '/{-$locale}/admin/affiliate/$id'
     | '/{-$locale}/admin/organizations/$id'
     | '/{-$locale}/admin/projects/$id'
@@ -716,7 +671,6 @@ export interface FileRouteTypes {
     | '/{-$locale}/auth/password/change'
     | '/{-$locale}/auth/password/ask-reset'
     | '/{-$locale}/auth/password/reset'
-    | '/{-$locale}/find-reviewer/dashboard/mission/$missionId'
     | '/{-$locale}/admin/affiliate/'
     | '/{-$locale}/admin/organizations/'
     | '/{-$locale}/admin/projects/'
@@ -748,10 +702,8 @@ export interface FileRouteTypes {
     | '/{-$locale}/affiliation/$invitationId'
     | '/{-$locale}/auth/cli-login'
     | '/{-$locale}/auth/demo'
-    | '/{-$locale}/find-reviewer/$reviewerId'
     | '/{-$locale}/onboarding/$step'
     | '/{-$locale}/affiliation'
-    | '/{-$locale}/find-reviewer'
     | '/{-$locale}/admin/discussions'
     | '/{-$locale}/admin/scans'
     | '/{-$locale}/editor'
@@ -759,7 +711,6 @@ export interface FileRouteTypes {
     | '/{-$locale}/auth/2fa'
     | '/{-$locale}/auth/login'
     | '/{-$locale}/auth/register'
-    | '/{-$locale}/find-reviewer/dashboard'
     | '/{-$locale}/admin/affiliate/$id'
     | '/{-$locale}/admin/organizations/$id'
     | '/{-$locale}/admin/projects/$id'
@@ -771,7 +722,6 @@ export interface FileRouteTypes {
     | '/{-$locale}/auth/password/change'
     | '/{-$locale}/auth/password/ask-reset'
     | '/{-$locale}/auth/password/reset'
-    | '/{-$locale}/find-reviewer/dashboard/mission/$missionId'
     | '/{-$locale}/admin/affiliate'
     | '/{-$locale}/admin/organizations'
     | '/{-$locale}/admin/projects'
@@ -809,10 +759,8 @@ export interface FileRouteTypes {
     | '/{-$locale}/_other/affiliation/$invitationId'
     | '/{-$locale}/_other/auth/cli-login'
     | '/{-$locale}/_other/auth/demo'
-    | '/{-$locale}/_other/find-reviewer/$reviewerId'
     | '/{-$locale}/_other/onboarding/$step'
     | '/{-$locale}/_other/affiliation/'
-    | '/{-$locale}/_other/find-reviewer/'
     | '/{-$locale}/_dashboard/_admin/admin/affiliate'
     | '/{-$locale}/_dashboard/_admin/admin/organizations'
     | '/{-$locale}/_dashboard/_admin/admin/projects'
@@ -826,7 +774,6 @@ export interface FileRouteTypes {
     | '/{-$locale}/_other/auth/_authentication/2fa'
     | '/{-$locale}/_other/auth/_authentication/login'
     | '/{-$locale}/_other/auth/_authentication/register'
-    | '/{-$locale}/_other/find-reviewer/dashboard/'
     | '/{-$locale}/_dashboard/_admin/admin/affiliate/$id'
     | '/{-$locale}/_dashboard/_admin/admin/organizations/$id'
     | '/{-$locale}/_dashboard/_admin/admin/projects/$id'
@@ -838,7 +785,6 @@ export interface FileRouteTypes {
     | '/{-$locale}/_other/auth/_authenticated/password/change'
     | '/{-$locale}/_other/auth/_authentication/password/ask-reset'
     | '/{-$locale}/_other/auth/_authentication/password/reset'
-    | '/{-$locale}/_other/find-reviewer/dashboard/mission/$missionId'
     | '/{-$locale}/_dashboard/_admin/admin/affiliate/'
     | '/{-$locale}/_dashboard/_admin/admin/organizations/'
     | '/{-$locale}/_dashboard/_admin/admin/projects/'
@@ -1055,20 +1001,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125OtherAuthDemoRouteImport
       parentRoute: typeof Char123LocaleChar125OtherRouteRoute
     }
-    '/{-$locale}/_other/find-reviewer/': {
-      id: '/{-$locale}/_other/find-reviewer/'
-      path: '/find-reviewer'
-      fullPath: '/{-$locale}/find-reviewer/'
-      preLoaderRoute: typeof Char123LocaleChar125OtherFindReviewerIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125OtherRouteRoute
-    }
-    '/{-$locale}/_other/find-reviewer/$reviewerId': {
-      id: '/{-$locale}/_other/find-reviewer/$reviewerId'
-      path: '/find-reviewer/$reviewerId'
-      fullPath: '/{-$locale}/find-reviewer/$reviewerId'
-      preLoaderRoute: typeof Char123LocaleChar125OtherFindReviewerReviewerIdRouteImport
-      parentRoute: typeof Char123LocaleChar125OtherRouteRoute
-    }
     '/{-$locale}/_other/onboarding/$step': {
       id: '/{-$locale}/_other/onboarding/$step'
       path: '/onboarding/$step'
@@ -1166,13 +1098,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/{-$locale}/auth/register'
       preLoaderRoute: typeof Char123LocaleChar125OtherAuthAuthenticationRegisterRouteImport
       parentRoute: typeof Char123LocaleChar125OtherAuthAuthenticationRouteRoute
-    }
-    '/{-$locale}/_other/find-reviewer/dashboard/': {
-      id: '/{-$locale}/_other/find-reviewer/dashboard/'
-      path: '/find-reviewer/dashboard'
-      fullPath: '/{-$locale}/find-reviewer/dashboard/'
-      preLoaderRoute: typeof Char123LocaleChar125OtherFindReviewerDashboardIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125OtherRouteRoute
     }
     '/{-$locale}/_dashboard/_admin/admin/affiliate/': {
       id: '/{-$locale}/_dashboard/_admin/admin/affiliate/'
@@ -1306,13 +1231,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/{-$locale}/auth/password/reset'
       preLoaderRoute: typeof Char123LocaleChar125OtherAuthAuthenticationPasswordResetRouteImport
       parentRoute: typeof Char123LocaleChar125OtherAuthAuthenticationRouteRoute
-    }
-    '/{-$locale}/_other/find-reviewer/dashboard/mission/$missionId': {
-      id: '/{-$locale}/_other/find-reviewer/dashboard/mission/$missionId'
-      path: '/find-reviewer/dashboard/mission/$missionId'
-      fullPath: '/{-$locale}/find-reviewer/dashboard/mission/$missionId'
-      preLoaderRoute: typeof Char123LocaleChar125OtherFindReviewerDashboardMissionMissionIdRouteImport
-      parentRoute: typeof Char123LocaleChar125OtherRouteRoute
     }
   }
 }
@@ -1582,12 +1500,8 @@ interface Char123LocaleChar125OtherRouteRouteChildren {
   Char123LocaleChar125OtherAffiliationInvitationIdRoute: typeof Char123LocaleChar125OtherAffiliationInvitationIdRoute
   Char123LocaleChar125OtherAuthCliLoginRoute: typeof Char123LocaleChar125OtherAuthCliLoginRoute
   Char123LocaleChar125OtherAuthDemoRoute: typeof Char123LocaleChar125OtherAuthDemoRoute
-  Char123LocaleChar125OtherFindReviewerReviewerIdRoute: typeof Char123LocaleChar125OtherFindReviewerReviewerIdRoute
   Char123LocaleChar125OtherOnboardingStepRoute: typeof Char123LocaleChar125OtherOnboardingStepRoute
   Char123LocaleChar125OtherAffiliationIndexRoute: typeof Char123LocaleChar125OtherAffiliationIndexRoute
-  Char123LocaleChar125OtherFindReviewerIndexRoute: typeof Char123LocaleChar125OtherFindReviewerIndexRoute
-  Char123LocaleChar125OtherFindReviewerDashboardIndexRoute: typeof Char123LocaleChar125OtherFindReviewerDashboardIndexRoute
-  Char123LocaleChar125OtherFindReviewerDashboardMissionMissionIdRoute: typeof Char123LocaleChar125OtherFindReviewerDashboardMissionMissionIdRoute
 }
 
 const Char123LocaleChar125OtherRouteRouteChildren: Char123LocaleChar125OtherRouteRouteChildren =
@@ -1604,18 +1518,10 @@ const Char123LocaleChar125OtherRouteRouteChildren: Char123LocaleChar125OtherRout
       Char123LocaleChar125OtherAuthCliLoginRoute,
     Char123LocaleChar125OtherAuthDemoRoute:
       Char123LocaleChar125OtherAuthDemoRoute,
-    Char123LocaleChar125OtherFindReviewerReviewerIdRoute:
-      Char123LocaleChar125OtherFindReviewerReviewerIdRoute,
     Char123LocaleChar125OtherOnboardingStepRoute:
       Char123LocaleChar125OtherOnboardingStepRoute,
     Char123LocaleChar125OtherAffiliationIndexRoute:
       Char123LocaleChar125OtherAffiliationIndexRoute,
-    Char123LocaleChar125OtherFindReviewerIndexRoute:
-      Char123LocaleChar125OtherFindReviewerIndexRoute,
-    Char123LocaleChar125OtherFindReviewerDashboardIndexRoute:
-      Char123LocaleChar125OtherFindReviewerDashboardIndexRoute,
-    Char123LocaleChar125OtherFindReviewerDashboardMissionMissionIdRoute:
-      Char123LocaleChar125OtherFindReviewerDashboardMissionMissionIdRoute,
   }
 
 const Char123LocaleChar125OtherRouteRouteWithChildren =

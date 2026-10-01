@@ -33,8 +33,6 @@ import {
   App_Home_Path,
   App_Onboarding_Path,
   App_Pricing_Path,
-  App_ReviewerMarketplace_Dashboard_Path,
-  App_ReviewerMarketplace_Path,
 } from '@intlayer/design-system/routes';
 import tailwindcss from '@tailwindcss/vite';
 import { tanstackStart } from '@tanstack/react-start/plugin/vite';
@@ -60,8 +58,6 @@ export const pathList = [
   App_Dashboard_Assets_Path,
   App_Pricing_Path,
   App_Affiliation_Path,
-  App_ReviewerMarketplace_Path,
-  App_ReviewerMarketplace_Dashboard_Path,
   App_Auth_SignIn_Path,
   App_Auth_SignUp_Path,
   App_Auth_TwoFactor_Path,
@@ -104,7 +100,6 @@ const sessionGatedPathList = [
   App_Dashboard_Profile_Path,
   App_Dashboard_Scanner_Path,
   App_Dashboard_Assets_Path,
-  App_ReviewerMarketplace_Dashboard_Path,
   App_Auth_ChangePassword_Path,
   App_Admin_Path,
   App_Admin_Users_Path,
@@ -127,8 +122,6 @@ const cloudOnlyPathList = [
   App_Auth_Demo_Path,
   App_Pricing_Path,
   App_Affiliation_Path,
-  App_ReviewerMarketplace_Path,
-  App_ReviewerMarketplace_Dashboard_Path,
 ];
 
 /**

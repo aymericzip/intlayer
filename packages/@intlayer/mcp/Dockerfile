@@ -52,7 +52,8 @@ COPY \
     --exclude=apps/website \
 
     --exclude=apps/showcase \
-    --exclude=apps/app \
+    --exclude=apps/app \    
+    --exclude=apps/marketplace \
     --exclude=apps/vscode-extension \
     --exclude=**/*.stories.* \
     . .

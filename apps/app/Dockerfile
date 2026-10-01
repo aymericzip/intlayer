@@ -42,6 +42,7 @@ COPY \
     --exclude=packages/eslint-plugin-intlayer \
     --exclude=apps/website \
     --exclude=apps/showcase \
+    --exclude=apps/marketplace \
     --exclude=apps/vscode-extension \
     --exclude=docs/assets \
     --exclude=examples \

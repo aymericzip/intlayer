@@ -73,7 +73,7 @@ import { connectRedis } from '@utils/redis/connectRedis';
 import { stripeWebhook } from '@webhooks/stripe.webhook';
 // Libraries
 import dotenv from 'dotenv';
-import Fastify, { type FastifyInstance } from 'fastify';
+import Fastify, { type FastifyInstance, LogController } from 'fastify';
 import { intlayer, t } from 'fastify-intlayer';
 import { z } from 'zod/mini';
 import englishLocale from 'zod/v4/locales/en.js';
@@ -85,7 +85,9 @@ z.config(englishLocale());
 
 const startServer = async () => {
   const app: FastifyInstance = Fastify({
-    disableRequestLogging: true,
+    logController: new LogController({
+      disableRequestLogging: true,
+    }),
     trustProxy: true,
     routerOptions: {
       ignoreTrailingSlash: true,

@@ -14,7 +14,7 @@ import { getConfiguration } from '@intlayer/config/node';
 import { configurationRouter } from '@routes/config.routes';
 import { dictionaryRouter } from '@routes/dictionary.routes';
 import { checkPortAvailability } from '@utils/checkPortAvailability';
-import Fastify, { type FastifyInstance } from 'fastify';
+import Fastify, { type FastifyInstance, LogController } from 'fastify';
 import { intlayer } from 'fastify-intlayer';
 import mime from 'mime';
 
@@ -47,7 +47,9 @@ const packageJson = JSON.parse(
 );
 
 const app: FastifyInstance = Fastify({
-  disableRequestLogging: true, // Optional: Keep logs clean like the original
+  logController: new LogController({
+    disableRequestLogging: true, // Keep logs clean like the original
+  }),
 });
 
 // Load internationalization plugin

@@ -18,7 +18,6 @@ export const REVIEWER_CATEGORIES = [
   'technical_writer',
   'marketing',
   'seo',
-  'content_reviewer',
 ] as const;
 
 export type ReviewerCategory = (typeof REVIEWER_CATEGORIES)[number];

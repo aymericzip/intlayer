@@ -105,14 +105,22 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
           sizes: '180x180',
           href: '/apple-touch-icon.png',
         },
-        {
-          rel: 'preconnect',
-          href: import.meta.env.VITE_POSTHOG_HOST,
-        },
-        {
-          rel: 'preconnect',
-          href: import.meta.env.VITE_BACKEND_URL,
-        },
+        ...(import.meta.env.VITE_POSTHOG_HOST
+          ? [
+              {
+                rel: 'preconnect',
+                href: import.meta.env.VITE_POSTHOG_HOST,
+              },
+            ]
+          : []),
+        ...(import.meta.env.VITE_BACKEND_URL
+          ? [
+              {
+                rel: 'preconnect',
+                href: import.meta.env.VITE_BACKEND_URL,
+              },
+            ]
+          : []),
       ],
       scripts: [...structuredDataScripts],
     };

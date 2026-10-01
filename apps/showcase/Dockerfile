@@ -40,7 +40,8 @@ COPY \
     --exclude=packages/adonis-intlayer \
     --exclude=packages/eslint-plugin-intlayer \
     --exclude=apps/website \
-    --exclude=apps/app \
+    --exclude=apps/app \    
+    --exclude=apps/marketplace \
     --exclude=apps/vscode-extension \
     --exclude=docs/assets \
     --exclude=examples \

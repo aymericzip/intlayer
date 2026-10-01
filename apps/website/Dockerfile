@@ -62,7 +62,8 @@ COPY \
     --exclude=packages/remix-intlayer \
     --exclude=packages/adonis-intlayer \
     --exclude=packages/eslint-plugin-intlayer \
-    --exclude=apps/app \
+    --exclude=apps/app \    
+    --exclude=apps/marketplace \
     --exclude=apps/showcase \
     --exclude=apps/vscode-extension \
     --exclude=docs/assets \

@@ -1,7 +1,7 @@
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { useIsMounted, usePersistedStore } from '@intlayer/design-system/hooks';
-import { App_ReviewerMarketplace_Path } from '@intlayer/design-system/routes';
+import { Marketplace_Root } from '@intlayer/design-system/routes';
 import { X } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
@@ -46,7 +46,7 @@ export const ReviewerMarketplaceBanner: FC = () => {
         {reviewerMarketplace.description}
       </span>
       <Link
-        to={App_ReviewerMarketplace_Path}
+        to={Marketplace_Root}
         target="_blank"
         variant="button"
         color="text"

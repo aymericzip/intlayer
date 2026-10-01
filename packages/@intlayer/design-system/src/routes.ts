@@ -12,6 +12,34 @@ export const Backend_Origin = ((import.meta as any).env?.VITE_BACKEND_URL ||
   'https://back.intlayer.org') as 'https://back.intlayer.org';
 export const Showcase_Origin = 'https://showcase.intlayer.org' as const;
 export const Mcp_Origin = 'https://mcp.intlayer.org' as const;
+export const Marketplace_Origin = ((import.meta as any).env
+  ?.VITE_MARKETPLACE_URL ||
+  'https://marketplace.intlayer.org') as 'https://marketplace.intlayer.org';
+
+// ============================================================
+// Marketplace paths — relative (marketplace.intlayer.org)
+// ============================================================
+export const Marketplace_Root_Path = '/' as const;
+export const Marketplace_Reviewer_Path = '/$reviewerId' as const;
+export const Marketplace_Dashboard_Path = '/dashboard' as const;
+export const Marketplace_Dashboard_Mission_Path =
+  '/dashboard/mission/$missionId' as const;
+
+export const getMarketplaceReviewerRoute = (reviewerId: string) =>
+  `/${reviewerId}` as const;
+export const getMarketplaceMissionRoute = (missionId: string) =>
+  `/dashboard/mission/${missionId}` as const;
+
+// ============================================================
+// Marketplace absolute URLs — https://marketplace.intlayer.org
+// ============================================================
+export const Marketplace_Root = Marketplace_Origin;
+export const Marketplace_Dashboard =
+  `${Marketplace_Origin}${Marketplace_Dashboard_Path}` as const;
+export const getMarketplaceReviewerUrl = (reviewerId: string) =>
+  `${Marketplace_Origin}/${reviewerId}` as const;
+export const getMarketplaceMissionUrl = (missionId: string) =>
+  `${Marketplace_Origin}/dashboard/mission/${missionId}` as const;
 
 // ============================================================
 // Domains
@@ -43,18 +71,15 @@ export const App_Affiliation_Path = '/affiliation' as const;
 export const App_Demo_Path = '/demo' as const;
 export const App_Init_Path = '/init' as const;
 
-export const App_ReviewerMarketplace_Path = '/find-reviewer' as const;
+export const App_ReviewerMarketplace_Path = Marketplace_Root_Path;
 export const App_ReviewerMarketplace_Dashboard_Path =
-  '/find-reviewer/dashboard' as const;
-export const App_ReviewerMarketplace_Reviewer_Path =
-  '/find-reviewer/$reviewerId' as const;
+  Marketplace_Dashboard_Path;
+export const App_ReviewerMarketplace_Reviewer_Path = Marketplace_Reviewer_Path;
 export const App_ReviewerMarketplace_Dashboard_Mission_Path =
-  '/find-reviewer/dashboard/mission/$missionId' as const;
+  Marketplace_Dashboard_Mission_Path;
 
-export const getAppReviewerProfileRoute = (reviewerId: string) =>
-  `/find-reviewer/${reviewerId}` as const;
-export const getAppReviewerMissionRoute = (missionId: string) =>
-  `/find-reviewer/dashboard/mission/${missionId}` as const;
+export const getAppReviewerProfileRoute = getMarketplaceReviewerRoute;
+export const getAppReviewerMissionRoute = getMarketplaceMissionRoute;
 
 /** Root of the authentication section, usable as a `Disallow` prefix. */
 export const App_Auth_Path = '/auth' as const;
@@ -126,10 +151,8 @@ export const App_Pricing = `${App_Origin}${App_Pricing_Path}` as const;
 export const App_Affiliation = `${App_Origin}${App_Affiliation_Path}` as const;
 export const App_Demo = `${App_Origin}${App_Demo_Path}` as const;
 
-export const App_ReviewerMarketplace =
-  `${App_Origin}${App_ReviewerMarketplace_Path}` as const;
-export const App_ReviewerMarketplace_Dashboard =
-  `${App_Origin}${App_ReviewerMarketplace_Dashboard_Path}` as const;
+export const App_ReviewerMarketplace = Marketplace_Root;
+export const App_ReviewerMarketplace_Dashboard = Marketplace_Dashboard;
 
 export const App_Auth_SignIn = `${App_Origin}${App_Auth_SignIn_Path}` as const;
 export const App_Auth_SignUp = `${App_Origin}${App_Auth_SignUp_Path}` as const;

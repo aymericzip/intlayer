@@ -25,6 +25,7 @@ import {
   getSessionRoles,
   intersectPermissions,
 } from '@utils/permissions';
+import { getConfiguredOrigins } from '@utils/trustedOrigins';
 import { betterAuth } from 'better-auth';
 import { mongodbAdapter } from 'better-auth/adapters/mongodb';
 import { createAuthMiddleware } from 'better-auth/api';
@@ -437,11 +438,7 @@ export const getAuth = (dbClient: MongoClient): Auth => {
       },
     },
 
-    trustedOrigins: [
-      process.env.WEBSITE_URL,
-      process.env.APP_URL,
-      process.env.SHOWCASE_URL,
-    ].filter(Boolean) as string[],
+    trustedOrigins: getConfiguredOrigins(),
 
     accountLinking: {
       enabled: true, // allow linking in general

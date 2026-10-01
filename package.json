@@ -49,6 +49,8 @@
     "docker:backend:start": "docker run --rm -p 3100:3100 --name intlayer-backend-app intlayer-backend",
     "docker:design-system:build": "docker build -t intlayer-design-system -f ./packages/@intlayer/design-system/Dockerfile --progress=plain .",
     "docker:design-system:start": "docker run --rm -p 6006:6006 --name intlayer-design-system-app intlayer-design-system",
+    "docker:marketplace:build": "docker build -t intlayer-marketplace -f ./apps/marketplace/Dockerfile --progress=plain .",
+    "docker:marketplace:start": "docker run --rm -p 3300:3300 --name intlayer-marketplace-app intlayer-marketplace",
     "docker:mcp:build": "docker build -t intlayer-mcp -f ./packages/@intlayer/mcp/Dockerfile --progress=plain .",
     "docker:mcp:start": "docker run --rm -p 3000:3000 --name intlayer-mcp-app intlayer-mcp",
     "docker:showcase:build": "docker build -t intlayer-showcase -f ./apps/showcase/Dockerfile --progress=plain .",
