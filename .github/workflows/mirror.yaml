@@ -1,8 +1,8 @@
-name: 🪞 Mirror to GitLab & Bitbucket
+name: 🪞 Mirror to GitLab, Bitbucket & Codeberg
 
 # GitHub is the source of truth: every branch and tag is force-pushed to the
-# mirrors. Anything committed directly on GitLab/Bitbucket gets overwritten,
-# so merge contributions coming from there through GitHub.
+# mirrors. Anything committed directly on GitLab/Bitbucket/Codeberg gets
+# overwritten, so merge contributions coming from there through GitHub.
 # Triggered manually from the Actions tab (or `gh workflow run mirror.yaml`).
 
 on:
@@ -30,6 +30,9 @@ jobs:
           - name: Bitbucket
             url: https://x-token-auth:MIRROR_TOKEN@bitbucket.org/intlayer/intlayer.git
             secret: BITBUCKET_TOKEN
+          - name: Codeberg
+            url: https://aymericzip:MIRROR_TOKEN@codeberg.org/aymericzip/intlayer.git
+            secret: CODEBERG_TOKEN
     steps:
       - name: ⬇️ Checkout
         uses: actions/checkout@v4
