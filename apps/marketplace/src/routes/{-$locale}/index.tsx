@@ -7,6 +7,7 @@ import {
   localeMap,
 } from 'intlayer';
 import { ReviewerMarketplacePage } from '#components/ReviewerMarketplacePage';
+import { getOgImageUrl } from '#utils/ogImage';
 
 export const Route = createFileRoute('/{-$locale}/')({
   component: MarketplacePage,
@@ -26,6 +27,11 @@ export const Route = createFileRoute('/{-$locale}/')({
     const { locale } = params;
     const path = Marketplace_Root;
     const { title, description } = loaderData;
+    const fullTitle = `${title} | Intlayer`;
+    const ogImage = getOgImageUrl({
+      title: fullTitle,
+      locale,
+    });
 
     return {
       links: [
@@ -41,7 +47,17 @@ export const Route = createFileRoute('/{-$locale}/')({
           href: getLocalizedUrl(path, defaultLocale),
         },
       ],
-      meta: [{ title }, { name: 'description', content: description }],
+      meta: [
+        { title: fullTitle },
+        { name: 'description', content: description },
+        { property: 'og:title', content: fullTitle },
+        { property: 'og:description', content: description },
+        { property: 'og:url', content: getLocalizedUrl(path, locale) },
+        { property: 'og:image', content: ogImage },
+        { name: 'twitter:title', content: fullTitle },
+        { name: 'twitter:description', content: description },
+        { name: 'twitter:image', content: ogImage },
+      ],
     };
   },
 });

@@ -1,6 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { getIntlayerAsync } from 'intlayer';
 import { ReviewerProfilePage } from '#components/ReviewerProfilePage';
+import { getOgImageUrl } from '#utils/ogImage';
 
 export const Route = createFileRoute('/{-$locale}/$reviewerId')({
   component: ReviewerPage,
@@ -13,12 +14,22 @@ export const Route = createFileRoute('/{-$locale}/$reviewerId')({
     };
   },
   staleTime: Infinity,
-  head: ({ loaderData }) => {
-    const title = loaderData?.title ?? 'Reviewer Profile';
+  head: ({ params, loaderData }) => {
+    const title = `${loaderData?.title ?? 'Reviewer Profile'} | Intlayer`;
+    const ogImage = getOgImageUrl({
+      title,
+      locale: params.locale,
+    });
 
     return {
-      title: `${title} | Intlayer`,
-      meta: [{ name: 'robots', content: 'index, follow' }],
+      title,
+      meta: [
+        { name: 'robots', content: 'index, follow' },
+        { property: 'og:title', content: title },
+        { property: 'og:image', content: ogImage },
+        { name: 'twitter:title', content: title },
+        { name: 'twitter:image', content: ogImage },
+      ],
     };
   },
 });

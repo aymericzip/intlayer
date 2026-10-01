@@ -19,6 +19,7 @@ import appCss from '#/styles.css?url';
 import { ErrorComponent } from '#components/ErrorComponent';
 import { ServiceWorkerSubscriber } from '#components/ServiceWorker/ServiceWorkerSubscriber';
 import { sessionQueryOptions } from '#utils/auth.tsx';
+import { getOgImageUrl } from '#utils/ogImage';
 import { getRootStructuredDataScripts } from '#utils/structuredData';
 
 const localeRoute = getRouteApi('/{-$locale}');
@@ -39,6 +40,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
   },
   head: ({ loaderData }) => {
     const structuredDataScripts = loaderData?.structuredDataScripts ?? [];
+    const defaultOgImage = getOgImageUrl();
 
     return {
       title: 'Reviewer Marketplace | Intlayer',
@@ -54,9 +56,13 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
         { name: 'robots', content: 'index, follow' },
         { property: 'og:site_name', content: 'Intlayer' },
         { property: 'og:type', content: 'website' },
+        { property: 'og:image', content: defaultOgImage },
+        { property: 'og:image:width', content: '1200' },
+        { property: 'og:image:height', content: '630' },
         { name: 'twitter:card', content: 'summary_large_image' },
         { name: 'twitter:site', content: '@Intlayer183096' },
         { name: 'twitter:creator', content: '@aymericzip' },
+        { name: 'twitter:image', content: defaultOgImage },
         { name: 'author', content: 'Intlayer' },
         { name: 'author', content: 'Aymeric PINEAU' },
         { name: 'creator', content: 'Aymeric PINEAU' },

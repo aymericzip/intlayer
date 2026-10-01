@@ -23,26 +23,16 @@ const LocaleLayout: FC = () => {
 
 export const Route = createFileRoute('/{-$locale}')({
   component: LocaleLayout,
-  loader: async ({ params }) => {
-    const content = await getIntlayerAsync('locale-metadata', params.locale);
-    return {
-      title: String(content.title),
-      description: String(content.description),
-      keywords: Array.isArray(content.keywords)
-        ? content.keywords.map(String)
-        : [],
-      openGraphTitle: content.openGraph?.title
-        ? String(content.openGraph.title)
-        : undefined,
-    };
-  },
+  loader: async ({ params }) => ({
+    content: await getIntlayerAsync('locale-metadata', params.locale),
+  }),
   staleTime: Infinity,
   head: ({ params, loaderData }) => {
     if (!loaderData) return {};
 
-    const { title, description, keywords, openGraphTitle } = loaderData;
+    const { title, description, keywords, openGraph } = loaderData.content;
     const ogImage = getOgImageUrl({
-      title: openGraphTitle ?? title,
+      title: openGraph?.title ?? title,
       locale: params.locale,
     });
 
@@ -55,9 +45,11 @@ export const Route = createFileRoute('/{-$locale}')({
         },
         {
           name: 'keywords',
-          content: Array.isArray(keywords) ? keywords.join(', ') : '',
+          content: Array.isArray(keywords)
+            ? keywords.join(', ')
+            : String(keywords),
         },
-        { property: 'og:title', content: openGraphTitle ?? title },
+        { property: 'og:title', content: openGraph?.title ?? title },
         { property: 'og:description', content: description },
         {
           property: 'og:url',
