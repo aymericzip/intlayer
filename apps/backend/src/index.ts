@@ -154,11 +154,11 @@ const startServer = async () => {
   // Connect to MongoDB
   const dbClient = await connectDB();
 
-  // Connect to Redis
-  await connectRedis();
+  // Connect to Redis (optional: live translations are disabled without it)
+  const redisClient = await connectRedis();
 
   // Start Translation Worker
-  startTranslationWorker();
+  if (redisClient) startTranslationWorker();
 
   // Resume any pending recursive audits
   processAuditJobs().catch((err) => logger.error(err));

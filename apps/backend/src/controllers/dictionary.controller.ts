@@ -23,6 +23,7 @@ import {
 import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFiltersAndPaginationFromBody';
 import { mapDictionaryToAPI } from '@utils/mapper/dictionary';
 import { hasPermission } from '@utils/permissions';
+import { isRedisEnabled } from '@utils/redis/connectRedis';
 import {
   formatPaginatedResponse,
   formatResponse,
@@ -876,7 +877,7 @@ export const pushDictionaries = async (
         await webhooksService.triggerAll(fullProject);
 
         // Auto-fill: queue a translation job for the pushed dictionaries when enabled
-        if (fullProject.autoFill) {
+        if (fullProject.autoFill && isRedisEnabled()) {
           const projectLocales =
             fullProject.configuration?.internationalization?.locales ?? [];
           const defaultLocale =

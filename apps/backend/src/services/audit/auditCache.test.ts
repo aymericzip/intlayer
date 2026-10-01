@@ -2,8 +2,10 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import type { AuditEvent } from './types';
 
 const redisStore = new Map<string, { value: string; ttlSeconds: number }>();
+let isRedisConfigured = true;
 
 vi.mock('@utils/redis/connectRedis', () => ({
+  isRedisEnabled: () => isRedisConfigured,
   getRedisClient: () => ({
     get: async (key: string) => redisStore.get(key)?.value ?? null,
     set: async (
@@ -28,7 +30,19 @@ const events: AuditEvent[] = [
 ];
 
 describe('auditCache', () => {
-  beforeEach(() => redisStore.clear());
+  beforeEach(() => {
+    redisStore.clear();
+    isRedisConfigured = true;
+  });
+
+  it('skips the cache when Redis is not configured', async () => {
+    isRedisConfigured = false;
+
+    await setCachedAudit('https://example.com/fr', events);
+
+    expect(redisStore.size).toBe(0);
+    expect(await getCachedAudit('https://example.com/fr')).toBeNull();
+  });
 
   it('stores a completed audit for one hour and replays it', async () => {
     await setCachedAudit('https://example.com/fr', events);

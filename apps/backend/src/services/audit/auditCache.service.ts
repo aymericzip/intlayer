@@ -1,5 +1,5 @@
 import { logger } from '@logger';
-import { getRedisClient } from '@utils/redis/connectRedis';
+import { getRedisClient, isRedisEnabled } from '@utils/redis/connectRedis';
 import type { AuditEvent } from './types';
 
 /** How long a single-page audit result is served from cache. */
@@ -35,6 +35,8 @@ const getAuditCacheKey = (url: string): string => {
 export const getCachedAudit = async (
   url: string
 ): Promise<CachedAudit | null> => {
+  if (!isRedisEnabled()) return null;
+
   try {
     const cachedValue = await getRedisClient().get(getAuditCacheKey(url));
     return cachedValue ? (JSON.parse(cachedValue) as CachedAudit) : null;
@@ -52,6 +54,7 @@ export const setCachedAudit = async (
   url: string,
   events: AuditEvent[]
 ): Promise<void> => {
+  if (!isRedisEnabled()) return;
   if (events.some(({ globalError }) => globalError !== undefined)) return;
 
   const cachedAudit: CachedAudit = {

@@ -3,7 +3,16 @@ import Redis from 'ioredis';
 
 let redisClientInstance: Redis | null = null;
 
-export const connectRedis = async (): Promise<Redis> => {
+/**
+ * Whether Redis is configured (`REDIS_URL` set). Without it the backend runs
+ * normally, but live translations (BullMQ queue + worker) are disabled.
+ */
+export const isRedisEnabled = (): boolean => Boolean(process.env.REDIS_URL);
+
+/**
+ * Connect to Redis. Resolves `null` when `REDIS_URL` is not set.
+ */
+export const connectRedis = async (): Promise<Redis | null> => {
   try {
     if (redisClientInstance) {
       return redisClientInstance;
@@ -12,9 +21,8 @@ export const connectRedis = async (): Promise<Redis> => {
     const redisUrl = process.env.REDIS_URL;
 
     if (!redisUrl) {
-      const errorMessage = 'REDIS_URL is not defined';
-      logger.error(errorMessage);
-      throw new Error(errorMessage);
+      logger.warn('REDIS_URL is not defined - live translations are disabled');
+      return null;
     }
 
     const client = new Redis(redisUrl, {
