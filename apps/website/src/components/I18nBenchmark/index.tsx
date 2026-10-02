@@ -26,7 +26,7 @@ import {
 } from './benchmarkData';
 import { BENCHMARK_METRICS, type MetricId } from './benchmarkMetrics';
 import { buildChartData, buildLibraries } from './benchmarkUtils';
-import { ChartComponent, useLogoImages } from './ChartComponent';
+import { ChartComponent } from './ChartComponent';
 import type { BenchmarkCategory, FrameworkKey } from './constants';
 import { FrameworkSelector } from './FrameworkSelector';
 import { LibCard } from './LibCard';
@@ -154,17 +154,13 @@ export const I18nBenchmark: FC<I18nBenchmarkProps> = ({
 
   const {
     data: summary,
-    isLoading: isBenchmarkLoading,
+    isLoading,
     isError,
   } = useQuery({
     queryKey: ['benchmarkData', framework, category],
     queryFn: () => fetchBenchmarkData(framework, category),
     staleTime: BENCHMARK_STALE_TIME_MS,
   });
-
-  const { data: logoImages = {}, isLoading: isLogosLoading } = useLogoImages();
-
-  const isLoading = isBenchmarkLoading || isLogosLoading;
 
   const selectedMetric =
     BENCHMARK_METRICS.find((metric) => metric.id === selectedMetricId) ??
@@ -249,14 +245,7 @@ export const I18nBenchmark: FC<I18nBenchmarkProps> = ({
       );
     }
 
-    return (
-      <ChartComponent
-        data={chartData}
-        unit={selectedMetric.unit}
-        logoImages={logoImages}
-        isDarkMode={isDarkMode}
-      />
-    );
+    return <ChartComponent data={chartData} unit={selectedMetric.unit} />;
   };
 
   return (

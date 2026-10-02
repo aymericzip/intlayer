@@ -159,8 +159,3 @@ const INTLAYER_LOGO_URL = '/logo.svg';
 
 export const getLibLogoUrl = (libId: string): string | undefined =>
   isIntlayerLib(libId) ? INTLAYER_LOGO_URL : LIB_LOGOS[libId];
-
-/** Every distinct logo URL, used to preload the chart images. */
-export const LOGO_URLS: string[] = [
-  ...new Set([INTLAYER_LOGO_URL, ...Object.values(LIB_LOGOS)]),
-];

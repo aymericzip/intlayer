@@ -1,4 +1,3 @@
-import { useQuery } from '@tanstack/react-query';
 import {
   BarController,
   BarElement,
@@ -10,12 +9,7 @@ import {
   Tooltip,
 } from 'chart.js';
 import { type FC, useEffect, useRef } from 'react';
-import {
-  type ChartItem,
-  getLibLogoUrl,
-  isIntlayerLib,
-  LOGO_URLS,
-} from './constants';
+import type { ChartItem } from './constants';
 
 /** Vertical space reserved per bar so every library label stays readable. */
 const ROW_HEIGHT_PIXELS = 28;
@@ -31,38 +25,10 @@ Chart.register(
   Legend
 );
 
-/** Preloads every library logo so the chart plugin can draw them on canvas. */
-export const useLogoImages = () =>
-  useQuery({
-    queryKey: ['logoImages'],
-    queryFn: async () => {
-      const imagesByUrl: Record<string, HTMLImageElement> = {};
-
-      await Promise.all(
-        LOGO_URLS.map(
-          (logoUrl) =>
-            new Promise<void>((resolve) => {
-              const image = new window.Image();
-              image.onload = image.onerror = () => {
-                imagesByUrl[logoUrl] = image;
-                resolve();
-              };
-              image.src = logoUrl;
-            })
-        )
-      );
-
-      return imagesByUrl;
-    },
-    staleTime: Infinity,
-  });
-
 export const ChartComponent: FC<{
   data: ChartItem[];
   unit: string;
-  logoImages: Record<string, HTMLImageElement>;
-  isDarkMode?: boolean;
-}> = ({ data, unit, logoImages, isDarkMode }) => {
+}> = ({ data, unit }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const chartRef = useRef<Chart | null>(null);
 
@@ -74,44 +40,8 @@ export const ChartComponent: FC<{
       return;
     }
 
-    const ctx = canvasRef.current.getContext('2d');
-    if (!ctx) return;
-
     chartRef.current?.destroy();
     chartRef.current = null;
-
-    const logoPlugin: Plugin<'bar'> = {
-      id: 'logoPlugin',
-      afterDraw(chart) {
-        const yAxis = chart.scales?.y;
-        if (!yAxis) return;
-        const size = 14;
-        const gap = 4;
-
-        yAxis.ticks.forEach((tick, i) => {
-          const label = Array.isArray(tick.label)
-            ? tick.label[0]
-            : (tick.label as string);
-          const item = data.find((d) => d.label === label);
-          if (!item) return;
-          const logoUrl = getLibLogoUrl(item.libId);
-          const img = logoUrl ? logoImages[logoUrl] : undefined;
-          if (!img?.complete || !img.naturalWidth) return;
-
-          const y = yAxis.getPixelForTick(i);
-          const x = chart.chartArea.left - yAxis.width - size - gap;
-          ctx.save();
-          ctx.beginPath();
-          ctx.arc(x + size / 2, y, size / 2, 0, Math.PI * 2);
-          ctx.clip();
-          if (isDarkMode && isIntlayerLib(item.libId)) {
-            ctx.filter = 'brightness(0) invert(1)';
-          }
-          ctx.drawImage(img, x, y - size / 2, size, size);
-          ctx.restore();
-        });
-      },
-    };
 
     const rangePlugin: Plugin<'bar'> = {
       id: 'rangePlugin',
@@ -205,7 +135,7 @@ export const ChartComponent: FC<{
               },
             },
           },
-          layout: { padding: { left: 26, right: 16 } },
+          layout: { padding: { right: 16 } },
           scales: {
             x: {
               grid: { display: false },
@@ -224,7 +154,7 @@ export const ChartComponent: FC<{
             },
           },
         },
-        plugins: [logoPlugin, rangePlugin],
+        plugins: [rangePlugin],
       });
     });
 
@@ -234,7 +164,7 @@ export const ChartComponent: FC<{
       chartRef.current?.destroy();
       chartRef.current = null;
     };
-  }, [data, unit, logoImages, isDarkMode]);
+  }, [data, unit]);
 
   return (
     <div
