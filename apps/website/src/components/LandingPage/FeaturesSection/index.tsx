@@ -1,6 +1,6 @@
 import { useDevice } from '@intlayer/design-system/hooks';
 import { Loader } from '@intlayer/design-system/loader';
-import { cn } from '@intlayer/design-system/utils';
+import { cn, scheduleFrameTask } from '@intlayer/design-system/utils';
 import { m } from 'framer-motion';
 import { getHTMLTextDir } from 'intlayer';
 import {
@@ -208,62 +208,67 @@ export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({
     getHTMLTextDir(locale) === 'rtl' ? -1 : 1;
 
   useEffect(() => {
-    let ticking = false;
+    const container = containerRef.current;
+    if (!container) return;
 
-    const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          if (!containerRef.current) {
-            ticking = false;
-            return;
-          }
-          const scrollY = window.scrollY;
-          const containerTop = containerRef.current.offsetTop;
-          const containerHeight = containerRef.current.offsetHeight;
+    // Cached so scrolling never reads layout; refreshed from the resize
+    // observer, whose callback runs after layout and so reads it for free.
+    let containerTop = 0;
+    let containerHeight = 0;
 
-          const scrollYInContainer = scrollY - containerTop;
-          const scrollableHeight = containerHeight - window.innerHeight;
-          const sectionHeight = scrollableHeight / nbSections;
+    const updateActiveSection = () => {
+      const scrollYInContainer = window.scrollY - containerTop;
+      const scrollableHeight = containerHeight - window.innerHeight;
+      const sectionHeight = scrollableHeight / nbSections;
 
-          const newIndex = Math.floor(scrollYInContainer / sectionHeight);
-          const clampedIndex = Math.max(0, Math.min(newIndex, nbSections - 1));
+      const newIndex = Math.floor(scrollYInContainer / sectionHeight);
+      const clampedIndex = Math.max(0, Math.min(newIndex, nbSections - 1));
 
-          // Only update if index changed
-          if (activeIndexRef.current !== clampedIndex) {
-            startTransition(() => {
-              setActiveIndex(clampedIndex);
-            });
-          }
-
-          // Clamp so scrolling past (or loading below) the container shows the
-          // last section fully played, and above it shows the first unplayed
-          const progressInSection = Math.max(
-            0,
-            Math.min(
-              (scrollYInContainer - clampedIndex * sectionHeight) /
-                sectionHeight,
-              1
-            )
-          );
-
-          // Only update if progress changed
-          if (progressRef.current !== progressInSection) {
-            startTransition(() => {
-              setProgress(progressInSection);
-            });
-          }
-
-          ticking = false;
+      // Only update if index changed
+      if (activeIndexRef.current !== clampedIndex) {
+        startTransition(() => {
+          setActiveIndex(clampedIndex);
         });
-        ticking = true;
+      }
+
+      // Clamp so scrolling past (or loading below) the container shows the
+      // last section fully played, and above it shows the first unplayed
+      const progressInSection = Math.max(
+        0,
+        Math.min(
+          (scrollYInContainer - clampedIndex * sectionHeight) / sectionHeight,
+          1
+        )
+      );
+
+      // Only update if progress changed
+      if (progressRef.current !== progressInSection) {
+        startTransition(() => {
+          setProgress(progressInSection);
+        });
       }
     };
 
-    // Sync with the restored scroll position (refresh below the section)
-    handleScroll();
+    // The body is observed too: content growing above the carousel moves it.
+    // Its first callback also syncs with a restored scroll position.
+    const resizeObserver = new ResizeObserver(() => {
+      containerTop = container.getBoundingClientRect().top + window.scrollY;
+      containerHeight = container.offsetHeight;
+      updateActiveSection();
+    });
+    resizeObserver.observe(container);
+    resizeObserver.observe(document.body);
+
+    let cancelScrollUpdate: (() => void) | undefined;
+    const handleScroll = () => {
+      cancelScrollUpdate?.();
+      cancelScrollUpdate = scheduleFrameTask(updateActiveSection);
+    };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => {
+      resizeObserver.disconnect();
+      cancelScrollUpdate?.();
       window.removeEventListener('scroll', handleScroll);
     };
   }, [nbSections, setActiveIndex, setProgress]);

@@ -9,7 +9,7 @@ import { cn } from '@intlayer/design-system/utils';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import type { CSSProperties, FC, RefObject } from 'react';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import type { Contributor } from '~/components/Contributors/ContributorsList';
 import { Link } from '~/components/Link/Link';
@@ -23,6 +23,11 @@ type ContributorAvatarProps = {
   index: number;
   position: { x: number; y: number };
   dragConstraintsRef: RefObject<HTMLElement | null>;
+  /**
+   * Mounting drag measures the avatar and its constraints, a forced reflow
+   * per avatar, so it is only enabled once the pointer reaches the section.
+   */
+  isDraggable: boolean;
 };
 
 const sizeVariants = [
@@ -58,6 +63,7 @@ const ContributorAvatar: FC<ContributorAvatarProps> = ({
   index,
   position,
   dragConstraintsRef,
+  isDraggable,
 }) => {
   const sizeIndex = (index + contributor.login.length) % sizeVariants.length;
   const sizeClass = sizeVariants[sizeIndex];
@@ -72,7 +78,7 @@ const ContributorAvatar: FC<ContributorAvatarProps> = ({
 
   return (
     <motion.div
-      drag
+      drag={isDraggable}
       suppressHydrationWarning
       dragConstraints={dragConstraintsRef}
       dragMomentum
@@ -159,10 +165,12 @@ export const ContributorCloud: FC<ContributorCloudProps> = ({
   );
   const positions = generateCloudPositions(contributors.length);
   const sectionRef = useRef<HTMLElement>(null);
+  const [isDraggable, setIsDraggable] = useState(false);
 
   return (
     <section
       ref={sectionRef}
+      onPointerEnter={() => setIsDraggable(true)}
       className="relative w-full border-b py-20 max-md:hidden md:py-32"
     >
       <div className="pointer-events-none mx-auto max-w-7xl p-5 px-4 md:px-8 lg:px-16">
@@ -214,6 +222,7 @@ export const ContributorCloud: FC<ContributorCloudProps> = ({
             index={index}
             position={position}
             dragConstraintsRef={sectionRef}
+            isDraggable={isDraggable}
           />
         );
       })}
