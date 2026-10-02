@@ -166,19 +166,19 @@ Saya menjalankan aplikasi multibahasa yang sama di browser nyata untuk setiap st
 
 Bintang GitHub adalah indikator kuat dari popularitas proyek, kepercayaan komunitas, dan relevansi jangka panjang. Meskipun bukan ukuran langsung dari kualitas teknis, bintang-bintang tersebut mencerminkan berapa banyak pengembang yang menganggap proyek tersebut berguna, mengikuti kemajuannya, dan kemungkinan akan mengadopsinya. Untuk memperkirakan nilai suatu proyek, bintang membantu membandingkan daya tarik di berbagai alternatif dan memberikan wawasan tentang pertumbuhan ekosistem.
 
-[![Star History Chart](https://api.star-history.com/chart?repos=formatjs%2Fformatjs%2Ci18next%2Freact-i18next%2Clingui%2Fjs-lingui%2Camannn%2Fnext-intl%2Copral%2Fparaglide-js%2Ctolgee%2Ftolgee-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#formatjs/formatjs&i18next/react-i18next&lingui/js-lingui&amannn/next-intl&opral/paraglide-js&tolgee/tolgee-js&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=formatjs%2Fformatjs%2Ci18next%2Freact-i18next%2Clingui%2Fjs-lingui%2Camannn%2Fnext-intl%2Copral%2Fparaglide-js%2Ctolgee%2Ftolgee-js%2Cgeneraltranslation%2Fgt%2Clingodotdev%2Flingo.dev%2Cwuchalejs%2Fwuchale%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#formatjs/formatjs&i18next/react-i18next&lingui/js-lingui&amannn/next-intl&opral/paraglide-js&tolgee/tolgee-js&generaltranslation/gt&lingodotdev/lingo.dev&wuchalejs/wuchale&aymericzip/intlayer)
 
 ## Aktivitas commit
 
 Bintang menunjukkan popularitas. Commit menunjukkan seberapa banyak kerja yang masuk ke sebuah proyek. Saat tulisan ini dibuat, Intlayer memiliki sekitar 7.500 commit, lebih banyak dari sebagian besar library yang dibandingkan di sini, dan sekitar 5 kali lebih banyak dari `next-intl` atau `next-i18next`.
 
-<GithubCommits repositories="formatjs/formatjs,i18next/react-i18next,lingui/js-lingui,amannn/next-intl,opral/paraglide-js,tolgee/tolgee-js,aymericzip/intlayer" />
+<GithubCommits repositories="formatjs/formatjs,i18next/react-i18next,lingui/js-lingui,amannn/next-intl,opral/paraglide-js,tolgee/tolgee-js,generaltranslation/gt,lingodotdev/lingo.dev,wuchalejs/wuchale,aymericzip/intlayer" />
 
 > Intlayer adalah monorepo, jadi jumlah ini mencakup setiap paket framework, CLI, dan dokumentasi. Baca commit sebagai sinyal aktivitas, bukan kualitas.
 
 ## Unduhan npm
 
-<NpmDownloads packages="react-intl,react-i18next,@lingui/react,use-intl,@inlang/paraglide-js,@tolgee/react,react-intlayer" period="last-6-months" />
+<NpmDownloads packages="react-intl,react-i18next,@lingui/react,use-intl,@inlang/paraglide-js,@tolgee/react,gt-react,lingo.dev,wuchale,react-intlayer" period="last-6-months" />
 
 Jumlah unduhan menghargai solusi yang paling lama, bukan yang terbaik. Library yang dirilis bertahun-tahun lalu masih diinstal oleh setiap proyek yang memilihnya saat itu, oleh setiap eksekusi CI, dan oleh setiap paket yang bergantung padanya. Angka ini lebih mengukur inersia daripada pilihan baru.
 

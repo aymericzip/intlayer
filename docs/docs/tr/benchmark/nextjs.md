@@ -180,19 +180,19 @@ Her teknoloji yığını için aynı çok dilli uygulamayı gerçek bir tarayıc
 
 GitHub yıldızları, bir projenin popülerliğinin, topluluk güveninin ve uzun vadeli alakasının güçlü bir göstergesidir. Teknik kalitenin doğrudan bir ölçüsü olmasa da, kaç geliştiricinin projeyi yararlı bulduğunu, ilerlemesini takip ettiğini ve benimseme olasılığını yansıtır. Bir projenin değerini tahmin etmek için yıldızlar, alternatifler arasındaki çekişi karşılaştırmaya yardımcı olur ve ekosistem büyümesi hakkında içgörüler sağlar.
 
-[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fnext-i18next%2Camannn%2Fnext-intl%2Clingui%2Fjs-lingui%2Cvinissimus%2Fnext-translate%2Cinostudio%2Fnext-international%2Copral%2Fparaglide-js%2Ctolgee%2Ftolgee-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/next-i18next&amannn/next-intl&lingui/js-lingui&vinissimus/next-translate&inostudio/next-international&opral/paraglide-js&tolgee/tolgee-js&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fnext-i18next%2Camannn%2Fnext-intl%2Clingui%2Fjs-lingui%2Caralroca%2Fnext-translate%2Cquiibz%2Fnext-international%2Copral%2Fparaglide-js%2Ctolgee%2Ftolgee-js%2Cgeneraltranslation%2Fgt%2Clingodotdev%2Flingo.dev%2Cwuchalejs%2Fwuchale%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/next-i18next&amannn/next-intl&lingui/js-lingui&aralroca/next-translate&quiibz/next-international&opral/paraglide-js&tolgee/tolgee-js&generaltranslation/gt&lingodotdev/lingo.dev&wuchalejs/wuchale&aymericzip/intlayer)
 
 ## Commit etkinliği
 
 Yıldızlar popülerliği gösterir. Commit sayısı ise bir projeye ne kadar emek verildiğini gösterir. Bu yazı yazıldığında Intlayer yaklaşık 7.500 commit içeriyor; bu, burada karşılaştırılan kütüphanelerin çoğundan fazla ve `next-intl` ya da `next-i18next` kütüphanesinin yaklaşık 5 katı.
 
-<GithubCommits repositories="i18next/next-i18next,amannn/next-intl,lingui/js-lingui,aralroca/next-translate,QuiiBz/next-international,opral/paraglide-js,tolgee/tolgee-js,aymericzip/intlayer" />
+<GithubCommits repositories="i18next/next-i18next,amannn/next-intl,lingui/js-lingui,aralroca/next-translate,QuiiBz/next-international,opral/paraglide-js,tolgee/tolgee-js,generaltranslation/gt,lingodotdev/lingo.dev,wuchalejs/wuchale,aymericzip/intlayer" />
 
 > Intlayer bir monorepo olduğundan bu sayı her framework paketini, CLI'yi ve dokümantasyonu kapsar. Commit sayısını kalitenin değil, etkinliğin bir göstergesi olarak okuyun.
 
 ## npm indirmeleri
 
-<NpmDownloads packages="next-i18next,next-intl,@lingui/react,next-translate,next-international,@inlang/paraglide-js,@tolgee/react,next-intlayer" period="last-6-months" />
+<NpmDownloads packages="next-i18next,next-intl,@lingui/react,next-translate,next-international,@inlang/paraglide-js,@tolgee/react,gt-next,lingo.dev,wuchale,next-intlayer" period="last-6-months" />
 
 İndirme sayıları en iyi çözümleri değil, en eski çözümleri ödüllendirir. Yıllar önce yayımlanmış bir kütüphane, onu o zaman seçen her proje, her CI çalışması ve ona bağımlı her paket tarafından hâlâ kurulur. Bu sayı yeni bir tercihten çok ataleti ölçer.
 

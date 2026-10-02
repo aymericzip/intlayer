@@ -166,19 +166,19 @@ Uruchomiłem tę samą wielojęzyczną aplikację w prawdziwej przeglądarce dla
 
 Gwiazdki na GitHubie są silnym wskaźnikiem popularności projektu, zaufania społeczności i długoterminowego znaczenia. Choć nie są bezpośrednią miarą jakości technicznej, odzwierciedlają, ilu programistów uważa projekt za przydatny, śledzi jego postępy i prawdopodobnie go przyjmie. Przy szacowaniu wartości projektu gwiazdki pomagają porównać zainteresowanie alternatywami i dostarczają wglądu w rozwój ekosystemu.
 
-[![Star History Chart](https://api.star-history.com/chart?repos=formatjs%2Fformatjs%2Ci18next%2Freact-i18next%2Clingui%2Fjs-lingui%2Camannn%2Fnext-intl%2Copral%2Fparaglide-js%2Ctolgee%2Ftolgee-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#formatjs/formatjs&i18next/react-i18next&lingui/js-lingui&amannn/next-intl&opral/paraglide-js&tolgee/tolgee-js&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=formatjs%2Fformatjs%2Ci18next%2Freact-i18next%2Clingui%2Fjs-lingui%2Camannn%2Fnext-intl%2Copral%2Fparaglide-js%2Ctolgee%2Ftolgee-js%2Cgeneraltranslation%2Fgt%2Clingodotdev%2Flingo.dev%2Cwuchalejs%2Fwuchale%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#formatjs/formatjs&i18next/react-i18next&lingui/js-lingui&amannn/next-intl&opral/paraglide-js&tolgee/tolgee-js&generaltranslation/gt&lingodotdev/lingo.dev&wuchalejs/wuchale&aymericzip/intlayer)
 
 ## Aktywność commitów
 
 Gwiazdki pokazują popularność. Commity pokazują, ile pracy włożono w projekt. W chwili pisania Intlayer ma około 7 500 commitów, więcej niż większość porównywanych tu bibliotek i mniej więcej 5 razy więcej niż `next-intl` czy `next-i18next`.
 
-<GithubCommits repositories="formatjs/formatjs,i18next/react-i18next,lingui/js-lingui,amannn/next-intl,opral/paraglide-js,tolgee/tolgee-js,aymericzip/intlayer" />
+<GithubCommits repositories="formatjs/formatjs,i18next/react-i18next,lingui/js-lingui,amannn/next-intl,opral/paraglide-js,tolgee/tolgee-js,generaltranslation/gt,lingodotdev/lingo.dev,wuchalejs/wuchale,aymericzip/intlayer" />
 
 > Intlayer to monorepo, więc ta liczba obejmuje każdy pakiet dla frameworków, CLI i dokumentację. Traktuj commity jako sygnał aktywności, a nie jakości.
 
 ## Pobrania z npm
 
-<NpmDownloads packages="react-intl,react-i18next,@lingui/react,use-intl,@inlang/paraglide-js,@tolgee/react,react-intlayer" period="last-6-months" />
+<NpmDownloads packages="react-intl,react-i18next,@lingui/react,use-intl,@inlang/paraglide-js,@tolgee/react,gt-react,lingo.dev,wuchale,react-intlayer" period="last-6-months" />
 
 Liczba pobrań nagradza najstarsze rozwiązania, a nie najlepsze. Biblioteka wydana lata temu wciąż jest instalowana przez każdy projekt, który ją wtedy wybrał, przez każde uruchomienie CI i przez każdy pakiet, który od niej zależy. Ta liczba mierzy bezwładność bardziej niż świadomy wybór.
 

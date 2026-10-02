@@ -180,19 +180,19 @@ Intlayer इन सभी आयामों में अनुकूलन क
 
 GitHub सितारे किसी प्रोजेक्ट की लोकप्रियता, सामुदायिक विश्वास और दीर्घकालिक प्रासंगिकता का एक मजबूत संकेतक हैं। हालांकि यह तकनीकी गुणवत्ता का प्रत्यक्ष माप नहीं है, वे दर्शाते हैं कि कितने डेवलपर्स प्रोजेक्ट को उपयोगी पाते हैं, इसकी प्रगति का पालन करते हैं, और इसे अपनाने की संभावना रखते हैं। किसी प्रोजेक्ट के मूल्य का अनुमान लगाने के लिए, सितारे विकल्पों के बीच कर्षण की तुलना करने में मदद करते हैं और पारिस्थितिकी तंत्र के विकास में अंतर्दृष्टि प्रदान करते हैं।
 
-[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fnext-i18next%2Camannn%2Fnext-intl%2Clingui%2Fjs-lingui%2Cvinissimus%2Fnext-translate%2Cinostudio%2Fnext-international%2Copral%2Fparaglide-js%2Ctolgee%2Ftolgee-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/next-i18next&amannn/next-intl&lingui/js-lingui&vinissimus/next-translate&inostudio/next-international&opral/paraglide-js&tolgee/tolgee-js&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fnext-i18next%2Camannn%2Fnext-intl%2Clingui%2Fjs-lingui%2Caralroca%2Fnext-translate%2Cquiibz%2Fnext-international%2Copral%2Fparaglide-js%2Ctolgee%2Ftolgee-js%2Cgeneraltranslation%2Fgt%2Clingodotdev%2Flingo.dev%2Cwuchalejs%2Fwuchale%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/next-i18next&amannn/next-intl&lingui/js-lingui&aralroca/next-translate&quiibz/next-international&opral/paraglide-js&tolgee/tolgee-js&generaltranslation/gt&lingodotdev/lingo.dev&wuchalejs/wuchale&aymericzip/intlayer)
 
 ## कमिट गतिविधि
 
 स्टार लोकप्रियता दिखाते हैं। कमिट दिखाते हैं कि किसी प्रोजेक्ट में कितना काम लगा है। लिखते समय Intlayer में लगभग 7,500 कमिट हैं, जो यहाँ तुलना की गई अधिकांश लाइब्रेरी से ज़्यादा हैं और `next-intl` या `next-i18next` से लगभग 5 गुना।
 
-<GithubCommits repositories="i18next/next-i18next,amannn/next-intl,lingui/js-lingui,aralroca/next-translate,QuiiBz/next-international,opral/paraglide-js,tolgee/tolgee-js,aymericzip/intlayer" />
+<GithubCommits repositories="i18next/next-i18next,amannn/next-intl,lingui/js-lingui,aralroca/next-translate,QuiiBz/next-international,opral/paraglide-js,tolgee/tolgee-js,generaltranslation/gt,lingodotdev/lingo.dev,wuchalejs/wuchale,aymericzip/intlayer" />
 
 > Intlayer एक मोनोरेपो है, इसलिए इस संख्या में हर फ़्रेमवर्क पैकेज, CLI और डॉक्स शामिल हैं। कमिट को गुणवत्ता नहीं, गतिविधि का संकेत मानें।
 
 ## npm डाउनलोड
 
-<NpmDownloads packages="next-i18next,next-intl,@lingui/react,next-translate,next-international,@inlang/paraglide-js,@tolgee/react,next-intlayer" period="last-6-months" />
+<NpmDownloads packages="next-i18next,next-intl,@lingui/react,next-translate,next-international,@inlang/paraglide-js,@tolgee/react,gt-next,lingo.dev,wuchale,next-intlayer" period="last-6-months" />
 
 डाउनलोड सबसे पुराने समाधानों को पुरस्कृत करते हैं, सबसे अच्छे को नहीं। वर्षों पहले जारी हुई लाइब्रेरी आज भी हर उस प्रोजेक्ट में इंस्टॉल होती है जिसने उसे तब चुना था, हर CI रन में और हर उस पैकेज में जो उस पर निर्भर है। यह संख्या नए चुनाव से ज़्यादा जड़ता को मापती है।
 

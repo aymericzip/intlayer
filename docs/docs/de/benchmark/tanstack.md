@@ -166,19 +166,19 @@ Ich habe dieselbe mehrsprachige App in einem echten Browser für jeden Stack aus
 
 GitHub-Sterne sind ein starker Indikator für die Popularität eines Projekts, das Vertrauen der Community und die langfristige Relevanz. Sie sind zwar kein direktes Maß für die technische Qualität, spiegeln jedoch wider, wie viele Entwickler das Projekt nützlich finden, seinen Fortschritt verfolgen und es wahrscheinlich übernehmen werden. Um den Wert eines Projekts einzuschätzen, helfen Sterne dabei, die Traktion verschiedener Alternativen zu vergleichen und Einblicke in das Wachstum des Ökosystems zu gewinnen.
 
-[![Star History Chart](https://api.star-history.com/chart?repos=formatjs%2Fformatjs%2Ci18next%2Freact-i18next%2Clingui%2Fjs-lingui%2Camannn%2Fnext-intl%2Copral%2Fparaglide-js%2Ctolgee%2Ftolgee-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#formatjs/formatjs&i18next/react-i18next&lingui/js-lingui&amannn/next-intl&opral/paraglide-js&tolgee/tolgee-js&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=formatjs%2Fformatjs%2Ci18next%2Freact-i18next%2Clingui%2Fjs-lingui%2Camannn%2Fnext-intl%2Copral%2Fparaglide-js%2Ctolgee%2Ftolgee-js%2Cgeneraltranslation%2Fgt%2Clingodotdev%2Flingo.dev%2Cwuchalejs%2Fwuchale%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#formatjs/formatjs&i18next/react-i18next&lingui/js-lingui&amannn/next-intl&opral/paraglide-js&tolgee/tolgee-js&generaltranslation/gt&lingodotdev/lingo.dev&wuchalejs/wuchale&aymericzip/intlayer)
 
 ## Commit-Aktivität
 
 Sterne zeigen Popularität. Commits zeigen, wie viel Arbeit in einem Projekt steckt. Zum Zeitpunkt des Schreibens zählt Intlayer rund 7.500 Commits, mehr als die meisten hier verglichenen Bibliotheken und etwa 5-mal so viele wie `next-intl` oder `next-i18next`.
 
-<GithubCommits repositories="formatjs/formatjs,i18next/react-i18next,lingui/js-lingui,amannn/next-intl,opral/paraglide-js,tolgee/tolgee-js,aymericzip/intlayer" />
+<GithubCommits repositories="formatjs/formatjs,i18next/react-i18next,lingui/js-lingui,amannn/next-intl,opral/paraglide-js,tolgee/tolgee-js,generaltranslation/gt,lingodotdev/lingo.dev,wuchalejs/wuchale,aymericzip/intlayer" />
 
 > Intlayer ist ein Monorepo: Die Zahl umfasst jedes Framework-Paket, die CLI und die Dokumentation. Commits sind ein Signal für Aktivität, nicht für Qualität.
 
 ## npm-Downloads
 
-<NpmDownloads packages="react-intl,react-i18next,@lingui/react,use-intl,@inlang/paraglide-js,@tolgee/react,react-intlayer" period="last-6-months" />
+<NpmDownloads packages="react-intl,react-i18next,@lingui/react,use-intl,@inlang/paraglide-js,@tolgee/react,gt-react,lingo.dev,wuchale,react-intlayer" period="last-6-months" />
 
 Downloads belohnen die ältesten Lösungen, nicht die besten. Eine vor Jahren veröffentlichte Bibliothek wird weiterhin von jedem Projekt installiert, das sie damals gewählt hat, von jedem CI-Lauf und von jedem Paket, das davon abhängt. Die Zahl misst Trägheit mehr als eine bewusste Wahl.
 

@@ -180,19 +180,19 @@ J'ai fait tourner la même application multilingue dans un navigateur réel pour
 
 Les étoiles GitHub sont un indicateur fort de la popularité d'un projet, de la confiance de la communauté et de sa pertinence à long terme. Bien qu'elles ne soient pas une mesure directe de la qualité technique, elles reflètent le nombre de développeurs qui trouvent le projet utile, suivent ses progrès et sont susceptibles de l'adopter. Pour estimer la valeur d'un projet, les étoiles aident à comparer l'attraction entre les alternatives et fournissent des informations sur la croissance de l'écosystème.
 
-[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fnext-i18next%2Camannn%2Fnext-intl%2Clingui%2Fjs-lingui%2Cvinissimus%2Fnext-translate%2Cinostudio%2Fnext-international%2Copral%2Fparaglide-js%2Ctolgee%2Ftolgee-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/next-i18next&amannn/next-intl&lingui/js-lingui&vinissimus/next-translate&inostudio/next-international&opral/paraglide-js&tolgee/tolgee-js&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fnext-i18next%2Camannn%2Fnext-intl%2Clingui%2Fjs-lingui%2Caralroca%2Fnext-translate%2Cquiibz%2Fnext-international%2Copral%2Fparaglide-js%2Ctolgee%2Ftolgee-js%2Cgeneraltranslation%2Fgt%2Clingodotdev%2Flingo.dev%2Cwuchalejs%2Fwuchale%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/next-i18next&amannn/next-intl&lingui/js-lingui&aralroca/next-translate&quiibz/next-international&opral/paraglide-js&tolgee/tolgee-js&generaltranslation/gt&lingodotdev/lingo.dev&wuchalejs/wuchale&aymericzip/intlayer)
 
 ## Activité des commits
 
 Les étoiles mesurent la popularité. Les commits mesurent le travail investi dans un projet. Au moment de l'écriture, Intlayer compte environ 7 500 commits, plus que la plupart des bibliothèques comparées ici, et environ 5 fois plus que `next-intl` ou `next-i18next`.
 
-<GithubCommits repositories="i18next/next-i18next,amannn/next-intl,lingui/js-lingui,aralroca/next-translate,QuiiBz/next-international,opral/paraglide-js,tolgee/tolgee-js,aymericzip/intlayer" />
+<GithubCommits repositories="i18next/next-i18next,amannn/next-intl,lingui/js-lingui,aralroca/next-translate,QuiiBz/next-international,opral/paraglide-js,tolgee/tolgee-js,generaltranslation/gt,lingodotdev/lingo.dev,wuchalejs/wuchale,aymericzip/intlayer" />
 
 > Intlayer est un monorepo : ce total inclut chaque package de framework, la CLI et la documentation. Lisez les commits comme un signal d'activité, pas de qualité.
 
 ## Téléchargements npm
 
-<NpmDownloads packages="next-i18next,next-intl,@lingui/react,next-translate,next-international,@inlang/paraglide-js,@tolgee/react,next-intlayer" period="last-6-months" />
+<NpmDownloads packages="next-i18next,next-intl,@lingui/react,next-translate,next-international,@inlang/paraglide-js,@tolgee/react,gt-next,lingo.dev,wuchale,next-intlayer" period="last-6-months" />
 
 Le nombre de téléchargements récompense les solutions les plus anciennes, pas les meilleures. Une bibliothèque publiée il y a des années est toujours installée par chaque projet qui l'a choisie à l'époque, par chaque exécution de CI et par chaque package qui en dépend. Ce chiffre mesure l'inertie plus qu'un choix réfléchi.
 

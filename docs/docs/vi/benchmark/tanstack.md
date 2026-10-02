@@ -166,19 +166,19 @@ Tôi chạy cùng một ứng dụng đa ngôn ngữ trong một trình duyệt 
 
 Sao GitHub là một chỉ số mạnh mẽ về mức độ phổ biến của dự án, sự tin tưởng của cộng đồng và mức độ phù hợp lâu dài. Mặc dù không phải là thước đo trực tiếp về chất lượng kỹ thuật, chúng phản ánh số lượng nhà phát triển thấy dự án hữu ích, theo dõi tiến trình của nó và có khả năng áp dụng nó. Để ước tính giá trị của một dự án, các ngôi sao giúp so sánh sức hút giữa các lựa chọn thay thế và cung cấp thông tin chi tiết về sự phát triển của hệ sinh thái.
 
-[![Star History Chart](https://api.star-history.com/chart?repos=formatjs%2Fformatjs%2Ci18next%2Freact-i18next%2Clingui%2Fjs-lingui%2Camannn%2Fnext-intl%2Copral%2Fparaglide-js%2Ctolgee%2Ftolgee-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#formatjs/formatjs&i18next/react-i18next&lingui/js-lingui&amannn/next-intl&opral/paraglide-js&tolgee/tolgee-js&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=formatjs%2Fformatjs%2Ci18next%2Freact-i18next%2Clingui%2Fjs-lingui%2Camannn%2Fnext-intl%2Copral%2Fparaglide-js%2Ctolgee%2Ftolgee-js%2Cgeneraltranslation%2Fgt%2Clingodotdev%2Flingo.dev%2Cwuchalejs%2Fwuchale%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#formatjs/formatjs&i18next/react-i18next&lingui/js-lingui&amannn/next-intl&opral/paraglide-js&tolgee/tolgee-js&generaltranslation/gt&lingodotdev/lingo.dev&wuchalejs/wuchale&aymericzip/intlayer)
 
 ## Hoạt động commit
 
 Số sao thể hiện độ phổ biến. Số commit thể hiện lượng công sức đổ vào một dự án. Tại thời điểm viết bài, Intlayer có khoảng 7.500 commit, nhiều hơn phần lớn các thư viện được so sánh ở đây và gấp khoảng 5 lần `next-intl` hoặc `next-i18next`.
 
-<GithubCommits repositories="formatjs/formatjs,i18next/react-i18next,lingui/js-lingui,amannn/next-intl,opral/paraglide-js,tolgee/tolgee-js,aymericzip/intlayer" />
+<GithubCommits repositories="formatjs/formatjs,i18next/react-i18next,lingui/js-lingui,amannn/next-intl,opral/paraglide-js,tolgee/tolgee-js,generaltranslation/gt,lingodotdev/lingo.dev,wuchalejs/wuchale,aymericzip/intlayer" />
 
 > Intlayer là một monorepo, nên con số này bao gồm mọi gói framework, CLI và tài liệu. Hãy xem commit là tín hiệu về mức độ hoạt động, không phải về chất lượng.
 
 ## Lượt tải npm
 
-<NpmDownloads packages="react-intl,react-i18next,@lingui/react,use-intl,@inlang/paraglide-js,@tolgee/react,react-intlayer" period="last-6-months" />
+<NpmDownloads packages="react-intl,react-i18next,@lingui/react,use-intl,@inlang/paraglide-js,@tolgee/react,gt-react,lingo.dev,wuchale,react-intlayer" period="last-6-months" />
 
 Lượt tải ưu ái các giải pháp lâu đời nhất, không phải các giải pháp tốt nhất. Một thư viện ra mắt từ nhiều năm trước vẫn được cài đặt bởi mọi dự án đã chọn nó khi đó, mọi lần chạy CI và mọi gói phụ thuộc vào nó. Con số này đo sức ì nhiều hơn là một lựa chọn mới.
 
