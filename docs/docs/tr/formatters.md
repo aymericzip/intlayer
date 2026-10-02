@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2025-09-07
+updatedAt: 2026-10-02
 priority: 8
 title: "Biçimlendiriciler: locale'e göre sayı, tarih ve para birimi"
 description: "Intlayer'ın önbellekli Intl yardımcılarıyla sayıları, yüzdeleri, para birimlerini, tarihleri, göreli zamanı ve birimleri locale'e göre biçimlendirin."
@@ -20,6 +20,9 @@ slugs:
   - doc
   - formatters
 history:
+  - version: 9.6.0
+    date: 2026-10-02
+    changes: "Yerel ayar verilmediğinde biçimlendiriciler isteğin yerel ayarını, ardından saklanan yerel ayarı kullanır"
   - version: 5.8.0
     date: 2025-08-20
     changes: "Vue biçimlendiricileri eklendi"
@@ -46,6 +49,27 @@ author: aymericzip
 ## Genel Bakış
 
 Intlayer, yerel `Intl` API'leri üzerine inşa edilmiş hafif yardımcılar kümesi sağlar, ayrıca ağır biçimlendiricileri tekrar tekrar oluşturmaktan kaçınmak için önbelleğe alınmış bir `Intl` sarmalayıcısı. Bu yardımcılar tamamen yerel ayar duyarlıdır ve ana `intlayer` paketinden kullanılabilir.
+
+## Hangi yerel ayar kullanılır?
+
+Bir `locale` seçeneği verdiğinizde her zaman önceliklidir. Aksi halde biçimlendiriciler, hook'ları (`useNumber`, `useDate`, `useList`…) ve `useIntl` onu şu sırayla belirler:
+
+1. **Provider'ın yerel ayarı** (`IntlayerProvider`), hook'lar ve composable'lar için.
+2. **Geçerli isteğin yerel ayarı**, sunucuda, bir Intlayer entegrasyonu isteği işlediğinde (`express-intlayer`, `fastify-intlayer`, `hono-intlayer`, `remix-intlayer`, `astro-intlayer`…).
+3. **Tarayıcıda saklanan yerel ayar** (cookie, `localStorage`, `sessionStorage`), dil seçicinizin kaydettiği.
+4. Yapılandırmanızdaki **`defaultLocale`**.
+
+```ts
+import { number, list } from "intlayer";
+
+// Saklanan yerel ayar: fr
+number(1234.5); // "1 234,5"
+list(["elma", "muz"]); // "elma et muz"
+```
+
+Bir provider veya sunucu entegrasyonu dışında sunucu `defaultLocale` ile biçimlendirirken tarayıcı saklanan yerel ayarı kullanır, bu da bir hydration uyuşmazlığına neden olabilir. Sunucuda render edilen sayfalar için bir provider kullanın veya `locale` değerini açıkça verin.
+
+- [Intlayer'ı global bir provider olmadan kullanabilir miyim?](https://github.com/aymericzip/intlayer/blob/main/docs/frequent_questions/tr/use_without_provider.md)
 
 ## Önbelleğe Alınmış Intl
 

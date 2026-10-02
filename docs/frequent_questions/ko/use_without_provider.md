@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-28
-updatedAt: 2026-09-28
+updatedAt: 2026-10-02
 priority: 4
 title: "전역 provider 없이 Intlayer를 사용할 수 있나요?"
 description: "provider를 마운트하지 않고 Intlayer 콘텐츠를 읽는 방법, 서버와 브라우저에서 로케일이 해석되는 방식, provider와의 성능 차이."
@@ -43,6 +43,10 @@ const { title } = getIntlayer("app"); // 로케일을 전달하지 않음
 같은 해석이 `getDictionary`, [빌드 최적화](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md)가 다시 작성한 호출, 그리고 provider 밖에서 렌더링되는 `useIntlayer`와 `useDictionaryDynamic`에도 적용됩니다.
 
 - [빌드 최적화](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md)
+
+[포매터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/formatters.md) (`number`, `date`, `list`…)와 해당 훅(`useNumber`, `useDate`, `useList`…)도 `locale`이 전달되지 않으면 같은 순서를 따릅니다.
+
+- [포매터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/formatters.md)
 
 ### Next.js Server Components
 

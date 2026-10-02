@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-28
-updatedAt: 2026-09-28
+updatedAt: 2026-10-02
 priority: 4
 title: "Чи можна використовувати Intlayer без глобального провайдера?"
 description: "Читання контенту Intlayer без провайдера, як визначається локаль на сервері та в браузері, і різниця в продуктивності порівняно з провайдером."
@@ -43,6 +43,10 @@ const { title } = getIntlayer("app"); // Локаль не передано
 Те саме визначення застосовується до `getDictionary`, до викликів, переписаних [оптимізацією збірки](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/bundle_optimization.md), а також до `useIntlayer` і `useDictionaryDynamic`, відрендерених поза провайдером.
 
 - [оптимізацією збірки](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/bundle_optimization.md)
+
+[Форматери](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/formatters.md) (`number`, `date`, `list`…) та їхні хуки (`useNumber`, `useDate`, `useList`…) дотримуються того самого порядку, якщо `locale` не передано.
+
+- [Форматери](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/formatters.md)
 
 ### Server Components у Next.js
 

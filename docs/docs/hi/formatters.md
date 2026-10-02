@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2025-08-20
+updatedAt: 2026-10-02
 priority: 8
 title: "फ़ॉर्मैटर: लोकेल के अनुसार संख्या, तारीख और मुद्रा"
 description: "Intlayer के कैश किए गए Intl हेल्पर से संख्या, प्रतिशत, मुद्रा, तारीख, सापेक्ष समय और इकाइयों को लोकेल के अनुसार फ़ॉर्मैट करें।"
@@ -20,6 +20,9 @@ slugs:
   - doc
   - formatters
 history:
+  - version: 9.6.0
+    date: 2026-10-02
+    changes: "कोई locale पास न होने पर formatters request का locale, फिर stored locale उपयोग करते हैं"
   - version: 5.8.0
     date: 2025-08-20
     changes: "vue फॉर्मैटर्स जोड़े"
@@ -53,15 +56,36 @@ Intlayer नेटिव `Intl` APIs के ऊपर बनाए गए हल
 
 **React, Vue, और अन्य frameworks के लिए**, अपने ऐप के locale context से स्वचालित रूप से जुड़ने वाले framework-specific hooks/composables का उपयोग करें:
 
-| Framework                | Import                                           |
-| ------------------------ | ------------------------------------------------ |
-| **React** (client)       | `react-intlayer/format`                          |
-| **React** (server)       | `react-intlayer/server/format`                   |
-| **Next.js** (client)     | `next-intlayer/client/format`                    |
-| **Next.js** (server)     | `next-intlayer/server/format`                    |
-| **Vue**                  | `vue-intlayer/format`                            |
-| **Preact**               | `preact-intlayer/format`                         |
-| **Vanilla JS / Node.js** | `intlayer` (मैनुअल locale पासिंग की आवश्यकता है) |
+| Framework                | Import                                 |
+| ------------------------ | -------------------------------------- |
+| **React** (client)       | `react-intlayer/format`                |
+| **React** (server)       | `react-intlayer/server/format`         |
+| **Next.js** (client)     | `next-intlayer/client/format`          |
+| **Next.js** (server)     | `next-intlayer/server/format`          |
+| **Vue**                  | `vue-intlayer/format`                  |
+| **Preact**               | `preact-intlayer/format`               |
+| **Vanilla JS / Node.js** | `intlayer` (provider की आवश्यकता नहीं) |
+
+## कौन सा locale उपयोग होता है?
+
+जब आप `locale` option पास करते हैं, तो वह हमेशा प्राथमिकता पाता है। अन्यथा, formatters, उनके hooks (`useNumber`, `useDate`, `useList`…) और `useIntl` इसे इस क्रम में तय करते हैं:
+
+1. **Provider का locale** (`IntlayerProvider`), hooks और composables के लिए।
+2. **वर्तमान request का locale**, server पर, जब कोई Intlayer integration उसे संभालता है (`express-intlayer`, `fastify-intlayer`, `hono-intlayer`, `remix-intlayer`, `astro-intlayer`…)।
+3. **Browser में stored locale** (cookie, `localStorage`, `sessionStorage`), जिसे आपका locale switcher सहेजता है।
+4. आपके configuration का **`defaultLocale`**।
+
+```ts
+import { number, list } from "intlayer";
+
+// Stored locale: fr
+number(1234.5); // "1 234,5"
+list(["pomme", "banane"]); // "pomme et banane"
+```
+
+Provider या server integration के बाहर, server `defaultLocale` से format करता है जबकि browser stored locale का उपयोग करता है, जिससे hydration mismatch हो सकता है। Server पर render होने वाले pages के लिए provider का उपयोग करें या `locale` स्पष्ट रूप से पास करें।
+
+- [क्या मैं Intlayer को global provider के बिना उपयोग कर सकता हूँ?](https://github.com/aymericzip/intlayer/blob/main/docs/frequent_questions/hi/use_without_provider.md)
 
 ## React Formatters
 
@@ -250,7 +274,7 @@ pluralRules.select(11); // "many" (कई)
 
 ## Vanilla JS / Node.js Formatters
 
-गैर-framework संदर्भों के लिए, `intlayer` से सीधे formatters को import करें। ध्यान दें कि आपको locale को manually pass करना होगा।
+गैर-framework संदर्भों के लिए, `intlayer` से सीधे formatters को import करें। `locale` option वैकल्पिक है: इसके बिना request का locale, फिर stored locale, फिर `defaultLocale` उपयोग होता है।
 
 ### Import
 

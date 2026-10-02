@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-28
-updatedAt: 2026-09-28
+updatedAt: 2026-10-02
 priority: 4
 title: "Posso usare Intlayer senza un provider globale?"
 description: "Leggere il contenuto Intlayer senza montare un provider, come viene risolta la locale sul server e nel browser, e la differenza di performance rispetto a un provider."
@@ -43,6 +43,10 @@ Ogni richiesta viene risolta dai propri cookie e header, e conservata in un cont
 La stessa risoluzione si applica a `getDictionary`, alle chiamate riscritte dall'[ottimizzazione del build](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/bundle_optimization.md), e a `useIntlayer` e `useDictionaryDynamic` renderizzati fuori da un provider.
 
 - [ottimizzazione del build](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/bundle_optimization.md)
+
+I [formatter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/formatters.md) (`number`, `date`, `list`…) e i loro hook (`useNumber`, `useDate`, `useList`…) seguono lo stesso ordine quando non viene passata alcuna `locale`.
+
+- [formatter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/formatters.md)
 
 ### Server Components di Next.js
 

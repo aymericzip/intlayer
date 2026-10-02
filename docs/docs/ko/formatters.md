@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2025-08-20
+updatedAt: 2026-10-02
 priority: 8
 title: "포매터: 로케일별 숫자, 날짜, 통화"
 description: "Intlayer의 캐시된 Intl 헬퍼로 숫자, 백분율, 통화, 날짜, 상대 시간, 단위를 로케일에 맞게 포맷합니다."
@@ -20,6 +20,9 @@ slugs:
   - doc
   - formatters
 history:
+  - version: 9.6.0
+    date: 2026-10-02
+    changes: "로케일이 전달되지 않으면 포매터가 요청의 로케일, 그다음 저장된 로케일을 사용"
   - version: 5.8.0
     date: 2025-08-20
     changes: "Vue 포매터 추가"
@@ -46,6 +49,27 @@ author: aymericzip
 ## 개요
 
 Intlayer는 네이티브 `Intl` API 위에 구축된 경량 헬퍼 세트와 무거운 포매터를 반복 생성하지 않도록 하는 캐시된 `Intl` 래퍼를 제공합니다. 이 유틸리티들은 완전한 로케일 인식을 지원하며 메인 `intlayer` 패키지에서 사용할 수 있습니다.
+
+## 어떤 로케일이 사용되나요?
+
+`locale` 옵션을 전달하면 항상 그 값이 우선합니다. 그렇지 않으면 포매터, 해당 훅(`useNumber`, `useDate`, `useList`…) 및 `useIntl`은 다음 순서로 로케일을 결정합니다:
+
+1. **provider의 로케일** (`IntlayerProvider`), 훅과 컴포저블의 경우.
+2. **현재 요청의 로케일**, 서버에서 Intlayer 통합이 요청을 처리할 때 (`express-intlayer`, `fastify-intlayer`, `hono-intlayer`, `remix-intlayer`, `astro-intlayer`…).
+3. **브라우저에 저장된 로케일** (cookie, `localStorage`, `sessionStorage`), 로케일 전환기가 저장한 값.
+4. 설정의 **`defaultLocale`**.
+
+```ts
+import { number, list } from "intlayer";
+
+// 저장된 로케일: fr
+number(1234.5); // "1 234,5"
+list(["pomme", "banane"]); // "pomme et banane"
+```
+
+provider나 서버 통합 밖에서는 서버가 `defaultLocale`로 포맷하고 브라우저는 저장된 로케일을 사용하므로 하이드레이션 불일치가 발생할 수 있습니다. 서버에서 렌더링되는 페이지에서는 provider를 사용하거나 `locale`을 명시적으로 전달하세요.
+
+- [전역 provider 없이 Intlayer를 사용할 수 있나요?](https://github.com/aymericzip/intlayer/blob/main/docs/frequent_questions/ko/use_without_provider.md)
 
 ## 캐시된 Intl
 

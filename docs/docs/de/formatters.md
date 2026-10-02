@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2025-08-20
+updatedAt: 2026-10-02
 priority: 8
 title: "Formatter: Zahlen, Datum und Währung nach Locale"
 description: "Formatieren Sie Zahlen, Prozente, Währungen, Datumsangaben, relative Zeit und Einheiten nach Locale mit den gecachten Intl-Helfern von Intlayer."
@@ -20,6 +20,9 @@ slugs:
   - doc
   - formatters
 history:
+  - version: 9.6.0
+    date: 2026-10-02
+    changes: "Formatter verwenden die Locale der Anfrage, dann die gespeicherte Locale, wenn keine Locale übergeben wird"
   - version: 5.8.0
     date: 2025-08-20
     changes: "Vue-Formatter hinzugefügt"
@@ -59,15 +62,36 @@ Intlayer stellt eine Reihe von leichtgewichtigen Helfern bereit, die auf den nat
 
 **Für React, Vue und andere Frameworks** verwenden Sie die Framework-spezifischen Hooks/Composables, die sich automatisch an den Locale-Kontext Ihrer App binden:
 
-| Framework                | Import                                                |
-| ------------------------ | ----------------------------------------------------- |
-| **React** (client)       | `react-intlayer/format`                               |
-| **React** (server)       | `react-intlayer/server/format`                        |
-| **Next.js** (client)     | `next-intlayer/client/format`                         |
-| **Next.js** (server)     | `next-intlayer/server/format`                         |
-| **Vue**                  | `vue-intlayer/format`                                 |
-| **Preact**               | `preact-intlayer/format`                              |
-| **Vanilla JS / Node.js** | `intlayer` (erfordert manuelles Übergeben des Locale) |
+| Framework                | Import                                  |
+| ------------------------ | --------------------------------------- |
+| **React** (client)       | `react-intlayer/format`                 |
+| **React** (server)       | `react-intlayer/server/format`          |
+| **Next.js** (client)     | `next-intlayer/client/format`           |
+| **Next.js** (server)     | `next-intlayer/server/format`           |
+| **Vue**                  | `vue-intlayer/format`                   |
+| **Preact**               | `preact-intlayer/format`                |
+| **Vanilla JS / Node.js** | `intlayer` (kein Provider erforderlich) |
+
+## Welche Locale wird verwendet?
+
+Wenn Sie eine `locale`-Option übergeben, hat sie immer Vorrang. Andernfalls lösen die Formatter, ihre Hooks (`useNumber`, `useDate`, `useList`…) und `useIntl` sie in dieser Reihenfolge auf:
+
+1. **Die Locale des Providers** (`IntlayerProvider`), für Hooks und Composables.
+2. **Die Locale der aktuellen Anfrage**, auf dem Server, wenn eine Intlayer-Integration sie verarbeitet (`express-intlayer`, `fastify-intlayer`, `hono-intlayer`, `remix-intlayer`, `astro-intlayer`…).
+3. **Die im Browser gespeicherte Locale** (Cookie, `localStorage`, `sessionStorage`), die Ihr Sprachumschalter speichert.
+4. **Die `defaultLocale`** Ihrer Konfiguration.
+
+```ts
+import { number, list } from "intlayer";
+
+// Gespeicherte Locale: fr
+number(1234.5); // "1 234,5"
+list(["Apfel", "Banane"]); // "Apfel et Banane"
+```
+
+Außerhalb eines Providers oder einer Server-Integration formatiert der Server mit der `defaultLocale`, während der Browser die gespeicherte Locale verwendet, was zu einem Hydration-Fehler führen kann. Verwenden Sie für serverseitig gerenderte Seiten einen Provider oder übergeben Sie die `locale` explizit.
+
+- [Kann ich Intlayer ohne globalen Provider verwenden?](https://github.com/aymericzip/intlayer/blob/main/docs/frequent_questions/de/use_without_provider.md)
 
 ## React Formatters
 
@@ -272,7 +296,7 @@ words.sort(collator.compare); // ["20", "100", "äpfel", "zebra"]
 
 ## Vanilla JS / Node.js Formatters
 
-For non-framework contexts, import formatters directly from `intlayer`. Note that you must pass the locale manually.
+Importieren Sie die Formatter in Kontexten ohne Framework direkt aus `intlayer`. Die Option `locale` ist optional: ohne sie wird die Locale der Anfrage, dann die gespeicherte Locale, dann die `defaultLocale` verwendet.
 
 ### `Intl.PluralRules`
 

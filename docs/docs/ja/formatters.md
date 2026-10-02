@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2025-08-20
+updatedAt: 2026-10-02
 priority: 8
 title: "フォーマッター：ロケールに応じた数値・日付・通貨"
 description: "Intlayer のキャッシュ付き Intl ヘルパーで、数値、パーセント、通貨、日付、相対時間、単位をロケールに応じて整形します。"
@@ -20,6 +20,9 @@ slugs:
   - doc
   - formatters
 history:
+  - version: 9.6.0
+    date: 2026-10-02
+    changes: "ロケールが渡されない場合、フォーマッターはリクエストのロケール、次に保存されたロケールを使用"
   - version: 5.8.0
     date: 2025-08-20
     changes: "Vueフォーマッターを追加"
@@ -52,6 +55,27 @@ author: aymericzip
 ## 概要
 
 Intlayerは、ネイティブの`Intl` APIの上に構築された軽量なヘルパー群と、重いフォーマッターを繰り返し構築することを避けるためのキャッシュされた`Intl`ラッパーを提供します。これらのユーティリティは完全にロケール対応しており、メインの`intlayer`パッケージから利用可能です。
+
+## どのロケールが使われますか？
+
+`locale` オプションを渡した場合は常にそれが優先されます。渡さない場合、フォーマッター、そのフック（`useNumber`、`useDate`、`useList`…）および `useIntl` は次の順序でロケールを決定します：
+
+1. **プロバイダーのロケール**（`IntlayerProvider`）、フックとコンポーザブルの場合。
+2. **現在のリクエストのロケール**、サーバー上で Intlayer の統合がリクエストを処理している場合（`express-intlayer`、`fastify-intlayer`、`hono-intlayer`、`remix-intlayer`、`astro-intlayer`…）。
+3. **ブラウザに保存されたロケール**（cookie、`localStorage`、`sessionStorage`）、ロケールスイッチャーが保存するもの。
+4. 設定の **`defaultLocale`**。
+
+```ts
+import { number, list } from "intlayer";
+
+// 保存されたロケール: fr
+number(1234.5); // "1 234,5"
+list(["pomme", "banane"]); // "pomme et banane"
+```
+
+プロバイダーやサーバー統合の外では、サーバーは `defaultLocale` でフォーマットし、ブラウザは保存されたロケールを使うため、ハイドレーションの不一致が起きることがあります。サーバーでレンダリングするページでは、プロバイダーを使うか `locale` を明示的に渡してください。
+
+- [グローバルプロバイダーなしで Intlayer を使えますか？](https://github.com/aymericzip/intlayer/blob/main/docs/frequent_questions/ja/use_without_provider.md)
 
 ## キャッシュされたIntl
 

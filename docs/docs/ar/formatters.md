@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2025-08-20
+updatedAt: 2026-10-02
 priority: 8
 title: "المنسّقات: الأرقام والتواريخ والعملات حسب اللغة"
 description: "نسّق الأرقام والنسب والعملات والتواريخ والوقت النسبي والوحدات حسب اللغة باستخدام أدوات Intl المساعدة المخزّنة مؤقتًا في Intlayer."
@@ -20,6 +20,9 @@ slugs:
   - doc
   - formatters
 history:
+  - version: 9.6.0
+    date: 2026-10-02
+    changes: "تستخدم المنسقات لغة الطلب ثم اللغة المخزنة عند عدم تمرير أي لغة"
   - version: 5.8.0
     date: 2025-08-20
     changes: "إضافة منسقات vue"
@@ -46,6 +49,27 @@ author: aymericzip
 ## نظرة عامة
 
 يوفر Intlayer مجموعة من المساعدين الخفيفين المبنيين على واجهات برمجة التطبيقات الأصلية `Intl`، بالإضافة إلى غلاف `Intl` مخزن مؤقت لتجنب إنشاء أدوات تنسيق ثقيلة بشكل متكرر. هذه الأدوات مدركة تمامًا للغة ويمكن استخدامها من الحزمة الرئيسية `intlayer`.
+
+## ما هي اللغة المستخدمة؟
+
+عندما تمرر خيار `locale`، تكون له الأولوية دائمًا. وإلا، فإن المنسقات وخطافاتها (`useNumber`، `useDate`، `useList`…) و`useIntl` تحددها بهذا الترتيب:
+
+1. **لغة الـ provider** (`IntlayerProvider`)، للخطافات والـ composables.
+2. **لغة الطلب الحالي**، على الخادم، عندما يعالجه تكامل Intlayer (`express-intlayer`، `fastify-intlayer`، `hono-intlayer`، `remix-intlayer`، `astro-intlayer`…).
+3. **اللغة المخزنة في المتصفح** (cookie، `localStorage`، `sessionStorage`)، التي يحفظها مبدل اللغة لديك.
+4. **`defaultLocale`** في إعداداتك.
+
+```ts
+import { number, list } from "intlayer";
+
+// اللغة المخزنة: fr
+number(1234.5); // "1 234,5"
+list(["pomme", "banane"]); // "pomme et banane"
+```
+
+خارج الـ provider أو تكامل الخادم، ينسق الخادم باستخدام `defaultLocale` بينما يستخدم المتصفح اللغة المخزنة، مما قد يسبب عدم تطابق في الـ hydration. للصفحات المعروضة على الخادم، استخدم provider أو مرر `locale` صراحةً.
+
+- [هل يمكنني استخدام Intlayer بدون provider عام؟](https://github.com/aymericzip/intlayer/blob/main/docs/frequent_questions/ar/use_without_provider.md)
 
 ## Intl المخزن مؤقتًا
 

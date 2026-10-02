@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2025-10-14
+updatedAt: 2026-10-02
 priority: 8
 title: "Formatter: số, ngày và tiền tệ theo locale"
 description: "Định dạng số, phần trăm, tiền tệ, ngày, thời gian tương đối và đơn vị theo locale bằng các helper Intl có bộ nhớ đệm của Intlayer."
@@ -20,6 +20,9 @@ slugs:
   - doc
   - formatters
 history:
+  - version: 9.6.0
+    date: 2026-10-02
+    changes: "Formatter dùng locale của request, sau đó là locale đã lưu, khi không truyền locale"
   - version: 6.2.0
     date: 2025-10-14
     changes: "Loại bỏ getIntlayerAsync khỏi bộ định dạng"
@@ -56,15 +59,36 @@ Intlayer cung cấp một bộ helper nhẹ xây dựng trên các API `Intl` g�
 
 **Đối với React, Vue và các framework khác**, hãy sử dụng các hooks/composables dành riêng cho từng framework mà tự động liên kết với ngữ cảnh locale của ứng dụng của bạn:
 
-| Framework                | Import                                      |
-| ------------------------ | ------------------------------------------- |
-| **React** (client)       | `react-intlayer/format`                     |
-| **React** (server)       | `react-intlayer/server/format`              |
-| **Next.js** (client)     | `next-intlayer/client/format`               |
-| **Next.js** (server)     | `next-intlayer/server/format`               |
-| **Vue**                  | `vue-intlayer/format`                       |
-| **Preact**               | `preact-intlayer/format`                    |
-| **Vanilla JS / Node.js** | `intlayer` (yêu cầu truyền locale thủ công) |
+| Framework                | Import                          |
+| ------------------------ | ------------------------------- |
+| **React** (client)       | `react-intlayer/format`         |
+| **React** (server)       | `react-intlayer/server/format`  |
+| **Next.js** (client)     | `next-intlayer/client/format`   |
+| **Next.js** (server)     | `next-intlayer/server/format`   |
+| **Vue**                  | `vue-intlayer/format`           |
+| **Preact**               | `preact-intlayer/format`        |
+| **Vanilla JS / Node.js** | `intlayer` (không cần provider) |
+
+## Locale nào được sử dụng?
+
+Khi bạn truyền tùy chọn `locale`, nó luôn được ưu tiên. Nếu không, các formatter, các hook của chúng (`useNumber`, `useDate`, `useList`…) và `useIntl` xác định locale theo thứ tự sau:
+
+1. **Locale của provider** (`IntlayerProvider`), cho hook và composable.
+2. **Locale của request hiện tại**, trên server, khi một tích hợp Intlayer xử lý request đó (`express-intlayer`, `fastify-intlayer`, `hono-intlayer`, `remix-intlayer`, `astro-intlayer`…).
+3. **Locale được lưu trong trình duyệt** (cookie, `localStorage`, `sessionStorage`), locale mà bộ chuyển ngôn ngữ của bạn lưu lại.
+4. **`defaultLocale`** trong cấu hình của bạn.
+
+```ts
+import { number, list } from "intlayer";
+
+// Locale đã lưu: fr
+number(1234.5); // "1 234,5"
+list(["pomme", "banane"]); // "pomme et banane"
+```
+
+Bên ngoài provider hoặc tích hợp server, server định dạng với `defaultLocale` trong khi trình duyệt dùng locale đã lưu, điều này có thể gây lỗi hydration mismatch. Với các trang render trên server, hãy dùng provider hoặc truyền `locale` một cách tường minh.
+
+- [Tôi có thể dùng Intlayer mà không cần provider toàn cục không?](https://github.com/aymericzip/intlayer/blob/main/docs/frequent_questions/vi/use_without_provider.md)
 
 ## React Formatters
 
@@ -268,7 +292,7 @@ words.sort(collator.compare); // ["20", "100", "äpfel", "zebra"]
 
 ## Vanilla JS / Node.js Formatters
 
-Đối với các ngữ cảnh không sử dụng framework, hãy import các formatter trực tiếp từ `intlayer`. Lưu ý rằng bạn phải truyền locale theo cách thủ công.
+Đối với các ngữ cảnh không sử dụng framework, hãy import các formatter trực tiếp từ `intlayer`. Tùy chọn `locale` là không bắt buộc: nếu không có, locale của request được dùng, sau đó là locale đã lưu, rồi đến `defaultLocale`.
 
 ### `Intl.PluralRules`
 

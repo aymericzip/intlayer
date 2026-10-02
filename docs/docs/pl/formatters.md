@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2025-10-14
+updatedAt: 2026-10-02
 priority: 8
 title: "Formattery: liczby, daty i waluty według locale"
 description: "Formatuj liczby, procenty, waluty, daty, czas względny i jednostki według locale za pomocą cache'owanych helperów Intl w Intlayer."
@@ -20,6 +20,9 @@ slugs:
   - doc
   - formatters
 history:
+  - version: 9.6.0
+    date: 2026-10-02
+    changes: "Formatery używają lokalizacji żądania, a następnie zapisanej lokalizacji, gdy nie przekazano lokalizacji"
   - version: 6.2.0
     date: 2025-10-14
     changes: "Usunięto getIntlayerAsync z formatterów"
@@ -56,15 +59,36 @@ Intlayer dostarcza zestaw lekkich helperów opartych na natywnych API `Intl`, or
 
 **W przypadku React, Vue i innych frameworków**, użyj hooks/composables specyficznych dla danego frameworku, które automatycznie wiążą się z kontekstem locale Twojej aplikacji:
 
-| Framework                | Import                                               |
-| ------------------------ | ---------------------------------------------------- |
-| **React** (client)       | `react-intlayer/format`                              |
-| **React** (server)       | `react-intlayer/server/format`                       |
-| **Next.js** (client)     | `next-intlayer/client/format`                        |
-| **Next.js** (server)     | `next-intlayer/server/format`                        |
-| **Vue**                  | `vue-intlayer/format`                                |
-| **Preact**               | `preact-intlayer/format`                             |
-| **Vanilla JS / Node.js** | `intlayer` (wymaga ręcznego przekazania lokalizacji) |
+| Framework                | Import                         |
+| ------------------------ | ------------------------------ |
+| **React** (client)       | `react-intlayer/format`        |
+| **React** (server)       | `react-intlayer/server/format` |
+| **Next.js** (client)     | `next-intlayer/client/format`  |
+| **Next.js** (server)     | `next-intlayer/server/format`  |
+| **Vue**                  | `vue-intlayer/format`          |
+| **Preact**               | `preact-intlayer/format`       |
+| **Vanilla JS / Node.js** | `intlayer` (bez providera)     |
+
+## Która lokalizacja jest używana?
+
+Gdy przekazujesz opcję `locale`, ma ona zawsze pierwszeństwo. W przeciwnym razie formatery, ich hooki (`useNumber`, `useDate`, `useList`…) i `useIntl` ustalają ją w tej kolejności:
+
+1. **Lokalizacja providera** (`IntlayerProvider`), dla hooków i composables.
+2. **Lokalizacja bieżącego żądania**, na serwerze, gdy obsługuje je integracja Intlayer (`express-intlayer`, `fastify-intlayer`, `hono-intlayer`, `remix-intlayer`, `astro-intlayer`…).
+3. **Lokalizacja zapisana w przeglądarce** (cookie, `localStorage`, `sessionStorage`), ta, którą zapisuje Twój przełącznik języka.
+4. **`defaultLocale`** z Twojej konfiguracji.
+
+```ts
+import { number, list } from "intlayer";
+
+// Zapisana lokalizacja: fr
+number(1234.5); // "1 234,5"
+list(["jabłko", "banan"]); // "jabłko et banan"
+```
+
+Poza providerem lub integracją serwerową serwer formatuje z `defaultLocale`, a przeglądarka używa zapisanej lokalizacji, co może spowodować błąd hydratacji. Dla stron renderowanych na serwerze użyj providera lub przekaż `locale` jawnie.
+
+- [Czy mogę używać Intlayer bez globalnego providera?](https://github.com/aymericzip/intlayer/blob/main/docs/frequent_questions/pl/use_without_provider.md)
 
 ## React Formatters
 
@@ -268,7 +292,7 @@ words.sort(collator.compare); // ["20", "100", "äpfel", "zebra"]
 
 ## Vanilla JS / Node.js Formatters
 
-W kontekstach bez frameworka, importuj formatters bezpośrednio z `intlayer`. Pamiętaj, że musisz ręcznie przekazać locale.
+W kontekstach bez frameworka, importuj formatters bezpośrednio z `intlayer`. Opcja `locale` jest opcjonalna: bez niej używana jest lokalizacja żądania, następnie zapisana lokalizacja, a na końcu `defaultLocale`.
 
 ### `Intl.PluralRules`
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2025-10-14
+updatedAt: 2026-10-02
 priority: 8
 title: "Форматери: числа, дати й валюти за локаллю"
 description: "Форматуйте числа, відсотки, валюти, дати, відносний час і одиниці вимірювання за локаллю за допомогою кешованих помічників Intl в Intlayer."
@@ -20,6 +20,9 @@ slugs:
   - doc
   - formatters
 history:
+  - version: 9.6.0
+    date: 2026-10-02
+    changes: "Форматери використовують локаль запиту, потім збережену локаль, якщо локаль не передано"
   - version: 6.2.0
     date: 2025-10-14
     changes: "Видалено getIntlayerAsync з форматерів"
@@ -57,6 +60,27 @@ Because formatter construction is relatively expensive, this caching improves pe
 > Якщо `Intl.DisplayNames` недоступний у середовищі, виводиться одне попередження лише для розробників (розгляньте можливість поліфілу).
 
 Приклади:
+
+## Яка локаль використовується?
+
+Якщо ви передаєте опцію `locale`, вона завжди має пріоритет. Інакше форматери, їхні хуки (`useNumber`, `useDate`, `useList`…) і `useIntl` визначають її в такому порядку:
+
+1. **Локаль провайдера** (`IntlayerProvider`), для хуків і composables.
+2. **Локаль поточного запиту**, на сервері, коли його обробляє інтеграція Intlayer (`express-intlayer`, `fastify-intlayer`, `hono-intlayer`, `remix-intlayer`, `astro-intlayer`…).
+3. **Локаль, збережена в браузері** (cookie, `localStorage`, `sessionStorage`), яку зберігає ваш перемикач мови.
+4. **`defaultLocale`** вашої конфігурації.
+
+```ts
+import { number, list } from "intlayer";
+
+// Збережена локаль: fr
+number(1234.5); // "1 234,5"
+list(["яблуко", "банан"]); // "яблуко et банан"
+```
+
+Поза провайдером або серверною інтеграцією сервер форматує з `defaultLocale`, а браузер використовує збережену локаль, що може спричинити помилку гідратації. Для сторінок із серверним рендерингом використовуйте провайдер або передавайте `locale` явно.
+
+- [Чи можна використовувати Intlayer без глобального провайдера?](https://github.com/aymericzip/intlayer/blob/main/docs/frequent_questions/uk/use_without_provider.md)
 
 ## Утиліти локалей
 
@@ -152,7 +176,7 @@ units(1024, { unit: "byte", unitDisplay: "narrow" }); // "1,024B" (залежи�
 
 ## Vanilla JS / Node.js Formatters
 
-Для контекстів без фреймворку імпортуйте форматери безпосередньо з `intlayer`. Зверніть увагу, що ви повинні передати locale вручну.
+Для контекстів без фреймворку імпортуйте форматери безпосередньо з `intlayer`. Опція `locale` необов'язкова: без неї використовується локаль запиту, потім збережена локаль, потім `defaultLocale`.
 
 ### `list(values, options?)`
 

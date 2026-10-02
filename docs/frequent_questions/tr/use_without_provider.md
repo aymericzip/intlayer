@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-28
-updatedAt: 2026-09-28
+updatedAt: 2026-10-02
 priority: 4
 title: "Intlayer'ı global bir provider olmadan kullanabilir miyim?"
 description: "Intlayer içeriğini bir provider eklemeden okuma, locale'in sunucuda ve tarayıcıda nasıl çözümlendiği ve bir provider'a göre performans farkı."
@@ -43,6 +43,10 @@ Her istek kendi cookie'lerinden ve header'larından çözümlenir ve isteğe öz
 Aynı çözümleme `getDictionary` için, [build optimizasyonunun](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md) yeniden yazdığı çağrılar için ve bir provider dışında render edilen `useIntlayer` ile `useDictionaryDynamic` için de geçerlidir.
 
 - [build optimizasyonunun](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md)
+
+[Biçimlendiriciler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/formatters.md) (`number`, `date`, `list`…) ve hook'ları (`useNumber`, `useDate`, `useList`…) `locale` verilmediğinde aynı sırayı izler.
+
+- [Biçimlendiriciler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/formatters.md)
 
 ### Next.js Server Components
 

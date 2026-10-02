@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-28
-updatedAt: 2026-09-28
+updatedAt: 2026-10-02
 priority: 4
 title: "Tôi có thể dùng Intlayer mà không cần provider toàn cục không?"
 description: "Đọc nội dung Intlayer mà không mount provider, cách locale được resolve trên server và trong trình duyệt, và khác biệt hiệu năng so với provider."
@@ -43,6 +43,10 @@ Mỗi request được resolve từ cookies và headers của chính nó, và đ
 Cách resolve tương tự áp dụng cho `getDictionary`, cho các lời gọi được [tối ưu hóa build](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md) viết lại, và cho `useIntlayer` và `useDictionaryDynamic` được render bên ngoài provider.
 
 - [tối ưu hóa build](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md)
+
+Các [formatter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/formatters.md) (`number`, `date`, `list`…) và hook của chúng (`useNumber`, `useDate`, `useList`…) cũng theo cùng thứ tự khi không truyền `locale`.
+
+- [formatter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/formatters.md)
 
 ### Server Components của Next.js
 

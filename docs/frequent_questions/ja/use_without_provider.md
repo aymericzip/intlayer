@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-28
-updatedAt: 2026-09-28
+updatedAt: 2026-10-02
 priority: 4
 title: "グローバルな provider なしで Intlayer を使えますか？"
 description: "provider をマウントせずに Intlayer のコンテンツを読む方法、サーバーとブラウザでのロケールの解決方法、provider との性能の違い。"
@@ -43,6 +43,10 @@ const { title } = getIntlayer("app"); // ロケールを渡していない
 同じ解決は `getDictionary`、[ビルド最適化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)によって書き換えられた呼び出し、そして provider の外でレンダリングされる `useIntlayer` と `useDictionaryDynamic` にも適用されます。
 
 - [ビルド最適化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)
+
+[フォーマッター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/formatters.md)（`number`、`date`、`list`…）とそのフック（`useNumber`、`useDate`、`useList`…）も、`locale` が渡されない場合は同じ順序に従います。
+
+- [フォーマッター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/formatters.md)
 
 ### Next.js の Server Components
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2025-08-20
+updatedAt: 2026-10-02
 priority: 8
 title: "Formatters: números, fechas y monedas por locale"
 description: "Formatea números, porcentajes, monedas, fechas, tiempo relativo y unidades según la locale con los helpers Intl en caché de Intlayer."
@@ -20,6 +20,9 @@ slugs:
   - doc
   - formatters
 history:
+  - version: 9.6.0
+    date: 2026-10-02
+    changes: "Los formateadores usan la locale de la petición, luego la locale almacenada, cuando no se pasa ninguna locale"
   - version: 5.8.0
     date: 2025-08-20
     changes: "Añadidos formateadores para Vue"
@@ -52,6 +55,27 @@ author: aymericzip
 ## Resumen
 
 Intlayer proporciona un conjunto de helpers ligeros construidos sobre las APIs nativas de `Intl`, además de un wrapper `Intl` en caché para evitar construir repetidamente formateadores pesados. Estas utilidades son completamente conscientes del locale y pueden usarse desde el paquete principal `intlayer`.
+
+## ¿Qué locale se utiliza?
+
+Cuando pasas una opción `locale`, siempre tiene prioridad. Si no, los formateadores, sus hooks (`useNumber`, `useDate`, `useList`…) y `useIntl` la resuelven en este orden:
+
+1. **La locale del provider** (`IntlayerProvider`), para hooks y composables.
+2. **La locale de la petición actual**, en el servidor, cuando una integración de Intlayer la gestiona (`express-intlayer`, `fastify-intlayer`, `hono-intlayer`, `remix-intlayer`, `astro-intlayer`…).
+3. **La locale almacenada en el navegador** (cookie, `localStorage`, `sessionStorage`), la que guarda tu selector de idioma.
+4. **La `defaultLocale`** de tu configuración.
+
+```ts
+import { number, list } from "intlayer";
+
+// Locale almacenada: fr
+number(1234.5); // "1 234,5"
+list(["manzana", "plátano"]); // "manzana et plátano"
+```
+
+Fuera de un provider o de una integración de servidor, el servidor formatea con la `defaultLocale` mientras que el navegador usa la locale almacenada, lo que puede provocar un error de hidratación. Para páginas renderizadas en el servidor, usa un provider o pasa la `locale` explícitamente.
+
+- [¿Puedo usar Intlayer sin un provider global?](https://github.com/aymericzip/intlayer/blob/main/docs/frequent_questions/es/use_without_provider.md)
 
 ## Intl en caché
 
@@ -201,7 +225,7 @@ getLocaleLang("de"); // "de"
 
 ## Formateadores Vanilla JS / Node.js
 
-Para contextos sin framework, importa formateadores directamente desde `intlayer`. Ten en cuenta que debes pasar la locale manualmente.
+Para contextos sin framework, importa formateadores directamente desde `intlayer`. La opción `locale` es opcional: sin ella, se usa la locale de la petición, luego la locale almacenada y por último la `defaultLocale`.
 
 ### `getLocaleFromPath(inputUrl)`
 

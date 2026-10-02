@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2025-10-14
+updatedAt: 2026-10-02
 priority: 8
 title: "Formatter: angka, tanggal, dan mata uang per locale"
 description: "Format angka, persentase, mata uang, tanggal, waktu relatif, dan satuan sesuai locale dengan helper Intl ber-cache milik Intlayer."
@@ -20,6 +20,9 @@ slugs:
   - doc
   - formatters
 history:
+  - version: 9.6.0
+    date: 2026-10-02
+    changes: "Formatter menggunakan locale request, lalu locale tersimpan, saat tidak ada locale yang diberikan"
   - version: 6.2.0
     date: 2025-10-14
     changes: "Menghapus getIntlayerAsync dari formatters"
@@ -56,15 +59,36 @@ Intlayer menyediakan serangkaian pembantu ringan yang dibangun di atas API `Intl
 
 **Untuk React, Vue, dan framework lainnya**, gunakan hooks/composables spesifik framework yang secara otomatis terikat ke konteks lokal aplikasi Anda:
 
-| Framework                | Import                                        |
-| ------------------------ | --------------------------------------------- |
-| **React** (client)       | `react-intlayer/format`                       |
-| **React** (server)       | `react-intlayer/server/format`                |
-| **Next.js** (client)     | `next-intlayer/client/format`                 |
-| **Next.js** (server)     | `next-intlayer/server/format`                 |
-| **Vue**                  | `vue-intlayer/format`                         |
-| **Preact**               | `preact-intlayer/format`                      |
-| **Vanilla JS / Node.js** | `intlayer` (memerlukan passing locale manual) |
+| Framework                | Import                         |
+| ------------------------ | ------------------------------ |
+| **React** (client)       | `react-intlayer/format`        |
+| **React** (server)       | `react-intlayer/server/format` |
+| **Next.js** (client)     | `next-intlayer/client/format`  |
+| **Next.js** (server)     | `next-intlayer/server/format`  |
+| **Vue**                  | `vue-intlayer/format`          |
+| **Preact**               | `preact-intlayer/format`       |
+| **Vanilla JS / Node.js** | `intlayer` (tanpa provider)    |
+
+## Locale mana yang digunakan?
+
+Saat Anda memberikan opsi `locale`, opsi itu selalu diutamakan. Jika tidak, formatter, hook-nya (`useNumber`, `useDate`, `useList`…) dan `useIntl` menentukannya dengan urutan berikut:
+
+1. **Locale dari provider** (`IntlayerProvider`), untuk hook dan composable.
+2. **Locale dari request saat ini**, di server, ketika integrasi Intlayer menanganinya (`express-intlayer`, `fastify-intlayer`, `hono-intlayer`, `remix-intlayer`, `astro-intlayer`…).
+3. **Locale yang disimpan di browser** (cookie, `localStorage`, `sessionStorage`), yang disimpan oleh pemilih bahasa Anda.
+4. **`defaultLocale`** dari konfigurasi Anda.
+
+```ts
+import { number, list } from "intlayer";
+
+// Locale tersimpan: fr
+number(1234.5); // "1 234,5"
+list(["pomme", "banane"]); // "pomme et banane"
+```
+
+Di luar provider atau integrasi server, server memformat dengan `defaultLocale` sementara browser menggunakan locale tersimpan, yang dapat menyebabkan hydration mismatch. Untuk halaman yang di-render di server, gunakan provider atau berikan `locale` secara eksplisit.
+
+- [Bisakah saya menggunakan Intlayer tanpa provider global?](https://github.com/aymericzip/intlayer/blob/main/docs/frequent_questions/id/use_without_provider.md)
 
 ## React Formatters
 
@@ -268,7 +292,7 @@ words.sort(collator.compare); // ["20", "100", "äpfel", "zebra"]
 
 ## Vanilla JS / Node.js Formatters
 
-Untuk konteks non-framework, impor formatter langsung dari `intlayer`. Perhatikan bahwa Anda harus melewatkan locale secara manual.
+Untuk konteks non-framework, impor formatter langsung dari `intlayer`. Opsi `locale` bersifat opsional: tanpanya, digunakan locale request, lalu locale tersimpan, lalu `defaultLocale`.
 
 ### `Intl.PluralRules`
 

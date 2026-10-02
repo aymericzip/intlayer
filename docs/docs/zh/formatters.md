@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2025-08-20
+updatedAt: 2026-10-02
 priority: 8
 title: "格式化工具：按语言格式化数字、日期和货币"
 description: "使用 Intlayer 带缓存的 Intl 辅助函数，按语言环境格式化数字、百分比、货币、日期、相对时间和单位。"
@@ -20,6 +20,9 @@ slugs:
   - doc
   - formatters
 history:
+  - version: 9.6.0
+    date: 2026-10-02
+    changes: "未传入语言环境时，格式化器使用请求的语言环境，然后是存储的语言环境"
   - version: 5.8.0
     date: 2025-08-20
     changes: "添加了 vue 格式化器"
@@ -46,6 +49,27 @@ author: aymericzip
 ## 概述
 
 Intlayer 提供了一组基于原生 `Intl` API 构建的轻量级辅助工具，以及一个缓存的 `Intl` 包装器，避免重复构建重量级的格式化器。这些工具完全支持本地化，可以直接从主 `intlayer` 包中使用。
+
+## 使用哪个语言环境？
+
+当你传入 `locale` 选项时，它始终优先。否则，格式化器、它们的钩子（`useNumber`、`useDate`、`useList`…）以及 `useIntl` 按以下顺序确定语言环境：
+
+1. **provider 的语言环境**（`IntlayerProvider`），适用于钩子和组合式函数。
+2. **当前请求的语言环境**，在服务器上由 Intlayer 集成处理请求时（`express-intlayer`、`fastify-intlayer`、`hono-intlayer`、`remix-intlayer`、`astro-intlayer`…）。
+3. **浏览器中存储的语言环境**（cookie、`localStorage`、`sessionStorage`），即语言切换器保存的值。
+4. 配置中的 **`defaultLocale`**。
+
+```ts
+import { number, list } from "intlayer";
+
+// 存储的语言环境：fr
+number(1234.5); // "1 234,5"
+list(["pomme", "banane"]); // "pomme et banane"
+```
+
+在 provider 或服务器集成之外，服务器使用 `defaultLocale` 格式化，而浏览器使用存储的语言环境，这可能导致水合不匹配。对于服务器渲染的页面，请使用 provider 或显式传入 `locale`。
+
+- [可以在没有全局 provider 的情况下使用 Intlayer 吗？](https://github.com/aymericzip/intlayer/blob/main/docs/frequent_questions/zh/use_without_provider.md)
 
 ## 缓存的 Intl
 

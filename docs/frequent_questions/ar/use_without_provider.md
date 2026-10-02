@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-28
-updatedAt: 2026-09-28
+updatedAt: 2026-10-02
 priority: 4
 title: "هل يمكنني استخدام Intlayer بدون provider عام؟"
 description: "قراءة محتوى Intlayer دون إضافة provider، وكيف تُحل الـ locale على الخادم وفي المتصفح، وفرق الأداء مقارنة بالـ provider."
@@ -43,6 +43,10 @@ const { title } = getIntlayer("app"); // لم تُمرَّر أي locale
 ينطبق الحل نفسه على `getDictionary`، وعلى الاستدعاءات التي يعيد كتابتها [تحسين البناء](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md)، وعلى `useIntlayer` و`useDictionaryDynamic` عند عرضها خارج provider.
 
 - [تحسين البناء](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md)
+
+تتبع [المنسقات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/formatters.md) (`number`، `date`، `list`…) وخطافاتها (`useNumber`، `useDate`، `useList`…) الترتيب نفسه عند عدم تمرير `locale`.
+
+- [المنسقات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/formatters.md)
 
 ### Server Components في Next.js
 
