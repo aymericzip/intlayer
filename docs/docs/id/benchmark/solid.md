@@ -83,7 +83,7 @@ Dampak lainnya adalah pada pengalaman pengembang (DX): bagaimana Anda mendeklara
 
 ## Uji aplikasi Anda
 
-Untuk mendeteksi masalah kebocoran i18n dengan cepat, saya menyiapkan pemindai gratis yang tersedia [di sini](https://intlayer.org/i18n-seo-scanner).
+Untuk mendeteksi masalah kebocoran i18n dengan cepat, Anda dapat mencoba [pemindai SEO i18n gratis](https://intlayer.org/i18n-seo-scanner).
 
 <ClickToOpenIframe src="https://intlayer.org/i18n-seo-scanner" width="100%" height="600px" style="border:none;"/>
 

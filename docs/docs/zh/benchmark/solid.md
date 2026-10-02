@@ -82,7 +82,7 @@ history:
 
 ## 测试您的应用
 
-为了快速发现 i18n 泄漏问题，我建立了一个免费扫描仪，可在 [此处](https://intlayer.org/i18n-seo-scanner) 试用。
+为了快速发现 i18n 泄漏问题，你可以试用免费的 [i18n SEO 扫描器](https://intlayer.org/i18n-seo-scanner)。
 
 <ClickToOpenIframe src="https://intlayer.org/i18n-seo-scanner" width="100%" height="600px" style="border:none;"/>
 

@@ -86,7 +86,7 @@ Intlayer tries to optimise across these dimensions.
 
 ## Test your app
 
-To surface these issues, I built a free scanner you can try [here](https://intlayer.org/i18n-seo-scanner).
+To surface these issues, you can try the free [i18n SEO scanner](https://intlayer.org/i18n-seo-scanner).
 
 <ClickToOpenIframe src="https://intlayer.org/i18n-seo-scanner" width="100%" height="600px" style="border:none;"/>
 
@@ -211,7 +211,7 @@ Issues encountered:
 - For a 141kb app, `gt-next` adds more than 50kb extra.
 - `Quota Exceeded, please upgrade your plan` on the very first build with General Translation.
 - Translations are not rendered; I get the error `Error: <T> used on the client-side outside of <GTProvider>`, which seems to be a bug in the library.
-- While implementing **gt-next**, I also came across an [issue](https://github.com/generaltranslation/gt/issues/1210#event-24510646961) with the library: `does not provide an export named 'printAST' - @formatjs/icu-messageformat-parser`, which was making the application break. After reporting this issue, the maintainer fixed it within 24 hours.
+- While implementing **gt-next**, I also came across a [GitHub issue](https://github.com/generaltranslation/gt/issues/1210#event-24510646961) with the library: `does not provide an export named 'printAST' - @formatjs/icu-messageformat-parser`, which was making the application break. After reporting this issue, the maintainer fixed it within 24 hours.
 - The library blocks static rendering of Next.js pages.
 
 **(Lingo.dev)** (`@lingo.dev/compiler@0.4.12`):

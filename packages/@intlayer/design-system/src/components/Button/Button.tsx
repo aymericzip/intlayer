@@ -342,7 +342,8 @@ export const Button: FC<ButtonProps> = ({
   const isIconOnly = !children && (Icon || IconRight);
 
   const accessibilityProps = {
-    'aria-label': isIconOnly ? (label ?? undefined) : undefined,
+    'aria-label':
+      (props['aria-label'] as string | undefined) ?? label ?? undefined,
     'aria-labelledby': !isIconOnly ? undefined : undefined,
     'aria-describedby': ariaDescribedBy,
     'aria-expanded': ariaExpanded,

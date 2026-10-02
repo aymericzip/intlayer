@@ -3,7 +3,7 @@ import { describe, expect, test } from 'vitest';
 import { Button } from './Button';
 
 describe('Button', () => {
-  test.skip('renders', () => {
+  test('renders', () => {
     const buttonContent = "I'm a button";
     const buttonLabel = 'test label';
 

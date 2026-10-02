@@ -86,7 +86,7 @@ style="border:none;"
 
 ## اختبر تطبيقك
 
-لتسليط الضوء على هذه المشكلات، قمت ببناء ماسح ضوئي مجاني يمكنك تجربته [هنا](https://intlayer.org/i18n-seo-scanner).
+لتسليط الضوء على هذه المشكلات، يمكنك تجربة [الماسح الضوئي لـ i18n SEO المجاني](https://intlayer.org/i18n-seo-scanner).
 
 <ClickToOpenIframe src="https://intlayer.org/i18n-seo-scanner" width="100%" height="600px" style="border:none;"/>
 

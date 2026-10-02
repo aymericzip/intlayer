@@ -83,7 +83,7 @@ style="border:none;"
 
 ## アプリをテストする
 
-i18nリークの問題を素早く特定するために、無料のスキャナーを用意しました。[こちら](https://intlayer.org/i18n-seo-scanner)でお試しいただけます。
+i18nリークの問題を素早く特定するために、無料の [i18n SEOスキャナー](https://intlayer.org/i18n-seo-scanner) でお試しいただけます。
 
 <ClickToOpenIframe src="https://intlayer.org/i18n-seo-scanner" width="100%" height="600px" style="border:none;"/>
 

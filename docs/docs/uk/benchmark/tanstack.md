@@ -82,7 +82,7 @@ history:
 
 ## Протестуйте свій додаток
 
-Щоб швидко виявити проблеми з витоком i18n, я налаштував безкоштовний сканер, доступний [тут](https://intlayer.org/i18n-seo-scanner).
+Щоб швидко виявити проблеми з витоком i18n, ви можете спробувати безкоштовний [i18n SEO-сканер](https://intlayer.org/i18n-seo-scanner).
 
 <ClickToOpenIframe src="https://intlayer.org/i18n-seo-scanner" width="100%" height="600px" style="border:none;"/>
 

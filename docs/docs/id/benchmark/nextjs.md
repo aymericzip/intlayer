@@ -86,7 +86,7 @@ Intlayer mencoba mengoptimalkan di semua dimensi ini.
 
 ## Uji aplikasi Anda
 
-Untuk mengungkap masalah ini, saya membangun pemindai gratis yang dapat Anda coba [di sini](https://intlayer.org/i18n-seo-scanner).
+Untuk mengungkap masalah ini, Anda dapat mencoba [pemindai SEO i18n gratis](https://intlayer.org/i18n-seo-scanner).
 
 <ClickToOpenIframe src="https://intlayer.org/i18n-seo-scanner" width="100%" height="600px" style="border:none;"/>
 

@@ -86,7 +86,7 @@ Intlayer tüm bu boyutlarda optimizasyon yapmaya çalışır.
 
 ## Uygulamanızı Test Edin
 
-Bu sorunları ortaya çıkarmak için [buradan](https://intlayer.org/i18n-seo-scanner) deneyebileceğiniz ücretsiz bir tarayıcı oluşturdum.
+Bu sorunları ortaya çıkarmak için ücretsiz [i18n SEO Tarayıcısı](https://intlayer.org/i18n-seo-scanner)'nı deneyebilirsiniz.
 
 <ClickToOpenIframe src="https://intlayer.org/i18n-seo-scanner" width="100%" height="600px" style="border:none;"/>
 

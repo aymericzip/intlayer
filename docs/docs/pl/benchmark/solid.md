@@ -83,7 +83,7 @@ Innym skutkiem jest wpływ na doświadczenie programisty (DX): sposób deklarowa
 
 ## Przetestuj swoją aplikację
 
-Aby szybko wykryć problemy z wyciekami i18n, przygotowałem darmowy skaner dostępny [tutaj](https://intlayer.org/i18n-seo-scanner).
+Aby szybko wykryć problemy z wyciekami i18n, możesz wypróbować darmowy [skaner SEO i18n](https://intlayer.org/i18n-seo-scanner).
 
 <ClickToOpenIframe src="https://intlayer.org/i18n-seo-scanner" width="100%" height="600px" style="border:none;"/>
 

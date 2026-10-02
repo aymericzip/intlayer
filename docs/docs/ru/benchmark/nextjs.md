@@ -86,7 +86,7 @@ Intlayer пытается оптимизировать все эти аспек�
 
 ## Проверьте свое приложение
 
-Чтобы выявить эти проблемы, я создал бесплатный сканер, который вы можете попробовать [здесь](https://intlayer.org/i18n-seo-scanner).
+Чтобы выявить эти проблемы, вы можете попробовать бесплатный [i18n SEO-сканер](https://intlayer.org/i18n-seo-scanner).
 
 <ClickToOpenIframe src="https://intlayer.org/i18n-seo-scanner" width="100%" height="600px" style="border:none;"/>
 

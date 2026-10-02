@@ -82,7 +82,7 @@ L'altro impatto riguarda la developer experience (DX): come si dichiara il conte
 
 ## Testa la tua app
 
-Per individuare rapidamente problemi di leakage i18n, ho configurato uno scanner gratuito disponibile [qui](https://intlayer.org/i18n-seo-scanner).
+Per individuare rapidamente i problemi di leak i18n, puoi provare lo [scanner SEO i18n gratuito](https://intlayer.org/i18n-seo-scanner).
 
 <ClickToOpenIframe src="https://intlayer.org/i18n-seo-scanner" width="100%" height="600px" style="border:none;"/>
 

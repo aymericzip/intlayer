@@ -82,7 +82,7 @@ Diğer bir etki ise geliştirici deneyimidir (DX): içeriği nasıl tanımladı�
 
 ## Uygulamanızı Test Edin
 
-i18n sızıntısı (leakage) sorunlarını hızlıca tespit etmek için [buradan](https://intlayer.org/i18n-seo-scanner) erişilebilen ücretsiz bir tarayıcı hazırladım.
+i18n sızıntı sorunlarını hızlıca tespit etmek için ücretsiz [i18n SEO Tarayıcısı](https://intlayer.org/i18n-seo-scanner)'nı deneyebilirsiniz.
 
 <ClickToOpenIframe src="https://intlayer.org/i18n-seo-scanner" width="100%" height="600px" style="border:none;"/>
 

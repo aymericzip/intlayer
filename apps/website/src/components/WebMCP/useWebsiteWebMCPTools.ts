@@ -14,11 +14,6 @@ import {
 import type { DocMetadata } from '@intlayer/docs';
 import { useLocation, useNavigate } from '@tanstack/react-router';
 import { useLocale } from 'react-intlayer';
-import {
-  createDocSearchIndex,
-  getSearchableDocs,
-  searchDocIndex,
-} from '~/components/DocPage/Search/docSearchIndex';
 
 const DEFAULT_SEARCH_LIMIT = 8;
 const MAX_SEARCH_LIMIT = 30;
@@ -104,6 +99,8 @@ export const useWebsiteWebMCPTools = (): AnyWebMCPTool[] => {
     },
     annotations: { readOnlyHint: true },
     execute: async ({ query, limit }: SearchDocumentationInput, options) => {
+      const { createDocSearchIndex, getSearchableDocs, searchDocIndex } =
+        await import('~/components/DocPage/Search/docSearchIndex');
       const resultLimit = Math.min(
         Math.max(limit ?? DEFAULT_SEARCH_LIMIT, 1),
         MAX_SEARCH_LIMIT

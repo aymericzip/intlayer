@@ -82,7 +82,7 @@ El otro impacto es en la experiencia del desarrollador (DX): cómo se declara el
 
 ## Pruebe su aplicación
 
-Para detectar rápidamente problemas de fugas de i18n, he configurado un escáner gratuito disponible [aquí](https://intlayer.org/i18n-seo-scanner).
+Para detectar rápidamente problemas de fugas de i18n, puedes probar el [escáner SEO i18n gratuito](https://intlayer.org/i18n-seo-scanner).
 
 <ClickToOpenIframe src="https://intlayer.org/i18n-seo-scanner" width="100%" height="600px" style="border:none;"/>
 

@@ -187,11 +187,6 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
       ...(import.meta.env.VITE_AHREFS_KEY
         ? [
             {
-              rel: 'preconnect',
-              href: 'https://analytics.ahrefs.com',
-              crossOrigin: '',
-            },
-            {
               rel: 'dns-prefetch',
               href: 'https://analytics.ahrefs.com',
             },
@@ -199,12 +194,6 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
         : []),
       ...(googleAnalyticsId
         ? [
-            {
-              rel: 'preconnect',
-              // `gtag/js` is loaded as a plain script, not a CORS one, so the
-              // hint must stay anonymous-free to match it.
-              href: 'https://www.googletagmanager.com',
-            },
             {
               rel: 'dns-prefetch',
               href: 'https://www.googletagmanager.com',

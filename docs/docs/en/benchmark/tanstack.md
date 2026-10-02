@@ -82,7 +82,7 @@ The other impact is on developer experience: how you declare content, types, nam
 
 ## Test your app
 
-To quickly spot i18n leakage issues, I set up a free scanner available [here](https://intlayer.org/i18n-seo-scanner).
+To quickly spot i18n leakage issues, you can try the free [i18n SEO scanner](https://intlayer.org/i18n-seo-scanner).
 
 <ClickToOpenIframe src="https://intlayer.org/i18n-seo-scanner" width="100%" height="600px" style="border:none;"/>
 
@@ -197,7 +197,7 @@ Issues encountered:
 - For an app around 111kb, `gt-react` can add more than 170kb extra (~172.8kb, which is about 36× the extra added by `react-intlayer`). There is a serious quality issue from the developer experience side.
 - `Quota Exceeded, please upgrade your plan` on the very first build with General Translation.
 - Translations are not rendered; I get the error `Error: <T> used on the client-side outside of <GTProvider>`, which seems to be a bug in the library.
-- While implementing **gt-tanstack-start-react**, I also came across an [issue](https://github.com/generaltranslation/gt/issues/1210#event-24510646961) with the library: `does not provide an export named 'printAST' - @formatjs/icu-messageformat-parser`, which was making the application break. After reporting this issue, the maintainer fixed it within 24 hours.
+- While implementing **gt-tanstack-start-react**, I also came across a [GitHub issue](https://github.com/generaltranslation/gt/issues/1210#event-24510646961) with the library: `does not provide an export named 'printAST' - @formatjs/icu-messageformat-parser`, which was making the application break. After reporting this issue, the maintainer fixed it within 24 hours.
 - These libraries use an anti-pattern through the `initializeGT()` function, blocking the bundle from tree-shaking cleanly.
 
 **(Lingo.dev)** (`lingo.dev@0.138.7`):

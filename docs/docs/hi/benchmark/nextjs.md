@@ -86,7 +86,7 @@ Intlayer इन सभी आयामों में अनुकूलन क
 
 ## अपने ऐप का परीक्षण करें
 
-इन समस्याओं को उजागर करने के लिए, मैंने एक मुफ़्त स्कैनर बनाया है जिसे आप [यहाँ](https://intlayer.org/i18n-seo-scanner) आज़मा सकते हैं।
+इन समस्याओं को उजागर करने के लिए, आप मुफ़्त [i18n SEO स्कैनर](https://intlayer.org/i18n-seo-scanner) आज़मा सकते हैं।
 
 <ClickToOpenIframe src="https://intlayer.org/i18n-seo-scanner" width="100%" height="600px" style="border:none;"/>
 

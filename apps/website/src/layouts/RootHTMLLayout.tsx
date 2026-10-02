@@ -23,12 +23,7 @@ export const RootHTMLLayout: FC<LocalParams> = ({
     {...props}
   >
     <>
-      {/* Preconnect and DNS Prefetch for Google Analytics */}
-      <link
-        rel="preconnect"
-        href="https://www.googletagmanager.com"
-        crossOrigin=""
-      />
+      {/* DNS Prefetch for Google Analytics */}
       <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
 
       {/* DNS Prefetch for first-party backend without unused preconnect */}
@@ -36,16 +31,9 @@ export const RootHTMLLayout: FC<LocalParams> = ({
         <link rel="dns-prefetch" href={import.meta.env.VITE_BACKEND_URL} />
       )}
 
-      {/* Preconnect and DNS Prefetch for Ahrefs analytics if enabled */}
+      {/* DNS Prefetch for Ahrefs analytics if enabled */}
       {import.meta.env.VITE_AHREFS_KEY && (
-        <>
-          <link
-            rel="preconnect"
-            href="https://analytics.ahrefs.com"
-            crossOrigin=""
-          />
-          <link rel="dns-prefetch" href="https://analytics.ahrefs.com" />
-        </>
+        <link rel="dns-prefetch" href="https://analytics.ahrefs.com" />
       )}
     </>
     <body

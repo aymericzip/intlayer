@@ -82,7 +82,7 @@ The other impact is on developer experience: how you declare content, types, nam
 
 ## Test your app
 
-To quickly spot i18n leakage issues, I set up a free scanner available [here](https://intlayer.org/i18n-seo-scanner).
+To quickly spot i18n leakage issues, you can try the free [i18n SEO scanner](https://intlayer.org/i18n-seo-scanner).
 
 <ClickToOpenIframe src="https://intlayer.org/i18n-seo-scanner" width="100%" height="600px" style="border:none;"/>
 

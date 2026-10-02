@@ -24,13 +24,44 @@ export const WebMCPTools: FC = () => {
     let idleId: number | undefined;
     let timeoutId: ReturnType<typeof setTimeout> | undefined;
 
+    const startLoading = () => {
+      cleanup();
+      setShouldLoad(true);
+    };
+
+    const cleanup = () => {
+      window.removeEventListener('load', scheduleLoad);
+      window.removeEventListener('pointerdown', startLoading);
+      window.removeEventListener('keydown', startLoading);
+      window.removeEventListener('scroll', startLoading);
+      if (idleId && typeof window.cancelIdleCallback === 'function') {
+        window.cancelIdleCallback(idleId);
+      }
+      if (timeoutId) clearTimeout(timeoutId);
+    };
+
     const scheduleLoad = () => {
+      // Listen for early user interaction to load WebMCP immediately when needed
+      window.addEventListener('pointerdown', startLoading, {
+        once: true,
+        passive: true,
+      });
+      window.addEventListener('keydown', startLoading, {
+        once: true,
+        passive: true,
+      });
+      window.addEventListener('scroll', startLoading, {
+        once: true,
+        passive: true,
+      });
+
+      // Otherwise defer until well after critical rendering/LCP settles
       if (typeof window.requestIdleCallback === 'function') {
-        idleId = window.requestIdleCallback(() => setShouldLoad(true), {
-          timeout: 3000,
+        idleId = window.requestIdleCallback(startLoading, {
+          timeout: 10000,
         });
       } else {
-        timeoutId = setTimeout(() => setShouldLoad(true), 1500);
+        timeoutId = setTimeout(startLoading, 8000);
       }
     };
 
@@ -40,13 +71,7 @@ export const WebMCPTools: FC = () => {
       window.addEventListener('load', scheduleLoad, { once: true });
     }
 
-    return () => {
-      window.removeEventListener('load', scheduleLoad);
-      if (idleId && typeof window.cancelIdleCallback === 'function') {
-        window.cancelIdleCallback(idleId);
-      }
-      if (timeoutId) clearTimeout(timeoutId);
-    };
+    return cleanup;
   }, []);
 
   if (!shouldLoad) return null;

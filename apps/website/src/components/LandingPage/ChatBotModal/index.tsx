@@ -43,9 +43,10 @@ export const ChatBotModal: FC = () => {
         className="fixed! inset-e-5 bottom-5 z-50 rounded-full! hover:scale-110"
         size="icon-xl"
         onClick={openModal}
-      >
-        <Bot />
-      </Button>
+        label={button.label.value}
+        aria-label={button.label.value}
+        Icon={Bot}
+      />
     </>
   );
 };

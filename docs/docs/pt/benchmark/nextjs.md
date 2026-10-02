@@ -86,7 +86,7 @@ O Intlayer tenta otimizar em todas essas dimensões.
 
 ## Teste sua aplicação
 
-Para trazer à tona esses problemas, construí um scanner gratuito que você pode experimentar [aqui](https://intlayer.org/i18n-seo-scanner).
+Para trazer à tona esses problemas, você pode experimentar o [scanner de SEO i18n gratuito](https://intlayer.org/i18n-seo-scanner).
 
 <ClickToOpenIframe src="https://intlayer.org/i18n-seo-scanner" width="100%" height="600px" style="border:none;"/>
 

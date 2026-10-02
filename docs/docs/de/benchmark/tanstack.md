@@ -82,7 +82,7 @@ Ein weiterer Aspekt ist die Developer Experience (DX): Wie deklarieren Sie Inhal
 
 ## Testen Sie Ihre App
 
-Um i18n-Leakage-Probleme schnell zu erkennen, habe ich einen kostenlosen Scanner eingerichtet, den Sie [hier](https://intlayer.org/i18n-seo-scanner) finden.
+Um i18n-Leakage-Probleme schnell zu erkennen, können Sie den kostenlosen [i18n-SEO-Scanner](https://intlayer.org/i18n-seo-scanner) ausprobieren.
 
 <ClickToOpenIframe src="https://intlayer.org/i18n-seo-scanner" width="100%" height="600px" style="border:none;"/>
 

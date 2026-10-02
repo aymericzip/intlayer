@@ -82,7 +82,7 @@ history:
 
 ## Проверьте свое приложение
 
-Чтобы быстро выявить проблемы с утечкой i18n, я настроил бесплатный сканер, доступный [здесь](https://intlayer.org/i18n-seo-scanner).
+Чтобы быстро выявить проблемы с утечкой i18n, вы можете попробовать бесплатный [i18n SEO-сканер](https://intlayer.org/i18n-seo-scanner).
 
 <ClickToOpenIframe src="https://intlayer.org/i18n-seo-scanner" width="100%" height="600px" style="border:none;"/>
 

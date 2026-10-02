@@ -82,7 +82,7 @@ O outro impacto é na experência do desenvolvedor: como você declara o conteú
 
 ## Teste sua aplicação
 
-Para detectar rapidamente problemas de vazamento de i18n, configurei um scanner gratuito disponível [aqui](https://intlayer.org/i18n-seo-scanner).
+Para identificar rapidamente problemas de vazamento de i18n, você pode experimentar o [scanner de SEO i18n gratuito](https://intlayer.org/i18n-seo-scanner).
 
 <ClickToOpenIframe src="https://intlayer.org/i18n-seo-scanner" width="100%" height="600px" style="border:none;"/>
 

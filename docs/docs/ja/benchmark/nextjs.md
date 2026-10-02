@@ -86,7 +86,7 @@ Intlayerは、これらの各側面において最適化を試みています。
 
 ## アプリをテストする
 
-これらの問題を顕在化させるために、無料のスキャナーを作成しました。[こちら](https://intlayer.org/i18n-seo-scanner)で試すことができます。
+これらの問題を顕在化させるために、無料の [i18n SEOスキャナー](https://intlayer.org/i18n-seo-scanner) でお試しいただけます。
 
 <ClickToOpenIframe src="https://intlayer.org/i18n-seo-scanner" width="100%" height="600px" style="border:none;"/>
 

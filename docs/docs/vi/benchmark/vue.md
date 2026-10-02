@@ -82,7 +82,7 @@ Tác động khác là đối với trải nghiệm nhà phát triển (DX): cá
 
 ## Kiểm tra ứng dụng của bạn
 
-Để nhanh chóng phát hiện các vấn đề rò rỉ i18n, tôi đã thiết lập một trình quét miễn phí có sẵn [tại đây](https://intlayer.org/i18n-seo-scanner).
+Để nhanh chóng phát hiện các vấn đề rò rỉ i18n, bạn có thể thử [công cụ quét SEO i18n miễn phí](https://intlayer.org/i18n-seo-scanner).
 
 <ClickToOpenIframe src="https://intlayer.org/i18n-seo-scanner" width="100%" height="600px" style="border:none;"/>
 

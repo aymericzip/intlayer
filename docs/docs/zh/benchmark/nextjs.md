@@ -86,7 +86,7 @@ Intlayer 尝试在这些维度上进行优化。
 
 ## 测试你的应用
 
-为了发现这些问题，我构建了一个免费扫描器，你可以在[这里](https://intlayer.org/i18n-seo-scanner)试用。
+为了发现这些问题，你可以试用免费的 [i18n SEO 扫描器](https://intlayer.org/i18n-seo-scanner)。
 
 <ClickToOpenIframe src="https://intlayer.org/i18n-seo-scanner" width="100%" height="600px" style="border:none;"/>
 

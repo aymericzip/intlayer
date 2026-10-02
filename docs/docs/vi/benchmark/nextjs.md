@@ -86,7 +86,7 @@ Intlayer cố gắng tối ưu hóa trên tất cả các khía cạnh này.
 
 ## Kiểm tra ứng dụng của bạn
 
-Để làm rõ các vấn đề này, tôi đã xây dựng một trình quét miễn phí mà bạn có thể thử [tại đây](https://intlayer.org/i18n-seo-scanner).
+Để làm rõ các vấn đề này, bạn có thể thử [công cụ quét SEO i18n miễn phí](https://intlayer.org/i18n-seo-scanner).
 
 <ClickToOpenIframe src="https://intlayer.org/i18n-seo-scanner" width="100%" height="600px" style="border:none;"/>
 

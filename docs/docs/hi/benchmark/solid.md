@@ -83,7 +83,7 @@ Solid ऐप में अंतर्राष्ट्रीयकरण (Inte
 
 ## अपने ऐप का परीक्षण करें
 
-i18n लीकेज समस्याओं को तुरंत पहचानने के लिए, मैंने एक निःशुल्क स्कैनर सेट किया है जो [यहाँ](https://intlayer.org/i18n-seo-scanner) उपलब्ध है।
+i18n लीकेज समस्याओं को तुरंत पहचानने के लिए, आप निःशुल्क [i18n SEO स्कैनर](https://intlayer.org/i18n-seo-scanner) आज़मा सकते हैं।
 
 <ClickToOpenIframe src="https://intlayer.org/i18n-seo-scanner" width="100%" height="600px" style="border:none;"/>
 

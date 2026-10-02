@@ -8,13 +8,8 @@ import { DiscordLogo } from '@intlayer/design-system/social-networks';
 import { cn } from '@intlayer/design-system/utils';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
-import {
-  type CSSProperties,
-  type FC,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import type { CSSProperties, FC, RefObject } from 'react';
+import { useRef } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import type { Contributor } from '~/components/Contributors/ContributorsList';
 import { Link } from '~/components/Link/Link';
@@ -27,10 +22,9 @@ type ContributorAvatarProps = {
   contributor: Contributor;
   index: number;
   position: { x: number; y: number };
-  containerSize: { width: number; height: number } | null; // Changed: Pass size instead of ref
+  dragConstraintsRef: RefObject<HTMLElement | null>;
 };
 
-// ... [Keep sizeVariants, getFloatDistance, getZIndex as they were] ...
 const sizeVariants = [
   'size-10 md:size-12',
   'size-12 md:size-14',
@@ -63,16 +57,8 @@ const ContributorAvatar: FC<ContributorAvatarProps> = ({
   contributor,
   index,
   position,
-  containerSize,
+  dragConstraintsRef,
 }) => {
-  const elementRef = useRef<HTMLDivElement>(null);
-  const [constraints, setConstraints] = useState({
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-  });
-
   const sizeIndex = (index + contributor.login.length) % sizeVariants.length;
   const sizeClass = sizeVariants[sizeIndex];
   const floatDistance = getFloatDistance(sizeIndex);
@@ -84,40 +70,11 @@ const ContributorAvatar: FC<ContributorAvatarProps> = ({
   ).toFixed(2);
   const floatDuration = (6 + (index % 4) * 1.5).toFixed(1);
 
-  // Calculate constraints relative to the container size
-  // This runs whenever the container resizes, fixing the "pop" issue
-  useEffect(() => {
-    if (!containerSize || !elementRef.current) return;
-
-    const { width: containerW, height: containerH } = containerSize;
-
-    // We need the element's actual size in pixels to calculate boundaries
-    const elementW = elementRef.current.offsetWidth;
-    const elementH = elementRef.current.offsetHeight;
-
-    // Read the laid-out offset: the position is logical, so in right-to-left
-    // locales its physical left is measured from the other edge
-    const initialLeftPx = elementRef.current.offsetLeft;
-    const initialTopPx = elementRef.current.offsetTop;
-
-    setConstraints({
-      // How far can I go left? (Negative value to reach 0)
-      left: -initialLeftPx,
-      // How far can I go right? (Remaining space minus my width)
-      right: containerW - initialLeftPx - elementW,
-      // How far can I go up?
-      top: -initialTopPx,
-      // How far can I go down?
-      bottom: containerH - initialTopPx - elementH,
-    });
-  }, [containerSize, position]);
-
   return (
     <motion.div
-      ref={elementRef} // Attach local ref to measure self
       drag
       suppressHydrationWarning
-      dragConstraints={constraints} // Use calculated pixel object instead of Ref
+      dragConstraints={dragConstraintsRef}
       dragMomentum
       dragElastic={0.1}
       dragTransition={{
@@ -172,7 +129,6 @@ const ContributorAvatar: FC<ContributorAvatarProps> = ({
   );
 };
 
-// ... [Keep generateCloudPositions] ...
 /** Positions in percent; `x` is measured from the inline start. */
 const generateCloudPositions = (count: number) => {
   const positions = [];
@@ -203,43 +159,6 @@ export const ContributorCloud: FC<ContributorCloudProps> = ({
   );
   const positions = generateCloudPositions(contributors.length);
   const sectionRef = useRef<HTMLElement>(null);
-
-  // State to track the exact pixel size of the container
-  const [containerSize, setContainerSize] = useState<{
-    width: number;
-    height: number;
-  } | null>(null);
-
-  // ResizeObserver to detect layout shifts (including "pops" from other sections)
-  useEffect(() => {
-    if (!sectionRef.current) return;
-
-    const updateSize = () => {
-      if (sectionRef.current) {
-        setContainerSize({
-          width: sectionRef.current.offsetWidth,
-          height: sectionRef.current.offsetHeight,
-        });
-      }
-    };
-
-    // Initial measurement
-    updateSize();
-
-    // Watch for size changes
-    const resizeObserver = new ResizeObserver(updateSize);
-    resizeObserver.observe(sectionRef.current);
-
-    // Also watch body for global shifts that might affect layout flow
-    // (Optional, but helps if the section size depends on viewport)
-    const bodyObserver = new ResizeObserver(updateSize);
-    bodyObserver.observe(document.body);
-
-    return () => {
-      resizeObserver.disconnect();
-      bodyObserver.disconnect();
-    };
-  }, []);
 
   return (
     <section
@@ -294,7 +213,7 @@ export const ContributorCloud: FC<ContributorCloudProps> = ({
             contributor={contributor}
             index={index}
             position={position}
-            containerSize={containerSize} // Pass the dynamic size
+            dragConstraintsRef={sectionRef}
           />
         );
       })}

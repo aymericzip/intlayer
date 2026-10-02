@@ -1,6 +1,15 @@
 import { useDevice } from '@intlayer/design-system/hooks';
 import { Loader } from '@intlayer/design-system/loader';
-import { type FC, lazy, Suspense } from 'react';
+import {
+  type FC,
+  lazy,
+  type PropsWithChildren,
+  type ReactNode,
+  Suspense,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { CommonQuestionsSection } from '~/components/LandingPage/CommonQuestionsSection/CommonQuestions';
 import { HeroSection } from './HeroSection';
@@ -55,16 +64,65 @@ const ProductsSection = lazy(() =>
   }))
 );
 
+type InViewSectionProps = PropsWithChildren<{
+  fallback?: ReactNode;
+  rootMargin?: string;
+}>;
+
+/**
+ * Defers loading and mounting below-the-fold lazy sections until they are
+ * within `rootMargin` of the viewport. This avoids chaining critical requests
+ * and downloading heavy chunks (such as the benchmark section) on initial navigation.
+ */
+const InViewSection: FC<InViewSectionProps> = ({
+  children,
+  fallback = <Loader />,
+  rootMargin = '600px',
+}) => {
+  const [isInView, setIsInView] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const element = containerRef.current;
+    if (!element) return;
+
+    if (!('IntersectionObserver' in window)) {
+      setIsInView(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsInView(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin }
+    );
+
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, [rootMargin]);
+
+  return (
+    <div ref={containerRef}>
+      {isInView ? (
+        <Suspense fallback={fallback}>{children}</Suspense>
+      ) : (
+        fallback
+      )}
+    </div>
+  );
+};
+
 export const LandingPage: FC = () => {
   const content = useIntlayer('landing-page');
   const { isMobile } = useDevice();
 
   return (
     <>
-      <main
-        aria-label={content.landingMainTitle.value}
-        className="flex flex-col"
-      >
+      <div className="flex flex-col">
         <section aria-label={content.heroSection.value}>
           <HeroSection />
         </section>
@@ -76,56 +134,56 @@ export const LandingPage: FC = () => {
         </section>
 
         <section aria-label={content.whyChooseIntlayerSection.value}>
-          <Suspense fallback={<Loader />}>
+          <InViewSection>
             <WhyToChoseIntlayerSection />
-          </Suspense>
+          </InViewSection>
         </section>
 
         <section aria-label={content.benchmarkSection.value}>
-          <Suspense fallback={<Loader />}>
+          <InViewSection>
             <I18nBenchmarkSection />
-          </Suspense>
+          </InViewSection>
         </section>
 
         <section aria-label={content.supportedLanguagesSection.value}>
-          <Suspense fallback={<Loader />}>
+          <InViewSection>
             <LanguageSection className="border-neutral border-b" />
-          </Suspense>
+          </InViewSection>
         </section>
 
         <section aria-label={content.codeAuditSection.value}>
-          <Suspense fallback={<Loader />}>
+          <InViewSection>
             <AuditSection />
-          </Suspense>
+          </InViewSection>
         </section>
 
         <section aria-label={content.productsSection.value}>
-          <Suspense fallback={<Loader />}>
+          <InViewSection>
             <ProductsSection />
-          </Suspense>
+          </InViewSection>
         </section>
 
         {/* The CodeSandbox embed is unusable on narrow screens */}
         {!isMobile && (
           <section aria-label={content.liveDemoSection.value}>
-            <Suspense fallback={<Loader />}>
+            <InViewSection>
               <DemoSection />
-            </Suspense>
+            </InViewSection>
           </section>
         )}
         <section aria-label={content.contributorsSection.value}>
-          <Suspense fallback={<Loader />}>
+          <InViewSection>
             <ContributorSection />
-          </Suspense>
+          </InViewSection>
         </section>
         <section aria-label={content.faqSection.value}>
           <CommonQuestionsSection />
         </section>
-      </main>
+      </div>
 
-      <Suspense fallback={<Loader />}>
+      <InViewSection rootMargin="200px">
         <ChatBotModal />
-      </Suspense>
+      </InViewSection>
     </>
   );
 };

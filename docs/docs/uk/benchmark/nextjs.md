@@ -86,7 +86,7 @@ Intlayer намагається оптимізувати всі ці парам�
 
 ## Протестуйте свій додаток
 
-Щоб виявити ці проблеми, я створив безкоштовний сканер, який ви можете спробувати [тут](https://intlayer.org/i18n-seo-scanner).
+Щоб виявити ці проблеми, ви можете спробувати безкоштовний [i18n SEO-сканер](https://intlayer.org/i18n-seo-scanner).
 
 <ClickToOpenIframe src="https://intlayer.org/i18n-seo-scanner" width="100%" height="600px" style="border:none;"/>
 

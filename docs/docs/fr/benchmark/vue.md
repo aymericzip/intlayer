@@ -82,7 +82,7 @@ L'autre impact concerne l'expérience développeur (DX) : la façon dont vous d�
 
 ## Testez votre application
 
-Pour repérer rapidement les problèmes de fuite i18n, j'ai mis en place un scanner gratuit disponible [ici](https://intlayer.org/i18n-seo-scanner).
+Pour repérer rapidement les problèmes de fuite i18n, vous pouvez essayer le [scanner SEO i18n gratuit](https://intlayer.org/i18n-seo-scanner).
 
 <ClickToOpenIframe src="https://intlayer.org/i18n-seo-scanner" width="100%" height="600px" style="border:none;"/>
 
