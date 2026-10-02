@@ -177,7 +177,6 @@ export const useItemSelector = (
     scheduleMeasurement();
 
     window.addEventListener('resize', scheduleMeasurement, { passive: true });
-    window.addEventListener('DOMContentLoaded', scheduleMeasurement);
 
     const options = optionsRefs.current.filter(Boolean);
 
@@ -235,7 +234,6 @@ export const useItemSelector = (
       }
 
       window.removeEventListener('resize', scheduleMeasurement);
-      window.removeEventListener('DOMContentLoaded', scheduleMeasurement);
 
       mutationObserver.disconnect();
       resizeObserver.disconnect();

@@ -121,11 +121,7 @@ export const TypewriterTitle: FC<TypewriterTitleProps> = ({
 
   if (!isAnimated) return <h1 className={className}>{title}</h1>;
 
-  // First paint and crawlers: one plain text node, no inner span or comment
-  if (!hasStarted) {
-    return <h1 className={className}>{`${segments[0]} ${TITLE_SUFFIX}`}</h1>;
-  }
-
+  const isHoldingInitial = !hasStarted;
   const visibleWord = currentSegment.slice(0, state.visibleLength);
   // "Int" keeps the title color, the rest of the word is rewritten
   const visibleBrand = visibleWord.slice(0, BRAND_SEGMENT.length);
@@ -135,7 +131,7 @@ export const TypewriterTitle: FC<TypewriterTitleProps> = ({
 
   // Before a space, the negative right margin makes the caret zero-width so
   // it sits inside the space gap and the title keeps its plain-text width
-  const caret = (
+  const caret = hasStarted ? (
     <span
       aria-hidden
       className={cn(
@@ -143,7 +139,7 @@ export const TypewriterTitle: FC<TypewriterTitleProps> = ({
         separator ? '-me-1.25' : 'me-0.5'
       )}
     />
-  );
+  ) : null;
 
   return (
     <h1 className={cn('grid', className)}>
@@ -155,26 +151,32 @@ export const TypewriterTitle: FC<TypewriterTitleProps> = ({
         {`${segments[0]} ${TITLE_SUFFIX}`}
       </span>
       <span className="col-start-1 row-start-1">
-        {visibleBrand}
-        {/* Each letter fades in from the dimmed color as soon as it is typed
-            (@starting-style), so the color follows the caret left to right */}
-        {Array.from(visibleRest, (letter, letterIndex) => (
-          <span
-            // Index key: kept letters stay mounted, only new ones animate
-            // biome-ignore lint/suspicious/noArrayIndexKey: position is the identity
-            key={letterIndex}
-            className={cn(
-              'starting:text-text/60 transition-colors duration-500 ease-out',
-              // Delayed so the color trails a few letters behind the caret
-              state.phase === 'erasing' ? 'text-text/60' : 'delay-200'
-            )}
-          >
-            {letter}
-          </span>
-        ))}
-        {caret}
-        {separator}
-        {TITLE_SUFFIX}
+        {isHoldingInitial ? (
+          `${segments[0]} ${TITLE_SUFFIX}`
+        ) : (
+          <>
+            {visibleBrand}
+            {/* Each letter fades in from the dimmed color as soon as it is typed
+                (@starting-style), so the color follows the caret left to right */}
+            {Array.from(visibleRest, (letter, letterIndex) => (
+              <span
+                // Index key: kept letters stay mounted, only new ones animate
+                // biome-ignore lint/suspicious/noArrayIndexKey: position is the identity
+                key={letterIndex}
+                className={cn(
+                  'starting:text-text/60 transition-colors duration-500 ease-out',
+                  // Delayed so the color trails a few letters behind the caret
+                  state.phase === 'erasing' ? 'text-text/60' : 'delay-200'
+                )}
+              >
+                {letter}
+              </span>
+            ))}
+            {caret}
+            {separator}
+            {TITLE_SUFFIX}
+          </>
+        )}
       </span>
     </h1>
   );

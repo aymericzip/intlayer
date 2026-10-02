@@ -67,17 +67,20 @@ const ProductsSection = lazy(() =>
 type InViewSectionProps = PropsWithChildren<{
   fallback?: ReactNode;
   rootMargin?: string;
+  minHeight?: string | number;
 }>;
 
 /**
  * Defers loading and mounting below-the-fold lazy sections until they are
  * within `rootMargin` of the viewport. This avoids chaining critical requests
- * and downloading heavy chunks (such as the benchmark section) on initial navigation.
+ * and downloading heavy chunks (such as the benchmark section and country flags)
+ * on initial navigation.
  */
 const InViewSection: FC<InViewSectionProps> = ({
   children,
   fallback = <Loader />,
-  rootMargin = '600px',
+  rootMargin = '300px',
+  minHeight = '400px',
 }) => {
   const [isInView, setIsInView] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -106,11 +109,16 @@ const InViewSection: FC<InViewSectionProps> = ({
   }, [rootMargin]);
 
   return (
-    <div ref={containerRef}>
+    <div
+      ref={containerRef}
+      style={!isInView && minHeight ? { minHeight } : undefined}
+    >
       {isInView ? (
         <Suspense fallback={fallback}>{children}</Suspense>
       ) : (
-        fallback
+        <div className="flex items-center justify-center" style={{ minHeight }}>
+          {fallback}
+        </div>
       )}
     </div>
   );
@@ -134,31 +142,31 @@ export const LandingPage: FC = () => {
         </section>
 
         <section aria-label={content.whyChooseIntlayerSection.value}>
-          <InViewSection>
+          <InViewSection minHeight="450px">
             <WhyToChoseIntlayerSection />
           </InViewSection>
         </section>
 
         <section aria-label={content.benchmarkSection.value}>
-          <InViewSection>
+          <InViewSection minHeight="600px">
             <I18nBenchmarkSection />
           </InViewSection>
         </section>
 
         <section aria-label={content.supportedLanguagesSection.value}>
-          <InViewSection>
+          <InViewSection minHeight="250px">
             <LanguageSection className="border-neutral border-b" />
           </InViewSection>
         </section>
 
         <section aria-label={content.codeAuditSection.value}>
-          <InViewSection>
+          <InViewSection minHeight="500px">
             <AuditSection />
           </InViewSection>
         </section>
 
         <section aria-label={content.productsSection.value}>
-          <InViewSection>
+          <InViewSection minHeight="600px">
             <ProductsSection />
           </InViewSection>
         </section>
@@ -166,13 +174,13 @@ export const LandingPage: FC = () => {
         {/* The CodeSandbox embed is unusable on narrow screens */}
         {!isMobile && (
           <section aria-label={content.liveDemoSection.value}>
-            <InViewSection>
+            <InViewSection minHeight="500px">
               <DemoSection />
             </InViewSection>
           </section>
         )}
         <section aria-label={content.contributorsSection.value}>
-          <InViewSection>
+          <InViewSection minHeight="400px">
             <ContributorSection />
           </InViewSection>
         </section>
@@ -181,7 +189,7 @@ export const LandingPage: FC = () => {
         </section>
       </div>
 
-      <InViewSection rootMargin="200px">
+      <InViewSection rootMargin="100px" minHeight={0}>
         <ChatBotModal />
       </InViewSection>
     </>

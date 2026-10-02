@@ -17,7 +17,6 @@ import {
   type TouchEventHandler,
   useContext,
   useEffect,
-  useLayoutEffect,
   useRef,
   useState,
 } from 'react';
@@ -369,7 +368,7 @@ const CarouselRoot: FC<CarouselProps> = ({
    * a forced reflow. `ResizeObserverEntry` already carries the boxes the
    * browser computed during layout, which are free to read.
    */
-  useLayoutEffect(() => {
+  useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
@@ -380,31 +379,44 @@ const CarouselRoot: FC<CarouselProps> = ({
       const maxHeight = Math.max(0, ...itemHeights.values());
 
       if (maxHeight > 0) {
-        setContainerHeight(maxHeight + CONTAINER_VERTICAL_PADDING_PX);
+        const nextHeight = maxHeight + CONTAINER_VERTICAL_PADDING_PX;
+        setContainerHeight((prev) => (prev === nextHeight ? prev : nextHeight));
       }
     };
 
-    // First pass: every read happens before any state write, so the initial
-    // measurement costs a single layout.
-    const initialWidth = container.clientWidth;
-    items.forEach((item) => {
-      itemHeights.set(item, item.offsetHeight);
-    });
+    if (typeof ResizeObserver === 'undefined') {
+      const initialWidth = container.clientWidth;
+      items.forEach((item) => {
+        itemHeights.set(item, item.offsetHeight);
+      });
 
-    setContainerWidth(initialWidth);
-    publishMaxHeight();
+      setContainerWidth((prev) =>
+        prev === initialWidth ? prev : initialWidth
+      );
+      publishMaxHeight();
+      return;
+    }
 
     const observer = new ResizeObserver((entries) => {
+      let heightsChanged = false;
+
       entries.forEach((entry) => {
         if (entry.target === container) {
-          setContainerWidth(entry.contentRect.width);
+          const newWidth = entry.contentRect.width;
+          setContainerWidth((prev) => (prev === newWidth ? prev : newWidth));
           return;
         }
 
-        itemHeights.set(entry.target, getEntryBlockSize(entry));
+        const newHeight = getEntryBlockSize(entry);
+        if (itemHeights.get(entry.target) !== newHeight) {
+          itemHeights.set(entry.target, newHeight);
+          heightsChanged = true;
+        }
       });
 
-      publishMaxHeight();
+      if (heightsChanged || itemHeights.size > 0) {
+        publishMaxHeight();
+      }
     });
 
     observer.observe(container);
