@@ -1,15 +1,11 @@
-import { internationalization } from '@intlayer/config/built';
 import { date, presets } from '@intlayer/core/formatters';
-import type { DeclaredLocales } from '@intlayer/types/module_augmentation';
 import { getRequestLocale } from '../requestStorage';
-
-const { defaultLocale } = internationalization;
 
 /**
  * Remix hook that provides a localized date/time formatter bound to the request locale.
  */
 export const useDate = () => {
-  const locale = getRequestLocale() ?? (defaultLocale as DeclaredLocales);
+  const locale = getRequestLocale();
 
   return (...args: Parameters<typeof date>) => {
     const options =

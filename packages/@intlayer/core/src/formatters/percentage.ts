@@ -1,4 +1,3 @@
-import { internationalization } from '@intlayer/config/built';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { getCachedIntl } from '../utils/intl';
 
@@ -25,15 +24,10 @@ export const percentage = (
     numericValue /= 100;
   }
 
-  const formatter = getCachedIntl(
-    'NumberFormat',
-    locale ?? internationalization?.defaultLocale,
-
-    {
-      style: 'percent',
-      ...options,
-    }
-  );
+  const formatter = getCachedIntl('NumberFormat', locale, {
+    style: 'percent',
+    ...options,
+  });
 
   return formatter.format(Number(numericValue));
 };

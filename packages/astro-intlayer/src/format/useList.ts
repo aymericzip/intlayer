@@ -1,12 +1,8 @@
-import { internationalization } from '@intlayer/config/built';
 import { list } from '@intlayer/core/formatters';
-import type { DeclaredLocales } from '@intlayer/types/module_augmentation';
 import { getRequestLocale } from '../requestStorage';
 
-const { defaultLocale } = internationalization;
-
 export const useList = () => {
-  const locale = getRequestLocale() ?? (defaultLocale as DeclaredLocales);
+  const locale = getRequestLocale();
 
   return (...args: Parameters<typeof list>) =>
     list(args[0], {

@@ -43,10 +43,10 @@ import {
  * ```
  */
 export const useIntl = (locale?: LocalesValues) => {
-  const intlayer = inject<IntlayerProvider>(INTLAYER_SYMBOL)!;
+  const intlayer = inject<IntlayerProvider | null>(INTLAYER_SYMBOL, null);
 
   return computed<WrappedIntl>(() => {
-    const currentLocale = locale ?? intlayer.locale.value;
+    const currentLocale = locale ?? intlayer?.locale.value;
 
     return bindIntl(currentLocale);
   });

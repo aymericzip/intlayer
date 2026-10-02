@@ -1,4 +1,3 @@
-import { internationalization } from '@intlayer/config/built';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { getCachedIntl } from '../utils/intl';
 
@@ -28,13 +27,8 @@ export const list = (
   values: (string | number)[],
   options?: ListFormatOptions & { locale?: LocalesValues }
 ): string =>
-  getCachedIntl(
-    'ListFormat',
-    options?.locale ?? internationalization?.defaultLocale,
-
-    {
-      type: options?.type ?? 'conjunction',
-      style: options?.style ?? 'long',
-      ...options,
-    }
-  ).format(values.map(String));
+  getCachedIntl('ListFormat', options?.locale, {
+    type: options?.type ?? 'conjunction',
+    style: options?.style ?? 'long',
+    ...options,
+  }).format(values.map(String));

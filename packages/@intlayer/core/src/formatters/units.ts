@@ -1,4 +1,3 @@
-import { internationalization } from '@intlayer/config/built';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { getCachedIntl } from '../utils/intl';
 
@@ -13,14 +12,9 @@ export const units = (
   value: number | string,
   options?: Intl.NumberFormatOptions & { locale?: LocalesValues }
 ): string =>
-  getCachedIntl(
-    'NumberFormat',
-    options?.locale ?? internationalization?.defaultLocale,
-
-    {
-      style: 'unit',
-      unit: options?.unit ?? 'day',
-      unitDisplay: options?.unitDisplay ?? 'short',
-      useGrouping: options?.useGrouping ?? false,
-    }
-  ).format(Number(value));
+  getCachedIntl('NumberFormat', options?.locale, {
+    style: 'unit',
+    unit: options?.unit ?? 'day',
+    unitDisplay: options?.unitDisplay ?? 'short',
+    useGrouping: options?.useGrouping ?? false,
+  }).format(Number(value));

@@ -3,7 +3,14 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 
 vi.mock('@intlayer/config/built', () => {
   const internationalization = { defaultLocale: 'en', locales: ['en', 'fr'] };
-  return { internationalization, default: { internationalization } };
+  const routing = {
+    storage: { cookies: [], localStorage: [], sessionStorage: [] },
+  };
+  return {
+    internationalization,
+    routing,
+    default: { internationalization, routing },
+  };
 });
 
 vi.mock('./intlayerContext', () => ({

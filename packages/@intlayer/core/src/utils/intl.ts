@@ -24,8 +24,8 @@
  * ```
  */
 
-import { internationalization } from '@intlayer/config/built';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
+import { resolveInterpreterLocale } from '../interpreter/resolveInterpreterLocale';
 
 const MAX_CACHE_SIZE = 50;
 const cache = new Map<any, Map<string, any>>();
@@ -222,7 +222,8 @@ export function getCachedIntl(
   locale?: LocalesValues | string,
   options?: any
 ): any {
-  const resLoc = locale ?? internationalization?.defaultLocale;
+  // No locale given: request locale → browser storage → default locale
+  const resLoc = resolveInterpreterLocale(locale as LocalesValues | undefined);
 
   const optKey = options ? JSON.stringify(options) : '';
   const key = `${resLoc}|${optKey}`;
@@ -264,7 +265,7 @@ export function getCachedIntl(
  * Optional: Keep bindIntl if your library exports it publicly.
  * It now uses the much smaller getCachedIntl under the hood.
  */
-export const bindIntl = (boundLocale: LocalesValues): WrappedIntl => {
+export const bindIntl = (boundLocale?: LocalesValues): WrappedIntl => {
   const bindWrap = (constructorName: IntlConstructorName) =>
     // function is used as a constructor, do not change in arrow function
     function intlConstructor(locales?: any, options?: any) {

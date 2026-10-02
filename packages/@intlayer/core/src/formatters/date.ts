@@ -1,4 +1,3 @@
-import { internationalization } from '@intlayer/config/built';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { getCachedIntl } from '../utils/intl';
 
@@ -66,9 +65,7 @@ export const date = (
   const resolvedOptions =
     typeof options === 'string' ? (presets[options] ?? {}) : options;
 
-  const locale =
-    (typeof options === 'object' ? options?.locale : undefined) ??
-    internationalization?.defaultLocale;
+  const locale = typeof options === 'object' ? options?.locale : undefined;
 
   const formatter = getCachedIntl('DateTimeFormat', locale, resolvedOptions);
 

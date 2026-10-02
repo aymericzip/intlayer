@@ -1,4 +1,3 @@
-import { internationalization } from '@intlayer/config/built';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { getCachedIntl } from '../utils/intl';
 
@@ -17,16 +16,11 @@ export const currency = (
   value: string | number,
   options?: Intl.NumberFormatOptions & { locale?: LocalesValues }
 ): string =>
-  getCachedIntl(
-    'NumberFormat',
-    options?.locale ?? internationalization?.defaultLocale,
-
-    {
-      style: 'currency',
-      currency: options?.currency ?? 'USD',
-      currencyDisplay: options?.currencyDisplay ?? 'symbol',
-      minimumFractionDigits: options?.minimumFractionDigits ?? 2,
-      maximumFractionDigits: options?.maximumFractionDigits ?? 2,
-      ...options,
-    }
-  ).format(Number(value));
+  getCachedIntl('NumberFormat', options?.locale, {
+    style: 'currency',
+    currency: options?.currency ?? 'USD',
+    currencyDisplay: options?.currencyDisplay ?? 'symbol',
+    minimumFractionDigits: options?.minimumFractionDigits ?? 2,
+    maximumFractionDigits: options?.maximumFractionDigits ?? 2,
+    ...options,
+  }).format(Number(value));

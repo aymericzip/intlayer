@@ -1,4 +1,5 @@
 import { internationalization } from '@intlayer/config/built';
+import { resolveInterpreterLocale } from '@intlayer/core/interpreter';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { derived, type Readable, type Writable, writable } from 'svelte/store';
@@ -11,8 +12,9 @@ const defaultLocale = internationalization?.defaultLocale as Locale;
 
 // Create the main intlayer store
 const createIntlayerStore = () => {
+  // Without a provider, returning visitors keep their persisted locale
   const { subscribe, set, update }: Writable<IntlayerStoreType> = writable({
-    locale: defaultLocale, // Default locale
+    locale: resolveInterpreterLocale() as Locale,
   });
 
   return {

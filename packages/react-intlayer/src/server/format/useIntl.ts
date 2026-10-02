@@ -1,4 +1,3 @@
-import { internationalization } from '@intlayer/config/built';
 import { bindIntl, type WrappedIntl } from '@intlayer/core/formatters';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { IntlayerServerContext } from '../IntlayerServerProvider';
@@ -35,7 +34,5 @@ import { getServerContext } from '../serverContext';
 export const useIntl = (locale?: LocalesValues): WrappedIntl => {
   const currentLocale = getServerContext<LocalesValues>(IntlayerServerContext);
 
-  return bindIntl(
-    locale ?? currentLocale ?? internationalization?.defaultLocale
-  );
+  return bindIntl(locale ?? currentLocale);
 };

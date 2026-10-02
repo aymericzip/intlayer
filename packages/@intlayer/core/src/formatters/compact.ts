@@ -1,4 +1,3 @@
-import { internationalization } from '@intlayer/config/built';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { getCachedIntl } from '../utils/intl';
 
@@ -17,12 +16,7 @@ export const compact = (
   value: string | number,
   options?: Intl.NumberFormatOptions & { locale?: LocalesValues }
 ): string =>
-  getCachedIntl(
-    'NumberFormat',
-    options?.locale ?? internationalization?.defaultLocale,
-
-    {
-      ...options,
-      notation: 'compact',
-    }
-  ).format(Number(value));
+  getCachedIntl('NumberFormat', options?.locale, {
+    ...options,
+    notation: 'compact',
+  }).format(Number(value));

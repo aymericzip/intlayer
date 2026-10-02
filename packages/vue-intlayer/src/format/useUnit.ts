@@ -21,10 +21,10 @@ import {
  * ```
  */
 export const useUnit = () => {
-  const intlayer = inject<IntlayerProvider>(INTLAYER_SYMBOL)!;
+  const intlayer = inject<IntlayerProvider | null>(INTLAYER_SYMBOL, null);
 
   return computed(() => {
-    const locale = intlayer.locale.value;
+    const locale = intlayer?.locale.value;
 
     return (...args: Parameters<typeof units>) =>
       units(args[0], {

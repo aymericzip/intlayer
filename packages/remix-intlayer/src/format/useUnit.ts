@@ -1,12 +1,8 @@
-import { internationalization } from '@intlayer/config/built';
 import { units } from '@intlayer/core/formatters';
-import type { DeclaredLocales } from '@intlayer/types/module_augmentation';
 import { getRequestLocale } from '../requestStorage';
 
-const { defaultLocale } = internationalization;
-
 export const useUnit = () => {
-  const locale = getRequestLocale() ?? (defaultLocale as DeclaredLocales);
+  const locale = getRequestLocale();
 
   return (...args: Parameters<typeof units>) =>
     units(args[0], {
