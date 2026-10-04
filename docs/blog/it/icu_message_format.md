@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-26
+updatedAt: 2026-10-03
 priority: 8
 title: "Formato dei Messaggi ICU: Sintassi, Plurali e Select"
 description: Un riferimento pratico su ICU MessageFormat, interpolazione di argomenti, ramificazioni plural e select, categorie di plurali CLDR per lingua ed errori comuni.
@@ -211,6 +211,7 @@ Alcune precisazioni per una corretta interpretazione della tabella:
 - **La sintassi di default di i18next non è ICU**, senza che questo sia uno svantaggio. I suffissi (`item_one`, `item_few`) corrispondono alle categorie di `Intl.PluralRules` e risultano spesso più facili da gestire in file JSON lineari. Tuttavia, `select` e i rami annidati non sono integrati nativamente, obbligando all'uso di `i18next-icu` o alla gestione della logica nel codice applicativo.
 - **I plurali a barre di vue-i18n** utilizzano per impostazione predefinita una funzione per locale anziché le categorie CLDR. Il sistema funziona, ma la regola risiede nella configurazione dell'app anziché nei dati.
 - **FormatJS è l'implementazione di riferimento** in JS. Quando in ambito JavaScript si parla di "ICU MessageFormat", ci si riferisce quasi sempre alla specifica adottata da FormatJS.
+- **Il supporto completo a ICU ha un costo sul bundle.** Il parser e la gestione degli skeleton aggiungono circa 10 KB di JavaScript compresso. Scopri [perché ICU non è fatto per JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/why_icu_is_not_made_for_js.md).
 
 ## L'approccio di Intlayer
 
@@ -289,6 +290,7 @@ Per i progetti che contengono già stringhe ICU, [l'adattatore di compatibilità
 
 ## Risorse utili
 
+- [Perché ICU non è fatto per JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/why_icu_is_not_made_for_js.md)
 - [Contenuti plurali in Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/plurial.md)
 - [Contenuti basati su select](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/select.md)
 - [Segnaposto di inserimento](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/insertion.md)

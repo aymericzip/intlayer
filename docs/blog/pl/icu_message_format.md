@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-26
+updatedAt: 2026-10-03
 priority: 8
 title: "Format komunikatów ICU: Składnia, Liczba mnoga i Select"
 description: Praktyczny przewodnik po ICU MessageFormat, interpolacja argumentów, rozgałęzienia plural i select, kategorie liczby mnogiej CLDR dla poszczególnych języków i typowe błędy.
@@ -211,6 +211,7 @@ Kluczowe uwagi do powyższego zestawienia:
 - **Domyślna składnia i18next to nie ICU**, co nie musi być wadą. Klucze z sufiksami (`item_one`, `item_few`) mapują się na kategorie `Intl.PluralRules` i często są łatwiejsze do edycji w płaskim pliku JSON. Brakuje w nich jednak operatora `select` i zagnieżdżonych gałęzi, co zmusza do użycia `i18next-icu` lub pisania logiki w kodzie.
 - **Zapis z kreską w vue-i18n** domyślnie korzysta z funkcji reguły per-locale, a nie kategorii CLDR. Działa to poprawnie, lecz reguła znajduje się w konfiguracji aplikacji, a nie w samych danych.
 - **FormatJS stanowi punkt odniesienia** w świecie JS. Mówiąc o "ICU MessageFormat" w kontekście JavaScriptu, najczęściej ma się na myśli specyfikację akceptowaną przez FormatJS.
+- **Pełne wsparcie dla ICU wiąże się z kosztem bundle.** Parser i obsługa skeletons dodają około 10 KB skompresowanego JavaScriptu. Zobacz [dlaczego ICU nie jest stworzony dla JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/why_icu_is_not_made_for_js.md).
 
 ## Rozwiązanie w Intlayer
 
@@ -285,6 +286,7 @@ Dla projektów zawierających już ciągi ICU, [adapter zgodności react-intl](h
 
 ## Więcej informacji
 
+- [Dlaczego ICU nie jest stworzony dla JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/why_icu_is_not_made_for_js.md)
 - [Liczba mnoga w Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/plurial.md)
 - [Zawartość warunkowa select](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/select.md)
 - [Wstawianie zmiennych](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/insertion.md)

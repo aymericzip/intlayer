@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-26
+updatedAt: 2026-10-03
 priority: 8
 title: "Định dạng thông điệp ICU: Cú pháp, Số nhiều và Select"
 description: Tài liệu tham khảo thực tế về ICU MessageFormat, nội suy đối số, rẽ nhánh số nhiều và select, các danh mục số nhiều CLDR theo từng ngôn ngữ và lỗi phổ biến.
@@ -212,6 +212,7 @@ Một số ghi chú quan trọng:
 - **Cú pháp mặc định của i18next không phải là ICU**, và điều này không hẳn là nhược điểm. Các khóa có hậu tố (`item_one`, `item_few`) ánh xạ tới các danh mục của `Intl.PluralRules` và thường dễ chỉnh sửa hơn trong tệp JSON phẳng. Tuy nhiên, nó không hỗ trợ `select` và rẽ nhánh lồng nhau, buộc bạn phải dùng `i18next-icu` hoặc tự viết logic trong code.
 - **Cơ chế số nhiều của vue-i18n** mặc định dùng hàm quy tắc cho từng locale thay vì danh mục CLDR. Cơ chế này hoạt động tốt, nhưng quy tắc nằm ở cấu hình ứng dụng thay vì trong dữ liệu bản dịch.
 - **FormatJS là chuẩn tham chiếu** trong thế giới JS. Khi nhắc đến "ICU MessageFormat" trong môi trường JavaScript, người ta thường ám chỉ tiêu chuẩn mà FormatJS chấp nhận.
+- **Hỗ trợ đầy đủ ICU có chi phí về dung lượng bundle.** Trình phân tích cú pháp và xử lý skeleton tăng thêm khoảng 10 KB mã JavaScript nén. Xem [tại sao ICU không dành cho JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/why_icu_is_not_made_for_js.md).
 
 ## Cách Intlayer xử lý bài toán này
 
@@ -289,6 +290,7 @@ Với các dự án đang sở hữu sẵn chuỗi ICU thực tế, [bộ điề
 
 ## Tài liệu tham khảo thêm
 
+- [Tại sao ICU không dành cho JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/why_icu_is_not_made_for_js.md)
 - [Nội dung số nhiều trong Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/plurial.md)
 - [Nội dung dựa trên select](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/select.md)
 - [Trình giữ chỗ chèn giá trị](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/insertion.md)

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-26
+updatedAt: 2026-10-03
 priority: 8
 title: "ICU Message Format: Syntax, Plurals and Select"
 description: A practical reference to ICU MessageFormat - argument interpolation, plural and select branching, CLDR plural categories per language, and the usual mistakes.
@@ -211,6 +211,7 @@ A few notes so the table is not misleading:
 - **i18next's default syntax is not ICU** and is not worse for it. Suffix keys (`item_one`, `item_few`) map onto `Intl.PluralRules` categories and are arguably easier for translators to edit in flat JSON. But `select` and nested branching are not part of it, so you either add `i18next-icu` or you write the logic in code.
 - **vue-i18n's pipe plurals** use a per-locale rule function, not CLDR categories by default. That works, but the plural rule lives in your app config rather than in the data.
 - **FormatJS is the reference implementation** in JS. When people say "ICU MessageFormat" in a JS context, they usually mean what FormatJS accepts.
+- **Full ICU support has a bundle cost.** The parser and skeleton handling add around 10 KB of compressed JavaScript. See [why ICU is not made for JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/why_icu_is_not_made_for_js.md).
 
 ## How Intlayer handles it
 
@@ -285,6 +286,7 @@ If you are coming from a codebase that already contains real ICU strings, the [r
 
 ## Going further
 
+- [Why ICU is not made for JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/why_icu_is_not_made_for_js.md)
 - [Plural content in Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/plurial.md)
 - [Select-based content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/select.md)
 - [Insertion placeholders](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/insertion.md)

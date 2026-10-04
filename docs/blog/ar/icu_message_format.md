@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-26
+updatedAt: 2026-10-03
 priority: 8
 title: "صيغة رسائل ICU: بناء الجملة، صيغ الجمع وSelect"
 description: مرجع عملي لصيغة ICU MessageFormat، تضمين المعاملات، تفرعات الجمع وselect، فئات الجمع في CLDR لكل لغة، والأخطاء الشائعة.
@@ -211,6 +211,7 @@ Conversion: {rate, number, percent}
 - **الصيغة الافتراضية في i18next ليست ICU**، وهذا ليس عيبًا في حد ذاته. تطابق مفاتيح اللواحق (`item_one`, `item_few`) فئات `Intl.PluralRules` وتكون أسهل للمترجمين في ملفات JSON المسطحة. ومع ذلك، فإن `select` والتفرعات المتداخلة ليست مدمجة، مما يلزمك بإضافة `i18next-icu` أو كتابة المنطق برمجياً.
 - **فروع vue-i18n المفصولة بأعمدة** تستخدم افتراضيًا دالة قواعد خاصة بكل لغة بدلاً من فئات CLDR. يفي ذلك بالغرض ولكنه يضع القواعد داخل إعدادات التطبيق بدلاً من البيانات نفسها.
 - **تُعد FormatJS المرجع الرئيسي** في نظام JS البيئي. عندما يُذكر مصطلح "ICU MessageFormat" في مجتمع جافاسكريبت، فالمقصود عادة هو ما تقبله مكتبة FormatJS.
+- **الدعم الكامل لـ ICU يفرض ضريبة على حجم الحزمة.** يضيف المحلل اللغوي ومعالجة الهياكل قرابة 10 كيلوبايت من كود JavaScript المضغوط. انظر [لماذا لم يتم تصميم ICU لبيئة JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/why_icu_is_not_made_for_js.md).
 
 ## نهج Intlayer
 
@@ -293,6 +294,7 @@ totalOpenings(5); // اللغة العربية → "5 وظائف شاغرة"
 
 ## مراجع إضافية
 
+- [لماذا لم يتم تصميم ICU لبيئة JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/why_icu_is_not_made_for_js.md)
 - [المحتوى الجمعي في Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/plurial.md)
 - [المحتوى القائم على select](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/select.md)
 - [عناصر التضمين النائبة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/insertion.md)

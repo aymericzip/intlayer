@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-26
+updatedAt: 2026-10-03
 priority: 8
 title: "ICU MessageFormat: 構文、複数形、Selectの完全解説"
 description: ICU MessageFormatの実践的なリファレンス。引数の埋め込み、複数形やselectの分岐、言語ごとのCLDR複数形カテゴリ、よくある落とし穴を解説します。
@@ -211,6 +211,7 @@ ICUは組み合わせが可能です。複数形の分岐の中にselectを含�
 - **i18nextのデフォルト構文はICUではありません**が、決して劣っているわけではありません。接尾辞キー（`item_one`、`item_few`）は`Intl.PluralRules`のカテゴリに対応しており、フラットなJSONで管理しやすいメリットがあります。ただし`select`や深いネスト分岐は標準外となるため、`i18next-icu`を併用するかコード側でロジックを組む必要があります。
 - **vue-i18nのパイプ区切り複数形**は、デフォルトではCLDRカテゴリではなくロケールごとの独自関数に基づきます。実用上は機能しますが、複数形ルールがデータではなくアプリケーション設定側に保持されることになります。
 - **FormatJSは事実上の標準**です。JavaScriptコミュニティで「ICU MessageFormat」と言う場合、大半はFormatJSが受け付ける仕様を指しています。
+- **完全なICUサポートにはバンドルコストが伴います。** パーサーとスケルトンの処理により、約10KBの圧縮済みJavaScriptが追加されます。[なぜICUはJavaScript向けではないのか](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/why_icu_is_not_made_for_js.md)を参照してください。
 
 ## Intlayerのアプローチ
 
@@ -288,6 +289,7 @@ ICUの概念との対応は非常に明確です。
 
 ## 関連リソース
 
+- [なぜICUはJavaScript向けではないのか](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/why_icu_is_not_made_for_js.md)
 - [Intlayerの複数形コンテンツ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/plurial.md)
 - [Selectベースのコンテンツ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/select.md)
 - [挿入プレースホルダー](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/insertion.md)

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-26
+updatedAt: 2026-10-03
 priority: 8
 title: "Format Pesan ICU: Sintaksis, Bentuk Jamak, dan Select"
 description: Panduan praktis untuk ICU MessageFormat, interpolasi argumen, percabangan plural dan select, kategori jamak CLDR per bahasa, dan kesalahan umum.
@@ -212,6 +212,7 @@ Catatan penting terkait tabel:
 - **Sintaksis default i18next bukanlah ICU**, dan ini bukan kekurangan. Akhiran kunci (`item_one`, `item_few`) dipetakan ke kategori `Intl.PluralRules` dan sering kali lebih mudah diedit dalam file JSON datar. Namun, `select` dan percabangan bersarang bukan bagian dari fitur intinya, sehingga Anda harus menambahkan `i18next-icu` atau menulis logika dalam kode.
 - **Bentuk jamak vue-i18n dengan pipa** secara default menggunakan fungsi aturan per lokal, bukan kategori CLDR. Fitur ini bekerja dengan baik, tetapi aturan jamak berada dalam konfigurasi aplikasi dan bukan di dalam data.
 - **FormatJS adalah implementasi acuan** di dunia JS. Ketika pengembang membicarakan "ICU MessageFormat" dalam konteks JavaScript, biasanya yang dimaksud adalah format yang diterima oleh FormatJS.
+- **Dukungan penuh ICU membawa dampak ukuran bundle.** Parser dan penanganan skeleton menambah sekitar 10 KB JavaScript terkompresi. Lihat [mengapa ICU tidak dibuat untuk JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/why_icu_is_not_made_for_js.md).
 
 ## Pendekatan Intlayer
 
@@ -289,6 +290,7 @@ Jika Anda beralih dari basis kode yang sudah memuat string ICU asli, [adapter ko
 
 ## Pelajari Lebih Lanjut
 
+- [Mengapa ICU Tidak Dibuat untuk JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/why_icu_is_not_made_for_js.md)
 - [Konten Bentuk Jamak di Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/plurial.md)
 - [Konten Berbasis Select](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/select.md)
 - [Placeholder Penyisipan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/insertion.md)

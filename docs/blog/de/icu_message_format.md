@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-26
+updatedAt: 2026-10-03
 priority: 8
 title: "ICU Message Format: Syntax, Plurale und Select"
 description: Eine praktische Referenz zu ICU MessageFormat, Argument-Interpolation, Plural- und Select-Verzweigungen, CLDR-Pluralkategorien pro Sprache und typische Fehler.
@@ -211,6 +211,7 @@ Einige Klarstellungen zur Tabelle:
 - **Die Standard-Syntax von i18next ist kein ICU**, was kein Nachteil sein muss. Suffix-Schlüssel (`item_one`, `item_few`) bilden `Intl.PluralRules`-Kategorien ab und lassen sich in flachem JSON oft leichter bearbeiten. `select` und verschachtelte Logik fehlen jedoch, sodass man entweder `i18next-icu` benötigt oder die Logik im Code abbildet.
 - **Die Pipe-Plurale von vue-i18n** verwenden standardmäßig eine regellose Zuordnung pro Locale anstelle echter CLDR-Kategorien. Das funktioniert, legt die Pluralregel jedoch in die App-Konfiguration statt in die Daten.
 - **FormatJS ist die Referenz** im JavaScript-Bereich. Spricht man von "ICU MessageFormat" in JS, ist meist die FormatJS-Spezifikation gemeint.
+- **Volle ICU-Unterstützung verursacht Bundle-Kosten.** Der Parser und das Skeleton-Handling fügen rund 10 KB komprimiertes JavaScript hinzu. Siehe [warum ICU nicht für JavaScript gemacht ist](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/why_icu_is_not_made_for_js.md).
 
 ## Wie Intlayer das Problem löst
 
@@ -289,6 +290,7 @@ Wer aus einer Codebasis mit vorhandenen ICU-Strings migriert, kann den [react-in
 
 ## Weiterführende Links
 
+- [Warum ICU nicht für JavaScript gemacht ist](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/why_icu_is_not_made_for_js.md)
 - [Pluralinhalte in Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/plurial.md)
 - [Select-basierte Inhalte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/select.md)
 - [Einfüge-Platzhalter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/insertion.md)

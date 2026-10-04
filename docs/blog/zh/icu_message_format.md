@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-26
+updatedAt: 2026-10-03
 priority: 8
 title: "ICU 消息格式：语法、复数与 Select 详解"
 description: ICU MessageFormat 的实用参考指南，涵盖参数插值、复数与 select 分支、各种语言的 CLDR 复数类别以及开发中的常见陷阱。
@@ -211,6 +211,7 @@ ICU 具有极高的组合性。复数分支内可以包含 select，select 内�
 - **i18next 的默认语法并非 ICU**，但这并不一定是劣势。其后缀式键（`item_one`、`item_few`）映射到 `Intl.PluralRules`，在扁平的 JSON 文件中更容易被翻译人员编辑。但它原生不包含 `select` 与复杂嵌套，因此需要借助 `i18next-icu` 或在业务代码中书写逻辑。
 - **vue-i18n 的管道符复数**默认基于各语言自定义规则函数，而非严格对应 CLDR。虽然能满足日常需求，但复数规则被放在了应用配置中，而非数据本身。
 - **FormatJS 是 JS 领域的标杆实现**。在前端开发语境下提及“ICU MessageFormat”时，通常指 FormatJS 所支持的规范标准。
+- **全量支持 ICU 会带来打包体积开销。** 解析器和骨架语法的支持需要额外引入约 10 KB 的压缩 JavaScript 代码。请参阅[为什么 ICU 不适合 JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/why_icu_is_not_made_for_js.md)。
 
 ## Intlayer 的处理方案
 
@@ -288,6 +289,7 @@ totalOpenings(5); // 中文语言环境 → "5 个职位空缺"
 
 ## 延伸阅读
 
+- [为什么 ICU 不适合 JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/why_icu_is_not_made_for_js.md)
 - [Intlayer 中的复数内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/plurial.md)
 - [基于 select 的条件内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/select.md)
 - [插值占位符](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/insertion.md)

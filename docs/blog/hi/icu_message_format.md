@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-26
+updatedAt: 2026-10-03
 priority: 8
 title: "ICU मैसेज फॉर्मेट: सिंटैक्स, बहुवचन (Plurals) और Select"
 description: ICU MessageFormat का एक व्यावहारिक संदर्भ, तर्क प्रक्षेप (argument interpolation), बहुवचन और select शाखाएं, प्रति भाषा CLDR बहुवचन श्रेणियां, और सामान्य गलतियां।
@@ -211,6 +211,7 @@ ICU संयोजन योग्य है। एक बहुवचन श�
 - **i18next का डिफ़ॉल्ट सिंटैक्स ICU नहीं है**, और यह इसके लिए खराब नहीं है। प्रत्यय कुंजियाँ (`item_one`, `item_few`) `Intl.PluralRules` श्रेणियों पर मैप होती हैं और फ्लैट JSON में अनुवादकों के लिए संपादित करना आसान होती हैं। लेकिन `select` और नेस्टेड ब्रांचिंग इसका हिस्सा नहीं हैं, इसलिए आपको या तो `i18next-icu` जोड़ना होगा या कोड में लॉजिक लिखना होगा।
 - **vue-i18n के पाइप बहुवचन** डिफ़ॉल्ट रूप से CLDR श्रेणियों के बजाय प्रति-लोकेल नियम फ़ंक्शन का उपयोग करते हैं। यह काम करता है, लेकिन नियम डेटा के बजाय ऐप कॉन्फ़िगरेशन में रहता है।
 - **FormatJS संदर्भ कार्यान्वयन है**। जब लोग JS संदर्भ में "ICU MessageFormat" कहते हैं, तो उनका आमतौर पर मतलब वही होता है जो FormatJS स्वीकार करता है।
+- **पूर्ण ICU समर्थन में बंडल आकार की लागत होती है।** पार्सर और स्केलेटन हैंडलिंग लगभग 10 KB संपीड़ित जावास्क्रिप्ट जोड़ते हैं। देखें [ICU जावास्क्रिप्ट के लिए क्यों नहीं बना है](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/why_icu_is_not_made_for_js.md)।
 
 ## Intlayer इसे कैसे संभालता है
 
@@ -289,6 +290,7 @@ ICU अवधारणाओं के साथ मैपिंग सीधी
 
 ## आगे पढ़ें
 
+- [ICU जावास्क्रिप्ट के लिए क्यों नहीं बना है](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/why_icu_is_not_made_for_js.md)
 - [Intlayer में बहुवचन सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/plurial.md)
 - [Select-आधारित सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/select.md)
 - [इंसर्शन प्लेसहोल्डर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/insertion.md)

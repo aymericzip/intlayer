@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-26
+updatedAt: 2026-10-03
 priority: 8
 title: "ICU MessageFormat: 구문, 복수형 및 Select 완벽 가이드"
 description: ICU MessageFormat 실전 가이드, 인자 보간, 복수형 및 select 분기, 언어별 CLDR 복수형 규칙, 개발자가 자주 겪는 함정을 정리합니다.
@@ -212,6 +212,7 @@ ICU는 조합이 가능합니다. 복수형 분기 안에 select를 포함하고
 - **i18next의 기본 구문은 ICU가 아니며**, 이것이 단점을 의미하지는 않습니다. 접미사 키(`item_one`, `item_few`)는 `Intl.PluralRules` 카테고리에 매핑되며 플랫 JSON에서 편집하기 더 수월합니다. 다만 `select`나 중첩 분기는 지원하지 않으므로 `i18next-icu`를 추가하거나 코드 레벨에서 처리해야 합니다.
 - **vue-i18n의 파이프 복수형**은 기본적으로 CLDR 규칙 대신 로케일별 규칙 함수를 사용합니다. 동작에는 문제가 없지만 규칙이 데이터가 아닌 애플리케이션 설정에 종속됩니다.
 - **FormatJS는 JS 생태계의 레퍼런스**입니다. JavaScript 진영에서 "ICU MessageFormat"을 언급할 때는 통상 FormatJS가 수용하는 표준을 의미합니다.
+- **완전한 ICU 지원은 번들 크기 부담을 수반합니다.** 파서와 스켈레톤 처리 기능은 약 10KB의 압축된 JavaScript 코드를 추가합니다. [ICU가 JavaScript에 맞지 않는 이유](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/why_icu_is_not_made_for_js.md)를 확인하세요.
 
 ## Intlayer의 해결 방식
 
@@ -289,6 +290,7 @@ ICU 개념과의 매핑 관계는 직관적입니다.
 
 ## 더 알아보기
 
+- [ICU가 JavaScript에 맞지 않는 이유](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/why_icu_is_not_made_for_js.md)
 - [Intlayer의 복수형 콘텐츠](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/plurial.md)
 - [Select 기반 콘텐츠](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/select.md)
 - [삽입 플레이스홀더](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/insertion.md)

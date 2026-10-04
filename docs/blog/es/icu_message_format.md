@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-26
+updatedAt: 2026-10-03
 priority: 8
 title: "Formato de Mensajes ICU: Sintaxis, Plurales y Select"
 description: Una referencia práctica sobre ICU MessageFormat, interpolación de argumentos, ramas plural y select, categorías de plural CLDR por idioma y errores habituales.
@@ -211,6 +211,7 @@ Algunas aclaraciones para interpretar la tabla con precisión:
 - **La sintaxis predeterminada de i18next no es ICU**, y no por ello es peor. Los sufijos (`item_one`, `item_few`) se corresponden con las categorías de `Intl.PluralRules` y son a menudo más fáciles de editar para los traductores en JSON plano. Pero `select` y el anidamiento complejo no forman parte de este modelo, por lo que requieres `i18next-icu` o gestionar la lógica en el código.
 - **Los plurales con barras de vue-i18n** utilizan por defecto una función de reglas por locale, no las categorías CLDR. Funciona, pero la regla vive en la configuración de la app en vez de en los datos.
 - **FormatJS es la implementación de referencia** en JS. Cuando se menciona "ICU MessageFormat" en un contexto de JavaScript, normalmente se alude a lo que FormatJS acepta.
+- **El soporte completo de ICU tiene un coste en el bundle.** El parser y el manejo de skeletons añaden alrededor de 10 KB de JavaScript comprimido. Consulta [por qué ICU no está hecho para JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/why_icu_is_not_made_for_js.md).
 
 ## Cómo lo resuelve Intlayer
 
@@ -289,6 +290,7 @@ Si provienes de una base de código que ya contiene cadenas ICU reales, el [adap
 
 ## Para profundizar
 
+- [Por qué ICU no está hecho para JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/why_icu_is_not_made_for_js.md)
 - [Contenido de plural en Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/plurial.md)
 - [Contenido basado en select](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/select.md)
 - [Marcadores de inserción](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/insertion.md)

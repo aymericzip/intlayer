@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-26
+updatedAt: 2026-10-03
 priority: 8
 title: "Format de Message ICU : Syntaxe, Pluriels et Select"
 description: Une référence pratique sur ICU MessageFormat, interpolation d'arguments, branches plural et select, catégories de pluriels CLDR par langue et erreurs fréquentes.
@@ -211,6 +211,7 @@ Quelques précisions pour une lecture éclairée du tableau :
 - **La syntaxe par défaut d'i18next n'est pas ICU**, sans que ce soit un défaut. Les suffixes (`item_one`, `item_few`) correspondent aux catégories de `Intl.PluralRules` et sont souvent plus simples à manipuler dans un fichier JSON plat. Cependant, `select` et les imbrications complexes n'en font pas partie, ce qui impose d'ajouter `i18next-icu` ou de gérer la logique dans le code.
 - **Les pluriels de vue-i18n** s'appuient sur une fonction de règles propre à la locale plutôt que sur les catégories CLDR par défaut. Cela fonctionne, mais la règle se situe dans la configuration de l'application et non dans les données.
 - **FormatJS constitue la référence** en JS. Lorsqu'on évoque "ICU MessageFormat" dans le contexte JavaScript, on fait généralement référence à ce que FormatJS prend en charge.
+- **La prise en charge intégrale d'ICU a un coût sur le bundle.** Le parseur et la gestion des skeletons ajoutent environ 10 Ko de JavaScript compressé. Voir [pourquoi ICU n'est pas fait pour JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/why_icu_is_not_made_for_js.md).
 
 ## L'approche d'Intlayer
 
@@ -289,6 +290,7 @@ Pour les projets existants contenant déjà des chaînes ICU, [l'adaptateur de c
 
 ## Pour aller plus loin
 
+- [Pourquoi ICU n'est pas fait pour JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/why_icu_is_not_made_for_js.md)
 - [Contenu pluriel dans Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/plurial.md)
 - [Contenu basé sur select](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/select.md)
 - [Espaces réservés d'insertion](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/insertion.md)

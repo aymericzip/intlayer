@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-26
+updatedAt: 2026-10-03
 priority: 8
 title: "Формат сообщений ICU: синтаксис, множественные формы и select"
 description: Практическое руководство по ICU MessageFormat, интерполяция аргументов, ветвления plural и select, категории множественного числа CLDR по языкам и типичные ошибки.
@@ -211,6 +211,7 @@ Conversion: {rate, number, percent}
 - **Синтаксис по умолчанию в i18next не является ICU**, и в этом есть свои плюсы. Суффиксы (`item_one`, `item_few`) соответствуют категориям `Intl.PluralRules` и часто удобнее для редактирования в обычном JSON. Однако `select` и вложенные ветвления отсутствуют, поэтому приходится подключать `i18next-icu` или переносить логику в код.
 - **Ветвления через пайп в vue-i18n** по умолчанию опираются на функцию правила для каждой локали, а не на категории CLDR. Это работает, но логика плюрализации хранится в конфигурации приложения, а не в самих данных.
 - **FormatJS выступает эталоном** в мире JS. Когда говорят об "ICU MessageFormat" в контексте JavaScript, чаще всего подразумевают именно реализацию FormatJS.
+- **Полная поддержка ICU увеличивает размер бандла.** Парсер и обработка скелетонов добавляют около 10 КБ сжатого JavaScript. См. [почему ICU не подходит для JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/why_icu_is_not_made_for_js.md).
 
 ## Подход Intlayer
 
@@ -291,6 +292,7 @@ totalOpenings(5); // Русская локаль → "5 вакансий"
 
 ## Дополнительные материалы
 
+- [Почему ICU не подходит для JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/why_icu_is_not_made_for_js.md)
 - [Множественные формы в Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/plurial.md)
 - [Контент на основе select](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/select.md)
 - [Вставки и заполнители](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/insertion.md)

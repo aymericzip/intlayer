@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-26
+updatedAt: 2026-10-03
 priority: 8
 title: "Formato de Mensagens ICU: Sintaxe, Plurais e Select"
 description: Uma referência prática sobre o ICU MessageFormat, interpolação de argumentos, ramificações plural e select, categorias de plural do CLDR por idioma e erros comuns.
@@ -211,6 +211,7 @@ Algumas observações importantes para a leitura da tabela:
 - **A sintaxe padrão do i18next não é ICU**, o que não é necessariamente um defeito. Os sufixos (`item_one`, `item_few`) se mapeiam para as categorias do `Intl.PluralRules` e são frequentemente mais fáceis de editar em JSON simples. No entanto, `select` e ramificações aninhadas não fazem parte desse núcleo, exigindo o `i18next-icu` ou lógica manual no código.
 - **Os plurais por pipe do vue-i18n** utilizam, por padrão, uma função de regra customizada por locale, e não categorias CLDR. O formato funciona, mas a regra fica na configuração do app e não nos dados.
 - **O FormatJS é a referência** no universo JS. Quando desenvolvedores citam "ICU MessageFormat" em JavaScript, normalmente se referem ao padrão suportado pelo FormatJS.
+- **O suporte completo a ICU tem um custo de bundle.** O parser e o manuseio de skeletons adicionam cerca de 10 KB de JavaScript compactado. Veja [por que o ICU não foi feito para JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/why_icu_is_not_made_for_js.md).
 
 ## Como o Intlayer lida com isso
 
@@ -289,6 +290,7 @@ Para bases de código que já contam com strings ICU, o [adaptador de compatibil
 
 ## Próximos passos
 
+- [Por que o ICU não foi feito para JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/why_icu_is_not_made_for_js.md)
 - [Conteúdo com plural no Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/plurial.md)
 - [Conteúdo baseado em select](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/select.md)
 - [Placeholders de inserção](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/insertion.md)

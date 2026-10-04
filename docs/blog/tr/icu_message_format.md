@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-26
+updatedAt: 2026-10-03
 priority: 8
 title: "ICU Message Format: Sözdizimi, Çoğullar ve Select"
 description: ICU MessageFormat için pratik bir başvuru kılavuzu, argüman ekleme, çoğul ve select dallanmaları, dile göre CLDR çoğul kategorileri ve yaygın hatalar.
@@ -212,6 +212,7 @@ Tabloya dair önemli notlar:
 - **i18next'in varsayılan sözdizimi ICU değildir**, ancak bu bir dezavantaj olmak zorunda değildir. Son ekli anahtarlar (`item_one`, `item_few`) `Intl.PluralRules` kategorileriyle eşleşir ve düz JSON dosyalarında çevirmenlerin düzenlemesi genellikle daha kolaydır. Ancak `select` ve iç içe dallanmalar standart yapıda yer almadığından `i18next-icu` eklemeniz ya da mantığı kod içinde kurmanız gerekir.
 - **vue-i18n'in çoğulları** varsayılan olarak CLDR kategorileri yerine dil başına tanımlı bir kural fonksiyonu kullanır. Bu pratik olsa da çoğul kuralı veride değil uygulama yapılandırmasında tutulur.
 - **FormatJS referans uygulamadır**. JavaScript bağlamında "ICU MessageFormat" denildiğinde genellikle FormatJS'in desteklediği standart kastedilir.
+- **Tam ICU desteği paket boyutu maliyeti getirir.** Parser ve iskelet yönetimi yaklaşık 10 KB sıkıştırılmış JavaScript ekler. Bkz. [ICU neden JavaScript için uygun değil](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/why_icu_is_not_made_for_js.md).
 
 ## Intlayer bu durumu nasıl çözer?
 
@@ -290,6 +291,7 @@ Mevcut projenizde hazır ICU metinleri bulunuyorsa, [react-intl uyumluluk bağda
 
 ## Daha fazlası
 
+- [ICU Neden JavaScript İçin Uygun Değil](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/why_icu_is_not_made_for_js.md)
 - [Intlayer'da Çoğul İçerik](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/plurial.md)
 - [Select Tabanlı İçerik](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/select.md)
 - [Yerleştirme Belirteçleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/insertion.md)
