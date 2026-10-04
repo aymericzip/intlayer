@@ -269,9 +269,9 @@ curl -H "Accept-Language: es" http://localhost:3000/
 
 `elysia-intlayer` متوافق بشكل كامل مع:
 
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/index.md)
-- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/next-intlayer/index.md)
-- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/vite-intlayer/index.md)
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/exports.md)
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/next-intlayer/exports.md)
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/vite-intlayer/exports.md)
 
 يعمل أيضًا بسلاسة مع أي حل internationalization عبر بيئات مختلفة، بما في ذلك المتصفحات وطلبات API.
 

@@ -52,7 +52,7 @@ Der Build-Schritt kann auf drei Arten durchgeführt werden:
 
 - Verwendung der CLI mit `npx intlayer build`
 - Verwendung der [VSCode-Erweiterung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/vs_code_extension.md)
-- Verwendung von App-Plugins wie dem [`vite-intlayer`-Paket](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/vite-intlayer/index.md) oder deren Äquivalenten für [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/next-intlayer/index.md). Wenn Sie eines dieser Plugins verwenden, wird Intlayer Ihre Wörterbücher automatisch erstellen, wenn Sie Ihre Anwendung starten (dev) oder bauen (prod).
+- Verwendung von App-Plugins wie dem [`vite-intlayer`-Paket](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/vite-intlayer/exports.md) oder deren Äquivalenten für [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/next-intlayer/exports.md). Wenn Sie eines dieser Plugins verwenden, wird Intlayer Ihre Wörterbücher automatisch erstellen, wenn Sie Ihre Anwendung starten (dev) oder bauen (prod).
 
 1. Deklaration von Inhaltsdateien
    - Inhaltsdateien können in verschiedenen Formaten definiert werden, wie TypeScript, ECMAScript, CommonJS oder JSON.
@@ -283,7 +283,7 @@ Das `@intlayer/webpack` Paket wird verwendet, um eine Webpack-Konfiguration bere
 
 ### @intlayer/cli
 
-Das `@intlayer/cli` Paket ist ein NPM-Paket, das verwendet wird, um Skripte im Zusammenhang mit den Intlayer-Befehlszeilenschnittstellen zu deklarieren. Es stellt die Einheitlichkeit aller Intlayer-CLI-Befehle sicher. Dieses Paket wird insbesondere von den Paketen [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/intlayer-cli/index.md) und [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/intlayer/index.md) verwendet.
+Das `@intlayer/cli` Paket ist ein NPM-Paket, das verwendet wird, um Skripte im Zusammenhang mit den Intlayer-Befehlszeilenschnittstellen zu deklarieren. Es stellt die Einheitlichkeit aller Intlayer-CLI-Befehle sicher. Dieses Paket wird insbesondere von den Paketen [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/intlayer-cli/exports.md) und [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/intlayer/exports.md) verwendet.
 
 ### @intlayer/mcp
 

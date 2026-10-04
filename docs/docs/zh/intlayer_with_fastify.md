@@ -214,9 +214,9 @@ start();
 
 `fastify-intlayer` 与以下项完全兼容：
 
-- 针对 React 应用程序的 [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/index.md)
-- 针对 Next.js 应用程序的 [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/next-intlayer/index.md)
-- 针对 Vite 应用程序的 [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/vite-intlayer/index.md)
+- 针对 React 应用程序的 [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/exports.md)
+- 针对 Next.js 应用程序的 [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/next-intlayer/exports.md)
+- 针对 Vite 应用程序的 [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/vite-intlayer/exports.md)
 
 它还可以跨各种环境（包括浏览器和 API 请求）与任何国际化解决方案无缝协作。您可以自定义中间件通过 header 或 cookie 检测语言区域：
 

@@ -59,11 +59,11 @@ So với các giải pháp chính như `next-intl` hay `i18next`, Intlayer là g
 Intlayer được tối ưu hóa để hoạt động với **Thành phần máy chủ** nhằm hiển thị hiệu quả và hoàn toàn tương thích với [**Turbopack**](https://nextjs.org/docs/architecture/turbopack). Nó không chặn hiển thị tĩnh và cung cấp phần mềm trung gian cũng như tất cả các tính năng cần thiết để mở rộng quy mô quốc tế hóa (i18n).
 
 > Intlayer tương thích với Next.js 12, 13, 14, 15 và 16. Nếu đang sử dụng Bộ định tuyến trang Next.js, bạn có thể tham khảo [hướng dẫn](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_page_router.md).
-> Định tuyến ngôn ngữ rất hữu ích cho SEO, kích thước bundle và hiệu suất. Nếu không cần, bạn có thể tham khảo [hướng dẫn](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_no_locale_path.md).
+> Định tuyến ngôn ngữ rất hữu ích cho SEO, kích thước bundle và hiệu suất. Nếu không cần, bạn có thể tham khảo [hướng dẫn](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_16.md).
 > Đối với Next.js 12, 13, 14 và 15 với Bộ định tuyến ứng dụng, hãy tham khảo [hướng dẫn](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_14.md).
 
 - [i18n Next.js Pages Router: Hướng dẫn dịch thuật đầy đủ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_page_router.md)
-- [hướng dẫn](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_no_locale_path.md)
+- [hướng dẫn](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_16.md)
 - [i18n Next.js 14 - Hướng dẫn đầy đủ để dịch ứng dụng của bạn](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_14.md)
 
 </Accordion>
@@ -215,9 +215,9 @@ Here is the final structure that we will make:
 └── tsconfig.json
 ```
 
-> If you don't want locale routing, intlayer can be used as a simple provider / hook. See [this guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_no_locale_path.md) for more details.
+> If you don't want locale routing, intlayer can be used as a simple provider / hook. See [this guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_16.md) for more details.
 
-- [this guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_no_locale_path.md)
+- [this guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_16.md)
 
 Tạo một file cấu hình để cấu hình các ngôn ngữ cho ứng dụng của bạn:
 
@@ -1143,7 +1143,7 @@ Có. Nội dung trong Server Components được giải quyết trực tiếp tr
 Không. `routing.mode` chấp nhận `"prefix-no-default"` (mặc định: `/about` cho ngôn ngữ chính và `/vi/about` cho ngôn ngữ khác), `"prefix-all"`, `"no-prefix"`, và `"search-params"`. Tùy chọn `routing.domains` ánh xạ từng ngôn ngữ tới tên miền riêng. Xem [tài liệu cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md).
 
 - [tài liệu cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md)
-- [guide without locale path](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_no_locale_path.md)
+- [guide without locale path](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_16.md)
 
 </Question>
 <Question title="Làm cách nào để thêm thẻ hreflang và metadata được bản địa hóa cho SEO?">

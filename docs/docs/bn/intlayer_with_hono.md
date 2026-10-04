@@ -227,9 +227,9 @@ export default app;
 
 `hono-intlayer` এর সাথে পুরোপুরি সামঞ্জস্যপূর্ণ:
 
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/packages/react-intlayer/index.md)
-- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/packages/next-intlayer/index.md)
-- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/packages/vite-intlayer/index.md)
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/exports.md)
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/exports.md)
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/vite-intlayer/exports.md)
 
 এটি ব্রাউজার এবং API রিকোয়েস্টসহ বিভিন্ন পরিবেশে যেকোনো আন্তর্জাতিকীকরণ সল্যুশনের সাথে নিরবিচ্ছিন্নভাবে কাজ করে। আপনি হেডার বা কুকির মাধ্যমে লোকাল শনাক্ত করতে মিডলওয়্যার কাস্টমাইজ করতে পারেন:
 

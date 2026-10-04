@@ -276,23 +276,23 @@ Inhaltsknoten sind die Bausteine des Wörterbuchinhalts. Sie können sein:
 - **Primitive Werte**: Zeichenketten, Zahlen, Booleans, null, undefined
 - **Typisierte Knoten**: Spezielle Inhaltstypen wie Übersetzungen, Bedingungen, Markdown usw.
 - **Funktionen**: Dynamische Inhalte, die zur Laufzeit ausgewertet werden können [siehe Funktionsabruf](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/function_fetching.md)
-- **Plural-Inhalt**: Siehe Plural-Inhalt [Siehe Plural-Inhalt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/plural.md)
+- **Plural-Inhalt**: Siehe Plural-Inhalt [Siehe Plural-Inhalt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/plurial.md)
 - **Verschachtelte Inhalte**: Verweise auf andere Wörterbücher
 
 #### Inhaltstypen
 
 Intlayer unterstützt verschiedene Inhaltstypen durch typisierte Knoten:
 
-- **Übersetzungsinhalt**: Mehrsprachiger Text mit lokalisierungsspezifischen Werten [siehe Übersetzungsinhalt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/translation_content.md)
-- **Bedingungsinhalt**: Bedingter Inhalt basierend auf booleschen Ausdrücken [siehe Bedingungsinhalt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/condition_content.md)
-- **Enumerationsinhalt**: Inhalt, der sich basierend auf aufzählbaren Werten ändert [siehe Enumerationsinhalt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/enumeration_content.md)
-- **Einfügeinhalt**: Inhalt, der in anderen Inhalt eingefügt werden kann [siehe Einfügeinhalt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/insertion_content.md)
-- **Markdown-Inhalt**: Rich-Text-Inhalt im Markdown-Format [siehe Markdown-Inhalt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/markdown_content.md)
+- **Übersetzungsinhalt**: Mehrsprachiger Text mit lokalisierungsspezifischen Werten [siehe Übersetzungsinhalt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/translation.md)
+- **Bedingungsinhalt**: Bedingter Inhalt basierend auf booleschen Ausdrücken [siehe Bedingungsinhalt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/condition.md)
+- **Enumerationsinhalt**: Inhalt, der sich basierend auf aufzählbaren Werten ändert [siehe Enumerationsinhalt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/enumeration.md)
+- **Einfügeinhalt**: Inhalt, der in anderen Inhalt eingefügt werden kann [siehe Einfügeinhalt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/insertion.md)
+- **Markdown-Inhalt**: Rich-Text-Inhalt im Markdown-Format [siehe Markdown-Inhalt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/markdown.md)
 - **HTML-Inhalt**: Rich-HTML-Inhalt mit optionalen benutzerdefinierten Komponenten [siehe HTML-Inhalt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/html.md)
-- **Verschachtelter Inhalt**: Verweise auf andere Wörterbücher [siehe Verschachtelter Inhalt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/nested_content.md)
+- **Verschachtelter Inhalt**: Verweise auf andere Wörterbücher [siehe Verschachtelter Inhalt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/nesting.md)
 - **Geschlechtsabhängiger Inhalt**: Inhalt, der sich je nach Geschlecht unterscheidet [siehe Geschlechtsabhängiger Inhalt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/gender.md)
 - **Auswahlbasierter Inhalt**: Inhalt, der basierend auf einem beliebigen Zeichenfolgenwert variiert [siehe Auswahlbasierter Inhalt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/select.md)
-- **Dateiinhalt**: Verweise auf externe Dateien [siehe Dateiinhalt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/file_content.md)
+- **Dateiinhalt**: Verweise auf externe Dateien [siehe Dateiinhalt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/file.md)
 
 ## Wörterbuchstruktur
 
@@ -702,9 +702,9 @@ pluralContent: plural({
 });
 ```
 
-> Siehe [Plural-Inhalt Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/plural.md) für weitere Informationen.
+> Siehe [Plural-Inhalt Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/plurial.md) für weitere Informationen.
 
-- [Plural-Inhalt Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/plural.md)
+- [Plural-Inhalt Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/plurial.md)
 
 ### Einfügeinhalt (`insert`)
 

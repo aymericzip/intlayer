@@ -73,11 +73,11 @@ author: aymericzip
 कुशल रेंडरिंग के लिए इंटलेयर को **सर्वर कंपोनेंट्स** के साथ काम करने के लिए अनुकूलित किया गया है और यह [**टर्बोपैक**](https://nextjs.org/docs/architecture/turbopack) के साथ पूरी तरह से संगत है। यह स्थैतिक रेंडरिंग को अवरुद्ध नहीं करता है और मिडलवेयर के साथ-साथ अंतर्राष्ट्रीयकरण (i18n) को स्केल करने के लिए आवश्यक सभी सुविधाएँ प्रदान करता है।
 
 > इंटलेयर Next.js 12, 13, 14, 15 और 16 के साथ संगत है। यदि आप Next.js पेज राउटर का उपयोग कर रहे हैं, तो आप इस [गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nextjs_page_router.md) को देख सकते हैं।
-> लोकेल रूटिंग एसईओ, बंडल आकार और प्रदर्शन के लिए उपयोगी है। यदि आपको इसकी आवश्यकता नहीं है, तो आप इस [गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nextjs_no_locale_path.md) का संदर्भ ले सकते हैं।
+> लोकेल रूटिंग एसईओ, बंडल आकार और प्रदर्शन के लिए उपयोगी है। यदि आपको इसकी आवश्यकता नहीं है, तो आप इस [गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nextjs_16.md) का संदर्भ ले सकते हैं।
 > ऐप राउटर के साथ Next.js 12, 13, 14, और 15 के लिए, इस [गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nextjs_14.md) को देखें।
 
 - [Next.js Pages Router i18n: Complete Translation Guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nextjs_page_router.md)
-- [गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nextjs_no_locale_path.md)
+- [गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nextjs_16.md)
 - [Next.js 14 i18n - Complete guide to translate your app](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nextjs_14.md)
 
 </Accordion>

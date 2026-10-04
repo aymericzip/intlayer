@@ -52,7 +52,7 @@ Intlayer के पीछे मुख्य विचार यह है क�
 
 - CLI का उपयोग करके `npx intlayer build` के साथ
 - [vscode एक्सटेंशन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/vs_code_extension.md) का उपयोग करके
-- ऐप प्लगइन्स का उपयोग करके जैसे [`vite-intlayer` पैकेज](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/vite-intlayer/index.md), या उनके [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/next-intlayer/index.md) के लिए समकक्ष। जब आप इन प्लगइन्स में से किसी एक का उपयोग करते हैं, तो Intlayer स्वचालित रूप से आपके डिक्शनरीज़ का निर्माण करेगा जब आप अपना एप्लिकेशन शुरू (डेव) या निर्माण (प्रोड) करेंगे।
+- ऐप प्लगइन्स का उपयोग करके जैसे [`vite-intlayer` पैकेज](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/vite-intlayer/exports.md), या उनके [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/next-intlayer/exports.md) के लिए समकक्ष। जब आप इन प्लगइन्स में से किसी एक का उपयोग करते हैं, तो Intlayer स्वचालित रूप से आपके डिक्शनरीज़ का निर्माण करेगा जब आप अपना एप्लिकेशन शुरू (डेव) या निर्माण (प्रोड) करेंगे।
 
 1. सामग्री फ़ाइलों की घोषणा
    - सामग्री फ़ाइलें विभिन्न प्रारूपों में परिभाषित की जा सकती हैं, जैसे TypeScript, ECMAScript, CommonJS, या JSON।
@@ -283,7 +283,7 @@ Intlayer को [Vite बंडलर](https://vite.dev/guide/why.html#why-bundl
 
 ### @intlayer/cli
 
-`@intlayer/cli` पैकेज एक NPM पैकेज है जिसका उपयोग Intlayer कमांड लाइन इंटरफेस से संबंधित स्क्रिप्ट्स को घोषित करने के लिए किया जाता है। यह सभी Intlayer CLI कमांड्स की एकरूपता सुनिश्चित करता है। यह पैकेज विशेष रूप से [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer-cli/index.md) और [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/index.md) पैकेजों द्वारा उपयोग किया जाता है।
+`@intlayer/cli` पैकेज एक NPM पैकेज है जिसका उपयोग Intlayer कमांड लाइन इंटरफेस से संबंधित स्क्रिप्ट्स को घोषित करने के लिए किया जाता है। यह सभी Intlayer CLI कमांड्स की एकरूपता सुनिश्चित करता है। यह पैकेज विशेष रूप से [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer-cli/exports.md) और [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/exports.md) पैकेजों द्वारा उपयोग किया जाता है।
 
 ### @intlayer/mcp
 

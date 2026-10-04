@@ -52,7 +52,7 @@ Intlayer 的核心理念是采用每个组件的内容管理。因此，Intlayer
 
 - 使用 CLI 命令 `npx intlayer build`
 - 使用 [vscode 扩展](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/vs_code_extension.md)
-- 使用应用插件，例如 [`vite-intlayer` 包](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/vite-intlayer/index.md)，或其在 [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/next-intlayer/index.md) 中的等价插件。当您使用这些插件之一时，Intlayer 会在启动（开发模式）或构建（生产模式）应用时自动构建您的字典。
+- 使用应用插件，例如 [`vite-intlayer` 包](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/vite-intlayer/exports.md)，或其在 [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/next-intlayer/exports.md) 中的等价插件。当您使用这些插件之一时，Intlayer 会在启动（开发模式）或构建（生产模式）应用时自动构建您的字典。
 
 1. 内容文件的声明
    - 内容文件可以以多种格式定义，例如 TypeScript、ECMAScript、CommonJS 或 JSON。
@@ -282,7 +282,7 @@ Intlayer 由多个包组成，每个包在翻译过程中都有特定的角色�
 
 ### @intlayer/cli
 
-`@intlayer/cli` 包是一个 NPM 包，用于声明与 Intlayer 命令行接口相关的脚本。它确保了所有 Intlayer CLI 命令的一致性。此包主要被 [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer-cli/index.md) 和 [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/index.md) 包所使用。
+`@intlayer/cli` 包是一个 NPM 包，用于声明与 Intlayer 命令行接口相关的脚本。它确保了所有 Intlayer CLI 命令的一致性。此包主要被 [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer-cli/exports.md) 和 [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/exports.md) 包所使用。
 
 ### @intlayer/mcp
 

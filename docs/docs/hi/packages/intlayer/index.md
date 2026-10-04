@@ -321,15 +321,15 @@ Intlayer आपके एप्लिकेशन के लिए एक पै
 
 ### React एप्लिकेशन
 
-अपने React एप्लिकेशन में Intlayer का उपयोग करने के लिए, आप [react-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/react-intlayer/index.md) का उपयोग कर सकते हैं।
+अपने React एप्लिकेशन में Intlayer का उपयोग करने के लिए, आप [react-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/react-intlayer/exports.md) का उपयोग कर सकते हैं।
 
 ### Next.js एप्लिकेशन
 
-अपने Next.js एप्लिकेशन में Intlayer का उपयोग करने के लिए, आप [next-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/next-intlayer/index.md) का उपयोग कर सकते हैं।
+अपने Next.js एप्लिकेशन में Intlayer का उपयोग करने के लिए, आप [next-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/next-intlayer/exports.md) का उपयोग कर सकते हैं।
 
 ### Express एप्लिकेशन
 
-अपने Express एप्लिकेशन में Intlayer का उपयोग करने के लिए, आप [express-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/express-intlayer/index.md) का उपयोग कर सकते हैं।
+अपने Express एप्लिकेशन में Intlayer का उपयोग करने के लिए, आप [express-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/express-intlayer/exports.md) का उपयोग कर सकते हैं।
 
 ## `intlayer` पैकेज द्वारा प्रदान की गई फ़ंक्शन
 

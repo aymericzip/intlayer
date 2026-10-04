@@ -272,23 +272,23 @@ Les nœuds de contenu sont les éléments de base du contenu du dictionnaire. Il
 - **Valeurs primitives** : chaînes de caractères, nombres, booléens, null, undefined
 - **Nœuds typés** : Types de contenu spéciaux comme les traductions, conditions, markdown, etc.
 - **Fonctions** : Contenu dynamique pouvant être évalué à l'exécution [voir Récupération de fonctions](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/function_fetching.md)
-- **Contenu Pluriel**: Voir Contenu Pluriel [Voir Contenu Pluriel](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/plural.md)
+- **Contenu Pluriel**: Voir Contenu Pluriel [Voir Contenu Pluriel](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/plurial.md)
 - **Contenu imbriqué** : Références à d'autres dictionnaires
 
 #### Types de contenu
 
 Intlayer prend en charge divers types de contenu via des nœuds typés :
 
-- **Contenu de traduction** : Texte multilingue avec des valeurs spécifiques à chaque locale [voir Contenu de traduction](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/translation_content.md)
-- **Contenu conditionnel** : Contenu conditionnel basé sur des expressions booléennes [voir Contenu conditionnel](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/condition_content.md)
-- **Contenu d'énumération** : Contenu qui varie en fonction de valeurs énumérées [voir Contenu d'énumération](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/enumeration_content.md)
-- **Contenu d'insertion** : Contenu pouvant être inséré dans un autre contenu [voir Contenu d'insertion](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/insertion_content.md)
-- **Contenu Markdown** : Contenu en texte enrichi au format Markdown [voir Contenu Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/markdown_content.md)
+- **Contenu de traduction** : Texte multilingue avec des valeurs spécifiques à chaque locale [voir Contenu de traduction](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/translation.md)
+- **Contenu conditionnel** : Contenu conditionnel basé sur des expressions booléennes [voir Contenu conditionnel](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/condition.md)
+- **Contenu d'énumération** : Contenu qui varie en fonction de valeurs énumérées [voir Contenu d'énumération](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/enumeration.md)
+- **Contenu d'insertion** : Contenu pouvant être inséré dans un autre contenu [voir Contenu d'insertion](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/insertion.md)
+- **Contenu Markdown** : Contenu en texte enrichi au format Markdown [voir Contenu Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/markdown.md)
 - **Contenu HTML** : Contenu HTML riche avec des composants personnalisés optionnels [voir Contenu HTML](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/html.md)
-- **Contenu Imbriqué** : Références à d’autres dictionnaires [voir Contenu Imbriqué](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/nested_content.md)
+- **Contenu Imbriqué** : Références à d’autres dictionnaires [voir Contenu Imbriqué](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/nesting.md)
 - **Contenu Genré** : Contenu qui varie selon le genre [voir Contenu Genré](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/gender.md)
 - **Contenu Select** : Contenu qui varie en fonction d'une valeur de chaîne arbitraire [voir Contenu Select](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/select.md)
-- **Contenu Fichier** : Références à des fichiers externes [voir Contenu Fichier](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/file_content.md)
+- **Contenu Fichier** : Références à des fichiers externes [voir Contenu Fichier](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/file.md)
 
 ## Structure du Dictionnaire
 
@@ -698,9 +698,9 @@ pluralContent: plural({
 });
 ```
 
-> Voir [Contenu Pluriel Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/plural.md) pour plus d'informations.
+> Voir [Contenu Pluriel Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/plurial.md) pour plus d'informations.
 
-- [Contenu Pluriel Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/plural.md)
+- [Contenu Pluriel Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/plurial.md)
 
 ### Contenu d'insertion (`insert`)
 

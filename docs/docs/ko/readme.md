@@ -275,7 +275,7 @@ Intlayer는 **개발자**, **카피라이터**, **AI 에이전트**를 하나의
 ## 🌐 다른 언어로 된 Readme
 
 <p align="center">
-  <a href="https://github.com/aymericzip/intlayer/blob/main/readme.md">English</a> •
+  <a href="https://github.com/aymericzip/intlayer/blob/main/README.md">English</a> •
   <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/readme.md">简体中文</a> •
   <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/readme.md">Русский</a> •
   <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/readme.md">日本語</a> •

@@ -212,9 +212,9 @@ app.listen(3000, () => console.log(`Listening on port 3000`));
 
 `express-intlayer` पूरी तरह से संगत है:
 
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/react-intlayer/index.md)
-- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/next-intlayer/index.md)
-- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/vite-intlayer/index.md)
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/react-intlayer/exports.md)
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/next-intlayer/exports.md)
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/vite-intlayer/exports.md)
   यह किसी भी अंतर्राष्ट्रीयकरण समाधान के साथ विभिन्न वातावरणों में, जिसमें ब्राउज़र और API अनुरोध शामिल हैं, सहजता से काम करता है। आप मिडलवेयर को हेडर या कुकीज़ के माध्यम से लोकल का पता लगाने के लिए अनुकूलित कर सकते हैं:
 
 यह किसी भी अंतरराष्ट्रीयकरण समाधान के साथ विभिन्न वातावरणों में, जिसमें ब्राउज़र और API अनुरोध शामिल हैं, सहजता से काम करता है। आप मिडलवेयर को हेडर या कुकी के माध्यम से लोकल का पता लगाने के लिए अनुकूलित कर सकते हैं:

@@ -275,23 +275,23 @@ Content nodes adalah blok bangunan dari konten kamus. Mereka dapat berupa:
 - **Nilai primitif**: string, angka, boolean, null, undefined
 - **Node bertipe**: Jenis konten khusus seperti terjemahan, kondisi, markdown, dll.
 - **Fungsi**: Konten dinamis yang dapat dievaluasi saat runtime [lihat Pengambilan Fungsi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/function_fetching.md)
-- **Plural Content**: See Plural Content [See Plural Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/plural.md)
+- **Plural Content**: See Plural Content [See Plural Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/plurial.md)
 - **Konten bersarang**: Referensi ke kamus lain
 
 #### Jenis Konten
 
 Intlayer mendukung berbagai jenis konten melalui node bertipe:
 
-- **Konten Terjemahan**: Teks multibahasa dengan nilai spesifik lokal [lihat Konten Terjemahan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/translation_content.md)
-- **Konten Kondisi**: Konten kondisional berdasarkan ekspresi boolean [lihat Konten Kondisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/condition_content.md)
-- **Konten Enumerasi**: Konten yang bervariasi berdasarkan nilai enumerasi [lihat Konten Enumerasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/enumeration_content.md)
-- **Konten Penyisipan**: Konten yang dapat disisipkan ke dalam konten lain [lihat Konten Penyisipan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/insertion_content.md)
-- **Konten Markdown**: Konten teks kaya dalam format Markdown [lihat Konten Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/markdown_content.md)
+- **Konten Terjemahan**: Teks multibahasa dengan nilai spesifik lokal [lihat Konten Terjemahan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/translation.md)
+- **Konten Kondisi**: Konten kondisional berdasarkan ekspresi boolean [lihat Konten Kondisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/condition.md)
+- **Konten Enumerasi**: Konten yang bervariasi berdasarkan nilai enumerasi [lihat Konten Enumerasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/enumeration.md)
+- **Konten Penyisipan**: Konten yang dapat disisipkan ke dalam konten lain [lihat Konten Penyisipan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/insertion.md)
+- **Konten Markdown**: Konten teks kaya dalam format Markdown [lihat Konten Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/markdown.md)
 - **Konten HTML**: Konten HTML kaya dengan komponen kustom opsional [lihat Konten HTML](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/html.md)
-- **Konten Bersarang**: Referensi ke kamus lain [lihat Konten Bersarang](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/nested_content.md)
+- **Konten Bersarang**: Referensi ke kamus lain [lihat Konten Bersarang](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/nesting.md)
 - **Konten Gender**: Konten yang bervariasi berdasarkan gender [lihat Konten Gender](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/gender.md)
 - **Konten Berbasis Pilihan**: Konten yang bervariasi berdasarkan nilai string sembarang [lihat Konten Berbasis Pilihan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/select.md)
-- **Konten File**: Referensi ke file eksternal [lihat Konten File](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/file_content.md)
+- **Konten File**: Referensi ke file eksternal [lihat Konten File](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/file.md)
 
 ## Struktur Kamus
 
@@ -506,9 +506,9 @@ Instruksi untuk mengisi konten kamus secara otomatis dari sumber eksternal. Ini 
 - `{{fileName}}` – Nama file (misal `example`)
 - `{{key}}` – Kunci kamus (misal `example`)
 
-> Lihat [Konfigurasi Auto-Fill di Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/fill.md) untuk informasi lebih lanjut.
+> Lihat [Konfigurasi Auto-Fill di Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/autoFill.md) untuk informasi lebih lanjut.
 
-- [Konfigurasi Auto-Fill di Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/fill.md)
+- [Konfigurasi Auto-Fill di Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/autoFill.md)
 
 ##### `priority` (number)
 
@@ -702,9 +702,9 @@ pluralContent: plural({
 });
 ```
 
-> See [Plural Content Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/plural.md) for more information.
+> See [Plural Content Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/plurial.md) for more information.
 
-- [Plural Content Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/plural.md)
+- [Plural Content Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/plurial.md)
 
 ### Konten Penyisipan (`insert`)
 

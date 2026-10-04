@@ -273,23 +273,23 @@ export default {
 - **プリミティブ値**：文字列、数値、真偽値、null、undefined
 - **型付きノード**：翻訳、条件、マークダウンなどの特殊なコンテンツタイプ
 - **関数**：実行時に評価可能な動的コンテンツ [関数フェッチについてはこちら](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/function_fetching.md)
-- **複数形コンテンツ**: 詳細については、 複数形コンテンツ [詳細については、 複数形コンテンツ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/plural.md)
+- **複数形コンテンツ**: 詳細については、 複数形コンテンツ [詳細については、 複数形コンテンツ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/plurial.md)
 - **ネストされたコンテンツ**：他の辞書への参照
 
 #### コンテンツタイプ
 
 Intlayerは型付きノードを通じて様々なコンテンツタイプをサポートしています：
 
-- **翻訳コンテンツ**: ロケール固有の値を持つ多言語テキスト [翻訳コンテンツを参照](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/translation_content.md)
-- **条件コンテンツ**: ブール式に基づく条件付きコンテンツ [条件コンテンツを参照](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/condition_content.md)
-- **列挙コンテンツ**: 列挙値に基づいて変化するコンテンツ [列挙コンテンツを参照](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/enumeration_content.md)
-- **挿入コンテンツ**: 他のコンテンツに挿入可能なコンテンツ [挿入コンテンツを参照](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/insertion_content.md)
-- **Markdown Content**: Markdown形式のリッチテキストコンテンツ [Markdown Contentを参照](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/markdown_content.md)
+- **翻訳コンテンツ**: ロケール固有の値を持つ多言語テキスト [翻訳コンテンツを参照](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/translation.md)
+- **条件コンテンツ**: ブール式に基づく条件付きコンテンツ [条件コンテンツを参照](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/condition.md)
+- **列挙コンテンツ**: 列挙値に基づいて変化するコンテンツ [列挙コンテンツを参照](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/enumeration.md)
+- **挿入コンテンツ**: 他のコンテンツに挿入可能なコンテンツ [挿入コンテンツを参照](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/insertion.md)
+- **Markdown Content**: Markdown形式のリッチテキストコンテンツ [Markdown Contentを参照](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/markdown.md)
 - **HTML Content**: オプションのカスタムコンポーネントを使用したリッチHTMLコンテンツ [HTML Contentを参照](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/html.md)
-- **Nested Content**: 他の辞書への参照 [Nested Contentを参照](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/nested_content.md)
+- **Nested Content**: 他の辞書への参照 [Nested Contentを参照](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/nesting.md)
 - **Gender Content**: 性別に応じて変わるコンテンツ [Gender Contentを参照](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/gender.md)
 - **Select Content**: 任意の文字列値に基づいて変化するコンテンツ [Select Contentを参照](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/select.md)
-- **File Content**: 外部ファイルへの参照 [File Contentを参照](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/file_content.md)
+- **File Content**: 外部ファイルへの参照 [File Contentを参照](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/file.md)
 
 ## 辞書の構造
 
@@ -681,9 +681,9 @@ pluralContent: plural({
 });
 ```
 
-> 詳細については、[Plural Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/plural.md) を参照してください。
+> 詳細については、[Plural Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/plurial.md) を参照してください。
 
-- [Plural Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/plural.md)
+- [Plural Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/plurial.md)
 
 ### 列挙コンテンツ (`enu`)
 

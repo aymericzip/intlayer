@@ -52,7 +52,7 @@ Yani iki ana adım vardır:
 
 - CLI ile `npx intlayer build` kullanarak
 - [vscode uzantısı](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/vs_code_extension.md) kullanarak
-- [`vite-intlayer` paketi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/vite-intlayer/index.md) gibi uygulama eklentileri veya [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/next-intlayer/index.md) için eşdeğerleri kullanarak. Bu eklentilerden birini kullandığınızda, Intlayer uygulamanızı başlattığınızda (dev) veya oluşturduğunuzda (prod) sözlüklerinizi otomatik olarak oluşturacaktır.
+- [`vite-intlayer` paketi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/vite-intlayer/exports.md) gibi uygulama eklentileri veya [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/next-intlayer/exports.md) için eşdeğerleri kullanarak. Bu eklentilerden birini kullandığınızda, Intlayer uygulamanızı başlattığınızda (dev) veya oluşturduğunuzda (prod) sözlüklerinizi otomatik olarak oluşturacaktır.
 
 1. İçerik dosyalarının bildirimi
    - İçerik dosyaları TypeScript, ECMAScript, CommonJS veya JSON gibi çeşitli formatlarda tanımlanabilir.
@@ -279,7 +279,7 @@ Sunucu, Express tabanlıdır ve görsel düzenleyici isteklerini almak ve içeri
 
 ### @intlayer/cli
 
-`@intlayer/cli` paketi, Intlayer komut satırı arayüzleriyle ilgili komut dosyalarını bildirmek için kullanılan bir NPM paketidir. Tüm Intlayer CLI komutlarının tekdüzeliğini sağlar. Bu paket özellikle [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer-cli/index.md) ve [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/index.md) paketleri tarafından tüketilir.
+`@intlayer/cli` paketi, Intlayer komut satırı arayüzleriyle ilgili komut dosyalarını bildirmek için kullanılan bir NPM paketidir. Tüm Intlayer CLI komutlarının tekdüzeliğini sağlar. Bu paket özellikle [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer-cli/exports.md) ve [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/exports.md) paketleri tarafından tüketilir.
 
 ### @intlayer/mcp
 

@@ -52,7 +52,7 @@ author: aymericzip
 
 - с использованием CLI с помощью `npx intlayer build`
 - с использованием [расширения vscode](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/vs_code_extension.md)
-- с использованием плагинов приложения, таких как пакет [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/vite-intlayer/index.md), или их эквивалентов для [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/next-intlayer/index.md). При использовании одного из этих плагинов Intlayer автоматически создаст ваши словари при запуске (dev) или сборке (prod) вашего приложения.
+- с использованием плагинов приложения, таких как пакет [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/vite-intlayer/exports.md), или их эквивалентов для [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/next-intlayer/exports.md). При использовании одного из этих плагинов Intlayer автоматически создаст ваши словари при запуске (dev) или сборке (prod) вашего приложения.
 
 1. Объявление файлов контента
    - Файлы контента могут быть определены в различных форматах, таких как TypeScript, ECMAScript, CommonJS или JSON.
@@ -283,7 +283,7 @@ Intlayer состоит из нескольких пакетов, каждый �
 
 ### @intlayer/cli
 
-Пакет `@intlayer/cli` является пакетом NPM, который используется для объявления скриптов, связанных с интерфейсами командной строки Intlayer. Он обеспечивает единообразие всех команд CLI Intlayer. Этот пакет, в частности, используется пакетами [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer-cli/index.md) и [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/index.md).
+Пакет `@intlayer/cli` является пакетом NPM, который используется для объявления скриптов, связанных с интерфейсами командной строки Intlayer. Он обеспечивает единообразие всех команд CLI Intlayer. Этот пакет, в частности, используется пакетами [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer-cli/exports.md) и [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/exports.md).
 
 ### @intlayer/mcp
 

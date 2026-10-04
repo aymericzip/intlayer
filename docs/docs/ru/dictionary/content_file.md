@@ -276,23 +276,23 @@ export default {
 - **Примитивные значения**: строки, числа, булевы значения, null, undefined
 - **Типизированные узлы**: специальные типы содержимого, такие как переводы, условия, markdown и т.д.
 - **Функции**: динамическое содержимое, которое может быть вычислено во время выполнения [см. Получение функций](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/function_fetching.md)
-- **Множественное число**: См. Множественное число [См. Множественное число](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/plural.md)
+- **Множественное число**: См. Множественное число [См. Множественное число](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/plurial.md)
 - **Вложенное содержимое**: ссылки на другие словари
 
 #### Типы содержимого
 
 Intlayer поддерживает различные типы содержимого через типизированные узлы:
 
-- **Содержимое перевода**: Многоязычный текст с локализованными значениями [см. Содержимое перевода](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/translation_content.md)
-- **Условное содержимое**: Содержимое, зависящее от булевых выражений [см. Условное содержимое](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/condition_content.md)
-- **Перечисляемое содержимое**: Содержимое, изменяющееся в зависимости от перечисляемых значений [см. Перечисляемое содержимое](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/enumeration_content.md)
-- **Вставляемое содержимое**: Содержимое, которое можно вставлять в другое содержимое [см. Вставляемое содержимое](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/insertion_content.md)
-- **Содержимое Markdown**: Форматированный текст в формате Markdown [см. Содержимое Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/markdown_content.md)
+- **Содержимое перевода**: Многоязычный текст с локализованными значениями [см. Содержимое перевода](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/translation.md)
+- **Условное содержимое**: Содержимое, зависящее от булевых выражений [см. Условное содержимое](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/condition.md)
+- **Перечисляемое содержимое**: Содержимое, изменяющееся в зависимости от перечисляемых значений [см. Перечисляемое содержимое](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/enumeration.md)
+- **Вставляемое содержимое**: Содержимое, которое можно вставлять в другое содержимое [см. Вставляемое содержимое](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/insertion.md)
+- **Содержимое Markdown**: Форматированный текст в формате Markdown [см. Содержимое Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/markdown.md)
 - **HTML-содержимое**: Богатое HTML-содержимое с необязательными пользовательскими компонентами [см. HTML-содержимое](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/html.md)
-- **Вложенное содержимое**: Ссылки на другие словари [см. Вложенное содержимое](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/nested_content.md)
+- **Вложенное содержимое**: Ссылки на другие словари [см. Вложенное содержимое](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/nesting.md)
 - **Содержимое по половому признаку**: Содержимое, зависящее от пола [см. Содержимое по половому признаку](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/gender.md)
 - **Контент на основе выбора**: Контент, изменяющийся в зависимости от произвольного строкового значения [см. Контент на основе выбора](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/select.md)
-- **Содержимое файла**: Ссылки на внешние файлы [см. Содержимое файла](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/file_content.md)
+- **Содержимое файла**: Ссылки на внешние файлы [см. Содержимое файла](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/file.md)
 
 ## Структура словаря
 
@@ -702,9 +702,9 @@ pluralContent: plural({
 });
 ```
 
-> См. [Множественное число документацию](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/plural.md) для получения дополнительной информации.
+> См. [Множественное число документацию](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/plurial.md) для получения дополнительной информации.
 
-- [Множественное число документацию](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/plural.md)
+- [Множественное число документацию](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/plurial.md)
 
 ### Вставляемый контент (`insert`)
 

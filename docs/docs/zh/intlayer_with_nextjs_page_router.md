@@ -73,11 +73,11 @@ author: aymericzip
 Intlayer 经过优化，可以与 **服务器组件** 配合使用，以实现高效渲染，并且与 [**Turbopack**](https://nextjs.org/docs/architecture/turbopack) 完全兼容。它不会阻止静态渲染，并提供中间件以及扩展国际化 (i18n) 所需的所有功能。
 
 > Intlayer 兼容 Next.js 12、13、14、15 和 16。如果您使用 Next.js Pages Router，可以参考此[指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_page_router.md)。
-> 区域设置路由对于 SEO、Bundle 大小和性能很有用。如果不需要，可以参考这个[指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_no_locale_path.md)。
+> 区域设置路由对于 SEO、Bundle 大小和性能很有用。如果不需要，可以参考这个[指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_16.md)。
 > 对于带有 App Router 的 Next.js 12、13、14 和 15，请参阅此[指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_14.md)。
 
 - [Next.js Pages Router i18n: Complete Translation Guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_page_router.md)
-- [指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_no_locale_path.md)
+- [指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_16.md)
 - [Next.js 14 i18n - Complete guide to translate your app](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_14.md)
 
 </Accordion>

@@ -214,9 +214,9 @@ start();
 
 `fastify-intlayer`, şunlarla tam uyumludur:
 
-- React uygulamaları için [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/react-intlayer/index.md)
-- Next.js uygulamaları için [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/next-intlayer/index.md)
-- Vite uygulamaları için [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/vite-intlayer/index.md)
+- React uygulamaları için [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/react-intlayer/exports.md)
+- Next.js uygulamaları için [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/next-intlayer/exports.md)
+- Vite uygulamaları için [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/vite-intlayer/exports.md)
 
 Ayrıca tarayıcılar ve API istekleri dahil olmak üzere çeşitli ortamlardaki her türlü uluslararasılaştırma çözümüyle sorunsuz bir şekilde çalışır. Middleware'i üstbilgiler veya tanımlama bilgileri aracılığıyla yerel ayarı algılayacak şekilde özelleştirebilirsiniz:
 

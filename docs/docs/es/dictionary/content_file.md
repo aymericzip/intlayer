@@ -275,23 +275,23 @@ Los nodos de contenido son los bloques de construcción del contenido del diccio
 - **Valores primitivos**: cadenas, números, booleanos, null, undefined
 - **Nodos tipados**: Tipos especiales de contenido como traducciones, condiciones, markdown, etc.
 - **Funciones**: Contenido dinámico que puede evaluarse en runtime [ver Obtención de Funciones](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/function_fetching.md)
-- **Contenido Plural**: Ver Contenido Plural [Ver Contenido Plural](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/plural.md)
+- **Contenido Plural**: Ver Contenido Plural [Ver Contenido Plural](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/plurial.md)
 - **Contenido anidado**: Referencias a otros diccionarios
 
 #### Tipos de Contenido
 
 Intlayer soporta varios tipos de contenido a través de nodos tipados:
 
-- **Contenido de Traducción**: Texto multilingüe con valores específicos por localidad [ver Contenido de Traducción](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/translation_content.md)
-- **Contenido Condicional**: Contenido condicional basado en expresiones booleanas [ver Contenido Condicional](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/condition_content.md)
-- **Contenido de Enumeración**: Contenido que varía según valores enumerados [ver Contenido de Enumeración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/enumeration_content.md)
-- **Contenido de Inserción**: Contenido que puede ser insertado en otro contenido [ver Contenido de Inserción](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/insertion_content.md)
-- **Contenido Markdown**: Contenido de texto enriquecido en formato Markdown [ver Contenido Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/markdown_content.md)
+- **Contenido de Traducción**: Texto multilingüe con valores específicos por localidad [ver Contenido de Traducción](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/translation.md)
+- **Contenido Condicional**: Contenido condicional basado en expresiones booleanas [ver Contenido Condicional](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/condition.md)
+- **Contenido de Enumeración**: Contenido que varía según valores enumerados [ver Contenido de Enumeración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/enumeration.md)
+- **Contenido de Inserción**: Contenido que puede ser insertado en otro contenido [ver Contenido de Inserción](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/insertion.md)
+- **Contenido Markdown**: Contenido de texto enriquecido en formato Markdown [ver Contenido Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/markdown.md)
 - **Contenido HTML**: Contenido HTML enriquecido con componentes personalizados opcionales [ver Contenido HTML](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/html.md)
-- **Contenido Anidado**: Referencias a otros diccionarios [ver Contenido Anidado](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/nested_content.md)
+- **Contenido Anidado**: Referencias a otros diccionarios [ver Contenido Anidado](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/nesting.md)
 - **Contenido de Género**: Contenido que varía según el género [ver Contenido de Género](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/gender.md)
 - **Contenido Basado en Selección**: Contenido que varía según un valor de cadena arbitrario [ver Contenido Basado en Selección](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/select.md)
-- **Contenido de Archivo**: Referencias a archivos externos [ver Contenido de Archivo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/file_content.md)
+- **Contenido de Archivo**: Referencias a archivos externos [ver Contenido de Archivo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/file.md)
 
 ## Estructura del Diccionario
 
@@ -701,9 +701,9 @@ pluralContent: plural({
 });
 ```
 
-> Ver [Contenido Plural Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/plural.md) para más información.
+> Ver [Contenido Plural Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/plurial.md) para más información.
 
-- [Contenido Plural Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/plural.md)
+- [Contenido Plural Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/plurial.md)
 
 ### Contenido de Inserción (`insert`)
 

@@ -214,9 +214,9 @@ start();
 
 `fastify-intlayer` درج ذیل کے ساتھ مکمل طور پر مطابقت رکھتا ہے:
 
-- React ایپلی کیشنز کے لیے [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/packages/react-intlayer/index.md)
-- Next.js ایپلی کیشنز کے لیے [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/packages/next-intlayer/index.md)
-- Vite ایپلی کیشنز کے لیے [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/packages/vite-intlayer/index.md)
+- React ایپلی کیشنز کے لیے [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/exports.md)
+- Next.js ایپلی کیشنز کے لیے [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/exports.md)
+- Vite ایپلی کیشنز کے لیے [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/vite-intlayer/exports.md)
 
 یہ براؤزرز اور API درخواستوں سمیت مختلف ماحول میں کسی بھی بین الاقوامی کاری کے حل کے ساتھ بغیر کسی رکاوٹ کے کام کرتا ہے۔ آپ ہیڈرز یا کوکیز کے ذریعے لوکیل کا پتہ لگانے کے لیے مڈل ویئر کو اپنی مرضی کے مطابق بنا سکتے ہیں:
 

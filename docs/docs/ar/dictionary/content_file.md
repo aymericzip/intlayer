@@ -276,23 +276,23 @@ export default {
 - **قيم بدائية**: سلاسل نصية، أرقام، قيم منطقية، null، undefined
 - **عقد ذات نوع**: أنواع محتوى خاصة مثل الترجمات، الشروط، الماركداون، إلخ.
 - **دوال**: محتوى ديناميكي يمكن تقييمه أثناء وقت التشغيل [انظر جلب الدوال](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/function_fetching.md)
-- **محتوى الجمع**: راجع محتوى الجمع [راجع محتوى الجمع](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/plural.md)
+- **محتوى الجمع**: راجع محتوى الجمع [راجع محتوى الجمع](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/plurial.md)
 - **محتوى متداخل**: مراجع إلى قواميس أخرى
 
 #### أنواع المحتوى
 
 يدعم Intlayer أنواع محتوى مختلفة من خلال العقد ذات النوع:
 
-- **محتوى الترجمة**: نص متعدد اللغات بقيم خاصة بكل لغة [انظر محتوى الترجمة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/translation_content.md)
-- **محتوى الشرط**: محتوى شرطي يعتمد على تعبيرات منطقية [انظر محتوى الشرط](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/condition_content.md)
-- **محتوى التعداد**: محتوى يتغير بناءً على قيم معدودة [انظر محتوى التعداد](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/enumeration_content.md)
-- **محتوى الإدراج**: محتوى يمكن إدراجه داخل محتويات أخرى [انظر محتوى الإدراج](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/insertion_content.md)
-- **محتوى ماركداون**: محتوى نص غني بصيغة ماركداون [انظر محتوى ماركداون](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/markdown_content.md)
+- **محتوى الترجمة**: نص متعدد اللغات بقيم خاصة بكل لغة [انظر محتوى الترجمة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/translation.md)
+- **محتوى الشرط**: محتوى شرطي يعتمد على تعبيرات منطقية [انظر محتوى الشرط](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/condition.md)
+- **محتوى التعداد**: محتوى يتغير بناءً على قيم معدودة [انظر محتوى التعداد](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/enumeration.md)
+- **محتوى الإدراج**: محتوى يمكن إدراجه داخل محتويات أخرى [انظر محتوى الإدراج](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/insertion.md)
+- **محتوى ماركداون**: محتوى نص غني بصيغة ماركداون [انظر محتوى ماركداون](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/markdown.md)
 - **محتوى HTML**: محتوى HTML غني مع مكونات مخصصة اختيارية [انظر محتوى HTML](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/html.md)
-- **محتوى متداخل**: مراجع إلى قواميس أخرى [انظر المحتوى المتداخل](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/nested_content.md)
+- **محتوى متداخل**: مراجع إلى قواميس أخرى [انظر المحتوى المتداخل](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/nesting.md)
 - **محتوى حسب الجنس**: محتوى يختلف بناءً على الجنس [انظر محتوى الجنس](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/gender.md)
 - **محتوى يعتمد على الاختيار**: محتوى يتغير بناءً على قيمة نصية عشوائية [انظر المحتوى المعتمد على الاختيار](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/select.md)
-- **محتوى ملف**: مراجع إلى ملفات خارجية [انظر محتوى الملف](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/file_content.md)
+- **محتوى ملف**: مراجع إلى ملفات خارجية [انظر محتوى الملف](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/file.md)
 
 ## هيكل القاموس
 
@@ -702,9 +702,9 @@ pluralContent: plural({
 });
 ```
 
-> راجع [محتوى الجمع توثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/plural.md) لمزيد من المعلومات.
+> راجع [محتوى الجمع توثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/plurial.md) لمزيد من المعلومات.
 
-- [محتوى الجمع توثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/plural.md)
+- [محتوى الجمع توثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/plurial.md)
 
 ### محتوى الإدراج (`insert`)
 

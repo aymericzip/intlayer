@@ -52,7 +52,7 @@ Bước xây dựng có thể được thực hiện theo ba cách:
 
 - sử dụng CLI với lệnh `npx intlayer build`
 - sử dụng [extension vscode](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/vs_code_extension.md)
-- sử dụng các plugin của ứng dụng như [`gói vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/vite-intlayer/index.md), hoặc các plugin tương đương cho [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/next-intlayer/index.md). Khi bạn sử dụng một trong những plugin này, Intlayer sẽ tự động xây dựng các từ điển của bạn khi bạn khởi động (dev) hoặc xây dựng (prod) ứng dụng của mình.
+- sử dụng các plugin của ứng dụng như [`gói vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/vite-intlayer/exports.md), hoặc các plugin tương đương cho [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/next-intlayer/exports.md). Khi bạn sử dụng một trong những plugin này, Intlayer sẽ tự động xây dựng các từ điển của bạn khi bạn khởi động (dev) hoặc xây dựng (prod) ứng dụng của mình.
 
 1. Khai báo các file nội dung
    - Các file nội dung có thể được định nghĩa dưới nhiều định dạng khác nhau, chẳng hạn như TypeScript, ECMAScript, CommonJS hoặc JSON.
@@ -279,7 +279,7 @@ Gói `@intlayer/webpack` được sử dụng để cung cấp cấu hình Webpa
 
 ### @intlayer/cli
 
-Gói `@intlayer/cli` là một gói NPM được sử dụng để khai báo các script liên quan đến giao diện dòng lệnh Intlayer. Nó đảm bảo tính đồng nhất của tất cả các lệnh CLI của Intlayer. Gói này đặc biệt được sử dụng bởi các gói [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer-cli/index.md) và [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/index.md).
+Gói `@intlayer/cli` là một gói NPM được sử dụng để khai báo các script liên quan đến giao diện dòng lệnh Intlayer. Nó đảm bảo tính đồng nhất của tất cả các lệnh CLI của Intlayer. Gói này đặc biệt được sử dụng bởi các gói [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer-cli/exports.md) và [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/exports.md).
 
 ### @intlayer/mcp
 

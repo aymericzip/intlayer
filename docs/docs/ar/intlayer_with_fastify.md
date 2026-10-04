@@ -214,9 +214,9 @@ start();
 
 `fastify-intlayer` متوافق تمامًا مع:
 
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/index.md) لتطبيقات React
-- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/next-intlayer/index.md) لتطبيقات Next.js
-- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/vite-intlayer/index.md) لتطبيقات Vite
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/exports.md) لتطبيقات React
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/next-intlayer/exports.md) لتطبيقات Next.js
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/vite-intlayer/exports.md) لتطبيقات Vite
 
 كما يعمل بسلاسة مع أي حل للتدويل عبر بيئات متعددة، بما في ذلك المتصفحات وطلبات API. يمكنك تخصيص الـ middleware لاكتشاف اللغة عبر الرؤوس أو الكوكيز:
 

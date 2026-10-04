@@ -59,11 +59,11 @@ author: aymericzip
 Intlayer оптимізовано для роботи з **компонентами сервера** для ефективного відтворення та повністю сумісно з [**Turbopack**](https://nextjs.org/docs/architecture/turbopack). Він не блокує статичний рендеринг і пропонує проміжне програмне забезпечення, а також усі функції, необхідні для інтернаціоналізації масштабування (i18n).
 
 > Intlayer сумісний із Next.js 12, 13, 14, 15 і 16. Якщо ви використовуєте маршрутизатор сторінок Next.js, ви можете переглянути цей [посібник](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_nextjs_page_router.md).
-> Локальна маршрутизація корисна для SEO, розміру пакета та продуктивності. Якщо він вам не потрібен, ви можете звернутися до цього [посібника](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_nextjs_no_locale_path.md).
+> Локальна маршрутизація корисна для SEO, розміру пакета та продуктивності. Якщо він вам не потрібен, ви можете звернутися до цього [посібника](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_nextjs_16.md).
 > Щодо Next.js 12, 13, 14 і 15 із маршрутизатором програм див. цей [посібник](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_nextjs_14.md).
 
 - [Next.js Pages Router i18n: Complete Translation Guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_nextjs_page_router.md)
-- [посібника](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_nextjs_no_locale_path.md)
+- [посібника](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_nextjs_16.md)
 - [Next.js 14 i18n - Complete guide to translate your app](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_nextjs_14.md)
 
 </Accordion>
@@ -215,9 +215,9 @@ Here is the final structure that we will make:
 └── tsconfig.json
 ```
 
-> If you don't want locale routing, intlayer can be used as a simple provider / hook. See [this guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_nextjs_no_locale_path.md) for more details.
+> If you don't want locale routing, intlayer can be used as a simple provider / hook. See [this guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_nextjs_16.md) for more details.
 
-- [this guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_nextjs_no_locale_path.md)
+- [this guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_nextjs_16.md)
 
 Створіть файл конфігурації для налаштування мов вашого застосунку:
 
@@ -1144,7 +1144,7 @@ Next.js 12, 13, 14, 15 та 16. Цей посібник охоплює Next.js 1
 Ні. Налаштування `routing.mode` приймає `"prefix-no-default"` (за замовчуванням: `/about` для основної мови та `/uk/about` для інших), `"prefix-all"`, `"no-prefix"` та `"search-params"`. Налаштування `routing.domains` прив'язує кожну мову до власного домену. Див. [довідник конфігурації](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md).
 
 - [довідник конфігурації](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md)
-- [guide without locale path](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_nextjs_no_locale_path.md)
+- [guide without locale path](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_nextjs_16.md)
 
 </Question>
 <Question title="Як додати теги hreflang та локалізовані метадані для SEO?">

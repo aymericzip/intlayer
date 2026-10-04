@@ -274,23 +274,23 @@ export default {
 - **प्रिमिटिव मान**: स्ट्रिंग्स, संख्याएँ, बूलियन, नल, अपरिभाषित
 - **टाइप्ड नोड्स**: विशेष सामग्री प्रकार जैसे अनुवाद, शर्तें, मार्कडाउन, आदि
 - **फंक्शन्स**: गतिशील सामग्री जिसे रनटाइम पर मूल्यांकन किया जा सकता है [देखें फंक्शन फेचिंग](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/function_fetching.md)
-- **Plural Content**: See Plural Content [See Plural Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/plural.md)
+- **Plural Content**: See Plural Content [See Plural Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/plurial.md)
 - **नेस्टेड कंटेंट**: अन्य शब्दकोशों के संदर्भ
 
 #### कंटेंट प्रकार
 
 Intlayer टाइप्ड नोड्स के माध्यम से विभिन्न कंटेंट प्रकारों का समर्थन करता है:
 
-- **अनुवाद सामग्री**: बहुभाषी पाठ जिसमें स्थानीय-विशिष्ट मान होते हैं [देखें अनुवाद सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/translation_content.md)
-- **शर्त सामग्री**: बूलियन अभिव्यक्तियों पर आधारित सशर्त सामग्री [देखें शर्त सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/condition_content.md)
-- **सूची सामग्री**: सामग्री जो सूचीबद्ध मानों के आधार पर भिन्न होती है [देखें सूची सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/enumeration_content.md)
-- **प्रविष्टि सामग्री**: ऐसी सामग्री जिसे अन्य सामग्री में डाला जा सकता है [देखें प्रविष्टि सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/insertion_content.md)
-- **मार्कडाउन सामग्री**: मार्कडाउन प्रारूप में समृद्ध पाठ सामग्री [देखें मार्कडाउन सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/markdown_content.md)
+- **अनुवाद सामग्री**: बहुभाषी पाठ जिसमें स्थानीय-विशिष्ट मान होते हैं [देखें अनुवाद सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/translation.md)
+- **शर्त सामग्री**: बूलियन अभिव्यक्तियों पर आधारित सशर्त सामग्री [देखें शर्त सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/condition.md)
+- **सूची सामग्री**: सामग्री जो सूचीबद्ध मानों के आधार पर भिन्न होती है [देखें सूची सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/enumeration.md)
+- **प्रविष्टि सामग्री**: ऐसी सामग्री जिसे अन्य सामग्री में डाला जा सकता है [देखें प्रविष्टि सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/insertion.md)
+- **मार्कडाउन सामग्री**: मार्कडाउन प्रारूप में समृद्ध पाठ सामग्री [देखें मार्कडाउन सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/markdown.md)
 - **HTML सामग्री**: समृद्ध HTML सामग्री जो मानक टैग या कस्टम कंपोनेंट्स का उपयोग कर सकती है [देखें HTML सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/html.md)
-- **नेस्टेड सामग्री**: अन्य शब्दकोशों के संदर्भ [देखें नेस्टेड सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/nested_content.md)
+- **नेस्टेड सामग्री**: अन्य शब्दकोशों के संदर्भ [देखें नेस्टेड सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/nesting.md)
 - **लिंग सामग्री**: लिंग के आधार पर भिन्न सामग्री [देखें लिंग सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/gender.md)
 - **चयन-आधारित सामग्री**: किसी मनमाने स्ट्रिंग मान के आधार पर गतिशील रूप से प्रदर्शित होने वाली सामग्री [देखें चयन-आधारित सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/select.md)
-- **फ़ाइल सामग्री**: बाहरी फ़ाइलों के संदर्भ [देखें फ़ाइल सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/file_content.md)
+- **फ़ाइल सामग्री**: बाहरी फ़ाइलों के संदर्भ [देखें फ़ाइल सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/file.md)
 
 ## शब्दकोश संरचना
 
@@ -701,9 +701,9 @@ pluralContent: plural({
 });
 ```
 
-> See [Plural Content Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/plural.md) for more information.
+> See [Plural Content Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/plurial.md) for more information.
 
-- [Plural Content Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/plural.md)
+- [Plural Content Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/plurial.md)
 
 ### सम्मिलन सामग्री (`insert`)
 

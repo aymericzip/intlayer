@@ -214,9 +214,9 @@ start();
 
 `fastify-intlayer`は、以下と完全に互換性があります。
 
-- Reactアプリケーション用 [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/index.md)
-- Next.jsアプリケーション用 [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/next-intlayer/index.md)
-- Viteアプリケーション用 [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/vite-intlayer/index.md)
+- Reactアプリケーション用 [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/exports.md)
+- Next.jsアプリケーション用 [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/next-intlayer/exports.md)
+- Viteアプリケーション用 [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/vite-intlayer/exports.md)
 
 また、ブラウザやAPIリクエストなど、さまざまな環境におけるあらゆる国際化ソリューションとシームレスに連携します。ミドルウェアをカスタマイズして、ヘッダーまたはCookieを介してロケールを検出することもできます。
 

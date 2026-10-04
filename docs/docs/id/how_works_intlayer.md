@@ -52,7 +52,7 @@ Langkah build dapat dilakukan dengan tiga cara:
 
 - menggunakan CLI dengan `npx intlayer build`
 - menggunakan [ekstensi vscode](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/vs_code_extension.md)
-- menggunakan plugin aplikasi seperti paket [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/vite-intlayer/index.md), atau yang setara untuk [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/next-intlayer/index.md). Ketika Anda menggunakan salah satu plugin tersebut, Intlayer akan secara otomatis membangun kamus Anda saat Anda memulai (dev) atau membangun (prod) aplikasi Anda.
+- menggunakan plugin aplikasi seperti paket [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/vite-intlayer/exports.md), atau yang setara untuk [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/next-intlayer/exports.md). Ketika Anda menggunakan salah satu plugin tersebut, Intlayer akan secara otomatis membangun kamus Anda saat Anda memulai (dev) atau membangun (prod) aplikasi Anda.
 
 1. Deklarasi file konten
    - File konten dapat didefinisikan dalam berbagai format, seperti TypeScript, ECMAScript, CommonJS, atau JSON.
@@ -279,7 +279,7 @@ Paket `@intlayer/webpack` digunakan untuk menyediakan konfigurasi Webpack agar a
 
 ### @intlayer/cli
 
-Paket `@intlayer/cli` adalah paket NPM yang digunakan untuk mendeklarasikan skrip yang terkait dengan antarmuka baris perintah Intlayer. Paket ini memastikan keseragaman semua perintah CLI Intlayer. Paket ini terutama digunakan oleh paket [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer-cli/index.md), dan [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/index.md).
+Paket `@intlayer/cli` adalah paket NPM yang digunakan untuk mendeklarasikan skrip yang terkait dengan antarmuka baris perintah Intlayer. Paket ini memastikan keseragaman semua perintah CLI Intlayer. Paket ini terutama digunakan oleh paket [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer-cli/exports.md), dan [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/exports.md).
 
 ### @intlayer/mcp
 

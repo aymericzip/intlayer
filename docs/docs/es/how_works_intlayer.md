@@ -52,7 +52,7 @@ El paso de construcción se puede realizar de tres maneras:
 
 - usando la CLI con `npx intlayer build`
 - usando [extensión de vscode](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/vs_code_extension.md)
-- usando los plugins de la aplicación como el paquete [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/vite-intlayer/index.md), o sus equivalentes para [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/next-intlayer/index.md). Cuando usas uno de estos plugins, Intlayer construirá automáticamente tus diccionarios cuando inicies (dev) o construyas (prod) tu aplicación.
+- usando los plugins de la aplicación como el paquete [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/vite-intlayer/exports.md), o sus equivalentes para [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/next-intlayer/exports.md). Cuando usas uno de estos plugins, Intlayer construirá automáticamente tus diccionarios cuando inicies (dev) o construyas (prod) tu aplicación.
 
 1. Declaración de archivos de contenido
    - Los archivos de contenido pueden definirse en varios formatos, como TypeScript, ECMAScript, CommonJS o JSON.
@@ -282,7 +282,7 @@ El paquete `@intlayer/webpack` se utiliza para proporcionar una configuración d
 
 ### @intlayer/cli
 
-El paquete `@intlayer/cli` es un paquete de NPM que se utiliza para declarar los scripts relacionados con las interfaces de línea de comandos de Intlayer. Garantiza la uniformidad de todos los comandos CLI de Intlayer. Este paquete es consumido notablemente por los paquetes [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer-cli/index.md) y [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer/index.md).
+El paquete `@intlayer/cli` es un paquete de NPM que se utiliza para declarar los scripts relacionados con las interfaces de línea de comandos de Intlayer. Garantiza la uniformidad de todos los comandos CLI de Intlayer. Este paquete es consumido notablemente por los paquetes [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer-cli/exports.md) y [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer/exports.md).
 
 ### @intlayer/mcp
 

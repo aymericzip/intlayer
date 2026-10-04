@@ -273,23 +273,23 @@ export default {
 - **원시 값**: 문자열, 숫자, 불리언, null, undefined
 - **타입이 지정된 노드**: 번역, 조건, 마크다운 등과 같은 특수 콘텐츠 유형
 - **함수**: 런타임에 평가될 수 있는 동적 콘텐츠 [함수 가져오기 참조](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/function_fetching.md)
-- **복수형 콘텐츠**: 자세한 내용은 복수형 콘텐츠 [자세한 내용은 복수형 콘텐츠](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/plural.md)
+- **복수형 콘텐츠**: 자세한 내용은 복수형 콘텐츠 [자세한 내용은 복수형 콘텐츠](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/plurial.md)
 - **중첩 콘텐츠**: 다른 사전에 대한 참조
 
 #### 콘텐츠 유형
 
 Intlayer는 타입이 지정된 노드를 통해 다양한 콘텐츠 유형을 지원합니다:
 
-- **번역 콘텐츠**: 로케일별 값이 포함된 다국어 텍스트 [번역 콘텐츠 보기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/translation_content.md)
-- **조건 콘텐츠**: 불리언 표현식에 기반한 조건부 콘텐츠 [조건 콘텐츠 보기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/condition_content.md)
-- **열거형 콘텐츠**: 열거된 값에 따라 달라지는 콘텐츠 [열거형 콘텐츠 보기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/enumeration_content.md)
-- **삽입 콘텐츠**: 다른 콘텐츠에 삽입할 수 있는 콘텐츠 [삽입 콘텐츠 보기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/insertion_content.md)
-- **Markdown Content**: 마크다운 형식의 리치 텍스트 콘텐츠 [Markdown Content 보기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/markdown_content.md)
+- **번역 콘텐츠**: 로케일별 값이 포함된 다국어 텍스트 [번역 콘텐츠 보기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/translation.md)
+- **조건 콘텐츠**: 불리언 표현식에 기반한 조건부 콘텐츠 [조건 콘텐츠 보기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/condition.md)
+- **열거형 콘텐츠**: 열거된 값에 따라 달라지는 콘텐츠 [열거형 콘텐츠 보기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/enumeration.md)
+- **삽입 콘텐츠**: 다른 콘텐츠에 삽입할 수 있는 콘텐츠 [삽입 콘텐츠 보기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/insertion.md)
+- **Markdown Content**: 마크다운 형식의 리치 텍스트 콘텐츠 [Markdown Content 보기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/markdown.md)
 - **HTML Content**: 선택적 사용자 정의 컴포넌트가 있는 리치 HTML 콘텐츠 [HTML Content 보기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/html.md)
-- **Nested Content**: 다른 사전을 참조하는 콘텐츠 [Nested Content 보기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/nested_content.md)
+- **Nested Content**: 다른 사전을 참조하는 콘텐츠 [Nested Content 보기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/nesting.md)
 - **Gender Content**: 성별에 따라 달라지는 콘텐츠 [Gender Content 보기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/gender.md)
 - **Select Content**: 임의의 문자열 값에 따라 달라지는 콘텐츠 [Select Content 보기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/select.md)
-- **File Content**: 외부 파일을 참조하는 콘텐츠 [File Content 보기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/file_content.md)
+- **File Content**: 외부 파일을 참조하는 콘텐츠 [File Content 보기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/file.md)
 
 ## 사전 구조
 
@@ -699,9 +699,9 @@ pluralContent: plural({
 });
 ```
 
-> 자세한 내용은 [복수형 콘텐츠 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/plural.md) 를 참조하세요.
+> 자세한 내용은 [복수형 콘텐츠 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/plurial.md) 를 참조하세요.
 
-- [복수형 콘텐츠 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/plural.md)
+- [복수형 콘텐츠 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/plurial.md)
 
 ### 삽입 콘텐츠 (`insert`)
 

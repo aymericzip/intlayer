@@ -273,23 +273,23 @@ export default {
 - **原始值**：字符串、数字、布尔值、null、undefined
 - **类型化节点**：特殊内容类型，如翻译、条件、Markdown 等
 - **函数**：可在运行时计算的动态内容 [参见函数获取](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/function_fetching.md)
-- **复数内容**: 请参阅 复数内容 [请参阅 复数内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/plural.md)
+- **复数内容**: 请参阅 复数内容 [请参阅 复数内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/plurial.md)
 - **嵌套内容**：对其他字典的引用
 
 #### 内容类型
 
 Intlayer 通过类型化节点支持多种内容类型：
 
-- **翻译内容**：具有特定语言环境值的多语言文本 [参见 翻译内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/translation_content.md)
-- **条件内容**：基于布尔表达式的条件内容 [参见 条件内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/condition_content.md)
-- **枚举内容**：基于枚举值变化的内容 [参见 枚举内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/enumeration_content.md)
-- **插入内容**：可以插入到其他内容中的内容 [参见 插入内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/insertion_content.md)
-- **Markdown 内容**：以 Markdown 格式的富文本内容 [参见 Markdown 内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/markdown_content.md)
+- **翻译内容**：具有特定语言环境值的多语言文本 [参见 翻译内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/translation.md)
+- **条件内容**：基于布尔表达式的条件内容 [参见 条件内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/condition.md)
+- **枚举内容**：基于枚举值变化的内容 [参见 枚举内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/enumeration.md)
+- **插入内容**：可以插入到其他内容中的内容 [参见 插入内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/insertion.md)
+- **Markdown 内容**：以 Markdown 格式的富文本内容 [参见 Markdown 内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/markdown.md)
 - **HTML 内容**：富 HTML 内容，可使用标准标签或自定义组件 [参见 HTML 内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/html.md)
-- **嵌套内容**：对其他字典的引用 [参见 嵌套内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/nested_content.md)
+- **嵌套内容**：对其他字典的引用 [参见 嵌套内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/nesting.md)
 - **性别内容**：基于性别变化的内容 [参见 性别内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/gender.md)
 - **基于选择的内容**：基于任意字符串值变化的内容 [参见 基于选择的内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/select.md)
-- **文件内容**：对外部文件的引用 [参见 文件内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/file_content.md)
+- **文件内容**：对外部文件的引用 [参见 文件内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/file.md)
 
 ## 字典结构
 
@@ -699,9 +699,9 @@ pluralContent: plural({
 });
 ```
 
-> 请参阅 [复数内容 (`plural`) 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/plural.md) 以获取更多信息。
+> 请参阅 [复数内容 (`plural`) 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/plurial.md) 以获取更多信息。
 
-- [复数内容 (`plural`) 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/plural.md)
+- [复数内容 (`plural`) 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/plurial.md)
 
 ### 插入内容 (`insert`)
 

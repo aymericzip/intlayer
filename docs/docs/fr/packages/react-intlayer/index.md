@@ -82,7 +82,7 @@ Par défaut, Intlayer recherche les fichiers avec l'extension `.content.{json,ts
 
 ### Déclarez votre contenu
 
-`react-intlayer` est conçu pour fonctionner avec le [package `intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/intlayer/index.md). `intlayer` est un package qui vous permet de déclarer votre contenu n'importe où dans votre code. Il convertit les déclarations de contenu multilingue en dictionnaires structurés qui s'intègrent parfaitement dans votre application.
+`react-intlayer` est conçu pour fonctionner avec le [package `intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/intlayer/exports.md). `intlayer` est un package qui vous permet de déclarer votre contenu n'importe où dans votre code. Il convertit les déclarations de contenu multilingue en dictionnaires structurés qui s'intègrent parfaitement dans votre application.
 
 Voici un exemple de déclaration de contenu :
 

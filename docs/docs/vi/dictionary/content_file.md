@@ -278,23 +278,23 @@ Các nút nội dung là các khối xây dựng của nội dung từ điển. 
 - **Giá trị nguyên thủy**: chuỗi, số, boolean, null, undefined
 - **Node kiểu**: Các loại nội dung đặc biệt như bản dịch, điều kiện, markdown, v.v.
 - **Hàm**: Nội dung động có thể được đánh giá tại thời gian chạy [xem Function Fetching](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/function_fetching.md)
-- **Nội dung số nhiều**: Xem Nội dung số nhiều [Xem Nội dung số nhiều](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/plural.md)
+- **Nội dung số nhiều**: Xem Nội dung số nhiều [Xem Nội dung số nhiều](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/plurial.md)
 - **Nội dung lồng nhau**: Tham chiếu đến các từ điển khác
 
 #### Các loại nội dung
 
 Intlayer hỗ trợ nhiều loại nội dung thông qua các node kiểu:
 
-- **Nội dung bản dịch**: Văn bản đa ngôn ngữ với các giá trị theo từng locale [xem Nội dung bản dịch](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/translation_content.md)
-- **Nội dung Điều kiện**: Nội dung có điều kiện dựa trên các biểu thức boolean [xem Nội dung Điều kiện](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/condition_content.md)
-- **Nội dung Liệt kê**: Nội dung thay đổi dựa trên các giá trị được liệt kê [xem Nội dung Liệt kê](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/enumeration_content.md)
-- **Nội dung Chèn**: Nội dung có thể được chèn vào các nội dung khác [xem Nội dung Chèn](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/insertion_content.md)
-- **Nội dung Markdown**: Nội dung văn bản phong phú ở định dạng Markdown [xem Nội dung Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/markdown_content.md)
+- **Nội dung bản dịch**: Văn bản đa ngôn ngữ với các giá trị theo từng locale [xem Nội dung bản dịch](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/translation.md)
+- **Nội dung Điều kiện**: Nội dung có điều kiện dựa trên các biểu thức boolean [xem Nội dung Điều kiện](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/condition.md)
+- **Nội dung Liệt kê**: Nội dung thay đổi dựa trên các giá trị được liệt kê [xem Nội dung Liệt kê](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/enumeration.md)
+- **Nội dung Chèn**: Nội dung có thể được chèn vào các nội dung khác [xem Nội dung Chèn](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/insertion.md)
+- **Nội dung Markdown**: Nội dung văn bản phong phú ở định dạng Markdown [xem Nội dung Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/markdown.md)
 - **Nội dung HTML**: Nội dung HTML phong phú với các component tùy chỉnh tùy chọn [xem Nội dung HTML](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/html.md)
-- **Nội dung Lồng nhau**: Tham chiếu đến các từ điển khác [xem Nội dung Lồng nhau](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/nested_content.md)
+- **Nội dung Lồng nhau**: Tham chiếu đến các từ điển khác [xem Nội dung Lồng nhau](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/nesting.md)
 - **Nội dung Giới tính**: Nội dung thay đổi dựa trên giới tính [xem Nội dung Giới tính](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/gender.md)
 - **Nội dung dựa trên lựa chọn**: Nội dung thay đổi dựa trên các giá trị chuỗi tùy ý [xem Nội dung dựa trên lựa chọn](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/select.md)
-- **Nội dung Tệp**: Tham chiếu đến các tệp bên ngoài [xem Nội dung Tệp](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/file_content.md)
+- **Nội dung Tệp**: Tham chiếu đến các tệp bên ngoài [xem Nội dung Tệp](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/file.md)
 
 ## Cấu trúc Từ điển
 
@@ -509,9 +509,9 @@ Hướng dẫn tự động điền nội dung từ điển từ các nguồn b�
 - `{{fileName}}` – Tên tệp (ví dụ: `example`)
 - `{{key}}` – Khóa từ điển (ví dụ: `example`)
 
-> Xem thêm [Cấu hình Tự động điền trong Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/fill.md) để biết thêm thông tin.
+> Xem thêm [Cấu hình Tự động điền trong Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/autoFill.md) để biết thêm thông tin.
 
-- [Cấu hình Tự động điền trong Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/fill.md)
+- [Cấu hình Tự động điền trong Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/autoFill.md)
 
 ##### `priority` (number)
 
@@ -705,9 +705,9 @@ pluralContent: plural({
 });
 ```
 
-> Xem [Nội dung số nhiều Tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/plural.md) để biết thêm thông tin.
+> Xem [Nội dung số nhiều Tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/plurial.md) để biết thêm thông tin.
 
-- [Nội dung số nhiều Tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/plural.md)
+- [Nội dung số nhiều Tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/plurial.md)
 
 ### Nội dung chèn (`insert`)
 

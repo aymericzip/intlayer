@@ -47,11 +47,11 @@ author: aymericzip
 Intlayer は、効率的なレンダリングのために **サーバー コンポーネント** と連携するように最適化されており、[**Turbopack**](https://nextjs.org/docs/architecture/turbopack) と完全に互換性があります。静的レンダリングをブロックせず、ミドルウェアとスケーリング国際化 (i18n) に必要なすべての機能を提供します。
 
 > Intlayer は Next.js 12、13、14、15、および 16 と互換性があります。 Next.js Pages Router を使用している場合は、この [ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_page_router.md) を参照してください。
-> ロケール ルーティングは、SEO、バンドル サイズ、パフォーマンスに役立ちます。必要ない場合は、この[ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_no_locale_path.md)を参照してください。
+> ロケール ルーティングは、SEO、バンドル サイズ、パフォーマンスに役立ちます。必要ない場合は、この[ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_16.md)を参照してください。
 > App Router を使用した Next.js 12、13、14、および 15 については、この [ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_14.md) を参照してください。
 
 - [Next.js Pages Router i18n: Complete Translation Guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_page_router.md)
-- [ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_no_locale_path.md)
+- [ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_16.md)
 - [Next.js 14 i18n - Complete guide to translate your app](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_14.md)
 
 </Accordion>
@@ -203,9 +203,9 @@ Here is the final structure that we will make:
 └── tsconfig.json
 ```
 
-> If you don't want locale routing, intlayer can be used as a simple provider / hook. See [this guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_no_locale_path.md) for more details.
+> If you don't want locale routing, intlayer can be used as a simple provider / hook. See [this guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_16.md) for more details.
 
-- [this guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_no_locale_path.md)
+- [this guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_16.md)
 
 アプリケーションの言語を設定するための設定ファイルを作成します：
 
@@ -1111,10 +1111,10 @@ Next.js 12、13、14、15 および 16。このガイドは Next.js 14 をカバ
 </Question>
 <Question title="ロケールを URL に入れる必要がありますか？例えば /fr/about のように？">
 
-いいえ。`routing.mode` は `"prefix-no-default"`（デフォルト、デフォルトロケールは `/about`、その他は `/fr/about`）、`"prefix-all"`、`"no-prefix"`（cookie、header またはドメインから解決）および `"search-params"`（`/about?locale=fr`）を受け入れます。`routing.domains` は各ロケールを独自のドメインにマップします。[設定リファレンス](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)と[ロケールパスなしのガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_no_locale_path.md)を参照してください。
+いいえ。`routing.mode` は `"prefix-no-default"`（デフォルト、デフォルトロケールは `/about`、その他は `/fr/about`）、`"prefix-all"`、`"no-prefix"`（cookie、header またはドメインから解決）および `"search-params"`（`/about?locale=fr`）を受け入れます。`routing.domains` は各ロケールを独自のドメインにマップします。[設定リファレンス](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)と[ロケールパスなしのガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_16.md)を参照してください。
 
 - [設定リファレンス](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)
-- [ロケールパスなしのガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_no_locale_path.md)
+- [ロケールパスなしのガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_16.md)
 
 </Question>
 <Question title="SEO のために hreflang タグとローカライズされたメタデータを追加するにはどうすればよいですか？">

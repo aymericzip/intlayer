@@ -281,23 +281,23 @@ export default {
 - **Примітивні значення**: strings, numbers, booleans, null, undefined
 - **Типізовані вузли**: спеціальні типи контенту, такі як translations, conditions, markdown тощо
 - **Функції**: динамічний контент, який може бути виконаний під час виконання [див. Отримання функцій](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/function_fetching.md)
-- **Plural Content**: See Plural Content [See Plural Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/plural.md)
+- **Plural Content**: See Plural Content [See Plural Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/plurial.md)
 - **Вкладений контент**: посилання на інші словники
 
 #### Типи контенту
 
 Intlayer підтримує різні типи контенту через типізовані вузли:
 
-- **Контент перекладів**: багатомовний текст зі значеннями для конкретних локалей [див. Контент перекладів](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/translation_content.md)
-- **Умовний контент**: Контент, що залежить від булевих виразів [див. Умовний контент](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/condition_content.md)
-- **Контент перелічення**: Контент, який змінюється залежно від переліку значень [див. Контент перелічення](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/enumeration_content.md)
-- **Вставний контент**: Контент, який можна вставити в інший контент [див. Вставний контент](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/insertion_content.md)
-- **Markdown-контент**: Багатий текстовий контент у форматі Markdown [див. Markdown-контент](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/markdown_content.md)
+- **Контент перекладів**: багатомовний текст зі значеннями для конкретних локалей [див. Контент перекладів](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/translation.md)
+- **Умовний контент**: Контент, що залежить від булевих виразів [див. Умовний контент](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/condition.md)
+- **Контент перелічення**: Контент, який змінюється залежно від переліку значень [див. Контент перелічення](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/enumeration.md)
+- **Вставний контент**: Контент, який можна вставити в інший контент [див. Вставний контент](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/insertion.md)
+- **Markdown-контент**: Багатий текстовий контент у форматі Markdown [див. Markdown-контент](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/markdown.md)
 - **HTML-вміст**: Багатий HTML-вміст з опційними власними компонентами [див. HTML-вміст](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/html.md)
-- **Вкладений вміст**: Посилання на інші словники [див. Вкладений вміст](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/nested_content.md)
+- **Вкладений вміст**: Посилання на інші словники [див. Вкладений вміст](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/nesting.md)
 - **Гендерний вміст**: Вміст, що змінюється залежно від статі [див. Гендерний вміст](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/gender.md)
 - **Контент на основі вибору**: Контент, який змінюється залежно від довільного рядкового значення [див. Контент на основі вибору](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/select.md)
-- **Вміст файлу**: Посилання на зовнішні файли [див. Вміст файлу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/file_content.md)
+- **Вміст файлу**: Посилання на зовнішні файли [див. Вміст файлу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/file.md)
 
 ## Структура словника
 
@@ -512,9 +512,9 @@ export default aboutPageMetaContent;
 - `{{fileName}}` – назва файлу (наприклад `example`)
 - `{{key}}` – ключ словника (наприклад `example`)
 
-> Див. [Налаштування автоматичного заповнення в Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/fill.md) для отримання додаткової інформації.
+> Див. [Налаштування автоматичного заповнення в Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/autoFill.md) для отримання додаткової інформації.
 
-- [Налаштування автоматичного заповнення в Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/fill.md)
+- [Налаштування автоматичного заповнення в Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/autoFill.md)
 
 ##### `priority` (число)
 
@@ -709,9 +709,9 @@ pluralContent: plural({
 });
 ```
 
-> See [Plural Content Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/plural.md) for more information.
+> See [Plural Content Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/plurial.md) for more information.
 
-- [Plural Content Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/plural.md)
+- [Plural Content Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/plurial.md)
 
 ### Вставний вміст (`insert`)
 

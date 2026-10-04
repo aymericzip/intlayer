@@ -69,11 +69,11 @@ Dibandingkan dengan solusi utama seperti `next-intl` atau `i18next`, Intlayer ad
 Intlayer dioptimalkan untuk bekerja dengan **Komponen Server** untuk rendering yang efisien dan sepenuhnya kompatibel dengan [**Turbopack**](https://nextjs.org/docs/architecture/turbopack). Itu tidak memblokir rendering statis dan menawarkan middleware serta semua fitur yang diperlukan untuk penskalaan internasionalisasi (i18n).
 
 > Intlayer kompatibel dengan Next.js 12, 13, 14, 15, dan 16. Jika Anda menggunakan Next.js Pages Router, Anda dapat merujuk ke [panduan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_page_router.md).
-> Perutean lokal berguna untuk SEO, ukuran bundle, dan kinerja. Jika Anda tidak membutuhkannya, Anda dapat merujuk ke [panduan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_no_locale_path.md).
+> Perutean lokal berguna untuk SEO, ukuran bundle, dan kinerja. Jika Anda tidak membutuhkannya, Anda dapat merujuk ke [panduan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_16.md).
 > Untuk Next.js 12, 13, 14, dan 15 dengan App Router, lihat [panduan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_14.md).
 
 - [i18n Next.js Pages Router: Panduan Terjemahan Lengkap](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_page_router.md)
-- [panduan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_no_locale_path.md)
+- [panduan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_16.md)
 - [i18n Next.js 14 - Panduan lengkap untuk menerjemahkan aplikasi Anda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_14.md)
 
 </Accordion>
@@ -230,9 +230,9 @@ Here is the final structure that we will make:
 └── tsconfig.json
 ```
 
-> If you don't want locale routing, intlayer can be used as a simple provider / hook. See [this guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_no_locale_path.md) for more details.
+> If you don't want locale routing, intlayer can be used as a simple provider / hook. See [this guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_16.md) for more details.
 
-- [this guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_no_locale_path.md)
+- [this guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_16.md)
 
 Buat file konfigurasi untuk mengatur bahasa aplikasi Anda:
 
@@ -1224,7 +1224,7 @@ Ya. Konten di Server Components diselesaikan langsung di server, sehingga tidak 
 Tidak. `routing.mode` menerima `"prefix-no-default"` (default: `/about` untuk bahasa utama dan `/id/about` untuk yang lain), `"prefix-all"`, `"no-prefix"`, dan `"search-params"`. Opsi `routing.domains` memetakan setiap bahasa ke domainnya sendiri. Lihat [referensi konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md).
 
 - [referensi konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md)
-- [guide without locale path](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_no_locale_path.md)
+- [guide without locale path](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_16.md)
 
 </Question>
 <Question title="Bagaimana cara menambahkan tag hreflang dan metadata terlokalisasi untuk SEO?">

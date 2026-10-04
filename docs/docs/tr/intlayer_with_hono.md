@@ -228,9 +228,9 @@ export default app;
 
 `hono-intlayer` şunlarla tam uyumludur:
 
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/react-intlayer/index.md)
-- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/next-intlayer/index.md)
-- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/vite-intlayer/index.md)
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/react-intlayer/exports.md)
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/next-intlayer/exports.md)
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/vite-intlayer/exports.md)
 
 Ayrıca, tarayıcılar ve API istekleri dahil olmak üzere çeşitli ortamlardaki herhangi bir uluslararasılaştırma çözümüyle sorunsuz bir şekilde çalışır. Ara yazılımı başlıklar veya çerezler aracılığıyla yerel ayarı algılayacak şekilde özelleştirebilirsiniz:
 

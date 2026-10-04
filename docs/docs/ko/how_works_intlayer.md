@@ -52,7 +52,7 @@ Intlayer의 주요 아이디어는 컴포넌트별 콘텐츠 관리를 채택하
 
 - CLI를 사용하여 `npx intlayer build` 실행
 - [vscode 확장](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/vs_code_extension.md) 사용
-- [`vite-intlayer` 패키지](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/vite-intlayer/index.md)와 같은 앱 플러그인 또는 [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/next-intlayer/index.md)용 동등한 플러그인을 사용하는 방법. 이러한 플러그인 중 하나를 사용하면 Intlayer는 애플리케이션을 시작(개발)하거나 빌드(프로덕션)할 때 자동으로 사전을 빌드합니다.
+- [`vite-intlayer` 패키지](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/vite-intlayer/exports.md)와 같은 앱 플러그인 또는 [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/next-intlayer/exports.md)용 동등한 플러그인을 사용하는 방법. 이러한 플러그인 중 하나를 사용하면 Intlayer는 애플리케이션을 시작(개발)하거나 빌드(프로덕션)할 때 자동으로 사전을 빌드합니다.
 
 1. 콘텐츠 파일 선언
    - 콘텐츠 파일은 TypeScript, ECMAScript, CommonJS 또는 JSON과 같은 다양한 형식으로 정의할 수 있습니다.
@@ -283,7 +283,7 @@ Express를 기반으로 한 서버는 시각적 편집기 요청을 수신하고
 
 ### @intlayer/cli
 
-`@intlayer/cli` 패키지는 Intlayer 명령줄 인터페이스와 관련된 스크립트를 선언하는 데 사용되는 NPM 패키지입니다. 이 패키지는 모든 Intlayer CLI 명령어의 일관성을 보장합니다. 이 패키지는 특히 [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer-cli/index.md) 및 [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/index.md) 패키지에서 사용됩니다.
+`@intlayer/cli` 패키지는 Intlayer 명령줄 인터페이스와 관련된 스크립트를 선언하는 데 사용되는 NPM 패키지입니다. 이 패키지는 모든 Intlayer CLI 명령어의 일관성을 보장합니다. 이 패키지는 특히 [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer-cli/exports.md) 및 [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/exports.md) 패키지에서 사용됩니다.
 
 ### @intlayer/mcp
 

@@ -48,11 +48,11 @@ author: aymericzip
 Intlayer는 효율적인 렌더링을 위해 **서버 구성요소**와 작동하도록 최적화되어 있으며 [**Turbopack**](https://nextjs.org/docs/architecture/turbopack)과 완벽하게 호환됩니다. 정적 렌더링을 차단하지 않으며 미들웨어는 물론 국제화 확장(i18n)에 필요한 모든 기능을 제공합니다.
 
 > Intlayer는 Next.js 12, 13, 14, 15, 16과 호환됩니다. Next.js Pages Router를 사용하는 경우 이 [가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_page_router.md)를 참조하세요.
-> 로케일 라우팅은 SEO, 번들 크기 및 성능에 유용합니다. 필요하지 않은 경우에는 이 [가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_no_locale_path.md)를 참고하시면 됩니다.
+> 로케일 라우팅은 SEO, 번들 크기 및 성능에 유용합니다. 필요하지 않은 경우에는 이 [가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_16.md)를 참고하시면 됩니다.
 > 앱 라우터가 포함된 Next.js 12, 13, 14, 15의 경우 이 [가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_14.md)를 참조하세요.
 
 - [Next.js Pages Router i18n: Complete Translation Guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_page_router.md)
-- [가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_no_locale_path.md)
+- [가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_16.md)
 - [Next.js 14 i18n - Complete guide to translate your app](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_14.md)
 
 </Accordion>
@@ -209,9 +209,9 @@ Here is the final structure that we will make:
 └── tsconfig.json
 ```
 
-> If you don't want locale routing, intlayer can be used as a simple provider / hook. See [this guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_no_locale_path.md) for more details.
+> If you don't want locale routing, intlayer can be used as a simple provider / hook. See [this guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_16.md) for more details.
 
-- [this guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_no_locale_path.md)
+- [this guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_16.md)
 
 애플리케이션의 언어를 구성하기 위해 설정 파일을 만듭니다:
 
@@ -1173,10 +1173,10 @@ Next.js 12, 13, 14, 15 및 16을 지원합니다. 본 가이드는 Next.js 15를
 </Question>
 <Question title="/fr/about처럼 URL에 로케일을 반드시 포함해야 하나요?">
 
-아닙니다. `routing.mode`는 `"prefix-no-default"`(기본값: 기본 로케일은 `/about`, 나머지는 `/ko/about`), `"prefix-all"`, `"no-prefix"`(쿠키, 헤더 또는 도메인에서 확인), `"search-params"`(`/about?locale=ko`)를 허용합니다. `routing.domains`를 사용하면 각 로케일을 자체 도메인에 매핑할 수도 있습니다. [설정 참조](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md) 및 [로케일 경로 없는 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_no_locale_path.md)를 참조하세요.
+아닙니다. `routing.mode`는 `"prefix-no-default"`(기본값: 기본 로케일은 `/about`, 나머지는 `/ko/about`), `"prefix-all"`, `"no-prefix"`(쿠키, 헤더 또는 도메인에서 확인), `"search-params"`(`/about?locale=ko`)를 허용합니다. `routing.domains`를 사용하면 각 로케일을 자체 도메인에 매핑할 수도 있습니다. [설정 참조](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md) 및 [로케일 경로 없는 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_16.md)를 참조하세요.
 
 - [설정 참조](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)
-- [로케일 경로 없는 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_no_locale_path.md)
+- [로케일 경로 없는 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_16.md)
 
 </Question>
 <Question title="SEO를 위한 hreflang 태그 및 현지화된 메타데이터는 어떻게 추가하나요?">

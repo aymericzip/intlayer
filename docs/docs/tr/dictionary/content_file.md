@@ -272,23 +272,23 @@ export default {
 - **İlkel değerler**: stringler, sayılar, booleanlar, null, undefined
 - **Tiplenmiş düğümler**: Çeviriler, koşullar, markdown gibi özel içerik türleri
 - **Fonksiyonlar**: Çalışma zamanında değerlendirilebilen dinamik içerik [bkz. Fonksiyon Getirme](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/function_fetching.md)
-- **Plural Content**: See Plural Content [See Plural Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/plural.md)
+- **Plural Content**: See Plural Content [See Plural Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/plurial.md)
 - **İç içe içerik**: Diğer sözlüklere referanslar
 
 #### İçerik Türleri
 
 Intlayer, tiplenmiş düğümler aracılığıyla çeşitli içerik türlerini destekler:
 
-- **Çeviri İçeriği**: Yerel dil değerlerine sahip çok dilli metinler [bkz. Çeviri İçeriği](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/translation_content.md)
-- **Koşul İçeriği**: Boolean ifadelerine dayalı koşullu içerik [bkz. Koşul İçeriği](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/condition_content.md)
-- **Numaralandırma İçeriği**: Numaralandırılmış değerlere göre değişen içerik [bkz. Numaralandırma İçeriği](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/enumeration_content.md)
-- **Ekleme İçeriği**: Diğer içeriklere eklenebilen içerik [bkz. Ekleme İçeriği](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/insertion_content.md)
-- **Markdown İçeriği**: Markdown formatında zengin metin içeriği [bkz. Markdown İçeriği](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/markdown_content.md)
+- **Çeviri İçeriği**: Yerel dil değerlerine sahip çok dilli metinler [bkz. Çeviri İçeriği](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/translation.md)
+- **Koşul İçeriği**: Boolean ifadelerine dayalı koşullu içerik [bkz. Koşul İçeriği](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/condition.md)
+- **Numaralandırma İçeriği**: Numaralandırılmış değerlere göre değişen içerik [bkz. Numaralandırma İçeriği](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/enumeration.md)
+- **Ekleme İçeriği**: Diğer içeriklere eklenebilen içerik [bkz. Ekleme İçeriği](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/insertion.md)
+- **Markdown İçeriği**: Markdown formatında zengin metin içeriği [bkz. Markdown İçeriği](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/markdown.md)
 - **HTML İçeriği**: İsteğe bağlı özel bileşenlerle zengin HTML içeriği [bkz. HTML İçeriği](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/html.md)
-- **İç İçe İçerik**: Diğer sözlüklere referanslar [bkz. İç İçe İçerik](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/nested_content.md)
+- **İç İçe İçerik**: Diğer sözlüklere referanslar [bkz. İç İçe İçerik](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/nesting.md)
 - **Cinsiyet İçeriği**: Cinsiyete göre değişen içerik [bkz. Cinsiyet İçeriği](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/gender.md)
 - **Seçime Dayalı İçerik**: Rastgele bir dize değerine göre değişen içerik [bkz. Seçime Dayalı İçerik](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/select.md)
-- **Dosya İçeriği**: Harici dosyalara referanslar [bkz. Dosya İçeriği](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/file_content.md)
+- **Dosya İçeriği**: Harici dosyalara referanslar [bkz. Dosya İçeriği](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/file.md)
 
 ## Sözlük Yapısı
 
@@ -698,9 +698,9 @@ pluralContent: plural({
 });
 ```
 
-> See [Plural Content Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/plural.md) for more information.
+> See [Plural Content Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/plurial.md) for more information.
 
-- [Plural Content Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/plural.md)
+- [Plural Content Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/plurial.md)
 
 ### Ekleme İçeriği (`insert`)
 

@@ -214,9 +214,9 @@ start();
 
 `fastify-intlayer` jest w pełni kompatybilny z:
 
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/react-intlayer/index.md) dla aplikacji React
-- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/next-intlayer/index.md) dla aplikacji Next.js
-- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/vite-intlayer/index.md) dla aplikacji Vite
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/react-intlayer/exports.md) dla aplikacji React
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/next-intlayer/exports.md) dla aplikacji Next.js
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/vite-intlayer/exports.md) dla aplikacji Vite
 
 Działa również bezproblemowo z dowolnym rozwiązaniem do umiędzynarodowienia w różnych środowiskach, w tym w przeglądarkach i zapytaniach API. Możesz dostosować oprogramowanie pośredniczące (middleware), aby wykrywało lokalizację za pomocą nagłówków lub plików cookie:
 

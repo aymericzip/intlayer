@@ -214,9 +214,9 @@ start();
 
 `fastify-intlayer` নিচের গুলোর সাথে সম্পূর্ণ সামঞ্জস্যপূর্ণ:
 
-- রিঅ্যাক্ট অ্যাপ্লিকেশনের জন্য [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/packages/react-intlayer/index.md)
-- নেক্সট জেএস অ্যাপ্লিকেশনের জন্য [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/packages/next-intlayer/index.md)
-- ভাইট অ্যাপ্লিকেশনের জন্য [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/packages/vite-intlayer/index.md)
+- রিঅ্যাক্ট অ্যাপ্লিকেশনের জন্য [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/exports.md)
+- নেক্সট জেএস অ্যাপ্লিকেশনের জন্য [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/exports.md)
+- ভাইট অ্যাপ্লিকেশনের জন্য [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/vite-intlayer/exports.md)
 
 এটি ব্রাউজার এবং এপিআই রিকোয়েস্ট সহ বিভিন্ন পরিবেশে যেকোনো আন্তর্জাতিকীকরণ সলিউশনের সাথে নির্বিঘ্নে কাজ করে। আপনি হেডার বা কুকির মাধ্যমে লোকেল শনাক্ত করতে মিডলওয়্যারটি কাস্টমাইজ করতে পারেন:
 

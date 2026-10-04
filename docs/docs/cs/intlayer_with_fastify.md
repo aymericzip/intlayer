@@ -214,9 +214,9 @@ start();
 
 `fastify-intlayer` je plně kompatibilní s:
 
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/packages/react-intlayer/index.md) pro React aplikace
-- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/packages/next-intlayer/index.md) pro Next.js aplikace
-- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/packages/vite-intlayer/index.md) pro Vite aplikace
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/exports.md) pro React aplikace
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/exports.md) pro Next.js aplikace
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/vite-intlayer/exports.md) pro Vite aplikace
 
 Bezproblémově funguje také s jakýmkoli řešením internacionalizace v různých prostředích, včetně prohlížečů a požadavků API. Middleware můžete přizpůsobit tak, aby detekoval lokalizaci prostřednictvím hlaviček nebo souborů cookie:
 

@@ -52,7 +52,7 @@ author: aymericzip
 
 - باستخدام CLI مع `npx intlayer build`
 - باستخدام [إضافة VSCode](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/vs_code_extension.md)
-- باستخدام إضافات التطبيقات مثل حزمة [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/vite-intlayer/index.md)، أو ما يعادلها لـ [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/next-intlayer/index.md). عند استخدامك لإحدى هذه الإضافات، سيقوم Intlayer تلقائيًا ببناء القواميس عند بدء (التطوير) أو بناء (الإنتاج) تطبيقك.
+- باستخدام إضافات التطبيقات مثل حزمة [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/vite-intlayer/exports.md)، أو ما يعادلها لـ [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/next-intlayer/exports.md). عند استخدامك لإحدى هذه الإضافات، سيقوم Intlayer تلقائيًا ببناء القواميس عند بدء (التطوير) أو بناء (الإنتاج) تطبيقك.
 
 1. إعلان ملفات المحتوى
    - يمكن تعريف ملفات المحتوى بتنسيقات مختلفة، مثل TypeScript، ECMAScript، CommonJS، أو JSON.
@@ -283,7 +283,7 @@ const MyComponent = () => {
 
 ### @intlayer/cli
 
-حزمة `@intlayer/cli` هي حزمة NPM تُستخدم لإعلان السكربتات المتعلقة بواجهات سطر الأوامر الخاصة بـ Intlayer. تضمن توحيد جميع أوامر CLI الخاصة بـ Intlayer. يتم استهلاك هذه الحزمة بشكل خاص من قبل حزم [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer-cli/index.md)، و[intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/index.md).
+حزمة `@intlayer/cli` هي حزمة NPM تُستخدم لإعلان السكربتات المتعلقة بواجهات سطر الأوامر الخاصة بـ Intlayer. تضمن توحيد جميع أوامر CLI الخاصة بـ Intlayer. يتم استهلاك هذه الحزمة بشكل خاص من قبل حزم [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer-cli/exports.md)، و[intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/exports.md).
 
 ### @intlayer/mcp
 

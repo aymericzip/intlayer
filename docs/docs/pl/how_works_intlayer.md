@@ -52,7 +52,7 @@ Krok budowania można wykonać na trzy sposoby:
 
 - używając CLI z `npx intlayer build`
 - używając [rozszerzenia vscode](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/vs_code_extension.md)
-- używając wtyczek aplikacji, takich jak pakiet [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/vite-intlayer/index.md) lub ich odpowiedników dla [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/next-intlayer/index.md). Gdy używasz jednej z tych wtyczek, Intlayer automatycznie zbuduje Twoje słowniki podczas uruchamiania (dev) lub budowania (prod) aplikacji.
+- używając wtyczek aplikacji, takich jak pakiet [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/vite-intlayer/exports.md) lub ich odpowiedników dla [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/next-intlayer/exports.md). Gdy używasz jednej z tych wtyczek, Intlayer automatycznie zbuduje Twoje słowniki podczas uruchamiania (dev) lub budowania (prod) aplikacji.
 
 1. Deklaracja plików treści
    - Pliki treści mogą być definiowane w różnych formatach, takich jak TypeScript, ECMAScript, CommonJS lub JSON.
@@ -279,7 +279,7 @@ Pakiet `@intlayer/webpack` służy do dostarczania konfiguracji Webpack, aby apl
 
 ### @intlayer/cli
 
-Pakiet `@intlayer/cli` jest pakietem NPM, który służy do deklarowania skryptów związanych z interfejsami wiersza poleceń Intlayer. Zapewnia jednolitość wszystkich poleceń CLI Intlayer. Ten pakiet jest szczególnie wykorzystywany przez pakiety [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/intlayer-cli/index.md) oraz [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/intlayer/index.md).
+Pakiet `@intlayer/cli` jest pakietem NPM, który służy do deklarowania skryptów związanych z interfejsami wiersza poleceń Intlayer. Zapewnia jednolitość wszystkich poleceń CLI Intlayer. Ten pakiet jest szczególnie wykorzystywany przez pakiety [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/intlayer-cli/exports.md) oraz [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/intlayer/exports.md).
 
 ### @intlayer/mcp
 

@@ -51,11 +51,11 @@ author: aymericzip
 Intlayer, verimli işleme için **Sunucu Bileşenleri** ile çalışacak şekilde optimize edilmiştir ve [**Turbopack**](https://nextjs.org/docs/architecture/turbopack) ile tamamen uyumludur. Statik oluşturmayı engellemez ve ara yazılımların yanı sıra uluslararasılaştırmayı (i18n) ölçeklendirmek için gereken tüm özellikleri sunar.
 
 > Intlayer, Next.js 12, 13, 14, 15 ve 16 ile uyumludur. Next.js Pages Router kullanıyorsanız bu [rehbere](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_page_router.md) başvurabilirsiniz.
-> Yerel yönlendirme SEO, bundle boyutu ve performans açısından faydalıdır. İhtiyacınız yoksa bu [rehbere](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_no_locale_path.md) başvurabilirsiniz.
+> Yerel yönlendirme SEO, bundle boyutu ve performans açısından faydalıdır. İhtiyacınız yoksa bu [rehbere](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_16.md) başvurabilirsiniz.
 > Uygulama Yönlendiricili Next.js 12, 13, 14 ve 15 için bu [kılavuz](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_14.md) bakın.
 
 - [Next.js Pages Router i18n: Complete Translation Guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_page_router.md)
-- [rehbere](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_no_locale_path.md)
+- [rehbere](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_16.md)
 - [Next.js 14 i18n - Complete guide to translate your app](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_14.md)
 
 </Accordion>
@@ -212,9 +212,9 @@ Here is the final structure that we will make:
 └── tsconfig.json
 ```
 
-> If you don't want locale routing, intlayer can be used as a simple provider / hook. See [this guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_no_locale_path.md) for more details.
+> If you don't want locale routing, intlayer can be used as a simple provider / hook. See [this guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_16.md) for more details.
 
-- [this guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_no_locale_path.md)
+- [this guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_16.md)
 
 Uygulamanızın dillerini yapılandırmak için bir yapılandırma dosyası oluşturun:
 
@@ -1167,10 +1167,10 @@ Evet. İçerik sunucuda Server Components içinde çözümlenir, böylece sunucu
 </Question>
 <Question title="URL'ye /tr/about gibi yerel koymak zorunda mıyım?">
 
-Hayır. `routing.mode` ayarı `"prefix-no-default"` (varsayılan: varsayılan dilde `/about`, diğerlerinde `/tr/about`), `"prefix-all"`, `"no-prefix"` ve `"search-params"` değerlerini kabul eder. `routing.domains` ise her dili kendi alan adına eşler. Bkz. [yapılandırma belgeleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) ve [yerel yolu olmayan kılavuz](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_no_locale_path.md).
+Hayır. `routing.mode` ayarı `"prefix-no-default"` (varsayılan: varsayılan dilde `/about`, diğerlerinde `/tr/about`), `"prefix-all"`, `"no-prefix"` ve `"search-params"` değerlerini kabul eder. `routing.domains` ise her dili kendi alan adına eşler. Bkz. [yapılandırma belgeleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) ve [yerel yolu olmayan kılavuz](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_16.md).
 
 - [yapılandırma belgeleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md)
-- [yerel yolu olmayan kılavuz](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_no_locale_path.md)
+- [yerel yolu olmayan kılavuz](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_16.md)
 
 </Question>
 <Question title="SEO için hreflang etiketlerini ve yerelleştirilmiş meta verileri nasıl eklerim?">

@@ -275,23 +275,23 @@ Węzły treści są podstawowymi elementami zawartości słownika. Mogą to być
 - **Wartości prymitywne**: łańcuchy znaków, liczby, wartości logiczne, null, undefined
 - **Węzły typowane**: Specjalne typy zawartości, takie jak tłumaczenia, warunki, markdown itp.
 - **Funkcje**: Dynamiczna zawartość, która może być oceniana w czasie wykonywania [zobacz Pobieranie funkcji](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/function_fetching.md)
-- **Plural Content**: See Plural Content [See Plural Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/plural.md)
+- **Plural Content**: See Plural Content [See Plural Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/plurial.md)
 - **Zagnieżdżona zawartość**: Odwołania do innych słowników
 
 #### Typy zawartości
 
 Intlayer obsługuje różne typy zawartości poprzez węzły typowane:
 
-- **Zawartość tłumaczenia**: Wielojęzyczny tekst z wartościami specyficznymi dla lokalizacji [zobacz Zawartość tłumaczenia](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/translation_content.md)
-- **Zawartość warunkowa**: Zawartość warunkowa oparta na wyrażeniach logicznych [zobacz Zawartość warunkową](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/condition_content.md)
-- **Zawartość enumeracji**: Zawartość zmieniająca się w zależności od wartości enumerowanych [zobacz Zawartość enumeracji](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/enumeration_content.md)
-- **Zawartość wstawiania**: Zawartość, którą można wstawić do innej zawartości [zobacz Zawartość wstawiania](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/insertion_content.md)
-- **Zawartość Markdown**: Zawartość tekstu sformatowanego w formacie Markdown [zobacz Zawartość Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/markdown_content.md)
+- **Zawartość tłumaczenia**: Wielojęzyczny tekst z wartościami specyficznymi dla lokalizacji [zobacz Zawartość tłumaczenia](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/translation.md)
+- **Zawartość warunkowa**: Zawartość warunkowa oparta na wyrażeniach logicznych [zobacz Zawartość warunkową](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/condition.md)
+- **Zawartość enumeracji**: Zawartość zmieniająca się w zależności od wartości enumerowanych [zobacz Zawartość enumeracji](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/enumeration.md)
+- **Zawartość wstawiania**: Zawartość, którą można wstawić do innej zawartości [zobacz Zawartość wstawiania](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/insertion.md)
+- **Zawartość Markdown**: Zawartość tekstu sformatowanego w formacie Markdown [zobacz Zawartość Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/markdown.md)
 - **Zawartość HTML**: Zawartość HTML z opcjonalnymi niestandardowymi komponentami [zobacz Zawartość HTML](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/html.md)
-- **Zagnieżdżona zawartość**: Odwołania do innych słowników [zobacz Zagnieżdżoną zawartość](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/nested_content.md)
+- **Zagnieżdżona zawartość**: Odwołania do innych słowników [zobacz Zagnieżdżoną zawartość](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/nesting.md)
 - **Zawartość zależna od płci**: Zawartość zmieniająca się w zależności od płci [zobacz Zawartość zależną od płci](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/gender.md)
 - **Treść Oparta na Wyborze**: Treść zmieniająca się w zależności od dowolnej wartości znakowej [zobacz Treść Opartą na Wyborze](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/select.md)
-- **Zawartość plikowa**: Odwołania do plików zewnętrznych [zobacz Zawartość plikową](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/file_content.md)
+- **Zawartość plikowa**: Odwołania do plików zewnętrznych [zobacz Zawartość plikową](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/file.md)
 
 ## Struktura słownika
 
@@ -506,9 +506,9 @@ Instrukcje dotyczące automatycznego wypełniania zawartości słownika z zewnę
 - `{{fileName}}` – Nazwa pliku (np. `example`)
 - `{{key}}` – Klucz słownika (np. `example`)
 
-> Zobacz [Konfiguracja automatycznego wypełniania w Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/fill.md) po więcej informacji.
+> Zobacz [Konfiguracja automatycznego wypełniania w Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/autoFill.md) po więcej informacji.
 
-- [Konfiguracja automatycznego wypełniania w Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/fill.md)
+- [Konfiguracja automatycznego wypełniania w Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/autoFill.md)
 
 ##### `priority` (number)
 
@@ -702,9 +702,9 @@ pluralContent: plural({
 });
 ```
 
-> See [Plural Content Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/plural.md) for more information.
+> See [Plural Content Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/plurial.md) for more information.
 
-- [Plural Content Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/plural.md)
+- [Plural Content Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/plurial.md)
 
 ### Treść wstawiana (`insert`)
 

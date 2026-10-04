@@ -227,9 +227,9 @@ export default app;
 
 `hono-intlayer` je plně kompatibilní s:
 
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/packages/react-intlayer/index.md)
-- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/packages/next-intlayer/index.md)
-- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/packages/vite-intlayer/index.md)
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/exports.md)
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/exports.md)
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/vite-intlayer/exports.md)
 
 Funguje také bezproblémově s jakýmkoli řešením internacionalizace v různých prostředích, včetně prohlížečů a požadavků API. Middleware můžete přizpůsobit tak, aby detekoval lokalitu prostřednictvím hlaviček nebo souborů cookie:
 

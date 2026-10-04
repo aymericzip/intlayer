@@ -212,9 +212,9 @@ app.listen(3000, () => console.log(`Listening on port 3000`));
 
 `express-intlayer` は以下と完全に互換性があります:
 
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/index.md)
-- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/next-intlayer/index.md)
-- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/vite-intlayer/index.md)
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/exports.md)
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/next-intlayer/exports.md)
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/vite-intlayer/exports.md)
   さまざまな環境（ブラウザやAPIリクエストを含む）で、あらゆる国際化ソリューションとシームレスに連携します。ミドルウェアをカスタマイズして、ヘッダーやクッキーからロケールを検出することも可能です：
 
 また、ブラウザや API リクエストなど、様々な環境における国際化ソリューションとシームレスに連携します。ヘッダーやクッキーを通じてロケールを検出するようにミドルウェアをカスタマイズできます:

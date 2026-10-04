@@ -52,7 +52,7 @@ Intlayerの主なアイデアは、コンポーネントごとのコンテンツ
 
 - CLIを使用して`npx intlayer build`を実行
 - [vscode拡張機能](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)を使用
-- [`vite-intlayer`パッケージ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/vite-intlayer/index.md)などのアプリプラグインを使用、または[Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/next-intlayer/index.md)用の同等のプラグインを使用。これらのプラグインのいずれかを使用すると、アプリケーションを開始（開発）またはビルド（本番）する際に、Intlayerが自動的に辞書をビルドします。
+- [`vite-intlayer`パッケージ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/vite-intlayer/exports.md)などのアプリプラグインを使用、または[Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/next-intlayer/exports.md)用の同等のプラグインを使用。これらのプラグインのいずれかを使用すると、アプリケーションを開始（開発）またはビルド（本番）する際に、Intlayerが自動的に辞書をビルドします。
 
 1. コンテンツファイルの宣言
    - コンテンツファイルは、TypeScript、ECMAScript、CommonJS、JSONなど、さまざまな形式で定義できます。
@@ -283,7 +283,7 @@ Expressに基づいたサーバーは、ビジュアルエディターのリク�
 
 ### @intlayer/cli
 
-`@intlayer/cli`パッケージは、Intlayerコマンドラインインターフェースに関連するスクリプトを宣言するために使用されるNPMパッケージです。すべてのIntlayer CLIコマンドの一貫性を確保します。このパッケージは特に、[intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer-cli/index.md)や[intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/index.md)パッケージによって使用されます。
+`@intlayer/cli`パッケージは、Intlayerコマンドラインインターフェースに関連するスクリプトを宣言するために使用されるNPMパッケージです。すべてのIntlayer CLIコマンドの一貫性を確保します。このパッケージは特に、[intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer-cli/exports.md)や[intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/exports.md)パッケージによって使用されます。
 
 ### @intlayer/mcp
 

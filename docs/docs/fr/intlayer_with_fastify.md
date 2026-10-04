@@ -214,9 +214,9 @@ start();
 
 `fastify-intlayer` est entièrement compatible avec :
 
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/react-intlayer/index.md) pour les applications React
-- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/next-intlayer/index.md) pour les applications Next.js
-- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/vite-intlayer/index.md) pour les applications Vite
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/react-intlayer/exports.md) pour les applications React
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/next-intlayer/exports.md) pour les applications Next.js
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/vite-intlayer/exports.md) pour les applications Vite
 
 Il fonctionne également de manière transparente avec n'importe quelle solution d'internationalisation dans divers environnements, y compris les navigateurs et les requêtes d'API. Vous pouvez personnaliser le middleware pour détecter la locale via les en-têtes ou les cookies :
 

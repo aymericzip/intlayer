@@ -73,11 +73,11 @@ author: aymericzip
 Intlayer は、効率的なレンダリングのために **サーバー コンポーネント** と連携するように最適化されており、[**Turbopack**](https://nextjs.org/docs/architecture/turbopack) と完全に互換性があります。静的レンダリングをブロックせず、ミドルウェアとスケーリング国際化 (i18n) に必要なすべての機能を提供します。
 
 > Intlayer は Next.js 12、13、14、15、および 16 と互換性があります。 Next.js Pages Router を使用している場合は、この [ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_page_router.md) を参照してください。
-> ロケール ルーティングは、SEO、バンドル サイズ、パフォーマンスに役立ちます。必要ない場合は、この[ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_no_locale_path.md)を参照してください。
+> ロケール ルーティングは、SEO、バンドル サイズ、パフォーマンスに役立ちます。必要ない場合は、この[ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_16.md)を参照してください。
 > App Router を使用した Next.js 12、13、14、および 15 については、この [ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_14.md) を参照してください。
 
 - [Next.js Pages Router の i18n：翻訳の完全ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_page_router.md)
-- [ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_no_locale_path.md)
+- [ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_16.md)
 - [Next.js 14 i18n - あなたのアプリを翻訳する完全ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_14.md)
 
 </Accordion>

@@ -48,11 +48,11 @@ Rispetto alle soluzioni principali come `next-intl` o `i18next`, Intlayer è una
 Intlayer è ottimizzato per funzionare con **Componenti server** per un rendering efficiente ed è completamente compatibile con [**Turbopack**](https://nextjs.org/docs/architecture/turbopack). Non blocca il rendering statico e offre middleware e tutte le funzionalità necessarie per scalare l'internazionalizzazione (i18n).
 
 > Intlayer è compatibile con Next.js 12, 13, 14, 15 e 16. Se stai utilizzando Next.js Pages Router, puoi fare riferimento a questa [guida](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_nextjs_page_router.md).
-> Il routing per locale è utile per SEO, dimensioni del pacchetto e prestazioni. Se non ti serve, puoi fare riferimento a questa [guida](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_nextjs_no_locale_path.md).
+> Il routing per locale è utile per SEO, dimensioni del pacchetto e prestazioni. Se non ti serve, puoi fare riferimento a questa [guida](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_nextjs_16.md).
 > Per Next.js 12, 13, 14 e 15 con App Router, fare riferimento a questa [guida](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_nextjs_14.md).
 
 - [Next.js Pages Router i18n: Complete Translation Guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_nextjs_page_router.md)
-- [guida](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_nextjs_no_locale_path.md)
+- [guida](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_nextjs_16.md)
 - [Next.js 14 i18n - Complete guide to translate your app](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_nextjs_14.md)
 
 </Accordion>
@@ -209,9 +209,9 @@ Here is the final structure that we will make:
 └── tsconfig.json
 ```
 
-> If you don't want locale routing, intlayer can be used as a simple provider / hook. See [this guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_nextjs_no_locale_path.md) for more details.
+> If you don't want locale routing, intlayer can be used as a simple provider / hook. See [this guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_nextjs_16.md) for more details.
 
-- [this guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_nextjs_no_locale_path.md)
+- [this guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_nextjs_16.md)
 
 Crea un file di configurazione per configurare le lingue della tua applicazione:
 
@@ -1166,10 +1166,10 @@ Sì. Next.js 15 rende `params` una promise nei layout e nelle pagine, e questa g
 </Question>
 <Question title="Devo mettere la locale nell'URL, come /fr/about?">
 
-No. `routing.mode` accetta `"prefix-no-default"` (il predefinito, `/about` per la locale predefinita e `/fr/about` per le altre), `"prefix-all"`, `"no-prefix"` (risolto da un cookie, un header o un dominio) e `"search-params"` (`/about?locale=fr`). `routing.domains` associa ogni locale al proprio dominio. Vedi il [riferimento di configurazione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/configuration.md) e la [guida senza percorso di locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_nextjs_no_locale_path.md).
+No. `routing.mode` accetta `"prefix-no-default"` (il predefinito, `/about` per la locale predefinita e `/fr/about` per le altre), `"prefix-all"`, `"no-prefix"` (risolto da un cookie, un header o un dominio) e `"search-params"` (`/about?locale=fr`). `routing.domains` associa ogni locale al proprio dominio. Vedi il [riferimento di configurazione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/configuration.md) e la [guida senza percorso di locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_nextjs_16.md).
 
 - [riferimento di configurazione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/configuration.md)
-- [guida senza percorso di locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_nextjs_no_locale_path.md)
+- [guida senza percorso di locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_nextjs_16.md)
 
 </Question>
 <Question title="Come aggiungo i tag hreflang e i metadati localizzati per la SEO?">
