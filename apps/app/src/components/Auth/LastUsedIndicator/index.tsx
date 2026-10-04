@@ -1,4 +1,4 @@
-import type { UserAPI } from '@intlayer/backend';
+import type { UserAPI } from '@intlayer/backend-contract/user';
 import { useIsMounted } from '@intlayer/design-system/hooks';
 import { getAuthAPI } from '@intlayer/design-system/libs';
 import type { FC } from 'react';

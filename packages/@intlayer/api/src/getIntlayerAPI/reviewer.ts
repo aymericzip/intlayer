@@ -1,33 +1,86 @@
+import type { RouteEndpoints } from '@intlayer/backend-contract/defineRoute';
+import { buildRouteURL } from '@intlayer/backend-contract/defineRoute';
+import type {
+  PaginatedResponse,
+  ResponseData,
+} from '@intlayer/backend-contract/responseData';
 import type {
   CreateMissionBody,
   EstimateMissionBody,
   GetMarketplaceQuery,
   MissionEstimate,
-  PaginatedResponse,
   PriceDistributionData,
   RegisterReviewerBody,
-  ResponseData,
   ReviewerMessageAPI,
   ReviewerProfileAPI,
   ReviewerReviewAPI,
+  ReviewerRoutes,
+  reviewerContract,
   SendMessageBody,
   SubmitReviewBody,
   TranslationMissionAPI,
   UpdateMissionStatusBody,
   UpdateReviewerBody,
   UploadReviewerPictureResult,
-} from '@intlayer/backend';
+} from '@intlayer/backend-contract/reviewer';
 import { editor } from '@intlayer/config/built';
+import { BACKEND_URL } from '@intlayer/config/defaultValues';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { createEndpoint } from '../cms/createIntlayerCMS';
 import { type FetcherOptions, fetcher } from '../fetcher';
+
+/** Prefix of the routes, checked against the backend contract. */
+const reviewerGroup = {
+  prefix: '/api/reviewer',
+} as const satisfies Pick<typeof reviewerContract, 'prefix'>;
+
+/**
+ * Method and path of every route, checked against the backend contract at
+ * compile time (the contract's zod schemas are never loaded).
+ */
+const reviewerEndpoints = {
+  getMarketplace: { method: 'GET', path: '/marketplace' },
+  getPriceDistribution: {
+    method: 'GET',
+    path: '/marketplace/price-distribution',
+  },
+  getMyReviewerProfile: { method: 'GET', path: '/me' },
+  getReviewerReviews: { method: 'GET', path: '/:reviewerId/reviews' },
+  getReviewerById: { method: 'GET', path: '/:reviewerId' },
+  registerAsReviewer: { method: 'POST', path: '/register' },
+  updateReviewerProfile: { method: 'PUT', path: '/' },
+  deleteReviewerProfile: { method: 'DELETE', path: '/' },
+  uploadMainPicture: { method: 'POST', path: '/me/picture/main' },
+  uploadCoverPicture: { method: 'POST', path: '/me/picture/cover' },
+  estimateMission: { method: 'POST', path: '/mission/estimate' },
+  createMission: { method: 'POST', path: '/mission' },
+  getMyMissions: { method: 'GET', path: '/mission' },
+  getMissionById: { method: 'GET', path: '/mission/:missionId' },
+  updateMissionStatus: { method: 'PUT', path: '/mission/:missionId/status' },
+  submitReview: { method: 'POST', path: '/mission/:missionId/review' },
+  getChatHistory: { method: 'GET', path: '/mission/:missionId/chat/history' },
+  sendMessage: { method: 'POST', path: '/mission/:missionId/chat' },
+  chatSSE: { method: 'GET', path: '/mission/:missionId/chat/stream' },
+  createPaymentIntent: {
+    method: 'POST',
+    path: '/mission/:missionId/payment/intent',
+  },
+  confirmPayment: {
+    method: 'POST',
+    path: '/mission/:missionId/payment/confirm',
+  },
+  requestPayout: { method: 'POST', path: '/payout' },
+  contactReviewer: { method: 'POST', path: '/:reviewerId/contact' },
+  getAdminReviewers: { method: 'GET', path: '/admin/reviewers' },
+  validateReviewerProfile: { method: 'PUT', path: '/:reviewerId/validate' },
+} as const satisfies RouteEndpoints<ReviewerRoutes>;
 
 export const getReviewerAPI = (
   authAPIOptions: FetcherOptions = {},
   intlayerConfig?: IntlayerConfig
 ) => {
-  const backendURL = intlayerConfig?.editor?.backendURL ?? editor.backendURL;
-  const BASE = `${backendURL}/api/reviewer`;
+  const backendURL =
+    intlayerConfig?.editor?.backendURL ?? editor.backendURL ?? BACKEND_URL;
 
   // ── Marketplace ────────────────────────────────────────────────────────────
 
@@ -49,7 +102,7 @@ export const getReviewerAPI = (
     const query = searchParams.toString();
 
     return fetcher<PaginatedResponse<ReviewerProfileAPI>>(
-      `${BASE}/marketplace${query ? `?${query}` : ''}`,
+      `${buildRouteURL(backendURL, reviewerGroup, reviewerEndpoints.getMarketplace)}${query ? `?${query}` : ''}`,
       authAPIOptions,
       otherOptions,
       { method: 'GET' }
@@ -76,7 +129,7 @@ export const getReviewerAPI = (
     }
     const query = searchParams.toString();
     return fetcher<ResponseData<PriceDistributionData>>(
-      `${BASE}/marketplace/price-distribution${query ? `?${query}` : ''}`,
+      `${buildRouteURL(backendURL, reviewerGroup, reviewerEndpoints.getPriceDistribution)}${query ? `?${query}` : ''}`,
       authAPIOptions,
       otherOptions,
       { method: 'GET' }
@@ -88,10 +141,15 @@ export const getReviewerAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     fetcher<ResponseData<ReviewerProfileAPI>>(
-      `${BASE}/${reviewerId}`,
+      buildRouteURL(
+        backendURL,
+        reviewerGroup,
+        reviewerEndpoints.getReviewerById,
+        { reviewerId }
+      ),
       authAPIOptions,
       otherOptions,
-      { method: 'GET' }
+      { method: reviewerEndpoints.getReviewerById.method }
     );
 
   const getReviewerReviews = (
@@ -107,7 +165,7 @@ export const getReviewerAPI = (
       )
     ).toString();
     return fetcher<PaginatedResponse<ReviewerReviewAPI>>(
-      `${BASE}/${reviewerId}/reviews${query ? `?${query}` : ''}`,
+      `${buildRouteURL(backendURL, reviewerGroup, reviewerEndpoints.getReviewerReviews, { reviewerId })}${query ? `?${query}` : ''}`,
       authAPIOptions,
       otherOptions,
       { method: 'GET' }
@@ -118,10 +176,14 @@ export const getReviewerAPI = (
 
   const getMyReviewerProfile = (otherOptions: FetcherOptions = {}) =>
     fetcher<ResponseData<ReviewerProfileAPI | null>>(
-      `${BASE}/me`,
+      buildRouteURL(
+        backendURL,
+        reviewerGroup,
+        reviewerEndpoints.getMyReviewerProfile
+      ),
       authAPIOptions,
       otherOptions,
-      { method: 'GET' }
+      { method: reviewerEndpoints.getMyReviewerProfile.method }
     );
 
   const registerAsReviewer = (
@@ -129,10 +191,14 @@ export const getReviewerAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     fetcher<ResponseData<ReviewerProfileAPI>>(
-      `${BASE}/register`,
+      buildRouteURL(
+        backendURL,
+        reviewerGroup,
+        reviewerEndpoints.registerAsReviewer
+      ),
       authAPIOptions,
       otherOptions,
-      { method: 'POST', body }
+      { method: reviewerEndpoints.registerAsReviewer.method, body }
     );
 
   const updateReviewerProfile = (
@@ -140,16 +206,29 @@ export const getReviewerAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     fetcher<ResponseData<ReviewerProfileAPI>>(
-      `${BASE}/`,
+      buildRouteURL(
+        backendURL,
+        reviewerGroup,
+        reviewerEndpoints.updateReviewerProfile
+      ),
       authAPIOptions,
       otherOptions,
-      { method: 'PUT', body }
+      { method: reviewerEndpoints.updateReviewerProfile.method, body }
     );
 
   const deleteReviewerProfile = (otherOptions: FetcherOptions = {}) =>
-    fetcher<ResponseData<null>>(BASE, authAPIOptions, otherOptions, {
-      method: 'DELETE',
-    });
+    fetcher<ResponseData<null>>(
+      buildRouteURL(
+        backendURL,
+        reviewerGroup,
+        reviewerEndpoints.deleteReviewerProfile
+      ),
+      authAPIOptions,
+      otherOptions,
+      {
+        method: reviewerEndpoints.deleteReviewerProfile.method,
+      }
+    );
 
   // ── Contact ────────────────────────────────────────────────────────────────
 
@@ -159,10 +238,15 @@ export const getReviewerAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     fetcher<ResponseData<null>>(
-      `${BASE}/${reviewerId}/contact`,
+      buildRouteURL(
+        backendURL,
+        reviewerGroup,
+        reviewerEndpoints.contactReviewer,
+        { reviewerId }
+      ),
       authAPIOptions,
       otherOptions,
-      { method: 'POST', body }
+      { method: reviewerEndpoints.contactReviewer.method, body }
     );
 
   // ── Missions ───────────────────────────────────────────────────────────────
@@ -172,10 +256,14 @@ export const getReviewerAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     fetcher<ResponseData<MissionEstimate>>(
-      `${BASE}/mission/estimate`,
+      buildRouteURL(
+        backendURL,
+        reviewerGroup,
+        reviewerEndpoints.estimateMission
+      ),
       authAPIOptions,
       otherOptions,
-      { method: 'POST', body }
+      { method: reviewerEndpoints.estimateMission.method, body }
     );
 
   const createMission = (
@@ -183,10 +271,10 @@ export const getReviewerAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     fetcher<ResponseData<TranslationMissionAPI>>(
-      `${BASE}/mission`,
+      buildRouteURL(backendURL, reviewerGroup, reviewerEndpoints.createMission),
       authAPIOptions,
       otherOptions,
-      { method: 'POST', body }
+      { method: reviewerEndpoints.createMission.method, body }
     );
 
   const getMyMissions = (
@@ -205,7 +293,7 @@ export const getReviewerAPI = (
       )
     ).toString();
     return fetcher<PaginatedResponse<TranslationMissionAPI>>(
-      `${BASE}/mission${query ? `?${query}` : ''}`,
+      `${buildRouteURL(backendURL, reviewerGroup, reviewerEndpoints.getMyMissions)}${query ? `?${query}` : ''}`,
       authAPIOptions,
       otherOptions,
       { method: 'GET' }
@@ -217,10 +305,15 @@ export const getReviewerAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     fetcher<ResponseData<TranslationMissionAPI>>(
-      `${BASE}/mission/${missionId}`,
+      buildRouteURL(
+        backendURL,
+        reviewerGroup,
+        reviewerEndpoints.getMissionById,
+        { missionId }
+      ),
       authAPIOptions,
       otherOptions,
-      { method: 'GET' }
+      { method: reviewerEndpoints.getMissionById.method }
     );
 
   const updateMissionStatus = (
@@ -229,10 +322,15 @@ export const getReviewerAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     fetcher<ResponseData<TranslationMissionAPI>>(
-      `${BASE}/mission/${missionId}/status`,
+      buildRouteURL(
+        backendURL,
+        reviewerGroup,
+        reviewerEndpoints.updateMissionStatus,
+        { missionId }
+      ),
       authAPIOptions,
       otherOptions,
-      { method: 'PUT', body }
+      { method: reviewerEndpoints.updateMissionStatus.method, body }
     );
 
   // ── Reviews ────────────────────────────────────────────────────────────────
@@ -243,10 +341,12 @@ export const getReviewerAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     fetcher<ResponseData<ReviewerReviewAPI>>(
-      `${BASE}/mission/${missionId}/review`,
+      buildRouteURL(backendURL, reviewerGroup, reviewerEndpoints.submitReview, {
+        missionId,
+      }),
       authAPIOptions,
       otherOptions,
-      { method: 'POST', body }
+      { method: reviewerEndpoints.submitReview.method, body }
     );
 
   // ── Chat ───────────────────────────────────────────────────────────────────
@@ -256,10 +356,15 @@ export const getReviewerAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     fetcher<ResponseData<ReviewerMessageAPI[]>>(
-      `${BASE}/mission/${missionId}/chat/history`,
+      buildRouteURL(
+        backendURL,
+        reviewerGroup,
+        reviewerEndpoints.getChatHistory,
+        { missionId }
+      ),
       authAPIOptions,
       otherOptions,
-      { method: 'GET' }
+      { method: reviewerEndpoints.getChatHistory.method }
     );
 
   const sendMessage = (
@@ -268,14 +373,18 @@ export const getReviewerAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     fetcher<ResponseData<ReviewerMessageAPI>>(
-      `${BASE}/mission/${missionId}/chat`,
+      buildRouteURL(backendURL, reviewerGroup, reviewerEndpoints.sendMessage, {
+        missionId,
+      }),
       authAPIOptions,
       otherOptions,
-      { method: 'POST', body }
+      { method: reviewerEndpoints.sendMessage.method, body }
     );
 
   const getChatStreamUrl = (missionId: string) =>
-    `${BASE}/mission/${missionId}/chat/stream`;
+    buildRouteURL(backendURL, reviewerGroup, reviewerEndpoints.chatSSE, {
+      missionId,
+    });
 
   // ── Picture uploads ────────────────────────────────────────────────────────
 
@@ -293,13 +402,20 @@ export const getReviewerAPI = (
     const authHeaders =
       (authAPIOptions.headers as Record<string, string> | undefined) ?? {};
 
-    const response = await fetch(`${BASE}/me/picture/${kind}`, {
-      method: 'POST',
-      credentials: 'include',
-      headers: { ...authHeaders, ...baseHeaders },
-      body: buffer,
-      signal: otherOptions.signal as AbortSignal | undefined,
-    });
+    const endpoint =
+      kind === 'main'
+        ? reviewerEndpoints.uploadMainPicture
+        : reviewerEndpoints.uploadCoverPicture;
+    const response = await fetch(
+      buildRouteURL(backendURL, reviewerGroup, endpoint),
+      {
+        method: endpoint.method,
+        credentials: 'include',
+        headers: { ...authHeaders, ...baseHeaders },
+        body: buffer,
+        signal: otherOptions.signal as AbortSignal | undefined,
+      }
+    );
 
     if (!response.ok) {
       const result = await response.json();
@@ -322,10 +438,15 @@ export const getReviewerAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     fetcher<ResponseData<ReviewerProfileAPI>>(
-      `${BASE}/${reviewerId}/validate`,
+      buildRouteURL(
+        backendURL,
+        reviewerGroup,
+        reviewerEndpoints.validateReviewerProfile,
+        { reviewerId }
+      ),
       authAPIOptions,
       otherOptions,
-      { method: 'PUT' }
+      { method: reviewerEndpoints.validateReviewerProfile.method }
     );
 
   const getAdminReviewers = (
@@ -340,7 +461,7 @@ export const getReviewerAPI = (
       )
     ).toString();
     return fetcher<PaginatedResponse<ReviewerProfileAPI>>(
-      `${BASE}/admin/reviewers${query ? `?${query}` : ''}`,
+      `${buildRouteURL(backendURL, reviewerGroup, reviewerEndpoints.getAdminReviewers)}${query ? `?${query}` : ''}`,
       authAPIOptions,
       otherOptions,
       { method: 'GET' }

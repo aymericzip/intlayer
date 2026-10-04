@@ -2,7 +2,7 @@ import type {
   GetProjectsResult,
   ProjectAPI,
   ProjectMemberGranularAccessAPI,
-} from '@intlayer/backend';
+} from '@intlayer/backend-contract/project';
 import {
   useGetProjects,
   useUpdateMemberAccess,
@@ -51,7 +51,7 @@ const ProjectAccessModal: FC<ProjectAccessModalProps> = ({
   const [restrictLocales, setRestrictLocales] = useState(
     existingAccess?.allowedLocales != null
   );
-  const [selectedLocales, setSelectedLocales] = useState<string[]>(
+  const [selectedLocales, setSelectedLocales] = useState<Locale[]>(
     existingAccess?.allowedLocales ?? []
   );
 
@@ -65,9 +65,9 @@ const ProjectAccessModal: FC<ProjectAccessModalProps> = ({
 
   const toggleLocale = (locale: string) => {
     setSelectedLocales((prev) =>
-      prev.includes(locale)
-        ? prev.filter((l) => l !== locale)
-        : [...prev, locale]
+      prev.some((selectedLocale) => selectedLocale === locale)
+        ? prev.filter((selectedLocale) => selectedLocale !== locale)
+        : [...prev, locale as Locale]
     );
   };
 

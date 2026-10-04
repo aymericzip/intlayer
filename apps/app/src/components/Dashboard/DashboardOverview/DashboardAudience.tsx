@@ -3,7 +3,7 @@ import type {
   AudienceRange,
   AudienceSeriesPoint,
   AudienceStats,
-} from '@intlayer/backend';
+} from '@intlayer/backend-contract/analytics';
 import {
   useGetAnalyticsAudience,
   useGetPageMetadata,

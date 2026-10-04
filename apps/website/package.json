@@ -53,6 +53,7 @@
     "@fontsource/geist-sans": "^5.3.0",
     "@intlayer/analytics": "workspace:*",
     "@intlayer/api": "workspace:*",
+    "@intlayer/backend-contract": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/design-system": "workspace:*",
@@ -66,7 +67,7 @@
     "@tanstack/react-query": "5.104.0",
     "@tanstack/react-router": "1.170.41",
     "@tanstack/react-start": "1.168.60",
-    "@tanstack/start-static-server-functions": "1.167.38",
+    "@tanstack/start-static-server-functions": "1.167.39",
     "chart.js": "4.5.1",
     "defu": "6.1.7",
     "framer-motion": "13.4.6",
@@ -106,14 +107,8 @@
     "vite-intlayer": "workspace:*",
     "workbox-build": "7.4.1"
   },
-  "peerDependencies": {
-    "@intlayer/backend": "workspace:*"
-  },
-  "peerDependenciesMeta": {
-    "@intlayer/backend": {
-      "optional": true
-    }
-  },
+  "peerDependencies": {},
+  "peerDependenciesMeta": {},
   "optionalDependencies": {
     "@react-spring/web": "10.1.2",
     "cobe": "2.0.1",

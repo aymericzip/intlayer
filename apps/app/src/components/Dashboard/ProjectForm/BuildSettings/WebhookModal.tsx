@@ -1,4 +1,4 @@
-import type { Webhook } from '@intlayer/backend';
+import type { Webhook } from '@intlayer/backend-contract/project';
 import { Button } from '@intlayer/design-system/button';
 import {
   Form,

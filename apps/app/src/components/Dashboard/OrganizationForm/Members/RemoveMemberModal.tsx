@@ -1,8 +1,8 @@
 import type {
   OrganizationAPI,
   UpdateOrganizationMembersBody,
-  UserAPI,
-} from '@intlayer/backend';
+} from '@intlayer/backend-contract/organization';
+import type { UserAPI } from '@intlayer/backend-contract/user';
 import {
   useGetUsers,
   useUpdateOrganizationMembers,

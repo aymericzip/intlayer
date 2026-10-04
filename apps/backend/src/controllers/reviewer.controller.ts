@@ -38,11 +38,17 @@ import type {
 const toProfileAPI = (
   doc: ReviewerProfileDocument,
   userInfo?: reviewerService.ReviewerUserInfo
-): ReviewerProfileAPI => ({
-  ...(doc.toJSON() as unknown as ReviewerProfileAPI),
-  name: userInfo?.name,
-  avatar: userInfo?.avatar,
-});
+): ReviewerProfileAPI => {
+  // The Stripe Connect account id is internal: never sent to clients
+  const { stripeAccountId: _stripeAccountId, ...profile } =
+    doc.toJSON() as unknown as ReviewerProfileAPI;
+
+  return {
+    ...profile,
+    name: userInfo?.name,
+    avatar: userInfo?.avatar,
+  };
+};
 
 /**
  * Maps reviewer profile documents to their API shape, resolving the public

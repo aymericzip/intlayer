@@ -1,4 +1,4 @@
-import type { RepositoryProvider } from '@intlayer/backend';
+import type { RepositoryProvider } from '@intlayer/backend-contract/project';
 import { usePushCIConfig } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
 import { useCopyToClipboard } from '@intlayer/design-system/copy-to-clipboard';

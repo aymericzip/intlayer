@@ -1,19 +1,36 @@
+import type { RouteEndpoints } from '@intlayer/backend-contract/defineRoute';
+import { buildRouteURL } from '@intlayer/backend-contract/defineRoute';
 import type {
   SearchDocUtilParams,
   SearchDocUtilResult,
-} from '@intlayer/backend';
+  SearchRoutes,
+  searchContract,
+} from '@intlayer/backend-contract/search';
 import { editor } from '@intlayer/config/built';
+import { BACKEND_URL } from '@intlayer/config/defaultValues';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { createEndpoint } from '../cms/createIntlayerCMS';
 import { type FetcherOptions, fetcher } from '../fetcher';
+
+/** Prefix of the routes, checked against the backend contract. */
+const searchGroup = {
+  prefix: '/api/search',
+} as const satisfies Pick<typeof searchContract, 'prefix'>;
+
+/**
+ * Method and path of every route, checked against the backend contract at
+ * compile time (the contract's zod schemas are never loaded).
+ */
+const searchEndpoints = {
+  doc: { method: 'GET', path: '/doc' },
+} as const satisfies RouteEndpoints<SearchRoutes>;
 
 export const getSearchAPI = (
   authAPIOptions: FetcherOptions = {},
   intlayerConfig?: IntlayerConfig
 ) => {
-  const backendURL = intlayerConfig?.editor?.backendURL ?? editor.backendURL;
-
-  const AI_API_ROUTE = `${backendURL}/api/search`;
+  const backendURL =
+    intlayerConfig?.editor?.backendURL ?? editor.backendURL ?? BACKEND_URL;
 
   /**
    * Search documentation
@@ -25,11 +42,11 @@ export const getSearchAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<SearchDocUtilResult>(
-      `${AI_API_ROUTE}/doc`,
+      buildRouteURL(backendURL, searchGroup, searchEndpoints.doc),
       authAPIOptions,
       otherOptions,
       {
-        method: 'GET',
+        method: searchEndpoints.doc.method,
         params: params,
       }
     );

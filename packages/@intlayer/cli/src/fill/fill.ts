@@ -1,5 +1,5 @@
 import { basename, join, relative } from 'node:path';
-import type { AIOptions } from '@intlayer/api';
+import type { AIOptions } from '@intlayer/ai';
 import * as ANSIColors from '@intlayer/config/colors';
 import {
   colorize,

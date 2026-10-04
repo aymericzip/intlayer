@@ -1,4 +1,5 @@
-import type { OrganizationAPI, UserAPI } from '@intlayer/backend';
+import type { OrganizationAPI } from '@intlayer/backend-contract/organization';
+import type { UserAPI } from '@intlayer/backend-contract/user';
 import { type Period, Plans } from '#components/PricingPage/data.content';
 import type { Register } from './RegisterStep/useRegisterSchema';
 import type { SetUpOrganization } from './SetUpOrganizationStep/useSetUpOrganizationSchema';

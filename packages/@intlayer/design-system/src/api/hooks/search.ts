@@ -1,6 +1,6 @@
 'use client';
 
-import type { SearchDocUtilParams } from '@intlayer/backend';
+import type { SearchDocUtilParams } from '@intlayer/backend-contract/search';
 import { useQuery } from '@tanstack/react-query';
 import { useSearchAPI } from '../useIntlayerAPI';
 

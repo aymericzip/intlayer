@@ -5,6 +5,7 @@ import {
   getBlogData,
   getPreviousNextBlogData,
 } from '~/components/BlogPage/blogData';
+import type { BlogNavMetadata, Section } from '~/components/BlogPage/types';
 import { urlRenamer } from '~/utils/markdown';
 
 export const loadBlogPage = createServerFn()
@@ -85,25 +86,25 @@ export const loadBlogNavData = createServerFn()
     const { getAuthor } = await import('@intlayer/docs');
     const blogData = getBlogData(locale);
 
-    const resolveAuthors = (data: any): any => {
-      const resolved: any = {};
-      for (const key of Object.keys(data)) {
-        const value = data[key];
+    /** Replaces every author handle of the tree with its profile. */
+    const resolveAuthors = (section: Section): Section<BlogNavMetadata> => {
+      const resolved: Section<BlogNavMetadata> = {};
+
+      for (const [key, value] of Object.entries(section)) {
         if (!value) continue;
 
-        resolved[key] = { ...value };
-        if (value.default) {
-          resolved[key].default = {
-            ...value.default,
-            author: value.default.author
-              ? getAuthor(value.default.author)
-              : undefined,
-          };
-        }
-        if (value.subSections) {
-          resolved[key].subSections = resolveAuthors(value.subSections);
-        }
+        const { default: metadata, subSections, ...rest } = value;
+
+        resolved[key] = {
+          ...rest,
+          default: metadata && {
+            ...metadata,
+            author: metadata.author ? getAuthor(metadata.author) : undefined,
+          },
+          subSections: subSections && resolveAuthors(subSections),
+        };
       }
+
       return resolved;
     };
 

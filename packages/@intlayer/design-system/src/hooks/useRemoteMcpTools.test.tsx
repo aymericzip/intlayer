@@ -65,7 +65,36 @@ describe('useRemoteMcpTools', () => {
     expect(getTools()).toEqual([]);
   });
 
-  it('bridges the Intlayer doc tools under camelCase names by default', async () => {
+  it('declares the Intlayer doc tools under camelCase names without discovery', async () => {
+    navigatorHost.modelContext = {
+      registerTool: vi.fn(),
+      unregisterTool: vi.fn(),
+    };
+    const fetchMock = vi.fn(async (_url: string | URL | Request) =>
+      jsonResponse({
+        jsonrpc: '2.0',
+        id: 1,
+        result: { content: [{ type: 'text', text: 'chunk' }] },
+      })
+    );
+
+    const { getTools } = renderHook({
+      fetch: fetchMock as unknown as typeof fetch,
+    });
+
+    expect(getTools().map((tool) => tool.name)).toEqual([
+      'fetchDocChunks',
+      'getDocBySlug',
+    ]);
+    expect(fetchMock).not.toHaveBeenCalled();
+
+    await expect(getTools()[0]?.execute({ query: 'routing' })).resolves.toBe(
+      'chunk'
+    );
+    expect(fetchMock.mock.calls[0]?.[0]).toBe(Mcp_Root);
+  });
+
+  it('discovers the tools of an overridden server', async () => {
     navigatorHost.modelContext = {
       registerTool: vi.fn(),
       unregisterTool: vi.fn(),
@@ -75,6 +104,7 @@ describe('useRemoteMcpTools', () => {
     );
 
     const { getTools } = renderHook({
+      serverUrl: 'https://mcp.example',
       fetch: fetchMock as unknown as typeof fetch,
     });
 
@@ -84,7 +114,7 @@ describe('useRemoteMcpTools', () => {
         'getDocBySlug',
       ])
     );
-    expect(fetchMock.mock.calls[0]?.[0]).toBe(Mcp_Root);
+    expect(fetchMock.mock.calls[0]?.[0]).toBe('https://mcp.example');
   });
 
   it('warns instead of throwing when the server is unreachable', async () => {

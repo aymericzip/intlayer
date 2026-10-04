@@ -1,4 +1,4 @@
-import type { UserAPI } from '@intlayer/backend';
+import type { UserAPI } from '@intlayer/backend-contract/user';
 import { Avatar } from '@intlayer/design-system/avatar';
 import { Badge } from '@intlayer/design-system/badge';
 import { Container } from '@intlayer/design-system/container';

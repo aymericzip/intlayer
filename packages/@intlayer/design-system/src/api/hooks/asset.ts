@@ -1,10 +1,9 @@
 'use client';
 
 import type {
-  AssetAPI,
   GetAssetByIdResult,
   GetAssetsResult,
-} from '@intlayer/backend';
+} from '@intlayer/backend-contract/asset';
 import {
   type UseQueryOptions,
   useMutation,

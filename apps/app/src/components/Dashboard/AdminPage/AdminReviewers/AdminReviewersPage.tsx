@@ -1,4 +1,4 @@
-import type { ReviewerProfileAPI } from '@intlayer/backend';
+import type { ReviewerProfileAPI } from '@intlayer/backend-contract/reviewer';
 import {
   useGetAdminReviewers,
   useValidateReviewerProfile,
@@ -31,8 +31,8 @@ export const AdminReviewersPage: FC = () => {
     useValidateReviewerProfile();
 
   const reviewers = data?.data ?? [];
-  const total = data?.totalItems ?? 0;
-  const totalPages = data?.totalPages ?? 1;
+  const total = data?.total_items ?? 0;
+  const totalPages = data?.total_pages ?? 1;
 
   return (
     <div className="flex flex-col gap-6 p-8">

@@ -5,7 +5,8 @@ import { type FC, useState } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
 
 type VisualEditorSectionProps = {
-  scrollProgress: number;
+  /** Section scroll progress; without it the page locale is shown. */
+  scrollProgress?: number;
 };
 
 /**
@@ -20,9 +21,11 @@ type VisualEditorSectionProps = {
  * @param availableLocales - The locales declared by the Intlayer config.
  */
 const getScrolledLocale = (
-  scrollProgress: number,
+  scrollProgress: number | undefined,
   availableLocales: readonly string[]
 ): string | undefined => {
+  if (scrollProgress === undefined) return undefined;
+
   const index = Math.floor(scrollProgress * availableLocales.length);
 
   return availableLocales[

@@ -178,7 +178,7 @@ const TabComponent = ({
   }
 
   const hasGroup = Boolean(group && typeof tabsValues === 'object');
-  const preferredTab = hasGroup ? tabsValues?.[group] : activeTab;
+  const preferredTab = hasGroup && group ? tabsValues?.[group] : activeTab;
   const isPreferredTabValid = tabItems.some(
     (tab) => tab.value === preferredTab
   );

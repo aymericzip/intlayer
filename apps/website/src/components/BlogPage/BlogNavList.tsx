@@ -5,10 +5,10 @@ import { OptionalLink } from '~/components/DocPage/DocNavList';
 import { useFrameworkFilter } from '~/components/DocPage/FrameworkFilter';
 import { NavDrawer } from '~/components/DocPage/NavDrawer';
 import { NavListContent } from '~/components/DocPage/NavListContent';
-import type { Section } from './types';
+import type { BlogNavMetadata, Section } from './types';
 
 type BlogNavListProps = {
-  blogData: Section;
+  blogData: Section<BlogNavMetadata>;
   activeSlugs: string[];
 };
 

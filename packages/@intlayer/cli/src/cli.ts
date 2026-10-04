@@ -1,6 +1,6 @@
 import { dirname as pathDirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import type { AIOptions as BaseAIOptions } from '@intlayer/api';
+import type { AIOptions as BaseAIOptions } from '@intlayer/ai';
 import { logger, setPrefix } from '@intlayer/config/logger';
 import {
   type GetConfigurationOptions,

@@ -22,6 +22,7 @@ import { Container } from '../Container';
 import { LocaleSwitcherContent } from '../LocaleSwitcherContentDropDown';
 import { Pagination } from '../Pagination';
 import { TextEditorContainer } from './ContentEditorView/TextEditor';
+import { formatDictionaryVariant } from './dictionaryVariant';
 import { getIsEditableSection } from './getIsEditableSection';
 import { KeyPathBreadcrumb } from './KeyPathBreadcrumb';
 import { NavigationViewNode } from './NavigationView/NavigationViewNode';
@@ -29,14 +30,6 @@ import { NavigationViewNode } from './NavigationView/NavigationViewNode';
 export type NodeEditorProps = {
   dictionary: Dictionary;
 };
-
-/** Render a variant (named string or structured object) for display. */
-const formatVariant = (
-  variant: string | Record<string, string | number> | undefined
-): string =>
-  variant !== null && typeof variant === 'object'
-    ? JSON.stringify(variant)
-    : (variant ?? '');
 
 export const NodeEditor: FC<NodeEditorProps> = ({ dictionary }) => {
   const { itemPagination, variantSwitcher } = useIntlayer('content-editor');
@@ -170,14 +163,14 @@ export const NodeEditor: FC<NodeEditorProps> = ({ dictionary }) => {
                         : 'cursor-pointer border border-border hover:bg-text/10'
                     }`}
                   >
-                    {formatVariant(sibling.variant)}
+                    {formatDictionaryVariant(sibling.variant)}
                   </button>
                 );
               })}
               {currentVariant !== undefined &&
                 !variantDicts.some((d) => d.localId === dictionary.localId) && (
                   <span className="rounded-lg bg-text px-3 py-1 font-semibold text-foreground-opposite text-xs">
-                    {formatVariant(currentVariant)}
+                    {formatDictionaryVariant(currentVariant)}
                   </span>
                 )}
             </div>

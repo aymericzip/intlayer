@@ -1,3 +1,5 @@
+import type { RouteEndpoints } from '@intlayer/backend-contract/defineRoute';
+import { buildRouteURL } from '@intlayer/backend-contract/defineRoute';
 import type {
   AcceptAffiliateInvitationResult,
   CreatePortalSessionResult,
@@ -25,23 +27,76 @@ import type {
   GrantAffiliateAccessResult,
   SendAffiliateInvitationBody,
   SendAffiliateInvitationResult,
+  StripeRoutes,
+  stripeContract,
   UpdateAffiliateStatusBody,
   UpdateAffiliateStatusResult,
   UpdatePromoCodeBody,
   UpdatePromoCodeResult,
-} from '@intlayer/backend';
+} from '@intlayer/backend-contract/stripe';
 import { editor } from '@intlayer/config/built';
+import { BACKEND_URL } from '@intlayer/config/defaultValues';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { createEndpoint } from '../cms/createIntlayerCMS';
 import { type FetcherOptions, fetcher } from '../fetcher';
+
+/** Prefix of the routes, checked against the backend contract. */
+const stripeGroup = {
+  prefix: '/api/stripe',
+} as const satisfies Pick<typeof stripeContract, 'prefix'>;
+
+/**
+ * Method and path of every route, checked against the backend contract at
+ * compile time (the contract's zod schemas are never loaded).
+ */
+const stripeEndpoints = {
+  getPricing: { method: 'POST', path: '/pricing' },
+  createSubscription: { method: 'POST', path: '/create-subscription' },
+  cancelSubscription: { method: 'POST', path: '/cancel-subscription' },
+  getInvoices: { method: 'GET', path: '/invoices' },
+  getPaymentMethod: { method: 'GET', path: '/payment-method' },
+  createPortalSession: { method: 'POST', path: '/portal-session' },
+  grantAffiliateAccess: { method: 'POST', path: '/affiliate/grant' },
+  getAffiliates: { method: 'GET', path: '/affiliates' },
+  getAffiliateById: { method: 'GET', path: '/affiliates/:id' },
+  getAffiliate: { method: 'GET', path: '/affiliate' },
+  getAffiliateAccountSession: {
+    method: 'POST',
+    path: '/affiliate/account-session',
+  },
+  getAffiliateOnboardingLink: {
+    method: 'GET',
+    path: '/affiliate/onboarding-link',
+  },
+  getAffiliateStats: { method: 'GET', path: '/affiliate/stats' },
+  getAffiliateInvitations: { method: 'GET', path: '/affiliate/invitations' },
+  sendAffiliateInvitation: { method: 'POST', path: '/affiliate/invite' },
+  getAffiliateInvitation: {
+    method: 'GET',
+    path: '/affiliate/invitation/:token',
+  },
+  acceptAffiliateInvitation: {
+    method: 'POST',
+    path: '/affiliate/invitation/:token/accept',
+  },
+  updateAffiliateStatus: { method: 'PATCH', path: '/affiliates/:id/status' },
+  getPromoCodes: { method: 'GET', path: '/promo-codes' },
+  getPromoCodeById: { method: 'GET', path: '/promo-codes/:id' },
+  createPromoCode: { method: 'POST', path: '/promo-codes' },
+  updatePromoCode: { method: 'PATCH', path: '/promo-codes/:id' },
+  deletePromoCode: { method: 'DELETE', path: '/promo-codes/:id' },
+  getAffiliatePromoCode: {
+    method: 'GET',
+    path: '/affiliate-promo-code/:referralCode',
+  },
+} as const satisfies RouteEndpoints<StripeRoutes>;
 
 export const getStripeAPI = (
   authAPIOptions: FetcherOptions = {},
   intlayerConfig?: IntlayerConfig
 ) => {
-  const backendURL = intlayerConfig?.editor?.backendURL ?? editor.backendURL;
-
-  const STRIPE_API_ROUTE = `${backendURL}/api/stripe`;
+  const backendURL =
+    intlayerConfig?.editor?.backendURL ?? editor.backendURL ?? BACKEND_URL;
 
   /**
    * Get a pricing plan calculated for a given promotion code.
@@ -52,11 +107,11 @@ export const getStripeAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<GetPricingResult>(
-      `${STRIPE_API_ROUTE}/pricing`,
+      buildRouteURL(backendURL, stripeGroup, stripeEndpoints.getPricing),
       authAPIOptions,
       otherOptions,
       {
-        method: 'POST',
+        method: stripeEndpoints.getPricing.method,
         body,
       }
     );
@@ -70,11 +125,15 @@ export const getStripeAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<GetCheckoutSessionResult>(
-      `${STRIPE_API_ROUTE}/create-subscription`,
+      buildRouteURL(
+        backendURL,
+        stripeGroup,
+        stripeEndpoints.createSubscription
+      ),
       authAPIOptions,
       otherOptions,
       {
-        method: 'POST',
+        method: stripeEndpoints.createSubscription.method,
         body,
       }
     );
@@ -85,11 +144,15 @@ export const getStripeAPI = (
    */
   const cancelSubscription = async (otherOptions: FetcherOptions = {}) =>
     await fetcher<GetCheckoutSessionResult>(
-      `${STRIPE_API_ROUTE}/cancel-subscription`,
+      buildRouteURL(
+        backendURL,
+        stripeGroup,
+        stripeEndpoints.cancelSubscription
+      ),
       authAPIOptions,
       otherOptions,
       {
-        method: 'POST',
+        method: stripeEndpoints.cancelSubscription.method,
       }
     );
 
@@ -98,10 +161,10 @@ export const getStripeAPI = (
    */
   const getInvoices = async (otherOptions: FetcherOptions = {}) =>
     await fetcher<GetInvoicesResult>(
-      `${STRIPE_API_ROUTE}/invoices`,
+      buildRouteURL(backendURL, stripeGroup, stripeEndpoints.getInvoices),
       authAPIOptions,
       otherOptions,
-      { method: 'GET' }
+      { method: stripeEndpoints.getInvoices.method }
     );
 
   /**
@@ -110,10 +173,10 @@ export const getStripeAPI = (
    */
   const getPaymentMethod = async (otherOptions: FetcherOptions = {}) =>
     await fetcher<GetPaymentMethodResult>(
-      `${STRIPE_API_ROUTE}/payment-method`,
+      buildRouteURL(backendURL, stripeGroup, stripeEndpoints.getPaymentMethod),
       authAPIOptions,
       otherOptions,
-      { method: 'GET' }
+      { method: stripeEndpoints.getPaymentMethod.method }
     );
 
   /**
@@ -121,10 +184,14 @@ export const getStripeAPI = (
    */
   const createPortalSession = async (otherOptions: FetcherOptions = {}) =>
     await fetcher<CreatePortalSessionResult>(
-      `${STRIPE_API_ROUTE}/portal-session`,
+      buildRouteURL(
+        backendURL,
+        stripeGroup,
+        stripeEndpoints.createPortalSession
+      ),
       authAPIOptions,
       otherOptions,
-      { method: 'POST' }
+      { method: stripeEndpoints.createPortalSession.method }
     );
 
   /**
@@ -135,10 +202,14 @@ export const getStripeAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<GrantAffiliateAccessResult>(
-      `${STRIPE_API_ROUTE}/affiliate/grant`,
+      buildRouteURL(
+        backendURL,
+        stripeGroup,
+        stripeEndpoints.grantAffiliateAccess
+      ),
       authAPIOptions,
       otherOptions,
-      { method: 'POST', body }
+      { method: stripeEndpoints.grantAffiliateAccess.method, body }
     );
 
   /**
@@ -149,10 +220,13 @@ export const getStripeAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<GetAffiliatesResult>(
-      `${STRIPE_API_ROUTE}/affiliates`,
+      buildRouteURL(backendURL, stripeGroup, stripeEndpoints.getAffiliates),
       authAPIOptions,
       otherOptions,
-      { method: 'GET', params: params as Record<string, string> }
+      {
+        method: stripeEndpoints.getAffiliates.method,
+        params: params as Record<string, string>,
+      }
     );
 
   /**
@@ -163,10 +237,12 @@ export const getStripeAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<GetAffiliateByIdResult>(
-      `${STRIPE_API_ROUTE}/affiliates/${id}`,
+      buildRouteURL(backendURL, stripeGroup, stripeEndpoints.getAffiliateById, {
+        id,
+      }),
       authAPIOptions,
       otherOptions,
-      { method: 'GET' }
+      { method: stripeEndpoints.getAffiliateById.method }
     );
 
   /**
@@ -174,10 +250,10 @@ export const getStripeAPI = (
    */
   const getAffiliate = async (otherOptions: FetcherOptions = {}) =>
     await fetcher<GetAffiliateResult>(
-      `${STRIPE_API_ROUTE}/affiliate`,
+      buildRouteURL(backendURL, stripeGroup, stripeEndpoints.getAffiliate),
       authAPIOptions,
       otherOptions,
-      { method: 'GET' }
+      { method: stripeEndpoints.getAffiliate.method }
     );
 
   /**
@@ -187,10 +263,14 @@ export const getStripeAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<GetAffiliateAccountSessionResult>(
-      `${STRIPE_API_ROUTE}/affiliate/account-session`,
+      buildRouteURL(
+        backendURL,
+        stripeGroup,
+        stripeEndpoints.getAffiliateAccountSession
+      ),
       authAPIOptions,
       otherOptions,
-      { method: 'POST' }
+      { method: stripeEndpoints.getAffiliateAccountSession.method }
     );
 
   /**
@@ -201,10 +281,14 @@ export const getStripeAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<GetAffiliateOnboardingLinkResult>(
-      `${STRIPE_API_ROUTE}/affiliate/onboarding-link`,
+      buildRouteURL(
+        backendURL,
+        stripeGroup,
+        stripeEndpoints.getAffiliateOnboardingLink
+      ),
       authAPIOptions,
       otherOptions,
-      { method: 'GET', params }
+      { method: stripeEndpoints.getAffiliateOnboardingLink.method, params }
     );
 
   /**
@@ -212,10 +296,10 @@ export const getStripeAPI = (
    */
   const getAffiliateStats = async (otherOptions: FetcherOptions = {}) =>
     await fetcher<GetAffiliateStatsResult>(
-      `${STRIPE_API_ROUTE}/affiliate/stats`,
+      buildRouteURL(backendURL, stripeGroup, stripeEndpoints.getAffiliateStats),
       authAPIOptions,
       otherOptions,
-      { method: 'GET' }
+      { method: stripeEndpoints.getAffiliateStats.method }
     );
 
   /**
@@ -231,7 +315,7 @@ export const getStripeAPI = (
     if (params.search) qs.set('search', params.search);
     const query = qs.toString() ? `?${qs.toString()}` : '';
     return await fetcher<GetAffiliateInvitationsResult>(
-      `${STRIPE_API_ROUTE}/affiliate/invitations${query}`,
+      `${buildRouteURL(backendURL, stripeGroup, stripeEndpoints.getAffiliateInvitations)}${query}`,
       authAPIOptions,
       otherOptions,
       { method: 'GET' }
@@ -246,10 +330,14 @@ export const getStripeAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<SendAffiliateInvitationResult>(
-      `${STRIPE_API_ROUTE}/affiliate/invite`,
+      buildRouteURL(
+        backendURL,
+        stripeGroup,
+        stripeEndpoints.sendAffiliateInvitation
+      ),
       authAPIOptions,
       otherOptions,
-      { method: 'POST', body }
+      { method: stripeEndpoints.sendAffiliateInvitation.method, body }
     );
 
   /**
@@ -260,10 +348,15 @@ export const getStripeAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<GetAffiliateInvitationResult>(
-      `${STRIPE_API_ROUTE}/affiliate/invitation/${token}`,
+      buildRouteURL(
+        backendURL,
+        stripeGroup,
+        stripeEndpoints.getAffiliateInvitation,
+        { token }
+      ),
       authAPIOptions,
       otherOptions,
-      { method: 'GET' }
+      { method: stripeEndpoints.getAffiliateInvitation.method }
     );
 
   /**
@@ -275,10 +368,15 @@ export const getStripeAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<UpdateAffiliateStatusResult>(
-      `${STRIPE_API_ROUTE}/affiliates/${id}/status`,
+      buildRouteURL(
+        backendURL,
+        stripeGroup,
+        stripeEndpoints.updateAffiliateStatus,
+        { id }
+      ),
       authAPIOptions,
       otherOptions,
-      { method: 'PATCH', body }
+      { method: stripeEndpoints.updateAffiliateStatus.method, body }
     );
 
   /**
@@ -297,10 +395,18 @@ export const getStripeAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<AcceptAffiliateInvitationResult>(
-      `${STRIPE_API_ROUTE}/affiliate/invitation/${token}/accept`,
+      buildRouteURL(
+        backendURL,
+        stripeGroup,
+        stripeEndpoints.acceptAffiliateInvitation,
+        { token }
+      ),
       authAPIOptions,
       otherOptions,
-      { method: 'POST', body: { country, stripeAccountType } }
+      {
+        method: stripeEndpoints.acceptAffiliateInvitation.method,
+        body: { country, stripeAccountType },
+      }
     );
 
   /**
@@ -311,10 +417,12 @@ export const getStripeAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<GetPromoCodeByIdResult>(
-      `${STRIPE_API_ROUTE}/promo-codes/${id}`,
+      buildRouteURL(backendURL, stripeGroup, stripeEndpoints.getPromoCodeById, {
+        id,
+      }),
       authAPIOptions,
       otherOptions,
-      { method: 'GET' }
+      { method: stripeEndpoints.getPromoCodeById.method }
     );
 
   const getPromoCodes = async (
@@ -325,7 +433,7 @@ export const getStripeAPI = (
       ? `?affiliateId=${encodeURIComponent(params.affiliateId)}`
       : '';
     return await fetcher<GetPromoCodesResult>(
-      `${STRIPE_API_ROUTE}/promo-codes${qs}`,
+      `${buildRouteURL(backendURL, stripeGroup, stripeEndpoints.getPromoCodes)}${qs}`,
       authAPIOptions,
       otherOptions,
       { method: 'GET' }
@@ -340,10 +448,10 @@ export const getStripeAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<CreatePromoCodeResult>(
-      `${STRIPE_API_ROUTE}/promo-codes`,
+      buildRouteURL(backendURL, stripeGroup, stripeEndpoints.createPromoCode),
       authAPIOptions,
       otherOptions,
-      { method: 'POST', body }
+      { method: stripeEndpoints.createPromoCode.method, body }
     );
 
   /**
@@ -354,10 +462,12 @@ export const getStripeAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<UpdatePromoCodeResult>(
-      `${STRIPE_API_ROUTE}/promo-codes/${id}`,
+      buildRouteURL(backendURL, stripeGroup, stripeEndpoints.updatePromoCode, {
+        id,
+      }),
       authAPIOptions,
       otherOptions,
-      { method: 'PATCH', body }
+      { method: stripeEndpoints.updatePromoCode.method, body }
     );
 
   /**
@@ -368,10 +478,12 @@ export const getStripeAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<DeletePromoCodeResult>(
-      `${STRIPE_API_ROUTE}/promo-codes/${id}`,
+      buildRouteURL(backendURL, stripeGroup, stripeEndpoints.deletePromoCode, {
+        id,
+      }),
       authAPIOptions,
       otherOptions,
-      { method: 'DELETE' }
+      { method: stripeEndpoints.deletePromoCode.method }
     );
 
   /**
@@ -382,10 +494,15 @@ export const getStripeAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<any>(
-      `${STRIPE_API_ROUTE}/affiliate-promo-code/${referralCode}`,
+      buildRouteURL(
+        backendURL,
+        stripeGroup,
+        stripeEndpoints.getAffiliatePromoCode,
+        { referralCode }
+      ),
       authAPIOptions,
       otherOptions,
-      { method: 'GET' }
+      { method: stripeEndpoints.getAffiliatePromoCode.method }
     );
 
   return {

@@ -1,5 +1,7 @@
 import type {
+  AnalyticsRoutes,
   AudienceRange,
+  analyticsContract,
   GetAnalyticsOverviewResult,
   GetAudienceResult,
   GetContentStatsResult,
@@ -7,19 +9,39 @@ import type {
   GetPageMetadataResult,
   IngestAnalyticsBody,
   IngestAnalyticsResult,
-} from '@intlayer/backend';
+} from '@intlayer/backend-contract/analytics';
+import type { RouteEndpoints } from '@intlayer/backend-contract/defineRoute';
+import { buildRouteURL } from '@intlayer/backend-contract/defineRoute';
 import { editor } from '@intlayer/config/built';
+import { BACKEND_URL } from '@intlayer/config/defaultValues';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { createEndpoint } from '../cms/createIntlayerCMS';
 import { type FetcherOptions, fetcher } from '../fetcher';
+
+/** Prefix of the routes, checked against the backend contract. */
+const analyticsGroup = {
+  prefix: '/api/analytics',
+} as const satisfies Pick<typeof analyticsContract, 'prefix'>;
+
+/**
+ * Method and path of every route, checked against the backend contract at
+ * compile time (the contract's zod schemas are never loaded).
+ */
+const analyticsEndpoints = {
+  ingestAnalyticsEvents: { method: 'POST', path: '/events' },
+  getAnalyticsOverview: { method: 'GET', path: '/overview' },
+  getAnalyticsAudience: { method: 'GET', path: '/audience' },
+  getContentStats: { method: 'GET', path: '/content-stats' },
+  getExperimentResults: { method: 'GET', path: '/experiments/:experimentKey' },
+  getPageMetadata: { method: 'GET', path: '/page-metadata' },
+} as const satisfies RouteEndpoints<AnalyticsRoutes>;
 
 export const getAnalyticsAPI = (
   authAPIOptions: FetcherOptions = {},
   intlayerConfig?: IntlayerConfig
 ) => {
-  const backendURL = intlayerConfig?.editor?.backendURL ?? editor.backendURL;
-
-  const ANALYTICS_API_ROUTE = `${backendURL}/api/analytics`;
+  const backendURL =
+    intlayerConfig?.editor?.backendURL ?? editor.backendURL ?? BACKEND_URL;
 
   /**
    * Ingest a batch of analytics events. Public — attribution is by the
@@ -32,11 +54,15 @@ export const getAnalyticsAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<IngestAnalyticsResult>(
-      `${ANALYTICS_API_ROUTE}/events`,
+      buildRouteURL(
+        backendURL,
+        analyticsGroup,
+        analyticsEndpoints.ingestAnalyticsEvents
+      ),
       authAPIOptions,
       otherOptions,
       {
-        method: 'POST',
+        method: analyticsEndpoints.ingestAnalyticsEvents.method,
         body,
       }
     );
@@ -47,10 +73,14 @@ export const getAnalyticsAPI = (
    */
   const getOverview = async (otherOptions: FetcherOptions = {}) =>
     await fetcher<GetAnalyticsOverviewResult>(
-      `${ANALYTICS_API_ROUTE}/overview`,
+      buildRouteURL(
+        backendURL,
+        analyticsGroup,
+        analyticsEndpoints.getAnalyticsOverview
+      ),
       authAPIOptions,
       otherOptions,
-      { method: 'GET' }
+      { method: analyticsEndpoints.getAnalyticsOverview.method }
     );
 
   /**
@@ -65,11 +95,15 @@ export const getAnalyticsAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<GetAudienceResult>(
-      `${ANALYTICS_API_ROUTE}/audience`,
+      buildRouteURL(
+        backendURL,
+        analyticsGroup,
+        analyticsEndpoints.getAnalyticsAudience
+      ),
       authAPIOptions,
       otherOptions,
       {
-        method: 'GET',
+        method: analyticsEndpoints.getAnalyticsAudience.method,
         params: typeof range === 'number' ? { days: String(range) } : { range },
       }
     );
@@ -80,10 +114,14 @@ export const getAnalyticsAPI = (
    */
   const getContentStats = async (otherOptions: FetcherOptions = {}) =>
     await fetcher<GetContentStatsResult>(
-      `${ANALYTICS_API_ROUTE}/content-stats`,
+      buildRouteURL(
+        backendURL,
+        analyticsGroup,
+        analyticsEndpoints.getContentStats
+      ),
       authAPIOptions,
       otherOptions,
-      { method: 'GET' }
+      { method: analyticsEndpoints.getContentStats.method }
     );
 
   /**
@@ -96,10 +134,15 @@ export const getAnalyticsAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<GetExperimentResultsResult>(
-      `${ANALYTICS_API_ROUTE}/experiments/${experimentKey}`,
+      buildRouteURL(
+        backendURL,
+        analyticsGroup,
+        analyticsEndpoints.getExperimentResults,
+        { experimentKey }
+      ),
       authAPIOptions,
       otherOptions,
-      { method: 'GET' }
+      { method: analyticsEndpoints.getExperimentResults.method }
     );
 
   /**
@@ -112,11 +155,15 @@ export const getAnalyticsAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<GetPageMetadataResult>(
-      `${ANALYTICS_API_ROUTE}/page-metadata`,
+      buildRouteURL(
+        backendURL,
+        analyticsGroup,
+        analyticsEndpoints.getPageMetadata
+      ),
       authAPIOptions,
       otherOptions,
       {
-        method: 'GET',
+        method: analyticsEndpoints.getPageMetadata.method,
         params: { url },
       }
     );

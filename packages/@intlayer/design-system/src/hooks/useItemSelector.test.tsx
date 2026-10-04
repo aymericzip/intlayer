@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import { type FC, useRef } from 'react';
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 import { useItemSelector } from './useItemSelector';
@@ -28,10 +28,14 @@ class MutationObserverMock extends ObserverMock {
   }
 }
 
+/** Callbacks of the resize observers created, to deliver notifications by hand. */
+const resizeCallbacks: ResizeObserverCallback[] = [];
+
 class ResizeObserverMock extends ObserverMock {
-  constructor() {
+  constructor(callback: ResizeObserverCallback) {
     super();
     counters.resizeObservers += 1;
+    resizeCallbacks.push(callback);
   }
 }
 
@@ -47,7 +51,7 @@ const InlineSelectorList: FC<{ optionCount: number; renderTick: number }> = ({
 }) => {
   const optionsRefs = useRef<HTMLElement[]>([]);
 
-  useItemSelector(optionsRefs, {
+  const { choiceIndicatorPosition } = useItemSelector(optionsRefs, {
     selector: (option) => option.getAttribute('data-indicator') === 'true',
     isHoverable: false,
     orientation: 'horizontal',
@@ -57,6 +61,9 @@ const InlineSelectorList: FC<{ optionCount: number; renderTick: number }> = ({
 
   return (
     <div>
+      <output data-testid="indicator">
+        {JSON.stringify(choiceIndicatorPosition)}
+      </output>
       {optionIds.map((optionId, index) => (
         <button
           data-indicator={index === 0}
@@ -78,6 +85,7 @@ describe('useItemSelector', () => {
     counters.mutationObservers = 0;
     counters.resizeObservers = 0;
     counters.observedTargets = 0;
+    resizeCallbacks.length = 0;
 
     vi.stubGlobal('MutationObserver', MutationObserverMock);
     vi.stubGlobal('ResizeObserver', ResizeObserverMock);
@@ -131,5 +139,26 @@ describe('useItemSelector', () => {
 
     expect(counters.mutationObservers).toBe(1);
     expect(counters.resizeObservers).toBe(1);
+  });
+
+  test('measures from the resize observer instead of a frame read at mount', () => {
+    const requestAnimationFrameSpy = vi.fn();
+    vi.stubGlobal('requestAnimationFrame', requestAnimationFrameSpy);
+
+    const { rerender } = render(
+      <InlineSelectorList optionCount={3} renderTick={0} />
+    );
+    rerender(<InlineSelectorList optionCount={3} renderTick={1} />);
+
+    expect(requestAnimationFrameSpy).not.toHaveBeenCalled();
+    expect(screen.getByTestId('indicator').textContent).toBe('null');
+
+    act(() => {
+      resizeCallbacks.at(-1)?.([], {} as ResizeObserver);
+    });
+
+    expect(
+      JSON.parse(screen.getByTestId('indicator').textContent ?? '')
+    ).toEqual({ left: 0, width: 0, opacity: 1 });
   });
 });

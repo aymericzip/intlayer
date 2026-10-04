@@ -1,11 +1,20 @@
 import type { Editor, Range } from '@tiptap/core';
 import { Extension } from '@tiptap/core';
 import { ReactRenderer } from '@tiptap/react';
-import Suggestion, { type SuggestionOptions } from '@tiptap/suggestion';
+import Suggestion, {
+  type SuggestionKeyDownProps,
+  type SuggestionOptions,
+  type SuggestionProps,
+} from '@tiptap/suggestion';
 import type { ReactNode, RefObject } from 'react';
 import { EditorCommandOut } from '../components/editor-command';
 
-const Command = Extension.create({
+type SlashCommandOptions = {
+  /** Suggestion settings; the editor is injected by the extension. */
+  suggestion: Omit<SuggestionOptions, 'editor'>;
+};
+
+const Command = Extension.create<SlashCommandOptions>({
   name: 'slash-command',
   addOptions() {
     return {
@@ -14,7 +23,7 @@ const Command = Extension.create({
         command: ({ editor, range, props }) => {
           props.command({ editor, range });
         },
-      } as SuggestionOptions,
+      },
     };
   },
   addProseMirrorPlugins() {
@@ -107,7 +116,7 @@ const renderItems = (elementRef?: RefObject<HTMLElement> | null) => {
   let popup: SuggestionPopup | null = null;
 
   return {
-    onStart: (props: { editor: Editor; clientRect: ClientRectGetter }) => {
+    onStart: (props: SuggestionProps) => {
       component = new ReactRenderer(EditorCommandOut, {
         props,
         editor: props.editor,
@@ -118,9 +127,7 @@ const renderItems = (elementRef?: RefObject<HTMLElement> | null) => {
       const parentNode = selection.$from.node(selection.$from.depth);
       const blockType = parentNode.type.name;
 
-      if (blockType === 'codeBlock') {
-        return false;
-      }
+      if (blockType === 'codeBlock') return;
 
       popup = createSuggestionPopup(
         component.element as HTMLElement,
@@ -128,13 +135,13 @@ const renderItems = (elementRef?: RefObject<HTMLElement> | null) => {
         elementRef?.current ?? document.body
       );
     },
-    onUpdate: (props: { editor: Editor; clientRect: ClientRectGetter }) => {
+    onUpdate: (props: SuggestionProps) => {
       component?.updateProps(props);
 
       popup?.setReferenceClientRect(props.clientRect);
     },
 
-    onKeyDown: (props: { event: KeyboardEvent }) => {
+    onKeyDown: (props: SuggestionKeyDownProps): boolean => {
       if (props.event.key === 'Escape') {
         popup?.hide();
 

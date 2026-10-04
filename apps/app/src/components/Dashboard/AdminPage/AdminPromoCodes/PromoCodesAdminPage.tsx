@@ -1,4 +1,4 @@
-import type { PromoCodeAPI } from '@intlayer/backend';
+import type { PromoCodeAPI } from '@intlayer/backend-contract/stripe';
 import {
   useDeletePromoCode,
   useGetPromoCodes,

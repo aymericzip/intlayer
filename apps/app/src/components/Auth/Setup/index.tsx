@@ -1,4 +1,4 @@
-import type { UserAPI } from '@intlayer/backend';
+import type { UserAPI } from '@intlayer/backend-contract/user';
 import { useRegister } from '@intlayer/design-system/api';
 import { usePersistedStore } from '@intlayer/design-system/hooks';
 import { App_Auth_SignIn_Path } from '@intlayer/design-system/routes';
@@ -35,10 +35,9 @@ export const SetupForm: FC = () => {
         name: email.split('@')[0],
         email,
         password,
-        redirect: false,
       },
       {
-        onSuccess: (response: any) => {
+        onSuccess: (response) => {
           if (response?.data?.user) {
             setUser(response.data.user);
           }

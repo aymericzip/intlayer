@@ -1,7 +1,7 @@
-import type { PlanAPI } from '@intlayer/backend';
+import type { PlanAPI } from '@intlayer/backend-contract/organization';
 import { useCancelSubscription, useSession } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
-import { Form, FormButton } from '@intlayer/design-system/form';
+import { FormButton } from '@intlayer/design-system/form';
 import { H3 } from '@intlayer/design-system/headers';
 import { Modal } from '@intlayer/design-system/modal';
 import { App_Pricing_Path } from '@intlayer/design-system/routes';

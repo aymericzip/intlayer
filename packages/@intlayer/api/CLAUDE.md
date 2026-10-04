@@ -37,11 +37,12 @@ src/
 - `backendURL` resolved from `intlayerConfig?.editor?.backendURL` with fallback — never hardcode.
 - All functions call `fetcher<ReturnType>(url, options)` from `../fetcher`.
 - Request body → `body: Record<string, unknown>`. Query params → `params: Record<string, string | string[] | undefined>`.
-- Return types match backend `ResponseData<T>` / `PaginatedResponse<T>` from `@intlayer/backend`.
+- Request/response types come from `@intlayer/backend-contract` subpaths (`/responseData` for `ResponseData<T>` / `PaginatedResponse<T>`, `/<domain>` for every DTO). The package has no barrel.
+- Every domain builds its URLs with `buildRouteURL` from a `RouteEndpoints` table checked with `satisfies` — tsc fails on any method/path drift. Runtime-import only `@intlayer/backend-contract/defineRoute` (zod-free).
 
 ## Adding new endpoint
 
-1. Add function in `src/getIntlayerAPI/<domain>.ts`.
-2. Import + expose return type from `@intlayer/backend` (exported from `apps/backend/src/export.ts`).
+1. Declare the route in `@intlayer/backend-contract` (see `apps/backend/CLAUDE.md`).
+2. Add the function in `src/getIntlayerAPI/<domain>.ts`, using the domain's `RouteEndpoints` table + `buildRouteURL`.
 3. Re-export from `src/index.ts` if consumers need direct access.
 4. Add TanStack Query hook in `@intlayer/design-system/src/api/hooks/<domain>.ts`.

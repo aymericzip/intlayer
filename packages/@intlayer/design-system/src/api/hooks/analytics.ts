@@ -1,9 +1,8 @@
 'use client';
 
-import type { AudienceRange } from '@intlayer/backend';
-import type { UseQueryOptions } from '@tanstack/react-query';
+import type { AudienceRange } from '@intlayer/backend-contract/analytics';
 import { useAnalyticsAPI } from '../useIntlayerAPI';
-import { useAppQuery } from './utils';
+import { type AppQueryOptions, useAppQuery } from './utils';
 
 /**
  * Fetches the audience report for the active project: distinct visitors
@@ -16,7 +15,7 @@ import { useAppQuery } from './utils';
  */
 export const useGetAnalyticsAudience = (
   range: AudienceRange | number = 30,
-  options?: Partial<UseQueryOptions>
+  options?: AppQueryOptions
 ) => {
   const analyticsAPI = useAnalyticsAPI();
 
@@ -35,7 +34,7 @@ export const useGetAnalyticsAudience = (
  *
  * @param options - Extra react-query options.
  */
-export const useGetContentStats = (options?: Partial<UseQueryOptions>) => {
+export const useGetContentStats = (options?: AppQueryOptions) => {
   const analyticsAPI = useAnalyticsAPI();
 
   return useAppQuery({
@@ -56,7 +55,7 @@ export const useGetContentStats = (options?: Partial<UseQueryOptions>) => {
  */
 export const useGetExperimentResults = (
   experimentKey: string,
-  options?: Partial<UseQueryOptions>
+  options?: AppQueryOptions
 ) => {
   const analyticsAPI = useAnalyticsAPI();
 
@@ -79,10 +78,7 @@ export const useGetExperimentResults = (
  * @param url - The page URL or pathname.
  * @param options - Extra react-query options.
  */
-export const useGetPageMetadata = (
-  url: string,
-  options?: Partial<UseQueryOptions>
-) => {
+export const useGetPageMetadata = (url: string, options?: AppQueryOptions) => {
   const analyticsAPI = useAnalyticsAPI();
 
   return useAppQuery({

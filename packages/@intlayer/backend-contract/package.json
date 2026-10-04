@@ -1,0 +1,302 @@
+{
+  "name": "@intlayer/backend-contract",
+  "version": "9.6.0",
+  "private": false,
+  "description": "Shared REST contract (routes + zod schemas) between the Intlayer backend, its typed client and the OpenAPI documentation.",
+  "keywords": [
+    "intlayer",
+    "api",
+    "contract",
+    "openapi",
+    "zod"
+  ],
+  "homepage": "https://intlayer.org",
+  "bugs": {
+    "url": "https://github.com/aymericzip/intlayer/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aymericzip/intlayer.git"
+  },
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Aymeric PINEAU",
+    "url": "https://github.com/aymericzip"
+  },
+  "contributors": [
+    {
+      "name": "Aymeric Pineau",
+      "email": "ay.pineau@gmail.com",
+      "url": "https://github.com/aymericzip"
+    }
+  ],
+  "sideEffects": false,
+  "exports": {
+    "./ai": {
+      "types": "./dist/types/ai.d.ts",
+      "require": "./dist/cjs/ai.cjs",
+      "import": "./dist/esm/ai.mjs"
+    },
+    "./analytics": {
+      "types": "./dist/types/analytics.d.ts",
+      "require": "./dist/cjs/analytics.cjs",
+      "import": "./dist/esm/analytics.mjs"
+    },
+    "./asset": {
+      "types": "./dist/types/asset.d.ts",
+      "require": "./dist/cjs/asset.cjs",
+      "import": "./dist/esm/asset.mjs"
+    },
+    "./blogComment": {
+      "types": "./dist/types/blogComment.d.ts",
+      "require": "./dist/cjs/blogComment.cjs",
+      "import": "./dist/esm/blogComment.mjs"
+    },
+    "./cliSessionToken": {
+      "types": "./dist/types/cliSessionToken.d.ts",
+      "require": "./dist/cjs/cliSessionToken.cjs",
+      "import": "./dist/esm/cliSessionToken.mjs"
+    },
+    "./common": {
+      "types": "./dist/types/common.d.ts",
+      "require": "./dist/cjs/common.cjs",
+      "import": "./dist/esm/common.mjs"
+    },
+    "./defineRoute": {
+      "types": "./dist/types/defineRoute.d.ts",
+      "require": "./dist/cjs/defineRoute.cjs",
+      "import": "./dist/esm/defineRoute.mjs"
+    },
+    "./demo": {
+      "types": "./dist/types/demo.d.ts",
+      "require": "./dist/cjs/demo.cjs",
+      "import": "./dist/esm/demo.mjs"
+    },
+    "./dictionary": {
+      "types": "./dist/types/dictionary.d.ts",
+      "require": "./dist/cjs/dictionary.cjs",
+      "import": "./dist/esm/dictionary.mjs"
+    },
+    "./environment": {
+      "types": "./dist/types/environment.d.ts",
+      "require": "./dist/cjs/environment.cjs",
+      "import": "./dist/esm/environment.mjs"
+    },
+    "./eventListener": {
+      "types": "./dist/types/eventListener.d.ts",
+      "require": "./dist/cjs/eventListener.cjs",
+      "import": "./dist/esm/eventListener.mjs"
+    },
+    "./gitProviders": {
+      "types": "./dist/types/gitProviders.d.ts",
+      "require": "./dist/cjs/gitProviders.cjs",
+      "import": "./dist/esm/gitProviders.mjs"
+    },
+    "./newsletter": {
+      "types": "./dist/types/newsletter.d.ts",
+      "require": "./dist/cjs/newsletter.cjs",
+      "import": "./dist/esm/newsletter.mjs"
+    },
+    "./oAuth2": {
+      "types": "./dist/types/oAuth2.d.ts",
+      "require": "./dist/cjs/oAuth2.cjs",
+      "import": "./dist/esm/oAuth2.mjs"
+    },
+    "./organization": {
+      "types": "./dist/types/organization.d.ts",
+      "require": "./dist/cjs/organization.cjs",
+      "import": "./dist/esm/organization.mjs"
+    },
+    "./project": {
+      "types": "./dist/types/project.d.ts",
+      "require": "./dist/cjs/project.cjs",
+      "import": "./dist/esm/project.mjs"
+    },
+    "./public": {
+      "types": "./dist/types/public.d.ts",
+      "require": "./dist/cjs/public.cjs",
+      "import": "./dist/esm/public.mjs"
+    },
+    "./responseData": {
+      "types": "./dist/types/responseData.d.ts",
+      "require": "./dist/cjs/responseData.cjs",
+      "import": "./dist/esm/responseData.mjs"
+    },
+    "./reviewer": {
+      "types": "./dist/types/reviewer.d.ts",
+      "require": "./dist/cjs/reviewer.cjs",
+      "import": "./dist/esm/reviewer.mjs"
+    },
+    "./scan": {
+      "types": "./dist/types/scan.d.ts",
+      "require": "./dist/cjs/scan.cjs",
+      "import": "./dist/esm/scan.mjs"
+    },
+    "./search": {
+      "types": "./dist/types/search.d.ts",
+      "require": "./dist/cjs/search.cjs",
+      "import": "./dist/esm/search.mjs"
+    },
+    "./session": {
+      "types": "./dist/types/session.d.ts",
+      "require": "./dist/cjs/session.cjs",
+      "import": "./dist/esm/session.mjs"
+    },
+    "./showcaseProject": {
+      "types": "./dist/types/showcaseProject.d.ts",
+      "require": "./dist/cjs/showcaseProject.cjs",
+      "import": "./dist/esm/showcaseProject.mjs"
+    },
+    "./stripe": {
+      "types": "./dist/types/stripe.d.ts",
+      "require": "./dist/cjs/stripe.cjs",
+      "import": "./dist/esm/stripe.mjs"
+    },
+    "./tag": {
+      "types": "./dist/types/tag.d.ts",
+      "require": "./dist/cjs/tag.cjs",
+      "import": "./dist/esm/tag.mjs"
+    },
+    "./translation": {
+      "types": "./dist/types/translation.d.ts",
+      "require": "./dist/cjs/translation.cjs",
+      "import": "./dist/esm/translation.mjs"
+    },
+    "./user": {
+      "types": "./dist/types/user.d.ts",
+      "require": "./dist/cjs/user.cjs",
+      "import": "./dist/esm/user.mjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "typesVersions": {
+    "*": {
+      "ai": [
+        "./dist/types/ai.d.ts"
+      ],
+      "analytics": [
+        "./dist/types/analytics.d.ts"
+      ],
+      "asset": [
+        "./dist/types/asset.d.ts"
+      ],
+      "blogComment": [
+        "./dist/types/blogComment.d.ts"
+      ],
+      "cliSessionToken": [
+        "./dist/types/cliSessionToken.d.ts"
+      ],
+      "common": [
+        "./dist/types/common.d.ts"
+      ],
+      "defineRoute": [
+        "./dist/types/defineRoute.d.ts"
+      ],
+      "demo": [
+        "./dist/types/demo.d.ts"
+      ],
+      "dictionary": [
+        "./dist/types/dictionary.d.ts"
+      ],
+      "environment": [
+        "./dist/types/environment.d.ts"
+      ],
+      "eventListener": [
+        "./dist/types/eventListener.d.ts"
+      ],
+      "gitProviders": [
+        "./dist/types/gitProviders.d.ts"
+      ],
+      "newsletter": [
+        "./dist/types/newsletter.d.ts"
+      ],
+      "oAuth2": [
+        "./dist/types/oAuth2.d.ts"
+      ],
+      "organization": [
+        "./dist/types/organization.d.ts"
+      ],
+      "project": [
+        "./dist/types/project.d.ts"
+      ],
+      "public": [
+        "./dist/types/public.d.ts"
+      ],
+      "responseData": [
+        "./dist/types/responseData.d.ts"
+      ],
+      "reviewer": [
+        "./dist/types/reviewer.d.ts"
+      ],
+      "scan": [
+        "./dist/types/scan.d.ts"
+      ],
+      "search": [
+        "./dist/types/search.d.ts"
+      ],
+      "session": [
+        "./dist/types/session.d.ts"
+      ],
+      "showcaseProject": [
+        "./dist/types/showcaseProject.d.ts"
+      ],
+      "stripe": [
+        "./dist/types/stripe.d.ts"
+      ],
+      "tag": [
+        "./dist/types/tag.d.ts"
+      ],
+      "translation": [
+        "./dist/types/translation.d.ts"
+      ],
+      "user": [
+        "./dist/types/user.d.ts"
+      ],
+      "package.json": [
+        "./package.json"
+      ]
+    }
+  },
+  "files": [
+    "./dist",
+    "./package.json"
+  ],
+  "scripts": {
+    "build": "bun --bun tsdown --config tsdown.config.ts",
+    "build:ci": "bun --bun tsdown --config tsdown.config.ts",
+    "clean": "bun --bun rimraf ./dist .turbo",
+    "dev": "bun --bun tsdown --config tsdown.config.ts --watch",
+    "format": "bun --bun biome format . --check",
+    "format:fix": "bun --bun biome format --write .",
+    "lint": "bun --bun biome lint .",
+    "lint:fix": "bun --bun biome lint --write .",
+    "prepublish": "cp -f ../../../README.md ./README.md",
+    "publish": "bun publish || true",
+    "publish:canary": "bun publish --access public --tag canary || true",
+    "publish:ci": "bun ../../../scripts/publish-package.mjs",
+    "publish:latest": "bun publish --access public --tag latest || true",
+    "test": "bun vitest run",
+    "test:watch": "bun vitest",
+    "typecheck": "tsc --noEmit --project tsconfig.types.json"
+  },
+  "dependencies": {
+    "@intlayer/types": "workspace:*",
+    "zod": "4.6.5"
+  },
+  "devDependencies": {
+    "@types/node": "^22",
+    "@utils/ts-config": "workspace:*",
+    "@utils/ts-config-types": "workspace:*",
+    "@utils/tsdown-config": "workspace:*",
+    "rimraf": "6.1.3",
+    "tsdown": "0.23.0",
+    "typescript": "7.0.2",
+    "vitest": "5.0.3"
+  },
+  "engines": {
+    "node": ">=14.18"
+  },
+  "bug": {
+    "url": "https://github.com/aymericzip/intlayer/issues"
+  }
+}

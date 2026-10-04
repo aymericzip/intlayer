@@ -3,32 +3,15 @@ import {
   getPublicDictionaryKeys,
 } from '@controllers/publicDictionary.controller';
 import { createPublicBrowserToken } from '@controllers/publicToken.controller';
+import { publicContract } from '@intlayer/backend-contract/public';
+import { registerContractRoutes } from '@utils/contract/registerContractRoutes';
 import { analyticsIngestLimiter } from '@utils/rateLimiter';
 import type { FastifyInstance } from 'fastify';
-import type { Routes } from '@/types/Routes';
 
-export const publicRoute = '/api/public';
+export const publicRoute = publicContract.prefix;
 
-const baseURL = () => `${process.env.BACKEND_URL}${publicRoute}`;
-
-export const getPublicRoutes = () =>
-  ({
-    createPublicBrowserToken: {
-      urlModel: '/token',
-      url: `${baseURL()}/token`,
-      method: 'POST',
-    },
-    getPublicDictionaryKeys: {
-      urlModel: '/dictionaries/keys',
-      url: `${baseURL()}/dictionaries/keys`,
-      method: 'GET',
-    },
-    getPublicDictionaries: {
-      urlModel: '/dictionaries',
-      url: `${baseURL()}/dictionaries`,
-      method: 'GET',
-    },
-  }) satisfies Routes;
+/** Every public route is rate limited per IP: none needs a confidential credential. */
+const rateLimitedOptions = { config: { rateLimit: analyticsIngestLimiter } };
 
 /**
  * The credential-free surface a browser SDK can reach on its own.
@@ -38,21 +21,18 @@ export const getPublicRoutes = () =>
  * confidential credential, so it must not become an amplifier.
  */
 export const publicRouter = async (fastify: FastifyInstance) => {
-  fastify.post(
-    getPublicRoutes().createPublicBrowserToken.urlModel,
-    { config: { rateLimit: analyticsIngestLimiter } },
-    createPublicBrowserToken
-  );
-
-  fastify.get(
-    getPublicRoutes().getPublicDictionaryKeys.urlModel,
-    { config: { rateLimit: analyticsIngestLimiter } },
-    getPublicDictionaryKeys
-  );
-
-  fastify.get(
-    getPublicRoutes().getPublicDictionaries.urlModel,
-    { config: { rateLimit: analyticsIngestLimiter } },
-    getPublicDictionaries
-  );
+  registerContractRoutes(fastify, publicContract, {
+    createPublicBrowserToken: {
+      handler: createPublicBrowserToken,
+      options: rateLimitedOptions,
+    },
+    getPublicDictionaryKeys: {
+      handler: getPublicDictionaryKeys,
+      options: rateLimitedOptions,
+    },
+    getPublicDictionaries: {
+      handler: getPublicDictionaries,
+      options: rateLimitedOptions,
+    },
+  });
 };

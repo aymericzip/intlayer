@@ -1,22 +1,43 @@
 import type {
+  AssetRoutes,
+  assetContract,
   DeleteAssetResult,
   GetAssetByIdResult,
   GetAssetsResult,
   UpdateAssetResult,
   UploadAssetResult,
-} from '@intlayer/backend';
+} from '@intlayer/backend-contract/asset';
+import type { RouteEndpoints } from '@intlayer/backend-contract/defineRoute';
+import { buildRouteURL } from '@intlayer/backend-contract/defineRoute';
 import { editor } from '@intlayer/config/built';
+import { BACKEND_URL } from '@intlayer/config/defaultValues';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { createEndpoint } from '../cms/createIntlayerCMS';
 import { type FetcherOptions, fetcher } from '../fetcher';
+
+/** Prefix of the routes, checked against the backend contract. */
+const assetGroup = {
+  prefix: '/api/assets',
+} as const satisfies Pick<typeof assetContract, 'prefix'>;
+
+/**
+ * Method and path of every route, checked against the backend contract at
+ * compile time (the contract's zod schemas are never loaded).
+ */
+const assetEndpoints = {
+  getAssets: { method: 'GET', path: '/' },
+  getAssetById: { method: 'GET', path: '/:assetId' },
+  uploadAsset: { method: 'POST', path: '/' },
+  updateAsset: { method: 'PATCH', path: '/:assetId' },
+  deleteAsset: { method: 'DELETE', path: '/:assetId' },
+} as const satisfies RouteEndpoints<AssetRoutes>;
 
 export const getAssetAPI = (
   authAPIOptions: FetcherOptions = {},
   intlayerConfig?: IntlayerConfig
 ) => {
-  const backendURL = intlayerConfig?.editor?.backendURL ?? editor.backendURL;
-
-  const ASSET_API_ROUTE = `${backendURL}/api/assets`;
+  const backendURL =
+    intlayerConfig?.editor?.backendURL ?? editor.backendURL ?? BACKEND_URL;
 
   /**
    * Retrieves all assets for the current session project, paginated.
@@ -30,7 +51,7 @@ export const getAssetAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<GetAssetsResult>(
-      ASSET_API_ROUTE,
+      buildRouteURL(backendURL, assetGroup, assetEndpoints.getAssets),
       authAPIOptions,
       otherOptions,
       {
@@ -52,7 +73,9 @@ export const getAssetAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<GetAssetByIdResult>(
-      `${ASSET_API_ROUTE}/${assetId}`,
+      buildRouteURL(backendURL, assetGroup, assetEndpoints.getAssetById, {
+        assetId: String(assetId),
+      }),
       authAPIOptions,
       otherOptions,
       { cache: 'no-store' }
@@ -84,13 +107,16 @@ export const getAssetAPI = (
     const authHeaders =
       (authAPIOptions.headers as Record<string, string> | undefined) ?? {};
 
-    const response = await fetch(ASSET_API_ROUTE, {
-      method: 'POST',
-      credentials: 'include',
-      headers: { ...authHeaders, ...headers },
-      body: buffer,
-      signal: otherOptions.signal as AbortSignal | undefined,
-    });
+    const response = await fetch(
+      buildRouteURL(backendURL, assetGroup, assetEndpoints.uploadAsset),
+      {
+        method: assetEndpoints.uploadAsset.method,
+        credentials: 'include',
+        headers: { ...authHeaders, ...headers },
+        body: buffer,
+        signal: otherOptions.signal as AbortSignal | undefined,
+      }
+    );
 
     if (!response.ok) {
       const result = await response.json();
@@ -112,10 +138,15 @@ export const getAssetAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<UpdateAssetResult>(
-      `${ASSET_API_ROUTE}/${assetId}`,
+      buildRouteURL(backendURL, assetGroup, assetEndpoints.updateAsset, {
+        assetId: String(assetId),
+      }),
       authAPIOptions,
       otherOptions,
-      { method: 'PATCH', body: data as unknown as Record<string, unknown> }
+      {
+        method: assetEndpoints.updateAsset.method,
+        body: data as unknown as Record<string, unknown>,
+      }
     );
 
   /**
@@ -128,10 +159,12 @@ export const getAssetAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<DeleteAssetResult>(
-      `${ASSET_API_ROUTE}/${assetId}`,
+      buildRouteURL(backendURL, assetGroup, assetEndpoints.deleteAsset, {
+        assetId: String(assetId),
+      }),
       authAPIOptions,
       otherOptions,
-      { method: 'DELETE' }
+      { method: assetEndpoints.deleteAsset.method }
     );
 
   return {

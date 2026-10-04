@@ -9,7 +9,8 @@ type InputPasswordElementProps = Omit<
   Omit<
     ComponentProps<typeof InputPassword> & {
       name: string;
-      autoComplete: 'current-password' | 'new-password';
+      /** `off` for secrets that are not the user's password (API keys). */
+      autoComplete: 'current-password' | 'new-password' | 'off';
     },
     'aria-label' | 'aria-labelledby'
   >;

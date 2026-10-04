@@ -23,8 +23,9 @@ export const ProjectEditionForm: FC = () => {
   const { title, nameInput, editButton } = useIntlayer('project-form');
 
   const onSubmitSuccess = (data: ProjectFormData) => {
+    // The route updates the session's selected project
     if (project?.id) {
-      updateProject({ ...data, id: project.id });
+      updateProject(data);
     }
   };
 

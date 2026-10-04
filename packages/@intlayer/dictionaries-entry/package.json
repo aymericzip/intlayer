@@ -113,6 +113,7 @@
     "typecheck": "tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
+    "@intlayer/backend-contract": "workspace:*",
     "@intlayer/config": "workspace:*"
   },
   "devDependencies": {

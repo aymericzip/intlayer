@@ -24,8 +24,8 @@ export type PlanData = {
 
 export type Plan = PlanData & {
   id: Types.ObjectId;
-  createdAt: number;
-  updatedAt: number;
+  createdAt: Date;
+  updatedAt: Date;
 };
 
 export type PlanAPI = ObjectIdToString<Plan>;

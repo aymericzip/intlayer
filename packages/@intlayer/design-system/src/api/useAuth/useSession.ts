@@ -1,6 +1,6 @@
 'use client';
 
-import type { SessionAPI } from '@intlayer/backend';
+import type { SessionAPI } from '@intlayer/backend-contract/session';
 import { editor } from '@intlayer/config/built';
 import { useConfiguration } from '@intlayer/editor-react';
 import type { IntlayerConfig } from '@intlayer/types/config';
@@ -35,7 +35,7 @@ export const useSession = (
     queryKey: ['session'],
     queryFn: async () => {
       const intlayerAPI = getAuthAPI(config);
-      const result = await intlayerAPI.getSession();
+      const result = await intlayerAPI.getSession({ query: {} });
       // Narrow to the public shape we want to expose
       return result.data as unknown as SessionAPI;
     },

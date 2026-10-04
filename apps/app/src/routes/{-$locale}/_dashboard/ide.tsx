@@ -103,25 +103,21 @@ function IDEPage() {
 
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
-  useEffect(() => {
-    if (token && iframeRef.current) {
-      const targetOrigin = import.meta.env.VITE_IDE_URL;
-      iframeRef.current.contentWindow?.postMessage(
-        { type: 'INTLAYER_SET_TOKEN', token },
-        targetOrigin
-      );
-    }
-  }, [token]);
+  /** Hands the token to the IDE iframe, only on its configured origin. */
+  const sendTokenToIDE = () => {
+    const targetOrigin = import.meta.env.VITE_IDE_URL;
+    if (!token || !targetOrigin || !iframeRef.current) return;
 
-  const handleLoad = () => {
-    if (token && iframeRef.current) {
-      const targetOrigin = import.meta.env.VITE_IDE_URL;
-      iframeRef.current.contentWindow?.postMessage(
-        { type: 'INTLAYER_SET_TOKEN', token },
-        targetOrigin
-      );
-    }
+    iframeRef.current.contentWindow?.postMessage(
+      { type: 'INTLAYER_SET_TOKEN', token },
+      targetOrigin
+    );
   };
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: resend only when the token changes
+  useEffect(() => {
+    sendTokenToIDE();
+  }, [token]);
 
   return (
     <AuthenticationBarrier accessRule="authenticated" locale={locale}>
@@ -147,7 +143,7 @@ function IDEPage() {
                 src={`${import.meta.env.VITE_IDE_URL}/${connectedRepository.owner}/${connectedRepository.repository}?file=${connectedRepository.configFilePath || 'intlayer.config.ts'}&theme=${resolvedTheme}`}
                 title={`${iframeTitle} ${connectedRepository.owner}/${connectedRepository.repository}`}
                 className="size-full"
-                onLoad={handleLoad}
+                onLoad={sendTokenToIDE}
                 sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
                 loading="lazy"
               />

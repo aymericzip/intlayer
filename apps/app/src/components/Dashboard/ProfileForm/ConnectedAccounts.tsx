@@ -67,10 +67,7 @@ export const ConnectedAccounts: FC = () => {
     const accountId = getAccountId(provider);
     if (!accountId) return;
     setPendingProvider(provider);
-    unlinkAccount(
-      { providerId: accountId },
-      { onSettled: () => setPendingProvider(null) }
-    );
+    unlinkAccount({ accountId }, { onSettled: () => setPendingProvider(null) });
   };
 
   return (

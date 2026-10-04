@@ -109,31 +109,28 @@ export const formatRemoteMcpResult = (
   return text || 'The tool returned no text content.';
 };
 
+export type WrapRemoteMcpToolsOptions = Omit<
+  CreateRemoteMcpToolsOptions,
+  'signal'
+>;
+
 /**
- * Discovers the tools of a remote MCP server and wraps each as a WebMCP tool
- * forwarding its calls, so a page can expose an existing MCP server (the
- * Intlayer documentation server, for instance) to browser agents without
- * re-implementing its tools.
+ * Wraps MCP tool descriptors as WebMCP tools forwarding their calls to the
+ * server. No request is sent until an agent calls one of them.
  *
  * @returns The wrapped tools, ready for `registerWebMCPTools`.
  */
-export const createRemoteMcpTools = async ({
-  serverUrl,
-  filter = isReadOnly,
-  namePrefix = '',
-  renameTool = (name) => name,
-  signal,
-  fetch: fetchImplementation = globalThis.fetch,
-}: CreateRemoteMcpToolsOptions): Promise<WebMCPTool[]> => {
-  const { tools } = await callJsonRpc<{ tools: RemoteMcpToolDescriptor[] }>(
+export const wrapRemoteMcpTools = (
+  tools: RemoteMcpToolDescriptor[],
+  {
     serverUrl,
-    'tools/list',
-    undefined,
-    fetchImplementation,
-    signal
-  );
-
-  return tools.filter(filter).map((tool) => ({
+    filter = isReadOnly,
+    namePrefix = '',
+    renameTool = (name) => name,
+    fetch: fetchImplementation = globalThis.fetch,
+  }: WrapRemoteMcpToolsOptions
+): WebMCPTool[] =>
+  tools.filter(filter).map((tool) => ({
     name: `${namePrefix}${renameTool(tool.name)}`,
     title: tool.title,
     description: tool.description ?? tool.name,
@@ -150,4 +147,26 @@ export const createRemoteMcpTools = async ({
         )
       ),
   }));
+
+/**
+ * Discovers the tools of a remote MCP server and wraps each as a WebMCP tool
+ * forwarding its calls, so a page can expose an existing MCP server (the
+ * Intlayer documentation server, for instance) to browser agents without
+ * re-implementing its tools.
+ *
+ * @returns The wrapped tools, ready for `registerWebMCPTools`.
+ */
+export const createRemoteMcpTools = async ({
+  signal,
+  ...wrapOptions
+}: CreateRemoteMcpToolsOptions): Promise<WebMCPTool[]> => {
+  const { tools } = await callJsonRpc<{ tools: RemoteMcpToolDescriptor[] }>(
+    wrapOptions.serverUrl,
+    'tools/list',
+    undefined,
+    wrapOptions.fetch ?? globalThis.fetch,
+    signal
+  );
+
+  return wrapRemoteMcpTools(tools, wrapOptions);
 };

@@ -1,7 +1,13 @@
 'use client';
 
 import { useConfiguration } from '@intlayer/editor-react';
-import { type UseQueryOptions, useQuery } from '@tanstack/react-query';
+import {
+  type DefaultError,
+  type QueryKey,
+  type UseQueryOptions,
+  type UseQueryResult,
+  useQuery,
+} from '@tanstack/react-query';
 import { useAuth } from '../useAuth';
 
 type AuthEnableOptions = {
@@ -43,13 +49,29 @@ export const useAuthEnable = ({
   };
 };
 
-export const useAppQuery = (
-  options: UseQueryOptions & {
-    requireUser?: boolean;
-    requireProject?: boolean;
-    requireOrganization?: boolean;
-  }
-) => {
+/**
+ * Query options a hook caller may override. Kept independent of the query
+ * data so spreading them never widens the inferred result type.
+ */
+export type AppQueryOptions = {
+  enabled?: boolean;
+  staleTime?: number;
+  gcTime?: number;
+  refetchInterval?: number | false;
+  refetchOnMount?: boolean;
+  refetchOnWindowFocus?: boolean;
+  retry?: boolean | number;
+};
+
+/** `useQuery` gated on the session (user / organization / project). */
+export const useAppQuery = <
+  QueryFnData = unknown,
+  Error = DefaultError,
+  Data = QueryFnData,
+  Key extends QueryKey = QueryKey,
+>(
+  options: UseQueryOptions<QueryFnData, Error, Data, Key> & AuthEnableOptions
+): UseQueryResult<Data, Error> => {
   const { requireUser, requireProject, requireOrganization, ...rest } = options;
   const { enable } = useAuthEnable({
     requireUser,

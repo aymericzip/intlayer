@@ -63,15 +63,20 @@ export type DictionaryData = DictionaryQualifiers & {
 
 export type Dictionary = DictionaryData & {
   id: Types.ObjectId;
-  createdAt: number;
-  updatedAt: number;
+  createdAt: Date;
+  updatedAt: Date;
 };
 
 export type DictionaryAPI = ObjectIdToString<
   DictionaryCore & {
+    id: Types.ObjectId | string;
     projectIds: (Project['id'] | string)[];
-    updatedAt: number;
-    createdAt: number;
+    creatorId: User['id'];
+    /** Content versions, oldest first (added by `mapDictionaryToAPI`). */
+    versionList: string[];
+    environmentId?: Types.ObjectId | string | null;
+    updatedAt: Date;
+    createdAt: Date;
   }
 >;
 

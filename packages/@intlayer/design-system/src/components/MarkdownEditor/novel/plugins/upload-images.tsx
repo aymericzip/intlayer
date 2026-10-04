@@ -13,7 +13,6 @@ export const UploadImagesPlugin = ({ imageClass }: { imageClass: string }) =>
       apply(tr, set) {
         set = set.map(tr.mapping, tr.doc);
         // See if the transaction adds or removes any placeholders
-        //@ts-expect-error - not yet sure what the type I need here
         const action = tr.getMeta(this);
         if (action?.add) {
           const { id, pos, src } = action.add;
@@ -54,7 +53,7 @@ function findPlaceholder(state: EditorState, id: object) {
 }
 
 export interface ImageUploadOptions {
-  validateFn?: (file: File) => void;
+  validateFn?: (file: File) => boolean;
   onUpload: (file: File) => Promise<unknown>;
 }
 
@@ -62,8 +61,7 @@ export const createImageUpload =
   ({ validateFn, onUpload }: ImageUploadOptions): UploadFn =>
   (file, view, pos) => {
     // check if the file is an image
-    const validated = validateFn?.(file);
-    if (!validated) return;
+    if (validateFn && !validateFn(file)) return;
     // A fresh object to act as the ID for this upload
     const id = {};
 

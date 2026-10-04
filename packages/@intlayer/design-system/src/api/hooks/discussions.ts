@@ -2,11 +2,11 @@
 
 import type { UseQueryOptions } from '@tanstack/react-query';
 import { useAiAPI } from '../useIntlayerAPI';
-import { useAppQuery } from './utils';
+import { type AppQueryOptions, useAppQuery } from './utils';
 
 export const useGetDiscussions = (
   params?: Record<string, string | string[] | undefined>,
-  options?: Partial<UseQueryOptions>
+  options?: AppQueryOptions
 ) => {
   const aiAPI = useAiAPI();
 
@@ -21,7 +21,7 @@ export const useGetDiscussions = (
 
 export const useGetDiscussionsData = (
   params?: Record<string, string | string[] | undefined>,
-  options?: Partial<UseQueryOptions>
+  options?: AppQueryOptions
 ) => {
   const aiAPI = useAiAPI();
 

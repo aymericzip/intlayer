@@ -8,18 +8,14 @@ import type {
   GetDictionaryQuery,
   PushDictionariesBody,
   UpdateDictionaryBody,
-} from '@intlayer/backend';
-import {
-  type UseQueryOptions,
-  useInfiniteQuery,
-  useMutation,
-} from '@tanstack/react-query';
+} from '@intlayer/backend-contract/dictionary';
+import { useInfiniteQuery, useMutation } from '@tanstack/react-query';
 import { useDictionaryAPI } from '../useIntlayerAPI';
-import { useAppQuery, useAuthEnable } from './utils';
+import { type AppQueryOptions, useAppQuery, useAuthEnable } from './utils';
 
 export const useGetDictionaries = (
   filters?: GetDictionariesParams,
-  options?: Partial<UseQueryOptions>
+  options?: AppQueryOptions
 ) => {
   const dictionaryAPI = useDictionaryAPI();
 
@@ -36,7 +32,7 @@ export const useGetDictionaries = (
 
 export const useInfiniteGetDictionaries = (
   filters?: Omit<GetDictionariesParams, 'page'>,
-  options?: Partial<UseQueryOptions>
+  options?: { enabled?: boolean }
 ) => {
   const dictionaryAPI = useDictionaryAPI();
   const { enable } = useAuthEnable({
@@ -55,18 +51,17 @@ export const useInfiniteGetDictionaries = (
       return res;
     },
     getNextPageParam: (lastPage) => {
-      if (lastPage.data.length === 0) return undefined;
+      if (!lastPage.data?.length) return undefined;
       const currentPage = lastPage.page ?? 1;
       const totalPages = lastPage.total_pages ?? 1;
       return currentPage < totalPages ? currentPage + 1 : undefined;
     },
     initialPageParam: 1,
     enabled: options?.enabled === false ? false : enable,
-    ...options,
   });
 };
 
-export const useGetDictionariesKeys = (options?: Partial<UseQueryOptions>) => {
+export const useGetDictionariesKeys = (options?: AppQueryOptions) => {
   const dictionaryAPI = useDictionaryAPI();
 
   return useAppQuery({
@@ -82,7 +77,7 @@ export const useGetDictionariesKeys = (options?: Partial<UseQueryOptions>) => {
 export const useGetDictionary = (
   dictionaryKey: GetDictionaryParams['dictionaryKey'],
   version?: GetDictionaryQuery['version'],
-  options?: Partial<UseQueryOptions>
+  options?: AppQueryOptions
 ) => {
   const dictionaryAPI = useDictionaryAPI();
 

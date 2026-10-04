@@ -20,6 +20,7 @@ import {
   createBundledHighlighter,
   createSingletonShorthands,
   guessEmbeddedLanguages,
+  type ShorthandsBundle,
 } from '@shikijs/core';
 import { createOnigurumaEngine } from '@shikijs/engine-oniguruma';
 import {
@@ -93,6 +94,13 @@ export type Highlighter = Awaited<ReturnType<typeof createHighlighter>>;
  * `codeToHtml` / `codeToHast` / … functions `shiki` exports, restricted to this
  * bundle.
  */
+// Annotated: the inferred type references hast's `Root` through a non
+// portable path in the emitted declarations
+const shorthands: ShorthandsBundle<BundledLanguage, BundledTheme> =
+  createSingletonShorthands<BundledLanguage, BundledTheme>(createHighlighter, {
+    guessEmbeddedLanguages,
+  });
+
 export const {
   codeToHast,
   codeToHtml,
@@ -101,9 +109,4 @@ export const {
   codeToTokensWithThemes,
   getLastGrammarState,
   getSingletonHighlighter,
-} = createSingletonShorthands<BundledLanguage, BundledTheme>(
-  createHighlighter,
-  {
-    guessEmbeddedLanguages,
-  }
-);
+} = shorthands;

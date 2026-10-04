@@ -1,8 +1,24 @@
 'use client';
 
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import type { SessionAPI } from '@intlayer/backend-contract/session';
+import {
+  type UseMutationResult,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query';
 import type { AuthAPI } from '../../libs/auth';
 import { useIntlayerAuth } from '../useIntlayerAPI';
+
+/**
+ * Mutation result of an auth API method, named through `AuthAPI`: the
+ * inferred type reaches private better-auth chunks (non-portable).
+ */
+type AuthMutationResult<Method extends keyof AuthAPI> = UseMutationResult<
+  Awaited<ReturnType<AuthAPI[Method]>>,
+  Error,
+  Parameters<AuthAPI[Method]>[0]
+>;
 
 export const useLogin = () => {
   const intlayerAuth = useIntlayerAuth();
@@ -17,7 +33,7 @@ export const useLogin = () => {
       // `data: null` and `error` set; the global mutation cache toasts it.
       if (!data.data?.user) return;
 
-      const session = queryClient.getQueryData(['session']);
+      const session = queryClient.getQueryData<SessionAPI>(['session']);
 
       queryClient.setQueryData(['session'], {
         ...session,
@@ -33,7 +49,7 @@ export const useListAccounts = () => {
   const intlayerAuth = useIntlayerAuth();
   return useQuery({
     queryKey: ['listAccounts'],
-    queryFn: () => intlayerAuth.listAccounts(),
+    queryFn: () => intlayerAuth.listAccounts({ query: {} }),
   });
 };
 
@@ -68,12 +84,12 @@ export const useGetVerifyEmailStatus = () => {
 
   return useMutation({
     mutationKey: ['getVerifyEmailStatus'],
-    mutationFn: (args: Parameters<AuthAPI['verifyEmailSession']>) =>
-      intlayerAuth.verifyEmailSession(...args),
+    mutationFn: (args: Parameters<AuthAPI['verifyEmailSession']>[0]) =>
+      intlayerAuth.verifyEmailSession(args),
   });
 };
 
-export const useRegister = () => {
+export const useRegister = (): AuthMutationResult<'signUpEmail'> => {
   const intlayerAuth = useIntlayerAuth();
 
   return useMutation({
@@ -98,7 +114,7 @@ export const useLogout = () => {
 
   return useMutation({
     mutationKey: ['logout'],
-    mutationFn: () => intlayerAuth.signOut(),
+    mutationFn: () => intlayerAuth.signOut({}),
     // removeQueries instead of resetQueries: evicts cached data without
     // triggering a re-fetch. A re-fetch (resetQueries) can race with the
     // signOut response and resurrect a session from better-auth's
@@ -117,8 +133,8 @@ export const useChangePassword = () => {
 
   return useMutation({
     mutationKey: ['changePassword'],
-    mutationFn: (args: Parameters<AuthAPI['changePasswordSession']>) =>
-      intlayerAuth.changePasswordSession(...args),
+    mutationFn: (args: Parameters<AuthAPI['changePasswordSession']>[0]) =>
+      intlayerAuth.changePasswordSession(args),
   });
 };
 
@@ -241,7 +257,7 @@ export const useSignInMagicLink = () => {
   });
 };
 
-export const useRegisterSSO = () => {
+export const useRegisterSSO = (): AuthMutationResult<'registerSSO'> => {
   const intlayerAuth = useIntlayerAuth();
   const queryClient = useQueryClient();
   return useMutation({

@@ -1,4 +1,5 @@
-import type { AIOptions, IntlayerAPIProxy } from '@intlayer/api';
+import type { AIOptions } from '@intlayer/ai';
+import type { IntlayerAPIProxy } from '@intlayer/api';
 import { getIntlayerAPIProxy } from '@intlayer/api';
 import * as ANSIColors from '@intlayer/config/colors';
 import { colorize, getAppLogger } from '@intlayer/config/logger';

@@ -4,14 +4,14 @@ import type {
   AddTagBody,
   DeleteTagParams,
   GetTagsParams,
-} from '@intlayer/backend';
-import { type UseQueryOptions, useMutation } from '@tanstack/react-query';
+} from '@intlayer/backend-contract/tag';
+import { useMutation } from '@tanstack/react-query';
 import { useTagAPI } from '../useIntlayerAPI';
-import { useAppQuery } from './utils';
+import { type AppQueryOptions, useAppQuery } from './utils';
 
 export const useGetTags = (
   filters?: GetTagsParams,
-  options?: Partial<UseQueryOptions>
+  options?: AppQueryOptions
 ) => {
   const tagAPI = useTagAPI();
 
@@ -55,7 +55,7 @@ export const useDeleteTag = () => {
 
   return useMutation({
     mutationKey: ['tags'],
-    mutationFn: (args: DeleteTagParams) => tagAPI.deleteTag(args),
+    mutationFn: (tagId: DeleteTagParams['tagId']) => tagAPI.deleteTag(tagId),
     meta: {
       invalidateQueries: [['tags']],
     },

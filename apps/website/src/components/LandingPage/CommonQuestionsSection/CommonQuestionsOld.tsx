@@ -77,7 +77,7 @@ export const CommonQuestionsSection: FC = () => {
         className="my-3 flex w-full max-w-2xl flex-col items-start justify-center gap-x-6 overflow-hidden rounded-xl border bg-background [&>button:not(:first-child)]:border-t"
       >
         {content.map((data) => (
-          <FAQItem key={data.question} {...data} />
+          <FAQItem key={data.question.value} {...data} />
         ))}
       </div>
 

@@ -1,3 +1,4 @@
+import type { UserRoutes } from '@intlayer/backend-contract/user';
 import { logger } from '@logger';
 import { sendEmail } from '@services/email.service';
 import {
@@ -6,6 +7,8 @@ import {
   validateAvatarUpload,
 } from '@services/user/avatarUpload.service';
 import * as userService from '@services/user.service';
+import { getAuthSingleton } from '@utils/auth/getAuth';
+import type { ContractRequest } from '@utils/contract/registerContractRoutes';
 import { type AppError, ErrorHandler } from '@utils/errors';
 import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFiltersAndPaginationFromBody';
 import {
@@ -15,6 +18,7 @@ import {
 import { isSelfHosted } from '@utils/isSelfHosted';
 import { mapUsersToAPI, mapUserToAPI } from '@utils/mapper/user';
 import { hasPermission } from '@utils/permissions';
+import { removeObjectKeys } from '@utils/removeObjectKeys';
 import {
   formatPaginatedResponse,
   formatResponse,
@@ -60,14 +64,15 @@ export type CreateUserResult = ResponseData<UserAPI>;
  * Creates a new user.
  */
 export const createUser = async (
-  request: FastifyRequest<{ Body: User }>,
+  request: ContractRequest<UserRoutes['createUser']>,
   reply: FastifyReply
 ): Promise<void> => {
-  const user: User | undefined = request.body;
-
-  if (!user) {
-    return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
+  // Sign-up goes through better-auth: this route is an admin tool only
+  if (!request.session?.roles?.includes('admin')) {
+    return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
   }
+
+  const user = request.body;
 
   try {
     const newUser = await userService.createUser(user);
@@ -283,11 +288,16 @@ export type UpdateUserResult = ResponseData<UserAPI>;
  * Updates user information (phone number, date of birth).
  */
 export const updateUser = async (
-  request: FastifyRequest<{ Body: UpdateUserBody }>,
+  request: ContractRequest<UserRoutes['updateUser']>,
   reply: FastifyReply
 ): Promise<void> => {
-  const userData = request.body;
   const { user, roles } = request.session || {};
+  const isAdmin = roles?.includes('admin');
+  const { email: requestedEmail, ...requestedFields } = request.body;
+  // `role` and `emailVerified` grant privileges: only admins may set them
+  const userData = isAdmin
+    ? requestedFields
+    : removeObjectKeys(requestedFields, ['role', 'emailVerified']);
 
   if (!user) {
     return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
@@ -325,8 +335,46 @@ export const updateUser = async (
     return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
   }
 
+  // Users change their own email through the verified auth flow; admins may
+  // set it directly, which marks the new address as unverified
+  const normalizedEmail = isAdmin
+    ? requestedEmail?.trim().toLowerCase()
+    : undefined;
+  const isEmailChanged =
+    Boolean(normalizedEmail) && normalizedEmail !== userDB.email;
+
+  if (isEmailChanged && normalizedEmail) {
+    const userWithEmail = await userService.getUserByEmail(normalizedEmail);
+
+    if (userWithEmail && String(userWithEmail.id) !== String(userDB.id)) {
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'USER_ALREADY_EXISTS'
+      );
+    }
+  }
+
+  const isNewEmailVerified = request.body.emailVerified ?? false;
+  const updates = isEmailChanged
+    ? { ...userData, email: normalizedEmail, emailVerified: isNewEmailVerified }
+    : userData;
+
   try {
-    const updatedUser = await userService.updateUserById(userDB.id, userData);
+    const updatedUser = await userService.updateUserById(userDB.id, updates);
+
+    if (isEmailChanged && normalizedEmail && !isNewEmailVerified) {
+      await getAuthSingleton()
+        .api.sendVerificationEmail({
+          body: { email: normalizedEmail, callbackURL: process.env.APP_URL },
+        })
+        .catch((error: unknown) => {
+          // The update stands: the user can request a new link at sign-in
+          logger.error('Failed to send the verification email', {
+            userId: String(userDB.id),
+            error,
+          });
+        });
+    }
 
     logger.info(
       `User updated: Name: ${updatedUser.name}, id: ${String(updatedUser.id)}`

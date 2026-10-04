@@ -1,4 +1,4 @@
-import type { UserAPI } from '@intlayer/backend';
+import type { UserAPI } from '@intlayer/backend-contract/user';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 

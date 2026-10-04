@@ -1,7 +1,5 @@
-import { createIntlayerCMS } from '@intlayer/api';
+import { createIntlayerCMS, type DictionaryAPI } from '@intlayer/api';
 import { dictionaryEndpoint } from '@intlayer/api/dictionary';
-// @ts-ignore @intlayer/backend is not build yet
-import type { DictionaryAPI } from '@intlayer/backend';
 import { getAppLogger, x } from '@intlayer/config/logger';
 import { getConfiguration } from '@intlayer/config/node';
 import { retryManager } from '@intlayer/config/utils';

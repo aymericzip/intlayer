@@ -7,9 +7,10 @@ import {
   extractJson,
   generateText,
 } from '@intlayer/ai';
+import type { AuditTagResultData } from '@intlayer/backend-contract/ai';
+import type { TagAPI } from '@intlayer/backend-contract/tag';
 import { logger } from '@logger';
 import type { Dictionary } from '@/types/dictionary.types';
-import type { TagAPI } from '@/types/tag.types';
 
 export type AuditOptions = {
   dictionaries: Dictionary[];
@@ -18,10 +19,7 @@ export type AuditOptions = {
   applicationContext?: string;
 };
 
-export type TranslateJSONResultData = {
-  fileContent: string;
-  tokenUsed: number;
-};
+export type TranslateJSONResultData = AuditTagResultData;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -70,7 +68,7 @@ export const auditTag = async ({
   logger.info(`${usage?.totalTokens ?? 0} tokens used in the request`);
 
   return {
-    fileContent: extractJson(newContent),
+    fileContent: extractJson<AuditTagResultData['fileContent']>(newContent),
     tokenUsed: usage?.totalTokens ?? 0,
   };
 };

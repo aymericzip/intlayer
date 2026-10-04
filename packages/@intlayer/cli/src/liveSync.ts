@@ -1,6 +1,5 @@
 import { createServer } from 'node:http';
-// @ts-ignore: @intlayer/backend is not built yet
-import type { DictionaryAPI } from '@intlayer/backend';
+import type { DictionaryAPI } from '@intlayer/api';
 import * as ANSIColors from '@intlayer/config/colors';
 import { colorize, getAppLogger } from '@intlayer/config/logger';
 import {

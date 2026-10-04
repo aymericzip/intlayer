@@ -1,4 +1,4 @@
-import type { ReviewerProfileAPI } from '@intlayer/backend';
+import type { ReviewerProfileAPI } from '@intlayer/backend-contract/reviewer';
 import { useContactReviewer } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';

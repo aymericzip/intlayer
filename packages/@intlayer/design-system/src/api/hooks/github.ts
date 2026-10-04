@@ -6,6 +6,7 @@ import {
   useQuery,
 } from '@tanstack/react-query';
 import { useGithubAPI } from '../useIntlayerAPI';
+import type { AppQueryOptions } from './utils';
 
 export const useGithubGetAuthUrl = () => {
   const githubAPI = useGithubAPI();
@@ -75,7 +76,7 @@ export const useGithubGetConfigFile = () => {
   });
 };
 
-export const useGithubToken = (options?: Partial<UseQueryOptions>) => {
+export const useGithubToken = (options?: AppQueryOptions) => {
   const githubAPI = useGithubAPI();
 
   return useQuery({

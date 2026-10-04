@@ -127,12 +127,12 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
             {dictionary.key}
           </Tag>
           {dictionary.filePath && (
-            <Tag color="blue" roundedSize="full" size="xs">
+            <Tag color="neutral" roundedSize="full" size="xs">
               {dictionary.filePath.split('/').pop()}
             </Tag>
           )}
           {dictionary.id && (
-            <Tag color="purple" roundedSize="full" size="xs">
+            <Tag color="success" roundedSize="full" size="xs">
               remote
             </Tag>
           )}

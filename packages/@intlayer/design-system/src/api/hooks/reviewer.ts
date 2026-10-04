@@ -8,18 +8,14 @@ import type {
   SubmitReviewBody,
   UpdateMissionStatusBody,
   UpdateReviewerBody,
-} from '@intlayer/backend';
-import {
-  type UseQueryOptions,
-  useMutation,
-  useQueryClient,
-} from '@tanstack/react-query';
+} from '@intlayer/backend-contract/reviewer';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useReviewerAPI } from '../useIntlayerAPI';
-import { useAppQuery } from './utils';
+import { type AppQueryOptions, useAppQuery } from './utils';
 
 export const useGetReviewerMarketplace = (
   params?: GetMarketplaceQuery,
-  options?: Partial<UseQueryOptions>
+  options?: AppQueryOptions
 ) => {
   const reviewerAPI = useReviewerAPI();
 
@@ -35,7 +31,7 @@ export const useGetReviewerPriceDistribution = (
     GetMarketplaceQuery,
     'fromLocale' | 'toLocale' | 'minRating' | 'categories'
   >,
-  options?: Partial<UseQueryOptions>
+  options?: AppQueryOptions
 ) => {
   const reviewerAPI = useReviewerAPI();
 
@@ -49,7 +45,7 @@ export const useGetReviewerPriceDistribution = (
 
 export const useGetReviewerById = (
   reviewerId: string | undefined,
-  options?: Partial<UseQueryOptions>
+  options?: AppQueryOptions
 ) => {
   const reviewerAPI = useReviewerAPI();
 
@@ -65,7 +61,7 @@ export const useGetReviewerById = (
 export const useGetReviewerReviews = (
   reviewerId: string | undefined,
   params?: { page?: number; pageSize?: number },
-  options?: Partial<UseQueryOptions>
+  options?: AppQueryOptions
 ) => {
   const reviewerAPI = useReviewerAPI();
 
@@ -80,7 +76,7 @@ export const useGetReviewerReviews = (
   });
 };
 
-export const useGetMyReviewerProfile = (options?: Partial<UseQueryOptions>) => {
+export const useGetMyReviewerProfile = (options?: AppQueryOptions) => {
   const reviewerAPI = useReviewerAPI();
 
   return useAppQuery({
@@ -187,7 +183,7 @@ export const useCreateMission = () => {
 
 export const useGetMyMissions = (
   params?: { role?: 'client' | 'reviewer'; page?: number; pageSize?: number },
-  options?: Partial<UseQueryOptions>
+  options?: AppQueryOptions
 ) => {
   const reviewerAPI = useReviewerAPI();
 
@@ -201,7 +197,7 @@ export const useGetMyMissions = (
 
 export const useGetMissionById = (
   missionId: string | undefined,
-  options?: Partial<UseQueryOptions>
+  options?: AppQueryOptions
 ) => {
   const reviewerAPI = useReviewerAPI();
 
@@ -257,7 +253,7 @@ export const useSubmitReview = () => {
 
 export const useGetChatHistory = (
   missionId: string | undefined,
-  options?: Partial<UseQueryOptions>
+  options?: AppQueryOptions
 ) => {
   const reviewerAPI = useReviewerAPI();
 
@@ -307,7 +303,7 @@ export const useContactReviewer = () => {
 
 export const useGetAdminReviewers = (
   params: { page?: number; pageSize?: number; status?: string } = {},
-  options?: Partial<UseQueryOptions>
+  options?: AppQueryOptions
 ) => {
   const reviewerAPI = useReviewerAPI();
 

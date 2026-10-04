@@ -11,7 +11,7 @@ export type TargetCodeFormat = 'esm' | 'commonjs' | 'typescript';
 
 // ── Helpers ─────────────────────────────────────────────────────────────────
 
-const trim = (text: string) => text.trim();
+const trim = (text: string | undefined): string => (text ?? '').trim();
 
 /**
  * Given a string like `{ A, type B, C as D }`, return the non-type named
@@ -181,7 +181,7 @@ const stripTypeAnnotations = (
   const out: string[] = [];
 
   for (let lineIndex = 0; lineIndex < lines.length; lineIndex++) {
-    let line = lines[lineIndex];
+    let line = lines[lineIndex] ?? '';
 
     // 1. `const/let/var name: SimpleType =` — simple variable type annotation
     //    Add JSDoc if the type resolves to a known import module.
@@ -189,7 +189,7 @@ const stripTypeAnnotations = (
       /^(\s*(?:export\s+)?(?:const|let|var)\s+\w+)\s*:\s*([A-Z]\w*)\s*=/
     );
     if (varTypeMatch) {
-      const typeName = varTypeMatch[2];
+      const typeName = varTypeMatch[2] ?? '';
       const modulePath = typeMap.get(typeName);
       if (modulePath) {
         jsdocInserts.set(
@@ -266,7 +266,7 @@ const processExportsCJS = (code: string): string => {
   const out: string[] = [];
 
   for (let lineIndex = 0; lineIndex < lines.length; lineIndex++) {
-    const line = lines[lineIndex];
+    const line = lines[lineIndex] ?? '';
 
     // `export default X;` or `export default X`
     const defMatch = line.match(/^(\s*)export\s+default\s+(.+?);?\s*$/);
@@ -280,7 +280,7 @@ const processExportsCJS = (code: string): string => {
       /^(\s*)export\s+(const|let|var)\s+(\w+)/
     );
     if (exportConstMatch) {
-      const name = exportConstMatch[3];
+      const name = exportConstMatch[3] ?? '';
       collected.push({ localName: name, exportedName: name });
       out.push(line.replace(/^(\s*)export\s+/, '$1'));
       continue;
@@ -291,7 +291,7 @@ const processExportsCJS = (code: string): string => {
       /^(\s*)export\s+(?:async\s+)?function\s+(\w+)/
     );
     if (exportFnMatch) {
-      const name = exportFnMatch[2];
+      const name = exportFnMatch[2] ?? '';
       collected.push({ localName: name, exportedName: name });
       out.push(line.replace(/^(\s*)export\s+/, '$1'));
       continue;
@@ -302,8 +302,8 @@ const processExportsCJS = (code: string): string => {
       /^(\s*)export\s+\{([^}]+)\}\s+from\s+["']([^"']+)["'];?\s*$/
     );
     if (reexportFromMatch) {
-      const members = parseNamedImports(reexportFromMatch[2]);
-      const modulePath = reexportFromMatch[3];
+      const members = parseNamedImports(reexportFromMatch[2] ?? '');
+      const modulePath = reexportFromMatch[3] ?? '';
       // Only value members (no types)
       const valueMembers = members.filter((namedMember) => !namedMember.isType);
       if (valueMembers.length) {
@@ -325,7 +325,7 @@ const processExportsCJS = (code: string): string => {
     // `export { A, B as C }` — named re-export (same module)
     const namedExportMatch = line.match(/^(\s*)export\s+\{([^}]+)\};?\s*$/);
     if (namedExportMatch) {
-      const members = parseNamedImports(namedExportMatch[2]).filter(
+      const members = parseNamedImports(namedExportMatch[2] ?? '').filter(
         (namedMember) => !namedMember.isType
       );
       for (const namedMember of members) {

@@ -4,7 +4,7 @@
   "include": ["src/**/*"],
   "compilerOptions": {
     "paths": {
-      "@intlayer/backend": ["../../../apps/backend/dist/types/export"],
+      "@intlayer/api": ["./src/index.ts"],
       "intlayer-editor": ["../../intlayer-editor/server/dist/export"]
     }
   }

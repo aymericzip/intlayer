@@ -1,4 +1,4 @@
-import type { SessionAPI } from '@intlayer/backend';
+import type { SessionAPI } from '@intlayer/backend-contract/session';
 import { getAuthAPI } from '@intlayer/design-system/libs';
 
 const headers = () => new Headers();

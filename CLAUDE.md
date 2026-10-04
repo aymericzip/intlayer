@@ -27,6 +27,7 @@ packages/
     core/            Dictionary interpreter, transpiler, formatters
     config/          Config loader & types
     api/             Typed fetch client for backend REST API
+    backend-contract/  REST contract (routes + zod schemas) shared by backend, api, OpenAPI
     design-system/   Shared React UI + TanStack Query hooks
     types/           Shared TS types (no runtime)
     cli/             CLI implementation

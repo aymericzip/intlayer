@@ -1,5 +1,5 @@
 import { getStripeAPI } from '@intlayer/api';
-import type { GetPricingResult } from '@intlayer/backend';
+import type { GetPricingResult } from '@intlayer/backend-contract/stripe';
 import {
   App_Dashboard,
   App_Pricing,

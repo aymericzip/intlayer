@@ -1,4 +1,4 @@
-import type { UserAPI } from '@intlayer/backend';
+import type { UserAPI } from '@intlayer/backend-contract/user';
 import {
   useGetOrganizations,
   useGetUserById,
@@ -103,6 +103,7 @@ export const UserEditForm: FC<{ userId: string }> = ({ userId }) => {
       await updateUserMutation.mutateAsync({
         id: user.id,
         name: data.name,
+        // A new address is saved as unverified and sent a verification link
         email: data.email,
         role: data.role,
         lang: data.lang,

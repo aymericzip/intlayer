@@ -343,10 +343,10 @@ export const createSessionTools = ({
         return JSON.stringify({ error: 'Permission denied' });
 
       try {
-        const project = await projectService.updateProjectById(
-          projectId,
-          params as any
-        );
+        // Only the name: the tool input is model-generated, never trust extra keys
+        const project = await projectService.updateProjectById(projectId, {
+          name: params.name,
+        });
         return JSON.stringify({ id: project.id, name: project.name });
       } catch (err) {
         return JSON.stringify({ error: String(err) });
@@ -539,9 +539,10 @@ export const createSessionTools = ({
         return JSON.stringify({ error: 'Permission denied' });
 
       try {
+        // Only the name: the tool input is model-generated, never trust extra keys
         const organization = await organizationService.updateOrganizationById(
           organizationId,
-          params as any
+          { name: params.name }
         );
         return JSON.stringify({ id: organization.id, name: organization.name });
       } catch (err) {
@@ -813,7 +814,11 @@ export const createSessionTools = ({
         return JSON.stringify({ error: 'Permission denied' });
 
       try {
-        const user = await userService.updateUserById(userId, params as any);
+        // Only the name: the tool input is model-generated, never trust extra
+        // keys (ex: `role`, which would grant admin rights)
+        const user = await userService.updateUserById(userId, {
+          name: params.name,
+        });
         return JSON.stringify({
           id: user.id,
           email: user.email,

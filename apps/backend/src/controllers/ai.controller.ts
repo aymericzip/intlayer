@@ -4,6 +4,10 @@ import {
   type ChatCompletionRequestMessage,
   getAIConfig,
 } from '@intlayer/ai';
+import type {
+  AIRoutes,
+  AIOptions as ContractAIOptions,
+} from '@intlayer/backend-contract/ai';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { KeyPath } from '@intlayer/types/keyPath';
 import { logger } from '@logger';
@@ -22,6 +26,7 @@ import { createSessionTools } from '@utils/AI/chat/sessionTools';
 import * as customQueryUtil from '@utils/AI/customQuery';
 import { getProjectAIOptions } from '@utils/AI/getProjectAIOptions';
 import * as translateJSONUtil from '@utils/AI/translateJSON';
+import type { ContractRequest } from '@utils/contract/registerContractRoutes';
 import { type AppError, ErrorHandler } from '@utils/errors';
 import {
   type DiscussionFiltersParams,
@@ -38,6 +43,15 @@ import type { AIStats } from '@/types/aiStats.types';
 import type { Dictionary } from '@/types/dictionary.types';
 import type { DiscussionAPI } from '@/types/discussion.types';
 import type { Tag, TagAPI } from '@/types/tag.types';
+
+/**
+ * Validated client AI options → `@intlayer/ai` options. The contract keeps
+ * provider options loose (they come from the AI SDKs); `getAIConfig` merges
+ * them with the project and default options and resolves the provider.
+ */
+const toAIOptions = (
+  aiOptions: ContractAIOptions | undefined
+): AIOptions | undefined => aiOptions as AIOptions | undefined;
 
 export type {
   AIConfig,
@@ -59,7 +73,7 @@ export type CustomQueryResult =
   ResponseData<customQueryUtil.CustomQueryResultData>;
 
 export const customQuery = async (
-  request: FastifyRequest<{ Body: CustomQueryBody }>,
+  request: ContractRequest<AIRoutes['customQuery']>,
   reply: FastifyReply
 ): Promise<void> => {
   const { aiOptions, tagsKeys, ...rest } = request.body;
@@ -71,7 +85,7 @@ export const customQuery = async (
   try {
     aiConfig = await getAIConfig(
       {
-        userOptions: aiOptions,
+        userOptions: toAIOptions(aiOptions),
         projectOptions: projectAIOptions,
         defaultOptions: customQueryUtil.aiDefaultOptions,
         accessType: ['registered_user', 'apiKey'],
@@ -85,6 +99,8 @@ export const customQuery = async (
   try {
     const auditResponse = await customQueryUtil.customQuery({
       ...rest,
+      // AI SDK messages: the contract checks the array, the SDK its content
+      messages: rest.messages as customQueryUtil.CustomQueryOptions['messages'],
       aiConfig,
     });
 
@@ -113,7 +129,7 @@ export type TranslateJSONResult = ResponseData<
 >;
 
 export const translateJSON = async (
-  request: FastifyRequest<{ Body: TranslateJSONBody }>,
+  request: ContractRequest<AIRoutes['translateJSON']>,
   reply: FastifyReply
 ): Promise<void> => {
   const { project, user } = request.session || {};
@@ -125,7 +141,7 @@ export const translateJSON = async (
   try {
     aiConfig = await getAIConfig(
       {
-        userOptions: aiOptions,
+        userOptions: toAIOptions(aiOptions),
         projectOptions: projectAIOptions,
         defaultOptions: translateJSONUtil.aiDefaultOptions,
         accessType: ['registered_user', 'apiKey'],
@@ -181,7 +197,7 @@ export type AuditContentDeclarationResult =
  * Retrieves a list of dictionaries based on filters and pagination.
  */
 export const auditContentDeclaration = async (
-  request: FastifyRequest<{ Body: AuditContentDeclarationBody }>,
+  request: ContractRequest<AIRoutes['auditContentDeclaration']>,
   reply: FastifyReply
 ): Promise<void> => {
   const { project, user } = request.session || {};
@@ -194,7 +210,7 @@ export const auditContentDeclaration = async (
   try {
     aiConfig = await getAIConfig(
       {
-        userOptions: aiOptions,
+        userOptions: toAIOptions(aiOptions),
         projectOptions: projectAIOptions,
         defaultOptions: auditContentDeclarationUtil.aiDefaultOptions,
         accessType: ['registered_user', 'apiKey'],
@@ -252,7 +268,7 @@ export type AuditContentDeclarationFieldResult =
  * Retrieves a list of dictionaries based on filters and pagination.
  */
 export const auditContentDeclarationField = async (
-  request: FastifyRequest<{ Body: AuditContentDeclarationFieldBody }>,
+  request: ContractRequest<AIRoutes['auditContentDeclarationField']>,
   reply: FastifyReply
 ): Promise<void> => {
   const { project, user } = request.session || {};
@@ -264,7 +280,7 @@ export const auditContentDeclarationField = async (
   try {
     aiConfig = await getAIConfig(
       {
-        userOptions: aiOptions,
+        userOptions: toAIOptions(aiOptions),
         projectOptions: projectAIOptions,
         defaultOptions: auditContentDeclarationFieldUtil.aiDefaultOptions,
         accessType: ['registered_user', 'apiKey'],
@@ -321,7 +337,7 @@ export type AuditContentDeclarationMetadataResult =
  * Retrieves a list of dictionaries based on filters and pagination.
  */
 export const auditContentDeclarationMetadata = async (
-  request: FastifyRequest<{ Body: AuditContentDeclarationMetadataBody }>,
+  request: ContractRequest<AIRoutes['auditContentDeclarationMetadata']>,
   reply: FastifyReply
 ): Promise<void> => {
   const { organization, user } = request.session || {};
@@ -331,7 +347,7 @@ export const auditContentDeclarationMetadata = async (
   try {
     aiConfig = await getAIConfig(
       {
-        userOptions: aiOptions,
+        userOptions: toAIOptions(aiOptions),
         defaultOptions: auditContentDeclarationMetadataUtil.aiDefaultOptions,
         accessType: ['registered_user', 'apiKey'],
       },
@@ -383,7 +399,7 @@ export type AuditTagResult = ResponseData<auditTagUtil.TranslateJSONResultData>;
  * Retrieves a list of dictionaries based on filters and pagination.
  */
 export const auditTag = async (
-  request: FastifyRequest<{ Body: AuditTagBody }>,
+  request: ContractRequest<AIRoutes['auditTag']>,
   reply: FastifyReply
 ): Promise<void> => {
   const { project, user } = request.session || {};
@@ -395,7 +411,7 @@ export const auditTag = async (
   try {
     aiConfig = await getAIConfig(
       {
-        userOptions: aiOptions,
+        userOptions: toAIOptions(aiOptions),
         projectOptions: projectAIOptions,
         defaultOptions: auditTagUtil.aiDefaultOptions,
         accessType: ['registered_user', 'apiKey'],
@@ -441,7 +457,7 @@ export type AskDocQuestionResult =
   ResponseData<askDocQuestionUtil.AskDocQuestionResult>;
 
 export const askDocQuestion = async (
-  request: FastifyRequest<{ Body: AskDocQuestionBody }>,
+  request: ContractRequest<AIRoutes['ask']>,
   reply: FastifyReply
 ): Promise<void> => {
   const { messages = [], discussionId } = request.body;
@@ -609,7 +625,7 @@ export type ChatBody = {
 export type ChatResult = ResponseData<chatUtil.ChatResultData>;
 
 export const chat = async (
-  request: FastifyRequest<{ Body: ChatBody }>,
+  request: ContractRequest<AIRoutes['chat']>,
   reply: FastifyReply
 ): Promise<void> => {
   const { messages = [], discussionId } = request.body;
@@ -773,7 +789,7 @@ export type AutocompleteResponse = ResponseData<{
 }>;
 
 export const autocomplete = async (
-  request: FastifyRequest<{ Body: AutocompleteBody }>,
+  request: ContractRequest<AIRoutes['autocomplete']>,
   reply: FastifyReply
 ): Promise<void> => {
   const { user, project } = request.session || {};
@@ -788,7 +804,7 @@ export const autocomplete = async (
     try {
       aiConfig = await getAIConfig(
         {
-          userOptions: aiOptions,
+          userOptions: toAIOptions(aiOptions),
           projectOptions: projectAIOptions,
           defaultOptions: autocompleteUtil.aiDefaultOptions,
           accessType: ['public'],
@@ -837,7 +853,7 @@ export type GetDiscussionsResult = PaginatedResponse<DiscussionAPI>;
  * Only the owner or admins can access. By default, users only see their own.
  */
 export const getDiscussions = async (
-  request: FastifyRequest<{ Querystring: GetDiscussionsParams }>,
+  request: ContractRequest<AIRoutes['getDiscussions']>,
   reply: FastifyReply
 ): Promise<void> => {
   const { user, roles } = request.session || {};

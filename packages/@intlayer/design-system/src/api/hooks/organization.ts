@@ -8,7 +8,8 @@ import type {
   UpdateOrganizationBody,
   UpdateOrganizationMailerConfigBody,
   UpdateOrganizationMembersBody,
-} from '@intlayer/backend';
+} from '@intlayer/backend-contract/organization';
+import type { SessionAPI } from '@intlayer/backend-contract/session';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useOrganizationAPI } from '../useIntlayerAPI';
 import { useAppQuery } from './utils';
@@ -75,7 +76,7 @@ export const useUpdateOrganizationMembers = () => {
     onSuccess: (data) => {
       // Patch the session cache immediately so member lists derived from
       // `session.organization` update without waiting for a refetch
-      const session = queryClient.getQueryData(['session']);
+      const session = queryClient.getQueryData<SessionAPI>(['session']);
 
       queryClient.setQueryData(['session'], {
         ...(session ?? {}),
@@ -118,7 +119,7 @@ export const useAddOrganizationMember = () => {
     onSuccess: (data) => {
       // Patch the session cache immediately so member lists derived from
       // `session.organization` update without waiting for a refetch
-      const session = queryClient.getQueryData(['session']);
+      const session = queryClient.getQueryData<SessionAPI>(['session']);
 
       queryClient.setQueryData(['session'], {
         ...(session ?? {}),
@@ -159,8 +160,8 @@ export const useSelectOrganization = () => {
 
   return useMutation({
     mutationKey: ['session-organizations'],
-    mutationFn: (args: SelectOrganizationParam) =>
-      organizationAPI.selectOrganization(args),
+    mutationFn: (organizationId: SelectOrganizationParam['organizationId']) =>
+      organizationAPI.selectOrganization(organizationId),
     meta: {
       invalidateQueries: [
         ['session'],
@@ -173,7 +174,7 @@ export const useSelectOrganization = () => {
       ],
     },
     onSuccess: (data) => {
-      const session = queryClient.getQueryData(['session']);
+      const session = queryClient.getQueryData<SessionAPI>(['session']);
 
       queryClient.setQueryData(['session'], {
         ...(session ?? {}),
@@ -202,7 +203,7 @@ export const useUnselectOrganization = () => {
       ],
     },
     onSuccess: () => {
-      const session = queryClient.getQueryData(['session']);
+      const session = queryClient.getQueryData<SessionAPI>(['session']);
 
       queryClient.setQueryData(['session'], {
         ...(session ?? {}),

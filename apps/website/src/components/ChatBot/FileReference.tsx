@@ -4,6 +4,14 @@ import { File } from 'lucide-react';
 import type { FC } from 'react';
 import { type IntlayerNode, useIntlayer } from 'react-intlayer';
 
+/** Fields read from the doc and blog metadata dictionaries. */
+type FileMetadataEntry = {
+  docKey: IntlayerNode<string>;
+  /** Missing on a few entries (e.g. the readme). */
+  title?: IntlayerNode<string>;
+  url: IntlayerNode<string>;
+};
+
 const FileReferenceTag: FC<{
   fileTitle: IntlayerNode | string;
   fileUrl: string;
@@ -26,8 +34,9 @@ export const FileReference: FC<{
   relatedFiles: string[];
 }> = ({ relatedFiles }) => {
   const { relatedFilesLabel } = useIntlayer('chat-form-related-files');
-  const docData = useIntlayer('doc-metadata');
-  const blogData = useIntlayer('blog-metadata');
+  // Widened: the literal union of every entry is too large for the checker
+  const docData: FileMetadataEntry[] = useIntlayer('doc-metadata');
+  const blogData: FileMetadataEntry[] = useIntlayer('blog-metadata');
 
   const uniqFiles = [...new Set(relatedFiles)];
 
@@ -38,7 +47,7 @@ export const FileReference: FC<{
       <span className="text-muted-foreground text-sm">{relatedFilesLabel}</span>
       <div className="flex min-w-full flex-row gap-2 overflow-x-auto pb-1">
         {uniqFiles.map((fileKey) => {
-          const fileData = [...docData, ...blogData]?.find(
+          const fileData = [...docData, ...blogData].find(
             (docEl) => docEl.docKey.value === fileKey
           );
 
@@ -47,7 +56,7 @@ export const FileReference: FC<{
           return (
             <FileReferenceTag
               key={fileKey}
-              fileTitle={fileData.title}
+              fileTitle={fileData.title ?? fileData.docKey}
               fileUrl={fileData.url.value}
             />
           );

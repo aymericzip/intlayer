@@ -1,4 +1,4 @@
-import type { OAuth2AccessAPI } from '@intlayer/backend';
+import type { OAuth2AccessAPI } from '@intlayer/backend-contract/project';
 import {
   useDeleteAccessKey,
   useRefreshAccessKey,

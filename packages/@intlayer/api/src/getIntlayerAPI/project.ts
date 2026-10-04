@@ -1,3 +1,5 @@
+import type { RouteEndpoints } from '@intlayer/backend-contract/defineRoute';
+import { buildRouteURL } from '@intlayer/backend-contract/defineRoute';
 import type {
   AddNewAccessKeyBody,
   AddNewAccessKeyResponse,
@@ -9,11 +11,12 @@ import type {
   GetProjectInsightsResult,
   GetProjectsParams,
   GetProjectsResult,
+  ProjectRoutes,
   PushProjectConfigurationBody,
   PushProjectConfigurationResult,
+  projectContract,
   RefreshAccessKeyBody,
   RefreshAccessKeyResponse,
-  ResponseData,
   SelectProjectParam,
   SelectProjectResult,
   TriggerBuildResult,
@@ -26,19 +29,50 @@ import type {
   UpdateProjectMembersBody,
   UpdateProjectMembersResult,
   UpdateProjectResult,
-} from '@intlayer/backend';
+} from '@intlayer/backend-contract/project';
+import type { ResponseData } from '@intlayer/backend-contract/responseData';
 import { editor } from '@intlayer/config/built';
+import { BACKEND_URL } from '@intlayer/config/defaultValues';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { createEndpoint } from '../cms/createIntlayerCMS';
 import { type FetcherOptions, fetcher } from '../fetcher';
+
+/** Prefix of the project routes, checked against the backend contract. */
+const projectGroup = {
+  prefix: '/api/project',
+} as const satisfies Pick<typeof projectContract, 'prefix'>;
+
+/**
+ * Method and path of every project route, checked against the backend
+ * contract at compile time (the contract's zod schemas are never loaded).
+ */
+const projectEndpoints = {
+  getProjects: { method: 'GET', path: '/' },
+  getProjectInsights: { method: 'GET', path: '/insights' },
+  addProject: { method: 'POST', path: '/' },
+  updateProject: { method: 'PUT', path: '/' },
+  updateProjectMembers: { method: 'PUT', path: '/members' },
+  pushProjectConfiguration: { method: 'PUT', path: '/configuration' },
+  deleteProject: { method: 'DELETE', path: '/' },
+  selectProject: { method: 'PUT', path: '/:projectId' },
+  unselectProject: { method: 'POST', path: '/logout' },
+  addNewAccessKey: { method: 'POST', path: '/access_key' },
+  refreshAccessKey: { method: 'PATCH', path: '/access_key' },
+  deleteAccessKey: { method: 'DELETE', path: '/access_key' },
+  triggerBuild: { method: 'POST', path: '/build' },
+  triggerWebhook: { method: 'POST', path: '/webhook' },
+  getCIConfiguration: { method: 'GET', path: '/ci' },
+  pushCIConfiguration: { method: 'POST', path: '/ci' },
+  deleteProjectByIdAdmin: { method: 'DELETE', path: '/:projectId/admin' },
+  updateMemberAccess: { method: 'PUT', path: '/member/:userId/access' },
+} as const satisfies RouteEndpoints<ProjectRoutes>;
 
 export const getProjectAPI = (
   authAPIOptions: FetcherOptions = {},
   intlayerConfig?: IntlayerConfig
 ) => {
-  const backendURL = intlayerConfig?.editor?.backendURL ?? editor.backendURL;
-
-  const PROJECT_API_ROUTE = `${backendURL}/api/project`;
+  const backendURL =
+    intlayerConfig?.editor?.backendURL ?? editor.backendURL ?? BACKEND_URL;
 
   /**
    * Retrieves a list of projects based on filters and pagination.
@@ -49,11 +83,12 @@ export const getProjectAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<GetProjectsResult>(
-      PROJECT_API_ROUTE,
+      buildRouteURL(backendURL, projectGroup, projectEndpoints.getProjects),
       authAPIOptions,
       otherOptions,
       {
         cache: 'no-store',
+        method: projectEndpoints.getProjects.method,
         // @ts-ignore Number of parameter will be stringified by the fetcher
         params: filters,
       }
@@ -66,12 +101,16 @@ export const getProjectAPI = (
    */
   const getProjectInsights = async (otherOptions: FetcherOptions = {}) =>
     await fetcher<GetProjectInsightsResult>(
-      `${PROJECT_API_ROUTE}/insights`,
+      buildRouteURL(
+        backendURL,
+        projectGroup,
+        projectEndpoints.getProjectInsights
+      ),
       authAPIOptions,
       otherOptions,
       {
         cache: 'no-store',
-        method: 'GET',
+        method: projectEndpoints.getProjectInsights.method,
       }
     );
 
@@ -84,11 +123,11 @@ export const getProjectAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<AddProjectResult>(
-      `${PROJECT_API_ROUTE}`,
+      buildRouteURL(backendURL, projectGroup, projectEndpoints.addProject),
       authAPIOptions,
       otherOptions,
       {
-        method: 'POST',
+        method: projectEndpoints.addProject.method,
         body: project,
       }
     );
@@ -102,11 +141,11 @@ export const getProjectAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<UpdateProjectResult>(
-      `${PROJECT_API_ROUTE}`,
+      buildRouteURL(backendURL, projectGroup, projectEndpoints.updateProject),
       authAPIOptions,
       otherOptions,
       {
-        method: 'PUT',
+        method: projectEndpoints.updateProject.method,
         body: project,
       }
     );
@@ -120,11 +159,15 @@ export const getProjectAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<UpdateProjectMembersResult>(
-      `${PROJECT_API_ROUTE}/members`,
+      buildRouteURL(
+        backendURL,
+        projectGroup,
+        projectEndpoints.updateProjectMembers
+      ),
       authAPIOptions,
       otherOptions,
       {
-        method: 'PUT',
+        method: projectEndpoints.updateProjectMembers.method,
         body,
       }
     );
@@ -137,11 +180,15 @@ export const getProjectAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<PushProjectConfigurationResult>(
-      `${PROJECT_API_ROUTE}/configuration`,
+      buildRouteURL(
+        backendURL,
+        projectGroup,
+        projectEndpoints.pushProjectConfiguration
+      ),
       authAPIOptions,
       otherOptions,
       {
-        method: 'PUT',
+        method: projectEndpoints.pushProjectConfiguration.method,
         body: projectConfiguration,
       }
     );
@@ -152,11 +199,11 @@ export const getProjectAPI = (
    */
   const deleteProject = async (otherOptions: FetcherOptions = {}) =>
     await fetcher<DeleteProjectResult>(
-      `${PROJECT_API_ROUTE}`,
+      buildRouteURL(backendURL, projectGroup, projectEndpoints.deleteProject),
       authAPIOptions,
       otherOptions,
       {
-        method: 'DELETE',
+        method: projectEndpoints.deleteProject.method,
       }
     );
 
@@ -169,10 +216,15 @@ export const getProjectAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     fetcher<DeleteProjectResult>(
-      `${PROJECT_API_ROUTE}/${projectId}/admin`,
+      buildRouteURL(
+        backendURL,
+        projectGroup,
+        projectEndpoints.deleteProjectByIdAdmin,
+        { projectId }
+      ),
       authAPIOptions,
       otherOptions,
-      { method: 'DELETE' }
+      { method: projectEndpoints.deleteProjectByIdAdmin.method }
     );
 
   /**
@@ -184,11 +236,13 @@ export const getProjectAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<SelectProjectResult>(
-      `${PROJECT_API_ROUTE}/${String(projectId)}`,
+      buildRouteURL(backendURL, projectGroup, projectEndpoints.selectProject, {
+        projectId: String(projectId),
+      }),
       authAPIOptions,
       otherOptions,
       {
-        method: 'PUT',
+        method: projectEndpoints.selectProject.method,
       }
     );
 
@@ -198,11 +252,11 @@ export const getProjectAPI = (
    */
   const unselectProject = async (otherOptions: FetcherOptions = {}) =>
     await fetcher<UnselectProjectResult>(
-      `${PROJECT_API_ROUTE}/logout`,
+      buildRouteURL(backendURL, projectGroup, projectEndpoints.unselectProject),
       authAPIOptions,
       otherOptions,
       {
-        method: 'POST',
+        method: projectEndpoints.unselectProject.method,
       }
     );
 
@@ -217,11 +271,11 @@ export const getProjectAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<AddNewAccessKeyResponse>(
-      `${PROJECT_API_ROUTE}/access_key`,
+      buildRouteURL(backendURL, projectGroup, projectEndpoints.addNewAccessKey),
       authAPIOptions,
       otherOptions,
       {
-        method: 'POST',
+        method: projectEndpoints.addNewAccessKey.method,
         body: accessKey,
       }
     );
@@ -237,11 +291,11 @@ export const getProjectAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<DeleteAccessKeyResponse>(
-      `${PROJECT_API_ROUTE}/access_key`,
+      buildRouteURL(backendURL, projectGroup, projectEndpoints.deleteAccessKey),
       authAPIOptions,
       otherOptions,
       {
-        method: 'DELETE',
+        method: projectEndpoints.deleteAccessKey.method,
         body: { clientId },
       }
     );
@@ -257,11 +311,15 @@ export const getProjectAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<RefreshAccessKeyResponse>(
-      `${PROJECT_API_ROUTE}/access_key`,
+      buildRouteURL(
+        backendURL,
+        projectGroup,
+        projectEndpoints.refreshAccessKey
+      ),
       authAPIOptions,
       otherOptions,
       {
-        method: 'PATCH',
+        method: projectEndpoints.refreshAccessKey.method,
         body: { clientId },
       }
     );
@@ -273,11 +331,11 @@ export const getProjectAPI = (
    */
   const triggerBuild = async (otherOptions: FetcherOptions = {}) =>
     await fetcher<TriggerBuildResult>(
-      `${PROJECT_API_ROUTE}/build`,
+      buildRouteURL(backendURL, projectGroup, projectEndpoints.triggerBuild),
       authAPIOptions,
       otherOptions,
       {
-        method: 'POST',
+        method: projectEndpoints.triggerBuild.method,
       }
     );
 
@@ -292,11 +350,11 @@ export const getProjectAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<TriggerWebhookResult>(
-      `${PROJECT_API_ROUTE}/webhook`,
+      buildRouteURL(backendURL, projectGroup, projectEndpoints.triggerWebhook),
       authAPIOptions,
       otherOptions,
       {
-        method: 'POST',
+        method: projectEndpoints.triggerWebhook.method,
         body: { webhookIndex },
       }
     );
@@ -308,11 +366,15 @@ export const getProjectAPI = (
    */
   const getCIConfig = async (otherOptions: FetcherOptions = {}) =>
     await fetcher<ResponseData<any>>(
-      `${PROJECT_API_ROUTE}/ci`,
+      buildRouteURL(
+        backendURL,
+        projectGroup,
+        projectEndpoints.getCIConfiguration
+      ),
       authAPIOptions,
       otherOptions,
       {
-        method: 'GET',
+        method: projectEndpoints.getCIConfiguration.method,
       }
     );
 
@@ -323,11 +385,15 @@ export const getProjectAPI = (
    */
   const pushCIConfig = async (otherOptions: FetcherOptions = {}) =>
     await fetcher<ResponseData<any>>(
-      `${PROJECT_API_ROUTE}/ci`,
+      buildRouteURL(
+        backendURL,
+        projectGroup,
+        projectEndpoints.pushCIConfiguration
+      ),
       authAPIOptions,
       otherOptions,
       {
-        method: 'POST',
+        method: projectEndpoints.pushCIConfiguration.method,
       }
     );
 
@@ -342,10 +408,15 @@ export const getProjectAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<UpdateMemberAccessResult>(
-      `${PROJECT_API_ROUTE}/member/${userId}/access`,
+      buildRouteURL(
+        backendURL,
+        projectGroup,
+        projectEndpoints.updateMemberAccess,
+        { userId }
+      ),
       authAPIOptions,
       otherOptions,
-      { method: 'PUT', body }
+      { method: projectEndpoints.updateMemberAccess.method, body }
     );
 
   return {

@@ -1,4 +1,4 @@
-import type { ProjectAPI } from '@intlayer/backend';
+import type { ProjectAPI } from '@intlayer/backend-contract/project';
 import { useAddProject, useSelectProject } from '@intlayer/design-system/api';
 import {
   Form,
@@ -23,9 +23,9 @@ export const ProjectCreationForm: FC<ProjectCreationFormProps> = ({
   const { form, isSubmitting } = useForm(ProjectSchema);
   const { nameInput, createProjectButton } = useIntlayer('project-form');
 
-  const onSubmitSuccess: (data: ProjectFormData) => Promise<void> = (data) =>
+  const onSubmitSuccess = (data: ProjectFormData) =>
     addProject(data, {
-      onSuccess: (result: any) => {
+      onSuccess: (result) => {
         const projectId = String(result.data?.id);
 
         if (result.data) {

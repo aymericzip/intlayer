@@ -3,7 +3,8 @@ import { getIntlayer, Locales, type LocalesValues } from 'intlayer';
 import type { NavCategorizedDoc, NavSection, Section } from './types';
 
 export const getDocData = (locale: LocalesValues = Locales.ENGLISH): Section =>
-  getIntlayer('doc-data', locale) satisfies Section;
+  // Asserted: checking the full dictionary literal exceeds the type depth
+  getIntlayer('doc-data', locale) as Section;
 
 /**
  * Reduces a documentation tree to the fields the sidebar and breadcrumb read.

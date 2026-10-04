@@ -13,6 +13,8 @@ import fastifyCors from '@fastify/cors';
 import fastifyFormbody from '@fastify/formbody';
 import fastifyHelmet from '@fastify/helmet';
 import fastifyRateLimit from '@fastify/rate-limit';
+import { cliSessionTokenContract } from '@intlayer/backend-contract/cliSessionToken';
+import { oAuth2Contract } from '@intlayer/backend-contract/oAuth2';
 import { csrfMiddleware } from '@middlewares/csrf.middleware';
 // Middlewares
 import {
@@ -64,6 +66,8 @@ import { processAuditJobs } from '@services/audit/recursiveAudit.service';
 import { startTranslationWorker } from '@services/translationWorker.service';
 // Utils
 import { initializeAuth } from '@utils/auth/getAuth';
+import { registerContractRoutes } from '@utils/contract/registerContractRoutes';
+import { registerOpenAPI } from '@utils/contract/registerOpenAPI';
 import { corsOptions } from '@utils/cors';
 import { isSelfHosted } from '@utils/isSelfHosted';
 import { connectDB } from '@utils/mongoDB/connectDB';
@@ -150,6 +154,9 @@ const startServer = async () => {
 
   // Rate limiter
   await app.register(fastifyRateLimit, ipLimiter);
+
+  // OpenAPI document + Swagger UI (collects every route registered below)
+  await registerOpenAPI(app);
 
   // Connect to MongoDB
   const dbClient = await connectDB();
@@ -298,13 +305,27 @@ const startServer = async () => {
 
   // oAuth2 Auth
   app.addHook('onRequest', attachOAuthInstance);
-  app.post('/oauth2/token', getOAuth2AccessToken); // Route to get the token
-  app.post('/oauth2/token/extend', extendOAuth2Token); // Route to extend an active token
+  // Registered before the oAuth2 preHandler: the token exchange itself is
+  // authenticated by the client credentials, not by a bearer token
+  await app.register(
+    async (scope) =>
+      registerContractRoutes(scope, oAuth2Contract, {
+        getOAuth2AccessToken,
+        extendOAuth2Token,
+      }),
+    { prefix: oAuth2Contract.prefix }
+  );
   app.addHook('preHandler', oAuth2Middleware);
 
   // CLI session tokens (short-lived 2h tokens for authenticated users)
-  app.post('/api/cli-session', createCliSessionTokenHandler);
-  app.get('/api/cli-session/me', getCliSessionMeHandler);
+  await app.register(
+    async (scope) =>
+      registerContractRoutes(scope, cliSessionTokenContract, {
+        createCliSessionToken: createCliSessionTokenHandler,
+        getCliSessionMe: getCliSessionMeHandler,
+      }),
+    { prefix: cliSessionTokenContract.prefix }
+  );
 
   // // debug
   const isDev = env === 'development';

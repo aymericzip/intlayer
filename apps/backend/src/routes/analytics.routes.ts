@@ -6,71 +6,28 @@ import {
   getPageMetadata,
   ingestAnalyticsEvents,
 } from '@controllers/analytics.controller';
+import { analyticsContract } from '@intlayer/backend-contract/analytics';
+import { registerContractRoutes } from '@utils/contract/registerContractRoutes';
 import { analyticsIngestLimiter } from '@utils/rateLimiter';
 import type { FastifyInstance } from 'fastify';
-import type { Routes } from '@/types/Routes';
 
-export const analyticsRoute = '/api/analytics';
-
-const baseURL = () => `${process.env.BACKEND_URL}${analyticsRoute}`;
-
-export const getAnalyticsRoutes = () =>
-  ({
-    ingestAnalyticsEvents: {
-      urlModel: '/events',
-      url: `${baseURL()}/events`,
-      method: 'POST',
-    },
-    getAnalyticsOverview: {
-      urlModel: '/overview',
-      url: `${baseURL()}/overview`,
-      method: 'GET',
-    },
-    getAnalyticsAudience: {
-      urlModel: '/audience',
-      url: `${baseURL()}/audience`,
-      method: 'GET',
-    },
-    getContentStats: {
-      urlModel: '/content-stats',
-      url: `${baseURL()}/content-stats`,
-      method: 'GET',
-    },
-    getExperimentResults: {
-      urlModel: '/experiments/:experimentKey',
-      url: `${baseURL()}/experiments/:experimentKey`,
-      method: 'GET',
-    },
-    getPageMetadata: {
-      urlModel: '/page-metadata',
-      url: `${baseURL()}/page-metadata`,
-      method: 'GET',
-    },
-  }) satisfies Routes;
+export const analyticsRoute = analyticsContract.prefix;
 
 export const analyticsRouter = async (fastify: FastifyInstance) => {
-  // Public ingestion — attributed by the SDK's public browser token
-  // (`analytics:ingest` scope), obtained from `POST /api/public/token`. Rate limited per
-  // IP: the endpoint is unauthenticated, so it must not be a write amplifier.
-  fastify.post(
-    getAnalyticsRoutes().ingestAnalyticsEvents.urlModel,
-    { config: { rateLimit: analyticsIngestLimiter } },
-    ingestAnalyticsEvents
-  );
-
-  // Authenticated dashboard reads.
-  fastify.get(
-    getAnalyticsRoutes().getAnalyticsOverview.urlModel,
-    getAnalyticsOverview
-  );
-  fastify.get(
-    getAnalyticsRoutes().getAnalyticsAudience.urlModel,
-    getAnalyticsAudience
-  );
-  fastify.get(getAnalyticsRoutes().getContentStats.urlModel, getContentStats);
-  fastify.get(
-    getAnalyticsRoutes().getExperimentResults.urlModel,
-    getExperimentResults
-  );
-  fastify.get(getAnalyticsRoutes().getPageMetadata.urlModel, getPageMetadata);
+  registerContractRoutes(fastify, analyticsContract, {
+    // Public ingestion — attributed by the SDK's public browser token
+    // (`analytics:ingest` scope), obtained from `POST /api/public/token`. Rate
+    // limited per IP: the endpoint is unauthenticated, so it must not be a
+    // write amplifier.
+    ingestAnalyticsEvents: {
+      handler: ingestAnalyticsEvents,
+      options: { config: { rateLimit: analyticsIngestLimiter } },
+    },
+    // Authenticated dashboard reads.
+    getAnalyticsOverview,
+    getAnalyticsAudience,
+    getContentStats,
+    getExperimentResults,
+    getPageMetadata,
+  });
 };

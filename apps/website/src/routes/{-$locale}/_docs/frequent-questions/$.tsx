@@ -2,6 +2,7 @@ import { buildCreativeWorkJsonLd } from '@intlayer/design-system/structured-data
 import { createFileRoute, notFound, redirect } from '@tanstack/react-router';
 import { defaultLocale, getPrefix } from 'intlayer';
 import { DocumentationRender } from '~/components/DocPage/DocumentationRender';
+import type { FileRouteTypes } from '~/routeTree.gen';
 import { loadFaqPage } from '~/serverFunctions/faq';
 import { getCanonicalSlugs } from '~/utils/canonicalSlugs';
 import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
@@ -30,7 +31,8 @@ export const Route = createFileRoute('/{-$locale}/_docs/frequent-questions/$')({
     if (!exactMatch) {
       if (faqsData.length > 0) {
         throw redirect({
-          to: `/{-$locale}${faqsData[0].relativeUrl}`,
+          // FAQ pages are a catch-all: the target slug is only known at runtime
+          to: `/{-$locale}${faqsData[0].relativeUrl}` as FileRouteTypes['to'],
           params: {
             locale: getPrefix(locale).localePrefix,
           },

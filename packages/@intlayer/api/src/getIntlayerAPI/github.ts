@@ -1,4 +1,11 @@
+import type { RouteEndpoints } from '@intlayer/backend-contract/defineRoute';
+import { buildRouteURL } from '@intlayer/backend-contract/defineRoute';
+import type {
+  GitHubRoutes,
+  githubContract,
+} from '@intlayer/backend-contract/gitProviders';
 import { editor } from '@intlayer/config/built';
+import { BACKEND_URL } from '@intlayer/config/defaultValues';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { createEndpoint } from '../cms/createIntlayerCMS';
 import { type FetcherOptions, fetcher } from '../fetcher';
@@ -69,13 +76,30 @@ export type GitHubGetTokenResult = {
   };
 };
 
+/** Prefix of the routes, checked against the backend contract. */
+const githubGroup = {
+  prefix: '/api/github',
+} as const satisfies Pick<typeof githubContract, 'prefix'>;
+
+/**
+ * Method and path of every route, checked against the backend contract at
+ * compile time (the contract's zod schemas are never loaded).
+ */
+const githubEndpoints = {
+  getAuthUrl: { method: 'GET', path: '/auth-url' },
+  authCallback: { method: 'POST', path: '/auth' },
+  listRepos: { method: 'GET', path: '/repos' },
+  checkConfig: { method: 'POST', path: '/check-config' },
+  getConfigFile: { method: 'POST', path: '/get-config-file' },
+  getToken: { method: 'GET', path: '/token' },
+} as const satisfies RouteEndpoints<GitHubRoutes>;
+
 export const getGithubAPI = (
   authAPIOptions: FetcherOptions = {},
   intlayerConfig?: IntlayerConfig
 ) => {
-  const backendURL = intlayerConfig?.editor?.backendURL ?? editor.backendURL;
-
-  const GITHUB_API_ROUTE = `${backendURL}/api/github`;
+  const backendURL =
+    intlayerConfig?.editor?.backendURL ?? editor.backendURL ?? BACKEND_URL;
 
   /**
    * Get GitHub OAuth authorization URL
@@ -86,7 +110,7 @@ export const getGithubAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<GitHubGetAuthUrlResult>(
-      `${GITHUB_API_ROUTE}/auth-url`,
+      buildRouteURL(backendURL, githubGroup, githubEndpoints.getAuthUrl),
       authAPIOptions,
       otherOptions,
       {
@@ -103,11 +127,11 @@ export const getGithubAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<GitHubAuthCallbackResult>(
-      `${GITHUB_API_ROUTE}/auth`,
+      buildRouteURL(backendURL, githubGroup, githubEndpoints.authCallback),
       authAPIOptions,
       otherOptions,
       {
-        method: 'POST',
+        method: githubEndpoints.authCallback.method,
         body: { code },
       }
     );
@@ -121,7 +145,7 @@ export const getGithubAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<GitHubListReposResult>(
-      `${GITHUB_API_ROUTE}/repos`,
+      buildRouteURL(backendURL, githubGroup, githubEndpoints.listRepos),
       authAPIOptions,
       otherOptions,
       {
@@ -144,11 +168,11 @@ export const getGithubAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<GitHubCheckConfigResult>(
-      `${GITHUB_API_ROUTE}/check-config`,
+      buildRouteURL(backendURL, githubGroup, githubEndpoints.checkConfig),
       authAPIOptions,
       otherOptions,
       {
-        method: 'POST',
+        method: githubEndpoints.checkConfig.method,
         body: { token: token ?? undefined, owner, repository, branch },
       }
     );
@@ -170,11 +194,11 @@ export const getGithubAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<GitHubGetConfigFileResult>(
-      `${GITHUB_API_ROUTE}/get-config-file`,
+      buildRouteURL(backendURL, githubGroup, githubEndpoints.getConfigFile),
       authAPIOptions,
       otherOptions,
       {
-        method: 'POST',
+        method: githubEndpoints.getConfigFile.method,
         body: { token: token ?? undefined, owner, repository, branch, path },
       }
     );
@@ -184,7 +208,7 @@ export const getGithubAPI = (
    */
   const getToken = async (otherOptions: FetcherOptions = {}) =>
     await fetcher<GitHubGetTokenResult>(
-      `${GITHUB_API_ROUTE}/token`,
+      buildRouteURL(backendURL, githubGroup, githubEndpoints.getToken),
       authAPIOptions,
       otherOptions
     );

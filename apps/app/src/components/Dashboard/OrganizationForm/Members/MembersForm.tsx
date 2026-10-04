@@ -1,4 +1,5 @@
-import type { AddOrganizationMemberBody, UserAPI } from '@intlayer/backend';
+import type { AddOrganizationMemberBody } from '@intlayer/backend-contract/organization';
+import type { UserAPI } from '@intlayer/backend-contract/user';
 import {
   useAddOrganizationMember,
   useGetUsers,

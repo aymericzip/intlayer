@@ -1,7 +1,7 @@
 'use client';
 
+import type { AskDocQuestionBody, ChatBody } from '@intlayer/api';
 import type {
-  AskDocQuestionBody,
   AuditContentDeclarationBody,
   AuditContentDeclarationFieldBody,
   AuditContentDeclarationMetadataBody,
@@ -9,10 +9,10 @@ import type {
   AutocompleteBody,
   CustomQueryBody,
   TranslateJSONBody,
-} from '@intlayer/backend';
-import { type UseQueryOptions, useMutation } from '@tanstack/react-query';
+} from '@intlayer/backend-contract/ai';
+import { useMutation } from '@tanstack/react-query';
 import { useAiAPI } from '../useIntlayerAPI';
-import { useAppQuery } from './utils';
+import { type AppQueryOptions, useAppQuery } from './utils';
 
 export const useTranslateJSONDeclaration = () => {
   const aiAPI = useAiAPI();
@@ -76,7 +76,7 @@ export const useChat = () => {
 
   return useMutation({
     mutationKey: ['ai-chat'],
-    mutationFn: (args?: AskDocQuestionBody) => aiAPI.chat(args as any),
+    mutationFn: (args?: ChatBody) => aiAPI.chat(args),
   });
 };
 
@@ -98,7 +98,7 @@ export const useCustomQuery = () => {
   });
 };
 
-export const useGetAIStats = (options?: Partial<UseQueryOptions>) => {
+export const useGetAIStats = (options?: AppQueryOptions) => {
   const aiAPI = useAiAPI();
 
   return useAppQuery({

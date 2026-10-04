@@ -218,7 +218,7 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
         typeof TouchEvent !== 'undefined' &&
         mouseMoveEvent instanceof TouchEvent
       ) {
-        clientX = mouseMoveEvent.touches[0].clientX;
+        clientX = mouseMoveEvent.touches[0]?.clientX ?? clientX;
       }
 
       const { startX, startWidth, factor, isHandleOnPhysicalLeft } =
@@ -268,7 +268,7 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
 
       let clientX = 0;
       if ('touches' in mouseDownEvent) {
-        clientX = mouseDownEvent.touches[0].clientX;
+        clientX = mouseDownEvent.touches[0]?.clientX ?? clientX;
       } else {
         clientX = mouseDownEvent.clientX;
       }

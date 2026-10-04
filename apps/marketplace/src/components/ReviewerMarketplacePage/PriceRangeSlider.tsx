@@ -1,4 +1,4 @@
-import type { PriceDistributionData } from '@intlayer/backend';
+import type { PriceDistributionData } from '@intlayer/backend-contract/reviewer';
 import type { FC } from 'react';
 import { useCallback, useId } from 'react';
 

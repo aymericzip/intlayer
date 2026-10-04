@@ -173,9 +173,19 @@ export const useItemSelector = (
     });
   }, [calculatePosition]);
 
-  useEffect(() => {
-    scheduleMeasurement();
+  /**
+   * Measures inside a `ResizeObserver` callback. Those run right after layout,
+   * so the read is free, where a frame task scheduled from there would read
+   * before the next layout and force it. Observing the options delivers the
+   * initial measurement this way too.
+   */
+  const measureAfterLayout = useCallback(() => {
+    cancelMeasurementRef.current?.();
+    cancelMeasurementRef.current = null;
+    calculatePosition();
+  }, [calculatePosition]);
 
+  useEffect(() => {
     window.addEventListener('resize', scheduleMeasurement, { passive: true });
 
     const options = optionsRefs.current.filter(Boolean);
@@ -184,7 +194,7 @@ export const useItemSelector = (
     // `observe` calls, so a group of ten options costs two observers, not
     // twenty.
     const mutationObserver = new MutationObserver(scheduleMeasurement);
-    const resizeObserver = new ResizeObserver(scheduleMeasurement);
+    const resizeObserver = new ResizeObserver(measureAfterLayout);
 
     const handleMouseEnter = (event: Event) => {
       if (hideTimeoutRef.current) {
@@ -245,7 +255,14 @@ export const useItemSelector = (
         }
       }
     };
-  }, [optionsRefs, itemsLength, isHoverable, orientation, scheduleMeasurement]);
+  }, [
+    optionsRefs,
+    itemsLength,
+    isHoverable,
+    orientation,
+    scheduleMeasurement,
+    measureAfterLayout,
+  ]);
 
   return {
     choiceIndicatorPosition,

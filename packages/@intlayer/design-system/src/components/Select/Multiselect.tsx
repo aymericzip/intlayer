@@ -123,6 +123,12 @@ type MultiSelectProps = ComponentProps<typeof CommandRoot> & {
    * ```
    */
   loop?: boolean;
+
+  /**
+   * Blocks every interaction (selection, removal, keyboard, focus)
+   * @default false
+   */
+  disabled?: boolean;
 };
 
 /**
@@ -226,6 +232,7 @@ const MultiSelectRoot: FC<MultiSelectProps> = ({
   defaultValues,
   onValueChange,
   loop = false,
+  disabled = false,
   className,
   children,
   dir,
@@ -329,14 +336,15 @@ const MultiSelectRoot: FC<MultiSelectProps> = ({
         case 'Backspace':
         case 'Delete':
           if (value.length > 0) {
-            if (activeIndex !== -1 && activeIndex < value.length) {
-              onValueChangeHandler(value[activeIndex]);
+            const activeValue = value[activeIndex];
+            if (activeIndex !== -1 && activeValue !== undefined) {
+              onValueChangeHandler(activeValue);
               moveCurrent();
             } else if (
               (target.selectionStart === 0 && selectedValue === inputValue) ||
               isValueSelected
             ) {
-              onValueChangeHandler(value[value.length - 1]);
+              onValueChangeHandler(value[value.length - 1] as string);
             }
           }
           break;
@@ -391,9 +399,12 @@ const MultiSelectRoot: FC<MultiSelectProps> = ({
         onKeyDown={handleKeyDown}
         className={cn(
           'flex w-full flex-col gap-2 overflow-visible bg-transparent',
+          disabled && 'cursor-not-allowed opacity-50',
           className
         )}
         dir={dir}
+        aria-disabled={disabled || undefined}
+        inert={disabled}
         {...props}
       >
         {children}

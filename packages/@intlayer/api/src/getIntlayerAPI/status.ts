@@ -1,11 +1,38 @@
-import type { GetSetupStatusResult } from '@intlayer/backend';
+import type { RouteEndpoints } from '@intlayer/backend-contract/defineRoute';
+import { buildRouteURL } from '@intlayer/backend-contract/defineRoute';
+import type {
+  DemoRoutes,
+  demoContract,
+  GetDemoSessionResult,
+} from '@intlayer/backend-contract/demo';
+import type {
+  GetSetupStatusResult,
+  UserRoutes,
+  userContract,
+} from '@intlayer/backend-contract/user';
 import { editor } from '@intlayer/config/built';
+import { BACKEND_URL } from '@intlayer/config/defaultValues';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { createEndpoint } from '../cms/createIntlayerCMS';
 import { type FetcherOptions, fetcher } from '../fetcher';
 
 /** Result of the demo-session bootstrap endpoint. */
-export type GetDemoSessionResult = { ok: boolean };
+export type { GetDemoSessionResult };
+
+/** Routes used here, checked against the backend contract. */
+const userGroup = {
+  prefix: '/api/user',
+} as const satisfies Pick<typeof userContract, 'prefix'>;
+const setupStatusEndpoint = {
+  method: 'GET',
+  path: '/setup',
+} as const satisfies Pick<UserRoutes['getSetupStatus'], 'method' | 'path'>;
+const demoGroup = {
+  prefix: '/api/demo',
+} as const satisfies Pick<typeof demoContract, 'prefix'>;
+const demoEndpoints = {
+  getDemoSession: { method: 'GET', path: '/session' },
+} as const satisfies RouteEndpoints<DemoRoutes>;
 
 /**
  * Instance/entry status endpoints. These back the decisions made when an
@@ -20,7 +47,8 @@ export const getStatusAPI = (
   authAPIOptions: FetcherOptions = {},
   intlayerConfig?: IntlayerConfig
 ) => {
-  const backendURL = intlayerConfig?.editor?.backendURL ?? editor.backendURL;
+  const backendURL =
+    intlayerConfig?.editor?.backendURL ?? editor.backendURL ?? BACKEND_URL;
 
   /**
    * Reports whether the instance still needs its initial setup (creation of
@@ -30,7 +58,7 @@ export const getStatusAPI = (
    */
   const getSetupStatus = async (otherOptions: FetcherOptions = {}) =>
     await fetcher<GetSetupStatusResult>(
-      `${backendURL}/api/user/setup`,
+      buildRouteURL(backendURL, userGroup, setupStatusEndpoint),
       authAPIOptions,
       otherOptions,
       {
@@ -46,7 +74,7 @@ export const getStatusAPI = (
    */
   const getDemoSession = async (otherOptions: FetcherOptions = {}) =>
     await fetcher<GetDemoSessionResult>(
-      `${backendURL}/api/demo/session`,
+      buildRouteURL(backendURL, demoGroup, demoEndpoints.getDemoSession),
       authAPIOptions,
       otherOptions,
       {

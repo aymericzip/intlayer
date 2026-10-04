@@ -1,3 +1,5 @@
+import type { RouteBody } from '@intlayer/backend-contract/defineRoute';
+import type { ProjectRoutes } from '@intlayer/backend-contract/project';
 import { logger } from '@logger';
 import { SessionModel } from '@schemas/session.schema';
 import * as ciService from '@services/ci.service';
@@ -169,7 +171,7 @@ export const getProjectInsights = async (
         return {
           key: apiDictionary.key,
           content: apiDictionary.content,
-          updatedAt: apiDictionary.updatedAt,
+          updatedAt: new Date(apiDictionary.updatedAt).getTime(),
         };
       }
     );
@@ -798,9 +800,7 @@ export type TriggerBuildResult = ResponseData<{
   }>;
 }>;
 
-export type TriggerWebhookBody = {
-  webhookIndex: number;
-};
+export type TriggerWebhookBody = RouteBody<ProjectRoutes['triggerWebhook']>;
 
 export type TriggerWebhookResult = ResponseData<{
   target: string;

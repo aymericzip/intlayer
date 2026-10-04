@@ -1,35 +1,62 @@
+import type { RouteEndpoints } from '@intlayer/backend-contract/defineRoute';
+import { buildRouteURL } from '@intlayer/backend-contract/defineRoute';
 import type {
   AddEnvironmentBody,
   AddEnvironmentResult,
   DeleteEnvironmentResult,
+  EnvironmentRoutes,
+  environmentContract,
   MigrateEnvironmentBody,
   MigrateEnvironmentResult,
   ResetToProductionEnvironmentResult,
   SelectEnvironmentResult,
   UpdateEnvironmentBody,
   UpdateEnvironmentResult,
-} from '@intlayer/backend';
+} from '@intlayer/backend-contract/environment';
 import { editor } from '@intlayer/config/built';
+import { BACKEND_URL } from '@intlayer/config/defaultValues';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { createEndpoint } from '../cms/createIntlayerCMS';
 import { type FetcherOptions, fetcher } from '../fetcher';
+
+/** Prefix of the routes, checked against the backend contract. */
+const environmentGroup = {
+  prefix: '/api/project/environment',
+} as const satisfies Pick<typeof environmentContract, 'prefix'>;
+
+/**
+ * Method and path of every route, checked against the backend contract at
+ * compile time (the contract's zod schemas are never loaded).
+ */
+const environmentEndpoints = {
+  addEnvironment: { method: 'POST', path: '/' },
+  updateEnvironment: { method: 'PUT', path: '/:environmentId' },
+  deleteEnvironment: { method: 'DELETE', path: '/:environmentId' },
+  resetToProductionEnvironment: { method: 'PUT', path: '/production/select' },
+  selectEnvironment: { method: 'PUT', path: '/:environmentId/select' },
+  migrateEnvironment: { method: 'POST', path: '/migrate' },
+} as const satisfies RouteEndpoints<EnvironmentRoutes>;
 
 export const getEnvironmentAPI = (
   authAPIOptions: FetcherOptions = {},
   intlayerConfig?: IntlayerConfig
 ) => {
-  const backendURL = intlayerConfig?.editor?.backendURL ?? editor.backendURL;
-  const ENVIRONMENT_API_ROUTE = `${backendURL}/api/project/environment`;
+  const backendURL =
+    intlayerConfig?.editor?.backendURL ?? editor.backendURL ?? BACKEND_URL;
 
   const addEnvironment = async (
     body: AddEnvironmentBody,
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<AddEnvironmentResult>(
-      ENVIRONMENT_API_ROUTE,
+      buildRouteURL(
+        backendURL,
+        environmentGroup,
+        environmentEndpoints.addEnvironment
+      ),
       authAPIOptions,
       otherOptions,
-      { method: 'POST', body }
+      { method: environmentEndpoints.addEnvironment.method, body }
     );
 
   const updateEnvironment = async (
@@ -38,10 +65,15 @@ export const getEnvironmentAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<UpdateEnvironmentResult>(
-      `${ENVIRONMENT_API_ROUTE}/${environmentId}`,
+      buildRouteURL(
+        backendURL,
+        environmentGroup,
+        environmentEndpoints.updateEnvironment,
+        { environmentId }
+      ),
       authAPIOptions,
       otherOptions,
-      { method: 'PUT', body }
+      { method: environmentEndpoints.updateEnvironment.method, body }
     );
 
   const deleteEnvironment = async (
@@ -49,10 +81,15 @@ export const getEnvironmentAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<DeleteEnvironmentResult>(
-      `${ENVIRONMENT_API_ROUTE}/${environmentId}`,
+      buildRouteURL(
+        backendURL,
+        environmentGroup,
+        environmentEndpoints.deleteEnvironment,
+        { environmentId }
+      ),
       authAPIOptions,
       otherOptions,
-      { method: 'DELETE' }
+      { method: environmentEndpoints.deleteEnvironment.method }
     );
 
   const selectEnvironment = async (
@@ -60,20 +97,29 @@ export const getEnvironmentAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<SelectEnvironmentResult>(
-      `${ENVIRONMENT_API_ROUTE}/${environmentId}/select`,
+      buildRouteURL(
+        backendURL,
+        environmentGroup,
+        environmentEndpoints.selectEnvironment,
+        { environmentId }
+      ),
       authAPIOptions,
       otherOptions,
-      { method: 'PUT' }
+      { method: environmentEndpoints.selectEnvironment.method }
     );
 
   const resetToProductionEnvironment = async (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<ResetToProductionEnvironmentResult>(
-      `${ENVIRONMENT_API_ROUTE}/production/select`,
+      buildRouteURL(
+        backendURL,
+        environmentGroup,
+        environmentEndpoints.resetToProductionEnvironment
+      ),
       authAPIOptions,
       otherOptions,
-      { method: 'PUT' }
+      { method: environmentEndpoints.resetToProductionEnvironment.method }
     );
 
   const migrateEnvironment = async (
@@ -81,10 +127,14 @@ export const getEnvironmentAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<MigrateEnvironmentResult>(
-      `${ENVIRONMENT_API_ROUTE}/migrate`,
+      buildRouteURL(
+        backendURL,
+        environmentGroup,
+        environmentEndpoints.migrateEnvironment
+      ),
       authAPIOptions,
       otherOptions,
-      { method: 'POST', body }
+      { method: environmentEndpoints.migrateEnvironment.method, body }
     );
 
   return {

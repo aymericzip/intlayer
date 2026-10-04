@@ -1,5 +1,6 @@
 import type {
   AIOptions,
+  AIRoutes,
   AskDocQuestionResult,
   AuditContentDeclarationBody,
   AuditContentDeclarationFieldBody,
@@ -10,6 +11,7 @@ import type {
   AuditTagBody,
   AuditTagResult,
   AutocompleteResponse,
+  aiContract,
   ChatCompletionRequestMessage,
   ChatResult,
   CustomQueryBody,
@@ -19,8 +21,11 @@ import type {
   GetDiscussionsResult,
   TranslateJSONBody,
   TranslateJSONResult,
-} from '@intlayer/backend';
+} from '@intlayer/backend-contract/ai';
+import type { RouteEndpoints } from '@intlayer/backend-contract/defineRoute';
+import { buildRouteURL } from '@intlayer/backend-contract/defineRoute';
 import { editor } from '@intlayer/config/built';
+import { BACKEND_URL } from '@intlayer/config/defaultValues';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { createEndpoint } from '../cms/createIntlayerCMS';
 import { type FetcherOptions, fetcher } from '../fetcher';
@@ -54,13 +59,41 @@ export type ChatBody = {
 
 export type { AskDocQuestionResult, ChatResult };
 
+/** Prefix of the routes, checked against the backend contract. */
+const aiGroup = {
+  prefix: '/api/ai',
+} as const satisfies Pick<typeof aiContract, 'prefix'>;
+
+/**
+ * Method and path of every route, checked against the backend contract at
+ * compile time (the contract's zod schemas are never loaded).
+ */
+const aiEndpoints = {
+  customQuery: { method: 'POST', path: '/' },
+  translateJSON: { method: 'POST', path: '/translate/json' },
+  auditContentDeclaration: { method: 'POST', path: '/audit/dictionary' },
+  auditContentDeclarationField: {
+    method: 'POST',
+    path: '/audit/dictionary/field',
+  },
+  auditContentDeclarationMetadata: {
+    method: 'POST',
+    path: '/audit/dictionary/metadata',
+  },
+  auditTag: { method: 'POST', path: '/audit/tag' },
+  ask: { method: 'POST', path: '/ask' },
+  chat: { method: 'POST', path: '/chat' },
+  autocomplete: { method: 'POST', path: '/autocomplete' },
+  getDiscussions: { method: 'GET', path: '/discussions' },
+  getAIStats: { method: 'GET', path: '/stats' },
+} as const satisfies RouteEndpoints<AIRoutes>;
+
 export const getAiAPI = (
   authAPIOptions: FetcherOptions = {},
   intlayerConfig?: IntlayerConfig
 ) => {
-  const backendURL = intlayerConfig?.editor?.backendURL ?? editor.backendURL;
-
-  const AI_API_ROUTE = `${backendURL}/api/ai`;
+  const backendURL =
+    intlayerConfig?.editor?.backendURL ?? editor.backendURL ?? BACKEND_URL;
 
   /**
    * Custom query
@@ -72,11 +105,11 @@ export const getAiAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<CustomQueryResult>(
-      AI_API_ROUTE,
+      buildRouteURL(backendURL, aiGroup, aiEndpoints.customQuery),
       authAPIOptions,
       otherOptions,
       {
-        method: 'POST',
+        method: aiEndpoints.customQuery.method,
         body: body,
       }
     );
@@ -91,11 +124,11 @@ export const getAiAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<TranslateJSONResult>(
-      `${AI_API_ROUTE}/translate/json`,
+      buildRouteURL(backendURL, aiGroup, aiEndpoints.translateJSON),
       authAPIOptions,
       otherOptions,
       {
-        method: 'POST',
+        method: aiEndpoints.translateJSON.method,
         body: body,
       }
     );
@@ -110,11 +143,11 @@ export const getAiAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<AuditContentDeclarationResult>(
-      `${AI_API_ROUTE}/audit/dictionary`,
+      buildRouteURL(backendURL, aiGroup, aiEndpoints.auditContentDeclaration),
       authAPIOptions,
       otherOptions,
       {
-        method: 'POST',
+        method: aiEndpoints.auditContentDeclaration.method,
         body: body,
       }
     );
@@ -129,11 +162,15 @@ export const getAiAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<AuditContentDeclarationFieldResult>(
-      `${AI_API_ROUTE}/audit/dictionary/field`,
+      buildRouteURL(
+        backendURL,
+        aiGroup,
+        aiEndpoints.auditContentDeclarationField
+      ),
       authAPIOptions,
       otherOptions,
       {
-        method: 'POST',
+        method: aiEndpoints.auditContentDeclarationField.method,
         body: body,
       }
     );
@@ -148,11 +185,15 @@ export const getAiAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<AuditContentDeclarationMetadataResult>(
-      `${AI_API_ROUTE}/audit/dictionary/metadata`,
+      buildRouteURL(
+        backendURL,
+        aiGroup,
+        aiEndpoints.auditContentDeclarationMetadata
+      ),
       authAPIOptions,
       otherOptions,
       {
-        method: 'POST',
+        method: aiEndpoints.auditContentDeclarationMetadata.method,
         body: body,
       }
     );
@@ -167,11 +208,11 @@ export const getAiAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<AuditTagResult>(
-      `${AI_API_ROUTE}/audit/tag`,
+      buildRouteURL(backendURL, aiGroup, aiEndpoints.auditTag),
       authAPIOptions,
       otherOptions,
       {
-        method: 'POST',
+        method: aiEndpoints.auditTag.method,
         body: body,
       }
     );
@@ -205,21 +246,24 @@ export const getAiAPI = (
     const abortController = new AbortController();
 
     try {
-      const response = await fetch(`${AI_API_ROUTE}/ask`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          ...authAPIOptions.headers,
-          ...otherOptions.headers,
-        },
-        body: JSON.stringify({
-          ...rest,
-          ...authAPIOptions.body,
-          ...otherOptions.body,
-        }),
-        signal: abortController.signal,
-        credentials: 'include',
-      });
+      const response = await fetch(
+        buildRouteURL(backendURL, aiGroup, aiEndpoints.ask),
+        {
+          method: aiEndpoints.ask.method,
+          headers: {
+            'Content-Type': 'application/json',
+            ...authAPIOptions.headers,
+            ...otherOptions.headers,
+          },
+          body: JSON.stringify({
+            ...rest,
+            ...authAPIOptions.body,
+            ...otherOptions.body,
+          }),
+          signal: abortController.signal,
+          credentials: 'include',
+        }
+      );
 
       if (!response.ok) {
         // Align error handling with generic `fetcher` utility so that callers receive
@@ -291,21 +335,24 @@ export const getAiAPI = (
     const abortController = new AbortController();
 
     try {
-      const response = await fetch(`${AI_API_ROUTE}/chat`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          ...authAPIOptions.headers,
-          ...otherOptions.headers,
-        },
-        body: JSON.stringify({
-          ...rest,
-          ...authAPIOptions.body,
-          ...otherOptions.body,
-        }),
-        signal: abortController.signal,
-        credentials: 'include',
-      });
+      const response = await fetch(
+        buildRouteURL(backendURL, aiGroup, aiEndpoints.chat),
+        {
+          method: aiEndpoints.chat.method,
+          headers: {
+            'Content-Type': 'application/json',
+            ...authAPIOptions.headers,
+            ...otherOptions.headers,
+          },
+          body: JSON.stringify({
+            ...rest,
+            ...authAPIOptions.body,
+            ...otherOptions.body,
+          }),
+          signal: abortController.signal,
+          credentials: 'include',
+        }
+      );
 
       if (!response.ok) {
         let errorMessage: string = 'An error occurred';
@@ -374,11 +421,11 @@ export const getAiAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<AutocompleteResponse>(
-      `${AI_API_ROUTE}/autocomplete`,
+      buildRouteURL(backendURL, aiGroup, aiEndpoints.autocomplete),
       authAPIOptions,
       otherOptions,
       {
-        method: 'POST',
+        method: aiEndpoints.autocomplete.method,
         body: body,
       }
     );
@@ -391,11 +438,11 @@ export const getAiAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<GetDiscussionsResult>(
-      `${AI_API_ROUTE}/discussions`,
+      buildRouteURL(backendURL, aiGroup, aiEndpoints.getDiscussions),
       authAPIOptions,
       otherOptions,
       {
-        method: 'GET',
+        method: aiEndpoints.getDiscussions.method,
         // @ts-ignore Number of parameter will be stringified by the fetcher
         params,
       }
@@ -407,11 +454,11 @@ export const getAiAPI = (
    */
   const getAIStats = async (otherOptions: FetcherOptions = {}) =>
     await fetcher<GetAIStatsResult>(
-      `${AI_API_ROUTE}/stats`,
+      buildRouteURL(backendURL, aiGroup, aiEndpoints.getAIStats),
       authAPIOptions,
       otherOptions,
       {
-        method: 'GET',
+        method: aiEndpoints.getAIStats.method,
       }
     );
 

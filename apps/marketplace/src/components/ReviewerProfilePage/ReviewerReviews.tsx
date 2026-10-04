@@ -1,4 +1,4 @@
-import type { ReviewerReviewAPI } from '@intlayer/backend';
+import type { ReviewerReviewAPI } from '@intlayer/backend-contract/reviewer';
 import { Star } from 'lucide-react';
 import type { FC } from 'react';
 

@@ -1,9 +1,8 @@
 import type {
   DiscussionAPI,
   GetDiscussionsResult,
-  GetUsersResult,
-  UserAPI,
-} from '@intlayer/backend';
+} from '@intlayer/backend-contract/ai';
+import type { GetUsersResult, UserAPI } from '@intlayer/backend-contract/user';
 import { useGetDiscussions, useGetUsers } from '@intlayer/design-system/api';
 import { Avatar } from '@intlayer/design-system/avatar';
 import { CopyToClipboard } from '@intlayer/design-system/copy-to-clipboard';

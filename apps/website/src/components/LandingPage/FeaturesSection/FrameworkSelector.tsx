@@ -1,5 +1,5 @@
 import { SwitchSelector } from '@intlayer/design-system/switch-selector';
-import { TechLogo } from '@intlayer/design-system/tech-logo';
+import { TechLogo, type TechLogoName } from '@intlayer/design-system/tech-logo';
 import { cn } from '@intlayer/design-system/utils';
 import { type Framework, useFramework } from './FrameworkContext';
 

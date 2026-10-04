@@ -1,5 +1,6 @@
 import {
   type DocMetadata,
+  getAuthor,
   getBlogMetadataBySlug,
   getDocMetadataBySlug,
 } from '@intlayer/docs';
@@ -65,7 +66,9 @@ export const Route = createFileRoute('/feed.xml')({
             url: post.url,
             date: publishedDate ?? new Date(),
             description: post.description,
-            author: post.author,
+            author: post.author
+              ? (getAuthor(post.author)?.name ?? post.author)
+              : undefined,
             custom_elements: updatedDate
               ? [{ 'atom:updated': updatedDate.toISOString() }]
               : undefined,

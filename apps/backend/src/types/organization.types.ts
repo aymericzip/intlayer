@@ -109,8 +109,8 @@ export type Organization = OrganizationData & {
   id: Types.ObjectId;
   creatorId: User['id'];
   plan?: Plan;
-  createdAt: number;
-  updatedAt: number;
+  createdAt: Date;
+  updatedAt: Date;
 };
 
 export type OrganizationAPI = ObjectIdToString<Organization>;

@@ -1,11 +1,11 @@
-import type { BlogMetadata } from '@intlayer/docs';
 import type { LocalesValues } from 'intlayer';
 import { type FC, useMemo } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { Link } from '~/components/Link/Link';
+import type { BlogNavMetadata } from './types';
 
 type RelatedPostsProps = {
-  allBlogs: BlogMetadata[];
+  allBlogs: BlogNavMetadata[];
   currentDocKey: string;
   locale: LocalesValues;
   count?: number;
@@ -90,7 +90,7 @@ export const RelatedPosts: FC<RelatedPostsProps> = ({
             <Link
               to={post.relativeUrl}
               variant="invisible-link"
-              label={content.visitBlogTitle({ title: post.title })}
+              label={content.visitBlogTitle({ title: post.title }).value}
               className="group flex flex-col gap-2.5 py-5 no-underline sm:px-5 last:sm:pe-0 first:sm:ps-0"
             >
               <p className="line-clamp-2 font-medium text-foreground text-sm transition-colors group-hover:text-foreground-secondary group-hover:underline">
@@ -115,7 +115,7 @@ export const RelatedPosts: FC<RelatedPostsProps> = ({
 };
 
 type LastPostsProps = {
-  allBlogs: BlogMetadata[];
+  allBlogs: BlogNavMetadata[];
   locale: LocalesValues;
   currentDocKey?: string;
   count?: number;
@@ -158,7 +158,7 @@ export const LastPosts: FC<LastPostsProps> = ({
             <Link
               to={post.relativeUrl}
               variant="invisible-link"
-              label={content.visitBlogTitle({ title: post.title })}
+              label={content.visitBlogTitle({ title: post.title }).value}
               className="group flex flex-col gap-2.5 py-5 no-underline sm:px-5 last:sm:pe-0 first:sm:ps-0"
             >
               <p className="line-clamp-2 font-medium text-foreground text-sm transition-colors group-hover:text-foreground-secondary group-hover:underline">

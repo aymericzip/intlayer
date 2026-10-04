@@ -1,4 +1,9 @@
-import type { DictionaryAPI } from '@intlayer/backend';
+import type { RouteEndpoints } from '@intlayer/backend-contract/defineRoute';
+import type { DictionaryAPI } from '@intlayer/backend-contract/dictionary';
+import type {
+  PublicRoutes,
+  publicContract,
+} from '@intlayer/backend-contract/public';
 import { editor } from '@intlayer/config/built';
 import type { IntlayerConfig } from '@intlayer/types/config';
 
@@ -102,6 +107,17 @@ export type PublicClient = {
  * @param options - Optional configuration override.
  * @returns A client that authenticates itself with the public project key.
  */
+/**
+ * Public routes, checked against the backend contract at compile time. Kept
+ * as plain strings: this client ships in end-user browser bundles.
+ */
+const publicPrefix = '/api/public' satisfies (typeof publicContract)['prefix'];
+const publicEndpoints = {
+  createPublicBrowserToken: { method: 'POST', path: '/token' },
+  getPublicDictionaryKeys: { method: 'GET', path: '/dictionaries/keys' },
+  getPublicDictionaries: { method: 'GET', path: '/dictionaries' },
+} as const satisfies RouteEndpoints<PublicRoutes>;
+
 export const createPublicClient = ({
   intlayerConfig,
 }: PublicClientOptions = {}): PublicClient => {
@@ -116,8 +132,9 @@ export const createPublicClient = ({
     candidate !== null && candidate.expiresAt - EXPIRY_MARGIN_MS > Date.now();
 
   const exchange = async (): Promise<string | null> => {
-    const response = await fetch(`${backendURL}/api/public/token`, {
-      method: 'POST',
+    const { method, path } = publicEndpoints.createPublicBrowserToken;
+    const response = await fetch(`${backendURL}${publicPrefix}${path}`, {
+      method,
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ clientId }),
       // Authorised by `Origin`, never by cookies.
@@ -170,7 +187,7 @@ export const createPublicClient = ({
 
     if (!token) return fallback;
 
-    const response = await fetch(`${backendURL}/api/public${path}`, {
+    const response = await fetch(`${backendURL}${publicPrefix}${path}`, {
       headers: { Authorization: `Bearer ${token}` },
       credentials: 'omit',
       mode: 'cors',
@@ -185,10 +202,11 @@ export const createPublicClient = ({
 
   return {
     getToken,
-    getDictionaryKeys: () => request<string[]>('/dictionaries/keys', []),
+    getDictionaryKeys: () =>
+      request<string[]>(publicEndpoints.getPublicDictionaryKeys.path, []),
     getDictionaries: (keys) =>
       request<DictionaryAPI[]>(
-        `/dictionaries?keys=${encodeURIComponent(keys.join(','))}`,
+        `${publicEndpoints.getPublicDictionaries.path}?keys=${encodeURIComponent(keys.join(','))}`,
         []
       ),
   };

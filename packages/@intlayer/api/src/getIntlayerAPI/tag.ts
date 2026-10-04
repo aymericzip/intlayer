@@ -1,3 +1,5 @@
+import type { RouteEndpoints } from '@intlayer/backend-contract/defineRoute';
+import { buildRouteURL } from '@intlayer/backend-contract/defineRoute';
 import type {
   AddTagBody,
   AddTagResult,
@@ -5,22 +7,40 @@ import type {
   DeleteTagResult,
   GetTagsParams,
   GetTagsResult,
+  TagRoutes,
+  tagContract,
   UpdateTagBody,
   UpdateTagParams,
   UpdateTagResult,
-} from '@intlayer/backend';
+} from '@intlayer/backend-contract/tag';
 import { editor } from '@intlayer/config/built';
+import { BACKEND_URL } from '@intlayer/config/defaultValues';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { createEndpoint } from '../cms/createIntlayerCMS';
 import { type FetcherOptions, fetcher } from '../fetcher';
+
+/** Prefix of the routes, checked against the backend contract. */
+const tagGroup = {
+  prefix: '/api/tag',
+} as const satisfies Pick<typeof tagContract, 'prefix'>;
+
+/**
+ * Method and path of every route, checked against the backend contract at
+ * compile time (the contract's zod schemas are never loaded).
+ */
+const tagEndpoints = {
+  getTags: { method: 'GET', path: '/' },
+  addTag: { method: 'POST', path: '/' },
+  updateTag: { method: 'PUT', path: '/:tagId' },
+  deleteTag: { method: 'DELETE', path: '/:tagId' },
+} as const satisfies RouteEndpoints<TagRoutes>;
 
 export const getTagAPI = (
   authAPIOptions: FetcherOptions = {},
   intlayerConfig?: IntlayerConfig
 ) => {
-  const backendURL = intlayerConfig?.editor?.backendURL ?? editor.backendURL;
-
-  const PROJECT_API_ROUTE = `${backendURL}/api/tag`;
+  const backendURL =
+    intlayerConfig?.editor?.backendURL ?? editor.backendURL ?? BACKEND_URL;
 
   /**
    * Retrieves a list of tags based on filters and pagination.
@@ -31,7 +51,7 @@ export const getTagAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<GetTagsResult>(
-      PROJECT_API_ROUTE,
+      buildRouteURL(backendURL, tagGroup, tagEndpoints.getTags),
       authAPIOptions,
       otherOptions,
       {
@@ -47,11 +67,11 @@ export const getTagAPI = (
    */
   const addTag = async (tag: AddTagBody, otherOptions: FetcherOptions = {}) =>
     await fetcher<AddTagResult>(
-      `${PROJECT_API_ROUTE}`,
+      buildRouteURL(backendURL, tagGroup, tagEndpoints.addTag),
       authAPIOptions,
       otherOptions,
       {
-        method: 'POST',
+        method: tagEndpoints.addTag.method,
         body: tag,
       }
     );
@@ -66,11 +86,13 @@ export const getTagAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<UpdateTagResult>(
-      `${PROJECT_API_ROUTE}/${tagId}`,
+      buildRouteURL(backendURL, tagGroup, tagEndpoints.updateTag, {
+        tagId: String(tagId),
+      }),
       authAPIOptions,
       otherOptions,
       {
-        method: 'PUT',
+        method: tagEndpoints.updateTag.method,
         body: tag,
       }
     );
@@ -85,11 +107,13 @@ export const getTagAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<DeleteTagResult>(
-      `${PROJECT_API_ROUTE}/${tagId}`,
+      buildRouteURL(backendURL, tagGroup, tagEndpoints.deleteTag, {
+        tagId: String(tagId),
+      }),
       authAPIOptions,
       otherOptions,
       {
-        method: 'DELETE',
+        method: tagEndpoints.deleteTag.method,
       }
     );
 

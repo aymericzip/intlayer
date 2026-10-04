@@ -104,13 +104,13 @@ export const DocHeader: FC<DocHeaderProps> = ({
                 <PopoverStatic identifier="author-social-medias">
                   {author.github ? (
                     <Link
-                      label={authorGithubLabel({ author: author.name })}
+                      label={authorGithubLabel({ author: author.name }).value}
                       href={`https://github.com/${author.github}`}
                       className="flex items-center gap-2 text-muted-foreground"
                     >
                       <Avatar
                         src={authorImageUrl}
-                        alt={authorAvatarAlt({ author: author.name })}
+                        alt={authorAvatarAlt({ author: author.name }).value}
                         size="sm"
                         className="scale-70"
                       />
@@ -146,13 +146,13 @@ export const DocHeader: FC<DocHeaderProps> = ({
                 </PopoverStatic>
               ) : author.github ? (
                 <Link
-                  label={authorGithubLabel({ author: author.name })}
+                  label={authorGithubLabel({ author: author.name }).value}
                   href={`https://github.com/${author.github}`}
                   className="flex items-center gap-2 text-muted-foreground"
                 >
                   <Avatar
                     src={authorImageUrl}
-                    alt={authorAvatarAlt({ author: author.name })}
+                    alt={authorAvatarAlt({ author: author.name }).value}
                     size="sm"
                     className="scale-70"
                   />

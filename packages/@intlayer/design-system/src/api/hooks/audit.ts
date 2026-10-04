@@ -10,7 +10,7 @@ import type {
 } from '@intlayer/api';
 import { type UseQueryOptions, useMutation } from '@tanstack/react-query';
 import { useAuditAPI } from '../useIntlayerAPI';
-import { useAppQuery } from './utils';
+import { type AppQueryOptions, useAppQuery } from './utils';
 
 export const useAuditScan = () => {
   const auditAPI = useAuditAPI();
@@ -33,7 +33,7 @@ export const useStartRecursiveAudit = () => {
 
 export const useGetRecursiveAuditStatus = (
   params?: GetRecursiveAuditStatusParams,
-  options?: Partial<UseQueryOptions>
+  options?: AppQueryOptions
 ) => {
   const auditAPI = useAuditAPI();
 
@@ -49,7 +49,7 @@ export const useGetRecursiveAuditStatus = (
 /** Admin — number of scanned domains using each technology. */
 export const useGetTechnologyUsage = (
   params?: GetTechnologyUsageQuery,
-  options?: Partial<UseQueryOptions>
+  options?: AppQueryOptions
 ) => {
   const auditAPI = useAuditAPI();
 
@@ -64,7 +64,7 @@ export const useGetTechnologyUsage = (
 /** Admin — scanned hosts, most recently scanned first. */
 export const useGetScannedHosts = (
   params?: GetScannedHostsQuery,
-  options?: Partial<UseQueryOptions>
+  options?: AppQueryOptions
 ) => {
   const auditAPI = useAuditAPI();
 
@@ -79,7 +79,7 @@ export const useGetScannedHosts = (
 /** Admin — a scanned host with its stored scans, newest first. */
 export const useGetScannedHost = (
   params?: GetScannedHostParams,
-  options?: Partial<UseQueryOptions>
+  options?: AppQueryOptions
 ) => {
   const auditAPI = useAuditAPI();
 

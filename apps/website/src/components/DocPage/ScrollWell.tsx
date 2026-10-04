@@ -8,7 +8,7 @@ const RADIUS_CENTER = RADIUS - BORDER_WIDTH;
 
 export const ScrollWell: FC<SVGProps<SVGSVGElement>> = (props) => {
   // scrollPercentage goes from 0 to 1
-  const contentElement = useGetElementById('content');
+  const contentElement = useGetElementById('content') ?? undefined;
   const { scrollPercentage } = useScrollY({ element: contentElement });
 
   const circumference = 2 * Math.PI * RADIUS_CENTER;

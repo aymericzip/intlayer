@@ -1,4 +1,4 @@
-import type { ProjectConfiguration } from '@intlayer/backend';
+import type { ProjectConfiguration } from '@intlayer/backend-contract/project';
 import {
   usePushProjectConfiguration,
   useSession,

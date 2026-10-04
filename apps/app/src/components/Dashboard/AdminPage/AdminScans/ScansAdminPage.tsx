@@ -2,7 +2,7 @@ import type {
   GetScannedHostsResult,
   GetTechnologyUsageResult,
   TechnologyUsage,
-} from '@intlayer/backend';
+} from '@intlayer/backend-contract/scan';
 import {
   useGetScannedHosts,
   useGetTechnologyUsage,

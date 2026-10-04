@@ -4,49 +4,17 @@ import {
   getTags,
   updateTag,
 } from '@controllers/tag.controller';
+import { tagContract } from '@intlayer/backend-contract/tag';
+import { registerContractRoutes } from '@utils/contract/registerContractRoutes';
 import type { FastifyInstance } from 'fastify';
-import type { Routes } from '@/types/Routes';
-import { tagIdParamsSchema } from './paramsSchemas';
 
-export const tagRoute = '/api/tag';
-
-const baseURL = () => `${process.env.BACKEND_URL}${tagRoute}`;
-
-export const getTagRoutes = () =>
-  ({
-    getTags: {
-      urlModel: '/',
-      url: baseURL(),
-      method: 'GET',
-    },
-    addTag: {
-      urlModel: '/',
-      url: baseURL(),
-      method: 'POST',
-    },
-    updateTag: {
-      urlModel: '/:tagId',
-      url: ({ tagId }: { tagId: string }) => `${baseURL()}/${tagId}`,
-      method: 'PUT',
-    },
-    deleteTag: {
-      urlModel: '/:tagId',
-      url: ({ tagId }: { tagId: string }) => `${baseURL()}/${tagId}`,
-      method: 'DELETE',
-    },
-  }) satisfies Routes;
+export const tagRoute = tagContract.prefix;
 
 export const tagRouter = async (fastify: FastifyInstance) => {
-  fastify.get(getTagRoutes().getTags.urlModel, getTags);
-  fastify.post(getTagRoutes().addTag.urlModel, addTag);
-  fastify.put(
-    getTagRoutes().updateTag.urlModel,
-    { schema: { params: tagIdParamsSchema } },
-    updateTag
-  );
-  fastify.delete(
-    getTagRoutes().deleteTag.urlModel,
-    { schema: { params: tagIdParamsSchema } },
-    deleteTag
-  );
+  registerContractRoutes(fastify, tagContract, {
+    getTags,
+    addTag,
+    updateTag,
+    deleteTag,
+  });
 };

@@ -1,3 +1,8 @@
+import type {
+  RouteBody,
+  RouteParams,
+} from '@intlayer/backend-contract/defineRoute';
+import type { ProjectRoutes } from '@intlayer/backend-contract/project';
 import { ProjectModel } from '@schemas/project.schema';
 import { type AppError, ErrorHandler } from '@utils/errors';
 import { hasPermission } from '@utils/permissions';
@@ -9,14 +14,13 @@ import type {
   ProjectMemberGranularAccessAPI,
 } from '@/types/project.types';
 
-export type UpdateMemberAccessParams = { userId: string };
+export type UpdateMemberAccessParams = RouteParams<
+  ProjectRoutes['updateMemberAccess']
+>;
 
-export type UpdateMemberAccessBody = {
-  /** null = unrestricted; [] = no env access; array = env IDs (null item = production). */
-  allowedEnvironmentIds: (string | null)[] | null;
-  /** null = unrestricted; [] = no locale access; array of locale strings. */
-  allowedLocales: string[] | null;
-};
+export type UpdateMemberAccessBody = RouteBody<
+  ProjectRoutes['updateMemberAccess']
+>;
 
 export type UpdateMemberAccessResult =
   ResponseData<ProjectMemberGranularAccessAPI>;

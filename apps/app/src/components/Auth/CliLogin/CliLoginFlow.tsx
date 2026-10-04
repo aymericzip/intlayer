@@ -1,5 +1,6 @@
 import { getIntlayerAPI } from '@intlayer/api';
-import type { OAuth2AccessAPI, OrganizationAPI } from '@intlayer/backend';
+import type { OrganizationAPI } from '@intlayer/backend-contract/organization';
+import type { OAuth2AccessAPI } from '@intlayer/backend-contract/project';
 import { editor } from '@intlayer/config/built';
 import { useSelectOrganization, useSession } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';

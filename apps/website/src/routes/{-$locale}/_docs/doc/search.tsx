@@ -1,7 +1,7 @@
 import { Container } from '@intlayer/design-system/container';
 import { H1 } from '@intlayer/design-system/headers';
 import { Website_Doc_Search_Path } from '@intlayer/design-system/routes';
-import { createFileRoute, defer } from '@tanstack/react-router';
+import { createFileRoute } from '@tanstack/react-router';
 import { defaultLocale, getIntlayerAsync } from 'intlayer';
 import { useIntlayer } from 'react-intlayer';
 import { DocPageLayout } from '~/components/DocPage/DocPageLayout';
@@ -16,16 +16,16 @@ import {
 export const Route = createFileRoute('/{-$locale}/_docs/doc/search')({
   loader: async ({ params }) => {
     const { locale = defaultLocale } = params;
-    const [siteStructuredData, metadata] = await Promise.all([
+    const [siteStructuredData, metadata, navData] = await Promise.all([
       getSiteStructuredData({ data: locale }),
       getIntlayerAsync('doc-search-page-metadata', locale),
+      // DocPageLayout renders the tree synchronously: it must be resolved
+      loadNavData({ data: { locale } }),
     ]);
 
     return {
       locale,
-      // The search view is independent of the navigation tree, so stream the
-      // sidebar in via `defer` instead of blocking the route transition on it.
-      navData: defer(loadNavData({ data: { locale } })),
+      navData,
       siteStructuredData,
       metadata,
     };

@@ -265,6 +265,7 @@
     "typecheck": "tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
+    "@intlayer/backend-contract": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/types": "workspace:*",
     "defu": "6.1.7"

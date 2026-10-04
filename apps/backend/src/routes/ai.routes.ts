@@ -12,93 +12,29 @@ import {
   translateJSON,
 } from '@controllers/ai.controller';
 import fastifyRateLimit from '@fastify/rate-limit';
+import { aiContract } from '@intlayer/backend-contract/ai';
+import { registerContractRoutes } from '@utils/contract/registerContractRoutes';
 import { isSelfHosted } from '@utils/isSelfHosted';
 import { unauthenticatedChatBotLimiter } from '@utils/rateLimiter';
 import type { FastifyInstance } from 'fastify';
-import type { Routes } from '@/types/Routes';
 
-export const aiRoute = '/api/ai';
-
-const baseURL = () => `${process.env.BACKEND_URL}${aiRoute}`;
-
-export const getAiRoutes = () =>
-  ({
-    customQuery: {
-      urlModel: '/',
-      url: `${baseURL()}/`,
-      method: 'POST',
-    },
-    translateJSON: {
-      urlModel: '/translate/json',
-      url: `${baseURL()}/translate/json`,
-      method: 'POST',
-    },
-    auditContentDeclaration: {
-      urlModel: '/audit/dictionary',
-      url: `${baseURL()}/audit/dictionary`,
-      method: 'POST',
-    },
-    auditContentDeclarationField: {
-      urlModel: '/audit/dictionary/field',
-      url: `${baseURL()}/audit/dictionary/field`,
-      method: 'POST',
-    },
-    auditContentDeclarationMetadata: {
-      urlModel: '/audit/dictionary/metadata',
-      url: `${baseURL()}/audit/dictionary/metadata`,
-      method: 'POST',
-    },
-    auditTag: {
-      urlModel: '/audit/tag',
-      url: `${baseURL()}/audit/tag`,
-      method: 'POST',
-    },
-    ask: {
-      urlModel: '/ask',
-      url: `${baseURL()}/ask`,
-      method: 'POST',
-    },
-    chat: {
-      urlModel: '/chat',
-      url: `${baseURL()}/chat`,
-      method: 'POST',
-    },
-    autocomplete: {
-      urlModel: '/autocomplete',
-      url: `${baseURL()}/autocomplete`,
-      method: 'POST',
-    },
-    getDiscussions: {
-      urlModel: '/discussions',
-      url: `${baseURL()}/discussions`,
-      method: 'GET',
-    },
-    getAIStats: {
-      urlModel: '/stats',
-      url: `${baseURL()}/stats`,
-      method: 'GET',
-    },
-  }) satisfies Routes;
+export const aiRoute = aiContract.prefix;
 
 export const aiRouter = async (fastify: FastifyInstance) => {
-  fastify.post(getAiRoutes().customQuery.urlModel, customQuery);
-  fastify.post(getAiRoutes().translateJSON.urlModel, translateJSON);
-  fastify.post(
-    getAiRoutes().auditContentDeclaration.urlModel,
-    auditContentDeclaration
-  );
-  fastify.post(
-    getAiRoutes().auditContentDeclarationField.urlModel,
-    auditContentDeclarationField
-  );
-  fastify.post(
-    getAiRoutes().auditContentDeclarationMetadata.urlModel,
-    auditContentDeclarationMetadata
-  );
-  fastify.post(getAiRoutes().auditTag.urlModel, auditTag);
-  fastify.post(getAiRoutes().autocomplete.urlModel, autocomplete);
-  fastify.get(getAiRoutes().getDiscussions.urlModel, getDiscussions);
-  fastify.get(getAiRoutes().getAIStats.urlModel, getAIStats);
+  registerContractRoutes(fastify, aiContract, {
+    customQuery,
+    translateJSON,
+    auditContentDeclaration,
+    auditContentDeclarationField,
+    auditContentDeclarationMetadata,
+    auditTag,
+    autocomplete,
+    getDiscussions,
+    getAIStats,
+    // Registered below, behind the chatbot rate limiter
+    ask: null,
+    chat: null,
+  });
 
   /**
    * This route number of requests is limited for unauthenticated users
@@ -106,8 +42,20 @@ export const aiRouter = async (fastify: FastifyInstance) => {
   await fastify.register(fastifyRateLimit, {
     ...unauthenticatedChatBotLimiter,
   });
-  // The doc assistant relies on the doc embeddings, which self-hosted
-  // deployments do not ship (see utils/AI/askDocQuestion).
-  if (!isSelfHosted()) fastify.post(getAiRoutes().ask.urlModel, askDocQuestion);
-  fastify.post(getAiRoutes().chat.urlModel, chat);
+
+  registerContractRoutes(fastify, aiContract, {
+    customQuery: null,
+    translateJSON: null,
+    auditContentDeclaration: null,
+    auditContentDeclarationField: null,
+    auditContentDeclarationMetadata: null,
+    auditTag: null,
+    autocomplete: null,
+    getDiscussions: null,
+    getAIStats: null,
+    // The doc assistant relies on the doc embeddings, which self-hosted
+    // deployments do not ship (see utils/AI/askDocQuestion).
+    ask: isSelfHosted() ? null : askDocQuestion,
+    chat,
+  });
 };

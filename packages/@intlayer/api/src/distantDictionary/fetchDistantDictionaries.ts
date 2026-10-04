@@ -1,4 +1,4 @@
-import type { DictionaryAPI } from '@intlayer/backend';
+import type { DictionaryAPI } from '@intlayer/backend-contract/dictionary';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { createIntlayerCMS } from '../cms/createIntlayerCMS';
 import { dictionaryEndpoint } from '../getIntlayerAPI/dictionary';

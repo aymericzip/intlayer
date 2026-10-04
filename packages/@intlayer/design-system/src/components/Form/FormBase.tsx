@@ -85,7 +85,7 @@ export const Form = <T extends ZodMiniObject>({
   ...props
 }: FormProps<T> & { method?: string }) => {
   const onSubmit = async (values: z.infer<T>) => {
-    const parsedValues = schema.safeParse(values) ?? {
+    const parsedValues = schema?.safeParse(values) ?? {
       success: true,
       data: undefined,
     };

@@ -1,4 +1,4 @@
-import type { GetScannedHostResult } from '@intlayer/backend';
+import type { GetScannedHostResult } from '@intlayer/backend-contract/scan';
 import { useGetScannedHost } from '@intlayer/design-system/api';
 import { Loader } from '@intlayer/design-system/loader';
 import { Table } from '@intlayer/design-system/table';

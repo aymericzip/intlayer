@@ -1,4 +1,4 @@
-import type { OrganizationAPI } from '@intlayer/backend';
+import type { OrganizationAPI } from '@intlayer/backend-contract/organization';
 import {
   useGetOrganizations,
   useSelectOrganization,

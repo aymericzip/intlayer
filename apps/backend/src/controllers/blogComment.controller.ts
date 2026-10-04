@@ -3,6 +3,7 @@ import { type AppError, ErrorHandler } from '@utils/errors';
 import {
   formatPaginatedResponse,
   formatResponse,
+  type PaginatedResponse,
   type ResponseData,
 } from '@utils/responseData';
 import type { FastifyReply, FastifyRequest } from 'fastify';
@@ -26,7 +27,7 @@ export type UpdateBlogCommentStatusBody = {
 
 export type SubmitBlogCommentResult = ResponseData<BlogCommentPublicAPI>;
 export type GetBlogCommentsResult = ResponseData<BlogCommentPublicAPI[]>;
-export type GetAdminBlogCommentsResult = ResponseData<BlogCommentAPI[]>;
+export type GetAdminBlogCommentsResult = PaginatedResponse<BlogCommentAPI>;
 export type UpdateBlogCommentStatusResult = ResponseData<BlogCommentAPI>;
 
 /**

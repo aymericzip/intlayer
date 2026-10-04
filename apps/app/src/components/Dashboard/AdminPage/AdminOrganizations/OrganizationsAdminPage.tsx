@@ -1,7 +1,7 @@
 import type {
   GetOrganizationsResult,
   OrganizationAPI,
-} from '@intlayer/backend';
+} from '@intlayer/backend-contract/organization';
 import {
   useDeleteOrganizationById,
   useGetOrganizations,

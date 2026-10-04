@@ -3,7 +3,8 @@ import type { ChangeEvent, ComponentProps, FC, ReactNode } from 'react';
 import { FormElement, type FormElementProps } from './FormElement';
 
 type CheckboxElementProps = Omit<FormElementProps<typeof Checkbox>, 'Element'> &
-  ComponentProps<typeof Checkbox> & {
+  // The form value is a boolean (checked), not the input's string value
+  Omit<ComponentProps<typeof Checkbox>, 'value'> & {
     name: string;
     inputLabel?: ReactNode;
   };

@@ -7,6 +7,7 @@ import { Link } from '#components/Link/Link';
 
 export const ErrorComponent = ({ error, reset }: ErrorComponentProps) => {
   const content = useIntlayer('error-component', 'en');
+  const errorInstance = error instanceof Error ? error : undefined;
 
   return (
     <main className="page-wrap relative flex min-h-[60vh] flex-1 flex-col items-center justify-center overflow-hidden px-4 py-12 text-center">
@@ -23,9 +24,9 @@ export const ErrorComponent = ({ error, reset }: ErrorComponentProps) => {
         className="my-10 max-w-xl gap-4 text-start"
       >
         <p className="font-bold text-lg">
-          {error.message || content.unexpectedError}
+          {errorInstance?.message || content.unexpectedError}
         </p>
-        <p className="text-neutral text-sm">{error.stack}</p>
+        <p className="text-neutral text-sm">{errorInstance?.stack}</p>
       </Container>
       <div className="flex gap-4">
         <Button

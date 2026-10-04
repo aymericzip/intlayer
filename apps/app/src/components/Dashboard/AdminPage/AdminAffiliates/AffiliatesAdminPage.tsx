@@ -1,4 +1,7 @@
-import type { AffiliateAPI, AffiliateInvitationAPI } from '@intlayer/backend';
+import type {
+  AffiliateAPI,
+  AffiliateInvitationAPI,
+} from '@intlayer/backend-contract/stripe';
 import {
   useGetAffiliateInvitations,
   useGetAffiliates,
@@ -29,7 +32,7 @@ import { AffiliatesAdminSkeleton } from './AffiliatesAdminSkeleton';
 const STATUS_COLOR: Record<AffiliateAPI['status'], BadgeColor> = {
   pending: 'neutral',
   suspended: 'error',
-  onboarding: 'secondary',
+  onboarding: 'text',
   active: 'success',
 };
 

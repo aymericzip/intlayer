@@ -107,7 +107,7 @@ const ProfileFormContent: FC = () => {
         />
         <Avatar
           size="2xl"
-          src={user?.image}
+          src={user?.image ?? undefined}
           fullname={user?.name}
           isLoading={isUploadingAvatar}
           onClick={() => avatarInputRef.current?.click()}

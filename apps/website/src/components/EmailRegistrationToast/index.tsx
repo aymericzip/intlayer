@@ -1,4 +1,4 @@
-import type { EmailsList } from '@intlayer/backend';
+import type { EmailsList } from '@intlayer/backend-contract/user';
 import { useSubscribeToNewsletter, useUser } from '@intlayer/design-system/api';
 import { Container } from '@intlayer/design-system/container';
 import {

@@ -1,7 +1,7 @@
-import type { UserAPI } from '@intlayer/backend';
+import type { UserAPI } from '@intlayer/backend-contract/user';
 import { useDeleteUser, useGetUserById } from '@intlayer/design-system/api';
 import { Container } from '@intlayer/design-system/container';
-import { Form, FormButton } from '@intlayer/design-system/form';
+import { FormButton } from '@intlayer/design-system/form';
 import { Loader } from '@intlayer/design-system/loader';
 import { Modal } from '@intlayer/design-system/modal';
 import { App_Admin_Users_Path } from '@intlayer/design-system/routes';

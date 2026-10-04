@@ -1,3 +1,5 @@
+import type { RouteEndpoints } from '@intlayer/backend-contract/defineRoute';
+import { buildRouteURL } from '@intlayer/backend-contract/defineRoute';
 import type {
   AuditEvent,
   GetRecursiveAuditStatusResult,
@@ -7,9 +9,12 @@ import type {
   GetScannedHostsResult,
   GetTechnologyUsageQuery,
   GetTechnologyUsageResult,
+  ScanRoutes,
   StartRecursiveAuditResult,
-} from '@intlayer/backend';
+  scanContract,
+} from '@intlayer/backend-contract/scan';
 import { editor } from '@intlayer/config/built';
+import { BACKEND_URL } from '@intlayer/config/defaultValues';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { createEndpoint } from '../cms/createIntlayerCMS';
 import { type FetcherOptions, fetcher } from '../fetcher';
@@ -58,13 +63,35 @@ export type RecursiveAuditJobParams = {
   jobId: string;
 };
 
+/** Prefix of the routes, checked against the backend contract. */
+const scanGroup = {
+  prefix: '/api/scan',
+} as const satisfies Pick<typeof scanContract, 'prefix'>;
+
+/**
+ * Method and path of every route, checked against the backend contract at
+ * compile time (the contract's zod schemas are never loaded).
+ */
+const scanEndpoints = {
+  scan: { method: 'GET', path: '/' },
+  getTechnologyUsage: { method: 'GET', path: '/technologies' },
+  getScannedHosts: { method: 'GET', path: '/hosts' },
+  getScannedHost: { method: 'GET', path: '/hosts/:host' },
+  reportHostDetection: { method: 'POST', path: '/hosts/detections' },
+  discoverUrls: { method: 'GET', path: '/recursive/discover' },
+  startRecursive: { method: 'POST', path: '/recursive/start' },
+  getRecursiveStatus: { method: 'GET', path: '/recursive/:jobId' },
+  cancelRecursive: { method: 'POST', path: '/recursive/:jobId/cancel' },
+  pauseRecursive: { method: 'POST', path: '/recursive/:jobId/pause' },
+  resumeRecursive: { method: 'POST', path: '/recursive/:jobId/resume' },
+} as const satisfies RouteEndpoints<ScanRoutes>;
+
 export const getAuditAPI = (
   authAPIOptions: FetcherOptions = {},
   intlayerConfig?: IntlayerConfig
 ) => {
-  const backendURL = intlayerConfig?.editor?.backendURL ?? editor.backendURL;
-
-  const AUDIT_API_ROUTE = `${backendURL}/api/scan`;
+  const backendURL =
+    intlayerConfig?.editor?.backendURL ?? editor.backendURL ?? BACKEND_URL;
 
   /**
    * Streams a single-page SEO audit as Server-Sent Events.
@@ -83,11 +110,11 @@ export const getAuditAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<DiscoverUrlsResult>(
-      `${AUDIT_API_ROUTE}/recursive/discover`,
+      buildRouteURL(backendURL, scanGroup, scanEndpoints.discoverUrls),
       authAPIOptions,
       otherOptions,
       {
-        method: 'GET',
+        method: scanEndpoints.discoverUrls.method,
         params,
       }
     );
@@ -102,10 +129,10 @@ export const getAuditAPI = (
 
     const params = new URLSearchParams({ url });
     if (refresh) params.set('refresh', 'true');
-    const endpoint = `${AUDIT_API_ROUTE}?${params.toString()}`;
+    const endpoint = `${buildRouteURL(backendURL, scanGroup, scanEndpoints.scan)}?${params.toString()}`;
 
     const response = await fetch(endpoint, {
-      method: 'GET',
+      method: scanEndpoints.scan.method,
       headers: {
         Accept: 'text/event-stream',
         ...authAPIOptions.headers,
@@ -169,11 +196,11 @@ export const getAuditAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<StartRecursiveAuditResult>(
-      `${AUDIT_API_ROUTE}/recursive/start`,
+      buildRouteURL(backendURL, scanGroup, scanEndpoints.startRecursive),
       authAPIOptions,
       otherOptions,
       {
-        method: 'POST',
+        method: scanEndpoints.startRecursive.method,
         params: body?.url ? { url: body.url } : undefined,
         body: body?.urls !== undefined ? { urls: body.urls as any } : undefined,
       }
@@ -187,11 +214,13 @@ export const getAuditAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<GetRecursiveAuditStatusResult>(
-      `${AUDIT_API_ROUTE}/recursive/${params?.jobId}`,
+      buildRouteURL(backendURL, scanGroup, scanEndpoints.getRecursiveStatus, {
+        jobId: String(params?.jobId),
+      }),
       authAPIOptions,
       otherOptions,
       {
-        method: 'GET',
+        method: scanEndpoints.getRecursiveStatus.method,
       }
     );
 
@@ -200,10 +229,12 @@ export const getAuditAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<{ success: boolean }>(
-      `${AUDIT_API_ROUTE}/recursive/${params?.jobId}/cancel`,
+      buildRouteURL(backendURL, scanGroup, scanEndpoints.cancelRecursive, {
+        jobId: String(params?.jobId),
+      }),
       authAPIOptions,
       otherOptions,
-      { method: 'POST' }
+      { method: scanEndpoints.cancelRecursive.method }
     );
 
   const pauseRecursiveAudit = async (
@@ -211,10 +242,12 @@ export const getAuditAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<{ success: boolean }>(
-      `${AUDIT_API_ROUTE}/recursive/${params?.jobId}/pause`,
+      buildRouteURL(backendURL, scanGroup, scanEndpoints.pauseRecursive, {
+        jobId: String(params?.jobId),
+      }),
       authAPIOptions,
       otherOptions,
-      { method: 'POST' }
+      { method: scanEndpoints.pauseRecursive.method }
     );
 
   const resumeRecursiveAudit = async (
@@ -222,10 +255,12 @@ export const getAuditAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<{ success: boolean }>(
-      `${AUDIT_API_ROUTE}/recursive/${params?.jobId}/resume`,
+      buildRouteURL(backendURL, scanGroup, scanEndpoints.resumeRecursive, {
+        jobId: String(params?.jobId),
+      }),
       authAPIOptions,
       otherOptions,
-      { method: 'POST' }
+      { method: scanEndpoints.resumeRecursive.method }
     );
 
   /**
@@ -236,10 +271,10 @@ export const getAuditAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<GetTechnologyUsageResult>(
-      `${AUDIT_API_ROUTE}/technologies`,
+      buildRouteURL(backendURL, scanGroup, scanEndpoints.getTechnologyUsage),
       authAPIOptions,
       otherOptions,
-      { method: 'GET', params }
+      { method: scanEndpoints.getTechnologyUsage.method, params }
     );
 
   /**
@@ -251,10 +286,10 @@ export const getAuditAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<GetScannedHostsResult>(
-      `${AUDIT_API_ROUTE}/hosts`,
+      buildRouteURL(backendURL, scanGroup, scanEndpoints.getScannedHosts),
       authAPIOptions,
       otherOptions,
-      { method: 'GET', params }
+      { method: scanEndpoints.getScannedHosts.method, params }
     );
 
   /**
@@ -265,10 +300,12 @@ export const getAuditAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<GetScannedHostResult>(
-      `${AUDIT_API_ROUTE}/hosts/${encodeURIComponent(params?.host ?? '')}`,
+      buildRouteURL(backendURL, scanGroup, scanEndpoints.getScannedHost, {
+        host: params?.host ?? '',
+      }),
       authAPIOptions,
       otherOptions,
-      { method: 'GET' }
+      { method: scanEndpoints.getScannedHost.method }
     );
 
   return {

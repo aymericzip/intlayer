@@ -3,7 +3,7 @@
 import type {
   NewsletterSubscriptionBody,
   NewsletterUnsubscriptionBody,
-} from '@intlayer/backend';
+} from '@intlayer/backend-contract/newsletter';
 import { useMutation } from '@tanstack/react-query';
 import { useNewsletterAPI } from '../useIntlayerAPI';
 

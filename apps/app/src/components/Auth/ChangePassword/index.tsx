@@ -10,6 +10,12 @@ import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
 import { ChangePasswordForm as ChangePasswordFormUI } from './ChangePasswordForm';
 import type { ChangePassword } from './ChangePasswordForm/useChangePasswordSchema';
 
+/** Drops the form-only confirmation field before calling better-auth. */
+const toChangePasswordBody = ({
+  currentPassword,
+  newPassword,
+}: ChangePassword) => ({ currentPassword, newPassword });
+
 type ChangePasswordFormProps = {
   callbackUrl?: string;
 };
@@ -19,7 +25,12 @@ export const ChangePasswordForm: FC<ChangePasswordFormProps> = ({
 }) => {
   const navigate = useLocalizedNavigate();
   const { user } = useUser();
-  const { mutate: changePassword, isSuccess } = useChangePassword();
+  const { mutate: changePassword, data: changePasswordResult } =
+    useChangePassword();
+  // better-auth resolves (never throws) on failure, with `error` set
+  const isSuccess = Boolean(
+    changePasswordResult && !changePasswordResult.error
+  );
   const { goToLoginButton } = useIntlayer('change-password-form');
 
   if (!user) return null;
@@ -43,7 +54,11 @@ export const ChangePasswordForm: FC<ChangePasswordFormProps> = ({
     );
   }
 
-  return <ChangePasswordFormUI onSubmitSuccess={changePassword} />;
+  return (
+    <ChangePasswordFormUI
+      onSubmitSuccess={(data) => changePassword(toChangePasswordBody(data))}
+    />
+  );
 };
 
 type ChangePasswordModalProps = {
@@ -76,8 +91,9 @@ export const ChangePasswordModal: FC<ChangePasswordModalProps> = ({
 
   const handleSubmit = (data: ChangePassword) =>
     new Promise<void>((resolve, reject) => {
-      changePassword(data, {
-        onSuccess: () => {
+      changePassword(toChangePasswordBody(data), {
+        onSuccess: (result) => {
+          if (result.error) return reject();
           handleCloseModal();
           resolve();
         },

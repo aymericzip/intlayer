@@ -1,4 +1,4 @@
-import type { AddNewAccessKeyResponse } from '@intlayer/backend';
+import type { AddNewAccessKeyResponse } from '@intlayer/backend-contract/project';
 import { useAddNewAccessKey, useSession } from '@intlayer/design-system/api';
 import {
   Form,

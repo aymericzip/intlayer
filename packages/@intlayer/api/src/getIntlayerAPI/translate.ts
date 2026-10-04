@@ -1,31 +1,58 @@
+import type { RouteEndpoints } from '@intlayer/backend-contract/defineRoute';
+import { buildRouteURL } from '@intlayer/backend-contract/defineRoute';
 import type {
   TranslateDictionariesBody,
   TranslateDictionariesResult,
-} from '@intlayer/backend';
+  TranslationRoutes,
+  translationContract,
+} from '@intlayer/backend-contract/translation';
 import { editor } from '@intlayer/config/built';
+import { BACKEND_URL } from '@intlayer/config/defaultValues';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { createEndpoint } from '../cms/createIntlayerCMS';
 import { type FetcherOptions, fetcher } from '../fetcher';
 
 export type { TranslateDictionariesBody, TranslateDictionariesResult };
 
+/** Prefix of the routes, checked against the backend contract. */
+const translationGroup = {
+  prefix: '/api/translate',
+} as const satisfies Pick<typeof translationContract, 'prefix'>;
+
+/**
+ * Method and path of every route, checked against the backend contract at
+ * compile time (the contract's zod schemas are never loaded).
+ */
+const translationEndpoints = {
+  translateDictionaries: { method: 'POST', path: '/dictionaries' },
+  getTranslationStatus: { method: 'GET', path: '/status' },
+  pauseTranslationJob: { method: 'POST', path: '/:jobId/pause' },
+  resumeTranslationJob: { method: 'POST', path: '/:jobId/resume' },
+  stopTranslationJob: { method: 'POST', path: '/:jobId/stop' },
+  retryTranslationJob: { method: 'POST', path: '/:jobId/retry' },
+  restartTranslationJob: { method: 'POST', path: '/:jobId/restart' },
+} as const satisfies RouteEndpoints<TranslationRoutes>;
+
 export const getTranslateAPI = (
   authAPIOptions: FetcherOptions = {},
   intlayerConfig?: IntlayerConfig
 ) => {
-  const backendURL = intlayerConfig?.editor?.backendURL ?? editor.backendURL;
-
-  const TRANSLATE_API_ROUTE = `${backendURL}/api/translate`;
+  const backendURL =
+    intlayerConfig?.editor?.backendURL ?? editor.backendURL ?? BACKEND_URL;
 
   const translateDictionaries = async (
     body: TranslateDictionariesBody,
     otherOptions: FetcherOptions = {}
   ) =>
     fetcher<TranslateDictionariesResult>(
-      `${TRANSLATE_API_ROUTE}/dictionaries`,
+      buildRouteURL(
+        backendURL,
+        translationGroup,
+        translationEndpoints.translateDictionaries
+      ),
       authAPIOptions,
       otherOptions,
-      { method: 'POST', body }
+      { method: translationEndpoints.translateDictionaries.method, body }
     );
 
   const pauseTranslationJob = async (
@@ -33,10 +60,15 @@ export const getTranslateAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     fetcher<{ data: { jobId: string } }>(
-      `${TRANSLATE_API_ROUTE}/${jobId}/pause`,
+      buildRouteURL(
+        backendURL,
+        translationGroup,
+        translationEndpoints.pauseTranslationJob,
+        { jobId }
+      ),
       authAPIOptions,
       otherOptions,
-      { method: 'POST' }
+      { method: translationEndpoints.pauseTranslationJob.method }
     );
 
   const resumeTranslationJob = async (
@@ -44,10 +76,15 @@ export const getTranslateAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     fetcher<{ data: { jobId: string } }>(
-      `${TRANSLATE_API_ROUTE}/${jobId}/resume`,
+      buildRouteURL(
+        backendURL,
+        translationGroup,
+        translationEndpoints.resumeTranslationJob,
+        { jobId }
+      ),
       authAPIOptions,
       otherOptions,
-      { method: 'POST' }
+      { method: translationEndpoints.resumeTranslationJob.method }
     );
 
   const stopTranslationJob = async (
@@ -55,10 +92,15 @@ export const getTranslateAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     fetcher<{ data: { jobId: string } }>(
-      `${TRANSLATE_API_ROUTE}/${jobId}/stop`,
+      buildRouteURL(
+        backendURL,
+        translationGroup,
+        translationEndpoints.stopTranslationJob,
+        { jobId }
+      ),
       authAPIOptions,
       otherOptions,
-      { method: 'POST' }
+      { method: translationEndpoints.stopTranslationJob.method }
     );
 
   const retryTranslationJob = async (
@@ -66,10 +108,15 @@ export const getTranslateAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     fetcher<{ data: { jobId: string } }>(
-      `${TRANSLATE_API_ROUTE}/${jobId}/retry`,
+      buildRouteURL(
+        backendURL,
+        translationGroup,
+        translationEndpoints.retryTranslationJob,
+        { jobId }
+      ),
       authAPIOptions,
       otherOptions,
-      { method: 'POST' }
+      { method: translationEndpoints.retryTranslationJob.method }
     );
 
   const restartTranslationJob = async (
@@ -77,10 +124,15 @@ export const getTranslateAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     fetcher<{ data: { jobId: string } }>(
-      `${TRANSLATE_API_ROUTE}/${jobId}/restart`,
+      buildRouteURL(
+        backendURL,
+        translationGroup,
+        translationEndpoints.restartTranslationJob,
+        { jobId }
+      ),
       authAPIOptions,
       otherOptions,
-      { method: 'POST' }
+      { method: translationEndpoints.restartTranslationJob.method }
     );
 
   return {

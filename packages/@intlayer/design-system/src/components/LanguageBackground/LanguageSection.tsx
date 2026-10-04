@@ -22,7 +22,9 @@ const shuffleArray = (array: string[], limit?: number) => {
   for (let i = shuffled.length - 1; i > 0; i--) {
     const randomIndex = Math.floor(Math.random() * (i + 1));
 
-    [shuffled[i], shuffled[randomIndex]] = [shuffled[randomIndex], shuffled[i]];
+    const current = shuffled[i] as string;
+    shuffled[i] = shuffled[randomIndex] as string;
+    shuffled[randomIndex] = current;
   }
 
   return limit ? shuffled.slice(0, limit) : shuffled;

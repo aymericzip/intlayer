@@ -1,4 +1,4 @@
-import type { GetPricingResult } from '@intlayer/backend';
+import type { GetPricingResult } from '@intlayer/backend-contract/stripe';
 import { H1 } from '@intlayer/design-system/headers';
 import { SwitchSelector } from '@intlayer/design-system/switch-selector';
 import { type FC, Suspense, useState } from 'react';

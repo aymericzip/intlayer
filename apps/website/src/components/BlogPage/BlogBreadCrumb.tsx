@@ -10,11 +10,11 @@ import {
 import { getLocalizedUrl, type LocalesValues } from 'intlayer';
 import { type FC, useMemo } from 'react';
 import { getBlogSubSection } from './blogData';
-import type { Section } from './types';
+import type { BlogNavMetadata, Section } from './types';
 
 type BlogBreadCrumbProps = {
   activeSections: string[];
-  blogData: Section;
+  blogData: Section<BlogNavMetadata>;
   locale: LocalesValues;
 } & Omit<BreadcrumbProps, 'links'>;
 

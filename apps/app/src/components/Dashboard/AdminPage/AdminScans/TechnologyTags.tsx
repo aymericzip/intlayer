@@ -1,4 +1,4 @@
-import type { HostTechnology } from '@intlayer/backend';
+import type { HostTechnology } from '@intlayer/backend-contract/scan';
 import { Tag } from '@intlayer/design-system/tag';
 import { cn } from '@intlayer/design-system/utils';
 import type { FC } from 'react';

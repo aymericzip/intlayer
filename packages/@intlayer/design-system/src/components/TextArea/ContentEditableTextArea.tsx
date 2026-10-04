@@ -17,7 +17,7 @@ import {
   useRef,
   useState,
 } from 'react';
-import { inputVariants } from '../Input';
+import { type InputVariant, inputVariants } from '../Input';
 
 type CaretPosition = {
   line: number;
@@ -71,6 +71,7 @@ const createGraphemeSegmenter = (): GraphemeSegmenter | null => {
       ) => GraphemeSegmenter
     >
   ).Segmenter;
+  if (!SegmenterCtor) return null;
   return new SegmenterCtor(undefined, { granularity: 'grapheme' });
 };
 
@@ -124,9 +125,9 @@ const prevWordBoundary = (text: string, offset: number): number => {
   if (offset <= 0) return 0;
   let i = offset - 1;
   // Skip whitespace
-  while (i > 0 && /\s/.test(text[i - 1])) i--;
+  while (i > 0 && /\s/.test(text[i - 1] ?? '')) i--;
   // Skip word characters
-  while (i > 0 && /\S/.test(text[i - 1])) i--;
+  while (i > 0 && /\S/.test(text[i - 1] ?? '')) i--;
   return i;
 };
 
@@ -137,9 +138,9 @@ const nextWordBoundary = (text: string, offset: number): number => {
   if (offset >= text.length) return text.length;
   let i = offset;
   // Skip word characters
-  while (i < text.length && /\S/.test(text[i])) i++;
+  while (i < text.length && /\S/.test(text[i] ?? '')) i++;
   // Skip whitespace
-  while (i < text.length && /\s/.test(text[i])) i++;
+  while (i < text.length && /\s/.test(text[i] ?? '')) i++;
   return i;
 };
 
@@ -192,7 +193,7 @@ export const useContentEditable = ({
     const lineEls = containerRef.current.querySelectorAll('[data-line]');
 
     for (let i = 0; i < lineEls.length; i++) {
-      if (lineEls[i].contains(range.startContainer)) {
+      if (lineEls[i]?.contains(range.startContainer)) {
         return { line: i, offset: range.startOffset };
       }
     }
@@ -213,10 +214,10 @@ export const useContentEditable = ({
 
     const findOffset = (node: Node, nodeOffset: number): number => {
       for (let i = 0; i < lineEls.length; i++) {
-        if (lineEls[i].contains(node)) {
+        if (lineEls[i]?.contains(node)) {
           let flat = 0;
           for (let j = 0; j < i; j++) {
-            flat += currentLines[j].length + 1;
+            flat += (currentLines[j]?.length ?? 0) + 1;
           }
           return flat + Math.min(nodeOffset, currentLines[i]?.length ?? 0);
         }
@@ -280,7 +281,7 @@ export const useContentEditable = ({
     const currentLines = linesRef.current;
     let offset = 0;
     for (let i = 0; i < pos.line; i++) {
-      offset += currentLines[i].length + 1;
+      offset += (currentLines[i]?.length ?? 0) + 1;
     }
     return offset + pos.offset;
   };
@@ -291,10 +292,11 @@ export const useContentEditable = ({
   ): CaretPosition => {
     let rem = flat;
     for (let i = 0; i < targetLines.length; i++) {
-      if (rem <= targetLines[i].length) {
+      const lineLength = targetLines[i]?.length ?? 0;
+      if (rem <= lineLength) {
         return { line: i, offset: rem };
       }
-      rem -= targetLines[i].length + 1;
+      rem -= lineLength + 1;
     }
     return {
       line: targetLines.length - 1,
@@ -466,7 +468,7 @@ export const useContentEditable = ({
   const handleBeforeInput = (e: InputEvent<HTMLDivElement>) => {
     if (disabled) return;
 
-    const inputEvent = e.nativeEvent as InputEvent;
+    const inputEvent = e.nativeEvent as globalThis.InputEvent;
 
     // Don't intercept during IME composition (CJK input)
     if (inputEvent.isComposing) return;

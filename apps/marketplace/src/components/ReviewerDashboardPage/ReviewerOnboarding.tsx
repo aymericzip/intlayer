@@ -1,4 +1,7 @@
-import type { ReviewerCategory, ReviewerProfileAPI } from '@intlayer/backend';
+import type {
+  ReviewerCategory,
+  ReviewerProfileAPI,
+} from '@intlayer/backend-contract/reviewer';
 import {
   useRegisterAsReviewer,
   useSession,
@@ -241,7 +244,7 @@ export const ReviewerOnboarding: FC<ReviewerOnboardingProps> = ({
             <Field label={content.profilePicture.value}>
               <Avatar
                 size="2xl"
-                src={user?.image}
+                src={user?.image ?? undefined}
                 isLoading={uploadingProfile}
                 onClick={() => profilePicInputRef.current?.click()}
                 hoverable

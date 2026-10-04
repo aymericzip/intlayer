@@ -1,18 +1,23 @@
+import type { RouteEndpoints } from '@intlayer/backend-contract/defineRoute';
+import { buildRouteURL } from '@intlayer/backend-contract/defineRoute';
 import type {
   GetOtherShowcaseProjectsResult,
   GetShowcaseProjectByIdParams,
   GetShowcaseProjectByIdResult,
   GetShowcaseProjectsResult,
+  ShowcaseProjectRoutes,
   SubmitShowcaseProjectBody,
   SubmitShowcaseProjectResult,
+  showcaseProjectContract,
   ToggleShowcaseDownvoteBody,
   ToggleShowcaseDownvoteResult,
   ToggleShowcaseUpvoteBody,
   ToggleShowcaseUpvoteResult,
   UpdateShowcaseProjectBody,
   UpdateShowcaseProjectResult,
-} from '@intlayer/backend';
+} from '@intlayer/backend-contract/showcaseProject';
 import { editor } from '@intlayer/config/built';
+import { BACKEND_URL } from '@intlayer/config/defaultValues';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { createEndpoint } from '../cms/createIntlayerCMS';
 import { type FetcherOptions, fetcher } from '../fetcher';
@@ -32,13 +37,33 @@ export type OtherShowcaseProjectsQuery = {
   limit?: number;
 };
 
+/** Prefix of the routes, checked against the backend contract. */
+const showcaseProjectGroup = {
+  prefix: '/api/showcase-project',
+} as const satisfies Pick<typeof showcaseProjectContract, 'prefix'>;
+
+/**
+ * Method and path of every route, checked against the backend contract at
+ * compile time (the contract's zod schemas are never loaded).
+ */
+const showcaseProjectEndpoints = {
+  getShowcaseProjects: { method: 'GET', path: '/' },
+  submitShowcaseProject: { method: 'POST', path: '/submit' },
+  getOtherShowcaseProjects: { method: 'GET', path: '/others' },
+  toggleShowcaseUpvote: { method: 'POST', path: '/upvote' },
+  toggleShowcaseDownvote: { method: 'POST', path: '/downvote' },
+  getShowcaseProjectById: { method: 'GET', path: '/:projectId' },
+  scanShowcaseProject: { method: 'GET', path: '/:projectId/scan' },
+  deleteShowcaseProject: { method: 'DELETE', path: '/:projectId' },
+  updateShowcaseProject: { method: 'PATCH', path: '/:projectId' },
+} as const satisfies RouteEndpoints<ShowcaseProjectRoutes>;
+
 export const getShowcaseProjectAPI = (
   authAPIOptions: FetcherOptions = {},
   intlayerConfig?: IntlayerConfig
 ) => {
-  const backendURL = intlayerConfig?.editor?.backendURL ?? editor.backendURL;
-
-  const SHOWCASE_API_ROUTE = `${backendURL}/api/showcase-project`;
+  const backendURL =
+    intlayerConfig?.editor?.backendURL ?? editor.backendURL ?? BACKEND_URL;
 
   const getShowcaseProjects = async (
     query?: ShowcaseProjectsQuery,
@@ -54,10 +79,17 @@ export const getShowcaseProjectAPI = (
       params.selectedUseCases = query.selectedUseCases;
 
     return await fetcher<GetShowcaseProjectsResult>(
-      SHOWCASE_API_ROUTE,
+      buildRouteURL(
+        backendURL,
+        showcaseProjectGroup,
+        showcaseProjectEndpoints.getShowcaseProjects
+      ),
       authAPIOptions,
       otherOptions,
-      { method: 'GET', params: params as any }
+      {
+        method: showcaseProjectEndpoints.getShowcaseProjects.method,
+        params: params as any,
+      }
     );
   };
 
@@ -66,10 +98,15 @@ export const getShowcaseProjectAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<GetShowcaseProjectByIdResult>(
-      `${SHOWCASE_API_ROUTE}/${projectId}`,
+      buildRouteURL(
+        backendURL,
+        showcaseProjectGroup,
+        showcaseProjectEndpoints.getShowcaseProjectById,
+        { projectId }
+      ),
       authAPIOptions,
       otherOptions,
-      { method: 'GET' }
+      { method: showcaseProjectEndpoints.getShowcaseProjectById.method }
     );
 
   const getOtherShowcaseProjects = async (
@@ -79,10 +116,17 @@ export const getShowcaseProjectAPI = (
     const params: Record<string, string> = { excludeId: query.excludeId };
     if (query.limit !== undefined) params.limit = String(query.limit);
     return await fetcher<GetOtherShowcaseProjectsResult>(
-      `${SHOWCASE_API_ROUTE}/others`,
+      buildRouteURL(
+        backendURL,
+        showcaseProjectGroup,
+        showcaseProjectEndpoints.getOtherShowcaseProjects
+      ),
       authAPIOptions,
       otherOptions,
-      { method: 'GET', params: params as any }
+      {
+        method: showcaseProjectEndpoints.getOtherShowcaseProjects.method,
+        params: params as any,
+      }
     );
   };
 
@@ -91,10 +135,14 @@ export const getShowcaseProjectAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<SubmitShowcaseProjectResult>(
-      `${SHOWCASE_API_ROUTE}/submit`,
+      buildRouteURL(
+        backendURL,
+        showcaseProjectGroup,
+        showcaseProjectEndpoints.submitShowcaseProject
+      ),
       authAPIOptions,
       otherOptions,
-      { method: 'POST', body }
+      { method: showcaseProjectEndpoints.submitShowcaseProject.method, body }
     );
 
   const toggleShowcaseUpvote = async (
@@ -102,10 +150,14 @@ export const getShowcaseProjectAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<ToggleShowcaseUpvoteResult>(
-      `${SHOWCASE_API_ROUTE}/upvote`,
+      buildRouteURL(
+        backendURL,
+        showcaseProjectGroup,
+        showcaseProjectEndpoints.toggleShowcaseUpvote
+      ),
       authAPIOptions,
       otherOptions,
-      { method: 'POST', body }
+      { method: showcaseProjectEndpoints.toggleShowcaseUpvote.method, body }
     );
 
   const toggleShowcaseDownvote = async (
@@ -113,10 +165,14 @@ export const getShowcaseProjectAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<ToggleShowcaseDownvoteResult>(
-      `${SHOWCASE_API_ROUTE}/downvote`,
+      buildRouteURL(
+        backendURL,
+        showcaseProjectGroup,
+        showcaseProjectEndpoints.toggleShowcaseDownvote
+      ),
       authAPIOptions,
       otherOptions,
-      { method: 'POST', body }
+      { method: showcaseProjectEndpoints.toggleShowcaseDownvote.method, body }
     );
 
   const deleteShowcaseProject = async (
@@ -124,10 +180,15 @@ export const getShowcaseProjectAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<{ data: { success: boolean } }>(
-      `${SHOWCASE_API_ROUTE}/${projectId}`,
+      buildRouteURL(
+        backendURL,
+        showcaseProjectGroup,
+        showcaseProjectEndpoints.deleteShowcaseProject,
+        { projectId }
+      ),
       authAPIOptions,
       otherOptions,
-      { method: 'DELETE' }
+      { method: showcaseProjectEndpoints.deleteShowcaseProject.method }
     );
 
   const updateShowcaseProject = async (
@@ -136,10 +197,15 @@ export const getShowcaseProjectAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<UpdateShowcaseProjectResult>(
-      `${SHOWCASE_API_ROUTE}/${projectId}`,
+      buildRouteURL(
+        backendURL,
+        showcaseProjectGroup,
+        showcaseProjectEndpoints.updateShowcaseProject,
+        { projectId }
+      ),
       authAPIOptions,
       otherOptions,
-      { method: 'PATCH', body }
+      { method: showcaseProjectEndpoints.updateShowcaseProject.method, body }
     );
 
   return {

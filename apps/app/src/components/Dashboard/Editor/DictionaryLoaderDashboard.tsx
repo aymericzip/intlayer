@@ -35,7 +35,7 @@ export const DictionaryLoaderDashboard: FC = () => {
 
     const dictionariesList: Record<LocalDictionaryId, Dictionary> =
       Object.fromEntries(
-        data?.data?.map((dictionary: Dictionary) => [
+        (data.data ?? []).map((dictionary: Dictionary) => [
           dictionary.localId,
           dictionary,
         ])

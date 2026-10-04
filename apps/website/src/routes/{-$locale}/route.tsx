@@ -81,7 +81,10 @@ export const Route = createFileRoute('/{-$locale}')({
         { property: 'og:description', content: description },
         {
           property: 'og:url',
-          content: getLocalizedUrl(import.meta.env.VITE_URL, params.locale),
+          content: getLocalizedUrl(
+            import.meta.env.VITE_URL ?? '',
+            params.locale
+          ),
         },
         { property: 'og:logo', content: toAbsoluteUrl('/logo.png') },
         { property: 'og:image', content: ogImage },

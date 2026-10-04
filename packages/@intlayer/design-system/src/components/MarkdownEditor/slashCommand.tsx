@@ -147,8 +147,8 @@ export const getSuggestionItems = (
         input.type = 'file';
         input.accept = 'image/*';
         input.onchange = () => {
-          if (input.files?.length) {
-            const file = input.files[0];
+          const file = input.files?.[0];
+          if (file) {
             const pos = editor.view.state.selection.from;
             uploadFn(file, editor.view, pos);
           }

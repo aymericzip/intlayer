@@ -12,7 +12,7 @@ export const createFileTree = (paths: string[]): FilePath[] => {
     let current = root;
 
     for (let i = 0; i < parts.length; i++) {
-      const part = parts[i];
+      const part = parts[i] ?? '';
       const isFile = i === parts.length - 1; // Last part of the path is a file
 
       if (!current.subPath) {

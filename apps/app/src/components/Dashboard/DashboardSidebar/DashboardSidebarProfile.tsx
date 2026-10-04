@@ -42,7 +42,7 @@ export const DashboardSidebarProfile: FC<DashboardSidebarProfileProps> = ({
             <Avatar
               fullname={userName}
               isLoggedIn={isAuthenticated}
-              src={user?.image}
+              src={user?.image ?? undefined}
               size="sm"
             />
           </DropDown.Trigger>

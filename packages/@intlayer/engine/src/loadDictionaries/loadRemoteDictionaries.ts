@@ -1,5 +1,4 @@
-// @ts-ignore @intlayer/backend is not build yet
-import type { DictionaryAPI } from '@intlayer/backend';
+import type { DictionaryAPI } from '@intlayer/api';
 import { getConfiguration } from '@intlayer/config/node';
 import { getRemoteDictionaries } from '@intlayer/dictionaries-entry/remote';
 import type {

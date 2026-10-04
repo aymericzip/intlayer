@@ -1,4 +1,5 @@
-import type { GetUsersResult, ProjectAPI } from '@intlayer/backend';
+import type { ProjectAPI } from '@intlayer/backend-contract/project';
+import type { GetUsersResult } from '@intlayer/backend-contract/user';
 import { useGetUsers } from '@intlayer/design-system/api';
 import { Avatar } from '@intlayer/design-system/avatar';
 import { Button } from '@intlayer/design-system/button';

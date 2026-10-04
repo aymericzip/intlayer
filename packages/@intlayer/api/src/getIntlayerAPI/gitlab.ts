@@ -1,4 +1,11 @@
+import type { RouteEndpoints } from '@intlayer/backend-contract/defineRoute';
+import { buildRouteURL } from '@intlayer/backend-contract/defineRoute';
+import type {
+  GitLabRoutes,
+  gitlabContract,
+} from '@intlayer/backend-contract/gitProviders';
 import { editor } from '@intlayer/config/built';
+import { BACKEND_URL } from '@intlayer/config/defaultValues';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { createEndpoint } from '../cms/createIntlayerCMS';
 import { type FetcherOptions, fetcher } from '../fetcher';
@@ -68,13 +75,29 @@ export type GitLabGetAuthUrlResult = {
   };
 };
 
+/** Prefix of the routes, checked against the backend contract. */
+const gitlabGroup = {
+  prefix: '/api/gitlab',
+} as const satisfies Pick<typeof gitlabContract, 'prefix'>;
+
+/**
+ * Method and path of every route, checked against the backend contract at
+ * compile time (the contract's zod schemas are never loaded).
+ */
+const gitlabEndpoints = {
+  getAuthUrl: { method: 'GET', path: '/auth-url' },
+  authCallback: { method: 'POST', path: '/auth' },
+  listProjects: { method: 'GET', path: '/projects' },
+  checkConfig: { method: 'POST', path: '/check-config' },
+  getConfigFile: { method: 'POST', path: '/get-config-file' },
+} as const satisfies RouteEndpoints<GitLabRoutes>;
+
 export const getGitlabAPI = (
   authAPIOptions: FetcherOptions = {},
   intlayerConfig?: IntlayerConfig
 ) => {
-  const backendURL = intlayerConfig?.editor?.backendURL ?? editor.backendURL;
-
-  const GITLAB_API_ROUTE = `${backendURL}/api/gitlab`;
+  const backendURL =
+    intlayerConfig?.editor?.backendURL ?? editor.backendURL ?? BACKEND_URL;
 
   /**
    * Get GitLab OAuth authorization URL
@@ -87,7 +110,7 @@ export const getGitlabAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<GitLabGetAuthUrlResult>(
-      `${GITLAB_API_ROUTE}/auth-url`,
+      buildRouteURL(backendURL, gitlabGroup, gitlabEndpoints.getAuthUrl),
       authAPIOptions,
       otherOptions,
       {
@@ -108,11 +131,11 @@ export const getGitlabAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<GitLabAuthCallbackResult>(
-      `${GITLAB_API_ROUTE}/auth`,
+      buildRouteURL(backendURL, gitlabGroup, gitlabEndpoints.authCallback),
       authAPIOptions,
       otherOptions,
       {
-        method: 'POST',
+        method: gitlabEndpoints.authCallback.method,
         body: { code, redirectUri, instanceUrl },
       }
     );
@@ -128,7 +151,7 @@ export const getGitlabAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<GitLabListProjectsResult>(
-      `${GITLAB_API_ROUTE}/projects`,
+      buildRouteURL(backendURL, gitlabGroup, gitlabEndpoints.listProjects),
       authAPIOptions,
       otherOptions,
       {
@@ -154,11 +177,11 @@ export const getGitlabAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<GitLabCheckConfigResult>(
-      `${GITLAB_API_ROUTE}/check-config`,
+      buildRouteURL(backendURL, gitlabGroup, gitlabEndpoints.checkConfig),
       authAPIOptions,
       otherOptions,
       {
-        method: 'POST',
+        method: gitlabEndpoints.checkConfig.method,
         body: {
           token: token ?? undefined,
           projectId,
@@ -185,11 +208,11 @@ export const getGitlabAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<GitLabGetConfigFileResult>(
-      `${GITLAB_API_ROUTE}/get-config-file`,
+      buildRouteURL(backendURL, gitlabGroup, gitlabEndpoints.getConfigFile),
       authAPIOptions,
       otherOptions,
       {
-        method: 'POST',
+        method: gitlabEndpoints.getConfigFile.method,
         body: {
           token: token ?? undefined,
           projectId,

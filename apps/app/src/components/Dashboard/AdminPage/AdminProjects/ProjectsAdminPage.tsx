@@ -1,4 +1,7 @@
-import type { GetProjectsResult, ProjectAPI } from '@intlayer/backend';
+import type {
+  GetProjectsResult,
+  ProjectAPI,
+} from '@intlayer/backend-contract/project';
 import {
   useDeleteProjectById,
   useGetProjects,

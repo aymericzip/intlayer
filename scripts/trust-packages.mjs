@@ -46,7 +46,6 @@ const rootDirectory = join(dirname(fileURLToPath(import.meta.url)), '..');
 const PUBLISHED_WORKSPACE_PATTERNS = [
   'packages/**/package.json',
   'docs/package.json',
-  'apps/backend/package.json',
   'plugins/**/package.json',
   'compat/**/package.json',
 ];

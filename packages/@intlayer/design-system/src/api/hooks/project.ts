@@ -11,18 +11,15 @@ import type {
   UpdateMemberAccessBody,
   UpdateProjectBody,
   UpdateProjectMembersBody,
-} from '@intlayer/backend';
-import {
-  type UseQueryOptions,
-  useMutation,
-  useQueryClient,
-} from '@tanstack/react-query';
+} from '@intlayer/backend-contract/project';
+import type { SessionAPI } from '@intlayer/backend-contract/session';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useProjectAPI } from '../useIntlayerAPI';
-import { useAppQuery } from './utils';
+import { type AppQueryOptions, useAppQuery } from './utils';
 
 export const useGetProjects = (
   filters?: GetProjectsParams,
-  options?: Partial<UseQueryOptions>
+  options?: AppQueryOptions
 ) => {
   const projectAPI = useProjectAPI();
 
@@ -36,7 +33,7 @@ export const useGetProjects = (
   });
 };
 
-export const useGetProjectInsights = (options?: Partial<UseQueryOptions>) => {
+export const useGetProjectInsights = (options?: AppQueryOptions) => {
   const projectAPI = useProjectAPI();
 
   return useAppQuery({
@@ -72,7 +69,7 @@ export const useUpdateProject = () => {
       invalidateQueries: [['projects']],
     },
     onSuccess: (data) => {
-      const session = queryClient.getQueryData(['session']);
+      const session = queryClient.getQueryData<SessionAPI>(['session']);
 
       queryClient.setQueryData(['session'], {
         ...(session ?? {}),
@@ -91,7 +88,7 @@ export const usePushProjectConfiguration = () => {
     mutationFn: (args: PushProjectConfigurationBody) =>
       projectAPI.pushProjectConfiguration(args),
     onSuccess: (data) => {
-      const session = queryClient.getQueryData(['session']);
+      const session = queryClient.getQueryData<SessionAPI>(['session']);
 
       queryClient.setQueryData(['session'], {
         ...(session ?? {}),
@@ -115,7 +112,7 @@ export const useUpdateProjectMembers = () => {
     onSuccess: (data) => {
       // Patch the session cache immediately so member lists derived from
       // `session.project` update without waiting for a refetch
-      const session = queryClient.getQueryData(['session']);
+      const session = queryClient.getQueryData<SessionAPI>(['session']);
 
       queryClient.setQueryData(['session'], {
         ...(session ?? {}),
@@ -156,7 +153,8 @@ export const useSelectProject = () => {
 
   return useMutation({
     mutationKey: ['session-projects'],
-    mutationFn: (args: SelectProjectParam) => projectAPI.selectProject(args),
+    mutationFn: (projectId: SelectProjectParam['projectId']) =>
+      projectAPI.selectProject(projectId),
     meta: {
       invalidateQueries: [
         ['session'],
@@ -168,7 +166,7 @@ export const useSelectProject = () => {
       ],
     },
     onSuccess: (data) => {
-      const session = queryClient.getQueryData(['session']);
+      const session = queryClient.getQueryData<SessionAPI>(['session']);
 
       queryClient.setQueryData(['session'], {
         ...(session ?? {}),
@@ -196,7 +194,7 @@ export const useUnselectProject = () => {
       ],
     },
     onSuccess: () => {
-      const session = queryClient.getQueryData(['session']);
+      const session = queryClient.getQueryData<SessionAPI>(['session']);
 
       queryClient.setQueryData(['session'], {
         ...(session ?? {}),
@@ -206,7 +204,7 @@ export const useUnselectProject = () => {
   });
 };
 
-export const useGetCIConfig = (options?: Partial<UseQueryOptions>) => {
+export const useGetCIConfig = (options?: AppQueryOptions) => {
   const projectAPI = useProjectAPI();
 
   return useAppQuery({
@@ -271,7 +269,8 @@ export const useDeleteAccessKey = () => {
 
   return useMutation({
     mutationKey: ['session', 'access-keys'],
-    mutationFn: (args: DeleteAccessKeyBody) => projectAPI.deleteAccessKey(args),
+    mutationFn: (clientId: DeleteAccessKeyBody['clientId']) =>
+      projectAPI.deleteAccessKey(clientId),
     meta: {
       invalidateQueries: [['session']],
     },
@@ -283,8 +282,8 @@ export const useRefreshAccessKey = () => {
 
   return useMutation({
     mutationKey: ['session', 'access-keys'],
-    mutationFn: (args: RefreshAccessKeyBody) =>
-      projectAPI.refreshAccessKey(args),
+    mutationFn: (clientId: RefreshAccessKeyBody['clientId']) =>
+      projectAPI.refreshAccessKey(clientId),
     meta: {
       invalidateQueries: [['session']],
     },

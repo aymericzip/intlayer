@@ -20,7 +20,7 @@ type CommonQuestion = {
 };
 
 const FAQItem: FC<CommonQuestion> = ({ question, answer, callToAction }) => (
-  <Accordion label={question} header={question} defaultIsOpen={false}>
+  <Accordion label={question.value} header={question} defaultIsOpen={false}>
     <div className="overflow-hidden px-8 pb-4">
       <p className="pt-2 text-start text-[15px] text-muted-foreground leading-5">
         {answer}
@@ -79,7 +79,7 @@ export const CommonQuestionsSection: FC = () => {
         {faqs.length > 0 && <JsonLd jsonLd={buildFAQPageJsonLd({ faqs })} />}
 
         {content.map((data) => (
-          <FAQItem key={data.question} {...data} />
+          <FAQItem key={data.question.value} {...data} />
         ))}
       </Container>
 

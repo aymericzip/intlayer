@@ -17,7 +17,25 @@ import {
  * so the server-side `INTLAYER_BACKEND_INTERNAL_URL` override is applied here
  * to the base URL. In the browser the URL passes through unchanged.
  */
-const getAuthClient = (backendURL: string) =>
+/**
+ * Plugins of the auth client, written out so the emitted declarations name
+ * them through the plugins' public entries (inference reaches a private
+ * chunk of `@better-auth/sso`). Same shape as the inferred plugins array.
+ */
+type AuthClientPlugins = (
+  | ReturnType<typeof twoFactorClient>
+  | ReturnType<typeof passkeyClient>
+  // Instantiated like the no-options call: the generic default breaks inference
+  | ReturnType<typeof ssoClient<Record<never, never>>>
+  | ReturnType<typeof multiSessionClient>
+  | ReturnType<typeof lastLoginMethodClient>
+)[];
+
+type AuthClient = ReturnType<
+  typeof createAuthClient<{ plugins: AuthClientPlugins }>
+>;
+
+const getAuthClient = (backendURL: string): AuthClient =>
   createAuthClient({
     baseURL: resolveInternalBackendUrl(backendURL, backendURL),
     withCredentials: true, // makes fetch forward cookies
@@ -40,8 +58,6 @@ const getAuthClient = (backendURL: string) =>
       lastLoginMethodClient(),
     ],
   });
-
-type AuthClient = ReturnType<typeof getAuthClient>;
 
 export interface AuthAPI {
   getAuthClient: () => AuthClient;

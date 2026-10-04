@@ -3,7 +3,7 @@ import type { Document, Model, ObjectIdToString, Types } from 'mongoose';
 
 export type BlogCommentStatus = 'pending' | 'approved' | 'rejected';
 
-export interface BlogComment extends Document {
+export type BlogComment = {
   id: Types.ObjectId;
   blogSlug: string;
   authorName: string;
@@ -12,7 +12,7 @@ export interface BlogComment extends Document {
   status: BlogCommentStatus;
   createdAt: Date;
   updatedAt: Date;
-}
+};
 
 export type BlogCommentAPI = ObjectIdToString<BlogComment>;
 

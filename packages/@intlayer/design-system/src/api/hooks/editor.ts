@@ -1,7 +1,7 @@
 'use client';
 
+import type { WriteContentDeclarationBody } from '@intlayer/api';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import type { WriteContentDeclarationBody } from 'intlayer-editor';
 import { useEditorAPI } from '../useIntlayerAPI';
 
 export const useGetEditorDictionaries = () => {

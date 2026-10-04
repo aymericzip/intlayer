@@ -1,4 +1,4 @@
-import type { AffiliateStats } from '@intlayer/backend';
+import type { AffiliateStats } from '@intlayer/backend-contract/stripe';
 import type { FC } from 'react';
 
 type AffiliateStatsProps = {

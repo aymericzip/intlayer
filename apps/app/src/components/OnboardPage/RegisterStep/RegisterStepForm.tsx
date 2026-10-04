@@ -22,7 +22,8 @@ export const RegisterStepForm: FC = () => {
   const RegisterSchema = useRegisterSchema();
   const { goNextStep, goPreviousStep, setFormData, formData, setState } =
     useStep(Steps.Registration);
-  const { goNextStep: goToNextStep2 } = useStep(Steps.Password);
+  // Social sign-in redirects: land on the step after the password one
+  const { nextUrl: socialLoginCallbackUrl } = useStep(Steps.Password);
 
   const defaultValues = { ...formData, email: user?.email ?? formData?.email };
 
@@ -83,7 +84,7 @@ export const RegisterStepForm: FC = () => {
           </FormButton>
         </span>
 
-        <ExternalsLoginButtons onLogin={goToNextStep2} />
+        <ExternalsLoginButtons callbackUrl={socialLoginCallbackUrl} />
       </StepLayout>
     </Form>
   );

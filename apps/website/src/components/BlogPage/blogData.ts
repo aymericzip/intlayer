@@ -1,6 +1,6 @@
 import type { BlogKey, BlogMetadata } from '@intlayer/docs';
 import { getIntlayer, Locales, type LocalesValues } from 'intlayer';
-import type { CategorizedBlogData, Section } from './types';
+import type { BlogNavMetadata, CategorizedBlogData, Section } from './types';
 
 export const getBlogData = (
   locale: LocalesValues = Locales.ENGLISH
@@ -10,17 +10,22 @@ export const getBlogData = (
   return blog satisfies Record<string, CategorizedBlogData>;
 };
 
-export const getBlogSubSection = (
-  docData: Record<string, CategorizedBlogData>,
+/** Walks the section tree along the given keys. */
+export const getBlogSubSection = <
+  Metadata extends BlogNavMetadata | BlogMetadata = BlogMetadata,
+>(
+  docData: Section<Metadata>,
   sectionKey: string[]
-): CategorizedBlogData | undefined => {
-  let current = docData as unknown as CategorizedBlogData; // Use the `docData` object to navigate through sections
+): CategorizedBlogData<Metadata> | undefined => {
+  let current = docData as unknown as CategorizedBlogData<Metadata>; // Use the `docData` object to navigate through sections
 
   for (const key of sectionKey) {
     if (current[key as keyof typeof current]) {
-      current = current[key as keyof typeof current] as CategorizedBlogData; // Navigate deeper
+      current = current[
+        key as keyof typeof current
+      ] as CategorizedBlogData<Metadata>; // Navigate deeper
     } else if (current.subSections?.[key]) {
-      current = current.subSections[key] as CategorizedBlogData; // Navigate deeper
+      current = current.subSections[key] as CategorizedBlogData<Metadata>; // Navigate deeper
     } else {
       break; // If key is not found, return an empty string
     }
@@ -29,18 +34,21 @@ export const getBlogSubSection = (
   return current; // Return the title if it exists
 };
 
-type BlogSectionPaths = {
+type BlogSectionPaths<Metadata extends BlogNavMetadata | BlogMetadata> = {
   paths: string[][];
-  blog: BlogMetadata[];
+  blog: Metadata[];
   title: string[];
 };
 
-export const getBlogSection = (
-  docData: Section,
+/** Flattens a blog section tree into its posts, paths and titles. */
+export const getBlogSection = <
+  Metadata extends BlogNavMetadata | BlogMetadata = BlogMetadata,
+>(
+  docData: Section<Metadata>,
   presetKeys: string[] = []
-): BlogSectionPaths => {
+): BlogSectionPaths<Metadata> => {
   const paths: string[][] = [];
-  const blog: BlogMetadata[] = [];
+  const blog: Metadata[] = [];
   const title: string[] = [];
 
   for (const key of Object.keys(docData)) {

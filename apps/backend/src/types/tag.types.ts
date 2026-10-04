@@ -23,8 +23,8 @@ export type TagData = {
 
 export type Tag = TagData & {
   id: Types.ObjectId;
-  createdAt: number;
-  updatedAt: number;
+  createdAt: Date;
+  updatedAt: Date;
 };
 
 export type TagAPI = ObjectIdToString<Tag>;

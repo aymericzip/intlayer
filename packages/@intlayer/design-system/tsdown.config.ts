@@ -52,13 +52,19 @@ const options: UserConfig[] = getOptions({
     ],
   },
   types: {
+    // Every package import stays bare (never a `node_modules` path of the
+    // build machine). Local path aliases look like scoped packages, so they
+    // are opted back in explicitly.
+    deps: {
+      neverBundle: true,
+      alwaysBundle: [/^@(components|utils|libs|hooks|providers|api)\//, /^@\//],
+    },
     // Provide TS compiler options to stabilize type resolution during d.ts emit
     dts: {
       // generator: 'oxc',
       emitDtsOnly: true,
       // Provide TS compiler options to stabilize type resolution during d.ts emit
       compilerOptions: {
-        preserveSymlinks: true,
         types: ['react', 'node'],
         moduleResolution: 'Bundler',
         jsx: 'react-jsx',

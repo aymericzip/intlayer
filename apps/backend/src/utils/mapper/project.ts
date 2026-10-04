@@ -1,4 +1,5 @@
 import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject';
+import { removeObjectKeys } from '@utils/removeObjectKeys';
 import type {
   EnvironmentAPI,
   Project,
@@ -61,6 +62,20 @@ const sanitizeProjectConfiguration = (
 };
 
 /**
+ * Removes credentials that must never leave the server: the live bearer
+ * tokens of each access key and the repo-scoped git provider token.
+ * Services needing them re-read the project from the DB.
+ */
+const removeProjectCredentials = (project: ProjectAPI) => ({
+  ...project,
+  oAuth2Access: (project.oAuth2Access ?? []).map((accessKey) =>
+    removeObjectKeys(accessKey, ['accessToken'])
+  ),
+  repository:
+    project.repository && removeObjectKeys(project.repository, ['token']),
+});
+
+/**
  * Maps a project to an API response.
  * @param project - The project to map.
  * @returns The project mapped to an API response.
@@ -112,7 +127,7 @@ export const mapProjectToAPI = <T extends Project | ProjectAPI | null>(
 
   projectObject.environments = mappedEnvironments;
 
-  return projectObject as any;
+  return removeProjectCredentials(projectObject) as any;
 };
 
 /**

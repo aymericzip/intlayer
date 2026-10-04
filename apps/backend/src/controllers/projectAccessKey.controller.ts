@@ -1,3 +1,5 @@
+import type { RouteBody } from '@intlayer/backend-contract/defineRoute';
+import type { ProjectRoutes } from '@intlayer/backend-contract/project';
 import { sendEmail } from '@services/email.service';
 import * as projectAccessKeyService from '@services/projectAccessKey.service';
 import { type AppError, ErrorHandler } from '@utils/errors';
@@ -129,7 +131,7 @@ export const addNewAccessKey = async (
   }
 };
 
-export type DeleteAccessKeyBody = { clientId: string };
+export type DeleteAccessKeyBody = RouteBody<ProjectRoutes['deleteAccessKey']>;
 export type DeleteAccessKeyResponse = ResponseData<null>;
 
 /**
@@ -239,7 +241,7 @@ export const deleteAccessKey = async (
   }
 };
 
-export type RefreshAccessKeyBody = { clientId: string };
+export type RefreshAccessKeyBody = RouteBody<ProjectRoutes['refreshAccessKey']>;
 export type RefreshAccessKeyResponse = ResponseData<OAuth2Access>;
 
 /**

@@ -1,4 +1,4 @@
-import type { ProjectAPI } from '@intlayer/backend';
+import type { ProjectAPI } from '@intlayer/backend-contract/project';
 import { useGetProjects, useSelectProject } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';

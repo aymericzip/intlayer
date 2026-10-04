@@ -1,8 +1,8 @@
+import type { ResponseData } from '@intlayer/backend-contract/responseData';
 import type {
-  ResponseData,
   ReviewerProfileAPI,
   TranslationMissionAPI,
-} from '@intlayer/backend';
+} from '@intlayer/backend-contract/reviewer';
 import {
   useCreateMission,
   useEstimateMission,

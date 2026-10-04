@@ -1,6 +1,6 @@
 'use client';
 
-import type { TranslateDictionariesBody } from '@intlayer/backend';
+import type { TranslateDictionariesBody } from '@intlayer/backend-contract/translation';
 import { useMutation } from '@tanstack/react-query';
 import { useDictionaryAPI, useTranslateAPI } from '../useIntlayerAPI';
 

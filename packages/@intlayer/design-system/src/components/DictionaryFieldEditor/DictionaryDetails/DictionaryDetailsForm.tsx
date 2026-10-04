@@ -7,7 +7,6 @@ import {
   useGetTags,
 } from '@api/index';
 import { useSession } from '@api/useAuth';
-
 import { Container } from '@components/Container';
 import {
   Form,
@@ -36,6 +35,10 @@ import { WandSparkles } from 'lucide-react';
 import { type FC, useEffect, useMemo, useState } from 'react';
 import { useWatch } from 'react-hook-form';
 import { useIntlayer } from 'react-intlayer';
+import {
+  formatDictionaryVariant,
+  parseDictionaryVariant,
+} from '../dictionaryVariant';
 import { useDictionaryDetailsSchema } from './useDictionaryDetailsSchema';
 
 type DictionaryDetailsProps = {
@@ -56,32 +59,23 @@ const deriveQualifierTypes = (dict: Dictionary): QualifierType[] => {
   return types;
 };
 
-/**
- * A variant can be a named string or a structured object. The CMS edits it as
- * text: a value starting with `{` is parsed as JSON (object variant), anything
- * else is kept as a named-variant string.
- */
-const formatVariant = (
-  variant: string | Record<string, string | number> | undefined
-): string =>
-  variant !== null && typeof variant === 'object'
-    ? JSON.stringify(variant)
-    : (variant ?? '');
+/** Locations the form toggles between. */
+const FORM_LOCATIONS = ['remote', 'local', 'hybrid', 'plugin'] as const;
+type FormLocation = (typeof FORM_LOCATIONS)[number];
 
-const parseVariantInput = (
-  raw: string
-): { variant: string | Record<string, string | number>; error: boolean } => {
-  if (raw.trim().startsWith('{')) {
-    try {
-      return {
-        variant: JSON.parse(raw) as Record<string, string | number>,
-        error: false,
-      };
-    } catch {
-      return { variant: raw, error: true };
-    }
-  }
-  return { variant: raw, error: false };
+const isFormLocation = (location: string): location is FormLocation =>
+  (FORM_LOCATIONS as readonly string[]).includes(location);
+
+/**
+ * Location shown by the form. Custom sources are plugin-managed (see
+ * `DictionaryLocation`); the stored value only changes when a toggle does.
+ */
+const toFormLocation = (
+  location: Dictionary['location'] | undefined
+): FormLocation => {
+  if (location === undefined) return 'remote';
+
+  return isFormLocation(location) ? location : 'plugin';
 };
 
 export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
@@ -104,7 +98,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
   const { form, isSubmitting } = useForm(DictionaryDetailsSchema, {
     defaultValues: {
       ...dictionary,
-      location: dictionary.location ?? 'remote',
+      location: toFormLocation(dictionary.location),
     },
   });
   const { editedContent, setEditedDictionary } = useEditedContent();
@@ -175,11 +169,11 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
     form.reset({
       ...dictionary,
       tags: dictionary.tags ?? [],
-      location: dictionary.location ?? 'remote',
+      location: toFormLocation(dictionary.location),
     });
     setSelectedTypes(deriveQualifierTypes(dictionary));
     setItemValue(dictionary.item ?? 1);
-    setVariantValue(formatVariant(dictionary.variant));
+    setVariantValue(formatDictionaryVariant(dictionary.variant));
     setVariantJsonError(false);
     setShowSiblingPicker(false);
   }, [dictionary, form?.reset]);
@@ -189,7 +183,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
       form.reset({
         ...dictionary,
         tags: dictionary.tags ?? [],
-        location: dictionary.location ?? 'remote',
+        location: toFormLocation(dictionary.location),
       });
     }
   }, [updatedDictionary]);
@@ -217,7 +211,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
           };
 
           setEditedDictionary(merged as Dictionary);
-          form.reset(merged);
+          form.reset({ ...merged, location: toFormLocation(merged.location) });
         },
       }
     );
@@ -237,7 +231,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
   );
   const [itemValue, setItemValue] = useState<number>(dictionary.item ?? 1);
   const [variantValue, setVariantValue] = useState<string>(
-    formatVariant(dictionary.variant)
+    formatDictionaryVariant(dictionary.variant)
   );
   const [variantJsonError, setVariantJsonError] = useState(false);
   const [showSiblingPicker, setShowSiblingPicker] = useState(false);
@@ -270,7 +264,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
       } else if (qualifier === 'variant') {
         const newVariant = variantValue || 'default';
         setVariantValue(newVariant);
-        base = { ...base, variant: parseVariantInput(newVariant).variant };
+        base = { ...base, variant: parseDictionaryVariant(newVariant).variant };
       }
     }
 
@@ -665,7 +659,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
                   onChange={(e) => {
                     const value = e.target.value;
                     setVariantValue(value);
-                    const { variant, error } = parseVariantInput(value);
+                    const { variant, error } = parseDictionaryVariant(value);
                     setVariantJsonError(error);
                     if (!error) {
                       setEditedDictionary({
@@ -721,7 +715,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
                       {sibling.variant !== undefined && (
                         <span>
                           {qualifierSection.variant}:{' '}
-                          {formatVariant(sibling.variant)}
+                          {formatDictionaryVariant(sibling.variant)}
                         </span>
                       )}
                       {sibling.item !== undefined && (
@@ -817,7 +811,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
                           : 'cursor-pointer border border-border hover:bg-text/10'
                       )}
                     >
-                      {formatVariant(sibling.variant)}
+                      {formatDictionaryVariant(sibling.variant)}
                     </button>
                   );
                 })}

@@ -1,8 +1,7 @@
 import { existsSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
 import { join, relative } from 'node:path';
-import type { AIConfig } from '@intlayer/ai';
-import type { AIOptions } from '@intlayer/api';
+import type { AIConfig, AIOptions } from '@intlayer/ai';
 import * as ANSIColors from '@intlayer/config/colors';
 import {
   colorize,

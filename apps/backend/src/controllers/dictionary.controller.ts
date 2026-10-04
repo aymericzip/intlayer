@@ -1,5 +1,6 @@
 import { isDeepStrictEqual } from 'node:util';
 import * as eventListener from '@controllers/eventListener.controller';
+import type { DictionaryRoutes } from '@intlayer/backend-contract/dictionary';
 import { getEditedContent } from '@intlayer/core/plugins';
 import type { Locale } from '@intlayer/types/allLocales';
 import type {
@@ -13,6 +14,7 @@ import * as dictionaryService from '@services/dictionary.service';
 import * as projectService from '@services/project.service';
 import { addTranslationJob } from '@services/translationQueue.service';
 import * as webhooksService from '@services/webhook.service';
+import type { ContractRequest } from '@utils/contract/registerContractRoutes';
 import { ensureArrayQueryFilter } from '@utils/ensureArrayQueryFilter';
 import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject';
 import { type AppError, ErrorHandler } from '@utils/errors';
@@ -32,6 +34,7 @@ import {
 } from '@utils/responseData';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import { t } from 'fastify-intlayer';
+import type { Types } from 'mongoose';
 import type {
   Dictionary,
   DictionaryAPI,
@@ -429,6 +432,29 @@ export const getDictionariesByKeys = async (
   }
 };
 
+/**
+ * Whether every target project belongs to the organization: dictionaries
+ * must never be attached to another tenant's project.
+ */
+const areProjectsInOrganization = async (
+  projectIds: (string | Types.ObjectId)[],
+  organizationId: string
+): Promise<boolean> => {
+  const uniqueProjectIds = [...new Set(projectIds.map(String))];
+  const projects = await projectService.findProjects(
+    { _id: { $in: uniqueProjectIds } },
+    0,
+    uniqueProjectIds.length
+  );
+
+  return (
+    projects.length === uniqueProjectIds.length &&
+    projects.every(
+      (targetProject) => String(targetProject.organizationId) === organizationId
+    )
+  );
+};
+
 export type AddDictionaryBody = { dictionary: DictionaryCreationData };
 export type AddDictionaryResult = ResponseData<DictionaryAPI>;
 
@@ -461,6 +487,18 @@ export const addDictionary = async (
   }
 
   if (!dictionaryData.projectIds?.includes(String(project.id))) {
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'DICTIONARY_PROJECT_MISMATCH'
+    );
+  }
+
+  if (
+    !(await areProjectsInOrganization(
+      dictionaryData.projectIds,
+      String(project.organizationId)
+    ))
+  ) {
     return ErrorHandler.handleGenericErrorResponse(
       reply,
       'DICTIONARY_PROJECT_MISMATCH'
@@ -716,6 +754,19 @@ export const pushDictionaries = async (
         dictionaryDataEl.id!
       );
 
+      // The id comes from the client: never update another project's dictionary
+      if (
+        !remoteDictionary.projectIds.map(String).includes(String(project.id))
+      ) {
+        errorResult.push({
+          id: dictionaryDataEl.id!,
+          key: dictionaryDataEl.key,
+          localId: dictionaryDataEl.localId!,
+          message: 'Dictionary does not belong to the selected project',
+        });
+        continue;
+      }
+
       // Remove metadata as markdown metadata are dynamic data inserted at build time
       const cleanedContent = removeMetadata(dictionaryDataEl.content);
 
@@ -955,10 +1006,7 @@ export type UpdateDictionaryResult = ResponseData<DictionaryAPI>;
  * Updates an existing dictionary in the database.
  */
 export const updateDictionary = async (
-  request: FastifyRequest<{
-    Params: UpdateDictionaryParam;
-    Body: UpdateDictionaryBody;
-  }>,
+  request: ContractRequest<DictionaryRoutes['updateDictionary']>,
   reply: FastifyReply
 ): Promise<void> => {
   const { dictionaryId } = request.params;
@@ -979,7 +1027,11 @@ export const updateDictionary = async (
     );
   }
 
-  if (!dictionaryData.projectIds?.includes(String(project.id))) {
+  // Optional: when re-assigning projects, the current one must stay included
+  if (
+    dictionaryData.projectIds &&
+    !dictionaryData.projectIds.map(String).includes(String(project.id))
+  ) {
     return ErrorHandler.handleGenericErrorResponse(
       reply,
       'DICTIONARY_PROJECT_MISMATCH'
@@ -998,9 +1050,49 @@ export const updateDictionary = async (
   }
 
   try {
+    // Ownership comes from the stored dictionary, never from the request body
+    const storedDictionary =
+      await dictionaryService.getDictionaryById(dictionaryId);
+
+    if (
+      !storedDictionary.projectIds.map(String).includes(String(project.id)) ||
+      !(await areProjectsInOrganization(
+        dictionaryData.projectIds ?? [],
+        String(project.organizationId)
+      ))
+    ) {
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'DICTIONARY_PROJECT_MISMATCH'
+      );
+    }
+
+    const {
+      content,
+      id: _id,
+      creatorId: _creatorId,
+      versionList: _versionList,
+      createdAt: _createdAt,
+      updatedAt: _updatedAt,
+      ...metadata
+    } = dictionaryData;
+
+    // New content is appended as a new version, never written over the
+    // stored versioned map
+    const versionedContent: VersionedContent | undefined =
+      content === undefined
+        ? undefined
+        : new Map(storedDictionary.content).set(
+            dictionaryService.incrementVersion(storedDictionary),
+            { content }
+          );
+
     const updatedDictionary = await dictionaryService.updateDictionaryById(
       dictionaryId,
-      dictionaryData
+      {
+        ...(metadata as Partial<Dictionary>),
+        ...(versionedContent && { content: versionedContent }),
+      }
     );
 
     const apiResult = mapDictionaryToAPI(updatedDictionary);

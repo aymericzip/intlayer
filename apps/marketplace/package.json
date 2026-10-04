@@ -70,7 +70,7 @@
     "zod": "4.6.5"
   },
   "devDependencies": {
-    "@intlayer/backend": "workspace:*",
+    "@intlayer/backend-contract": "workspace:*",
     "@tanstack/devtools-vite": "0.8.5",
     "@testing-library/dom": "10.4.2",
     "@testing-library/react": "16.3.3",

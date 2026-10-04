@@ -1,3 +1,5 @@
+import type { RouteBodyInput } from '@intlayer/backend-contract/defineRoute';
+import type { ShowcaseProjectRoutes } from '@intlayer/backend-contract/showcaseProject';
 import { logger } from '@logger';
 import * as showcaseProjectService from '@services/showcase/showcaseProject.service';
 import { scanShowcaseProject as scanShowcaseProjectViaService } from '@services/showcase/showcaseScan.service';
@@ -6,6 +8,7 @@ import {
   uploadShowcaseScreenshot,
 } from '@services/showcase/showcaseUploadScreenshot.service';
 import { verifyGithubRepo } from '@services/showcase/showcaseVerifyGithub.service';
+import type { ContractRequest } from '@utils/contract/registerContractRoutes';
 import { type AppError, ErrorHandler } from '@utils/errors';
 import { getFaviconUrl } from '@utils/getFaviconUrl';
 import {
@@ -21,7 +24,6 @@ import {
 import { beginServerSentEventStream } from '@utils/serverSentEvents';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import { t } from 'fastify-intlayer';
-import { z } from 'zod/mini';
 import type { ShowcaseProjectAPI } from '@/types/showcaseProject.types';
 
 const getUserId = (request: FastifyRequest): string | undefined =>
@@ -29,22 +31,9 @@ const getUserId = (request: FastifyRequest): string | undefined =>
     ? String(request.session.user.id ?? (request.session.user as any)._id)
     : undefined;
 
-const urlSchema = z.pipe(
-  z.union([z.optional(z.url()), z.literal('')]),
-  z.transform((value) => (value === '' ? undefined : value))
-);
-
-const submitProjectSchema = z.object({
-  name: z.string().check(z.minLength(1)),
-  url: z.url().check(
-    z.refine((val) => !/github\.com|gitlab\.com|bitbucket\.org/.test(val), {
-      message: 'Repository URLs should be placed in the GitHub URL field',
-    })
-  ),
-  githubUrl: urlSchema,
-  useCases: z.optional(z.array(z.string()).check(z.maxLength(3))),
-});
-export type SubmitShowcaseProjectBody = z.input<typeof submitProjectSchema>;
+export type SubmitShowcaseProjectBody = RouteBodyInput<
+  ShowcaseProjectRoutes['submitShowcaseProject']
+>;
 export type SubmitShowcaseProjectResult = ResponseData<ShowcaseProjectAPI>;
 
 /**
@@ -52,23 +41,10 @@ export type SubmitShowcaseProjectResult = ResponseData<ShowcaseProjectAPI>;
  * Submits a new project to the showcase.
  */
 export const submitShowcaseProject = async (
-  request: FastifyRequest<{ Body: SubmitShowcaseProjectBody }>,
+  request: ContractRequest<ShowcaseProjectRoutes['submitShowcaseProject']>,
   reply: FastifyReply
 ): Promise<void> => {
-  const parsed = submitProjectSchema.safeParse(request.body);
-
-  if (!parsed.success) {
-    const message = parsed.error.issues
-      .map((e) => `${e.path.join('.')}: ${e.message}`)
-      .join(', ');
-    return ErrorHandler.handleGenericErrorResponse(
-      reply,
-      'INVALID_REQUEST_BODY',
-      { message }
-    );
-  }
-
-  const validatedData = parsed.data;
+  const validatedData = request.body;
 
   const userId = getUserId(request);
 
@@ -392,30 +368,9 @@ export const toggleShowcaseDownvote = async (
   }
 };
 
-const updateProjectSchema = z.object({
-  name: z.optional(z.string().check(z.minLength(1), z.maxLength(255))),
-  url: z.optional(
-    z.url().check(
-      z.refine((val) => !/github\.com|gitlab\.com|bitbucket\.org/.test(val), {
-        message: 'Repository URLs should be placed in the GitHub URL field',
-      })
-    )
-  ),
-  githubUrl: z.pipe(
-    z.optional(z.string()),
-    z.transform((value) => {
-      if (!value) return null;
-      if (value.startsWith('http://') || value.startsWith('https://'))
-        return value;
-      return `https://${value}`;
-    })
-  ),
-  tagline: z.optional(z.string().check(z.minLength(1), z.maxLength(500))),
-  description: z.optional(z.string()),
-  useCases: z.optional(z.array(z.string()).check(z.maxLength(3))),
-});
-
-export type UpdateShowcaseProjectBody = z.input<typeof updateProjectSchema>;
+export type UpdateShowcaseProjectBody = RouteBodyInput<
+  ShowcaseProjectRoutes['updateShowcaseProject']
+>;
 export type UpdateShowcaseProjectParams = { projectId: string };
 export type UpdateShowcaseProjectResult = ResponseData<ShowcaseProjectAPI>;
 
@@ -424,10 +379,7 @@ export type UpdateShowcaseProjectResult = ResponseData<ShowcaseProjectAPI>;
  * Updates an existing project. Only the owner can update.
  */
 export const updateShowcaseProjectHandler = async (
-  request: FastifyRequest<{
-    Params: UpdateShowcaseProjectParams;
-    Body: UpdateShowcaseProjectBody;
-  }>,
+  request: ContractRequest<ShowcaseProjectRoutes['updateShowcaseProject']>,
   reply: FastifyReply
 ): Promise<void> => {
   const userId = getUserId(request);
@@ -436,19 +388,6 @@ export const updateShowcaseProjectHandler = async (
     return ErrorHandler.handleGenericErrorResponse(
       reply,
       'USER_NOT_AUTHENTICATED'
-    );
-  }
-
-  const parsed = updateProjectSchema.safeParse(request.body);
-
-  if (!parsed.success) {
-    const message = parsed.error.issues
-      .map((e) => `${e.path.join('.')}: ${e.message}`)
-      .join(', ');
-    return ErrorHandler.handleGenericErrorResponse(
-      reply,
-      'INVALID_REQUEST_BODY',
-      { message }
     );
   }
 
@@ -462,14 +401,14 @@ export const updateShowcaseProjectHandler = async (
       return ErrorHandler.handleGenericErrorResponse(reply, 'USER_ID_MISMATCH');
     }
 
-    const { name, url, githubUrl, tagline, useCases } = parsed.data;
+    const { name, url, githubUrl, tagline, useCases } = request.body;
     const updates: Parameters<
       typeof showcaseProjectService.updateShowcaseProject
     >[1] = {};
 
     if (name !== undefined) updates.title = name;
     if (url !== undefined) updates.websiteUrl = url;
-    if ('githubUrl' in parsed.data) updates.githubUrl = githubUrl;
+    if ('githubUrl' in request.body) updates.githubUrl = githubUrl;
     if (tagline !== undefined) updates.description = tagline;
     if (useCases !== undefined) updates.tags = useCases;
 

@@ -42,7 +42,33 @@ that is fixed upstream.
 1. **`src/schemas/<domain>.schema.ts`** — Mongoose schema + model. Types in `src/types/`.
 2. **`src/services/<domain>.service.ts`** — pure DB ops; no HTTP types, no `request`/`reply`.
 3. **`src/controllers/<domain>.controller.ts`** — reads `request.session`, calls services + `hasPermission`, returns via `formatResponse`/`formatPaginatedResponse`, handles errors via `ErrorHandler`.
-4. **`src/routes/<domain>.routes.ts`** — exports `getXxxRoutes()` + Fastify plugin `xxxRouter`. Registers preHandlers, wires controllers to HTTP methods.
+4. **`src/routes/<domain>.routes.ts`** — exports Fastify plugin `xxxRouter`. Registers preHandlers, wires controllers to HTTP methods.
+
+### Contract routes & OpenAPI
+
+- Every route is declared in `@intlayer/backend-contract` (zod/mini schemas, one file per domain) and registered with `registerContractRoutes(fastify, contract, handlers)` (`src/utils/contract/`): per-route zod validation, a handler required for every route. An entry can be `{ handler, options }` (rate limit `config`, `bodyLimit`, hooks) or `null` (left unregistered: conditional/cloud-only routes, or registration split around a scoped plugin).
+- Only the `.well-known` OAuth discovery documents and the Stripe webhook (raw body) stay plain Fastify routes.
+- Validation failures answer the backend envelope (`INVALID_REQUEST_BODY`, 400), not Fastify's default payload. Responses are never altered: outside production they are checked against the contract and drift is logged.
+- Swagger UI at `/docs`, spec at `/docs/json`. `registerOpenAPI(app)` must be called directly on `app` (not `app.register`) before the routers.
+
+### Mongoose vs zod (wire types)
+
+- The contract owns the **wire** shape (zod → `z.output` types: ids and dates as strings). The backend owns the **DB** shape (mongoose schemas + `src/types`).
+- `src/utils/contract/wireCompatibility.ts` asserts, per entity, `Serialized<BackendType>` (ObjectId/Date → string, functions dropped) satisfies the contract type: `bun run typecheck` fails on drift.
+- The contract may only depend on `@intlayer/types`. Types owned by `@intlayer/engine` or `@intlayer/ai` (which depend on `@intlayer/api` → contract) are mirrored in the contract and asserted equal/assignable in `wireCompatibility.ts`.
+
+### Package
+
+`@intlayer/backend` is **private** and exposes nothing (no `export.ts`, no type build): clients, the dashboard and the design system import every API type from `@intlayer/backend-contract`.
+
+`@intlayer/backend-contract` has no barrel: import from the domain file's subpath (`@intlayer/backend-contract/user`, `/project`, `/defineRoute`…).
+
+### Migrating / adding a route
+
+1. Add it (schemas + named types) to the domain file of `@intlayer/backend-contract`.
+2. Give its handler in the domain router (`registerContractRoutes`); type the controller request with `ContractRequest<XxxRoutes['name']>`.
+3. Add the client function in `@intlayer/api` using its `RouteEndpoints` table (tsc rejects any method/path drift).
+4. New entity? add an `AssertWire` line in `wireCompatibility.ts`.
 
 ### Auth & session
 

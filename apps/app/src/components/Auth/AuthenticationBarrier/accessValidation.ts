@@ -1,4 +1,4 @@
-import type { SessionAPI } from '@intlayer/backend';
+import type { SessionAPI } from '@intlayer/backend-contract/session';
 import type { ReactNode } from 'react';
 
 type AccessRule =

@@ -15,7 +15,7 @@ type MobileThemeSwitcherProps = {
 const modeCycle: Modes[] = ['system', 'light', 'dark'];
 
 const getNextMode = (mode: Modes): Modes =>
-  modeCycle[(modeCycle.indexOf(mode) + 1) % modeCycle.length];
+  modeCycle[(modeCycle.indexOf(mode) + 1) % modeCycle.length] ?? 'system';
 
 const getIconStyle = ({
   isCurrentMode,

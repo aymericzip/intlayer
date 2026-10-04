@@ -1,7 +1,7 @@
 /** biome-ignore-all lint/a11y/noLabelWithoutControl: form labels are custom components */
 'use client';
 
-import type { EnvironmentAPI } from '@intlayer/backend';
+import type { EnvironmentAPI } from '@intlayer/backend-contract/project';
 import {
   useAddEnvironment,
   useDeleteEnvironment,

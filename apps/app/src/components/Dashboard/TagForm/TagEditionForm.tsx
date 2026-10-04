@@ -1,4 +1,4 @@
-import type { TagAPI } from '@intlayer/backend';
+import type { TagAPI } from '@intlayer/backend-contract/tag';
 import { useAuditTag, useUpdateTag } from '@intlayer/design-system/api';
 import {
   Form,
@@ -40,7 +40,7 @@ export const TagEditionForm: FC<TagEditionFormProps> = ({ tag }) => {
     updateTag(
       { tagId: tag.id, tag: data },
       {
-        onSuccess: (response: { data: TagAPI }) => {
+        onSuccess: (response) => {
           if (response.data) {
             form.reset(response.data);
           }
@@ -54,10 +54,10 @@ export const TagEditionForm: FC<TagEditionFormProps> = ({ tag }) => {
     auditTag(
       { tag: { ...tag, ...tagToAudit } },
       {
-        onSuccess: (response: { data: { fileContent: TagAPI } }) => {
+        onSuccess: (response) => {
           if (!response.data?.fileContent) return;
 
-          form.reset(response.data.fileContent);
+          form.reset({ ...tagToAudit, ...response.data.fileContent });
         },
       }
     );

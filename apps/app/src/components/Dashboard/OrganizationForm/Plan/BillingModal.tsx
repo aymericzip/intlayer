@@ -1,4 +1,4 @@
-import type { CreatePortalSessionResult } from '@intlayer/backend';
+import type { CreatePortalSessionResult } from '@intlayer/backend-contract/stripe';
 import {
   useCreatePortalSession,
   useGetInvoices,
@@ -11,7 +11,6 @@ import { CreditCard, Info } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { useDate } from 'react-intlayer/format';
-import type Stripe from 'stripe';
 import { Link } from '#components/Link/Link.tsx';
 
 type BillingModalProps = {
@@ -74,8 +73,8 @@ export const BillingModal: FC<BillingModalProps> = ({ isOpen, onClose }) => {
                   <Loader className="ms-2 size-5" />
                 ) : paymentMethod ? (
                   <p className="text-sm text-text">
-                    {paymentMethod.card?.brand.charAt(0).toUpperCase() +
-                      paymentMethod.card?.brand.slice(1)}{' '}
+                    {(paymentMethod.card?.brand ?? '').charAt(0).toUpperCase() +
+                      (paymentMethod.card?.brand ?? '').slice(1)}{' '}
                     • • • • {paymentMethod.card?.last4}
                   </p>
                 ) : (
@@ -136,7 +135,7 @@ export const BillingModal: FC<BillingModalProps> = ({ isOpen, onClose }) => {
                   </td>
                 </tr>
               ) : (
-                invoices.map((invoice: Stripe.Invoice) => (
+                invoices.map((invoice) => (
                   <tr key={invoice.id}>
                     <td className="truncate py-2 text-sm text-text">
                       {dateFormatter(invoice.created * 1000)}

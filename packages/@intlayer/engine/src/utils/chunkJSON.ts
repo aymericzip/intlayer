@@ -63,6 +63,7 @@ const setAtPath = (root: any, path: Path, value: JSONValue) => {
     const key = path[i];
     if (key === undefined) continue;
 
+    const nextKey = path[i + 1];
     const isNextIndex = typeof nextKey === 'number';
 
     if (typeof key === 'number') {

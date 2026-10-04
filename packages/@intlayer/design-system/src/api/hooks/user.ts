@@ -4,14 +4,14 @@ import type {
   CreateUserBody,
   GetUsersParams,
   UpdateUserBody,
-} from '@intlayer/backend';
-import { type UseQueryOptions, useMutation } from '@tanstack/react-query';
+} from '@intlayer/backend-contract/user';
+import { useMutation } from '@tanstack/react-query';
 import { useUserAPI } from '../useIntlayerAPI';
-import { useAppQuery } from './utils';
+import { type AppQueryOptions, useAppQuery } from './utils';
 
 export const useGetUsers = (
   filters?: GetUsersParams,
-  options?: Partial<UseQueryOptions>
+  options?: AppQueryOptions
 ) => {
   const userAPI = useUserAPI();
 

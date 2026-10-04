@@ -1,4 +1,7 @@
-import type { GetMarketplaceQuery, ReviewerCategory } from '@intlayer/backend';
+import type {
+  GetMarketplaceQuery,
+  ReviewerCategory,
+} from '@intlayer/backend-contract/reviewer';
 import { useGetReviewerPriceDistribution } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';

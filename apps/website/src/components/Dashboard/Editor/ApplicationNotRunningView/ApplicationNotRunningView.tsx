@@ -1,9 +1,12 @@
 import { Container } from '@intlayer/design-system/container';
 import { H3 } from '@intlayer/design-system/headers';
 import { Website_Doc_IntlayerCMS_Path } from '@intlayer/design-system/routes';
-import type { FC } from 'react';
+import type { FC, ReactNode } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { Link } from '~/components/Link/Link';
+
+/** Values inserted into the configuration tips. */
+type TipValues = { editorUrl: ReactNode; applicationUrl: ReactNode };
 
 export type ApplicationNotRunningError =
   | { type: 'fetch'; status: number; statusText: string }
@@ -59,7 +62,7 @@ export const ApplicationNotRunningView: FC<ApplicationNotRunningViewProps> = ({
         </span>
         <p className="mb-4 block text-muted-foreground">{description}</p>
 
-        {(errors?.length ?? 0) > 0 && (
+        {errors && errors.length > 0 && (
           <Container
             border
             borderColor="error"
@@ -100,7 +103,8 @@ export const ApplicationNotRunningView: FC<ApplicationNotRunningViewProps> = ({
               // biome-ignore lint/suspicious/noArrayIndexKey: static list
               <li key={index} className="text-muted-foreground">
                 {typeof tip === 'function'
-                  ? tip({
+                  ? // Each tip inserts its own subset of these values
+                    (tip as (values: TipValues) => ReactNode)({
                       editorUrl: (
                         <span className="font-bold">
                           {editorUrl ?? import.meta.env.VITE_EDITOR_URL}

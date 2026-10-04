@@ -1,3 +1,6 @@
+import type { RouteEndpoints } from '@intlayer/backend-contract/defineRoute';
+import { buildRouteURL } from '@intlayer/backend-contract/defineRoute';
+import type { ResponseData } from '@intlayer/backend-contract/responseData';
 import type {
   CreateUserBody,
   CreateUserResult,
@@ -7,27 +10,52 @@ import type {
   GetUserByIdResult,
   GetUsersParams,
   GetUsersResult,
-  ResponseData,
   UpdateUserBody,
   UpdateUserResult,
   UploadUserAvatarResult,
   UserAPI,
-} from '@intlayer/backend';
+  UserRoutes,
+  userContract,
+} from '@intlayer/backend-contract/user';
 import { editor } from '@intlayer/config/built';
+import { BACKEND_URL } from '@intlayer/config/defaultValues';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { createEndpoint } from '../cms/createIntlayerCMS';
 import { type FetcherOptions, fetcher } from '../fetcher';
 
-type GetUserByAccountParams = { providerAccountId: string; provider: string };
-type GetUserByAccountResult = ResponseData<UserAPI>;
+export type GetUserByAccountParams = {
+  providerAccountId: string;
+  provider: string;
+};
+export type GetUserByAccountResult = ResponseData<UserAPI>;
+
+/** Prefix of the routes, checked against the backend contract. */
+const userGroup = {
+  prefix: '/api/user',
+} as const satisfies Pick<typeof userContract, 'prefix'>;
+
+/**
+ * Method and path of every route, checked against the backend contract at
+ * compile time (the contract's zod schemas are never loaded).
+ */
+const userEndpoints = {
+  getSetupStatus: { method: 'GET', path: '/setup' },
+  getUsers: { method: 'GET', path: '/' },
+  updateUser: { method: 'PUT', path: '/' },
+  createUser: { method: 'POST', path: '/' },
+  getUserById: { method: 'GET', path: '/:userId' },
+  getUserByEmail: { method: 'GET', path: '/email/:email' },
+  deleteUser: { method: 'DELETE', path: '/:userId' },
+  verifyEmailStatusSSE: { method: 'GET', path: '/verify-email-status/:userId' },
+  uploadAvatar: { method: 'POST', path: '/avatar' },
+} as const satisfies RouteEndpoints<UserRoutes>;
 
 export const getUserAPI = (
   authAPIOptions: FetcherOptions = {},
   intlayerConfig?: IntlayerConfig
 ) => {
-  const backendURL = intlayerConfig?.editor?.backendURL ?? editor.backendURL;
-
-  const USER_API_ROUTE = `${backendURL}/api/user`;
+  const backendURL =
+    intlayerConfig?.editor?.backendURL ?? editor.backendURL ?? BACKEND_URL;
 
   /**
    * Retrieves a list of users based on filters and pagination.
@@ -39,7 +67,7 @@ export const getUserAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<GetUsersResult>(
-      USER_API_ROUTE,
+      buildRouteURL(backendURL, userGroup, userEndpoints.getUsers),
       authAPIOptions,
       otherOptions,
       {
@@ -59,7 +87,9 @@ export const getUserAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<GetUserByIdResult>(
-      `${USER_API_ROUTE}/${userId}`,
+      buildRouteURL(backendURL, userGroup, userEndpoints.getUserById, {
+        userId: String(userId),
+      }),
       authAPIOptions,
       otherOptions,
       {
@@ -77,7 +107,9 @@ export const getUserAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<GetUserByEmailResult>(
-      `${USER_API_ROUTE}/email/${email}`,
+      buildRouteURL(backendURL, userGroup, userEndpoints.getUserByEmail, {
+        email,
+      }),
       authAPIOptions,
       otherOptions,
       {
@@ -90,20 +122,6 @@ export const getUserAPI = (
    * @param providerAccountId - The provider account ID.
    * @param provider - The provider of the account.
    */
-  const getUserByAccount = async (
-    providerAccountId: GetUserByAccountParams['providerAccountId'],
-    provider: GetUserByAccountParams['provider'],
-    otherOptions: FetcherOptions = {}
-  ) =>
-    await fetcher<GetUserByAccountResult>(
-      `${USER_API_ROUTE}/account/${provider}/${providerAccountId}`,
-      authAPIOptions,
-      otherOptions,
-      {
-        cache: 'no-store',
-      }
-    );
-
   /**
    * Creates a new user.
    * @param user - User credentials.
@@ -114,11 +132,11 @@ export const getUserAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<CreateUserResult>(
-      `${USER_API_ROUTE}/`,
+      buildRouteURL(backendURL, userGroup, userEndpoints.createUser),
       authAPIOptions,
       otherOptions,
       {
-        method: 'POST',
+        method: userEndpoints.createUser.method,
         body: user,
       }
     );
@@ -133,11 +151,11 @@ export const getUserAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<UpdateUserResult>(
-      `${USER_API_ROUTE}`,
+      buildRouteURL(backendURL, userGroup, userEndpoints.updateUser),
       authAPIOptions,
       otherOptions,
       {
-        method: 'PUT',
+        method: userEndpoints.updateUser.method,
         body: user,
       }
     );
@@ -152,11 +170,13 @@ export const getUserAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<UpdateUserResult>(
-      `${USER_API_ROUTE}/${userId}`,
+      buildRouteURL(backendURL, userGroup, userEndpoints.deleteUser, {
+        userId: String(userId),
+      }),
       authAPIOptions,
       otherOptions,
       {
-        method: 'DELETE',
+        method: userEndpoints.deleteUser.method,
       }
     );
 
@@ -179,13 +199,16 @@ export const getUserAPI = (
     const authHeaders =
       (authAPIOptions.headers as Record<string, string> | undefined) ?? {};
 
-    const response = await fetch(`${USER_API_ROUTE}/avatar`, {
-      method: 'POST',
-      credentials: 'include',
-      headers: { ...authHeaders, ...baseHeaders },
-      body: buffer,
-      signal: otherOptions.signal as AbortSignal | undefined,
-    });
+    const response = await fetch(
+      buildRouteURL(backendURL, userGroup, userEndpoints.uploadAvatar),
+      {
+        method: userEndpoints.uploadAvatar.method,
+        credentials: 'include',
+        headers: { ...authHeaders, ...baseHeaders },
+        body: buffer,
+        signal: otherOptions.signal as AbortSignal | undefined,
+      }
+    );
 
     if (!response.ok) {
       const result = await response.json();
@@ -201,13 +224,14 @@ export const getUserAPI = (
    * @returns The verify email status URL.
    */
   const getVerifyEmailStatusURL = (userId: string | UserAPI['id']) =>
-    `${USER_API_ROUTE}/verify-email-status/${String(userId)}`;
+    buildRouteURL(backendURL, userGroup, userEndpoints.verifyEmailStatusSSE, {
+      userId: String(userId),
+    });
 
   return {
     createUser,
     getUsers,
     getUserById,
-    getUserByAccount,
     getUserByEmail,
     updateUser,
     deleteUser,

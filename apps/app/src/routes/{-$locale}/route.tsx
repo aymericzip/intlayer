@@ -43,7 +43,7 @@ export const Route = createFileRoute('/{-$locale}')({
         {
           property: 'og:url',
           content: getLocalizedUrl(
-            import.meta.env.VITE_SITE_URL,
+            import.meta.env.VITE_SITE_URL ?? '',
             params.locale
           ),
         },

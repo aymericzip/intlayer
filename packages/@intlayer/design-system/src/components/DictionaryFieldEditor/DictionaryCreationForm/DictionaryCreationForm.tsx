@@ -89,14 +89,7 @@ const DictionaryCreationFormFields: FC<{
         <Select.Content>
           {QUALIFIER_TYPES.map((type) => (
             <Select.Item key={type} value={type}>
-              {
-                (
-                  qualifierTypeSelect as Record<
-                    string,
-                    { value: string } | string
-                  >
-                )[type]
-              }
+              {qualifierTypeSelect[type]}
             </Select.Item>
           ))}
         </Select.Content>

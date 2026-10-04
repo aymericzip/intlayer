@@ -214,7 +214,7 @@ export const Browser = ({
   const handleBack = () => {
     if (currentIndex > 0) {
       const newIndex = currentIndex - 1;
-      const prevUrl = history[newIndex];
+      const prevUrl = history[newIndex] ?? '';
       setCurrentIndex(newIndex);
       setCurrentUrl(prevUrl);
       setInputUrl(prevUrl);
@@ -225,7 +225,7 @@ export const Browser = ({
   const handleForward = () => {
     if (currentIndex < history.length - 1) {
       const newIndex = currentIndex + 1;
-      const nextUrl = history[newIndex];
+      const nextUrl = history[newIndex] ?? '';
       setCurrentIndex(newIndex);
       setCurrentUrl(nextUrl);
       setInputUrl(nextUrl);

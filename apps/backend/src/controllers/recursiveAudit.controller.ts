@@ -82,7 +82,10 @@ export const startRecursiveAudit = async (
 ) => {
   const { url } = request.query;
   const { urls } = request.body ?? {};
-  const userId = request.headers['x-user-id'] as string;
+  // Attribution only: from the session, never from a client header
+  const userId = request.session?.user?.id
+    ? String(request.session.user.id)
+    : undefined;
 
   if (!url || typeof url !== 'string') {
     return reply.status(400).send({ error: 'URL is required' });

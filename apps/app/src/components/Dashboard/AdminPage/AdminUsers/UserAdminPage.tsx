@@ -1,8 +1,5 @@
-import type {
-  GetOrganizationsResult,
-  GetUsersResult,
-  UserAPI,
-} from '@intlayer/backend';
+import type { GetOrganizationsResult } from '@intlayer/backend-contract/organization';
+import type { GetUsersResult, UserAPI } from '@intlayer/backend-contract/user';
 import {
   useDeleteUser,
   useGetOrganizations,

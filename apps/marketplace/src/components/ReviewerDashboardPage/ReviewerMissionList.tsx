@@ -1,4 +1,4 @@
-import type { TranslationMissionAPI } from '@intlayer/backend';
+import type { TranslationMissionAPI } from '@intlayer/backend-contract/reviewer';
 import { useUpdateMissionStatus } from '@intlayer/design-system/api';
 import { Badge, type BadgeColor } from '@intlayer/design-system/badge';
 import { Button } from '@intlayer/design-system/button';

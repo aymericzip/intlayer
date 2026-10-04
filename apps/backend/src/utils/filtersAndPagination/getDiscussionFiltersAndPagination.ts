@@ -8,7 +8,7 @@ import {
 export type DiscussionFiltersParams = {
   ids?: string | string[];
   userId?: string;
-  userIds?: string[];
+  userIds?: string | string[];
   discussionId?: string;
   search?: string;
   isArchived?: 'true' | 'false';

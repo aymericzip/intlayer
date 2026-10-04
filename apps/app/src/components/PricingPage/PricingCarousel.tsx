@@ -1,4 +1,4 @@
-import type { GetPricingResult } from '@intlayer/backend';
+import type { GetPricingResult } from '@intlayer/backend-contract/stripe';
 import {
   useGetAffiliatePromoCode,
   useGetPricing,

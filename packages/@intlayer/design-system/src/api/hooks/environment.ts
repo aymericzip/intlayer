@@ -4,7 +4,8 @@ import type {
   AddEnvironmentBody,
   MigrateEnvironmentBody,
   UpdateEnvironmentBody,
-} from '@intlayer/backend';
+} from '@intlayer/backend-contract/environment';
+import type { SessionAPI } from '@intlayer/backend-contract/session';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useEnvironmentAPI } from '../useIntlayerAPI';
 
@@ -17,7 +18,7 @@ export const useAddEnvironment = () => {
     mutationFn: (args: AddEnvironmentBody) =>
       environmentAPI.addEnvironment(args),
     onSuccess: (data) => {
-      const session = queryClient.getQueryData(['session']);
+      const session = queryClient.getQueryData<SessionAPI>(['session']);
       queryClient.setQueryData(['session'], {
         ...(session ?? {}),
         project: {
@@ -42,7 +43,7 @@ export const useUpdateEnvironment = () => {
     }: UpdateEnvironmentBody & { environmentId: string }) =>
       environmentAPI.updateEnvironment(environmentId, body),
     onSuccess: (data) => {
-      const session = queryClient.getQueryData(['session']);
+      const session = queryClient.getQueryData<SessionAPI>(['session']);
       queryClient.setQueryData(['session'], {
         ...(session ?? {}),
         project: {
@@ -64,7 +65,7 @@ export const useDeleteEnvironment = () => {
     mutationFn: (environmentId: string) =>
       environmentAPI.deleteEnvironment(environmentId),
     onSuccess: (data) => {
-      const session = queryClient.getQueryData(['session']);
+      const session = queryClient.getQueryData<SessionAPI>(['session']);
       queryClient.setQueryData(['session'], {
         ...(session ?? {}),
         project: {
@@ -88,7 +89,7 @@ export const useSelectEnvironment = () => {
     mutationFn: (environmentId: string) =>
       environmentAPI.selectEnvironment(environmentId),
     onSuccess: (data) => {
-      const session = queryClient.getQueryData(['session']);
+      const session = queryClient.getQueryData<SessionAPI>(['session']);
       queryClient.setQueryData(['session'], {
         ...(session ?? {}),
         environment: data.data,
@@ -106,7 +107,7 @@ export const useResetToProductionEnvironment = () => {
     mutationKey: ['session-environment'],
     mutationFn: () => environmentAPI.resetToProductionEnvironment(),
     onSuccess: (data) => {
-      const session = queryClient.getQueryData(['session']);
+      const session = queryClient.getQueryData<SessionAPI>(['session']);
       queryClient.setQueryData(['session'], {
         ...(session ?? {}),
         environment: data.data,

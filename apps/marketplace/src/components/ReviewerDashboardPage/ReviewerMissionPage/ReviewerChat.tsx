@@ -1,4 +1,5 @@
-import type { ResponseData, ReviewerMessageAPI } from '@intlayer/backend';
+import type { ResponseData } from '@intlayer/backend-contract/responseData';
+import type { ReviewerMessageAPI } from '@intlayer/backend-contract/reviewer';
 import {
   useGetChatHistory,
   useIntlayerOAuth,

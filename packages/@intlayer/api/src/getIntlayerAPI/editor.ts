@@ -6,6 +6,14 @@ import type {
   WriteContentDeclarationBody,
   WriteContentDeclarationResult,
 } from 'intlayer-editor';
+
+export type {
+  GetConfigurationResult,
+  GetEditorDictionariesResult,
+  WriteContentDeclarationBody,
+  WriteContentDeclarationResult,
+};
+
 import { createEndpoint } from '../cms/createIntlayerCMS';
 import { type FetcherOptions, fetcher } from '../fetcher';
 

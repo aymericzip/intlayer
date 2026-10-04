@@ -1,9 +1,8 @@
 import type {
-  GetUsersResult,
   ProjectMemberGranularAccessAPI,
   UpdateProjectMembersBody,
-  UserAPI,
-} from '@intlayer/backend';
+} from '@intlayer/backend-contract/project';
+import type { GetUsersResult, UserAPI } from '@intlayer/backend-contract/user';
 import {
   useGetUsers,
   useSession,
@@ -75,7 +74,7 @@ const MemberDetailView: FC<MemberDetailViewProps> = ({
   const [restrictLocales, setRestrictLocales] = useState(
     existingAccess?.allowedLocales != null
   );
-  const [selectedLocales, setSelectedLocales] = useState<string[]>(
+  const [selectedLocales, setSelectedLocales] = useState<Locale[]>(
     existingAccess?.allowedLocales ?? []
   );
 
@@ -88,9 +87,9 @@ const MemberDetailView: FC<MemberDetailViewProps> = ({
 
   const toggleLocale = (locale: string) =>
     setSelectedLocales((prev) =>
-      prev.includes(locale)
-        ? prev.filter((l) => l !== locale)
-        : [...prev, locale]
+      prev.some((selectedLocale) => selectedLocale === locale)
+        ? prev.filter((selectedLocale) => selectedLocale !== locale)
+        : [...prev, locale as Locale]
     );
 
   const handleSave = () =>

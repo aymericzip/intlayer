@@ -4,6 +4,7 @@ import type { Project } from '@/types/project.types';
 import * as bitbucketService from './bitbucket.service';
 import * as githubService from './github.service';
 import * as gitlabService from './gitlab.service';
+import { getProjectById } from './project.service';
 
 export const GITHUB_WORKFLOW_FILENAME = '.github/workflows/intlayer-cms.yml';
 export const GITLAB_PIPELINE_FILENAME = '.gitlab-ci.yml';
@@ -58,12 +59,17 @@ export type CIStatus = {
  * falls back to the social login token from the account collection.
  */
 const getProviderToken = async (
+  projectId: string | Types.ObjectId,
   repository: NonNullable<Project['repository']>,
   userId: string | Types.ObjectId
 ): Promise<string | null> => {
-  // 1. Prefer the repo-scoped token stored on the repository (has write access)
-  if (repository.token) {
-    return repository.token;
+  // 1. Prefer the repo-scoped token stored on the repository (has write access).
+  // Read from the DB: API-mapped projects (session) never carry the token.
+  const storedProject = await getProjectById(projectId);
+  const repositoryToken = storedProject.repository?.token;
+
+  if (repositoryToken) {
+    return repositoryToken;
   }
 
   // 2. Fall back to the social login token from Better Auth account collection
@@ -93,7 +99,7 @@ export const getCIStatus = async (
     throw new Error('Project is not connected to a repository.');
   }
 
-  const accessToken = await getProviderToken(repository, userId);
+  const accessToken = await getProviderToken(project.id, repository, userId);
 
   if (!accessToken) {
     throw new Error(
@@ -202,7 +208,7 @@ export const installCI = async (
     throw new Error('Project is not connected to a repository.');
   }
 
-  const accessToken = await getProviderToken(repository, userId);
+  const accessToken = await getProviderToken(project.id, repository, userId);
 
   if (!accessToken) {
     throw new Error(

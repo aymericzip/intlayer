@@ -1,4 +1,4 @@
-import type { GetTagsResult, TagAPI } from '@intlayer/backend';
+import type { GetTagsResult, TagAPI } from '@intlayer/backend-contract/tag';
 import { useGetTags, useSession } from '@intlayer/design-system/api';
 import { Container } from '@intlayer/design-system/container';
 import { Loader } from '@intlayer/design-system/loader';

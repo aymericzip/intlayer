@@ -428,7 +428,7 @@ const SelectTextEditor: FC<TextEditorProps> = ({
     string,
     ContentNode
   >;
-  const firstKey = Object.keys(content)[0];
+  const firstKey = Object.keys(content)[0] ?? '';
 
   return (
     <div className="flex flex-col gap-2">

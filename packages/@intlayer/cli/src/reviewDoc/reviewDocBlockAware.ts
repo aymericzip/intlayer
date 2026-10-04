@@ -2,8 +2,7 @@ import { mkdirSync, writeFileSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
 import { dirname } from 'node:path';
 import { readAsset } from 'utils:asset';
-import type { AIConfig } from '@intlayer/ai';
-import type { AIOptions } from '@intlayer/api';
+import type { AIConfig, AIOptions } from '@intlayer/ai';
 import * as ANSIColors from '@intlayer/config/colors';
 import {
   colon,

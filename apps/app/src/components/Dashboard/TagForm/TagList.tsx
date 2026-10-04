@@ -1,4 +1,4 @@
-import type { TagAPI } from '@intlayer/backend';
+import type { TagAPI } from '@intlayer/backend-contract/tag';
 import {
   useDeleteTag,
   useGetTags,
@@ -118,9 +118,7 @@ export const TagList: FC = () => {
 
   const onConfirmDelete = useCallback(async () => {
     if (!tagsToDelete) return;
-    await Promise.all(
-      tagsToDelete.map((id) => deleteTag({ tagId: id } as any))
-    );
+    await Promise.all(tagsToDelete.map((tagId) => deleteTag(tagId)));
     setTagsToDelete(null);
     setRowSelection({});
     refetch();

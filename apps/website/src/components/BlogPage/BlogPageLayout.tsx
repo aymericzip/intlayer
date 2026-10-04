@@ -6,11 +6,11 @@ import { BlogCommentSection } from './BlogCommentSection';
 import { BlogNavList } from './BlogNavList';
 import { getBlogSection } from './blogData';
 import { LastPosts, RelatedPosts } from './RelatedPosts';
-import type { Section } from './types';
+import type { BlogNavMetadata, Section } from './types';
 
 type BlogPageLayoutProps = {
   children?: ReactNode;
-  blogData: Section;
+  blogData: Section<BlogNavMetadata>;
   activeSlugs?: string[];
   locale: LocalesValues;
   displayAsideNavigation?: boolean;

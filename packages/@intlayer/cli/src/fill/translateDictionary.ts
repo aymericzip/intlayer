@@ -1,6 +1,5 @@
 import { basename } from 'node:path';
-import type { AIConfig } from '@intlayer/ai';
-import type { AIOptions } from '@intlayer/api';
+import type { AIConfig, AIOptions } from '@intlayer/ai';
 import * as ANSIColors from '@intlayer/config/colors';
 import {
   colon,
@@ -342,8 +341,7 @@ export const translateDictionary = async (
                   } else {
                     translationResult = await intlayerAPI.ai
                       .translateJSON({
-                        entryFileContent:
-                          chunkTranslatableDictionary as unknown as JSON,
+                        entryFileContent: chunkTranslatableDictionary,
                         presetOutputContent: chunkTranslatableDictionary,
                         dictionaryDescription:
                           dictionaryToProcess.description ??

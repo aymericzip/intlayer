@@ -9,7 +9,7 @@ import type {
   GrantAffiliateAccessBody,
   SendAffiliateInvitationBody,
   UpdatePromoCodeBody,
-} from '@intlayer/backend';
+} from '@intlayer/backend-contract/stripe';
 import {
   type UseQueryOptions,
   useMutation,
@@ -17,7 +17,7 @@ import {
   useQueryClient,
 } from '@tanstack/react-query';
 import { useStripeAPI } from '../useIntlayerAPI';
-import { useAppQuery } from './utils';
+import { type AppQueryOptions, useAppQuery } from './utils';
 
 export const useGetPricing = (
   body: GetPricingBody,
@@ -34,7 +34,7 @@ export const useGetPricing = (
 
 export const useGetSubscription = (
   body: GetCheckoutSessionBody,
-  options?: Partial<UseQueryOptions>
+  options?: AppQueryOptions
 ) => {
   const stripeAPI = useStripeAPI();
 
@@ -59,7 +59,7 @@ export const useCancelSubscription = () => {
   });
 };
 
-export const useGetInvoices = (options?: Partial<UseQueryOptions>) => {
+export const useGetInvoices = (options?: AppQueryOptions) => {
   const stripeAPI = useStripeAPI();
 
   return useAppQuery({
@@ -71,7 +71,7 @@ export const useGetInvoices = (options?: Partial<UseQueryOptions>) => {
   });
 };
 
-export const useGetPaymentMethod = (options?: Partial<UseQueryOptions>) => {
+export const useGetPaymentMethod = (options?: AppQueryOptions) => {
   const stripeAPI = useStripeAPI();
 
   return useAppQuery({
@@ -94,7 +94,7 @@ export const useCreatePortalSession = () => {
 
 export const useGetAffiliates = (
   params?: GetAffiliatesParams,
-  options?: Partial<UseQueryOptions>
+  options?: AppQueryOptions
 ) => {
   const stripeAPI = useStripeAPI();
 
@@ -108,7 +108,7 @@ export const useGetAffiliates = (
 
 export const useGetAffiliateInvitations = (
   params?: GetAffiliatesParams,
-  options?: Partial<UseQueryOptions>
+  options?: AppQueryOptions
 ) => {
   const stripeAPI = useStripeAPI();
 
@@ -121,10 +121,7 @@ export const useGetAffiliateInvitations = (
   });
 };
 
-export const useGetAffiliateById = (
-  id: string,
-  options?: Partial<UseQueryOptions>
-) => {
+export const useGetAffiliateById = (id: string, options?: AppQueryOptions) => {
   const stripeAPI = useStripeAPI();
 
   return useAppQuery({
@@ -136,7 +133,7 @@ export const useGetAffiliateById = (
   });
 };
 
-export const useGetAffiliate = (options?: Partial<UseQueryOptions>) => {
+export const useGetAffiliate = (options?: AppQueryOptions) => {
   const stripeAPI = useStripeAPI();
 
   return useAppQuery({
@@ -147,9 +144,7 @@ export const useGetAffiliate = (options?: Partial<UseQueryOptions>) => {
   });
 };
 
-export const useGetAffiliateAccountSession = (
-  options?: Partial<UseQueryOptions>
-) => {
+export const useGetAffiliateAccountSession = (options?: AppQueryOptions) => {
   const stripeAPI = useStripeAPI();
 
   return useAppQuery({
@@ -160,9 +155,7 @@ export const useGetAffiliateAccountSession = (
   });
 };
 
-export const useGetAffiliateOnboardingLink = (
-  options?: Partial<UseQueryOptions>
-) => {
+export const useGetAffiliateOnboardingLink = (options?: AppQueryOptions) => {
   const stripeAPI = useStripeAPI();
 
   return useAppQuery({
@@ -173,7 +166,7 @@ export const useGetAffiliateOnboardingLink = (
   });
 };
 
-export const useGetAffiliateStats = (options?: Partial<UseQueryOptions>) => {
+export const useGetAffiliateStats = (options?: AppQueryOptions) => {
   const stripeAPI = useStripeAPI();
 
   return useAppQuery({
@@ -212,7 +205,7 @@ export const useSendAffiliateInvitation = () => {
 
 export const useGetAffiliateInvitation = (
   token: string,
-  options?: Partial<UseQueryOptions>
+  options?: AppQueryOptions
 ) => {
   const stripeAPI = useStripeAPI();
 
@@ -275,7 +268,7 @@ export const useUpdateAffiliateStatus = () => {
 
 export const useGetPromoCodeById = (
   promoCodeId?: string,
-  options?: Partial<UseQueryOptions>
+  options?: AppQueryOptions
 ) => {
   const stripeAPI = useStripeAPI();
 
@@ -291,7 +284,7 @@ export const useGetPromoCodeById = (
 
 export const useGetPromoCodes = (
   params: { affiliateId?: string } = {},
-  options?: Partial<UseQueryOptions>
+  options?: AppQueryOptions
 ) => {
   const stripeAPI = useStripeAPI();
 
@@ -345,7 +338,7 @@ export const useDeletePromoCode = () => {
 
 export const useGetAffiliatePromoCode = (
   referralCode?: string,
-  options?: Partial<UseQueryOptions>
+  options?: AppQueryOptions
 ) => {
   const stripeAPI = useStripeAPI();
 

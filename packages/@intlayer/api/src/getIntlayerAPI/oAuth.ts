@@ -1,18 +1,46 @@
 import type {
+  CliSessionTokenRoutes,
   CreateCliSessionTokenResult,
+  cliSessionTokenContract,
   GetCliSessionMeResult,
+} from '@intlayer/backend-contract/cliSessionToken';
+import type { RouteEndpoints } from '@intlayer/backend-contract/defineRoute';
+import { buildRouteURL } from '@intlayer/backend-contract/defineRoute';
+import type {
   GetOAuth2TokenBody,
   GetOAuth2TokenResult,
-} from '@intlayer/backend';
+  OAuth2Routes,
+  oAuth2Contract,
+} from '@intlayer/backend-contract/oAuth2';
 import { editor } from '@intlayer/config/built';
+import { BACKEND_URL } from '@intlayer/config/defaultValues';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { type FetcherOptions, fetcher } from '../fetcher';
+
+/** OAuth2 routes, checked against the backend contract. */
+const oAuth2Group = {
+  prefix: '/oauth2',
+} as const satisfies Pick<typeof oAuth2Contract, 'prefix'>;
+const oAuth2Endpoints = {
+  getOAuth2AccessToken: { method: 'POST', path: '/token' },
+  extendOAuth2Token: { method: 'POST', path: '/token/extend' },
+} as const satisfies RouteEndpoints<OAuth2Routes>;
+
+/** CLI session routes, checked against the backend contract. */
+const cliSessionGroup = {
+  prefix: '/api/cli-session',
+} as const satisfies Pick<typeof cliSessionTokenContract, 'prefix'>;
+const cliSessionEndpoints = {
+  createCliSessionToken: { method: 'POST', path: '/' },
+  getCliSessionMe: { method: 'GET', path: '/me' },
+} as const satisfies RouteEndpoints<CliSessionTokenRoutes>;
 
 export const getOAuthAPI = (
   authAPIOptions: FetcherOptions = {},
   intlayerConfig?: Pick<IntlayerConfig, 'editor'>
 ) => {
-  const backendURL = intlayerConfig?.editor?.backendURL ?? editor.backendURL;
+  const backendURL =
+    intlayerConfig?.editor?.backendURL ?? editor.backendURL ?? BACKEND_URL;
   const { clientId, clientSecret } = intlayerConfig?.editor ?? {};
 
   /**
@@ -20,11 +48,15 @@ export const getOAuthAPI = (
    */
   const getOAuth2AccessToken = async (otherOptions: FetcherOptions = {}) =>
     await fetcher<GetOAuth2TokenResult>(
-      `${backendURL}/oauth2/token`,
+      buildRouteURL(
+        backendURL,
+        oAuth2Group,
+        oAuth2Endpoints.getOAuth2AccessToken
+      ),
       {},
       otherOptions,
       {
-        method: 'POST',
+        method: oAuth2Endpoints.getOAuth2AccessToken.method,
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
@@ -42,10 +74,14 @@ export const getOAuthAPI = (
    */
   const createCliSessionToken = async (otherOptions: FetcherOptions = {}) =>
     await fetcher<CreateCliSessionTokenResult>(
-      `${backendURL}/api/cli-session`,
+      buildRouteURL(
+        backendURL,
+        cliSessionGroup,
+        cliSessionEndpoints.createCliSessionToken
+      ),
       authAPIOptions,
       otherOptions,
-      { method: 'POST' }
+      { method: cliSessionEndpoints.createCliSessionToken.method }
     );
 
   /**
@@ -54,9 +90,14 @@ export const getOAuthAPI = (
    */
   const getCliSessionMe = async (otherOptions: FetcherOptions = {}) =>
     await fetcher<GetCliSessionMeResult>(
-      `${backendURL}/api/cli-session/me`,
+      buildRouteURL(
+        backendURL,
+        cliSessionGroup,
+        cliSessionEndpoints.getCliSessionMe
+      ),
       authAPIOptions,
-      otherOptions
+      otherOptions,
+      { method: cliSessionEndpoints.getCliSessionMe.method }
     );
 
   return {

@@ -18,8 +18,8 @@ export type EnvironmentData = {
 
 export type Environment = EnvironmentData & {
   id: Types.ObjectId;
-  createdAt: number;
-  updatedAt: number;
+  createdAt: Date;
+  updatedAt: Date;
 };
 
 export type EnvironmentAPI = ObjectIdToString<Environment>;
@@ -151,16 +151,16 @@ export type ProjectMemberGranularAccessAPI =
 
 export type OAuth2Access = OAuth2AccessData & {
   id: Types.ObjectId;
-  createdAt: number;
-  updatedAt: number;
+  createdAt: Date;
+  updatedAt: Date;
 };
 
 export type OAuth2AccessAPI = ObjectIdToString<OAuth2Access>;
 
 export type Project = ProjectData & {
   id: Types.ObjectId;
-  createdAt: number;
-  updatedAt: number;
+  createdAt: Date;
+  updatedAt: Date;
   oAuth2Access: OAuth2Access[];
 };
 

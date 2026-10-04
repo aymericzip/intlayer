@@ -1,7 +1,7 @@
 'use client';
 
 import { getOAuthAPI } from '@intlayer/api';
-import type { OAuth2Token } from '@intlayer/backend';
+import type { OAuth2Token } from '@intlayer/backend-contract/oAuth2';
 import { editor } from '@intlayer/config/built';
 import { useConfiguration } from '@intlayer/editor-react';
 import type { IntlayerConfig } from '@intlayer/types/config';

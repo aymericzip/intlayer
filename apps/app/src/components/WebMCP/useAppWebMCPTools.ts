@@ -263,7 +263,7 @@ export const useAppWebMCPTools = (): AnyWebMCPTool[] => {
     },
     annotations: { readOnlyHint: false, idempotentHint: true },
     execute: async ({ projectId }: SelectProjectInput) => {
-      const response = await selectProject({ projectId });
+      const response = await selectProject(projectId);
 
       return `Selected project "${response.data?.name ?? projectId}".`;
     },

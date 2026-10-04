@@ -31,7 +31,7 @@ export const useLocalizedNavigate = () => {
     if (typeof args === 'string') {
       return navigate({
         params: { locale: getPrefix(locale).localePrefix },
-        to: getLocalizedTo(args) as any,
+        to: getLocalizedTo(args) as FileRouteTypes['to'],
       });
     }
 
@@ -41,11 +41,12 @@ export const useLocalizedNavigate = () => {
 
     return navigate({
       ...rest,
+      // No target keeps the current route
+      to: (localizedTo ?? '.') as FileRouteTypes['to'],
       params: {
         locale: getPrefix(locale).localePrefix,
         ...(existingParams ?? {}),
       },
-      ...(localizedTo ? { to: localizedTo as any } : {}),
     });
   };
 

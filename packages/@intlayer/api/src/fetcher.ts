@@ -42,7 +42,10 @@ export type FetcherOptions = Omit<RequestInit, 'body'> & {
    * Query parameters to be appended to the URL.
    */
   params?:
-    | Record<string, string | string[] | undefined>
+    | Record<
+        string,
+        string | number | boolean | (string | number)[] | undefined
+      >
     | string[]
     | URLSearchParams;
 };

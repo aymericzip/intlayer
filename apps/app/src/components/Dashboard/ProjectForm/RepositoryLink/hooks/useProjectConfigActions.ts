@@ -1,3 +1,4 @@
+import type { RepositoryConnection } from '@intlayer/backend-contract/project';
 import {
   useBitbucketGetConfigFile,
   useGithubGetConfigFile,
@@ -12,7 +13,7 @@ import { createDefu } from 'defu';
 import { useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { parseConfigContent } from '../parseConfigContent';
-import type { ConfigPreviewState, ConnectedRepository } from '../types';
+import type { ConfigPreviewState } from '../types';
 
 // Arrays in the config (e.g. locales) should be replaced, not concatenated.
 const defu = createDefu((obj, key, value) => {
@@ -63,10 +64,7 @@ export const useProjectConfigActions = () => {
 
   const handleDisconnect = () => {
     if (project?.id) {
-      updateProject({
-        id: project.id,
-        repository: null,
-      });
+      updateProject({ repository: null });
     }
   };
 
@@ -180,28 +178,32 @@ export const useProjectConfigActions = () => {
 
     const { repo, configPath, content: fileContent } = configPreview;
 
-    const repositoryData: ConnectedRepository = {
-      provider: repo.provider,
+    const baseRepository = {
       owner: repo.owner?.login ?? repo.namespace?.path ?? '',
       repository: repo.name,
       branch: repo.defaultBranch,
       url: repo.url,
       configFilePath: configPath,
-      ...(repo.provider === 'gitlab' && {
-        projectId: repo.projectId,
-        instanceUrl: repo.instanceUrl,
-      }),
-      ...(repo.provider === 'bitbucket' && {
-        workspace: repo.workspace?.slug,
-      }),
     };
+    const repositoryData: RepositoryConnection =
+      repo.provider === 'gitlab'
+        ? {
+            provider: 'gitlab',
+            ...baseRepository,
+            projectId: repo.projectId,
+            instanceUrl: repo.instanceUrl,
+          }
+        : repo.provider === 'bitbucket'
+          ? {
+              provider: 'bitbucket',
+              ...baseRepository,
+              workspace: repo.workspace?.slug ?? '',
+            }
+          : { provider: 'github', ...baseRepository };
 
     const parsedConfig = await parseConfig(fileContent);
 
-    await updateProject({
-      id: project.id,
-      repository: repositoryData,
-    });
+    await updateProject({ repository: repositoryData });
 
     await pushProjectConfiguration(defu(parsedConfig, project.configuration));
 

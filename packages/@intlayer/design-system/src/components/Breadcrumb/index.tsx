@@ -337,7 +337,7 @@ export const Breadcrumb: FC<BreadcrumbProps> = ({
           const ariaCurrent = isActive ? elementType : undefined;
           const isTruncated = link === '...';
 
-          const text = (link as DetailedBreadcrumbLink).text ?? link;
+          const text = typeof link === 'string' ? link : link.text;
 
           const separatorColorClass = getColorClass(color);
 

@@ -125,8 +125,12 @@ const SearchViewContent: FC<{
       return frontendResults;
     }
 
-    const backendResults: DocMetadata[] = searchDocData.data
-      .map((docKey: string) => filesData.find((doc) => doc.docKey === docKey))
+    // Without `returnContent`, the route answers doc keys
+    const backendDocKeys = searchDocData.data.filter(
+      (entry): entry is string => typeof entry === 'string'
+    );
+    const backendResults: DocMetadata[] = backendDocKeys
+      .map((docKey) => filesData.find((doc) => doc.docKey === docKey))
       .filter((doc: DocMetadata | undefined): doc is DocMetadata =>
         Boolean(doc)
       );

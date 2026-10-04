@@ -49,21 +49,35 @@ const MIN_HEIGHT = 700;
 /** Languages that use JSX syntax — CommonJS doesn't make sense for these. */
 const JSX_LANGUAGES = new Set(['tsx', 'jsx']);
 
-/** Parse a codeFormat prop that may be a single value, a JSON-array string, or already an array. */
+const CODE_FORMATS: readonly string[] = [
+  'typescript',
+  'commonjs',
+  'esm',
+] satisfies CodeFormat[];
+
+/** Whether a format is one the code transformer handles (not `json`). */
+const isCodeFormat = (format: string): format is CodeFormat =>
+  CODE_FORMATS.includes(format);
+
+/**
+ * Parse a codeFormat prop that may be a single value, a JSON-array string, or
+ * already an array. Formats are kept as written (content declarations also
+ * list `json`); `isCodeFormat` narrows them.
+ */
 const parseFormats = (
   raw: string | string[] | undefined
-): CodeFormat[] | undefined => {
+): string[] | undefined => {
   if (!raw) return undefined;
-  if (Array.isArray(raw)) return raw as CodeFormat[];
-  if (typeof raw === 'string' && raw.startsWith('[')) {
+  if (Array.isArray(raw)) return raw;
+  if (raw.startsWith('[')) {
     try {
-      const parsed = JSON.parse(raw);
-      if (Array.isArray(parsed)) return parsed as CodeFormat[];
+      const parsed: unknown = JSON.parse(raw);
+      if (Array.isArray(parsed)) return parsed.map(String);
     } catch {
       /* ignore */
     }
   }
-  return [raw as CodeFormat];
+  return [raw];
 };
 
 export const Code: FC<CodeCompProps> = ({
@@ -118,14 +132,13 @@ export const Code: FC<CodeCompProps> = ({
     : selectedCodeFormat;
 
   // The formats actually relevant for transformation (no 'json', no 'commonjs' for JSX).
-  const effectiveFormats = useMemo<CodeFormat[] | undefined>(() => {
+  const effectiveFormats = useMemo((): CodeFormat[] | undefined => {
     const base = isMultiContentFormat ? contentFormats : codeFormats;
-    if (!base) return base;
-    let filtered = base.filter((f) => f !== 'json') as CodeFormat[];
-    if (JSX_LANGUAGES.has(language as string)) {
-      filtered = filtered.filter((f) => f !== 'commonjs');
-    }
-    return filtered;
+    if (!base) return undefined;
+    const formats: CodeFormat[] = base.filter(isCodeFormat);
+    return JSX_LANGUAGES.has(language as string)
+      ? formats.filter((format) => format !== 'commonjs')
+      : formats;
   }, [isMultiContentFormat, contentFormats, codeFormats, language]);
 
   // When the globally-selected format isn't valid for this block

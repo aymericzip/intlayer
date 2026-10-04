@@ -1,6 +1,6 @@
 import { cpSync, mkdirSync, readdirSync, statSync } from 'node:fs';
 import { dirname, join, relative } from 'node:path';
-import { esmOptions, typesOptions } from '@utils/tsdown-config';
+import { esmOptions } from '@utils/tsdown-config';
 import { defineConfig, type UserConfig } from 'tsdown';
 
 /**
@@ -50,13 +50,11 @@ const copyAssetsPlugin = () => ({
   },
 });
 
+// Runtime only: API types are published by @intlayer/backend-contract
 export default defineConfig([
   {
     ...esmOptions,
     // Overwrite plugins: Remove the default AssetPlugin and add our custom copy plugin
     plugins: [copyAssetsPlugin()],
-  } as UserConfig,
-  {
-    ...typesOptions,
   } as UserConfig,
 ]);

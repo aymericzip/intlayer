@@ -1,20 +1,39 @@
+import type { RouteEndpoints } from '@intlayer/backend-contract/defineRoute';
+import { buildRouteURL } from '@intlayer/backend-contract/defineRoute';
 import type {
+  NewsletterRoutes,
   NewsletterSubscriptionBody,
   NewsletterSubscriptionResult,
   NewsletterUnsubscriptionBody,
-} from '@intlayer/backend';
+  newsletterContract,
+} from '@intlayer/backend-contract/newsletter';
 import { editor } from '@intlayer/config/built';
+import { BACKEND_URL } from '@intlayer/config/defaultValues';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { createEndpoint } from '../cms/createIntlayerCMS';
 import { type FetcherOptions, fetcher } from '../fetcher';
+
+/** Prefix of the routes, checked against the backend contract. */
+const newsletterGroup = {
+  prefix: '/api/newsletter',
+} as const satisfies Pick<typeof newsletterContract, 'prefix'>;
+
+/**
+ * Method and path of every route, checked against the backend contract at
+ * compile time (the contract's zod schemas are never loaded).
+ */
+const newsletterEndpoints = {
+  subscribeToNewsletter: { method: 'POST', path: '/subscribe' },
+  unsubscribeFromNewsletter: { method: 'POST', path: '/unsubscribe' },
+  getNewsletterStatus: { method: 'GET', path: '/status' },
+} as const satisfies RouteEndpoints<NewsletterRoutes>;
 
 export const getNewsletterAPI = (
   authAPIOptions: FetcherOptions = {},
   intlayerConfig?: IntlayerConfig
 ) => {
-  const backendURL = intlayerConfig?.editor?.backendURL ?? editor.backendURL;
-
-  const NEWSLETTER_API_ROUTE = `${backendURL}/api/newsletter`;
+  const backendURL =
+    intlayerConfig?.editor?.backendURL ?? editor.backendURL ?? BACKEND_URL;
 
   /**
    * Subscribe a user to newsletter(s)
@@ -26,11 +45,15 @@ export const getNewsletterAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<NewsletterSubscriptionResult>(
-      `${NEWSLETTER_API_ROUTE}/subscribe`,
+      buildRouteURL(
+        backendURL,
+        newsletterGroup,
+        newsletterEndpoints.subscribeToNewsletter
+      ),
       authAPIOptions,
       otherOptions,
       {
-        method: 'POST',
+        method: newsletterEndpoints.subscribeToNewsletter.method,
         body: body,
       }
     );
@@ -45,11 +68,15 @@ export const getNewsletterAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<NewsletterSubscriptionResult>(
-      `${NEWSLETTER_API_ROUTE}/unsubscribe`,
+      buildRouteURL(
+        backendURL,
+        newsletterGroup,
+        newsletterEndpoints.unsubscribeFromNewsletter
+      ),
       authAPIOptions,
       otherOptions,
       {
-        method: 'POST',
+        method: newsletterEndpoints.unsubscribeFromNewsletter.method,
         body: body,
       }
     );
@@ -60,11 +87,15 @@ export const getNewsletterAPI = (
    */
   const getNewsletterStatus = async (otherOptions: FetcherOptions = {}) =>
     await fetcher<NewsletterSubscriptionResult>(
-      `${NEWSLETTER_API_ROUTE}/status`,
+      buildRouteURL(
+        backendURL,
+        newsletterGroup,
+        newsletterEndpoints.getNewsletterStatus
+      ),
       authAPIOptions,
       otherOptions,
       {
-        method: 'GET',
+        method: newsletterEndpoints.getNewsletterStatus.method,
       }
     );
 

@@ -1,4 +1,4 @@
-import type { AssetAPI } from '@intlayer/backend';
+import type { AssetAPI } from '@intlayer/backend-contract/asset';
 import {
   useDeleteAsset,
   useGetAssets,

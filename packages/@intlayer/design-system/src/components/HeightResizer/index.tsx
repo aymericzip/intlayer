@@ -180,7 +180,7 @@ export const HeightResizer: FC<PropsWithChildren<HeightResizerProps>> = ({
         if (mouseMoveEvent instanceof MouseEvent) {
           clientY = mouseMoveEvent.clientY;
         } else if (mouseMoveEvent instanceof TouchEvent) {
-          clientY = mouseMoveEvent.touches[0].clientY;
+          clientY = mouseMoveEvent.touches[0]?.clientY ?? clientY;
         }
 
         const resizeDifference = clientY - containerTop;

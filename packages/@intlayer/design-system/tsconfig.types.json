@@ -4,19 +4,20 @@
   "include": ["src/**/*", "types/**/*"],
   "exclude": ["**/*.test.*", "**/*.stories.*"],
   "compilerOptions": {
+    "strictNullChecks": true,
     "rootDir": "./src",
     "outDir": "dist/types",
     "isolatedModules": false,
     "isolatedDeclarations": false,
     "types": ["react", "node"],
-    "preserveSymlinks": true,
     "paths": {
       "@components/*": ["./src/components/*"],
       "@utils/*": ["./src/utils/*"],
       "@libs/*": ["./src/libs/*"],
       "@hooks/*": ["./src/hooks/*"],
       "@providers/*": ["./src/providers/*"],
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@api/*": ["./src/api/*"]
     }
   }
 }

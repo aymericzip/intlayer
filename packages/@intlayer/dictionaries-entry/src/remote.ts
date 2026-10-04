@@ -8,7 +8,7 @@
 
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
-import type { DictionaryAPI } from '@intlayer/backend';
+import type { DictionaryAPI } from '@intlayer/backend-contract/dictionary';
 import { build, system } from '@intlayer/config/built';
 import { clearModuleCache, configESMxCJSRequire } from '@intlayer/config/utils';
 import type { IntlayerConfig } from '@intlayer/types/config';

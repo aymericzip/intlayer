@@ -1,12 +1,14 @@
 'use client';
 
 import type {
-  GetShowcaseProjectByIdParams,
-  GetShowcaseProjectsResult,
   OtherShowcaseProjectsQuery,
   ShowcaseProjectsQuery,
+} from '@intlayer/api';
+import type {
+  GetShowcaseProjectByIdParams,
+  GetShowcaseProjectsResult,
   SubmitShowcaseProjectBody,
-} from '@intlayer/backend';
+} from '@intlayer/backend-contract/showcaseProject';
 import {
   type UseQueryOptions,
   useMutation,
@@ -17,6 +19,7 @@ import {
   type UseIntlayerAuthProps,
   useShowcaseProjectAPI,
 } from '../useIntlayerAPI';
+import type { AppQueryOptions } from './utils';
 
 export const useGetShowcaseProjects = (
   query?: ShowcaseProjectsQuery,
@@ -34,7 +37,7 @@ export const useGetShowcaseProjects = (
 
 export const useGetShowcaseProjectById = (
   projectId: GetShowcaseProjectByIdParams['projectId'],
-  options?: Partial<UseQueryOptions>
+  options?: AppQueryOptions
 ) => {
   const showcaseProjectAPI = useShowcaseProjectAPI();
 
@@ -51,7 +54,7 @@ export const useGetShowcaseProjectById = (
 
 export const useGetOtherShowcaseProjects = (
   query: OtherShowcaseProjectsQuery,
-  options?: Partial<UseQueryOptions>
+  options?: AppQueryOptions
 ) => {
   const showcaseProjectAPI = useShowcaseProjectAPI();
 

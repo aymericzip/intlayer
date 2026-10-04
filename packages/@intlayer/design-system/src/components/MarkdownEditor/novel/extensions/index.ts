@@ -11,9 +11,10 @@ import { TaskList } from '@tiptap/extension-task-list';
 import { TextStyle } from '@tiptap/extension-text-style';
 import TiptapUnderline from '@tiptap/extension-underline';
 import Youtube from '@tiptap/extension-youtube';
+import type { Fragment, Node as ProseMirrorNode } from '@tiptap/pm/model';
 import StarterKit from '@tiptap/starter-kit';
 import GlobalDragHandle from 'tiptap-extension-global-drag-handle';
-import { Markdown } from 'tiptap-markdown';
+import { Markdown, type MarkdownStorage } from 'tiptap-markdown';
 import CustomKeymap from './custom-keymap';
 import { ImageResizer } from './image-resizer';
 import UpdatedImage from './updated-image';
@@ -83,3 +84,18 @@ export {
   UpdatedImage,
   Youtube,
 };
+
+/**
+ * Runtime storage of tiptap-markdown: its published `MarkdownStorage` omits
+ * the serializer the editor uses to export selections.
+ */
+type MarkdownEditorStorage = MarkdownStorage & {
+  serializer: { serialize: (content: ProseMirrorNode | Fragment) => string };
+};
+
+// tiptap-markdown does not register its storage on the editor
+declare module '@tiptap/core' {
+  interface Storage {
+    markdown: MarkdownEditorStorage;
+  }
+}

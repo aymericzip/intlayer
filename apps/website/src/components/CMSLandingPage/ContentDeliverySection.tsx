@@ -101,7 +101,7 @@ export const ContentDeliverySection: FC = () => {
             >
               {mode.badge && (
                 <Tag
-                  color={mode.id.value === 'live-sync' ? 'primary' : 'text'}
+                  color={mode.id.value === 'live-sync' ? 'text' : 'neutral'}
                   className="absolute inset-e-4 top-4 rounded-full px-3 py-1 font-medium text-xs"
                 >
                   {mode.badge}

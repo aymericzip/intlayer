@@ -1,4 +1,7 @@
-import type { ReviewerProfileAPI, ReviewerReviewAPI } from '@intlayer/backend';
+import type {
+  ReviewerProfileAPI,
+  ReviewerReviewAPI,
+} from '@intlayer/backend-contract/reviewer';
 import { useGetReviewerReviews } from '@intlayer/design-system/api';
 import { Container } from '@intlayer/design-system/container';
 import { MarkdownRenderer } from '@intlayer/design-system/mark-down-render';

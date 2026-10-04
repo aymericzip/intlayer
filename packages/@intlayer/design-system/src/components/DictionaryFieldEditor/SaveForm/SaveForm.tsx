@@ -9,7 +9,7 @@ import {
 } from '@api/index';
 import { FormButton } from '@components/Form';
 import { Modal } from '@components/Modal';
-import type { Dictionary as DistantDictionary } from '@intlayer/backend';
+import type { DictionaryAPI as DistantDictionary } from '@intlayer/backend-contract/dictionary';
 import {
   useDictionariesRecordActions,
   useEditedContent,
@@ -98,7 +98,8 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
       },
       {
         onSuccess: () => {
-          setLocaleDictionary(editedContent?.[dictionary.localId!]);
+          const savedDictionary = editedContent?.[dictionary.localId!];
+          if (savedDictionary) setLocaleDictionary(savedDictionary);
           restoreEditedContent(dictionary.localId!);
           setIsFormatAlertModalOpen(false);
           onSave?.();

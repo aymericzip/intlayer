@@ -4,10 +4,11 @@
   "include": ["src/**/*", "types/**/*"],
   "exclude": ["**/*.test.*"],
   "compilerOptions": {
+    "strictNullChecks": true,
     "rootDir": "./src",
     "outDir": "dist/types",
     "paths": {
-      "@intlayer/backend": ["../../../apps/backend/dist/types/export"],
+      "@intlayer/api": ["./src/index.ts"],
       "intlayer-editor": ["../../intlayer-editor/server/dist/export"]
     }
   }

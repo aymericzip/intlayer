@@ -4,7 +4,10 @@ import {
 } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
-import { DictionaryFieldEditor } from '@intlayer/design-system/dictionary-field-editor';
+import {
+  DictionaryFieldEditor,
+  formatDictionaryVariant,
+} from '@intlayer/design-system/dictionary-field-editor';
 import { Loader } from '@intlayer/design-system/loader';
 import { Pagination } from '@intlayer/design-system/pagination';
 import { PopoverStatic } from '@intlayer/design-system/popover';
@@ -35,17 +38,6 @@ const extractItemNumbers = (siblings: Dictionary[]): number[] =>
   ].sort((a, b) => a - b);
 
 /**
- * A variant is a named string or a structured object; format it to a stable
- * string for display and selection matching.
- */
-const formatVariant = (
-  variant: string | Record<string, string | number> | undefined
-): string =>
-  variant !== null && typeof variant === 'object'
-    ? JSON.stringify(variant)
-    : (variant ?? '');
-
-/**
  * Derives the list of variant identities declared among a set of sibling
  * dictionaries, preserving declaration order.
  */
@@ -53,7 +45,7 @@ const extractVariantNames = (siblings: Dictionary[]): string[] => [
   ...new Set(
     siblings
       .filter((d) => d.variant !== undefined)
-      .map((d) => formatVariant(d.variant))
+      .map((d) => formatDictionaryVariant(d.variant))
   ),
 ];
 
@@ -111,7 +103,7 @@ export const ContentDashboard: FC<ContentDashboardContentProps> = ({
         const itemMatch = selectedItem === null || d.item === selectedItem;
         const variantMatch =
           selectedVariant === null ||
-          formatVariant(d.variant) === selectedVariant;
+          formatDictionaryVariant(d.variant) === selectedVariant;
         return itemMatch && variantMatch;
       }) ?? null
     );

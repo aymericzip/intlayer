@@ -188,12 +188,12 @@ export const DictionaryListDashboardContent: FC = () => {
           const dictionary = row.original;
           const qualifiers: Array<{
             key: 'collection' | 'variant';
-            color: 'blue' | 'orange';
+            color: 'neutral' | 'warning';
           }> = [];
           if (dictionary.item !== undefined)
-            qualifiers.push({ key: 'collection', color: 'blue' });
+            qualifiers.push({ key: 'collection', color: 'neutral' });
           if (dictionary.variant !== undefined)
-            qualifiers.push({ key: 'variant', color: 'orange' });
+            qualifiers.push({ key: 'variant', color: 'warning' });
 
           if (qualifiers.length === 0)
             return <span className="text-neutral">-</span>;

@@ -52,6 +52,27 @@ describe('chunkJSON', () => {
     });
   });
 
+  describe('deep paths', () => {
+    it('should rebuild values split under nested objects and arrays', () => {
+      const data = {
+        page: {
+          sections: [
+            { title: 'a'.repeat(1500) },
+            { title: 'b'.repeat(1500), items: ['c'.repeat(1200)] },
+          ],
+        },
+      };
+
+      const chunks = chunkJSON(data, 600);
+      const hasDeepPath = chunks.some((chunk) =>
+        chunk.entries.some((entry) => entry.path.length > 1)
+      );
+
+      expect(hasDeepPath).toBe(true);
+      expect(assembleJSON(chunks)).toEqual(data);
+    });
+  });
+
   describe('large string handling', () => {
     it('should split large strings across multiple chunks', () => {
       const largeString = 'A'.repeat(5000);

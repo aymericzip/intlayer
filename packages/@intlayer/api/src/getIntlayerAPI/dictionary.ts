@@ -1,8 +1,12 @@
+import type { RouteEndpoints } from '@intlayer/backend-contract/defineRoute';
+import { buildRouteURL } from '@intlayer/backend-contract/defineRoute';
 import type {
   AddDictionaryBody,
   AddDictionaryResult,
   DeleteDictionaryParam,
   DeleteDictionaryResult,
+  DictionaryRoutes,
+  dictionaryContract,
   GetDictionariesByKeysResult,
   GetDictionariesKeysResult,
   GetDictionariesParams,
@@ -15,19 +19,40 @@ import type {
   PushDictionariesResult,
   UpdateDictionaryBody,
   UpdateDictionaryResult,
-} from '@intlayer/backend';
+} from '@intlayer/backend-contract/dictionary';
 import { editor } from '@intlayer/config/built';
+import { BACKEND_URL } from '@intlayer/config/defaultValues';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { createEndpoint } from '../cms/createIntlayerCMS';
 import { type FetcherOptions, fetcher } from '../fetcher';
+
+/** Prefix of the routes, checked against the backend contract. */
+const dictionaryGroup = {
+  prefix: '/api/dictionary',
+} as const satisfies Pick<typeof dictionaryContract, 'prefix'>;
+
+/**
+ * Method and path of every route, checked against the backend contract at
+ * compile time (the contract's zod schemas are never loaded).
+ */
+const dictionaryEndpoints = {
+  getDictionaries: { method: 'GET', path: '/' },
+  getDictionariesKeys: { method: 'GET', path: '/keys' },
+  getDictionariesUpdateTimestamp: { method: 'GET', path: '/update' },
+  getDictionariesByKeys: { method: 'GET', path: '/by-keys' },
+  getDictionary: { method: 'GET', path: '/:dictionaryKey' },
+  addDictionary: { method: 'POST', path: '/' },
+  pushDictionaries: { method: 'PATCH', path: '/' },
+  updateDictionary: { method: 'PUT', path: '/:dictionaryId' },
+  deleteDictionary: { method: 'DELETE', path: '/:dictionaryId' },
+} as const satisfies RouteEndpoints<DictionaryRoutes>;
 
 export const getDictionaryAPI = (
   authAPIOptions: FetcherOptions = {},
   intlayerConfig?: IntlayerConfig
 ) => {
-  const backendURL = intlayerConfig?.editor?.backendURL ?? editor.backendURL;
-
-  const PROJECT_API_ROUTE = `${backendURL}/api/dictionary`;
+  const backendURL =
+    intlayerConfig?.editor?.backendURL ?? editor.backendURL ?? BACKEND_URL;
 
   /**
    * Retrieves a list of dictionaries based on filters and pagination.
@@ -38,7 +63,11 @@ export const getDictionaryAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<GetDictionariesResult>(
-      PROJECT_API_ROUTE,
+      buildRouteURL(
+        backendURL,
+        dictionaryGroup,
+        dictionaryEndpoints.getDictionaries
+      ),
       authAPIOptions,
       otherOptions,
       {
@@ -53,7 +82,11 @@ export const getDictionaryAPI = (
    */
   const getDictionariesKeys = async (otherOptions: FetcherOptions = {}) =>
     await fetcher<GetDictionariesKeysResult>(
-      `${PROJECT_API_ROUTE}/keys`,
+      buildRouteURL(
+        backendURL,
+        dictionaryGroup,
+        dictionaryEndpoints.getDictionariesKeys
+      ),
       authAPIOptions,
       otherOptions,
       {
@@ -68,7 +101,11 @@ export const getDictionaryAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<GetDictionariesUpdateTimestampResult>(
-      `${PROJECT_API_ROUTE}/update`,
+      buildRouteURL(
+        backendURL,
+        dictionaryGroup,
+        dictionaryEndpoints.getDictionariesUpdateTimestamp
+      ),
       authAPIOptions,
       otherOptions,
       {
@@ -87,7 +124,12 @@ export const getDictionaryAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<GetDictionaryResult>(
-      `${PROJECT_API_ROUTE}/${dictionaryKey}`,
+      buildRouteURL(
+        backendURL,
+        dictionaryGroup,
+        dictionaryEndpoints.getDictionary,
+        { dictionaryKey }
+      ),
       authAPIOptions,
       otherOptions,
       {
@@ -109,7 +151,11 @@ export const getDictionaryAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<GetDictionariesByKeysResult>(
-      `${PROJECT_API_ROUTE}/by-keys`,
+      buildRouteURL(
+        backendURL,
+        dictionaryGroup,
+        dictionaryEndpoints.getDictionariesByKeys
+      ),
       authAPIOptions,
       otherOptions,
       {
@@ -130,11 +176,15 @@ export const getDictionaryAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<AddDictionaryResult>(
-      `${PROJECT_API_ROUTE}`,
+      buildRouteURL(
+        backendURL,
+        dictionaryGroup,
+        dictionaryEndpoints.addDictionary
+      ),
       authAPIOptions,
       otherOptions,
       {
-        method: 'POST',
+        method: dictionaryEndpoints.addDictionary.method,
         body,
       }
     );
@@ -144,11 +194,15 @@ export const getDictionaryAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<PushDictionariesResult>(
-      `${PROJECT_API_ROUTE}`,
+      buildRouteURL(
+        backendURL,
+        dictionaryGroup,
+        dictionaryEndpoints.pushDictionaries
+      ),
       authAPIOptions,
       otherOptions,
       {
-        method: 'PATCH',
+        method: dictionaryEndpoints.pushDictionaries.method,
         body: { dictionaries },
       }
     );
@@ -162,11 +216,16 @@ export const getDictionaryAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<UpdateDictionaryResult>(
-      `${PROJECT_API_ROUTE}/${dictionary.id}`,
+      buildRouteURL(
+        backendURL,
+        dictionaryGroup,
+        dictionaryEndpoints.updateDictionary,
+        { dictionaryId: String(dictionary.id) }
+      ),
       authAPIOptions,
       otherOptions,
       {
-        method: 'PUT',
+        method: dictionaryEndpoints.updateDictionary.method,
         body: dictionary,
       }
     );
@@ -180,11 +239,16 @@ export const getDictionaryAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<DeleteDictionaryResult>(
-      `${PROJECT_API_ROUTE}/${id}`,
+      buildRouteURL(
+        backendURL,
+        dictionaryGroup,
+        dictionaryEndpoints.deleteDictionary,
+        { dictionaryId: String(id) }
+      ),
       authAPIOptions,
       otherOptions,
       {
-        method: 'DELETE',
+        method: dictionaryEndpoints.deleteDictionary.method,
       }
     );
 

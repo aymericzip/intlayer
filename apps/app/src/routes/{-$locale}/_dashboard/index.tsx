@@ -1,4 +1,4 @@
-import type { SessionAPI } from '@intlayer/backend';
+import type { SessionAPI } from '@intlayer/backend-contract/session';
 import {
   App_Auth_SignIn_Path,
   App_Dashboard_Organization_Path,

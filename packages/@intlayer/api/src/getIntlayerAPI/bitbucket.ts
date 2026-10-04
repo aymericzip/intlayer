@@ -1,4 +1,11 @@
+import type { RouteEndpoints } from '@intlayer/backend-contract/defineRoute';
+import { buildRouteURL } from '@intlayer/backend-contract/defineRoute';
+import type {
+  BitbucketRoutes,
+  bitbucketContract,
+} from '@intlayer/backend-contract/gitProviders';
 import { editor } from '@intlayer/config/built';
+import { BACKEND_URL } from '@intlayer/config/defaultValues';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { createEndpoint } from '../cms/createIntlayerCMS';
 import { type FetcherOptions, fetcher } from '../fetcher';
@@ -79,13 +86,29 @@ export type BitbucketGetAuthUrlResult = {
   };
 };
 
+/** Prefix of the routes, checked against the backend contract. */
+const bitbucketGroup = {
+  prefix: '/api/bitbucket',
+} as const satisfies Pick<typeof bitbucketContract, 'prefix'>;
+
+/**
+ * Method and path of every route, checked against the backend contract at
+ * compile time (the contract's zod schemas are never loaded).
+ */
+const bitbucketEndpoints = {
+  getAuthUrl: { method: 'GET', path: '/auth-url' },
+  authCallback: { method: 'POST', path: '/auth' },
+  listRepos: { method: 'GET', path: '/repos' },
+  checkConfig: { method: 'POST', path: '/check-config' },
+  getConfigFile: { method: 'POST', path: '/get-config-file' },
+} as const satisfies RouteEndpoints<BitbucketRoutes>;
+
 export const getBitbucketAPI = (
   authAPIOptions: FetcherOptions = {},
   intlayerConfig?: IntlayerConfig
 ) => {
-  const backendURL = intlayerConfig?.editor?.backendURL ?? editor.backendURL;
-
-  const BITBUCKET_API_ROUTE = `${backendURL}/api/bitbucket`;
+  const backendURL =
+    intlayerConfig?.editor?.backendURL ?? editor.backendURL ?? BACKEND_URL;
 
   /**
    * Get Bitbucket OAuth authorization URL
@@ -96,7 +119,7 @@ export const getBitbucketAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<BitbucketGetAuthUrlResult>(
-      `${BITBUCKET_API_ROUTE}/auth-url`,
+      buildRouteURL(backendURL, bitbucketGroup, bitbucketEndpoints.getAuthUrl),
       authAPIOptions,
       otherOptions,
       {
@@ -113,11 +136,15 @@ export const getBitbucketAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<BitbucketAuthCallbackResult>(
-      `${BITBUCKET_API_ROUTE}/auth`,
+      buildRouteURL(
+        backendURL,
+        bitbucketGroup,
+        bitbucketEndpoints.authCallback
+      ),
       authAPIOptions,
       otherOptions,
       {
-        method: 'POST',
+        method: bitbucketEndpoints.authCallback.method,
         body: { code },
       }
     );
@@ -131,7 +158,7 @@ export const getBitbucketAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<BitbucketListReposResult>(
-      `${BITBUCKET_API_ROUTE}/repos`,
+      buildRouteURL(backendURL, bitbucketGroup, bitbucketEndpoints.listRepos),
       authAPIOptions,
       otherOptions,
       {
@@ -154,11 +181,11 @@ export const getBitbucketAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<BitbucketCheckConfigResult>(
-      `${BITBUCKET_API_ROUTE}/check-config`,
+      buildRouteURL(backendURL, bitbucketGroup, bitbucketEndpoints.checkConfig),
       authAPIOptions,
       otherOptions,
       {
-        method: 'POST',
+        method: bitbucketEndpoints.checkConfig.method,
         body: { token: token ?? undefined, workspace, repoSlug, branch },
       }
     );
@@ -180,11 +207,15 @@ export const getBitbucketAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<BitbucketGetConfigFileResult>(
-      `${BITBUCKET_API_ROUTE}/get-config-file`,
+      buildRouteURL(
+        backendURL,
+        bitbucketGroup,
+        bitbucketEndpoints.getConfigFile
+      ),
       authAPIOptions,
       otherOptions,
       {
-        method: 'POST',
+        method: bitbucketEndpoints.getConfigFile.method,
         body: {
           token: token ?? undefined,
           workspace,

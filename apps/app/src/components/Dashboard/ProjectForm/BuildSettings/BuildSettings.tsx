@@ -1,4 +1,7 @@
-import type { ProjectConfigCI, Webhook } from '@intlayer/backend';
+import type {
+  ProjectConfigCI,
+  Webhook,
+} from '@intlayer/backend-contract/project';
 import {
   useGetCIConfig,
   useSession,

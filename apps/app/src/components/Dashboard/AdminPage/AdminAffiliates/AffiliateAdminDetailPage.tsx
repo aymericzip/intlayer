@@ -1,4 +1,7 @@
-import type { AffiliateAPI, PromoCodeAPI } from '@intlayer/backend';
+import type {
+  AffiliateAPI,
+  PromoCodeAPI,
+} from '@intlayer/backend-contract/stripe';
 import {
   useGetAffiliateById,
   useGetPromoCodes,
@@ -20,7 +23,7 @@ import { Link } from '#components/Link/Link';
 
 const STATUS_COLOR: Record<AffiliateAPI['status'], BadgeColor> = {
   pending: 'neutral',
-  onboarding: 'secondary',
+  onboarding: 'text',
   active: 'success',
   suspended: 'neutral',
 };

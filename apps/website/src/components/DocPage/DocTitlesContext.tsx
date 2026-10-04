@@ -47,7 +47,7 @@ export const DocTitlesProvider: FC<DocTitlesProviderProps> = ({
       contentId,
     });
 
-  const contentElement = useGetElementById(contentId);
+  const contentElement = useGetElementById(contentId) ?? null;
 
   const { activeParent, activeChild } = useActiveSection({
     contentElement,

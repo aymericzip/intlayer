@@ -1,4 +1,4 @@
-import type { GetUsersResult } from '@intlayer/backend';
+import type { GetUsersResult } from '@intlayer/backend-contract/user';
 import { useGetUsers, useSession } from '@intlayer/design-system/api';
 import { Avatar } from '@intlayer/design-system/avatar';
 import { Button } from '@intlayer/design-system/button';

@@ -327,14 +327,13 @@ const createShikiPlugin = ({
 export const CodeBlockShiki = CodeBlock.extend<CodeBlockShikiOptions>({
   addOptions() {
     return {
-      ...this.parent?.(),
+      ...(this.parent?.() as CodeBlockShikiOptions),
       defaultLanguage: null,
       defaultTheme: 'github-light',
       themes: null,
     };
   },
 
-  // @ts-expect-error tiptap-markdown integration property
   markdownTokenName: 'code',
 
   parseMarkdown(rawNode: any, builder: any) {

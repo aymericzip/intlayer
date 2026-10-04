@@ -1,13 +1,15 @@
+import type { RouteEndpoints } from '@intlayer/backend-contract/defineRoute';
+import { buildRouteURL } from '@intlayer/backend-contract/defineRoute';
 import type {
   AddOrganizationBody,
   AddOrganizationMemberBody,
   AddOrganizationMemberResult,
   AddOrganizationResult,
   DeleteOrganizationResult,
-  GetOrganizationParam,
-  GetOrganizationResult,
   GetOrganizationsParams,
   GetOrganizationsResult,
+  OrganizationRoutes,
+  organizationContract,
   SelectOrganizationParam,
   SelectOrganizationResult,
   UnselectOrganizationResult,
@@ -17,19 +19,48 @@ import type {
   UpdateOrganizationMembersBody,
   UpdateOrganizationMembersResult,
   UpdateOrganizationResult,
-} from '@intlayer/backend';
+} from '@intlayer/backend-contract/organization';
 import { editor } from '@intlayer/config/built';
+import { BACKEND_URL } from '@intlayer/config/defaultValues';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { createEndpoint } from '../cms/createIntlayerCMS';
 import { type FetcherOptions, fetcher } from '../fetcher';
+
+/** Prefix of the routes, checked against the backend contract. */
+const organizationGroup = {
+  prefix: '/api/organization',
+} as const satisfies Pick<typeof organizationContract, 'prefix'>;
+
+/**
+ * Method and path of every route, checked against the backend contract at
+ * compile time (the contract's zod schemas are never loaded).
+ */
+const organizationEndpoints = {
+  getOrganizations: { method: 'GET', path: '/' },
+  addOrganization: { method: 'POST', path: '/' },
+  updateOrganization: { method: 'PUT', path: '/' },
+  updateOrganizationMailerConfig: { method: 'PUT', path: '/mailer-config' },
+  updateOrganizationMembers: { method: 'PUT', path: '/members' },
+  updateOrganizationMembersById: {
+    method: 'PUT',
+    path: '/:organizationId/members',
+  },
+  addOrganizationMember: { method: 'POST', path: '/member' },
+  deleteOrganization: { method: 'DELETE', path: '/' },
+  selectOrganization: { method: 'PUT', path: '/:organizationId' },
+  unselectOrganization: { method: 'POST', path: '/logout' },
+  deleteOrganizationByIdAdmin: {
+    method: 'DELETE',
+    path: '/:organizationId/admin',
+  },
+} as const satisfies RouteEndpoints<OrganizationRoutes>;
 
 export const getOrganizationAPI = (
   authAPIOptions: FetcherOptions = {},
   intlayerConfig?: IntlayerConfig
 ) => {
-  const backendURL = intlayerConfig?.editor?.backendURL ?? editor.backendURL;
-
-  const ORGANIZATION_API_ROUTE = `${backendURL}/api/organization`;
+  const backendURL =
+    intlayerConfig?.editor?.backendURL ?? editor.backendURL ?? BACKEND_URL;
 
   /**
    * Retrieves a list of organizations based on filters and pagination.
@@ -40,7 +71,11 @@ export const getOrganizationAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<GetOrganizationsResult>(
-      ORGANIZATION_API_ROUTE,
+      buildRouteURL(
+        backendURL,
+        organizationGroup,
+        organizationEndpoints.getOrganizations
+      ),
       authAPIOptions,
       otherOptions,
       {
@@ -54,16 +89,6 @@ export const getOrganizationAPI = (
    * Retrieves an organization by its ID.
    * @param organizationId - Organization ID.
    */
-  const getOrganization = async (
-    organizationId: GetOrganizationParam['organizationId'],
-    otherOptions: FetcherOptions = {}
-  ) =>
-    await fetcher<GetOrganizationResult>(
-      `${ORGANIZATION_API_ROUTE}/${String(organizationId)}`,
-      authAPIOptions,
-      otherOptions
-    );
-
   /**
    * Adds a new organization to the database.
    * @param organization - Organization data.
@@ -73,11 +98,15 @@ export const getOrganizationAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<AddOrganizationResult>(
-      ORGANIZATION_API_ROUTE,
+      buildRouteURL(
+        backendURL,
+        organizationGroup,
+        organizationEndpoints.addOrganization
+      ),
       authAPIOptions,
       otherOptions,
       {
-        method: 'POST',
+        method: organizationEndpoints.addOrganization.method,
         body: organization,
       }
     );
@@ -91,11 +120,15 @@ export const getOrganizationAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     fetcher<UpdateOrganizationResult>(
-      ORGANIZATION_API_ROUTE,
+      buildRouteURL(
+        backendURL,
+        organizationGroup,
+        organizationEndpoints.updateOrganization
+      ),
       authAPIOptions,
       otherOptions,
       {
-        method: 'PUT',
+        method: organizationEndpoints.updateOrganization.method,
         body: organization,
       }
     );
@@ -110,11 +143,15 @@ export const getOrganizationAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     fetcher<UpdateOrganizationMailerConfigResult>(
-      `${ORGANIZATION_API_ROUTE}/mailer-config`,
+      buildRouteURL(
+        backendURL,
+        organizationGroup,
+        organizationEndpoints.updateOrganizationMailerConfig
+      ),
       authAPIOptions,
       otherOptions,
       {
-        method: 'PUT',
+        method: organizationEndpoints.updateOrganizationMailerConfig.method,
         body,
       }
     );
@@ -128,11 +165,15 @@ export const getOrganizationAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     fetcher<UpdateOrganizationMembersResult>(
-      `${ORGANIZATION_API_ROUTE}/members`,
+      buildRouteURL(
+        backendURL,
+        organizationGroup,
+        organizationEndpoints.updateOrganizationMembers
+      ),
       authAPIOptions,
       otherOptions,
       {
-        method: 'PUT',
+        method: organizationEndpoints.updateOrganizationMembers.method,
         body,
       }
     );
@@ -148,11 +189,16 @@ export const getOrganizationAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     fetcher<UpdateOrganizationMembersResult>(
-      `${ORGANIZATION_API_ROUTE}/${organizationId}/members`,
+      buildRouteURL(
+        backendURL,
+        organizationGroup,
+        organizationEndpoints.updateOrganizationMembersById,
+        { organizationId: String(organizationId) }
+      ),
       authAPIOptions,
       otherOptions,
       {
-        method: 'PUT',
+        method: organizationEndpoints.updateOrganizationMembersById.method,
         body,
       }
     );
@@ -166,11 +212,15 @@ export const getOrganizationAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     fetcher<AddOrganizationMemberResult>(
-      `${ORGANIZATION_API_ROUTE}/member`,
+      buildRouteURL(
+        backendURL,
+        organizationGroup,
+        organizationEndpoints.addOrganizationMember
+      ),
       authAPIOptions,
       otherOptions,
       {
-        method: 'POST',
+        method: organizationEndpoints.addOrganizationMember.method,
         body,
       }
     );
@@ -181,11 +231,15 @@ export const getOrganizationAPI = (
    */
   const deleteOrganization = async (otherOptions: FetcherOptions = {}) =>
     await fetcher<DeleteOrganizationResult>(
-      ORGANIZATION_API_ROUTE,
+      buildRouteURL(
+        backendURL,
+        organizationGroup,
+        organizationEndpoints.deleteOrganization
+      ),
       authAPIOptions,
       otherOptions,
       {
-        method: 'DELETE',
+        method: organizationEndpoints.deleteOrganization.method,
       }
     );
 
@@ -198,10 +252,15 @@ export const getOrganizationAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     fetcher<DeleteOrganizationResult>(
-      `${ORGANIZATION_API_ROUTE}/${organizationId}/admin`,
+      buildRouteURL(
+        backendURL,
+        organizationGroup,
+        organizationEndpoints.deleteOrganizationByIdAdmin,
+        { organizationId: String(organizationId) }
+      ),
       authAPIOptions,
       otherOptions,
-      { method: 'DELETE' }
+      { method: organizationEndpoints.deleteOrganizationByIdAdmin.method }
     );
 
   /**
@@ -213,11 +272,16 @@ export const getOrganizationAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<SelectOrganizationResult>(
-      `${ORGANIZATION_API_ROUTE}/${String(organizationId)}`,
+      buildRouteURL(
+        backendURL,
+        organizationGroup,
+        organizationEndpoints.selectOrganization,
+        { organizationId: String(organizationId) }
+      ),
       authAPIOptions,
       otherOptions,
       {
-        method: 'PUT',
+        method: organizationEndpoints.selectOrganization.method,
       }
     );
 
@@ -227,17 +291,20 @@ export const getOrganizationAPI = (
    */
   const unselectOrganization = async (otherOptions: FetcherOptions = {}) =>
     await fetcher<UnselectOrganizationResult>(
-      `${ORGANIZATION_API_ROUTE}/logout`,
+      buildRouteURL(
+        backendURL,
+        organizationGroup,
+        organizationEndpoints.unselectOrganization
+      ),
       authAPIOptions,
       otherOptions,
       {
-        method: 'POST',
+        method: organizationEndpoints.unselectOrganization.method,
       }
     );
 
   return {
     getOrganizations,
-    getOrganization,
     addOrganization,
     addOrganizationMember,
     updateOrganization,
