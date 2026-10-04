@@ -273,7 +273,7 @@ Intlayer connects **developers**, **copywriters**, and **AI agents** in one work
 ## 🌐 Readme in other languages
 
 <p align="center">
-  <a href="https://github.com/aymericzip/intlayer/blob/main/readme.md">English</a> •
+  <a href="https://github.com/aymericzip/intlayer/blob/main/README.md">English</a> •
   <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/readme.md">简体中文</a> •
   <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/readme.md">Русский</a> •
   <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/readme.md">日本語</a> •

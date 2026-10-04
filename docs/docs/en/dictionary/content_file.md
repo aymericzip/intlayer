@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-09-27
+updatedAt: 2026-10-04
 priority: 8
 title: "Content Declaration Files (.content.ts)"
 description: "Declare your multilingual content in .content files next to your components: supported formats, file extensions and how Intlayer discovers them."
@@ -284,17 +284,17 @@ Content nodes are the building blocks of dictionary content. They can be:
 
 Intlayer supports various content types through typed nodes:
 
-- **Translation Content**: Multilingual text with locale-specific values [see Translation Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/translation_content.md)
-- **Condition Content**: Conditional content based on boolean expressions [see Condition Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/condition_content.md)
-- **Enumeration Content**: Content that varies based on enumerated values [see Enumeration Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/enumeration_content.md)
-- **Plural Content**: Content that varies based on plural rules [see Plural Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/plural.md)
-- **Insertion Content**: Content that can be inserted into other content [see Insertion Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/insertion_content.md)
-- **Markdown Content**: Rich text content in Markdown format [see Markdown Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/markdown_content.md)
+- **Translation Content**: Multilingual text with locale-specific values [see Translation Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/translation.md)
+- **Condition Content**: Conditional content based on boolean expressions [see Condition Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/condition.md)
+- **Enumeration Content**: Content that varies based on enumerated values [see Enumeration Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/enumeration.md)
+- **Plural Content**: Content that varies based on plural rules [see Plural Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/plurial.md)
+- **Insertion Content**: Content that can be inserted into other content [see Insertion Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/insertion.md)
+- **Markdown Content**: Rich text content in Markdown format [see Markdown Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/markdown.md)
 - **HTML Content**: Rich HTML content with optional custom components [see HTML Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/html.md)
-- **Nested Content**: References to other dictionaries [see Nested Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/nested_content.md)
+- **Nested Content**: References to other dictionaries [see Nested Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/nesting.md)
 - **Gender Content**: Content that varies based on gender [see Gender Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/gender.md)
 - **Select Content**: Content that varies based on an arbitrary string value [see Select Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/select.md)
-- **File Content**: References to external files [see File Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/file_content.md)
+- **File Content**: References to external files [see File Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/file.md)
 
 ## Dictionary Structure
 
@@ -509,9 +509,9 @@ Instructions for automatically filling dictionary content from external sources.
 - `{{fileName}}` – File name (e.g. `example`)
 - `{{key}}` – Dictionary key (e.g. `example`)
 
-> See [Auto-Fill Configuration in Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/fill.md) for more information.
+> See [Auto-Fill Configuration in Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/autoFill.md) for more information.
 
-- [Auto-Fill Configuration in Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/fill.md)
+- [Auto-Fill Configuration in Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/autoFill.md)
 
 ##### `priority` (number)
 
@@ -687,9 +687,9 @@ pluralContent: plural({
 });
 ```
 
-> See [Plural Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/plural.md) for more information.
+> See [Plural Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/plurial.md) for more information.
 
-- [Plural Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/plural.md)
+- [Plural Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/plurial.md)
 
 ### Enumeration Content (`enu`)
 

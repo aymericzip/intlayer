@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-12
-updatedAt: 2026-09-28
+updatedAt: 2026-10-04
 priority: 8
 title: "How Intlayer Works: Architecture Overview"
 description: Learn how Intlayer operates internally. Understand the architecture and components that make Intlayer powerful.
@@ -52,7 +52,7 @@ The build step can be done in three ways:
 
 - using the CLI with `npx intlayer build`
 - using [vscode extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md)
-- using the app plugins such as [`vite-intlayer` package](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/vite-intlayer/index.md), or their equivalents for [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/index.md). When you use one of those plugins, Intlayer will automatically build your dictionaries when you start (dev) or build (prod) your application.
+- using the app plugins such as [`vite-intlayer` package](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/vite-intlayer/exports.md), or their equivalents for [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/exports.md). When you use one of those plugins, Intlayer will automatically build your dictionaries when you start (dev) or build (prod) your application.
 
 1. Declaration of content files
    - Content files can be defined in various formats, such as TypeScript, ECMAScript, CommonJS, or JSON.
@@ -279,7 +279,7 @@ The `@intlayer/webpack` package is used to provide a Webpack configuration to ma
 
 ### @intlayer/cli
 
-The `@intlayer/cli` package is an NPM package that is used to declare the scripts related to the Intlayer command line interfaces. It ensures the uniformity of all Intlayer CLI commands. This package is notably consumed by the [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer-cli/index.md), and the [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/index.md) packages.
+The `@intlayer/cli` package is an NPM package that is used to declare the scripts related to the Intlayer command line interfaces. It ensures the uniformity of all Intlayer CLI commands. This package is notably consumed by the [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer-cli/exports.md), and the [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/exports.md) packages.
 
 ### @intlayer/mcp
 

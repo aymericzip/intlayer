@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-09-27
+updatedAt: 2026-10-04
 priority: 9
 title: "Express i18n - Complete guide to translate your app"
 description: "Set up Intlayer in Express: detect the locale per request with middleware, translate API responses and error messages, typed end to end."
@@ -209,9 +209,9 @@ app.listen(3000, () => console.log(`Listening on port 3000`));
 
 `express-intlayer` is fully compatible with:
 
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/index.md)
-- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/index.md)
-- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/vite-intlayer/index.md)
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/exports.md)
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/exports.md)
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/vite-intlayer/exports.md)
 
 It also works seamlessly with any internationalization solution across various environments, including browsers and API requests. You can customize the middleware to detect locale through headers or cookies:
 
