@@ -16,39 +16,40 @@ WORKDIR /workspace
 # Copy the rest of the source code
 # Remove directories to keep the image slim
 COPY \
-    --exclude=packages/@intlayer/doc \
-    --exclude=packages/@intlayer/swc \
-    --exclude=packages/@intlayer/lsp \
-    --exclude=packages/@intlayer/chrome-extension \
-    --exclude=packages/intlayer-cli \
-    --exclude=packages/react-scripts-intlayer \
-    --exclude=packages/vue-intlayer \
-    --exclude=packages/intlayer-editor \
-    --exclude=packages/solid-intlayer \
-    --exclude=packages/svelte-intlayer \
-    --exclude=packages/preact-intlayer \
-    --exclude=packages/angular-intlayer \
-    --exclude=packages/nuxt-intlayer \
-    --exclude=packages/astro-intlayer \
-    --exclude=packages/react-native-intlayer \
-    --exclude=packages/lynx-intlayer \
-    --exclude=packages/lit-intlayer \
-    --exclude=packages/vanilla-intlayer \
-    --exclude=packages/express-intlayer \
-    --exclude=packages/hono-intlayer \
-    --exclude=packages/elysia-intlayer \
-    --exclude=packages/remix-intlayer \
-    --exclude=packages/adonis-intlayer \
-    --exclude=packages/eslint-plugin-intlayer \
-    --exclude=apps/website \
+    --exclude=**/*.stories.* \
+    --exclude=apps/app \
+    --exclude=apps/backend \
     --exclude=apps/showcase \
     --exclude=apps/vscode-extension \
-    --exclude=apps/app \
+    --exclude=apps/website \
+    --exclude=compat \
     --exclude=docs/assets \
     --exclude=examples \
+    --exclude=packages/@intlayer/chrome-extension \
+    --exclude=packages/@intlayer/doc \
+    --exclude=packages/@intlayer/lsp \
+    --exclude=packages/@intlayer/swc \
+    --exclude=packages/adonis-intlayer \
+    --exclude=packages/angular-intlayer \
+    --exclude=packages/astro-intlayer \
+    --exclude=packages/elysia-intlayer \
+    --exclude=packages/eslint-plugin-intlayer \
+    --exclude=packages/express-intlayer \
+    --exclude=packages/hono-intlayer \
+    --exclude=packages/intlayer-cli \
+    --exclude=packages/intlayer-editor \
+    --exclude=packages/lit-intlayer \
+    --exclude=packages/lynx-intlayer \
+    --exclude=packages/nuxt-intlayer \
+    --exclude=packages/preact-intlayer \
+    --exclude=packages/react-native-intlayer \
+    --exclude=packages/react-scripts-intlayer \
+    --exclude=packages/remix-intlayer \
+    --exclude=packages/solid-intlayer \
+    --exclude=packages/svelte-intlayer \
+    --exclude=packages/vanilla-intlayer \
+    --exclude=packages/vue-intlayer \
     --exclude=plugins \
-    --exclude=compat \
-    --exclude=**/*.stories.* \
     . .
 
 # Install all dependencies (dev + prod) (frozen for reproducible builds)

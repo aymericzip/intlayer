@@ -9,6 +9,14 @@ RUN npm install -g bun@1.4.2
 WORKDIR /workspace
 
 COPY \
+  --exclude=apps \
+  --exclude=compat \
+  --exclude=docs/assets \
+  --exclude=docs/blog \
+  --exclude=docs/docs \
+  --exclude=docs/frequent_questions \
+  --exclude=docs/legal \
+  --exclude=examples \
   --exclude=packages/@intlayer/chrome-extension \
   --exclude=packages/@intlayer/lsp \
   --exclude=packages/@intlayer/swc \
@@ -33,18 +41,7 @@ COPY \
   --exclude=packages/svelte-intlayer \
   --exclude=packages/vanilla-intlayer \
   --exclude=packages/vue-intlayer \
-  --exclude=compat \
   --exclude=plugins \
-  --exclude=examples \
-  --exclude=apps/app \
-  --exclude=apps/showcase \
-  --exclude=apps/website \
-  --exclude=apps/vscode-extension \
-  --exclude=docs/assets \
-  --exclude=docs/docs \
-  --exclude=docs/blog \
-  --exclude=docs/frequent_questions \
-  --exclude=docs/legal \
   . .
 
 # Install only what's needed for the design-system package

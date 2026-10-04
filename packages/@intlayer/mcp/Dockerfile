@@ -11,51 +11,45 @@ RUN npm install -g bun@1.4.2
 WORKDIR /workspace
 
 COPY \
-    --exclude=packages/@intlayer/webpack \
-    --exclude=packages/@intlayer/editor \
-    --exclude=packages/@intlayer/editor-react \
-    --exclude=packages/@intlayer/chrome-extension \
-    --exclude=packages/@intlayer/swc \
-    --exclude=packages/@intlayer/lsp \
-    --exclude=packages/intlayer-cli \
-    --exclude=packages/next-intlayer \
-    --exclude=packages/astro-intlayer \
-    --exclude=packages/react-scripts-intlayer \
-    --exclude=packages/react-intlayer \
-    --exclude=packages/vue-intlayer \
-    --exclude=packages/solid-intlayer \
-    --exclude=packages/svelte-intlayer \
-    --exclude=packages/next-intlayer \
-    --exclude=packages/preact-intlayer \
-    --exclude=packages/angular-intlayer \
-    --exclude=packages/vite-intlayer \
-    --exclude=packages/nuxt-intlayer \
-    --exclude=packages/react-native-intlayer \
-    --exclude=packages/lynx-intlayer \
-    --exclude=packages/lit-intlayer \
-    --exclude=packages/vanilla-intlayer \
-    --exclude=packages/@intlayer/design-system \
-    --exclude=packages/intlayer-editor \
-    --exclude=packages/express-intlayer \
-    --exclude=packages/hono-intlayer \
-    --exclude=packages/elysia-intlayer \
-    --exclude=packages/remix-intlayer \
-    --exclude=packages/adonis-intlayer \
-    --exclude=packages/eslint-plugin-intlayer \
+    --exclude=**/*.stories.* \
+    --exclude=apps \
+    --exclude=compat \
     --exclude=docs/assets \
     --exclude=docs/blog \
     --exclude=docs/frequent_questions \
     --exclude=docs/legal \
     --exclude=examples \
+    --exclude=packages/@intlayer/chrome-extension \
+    --exclude=packages/@intlayer/design-system \
+    --exclude=packages/@intlayer/editor \
+    --exclude=packages/@intlayer/editor-react \
+    --exclude=packages/@intlayer/lsp \
+    --exclude=packages/@intlayer/swc \
+    --exclude=packages/@intlayer/webpack \
+    --exclude=packages/adonis-intlayer \
+    --exclude=packages/angular-intlayer \
+    --exclude=packages/astro-intlayer \
+    --exclude=packages/elysia-intlayer \
+    --exclude=packages/eslint-plugin-intlayer \
+    --exclude=packages/express-intlayer \
+    --exclude=packages/hono-intlayer \
+    --exclude=packages/intlayer-cli \
+    --exclude=packages/intlayer-editor \
+    --exclude=packages/lit-intlayer \
+    --exclude=packages/lynx-intlayer \
+    --exclude=packages/next-intlayer \
+    --exclude=packages/nuxt-intlayer \
+    --exclude=packages/preact-intlayer \
+    --exclude=packages/react-intlayer \
+    --exclude=packages/react-native-intlayer \
+    --exclude=packages/react-scripts-intlayer \
+    --exclude=packages/remix-intlayer \
+    --exclude=packages/solid-intlayer \
+    --exclude=packages/svelte-intlayer \
+    --exclude=packages/vanilla-intlayer \
+    --exclude=packages/vite-intlayer \
+    --exclude=packages/vue-intlayer \
     --exclude=plugins \
-    --exclude=compat \
-    --exclude=apps/website \
-
-    --exclude=apps/showcase \
-    --exclude=apps/app \    
-    --exclude=apps/marketplace \
-    --exclude=apps/vscode-extension \
-    --exclude=**/*.stories.* \
     . .
 
 COPY docs/docs/en/                 docs/docs/en/
