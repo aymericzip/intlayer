@@ -15,14 +15,14 @@
     "svelte-intlayer": "workspace:*"
   },
   "devDependencies": {
-    "@sveltejs/vite-plugin-svelte": "7.3.0",
+    "@sveltejs/vite-plugin-svelte": "7.3.1",
     "@tsconfig/svelte": "5.0.8",
-    "@types/node": "^22",
+    "@types/node": "^26",
     "intlayer-editor": "workspace:*",
-    "svelte": "5.56.8",
-    "svelte-check": "4.7.5",
+    "svelte": "5.57.1",
+    "svelte-check": "4.7.6",
     "typescript": "7.0.2",
-    "vite": "8.3.1",
+    "vite": "8.3.2",
     "vite-intlayer": "workspace:*"
   }
 }

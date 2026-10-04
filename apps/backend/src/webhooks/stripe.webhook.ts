@@ -193,7 +193,7 @@ export const stripeWebhook = async (
     invoice: Stripe.Invoice,
     status: 'active' | 'incomplete'
   ) => {
-    // On the pinned Stripe API version (2026-05-27.dahlia) the subscription is
+    // On the pinned Stripe API version (2026-09-30.endive) the subscription is
     // no longer a top-level field on the invoice; it lives under
     // invoice.parent.subscription_details.subscription.
     const subscriptionRef = invoice.parent?.subscription_details?.subscription;

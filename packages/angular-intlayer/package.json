@@ -133,7 +133,7 @@
   "devDependencies": {
     "@angular/common": "22.1.5",
     "@angular/core": "22.1.5",
-    "@types/node": "^22",
+    "@types/node": "^26",
     "@types/webpack": "5.28.5",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",

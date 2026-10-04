@@ -157,7 +157,7 @@
     "@ai-sdk/openai-compatible": "3.0.39",
     "@ai-sdk/togetherai": "3.0.40",
     "@openrouter/ai-sdk-provider": "3.0.0",
-    "@types/node": "^22",
+    "@types/node": "^26",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",

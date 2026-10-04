@@ -21,7 +21,7 @@
     "@intlayer/ai": "workspace:*",
     "@intlayer/swc": "workspace:*",
     "@tailwindcss/postcss": "4.3.3",
-    "@types/node": "^22",
+    "@types/node": "^26",
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
     "next-intl": "4.13.6",

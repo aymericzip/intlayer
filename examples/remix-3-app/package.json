@@ -16,7 +16,7 @@
     "remix-intlayer": "workspace:*"
   },
   "devDependencies": {
-    "@types/node": "^22",
+    "@types/node": "^26",
     "@utils/ts-config": "workspace:*",
     "typescript": "7.0.2"
   }

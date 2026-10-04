@@ -82,10 +82,10 @@
     "vite-intlayer": "workspace:*"
   },
   "devDependencies": {
-    "@angular/compiler": "22.1.5",
-    "@angular/core": "22.1.5",
+    "@angular/compiler": "22.2.1",
+    "@angular/core": "22.2.1",
     "@ngx-translate/core": "^18.0.0",
-    "@types/node": "^22",
+    "@types/node": "^26",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
@@ -93,7 +93,7 @@
     "rxjs": "^7.8.1",
     "tsdown": "0.23.0",
     "typescript": "7.0.2",
-    "vite": "8.3.1",
+    "vite": "8.3.2",
     "vitest": "5.0.3"
   },
   "peerDependencies": {

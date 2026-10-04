@@ -169,7 +169,7 @@ export const getSubscription = async (
         customer: customerId,
         amount,
         currency: price.currency,
-        payment_method_types: ['card'],
+        allowed_payment_method_types: ['card'],
         metadata: {
           organizationId: String(organization.id),
           userId: String(user.id),

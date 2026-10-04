@@ -81,7 +81,7 @@
     "@nuxt/kit": "4.5.2",
     "@nuxt/schema": "4.5.2",
     "@nuxtjs/i18n": "^10.4.0",
-    "@types/node": "^22",
+    "@types/node": "^26",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
