@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-08-22
+updatedAt: 2026-10-04
 priority: 5
 title: react-intlayer Package Documentation
 description: React-specific implementation of Intlayer, providing hooks and providers for React applications.
@@ -89,17 +89,17 @@ Import:
 import "react-intlayer";
 ```
 
-| Function             | Description                                                                                                                                              | Related Doc                                                                                    |
-| -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
-| `renderHTML`         | Standalone utility for rendering HTML outside of components.                                                                                             | -                                                                                              |
-| `renderMarkdown`     | Standalone utility for rendering Markdown outside of components.                                                                                         | -                                                                                              |
-| `t`                  | Client-side translation function that returns the translation of the provided multilang content. Uses context locale if not provided.                    | [translation](https://github.com/aymericzip/intlayer/blob/main/docs/dictionary/translation.md) |
-| `getDictionary`      | Processes dictionary objects and returns content for the specified locale. Processes `t()` translations, enumerations, markdown, HTML, etc.              | -                                                                                              |
-| `getIntlayer`        | Retrieves a dictionary by its key from the generated declaration and returns its content for the specified locale. Optimized version of `getDictionary`. | -                                                                                              |
-| `setLocaleInStorage` | Sets the locale in storage (local storage or cookie based on configuration).                                                                             | -                                                                                              |
-| `setLocaleCookie`    | Deprecated. Use `setLocaleInStorage` instead. Sets the locale in a cookie.                                                                               | -                                                                                              |
-| `localeInStorage`    | Gets the locale from storage (local storage or cookie).                                                                                                  | -                                                                                              |
-| `localeCookie`       | Deprecated. Use `localeInStorage` instead. Gets the locale from cookie.                                                                                  | -                                                                                              |
+| Function             | Description                                                                                                                                              | Related Doc                                                                                            |
+| -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| `renderHTML`         | Standalone utility for rendering HTML outside of components.                                                                                             | -                                                                                                      |
+| `renderMarkdown`     | Standalone utility for rendering Markdown outside of components.                                                                                         | -                                                                                                      |
+| `t`                  | Client-side translation function that returns the translation of the provided multilang content. Uses context locale if not provided.                    | [translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/translation.md) |
+| `getDictionary`      | Processes dictionary objects and returns content for the specified locale. Processes `t()` translations, enumerations, markdown, HTML, etc.              | -                                                                                                      |
+| `getIntlayer`        | Retrieves a dictionary by its key from the generated declaration and returns its content for the specified locale. Optimized version of `getDictionary`. | -                                                                                                      |
+| `setLocaleInStorage` | Sets the locale in storage (local storage or cookie based on configuration).                                                                             | -                                                                                                      |
+| `setLocaleCookie`    | Deprecated. Use `setLocaleInStorage` instead. Sets the locale in a cookie.                                                                               | -                                                                                                      |
+| `localeInStorage`    | Gets the locale from storage (local storage or cookie).                                                                                                  | -                                                                                                      |
+| `localeCookie`       | Deprecated. Use `localeInStorage` instead. Gets the locale from cookie.                                                                                  | -                                                                                                      |
 
 ### Components
 

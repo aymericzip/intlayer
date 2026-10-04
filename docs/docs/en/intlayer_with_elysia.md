@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-09-29
+updatedAt: 2026-10-04
 priority: 9
 title: "Elysia i18n - Complete guide to translate your app"
 description: "Set up Intlayer in Elysia: detect the locale per request with the plugin, translate API responses and keep content typed on Bun."
@@ -265,9 +265,9 @@ curl -H "Accept-Language: es" http://localhost:3000/
 
 `elysia-intlayer` is fully compatible with:
 
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/index.md)
-- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/index.md)
-- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/vite-intlayer/index.md)
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/exports.md)
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/exports.md)
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/vite-intlayer/exports.md)
 
 It also works seamlessly with any internationalization solution across various environments, including browsers and API requests.
 
