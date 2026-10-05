@@ -35,6 +35,7 @@ import {
   extractTranslatableContent,
   reinsertTranslatedContent,
 } from './extractTranslatableContent';
+import { omitChangedContent } from './fillSourceSnapshot';
 import type { TranslationTask } from './listTranslationsTasks';
 
 type TranslateDictionaryResult = TranslationTask & {
@@ -190,6 +191,9 @@ export const translateDictionary = async (
           // Reset to base dictionary for each locale to ensure we filter from the original
           let dictionaryToProcess = structuredClone(baseUnmergedDictionary);
 
+          // Source values edited since this locale was last filled
+          const changedSourceContent = task.changedSourceContent[targetLocale];
+
           let targetLocaleDictionary: Dictionary;
 
           if (typeof baseUnmergedDictionary.locale === 'string') {
@@ -233,7 +237,9 @@ export const translateDictionary = async (
             };
           } else {
             // For multilingual dictionaries
-            if (mode === 'complete') {
+            // Skipped when source values changed, as it would drop them for
+            // already translated nodes. The filter below covers this case.
+            if (mode === 'complete' && changedSourceContent === undefined) {
               // Remove all nodes that don't have any content to translate
               dictionaryToProcess = getFilterMissingTranslationsDictionary(
                 dictionaryToProcess,
@@ -255,13 +261,19 @@ export const translateDictionary = async (
           // Filter to only untranslated fields, preserving explicit null values as
           // default-locale fallback markers. Applied after both paths converge so
           // the same logic covers per-locale and multilingual dictionaries.
+          // Translations of changed source values are treated as missing.
           if (mode === 'complete') {
+            const upToDateTargetContent = omitChangedContent(
+              targetLocaleDictionary.content,
+              changedSourceContent
+            );
+
             dictionaryToProcess = {
               ...dictionaryToProcess,
               content:
                 excludeObjectFormat(
                   dictionaryToProcess.content,
-                  targetLocaleDictionary.content
+                  upToDateTargetContent
                 ) ?? {},
             };
           }

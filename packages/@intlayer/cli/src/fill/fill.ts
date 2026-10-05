@@ -32,6 +32,12 @@ import {
 } from '../getTargetDictionary';
 import { setupAI } from '../utils/setupAI';
 import {
+  getSourceLocaleContent,
+  readFillSourceSnapshot,
+  setFillSourceSnapshot,
+  writeFillSourceSnapshot,
+} from './fillSourceSnapshot';
+import {
   listTranslationsTasks,
   type TranslationTask,
 } from './listTranslationsTasks';
@@ -177,14 +183,18 @@ export const fill = async (options?: FillOptions): Promise<FillResult> => {
    *
    * Create a list of per-locale dictionaries to translate
    *
-   * In 'complete' mode, filter only the missing locales to translate
+   * In 'complete' mode, filter only the locales with missing translations or
+   * with source values changed since the last fill
    */
+  const fillSourceSnapshot = await readFillSourceSnapshot(configuration);
+
   const translationTasks: TranslationTask[] = listTranslationsTasks(
     targetUnmergedDictionaries.map((dictionary) => dictionary.localId!),
     outputLocales,
     mode,
     baseLocale,
-    configuration
+    configuration,
+    fillSourceSnapshot
   );
 
   // AI calls in flight at once (translateJSON + metadata audit)
@@ -204,6 +214,7 @@ export const fill = async (options?: FillOptions): Promise<FillResult> => {
   const taskLimiter = getTaskLimiter(nbConcurrentTasks);
 
   let writtenCount = 0;
+  const writtenTasks: TranslationTask[] = [];
 
   const runners = translationTasks.map((task) =>
     taskLimiter(async () => {
@@ -284,9 +295,11 @@ export const fill = async (options?: FillOptions): Promise<FillResult> => {
           configuration
         );
         writtenCount++;
+        writtenTasks.push(task);
       } else {
         await writeContentDeclaration(dictionaryOutput, configuration);
         writtenCount++;
+        writtenTasks.push(task);
 
         if (dictionaryOutput.filePath) {
           appLogger(
@@ -300,6 +313,36 @@ export const fill = async (options?: FillOptions): Promise<FillResult> => {
 
   await Promise.all(runners);
   await (globalLimiter as any).onIdle();
+
+  // Locales filled before the snapshot existed are taken as up to date
+  let nextFillSourceSnapshot = fillSourceSnapshot;
+
+  for (const dictionary of targetUnmergedDictionaries) {
+    const sourceLocale = (dictionary.locale ?? baseLocale) as Locale;
+
+    if (dictionary.filled || !dictionary.localId || sourceLocale !== baseLocale)
+      continue;
+
+    nextFillSourceSnapshot = setFillSourceSnapshot(
+      nextFillSourceSnapshot,
+      dictionary.localId,
+      outputLocales.filter((locale) => locale !== sourceLocale),
+      getSourceLocaleContent(dictionary, sourceLocale),
+      false
+    );
+  }
+
+  for (const task of writtenTasks) {
+    nextFillSourceSnapshot = setFillSourceSnapshot(
+      nextFillSourceSnapshot,
+      task.dictionaryLocalId,
+      task.targetLocales,
+      task.sourceContent,
+      true
+    );
+  }
+
+  await writeFillSourceSnapshot(configuration, nextFillSourceSnapshot);
 
   return {
     status: 'completed',

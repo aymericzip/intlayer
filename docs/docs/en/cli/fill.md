@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-27
+updatedAt: 2026-10-05
 priority: 5
 title: "intlayer fill: Translate Dictionaries with AI"
 description: "Fill missing translations, audit existing ones and translate your Intlayer dictionaries with AI from the CLI, locally or in CI."
@@ -117,7 +117,9 @@ Affected dictionary keys for processing: app, comp-test, hello-world, lang-switc
 
 - **`--output-locales [outputLocales...]`**: Target locales to translate to. If not specified, all locales from your configuration will be used except the source locale.
 
-- **`--mode [mode]`**: Translation mode: `complete`, `review`. Default is `complete`. `complete` will fill all missing content, `review` will fill missing content and review existing keys.
+- **`--mode [mode]`**: Translation mode: `complete`, `review`. Default is `complete`. `complete` will fill all missing content and re-translate values whose source changed since the last `fill` run, `review` will fill missing content and review existing keys.
+
+  > `complete` mode tracks source changes in an `intlayer.journal.json` file at the root of your project. Commit this file so the changes are also detected in CI and other clones. On the first run, existing translations are taken as up to date.
 
 **Git options:**
 
