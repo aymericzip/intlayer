@@ -202,6 +202,20 @@ describe('Markdown Core Compiler', () => {
     expect(codeProps).toEqual({ fileName: 'a.tsx', className: 'lang-tsx' });
   });
 
+  it('should keep an unquoted array attribute value on a fence', () => {
+    const result = compile(
+      '```ts fileName="a.ts" codeFormat=["typescript", "esm"]\ncode\n```\n',
+      ctx
+    ) as any;
+    const codeProps = result.children[0].props;
+
+    expect(codeProps).toEqual({
+      fileName: 'a.ts',
+      codeFormat: '["typescript", "esm"]',
+      className: 'lang-ts',
+    });
+  });
+
   it('should close a fenced code block left unterminated at the end of the source', () => {
     const html = (compile('```js\nconst a = 1;', ctx) as any).toString();
 

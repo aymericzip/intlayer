@@ -198,9 +198,12 @@ export const ATTRIBUTES_TO_SANITIZE = [
 // REGEX PATTERNS
 // ============================================================================
 
-/** Attribute extractor regex */
+/**
+ * Attribute extractor regex. Values may be double/single quoted, `{…}`
+ * expressions, or unquoted `[…]` arrays (`codeFormat=["typescript", "esm"]`).
+ */
 export const ATTR_EXTRACTOR_R =
-  /([-A-Z0-9_:]+)(?:\s*=\s*(?:(?:"((?:\\.|[^"])*)")|(?:'((?:\\.|[^'])*)')|(?:\{((?:\\.|{[^}]*?}|[^}])*)\})))?/gi;
+  /([-A-Z0-9_:]+)(?:\s*=\s*(?:(?:"((?:\\.|[^"])*)")|(?:'((?:\\.|[^'])*)')|(?:\{((?:\\.|{[^}]*?}|[^}])*)\})|(?:\[[^\]]*\])))?/gi;
 
 /** First character of a valid attribute name (a letter, `_` or `:`). */
 export const ATTRIBUTE_NAME_START_R = /^[A-Z_:]/i;

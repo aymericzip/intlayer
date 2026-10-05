@@ -64,11 +64,10 @@ const isCodeFormat = (format: string): format is CodeFormat =>
  * already an array. Formats are kept as written (content declarations also
  * list `json`); `isCodeFormat` narrows them.
  */
-const parseFormats = (
-  raw: string | string[] | undefined
-): string[] | undefined => {
-  if (!raw) return undefined;
-  if (Array.isArray(raw)) return raw;
+const parseFormats = (raw: unknown): string[] | undefined => {
+  if (Array.isArray(raw)) return raw.map(String);
+  // Markdown turns a value-less attribute into `true`; ignore non-strings.
+  if (typeof raw !== 'string' || raw === '') return undefined;
   if (raw.startsWith('[')) {
     try {
       const parsed: unknown = JSON.parse(raw);
@@ -102,11 +101,11 @@ export const Code: FC<CodeCompProps> = ({
 
   // Parse whichever attribute is present as an array of formats.
   const codeFormats = useMemo(
-    () => parseFormats(rawCodeFormat as string | undefined),
+    () => parseFormats(rawCodeFormat),
     [rawCodeFormat]
   );
   const contentFormats = useMemo(
-    () => parseFormats(rawContentDeclarationFormat as string | undefined),
+    () => parseFormats(rawContentDeclarationFormat),
     [rawContentDeclarationFormat]
   );
 
