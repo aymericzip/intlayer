@@ -10,6 +10,8 @@ import { translateDictionary } from './translateDictionary';
 vi.mock('@intlayer/dictionaries-entry/unmerged', () => ({
   getUnmergedDictionaries: vi.fn(),
 }));
+vi.mock('@intlayer/engine/build', () => ({}));
+vi.mock('@intlayer/engine/cli', () => ({}));
 vi.mock('../utils/checkAccess', () => ({
   getAuthenticatedAPI: async () => ({}),
 }));
@@ -69,7 +71,6 @@ describe('translateDictionary', () => {
       targetLocales: ['fr'],
       dictionaryPreset: '',
       dictionaryFilePath: 'src/home.content.ts',
-      sourceContent: { title: 'Hello', subtitle: 'Welcome' },
       changedSourceContent: { fr: { title: 'Hello' } },
     };
 

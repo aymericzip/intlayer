@@ -35,8 +35,8 @@ import {
   extractTranslatableContent,
   reinsertTranslatedContent,
 } from './extractTranslatableContent';
-import { omitChangedContent } from './fillSourceSnapshot';
 import type { TranslationTask } from './listTranslationsTasks';
+import { omitChangedContent } from './sourceChanges';
 
 type TranslateDictionaryResult = TranslationTask & {
   dictionaryOutput: Dictionary | null;
@@ -191,7 +191,7 @@ export const translateDictionary = async (
           // Reset to base dictionary for each locale to ensure we filter from the original
           let dictionaryToProcess = structuredClone(baseUnmergedDictionary);
 
-          // Source values edited since this locale was last filled
+          // Source values edited since the git ref
           const changedSourceContent = task.changedSourceContent[targetLocale];
 
           let targetLocaleDictionary: Dictionary;

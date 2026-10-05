@@ -117,9 +117,9 @@ Affected dictionary keys for processing: app, comp-test, hello-world, lang-switc
 
 - **`--output-locales [outputLocales...]`**: Target locales to translate to. If not specified, all locales from your configuration will be used except the source locale.
 
-- **`--mode [mode]`**: Translation mode: `complete`, `review`. Default is `complete`. `complete` will fill all missing content and re-translate values whose source changed since the last `fill` run, `review` will fill missing content and review existing keys.
+- **`--mode [mode]`**: Translation mode: `complete`, `review`. Default is `complete`. `complete` will fill all missing content and re-translate values whose source changed in git, `review` will fill missing content and review existing keys.
 
-  > `complete` mode tracks source changes in an `intlayer.journal.json` file at the root of your project. Commit this file so the changes are also detected in CI and other clones. On the first run, existing translations are taken as up to date.
+  > In `complete` mode, source values are compared with the last commit (`HEAD`), or with the base branch when `--git-diff` is set (with `--unpushed`, with the upstream branch). A translation is re-translated when its source value changed and the translation itself did not. No extra file is written. This applies to JSON, JS and TS content declaration files tracked by git.
 
 **Git options:**
 

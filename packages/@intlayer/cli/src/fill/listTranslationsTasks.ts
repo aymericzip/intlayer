@@ -16,10 +16,9 @@ import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Dictionary, LocalDictionaryId } from '@intlayer/types/dictionary';
 import { listMissingTranslationsWithConfig } from '../test';
 import {
-  type FillSourceSnapshot,
-  getChangedSourceContent,
-  getSourceLocaleContent,
-} from './fillSourceSnapshot';
+  getStaleSourceContent,
+  type PreviousDictionaries,
+} from './sourceChanges';
 
 export type TranslationTask = {
   dictionaryKey: string;
@@ -28,9 +27,7 @@ export type TranslationTask = {
   targetLocales: Locale[];
   dictionaryPreset: string;
   dictionaryFilePath: string;
-  /** Current source locale content, recorded once the task succeeds. */
-  sourceContent: Recursive;
-  /** Per target locale, source values changed since that locale was filled. */
+  /** Per target locale, source values changed since the git ref. */
   changedSourceContent: Partial<Record<Locale, Recursive>>;
 };
 
@@ -40,7 +37,7 @@ export const listTranslationsTasks = (
   mode: 'complete' | 'review',
   baseLocale: Locale,
   configuration: IntlayerConfig,
-  fillSourceSnapshot: FillSourceSnapshot = {}
+  previousDictionaries: PreviousDictionaries = {}
 ): TranslationTask[] => {
   const appLogger = getAppLogger(configuration);
 
@@ -124,14 +121,10 @@ export const listTranslationsTasks = (
       continue;
     }
 
-    const sourceContent = getSourceLocaleContent(
-      targetUnmergedDictionary,
-      sourceLocale
-    );
-
     /**
-     * Source values edited since each locale was last filled. Only the base
-     * locale is a source of truth: other per-locale files are fill outputs.
+     * Source values edited since the git ref, with a translation that was not
+     * updated. Only the base locale is a source of truth: other per-locale
+     * files are fill outputs.
      */
     const changedSourceContent: Partial<Record<Locale, Recursive>> = {};
 
@@ -139,9 +132,11 @@ export const listTranslationsTasks = (
       for (const locale of outputLocales) {
         if (locale === sourceLocale) continue;
 
-        const changedContent = getChangedSourceContent(
-          fillSourceSnapshot[dictionaryLocalId]?.[locale],
-          sourceContent
+        const changedContent = getStaleSourceContent(
+          previousDictionaries[dictionaryLocalId],
+          targetUnmergedDictionary,
+          sourceLocale,
+          locale
         );
 
         if (changedContent !== undefined) {
@@ -152,7 +147,7 @@ export const listTranslationsTasks = (
 
     /**
      * In 'complete' mode, filter only the locales with missing translations
-     * or with source values changed since they were filled
+     * or with source values changed since the git ref
      *
      * Skip the dictionary if there are no locales to translate
      */
@@ -188,7 +183,6 @@ export const listTranslationsTasks = (
       targetLocales: outputLocalesList,
       dictionaryPreset,
       dictionaryFilePath: targetUnmergedDictionary.filePath,
-      sourceContent,
       changedSourceContent,
     });
   }
