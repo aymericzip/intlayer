@@ -93,7 +93,7 @@
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
-    "@vitejs/plugin-react": "6.1.1",
+    "@vitejs/plugin-react": "6.1.2",
     "bun": "1.4.2",
     "enquirer": "2.4.1",
     "fast-glob": "3.3.3",
