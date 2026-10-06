@@ -1,29 +1,53 @@
+import { Container } from '@intlayer/design-system/container';
+import { useDevice } from '@intlayer/design-system/hooks';
 import { cn } from '@intlayer/design-system/utils';
 import {
   type FileContent,
   MessageKey,
   useCrossFrameState,
 } from '@intlayer/editor-react';
-import type { FC } from 'react';
+import type { FC, ReactNode } from 'react';
 import { useIntlayer } from 'react-intlayer';
 
+/** Bordered chip naming a gesture, such as "Long press" or "⌘ + click". */
+const GestureChip: FC<{ children: ReactNode }> = ({ children }) => (
+  <span className="mx-1 whitespace-nowrap rounded-md border border-neutral px-1.5">
+    {children}
+  </span>
+);
+
 export const LongPressMessage: FC = () => {
-  const { message } = useIntlayer('long-press-message');
+  const { message, longPress, modifierClick } =
+    useIntlayer('long-press-message');
+  const { isMac } = useDevice();
   const hoveredContent = useCrossFrameState<FileContent | null>(
     MessageKey.INTLAYER_HOVERED_CONTENT_CHANGED,
     null
   );
 
   return (
-    <div
+    <Container
+      roundedSize="full"
+      border
+      borderColor="neutral"
       className={cn(
-        'rounded-2xl bg-neutral/30 px-3 py-1 font-bold text-foreground text-sm transition-opacity duration-100',
+        'flex-row p-1 text-sm text-text transition-opacity duration-100',
         hoveredContent?.dictionaryKey ? 'opacity-100' : 'opacity-0'
       )}
     >
       {hoveredContent?.dictionaryKey
-        ? message({ dictionaryKey: hoveredContent.dictionaryKey })
+        ? message({
+            longPress: <GestureChip>{longPress}</GestureChip>,
+            modifierClick: (
+              <GestureChip>
+                {modifierClick({ modifierKey: isMac ? '⌘' : 'Ctrl' })}
+              </GestureChip>
+            ),
+            dictionaryKey: (
+              <strong className="mx-1">{hoveredContent.dictionaryKey}</strong>
+            ),
+          })
         : ''}
-    </div>
+    </Container>
   );
 };

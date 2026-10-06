@@ -1,4 +1,6 @@
+import { isSelectionClick, markSelectionClick } from '../core/selectionClick';
 import { defineIntlayerContentSelectorWrapper } from './ContentSelectorWrapper';
+import { isInteractiveClickTarget } from './isInteractiveClickTarget';
 
 const DEFAULT_PRESS_DURATION = 250;
 
@@ -33,9 +35,15 @@ const _HTMLElement =
  * <intlayer-content-selector>
  *
  * A framework-agnostic web component that wraps content with Intlayer editor
- * selection UI (hover outline, long-press to select, click-outside to deselect).
+ * selection UI (hover outline, click to select, click-outside to deselect).
  *
- * @fires intlayer:press     - Fired after a long press (pressDuration ms). Bubbles.
+ * Content is selected by:
+ * - a click, unless it lands on something the app handles (link, button,
+ *   form control, clickable ancestor), which keeps its behavior
+ * - a long press, on any content
+ * - a ⌘ / Ctrl + click, on any content, cancelling the click's own action
+ *
+ * @fires intlayer:press     - Fired when the content is selected. Bubbles.
  * @fires intlayer:hover     - Fired on mouseenter. Bubbles.
  * @fires intlayer:unhover   - Fired on mouseleave / mouseup. Bubbles.
  * @fires intlayer:click-outside - Fired when a click occurs outside the element. Bubbles.
@@ -155,13 +163,16 @@ export class IntlayerContentSelectorElement extends _HTMLElement {
     );
   }
 
+  private _select(): void {
+    this._clearPressTimer();
+    this._isSelectingState = true;
+    this._updateActiveState();
+    this._dispatch('intlayer:press');
+  }
+
   private _handleMouseDown(): void {
     this._clearPressTimer();
-    this._pressTimer = setTimeout(() => {
-      this._isSelectingState = true;
-      this._updateActiveState();
-      this._dispatch('intlayer:press');
-    }, this._pressDuration);
+    this._pressTimer = setTimeout(() => this._select(), this._pressDuration);
   }
 
   private _handleMouseEnter(): void {
@@ -179,11 +190,27 @@ export class IntlayerContentSelectorElement extends _HTMLElement {
     this._updateActiveState();
   }
 
-  private _handleClick(e: MouseEvent): void {
-    if (this._isSelecting || this._isSelectingState) {
-      e.preventDefault();
-      e.stopPropagation();
+  private _handleClick(event: MouseEvent): void {
+    // A nested selector already selected its own content
+    if (isSelectionClick(event)) return;
+
+    const isModifierClick = event.metaKey || event.ctrlKey;
+
+    // Selected content (by a long press, or from the editor) and modifier
+    // clicks never reach the app, so a link or button doesn't fire
+    if (this._isSelecting || this._isSelectingState || isModifierClick) {
+      event.preventDefault();
+      event.stopPropagation();
+
+      if (isModifierClick) this._select();
+      return;
     }
+
+    if (isInteractiveClickTarget(event)) return;
+
+    // Left to propagate: the app's own handlers still run
+    markSelectionClick(event);
+    this._select();
   }
 
   private _handleBlur(): void {

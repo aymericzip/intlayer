@@ -2,6 +2,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { MessageKey } from '../messageKey';
 import type { CrossFrameMessenger } from './CrossFrameMessenger';
 import { IframeClickInterceptor } from './IframeClickInterceptor';
+import { markSelectionClick } from './selectionClick';
 
 /** Minimal messenger double capturing what would cross the frame boundary. */
 const createMessengerMock = () =>
@@ -55,6 +56,17 @@ describe('IframeClickInterceptor', () => {
     document.body.appendChild(selectedContent);
 
     selectedContent.click();
+
+    expect(messenger.send).not.toHaveBeenCalled();
+  });
+
+  it('does not report a click that selected content', () => {
+    const messenger = startInterceptor();
+    const content = document.createElement('p');
+    content.addEventListener('click', markSelectionClick);
+    document.body.appendChild(content);
+
+    content.click();
 
     expect(messenger.send).not.toHaveBeenCalled();
   });

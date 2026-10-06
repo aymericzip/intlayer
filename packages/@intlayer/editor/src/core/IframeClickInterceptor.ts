@@ -1,5 +1,6 @@
 import { MessageKey } from '../messageKey';
 import type { CrossFrameMessenger } from './CrossFrameMessenger';
+import { isSelectionClick } from './selectionClick';
 
 /**
  * Replays a click made inside the iframe on the editor window, so the editor's
@@ -26,7 +27,8 @@ const replayIframeClick = (): void => {
  * Clicks are reported once released rather than on mousedown: a long press on
  * content starts with a mousedown too, and reporting it closed the editor
  * drawers right before the press focused content in them. A completed long
- * press stops its own click (see `ContentSelector`), so it is never reported.
+ * press stops its own click (see `ContentSelector`), and a click selecting
+ * content is marked as such, so neither is reported.
  */
 export class IframeClickInterceptor {
   private readonly _messenger: CrossFrameMessenger;
@@ -39,7 +41,9 @@ export class IframeClickInterceptor {
 
   startInterceptor(): void {
     if (typeof window === 'undefined') return;
-    this._clickHandler = () => {
+    this._clickHandler = (event) => {
+      if (isSelectionClick(event)) return;
+
       this._messenger.send(MessageKey.INTLAYER_IFRAME_CLICKED);
     };
     window.addEventListener('click', this._clickHandler);
