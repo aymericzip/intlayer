@@ -1,8 +1,9 @@
-import { isAbsolute, relative, resolve, sep } from 'node:path';
+import { isAbsolute, relative, resolve } from 'node:path';
 import { TRAVERSE_PATTERN } from '@intlayer/config/defaultValues';
 import { normalizePath } from '@intlayer/config/utils';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import fg from 'fast-glob';
+import { isDirectoryExcluded } from './isDirectoryExcluded';
 
 /**
  * Normalizes a pattern value to an array
@@ -11,32 +12,34 @@ const normalizeToArray = <T>(value: T | T[]): T[] =>
   Array.isArray(value) ? value : [value];
 
 /**
- * Remove directories that are subdirectories of others in the list so files
- * are never scanned twice.
- * Example: ['/root', '/root/src'] → ['/root']
+ * Remove directories nested in others so files are never scanned twice.
+ * A nested directory is kept as its own root when the exclude patterns would
+ * drop it from its parent's scan (e.g. `<root>/dist` under `**\/dist/**`).
+ *
+ * Example: ['/root', '/root/src', '/root/dist'] → ['/root', '/root/dist']
  */
-const getDistinctRootDirs = (dirs: string[]): string[] => {
+const getDistinctRootDirs = (
+  dirs: string[],
+  excludePatterns: string[]
+): string[] => {
   const uniqueDirs = Array.from(new Set(dirs.map((dir) => resolve(dir))));
   uniqueDirs.sort((a, b) => a.length - b.length);
 
   return uniqueDirs.reduce((acc: string[], dir) => {
-    const isNested = acc.some((parent) => {
-      const rel = relative(parent, dir);
+    const isCoveredByParent = acc.some((parent) => {
+      const relativePath = relative(parent, dir);
+      const isNested =
+        relativePath !== '' &&
+        !relativePath.startsWith('..') &&
+        !isAbsolute(relativePath);
 
-      return !rel.startsWith('..') && !isAbsolute(rel) && rel !== '';
+      return isNested && !isDirectoryExcluded(relativePath, excludePatterns);
     });
-    if (!isNested) acc.push(dir);
+    if (!isCoveredByParent) acc.push(dir);
 
     return acc;
   }, []);
 };
-
-/**
- * Returns true when the resolved path passes through a `node_modules` segment.
- * Works on both POSIX and Windows paths.
- */
-const isInsideNodeModules = (dir: string): boolean =>
-  resolve(dir).split(sep).includes('node_modules');
 
 /**
  * Default exclude patterns derived from TRAVERSE_PATTERN.
@@ -53,18 +56,18 @@ const DEFAULT_EXCLUDE_PATTERNS: string[] = TRAVERSE_PATTERN.filter(
  * patterns, negation patterns embedded in `traversePattern`, and optional
  * dot-file inclusion.
  *
- * Special case: `codeDir` entries that live inside `node_modules` (e.g. a
- * design-system package installed as a workspace dependency) are scanned as
- * their own explicit roots. They are NOT collapsed into the project root so
- * the `*\/node_modules\/**` exclusion does not silently drop them.
+ * `codeDir` entries are more precise than the exclude patterns: a `codeDir`
+ * inside an excluded directory (e.g. a design-system `dist` or a package in
+ * `node_modules`) is scanned as its own root, so the exclusion only applies
+ * below it.
  *
  * @example
  * // Single root with excludes
  * const files = buildComponentFilesList(config);
  *
  * @example
- * // Design-system package inside node_modules is still scanned
- * // intlayer.config.ts: { content: { codeDir: ['node_modules/my-ds/src'] } }
+ * // Design-system build output is still scanned
+ * // intlayer.config.ts: { content: { codeDir: ['node_modules/my-ds/dist'] } }
  * const files = buildComponentFilesList(config);
  */
 export const buildComponentFilesList = (
@@ -107,47 +110,21 @@ export const buildComponentFilesList = (
     .filter((pattern): pattern is string => typeof pattern === 'string')
     .map(normalizePath);
 
-  // Separate codeDir entries that live inside node_modules.
-  // getDistinctRootDirs would collapse them into the project root, after which
-  // the **/node_modules/** ignore would silently exclude them.
-  const resolvedCodeDirs = (config.content.codeDir ?? []).map((dir) =>
-    resolve(dir)
-  );
-  const inNodeModulesCodeDirs = resolvedCodeDirs.filter(isInsideNodeModules);
-  const normalCodeDirs = resolvedCodeDirs.filter(
-    (dir) => !isInsideNodeModules(dir)
+  const roots = getDistinctRootDirs(
+    [config.system.baseDir, ...(config.content.codeDir ?? [])],
+    baseExcludePatterns
   );
 
-  // Normal roots: project base + regular codeDir entries, deduplicated.
-  const normalRoots = getDistinctRootDirs([
-    config.system.baseDir,
-    ...normalCodeDirs,
-  ]);
-
-  const normalFiles = normalRoots.flatMap((root) =>
-    fg.sync(patterns, {
-      cwd: root,
-      ignore: baseExcludePatterns,
-      absolute: true,
-      dot: true, // needed for .intlayer and similar
-    })
+  return Array.from(
+    new Set(
+      roots.flatMap((root) =>
+        fg.sync(patterns, {
+          cwd: root,
+          ignore: baseExcludePatterns,
+          absolute: true,
+          dot: true, // needed for .intlayer and similar
+        })
+      )
+    )
   );
-
-  // node_modules codeDir roots: scanned directly from the package root.
-  // **/node_modules/** is removed from the ignore list so it doesn't block
-  // the scan (it is still applied inside the package for nested node_modules).
-  const nodeModulesExcludePatterns = baseExcludePatterns.filter(
-    (pattern) => !pattern.includes('node_modules')
-  );
-
-  const nodeModulesFiles = inNodeModulesCodeDirs.flatMap((dir) =>
-    fg.sync(patterns, {
-      cwd: dir,
-      ignore: nodeModulesExcludePatterns,
-      absolute: true,
-      dot: false,
-    })
-  );
-
-  return Array.from(new Set([...normalFiles, ...nodeModulesFiles]));
 };

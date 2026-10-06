@@ -24,6 +24,7 @@ import { prepareIntlayer } from './prepareIntlayer';
 import {
   formatPath,
   getFormatFromExtension,
+  isDirectoryExcluded,
   parseContentDeclarationFileName,
 } from './utils';
 
@@ -258,14 +259,27 @@ export const watch = async (options?: WatchOptions) => {
         normalizedConfigPath && path === normalizedConfigPath;
 
       if (!isConfigFile) {
-        // Must originate from a watched content directory
-        const isInContentDir = contentDirs.some(
-          (d) => path.startsWith(`${d}/`) || path === d
-        );
-        if (!isInContentDir) continue;
+        // Must originate from a watched content directory (the most specific)
+        const matchingContentDir = contentDirs
+          .filter(
+            (dictionary) =>
+              path.startsWith(`${dictionary}/`) || path === dictionary
+          )
+          .reduce<string | undefined>(
+            (longest, dictionary) =>
+              longest === undefined || dictionary.length > longest.length
+                ? dictionary
+                : longest,
+            undefined
+          );
+        if (matchingContentDir === undefined) continue;
 
-        if (excludedSegments.some((segment) => path.includes(`/${segment}`)))
-          continue;
+        // Exclusions apply below the content directory only, so an explicit
+        // `contentDir` inside e.g. a `dist` folder is still watched
+        const relativeDirectory = dirname(
+          path.slice(matchingContentDir.length)
+        );
+        if (isDirectoryExcluded(relativeDirectory, excludedPath)) continue;
 
         if (!fileExtensions.some((extension) => path.endsWith(extension)))
           continue;
