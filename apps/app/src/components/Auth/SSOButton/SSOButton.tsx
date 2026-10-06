@@ -149,6 +149,8 @@ export const SSOButton: FC<SSOButtonProps> = ({
         title={modalTitle.value}
         hasCloseButton
         size="sm"
+        border
+        borderColor="neutral"
       >
         <div className="flex flex-col gap-4 p-4">
           {showDomainInput && (

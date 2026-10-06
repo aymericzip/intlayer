@@ -47,6 +47,8 @@ export const DictionaryModals: FC<DictionaryModalsProps> = ({ dashboard }) => {
         padding="md"
         hasCloseButton
         title={content.createDictionaryButton.label.value}
+        border
+        borderColor="neutral"
       >
         <Suspense>
           <DictionaryCreationForm

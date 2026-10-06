@@ -442,6 +442,8 @@ export const DiscussionsAdminPageContent: FC = () => {
         size="xl"
         hasCloseButton
         isScrollable
+        border
+        borderColor="neutral"
       >
         <DiscussionAdminDetail discussionId={discussionId} />
       </Modal>

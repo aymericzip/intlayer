@@ -48,7 +48,13 @@ export const AddPasskeyModal: FC<AddPasskeyModalProps> = ({
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={handleClose} padding="md">
+    <Modal
+      isOpen={isOpen}
+      onClose={handleClose}
+      padding="md"
+      border
+      borderColor="neutral"
+    >
       <div className="space-y-4">
         <div className="space-y-2">
           <h2 className="font-semibold text-xl">{modalTitle}</h2>

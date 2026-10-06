@@ -129,6 +129,8 @@ export const ConfigPreviewModal: FC<ConfigPreviewModalProps> = ({
       isScrollable={false}
       className="max-h-[90vh]"
       title={title}
+      border
+      borderColor="neutral"
     >
       <div className="flex size-full flex-col gap-4">
         <div className="flex min-h-0 flex-1 flex-col gap-4 overflow-auto">

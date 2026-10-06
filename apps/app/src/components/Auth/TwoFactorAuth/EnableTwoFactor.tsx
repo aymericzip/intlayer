@@ -198,6 +198,8 @@ export const EnableTwoFactor: FC = () => {
         hasCloseButton={modalType !== 'backupCodes'}
         padding="lg"
         className="max-h-[80vh]"
+        border
+        borderColor="neutral"
       >
         {renderModalContent()}
       </Modal>

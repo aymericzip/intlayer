@@ -82,6 +82,8 @@ export const ConfigImportFlow: FC<ConfigImportFlowProps> = ({
         title={content.title}
         size="md"
         padding="lg"
+        border
+        borderColor="neutral"
       >
         <div className="flex flex-col gap-4">
           <ProviderSelector
@@ -169,6 +171,8 @@ export const ConfigImportFlow: FC<ConfigImportFlowProps> = ({
         hasCloseButton
         size="lg"
         padding="md"
+        border
+        borderColor="neutral"
       >
         <RepositoryList
           selectedProvider={selectedProvider}

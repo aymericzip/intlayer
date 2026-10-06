@@ -134,6 +134,8 @@ export const ConfigEditionForm: FC<ConfigEditionFormProps> = ({
       padding="lg"
       className="w-2xl"
       isScrollable="y"
+      border
+      borderColor="neutral"
     >
       <Form
         schema={configSchema}

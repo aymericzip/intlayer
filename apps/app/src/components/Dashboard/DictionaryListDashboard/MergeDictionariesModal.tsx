@@ -90,6 +90,8 @@ export const MergeDictionariesModal: FC<MergeDictionariesModalProps> = ({
         size="xl"
         padding="md"
         hasCloseButton
+        border
+        borderColor="neutral"
       >
         <div className="flex flex-col gap-4">
           <p className="text-neutral text-sm">

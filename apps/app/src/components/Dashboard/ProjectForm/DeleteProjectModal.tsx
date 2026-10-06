@@ -41,6 +41,8 @@ export const DeleteProjectModal: FC<DeleteProjectModalProps> = ({
       size="md"
       hasCloseButton
       padding="md"
+      border
+      borderColor="neutral"
     >
       <form className="size-full px-3">
         <p className="py-4 text-neutral text-sm">{description}</p>

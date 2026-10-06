@@ -198,6 +198,8 @@ const ProfileFormContent: FC = () => {
         onClose={handleCloseEditProfile}
         title={title.value}
         padding="lg"
+        border
+        borderColor="neutral"
         className="max-h-[80vh]"
       >
         {isEditProfileOpen && (

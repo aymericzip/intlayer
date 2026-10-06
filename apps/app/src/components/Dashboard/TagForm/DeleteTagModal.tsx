@@ -38,7 +38,15 @@ export const DeleteTagModal: FC<DeleteTagModalProps> = ({
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title={title.value} size="md">
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      title={title.value}
+      size="md"
+      border
+      borderColor="neutral"
+      hasCloseButton
+    >
       <form className="size-full px-3">
         <p className="text-neutral text-sm">{description.single}</p>
         <div className="mt-12 flex justify-end gap-2 max-md:flex-col">

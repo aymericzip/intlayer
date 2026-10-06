@@ -32,6 +32,8 @@ export const ConfigFilePreviewModal: FC<ConfigFilePreviewModalProps> = ({
       isScrollable={false}
       className="max-h-[90vh]"
       title={content.modal?.confirmTitle}
+      border
+      borderColor="neutral"
     >
       <div className="flex size-full flex-col gap-4">
         <div className="min-h-0 flex-1 overflow-auto">

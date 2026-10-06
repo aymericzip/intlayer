@@ -87,7 +87,14 @@ export const AppInstallModal = () => {
         : downloadLinux;
 
   return (
-    <Modal isOpen={isOpen} onClose={handleDismiss} size="sm" padding="md">
+    <Modal
+      isOpen={isOpen}
+      onClose={handleDismiss}
+      size="sm"
+      padding="md"
+      border
+      borderColor="neutral"
+    >
       <div className="flex flex-col gap-10">
         <div className="flex items-center gap-10">
           <img

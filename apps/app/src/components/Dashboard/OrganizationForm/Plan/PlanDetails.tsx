@@ -76,6 +76,8 @@ export const PlanDetails: FC<PlanDetailsProps> = () => {
         padding="lg"
         title={cancelModal.title.value}
         hasCloseButton
+        border
+        borderColor="neutral"
       >
         <p className="text-neutral text-sm">{cancelModal.message}</p>
         <FormButton

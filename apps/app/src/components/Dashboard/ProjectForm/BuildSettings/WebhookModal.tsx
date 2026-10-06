@@ -67,6 +67,8 @@ export const WebhookModal: FC<WebhookModalProps> = ({
       size="lg"
       hasCloseButton
       padding="lg"
+      border
+      borderColor="neutral"
     >
       <Form schema={schema} onSubmitSuccess={onSubmit} {...form}>
         <div className="flex flex-col gap-6">

@@ -145,6 +145,8 @@ const OrganizationFormContent: FC = () => {
           onClose={() => setIsCreationModalOpen(false)}
           hasCloseButton
           padding="md"
+          border
+          borderColor="neutral"
         >
           <OrganizationCreationForm
             onOrganizationCreated={() => setIsCreationModalOpen(false)}

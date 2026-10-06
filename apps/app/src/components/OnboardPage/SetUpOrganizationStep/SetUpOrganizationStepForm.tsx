@@ -101,6 +101,8 @@ export const SetupOrganizationStepForm: FC = () => {
             onClose={() => setIsCreationModalOpen(false)}
             hasCloseButton
             padding="md"
+            border
+            borderColor="neutral"
           >
             <OrganizationCreationForm />
           </Modal>

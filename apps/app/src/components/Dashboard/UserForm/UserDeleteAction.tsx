@@ -107,6 +107,8 @@ export const UserDeleteAction: FC<{ userId: string }> = ({ userId }) => {
         title={deleteSection.modalTitle.value}
         hasCloseButton
         padding="md"
+        border
+        borderColor="neutral"
       >
         <div className="flex flex-col gap-8 px-3 pt-4">
           <div className="flex items-start gap-3 rounded-lg px-4">

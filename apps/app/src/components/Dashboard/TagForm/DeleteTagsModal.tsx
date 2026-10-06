@@ -1,4 +1,4 @@
-import { Form, FormButton } from '@intlayer/design-system/form';
+import { FormButton } from '@intlayer/design-system/form';
 import { Modal } from '@intlayer/design-system/modal';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
@@ -29,6 +29,8 @@ export const DeleteTagsModal: FC<DeleteTagsModalProps> = ({
       size="md"
       padding="md"
       hasCloseButton
+      border
+      borderColor="neutral"
     >
       <form className="size-full px-3">
         <p className="py-4 text-neutral text-sm">

@@ -16,7 +16,14 @@ export const CreatePromoCodeModal: FC<CreatePromoCodeModalProps> = ({
 }) => {
   const content = useIntlayer('admin-promo-codes');
   return (
-    <Modal isOpen={isOpen} onClose={onClose} padding="md" isScrollable>
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      padding="md"
+      isScrollable
+      border
+      borderColor="neutral"
+    >
       <div className="space-y-4">
         <div className="space-y-2">
           <h2 className="font-semibold text-xl">{content.modalTitle.value}</h2>

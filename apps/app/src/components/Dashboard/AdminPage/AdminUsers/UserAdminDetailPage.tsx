@@ -91,6 +91,8 @@ const ProjectAccessModal: FC<ProjectAccessModalProps> = ({
       title={content.accessControlProjectname({ projectName })}
       size="lg"
       padding="md"
+      border
+      borderColor="neutral"
     >
       <div className="flex flex-col gap-6">
         {/* Environment access */}

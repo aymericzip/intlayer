@@ -310,6 +310,8 @@ export const RepositoryLink: FC = () => {
         hasCloseButton
         size="lg"
         padding="md"
+        border
+        borderColor="neutral"
       >
         <RepositoryList
           selectedProvider={selectedProvider}

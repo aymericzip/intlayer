@@ -115,7 +115,13 @@ export const FiltersModal: FC<FiltersModalProps> = ({
     params.location !== 'none' || !!params.tags || !!params.type;
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} padding="lg">
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      padding="lg"
+      border
+      borderColor="neutral"
+    >
       <div className="flex w-full flex-col gap-6">
         <div className="flex items-center justify-between">
           <h2 className="font-bold text-xl">{filterLabels.title}</h2>

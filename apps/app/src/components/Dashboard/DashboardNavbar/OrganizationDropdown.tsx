@@ -45,13 +45,6 @@ export const OrganizationDropdown: FC = () => {
     selectOrganization(organizationId);
   };
 
-  // The organizations list is client-only: the API client authenticates with
-  // `credentials: 'include'`, which is a browser mechanism, so SSR always sees
-  // an empty list and renders the empty state. Holding the list back until
-  // after mount keeps the first client render identical to the server markup —
-  // otherwise the fetch resolving around hydration swaps the empty state for
-  // buttons mid-hydration and the tree is thrown away. The panel is closed at
-  // that point, so nothing is visibly deferred.
   const otherOrganizations = isMounted
     ? (organizations?.data ?? [])
         .filter(
@@ -67,6 +60,8 @@ export const OrganizationDropdown: FC = () => {
         isOpen={isCreationModalOpen}
         onClose={() => setIsCreationModalOpen(false)}
         padding="md"
+        border
+        borderColor="neutral"
       >
         <OrganizationCreationForm
           onOrganizationCreated={(organization) => {

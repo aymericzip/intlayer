@@ -14,7 +14,13 @@ export const SendInvitationModal: FC<SendInvitationModalProps> = ({
 }) => {
   const content = useIntlayer('send-invitation-modal');
   return (
-    <Modal isOpen={isOpen} onClose={onClose} padding="md">
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      padding="md"
+      border
+      borderColor="neutral"
+    >
       <div className="space-y-4">
         <div className="space-y-2">
           <h2 className="font-semibold text-xl">

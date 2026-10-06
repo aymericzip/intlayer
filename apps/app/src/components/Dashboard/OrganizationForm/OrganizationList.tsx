@@ -191,6 +191,8 @@ export const OrganizationList: FC<OrganizationListProps> = ({
         onClose={() => setIsCreationModalOpen(false)}
         hasCloseButton
         padding="md"
+        border
+        borderColor="neutral"
       >
         <OrganizationCreationForm />
       </Modal>

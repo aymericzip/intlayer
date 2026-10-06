@@ -30,6 +30,8 @@ export const DictionaryDetailModal: FC<DictionaryDetailModalProps> = ({
       hasCloseButton
       size="lg"
       className="h-full"
+      border
+      borderColor="neutral"
     >
       {!dictionary || isPending ? (
         <div className="flex h-full min-h-0 w-full flex-1 flex-col gap-6 p-6">

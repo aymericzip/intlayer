@@ -119,6 +119,8 @@ export const ChangePasswordModal: FC<ChangePasswordModalProps> = ({
         title={openButton.text.value}
         padding="lg"
         className="max-h-[80vh]"
+        border
+        borderColor="neutral"
       >
         {isOpen && <ChangePasswordFormUI onSubmitSuccess={handleSubmit} />}
       </Modal>

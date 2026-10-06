@@ -75,6 +75,8 @@ export const CIWorkflowModal: FC<CIWorkflowModalProps> = ({
       size="lg"
       hasCloseButton
       padding="lg"
+      border
+      borderColor="neutral"
     >
       <div className="flex flex-col gap-4">
         <p className="text-neutral text-sm">{description}</p>

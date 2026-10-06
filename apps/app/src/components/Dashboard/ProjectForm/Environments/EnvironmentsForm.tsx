@@ -327,6 +327,8 @@ export const EnvironmentsForm: FC = () => {
         hasCloseButton
         size="md"
         padding="md"
+        border
+        borderColor="neutral"
       >
         <div className="flex flex-col gap-4">
           <div className="flex items-center justify-between gap-3">

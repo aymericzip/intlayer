@@ -303,6 +303,8 @@ export const ScansAdminPageContent: FC = () => {
         size="xl"
         hasCloseButton
         isScrollable
+        border
+        borderColor="neutral"
       >
         {selectedHost && <ScannedHostDetail host={selectedHost} />}
       </Modal>

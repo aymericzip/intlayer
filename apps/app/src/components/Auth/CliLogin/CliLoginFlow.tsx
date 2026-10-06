@@ -63,6 +63,8 @@ const AccessKeySelector: FC<{
         hasCloseButton
         padding="md"
         isScrollable
+        border
+        borderColor="neutral"
       >
         <AccessKeyCreationForm
           onAccessKeyCreated={(response) => {

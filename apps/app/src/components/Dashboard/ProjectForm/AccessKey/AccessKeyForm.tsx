@@ -53,6 +53,8 @@ const AccessKeyItem: FC<{
         title={modal.deleteTitle.value}
         hasCloseButton
         isScrollable="y"
+        border
+        borderColor="neutral"
       >
         <p className="text-neutral text-sm">{modal.deleteMessage}</p>
         <FormButton
@@ -76,6 +78,8 @@ const AccessKeyItem: FC<{
         className="p-3"
         hasCloseButton
         isScrollable="y"
+        border
+        borderColor="neutral"
       >
         <p className="text-neutral text-sm">{modal.updateMessage}</p>
         <FormButton
@@ -265,6 +269,8 @@ export const AccessKeyForm: FC = () => {
         isScrollable="y"
         padding="md"
         title={createAccessKey.text as string}
+        border
+        borderColor="neutral"
       >
         <AccessKeyCreationForm
           onAccessKeyCreated={(response) => {

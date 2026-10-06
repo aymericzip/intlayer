@@ -274,6 +274,8 @@ const AccessControlModal: FC<AccessControlModalProps> = ({
       title={title}
       size="md"
       padding="md"
+      border
+      borderColor="neutral"
     >
       {selectedUserId ? (
         <MemberDetailView

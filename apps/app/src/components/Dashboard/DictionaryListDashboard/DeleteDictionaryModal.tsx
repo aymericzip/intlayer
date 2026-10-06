@@ -32,6 +32,8 @@ export const DeleteDictionaryModal: FC<DeleteDictionaryModalProps> = ({
       size="md"
       padding="md"
       hasCloseButton
+      border
+      borderColor="neutral"
     >
       <form className="size-full px-3">
         <p className="py-4 text-neutral text-sm">

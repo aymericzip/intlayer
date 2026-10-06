@@ -114,6 +114,8 @@ export const ConfigSelectionModal: FC<ConfigSelectionModalProps> = ({
       hasCloseButton
       size="md"
       padding="lg"
+      border
+      borderColor="neutral"
     >
       <div className="flex max-h-96 w-full flex-col gap-4">
         <p className="text-neutral text-sm">

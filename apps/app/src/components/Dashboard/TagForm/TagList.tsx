@@ -292,6 +292,8 @@ export const TagList: FC = () => {
         padding="md"
         title={createTagButton.text.value}
         hasCloseButton
+        border
+        borderColor="neutral"
       >
         <TagCreationForm onTagCreated={() => setIsCreationModalOpen(false)} />
       </Modal>

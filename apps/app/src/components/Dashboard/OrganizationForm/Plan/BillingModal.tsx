@@ -54,6 +54,8 @@ export const BillingModal: FC<BillingModalProps> = ({ isOpen, onClose }) => {
       title={billingModal.title.value}
       hasCloseButton
       isScrollable
+      border
+      borderColor="neutral"
     >
       <div className="flex flex-col gap-10">
         {/* Payment Section */}

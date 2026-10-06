@@ -150,6 +150,8 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
               size="xl"
               transparency="lg"
               className="h-full"
+              border
+              borderColor="neutral"
             >
               <div className="flex h-full min-h-0 w-full flex-1 flex-col px-3 pt-5">
                 <DictionaryFieldEditor

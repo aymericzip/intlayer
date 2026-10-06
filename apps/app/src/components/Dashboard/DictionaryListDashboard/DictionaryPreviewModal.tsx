@@ -31,6 +31,8 @@ export const DictionaryPreviewModal: FC<DictionaryPreviewModalProps> = ({
       padding="md"
       hasCloseButton
       isScrollable
+      border
+      borderColor="neutral"
     >
       {dictionary && (
         <Container

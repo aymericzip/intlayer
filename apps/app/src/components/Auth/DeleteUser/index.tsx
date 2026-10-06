@@ -80,6 +80,8 @@ export const DeleteUser: FC = () => {
         title={modal.title.value}
         padding="lg"
         hasCloseButton
+        border
+        borderColor="neutral"
       >
         {isModalOpen && (
           <div className="mt-6 flex w-full flex-col gap-6">
