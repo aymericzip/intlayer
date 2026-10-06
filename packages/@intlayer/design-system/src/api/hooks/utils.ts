@@ -8,7 +8,7 @@ import {
   type UseQueryResult,
   useQuery,
 } from '@tanstack/react-query';
-import { useAuth } from '../useAuth';
+import { useAuth, useBearerAuth } from '../useAuth';
 
 type AuthEnableOptions = {
   requireUser?: boolean;
@@ -26,13 +26,19 @@ export const useAuthEnable = ({
     intlayerConfiguration: configuration,
   });
 
-  const user = session ? session.user : oAuth2AccessToken?.user;
+  const bearerAuth = useBearerAuth();
+
+  const user = session
+    ? session.user
+    : (oAuth2AccessToken?.user ?? bearerAuth?.user);
 
   const organization = session
     ? session.organization
-    : oAuth2AccessToken?.organization;
+    : (oAuth2AccessToken?.organization ?? bearerAuth?.organization);
 
-  const project = session ? session.project : oAuth2AccessToken?.project;
+  const project = session
+    ? session.project
+    : (oAuth2AccessToken?.project ?? bearerAuth?.project);
 
   const isUserEnabled = requireUser ? Boolean(user) : true;
 

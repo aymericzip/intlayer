@@ -5,6 +5,7 @@ import { AppProvider } from './components/AppProvider';
 import { AppRouter } from './components/AppRouter';
 import { EditorLayout } from './components/Editor/EditorLayout';
 import { EditorProvider } from './components/Editor/EditorProvider';
+import { HostFrameBridge } from './components/Editor/HostFrameBridge';
 import { IframeController } from './components/Editor/IframeController';
 
 const AppContent: FC = () => {
@@ -13,6 +14,7 @@ const AppContent: FC = () => {
 
   return (
     <EditorProvider iframeRef={iframeRef}>
+      <HostFrameBridge />
       <IntlayerProviderContent disableEditor>
         <EditorLayout>
           <IframeController

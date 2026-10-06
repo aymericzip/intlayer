@@ -82,6 +82,11 @@ type LoginOptions = {
     clientId: string;
     clientSecret: string;
   }) => void | Promise<void>;
+  /**
+   * Aborts a login still waiting for the browser callback: the callback
+   * server is shut down and the returned promise resolves.
+   */
+  signal?: AbortSignal;
 };
 
 export const login = async (options: LoginOptions = {}) => {
@@ -251,6 +256,22 @@ export const login = async (options: LoginOptions = {}) => {
         res.end('Not found');
       }
     });
+
+    const abortLogin = (): void => {
+      server.close();
+      server.closeAllConnections();
+      resolve();
+    };
+
+    if (options.signal?.aborted) {
+      resolve();
+      return;
+    }
+
+    options.signal?.addEventListener('abort', abortLogin, { once: true });
+    server.on('close', () =>
+      options.signal?.removeEventListener('abort', abortLogin)
+    );
 
     server.listen(0, () => {
       const address = server.address();

@@ -11,6 +11,7 @@ import * as ANSIColors from '@intlayer/config/colors';
 import { getEnvFilePath } from '@intlayer/config/env';
 import { colorize, colorizePath, getAppLogger } from '@intlayer/config/logger';
 import { getConfiguration } from '@intlayer/config/node';
+import { authRouter } from '@routes/auth.routes';
 import { configurationRouter } from '@routes/config.routes';
 import { dictionaryRouter } from '@routes/dictionary.routes';
 import { checkPortAvailability } from '@utils/checkPortAvailability';
@@ -75,7 +76,13 @@ const startServer = async (app: FastifyInstance) => {
 
   // Security Headers
   await app.register(fastifyHelmet, {
-    contentSecurityPolicy: false,
+    // Only restrict who may frame the editor: itself and IDE webviews (the
+    // VS Code extension panel). `X-Frame-Options` cannot list a scheme.
+    contentSecurityPolicy: {
+      useDefaults: false,
+      directives: { frameAncestors: ["'self'", 'vscode-webview:'] },
+    },
+    frameguard: false,
     global: true,
   });
 
@@ -94,6 +101,7 @@ const startServer = async (app: FastifyInstance) => {
   // Register Routes
   await app.register(dictionaryRouter, { prefix: '/api/dictionary' });
   await app.register(configurationRouter, { prefix: '/api/config' });
+  await app.register(authRouter, { prefix: '/api/auth' });
 
   // Serve Static Files
   await app.register(fastifyStatic, {

@@ -3,6 +3,7 @@
 import type { OAuth2Token } from '@intlayer/backend-contract/oAuth2';
 import type { SessionAPI } from '@intlayer/backend-contract/session';
 import type { IntlayerConfig } from '@intlayer/types/config';
+import { useBearerAuth } from './BearerAuthProvider';
 import { useOAuth2 } from './useOAuth2';
 import { useSession } from './useSession';
 
@@ -27,6 +28,7 @@ export const useAuth = ({
     intlayerConfiguration
   );
   const { oAuth2AccessToken } = useOAuth2(intlayerConfiguration);
+  const bearerAuth = useBearerAuth();
 
   return {
     session,
@@ -34,6 +36,8 @@ export const useAuth = ({
     setSession,
     revalidateSession,
     oAuth2AccessToken,
-    isAuthenticated: Boolean(session?.user || oAuth2AccessToken),
+    isAuthenticated: Boolean(
+      session?.user || oAuth2AccessToken || bearerAuth?.accessToken
+    ),
   };
 };

@@ -2,6 +2,7 @@
 
 import {
   useAuth,
+  useBearerAuth,
   useDeleteDictionary,
   usePushDictionaries,
   useSession,
@@ -27,6 +28,7 @@ import {
   type DetailedHTMLProps,
   type FC,
   type FormHTMLAttributes,
+  useEffect,
   useState,
 } from 'react';
 import { useIntlayer } from 'react-intlayer';
@@ -67,11 +69,19 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
   } = useIntlayer('save-dictionary-details');
   const { isAuthenticated } = useAuth();
   const { session } = useSession();
+  const bearerAuth = useBearerAuth();
+  // Push requested while signed out, sent once the sign-in lands
+  const [isPushAwaitingLogin, setIsPushAwaitingLogin] = useState(false);
 
-  const hasDictionaryWritePermission =
-    (session?.permissions?.includes('dictionary:admin') ||
-      session?.permissions?.includes('dictionary:write')) ??
-    false;
+  // A bearer token carries no permission list: the backend enforces it
+  const hasDictionaryWritePermission = session
+    ? ((session.permissions?.includes('dictionary:admin') ||
+        session.permissions?.includes('dictionary:write')) ??
+      false)
+    : Boolean(bearerAuth?.accessToken);
+
+  const canLoginToPush =
+    mode.includes('remote') && !isAuthenticated && Boolean(bearerAuth?.login);
 
   const hasDictionaryDeletePermission = hasDictionaryWritePermission;
 
@@ -127,6 +137,25 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
       }
     );
   };
+
+  const handleLoginToPush = () => {
+    setIsPushAwaitingLogin(true);
+    bearerAuth?.login?.();
+  };
+
+  const isLoggingIn = Boolean(bearerAuth?.isLoggingIn);
+
+  useEffect(() => {
+    if (!isPushAwaitingLogin) return;
+
+    if (isAuthenticated) {
+      setIsPushAwaitingLogin(false);
+      handlePushDictionary();
+    } else if (!isLoggingIn) {
+      // Sign-in abandoned: drop the push instead of firing it later
+      setIsPushAwaitingLogin(false);
+    }
+  }, [isPushAwaitingLogin, isAuthenticated, isLoggingIn]);
 
   const handleDeleteDictionary = () => {
     if (!dictionary.id) return;
@@ -221,7 +250,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
             disabled={!isEdited || isLoading}
             Icon={Download}
             color="text"
-            variant={isAuthenticated ? 'outline' : 'default'}
+            variant={isAuthenticated || canLoginToPush ? 'outline' : 'default'}
             className="max-md:w-full"
             isLoading={isWriting}
             onClick={() => setIsFormatAlertModalOpen(true)}
@@ -238,6 +267,19 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
             className="max-md:w-full"
             isLoading={isPushing}
             onClick={handlePushDictionary}
+          >
+            {publishButton.text}
+          </FormButton>
+        )}
+        {canLoginToPush && !isDistantDictionary && (
+          <FormButton
+            label={publishButton.label.value}
+            disabled={isLoading}
+            Icon={ArrowUpFromLine}
+            color="text"
+            className="max-md:w-full"
+            isLoading={isPushAwaitingLogin}
+            onClick={handleLoginToPush}
           >
             {publishButton.text}
           </FormButton>

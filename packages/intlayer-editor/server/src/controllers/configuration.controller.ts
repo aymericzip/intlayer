@@ -15,8 +15,12 @@ export const getConfiguration = async (
   try {
     const config = getApplicationConfiguration();
 
+    // The client secret never leaves the server: the client authenticates
+    // with the short-lived token served by the auth routes.
+    const { clientSecret: _clientSecret, ...editor } = config.editor;
+
     const formattedResponse = formatResponse<IntlayerConfig>({
-      data: config,
+      data: { ...config, editor },
     });
 
     return res.send(formattedResponse);

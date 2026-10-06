@@ -33,6 +33,7 @@ import { useConfiguration } from '@intlayer/editor-react';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { useLocale } from 'react-intlayer';
 import { type AuthAPI, getAuthAPI } from '../libs/auth';
+import { useBearerAuth } from './useAuth/BearerAuthProvider';
 
 export type UseIntlayerAuthProps = {
   options?: FetcherOptions;
@@ -54,6 +55,8 @@ export type UseIntlayerAuthProps = {
 export const useIntlayerOAuthOptions = (props?: UseIntlayerAuthProps) => {
   const configuration = useConfiguration();
   const { locale } = useLocale();
+  const bearerAuth = useBearerAuth();
+  const sessionToken = props?.sessionToken ?? bearerAuth?.accessToken;
 
   // On a first-party origin the session cookie authenticates every call (the
   // fetcher sends `credentials: 'include'`), so no header is needed. Elsewhere
@@ -63,8 +66,8 @@ export const useIntlayerOAuthOptions = (props?: UseIntlayerAuthProps) => {
   const options: FetcherOptions = {
     headers: {
       [HEADER_NAME]: locale,
-      ...(props?.sessionToken && {
-        Authorization: `Bearer ${props.sessionToken}`,
+      ...(sessionToken && {
+        Authorization: `Bearer ${sessionToken}`,
       }),
     },
     ...(props?.options ?? {}),
