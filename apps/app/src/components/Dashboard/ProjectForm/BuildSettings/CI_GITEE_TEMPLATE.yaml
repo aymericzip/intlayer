@@ -1,0 +1,18 @@
+version: '1.0'
+name: intlayer-cms-update
+displayName: Intlayer CMS Update
+triggers:
+  trigger: manual
+stages:
+  - name: build
+    displayName: Build
+    strategy: naturally
+    trigger: auto
+    steps:
+      - step: build@nodejs
+        name: build_nodejs
+        displayName: Build
+        nodeVersion: 20.10.0
+        commands:
+          - npm ci
+          - npm run build

@@ -10,9 +10,11 @@ import { getAnalyticsAPI } from '@intlayer/api/analytics';
 import { getAssetAPI } from '@intlayer/api/asset';
 import { getAuditAPI } from '@intlayer/api/audit';
 import { getBitbucketAPI } from '@intlayer/api/bitbucket';
+import { getCodebergAPI } from '@intlayer/api/codeberg';
 import { getDictionaryAPI } from '@intlayer/api/dictionary';
 import { getEditorAPI } from '@intlayer/api/editor';
 import { getEnvironmentAPI } from '@intlayer/api/environment';
+import { getGiteeAPI } from '@intlayer/api/gitee';
 import { getGithubAPI } from '@intlayer/api/github';
 import { getGitlabAPI } from '@intlayer/api/gitlab';
 import { getNewsletterAPI } from '@intlayer/api/newsletter';
@@ -198,6 +200,20 @@ export const useBitbucketAPI = (
 ): ReturnType<typeof getBitbucketAPI> => {
   const { options, resolvedConfig } = useIntlayerOAuthOptions(props);
   return getBitbucketAPI(options, resolvedConfig);
+};
+
+export const useCodebergAPI = (
+  props?: UseIntlayerAuthProps
+): ReturnType<typeof getCodebergAPI> => {
+  const { options, resolvedConfig } = useIntlayerOAuthOptions(props);
+  return getCodebergAPI(options, resolvedConfig);
+};
+
+export const useGiteeAPI = (
+  props?: UseIntlayerAuthProps
+): ReturnType<typeof getGiteeAPI> => {
+  const { options, resolvedConfig } = useIntlayerOAuthOptions(props);
+  return getGiteeAPI(options, resolvedConfig);
 };
 
 export const useShowcaseProjectAPI = (

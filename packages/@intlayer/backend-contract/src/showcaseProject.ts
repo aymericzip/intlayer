@@ -21,7 +21,10 @@ import {
 
 /** Rejects repository URLs, which belong in the `githubUrl` field. */
 const isNotRepositoryURL = z.refine<string>(
-  (value: string) => !/github\.com|gitlab\.com|bitbucket\.org/.test(value),
+  (value: string) =>
+    !/github\.com|gitlab\.com|bitbucket\.org|codeberg\.org|gitee\.com/.test(
+      value
+    ),
   { message: 'Repository URLs should be placed in the GitHub URL field' }
 );
 

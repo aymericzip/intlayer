@@ -13,6 +13,8 @@ type RepositoryListProps = {
   isProviderLinked: boolean | null;
   gitlabInstanceUrl?: string;
   onConfigDetected: (repo: RepoData, configPaths: string[]) => void;
+  /** Search pre-filled on mount (ex: the detected repository name) */
+  initialSearch?: string;
 };
 
 export const RepositoryList: FC<RepositoryListProps> = ({
@@ -20,6 +22,7 @@ export const RepositoryList: FC<RepositoryListProps> = ({
   isProviderLinked,
   gitlabInstanceUrl,
   onConfigDetected,
+  initialSearch = '',
 }) => {
   const { repositoryList } = useIntlayer('repository-link');
   const { repos, isLoadingRepos, processingRepoId, handleSelectRepo } =
@@ -30,7 +33,7 @@ export const RepositoryList: FC<RepositoryListProps> = ({
       onConfigDetected,
     });
   const { search, setSearch } = useSearch({
-    defaultValue: '',
+    defaultValue: initialSearch,
   });
 
   // Memoize the Fuse instance so it only rebuilds when 'repos' changes

@@ -1,4 +1,4 @@
-import { type DeclarationContent, insert, t } from 'intlayer';
+import { type Dictionary, insert, t } from 'intlayer';
 
 const cliLoginFlowContent = {
   key: 'cli-login-flow',
@@ -361,6 +361,6 @@ const cliLoginFlowContent = {
   description:
     'Content declaration for the CLI login flow used by the Auth/CliLogin component. Provides labels and selections for logging in, choosing organization, project, and access key.',
   tags: ['cli', 'authentication', 'login', 'auth-flow'],
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default cliLoginFlowContent;

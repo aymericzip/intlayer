@@ -7,9 +7,11 @@ import { getAnalyticsAPI } from './getIntlayerAPI/analytics';
 import { getAssetAPI } from './getIntlayerAPI/asset';
 import { getAuditAPI } from './getIntlayerAPI/audit';
 import { getBitbucketAPI } from './getIntlayerAPI/bitbucket';
+import { getCodebergAPI } from './getIntlayerAPI/codeberg';
 import { getDictionaryAPI } from './getIntlayerAPI/dictionary';
 import { getEditorAPI } from './getIntlayerAPI/editor';
 import { getEnvironmentAPI } from './getIntlayerAPI/environment';
+import { getGiteeAPI } from './getIntlayerAPI/gitee';
 import { getGithubAPI } from './getIntlayerAPI/github';
 import { getGitlabAPI } from './getIntlayerAPI/gitlab';
 import type { IntlayerAPI } from './getIntlayerAPI/index';
@@ -60,6 +62,8 @@ const sectionFactories: SectionFactories = {
   github: getGithubAPI,
   gitlab: getGitlabAPI,
   bitbucket: getBitbucketAPI,
+  codeberg: getCodebergAPI,
+  gitee: getGiteeAPI,
   showcaseProject: getShowcaseProjectAPI,
   translate: getTranslateAPI,
   reviewer: getReviewerAPI,

@@ -7,9 +7,11 @@ import { getAnalyticsAPI } from './analytics';
 import { getAssetAPI } from './asset';
 import { getAuditAPI } from './audit';
 import { getBitbucketAPI } from './bitbucket';
+import { getCodebergAPI } from './codeberg';
 import { getDictionaryAPI } from './dictionary';
 import { getEditorAPI } from './editor';
 import { getEnvironmentAPI } from './environment';
+import { getGiteeAPI } from './gitee';
 import { getGithubAPI } from './github';
 import { getGitlabAPI } from './gitlab';
 import { getNewsletterAPI } from './newsletter';
@@ -44,6 +46,8 @@ interface IntlayerAPIReturn {
   github: ReturnType<typeof getGithubAPI>;
   gitlab: ReturnType<typeof getGitlabAPI>;
   bitbucket: ReturnType<typeof getBitbucketAPI>;
+  codeberg: ReturnType<typeof getCodebergAPI>;
+  gitee: ReturnType<typeof getGiteeAPI>;
   showcaseProject: ReturnType<typeof getShowcaseProjectAPI>;
   translate: ReturnType<typeof getTranslateAPI>;
   reviewer: ReturnType<typeof getReviewerAPI>;
@@ -77,6 +81,8 @@ export const getIntlayerAPI = (
     github: getGithubAPI(authAPIOptions, resolvedConfig),
     gitlab: getGitlabAPI(authAPIOptions, resolvedConfig),
     bitbucket: getBitbucketAPI(authAPIOptions, resolvedConfig),
+    codeberg: getCodebergAPI(authAPIOptions, resolvedConfig),
+    gitee: getGiteeAPI(authAPIOptions, resolvedConfig),
     showcaseProject: getShowcaseProjectAPI(authAPIOptions, resolvedConfig),
     translate: getTranslateAPI(authAPIOptions, resolvedConfig),
     reviewer: getReviewerAPI(authAPIOptions, resolvedConfig),

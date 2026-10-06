@@ -5,7 +5,6 @@ import { H3 } from '@intlayer/design-system/headers';
 import { Input } from '@intlayer/design-system/input';
 import { Modal } from '@intlayer/design-system/modal';
 import { App_Dashboard_IDE_Path } from '@intlayer/design-system/routes';
-import { TechLogos } from '@intlayer/design-system/tech-logo';
 import {
   CheckCircle2,
   Code,
@@ -25,31 +24,21 @@ import { ConfigSelectionModal } from './ConfigSelectionModal';
 import { useProjectConfigActions } from './hooks/useProjectConfigActions';
 import { useProviderLink } from './hooks/useProviderLink';
 import { ProviderSelector } from './ProviderSelector';
+import { PROVIDER_NAMES, ProviderLogo } from './providers';
 import { RepositoryList } from './RepositoryList';
-import type { ConfigPreviewState, RepoData, RepositoryProvider } from './types';
+import type { ConfigPreviewState, DetectedRepository, RepoData } from './types';
 
-const ProviderIcon: FC<{
-  provider: RepositoryProvider;
-  className?: string;
-}> = ({ provider, className = 'size-6' }) => {
-  switch (provider) {
-    case 'github':
-      return <TechLogos.GITHUB className={className} />;
-    case 'gitlab':
-      return <TechLogos.GITLAB className={className} />;
-    case 'bitbucket':
-      return <TechLogos.BITBUCKET className={className} />;
-    default:
-      return null;
-  }
+type RepositoryLinkProps = {
+  /**
+   * Pre-selects the provider (the only one offered until "See more options"),
+   * and pre-fills the repository search
+   */
+  detectedRepository?: DetectedRepository;
 };
 
-const PROVIDER_NAMES: Record<RepositoryProvider, string> = {
-  github: 'GitHub',
-  gitlab: 'GitLab',
-  bitbucket: 'Bitbucket',
-};
-export const RepositoryLink: FC = () => {
+export const RepositoryLink: FC<RepositoryLinkProps> = ({
+  detectedRepository,
+}) => {
   const content = useIntlayer('repository-link');
   const navigate = useLocalizedNavigate();
   const { session } = useSession();
@@ -74,7 +63,10 @@ export const RepositoryLink: FC = () => {
     setGitlabInstanceUrl,
     handleProviderSelect,
     handleConnectClick,
-  } = useProviderLink();
+  } = useProviderLink({
+    initialProvider: detectedRepository?.provider,
+    initialGitlabInstanceUrl: detectedRepository?.instanceUrl,
+  });
 
   const {
     connectedRepository,
@@ -109,7 +101,7 @@ export const RepositoryLink: FC = () => {
               <h5 className="font-semibold">{content.status?.connectedTo}</h5>
               <div className="flex flex-wrap items-center gap-2">
                 <span className="flex items-center gap-1">
-                  <ProviderIcon
+                  <ProviderLogo
                     provider={connectedRepository.provider}
                     className="size-4 [&_path]:fill-text/60!"
                   />
@@ -184,6 +176,7 @@ export const RepositoryLink: FC = () => {
             onSelectProvider={handleProviderSelect}
             isCheckingProvider={isCheckingProvider}
             disabled={!hasProjectWritePermission}
+            preferredProvider={detectedRepository?.provider}
           />
 
           {/* Custom GitLab Instance URL */}
@@ -218,7 +211,7 @@ export const RepositoryLink: FC = () => {
               borderColor="card"
               className="flex flex-col gap-4 px-6 py-4 text-center"
             >
-              <ProviderIcon
+              <ProviderLogo
                 provider={selectedProvider}
                 className="mx-auto size-12 text-text [&_path]:fill-text/60!"
               />
@@ -317,19 +310,28 @@ export const RepositoryLink: FC = () => {
           selectedProvider={selectedProvider}
           isProviderLinked={isProviderLinked}
           gitlabInstanceUrl={gitlabInstanceUrl}
+          initialSearch={
+            detectedRepository?.provider === selectedProvider
+              ? detectedRepository?.repository
+              : undefined
+          }
           onConfigDetected={(repo, configPaths) => {
-            setSelectedRepo(repo);
-            setDetectedConfigs(configPaths);
+            const detectedConfigPath = detectedRepository?.configFilePath;
 
-            if (configPaths.length === 1) {
-              // We need to fetch the file content, which is done in ConfigSelectionModal or ConfigPreviewModal.
-              // We will open ConfigSelectionModal which automatically handles the logic if we want, or we can just open it.
-              setIsRepoListOpen(false);
-              setIsConfigSelectionOpen(true);
-            } else {
-              setIsRepoListOpen(false);
-              setIsConfigSelectionOpen(true);
-            }
+            setSelectedRepo(repo);
+            // The config of the local project is listed first
+            setDetectedConfigs(
+              detectedConfigPath && configPaths.includes(detectedConfigPath)
+                ? [
+                    detectedConfigPath,
+                    ...configPaths.filter(
+                      (configPath) => configPath !== detectedConfigPath
+                    ),
+                  ]
+                : configPaths
+            );
+            setIsRepoListOpen(false);
+            setIsConfigSelectionOpen(true);
           }}
         />
       </Modal>

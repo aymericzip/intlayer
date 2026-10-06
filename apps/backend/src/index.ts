@@ -33,6 +33,7 @@ import {
   blogCommentRoute,
   blogCommentRouter,
 } from '@routes/blogComment.routes';
+import { codebergRoute, codebergRouter } from '@routes/codeberg.routes';
 import { demoRoute, demoRouter } from '@routes/demo.routes';
 import { dictionaryRoute, dictionaryRouter } from '@routes/dictionary.routes';
 import {
@@ -43,6 +44,7 @@ import {
   eventListenerRoute,
   eventListenerRouter,
 } from '@routes/eventListener.routes';
+import { giteeRoute, giteeRouter } from '@routes/gitee.routes';
 import { githubRoute, githubRouter } from '@routes/github.routes';
 import { gitlabRoute, gitlabRouter } from '@routes/gitlab.routes';
 import { newsletterRoute, newsletterRouter } from '@routes/newsletter.routes';
@@ -371,6 +373,8 @@ const startServer = async () => {
   await app.register(githubRouter, { prefix: githubRoute });
   await app.register(gitlabRouter, { prefix: gitlabRoute });
   await app.register(bitbucketRouter, { prefix: bitbucketRoute });
+  await app.register(codebergRouter, { prefix: codebergRoute });
+  await app.register(giteeRouter, { prefix: giteeRoute });
   await app.register(translationRouter, { prefix: translateRoute });
   await app.register(auditRouter, { prefix: auditRoute });
   await app.register(assetRouter, { prefix: assetRoute });

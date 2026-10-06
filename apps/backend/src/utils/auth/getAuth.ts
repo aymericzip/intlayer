@@ -35,6 +35,7 @@ import {
   multiSession,
   twoFactor,
 } from 'better-auth/plugins';
+import { genericOAuth } from 'better-auth/plugins/generic-oauth';
 import { magicLink } from 'better-auth/plugins/magic-link';
 import type { MongoClient } from 'mongodb';
 import { Types } from 'mongoose';
@@ -46,6 +47,7 @@ import type {
   SessionDataApi,
 } from '@/types/session.types';
 import type { UserAPI } from '@/types/user.types';
+import { getForgeOAuthProviders } from './forgeOAuthProviders';
 
 export type Auth = ReturnType<typeof betterAuth>;
 
@@ -235,6 +237,8 @@ export const getAuth = (dbClient: MongoClient): Auth => {
 
     plugins: [
       multiSession(),
+      // Codeberg / Gitee: no built-in better-auth provider
+      genericOAuth({ config: getForgeOAuthProviders() }),
       customSession(async ({ session }) => {
         const typedSession = session as unknown as SessionDataApi;
 
@@ -448,6 +452,8 @@ export const getAuth = (dbClient: MongoClient): Auth => {
         'linkedin',
         'gitlab',
         'atlassian',
+        'codeberg',
+        'gitee',
         'microsoft',
         'email-password',
         'magic-link',

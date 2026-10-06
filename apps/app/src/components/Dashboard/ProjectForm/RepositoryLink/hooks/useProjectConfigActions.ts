@@ -1,8 +1,5 @@
 import type { RepositoryConnection } from '@intlayer/backend-contract/project';
 import {
-  useBitbucketGetConfigFile,
-  useGithubGetConfigFile,
-  useGitlabGetConfigFile,
   usePushProjectConfiguration,
   useSession,
   useUpdateProject,
@@ -14,6 +11,7 @@ import { useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { parseConfigContent } from '../parseConfigContent';
 import type { ConfigPreviewState } from '../types';
+import { useRepositoryConfigFile } from './useRepositoryConfigFile';
 
 // Arrays in the config (e.g. locales) should be replaced, not concatenated.
 const defu = createDefu((obj, key, value) => {
@@ -41,21 +39,12 @@ export const useProjectConfigActions = () => {
       parseConfigContent({ data: { content: configContent } }),
   });
 
-  const { mutateAsync: getGithubConfigFile, isPending: isFetchingGithub } =
-    useGithubGetConfigFile();
-  const { mutateAsync: getGitlabConfigFile, isPending: isFetchingGitlab } =
-    useGitlabGetConfigFile();
-  const {
-    mutateAsync: getBitbucketConfigFile,
-    isPending: isFetchingBitbucket,
-  } = useBitbucketGetConfigFile();
+  const { fetchConfigFile, isFetchingConfigFile: isFetchingConfig } =
+    useRepositoryConfigFile();
 
   const [viewOnlyConfigContent, setViewOnlyConfigContent] = useState<
     string | null
   >(null);
-
-  const isFetchingConfig =
-    isFetchingGithub || isFetchingGitlab || isFetchingBitbucket;
 
   const connectedRepository = project?.repository ?? null;
   const isConnectedToRepo = !!connectedRepository;
@@ -71,41 +60,26 @@ export const useProjectConfigActions = () => {
   const fetchCurrentConfigFileContent = async () => {
     if (!connectedRepository) return null;
 
-    const configPath = connectedRepository.configFilePath;
-
-    let fileContent = '';
-
-    if (connectedRepository.provider === 'github') {
-      const result = await getGithubConfigFile({
-        owner: connectedRepository.owner,
+    return fetchConfigFile(
+      {
+        provider: connectedRepository.provider,
+        owner:
+          connectedRepository.provider === 'bitbucket'
+            ? connectedRepository.workspace
+            : connectedRepository.owner,
         repository: connectedRepository.repository,
         branch: connectedRepository.branch,
-        path: configPath,
-      });
-      fileContent = result.data.content;
-    }
-
-    if (connectedRepository.provider === 'gitlab') {
-      const result = await getGitlabConfigFile({
-        projectId: connectedRepository.projectId!,
-        branch: connectedRepository.branch,
-        path: configPath,
-        instanceUrl: connectedRepository.instanceUrl,
-      });
-      fileContent = result.data.content;
-    }
-
-    if (connectedRepository.provider === 'bitbucket') {
-      const result = await getBitbucketConfigFile({
-        workspace: connectedRepository.workspace!,
-        repoSlug: connectedRepository.repository,
-        branch: connectedRepository.branch,
-        path: configPath,
-      });
-      fileContent = result.data.content;
-    }
-
-    return fileContent;
+        projectId:
+          connectedRepository.provider === 'gitlab'
+            ? connectedRepository.projectId
+            : undefined,
+        instanceUrl:
+          connectedRepository.provider === 'gitlab'
+            ? connectedRepository.instanceUrl
+            : undefined,
+      },
+      connectedRepository.configFilePath
+    );
   };
 
   const handleViewCurrentConfig = async (onLoadStart: () => void) => {
@@ -199,7 +173,7 @@ export const useProjectConfigActions = () => {
               ...baseRepository,
               workspace: repo.workspace?.slug ?? '',
             }
-          : { provider: 'github', ...baseRepository };
+          : { provider: repo.provider, ...baseRepository };
 
     const parsedConfig = await parseConfig(fileContent);
 

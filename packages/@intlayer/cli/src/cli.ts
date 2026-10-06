@@ -503,6 +503,17 @@ export const setAPI = (): Command => {
     });
 
   initCmd
+    .command('repository')
+    .description(
+      'Connect the git repository of the project (GitHub, GitLab, Bitbucket, Codeberg, Gitee) to its CMS project and set its build settings, through your browser'
+    )
+    .option('--project-root [projectRoot]', 'Project root directory')
+    .action(async (options) => {
+      const { initRepository } = await import('./init');
+      return initRepository(options.projectRoot);
+    });
+
+  initCmd
     .command('infra')
     .description(
       'Set up the Intlayer infrastructure: desktop app, all-in-one Docker container or Docker Compose stack (runs https://intlayer.org/install.sh, or install.ps1 on Windows)'

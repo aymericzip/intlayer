@@ -5,6 +5,7 @@ import { INIT_STEP_COMMANDS, type InitStep } from './init';
 const initStepsMock = vi.hoisted(() => vi.fn());
 const initMock = vi.hoisted(() => vi.fn());
 const initCmsMock = vi.hoisted(() => vi.fn());
+const initRepositoryMock = vi.hoisted(() => vi.fn());
 const initSkillsMock = vi.hoisted(() => vi.fn());
 const initMCPMock = vi.hoisted(() => vi.fn());
 const initInfraMock = vi.hoisted(() => vi.fn());
@@ -15,6 +16,7 @@ vi.mock('./init', async (importOriginal) => ({
   init: initMock,
   initSteps: initStepsMock,
   initCms: initCmsMock,
+  initRepository: initRepositoryMock,
 }));
 
 vi.mock('./initSkills', async (importOriginal) => ({
@@ -49,6 +51,7 @@ const runCli = async (args: string[]): Promise<Command> => {
       initStepsMock,
       initMock,
       initCmsMock,
+      initRepositoryMock,
       initSkillsMock,
       initMCPMock,
       initInfraMock,
@@ -157,6 +160,12 @@ describe('intlayer init subcommands', () => {
     await runCli(['init', 'cms']);
 
     expect(initCmsMock).toHaveBeenCalledOnce();
+  });
+
+  it('runs the repository setup', async () => {
+    await runCli(['init', 'repository']);
+
+    expect(initRepositoryMock).toHaveBeenCalledWith(undefined);
   });
 
   it('passes the browsers to `intlayer init extension`', async () => {

@@ -1,15 +1,12 @@
-import {
-  useBitbucketGetConfigFile,
-  useGithubGetConfigFile,
-  useGitlabGetConfigFile,
-} from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
 import { containerVariants } from '@intlayer/design-system/container';
 import { Modal } from '@intlayer/design-system/modal';
 import { FileJson, FolderOpen } from 'lucide-react';
 import { type FC, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { getRepositoryFileTarget } from './getRepositoryFileTarget';
 import { useProjectConfigActions } from './hooks/useProjectConfigActions';
+import { useRepositoryConfigFile } from './hooks/useRepositoryConfigFile';
 import { getRepoDisplayName } from './RepositoryItem';
 import type { ConfigPreviewState, RepoData } from './types';
 
@@ -47,40 +44,15 @@ export const ConfigSelectionModal: FC<ConfigSelectionModalProps> = ({
     string | null
   >(null);
 
-  const { mutateAsync: getGithubConfigFile } = useGithubGetConfigFile();
-  const { mutateAsync: getGitlabConfigFile } = useGitlabGetConfigFile();
-  const { mutateAsync: getBitbucketConfigFile } = useBitbucketGetConfigFile();
+  const { fetchConfigFile } = useRepositoryConfigFile();
 
   const handleSelectConfig = async (repo: RepoData, configPath: string) => {
     try {
       setProcessingConfigPath(configPath);
-      let fileContent: string = '';
-
-      if (repo.provider === 'github') {
-        const fileResult = await getGithubConfigFile({
-          owner: repo.owner?.login ?? '',
-          repository: repo.name,
-          branch: repo.defaultBranch,
-          path: configPath,
-        });
-        fileContent = fileResult.data.content;
-      } else if (repo.provider === 'gitlab') {
-        const fileResult = await getGitlabConfigFile({
-          projectId: repo.projectId!,
-          branch: repo.defaultBranch,
-          path: configPath,
-          instanceUrl: repo.instanceUrl,
-        });
-        fileContent = fileResult.data.content;
-      } else if (repo.provider === 'bitbucket') {
-        const fileResult = await getBitbucketConfigFile({
-          workspace: repo.workspace?.slug ?? '',
-          repoSlug: repo.slug ?? repo.name,
-          branch: repo.defaultBranch,
-          path: configPath,
-        });
-        fileContent = fileResult.data.content;
-      }
+      const fileContent = await fetchConfigFile(
+        getRepositoryFileTarget(repo),
+        configPath
+      );
 
       const configPreview = { repo, configPath, content: fileContent };
 

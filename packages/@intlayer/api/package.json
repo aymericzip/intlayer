@@ -68,6 +68,16 @@
       "require": "./dist/cjs/getIntlayerAPI/bitbucket.cjs",
       "import": "./dist/esm/getIntlayerAPI/bitbucket.mjs"
     },
+    "./gitee": {
+      "types": "./dist/types/getIntlayerAPI/gitee.d.ts",
+      "require": "./dist/cjs/getIntlayerAPI/gitee.cjs",
+      "import": "./dist/esm/getIntlayerAPI/gitee.mjs"
+    },
+    "./codeberg": {
+      "types": "./dist/types/getIntlayerAPI/codeberg.d.ts",
+      "require": "./dist/cjs/getIntlayerAPI/codeberg.cjs",
+      "import": "./dist/esm/getIntlayerAPI/codeberg.mjs"
+    },
     "./cms": {
       "types": "./dist/types/cms/index.d.ts",
       "require": "./dist/cjs/cms/index.cjs",
@@ -179,6 +189,12 @@
       ],
       "bitbucket": [
         "./dist/types/getIntlayerAPI/bitbucket.d.ts"
+      ],
+      "gitee": [
+        "./dist/types/getIntlayerAPI/gitee.d.ts"
+      ],
+      "codeberg": [
+        "./dist/types/getIntlayerAPI/codeberg.d.ts"
       ],
       "asset": [
         "./dist/types/getIntlayerAPI/asset.d.ts"

@@ -77,6 +77,8 @@ export const repositoryProviderSchema = z.enum([
   'github',
   'gitlab',
   'bitbucket',
+  'codeberg',
+  'gitee',
 ]);
 
 const baseRepositoryShape = {
@@ -109,6 +111,8 @@ export const repositoryConnectionSchema = z.discriminatedUnion('provider', [
     ...baseRepositoryShape,
     workspace: z.string(),
   }),
+  z.looseObject({ provider: z.literal('codeberg'), ...baseRepositoryShape }),
+  z.looseObject({ provider: z.literal('gitee'), ...baseRepositoryShape }),
 ]);
 
 /** null = unrestricted, [] = no access, array = allowed ids (null = production). */

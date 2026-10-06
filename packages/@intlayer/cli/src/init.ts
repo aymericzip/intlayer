@@ -11,11 +11,13 @@ import {
   setupCmsCredentials,
 } from '@intlayer/engine/cli';
 import { login } from './auth/login';
+import { setupRepository } from './auth/setupRepository';
 import { initChromeExtension } from './initChromeExtension';
 import { initInfra } from './initInfra';
 import { initMCP } from './initMCP';
 import { initSkills } from './initSkills';
 import { loadPrompts } from './loadPrompts';
+import { detectGitRepository } from './utils/detectGitRepository';
 import { isInteractiveTerminal } from './utils/isInteractiveTerminal';
 import { parseChoice } from './utils/parseChoice';
 
@@ -50,6 +52,7 @@ export type InitStep =
   | 'mcp'
   | 'infra'
   | 'cms'
+  | 'repository'
   | 'chromeExtension';
 
 /** A checkbox entry of the interactive init flow. */
@@ -89,6 +92,7 @@ export const INIT_STEP_COMMANDS: Record<InitStep, string> = {
   mcp: 'intlayer init mcp [--platform <platform>] [--transport <stdio|sse>]',
   lsp: 'intlayer init lsp',
   cms: 'intlayer init cms',
+  repository: 'intlayer init repository',
   infra: 'intlayer init infra --mode <desktop|docker|compose>',
 };
 
@@ -150,6 +154,25 @@ export const initCms = async (projectRoot?: string): Promise<void> => {
     exitAfter: false,
     onCredentials: (credentials) => setupCmsCredentials(root, credentials),
   });
+};
+
+/**
+ * Connects the git repository of the project to its CMS project (and sets
+ * its build settings) in the browser, pre-filled with the `origin` remote.
+ */
+export const initRepository = async (projectRoot?: string): Promise<void> => {
+  const root = resolveProjectRoot(projectRoot);
+  const p = await loadPrompts();
+  const detectedRepository = detectGitRepository(root);
+
+  p.log.info(
+    detectedRepository
+      ? `Detected repository: ${detectedRepository.provider} ${detectedRepository.owner}/${detectedRepository.repository}`
+      : 'No supported git remote detected: pick the repository in the browser.'
+  );
+  p.log.info('Opening your browser to connect the repository...');
+
+  await setupRepository({ detectedRepository });
 };
 
 /** Explains why `--interactive` cannot run, and what to run instead. */
@@ -219,6 +242,11 @@ export const INIT_STEP_GROUPS: Record<string, InitStepOption[]> = {
       value: 'cms',
       label: 'CMS',
       hint: 'log in through your browser, then store the credentials in your .env',
+    },
+    {
+      value: 'repository',
+      label: 'Git repository',
+      hint: 'connect the git repository to the CMS project and set its build settings (GitHub, GitLab, Bitbucket, Codeberg, Gitee)',
     },
     {
       value: 'infra',
@@ -459,6 +487,11 @@ const runInteractiveInit = async (
   // so the browser flow does not interrupt setup.
   if (steps.includes('cms')) {
     await initCms(root);
+  }
+
+  // After the CMS login, so the browser is already signed in
+  if (steps.includes('repository')) {
+    await initRepository(root);
   }
 
   p.outro('Intlayer initialization complete');

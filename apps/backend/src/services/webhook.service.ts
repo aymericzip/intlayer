@@ -1,6 +1,7 @@
 import { createHmac } from 'node:crypto';
 import { logger } from '@logger';
 import { Octokit } from '@octokit/rest';
+import { dispatchCodebergWorkflow } from '@services/codeberg.service';
 import type { Project } from '@/types/project.types';
 
 export type TriggerResult = {
@@ -127,6 +128,17 @@ const triggerGitPipeline = async (project: Project) => {
       return triggerGitlab(repository, token);
     case 'bitbucket':
       return triggerBitbucket(repository, token);
+    case 'codeberg':
+      return dispatchCodebergWorkflow(
+        token,
+        repository.owner,
+        repository.repository,
+        repository.branch || 'main'
+      );
+    case 'gitee':
+      throw new Error(
+        'Gitee does not expose an API to trigger pipelines. Run the Intlayer pipeline from Gitee Go.'
+      );
     default:
       throw new Error(`Unknown provider: ${provider as string}`);
   }

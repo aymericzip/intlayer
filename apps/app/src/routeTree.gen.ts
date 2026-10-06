@@ -36,6 +36,7 @@ import { Route as Char123LocaleChar125OtherAffiliationInvitationIdRouteImport } 
 import { Route as Char123LocaleChar125OtherAuthAuthenticatedRouteRouteImport } from './routes/{-$locale}/_other/auth/_authenticated/route'
 import { Route as Char123LocaleChar125OtherAuthAuthenticationRouteRouteImport } from './routes/{-$locale}/_other/auth/_authentication/route'
 import { Route as Char123LocaleChar125OtherAuthCliLoginRouteImport } from './routes/{-$locale}/_other/auth/cli-login'
+import { Route as Char123LocaleChar125OtherAuthCliRepositoryRouteImport } from './routes/{-$locale}/_other/auth/cli-repository'
 import { Route as Char123LocaleChar125OtherAuthDemoRouteImport } from './routes/{-$locale}/_other/auth/demo'
 import { Route as Char123LocaleChar125OtherOnboardingStepRouteImport } from './routes/{-$locale}/_other/onboarding.$step'
 import { Route as Char123LocaleChar125DashboardAdminAdminAffiliateRouteRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/affiliate/route'
@@ -222,6 +223,12 @@ const Char123LocaleChar125OtherAuthCliLoginRoute =
   Char123LocaleChar125OtherAuthCliLoginRouteImport.update({
     id: '/auth/cli-login',
     path: '/auth/cli-login',
+    getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
+  } as any)
+const Char123LocaleChar125OtherAuthCliRepositoryRoute =
+  Char123LocaleChar125OtherAuthCliRepositoryRouteImport.update({
+    id: '/auth/cli-repository',
+    path: '/auth/cli-repository',
     getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
   } as any)
 const Char123LocaleChar125OtherAuthDemoRoute =
@@ -469,6 +476,7 @@ export interface FileRoutesByFullPath {
   '/{-$locale}/auth': typeof Char123LocaleChar125OtherAuthAuthenticationRouteRouteWithChildren
   '/{-$locale}/affiliation/$invitationId': typeof Char123LocaleChar125OtherAffiliationInvitationIdRoute
   '/{-$locale}/auth/cli-login': typeof Char123LocaleChar125OtherAuthCliLoginRoute
+  '/{-$locale}/auth/cli-repository': typeof Char123LocaleChar125OtherAuthCliRepositoryRoute
   '/{-$locale}/auth/demo': typeof Char123LocaleChar125OtherAuthDemoRoute
   '/{-$locale}/onboarding/$step': typeof Char123LocaleChar125OtherOnboardingStepRoute
   '/{-$locale}/affiliation/': typeof Char123LocaleChar125OtherAffiliationIndexRoute
@@ -526,6 +534,7 @@ export interface FileRoutesByTo {
   '/{-$locale}/auth': typeof Char123LocaleChar125OtherAuthAuthenticationRouteRouteWithChildren
   '/{-$locale}/affiliation/$invitationId': typeof Char123LocaleChar125OtherAffiliationInvitationIdRoute
   '/{-$locale}/auth/cli-login': typeof Char123LocaleChar125OtherAuthCliLoginRoute
+  '/{-$locale}/auth/cli-repository': typeof Char123LocaleChar125OtherAuthCliRepositoryRoute
   '/{-$locale}/auth/demo': typeof Char123LocaleChar125OtherAuthDemoRoute
   '/{-$locale}/onboarding/$step': typeof Char123LocaleChar125OtherOnboardingStepRoute
   '/{-$locale}/affiliation': typeof Char123LocaleChar125OtherAffiliationIndexRoute
@@ -584,6 +593,7 @@ export interface FileRoutesById {
   '/{-$locale}/_other/auth/_authentication': typeof Char123LocaleChar125OtherAuthAuthenticationRouteRouteWithChildren
   '/{-$locale}/_other/affiliation/$invitationId': typeof Char123LocaleChar125OtherAffiliationInvitationIdRoute
   '/{-$locale}/_other/auth/cli-login': typeof Char123LocaleChar125OtherAuthCliLoginRoute
+  '/{-$locale}/_other/auth/cli-repository': typeof Char123LocaleChar125OtherAuthCliRepositoryRoute
   '/{-$locale}/_other/auth/demo': typeof Char123LocaleChar125OtherAuthDemoRoute
   '/{-$locale}/_other/onboarding/$step': typeof Char123LocaleChar125OtherOnboardingStepRoute
   '/{-$locale}/_other/affiliation/': typeof Char123LocaleChar125OtherAffiliationIndexRoute
@@ -644,6 +654,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/auth'
     | '/{-$locale}/affiliation/$invitationId'
     | '/{-$locale}/auth/cli-login'
+    | '/{-$locale}/auth/cli-repository'
     | '/{-$locale}/auth/demo'
     | '/{-$locale}/onboarding/$step'
     | '/{-$locale}/affiliation/'
@@ -701,6 +712,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/auth'
     | '/{-$locale}/affiliation/$invitationId'
     | '/{-$locale}/auth/cli-login'
+    | '/{-$locale}/auth/cli-repository'
     | '/{-$locale}/auth/demo'
     | '/{-$locale}/onboarding/$step'
     | '/{-$locale}/affiliation'
@@ -758,6 +770,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/_other/auth/_authentication'
     | '/{-$locale}/_other/affiliation/$invitationId'
     | '/{-$locale}/_other/auth/cli-login'
+    | '/{-$locale}/_other/auth/cli-repository'
     | '/{-$locale}/_other/auth/demo'
     | '/{-$locale}/_other/onboarding/$step'
     | '/{-$locale}/_other/affiliation/'
@@ -992,6 +1005,13 @@ declare module '@tanstack/react-router' {
       path: '/auth/cli-login'
       fullPath: '/{-$locale}/auth/cli-login'
       preLoaderRoute: typeof Char123LocaleChar125OtherAuthCliLoginRouteImport
+      parentRoute: typeof Char123LocaleChar125OtherRouteRoute
+    }
+    '/{-$locale}/_other/auth/cli-repository': {
+      id: '/{-$locale}/_other/auth/cli-repository'
+      path: '/auth/cli-repository'
+      fullPath: '/{-$locale}/auth/cli-repository'
+      preLoaderRoute: typeof Char123LocaleChar125OtherAuthCliRepositoryRouteImport
       parentRoute: typeof Char123LocaleChar125OtherRouteRoute
     }
     '/{-$locale}/_other/auth/demo': {
@@ -1499,6 +1519,7 @@ interface Char123LocaleChar125OtherRouteRouteChildren {
   Char123LocaleChar125OtherAuthAuthenticationRouteRoute: typeof Char123LocaleChar125OtherAuthAuthenticationRouteRouteWithChildren
   Char123LocaleChar125OtherAffiliationInvitationIdRoute: typeof Char123LocaleChar125OtherAffiliationInvitationIdRoute
   Char123LocaleChar125OtherAuthCliLoginRoute: typeof Char123LocaleChar125OtherAuthCliLoginRoute
+  Char123LocaleChar125OtherAuthCliRepositoryRoute: typeof Char123LocaleChar125OtherAuthCliRepositoryRoute
   Char123LocaleChar125OtherAuthDemoRoute: typeof Char123LocaleChar125OtherAuthDemoRoute
   Char123LocaleChar125OtherOnboardingStepRoute: typeof Char123LocaleChar125OtherOnboardingStepRoute
   Char123LocaleChar125OtherAffiliationIndexRoute: typeof Char123LocaleChar125OtherAffiliationIndexRoute
@@ -1516,6 +1537,8 @@ const Char123LocaleChar125OtherRouteRouteChildren: Char123LocaleChar125OtherRout
       Char123LocaleChar125OtherAffiliationInvitationIdRoute,
     Char123LocaleChar125OtherAuthCliLoginRoute:
       Char123LocaleChar125OtherAuthCliLoginRoute,
+    Char123LocaleChar125OtherAuthCliRepositoryRoute:
+      Char123LocaleChar125OtherAuthCliRepositoryRoute,
     Char123LocaleChar125OtherAuthDemoRoute:
       Char123LocaleChar125OtherAuthDemoRoute,
     Char123LocaleChar125OtherOnboardingStepRoute:

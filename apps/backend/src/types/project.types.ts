@@ -58,7 +58,12 @@ export type ProjectConfiguration = {
   ai?: ProjectConfigAI;
 };
 
-export type RepositoryProvider = 'github' | 'gitlab' | 'bitbucket';
+export type RepositoryProvider =
+  | 'github'
+  | 'gitlab'
+  | 'bitbucket'
+  | 'codeberg'
+  | 'gitee';
 
 export type BaseRepository = {
   provider: RepositoryProvider;
@@ -88,10 +93,22 @@ export type BitbucketRepository = BaseRepository & {
   workspace: string;
 };
 
+/** Codeberg (Forgejo) repository: addressed by `owner/repository`. */
+export type CodebergRepository = BaseRepository & {
+  provider: 'codeberg';
+};
+
+/** Gitee repository: addressed by `owner/repository` (namespace/path). */
+export type GiteeRepository = BaseRepository & {
+  provider: 'gitee';
+};
+
 export type RepositoryConnection =
   | GitHubRepository
   | GitLabRepository
-  | BitbucketRepository;
+  | BitbucketRepository
+  | CodebergRepository
+  | GiteeRepository;
 
 export type ProjectData = {
   organizationId: Organization['id'];

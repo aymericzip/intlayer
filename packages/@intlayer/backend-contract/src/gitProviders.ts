@@ -78,6 +78,88 @@ export const bitbucketRepositorySchema = z.looseObject({
   updated_on: z.optional(z.string()),
 });
 
+/**
+ * Repository of a Gitea-compatible forge (Codeberg/Forgejo, Gitee), normalized
+ * by the backend. `name` is the URL slug used in API paths.
+ */
+export const forgeRepositorySchema = z.object({
+  id: z.number(),
+  name: z.string(),
+  /** Human-readable name (can differ from the slug on Gitee). */
+  displayName: z.string(),
+  full_name: z.string(),
+  owner: z.object({
+    login: z.string(),
+    avatar_url: z.optional(z.string()),
+  }),
+  private: z.boolean(),
+  html_url: z.string(),
+  default_branch: z.optional(z.string()),
+  updated_at: z.optional(z.nullable(z.string())),
+});
+
+const forgeRepositoryShape = {
+  ...tokenShape,
+  owner: z.string(),
+  repository: z.string(),
+};
+
+/**
+ * Builds the contract of a Gitea-compatible forge: repositories are listed and
+ * read with the account linked through better-auth.
+ */
+const defineForgeContract = <Prefix extends string, Tag extends string>(
+  prefix: Prefix,
+  tag: Tag
+) =>
+  defineRouteGroup({
+    prefix,
+    tag,
+    routes: {
+      listRepos: defineRoute({
+        method: 'GET',
+        path: '/repos',
+        summary: `Repositories of the ${tag} account`,
+        schemas: {
+          querystring: z.object(tokenShape),
+          response: {
+            200: responseDataSchema(z.array(forgeRepositorySchema)),
+          },
+        },
+      }),
+      checkConfig: defineRoute({
+        method: 'POST',
+        path: '/check-config',
+        summary: 'Find Intlayer configuration files in a repository',
+        schemas: {
+          body: z.object({
+            ...forgeRepositoryShape,
+            branch: z.optional(z.string()),
+          }),
+          response: { 200: checkConfigResponseSchema },
+        },
+      }),
+      getConfigFile: defineRoute({
+        method: 'POST',
+        path: '/get-config-file',
+        summary: 'Read an Intlayer configuration file of a repository',
+        schemas: {
+          body: z.object({ ...forgeRepositoryShape, ...branchAndPathShape }),
+          response: { 200: configFileResponseSchema },
+        },
+      }),
+    },
+  });
+
+/** REST contract of the `/api/codeberg` routes (Codeberg / Forgejo). */
+export const codebergContract = defineForgeContract(
+  '/api/codeberg',
+  'Codeberg'
+);
+
+/** REST contract of the `/api/gitee` routes. */
+export const giteeContract = defineForgeContract('/api/gitee', 'Gitee');
+
 /** REST contract of the `/api/github` routes. */
 export const githubContract = defineRouteGroup({
   prefix: '/api/github',
@@ -297,6 +379,10 @@ export const bitbucketContract = defineRouteGroup({
 export type GitHubRoutes = (typeof githubContract)['routes'];
 export type GitLabRoutes = (typeof gitlabContract)['routes'];
 export type BitbucketRoutes = (typeof bitbucketContract)['routes'];
+/** Routes shared by every Gitea-compatible forge (Codeberg, Gitee). */
+export type ForgeRoutes = (typeof codebergContract)['routes'];
+export type CodebergRoutes = ForgeRoutes;
+export type GiteeRoutes = (typeof giteeContract)['routes'];
 
 type AuthUrlResult = ResponseData<{ authUrl: string }>;
 type TokenResult = ResponseData<{ token: string }>;
@@ -309,6 +395,7 @@ type ConfigFileResult = ResponseData<{ content: string }>;
 export type GitHubRepository = z.output<typeof gitHubRepositorySchema>;
 export type GitLabProject = z.output<typeof gitLabProjectSchema>;
 export type BitbucketRepository = z.output<typeof bitbucketRepositorySchema>;
+export type ForgeRepository = z.output<typeof forgeRepositorySchema>;
 
 export type GitHubGetAuthUrlQuerystring = RouteQuerystring<
   GitHubRoutes['getAuthUrl']
@@ -369,3 +456,14 @@ export type BitbucketGetConfigFileBody = RouteBodyInput<
   BitbucketRoutes['getConfigFile']
 >;
 export type BitbucketGetConfigFileResult = ConfigFileResult;
+
+export type ForgeListReposQuerystring = RouteQuerystring<
+  ForgeRoutes['listRepos']
+>;
+export type ForgeListReposResult = ResponseData<ForgeRepository[]>;
+export type ForgeCheckConfigBody = RouteBodyInput<ForgeRoutes['checkConfig']>;
+export type ForgeCheckConfigResult = CheckConfigResult;
+export type ForgeGetConfigFileBody = RouteBodyInput<
+  ForgeRoutes['getConfigFile']
+>;
+export type ForgeGetConfigFileResult = ConfigFileResult;

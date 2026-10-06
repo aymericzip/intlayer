@@ -1,4 +1,4 @@
-import { file, insert, t } from 'intlayer';
+import { file, insert, select, t } from 'intlayer';
 
 const buildSettingsContent = {
   key: 'build-settings',
@@ -1003,15 +1003,17 @@ const buildSettingsContent = {
         uk: 'Не вдалося завантажити конфігурацію',
       }),
     },
-    ciTemplates: {
+    ciTemplates: select({
       github: file('./CI_GITHUB_TEMPLATE.yaml'),
       gitlab: file('./CI_GITLAB_TEMPLATE.yaml'),
       bitbucket: file('./CI_BITBUCKET_TEMPLATE.yaml'),
-    },
+      codeberg: file('./CI_CODEBERG_TEMPLATE.yaml'),
+      gitee: file('./CI_GITEE_TEMPLATE.yaml'),
+    }),
   },
   title: 'Build settings',
   description:
-    'Configuration for project build settings: manage connected git provider, add and edit webhooks, test triggers, save build configuration, and view CI configuration. Includes CI templates for GitHub, GitLab, and Bitbucket and modals for creating/editing webhooks and CI setup.',
+    'Configuration for project build settings: manage connected git provider, add and edit webhooks, test triggers, save build configuration, and view CI configuration. Includes CI templates for GitHub, GitLab, Bitbucket, Codeberg and Gitee and modals for creating/editing webhooks and CI setup.',
   tags: ['build settings', 'webhooks', 'ci', 'deployments', 'integrations'],
 };
 

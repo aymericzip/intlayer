@@ -16,6 +16,8 @@ type ProviderId =
   | 'github'
   | 'gitlab'
   | 'atlassian'
+  | 'codeberg'
+  | 'gitee'
   | 'linkedin'
   | 'microsoft';
 
@@ -30,6 +32,8 @@ const PROVIDERS: ProviderDef[] = [
   { id: 'github', name: 'GitHub', Icon: TechLogos.GITHUB },
   { id: 'gitlab', name: 'GitLab', Icon: TechLogos.GITLAB },
   { id: 'atlassian', name: 'Atlassian', Icon: TechLogos.ATLASSIAN },
+  { id: 'codeberg', name: 'Codeberg', Icon: TechLogos.CODEBERG },
+  { id: 'gitee', name: 'Gitee', Icon: TechLogos.GITEE },
   { id: 'linkedin', name: 'LinkedIn', Icon: TechLogos.LINKEDIN },
   { id: 'microsoft', name: 'Microsoft', Icon: TechLogos.MICROSOFT },
 ];

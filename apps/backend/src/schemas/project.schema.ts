@@ -114,7 +114,7 @@ const repositorySchema = new Schema<Project['repository']>(
   {
     provider: {
       type: String,
-      enum: ['github', 'gitlab', 'bitbucket'],
+      enum: ['github', 'gitlab', 'bitbucket', 'codeberg', 'gitee'],
       required: true,
     },
     owner: { type: String, required: true },

@@ -9,18 +9,9 @@ import { ConfigSelectionModal } from '../RepositoryLink/ConfigSelectionModal';
 import { useProjectConfigActions } from '../RepositoryLink/hooks/useProjectConfigActions';
 import { useProviderLink } from '../RepositoryLink/hooks/useProviderLink';
 import { ProviderSelector } from '../RepositoryLink/ProviderSelector';
+import { PROVIDER_NAMES } from '../RepositoryLink/providers';
 import { RepositoryList } from '../RepositoryLink/RepositoryList';
-import type {
-  ConfigPreviewState,
-  RepoData,
-  RepositoryProvider,
-} from '../RepositoryLink/types';
-
-const PROVIDER_NAMES: Record<RepositoryProvider, string> = {
-  github: 'GitHub',
-  gitlab: 'GitLab',
-  bitbucket: 'Bitbucket',
-};
+import type { ConfigPreviewState, RepoData } from '../RepositoryLink/types';
 
 type ConfigImportFlowProps = {
   isOpen: boolean;

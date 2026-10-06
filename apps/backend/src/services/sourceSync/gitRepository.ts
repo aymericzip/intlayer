@@ -1,9 +1,14 @@
 import { Octokit } from '@octokit/rest';
 import * as bitbucketService from '@services/bitbucket.service';
+import { codebergService } from '@services/codeberg.service';
+import { ForgeRequestError, type ForgeService } from '@services/forge.service';
+import { giteeService } from '@services/gitee.service';
 import * as githubService from '@services/github.service';
 import * as gitlabService from '@services/gitlab.service';
 import type {
   BitbucketRepository,
+  CodebergRepository,
+  GiteeRepository,
   GitHubRepository,
   GitLabRepository,
   RepositoryConnection,
@@ -440,6 +445,63 @@ const createBitbucketClient = (
 };
 
 /**
+ * Git operations of a Gitea-compatible forge (Codeberg, Gitee), on top of its
+ * {@link ForgeService}.
+ */
+const createForgeClient = (
+  service: ForgeService,
+  repository: CodebergRepository | GiteeRepository,
+  accessToken: string
+): GitRepositoryClient => {
+  const { owner, repository: repo } = repository;
+
+  /** Maps a refused write to the errors the sync queue recovers from. */
+  const withRejectionMapping = async <Result>(
+    action: string,
+    operation: () => Promise<Result>
+  ): Promise<Result> => {
+    try {
+      return await operation();
+    } catch (error) {
+      if (
+        error instanceof ForgeRequestError &&
+        (error.status === 401 || error.status === 403)
+      ) {
+        throw new BranchUpdateRejectedError(`${action}: ${error.message}`);
+      }
+      if (error instanceof ForgeRequestError && error.status === 409) {
+        throw new BranchMovedError(`${action}: ${error.message}`);
+      }
+      throw error;
+    }
+  };
+
+  return {
+    readFile: (path, branch) =>
+      service.getRepositoryFileContents(accessToken, owner, repo, path, branch),
+
+    listRecentCommitMessages: (branch, limit) =>
+      service.listRecentCommitMessages(accessToken, owner, repo, branch, limit),
+
+    commitFiles: async (options) => {
+      const sha = await withRejectionMapping(
+        `${service.definition.name} commit`,
+        () => service.commitFiles(accessToken, owner, repo, options)
+      );
+
+      return { sha, url: service.getCommitUrl(owner, repo, sha) };
+    },
+
+    createPullRequest: async (options) => ({
+      url: await withRejectionMapping(
+        `${service.definition.name} pull request`,
+        () => service.createPullRequest(accessToken, owner, repo, options)
+      ),
+    }),
+  };
+};
+
+/**
  * Returns the git operations of the provider the repository is hosted on.
  */
 export const getGitRepositoryClient = (
@@ -453,6 +515,10 @@ export const getGitRepositoryClient = (
       return createGitLabClient(repository, accessToken);
     case 'bitbucket':
       return createBitbucketClient(repository, accessToken);
+    case 'codeberg':
+      return createForgeClient(codebergService, repository, accessToken);
+    case 'gitee':
+      return createForgeClient(giteeService, repository, accessToken);
     default:
       throw new Error(
         `Unsupported repository provider: ${(repository as RepositoryConnection).provider}`

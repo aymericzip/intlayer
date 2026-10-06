@@ -1,0 +1,12 @@
+name: Intlayer CMS Update
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: codeberg-tiny
+    container:
+      image: node:lts
+    steps:
+      - uses: https://code.forgejo.org/actions/checkout@v4
+      - run: npm ci
+      - run: npm run build

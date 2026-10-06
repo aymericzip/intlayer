@@ -8,6 +8,7 @@ export * from './hooks/dictionary';
 export * from './hooks/discussions';
 export * from './hooks/editor';
 export * from './hooks/environment';
+export * from './hooks/forge';
 export * from './hooks/github';
 export * from './hooks/gitlab';
 export * from './hooks/newsletter';

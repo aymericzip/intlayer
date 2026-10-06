@@ -1,10 +1,14 @@
 import { Button } from '@intlayer/design-system/button';
 import { Loader } from '@intlayer/design-system/loader';
-import { TechLogos } from '@intlayer/design-system/tech-logo';
 import { cn } from '@intlayer/design-system/utils';
-import { GitBranch } from 'lucide-react';
-import type { FC } from 'react';
+import { ChevronDown, GitBranch } from 'lucide-react';
+import { type FC, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import {
+  PROVIDER_NAMES,
+  ProviderLogo,
+  REPOSITORY_PROVIDERS,
+} from './providers';
 import type { RepositoryProvider } from './types';
 
 type ProviderSelectorProps = {
@@ -12,6 +16,11 @@ type ProviderSelectorProps = {
   onSelectProvider: (provider: RepositoryProvider) => void;
   isCheckingProvider: boolean;
   disabled?: boolean;
+  /**
+   * Provider of the project repository (ex: detected from the git remote by
+   * the CLI). Only this one is offered until the user asks for more options.
+   */
+  preferredProvider?: RepositoryProvider;
 };
 
 export const ProviderSelector: FC<ProviderSelectorProps> = ({
@@ -19,27 +28,16 @@ export const ProviderSelector: FC<ProviderSelectorProps> = ({
   onSelectProvider,
   isCheckingProvider,
   disabled,
+  preferredProvider,
 }) => {
   const content = useIntlayer('repository-link');
-  const providers: RepositoryProvider[] = ['github', 'gitlab', 'bitbucket'];
+  const [isShowingAllProviders, setIsShowingAllProviders] = useState(false);
 
-  const PROVIDER_CONFIG = {
-    github: {
-      name: content.providers.github.name,
-      Logo: TechLogos.GITHUB,
-      description: content.providers.github.description,
-    },
-    gitlab: {
-      name: content.providers.gitlab.name,
-      Logo: TechLogos.GITLAB,
-      description: content.providers.gitlab.description,
-    },
-    bitbucket: {
-      name: content.providers.bitbucket.name,
-      Logo: TechLogos.BITBUCKET,
-      description: content.providers.bitbucket.description,
-    },
-  };
+  const isFilteredToPreferred =
+    Boolean(preferredProvider) && !isShowingAllProviders;
+  const visibleProviders = isFilteredToPreferred
+    ? REPOSITORY_PROVIDERS.filter((provider) => provider === preferredProvider)
+    : REPOSITORY_PROVIDERS;
 
   return (
     <div className="flex flex-col gap-3">
@@ -49,8 +47,8 @@ export const ProviderSelector: FC<ProviderSelectorProps> = ({
       </div>
 
       <div className="flex flex-wrap justify-center gap-3">
-        {providers.map((provider) => {
-          const config = PROVIDER_CONFIG[provider];
+        {visibleProviders.map((provider) => {
+          const name = PROVIDER_NAMES[provider];
           const isSelected = selectedProvider === provider;
           const isLoading = isCheckingProvider && isSelected;
 
@@ -63,10 +61,11 @@ export const ProviderSelector: FC<ProviderSelectorProps> = ({
               disabled={isCheckingProvider || disabled}
               className="flex size-24 h-auto flex-col items-center gap-2 px-0 py-0"
               roundedSize="lg"
-              label={config.name}
+              label={name}
             >
               <Loader className="m-auto mb-2 size-8" isLoading={isLoading}>
-                <config.Logo
+                <ProviderLogo
+                  provider={provider}
                   className={cn(
                     'm-auto mb-2 size-8',
                     isSelected
@@ -75,11 +74,25 @@ export const ProviderSelector: FC<ProviderSelectorProps> = ({
                   )}
                 />
               </Loader>
-              <span className="font-medium">{config.name}</span>
+              <span className="font-medium">{name}</span>
             </Button>
           );
         })}
       </div>
+
+      {isFilteredToPreferred && (
+        <Button
+          variant="link"
+          color="text"
+          size="sm"
+          Icon={ChevronDown}
+          className="mx-auto"
+          label={content.seeMoreOptions.value}
+          onClick={() => setIsShowingAllProviders(true)}
+        >
+          {content.seeMoreOptions}
+        </Button>
+      )}
     </div>
   );
 };

@@ -1,33 +1,17 @@
 import { Badge } from '@intlayer/design-system/badge';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
-import { TechLogos } from '@intlayer/design-system/tech-logo';
 import { GitBranch, GitCommit, Globe, Lock } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import type { RepoData, RepositoryProvider } from './types';
+import { ProviderLogo } from './providers';
+import type { RepoData } from './types';
 
 type RepositoryItemProps = {
   repo: RepoData;
   isProcessing: boolean;
   disabled?: boolean;
   onImport: () => void;
-};
-
-const ProviderLogo: FC<{
-  provider: RepositoryProvider;
-  className?: string;
-}> = ({ provider, className }) => {
-  switch (provider) {
-    case 'github':
-      return <TechLogos.GITHUB className={className} />;
-    case 'gitlab':
-      return <TechLogos.GITLAB className={className} />;
-    case 'bitbucket':
-      return <TechLogos.BITBUCKET className={className} />;
-    default:
-      return <GitBranch className={className} />;
-  }
 };
 
 export const getRepoDisplayName = (repo: RepoData | null): string => {
@@ -40,6 +24,9 @@ export const getRepoDisplayName = (repo: RepoData | null): string => {
       return repo.fullName;
     case 'bitbucket':
       return `${repo.workspace?.slug}/${repo.name}`;
+    case 'codeberg':
+    case 'gitee':
+      return repo.fullName;
     default:
       return repo.name;
   }
