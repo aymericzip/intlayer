@@ -1,17 +1,72 @@
-import { useSyncExternalStore } from 'react';
+import { usePersistedStore } from '@intlayer/design-system/hooks';
+import { useCallback, useEffect, useMemo, useSyncExternalStore } from 'react';
 
-type PanelState = { activePanel: string | null };
+/** Identifiers of the panels rendered in the dashboard right sidebar. */
+export const DashboardRightPanelId = {
+  VisualEditor: 'visual-editor',
+  DictionaryEdition: 'dictionary-edition',
+  DictionaryList: 'dictionary-list',
+  TranslationStatus: 'translation-status',
+  Chat: 'dashboard-chat',
+} as const;
+
+export type DashboardRightPanelId =
+  (typeof DashboardRightPanelId)[keyof typeof DashboardRightPanelId];
+
+/** Panel selection remembered across pages and visits. */
+export type DashboardRightPanelSelection = {
+  /** Panels the user opened, most recent first. */
+  history: DashboardRightPanelId[];
+  /** The user closed the sidebar: nothing shows until a panel is opened. */
+  isClosed: boolean;
+};
+
+/** Panels tried, in order, until the user selects one (first visit, demo). */
+export const DEFAULT_PANEL_PRIORITY: DashboardRightPanelId[] = [
+  DashboardRightPanelId.VisualEditor,
+  DashboardRightPanelId.DictionaryEdition,
+  DashboardRightPanelId.Chat,
+];
+
+const SELECTION_STORAGE_KEY = 'dashboard-right-panel-selection';
 
 /**
- * Snapshot handed to the server render and to hydration. It has to be the same
- * reference on every call, otherwise `useSyncExternalStore` sees a new value
- * each render and loops.
+ * Resolves the panel to display: the most recently selected panel that has
+ * content on the current page, or `null` (sidebar closed) when none has.
  */
-const SERVER_PANEL_STATE: PanelState = { activePanel: null };
+export const resolveActivePanel = (
+  selection: DashboardRightPanelSelection | undefined,
+  availablePanels: ReadonlySet<DashboardRightPanelId>
+): DashboardRightPanelId | null => {
+  if (selection?.isClosed) return null;
 
-class PanelObservable {
+  const candidates = selection?.history ?? DEFAULT_PANEL_PRIORITY;
+
+  return candidates.find((panelId) => availablePanels.has(panelId)) ?? null;
+};
+
+/** Moves the selected panel to the front of the history and reopens the sidebar. */
+export const selectPanel = (
+  selection: DashboardRightPanelSelection | undefined,
+  panelId: DashboardRightPanelId
+): DashboardRightPanelSelection => ({
+  history: [
+    panelId,
+    ...(selection?.history ?? []).filter(
+      (selectedPanelId) => selectedPanelId !== panelId
+    ),
+  ],
+  isClosed: false,
+});
+
+/**
+ * Tracks which panels have content on the current page. A panel registers
+ * while it is mounted, so a page without it can never display an empty sidebar.
+ */
+class PanelAvailabilityRegistry {
   private listeners = new Set<() => void>();
-  private state: PanelState = { activePanel: null };
+  private registrationCounts = new Map<DashboardRightPanelId, number>();
+  private availablePanels: ReadonlySet<DashboardRightPanelId> = new Set();
 
   subscribe = (listener: () => void) => {
     this.listeners.add(listener);
@@ -20,43 +75,117 @@ class PanelObservable {
     };
   };
 
-  getSnapshot = () => this.state;
+  getSnapshot = () => this.availablePanels;
 
-  getServerSnapshot = () => SERVER_PANEL_STATE;
+  getServerSnapshot = () => EMPTY_AVAILABLE_PANELS;
 
-  open = (id: string) => {
-    const next = this.state.activePanel === id ? null : id;
-    if (this.state.activePanel === next) return;
-    this.state = { activePanel: next };
-    this.emit();
+  register = (panelId: DashboardRightPanelId) => {
+    this.updateCount(panelId, 1);
+
+    return () => this.updateCount(panelId, -1);
   };
 
-  close = () => {
-    if (!this.state.activePanel) return;
-    this.state = { activePanel: null };
-    this.emit();
-  };
+  private updateCount = (panelId: DashboardRightPanelId, delta: number) => {
+    const count = (this.registrationCounts.get(panelId) ?? 0) + delta;
 
-  private emit = () => {
+    if (count > 0) this.registrationCounts.set(panelId, count);
+    else this.registrationCounts.delete(panelId);
+
+    const nextAvailablePanels = new Set(this.registrationCounts.keys());
+
+    if (
+      nextAvailablePanels.size === this.availablePanels.size &&
+      [...nextAvailablePanels].every((id) => this.availablePanels.has(id))
+    ) {
+      return;
+    }
+
+    this.availablePanels = nextAvailablePanels;
     this.listeners.forEach((listener) => {
       listener();
     });
   };
 }
 
-export const dashboardRightPanelManager = new PanelObservable();
+/** Stable server snapshot, so `useSyncExternalStore` does not loop. */
+const EMPTY_AVAILABLE_PANELS: ReadonlySet<DashboardRightPanelId> = new Set();
 
+const panelAvailabilityRegistry = new PanelAvailabilityRegistry();
+
+/**
+ * Declares that a panel has content to show on the current page.
+ *
+ * @param panelId - Panel to register.
+ * @param isAvailable - Set to `false` to withdraw the panel while mounted.
+ */
+export const useRegisterDashboardRightPanel = (
+  panelId: DashboardRightPanelId,
+  isAvailable = true
+): void => {
+  useEffect(() => {
+    if (!isAvailable) return;
+
+    return panelAvailabilityRegistry.register(panelId);
+  }, [panelId, isAvailable]);
+};
+
+/**
+ * Dashboard right sidebar state.
+ *
+ * The user selection is persisted; the displayed panel is the most recently
+ * selected one available on the current page, so leaving a page closes its
+ * panel and coming back restores it.
+ */
 export const useDashboardRightPanel = () => {
-  const state = useSyncExternalStore(
-    dashboardRightPanelManager.subscribe,
-    dashboardRightPanelManager.getSnapshot,
-    dashboardRightPanelManager.getServerSnapshot
+  const availablePanels = useSyncExternalStore(
+    panelAvailabilityRegistry.subscribe,
+    panelAvailabilityRegistry.getSnapshot,
+    panelAvailabilityRegistry.getServerSnapshot
+  );
+  const [selection, setSelection, , resetSelection] = usePersistedStore<
+    DashboardRightPanelSelection | undefined
+  >(SELECTION_STORAGE_KEY);
+
+  const activePanel = useMemo(
+    () => resolveActivePanel(selection, availablePanels),
+    [selection, availablePanels]
+  );
+
+  const open = useCallback(
+    (panelId: DashboardRightPanelId) =>
+      setSelection((previousSelection) =>
+        selectPanel(previousSelection, panelId)
+      ),
+    [setSelection]
+  );
+
+  const close = useCallback(
+    () =>
+      setSelection((previousSelection) => ({
+        history: previousSelection?.history ?? [],
+        isClosed: true,
+      })),
+    [setSelection]
+  );
+
+  const toggle = useCallback(
+    (panelId: DashboardRightPanelId) =>
+      activePanel === panelId ? close() : open(panelId),
+    [activePanel, close, open]
+  );
+
+  const isOpen = useCallback(
+    (panelId: DashboardRightPanelId) => activePanel === panelId,
+    [activePanel]
   );
 
   return {
-    open: dashboardRightPanelManager.open,
-    close: dashboardRightPanelManager.close,
-    activePanel: state.activePanel,
-    isOpen: (id: string) => state.activePanel === id,
+    open,
+    close,
+    toggle,
+    /** Forgets the selection: the default panel priority applies again. */
+    resetSelection,
+    activePanel,
+    isOpen,
   };
 };

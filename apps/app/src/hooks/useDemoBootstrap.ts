@@ -8,6 +8,7 @@ import {
 import { useQueryClient } from '@tanstack/react-query';
 import { useCallback, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { useDashboardRightPanel } from '#hooks/useDashboardRightPanel';
 import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate';
 import { refetchFreshSession } from '#utils/auth';
 
@@ -16,6 +17,7 @@ export const useDemoBootstrap = () => {
   const navigate = useLocalizedNavigate();
   const queryClient = useQueryClient();
   const [isBootstrapping, setIsBootstrapping] = useState(false);
+  const { resetSelection: resetRightPanelSelection } = useDashboardRightPanel();
 
   const switchToDemoSession = useCallback(async () => {
     setIsBootstrapping(true);
@@ -40,6 +42,9 @@ export const useDemoBootstrap = () => {
         throw new Error(failedToCreateDemoSession.value);
       }
 
+      // Demo visitors start from the default right panel priority.
+      resetRightPanelSelection();
+
       if (freshSession.organization && freshSession.project) {
         navigate({ to: App_Dashboard_Dictionaries_Path });
       } else if (freshSession.organization) {
@@ -52,7 +57,12 @@ export const useDemoBootstrap = () => {
       navigate({ to: App_Auth_SignIn_Path });
       setIsBootstrapping(false);
     }
-  }, [navigate, queryClient, failedToCreateDemoSession]);
+  }, [
+    navigate,
+    queryClient,
+    failedToCreateDemoSession,
+    resetRightPanelSelection,
+  ]);
 
   return {
     switchToDemoSession,

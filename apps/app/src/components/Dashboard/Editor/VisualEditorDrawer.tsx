@@ -6,12 +6,17 @@ import { createPortal } from 'react-dom';
 import { useIntlayer } from 'react-intlayer';
 import { Editor } from '#components/Dashboard/Editor';
 import { DictionaryLoaderVisualEditor } from '#components/Dashboard/Editor/DictionaryLoaderVisualEditor';
-import { useDashboardRightPanel } from '#hooks/useDashboardRightPanel';
+import {
+  DashboardRightPanelId,
+  useDashboardRightPanel,
+  useRegisterDashboardRightPanel,
+} from '#hooks/useDashboardRightPanel';
 
-const DRAWER_ID = 'visual-editor';
+const DRAWER_ID = DashboardRightPanelId.VisualEditor;
 
 export const VisualEditorDrawer: FC = memo(() => {
-  const { open: openPanel, isOpen: checkIsOpen } = useDashboardRightPanel();
+  const { toggle: togglePanel, isOpen: checkIsOpen } = useDashboardRightPanel();
+  useRegisterDashboardRightPanel(DRAWER_ID);
   const { buttonLabel, buttonDescription } = useIntlayer(
     'visual-editor-drawer'
   );
@@ -26,7 +31,7 @@ export const VisualEditorDrawer: FC = memo(() => {
     <>
       <PopoverStatic identifier={DRAWER_ID}>
         <Button
-          onClick={() => openPanel(DRAWER_ID)}
+          onClick={() => togglePanel(DRAWER_ID)}
           type="button"
           variant="hoverable"
           label={buttonLabel.value}

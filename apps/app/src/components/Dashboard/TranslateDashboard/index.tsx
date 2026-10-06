@@ -44,7 +44,10 @@ import { useIntlayer, useLocale } from 'react-intlayer';
 import { GroupedVirtuoso, type GroupedVirtuosoHandle } from 'react-virtuoso';
 import { Link } from '#components/Link/Link';
 import { Skeleton } from '#components/Skeleton';
-import { useDashboardRightPanel } from '#hooks/useDashboardRightPanel';
+import {
+  DashboardRightPanelId,
+  useDashboardRightPanel,
+} from '#hooks/useDashboardRightPanel';
 import { useSearchParamState } from '#hooks/useSearchParamState';
 import { useVisualEditorKeys } from '#hooks/useVisualEditorKeys';
 import { useDashboardScroll } from '../DashboardScrollContext';
@@ -314,7 +317,7 @@ const TranslateDashboardList: FC = () => {
   const { isOpen } = useDashboardRightPanel();
   const visualEditorKeys = useVisualEditorKeys();
   const activeVisualEditorKeys =
-    isOpen('visual-editor') && visualEditorKeys.length > 0
+    isOpen(DashboardRightPanelId.VisualEditor) && visualEditorKeys.length > 0
       ? visualEditorKeys
       : undefined;
 

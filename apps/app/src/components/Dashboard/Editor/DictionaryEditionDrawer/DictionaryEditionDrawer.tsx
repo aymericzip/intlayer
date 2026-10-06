@@ -12,20 +12,21 @@ import {
   useFocusUnmergedDictionary,
 } from '@intlayer/editor-react';
 import { ChevronLeft, PencilRuler } from 'lucide-react';
-import { type FC, useEffect, useState } from 'react';
+import { type FC, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useIntlayer } from 'react-intlayer';
 import { useDashboardRightPanel } from '#hooks/useDashboardRightPanel';
 import { dictionaryListDrawerIdentifier } from '../DictionaryListDrawer/dictionaryListDrawerIdentifier';
-import { useDictionaryEditionDrawer } from './useDictionaryEditionDrawer';
+import {
+  dictionaryEditionDrawerIdentifier,
+  useDictionaryEditionDrawer,
+} from './useDictionaryEditionDrawer';
 
 type DictionaryEditionDrawerProps = {
-  dictionaryKey: string;
   isDarkMode?: boolean;
 };
 
 export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
-  dictionaryKey,
   isDarkMode,
 }) => {
   const {
@@ -37,7 +38,7 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
     focusedDictionaryNotFound,
   } = useIntlayer('dictionary-edition-drawer');
 
-  const { close, isOpen } = useDictionaryEditionDrawer(dictionaryKey);
+  const { close, isOpen } = useDictionaryEditionDrawer();
   const { open } = useDashboardRightPanel();
   const openDictionaryListDrawer = () => open(dictionaryListDrawerIdentifier);
   const [portalTarget, setPortalTarget] = useState<HTMLElement | null>(null);
@@ -196,16 +197,23 @@ export const DictionaryEditionDrawerController: FC<
   DictionaryEditionDrawerControllerProps
 > = ({ isDarkMode }) => {
   const { focusedContent } = useFocusUnmergedDictionary();
+  const { open } = useDashboardRightPanel();
   const dictionaryKey: string | undefined = focusedContent?.dictionaryKey;
+  const previousDictionaryKeyRef = useRef(dictionaryKey);
+
+  // Open the node editor when the user focuses another dictionary, but not on
+  // mount: coming back to the editor page must keep the selected panel.
+  useEffect(() => {
+    if (previousDictionaryKeyRef.current === dictionaryKey) return;
+
+    previousDictionaryKeyRef.current = dictionaryKey;
+
+    if (dictionaryKey) open(dictionaryEditionDrawerIdentifier);
+  }, [dictionaryKey, open]);
 
   if (!dictionaryKey) {
     return <></>;
   }
 
-  return (
-    <DictionaryEditionDrawer
-      dictionaryKey={dictionaryKey}
-      isDarkMode={isDarkMode}
-    />
-  );
+  return <DictionaryEditionDrawer isDarkMode={isDarkMode} />;
 };

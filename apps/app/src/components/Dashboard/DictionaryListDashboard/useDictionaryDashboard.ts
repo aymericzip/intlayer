@@ -12,7 +12,10 @@ import type {
   RowSelectionState,
 } from '@tanstack/react-table';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useDashboardRightPanel } from '#hooks/useDashboardRightPanel';
+import {
+  DashboardRightPanelId,
+  useDashboardRightPanel,
+} from '#hooks/useDashboardRightPanel';
 import { useSearchParamState } from '#hooks/useSearchParamState';
 import { useVisualEditorKeys } from '#hooks/useVisualEditorKeys';
 
@@ -33,7 +36,7 @@ export const useDictionaryDashboard = () => {
   const { isOpen } = useDashboardRightPanel();
   const visualEditorKeys = useVisualEditorKeys();
   const activeVisualEditorKeys =
-    isOpen('visual-editor') && visualEditorKeys.length > 0
+    isOpen(DashboardRightPanelId.VisualEditor) && visualEditorKeys.length > 0
       ? visualEditorKeys
       : undefined;
 

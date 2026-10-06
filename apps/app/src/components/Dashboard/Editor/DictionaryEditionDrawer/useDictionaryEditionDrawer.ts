@@ -9,11 +9,15 @@ import type {
   LocalDictionaryId,
 } from '@intlayer/types/dictionary';
 import type { KeyPath } from '@intlayer/types/keyPath';
-import { useEffect } from 'react';
-import { useDashboardRightPanel } from '#hooks/useDashboardRightPanel';
+import {
+  DashboardRightPanelId,
+  useDashboardRightPanel,
+  useRegisterDashboardRightPanel,
+} from '#hooks/useDashboardRightPanel';
 
-export const getDrawerIdentifier = (dictionaryKey: string) =>
-  `dictionary_edition_${dictionaryKey}`;
+/** Right panel showing the node editor of the focused dictionary. */
+export const dictionaryEditionDrawerIdentifier =
+  DashboardRightPanelId.DictionaryEdition;
 
 type DictionaryEditionDrawer = {
   focusedContent: FileContent | null;
@@ -25,26 +29,19 @@ type DictionaryEditionDrawer = {
   ) => ContentNode | undefined;
 };
 
-export const useDictionaryEditionDrawer = (
-  dictionaryKey: string
-): DictionaryEditionDrawer => {
-  const id = getDrawerIdentifier(dictionaryKey);
-  const {
-    isOpen: isOpenDrawer,
-    open: openDrawer,
-    close: closeDrawer,
-  } = useDashboardRightPanel();
+/**
+ * Node editor panel state. Registers the panel as available while mounted,
+ * which only happens when a dictionary is focused on the editor page.
+ */
+export const useDictionaryEditionDrawer = (): DictionaryEditionDrawer => {
+  const { isOpen: isOpenDrawer, close: closeDrawer } = useDashboardRightPanel();
   const { getEditedContentValue } = useEditedContentActions();
   const { focusedContent, setFocusedContent } = useFocusUnmergedDictionary();
 
-  useEffect(() => {
-    if (focusedContent?.dictionaryKey) {
-      openDrawer(id);
-    }
-  }, [focusedContent?.dictionaryKey, openDrawer, id]);
+  useRegisterDashboardRightPanel(dictionaryEditionDrawerIdentifier);
 
   return {
-    isOpen: isOpenDrawer(id),
+    isOpen: isOpenDrawer(dictionaryEditionDrawerIdentifier),
     focusedContent,
     getEditedContentValue,
     close: () => {

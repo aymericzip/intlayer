@@ -19,7 +19,7 @@ import { WithResizer } from '@intlayer/design-system/with-resizer';
 import { createFileRoute, Outlet, useLocation } from '@tanstack/react-router';
 import { getIntlayerAsync, getPathWithoutLocale } from 'intlayer';
 import { X } from 'lucide-react';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
 import { AuthenticationBarrier } from '#components/Auth/AuthenticationBarrier/AuthenticationBarrier';
 import { DashboardFooter } from '#components/Dashboard/DashboardFooter';
@@ -31,7 +31,7 @@ import {
 import { DashboardSkeleton } from '#components/Dashboard/DashboardSkeleton';
 import { TranslationStatusBar } from '#components/TranslationStatusBar';
 import {
-  dashboardRightPanelManager,
+  DashboardRightPanelId,
   useDashboardRightPanel,
 } from '#hooks/useDashboardRightPanel';
 import { useDictionarySidebar } from '#hooks/useDictionarySidebar';
@@ -103,20 +103,11 @@ function DashboardLayout() {
     unpin: unpinEditorPage,
     removeRecent: removeRecentEditorPage,
   } = useEditorPagesSidebar();
-  const {
-    activePanel,
-    close: closeRightPanel,
-    open: openRightPanel,
-  } = useDashboardRightPanel();
+  const { activePanel, close: closeRightPanel } = useDashboardRightPanel();
   const { pathname } = useLocation();
-  const wasVisualEditorOpenRef = useRef(false);
   const hasProject = !!session?.project;
 
   const pathWithoutLocale = getPathWithoutLocale(pathname);
-
-  const isVisualEditorPage =
-    pathWithoutLocale.startsWith(App_Dashboard_Translate_Path) ||
-    pathWithoutLocale.startsWith(App_Dashboard_Dictionaries_Path);
 
   const dictionaryDetailMatch = pathWithoutLocale.match(
     new RegExp(`^${App_Dashboard_Dictionaries_Path}/(.+)$`)
@@ -127,17 +118,6 @@ function DashboardLayout() {
     new RegExp(`^${App_Dashboard_Tags_Path}/(.+)$`)
   );
   const currentTagKey = tagDetailMatch?.[1] ?? null;
-
-  useEffect(() => {
-    const currentPanel = dashboardRightPanelManager.getSnapshot().activePanel;
-    if (!isVisualEditorPage && currentPanel === 'visual-editor') {
-      wasVisualEditorOpenRef.current = true;
-      closeRightPanel();
-    } else if (isVisualEditorPage && wasVisualEditorOpenRef.current) {
-      wasVisualEditorOpenRef.current = false;
-      openRightPanel('visual-editor');
-    }
-  }, [isVisualEditorPage]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (currentDictionaryKey) {
@@ -158,15 +138,19 @@ function DashboardLayout() {
     translationStatus,
     aiAssistant,
     visualEditor,
+    nodeEditor,
+    dictionaryList,
     closePanel,
     mainContentAriaLabel,
     sidePanelAriaLabel,
   } = useIntlayer('dashboard-route');
 
-  const PANEL_TITLES: Record<string, string> = {
-    'translation-status': translationStatus.value,
-    'dashboard-chat': aiAssistant.value,
-    'visual-editor': visualEditor.value,
+  const PANEL_TITLES: Record<DashboardRightPanelId, string> = {
+    [DashboardRightPanelId.TranslationStatus]: translationStatus.value,
+    [DashboardRightPanelId.Chat]: aiAssistant.value,
+    [DashboardRightPanelId.VisualEditor]: visualEditor.value,
+    [DashboardRightPanelId.DictionaryEdition]: nodeEditor.value,
+    [DashboardRightPanelId.DictionaryList]: dictionaryList.value,
   };
 
   const navigationItems: SidebarNavigationItem[] = [
@@ -347,7 +331,7 @@ function DashboardLayout() {
           >
             <aside
               aria-label={
-                activePanel && PANEL_TITLES[activePanel]
+                activePanel
                   ? PANEL_TITLES[activePanel]
                   : sidePanelAriaLabel.value
               }
@@ -355,9 +339,7 @@ function DashboardLayout() {
             >
               <div className="flex shrink-0 items-center justify-between border-neutral/20 border-b px-3 py-2">
                 <span className="font-medium text-sm" aria-hidden="true">
-                  {activePanel && PANEL_TITLES[activePanel]
-                    ? PANEL_TITLES[activePanel]
-                    : ''}
+                  {activePanel ? PANEL_TITLES[activePanel] : ''}
                 </span>
                 <Button
                   type="button"

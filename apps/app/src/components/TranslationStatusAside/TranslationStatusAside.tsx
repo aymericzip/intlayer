@@ -31,7 +31,11 @@ import {
 import { type FC, memo, useCallback, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useIntlayer } from 'react-intlayer';
-import { useDashboardRightPanel } from '#hooks/useDashboardRightPanel';
+import {
+  DashboardRightPanelId,
+  useDashboardRightPanel,
+  useRegisterDashboardRightPanel,
+} from '#hooks/useDashboardRightPanel';
 import {
   getJobPercentage,
   isJobRunning,
@@ -438,8 +442,9 @@ export const TranslationStatusAside: FC = () => {
     clearPendingAction,
   } = useTranslationJobs();
 
-  const { open: openPanel, isOpen: checkIsOpen } = useDashboardRightPanel();
-  const isOpen = checkIsOpen('translation-status');
+  const { toggle: togglePanel, isOpen: checkIsOpen } = useDashboardRightPanel();
+  useRegisterDashboardRightPanel(DashboardRightPanelId.TranslationStatus);
+  const isOpen = checkIsOpen(DashboardRightPanelId.TranslationStatus);
   const [portalTarget, setPortalTarget] = useState<HTMLElement | null>(null);
   const [showArchive, setShowArchive] = useState(false);
   const [lastSeenTimestamp, setLastSeenTimestamp] = useState(0);
@@ -568,7 +573,7 @@ export const TranslationStatusAside: FC = () => {
     <>
       <PopoverStatic identifier="translation-status">
         <Button
-          onClick={() => openPanel('translation-status')}
+          onClick={() => togglePanel(DashboardRightPanelId.TranslationStatus)}
           type="button"
           variant="hoverable"
           label={content.translationStatus.value}

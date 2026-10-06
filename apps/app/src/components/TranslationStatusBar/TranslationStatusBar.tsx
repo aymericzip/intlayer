@@ -3,7 +3,10 @@ import { cn } from '@intlayer/design-system/utils';
 import { ChevronRight, Pause } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { useDashboardRightPanel } from '#hooks/useDashboardRightPanel';
+import {
+  DashboardRightPanelId,
+  useDashboardRightPanel,
+} from '#hooks/useDashboardRightPanel';
 import {
   getJobPercentage,
   isRichProgress,
@@ -45,7 +48,7 @@ export const TranslationStatusBar: FC = () => {
   return (
     <button
       type="button"
-      onClick={() => openPanel('translation-status')}
+      onClick={() => openPanel(DashboardRightPanelId.TranslationStatus)}
       aria-label={content.openTranslationStatus.value}
       className="group rtl-mirror-icons relative flex w-full shrink-0 items-center gap-3 border-neutral/20 border-t bg-background px-4 py-1.5 text-start transition-colors hover:bg-neutral/5"
     >
