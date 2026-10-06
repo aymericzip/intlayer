@@ -7,6 +7,7 @@ import {
 } from '@intlayer/engine/build';
 import {
   getGitMergeBase,
+  hasGitRef,
   type ListGitFilesOptions,
   readGitFile,
 } from '@intlayer/engine/cli';
@@ -20,20 +21,40 @@ export type PreviousDictionaries = Partial<
   Record<LocalDictionaryId, Dictionary>
 >;
 
+export type SourceChangesRef =
+  | { ref: string; skipReason?: undefined }
+  | { ref?: undefined; skipReason: string };
+
 /**
  * Git ref the source values are compared against. The base branch with
  * `--git-diff`, the upstream with `--unpushed`, the last commit otherwise.
+ *
+ * When the ref can't be read (no git, no commit, no upstream, or a shallow
+ * clone without the base branch), returns why instead, and `fill` only fills
+ * missing translations, as it did before source change detection.
  */
 export const getSourceChangesRef = async (
-  gitOptions?: ListGitFilesOptions
-): Promise<string | undefined> => {
+  gitOptions?: ListGitFilesOptions,
+  cwd?: string
+): Promise<SourceChangesRef> => {
   if (gitOptions?.mode.includes('gitDiff')) {
-    return getGitMergeBase(gitOptions.baseRef, gitOptions.currentRef);
+    const { baseRef = 'origin/main', currentRef = 'HEAD' } = gitOptions;
+    const mergeBase = await getGitMergeBase(baseRef, currentRef);
+
+    if (mergeBase) return { ref: mergeBase };
+
+    return {
+      skipReason: `no merge base found between ${baseRef} and ${currentRef}. In CI, check out the full git history (fetch-depth: 0)`,
+    };
   }
 
-  if (gitOptions?.mode.includes('unpushed')) return '@{push}';
+  const ref = gitOptions?.mode.includes('unpushed') ? '@{push}' : 'HEAD';
 
-  return 'HEAD';
+  if (await hasGitRef(ref, cwd)) return { ref };
+
+  return {
+    skipReason: `git ref ${ref} not found (no git repository, no commit or no upstream branch)`,
+  };
 };
 
 /**

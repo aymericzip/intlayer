@@ -218,6 +218,28 @@ export const readGitFile = async (
 };
 
 /**
+ * Returns `true` if `ref` points to a commit. Returns `false` if git is not
+ * installed, `cwd` is not in a git repository, or the ref is missing (no
+ * commit yet, no upstream branch, or a shallow clone without that history).
+ */
+export const hasGitRef = async (
+  ref: string,
+  cwd?: string
+): Promise<boolean> => {
+  try {
+    const commit = await simpleGit(cwd).raw([
+      'rev-parse',
+      '--verify',
+      `${ref}^{commit}`,
+    ]);
+
+    return commit.trim() !== '';
+  } catch {
+    return false;
+  }
+};
+
+/**
  * Returns the commit `currentRef` forked from `baseRef`, which is the side
  * `git diff baseRef...currentRef` compares against.
  */

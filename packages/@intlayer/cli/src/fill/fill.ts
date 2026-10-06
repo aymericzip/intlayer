@@ -189,13 +189,21 @@ export const fill = async (options?: FillOptions): Promise<FillResult> => {
   let previousDictionaries: PreviousDictionaries = {};
 
   if (mode === 'complete') {
-    const sourceChangesRef = await getSourceChangesRef(options?.gitOptions);
+    const { ref, skipReason } = await getSourceChangesRef(
+      options?.gitOptions,
+      configuration.system.baseDir
+    );
 
-    if (sourceChangesRef) {
+    if (ref) {
       previousDictionaries = await loadPreviousDictionaries(
         targetUnmergedDictionaries,
         configuration,
-        sourceChangesRef
+        ref
+      );
+    } else {
+      appLogger(
+        `Source changes not checked: ${skipReason}. Only missing translations are filled.`,
+        { level: options?.gitOptions ? 'warn' : 'info' }
       );
     }
   }
