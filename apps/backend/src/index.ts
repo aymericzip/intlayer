@@ -3,6 +3,7 @@ import {
   createCliSessionTokenHandler,
   getCliSessionMeHandler,
 } from '@controllers/cliSessionToken.controller';
+import { resetDemoResources } from '@controllers/demo.controller';
 import {
   extendOAuth2Token,
   getOAuth2AccessToken,
@@ -376,6 +377,11 @@ const startServer = async () => {
     await app.register(reviewerRouter, { prefix: reviewerRoute });
     await app.register(showcaseProjectRouter, { prefix: showcaseProjectRoute });
     await app.register(demoRouter, { prefix: demoRoute });
+
+    // Undo whatever visitors changed through the shared demo account.
+    resetDemoResources().catch((error) => {
+      logger.error('[demo] reset failed:', error);
+    });
     await app.register(blogCommentRouter, { prefix: blogCommentRoute });
   }
 
