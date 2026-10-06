@@ -18,6 +18,7 @@ import { PencilRuler } from 'lucide-react';
 import type { FunctionComponent } from 'preact';
 import { useState } from 'preact/hooks';
 import { useIntlayer } from 'preact-intlayer';
+import { useLastDefinedValue } from '../../../hooks/useLastDefinedValue';
 import { dictionaryListDrawerIdentifier } from '../DictionaryListDrawer/dictionaryListDrawerIdentifier';
 import {
   getDrawerIdentifier,
@@ -67,15 +68,24 @@ export const DictionaryEditionDrawer: FunctionComponent<
     handleOnBack();
   };
 
-  if (!focusedContent?.dictionaryKey)
+  /**
+   * Closing clears the focused content, which would empty the drawer before
+   * its transition could run. Holding on to the last focused dictionary keeps
+   * the panel filled while it slides away.
+   */
+  const displayedDictionaryLocalId = useLastDefinedValue(
+    focusedContent?.dictionaryLocalId
+  );
+
+  if (!displayedDictionaryLocalId)
     return (
       <span className="mx-auto my-10 text-neutral text-sm">
         {noDictionaryFocused}
       </span>
     );
 
-  const dictionary = unmergedDictionaries?.[focusedContent.dictionaryKey]?.find(
-    (dict: Dictionary) => dict.localId === focusedContent?.dictionaryLocalId
+  const dictionary = unmergedDictionaries?.[dictionaryKey]?.find(
+    (dict: Dictionary) => dict.localId === displayedDictionaryLocalId
   );
 
   if (!dictionary)
@@ -146,37 +156,33 @@ export const DictionaryEditionDrawer: FunctionComponent<
         />
       }
     >
-      {focusedContent && (
-        <>
-          <Modal
-            isOpen={editionModalOpen}
-            onClose={() => setEditionModalOpen(false)}
-            hasCloseButton
-            title={modalTitle}
-            size="xl"
-            transparency="lg"
-            className="h-full"
-          >
-            <div className="flex h-full min-h-0 w-full flex-1 flex-col px-3 pt-5">
-              <DictionaryFieldEditor
-                dictionary={dictionary}
-                onClickDictionaryList={onClickDictionaryList}
-                isDarkMode={isDarkMode}
-                mode={['local', 'remote']}
-                onDelete={() => {
-                  setEditionModalOpen(false);
-                  handleOnBack();
-                }}
-                onSave={() => {
-                  setEditionModalOpen(false);
-                }}
-              />
-            </div>
-          </Modal>
+      <Modal
+        isOpen={editionModalOpen}
+        onClose={() => setEditionModalOpen(false)}
+        hasCloseButton
+        title={modalTitle}
+        size="xl"
+        transparency="lg"
+        className="h-full"
+      >
+        <div className="flex h-full min-h-0 w-full flex-1 flex-col px-3 pt-5">
+          <DictionaryFieldEditor
+            dictionary={dictionary}
+            onClickDictionaryList={onClickDictionaryList}
+            isDarkMode={isDarkMode}
+            mode={['local', 'remote']}
+            onDelete={() => {
+              setEditionModalOpen(false);
+              handleOnBack();
+            }}
+            onSave={() => {
+              setEditionModalOpen(false);
+            }}
+          />
+        </div>
+      </Modal>
 
-          <DictionaryEditor dictionary={dictionary} />
-        </>
-      )}
+      <DictionaryEditor dictionary={dictionary} />
     </RightDrawer>
   );
 };
@@ -189,15 +195,23 @@ export const DictionaryEditionDrawerController: FunctionComponent<
   DictionaryEditionDrawerControllerProps
 > = ({ isDarkMode }) => {
   const { focusedContent } = useFocusUnmergedDictionary();
-  const dictionaryKey: string | undefined = focusedContent?.dictionaryKey;
 
-  if (!dictionaryKey) {
+  /**
+   * Unmounting as soon as focus clears would remove the drawer before it could
+   * animate out. The last focused key stays mounted, and is only replaced once
+   * another dictionary takes focus.
+   */
+  const mountedDictionaryKey = useLastDefinedValue(
+    focusedContent?.dictionaryKey
+  );
+
+  if (!mountedDictionaryKey) {
     return <></>;
   }
 
   return (
     <DictionaryEditionDrawer
-      dictionaryKey={dictionaryKey}
+      dictionaryKey={mountedDictionaryKey}
       isDarkMode={isDarkMode}
     />
   );
