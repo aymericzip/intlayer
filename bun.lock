@@ -404,7 +404,6 @@
       "optionalDependencies": {
         "@react-spring/web": "10.1.2",
         "cobe": "2.0.1",
-        "intlayer-editor": "workspace:*",
       },
     },
     "compat/i18next": {
