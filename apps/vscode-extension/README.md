@@ -108,6 +108,14 @@ Use the side tab to browse and manage dictionaries:
 - In **Search**, type to filter dictionaries and entries in real time.
 - In **Dictionaries**, browse environments, dictionaries, and files. Use the toolbar for Build, Pull, Push, Fill, Refresh, Test, and Create Dictionary File. Right‑click for context actions (Pull/Push on dictionaries, Fill on files). The current editor file auto‑reveals in the tree when applicable.
 
+### Visual Editor Panel
+
+In an Intlayer project, an Intlayer button appears at the top right of the editor. It opens the visual editor (`editor.editorURL`) in a panel beside your code:
+
+- Edit your content directly on the rendered application.
+- Select a field to open the content file declaring it, with the field selected.
+- If the editor server is not running, the panel offers to start it (`intlayer editor start`).
+
 ### Accessing the commands
 
 You can access the commands from the **Command Palette**.

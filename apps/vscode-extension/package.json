@@ -62,7 +62,9 @@
     "LICENSE.txt",
     "package.json",
     "icon.png",
-    "logo.svg"
+    "logo.svg",
+    "editor-icon-light.svg",
+    "editor-icon-dark.svg"
   ],
   "scripts": {
     "build": "tsdown",
@@ -215,6 +217,14 @@
         "icon": "$(edit)"
       },
       {
+        "command": "intlayer.openEditorPanel",
+        "title": "Intlayer: Open Visual Editor Panel",
+        "icon": {
+          "light": "editor-icon-light.svg",
+          "dark": "editor-icon-dark.svg"
+        }
+      },
+      {
         "command": "intlayer.upgrade",
         "title": "Intlayer: Upgrade Packages",
         "icon": "$(arrow-up)"
@@ -272,6 +282,11 @@
     ],
     "menus": {
       "editor/title": [
+        {
+          "when": "intlayer.isEditorPanelAvailable",
+          "command": "intlayer.openEditorPanel",
+          "group": "navigation@904"
+        },
         {
           "when": "resourceFilename =~ /.*\\.content\\.(ts|tsx|js|jsx|mjs|cjs|json|jsonc|json5|md|mdx|yaml|yml)$/",
           "command": "extension.buildActiveDictionary",
