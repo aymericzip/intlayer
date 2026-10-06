@@ -1,4 +1,5 @@
 import { readFile } from 'node:fs/promises';
+import { relative } from 'node:path';
 import { EDITOR_URL } from '@intlayer/config/defaultValues';
 import { searchConfigurationFile } from '@intlayer/config/node';
 import {
@@ -21,6 +22,7 @@ import {
 import { getCachedConfig } from '../utils/intlayerCache';
 import { createOffsetToPosition } from '../utils/textPosition';
 import {
+  getEditorServerUrl,
   getRecentEditorServerOutput,
   isEditorServerRunning,
   showEditorServerLogs,
@@ -70,6 +72,8 @@ const isPanelMessage = (message: unknown): message is PanelMessage =>
 type PanelState = {
   panel: WebviewPanel;
   projectDir: string;
+  /** Version of the extension, which the started editor is aligned with. */
+  extensionVersion: string;
   /** Last focused content revealed, to skip repeated focus messages. */
   lastFocusedContentKey?: string;
   /** Screen shown: the editor, or a status screen. */
@@ -78,31 +82,61 @@ type PanelState = {
 
 let panelState: PanelState | undefined;
 
-const isEditorReachable = async (editorURL: string): Promise<boolean> => {
+/** Part of the `/api/config` response of `intlayer-editor` read here. */
+type EditorConfigurationResponse = {
+  data?: { system?: { baseDir?: string } } | null;
+};
+
+/**
+ * Whether the URL serves the visual editor of this project: the port may be
+ * held by another project's editor, or by an unrelated server.
+ */
+const isProjectEditor = async (
+  editorURL: string,
+  projectDir: string
+): Promise<boolean> => {
   try {
-    await fetch(editorURL, { signal: AbortSignal.timeout(PROBE_TIMEOUT) });
-    return true;
+    const response = await fetch(new URL('/api/config', editorURL), {
+      signal: AbortSignal.timeout(PROBE_TIMEOUT),
+    });
+
+    if (!response.ok) return false;
+
+    const { data } = (await response.json()) as EditorConfigurationResponse;
+    const baseDir = data?.system?.baseDir;
+
+    return baseDir !== undefined && relative(baseDir, projectDir) === '';
   } catch {
     return false;
   }
 };
 
 /**
- * Waits for the editor server the extension started to answer. Gives up early
- * when that process exits (e.g. its port is taken, or the setup is invalid).
+ * Waits for the editor server the extension started to answer, at the URL it
+ * announces (its port shifts when the configured one is taken). Gives up early
+ * when that process exits (e.g. the setup is invalid).
+ *
+ * @returns The editor URL, or `undefined` when it never answered.
  */
 const waitForEditor = async (
-  editorURL: string,
   projectDir: string
-): Promise<boolean> => {
+): Promise<string | undefined> => {
   for (let attempt = 0; attempt < STARTUP_POLL_ATTEMPTS; attempt++) {
-    if (await isEditorReachable(editorURL)) return true;
-    if (!isEditorServerRunning(projectDir)) return false;
+    const editorServerUrl = getEditorServerUrl(projectDir);
+
+    if (
+      editorServerUrl !== undefined &&
+      (await isProjectEditor(editorServerUrl, projectDir))
+    ) {
+      return editorServerUrl;
+    }
+
+    if (!isEditorServerRunning(projectDir)) return undefined;
 
     await new Promise((resolve) => setTimeout(resolve, STARTUP_POLL_INTERVAL));
   }
 
-  return false;
+  return undefined;
 };
 
 type EditorSettings = {
@@ -154,18 +188,21 @@ const renderPanel = async (state: PanelState): Promise<void> => {
     );
   };
 
-  // Port-forwarded in remote workspaces
-  const webviewEditorURL = (
-    await env.asExternalUri(Uri.parse(editorURL))
-  ).toString(true);
+  const showEditor = async (servedEditorURL: string) => {
+    // Port-forwarded in remote workspaces
+    const webviewEditorURL = (
+      await env.asExternalUri(Uri.parse(servedEditorURL))
+    ).toString(true);
 
-  const showEditor = () => {
     state.view = 'editor';
     state.panel.webview.html = getEditorFrameHtml(webviewEditorURL);
   };
 
-  if (await isEditorReachable(editorURL)) {
-    showEditor();
+  // Started earlier by the extension, or by the user
+  const runningEditorURL = getEditorServerUrl(state.projectDir) ?? editorURL;
+
+  if (await isProjectEditor(runningEditorURL, state.projectDir)) {
+    await showEditor(runningEditorURL);
     return;
   }
 
@@ -176,15 +213,15 @@ const renderPanel = async (state: PanelState): Promise<void> => {
   }
 
   showStatus('starting');
-  startEditorServer(state.projectDir);
+  startEditorServer(state.projectDir, state.extensionVersion);
 
-  const isReady = await waitForEditor(editorURL, state.projectDir);
+  const startedEditorURL = await waitForEditor(state.projectDir);
 
   // Closed or re-targeted meanwhile
   if (panelState !== state) return;
 
-  if (isReady) {
-    showEditor();
+  if (startedEditorURL) {
+    await showEditor(startedEditorURL);
     return;
   }
 
@@ -271,7 +308,11 @@ const createPanel = (
     dark: Uri.joinPath(context.extensionUri, 'editor-icon-dark.svg'),
   };
 
-  const state: PanelState = { panel, projectDir };
+  const state: PanelState = {
+    panel,
+    projectDir,
+    extensionVersion: context.extension.packageJSON.version,
+  };
 
   panel.webview.onDidReceiveMessage((message: unknown) => {
     if (isPanelMessage(message)) void handlePanelMessage(state, message);

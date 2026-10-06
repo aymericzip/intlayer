@@ -14,7 +14,7 @@ import { getConfiguration } from '@intlayer/config/node';
 import { authRouter } from '@routes/auth.routes';
 import { configurationRouter } from '@routes/config.routes';
 import { dictionaryRouter } from '@routes/dictionary.routes';
-import { checkPortAvailability } from '@utils/checkPortAvailability';
+import { findAvailablePort } from '@utils/checkPortAvailability';
 import Fastify, { type FastifyInstance, LogController } from 'fastify';
 import { intlayer } from 'fastify-intlayer';
 import mime from 'mime';
@@ -30,7 +30,9 @@ const FALLBACK_PORT = 8000;
 const config = getConfiguration(envFileOptions);
 
 const appLogger = getAppLogger(config);
-const port = config.editor.port ?? FALLBACK_PORT;
+/** Port tried first; the next free one is used when it is taken. */
+const preferredPort = config.editor.port ?? FALLBACK_PORT;
+const HOST = '0.0.0.0';
 
 if (!config.editor.enabled) {
   appLogger(
@@ -65,13 +67,19 @@ const corsOptions: FastifyCorsOptions = {
 };
 
 const startServer = async (app: FastifyInstance) => {
-  const isPortAvailable = await checkPortAvailability(port);
+  const port = await findAvailablePort(preferredPort, HOST);
 
-  if (!isPortAvailable) {
-    appLogger(`Error: Port ${port} is already in use.`, {
+  if (port === undefined) {
+    appLogger(`Error: Port ${preferredPort} and the next ones are in use.`, {
       level: 'error',
     });
     process.exit(255);
+  }
+
+  if (port !== preferredPort) {
+    appLogger(`Port ${preferredPort} is in use, using port ${port} instead.`, {
+      level: 'warn',
+    });
   }
 
   // Security Headers
@@ -80,7 +88,12 @@ const startServer = async (app: FastifyInstance) => {
     // VS Code extension panel). `X-Frame-Options` cannot list a scheme.
     contentSecurityPolicy: {
       useDefaults: false,
-      directives: { frameAncestors: ["'self'", 'vscode-webview:'] },
+      directives: {
+        // Helmet requires a `default-src`; the editor sets no other policy
+        defaultSrc:
+          fastifyHelmet.contentSecurityPolicy.dangerouslyDisableDefaultSrc,
+        frameAncestors: ["'self'", 'vscode-webview:'],
+      },
     },
     frameguard: false,
     global: true,
@@ -124,7 +137,7 @@ const startServer = async (app: FastifyInstance) => {
   });
 
   try {
-    await app.listen({ port, host: '0.0.0.0' });
+    await app.listen({ port, host: HOST });
 
     const dotEnvFilePath = getEnvFilePath(
       envFileOptions.env,
@@ -139,9 +152,14 @@ const startServer = async (app: FastifyInstance) => {
     ${colorize('➜', ANSIColors.GREY_DARK)}  Access key:               ${config.editor.clientId ?? '-'}
     ${colorize('➜', ANSIColors.GREY_DARK)}  Environment:              ${dotEnvFilePath ?? '-'}
     `);
-  } catch (err) {
-    app.log.error(err);
-    process.exit(1);
+  } catch (error) {
+    // The Fastify logger is disabled, so `app.log` would swallow this
+    appLogger(`Failed to start the editor: ${(error as Error).message}`, {
+      level: 'error',
+    });
+    process.exit(
+      (error as NodeJS.ErrnoException).code === 'EADDRINUSE' ? 255 : 1
+    );
   }
 };
 

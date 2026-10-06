@@ -1,9 +1,24 @@
 import { type ChildProcess, spawn } from 'node:child_process';
 import { type OutputChannel, window } from 'vscode';
-import { getIntlayerCliCommand } from '../utils/runIntlayerCli';
+import { getInstalledIntlayerVersion } from '../utils/getInstalledIntlayerVersion';
+import {
+  getIntlayerCliCommand,
+  runIntlayerCliInTerminal,
+} from '../utils/runIntlayerCli';
+import { parseEditorServerUrl } from './parseEditorServerUrl';
 
 /** Editor servers started by the extension, per project directory. */
 const editorServerProcesses = new Map<string, ChildProcess>();
+
+/** URL each started editor server announced (its port may be shifted). */
+const editorServerUrls = new Map<string, string>();
+
+/**
+ * URL the editor server started for a project listens at, once announced.
+ * Differs from `editor.editorURL` when its port was taken.
+ */
+export const getEditorServerUrl = (projectDir: string): string | undefined =>
+  editorServerUrls.get(projectDir);
 
 /** Output lines kept per project, to explain a failed start in the panel. */
 const MAX_RECENT_OUTPUT_LINES = 10;
@@ -58,21 +73,91 @@ const killProcessTree = (childProcess: ChildProcess): void => {
   }
 };
 
+/** Projects already warned about a version mismatch this session. */
+const versionMismatchWarnedProjects = new Set<string>();
+
+/**
+ * Warns once per project that its Intlayer packages and the extension differ:
+ * the editor and the extension exchange messages that change across versions.
+ */
+const warnVersionMismatch = async (
+  projectDir: string,
+  installedVersion: string,
+  extensionVersion: string
+): Promise<void> => {
+  const message =
+    `Intlayer ${installedVersion} is installed in this project, but the ` +
+    `extension is ${extensionVersion}. The visual editor may misbehave ` +
+    'until their versions match.';
+
+  getOutputChannel().appendLine(`[${projectDir}] ${message}`);
+
+  if (versionMismatchWarnedProjects.has(projectDir)) return;
+
+  versionMismatchWarnedProjects.add(projectDir);
+
+  const upgradeAction = 'Upgrade Intlayer packages';
+  const selectedAction = await window.showWarningMessage(
+    message,
+    upgradeAction
+  );
+
+  if (selectedAction !== upgradeAction) return;
+
+  runIntlayerCliInTerminal(projectDir, {
+    terminalName: 'Intlayer upgrade',
+    args: ['upgrade'],
+    // `upgrade` takes no configuration options
+    forwardEnvironment: false,
+  });
+};
+
+/**
+ * Builds `intlayer editor start` for a project: the project's installed CLI
+ * (which runs the `intlayer-editor` of its own version), else the CLI of the
+ * extension version, so the CLI, the editor and the extension stay aligned.
+ */
+const getEditorStartCommand = (
+  projectDir: string,
+  extensionVersion: string
+): string => {
+  const args = ['editor', 'start'];
+  const installedVersion = getInstalledIntlayerVersion(projectDir);
+
+  if (!installedVersion) {
+    return getIntlayerCliCommand(projectDir, {
+      args,
+      remote: true,
+      version: extensionVersion,
+      forwardEnvironment: true,
+    });
+  }
+
+  if (installedVersion !== extensionVersion) {
+    void warnVersionMismatch(projectDir, installedVersion, extensionVersion);
+  }
+
+  return getIntlayerCliCommand(projectDir, { args });
+};
+
 /**
  * Starts `intlayer editor start` in the background for a project, unless the
  * extension already did. The CLI runs the project's `intlayer-editor`, else
- * downloads it. Output goes to the "Intlayer Editor" output channel.
+ * downloads the one of its version. Output goes to the "Intlayer Editor"
+ * output channel.
  */
-export const startEditorServer = (projectDir: string): void => {
+export const startEditorServer = (
+  projectDir: string,
+  extensionVersion: string
+): void => {
   if (isEditorServerRunning(projectDir)) return;
 
   const channel = getOutputChannel();
-  const command = getIntlayerCliCommand(projectDir, {
-    args: ['editor', 'start'],
-  });
+  const command = getEditorStartCommand(projectDir, extensionVersion);
 
   channel.appendLine(`[${projectDir}] > ${command}`);
   recentOutputLines.set(projectDir, []);
+  editorServerUrls.delete(projectDir);
 
   const editorServerProcess = spawn(command, {
     cwd: projectDir,
@@ -86,6 +171,10 @@ export const startEditorServer = (projectDir: string): void => {
     const lines = text.split('\n').filter((line) => line.trim() !== '');
 
     channel.append(text);
+
+    const announcedUrl = parseEditorServerUrl(text);
+
+    if (announcedUrl) editorServerUrls.set(projectDir, announcedUrl);
     recentOutputLines.set(
       projectDir,
       [...getRecentEditorServerOutput(projectDir), ...lines].slice(
@@ -106,6 +195,7 @@ export const startEditorServer = (projectDir: string): void => {
 
     if (editorServerProcesses.get(projectDir) === editorServerProcess) {
       editorServerProcesses.delete(projectDir);
+      editorServerUrls.delete(projectDir);
     }
   });
 
@@ -119,6 +209,7 @@ export const stopEditorServer = (projectDir: string): void => {
   if (!editorServerProcess) return;
 
   editorServerProcesses.delete(projectDir);
+  editorServerUrls.delete(projectDir);
   killProcessTree(editorServerProcess);
 };
 
