@@ -1,26 +1,17 @@
 import { execSync } from 'node:child_process';
 import { mkdir, rename, rm, writeFile } from 'node:fs/promises';
 import { basename, dirname, join } from 'node:path';
-import { stringifyYaml } from '@intlayer/core/utils';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import { detectFormatCommand } from '../detectFormatCommand';
-
-// Fields that are auto-generated or runtime-only, not persisted in the file
-const EXCLUDED_YAML_KEYS = new Set<string>(['$schema', 'id', 'filePath']);
+import { renderYamlContentDeclaration } from './renderContentDeclaration';
 
 export const writeYamlFile = async (
   absoluteFilePath: string,
   dictionary: Dictionary,
   configuration: IntlayerConfig
 ): Promise<void> => {
-  const filtered = Object.fromEntries(
-    Object.entries(dictionary).filter(
-      ([k, v]) => !EXCLUDED_YAML_KEYS.has(k) && v !== undefined
-    )
-  );
-
-  const fileContent = stringifyYaml(filtered);
+  const fileContent = renderYamlContentDeclaration(dictionary);
 
   const dir = dirname(absoluteFilePath);
   await mkdir(dir, { recursive: true });

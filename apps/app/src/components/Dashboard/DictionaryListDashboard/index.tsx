@@ -1,3 +1,4 @@
+import type { DictionaryAPI } from '@intlayer/backend-contract/dictionary';
 import { useSession } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
@@ -29,6 +30,7 @@ import { DictionaryListSkeleton } from './DictionaryListSkeleton';
 import { DictionaryModals } from './DictionaryModals';
 import { DictionaryTable } from './DictionaryTable';
 import { DictionaryToolbar } from './DictionaryToolbar';
+import { SourceSyncStatus } from './SourceSyncStatus';
 import { useDictionaryDashboard } from './useDictionaryDashboard';
 
 export const DictionaryListDashboardContent: FC = () => {
@@ -244,6 +246,9 @@ export const DictionaryListDashboardContent: FC = () => {
                 />
                 <span>{content.locationOptions.remote.value}</span>
               </div>
+              <SourceSyncStatus
+                sourceSync={(row.original as DictionaryAPI).sourceSync}
+              />
             </div>
           );
         },

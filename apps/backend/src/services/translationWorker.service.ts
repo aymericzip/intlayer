@@ -14,6 +14,7 @@ import type { ContentNode } from '@intlayer/types/dictionary';
 import { logger } from '@logger';
 import * as dictionaryService from '@services/dictionary.service';
 import * as projectService from '@services/project.service';
+import { scheduleDictionarySourceSync } from '@services/sourceSync/sourceSyncQueue';
 import * as userService from '@services/user.service';
 import {
   AbortError,
@@ -449,6 +450,12 @@ export const processTranslationJob = async (job: Job<TranslationJobData>) => {
         status: 'UPDATED',
       },
     ]);
+
+    await scheduleDictionarySourceSync({
+      project,
+      dictionary: updatedDictionary,
+      userId,
+    });
   };
 
   const taskLimiter = pLimit(NB_CONCURRENT_DICTIONARIES);

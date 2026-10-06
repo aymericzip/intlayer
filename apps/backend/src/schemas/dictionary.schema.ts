@@ -3,6 +3,7 @@ import { type Model, model, Schema } from 'mongoose';
 import type {
   Dictionary,
   DictionarySchema,
+  DictionarySourceSync,
   VersionedContentEl,
 } from '@/types/dictionary.types';
 
@@ -22,6 +23,28 @@ const versionedContentElSchema = new Schema<VersionedContentEl>(
   {
     timestamps: true,
   }
+);
+
+const dictionarySourceSyncSchema = new Schema<DictionarySourceSync>(
+  {
+    status: {
+      type: String,
+      enum: [
+        'committed',
+        'pull-request',
+        'up-to-date',
+        'file-not-found',
+        'unsupported',
+        'error',
+      ],
+      required: true,
+    },
+    url: { type: String },
+    commitSha: { type: String },
+    message: { type: String },
+    syncedAt: { type: Date, required: true },
+  },
+  { _id: false }
 );
 
 export const dictionarySchema = new Schema<DictionarySchema>(
@@ -79,6 +102,19 @@ export const dictionarySchema = new Schema<DictionarySchema>(
       type: Schema.Types.ObjectId,
       ref: 'Project',
       default: null,
+    },
+    // Source declaration of the dictionary in the codebase (pushed by the CLI)
+    location: {
+      type: String,
+      default: undefined,
+    },
+    filePath: {
+      type: String,
+      default: undefined,
+    },
+    sourceSync: {
+      type: dictionarySourceSyncSchema,
+      default: undefined,
     },
   },
   {

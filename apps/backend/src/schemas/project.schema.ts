@@ -102,6 +102,7 @@ const projectConfigSchema = new Schema<Project['configuration']>(
 const webhooksConfigSchema = new Schema<Project['webhooks']>(
   {
     autoTriggerBuilds: { type: Boolean, default: false }, // Master toggle
+    autoCommitDictionaries: { type: Boolean, default: false },
     webhooks: [webhookSchema], // Generic hooks (Vercel, Netlify, Custom)
   },
   {

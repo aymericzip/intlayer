@@ -56,12 +56,12 @@ export type CIStatus = {
 /**
  * Get the best available token for CI operations on a repository.
  * Prefers the repo-scoped token stored on the repository connection,
- * falls back to the social login token from the account collection.
+ * falls back to the social login token of `userId` from the account collection.
  */
-const getProviderToken = async (
+export const getProviderToken = async (
   projectId: string | Types.ObjectId,
   repository: NonNullable<Project['repository']>,
-  userId: string | Types.ObjectId
+  userId?: string | Types.ObjectId
 ): Promise<string | null> => {
   // 1. Prefer the repo-scoped token stored on the repository (has write access).
   // Read from the DB: API-mapped projects (session) never carry the token.
@@ -71,6 +71,8 @@ const getProviderToken = async (
   if (repositoryToken) {
     return repositoryToken;
   }
+
+  if (!userId) return null;
 
   // 2. Fall back to the social login token from Better Auth account collection
   const userIdStr = String(userId);

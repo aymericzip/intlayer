@@ -26,6 +26,36 @@ export type DictionaryQualifiers = {
   item?: number;
 };
 
+/** Outcome of the last attempt to commit a CMS edit to the source file. */
+export type DictionarySourceSyncStatus =
+  | 'committed'
+  | 'pull-request'
+  | 'up-to-date'
+  | 'file-not-found'
+  | 'unsupported'
+  | 'error';
+
+export type DictionarySourceSync = {
+  status: DictionarySourceSyncStatus;
+  /** Commit (or pull request) link on the git provider */
+  url?: string;
+  commitSha?: string;
+  message?: string;
+  syncedAt: Date;
+};
+
+/**
+ * Where the dictionary is declared in the codebase, as pushed by the CLI.
+ * Used to write CMS edits back to the `.content` file.
+ */
+export type DictionarySource = {
+  /** `hybrid`, `remote`, `local`, or a plugin location */
+  location?: string;
+  /** Path of the `.content` file, relative to the intlayer config directory */
+  filePath?: string;
+  sourceSync?: DictionarySourceSync;
+};
+
 export type DictionaryCreationData = DictionaryQualifiers & {
   projectIds: (Project['id'] | string)[];
   key: string;
@@ -47,19 +77,20 @@ export type VersionedContentEl = {
 export type ContentVersion = string;
 export type VersionedContent = Map<string, VersionedContentEl>;
 
-export type DictionaryData = DictionaryQualifiers & {
-  key: string;
-  content: VersionedContent;
-  projectIds: (Project['id'] | string)[];
-  creatorId: User['id'];
-  title?: string;
-  description?: string;
-  priority?: number;
-  importMode?: 'static' | 'dynamic' | 'fetch';
-  tags?: string[];
-  /** If set, this dictionary belongs to a specific project environment. Null means shared (visible in all envs). */
-  environmentId?: Types.ObjectId | string | null;
-};
+export type DictionaryData = DictionaryQualifiers &
+  DictionarySource & {
+    key: string;
+    content: VersionedContent;
+    projectIds: (Project['id'] | string)[];
+    creatorId: User['id'];
+    title?: string;
+    description?: string;
+    priority?: number;
+    importMode?: 'static' | 'dynamic' | 'fetch';
+    tags?: string[];
+    /** If set, this dictionary belongs to a specific project environment. Null means shared (visible in all envs). */
+    environmentId?: Types.ObjectId | string | null;
+  };
 
 export type Dictionary = DictionaryData & {
   id: Types.ObjectId;
@@ -75,6 +106,7 @@ export type DictionaryAPI = ObjectIdToString<
     /** Content versions, oldest first (added by `mapDictionaryToAPI`). */
     versionList: string[];
     environmentId?: Types.ObjectId | string | null;
+    sourceSync?: DictionarySourceSync;
     updatedAt: Date;
     createdAt: Date;
   }

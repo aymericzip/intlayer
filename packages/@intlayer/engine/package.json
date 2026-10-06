@@ -85,6 +85,11 @@
       "require": "./dist/cjs/docReview/index.cjs",
       "import": "./dist/esm/docReview/index.mjs"
     },
+    "./contentDeclaration": {
+      "types": "./dist/types/writeContentDeclaration/renderContentDeclaration.d.ts",
+      "require": "./dist/cjs/writeContentDeclaration/renderContentDeclaration.cjs",
+      "import": "./dist/esm/writeContentDeclaration/renderContentDeclaration.mjs"
+    },
     "./package.json": "./package.json"
   },
   "main": "dist/cjs/index.cjs",
@@ -121,6 +126,9 @@
       ],
       "docReview": [
         "./dist/types/docReview/index.d.ts"
+      ],
+      "contentDeclaration": [
+        "./dist/types/writeContentDeclaration/renderContentDeclaration.d.ts"
       ],
       "package.json": [
         "./package.json"

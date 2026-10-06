@@ -64,6 +64,7 @@ import { translateRoute, translationRouter } from '@routes/translate.routes';
 import { userRoute, userRouter } from '@routes/user.routes';
 import { registerWellKnownRoutes } from '@routes/wellKnown.routes';
 import { processAuditJobs } from '@services/audit/recursiveAudit.service';
+import { startSourceSyncWorker } from '@services/sourceSync/sourceSyncQueue';
 import { startTranslationWorker } from '@services/translationWorker.service';
 // Utils
 import { initializeAuth } from '@utils/auth/getAuth';
@@ -165,8 +166,11 @@ const startServer = async () => {
   // Connect to Redis (optional: live translations are disabled without it)
   const redisClient = await connectRedis();
 
-  // Start Translation Worker
-  if (redisClient) startTranslationWorker();
+  // Start Translation and source sync workers
+  if (redisClient) {
+    startTranslationWorker();
+    startSourceSyncWorker();
+  }
 
   // Resume any pending recursive audits
   processAuditJobs().catch((err) => logger.error(err));

@@ -21,6 +21,22 @@ import {
   responseDataSchema,
 } from './responseData';
 
+/** Outcome of the last commit of a CMS edit to the source `.content` file. */
+export type DictionarySourceSync = {
+  status:
+    | 'committed'
+    | 'pull-request'
+    | 'up-to-date'
+    | 'file-not-found'
+    | 'unsupported'
+    | 'error';
+  /** Commit (or pull request) link on the git provider. */
+  url?: string;
+  commitSha?: string;
+  message?: string;
+  syncedAt: string;
+};
+
 /** Fields the server adds to a stored dictionary. */
 type DictionaryServerFields = {
   id: string;
@@ -30,6 +46,7 @@ type DictionaryServerFields = {
   versionList: string[];
   /** Environment the dictionary belongs to; null = shared by all. */
   environmentId?: string | null;
+  sourceSync?: DictionarySourceSync;
   createdAt: string;
   updatedAt: string;
 };

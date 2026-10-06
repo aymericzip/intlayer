@@ -47,6 +47,8 @@ export type Webhook = {
 
 export type ProjectConfigCI = {
   autoTriggerBuilds?: boolean;
+  /** Commit CMS edits of `hybrid` dictionaries back to their `.content` file */
+  autoCommitDictionaries?: boolean;
   webhooks?: Webhook[];
 };
 

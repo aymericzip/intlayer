@@ -9,16 +9,29 @@ export type TriggerResult = {
   message?: string;
 };
 
+export type TriggerAllOptions = {
+  /**
+   * Skip the git provider pipeline, e.g. when the change is about to be
+   * committed to the repository, which runs the pipeline anyway
+   */
+  skipGitPipeline?: boolean;
+};
+
 /**
  * Main entry point to trigger all configured CI pipelines for a project
  */
 export const triggerAll = async (
-  project: Project
+  project: Project,
+  { skipGitPipeline = false }: TriggerAllOptions = {}
 ): Promise<TriggerResult[]> => {
   const results: TriggerResult[] = [];
 
   // Trigger Git Provider Pipeline (if configured)
-  if (project.repository && project.webhooks?.autoTriggerBuilds) {
+  if (
+    !skipGitPipeline &&
+    project.repository &&
+    project.webhooks?.autoTriggerBuilds
+  ) {
     try {
       await triggerGitPipeline(project);
       results.push({

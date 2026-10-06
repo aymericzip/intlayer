@@ -14,6 +14,7 @@ import type {
   Dictionary,
   DictionaryData,
   DictionaryDocument,
+  DictionarySourceSync,
 } from '@/types/dictionary.types';
 import type { Project } from '@/types/project.types';
 
@@ -263,6 +264,25 @@ export const updateDictionaryById = async (
   const updatedDictionary = await getDictionaryById(dictionaryId);
 
   return updatedDictionary;
+};
+
+/**
+ * Records the outcome of committing CMS edits to the dictionaries source
+ * files. Leaves `updatedAt` untouched: this is not a content change.
+ * @param dictionaryIds - The IDs of the dictionaries.
+ * @param sourceSync - The outcome to record.
+ */
+export const setDictionariesSourceSync = async (
+  dictionaryIds: (string | Types.ObjectId)[],
+  sourceSync: DictionarySourceSync
+): Promise<void> => {
+  if (dictionaryIds.length === 0) return;
+
+  await DictionaryModel.updateMany(
+    { _id: { $in: dictionaryIds } },
+    { $set: { sourceSync } },
+    { timestamps: false }
+  );
 };
 
 /**

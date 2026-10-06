@@ -67,6 +67,8 @@ export const webhookSchema = z.looseObject({
 /** Build triggers: git provider pipeline + generic webhooks. */
 export const projectCISchema = z.object({
   autoTriggerBuilds: z.optional(z.boolean()),
+  /** Commit CMS edits of `hybrid` dictionaries back to their source file. */
+  autoCommitDictionaries: z.optional(z.boolean()),
   webhooks: z.optional(z.array(webhookSchema)),
 });
 
