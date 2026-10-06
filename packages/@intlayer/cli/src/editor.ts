@@ -1,28 +1,54 @@
 import { type ChildProcess, spawn } from 'node:child_process';
+import { readFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import {
   join,
   dirname as pathDirname,
   resolve as pathResolve,
 } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { isESModule } from '@intlayer/config/utils';
+import { getParentPackageJSON } from './utils/getParentPackageJSON';
 
 type StartEditorOptions = {
   env?: string;
   envFile?: string;
 };
 
-/** Package runners trying `intlayer-editor` without it being installed. */
-const REMOTE_RUNNERS: [command: string, args: string[]][] = [
-  ['bun', ['x', 'intlayer-editor']],
-  ['npx', ['-y', 'intlayer-editor']],
-];
+/** Version of this CLI: `intlayer-editor` is released in lockstep with it. */
+const getCliVersion = (): string | undefined =>
+  getParentPackageJSON(
+    isESModule ? pathDirname(fileURLToPath(import.meta.url)) : __dirname
+  ).version;
 
 /**
- * Path of the installed `intlayer-editor` binary: resolved from the project
- * first (the CLI may be hoisted elsewhere in a monorepo), then from the CLI.
+ * Package runners trying `intlayer-editor` without it being installed. The
+ * editor is pinned to the CLI version, so both speak the same protocol.
  */
-const resolveInstalledEditorBinary = (): string | undefined => {
+export const getRemoteEditorRunners = (
+  cliVersion: string | undefined
+): [command: string, args: string[]][] => {
+  const editorPackage = cliVersion
+    ? `intlayer-editor@${cliVersion}`
+    : 'intlayer-editor';
+
+  return [
+    ['bun', ['x', editorPackage]],
+    ['npx', ['-y', editorPackage]],
+  ];
+};
+
+type InstalledEditor = {
+  /** Path of the `intlayer-editor` binary. */
+  binaryPath: string;
+  version: string | undefined;
+};
+
+/**
+ * The installed `intlayer-editor`: resolved from the project first (the CLI
+ * may be hoisted elsewhere in a monorepo), then from the CLI.
+ */
+const resolveInstalledEditor = (): InstalledEditor | undefined => {
   const cliRequire = isESModule ? createRequire(import.meta.url) : require;
   const requireFunctions = [
     createRequire(join(process.cwd(), 'package.json')),
@@ -35,11 +61,16 @@ const resolveInstalledEditorBinary = (): string | undefined => {
         'intlayer-editor/package.json'
       );
 
-      return pathResolve(
-        pathDirname(packageJsonPath),
-        'bin',
-        'intlayer-editor.mjs'
-      );
+      const { version } = JSON.parse(readFileSync(packageJsonPath, 'utf8'));
+
+      return {
+        binaryPath: pathResolve(
+          pathDirname(packageJsonPath),
+          'bin',
+          'intlayer-editor.mjs'
+        ),
+        version,
+      };
     } catch {
       // Not resolvable from there
     }
@@ -54,11 +85,14 @@ const forwardExit = (child: ChildProcess): void => {
 };
 
 /**
- * Starts the visual editor: the installed `intlayer-editor`, else one run by
- * `bun x` or `npx` (the next runner is tried when one is not installed).
+ * Starts the visual editor: the installed `intlayer-editor`, else one of the
+ * CLI version run by `bun x` or `npx` (the next runner is tried when one is
+ * not installed).
  */
 export const startEditor = (options: StartEditorOptions): void => {
   const args: string[] = ['start'];
+  const cliVersion = getCliVersion();
+  const remoteRunners = getRemoteEditorRunners(cliVersion);
 
   if (options.env) args.push('--env', options.env);
   if (options.envFile) args.push('--env-file', options.envFile);
@@ -70,7 +104,7 @@ export const startEditor = (options: StartEditorOptions): void => {
     });
 
   const runRemote = (runnerIndex: number): void => {
-    const runner = REMOTE_RUNNERS[runnerIndex];
+    const runner = remoteRunners[runnerIndex];
 
     if (!runner) {
       console.error(
@@ -87,14 +121,29 @@ export const startEditor = (options: StartEditorOptions): void => {
     forwardExit(child);
   };
 
-  const binaryPath = resolveInstalledEditorBinary();
+  const installedEditor = resolveInstalledEditor();
 
-  if (!binaryPath) {
+  if (!installedEditor) {
     runRemote(0);
     return;
   }
 
-  const child = spawnInheriting(process.execPath, [binaryPath, ...args]);
+  if (
+    cliVersion &&
+    installedEditor.version &&
+    installedEditor.version !== cliVersion
+  ) {
+    console.warn(
+      `intlayer-editor ${installedEditor.version} is installed, but the ` +
+        `Intlayer CLI is ${cliVersion}. Align their versions ` +
+        '(`npx intlayer upgrade`) to avoid editor issues.'
+    );
+  }
+
+  const child = spawnInheriting(process.execPath, [
+    installedEditor.binaryPath,
+    ...args,
+  ]);
 
   child.on('error', () => runRemote(0));
   forwardExit(child);
