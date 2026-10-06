@@ -80,6 +80,7 @@
     "test": "vscode-test",
     "typecheck": "tsc --noEmit",
     "vscode:login": "vsce login intlayer",
+    "vscode:package": "vsce package --no-dependencies",
     "vscode:prepublish": "bun run compile",
     "vscode:publish": "vsce publish --no-dependencies",
     "watch": "tsdown --watch"
