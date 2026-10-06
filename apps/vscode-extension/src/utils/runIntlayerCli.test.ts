@@ -38,6 +38,22 @@ describe('getIntlayerCliCommand', () => {
     ).toBe('yarn dlx intlayer init --interactive');
   });
 
+  it('pins the version of a remote binary', () => {
+    getSelectedEnvironment.mockReturnValue('production');
+
+    expect(
+      getIntlayerCliCommand('/project', {
+        args: ['editor', 'start'],
+        remote: true,
+        version: '9.6.0',
+        forwardEnvironment: true,
+      })
+    ).toBe('npx intlayer@9.6.0 editor start --env production');
+    expect(
+      getIntlayerCliCommand('/project', { args: ['login'], version: '9.6.0' })
+    ).toBe('npx intlayer login --env production');
+  });
+
   it('forwards the selected environment', () => {
     getSelectedEnvironment.mockReturnValue('production');
 
