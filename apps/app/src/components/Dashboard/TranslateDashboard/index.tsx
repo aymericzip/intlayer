@@ -41,7 +41,7 @@ import * as NodeTypes from '@intlayer/types/nodeType';
 import { ArrowRight, ArrowUp, Filter, Plus, Zap } from 'lucide-react';
 import { type FC, Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
-import { GroupedVirtuoso, type GroupedVirtuosoHandle } from 'react-virtuoso';
+import { Virtuoso, type VirtuosoHandle } from 'react-virtuoso';
 import { Link } from '#components/Link/Link';
 import { Skeleton } from '#components/Skeleton';
 import {
@@ -369,7 +369,7 @@ const TranslateDashboardList: FC = () => {
   }, [notifyScroll]);
 
   // Refs for syncing scroll
-  const virtuosoRef = useRef<GroupedVirtuosoHandle>(null);
+  const virtuosoRef = useRef<VirtuosoHandle>(null);
   const headerRef = useRef<HTMLDivElement>(null);
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isPending } =
@@ -471,46 +471,20 @@ const TranslateDashboardList: FC = () => {
     }
   }, [mergedNodes, currentTopIndex]);
 
-  const { groupCounts, groupStartIndices } = useMemo(() => {
-    if (!mergedNodes || mergedNodes.length === 0) {
-      return {
-        groupCounts: [],
-        groupKeys: [],
-        groupStartIndices: new Set<number>(),
-      };
-    }
-
-    const counts: number[] = [];
-    const keys: string[] = [];
+  /** Indices of the first row of each dictionary, used to draw separators */
+  const groupStartIndices = useMemo(() => {
     const starts = new Set<number>();
 
-    let currentKey: string | null = null;
-    let currentCount = 0;
-    let idx = 0;
-
-    mergedNodes.forEach((nodes) => {
-      const key = nodes[0].dictionary.key;
-
-      if (key !== currentKey) {
-        if (currentKey !== null) {
-          counts.push(currentCount);
-          keys.push(currentKey);
-        }
-        starts.add(idx);
-        currentKey = key;
-        currentCount = 1;
-      } else {
-        currentCount++;
+    mergedNodes.forEach((nodes, index) => {
+      if (
+        index === 0 ||
+        nodes[0].dictionary.key !== mergedNodes[index - 1][0].dictionary.key
+      ) {
+        starts.add(index);
       }
-      idx++;
     });
 
-    if (currentKey !== null) {
-      counts.push(currentCount);
-      keys.push(currentKey);
-    }
-
-    return { groupCounts: counts, groupKeys: keys, groupStartIndices: starts };
+    return starts;
   }, [mergedNodes]);
 
   return (
@@ -663,9 +637,9 @@ const TranslateDashboardList: FC = () => {
         {isPending ? (
           <TranslateSkeleton showToolBar={false} />
         ) : mergedNodes.length > 0 ? (
-          <GroupedVirtuoso
+          <Virtuoso
             ref={virtuosoRef}
-            groupCounts={groupCounts}
+            totalCount={mergedNodes.length}
             initialTopMostItemIndex={initialTopIndex}
             onScroll={(e) => {
               const target = e.target as HTMLElement;
@@ -679,7 +653,6 @@ const TranslateDashboardList: FC = () => {
                 setCurrentTopIndex(startIndex);
               }
             }}
-            groupContent={() => <div />}
             itemContent={(index) => (
               <>
                 {groupStartIndices.has(index) && index > 0 && (
