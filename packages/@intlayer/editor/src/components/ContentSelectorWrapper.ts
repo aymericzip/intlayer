@@ -69,6 +69,45 @@ const getPendingRevealOffset = (element: Element): number => {
   return offset;
 };
 
+/**
+ * Reveal callbacks of the wrappers selected by the current focus change, keyed
+ * by wrapper. A focus matches every wrapper under its key path (list items,
+ * content rendered twice…), so they are batched and only the first is revealed.
+ */
+const pendingReveals = new Map<Element, () => void>();
+
+/** Whether `element` comes after `reference` in document order. */
+const isAfterInDocument = (element: Element, reference: Element): boolean => {
+  const position = reference.compareDocumentPosition(element);
+
+  // Across unrelated trees the order is arbitrary: keep the earlier selection
+  if (position & Node.DOCUMENT_POSITION_DISCONNECTED) return true;
+
+  return Boolean(position & Node.DOCUMENT_POSITION_FOLLOWING);
+};
+
+/** Reveals the first wrapper, in document order, among the pending ones. */
+const flushPendingReveals = (): void => {
+  let firstWrapper: Element | null = null;
+
+  for (const wrapper of pendingReveals.keys()) {
+    if (!wrapper.isConnected) continue;
+    if (!firstWrapper || !isAfterInDocument(wrapper, firstWrapper)) {
+      firstWrapper = wrapper;
+    }
+  }
+
+  const reveal = firstWrapper ? pendingReveals.get(firstWrapper) : undefined;
+  pendingReveals.clear();
+  reveal?.();
+};
+
+/** Queues a wrapper to reveal once every wrapper handled the focus change. */
+const scheduleReveal = (wrapper: Element, reveal: () => void): void => {
+  if (pendingReveals.size === 0) queueMicrotask(flushPendingReveals);
+  pendingReveals.set(wrapper, reveal);
+};
+
 const _HTMLElement =
   typeof HTMLElement !== 'undefined'
     ? HTMLElement
@@ -214,6 +253,7 @@ export class IntlayerContentSelectorWrapperElement extends _HTMLElement {
   ): void {
     if (!focusedContent) {
       this._isSelected = false;
+      pendingReveals.delete(this);
       this._updateSelectorAttr();
       return;
     }
@@ -227,7 +267,9 @@ export class IntlayerContentSelectorWrapperElement extends _HTMLElement {
 
     // Reveal content the editor focuses while it is off-screen in the app
     if (this._isSelected && !wasSelected) {
-      this._scrollIntoViewIfNeeded();
+      scheduleReveal(this, () => this._scrollIntoViewIfNeeded());
+    } else if (!this._isSelected) {
+      pendingReveals.delete(this);
     }
   }
 
