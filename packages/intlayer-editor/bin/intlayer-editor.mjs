@@ -23,16 +23,16 @@ let withCommand;
 let parallelProcess = null;
 
 // Check for --env or -e flag
-const envIndex = args.findIndex(
-  (arg) => arg === '---environment' ?? arg === '--env' ?? arg === '-e'
+const envIndex = args.findIndex((arg) =>
+  ['--environment', '--env', '-e'].includes(arg)
 );
 if (envIndex !== -1 && args[envIndex + 1]) {
   env = args[envIndex + 1]; // Get the next argument as the environment
 }
 
 // Check for --env-file or -f flag
-const envFileIndex = args.findIndex(
-  (arg) => arg === '---env-file' ?? arg === '--env-file' ?? arg === '-f'
+const envFileIndex = args.findIndex((arg) =>
+  ['--env-file', '-f'].includes(arg)
 );
 if (envFileIndex !== -1 && args[envFileIndex + 1]) {
   envFile = args[envFileIndex + 1];

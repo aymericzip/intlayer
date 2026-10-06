@@ -1,15 +1,17 @@
+import { readFile } from 'node:fs/promises';
 import { EDITOR_URL } from '@intlayer/config/defaultValues';
+import { searchConfigurationFile } from '@intlayer/config/node';
 import {
   commands,
   type ExtensionContext,
   env,
+  Range,
   type TextEditor,
   Uri,
   ViewColumn,
   type WebviewPanel,
   window,
 } from 'vscode';
-import { startEditorCommand } from '../commands/terminalCommands';
 import { onDidChangeConfiguration } from '../utils/cacheInvalidation';
 import {
   type CommandSource,
@@ -17,9 +19,19 @@ import {
   resolveProjectDirOrPick,
 } from '../utils/findProjectRoot';
 import { getCachedConfig } from '../utils/intlayerCache';
+import { createOffsetToPosition } from '../utils/textPosition';
 import {
+  getRecentEditorServerOutput,
+  isEditorServerRunning,
+  showEditorServerLogs,
+  startEditorServer,
+  stopAllEditorServers,
+  stopEditorServer,
+} from './editorServerProcess';
+import {
+  type EditorServerStatus,
   getEditorFrameHtml,
-  getEditorUnreachableHtml,
+  getEditorStatusHtml,
 } from './getEditorPanelHtml';
 import { type FocusedContent, revealFocusedField } from './revealFocusedField';
 
@@ -30,13 +42,24 @@ const PANEL_AVAILABLE_CONTEXT_KEY = 'intlayer.isEditorPanelAvailable';
 const PROBE_TIMEOUT = 1_500;
 /** Delay between probes while the editor server starts. */
 const STARTUP_POLL_INTERVAL = 1_500;
-/** Probes before giving up on a starting editor server. */
-const STARTUP_POLL_ATTEMPTS = 40;
+/**
+ * Probes before giving up on a starting editor server (~2 min: the first run
+ * may download `intlayer-editor`).
+ */
+const STARTUP_POLL_ATTEMPTS = 80;
+
+/** Editor documentation, opened from the "editor disabled" screen. */
+const EDITOR_DOCUMENTATION_URL = 'https://intlayer.org/doc/concept/editor';
+
+/** What `intlayer-editor` prints when `editor.enabled` is false. */
+const EDITOR_DISABLED_OUTPUT = 'Editor is not enabled';
 
 /** Messages posted by the panel webviews. */
 type PanelMessage =
   | { type: 'focusedContent'; data: FocusedContent | null }
-  | { type: 'startEditor' }
+  | { type: 'showLogs' }
+  | { type: 'openConfiguration' }
+  | { type: 'openDocumentation' }
   | { type: 'retry' };
 
 const isPanelMessage = (message: unknown): message is PanelMessage =>
@@ -49,6 +72,8 @@ type PanelState = {
   projectDir: string;
   /** Last focused content revealed, to skip repeated focus messages. */
   lastFocusedContentKey?: string;
+  /** Screen shown: the editor, or a status screen. */
+  view?: 'editor' | EditorServerStatus;
 };
 
 let panelState: PanelState | undefined;
@@ -62,9 +87,17 @@ const isEditorReachable = async (editorURL: string): Promise<boolean> => {
   }
 };
 
-const waitForEditor = async (editorURL: string): Promise<boolean> => {
+/**
+ * Waits for the editor server the extension started to answer. Gives up early
+ * when that process exits (e.g. its port is taken, or the setup is invalid).
+ */
+const waitForEditor = async (
+  editorURL: string,
+  projectDir: string
+): Promise<boolean> => {
   for (let attempt = 0; attempt < STARTUP_POLL_ATTEMPTS; attempt++) {
     if (await isEditorReachable(editorURL)) return true;
+    if (!isEditorServerRunning(projectDir)) return false;
 
     await new Promise((resolve) => setTimeout(resolve, STARTUP_POLL_INTERVAL));
   }
@@ -72,16 +105,27 @@ const waitForEditor = async (editorURL: string): Promise<boolean> => {
   return false;
 };
 
+type EditorSettings = {
+  editorURL: string;
+  /** `false` when the configuration disables the editor. */
+  isEnabled: boolean;
+};
+
 /**
- * Editor URL of the project. Falls back to the default one when the
- * configuration fails to load: the editor reports setup issues itself.
+ * Editor settings of the project. Falls back to the defaults when the
+ * configuration fails to load: the editor server then reports the issue.
  */
-const getEditorURL = async (projectDir: string): Promise<string> => {
+const getEditorSettings = async (
+  projectDir: string
+): Promise<EditorSettings> => {
   const configuration = await getCachedConfig(projectDir).catch(
     () => undefined
   );
 
-  return configuration?.editor?.editorURL ?? EDITOR_URL;
+  return {
+    editorURL: configuration?.editor?.editorURL ?? EDITOR_URL,
+    isEnabled: configuration?.editor?.enabled !== false,
+  };
 };
 
 /**
@@ -94,30 +138,85 @@ const getContentFileColumn = (panel: WebviewPanel): ViewColumn =>
   )?.viewColumn ??
   (panel.viewColumn === ViewColumn.One ? ViewColumn.Two : ViewColumn.One);
 
-/** Shows the editor in the panel, or the start screen while it is down. */
-const renderPanel = async (
-  state: PanelState,
-  isStarting = false
-): Promise<void> => {
-  const editorURL = await getEditorURL(state.projectDir);
+/**
+ * Shows the editor in the panel. When it does not answer, its server is
+ * started in the background and the panel shows the progress meanwhile.
+ */
+const renderPanel = async (state: PanelState): Promise<void> => {
+  const { editorURL, isEnabled } = await getEditorSettings(state.projectDir);
+
+  const showStatus = (status: EditorServerStatus) => {
+    state.view = status;
+    state.panel.webview.html = getEditorStatusHtml(
+      editorURL,
+      status,
+      getRecentEditorServerOutput(state.projectDir)
+    );
+  };
 
   // Port-forwarded in remote workspaces
   const webviewEditorURL = (
     await env.asExternalUri(Uri.parse(editorURL))
   ).toString(true);
 
-  if (await isEditorReachable(editorURL)) {
+  const showEditor = () => {
+    state.view = 'editor';
     state.panel.webview.html = getEditorFrameHtml(webviewEditorURL);
+  };
+
+  if (await isEditorReachable(editorURL)) {
+    showEditor();
     return;
   }
 
-  state.panel.webview.html = getEditorUnreachableHtml(editorURL, isStarting);
-
-  if (isStarting && (await waitForEditor(editorURL))) {
-    await renderPanel(state);
-  } else if (isStarting) {
-    state.panel.webview.html = getEditorUnreachableHtml(editorURL, false);
+  // The server would exit right away
+  if (!isEnabled) {
+    showStatus('disabled');
+    return;
   }
+
+  showStatus('starting');
+  startEditorServer(state.projectDir);
+
+  const isReady = await waitForEditor(editorURL, state.projectDir);
+
+  // Closed or re-targeted meanwhile
+  if (panelState !== state) return;
+
+  if (isReady) {
+    showEditor();
+    return;
+  }
+
+  // Disabled by a value the extension could not read (e.g. env-dependent)
+  const isDisabled = getRecentEditorServerOutput(state.projectDir).some(
+    (line) => line.includes(EDITOR_DISABLED_OUTPUT)
+  );
+
+  showStatus(isDisabled ? 'disabled' : 'failed');
+};
+
+/** Opens the project configuration, on its `editor` property when present. */
+const openConfiguration = async (state: PanelState): Promise<void> => {
+  const { configurationFilePath } = searchConfigurationFile(state.projectDir);
+
+  if (!configurationFilePath) return;
+
+  const text = await readFile(configurationFilePath, 'utf8').catch(() => '');
+  const editorPropertyOffset = text.search(/\beditor\s*:/);
+  const position = createOffsetToPosition(text)(
+    Math.max(editorPropertyOffset, 0)
+  );
+
+  await window.showTextDocument(Uri.file(configurationFilePath), {
+    viewColumn: getContentFileColumn(state.panel),
+    selection: new Range(
+      position.line,
+      position.character,
+      position.line,
+      position.character
+    ),
+  });
 };
 
 const handlePanelMessage = async (
@@ -141,9 +240,14 @@ const handlePanelMessage = async (
       );
       return;
     }
-    case 'startEditor':
-      await startEditorCommand({ projectDir: state.projectDir });
-      await renderPanel(state, true);
+    case 'showLogs':
+      showEditorServerLogs();
+      return;
+    case 'openConfiguration':
+      await openConfiguration(state);
+      return;
+    case 'openDocumentation':
+      await env.openExternal(Uri.parse(EDITOR_DOCUMENTATION_URL));
       return;
     case 'retry':
       await renderPanel(state);
@@ -174,13 +278,17 @@ const createPanel = (
   });
   panel.onDidDispose(() => {
     if (panelState === state) panelState = undefined;
+
+    // An editor the user started themselves keeps running
+    stopEditorServer(projectDir);
   });
 
   return state;
 };
 
 /**
- * Opens the visual editor (`editor.editorURL`) in a panel beside the code.
+ * Opens the visual editor (`editor.editorURL`) in a panel beside the code,
+ * starting its server for as long as the panel is open when none answers.
  * Selecting a field in it opens the content file declaring that field.
  */
 const openEditorPanel = async (
@@ -225,9 +333,20 @@ export const registerEditorPanel = (context: ExtensionContext): void => {
       openEditorPanel(context, { filePath: resource?.fsPath })
     ),
     window.onDidChangeActiveTextEditor(updateAvailability),
-    // A configuration file was created or deleted
-    onDidChangeConfiguration(() => updateAvailability(window.activeTextEditor)),
-    { dispose: () => panelState?.panel.dispose() }
+    onDidChangeConfiguration(() => {
+      updateAvailability(window.activeTextEditor);
+
+      // Pick up a fix (e.g. `editor.enabled` turned on) without a retry
+      if (panelState?.view === 'disabled' || panelState?.view === 'failed') {
+        void renderPanel(panelState);
+      }
+    }),
+    {
+      dispose: () => {
+        panelState?.panel.dispose();
+        stopAllEditorServers();
+      },
+    }
   );
 
   updateAvailability(window.activeTextEditor);

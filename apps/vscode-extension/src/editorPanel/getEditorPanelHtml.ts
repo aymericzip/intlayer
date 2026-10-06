@@ -53,20 +53,97 @@ export const getEditorFrameHtml = (editorURL: string): string => {
 </html>`;
 };
 
-/**
- * Webview shown while the editor server does not answer, offering to start it.
- *
- * @param editorURL - URL the editor was expected at.
- * @param isStarting - The server was started and is being waited for.
- */
-export const getEditorUnreachableHtml = (
+/** State of an editor server that does not answer yet. */
+export type EditorServerStatus = 'starting' | 'failed' | 'disabled';
+
+/** Action a status screen button posts to the extension. */
+type StatusAction =
+  | 'retry'
+  | 'showLogs'
+  | 'openConfiguration'
+  | 'openDocumentation';
+
+type StatusButton = {
+  action: StatusAction;
+  label: string;
+  isPrimary?: boolean;
+};
+
+type StatusView = {
+  title: string;
+  description?: string;
+  /** Preformatted block: a configuration snippet or the editor output. */
+  code?: string;
+  buttons: StatusButton[];
+};
+
+/** Configuration snippet enabling the editor outside production. */
+const ENABLE_EDITOR_SNIPPET = `editor: {
+  enabled: process.env.NODE_ENV !== 'production',
+},`;
+
+const getStatusView = (
   editorURL: string,
-  isStarting: boolean
+  status: EditorServerStatus,
+  outputLines: string[]
+): StatusView => {
+  switch (status) {
+    case 'starting':
+      return {
+        title: 'Starting the visual editor…',
+        buttons: [{ action: 'showLogs', label: 'Show logs' }],
+      };
+    case 'disabled':
+      return {
+        title: 'The visual editor is disabled for this project',
+        description: 'Enable it in your Intlayer configuration:',
+        code: ENABLE_EDITOR_SNIPPET,
+        buttons: [
+          {
+            action: 'openConfiguration',
+            label: 'Open configuration',
+            isPrimary: true,
+          },
+          { action: 'retry', label: 'Retry' },
+          { action: 'openDocumentation', label: 'Documentation' },
+        ],
+      };
+    case 'failed':
+      return {
+        title: `The visual editor could not be reached at ${editorURL}`,
+        code: outputLines.length > 0 ? outputLines.join('\n') : undefined,
+        buttons: [
+          { action: 'retry', label: 'Retry', isPrimary: true },
+          { action: 'showLogs', label: 'Show logs' },
+        ],
+      };
+  }
+};
+
+/**
+ * Webview shown instead of the editor while its server starts, after it failed
+ * to, or when the project configuration disables it.
+ *
+ * @param editorURL - URL the editor is expected at.
+ * @param outputLines - Last editor server output, shown when it failed.
+ */
+export const getEditorStatusHtml = (
+  editorURL: string,
+  status: EditorServerStatus,
+  outputLines: string[] = []
 ): string => {
   const nonce = createNonce();
-  const statusText = isStarting
-    ? 'Starting the visual editor…'
-    : `The visual editor is not running at ${editorURL}.`;
+  const { title, description, code, buttons } = getStatusView(
+    editorURL,
+    status,
+    outputLines
+  );
+  const buttonsHtml = buttons
+    .map(
+      ({ action, label, isPrimary }) =>
+        `<button data-action="${action}"${isPrimary ? '' : ' class="secondary"'}>${escapeHtml(label)}</button>`
+    )
+    .join('');
 
   return `<!doctype html>
 <html lang="en">
@@ -74,21 +151,21 @@ export const getEditorUnreachableHtml = (
   <meta charset="UTF-8" />
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'nonce-${nonce}'; script-src 'nonce-${nonce}';" />
   <style nonce="${nonce}">
-    body { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; height: 100vh; margin: 0; font-family: var(--vscode-font-family); color: var(--vscode-foreground); text-align: center; }
+    body { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; height: 100vh; margin: 0; padding: 0 16px; box-sizing: border-box; font-family: var(--vscode-font-family); color: var(--vscode-foreground); text-align: center; }
+    h1 { margin: 0; font-size: 1.1em; font-weight: 600; }
     p { margin: 0; color: var(--vscode-descriptionForeground); }
-    .actions { display: flex; gap: 8px; }
+    pre { max-width: 100%; margin: 0; padding: 8px 12px; overflow: auto; text-align: start; white-space: pre-wrap; font-family: var(--vscode-editor-font-family); font-size: var(--vscode-editor-font-size); background: var(--vscode-textCodeBlock-background); border-radius: 4px; }
+    .actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
     button { padding: 4px 12px; border: 0; border-radius: 2px; font: inherit; color: var(--vscode-button-foreground); background: var(--vscode-button-background); cursor: pointer; }
     button:hover { background: var(--vscode-button-hoverBackground); }
     button.secondary { color: var(--vscode-button-secondaryForeground); background: var(--vscode-button-secondaryBackground); }
-    button:disabled { opacity: 0.5; cursor: default; }
   </style>
 </head>
 <body>
-  <p>${escapeHtml(statusText)}</p>
-  <div class="actions">
-    <button data-action="startEditor" ${isStarting ? 'disabled' : ''}>Start visual editor</button>
-    <button data-action="retry" class="secondary">Retry</button>
-  </div>
+  <h1>${escapeHtml(title)}</h1>
+  ${description ? `<p>${escapeHtml(description)}</p>` : ''}
+  ${code ? `<pre>${escapeHtml(code)}</pre>` : ''}
+  <div class="actions">${buttonsHtml}</div>
   <script nonce="${nonce}">
     const vscode = acquireVsCodeApi();
 

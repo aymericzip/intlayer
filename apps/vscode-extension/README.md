@@ -114,7 +114,7 @@ In an Intlayer project, an Intlayer button appears at the top right of the edito
 
 - Edit your content directly on the rendered application.
 - Select a field to open the content file declaring it, with the field selected.
-- If the editor server is not running, the panel offers to start it (`intlayer editor start`).
+- If the editor server is not running, the panel starts it in the background (`intlayer editor start`, which downloads `intlayer-editor` when the project does not install it) and stops it when the panel closes. Its output is in the **Intlayer Editor** output channel.
 
 ### Accessing the commands
 
