@@ -1,9 +1,9 @@
 import { H3 } from '@intlayer/design-system/headers';
 import { Link } from '@intlayer/design-system/link';
-import type { FC } from 'react';
-import { useIntlayer } from 'react-intlayer';
+import type { FunctionComponent } from 'preact';
+import { useIntlayer } from 'preact-intlayer';
 
-export const NoApplicationURLView: FC = () => {
+export const NoApplicationURLView: FunctionComponent = () => {
   const { title, description, documentationLink } = useIntlayer(
     'no-application-url-view'
   );

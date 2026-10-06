@@ -1,11 +1,10 @@
-'use client';
-
 import {
   type BearerAuth,
   BearerAuthProvider,
 } from '@intlayer/design-system/api';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { type FC, type PropsWithChildren, useEffect, useState } from 'react';
+import type { FunctionComponent } from 'preact';
+import { useCallback, useEffect, useMemo, useState } from 'preact/hooks';
 
 /** Delay between two auth checks while the CMS login tab is open. */
 const LOGIN_POLL_INTERVAL_MS = 2000;
@@ -39,7 +38,7 @@ const fetchEditorAuth = async (): Promise<EditorAuthData | null> => {
  * editor server (`intlayer login` session, else access key). When signed out,
  * `login` opens the CMS login page as `intlayer login` does.
  */
-export const EditorAuthProvider: FC<PropsWithChildren> = ({ children }) => {
+export const EditorAuthProvider: FunctionComponent = ({ children }) => {
   const queryClient = useQueryClient();
   const [isRequestingLogin, setIsRequestingLogin] = useState(false);
 
@@ -70,7 +69,7 @@ export const EditorAuthProvider: FC<PropsWithChildren> = ({ children }) => {
     return () => clearTimeout(timeout);
   }, [auth?.expiresAt, queryClient]);
 
-  const login = () => {
+  const login = useCallback(() => {
     setIsRequestingLogin(true);
 
     fetch('/api/auth/login', { method: 'POST' })
@@ -78,16 +77,22 @@ export const EditorAuthProvider: FC<PropsWithChildren> = ({ children }) => {
         queryClient.invalidateQueries({ queryKey: EDITOR_AUTH_QUERY_KEY })
       )
       .finally(() => setIsRequestingLogin(false));
-  };
+  }, [queryClient]);
 
-  const bearerAuth: BearerAuth = {
-    accessToken: auth?.accessToken ?? null,
-    user: auth?.user,
-    organization: auth?.organization,
-    project: auth?.project,
-    login,
-    isLoggingIn: isRequestingLogin || Boolean(data?.isLoginPending),
-  };
+  const isLoggingIn = isRequestingLogin || Boolean(data?.isLoginPending);
+
+  // Every API hook reads this value: keep it stable between renders
+  const bearerAuth = useMemo<BearerAuth>(
+    () => ({
+      accessToken: auth?.accessToken ?? null,
+      user: auth?.user,
+      organization: auth?.organization,
+      project: auth?.project,
+      login,
+      isLoggingIn,
+    }),
+    [auth, login, isLoggingIn]
+  );
 
   return <BearerAuthProvider value={bearerAuth}>{children}</BearerAuthProvider>;
 };

@@ -10,6 +10,7 @@ import {
   type SetStateAction,
   useContext,
   useEffect,
+  useMemo,
 } from 'react';
 import { useLocale } from 'react-intlayer';
 
@@ -63,14 +64,13 @@ export const LocaleSwitcherContentProvider: FC<
     }
   }, [availableLocales]);
 
+  const contextValue = useMemo(
+    () => ({ availableLocales, selectedLocales, setSelectedLocales }),
+    [availableLocales, selectedLocales, setSelectedLocales]
+  );
+
   return (
-    <LocaleSwitcherContentContext
-      value={{
-        availableLocales,
-        selectedLocales,
-        setSelectedLocales,
-      }}
-    >
+    <LocaleSwitcherContentContext value={contextValue}>
       {children}
     </LocaleSwitcherContentContext>
   );

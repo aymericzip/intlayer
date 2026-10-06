@@ -93,7 +93,7 @@
     "@fastify/cors": "11.3.0",
     "@fastify/formbody": "9.0.0",
     "@fastify/helmet": "13.1.1",
-    "@fastify/static": "10.1.3",
+    "@fastify/static": "10.1.5",
     "@intlayer/api": "workspace:*",
     "@intlayer/cli": "workspace:*",
     "@intlayer/config": "workspace:*",
@@ -101,7 +101,10 @@
     "@intlayer/engine": "workspace:*",
     "fastify": "5.12.5",
     "fastify-intlayer": "workspace:*",
-    "mime": "4.1.0"
+    "mime": "4.1.0",
+    "preact-intlayer": "workspace:*",
+    "react-intlayer": "workspace:*",
+    "vite-intlayer": "workspace:*"
   },
   "devDependencies": {
     "@intlayer/backend-contract": "workspace:*",
@@ -120,14 +123,10 @@
     "intlayer": "workspace:*",
     "lucide-react": "1.52.0",
     "preact": "11.0.0",
-    "preact-intlayer": "workspace:*",
-    "react-intlayer": "workspace:*",
-    "react-router-dom": "7.18.4",
     "tailwindcss": "4.3.3",
     "tsdown": "0.23.0",
     "typescript": "7.0.2",
     "vite": "8.3.3",
-    "vite-intlayer": "workspace:*",
     "vitest": "5.0.3"
   },
   "engines": {

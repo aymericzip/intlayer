@@ -1,7 +1,6 @@
-'use client';
-
 import { MessageKey, useFocusUnmergedDictionary } from '@intlayer/editor-react';
-import { type FC, useEffect } from 'react';
+import type { FunctionComponent } from 'preact';
+import { useEffect } from 'preact/hooks';
 
 /** Hosts allowed to receive the editor state: IDE webviews (VS Code & forks). */
 const TRUSTED_HOST_PROTOCOLS = ['vscode-webview:'];
@@ -29,7 +28,7 @@ const getTrustedHostOrigin = (): string | null => {
  * Relays the focused content to the IDE embedding the editor (e.g. the VS Code
  * extension panel), so it can open the declaring content file at the field.
  */
-export const HostFrameBridge: FC = () => {
+export const HostFrameBridge: FunctionComponent = () => {
   const { focusedContent } = useFocusUnmergedDictionary();
 
   useEffect(() => {

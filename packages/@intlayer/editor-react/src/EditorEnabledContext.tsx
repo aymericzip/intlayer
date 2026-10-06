@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useEditorStateManager } from './EditorStateContext';
 
 export type EditorEnabledStateProps = {
@@ -36,5 +36,5 @@ export const useEditorEnabled = (): EditorEnabledStateProps => {
 export const useEditorPingClient = (): (() => void) => {
   const manager = useEditorStateManager();
 
-  return () => manager?.pingClient();
+  return useCallback(() => manager?.pingClient(), [manager]);
 };

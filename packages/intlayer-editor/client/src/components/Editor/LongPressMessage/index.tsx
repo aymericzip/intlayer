@@ -1,15 +1,13 @@
-'use client';
-
 import { cn } from '@intlayer/design-system/utils';
 import {
   type FileContent,
   MessageKey,
   useCrossFrameState,
 } from '@intlayer/editor-react';
-import type { FC } from 'react';
-import { useIntlayer } from 'react-intlayer';
+import type { FunctionComponent } from 'preact';
+import { useIntlayer } from 'preact-intlayer';
 
-export const LongPressMessage: FC = () => {
+export const LongPressMessage: FunctionComponent = () => {
   const { message } = useIntlayer('long-press-message');
   const hoveredContent = useCrossFrameState<FileContent | null>(
     MessageKey.INTLAYER_HOVERED_CONTENT_CHANGED,

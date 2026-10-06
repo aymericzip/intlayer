@@ -10,6 +10,8 @@ import {
   isValidElement,
   type ReactElement,
   type ReactNode,
+  useCallback,
+  useMemo,
   useState,
 } from 'react';
 import { TabSelector } from '../TabSelector';
@@ -222,18 +224,24 @@ const TabComponent = ({
     },
   });
 
-  const handleSetActiveTab = (tab: string) => {
-    setActiveTab(tab);
+  const handleSetActiveTab = useCallback(
+    (tab: string) => {
+      setActiveTab(tab);
 
-    if (group && typeof setTabsValues === 'function') {
-      setTabsValues((prev) => ({ ...prev, [group]: tab }));
-    }
-  };
+      if (group && typeof setTabsValues === 'function') {
+        setTabsValues((prev) => ({ ...prev, [group]: tab }));
+      }
+    },
+    [group, setTabsValues]
+  );
 
-  const contextValue: TabContextType = {
-    activeTab: currentTabValue ?? '',
-    setActiveTab: handleSetActiveTab,
-  };
+  const contextValue = useMemo<TabContextType>(
+    () => ({
+      activeTab: currentTabValue ?? '',
+      setActiveTab: handleSetActiveTab,
+    }),
+    [currentTabValue, handleSetActiveTab]
+  );
 
   return (
     <TabContext.Provider value={contextValue}>

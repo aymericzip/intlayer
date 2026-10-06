@@ -17,6 +17,16 @@
     "noEmit": true,
     "jsx": "react-jsx",
 
+    "jsxImportSource": "preact",
+    "paths": {
+      "react": ["./node_modules/preact/compat"],
+      "react/jsx-runtime": ["./node_modules/preact/jsx-runtime"],
+      "react-dom": ["./node_modules/preact/compat"],
+      "react-dom/*": ["./node_modules/preact/compat/*"],
+      "react-intlayer": ["./node_modules/preact-intlayer"],
+      "react-intlayer/*": ["./node_modules/preact-intlayer/*"]
+    },
+
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,

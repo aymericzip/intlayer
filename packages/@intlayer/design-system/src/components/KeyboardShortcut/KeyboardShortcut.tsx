@@ -2,7 +2,7 @@
 
 import { useDevice } from '@hooks/useDevice';
 import { cn } from '@utils/cn';
-import { type FC, useEffect, useState } from 'react';
+import { type FC, useEffect, useMemo, useState } from 'react';
 
 /**
  * Enum for available keyboard keys
@@ -208,7 +208,7 @@ export const KeyboardShortcut: FC<KeyboardShortcutProps> = ({
 }) => {
   const { isMac } = useDevice();
   const displayShortcut = getDisplayShortcut(shortcut, isMac ?? false);
-  const keys = parseShortcut(displayShortcut);
+  const keys = useMemo(() => parseShortcut(displayShortcut), [displayShortcut]);
   const [pressedKeys, setPressedKeys] = useState<Set<string>>(new Set());
 
   useEffect(() => {

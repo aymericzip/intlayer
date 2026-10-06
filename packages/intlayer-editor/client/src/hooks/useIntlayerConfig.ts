@@ -1,5 +1,5 @@
 import type { IntlayerConfig } from '@intlayer/types/config';
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'preact/hooks';
 
 export const useIntlayerConfig = () => {
   const [intlayerConfig, setIntlayerConfig] = useState<IntlayerConfig>();

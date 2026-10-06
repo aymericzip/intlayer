@@ -1,5 +1,3 @@
-'use client';
-
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { Loader } from '@intlayer/design-system/loader';
@@ -11,11 +9,12 @@ import {
   useEditorEnabled,
   useEditorPingClient,
 } from '@intlayer/editor-react';
-import { type FC, type RefObject, useEffect, useState } from 'react';
-import { useIntlayer } from 'react-intlayer';
+import type { FunctionComponent, RefObject } from 'preact';
+import { useEffect, useState } from 'preact/hooks';
+import { useIntlayer } from 'preact-intlayer';
 import { NoApplicationURLView } from './NoApplicationURLView/NoApplicationURLView';
 
-export const IframeController: FC<{
+export const IframeController: FunctionComponent<{
   iframeRef: RefObject<HTMLIFrameElement | null>;
   applicationPath: string;
 }> = ({ iframeRef, applicationPath }) => {

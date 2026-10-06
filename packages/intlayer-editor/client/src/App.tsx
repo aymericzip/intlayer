@@ -1,25 +1,29 @@
-import { type FC, useRef } from 'react';
-import { IntlayerProviderContent } from 'react-intlayer';
-import { useLocation } from 'react-router-dom';
+import type { FunctionComponent } from 'preact';
+import { useRef, useState } from 'preact/hooks';
+import { IntlayerProviderContent } from 'preact-intlayer';
 import { AppProvider } from './components/AppProvider';
-import { AppRouter } from './components/AppRouter';
 import { EditorLayout } from './components/Editor/EditorLayout';
 import { EditorProvider } from './components/Editor/EditorProvider';
 import { HostFrameBridge } from './components/Editor/HostFrameBridge';
 import { IframeController } from './components/Editor/IframeController';
 
-const AppContent: FC = () => {
+const AppContent: FunctionComponent = () => {
   const iframeRef = useRef<HTMLIFrameElement>(null);
-  const location = useLocation();
+
+  /**
+   * Path the application frame opens on. Read once: the frame navigates on its
+   * own afterwards, and the editor URL is only mirrored with `replaceState`.
+   */
+  const [applicationPath] = useState(() => window.location.pathname);
 
   return (
     <EditorProvider iframeRef={iframeRef}>
       <HostFrameBridge />
-      <IntlayerProviderContent disableEditor>
+      <IntlayerProviderContent>
         <EditorLayout>
           <IframeController
             iframeRef={iframeRef}
-            applicationPath={location.pathname}
+            applicationPath={applicationPath}
           />
         </EditorLayout>
       </IntlayerProviderContent>
@@ -27,12 +31,8 @@ const AppContent: FC = () => {
   );
 };
 
-const App: FC = () => (
-  <AppRouter>
-    <AppProvider>
-      <AppContent />
-    </AppProvider>
-  </AppRouter>
+export const App: FunctionComponent = () => (
+  <AppProvider>
+    <AppContent />
+  </AppProvider>
 );
-
-export default App;

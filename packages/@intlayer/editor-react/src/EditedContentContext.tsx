@@ -7,7 +7,7 @@ import type {
   LocalDictionaryId,
 } from '@intlayer/types/dictionary';
 import type { KeyPath } from '@intlayer/types/keyPath';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useEditorStateManager } from './EditorStateContext';
 
 export type { DictionaryContent } from '@intlayer/editor';
@@ -41,28 +41,35 @@ type EditedContentActionsContextType = {
   ) => ContentNode | undefined;
 };
 
+/**
+ * Returns the edited content actions. Memoized on the manager so they can be
+ * used as effect dependencies without a compiler.
+ */
 export const useEditedContentActions = (): EditedContentActionsContextType => {
   const manager = useEditorStateManager();
 
-  return {
-    setEditedContentState: (value: DictionaryContent) =>
-      manager?.editedContent.set(value),
-    setEditedDictionary: (dict: Dictionary) =>
-      manager?.setEditedDictionary(dict),
-    setEditedContent: (
-      localId: LocalDictionaryId,
-      value: Dictionary['content']
-    ) => manager?.setEditedContent(localId, value),
-    addEditedContent: (localId, value, keyPath, overwrite) =>
-      manager?.addContent(localId, value, keyPath, overwrite),
-    renameEditedContent: (localId, newKey, keyPath) =>
-      manager?.renameContent(localId, newKey, keyPath),
-    removeEditedContent: (localId, keyPath) =>
-      manager?.removeContent(localId, keyPath),
-    restoreEditedContent: (localId) => manager?.restoreContent(localId),
-    getEditedContentValue: (localIdOrKey, keyPath) =>
-      manager?.getContentValue(localIdOrKey, keyPath),
-  };
+  return useMemo<EditedContentActionsContextType>(
+    () => ({
+      setEditedContentState: (value: DictionaryContent) =>
+        manager?.editedContent.set(value),
+      setEditedDictionary: (dict: Dictionary) =>
+        manager?.setEditedDictionary(dict),
+      setEditedContent: (
+        localId: LocalDictionaryId,
+        value: Dictionary['content']
+      ) => manager?.setEditedContent(localId, value),
+      addEditedContent: (localId, value, keyPath, overwrite) =>
+        manager?.addContent(localId, value, keyPath, overwrite),
+      renameEditedContent: (localId, newKey, keyPath) =>
+        manager?.renameContent(localId, newKey, keyPath),
+      removeEditedContent: (localId, keyPath) =>
+        manager?.removeContent(localId, keyPath),
+      restoreEditedContent: (localId) => manager?.restoreContent(localId),
+      getEditedContentValue: (localIdOrKey, keyPath) =>
+        manager?.getContentValue(localIdOrKey, keyPath),
+    }),
+    [manager]
+  );
 };
 
 export const useEditedContent = () => {

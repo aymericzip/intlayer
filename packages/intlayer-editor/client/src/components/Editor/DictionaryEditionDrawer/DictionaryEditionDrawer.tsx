@@ -1,5 +1,3 @@
-'use client';
-
 import { useGetEditorDictionaries } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
 import { DictionaryEditor } from '@intlayer/design-system/dictionary-editor';
@@ -11,29 +9,35 @@ import { Modal } from '@intlayer/design-system/modal';
 import { Popover } from '@intlayer/design-system/popover';
 import {
   RightDrawer,
-  useRightDrawer,
+  useRightDrawerActions,
 } from '@intlayer/design-system/right-drawer';
 import { Tag } from '@intlayer/design-system/tag';
 import { useFocusUnmergedDictionary } from '@intlayer/editor-react';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import { PencilRuler } from 'lucide-react';
-import { type FC, useState } from 'react';
-import { useIntlayer } from 'react-intlayer';
+import type { FunctionComponent } from 'preact';
+import { useState } from 'preact/hooks';
+import { useIntlayer } from 'preact-intlayer';
 import { dictionaryListDrawerIdentifier } from '../DictionaryListDrawer/dictionaryListDrawerIdentifier';
 import {
   getDrawerIdentifier,
   useDictionaryEditionDrawer,
 } from './useDictionaryEditionDrawer';
 
+/**
+ * Dictionaries served by the editor server, per key. The API client types the
+ * payload as the whole response envelope, but resolves to its `data` field.
+ */
+type UnmergedDictionaries = Record<Dictionary['key'], Dictionary[]>;
+
 type DictionaryEditionDrawerProps = DictionaryEditionDrawerControllerProps & {
   dictionaryKey: string;
   isDarkMode?: boolean;
 };
 
-export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
-  dictionaryKey,
-  isDarkMode,
-}) => {
+export const DictionaryEditionDrawer: FunctionComponent<
+  DictionaryEditionDrawerProps
+> = ({ dictionaryKey, isDarkMode }) => {
   const {
     backButtonText,
     openDictionaryEditor,
@@ -45,9 +49,10 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
 
   const { focusedContent, close } = useDictionaryEditionDrawer(dictionaryKey);
   const { setFocusedContent } = useFocusUnmergedDictionary();
-  const { open } = useRightDrawer();
+  const { open } = useRightDrawerActions();
   const openDictionaryListDrawer = () => open(dictionaryListDrawerIdentifier);
-  const { data: unmergedDictionaries } = useGetEditorDictionaries();
+  const { data } = useGetEditorDictionaries();
+  const unmergedDictionaries = data as UnmergedDictionaries | undefined;
 
   const handleOnBack = () => {
     close();
@@ -120,12 +125,12 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
               {dictionary.key}
             </Tag>
             {dictionary.filePath && (
-              <Tag color="blue" roundedSize="full" size="xs">
+              <Tag color="neutral" roundedSize="full" size="xs">
                 {dictionary.filePath.split('/').pop()}
               </Tag>
             )}
             {dictionary.id && (
-              <Tag color="purple" roundedSize="full" size="xs">
+              <Tag color="success" roundedSize="full" size="xs">
                 remote
               </Tag>
             )}
@@ -180,7 +185,7 @@ type DictionaryEditionDrawerControllerProps = {
   isDarkMode?: boolean;
 };
 
-export const DictionaryEditionDrawerController: FC<
+export const DictionaryEditionDrawerController: FunctionComponent<
   DictionaryEditionDrawerControllerProps
 > = ({ isDarkMode }) => {
   const { focusedContent } = useFocusUnmergedDictionary();

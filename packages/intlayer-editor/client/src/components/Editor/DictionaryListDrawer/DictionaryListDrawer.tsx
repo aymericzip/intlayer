@@ -1,11 +1,9 @@
-'use client';
-
 import { Button } from '@intlayer/design-system/button';
 import { useSearch } from '@intlayer/design-system/hooks';
 import { SearchInput } from '@intlayer/design-system/input';
 import {
   RightDrawer,
-  useRightDrawer,
+  useRightDrawerActions,
 } from '@intlayer/design-system/right-drawer';
 import { Tag } from '@intlayer/design-system/tag';
 import {
@@ -16,37 +14,47 @@ import {
 import type { Dictionary } from '@intlayer/types/dictionary';
 import Fuse from 'fuse.js';
 import { ChevronRight, Pencil } from 'lucide-react';
-import { type FC, useMemo } from 'react';
-import { useIntlayer } from 'react-intlayer';
+import type { FunctionComponent } from 'preact';
+import { useMemo } from 'preact/hooks';
+import { useIntlayer } from 'preact-intlayer';
 import { getDrawerIdentifier } from '../DictionaryEditionDrawer/useDictionaryEditionDrawer';
 import { dictionaryListDrawerIdentifier } from './dictionaryListDrawerIdentifier';
 
-export const DictionaryListDrawer: FC = () => {
+export const DictionaryListDrawer: FunctionComponent = () => {
   const { drawerTitle, buttonLabel } = useIntlayer('dictionary-list-drawer');
-  const { set: setDrawers } = useRightDrawer();
+  const { set: setDrawers } = useRightDrawerActions();
 
   const { localeDictionaries } = useDictionariesRecord();
   const { editedContent } = useEditedContent();
   const { setFocusedContent } = useFocusUnmergedDictionary();
   const { setSearch, search } = useSearch();
 
-  // Create Fuse instance for searching dictionaries
-  const fuse = useMemo(() => {
-    const dictionariesArray = Object.values(localeDictionaries);
-    return new Fuse(dictionariesArray, {
-      keys: ['key', 'title', 'filePath', 'description', 'tags'],
-      threshold: 0.3,
-      includeScore: true,
-    });
-  }, [localeDictionaries]);
+  const dictionariesArray = useMemo(
+    () => Object.values(localeDictionaries ?? {}),
+    [localeDictionaries]
+  );
+
+  // Indexing is O(n) over every dictionary, so it must not run on each render
+  const fuse = useMemo(
+    () =>
+      new Fuse(dictionariesArray, {
+        keys: ['key', 'title', 'filePath', 'description', 'tags'],
+        threshold: 0.3,
+        includeScore: true,
+      }),
+    [dictionariesArray]
+  );
 
   // Filter dictionaries based on search
   const filteredDictionaries = useMemo(() => {
-    if (!search || search.trim() === '') {
-      return Object.values(localeDictionaries);
+    const trimmedSearch = search?.trim() ?? '';
+
+    if (trimmedSearch === '') {
+      return dictionariesArray;
     }
-    return fuse.search(search).map((result) => result.item);
-  }, [search, fuse, localeDictionaries]);
+
+    return fuse.search(trimmedSearch).map((result) => result.item);
+  }, [search, fuse, dictionariesArray]);
 
   const handleClickDictionary = (dictionary: Dictionary) => {
     setFocusedContent({
@@ -61,8 +69,10 @@ export const DictionaryListDrawer: FC = () => {
     });
   };
 
-  const isDictionaryEdited = (dictionaryKey: string) =>
-    Object.keys(editedContent ?? {}).includes(dictionaryKey);
+  const editedDictionaryKeys = useMemo(
+    () => new Set(Object.keys(editedContent ?? {})),
+    [editedContent]
+  );
 
   return (
     <RightDrawer
@@ -72,7 +82,7 @@ export const DictionaryListDrawer: FC = () => {
       <div className="p-3 pb-4">
         <SearchInput
           placeholder="Search dictionaries"
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={(event) => setSearch(event.currentTarget.value)}
           type="search"
         />
       </div>
@@ -91,7 +101,9 @@ export const DictionaryListDrawer: FC = () => {
               size="md"
               isFullWidth
               Icon={
-                isDictionaryEdited(dictionary.localId!) ? Pencil : undefined
+                editedDictionaryKeys.has(dictionary.localId!)
+                  ? Pencil
+                  : undefined
               }
             >
               <div className="flex items-center gap-2 py-1">
@@ -101,12 +113,12 @@ export const DictionaryListDrawer: FC = () => {
                       {dictionary.key}
                     </Tag>
                     {dictionary.filePath && (
-                      <Tag color="blue" roundedSize="full" size="xs">
+                      <Tag color="neutral" roundedSize="full" size="xs">
                         {dictionary.filePath.split('/').pop()}
                       </Tag>
                     )}
                     {dictionary.id && (
-                      <Tag color="purple" roundedSize="full" size="xs">
+                      <Tag color="success" roundedSize="full" size="xs">
                         remote
                       </Tag>
                     )}

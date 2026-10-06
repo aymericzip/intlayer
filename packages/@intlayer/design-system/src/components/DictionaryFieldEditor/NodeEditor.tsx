@@ -39,9 +39,12 @@ export const NodeEditor: FC<NodeEditorProps> = ({ dictionary }) => {
     setFocusedContentKeyPath: _setFocusedContentKeyPath,
   } = useFocusUnmergedDictionary();
   const [, startTransition] = useTransition();
-  const setFocusedContentKeyPath: typeof _setFocusedContentKeyPath = (
-    keyPath
-  ) => startTransition(() => _setFocusedContentKeyPath(keyPath));
+  const setFocusedContentKeyPath = useCallback<
+    typeof _setFocusedContentKeyPath
+  >(
+    (keyPath) => startTransition(() => _setFocusedContentKeyPath(keyPath)),
+    [_setFocusedContentKeyPath]
+  );
 
   const [activeDictionary, setActiveDictionary] =
     useState<Dictionary>(dictionary);
