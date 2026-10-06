@@ -284,8 +284,13 @@ Dla projektów zawierających już ciągi ICU, [adapter zgodności react-intl](h
 - **Wstawianie znaku `#` poza gałęzią liczby mnogiej.** Ma on specjalne znaczenie wyłącznie wewnątrz bloków `plural` lub `selectordinal`. W innych miejscach jest traktowany jako zwykły znak kratki.
 - **Zapominanie, że `#` jest już sformatowany.** Jeśli potrzebujesz surowej liczby bez regionalnych separatorów, podstaw argument według nazwy zmiennej.
 
+Testuj i formatuj swoje wiadomości ICU za pomocą darmowego [edytora i narzędzia do formatowania wiadomości ICU](https://intlayer.org/icu-message-formatter):
+
+<ClickToOpenIframe src="https://intlayer.org/icu-message-formatter" width="100%" height="700px" style="border:none;"/>
+
 ## Więcej informacji
 
+- [Edytor i formatowanie wiadomości ICU](https://intlayer.org/icu-message-formatter)
 - [Dlaczego ICU nie jest stworzony dla JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/why_icu_is_not_made_for_js.md)
 - [Liczba mnoga w Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/plurial.md)
 - [Zawartość warunkowa select](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/select.md)

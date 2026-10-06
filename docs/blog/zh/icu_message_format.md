@@ -287,8 +287,13 @@ totalOpenings(5); // 中文语言环境 → "5 个职位空缺"
 - **在 plural 之外使用 `#`。** `#` 仅在 `plural` 或 `selectordinal` 内部具有特殊占位符含义。在其他地方它只会被作为普通井号字符显示。
 - **忘记 `#` 已经自带格式化。** 如果需要未经格式化处理的原始数字，请直接按变量名插值。
 
+使用免费的 [ICU 消息格式化与编辑器](https://intlayer.org/icu-message-formatter) 测试并格式化你的 ICU 消息：
+
+<ClickToOpenIframe src="https://intlayer.org/icu-message-formatter" width="100%" height="700px" style="border:none;"/>
+
 ## 延伸阅读
 
+- [ICU 消息格式化与编辑器](https://intlayer.org/icu-message-formatter)
 - [为什么 ICU 不适合 JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/why_icu_is_not_made_for_js.md)
 - [Intlayer 中的复数内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/plurial.md)
 - [基于 select 的条件内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/select.md)

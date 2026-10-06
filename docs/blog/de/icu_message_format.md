@@ -288,8 +288,13 @@ Wer aus einer Codebasis mit vorhandenen ICU-Strings migriert, kann den [react-in
 - **`#` außerhalb eines Pluralzweigs platzieren.** Es hat nur innerhalb von `plural` oder `selectordinal` eine Sonderbedeutung. Überall sonst bleibt es ein simples Rautezeichen.
 - **Vergessen, dass `#` bereits formatiert ist.** Wenn die unformatierte Zahl benötigt wird, sollte das Argument namentlich interpoliert werden.
 
+Testen und formatieren Sie Ihre ICU-Nachrichten mit dem kostenlosen [ICU-Nachrichten-Formatierer & Editor](https://intlayer.org/icu-message-formatter):
+
+<ClickToOpenIframe src="https://intlayer.org/icu-message-formatter" width="100%" height="700px" style="border:none;"/>
+
 ## Weiterführende Links
 
+- [ICU-Nachrichten-Formatierer & Editor](https://intlayer.org/icu-message-formatter)
 - [Warum ICU nicht für JavaScript gemacht ist](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/why_icu_is_not_made_for_js.md)
 - [Pluralinhalte in Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/plurial.md)
 - [Select-basierte Inhalte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/select.md)

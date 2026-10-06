@@ -284,8 +284,13 @@ If you are coming from a codebase that already contains real ICU strings, the [r
 - **Putting `#` outside a plural branch.** It is only special inside `plural` / `selectordinal`. Elsewhere it is a literal hash.
 - **Forgetting that `#` is formatted.** If you want the raw number, interpolate the argument by name instead.
 
+Test and format your ICU messages with the free [ICU Message Formatter](https://intlayer.org/icu-message-formatter):
+
+<ClickToOpenIframe src="https://intlayer.org/icu-message-formatter" width="100%" height="700px" style="border:none;"/>
+
 ## Going further
 
+- [ICU Message Formatter & Editor](https://intlayer.org/icu-message-formatter)
 - [Why ICU is not made for JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/why_icu_is_not_made_for_js.md)
 - [Plural content in Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/plurial.md)
 - [Select-based content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/select.md)

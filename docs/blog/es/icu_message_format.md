@@ -288,8 +288,13 @@ Si provienes de una base de código que ya contiene cadenas ICU reales, el [adap
 - **Colocar `#` fuera de una rama de plural.** Solo tiene un significado especial dentro de `plural` o `selectordinal`. En cualquier otro lugar es una simple almohadilla.
 - **Olvidar que `#` ya está formateado.** Si necesitas el número sin formato, interpola el argumento por su nombre.
 
+Prueba y formatea tus mensajes ICU con el [Editor y Formateador de Mensajes ICU](https://intlayer.org/icu-message-formatter) gratuito:
+
+<ClickToOpenIframe src="https://intlayer.org/icu-message-formatter" width="100%" height="700px" style="border:none;"/>
+
 ## Para profundizar
 
+- [Editor y Formateador de Mensajes ICU](https://intlayer.org/icu-message-formatter)
 - [Por qué ICU no está hecho para JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/why_icu_is_not_made_for_js.md)
 - [Contenido de plural en Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/plurial.md)
 - [Contenido basado en select](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/select.md)

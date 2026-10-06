@@ -288,8 +288,13 @@ Jika Anda beralih dari basis kode yang sudah memuat string ICU asli, [adapter ko
 - **Menempatkan `#` di luar cabang plural.** Simbol `#` hanya memiliki arti khusus di dalam `plural` atau `selectordinal`. Di tempat lain, simbol ini diperlakukan sebagai karakter tanda pagar biasa.
 - **Lupa bahwa `#` sudah diformat.** Jika Anda membutuhkan angka murni tanpa pemisah ribuan lokal, gunakan interpolasi argumen berdasarkan namanya.
 
+Uji dan format pesan ICU Anda dengan [Pemformat & Editor Pesan ICU](https://intlayer.org/icu-message-formatter) gratis:
+
+<ClickToOpenIframe src="https://intlayer.org/icu-message-formatter" width="100%" height="700px" style="border:none;"/>
+
 ## Pelajari Lebih Lanjut
 
+- [Pemformat & Editor Pesan ICU](https://intlayer.org/icu-message-formatter)
 - [Mengapa ICU Tidak Dibuat untuk JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/why_icu_is_not_made_for_js.md)
 - [Konten Bentuk Jamak di Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/plurial.md)
 - [Konten Berbasis Select](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/select.md)

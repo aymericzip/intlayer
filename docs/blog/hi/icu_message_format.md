@@ -288,8 +288,13 @@ ICU अवधारणाओं के साथ मैपिंग सीधी
 - **`#` को बहुवचन शाखा के बाहर रखना।** यह केवल `plural` या `selectordinal` के अंदर विशेष है। अन्य जगहों पर यह केवल एक साधारण हैश चिह्न है।
 - **यह भूल जाना कि `#` पहले से ही स्वरूपित है।** यदि आप कच्ची संख्या चाहते हैं, तो तर्क को नाम से इंटरपोलेट करें।
 
+मुफ़्त [ICU संदेश प्रारूपक और संपादक](https://intlayer.org/icu-message-formatter) के साथ अपने ICU संदेशों का परीक्षण और प्रारूपण करें:
+
+<ClickToOpenIframe src="https://intlayer.org/icu-message-formatter" width="100%" height="700px" style="border:none;"/>
+
 ## आगे पढ़ें
 
+- [ICU संदेश प्रारूपक और संपादक](https://intlayer.org/icu-message-formatter)
 - [ICU जावास्क्रिप्ट के लिए क्यों नहीं बना है](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/why_icu_is_not_made_for_js.md)
 - [Intlayer में बहुवचन सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/plurial.md)
 - [Select-आधारित सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/select.md)

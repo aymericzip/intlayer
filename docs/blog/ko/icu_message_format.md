@@ -288,8 +288,13 @@ ICU 개념과의 매핑 관계는 직관적입니다.
 - **`#`을 복수형 분기 외부에 배치하는 것.** `#`은 `plural`이나 `selectordinal` 내부에서만 특수한 치환자로 작동합니다. 그 외 위치에서는 단순한 해시 기호로 취급됩니다.
 - **`#`이 이미 로케일 서식화되었음을 간과하는 것.** 천 단위 구분 기호가 없는 순수 숫자가 필요한 경우 인자 이름을 직접 지정하여 보간하세요.
 
+무료 [ICU 메시지 포맷터 및 편집기](https://intlayer.org/icu-message-formatter)를 사용하여 ICU 메시지를 테스트하고 포맷해 보세요:
+
+<ClickToOpenIframe src="https://intlayer.org/icu-message-formatter" width="100%" height="700px" style="border:none;"/>
+
 ## 더 알아보기
 
+- [ICU 메시지 포맷터 및 편집기](https://intlayer.org/icu-message-formatter)
 - [ICU가 JavaScript에 맞지 않는 이유](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/why_icu_is_not_made_for_js.md)
 - [Intlayer의 복수형 콘텐츠](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/plurial.md)
 - [Select 기반 콘텐츠](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/select.md)

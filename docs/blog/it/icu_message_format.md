@@ -288,8 +288,13 @@ Per i progetti che contengono già stringhe ICU, [l'adattatore di compatibilità
 - **Inserire `#` all'esterno di un ramo di plurale.** Assume un significato speciale solo all'interno di `plural` o `selectordinal`. In qualsiasi altro punto è un semplice carattere cancelletto.
 - **Dimenticare che `#` è già formattato.** Se desiderate il numero grezzo senza formattazione numerica locale, interpolate l'argomento per nome.
 
+Testa e formatta i tuoi messaggi ICU con l'[Editor e formattatore di messaggi ICU](https://intlayer.org/icu-message-formatter) gratuito:
+
+<ClickToOpenIframe src="https://intlayer.org/icu-message-formatter" width="100%" height="700px" style="border:none;"/>
+
 ## Risorse utili
 
+- [Editor e formattatore di messaggi ICU](https://intlayer.org/icu-message-formatter)
 - [Perché ICU non è fatto per JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/why_icu_is_not_made_for_js.md)
 - [Contenuti plurali in Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/plurial.md)
 - [Contenuti basati su select](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/select.md)

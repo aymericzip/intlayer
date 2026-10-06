@@ -288,8 +288,13 @@ Với các dự án đang sở hữu sẵn chuỗi ICU thực tế, [bộ điề
 - **Đặt `#` bên ngoài nhánh số nhiều.** Ký tự `#` chỉ có ý nghĩa thay thế đặc biệt bên trong `plural` hoặc `selectordinal`. Ở những vị trí khác, nó chỉ là ký tự thăng bình thường.
 - **Quên rằng `#` đã được định dạng sẵn.** Nếu cần con số thô không có dấu phân tách hàng nghìn, hãy nội suy đối số bằng tên biến.
 
+Kiểm tra và định dạng tin nhắn ICU của bạn với [Trình định dạng & Trình chỉnh sửa tin nhắn ICU](https://intlayer.org/icu-message-formatter) miễn phí:
+
+<ClickToOpenIframe src="https://intlayer.org/icu-message-formatter" width="100%" height="700px" style="border:none;"/>
+
 ## Tài liệu tham khảo thêm
 
+- [Trình định dạng & Trình chỉnh sửa tin nhắn ICU](https://intlayer.org/icu-message-formatter)
 - [Tại sao ICU không dành cho JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/why_icu_is_not_made_for_js.md)
 - [Nội dung số nhiều trong Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/plurial.md)
 - [Nội dung dựa trên select](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/select.md)
