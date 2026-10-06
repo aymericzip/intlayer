@@ -102,15 +102,21 @@ export const Route = createFileRoute('/{-$locale}/i18n-seo-scanner')({
 });
 
 function AuditContent() {
-  const { title, description, chromeExtension } = useIntlayer('audit-page');
+  const { heading, subheading, description, chromeExtension } =
+    useIntlayer('audit-page');
 
   return (
     <div className="relative flex size-full flex-1 flex-col">
       <BackgroundLayout />
       <main className="relative flex flex-1 flex-col items-center justify-center gap-16 px-4 pt-20 md:px-10">
-        <h1 className="max-w-3xl text-center font-bold text-3xl text-foreground leading-tight sm:text-5xl md:text-5xl lg:text-5xl">
-          {title}
-        </h1>
+        <div className="flex max-w-3xl flex-col items-center">
+          <h1 className="mb-3 px-2 text-center font-bold text-3xl text-foreground leading-tight sm:text-4xl md:text-5xl lg:text-6xl">
+            {heading}
+          </h1>
+          <h2 className="px-2 text-center font-semibold text-foreground text-lg leading-snug sm:text-2xl md:text-3xl">
+            {subheading}
+          </h2>
+        </div>
         <p className="max-w-2xl text-muted-foreground leading-relaxed">
           {description}
         </p>
