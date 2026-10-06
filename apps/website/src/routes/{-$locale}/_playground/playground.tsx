@@ -4,8 +4,12 @@ import {
   Website_Demo_Path,
   Website_Playground,
 } from '@intlayer/design-system/routes';
-import { createFileRoute } from '@tanstack/react-router';
-import { defaultLocale, getIntlayerAsync } from 'intlayer';
+import {
+  createFileRoute,
+  getRouteApi,
+  useParams,
+} from '@tanstack/react-router';
+import { defaultLocale, getIntlayerAsync, getLocalizedPath } from 'intlayer';
 import { lazy, Suspense } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { BackgroundLayout } from '~/components/BackgroundLayout';
@@ -78,14 +82,18 @@ export const Route = createFileRoute('/{-$locale}/_playground/playground')({
   component: PlaygroundPage,
 });
 
+const localeRoute = getRouteApi('/{-$locale}');
+
 function PlaygroundPage() {
   const { title, description } = useIntlayer('playground-page');
+
+  const { locale = defaultLocale } = localeRoute.useParams();
 
   const origin =
     typeof window !== 'undefined'
       ? window.location.origin
       : import.meta.env.VITE_PUBLIC_URL;
-  const applicationURL = `${origin}${Website_Demo_Path}`;
+  const applicationURL = `${origin}${getLocalizedPath(Website_Demo_Path, locale)}`;
 
   const configuration = {
     editor: {
@@ -105,6 +113,7 @@ function PlaygroundPage() {
         <Suspense fallback={<Loader />}>
           <Editor
             configuration={configuration}
+            key={locale}
             DictionariesLoader={DictionaryLoaderPlayground}
           />
         </Suspense>
