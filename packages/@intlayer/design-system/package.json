@@ -557,7 +557,7 @@
     "storybook": "10.6.1",
     "tsdown": "0.23.0",
     "typescript": "7.0.2",
-    "vite": "8.3.2",
+    "vite": "8.3.3",
     "vite-intlayer": "workspace:*",
     "vitest": "5.0.3"
   },
