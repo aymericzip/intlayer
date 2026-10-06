@@ -15,8 +15,11 @@ import { createOffsetToPosition } from './textPosition';
 /** Usage marker: field usage cannot be tracked, every field may be read. */
 export const ALL_FIELDS_USED = '__ALL__';
 
-/** Usage marker: the dictionary is only referenced, no field is read. */
-const EXISTENCE_CHECK_ONLY = '__EXISTENCE_CHECK__';
+/**
+ * Usage marker: the dictionary is read, but the analyzer lost track of its
+ * fields (e.g. the result is cast or passed through untraced code).
+ */
+export const UNTRACKED_FIELDS = '__UNTRACKED__';
 
 export interface UsageLocation {
   uri: Uri;
@@ -181,8 +184,8 @@ export const findUsagesOfDictionary = async (
  *  - dotted field keys (+ parent prefixes) with precise ranges
  *  - `__ALL__` when field usage cannot be fully tracked (variable escapes,
  *    translator functions that may be forwarded or used in templates)
- *  - `__EXISTENCE_CHECK__` when the dictionary is referenced without any
- *    trackable binding (bare `getIntlayer('key')` call)
+ *  - `__UNTRACKED__` when the dictionary is referenced without any
+ *    trackable binding (e.g. `getIntlayer('key') as Section`)
  */
 const analyzeFileForUsages = (
   scriptContent: string,
@@ -263,8 +266,8 @@ const analyzeFileForUsages = (
   if (!hasFieldUsage && keysUsed.size === 0) {
     // Content binding without any tracked field usage: the usages are likely
     // in a stripped template region (Vue/Svelte) — don't flag fields unused.
-    // Without any binding at all, the call only proves the dictionary exists.
-    keysUsed.add(bindings.length > 0 ? ALL_FIELDS_USED : EXISTENCE_CHECK_ONLY);
+    // Without any binding, the field reads cannot be traced.
+    keysUsed.add(bindings.length > 0 ? ALL_FIELDS_USED : UNTRACKED_FIELDS);
   }
 
   const firstUsage = usages[0]!;
