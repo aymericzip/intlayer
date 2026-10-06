@@ -183,15 +183,22 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
         onClose={() => setIsFormatAlertModalOpen(false)}
         padding="md"
       >
-        <form className="size-full">
+        <form
+          className="size-full"
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSaveDictionaryConfirmation();
+          }}
+        >
           <p className="py-4 text-muted-foreground text-sm">
             {confirmation.message}
           </p>
 
           <div className="mt-12 flex justify-end gap-2 max-md:flex-col">
             <FormButton
+              type="button"
               label={confirmation.cancelButton.label.value}
-              disabled={!isEdited || isLoading}
+              disabled={isLoading}
               color="text"
               className="max-md:w-full"
               variant="outline"
@@ -200,12 +207,13 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
               {confirmation.cancelButton.text}
             </FormButton>
             <FormButton
+              type="submit"
               label={confirmation.confirmButton.label.value}
-              disabled={!isEdited || isLoading || !hasDictionaryWritePermission}
+              disabled={!isEdited || isLoading}
               Icon={Save}
               color="text"
               className="max-md:w-full"
-              isLoading={isPushing}
+              isLoading={isWriting}
               onClick={handleSaveDictionaryConfirmation}
             >
               {confirmation.confirmButton.text}
