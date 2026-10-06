@@ -15,14 +15,14 @@ For both:
 - Don't use '—' char, replace it by ',' to '.'
 - Reuse the front-matter format to seo and website indexation.
 - All title, description and h1 should be studied for best SEO indexation
-- Always update `updatedAt` in frontmatter after update
-- add <TOC> for long posts
+- Always update `updatedAt` in front-matter after update
+- Add <TOC> for long posts
 - <Tabs>, <Step>, <Accordion>, <FAQ> where pertinent
 - Links between docs should be like (`https://github.com/aymericzip/intlayer/blob/main/docs/.../.md`, no `./.../.md`, no `https://intlayer.org/...`)
-- avoid '---' to separate sections
-- add links to other benchmarks docs and links to other docs, compat adapters etc where possible
+- Avoid '---' to separate sections
+- Add links to other benchmarks docs and links to other docs, compat adapters etc where possible
 - For translations check `docs/tools/prompts/CUSTOM_INSTRUCTIONS.md`
-- Don't hesitate to remove part that are not relevant, duplicated or obsolete for the user
+- Avoid distraction. Go straight to the point. Avoid long blog. Don't hesitate to remove part that are not relevant, duplicated, obsolete, or too verbose for the user
 
 Doc are multilingual.
 
