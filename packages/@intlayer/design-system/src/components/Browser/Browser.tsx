@@ -92,7 +92,7 @@ export const Browser = ({
   const [sitemapUrls, setSitemapUrls] = useState<string[]>([]);
   const [sitemapSearch, setSitemapSearch] = useState('');
   const [sitemapLoading, setSitemapLoading] = useState(false);
-  const [sitemapFetched, setSitemapFetched] = useState(false);
+  const isSitemapRequestedRef = useRef(false);
   const [sitemapError, setSitemapError] = useState(false);
   const sitemapInputRef = useRef<HTMLInputElement>(null);
 
@@ -112,7 +112,7 @@ export const Browser = ({
     setSitemapOpen(false);
     setSitemapUrls([]);
     setSitemapSearch('');
-    setSitemapFetched(false);
+    isSitemapRequestedRef.current = false;
     setSitemapError(false);
   }, [initialUrl]);
 
@@ -308,28 +308,31 @@ export const Browser = ({
     return url.toString();
   };
 
-  const handleSitemapToggle = async () => {
+  /** Fetches the sitemap URLs once per `initialUrl` (on hover, focus or click). */
+  const loadSitemapUrls = async () => {
+    if (isSitemapRequestedRef.current) return;
+    isSitemapRequestedRef.current = true;
+
+    setSitemapLoading(true);
+    setSitemapError(false);
+    try {
+      const { extractUrlFromSitemap } = await import('./extractUrlFromSitemap');
+      setSitemapUrls(await extractUrlFromSitemap(currentUrl));
+    } catch {
+      setSitemapError(true);
+    } finally {
+      setSitemapLoading(false);
+    }
+  };
+
+  const handleSitemapToggle = () => {
     const nextOpen = !sitemapOpen;
     setSitemapOpen(nextOpen);
 
-    if (nextOpen && !sitemapFetched) {
-      setSitemapLoading(true);
-      setSitemapError(false);
-      setSitemapFetched(true);
-      try {
-        const { extractUrlFromSitemap } = await import(
-          './extractUrlFromSitemap'
-        );
-        const urls = await extractUrlFromSitemap(currentUrl);
-        setSitemapUrls(urls);
-        if (urls.length === 0) setSitemapError(false);
-      } catch {
-        setSitemapError(true);
-      } finally {
-        setSitemapLoading(false);
-      }
-      setTimeout(() => sitemapInputRef.current?.focus(), 50);
-    }
+    if (!nextOpen) return;
+
+    void loadSitemapUrls();
+    setTimeout(() => sitemapInputRef.current?.focus(), 50);
   };
 
   const filteredSitemapUrls = useMemo(() => {
@@ -352,7 +355,7 @@ export const Browser = ({
       aria-label={ariaLabel ?? content.ariaLabel.value}
     >
       {/* Top bar */}
-      <div className="relative z-10 flex shrink-0 items-center gap-3 rounded-t-xl border-b bg-card px-4 py-2">
+      <div className="@container relative z-10 flex shrink-0 items-center gap-3 rounded-t-xl border-b bg-card px-4 py-2">
         {/* Navigation Controls */}
         <div className="flex items-center gap-1">
           <Button
@@ -429,7 +432,11 @@ export const Browser = ({
           disabled={!sitemapOpen}
           role="none"
         >
-          <DropDown identifier="sitemap-explorer">
+          <DropDown
+            identifier="sitemap-explorer"
+            onMouseEnter={loadSitemapUrls}
+            onFocus={loadSitemapUrls}
+          >
             <DropDown.Trigger
               identifier="sitemap-explorer-trigger"
               type="button"
@@ -449,7 +456,7 @@ export const Browser = ({
               isOverable
             >
               <Container
-                className="min-w-28 rounded-md!"
+                className="w-80 max-w-[calc(100cqw-2rem)] rounded-md!"
                 roundedSize="xl"
                 border
                 borderColor="neutral"
@@ -494,7 +501,7 @@ export const Browser = ({
                             setSitemapOpen(false);
                           }}
                         >
-                          <span className="max-w-64 truncate text-start text-base">
+                          <span className="block truncate text-start text-base">
                             <UrlPath url={url} />
                           </span>
                         </Button>
