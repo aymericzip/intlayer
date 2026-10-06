@@ -145,35 +145,33 @@ export const getRawMarkdownPathname = (
 };
 
 /**
- * Rebinds a request to another URL, preserving every other property.
+ * Returns a view of a request with some properties replaced, preserving every
+ * other one.
  *
  * Mirrors h3's own `requestWithURL`, reimplemented here because Nitro bundles
- * h3 internally and the package is not a dependency of this app. `Request.url`
- * is a read-only getter, so a proxy is the only way to move a request without
- * copying — and copying would consume its body stream.
+ * h3 internally and the package is not a dependency of this app. `Request`
+ * properties are read-only getters, so a proxy is the only way to change them
+ * without copying — and copying would consume its body stream.
  *
  * @param request - Request to rebind.
- * @param url - Absolute URL the rebound request reports.
- * @returns A proxy of `request` answering `url`.
+ * @param overrides - Properties the rebound request reports instead.
+ * @returns A proxy of `request` answering `overrides`.
  */
-const requestWithUrl = (request: Request, url: URL): Request => {
-  const overrides: Record<string | symbol, unknown> = {
-    url: url.href,
-    // h3 reads `_url` first when it re-derives the event URL; leaving the
-    // original behind would resurrect the pre-rewrite pathname.
-    _url: url,
-  };
-
-  return new Proxy(request, {
+export const rebindRequest = (
+  request: Request,
+  overrides: Partial<Pick<Request, 'url' | 'headers'>> & { _url?: URL }
+): Request =>
+  new Proxy(request, {
     get: (target, property) => {
-      if (property in overrides) return overrides[property];
+      if (property in overrides) {
+        return overrides[property as keyof typeof overrides];
+      }
 
       const value = Reflect.get(target, property);
 
       return typeof value === 'function' ? value.bind(target) : value;
     },
   });
-};
 
 /**
  * Points the event at its `/raw/` counterpart, leaving the client-visible URL
@@ -198,5 +196,10 @@ export const rewriteToRawMarkdown = (
   }
 
   event.url = rewritten;
-  event.req = requestWithUrl(event.req, rewritten);
+  event.req = rebindRequest(event.req, {
+    url: rewritten.href,
+    // h3 reads `_url` first when it re-derives the event URL; leaving the
+    // original behind would resurrect the pre-rewrite pathname.
+    _url: rewritten,
+  });
 };

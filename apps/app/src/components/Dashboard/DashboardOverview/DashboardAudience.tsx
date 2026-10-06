@@ -349,7 +349,7 @@ const PageBreakdownRow: FC<PageBreakdownRowProps> = ({
         </a>
         {title && (
           <span
-            className="max-w-[160px] shrink-0 truncate font-mono text-neutral text-xs"
+            className="max-w-40 shrink-0 truncate font-mono text-neutral text-xs"
             title={pageUrl}
           >
             {pageUrl}
@@ -513,7 +513,7 @@ export const DashboardAudience: FC = () => {
         </div>
       ) : !hasData ? (
         <Container
-          className="m-auto flex w-full items-center justify-center p-10"
+          className="m-auto flex items-center justify-center p-10"
           roundedSize="2xl"
           transparency="none"
           border

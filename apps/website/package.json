@@ -75,6 +75,8 @@
     "intlayer": "workspace:*",
     "lucide-react": "1.52.0",
     "nitro": "latest",
+    "node-html-markdown": "^2.0.0",
+    "node-html-parser": "^6.1.13",
     "oxc-transform-react": "^0.153.0",
     "posthog-js": "^1.434.15",
     "react": "19.3.0",

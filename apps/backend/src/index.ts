@@ -391,6 +391,13 @@ const startServer = async () => {
       logger.error('[demo] reset failed:', error);
     });
     await app.register(blogCommentRouter, { prefix: blogCommentRoute });
+
+    // Agent payments (MPP). Imported here so a self-hosted process never
+    // loads it; it stays off until Stripe holds a business profile.
+    const { registerMachinePaymentRoutes } = await import(
+      '@routes/machinePayment.routes'
+    );
+    registerMachinePaymentRoutes(app);
   }
 
   // Server
