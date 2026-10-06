@@ -31,7 +31,7 @@ export const LongPressMessage: FC = () => {
       border
       borderColor="neutral"
       className={cn(
-        'flex-row p-1 text-sm text-text transition-opacity duration-100',
+        'flex-row p-1 pr-2 text-sm text-text transition-opacity duration-100',
         hoveredContent?.dictionaryKey ? 'opacity-100' : 'opacity-0'
       )}
     >
