@@ -92,7 +92,16 @@ const startServer = async (app: FastifyInstance) => {
         // Helmet requires a `default-src`; the editor sets no other policy
         defaultSrc:
           fastifyHelmet.contentSecurityPolicy.dangerouslyDisableDefaultSrc,
-        frameAncestors: ["'self'", 'vscode-webview:'],
+        frameAncestors: [
+          "'self'",
+          'vscode-webview:',
+          'vscode-file:',
+          'https://*.vscode-cdn.net',
+          'https://*.vscode-webview.net',
+          'localhost:*',
+          'http://localhost:*',
+          'http://127.0.0.1:*',
+        ],
       },
     },
     frameguard: false,
