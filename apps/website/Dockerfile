@@ -60,6 +60,7 @@ COPY \
     --exclude=packages/express-intlayer \
     --exclude=packages/hono-intlayer \
     --exclude=packages/intlayer-cli \
+    --exclude=packages/intlayer-editor \
     --exclude=packages/lit-intlayer \
     --exclude=packages/lynx-intlayer \
     --exclude=packages/nuxt-intlayer \
