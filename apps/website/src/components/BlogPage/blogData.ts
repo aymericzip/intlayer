@@ -71,12 +71,12 @@ export const getPreviousNextBlogData = (
   docKey: BlogKey,
   locale: LocalesValues
 ) => {
-  const docData = getIntlayer('blog-data', locale) as Record<
+  const blogData = getIntlayer('blog-data', locale) as Record<
     string,
     CategorizedBlogData
   >;
 
-  const { blog, paths, title } = getBlogSection(docData);
+  const { blog, paths, title } = getBlogSection(blogData);
 
   const blogIndex = blog.findIndex((blog) => blog.docKey === docKey);
   const nextBlogIndex = blogIndex + 1;

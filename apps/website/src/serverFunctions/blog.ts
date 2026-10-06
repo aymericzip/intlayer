@@ -1,11 +1,13 @@
 import { createServerFn } from '@tanstack/react-start';
 import { staticFunctionMiddleware } from '@tanstack/start-static-server-functions';
+import { getIntlayer } from 'intlayer';
 import { parseMarkdown } from 'react-intlayer/markdown';
-import {
-  getBlogData,
-  getPreviousNextBlogData,
-} from '~/components/BlogPage/blogData';
-import type { BlogNavMetadata, Section } from '~/components/BlogPage/types';
+import { getPreviousNextBlogData } from '~/components/BlogPage/blogData';
+import type {
+  BlogNavMetadata,
+  CategorizedBlogData,
+  Section,
+} from '~/components/BlogPage/types';
 import { urlRenamer } from '~/utils/markdown';
 
 export const loadBlogPage = createServerFn()
@@ -84,7 +86,10 @@ export const loadBlogNavData = createServerFn()
   .middleware([staticFunctionMiddleware])
   .handler(async ({ data: { locale } }) => {
     const { getAuthor } = await import('@intlayer/docs');
-    const blogData = getBlogData(locale);
+    const blogData = getIntlayer('blog-data', locale) as Record<
+      string,
+      CategorizedBlogData
+    >;
 
     /** Replaces every author handle of the tree with its profile. */
     const resolveAuthors = (section: Section): Section<BlogNavMetadata> => {
