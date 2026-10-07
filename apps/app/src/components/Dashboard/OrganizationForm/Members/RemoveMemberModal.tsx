@@ -64,7 +64,7 @@ export const RemoveMemberModal: FC<RemoveMemberModalProps> = ({
       isOpen={isOpen}
       onClose={onClose}
       title={title({
-        memberName: user?.name ?? user?.email ?? String(memberId),
+        memberName: user?.name ?? user?.email ?? '…',
       })}
       size="md"
       hasCloseButton

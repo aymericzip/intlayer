@@ -20,7 +20,7 @@ import { H3 } from '@intlayer/design-system/headers';
 import { Loader } from '@intlayer/design-system/loader';
 import { MultiSelect } from '@intlayer/design-system/select';
 import { Plus, Users, X } from 'lucide-react';
-import { type FC, useEffect, useState } from 'react';
+import { type FC, useEffect, useMemo, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { RemoveMemberModal } from './RemoveMemberModal';
 import { useOrganizationMembersSchema } from './useMembersFormSchema';
@@ -55,6 +55,25 @@ export const MembersForm: FC = () => {
   const { data: usersResponse, isPending: isLoadingUsers } = useGetUsers({
     ids: organization?.membersIds ?? [],
   });
+
+  /** Members whose user record was retrieved, keyed by id. Unresolved ids are hidden. */
+  const usersById = useMemo(
+    () =>
+      new Map<string, UserAPI>(
+        (usersResponse?.data ?? []).map((user: UserAPI) => [
+          String(user.id),
+          user,
+        ])
+      ),
+    [usersResponse]
+  );
+  const resolvedMembersIds = useMemo(
+    () =>
+      (organization?.membersIds ?? []).filter((memberId) =>
+        usersById.has(String(memberId))
+      ),
+    [organization?.membersIds, usersById]
+  );
   const [memberIdToRemove, setMemberIdToRemove] = useState<string>();
   const isOrganizationAdmin =
     session?.roles.includes('org_admin') || session?.roles.includes('admin');
@@ -69,17 +88,21 @@ export const MembersForm: FC = () => {
   };
 
   useEffect(() => {
-    form.reset({
-      membersIds: organization?.membersIds ?? [],
-      adminsIds: organization?.adminsIds ?? [],
-    });
-  }, [organization, form]);
+    // Until users are loaded, keep raw ids; afterwards drop the ones that no longer resolve
+    const isResolved = (userId: UserAPI['id'] | string) =>
+      !usersResponse || usersById.has(String(userId));
 
-  const getUserName = (memberId: UserAPI['id'] | string) => {
-    const user = usersResponse?.data?.find(
-      (user: any) => String(user.id) === String(memberId)
-    );
-    return user?.name ?? user?.email ?? String(memberId);
+    form.reset({
+      membersIds: (organization?.membersIds ?? []).filter(isResolved),
+      adminsIds: (organization?.adminsIds ?? []).filter(isResolved),
+    });
+  }, [organization, form, usersResponse, usersById]);
+
+  /** Display name of a member; never falls back to the raw id. */
+  const getUserName = (memberId: UserAPI['id'] | string): string => {
+    const user = usersById.get(String(memberId));
+
+    return user?.name ?? user?.email ?? '…';
   };
 
   return (
@@ -133,7 +156,7 @@ export const MembersForm: FC = () => {
             <FormLabel>{title}</FormLabel>
             <FormDescription>{description}</FormDescription>
             <Loader isLoading={isLoadingUsers}>
-              {!organization?.membersIds.length && (
+              {!resolvedMembersIds.length && (
                 <span className="flex size-full justify-center text-neutral text-sm">
                   {noMembers}
                 </span>
@@ -145,7 +168,7 @@ export const MembersForm: FC = () => {
                 borderColor="text"
                 className="max-h-48 flex-col gap-2 overflow-auto p-2"
               >
-                {organization?.membersIds.map((memberId) => (
+                {resolvedMembersIds.map((memberId) => (
                   <div
                     key={String(memberId)}
                     className="flex items-center justify-between rounded-lg bg-text/10 px-2 py-1"
@@ -180,7 +203,7 @@ export const MembersForm: FC = () => {
             <Loader isLoading={isLoadingUsers}>
               <MultiSelect.Content>
                 <MultiSelect.List>
-                  {organization?.membersIds.map((memberId) => (
+                  {resolvedMembersIds.map((memberId) => (
                     <MultiSelect.Item
                       value={String(memberId)}
                       key={String(memberId)}
