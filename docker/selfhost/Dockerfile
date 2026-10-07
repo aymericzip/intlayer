@@ -1,5 +1,4 @@
 # syntax=docker/dockerfile:1.27.0
-# check=skip=SecretsUsedInArgOrEnv
 #
 # Intlayer self-hosting images. One Dockerfile, three build targets:
 #
@@ -313,6 +312,9 @@ ENV PUPPETEER_CACHE_DIR=/root/.cache/puppeteer
 # ---- Runtime configuration (override at `docker run` with -e) ----------------
 # Every datastore is the in-container one. MONGODB_URI points at the bundled
 # single-node replica set; point it at an external cluster to leave that unused.
+# The S3 credentials are not baked in: scripts/s3-credentials.sh defaults
+# S3_ACCESS_KEY_ID and generates S3_SECRET_ACCESS_KEY into /data on first boot
+# unless one is passed with -e / --env-file.
 ENV NODE_ENV=production \
     VITE_SELF_HOSTED=true \
     SELF_HOSTED=true \
@@ -324,8 +326,6 @@ ENV NODE_ENV=production \
     S3_ENDPOINT=http://127.0.0.1:9000 \
     S3_PUBLIC_URL=http://localhost:9000/intlayer \
     S3_BUCKET_NAME=intlayer \
-    S3_ACCESS_KEY_ID=intlayer \
-    S3_SECRET_ACCESS_KEY=intlayer-secret \
     TMPDIR=/workspace/apps/backend/tmp
 
 # Built artifacts

@@ -426,6 +426,8 @@ Kedua mode Docker membaca file yang sama (berupa `intlayer.env` untuk kontainer 
 | `S3_SECRET_ACCESS_KEY` | _(generated)_ | Secret for the bundled MinIO                                                                                                                  |
 | `RESEND_API_KEY`       | _(your key)_  | Transactional email via Resend. Required for first-run setup unless an SMTP relay is configured instead (see [Global mailer](#global-mailer)) |
 
+> Image all-in-one juga menerima `S3_SECRET_ACCESS_KEY` yang kosong: image ini membuatnya saat boot pertama dan menyimpannya di `/data/.s3-secret-access-key`. Docker Compose tetap mewajibkannya.
+
 ### Ditetapkan oleh Penerapan
 
 Variabel ini diatur oleh image (all-in-one) atau oleh file compose, dan hanya perlu ditimpa untuk topologi non-standar. `DOMAIN`, `APP_URL`, `BACKEND_URL`, dan `S3_PUBLIC_URL` adalah pengecualian: jika diatur di file env, variabel ini diutamakan di kedua mode (lihat [Domain kustom](#custom-domain)).

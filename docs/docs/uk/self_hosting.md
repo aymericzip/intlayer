@@ -426,6 +426,8 @@ $env:INTLAYER_MODE = "compose"; $env:INTLAYER_COMPOSE_DIR = ".\cms"; irm https:/
 | `S3_SECRET_ACCESS_KEY` | _(generated)_ | Secret for the bundled MinIO                                                                                                                  |
 | `RESEND_API_KEY`       | _(your key)_  | Transactional email via Resend. Required for first-run setup unless an SMTP relay is configured instead (see [Global mailer](#global-mailer)) |
 
+> Образ all-in-one також приймає порожній `S3_SECRET_ACCESS_KEY`: він генерує його під час першого запуску та зберігає в `/data/.s3-secret-access-key`. Для Docker Compose він і надалі обов'язковий.
+
 ### Фіксовані розгортанням
 
 Ці змінні задаються образом (all-in-one) або файлом compose, і перевизначати їх потрібно лише для нестандартної топології. Виняток становлять `DOMAIN`, `APP_URL`, `BACKEND_URL` та `S3_PUBLIC_URL`: задані в env-файлі, вони мають пріоритет в обох режимах (див. [Власний домен](#custom-domain)).

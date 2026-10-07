@@ -10,7 +10,6 @@ FROM node:26-alpine AS builder
 RUN npm install -g bun@1.4.2
 
 ARG INTLAYER_CLIENT_ID
-ARG INTLAYER_CLIENT_SECRET
 ARG VITE_DOMAIN
 ARG VITE_URL
 ARG VITE_EDITOR_URL
@@ -22,7 +21,6 @@ ARG INTLAYER_BACKEND_URL
 ARG DISABLE_OPTIMIZATION
 
 ENV INTLAYER_CLIENT_ID=${INTLAYER_CLIENT_ID}
-ENV INTLAYER_CLIENT_SECRET=${INTLAYER_CLIENT_SECRET}
 ENV VITE_DOMAIN=${VITE_DOMAIN}
 ENV VITE_URL=${VITE_URL}
 ENV VITE_EDITOR_URL=${VITE_EDITOR_URL}
@@ -79,7 +77,11 @@ COPY \
 RUN bun install
 
 # Build workspace package dependencies (packages/* and docs) that this app depends on
-RUN bun x turbo run build:ci --filter=website-tanstack^... --filter=./docs
+# INTLAYER_CLIENT_SECRET is a BuildKit secret, not an ARG/ENV, so it never lands
+# in the image layers or history. Pass it with:
+#   docker build --secret id=INTLAYER_CLIENT_SECRET,env=INTLAYER_CLIENT_SECRET …
+RUN --mount=type=secret,id=INTLAYER_CLIENT_SECRET,env=INTLAYER_CLIENT_SECRET \
+    bun x turbo run build:ci --filter=website-tanstack^... --filter=./docs
 
 # Set working directory to the tanstack website package and build it
 WORKDIR /workspace/apps/website
@@ -88,7 +90,8 @@ ENV NODE_ENV=production
 
 # Build the React Router website 
 # (Note: postbuild script in package.json will auto-trigger generate-sw.ts)
-RUN bun run build && bun scripts/baidu-push.ts 
+RUN --mount=type=secret,id=INTLAYER_CLIENT_SECRET,env=INTLAYER_CLIENT_SECRET \
+    bun run build && bun scripts/baidu-push.ts 
 
 # ---------------------------------------------------------
 # Runner Stage

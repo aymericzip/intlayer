@@ -426,6 +426,8 @@ Oba tryby Dockera odczytują ten sam plik (`intlayer.env` dla kontenera, `.env` 
 | `S3_SECRET_ACCESS_KEY` | _(generated)_ | Secret for the bundled MinIO                                                                                                                  |
 | `RESEND_API_KEY`       | _(your key)_  | Transactional email via Resend. Required for first-run setup unless an SMTP relay is configured instead (see [Global mailer](#global-mailer)) |
 
+> Obraz all-in-one akceptuje też pusty `S3_SECRET_ACCESS_KEY`: generuje go przy pierwszym uruchomieniu i zapisuje w `/data/.s3-secret-access-key`. Docker Compose nadal go wymaga.
+
 ### Ustalane przez wdrożenie
 
 Są one ustawiane przez obraz (all-in-one) lub przez plik compose i wymagają nadpisania tylko w przypadku niestandardowej topologii. Wyjątkiem są `DOMAIN`, `APP_URL`, `BACKEND_URL` i `S3_PUBLIC_URL`: ustawione w pliku env, mają pierwszeństwo w obu trybach (zobacz [Domena niestandardowa](#custom-domain)).

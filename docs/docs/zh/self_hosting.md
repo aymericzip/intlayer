@@ -426,6 +426,8 @@ $env:INTLAYER_MODE = "compose"; $env:INTLAYER_COMPOSE_DIR = ".\cms"; irm https:/
 | `S3_SECRET_ACCESS_KEY` | _(generated)_ | Secret for the bundled MinIO                                                                                                                  |
 | `RESEND_API_KEY`       | _(your key)_  | Transactional email via Resend. Required for first-run setup unless an SMTP relay is configured instead (see [Global mailer](#global-mailer)) |
 
+> all-in-one 镜像也接受空的 `S3_SECRET_ACCESS_KEY`：首次启动时会自动生成一个，并保存在 `/data/.s3-secret-access-key` 中。Docker Compose 仍然要求设置该值。
+
 ### 部署环境固定变量
 
 这些变量由镜像（多合一）或 compose 文件设置，仅在非标准拓扑下才需要覆盖。`DOMAIN`、`APP_URL`、`BACKEND_URL` 和 `S3_PUBLIC_URL` 是例外：在 env 文件中设置后，它们在两种模式下都具有优先权（参见[自定义域名](#custom-domain)）。

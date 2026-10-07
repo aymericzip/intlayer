@@ -427,6 +427,8 @@ Her iki Docker modu da [`docker/selfhost/.env.template`](https://github.com/ayme
 | `S3_SECRET_ACCESS_KEY` | _(generated)_ | Secret for the bundled MinIO                                                                                                                  |
 | `RESEND_API_KEY`       | _(your key)_  | Transactional email via Resend. Required for first-run setup unless an SMTP relay is configured instead (see [Global mailer](#global-mailer)) |
 
+> All-in-one imajı boş bir `S3_SECRET_ACCESS_KEY` değerini de kabul eder: ilk açılışta bir tane üretir ve `/data/.s3-secret-access-key` içinde saklar. Docker Compose ise hâlâ bu değeri zorunlu tutar.
+
 ### Dağıtım Tarafından Sabitlenmiş
 
 Bunlar imaj (hepsi-bir-arada) veya compose dosyası tarafından ayarlanır ve yalnızca standart dışı bir topoloji için geçersiz kılınmaları gerekir. `DOMAIN`, `APP_URL`, `BACKEND_URL` ve `S3_PUBLIC_URL` istisnadır: env dosyasında ayarlandıklarında her iki modda da önceliklidirler (bkz. [Özel alan adı](#custom-domain)).

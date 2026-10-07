@@ -119,7 +119,9 @@ straight from `S3_PUBLIC_URL`.
 - **Required:** `BETTER_AUTH_SECRET`, `S3_SECRET_ACCESS_KEY`, and a mailer
   (`RESEND_API_KEY`, or `MAIL_SMTP_*` which takes over as soon as
   `MAIL_SMTP_HOST` is set) — first-run setup
-  enforces email verification.
+  enforces email verification. The all-in-one image tolerates an empty
+  `S3_SECRET_ACCESS_KEY`: it generates one on first boot and keeps it in
+  `/data/.s3-secret-access-key`.
 - **External datastores:** `MONGODB_URI` (any `mongodb://` or `mongodb+srv://`
   string), `REDIS_URL`, `S3_ENDPOINT` / `S3_PUBLIC_URL` / `S3_ACCESS_KEY_ID`.
 - **Optional features (blank ⇒ disabled):** `OPENAI_API_KEY`, OAuth
