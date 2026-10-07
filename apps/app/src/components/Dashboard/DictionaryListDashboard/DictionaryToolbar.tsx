@@ -4,7 +4,7 @@ import { Container } from '@intlayer/design-system/container';
 import { Checkbox, SearchInput } from '@intlayer/design-system/input';
 import { PopoverStatic } from '@intlayer/design-system/popover';
 import type { Dictionary } from '@intlayer/types/dictionary';
-import { Columns, Filter, GitMerge, Plus, Trash2 } from 'lucide-react';
+import { Blend, Columns, Filter, Plus, Trash2 } from 'lucide-react';
 import type { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import { useIntlayer } from 'react-intlayer';
@@ -140,7 +140,7 @@ export const DictionaryToolbar: FC<DictionaryToolbarProps> = ({
         {dashboard.data.duplicatePairs.length > 0 && (
           <PopoverStatic identifier="merge-duplicates-toolbar">
             <Button
-              Icon={GitMerge}
+              Icon={Blend}
               color="text"
               variant="outline"
               label={content.mergeDuplicatesButton.label.value}
