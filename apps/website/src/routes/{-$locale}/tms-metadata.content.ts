@@ -4,25 +4,25 @@ const metadataContent = {
   key: 'tms-metadata',
   content: {
     title: t({
-      en: 'AI Translation Management System & Open Source Alternative | Intlayer',
+      en: 'AI Translation Management System (TMS) & Open Source Alternative | Intlayer',
       'en-GB':
-        'AI Translation Management System & Open Source Alternative | Intlayer',
-      fr: 'Système de Gestion de Traduction IA & Alternative Open Source | Intlayer',
-      es: 'Sistema de Gestión de Traducción IA y Alternativa Open Source | Intlayer',
-      de: 'KI-Übersetzungsmanagementsystem & Open-Source-Alternative | Intlayer',
-      it: 'Sistema di Gestione Traduzioni IA & Alternativa Open Source | Intlayer',
-      pt: 'Sistema de Gestão de Tradução IA e Alternativa Open Source | Intlayer',
-      ru: 'AI Система управления переводами и Open Source альтернатива | Intlayer',
-      zh: 'AI 翻译管理系统 & 开源替代方案 | Intlayer',
-      ja: 'AI翻訳管理システム & オープンソースの代替案 | Intlayer',
-      ar: 'نظام إدارة الترجمة بالذكاء الاصطناعي وبديل مفتوح المصدر | Intlayer',
-      hi: 'AI अनुवाद प्रबंधन प्रणाली और ओपन सोर्स विकल्प | Intlayer',
-      ko: 'AI 번역 관리 시스템 & 오픈 소스 대안 | Intlayer',
-      tr: 'Yapay Zeka Çeviri Yönetim Sistemi ve Açık Kaynak Alternatifi | Intlayer',
-      id: 'Sistem Manajemen Terjemahan AI & Alternatif Open Source | Intlayer',
-      pl: 'System zarządzania tłumaczeniami AI i alternatywa Open Source | Intlayer',
-      vi: 'Hệ thống Quản lý Dịch thuật AI & Giải pháp Thay thế Mã nguồn mở | Intlayer',
-      uk: 'Система керування перекладами на основі ШІ та відкрите ПЗ | Intlayer',
+        'AI Translation Management System (TMS) & Open Source Alternative | Intlayer',
+      fr: 'Système de Gestion de Traduction (TMS) IA & Alternative Open Source | Intlayer',
+      es: 'Sistema de Gestión de Traducción (TMS) IA y Alternativa Open Source | Intlayer',
+      de: 'KI-Übersetzungsmanagementsystem (TMS) & Open-Source-Alternative | Intlayer',
+      it: 'Sistema di Gestione Traduzioni (TMS) IA & Alternativa Open Source | Intlayer',
+      pt: 'Sistema de Gestão de Tradução (TMS) IA e Alternativa Open Source | Intlayer',
+      ru: 'AI Система управления переводами (TMS) и Open Source альтернатива | Intlayer',
+      zh: 'AI 翻译管理系统 (TMS) & 开源替代方案 | Intlayer',
+      ja: 'AI翻訳管理システム (TMS) & オープンソースの代替案 | Intlayer',
+      ar: 'نظام إدارة الترجمة (TMS) بالذكاء الاصطناعي وبديل مفتوح المصدر | Intlayer',
+      hi: 'AI अनुवाद प्रबंधन प्रणाली (TMS) और ओपन सोर्स विकल्प | Intlayer',
+      ko: 'AI 번역 관리 시스템 (TMS) & 오픈 소스 대안 | Intlayer',
+      tr: 'Yapay Zeka Çeviri Yönetim Sistemi (TMS) ve Açık Kaynak Alternatifi | Intlayer',
+      id: 'Sistem Manajemen Terjemahan AI (TMS) & Alternatif Open Source | Intlayer',
+      pl: 'System zarządzania tłumaczeniami AI (TMS) i alternatywa Open Source | Intlayer',
+      vi: 'Hệ thống Quản lý Dịch thuật AI (TMS) & Giải pháp Thay thế Mã nguồn mở | Intlayer',
+      uk: 'Система керування перекладами на основі ШІ (TMS) та відкрите ПЗ | Intlayer',
     }),
     description: t({
       en: 'Stop paying per word. The open-source & self-hosted alternative to Crowdin & Lokalise. Automate translations with AI, manage content via visual editor or Git, and ensure type-safety.',
@@ -48,6 +48,7 @@ const metadataContent = {
     keywords: t({
       en: [
         'Translation Management System',
+        'TMS',
         'Open Source TMS',
         'Crowdin Alternative',
         'Lokalise Alternative',
@@ -58,6 +59,7 @@ const metadataContent = {
       ],
       'en-GB': [
         'Translation Management System',
+        'TMS',
         'Open Source TMS',
         'Crowdin Alternative',
         'Lokalise Alternative',
@@ -68,6 +70,7 @@ const metadataContent = {
       ],
       fr: [
         'Système de gestion de traduction',
+        'TMS',
         'TMS Open Source',
         'Alternative Crowdin',
         'Alternative Lokalise',
@@ -78,6 +81,7 @@ const metadataContent = {
       ],
       es: [
         'Sistema de gestión de traducciones',
+        'TMS',
         'TMS Open Source',
         'Alternativa a Crowdin',
         'Alternativa a Lokalise',
@@ -88,6 +92,7 @@ const metadataContent = {
       ],
       de: [
         'Übersetzungsmanagementsystem',
+        'TMS',
         'Open Source TMS',
         'Crowdin Alternative',
         'Lokalise Alternative',
@@ -98,6 +103,7 @@ const metadataContent = {
       ],
       it: [
         'Sistema di gestione traduzioni',
+        'TMS',
         'TMS Open Source',
         'Alternativa Crowdin',
         'Alternativa Lokalise',
@@ -108,6 +114,7 @@ const metadataContent = {
       ],
       pt: [
         'Sistema de gestão de traduções',
+        'TMS',
         'TMS Open Source',
         'Alternativa Crowdin',
         'Alternativa Lokalise',
@@ -118,6 +125,7 @@ const metadataContent = {
       ],
       ru: [
         'Система управления переводами',
+        'TMS',
         'Open Source TMS',
         'Альтернатива Crowdin',
         'Альтернатива Lokalise',
@@ -128,6 +136,7 @@ const metadataContent = {
       ],
       zh: [
         '翻译管理系统',
+        'TMS',
         '开源 TMS',
         'Crowdin 替代方案',
         'Lokalise 替代方案',
@@ -138,6 +147,7 @@ const metadataContent = {
       ],
       ja: [
         '翻訳管理システム',
+        'TMS',
         'オープンソース TMS',
         'Crowdin 代替',
         'Lokalise 代替',
@@ -148,6 +158,7 @@ const metadataContent = {
       ],
       ar: [
         'نظام إدارة الترجمة',
+        'TMS',
         'TMS مفتوح المصدر',
         'بديل Crowdin',
         'بديل Lokalise',
@@ -157,6 +168,7 @@ const metadataContent = {
       ],
       hi: [
         'अनुवाद प्रबंधन प्रणाली',
+        'TMS',
         'ओपन सोर्स TMS',
         'Crowdin विकल्प',
         'Lokalise विकल्प',
@@ -166,6 +178,7 @@ const metadataContent = {
       ],
       ko: [
         '번역 관리 시스템',
+        'TMS',
         '오픈 소스 TMS',
         'Crowdin 대안',
         'Lokalise 대안',
@@ -176,6 +189,7 @@ const metadataContent = {
       ],
       tr: [
         'Çeviri Yönetim Sistemi',
+        'TMS',
         'Açık Kaynak TMS',
         'Crowdin Alternatifi',
         'Lokalise Alternatifi',
@@ -186,6 +200,7 @@ const metadataContent = {
       ],
       id: [
         'Sistem Manajemen Terjemahan',
+        'TMS',
         'TMS Open Source',
         'Alternatif Crowdin',
         'Alternatif Lokalise',
@@ -195,6 +210,7 @@ const metadataContent = {
       ],
       pl: [
         'System zarządzania tłumaczeniami',
+        'TMS',
         'TMS Open Source',
         'Alternatywa dla Crowdin',
         'Alternatywa dla Lokalise',
@@ -204,6 +220,7 @@ const metadataContent = {
       ],
       vi: [
         'Hệ thống Quản lý Bản dịch',
+        'TMS',
         'TMS Mã nguồn mở',
         'Thay thế Crowdin',
         'Thay thế Lokalise',
@@ -213,6 +230,7 @@ const metadataContent = {
       ],
       uk: [
         'Система керування перекладами',
+        'TMS',
         'TMS з відкритим кодом',
         'Альтернатива Crowdin',
         'Альтернатива Lokalise',
