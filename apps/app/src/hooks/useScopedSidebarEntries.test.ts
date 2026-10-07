@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import {
+  addRecentEntry,
   getScopedEntries,
   getSessionScopeId,
   normalizeScopedEntries,
@@ -124,5 +125,27 @@ describe('setScopedEntries', () => {
 
     expect(getScopedEntries(afterSecondPin, secondScope)).toEqual(['b']);
     expect(getScopedEntries(afterSecondPin, firstScope)).toEqual(['a']);
+  });
+});
+
+describe('addRecentEntry', () => {
+  it('prepends a new entry', () => {
+    expect(addRecentEntry(['a', 'b'], 'c')).toEqual(['c', 'a', 'b']);
+  });
+
+  it('keeps an already listed entry in place', () => {
+    const entries = ['a', 'b', 'c'];
+
+    expect(addRecentEntry(entries, 'c')).toBe(entries);
+  });
+
+  it('drops the oldest entry beyond five', () => {
+    expect(addRecentEntry(['a', 'b', 'c', 'd', 'e'], 'f')).toEqual([
+      'f',
+      'a',
+      'b',
+      'c',
+      'd',
+    ]);
   });
 });

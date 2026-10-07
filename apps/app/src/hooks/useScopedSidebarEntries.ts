@@ -45,7 +45,7 @@ export type UseScopedSidebarEntriesReturn = {
    * pinned entries first, then non-pinned recent ones.
    */
   sidebarEntries: string[];
-  /** Add an entry to the recent-visits list of the current scope (rolling last 5). */
+  /** Add an entry to the current scope's recent visits, without reordering. */
   trackVisit: (entry: string) => void;
   /** Pin an entry to the sidebar of the current scope. */
   pin: (entry: string) => void;
@@ -91,6 +91,14 @@ export const getScopedEntries = (
   scopeId: string | null
 ): string[] =>
   scopeId ? (normalizeScopedEntries(persisted, scopeId)[scopeId] ?? []) : [];
+
+/**
+ * Records a visit in a recent-entries list. An entry already listed keeps its
+ * position, so clicking a sidebar item never reorders the sidebar; a new entry
+ * is prepended and the oldest one dropped beyond `MAX_RECENT`.
+ */
+export const addRecentEntry = (entries: string[], entry: string): string[] =>
+  entries.includes(entry) ? entries : [entry, ...entries].slice(0, MAX_RECENT);
 
 /** Returns the persisted map with only the given scope updated. */
 export const setScopedEntries = (
@@ -179,10 +187,7 @@ export const useScopedSidebarEntries = ({
 
       setPersistedRecent((previous) =>
         setScopedEntries(previous, scopeId, (entries) =>
-          [entry, ...entries.filter((item) => item !== entry)].slice(
-            0,
-            MAX_RECENT
-          )
+          addRecentEntry(entries, entry)
         )
       );
     },
