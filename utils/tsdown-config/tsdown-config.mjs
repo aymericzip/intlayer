@@ -1,6 +1,9 @@
 import { readFileSync } from 'node:fs';
 import { builtinModules } from 'node:module';
 import { AssetPlugin } from './asset-plugin.mjs';
+import { SkipUnchangedOutputPlugin } from './skip-unchanged-output-plugin.mjs';
+
+export { SkipUnchangedOutputPlugin };
 
 const cwd = process.cwd();
 
@@ -64,7 +67,7 @@ export const commonOptions = {
     // Externalize ALL bare imports (i.e., all packages)
     neverBundle: isExternal,
   },
-  plugins: [AssetPlugin()],
+  plugins: [AssetPlugin(), SkipUnchangedOutputPlugin()],
 };
 
 /** @type {import('tsdown').UserConfig} */

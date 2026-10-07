@@ -17,7 +17,7 @@ import {
 } from '@intlayer/config/utils';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { handleAdditionalContentDeclarationFile } from './handleAdditionalContentDeclarationFile';
-import { handleContentDeclarationFileChange } from './handleContentDeclarationFileChange';
+import { handleContentDeclarationFilesChange } from './handleContentDeclarationFileChange';
 import { handleContentDeclarationFileMoved } from './handleContentDeclarationFileMoved';
 import { handleUnlinkedContentDeclarationFile } from './handleUnlinkedContentDeclarationFile';
 import { prepareIntlayer } from './prepareIntlayer';
@@ -27,6 +27,7 @@ import {
   isDirectoryExcluded,
   parseContentDeclarationFileName,
 } from './utils';
+import { createBatchDebounce } from './utils/createBatchDebounce';
 
 // Map to track files that were recently unlinked: oldPath -> { timer, timestamp }
 const pendingUnlinks = new Map<
@@ -136,6 +137,21 @@ export const watch = async (options?: WatchOptions) => {
   const subscriptions: { unsubscribe: () => Promise<void> }[] = [];
 
   const scheduleStable = createStabilityDebounce();
+
+  const scheduleContentChange = createBatchDebounce<string>(
+    (filePaths) =>
+      processEvent(async () => {
+        for (const filePath of filePaths) {
+          // Clear module cache for the changed file to avoid stale require() results
+          clearModuleCache(filePath);
+        }
+        // Evict in-memory caches so loadContentDeclaration picks up fresh content
+        clearAllCache();
+        clearDiskCacheMemory();
+        await handleContentDeclarationFilesChange(filePaths, configuration);
+      }),
+    STABILITY_THRESHOLD
+  );
 
   // ── mainDir watcher (depth 0) ──────────────────────────────────────────────
   // Detects broken or missing entry-point files inside .intlayer/main
@@ -368,28 +384,24 @@ export const watch = async (options?: WatchOptions) => {
           });
         }
       } else if (event.type === 'update') {
+        if (!isConfigFile) {
+          scheduleContentChange(filePath);
+          continue;
+        }
+
         scheduleStable(path, () => {
           processEvent(async () => {
-            if (isConfigFile) {
-              appLogger('Configuration file changed, repreparing Intlayer');
+            appLogger('Configuration file changed, repreparing Intlayer');
 
-              clearModuleCache(filePath);
-              clearAllCache();
+            clearModuleCache(filePath);
+            clearAllCache();
 
-              const { configuration: newConfiguration } =
-                getConfigurationAndFilePath(options?.configOptions);
+            const { configuration: newConfiguration } =
+              getConfigurationAndFilePath(options?.configOptions);
 
-              configuration = options?.configuration ?? newConfiguration;
+            configuration = options?.configuration ?? newConfiguration;
 
-              await prepareIntlayer(configuration, { clean: false });
-            } else {
-              // Clear module cache for the changed file to avoid stale require() results
-              clearModuleCache(filePath);
-              // Evict in-memory caches so loadContentDeclaration picks up fresh content
-              clearAllCache();
-              clearDiskCacheMemory();
-              await handleContentDeclarationFileChange(filePath, configuration);
-            }
+            await prepareIntlayer(configuration, { clean: false });
           });
         });
       } else if (event.type === 'delete') {
