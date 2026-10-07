@@ -12,6 +12,19 @@ export const REPOSITORY_PROVIDERS = [
   'gitee',
 ] as const satisfies readonly RepositoryProvider[];
 
+/** Default providers shown before expanding "see more". */
+export const DEFAULT_REPOSITORY_PROVIDERS = [
+  'github',
+  'gitlab',
+  'bitbucket',
+] as const satisfies readonly RepositoryProvider[];
+
+/** Other providers shown on a new line after expanding "see more". */
+export const OTHER_REPOSITORY_PROVIDERS = [
+  'codeberg',
+  'gitee',
+] as const satisfies readonly RepositoryProvider[];
+
 /** Display name of each provider. */
 export const PROVIDER_NAMES: Record<RepositoryProvider, string> = {
   github: 'GitHub',

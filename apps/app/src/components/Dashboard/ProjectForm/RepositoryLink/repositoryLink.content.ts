@@ -66,6 +66,27 @@ const repositoryLinkContent = {
       uk: 'Показати більше варіантів',
     }),
 
+    seeLessOptions: t({
+      en: 'See less options',
+      fr: "Voir moins d'options",
+      es: 'Ver menos opciones',
+      ru: 'Показать меньше вариантов',
+      ja: '表示を減らす',
+      ko: '옵션 접기',
+      zh: '查看更少选项',
+      de: 'Weniger Optionen anzeigen',
+      ar: 'عرض خيارات أقل',
+      it: 'Mostra meno opzioni',
+      'en-GB': 'See less options',
+      pt: 'Ver menos opções',
+      hi: 'कम विकल्प देखें',
+      tr: 'Daha az seçenek gör',
+      pl: 'Zobacz mniej opcji',
+      id: 'Lihat lebih sedikit opsi',
+      vi: 'Thu gọn tùy chọn',
+      uk: 'Показати менше варіантів',
+    }),
+
     connectTitle: insert(
       t({
         ar: 'ربط {{provider}}',

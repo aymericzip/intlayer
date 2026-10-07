@@ -1,13 +1,14 @@
 import { Button } from '@intlayer/design-system/button';
 import { Loader } from '@intlayer/design-system/loader';
 import { cn } from '@intlayer/design-system/utils';
-import { ChevronDown, GitBranch } from 'lucide-react';
+import { ChevronDown, ChevronUp, GitBranch } from 'lucide-react';
 import { type FC, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import {
+  DEFAULT_REPOSITORY_PROVIDERS,
+  OTHER_REPOSITORY_PROVIDERS,
   PROVIDER_NAMES,
   ProviderLogo,
-  REPOSITORY_PROVIDERS,
 } from './providers';
 import type { RepositoryProvider } from './types';
 
@@ -31,13 +32,52 @@ export const ProviderSelector: FC<ProviderSelectorProps> = ({
   preferredProvider,
 }) => {
   const content = useIntlayer('repository-link');
-  const [isShowingAllProviders, setIsShowingAllProviders] = useState(false);
+  const [isShowingAllProviders, setIsShowingAllProviders] = useState(
+    Boolean(
+      selectedProvider &&
+        !DEFAULT_REPOSITORY_PROVIDERS.includes(
+          selectedProvider as (typeof DEFAULT_REPOSITORY_PROVIDERS)[number]
+        )
+    )
+  );
 
   const isFilteredToPreferred =
     Boolean(preferredProvider) && !isShowingAllProviders;
-  const visibleProviders = isFilteredToPreferred
-    ? REPOSITORY_PROVIDERS.filter((provider) => provider === preferredProvider)
-    : REPOSITORY_PROVIDERS;
+  const primaryProviders = isFilteredToPreferred
+    ? [preferredProvider]
+    : DEFAULT_REPOSITORY_PROVIDERS;
+
+  const renderProviderButton = (provider: RepositoryProvider) => {
+    const name = PROVIDER_NAMES[provider];
+    const isSelected = selectedProvider === provider;
+    const isLoading = isCheckingProvider && isSelected;
+
+    return (
+      <Button
+        key={provider}
+        variant={isSelected ? 'default' : 'outline'}
+        color="text"
+        onClick={() => onSelectProvider(provider)}
+        disabled={isCheckingProvider || disabled}
+        className="flex size-24 h-auto flex-col items-center gap-2 px-0 py-0"
+        roundedSize="lg"
+        label={name}
+      >
+        <Loader className="m-auto mb-2 size-8" isLoading={isLoading}>
+          <ProviderLogo
+            provider={provider}
+            className={cn(
+              'm-auto mb-2 size-8',
+              isSelected
+                ? '[&_path]:fill-text-opposite/60!'
+                : '[&_path]:fill-text/60!'
+            )}
+          />
+        </Loader>
+        <span className="font-medium">{name}</span>
+      </Button>
+    );
+  };
 
   return (
     <div className="flex flex-col gap-3">
@@ -46,53 +86,35 @@ export const ProviderSelector: FC<ProviderSelectorProps> = ({
         <span>{content.selectProvider}</span>
       </div>
 
-      <div className="flex flex-wrap justify-center gap-3">
-        {visibleProviders.map((provider) => {
-          const name = PROVIDER_NAMES[provider];
-          const isSelected = selectedProvider === provider;
-          const isLoading = isCheckingProvider && isSelected;
+      <div className="flex flex-col gap-3">
+        <div className="flex flex-wrap justify-center gap-3">
+          {primaryProviders.map(renderProviderButton)}
+        </div>
 
-          return (
-            <Button
-              key={provider}
-              variant={isSelected ? 'default' : 'outline'}
-              color="text"
-              onClick={() => onSelectProvider(provider)}
-              disabled={isCheckingProvider || disabled}
-              className="flex size-24 h-auto flex-col items-center gap-2 px-0 py-0"
-              roundedSize="lg"
-              label={name}
-            >
-              <Loader className="m-auto mb-2 size-8" isLoading={isLoading}>
-                <ProviderLogo
-                  provider={provider}
-                  className={cn(
-                    'm-auto mb-2 size-8',
-                    isSelected
-                      ? '[&_path]:fill-text-opposite/60!'
-                      : '[&_path]:fill-text/60!'
-                  )}
-                />
-              </Loader>
-              <span className="font-medium">{name}</span>
-            </Button>
-          );
-        })}
+        {isShowingAllProviders && (
+          <div className="flex flex-wrap justify-center gap-3">
+            {OTHER_REPOSITORY_PROVIDERS.map(renderProviderButton)}
+          </div>
+        )}
       </div>
 
-      {isFilteredToPreferred && (
-        <Button
-          variant="link"
-          color="text"
-          size="sm"
-          Icon={ChevronDown}
-          className="mx-auto"
-          label={content.seeMoreOptions.value}
-          onClick={() => setIsShowingAllProviders(true)}
-        >
-          {content.seeMoreOptions}
-        </Button>
-      )}
+      <Button
+        variant="link"
+        color="text"
+        size="sm"
+        Icon={isShowingAllProviders ? ChevronUp : ChevronDown}
+        className="mx-auto"
+        label={
+          isShowingAllProviders
+            ? content.seeLessOptions.value
+            : content.seeMoreOptions.value
+        }
+        onClick={() => setIsShowingAllProviders((prev) => !prev)}
+      >
+        {isShowingAllProviders
+          ? content.seeLessOptions
+          : content.seeMoreOptions}
+      </Button>
     </div>
   );
 };

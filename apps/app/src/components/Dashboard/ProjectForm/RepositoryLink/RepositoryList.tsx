@@ -69,7 +69,7 @@ export const RepositoryList: FC<RepositoryListProps> = ({
     <div className="flex max-h-125 flex-col">
       <div className="border-card border-b p-4">
         <SearchInput
-          placeholder={repositoryList.searchPlaceholder}
+          placeholder={repositoryList.searchPlaceholder.value}
           defaultValue={search}
           onChange={(e) => setSearch(e.target.value)}
         />
