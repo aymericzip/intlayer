@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/ngx-translate",
-  "version": "9.6.0",
+  "version": "9.7.0",
   "private": false,
   "description": "@ngx-translate/core API adapter for intlayer — drop-in compatibility layer",
   "keywords": [

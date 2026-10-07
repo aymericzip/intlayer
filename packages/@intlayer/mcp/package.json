@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/mcp",
-  "version": "9.6.0",
+  "version": "9.7.0",
   "private": false,
   "description": "Intlayer MCP server. Handle MCP to help IDE to use Intlayer. It build, fill, pull, push, dictionaries",
   "keywords": [
@@ -112,7 +112,7 @@
     "typecheck": "tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
-    "@ai-sdk/mcp": "2.0.64",
+    "@ai-sdk/mcp": "2.0.69",
     "@fastify/cors": "11.3.0",
     "@fastify/helmet": "13.1.1",
     "@intlayer/api": "workspace:*",
