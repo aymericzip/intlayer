@@ -132,12 +132,17 @@ jobs:
       - name: 🧩 Install Dependencies
         run: bun install --frozen-lockfile
 
+      # Everything is built up front: a build failure stops the release
+      # before anything reaches the registry.
+      - name: 🏗️ Build packages
+        run: bun run publish:ci:build
+
       # The dist-tag comes from the version: 9.0.0 → latest, 9.0.0-canary.0 → canary
       - name: 🚀 Publish packages
         env:
           PUBLISH_DRY_RUN: ${{ inputs.dry-run || false }}
-        # turbo builds each package (dependsOn build + prepublish) before
-        # publishing it, in dependency order. `--continue` (in `publish:ci`)
+        # Packages are already built, so every package is published in
+        # parallel (`publish:ci` only depends on `prepublish`). `--continue`
         # keeps publishing the other packages when one fails. After each pass
         # the registry is checked for every package: missing ones trigger a
         # new pass (already published packages are skipped), up to 3 passes,
