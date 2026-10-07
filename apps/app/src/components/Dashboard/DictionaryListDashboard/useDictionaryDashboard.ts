@@ -31,7 +31,15 @@ const searchParams = {
   type: { type: 'string', fallbackValue: '' },
 } as const;
 
-export const useDictionaryDashboard = () => {
+type UseDictionaryDashboardOptions = {
+  fixedTag?: string;
+};
+
+export const useDictionaryDashboard = (
+  options?: UseDictionaryDashboardOptions
+) => {
+  const fixedTag = options?.fixedTag;
+
   // Search & Pagination Params
   const { params, setParam, setParams } = useSearchParamState(searchParams);
 
@@ -50,13 +58,16 @@ export const useDictionaryDashboard = () => {
       ),
     [localeDictionaries]
   );
-  const filteredLocaleOnlyDicts = useMemo(
-    () =>
-      activeVisualEditorKeys
-        ? localeOnlyDicts.filter((d) => activeVisualEditorKeys.includes(d.key))
-        : localeOnlyDicts,
-    [localeOnlyDicts, activeVisualEditorKeys]
-  );
+  const filteredLocaleOnlyDicts = useMemo(() => {
+    let list = localeOnlyDicts;
+    if (fixedTag) {
+      list = list.filter((d) => d.tags?.includes(fixedTag));
+    }
+    if (activeVisualEditorKeys) {
+      list = list.filter((d) => activeVisualEditorKeys.includes(d.key));
+    }
+    return list;
+  }, [localeOnlyDicts, activeVisualEditorKeys, fixedTag]);
 
   // Modals & Selection State
   const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
@@ -70,7 +81,7 @@ export const useDictionaryDashboard = () => {
   const [isMergeModalOpen, setIsMergeModalOpen] = useState(false);
 
   const [rowSelection, setRowSelection] = usePersistedStore<RowSelectionState>(
-    'dict-selection',
+    fixedTag ? `dict-selection-${fixedTag}` : 'dict-selection',
     {}
   );
   const [columnVisibility, setColumnVisibility] =
@@ -86,7 +97,7 @@ export const useDictionaryDashboard = () => {
     search: params.search,
     sortBy: params.sortBy,
     sortOrder: params.sortOrder,
-    tags: params.tags,
+    tags: fixedTag ? [fixedTag] : params.tags,
     location:
       params.location !== 'none'
         ? (params.location as 'none' | 'remote' | 'local' | 'both')
@@ -212,6 +223,7 @@ export const useDictionaryDashboard = () => {
   );
 
   return {
+    fixedTag,
     params,
     setParam,
     setParams,

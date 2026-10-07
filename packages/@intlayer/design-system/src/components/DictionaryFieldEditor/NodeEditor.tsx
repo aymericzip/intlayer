@@ -14,8 +14,12 @@ import {
   useEffect,
   useTransition,
 } from 'react';
+import { useLocale } from 'react-intlayer';
 import { Container } from '../Container';
-import { LocaleSwitcherContent } from '../LocaleSwitcherContentDropDown';
+import {
+  LocaleSwitcherContent,
+  useLocaleSwitcherContent,
+} from '../LocaleSwitcherContentDropDown';
 import { TextEditorContainer } from './ContentEditorView/TextEditor';
 import { getIsEditableSection } from './getIsEditableSection';
 import { KeyPathBreadcrumb } from './KeyPathBreadcrumb';
@@ -48,7 +52,11 @@ export const NodeEditor: FC<NodeEditorProps> = ({ dictionary }) => {
       ? content
       : editedContent?.[localId as LocalDictionaryId]?.content;
 
-  const currentLocale = useEditorLocale();
+  const { selectedLocales } = useLocaleSwitcherContent();
+  const { locale: defaultLocale } = useLocale();
+  const editorLocale = useEditorLocale();
+  const currentLocale = editorLocale ?? selectedLocales[0] ?? defaultLocale;
+
   const focusedSection = getContentNodeByKeyPath(
     section,
     focusedKeyPath ?? [],

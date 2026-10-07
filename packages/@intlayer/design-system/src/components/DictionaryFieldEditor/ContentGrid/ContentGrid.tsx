@@ -53,6 +53,7 @@ const DEFAULT_EXPANDED_DEPTH = 1;
 
 export type ContentGridProps = {
   dictionary: Dictionary;
+  className?: string;
 };
 
 /** Moves the roving focus between grid cells with the arrow keys. */
@@ -108,7 +109,7 @@ const moveGridFocus = (gridElement: HTMLElement, event: KeyboardEvent) => {
  * Composed nodes (`md(t())`, `t(plural())`) become indented rows instead of
  * nested boxes; rich values open the focus pane beside the grid.
  */
-export const ContentGrid: FC<ContentGridProps> = () => {
+export const ContentGrid: FC<ContentGridProps> = ({ className }) => {
   const model = useContentGrid();
   const {
     rows,
@@ -328,7 +329,7 @@ export const ContentGrid: FC<ContentGridProps> = () => {
         key={locale}
         role="columnheader"
         className={cn(
-          'flex items-center gap-1.5 px-3 py-2.5 text-xs',
+          'flex max-w-xl items-center gap-1.5 px-3 py-2.5 text-xs',
           isLocked && 'opacity-60'
         )}
         title={isLocked ? content.lockedTooltip.value : undefined}
@@ -433,7 +434,10 @@ export const ContentGrid: FC<ContentGridProps> = () => {
   return (
     <div
       ref={containerRef}
-      className="flex h-full min-h-0 w-full min-w-0 flex-col gap-6"
+      className={cn(
+        'flex h-full min-h-0 w-full min-w-0 flex-col gap-6',
+        className
+      )}
     >
       {!(isNarrow && focusedRow) && (
         <GridToolbar
@@ -518,7 +522,7 @@ export const ContentGrid: FC<ContentGridProps> = () => {
               {/* biome-ignore lint/a11y/useSemanticElements lint/a11y/useFocusableInteractive: ARIA grid built on CSS grid; focus is roving on gridcells */}
               <div
                 role="row"
-                className="sticky top-0 z-20 grid min-w-full bg-background"
+                className="sticky top-0 z-20 grid min-w-full border-neutral/10 border-b bg-background"
                 style={{ gridTemplateColumns }}
               >
                 {/* biome-ignore lint/a11y/useSemanticElements lint/a11y/useFocusableInteractive: ARIA grid built on CSS grid; focus is roving on gridcells */}

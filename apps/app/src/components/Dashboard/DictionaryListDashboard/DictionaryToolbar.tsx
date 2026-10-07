@@ -33,8 +33,13 @@ export const DictionaryToolbar: FC<DictionaryToolbarProps> = ({
   const selectedCount = Object.keys(state.rowSelection).length;
 
   const hasAppliedFilters =
-    params.location !== 'none' || !!params.tags || !!params.type;
-  const activeTags = params.tags ? (params.tags as string).split(',') : [];
+    params.location !== 'none' ||
+    (!dashboard.fixedTag && !!params.tags) ||
+    !!params.type;
+  const activeTags =
+    !dashboard.fixedTag && params.tags
+      ? (params.tags as string).split(',')
+      : [];
   const activeLocations =
     params.location === 'none'
       ? []

@@ -3,8 +3,20 @@
 
 :root,
 [data-theme="light"] {
+	.shiki,
 	.shiki span {
 		color: var(--shiki-light);
+	}
+
+	.shiki-inverse.shiki,
+	.shiki-inverse.shiki span,
+	.shiki-inverse .shiki,
+	.shiki-inverse .shiki span,
+	[data-inverse="true"].shiki,
+	[data-inverse="true"].shiki span,
+	[data-inverse="true"] .shiki,
+	[data-inverse="true"] .shiki span {
+		color: var(--shiki-dark);
 	}
 
 	color-scheme: light;
@@ -54,8 +66,20 @@
 }
 
 [data-theme="dark"] {
+	.shiki,
 	.shiki span {
 		color: var(--shiki-dark);
+	}
+
+	.shiki-inverse.shiki,
+	.shiki-inverse.shiki span,
+	.shiki-inverse .shiki,
+	.shiki-inverse .shiki span,
+	[data-inverse="true"].shiki,
+	[data-inverse="true"].shiki span,
+	[data-inverse="true"] .shiki,
+	[data-inverse="true"] .shiki span {
+		color: var(--shiki-light);
 	}
 
 	color-scheme: dark;
@@ -100,4 +124,22 @@
 	--black: oklch(0 0 0);
 
 	--radius: 0.625rem;
+}
+
+.shiki-dark,
+.shiki-dark span,
+[data-shiki-theme="dark"].shiki,
+[data-shiki-theme="dark"].shiki span,
+[data-shiki-theme="dark"] .shiki,
+[data-shiki-theme="dark"] .shiki span {
+	color: var(--shiki-dark);
+}
+
+.shiki-light,
+.shiki-light span,
+[data-shiki-theme="light"].shiki,
+[data-shiki-theme="light"].shiki span,
+[data-shiki-theme="light"] .shiki,
+[data-shiki-theme="light"] .shiki span {
+	color: var(--shiki-light);
 }

@@ -236,7 +236,7 @@ export const ContentGridCell: FC<ContentGridCellProps> = memo(
         onClick={isEditing ? undefined : activate}
         onKeyDown={handleKeyDown}
         className={cn(
-          'flex min-h-10 w-full min-w-0 items-start gap-2.5 rounded-lg px-3 py-2.5 outline-none transition-colors focus-visible:ring-2 focus-visible:ring-text/40',
+          'flex min-h-10 w-full min-w-0 max-w-xl items-start gap-2.5 rounded-lg px-3 py-2.5 outline-none transition-colors focus-visible:ring-2 focus-visible:ring-text/40',
           !isLocked && !isReadonly && 'cursor-text hover:bg-text/5',
           isRich && 'cursor-pointer',
           isLocked && 'cursor-not-allowed opacity-60',

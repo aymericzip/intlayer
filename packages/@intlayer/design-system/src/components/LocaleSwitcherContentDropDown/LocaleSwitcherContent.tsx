@@ -179,7 +179,7 @@ export const LocaleSwitcherContent: FC<LocaleSwitcherContentProps> = ({
           label={localeSwitcherLabel.value}
           // Unset, the trigger keeps its transparent `none` variant
           roundedSize="3xl"
-          variant="hoverable"
+          variant="outline"
           color="text"
           size="md"
           className={cn(

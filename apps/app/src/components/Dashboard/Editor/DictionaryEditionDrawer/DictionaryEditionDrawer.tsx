@@ -176,11 +176,11 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
         )}
       </div>
 
-      <div className="shrink-0 border-text/20 border-t bg-background pt-4">
+      <div className="shrink-0 border-text/20 border-t pt-4">
         <SaveForm
           dictionary={dictionary}
           mode={['remote']}
-          className="mb-4 flex-col px-3"
+          className="mb-4 px-3"
           onDelete={handleOnBack}
         />
       </div>

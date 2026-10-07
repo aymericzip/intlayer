@@ -46,27 +46,6 @@ const tagFormContent = {
       }),
     },
 
-    detailsTitle: t({
-      en: 'Tag details',
-      'en-GB': 'Tag details',
-      fr: 'Détails du tag',
-      es: 'Detalles del tag',
-      de: 'Tag-Details',
-      ja: 'タグの詳細',
-      ko: '태그 세부 정보',
-      zh: '标签详情',
-      it: 'Dettagli tag',
-      pt: 'Detalhes da tag',
-      hi: 'टैग विवरण',
-      ar: 'تفاصيل الوسم',
-      ru: 'Детали тега',
-      tr: 'Etiket detayları',
-      pl: 'Szczegóły tagu',
-      id: 'Detail tag',
-      vi: 'Chi tiết tag',
-      uk: 'Деталі тегу',
-    }),
-
     dictionariesListTitle: t({
       en: 'Dictionaries associated with this tag',
       fr: 'Dictionnaires associés à ce tag',

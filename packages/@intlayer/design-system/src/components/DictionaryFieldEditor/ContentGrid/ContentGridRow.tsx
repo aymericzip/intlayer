@@ -45,7 +45,7 @@ export const getIndentStyle = (depth: number) => ({
 
 /** Classes of the sticky path column shared by header, rows and add lines. */
 export const PATH_COLUMN_CLASS_NAME =
-  'sticky start-0 z-10 flex min-w-0 items-start gap-2 bg-background py-2.5 pe-3';
+  'sticky start-0 z-10 flex min-w-0 rounded-lg [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-xl items-start gap-2 bg-background py-2.5 pe-3';
 
 export type IndentGuidesProps = {
   depth: number;
@@ -115,7 +115,7 @@ export const ContentGridRow: FC<ContentGridRowProps> = memo(
       if (isGroup) {
         return (
           <div
-            className="self-stretch bg-text/[0.03]"
+            className="self-stretch rounded-lg bg-text/[0.03] [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-xl"
             style={{ gridColumn: `span ${localeKeys.length}` }}
           />
         );

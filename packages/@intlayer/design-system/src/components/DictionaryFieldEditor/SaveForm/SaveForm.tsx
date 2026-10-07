@@ -186,23 +186,21 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
       disabled={!isEdited || isLoading || !hasDictionaryWritePermission}
       Icon={Save}
       color="text"
-      className="max-md:w-full"
+      className="max-w-2xs flex-1"
       isLoading={isPushing}
       onClick={handlePushDictionary}
     >
-      {changeCount > 0
-        ? saveButton.countText({ count: changeCount })
-        : saveButton.text}
+      {saveButton.text({ count: changeCount })(changeCount)}
     </FormButton>
   );
 
   // Hovering the save button reviews the unsaved changes
-  const saveChangesButton =
+  const SaveChangesButton = () =>
     contentGrid && changeCount > 0 ? (
       <ChangeSetPopover
         changeSet={contentGrid.changeSet}
         onRevert={contentGrid.revertChange}
-        className="max-md:w-full"
+        className="max-w-2xs flex-1"
       >
         {saveButtonElement}
       </ChangeSetPopover>
@@ -233,40 +231,45 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
             {confirmation.message}
           </p>
 
-          <div className="mt-12 flex justify-end gap-2 max-md:flex-col">
-            <FormButton
-              type="button"
-              label={confirmation.cancelButton.label.value}
-              disabled={isLoading}
-              color="text"
-              className="max-md:w-full"
-              variant="outline"
-              onClick={() => setIsFormatAlertModalOpen(false)}
-            >
-              {confirmation.cancelButton.text}
-            </FormButton>
+          <div className="mt-12 flex flex-row-reverse justify-start gap-2">
             <FormButton
               type="submit"
               label={confirmation.confirmButton.label.value}
               disabled={!isEdited || isLoading}
               Icon={Save}
               color="text"
-              className="max-md:w-full"
+              className="max-w-2xs flex-1"
               isLoading={isWriting}
               onClick={handleSaveDictionaryConfirmation}
             >
               {confirmation.confirmButton.text}
+            </FormButton>
+            <FormButton
+              type="button"
+              label={confirmation.cancelButton.label.value}
+              disabled={isLoading}
+              color="text"
+              className="max-w-2xs flex-1"
+              variant="outline"
+              onClick={() => setIsFormatAlertModalOpen(false)}
+            >
+              {confirmation.cancelButton.text}
             </FormButton>
           </div>
         </form>
       </Modal>
       <form
         className={cn(
-          'flex flex-wrap items-center justify-end gap-2',
+          'flex flex-row flex-row-reverse flex-wrap items-end justify-start gap-2',
           className
         )}
         {...props}
       >
+        {mode.includes('remote') &&
+          isAuthenticated &&
+          isDistantDictionary &&
+          isEdited && <SaveChangesButton />}
+
         {mode.includes('local') && dictionary.filePath && (
           <span
             className="me-auto truncate font-mono text-muted-foreground text-xs"
@@ -275,6 +278,63 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
             {writesTo({ filePath: dictionary.filePath })}
           </span>
         )}
+        {canLoginToPush && !isDistantDictionary && (
+          <FormButton
+            label={publishButton.label.value}
+            disabled={isLoading}
+            Icon={ArrowUpFromLine}
+            color="text"
+            className="max-w-2xs flex-1"
+            isLoading={isPushAwaitingLogin}
+            onClick={handleLoginToPush}
+          >
+            {publishButton.text}
+          </FormButton>
+        )}
+
+        {mode.includes('remote') && isAuthenticated && !isDistantDictionary && (
+          <FormButton
+            label={publishButton.label.value}
+            disabled={isLoading || !hasDictionaryWritePermission}
+            Icon={ArrowUpFromLine}
+            color="text"
+            className="max-w-2xs flex-1"
+            isLoading={isPushing}
+            onClick={handlePushDictionary}
+          >
+            {publishButton.text}
+          </FormButton>
+        )}
+
+        {mode.includes('local') && (
+          <FormButton
+            label={saveToFileButton.label.value}
+            disabled={!isEdited || isLoading}
+            Icon={FileDown}
+            color="text"
+            variant={isAuthenticated || canLoginToPush ? 'outline' : 'default'}
+            className="max-w-2xs flex-1"
+            isLoading={isWriting}
+            onClick={() => setIsFormatAlertModalOpen(true)}
+          >
+            {saveToFileButton.text}
+          </FormButton>
+        )}
+
+        {isEdited && (
+          <FormButton
+            label={discardButton.label.value}
+            disabled={!isEdited}
+            Icon={RotateCcw}
+            variant="outline"
+            color="text"
+            className="max-w-2xs flex-1"
+            onClick={() => restoreEditedContent(dictionary.localId!)}
+          >
+            {discardButton.text({ count: changeCount })(changeCount)}
+          </FormButton>
+        )}
+
         {mode.includes('remote') &&
           isDistantDictionary &&
           onDelete &&
@@ -284,7 +344,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
               Icon={Trash}
               color="error"
               variant="outline"
-              className="max-md:w-full"
+              className="max-w-2xs flex-1"
               isLoading={isDeleting}
               onClick={handleDeleteDictionary}
               disabled={!hasDictionaryDeletePermission}
@@ -292,66 +352,6 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
               {deleteButton.text}
             </FormButton>
           )}
-        {isEdited && (
-          <FormButton
-            label={discardButton.label.value}
-            disabled={!isEdited}
-            Icon={RotateCcw}
-            variant="outline"
-            color="text"
-            className="max-md:w-full"
-            onClick={() => restoreEditedContent(dictionary.localId!)}
-          >
-            {changeCount > 0
-              ? discardButton.countText({ count: changeCount })
-              : discardButton.text}
-          </FormButton>
-        )}
-        {mode.includes('local') && (
-          <FormButton
-            label={saveToFileButton.label.value}
-            disabled={!isEdited || isLoading}
-            Icon={FileDown}
-            color="text"
-            variant={isAuthenticated || canLoginToPush ? 'outline' : 'default'}
-            className="max-md:w-full"
-            isLoading={isWriting}
-            onClick={() => setIsFormatAlertModalOpen(true)}
-          >
-            {saveToFileButton.text}
-          </FormButton>
-        )}
-        {mode.includes('remote') && isAuthenticated && !isDistantDictionary && (
-          <FormButton
-            label={publishButton.label.value}
-            disabled={isLoading || !hasDictionaryWritePermission}
-            Icon={ArrowUpFromLine}
-            color="text"
-            className="max-md:w-full"
-            isLoading={isPushing}
-            onClick={handlePushDictionary}
-          >
-            {publishButton.text}
-          </FormButton>
-        )}
-        {canLoginToPush && !isDistantDictionary && (
-          <FormButton
-            label={publishButton.label.value}
-            disabled={isLoading}
-            Icon={ArrowUpFromLine}
-            color="text"
-            className="max-md:w-full"
-            isLoading={isPushAwaitingLogin}
-            onClick={handleLoginToPush}
-          >
-            {publishButton.text}
-          </FormButton>
-        )}
-        {mode.includes('remote') &&
-          isAuthenticated &&
-          isDistantDictionary &&
-          isEdited &&
-          saveChangesButton}
       </form>
     </>
   );

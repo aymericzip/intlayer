@@ -142,16 +142,24 @@ export const DashboardLocalizationScanner: FC = () => {
 
   if (!applicationURL) {
     return (
-      <div className="flex flex-col items-center justify-center gap-4 p-10 text-center">
-        <p className="max-w-sm text-neutral text-sm">{noApplicationUrl}</p>
-        <Link
-          to={App_Dashboard_Projects_Path}
-          color="text"
-          variant="button"
-          label={goToProjectSettings.value}
+      <div className="flex flex-1 flex-col items-center justify-center p-10 text-center">
+        <Container
+          padding="md"
+          roundedSize="2xl"
+          border
+          borderColor="neutral"
+          className="gap-4"
         >
-          {goToProjectSettings}
-        </Link>
+          <p className="max-w-sm text-neutral text-sm">{noApplicationUrl}</p>
+          <Link
+            to={App_Dashboard_Projects_Path}
+            color="text"
+            variant="button"
+            label={goToProjectSettings.value}
+          >
+            {goToProjectSettings}
+          </Link>
+        </Container>
       </div>
     );
   }

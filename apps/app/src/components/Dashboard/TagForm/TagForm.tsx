@@ -37,7 +37,7 @@ export const TagForm: FC<TagFormContentProps> = ({ tagKey }) => {
           roundedSize="xl"
           className="flex size-full justify-center p-6"
         >
-          {tag && <TagEditionForm tag={tag} />}
+          {tag && <TagEditionForm tag={tag} showReturnButton={false} />}
         </Container>
       </div>
     </Loader>

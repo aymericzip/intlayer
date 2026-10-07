@@ -69,4 +69,72 @@ describe('getContentNodeByKeyPath', () => {
 
     expect(result).toBe('Edit `src/app.tsx` and save to test HMR');
   });
+
+  it('should resolve node when root is translation and translation is in keyPath with fallbackLocale', () => {
+    const sampleDictionaryContent: Dictionary = {
+      key: 'test',
+      content: t({
+        en: {
+          welcomeMessage: 'Welcome',
+          numberOfCar: {
+            nodeType: NodeTypes.ENUMERATION,
+            enumeration: {
+              0: 'No cars',
+              1: 'One car',
+            },
+          },
+        },
+      }),
+    };
+    const keyPath: KeyPath[] = [
+      { type: NodeTypes.TRANSLATION, key: 'en' },
+      { type: NodeTypes.OBJECT, key: 'numberOfCar' },
+    ];
+
+    const result = getContentNodeByKeyPath(
+      sampleDictionaryContent.content,
+      keyPath,
+      'en'
+    );
+
+    expect(result).toEqual({
+      nodeType: NodeTypes.ENUMERATION,
+      enumeration: {
+        0: 'No cars',
+        1: 'One car',
+      },
+    });
+  });
+
+  it('should auto-resolve node when root is translation and translation is omitted from keyPath without fallbackLocale', () => {
+    const sampleDictionaryContent: Dictionary = {
+      key: 'test',
+      content: t({
+        en: {
+          welcomeMessage: 'Welcome',
+          numberOfCar: {
+            nodeType: NodeTypes.ENUMERATION,
+            enumeration: {
+              0: 'No cars',
+              1: 'One car',
+            },
+          },
+        },
+      }),
+    };
+    const keyPath: KeyPath[] = [{ type: NodeTypes.OBJECT, key: 'numberOfCar' }];
+
+    const result = getContentNodeByKeyPath(
+      sampleDictionaryContent.content,
+      keyPath
+    );
+
+    expect(result).toEqual({
+      nodeType: NodeTypes.ENUMERATION,
+      enumeration: {
+        0: 'No cars',
+        1: 'One car',
+      },
+    });
+  });
 });

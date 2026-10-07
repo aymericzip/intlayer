@@ -65,6 +65,17 @@ export type CodeBlockProps = {
    */
   highlightedHtml?: string;
   isEditable?: boolean;
+  /**
+   * Whether to invert syntax highlighting colors relative to the current theme.
+   * Useful when CodeBlock is rendered on an inverted background (such as `bg-text`).
+   */
+  isInverse?: boolean;
+  /** Alias for `isInverse`. */
+  isInverseColor?: boolean;
+  /** Alias for `isInverse`. */
+  inverse?: boolean;
+  /** Force explicit dark or light mode syntax colors instead of theme-based colors. */
+  isDarkMode?: boolean;
   onChange?: (content: string) => void;
 } & Omit<HTMLAttributes<HTMLDivElement>, 'onChange'>;
 
@@ -72,21 +83,43 @@ export const CodeBlock: FC<CodeBlockProps> = ({
   className,
   onChange,
   isEditable,
+  isInverse = false,
+  isInverseColor,
+  inverse,
+  isDarkMode,
   children,
   lang,
   highlightedHtml,
   ...props
-}) => (
-  <div
-    className={cn('flex w-full min-w-0 max-w-full overflow-x-auto', className)}
-    {...props}
-  >
-    {highlightedHtml ? (
-      <CodeHighlighted html={highlightedHtml} />
-    ) : (
-      <Suspense fallback={<CodeDefault>{children}</CodeDefault>}>
-        <CodeBlockShiki lang={lang}>{children}</CodeBlockShiki>
-      </Suspense>
-    )}
-  </div>
-);
+}) => {
+  const isInverted = isInverse || isInverseColor || inverse;
+
+  return (
+    <div
+      className={cn(
+        'flex w-full min-w-0 max-w-full overflow-x-auto',
+        isInverted && 'shiki-inverse text-text-opposite',
+        isDarkMode === true && 'shiki-dark',
+        isDarkMode === false && 'shiki-light',
+        className
+      )}
+      data-inverse={isInverted ? 'true' : undefined}
+      data-shiki-theme={
+        isDarkMode === true
+          ? 'dark'
+          : isDarkMode === false
+            ? 'light'
+            : undefined
+      }
+      {...props}
+    >
+      {highlightedHtml ? (
+        <CodeHighlighted html={highlightedHtml} />
+      ) : (
+        <Suspense fallback={<CodeDefault>{children}</CodeDefault>}>
+          <CodeBlockShiki lang={lang}>{children}</CodeBlockShiki>
+        </Suspense>
+      )}
+    </div>
+  );
+};

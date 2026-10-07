@@ -11,9 +11,16 @@ export const getContentNodeByKeyPath = (
   let currentValue: any = structuredClone(dictionaryContent);
 
   for (const keyObj of keyPath) {
-    // Auto-resolve translation nodes when fallbackLocale is provided
-    if (fallbackLocale && currentValue?.nodeType === NodeTypes.TRANSLATION) {
-      currentValue = currentValue?.[NodeTypes.TRANSLATION]?.[fallbackLocale];
+    // Auto-resolve translation nodes when the key does not target translation
+    while (
+      currentValue?.nodeType === NodeTypes.TRANSLATION &&
+      keyObj.type !== NodeTypes.TRANSLATION
+    ) {
+      const translations = currentValue[NodeTypes.TRANSLATION];
+      if (!translations) break;
+      currentValue =
+        (fallbackLocale && translations[fallbackLocale]) ??
+        Object.values(translations)[0];
     }
 
     if (keyObj.type === NodeTypes.OBJECT || keyObj.type === NodeTypes.ARRAY) {

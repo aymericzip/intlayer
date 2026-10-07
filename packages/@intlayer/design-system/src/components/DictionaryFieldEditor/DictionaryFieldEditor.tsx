@@ -10,6 +10,7 @@ import {
   useFocusUnmergedDictionary,
 } from '@intlayer/editor-react';
 import type { Dictionary } from '@intlayer/types/dictionary';
+import { cn } from '@utils/cn';
 import { ArrowLeft } from 'lucide-react';
 import { type FC, type ReactNode, useEffect, useMemo, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
@@ -295,8 +296,22 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
             </div>
 
             {/* Tab content — only the active panel is mounted */}
-            <div className="min-h-0 flex-1 overflow-y-auto p-6">
-              <div className="flex w-full min-w-0 flex-col items-stretch gap-6">
+            <div
+              className={cn(
+                'min-h-0 flex-1 p-6',
+                activeTab === 'content' && activeView === 'grid'
+                  ? 'flex min-h-0 flex-col overflow-hidden'
+                  : 'overflow-y-auto'
+              )}
+            >
+              <div
+                className={cn(
+                  'flex w-full min-w-0 flex-col items-stretch gap-6',
+                  activeTab === 'content' &&
+                    activeView === 'grid' &&
+                    'h-full min-h-0 flex-1'
+                )}
+              >
                 {isRemote && activeTab === 'details' && (
                   <DictionaryDetailsForm
                     dictionary={activeDictionary}

@@ -281,7 +281,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
 
   return (
     <Form
-      className="flex w-full flex-col gap-8"
+      className="relative flex w-full flex-col gap-8"
       {...form}
       schema={DictionaryDetailsSchema}
     >
@@ -572,7 +572,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
       >
         <div className="flex flex-col gap-1">
           <p className="ms-1 font-semibold text-sm">{typeSwitch.label}</p>
-          <p className="ms-1 text-muted text-xs">{typeSwitch.description}</p>
+          <p className="ms-1 text-neutral text-xs">{typeSwitch.description}</p>
         </div>
         <MultiSelect
           values={selectedTypes}
@@ -744,7 +744,9 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
         <p className="font-semibold text-sm">{siblingContent.title}</p>
         <Loader isLoading={isLoadingSiblings}>
           {!hasSiblings && (
-            <p className="text-muted text-sm">{siblingContent.noSiblings}</p>
+            <span className="m-auto text-neutral text-sm">
+              {siblingContent.noSiblings}
+            </span>
           )}
 
           {allItemDicts.length > 0 && (
@@ -821,20 +823,18 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
         </Loader>
       </Container>
 
-      <div className="flex flex-wrap items-center justify-end gap-2 max-md:flex-col">
-        <FormButton
-          type="button"
-          size="icon-md"
-          label={auditButton.label.value}
-          Icon={WandSparkles}
-          variant="outline"
-          color="text"
-          className="max-md:w-full"
-          onClick={handleOnAuditFile}
-          disabled={isSubmitting || isAuditing}
-          isLoading={isAuditing}
-        />
-      </div>
+      <FormButton
+        type="button"
+        size="icon-md"
+        label={auditButton.label.value}
+        Icon={WandSparkles}
+        variant="outline"
+        color="text"
+        className="absolute top-0 right-0"
+        onClick={handleOnAuditFile}
+        disabled={isSubmitting || isAuditing}
+        isLoading={isAuditing}
+      />
     </Form>
   );
 };

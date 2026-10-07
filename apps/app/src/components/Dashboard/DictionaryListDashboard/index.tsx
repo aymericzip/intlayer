@@ -33,8 +33,14 @@ import { DictionaryToolbar } from './DictionaryToolbar';
 import { SourceSyncStatus } from './SourceSyncStatus';
 import { useDictionaryDashboard } from './useDictionaryDashboard';
 
-export const DictionaryListDashboardContent: FC = () => {
-  const dashboard = useDictionaryDashboard();
+type DictionaryListDashboardContentProps = {
+  tagKey?: string;
+};
+
+export const DictionaryListDashboardContent: FC<
+  DictionaryListDashboardContentProps
+> = ({ tagKey }) => {
+  const dashboard = useDictionaryDashboard({ fixedTag: tagKey });
   const { setFocusedContent } = useFocusUnmergedDictionary();
   const formatDate = useDate();
   const content = useIntlayer('dictionary-list');
@@ -110,7 +116,7 @@ export const DictionaryListDashboardContent: FC = () => {
       },
       {
         accessorKey: 'id',
-        header: content.tableHeaders.id,
+        header: content.tableHeaders.id.value,
         cell: ({ row }) => (
           <CopyToClipboard
             text={row.original.id!}
@@ -153,7 +159,7 @@ export const DictionaryListDashboardContent: FC = () => {
       },
       {
         accessorKey: 'description',
-        header: content.tableHeaders.description,
+        header: content.tableHeaders.description.value,
         cell: ({ row }) =>
           row.original.description ? (
             <div className="line-clamp-2 max-w-xs text-neutral">
@@ -165,7 +171,7 @@ export const DictionaryListDashboardContent: FC = () => {
       },
       {
         accessorKey: 'tags',
-        header: content.tableHeaders.tags,
+        header: content.tableHeaders.tags.value,
         cell: ({ row }) => {
           const tags = (row.original as any).tags;
           return (
@@ -185,7 +191,7 @@ export const DictionaryListDashboardContent: FC = () => {
       },
       {
         id: 'type',
-        header: content.tableHeaders.type,
+        header: content.tableHeaders.type.value,
         cell: ({ row }) => {
           const dictionary = row.original;
           const qualifiers: Array<{
@@ -213,7 +219,7 @@ export const DictionaryListDashboardContent: FC = () => {
       },
       {
         accessorKey: 'location',
-        header: content.tableHeaders.location,
+        header: content.tableHeaders.location.value,
         cell: ({ row }) => {
           const location = row.original.location ?? 'remote';
           const isLocal = location === 'local' || location === 'hybrid';
@@ -287,7 +293,7 @@ export const DictionaryListDashboardContent: FC = () => {
       },
       {
         id: 'actions',
-        header: content.tableHeaders.actions,
+        header: content.tableHeaders.actions.value,
         cell: ({ row }) => (
           <div className="flex items-center gap-1">
             <PopoverStatic identifier={`delete-${row.original.id}`}>
@@ -447,8 +453,14 @@ export const DictionaryListDashboardContent: FC = () => {
   );
 };
 
-export const DictionaryListDashboard: FC = () => (
+type DictionaryListDashboardProps = {
+  tagKey?: string;
+};
+
+export const DictionaryListDashboard: FC<DictionaryListDashboardProps> = ({
+  tagKey,
+}) => (
   <Suspense fallback={<DictionaryListSkeleton />}>
-    <DictionaryListDashboardContent />
+    <DictionaryListDashboardContent tagKey={tagKey} />
   </Suspense>
 );

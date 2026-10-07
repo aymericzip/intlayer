@@ -74,7 +74,7 @@ export type ButtonTextAlign = 'left' | 'center' | 'right';
  * Enhanced button variants with improved accessibility and focus states
  */
 export const buttonVariants = cva(
-  'rtl-mirror-icons relative inline-flex cursor-pointer items-center justify-center font-medium ring-0 transition-all duration-300 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50',
+  'rtl-mirror-icons inline-flex cursor-pointer items-center justify-center font-medium ring-0 transition-all duration-300 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       size: {

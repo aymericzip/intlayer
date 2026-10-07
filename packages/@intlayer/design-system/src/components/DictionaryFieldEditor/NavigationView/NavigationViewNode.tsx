@@ -25,7 +25,7 @@ import { cn } from '@utils/cn';
 import type { ContentNode, Dictionary } from 'intlayer';
 import { ChevronRight, GripVertical, Plus } from 'lucide-react';
 import { type FC, type ReactNode, useState } from 'react';
-import { useIntlayer } from 'react-intlayer';
+import { useIntlayer, useLocale } from 'react-intlayer';
 import { getIsEditableSection } from '../getIsEditableSection';
 import { useFieldReorder } from '../useFieldReorder';
 
@@ -106,7 +106,9 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
 }) => {
   const { selectedLocales } = useLocaleSwitcherContent();
 
-  const currentLocale = useEditorLocale();
+  const { locale: defaultLocale } = useLocale();
+  const editorLocale = useEditorLocale();
+  const currentLocale = editorLocale ?? selectedLocales[0] ?? defaultLocale;
   const section = getContentNodeByKeyPath(sectionProp, keyPath, currentLocale);
   const { addEditedContent } = useEditedContentActions();
   const { setFocusedContentKeyPath, focusedContent } =

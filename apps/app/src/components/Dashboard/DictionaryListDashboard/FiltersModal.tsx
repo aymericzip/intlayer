@@ -22,6 +22,7 @@ type FiltersModalProps = {
   params: any;
   setParam: (key: any, value: any) => void;
   setParams: (updates: any) => void;
+  fixedTag?: string;
 };
 
 const QUALIFIER_TYPE_KEYS = DICTIONARY_FILTER_TYPES;
@@ -33,6 +34,7 @@ export const FiltersModal: FC<FiltersModalProps> = ({
   params,
   setParam,
   setParams,
+  fixedTag,
 }) => {
   const { locationOptions, tableHeaders, filterLabels, qualifierTypes } =
     useIntlayer('dictionary-list');
@@ -64,7 +66,7 @@ export const FiltersModal: FC<FiltersModalProps> = ({
   const handleClearAll = () => {
     setParams({
       location: 'none',
-      tags: null,
+      tags: fixedTag ?? null,
       type: null,
     });
     onClose();
@@ -171,59 +173,61 @@ export const FiltersModal: FC<FiltersModalProps> = ({
           </Container>
         </div>
 
-        <div className="flex flex-col gap-4">
-          <div className="font-medium text-sm">{tableHeaders.tags}</div>
-          <SearchInput
-            placeholder={filterLabels.searchTagsPlaceholder.value}
-            value={tagSearch}
-            onChange={(e) => setTagSearch(e.target.value)}
-          />
-          {isLoadingTags ? (
-            <Container
-              background="none"
-              border
-              borderColor="card"
-              roundedSize="xl"
-              padding="md"
-              className="flex max-h-40 flex-col gap-4 overflow-y-auto"
-            >
-              {[1, 2, 3, 4, 5].map((i) => (
-                <div key={i} className="flex items-center gap-2">
-                  <Skeleton className="h-4 w-4 rounded" />
-                  <Skeleton className="h-4 w-24" />
-                </div>
-              ))}
-            </Container>
-          ) : (
-            <Container
-              background="none"
-              border
-              borderColor="card"
-              roundedSize="xl"
-              padding="md"
-              className="flex max-h-40 flex-col gap-4 overflow-y-auto"
-            >
-              {filteredTags.map((tag) => (
-                <Checkbox
-                  key={tag.key}
-                  id={`tag-${tag.key}`}
-                  name={`tag-${tag.key}`}
-                  size="sm"
-                  color="text"
-                  checked={activeTags.includes(tag.key)}
-                  onChange={() => handleTagToggle(tag.key)}
-                  label={tag.name || tag.key}
-                  labelClassName="font-normal px-2 py-1"
-                />
-              ))}
-              {filteredTags.length === 0 && (
-                <span className="py-2 text-center text-neutral-500 text-sm">
-                  {filterLabels.noTagsFound}
-                </span>
-              )}
-            </Container>
-          )}
-        </div>
+        {!fixedTag && (
+          <div className="flex flex-col gap-4">
+            <div className="font-medium text-sm">{tableHeaders.tags}</div>
+            <SearchInput
+              placeholder={filterLabels.searchTagsPlaceholder.value}
+              value={tagSearch}
+              onChange={(e) => setTagSearch(e.target.value)}
+            />
+            {isLoadingTags ? (
+              <Container
+                background="none"
+                border
+                borderColor="card"
+                roundedSize="xl"
+                padding="md"
+                className="flex max-h-40 flex-col gap-4 overflow-y-auto"
+              >
+                {[1, 2, 3, 4, 5].map((i) => (
+                  <div key={i} className="flex items-center gap-2">
+                    <Skeleton className="h-4 w-4 rounded" />
+                    <Skeleton className="h-4 w-24" />
+                  </div>
+                ))}
+              </Container>
+            ) : (
+              <Container
+                background="none"
+                border
+                borderColor="card"
+                roundedSize="xl"
+                padding="md"
+                className="flex max-h-40 flex-col gap-4 overflow-y-auto"
+              >
+                {filteredTags.map((tag) => (
+                  <Checkbox
+                    key={tag.key}
+                    id={`tag-${tag.key}`}
+                    name={`tag-${tag.key}`}
+                    size="sm"
+                    color="text"
+                    checked={activeTags.includes(tag.key)}
+                    onChange={() => handleTagToggle(tag.key)}
+                    label={tag.name || tag.key}
+                    labelClassName="font-normal px-2 py-1"
+                  />
+                ))}
+                {filteredTags.length === 0 && (
+                  <span className="py-2 text-center text-neutral-500 text-sm">
+                    {filterLabels.noTagsFound}
+                  </span>
+                )}
+              </Container>
+            )}
+          </div>
+        )}
 
         <div className="flex flex-col gap-4">
           <div className="font-medium text-sm">{tableHeaders.type}</div>

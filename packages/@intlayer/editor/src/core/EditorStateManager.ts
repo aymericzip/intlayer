@@ -251,14 +251,11 @@ export class EditorStateManager {
   // ─── Focus helpers ──────────────────────────────────────────────────────────
 
   setFocusedContentKeyPath(keyPath: KeyPath[]): void {
-    const filtered = keyPath.filter(
-      (key) => key.type !== NodeTypes.TRANSLATION
-    );
     const prev = this.focusedContent.value;
 
     if (!prev) return;
 
-    this.focusedContent.set({ ...prev, keyPath: filtered });
+    this.focusedContent.set({ ...prev, keyPath });
   }
 
   // ─── Dictionary record helpers ───────────────────────────────────────────
