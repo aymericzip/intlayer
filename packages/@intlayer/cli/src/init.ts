@@ -1,6 +1,9 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import {
+  CONTENT_FORMATS_BY_LAYOUT,
+  type ContentFormat,
+  type ContentLayout,
   detectCompatI18nLibraries,
   hasLintTooling,
   hasUrlRoutingFramework,
@@ -83,7 +86,8 @@ export const DEFAULT_INIT_STEPS: InitStep[] = ['packages', 'projectSetup'];
  */
 export const INIT_STEP_COMMANDS: Record<InitStep, string> = {
   packages: 'intlayer init packages',
-  projectSetup: 'intlayer init project [--routing <routing>]',
+  projectSetup:
+    'intlayer init project [--routing <routing>] [--content <layout>] [--content-format <format>]',
   githubActions: 'intlayer init github-actions',
   vscodeExtension: 'intlayer init vscode-extension',
   eslint: 'intlayer init eslint',
@@ -312,6 +316,77 @@ export const getRoutingInitOptions = (
     ? { routingMode: 'no-prefix', enableProxy: false }
     : { routingMode: choice, enableProxy: true };
 
+/** Content declaration layouts offered by the interactive init flow. */
+const CONTENT_LAYOUT_OPTIONS: Array<{
+  value: ContentLayout;
+  label: string;
+  hint: string;
+}> = [
+  {
+    value: 'multilingual',
+    label: 'Multilingual content declaration',
+    hint: '/**/{fileName}.content.{ts,json} — every locale in one file',
+  },
+  {
+    value: 'per-locale',
+    label: 'Per-locale content declaration',
+    hint: '/**/{fileName}.{locale}.content.{ts,json}',
+  },
+  {
+    value: 'centralized',
+    label: 'Centralized',
+    hint: '/locales/{locale}.{json,po}',
+  },
+  {
+    value: 'namespaces',
+    label: 'Namespaces',
+    hint: '/locales/{locale}/{namespace}.{json,po}',
+  },
+];
+
+/** Labels of the content formats offered by the interactive init flow. */
+const CONTENT_FORMAT_LABELS: Record<ContentFormat, string> = {
+  ts: 'TypeScript (.ts)',
+  json: 'JSON (.json)',
+  po: 'Gettext (.po)',
+};
+
+/** Content layouts accepted by `--content`. */
+export const CONTENT_LAYOUT_CHOICES = CONTENT_LAYOUT_OPTIONS.map(
+  (option) => option.value
+);
+
+/** Validates a `--content` value, throwing on an unknown layout. */
+export const parseContentLayoutChoice = (value: string): ContentLayout =>
+  parseChoice(value, CONTENT_LAYOUT_CHOICES, '--content');
+
+/**
+ * Validates `--content` / `--content-format` and maps them to the init
+ * options. The format must be one the layout accepts.
+ */
+export const getContentInitOptions = (
+  layoutValue?: string,
+  formatValue?: string
+): Pick<InitOptions, 'contentLayout' | 'contentFormat'> => {
+  if (!layoutValue) {
+    if (formatValue) {
+      throw new Error('--content-format requires --content.');
+    }
+    return {};
+  }
+
+  const contentLayout = parseContentLayoutChoice(layoutValue);
+  const contentFormat = formatValue
+    ? parseChoice(
+        formatValue,
+        CONTENT_FORMATS_BY_LAYOUT[contentLayout],
+        '--content-format'
+      )
+    : undefined;
+
+  return { contentLayout, contentFormat };
+};
+
 /** Known ESLint and oxlint configuration file names. */
 export const ESLINT_CONFIG_FILES = [
   'eslint.config.js',
@@ -457,8 +532,56 @@ const runInteractiveInit = async (
     routingOptions = getRoutingInitOptions(selectedRouting);
   }
 
+  // Content layout → `compiler.output` (+ `dictionary.locale`) for `.content`
+  // files, or the syncJSON / syncPO plugin for catalogs. Skipped for compat
+  // i18n libraries, which keep their own catalogs.
+  let contentOptions: Pick<InitOptions, 'contentLayout' | 'contentFormat'> = {};
+
+  if (
+    steps.includes('projectSetup') &&
+    baseOptions?.contentLayout === undefined &&
+    !hasCompatLib
+  ) {
+    const contentLayout = await p.select<ContentLayout>({
+      message: 'How do you want to declare your content?',
+      options: CONTENT_LAYOUT_OPTIONS,
+      initialValue: 'multilingual',
+    });
+
+    if (p.isCancel(contentLayout)) {
+      p.cancel('Operation cancelled.');
+      return;
+    }
+
+    const acceptedFormats = CONTENT_FORMATS_BY_LAYOUT[contentLayout];
+    const hasTypeScript = existsSync(join(root, 'tsconfig.json'));
+
+    const contentFormat = await p.select<ContentFormat>({
+      message: 'Which format for your content?',
+      options: acceptedFormats.map((format) => ({
+        value: format,
+        label: CONTENT_FORMAT_LABELS[format],
+      })),
+      initialValue:
+        acceptedFormats.includes('ts') && !hasTypeScript
+          ? 'json'
+          : acceptedFormats[0],
+    });
+
+    if (p.isCancel(contentFormat)) {
+      p.cancel('Operation cancelled.');
+      return;
+    }
+
+    contentOptions = { contentLayout, contentFormat };
+  }
+
   const options: InitOptions = {
-    ...getInitOptionsForSteps(steps, { ...baseOptions, ...routingOptions }),
+    ...getInitOptionsForSteps(steps, {
+      ...baseOptions,
+      ...routingOptions,
+      ...contentOptions,
+    }),
     skipFinalMessage: true,
   };
 

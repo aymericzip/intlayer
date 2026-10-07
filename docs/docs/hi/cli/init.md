@@ -62,6 +62,12 @@ bun x intlayer init
 - `--no-gitignore` - वैकल्पिक। `.gitignore` फ़ाइल के स्वचालित अपडेट को छोड़ देता है। यदि यह फ़्लैग सेट है, तो `.intlayer` को `.gitignore` में नहीं जोड़ा जाएगा।
 - `--no-framework-setup` - वैकल्पिक। प्रोजेक्ट फ़ाइलों को छुए बिना केवल पैकेज इंस्टॉल करता है।
 - `--routing <routing>` - वैकल्पिक। लोकेल रूटिंग: `prefix-no-default` (डिफ़ॉल्ट), `prefix-all`, `no-prefix`, `search-params` या `none`।
+- `--content <layout>` - वैकल्पिक। सामग्री कैसे घोषित की जाती है:
+  - `multilingual` - `{fileName}.content.{ts,json}` कम्पोनेंट के बगल में, प्रत्येक लोकेल एक ही फ़ाइल में (`compiler.output` सेट करता है)।
+  - `per-locale` - `{fileName}.{locale}.content.{ts,json}` कम्पोनेंट के बगल में (`compiler.output` और `dictionary.locale` सेट करता है)।
+  - `centralized` - प्रति लोकेल एक `/locales/{locale}.{json,po}` कैटलॉग (`syncJSON` / `syncPO` प्लगइन जोड़ता है)।
+  - `namespaces` - `/locales/{locale}/{namespace}.{json,po}` कैटलॉग (`syncJSON` / `syncPO` प्लगइन जोड़ता है)।
+- `--content-format <format>` - वैकल्पिक, `--content` के साथ। `multilingual` / `per-locale` के लिए `ts` या `json`, `centralized` / `namespaces` के लिए `json` या `po`। पहले वाला डिफ़ॉल्ट है।
 - `-i, --interactive` - वैकल्पिक। डिफ़ॉल्ट सेट के बजाय एक चेकलिस्ट (पैकेज, CI, स्किल्स, MCP, VS Code, LSP, lint, CMS, इन्फ्रास्ट्रक्चर, …) से सेटअप चरण चुनें। टर्मिनल ज़रूरी है: टर्मिनल न होने पर (AI एजेंट, CI) कमांड विफल होता है और उसकी जगह चलाने के लिए सब-कमांड की सूची दिखाता है।
 - `--no-github-actions` - वैकल्पिक। `--interactive` के साथ, चुने जाने पर भी GitHub Actions वर्कफ़्लो कभी नहीं बनाता।
 
@@ -83,7 +89,7 @@ bun x intlayer init
 | कमांड                                                                 | क्या सेट करता है                                                                          |
 | --------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
 | `intlayer init packages`                                              | ग़ायब Intlayer पैकेज इंस्टॉल करता है और पुराने अपग्रेड करता है                            |
-| `intlayer init project [--routing <routing>]`                         | कॉन्फ़िगरेशन फ़ाइल, TypeScript, बंडलर प्लगइन, middleware/proxy, प्रोवाइडर और `.gitignore` |
+| `intlayer init project [--routing <routing>] [--content <layout>]`    | कॉन्फ़िगरेशन फ़ाइल, TypeScript, बंडलर प्लगइन, middleware/proxy, प्रोवाइडर और `.gitignore` |
 | `intlayer init github-actions`                                        | `fill` और `test` GitHub Actions वर्कफ़्लो                                                 |
 | `intlayer init vscode-extension`                                      | `.vscode/extensions.json` में Intlayer एक्सटेंशन की सिफ़ारिश करता है                      |
 | `intlayer init lsp`                                                   | `.vscode/settings.json` में Intlayer लैंग्वेज सर्वर                                       |

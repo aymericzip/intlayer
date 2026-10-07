@@ -62,6 +62,12 @@ Mọi thứ khác (workflow CI, skill AI, máy chủ MCP, công cụ editor, quy
 - `--no-gitignore` - Tùy chọn. Bỏ qua việc tự động cập nhật tệp `.gitignore`. Nếu cờ này được đặt, `.intlayer` sẽ không được thêm vào `.gitignore`.
 - `--no-framework-setup` - Tùy chọn. Chỉ cài đặt các gói, không thay đổi các tệp của dự án.
 - `--routing <routing>` - Tùy chọn. Định tuyến locale: `prefix-no-default` (mặc định), `prefix-all`, `no-prefix`, `search-params` hoặc `none`.
+- `--content <layout>` - Tùy chọn. Cách khai báo nội dung:
+  - `multilingual` - `{fileName}.content.{ts,json}` bên cạnh component, mọi locale trong một tệp (thiết lập `compiler.output`).
+  - `per-locale` - `{fileName}.{locale}.content.{ts,json}` bên cạnh component (thiết lập `compiler.output` và `dictionary.locale`).
+  - `centralized` - một catalog `/locales/{locale}.{json,po}` cho mỗi locale (thêm plugin `syncJSON` / `syncPO`).
+  - `namespaces` - các catalog `/locales/{locale}/{namespace}.{json,po}` (thêm plugin `syncJSON` / `syncPO`).
+- `--content-format <format>` - Tùy chọn, đi kèm với `--content`. `ts` hoặc `json` cho `multilingual` / `per-locale`, `json` hoặc `po` cho `centralized` / `namespaces`. Mặc định là lựa chọn đầu tiên.
 - `-i, --interactive` - Tùy chọn. Chọn các bước thiết lập từ một checklist (gói, CI, skill, MCP, VS Code, LSP, lint, CMS, hạ tầng, …) thay vì bộ mặc định. Cần có terminal: nếu không có (agent AI, CI), lệnh sẽ thất bại và liệt kê các lệnh con cần chạy thay thế.
 - `--no-github-actions` - Tùy chọn. Với `--interactive`, không bao giờ tạo các workflow GitHub Actions, kể cả khi chúng được chọn.
 
@@ -83,7 +89,7 @@ Mỗi bước trong checklist `--interactive` đều có lệnh con riêng. Chú
 | Lệnh                                                                  | Thiết lập gì                                                                         |
 | --------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
 | `intlayer init packages`                                              | Cài đặt các gói Intlayer còn thiếu và nâng cấp các gói đã cũ                         |
-| `intlayer init project [--routing <routing>]`                         | Tệp cấu hình, TypeScript, plugin bundler, middleware/proxy, provider và `.gitignore` |
+| `intlayer init project [--routing <routing>] [--content <layout>]`    | Tệp cấu hình, TypeScript, plugin bundler, middleware/proxy, provider và `.gitignore` |
 | `intlayer init github-actions`                                        | Các workflow GitHub Actions `fill` và `test`                                         |
 | `intlayer init vscode-extension`                                      | Đề xuất tiện ích Intlayer trong `.vscode/extensions.json`                            |
 | `intlayer init lsp`                                                   | Máy chủ ngôn ngữ Intlayer trong `.vscode/settings.json`                              |

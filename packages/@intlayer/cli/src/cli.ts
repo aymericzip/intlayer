@@ -339,9 +339,21 @@ export const setAPI = (): Command => {
       '--routing <routing>',
       'Locale routing: prefix-no-default | prefix-all | no-prefix | search-params | none'
     )
+    .option(
+      '--content <layout>',
+      'Content declaration layout: multilingual | per-locale | centralized | namespaces'
+    )
+    .option(
+      '--content-format <format>',
+      'Content format, used with --content: ts | json (multilingual, per-locale), json | po (centralized, namespaces)'
+    )
     .action(async (options) => {
-      const { init, parseLocaleRoutingChoice, getRoutingInitOptions } =
-        await import('./init');
+      const {
+        init,
+        parseLocaleRoutingChoice,
+        getRoutingInitOptions,
+        getContentInitOptions,
+      } = await import('./init');
       return init(
         options.projectRoot,
         {
@@ -352,6 +364,7 @@ export const setAPI = (): Command => {
           ...(options.routing
             ? getRoutingInitOptions(parseLocaleRoutingChoice(options.routing))
             : {}),
+          ...getContentInitOptions(options.content, options.contentFormat),
         },
         options.interactive === true
       );
@@ -382,14 +395,27 @@ export const setAPI = (): Command => {
       '--routing <routing>',
       'Locale routing: prefix-no-default | prefix-all | no-prefix | search-params | none'
     )
+    .option(
+      '--content <layout>',
+      'Content declaration layout: multilingual | per-locale | centralized | namespaces'
+    )
+    .option(
+      '--content-format <format>',
+      'Content format, used with --content: ts | json (multilingual, per-locale), json | po (centralized, namespaces)'
+    )
     .action(async (options) => {
-      const { initSteps, parseLocaleRoutingChoice, getRoutingInitOptions } =
-        await import('./init');
+      const {
+        initSteps,
+        parseLocaleRoutingChoice,
+        getRoutingInitOptions,
+        getContentInitOptions,
+      } = await import('./init');
       return initSteps(options.projectRoot, ['projectSetup'], {
         noGitignore: options.gitignore === false,
         ...(options.routing
           ? getRoutingInitOptions(parseLocaleRoutingChoice(options.routing))
           : {}),
+        ...getContentInitOptions(options.content, options.contentFormat),
       });
     });
 

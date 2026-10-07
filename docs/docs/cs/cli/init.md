@@ -59,6 +59,12 @@ Vše ostatní (CI workflowy, AI skilly, MCP server, nástroje editoru, pravidla 
 - `--no-gitignore` - Volitelné. Přeskočí automatickou aktualizaci souboru `.gitignore`. Pokud je tento příznak nastaven, `.intlayer` nebude přidán do `.gitignore`.
 - `--no-framework-setup` - Volitelné. Pouze nainstaluje balíčky, bez úprav souborů projektu.
 - `--routing <routing>` - Volitelné. Směrování lokalizací: `prefix-no-default` (výchozí), `prefix-all`, `no-prefix`, `search-params` nebo `none`.
+- `--content <layout>` - Volitelné. Jak je obsah deklarován:
+  - `multilingual` - `{fileName}.content.{ts,json}` vedle komponenty, všechny lokalizace v jednom souboru (nastavuje `compiler.output`).
+  - `per-locale` - `{fileName}.{locale}.content.{ts,json}` vedle komponenty (nastavuje `compiler.output` a `dictionary.locale`).
+  - `centralized` - jeden katalog `/locales/{locale}.{json,po}` na lokalizaci (přidává plugin `syncJSON` / `syncPO`).
+  - `namespaces` - katalogy `/locales/{locale}/{namespace}.{json,po}` (přidává plugin `syncJSON` / `syncPO`).
+- `--content-format <format>` - Volitelné, s `--content`. `ts` nebo `json` pro `multilingual` / `per-locale`, `json` nebo `po` pro `centralized` / `namespaces`. Výchozí je první z nich.
 - `-i, --interactive` - Volitelné. Vyberte kroky z checklistu (balíčky, CI, skilly, MCP, VS Code, LSP, lint, CMS, infrastruktura, …) místo výchozí sady. Vyžaduje terminál: bez něj (AI agent, CI) příkaz selže a vypíše podpříkazy, které spustit místo něj.
 - `--no-github-actions` - Volitelné. S `--interactive` nikdy nevytvoří workflowy GitHub Actions, ani když jsou vybrány.
 
@@ -80,7 +86,7 @@ Každý krok checklistu `--interactive` má vlastní podpříkaz. Na nic se nept
 | Příkaz                                                                | Co nastavuje                                                                                 |
 | --------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
 | `intlayer init packages`                                              | Nainstaluje chybějící balíčky Intlayer a aktualizuje zastaralé                               |
-| `intlayer init project [--routing <routing>]`                         | Konfigurační soubor, TypeScript, plugin bundleru, middleware/proxy, providery a `.gitignore` |
+| `intlayer init project [--routing <routing>] [--content <layout>]`    | Konfigurační soubor, TypeScript, plugin bundleru, middleware/proxy, providery a `.gitignore` |
 | `intlayer init github-actions`                                        | Workflowy GitHub Actions `fill` a `test`                                                     |
 | `intlayer init vscode-extension`                                      | Doporučí rozšíření Intlayer v `.vscode/extensions.json`                                      |
 | `intlayer init lsp`                                                   | Jazykový server Intlayer v `.vscode/settings.json`                                           |

@@ -62,6 +62,12 @@ bun x intlayer init
 - `--no-gitignore` - 任意。`.gitignore` ファイルの自動更新をスキップします。このフラグが設定されている場合、`.intlayer` は `.gitignore` に追加されません。
 - `--no-framework-setup` - 任意。プロジェクトのファイルを変更せず、パッケージのインストールのみを行います。
 - `--routing <routing>` - 任意。ロケールのルーティング: `prefix-no-default`（デフォルト）、`prefix-all`、`no-prefix`、`search-params`、`none`。
+- `--content <layout>` - 任意。コンテンツの宣言方法:
+  - `multilingual` - `{fileName}.content.{ts,json}` コンポーネントの隣、すべてのロケールを1つのファイルに（`compiler.output` を設定）。
+  - `per-locale` - `{fileName}.{locale}.content.{ts,json}` コンポーネントの隣（`compiler.output` および `dictionary.locale` を設定）。
+  - `centralized` - ロケールごとに1つの `/locales/{locale}.{json,po}` カタログ（`syncJSON` / `syncPO` プラグインを追加）。
+  - `namespaces` - `/locales/{locale}/{namespace}.{json,po}` カタログ（`syncJSON` / `syncPO` プラグインを追加）。
+- `--content-format <format>` - 任意、`--content` と併用。`multilingual` / `per-locale` には `ts` または `json`、`centralized` / `namespaces` には `json` または `po`。デフォルトは最初のもの。
 - `-i, --interactive` - 任意。デフォルトのセットの代わりに、チェックリスト（パッケージ、CI、スキル、MCP、VS Code、LSP、lint、CMS、インフラストラクチャ、…）からセットアップ手順を選びます。ターミナルが必要です。ターミナルがない場合（AI エージェント、CI）、コマンドは失敗し、代わりに実行するサブコマンドを一覧表示します。
 - `--no-github-actions` - 任意。`--interactive` と併用すると、選択されていても GitHub Actions ワークフローを作成しません。
 
@@ -83,7 +89,7 @@ bun x intlayer init
 | コマンド                                                              | 設定される内容                                                                                    |
 | --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
 | `intlayer init packages`                                              | 不足している Intlayer パッケージをインストールし、古いものを更新                                  |
-| `intlayer init project [--routing <routing>]`                         | 設定ファイル、TypeScript、バンドラープラグイン、ミドルウェア/プロキシ、プロバイダー、`.gitignore` |
+| `intlayer init project [--routing <routing>] [--content <layout>]`    | 設定ファイル、TypeScript、バンドラープラグイン、ミドルウェア/プロキシ、プロバイダー、`.gitignore` |
 | `intlayer init github-actions`                                        | `fill` と `test` の GitHub Actions ワークフロー                                                   |
 | `intlayer init vscode-extension`                                      | `.vscode/extensions.json` で Intlayer 拡張機能を推奨                                              |
 | `intlayer init lsp`                                                   | `.vscode/settings.json` に Intlayer 言語サーバー                                                  |

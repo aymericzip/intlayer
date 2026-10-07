@@ -59,6 +59,12 @@ bun x intlayer init
 - `--no-gitignore` - اختیاری۔ `.gitignore` فائل کی خودکار اپ ڈیٹ کو نظر انداز کرتا ہے۔ اگر یہ فلیگ لگا ہو، تو `.intlayer` کو `.gitignore` میں شامل نہیں کیا جائے گا۔
 - `--no-framework-setup` - اختیاری۔ پروجیکٹ فائلوں کو چھوئے بغیر صرف پیکجز انسٹال کرتا ہے۔
 - `--routing <routing>` - اختیاری۔ لوکیل روٹنگ: `prefix-no-default` (ڈیفالٹ)، `prefix-all`، `no-prefix`، `search-params` یا `none`۔
+- `--content <layout>` - اختیاری۔ مواد کا اعلان کیسے کیا جاتا ہے:
+  - `multilingual` - `{fileName}.content.{ts,json}` کمپوننٹ کے ساتھ، تمام لوکیلز ایک ہی فائل میں (`compiler.output` سیٹ کرتا ہے)۔
+  - `per-locale` - `{fileName}.{locale}.content.{ts,json}` کمپوننٹ کے ساتھ (`compiler.output` اور `dictionary.locale` سیٹ کرتا ہے)۔
+  - `centralized` - فی لوکیل ایک `/locales/{locale}.{json,po}` کیٹلاگ (`syncJSON` / `syncPO` پلگ ان شامل کرتا ہے)۔
+  - `namespaces` - `/locales/{locale}/{namespace}.{json,po}` کیٹلاگز (`syncJSON` / `syncPO` پلگ ان شامل کرتا ہے)۔
+- `--content-format <format>` - اختیاری، `--content` کے ساتھ۔ `multilingual` / `per-locale` کے لیے `ts` یا `json`، `centralized` / `namespaces` کے لیے `json` یا `po`۔ پہلے والا ڈیفالٹ ہے۔
 - `-i, --interactive` - اختیاری۔ ڈیفالٹ سیٹ کے بجائے ایک چیک لسٹ (پیکجز، CI، اسکلز، MCP، VS Code، LSP، lint، CMS، انفراسٹرکچر، …) سے سیٹ اپ کے مراحل منتخب کریں۔ ٹرمینل ضروری ہے: ٹرمینل نہ ہو (AI ایجنٹ، CI) تو کمانڈ ناکام ہو جاتی ہے اور اس کی جگہ چلانے کے لیے سب کمانڈز کی فہرست دکھاتی ہے۔
 - `--no-github-actions` - اختیاری۔ `--interactive` کے ساتھ، منتخب ہونے پر بھی GitHub Actions ورک فلوز کبھی نہیں بناتا۔
 
@@ -80,7 +86,7 @@ bun x intlayer init
 | کمانڈ                                                                 | کیا سیٹ اپ کرتی ہے                                                                      |
 | --------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
 | `intlayer init packages`                                              | غائب Intlayer پیکجز انسٹال کرتی ہے اور پرانے اپ گریڈ کرتی ہے                            |
-| `intlayer init project [--routing <routing>]`                         | کنفیگریشن فائل، TypeScript، بنڈلر پلگ ان، middleware/proxy، پرووائیڈرز اور `.gitignore` |
+| `intlayer init project [--routing <routing>] [--content <layout>]`    | کنفیگریشن فائل، TypeScript، بنڈلر پلگ ان، middleware/proxy، پرووائیڈرز اور `.gitignore` |
 | `intlayer init github-actions`                                        | `fill` اور `test` GitHub Actions ورک فلوز                                               |
 | `intlayer init vscode-extension`                                      | `.vscode/extensions.json` میں Intlayer ایکسٹینشن کی سفارش کرتی ہے                       |
 | `intlayer init lsp`                                                   | `.vscode/settings.json` میں Intlayer لینگویج سرور                                       |

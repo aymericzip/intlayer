@@ -62,6 +62,12 @@ bun x intlayer init
 - `--no-gitignore` - 선택 사항. `.gitignore` 파일의 자동 업데이트를 건너뜁니다. 이 플래그가 설정되면 `.intlayer`가 `.gitignore`에 추가되지 않습니다.
 - `--no-framework-setup` - 선택 사항. 프로젝트 파일은 건드리지 않고 패키지만 설치합니다.
 - `--routing <routing>` - 선택 사항. 로케일 라우팅: `prefix-no-default`(기본값), `prefix-all`, `no-prefix`, `search-params` 또는 `none`.
+- `--content <layout>` - 선택 사항. 콘텐츠 선언 방식:
+  - `multilingual` - `{fileName}.content.{ts,json}` 컴포넌트 옆, 모든 로케일을 하나의 파일에 위치시킴(`compiler.output` 설정).
+  - `per-locale` - `{fileName}.{locale}.content.{ts,json}` 컴포넌트 옆에 위치시킴(`compiler.output` 및 `dictionary.locale` 설정).
+  - `centralized` - 로케일당 하나의 `/locales/{locale}.{json,po}` 카탈로그(`syncJSON` / `syncPO` 플러그인 추가).
+  - `namespaces` - `/locales/{locale}/{namespace}.{json,po}` 카탈로그(`syncJSON` / `syncPO` 플러그인 추가).
+- `--content-format <format>` - 선택 사항. `--content`와 함께 사용. `multilingual` / `per-locale`의 경우 `ts` 또는 `json`, `centralized` / `namespaces`의 경우 `json` 또는 `po`. 기본값은 첫 번째.
 - `-i, --interactive` - 선택 사항. 기본 세트 대신 체크리스트(패키지, CI, 스킬, MCP, VS Code, LSP, 린트, CMS, 인프라, …)에서 설정 단계를 고릅니다. 터미널이 필요합니다. 터미널이 없으면(AI 에이전트, CI) 명령이 실패하고 대신 실행할 하위 명령 목록을 보여 줍니다.
 - `--no-github-actions` - 선택 사항. `--interactive`와 함께 쓰면 선택되어 있어도 GitHub Actions 워크플로를 만들지 않습니다.
 
@@ -83,7 +89,7 @@ bun x intlayer init
 | 명령                                                                  | 설정하는 내용                                                                     |
 | --------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
 | `intlayer init packages`                                              | 없는 Intlayer 패키지를 설치하고 오래된 패키지를 업그레이드                        |
-| `intlayer init project [--routing <routing>]`                         | 설정 파일, TypeScript, 번들러 플러그인, 미들웨어/프록시, 프로바이더, `.gitignore` |
+| `intlayer init project [--routing <routing>] [--content <layout>]`    | 설정 파일, TypeScript, 번들러 플러그인, 미들웨어/프록시, 프로바이더, `.gitignore` |
 | `intlayer init github-actions`                                        | `fill` 및 `test` GitHub Actions 워크플로                                          |
 | `intlayer init vscode-extension`                                      | `.vscode/extensions.json`에 Intlayer 확장 프로그램 추천                           |
 | `intlayer init lsp`                                                   | `.vscode/settings.json`의 Intlayer 언어 서버                                      |

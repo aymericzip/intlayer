@@ -5,6 +5,7 @@ import {
   hasIntlayerVitePlugin,
   replaceViteConfigPluginImportSource,
   setIntlayerConfigCompilerOutput,
+  setIntlayerConfigDictionaryLocale,
   setIntlayerConfigEnableProxy,
   setIntlayerConfigRoutingMode,
   setIntlayerConfigRoutingStorageOnly,
@@ -731,6 +732,47 @@ export default config;
       const updated = setIntlayerConfigRoutingStorageOnly(withStorage, 'ts');
       expect(updated).toContain("storage: ['localStorage']");
       expect(updated).not.toContain('mode:');
+    });
+  });
+
+  describe('setIntlayerConfigDictionaryLocale', () => {
+    it('should copy the default locale expression into dictionary.locale', () => {
+      const result = setIntlayerConfigDictionaryLocale(TS_CONFIG, 'ts');
+
+      expect(result).toMatch(/dictionary:\s*{\s*locale: Locales\.ENGLISH/);
+    });
+
+    it('should replace an existing dictionary.locale and keep siblings', () => {
+      const tsConfigWithDictionary = `const config = {
+  internationalization: { defaultLocale: 'fr' },
+  dictionary: { importMode: 'static', locale: 'en' },
+};
+
+export default config;
+`;
+      const result = setIntlayerConfigDictionaryLocale(
+        tsConfigWithDictionary,
+        'ts'
+      );
+
+      expect(result).toContain("importMode: 'static'");
+      expect(result).toContain("locale: 'fr'");
+      expect(result).not.toContain("locale: 'en'");
+    });
+
+    it('should be idempotent', () => {
+      const once = setIntlayerConfigDictionaryLocale(TS_CONFIG, 'ts');
+
+      expect(setIntlayerConfigDictionaryLocale(once, 'ts')).toBe(once);
+    });
+
+    it('should set dictionary.locale in a json config', () => {
+      const result = setIntlayerConfigDictionaryLocale(
+        JSON.stringify({ internationalization: { defaultLocale: 'es' } }),
+        'json'
+      );
+
+      expect(JSON.parse(result).dictionary).toEqual({ locale: 'es' });
     });
   });
 

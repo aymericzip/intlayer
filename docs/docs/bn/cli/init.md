@@ -59,6 +59,12 @@ bun x intlayer init
 - `--no-gitignore` - ঐচ্ছিক। `.gitignore` ফাইলের স্বয়ংক্রিয় আপডেট এড়িয়ে যায়। যদি এই ফ্ল্যাগটি সেট করা থাকে, তবে `.intlayer` কে `.gitignore`-এ যোগ করা হবে না।
 - `--no-framework-setup` - ঐচ্ছিক। প্রজেক্টের ফাইল পরিবর্তন না করে শুধু প্যাকেজ ইনস্টল করে।
 - `--routing <routing>` - ঐচ্ছিক। লোকেল রাউটিং: `prefix-no-default` (ডিফল্ট), `prefix-all`, `no-prefix`, `search-params` বা `none`।
+- `--content <layout>` - ঐচ্ছিক। কন্টেন্ট কীভাবে ঘোষণা করা হয়:
+  - `multilingual` - `{fileName}.content.{ts,json}` কম্পোনেন্টের পাশে, প্রতিটি লোকেল একটি ফাইলে (`compiler.output` সেট করে)।
+  - `per-locale` - `{fileName}.{locale}.content.{ts,json}` কম্পোনেন্টের পাশে (`compiler.output` এবং `dictionary.locale` সেট করে)।
+  - `centralized` - প্রতিটি লোকেলে একটি `/locales/{locale}.{json,po}` ক্যাটালগ (`syncJSON` / `syncPO` প্লাগইন যোগ করে)।
+  - `namespaces` - `/locales/{locale}/{namespace}.{json,po}` ক্যাটালগ (`syncJSON` / `syncPO` প্লাগইন যোগ করে)।
+- `--content-format <format>` - ঐচ্ছিক, `--content` এর সাথে। `multilingual` / `per-locale` এর জন্য `ts` বা `json`, `centralized` / `namespaces` এর জন্য `json` বা `po`। প্রথমটি ডিফল্ট।
 - `-i, --interactive` - ঐচ্ছিক। ডিফল্ট সেটের বদলে একটি চেকলিস্ট (প্যাকেজ, CI, স্কিল, MCP, VS Code, LSP, lint, CMS, ইনফ্রাস্ট্রাকচার, …) থেকে সেটআপের ধাপ বেছে নিন। টার্মিনাল প্রয়োজন: টার্মিনাল না থাকলে (AI এজেন্ট, CI) কমান্ডটি ব্যর্থ হয় এবং এর বদলে চালানোর সাব-কমান্ডগুলোর তালিকা দেখায়।
 - `--no-github-actions` - ঐচ্ছিক। `--interactive` এর সাথে, নির্বাচিত থাকলেও GitHub Actions ওয়ার্কফ্লো কখনো তৈরি করে না।
 
@@ -80,7 +86,7 @@ bun x intlayer init
 | কমান্ড                                                                | কী সেট আপ করে                                                                                |
 | --------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
 | `intlayer init packages`                                              | অনুপস্থিত Intlayer প্যাকেজ ইনস্টল করে এবং পুরনোগুলো আপগ্রেড করে                              |
-| `intlayer init project [--routing <routing>]`                         | কনফিগারেশন ফাইল, TypeScript, বান্ডলার প্লাগইন, middleware/proxy, প্রোভাইডার এবং `.gitignore` |
+| `intlayer init project [--routing <routing>] [--content <layout>]`    | কনফিগারেশন ফাইল, TypeScript, বান্ডলার প্লাগইন, middleware/proxy, প্রোভাইডার এবং `.gitignore` |
 | `intlayer init github-actions`                                        | `fill` ও `test` GitHub Actions ওয়ার্কফ্লো                                                   |
 | `intlayer init vscode-extension`                                      | `.vscode/extensions.json`-এ Intlayer এক্সটেনশন সুপারিশ করে                                   |
 | `intlayer init lsp`                                                   | `.vscode/settings.json`-এ Intlayer ল্যাঙ্গুয়েজ সার্ভার                                      |

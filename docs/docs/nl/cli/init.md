@@ -59,6 +59,12 @@ Al het andere (CI-workflows, AI-skills, MCP-server, editor-tools, lint-regels, C
 - `--no-gitignore` - Optioneel. Slaat het automatisch bijwerken van het `.gitignore`-bestand over. Als deze vlag is ingesteld, wordt `.intlayer` niet toegevoegd aan `.gitignore`.
 - `--no-framework-setup` - Optioneel. Installeert alleen de pakketten, zonder de projectbestanden aan te passen.
 - `--routing <routing>` - Optioneel. Locale-routing: `prefix-no-default` (standaard), `prefix-all`, `no-prefix`, `search-params` of `none`.
+- `--content <layout>` - Optioneel. Hoe inhoud wordt gedeclareerd:
+  - `multilingual` - `{fileName}.content.{ts,json}` naast het component, elke locale in één bestand (stelt `compiler.output` in).
+  - `per-locale` - `{fileName}.{locale}.content.{ts,json}` naast het component (stelt `compiler.output` en `dictionary.locale` in).
+  - `centralized` - één `/locales/{locale}.{json,po}`-catalogus per locale (voegt de `syncJSON` / `syncPO`-plugin toe).
+  - `namespaces` - `/locales/{locale}/{namespace}.{json,po}`-catalogi (voegt de `syncJSON` / `syncPO`-plugin toe).
+- `--content-format <format>` - Optioneel, met `--content`. `ts` of `json` voor `multilingual` / `per-locale`, `json` of `po` voor `centralized` / `namespaces`. Standaard de eerste.
 - `-i, --interactive` - Optioneel. Kies de stappen uit een checklist (pakketten, CI, skills, MCP, VS Code, LSP, lint, CMS, infrastructuur, …) in plaats van de standaardset. Vereist een terminal: zonder terminal (AI-agent, CI) faalt het commando en toont het de subcommando's die je in plaats daarvan kunt uitvoeren.
 - `--no-github-actions` - Optioneel. Met `--interactive` worden de GitHub Actions-workflows nooit aangemaakt, ook niet als ze geselecteerd zijn.
 
@@ -80,7 +86,7 @@ Elke stap van de `--interactive`-checklist heeft een eigen subcommando. Ze stell
 | Commando                                                              | Wat het instelt                                                                              |
 | --------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
 | `intlayer init packages`                                              | Installeert ontbrekende Intlayer-pakketten en werkt verouderde bij                           |
-| `intlayer init project [--routing <routing>]`                         | Configuratiebestand, TypeScript, bundler-plugin, middleware/proxy, providers en `.gitignore` |
+| `intlayer init project [--routing <routing>] [--content <layout>]`    | Configuratiebestand, TypeScript, bundler-plugin, middleware/proxy, providers en `.gitignore` |
 | `intlayer init github-actions`                                        | De GitHub Actions-workflows `fill` en `test`                                                 |
 | `intlayer init vscode-extension`                                      | Raadt de Intlayer-extensie aan in `.vscode/extensions.json`                                  |
 | `intlayer init lsp`                                                   | De Intlayer-taalserver in `.vscode/settings.json`                                            |

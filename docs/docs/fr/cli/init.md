@@ -62,6 +62,12 @@ Tout le reste (workflows CI, skills IA, serveur MCP, outils d'éditeur, règles 
 - `--no-gitignore` - Optionnel. Ignore la mise à jour automatique du fichier `.gitignore`. Si ce drapeau est défini, `.intlayer` ne sera pas ajouté au `.gitignore`.
 - `--no-framework-setup` - Optionnel. Installe uniquement les paquets, sans modifier les fichiers du projet.
 - `--routing <routing>` - Optionnel. Routage des locales : `prefix-no-default` (par défaut), `prefix-all`, `no-prefix`, `search-params` ou `none`.
+- `--content <layout>` - Optionnel. Comment le contenu est déclaré :
+  - `multilingual` - `{fileName}.content.{ts,json}` à côté du composant, toutes les locales dans un seul fichier (définit `compiler.output`).
+  - `per-locale` - `{fileName}.{locale}.content.{ts,json}` à côté du composant (définit `compiler.output` et `dictionary.locale`).
+  - `centralized` - un catalogue `/locales/{locale}.{json,po}` par locale (ajoute le plugin `syncJSON` / `syncPO`).
+  - `namespaces` - catalogues `/locales/{locale}/{namespace}.{json,po}` (ajoute le plugin `syncJSON` / `syncPO`).
+- `--content-format <format>` - Optionnel, avec `--content`. `ts` ou `json` pour `multilingual` / `per-locale`, `json` ou `po` pour `centralized` / `namespaces`. Par défaut le premier.
 - `-i, --interactive` - Optionnel. Choisissez les étapes dans une checklist (paquets, CI, skills, MCP, VS Code, LSP, lint, CMS, infrastructure, …) au lieu de l'ensemble par défaut. Nécessite un terminal : sans terminal (agent IA, CI), la commande échoue et liste les sous-commandes à lancer à la place.
 - `--no-github-actions` - Optionnel. Avec `--interactive`, ne crée jamais les workflows GitHub Actions, même s'ils sont sélectionnés.
 
@@ -83,7 +89,7 @@ Chaque étape de la checklist `--interactive` a sa propre sous-commande. Elles n
 | Commande                                                              | Ce qu'elle configure                                                                                 |
 | --------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
 | `intlayer init packages`                                              | Installe les paquets Intlayer manquants et met à jour ceux qui sont obsolètes                        |
-| `intlayer init project [--routing <routing>]`                         | Fichier de configuration, TypeScript, plugin du bundler, middleware/proxy, providers et `.gitignore` |
+| `intlayer init project [--routing <routing>] [--content <layout>]`    | Fichier de configuration, TypeScript, plugin du bundler, middleware/proxy, providers et `.gitignore` |
 | `intlayer init github-actions`                                        | Les workflows GitHub Actions `fill` et `test`                                                        |
 | `intlayer init vscode-extension`                                      | Recommande l'extension Intlayer dans `.vscode/extensions.json`                                       |
 | `intlayer init lsp`                                                   | Le serveur de langage Intlayer dans `.vscode/settings.json`                                          |

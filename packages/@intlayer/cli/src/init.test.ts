@@ -4,6 +4,7 @@ import { join } from 'node:path';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import {
   DEFAULT_INIT_STEPS,
+  getContentInitOptions,
   getInitialInitSteps,
   getInitOptionsForSteps,
   getRoutingInitOptions,
@@ -48,6 +49,29 @@ describe('getRoutingInitOptions', () => {
       routingMode: 'no-prefix',
       enableProxy: false,
     });
+  });
+});
+
+describe('getContentInitOptions', () => {
+  it('returns no option without --content', () => {
+    expect(getContentInitOptions()).toEqual({});
+  });
+
+  it('maps a layout and a format it accepts', () => {
+    expect(getContentInitOptions('Namespaces', 'po')).toEqual({
+      contentLayout: 'namespaces',
+      contentFormat: 'po',
+    });
+  });
+
+  it('rejects a format the layout does not accept', () => {
+    expect(() => getContentInitOptions('multilingual', 'po')).toThrow(
+      '--content-format'
+    );
+  });
+
+  it('rejects --content-format without --content', () => {
+    expect(() => getContentInitOptions(undefined, 'json')).toThrow('--content');
   });
 });
 

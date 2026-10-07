@@ -62,6 +62,12 @@ bun x intlayer init
 - `--no-gitignore` - اختياري. يتخطى التحديث التلقائي لملف `.gitignore`. إذا تم تعيين هذا العلم ، فلن يتم إضافة `.intlayer` إلى `.gitignore`.
 - `--no-framework-setup` - اختياري. يثبّت الحزم فقط، دون تعديل ملفات المشروع.
 - `--routing <routing>` - اختياري. توجيه اللغات: `prefix-no-default` (افتراضي)، `prefix-all`، `no-prefix`، `search-params` أو `none`.
+- `--content <layout>` - اختياري. كيفية التصريح عن المحتوى:
+  - `multilingual` - `{fileName}.content.{ts,json}` بجوار المكوّن، جميع اللغات في ملف واحد (يحدد `compiler.output`).
+  - `per-locale` - `{fileName}.{locale}.content.{ts,json}` بجوار المكوّن (يحدد `compiler.output` و`dictionary.locale`).
+  - `centralized` - كتالوج `/locales/{locale}.{json,po}` واحد لكل لغة (يضيف إضافة `syncJSON` / `syncPO`).
+  - `namespaces` - كتالوجات `/locales/{locale}/{namespace}.{json,po}` (يضيف إضافة `syncJSON` / `syncPO`).
+- `--content-format <format>` - اختياري، مع `--content`. `ts` أو `json` لـ `multilingual` / `per-locale`، و`json` أو `po` لـ `centralized` / `namespaces`. الإعداد الافتراضي هو الأول.
 - `-i, --interactive` - اختياري. اختر خطوات الإعداد من قائمة (الحزم، CI، المهارات، MCP، VS Code، LSP، lint، CMS، البنية التحتية، …) بدلًا من المجموعة الافتراضية. يتطلب طرفية: بدونها (وكيل ذكاء اصطناعي، CI) يفشل الأمر ويعرض الأوامر الفرعية التي يجب تشغيلها بدلًا منه.
 - `--no-github-actions` - اختياري. مع `--interactive`، لا يُنشئ أبدًا مسارات عمل GitHub Actions، حتى لو كانت محددة.
 
@@ -83,7 +89,7 @@ bun x intlayer init
 | الأمر                                                                 | ما يُعدّه                                                                             |
 | --------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
 | `intlayer init packages`                                              | يثبّت حزم Intlayer الناقصة ويحدّث القديمة                                             |
-| `intlayer init project [--routing <routing>]`                         | ملف الإعداد، TypeScript، إضافة المُجمِّع، middleware/proxy، المزوّدات و`.gitignore`   |
+| `intlayer init project [--routing <routing>] [--content <layout>]`    | ملف الإعداد، TypeScript، إضافة المُجمِّع، middleware/proxy، المزوّدات و`.gitignore`   |
 | `intlayer init github-actions`                                        | مسارا عمل GitHub Actions `fill` و`test`                                               |
 | `intlayer init vscode-extension`                                      | يوصي بإضافة Intlayer في `.vscode/extensions.json`                                     |
 | `intlayer init lsp`                                                   | خادم لغة Intlayer في `.vscode/settings.json`                                          |

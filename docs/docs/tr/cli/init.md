@@ -62,6 +62,12 @@ Geri kalan her şey (CI iş akışları, AI skill'leri, MCP sunucusu, editör ar
 - `--no-gitignore` - İsteğe bağlı. `.gitignore` dosyasının otomatik olarak güncellenmesini atlar. Bu bayrak ayarlanırsa, `.intlayer` dosyası `.gitignore` dosyasına eklenmez.
 - `--no-framework-setup` - İsteğe bağlı. Proje dosyalarına dokunmadan yalnızca paketleri kurar.
 - `--routing <routing>` - İsteğe bağlı. Yerel ayar yönlendirmesi: `prefix-no-default` (varsayılan), `prefix-all`, `no-prefix`, `search-params` veya `none`.
+- `--content <layout>` - İsteğe bağlı. İçeriğin nasıl bildirildiği:
+  - `multilingual` - `{fileName}.content.{ts,json}` bileşenin yanında, her yerel ayar tek bir dosyada (`compiler.output` ayarını yapar).
+  - `per-locale` - `{fileName}.{locale}.content.{ts,json}` bileşenin yanında (`compiler.output` ve `dictionary.locale` ayarlarını yapar).
+  - `centralized` - yerel ayar başına bir `/locales/{locale}.{json,po}` kataloğu (`syncJSON` / `syncPO` eklentisini ekler).
+  - `namespaces` - `/locales/{locale}/{namespace}.{json,po}` katalogları (`syncJSON` / `syncPO` eklentisini ekler).
+- `--content-format <format>` - İsteğe bağlı, `--content` ile birlikte. `multilingual` / `per-locale` için `ts` veya `json`, `centralized` / `namespaces` için `json` veya `po`. Varsayılan ilki.
 - `-i, --interactive` - İsteğe bağlı. Varsayılan set yerine kurulum adımlarını bir kontrol listesinden seçin (paketler, CI, skill'ler, MCP, VS Code, LSP, lint, CMS, altyapı, …). Terminal gerektirir: terminal yoksa (AI ajanı, CI) komut başarısız olur ve bunun yerine çalıştırılacak alt komutları listeler.
 - `--no-github-actions` - İsteğe bağlı. `--interactive` ile, seçili olsalar bile GitHub Actions iş akışlarını asla oluşturmaz.
 
@@ -83,7 +89,7 @@ Geri kalan her şey (CI iş akışları, AI skill'leri, MCP sunucusu, editör ar
 | Komut                                                                 | Ne kurar                                                                                            |
 | --------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
 | `intlayer init packages`                                              | Eksik Intlayer paketlerini kurar ve eski olanları günceller                                         |
-| `intlayer init project [--routing <routing>]`                         | Yapılandırma dosyası, TypeScript, bundler eklentisi, middleware/proxy, provider'lar ve `.gitignore` |
+| `intlayer init project [--routing <routing>] [--content <layout>]`    | Yapılandırma dosyası, TypeScript, bundler eklentisi, middleware/proxy, provider'lar ve `.gitignore` |
 | `intlayer init github-actions`                                        | `fill` ve `test` GitHub Actions iş akışları                                                         |
 | `intlayer init vscode-extension`                                      | `.vscode/extensions.json` içinde Intlayer eklentisini önerir                                        |
 | `intlayer init lsp`                                                   | `.vscode/settings.json` içinde Intlayer dil sunucusu                                                |

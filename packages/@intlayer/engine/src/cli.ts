@@ -9,6 +9,7 @@ export {
 export * from './init/index';
 export * from './init/upgradeIntlayerPackages';
 export type { RoutingMode } from './init/utils';
+export * from './init/utils/contentLayout';
 export { NEXT_INTLAYER_BABEL_CONFIG_CONTENT } from './init/utils/nextCompilerBabel';
 export {
   COMPAT_I18N_LIBRARIES,

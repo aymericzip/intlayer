@@ -62,6 +62,12 @@ bun x intlayer init
 - `--no-gitignore` - 可选。跳过自动更新 `.gitignore` 文件。如果设置了此标志，`.intlayer` 将不会添加到 `.gitignore` 中。
 - `--no-framework-setup` - 可选。只安装依赖包，不修改项目文件。
 - `--routing <routing>` - 可选。语言路由：`prefix-no-default`（默认）、`prefix-all`、`no-prefix`、`search-params` 或 `none`。
+- `--content <layout>` - 可选。内容声明方式：
+  - `multilingual` - `{fileName}.content.{ts,json}` 位于组件旁，所有语言在一个文件中（设置 `compiler.output`）。
+  - `per-locale` - `{fileName}.{locale}.content.{ts,json}` 位于组件旁（设置 `compiler.output` 和 `dictionary.locale`）。
+  - `centralized` - 每种语言一个 `/locales/{locale}.{json,po}` 目录（添加 `syncJSON` / `syncPO` 插件）。
+  - `namespaces` - `/locales/{locale}/{namespace}.{json,po}` 目录（添加 `syncJSON` / `syncPO` 插件）。
+- `--content-format <format>` - 可选，与 `--content` 配合使用。`multilingual` / `per-locale` 使用 `ts` 或 `json`，`centralized` / `namespaces` 使用 `json` 或 `po`。默认为第一个。
 - `-i, --interactive` - 可选。从清单（依赖包、CI、技能、MCP、VS Code、LSP、lint、CMS、基础设施等）中选择配置步骤，而不是运行默认集合。需要终端：没有终端时（AI 代理、CI），命令会失败并列出应改为运行的子命令。
 - `--no-github-actions` - 可选。与 `--interactive` 一起使用时，即使已勾选也不会生成 GitHub Actions 工作流。
 
@@ -83,7 +89,7 @@ bun x intlayer init
 | 命令                                                                  | 配置内容                                                                  |
 | --------------------------------------------------------------------- | ------------------------------------------------------------------------- |
 | `intlayer init packages`                                              | 安装缺失的 Intlayer 依赖包并升级过时的依赖包                              |
-| `intlayer init project [--routing <routing>]`                         | 配置文件、TypeScript、打包工具插件、中间件/代理、Provider 和 `.gitignore` |
+| `intlayer init project [--routing <routing>] [--content <layout>]`    | 配置文件、TypeScript、打包工具插件、中间件/代理、Provider 和 `.gitignore` |
 | `intlayer init github-actions`                                        | `fill` 和 `test` 两个 GitHub Actions 工作流                               |
 | `intlayer init vscode-extension`                                      | 在 `.vscode/extensions.json` 中推荐 Intlayer 扩展                         |
 | `intlayer init lsp`                                                   | `.vscode/settings.json` 中的 Intlayer 语言服务器                          |

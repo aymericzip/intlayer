@@ -62,6 +62,12 @@ Selebihnya (workflow CI, skill AI, server MCP, alat editor, aturan lint, CMS, in
 - `--no-gitignore` - Opsional. Melewati pembaruan otomatis file `.gitignore`. Jika flag ini disetel, `.intlayer` tidak akan ditambahkan ke `.gitignore`.
 - `--no-framework-setup` - Opsional. Hanya memasang paket, tanpa mengubah file proyek.
 - `--routing <routing>` - Opsional. Routing locale: `prefix-no-default` (default), `prefix-all`, `no-prefix`, `search-params`, atau `none`.
+- `--content <layout>` - Opsional. Bagaimana konten dideklarasikan:
+  - `multilingual` - `{fileName}.content.{ts,json}` di samping komponen, setiap locale dalam satu file (menyetel `compiler.output`).
+  - `per-locale` - `{fileName}.{locale}.content.{ts,json}` di samping komponen (menyetel `compiler.output` dan `dictionary.locale`).
+  - `centralized` - satu katalog `/locales/{locale}.{json,po}` per locale (menambahkan plugin `syncJSON` / `syncPO`).
+  - `namespaces` - katalog `/locales/{locale}/{namespace}.{json,po}` (menambahkan plugin `syncJSON` / `syncPO`).
+- `--content-format <format>` - Opsional, dengan `--content`. `ts` atau `json` untuk `multilingual` / `per-locale`, `json` atau `po` untuk `centralized` / `namespaces`. Default ke yang pertama.
 - `-i, --interactive` - Opsional. Pilih langkah penyiapan dari checklist (paket, CI, skill, MCP, VS Code, LSP, lint, CMS, infrastruktur, …) alih-alih set default. Membutuhkan terminal: tanpa terminal (agen AI, CI), perintah gagal dan menampilkan sub-perintah yang harus dijalankan sebagai gantinya.
 - `--no-github-actions` - Opsional. Dengan `--interactive`, tidak pernah membuat workflow GitHub Actions, meskipun dipilih.
 
@@ -83,7 +89,7 @@ Setiap langkah di checklist `--interactive` punya sub-perintah sendiri. Sub-peri
 | Perintah                                                              | Yang disiapkan                                                                             |
 | --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
 | `intlayer init packages`                                              | Memasang paket Intlayer yang belum ada dan memperbarui yang usang                          |
-| `intlayer init project [--routing <routing>]`                         | File konfigurasi, TypeScript, plugin bundler, middleware/proxy, provider, dan `.gitignore` |
+| `intlayer init project [--routing <routing>] [--content <layout>]`    | File konfigurasi, TypeScript, plugin bundler, middleware/proxy, provider, dan `.gitignore` |
 | `intlayer init github-actions`                                        | Workflow GitHub Actions `fill` dan `test`                                                  |
 | `intlayer init vscode-extension`                                      | Merekomendasikan ekstensi Intlayer di `.vscode/extensions.json`                            |
 | `intlayer init lsp`                                                   | Language server Intlayer di `.vscode/settings.json`                                        |

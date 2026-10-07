@@ -62,6 +62,12 @@ bun x intlayer init
 - `--no-gitignore` - Необязательно. Пропустить автоматическое обновление файла `.gitignore`. Если этот флаг установлен, `.intlayer` не будет добавлен в `.gitignore`.
 - `--no-framework-setup` - Необязательно. Только устанавливает пакеты, не изменяя файлы проекта.
 - `--routing <routing>` - Необязательно. Маршрутизация локалей: `prefix-no-default` (по умолчанию), `prefix-all`, `no-prefix`, `search-params` или `none`.
+- `--content <layout>` - Необязательно. Как объявляется контент:
+  - `multilingual` - `{fileName}.content.{ts,json}` рядом с компонентом, все локали в одном файле (задает `compiler.output`).
+  - `per-locale` - `{fileName}.{locale}.content.{ts,json}` рядом с компонентом (задает `compiler.output` и `dictionary.locale`).
+  - `centralized` - один каталог `/locales/{locale}.{json,po}` на локаль (добавляет плагин `syncJSON` / `syncPO`).
+  - `namespaces` - каталоги `/locales/{locale}/{namespace}.{json,po}` (добавляет плагин `syncJSON` / `syncPO`).
+- `--content-format <format>` - Необязательно, с `--content`. `ts` или `json` для `multilingual` / `per-locale`, `json` или `po` для `centralized` / `namespaces`. По умолчанию первое.
 - `-i, --interactive` - Необязательно. Выберите шаги настройки из чек-листа (пакеты, CI, скиллы, MCP, VS Code, LSP, линтер, CMS, инфраструктура, …) вместо набора по умолчанию. Нужен терминал: без него (AI-агент, CI) команда завершается ошибкой и выводит список подкоманд, которые нужно запустить вместо неё.
 - `--no-github-actions` - Необязательно. С `--interactive` никогда не создаёт воркфлоу GitHub Actions, даже если они выбраны.
 
@@ -83,7 +89,7 @@ bun x intlayer init
 | Команда                                                               | Что настраивает                                                                             |
 | --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
 | `intlayer init packages`                                              | Устанавливает недостающие пакеты Intlayer и обновляет устаревшие                            |
-| `intlayer init project [--routing <routing>]`                         | Файл конфигурации, TypeScript, плагин бандлера, middleware/proxy, провайдеры и `.gitignore` |
+| `intlayer init project [--routing <routing>] [--content <layout>]`    | Файл конфигурации, TypeScript, плагин бандлера, middleware/proxy, провайдеры и `.gitignore` |
 | `intlayer init github-actions`                                        | Воркфлоу GitHub Actions `fill` и `test`                                                     |
 | `intlayer init vscode-extension`                                      | Рекомендует расширение Intlayer в `.vscode/extensions.json`                                 |
 | `intlayer init lsp`                                                   | Языковой сервер Intlayer в `.vscode/settings.json`                                          |
