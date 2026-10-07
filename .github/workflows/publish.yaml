@@ -132,8 +132,8 @@ jobs:
       - name: 🧩 Install Dependencies
         run: bun install --frozen-lockfile
 
-      # Everything is built up front: a build failure stops the release
-      # before anything reaches the registry.
+      # Everything is built (and prepublished) up front: a failure stops the
+      # release before anything reaches the registry.
       - name: 🏗️ Build packages
         run: bun run publish:ci:build
 
@@ -142,7 +142,7 @@ jobs:
         env:
           PUBLISH_DRY_RUN: ${{ inputs.dry-run || false }}
         # Packages are already built, so every package is published in
-        # parallel (`publish:ci` only depends on `prepublish`). `--continue`
+        # parallel (`publish:ci` has no task dependency). `--continue`
         # keeps publishing the other packages when one fails. After each pass
         # the registry is checked for every package: missing ones trigger a
         # new pass (already published packages are skipped), up to 3 passes,
@@ -166,11 +166,6 @@ jobs:
               if bun scripts/verify-published-packages.mjs; then
                 exit 0
               fi
-            fi
-
-            if [ "$PASS" -lt "$MAX_PASSES" ]; then
-              echo "⏳ Waiting 30s before the next pass..."
-              sleep 30
             fi
           done
           echo "❌ Some packages are still not published after $MAX_PASSES passes."

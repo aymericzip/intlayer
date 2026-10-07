@@ -56,7 +56,6 @@
       "outputs": []
     },
     "publish:ci": {
-      "dependsOn": ["prepublish"],
       "cache": false,
       "outputs": [],
       "passThroughEnv": [

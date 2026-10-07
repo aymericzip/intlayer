@@ -72,7 +72,7 @@
     "publish:canary": "bun run prepare:publish && turbo publish:canary '--filter=./packages/@intlayer/design-system' && turbo publish:canary '--filter=./packages/**' '--filter=!@intlayer/design-system' '--filter=./docs' '--filter=./plugins/**' '--filter=./compat/**'",
     "publish:canary:ok": "bun turbo publish:canary '--filter=./packages/@intlayer/design-system' && turbo publish:canary '--filter=./packages/**' '--filter=!@intlayer/design-system' '--filter=./docs' '--filter=./plugins/**' '--filter=./compat/**'",
     "publish:ci": "bun turbo publish:ci --continue --concurrency=100 '--filter=./packages/**' '--filter=!@intlayer/design-system' '--filter=./docs' '--filter=./plugins/**' '--filter=./compat/**'",
-    "publish:ci:build": "bun turbo build '--filter=./packages/**' '--filter=!@intlayer/design-system' '--filter=./docs' '--filter=./plugins/**' '--filter=./compat/**'",
+    "publish:ci:build": "bun turbo build prepublish '--filter=./packages/**' '--filter=!@intlayer/design-system' '--filter=./docs' '--filter=./plugins/**' '--filter=./compat/**'",
     "publish:latest": "bun run prepare:publish && bun run publish:latest:ok",
     "publish:latest:ok": "bun turbo publish:latest '--filter=./packages/@intlayer/design-system' && turbo publish:latest '--filter=./packages/**' '--filter=!@intlayer/design-system' '--filter=./docs' '--filter=./plugins/**' '--filter=./compat/**'",
     "test": "bun turbo test '--filter=./packages/**' '--filter=./docs' '--filter=./plugins/**' '--filter=./compat/**' --concurrency=2",
