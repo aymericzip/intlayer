@@ -15,6 +15,7 @@ import {
 import type { FunctionComponent, RefObject } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
 import { useIntlayer } from 'preact-intlayer';
+import { useIntlayerConfig } from '../../hooks/useIntlayerConfig';
 import { ApplicationLocaleSwitcher } from './ApplicationLocaleSwitcher';
 import { EditorProfile } from './EditorProfile';
 import { NoApplicationURLView } from './NoApplicationURLView/NoApplicationURLView';
@@ -27,6 +28,8 @@ export const IframeController: FunctionComponent<{
 }> = ({ iframeRef, applicationPath, isBrowserVisible = false }) => {
   const content = useIntlayer('iframe-controller');
   const { editor } = useConfiguration() ?? {};
+  const isApplicationEditorEnabled =
+    useIntlayerConfig()?.isApplicationEditorEnabled ?? true;
 
   // Enabled state driven by the new CLIENT_READY → EDITOR_ACTIVATE handshake
   const { enabled } = useEditorEnabled();
@@ -77,6 +80,7 @@ export const IframeController: FunctionComponent<{
       applicationURL={editor.applicationURL}
       onRetry={reloadFrame}
       onDismiss={dismiss}
+      isEditorDisabled={!isApplicationEditorEnabled}
     />
   );
 

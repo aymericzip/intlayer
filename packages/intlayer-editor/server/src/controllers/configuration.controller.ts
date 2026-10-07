@@ -1,9 +1,18 @@
-import { getConfiguration as getApplicationConfiguration } from '@intlayer/config/node';
+import { IS_ENABLED } from '@intlayer/config/defaultValues';
+import { getConfigurationAndFilePath } from '@intlayer/config/node';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { formatResponse, type ResponseData } from '@utils/responseData';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 
-export type GetConfigurationResult = ResponseData<IntlayerConfig>;
+export type EditorServerConfiguration = IntlayerConfig & {
+  /**
+   * `editor.enabled` as set in the application configuration. The editor
+   * server forces `editor.enabled` on in its own process, so it cannot tell.
+   */
+  isApplicationEditorEnabled: boolean;
+};
+
+export type GetConfigurationResult = ResponseData<EditorServerConfiguration>;
 
 /**
  * Get the Intlayer configuration
@@ -13,14 +22,20 @@ export const getConfiguration = async (
   res: FastifyReply
 ): Promise<void> => {
   try {
-    const config = getApplicationConfiguration();
+    const { configuration: config, customConfiguration } =
+      getConfigurationAndFilePath();
 
     // The client secret never leaves the server: the client authenticates
     // with the short-lived token served by the auth routes.
     const { clientSecret: _clientSecret, ...editor } = config.editor;
 
-    const formattedResponse = formatResponse<IntlayerConfig>({
-      data: { ...config, editor },
+    const formattedResponse = formatResponse<EditorServerConfiguration>({
+      data: {
+        ...config,
+        editor,
+        isApplicationEditorEnabled:
+          customConfiguration?.editor?.enabled ?? IS_ENABLED,
+      },
     });
 
     return res.send(formattedResponse);
@@ -30,7 +45,7 @@ export const getConfiguration = async (
       status: 500,
     };
 
-    const formattedErrorResponse = formatResponse<IntlayerConfig>({
+    const formattedErrorResponse = formatResponse<EditorServerConfiguration>({
       error: {
         message: errorMessage.message ?? 'Internal Server Error',
         code: 'INTERNAL_SERVER_ERROR',

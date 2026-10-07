@@ -13,12 +13,10 @@ export type FrameConnectionErrorProps = {
   onRetry: () => void;
   /** Hides the message to show whatever the frame displays. */
   onDismiss: () => void;
+  /** The application disables the visual editor in its configuration. */
+  isEditorDisabled?: boolean;
 };
 
-/**
- * Overlay shown over an application frame whose client never connected to the
- * editor: blocked by the application's framing policy, or no editor client.
- */
 /**
  * Origins the application must allow in `frame-ancestors`: the editor and
  * every frame embedding it (e.g. an IDE webview).
@@ -30,16 +28,23 @@ const getFrameAncestorOrigins = (): string[] => [
   ]),
 ];
 
+/**
+ * Overlay shown over an application frame whose client never connected to the
+ * editor: editor disabled, blocked by the framing policy, or no editor client.
+ */
 export const FrameConnectionError: FC<FrameConnectionErrorProps> = ({
   applicationURL,
   onRetry,
   onDismiss,
+  isEditorDisabled = false,
 }) => {
   const {
     title,
     description,
     framingCause,
     editorEnabledCause,
+    editorDisabledDescription,
+    editorDisabledHint,
     providerCause,
     retry,
     dismiss,
@@ -56,22 +61,35 @@ export const FrameConnectionError: FC<FrameConnectionErrorProps> = ({
         role="alert"
       >
         <H3 className="text-base sm:text-lg">{title}</H3>
-        <p className="wrap-anywhere text-neutral">
-          {description({
-            applicationUrl: <strong>{applicationURL}</strong>,
-          })}
-        </p>
-        <ul className="wrap-anywhere list-outside list-disc space-y-2 ps-5 text-neutral">
-          <li>
-            {framingCause({
-              editorOrigin: (
-                <strong>{getFrameAncestorOrigins().join(', ')}</strong>
-              ),
-            })}
-          </li>
-          <li>{editorEnabledCause}</li>
-          <li>{providerCause}</li>
-        </ul>
+        {isEditorDisabled ? (
+          <>
+            <p className="wrap-anywhere text-neutral">
+              {editorDisabledDescription({
+                applicationUrl: <strong>{applicationURL}</strong>,
+              })}
+            </p>
+            <p className="wrap-anywhere text-neutral">{editorDisabledHint}</p>
+          </>
+        ) : (
+          <>
+            <p className="wrap-anywhere text-neutral">
+              {description({
+                applicationUrl: <strong>{applicationURL}</strong>,
+              })}
+            </p>
+            <ul className="wrap-anywhere list-outside list-disc space-y-2 ps-5 text-neutral">
+              <li>
+                {framingCause({
+                  editorOrigin: (
+                    <strong>{getFrameAncestorOrigins().join(', ')}</strong>
+                  ),
+                })}
+              </li>
+              <li>{editorEnabledCause}</li>
+              <li>{providerCause}</li>
+            </ul>
+          </>
+        )}
         <div className="flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
           <Button
             label={dismiss.value}
