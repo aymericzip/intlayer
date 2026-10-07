@@ -1,7 +1,7 @@
 import { mergeDictionaries } from '@intlayer/core/dictionaryManipulator';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
-import { Form, FormButton } from '@intlayer/design-system/form';
+import { FormButton } from '@intlayer/design-system/form';
 import { Checkbox } from '@intlayer/design-system/input';
 import { Modal } from '@intlayer/design-system/modal';
 import { cn } from '@intlayer/design-system/utils';
@@ -92,6 +92,7 @@ export const MergeDictionariesModal: FC<MergeDictionariesModalProps> = ({
         hasCloseButton
         border
         borderColor="neutral"
+        roundedSize="2xl"
       >
         <div className="flex flex-col gap-4">
           <p className="text-neutral text-sm">
@@ -112,82 +113,84 @@ export const MergeDictionariesModal: FC<MergeDictionariesModalProps> = ({
           </div>
 
           <div className="flex flex-col gap-3">
-            {pairs.map((pair, i) => {
-              const state = pairStates[i] ?? { swapped: false, selected: true };
-              const { source, target } = resolvedPairs[i];
+            {pairs.map((pair, index) => {
+              const state = pairStates[index] ?? {
+                swapped: false,
+                selected: true,
+              };
+              const { source, target } = resolvedPairs[index];
               const merged = mergeDictionaries([target, source]);
 
               return (
                 <Container
-                  key={`${pair[0].key}-${i}`}
+                  key={`${pair[0].key}-${index}`}
                   roundedSize="xl"
                   border
                   className={cn(
-                    'flex flex-col gap-3 p-4 transition-opacity',
+                    'p-4 transition-opacity',
                     !state.selected && 'opacity-40'
                   )}
                 >
-                  <div className="flex w-full items-center justify-between gap-3">
+                  <div className="grid w-full grid-cols-[auto_1fr_auto_1fr_auto] items-center gap-3">
                     <Checkbox
-                      name={`select-pair-${i}`}
+                      name={`select-pair-${index}`}
                       checked={state.selected}
-                      onChange={() => toggleSelected(i)}
+                      onChange={() => toggleSelected(index)}
                       color="text"
-                      size="sm"
+                      size="md"
                       className="mt-0.5 shrink-0"
                     />
 
-                    <div className="flex w-auto justify-center gap-3">
-                      <div className="flex min-w-0 flex-1 flex-col gap-1">
-                        <span className="font-medium text-neutral text-xs uppercase tracking-wide">
-                          {mergeDictionariesModal.sourceLabel(state.swapped)}
-                        </span>
-                        <Button
-                          variant="hoverable"
-                          color="text"
-                          size="sm"
-                          Icon={Eye}
-                          label={mergeDictionariesModal.previewButton.value}
-                          onClick={() => setPreviewDict(source)}
-                          className="max-w-full self-start overflow-hidden"
-                        >
-                          <span className="truncate">{dictLabel(source)}</span>
-                        </Button>
-                      </div>
-
+                    <div className="flex min-w-0 flex-col gap-1">
+                      <span className="font-medium text-neutral text-xs uppercase tracking-wide">
+                        {mergeDictionariesModal.sourceLabel(state.swapped)}
+                      </span>
                       <Button
                         variant="hoverable"
                         color="text"
-                        size="icon-sm"
-                        Icon={() => (
-                          <ArrowRight
-                            className={cn(
-                              'size-4 text-text/60 transition-transform',
-                              state.swapped && 'rotate-180'
-                            )}
-                          />
-                        )}
-                        label={mergeDictionariesModal.swapButton.value}
-                        onClick={() => toggleSwapped(i)}
-                        className="shrink-0"
-                      />
+                        size="sm"
+                        Icon={Eye}
+                        label={mergeDictionariesModal.previewButton.value}
+                        onClick={() => setPreviewDict(source)}
+                        className="max-w-full self-start overflow-hidden"
+                      >
+                        <span className="truncate">{dictLabel(source)}</span>
+                      </Button>
+                    </div>
 
-                      <div className="flex min-w-0 flex-1 flex-col gap-1">
-                        <span className="font-medium text-neutral text-xs uppercase tracking-wide">
-                          {mergeDictionariesModal.targetLabel(state.swapped)}
-                        </span>
-                        <Button
-                          variant="hoverable"
-                          color="text"
-                          size="sm"
-                          Icon={Eye}
-                          label={mergeDictionariesModal.previewButton.value}
-                          onClick={() => setPreviewDict(target)}
-                          className="max-w-full self-start overflow-hidden"
-                        >
-                          <span className="truncate">{dictLabel(target)}</span>
-                        </Button>
-                      </div>
+                    <Button
+                      variant="hoverable"
+                      color="text"
+                      size="icon-sm"
+                      Icon={() => (
+                        <ArrowRight
+                          className={cn(
+                            'size-4 text-text/60 transition-transform',
+                            state.swapped && 'rotate-180'
+                          )}
+                        />
+                      )}
+                      label={mergeDictionariesModal.swapButton.value}
+                      onClick={() => toggleSwapped(index)}
+                      className="shrink-0 justify-self-center"
+                    />
+
+                    <div className="flex min-w-0 flex-col gap-1">
+                      <span className="font-medium text-neutral text-xs uppercase tracking-wide">
+                        {mergeDictionariesModal.targetLabel(state.swapped)}
+                      </span>
+                      <Button
+                        variant="hoverable"
+                        color="text"
+                        size="sm"
+                        Icon={Eye}
+                        label={mergeDictionariesModal.previewButton.value}
+                        onClick={() => setPreviewDict(target)}
+                        className="max-w-full self-start overflow-hidden"
+                        title={dictLabel(target)}
+                      >
+                        <span className="truncate">{dictLabel(target)}</span>
+                      </Button>
                     </div>
 
                     <Button
@@ -197,7 +200,8 @@ export const MergeDictionariesModal: FC<MergeDictionariesModalProps> = ({
                       Icon={Eye}
                       label={mergeDictionariesModal.previewResultButton.value}
                       onClick={() => setPreviewDict(merged)}
-                      className="shrink-0"
+                      className="shrink-0 justify-self-end"
+                      title={dictLabel(merged)}
                     >
                       {mergeDictionariesModal.previewResultButton}
                     </Button>
@@ -207,7 +211,7 @@ export const MergeDictionariesModal: FC<MergeDictionariesModalProps> = ({
             })}
           </div>
 
-          <div className="flex justify-end gap-2 max-md:flex-col">
+          <div className="mt-4 flex justify-end gap-2 max-md:flex-col">
             <FormButton
               variant="outline"
               color="text"
