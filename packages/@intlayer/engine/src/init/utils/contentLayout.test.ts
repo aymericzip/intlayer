@@ -16,10 +16,10 @@ describe('getContentLayoutSetup', () => {
     });
   });
 
-  it('should map centralized json to a split syncJSON catalog', () => {
+  it('should map centralized json to a split icu syncJSON catalog', () => {
     expect(getContentLayoutSetup('centralized', 'json').syncConfig).toEqual({
       plugin: 'json',
-      format: 'i18next',
+      format: 'icu',
       sourceTemplate: './locales/${locale}.json',
       splitKeys: true,
     });
@@ -28,9 +28,15 @@ describe('getContentLayoutSetup', () => {
   it('should map namespaces po to a per-key syncPO catalog', () => {
     expect(getContentLayoutSetup('namespaces', 'po').syncConfig).toEqual({
       plugin: 'po',
-      format: 'i18next',
+      format: 'icu',
       sourceTemplate: './locales/${locale}/${key}.po',
     });
+  });
+
+  it('should write the chosen message format', () => {
+    expect(
+      getContentLayoutSetup('namespaces', 'json', 'intlayer').syncConfig?.format
+    ).toBe('intlayer');
   });
 
   it('should fall back to the layout default for an unsupported format', () => {

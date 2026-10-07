@@ -19,10 +19,11 @@ export type CompatSyncConfig = {
    */
   plugin?: 'json' | 'po';
   /**
-   * JSON format matching the compat library's conventions. Ignored when
-   * `plugin` is `'po'` (PO catalogs are always serialized as gettext).
+   * JSON message format matching the compat library's conventions (or
+   * `'intlayer'` for plain Intlayer catalogs). Ignored when `plugin` is `'po'`
+   * (PO catalogs are always serialized as gettext).
    */
-  format: 'icu' | 'i18next' | 'vue-i18n';
+  format: 'icu' | 'i18next' | 'vue-i18n' | 'intlayer';
   /**
    * Source path template using ${locale} and ${key} placeholders.
    * Rendered as a template literal in the generated config.

@@ -65,6 +65,7 @@ Al het andere (CI-workflows, AI-skills, MCP-server, editor-tools, lint-regels, C
   - `centralized` - één `/locales/{locale}.{json,po}`-catalogus per locale (voegt de `syncJSON` / `syncPO`-plugin toe).
   - `namespaces` - `/locales/{locale}/{namespace}.{json,po}`-catalogi (voegt de `syncJSON` / `syncPO`-plugin toe).
 - `--content-format <format>` - Optioneel, met `--content`. `ts` of `json` voor `multilingual` / `per-locale`, `json` of `po` voor `centralized` / `namespaces`. Standaard de eerste.
+- `--message-format <format>` - Optioneel, met `--content centralized` of `namespaces` in JSON. Berichtsyntaxis van de catalogi: `icu` (standaard), `i18next`, `vue-i18n` of `intlayer`.
 - `-i, --interactive` - Optioneel. Kies de stappen uit een checklist (pakketten, CI, skills, MCP, VS Code, LSP, lint, CMS, infrastructuur, …) in plaats van de standaardset. Vereist een terminal: zonder terminal (AI-agent, CI) faalt het commando en toont het de subcommando's die je in plaats daarvan kunt uitvoeren.
 - `--no-github-actions` - Optioneel. Met `--interactive` worden de GitHub Actions-workflows nooit aangemaakt, ook niet als ze geselecteerd zijn.
 

@@ -65,6 +65,7 @@ Vše ostatní (CI workflowy, AI skilly, MCP server, nástroje editoru, pravidla 
   - `centralized` - jeden katalog `/locales/{locale}.{json,po}` na lokalizaci (přidává plugin `syncJSON` / `syncPO`).
   - `namespaces` - katalogy `/locales/{locale}/{namespace}.{json,po}` (přidává plugin `syncJSON` / `syncPO`).
 - `--content-format <format>` - Volitelné, s `--content`. `ts` nebo `json` pro `multilingual` / `per-locale`, `json` nebo `po` pro `centralized` / `namespaces`. Výchozí je první z nich.
+- `--message-format <format>` - Volitelné, s `--content centralized` nebo `namespaces` v JSON. Syntaxe zpráv v katalozích: `icu` (výchozí), `i18next`, `vue-i18n` nebo `intlayer`.
 - `-i, --interactive` - Volitelné. Vyberte kroky z checklistu (balíčky, CI, skilly, MCP, VS Code, LSP, lint, CMS, infrastruktura, …) místo výchozí sady. Vyžaduje terminál: bez něj (AI agent, CI) příkaz selže a vypíše podpříkazy, které spustit místo něj.
 - `--no-github-actions` - Volitelné. S `--interactive` nikdy nevytvoří workflowy GitHub Actions, ani když jsou vybrány.
 

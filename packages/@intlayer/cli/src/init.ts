@@ -1,6 +1,8 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import {
+  CATALOG_MESSAGE_FORMATS,
+  type CatalogMessageFormat,
   CONTENT_FORMATS_BY_LAYOUT,
   type ContentFormat,
   type ContentLayout,
@@ -87,7 +89,7 @@ export const DEFAULT_INIT_STEPS: InitStep[] = ['packages', 'projectSetup'];
 export const INIT_STEP_COMMANDS: Record<InitStep, string> = {
   packages: 'intlayer init packages',
   projectSetup:
-    'intlayer init project [--routing <routing>] [--content <layout>] [--content-format <format>]',
+    'intlayer init project [--routing <routing>] [--content <layout>] [--content-format <format>] [--message-format <format>]',
   githubActions: 'intlayer init github-actions',
   vscodeExtension: 'intlayer init vscode-extension',
   eslint: 'intlayer init eslint',
@@ -351,6 +353,17 @@ const CONTENT_FORMAT_LABELS: Record<ContentFormat, string> = {
   po: 'Gettext (.po)',
 };
 
+/** Labels of the JSON catalog message formats, in display order. */
+const CATALOG_MESSAGE_FORMAT_OPTIONS: Record<
+  CatalogMessageFormat,
+  { label: string; hint: string }
+> = {
+  icu: { label: 'ICU', hint: '{count, plural, one {# item} other {# items}}' },
+  i18next: { label: 'i18next', hint: '{{count}} item, key_one / key_other' },
+  'vue-i18n': { label: 'vue-i18n', hint: '{count} item | {count} items' },
+  intlayer: { label: 'Intlayer', hint: 'Intlayer dictionary content' },
+};
+
 /** Content layouts accepted by `--content`. */
 export const CONTENT_LAYOUT_CHOICES = CONTENT_LAYOUT_OPTIONS.map(
   (option) => option.value
@@ -360,17 +373,31 @@ export const CONTENT_LAYOUT_CHOICES = CONTENT_LAYOUT_OPTIONS.map(
 export const parseContentLayoutChoice = (value: string): ContentLayout =>
   parseChoice(value, CONTENT_LAYOUT_CHOICES, '--content');
 
+/** Init options set by the content layout questions / flags. */
+type ContentInitOptions = Pick<
+  InitOptions,
+  'contentLayout' | 'contentFormat' | 'contentMessageFormat'
+>;
+
+/** Whether a layout + format pair produces a JSON catalog (sync plugin). */
+const isJsonCatalog = (layout: ContentLayout, format: ContentFormat): boolean =>
+  (layout === 'centralized' || layout === 'namespaces') && format === 'json';
+
 /**
- * Validates `--content` / `--content-format` and maps them to the init
- * options. The format must be one the layout accepts.
+ * Validates `--content` / `--content-format` / `--message-format` and maps
+ * them to the init options. The format must be one the layout accepts, and the
+ * message format only applies to JSON catalogs.
  */
 export const getContentInitOptions = (
   layoutValue?: string,
-  formatValue?: string
-): Pick<InitOptions, 'contentLayout' | 'contentFormat'> => {
+  formatValue?: string,
+  messageFormatValue?: string
+): ContentInitOptions => {
   if (!layoutValue) {
-    if (formatValue) {
-      throw new Error('--content-format requires --content.');
+    if (formatValue || messageFormatValue) {
+      throw new Error(
+        '--content-format and --message-format require --content.'
+      );
     }
     return {};
   }
@@ -384,7 +411,24 @@ export const getContentInitOptions = (
       )
     : undefined;
 
-  return { contentLayout, contentFormat };
+  if (!messageFormatValue) return { contentLayout, contentFormat };
+
+  // Catalog layouts default to JSON.
+  if (!isJsonCatalog(contentLayout, contentFormat ?? 'json')) {
+    throw new Error(
+      '--message-format only applies to JSON catalogs (--content centralized | namespaces with json).'
+    );
+  }
+
+  return {
+    contentLayout,
+    contentFormat,
+    contentMessageFormat: parseChoice(
+      messageFormatValue,
+      CATALOG_MESSAGE_FORMATS,
+      '--message-format'
+    ),
+  };
 };
 
 /** Known ESLint and oxlint configuration file names. */
@@ -535,7 +579,7 @@ const runInteractiveInit = async (
   // Content layout → `compiler.output` (+ `dictionary.locale`) for `.content`
   // files, or the syncJSON / syncPO plugin for catalogs. Skipped for compat
   // i18n libraries, which keep their own catalogs.
-  let contentOptions: Pick<InitOptions, 'contentLayout' | 'contentFormat'> = {};
+  let contentOptions: ContentInitOptions = {};
 
   if (
     steps.includes('projectSetup') &&
@@ -574,6 +618,25 @@ const runInteractiveInit = async (
     }
 
     contentOptions = { contentLayout, contentFormat };
+
+    // JSON catalogs carry a message syntax (plurals, interpolation…).
+    if (isJsonCatalog(contentLayout, contentFormat)) {
+      const contentMessageFormat = await p.select<CatalogMessageFormat>({
+        message: 'Which message format do your JSON catalogs use?',
+        options: CATALOG_MESSAGE_FORMATS.map((messageFormat) => ({
+          value: messageFormat,
+          ...CATALOG_MESSAGE_FORMAT_OPTIONS[messageFormat],
+        })),
+        initialValue: CATALOG_MESSAGE_FORMATS[0],
+      });
+
+      if (p.isCancel(contentMessageFormat)) {
+        p.cancel('Operation cancelled.');
+        return;
+      }
+
+      contentOptions = { ...contentOptions, contentMessageFormat };
+    }
   }
 
   const options: InitOptions = {

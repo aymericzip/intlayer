@@ -68,6 +68,7 @@ bun x intlayer init
   - `centralized` - كتالوج `/locales/{locale}.{json,po}` واحد لكل لغة (يضيف إضافة `syncJSON` / `syncPO`).
   - `namespaces` - كتالوجات `/locales/{locale}/{namespace}.{json,po}` (يضيف إضافة `syncJSON` / `syncPO`).
 - `--content-format <format>` - اختياري، مع `--content`. `ts` أو `json` لـ `multilingual` / `per-locale`، و`json` أو `po` لـ `centralized` / `namespaces`. الإعداد الافتراضي هو الأول.
+- `--message-format <format>` - اختياري، مع `--content centralized` أو `namespaces` بتنسيق JSON. صيغة رسائل الكتالوجات: `icu` (افتراضي)، `i18next`، `vue-i18n` أو `intlayer`.
 - `-i, --interactive` - اختياري. اختر خطوات الإعداد من قائمة (الحزم، CI، المهارات، MCP، VS Code، LSP، lint، CMS، البنية التحتية، …) بدلًا من المجموعة الافتراضية. يتطلب طرفية: بدونها (وكيل ذكاء اصطناعي، CI) يفشل الأمر ويعرض الأوامر الفرعية التي يجب تشغيلها بدلًا منه.
 - `--no-github-actions` - اختياري. مع `--interactive`، لا يُنشئ أبدًا مسارات عمل GitHub Actions، حتى لو كانت محددة.
 

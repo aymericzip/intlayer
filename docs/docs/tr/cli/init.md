@@ -68,6 +68,7 @@ Geri kalan her şey (CI iş akışları, AI skill'leri, MCP sunucusu, editör ar
   - `centralized` - yerel ayar başına bir `/locales/{locale}.{json,po}` kataloğu (`syncJSON` / `syncPO` eklentisini ekler).
   - `namespaces` - `/locales/{locale}/{namespace}.{json,po}` katalogları (`syncJSON` / `syncPO` eklentisini ekler).
 - `--content-format <format>` - İsteğe bağlı, `--content` ile birlikte. `multilingual` / `per-locale` için `ts` veya `json`, `centralized` / `namespaces` için `json` veya `po`. Varsayılan ilki.
+- `--message-format <format>` - İsteğe bağlı, JSON formatında `--content centralized` veya `namespaces` ile birlikte. Katalogların ileti sözdizimi: `icu` (varsayılan), `i18next`, `vue-i18n` veya `intlayer`.
 - `-i, --interactive` - İsteğe bağlı. Varsayılan set yerine kurulum adımlarını bir kontrol listesinden seçin (paketler, CI, skill'ler, MCP, VS Code, LSP, lint, CMS, altyapı, …). Terminal gerektirir: terminal yoksa (AI ajanı, CI) komut başarısız olur ve bunun yerine çalıştırılacak alt komutları listeler.
 - `--no-github-actions` - İsteğe bağlı. `--interactive` ile, seçili olsalar bile GitHub Actions iş akışlarını asla oluşturmaz.
 

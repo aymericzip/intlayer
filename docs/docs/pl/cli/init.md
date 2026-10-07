@@ -68,6 +68,7 @@ Wszystko inne (workflowy CI, skille AI, serwer MCP, narzędzia edytora, reguły 
   - `centralized` - jeden katalog `/locales/{locale}.{json,po}` na lokalizację (dodaje plugin `syncJSON` / `syncPO`).
   - `namespaces` - katalogi `/locales/{locale}/{namespace}.{json,po}` (dodaje plugin `syncJSON` / `syncPO`).
 - `--content-format <format>` - Opcjonalne, z `--content`. `ts` lub `json` dla `multilingual` / `per-locale`, `json` lub `po` dla `centralized` / `namespaces`. Domyślnie pierwszy z nich.
+- `--message-format <format>` - Opcjonalne, z `--content centralized` lub `namespaces` w JSON. Składnia komunikatów w katalogach: `icu` (domyślnie), `i18next`, `vue-i18n` lub `intlayer`.
 - `-i, --interactive` - Opcjonalne. Wybierz kroki z listy (pakiety, CI, skille, MCP, VS Code, LSP, lint, CMS, infrastruktura, …) zamiast domyślnego zestawu. Wymaga terminala: bez niego (agent AI, CI) polecenie kończy się błędem i wypisuje polecenia do uruchomienia zamiast niego.
 - `--no-github-actions` - Opcjonalne. Z `--interactive` nigdy nie tworzy workflowów GitHub Actions, nawet jeśli są zaznaczone.
 

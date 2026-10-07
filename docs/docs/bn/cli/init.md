@@ -65,6 +65,7 @@ bun x intlayer init
   - `centralized` - প্রতিটি লোকেলে একটি `/locales/{locale}.{json,po}` ক্যাটালগ (`syncJSON` / `syncPO` প্লাগইন যোগ করে)।
   - `namespaces` - `/locales/{locale}/{namespace}.{json,po}` ক্যাটালগ (`syncJSON` / `syncPO` প্লাগইন যোগ করে)।
 - `--content-format <format>` - ঐচ্ছিক, `--content` এর সাথে। `multilingual` / `per-locale` এর জন্য `ts` বা `json`, `centralized` / `namespaces` এর জন্য `json` বা `po`। প্রথমটি ডিফল্ট।
+- `--message-format <format>` - ঐচ্ছিক, JSON-এ `--content centralized` বা `namespaces` এর সাথে। ক্যাটালগের বার্তা সিনট্যাক্স: `icu` (ডিফল্ট), `i18next`, `vue-i18n` বা `intlayer`।
 - `-i, --interactive` - ঐচ্ছিক। ডিফল্ট সেটের বদলে একটি চেকলিস্ট (প্যাকেজ, CI, স্কিল, MCP, VS Code, LSP, lint, CMS, ইনফ্রাস্ট্রাকচার, …) থেকে সেটআপের ধাপ বেছে নিন। টার্মিনাল প্রয়োজন: টার্মিনাল না থাকলে (AI এজেন্ট, CI) কমান্ডটি ব্যর্থ হয় এবং এর বদলে চালানোর সাব-কমান্ডগুলোর তালিকা দেখায়।
 - `--no-github-actions` - ঐচ্ছিক। `--interactive` এর সাথে, নির্বাচিত থাকলেও GitHub Actions ওয়ার্কফ্লো কখনো তৈরি করে না।
 

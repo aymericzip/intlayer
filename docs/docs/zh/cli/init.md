@@ -68,6 +68,7 @@ bun x intlayer init
   - `centralized` - 每种语言一个 `/locales/{locale}.{json,po}` 目录（添加 `syncJSON` / `syncPO` 插件）。
   - `namespaces` - `/locales/{locale}/{namespace}.{json,po}` 目录（添加 `syncJSON` / `syncPO` 插件）。
 - `--content-format <format>` - 可选，与 `--content` 配合使用。`multilingual` / `per-locale` 使用 `ts` 或 `json`，`centralized` / `namespaces` 使用 `json` 或 `po`。默认为第一个。
+- `--message-format <format>` - 可选，与 JSON 格式的 `--content centralized` 或 `namespaces` 配合使用。目录的消息语法：`icu`（默认）、`i18next`、`vue-i18n` 或 `intlayer`。
 - `-i, --interactive` - 可选。从清单（依赖包、CI、技能、MCP、VS Code、LSP、lint、CMS、基础设施等）中选择配置步骤，而不是运行默认集合。需要终端：没有终端时（AI 代理、CI），命令会失败并列出应改为运行的子命令。
 - `--no-github-actions` - 可选。与 `--interactive` 一起使用时，即使已勾选也不会生成 GitHub Actions 工作流。
 

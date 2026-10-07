@@ -70,6 +70,25 @@ describe('getContentInitOptions', () => {
     );
   });
 
+  it('maps a message format for json catalogs', () => {
+    expect(getContentInitOptions('centralized', undefined, 'Vue-i18n')).toEqual(
+      {
+        contentLayout: 'centralized',
+        contentFormat: undefined,
+        contentMessageFormat: 'vue-i18n',
+      }
+    );
+  });
+
+  it('rejects a message format outside json catalogs', () => {
+    expect(() => getContentInitOptions('namespaces', 'po', 'icu')).toThrow(
+      '--message-format'
+    );
+    expect(() => getContentInitOptions('multilingual', 'json', 'icu')).toThrow(
+      '--message-format'
+    );
+  });
+
   it('rejects --content-format without --content', () => {
     expect(() => getContentInitOptions(undefined, 'json')).toThrow('--content');
   });

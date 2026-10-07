@@ -63,6 +63,7 @@ import {
   writeFileToRoot,
 } from './utils';
 import {
+  type CatalogMessageFormat,
   type ContentFormat,
   type ContentLayout,
   getContentLayoutSetup,
@@ -152,6 +153,11 @@ export type InitOptions = {
    * format the layout does not accept falls back to the layout default.
    */
   contentFormat?: ContentFormat;
+  /**
+   * Message syntax of JSON catalogs (centralized / namespaces layouts), written
+   * to the syncJSON `format` option. Defaults to `icu`.
+   */
+  contentMessageFormat?: CatalogMessageFormat;
 };
 
 /**
@@ -263,7 +269,11 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
   // libraries. A detected compat library keeps precedence — its own catalog
   // format/template is authoritative.
   const contentLayoutSetup = options?.contentLayout
-    ? getContentLayoutSetup(options.contentLayout, options.contentFormat)
+    ? getContentLayoutSetup(
+        options.contentLayout,
+        options.contentFormat,
+        options.contentMessageFormat
+      )
     : undefined;
   const layoutSyncConfig = compatSyncConfig
     ? undefined

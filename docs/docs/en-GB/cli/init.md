@@ -68,6 +68,7 @@ Everything else (CI workflows, AI skills, MCP server, editor tooling, lint rules
   - `centralized` - one `/locales/{locale}.{json,po}` catalog per locale (adds the `syncJSON` / `syncPO` plugin).
   - `namespaces` - `/locales/{locale}/{namespace}.{json,po}` catalogs (adds the `syncJSON` / `syncPO` plugin).
 - `--content-format <format>` - Optional, with `--content`. `ts` or `json` for `multilingual` / `per-locale`, `json` or `po` for `centralized` / `namespaces`. Defaults to the first one.
+- `--message-format <format>` - Optional, with `--content centralized` or `namespaces` in JSON. Message syntax of the catalogs: `icu` (default), `i18next`, `vue-i18n` or `intlayer`.
 - `-i, --interactive` - Optional. Pick the setup steps from a checklist (packages, CI, skills, MCP, VS Code, LSP, lint, CMS, infrastructure, …) instead of running the default set. Needs a terminal: without one (AI agent, CI), the command fails and lists the sub-commands to run instead.
 - `--no-github-actions` - Optional. With `--interactive`, never scaffold the GitHub Actions workflows, even if selected.
 

@@ -347,6 +347,10 @@ export const setAPI = (): Command => {
       '--content-format <format>',
       'Content format, used with --content: ts | json (multilingual, per-locale), json | po (centralized, namespaces)'
     )
+    .option(
+      '--message-format <format>',
+      'Message format of JSON catalogs, used with --content centralized | namespaces: icu | i18next | vue-i18n | intlayer'
+    )
     .action(async (options) => {
       const {
         init,
@@ -364,7 +368,11 @@ export const setAPI = (): Command => {
           ...(options.routing
             ? getRoutingInitOptions(parseLocaleRoutingChoice(options.routing))
             : {}),
-          ...getContentInitOptions(options.content, options.contentFormat),
+          ...getContentInitOptions(
+            options.content,
+            options.contentFormat,
+            options.messageFormat
+          ),
         },
         options.interactive === true
       );
@@ -403,6 +411,10 @@ export const setAPI = (): Command => {
       '--content-format <format>',
       'Content format, used with --content: ts | json (multilingual, per-locale), json | po (centralized, namespaces)'
     )
+    .option(
+      '--message-format <format>',
+      'Message format of JSON catalogs, used with --content centralized | namespaces: icu | i18next | vue-i18n | intlayer'
+    )
     .action(async (options) => {
       const {
         initSteps,
@@ -415,7 +427,11 @@ export const setAPI = (): Command => {
         ...(options.routing
           ? getRoutingInitOptions(parseLocaleRoutingChoice(options.routing))
           : {}),
-        ...getContentInitOptions(options.content, options.contentFormat),
+        ...getContentInitOptions(
+          options.content,
+          options.contentFormat,
+          options.messageFormat
+        ),
       });
     });
 

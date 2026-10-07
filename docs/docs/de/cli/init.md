@@ -65,6 +65,7 @@ Alles andere (CI-Workflows, KI-Skills, MCP-Server, Editor-Tools, Lint-Regeln, CM
   - `centralized` - ein `/locales/{locale}.{json,po}`-Katalog pro Locale (fügt das `syncJSON` / `syncPO`-Plugin hinzu).
   - `namespaces` - `/locales/{locale}/{namespace}.{json,po}`-Kataloge (fügt das `syncJSON` / `syncPO`-Plugin hinzu).
 - `--content-format <format>` - Optional, mit `--content`. `ts` oder `json` für `multilingual` / `per-locale`, `json` oder `po` für `centralized` / `namespaces`. Standardmäßig das erste.
+- `--message-format <format>` - Optional, mit `--content centralized` oder `namespaces` in JSON. Nachrichtensyntax der Kataloge: `icu` (Standard), `i18next`, `vue-i18n` oder `intlayer`.
 - `-i, --interactive` - Optional. Wählen Sie die Einrichtungsschritte aus einer Checkliste (Pakete, CI, Skills, MCP, VS Code, LSP, Lint, CMS, Infrastruktur, …) statt der Standardauswahl. Benötigt ein Terminal: Ohne Terminal (KI-Agent, CI) schlägt der Befehl fehl und listet stattdessen die auszuführenden Unterbefehle auf.
 - `--no-github-actions` - Optional. Mit `--interactive` werden die GitHub-Actions-Workflows nie erstellt, auch wenn sie ausgewählt sind.
 

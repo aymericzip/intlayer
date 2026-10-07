@@ -68,6 +68,7 @@ Mọi thứ khác (workflow CI, skill AI, máy chủ MCP, công cụ editor, quy
   - `centralized` - một catalog `/locales/{locale}.{json,po}` cho mỗi locale (thêm plugin `syncJSON` / `syncPO`).
   - `namespaces` - các catalog `/locales/{locale}/{namespace}.{json,po}` (thêm plugin `syncJSON` / `syncPO`).
 - `--content-format <format>` - Tùy chọn, đi kèm với `--content`. `ts` hoặc `json` cho `multilingual` / `per-locale`, `json` hoặc `po` cho `centralized` / `namespaces`. Mặc định là lựa chọn đầu tiên.
+- `--message-format <format>` - Tùy chọn, đi kèm với `--content centralized` hoặc `namespaces` ở định dạng JSON. Cú pháp thông điệp của catalog: `icu` (mặc định), `i18next`, `vue-i18n` hoặc `intlayer`.
 - `-i, --interactive` - Tùy chọn. Chọn các bước thiết lập từ một checklist (gói, CI, skill, MCP, VS Code, LSP, lint, CMS, hạ tầng, …) thay vì bộ mặc định. Cần có terminal: nếu không có (agent AI, CI), lệnh sẽ thất bại và liệt kê các lệnh con cần chạy thay thế.
 - `--no-github-actions` - Tùy chọn. Với `--interactive`, không bao giờ tạo các workflow GitHub Actions, kể cả khi chúng được chọn.
 

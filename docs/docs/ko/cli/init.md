@@ -68,6 +68,7 @@ bun x intlayer init
   - `centralized` - 로케일당 하나의 `/locales/{locale}.{json,po}` 카탈로그(`syncJSON` / `syncPO` 플러그인 추가).
   - `namespaces` - `/locales/{locale}/{namespace}.{json,po}` 카탈로그(`syncJSON` / `syncPO` 플러그인 추가).
 - `--content-format <format>` - 선택 사항. `--content`와 함께 사용. `multilingual` / `per-locale`의 경우 `ts` 또는 `json`, `centralized` / `namespaces`의 경우 `json` 또는 `po`. 기본값은 첫 번째.
+- `--message-format <format>` - 선택 사항. JSON 형식의 `--content centralized` 또는 `namespaces`와 함께 사용. 카탈로그의 메시지 구문: `icu`(기본값), `i18next`, `vue-i18n` 또는 `intlayer`.
 - `-i, --interactive` - 선택 사항. 기본 세트 대신 체크리스트(패키지, CI, 스킬, MCP, VS Code, LSP, 린트, CMS, 인프라, …)에서 설정 단계를 고릅니다. 터미널이 필요합니다. 터미널이 없으면(AI 에이전트, CI) 명령이 실패하고 대신 실행할 하위 명령 목록을 보여 줍니다.
 - `--no-github-actions` - 선택 사항. `--interactive`와 함께 쓰면 선택되어 있어도 GitHub Actions 워크플로를 만들지 않습니다.
 

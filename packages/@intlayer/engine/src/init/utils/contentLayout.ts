@@ -20,6 +20,20 @@ export type ContentLayout =
 /** File format of the content declarations / catalogs. */
 export type ContentFormat = 'ts' | 'json' | 'po';
 
+/**
+ * Message syntax of a JSON catalog (plurals, interpolation…), written to the
+ * syncJSON `format` option. Ordered as offered, the first one being the default.
+ */
+export const CATALOG_MESSAGE_FORMATS = [
+  'icu',
+  'i18next',
+  'vue-i18n',
+  'intlayer',
+] as const;
+
+/** Message syntax of a JSON catalog. */
+export type CatalogMessageFormat = (typeof CATALOG_MESSAGE_FORMATS)[number];
+
 /** Formats accepted by each content layout, the first one being the default. */
 export const CONTENT_FORMATS_BY_LAYOUT: Record<
   ContentLayout,
@@ -43,11 +57,13 @@ export type ContentLayoutSetup = {
 
 /**
  * Resolves the configuration changes for a content layout and format. A format
- * the layout does not accept falls back to the layout default.
+ * the layout does not accept falls back to the layout default. The message
+ * format only applies to JSON catalogs (centralized / namespaces).
  */
 export const getContentLayoutSetup = (
   layout: ContentLayout,
-  format?: ContentFormat
+  format?: ContentFormat,
+  messageFormat: CatalogMessageFormat = CATALOG_MESSAGE_FORMATS[0]
 ): ContentLayoutSetup => {
   const acceptedFormats = CONTENT_FORMATS_BY_LAYOUT[layout];
   const resolvedFormat =
@@ -69,7 +85,7 @@ export const getContentLayoutSetup = (
         isPerLocale: false,
         syncConfig: {
           plugin: resolvedFormat === 'po' ? 'po' : 'json',
-          format: 'i18next',
+          format: messageFormat,
           sourceTemplate: `./locales/\${locale}.${resolvedFormat}`,
           // One file per locale whose first-level keys are namespaces.
           splitKeys: resolvedFormat !== 'po',
@@ -80,7 +96,7 @@ export const getContentLayoutSetup = (
         isPerLocale: false,
         syncConfig: {
           plugin: resolvedFormat === 'po' ? 'po' : 'json',
-          format: 'i18next',
+          format: messageFormat,
           sourceTemplate: `./locales/\${locale}/\${key}.${resolvedFormat}`,
         },
       };

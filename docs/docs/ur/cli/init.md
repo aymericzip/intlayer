@@ -65,6 +65,7 @@ bun x intlayer init
   - `centralized` - فی لوکیل ایک `/locales/{locale}.{json,po}` کیٹلاگ (`syncJSON` / `syncPO` پلگ ان شامل کرتا ہے)۔
   - `namespaces` - `/locales/{locale}/{namespace}.{json,po}` کیٹلاگز (`syncJSON` / `syncPO` پلگ ان شامل کرتا ہے)۔
 - `--content-format <format>` - اختیاری، `--content` کے ساتھ۔ `multilingual` / `per-locale` کے لیے `ts` یا `json`، `centralized` / `namespaces` کے لیے `json` یا `po`۔ پہلے والا ڈیفالٹ ہے۔
+- `--message-format <format>` - اختیاری، JSON میں `--content centralized` یا `namespaces` کے ساتھ۔ کیٹلاگز کا میسج سنٹیکس: `icu` (ڈیفالٹ)، `i18next`، `vue-i18n` یا `intlayer`۔
 - `-i, --interactive` - اختیاری۔ ڈیفالٹ سیٹ کے بجائے ایک چیک لسٹ (پیکجز، CI، اسکلز، MCP، VS Code، LSP، lint، CMS، انفراسٹرکچر، …) سے سیٹ اپ کے مراحل منتخب کریں۔ ٹرمینل ضروری ہے: ٹرمینل نہ ہو (AI ایجنٹ، CI) تو کمانڈ ناکام ہو جاتی ہے اور اس کی جگہ چلانے کے لیے سب کمانڈز کی فہرست دکھاتی ہے۔
 - `--no-github-actions` - اختیاری۔ `--interactive` کے ساتھ، منتخب ہونے پر بھی GitHub Actions ورک فلوز کبھی نہیں بناتا۔
 

@@ -68,6 +68,7 @@ Selebihnya (workflow CI, skill AI, server MCP, alat editor, aturan lint, CMS, in
   - `centralized` - satu katalog `/locales/{locale}.{json,po}` per locale (menambahkan plugin `syncJSON` / `syncPO`).
   - `namespaces` - katalog `/locales/{locale}/{namespace}.{json,po}` (menambahkan plugin `syncJSON` / `syncPO`).
 - `--content-format <format>` - Opsional, dengan `--content`. `ts` atau `json` untuk `multilingual` / `per-locale`, `json` atau `po` untuk `centralized` / `namespaces`. Default ke yang pertama.
+- `--message-format <format>` - Opsional, dengan `--content centralized` atau `namespaces` dalam JSON. Sintaks pesan dari katalog: `icu` (default), `i18next`, `vue-i18n`, atau `intlayer`.
 - `-i, --interactive` - Opsional. Pilih langkah penyiapan dari checklist (paket, CI, skill, MCP, VS Code, LSP, lint, CMS, infrastruktur, …) alih-alih set default. Membutuhkan terminal: tanpa terminal (agen AI, CI), perintah gagal dan menampilkan sub-perintah yang harus dijalankan sebagai gantinya.
 - `--no-github-actions` - Opsional. Dengan `--interactive`, tidak pernah membuat workflow GitHub Actions, meskipun dipilih.
 
