@@ -12,7 +12,7 @@ import { useIntlayerContext } from '../client';
 export const useEditor = () => {
   if (process.env.INTLAYER_EDITOR_ENABLED === 'false' || !isEnabled) return;
 
-  const { locale } = useIntlayerContext();
+  const { locale, setLocale } = useIntlayerContext();
   const [manager, setManager] = createSignal<EditorStateManager | null>(null);
 
   onMount(() => {
@@ -23,6 +23,17 @@ export const useEditor = () => {
         setManager(managerInstance);
       })
       .catch(() => {});
+  });
+
+  createEffect(() => {
+    const managerInstance = manager();
+
+    if (!managerInstance) return;
+
+    const unsubscribeLocaleRequest =
+      managerInstance.onLocaleChangeRequested(setLocale);
+
+    onCleanup(unsubscribeLocaleRequest);
   });
 
   createEffect(() => {

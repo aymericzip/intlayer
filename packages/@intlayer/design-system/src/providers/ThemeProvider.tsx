@@ -146,12 +146,18 @@ export type ThemeProviderProps = {
    * Defaults to `true`.
    */
   hasBootstrapScript?: boolean;
+  /**
+   * Theme imposed by the host (e.g. the IDE embedding the page). Overrides the
+   * preference without persisting it.
+   */
+  forcedTheme?: ResolvedTheme;
 };
 
 const Theme: FC<PropsWithChildren<ThemeProviderProps>> = ({
   storageKey = 'theme',
   nonce,
   hasBootstrapScript = true,
+  forcedTheme,
   children,
 }) => {
   // Both the server render and the first client one start from `system`, so
@@ -161,7 +167,8 @@ const Theme: FC<PropsWithChildren<ThemeProviderProps>> = ({
     undefined
   );
 
-  const resolvedTheme = theme === 'system' ? systemTheme : theme;
+  const resolvedTheme =
+    forcedTheme ?? (theme === 'system' ? systemTheme : theme);
 
   // Read the browser state back before the first paint, then keep following
   // the OS preference and the other tabs.

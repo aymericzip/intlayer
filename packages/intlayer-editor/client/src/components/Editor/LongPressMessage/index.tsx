@@ -38,7 +38,7 @@ export const LongPressMessage: FunctionComponent = () => {
       )}
     >
       {/* Single text block so the message wraps as prose, not flex columns */}
-      <p className="leading-6">
+      <p className="text-sm text-text/50 leading-6">
         {hoveredContent?.dictionaryKey
           ? message({
               longPress: <GestureChip>{longPress}</GestureChip>,

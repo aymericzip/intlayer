@@ -1,7 +1,7 @@
 import { type Dictionary, t } from 'intlayer';
 
 const localeSwitcherContent = {
-  key: 'locale-switcher',
+  key: 'locale-switcher-drop-down',
   content: {
     localeSwitcherLabel: t({
       en: 'Language switcher',

@@ -10,7 +10,7 @@ const TRUSTED_HOST_PROTOCOLS = ['vscode-webview:'];
  * `ancestorOrigins` is read rather than `document.referrer`, which the
  * embedding webview may strip.
  */
-const getTrustedHostOrigin = (): string | null => {
+export const getTrustedHostOrigin = (): string | null => {
   if (typeof window === 'undefined' || window.parent === window) return null;
 
   const hostOrigin = window.location.ancestorOrigins?.[0];

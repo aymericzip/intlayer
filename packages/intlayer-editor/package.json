@@ -108,6 +108,7 @@
   },
   "devDependencies": {
     "@intlayer/backend-contract": "workspace:*",
+    "@intlayer/core": "workspace:*",
     "@intlayer/design-system": "workspace:*",
     "@intlayer/editor-react": "workspace:*",
     "@intlayer/types": "workspace:*",

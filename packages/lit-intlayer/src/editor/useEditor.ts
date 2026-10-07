@@ -3,6 +3,33 @@ import { isEnabled } from '@intlayer/editor/isEnabled';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { ReactiveController, ReactiveControllerHost } from 'lit';
 import { getIntlayerClient } from '../client/installIntlayer';
+import { setLocaleInStorage } from '../client/useLocaleStorage';
+
+/**
+ * Syncs the client locale into the editor manager and applies the locales
+ * requested by the editor. Returns a function stopping both subscriptions.
+ */
+const syncEditorLocale = (manager: EditorStateManager): (() => void) => {
+  const client = getIntlayerClient();
+
+  manager.currentLocale.set(client.locale as Locale);
+
+  const unsubscribeLocale = client.subscribe((newLocale) => {
+    manager.currentLocale.set(newLocale as Locale);
+  });
+
+  const unsubscribeLocaleRequest = manager.onLocaleChangeRequested(
+    (requestedLocale) => {
+      client.setLocale(requestedLocale);
+      setLocaleInStorage(requestedLocale, client.isCookieEnabled);
+    }
+  );
+
+  return () => {
+    unsubscribeLocale();
+    unsubscribeLocaleRequest();
+  };
+};
 
 /**
  * ReactiveController that initialises the Intlayer visual editor when enabled.
@@ -28,14 +55,7 @@ class EditorController implements ReactiveController {
     import('@intlayer/editor')
       .then(({ initEditorClient }) => {
         if (this._stopped) return;
-        const manager: EditorStateManager = initEditorClient();
-        const client = getIntlayerClient();
-
-        manager.currentLocale.set(client.locale as Locale);
-
-        this._unsubscribeLocale = client.subscribe((newLocale) => {
-          manager.currentLocale.set(newLocale as Locale);
-        });
+        this._unsubscribeLocale = syncEditorLocale(initEditorClient());
       })
       .catch(() => {});
   }
@@ -98,14 +118,7 @@ export function useEditor(host?: ReactiveControllerHost): void | (() => void) {
     import('@intlayer/editor')
       .then(({ initEditorClient }) => {
         if (stopped) return;
-        const manager: EditorStateManager = initEditorClient();
-        const client = getIntlayerClient();
-
-        manager.currentLocale.set(client.locale as Locale);
-
-        unsubscribeLocale = client.subscribe((newLocale) => {
-          manager.currentLocale.set(newLocale as Locale);
-        });
+        unsubscribeLocale = syncEditorLocale(initEditorClient());
       })
       .catch(() => {});
 

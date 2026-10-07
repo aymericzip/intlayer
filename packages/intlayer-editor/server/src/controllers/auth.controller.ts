@@ -2,6 +2,7 @@ import { getConfiguration } from '@intlayer/config/node';
 import {
   type EditorAuth,
   isEditorLoginPending,
+  logoutEditor,
   resolveEditorAuth,
   startEditorLogin,
 } from '@services/editorAuth.service';
@@ -17,6 +18,8 @@ export type GetEditorAuthResultData = {
 export type GetEditorAuthResult = ResponseData<GetEditorAuthResultData>;
 
 export type StartEditorLoginResult = ResponseData<{ isLoginPending: boolean }>;
+
+export type LogoutEditorResult = ResponseData<GetEditorAuthResultData>;
 
 const envFileOptions = {
   env: process.env.NODE_ENV,
@@ -98,6 +101,27 @@ export const startLogin = async (
     formatResponse<{ isLoginPending: boolean }>({
       data: { isLoginPending: true },
       status: HttpStatusCodes.ACCEPTED_202,
+    })
+  );
+};
+
+/**
+ * Signs the editor out of its `intlayer login` session, then returns the
+ * identity left: the configured access key, if any.
+ */
+export const logout = async (
+  _request: FastifyRequest,
+  reply: FastifyReply
+): Promise<void> => {
+  const configuration = getConfiguration(envFileOptions);
+
+  await logoutEditor(configuration);
+
+  const auth = await resolveEditorAuth(configuration);
+
+  return reply.send(
+    formatResponse<GetEditorAuthResultData>({
+      data: { auth, isLoginPending: isEditorLoginPending() },
     })
   );
 };

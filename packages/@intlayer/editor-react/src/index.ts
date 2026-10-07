@@ -11,3 +11,4 @@ export * from './useCrossURLPathState';
 export * from './useEditedContentPersistence';
 export * from './useEditorLocale';
 export * from './useFocusUnmergedDictionary';
+export * from './useFrameConnectionStatus';

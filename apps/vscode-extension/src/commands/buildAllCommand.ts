@@ -1,5 +1,6 @@
 import { basename } from 'node:path';
 import { getConfiguration } from '@intlayer/config/node';
+import { extractErrorMessage } from '@intlayer/config/utils';
 import { prepareIntlayer } from '@intlayer/engine/build';
 import { window } from 'vscode';
 import {
@@ -48,7 +49,7 @@ export const buildProjectDictionaries = async (
     return true;
   } catch (error) {
     await window.showErrorMessage(
-      `${prefix}Build failed: ${(error as Error).message}`
+      `${prefix}Build failed: ${extractErrorMessage(error)}`
     );
 
     return false;

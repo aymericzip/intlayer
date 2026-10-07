@@ -1,5 +1,6 @@
 import { push } from '@intlayer/cli';
 import { getConfiguration } from '@intlayer/config/node';
+import { extractErrorMessage } from '@intlayer/config/utils';
 import { loadContentDeclarations } from '@intlayer/engine/build';
 import { window } from 'vscode';
 import {
@@ -51,7 +52,7 @@ export const pushCommand = async (source?: CommandSource) => {
     );
   } catch (error) {
     await window.showErrorMessage(
-      `${prefix}Push failed: ${(error as Error).message}`
+      `${prefix}Push failed: ${extractErrorMessage(error)}`
     );
   }
 };

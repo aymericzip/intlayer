@@ -1,6 +1,7 @@
 import { checkCMSAuth, getAuthenticatedAPI, pull } from '@intlayer/cli';
 import { FILE_EXTENSIONS } from '@intlayer/config/defaultValues';
 import { getConfiguration } from '@intlayer/config/node';
+import { extractErrorMessage } from '@intlayer/config/utils';
 import type { Dictionary } from '@intlayer/types';
 import { window } from 'vscode';
 import {
@@ -79,7 +80,7 @@ export const pullCommand = async (source?: CommandSource) => {
     );
   } catch (error) {
     await window.showErrorMessage(
-      `${prefix}Pull failed: ${(error as Error).message}`
+      `${prefix}Pull failed: ${extractErrorMessage(error)}`
     );
   }
 };

@@ -1,6 +1,7 @@
 import {
   assertSameOrigin,
   getEditorAuth,
+  logout,
   startLogin,
 } from '@controllers/auth.controller';
 import { getConfiguration } from '@intlayer/config/node';
@@ -23,6 +24,11 @@ export const getAuthRoutes = () =>
       url: `${getBaseURL()}/login`,
       method: 'POST',
     },
+    logout: {
+      urlModel: '/logout',
+      url: `${getBaseURL()}/logout`,
+      method: 'POST',
+    },
   }) satisfies Routes;
 
 export const authRouter = async (fastify: FastifyInstance) => {
@@ -30,4 +36,5 @@ export const authRouter = async (fastify: FastifyInstance) => {
 
   fastify.get(getAuthRoutes().getEditorAuth.urlModel, getEditorAuth);
   fastify.post(getAuthRoutes().startLogin.urlModel, startLogin);
+  fastify.post(getAuthRoutes().logout.urlModel, logout);
 };

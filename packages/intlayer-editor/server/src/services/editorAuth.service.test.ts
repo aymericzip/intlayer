@@ -4,6 +4,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 const mocks = vi.hoisted(() => ({
   readCliSessionToken: vi.fn(),
+  clearCliSessionToken: vi.fn(),
   login: vi.fn(),
   getCliSessionMe: vi.fn(),
   getOAuth2AccessToken: vi.fn(),
@@ -11,6 +12,7 @@ const mocks = vi.hoisted(() => ({
 
 vi.mock('@intlayer/cli', () => ({
   readCliSessionToken: mocks.readCliSessionToken,
+  clearCliSessionToken: mocks.clearCliSessionToken,
   login: mocks.login,
 }));
 
@@ -27,6 +29,8 @@ const createConfiguration = (
   ({ editor, log: { mode: 'silent' } }) as unknown as IntlayerConfig;
 
 const project = { id: 'project-id' };
+const user = { id: 'user-id', name: 'Ada', email: 'ada@example.com' };
+const organization = { id: 'organization-id' };
 
 /** Fresh module per test: the service keeps its caches at module level. */
 const importService = async () => {
@@ -45,7 +49,9 @@ describe('resolveEditorAuth', () => {
       token: 'clisession_token',
       expiresAt: '2100-01-01T00:00:00.000Z',
     });
-    mocks.getCliSessionMe.mockResolvedValue({ data: { project } });
+    mocks.getCliSessionMe.mockResolvedValue({
+      data: { project, user, organization },
+    });
 
     const auth = await resolveEditorAuth(
       createConfiguration({ clientId: 'id', clientSecret: 'secret' })
@@ -55,6 +61,8 @@ describe('resolveEditorAuth', () => {
       accessToken: 'clisession_token',
       expiresAt: '2100-01-01T00:00:00.000Z',
       authType: 'session',
+      user,
+      organization,
       project,
     });
     expect(mocks.getOAuth2AccessToken).not.toHaveBeenCalled();
@@ -149,5 +157,60 @@ describe('startEditorLogin', () => {
 
     const auth = await resolveEditorAuth(createConfiguration());
     expect(auth?.accessToken).toBe('picked-token');
+  });
+});
+
+describe('logoutEditor', () => {
+  beforeEach(() => {
+    mocks.readCliSessionToken.mockResolvedValue(null);
+  });
+
+  it('clears the `intlayer login` session shared with the CLI', async () => {
+    const { logoutEditor } = await importService();
+    const configuration = createConfiguration();
+
+    await logoutEditor(configuration);
+
+    expect(mocks.clearCliSessionToken).toHaveBeenCalledWith(configuration);
+  });
+
+  it('drops the access key picked during the login', async () => {
+    const { logoutEditor, resolveEditorAuth, startEditorLogin } =
+      await importService();
+    mocks.login.mockImplementation(
+      async ({
+        onCredentials,
+      }: {
+        onCredentials: (credentials: {
+          clientId: string;
+          clientSecret: string;
+        }) => void;
+      }) => onCredentials({ clientId: 'picked-id', clientSecret: 'secret' })
+    );
+    mocks.getOAuth2AccessToken.mockResolvedValue({
+      data: { accessToken: 'picked-token' },
+    });
+
+    await startEditorLogin(createConfiguration());
+    await logoutEditor(createConfiguration());
+
+    expect(await resolveEditorAuth(createConfiguration())).toBeNull();
+  });
+
+  it('keeps the configured access key', async () => {
+    const { logoutEditor, resolveEditorAuth } = await importService();
+    mocks.getOAuth2AccessToken.mockResolvedValue({
+      data: { accessToken: 'access-token' },
+    });
+    const configuration = createConfiguration({
+      clientId: 'id',
+      clientSecret: 'secret',
+    });
+
+    await logoutEditor(configuration);
+
+    expect((await resolveEditorAuth(configuration))?.authType).toBe(
+      'accessKey'
+    );
   });
 });

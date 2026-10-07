@@ -1,4 +1,11 @@
 import { type ChildProcess, spawn } from 'node:child_process';
+import { relative } from 'node:path';
+import { getEditorURLForPort } from '@intlayer/config/node';
+import {
+  type BuiltEditorOverride,
+  overrideBuiltEditorConfiguration,
+} from '@intlayer/engine/build';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import { type OutputChannel, window } from 'vscode';
 import { getInstalledIntlayerVersion } from '../utils/getInstalledIntlayerVersion';
 import {
@@ -138,6 +145,62 @@ const getEditorStartCommand = (
   }
 
   return getIntlayerCliCommand(projectDir, { args });
+};
+
+/** Built configuration overrides already logged, per project directory. */
+const reportedEditorOverrides = new Map<string, Set<string>>();
+
+/**
+ * Adapts the project's built configuration (`.intlayer` only): turns
+ * `editor.enabled` on, so the application loads the editor client, and once
+ * the editor server announced its URL, points `editor.editorURL` at its port.
+ * Logged to the "Intlayer Editor" output channel.
+ *
+ * @param editorServerURL - URL the started editor server announced.
+ */
+export const adaptBuiltEditorConfiguration = async (
+  projectDir: string,
+  configuration: IntlayerConfig,
+  editorServerURL?: string
+): Promise<void> => {
+  const editorServerPort = editorServerURL
+    ? Number(new URL(editorServerURL).port)
+    : undefined;
+
+  const editorOverride: BuiltEditorOverride = {
+    // Kept on when adapting the URL: the write starts from the configuration
+    enabled: true,
+    editorURL: editorServerPort
+      ? getEditorURLForPort(configuration.editor.editorURL, editorServerPort)
+      : undefined,
+  };
+
+  const overriddenKeys = await overrideBuiltEditorConfiguration(
+    configuration,
+    editorOverride
+  ).catch(() => []);
+
+  const reportedOverrides =
+    reportedEditorOverrides.get(projectDir) ?? new Set<string>();
+  const reportedKeys = overriddenKeys.filter((key) => {
+    const override = `${key}=${editorOverride[key]}`;
+    const isReported = reportedOverrides.has(override);
+
+    reportedOverrides.add(override);
+
+    return !isReported;
+  });
+
+  reportedEditorOverrides.set(projectDir, reportedOverrides);
+
+  if (reportedKeys.length === 0) return;
+
+  getOutputChannel().appendLine(
+    `[${projectDir}] ${reportedKeys.map((key) => `editor.${key}`).join(' and ')} ` +
+      `temporarily adapted in ${relative(projectDir, configuration.system.configDir)}. ` +
+      'Set it in ' +
+      'the Intlayer configuration to keep it after the next build.'
+  );
 };
 
 /**

@@ -1157,4 +1157,96 @@ export default {
     expect(result).toContain('computed: shared');
     expect(result).toContain("fn: () => 'dynamic'");
   });
+
+  it('updates a plural category edited in the editor', async () => {
+    const source = `import { plural, t } from "intlayer";
+export default {
+  key: 'test',
+  content: {
+    items: plural({
+      one: t({ en: '{{count}} item', fr: '{{count}} élément' }),
+      other: t({ en: '{{count}} items', fr: '{{count}} éléments' }),
+    }),
+  },
+};`;
+
+    const result = await transformJSFile(source, {
+      key: 'test',
+      content: {
+        items: plural({
+          one: t({ en: '{{count}} entry', fr: '{{count}} élément' }),
+          other: t({ en: '{{count}} items', fr: '{{count}} éléments' }),
+          zero: t({ en: 'No items', fr: 'Aucun élément' }),
+        }),
+      },
+    } as unknown as Dictionary);
+
+    expect(result).toContain('items: plural({');
+    expect(result).toContain('en: "{{count}} entry"');
+    expect(result).toContain("fr: '{{count}} élément'");
+    expect(result).toContain("en: '{{count}} items'");
+    expect(result).toContain('zero: t({');
+    expect(result).toContain('en: "No items"');
+    expect(result).not.toContain('nodeType');
+  });
+
+  it('updates a plural category of a per-locale declaration', async () => {
+    const source = `import { plural } from "intlayer";
+export default {
+  key: 'test',
+  locale: 'en',
+  content: {
+    items: plural({ one: '{{count}} item', other: '{{count}} items' }),
+  },
+};`;
+
+    const result = await transformJSFile(
+      source,
+      {
+        key: 'test',
+        content: {
+          items: plural({ one: '{{count}} entry', other: '{{count}} items' }),
+        },
+      } as unknown as Dictionary,
+      Locales.ENGLISH
+    );
+
+    expect(result).toContain('items: plural({');
+    expect(result).toContain('one: "{{count}} entry"');
+    expect(result).toContain("other: '{{count}} items'");
+    expect(result).not.toContain('nodeType');
+  });
+
+  it('updates the locale of a plural wrapping translations in per-locale mode', async () => {
+    const source = `import { plural, t } from "intlayer";
+export default {
+  key: 'test',
+  content: {
+    items: plural({
+      one: t({ en: '{{count}} item', fr: '{{count}} élément' }),
+      other: t({ en: '{{count}} items', fr: '{{count}} éléments' }),
+    }),
+  },
+};`;
+
+    const result = await transformJSFile(
+      source,
+      {
+        key: 'test',
+        content: {
+          items: plural({
+            one: '{{count}} entrée',
+            other: '{{count}} éléments',
+          }),
+        },
+      } as unknown as Dictionary,
+      Locales.FRENCH
+    );
+
+    expect(result).toContain('items: plural({');
+    expect(result).toContain("en: '{{count}} item'");
+    expect(result).toContain('fr: "{{count}} entrée"');
+    expect(result).toContain("en: '{{count}} items'");
+    expect(result).not.toContain('nodeType');
+  });
 });

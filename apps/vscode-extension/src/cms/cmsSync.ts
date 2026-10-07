@@ -14,6 +14,7 @@ import {
   type GetConfigurationOptions,
   getConfiguration,
 } from '@intlayer/config/node';
+import { extractErrorMessage } from '@intlayer/config/utils';
 import { getUnmergedDictionaries } from '@intlayer/dictionaries-entry/unmerged';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Dictionary } from '@intlayer/types/dictionary';
@@ -238,7 +239,7 @@ export const startCmsSync = (context: ExtensionContext): void => {
           }
         } catch (error) {
           window.showWarningMessage(
-            `${prefix}CMS sync failed: ${(error as Error).message}`
+            `${prefix}CMS sync failed: ${extractErrorMessage(error)}`
           );
         }
       })

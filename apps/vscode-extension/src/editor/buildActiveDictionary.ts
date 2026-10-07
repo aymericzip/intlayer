@@ -1,5 +1,6 @@
 import { basename } from 'node:path';
 import { getConfiguration } from '@intlayer/config/node';
+import { extractErrorMessage } from '@intlayer/config/utils';
 import { window } from 'vscode';
 import { getConfigurationOptions } from '../utils/getConfiguration';
 import { prefix } from '../utils/logFunctions';
@@ -25,7 +26,7 @@ export const buildActiveDictionary = async () => {
     );
   } catch (error) {
     await window.showErrorMessage(
-      `${prefix}Single-dictionary build failed: ${(error as Error).message}`
+      `${prefix}Single-dictionary build failed: ${extractErrorMessage(error)}`
     );
   }
 };

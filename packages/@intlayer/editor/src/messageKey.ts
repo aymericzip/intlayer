@@ -12,6 +12,8 @@ export enum MessageKey {
   INTLAYER_CONFIGURATION = 'INTLAYER_CONFIGURATION',
   INTLAYER_CURRENT_LOCALE = 'INTLAYER_CURRENT_LOCALE',
   INTLAYER_URL_CHANGE = 'INTLAYER_URL_CHANGE',
+  /** Editor → client: asks the client to switch to the given locale */
+  INTLAYER_LOCALE_CHANGE_REQUESTED = 'INTLAYER_LOCALE_CHANGE_REQUESTED',
 
   /** Client → editor: load and update content */
   INTLAYER_LOCALE_DICTIONARIES_CHANGED = 'INTLAYER_LOCALE_DICTIONARIES_CHANGED',
@@ -27,4 +29,7 @@ export enum MessageKey {
 
   /** Client → editor: list of dictionary keys currently rendered in the iframe */
   INTLAYER_DISPLAYED_DICTIONARY_KEYS = 'INTLAYER_DISPLAYED_DICTIONARY_KEYS',
+
+  /** IDE host → editor: colour theme of the IDE embedding the editor */
+  INTLAYER_HOST_THEME_CHANGED = 'INTLAYER_HOST_THEME_CHANGED',
 }

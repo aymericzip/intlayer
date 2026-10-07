@@ -1,4 +1,5 @@
 import { push } from '@intlayer/cli';
+import { extractErrorMessage } from '@intlayer/config/utils';
 import { window } from 'vscode';
 import { pushCommand } from '../commands/pushCommand';
 import { getConfigurationOptions } from '../utils/getConfiguration';
@@ -34,7 +35,7 @@ export const pushDictionary = async (node?: IntlayerTreeNode) => {
     await window.showInformationMessage(`${prefix}Pushed ${key}`);
   } catch (error) {
     await window.showErrorMessage(
-      `${prefix}Push failed: ${(error as Error).message}`
+      `${prefix}Push failed: ${extractErrorMessage(error)}`
     );
   }
 };

@@ -1,8 +1,11 @@
+import { realpathSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
 import { relative } from 'node:path';
 import { EDITOR_URL } from '@intlayer/config/defaultValues';
 import { searchConfigurationFile } from '@intlayer/config/node';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import {
+  ColorThemeKind,
   commands,
   type ExtensionContext,
   env,
@@ -23,6 +26,7 @@ import { getCachedConfig } from '../utils/intlayerCache';
 import { createOffsetToPosition } from '../utils/textPosition';
 import { isApplicationRunning, startApplication } from './applicationProcess';
 import {
+  adaptBuiltEditorConfiguration,
   getEditorServerUrl,
   getRecentEditorServerOutput,
   isEditorServerRunning,
@@ -35,10 +39,19 @@ import {
   type ApplicationStatus,
   type EditorFrameMessage,
   type EditorServerStatus,
+  type EditorStatusMessage,
+  type EditorTheme,
   getEditorFrameHtml,
   getEditorStatusHtml,
 } from './getEditorPanelHtml';
 import { type FocusedContent, revealFocusedField } from './revealFocusedField';
+
+/** Light or dark, as the editor themes itself, for the active IDE theme. */
+const getEditorTheme = (): EditorTheme =>
+  window.activeColorTheme.kind === ColorThemeKind.Light ||
+  window.activeColorTheme.kind === ColorThemeKind.HighContrastLight
+    ? 'light'
+    : 'dark';
 
 /** Context key gating the editor title button. */
 const PANEL_AVAILABLE_CONTEXT_KEY = 'intlayer.isEditorPanelAvailable';
@@ -89,6 +102,10 @@ type PanelState = {
   view?: 'editor' | EditorServerStatus;
   /** URL of the application previewed by the editor, when configured. */
   applicationURL?: string;
+  /** URL of the editor server shown, once it answered. */
+  editorServerURL?: string;
+  /** Project configuration, unless it failed to load. */
+  configuration?: IntlayerConfig;
   /** Time "Start the app" was clicked, until the application answers. */
   applicationStartedAt?: number;
   /** Probes the application while the editor shows. */
@@ -102,6 +119,42 @@ type EditorConfigurationResponse = {
   data?: { system?: { baseDir?: string } } | null;
 };
 
+/** Whether two paths name the same directory, through symlinks. */
+const isSameDirectory = (firstPath: string, secondPath: string): boolean => {
+  const resolvePath = (path: string): string => {
+    try {
+      return realpathSync.native(path);
+    } catch {
+      return path;
+    }
+  };
+
+  return relative(resolvePath(firstPath), resolvePath(secondPath)) === '';
+};
+
+/**
+ * Configuration served by the visual editor at the URL.
+ *
+ * @returns `undefined` when no editor answers there.
+ */
+const fetchEditorConfiguration = async (
+  editorURL: string
+): Promise<EditorConfigurationResponse['data'] | undefined> => {
+  try {
+    const response = await fetch(new URL('/api/config', editorURL), {
+      signal: AbortSignal.timeout(PROBE_TIMEOUT),
+    });
+
+    if (!response.ok) return undefined;
+
+    const { data } = (await response.json()) as EditorConfigurationResponse;
+
+    return data ?? null;
+  } catch {
+    return undefined;
+  }
+};
+
 /**
  * Whether the URL serves the visual editor of this project: the port may be
  * held by another project's editor, or by an unrelated server.
@@ -110,20 +163,9 @@ const isProjectEditor = async (
   editorURL: string,
   projectDir: string
 ): Promise<boolean> => {
-  try {
-    const response = await fetch(new URL('/api/config', editorURL), {
-      signal: AbortSignal.timeout(PROBE_TIMEOUT),
-    });
+  const baseDir = (await fetchEditorConfiguration(editorURL))?.system?.baseDir;
 
-    if (!response.ok) return false;
-
-    const { data } = (await response.json()) as EditorConfigurationResponse;
-    const baseDir = data?.system?.baseDir;
-
-    return baseDir !== undefined && relative(baseDir, projectDir) === '';
-  } catch {
-    return false;
-  }
+  return baseDir !== undefined && isSameDirectory(baseDir, projectDir);
 };
 
 /**
@@ -131,17 +173,25 @@ const isProjectEditor = async (
  * announces (its port shifts when the configured one is taken). Gives up early
  * when that process exits (e.g. the setup is invalid).
  *
+ * The announced URL is served by that very process, so any editor answering
+ * there is accepted: its `baseDir` may legitimately differ from the project
+ * directory (configuration at a monorepo root, symlinked paths).
+ *
+ * @param onPoll - Called on each attempt, to report the progress.
  * @returns The editor URL, or `undefined` when it never answered.
  */
 const waitForEditor = async (
-  projectDir: string
+  projectDir: string,
+  onPoll: () => void
 ): Promise<string | undefined> => {
   for (let attempt = 0; attempt < STARTUP_POLL_ATTEMPTS; attempt++) {
+    onPoll();
+
     const editorServerUrl = getEditorServerUrl(projectDir);
 
     if (
       editorServerUrl !== undefined &&
-      (await isProjectEditor(editorServerUrl, projectDir))
+      (await fetchEditorConfiguration(editorServerUrl)) !== undefined
     ) {
       return editorServerUrl;
     }
@@ -157,8 +207,8 @@ const waitForEditor = async (
 type EditorSettings = {
   editorURL: string;
   applicationURL?: string;
-  /** `false` when the configuration disables the editor. */
-  isEnabled: boolean;
+  /** Project configuration, unless it failed to load. */
+  configuration?: IntlayerConfig;
 };
 
 /**
@@ -175,7 +225,7 @@ const getEditorSettings = async (
   return {
     editorURL: configuration?.editor?.editorURL ?? EDITOR_URL,
     applicationURL: configuration?.editor?.applicationURL || undefined,
-    isEnabled: configuration?.editor?.enabled !== false,
+    configuration,
   };
 };
 
@@ -203,6 +253,12 @@ const updateApplicationStatus = async (state: PanelState): Promise<void> => {
   if (!state.applicationURL) return;
 
   const isRunning = await isApplicationRunning(state.applicationURL);
+
+  // Its dev server rebuilt the configuration on start: adapt it again before
+  // the editor reloads the frame
+  if (isRunning && state.applicationStartedAt !== undefined) {
+    await adaptEditorConfigurationToServer(state);
+  }
 
   if (
     isRunning ||
@@ -237,13 +293,35 @@ const startApplicationPolling = (state: PanelState): void => {
   );
 };
 
-/** Runs the application `dev` script, from the editor banner. */
+/**
+ * Points the built configuration at the editor server shown, so the
+ * application loads the editor client and connects to it.
+ */
+const adaptEditorConfigurationToServer = async (
+  state: PanelState
+): Promise<void> => {
+  if (!state.configuration || !state.editorServerURL) return;
+
+  await adaptBuiltEditorConfiguration(
+    state.projectDir,
+    state.configuration,
+    state.editorServerURL
+  );
+};
+
+/** Runs the application `dev` (else `start`) script, from the editor banner. */
 const handleStartApplication = async (state: PanelState): Promise<void> => {
-  const isStarted = await startApplication(state.projectDir);
+  // The configuration may have been rebuilt since the editor showed
+  await adaptEditorConfigurationToServer(state);
+
+  const isStarted = await startApplication(
+    state.projectDir,
+    state.editorServerURL
+  );
 
   if (!isStarted) {
     void window.showErrorMessage(
-      'Intlayer: no "dev" script found in the package.json of the project.'
+      'Intlayer: no "dev" or "start" script found in the package.json of the project.'
     );
     return;
   }
@@ -257,11 +335,12 @@ const handleStartApplication = async (state: PanelState): Promise<void> => {
  * started in the background and the panel shows the progress meanwhile.
  */
 const renderPanel = async (state: PanelState): Promise<void> => {
-  const { editorURL, applicationURL, isEnabled } = await getEditorSettings(
+  const { editorURL, applicationURL, configuration } = await getEditorSettings(
     state.projectDir
   );
 
   state.applicationURL = applicationURL;
+  state.configuration = configuration;
 
   const showStatus = (status: EditorServerStatus) => {
     stopApplicationPolling(state);
@@ -280,9 +359,11 @@ const renderPanel = async (state: PanelState): Promise<void> => {
     ).toString(true);
 
     state.view = 'editor';
+    state.editorServerURL = servedEditorURL;
     state.panel.webview.html = getEditorFrameHtml(
       webviewEditorURL,
-      applicationURL
+      applicationURL,
+      getEditorTheme()
     );
     startApplicationPolling(state);
   };
@@ -291,25 +372,46 @@ const renderPanel = async (state: PanelState): Promise<void> => {
   const runningEditorURL = getEditorServerUrl(state.projectDir) ?? editorURL;
 
   if (await isProjectEditor(runningEditorURL, state.projectDir)) {
+    if (configuration) {
+      await adaptBuiltEditorConfiguration(
+        state.projectDir,
+        configuration,
+        runningEditorURL
+      );
+    }
+
     await showEditor(runningEditorURL);
     return;
   }
 
-  // The server would exit right away
-  if (!isEnabled) {
-    showStatus('disabled');
-    return;
+  showStatus('starting');
+
+  if (configuration) {
+    await adaptBuiltEditorConfiguration(state.projectDir, configuration);
   }
 
-  showStatus('starting');
   startEditorServer(state.projectDir, state.extensionVersion);
 
-  const startedEditorURL = await waitForEditor(state.projectDir);
+  const startedEditorURL = await waitForEditor(state.projectDir, () => {
+    // Posted on every attempt: a message sent before the webview loads is lost
+    void state.panel.webview.postMessage({
+      type: 'startingOutput',
+      lines: getRecentEditorServerOutput(state.projectDir),
+    } satisfies EditorStatusMessage);
+  });
 
   // Closed or re-targeted meanwhile
   if (panelState !== state) return;
 
   if (startedEditorURL) {
+    if (configuration) {
+      await adaptBuiltEditorConfiguration(
+        state.projectDir,
+        configuration,
+        startedEditorURL
+      );
+    }
+
     await showEditor(startedEditorURL);
     return;
   }

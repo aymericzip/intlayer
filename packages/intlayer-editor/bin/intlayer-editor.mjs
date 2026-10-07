@@ -5,6 +5,7 @@
 import { exec } from 'node:child_process';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { EDITOR_SERVER_PORT_ENV_VAR } from '@intlayer/config/node';
 import { runParallel } from '@intlayer/engine/utils';
 
 // Get the current file's directory
@@ -44,11 +45,23 @@ if (withIndex !== -1 && args[withIndex + 1]) {
   withCommand = args[withIndex + 1];
 }
 
-if (withCommand) {
+// Line the editor server prints once listening (its port may be shifted)
+const EDITOR_RUNNING_AT_PATTERN =
+  /Editor running at:\s+https?:\/\/[^:\s]+:(\d+)/;
+
+/**
+ * Starts the `--with` command once the editor server listens: its port turns
+ * the editor on for the application, at the URL the server is served at,
+ * without editing the configuration file.
+ */
+const startWithCommand = (editorServerPort) => {
+  if (!withCommand || parallelProcess) return;
+
+  process.env[EDITOR_SERVER_PORT_ENV_VAR] = editorServerPort;
   parallelProcess = runParallel(withCommand);
   // Suppress unhandled rejection — lifecycle is managed by the editor server's close handler
   parallelProcess.result.catch(() => {});
-}
+};
 
 if (args[0] === 'start') {
   // Start the server pointing to the package's 'dist' directory
@@ -64,6 +77,13 @@ if (args[0] === 'start') {
   // Pipe child's stdout and stderr to the parent process
   child.stdout.on('data', (data) => {
     process.stdout.write(data);
+
+    const editorServerPort = EDITOR_RUNNING_AT_PATTERN.exec(
+      // biome-ignore lint/suspicious/noControlCharactersInRegex: ANSI escapes
+      data.toString().replace(/\u001b\[[0-9;]*m/g, '')
+    )?.[1];
+
+    if (editorServerPort) startWithCommand(editorServerPort);
   });
 
   child.stderr.on('data', (data) => {

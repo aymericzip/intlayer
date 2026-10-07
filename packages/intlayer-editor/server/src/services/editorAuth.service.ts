@@ -2,7 +2,11 @@ import { getIntlayerAPIProxy, getOAuthAPI } from '@intlayer/api';
 import type { OrganizationAPI } from '@intlayer/backend-contract/organization';
 import type { ProjectAPI } from '@intlayer/backend-contract/project';
 import type { UserAPI } from '@intlayer/backend-contract/user';
-import { login, readCliSessionToken } from '@intlayer/cli';
+import {
+  clearCliSessionToken,
+  login,
+  readCliSessionToken,
+} from '@intlayer/cli';
 import * as ANSIColors from '@intlayer/config/colors';
 import { colorize, getAppLogger } from '@intlayer/config/logger';
 import type { GetConfigurationOptions } from '@intlayer/config/node';
@@ -42,8 +46,11 @@ let runtimeCredentials: EditorCredentials | null = null;
 /** Access token exchanged from the access key, reused until it expires. */
 let accessKeyAuthCache: (EditorAuth & { clientId: string }) | null = null;
 
-/** Project bound to each CLI session token, resolved once per token. */
-const sessionProjectCache = new Map<string, ProjectAPI | null>();
+/** Identity bound to a CLI session token. */
+type SessionIdentity = Pick<EditorAuth, 'user' | 'organization' | 'project'>;
+
+/** Identity bound to each CLI session token, resolved once per token. */
+const sessionIdentityCache = new Map<string, SessionIdentity>();
 
 /** Aborts the login flow waiting for the browser callback, if any. */
 let pendingLoginController: AbortController | null = null;
@@ -73,7 +80,7 @@ const resolveSessionAuth = async (
 
   if (!sessionData) return null;
 
-  if (!sessionProjectCache.has(sessionData.token)) {
+  if (!sessionIdentityCache.has(sessionData.token)) {
     try {
       const result = await getIntlayerAPIProxy(
         undefined,
@@ -81,7 +88,11 @@ const resolveSessionAuth = async (
         sessionData.token
       ).oAuth.getCliSessionMe();
 
-      sessionProjectCache.set(sessionData.token, result.data?.project ?? null);
+      sessionIdentityCache.set(sessionData.token, {
+        user: result.data?.user ?? null,
+        organization: result.data?.organization ?? null,
+        project: result.data?.project ?? null,
+      });
     } catch {
       // Revoked or unreachable: fall back to the access key, if any
       return null;
@@ -92,7 +103,7 @@ const resolveSessionAuth = async (
     accessToken: sessionData.token,
     expiresAt: sessionData.expiresAt,
     authType: 'session',
-    project: sessionProjectCache.get(sessionData.token),
+    ...sessionIdentityCache.get(sessionData.token),
   };
 };
 
@@ -153,6 +164,22 @@ export const resolveEditorAuth = async (
 ): Promise<EditorAuth | null> =>
   (await resolveSessionAuth(configuration)) ??
   (await resolveAccessKeyAuth(configuration));
+
+/**
+ * Signs the editor out: drops the `intlayer login` session (shared with the
+ * CLI), the pending login and the access key loaded during this run. An access
+ * key set in the configuration stays in use, as for the CLI.
+ */
+export const logoutEditor = async (
+  configuration: IntlayerConfig
+): Promise<void> => {
+  pendingLoginController?.abort();
+  runtimeCredentials = null;
+  accessKeyAuthCache = null;
+  sessionIdentityCache.clear();
+
+  await clearCliSessionToken(configuration);
+};
 
 /** Whether an editor-triggered login is waiting for the browser callback. */
 export const isEditorLoginPending = (): boolean =>

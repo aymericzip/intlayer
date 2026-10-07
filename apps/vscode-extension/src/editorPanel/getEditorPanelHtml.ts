@@ -14,6 +14,38 @@ const escapeHtml = (value: string): string =>
  */
 const FOCUSED_CONTENT_CHANGED_MESSAGE = 'INTLAYER_FOCUSED_CONTENT_CHANGED';
 
+/** `MessageKey.INTLAYER_HOST_THEME_CHANGED` of `@intlayer/editor`, inlined. */
+const HOST_THEME_CHANGED_MESSAGE = 'INTLAYER_HOST_THEME_CHANGED';
+
+/** Colour theme of the IDE, applied to the editor. */
+export type EditorTheme = 'light' | 'dark';
+
+/**
+ * Query parameter of the editor client showing a browser bar around the
+ * application frame: the webview has no address bar to navigate it with.
+ */
+const BROWSER_QUERY_PARAMETER = 'browser';
+
+/** Query parameter of the editor client giving its theme on the first paint. */
+const THEME_QUERY_PARAMETER = 'theme';
+
+/** Editor URL the webview frames, with the browser bar and the IDE theme. */
+const getEditorFrameURL = (editorURL: string, theme?: EditorTheme): string => {
+  const url = new URL(editorURL);
+
+  url.searchParams.set(BROWSER_QUERY_PARAMETER, 'true');
+
+  if (theme) url.searchParams.set(THEME_QUERY_PARAMETER, theme);
+
+  return url.toString();
+};
+
+/**
+ * Scale of the framed editor: zoomed out so the dictionary panel and the
+ * application both fit in an IDE pane.
+ */
+const EDITOR_FRAME_SCALE = 0.8;
+
 const createNonce = (): string => randomUUID().replace(/-/g, '');
 
 /** State of the application the editor previews. */
@@ -26,21 +58,28 @@ export type EditorFrameMessage = {
 };
 
 /**
- * Webview embedding the visual editor full-size. Field focus messages posted
+ * Webview embedding the visual editor, zoomed out to fill the pane, with its
+ * browser bar to navigate the application. Field focus messages posted
  * by the editor (and only by it) are forwarded to the extension.
  *
  * A banner offers to start the application while it does not answer
  * (`applicationStatus` messages); the editor reloads once it does.
  *
+ * The editor follows the IDE theme: given on load, then posted on each change
+ * of the webview body class (`vscode-light`, `vscode-dark`, …).
+ *
  * @param editorURL - URL the webview reaches the editor at.
  * @param applicationURL - URL of the application previewed by the editor.
+ * @param theme - IDE theme when the panel renders.
  */
 export const getEditorFrameHtml = (
   editorURL: string,
-  applicationURL?: string
+  applicationURL?: string,
+  theme?: EditorTheme
 ): string => {
   const nonce = createNonce();
   const editorOrigin = new URL(editorURL).origin;
+  const editorFrameURL = getEditorFrameURL(editorURL, theme);
   const applicationLabel = applicationURL ?? 'its URL';
 
   return `<!doctype html>
@@ -51,10 +90,11 @@ export const getEditorFrameHtml = (
   <style nonce="${nonce}">
     html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
     body { display: flex; flex-direction: column; }
-    iframe { display: block; flex: 1; width: 100%; border: 0; }
-    .banner { display: flex; align-items: center; gap: 8px; padding: 6px 12px; font-family: var(--vscode-font-family); font-size: var(--vscode-font-size); color: var(--vscode-foreground); background: var(--vscode-editorWidget-background); border-bottom: 1px solid var(--vscode-panel-border); }
+    .frame { position: relative; flex: 1; overflow: hidden; }
+    iframe { position: absolute; top: 0; left: 0; width: ${100 / EDITOR_FRAME_SCALE}%; height: ${100 / EDITOR_FRAME_SCALE}%; border: 0; transform: scale(${EDITOR_FRAME_SCALE}); transform-origin: 0 0; }
+    .banner { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 6px 12px; font-family: var(--vscode-font-family); font-size: var(--vscode-font-size); color: var(--vscode-foreground); background: var(--vscode-editorWidget-background); border-bottom: 1px solid var(--vscode-panel-border); }
     .banner[hidden] { display: none; }
-    .banner p { flex: 1; margin: 0; }
+    .banner p { flex: 1 1 200px; min-width: 0; margin: 0; overflow-wrap: anywhere; }
     button { padding: 4px 12px; border: 0; border-radius: 2px; font: inherit; color: var(--vscode-button-foreground); background: var(--vscode-button-background); cursor: pointer; }
     button:hover { background: var(--vscode-button-hoverBackground); }
     button:disabled { opacity: 0.6; cursor: default; }
@@ -65,7 +105,9 @@ export const getEditorFrameHtml = (
     <p>The application is not running at ${escapeHtml(applicationLabel)}.</p>
     <button data-action="startApplication">Start the app</button>
   </div>
-  <iframe src="${escapeHtml(editorURL)}" title="Intlayer visual editor" allow="clipboard-read; clipboard-write"></iframe>
+  <div class="frame">
+    <iframe src="${escapeHtml(editorFrameURL)}" title="Intlayer visual editor" allow="clipboard-read; clipboard-write"></iframe>
+  </div>
   <script nonce="${nonce}">
     const vscode = acquireVsCodeApi();
     const editorOrigin = ${JSON.stringify(editorOrigin)};
@@ -78,6 +120,25 @@ export const getEditorFrameHtml = (
     startButton.addEventListener('click', () =>
       vscode.postMessage({ type: 'startApplication' })
     );
+
+    const getTheme = () =>
+      document.body.classList.contains('vscode-light') ||
+      document.body.classList.contains('vscode-high-contrast-light')
+        ? 'light'
+        : 'dark';
+
+    const postTheme = () =>
+      iframe.contentWindow?.postMessage(
+        { type: ${JSON.stringify(HOST_THEME_CHANGED_MESSAGE)}, theme: getTheme() },
+        editorOrigin
+      );
+
+    // Also on load: the editor may have reloaded since the last change
+    iframe.addEventListener('load', postTheme);
+    new MutationObserver(postTheme).observe(document.body, {
+      attributes: true,
+      attributeFilter: ['class'],
+    });
 
     window.addEventListener('message', (event) => {
       // Posted by the extension, never by the embedded editor
@@ -112,6 +173,13 @@ export const getEditorFrameHtml = (
 </html>`;
 };
 
+/** Message the extension posts to the status webview. */
+export type EditorStatusMessage = {
+  /** Last output of the starting editor server. */
+  type: 'startingOutput';
+  lines: string[];
+};
+
 /** State of an editor server that does not answer yet. */
 export type EditorServerStatus = 'starting' | 'failed' | 'disabled';
 
@@ -130,6 +198,8 @@ type StatusButton = {
 
 type StatusView = {
   title: string;
+  /** Shows a spinner above the title. */
+  isLoading?: boolean;
   description?: string;
   /** Preformatted block: a configuration snippet or the editor output. */
   code?: string;
@@ -150,6 +220,7 @@ const getStatusView = (
     case 'starting':
       return {
         title: 'Starting the visual editor…',
+        isLoading: true,
         buttons: [{ action: 'showLogs', label: 'Show logs' }],
       };
     case 'disabled':
@@ -192,7 +263,7 @@ export const getEditorStatusHtml = (
   outputLines: string[] = []
 ): string => {
   const nonce = createNonce();
-  const { title, description, code, buttons } = getStatusView(
+  const { title, isLoading, description, code, buttons } = getStatusView(
     editorURL,
     status,
     outputLines
@@ -218,15 +289,32 @@ export const getEditorStatusHtml = (
     button { padding: 4px 12px; border: 0; border-radius: 2px; font: inherit; color: var(--vscode-button-foreground); background: var(--vscode-button-background); cursor: pointer; }
     button:hover { background: var(--vscode-button-hoverBackground); }
     button.secondary { color: var(--vscode-button-secondaryForeground); background: var(--vscode-button-secondaryBackground); }
+    pre.output { max-height: 40vh; color: var(--vscode-descriptionForeground); }
+    .spinner { width: 24px; height: 24px; border: 2px solid var(--vscode-panel-border); border-top-color: var(--vscode-progressBar-background); border-radius: 50%; animation: spin 0.8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @media (prefers-reduced-motion: reduce) { .spinner { animation-duration: 2.4s; } }
   </style>
 </head>
 <body>
+  ${isLoading ? '<div class="spinner" role="progressbar" aria-label="Loading"></div>' : ''}
   <h1>${escapeHtml(title)}</h1>
   ${description ? `<p>${escapeHtml(description)}</p>` : ''}
   ${code ? `<pre>${escapeHtml(code)}</pre>` : ''}
+  ${isLoading ? '<pre class="output" hidden></pre>' : ''}
   <div class="actions">${buttonsHtml}</div>
   <script nonce="${nonce}">
     const vscode = acquireVsCodeApi();
+    const output = document.querySelector('pre.output');
+
+    // Live output of the starting server, so a stuck start is explained
+    window.addEventListener('message', (event) => {
+      if (!output || event.data?.type !== 'startingOutput') return;
+
+      const lines = event.data.lines ?? [];
+
+      output.hidden = lines.length === 0;
+      output.textContent = lines.join('\n');
+    });
 
     for (const button of document.querySelectorAll('button[data-action]')) {
       button.addEventListener('click', () =>

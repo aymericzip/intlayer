@@ -8,6 +8,7 @@ import type {
   ConditionContent,
   EnumerationContent,
   FileContent,
+  GenderContent,
   HTMLContent,
   InsertionContent,
   MarkdownContent,
@@ -26,6 +27,7 @@ import { BooleanWrapper } from './BooleanWrapper';
 import { ConditionWrapper } from './ConditionWrapper';
 import { EnumerationWrapper } from './EnumerationWrapper';
 import { FileWrapper } from './FileWrapper';
+import { GenderWrapper } from './GenderWrapper';
 import { HtmlWrapper } from './HtmlWrapper';
 import { InsertionWrapper } from './InsertionWrapper';
 import { MarkdownWrapper } from './MarkdownWrapper';
@@ -117,6 +119,15 @@ export const NodeWrapper: FC<NodeWrapperProps> = memo((props) => {
         <PluralWrapper
           {...props}
           section={section as PluralContent<ContentNode>}
+        />
+      );
+    }
+
+    if (nodeType === NodeTypes.GENDER) {
+      return (
+        <GenderWrapper
+          {...props}
+          section={section as GenderContent<ContentNode>}
         />
       );
     }

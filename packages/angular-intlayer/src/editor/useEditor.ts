@@ -13,6 +13,7 @@ import type { Locale } from '@intlayer/types/allLocales';
 // Import from the standalone token file to avoid a circular dependency:
 //   installIntlayer.ts → useEditor.ts → ../client → installIntlayer.ts
 import { INTLAYER_TOKEN, type IntlayerProvider } from '../client/intlayerToken';
+import { setLocaleInStorage } from '../client/useLocaleStorage';
 
 /**
  * Initialises the Intlayer editor client singleton when the editor is enabled.
@@ -61,10 +62,27 @@ export const useEditor = (client?: IntlayerProvider | null): void => {
     })
   );
 
+  // Apply the locales requested by the editor
+  const localeRequestEffectRef = runInInjectionContext(injector, () =>
+    effect((onCleanup) => {
+      const m = manager();
+
+      if (!m || !resolvedClient) return;
+
+      onCleanup(
+        m.onLocaleChangeRequested((requestedLocale) => {
+          resolvedClient.setLocale(requestedLocale);
+          setLocaleInStorage(requestedLocale, true);
+        })
+      );
+    })
+  );
+
   // Tear down on destroy
   destroyRef?.onDestroy(() => {
     stopped = true;
     effectRef.destroy();
+    localeRequestEffectRef.destroy();
     manager.set(null);
     import('@intlayer/editor')
       .then(({ stopEditorClient }) => {

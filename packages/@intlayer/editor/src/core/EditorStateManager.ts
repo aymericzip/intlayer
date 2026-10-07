@@ -223,6 +223,31 @@ export class EditorStateManager {
     this.messenger.send(`${MessageKey.INTLAYER_EDITOR_ENABLED}/post`, true);
   }
 
+  // ─── Locale helpers ─────────────────────────────────────────────────────────
+
+  /**
+   * EDITOR mode: asks the client to switch locale. Covers applications whose
+   * locale is held in memory or storage only (no locale segment in the URL).
+   */
+  requestLocaleChange(locale: Locale): void {
+    if (this._mode !== 'editor') return;
+
+    this.messenger.send(MessageKey.INTLAYER_LOCALE_CHANGE_REQUESTED, locale);
+  }
+
+  /**
+   * CLIENT mode: subscribes to the locale changes requested by the editor.
+   * Returns an unsubscribe function.
+   */
+  onLocaleChangeRequested(handler: (locale: Locale) => void): () => void {
+    if (this._mode !== 'client') return () => {};
+
+    return this.messenger.subscribe<Locale>(
+      MessageKey.INTLAYER_LOCALE_CHANGE_REQUESTED,
+      handler
+    );
+  }
+
   // ─── Focus helpers ──────────────────────────────────────────────────────────
 
   setFocusedContentKeyPath(keyPath: KeyPath[]): void {

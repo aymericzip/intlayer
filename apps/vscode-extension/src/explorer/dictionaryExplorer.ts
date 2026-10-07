@@ -1,5 +1,6 @@
 import { readdir, readFile } from 'node:fs/promises';
 import { basename, extname, join, relative, resolve, sep } from 'node:path';
+import { extractErrorMessage } from '@intlayer/config/utils';
 import { listProjects } from '@intlayer/engine/cli';
 import {
   type Event,
@@ -255,7 +256,7 @@ export class DictionaryTreeDataProvider
       return [];
     } catch (error) {
       await window.showErrorMessage(
-        `Failed to load Intlayer dictionaries: ${(error as Error).message}`
+        `Failed to load Intlayer dictionaries: ${extractErrorMessage(error)}`
       );
       return [];
     }

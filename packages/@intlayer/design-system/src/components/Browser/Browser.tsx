@@ -6,6 +6,7 @@ import { ArrowLeft, ArrowRight, RotateCw, ScanSearch } from 'lucide-react';
 import {
   type CSSProperties,
   type HTMLAttributes,
+  type ReactNode,
   type RefObject,
   type SubmitEvent,
   useEffect,
@@ -36,6 +37,8 @@ export type BrowserProps = {
   sandbox?: string | null;
   ref?: RefObject<HTMLIFrameElement | null>;
   domainRestriction?: string;
+  /** Extra controls rendered in the top bar, next to the sitemap explorer. */
+  toolbarActions?: ReactNode;
 } & HTMLAttributes<HTMLIFrameElement>;
 
 const UrlPath = ({ url }: { url: string }) => {
@@ -73,6 +76,7 @@ export const Browser = ({
   sandbox = 'allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox allow-downloads',
   ref,
   domainRestriction,
+  toolbarActions,
   ...props
 }: BrowserProps) => {
   // --- State -----------------------------------------------------------------
@@ -425,6 +429,8 @@ export const Browser = ({
           {/* invisible submit */}
           <button type="submit" className="sr-only absolute" tabIndex={-1} />
         </form>
+
+        {toolbarActions}
 
         {/* Sitemap Explorer */}
         <ClickOutsideDiv

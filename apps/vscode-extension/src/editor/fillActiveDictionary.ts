@@ -1,5 +1,6 @@
 import { basename } from 'node:path';
 import { fill } from '@intlayer/cli';
+import { extractErrorMessage } from '@intlayer/config/utils';
 import { window } from 'vscode';
 import { getConfigurationOptions } from '../utils/getConfiguration';
 import { prefix } from '../utils/logFunctions';
@@ -22,7 +23,7 @@ export const fillActiveDictionary = async () => {
     await showFillResult(fillResult, 'Fill', basename(filePath));
   } catch (error) {
     await window.showErrorMessage(
-      `${prefix}Fill failed: ${(error as Error).message}`
+      `${prefix}Fill failed: ${extractErrorMessage(error)}`
     );
   }
 };

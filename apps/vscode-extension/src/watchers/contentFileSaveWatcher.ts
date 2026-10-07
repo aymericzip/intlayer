@@ -1,3 +1,4 @@
+import { extractErrorMessage } from '@intlayer/config/utils';
 import { getContentWatcherOwner } from '@intlayer/engine/utils';
 import { type Disposable, window, workspace } from 'vscode';
 import { findProjectRoot } from '../utils/findProjectRoot';
@@ -49,7 +50,7 @@ export const contentFileSaveWatcher = (): Disposable => {
         }
       } catch (error) {
         await window.showErrorMessage(
-          `${prefix}Auto-rebuild failed: ${(error as Error).message}`
+          `${prefix}Auto-rebuild failed: ${extractErrorMessage(error)}`
         );
       }
     }, REBUILD_DELAY_MS);

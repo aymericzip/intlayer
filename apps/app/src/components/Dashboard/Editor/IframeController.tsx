@@ -1,10 +1,12 @@
 import { Browser } from '@intlayer/design-system/browser';
 import { Container } from '@intlayer/design-system/container';
+import { FrameConnectionError } from '@intlayer/design-system/frame-connection-error';
 import {
   useConfiguration,
   useCrossURLPathState,
   useEditedContentPersistence,
   useEditorPingClient,
+  useFrameConnectionStatus,
 } from '@intlayer/editor-react';
 import { type FC, type RefObject, useEffect } from 'react';
 import { useEditorPagesSidebar } from '#hooks/useEditorPagesSidebar';
@@ -16,6 +18,8 @@ export const IframeController: FC<{
 }> = ({ iframeRef }) => {
   const { editor } = useConfiguration() ?? {};
   const pingClient = useEditorPingClient();
+  const { isConnectionFailed, handleFrameLoad, dismiss } =
+    useFrameConnectionStatus();
 
   useEditedContentPersistence();
 
@@ -42,8 +46,17 @@ export const IframeController: FC<{
     );
   }
 
+  const reloadFrame = () => {
+    const iframe = iframeRef.current;
+
+    if (!iframe) return;
+
+    const { src } = iframe;
+    iframe.src = src;
+  };
+
   return (
-    <div className="contents size-full flex-1">
+    <div className="relative flex size-full flex-1 overflow-hidden rounded-lg">
       <Browser
         path={params.path || iframePath}
         initialUrl={editor.applicationURL}
@@ -51,8 +64,18 @@ export const IframeController: FC<{
         className="size-full flex-1 overflow-hidden rounded-lg"
         sandbox="allow-scripts allow-same-origin"
         ref={iframeRef}
-        onLoad={pingClient}
+        onLoad={() => {
+          pingClient();
+          handleFrameLoad();
+        }}
       />
+      {isConnectionFailed && (
+        <FrameConnectionError
+          applicationURL={editor.applicationURL}
+          onRetry={reloadFrame}
+          onDismiss={dismiss}
+        />
+      )}
     </div>
   );
 };

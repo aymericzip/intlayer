@@ -1,5 +1,5 @@
 import { existsSync, lstatSync, readFileSync } from 'node:fs';
-import { dirname, join, resolve } from 'node:path';
+import { dirname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import fastifyCompress from '@fastify/compress';
 import fastifyCookie from '@fastify/cookie';
@@ -10,7 +10,12 @@ import fastifyStatic from '@fastify/static';
 import * as ANSIColors from '@intlayer/config/colors';
 import { getEnvFilePath } from '@intlayer/config/env';
 import { colorize, colorizePath, getAppLogger } from '@intlayer/config/logger';
-import { getConfiguration } from '@intlayer/config/node';
+import {
+  EDITOR_SERVER_PORT_ENV_VAR,
+  getConfiguration,
+  getEditorURLForPort,
+} from '@intlayer/config/node';
+import { overrideBuiltEditorConfiguration } from '@intlayer/engine/build';
 import { authRouter } from '@routes/auth.routes';
 import { configurationRouter } from '@routes/config.routes';
 import { dictionaryRouter } from '@routes/dictionary.routes';
@@ -33,16 +38,6 @@ const appLogger = getAppLogger(config);
 /** Port tried first; the next free one is used when it is taken. */
 const preferredPort = config.editor.port ?? FALLBACK_PORT;
 const HOST = '0.0.0.0';
-
-if (!config.editor.enabled) {
-  appLogger(
-    `Editor is not enabled. Add ${colorize('editor.enabled', ANSIColors.BLUE)} to ${colorizePath('intlayer.config.ts')} file to enable it.`,
-    {
-      level: 'error',
-    }
-  );
-  process.exit(0);
-}
 
 // Load package.json
 const packageJson = JSON.parse(
@@ -80,6 +75,29 @@ const startServer = async (app: FastifyInstance) => {
     appLogger(`Port ${preferredPort} is in use, using port ${port} instead.`, {
       level: 'warn',
     });
+  }
+
+  // Served by `/api/config`: the client calls the editor at its actual URL
+  process.env[EDITOR_SERVER_PORT_ENV_VAR] = String(port);
+
+  // Adapted in the built configuration only: the application must load the
+  // editor client, and accept messages from the URL the editor is served at
+  const overriddenKeys = await overrideBuiltEditorConfiguration(config, {
+    enabled: true,
+    editorURL: getEditorURLForPort(config.editor.editorURL, port),
+  });
+
+  if (overriddenKeys.length > 0) {
+    const overriddenSettings = overriddenKeys.map((key) =>
+      colorize(`editor.${key}`, ANSIColors.BLUE)
+    );
+
+    appLogger(
+      `${overriddenSettings.join(' and ')} temporarily adapted in ${colorizePath(relative(config.system.baseDir, config.system.configDir))}. Set it in ${colorizePath('intlayer.config.ts')} to keep it after the next build.`,
+      {
+        level: 'warn',
+      }
+    );
   }
 
   // Security Headers

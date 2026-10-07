@@ -21,6 +21,7 @@ export * from './ExpandCollapse';
 export * from './Flags';
 export * from './Footer';
 export * from './Form';
+export * from './FrameConnectionError';
 export * from './Headers';
 export * from './HeightResizer';
 export * from './HideShow';

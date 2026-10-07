@@ -9,9 +9,9 @@ const config: IntlayerConfig = {
     defaultLocale: Locales.ENGLISH,
   },
   editor: {
-    enabled: true,
+    enabled: false,
     applicationURL: 'http://localhost:5173',
-    editorURL: 'http://localhost:8000',
+    editorURL: 'http://localhost:9000',
     cmsURL: 'http://localhost:3000',
     backendURL: 'http://localhost:3100',
     clientId: process.env.INTLAYER_CLIENT_ID,

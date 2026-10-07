@@ -3,7 +3,10 @@ export type * from '@intlayer/engine/cli';
 export type * from '@intlayer/engine/utils';
 export type * from '@intlayer/engine/watcher';
 export { login } from './auth/login';
-export { readCliSessionToken } from './auth/sessionToken';
+export {
+  clearCliSessionToken,
+  readCliSessionToken,
+} from './auth/sessionToken';
 export * from './build';
 export * from './bundle';
 export * from './cli';

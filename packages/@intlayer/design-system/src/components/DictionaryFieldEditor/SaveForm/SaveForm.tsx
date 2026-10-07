@@ -180,8 +180,11 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
         isOpen={isFormatAlertModalOpen}
         title={confirmation.title.value}
         size="md"
+        roundedSize="2xl"
         onClose={() => setIsFormatAlertModalOpen(false)}
         padding="md"
+        border
+        borderColor="neutral"
       >
         <form
           className="size-full"

@@ -217,6 +217,11 @@
       "import": "./dist/esm/components/HTMLRender/index.mjs",
       "default": "./dist/esm/components/HTMLRender/index.mjs"
     },
+    "./frame-connection-error": {
+      "types": "./dist/types/components/FrameConnectionError/index.d.ts",
+      "import": "./dist/esm/components/FrameConnectionError/index.mjs",
+      "default": "./dist/esm/components/FrameConnectionError/index.mjs"
+    },
     "./headers": {
       "types": "./dist/types/components/Headers/index.d.ts",
       "import": "./dist/esm/components/Headers/index.mjs",

@@ -87,6 +87,28 @@ describe('ThemeProvider', () => {
     expect(getProbeValue('resolved-theme')).toBe('dark');
   });
 
+  test('applies a forced theme over the preference without persisting it', () => {
+    localStorage.setItem('theme', 'light');
+
+    const { rerender } = render(
+      <ThemeProvider forcedTheme="dark">
+        <ThemeProbe />
+      </ThemeProvider>
+    );
+
+    expect(getAppliedTheme()).toBe('dark');
+    expect(getProbeValue('resolved-theme')).toBe('dark');
+    expect(localStorage.getItem('theme')).toBe('light');
+
+    rerender(
+      <ThemeProvider>
+        <ThemeProbe />
+      </ThemeProvider>
+    );
+
+    expect(getAppliedTheme()).toBe('light');
+  });
+
   test('discards an unknown persisted value', () => {
     localStorage.setItem('theme', 'sepia');
 
