@@ -64,7 +64,11 @@
     "icon.png",
     "logo.svg",
     "editor-icon-light.svg",
-    "editor-icon-dark.svg"
+    "editor-icon-dark.svg",
+    "create-file-icon-light.svg",
+    "create-file-icon-dark.svg",
+    "extract-icon-light.svg",
+    "extract-icon-dark.svg"
   ],
   "scripts": {
     "build": "tsdown",
@@ -120,7 +124,10 @@
       {
         "command": "intlayer.extract",
         "title": "Intlayer: Extract Content to Dictionary",
-        "icon": "$(file-code)"
+        "icon": {
+          "light": "extract-icon-light.svg",
+          "dark": "extract-icon-dark.svg"
+        }
       },
       {
         "command": "extension.createDictionaryFile.ts",
@@ -165,7 +172,10 @@
       {
         "command": "extension.createDictionaryFile",
         "title": "Intlayer: Create Content File",
-        "icon": "$(new-file)"
+        "icon": {
+          "light": "create-file-icon-light.svg",
+          "dark": "create-file-icon-dark.svg"
+        }
       },
       {
         "command": "extension.buildDictionaries",

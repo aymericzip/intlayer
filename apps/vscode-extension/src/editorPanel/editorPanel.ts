@@ -21,6 +21,7 @@ import {
 } from '../utils/findProjectRoot';
 import { getCachedConfig } from '../utils/intlayerCache';
 import { createOffsetToPosition } from '../utils/textPosition';
+import { isApplicationRunning, startApplication } from './applicationProcess';
 import {
   getEditorServerUrl,
   getRecentEditorServerOutput,
@@ -31,6 +32,8 @@ import {
   stopEditorServer,
 } from './editorServerProcess';
 import {
+  type ApplicationStatus,
+  type EditorFrameMessage,
   type EditorServerStatus,
   getEditorFrameHtml,
   getEditorStatusHtml,
@@ -50,6 +53,11 @@ const STARTUP_POLL_INTERVAL = 1_500;
  */
 const STARTUP_POLL_ATTEMPTS = 80;
 
+/** Delay between application reachability probes while the editor shows. */
+const APPLICATION_POLL_INTERVAL = 3_000;
+/** Time after which a started application that never answered is stopped. */
+const APPLICATION_STARTUP_TIMEOUT = 120_000;
+
 /** Editor documentation, opened from the "editor disabled" screen. */
 const EDITOR_DOCUMENTATION_URL = 'https://intlayer.org/doc/concept/editor';
 
@@ -62,7 +70,8 @@ type PanelMessage =
   | { type: 'showLogs' }
   | { type: 'openConfiguration' }
   | { type: 'openDocumentation' }
-  | { type: 'retry' };
+  | { type: 'retry' }
+  | { type: 'startApplication' };
 
 const isPanelMessage = (message: unknown): message is PanelMessage =>
   typeof message === 'object' &&
@@ -78,6 +87,12 @@ type PanelState = {
   lastFocusedContentKey?: string;
   /** Screen shown: the editor, or a status screen. */
   view?: 'editor' | EditorServerStatus;
+  /** URL of the application previewed by the editor, when configured. */
+  applicationURL?: string;
+  /** Time "Start the app" was clicked, until the application answers. */
+  applicationStartedAt?: number;
+  /** Probes the application while the editor shows. */
+  applicationPollTimer?: ReturnType<typeof setInterval>;
 };
 
 let panelState: PanelState | undefined;
@@ -141,6 +156,7 @@ const waitForEditor = async (
 
 type EditorSettings = {
   editorURL: string;
+  applicationURL?: string;
   /** `false` when the configuration disables the editor. */
   isEnabled: boolean;
 };
@@ -158,6 +174,7 @@ const getEditorSettings = async (
 
   return {
     editorURL: configuration?.editor?.editorURL ?? EDITOR_URL,
+    applicationURL: configuration?.editor?.applicationURL || undefined,
     isEnabled: configuration?.editor?.enabled !== false,
   };
 };
@@ -172,14 +189,82 @@ const getContentFileColumn = (panel: WebviewPanel): ViewColumn =>
   )?.viewColumn ??
   (panel.viewColumn === ViewColumn.One ? ViewColumn.Two : ViewColumn.One);
 
+/** Stops probing the application. */
+const stopApplicationPolling = (state: PanelState): void => {
+  clearInterval(state.applicationPollTimer);
+  state.applicationPollTimer = undefined;
+};
+
+/**
+ * Probes the application and posts its status to the editor webview, which
+ * offers to start it while it does not answer.
+ */
+const updateApplicationStatus = async (state: PanelState): Promise<void> => {
+  if (!state.applicationURL) return;
+
+  const isRunning = await isApplicationRunning(state.applicationURL);
+
+  if (
+    isRunning ||
+    Date.now() - (state.applicationStartedAt ?? 0) > APPLICATION_STARTUP_TIMEOUT
+  ) {
+    state.applicationStartedAt = undefined;
+  }
+
+  const status: ApplicationStatus = isRunning
+    ? 'running'
+    : state.applicationStartedAt === undefined
+      ? 'stopped'
+      : 'starting';
+
+  // Posted on every probe: a message sent before the webview loads is lost
+  void state.panel.webview.postMessage({
+    type: 'applicationStatus',
+    status,
+  } satisfies EditorFrameMessage);
+};
+
+/** Probes the application periodically, starting right away. */
+const startApplicationPolling = (state: PanelState): void => {
+  stopApplicationPolling(state);
+
+  if (!state.applicationURL) return;
+
+  void updateApplicationStatus(state);
+  state.applicationPollTimer = setInterval(
+    () => void updateApplicationStatus(state),
+    APPLICATION_POLL_INTERVAL
+  );
+};
+
+/** Runs the application `dev` script, from the editor banner. */
+const handleStartApplication = async (state: PanelState): Promise<void> => {
+  const isStarted = await startApplication(state.projectDir);
+
+  if (!isStarted) {
+    void window.showErrorMessage(
+      'Intlayer: no "dev" script found in the package.json of the project.'
+    );
+    return;
+  }
+
+  state.applicationStartedAt = Date.now();
+  await updateApplicationStatus(state);
+};
+
 /**
  * Shows the editor in the panel. When it does not answer, its server is
  * started in the background and the panel shows the progress meanwhile.
  */
 const renderPanel = async (state: PanelState): Promise<void> => {
-  const { editorURL, isEnabled } = await getEditorSettings(state.projectDir);
+  const { editorURL, applicationURL, isEnabled } = await getEditorSettings(
+    state.projectDir
+  );
+
+  state.applicationURL = applicationURL;
 
   const showStatus = (status: EditorServerStatus) => {
+    stopApplicationPolling(state);
     state.view = status;
     state.panel.webview.html = getEditorStatusHtml(
       editorURL,
@@ -195,7 +280,11 @@ const renderPanel = async (state: PanelState): Promise<void> => {
     ).toString(true);
 
     state.view = 'editor';
-    state.panel.webview.html = getEditorFrameHtml(webviewEditorURL);
+    state.panel.webview.html = getEditorFrameHtml(
+      webviewEditorURL,
+      applicationURL
+    );
+    startApplicationPolling(state);
   };
 
   // Started earlier by the extension, or by the user
@@ -289,6 +378,9 @@ const handlePanelMessage = async (
     case 'retry':
       await renderPanel(state);
       return;
+    case 'startApplication':
+      await handleStartApplication(state);
+      return;
   }
 };
 
@@ -319,6 +411,8 @@ const createPanel = (
   });
   panel.onDidDispose(() => {
     if (panelState === state) panelState = undefined;
+
+    stopApplicationPolling(state);
 
     // An editor the user started themselves keeps running
     stopEditorServer(projectDir);

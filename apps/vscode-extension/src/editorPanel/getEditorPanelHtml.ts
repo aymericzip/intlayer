@@ -16,15 +16,32 @@ const FOCUSED_CONTENT_CHANGED_MESSAGE = 'INTLAYER_FOCUSED_CONTENT_CHANGED';
 
 const createNonce = (): string => randomUUID().replace(/-/g, '');
 
+/** State of the application the editor previews. */
+export type ApplicationStatus = 'stopped' | 'starting' | 'running';
+
+/** Message the extension posts to the editor webview. */
+export type EditorFrameMessage = {
+  type: 'applicationStatus';
+  status: ApplicationStatus;
+};
+
 /**
  * Webview embedding the visual editor full-size. Field focus messages posted
  * by the editor (and only by it) are forwarded to the extension.
  *
+ * A banner offers to start the application while it does not answer
+ * (`applicationStatus` messages); the editor reloads once it does.
+ *
  * @param editorURL - URL the webview reaches the editor at.
+ * @param applicationURL - URL of the application previewed by the editor.
  */
-export const getEditorFrameHtml = (editorURL: string): string => {
+export const getEditorFrameHtml = (
+  editorURL: string,
+  applicationURL?: string
+): string => {
   const nonce = createNonce();
   const editorOrigin = new URL(editorURL).origin;
+  const applicationLabel = applicationURL ?? 'its URL';
 
   return `<!doctype html>
 <html lang="en">
@@ -33,16 +50,58 @@ export const getEditorFrameHtml = (editorURL: string): string => {
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; frame-src ${escapeHtml(editorOrigin)}; style-src 'nonce-${nonce}'; script-src 'nonce-${nonce}';" />
   <style nonce="${nonce}">
     html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
-    iframe { display: block; width: 100%; height: 100%; border: 0; }
+    body { display: flex; flex-direction: column; }
+    iframe { display: block; flex: 1; width: 100%; border: 0; }
+    .banner { display: flex; align-items: center; gap: 8px; padding: 6px 12px; font-family: var(--vscode-font-family); font-size: var(--vscode-font-size); color: var(--vscode-foreground); background: var(--vscode-editorWidget-background); border-bottom: 1px solid var(--vscode-panel-border); }
+    .banner[hidden] { display: none; }
+    .banner p { flex: 1; margin: 0; }
+    button { padding: 4px 12px; border: 0; border-radius: 2px; font: inherit; color: var(--vscode-button-foreground); background: var(--vscode-button-background); cursor: pointer; }
+    button:hover { background: var(--vscode-button-hoverBackground); }
+    button:disabled { opacity: 0.6; cursor: default; }
   </style>
 </head>
 <body>
+  <div class="banner" hidden>
+    <p>The application is not running at ${escapeHtml(applicationLabel)}.</p>
+    <button data-action="startApplication">Start the app</button>
+  </div>
   <iframe src="${escapeHtml(editorURL)}" title="Intlayer visual editor" allow="clipboard-read; clipboard-write"></iframe>
   <script nonce="${nonce}">
     const vscode = acquireVsCodeApi();
     const editorOrigin = ${JSON.stringify(editorOrigin)};
+    const banner = document.querySelector('.banner');
+    const bannerText = banner.querySelector('p');
+    const startButton = banner.querySelector('button');
+    const iframe = document.querySelector('iframe');
+    let applicationStatus = 'running';
+
+    startButton.addEventListener('click', () =>
+      vscode.postMessage({ type: 'startApplication' })
+    );
 
     window.addEventListener('message', (event) => {
+      // Posted by the extension, never by the embedded editor
+      if (
+        event.data?.type === 'applicationStatus' &&
+        event.source !== iframe.contentWindow
+      ) {
+        const { status } = event.data;
+
+        // Reconnect the editor to the application that just started
+        if (status === 'running' && applicationStatus !== 'running') {
+          iframe.src = iframe.src;
+        }
+
+        applicationStatus = status;
+        banner.hidden = status === 'running';
+        startButton.disabled = status === 'starting';
+        startButton.textContent = status === 'starting' ? 'Starting…' : 'Start the app';
+        bannerText.textContent = status === 'starting'
+          ? 'Starting the application…'
+          : 'The application is not running at ' + ${JSON.stringify(applicationLabel)} + '.';
+        return;
+      }
+
       if (event.origin !== editorOrigin) return;
       if (event.data?.type !== ${JSON.stringify(FOCUSED_CONTENT_CHANGED_MESSAGE)}) return;
 

@@ -1,0 +1,91 @@
+import { type Dictionary, insert, t } from 'intlayer';
+
+const applicationNotRunningViewContent = {
+  key: 'application-not-running-view',
+  content: {
+    title: t({
+      en: 'Your application is not accessible',
+      'en-GB': 'Your application is not accessible',
+      fr: "Votre application n'est pas accessible",
+      es: 'Tu aplicación no está accesible',
+      de: 'Ihre Anwendung ist nicht zugänglich',
+      ja: 'アプリケーションにアクセスできません',
+      ko: '애플리케이션에 접근할 수 없습니다',
+      zh: '您的应用程序无法访问',
+      it: 'La tua applicazione non è accessibile',
+      pt: 'Sua aplicação não está acessível',
+      hi: 'आपका एप्लिकेशन उपलब्ध नहीं है',
+      ar: 'تطبيقك غير متاح',
+      ru: 'Ваше приложение недоступно',
+    }),
+    description: insert(
+      t({
+        en: 'The editor could not reach {{applicationUrl}}. Start your application, the editor will connect automatically.',
+        'en-GB':
+          'The editor could not reach {{applicationUrl}}. Start your application, the editor will connect automatically.',
+        fr: "L'éditeur n'a pas pu joindre {{applicationUrl}}. Démarrez votre application, l'éditeur se connectera automatiquement.",
+        es: 'El editor no pudo acceder a {{applicationUrl}}. Inicie su aplicación, el editor se conectará automáticamente.',
+        de: 'Der Editor konnte {{applicationUrl}} nicht erreichen. Starten Sie Ihre Anwendung, der Editor verbindet sich automatisch.',
+        ja: 'エディターは {{applicationUrl}} に接続できませんでした。アプリケーションを起動すると、エディターが自動的に接続します。',
+        ko: '에디터가 {{applicationUrl}}에 연결할 수 없습니다. 애플리케이션을 시작하면 에디터가 자동으로 연결됩니다.',
+        zh: '编辑器无法访问 {{applicationUrl}}。启动您的应用程序后，编辑器将自动连接。',
+        it: "L'editor non è riuscito a raggiungere {{applicationUrl}}. Avvia la tua applicazione, l'editor si connetterà automaticamente.",
+        pt: 'O editor não conseguiu acessar {{applicationUrl}}. Inicie sua aplicação, o editor se conectará automaticamente.',
+        hi: 'एडिटर {{applicationUrl}} तक नहीं पहुँच सका। अपना एप्लिकेशन शुरू करें, एडिटर अपने आप कनेक्ट हो जाएगा।',
+        ar: 'تعذر على المحرر الوصول إلى {{applicationUrl}}. شغّل تطبيقك، وسيتصل المحرر تلقائيًا.',
+        ru: 'Редактору не удалось подключиться к {{applicationUrl}}. Запустите приложение, и редактор подключится автоматически.',
+      })
+    ),
+    configurationTip: t({
+      en: 'If your application runs on another URL, update the `editor.applicationURL` field of your configuration.',
+      'en-GB':
+        'If your application runs on another URL, update the `editor.applicationURL` field of your configuration.',
+      fr: 'Si votre application tourne sur une autre URL, mettez à jour le champ `editor.applicationURL` de votre configuration.',
+      es: 'Si su aplicación se ejecuta en otra URL, actualice el campo `editor.applicationURL` de su configuración.',
+      de: 'Wenn Ihre Anwendung unter einer anderen URL läuft, aktualisieren Sie das Feld `editor.applicationURL` Ihrer Konfiguration.',
+      ja: 'アプリケーションが別の URL で実行されている場合は、設定の `editor.applicationURL` フィールドを更新してください。',
+      ko: '애플리케이션이 다른 URL에서 실행 중이라면 설정의 `editor.applicationURL` 필드를 업데이트하세요.',
+      zh: '如果您的应用程序运行在其他 URL 上，请更新配置中的 `editor.applicationURL` 字段。',
+      it: 'Se la tua applicazione è in esecuzione su un altro URL, aggiorna il campo `editor.applicationURL` della configurazione.',
+      pt: 'Se sua aplicação roda em outra URL, atualize o campo `editor.applicationURL` da sua configuração.',
+      hi: 'यदि आपका एप्लिकेशन किसी अन्य URL पर चल रहा है, तो अपने कॉन्फ़िगरेशन का `editor.applicationURL` फ़ील्ड अपडेट करें।',
+      ar: 'إذا كان تطبيقك يعمل على عنوان URL آخر، فحدّث الحقل `editor.applicationURL` في الإعدادات.',
+      ru: 'Если приложение работает по другому URL, обновите поле `editor.applicationURL` в конфигурации.',
+    }),
+    retry: t({
+      en: 'Retry',
+      'en-GB': 'Retry',
+      fr: 'Réessayer',
+      es: 'Reintentar',
+      de: 'Erneut versuchen',
+      ja: '再試行',
+      ko: '다시 시도',
+      zh: '重试',
+      it: 'Riprova',
+      pt: 'Tentar novamente',
+      hi: 'पुनः प्रयास करें',
+      ar: 'إعادة المحاولة',
+      ru: 'Повторить',
+    }),
+    checkingApplicationStatus: t({
+      en: 'Checking application status',
+      'en-GB': 'Checking application status',
+      fr: "Vérification de l'état de l'application",
+      es: 'Verificando el estado de la aplicación',
+      de: 'Status der Anwendung wird geprüft',
+      ja: 'アプリケーションの状態を確認しています',
+      ko: '애플리케이션 상태를 확인하고 있습니다',
+      zh: '正在检查应用程序状态',
+      it: "Controllo dello stato dell'applicazione",
+      pt: 'Verificando o estado da aplicação',
+      hi: 'एप्लिकेशन की स्थिति की जांच हो रही है',
+      ar: 'جارٍ التحقق من حالة التطبيق',
+      ru: 'Проверка состояния приложения',
+    }),
+  },
+  title: 'Application not running view',
+  description:
+    'Shown by the standalone editor when the configured application URL does not answer.',
+} satisfies Dictionary;
+
+export default applicationNotRunningViewContent;
