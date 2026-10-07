@@ -731,7 +731,7 @@ export const ContentEditableTextArea: FC<ContentEditableTextAreaProps> = ({
         onDragOver={handleDragOver}
         onClick={onClick}
         className={cn(
-          'resize-none whitespace-pre-wrap break-words outline-none',
+          'wrap-break-word resize-none whitespace-pre-wrap outline-none',
           inputVariants({
             variant,
             validationStyleEnabled: validationStyleEnabled

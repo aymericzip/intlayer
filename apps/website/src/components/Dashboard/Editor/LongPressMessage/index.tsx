@@ -27,27 +27,32 @@ export const LongPressMessage: FC = () => {
 
   return (
     <Container
-      roundedSize="full"
+      roundedSize="2xl"
       border
       borderColor="neutral"
       className={cn(
-        'flex-row p-1 pr-2 text-sm text-text transition-opacity duration-100',
+        'ml-1 p-1 pr-2 text-sm text-text transition-opacity duration-100',
         hoveredContent?.dictionaryKey ? 'opacity-100' : 'opacity-0'
       )}
     >
-      {hoveredContent?.dictionaryKey
-        ? message({
-            longPress: <GestureChip>{longPress}</GestureChip>,
-            modifierClick: (
-              <GestureChip>
-                {modifierClick({ modifierKey: isMac ? '⌘' : 'Ctrl' })}
-              </GestureChip>
-            ),
-            dictionaryKey: (
-              <strong className="mx-1">{hoveredContent.dictionaryKey}</strong>
-            ),
-          })
-        : ''}
+      {/* Single text block so the message wraps as prose, not flex columns */}
+      <p className="leading-6">
+        {hoveredContent?.dictionaryKey
+          ? message({
+              longPress: <GestureChip>{longPress}</GestureChip>,
+              modifierClick: (
+                <GestureChip>
+                  {modifierClick({ modifierKey: isMac ? '⌘' : 'Ctrl' })}
+                </GestureChip>
+              ),
+              dictionaryKey: (
+                <strong className="wrap-break-word mx-1">
+                  {hoveredContent.dictionaryKey}
+                </strong>
+              ),
+            })
+          : ''}
+      </p>
     </Container>
   );
 };
