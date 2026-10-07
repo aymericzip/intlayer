@@ -6,6 +6,10 @@ import { Modal } from '@intlayer/design-system/modal';
 import { type FC, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { Skeleton } from '#components/Skeleton';
+import {
+  DICTIONARY_FILTER_TYPES,
+  type DictionaryFilterType,
+} from './dictionaryFilterType';
 
 type TagAPI = {
   key: string;
@@ -20,13 +24,8 @@ type FiltersModalProps = {
   setParams: (updates: any) => void;
 };
 
-const QUALIFIER_TYPE_KEYS = [
-  'standard',
-  'collection',
-  'variant',
-  'meta',
-] as const;
-type QualifierTypeKey = (typeof QUALIFIER_TYPE_KEYS)[number];
+const QUALIFIER_TYPE_KEYS = DICTIONARY_FILTER_TYPES;
+type QualifierTypeKey = DictionaryFilterType;
 
 export const FiltersModal: FC<FiltersModalProps> = ({
   isOpen,

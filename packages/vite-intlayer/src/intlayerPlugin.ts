@@ -24,6 +24,7 @@ import { startContentWatcher } from '@intlayer/engine/utils';
 import type { PluginOption } from 'vite';
 import { intlayerCompiler } from './IntlayerCompilerPlugin';
 import { intlayerChunk } from './intlayerChunkPlugin';
+import { intlayerDictionaryHmr } from './intlayerDictionaryHmrPlugin';
 import { intlayerMinify } from './intlayerMinifyPlugin';
 import { intlayerOptimize } from './intlayerOptimizePlugin';
 import { intlayerPreload } from './intlayerPreloadPlugin';
@@ -293,6 +294,10 @@ export const intlayerPlugin = (
   // it evaluates, so the content travels with the chunk that needs it instead
   // of being fetched — and suspended on — once that chunk renders.
   plugins.push(intlayerPreload(intlayerConfig));
+
+  // Dictionary HMR: a content edit hot-updates only the modules reading the
+  // changed dictionary, instead of every module importing an Intlayer package.
+  plugins.push(intlayerDictionaryHmr(intlayerConfig));
 
   // Compiler: extracts content declared inline in components into dictionaries.
   // Bundled directly into the main plugin so users no longer need to register

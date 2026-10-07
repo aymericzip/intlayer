@@ -1,5 +1,6 @@
 export * from './useAreTransitionsReady';
 export * from './useDevice';
+export * from './useDragReorder';
 export * from './useGetElementById';
 export * from './useGetElementOrWindow';
 export * from './useHorizontalSwipe';

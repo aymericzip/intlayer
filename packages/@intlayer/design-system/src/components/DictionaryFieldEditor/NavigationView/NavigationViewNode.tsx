@@ -1,6 +1,11 @@
 import { Accordion, type AccordionProps } from '@components/Accordion';
 import { Button } from '@components/Button';
 import { useLocaleSwitcherContent } from '@components/LocaleSwitcherContentDropDown';
+import {
+  type ReorderProps,
+  useDragReorder,
+  VERTICAL_DROP_ZONE_CLASS_NAME,
+} from '@hooks/useDragReorder';
 import { camelCaseToSentence } from '@intlayer/config/client';
 import {
   getContentNodeByKeyPath,
@@ -16,11 +21,13 @@ import {
 import type { LocalDictionaryId } from '@intlayer/types/dictionary';
 import type { KeyPath } from '@intlayer/types/keyPath';
 import * as NodeTypes from '@intlayer/types/nodeType';
+import { cn } from '@utils/cn';
 import type { ContentNode, Dictionary } from 'intlayer';
-import { ChevronRight, Plus } from 'lucide-react';
+import { ChevronRight, GripVertical, Plus } from 'lucide-react';
 import { type FC, type ReactNode, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { getIsEditableSection } from '../getIsEditableSection';
+import { useFieldReorder } from '../useFieldReorder';
 
 export const traceKeys: string[] = ['filePath', 'id', 'nodeType'];
 
@@ -47,6 +54,45 @@ const GatedAccordion: FC<GatedAccordionProps> = ({
   );
 };
 
+type ReorderableItemProps = {
+  reorderProps: ReorderProps;
+  children: ReactNode;
+};
+
+/** Draggable tree entry; the grip shows on hover. */
+const ReorderableItem: FC<ReorderableItemProps> = ({
+  reorderProps,
+  children,
+}) => (
+  <div
+    {...reorderProps}
+    className={cn(
+      'group/reorder flex w-full min-w-0 items-start gap-1 rounded-lg',
+      'cursor-grab active:cursor-grabbing data-[dragging=true]:opacity-40',
+      VERTICAL_DROP_ZONE_CLASS_NAME
+    )}
+  >
+    <GripVertical
+      aria-hidden
+      className="mt-2.5 size-3.5 shrink-0 text-neutral opacity-0 transition-opacity group-hover/reorder:opacity-100"
+    />
+    <div className="min-w-0 flex-1">{children}</div>
+  </div>
+);
+
+/** Keys of the reorderable children: object keys or array indexes. */
+const getReorderableChildKeys = (section: ContentNode): string[] => {
+  if (Array.isArray(section)) return section.map((_, index) => String(index));
+  if (
+    section &&
+    typeof section === 'object' &&
+    typeof (section as { nodeType?: unknown }).nodeType !== 'string'
+  ) {
+    return Object.keys(section);
+  }
+  return [];
+};
+
 export type NodeWrapperProps = {
   keyPath: KeyPath[];
   section: ContentNode;
@@ -71,6 +117,20 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
     (focusedContent?.keyPath?.length ?? 0) > 0 &&
     isSameKeyPath(keyPath, focusedContent?.keyPath ?? []);
   const isEditableSubSection = getIsEditableSection(section);
+  const { reorderField } = useIntlayer('content-grid');
+  const { moveField } = useFieldReorder(dictionary);
+  const isArraySection = Array.isArray(section);
+  const { getReorderProps } = useDragReorder({
+    itemIds: getReorderableChildKeys(section),
+    orientation: 'vertical',
+    title: reorderField.value,
+    onMove: (sourceKey, targetKey) =>
+      moveField(
+        keyPath,
+        isArraySection ? Number(sourceKey) : sourceKey,
+        isArraySection ? Number(targetKey) : targetKey
+      ),
+  });
 
   if (!section) return <></>;
 
@@ -157,39 +217,47 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
 
             if (isEditableSubSection) {
               return (
-                <Button
+                <ReorderableItem
                   key={JSON.stringify(childKeyPath)}
-                  label={`${goToField.label.value} ${index}`}
-                  variant="hoverable"
-                  color="text"
-                  className="w-full"
-                  onClick={() => setFocusedContentKeyPath(childKeyPath)}
-                  IconRight={ChevronRight}
-                  isActive={getIsSelected(childKeyPath)}
+                  reorderProps={getReorderProps(String(index))}
                 >
-                  Item {index}
-                </Button>
+                  <Button
+                    label={`${goToField.label.value} ${index}`}
+                    variant="hoverable"
+                    color="text"
+                    className="w-full"
+                    onClick={() => setFocusedContentKeyPath(childKeyPath)}
+                    IconRight={ChevronRight}
+                    isActive={getIsSelected(childKeyPath)}
+                  >
+                    Item {index}
+                  </Button>
+                </ReorderableItem>
               );
             }
 
             return (
-              <GatedAccordion
+              <ReorderableItem
                 key={JSON.stringify(childKeyPath)}
-                label={`${goToField.label.value} ${index}`}
-                header={`Item ${index}`}
-                isActive={getIsSelected(childKeyPath)}
-                onClick={() => setFocusedContentKeyPath(childKeyPath)}
+                reorderProps={getReorderProps(String(index))}
               >
-                <div className="mt-2 flex w-full max-w-full">
-                  <div className="flex-1 ps-10">
-                    <NavigationViewNode
-                      keyPath={childKeyPath}
-                      section={sectionProp}
-                      dictionary={dictionary}
-                    />
+                <GatedAccordion
+                  label={`${goToField.label.value} ${index}`}
+                  header={`Item ${index}`}
+                  isActive={getIsSelected(childKeyPath)}
+                  onClick={() => setFocusedContentKeyPath(childKeyPath)}
+                >
+                  <div className="mt-2 flex w-full max-w-full">
+                    <div className="flex-1 ps-10">
+                      <NavigationViewNode
+                        keyPath={childKeyPath}
+                        section={sectionProp}
+                        dictionary={dictionary}
+                      />
+                    </div>
                   </div>
-                </div>
-              </GatedAccordion>
+                </GatedAccordion>
+              </ReorderableItem>
             );
           })}
 
@@ -258,39 +326,41 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
 
           if (isEditableSubSection) {
             return (
-              <Button
-                label={`${goToField.label.value} ${key}`}
-                key={key}
-                isActive={getIsSelected(childKeyPath)}
-                variant="hoverable"
-                color="text"
-                className="w-full"
-                onClick={() => setFocusedContentKeyPath(childKeyPath)}
-                IconRight={ChevronRight}
-              >
-                {camelCaseToSentence(key)}
-              </Button>
+              <ReorderableItem key={key} reorderProps={getReorderProps(key)}>
+                <Button
+                  label={`${goToField.label.value} ${key}`}
+                  isActive={getIsSelected(childKeyPath)}
+                  variant="hoverable"
+                  color="text"
+                  className="w-full"
+                  onClick={() => setFocusedContentKeyPath(childKeyPath)}
+                  IconRight={ChevronRight}
+                >
+                  {camelCaseToSentence(key)}
+                </Button>
+              </ReorderableItem>
             );
           }
 
           return (
-            <GatedAccordion
-              key={key}
-              label={`${goToField.label.value} ${key}`}
-              isActive={getIsSelected(childKeyPath)}
-              onClick={() => setFocusedContentKeyPath(childKeyPath)}
-              header={camelCaseToSentence(key)}
-            >
-              <div className="mt-2 flex w-full max-w-full">
-                <div className="flex-1 ps-10">
-                  <NavigationViewNode
-                    keyPath={childKeyPath}
-                    section={sectionProp}
-                    dictionary={dictionary}
-                  />
+            <ReorderableItem key={key} reorderProps={getReorderProps(key)}>
+              <GatedAccordion
+                label={`${goToField.label.value} ${key}`}
+                isActive={getIsSelected(childKeyPath)}
+                onClick={() => setFocusedContentKeyPath(childKeyPath)}
+                header={camelCaseToSentence(key)}
+              >
+                <div className="mt-2 flex w-full max-w-full">
+                  <div className="flex-1 ps-10">
+                    <NavigationViewNode
+                      keyPath={childKeyPath}
+                      section={sectionProp}
+                      dictionary={dictionary}
+                    />
+                  </div>
                 </div>
-              </div>
-            </GatedAccordion>
+              </GatedAccordion>
+            </ReorderableItem>
           );
         })}
       </div>

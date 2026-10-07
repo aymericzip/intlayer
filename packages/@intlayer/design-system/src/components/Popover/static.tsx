@@ -1,5 +1,6 @@
 import { cn } from '@utils/cn';
 import {
+  type ButtonHTMLAttributes,
   type ComponentProps,
   createContext,
   type DetailedHTMLProps,
@@ -49,6 +50,7 @@ export type PopoverProps = DetailedHTMLProps<
  */
 export type PopoverType = FC<PopoverProps> & {
   Detail: FC<DetailProps>;
+  Trigger: FC<PopoverTriggerProps>;
 };
 
 /**
@@ -317,7 +319,34 @@ const Detail: FC<DetailProps> = ({
   );
 };
 
-PopoverStatic.Detail = Detail;
+/** Props of the button toggling a `Popover.Panel` */
+export type PopoverTriggerProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+  /** Identifier matching the `Popover.Panel` the button toggles */
+  identifier: string;
+};
 
-// Export Detail for use in dynamic version
-export { Detail };
+/**
+ * Button toggling the `Popover.Panel` of the same identifier on click.
+ *
+ * Relies on the native `popovertarget` link, so the browser handles the
+ * toggle, the light dismiss and the `aria-expanded` state.
+ *
+ * @example
+ * ```jsx
+ * <Popover identifier="type-picker">
+ *   <Popover.Trigger identifier="type-picker">Text</Popover.Trigger>
+ *   <Popover.Panel identifier="type-picker">…</Popover.Panel>
+ * </Popover>
+ * ```
+ */
+const PopoverTrigger: FC<PopoverTriggerProps> = ({ identifier, ...props }) => {
+  const { panelId } = usePopoverIds(identifier);
+
+  return <button type="button" popoverTarget={panelId} {...props} />;
+};
+
+PopoverStatic.Detail = Detail;
+PopoverStatic.Trigger = PopoverTrigger;
+
+// Export Detail and Trigger for use in dynamic version
+export { Detail, PopoverTrigger };

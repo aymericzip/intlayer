@@ -99,7 +99,7 @@ const config: CustomIntlayerConfig = {
     purge: true,
   },
   editor: {
-    enabled: true,
+    enabled: process.env.NODE_ENV === 'development',
     liveSync: false,
     dictionaryPriorityStrategy: 'local_first',
     applicationURL: import.meta.env.VITE_URL,

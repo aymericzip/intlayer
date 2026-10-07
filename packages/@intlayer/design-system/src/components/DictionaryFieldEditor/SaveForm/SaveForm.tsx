@@ -19,7 +19,7 @@ import type { Dictionary } from '@intlayer/types/dictionary';
 import { cn } from '@utils/cn';
 import {
   ArrowUpFromLine,
-  Download,
+  FileDown,
   RotateCcw,
   Save,
   Trash,
@@ -32,6 +32,8 @@ import {
   useState,
 } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { ChangeSetPopover } from '../ContentGrid/ChangeSetPopover';
+import { useOptionalContentGrid } from '../ContentGrid/useOptionalContentGrid';
 
 type DictionaryDetailsProps = {
   dictionary: Dictionary;
@@ -61,12 +63,16 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
   const { editedContent, restoreEditedContent } = useEditedContent();
   const {
     deleteButton,
-    resetButton,
+    discardButton,
     saveButton,
     publishButton,
-    downloadButton,
+    saveToFileButton,
+    writesTo,
     confirmation,
   } = useIntlayer('save-dictionary-details');
+  // Absent when the form is rendered outside the dictionary editor
+  const contentGrid = useOptionalContentGrid();
+  const changeCount = contentGrid?.changeSet.length ?? 0;
   const { isAuthenticated } = useAuth();
   const { session } = useSession();
   const bearerAuth = useBearerAuth();
@@ -174,6 +180,36 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
     );
   };
 
+  const saveButtonElement = (
+    <FormButton
+      label={saveButton.label.value}
+      disabled={!isEdited || isLoading || !hasDictionaryWritePermission}
+      Icon={Save}
+      color="text"
+      className="max-md:w-full"
+      isLoading={isPushing}
+      onClick={handlePushDictionary}
+    >
+      {changeCount > 0
+        ? saveButton.countText({ count: changeCount })
+        : saveButton.text}
+    </FormButton>
+  );
+
+  // Hovering the save button reviews the unsaved changes
+  const saveChangesButton =
+    contentGrid && changeCount > 0 ? (
+      <ChangeSetPopover
+        changeSet={contentGrid.changeSet}
+        onRevert={contentGrid.revertChange}
+        className="max-md:w-full"
+      >
+        {saveButtonElement}
+      </ChangeSetPopover>
+    ) : (
+      saveButtonElement
+    );
+
   return (
     <>
       <Modal
@@ -224,7 +260,21 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
           </div>
         </form>
       </Modal>
-      <form className={cn('flex justify-end gap-2', className)} {...props}>
+      <form
+        className={cn(
+          'flex flex-wrap items-center justify-end gap-2',
+          className
+        )}
+        {...props}
+      >
+        {mode.includes('local') && dictionary.filePath && (
+          <span
+            className="me-auto truncate font-mono text-muted-foreground text-xs"
+            dir="ltr"
+          >
+            {writesTo({ filePath: dictionary.filePath })}
+          </span>
+        )}
         {mode.includes('remote') &&
           isDistantDictionary &&
           onDelete &&
@@ -244,7 +294,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
           )}
         {isEdited && (
           <FormButton
-            label={resetButton.label.value}
+            label={discardButton.label.value}
             disabled={!isEdited}
             Icon={RotateCcw}
             variant="outline"
@@ -252,21 +302,23 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
             className="max-md:w-full"
             onClick={() => restoreEditedContent(dictionary.localId!)}
           >
-            {resetButton.text}
+            {changeCount > 0
+              ? discardButton.countText({ count: changeCount })
+              : discardButton.text}
           </FormButton>
         )}
         {mode.includes('local') && (
           <FormButton
-            label={downloadButton.label.value}
+            label={saveToFileButton.label.value}
             disabled={!isEdited || isLoading}
-            Icon={Download}
+            Icon={FileDown}
             color="text"
             variant={isAuthenticated || canLoginToPush ? 'outline' : 'default'}
             className="max-md:w-full"
             isLoading={isWriting}
             onClick={() => setIsFormatAlertModalOpen(true)}
           >
-            {downloadButton.text}
+            {saveToFileButton.text}
           </FormButton>
         )}
         {mode.includes('remote') && isAuthenticated && !isDistantDictionary && (
@@ -298,19 +350,8 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
         {mode.includes('remote') &&
           isAuthenticated &&
           isDistantDictionary &&
-          isEdited && (
-            <FormButton
-              label={saveButton.label.value}
-              disabled={!isEdited || isLoading || !hasDictionaryWritePermission}
-              Icon={Save}
-              color="text"
-              className="max-md:w-full"
-              isLoading={isPushing}
-              onClick={handlePushDictionary}
-            >
-              {saveButton.text}
-            </FormButton>
-          )}
+          isEdited &&
+          saveChangesButton}
       </form>
     </>
   );

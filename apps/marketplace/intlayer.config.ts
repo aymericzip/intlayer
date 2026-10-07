@@ -61,7 +61,7 @@ const config: CustomIntlayerConfig = {
     formatCommand: 'bun x biome format "{{file}}" --write --log-level none',
   },
   editor: {
-    enabled: false,
+    enabled: process.env.NODE_ENV === 'development',
     liveSync: false,
     dictionaryPriorityStrategy: 'local_first',
     backendURL: process.env.VITE_BACKEND_URL,

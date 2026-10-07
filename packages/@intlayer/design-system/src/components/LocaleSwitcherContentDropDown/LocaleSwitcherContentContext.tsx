@@ -13,6 +13,7 @@ import {
   useMemo,
 } from 'react';
 import { useLocale } from 'react-intlayer';
+import { resolveSelectedLocales } from './resolveSelectedLocales';
 
 type LocaleSwitcherContentContextProps = {
   availableLocales: LocalesValues[];
@@ -40,29 +41,35 @@ export const LocaleSwitcherContentProvider: FC<
 > = ({ availableLocales, defaultSelectedLocales, children }) => {
   const { locale } = useLocale();
 
-  const [selectedLocales, setSelectedLocales] = usePersistedStore<
+  const [storedLocales, setSelectedLocales] = usePersistedStore<
     LocalesValues[]
   >(
     'locale-content-selector-selected-locales',
     defaultSelectedLocales ?? [locale]
   );
 
-  // When availableLocales becomes non-empty (e.g. after session loads) and the
-  // persisted selectedLocales contains no valid entry (e.g. was stored as []
-  // when availableLocales was still empty), reset to sane defaults.
+  // A stored `[]` (written while the available locales were still loading, or
+  // by another provider sharing the key) rendered every translation empty
+  const selectedLocales = useMemo(
+    () =>
+      resolveSelectedLocales(
+        storedLocales,
+        availableLocales,
+        defaultSelectedLocales,
+        locale
+      ),
+    [storedLocales, availableLocales, defaultSelectedLocales, locale]
+  );
+
+  // Heal the store so updaters (toggle, reorder) start from the visible list
   useEffect(() => {
     if (!availableLocales.length) return;
-
-    const hasValid = selectedLocales?.some((locales) =>
-      availableLocales.includes(locales)
-    );
-    if (!hasValid) {
-      const fallback = defaultSelectedLocales?.filter((locales) =>
-        availableLocales.includes(locales)
-      );
-      setSelectedLocales(fallback?.length ? fallback : [locale]);
+    if (JSON.stringify(selectedLocales) === JSON.stringify(storedLocales)) {
+      return;
     }
-  }, [availableLocales]);
+
+    setSelectedLocales(selectedLocales);
+  }, [availableLocales, selectedLocales, storedLocales, setSelectedLocales]);
 
   const contextValue = useMemo(
     () => ({ availableLocales, selectedLocales, setSelectedLocales }),

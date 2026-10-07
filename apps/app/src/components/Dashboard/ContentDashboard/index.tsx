@@ -4,19 +4,15 @@ import {
 } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
-import {
-  DictionaryFieldEditor,
-  formatDictionaryVariant,
-} from '@intlayer/design-system/dictionary-field-editor';
+import { DictionaryFieldEditor } from '@intlayer/design-system/dictionary-field-editor';
 import { Loader } from '@intlayer/design-system/loader';
-import { Pagination } from '@intlayer/design-system/pagination';
 import { PopoverStatic } from '@intlayer/design-system/popover';
 import { App_Dashboard_Dictionaries_Path } from '@intlayer/design-system/routes';
 import { useDictionariesRecord } from '@intlayer/editor-react';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import { useQueryClient } from '@tanstack/react-query';
 import { Pin, PinOff } from 'lucide-react';
-import { type FC, Suspense, useMemo, useState } from 'react';
+import { type FC, Suspense, useMemo } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { useTheme } from '#/providers/ThemeProvider';
 import { useDictionarySidebar } from '#hooks/useDictionarySidebar';
@@ -25,29 +21,6 @@ import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
 type ContentDashboardContentProps = {
   dictionaryKey: string;
 };
-
-/**
- * Derives the list of collection item numbers declared among a set of sibling
- * dictionaries, sorted ascending.
- */
-const extractItemNumbers = (siblings: Dictionary[]): number[] =>
-  [
-    ...new Set(
-      siblings.filter((d) => d.item !== undefined).map((d) => d.item as number)
-    ),
-  ].sort((a, b) => a - b);
-
-/**
- * Derives the list of variant identities declared among a set of sibling
- * dictionaries, preserving declaration order.
- */
-const extractVariantNames = (siblings: Dictionary[]): string[] => [
-  ...new Set(
-    siblings
-      .filter((d) => d.variant !== undefined)
-      .map((d) => formatDictionaryVariant(d.variant))
-  ),
-];
 
 export const ContentDashboard: FC<ContentDashboardContentProps> = ({
   dictionaryKey,
@@ -60,7 +33,6 @@ export const ContentDashboard: FC<ContentDashboardContentProps> = ({
   );
   const { localeDictionaries } = useDictionariesRecord();
   const queryClient = useQueryClient();
-  const content = useIntlayer('content-dashboard');
   const {
     pinDictionary: pinDictionaryLabel,
     unpinDictionary: unpinDictionaryLabel,
@@ -85,38 +57,12 @@ export const ContentDashboard: FC<ContentDashboardContentProps> = ({
     [siblingsResult]
   );
 
-  const itemNumbers = useMemo(() => extractItemNumbers(siblings), [siblings]);
-  const variantNames = useMemo(() => extractVariantNames(siblings), [siblings]);
-
-  const hasSiblingDimensions =
-    itemNumbers.length > 0 || variantNames.length > 0;
-
-  // Selector state — null means "show base dictionary"
-  const [selectedItem, setSelectedItem] = useState<number | null>(null);
-  const [selectedVariant, setSelectedVariant] = useState<string | null>(null);
-
-  /** Find the sibling that best matches the current selector state. */
-  const selectedSibling = useMemo<Dictionary | null>(() => {
-    if (!selectedItem && !selectedVariant) return null;
-    return (
-      siblings.find((d) => {
-        const itemMatch = selectedItem === null || d.item === selectedItem;
-        const variantMatch =
-          selectedVariant === null ||
-          formatDictionaryVariant(d.variant) === selectedVariant;
-        return itemMatch && variantMatch;
-      }) ?? null
-    );
-  }, [siblings, selectedItem, selectedVariant]);
-
-  const dictionary = selectedSibling ?? remoteDictionary ?? localeDictionary;
+  // Item / variant selection is handled inside the editor
+  const dictionary = remoteDictionary ?? localeDictionary;
 
   const handleSave = () => {
     queryClient.invalidateQueries({ queryKey: ['dictionary', dictionaryKey] });
   };
-
-  const currentItemPage =
-    selectedItem !== null ? itemNumbers.indexOf(selectedItem) + 1 : 1;
 
   const pinned = isPinned(dictionaryKey);
 
@@ -124,70 +70,10 @@ export const ContentDashboard: FC<ContentDashboardContentProps> = ({
     <Suspense fallback={<Loader />}>
       <Loader isLoading={!dictionary && isPending}>
         <div className="flex h-full min-h-0 w-full flex-1 flex-col">
-          {hasSiblingDimensions && (
-            <div className="flex flex-col gap-3 border-neutral/20 border-b px-6 py-4">
-              <span className="font-medium text-neutral text-sm">
-                {String(content.siblings.title)}
-              </span>
-
-              <div className="flex flex-wrap items-center gap-6">
-                {/* ── Collection items ───────────────────────────── */}
-                {itemNumbers.length > 0 && (
-                  <div className="flex items-center gap-2">
-                    <span className="text-neutral text-xs">
-                      {String(content.siblings.collectionLabel)}
-                    </span>
-                    <Pagination
-                      currentPage={currentItemPage}
-                      totalPages={itemNumbers.length}
-                      onPageChange={(page) => {
-                        const itemNumber = itemNumbers[page - 1];
-                        setSelectedItem(
-                          itemNumber === itemNumbers[currentItemPage - 1] &&
-                            selectedItem !== null
-                            ? null
-                            : (itemNumber ?? null)
-                        );
-                      }}
-                      size="sm"
-                    />
-                  </div>
-                )}
-
-                {/* ── Variants ───────────────────────────────────── */}
-                {variantNames.length > 0 && (
-                  <div className="flex items-center gap-2">
-                    <span className="text-neutral text-xs">
-                      {String(content.siblings.variantLabel)}
-                    </span>
-                    <div className="flex flex-wrap gap-1">
-                      {variantNames.map((variantName) => {
-                        const isActive = selectedVariant === variantName;
-                        return (
-                          <Button
-                            key={variantName}
-                            variant={isActive ? 'default' : 'outline'}
-                            size="sm"
-                            color="text"
-                            label={variantName}
-                            onClick={() =>
-                              setSelectedVariant(isActive ? null : variantName)
-                            }
-                          >
-                            {variantName}
-                          </Button>
-                        );
-                      })}
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
-
           {dictionary && (
             <DictionaryFieldEditor
               dictionary={dictionary}
+              siblings={siblings}
               onClickDictionaryList={() =>
                 navigate({ to: App_Dashboard_Dictionaries_Path })
               }

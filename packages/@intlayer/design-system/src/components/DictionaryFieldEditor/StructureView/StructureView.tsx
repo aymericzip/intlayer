@@ -3,6 +3,10 @@
 import { Button } from '@components/Button';
 import { Container } from '@components/Container';
 import { EditableFieldInput } from '@components/EditableField';
+import {
+  useDragReorder,
+  VERTICAL_DROP_ZONE_CLASS_NAME,
+} from '@hooks/useDragReorder';
 import { camelCaseToSentence } from '@intlayer/config/client';
 import {
   getDefaultNode,
@@ -18,11 +22,13 @@ import {
 import type { LocalDictionaryId, TypedNode } from '@intlayer/types/dictionary';
 import type { KeyPath } from '@intlayer/types/keyPath';
 import * as NodeTypes from '@intlayer/types/nodeType';
+import { cn } from '@utils/cn';
 import type { ContentNode } from 'intlayer';
-import { Plus, Trash } from 'lucide-react';
+import { GripVertical, Plus, Trash } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { NodeTypeSelector } from '../NodeTypeSelector';
+import { reorderChildNodes } from '../reorderChildNodes';
 
 type NodeTypeViewProps = {
   dictionaryLocalId: LocalDictionaryId;
@@ -242,8 +248,20 @@ export const ObjectView: FC<ObjectViewProps> = ({
   dictionaryLocalId,
 }) => {
   const { addNodeButton } = useIntlayer('structure-view');
+  const { reorderField } = useIntlayer('content-grid');
   const { setFocusedContentKeyPath } = useFocusUnmergedDictionary();
   const { addEditedContent } = useEditedContentActions();
+  const { getDragHandleProps, getDropZoneProps } = useDragReorder({
+    itemIds: section && typeof section === 'object' ? Object.keys(section) : [],
+    orientation: 'vertical',
+    title: reorderField.value,
+    onMove: (sourceKey, targetKey) =>
+      addEditedContent(
+        dictionaryLocalId,
+        reorderChildNodes(section, sourceKey, targetKey),
+        keyPath
+      ),
+  });
 
   if (!section || typeof section !== 'object') {
     return <div>Not an object</div>;
@@ -255,8 +273,23 @@ export const ObjectView: FC<ObjectViewProps> = ({
         {Object.keys(section).map((key) => (
           <li
             key={`${JSON.stringify(keyPath)}-object-${key}`}
-            className="flex w-full"
+            {...getDropZoneProps(key)}
+            className={cn(
+              'group/reorder flex w-full items-start gap-1 rounded-lg',
+              VERTICAL_DROP_ZONE_CLASS_NAME
+            )}
           >
+            <Button
+              {...getDragHandleProps(key)}
+              label={reorderField.value}
+              Icon={GripVertical}
+              iconClassName="size-3.5"
+              variant="none"
+              color="neutral"
+              size="custom"
+              roundedSize="sm"
+              className="mt-2 cursor-grab p-0.5 opacity-40 transition-opacity hover:bg-text/10 focus-visible:opacity-100 active:cursor-grabbing group-hover/reorder:opacity-100 data-[dragging=true]:opacity-40"
+            />
             <NodeView
               sectionKey={key}
               section={section?.[key as keyof typeof section]}

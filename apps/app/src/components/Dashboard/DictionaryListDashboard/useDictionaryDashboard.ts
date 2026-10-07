@@ -18,6 +18,7 @@ import {
 } from '#hooks/useDashboardRightPanel';
 import { useSearchParamState } from '#hooks/useSearchParamState';
 import { useVisualEditorKeys } from '#hooks/useVisualEditorKeys';
+import { getMatchesFilterTypes } from './dictionaryFilterType';
 
 const searchParams = {
   page: { type: 'number', fallbackValue: 1 },
@@ -27,6 +28,7 @@ const searchParams = {
   sortOrder: { type: 'string', fallbackValue: 'desc' },
   location: { type: 'string', fallbackValue: 'none' },
   tags: { type: 'string', fallbackValue: '' },
+  type: { type: 'string', fallbackValue: '' },
 } as const;
 
 export const useDictionaryDashboard = () => {
@@ -233,10 +235,16 @@ export const useDictionaryDashboard = () => {
     },
     data: {
       // Locale-only dicts (no backend id) are prepended to the first page
-      dictionaries:
-        params.page === 1
-          ? [...filteredLocaleOnlyDicts, ...(data?.data ?? [])]
-          : (data?.data ?? []),
+      // The API has no type filter: the "Type" filter applies to the page
+      dictionaries: (params.page === 1
+        ? [...filteredLocaleOnlyDicts, ...(data?.data ?? [])]
+        : (data?.data ?? [])
+      ).filter((dictionary) =>
+        getMatchesFilterTypes(
+          dictionary as Dictionary,
+          params.type ? params.type.split(',') : []
+        )
+      ),
       totalItems: (data?.total_items ?? 0) + filteredLocaleOnlyDicts.length,
       totalPages: data?.total_pages ?? 1,
       isPending,

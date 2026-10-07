@@ -30,11 +30,12 @@ export type LocaleSwitcherProps = {
   roundedSize?: ContainerProps['roundedSize'];
   /** `sm` renders a compact pill, matching the `xs` `SwitchSelector`. */
   size?: LocaleSwitcherSize;
+  className?: string;
 };
 
 export type LocaleSwitcherSize = 'sm' | 'md';
 
-const sizeClassNames: Record<
+export const sizeClassNames: Record<
   LocaleSwitcherSize,
   { nav: string; trigger: string; label: string; icon: string }
 > = {
@@ -74,8 +75,9 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
   roundedSize,
   variant,
   color,
+  className,
 }) => {
-  let localeName = 'Select a locale';
+  let localeName = '-';
   const { switchTo, searchInput, languageListLabel, localeSwitcherLabel } =
     useIntlayer('locale-switcher-drop-down');
   const inputRef = useRef<HTMLInputElement>(null);
@@ -137,7 +139,7 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
   return (
     <nav
       // A trigger variant draws its own border
-      className={variant ? undefined : sizeClassNames[size].nav}
+      className={cn(variant ? undefined : sizeClassNames[size].nav, className)}
       aria-label={localeSwitcherLabel.value}
     >
       <DropDown identifier={DROPDOWN_IDENTIFIER}>

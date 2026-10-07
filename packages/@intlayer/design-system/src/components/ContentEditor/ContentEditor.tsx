@@ -103,7 +103,7 @@ export const ContentEditor: FC<ContentEditorProps> = ({
           aria-label="Edit actions"
         >
           <Check
-            className="cursor-pointer text-green-600 hover:scale-110"
+            className="cursor-pointer text-success hover:scale-110"
             size={16}
             onClick={handleValid}
             role="button"
@@ -117,7 +117,7 @@ export const ContentEditor: FC<ContentEditorProps> = ({
             }}
           />
           <X
-            className="cursor-pointer text-red-600 hover:scale-110"
+            className="cursor-pointer text-error hover:scale-110"
             size={16}
             onClick={handleCancel}
             role="button"

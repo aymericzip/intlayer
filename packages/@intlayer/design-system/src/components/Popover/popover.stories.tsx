@@ -386,3 +386,27 @@ export const MultiplePopovers: Story = {
     </Container>
   ),
 };
+
+/**
+ * Click Panel
+ * Click-toggled panel rendered in the top layer, so it escapes `overflow`
+ * clipping; closes on outside click or Escape
+ */
+export const ClickPanel: Story = {
+  render: () => (
+    <Container className="h-40 overflow-auto p-16">
+      <Popover identifier="click-panel" className="inline-flex">
+        <Popover.Trigger
+          identifier="click-panel"
+          className="rounded-md border px-3 py-1 text-sm"
+        >
+          Toggle panel
+        </Popover.Trigger>
+
+        <Popover.Panel identifier="click-panel" className="w-64 p-3">
+          <p className="text-sm">Not clipped by the scrolling container.</p>
+        </Popover.Panel>
+      </Popover>
+    </Container>
+  ),
+};
