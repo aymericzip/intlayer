@@ -3,7 +3,8 @@ import { animate, useReducedMotion } from 'framer-motion';
 import type { FC } from 'react';
 import { useEffect, useRef } from 'react';
 import { useNumber } from 'react-intlayer/format';
-import { useRevalidatedGithubStars } from './useRevalidatedGithubStars';
+import { useRevalidatedValue } from '~/hooks/useRevalidatedValue';
+import { revalidateGithubStars } from '~/serverFunctions/githubStars';
 
 const rootRoute = getRouteApi('__root__');
 
@@ -34,15 +35,15 @@ let lastDisplayedStars = COUNT_UP_START;
  *
  * The initial count comes from the root route loader, so it is part of the
  * dehydrated router state by the time the navbar hydrates. Since that value is
- * baked into the prerendered HTML, `useRevalidatedGithubStars` asks the server
- * for the current count, which the server itself refreshes once a day.
+ * baked into the prerendered HTML, `useRevalidatedValue` asks the server for
+ * the current count once the page is idle; the server refreshes it every 6h.
  *
  * Renders nothing while GitHub could not be reached, so the link keeps its
  * icon-only layout.
  */
 export const GithubStarCount: FC = () => {
   const { githubStars } = rootRoute.useLoaderData();
-  const stars = useRevalidatedGithubStars(githubStars);
+  const stars = useRevalidatedValue(githubStars, revalidateGithubStars);
   const format = useNumber();
   const reducedMotion = useReducedMotion();
   const counterRef = useRef<HTMLSpanElement>(null);

@@ -13,6 +13,8 @@ import type { FC } from 'react';
 import { type IntlayerNode, useIntlayer } from 'react-intlayer';
 import { BackgroundLayout } from '~/components/BackgroundLayout';
 import { Link } from '~/components/Link/Link';
+import { useRevalidatedValue } from '~/hooks/useRevalidatedValue';
+import { revalidateLatestVersion } from '~/serverFunctions/latestVersion';
 import packageJSON from '../../../../package_mock.json' with { type: 'json' };
 import { LandingList } from './LandingList';
 import { TechLogos } from './TechLogos';
@@ -35,6 +37,11 @@ export const HeroSection: FC = () => {
   } = useIntlayer('hero-section');
 
   const { isCopied, copy } = useCopyToClipboard('npx intlayer init');
+  // Bundled version renders first; refreshed from GitHub once the page is idle
+  const latestVersion = useRevalidatedValue(
+    packageJSON.version,
+    revalidateLatestVersion
+  );
 
   return (
     <section className="relative flex min-h-[calc(100dvh-60px)] flex-col">
@@ -51,8 +58,10 @@ export const HeroSection: FC = () => {
                 >
                   <Megaphone className="size-3.5 shrink-0 sm:size-4" />
                   <span className="no-underline! flex items-center gap-1 whitespace-nowrap font-medium text-xs sm:text-sm">
-                    {version} v{packageJSON.version}{' '}
-                    <ArrowRight className="size-3 shrink-0" />
+                    {version({
+                      version: latestVersion,
+                      icon: <ArrowRight className="size-3 shrink-0" />,
+                    })}
                   </span>
                 </Tag>
               </Link>

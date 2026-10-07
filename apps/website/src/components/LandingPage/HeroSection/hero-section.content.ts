@@ -1,4 +1,4 @@
-import { type Dictionary, t } from 'intlayer';
+import { type Dictionary, insert, t } from 'intlayer';
 
 const heroSectionContent = {
   key: 'hero-section',
@@ -23,26 +23,28 @@ const heroSectionContent = {
       vi: 'Đi tới trang cập nhật',
       uk: 'Перейти на сторінку оновлень',
     }),
-    version: t({
-      ar: 'تم شحن   للتو',
-      de: 'Gerade   veröffentlicht',
-      en: 'Just shipped  ',
-      'en-GB': 'Just shipped  ',
-      es: 'Recién lanzado  ',
-      fr: ' Publiée récemment  ',
-      hi: 'अभी   शिप किया गया',
-      it: 'Appena rilasciato  ',
-      ja: ' をリリースしました',
-      ko: '  출시',
-      pt: 'Acabamos de lançar a  ',
-      ru: 'Только что выпустили  ',
-      tr: 'Az önce yayınlandı  ',
-      zh: '刚刚发布  ',
-      pl: 'Właśnie wydano',
-      id: 'Baru saja dirilis',
-      vi: 'Vừa phát hành',
-      uk: 'Щойно випущено  ',
-    }),
+    version: insert(
+      t({
+        ar: 'تم إطلاق v{{version}} للتو {{icon}}',
+        de: 'Gerade veröffentlicht: v{{version}} {{icon}}',
+        en: 'Just shipped v{{version}} {{icon}}',
+        'en-GB': 'Just shipped v{{version}} {{icon}}',
+        es: 'Recién lanzado v{{version}} {{icon}}',
+        fr: 'Publiée récemment : v{{version}} {{icon}}',
+        hi: 'अभी v{{version}} शिप किया गया {{icon}}',
+        it: 'Appena rilasciato v{{version}} {{icon}}',
+        ja: 'v{{version}} をリリースしました {{icon}}',
+        ko: 'v{{version}} 출시 {{icon}}',
+        pt: 'Acabamos de lançar a v{{version}} {{icon}}',
+        ru: 'Только что выпустили v{{version}} {{icon}}',
+        tr: 'Az önce yayınlandı v{{version}} {{icon}}',
+        zh: '刚刚发布 v{{version}} {{icon}}',
+        pl: 'Właśnie wydano v{{version}} {{icon}}',
+        id: 'Baru saja dirilis v{{version}} {{icon}}',
+        vi: 'Vừa phát hành v{{version}} {{icon}}',
+        uk: 'Щойно випущено v{{version}} {{icon}}',
+      })
+    ),
     /** Static title, used as-is where `titleWords` is empty (non-Latin scripts) */
     title: t({
       en: 'Internationalization Layer',
