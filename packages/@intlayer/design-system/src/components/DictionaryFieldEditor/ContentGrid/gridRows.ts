@@ -1,3 +1,4 @@
+import { isSameKeyPath } from '@intlayer/core/utils';
 import type { ContentNode } from '@intlayer/types/dictionary';
 import type { KeyPath } from '@intlayer/types/keyPath';
 import type { NodeType } from '@intlayer/types/nodeType';
@@ -8,6 +9,69 @@ import {
   matchesStatusFilter,
 } from './cellStatus';
 import { type ContentRow, SHARED_CELL_KEY } from './flattenContentRows';
+
+const IDENTIFIER_PATTERN = /^[A-Za-z_$][\w$-]*$/;
+
+/** Converts a keyPath to a display path matching row ids. */
+export const keyPathToPath = (keyPath: KeyPath[]): string => {
+  let path = '';
+  for (const segment of keyPath) {
+    if (segment.type === NodeTypes.TRANSLATION) continue;
+    if (segment.type === NodeTypes.ARRAY) {
+      path = `${path}[${segment.key}]`;
+    } else if (typeof segment.key !== 'undefined') {
+      const key = String(segment.key);
+      const isIdentifier = IDENTIFIER_PATTERN.test(key);
+      const formatted = isIdentifier ? key : `[${JSON.stringify(key)}]`;
+      path =
+        path === ''
+          ? formatted
+          : formatted.startsWith('[')
+            ? `${path}${formatted}`
+            : `${path}.${formatted}`;
+    }
+  }
+  return path;
+};
+
+/** Checks whether a row matches the focused key path from the editor. */
+export const getRowMatchesKeyPath = (
+  row: ContentRow,
+  focusedKeyPath: KeyPath[]
+): boolean => {
+  const strippedFocused = focusedKeyPath.filter(
+    (segment) => segment.type !== NodeTypes.TRANSLATION
+  );
+  if (strippedFocused.length === 0) return true;
+
+  // 1. Check if any cell's keyPath matches, is an ancestor, or is a descendant
+  const matchesCell = Object.values(row.cells).some((cell) => {
+    const strippedCell = cell.keyPath.filter(
+      (segment) => segment.type !== NodeTypes.TRANSLATION
+    );
+    return (
+      isSameKeyPath(strippedFocused, strippedCell) ||
+      isSameKeyPath(strippedCell, strippedFocused)
+    );
+  });
+  if (matchesCell) return true;
+
+  // 2. Check path string prefix matching in both directions
+  const targetPath = keyPathToPath(strippedFocused);
+  if (targetPath) {
+    if (
+      row.id === targetPath ||
+      row.id.startsWith(`${targetPath}.`) ||
+      row.id.startsWith(`${targetPath}[`) ||
+      targetPath.startsWith(`${row.id}.`) ||
+      targetPath.startsWith(`${row.id}[`)
+    ) {
+      return true;
+    }
+  }
+
+  return false;
+};
 
 /** Short labels for type chips; anything missing shows its raw type. */
 const TYPE_ABBREVIATIONS: Partial<Record<NodeType, string>> = {
@@ -73,6 +137,8 @@ export type VisibleRowsOptions = {
   /** Group rows whose descendants are hidden. */
   collapsedRowIds: ReadonlySet<string>;
   getStatus: (row: ContentRow, cellKey: string) => CellStatus;
+  /** Focused key path from the visual editor. */
+  focusedKeyPath?: KeyPath[];
 };
 
 const getRowMatchesQuery = (row: ContentRow, query: string): boolean => {
@@ -96,10 +162,13 @@ export const getVisibleRows = (
     localeKeys,
     collapsedRowIds,
     getStatus,
+    focusedKeyPath,
   }: VisibleRowsOptions
 ): ContentRow[] => {
   const normalizedQuery = query.trim().toLowerCase();
-  const isFiltering = normalizedQuery !== '' || statusFilter !== 'all';
+  const hasFocusedKeyPath = (focusedKeyPath?.length ?? 0) > 0;
+  const isFiltering =
+    normalizedQuery !== '' || statusFilter !== 'all' || hasFocusedKeyPath;
 
   const visibleRowIds = new Set<string>();
 
@@ -109,6 +178,8 @@ export const getVisibleRows = (
 
       const matchesQuery =
         normalizedQuery === '' || getRowMatchesQuery(row, normalizedQuery);
+      const matchesFocused =
+        !hasFocusedKeyPath || getRowMatchesKeyPath(row, focusedKeyPath!);
       const matchesStatus =
         statusFilter === 'all' ||
         getVisibleCellKeys(row, localeKeys).some(
@@ -117,7 +188,7 @@ export const getVisibleRows = (
             matchesStatusFilter(getStatus(row, cellKey), statusFilter)
         );
 
-      if (!matchesQuery || !matchesStatus) continue;
+      if (!matchesQuery || !matchesFocused || !matchesStatus) continue;
 
       let currentId: string | undefined = row.id;
       while (currentId !== undefined && !visibleRowIds.has(currentId)) {

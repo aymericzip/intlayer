@@ -1,5 +1,6 @@
 // @vitest-environment node
 import type { ContentNode } from '@intlayer/types/dictionary';
+import type { KeyPath } from '@intlayer/types/keyPath';
 import * as NodeTypes from '@intlayer/types/nodeType';
 import { describe, expect, it } from 'vitest';
 import { getCellStatus, indexCells } from './cellStatus';
@@ -45,7 +46,8 @@ const getStatus = (row: ContentRow, cellKey: string) =>
 const visibleIds = (
   query: string,
   statusFilter: 'all' | 'missing' = 'all',
-  collapsed: string[] = []
+  collapsed: string[] = [],
+  focusedKeyPath?: KeyPath[]
 ) =>
   getVisibleRows(rows, rowsById, {
     query,
@@ -53,6 +55,7 @@ const visibleIds = (
     localeKeys: ['en', 'fr'],
     collapsedRowIds: new Set(collapsed),
     getStatus,
+    focusedKeyPath,
   }).map((row) => row.id);
 
 describe('formatTypeChain', () => {
@@ -100,6 +103,45 @@ describe('getVisibleRows', () => {
   it('hides descendants of collapsed groups unless filtering', () => {
     expect(visibleIds('', 'all', ['card'])).not.toContain('card.label');
     expect(visibleIds('léger', 'all', ['card'])).toContain('card.label');
+  });
+
+  it('filters rows matching focusedKeyPath leaf and includes ancestors', () => {
+    expect(
+      visibleIds(
+        '',
+        'all',
+        [],
+        [
+          { type: NodeTypes.OBJECT, key: 'card' },
+          { type: NodeTypes.OBJECT, key: 'deep' },
+          { type: NodeTypes.OBJECT, key: 'note' },
+        ]
+      )
+    ).toEqual(['card', 'card.deep', 'card.deep.note']);
+  });
+
+  it('filters rows matching focusedKeyPath with translation segment', () => {
+    expect(
+      visibleIds(
+        '',
+        'all',
+        [],
+        [
+          { type: NodeTypes.OBJECT, key: 'title' },
+          { type: NodeTypes.TRANSLATION, key: 'en' },
+        ]
+      )
+    ).toEqual(['title']);
+  });
+
+  it('filters all descendants of an object group when focusedKeyPath targets a parent group', () => {
+    expect(
+      visibleIds('', 'all', [], [{ type: NodeTypes.OBJECT, key: 'card' }])
+    ).toEqual(['card', 'card.label', 'card.deep', 'card.deep.note']);
+  });
+
+  it('does not filter when focusedKeyPath is empty', () => {
+    expect(visibleIds('', 'all', [], [])).toEqual(rows.map((row) => row.id));
   });
 });
 

@@ -219,9 +219,7 @@ export const ContentGridRow: FC<ContentGridRowProps> = memo(
           )}
           {isGroup ? (
             <Button
-              label={
-                isCollapsed ? content.expand.value : content.collapse.value
-              }
+              label={content.toggleCollapse(isCollapsed).value}
               Icon={ChevronRight}
               iconClassName={cn(
                 'size-3.5 transition-transform',

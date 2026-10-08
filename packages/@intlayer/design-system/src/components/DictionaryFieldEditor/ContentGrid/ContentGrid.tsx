@@ -6,6 +6,8 @@ import { Select } from '@components/Select';
 import { Tag } from '@components/Tag';
 import { useDragReorder } from '@hooks/useDragReorder';
 import { getLocaleName } from '@intlayer/core/localization';
+import { isSameKeyPath } from '@intlayer/core/utils';
+import { useFocusUnmergedDictionary } from '@intlayer/editor-react';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import * as NodeTypes from '@intlayer/types/nodeType';
@@ -16,11 +18,14 @@ import {
   type FocusEvent,
   type KeyboardEvent,
   useCallback,
+  useEffect,
   useMemo,
   useRef,
   useState,
+  useTransition,
 } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
+import { KeyPathBreadcrumb } from '../KeyPathBreadcrumb';
 import { useFieldReorder } from '../useFieldReorder';
 import { ContentGridCell } from './ContentGridCell';
 import { useContentGrid } from './ContentGridContext';
@@ -129,6 +134,25 @@ export const ContentGrid: FC<ContentGridProps> = ({ className }) => {
   const { containerRef, isNarrow } = useIsNarrowContainer();
   const gridRef = useRef<HTMLDivElement>(null);
 
+  const {
+    focusedContent,
+    setFocusedContentKeyPath: _setFocusedContentKeyPath,
+  } = useFocusUnmergedDictionary();
+  const [, startTransition] = useTransition();
+  const setFocusedContentKeyPath = useCallback<
+    typeof _setFocusedContentKeyPath
+  >(
+    (keyPath) => startTransition(() => _setFocusedContentKeyPath(keyPath)),
+    [_setFocusedContentKeyPath]
+  );
+
+  const isMatchingDictionary =
+    !focusedContent?.dictionaryKey ||
+    focusedContent.dictionaryKey === model.dictionary.key;
+  const focusedKeyPath = isMatchingDictionary
+    ? focusedContent?.keyPath
+    : undefined;
+
   const [query, setQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<CellStatusFilter>('all');
   const [toggledRowIds, setToggledRowIds] = useState<ReadonlySet<string>>(
@@ -136,6 +160,55 @@ export const ContentGrid: FC<ContentGridProps> = ({ className }) => {
   );
   const [focusedCell, setFocusedCell] = useState<GridCellPosition>();
   const [narrowLocale, setNarrowLocale] = useState<string>();
+
+  useEffect(() => {
+    if (!focusedKeyPath || focusedKeyPath.length === 0) {
+      setFocusedCell(undefined);
+      return;
+    }
+
+    // 1. Check exact match with a cell's keyPath
+    for (const row of rows) {
+      if (row.kind !== 'leaf') continue;
+      for (const [cellKey, cell] of Object.entries(row.cells)) {
+        if (isSameKeyPath(focusedKeyPath, cell.keyPath)) {
+          setFocusedCell({ rowId: row.id, cellKey });
+          return;
+        }
+      }
+    }
+
+    // 2. Check stripped keyPath (ignoring translation segment)
+    const strippedFocused = focusedKeyPath.filter(
+      (segment) => segment.type !== NodeTypes.TRANSLATION
+    );
+    const translationSegment = focusedKeyPath.find(
+      (segment) => segment.type === NodeTypes.TRANSLATION
+    );
+    const preferredLocale = translationSegment?.key as string | undefined;
+
+    for (const row of rows) {
+      if (row.kind !== 'leaf') continue;
+      for (const [cellKey, cell] of Object.entries(row.cells)) {
+        const strippedCell = cell.keyPath.filter(
+          (segment) => segment.type !== NodeTypes.TRANSLATION
+        );
+        if (
+          isSameKeyPath(strippedFocused, strippedCell) ||
+          isSameKeyPath(strippedCell, strippedFocused)
+        ) {
+          if (preferredLocale && row.cells[preferredLocale]) {
+            setFocusedCell({ rowId: row.id, cellKey: preferredLocale });
+          } else {
+            setFocusedCell({ rowId: row.id, cellKey });
+          }
+          return;
+        }
+      }
+    }
+
+    setFocusedCell(undefined);
+  }, [focusedKeyPath, rows]);
 
   const wideLocaleKeys = useMemo(() => {
     const visibleLocales = selectedLocales
@@ -174,6 +247,7 @@ export const ContentGrid: FC<ContentGridProps> = ({ className }) => {
         localeKeys,
         collapsedRowIds,
         getStatus,
+        focusedKeyPath,
       }),
     [
       rows,
@@ -183,10 +257,13 @@ export const ContentGrid: FC<ContentGridProps> = ({ className }) => {
       localeKeys,
       collapsedRowIds,
       getStatus,
+      focusedKeyPath,
     ]
   );
 
-  const isFiltering = query.trim() !== '' || statusFilter !== 'all';
+  const hasFocusedKeyPath = (focusedKeyPath?.length ?? 0) > 0;
+  const isFiltering =
+    query.trim() !== '' || statusFilter !== 'all' || hasFocusedKeyPath;
   const topLevelRows = useMemo(
     () => rows.filter((row) => row.parentId === undefined),
     [rows]
@@ -386,9 +463,7 @@ export const ContentGrid: FC<ContentGridProps> = ({ className }) => {
         <div className="flex min-w-0 items-center gap-1.5 pe-2">
           {isGroup && (
             <Button
-              label={
-                isCollapsed ? content.expand.value : content.collapse.value
-              }
+              label={content.toggleCollapse(isCollapsed).value}
               Icon={ChevronRight}
               iconClassName={cn(
                 'size-3.5 transition-transform',
@@ -440,16 +515,23 @@ export const ContentGrid: FC<ContentGridProps> = ({ className }) => {
       )}
     >
       {!(isNarrow && focusedRow) && (
-        <GridToolbar
-          query={query}
-          onQueryChange={setQuery}
-          statusFilter={statusFilter}
-          onStatusFilterChange={setStatusFilter}
-          statusCounts={statusCounts}
-          localeKeys={localeKeys}
-          onJumpToMissing={jumpToMissing}
-          isNarrow={isNarrow}
-        />
+        <div className="flex flex-col gap-4">
+          <KeyPathBreadcrumb
+            dictionaryKey={model.dictionary.key}
+            keyPath={focusedKeyPath ?? []}
+            onClickKeyPath={setFocusedContentKeyPath}
+          />
+          <GridToolbar
+            query={query}
+            onQueryChange={setQuery}
+            statusFilter={statusFilter}
+            onStatusFilterChange={setStatusFilter}
+            statusCounts={statusCounts}
+            localeKeys={localeKeys}
+            onJumpToMissing={jumpToMissing}
+            isNarrow={isNarrow}
+          />
+        </div>
       )}
 
       {isNarrow ? (
