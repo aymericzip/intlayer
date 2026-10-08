@@ -22,7 +22,7 @@
     "svelte": "5.57.1",
     "svelte-check": "4.7.6",
     "typescript": "7.0.2",
-    "vite": "8.3.3",
+    "vite": "8.3.4",
     "vite-intlayer": "workspace:*"
   }
 }

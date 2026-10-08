@@ -108,7 +108,7 @@
     "tsdown": "0.23.0",
     "typescript": "7.0.2",
     "use-intl": "4.14.9",
-    "vite": "8.3.3",
+    "vite": "8.3.4",
     "vitest": "5.0.3"
   },
   "peerDependencies": {

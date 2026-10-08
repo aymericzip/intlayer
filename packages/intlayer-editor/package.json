@@ -88,11 +88,11 @@
     "typecheck": "tsc --project ./server/tsconfig.types.json --noEmit"
   },
   "dependencies": {
-    "@fastify/compress": "9.2.0",
-    "@fastify/cookie": "11.1.2",
-    "@fastify/cors": "11.3.0",
-    "@fastify/formbody": "9.0.0",
-    "@fastify/helmet": "13.1.1",
+    "@fastify/compress": "9.2.1",
+    "@fastify/cookie": "11.1.3",
+    "@fastify/cors": "11.3.1",
+    "@fastify/formbody": "9.0.1",
+    "@fastify/helmet": "13.1.2",
     "@fastify/static": "10.1.5",
     "@intlayer/api": "workspace:*",
     "@intlayer/cli": "workspace:*",
@@ -122,12 +122,12 @@
     "fuse.js": "7.5.0",
     "globals": "17.13.0",
     "intlayer": "workspace:*",
-    "lucide-react": "1.52.0",
-    "preact": "11.0.0",
+    "lucide-react": "1.53.0",
+    "preact": "11.0.1",
     "tailwindcss": "4.3.3",
     "tsdown": "0.23.0",
     "typescript": "7.0.2",
-    "vite": "8.3.3",
+    "vite": "8.3.4",
     "vitest": "5.0.3"
   },
   "engines": {
