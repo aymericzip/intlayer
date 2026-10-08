@@ -47,9 +47,10 @@ export type DictionaryEditorView =
   | 'structure'
   | 'json';
 
-type DictionaryEditorTab = 'content' | 'details';
+export type DictionaryEditorTab = 'content' | 'details';
 
-const VIEW_STORAGE_KEY = 'intlayer:dictionary-editor:view';
+export const TAB_STORAGE_KEY = 'intlayer:dictionary-editor:tab';
+export const VIEW_STORAGE_KEY = 'intlayer:dictionary-editor:view';
 
 const STORABLE_VIEWS: DictionaryEditorView[] = [
   'grid',
@@ -66,7 +67,7 @@ const UnsavedChangesGuard: FC = () => {
   return null;
 };
 
-type DictionaryFieldEditorProps = {
+export type DictionaryFieldEditorProps = {
   dictionary: Dictionary;
   onClickDictionaryList?: () => void;
   onDelete?: () => void;
@@ -82,6 +83,10 @@ type DictionaryFieldEditorProps = {
    * the CMS when omitted.
    */
   siblings?: Dictionary[];
+  tab?: DictionaryEditorTab;
+  onTabChange?: (tab: DictionaryEditorTab) => void;
+  view?: DictionaryEditorView;
+  onViewChange?: (view: DictionaryEditorView) => void;
 };
 
 export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
@@ -95,6 +100,10 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
   rightContent,
   lockedLocales,
   siblings: siblingsProp,
+  tab: tabProp,
+  onTabChange,
+  view: viewProp,
+  onViewChange,
 }) => {
   const config = useConfiguration();
   const {
@@ -108,11 +117,22 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
     structureView,
     jsonView,
   } = useIntlayer('dictionary-field-editor');
-  const { focusedContent, setFocusedContent } = useFocusUnmergedDictionary();
+  const { setFocusedContent } = useFocusUnmergedDictionary();
   const { setLocaleDictionary } = useDictionariesRecordActions();
-  const [activeTab, setActiveTab] = useState<DictionaryEditorTab>('content');
   const { containerRef, isNarrow } = useIsNarrowContainer();
   const isRemote = mode.includes('remote');
+
+  const [storedTab, setStoredTab] = usePersistedStore<DictionaryEditorTab>(
+    TAB_STORAGE_KEY,
+    'content'
+  );
+  const activeTab: DictionaryEditorTab =
+    tabProp ?? (isRemote && storedTab === 'details' ? 'details' : 'content');
+
+  const selectTab = (tab: DictionaryEditorTab) => {
+    onTabChange?.(tab);
+    setStoredTab(tab);
+  };
 
   // Sibling selection (collection item / variant) applies to every view
   const [activeDictionary, setActiveDictionary] =
@@ -159,29 +179,45 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
   };
 
   const isMarkdownDocument = getIsMarkdownDocument(activeDictionary.content);
-  const [storedView, setStoredView] = usePersistedStore<
+  const [storedView, setStoredView, , clearStoredView] = usePersistedStore<
     DictionaryEditorView | undefined
   >(VIEW_STORAGE_KEY, undefined);
   // The document view is chosen by the dictionary itself, never remembered
   const rememberedView = STORABLE_VIEWS.find((view) => view === storedView);
   const [documentViewOverride, setDocumentViewOverride] =
     useState<DictionaryEditorView>();
-  const activeView: DictionaryEditorView = isMarkdownDocument
-    ? (documentViewOverride ?? 'document')
-    : (rememberedView ?? 'grid');
+  const activeView: DictionaryEditorView =
+    viewProp ??
+    documentViewOverride ??
+    rememberedView ??
+    (isMarkdownDocument ? 'document' : 'grid');
 
   useEffect(() => {
-    setFocusedContent({
-      ...(focusedContent ?? {}),
-      dictionaryKey: dictionary.key,
-      dictionaryLocalId: dictionary.localId,
+    setFocusedContent((prev) => {
+      if (
+        prev?.dictionaryKey === dictionary.key &&
+        prev?.dictionaryLocalId === dictionary.localId
+      ) {
+        return prev;
+      }
+      return {
+        ...(prev ?? {}),
+        dictionaryKey: dictionary.key,
+        dictionaryLocalId: dictionary.localId,
+      };
     });
     setLocaleDictionary(dictionary);
-  }, []);
+  }, [dictionary.key, dictionary.localId]);
 
   const selectView = (view: DictionaryEditorView) => {
-    if (isMarkdownDocument) setDocumentViewOverride(view);
-    else setStoredView(view);
+    onViewChange?.(view);
+    if (view === 'document') {
+      setDocumentViewOverride('document');
+      clearStoredView();
+    } else {
+      setDocumentViewOverride(undefined);
+      setStoredView(view);
+    }
   };
 
   const viewChoices: { content: string; value: DictionaryEditorView }[] = [
@@ -244,7 +280,7 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
                       key="content"
                       className={tabClassName}
                       data-active={activeTab === 'content'}
-                      onClick={() => setActiveTab('content')}
+                      onClick={() => selectTab('content')}
                       type="button"
                     >
                       {contentTab}
@@ -253,7 +289,7 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
                       key="details"
                       className={tabClassName}
                       data-active={activeTab === 'details'}
-                      onClick={() => setActiveTab('details')}
+                      onClick={() => selectTab('details')}
                       type="button"
                     >
                       {detailsTab}
