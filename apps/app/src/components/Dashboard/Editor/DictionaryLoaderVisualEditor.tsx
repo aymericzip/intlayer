@@ -31,7 +31,15 @@ export const DictionaryLoaderVisualEditor: FC = () => {
   useEffect(() => {
     if (!manager) return;
 
-    const handler = (e: Event) => {
+    // Initialize keys based on current manager state
+    const currentFocused = manager.focusedContent.value?.dictionaryKey;
+    if (currentFocused) {
+      visualEditorKeysManager.setKeys([currentFocused]);
+    } else if (manager.displayedDictionaryKeys.value) {
+      visualEditorKeysManager.setKeys(manager.displayedDictionaryKeys.value);
+    }
+
+    const handleFocusedChange = (e: Event) => {
       const focused = (e as CustomEvent<{ dictionaryKey?: string } | null>)
         .detail;
       if (focused?.dictionaryKey) {
@@ -55,8 +63,28 @@ export const DictionaryLoaderVisualEditor: FC = () => {
       }
     };
 
-    manager.focusedContent.addEventListener('change', handler);
-    return () => manager.focusedContent.removeEventListener('change', handler);
+    const handleDisplayedKeysChange = (e: Event) => {
+      // If a dictionary is currently focused, do not overwrite the focused filter
+      if (manager.focusedContent.value?.dictionaryKey) return;
+
+      const keys = (e as CustomEvent<string[]>).detail ?? [];
+      visualEditorKeysManager.setKeys(keys);
+    };
+
+    manager.focusedContent.addEventListener('change', handleFocusedChange);
+    manager.displayedDictionaryKeys.addEventListener(
+      'change',
+      handleDisplayedKeysChange
+    );
+
+    return () => {
+      manager.focusedContent.removeEventListener('change', handleFocusedChange);
+      manager.displayedDictionaryKeys.removeEventListener(
+        'change',
+        handleDisplayedKeysChange
+      );
+      visualEditorKeysManager.setKeys([]);
+    };
   }, [manager, currentDictionaryKey, navigate]);
 
   return <DictionaryLoaderDashboard />;

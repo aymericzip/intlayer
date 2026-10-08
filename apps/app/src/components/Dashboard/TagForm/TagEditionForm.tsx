@@ -1,6 +1,7 @@
 import type { TagAPI } from '@intlayer/backend-contract/tag';
 import { useAuditTag, useUpdateTag } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
+import { Container } from '@intlayer/design-system/container';
 import {
   Form,
   FormButton,
@@ -8,6 +9,7 @@ import {
   FormEditableFieldTextArea,
   useForm,
 } from '@intlayer/design-system/form';
+import { PopoverStatic } from '@intlayer/design-system/popover';
 import { App_Dashboard_Tags_Path } from '@intlayer/design-system/routes';
 import { ArrowLeft, Save, WandSparkles, XCircle } from 'lucide-react';
 import { type FC, useState } from 'react';
@@ -110,18 +112,28 @@ export const TagEditionForm: FC<TagEditionFormProps> = ({
           )}
 
           <div className="flex items-center gap-2 max-md:flex-col">
-            <FormButton
-              type="button"
-              label={auditButton.label.value}
-              Icon={WandSparkles}
-              variant="outline"
-              color="text"
-              size="icon-md"
+            <PopoverStatic
+              identifier="audit-tag"
               className="ms-auto max-md:w-full"
-              onClick={handleOnAuditFile}
-              disabled={isSubmitting || isAuditing}
-              isLoading={isAuditing}
-            />
+            >
+              <FormButton
+                type="button"
+                label={auditButton.label.value}
+                Icon={WandSparkles}
+                variant="outline"
+                color="text"
+                size="icon-md"
+                className="max-md:w-full"
+                onClick={handleOnAuditFile}
+                disabled={isSubmitting || isAuditing}
+                isLoading={isAuditing}
+              />
+              <PopoverStatic.Detail identifier="audit-tag" xAlign="end">
+                <Container padding="sm" roundedSize="xl">
+                  <span className="text-nowrap">{auditButton.popover}</span>
+                </Container>
+              </PopoverStatic.Detail>
+            </PopoverStatic>
 
             <FormButton
               type="button"

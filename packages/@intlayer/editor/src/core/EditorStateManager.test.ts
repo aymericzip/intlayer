@@ -58,3 +58,36 @@ describe('EditorStateManager locale change request', () => {
     expect(subscribeSpy).not.toHaveBeenCalled();
   });
 });
+
+describe('EditorStateManager displayed dictionary keys', () => {
+  it('requests displayed keys on editor start when value is undefined', () => {
+    const manager = createManager('editor');
+    const sendSpy = vi.spyOn(manager.messenger, 'send');
+
+    manager.start();
+
+    expect(sendSpy).toHaveBeenCalledWith(
+      `${MessageKey.INTLAYER_DISPLAYED_DICTIONARY_KEYS}/get`
+    );
+    manager.stop();
+  });
+
+  it('broadcasts displayed keys on editor activate in client mode', () => {
+    const manager = createManager('client');
+    const sendSpy = vi.spyOn(manager.messenger, 'send');
+
+    manager.displayedDictionaryKeys.set(['dict-a', 'dict-b']);
+    sendSpy.mockClear();
+
+    // Trigger activate callback
+    (manager as any)._setupActivationHandshake();
+    // Simulate INTLAYER_EDITOR_ACTIVATE message received
+    (manager as any)._broadcastData();
+
+    expect(sendSpy).toHaveBeenCalledWith(
+      `${MessageKey.INTLAYER_DISPLAYED_DICTIONARY_KEYS}/post`,
+      ['dict-a', 'dict-b']
+    );
+    manager.stop();
+  });
+});

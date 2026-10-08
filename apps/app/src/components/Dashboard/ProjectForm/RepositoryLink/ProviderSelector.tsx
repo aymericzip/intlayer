@@ -41,11 +41,10 @@ export const ProviderSelector: FC<ProviderSelectorProps> = ({
     )
   );
 
-  const isFilteredToPreferred =
-    Boolean(preferredProvider) && !isShowingAllProviders;
-  const primaryProviders = isFilteredToPreferred
-    ? [preferredProvider]
-    : DEFAULT_REPOSITORY_PROVIDERS;
+  const primaryProviders: readonly RepositoryProvider[] =
+    preferredProvider && !isShowingAllProviders
+      ? [preferredProvider]
+      : DEFAULT_REPOSITORY_PROVIDERS;
 
   const renderProviderButton = (provider: RepositoryProvider) => {
     const name = PROVIDER_NAMES[provider];
@@ -100,7 +99,7 @@ export const ProviderSelector: FC<ProviderSelectorProps> = ({
 
       <Button
         variant="link"
-        color="text"
+        color="neutral"
         size="sm"
         Icon={isShowingAllProviders ? ChevronUp : ChevronDown}
         className="mx-auto"

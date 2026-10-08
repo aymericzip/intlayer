@@ -83,6 +83,7 @@ export class EditorStateManager {
   private _displayedKeysObserver: MutationObserver | null = null;
   private _displayedKeysTimer: ReturnType<typeof setTimeout> | null = null;
   private _displayedKeysListeners: Array<[string, EventListener]> = [];
+  private _unsubDisplayedKeysGet: (() => void) | null = null;
 
   // Sync with the other managers of this window
   private _stopSharedStateSyncs: Array<() => void> = [];
@@ -142,7 +143,7 @@ export class EditorStateManager {
       {
         emit: config.mode === 'client',
         receive: config.mode === 'editor',
-        initialValue: [],
+        initialValue: config.mode === 'client' ? [] : undefined,
       }
     );
 
@@ -551,6 +552,13 @@ export class EditorStateManager {
       this._displayedKeysListeners.push([evt, listener]);
     }
 
+    this._unsubDisplayedKeysGet = this.messenger.subscribe(
+      `${MessageKey.INTLAYER_DISPLAYED_DICTIONARY_KEYS}/get`,
+      () => {
+        this._scanDisplayedDictionaryKeys();
+      }
+    );
+
     this._scanDisplayedDictionaryKeys();
   }
 
@@ -565,6 +573,8 @@ export class EditorStateManager {
       window.removeEventListener(evt, listener);
     }
     this._displayedKeysListeners = [];
+    this._unsubDisplayedKeysGet?.();
+    this._unsubDisplayedKeysGet = null;
   }
 
   // ─── Handshake helpers ───────────────────────────────────────────────────────
@@ -604,6 +614,7 @@ export class EditorStateManager {
       MessageKey.INTLAYER_EDITOR_ACTIVATE,
       () => {
         this.editorEnabled.set(true);
+        this._scanDisplayedDictionaryKeys();
         this._broadcastData();
       }
     );
@@ -632,6 +643,14 @@ export class EditorStateManager {
       this.messenger.send(
         `${MessageKey.INTLAYER_LOCALE_DICTIONARIES_CHANGED}/post`,
         dicts
+      );
+    }
+    const displayedKeys = this.displayedDictionaryKeys.value;
+
+    if (displayedKeys) {
+      this.messenger.send(
+        `${MessageKey.INTLAYER_DISPLAYED_DICTIONARY_KEYS}/post`,
+        displayedKeys
       );
     }
   }

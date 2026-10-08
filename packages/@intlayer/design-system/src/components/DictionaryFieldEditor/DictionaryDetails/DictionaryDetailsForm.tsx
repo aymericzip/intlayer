@@ -26,6 +26,7 @@ import {
 import { Checkbox, Input } from '@components/Input';
 import { Loader } from '@components/Loader';
 import { Pagination } from '@components/Pagination';
+import { PopoverStatic } from '@components/Popover';
 import { MultiSelect, Select } from '@components/Select';
 import { useEditedContent } from '@intlayer/editor-react';
 import type { Dictionary, LocalDictionaryId } from '@intlayer/types/dictionary';
@@ -823,18 +824,30 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
         </Loader>
       </Container>
 
-      <FormButton
-        type="button"
-        size="icon-md"
-        label={auditButton.label.value}
-        Icon={WandSparkles}
-        variant="outline"
-        color="text"
+      <PopoverStatic
+        identifier="audit-dictionary-details"
         className="absolute top-0 right-0"
-        onClick={handleOnAuditFile}
-        disabled={isSubmitting || isAuditing}
-        isLoading={isAuditing}
-      />
+      >
+        <FormButton
+          type="button"
+          size="icon-md"
+          label={auditButton.label.value}
+          Icon={WandSparkles}
+          variant="outline"
+          color="text"
+          onClick={handleOnAuditFile}
+          disabled={isSubmitting || isAuditing}
+          isLoading={isAuditing}
+        />
+        <PopoverStatic.Detail
+          identifier="audit-dictionary-details"
+          xAlign="end"
+        >
+          <Container padding="sm" roundedSize="xl">
+            <span className="text-nowrap">{auditButton.popover}</span>
+          </Container>
+        </PopoverStatic.Detail>
+      </PopoverStatic>
     </Form>
   );
 };
