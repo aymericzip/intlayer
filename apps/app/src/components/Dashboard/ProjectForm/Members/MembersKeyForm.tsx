@@ -37,8 +37,8 @@ import {
 } from './useMembersFormSchema';
 
 const getUserNames = (users: UserAPI[], id: UserAPI['id'] | string): string => {
-  const user = users.find((u) => String(u.id) === String(id));
-  return user?.name ?? user?.email ?? String(id);
+  const user = users.find((userEl) => String(userEl.id) === String(id));
+  return user?.name ?? user?.email ?? '…';
 };
 
 /* ──────────────────────────────────────────────────────────────────────────
