@@ -361,14 +361,11 @@ Los mensajes que usan el argumento ICU `select` se importan como nodos `select`:
 se convierte en
 
 ```typescript
-select(
-  {
-    draft: "draft",
-    published: "published",
-    fallback: "Unknown",
-  },
-  "publishType"
-);
+select({
+  draft: "draft",
+  published: "published",
+  fallback: "Unknown",
+});
 ```
 
 El caso ICU `other` pasa a llamarse `fallback`, que es el nombre canónico de Intlayer para el caso general. El segundo argumento registra el nombre de la variable ICU para que el mensaje regrese exactamente a la misma cadena ICU cuando se exporte.

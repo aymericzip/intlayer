@@ -362,14 +362,11 @@ I messaggi che utilizzano l'argomento `select` di ICU vengono importati come nod
 diventa
 
 ```typescript
-select(
-  {
-    draft: "draft",
-    published: "published",
-    fallback: "Unknown",
-  },
-  "publishType"
-);
+select({
+  draft: "draft",
+  published: "published",
+  fallback: "Unknown",
+});
 ```
 
 Il caso ICU `other` viene rinominato in `fallback`, che è il nome canonico in Intlayer per il caso catch-all. Il secondo argomento registra il nome della variabile ICU affinché il messaggio ritorni esattamente alla stessa stringa ICU al momento dell'esportazione.

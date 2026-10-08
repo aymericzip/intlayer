@@ -363,14 +363,11 @@ publishStatus("draft")({ name: "Alice" }); // 输出: Alice 保存了一份草�
 变为
 
 ```typescript
-select(
-  {
-    draft: "draft",
-    published: "published",
-    fallback: "Unknown",
-  },
-  "publishType"
-);
+select({
+  draft: "draft",
+  published: "published",
+  fallback: "Unknown",
+});
 ```
 
 ICU 中的 `other` 情况被重命名为 `fallback`，这是 Intlayer 用于所有未匹配情况的规范名称。第二个参数记录了 ICU 变量的名称，以便在导出时可以将消息完全恢复为原来的 ICU 字符串。

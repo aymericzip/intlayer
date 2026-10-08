@@ -362,14 +362,11 @@ Wiadomości wykorzystujące argument ICU `select` są importowane jako węzeł `
 Zostaną przekształcone na:
 
 ```typescript
-select(
-  {
-    draft: "draft",
-    published: "published",
-    fallback: "Unknown",
-  },
-  "publishType"
-);
+select({
+  draft: "draft",
+  published: "published",
+  fallback: "Unknown",
+});
 ```
 
 Przypadek (case) `other` z ICU jest zmieniany na `fallback`, co jest kanoniczną nazwą w Intlayer dla wszystkich ogólnych przypadków typu catch-all. Drugi argument przechowuje nazwę zmiennej ICU, dzięki czemu przy eksporcie wiadomość przekształca się dokładnie w ten sam ciąg znaków ICU.

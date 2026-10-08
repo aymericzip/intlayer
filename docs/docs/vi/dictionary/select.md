@@ -362,14 +362,11 @@ Các thông báo sử dụng tham số `select` của ICU sẽ được nhập (
 Sẽ trở thành:
 
 ```typescript
-select(
-  {
-    draft: "draft",
-    published: "published",
-    fallback: "Unknown",
-  },
-  "publishType"
-);
+select({
+  draft: "draft",
+  published: "published",
+  fallback: "Unknown",
+});
 ```
 
 Trường hợp `other` của ICU được đổi tên thành `fallback`, tên chuẩn (canonical name) trong Intlayer cho tất cả các trường hợp bao gồm (catch-all cases). Tham số thứ hai lưu lại tên biến ICU để thông báo sẽ biến đổi trở lại thành đúng chuỗi ICU đó khi xuất (export).

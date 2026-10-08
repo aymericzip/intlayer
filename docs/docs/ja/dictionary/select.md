@@ -362,14 +362,11 @@ ICU の `select` 引数を使用するメッセージは、`select` ノードと
 は以下のようになります：
 
 ```typescript
-select(
-  {
-    draft: "draft",
-    published: "published",
-    fallback: "Unknown",
-  },
-  "publishType"
-);
+select({
+  draft: "draft",
+  published: "published",
+  fallback: "Unknown",
+});
 ```
 
 ICU の `other` ケースは、Intlayer において全てを捕捉する（catch-all）ケースの正規名である `fallback` に名前変更されます。第2引数には ICU 変数名が記録され、エクスポート時にメッセージが完全に同じ ICU 文字列に戻るようになっています。

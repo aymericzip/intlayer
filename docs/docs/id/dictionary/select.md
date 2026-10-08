@@ -362,14 +362,11 @@ Pesan yang menggunakan argumen `select` dari ICU diimpor sebagai node `select`:
 Akan menjadi:
 
 ```typescript
-select(
-  {
-    draft: "draft",
-    published: "published",
-    fallback: "Unknown",
-  },
-  "publishType"
-);
+select({
+  draft: "draft",
+  published: "published",
+  fallback: "Unknown",
+});
 ```
 
 Kasus `other` pada ICU dinamai ulang menjadi `fallback`, nama kanonikal di Intlayer untuk semua kasus tangkapan-semua (catch-all). Argumen kedua mencatat nama variabel ICU sehingga saat diekspor, pesan tersebut berubah kembali menjadi string ICU yang sama persis.

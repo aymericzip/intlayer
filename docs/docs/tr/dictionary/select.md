@@ -362,14 +362,11 @@ ICU `select` argümanını kullanan mesajlar `select` düğümü olarak içe akt
 Şuna dönüşür:
 
 ```typescript
-select(
-  {
-    draft: "draft",
-    published: "published",
-    fallback: "Unknown",
-  },
-  "publishType"
-);
+select({
+  draft: "draft",
+  published: "published",
+  fallback: "Unknown",
+});
 ```
 
 ICU `other` durumu, Intlayer'da her şeyi yakalayan durumların (catch-all cases) standart adı olan `fallback` olarak yeniden adlandırılır. İkinci argüman ICU değişken adını tutar, böylece mesaj dışa aktarıldığında (export) tekrar aynı ICU dizesine dönüştürülür.

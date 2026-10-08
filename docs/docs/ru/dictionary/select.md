@@ -362,14 +362,11 @@ publishStatus("draft")({ name: "Alice" }); // Вывод: Alice сохранил
 Станет:
 
 ```typescript
-select(
-  {
-    draft: "draft",
-    published: "published",
-    fallback: "Unknown",
-  },
-  "publishType"
-);
+select({
+  draft: "draft",
+  published: "published",
+  fallback: "Unknown",
+});
 ```
 
 Случай `other` из ICU переименовывается в `fallback`, что является каноническим названием в Intlayer для всех универсальных (catch-all) случаев. Второй аргумент записывает имя переменной ICU, поэтому при экспорте сообщение трансформируется обратно в точно такую же строку ICU.
