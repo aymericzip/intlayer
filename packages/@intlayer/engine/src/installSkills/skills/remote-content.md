@@ -16,7 +16,7 @@ metadata:
 
 For managing server-side content and using the Intlayer CMS:
 
-- [Intlayer CMS Documentation](https://intlayer.org/cms.md)
+- [Intlayer CMS](https://app.intlayer.org)
 
 ## References
 
