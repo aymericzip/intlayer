@@ -80,9 +80,9 @@ Use `useIntlayer('key')` (client) or `getIntlayer('key', locale)` (server/SSR).
 - `src/utils/auth.tsx` exports `sessionQueryOptions` + `validateAuth()` — used in route `beforeLoad()`.
 - `validateAuth` calls `accessValidation()` from `#components/Auth/AuthenticationBarrier/accessValidation`.
 
-## Electron / Tauri
+## Tauri
 
-App also builds as desktop. `src/electron.d.ts`, `src/preload/`, `src/renderer/` support this. `tauri:dev` / `tauri:build` scripts exist, separate from web dev flow.
+App also builds as desktop. `tauri:dev` / `tauri:build` scripts exist, separate from web dev flow.
 
 ## RTL support
 
@@ -94,3 +94,27 @@ App also builds as desktop. `src/electron.d.ts`, `src/preload/`, `src/renderer/`
   - Prefer logical CSS (`insetInlineStart`).
   - Otherwise multiply by a direction factor: `getHTMLTextDir(locale) === 'rtl' ? -1 : 1` with `useLocale()`, or read `getComputedStyle(element).direction` at runtime.
 - Infinite scroll keyframes use `--loop-direction` (`src/styles.css`). A new `horizontal-loop-*` class must be added to its `:dir(rtl)` selector.
+
+## Fetching and error / success
+
+Errors messages are implemented on the backend using:
+
+```ts
+const responseData = formatResponse<DictionaryAPI>({
+  message: t({
+    en: "...",
+  }),
+  description: t({
+    en: "...",
+  }),
+  data: {},
+});
+```
+
+or:
+
+```ts
+ErrorHandler.handleGenericErrorResponse(reply, "...");
+```
+
+`packages/@intlayer/design-system/src/providers/ReactQueryProvider.tsx` collect that messages and toast it from provider. Don't add other toast on client side.
