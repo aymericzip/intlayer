@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 9
 title: "next-i18next vs next-intl vs Intlayer：2026 年对比"
 description: "Next.js 该选哪个 i18n 库？从包体积、TypeScript、Server Components、路由和开发体验对比 next-i18next、next-intl 和 Intlayer。"
@@ -170,9 +170,9 @@ Next.js 为你内置了国际化路由支持（例如区域段）。但该功能
 
 `next-intl` 和 `next-i18next` 使用集中式方法管理翻译，允许按语言和子文件拆分 JSON。在 `next-i18next` 中，我们称这些 JSON 文件为“命名空间”；`next-intl` 允许声明消息。在 `intlayer` 中，我们称这些 JSON 文件为“词典”。
 
-- 在 `next-intl` 的情况下，类似于 `next-i18next`，内容是在页面/布局级别加载的，然后这些内容被加载到一个上下文提供者中。这意味着开发者必须手动管理每个页面将要加载的 JSON 文件。
+- 在 `next-intl` 的情况下，类似于 `next-i18next`，内容是在页面/布局级别加载的，然后这些内容被加载到一个上下文 Provider中。这意味着开发者必须手动管理每个页面将要加载的 JSON 文件。
 
-> 实际上，这意味着开发者经常跳过这种优化，倾向于为了简单起见在页面的上下文提供者中加载所有内容。
+> 实际上，这意味着开发者经常跳过这种优化，倾向于为了简单起见在页面的上下文 Provider中加载所有内容。
 
 - 在 `intlayer` 的情况下，所有内容都在应用中加载。然后一个插件（`@intlayer/babel` / `@intlayer/swc`）负责通过只加载页面上使用的内容来优化包。因此，开发者不需要手动管理将要加载的字典。这允许更好的优化、更好的可维护性，并减少开发时间。
 
@@ -208,7 +208,7 @@ Next.js 为你内置了国际化路由支持（例如区域段）。但该功能
 
 **next-i18next**
 
-- 钩子的基础类型定义；**严格的键类型需要额外的工具/配置**。
+- Hook的基础类型定义；**严格的键类型需要额外的工具/配置**。
 
   </Column>
   <Column>
@@ -913,7 +913,7 @@ const ClientComponentExample = () => {
   - **Intlayer**：内置 `useNumber()`。
 
 - **键**
-  - 保持嵌套结构（`about.counter.label`），并相应地限定钩子的作用域（`useTranslation("about")` + `t("counter.label")` 或 `useTranslations("about.counter")` + `t("label")`）。
+  - 保持嵌套结构（`about.counter.label`），并相应地限定Hook的作用域（`useTranslation("about")` + `t("counter.label")` 或 `useTranslations("about.counter")` + `t("label")`）。
 
 - **文件位置**
   - **next-i18next** 期望 JSON 文件位于 `public/locales/{lng}/{ns}.json`。
@@ -997,7 +997,7 @@ const ServerComponent = ({ count }: { count: number }) => {
   </Tab>
 </Tabs>
 
-> Intlayer 通过 `next-intlayer/server` 提供了**服务器安全**的钩子。为了工作，`useIntlayer` 和 `useNumber` 使用类似钩子的语法，类似于客户端钩子，但在底层依赖于服务器上下文（`IntlayerServerProvider`）。
+> Intlayer 通过 `next-intlayer/server` 提供了**服务器安全**的Hook。为了工作，`useIntlayer` 和 `useNumber` 使用类似Hook的语法，类似于客户端Hook，但在底层依赖于服务器上下文（`IntlayerServerProvider`）。
 
 ### 元数据 / 网站地图 / 机器人协议
 

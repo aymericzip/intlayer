@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-30
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "使用 Docker 自托管 Intlayer"
 description: "在自己的基础设施上运行 Intlayer：桌面应用、一体化 Docker 容器或 Docker Compose 部署，无需云端账号。"

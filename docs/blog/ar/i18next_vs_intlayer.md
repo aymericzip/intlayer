@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "i18next مقابل Intlayer: اختبار الأداء والمقارنة الشاملة لعام 2026"
 description: "قياس أداء react-i18next و next-i18next ومقارنتهما مع Intlayer على Next.js و TanStack Start. حجم الحزمة (Bundle size)، تسرب المحتوى، سرعة الاستجابة عند تبديل اللغة، وتجربة المطور."
@@ -532,9 +532,9 @@ export default defineConfig({
 
 <Question title="ماذا يحدث للمكونات الإضافية لـ i18next الخاصة بي؟">
 
-يتم قبول الواجهات الخلفية وأدوات اكتشاف اللغة ولكنها تظل خاملة: لم يعد هناك شيء لتحميله أو اكتشافه في وقت التشغيل. يصبح اكتشاف اللغة إعداد التوجيه الخاص بـ Intlayer (بادئة URL، ملف تعريف الارتباط، الترويسة). إذا كان تطبيقك يجلب الترجمات من نظام إدارة محتوى (CMS) وقت الطلب، فاستخدم [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md) أو أوامر `intlayer pull` / `push` بدلاً من ذلك.
+يتم قبول الواجهات الخلفية وأدوات اكتشاف اللغة ولكنها تظل خاملة: لم يعد هناك شيء لتحميله أو اكتشافه في وقت التشغيل. يصبح اكتشاف اللغة إعداد التوجيه الخاص بـ Intlayer (بادئة URL، ملف تعريف الارتباط، الترويسة). إذا كان تطبيقك يجلب الترجمات من نظام إدارة محتوى (CMS) وقت الطلب، فاستخدم [نظام إدارة المحتوى Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md) أو أوامر `intlayer pull` / `push` بدلاً من ذلك.
 
-- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
+- [نظام إدارة المحتوى Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
 
 </Question>
 

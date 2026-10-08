@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-03-31
-updatedAt: 2026-05-31
+updatedAt: 2026-10-08
 priority: 9
 title: "Vanilla JS i18n - Panduan lengkap menerjemahkan aplikasi Anda"
 description: "Siapkan Intlayer di JavaScript murni tanpa framework: terjemahkan halaman HTML statis, ganti locale, dan jaga konten tetap bertipe."
@@ -74,9 +74,9 @@ Intlayer dioptimalkan agar berfungsi sempurna dengan Vanilla JavaScript dengan m
 Daripada memuat file JSON berukuran besar ke halaman Anda, muat saja konten yang diperlukan. Intlayer membantu **mengurangi ukuran bundle dan halaman Anda hingga 50%**.
 
 </Accordion>
-<Accordion header="Kemampuan Pemeliharaan">
+<Accordion header="Kemudahan Pemeliharaan">
 
-Mencakup konten aplikasi Anda **memfasilitasi pemeliharaan** untuk aplikasi berskala besar. Anda dapat menduplikasi atau menghapus satu folder fitur tanpa beban mental untuk meninjau seluruh basis kode konten Anda. Selain itu, Intlayer **diketik sepenuhnya** untuk memastikan keakuratan konten Anda.
+Mencakup konten aplikasi Anda **memfasilitasi pemeliharaan** untuk aplikasi berskala besar. Anda dapat menduplikasi atau menghapus satu folder fitur tanpa beban mental untuk meninjau seluruh basis kode konten Anda. Selain itu, Intlayer **fully typed** (memiliki type safety penuh) untuk memastikan keakuratan konten Anda.
 
 </Accordion>
 <Accordion header="Agen AI">
@@ -90,14 +90,14 @@ Menempatkan konten bersama **mengurangi konteks yang diperlukan** dengan Model B
 </Accordion>
 <Accordion header="Otomatisasi">
 
-Gunakan otomatisasi untuk menerjemahkan dalam saluran CI/CD Anda menggunakan LLM pilihan Anda dengan biaya penyedia AI Anda. Intlayer juga menawarkan **compiler** untuk mengotomatiskan ekstraksi konten, serta [platform web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md) untuk membantu **menerjemahkan di latar belakang**.
+Gunakan otomatisasi untuk menerjemahkan dalam pipeline CI/CD Anda menggunakan LLM pilihan Anda dengan biaya penyedia AI Anda. Intlayer juga menawarkan **compiler** untuk mengotomatiskan ekstraksi konten, serta [platform web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md) untuk membantu **menerjemahkan di latar belakang**.
 
 - [platform web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)
 
 </Accordion>
-<Accordion header="Pertunjukan">
+<Accordion header="Performa">
 
-Menghubungkan file JSON berukuran besar ke komponen dapat menyebabkan masalah kinerja dan reaktivitas. Intlayer mengoptimalkan pemuatan konten Anda pada waktu pembuatan.
+Menghubungkan file JSON berukuran besar ke komponen dapat menyebabkan masalah kinerja dan reaktivitas. Intlayer mengoptimalkan pemuatan konten Anda pada saat build.
 
 </Accordion>
 <Accordion header="Menskalakan tanpa pengembang">

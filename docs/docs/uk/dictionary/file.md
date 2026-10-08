@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "Контент із файлів: вбудовування зовнішніх файлів"
 description: "Вбудовуйте зовнішні файли, як-от markdown чи текст, у словники Intlayer за допомогою функції file(), синхронно з вихідним файлом."
@@ -30,7 +30,7 @@ author: aymericzip
 
 ## Чому використовувати `file` замість `import`, `require` або `fs`?
 
-To use embedded file content in Next.js Client Components, retrieve it via the `useIntlayer` hook. Here's an example:
+Щоб використовувати вбудований вміст файлу у клієнтських компонентах Next.js, отримайте його за допомогою хука `useIntlayer`. Ось приклад:
 
 ## Налаштування вмісту файлу
 
@@ -89,7 +89,7 @@ export default FileComponent;
   </Tab>
   <Tab label="Next.js" value="nextjs">
 
-To use embedded file content in Next.js Client Components, retrieve it via the `useIntlayer` hook. Here's an example:
+Щоб використовувати вбудований вміст файлу у клієнтських компонентах Next.js, отримайте його за допомогою хука `useIntlayer`. Ось приклад:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 "use client";
@@ -113,7 +113,7 @@ export default FileComponent;
   </Tab>
   <Tab label="Vue" value="vue">
 
-To use embedded file content in Vue components, retrieve it via the `useIntlayer` hook. Here's an example:
+Щоб використовувати вбудований вміст файлу у компонентах Vue, отримайте його за допомогою хука `useIntlayer`. Ось приклад:
 
 ```vue fileName="**/*.vue"
 <script setup lang="ts">
@@ -132,7 +132,7 @@ const { myFile } = useIntlayer("my_key");
   </Tab>
   <Tab label="Svelte" value="svelte">
 
-To use embedded file content in Svelte components, retrieve it via the `useIntlayer` hook. The store is accessed with `$`. Here's an example:
+Щоб використовувати вбудований вміст файлу у компонентах Svelte, отримайте його за допомогою хука `useIntlayer`. Доступ до сховища здійснюється через `$`. Ось приклад:
 
 ```svelte fileName="**/*.svelte"
 <script lang="ts">
@@ -149,7 +149,7 @@ const content = useIntlayer("my_key");
   </Tab>
   <Tab label="Preact" value="preact">
 
-To use embedded file content in Preact components, retrieve it via the `useIntlayer` hook. Here's an example:
+Щоб використовувати вбудований вміст файлу у компонентах Preact, отримайте його за допомогою хука `useIntlayer`. Ось приклад:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "preact";
@@ -171,7 +171,7 @@ export default FileComponent;
   </Tab>
   <Tab label="Solid" value="solid">
 
-To use embedded file content in SolidJS components, retrieve it via the `useIntlayer` hook. Here's an example:
+Щоб використовувати вбудований вміст файлу у компонентах SolidJS, отримайте його за допомогою хука `useIntlayer`. Ось приклад:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { Component } from "solid-js";
@@ -193,7 +193,7 @@ export default FileComponent;
   </Tab>
   <Tab label="Angular" value="angular">
 
-To use embedded file content in Angular components, retrieve it via the `useIntlayer` hook. Here's an example:
+Щоб використовувати вбудований вміст файлу у компонентах Angular, отримайте його за допомогою хука `useIntlayer`. Ось приклад:
 
 ```typescript fileName="app.component.ts" codeFormat="typescript"
 import { Component } from "@angular/core";
@@ -215,7 +215,7 @@ export class FileComponent {
   </Tab>
   <Tab label="Vanilla JS" value="vanilla">
 
-To use embedded file content with `vanilla-intlayer`, retrieve it via the `useIntlayer` hook. Here's an example:
+Щоб використовувати вбудований вміст файлу із `vanilla-intlayer`, отримайте його за допомогою хука `useIntlayer`. Ось приклад:
 
 ```typescript fileName="**/*.ts" codeFormat={["typescript", "esm"]}
 import { installIntlayer, useIntlayer } from "vanilla-intlayer";

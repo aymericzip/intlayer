@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 5
 title: 列出内容声明文件
 description: "使用 Intlayer CLI 列出项目中所有内容声明文件，查看字典在哪里声明。"

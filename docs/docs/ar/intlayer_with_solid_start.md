@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-06
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 9
 title: "تدويل Solid Start - الدليل الكامل لترجمة تطبيقك"
 description: "إعداد Intlayer في SolidStart: توجيه لغات يُعرض على الخادم، ومحتوى مترجم تفاعلي، وhreflang، وخريطة موقع متعددة اللغات."
@@ -85,16 +85,16 @@ author: aymericzip
 يساعد تقسيم محتوى تطبيقك في نطاقات محددة على **تسهيل الصيانة** للتطبيقات واسعة النطاق. يمكنك نسخ أو حذف مجلد ميزة واحدة دون العبء الذهني لمراجعة قاعدة كود المحتوى بالكامل. بالإضافة إلى ذلك، يتميز Intlayer بـ **أنواع كاملة (fully typed)** لضمان دقة محتواك.
 
 </Accordion>
-<Accordion header="وكيل الذكاء الاصطناعي">
+<Accordion header="وكلاء الذكاء الاصطناعي (AI Agents)">
 
 يؤدي تجميع المحتوى في نفس المكان إلى **تقليل السياق المطلوب** بواسطة نماذج اللغات الكبيرة (LLMs). يأتي Intlayer أيضًا مع مجموعة من الأدوات، مثل **CLI** للاختبار عن الترجمات المفقودة، و **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/lsp.md)**، و **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/mcp_server.md)**، و **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)**، لجعل تجربة المطور (DX) أكثر سلاسة لوكلاء الذكاء الاصطناعي.
 
 - [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/lsp.md)
 - [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/mcp_server.md)
-- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)
+- [مهارات الوكلاء (Agent Skills)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)
 
 </Accordion>
-<Accordion header="الأتمتة">
+<Accordion header="الأتمتة وتكامل CI/CD">
 
 استخدم الأتمتة للترجمة في خط أنابيب CI/CD الخاص بك باستخدام نموذج اللغة الكبير الذي تختاره بتكلفة مزود الذكاء الاصطناعي الخاص بك. يقدم Intlayer أيضًا **مترجمًا (compiler)** لأتمتة استخراج المحتوى، بالإضافة إلى [منصة ويب](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md) للمساعدة في **الترجمة في الخلفية**.
 

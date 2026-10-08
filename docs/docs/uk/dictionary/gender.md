@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-07-27
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "Контент залежно від статі в Intlayer"
 description: "Адаптуйте повідомлення до статі читача за допомогою вузла gender() в Intlayer: чоловічий, жіночий і типовий варіанти в одному місці."
@@ -28,7 +28,7 @@ author: aymericzip
 
 ## Як працює гендерна логіка
 
-To utilize gender-based content in Next.js Client Components, retrieve it via the `useIntlayer` hook. Here's an example:
+Щоб використовувати контент з урахуванням статі у клієнтських компонентах Next.js, отримайте його за допомогою хука `useIntlayer`. Ось приклад:
 
 ## Налаштування контенту, залежного від гендера
 
@@ -75,7 +75,7 @@ export default myGenderContent;
 <Tabs group="framework">
   <Tab label="React" value="react">
 
-To utilize gender-based content within a React component, import and use the `useIntlayer` hook from the `react-intlayer` package. This hook fetches the content for the specified key and allows you to pass in a gender to select the appropriate output.
+Щоб використовувати контент з урахуванням статі у компоненті React, імпортуйте та застосовуйте хук `useIntlayer` із пакета `react-intlayer`. Цей хук отримує контент за вказаним ключем і дозволяє передати стать для вибору відповідного виводу.
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
@@ -132,7 +132,7 @@ export default GenderComponent;
   </Tab>
   <Tab label="Next.js" value="nextjs">
 
-To utilize gender-based content in Next.js Client Components, retrieve it via the `useIntlayer` hook. Here's an example:
+Щоб використовувати контент з урахуванням статі у клієнтських компонентах Next.js, отримайте його за допомогою хука `useIntlayer`. Ось приклад:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 "use client";
@@ -157,7 +157,7 @@ export default GenderComponent;
   </Tab>
   <Tab label="Vue" value="vue">
 
-To utilize gender-based content in Vue components, retrieve it via the `useIntlayer` hook. Here's an example:
+Щоб використовувати контент з урахуванням статі у компонентах Vue, отримайте його за допомогою хука `useIntlayer`. Ось приклад:
 
 ```vue fileName="**/*.vue"
 <script setup lang="ts">
@@ -177,7 +177,7 @@ const { myGender } = useIntlayer("my_key");
   </Tab>
   <Tab label="Svelte" value="svelte">
 
-To utilize gender-based content in Svelte components, retrieve it via the `useIntlayer` hook. The store is accessed with `$`. Here's an example:
+Щоб використовувати контент з урахуванням статі у компонентах Svelte, отримайте його за допомогою хука `useIntlayer`. Доступ до сховища здійснюється через `$`. Ось приклад:
 
 ```svelte fileName="**/*.svelte"
 <script lang="ts">
@@ -195,7 +195,7 @@ const content = useIntlayer("my_key");
   </Tab>
   <Tab label="Preact" value="preact">
 
-To utilize gender-based content in Preact components, retrieve it via the `useIntlayer` hook. Here's an example:
+Щоб використовувати контент з урахуванням статі у компонентах Preact, отримайте його за допомогою хука `useIntlayer`. Ось приклад:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "preact";
@@ -218,7 +218,7 @@ export default GenderComponent;
   </Tab>
   <Tab label="Solid" value="solid">
 
-To utilize gender-based content in SolidJS components, retrieve it via the `useIntlayer` hook. Here's an example:
+Щоб використовувати контент з урахуванням статі у компонентах SolidJS, отримайте його за допомогою хука `useIntlayer`. Ось приклад:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { Component } from "solid-js";
@@ -241,7 +241,7 @@ export default GenderComponent;
   </Tab>
   <Tab label="Angular" value="angular">
 
-To utilize gender-based content in Angular components, retrieve it via the `useIntlayer` hook. Here's an example:
+Щоб використовувати контент з урахуванням статі у компонентах Angular, отримайте його за допомогою хука `useIntlayer`. Ось приклад:
 
 ```typescript fileName="app.component.ts" codeFormat="typescript"
 import { Component } from "@angular/core";
@@ -264,7 +264,7 @@ export class GenderComponent {
   </Tab>
   <Tab label="Vanilla JS" value="vanilla">
 
-To utilize gender-based content with `vanilla-intlayer`, retrieve it via the `useIntlayer` hook. Here's an example:
+Щоб використовувати контент з урахуванням статі із `vanilla-intlayer`, отримайте його за допомогою хука `useIntlayer`. Ось приклад:
 
 ```typescript fileName="**/*.ts" codeFormat={["typescript", "esm"]}
 import { installIntlayer, useIntlayer } from "vanilla-intlayer";

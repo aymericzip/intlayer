@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-29
-updatedAt: 2026-08-29
+updatedAt: 2026-10-08
 priority: 8
 title: "Hreflang, panduan untuk SEO multibahasa"
 description: "Apa itu hreflang, aturan yang diterapkan search engine, mengapa x-default hampir selalu salah, dan cara membuat tag yang benar di Next.js dan TanStack Start."
@@ -39,11 +39,11 @@ Sebuah anotasi pada halaman yang mengatakan: _URL ini memiliki versi setara di t
 
 Ini memberimu dua hal: versi yang tepat ditampilkan kepada pengguna yang tepat, dan locale-mu disatukan dalam satu cluster alih-alih saling menggugurkan satu sama lain sebagai duplikat.
 
-Perlu jelas tentang apa yang bukan merupakan hal itu. Itu **bukan redirect** — itu adalah hint, dan Google dapat menggantinya. Itu **bukan peningkat ranking** — itu mengubah _versi mana_ yang ranking, bukan _apakah_ kamu ranking. Dan Bing mengabaikannya sepenuhnya, mengandalkan `content-language` dan geo-targeting sebagai gantinya.
+Perlu jelas tentang apa yang bukan merupakan hal itu. Itu **bukan redirect** - itu adalah hint, dan Google dapat menggantinya. Itu **bukan peningkat ranking** - itu mengubah _versi mana_ yang ranking, bukan _apakah_ kamu ranking. Dan Bing mengabaikannya sepenuhnya, mengandalkan `content-language` dan geo-targeting sebagai gantinya.
 
 ## Di mana mendeklarasikannya
 
-Tiga penempatan, semuanya valid. Pilih satu dan tetap di sana — cluster yang sama dideklarasikan di dua tempat adalah bagaimana set bergerak terpisah.
+Tiga penempatan, semuanya valid. Pilih satu dan tetap di sana - cluster yang sama dideklarasikan di dua tempat adalah bagaimana set bergerak terpisah.
 
 **HTML `<head>`** adalah pilihan biasanya. Satu caveat: tag yang disuntikkan setelah hydration tidak dapat diandalkan. Jika framework-mu hanya menambahkannya di sisi klien, crawler mungkin tidak akan pernah melihatnya.
 
@@ -69,24 +69,24 @@ Dalam praktiknya ini berarti **setiap halaman dalam cluster mengirim set link ya
 <link rel="alternate" hreflang="fr" href="https://example.com/fr/about" />
 ```
 
-Alasannya layak untuk dipahami daripada hanya dihafal. `hreflang` adalah referensi lintas dokumen: mesin pencari membangun cluster yang dikunci oleh URL, dibagikan di setiap halaman di dalamnya. Sebuah path relatif hanya memiliki makna relatif terhadap dokumen tempat ia berada, jadi ia tidak dapat mengekspresikan hal itu. Ia juga tidak dapat melampaui host — dan alternate sering kali melakukannya, ketika locale berada di `example.fr` atau `fr.example.com`. Dalam sitemap atau HTTP header tidak ada dokumen dasar untuk diselesaikan sama sekali.
+Alasannya layak untuk dipahami daripada hanya dihafal. `hreflang` adalah referensi lintas dokumen: mesin pencari membangun cluster yang dikunci oleh URL, dibagikan di setiap halaman di dalamnya. Sebuah path relatif hanya memiliki makna relatif terhadap dokumen tempat ia berada, jadi ia tidak dapat mengekspresikan hal itu. Ia juga tidak dapat melampaui host - dan alternate sering kali melakukannya, ketika locale berada di `example.fr` atau `fr.example.com`. Dalam sitemap atau HTTP header tidak ada dokumen dasar untuk diselesaikan sama sekali.
 
-Ini memiliki konsekuensi langsung dalam kode. `getLocalizedUrl("/about", "fr")` mengembalikan `/fr/about` — relatif masuk, relatif keluar. Untuk `hreflang` Anda harus memberikannya URL absolut:
+Ini memiliki konsekuensi langsung dalam kode. `getLocalizedUrl("/about", "fr")` mengembalikan `/fr/about` - relatif masuk, relatif keluar. Untuk `hreflang` Anda harus memberikannya URL absolut:
 
 ```ts
 getLocalizedUrl("/about", "fr"); // → "/fr/about"          ❌ ditolak
 getLocalizedUrl("https://example.com/about", "fr"); // → "https://example.com/fr/about"  ✅
 ```
 
-Satu-satunya pengecualian adalah framework yang menyelesaikan nilai relatif untuk Anda sebelum rendering: Next.js memperluas `alternates` relatif terhadap `metadataBase`. Baik — tetapi aturan berlaku untuk **HTML yang diemisikan**, jadi periksa dengan `curl`, bukan inspektur DevTools.
+Satu-satunya pengecualian adalah framework yang menyelesaikan nilai relatif untuk Anda sebelum rendering: Next.js memperluas `alternates` relatif terhadap `metadataBase`. Baik - tetapi aturan berlaku untuk **HTML yang diemisikan**, jadi periksa dengan `curl`, bukan inspektur DevTools.
 
 ### Kode bahasa
 
 ISO 639-1 untuk bahasa, ISO 3166-1 Alpha 2 untuk wilayah opsional: `fr`, `fr-CA`, `pt-BR`.
 
-Dua jebakan menangkap hampir semua orang. Region saja tidak valid — `hreflang="ca"` adalah Catalan, bukan Canada; Anda memerlukan `en-CA` atau `fr-CA`. Dan `en-UK` tidak ada: kode negara untuk United Kingdom adalah `GB`, jadi itu `en-GB`.
+Dua jebakan menangkap hampir semua orang. Region saja tidak valid - `hreflang="ca"` adalah Catalan, bukan Canada; Anda memerlukan `en-CA` atau `fr-CA`. Dan `en-UK` tidak ada: kode negara untuk United Kingdom adalah `GB`, jadi itu `en-GB`.
 
-Tambahkan region hanya ketika Anda benar-benar melayani konten berbeda untuk region tersebut — harga berbeda, pemberitahuan hukum berbeda. `fr` dan `fr-FR` pada konten identik adalah kebisingan.
+Tambahkan region hanya ketika Anda benar-benar melayani konten berbeda untuk region tersebut - harga berbeda, pemberitahuan hukum berbeda. `fr` dan `fr-FR` pada konten identik adalah kebisingan.
 
 ### x-default
 
@@ -94,11 +94,11 @@ Tambahkan region hanya ketika Anda benar-benar melayani konten berbeda untuk reg
 <link rel="alternate" hreflang="x-default" href="https://example.com/" />
 ```
 
-Satu konsep yang paling sering terlupakan, dan dipahami dengan buruk, adalah `x-default` — kurang dari 30% aplikasi mengimplementasikannya dengan benar.
+Satu konsep yang paling sering terlupakan, dan dipahami dengan buruk, adalah `x-default` - kurang dari 30% aplikasi mengimplementasikannya dengan benar.
 
 Ini adalah fallback untuk pengguna yang bahasanya tidak cocok dengan entri apa pun dalam set Anda. Pembicara Belanda di situs yang menawarkan English, French, dan Spanish tidak cocok dengan entri apa pun; tanpa `x-default`, Google memilih untuk Anda.
 
-Apa yang sering salah dipahami adalah apa artinya. `x-default` **bukan "versi English"** dan **bukan "locale default"**, meskipun biasanya menunjuk ke sana. Ini berarti _halaman untuk pengguna yang set ini tidak cover_. Itulah mengapa sah — dan sering kali lebih baik — untuk mengarahkannya ke halaman language-selector atau geo-redirecting daripada ke `/en`. Jika Anda tidak memiliki halaman seperti itu, bahasa utama Anda adalah jawaban yang masuk akal.
+Apa yang sering salah dipahami adalah apa artinya. `x-default` **bukan "versi English"** dan **bukan "locale default"**, meskipun biasanya menunjuk ke sana. Ini berarti _halaman untuk pengguna yang set ini tidak cover_. Itulah mengapa sah - dan sering kali lebih baik - untuk mengarahkannya ke halaman language-selector atau geo-redirecting daripada ke `/en`. Jika Anda tidak memiliki halaman seperti itu, bahasa utama Anda adalah jawaban yang masuk akal.
 
 Dua hal yang perlu diperhatikan: `x-default` adalah satu entry tambahan dalam set, bukan pengganti untuk yang self-referencing, dan seperti setiap entry lainnya harus muncul secara identik di setiap halaman dalam cluster.
 
@@ -116,7 +116,7 @@ Setiap halaman yang dilokalisasi harus menjadi **canonicalnya sendiri**:
 Mengarahkan canonical setiap locale di versi English sebaliknya:
 
 ```html
-<!-- On https://example.com/fr/about — kills the page -->
+<!-- On https://example.com/fr/about  -  kills the page -->
 <link rel="canonical" href="https://example.com/about" />
 ```
 
@@ -130,9 +130,9 @@ mengatakan halaman Prancis adalah duplikat yang tidak boleh diindeks, sementara 
 
 | Struktur           | Contoh            | Trade-off                                                                          |
 | ------------------ | ----------------- | ---------------------------------------------------------------------------------- |
-| **Subdirectories** | `example.com/fr/` | Satu domain, shared authority — sinyal geo yang lebih lemah                        |
-| **Subdomains**     | `fr.example.com`  | Mudah untuk menambah atau menghapus locale — mungkin dibaca sebagai situs terpisah |
-| **ccTLDs**         | `example.fr`      | Sinyal negara terkuat — otoritas dibangun per domain                               |
+| **Subdirectories** | `example.com/fr/` | Satu domain, shared authority - sinyal geo yang lebih lemah                        |
+| **Subdomains**     | `fr.example.com`  | Mudah untuk menambah atau menghapus locale - mungkin dibaca sebagai situs terpisah |
+| **ccTLDs**         | `example.fr`      | Sinyal negara terkuat - otoritas dibangun per domain                               |
 
 Subdirektori adalah default yang tepat untuk sebagian besar proyek. Gunakan ccTLDs hanya ketika Anda benar-benar beroperasi sebagai bisnis negara terpisah.
 
@@ -258,15 +258,15 @@ const sitemap = generateSitemap(
 
 Dua opsi yang perlu diketahui:
 
-- `xhtmlLinks` (default `true`) — alternates hanya diemisikan di mana URL lokal benar-benar berbeda. Dalam mode `no-prefix` setiap lokal berbagi satu URL, jadi mereka dilewati kecuali `routing.domains` memberikan lokal nama host mereka sendiri.
-- `entryPerLocale` (default `false`) — secara default satu entri `<url>` membawa semua alternates. Kedua bentuk valid, namun hanya URL yang terdaftar sebagai `<loc>` yang dihitung sebagai _submitted_ di Search Console; locale alternate-only tetap discoverable namun tidak dikaitkan dengan sitemap. Mengaktifkan ini memberikan setiap URL lokal entri tersendiri dengan set alternate lengkap yang diulang. Ini mengalikan entri berdasarkan jumlah locale, jadi perhatikan batas 50 000 URL / 50 MB dan pisahkan ke sitemap index melampaui batas itu.
+- `xhtmlLinks` (default `true`) - alternates hanya diemisikan di mana URL lokal benar-benar berbeda. Dalam mode `no-prefix` setiap lokal berbagi satu URL, jadi mereka dilewati kecuali `routing.domains` memberikan lokal nama host mereka sendiri.
+- `entryPerLocale` (default `false`) - secara default satu entri `<url>` membawa semua alternates. Kedua bentuk valid, namun hanya URL yang terdaftar sebagai `<loc>` yang dihitung sebagai _submitted_ di Search Console; locale alternate-only tetap discoverable namun tidak dikaitkan dengan sitemap. Mengaktifkan ini memberikan setiap URL lokal entri tersendiri dengan set alternate lengkap yang diulang. Ini mengalikan entri berdasarkan jumlah locale, jadi perhatikan batas 50 000 URL / 50 MB dan pisahkan ke sitemap index melampaui batas itu.
 
 </Step>
 <Step number={3} title="Verifikasi apa yang diterima crawler">
 
 `hreflang` gagal secara senyap, jadi periksa daripada menganggap.
 
-Baca sumbernya, bukan inspector — `curl https://example.com/fr/about | grep hreflang` menampilkan apa yang diterima crawler; DevTools menampilkan DOM setelah JavaScript berjalan. Kemudian ikuti setiap alternate dan konfirmasi bahwa ia menunjuk kembali dengan set yang identik, dan bahwa tidak ada satupun yang redirect. Laporan International Targeting Search Console menangkap sisanya di seluruh situs.
+Baca sumbernya, bukan inspector - `curl https://example.com/fr/about | grep hreflang` menampilkan apa yang diterima crawler; DevTools menampilkan DOM setelah JavaScript berjalan. Kemudian ikuti setiap alternate dan konfirmasi bahwa ia menunjuk kembali dengan set yang identik, dan bahwa tidak ada satupun yang redirect. Laporan International Targeting Search Console menangkap sisanya di seluruh situs.
 
 Untuk crawl khusus multilingual, [Intlayer SEO Scanner](https://intlayer.org/i18n-seo-scanner) memeriksa tag yang hilang, alternate yang rusak, dan konflik canonical di seluruh halaman terlokalisasi Anda.
 

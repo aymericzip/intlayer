@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 7
 title: "@intlayer/nuxt-i18n：@nuxtjs/i18n 兼容适配器"
 description: "保留 @nuxtjs/i18n 代码，改由 Intlayer 提供内容：安装 @intlayer/nuxt-i18n，为导入设置别名，并了解适配器在底层做了哪些改变。"

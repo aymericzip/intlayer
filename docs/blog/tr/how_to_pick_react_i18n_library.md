@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-28
+updatedAt: 2026-10-08
 priority: 8
 title: "2026'da Doğru React i18n Kütüphanesini Seçme Rehberi"
 description: "React i18n için karar rehberi: react-i18next, react-intl, Lingui, use-intl, Paraglide ve Intlayer'ı karşılaştırmadan önce yanıtlanması gereken sorular."
@@ -107,13 +107,13 @@ Kütüphane boyutları [TanStack Start benchmark](https://github.com/aymericzip/
 
 | Kütüphane               | Dalga        | İçerik modeli                                 | Tip güvenliği                      | Mesaj formatı                 | Kütüphane boyutu                                    |
 | :---------------------- | :----------- | :-------------------------------------------- | :--------------------------------- | :---------------------------- | :-------------------------------------------------- |
-| `react-i18next`         | Runtime      | Merkezi JSON, namespace'ler                   | 2/5 — Opt-in (`CustomTypeOptions`) | i18next (suffix çoğullar)     | ~18.4 kB                                            |
-| `react-intl` (FormatJS) | Runtime      | Merkezi JSON, ICU                             | 2/5 — Opt-in (extraction + union)  | ICU                           | ~15.3 kB                                            |
-| `use-intl`              | Server-first | Merkezi JSON, ICU                             | 2/5 — Opt-in (declaration merging) | ICU                           | ~14.1 kB                                            |
-| `@tolgee/react`         | Runtime      | Merkezi, bağlam içi (in-context) düzenleme    | 1/5 — Yok                          | ICU                           | ~11.1 kB                                            |
-| Lingui                  | Macro        | Kod içinde kaynak metin, derlenmiş kataloglar | 2/5 — İyi, derleyiciden gelir      | Makrolar ile ICU              | ~11.8 kB                                            |
-| Paraglide               | Compiler     | inlang projesi, üretilen fonksiyonlar         | 3.5/5 — Üretilmiş (Generated)      | Kendine ait                   | Sıfıra yakın (kod tabanında üretilen kod sayesinde) |
-| Intlayer                | Compiler     | Bileşen başına `.content.ts`                  | 5/5 — Üretilmiş, varsayılan açık   | Intlayer (+ ICU, i18next, PO) | ~5.0 kB                                             |
+| `react-i18next`         | Runtime      | Merkezi JSON, namespace'ler                   | 2/5 - Opt-in (`CustomTypeOptions`) | i18next (suffix çoğullar)     | ~18.4 kB                                            |
+| `react-intl` (FormatJS) | Runtime      | Merkezi JSON, ICU                             | 2/5 - Opt-in (extraction + union)  | ICU                           | ~15.3 kB                                            |
+| `use-intl`              | Server-first | Merkezi JSON, ICU                             | 2/5 - Opt-in (declaration merging) | ICU                           | ~14.1 kB                                            |
+| `@tolgee/react`         | Runtime      | Merkezi, bağlam içi (in-context) düzenleme    | 1/5 - Yok                          | ICU                           | ~11.1 kB                                            |
+| Lingui                  | Macro        | Kod içinde kaynak metin, derlenmiş kataloglar | 2/5 - İyi, derleyiciden gelir      | Makrolar ile ICU              | ~11.8 kB                                            |
+| Paraglide               | Compiler     | inlang projesi, üretilen fonksiyonlar         | 3.5/5 - Üretilmiş (Generated)      | Kendine ait                   | Sıfıra yakın (kod tabanında üretilen kod sayesinde) |
+| Intlayer                | Compiler     | Bileşen başına `.content.ts`                  | 5/5 - Üretilmiş, varsayılan açık   | Intlayer (+ ICU, i18next, PO) | ~5.0 kB                                             |
 
 > Rakamlar, benchmark sırasındaki sürümlerin anlık bir görüntüsüdür ve yeni sürümlerle değişebilir. Yalnızca boyuta göre karar vermeden önce benchmark'ı kendi uygulamanızda çalıştırın.
 > Tip güvenliği: 5/5; anahtarların, parametrelerin ve her locale'in, URL biçimlendirici ve yardımcılar (helpers) dahil olmak üzere manuel kurulum olmadan kontrol edildiği anlamına gelir.

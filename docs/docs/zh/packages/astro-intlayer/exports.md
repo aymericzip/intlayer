@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-09-19
+updatedAt: 2026-10-08
 priority: 5
 title: astro-intlayer 软件包文档
-description: Intlayer 的 Astro 集成，提供基于语言环境的路由、中间件、钩子 (hooks)、客户端存储以及字典管理配置。
+description: Intlayer 的 Astro 集成，提供基于语言环境的路由、中间件、Hook (hooks)、客户端存储以及字典管理配置。
 keywords:
   - astro-intlayer
   - astro
@@ -17,7 +17,7 @@ slugs:
 history:
   - version: 9.5.5
     date: 2026-09-19
-    changes: "添加 useIntlayer、useDictionary、useLocale 钩子、中间件和格式化工具文档"
+    changes: "添加 useIntlayer、useDictionary、useLocale Hook、中间件和格式化工具文档"
   - version: 8.0.0
     date: 2026-01-21
     changes: "所有导出内容的统一文档"
@@ -26,7 +26,7 @@ author: aymericzip
 
 # astro-intlayer 软件包
 
-`astro-intlayer` 软件包提供了将 Intlayer 集成到 Astro 应用程序中所需的工具。它配置基于语言环境的路由、字典管理、构建时页面重写、请求中间件以及用于在服务器端渲染的 `.astro` 组件和客户端脚本中访问多语言内容的钩子。
+`astro-intlayer` 软件包提供了将 Intlayer 集成到 Astro 应用程序中所需的工具。它配置基于语言环境的路由、字典管理、构建时页面重写、请求中间件以及用于在服务器端渲染的 `.astro` 组件和客户端脚本中访问多语言内容的Hook。
 
 ## 安装
 
@@ -61,7 +61,7 @@ export default defineConfig({
 | ---------- | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
 | `intlayer` | Astro 集成，负责准备字典、配置 Vite 插件（别名、路由代理、剪裁）、自动注册请求中间件并在重写的本地化 URL 输出预渲染页面。 | [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/astro-intlayer/intlayer.md) |
 
-### 钩子（服务端与客户端）
+### Hook（服务端与客户端）
 
 导入：
 
@@ -69,7 +69,7 @@ export default defineConfig({
 import { useIntlayer, useDictionary, useLocale } from "astro-intlayer";
 ```
 
-| 钩子            | 描述                                                                                                                                      | 相关文档                                                                                                                |
+| Hook            | 描述                                                                                                                                      | 相关文档                                                                                                                |
 | --------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
 | `useIntlayer`   | 根据键选择一个字典并返回其本地化内容。在 `.astro` frontmatter 中从 `Astro.locals` 读取请求语言环境，在 `<script>` 中从客户端 store 读取。 | [useIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/astro-intlayer/useIntlayer.md)     |
 | `useDictionary` | 转换字典对象并返回解析后的语言环境对应的内容。在 frontmatter 和客户端脚本中均可使用。                                                     | [useDictionary](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/astro-intlayer/useDictionary.md) |
@@ -141,7 +141,7 @@ import {
 } from "astro-intlayer/format";
 ```
 
-| 钩子              | 描述                                                                       |
+| Hook              | 描述                                                                       |
 | ----------------- | -------------------------------------------------------------------------- |
 | `useIntl`         | 返回绑定到请求或客户端语言环境的 Intl 实例，具备缓存和订阅功能。           |
 | `useDate`         | 返回预绑定到当前语言环境的日期格式化函数 (`Intl.DateTimeFormat`)。         |
@@ -164,8 +164,8 @@ import { renderHTML, useHTML, useHTMLRenderer } from "astro-intlayer/html";
 | 导出项            | 类型       | 描述                                 |
 | ----------------- | ---------- | ------------------------------------ |
 | `renderHTML`      | `Function` | 用于渲染 HTML 节点的独立实用函数。   |
-| `useHTML`         | `Hook`     | 获取 HTML 提供者上下文和配置的钩子。 |
-| `useHTMLRenderer` | `Hook`     | 获取预配置的 HTML 渲染器函数的钩子。 |
+| `useHTML`         | `Hook`     | 获取 HTML 提供者上下文和配置的Hook。 |
+| `useHTMLRenderer` | `Hook`     | 获取预配置的 HTML 渲染器函数的Hook。 |
 
 ### Markdown 实用工具 (astro-intlayer/markdown)
 
@@ -186,8 +186,8 @@ import {
 | `compileMarkdown`     | `Function` | 将 Markdown 字符串编译为结构化表示。     |
 | `renderMarkdown`      | `Function` | 将 Markdown 内容渲染为输出节点。         |
 | `parseMarkdown`       | `Function` | 将原始 Markdown 内容解析为 AST。         |
-| `useMarkdown`         | `Hook`     | 获取 Markdown 提供者上下文的钩子。       |
-| `useMarkdownRenderer` | `Hook`     | 获取预配置的 Markdown 渲染器函数的钩子。 |
+| `useMarkdown`         | `Hook`     | 获取 Markdown 提供者上下文的Hook。       |
+| `useMarkdownRenderer` | `Hook`     | 获取预配置的 Markdown 渲染器函数的Hook。 |
 
 ### 类型
 

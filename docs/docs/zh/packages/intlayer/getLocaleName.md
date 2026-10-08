@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-06-29
+updatedAt: 2026-10-08
 priority: 5
 title: getLocaleName 函数文档 | intlayer
 description: "使用 getLocaleName 获取某个语言在另一种语言中的名称，例如「French」或「français」，用于语言切换器。"

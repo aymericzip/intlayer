@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-06-29
+updatedAt: 2026-10-08
 priority: 8
 title: "函数获取：从函数加载内容"
 description: "从同步或异步函数声明 Intlayer 内容，例如在构建时从 API 获取翻译。"

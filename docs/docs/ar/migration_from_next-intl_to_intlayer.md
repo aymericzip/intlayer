@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-05
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 7
 title: "الانتقال من next-intl إلى Intlayer"
 description: "انقل تطبيق Next.js من next-intl إلى Intlayer خطوة بخطوة، بدءًا بمحوّل @intlayer/next-intl حتى لا يتعطل شيء."
@@ -47,10 +47,10 @@ Intlayer هو أيضًا الحل الذي يتمتع بـ **أنشط تطور**
 
 - [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/lsp.md)
 - [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/mcp_server.md)
-- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)
+- [مهارات الوكلاء (Agent Skills)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)
 
 </Accordion>
-<Accordion header="الأتمتة">
+<Accordion header="الأتمتة وتكامل CI/CD">
 
 استخدم الأتمتة للترجمة في خط أنابيب CI/CD الخاص بك باستخدام LLM من اختيارك بتكلفة موفر AI الخاص بك. يوفر Intlayer أيضًا **مترجم** لأتمتة استخراج المحتوى، وكذلك [منصة ويب](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md) لمساعدتك في **الترجمة في الخلفية**.
 
@@ -346,7 +346,7 @@ export default config;
 ## اذهب إلى ما هو أبعد
 
 - [محرر Intlayer البصري](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)
-- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
+- [نظام إدارة المحتوى Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
 - [ملحق Intlayer VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/vs_code_extension.md)
-- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md)
+- [واجهة سطر الأوامر Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md)
 - [Intlayer مع Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_16.md)

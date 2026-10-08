@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-07-08
+updatedAt: 2026-10-08
 priority: 8
 title: "Intlayer CMS: أخرج محتواك متعدد اللغات"
 description: إخراج محتواك إلى نظام إدارة المحتوى Intlayer لتفويض إدارة المحتوى إلى فريقك.
@@ -174,7 +174,7 @@ export default config;
 
 ### دفع التهيئة الخاصة بك
 
-لتكوين نظام إدارة محتوى Intlayer، يمكنك استخدام أوامر [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md).
+لتكوين نظام إدارة محتوى Intlayer، يمكنك استخدام أوامر [واجهة سطر الأوامر Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md).
 
 ```bash packageManager="npm"
 npx intlayer config push
@@ -214,7 +214,7 @@ bun x intlayer config push --env production
 
 ### دفع قاموس
 
-لتحويل قواميس اللغة المحلية الخاصة بك إلى قاموس بعيد، يمكنك استخدام أوامر [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md).
+لتحويل قواميس اللغة المحلية الخاصة بك إلى قاموس بعيد، يمكنك استخدام أوامر [واجهة سطر الأوامر Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md).
 
 ```bash packageManager="npm"
 npx intlayer dictionary push -d my-first-dictionary-key

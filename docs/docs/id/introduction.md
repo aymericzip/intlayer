@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 10
 title: "Mulai dengan Intlayer: i18n untuk framework apa pun"
 description: Temukan bagaimana Intlayer bekerja. Lihat langkah-langkah yang digunakan oleh Intlayer di aplikasi Anda. Temukan apa yang dilakukan oleh berbagai paket yang ada.
@@ -28,7 +28,7 @@ Selamat datang di dokumentasi resmi Intlayer! Di sini, Anda akan menemukan semua
 
 ### Apa itu Intlayer?
 
-**Intlayer** adalah pustaka internasionalisasi yang dirancang khusus untuk pengembang JavaScript. Ini memungkinkan deklarasi konten Anda di mana saja di dalam kode Anda. Intlayer mengubah deklarasi konten multibahasa menjadi kamus terstruktur untuk diintegrasikan dengan mudah ke dalam kode Anda. Dengan menggunakan TypeScript, **Intlayer** membuat pengembangan Anda lebih tangguh dan efisien.
+**Intlayer** adalah library internasionalisasi yang dirancang khusus untuk pengembang JavaScript. Ini memungkinkan deklarasi konten Anda di mana saja di dalam kode Anda. Intlayer mengubah deklarasi konten multibahasa menjadi kamus terstruktur untuk diintegrasikan dengan mudah ke dalam kode Anda. Dengan menggunakan TypeScript, **Intlayer** membuat pengembangan Anda lebih tangguh dan efisien.
 
 Intlayer juga menyediakan editor visual opsional yang memungkinkan Anda mengedit dan mengelola konten Anda dengan mudah. Editor ini sangat berguna bagi pengembang yang lebih menyukai antarmuka visual untuk manajemen konten, atau untuk tim yang membuat konten tanpa perlu khawatir tentang kode.
 
@@ -49,10 +49,10 @@ const componentContent = {
   key: "component-key",
   content: {
     myTranslatedContent: t({
+      id: "Halo Dunia",
       en: "Hello World",
       es: "Hola Mundo",
       fr: "Bonjour le monde",
-      id: "Halo Dunia",
     }),
   },
 } satisfies Dictionary;
@@ -68,10 +68,10 @@ export default componentContent;
     "myTranslatedContent": {
       "nodeType": "translation",
       "translation": {
+        "id": "Halo Dunia",
         "en": "Hello World",
         "fr": "Bonjour le monde",
-        "es": "Hola Mundo",
-        "id": "Halo Dunia"
+        "es": "Hola Mundo"
       }
     }
   }
@@ -101,7 +101,7 @@ Daripada memuat file JSON besar ke halaman Anda, muat hanya konten yang diperluk
 </Accordion>
 <Accordion header="Kemudahan Pemeliharaan (Maintainability)">
 
-Menempatkan cakupan (scoping) konten aplikasi Anda di dekat komponen **memudahkan pemeliharaan** untuk aplikasi skala besar. Anda dapat menduplikasi atau menghapus folder fitur tunggal tanpa beban mental untuk meninjau seluruh basis kode konten Anda. Selain itu, Intlayer **sepenuhnya diketik (fully typed)** untuk memastikan keakuratan konten Anda.
+Menempatkan cakupan (scoping) konten aplikasi Anda di dekat komponen **memudahkan pemeliharaan** untuk aplikasi skala besar. Anda dapat menduplikasi atau menghapus folder fitur tunggal tanpa beban mental untuk meninjau seluruh basis kode konten Anda. Selain itu, Intlayer **fully typed** (memiliki type safety penuh) untuk memastikan keakuratan konten Anda.
 
 </Accordion>
 <Accordion header="Agen AI">
@@ -115,14 +115,14 @@ Penempatan konten yang berdekatan (co-location) **mengurangi konteks yang dibutu
 </Accordion>
 <Accordion header="Otomatisasi">
 
-Gunakan otomatisasi untuk menerjemahkan di jalur (pipeline) CI/CD Anda menggunakan LLM pilihan Anda dengan biaya dari penyedia AI Anda. Intlayer juga menawarkan **kompiler (compiler)** untuk mengotomatiskan ekstraksi konten, serta [platform web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md) untuk membantu **menerjemahkan di latar belakang**.
+Gunakan otomatisasi untuk menerjemahkan dalam pipeline CI/CD Anda menggunakan LLM pilihan Anda dengan biaya dari penyedia AI Anda. Intlayer juga menawarkan **kompiler (compiler)** untuk mengotomatiskan ekstraksi konten, serta [platform web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md) untuk membantu **menerjemahkan di latar belakang**.
 
 - [platform web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)
 
 </Accordion>
-<Accordion header="Kinerja (Performance)">
+<Accordion header="Performa (Performance)">
 
-Menghubungkan file JSON besar ke komponen dapat menyebabkan masalah kinerja dan reaktivitas. Intlayer mengoptimalkan pemuatan konten Anda pada saat kompilasi (build time).
+Menghubungkan file JSON besar ke komponen dapat menyebabkan masalah performa dan reaktivitas. Intlayer mengoptimalkan pemuatan konten Anda pada saat build (kompilasi).
 
 </Accordion>
 <Accordion header="Penskalaan tanpa pengembang (Scaling with non-dev)">

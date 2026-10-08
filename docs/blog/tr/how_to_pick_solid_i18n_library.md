@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-28
+updatedAt: 2026-10-08
 priority: 8
 title: "2026'da Doğru Solid i18n Kütüphanesini Seçme Rehberi"
 description: "SolidJS ve SolidStart i18n için karar rehberi: @solid-primitives/i18n, solid-i18next, Paraglide, Lingui ve Intlayer'ı karşılaştırmadan önceki sorular."
@@ -96,11 +96,11 @@ Kütüphane boyutları [Solid benchmark](https://github.com/aymericzip/intlayer/
 
 | Kütüphane                | İçerik modeli                                 | Locale değişiminde reaktivite                         | Tip güvenliği                                      | Scoping ve lazy loading             | Kütüphane boyutu                                    |
 | :----------------------- | :-------------------------------------------- | :---------------------------------------------------- | :------------------------------------------------- | :---------------------------------- | :-------------------------------------------------- |
-| `@solid-primitives/i18n` | Size ait düz sözlük                           | Signal, translator tarafından döndürülen accessor'lar | 3/5 — Kaynak sözlükten infer edilir                | Yerleşik olarak yok                 | ~0.6 kB                                             |
-| `solid-i18next`          | i18next katalogları ve namespace'leri         | Store, provider üzerinden re-render                   | 2/5 — Manuel tanımlama                             | Namespace'ler, lazy backend'ler     | ~14.9 kB                                            |
-| Paraglide                | inlang projesi, üretilen fonksiyonlar         | Cookie veya storage'dan çağrı başına okuma            | 3.5/5 — Otomatik üretilir (generated)              | Tree-shaking (benchmark'ta etkisiz) | Sıfıra yakın (kod tabanında üretilen kod sayesinde) |
-| `@lingui/solid`          | Kod içinde kaynak metin, derlenmiş kataloglar | Signal tabanlı                                        | 2/5 — Derleyiciden sağlanır                        | Katalog başına                      | ~11.8 kB                                            |
-| Intlayer                 | Bileşen başına bir `.content.ts`              | Signal destekli node'lar, bileşen re-run'ı yok        | 5/5 — Üretilir (generated), varsayılan olarak açık | Evet, bileşen başına                | ~4.3 kB                                             |
+| `@solid-primitives/i18n` | Size ait düz sözlük                           | Signal, translator tarafından döndürülen accessor'lar | 3/5 - Kaynak sözlükten infer edilir                | Yerleşik olarak yok                 | ~0.6 kB                                             |
+| `solid-i18next`          | i18next katalogları ve namespace'leri         | Store, provider üzerinden re-render                   | 2/5 - Manuel tanımlama                             | Namespace'ler, lazy backend'ler     | ~14.9 kB                                            |
+| Paraglide                | inlang projesi, üretilen fonksiyonlar         | Cookie veya storage'dan çağrı başına okuma            | 3.5/5 - Otomatik üretilir (generated)              | Tree-shaking (benchmark'ta etkisiz) | Sıfıra yakın (kod tabanında üretilen kod sayesinde) |
+| `@lingui/solid`          | Kod içinde kaynak metin, derlenmiş kataloglar | Signal tabanlı                                        | 2/5 - Derleyiciden sağlanır                        | Katalog başına                      | ~11.8 kB                                            |
+| Intlayer                 | Bileşen başına bir `.content.ts`              | Signal destekli node'lar, bileşen re-run'ı yok        | 5/5 - Üretilir (generated), varsayılan olarak açık | Evet, bileşen başına                | ~4.3 kB                                             |
 
 > Rakamlar, benchmark sırasındaki sürümlerin anlık görüntüsüdür. `@lingui/solid` boyutu TanStack Start benchmark'ından alınmıştır. Yalnızca boyuta göre karar vermeden önce kendi uygulamanızda test edin.
 > Tip güvenliği: 5/5; anahtarların, parametrelerin ve her locale'in, URL biçimlendirici ve yardımcılar (helpers) dahil olmak üzere manuel kurulum olmadan kontrol edildiği anlamına gelir.

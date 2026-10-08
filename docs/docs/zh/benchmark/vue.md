@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: 2026 年 Vue 最佳 i18n 解决方案 - 基准报告
 description: 比较 Vue 国际化（i18n）库，如 vue-i18n、fluent-vue, Tolgee 和 Intlayer。关于Bundle 大小、泄漏和反应性的详细性能报告。

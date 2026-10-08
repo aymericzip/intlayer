@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-28
+updatedAt: 2026-10-08
 priority: 8
 title: هل أصبحت مكتبة next-intl قديمة في عام 2026؟
 description: أصبحت next-intl الخيار الشائع لـ Next.js App Router. لكنها ما زالت تثقل حزم التشغيل وتتطلب إدارة يدوية معقدة للمساحات الاسمية.
@@ -318,9 +318,9 @@ declare global {
 
 **نظام إدارة محتوى مرئي ذاتي الاستضافة:**
 
-استخدم [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md) لتمكين الفرق غير التقنية من مراجعة النصوص مع الحفظ المباشر في Git.
+استخدم [نظام إدارة المحتوى Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md) لتمكين الفرق غير التقنية من مراجعة النصوص مع الحفظ المباشر في Git.
 
-- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
+- [نظام إدارة المحتوى Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
 
 **ترخيص مفتوح:**
 

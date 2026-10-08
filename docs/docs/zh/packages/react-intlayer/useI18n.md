@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-06-29
+updatedAt: 2026-10-08
 priority: 5
 title: useI18n Hook 文档 | react-intlayer
 description: "在 React 中使用 useI18n 获取绑定到某个字典的翻译函数，便于从基于键的库迁移。"
@@ -23,7 +23,7 @@ slugs:
 history:
   - version: 6.0.0
     date: 2025-06-29
-    changes: "`useI18n` 钩子文档的初始编写"
+    changes: "`useI18n` Hook文档的初始编写"
 author: aymericzip
 ---
 
@@ -65,7 +65,7 @@ author: aymericzip
 
 ## 参数
 
-此钩子接受两个参数：
+此Hook接受两个参数：
 
 1. **`namespace`**：用于限定翻译键的字典命名空间。
 2. **`locale`**（可选）：期望使用的语言环境。如果未指定，则默认使用上下文的语言环境。
@@ -78,7 +78,7 @@ author: aymericzip
 
 ## React 中的使用示例
 
-以下是在 React 组件中使用 `useI18n` 钩子的示例：
+以下是在 React 组件中使用 `useI18n` Hook的示例：
 
 <Tabs>
  <Tab label='Intlayer >=9.4' value='>=9.4'>
@@ -179,4 +179,4 @@ const ServerComponentExample = () => {
 
 - **Intlayer 可视化编辑器**：为了获得更直观的内容管理体验，请参阅可视化编辑器文档 [这里](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)。
 
-本节特别涵盖了在 React 应用中集成 `useI18n` 钩子，简化本地化流程并确保不同语言环境下内容的一致性。
+本节特别涵盖了在 React 应用中集成 `useI18n` Hook，简化本地化流程并确保不同语言环境下内容的一致性。

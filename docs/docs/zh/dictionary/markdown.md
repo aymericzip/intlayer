@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "Intlayer 中的 Markdown 内容"
 description: "使用 md() 或 .content.md 文件在 Intlayer 中声明翻译后的 Markdown，并在任意框架中用自己的组件渲染。"
@@ -616,7 +616,7 @@ Markdown 渲染支持 **MDX**，在您的 Markdown 中直接按名称使用任�
     </MarkdownRenderer>
     ```
 
-    #### `useMarkdownRenderer()` 钩子
+    #### `useMarkdownRenderer()` Hook
 
     获取预配置的渲染器函数。
 
@@ -655,7 +655,7 @@ Markdown 渲染支持 **MDX**，在您的 Markdown 中直接按名称使用任�
     </MarkdownRenderer>
     ```
 
-    #### `useMarkdownRenderer()` 钩子
+    #### `useMarkdownRenderer()` Hook
 
     获取预配置的渲染器函数。
 
@@ -707,7 +707,7 @@ Markdown 渲染支持 **MDX**，在您的 Markdown 中直接按名称使用任�
     <MarkdownRenderer forceBlock={true} value="# 我的标题" />
     ```
 
-    #### `useMarkdownRenderer()` 钩子
+    #### `useMarkdownRenderer()` Hook
 
     ```svelte
     <script lang="ts">
@@ -740,7 +740,7 @@ Markdown 渲染支持 **MDX**，在您的 Markdown 中直接按名称使用任�
     </MarkdownRenderer>
     ```
 
-    #### `useMarkdownRenderer()` 钩子
+    #### `useMarkdownRenderer()` Hook
 
     ```tsx
     import { useMarkdownRenderer } from "preact-intlayer/markdown";
@@ -770,7 +770,7 @@ Markdown 渲染支持 **MDX**，在您的 Markdown 中直接按名称使用任�
     </MarkdownRenderer>
     ```
 
-    #### `useMarkdownRenderer()` 钩子
+    #### `useMarkdownRenderer()` Hook
 
     ```tsx
     import { useMarkdownRenderer } from "solid-intlayer/markdown";

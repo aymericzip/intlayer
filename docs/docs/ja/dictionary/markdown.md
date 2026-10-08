@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "Intlayer の Markdown コンテンツ"
 description: "md() または .content.md ファイルで翻訳済み Markdown を宣言し、どのフレームワークでも独自コンポーネントで描画します。"
@@ -1457,7 +1457,7 @@ remark / rehype などの他の Markdown パーサーと比較して、Intlayer 
 
       // 2. AST を直接レンダリングします
       // Server Component では、これはシームレスに機能し、AST を
-    // 必要に応じて基になるクライアント コンポーネントに直接渡します。
+    // 必要に応じて基になるClient Componentsに直接渡します。
       return <MarkdownRenderer content={ast} />;
     }
     ```

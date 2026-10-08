@@ -1,8 +1,8 @@
 ---
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 5
 createdAt: 2025-08-23
-title: "useRewriteURL 钩子 文档 | react-intlayer"
+title: "useRewriteURL Hook 文档 | react-intlayer"
 description: "在 React 中使用 useRewriteURL，按照配置中的 URL 重写规则将浏览器 URL 改写为本地化版本。"
 keywords:
   - useRewriteURL
@@ -18,11 +18,11 @@ slugs:
 author: aymericzip
 ---
 
-# useRewriteURL 钩子
+# useRewriteURL Hook
 
-`useRewriteURL` 钩子用于在客户端管理本地化的 URL 重写。它会根据用户的 locale 以及在 `intlayer.config.ts` 中定义的重写规则，自动检测当前 URL 是否应被纠正为更“美观”的本地化版本。
+`useRewriteURL` Hook用于在客户端管理本地化的 URL 重写。它会根据用户的 locale 以及在 `intlayer.config.ts` 中定义的重写规则，自动检测当前 URL 是否应被纠正为更“美观”的本地化版本。
 
-不同于标准的导航，这个钩子使用 `window.history.replaceState` 来更新地址栏中的 URL，而不会触发完整页面重载或路由器的导航周期。
+不同于标准的导航，这个Hook使用 `window.history.replaceState` 来更新地址栏中的 URL，而不会触发完整页面重载或路由器的导航周期。
 
 ## 用法
 

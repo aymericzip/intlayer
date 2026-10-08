@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-06-18
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 9
 title: "i18n в Expo + React Native: полное руководство"
 description: "Настройка Intlayer в Expo и React Native: типизированный контент по компонентам, определение языка устройства, переключатель языка и сборка через Metro."
@@ -297,7 +297,7 @@ export default RootLayout;
 > **Expo Router (веб): держите файлы `.content.*` вне директории `app/`.** Expo Router рассматривает каждый файл JavaScript/TypeScript внутри `app/` как маршрут. В веб-версии поиск маршрутов сканирует файловую систему напрямую и **не** учитывает `resolver.blockList` от Metro, поэтому находящийся рядом `*.content.ts` регистрируется как маршрут. Файл, такой как `app/(tabs)/_layout.content.ts`, даже парсится как макет (часть `.content` читается как суффикс платформы), что конфликтует с реальным `_layout.tsx` и вызывает ошибку:
 >
 > ```
-> The layouts "./(tabs)/_layout.content.ts" and "./(tabs)/_layout.tsx" conflict on the route "/(tabs)/_layout.content". Remove or rename one of these files.
+> Макеты "./(tabs)/_layout.content.ts" и "./(tabs)/_layout.tsx" вызывают конфликт на маршруте "/(tabs)/_layout.content". Удалите или переименуйте один из этих файлов.
 > ```
 >
 > Размещайте свои объявления в директории вне `app/` (например, `content/` или `src/content/`). Intlayer обнаруживает файлы `.content.*` в любом месте проекта, а словари ссылаются по их `key`, поэтому изменения импортов не требуются. В нативных приложениях это не обязательно (`blockList` от Metro уже скрывает их), но использование другой директории помимо `app/` обеспечивает работу обеих платформ.

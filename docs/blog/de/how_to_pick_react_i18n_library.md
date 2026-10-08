@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-28
+updatedAt: 2026-10-08
 priority: 8
 title: "Wie man 2026 die richtige React i18n-Bibliothek auswählt"
 description: "Ein Entscheidungsleitfaden für React-i18n: die Fragen, die Sie klären sollten, bevor Sie react-i18next, react-intl, Lingui, use-intl, Paraglide und Intlayer vergleichen."
@@ -109,13 +109,13 @@ Die Bibliotheksgrößen stammen aus dem [TanStack Start-Benchmark](https://githu
 
 | Bibliothek              | Welle        | Inhaltsmodell                           | Typsicherheit                      | Nachrichtenformat             | Bibliotheksgröße                                |
 | :---------------------- | :----------- | :-------------------------------------- | :--------------------------------- | :---------------------------- | :---------------------------------------------- |
-| `react-i18next`         | Runtime      | Zentrales JSON, Namespaces              | 2/5 — Opt-in (`CustomTypeOptions`) | i18next (Suffix-Plurale)      | ~18,4 kB                                        |
-| `react-intl` (FormatJS) | Runtime      | Zentrales JSON, ICU                     | 2/5 — Opt-in (Extraktion + Union)  | ICU                           | ~15,3 kB                                        |
-| `use-intl`              | Server-first | Zentrales JSON, ICU                     | 2/5 — Opt-in (Declaration Merging) | ICU                           | ~14,1 kB                                        |
-| `@tolgee/react`         | Runtime      | Zentral, In-Context-Bearbeitung         | 1/5 — Nein                         | ICU                           | ~11,1 kB                                        |
-| Lingui                  | Macro        | Quelltext im Code, kompilierte Kataloge | 2/5 — Gut, direkt vom Compiler     | ICU via Makros                | ~11,8 kB                                        |
-| Paraglide               | Compiler     | inlang-Projekt, generierte Funktionen   | 3.5/5 — Generiert                  | Eigenes                       | Nahezu null (durch generierten Code im Projekt) |
-| Intlayer                | Compiler     | `.content.ts` pro Komponente            | 5/5 — Generiert, standardmäßig an  | Intlayer (+ ICU, i18next, PO) | ~5,0 kB                                         |
+| `react-i18next`         | Runtime      | Zentrales JSON, Namespaces              | 2/5 - Opt-in (`CustomTypeOptions`) | i18next (Suffix-Plurale)      | ~18,4 kB                                        |
+| `react-intl` (FormatJS) | Runtime      | Zentrales JSON, ICU                     | 2/5 - Opt-in (Extraktion + Union)  | ICU                           | ~15,3 kB                                        |
+| `use-intl`              | Server-first | Zentrales JSON, ICU                     | 2/5 - Opt-in (Declaration Merging) | ICU                           | ~14,1 kB                                        |
+| `@tolgee/react`         | Runtime      | Zentral, In-Context-Bearbeitung         | 1/5 - Nein                         | ICU                           | ~11,1 kB                                        |
+| Lingui                  | Macro        | Quelltext im Code, kompilierte Kataloge | 2/5 - Gut, direkt vom Compiler     | ICU via Makros                | ~11,8 kB                                        |
+| Paraglide               | Compiler     | inlang-Projekt, generierte Funktionen   | 3.5/5 - Generiert                  | Eigenes                       | Nahezu null (durch generierten Code im Projekt) |
+| Intlayer                | Compiler     | `.content.ts` pro Komponente            | 5/5 - Generiert, standardmäßig an  | Intlayer (+ ICU, i18next, PO) | ~5,0 kB                                         |
 
 > Die Zahlen sind eine Momentaufnahme der Benchmark-Versionen und ändern sich mit neuen Releases. Führen Sie den Benchmark für Ihre eigene Anwendung aus, bevor Sie sich allein aufgrund der Größe entscheiden.
 > Typsicherheit: 5/5 bedeutet, dass Schlüssel, Parameter und jede Locale ohne manuelle Einrichtung geprüft werden, einschließlich URL-Formatierer und Helfer.

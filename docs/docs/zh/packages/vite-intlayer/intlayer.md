@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-10-08
 priority: 5
 title: intlayer Vite 插件文档 | vite-intlayer
 description: 查看如何在 vite-intlayer 包中使用 intlayer 插件
@@ -51,7 +51,7 @@ import type { IntlayerPluginOptions } from "vite-intlayer";
 | 选项            | 类型                            | 默认值      | 描述                                                                                                |
 | --------------- | ------------------------------- | ----------- | --------------------------------------------------------------------------------------------------- |
 | `compatCallers` | `CompatCallerConfig[]`          | `[]`        | compat-adapter 包的额外调用者模式（例如 `@intlayer/react-i18next`）。在构建时传递给字段使用分析器。 |
-| `proxy`         | `{ ignore?: (req) => boolean }` | `undefined` | 转发到捆绑的区域设置路由代理的选项。使用 `ignore` 排除特定路径（例如 API 路由）不进行区域设置路由。 |
+| `proxy`         | `{ ignore?: (req) => boolean }` | `undefined` | 转发到打包的区域设置路由代理的选项。使用 `ignore` 排除特定路径（例如 API 路由）不进行区域设置路由。 |
 
 所有其他选项（`override`、`configFile`、…）直接转发到 `getConfiguration()`。
 
@@ -116,7 +116,7 @@ export default defineConfig({
 
 在开发模式下，会启动一个 `chokidar` watcher。当 `.content.ts` 文件变化时，字典会被重新编译，Vite 的 HMR 会将更新传播到浏览器。
 
-### 4. 捆绑的语言环境路由代理 (v9+)
+### 4. 打包的语言环境路由代理 (v9+)
 
 自 Intlayer v9 起，`intlayerProxy` 中间件会自动在 `intlayer()` 内注册。它处理：
 

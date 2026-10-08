@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 10
 title: "Vite + React i18n - 앱을 번역하는 완전 가이드"
 description: "Vite와 React 앱에 Intlayer 설정: 컴포넌트별 타입 콘텐츠, 언어 전환기, 현지화된 라우트, 로케일별 번들."
@@ -32,13 +32,13 @@ history:
 author: aymericzip
 ---
 
-# Intlayer로 Vite 및 React 번역하기
+# Intlayer를 사용하여 Vite 및 React 웹사이트 번역하기
 
 ## 목차
 
 <TOC/>
 
-## 왜 다른 대안들 대신 Intlayer를 선택해야 하나요?
+## 왜 다른 대안 대신 Intlayer인가요?
 
 react-i18next나 i18next와 같은 주요 솔루션과 비교했을 때, Intlayer는 다음과 같은 통합된 최적화 기능을 제공하는 솔루션입니다:
 
@@ -50,17 +50,17 @@ Intlayer는 **컴포넌트 수준의 콘텐츠 스코핑**, **지연 로드(lazy
 </Accordion>
 <Accordion header="번들 크기">
 
-페이지에 방대한 JSON 파일을 로드하는 대신, 필요한 콘텐츠만 로드하세요. Intlayer는 **번들 및 페이지 크기를 최대 50%까지 줄이는 데** 도움을 줍니다.
+페이지에 대용량 JSON 파일을 로드하는 대신, 꼭 필요한 콘텐츠만 로드합니다. Intlayer는 **번들 및 페이지 크기를 최대 50%까지 줄이는 데** 기여합니다.
 
 </Accordion>
 <Accordion header="유지보수성">
 
-애플리케이션의 콘텐츠를 스코핑하면 대규모 애플리케이션의 **유지보수가 용이해집니다**. 전체 콘텐츠 codebase를 검토해야 한다는 심리적 부담 없이 단일 기능 폴더를 복제하거나 삭제할 수 있습니다. 또한, Intlayer는 콘텐츠의 정확성을 보장하기 위해 **완벽한 타입 지정(fully typed)**을 지원합니다.
+애플리케이션의 콘텐츠를 컴포넌트 단위로 분할하여 대규모 애플리케이션의 **유지보수를 원활하게** 합니다. 전체 콘텐츠 코드베이스를 전부 검토해야 한다는 인지적 부담 없이 단일 기능 폴더를 간편하게 복제하거나 삭제할 수 있습니다. 또한, Intlayer는 콘텐츠 선언의 정확성을 보장하기 위해 **완전한 TypeScript 타입 지원**을 제공합니다.
 
 </Accordion>
 <Accordion header="AI 에이전트">
 
-콘텐츠를 같은 위치에 배치(Co-locating)하면 대규모 언어 모델(LLM)에 필요한 문맥이 줄어듭니다. Intlayer는 또한 누락된 번역을 테스트하기 위한 **CLI**, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/mcp_server.md)**, 그리고 **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/agent_skills.md)**과 같은 도구 모음을 제공하여 AI 에이전트의 개발자 경험(DX)을 더욱 원활하게 만듭니다.
+콘텐츠 선언을 컴포넌트와 동일한 위치에 두는 것(Co-location)은 대형 언어 모델(LLM)에 필요한 **컨텍스트 크기를 크게 줄여줍니다**. Intlayer는 누락된 번역을 테스트하기 위한 **CLI**, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/mcp_server.md)** 및 **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/agent_skills.md)** 등 일련의 도구를 지원하여 AI 에이전트를 위한 개발자 경험(DX)을 더욱 매끄럽게 만듭니다.
 
 - [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/lsp.md)
 - [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/mcp_server.md)
@@ -69,27 +69,27 @@ Intlayer는 **컴포넌트 수준의 콘텐츠 스코핑**, **지연 로드(lazy
 </Accordion>
 <Accordion header="자동화">
 
-AI 제공업체의 비용으로 원하는 LLM을 사용하여 CI/CD 파이프라인에서 번역을 자동화하세요. Intlayer는 또한 콘텐츠 추출을 자동화하는 **컴파일러**뿐만 아니라, **백그라운드에서 번역**을 도와주는 [웹 플랫폼](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)을 제공합니다.
+CI/CD 파이프라인에서 원하는 LLM을 사용하여 자체 AI 제공업체의 API 비용만으로 번역을 손쉽게 자동화할 수 있습니다. Intlayer는 콘텐츠 추출을 자동화하는 **컴파일러**와 함께 **백그라운드에서 편리하게 번역할 수 있는** [웹 플랫폼](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)도 제공합니다.
 
 - [웹 플랫폼](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="성능">
 
-방대한 JSON 파일을 컴포넌트에 연결하면 성능 및 반응성 문제가 발생할 수 있습니다. Intlayer는 빌드 타임에 콘텐츠 로딩을 최적화합니다.
+대규모 JSON 파일을 컴포넌트에 직접 연결하면 렌더링 성능 저하와 반응성 문제가 발생할 수 있습니다. Intlayer는 빌드 시점에 콘텐츠 로딩을 최적화하여 이를 해결합니다.
 
 </Accordion>
-<Accordion header="비개발자와의 확장성">
+<Accordion header="비개발자와의 협업 및 확장 (Scaling with non-dev)">
 
-단순한 i18n 솔루션 그 이상으로, Intlayer는 **자체 호스팅 가능한 [시각적 편집기(visual editor)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)**와 **[전체 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)**를 제공하여 다국어 콘텐츠를 **실시간**으로 관리할 수 있게 도와주며, 번역가, 카피라이터 및 기타 팀원과의 협업을 원활하게 만듭니다. 콘텐츠는 로컬 및/또는 원격으로 저장할 수 있습니다.
+단순한 i18n 솔루션 이상의 가치를 제공하기 위해, Intlayer는 **자체 호스팅 가능한 [비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)**와 **[전체 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)**를 지원합니다. 이를 통해 번역가, 카피라이터 및 팀원들과 **실시간**으로 다국어 콘텐츠를 매끄럽게 관리할 수 있습니다. 콘텐츠는 로컬 및/또는 원격에 안전하게 보관할 수 있습니다.
 
-- [시각적 편집기(visual editor)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)
+- [비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)
 - [전체 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
 
-## 대안보다 Intlayer를 선택해야 하는 이유는 무엇입니까?
+## Vite 및 React 애플리케이션에서 Intlayer 설정 단계별 가이드
 
 <Tabs defaultTab="video">
   <Tab label="Video" value="video">
@@ -97,12 +97,12 @@ AI 제공업체의 비용으로 원하는 LLM을 사용하여 CI/CD 파이프라
 <iframe title="Vite와 React를 위한 최고의 i18n 솔루션? Intlayer를 발견하세요" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?si=VaKmrYMmXjo3xpk2"/>
 
   </Tab>
-  <Tab label="Code" value="code">
+  <Tab label="코드" value="code">
 
 <iframe
   src="https://ide.intlayer.org/aymericzip/intlayer-vite-react-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox - Intlayer를 사용하여 애플리케이션을 국제화하는 방법"
+  title="CodeSandbox 데모 - Intlayer를 사용하여 애플리케이션을 국제화하는 방법"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -124,7 +124,7 @@ AI 제공업체의 비용으로 원하는 LLM을 사용하여 CI/CD 파이프라
 GitHub에서 [애플리케이션 템플릿](https://github.com/aymericzip/intlayer-vite-react-template)을 확인하세요.
 
 <Steps>
-<Step number={1} title="종속성 설치">
+<Step number={1} title="의존성 패키지 설치">
 
 npm을 사용하여 필요한 패키지를 설치하세요:
 
@@ -146,7 +146,7 @@ bunx intlayer init --interactive
 
 > `--interactive` 플래그는 선택 사항입니다. AI 에이전트인 경우 `intlayer-cli init`을 사용하세요.
 
-Intlayer는 **구성 요소 수준 콘텐츠 범위 지정**, **지연 로드 번역** 및 국제화 확장(i18n)에 필요한 모든 기능을 제공하여 Vite 및 React와 완벽하게 작동하도록 최적화되었습니다.
+> 이 명령어는 환경을 감지하고 필요한 패키지를 자동으로 설치합니다. 예를 들어:
 
 ```bash packageManager="npm"
 npm install intlayer react-intlayer

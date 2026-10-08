@@ -1,11 +1,12 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "Treść warunkowa w Intlayer"
 description: "Wyświetlaj różne treści w zależności od warunku logicznego za pomocą węzła cond() w Intlayer, deklarowanego raz i rozwiązywanego przy renderowaniu."
 keywords:
   - Zawartość warunkowa
+  - Treść warunkowa
   - Dynamiczne renderowanie
   - Dokumentacja
   - Intlayer
@@ -28,11 +29,11 @@ author: aymericzip
 
 ## Jak działa warunek
 
-W Intlayer zawartość warunkowa jest realizowana za pomocą funkcji `cond`, która mapuje określone warunki (zazwyczaj wartości boolean) na odpowiadającą im zawartość. To podejście pozwala dynamicznie wybierać zawartość na podstawie podanego warunku. Po integracji z React Intlayer lub Next Intlayer odpowiednia zawartość jest automatycznie wybierana zgodnie z warunkiem podanym w czasie wykonywania.
+W Intlayer zawartość warunkowa jest realizowana za pomocą funkcji `cond`, która mapuje określone warunki (zazwyczaj wartości logiczne boolean) na odpowiadającą im treść. To podejście pozwala dynamicznie wybierać treść na podstawie podanego warunku. Po integracji z React Intlayer, Next Intlayer lub innymi adapterami, odpowiednia treść jest automatycznie wybierana zgodnie z warunkiem przekazanym w czasie wykonywania.
 
 ## Konfiguracja zawartości warunkowej
 
-Aby skonfigurować zawartość warunkową w swoim projekcie Intlayer, utwórz moduł zawartości, który zawiera definicje warunkowe. Poniżej znajdują się przykłady w różnych formatach.
+Aby skonfigurować zawartość warunkową w swoim projekcie Intlayer, utwórz moduł deklaracji treści zawierający definicje warunkowe. Poniżej znajdują się przykłady w różnych formatach.
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { cond, type Dictionary } from "intlayer";
@@ -41,9 +42,9 @@ const myConditionalContent = {
   key: "my_key",
   content: {
     myCondition: cond({
-      true: "moja zawartość, gdy jest prawda",
-      false: "moja zawartość, gdy jest fałsz",
-      fallback: "moja zawartość, gdy warunek zawodzi", // Opcjonalne
+      true: "moja treść, gdy prawda",
+      false: "moja treść, gdy fałsz",
+      fallback: "treść domyślna (fallback)", // Opcjonalne
     }),
   },
 } satisfies Dictionary;
@@ -59,23 +60,23 @@ export default myConditionalContent;
     "myCondition": {
       "nodeType": "condition",
       "condition": {
-        "true": "moja zawartość, gdy jest prawda",
-        "false": "moja zawartość, gdy jest fałsz",
-        "fallback": "moja zawartość, gdy warunek zawodzi", // Opcjonalne
+        "true": "moja treść, gdy prawda",
+        "false": "moja treść, gdy fałsz",
+        "fallback": "treść domyślna (fallback)", // Opcjonalne
       },
     },
   },
 }
 ```
 
-> Jeśli nie zostanie zadeklarowany fallback, ostatni zadeklarowany klucz zostanie użyty jako fallback, jeśli warunek nie zostanie spełniony.
+> Jeśli nie zostanie zadeklarowana wartość domyślna (fallback), ostatni zadeklarowany klucz zostanie użyty jako fallback, gdy żaden warunek nie pasuje.
 
-## Używanie zawartości warunkowej z React Intlayer
+## Używanie zawartości warunkowej
 
 <Tabs group="framework">
   <Tab label="React" value="react">
 
-To utilize conditional content within a React component, import and use the `useIntlayer` hook from the `react-intlayer` package. This hook fetches the content for the specified key and allows you to pass in a condition to select the appropriate output.
+Aby użyć treści warunkowej w komponencie React, zaimportuj i użyj hooka `useIntlayer` z pakietu `react-intlayer`. Hook ten pobiera treść dla wskazanego klucza i pozwala przekazać warunek logiczny, aby wybrać odpowiedni wynik.
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
@@ -88,25 +89,25 @@ const ConditionalComponent: FC = () => {
     <div>
       <p>
         {
-          /* Output: my content when it's true */
+          /* Wynik: moja treść, gdy prawda */
           myCondition(true)
         }
       </p>
       <p>
         {
-          /* Output: my content when it's false */
+          /* Wynik: moja treść, gdy fałsz */
           myCondition(false)
         }
       </p>
       <p>
         {
-          /* Output: my content when the condition fails */
+          /* Wynik: treść domyślna (fallback) */
           myCondition("")
         }
       </p>
       <p>
         {
-          /* Output: my content when the condition fails */
+          /* Wynik: treść domyślna (fallback) */
           myCondition(undefined)
         }
       </p>
@@ -120,7 +121,7 @@ export default ConditionalComponent;
   </Tab>
   <Tab label="Next.js" value="nextjs">
 
-To utilize conditional content in Next.js Client Components, retrieve it via the `useIntlayer` hook. Here's an example:
+Aby użyć treści warunkowej w komponentach klienckich Next.js (Client Components), pobierz ją za pomocą hooka `useIntlayer`. Oto przykład:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 "use client";
@@ -145,7 +146,7 @@ export default ConditionalComponent;
   </Tab>
   <Tab label="Vue" value="vue">
 
-To utilize conditional content in Vue components, retrieve it via the `useIntlayer` hook. Here's an example:
+Aby użyć treści warunkowej w komponentach Vue, pobierz ją za pomocą hooka `useIntlayer`. Oto przykład:
 
 ```vue fileName="**/*.vue"
 <script setup lang="ts">
@@ -165,7 +166,7 @@ const { myCondition } = useIntlayer("my_key");
   </Tab>
   <Tab label="Svelte" value="svelte">
 
-To utilize conditional content in Svelte components, retrieve it via the `useIntlayer` hook. The store is accessed with `$`. Here's an example:
+Aby użyć treści warunkowej w komponentach Svelte, pobierz ją za pomocą hooka `useIntlayer`. Dostęp do magazynu (store) uzyskujemy przez `$`. Oto przykład:
 
 ```svelte fileName="**/*.svelte"
 <script lang="ts">
@@ -183,7 +184,7 @@ const content = useIntlayer("my_key");
   </Tab>
   <Tab label="Preact" value="preact">
 
-To utilize conditional content in Preact components, retrieve it via the `useIntlayer` hook. Here's an example:
+Aby użyć treści warunkowej w komponentach Preact, pobierz ją za pomocą hooka `useIntlayer`. Oto przykład:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "preact";
@@ -206,7 +207,7 @@ export default ConditionalComponent;
   </Tab>
   <Tab label="Solid" value="solid">
 
-To utilize conditional content in SolidJS components, retrieve it via the `useIntlayer` hook. Here's an example:
+Aby użyć treści warunkowej w komponentach SolidJS, pobierz ją za pomocą hooka `useIntlayer`. Oto przykład:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { Component } from "solid-js";
@@ -229,7 +230,7 @@ export default ConditionalComponent;
   </Tab>
   <Tab label="Angular" value="angular">
 
-To utilize conditional content in Angular components, retrieve it via the `useIntlayer` hook. Here's an example:
+Aby użyć treści warunkowej w komponentach Angular, pobierz ją za pomocą funkcji `useIntlayer`. Oto przykład:
 
 ```typescript fileName="app.component.ts" codeFormat="typescript"
 import { Component } from "@angular/core";
@@ -252,7 +253,7 @@ export class ConditionalComponent {
   </Tab>
   <Tab label="Vanilla JS" value="vanilla">
 
-To utilize conditional content with `vanilla-intlayer`, retrieve it via the `useIntlayer` hook. Here's an example:
+Aby użyć treści warunkowej w czystym JavaScript (`vanilla-intlayer`), pobierz ją za pomocą funkcji `useIntlayer`. Oto przykład:
 
 ```typescript fileName="**/*.ts" codeFormat={["typescript", "esm"]}
 import { installIntlayer, useIntlayer } from "vanilla-intlayer";
@@ -266,7 +267,7 @@ const content = useIntlayer("my_key").onChange((newContent) => {
     newContent.myCondition(false);
 });
 
-// Initial render
+// Pierwsze renderowanie
 document.getElementById("true-content")!.textContent =
   content.myCondition(true);
 document.getElementById("false-content")!.textContent =

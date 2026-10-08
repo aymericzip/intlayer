@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-09-29
+updatedAt: 2026-10-08
 priority: 9
 title: "Elysia i18n - 앱을 번역하기 위한 완벽한 가이드"
 description: "Elysia에 Intlayer 설정: 플러그인으로 요청마다 로케일을 감지하고, API 응답을 번역하며, Bun에서 콘텐츠를 타입 안전하게 유지합니다."
@@ -47,7 +47,7 @@ author: aymericzip
 <iframe
   src="https://ide.intlayer.org/aymericzip/intlayer-elysia-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  title="CodeSandbox 데모 - Intlayer를 사용하여 애플리케이션을 국제화하는 방법"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />

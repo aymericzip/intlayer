@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 10
 title: "Astro i18n - 翻译你的应用的完整指南"
 description: "在 Astro 中配置 Intlayer：本地化路由、翻译后的 .astro 页面和岛屿组件、hreflang 标签以及多语言站点地图。"
@@ -21,7 +21,7 @@ applicationShowcase: https://intlayer-astro-template.vercel.app
 history:
   - version: 9.5.5
     date: 2026-09-19
-    changes: "为 astro-intlayer 添加 useIntlayer / useLocale 钩子和 Astro.locals 中间件"
+    changes: "为 astro-intlayer 添加 useIntlayer / useLocale Hook和 Astro.locals 中间件"
   - version: 8.9.0
     date: 2026-05-04
     changes: "更新 Solid useIntlayer API 用法以直接访问属性"
@@ -65,50 +65,50 @@ author: aymericzip
 
 <TOC/>
 
-## 为什么选择 Intlayer 而不是替代品？
+## 为什么选择 Intlayer 而不是其他方案？
 
-与“astro-i18n”或“i18next”等主要解决方案相比，Intlayer是一个具有集成优化的解决方案，例如：
+与 `astro-i18n` 或 `i18next` 等主流解决方案相比，Intlayer 是一个自带多项集成的优化方案，例如：
 
 <AccordionGroup>
 <Accordion header="Astro 完整支持">
 
-Intlayer 经过优化，可与 Astro 完美配合，提供**多语言路由**、**站点地图**以及扩展国际化 (i18n) 所需的所有功能。
+Intlayer 经过深度优化，可与 Astro 完美配合，提供**语言环境路由**、**站点地图**以及扩展国际化 (i18n) 所需的全部功能。
 
 </Accordion>
-<Accordion header="包大小">
+<Accordion header="打包体积 (Bundle Size)">
 
-不要将大量 JSON 文件加载到页面中，而只需加载必要的内容。 Intlayer 有助于**将捆绑包和页面大小减少多达 50%**。
+您无需在页面中加载庞大的 JSON 文件，而是只加载所需的内容。Intlayer 可以帮助 **将您的打包产物和页面体积减少多达 50%**。
 
 </Accordion>
 <Accordion header="可维护性">
 
-确定应用程序内容的范围**有利于大型应用程序的维护**。您可以复制或删除单个功能文件夹，而无需承担检查整个内容代码库的精神负担。此外，Intlayer 具有**完全类型化 (fully typed)**，以确保您的内容的准确性。
+将应用程序内容与组件就近维护在相应作用域内，**极大提升了大体量应用的可维护性**。您可以直接复制或删除单个功能目录，而无需承担检查整个全局内容代码库的认知负担。此外，Intlayer 提供 **完整的 TypeScript 类型支持**，确保内容的准确性与安全性。
 
 </Accordion>
-<Accordion header="人工智能代理就绪">
+<Accordion header="AI Agent 支持">
 
-共置内容**减少大型语言模型 (LLM) 所需的上下文**。 Intlayer 还附带了一套工具，例如用于测试缺失翻译的 **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)** 和 **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)**，使 AI 代理的开发者体验 (DX) 更加流畅。
+内容就近组织 (Co-location) **显著减少了大型语言模型 (LLM) 所需的上下文**。Intlayer 还配备了一套完整工具链，例如用于检测缺失翻译的 **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)** 以及 **[Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)**，让 AI 智能体的开发体验 (DX) 更加流畅丝滑。
 
 - [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)
 - [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)
-- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)
 
 </Accordion>
 <Accordion header="自动化">
 
-使用您选择的法学硕士，通过自动化在 CI/CD 管道中进行翻译，而费用由您的 AI 提供商承担。 Intlayer 还提供了一个**编译器**来自动提取内容，以及一个[网络平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)来帮助**在后台翻译**。
+在 CI/CD 流水线中，使用您自选的 LLM（直接基于您自有的 AI 提供商 API 计费）实现自动化翻译。Intlayer 还提供了可自动提取内容的 **编译器**，并配备了 [Web 平台 / CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) 以便在后台管理系统中执行翻译。
 
-- [网络平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
-
-</Accordion>
-<Accordion header="性能">
-
-将大量 JSON 文件连接到组件可能会导致性能和反应性问题。 Intlayer 可在构建时 (build time)优化您的内容加载。
+- [Web 平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
 
 </Accordion>
-<Accordion header="非开发人员扩展">
+<Accordion header="性能表现 (Performance)">
 
-Intlayer 不仅仅是一个 i18n 解决方案，还提供了一个**自托管的[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)**和一个**[完整的 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)** 来帮助您管理多语言内容**实时**，与译员、文案人员和其他团队成员无缝协作。内容可以本地和/或远程存储。
+将大型 JSON 文件全局挂载到各个组件容易导致渲染性能下降与响应迟滞。Intlayer 会在构建阶段自动优化内容加载。
+
+</Accordion>
+<Accordion header="赋能非技术人员协同扩展 (Scaling with non-dev)">
+
+Intlayer 不仅仅是一个简单的 i18n 解决方案。它还提供了 **支持自托管的[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)** 以及 **[完整的 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)**。借此，您可以 **实时** 管理多语言内容，让译者、文案及团队其他成员实现无缝协作。内容可存储在本地和/或远程服务器上。
 
 - [可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)
 - [完整的 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
@@ -165,14 +165,14 @@ bun add intlayer astro-intlayer
   核心软件包，提供用于配置管理、翻译、[内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)、编译和 [CLI 命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)的国际化工具。
 
 - **astro-intlayer**
-  包含用于将 Intlayer 与 [Vite 打包器](https://vite.dev/guide/why.html#why-bundle-for-production) 集成的 Astro 集成插件、将每个请求的语言环境解析到 `Astro.locals.intlayer` 的中间件，以及 `useIntlayer` / `useDictionary` / `useLocale` 钩子。相同的导入路径在 `.astro` frontmatter 中解析为服务端实现，在 `<script>` 块中解析为客户端实现（由 `vanilla-intlayer` 支持）。
+  包含用于将 Intlayer 与 [Vite 打包器](https://vite.dev/guide/why.html#why-bundle-for-production) 集成的 Astro 集成插件、将每个请求的语言环境解析到 `Astro.locals.intlayer` 的中间件，以及 `useIntlayer` / `useDictionary` / `useLocale` Hook。相同的导入路径在 `.astro` frontmatter 中解析为服务端实现，在 `<script>` 块中解析为客户端实现（由 `vanilla-intlayer` 支持）。
 
 </Step>
 <Step number={2} title="配置您的项目">
 
 ### 架构
 
-在此架构中，注册在 `astro.config.ts` 中的 `intlayer()` 集成会构建你的字典，并添加一个中间件来解析每个请求的语言环境，并将其暴露在 `Astro.locals.intlayer` 上。页面位于 `src/pages/[...locale]/` rest 参数段下，因此默认语言环境不带前缀提供服务，而其他每个语言环境都拥有其专用的 URL。`.astro` 文件使用 `astro-intlayer` 的 `useIntlayer` / `useLocale` 钩子读取内容，内容声明文件与你的组件一起放置在 `src/` 中。
+在此架构中，注册在 `astro.config.ts` 中的 `intlayer()` 集成会构建你的字典，并添加一个中间件来解析每个请求的语言环境，并将其暴露在 `Astro.locals.intlayer` 上。页面位于 `src/pages/[...locale]/` rest 参数段下，因此默认语言环境不带前缀提供服务，而其他每个语言环境都拥有其专用的 URL。`.astro` 文件使用 `astro-intlayer` 的 `useIntlayer` / `useLocale` Hook读取内容，内容声明文件与你的组件一起放置在 `src/` 中。
 
 ```bash
 .
@@ -269,7 +269,7 @@ export default appContent;
 </Step>
 <Step number={5} title="在 Astro 中使用内容">
 
-使用 `astro-intlayer` 导出的钩子在 `.astro` 文件中使用你的字典。它们与 `react-intlayer` 具有相同的签名：`useIntlayer("key")` 返回字典内容，`useLocale()` 返回当前语言环境，无需传递参数。
+使用 `astro-intlayer` 导出的 Hook在 `.astro` 文件中使用你的字典。它们与 `react-intlayer` 具有相同的签名：`useIntlayer("key")` 返回字典内容，`useLocale()` 返回当前语言环境，无需传递参数。
 
 语言环境来自 `astro-intlayer` 中间件，集成会自动在你的 `src/middleware.ts` 之前注册该中间件。它会依次从 URL 前缀、客户端持久化的语言环境（Cookie 或标头）、`Accept-Language` 解析每个请求的语言环境，并将其存储在 `Astro.locals.intlayer` 中。预渲染页面仅使用 URL，因为它们只为每个访客渲染一次。
 
@@ -441,7 +441,7 @@ const pathWithoutLocale = getPathWithoutLocale(Astro.url.pathname);
 > 客户端 `useLocale` 中的 `setLocale` 将用户的语言偏好保存在 cookie 中。这使 Intlayer 能够记住该选择，并在将来的访问中自动将用户重定向到其首选语言：按需渲染的页面（带有 `output: 'server'` 或 `prerender = false` 的适配器）在发送任何 HTML 之前由 Intlayer 中间件重定向，而作为静态文件提供的预渲染页面则由集成注入每个页面的小脚本重定向。将 `routing.enableProxy` 设置为 `false` 可同时关闭两者。在 `astro dev` 中，除非将 `routing.enableProxy` 设置为 `true`，否则 cookie 将被忽略作为重定向来源，因此过期的 cookie 不会劫持你正在处理的页面。
 >
 > **服务端 / 客户端互兼容性：**
-> `astro-intlayer` 在 frontmatter 中解析为服务端钩子（读取 `Astro.locals`），在 `<script>` 块和孤岛（islands）中解析为 `vanilla-intlayer` 的客户端钩子，具有相同的名称和内容结构。`setLocale` 和 `onChange` 仅在客户端起作用，在客户端调用一次 `installIntlayer()` 以初始化客户端存储。`astro-intlayer/client` 显式公开客户端入口。
+> `astro-intlayer` 在 frontmatter 中解析为服务端 Hook（读取 `Astro.locals`），在 `<script>` 块和孤岛（islands）中解析为 `vanilla-intlayer` 的客户端Hook，具有相同的名称和内容结构。`setLocale` 和 `onChange` 仅在客户端起作用，在客户端调用一次 `installIntlayer()` 以初始化客户端存储。`astro-intlayer/client` 显式公开客户端入口。
 
 </Step>
 <Step number={8} title="站点地图和 Robots.txt">
@@ -710,7 +710,7 @@ Astro 提供了路由层面的 `i18n` 选项来处理语言前缀和重定向，
 
 不需要。运行 `npx intlayer extract`，Intlayer 会读取您的组件，提取面向用户的字符串，并在每个组件旁边生成 `.content` 文件，这样您只需审查 diff，而无需手动逐一复制字符串到语言目录中。本指南的第 15 步详细介绍了此过程。
 
-如需全自动流程，[Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md) 可在构建时执行相同操作：它在每次更改时扫描您的 JSX、TSX、Vue 和 Svelte 源代码，生成字典并通过热模块替换 (HMR) 保持同步，因此完全无需手动维护键名。
+如需全自动流程，[Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md) 可在构建时执行相同操作：它在每次更改时扫描您的 JSX、TSX、Vue 和 Svelte 源代码，生成字典并通过模块热替换 (HMR) 保持同步，因此完全无需手动维护键名。
 
 - [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md)
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-05
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 7
 title: "从 next-intl 迁移到 Intlayer"
 description: "逐步将 Next.js 应用从 next-intl 迁移到 Intlayer，先使用 @intlayer/next-intl 适配器，确保不破坏现有代码。"
@@ -43,23 +43,23 @@ Intlayer 也是 i18n 生态中**开发最活跃的**解决方案，问题修复�
 </Accordion>
 <Accordion header="AI Agent">
 
-将内容共置**降低大型语言模型（LLM）所需的上下文**。Intlayer 还附带一套工具，例如**用于测试缺失翻译的 CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)** 和**[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)**，使 AI agents 的开发者体验（DX）更加顺畅。
+将内容共置**降低大型语言模型（LLM）所需的上下文**。Intlayer 还附带一套工具，例如**用于测试缺失翻译的 CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)** 和**[Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)**，使 AI agents 的开发者体验（DX）更加顺畅。
 
 - [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)
 - [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)
-- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)
 
 </Accordion>
 <Accordion header="自动化">
 
-使用自动化在 CI/CD 管道中进行翻译，使用您选择的 LLM，费用由您的 AI 提供商承担。Intlayer 还提供**编译器**来自动提取内容，以及一个 [web 平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)来帮助**后台翻译**。
+使用自动化在 CI/CD 流水线中自动进行翻译，使用您选择的 LLM，直接使用您自有的 AI 提供商 API 计费。Intlayer 还提供**编译器**来自动提取内容，以及一个 [web 平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)来帮助**后台翻译**。
 
 - [web 平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="性能">
 
-将大量 JSON 文件连接到组件可能会导致性能和响应性问题。Intlayer 在构建时优化内容加载。
+将大量 JSON 文件连接到组件容易导致性能下降与响应迟滞问题。Intlayer 在构建时优化内容加载。
 
 </Accordion>
 <Accordion header="与非开发人员的协作">

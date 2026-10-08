@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: Intlayer Compiler | Автоматизоване витягування контенту для i18n
 description: "Автоматично витягуйте контент із компонентів за допомогою компілятора Intlayer для швидшої i18n у Vite, Next.js та інших."
@@ -50,24 +50,20 @@ author: aymericzip
 - **Досвід розробника**: Тримайте декларації контенту там, де вони використовуються, що покращує підтримуваність.
 - **Оновлення в реальному часі**: Підтримує Hot Module Replacement (HMR) для миттєвого зворотного зв'язку під час розробки.
 
-- **Live Updates**: Підтримує Hot Module Replacement (HMR) для миттєвого зворотного зв'язку під час розробки.
+Див. статтю в блозі [Компілятор проти декларативного i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/compiler_vs_declarative_i18n.md) для глибшого порівняння.
 
-Див. статтю в блозі [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/compiler_vs_declarative_i18n.md) для глибшого порівняння.
-
-- [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/compiler_vs_declarative_i18n.md)
+- [Компілятор проти декларативного i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/compiler_vs_declarative_i18n.md)
 
 ## Чому не використовувати Intlayer Compiler?
 
 Хоча компілятор пропонує чудовий досвід «just works», він також вносить певні компроміси, про які варто знати:
 
 - **Евристична неоднозначність**: Компілятор має вгадувати, що є контентом для користувача, а що - логікою додатка (наприклад, `className="active"`, коди статусів, ID продуктів). У складних кодових базах це може призводити до хибних спрацьовувань або пропущених рядків, що вимагатиме ручних анотацій та винятків.
-- **Тільки статична екстракція**: Екстракція на основі компілятора покладається на статичний аналіз. Рядки, які існують лише під час виконання (коди помилок API, поля CMS тощо), не можуть бути виявлені або перекладені лише компілятором, тому вам усе одно знадобиться додаткова стратегія i18n під час виконання.
+- **Лише статичне вилучення**: Вилучення на основі компілятора спирається на статичний аналіз. Рядки, які існують лише під час виконання (коди помилок API, поля CMS тощо), не можуть бути виявлені або перекладені компілятором самостійно, тому вам все одно знадобиться додаткова стратегія runtime i18n.
 
-- **Лише статична екстракція**: Екстракція на основі компілятора спирається на статичний аналіз. Рядки, які існують лише під час виконання (коди помилок API, поля CMS тощо), не можуть бути виявлені або перекладені компілятором самостійно, тому вам все ще потрібна додаткова стратегія runtime i18n.
+Для глибшого архітектурного порівняння див. статтю в блозі [Компілятор проти декларативного i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/compiler_vs_declarative_i18n.md).
 
-Для глибшого архітектурного порівняння див. статтю в блозі [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/compiler_vs_declarative_i18n.md).
-
-- [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/compiler_vs_declarative_i18n.md)
+- [Компілятор проти декларативного i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/compiler_vs_declarative_i18n.md)
 
 Як альтернативу, щоб автоматизувати ваш процес i18n і зберегти повний контроль над контентом, Intlayer також пропонує команду автоматичної екстракції `intlayer extract` (див. [документацію CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/extract.md)), або команду `Intlayer: extract content to Dictionary` з розширення Intlayer для VS Code (див. [документацію розширення VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/vs_code_extension.md)).
 
@@ -106,17 +102,13 @@ export default defineConfig({
 
 > Плагін `intlayerCompiler()` все ще експортується для розширених налаштувань. Реєстрація його разом з `intlayer()` є безпечною, компілятор дублює себе та запускається лише один раз.
 
-See complete tutorial: [Translate Vite and React with Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_vite+react.md)
+Дивіться повний посібник: [Переклад Vite та React за допомогою Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_vite+react.md)
 
-- [Translate Vite and React with Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_vite+react.md)
+- [Переклад Vite та React за допомогою Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_vite+react.md)
 
 #### Підтримка фреймворків
 
 Плагін Vite автоматично визначає та обробляє різні типи файлів:
-
-- **React / JSX / TSX**: Обробляється нативно.
-
-- **Vue**: Requires `@intlayer/vue-compiler`.
 
 - **React / JSX / TSX**: Обробляються нативно.
 - **Vue**: Потребує `@intlayer/vue-compiler`.

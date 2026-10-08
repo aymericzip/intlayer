@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-22
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 5
 title: comparePaths 函数文档 | intlayer
 description: "使用 comparePaths 判断两个 URL 是否指向同一页面，忽略语言段、主机、查询字符串、hash 和结尾斜杠。"

@@ -1,13 +1,13 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2025-06-29
+updatedAt: 2026-10-08
 priority: 5
 title: useDictionary Hook - React Intlayer 文档
 description: "在 React 中使用 useDictionary 解析你自己声明的字典对象，解析其中的翻译、枚举等内容。"
 keywords:
   - useDictionary
   - React
-  - 钩子
+  - Hook
   - intlayer
   - 本地化
   - i18n
@@ -25,9 +25,9 @@ history:
 author: aymericzip
 ---
 
-# React 集成：`useDictionary` 钩子文档
+# React 集成：`useDictionary` Hook文档
 
-本节提供了在 React 应用中使用 `useDictionary` 钩子的详细指导，使得无需视觉编辑器即可高效处理本地化内容。
+本节提供了在 React 应用中使用 `useDictionary` Hook的详细指导，使得无需视觉编辑器即可高效处理本地化内容。
 
 ## React 中的示例用法
 
@@ -50,7 +50,7 @@ const ComponentExample: FC = () => {
 
 ## 服务器集成
 
-如果您在 `IntlayerProvider` 之外使用 `useDictionary` 钩子，则在渲染组件时必须显式提供 locale 作为参数：
+如果您在 `IntlayerProvider` 之外使用 `useDictionary` Hook，则在渲染组件时必须显式提供 locale 作为参数：
 
 ```tsx fileName="./ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";

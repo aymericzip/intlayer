@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-06
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 9
 title: "Solid Start i18n - 翻译你的应用的完整指南"
 description: "在 SolidStart 中配置 Intlayer：服务端渲染的语言路由、响应式翻译内容、hreflang 和多语言站点地图。"
@@ -75,43 +75,43 @@ author: aymericzip
 Intlayer 经过优化，可与 Solid 完美配合，提供**组件级内容划分**、**响应式翻译**以及扩展国际化 (i18n) 所需的所有功能。
 
 </Accordion>
-<Accordion header="打包体积">
+<Accordion header="打包体积 (Bundle Size)">
 
-无需将庞大的 JSON 文件加载到页面中，只需加载必要的内容。Intlayer 有助于**将打包文件和页面体积减少高达 50%**。
+您无需在页面中加载庞大的 JSON 文件，而是只加载所需的内容。Intlayer 可以帮助 **将您的打包产物和页面体积减少多达 50%**。
 
 </Accordion>
 <Accordion header="可维护性">
 
-对应用程序的内容进行局部作用域划分**有助于大型应用程序的维护**。你可以复制或删除单个功能文件夹，而无需心理负担去审查整个内容代码库。此外，Intlayer 是**完全类型化**的，以确保内容的准确性。
+将应用程序内容与组件就近维护在相应作用域内，**极大提升了大体量应用的可维护性**。您可以直接复制或删除单个功能目录，而无需承担检查整个全局内容代码库的认知负担。此外，Intlayer 提供 **完整的 TypeScript 类型支持**，确保内容的准确性与安全性。
 
 </Accordion>
-<Accordion header="AI 代理">
+<Accordion header="AI Agent 支持">
 
-将内容协同定位**减少了大语言模型 (LLM) 所需的上下文**。Intlayer 还附带了一套工具，例如用于测试缺失翻译的 **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)** 和 **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)**，使 AI 代理的开发人员体验 (DX) 更加顺畅。
+内容就近组织 (Co-location) **显著减少了大型语言模型 (LLM) 所需的上下文**。Intlayer 还配备了一套完整工具链，例如用于检测缺失翻译的 **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)** 以及 **[Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)**，让 AI 智能体的开发体验 (DX) 更加流畅丝滑。
 
 - [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)
 - [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)
-- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)
 
 </Accordion>
 <Accordion header="自动化">
 
-在 CI/CD 流水线中使用你选择的 LLM 按照 AI 提供商的成本自动进行翻译。Intlayer 还提供了一个**编译器**来自动提取内容，以及一个 [Web 平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) 来帮助**在后台进行翻译**。
+在 CI/CD 流水线中，使用您自选的 LLM（直接基于您自有的 AI 提供商 API 计费）实现自动化翻译。Intlayer 还提供了可自动提取内容的 **编译器**，并配备了 [Web 平台 / CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) 以便在后台管理系统中执行翻译。
 
 - [Web 平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
 
 </Accordion>
-<Accordion header="性能">
+<Accordion header="性能表现 (Performance)">
 
-将庞大的 JSON 文件连接到组件可能会导致性能和响应性问题。Intlayer 在构建时优化了内容加载。
+将大型 JSON 文件全局挂载到各个组件容易导致渲染性能下降与响应迟滞。Intlayer 会在构建阶段自动优化内容加载。
 
 </Accordion>
-<Accordion header="与非开发人员协同扩展">
+<Accordion header="赋能非技术人员协同扩展 (Scaling with non-dev)">
 
-Intlayer 不仅仅是一个 i18n 解决方案，还提供了一个**自托管的[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)** 和一个 **[完整 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)**，帮助你**实时**管理多语言内容，使与翻译人员、文案人员和其他团队成员的协作更加无缝。内容可以存储在本地和/或远程。
+Intlayer 不仅仅是一个简单的 i18n 解决方案。它还提供了 **支持自托管的[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)** 以及 **[完整的 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)**。借此，您可以 **实时** 管理多语言内容，让译者、文案及团队其他成员实现无缝协作。内容可存储在本地和/或远程服务器上。
 
 - [可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)
-- [完整 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
+- [完整的 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
@@ -165,7 +165,7 @@ bun add intlayer solid-intlayer vite-intlayer
 
 - **solid-intlayer**
 
-  将 Intlayer 与 Solid 应用程序集成的软件包。它为 Solid 国际化提供上下文提供程序 (context providers) 和钩子 (hooks)。
+  将 Intlayer 与 Solid 应用程序集成的软件包。它为 Solid 国际化提供上下文 Provider (context providers) 和 Hook (hooks)。
 
 - **vite-intlayer**
 
@@ -231,7 +231,7 @@ export default defineConfig({
 
 ### 语言路由随插件一起提供
 
-SolidStart 运行在 [Nitro](https://nitro.build) 上，并且 `intlayer()` 将其语言路由句柄直接注册到 Nitro 的服务器管道中（通过 `routing.enableProxy` 选项，默认为 `true`）。无需配置其他内容：在构建好的服务器上，每个请求在到达路由器之前都会经过检查，并且
+SolidStart 运行在 [Nitro](https://nitro.build) 上，并且 `intlayer()` 将其语言路由句柄直接注册到 Nitro 的服务端处理链路中（通过 `routing.enableProxy` 选项，默认为 `true`）。无需配置其他内容：在构建好的服务器上，每个请求在到达路由器之前都会经过检查，并且
 
 - 语言从 URL 前缀读取，其次是 `INTLAYER_LOCALE` cookie，然后是 `Accept-Language` 请求头；
 - 当解析出的语言不是默认语言时，无前缀的 URL 会重定向到对应的本地化页面（`/` → `/fr`）；
@@ -305,7 +305,7 @@ export default homeContent;
 }
 ```
 
-> ⚠️ **SolidStart 特别注意点**：`src/routes` 下的每个 `.ts` / `.tsx` 文件都会成为一个路由，而 `.content.ts` 文件具有默认导出，因此它会被误识别为一个页面。请将**页面**的内容声明保留在 routes 目录之外（`src/contents/` 效果很好）。**组件**的内容可以保持协同定位，因为文件系统路由器不会扫描 `src/components`。
+> ⚠️ **SolidStart 特别注意点**：`src/routes` 下的每个 `.ts` / `.tsx` 文件都会成为一个路由，而 `.content.ts` 文件具有默认导出，因此它会被误识别为一个页面。请将**页面**的内容声明保留在 routes 目录之外（`src/contents/` 效果很好）。**组件**的内容可以保持就近维护 (Co-location)，因为文件系统路由器不会扫描 `src/components`。
 
 > 只要你的内容声明包含在 `contentDir` 目录（默认为 `./src`）中，并匹配内容声明文件扩展名（默认为 `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`），就可以在应用程序的任何位置定义它们。
 >
@@ -486,7 +486,7 @@ export default function Home() {
 > <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
 
-> 要了解有关 `useIntlayer` 钩子的更多信息，请参阅[文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/solid-intlayer/useIntlayer.md)。
+> 要了解有关 `useIntlayer` Hook的更多信息，请参阅[文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/solid-intlayer/useIntlayer.md)。
 
 - [useIntlayer Hook Documentation | solid-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/solid-intlayer/useIntlayer.md)
 
@@ -646,7 +646,7 @@ export const LocaleSwitcher: Component = () => {
 >
 > 每个链接上的 `dir` 和 `hreflang` 属性可使从右到左的语言名称保持正确的方向，并告知辅助技术和网络爬虫每个链接指向哪种语言。
 >
-> 要了解有关 `useLocale` 钩子的更多信息，请参阅[文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/solid-intlayer/useLocale.md)。
+> 要了解有关 `useLocale` Hook的更多信息，请参阅[文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/solid-intlayer/useLocale.md)。
 
 - [useLocale Hook Documentation | solid-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/solid-intlayer/useLocale.md)
 
@@ -1081,8 +1081,8 @@ node .output/server/index.mjs
 
 - [Intlayer 文档](https://intlayer.org)
 - [SolidStart 文档](https://start.solidjs.com)
-- [useIntlayer 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/solid-intlayer/useIntlayer.md)
-- [useLocale 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/solid-intlayer/useLocale.md)
+- [useIntlayer Hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/solid-intlayer/useIntlayer.md)
+- [useLocale Hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/solid-intlayer/useLocale.md)
 - [内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)
 - [配置](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)
 
@@ -1132,7 +1132,7 @@ node .output/server/index.mjs
 
 不需要。运行 `npx intlayer extract`，Intlayer 会读取您的组件，提取面向用户的字符串，并在每个组件旁边生成 `.content` 文件，这样您只需审查 diff，而无需手动逐一复制字符串到语言目录中。本指南的第 15 步详细介绍了此过程。
 
-如需全自动流程，[Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md) 可在构建时执行相同操作：它在每次更改时扫描您的 JSX、TSX、Vue 和 Svelte 源代码，生成字典并通过热模块替换 (HMR) 保持同步，因此完全无需手动维护键名。
+如需全自动流程，[Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md) 可在构建时执行相同操作：它在每次更改时扫描您的 JSX、TSX、Vue 和 Svelte 源代码，生成字典并通过模块热替换 (HMR) 保持同步，因此完全无需手动维护键名。
 
 - [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md)
 

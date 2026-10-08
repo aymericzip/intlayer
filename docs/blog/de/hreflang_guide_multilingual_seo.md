@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-29
-updatedAt: 2026-08-29
+updatedAt: 2026-10-08
 priority: 8
 title: "Hreflang, Leitfaden für mehrsprachige SEO"
 description: "Was hreflang ist, die Regeln, die Suchmaschinen durchsetzen, warum x-default fast immer falsch ist, und wie man korrekte Tags in Next.js und TanStack Start generiert."
@@ -39,11 +39,11 @@ Eine Anmerkung auf einer Seite, die besagt: _diese URL hat äquivalente Versione
 
 Es bringt dir zwei Dinge: die richtige Version, die dem richtigen Benutzer angezeigt wird, und deine Locales in einen Cluster konsolidiert statt sich gegenseitig als Duplikate zu kannibalisieren.
 
-Es ist wichtig zu verdeutlichen, was es nicht ist. Es ist **keine Umleitung** — es ist ein Hinweis, und Google kann ihn überschreiben. Es ist **kein Ranking-Boost** — es ändert _welche_ Version rankt, nicht _ob_ du rankst. Und Bing ignoriert es ganz, stattdessen auf `content-language` und Geo-Targeting verlassend.
+Es ist wichtig zu verdeutlichen, was es nicht ist. Es ist **keine Umleitung** - es ist ein Hinweis, und Google kann ihn überschreiben. Es ist **kein Ranking-Boost** - es ändert _welche_ Version rankt, nicht _ob_ du rankst. Und Bing ignoriert es ganz, stattdessen auf `content-language` und Geo-Targeting verlassend.
 
 ## Wo man es deklariert
 
-Drei Platzierungen, alle gültig. Wähle eine und bleibe dabei — derselbe Cluster, der an zwei Stellen deklariert wird, ist wie Sets auseinanderdriften.
+Drei Platzierungen, alle gültig. Wähle eine und bleibe dabei - derselbe Cluster, der an zwei Stellen deklariert wird, ist wie Sets auseinanderdriften.
 
 **HTML `<head>`** ist die übliche Wahl. Ein Vorbehalt: Tags, die nach der Hydration eingefügt werden, sind unzuverlässig. Wenn dein Framework sie nur client-seitig hinzufügt, sieht der Crawler sie möglicherweise nie.
 
@@ -71,22 +71,22 @@ In der Praxis bedeutet dies, dass **jede Seite in einem Cluster den identischen 
 
 Der Grund lohnt sich zu verstehen, anstatt ihn auswendig zu lernen. `hreflang` ist eine dokumentübergreifende Referenz: Suchmaschinen erstellen einen Cluster, der nach URL verschlüsselt ist und auf jeder Seite darin geteilt wird. Ein relativer Pfad hat nur eine Bedeutung relativ zum Dokument, in dem er sich befindet, daher kann er dies nicht ausdrücken. Er kann auch keinen Host überqueren – und eine Alternative tut dies oft, wenn ein Locale auf `example.fr` oder `fr.example.com` lebt. In einer Sitemap oder einem HTTP-Header gibt es überhaupt kein Basisdokument zum Auflösen.
 
-Dies hat eine direkte Folge im Code. `getLocalizedUrl("/about", "fr")` gibt `/fr/about` zurück — relativ rein, relativ raus. Für `hreflang` musst du eine absolute URL eingeben:
+Dies hat eine direkte Folge im Code. `getLocalizedUrl("/about", "fr")` gibt `/fr/about` zurück - relativ rein, relativ raus. Für `hreflang` musst du eine absolute URL eingeben:
 
 ```ts
 getLocalizedUrl("/about", "fr"); // → "/fr/about"          ❌ fallen gelassen
 getLocalizedUrl("https://example.com/about", "fr"); // → "https://example.com/fr/about"  ✅
 ```
 
-Die einzige Ausnahme ist ein Framework, das relative Werte vor dem Rendern für dich auflöst: Next.js erweitert relative `alternates` gegen `metadataBase`. In Ordnung — aber die Regel gilt für das **emittierte HTML**, also überprüfe mit `curl`, nicht mit dem DevTools Inspector.
+Die einzige Ausnahme ist ein Framework, das relative Werte vor dem Rendern für dich auflöst: Next.js erweitert relative `alternates` gegen `metadataBase`. In Ordnung - aber die Regel gilt für das **emittierte HTML**, also überprüfe mit `curl`, nicht mit dem DevTools Inspector.
 
 ### Sprachcodes
 
 ISO 639-1 für die Sprache, ISO 3166-1 Alpha 2 für die optionale Region: `fr`, `fr-CA`, `pt-BR`.
 
-Zwei Fallen fangen fast jeden. Eine Region allein ist ungültig — `hreflang="ca"` ist Katalanisch, nicht Kanada; du brauchst `en-CA` oder `fr-CA`. Und `en-UK` existiert nicht: der Ländercode für das Vereinigte Königreich ist `GB`, also ist es `en-GB`.
+Zwei Fallen fangen fast jeden. Eine Region allein ist ungültig - `hreflang="ca"` ist Katalanisch, nicht Kanada; du brauchst `en-CA` oder `fr-CA`. Und `en-UK` existiert nicht: der Ländercode für das Vereinigte Königreich ist `GB`, also ist es `en-GB`.
 
-Füge eine Region nur hinzu, wenn du diesem Region wirklich unterschiedliche Inhalte bereitstellst — unterschiedliche Preise, unterschiedliche Rechtsmitteilungen. `fr` und `fr-FR` auf identischem Inhalt ist Rauschen.
+Füge eine Region nur hinzu, wenn du diesem Region wirklich unterschiedliche Inhalte bereitstellst - unterschiedliche Preise, unterschiedliche Rechtsmitteilungen. `fr` und `fr-FR` auf identischem Inhalt ist Rauschen.
 
 ### x-default
 
@@ -94,7 +94,7 @@ Füge eine Region nur hinzu, wenn du diesem Region wirklich unterschiedliche Inh
 <link rel="alternate" hreflang="x-default" href="https://example.com/" />
 ```
 
-Ein Konzept, das am häufigsten vergessen und schlecht verstanden wird, ist `x-default` — weniger als 30% der Apps implementieren es richtig.
+Ein Konzept, das am häufigsten vergessen und schlecht verstanden wird, ist `x-default` - weniger als 30% der Apps implementieren es richtig.
 
 Es ist das Fallback für Nutzer, deren Sprache nichts in Ihrer Menge entspricht. Ein Niederländischsprachiger auf einer Website, die Englisch, Französisch und Spanisch anbietet, stimmt mit keinem Eintrag überein; ohne `x-default` wählt Google für Sie.
 
@@ -116,7 +116,7 @@ Jede lokalisierte Seite muss **ihr eigenes kanonisches Element sein**:
 Alle kanonischen Elemente jedes Locale auf die englische Version zu verweisen:
 
 ```html
-<!-- On https://example.com/fr/about — kills the page -->
+<!-- On https://example.com/fr/about  -  kills the page -->
 <link rel="canonical" href="https://example.com/about" />
 ```
 
@@ -130,9 +130,9 @@ sagt, dass die französische Seite ein Duplikat ist, das nicht indexiert werden 
 
 | Struktur               | Beispiel          | Trade-off                                                                                     |
 | ---------------------- | ----------------- | --------------------------------------------------------------------------------------------- |
-| **Unterverzeichnisse** | `example.com/fr/` | Eine Domain, gemeinsame Autorität — schwächeres Geo-Signal                                    |
-| **Subdomains**         | `fr.example.com`  | Einfach, ein Locale hinzuzufügen oder zu entfernen — kann als separate Website gelesen werden |
-| **ccTLDs**             | `example.fr`      | Stärkstes Länder-Signal — Autorität pro Domain aufgebaut                                      |
+| **Unterverzeichnisse** | `example.com/fr/` | Eine Domain, gemeinsame Autorität - schwächeres Geo-Signal                                    |
+| **Subdomains**         | `fr.example.com`  | Einfach, ein Locale hinzuzufügen oder zu entfernen - kann als separate Website gelesen werden |
+| **ccTLDs**             | `example.fr`      | Stärkstes Länder-Signal - Autorität pro Domain aufgebaut                                      |
 
 Unterverzeichnisse sind der richtige Standard für die meisten Projekte. Greifen Sie zu ccTLDs nur, wenn Sie wirklich als separate Ländergeschäfte tätig sind.
 
@@ -258,15 +258,15 @@ const sitemap = generateSitemap(
 
 Zwei wissenswerte Optionen:
 
-- `xhtmlLinks` (Standard `true`) — Alternates werden nur ausgegeben, wenn sich die Locale-URLs tatsächlich unterscheiden. Im `no-prefix`-Modus teilen sich alle Locales eine URL, daher werden sie übersprungen, es sei denn, `routing.domains` gibt den Locales ihre eigenen Hostnamen.
-- `entryPerLocale` (Standard `false`) — standardmäßig trägt ein `<url>`-Eintrag alle Alternates. Beide Formen sind gültig, aber nur eine als `<loc>` aufgelistete URL zählt als _eingereicht_ in der Search Console; Alternate-only-Sprachen bleiben auffindbar, werden aber keinem Sitemap zugeordnet. Durch Aktivierung erhält jede lokalisierte URL einen eigenen Eintrag mit dem vollständigen Alternate-Set wiederholt. Dies vervielfacht die Einträge um die Sprachenanzahl, daher sollte das Limit von 50.000 URLs / 50 MB beachtet werden und bei Überschreitung in einen Sitemap-Index aufgeteilt werden.
+- `xhtmlLinks` (Standard `true`) - Alternates werden nur ausgegeben, wenn sich die Locale-URLs tatsächlich unterscheiden. Im `no-prefix`-Modus teilen sich alle Locales eine URL, daher werden sie übersprungen, es sei denn, `routing.domains` gibt den Locales ihre eigenen Hostnamen.
+- `entryPerLocale` (Standard `false`) - standardmäßig trägt ein `<url>`-Eintrag alle Alternates. Beide Formen sind gültig, aber nur eine als `<loc>` aufgelistete URL zählt als _eingereicht_ in der Search Console; Alternate-only-Sprachen bleiben auffindbar, werden aber keinem Sitemap zugeordnet. Durch Aktivierung erhält jede lokalisierte URL einen eigenen Eintrag mit dem vollständigen Alternate-Set wiederholt. Dies vervielfacht die Einträge um die Sprachenanzahl, daher sollte das Limit von 50.000 URLs / 50 MB beachtet werden und bei Überschreitung in einen Sitemap-Index aufgeteilt werden.
 
 </Step>
 <Step number={3} title="Überprüfen Sie, was der Crawler erhält">
 
 `hreflang` schlägt lautlos fehl, daher sollten Sie es überprüfen, statt es anzunehmen.
 
-Lese die Quelle, nicht den Inspector — `curl https://example.com/fr/about | grep hreflang` zeigt, was ein Crawler erhält; DevTools zeigt das DOM nach der JavaScript-Ausführung. Folge dann jedem Alternate und bestätige, dass er mit dem identischen Set zurückweist, und dass keiner von ihnen umleitet. Der International Targeting Report der Search Console erfasst den Rest auf der gesamten Website.
+Lese die Quelle, nicht den Inspector - `curl https://example.com/fr/about | grep hreflang` zeigt, was ein Crawler erhält; DevTools zeigt das DOM nach der JavaScript-Ausführung. Folge dann jedem Alternate und bestätige, dass er mit dem identischen Set zurückweist, und dass keiner von ihnen umleitet. Der International Targeting Report der Search Console erfasst den Rest auf der gesamten Website.
 
 Für einen mehrsprachigen Crawl überprüft der [Intlayer SEO Scanner](https://intlayer.org/i18n-seo-scanner) fehlende Tags, unterbrochene Alternates und kanonische Konflikte auf deinen lokalisierten Seiten.
 

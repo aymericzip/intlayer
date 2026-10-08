@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-22
+updatedAt: 2026-10-08
 priority: 8
 title: "vue-i18n مقابل @intlayer/vue-i18n: نفس الواجهة البرمجية، حزمة مختلفة"
 description: "تطبيق Vue 3 يحتفظ باستدعاءات vue-i18n التي يخدمها محوّل @intlayer/vue-i18n. قياس JavaScript لكل صفحة وحجم وقت التشغيل والمكوّنات والتسرّب."
@@ -288,9 +288,9 @@ export const i18n = createI18n({ locale: "en" });
 </Accordion>
 <Accordion header="تمت إزالة تحميل الرسائل في وقت التشغيل">
 
-`setLocaleMessage()` و `mergeLocaleMessage()` يقومان بإصدار تحذير والعودة. تتطلب الترجمات التي يتم جلبها من نظام إدارة المحتوى (CMS) في وقت التشغيل استخدام [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)، أو أوامر `intlayer pull` / `push`.
+`setLocaleMessage()` و `mergeLocaleMessage()` يقومان بإصدار تحذير والعودة. تتطلب الترجمات التي يتم جلبها من نظام إدارة المحتوى (CMS) في وقت التشغيل استخدام [نظام إدارة المحتوى Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)، أو أوامر `intlayer pull` / `push`.
 
-- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
+- [نظام إدارة المحتوى Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="messages هو خيار احتياطي، وليس مجانيًا">
@@ -387,7 +387,7 @@ export const i18n = createI18n({ locale: "en" });
 
 وثائق مرجعية:
 
-- [Compat adapter: vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/vue-i18n.md)
+- [محول التوافق: vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/vue-i18n.md)
 - [Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/nuxtjs-i18n.md)
 - [دليل الترحيل: من vue-i18n إلى Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_vue-i18n_to_intlayer.md)
 - [تقرير قياس أداء Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/vue.md)

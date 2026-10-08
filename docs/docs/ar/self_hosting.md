@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-30
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "استضافة Intlayer ذاتيًا عبر Docker"
 description: "شغّل Intlayer على بنيتك التحتية: تطبيق سطح مكتب، أو حاوية Docker متكاملة، أو مجموعة Docker Compose، دون حساب سحابي."
@@ -23,19 +23,19 @@ author: aymericzip
 
 يمكن تشغيل Intlayer على بنيتك التحتية الخاصة دون الحاجة إلى حساب Intlayer Cloud. تتوفر ثلاثة إعدادات، يتم إدارتها جميعًا من خلال نفس برنامج التثبيت (`install.sh`، أو `install.ps1` على نظام Windows، أو `npx intlayer init infra`):
 
-| Setup                        | What it is                                                                            | Pick it for                              |
+| الإعداد                      | ما هو                                                                                 | اختره لـ                                 |
 | ---------------------------- | ------------------------------------------------------------------------------------- | ---------------------------------------- |
 | **تطبيق سطح المكتب**         | لوحة تحكم أصلية لأنظمة macOS و Linux و Windows                                        | عميل محلي، لا يتطلب استضافة              |
 | **Docker شامل (All-in-one)** | لوحة التحكم وواجهة برمجة التطبيقات (API) و MongoDB و Redis و MinIO في **حاوية واحدة** | للتجارب والتركيبات الصغيرة على جهاز واحد |
 | **Docker Compose**           | **حاوية واحدة لكل خدمة**، مع إمكانية استبدال أي مخزن بيانات بخدمة مُدارة              | للإنتاج والتوسع وقواعد البيانات المُدارة |
 
-## Table of Contents
+## جدول المحتويات
 
 <TOC/>
 
 ## الصور والحزم المنشورة
 
-| Artifact             | Docker Hub                                                                | GHCR mirror                                | Contents                                                                         |
+| العنصر المنشور       | Docker Hub                                                                | مرآة GHCR                                  | المحتويات                                                                        |
 | -------------------- | ------------------------------------------------------------------------- | ------------------------------------------ | -------------------------------------------------------------------------------- |
 | All-in-one container | [`intlayer/cms-all`](https://hub.docker.com/r/intlayer/cms-all)           | `ghcr.io/aymericzip/intlayer/cms-all`      | app + backend + MongoDB 8 + Redis + MinIO + Chromium                             |
 | Dashboard (frontend) | [`intlayer/cms-frontend`](https://hub.docker.com/r/intlayer/cms-frontend) | `ghcr.io/aymericzip/intlayer/cms-frontend` | TanStack Start dashboard on Bun                                                  |
@@ -361,12 +361,12 @@ docker compose -f docker-compose.yml -f docker-compose.build.yml up -d --build
 ### النسخ الاحتياطي والترقية
 
 ```sh
-# Backup one volume (repeat for intlayer_redis-data and intlayer_minio-data)
+# النسخ الاحتياطي لوحدة تخزين واحدة (كرر الأمر لـ intlayer_redis-data و intlayer_minio-data)
 docker compose stop
 docker run --rm -v intlayer_mongo-data:/data -v "$(pwd)":/backup busybox tar czf /backup/mongo-data.tar.gz /data
 docker start intlayer
 
-# Upgrade, volumes are kept
+# الترقية، يتم الاحتفاظ بوحدات التخزين
 docker compose pull && docker compose up -d
 ```
 
@@ -385,22 +385,22 @@ curl -fsSL https://intlayer.org/install.sh | INTLAYER_COMPOSE_DIR=./cms sh -s --
 $env:INTLAYER_MODE = "compose"; $env:INTLAYER_COMPOSE_DIR = ".\cms"; irm https://intlayer.org/install.ps1 | iex
 ```
 
-| Variable                  | Default                   | Applies to | Description                                                |
-| ------------------------- | ------------------------- | ---------- | ---------------------------------------------------------- |
-| `INTLAYER_MODE`           | _(asked)_                 | all        | `desktop`, `docker` or `compose`, same as `--mode`         |
-| `INTLAYER_DOWNLOAD_DIR`   | `~/Downloads`             | desktop    | Where the app installer is saved                           |
-| `INTLAYER_IMAGE`          | `intlayer/cms-all:latest` | docker     | All-in-one image to pull                                   |
-| `INTLAYER_ENV_FILE`       | `./intlayer.env`          | docker     | Where to write the environment file                        |
-| `INTLAYER_CONTAINER_NAME` | `intlayer`                | docker     | Container name                                             |
-| `INTLAYER_DATA_VOLUME`    | `intlayer-data`           | docker     | Named volume mounted at `/data`                            |
-| `INTLAYER_APP_PORT`       | `3000`                    | docker     | Host port for the dashboard                                |
-| `INTLAYER_API_PORT`       | `3100`                    | docker     | Host port for the API                                      |
-| `INTLAYER_S3_PORT`        | `9000`                    | docker     | Host port for the MinIO S3 API                             |
-| `INTLAYER_CONSOLE_PORT`   | `9001`                    | docker     | Host port for the MinIO console                            |
-| `INTLAYER_COMPOSE_DIR`    | `./intlayer`              | compose    | Where `docker-compose.yml` and `.env` are written          |
-| `INTLAYER_SELFHOST_REF`   | `main`                    | both       | Git ref the compose file and env template are fetched from |
-| `INTLAYER_BUILD_CONTEXT`  | `…/intlayer.git#main`     | both       | Build context used when a custom domain requires a rebuild |
-| `INTLAYER_CUSTOM_IMAGE`   | `intlayer/cms-all:custom` | docker     | Tag of the all-in-one image built for a custom domain      |
+| المتغير                   | القيمة الافتراضية         | ينطبق على | الوصف                                                     |
+| ------------------------- | ------------------------- | --------- | --------------------------------------------------------- |
+| `INTLAYER_MODE`           | _(asked)_                 | all       | `desktop`, `docker` or `compose`, same as `--mode`        |
+| `INTLAYER_DOWNLOAD_DIR`   | `~/Downloads`             | desktop   | مكان حفظ مثبت التطبيق                                     |
+| `INTLAYER_IMAGE`          | `intlayer/cms-all:latest` | docker    | All-in-one image to pull                                  |
+| `INTLAYER_ENV_FILE`       | `./intlayer.env`          | docker    | مكان كتابة ملف البيئة                                     |
+| `INTLAYER_CONTAINER_NAME` | `intlayer`                | docker    | اسم الحاوية                                               |
+| `INTLAYER_DATA_VOLUME`    | `intlayer-data`           | docker    | وحدة تخزين مسماة (named volume) مثبتة عند `/data`         |
+| `INTLAYER_APP_PORT`       | `3000`                    | docker    | منفذ المضيف للوحة التحكم                                  |
+| `INTLAYER_API_PORT`       | `3100`                    | docker    | منفذ المضيف لواجهة برمجة التطبيقات (API)                  |
+| `INTLAYER_S3_PORT`        | `9000`                    | docker    | Host port for the MinIO S3 API                            |
+| `INTLAYER_CONSOLE_PORT`   | `9001`                    | docker    | منفذ المضيف (Host port) لوحدة تحكم MinIO                  |
+| `INTLAYER_COMPOSE_DIR`    | `./intlayer`              | compose   | Where `docker-compose.yml` and `.env` are written         |
+| `INTLAYER_SELFHOST_REF`   | `main`                    | both      | مرجع Git الذي يتم جلب ملف compose وقالب البيئة منه        |
+| `INTLAYER_BUILD_CONTEXT`  | `…/intlayer.git#main`     | both      | سياق البناء المستخدم عندما يتطلب النطاق المخصص إعادة بناء |
+| `INTLAYER_CUSTOM_IMAGE`   | `intlayer/cms-all:custom` | docker    | Tag of the all-in-one image built for a custom domain     |
 
 > تغير متغيرات المنفذ جانب **المضيف** فقط من التعيين. تحتوي الصور المنشورة على `http://localhost:3000` و `http://localhost:3100` و `http://localhost:9000` المترجمة في حزمة لوحة التحكم، لذا احتفظ بالإعدادات الافتراضية ما لم تقم ببناء صورتك الخاصة، راجع [القيود](#limitations).
 
@@ -420,11 +420,11 @@ $env:INTLAYER_MODE = "compose"; $env:INTLAYER_COMPOSE_DIR = ".\cms"; irm https:/
 
 ### مطلوب
 
-| Variable               | Example       | Description                                                                                                                                   |
-| ---------------------- | ------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| `BETTER_AUTH_SECRET`   | _(generated)_ | 32-byte secret for session signing                                                                                                            |
-| `S3_SECRET_ACCESS_KEY` | _(generated)_ | Secret for the bundled MinIO                                                                                                                  |
-| `RESEND_API_KEY`       | _(your key)_  | Transactional email via Resend. Required for first-run setup unless an SMTP relay is configured instead (see [Global mailer](#global-mailer)) |
+| المتغير                | مثال          | الوصف                                                                                                                                             |
+| ---------------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `BETTER_AUTH_SECRET`   | _(generated)_ | سر بحجم 32 بايت لتوقيع الجلسات                                                                                                                    |
+| `S3_SECRET_ACCESS_KEY` | _(generated)_ | كلمة السر لخدمة MinIO المضمنة                                                                                                                     |
+| `RESEND_API_KEY`       | _(your key)_  | البريد الإلكتروني للمعاملات عبر Resend. مطلوب للإعداد الأولي ما لم يتم تكوين مرحل SMTP بدلاً منه (انظر [البريد الإلكتروني العام](#global-mailer)) |
 
 > تقبل صورة all-in-one أيضًا قيمة فارغة لـ `S3_SECRET_ACCESS_KEY`: فهي تُنشئ واحدة عند أول تشغيل وتحفظها في `/data/.s3-secret-access-key`. أما Docker Compose فلا يزال يتطلبها.
 
@@ -432,19 +432,19 @@ $env:INTLAYER_MODE = "compose"; $env:INTLAYER_COMPOSE_DIR = ".\cms"; irm https:/
 
 يتم تعيين هذه المتغيرات بواسطة الصورة (الشاملة) أو بواسطة ملف compose، ولا تحتاج إلى تجاوز إلا في حالة بنية غير قياسية. تُستثنى من ذلك `DOMAIN` و `APP_URL` و `BACKEND_URL` و `S3_PUBLIC_URL`: عند تعيينها في ملف env، تكون لها الأولوية في كلا الوضعين (انظر [النطاق المخصص](#custom-domain)).
 
-| Variable           | All-in-one                                          | Docker Compose                   | Description                                                                   |
-| ------------------ | --------------------------------------------------- | -------------------------------- | ----------------------------------------------------------------------------- |
-| `PORT`             | `3100`                                              | `3100`                           | Backend listening port                                                        |
-| `APP_URL`          | `http://localhost:3000`                             | `http://localhost:3000`          | Public URL of the dashboard                                                   |
-| `BACKEND_URL`      | `http://localhost:3100`                             | `http://localhost:3100`          | Public URL of the backend API                                                 |
-| `DOMAIN`           | `localhost`                                         | `localhost`                      | Cookie domain                                                                 |
-| `SELF_HOSTED`      | `true`                                              | `true`                           | Disables the cloud-only API endpoints (billing, subscriptions, marketplace)   |
-| `MONGODB_URI`      | `mongodb://127.0.0.1:27017/intlayer?replicaSet=rs0` | `mongodb://mongo:27017/…`        | MongoDB connection string, any `mongodb://` or `mongodb+srv://` cluster works |
-| `REDIS_URL`        | `redis://127.0.0.1:6379`                            | `redis://redis:6379`             | Redis                                                                         |
-| `S3_ENDPOINT`      | `http://127.0.0.1:9000`                             | `http://minio:9000`              | MinIO (server-to-server)                                                      |
-| `S3_PUBLIC_URL`    | `http://localhost:9000/intlayer`                    | `http://localhost:9000/intlayer` | Public URL for browser asset loading                                          |
-| `S3_BUCKET_NAME`   | `intlayer`                                          | `intlayer`                       | Bucket name                                                                   |
-| `S3_ACCESS_KEY_ID` | `intlayer`                                          | `intlayer`                       | MinIO access key                                                              |
+| المتغير            | الكل في واحد (All-in-one)                           | Docker Compose                   | الوصف                                                                       |
+| ------------------ | --------------------------------------------------- | -------------------------------- | --------------------------------------------------------------------------- |
+| `PORT`             | `3100`                                              | `3100`                           | منفذ استماع الواجهة الخلفية                                                 |
+| `APP_URL`          | `http://localhost:3000`                             | `http://localhost:3000`          | Public URL of the dashboard                                                 |
+| `BACKEND_URL`      | `http://localhost:3100`                             | `http://localhost:3100`          | Public URL of the backend API                                               |
+| `DOMAIN`           | `localhost`                                         | `localhost`                      | نطاق ملفات تعريف الارتباط (Cookie domain)                                   |
+| `SELF_HOSTED`      | `true`                                              | `true`                           | Disables the cloud-only API endpoints (billing, subscriptions, marketplace) |
+| `MONGODB_URI`      | `mongodb://127.0.0.1:27017/intlayer?replicaSet=rs0` | `mongodb://mongo:27017/…`        | سلسلة اتصال MongoDB، تعمل أي مجموعة `mongodb://` أو `mongodb+srv://`        |
+| `REDIS_URL`        | `redis://127.0.0.1:6379`                            | `redis://redis:6379`             | Redis                                                                       |
+| `S3_ENDPOINT`      | `http://127.0.0.1:9000`                             | `http://minio:9000`              | MinIO (server-to-server)                                                    |
+| `S3_PUBLIC_URL`    | `http://localhost:9000/intlayer`                    | `http://localhost:9000/intlayer` | Public URL for browser asset loading                                        |
+| `S3_BUCKET_NAME`   | `intlayer`                                          | `intlayer`                       | Bucket name                                                                 |
+| `S3_ACCESS_KEY_ID` | `intlayer`                                          | `intlayer`                       | مفتاح الوصول لـ MinIO                                                       |
 
 تتلقى خدمة `app` في Compose أيضًا `INTLAYER_BACKEND_INTERNAL_URL=http://backend:3100`: يصل المتصفح إلى واجهة برمجة التطبيقات على `localhost:3100`، ولكن العرض من جانب الخادم يتم داخل شبكة Compose ولذلك يجب استخدام اسم الخدمة.
 
@@ -464,7 +464,7 @@ $env:INTLAYER_MODE = "compose"; $env:INTLAYER_COMPOSE_DIR = ".\cms"; irm https:/
 2. **صورة للوحة التحكم مبنية بهذه العناوين.** يبنيها Docker مباشرة من المستودع، دون الحاجة إلى استنساخ:
 
    ```sh
-   # Docker Compose: the override reads the build args from .env
+   # Docker Compose: يقرأ التجاوز وسائط البناء من ملف .env
    docker compose -f docker-compose.yml -f docker-compose.build.yml up -d --build
 
    # All-in-one
@@ -481,13 +481,13 @@ $env:INTLAYER_MODE = "compose"; $env:INTLAYER_COMPOSE_DIR = ".\cms"; irm https:/
 
 ### اختياري (تتراجع الميزات بسلاسة عند غيابها)
 
-| Variable                                         | Feature                                   |
-| ------------------------------------------------ | ----------------------------------------- |
-| `OPENAI_API_KEY`                                 | AI-assisted translation and content audit |
-| `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`       | GitHub OAuth login                        |
-| `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`       | Google OAuth login                        |
-| `GITLAB_CLIENT_ID`, `GITLAB_CLIENT_SECRET`       | GitLab OAuth login                        |
-| `MICROSOFT_CLIENT_ID`, `MICROSOFT_CLIENT_SECRET` | Microsoft OAuth login                     |
+| المتغير                                          | الميزة                                          |
+| ------------------------------------------------ | ----------------------------------------------- |
+| `OPENAI_API_KEY`                                 | الترجمة بمساعدة الذكاء الاصطناعي وتدقيق المحتوى |
+| `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`       | تسجيل الدخول عبر GitHub OAuth                   |
+| `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`       | تسجيل الدخول عبر Google OAuth                   |
+| `GITLAB_CLIENT_ID`, `GITLAB_CLIENT_SECRET`       | تسجيل الدخول عبر GitLab OAuth                   |
+| `MICROSOFT_CLIENT_ID`, `MICROSOFT_CLIENT_SECRET` | تسجيل الدخول عبر Microsoft OAuth                |
 
 ### خادم البريد العام
 
@@ -498,15 +498,15 @@ $env:INTLAYER_MODE = "compose"; $env:INTLAYER_COMPOSE_DIR = ".\cms"; irm https:/
 
 يلزم استخدام `MAIL_PROVIDER` فقط لفرض وسيلة نقل معينة إذا تم تكوين كليهما (على سبيل المثال `MAIL_PROVIDER=resend` للاحتفاظ بـ Resend عند وجود مضيف SMTP).
 
-| Variable             | Example                        | Description                                                                  |
-| -------------------- | ------------------------------ | ---------------------------------------------------------------------------- |
-| `MAIL_FROM`          | `Intlayer <no-reply@acme.com>` | Sender header for either transport. Accepts a bare address or `Name <email>` |
-| `MAIL_SMTP_HOST`     | `smtp.acme.com`                | SMTP host. Setting it selects the SMTP transport                             |
-| `MAIL_SMTP_PORT`     | `587`                          | SMTP port (defaults to `587`)                                                |
-| `MAIL_SMTP_SECURE`   | `false`                        | Implicit TLS. Set `true` for port `465`                                      |
-| `MAIL_SMTP_USER`     | _(your user)_                  | SMTP username (optional; omit for unauthenticated relays)                    |
-| `MAIL_SMTP_PASSWORD` | _(your password)_              | SMTP password                                                                |
-| `MAIL_PROVIDER`      | `resend`                       | Optional override: `smtp` or `resend`. Leave unset to auto-select            |
+| المتغير              | مثال                           | الوصف                                                                  |
+| -------------------- | ------------------------------ | ---------------------------------------------------------------------- |
+| `MAIL_FROM`          | `Intlayer <no-reply@acme.com>` | ترويسة المرسل لكلا وسيلتي النقل. تقبل عنوانًا مجردًا أو `Name <email>` |
+| `MAIL_SMTP_HOST`     | `smtp.acme.com`                | SMTP host. Setting it selects the SMTP transport                       |
+| `MAIL_SMTP_PORT`     | `587`                          | SMTP port (defaults to `587`)                                          |
+| `MAIL_SMTP_SECURE`   | `false`                        | Implicit TLS. Set `true` for port `465`                                |
+| `MAIL_SMTP_USER`     | _(your user)_                  | اسم مستخدم SMTP (اختياري؛ احذفه للمرحلات غير الموثقة)                  |
+| `MAIL_SMTP_PASSWORD` | _(your password)_              | SMTP password                                                          |
+| `MAIL_PROVIDER`      | `resend`                       | تجاوز اختياري: `smtp` أو `resend`. اتركه غير محدد للتحديد التلقائي     |
 
 > ترتيب الأسبقية: يتجاوز خادم البريد الخاص بالمؤسسة (المكون من لوحة تحكم **المؤسسة**) خادم البريد العام، ويتجاوز خادم البريد العام مفتاح Resend الافتراضي.
 
@@ -541,7 +541,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-Set the environment variables in your project's `.env`:
+قم بتعيين متغيرات البيئة في ملف `.env` الخاص بمشروعك:
 
 ```sh
 INTLAYER_CMS_URL=http://localhost:3000

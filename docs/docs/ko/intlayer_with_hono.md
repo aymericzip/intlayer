@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 9
 title: "Hono i18n - 앱을 번역하는 완전 가이드"
 description: "Hono에 Intlayer 설정: 미들웨어로 요청마다 로케일을 감지하고 API 응답을 번역합니다. Node, Bun, 엣지 런타임에서 동작합니다."
@@ -52,12 +52,12 @@ author: aymericzip
 <iframe
   src="https://ide.intlayer.org/aymericzip/intlayer-hono-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  title="CodeSandbox 데모 - Intlayer를 사용하여 애플리케이션을 국제화하는 방법"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
 
-See [Application Template](https://github.com/aymericzip/intlayer-hono-template) on GitHub.
+GitHub에서 [애플리케이션 템플릿](https://github.com/aymericzip/intlayer-hono-template)을 확인하세요.
 
 ### 설치
 

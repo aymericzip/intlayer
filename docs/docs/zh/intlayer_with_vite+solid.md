@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 9
 title: "Vite + Solid i18n - 翻译你的应用的完整指南"
 description: "在 Vite 和 Solid 应用中配置 Intlayer：响应式翻译内容、语言切换器、本地化路由和类型化字典。"
@@ -37,7 +37,7 @@ author: aymericzip
 <iframe title="The best i18n solution for Vite and Solid? Discover Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?si=VaKmrYMmXjo3xpk2"/>
 
   </Tab>
-  <Tab label="Code" value="code">
+  <Tab label="代码" value="code">
 
 <iframe
   src="https://ide.intlayer.org/aymericzip/intlayer-vite-solid-template?file=intlayer.config.ts"
@@ -87,23 +87,23 @@ Intlayer 针对 Solid 进行了优化，提供 **组件级内容作用域**、**
 </Accordion>
 <Accordion header="AI Agent">
 
-将内容共置 **减少了** 大型语言模型 (LLMs) **所需的上下文**。Intlayer 还提供一套工具，例如用于测试缺失翻译的 **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)** 和 **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)**，使 AI agents 的开发者体验 (DX) 更加顺畅。
+将内容共置 **减少了** 大型语言模型 (LLMs) **所需的上下文**。Intlayer 还提供一套工具，例如用于测试缺失翻译的 **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)** 和 **[Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)**，使 AI agents 的开发者体验 (DX) 更加顺畅。
 
 - [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)
 - [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)
-- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)
 
 </Accordion>
 <Accordion header="自动化">
 
-在 CI/CD 管道中使用自动化翻译，选择您的 LLM，按照 AI 提供商的成本计费。Intlayer 还提供 **编译器** 来自动提取内容，以及一个 [web 平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) 来帮助 **后台翻译**。
+在 CI/CD 流水线中使用自动化翻译，选择您的 LLM，按照 AI 提供商的成本计费。Intlayer 还提供 **编译器** 来自动提取内容，以及一个 [web 平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) 来帮助 **后台翻译**。
 
 - [web 平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="性能">
 
-将庞大的 JSON 文件连接到组件可能导致性能和反应性问题。Intlayer 在构建时优化了内容加载。
+将庞大的 JSON 文件连接到组件可能导致性能和响应迟滞问题。Intlayer 在构建时优化了内容加载。
 
 </Accordion>
 <Accordion header="与非开发人员协作扩展">
@@ -172,7 +172,7 @@ bun add vite-intlayer --dev
   核心包，为配置管理、翻译、[内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)、转译和 [CLI 命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)提供国际化工具。
 
 - **solid-intlayer**
-  将 Intlayer 与 Solid 应用程序集成的包。它为 Solid 国际化提供上下文提供者和 hooks。
+  将 Intlayer 与 Solid 应用程序集成的包。它为 Solid 国际化提供上下文 Provider和 hooks。
 
 - **vite-intlayer**
   包括用于将 Intlayer 与 [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production) 集成的 Vite 插件，以及用于检测用户首选语言、管理 cookie 和处理 URL 重定向的中间件。
@@ -412,7 +412,7 @@ const App: Component = () => (
 export default App;
 ```
 
-> 在 Solid 中，`useIntlayer` 返回反应式内容（例如 `content`）。您可以直接访问其属性。
+> 在 Solid 中，`useIntlayer` 返回响应式内容（例如 `content`）。您可以直接访问其属性。
 
 > 如果您想在 `string` 属性中使用您的内容，例如 `alt`、`title`、`href`、`aria-label` 等，您可以使用函数的值，如：
 >
@@ -606,7 +606,7 @@ export const Link: ParentComponent<AnchorProps> = (props) => {
 
 > 注意：要在生产中使用 `intlayerProxy`，您需要将 `vite-intlayer` 包从 `devDependencies` 切换到 `dependencies`。
 
-> 自从 Intlayer v9 以来，`intlayerProxy()` 直接捆绑到 `intlayer()` 插件中，并通过 `routing.enableProxy` 选项（默认为 `true`）默认启用。如下所示单独注册它现在是可选的，保留它是为了向后兼容性以及需要控制插件顺序的设置。设置 `routing.enableProxy: false` 以退出。请参阅 [v9 发布说明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/releases/v9.md)。
+> 自从 Intlayer v9 以来，`intlayerProxy()` 直接内置集成到 `intlayer()` 插件中，并通过 `routing.enableProxy` 选项（默认为 `true`）默认启用。如下所示单独注册它现在是可选的，保留它是为了向后兼容性以及需要控制插件顺序的设置。设置 `routing.enableProxy: false` 以退出。请参阅 [v9 发布说明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/releases/v9.md)。
 
 - [v9 发布说明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/releases/v9.md)
 
@@ -923,7 +923,7 @@ Vite 本身对 i18n 没有特定偏好，因此选择主要来自 Solid 生态�
 
 不需要。运行 `npx intlayer extract`，Intlayer 会读取您的组件，提取面向用户的字符串，并在每个组件旁边生成 `.content` 文件，这样您只需审查 diff，而无需手动逐一复制字符串到语言目录中。本指南的第 11 步详细介绍了此过程。
 
-如需全自动流程，[Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md) 可在构建时执行相同操作：它在每次更改时扫描您的 JSX、TSX、Vue 和 Svelte 源代码，生成字典并通过热模块替换 (HMR) 保持同步，因此完全无需手动维护键名。
+如需全自动流程，[Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md) 可在构建时执行相同操作：它在每次更改时扫描您的 JSX、TSX、Vue 和 Svelte 源代码，生成字典并通过模块热替换 (HMR) 保持同步，因此完全无需手动维护键名。
 
 - [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md)
 

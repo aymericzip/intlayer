@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-06-29
+updatedAt: 2026-10-08
 priority: 8
 title: "列挙：数量に応じたメッセージ"
 description: "Intlayer の列挙で数値や範囲に応じて異なるコンテンツを表示。enu() ノードと '<-1' や '>5' のような条件を使います。"
@@ -82,12 +82,12 @@ export default carEnumeration;
 
 > フォールバックが宣言されていない場合、キーが一致しなければ関数は`undefined`を返します。
 
-## React Intlayerでの列挙型の使用
+## コンポーネントでの列挙型の使用
 
 <Tabs group="framework">
   <Tab label="React" value="react">
 
-To use enumeration in a React component, you can leverage the `useIntlayer` hook from the `react-intlayer` package. This hook retrieves the correct content based on the specified ID. Here's an example of how to use it:
+React コンポーネントで列挙型を使用するには、`react-intlayer` パッケージの `useIntlayer` フックを利用します。このフックは指定されたキーに基づいて対応するコンテンツを取得します。以下は使用例です：
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
@@ -126,7 +126,7 @@ const CarComponent: FC = () => {
   </Tab>
   <Tab label="Next.js" value="nextjs">
 
-To use enumeration in Next.js Client Components, retrieve it via the `useIntlayer` hook. Here's an example:
+Next.js のクライアントコンポーネントで列挙型を使用するには、`useIntlayer` フック経由で取得します。以下は使用例です：
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 "use client";
@@ -150,7 +150,7 @@ export default CarComponent;
   </Tab>
   <Tab label="Vue" value="vue">
 
-To use enumeration in Vue components, retrieve it via the `useIntlayer` hook. Here's an example:
+Vue コンポーネントで列挙型を使用するには、`useIntlayer` フック経由で取得します。以下は使用例です：
 
 ```vue fileName="**/*.vue"
 <script setup lang="ts">
@@ -169,7 +169,7 @@ const { numberOfCar } = useIntlayer("car_count");
   </Tab>
   <Tab label="Svelte" value="svelte">
 
-To use enumeration in Svelte components, retrieve it via the `useIntlayer` hook. The store is accessed with `$`. Here's an example:
+Svelte コンポーネントで列挙型を使用するには、`useIntlayer` フック経由で取得します。ストアは `$` で参照します。以下は使用例です：
 
 ```svelte fileName="**/*.svelte"
 <script lang="ts">
@@ -186,7 +186,7 @@ const content = useIntlayer("car_count");
   </Tab>
   <Tab label="Preact" value="preact">
 
-To use enumeration in Preact components, retrieve it via the `useIntlayer` hook. Here's an example:
+Preact コンポーネントで列挙型を使用するには、`useIntlayer` フック経由で取得します。以下は使用例です：
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "preact";
@@ -208,7 +208,7 @@ export default CarComponent;
   </Tab>
   <Tab label="Solid" value="solid">
 
-To use enumeration in SolidJS components, retrieve it via the `useIntlayer` hook. Here's an example:
+SolidJS コンポーネントで列挙型を使用するには、`useIntlayer` フック経由で取得します。以下は使用例です：
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { Component } from "solid-js";
@@ -230,7 +230,7 @@ export default CarComponent;
   </Tab>
   <Tab label="Angular" value="angular">
 
-To use enumeration in Angular components, retrieve it via the `useIntlayer` hook. Here's an example:
+Angular コンポーネントで列挙型を使用するには、`useIntlayer` フック経由で取得します。以下は使用例です：
 
 ```typescript fileName="app.component.ts" codeFormat="typescript"
 import { Component } from "@angular/core";
@@ -252,7 +252,7 @@ export class CarComponent {
   </Tab>
   <Tab label="Vanilla JS" value="vanilla">
 
-To use enumeration with `vanilla-intlayer`, retrieve it via the `useIntlayer` hook. Here's an example:
+`vanilla-intlayer` で列挙型を使用するには、`useIntlayer` を経由して取得します。以下は使用例です：
 
 ```typescript fileName="**/*.ts" codeFormat={["typescript", "esm"]}
 import { installIntlayer, useIntlayer } from "vanilla-intlayer";
@@ -280,12 +280,12 @@ document.getElementById("cars")!.textContent = content.numberOfCar(6);
 
 これらのリソースは、さまざまな環境やフレームワークでの Intlayer のセットアップおよび使用方法について、さらに詳しい情報を提供します。
 
-### Using Ordinal Enumeration
+### 序数（Ordinal）列挙型の使用
 
 <Tabs group="framework">
   <Tab label="React" value="react">
 
-To use this in a React component, call the enumeration with the last digit of the number to get the correct suffix, then pass the full count as the insertion value:
+React コンポーネントで使用する場合、数値の末尾の桁を列挙型関数に渡して接尾辞を取得し、カウント全体を挿入値として渡します：
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
@@ -312,7 +312,7 @@ const RankingComponent: FC<{ count: number }> = ({ count }) => {
   </Tab>
   <Tab label="Next.js" value="nextjs">
 
-To use this in Next.js Client Components, call the enumeration with the last digit of the number to get the correct suffix, then pass the full count as the insertion value:
+Next.js クライアントコンポーネントで使用する場合、数値の末尾の桁を列挙型関数に渡して接尾辞を取得し、カウント全体を挿入値として渡します：
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 "use client";
@@ -337,7 +337,7 @@ export default RankingComponent;
   </Tab>
   <Tab label="Vue" value="vue">
 
-To use this in Vue components, call the enumeration with the last digit of the number to get the correct suffix, then pass the full count as the insertion value:
+Vue コンポーネントで使用する場合、数値の末尾の桁を列挙型関数に渡して接尾辞を取得し、カウント全体を挿入値として渡します：
 
 ```vue fileName="**/*.vue"
 <script setup lang="ts">
@@ -358,7 +358,7 @@ const { ordinal } = useIntlayer("ranking_component");
   </Tab>
   <Tab label="Svelte" value="svelte">
 
-To use this in Svelte components, call the enumeration with the last digit of the number to get the correct suffix, then pass the full count as the insertion value:
+Svelte コンポーネントで使用する場合、数値の末尾の桁を列挙型関数に渡して接尾辞を取得し、カウント全体を挿入値として渡します：
 
 ```svelte fileName="**/*.svelte"
 <script lang="ts">
@@ -378,7 +378,7 @@ $: lastDigit = Math.abs(count) % 10;
   </Tab>
   <Tab label="Preact" value="preact">
 
-To use this in Preact components, call the enumeration with the last digit of the number to get the correct suffix, then pass the full count as the insertion value:
+Preact コンポーネントで使用する場合、数値の末尾の桁を列挙型関数に渡して接尾辞を取得し、カウント全体を挿入値として渡します：
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "preact";
@@ -401,7 +401,7 @@ export default RankingComponent;
   </Tab>
   <Tab label="Solid" value="solid">
 
-To use this in SolidJS components, call the enumeration with the last digit of the number to get the correct suffix, then pass the full count as the insertion value:
+SolidJS コンポーネントで使用する場合、数値の末尾の桁を列挙型関数に渡して接尾辞を取得し、カウント全体を挿入値として渡します：
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { Component } from "solid-js";
@@ -423,7 +423,7 @@ export default RankingComponent;
   </Tab>
   <Tab label="Angular" value="angular">
 
-To use this in Angular components, call the enumeration with the last digit of the number to get the correct suffix, then pass the full count as the insertion value:
+Angular コンポーネントで使用する場合、数値の末尾の桁を列挙型関数に渡して接尾辞を取得し、カウント全体を挿入値として渡します：
 
 ```typescript fileName="app.component.ts" codeFormat="typescript"
 import { Component, Input } from "@angular/core";
@@ -451,7 +451,7 @@ export class RankingComponent {
   </Tab>
   <Tab label="Vanilla JS" value="vanilla">
 
-To use this with `vanilla-intlayer`, call the enumeration with the last digit of the number to get the correct suffix, then pass the full count as the insertion value:
+`vanilla-intlayer` で使用する場合、数値の末尾の桁を列挙型関数に渡して接尾辞を取得し、カウント全体を挿入値として渡します：
 
 ```typescript fileName="**/*.ts" codeFormat={["typescript", "esm"]}
 import { installIntlayer, useIntlayer } from "vanilla-intlayer";
@@ -469,12 +469,12 @@ document.getElementById("ranking")!.textContent = content.ordinal(lastDigit)({
   </Tab>
 </Tabs>
 
-## Additional Resources
+## 関連リソース
 
-For more detailed information on configuration and usage, refer to the following resources:
+設定や使用方法に関する詳細情報については、以下のリソースを参照してください：
 
-- [Intlayer CLI Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md)
-- [React Intlayer Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_create_react_app.md)
-- [Next Intlayer Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_15.md)
+- [Intlayer CLI ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md)
+- [React Intlayer ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_create_react_app.md)
+- [Next Intlayer ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_15.md)
 
-These resources provide further insights into the setup and usage of Intlayer in different environments and with various frameworks.
+これらのリソースは、さまざまな環境やフレームワークでの Intlayer の設定と使用に関する詳細なガイドを提供します。

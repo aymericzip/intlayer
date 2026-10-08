@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-29
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 9
 title: "htmx i18n - アプリを翻訳するための完全ガイド"
 description: "htmx で Intlayer を使う：翻訳済みの HTML フラグメントをサーバーで描画し、リクエストごとにロケールを検出、SPA なしで言語を切り替え。"
@@ -649,7 +649,7 @@ Intlayer によって生成されたファイルを無視することをお勧�
 .intlayer
 ```
 
-### VS Code Extension
+### VS Code 拡張機能
 
 Intlayer を使用した開発体験を向上させるために、公式の **Intlayer VS Code Extension** をインストールできます。
 

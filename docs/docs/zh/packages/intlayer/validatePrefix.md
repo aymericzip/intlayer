@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 5
 title: validatePrefix 函数文档 | intlayer
 description: "使用 validatePrefix 根据 Intlayer 配置检查某个 URL 段是否为有效的语言前缀。"

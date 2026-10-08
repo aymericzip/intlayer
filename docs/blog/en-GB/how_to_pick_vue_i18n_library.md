@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-28
+updatedAt: 2026-10-08
 priority: 8
 title: "How to pick the right Vue i18n library in 2026"
 description: "A decision guide for Vue and Nuxt i18n: the questions to answer before comparing vue-i18n, @nuxtjs/i18n, fluent-vue, Paraglide and Intlayer."
@@ -96,11 +96,11 @@ Library sizes are from the [Vue benchmark](https://github.com/aymericzip/intlaye
 
 | Library        | Content model                                               | Type safety                       | Message format                      | Per-route splitting | Library size                                      |
 | :------------- | :---------------------------------------------------------- | :-------------------------------- | :---------------------------------- | :------------------ | :------------------------------------------------ |
-| `vue-i18n`     | Central catalogues per locale, optional SFC `<i18n>` blocks | 2/5 — Opt-in via a schema generic | Own (pipe plurals)                  | No                  | ~24.3 kB                                          |
-| `@nuxtjs/i18n` | Same as `vue-i18n`, plus routing and SEO tags               | 2/5 — Same                        | Same                                | No, per locale only | ~24.3 kB                                          |
-| `fluent-vue`   | `.ftl` files (Mozilla Fluent)                               | 1/5 — None                        | Fluent                              | No                  | ~29.7 kB                                          |
-| Paraglide      | inlang project, generated functions                         | 3.5/5 — Generated                 | Own                                 | Via tree-shaking    | Near zero (due to generated code in the codebase) |
-| Intlayer       | One `.content.ts` per component                             | 5/5 — Generated, on by default    | Intlayer (+ ICU, i18next, vue-i18n) | Yes, per component  | ~3.9 kB                                           |
+| `vue-i18n`     | Central catalogues per locale, optional SFC `<i18n>` blocks | 2/5 - Opt-in via a schema generic | Own (pipe plurals)                  | No                  | ~24.3 kB                                          |
+| `@nuxtjs/i18n` | Same as `vue-i18n`, plus routing and SEO tags               | 2/5 - Same                        | Same                                | No, per locale only | ~24.3 kB                                          |
+| `fluent-vue`   | `.ftl` files (Mozilla Fluent)                               | 1/5 - None                        | Fluent                              | No                  | ~29.7 kB                                          |
+| Paraglide      | inlang project, generated functions                         | 3.5/5 - Generated                 | Own                                 | Via tree-shaking    | Near zero (due to generated code in the codebase) |
+| Intlayer       | One `.content.ts` per component                             | 5/5 - Generated, on by default    | Intlayer (+ ICU, i18next, vue-i18n) | Yes, per component  | ~3.9 kB                                           |
 
 > Numbers are a snapshot at the benchmark's versions. Run it on your own app before deciding on size alone.
 > Type safety: 5/5 means keys, parameters and every locale are checked without manual setup, including url formater and helpers.

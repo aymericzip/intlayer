@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "Treść z pliku: osadzanie plików zewnętrznych"
 description: "Osadzaj zewnętrzne pliki, jak markdown czy tekst, w słownikach Intlayer za pomocą funkcji file(), zsynchronizowane z plikiem źródłowym."
@@ -30,11 +30,11 @@ W Intlayer funkcja `file` pozwala na osadzenie zawartości zewnętrznego pliku w
 
 ## Dlaczego używać `file` zamiast `import`, `require` lub `fs`?
 
-To use embedded file content in Next.js Client Components, retrieve it via the `useIntlayer` hook. Here's an example:
+W przeciwieństwie do metod odczytu plików za pomocą `import`, `require` lub `fs`, użycie `file` wiąże plik ze słownikiem, co pozwala Intlayer śledzić i dynamicznie aktualizować treść podczas edycji pliku. W rezultacie użycie `file` zapewnia znacznie lepszą integrację z edytorem wizualnym Intlayer Visual Editor oraz systemem CMS.
 
 ## Konfiguracja zawartości pliku
 
-Aby osadzić zawartość pliku w projekcie Intlayer, użyj funkcji `file` w module zawartości. Poniżej znajdują się przykłady różnych implementacji.
+Aby osadzić zawartość pliku w projekcie Intlayer, użyj funkcji `file` w module deklaracji treści. Poniżej znajdują się przykłady różnych implementacji.
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { file, type Dictionary } from "intlayer";
@@ -62,12 +62,12 @@ export default myFileContent;
 }
 ```
 
-## Używanie zawartości pliku w React Intlayer
+## Używanie zawartości pliku w komponentach
 
 <Tabs group="framework">
   <Tab label="React" value="react">
 
-To use embedded file content in a React component, import and use the `useIntlayer` hook from the `react-intlayer` package. This retrieves the content from the specified key and allows it to be displayed dynamically.
+Aby użyć osadzonej zawartości pliku w komponencie React, zaimportuj i użyj hooka `useIntlayer` z pakietu `react-intlayer`. Pobiera on treść dla wskazanego klucza i pozwala wyświetlić ją dynamicznie.
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
@@ -89,7 +89,7 @@ export default FileComponent;
   </Tab>
   <Tab label="Next.js" value="nextjs">
 
-To use embedded file content in Next.js Client Components, retrieve it via the `useIntlayer` hook. Here's an example:
+Aby użyć osadzonej zawartości pliku w komponentach klienckich Next.js (Client Components), pobierz ją za pomocą hooka `useIntlayer`. Oto przykład:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 "use client";
@@ -113,7 +113,7 @@ export default FileComponent;
   </Tab>
   <Tab label="Vue" value="vue">
 
-To use embedded file content in Vue components, retrieve it via the `useIntlayer` hook. Here's an example:
+Aby użyć osadzonej zawartości pliku w komponentach Vue, pobierz ją za pomocą hooka `useIntlayer`. Oto przykład:
 
 ```vue fileName="**/*.vue"
 <script setup lang="ts">
@@ -132,7 +132,7 @@ const { myFile } = useIntlayer("my_key");
   </Tab>
   <Tab label="Svelte" value="svelte">
 
-To use embedded file content in Svelte components, retrieve it via the `useIntlayer` hook. The store is accessed with `$`. Here's an example:
+Aby użyć osadzonej zawartości pliku w komponentach Svelte, pobierz ją za pomocą hooka `useIntlayer`. Dostęp do magazynu (store) uzyskujemy przez `$`. Oto przykład:
 
 ```svelte fileName="**/*.svelte"
 <script lang="ts">
@@ -149,7 +149,7 @@ const content = useIntlayer("my_key");
   </Tab>
   <Tab label="Preact" value="preact">
 
-To use embedded file content in Preact components, retrieve it via the `useIntlayer` hook. Here's an example:
+Aby użyć osadzonej zawartości pliku w komponentach Preact, pobierz ją za pomocą hooka `useIntlayer`. Oto przykład:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "preact";
@@ -171,7 +171,7 @@ export default FileComponent;
   </Tab>
   <Tab label="Solid" value="solid">
 
-To use embedded file content in SolidJS components, retrieve it via the `useIntlayer` hook. Here's an example:
+Aby użyć osadzonej zawartości pliku w komponentach SolidJS, pobierz ją za pomocą hooka `useIntlayer`. Oto przykład:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { Component } from "solid-js";
@@ -193,7 +193,7 @@ export default FileComponent;
   </Tab>
   <Tab label="Angular" value="angular">
 
-To use embedded file content in Angular components, retrieve it via the `useIntlayer` hook. Here's an example:
+Aby użyć osadzonej zawartości pliku w komponentach Angular, pobierz ją za pomocą funkcji `useIntlayer`. Oto przykład:
 
 ```typescript fileName="app.component.ts" codeFormat="typescript"
 import { Component } from "@angular/core";
@@ -215,7 +215,7 @@ export class FileComponent {
   </Tab>
   <Tab label="Vanilla JS" value="vanilla">
 
-To use embedded file content with `vanilla-intlayer`, retrieve it via the `useIntlayer` hook. Here's an example:
+Aby użyć osadzonej zawartości pliku w czystym JavaScript (`vanilla-intlayer`), pobierz ją za pomocą funkcji `useIntlayer`. Oto przykład:
 
 ```typescript fileName="**/*.ts" codeFormat={["typescript", "esm"]}
 import { installIntlayer, useIntlayer } from "vanilla-intlayer";
@@ -226,62 +226,19 @@ const content = useIntlayer("my_key").onChange((newContent) => {
   document.getElementById("file-content")!.textContent = newContent.myFile;
 });
 
-// Initial render
+// Pierwsze renderowanie
 document.getElementById("file-content")!.textContent = content.myFile;
 ```
 
   </Tab>
 </Tabs>
 
-## Przykład wielojęzycznego Markdown
-
-Aby obsługiwać wielojęzyczne edytowalne pliki Markdown, możesz użyć `file` w połączeniu z `t()` i `md()`, aby zdefiniować różne wersje językowe pliku z zawartością Markdown.
-
-```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
-import { file, t, md, type Dictionary } from "intlayer";
-
-const myMultilingualContent = {
-  key: "my_multilingual_key",
-  content: {
-    myContent: md(
-      t({
-        en: file("src/components/test.en.md"),
-        fr: file("src/components/test.fr.md"),
-        es: file("src/components/test.es.md"),
-      })
-    ),
-  },
-} satisfies Dictionary;
-
-export default myMultilingualContent;
-```
-
-Ta konfiguracja pozwala na dynamiczne pobieranie zawartości w oparciu o preferencje językowe użytkownika. Gdy jest używana w Intlayer Visual Editor lub CMS, system rozpozna, że zawartość pochodzi z określonych plików Markdown i zapewni, że pozostaną one edytowalne.
-
-## Różne typy ścieżek
-
-Podczas używania funkcji `file` można stosować różne typy ścieżek do określenia pliku do osadzenia.
-
-- `file("./path/to/file.txt")` - Ścieżka względna względem bieżącego pliku
-- `file("path/to/file.txt")` - Ścieżka względna względem katalogu głównego projektu
-- `file("/users/username/path/to/file.txt")` - Ścieżka absolutna
-
-## Jak Intlayer obsługuje zawartość plików
-
-Funkcja `file` opiera się na module `fs` Node.js, aby odczytać zawartość określonego pliku i wstawić ją do słownika. Używana w połączeniu z Intlayer Visual Editor lub CMS, Intlayer może śledzić relację między słownikiem a plikiem. Pozwala to Intlayer na:
-
-- Rozpoznanie, że zawartość pochodzi z określonego pliku.
-- Automatyczną aktualizację zawartości słownika, gdy powiązany plik zostanie edytowany.
-- Zapewnić synchronizację między plikiem a słownikiem, zachowując integralność zawartości.
-
 ## Dodatkowe zasoby
 
-Aby uzyskać więcej informacji na temat konfigurowania i używania osadzania plików w Intlayer, zapoznaj się z następującymi zasobami:
+Aby uzyskać bardziej szczegółowe informacje na temat konfiguracji i użytkowania, zapoznaj się z następującymi zasobami:
 
 - [Dokumentacja Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/index.md)
 - [Dokumentacja React Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_create_react_app.md)
 - [Dokumentacja Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_nextjs_15.md)
-- [Dokumentacja zawartości Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/markdown.md)
-- [Dokumentacja zawartości tłumaczeń](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/translation.md)
 
-Te zasoby dostarczają dodatkowych informacji na temat osadzania plików, zarządzania zawartością oraz integracji Intlayer z różnymi frameworkami.
+Te zasoby oferują dodatkowe informacje na temat konfiguracji i użytkowania Intlayer w różnych środowiskach oraz frameworkach.

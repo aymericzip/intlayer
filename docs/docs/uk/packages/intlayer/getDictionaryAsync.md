@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 5
 title: "Документація функції getDictionaryAsync | intlayer"
 description: "Використовуйте getDictionaryAsync, щоб завантажити одну локаль словника й прочитати його оброблений контент без інших мов."
@@ -50,7 +50,7 @@ author: aymericzip
 - Дедублікує одночасне завантаження одного чанка та кешує розв'язаний вміст
 - Невдалі завантаження видаляються з кешу, так що пізніший виклик повторює спробу чанка
 
-## Function Signature
+## Сигнатура функції
 
 ```typescript
 getDictionaryAsync(
@@ -64,29 +64,29 @@ getDictionaryAsync(
 ## Параметри
 
 - `dictionaryLoaders: PlainDynamicLoaderMap | QualifiedDynamicLoaderMap`
-  - **Description**: Карта завантажувачів для кожної локалі. Звичайні карти асоціюють локаль із завантажувачем; кваліфіковані карти (використовуються колекціями та варіантами) асоціюють локаль із ідентифікатором кваліфікатора, а потім із завантажувачем. Для кваліфікованої карти завантажуються лише chunk'и, на які спрямований селектор.
-  - **Type**: `PlainDynamicLoaderMap<T> | QualifiedDynamicLoaderMap`
-  - **Required**: Yes
+  - **Опис**: Карта завантажувачів для кожної локалі. Звичайні карти асоціюють локаль із завантажувачем; кваліфіковані карти (використовуються колекціями та варіантами) асоціюють локаль із ідентифікатором кваліфікатора, а потім із завантажувачем. Для кваліфікованої карти завантажуються лише chunk'и, на які спрямований селектор.
+  - **Тип**: `PlainDynamicLoaderMap<T> | QualifiedDynamicLoaderMap`
+  - **Обов'язковий**: Так
 
 - `key: string`
-  - **Description**: Ключ словника, використовується для namespace'ування кешу chunk'ів.
-  - **Type**: `string`
-  - **Required**: Yes
+  - **Опис**: Ключ словника, використовується для namespace'ування кешу chunk'ів.
+  - **Тип**: `string`
+  - **Обов'язковий**: Так
 
 - `localeOrSelector: LocalesValues | DictionarySelector`
-  - **Description**: Локаль для інтерпретації вмісту або об'єкт селектора (`{ item }`, `{ variant }`, необов'язково з `locale`). Див. [динамічні словники](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dynamic_dictionaries/index.md).
-  - **Type**: `LocalesValues | DictionarySelector`
-  - **Required**: No (Optional), за замовчуванням встановлюється значення `defaultLocale`.
+  - **Опис**: Локаль для інтерпретації вмісту або об'єкт селектора (`{ item }`, `{ variant }`, необов'язково з `locale`). Див. [динамічні словники](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dynamic_dictionaries/index.md).
+  - **Тип**: `LocalesValues | DictionarySelector`
+  - **Обов'язковий**: Ні (опціонально), за замовчуванням встановлюється значення `defaultLocale`.
 
 - `plugins: Plugins[]`
-  - **Description**: Трансформатори Node. За замовчуванням використовується базовий набір інтерпретаторів.
-  - **Type**: `Plugins[]`
-  - **Required**: No (Optional)
+  - **Опис**: Трансформатори Node. За замовчуванням використовується базовий набір інтерпретаторів.
+  - **Тип**: `Plugins[]`
+  - **Обов'язковий**: Ні (опціонально)
 
-### Returns
+### Значення, що повертається
 
-- **Type**: `Promise<Content>`, a promise resolving to the interpreted content of the loaded chunk.
-- **Description**: Resolves to `null` when the map emits no chunk for the requested locale nor for any of its fallbacks, mirroring how a missing qualified coordinate resolves.
+- **Тип**: `Promise<Content>`, проміс, що повертає інтерпретований вміст завантаженого чанка.
+- **Опис**: Повертає `null`, коли карта не надає чанка для запитаної локалі або будь-якого з її запасних варіантів (fallbacks), аналогічно до того, як обробляється відсутня кваліфікована координата.
 
 ## Приклад використання
 

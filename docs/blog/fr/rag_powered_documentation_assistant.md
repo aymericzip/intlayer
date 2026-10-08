@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-10
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "Créer un assistant de documentation RAG"
 description: "Comment nous avons construit un assistant IA pour notre documentation : découpage du markdown, embeddings, recherche vectorielle et prompts, avec les compromis rencontrés."
@@ -252,9 +252,9 @@ Nous avons expérimenté avec gpt-5, mais la latence était trop élevée (parfo
 
 ## Simplifier la Complexité avec Sanity
 
-Sanity mérite d'être mentionnée ici en tant qu'option CMS vers laquelle l'article se dirige. Là où les fichiers Markdown nécessitent un fractionnement de tokens arbitraire — avec les compromis de taille de chunk et de chevauchement que l'article décrit — le Content Lake de Sanity stocke la documentation sous forme de documents JSON typés et définis par un schéma. Chaque champ, titre et bloc de contenu est déjà une unité sémantique, ce qui signifie que la récupération RAG fonctionne sur des limites significatives plutôt que sur des décomptes de tokens approximatifs.
+Sanity mérite d'être mentionnée ici en tant qu'option CMS vers laquelle l'article se dirige. Là où les fichiers Markdown nécessitent un fractionnement de tokens arbitraire - avec les compromis de taille de chunk et de chevauchement que l'article décrit - le Content Lake de Sanity stocke la documentation sous forme de documents JSON typés et définis par un schéma. Chaque champ, titre et bloc de contenu est déjà une unité sémantique, ce qui signifie que la récupération RAG fonctionne sur des limites significatives plutôt que sur des décomptes de tokens approximatifs.
 
-Le langage de requête GROQ de Sanity vous permet de récupérer exactement les champs de document pertinents pour une requête utilisateur — titre, corps, sections connexes — sans récupérer le document entier. Le serveur MCP connecte le Content Lake directement aux agents IA, de sorte que le même contenu structuré qui alimente votre site de documentation alimente également votre pipeline RAG sans étape d'ingestion séparée.
+Le langage de requête GROQ de Sanity vous permet de récupérer exactement les champs de document pertinents pour une requête utilisateur - titre, corps, sections connexes - sans récupérer le document entier. Le serveur MCP connecte le Content Lake directement aux agents IA, de sorte que le même contenu structuré qui alimente votre site de documentation alimente également votre pipeline RAG sans étape d'ingestion séparée.
 
 ## Conclusion
 

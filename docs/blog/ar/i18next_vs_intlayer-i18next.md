@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "مقارنة i18next مقابل @intlayer/i18next: نفس واجهة البرمجة (API)، وحزمة برمجية مختلفة تماماً"
 description: "تطبيق React أو Next.js يحتفظ باستدعاءات i18next التي تخدمها محوّلات @intlayer/i18next. قياس JavaScript لكل صفحة وحجم المكوّنات والتسرّب."
@@ -349,9 +349,9 @@ export default defineConfig({
 <AccordionGroup>
 <Accordion header="الواجهات الخلفية وأجهزة الكشف خاملة">
 
-`i18n.use(HttpBackend)` يقوم فقط باستدعاء دالة init الخاصة بالملحق ولا يفعل أي شيء آخر. إذا كان تطبيقك يعتمد على جلب الترجمات من نظام إدارة المحتوى (CMS) في وقت التشغيل، فإن هذا التدفق قد اختفى؛ استخدم [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md) أو أوامر `intlayer pull` / `push` بدلاً من ذلك. يصبح اكتشاف اللغة جزءًا من إعدادات التوجيه الخاصة بـ Intlayer (بادئة URL، ملف تعريف الارتباط، الرأس).
+`i18n.use(HttpBackend)` يقوم فقط باستدعاء دالة init الخاصة بالملحق ولا يفعل أي شيء آخر. إذا كان تطبيقك يعتمد على جلب الترجمات من نظام إدارة المحتوى (CMS) في وقت التشغيل، فإن هذا التدفق قد اختفى؛ استخدم [نظام إدارة المحتوى Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md) أو أوامر `intlayer pull` / `push` بدلاً من ذلك. يصبح اكتشاف اللغة جزءًا من إعدادات التوجيه الخاصة بـ Intlayer (بادئة URL، ملف تعريف الارتباط، الرأس).
 
-- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
+- [نظام إدارة المحتوى Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="يتم تجاهل resources وليس دمجها">
@@ -471,13 +471,13 @@ export default defineConfig({
 
 وثائق مرجعية:
 
-- [Next.js benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md)
-- [TanStack Start benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md)
-- [Bundle optimization](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md)
-- [the Intlayer compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md)
-- [Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)
+- [تقرير أداء Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md)
+- [تقرير أداء TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md)
+- [تحسين حجم الحزم (Bundle Optimization)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md)
+- [مترجم Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md)
+- [المحرر المرئي (Visual Editor)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)
 - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
-- [AI translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/autoFill.md)
+- [الترجمة بالذكاء الاصطناعي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/autoFill.md)
 
 Compat adapters:
 

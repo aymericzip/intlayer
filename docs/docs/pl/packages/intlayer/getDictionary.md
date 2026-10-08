@@ -57,19 +57,19 @@ getDictionary(
 ## Parametry
 
 - `dictionary: Dictionary | QualifiedDictionaryGroup`
-  - **Description**: Słownik (lub kvalifikowana grupa słowników) do interpretacji.
-  - **Type**: `Dictionary | QualifiedDictionaryGroup`
-  - **Required**: Yes
+  - **Opis**: Słownik (lub kwalifikowana grupa słowników) do interpretacji.
+  - **Typ**: `Dictionary | QualifiedDictionaryGroup`
+  - **Wymagane**: Tak
 
 - `localeOrSelector: LocalesValues | DictionarySelector`
-  - **Description**: Język (locale) do interpretacji zawartości, lub obiekt selektora (`{ item }`, `{ variant }`, opcjonalnie z `locale`). Zobacz [dynamic dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dynamic_dictionaries/index.md).
-  - **Type**: `LocalesValues | DictionarySelector`
-  - **Required**: No (Optional), defaults to the configured `defaultLocale`.
+  - **Opis**: Język (locale) do interpretacji zawartości, lub obiekt selektora (`{ item }`, `{ variant }`, opcjonalnie z `locale`). Zobacz [dynamiczne słowniki](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dynamic_dictionaries/index.md).
+  - **Typ**: `LocalesValues | DictionarySelector`
+  - **Wymagane**: Nie (opcjonalne), domyślnie skonfigurowane `defaultLocale`.
 
 - `plugins: Plugins[]`
-  - **Description**: Tablica transformatorów węzłów definiująca sposób interpretacji rozpoznanych węzłów. Jeśli zostanie pominięta, używany jest domyślny zestaw wtyczek interpretera.
-  - **Type**: `Plugins[]`
-  - **Required**: No (Optional)
+  - **Opis**: Tablica transformatorów węzłów definiująca sposób interpretacji rozpoznanych węzłów. Jeśli zostanie pominięta, używany jest domyślny zestaw wtyczek interpretera.
+  - **Typ**: `Plugins[]`
+  - **Wymagane**: Nie (opcjonalne)
 
 ### Zwraca
 

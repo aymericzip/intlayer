@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-10
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "RAG आधारित डॉक्यूमेंटेशन असिस्टेंट बनाना"
 description: "हमने अपने डॉक्स के लिए AI असिस्टेंट कैसे बनाया: markdown चंकिंग, एम्बेडिंग, वेक्टर सर्च और प्रॉम्प्ट, साथ में आए ट्रेड-ऑफ़।"
@@ -310,9 +310,9 @@ RAG LLMs को व्यावहारिक बनाने के सबस�
 
 ## Sanity के साथ जटिलता को छोड़ें
 
-Sanity का यहाँ नाम लेना सार्थक है क्योंकि यह लेख जिस CMS विकल्प की ओर इशारा करता है। जहाँ Markdown फ़ाइलों को मनमानी token splitting की आवश्यकता होती है — लेख जो chunk size और overlap trade-offs का वर्णन करता है — Sanity का Content Lake documentation को typed, schema-defined JSON documents के रूप में store करता है। प्रत्येक field, heading, और content block पहले से ही एक semantic unit है, जिसका अर्थ है कि RAG retrieval meaningful boundaries पर संचालित होती है न कि approximate token counts पर।
+Sanity का यहाँ नाम लेना सार्थक है क्योंकि यह लेख जिस CMS विकल्प की ओर इशारा करता है। जहाँ Markdown फ़ाइलों को मनमानी token splitting की आवश्यकता होती है - लेख जो chunk size और overlap trade-offs का वर्णन करता है - Sanity का Content Lake documentation को typed, schema-defined JSON documents के रूप में store करता है। प्रत्येक field, heading, और content block पहले से ही एक semantic unit है, जिसका अर्थ है कि RAG retrieval meaningful boundaries पर संचालित होती है न कि approximate token counts पर।
 
-Sanity की GROQ query language आपको एक user query के लिए प्रासंगिक document fields — title, body, related sections — को precisely retrieve करने देती है बिना पूरे document को fetch किए। MCP server Content Lake को सीधे AI agents से जोड़ता है, इसलिए वही structured content जो आपकी docs site को power करता है आपके RAG pipeline को भी feed करता है बिना किसी अलग ingestion step के।
+Sanity की GROQ query language आपको एक user query के लिए प्रासंगिक document fields - title, body, related sections - को precisely retrieve करने देती है बिना पूरे document को fetch किए। MCP server Content Lake को सीधे AI agents से जोड़ता है, इसलिए वही structured content जो आपकी docs site को power करता है आपके RAG pipeline को भी feed करता है बिना किसी अलग ingestion step के।
 
 ## निष्कर्ष
 

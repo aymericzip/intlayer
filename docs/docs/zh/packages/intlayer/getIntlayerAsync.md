@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-09-28
+updatedAt: 2026-10-08
 priority: 5
 title: getIntlayerAsync 函数文档 | intlayer
 description: "使用 getIntlayerAsync 只加载并读取某一个语言的字典内容，不打包其他语言。"

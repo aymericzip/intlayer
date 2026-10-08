@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 5
 title: "intlayer watch：内容变化时重新构建字典"
 description: 学习如何监视内容声明文件的更改并自动构建字典。

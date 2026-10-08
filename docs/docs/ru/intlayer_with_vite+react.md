@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 10
 title: "Vite + React i18n - Полное руководство по переводу вашего приложения"
 description: "Настройка Intlayer в приложении Vite и React: типизированный контент по компонентам, переключатель языка, локализованные маршруты и бандлы по локалям."
@@ -631,18 +631,18 @@ const LocaleSwitcher: FC = () => {
 > Ссылки на документацию:
 >
 > - [`useLocale` хук](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/react-intlayer/useLocale.md)
-> - [`getLocaleName` хук](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getLocaleName.md)
-> - [`getLocalizedUrl` хук](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getLocalizedUrl.md)
-> - [`getHTMLTextDir` хук](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getHTMLTextDir.md)
+> - [`getLocaleName` function](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getLocaleName.md)
+> - [`getLocalizedUrl` function](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getLocalizedUrl.md)
+> - [`getHTMLTextDir` function](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getHTMLTextDir.md)
 > - [`hrefLang` атрибут](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=fr)
 > - [`lang` атрибут](https://developer.mozilla.org/ru/docs/Web/HTML/Global_attributes/lang)
 > - [`dir` атрибут](https://developer.mozilla.org/ru/docs/Web/HTML/Global_attributes/dir)
 > - [`aria-current` атрибут](https://developer.mozilla.org/ru/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
 - [`useLocale` хук](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/react-intlayer/useLocale.md)
-- [`getLocaleName` хук](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getLocaleName.md)
-- [`getLocalizedUrl` хук](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getLocalizedUrl.md)
-- [`getHTMLTextDir` хук](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getHTMLTextDir.md)
+- [`getLocaleName` function](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getLocaleName.md)
+- [`getLocalizedUrl` function](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getLocalizedUrl.md)
+- [`getHTMLTextDir` function](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getHTMLTextDir.md)
 
 Ниже приведён обновлённый **Шаг 9** с дополнительными объяснениями и уточнёнными примерами кода:
 
@@ -837,7 +837,7 @@ export default config;
 ```
 
 <Tabs>
- <Tab value='Extract command'>
+ <Tab value='Команда извлечения'>
 
 Запустите экстрактор для преобразования компонентов и извлечения содержимого
 
@@ -858,12 +858,12 @@ bun x intlayer extract
 ```
 
  </Tab>
- <Tab value='Babel compiler'>
+ <Tab value='Компилятор Babel'>
 
  <Tabs>
  <Tab value='intlayer >= 9'>
 
-> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+> Начиная с версии 9, `intlayerCompiler` включен в плагин `intlayer`. Поэтому вам не нужно добавлять его вручную.
 
  </Tab>
  <Tab value='intlayer < 9'>

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-22
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 5
 title: getCanonicalPath 函数文档 | intlayer
 description: "使用 getCanonicalPath 将 /a-propos 这类本地化路径还原为 /about 这类内部路由，用于路由匹配。"

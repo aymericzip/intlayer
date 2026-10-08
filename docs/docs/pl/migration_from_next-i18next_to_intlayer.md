@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-05
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 7
 title: "Migracja z next-i18next do Intlayer"
 description: "Przenieś aplikację Next.js z next-i18next do Intlayer krok po kroku, zaczynając od adaptera @intlayer/next-i18next, aby niczego nie zepsuć."
@@ -313,7 +313,7 @@ Gdy będziesz gotowy, aby pójść dalej, Intlayer **automatycznie odkrywa wszys
 
 ## Konfigurowanie TypeScript
 
-Intlayer uses module augmentation to provide full TypeScript intellisense for your translation keys. Make sure your `tsconfig.json` includes the auto-generated types:
+Intlayer korzysta z augmentacji modułów (module augmentation), aby zapewnić pełne podpowiedzi IntelliSense w TypeScript dla Twoich kluczy tłumaczeń. Upewnij się, że Twój plik `tsconfig.json` uwzględnia automatycznie generowane typy:
 
 ```json5 fileName="tsconfig.json"
 {

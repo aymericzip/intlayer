@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-09-29
+updatedAt: 2026-10-08
 priority: 9
 title: "Elysia i18n - アプリを翻訳するための完全ガイド"
 description: "Elysia に Intlayer を導入：プラグインでリクエストごとにロケールを検出し、API レスポンスを翻訳、Bun 上でコンテンツを型付きで管理。"
@@ -319,7 +319,7 @@ export default config;
 }
 ```
 
-### VS Code Extension
+### VS Code 拡張機能
 
 Intlayer の開発体験を向上させるために、公式の **Intlayer VS Code Extension** をインストールできます。
 
@@ -336,7 +336,7 @@ Intlayer の開発体験を向上させるために、公式の **Intlayer VS Co
 
 - [Intlayer VS Code Extension ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)
 
-### Git Configuration
+### Git の設定
 
 Intlayerが生成するファイルを無視することをお勧めします。これにより、それらをGitリポジトリにコミットすることを回避できます。
 

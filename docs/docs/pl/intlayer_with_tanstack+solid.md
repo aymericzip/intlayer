@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-25
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 9
 title: "i18n w TanStack Start + Solid: pełny przewodnik"
 description: "Konfiguracja Intlayer w TanStack Start z Solid: parametr locale w trasach, reaktywna przetłumaczona treść, zlokalizowane metadane head i hreflang."
@@ -527,7 +527,7 @@ function RouteComponent() {
 > <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
 
-> In Solid, `useIntlayer` returns reactive content (e.g., `content`). You can access its properties directly.
+> W SolidJS `useIntlayer` zwraca reaktywną treść (np. `content`). Możesz uzyskiwać bezpośredni dostęp do jej właściwości.
 >
 > Aby dowiedzieć się więcej o hooku `useIntlayer`, zapoznaj się z [dokumentacją](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/solid-intlayer/useIntlayer.md).
 
@@ -1012,7 +1012,7 @@ bun x intlayer extract
  <Tabs>
  <Tab value='intlayer >= 9'>
 
-> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+> Od wersji v9 kompilator `intlayerCompiler` jest zawarty w pluginie `intlayer`. Nie musisz więc dodawać go ręcznie.
 
  </Tab>
  <Tab value='intlayer < 9'>

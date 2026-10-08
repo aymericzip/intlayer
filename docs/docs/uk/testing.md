@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-01
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "Тестування перекладів з Intlayer"
 description: "Тестуйте контент Intlayer: знаходьте відсутні переклади, перевіряйте словники в CI та рендерте компоненти за локалями в модульних тестах."
@@ -136,7 +136,7 @@ test("рендерить локалізований заголовок англ�
 });
 ```
 
-Next.js (App Router) example: use the framework wrapper:
+Приклад для Next.js (App Router): використовуйте обгортку відповідного фреймворку:
 
 ```tsx
 import { IntlayerClientProvider } from "next-intlayer/client";

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-06-29
+updatedAt: 2026-10-08
 priority: 8
 title: "Перечисления: сообщения в зависимости от количества"
 description: "Используйте перечисления Intlayer, чтобы показывать разный контент в зависимости от числа или диапазона, с узлом enu() и условиями вроде '<-1' или '>5'."
@@ -28,7 +28,7 @@ author: aymericzip
 
 ## Как работает перечисление
 
-To use enumeration in Next.js Client Components, retrieve it via the `useIntlayer` hook. Here's an example:
+В Intlayer перечисление реализуется через функцию `enu`, которая сопоставляет определенные ключи с соответствующим содержимым. Эти ключи могут представлять числовые значения, диапазоны или пользовательские идентификаторы. При использовании с React Intlayer или Next Intlayer подходящий контент выбирается автоматически в зависимости от текущей локали приложения и определенных правил.
 
 ## Настройка перечисления
 
@@ -270,9 +270,9 @@ document.getElementById("cars")!.textContent = content.numberOfCar(6);
   </Tab>
 </Tabs>
 
-## Combining Enumeration with Insert for Ordinal Numbers
+## Сочетание перечисления со вставкой (Insert) для порядковых числительных
 
-A common use case is displaying ordinal numbers (1st, 2nd, 3rd, etc.). You can combine `enu` with `insert` to create dynamic ordinal content:
+Распространенный сценарий использования, отображение порядковых числительных (1-й, 2-й, 3-й и т. д.). Вы можете объединить `enu` с `insert`, чтобы создать динамический контент с порядковыми номерами:
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { enu, insert, type Dictionary } from "intlayer";
@@ -322,7 +322,7 @@ export default rankingContent;
 }
 ```
 
-### Using Ordinal Enumeration
+### Использование порядковых перечислений
 
 <Tabs group="framework">
   <Tab label="React" value="react">

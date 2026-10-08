@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-01-02
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 9
 title: react-i18next vs react-intl vs Intlayer
 description: Інтеграція react-i18next з next-intl та Intlayer для інтернаціоналізації (i18n) React-додатка
@@ -19,7 +19,7 @@ slugs:
 author: aymericzip
 ---
 
-# react-Intl VS react-i18next VS intlayer
+# react-intl проти react-i18next проти Intlayer
 
 Цей посібник порівнює три визнані варіанти i18n для **React**: **react-intl** (FormatJS), **react-i18next** (i18next) та **Intlayer**.
 Ми зосереджені на **plain React** додатках (наприклад, Vite, CRA, SPA). Якщо ви використовуєте Next.js, див. наше окреме порівняння для Next.js.
@@ -121,11 +121,11 @@ author: aymericzip
 
 <I18nBenchmark framework="tanstack" vertical/>
 
-| Library            | Strategy | Lib size (gz) | Page JS avg (gz) | Locale leak | Page leak | Component avg (gz) | E2E reactivity | Hydration |
-| ------------------ | -------- | ------------: | ---------------: | ----------: | --------: | -----------------: | -------------: | --------: |
-| **base** (no i18n) | -        |        0.0 KB |         111.0 KB |        0.0% |      0.0% |             0.7 KB |         8.1 ms |   21.6 ms |
-| `react-i18next`    | dynamic  |       18.4 KB |         136.4 KB |       23.1% |     89.8% |            24.8 KB |       123.1 ms |   32.9 ms |
-| **`intlayer`**     | dynamic  |    **5.0 KB** |     **118.6 KB** |    **0.0%** |  **0.0%** |         **6.3 KB** |     **3.6 ms** |   14.1 ms |
+| Бібліотека         | Стратегія | Розмір ліби (gz) | Сер. JS сторінки (gz) | Витік локалей | Витік сторінки | Сер. компонент (gz) | E2E реактивність | Гідратація |
+| ------------------ | --------- | ---------------: | --------------------: | ------------: | -------------: | ------------------: | ---------------: | ---------: |
+| **base** (no i18n) | -         |           0.0 KB |              111.0 KB |          0.0% |           0.0% |              0.7 KB |           8.1 ms |    21.6 ms |
+| `react-i18next`    | dynamic   |          18.4 KB |              136.4 KB |         23.1% |          89.8% |             24.8 KB |         123.1 ms |    32.9 ms |
+| **`intlayer`**     | dynamic   |       **5.0 KB** |          **118.6 KB** |      **0.0%** |       **0.0%** |          **6.3 KB** |       **3.6 ms** |    14.1 ms |
 
 <ClickToOpenIframe
   src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md"
@@ -160,7 +160,7 @@ author: aymericzip
 
 ## Додаткові матеріали та бенчмарки
 
-- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/i18next_vs_intlayer-i18next.md)
+- [i18next проти @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/i18next_vs_intlayer-i18next.md)
 - [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/next-intl_vs_intlayer.md)
 - [Оптимізація бандла](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/bundle_optimization.md)
 - [компілятор Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compiler.md)

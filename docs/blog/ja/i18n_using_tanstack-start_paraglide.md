@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-26
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 9
 title: "Paraglide JS を使用した TanStack Start の i18n：2026年セットアップガイド"
 description: "Paraglide JS を使用して TanStack Start アプリを多言語化：URL 戦略、ルーターリライト、SSR ミドルウェア、hreflang、サイトマップ、robots.txt、さらに実際のベンチマークデータ。"
@@ -871,7 +871,7 @@ Paraglide は翻訳のレンダリングを行いますが、翻訳の**生成**
 
 <Question title="Paraglide JS は TanStack Start に適した選択肢ですか？">
 
-堅実な選択肢の1つです。公式の TanStack Router サンプルで使用されており、[ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md)で最も小さいランタイム（gzip で約 1.8 KB）を持ち、メッセージは完全に型付けされています。トレードオフとしては、すべてのメッセージ関数に全ロケールが含まれるため翻訳文字列の約半分が他言語の訪問者に漏洩すること、およびロケール切り替え時にページ全体がリロードされることが挙げられます。
+堅実な選択肢の1つです。公式の TanStack Router サンプルで使用されており、[ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md)で最も小さいランタイム（gzip で約 1.8 KB）を持ち、メッセージは完全な TypeScript 型定義されています。トレードオフとしては、すべてのメッセージ関数に全ロケールが含まれるため翻訳文字列の約半分が他言語の訪問者に漏洩すること、およびロケール切り替え時にページ全体がリロードされることが挙げられます。
 
 - [ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md)
 

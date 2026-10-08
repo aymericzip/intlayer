@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-01-02
-updatedAt: 2025-10-29
+updatedAt: 2026-10-08
 priority: 8
 title: "أتمتة ترجمات JSON في next-intl باستخدام Intlayer"
 description: أتمتة ترجمات JSON الخاصة بك باستخدام Intlayer و next-intl لتعزيز التدويل في تطبيقات Next.js.
@@ -44,7 +44,7 @@ author: aymericzip
 
 ## لماذا الجمع بين Intlayer و next-intl؟
 
-بينما يوفر Intlayer حلاً ممتازًا مستقلاً للتدويل (راجع دليل التكامل مع Next.js الخاص بنا [Next.js integration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_16.md))، قد ترغب في دمجه مع next-intl لأسباب عدة:
+بينما يوفر Intlayer حلاً ممتازًا مستقلاً للتدويل (راجع دليل التكامل مع Next.js الخاص بنا [دليل تكامل Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_16.md))، قد ترغب في دمجه مع next-intl لأسباب عدة:
 
 1. **قاعدة الشيفرة الحالية**: لديك تنفيذ قائم لـ next-intl وتريد الترحيل تدريجيًا إلى تجربة المطور المحسنة التي يوفرها Intlayer.
 2. **متطلبات قديمة**: يتطلب مشروعك التوافق مع ملحقات أو سير عمل next-intl الحالية.

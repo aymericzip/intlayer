@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-20
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 9
 title: "SvelteKit i18n - Полное руководство по переводу вашего приложения"
 description: "Настройка Intlayer в SvelteKit: маршрутизация по локалям через hooks, переведённый контент в функциях load и компонентах, hreflang и sitemap."
@@ -114,7 +114,7 @@ Intlayer это больше, чем просто решение i18n. Он пр
 
 ## Пошаговое руководство по настройке Intlayer в приложении SvelteKit
 
-See [Application Template](https://github.com/aymericzip/intlayer-sveltekit-template) on GitHub.
+Смотрите [шаблон приложения](https://github.com/aymericzip/intlayer-sveltekit-template) на GitHub.
 
 Для начала создайте новый проект SvelteKit. Вот итоговая структура, которую мы создадим:
 
@@ -731,7 +731,7 @@ bun x intlayer extract
  <Tabs>
  <Tab value='intlayer >= 9'>
 
-> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+> Начиная с версии 9, `intlayerCompiler` включен в плагин `intlayer`. Поэтому вам не нужно добавлять его вручную.
 
  </Tab>
  <Tab value='intlayer < 9'>

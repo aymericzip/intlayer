@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-02
-updatedAt: 2026-06-23
+updatedAt: 2026-10-08
 priority: 8
 title: "自定义域名：每个语言一个域名"
 description: 了解如何在 Intlayer 中配置基于域名的语言路由，以便从专用主机名提供不同的语言版本。
@@ -196,7 +196,7 @@ GET intlayer.zh/about
 
 `intlayerProxy` Vite 插件在开发期间应用相同的逻辑：
 
-> 从 Intlayer v9 开始，`intlayerProxy()` 已直接捆绑到 `intlayer()` 插件中，并通过 `routing.enableProxy` 选项默认启用（`true` 为默认值）。如下所示单独注册现已成为可选项，保留它是为了向后兼容性以及需要控制插件顺序的设置。设置 `routing.enableProxy: false` 以选择退出。请参阅 [v9 发布说明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/releases/v9.md)。
+> 从 Intlayer v9 开始，`intlayerProxy()` 已直接内置集成到 `intlayer()` 插件中，并通过 `routing.enableProxy` 选项默认启用（`true` 为默认值）。如下所示单独注册现已成为可选项，保留它是为了向后兼容性以及需要控制插件顺序的设置。设置 `routing.enableProxy: false` 以选择退出。请参阅 [v9 发布说明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/releases/v9.md)。
 
 - [v9 发布说明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/releases/v9.md)
 

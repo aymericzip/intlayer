@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-10-08
 priority: 5
 title: "توثيق حزمة express-intlayer"
-description: Express middleware for Intlayer, providing translation functions and locale detection.
+description: برمجية Express وسيطة لـ Intlayer، توفر دوال الترجمة واكتشاف اللغة.
 keywords:
   - express-intlayer
   - express
@@ -18,7 +18,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-21
-    changes: "Unified documentation for all exports"
+    changes: "توثيق موحد لجميع التصديرات"
 author: aymericzip
 ---
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-06-29
+updatedAt: 2026-10-08
 priority: 5
 title: useDictionary Hook 文档 | next-intlayer
 description: "在 Next.js 中使用 useDictionary 解析你自己声明的字典对象，并获取当前语言的翻译。"
@@ -26,13 +26,13 @@ history:
 author: aymericzip
 ---
 
-# React 集成：`useDictionary` 钩子文档
+# React 集成：`useDictionary` Hook文档
 
-本节详细介绍了如何在 React 应用中使用 `useDictionary` 钩子，实现无需可视化编辑器即可高效处理本地化内容。
+本节详细介绍了如何在 React 应用中使用 `useDictionary` Hook，实现无需可视化编辑器即可高效处理本地化内容。
 
 ## 在 React 中导入 `useDictionary`
 
-`useDictionary` 钩子可以根据上下文导入到 React 应用中：
+`useDictionary` Hook可以根据上下文导入到 React 应用中：
 
 - **客户端组件：**
 
@@ -64,7 +64,7 @@ author: aymericzip
 
 ## 参数
 
-该钩子接受两个参数：
+该Hook接受两个参数：
 
 1. **`dictionary`**：一个声明的字典对象，包含特定键的本地化内容。
 2. **`locale`**（可选）：期望的语言环境。如果未指定，默认为当前上下文的语言环境。
@@ -99,7 +99,7 @@ export default exampleContent;
 
 ## React 客户端组件中的示例用法
 
-下面是如何在 React 组件中使用 `useDictionary` 钩子的示例：
+下面是如何在 React 组件中使用 `useDictionary` Hook的示例：
 
 ```tsx fileName="ClientComponentExample.tsx" codeFormat={["typescript", "esm"]}
 "use client";
@@ -122,7 +122,7 @@ const ClientComponentExample: FC = () => {
 
 ## React 服务器组件中的示例用法
 
-如果你在 `IntlayerServerProvider` 之外使用 `useDictionary` 钩子，必须在渲染组件时显式提供 locale 作为参数：
+如果你在 `IntlayerServerProvider` 之外使用 `useDictionary` Hook，必须在渲染组件时显式提供 locale 作为参数：
 
 ```tsx fileName="ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
@@ -154,4 +154,4 @@ const ServerComponentExample: FC = () => {
 - **类型安全**：始终使用 `Dictionary` 来定义你的字典，以确保类型安全。
 - **本地化更新**：更新内容时，确保所有语言版本保持一致，以避免遗漏翻译。
 
-本档案重点介绍 `useDictionary` 钩子的集成，提供了一种简化的方式来管理本地化内容，无需依赖可视化编辑器功能。
+本档案重点介绍 `useDictionary` Hook的集成，提供了一种简化的方式来管理本地化内容，无需依赖可视化编辑器功能。

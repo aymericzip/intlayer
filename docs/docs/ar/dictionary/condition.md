@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "المحتوى الشرطي في Intlayer"
 description: "اعرض محتوى مختلفًا حسب شرط منطقي باستخدام العقدة cond() في Intlayer، يُعرَّف مرة واحدة ويُحسم عند العرض."
@@ -71,7 +71,7 @@ export default myConditionalContent;
 <Tabs group="framework">
   <Tab label="React" value="react">
 
-To utilize conditional content within a React component, import and use the `useIntlayer` hook from the `react-intlayer` package. This hook fetches the content for the specified key and allows you to pass in a condition to select the appropriate output.
+لاستخدام المحتوى الشرطي داخل مكون React، استورد واستخدم خطاف `useIntlayer` من حزمة `react-intlayer`. يجلب هذا الخطاف المحتوى للمفتاح المحدد ويسمح لك بتمرير شرط لتحديد المخرجات المناسبة.
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
@@ -116,7 +116,7 @@ export default ConditionalComponent;
   </Tab>
   <Tab label="Next.js" value="nextjs">
 
-To utilize conditional content in Next.js Client Components, retrieve it via the `useIntlayer` hook. Here's an example:
+لاستخدام المحتوى الشرطي في مكونات عميل Next.js، استرجعه عبر خطاف `useIntlayer`. فيما يلي مثال:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 "use client";
@@ -141,7 +141,7 @@ export default ConditionalComponent;
   </Tab>
   <Tab label="Vue" value="vue">
 
-To utilize conditional content in Vue components, retrieve it via the `useIntlayer` hook. Here's an example:
+لاستخدام المحتوى الشرطي في مكونات Vue، استرجعه عبر خطاف `useIntlayer`. فيما يلي مثال:
 
 ```vue fileName="**/*.vue"
 <script setup lang="ts">
@@ -161,7 +161,172 @@ const { myCondition } = useIntlayer("my_key");
   </Tab>
   <Tab label="Svelte" value="svelte">
 
-To utilize conditional content in Svelte components, retrieve it via the `useIntlayer` hook. The store is accessed with `$`. Here's an example:
+لاستخدام المحتوى الشرطي في مكونات Svelte، استرجعه عبر خطاف `useIntlayer`. يتم الوصول إلى المخزن باستخدام `---
+createdAt: 2025-02-07
+updatedAt: 2026-09-27
+priority: 8
+title: "المحتوى الشرطي في Intlayer"
+description: "اعرض محتوى مختلفًا حسب شرط منطقي باستخدام العقدة cond() في Intlayer، يُعرَّف مرة واحدة ويُحسم عند العرض."
+keywords:
+
+- محتوى شرطي
+- التصيير الديناميكي
+- وثائق
+- Intlayer
+- Next.js
+- JavaScript
+- React
+  slugs:
+- doc
+- concept
+- content
+- condition
+  author: aymericzip
+
+---
+
+# المحتوى الشرطي / الشرط في Intlayer
+
+## كيف يعمل الشرط
+
+في Intlayer، يتم تحقيق المحتوى الشرطي من خلال وظيفة `cond`، التي تربط شروطًا محددة (عادةً قيم منطقية) بالمحتوى المقابل لها. يتيح لك هذا النهج اختيار المحتوى ديناميكيًا بناءً على شرط معين. عند دمجه مع React Intlayer أو Next Intlayer، يتم اختيار المحتوى المناسب تلقائيًا وفقًا للشرط المقدم أثناء وقت التشغيل.
+
+## إعداد المحتوى الشرطي
+
+لإعداد المحتوى الشرطي في مشروع Intlayer الخاص بك، قم بإنشاء وحدة محتوى تتضمن تعريفاتك الشرطية. فيما يلي أمثلة بتنسيقات مختلفة.
+
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import { cond, type Dictionary } from "intlayer";
+
+const myConditionalContent = {
+  key: "my_key",
+  content: {
+    myCondition: cond({
+      true: "المحتوى الخاص بي عندما يكون الشرط صحيحًا",
+      false: "المحتوى الخاص بي عندما يكون الشرط خاطئًا",
+      fallback: "المحتوى الخاص بي عندما يفشل الشرط", // اختياري
+    }),
+  },
+} satisfies Dictionary;
+
+export default myConditionalContent;
+```
+
+```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "my_key",
+  "content": {
+    "myCondition": {
+      "nodeType": "condition",
+      "condition": {
+        "true": "المحتوى الخاص بي عندما يكون الشرط صحيحًا",
+        "false": "المحتوى الخاص بي عندما يكون الشرط خاطئًا",
+        "fallback": "المحتوى الخاص بي عندما يفشل الشرط", // اختياري
+      },
+    },
+  },
+}
+```
+
+> إذا لم يتم إعلان fallback، سيتم أخذ المفتاح الأخير المعلن كـ fallback إذا لم يتم التحقق من الشرط.
+
+## استخدام المحتوى الشرطي مع React Intlayer
+
+<Tabs group="framework">
+  <Tab label="React" value="react">
+
+لاستخدام المحتوى الشرطي داخل مكون React، استورد واستخدم خطاف `useIntlayer` من حزمة `react-intlayer`. يجلب هذا الخطاف المحتوى للمفتاح المحدد ويسمح لك بتمرير شرط لتحديد المخرجات المناسبة.
+
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
+import type { FC } from "react";
+import { useIntlayer } from "react-intlayer";
+
+const ConditionalComponent: FC = () => {
+  const { myCondition } = useIntlayer("my_key");
+
+  return (
+    <div>
+      <p>
+        {
+          /* Output: my content when it's true */
+          myCondition(true)
+        }
+      </p>
+      <p>
+        {
+          /* Output: my content when it's false */
+          myCondition(false)
+        }
+      </p>
+      <p>
+        {
+          /* Output: my content when the condition fails */
+          myCondition("")
+        }
+      </p>
+      <p>
+        {
+          /* Output: my content when the condition fails */
+          myCondition(undefined)
+        }
+      </p>
+    </div>
+  );
+};
+
+export default ConditionalComponent;
+```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+
+لاستخدام المحتوى الشرطي في مكونات عميل Next.js، استرجعه عبر خطاف `useIntlayer`. فيما يلي مثال:
+
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
+"use client";
+
+import type { FC } from "react";
+import { useIntlayer } from "next-intlayer";
+
+const ConditionalComponent: FC = () => {
+  const { myCondition } = useIntlayer("my_key");
+
+  return (
+    <div>
+      <p>{myCondition(true)}</p>
+      <p>{myCondition(false)}</p>
+    </div>
+  );
+};
+
+export default ConditionalComponent;
+```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+لاستخدام المحتوى الشرطي في مكونات Vue، استرجعه عبر خطاف `useIntlayer`. فيما يلي مثال:
+
+```vue fileName="**/*.vue"
+<script setup lang="ts">
+import { useIntlayer } from "vue-intlayer";
+
+const { myCondition } = useIntlayer("my_key");
+</script>
+
+<template>
+  <div>
+    <p>{{ myCondition(true) }}</p>
+    <p>{{ myCondition(false) }}</p>
+  </div>
+</template>
+```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+. فيما يلي مثال:
 
 ```svelte fileName="**/*.svelte"
 <script lang="ts">
@@ -179,7 +344,7 @@ const content = useIntlayer("my_key");
   </Tab>
   <Tab label="Preact" value="preact">
 
-To utilize conditional content in Preact components, retrieve it via the `useIntlayer` hook. Here's an example:
+لاستخدام المحتوى الشرطي في مكونات Preact، استرجعه عبر خطاف `useIntlayer`. فيما يلي مثال:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "preact";
@@ -202,7 +367,7 @@ export default ConditionalComponent;
   </Tab>
   <Tab label="Solid" value="solid">
 
-To utilize conditional content in SolidJS components, retrieve it via the `useIntlayer` hook. Here's an example:
+لاستخدام المحتوى الشرطي في مكونات SolidJS، استرجعه عبر خطاف `useIntlayer`. فيما يلي مثال:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { Component } from "solid-js";
@@ -225,7 +390,7 @@ export default ConditionalComponent;
   </Tab>
   <Tab label="Angular" value="angular">
 
-To utilize conditional content in Angular components, retrieve it via the `useIntlayer` hook. Here's an example:
+لاستخدام المحتوى الشرطي في مكونات Angular، استرجعه عبر خطاف `useIntlayer`. فيما يلي مثال:
 
 ```typescript fileName="app.component.ts" codeFormat="typescript"
 import { Component } from "@angular/core";
@@ -248,7 +413,7 @@ export class ConditionalComponent {
   </Tab>
   <Tab label="Vanilla JS" value="vanilla">
 
-To utilize conditional content with `vanilla-intlayer`, retrieve it via the `useIntlayer` hook. Here's an example:
+لاستخدام المحتوى الشرطي مع `vanilla-intlayer`، استرجعه عبر خطاف `useIntlayer`. فيما يلي مثال:
 
 ```typescript fileName="**/*.ts" codeFormat={["typescript", "esm"]}
 import { installIntlayer, useIntlayer } from "vanilla-intlayer";

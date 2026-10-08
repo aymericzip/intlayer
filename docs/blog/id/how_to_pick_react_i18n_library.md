@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-28
+updatedAt: 2026-10-08
 priority: 8
 title: "Cara Memilih Library React i18n yang Tepat di Tahun 2026"
 description: "Panduan memilih i18n untuk React: pertanyaan yang perlu dijawab sebelum membandingkan react-i18next, react-intl, Lingui, use-intl, Paraglide, dan Intlayer."
@@ -109,13 +109,13 @@ Ukuran library diambil dari [benchmark TanStack Start](https://github.com/aymeri
 
 | Library                 | Gelombang    | Model konten                           | Keamanan tipe                      | Format pesan                  | Ukuran library                                           |
 | :---------------------- | :----------- | :------------------------------------- | :--------------------------------- | :---------------------------- | :------------------------------------------------------- |
-| `react-i18next`         | Runtime      | JSON terpusat, namespace               | 2/5 — Opt-in (`CustomTypeOptions`) | i18next (suffix plurals)      | ~18.4 kB                                                 |
-| `react-intl` (FormatJS) | Runtime      | JSON terpusat, ICU                     | 2/5 — Opt-in (ekstraksi + union)   | ICU                           | ~15.3 kB                                                 |
-| `use-intl`              | Server-first | JSON terpusat, ICU                     | 2/5 — Opt-in (declaration merging) | ICU                           | ~14.1 kB                                                 |
-| `@tolgee/react`         | Runtime      | Terpusat, in-context editing           | 1/5 — Tidak                        | ICU                           | ~11.1 kB                                                 |
-| Lingui                  | Makro        | Teks sumber di kode, katalog kompilasi | 2/5 — Bagus, dari compiler         | ICU via makro                 | ~11.8 kB                                                 |
-| Paraglide               | Compiler     | Proyek inlang, fungsi ter-generate     | 3.5/5 — Ter-generate               | Kustom                        | Hampir nol (karena kode yang dihasilkan di dalam proyek) |
-| Intlayer                | Compiler     | `.content.ts` per komponen             | 5/5 — Ter-generate, aktif default  | Intlayer (+ ICU, i18next, PO) | ~5.0 kB                                                  |
+| `react-i18next`         | Runtime      | JSON terpusat, namespace               | 2/5 - Opt-in (`CustomTypeOptions`) | i18next (suffix plurals)      | ~18.4 kB                                                 |
+| `react-intl` (FormatJS) | Runtime      | JSON terpusat, ICU                     | 2/5 - Opt-in (ekstraksi + union)   | ICU                           | ~15.3 kB                                                 |
+| `use-intl`              | Server-first | JSON terpusat, ICU                     | 2/5 - Opt-in (declaration merging) | ICU                           | ~14.1 kB                                                 |
+| `@tolgee/react`         | Runtime      | Terpusat, in-context editing           | 1/5 - Tidak                        | ICU                           | ~11.1 kB                                                 |
+| Lingui                  | Makro        | Teks sumber di kode, katalog kompilasi | 2/5 - Bagus, dari compiler         | ICU via makro                 | ~11.8 kB                                                 |
+| Paraglide               | Compiler     | Proyek inlang, fungsi ter-generate     | 3.5/5 - Ter-generate               | Kustom                        | Hampir nol (karena kode yang dihasilkan di dalam proyek) |
+| Intlayer                | Compiler     | `.content.ts` per komponen             | 5/5 - Ter-generate, aktif default  | Intlayer (+ ICU, i18next, PO) | ~5.0 kB                                                  |
 
 > Angka-angka ini adalah snapshot pada versi saat benchmark dilakukan dan dapat berubah seiring rilis versi baru. Jalankan benchmark pada aplikasi Anda sendiri sebelum memutuskan hanya berdasarkan ukuran.
 > Keamanan tipe: 5/5 berarti kunci, parameter, dan setiap locale diperiksa tanpa penyiapan manual, termasuk pemformat URL dan pembantu (helpers).

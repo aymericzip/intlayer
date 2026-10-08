@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 10
 title: "Intlayer を始める：あらゆるフレームワークの i18n"
-description: Intlayerの仕組みを発見しましょう。アプリケーションでIntlayerが使用するステップを確認します。異なるパッケージが何を行うかを発見します。
+description: Intlayerの仕組みを学びましょう。アプリケーションでIntlayerが使用するステップを確認します。異なるパッケージが何を行うかを発見します。
 keywords:
   - はじめに
   - 始め方
@@ -30,7 +30,7 @@ author: aymericzip
 
 **Intlayer**は、JavaScript開発者向けに特別に設計された国際化ライブラリです。コード内のどこにでもコンテンツの宣言を行うことができます。多言語コンテンツの宣言を構造化された辞書に変換し、コードに簡単に統合できるようにします。TypeScriptを使用することで、**Intlayer**は開発をより堅牢かつ効率的にします。
 
-Intlayerには、コンテンツを簡単に編集および管理できるオプションのビジュアルエディタも用意されています。このエディタは、コンテンツ管理のためにビジュアルインターフェイスを好む開発者や、コードを気にせずにコンテンツを生成するチームに特に役立ちます。
+Intlayerには、コンテンツを簡単に編集および管理できるオプションのビジュアルエディタも用意されています。このエディタは、コンテンツ管理のためにビジュアルインターフェイスを好む開発者や、コードを直接編集することなくコンテンツを生成・管理するチームに特に役立ちます。
 
 ### 使用例
 
@@ -101,12 +101,12 @@ export const MyComponent: FC = () => {
 </Accordion>
 <Accordion header="保守性">
 
-アプリケーションのコンテンツのスコープを限定することは、大規模なアプリケーションの**保守を容易にします**。コンテンツのコードベース全体を確認するという精神的負担なしに、単一の機能フォルダを複製または削除できます。さらに、Intlayerはコンテンツの正確性を確保するために**完全に型付け（fully typed）**されています。
+アプリケーションのコンテンツのスコープを限定することは、大規模なアプリケーションの**保守を容易にします**。コンテンツのコードベース全体を確認するという認知的負荷をかけることなく、単一の機能フォルダを複製または削除できます。さらに、Intlayerはコンテンツの正確性を確保するために**完全な型安全性（fully typed）**されています。
 
 </Accordion>
 <Accordion header="AIエージェント">
 
-コンテンツを同一の場所に配置することは、大規模言語モデル（LLM）によって**必要なコンテキストを減らします**。Intlayerには、不足している翻訳をテストするための**CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)**、および**[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)**などの一連のツールも付属しており、AIエージェント向けのデベロッパーエクスペリエンス（DX）をさらにスムーズにします。
+コンテンツをコンポーネントと同一ディレクトリに配置（Co-location）することで、大規模言語モデル（LLM）によって**必要なコンテキストを減らします**。Intlayerには、不足している翻訳をテストするための**CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)**、および**[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)**などの一連のツールも付属しており、AIエージェント向けのデベロッパーエクスペリエンス（DX）をさらにスムーズにします。
 
 - [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)
 - [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)
@@ -115,14 +115,14 @@ export const MyComponent: FC = () => {
 </Accordion>
 <Accordion header="自動化">
 
-CI/CDパイプラインでの翻訳に、AIプロバイダーのコストでお好みのLLMを使用して自動化を利用できます。Intlayerはまた、コンテンツ抽出を自動化するための**コンパイラー**や、**バックグラウンドでの翻訳**を支援する[ウェブプラットフォーム](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を提供します。
+CI/CDパイプラインでの翻訳に、自前の AI プロバイダーの API 利用料でお好みのLLMを使用して自動化を利用できます。Intlayerはまた、コンテンツ抽出を自動化するための**コンパイラー**や、**バックグラウンド翻訳**を支援する[ウェブプラットフォーム](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を提供します。
 
 - [ウェブプラットフォーム](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="パフォーマンス">
 
-巨大なJSONファイルをコンポーネントに接続すると、パフォーマンスやリアクティビティの問題が発生する可能性があります。Intlayerはビルド時にコンテンツの読み込みを最適化します。
+巨大なJSONファイルをコンポーネントに接続すると、パフォーマンスやレンダリング性能や反応性の低下が発生する可能性があります。Intlayerはビルド時にコンテンツの読み込みを最適化します。
 
 </Accordion>
 <Accordion header="開発者以外とのスケール">

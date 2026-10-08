@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-19
-updatedAt: 2026-09-19
+updatedAt: 2026-10-08
 priority: 5
-title: useLocale 钩子文档 | remix-intlayer
-description: 了解如何在 Remix 3 应用程序中使用 useLocale 钩子获取当前请求语言环境、默认语言环境和可用语言环境。
+title: useLocale Hook文档 | remix-intlayer
+description: 了解如何在 Remix 3 应用程序中使用 useLocale Hook获取当前请求语言环境、默认语言环境和可用语言环境。
 keywords:
   - useLocale
   - locale
@@ -21,13 +21,13 @@ slugs:
 history:
   - version: 9.5.5
     date: 2026-09-19
-    changes: "useLocale 钩子初始文档"
+    changes: "useLocale Hook初始文档"
 author: aymericzip
 ---
 
-# useLocale 钩子文档
+# useLocale Hook文档
 
-`remix-intlayer` 中的 `useLocale` 钩子提供对当前正在处理的 HTTP 请求的语言环境，以及项目中配置的默认语言环境和可用语言环境的访问。
+`remix-intlayer` 中的 `useLocale` Hook提供对当前正在处理的 HTTP 请求的语言环境，以及项目中配置的默认语言环境和可用语言环境的访问。
 
 ## 使用方法
 
@@ -85,7 +85,7 @@ router.get("/api/locale-info", () => {
 
 ## 返回值
 
-该钩子返回一个 `UseLocaleResult` 类型的对象：
+该Hook返回一个 `UseLocaleResult` 类型的对象：
 
 | 属性               | 类型                | 描述                                                     |
 | ------------------ | ------------------- | -------------------------------------------------------- |
@@ -101,5 +101,5 @@ router.get("/api/locale-info", () => {
 ## 相关文档
 
 - [`intlayer` 中间件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/remix-intlayer/intlayerMiddleware.md)
-- [`useIntlayer` 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/remix-intlayer/useIntlayer.md)
-- [`useDictionary` 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/remix-intlayer/useDictionary.md)
+- [`useIntlayer` Hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/remix-intlayer/useIntlayer.md)
+- [`useDictionary` Hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/remix-intlayer/useDictionary.md)

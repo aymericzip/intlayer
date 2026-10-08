@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-01
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 9
 title: "i18n у Next.js 16 з next-intl: посібник із налаштування App Router"
 description: "Покрокове налаштування next-intl у застосунку Next.js 16 з App Router: маршрутизація за локалями, завантаження повідомлень для кожної сторінки, серверні та клієнтські компоненти й SEO-метадані."
@@ -39,7 +39,7 @@ author: aymericzip
 
 > Див. порівняння у [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/next-i18next_vs_next-intl_vs_intlayer.md).
 
-- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/next-i18next_vs_next-intl_vs_intlayer.md)
+- [next-i18next проти next-intl проти Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/next-i18next_vs_next-intl_vs_intlayer.md)
 
 > Щоб зрозуміти, звідки взялися ці бібліотеки, прочитайте історію i18n у JavaScript.
 
@@ -106,30 +106,30 @@ author: aymericzip
 > Розміри runtime взято з [бенчмарку Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/nextjs.md). Детальне обговорення читайте в [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/next-i18next_vs_next-intl_vs_intlayer.md).
 
 - [бенчмарку Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/nextjs.md)
-- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/next-i18next_vs_next-intl_vs_intlayer.md)
+- [next-i18next проти next-intl проти Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/next-i18next_vs_next-intl_vs_intlayer.md)
 
 ## Практики, яких слід дотримуватися
 
 Перш ніж приступити до реалізації, ось кілька практик, яких варто дотримуватись:
 
-- **Set HTML `lang` and `dir` attributes**
+- **Встановлюйте атрибути HTML `lang` та `dir`**
   У вашому layout обчислюйте `dir` за допомогою `getLocaleDirection(locale)` і встановлюйте `<html lang={locale} dir={dir}>` для коректної доступності та SEO.
-- **Split messages by namespace**
+- **Розділяйте повідомлення за просторами імен (namespace)**
   Організовуйте файли JSON за локаллю та namespace (наприклад, `common.json`, `about.json`), щоб завантажувати лише те, що потрібно.
-- **Minimize client payload**
+- **Мінімізуйте корисне навантаження клієнта**
   На сторінках надсилайте до `NextIntlClientProvider` лише потрібні namespace (наприклад, `pick(messages, ['common', 'about'])`).
-- **Prefer static pages**
+- **Віддавайте перевагу статичним сторінкам**
   Якнайчастіше використовуйте статичні сторінки для кращої продуктивності та SEO.
-- **I18n in server components**
+- **i18n у серверних компонентах**
   I18n у серверних компонентах
   Серверні компоненти, наприклад сторінки або всі компоненти, які не позначені як `client`, є статичними і можуть бути попередньо відрендерені під час збірки. Тому нам доведеться передавати функції перекладу їм як props.
-- **Set up TypeScript types**
+- **Налаштуйте типи TypeScript**
   Налаштуйте типи TypeScript для ваших локалей, щоб забезпечити типобезпеку в усьому додатку.
-- **Proxy for redirection**
+- **Проксі або middleware для перенаправлення**
   Використовуйте проксі для обробки визначення локалі та маршрутизації і перенаправлення користувача на відповідний URL з префіксом локалі.
-- **Internationalization of your metadata, sitemap, robots.txt**
+- **Інтернаціоналізація ваших метаданих, sitemap та robots.txt**
   Інтернаціоналізуйте ваші метадані, sitemap, robots.txt, використовуючи функцію `generateMetadata`, надану Next.js, щоб забезпечити краще індексування пошуковими системами у всіх локалях.
-- **Localize Links**
+- **Локалізуйте посилання**
   Локалізуйте посилання
   Локалізуйте посилання, використовуючи компонент `Link`, щоб перенаправляти користувача на URL із відповідним префіксом локалі. Це важливо для забезпечення індексації ваших сторінок у всіх локалях.
 - **Автоматизуйте тести та переклади**
@@ -871,7 +871,7 @@ Intlayer дозволить вам:
 
 - [Звіт бенчмарку Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/nextjs.md)
 - [Набір бенчмарків i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/index.md)
-- [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/next-intl_vs_intlayer-next-intl.md)
+- [next-intl проти @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/next-intl_vs_intlayer-next-intl.md)
 - [Compat-адаптер @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/next-intl.md)
 
 </Step>

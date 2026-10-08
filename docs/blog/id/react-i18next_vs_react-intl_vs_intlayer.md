@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-01-02
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 9
 title: react-i18next vs react-intl vs Intlayer
 description: Integrasikan react-i18next dengan next-intl dan Intlayer untuk internasionalisasi (i18n) aplikasi React
@@ -156,7 +156,7 @@ Angka dari [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) ya
 
 `intlayer` juga dapat membantu mengelola namespace `react-intl` dan `react-i18next` Anda.
 
-Dengan menggunakan `intlayer`, Anda dapat mendeklarasikan konten Anda dalam format perpustakaan i18n favorit Anda, dan intlayer akan menghasilkan namespace Anda di lokasi pilihan Anda (contoh: `/messages/{{locale}}/{{namespace}}.json`).
+Dengan menggunakan `intlayer`, Anda dapat mendeklarasikan konten Anda dalam format library i18n favorit Anda, dan intlayer akan menghasilkan namespace Anda di lokasi pilihan Anda (contoh: `/messages/{{locale}}/{{namespace}}.json`).
 
 ## Bacaan lanjutan & benchmark
 

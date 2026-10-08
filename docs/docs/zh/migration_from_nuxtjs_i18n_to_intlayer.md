@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-05
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 7
 title: "从 @nuxtjs/i18n 迁移到 Intlayer"
 description: "逐步将 Nuxt 应用从 @nuxtjs/i18n 迁移到 Intlayer，先使用 @intlayer/vue-i18n 适配器，确保不破坏现有代码。"
@@ -37,30 +37,30 @@ author: aymericzip
 </Accordion>
 <Accordion header="可维护性">
 
-对应用程序的内容进行作用域划分**便于大规模应用的维护**。您可以复制或删除单个功能文件夹，无需审查整个内容代码库的心理负担。此外，Intlayer **完全类型化**，确保内容的准确性。
+对应用程序的内容进行作用域划分**便于大规模应用的维护**。您可以复制或删除单个功能文件夹，无需审查整个内容代码库的认知负担。此外，Intlayer **完全类型化**，确保内容的准确性。
 
 Intlayer 也是 i18n 生态系统中**开发最活跃的**解决方案，问题修复快速、新框架适配器定期发布，核心 API 根据真实生产反馈不断优化。
 
 </Accordion>
 <Accordion header="AI Agent">
 
-将内容并置**减少了大语言模型 (LLM) 所需的上下文**。Intlayer 还提供了一套工具，如用于测试缺失翻译的 **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)** 和 **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)**，使 AI agents 的开发体验 (DX) 更加顺畅。
+将内容并置**减少了大语言模型 (LLM) 所需的上下文**。Intlayer 还提供了一套工具，如用于测试缺失翻译的 **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)** 和 **[Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)**，使 AI agents 的开发体验 (DX) 更加顺畅。
 
 - [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)
 - [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)
-- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)
 
 </Accordion>
 <Accordion header="自动化">
 
-在 CI/CD 管道中使用自动化翻译，使用您选择的 LLM，按 AI 提供商的费用计费。Intlayer 还提供了**编译器**来自动提取内容，以及 [web 平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) 来帮助**后台翻译**。
+在 CI/CD 流水线中使用自动化翻译，使用您选择的 LLM，按 AI 提供商的费用计费。Intlayer 还提供了**编译器**来自动提取内容，以及 [web 平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) 来帮助**后台翻译**。
 
 - [web 平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="性能">
 
-将庞大的 JSON 文件连接到组件可能会导致性能和响应性问题。Intlayer 在构建时优化您的内容加载。
+将庞大的 JSON 文件连接到组件容易导致性能下降与响应迟滞问题。Intlayer 在构建时优化您的内容加载。
 
 </Accordion>
 <Accordion header="与非开发人员协作扩展">
@@ -205,7 +205,7 @@ Intlayer 插件已在 bundler 级别处理别名。如果你更希望在源文�
 | ------------------------------------ | ---------------------------------------------- |
 | `import { useI18n } from 'vue-i18n'` | `import { useI18n } from '@intlayer/vue-i18n'` |
 
-这些是**即插即用的替代品**，不需要对调用签名、参数或返回类型进行任何更改。
+这些是**即插即用的无缝替代方案**，不需要对调用签名、参数或返回类型进行任何更改。
 
 </Step>
 <Step number={5} title="启用 AI 驱动的翻译自动化" isOptional={true}>

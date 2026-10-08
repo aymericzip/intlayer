@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-12-24
-updatedAt: 2025-11-01
+updatedAt: 2026-10-08
 priority: 8
 title: "Otomatiskan terjemahan JSON i18next dengan Intlayer"
 description: Otomatiskan terjemahan JSON Anda dengan Intlayer dan i18next untuk meningkatkan internasionalisasi dalam aplikasi JavaScript.
@@ -41,7 +41,7 @@ author: aymericzip
 
 ## Apa itu Intlayer?
 
-**Intlayer** adalah perpustakaan internasionalisasi sumber terbuka yang inovatif, dirancang untuk mengatasi kekurangan solusi i18n tradisional. Ini menawarkan pendekatan modern untuk manajemen konten dalam aplikasi JavaScript.
+**Intlayer** adalah library internasionalisasi sumber terbuka yang inovatif, dirancang untuk mengatasi kekurangan solusi i18n tradisional. Ini menawarkan pendekatan modern untuk manajemen konten dalam aplikasi JavaScript.
 
 Lihat perbandingan konkret dengan i18next dalam posting blog kami [next-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/next-i18next_vs_next-intl_vs_intlayer.md).
 
@@ -115,7 +115,7 @@ bun add intlayer @intlayer/sync-json-plugin --dev
 
 **Deskripsi paket:**
 
-- **intlayer**: Perpustakaan inti untuk manajemen internasionalisasi, deklarasi konten, dan pembangunan
+- **intlayer**: Library inti untuk manajemen internasionalisasi, deklarasi konten, dan pembangunan
 - **@intlayer/sync-json-plugin**: Plugin untuk mengekspor deklarasi konten Intlayer ke format JSON yang kompatibel dengan i18next
 
 </Step>

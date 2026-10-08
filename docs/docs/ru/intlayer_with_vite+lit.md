@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-03-23
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 9
 title: "Vite + Lit i18n - Полное руководство по переводу вашего приложения"
 description: "Настройка Intlayer в приложении Vite и Lit: переведённые веб-компоненты с реактивным контроллером, переключатель языка и типизированный контент."
@@ -110,7 +110,7 @@ Intlayer это больше, чем просто решение i18n. Он пр
 </Accordion>
 </AccordionGroup>
 
-See [Application Template](https://github.com/aymericzip/intlayer-vite-lit-template) on GitHub.
+Смотрите [шаблон приложения](https://github.com/aymericzip/intlayer-vite-lit-template) на GitHub.
 
 ## Пошаговое руководство по настройке Intlayer в приложении на Vite и Lit
 
@@ -652,7 +652,7 @@ bun x intlayer extract
  <Tabs>
  <Tab value='intlayer >= 9'>
 
-> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+> Начиная с версии 9, `intlayerCompiler` включен в плагин `intlayer`. Поэтому вам не нужно добавлять его вручную.
 
  </Tab>
  <Tab value='intlayer < 9'>

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 3
 title: "Create React App i18n：完整翻译指南"
 description: "在 Create React App 项目中配置 Intlayer：组件旁的类型化内容、语言切换器以及按语言加载的翻译。"
@@ -64,16 +64,16 @@ Intlayer 针对 React 进行了优化，提供 **组件级内容作用域**、**
 </Accordion>
 <Accordion header="AI Agent">
 
-共置内容 **降低大语言模型 (LLM) 所需的上下文**。Intlayer 还提供了一套工具，例如 **CLI** 用于测试缺失的翻译、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)** 以及 **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)**，使 AI Agent 的开发者体验 (DX) 更加顺畅。
+内容就近维护 (Co-location) **降低大语言模型 (LLM) 所需的上下文**。Intlayer 还提供了一套工具，例如 **CLI** 用于测试缺失的翻译、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)** 以及 **[Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)**，使 AI Agent 的开发者体验 (DX) 更加顺畅。
 
 - [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)
 - [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)
-- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)
 
 </Accordion>
 <Accordion header="自动化">
 
-在 CI/CD 管道中使用自动化翻译，使用您选择的 LLM，按照您的 AI 提供商的成本计费。Intlayer 还提供 **编译器** 以自动提取内容，以及 [网络平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) 来帮助 **后台翻译**。
+在 CI/CD 流水线中使用自动化翻译，使用您选择的 LLM，按照您的 AI 提供商的成本计费。Intlayer 还提供 **编译器** 以自动提取内容，以及 [网络平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) 来帮助 **后台翻译**。
 
 - [网络平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
 
@@ -142,7 +142,7 @@ bun add intlayer react-intlayer react-scripts-intlayer
 
 - **react-intlayer**
 
-  将 Intlayer 与 React 应用集成的包。它为 React 国际化提供上下文提供者和钩子。
+  将 Intlayer 与 React 应用集成的包。它为 React 国际化提供上下文 Provider 和 Hook。
 
 - **react-scripts-intlayer**
 
@@ -295,14 +295,14 @@ export default App;
 > <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
 
-> 要了解有关 `useIntlayer` 钩子的更多信息，请参考 [文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useIntlayer.md)。
+> 要了解有关 `useIntlayer` Hook的更多信息，请参考 [文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useIntlayer.md)。
 
 - [useIntlayer Hook 文档 | react-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useIntlayer.md)
 
 </Step>
 <Step number={6} title="更改你的内容的语言" isOptional={true}>
 
-要更改你的内容的语言，你可以使用 `useLocale` 钩子提供的 `setLocale` 函数。此函数允许你设置应用的语言环境并相应地更新内容。
+要更改你的内容的语言，你可以使用 `useLocale` Hook提供的 `setLocale` 函数。此函数允许你设置应用的语言环境并相应地更新内容。
 
 ```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat={["typescript", "esm"]}
 import { Locales } from "intlayer";
@@ -317,7 +317,7 @@ const LocaleSwitcher = () => {
 };
 ```
 
-> 要了解有关 `useLocale` 钩子的更多信息，请参考 [文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useLocale.md)。
+> 要了解有关 `useLocale` Hook的更多信息，请参考 [文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useLocale.md)。
 
 - [useLocale Hook 文档 | react-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useLocale.md)
 
@@ -472,7 +472,7 @@ const App: FC = () => (
 </Step>
 <Step number={8} title="当语言环境更改时更改 URL" isOptional={true}>
 
-要在语言环境更改时更改 URL，你可以使用 `useLocale` 钩子提供的 `onLocaleChange` prop。同时，你可以使用 `react-router-dom` 中的 `useLocation` 和 `useNavigate` 钩子来更新 URL 路径。
+要在语言环境更改时更改 URL，你可以使用 `useLocale` Hook提供的 `onLocaleChange` prop。同时，你可以使用 `react-router-dom` 中的 `useLocation` 和 `useNavigate` Hook来更新 URL 路径。
 
 ```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat={["typescript", "esm"]}
 import { useLocation, useNavigate } from "react-router-dom";
@@ -541,19 +541,19 @@ const LocaleSwitcher: FC = () => {
 
 > 文档参考：
 >
-> - [`useLocale` 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useLocale.md)
-> - [`getLocaleName` 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getLocaleName.md)
-> - [`getLocalizedUrl` 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getLocalizedUrl.md)
-> - [`getHTMLTextDir` 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getHTMLTextDir.md)
+> - [`useLocale` Hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useLocale.md)
+> - [`getLocaleName` 函数](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getLocaleName.md)
+> - [`getLocalizedUrl` 函数](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getLocalizedUrl.md)
+> - [`getHTMLTextDir` 函数](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getHTMLTextDir.md)
 > - [`hrefLang` 属性](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=fr)
 > - [`lang` 属性](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang)
 > - [`dir` 属性](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
 > - [`aria-current` 属性](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
-- [`useLocale` 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useLocale.md)
-- [`getLocaleName` 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getLocaleName.md)
-- [`getLocalizedUrl` 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getLocalizedUrl.md)
-- [`getHTMLTextDir` 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getHTMLTextDir.md)
+- [`useLocale` Hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useLocale.md)
+- [`getLocaleName` 函数](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getLocaleName.md)
+- [`getLocalizedUrl` 函数](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getLocalizedUrl.md)
+- [`getHTMLTextDir` 函数](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getHTMLTextDir.md)
 
 </Step>
 <Step number={9} title="切换 HTML 语言和方向属性" isOptional={true}>
@@ -566,9 +566,9 @@ const LocaleSwitcher: FC = () => {
 
 通过在语言环境更改时动态更新这些属性，你可以为所有支持的语言的用户保证一致和可访问的体验。
 
-### 实现钩子
+### 实现Hook
 
-创建一个自定义钩子来管理 HTML 属性。该钩子监听语言环境更改并相应地更新属性：
+创建一个自定义Hook来管理 HTML 属性。该Hook监听语言环境更改并相应地更新属性：
 
 ```tsx fileName="src/hooks/useI18nHTMLAttributes.tsx" codeFormat={["typescript", "esm"]}
 import { useEffect } from "react";
@@ -595,9 +595,9 @@ export const useI18nHTMLAttributes = () => {
 };
 ```
 
-### 在您的应用中使用钩子
+### 在您的应用中使用Hook
 
-将钩子集成到您的主组件中，以便在语言环境更改时更新 HTML 属性：
+将Hook集成到您的主组件中，以便在语言环境更改时更新 HTML 属性：
 
 ```tsx fileName="src/App.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
@@ -606,7 +606,7 @@ import { useI18nHTMLAttributes } from "./hooks/useI18nHTMLAttributes";
 import "./App.css";
 
 const AppContent: FC = () => {
-  // 应用钩子以根据语言环境更新 <html> 标签的 lang 和 dir 属性。
+  // 应用Hook以根据语言环境更新 <html> 标签的 lang 和 dir 属性。
   useI18nHTMLAttributes();
 
   // ... 组件的其他部分
@@ -695,7 +695,7 @@ Intlayer 使用模块增强来利用 TypeScript 的优势，使您的代码库�
 - **`react-intl`** 和 **`Lingui`**：基于 ICU 消息格式和内容提取。
 - **`Intlayer`**：最先进的解决方案。内容可以在代码库中的任何位置声明（[靠近每个组件或集中管理](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/per-component_vs_centralized_i18n.md)），并通过 `react-scripts-intlayer` 在构建时进行编译，全链路类型安全，提供 AI 翻译、可视化编辑器和 CMS。
 
-Create React App 封装了自己的 webpack 配置，因此集成是通过 `react-scripts-intlayer` 作为 `react-scripts` 的直接替代品来进行的，而无需您手动注册插件。请参阅 [为什么选择 Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/interest_of_intlayer.md) 和 [性能基准](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/index.md)。
+Create React App 封装了自己的 webpack 配置，因此集成是通过 `react-scripts-intlayer` 作为 `react-scripts` 的直接替代方案来进行的，而无需您手动注册插件。请参阅 [为什么选择 Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/interest_of_intlayer.md) 和 [性能基准](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/index.md)。
 
 - [为什么选择 Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/interest_of_intlayer.md)
 - [性能基准](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/index.md)
@@ -732,7 +732,7 @@ Create React App 封装了自己的 webpack 配置，因此集成是通过 `reac
 
 不需要。运行 `npx intlayer extract`，Intlayer 会读取您的组件，提取面向用户的字符串，并在每个组件旁边生成 `.content` 文件，这样您只需审查 diff，而无需手动逐一复制字符串到语言目录中。
 
-如需全自动流程，[Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md) 可在构建时执行相同操作：它在每次更改时扫描您的 JSX、TSX、Vue 和 Svelte 源代码，生成字典并通过热模块替换 (HMR) 保持同步，因此完全无需手动维护键名。
+如需全自动流程，[Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md) 可在构建时执行相同操作：它在每次更改时扫描您的 JSX、TSX、Vue 和 Svelte 源代码，生成字典并通过模块热替换 (HMR) 保持同步，因此完全无需手动维护键名。
 
 - [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md)
 

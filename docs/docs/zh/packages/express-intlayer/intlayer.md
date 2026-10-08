@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 5
 title: intlayer Express 中间件文档 | express-intlayer
 description: "Express 的 intlayer 中间件会检测用户语言，并通过 res.locals 在处理函数中提供 t 和 getIntlayer。"

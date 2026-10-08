@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-12-16
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 5
 title: "intlayer login：登录 CMS"
 description: 了解如何使用 Intlayer CLI 的 login 命令与 Intlayer CMS 进行身份验证并获取访问凭证。

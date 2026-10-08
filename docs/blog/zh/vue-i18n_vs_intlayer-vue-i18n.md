@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-22
+updatedAt: 2026-10-08
 priority: 8
 title: "vue-i18n vs @intlayer/vue-i18n：相同的 API，不同的 Bundle"
 description: "Vue 3 应用保留 vue-i18n 调用，由 @intlayer/vue-i18n 适配器提供内容。测量每页 JavaScript、运行时与组件大小以及内容泄漏。"
@@ -124,12 +124,12 @@ const { t } = useI18n(_dicHash_footer);
 
 **如何理解它**
 
-- **每个页面减少 88 KB，组件相同。** `vue-i18n` 将 41.3 KB 的应用增加到 **134.9 KB**。相同组件的适配器构建落在 **47.0 KB**，比基础应用多 5.7 KB。大多数差异来自 `createI18n({ messages })` 将 74.9 KB 的 `src/locales` 拉入每个页面，而适配器从不将其作为一个块捆绑。
+- **每个页面减少 88 KB，组件相同。** `vue-i18n` 将 41.3 KB 的应用增加到 **134.9 KB**。相同组件的适配器构建落在 **47.0 KB**，比基础应用多 5.7 KB。大多数差异来自 `createI18n({ messages })` 将 74.9 KB 的 `src/locales` 拉入每个页面，而适配器从不将其作为一个块打包。
 - **运行时缩小 3 倍。** 仅导入 `vue-i18n` 的空组件成本为 **24.3 KB gzip / 83.2 KB minified**：`@intlify/core-base`、message compiler 和 runtime。adapter 成本为 **7.9 KB / 23.2 KB**，大部分是 Intlayer 的 core 加上 `vue-i18n` API surface。
 - **组件：小 23 倍。** 单独编译的 `useI18n()` 组件平均为 **196 KB**，因为 `t` 绑定到持有每个 locale 所有消息的实例。使用 adapter，相同的组件平均为 **8.4 KB**：它到达自己的字典。
-- **泄漏。** `vue-i18n` 在每个页面上都会打包每个语言环境和每个页面的字符串：50% 的语言环境泄漏（在两个指纹识别的语言环境上；捆绑十个语言环境时实际浪费更高），90% 的页面泄漏。该适配器将页面泄漏降低到 **0%**，因为每个组件只导入其自己的字典。在这次 `static` 运行中，语言环境泄漏为 15%；`importMode: 'dynamic'` 是移除它的设置，该配置不在此 Vue 运行中。
+- **泄漏。** `vue-i18n` 在每个页面上都会打包每个语言环境和每个页面的字符串：50% 的语言环境泄漏（在两个指纹识别的语言环境上；打包十个语言环境时实际浪费更高），90% 的页面泄漏。该适配器将页面泄漏降低到 **0%**，因为每个组件只导入其自己的字典。在这次 `static` 运行中，语言环境泄漏为 15%；`importMode: 'dynamic'` 是移除它的设置，该配置不在此 Vue 运行中。
 - **响应性和页面加载。** 对于两者而言，语言环境切换成本低廉（1.5-2.8 ms）；一旦消息在内存中，Vue 的响应性系统会实现这一点。页面加载从 13.6 ms 降低到 **9.3 ms**，与减少 88 KB 的 JavaScript 解析量一致。
-- **关于原生行。** `vue-intlayer` 在此运行中在 `static` 模式下捆绑了每个区域设置，达到 57.1 KB，运行时为 3.9 KB；适配器的同步字典携带更少的外国语言环境字符串，因此每页数据更低。原生运行时仍然是三者中最轻的，其 `.content.ts` 模型是 SFC `<i18n>` 块找到其等效项的地方。
+- **关于原生行。** `vue-intlayer` 在此运行中在 `static` 模式下打包了每个区域设置，达到 57.1 KB，运行时为 3.9 KB；适配器的同步字典携带更少的外国语言环境字符串，因此每页数据更低。原生运行时仍然是三者中最轻的，其 `.content.ts` 模型是 SFC `<i18n>` 块找到其等效项的地方。
 
 <ClickToOpenIframe
 src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_vue.md"
@@ -218,7 +218,7 @@ const config: IntlayerConfig = {
     defaultLocale: Locales.ENGLISH,
   },
   dictionary: {
-    // "static" 捆绑每个语言环境; "dynamic" 按需加载活跃的语言环境
+    // "static" 打包每个语言环境; "dynamic" 按需加载活跃的语言环境
     importMode: "dynamic",
     format: "vue-i18n",
   },

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-12-02
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 5
 title: "Документація: функція `t` у `express-intlayer`"
 description: "Використовуйте функцію t з express-intlayer, щоб повертати локалізовані відповіді в Express залежно від локалі, визначеної для кожного запиту."
@@ -131,7 +131,7 @@ app.get("/error", (_req, res) => {
 
 ### Використання варіантів локалі
 
-Specify translations for locale-specific variants:
+Вказуйте переклади для конкретних варіантів локалі:
 
 ```typescript fileName="src/index.ts" codeFormat="typescript"
 app.get("/greet", (_req, res) => {

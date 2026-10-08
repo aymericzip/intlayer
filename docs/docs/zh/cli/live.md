@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 5
 title: "intlayer live：运行时同步 CMS 内容"
 description: "使用 Intlayer Live Sync，将 CMS 中的内容修改应用到运行中的应用，无需重新构建或部署。"

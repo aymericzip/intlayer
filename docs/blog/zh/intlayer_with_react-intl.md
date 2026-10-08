@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-01-02
-updatedAt: 2025-10-29
+updatedAt: 2026-10-08
 priority: 8
 title: "用 Intlayer 自动化 react-intl 的 JSON 翻译"
 description: 使用 Intlayer 和 react-intl 自动化您的 JSON 翻译，提升 React 应用的国际化体验。
@@ -160,7 +160,7 @@ Intlayer 为您的 i18next 工作流解锁了一套高级自动化和开发者�
 - **命名空间并行化**：如果您有数百个命名空间（或文件），Intlayer 会并行化翻译任务，有效地加快您的 CI/CD 或批量翻译操作。
 - **灵活的 AI provider 支持**：选择您首选的 AI provider（例如 OpenAI、Claude、Gemini），只需配置凭证。使用您自己的 API 密钥，并根据需要切换 provider。
 - **弹性 AI 响应处理**：Intlayer 可以处理您的 AI provider 将文本作为字符串或对象返回的边界情况，甚至在格式不一致时自动重试。
-- **CLI 和 CI/CD 就绪**：直接在您的测试或管道中运行 Intlayer 的检查和自动填充，使您的本地化流程健壮且自动化。
+- **CLI 和 CI/CD 就绪**：直接在您的测试或流水线中运行 Intlayer 的检查和自动填充，使您的本地化流程健壮且自动化。
 - **集成在您现有的设置之上**：您无需更改您的 i18next 或 Next.js 基础。Intlayer 作为插件工作在您当前的设置之上，为您提供所有这些优点且迁移最少。
 
 下面是如何设置 AI provider 的示例：

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-02-09
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 6
 title: "面向 AI 编程代理的 Intlayer Agent Skills"
 description: "为你的 AI 编程代理提供 Intlayer 技能：内容、元数据、站点地图和 Server Actions 的配置指南。"
@@ -126,7 +126,7 @@ npx skills add aymericzip/intlayer-skills
 
 **intlayer-remix**
 
-- 为代理提供 Remix 3 路由中间件以及请求作用域的 `useIntlayer` / `useLocale` 钩子。
+- 为代理提供 Remix 3 路由中间件以及请求作用域的 `useIntlayer` / `useLocale` Hook。
 
 **intlayer-backend**
 

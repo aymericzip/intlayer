@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 10
 title: 簡介
 description: 了解 Intlayer 的工作原理。查看 Intlayer 在您的應用程式中使用的步驟。了解不同的套件各自的功能。
@@ -117,7 +117,7 @@ export const MyComponent: FC = () => {
 </Accordion>
 <Accordion header="自動化">
 
-使用您選擇的 LLM 並在由您的 AI 提供者承擔費用的情況下，透過自動化在您的 CI/CD 管道中進行翻譯。Intlayer 還提供了一個 **編譯器**，可自動提取內容；並配備了一個 [Web 平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/intlayer_CMS.md) 以幫助您 **在背景執行翻譯**。
+使用您選擇的 LLM 並在由您的 AI 提供者承擔費用的情況下，透過自動化在您的 CI/CD 流水线中進行翻譯。Intlayer 還提供了一個 **編譯器**，可自動提取內容；並配備了一個 [Web 平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/intlayer_CMS.md) 以幫助您 **在背景執行翻譯**。
 
 - [Web 平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/intlayer_CMS.md)
 

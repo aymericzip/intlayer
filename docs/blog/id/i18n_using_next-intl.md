@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-01
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 9
 title: "i18n Next.js 16 dengan next-intl: panduan penyiapan App Router"
 description: "Siapkan next-intl langkah demi langkah di aplikasi Next.js 16 App Router: routing locale, pemuatan pesan per halaman, komponen server dan klien, serta metadata SEO."
@@ -30,7 +30,7 @@ author: aymericzip
 
 ## Apa itu next-intl?
 
-**next-intl** adalah perpustakaan internasionalisasi (i18n) yang populer yang dirancang khusus untuk Next.js App Router. Ini menyediakan cara yang mulus untuk membangun aplikasi Next.js multibahasa dengan dukungan TypeScript yang sangat baik dan optimasi bawaan.
+**next-intl** adalah library internasionalisasi (i18n) yang populer yang dirancang khusus untuk Next.js App Router. Ini menyediakan cara yang mulus untuk membangun aplikasi Next.js multibahasa dengan dukungan TypeScript yang sangat baik dan optimasi bawaan.
 
 > Jika Anda mau, Anda juga dapat merujuk ke [panduan next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18n_using_next-i18next.md), atau langsung menggunakan [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_16.md).
 
@@ -198,7 +198,7 @@ pnpm add next-intl
 yarn add next-intl
 ```
 
-- **next-intl**: Perpustakaan internasionalisasi inti untuk Next.js App Router yang menyediakan hooks, fungsi server, dan penyedia klien untuk mengelola terjemahan.
+- **next-intl**: Library internasionalisasi inti untuk Next.js App Router yang menyediakan hooks, fungsi server, dan penyedia klien untuk mengelola terjemahan.
 
 </Step>
 <Step number={2} title="Konfigurasikan Proyek Anda">
@@ -845,7 +845,7 @@ Kode ini akan menggunakan Module Augmentation untuk menambahkan locales dan mess
 </Step>
 <Step number={16} title="Otomatiskan Terjemahan Anda Menggunakan Intlayer" isOptional={true}>
 
-Intlayer adalah perpustakaan **gratis** dan **open-source** yang dirancang untuk membantu proses lokalisasi dalam aplikasi Anda. Sementara next-intl menangani pemuatan dan pengelolaan terjemahan, Intlayer membantu mengotomatisasi alur kerja terjemahan.
+Intlayer adalah library **gratis** dan **open-source** yang dirancang untuk membantu proses lokalisasi dalam aplikasi Anda. Sementara next-intl menangani pemuatan dan pengelolaan terjemahan, Intlayer membantu mengotomatisasi alur kerja terjemahan.
 
 Mengelola terjemahan secara manual bisa memakan waktu dan rentan kesalahan. Intlayer mengotomatisasi pengujian, pembuatan, dan pengelolaan terjemahan, menghemat waktu Anda dan memastikan konsistensi di seluruh aplikasi Anda.
 

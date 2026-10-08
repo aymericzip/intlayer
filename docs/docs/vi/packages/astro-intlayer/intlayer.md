@@ -52,7 +52,7 @@ import intlayer from "astro-intlayer";
 
 ## Mô tả chi tiết
 
-Tích hợp móc nối vào vòng đời build và runtime của Astro:
+Tích hợp hook nối vào vòng đời build và runtime của Astro:
 
 1. **Thiết lập cấu hình (`astro:config:setup`)**:
    - **Chuẩn bị từ điển**: Chuẩn bị các từ điển Intlayer và các kiểu được tạo trước khi quá trình build chạy.

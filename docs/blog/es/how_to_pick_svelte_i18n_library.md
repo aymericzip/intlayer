@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-28
+updatedAt: 2026-10-08
 priority: 8
 title: "Cómo elegir la librería de i18n adecuada para Svelte en 2026"
 description: "Una guía de decisión para i18n en Svelte y SvelteKit: las preguntas a responder antes de comparar svelte-i18n, Paraglide, typesafe-i18n, wuchale e Intlayer."
@@ -98,11 +98,11 @@ Los tamaños de las librerías provienen del [benchmark de Svelte](https://githu
 
 | Librería        | Los mensajes residen en                | Estado del locale                             | Seguridad de tipos           | Formato de mensaje            | División por ruta         | Tamaño de librería                                |
 | :-------------- | :------------------------------------- | :-------------------------------------------- | :--------------------------- | :---------------------------- | :------------------------ | :------------------------------------------------ |
-| `svelte-i18n`   | Catálogos JSON por locale              | Svelte store a nivel de módulo                | 2/5 — Unión manual           | ICU                           | No                        | ~16.6 kB                                          |
-| `typesafe-i18n` | Módulos TS generados                   | Adaptador de store                            | 4/5 — Generados              | Propio                        | Parcial                   | Pequeño                                           |
-| Paraglide       | Proyecto inlang, compilado a funciones | Leído por llamada desde cookie, URL o storage | 3.5/5 — Generados            | Propio                        | Sí, mediante tree-shaking | Casi cero (por el código generado en el proyecto) |
+| `svelte-i18n`   | Catálogos JSON por locale              | Svelte store a nivel de módulo                | 2/5 - Unión manual           | ICU                           | No                        | ~16.6 kB                                          |
+| `typesafe-i18n` | Módulos TS generados                   | Adaptador de store                            | 4/5 - Generados              | Propio                        | Parcial                   | Pequeño                                           |
+| Paraglide       | Proyecto inlang, compilado a funciones | Leído por llamada desde cookie, URL o storage | 3.5/5 - Generados            | Propio                        | Sí, mediante tree-shaking | Casi cero (por el código generado en el proyecto) |
 | `wuchale`       | Extraído del markup en el build        | Store                                         | N/A (sin claves)             | Propio                        | Sí                        | ~30.7 kB                                          |
-| Intlayer        | `.content.ts` junto al componente      | Context más store, compatible con runes       | 5/5 — Generados, por defecto | Intlayer (+ ICU, i18next, PO) | Sí, por componente        | ~3.6 kB                                           |
+| Intlayer        | `.content.ts` junto al componente      | Context más store, compatible con runes       | 5/5 - Generados, por defecto | Intlayer (+ ICU, i18next, PO) | Sí, por componente        | ~3.6 kB                                           |
 
 > Las cifras son una instantánea de las versiones del benchmark. Ejecútalo en tu propia aplicación antes de decidir solo por el tamaño.
 > Seguridad de tipos: 5/5 significa que las claves, los parámetros y cada locale se comprueban sin configuración manual, incluidos el formateador de URL y los helpers.

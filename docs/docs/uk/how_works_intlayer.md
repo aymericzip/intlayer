@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-12
-updatedAt: 2026-09-28
+updatedAt: 2026-10-08
 priority: 8
 title: "Як працює Intlayer: огляд архітектури"
 description: Дізнайтеся, як Intlayer працює всередині. Зрозумійте архітектуру та компоненти, що роблять Intlayer потужним.
@@ -339,7 +339,7 @@ Intlayer складається з кількох пакетів, кожен і�
 
 - [Задавайте свої питання нашій розумній документації](https://intlayer.org/doc/chat)
 
-## Часто задавані запитання
+## Поширені запитання
 
 <FAQ>
 
@@ -447,7 +447,7 @@ Intlayer складається з кількох пакетів, кожен і�
 </Question>
 <Question title="Чи потрібно перезбирати додаток під час додавання перекладу?">
 
-У режимі розробки ні: плагін відстежує ваші файли вмісту та перезбирає відповідні словники під час збереження. У продакшні словники є частиною збірки, якщо тільки вміст не віддалений — у такому разі [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md) та [синхронізація в реальному часі](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/live.md) застосовують зміну без розгортання.
+У режимі розробки ні: плагін відстежує ваші файли вмісту та перезбирає відповідні словники під час збереження. У продакшні словники є частиною збірки, якщо тільки вміст не віддалений - у такому разі [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md) та [синхронізація в реальному часі](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/live.md) застосовують зміну без розгортання.
 
 - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)
 - [синхронізація в реальному часі](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/live.md)

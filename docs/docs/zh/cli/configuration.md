@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 5
 title: "intlayer configuration：获取与推送配置"
 description: "使用 Intlayer CLI 输出解析后的配置并推送到 Intlayer CMS，让控制台与项目保持同步。"

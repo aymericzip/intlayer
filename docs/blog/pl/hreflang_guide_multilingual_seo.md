@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-29
-updatedAt: 2026-08-29
+updatedAt: 2026-10-08
 priority: 8
 title: "Hreflang, przewodnik po wielojęzycznym SEO"
 description: "Co to jest hreflang, zasady wymuszane przez wyszukiwarki, dlaczego x-default jest prawie zawsze błędy, i jak generować poprawne znaczniki w Next.js i TanStack Start."
@@ -39,11 +39,11 @@ Adnotacja na stronie mówiąca: _ten URL ma równoważne wersje tam, dla tych j�
 
 Daje ci dwie rzeczy: wyświetlenie prawidłowej wersji właściwemu użytkownikowi oraz konsolidację twoich lokalizacji w jeden klaster zamiast kanibalizowania się nawzajem jako duplikaty.
 
-Warto wyjaśnić, czym to nie jest. To **nie jest przekierowanie** — to wskazówka, którą Google może zastąpić. To **nie jest wzmocnienie rankingu** — zmienia _którą_ wersję rankingu, a nie _czy_ się plasują. A Bing w ogóle to ignoruje, polegając zamiast tego na `content-language` i geo-targetowaniu.
+Warto wyjaśnić, czym to nie jest. To **nie jest przekierowanie** - to wskazówka, którą Google może zastąpić. To **nie jest wzmocnienie rankingu** - zmienia _którą_ wersję rankingu, a nie _czy_ się plasują. A Bing w ogóle to ignoruje, polegając zamiast tego na `content-language` i geo-targetowaniu.
 
 ## Gdzie to zadeklarować
 
-Trzy umiejscowienia, wszystkie prawidłowe. Wybierz jedno i pozostań tam — ten sam klaster zadeklarowany w dwóch miejscach to jak zestawy dryfują.
+Trzy umiejscowienia, wszystkie prawidłowe. Wybierz jedno i pozostań tam - ten sam klaster zadeklarowany w dwóch miejscach to jak zestawy dryfują.
 
 **HTML `<head>`** to zwyczajowy wybór. Jedno zastrzeżenie: znaczniki wstrzykiwane po hidratacji są zawodne. Jeśli twój framework dodaje je tylko po stronie klienta, crawler może nigdy ich nie zobaczyć.
 
@@ -69,24 +69,24 @@ W praktyce oznacza to, że **każda strona w klastrze wysyła identyczny zestaw 
 <link rel="alternate" hreflang="fr" href="https://example.com/fr/about" />
 ```
 
-Warto zrozumieć powód, zamiast go tylko zapamiętać. `hreflang` jest odwołaniem między dokumentami: silniki wyszukiwarek budują klaster opierając się na adresie URL, współdzielony między wszystkimi stronami w nim. Ścieżka względna ma znaczenie tylko w stosunku do dokumentu, w którym się znajduje, dlatego nie może tego wyrazić. Nie może również przekroczyć hosta — a alternatywna wersja bardzo często to robi, gdy lokalizacja znajduje się na `example.fr` lub `fr.example.com`. W mapie witryny lub w nagłówku HTTP nie ma dokumentu bazowego do rozwiązania.
+Warto zrozumieć powód, zamiast go tylko zapamiętać. `hreflang` jest odwołaniem między dokumentami: silniki wyszukiwarek budują klaster opierając się na adresie URL, współdzielony między wszystkimi stronami w nim. Ścieżka względna ma znaczenie tylko w stosunku do dokumentu, w którym się znajduje, dlatego nie może tego wyrazić. Nie może również przekroczyć hosta - a alternatywna wersja bardzo często to robi, gdy lokalizacja znajduje się na `example.fr` lub `fr.example.com`. W mapie witryny lub w nagłówku HTTP nie ma dokumentu bazowego do rozwiązania.
 
-Ma to bezpośrednią konsekwencję w kodzie. `getLocalizedUrl("/about", "fr")` zwraca `/fr/about` — względna na wejściu, względna na wyjściu. Dla `hreflang` musisz podać absolutny URL:
+Ma to bezpośrednią konsekwencję w kodzie. `getLocalizedUrl("/about", "fr")` zwraca `/fr/about` - względna na wejściu, względna na wyjściu. Dla `hreflang` musisz podać absolutny URL:
 
 ```ts
 getLocalizedUrl("/about", "fr"); // → "/fr/about"          ❌ pominięte
 getLocalizedUrl("https://example.com/about", "fr"); // → "https://example.com/fr/about"  ✅
 ```
 
-Jedynym wyjątkiem jest framework, który rozwiązuje dla ciebie względne wartości przed renderowaniem: Next.js rozszerza względne `alternates` względem `metadataBase`. OK — ale reguła dotyczy **emitowanego HTML-a**, więc sprawdź za pomocą `curl`, a nie inspektora DevTools.
+Jedynym wyjątkiem jest framework, który rozwiązuje dla ciebie względne wartości przed renderowaniem: Next.js rozszerza względne `alternates` względem `metadataBase`. OK - ale reguła dotyczy **emitowanego HTML-a**, więc sprawdź za pomocą `curl`, a nie inspektora DevTools.
 
 ### Kody języków
 
 ISO 639-1 dla języka, ISO 3166-1 Alpha 2 dla opcjonalnego regionu: `fr`, `fr-CA`, `pt-BR`.
 
-Dwie pułapki łapią prawie każdego. Sam region jest nieprawidłowy — `hreflang="ca"` to kataloński, a nie Kanada; potrzebujesz `en-CA` lub `fr-CA`. A `en-UK` nie istnieje: kod kraju Wielkiej Brytanii to `GB`, więc to `en-GB`.
+Dwie pułapki łapią prawie każdego. Sam region jest nieprawidłowy - `hreflang="ca"` to kataloński, a nie Kanada; potrzebujesz `en-CA` lub `fr-CA`. A `en-UK` nie istnieje: kod kraju Wielkiej Brytanii to `GB`, więc to `en-GB`.
 
-Dodawaj region tylko wtedy, gdy naprawdę serwujesz temu regionowi inną zawartość — różne ceny, różne informacje prawne. `fr` i `fr-FR` na identycznej zawartości to szum.
+Dodawaj region tylko wtedy, gdy naprawdę serwujesz temu regionowi inną zawartość - różne ceny, różne informacje prawne. `fr` i `fr-FR` na identycznej zawartości to szum.
 
 ### x-default
 
@@ -94,11 +94,11 @@ Dodawaj region tylko wtedy, gdy naprawdę serwujesz temu regionowi inną zawarto
 <link rel="alternate" hreflang="x-default" href="https://example.com/" />
 ```
 
-Jedno pojęcie, które jest najczęściej zapominane i źle rozumiane, to `x-default` — mniej niż 30% aplikacji wdraża je prawidłowo.
+Jedno pojęcie, które jest najczęściej zapominane i źle rozumiane, to `x-default` - mniej niż 30% aplikacji wdraża je prawidłowo.
 
 To fallback dla użytkowników, których język nie odpowiada żadnemu wpisowi w zestawie. Użytkownik mówiący po holendersku na stronie oferującej angielski, francuski i hiszpański nie pasuje do żadnego wpisu; bez `x-default`, Google wybiera za Ciebie.
 
-Ludzie źle rozumieją, co to oznacza. `x-default` **nie jest „wersją angielską"** i **nie jest „domyślnym locale"**, nawet jeśli zwykle wskazuje tam. Oznacza to _stronę dla użytkowników, którzy nie są objęci tym zestawem_. Dlatego jest uzasadnione — i często lepsze — aby wskazać to na selektor języka lub stronę docelową z geokierowaniem, zamiast na `/en`. Jeśli nie masz takiej strony, Twój język główny to rozsądna odpowiedź.
+Ludzie źle rozumieją, co to oznacza. `x-default` **nie jest „wersją angielską"** i **nie jest „domyślnym locale"**, nawet jeśli zwykle wskazuje tam. Oznacza to _stronę dla użytkowników, którzy nie są objęci tym zestawem_. Dlatego jest uzasadnione - i często lepsze - aby wskazać to na selektor języka lub stronę docelową z geokierowaniem, zamiast na `/en`. Jeśli nie masz takiej strony, Twój język główny to rozsądna odpowiedź.
 
 Dwie rzeczy do zapamiętania: `x-default` to jeden dodatkowy wpis w zestawie, a nie zamiennik dla samoreferentalnego, i jak każdy inny wpis musi pojawić się identycznie na każdej stronie w klastrze.
 
@@ -116,7 +116,7 @@ Każda zlokalizowana strona musi być **swoją własną canonical**:
 Wskazywanie canonical każdego locale na wersję angielską:
 
 ```html
-<!-- On https://example.com/fr/about — kills the page -->
+<!-- On https://example.com/fr/about  -  kills the page -->
 <link rel="canonical" href="https://example.com/about" />
 ```
 
@@ -130,9 +130,9 @@ mówi, że francuska strona jest duplikatem, który nie powinien być indeksowan
 
 | Struktura       | Przykład          | Kompromis                                                                              |
 | --------------- | ----------------- | -------------------------------------------------------------------------------------- |
-| **Podkatalogi** | `example.com/fr/` | Jedna domena, wspólna autorytet — słabszy sygnał geograficzny                          |
-| **Poddomeny**   | `fr.example.com`  | Łatwe dodawanie lub usuwanie lokalizacji — może być postrzegane jako oddzielna witryna |
-| **ccTLDs**      | `example.fr`      | Najsilniejszy sygnał kraju — autorytetu zbudowany na domenę                            |
+| **Podkatalogi** | `example.com/fr/` | Jedna domena, wspólna autorytet - słabszy sygnał geograficzny                          |
+| **Poddomeny**   | `fr.example.com`  | Łatwe dodawanie lub usuwanie lokalizacji - może być postrzegane jako oddzielna witryna |
+| **ccTLDs**      | `example.fr`      | Najsilniejszy sygnał kraju - autorytetu zbudowany na domenę                            |
 
 Podkatalogi to właściwy domyślny wybór dla większości projektów. Sięgaj po ccTLDs tylko wtedy, gdy naprawdę działasz jako oddzielne biznesu krajowe.
 
@@ -260,15 +260,15 @@ const sitemap = generateSitemap(
 
 Dwie warte poznania opcje:
 
-- `xhtmlLinks` (domyślnie `true`) — alternaty są emitowane tylko tam, gdzie adresy URL lokalizacji faktycznie się różnią. W trybie `no-prefix` każda lokalizacja udostępnia jeden adres URL, więc są pomijane, chyba że `routing.domains` przydziela lokalizacjom własne hostnamy.
-- `entryPerLocale` (domyślnie `false`) — domyślnie jeden wpis `<url>` zawiera wszystkie alternatywy. Obie formy są prawidłowe, ale tylko adres URL wymieniony jako `<loc>` liczy się jako _przesłany_ w Search Console; alternatywne ustawienia regionalne pozostają odkrywalne, ale nie są przypisane do żadnej mapy witryny. Włączenie tego ustawienia daje każdemu zlokalizowanemu adresowi URL własny wpis z pełnym zestawem alternatyw powtórzonym. Zwiększa to liczbę wpisów przez liczbę ustawień regionalnych, więc zwróć uwagę na limit 50 000 adresów URL / 50 MB i podziel na indeks mapy witryny po jego przekroczeniu.
+- `xhtmlLinks` (domyślnie `true`) - alternaty są emitowane tylko tam, gdzie adresy URL lokalizacji faktycznie się różnią. W trybie `no-prefix` każda lokalizacja udostępnia jeden adres URL, więc są pomijane, chyba że `routing.domains` przydziela lokalizacjom własne hostnamy.
+- `entryPerLocale` (domyślnie `false`) - domyślnie jeden wpis `<url>` zawiera wszystkie alternatywy. Obie formy są prawidłowe, ale tylko adres URL wymieniony jako `<loc>` liczy się jako _przesłany_ w Search Console; alternatywne ustawienia regionalne pozostają odkrywalne, ale nie są przypisane do żadnej mapy witryny. Włączenie tego ustawienia daje każdemu zlokalizowanemu adresowi URL własny wpis z pełnym zestawem alternatyw powtórzonym. Zwiększa to liczbę wpisów przez liczbę ustawień regionalnych, więc zwróć uwagę na limit 50 000 adresów URL / 50 MB i podziel na indeks mapy witryny po jego przekroczeniu.
 
 </Step>
 <Step number={3} title="Sprawdź, co otrzymuje crawler">
 
 `hreflang` zawodzi bezgłośnie, więc sprawdź go zamiast go zakładać.
 
-Czytaj źródło, a nie inspektora — `curl https://example.com/fr/about | grep hreflang` pokazuje, co otrzymuje crawler; DevTools pokazuje DOM po uruchomieniu JavaScriptu. Następnie podążaj za każdym alternatywnym i potwierdź, że wskazuje z powrotem z identycznym zestawem, i że żaden z nich nie przekierowuje. Raport International Targeting w Search Console wyłapuje resztę na całej stronie.
+Czytaj źródło, a nie inspektora - `curl https://example.com/fr/about | grep hreflang` pokazuje, co otrzymuje crawler; DevTools pokazuje DOM po uruchomieniu JavaScriptu. Następnie podążaj za każdym alternatywnym i potwierdź, że wskazuje z powrotem z identycznym zestawem, i że żaden z nich nie przekierowuje. Raport International Targeting w Search Console wyłapuje resztę na całej stronie.
 
 W przypadku crawlowania specyficznego dla wielu języków, [Intlayer SEO Scanner](https://intlayer.org/i18n-seo-scanner) sprawdza brakujące tagi, złamane alternatywy i konflikty canonical na całych zlokalizowanych stronach.
 

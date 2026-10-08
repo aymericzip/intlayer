@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 10
 title: "TanStack Start i18n - Полное руководство по переводу вашего приложения"
 description: "Настройка Intlayer в TanStack Start: параметр локали в маршрутах, совместимый с SSR переведённый контент, локализованные head-метаданные, hreflang и sitemap."
@@ -906,13 +906,13 @@ export const Route = createFileRoute("/{-$locale}/")({
 
 ### Какое разрешение выбрать?
 
-|                      | Статическое разрешение | Динамическое разрешение    | Кэшированное динамическое разрешение   |
-| -------------------- | ---------------------- | -------------------------- | -------------------------------------- |
-| API                  | `getIntlayer`          | `getIntlayerAsync` (v9.4+) | `getIntlayerAsync` in `loader` (v9.4+) |
-| `head` signature     | synchronous            | `async`                    | synchronous, reads `loaderData`        |
-| Locales shipped      | every declared locale  | requested locale only      | requested locale only                  |
-| Client navigations   | nothing to resolve     | re-entered on every match  | served from the router cache           |
-| Developer experience | simplest               | one `await`                | content threaded through `loaderData`  |
+|                      | Статическое разрешение        | Динамическое разрешение           | Кэшированное динамическое разрешение   |
+| -------------------- | ----------------------------- | --------------------------------- | -------------------------------------- |
+| API                  | `getIntlayer`                 | `getIntlayerAsync` (v9.4+)        | `getIntlayerAsync` in `loader` (v9.4+) |
+| Сигнатура `head`     | синхронная                    | `async`                           | синхронная, считывает `loaderData`     |
+| Передаваемые локали  | каждая объявленная локаль     | только запрошенная локаль         | только запрошенная локаль              |
+| Клиентские переходы  | ничего не требуется разрешать | выполняется при каждом совпадении | обслуживается из кэша маршрутизатора   |
+| Опыт разработки (DX) | простейший                    | один `await`                      | контент передается через `loaderData`  |
 
 </Step>
 <Step number={13} title="Получите языковой стандарт в ваших серверных действиях">
@@ -1095,7 +1095,7 @@ bun x intlayer extract
  <Tabs>
  <Tab value='intlayer >= 9'>
 
-> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+> Начиная с версии 9, `intlayerCompiler` включен в плагин `intlayer`. Поэтому вам не нужно добавлять его вручную.
 
  </Tab>
  <Tab value='intlayer < 9'>

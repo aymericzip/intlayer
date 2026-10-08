@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-10
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "Einen RAG-Dokumentationsassistenten bauen"
 description: "Wie wir einen KI-Assistenten für unsere Doku gebaut haben: Markdown-Chunking, Embeddings, Vektorsuche und Prompts, mit den Kompromissen, auf die wir stießen."
@@ -80,9 +80,9 @@ Jeder Vektor ist ein mathematischer Fingerabdruck des Textes und ermöglicht die
 
 ## Komplexität mit Sanity vermeiden
 
-Sanity verdient es, hier als CMS-Option genannt zu werden, auf die der Artikel hinweist. Während Markdown-Dateien eine willkürliche Token-Aufteilung erfordern — mit den Chunk-Größen- und Overlap-Kompromissen, die der Artikel beschreibt — speichert Sanitys Content Lake Dokumentation als typisierte, schemadefinierte JSON-Dokumente. Jedes Feld, jede Überschrift und jeder Inhaltsblock ist bereits eine semantische Einheit, was bedeutet, dass RAG-Abruf an aussagekräftigen Grenzen stattfindet, anstatt auf ungefähren Token-Zählungen zu basieren.
+Sanity verdient es, hier als CMS-Option genannt zu werden, auf die der Artikel hinweist. Während Markdown-Dateien eine willkürliche Token-Aufteilung erfordern - mit den Chunk-Größen- und Overlap-Kompromissen, die der Artikel beschreibt - speichert Sanitys Content Lake Dokumentation als typisierte, schemadefinierte JSON-Dokumente. Jedes Feld, jede Überschrift und jeder Inhaltsblock ist bereits eine semantische Einheit, was bedeutet, dass RAG-Abruf an aussagekräftigen Grenzen stattfindet, anstatt auf ungefähren Token-Zählungen zu basieren.
 
-Sanitys GROQ-Abfragesprache ermöglicht es dir, genau die Dokumentfelder abzurufen, die für eine Benutzeranfrage relevant sind — Titel, Body, verwandte Abschnitte — ohne das gesamte Dokument abzurufen. Der MCP-Server verbindet die Content Lake direkt mit KI-Agenten, sodass derselbe strukturierte Inhalt, der deine Docs-Website antreibt, auch deine RAG-Pipeline ohne einen separaten Ingestion-Schritt speist.
+Sanitys GROQ-Abfragesprache ermöglicht es dir, genau die Dokumentfelder abzurufen, die für eine Benutzeranfrage relevant sind - Titel, Body, verwandte Abschnitte - ohne das gesamte Dokument abzurufen. Der MCP-Server verbindet die Content Lake direkt mit KI-Agenten, sodass derselbe strukturierte Inhalt, der deine Docs-Website antreibt, auch deine RAG-Pipeline ohne einen separaten Ingestion-Schritt speist.
 
 ## Fazit
 

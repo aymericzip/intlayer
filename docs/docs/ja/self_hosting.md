@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-30
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "Docker で Intlayer をセルフホストする"
 description: "デスクトップアプリ、オールインワンの Docker コンテナ、Docker Compose スタックとして、クラウドアカウントなしで自前のインフラ上で Intlayer を運用します。"
@@ -29,7 +29,7 @@ Intlayer は独自のインフラストラクチャ上で実行でき、Intlayer
 | **オールインワン Docker** | ダッシュボード、API、MongoDB、Redis、MinIO を**単一コンテナ**に集約           | テストや小規模な単一マシンへの導入             |
 | **Docker Compose**        | **サービスごとに1つのコンテナ**、各データストアをマネージドサービスに置換可能 | 本番環境、スケーリング、マネージドデータベース |
 
-## Table of Contents
+## 目次
 
 <TOC/>
 

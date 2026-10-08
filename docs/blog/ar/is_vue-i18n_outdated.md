@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-28
+updatedAt: 2026-10-08
 priority: 8
 title: هل أصبحت مكتبة vue-i18n قديمة في عام 2026؟
 description: ظلت vue-i18n المعيار الأساسي لـ Vue وNuxt لعقد كامل. لكن في اختباراتنا الميدانية، تبين أنها أثقل بيئة تشغيل للتدويل على الويب. نوضح الأسباب هنا.
@@ -294,9 +294,9 @@ const { title } = useIntlayer("hero");
 
 **نظام إدارة محتوى مرئي ذاتي الاستضافة:**
 
-شغّل [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md) لتمكين كتاب المحتوى من تعديل العبارات برؤية حية مع الحفظ المباشر في Git.
+شغّل [نظام إدارة المحتوى Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md) لتمكين كتاب المحتوى من تعديل العبارات برؤية حية مع الحفظ المباشر في Git.
 
-- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
+- [نظام إدارة المحتوى Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
 
 **ترخيص مفتوح:**
 

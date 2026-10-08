@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-30
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "Self-host Intlayer dengan Docker"
 description: "Jalankan Intlayer di infrastruktur Anda sendiri: aplikasi desktop, container Docker all-in-one, atau stack Docker Compose, tanpa akun cloud."
@@ -23,24 +23,24 @@ author: aymericzip
 
 Intlayer dapat dijalankan di infrastruktur Anda sendiri tanpa memerlukan akun Intlayer Cloud. Tiga konfigurasi disediakan, semuanya dapat diatur menggunakan penginstal yang sama (`install.sh`, `install.ps1` di Windows, atau `npx intlayer init infra`):
 
-| Setup                 | What it is                                                                                     | Pick it for                                     |
+| Pengaturan            | Deskripsi                                                                                      | Cocok untuk                                     |
 | --------------------- | ---------------------------------------------------------------------------------------------- | ----------------------------------------------- |
 | **Aplikasi Desktop**  | Dasbor native untuk macOS, Linux, dan Windows                                                  | Klien lokal, tidak ada yang perlu di-host       |
 | **Docker All-in-One** | Dasbor, API, MongoDB, Redis, dan MinIO dalam **satu kontainer**                                | Pengujian dan instalasi box tunggal skala kecil |
 | **Docker Compose**    | **Satu kontainer per layanan**, setiap penyimpanan data dapat diganti dengan layanan terkelola | Produksi, penskalaan, basis data terkelola      |
 
-## Table of Contents
+## Daftar Isi
 
 <TOC/>
 
 ## Image dan Paket yang Diterbitkan
 
-| Artifact             | Docker Hub                                                                | GHCR mirror                                | Contents                                                                         |
+| Artefak              | Docker Hub                                                                | Mirror GHCR                                | Konten                                                                           |
 | -------------------- | ------------------------------------------------------------------------- | ------------------------------------------ | -------------------------------------------------------------------------------- |
 | All-in-one container | [`intlayer/cms-all`](https://hub.docker.com/r/intlayer/cms-all)           | `ghcr.io/aymericzip/intlayer/cms-all`      | app + backend + MongoDB 8 + Redis + MinIO + Chromium                             |
-| Dashboard (frontend) | [`intlayer/cms-frontend`](https://hub.docker.com/r/intlayer/cms-frontend) | `ghcr.io/aymericzip/intlayer/cms-frontend` | TanStack Start dashboard on Bun                                                  |
-| API (backend)        | [`intlayer/cms-backend`](https://hub.docker.com/r/intlayer/cms-backend)   | `ghcr.io/aymericzip/intlayer/cms-backend`  | Fastify REST API on Bun + Chromium                                               |
-| Desktop app          | [GitHub releases](https://github.com/aymericzip/intlayer/releases/latest) | n/a                                        | `.dmg` (macOS), `.deb` / `.rpm` / `.AppImage` (Linux), `.exe` / `.msi` (Windows) |
+| Dasbor (frontend)    | [`intlayer/cms-frontend`](https://hub.docker.com/r/intlayer/cms-frontend) | `ghcr.io/aymericzip/intlayer/cms-frontend` | Dasbor TanStack Start di Bun                                                     |
+| API (backend)        | [`intlayer/cms-backend`](https://hub.docker.com/r/intlayer/cms-backend)   | `ghcr.io/aymericzip/intlayer/cms-backend`  | REST API Fastify di Bun + Chromium                                               |
+| Aplikasi desktop     | [GitHub releases](https://github.com/aymericzip/intlayer/releases/latest) | n/a                                        | `.dmg` (macOS), `.deb` / `.rpm` / `.AppImage` (Linux), `.exe` / `.msi` (Windows) |
 
 Ketiga image dibuat dari [`docker/selfhost/Dockerfile`](https://github.com/aymericzip/intlayer/tree/main/docker/selfhost) yang sama dan diterbitkan pada setiap rilis. Stack Compose juga menarik image resmi `mongo:8`, `redis:8-alpine`, dan `quay.io/minio/minio`.
 
@@ -67,7 +67,7 @@ curl -fsSL https://intlayer.org/install.sh | sh -s -- --mode desktop
 </Tab>
 <Tab label="Windows" value="windows">
 
-In PowerShell:
+Di PowerShell:
 
 ```powershell
 $env:INTLAYER_MODE = "desktop"; irm https://intlayer.org/install.ps1 | iex
@@ -138,7 +138,7 @@ curl -fsSL https://intlayer.org/install.sh | sh -s -- --mode docker
 </Tab>
 <Tab label="Windows" value="windows">
 
-In PowerShell:
+Di PowerShell:
 
 ```powershell
 $env:INTLAYER_MODE = "docker"; irm https://intlayer.org/install.ps1 | iex
@@ -276,25 +276,25 @@ Menulis `docker-compose.yml` dan `.env` dengan secret yang dihasilkan ke `./intl
 curl -fsSL https://intlayer.org/install.sh | sh -s -- --mode compose
 ```
 
-Or by hand:
+Atau secara manual:
 
 ```sh
 mkdir intlayer && cd intlayer
 curl -fsSLO https://raw.githubusercontent.com/aymericzip/intlayer/main/docker/selfhost/docker-compose.yml
 curl -fsSL  https://raw.githubusercontent.com/aymericzip/intlayer/main/docker/selfhost/.env.template -o .env
-# fill in BETTER_AUTH_SECRET and S3_SECRET_ACCESS_KEY (openssl rand -hex 32)
+# isi BETTER_AUTH_SECRET dan S3_SECRET_ACCESS_KEY (openssl rand -hex 32)
 ```
 
 </Tab>
 <Tab label="Windows" value="windows">
 
-In PowerShell:
+Di PowerShell:
 
 ```powershell
 $env:INTLAYER_MODE = "compose"; irm https://intlayer.org/install.ps1 | iex
 ```
 
-Or by hand:
+Atau secara manual:
 
 ```powershell
 mkdir intlayer; cd intlayer
@@ -385,22 +385,22 @@ curl -fsSL https://intlayer.org/install.sh | INTLAYER_COMPOSE_DIR=./cms sh -s --
 $env:INTLAYER_MODE = "compose"; $env:INTLAYER_COMPOSE_DIR = ".\cms"; irm https://intlayer.org/install.ps1 | iex
 ```
 
-| Variable                  | Default                   | Applies to | Description                                                |
-| ------------------------- | ------------------------- | ---------- | ---------------------------------------------------------- |
-| `INTLAYER_MODE`           | _(asked)_                 | all        | `desktop`, `docker` or `compose`, same as `--mode`         |
-| `INTLAYER_DOWNLOAD_DIR`   | `~/Downloads`             | desktop    | Where the app installer is saved                           |
-| `INTLAYER_IMAGE`          | `intlayer/cms-all:latest` | docker     | All-in-one image to pull                                   |
-| `INTLAYER_ENV_FILE`       | `./intlayer.env`          | docker     | Where to write the environment file                        |
-| `INTLAYER_CONTAINER_NAME` | `intlayer`                | docker     | Container name                                             |
-| `INTLAYER_DATA_VOLUME`    | `intlayer-data`           | docker     | Named volume mounted at `/data`                            |
-| `INTLAYER_APP_PORT`       | `3000`                    | docker     | Host port for the dashboard                                |
-| `INTLAYER_API_PORT`       | `3100`                    | docker     | Host port for the API                                      |
-| `INTLAYER_S3_PORT`        | `9000`                    | docker     | Host port for the MinIO S3 API                             |
-| `INTLAYER_CONSOLE_PORT`   | `9001`                    | docker     | Host port for the MinIO console                            |
-| `INTLAYER_COMPOSE_DIR`    | `./intlayer`              | compose    | Where `docker-compose.yml` and `.env` are written          |
-| `INTLAYER_SELFHOST_REF`   | `main`                    | both       | Git ref the compose file and env template are fetched from |
-| `INTLAYER_BUILD_CONTEXT`  | `…/intlayer.git#main`     | both       | Build context used when a custom domain requires a rebuild |
-| `INTLAYER_CUSTOM_IMAGE`   | `intlayer/cms-all:custom` | docker     | Tag of the all-in-one image built for a custom domain      |
+| Variabel                  | Default                   | Berlaku untuk | Deskripsi                                                              |
+| ------------------------- | ------------------------- | ------------- | ---------------------------------------------------------------------- |
+| `INTLAYER_MODE`           | _(ditanyakan)_            | semua         | `desktop`, `docker`, atau `compose`, sama seperti `--mode`             |
+| `INTLAYER_DOWNLOAD_DIR`   | `~/Downloads`             | desktop       | Lokasi penyimpanan installer aplikasi                                  |
+| `INTLAYER_IMAGE`          | `intlayer/cms-all:latest` | docker        | Image all-in-one yang akan di-pull                                     |
+| `INTLAYER_ENV_FILE`       | `./intlayer.env`          | docker        | Lokasi penulisan file environment                                      |
+| `INTLAYER_CONTAINER_NAME` | `intlayer`                | docker        | Nama kontainer                                                         |
+| `INTLAYER_DATA_VOLUME`    | `intlayer-data`           | docker        | Volume bernama yang dipasang di `/data`                                |
+| `INTLAYER_APP_PORT`       | `3000`                    | docker        | Port host untuk dasbor                                                 |
+| `INTLAYER_API_PORT`       | `3100`                    | docker        | Port host untuk API                                                    |
+| `INTLAYER_S3_PORT`        | `9000`                    | docker        | Port host untuk API MinIO S3                                           |
+| `INTLAYER_CONSOLE_PORT`   | `9001`                    | docker        | Port host untuk konsol MinIO                                           |
+| `INTLAYER_COMPOSE_DIR`    | `./intlayer`              | compose       | Lokasi penulisan `docker-compose.yml` dan `.env`                       |
+| `INTLAYER_SELFHOST_REF`   | `main`                    | keduanya      | Git ref tempat file compose dan template env diambil                   |
+| `INTLAYER_BUILD_CONTEXT`  | `…/intlayer.git#main`     | keduanya      | Konteks build yang digunakan saat custom domain memerlukan build ulang |
+| `INTLAYER_CUSTOM_IMAGE`   | `intlayer/cms-all:custom` | docker        | Tag image all-in-one yang di-build untuk custom domain                 |
 
 > Variabel port hanya mengubah sisi **host** dari pemetaan. Image yang diterbitkan memiliki `http://localhost:3000`, `http://localhost:3100`, dan `http://localhost:9000` yang dikompilasi ke dalam bundle dasbor, jadi pertahankan default kecuali Anda membuat image sendiri, lihat [Batasan](#limitations).
 
@@ -420,11 +420,11 @@ Kedua mode Docker membaca file yang sama (berupa `intlayer.env` untuk kontainer 
 
 ### Wajib
 
-| Variable               | Example       | Description                                                                                                                                   |
-| ---------------------- | ------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| `BETTER_AUTH_SECRET`   | _(generated)_ | 32-byte secret for session signing                                                                                                            |
-| `S3_SECRET_ACCESS_KEY` | _(generated)_ | Secret for the bundled MinIO                                                                                                                  |
-| `RESEND_API_KEY`       | _(your key)_  | Transactional email via Resend. Required for first-run setup unless an SMTP relay is configured instead (see [Global mailer](#global-mailer)) |
+| Variabel               | Contoh         | Deskripsi                                                                                                                                              |
+| ---------------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `BETTER_AUTH_SECRET`   | _(dihasilkan)_ | Secret 32-byte untuk penandatanganan sesi                                                                                                              |
+| `S3_SECRET_ACCESS_KEY` | _(dihasilkan)_ | Secret untuk MinIO bawaan                                                                                                                              |
+| `RESEND_API_KEY`       | _(kunci Anda)_ | Email transaksional via Resend. Diperlukan untuk pengaturan pertama kali kecuali jika relay SMTP dikonfigurasi (lihat [Mailer global](#global-mailer)) |
 
 > Image all-in-one juga menerima `S3_SECRET_ACCESS_KEY` yang kosong: image ini membuatnya saat boot pertama dan menyimpannya di `/data/.s3-secret-access-key`. Docker Compose tetap mewajibkannya.
 
@@ -432,19 +432,19 @@ Kedua mode Docker membaca file yang sama (berupa `intlayer.env` untuk kontainer 
 
 Variabel ini diatur oleh image (all-in-one) atau oleh file compose, dan hanya perlu ditimpa untuk topologi non-standar. `DOMAIN`, `APP_URL`, `BACKEND_URL`, dan `S3_PUBLIC_URL` adalah pengecualian: jika diatur di file env, variabel ini diutamakan di kedua mode (lihat [Domain kustom](#custom-domain)).
 
-| Variable           | All-in-one                                          | Docker Compose                   | Description                                                                   |
+| Variabel           | All-in-one                                          | Docker Compose                   | Deskripsi                                                                     |
 | ------------------ | --------------------------------------------------- | -------------------------------- | ----------------------------------------------------------------------------- |
-| `PORT`             | `3100`                                              | `3100`                           | Backend listening port                                                        |
-| `APP_URL`          | `http://localhost:3000`                             | `http://localhost:3000`          | Public URL of the dashboard                                                   |
-| `BACKEND_URL`      | `http://localhost:3100`                             | `http://localhost:3100`          | Public URL of the backend API                                                 |
-| `DOMAIN`           | `localhost`                                         | `localhost`                      | Cookie domain                                                                 |
-| `SELF_HOSTED`      | `true`                                              | `true`                           | Disables the cloud-only API endpoints (billing, subscriptions, marketplace)   |
-| `MONGODB_URI`      | `mongodb://127.0.0.1:27017/intlayer?replicaSet=rs0` | `mongodb://mongo:27017/…`        | MongoDB connection string, any `mongodb://` or `mongodb+srv://` cluster works |
+| `PORT`             | `3100`                                              | `3100`                           | Port listening backend                                                        |
+| `APP_URL`          | `http://localhost:3000`                             | `http://localhost:3000`          | URL publik dasbor                                                             |
+| `BACKEND_URL`      | `http://localhost:3100`                             | `http://localhost:3100`          | URL publik REST API backend                                                   |
+| `DOMAIN`           | `localhost`                                         | `localhost`                      | Domain cookie                                                                 |
+| `SELF_HOSTED`      | `true`                                              | `true`                           | Menonaktifkan endpoint API khusus cloud (billing, langganan, marketplace)     |
+| `MONGODB_URI`      | `mongodb://127.0.0.1:27017/intlayer?replicaSet=rs0` | `mongodb://mongo:27017/…`        | Connection string MongoDB, klaster `mongodb://` atau `mongodb+srv://` apa pun |
 | `REDIS_URL`        | `redis://127.0.0.1:6379`                            | `redis://redis:6379`             | Redis                                                                         |
-| `S3_ENDPOINT`      | `http://127.0.0.1:9000`                             | `http://minio:9000`              | MinIO (server-to-server)                                                      |
-| `S3_PUBLIC_URL`    | `http://localhost:9000/intlayer`                    | `http://localhost:9000/intlayer` | Public URL for browser asset loading                                          |
-| `S3_BUCKET_NAME`   | `intlayer`                                          | `intlayer`                       | Bucket name                                                                   |
-| `S3_ACCESS_KEY_ID` | `intlayer`                                          | `intlayer`                       | MinIO access key                                                              |
+| `S3_ENDPOINT`      | `http://127.0.0.1:9000`                             | `http://minio:9000`              | MinIO (server-ke-server)                                                      |
+| `S3_PUBLIC_URL`    | `http://localhost:9000/intlayer`                    | `http://localhost:9000/intlayer` | URL publik untuk pemuatan aset di browser                                     |
+| `S3_BUCKET_NAME`   | `intlayer`                                          | `intlayer`                       | Nama bucket                                                                   |
+| `S3_ACCESS_KEY_ID` | `intlayer`                                          | `intlayer`                       | Kunci akses MinIO                                                             |
 
 Layanan Compose `app` juga menerima `INTLAYER_BACKEND_INTERNAL_URL=http://backend:3100`: browser menjangkau API di `localhost:3100`, tetapi rendering sisi server berjalan di dalam jaringan Compose sehingga harus menggunakan nama layanan.
 
@@ -481,13 +481,13 @@ Kemudian pasang reverse proxy dengan TLS di depan kontainer: `cms.example.org` �
 
 ### Opsional (fitur akan dinonaktifkan dengan lancar jika tidak disetel)
 
-| Variable                                         | Feature                                   |
+| Variabel                                         | Fitur                                     |
 | ------------------------------------------------ | ----------------------------------------- |
-| `OPENAI_API_KEY`                                 | AI-assisted translation and content audit |
-| `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`       | GitHub OAuth login                        |
-| `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`       | Google OAuth login                        |
-| `GITLAB_CLIENT_ID`, `GITLAB_CLIENT_SECRET`       | GitLab OAuth login                        |
-| `MICROSOFT_CLIENT_ID`, `MICROSOFT_CLIENT_SECRET` | Microsoft OAuth login                     |
+| `OPENAI_API_KEY`                                 | Terjemahan dan audit konten berbantuan AI |
+| `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`       | Login OAuth GitHub                        |
+| `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`       | Login OAuth Google                        |
+| `GITLAB_CLIENT_ID`, `GITLAB_CLIENT_SECRET`       | Login OAuth GitLab                        |
+| `MICROSOFT_CLIENT_ID`, `MICROSOFT_CLIENT_SECRET` | Login OAuth Microsoft                     |
 
 ### Mailer Global
 
@@ -498,15 +498,15 @@ Semua email transaksional, termasuk email di luar organisasi seperti reset kata 
 
 `MAIL_PROVIDER` hanya diperlukan untuk memaksa salah satu transport jika keduanya dikonfigurasi (misalnya `MAIL_PROVIDER=resend` untuk tetap menggunakan Resend saat host SMTP ada).
 
-| Variable             | Example                        | Description                                                                  |
-| -------------------- | ------------------------------ | ---------------------------------------------------------------------------- |
-| `MAIL_FROM`          | `Intlayer <no-reply@acme.com>` | Sender header for either transport. Accepts a bare address or `Name <email>` |
-| `MAIL_SMTP_HOST`     | `smtp.acme.com`                | SMTP host. Setting it selects the SMTP transport                             |
-| `MAIL_SMTP_PORT`     | `587`                          | SMTP port (defaults to `587`)                                                |
-| `MAIL_SMTP_SECURE`   | `false`                        | Implicit TLS. Set `true` for port `465`                                      |
-| `MAIL_SMTP_USER`     | _(your user)_                  | SMTP username (optional; omit for unauthenticated relays)                    |
-| `MAIL_SMTP_PASSWORD` | _(your password)_              | SMTP password                                                                |
-| `MAIL_PROVIDER`      | `resend`                       | Optional override: `smtp` or `resend`. Leave unset to auto-select            |
+| Variabel             | Contoh                         | Deskripsi                                                                              |
+| -------------------- | ------------------------------ | -------------------------------------------------------------------------------------- |
+| `MAIL_FROM`          | `Intlayer <no-reply@acme.com>` | Header pengirim untuk kedua transport. Menerima alamat langsung atau `Nama <email>`    |
+| `MAIL_SMTP_HOST`     | `smtp.acme.com`                | Host SMTP. Mengaturnya akan otomatis memilih transport SMTP                            |
+| `MAIL_SMTP_PORT`     | `587`                          | Port SMTP (default: `587`)                                                             |
+| `MAIL_SMTP_SECURE`   | `false`                        | TLS implisit. Setel ke `true` untuk port `465`                                         |
+| `MAIL_SMTP_USER`     | _(user Anda)_                  | Username SMTP (opsional; kosongkan untuk relay tanpa otentikasi)                       |
+| `MAIL_SMTP_PASSWORD` | _(password Anda)_              | Password SMTP                                                                          |
+| `MAIL_PROVIDER`      | `resend`                       | Override opsional: `smtp` atau `resend`. Biarkan tidak diatur untuk pemilihan otomatis |
 
 > Urutan prioritas: Mailer milik organisasi sendiri (dikonfigurasi dari dasbor **Organisasi**) menggantikan mailer global, dan mailer global menggantikan kunci Resend default.
 
@@ -541,7 +541,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-Set the environment variables in your project's `.env`:
+Atur variabel lingkungan di file `.env` proyek Anda:
 
 ```sh
 INTLAYER_CMS_URL=http://localhost:3000

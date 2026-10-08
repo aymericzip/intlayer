@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-29
-updatedAt: 2026-09-29
+updatedAt: 2026-10-08
 priority: 5
 title: intlayer Hono 中间件文档 | hono-intlayer
 description: "Hono 的 intlayer 中间件会检测用户语言，并将 Intlayer 翻译函数添加到请求上下文中。"

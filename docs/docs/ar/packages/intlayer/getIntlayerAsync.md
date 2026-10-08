@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-09-28
+updatedAt: 2026-10-08
 priority: 5
 title: توثيق دالة getIntlayerAsync | intlayer
 description: "استخدم getIntlayerAsync لتحميل محتوى قاموس وقراءته للغة واحدة فقط، دون تضمين اللغات الأخرى في الحزمة."
@@ -41,9 +41,9 @@ author: aymericzip
 
 - [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getIntlayer.md)
 
-حيث يسحب `getIntlayer` القاموس المدمج الذي يحتوي على كل لغة، فإن [build plugins](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md) (`@intlayer/babel`, `@intlayer/swc`) تعيد كتابة هذا الاستدعاء إلى `getDictionaryAsync(loaderMap, key, locale)`، مشيرة إلى أجزاء كل لغة في `.intlayer/dynamic_dictionaries/`. وبالتالي، يحمل bundle فقط اللغة المطلوبة فعلياً.
+حيث يسحب `getIntlayer` القاموس المدمج الذي يحتوي على كل لغة، فإن [إضافات البناء وتحسين الحزم](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md) (`@intlayer/babel`, `@intlayer/swc`) تعيد كتابة هذا الاستدعاء إلى `getDictionaryAsync(loaderMap, key, locale)`، مشيرة إلى أجزاء كل لغة في `.intlayer/dynamic_dictionaries/`. وبالتالي، يحمل bundle فقط اللغة المطلوبة فعلياً.
 
-- [build plugins](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md)
+- [إضافات البناء وتحسين الحزم](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md)
 
 بدون هذه البرامج المساعدة، بناء غير محسّن، يتم حل الاستدعاء من خلال سجل القاموس المتزامن بدلاً من ذلك: نفس المحتوى، بدون تقسيم اللغة.
 

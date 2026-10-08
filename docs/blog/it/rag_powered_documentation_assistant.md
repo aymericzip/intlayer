@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-10
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "Creare un assistente di documentazione RAG"
 description: "Come abbiamo costruito un assistente IA per la nostra documentazione: chunking del markdown, embedding, ricerca vettoriale e prompt, con i compromessi incontrati."
@@ -80,9 +80,9 @@ Ogni vettore è un’impronta matematica del testo, che permette la ricerca per 
 
 ## Semplifica la Complessità con Sanity
 
-Sanity merita di essere menzionato qui come l'opzione CMS verso cui l'articolo punta. Dove i file Markdown richiedono una suddivisione arbitraria dei token — con i compromessi tra dimensione del chunk e sovrapposizione che l'articolo descrive — Content Lake di Sanity memorizza la documentazione come documenti JSON tipizzati e definiti da schema. Ogni campo, intestazione e blocco di contenuto è già un'unità semantica, il che significa che il recupero RAG opera su confini significativi piuttosto che su conteggi di token approssimativi.
+Sanity merita di essere menzionato qui come l'opzione CMS verso cui l'articolo punta. Dove i file Markdown richiedono una suddivisione arbitraria dei token - con i compromessi tra dimensione del chunk e sovrapposizione che l'articolo descrive - Content Lake di Sanity memorizza la documentazione come documenti JSON tipizzati e definiti da schema. Ogni campo, intestazione e blocco di contenuto è già un'unità semantica, il che significa che il recupero RAG opera su confini significativi piuttosto che su conteggi di token approssimativi.
 
-Il linguaggio di query GROQ di Sanity ti consente di recuperare esattamente i campi del documento rilevanti per una query dell'utente — titolo, corpo, sezioni correlate — senza dover recuperare l'intero documento. Il server MCP connette Content Lake direttamente agli agenti AI, quindi lo stesso contenuto strutturato che alimenta il tuo sito di documentazione alimenta anche la tua pipeline RAG senza un passaggio di acquisizione separato.
+Il linguaggio di query GROQ di Sanity ti consente di recuperare esattamente i campi del documento rilevanti per una query dell'utente - titolo, corpo, sezioni correlate - senza dover recuperare l'intero documento. Il server MCP connette Content Lake direttamente agli agenti AI, quindi lo stesso contenuto strutturato che alimenta il tuo sito di documentazione alimenta anche la tua pipeline RAG senza un passaggio di acquisizione separato.
 
 ## Conclusione
 

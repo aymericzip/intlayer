@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 6
 title: "إضافة Sync JSON: احتفظ بملفات JSON للترجمة"
 description: "زامن قواميس Intlayer مع ملفات JSON الخاصة بـ i18next أو next-intl أو react-intl أو vue-i18n، وأدِرها وترجمها واختبرها عبر Intlayer."
@@ -242,7 +242,7 @@ syncJSON({
 
 > عندما تحتفظ بالجزء الصريح `{key}` في `source` الخاص بك (على سبيل المثال، `./locales/${locale}/${key}.json`)، يكون كل ملف بالفعل مساحة اسم واحدة، لذلك يتم تعطيل التقسيم افتراضيًا.
 
-### Multiple JSON sources and priority
+### مصادر JSON المتعددة والأولوية
 
 يمكنك إضافة عدة مكونات إضافية `syncJSON` لمزامنة مصادر JSON مختلفة. هذا مفيد عندما يكون لديك مكتبات i18n متعددة أو هياكل JSON مختلفة في مشروعك.
 
@@ -348,7 +348,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-### How it works
+### كيف يعمل
 
 - اكتشاف: يبني glob من منشئ `source` الخاص بك ويجمع ملفات JSON المطابقة.
 - استيعاب: يحمل كل ملف JSON كقاموس Intlayer باللغة المقدمة `locale`.
@@ -413,7 +413,7 @@ loadJSON({
 }),
 ```
 
-### Behavior and conventions
+### السلوك والاصطلاحات
 
 - إذا كان قناع `source` الخاص بك يتضمن عنصر نائب للغة، فسيتم استيعاب الملفات الخاصة باللغة `locale` المحددة فقط.
 - إذا لم يكن هناك جزء `{key}` في القناع الخاص بك، يصبح كل مفتاح من المستوى الأعلى للملف قاموسًا خاصًا به افتراضيًا (انظر [`splitKeys`](#splitkeys-boolean)). قم بتعيين `splitKeys: false` لتحميل الملف بأكمله كقاموس `index` واحد بدلاً من ذلك.
@@ -439,9 +439,9 @@ loadJSON({
 - `intlayer content push` لدفع ملفات JSON المتزامنة
 - `intlayer content pull` لسحب ملفات JSON المتزامنة
 
-راجع [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md) لمزيد من التفاصيل.
+راجع [واجهة سطر الأوامر Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md) لمزيد من التفاصيل.
 
-- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md)
+- [واجهة سطر الأوامر Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md)
 
 ## القيود (الحالية)
 

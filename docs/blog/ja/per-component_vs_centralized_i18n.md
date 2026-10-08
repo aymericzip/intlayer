@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-10
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "React におけるコンポーネント単位 vs 集中型の i18n"
 description: React の国際化戦略を深掘りし、集中型、キー単位（per-key）、コンポーネント単位の各アプローチを比較し、Intlayer を紹介します。
@@ -137,7 +137,7 @@ locale/
 └── es.json
 ```
 
-To this one:
+次のような構成へ：
 
 ```bash
 locale/

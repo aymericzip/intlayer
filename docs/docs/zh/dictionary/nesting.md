@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "嵌套：在字典之间复用内容"
 description: "使用 Intlayer 的 nest() 节点从一个字典引用另一个字典，复用共享内容而无需重复翻译。"

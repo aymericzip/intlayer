@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-09-28
+updatedAt: 2026-10-08
 priority: 5
 title: getIntlayer 函数文档 | intlayer
 description: "使用 getIntlayer 在任何地方读取某个语言的字典内容，是 useIntlayer hook 的框架无关版本。"
@@ -34,7 +34,7 @@ author: aymericzip
 
 ## 描述
 
-`getIntlayer` 函数通过其键选择一个字典，并返回针对给定区域设置解释的内容。它是 `useIntlayer` 钩子的框架无关对应物：相同的内容、相同的选择器，但可在 React 上下文不可用的任何地方使用，Node 脚本、服务器函数、路由加载器、元数据构建器、Express/Fastify 处理程序、测试。
+`getIntlayer` 函数通过其键选择一个字典，并返回针对给定区域设置解释的内容。它是 `useIntlayer` Hook的框架无关对应物：相同的内容、相同的选择器，但可在 React 上下文不可用的任何地方使用，Node 脚本、服务器函数、路由加载器、元数据构建器、Express/Fastify 处理程序、测试。
 
 它读取由 Intlayer 在 `.intlayer/` 中生成的字典，因此 `key` 参数是从您自己的内容声明中类型化和自动完成的，返回的对象从每个叶子节点都是完全类型化的。
 

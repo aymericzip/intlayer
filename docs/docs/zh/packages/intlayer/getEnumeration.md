@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-06-29
+updatedAt: 2026-10-08
 priority: 5
 title: getEnumeration 函数文档 | intlayer
 description: "使用 getEnumeration（别名 enu）根据枚举对象的条件，选择与数量匹配的内容。"

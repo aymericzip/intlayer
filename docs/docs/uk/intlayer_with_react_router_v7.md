@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-04
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 10
 title: "React Router v7 i18n - Повний посібник з перекладу вашого застосунку"
 description: "Налаштування Intlayer у React Router v7: локалізовані сегменти маршрутів, перекладені loaders і компоненти, hreflang і багатомовна карта сайту."
@@ -81,7 +81,7 @@ Intlayer оптимізовано для ідеальної роботи з Reac
 </Accordion>
 <Accordion header="Автоматизація">
 
-Використовуйте автоматизацію для перекладу в конвеєрі CI/CD за допомогою LLM за вашим вибором за рахунок вашого постачальника штучного інтелекту. Intlayer також пропонує **компілятор** для автоматизації екстракція вмісту, а також [веб-платформу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md), щоб допомогти **перекладати у фоновому режимі**.
+Використовуйте автоматизацію для перекладу в конвеєрі CI/CD за допомогою LLM за вашим вибором за рахунок вашого постачальника штучного інтелекту. Intlayer також пропонує **компілятор** для автоматизації вилучення контенту, а також [веб-платформу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md), щоб допомогти **перекладати у фоновому режимі**.
 
 - [веб-платформу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)
 
@@ -93,10 +93,10 @@ Intlayer оптимізовано для ідеальної роботи з Reac
 </Accordion>
 <Accordion header="Співпраця з не-розробниками">
 
-Більше ніж просто рішення i18n, Intlayer пропонує **власний [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md)** і **[повний CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)**, щоб допомогти вам керувати своїм багатомовним вмістом у **реальному часі**, спрощуючи співпрацю з перекладачами, копірайтерами та іншими членами команди. Контент можна зберігати локально та/або віддалено.
+Більше ніж просто рішення i18n, Intlayer пропонує **власний [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md)** і **[повноцінну CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)**, щоб допомогти вам керувати своїм багатомовним вмістом у **реальному часі**, спрощуючи співпрацю з перекладачами, копірайтерами та іншими членами команди. Контент можна зберігати локально та/або віддалено.
 
 - [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md)
-- [повний CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)
+- [повноцінну CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
@@ -144,7 +144,7 @@ Intlayer оптимізовано для ідеальної роботи з Reac
   </Tab>
 </Tabs>
 
-See the [Config-Based Routing Template](https://github.com/aymericzip/intlayer-react-router-v7-template) or [File-System Routes Template](https://github.com/aymericzip/intlayer-react-router-v7-fs-routes-template) on GitHub.
+Дивіться [Шаблон маршрутизації на основі конфігурації](https://github.com/aymericzip/intlayer-react-router-v7-template) або [Шаблон файлової маршрутизації](https://github.com/aymericzip/intlayer-react-router-v7-fs-routes-template) на GitHub.
 
 <Steps>
 <Step number={1} title="Встановлення залежностей">
@@ -350,7 +350,7 @@ export default [
 </Tab>
 <Tab label="File-system routes" value="fs-routes">
 
-Set up your routing configuration to use file-system based routes with `flatRoutes`:
+Налаштуйте конфігурацію маршрутизації для використання файлової маршрутизації за допомогою `flatRoutes`:
 
 ```typescript fileName="app/routes.ts"
 import type { RouteConfig } from "@react-router/dev/routes";
@@ -367,7 +367,7 @@ const routes: RouteConfig = flatRoutes({
 export default routes;
 ```
 
-> The `flatRoutes` function from `@react-router/fs-routes` enables file-system based routing, where the file structure in the `routes/` directory determines your application's routes. The `ignoredRouteFiles` option ensures that Intlayer content declaration files (`.content.ts`, etc.) are not treated as route files.
+> Функція `flatRoutes` із `@react-router/fs-routes` увімкне файлову маршрутизацію, де файлова структура каталогу `routes/` визначає маршрути вашого застосунку. Параметр `ignoredRouteFiles` гарантує, що файли оголошення контенту Intlayer (`.content.ts` тощо) не сприйматимуться як файли маршрутів.
 
 </Tab>
 </Tabs>
@@ -918,7 +918,7 @@ bun x intlayer extract
  <Tabs>
  <Tab value='intlayer >= 9'>
 
-> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+> Починаючи з версії 9, `intlayerCompiler` включено до плагіна `intlayer`. Тому вам не потрібно додавати його вручну.
 
  </Tab>
  <Tab value='intlayer < 9'>
@@ -965,53 +965,53 @@ bun run build # Or bun run dev
 
 </Steps>
 
-## Configure TypeScript
+## Налаштування TypeScript
 
-Intlayer uses module augmentation to get benefits of TypeScript and make your codebase stronger.
+Intlayer використовує розширення модулів (module augmentation) для отримання всіх переваг TypeScript та посилення вашої кодової бази.
 
-Ensure your TypeScript configuration includes the autogenerated types:
+Переконайтеся, що ваша конфігурація TypeScript включає автозгенеровані типи:
 
 ```json5 fileName="tsconfig.json"
 {
-  // ... your existing configurations
+  // ... ваші наявні налаштування
   include: [
-    // ... your existing includes
-    ".intlayer/**/*.ts", // Include the auto-generated types
+    // ... ваші наявні includes
+    ".intlayer/**/*.ts", // Включення автозгенерованих типів
   ],
 }
 ```
 
-## Git Configuration
+## Конфігурація Git
 
-It is recommended to ignore the files generated by Intlayer. This allows you to avoid committing them to your Git repository.
+Рекомендується ігнорувати файли, згенеровані Intlayer. Це дозволяє уникнути їх фіксації у вашому Git-репозиторії.
 
-To do this, you can add the following instructions to your `.gitignore` file:
+Для цього додайте наступний рядок до вашого файлу `.gitignore`:
 
 ```plaintext fileName=".gitignore"
-# Ignore the files generated by Intlayer
+# Ігнорувати файли, згенеровані Intlayer
 .intlayer
 ```
 
-## VS Code Extension
+## Розширення для VS Code
 
-To improve your development experience with Intlayer, you can install the official **Intlayer VS Code Extension**.
+Щоб покращити ваш досвід розробки з Intlayer, ви можете встановити офіційне **розширення Intlayer для VS Code**.
 
-- [Install from the VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [Встановити з VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
-This extension provides:
+Це розширення забезпечує:
 
-- **Autocompletion** for translation keys.
-- **Real-time error detection** for missing translations.
-- **Inline previews** of translated content.
-- **Quick actions** to easily create and update translations.
+- **Автодоповнення** для ключів перекладу.
+- **Виявлення помилок у реальному часі** для відсутніх перекладів.
+- **Вбудований попередній перегляд** перекладеного контенту.
+- **Швидкі дії** для простого створення та оновлення перекладів.
 
-For more details on how to use the extension, refer to the [Intlayer VS Code Extension documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/vs_code_extension.md).
+Більш детальну інформацію про використання розширення можна знайти в [документації розширення Intlayer для VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/vs_code_extension.md).
 
-- [Intlayer VS Code Extension documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/vs_code_extension.md)
+- [документація розширення Intlayer для VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/vs_code_extension.md)
 
-## Go Further
+## Додаткові можливості
 
-To go further, you can implement the [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md) or externalize your content using the [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md).
+Щоб піти далі, ви можете впровадити [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md) або керувати вашим контентом за допомогою [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md).
 
 - [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md)
 - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)
@@ -1027,7 +1027,7 @@ To go further, you can implement the [visual editor](https://github.com/aymericz
 
 Цей всебічний посібник містить усе необхідне для інтеграції Intlayer з React Router v7, щоб отримати повністю інтернаціоналізований додаток з маршрутизацією, яка враховує локаль, та підтримкою TypeScript.
 
-## Часто задавані запитання
+## Поширені запитання
 
 <FAQ>
 

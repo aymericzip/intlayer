@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 5
 title: "intlayer fill：用 AI 翻译字典"
 description: "通过 CLI 在本地或 CI 中补全缺失的翻译、审查已有翻译，并用 AI 翻译 Intlayer 字典。"

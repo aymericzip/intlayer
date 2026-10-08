@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-09
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "JavaScript 国际化 (i18n) 发展史：从 2011 到 2026 年"
 description: "2011 至 2026 年前端 i18n 的演变：React、Vue、Next.js、Angular、Svelte 和 Solid 的发布时间、架构问题与关键创新。"
@@ -289,7 +289,7 @@ Jan Mühlemann 为快速成长的 React 社区带来了 `i18next` 适配，早�
 随着通用大模型将高质量翻译的综合成本降低至极低水平，市场上也涌现出新一代工具：
 
 - 诸如 **lingo.dev** 或 **General Translation** (`gt-react`, `gt-next`) 等产品，尝试通过专属付费订阅与云端代理服务介入这一流程。
-- 相比之下，**Intlayer** 选择在开源 CLI 中直接提供原生的 AI 自动化翻译支持，允许团队直接接入自有的 API 密钥（如 OpenAI、Anthropic、Mistral 或 Google Gemini）。没有中间商加价与订阅捆绑，纯粹按所选模型的底层实际调用消耗计费。
+- 相比之下，**Intlayer** 选择在开源 CLI 中直接提供原生的 AI 自动化翻译支持，允许团队直接接入自有的 API 密钥（如 OpenAI、Anthropic、Mistral 或 Google Gemini）。没有中间商加价与订阅打包，纯粹按所选模型的底层实际调用消耗计费。
 
 ### 超越传统 i18n：面向未来的多语言内容体系
 

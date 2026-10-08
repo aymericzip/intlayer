@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-01
-updatedAt: 2025-09-20
+updatedAt: 2026-10-08
 priority: 8
 title: "使用 Intlayer 测试你的翻译"
 description: "测试 Intlayer 内容：检测缺失的翻译、在 CI 中校验字典，并在单元测试中按语言渲染组件。"

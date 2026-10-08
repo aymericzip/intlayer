@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "Intlayer 翻译的 CI/CD 集成"
 description: 了解如何将 Intlayer 集成到您的 CI/CD 流水线中，实现内容管理和部署的自动化。

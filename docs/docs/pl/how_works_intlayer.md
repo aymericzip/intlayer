@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-12
-updatedAt: 2026-09-28
+updatedAt: 2026-10-08
 priority: 8
 title: "Jak działa Intlayer: przegląd architektury"
 description: Dowiedz się, jak Intlayer działa wewnętrznie. Poznaj architekturę i komponenty, które czynią Intlayer potężnym.
@@ -445,7 +445,7 @@ Zostaw provider w interaktywnych aplikacjach, które zmieniają locale na miejsc
 </Question>
 <Question title="Czy muszę przebudowywać aplikację po dodaniu tłumaczenia?">
 
-W środowisku deweloperskim nie: wtyczka obserwuje pliki z treścią i przebudowuje zmienione słowniki przy zapisie. Na produkcji słowniki są częścią builda, chyba że treść jest zdalna — wtedy [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md) i [synchronizacja na żywo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/live.md) wprowadzają zmianę bez wdrożenia.
+W środowisku deweloperskim nie: wtyczka obserwuje pliki z treścią i przebudowuje zmienione słowniki przy zapisie. Na produkcji słowniki są częścią builda, chyba że treść jest zdalna - wtedy [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md) i [synchronizacja na żywo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/live.md) wprowadzają zmianę bez wdrożenia.
 
 - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md)
 - [synchronizacja na żywo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/live.md)

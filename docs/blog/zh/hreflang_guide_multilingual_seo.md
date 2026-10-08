@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-29
-updatedAt: 2026-08-29
+updatedAt: 2026-10-08
 priority: 8
 title: "Hreflang，多语言 SEO 指南"
 description: "什么是 hreflang，搜索引擎强制执行的规则，为什么 x-default 几乎总是错误的，以及如何在 Next.js 和 TanStack Start 中生成正确的标签。"
@@ -39,11 +39,11 @@ author: aymericzip
 
 它为你争取两样东西：为合适的用户展示正确的版本，以及将你的多语言版本合并到一个集群中，而不是作为重复内容互相蚕食。
 
-需要明确的是它不是什么。它**不是重定向**——它是一个提示，Google 可能会覆盖它。它**不是排名提升**——它改变的是_哪个_版本排名，而不是_是否_排名。而且 Bing 完全忽略它，而是依赖 `content-language` 和地理定位。
+需要明确的是它不是什么。它**不是重定向** - - 它是一个提示，Google 可能会覆盖它。它**不是排名提升** - - 它改变的是_哪个_版本排名，而不是_是否_排名。而且 Bing 完全忽略它，而是依赖 `content-language` 和地理定位。
 
 ## 在哪里声明它
 
-三种放置方式，都有效。选择一种并坚持——同一个集群在两个地方声明是集合漂移的原因。
+三种放置方式，都有效。选择一种并坚持 - - 同一个集群在两个地方声明是集合漂移的原因。
 
 **HTML `<head>`** 是通常的选择。一个需要注意的问题：水合后注入的标签是不可靠的。如果你的框架只在客户端添加它们，爬虫可能永远看不到它们。
 
@@ -69,24 +69,24 @@ author: aymericzip
 <link rel="alternate" hreflang="fr" href="https://example.com/fr/about" />
 ```
 
-这个原因值得理解而不仅仅是记忆。`hreflang` 是一个跨文档引用：搜索引擎构建一个由 URL 键值的集群，在集群中的每一页都共享这个集群。相对路径只有相对于它所在的文档才有意义，因此它无法表达这一点。它也无法跨越主机——而替代版本通常会这样做，当一个语言版本存在于 `example.fr` 或 `fr.example.com` 时。在 sitemap 或 HTTP 头中，根本没有可以用来解析的基础文档。
+这个原因值得理解而不仅仅是记忆。`hreflang` 是一个跨文档引用：搜索引擎构建一个由 URL 键值的集群，在集群中的每一页都共享这个集群。相对路径只有相对于它所在的文档才有意义，因此它无法表达这一点。它也无法跨越主机 - - 而替代版本通常会这样做，当一个语言版本存在于 `example.fr` 或 `fr.example.com` 时。在 sitemap 或 HTTP 头中，根本没有可以用来解析的基础文档。
 
-这在代码中有直接的后果。`getLocalizedUrl("/about", "fr")` 返回 `/fr/about` — 相对路径输入，相对路径输出。对于 `hreflang`，你必须向其提供绝对 URL：
+这在代码中有直接的后果。`getLocalizedUrl("/about", "fr")` 返回 `/fr/about` - 相对路径输入，相对路径输出。对于 `hreflang`，你必须向其提供绝对 URL：
 
 ```ts
 getLocalizedUrl("/about", "fr"); // → "/fr/about"          ❌ 被丢弃
 getLocalizedUrl("https://example.com/about", "fr"); // → "https://example.com/fr/about"  ✅
 ```
 
-唯一的例外是一个框架在渲染之前为你解析相对值：Next.js 根据 `metadataBase` 展开相对的 `alternates`。没问题 — 但规则适用于**发出的 HTML**，所以用 `curl` 检查，而不是 DevTools 检查器。
+唯一的例外是一个框架在渲染之前为你解析相对值：Next.js 根据 `metadataBase` 展开相对的 `alternates`。没问题 - 但规则适用于**发出的 HTML**，所以用 `curl` 检查，而不是 DevTools 检查器。
 
 ### 语言代码
 
 ISO 639-1 用于语言，ISO 3166-1 Alpha 2 用于可选的地区：`fr`、`fr-CA`、`pt-BR`。
 
-两个陷阱几乎会困住每个人。单独的地区代码是无效的——`hreflang="ca"` 表示加泰罗尼亚语，而不是加拿大；你需要 `en-CA` 或 `fr-CA`。而 `en-UK` 不存在：英国的国家代码是 `GB`，所以是 `en-GB`。
+两个陷阱几乎会困住每个人。单独的地区代码是无效的 - - `hreflang="ca"` 表示加泰罗尼亚语，而不是加拿大；你需要 `en-CA` 或 `fr-CA`。而 `en-UK` 不存在：英国的国家代码是 `GB`，所以是 `en-GB`。
 
-只有在你确实为该地区提供不同内容时才添加地区——不同的价格、不同的法律声明。`fr` 和 `fr-FR` 在相同内容上是冗余的。
+只有在你确实为该地区提供不同内容时才添加地区 - - 不同的价格、不同的法律声明。`fr` 和 `fr-FR` 在相同内容上是冗余的。
 
 ### x-default
 
@@ -94,13 +94,13 @@ ISO 639-1 用于语言，ISO 3166-1 Alpha 2 用于可选的地区：`fr`、`fr-C
 <link rel="alternate" hreflang="x-default" href="https://example.com/" />
 ```
 
-最容易被遗忘且最容易被误解的一个概念是 `x-default`——少于 30% 的应用正确实现它。
+最容易被遗忘且最容易被误解的一个概念是 `x-default` - - 少于 30% 的应用正确实现它。
 
 这是用户语言与你的集合中任何内容都不匹配时的回退方案。荷兰语使用者访问仅提供英语、法语和西班牙语的网站时无法匹配任何条目；没有 `x-default`，Google 会为你做出选择。
 
-人们经常误解的是它的含义。`x-default` **不是"英文版本"** 也 **不是"默认 locale"**，尽管它通常指向那里。它的意思是 _这个集合不覆盖的用户的页面_。这就是为什么让它指向语言选择器或地理重定向登陆页面是合理的，通常也更好——而不是指向 `/en`。如果你没有这样的页面，你的主要语言是明智的选择。
+人们经常误解的是它的含义。`x-default` **不是"英文版本"** 也 **不是"默认 locale"**，尽管它通常指向那里。它的意思是 _这个集合不覆盖的用户的页面_。这就是为什么让它指向语言选择器或地理重定向登陆页面是合理的，通常也更好 - - 而不是指向 `/en`。如果你没有这样的页面，你的主要语言是明智的选择。
 
-两件事需要区分清楚：`x-default` 是该集合中的一个额外条目，而不是自引用条目的替代品，而且像其他每个条目一样，它必须在集群中的每个页面上完全相同地出现。
+两件事需要区分清楚：`x-default` 是该集合中的一个额外条目，而不是自引用条目的替代项，而且像其他每个条目一样，它必须在集群中的每个页面上完全相同地出现。
 
 ## canonical 陷阱
 
@@ -116,7 +116,7 @@ ISO 639-1 用于语言，ISO 3166-1 Alpha 2 用于可选的地区：`fr`、`fr-C
 将每个语言版本的 canonical 都指向英文版本反而会这样做：
 
 ```html
-<!-- 在 https://example.com/fr/about — 会破坏该页面 -->
+<!-- 在 https://example.com/fr/about  -  会破坏该页面 -->
 <link rel="canonical" href="https://example.com/about" />
 ```
 
@@ -130,9 +130,9 @@ ISO 639-1 用于语言，ISO 3166-1 Alpha 2 用于可选的地区：`fr`、`fr-C
 
 | 结构       | 示例              | 权衡                                              |
 | ---------- | ----------------- | ------------------------------------------------- |
-| **子目录** | `example.com/fr/` | 一个域名，权限共享 — 地理信号较弱                 |
-| **子域名** | `fr.example.com`  | 易于添加或删除语言版本 — 可能看起来像一个独立网站 |
-| **ccTLDs** | `example.fr`      | 最强的国家信号 — 每个域名建立权限                 |
+| **子目录** | `example.com/fr/` | 一个域名，权限共享 - 地理信号较弱                 |
+| **子域名** | `fr.example.com`  | 易于添加或删除语言版本 - 可能看起来像一个独立网站 |
+| **ccTLDs** | `example.fr`      | 最强的国家信号 - 每个域名建立权限                 |
 
 对大多数项目来说，子目录是正确的默认选择。只有当你真正以独立的国家业务运营时，才应该考虑使用 ccTLDs。
 
@@ -258,15 +258,15 @@ const sitemap = generateSitemap(
 
 两个值得了解的选项：
 
-- `xhtmlLinks` (默认值 `true`) — 只有在 locale URL 实际不同时，才会发出交替链接。在 `no-prefix` 模式下，每个 locale 共享一个 URL，因此除非 `routing.domains` 为 locale 分配自己的主机名，否则会被跳过。
-- `entryPerLocale`（默认值 `false`）—— 默认情况下，一个 `<url>` 条目包含所有的备用语言版本。两种形式都是有效的，但只有列在 `<loc>` 中的 URL 才会在 Search Console 中被计算为**已提交**；仅作为备用语言的区域设置会保持可发现性但不会被归属到任何 sitemap。启用此选项会为每个本地化 URL 提供其自己的条目，并重复完整的备用语言集。这会按区域设置计数增加条目，因此需要注意 50,000 个 URL / 50 MB 的限制，超过后应分割为 sitemap 索引。
+- `xhtmlLinks` (默认值 `true`) - 只有在 locale URL 实际不同时，才会发出交替链接。在 `no-prefix` 模式下，每个 locale 共享一个 URL，因此除非 `routing.domains` 为 locale 分配自己的主机名，否则会被跳过。
+- `entryPerLocale`（默认值 `false`） - - 默认情况下，一个 `<url>` 条目包含所有的备用语言版本。两种形式都是有效的，但只有列在 `<loc>` 中的 URL 才会在 Search Console 中被计算为**已提交**；仅作为备用语言的区域设置会保持可发现性但不会被归属到任何 sitemap。启用此选项会为每个本地化 URL 提供其自己的条目，并重复完整的备用语言集。这会按区域设置计数增加条目，因此需要注意 50,000 个 URL / 50 MB 的限制，超过后应分割为 sitemap 索引。
 
 </Step>
 <Step number={3} title="验证爬虫接收到的内容">
 
 `hreflang` 会无声地失败，因此应该检查它而不是假设它有效。
 
-读取源代码，而不是检查器 — `curl https://example.com/fr/about | grep hreflang` 显示爬虫获取的内容；DevTools 显示 JavaScript 运行后的 DOM。然后跟随每个备用链接，确认它使用相同的集合指向回来，并且它们都不重定向。Search Console 的国际定位报告捕获整个站点中的其余部分。
+读取源代码，而不是检查器 - `curl https://example.com/fr/about | grep hreflang` 显示爬虫获取的内容；DevTools 显示 JavaScript 运行后的 DOM。然后跟随每个备用链接，确认它使用相同的集合指向回来，并且它们都不重定向。Search Console 的国际定位报告捕获整个站点中的其余部分。
 
 对于多语言特定的爬取，[Intlayer SEO Scanner](https://intlayer.org/i18n-seo-scanner) 检查本地化页面中的缺失标签、损坏的备用链接和规范冲突。
 

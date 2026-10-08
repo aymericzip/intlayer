@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 9
 title: "Express i18n - 翻译你的应用的完整指南"
 description: "在 Express 中配置 Intlayer：通过中间件按请求检测语言，翻译 API 响应和错误信息，端到端类型安全。"

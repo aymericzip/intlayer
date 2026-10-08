@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-14
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "なぜ Intlayer？他の i18n ライブラリとの違い"
 description: プロジェクトでIntlayerを使用するメリットと利点をご紹介します。他のフレームワークの中でIntlayerが選ばれる理由を理解しましょう。
@@ -47,12 +47,12 @@ author: aymericzip
 </Accordion>
 <Accordion header="保守性">
 
-アプリケーションのコンテンツのスコープを限定することで、大規模アプリケーションの**メンテナンスが容易**になります。全体のコンテンツコードベースを見直す精神的負担なしに、単一の機能フォルダを複製または削除できます。さらに、Intlayerは**完全に型定義**されているため、コンテンツの正確性が保証されます。
+アプリケーションのコンテンツのスコープを限定することで、大規模アプリケーションの**メンテナンスが容易**になります。全体のコンテンツコードベースを見直す認知的負荷をかけることなく、単一の機能フォルダを複製または削除できます。さらに、Intlayerは**完全に型定義**されているため、コンテンツの正確性が保証されます。
 
 </Accordion>
 <Accordion header="AI Agent">
 
-コンテンツを同じ場所に配置（コローケーション）することで、大規模言語モデル（LLM）に必要な**コンテキストが削減**されます。Intlayerには、翻訳漏れをテストするための**CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)**、**[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)**などのツールスイートも付属しており、AIエージェントの開発体験（DX）をさらにスムーズにします。
+コンテンツをコンポーネントと同一ディレクトリに配置（Co-location）（コローケーション）することで、大規模言語モデル（LLM）に必要な**コンテキストが削減**されます。Intlayerには、翻訳漏れをテストするための**CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)**、**[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)**などのツールスイートも付属しており、AIエージェントの開発体験（DX）をさらにスムーズにします。
 
 - [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)
 - [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)
@@ -79,7 +79,7 @@ CI/CDパイプラインでお好みのLLMを使用し、AIプロバイダーの�
 </Accordion>
 <Accordion header="パフォーマンス">
 
-巨大なJSONファイルをコンポーネントに接続すると、パフォーマンスやリアクティビティの問題が発生する可能性があります。Intlayerはビルド時にコンテンツの読み込みを最適化します。
+巨大なJSONファイルをコンポーネントに接続すると、パフォーマンスやレンダリング性能や反応性の低下が発生する可能性があります。Intlayerはビルド時にコンテンツの読み込みを最適化します。
 
 </Accordion>
 <Accordion header="非開発環境でのスケーリング">

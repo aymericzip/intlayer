@@ -1,8 +1,8 @@
 ---
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 5
 createdAt: 2025-08-23
-title: "useRewriteURL 钩子 文档 | solid-intlayer"
+title: "useRewriteURL Hook 文档 | solid-intlayer"
 description: "在 SolidJS 中使用 useRewriteURL，按照配置中的 URL 重写规则将浏览器 URL 改写为本地化版本。"
 keywords:
   - useRewriteURL
@@ -18,15 +18,15 @@ slugs:
 author: aymericzip
 ---
 
-# useRewriteURL 钩子
+# useRewriteURL Hook
 
-用于 SolidJS 的 `useRewriteURL` 钩子用于在客户端管理本地化的 URL 重写。它会根据当前的 locale 和 `intlayer.config.ts` 中的配置，自动将浏览器的 URL 修正为更“漂亮”的本地化版本。
+用于 SolidJS 的 `useRewriteURL` Hook用于在客户端管理本地化的 URL 重写。它会根据当前的 locale 和 `intlayer.config.ts` 中的配置，自动将浏览器的 URL 修正为更“漂亮”的本地化版本。
 
 通过使用 `window.history.replaceState`，它避免了不必要的 Solid Router 导航。
 
 ## 用法
 
-在你的应用组件中调用此钩子。
+在你的应用组件中调用此Hook。
 
 ```tsx
 import { useRewriteURL } from "solid-intlayer";

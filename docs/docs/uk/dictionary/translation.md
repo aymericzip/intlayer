@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "Переклади: функція t()"
 description: "Оголошуйте переклади за локалями функцією t() в Intlayer: перевірка типів повідомить про відсутні локалі під час збирання."
@@ -91,7 +91,7 @@ export default config;
 <Tabs group="framework">
   <Tab label="React" value="react">
 
-With `react-intlayer`, you can use translations in React components. Here's an example:
+З `react-intlayer` ви можете використовувати переклади в компонентах React. Ось приклад:
 
 ```jsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
@@ -110,7 +110,7 @@ const MyComponent: FC = () => {
 export default MyComponent;
 ```
 
-This component fetches the corresponding translation based on the current locale set in your application.
+Цей компонент отримує відповідний переклад на основі поточної локалі, встановленої у вашому застосунку.
 
   </Tab>
   <Tab label="Next.js" value="nextjs">
@@ -139,7 +139,7 @@ export default MyComponent;
   </Tab>
   <Tab label="Vue" value="vue">
 
-With `vue-intlayer`, you can use translations in Vue components. Here's an example:
+З `vue-intlayer` ви можете використовувати переклади у компонентах Vue. Ось приклад:
 
 ```vue fileName="**/*.vue"
 <script setup lang="ts">
@@ -158,7 +158,7 @@ const content = useIntlayer("multi_lang");
   </Tab>
   <Tab label="Svelte" value="svelte">
 
-With `svelte-intlayer`, you can use translations in Svelte components. The hook returns a Svelte store. Here's an example:
+З `svelte-intlayer` ви можете використовувати переклади у компонентах Svelte. Хук повертає сховище Svelte. Ось приклад:
 
 ```svelte fileName="**/*.svelte"
 <script lang="ts">
@@ -175,7 +175,7 @@ const content = useIntlayer("multi_lang");
   </Tab>
   <Tab label="Preact" value="preact">
 
-With `preact-intlayer`, you can use translations in Preact components. Here's an example:
+З `preact-intlayer` ви можете використовувати переклади у компонентах Preact. Ось приклад:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "preact";
@@ -219,7 +219,7 @@ export default MyComponent;
   </Tab>
   <Tab label="Angular" value="angular">
 
-With `angular-intlayer`, you can use translations in Angular components. Here's an example:
+З `angular-intlayer` ви можете використовувати переклади у компонентах Angular. Ось приклад:
 
 ```typescript fileName="app.component.ts" codeFormat="typescript"
 import { Component } from "@angular/core";

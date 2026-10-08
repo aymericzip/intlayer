@@ -46,15 +46,15 @@ import { ... } from "@intlayer/babel";
 
 ### Plugins
 
-| Função / Classe                | Descrição                                                                                                                                                                                                                |
-| ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `intlayerExtractBabelPlugin`   | Plugin do Babel que extrai conteúdo traduzível de arquivos-fonte e injeta ganchos (hooks) `useIntlayer` / `getIntlayer` automaticamente. Projetado para uso com o Next.js e ferramentas de compilação baseadas em Babel. |
-| `intlayerOptimizeBabelPlugin`  | Plugin do Babel que transforma chamadas `useIntlayer` e `getIntlayer` e reescreve suas importações para importações de dicionário JSON otimizadas (estáticas, dinâmicas ou via fetch).                                   |
-| `intlayerPurgeBabelPlugin`     | Plugin do Babel que analisa arquivos-fonte e reescreve arquivos JSON de dicionário compilados para remover campos não utilizados (`build.purge`) ou renomeá-los para aliases curtos (`build.minify`).                    |
-| `intlayerMinifyBabelPlugin`    | Plugin do Babel que reescreve arquivos-fonte para usar os aliases curtos de campo atribuídos durante a fase de minificação (por exemplo, `content.title` ← `content.a`). Depende do `intlayerPruneBabelPlugin`.          |
-| `makeFieldRenameBabelPlugin`   | Função factory que produz um plugin do Babel para renomear acessos a campos de conteúdo de dicionário em arquivos-fonte de acordo com o `dictionaryKeyToFieldRenameMap` preenchido no `PruneContext`.                    |
-| `makeUsageAnalyzerBabelPlugin` | Função factory que produz um plugin do Babel para analisar o uso de `useIntlayer` / `getIntlayer` no código-fonte e agregar dados de uso de campo no `PruneContext` compartilhado.                                       |
-| `getSharedPruneContext`        | Função auxiliar que retorna o objeto `PruneContext` compartilhado para o diretório base especificado, ou `null` se ainda não tiver sido inicializado.                                                                    |
+| Função / Classe                | Descrição                                                                                                                                                                                                              |
+| ------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `intlayerExtractBabelPlugin`   | Plugin do Babel que extrai conteúdo traduzível de arquivos-fonte e injeta hooks (hooks) `useIntlayer` / `getIntlayer` automaticamente. Projetado para uso com o Next.js e ferramentas de compilação baseadas em Babel. |
+| `intlayerOptimizeBabelPlugin`  | Plugin do Babel que transforma chamadas `useIntlayer` e `getIntlayer` e reescreve suas importações para importações de dicionário JSON otimizadas (estáticas, dinâmicas ou via fetch).                                 |
+| `intlayerPurgeBabelPlugin`     | Plugin do Babel que analisa arquivos-fonte e reescreve arquivos JSON de dicionário compilados para remover campos não utilizados (`build.purge`) ou renomeá-los para aliases curtos (`build.minify`).                  |
+| `intlayerMinifyBabelPlugin`    | Plugin do Babel que reescreve arquivos-fonte para usar os aliases curtos de campo atribuídos durante a fase de minificação (por exemplo, `content.title` ← `content.a`). Depende do `intlayerPruneBabelPlugin`.        |
+| `makeFieldRenameBabelPlugin`   | Função factory que produz um plugin do Babel para renomear acessos a campos de conteúdo de dicionário em arquivos-fonte de acordo com o `dictionaryKeyToFieldRenameMap` preenchido no `PruneContext`.                  |
+| `makeUsageAnalyzerBabelPlugin` | Função factory que produz um plugin do Babel para analisar o uso de `useIntlayer` / `getIntlayer` no código-fonte e agregar dados de uso de campo no `PruneContext` compartilhado.                                     |
+| `getSharedPruneContext`        | Função auxiliar que retorna o objeto `PruneContext` compartilhado para o diretório base especificado, ou `null` se ainda não tiver sido inicializado.                                                                  |
 
 ### Utilitários de Configuração de Plugins
 

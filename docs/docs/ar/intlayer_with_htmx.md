@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-29
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 9
 title: "ترجمة تطبيق htmx باستخدام Intlayer - دليل كامل"
 description: "استخدام Intlayer مع htmx: عرض أجزاء HTML مترجمة على الخادم، واكتشاف اللغة لكل طلب، وتبديل اللغة دون SPA."
@@ -19,7 +19,7 @@ slugs:
 history:
   - version: 9.4.1
     date: 2026-08-29
-    changes: "Initial history"
+    changes: "بداية السجل"
 author: aymericzip
 ---
 
@@ -651,7 +651,7 @@ export default config;
 .intlayer
 ```
 
-### VS Code Extension
+### إضافة VS Code
 
 لتحسين تجربة التطوير الخاصة بك مع Intlayer، يمكنك تثبيت **Intlayer VS Code Extension** الرسمية.
 

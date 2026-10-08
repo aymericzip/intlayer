@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-21
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 5
 title: "intlayer init infra: استضافة Intlayer CMS ذاتيًا"
 description: "ثبّت تطبيق Intlayer لسطح المكتب أو استضف Intlayer CMS ذاتيًا عبر Docker، كحاوية متكاملة أو مجموعة Docker Compose."
@@ -166,4 +166,4 @@ INTLAYER_COMPOSE_DIR=./cms npx intlayer init infra --mode compose
 
 - [دليل الاستضافة الذاتية](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/self_hosting.md)
 - [تهيئة Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/init.md)
-- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
+- [نظام إدارة المحتوى Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)

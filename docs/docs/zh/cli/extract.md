@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 5
 title: "intlayer extract：从组件中提取文本"
 description: 了解如何将组件中的字符串提取到靠近组件的 .content 文件中。

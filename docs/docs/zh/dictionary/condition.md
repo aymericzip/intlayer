@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "Intlayer 中的条件内容"
 description: "使用 Intlayer 的 cond() 节点，根据布尔条件显示不同内容，只需声明一次，渲染时解析。"
@@ -66,12 +66,12 @@ export default myConditionalContent;
 
 > 如果未声明 fallback，当条件不满足时将使用最后声明的键作为 fallback。
 
-## 在 React Intlayer 中使用条件内容
+## 在各框架中使用条件内容
 
 <Tabs group="framework">
   <Tab label="React" value="react">
 
-To utilize conditional content within a React component, import and use the `useIntlayer` hook from the `react-intlayer` package. This hook fetches the content for the specified key and allows you to pass in a condition to select the appropriate output.
+要在 React 组件中使用条件内容，请从 `react-intlayer` 包中导入并使用 `useIntlayer` Hook。该 Hook 会获取指定键的内容，并允许您传入条件以选择对应的输出：
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
@@ -84,25 +84,25 @@ const ConditionalComponent: FC = () => {
     <div>
       <p>
         {
-          /* Output: my content when it's true */
+          /* 输出：条件为 true 时的内容 */
           myCondition(true)
         }
       </p>
       <p>
         {
-          /* Output: my content when it's false */
+          /* 输出：条件为 false 时的内容 */
           myCondition(false)
         }
       </p>
       <p>
         {
-          /* Output: my content when the condition fails */
+          /* 输出：条件不满足时的 fallback 内容 */
           myCondition("")
         }
       </p>
       <p>
         {
-          /* Output: my content when the condition fails */
+          /* 输出：条件不满足时的 fallback 内容 */
           myCondition(undefined)
         }
       </p>
@@ -116,7 +116,7 @@ export default ConditionalComponent;
   </Tab>
   <Tab label="Next.js" value="nextjs">
 
-To utilize conditional content in Next.js Client Components, retrieve it via the `useIntlayer` hook. Here's an example:
+要在 Next.js 客户端组件中使用条件内容，可通过 `useIntlayer` Hook 获取。示例如下：
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 "use client";
@@ -141,7 +141,7 @@ export default ConditionalComponent;
   </Tab>
   <Tab label="Vue" value="vue">
 
-To utilize conditional content in Vue components, retrieve it via the `useIntlayer` hook. Here's an example:
+要在 Vue 组件中使用条件内容，可通过 `useIntlayer` Hook 获取。示例如下：
 
 ```vue fileName="**/*.vue"
 <script setup lang="ts">
@@ -161,7 +161,7 @@ const { myCondition } = useIntlayer("my_key");
   </Tab>
   <Tab label="Svelte" value="svelte">
 
-To utilize conditional content in Svelte components, retrieve it via the `useIntlayer` hook. The store is accessed with `$`. Here's an example:
+要在 Svelte 组件中使用条件内容，可通过 `useIntlayer` Hook 获取。使用 `$` 访问 store。示例如下：
 
 ```svelte fileName="**/*.svelte"
 <script lang="ts">
@@ -179,7 +179,7 @@ const content = useIntlayer("my_key");
   </Tab>
   <Tab label="Preact" value="preact">
 
-To utilize conditional content in Preact components, retrieve it via the `useIntlayer` hook. Here's an example:
+要在 Preact 组件中使用条件内容，可通过 `useIntlayer` Hook 获取。示例如下：
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "preact";
@@ -202,7 +202,7 @@ export default ConditionalComponent;
   </Tab>
   <Tab label="Solid" value="solid">
 
-To utilize conditional content in SolidJS components, retrieve it via the `useIntlayer` hook. Here's an example:
+要在 SolidJS 组件中使用条件内容，可通过 `useIntlayer` Hook 获取。示例如下：
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { Component } from "solid-js";
@@ -225,7 +225,7 @@ export default ConditionalComponent;
   </Tab>
   <Tab label="Angular" value="angular">
 
-To utilize conditional content in Angular components, retrieve it via the `useIntlayer` hook. Here's an example:
+要在 Angular 组件中使用条件内容，可通过 `useIntlayer` Hook 获取。示例如下：
 
 ```typescript fileName="app.component.ts" codeFormat="typescript"
 import { Component } from "@angular/core";
@@ -248,7 +248,7 @@ export class ConditionalComponent {
   </Tab>
   <Tab label="Vanilla JS" value="vanilla">
 
-To utilize conditional content with `vanilla-intlayer`, retrieve it via the `useIntlayer` hook. Here's an example:
+要在 Vanilla JS 中使用条件内容，可通过 `vanilla-intlayer` 的 `useIntlayer` 获取。示例如下：
 
 ```typescript fileName="**/*.ts" codeFormat={["typescript", "esm"]}
 import { installIntlayer, useIntlayer } from "vanilla-intlayer";
@@ -262,7 +262,7 @@ const content = useIntlayer("my_key").onChange((newContent) => {
     newContent.myCondition(false);
 });
 
-// Initial render
+// 初始渲染
 document.getElementById("true-content")!.textContent =
   content.myCondition(true);
 document.getElementById("false-content")!.textContent =

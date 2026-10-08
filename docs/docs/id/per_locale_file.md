@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "File deklarasi konten per locale"
 description: Temukan cara mendeklarasikan konten per locale di Intlayer. Ikuti dokumentasi untuk memahami berbagai format dan kasus penggunaan.
@@ -125,7 +125,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-Dengan menggunakan konfigurasi ini, semua file per-locale akan dibuat dengan locale default yang diatur ke bahasa Inggris. Ini juga mencakup pembuatan file `.content` menggunakan perintah `extract`, dan compiler. (Lihat [Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md) atau [Extract](https://github.com/aymericzip/intlayer/edit/main/docs/docs/en/cli/extract.md) untuk informasi lebih lanjut.)
+Dengan menggunakan konfigurasi ini, semua file per-locale akan dibuat dengan locale default yang diatur ke bahasa Inggris. Ini juga mencakup pembuatan file `.content` menggunakan perintah `extract`, dan compiler. (Lihat [Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md) atau [Extract](https://github.com/aymericzip/intlayer/edit/main/docs/docs/id/cli/extract.md) untuk informasi lebih lanjut.)
 
 - [Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md)
 

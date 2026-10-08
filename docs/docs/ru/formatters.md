@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-10-02
+updatedAt: 2026-10-08
 priority: 8
 title: "Форматтеры: числа, даты и валюты по локали"
 description: "Форматируйте числа, проценты, валюты, даты, относительное время и единицы измерения по локали с кэшированными помощниками Intl в Intlayer."
@@ -362,7 +362,7 @@ list(["apple", "banana", "orange"]); // "apple, banana, and orange"
 list(["red", "green", "blue"], { locale: "fr", type: "disjunction" }); // "rouge, vert ou bleu"
 ```
 
-## Cached Intl
+## Кэшированный Intl
 
 Экспортируемый `Intl` из `intlayer` это кэшированная обёртка вокруг глобального `Intl`. Она мемоизирует экземпляры форматтеров (`NumberFormat`, `DateTimeFormat` и т. д.), чтобы избежать их повторного создания и улучшить производительность.
 

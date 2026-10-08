@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-22
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 5
 title: usePathname Hook 文档 | preact-intlayer
 description: "在 Preact 中使用 usePathname 获取去掉语言段的当前路径，用于支持语言的导航和激活链接。"
@@ -30,7 +30,7 @@ author: aymericzip
 
 # Preact 集成: `usePathname` Hook 文档
 
-`usePathname` 钩子返回移除了 locale（语言环境）片段的当前浏览器路径名 (pathname)。这在构建多语言感知的导航时非常有用（例如，确定哪个导航项处于活动状态），而无需手动去除 locale 前缀。
+`usePathname` Hook返回移除了 locale（语言环境）片段的当前浏览器路径名 (pathname)。这在构建多语言感知的导航时非常有用（例如，确定哪个导航项处于活动状态），而无需手动去除 locale 前缀。
 
 ## 在 Preact 中引入 `usePathname`
 

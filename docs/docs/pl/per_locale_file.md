@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "Pliki deklaracji treści dla każdego locale"
 description: Dowiedz się, jak deklarować zawartość per locale w Intlayer. Postępuj zgodnie z dokumentacją, aby zrozumieć różne formaty i przypadki użycia.
@@ -124,7 +124,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-Korzystając z tej konfiguracji, wszystkie pliki dla poszczególnych lokali będą generowane z domyślnym lokalem ustawionym na angielski. Obejmuje to również generowanie plików `.content` za pomocą polecenia `extract` oraz kompilatora. (Zobacz [Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compiler.md) lub [Extract](https://github.com/aymericzip/intlayer/edit/main/docs/docs/en/cli/extract.md), aby uzyskać więcej informacji.)
+Korzystając z tej konfiguracji, wszystkie pliki dla poszczególnych lokali będą generowane z domyślnym lokalem ustawionym na angielski. Obejmuje to również generowanie plików `.content` za pomocą polecenia `extract` oraz kompilatora. (Zobacz [Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compiler.md) lub [Extract](https://github.com/aymericzip/intlayer/edit/main/docs/docs/pl/cli/extract.md), aby uzyskać więcej informacji.)
 
 - [Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compiler.md)
 

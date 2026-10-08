@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-05
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 7
 title: "i18next から Intlayer への移行"
 description: "JavaScript や TypeScript のアプリを i18next から Intlayer へ段階的に移行。まず @intlayer/i18next アダプターで何も壊さずに始めます。"
@@ -35,7 +35,7 @@ author: aymericzip
 </Accordion>
 <Accordion header="メンテナンス性">
 
-アプリケーションのコンテンツをスコープ化することで、大規模なアプリケーションの**メンテナンスが容易**になります。機能フォルダ全体を複製または削除しても、すべてのコンテンツコードベースを確認するという精神的負担がありません。さらに、Intlayerはコンテンツの正確性を確保するために**完全に型付け**されています。
+アプリケーションのコンテンツをスコープ化することで、大規模なアプリケーションの**メンテナンスが容易**になります。機能フォルダ全体を複製または削除しても、すべてのコンテンツコードベースを確認するという精神的負担がありません。さらに、Intlayerはコンテンツの正確性を確保するために**完全な型安全性**されています。
 
 また、Intlayerはi18nエコシステムの中で**最も活発に開発されている**ソリューションでもあります。問題は迅速に修正され、新しいフレームワークアダプタが定期的に登場し、コアAPIは実際の運用フィードバックに基づいて継続的に改良されています。
 
@@ -51,14 +51,14 @@ author: aymericzip
 </Accordion>
 <Accordion header="自動化">
 
-AIプロバイダーのコストで、お好みのLLMを使用してCI/CDパイプライン内で翻訳を自動化できます。Intlayerは、コンテンツ抽出を自動化するための**コンパイラ**や、**バックグラウンドでの翻訳**を支援する[ウェブプラットフォーム](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)も提供しています。
+自前の AI プロバイダーの API 利用料で、お好みのLLMを使用してCI/CDパイプライン内で翻訳を自動化できます。Intlayerは、コンテンツ抽出を自動化するための**コンパイラ**や、**バックグラウンド翻訳**を支援する[ウェブプラットフォーム](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)も提供しています。
 
 - [ウェブプラットフォーム](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="パフォーマンス">
 
-コンポーネントに巨大なJSONファイルを接続すると、パフォーマンスやリアクティビティの問題が発生する可能性があります。Intlayerはビルド時にコンテンツのロードを最適化します。
+コンポーネントに巨大なJSONファイルを接続すると、パフォーマンスやレンダリング性能や反応性の低下が発生する可能性があります。Intlayerはビルド時にコンテンツのロードを最適化します。
 
 </Accordion>
 <Accordion header="非開発者とのスケーラビリティ">

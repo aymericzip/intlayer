@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-07-27
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "Locale Mapper：localeMap、localeFlatMap、localeRecord"
 description: "使用 localeMap、localeFlatMap 和 localeRecord 转换语言数据，生成路由、静态参数和按语言组织的对象。"

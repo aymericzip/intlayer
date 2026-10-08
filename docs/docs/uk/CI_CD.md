@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "Інтеграція Intlayer з CI/CD для перекладів"
 description: "Дізнайтеся, як інтегрувати Intlayer у ваш CI/CD конвеєр для автоматизованого керування контентом та розгортання."
@@ -99,13 +99,11 @@ npx intlayer build                          # Щоб переконатися, �
 npx intlayer fill --unpushed --mode fill    # Заповнює лише відсутній вміст, не оновлює існуючий
 ```
 
-> For more information about Intlayer CLI commands and their usage, refer to the [CLI documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/index.md).
->
-> If you have multiple apps in your repo using separate intlayer instances, you can use the `--base-dir` argument like this:
+> Для отримання додаткової інформації про команди Intlayer CLI та їх використання зверніться до [документації CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/index.md).
 
-- [CLI documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/index.md)
+- [документації CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/index.md)
 
-> Якщо у вашому репозиторіумі є кілька програм, які використовують окремі екземпляри intlayer, ви можете використовувати аргумент `--base-dir` таким чином:
+> Якщо у вашому репозиторії є кілька застосунків, які використовують окремі екземпляри intlayer, ви можете використати аргумент `--base-dir` таким чином:
 
 ```bash fileName=".husky/pre-push"
 # Додаток 1

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-05
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 7
 title: "从 vue-i18n 迁移到 Intlayer"
 description: "逐步将 Vue 或 Nuxt 应用从 vue-i18n 迁移到 Intlayer，先使用 @intlayer/vue-i18n 适配器，确保不破坏现有代码。"
@@ -43,11 +43,11 @@ Intlayer 也是 i18n 生态中**开发最活跃的**解决方案，问题修复�
 </Accordion>
 <Accordion header="AI Agent">
 
-共同定位内容**减少大型语言模型 (LLM) 所需的上下文**。Intlayer 还提供了一套工具，例如用于测试缺失翻译的 **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)** 和 **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)**，让开发者体验 (DX) 对 AI agents 更加顺畅。
+共同定位内容**减少大型语言模型 (LLM) 所需的上下文**。Intlayer 还提供了一套工具，例如用于测试缺失翻译的 **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)** 和 **[Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)**，让开发者体验 (DX) 对 AI agents 更加顺畅。
 
 - [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)
 - [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)
-- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)
 
 </Accordion>
 <Accordion header="自动化">
@@ -236,7 +236,7 @@ Intlayer plugin 已在 bundler 级别处理别名。如果您更喜欢在源文�
 | `import { useI18n } from 'vue-i18n'`    | `import { useI18n } from '@intlayer/vue-i18n'`    |
 | `import { createI18n } from 'vue-i18n'` | `import { createI18n } from '@intlayer/vue-i18n'` |
 
-这些是**即插即用的替代品**，不需要改变调用签名、参数或返回类型。
+这些是**即插即用的无缝替代方案**，不需要改变调用签名、参数或返回类型。
 
 </Step>
 <Step number={5} title="启用 AI 驱动的翻译自动化" isOptional={true}>

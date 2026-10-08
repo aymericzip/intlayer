@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "Locale başına içerik bildirim dosyaları"
 description: Intlayer'da yerel ayar başına içerik bildiriminin nasıl yapılacağını keşfedin. Farklı formatları ve kullanım durumlarını anlamak için dokümantasyonu takip edin.
@@ -124,7 +124,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-Bu yapılandırmayı kullanarak, tüm yerel ayar başına dosyalar varsayılan yerel ayar İngilizce olarak ayarlanmış şekilde oluşturulacaktır. Ayrıca `extract` komutu kullanılarak `.content` dosyalarının oluşturulmasını ve derleyiciyi (compiler) içerir. (Daha fazla bilgi için [Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md) veya [Extract](https://github.com/aymericzip/intlayer/edit/main/docs/docs/en/cli/extract.md) bölümlerine bakın.)
+Bu yapılandırmayı kullanarak, tüm yerel ayar başına dosyalar varsayılan yerel ayar İngilizce olarak ayarlanmış şekilde oluşturulacaktır. Ayrıca `extract` komutu kullanılarak `.content` dosyalarının oluşturulmasını ve derleyiciyi (compiler) içerir. (Daha fazla bilgi için [Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md) veya [Extract](https://github.com/aymericzip/intlayer/edit/main/docs/docs/tr/cli/extract.md) bölümlerine bakın.)
 
 - [Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md)
 

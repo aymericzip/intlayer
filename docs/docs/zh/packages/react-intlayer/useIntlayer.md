@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-06-29
+updatedAt: 2026-10-08
 priority: 5
 title: useIntlayer Hook 文档 | react-intlayer
 description: "在 React 中使用 useIntlayer 按键读取字典的本地化内容，类型来自你的内容声明文件。"
@@ -26,9 +26,9 @@ history:
 author: aymericzip
 ---
 
-# React 集成：`useIntlayer` 钩子文档
+# React 集成：`useIntlayer` Hook文档
 
-本节提供了在 React 应用中使用 `useIntlayer` 钩子的详细指导，帮助实现高效的内容本地化。
+本节提供了在 React 应用中使用 `useIntlayer` Hook的详细指导，帮助实现高效的内容本地化。
 
 ## React 中的示例用法
 
@@ -51,4 +51,4 @@ const ServerComponentExample = () => {
 
 - **Intlayer 可视化编辑器**：如需更直观的内容管理体验，请参阅可视化编辑器文档 [这里](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)。
 
-本节专门针对在 React 应用中集成 `useIntlayer` 钩子，简化本地化流程，确保不同语言环境下内容的一致性。
+本节专门针对在 React 应用中集成 `useIntlayer` Hook，简化本地化流程，确保不同语言环境下内容的一致性。

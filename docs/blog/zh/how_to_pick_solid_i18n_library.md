@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-28
+updatedAt: 2026-10-08
 priority: 8
 title: "如何在 2026 年选择合适的 Solid i18n 库"
 description: "SolidJS 与 SolidStart i18n 选型指南：在比较 @solid-primitives/i18n、solid-i18next、Paraglide、Lingui 和 Intlayer 之前需要回答的问题。"
@@ -98,11 +98,11 @@ Paraglide 为每条消息生成一个独立函数。Intlayer 在 `.content.ts` �
 
 | 库                       | 内容模型                       | 语言切换时的响应性                   | 类型安全                   | Scoping 与 Lazy Loading      | 库体积                             |
 | :----------------------- | :----------------------------- | :----------------------------------- | :------------------------- | :--------------------------- | :--------------------------------- |
-| `@solid-primitives/i18n` | 自行维护的扁平 dictionary      | Signal，translator 返回 accessor     | 3/5 — 从源 dictionary 推导 | 无内置支持                   | ~0.6 kB                            |
-| `solid-i18next`          | i18next 目录与 namespace       | Store，通过 provider 触发重新渲染    | 2/5 — 手动声明             | Namespace、lazy backend      | ~14.9 kB                           |
-| Paraglide                | inlang 项目，自动生成函数      | 每次调用时从 cookie 或 storage 读取  | 3.5/5 — 自动生成           | Tree-shaking（测试中未生效） | 接近于零（因为代码生成到代码库中） |
-| `@lingui/solid`          | 代码中的源文本，编译生成的目录 | 基于 Signal                          | 2/5 — 来自编译器           | 按 catalog                   | ~11.8 kB                           |
-| Intlayer                 | 每个组件对应一个 `.content.ts` | 基于 Signal 的节点，组件无需重新运行 | 5/5 — 自动生成，默认开启   | 支持，按组件划分             | ~4.3 kB                            |
+| `@solid-primitives/i18n` | 自行维护的扁平 dictionary      | Signal，translator 返回 accessor     | 3/5 - 从源 dictionary 推导 | 无内置支持                   | ~0.6 kB                            |
+| `solid-i18next`          | i18next 目录与 namespace       | Store，通过 provider 触发重新渲染    | 2/5 - 手动声明             | Namespace、lazy backend      | ~14.9 kB                           |
+| Paraglide                | inlang 项目，自动生成函数      | 每次调用时从 cookie 或 storage 读取  | 3.5/5 - 自动生成           | Tree-shaking（测试中未生效） | 接近于零（因为代码生成到代码库中） |
+| `@lingui/solid`          | 代码中的源文本，编译生成的目录 | 基于 Signal                          | 2/5 - 来自编译器           | 按 catalog                   | ~11.8 kB                           |
+| Intlayer                 | 每个组件对应一个 `.content.ts` | 基于 Signal 的节点，组件无需重新运行 | 5/5 - 自动生成，默认开启   | 支持，按组件划分             | ~4.3 kB                            |
 
 > 数据为基准测试对应版本下的快照。`@lingui/solid` 的体积来自 TanStack Start 基准测试。在仅依据体积做决策之前，请先在自己的应用中进行测试。
 > 类型安全：5/5 表示键、参数和每个语言环境均无需手动配置即可得到校验，包括 URL 格式化工具与辅助函数。

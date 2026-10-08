@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 5
 title: useIntlayer Hook 文档 | solid-intlayer
 description: "在 Solid 中使用 useIntlayer 按键读取字典的本地化内容，返回随语言变化而更新的响应式值。"

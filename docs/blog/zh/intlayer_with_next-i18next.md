@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-10-29
+updatedAt: 2026-10-08
 priority: 8
 title: Intlayer 与 next-i18next
 description: 将 Intlayer 与 next-i18next 集成，实现全面的 Next.js 国际化解决方案
@@ -158,7 +158,7 @@ Intlayer 为您的 i18next 工作流解锁了一套高级自动化和开发者�
 - **命名空间并行化**：如果您有数百个命名空间（或文件），Intlayer 会并行化翻译任务，有效地加快您的 CI/CD 或批量翻译操作。
 - **灵活的 AI 提供者支持**：只需配置凭据，即可选择您首选的 AI 提供者（例如 OpenAI、Claude、Gemini）。使用您自己的 API 密钥，并根据需要切换提供者。
 - **强大的 AI 响应处理**：Intlayer 可以处理您的 AI 提供者以字符串或对象形式返回文本的边界情况，甚至在格式不一致时自动重试。
-- **CLI 和 CI/CD 就绪**：直接在您的测试或管道中运行 Intlayer 的检查和自动填充，使您的本地化流程健壮且自动化。
+- **CLI 和 CI/CD 就绪**：直接在您的测试或流水线中运行 Intlayer 的检查和自动填充，使您的本地化流程健壮且自动化。
 - **集成在您现有的设置之上**：您不需要改变您的 i18next 或 Next.js 基础。Intlayer 作为您当前设置的附加插件工作，以最少的迁移为您提供所有这些好处。
 
 以下是如何设置 AI 提供者的示例：

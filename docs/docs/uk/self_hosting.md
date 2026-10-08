@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-30
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "Власний хостинг Intlayer у Docker"
 description: "Запускайте Intlayer на своїй інфраструктурі: десктопний застосунок, єдиний Docker-контейнер або стек Docker Compose, без хмарного акаунта."
@@ -23,7 +23,7 @@ author: aymericzip
 
 Intlayer може працювати на вашій власній інфраструктурі без необхідності створювати обліковий запис Intlayer Cloud. Доступні три конфігурації, які встановлюються одним інсталятором (`install.sh`, `install.ps1` на Windows або `npx intlayer init infra`):
 
-| Setup                     | What it is                                                                       | Pick it for                                  |
+| Конфігурація              | Що це таке                                                                       | Для чого обрати                              |
 | ------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------- |
 | **Десктопний застосунок** | Нативна панель керування для macOS, Linux та Windows                             | Локальний клієнт, нічого не потрібно хостити |
 | **All-in-one Docker**     | Панель керування, API, MongoDB, Redis та MinIO в **одному контейнері**           | Пробні та невеликі локальні інсталяції       |
@@ -35,7 +35,7 @@ Intlayer може працювати на вашій власній інфрас
 
 ## Опубліковані образи та пакети
 
-| Artifact             | Docker Hub                                                                | GHCR mirror                                | Contents                                                                         |
+| Артефакт             | Docker Hub                                                                | Дзеркало GHCR                              | Вміст                                                                            |
 | -------------------- | ------------------------------------------------------------------------- | ------------------------------------------ | -------------------------------------------------------------------------------- |
 | All-in-one container | [`intlayer/cms-all`](https://hub.docker.com/r/intlayer/cms-all)           | `ghcr.io/aymericzip/intlayer/cms-all`      | app + backend + MongoDB 8 + Redis + MinIO + Chromium                             |
 | Dashboard (frontend) | [`intlayer/cms-frontend`](https://hub.docker.com/r/intlayer/cms-frontend) | `ghcr.io/aymericzip/intlayer/cms-frontend` | TanStack Start dashboard on Bun                                                  |
@@ -356,7 +356,7 @@ cd docker/selfhost
 docker compose -f docker-compose.yml -f docker-compose.build.yml up -d --build
 ```
 
-Без клону вкажіть сам репозиторій як контекст збірки, задавши `INTLAYER_BUILD_CONTEXT=https://github.com/aymericzip/intlayer.git#main` у `.env`. Аргументи збірки `VITE_*` панелі керування беруться з `DOMAIN`, `APP_URL` та `BACKEND_URL` того самого файлу — саме так застосовується [власний домен](#custom-domain).
+Без клону вкажіть сам репозиторій як контекст збірки, задавши `INTLAYER_BUILD_CONTEXT=https://github.com/aymericzip/intlayer.git#main` у `.env`. Аргументи збірки `VITE_*` панелі керування беруться з `DOMAIN`, `APP_URL` та `BACKEND_URL` того самого файлу - саме так застосовується [власний домен](#custom-domain).
 
 ### Резервне копіювання та оновлення
 
@@ -385,22 +385,22 @@ curl -fsSL https://intlayer.org/install.sh | INTLAYER_COMPOSE_DIR=./cms sh -s --
 $env:INTLAYER_MODE = "compose"; $env:INTLAYER_COMPOSE_DIR = ".\cms"; irm https://intlayer.org/install.ps1 | iex
 ```
 
-| Variable                  | Default                   | Applies to | Description                                                |
-| ------------------------- | ------------------------- | ---------- | ---------------------------------------------------------- |
-| `INTLAYER_MODE`           | _(asked)_                 | all        | `desktop`, `docker` or `compose`, same as `--mode`         |
-| `INTLAYER_DOWNLOAD_DIR`   | `~/Downloads`             | desktop    | Where the app installer is saved                           |
-| `INTLAYER_IMAGE`          | `intlayer/cms-all:latest` | docker     | All-in-one image to pull                                   |
-| `INTLAYER_ENV_FILE`       | `./intlayer.env`          | docker     | Where to write the environment file                        |
-| `INTLAYER_CONTAINER_NAME` | `intlayer`                | docker     | Container name                                             |
-| `INTLAYER_DATA_VOLUME`    | `intlayer-data`           | docker     | Named volume mounted at `/data`                            |
-| `INTLAYER_APP_PORT`       | `3000`                    | docker     | Host port for the dashboard                                |
-| `INTLAYER_API_PORT`       | `3100`                    | docker     | Host port for the API                                      |
-| `INTLAYER_S3_PORT`        | `9000`                    | docker     | Host port for the MinIO S3 API                             |
-| `INTLAYER_CONSOLE_PORT`   | `9001`                    | docker     | Host port for the MinIO console                            |
-| `INTLAYER_COMPOSE_DIR`    | `./intlayer`              | compose    | Where `docker-compose.yml` and `.env` are written          |
-| `INTLAYER_SELFHOST_REF`   | `main`                    | both       | Git ref the compose file and env template are fetched from |
-| `INTLAYER_BUILD_CONTEXT`  | `…/intlayer.git#main`     | both       | Build context used when a custom domain requires a rebuild |
-| `INTLAYER_CUSTOM_IMAGE`   | `intlayer/cms-all:custom` | docker     | Tag of the all-in-one image built for a custom domain      |
+| Змінна                    | За замовчуванням          | Застосовується до | Опис                                                      |
+| ------------------------- | ------------------------- | ----------------- | --------------------------------------------------------- |
+| `INTLAYER_MODE`           | _(запитується)_           | all               | `desktop`, `docker` or `compose`, same as `--mode`        |
+| `INTLAYER_DOWNLOAD_DIR`   | `~/Downloads`             | desktop           | Куди зберігається інсталятор застосунку                   |
+| `INTLAYER_IMAGE`          | `intlayer/cms-all:latest` | docker            | Образ all-in-one для завантаження                         |
+| `INTLAYER_ENV_FILE`       | `./intlayer.env`          | docker            | Куди записувати файл середовища                           |
+| `INTLAYER_CONTAINER_NAME` | `intlayer`                | docker            | Ім'я контейнера                                           |
+| `INTLAYER_DATA_VOLUME`    | `intlayer-data`           | docker            | Іменований том, змонтований у `/data`                     |
+| `INTLAYER_APP_PORT`       | `3000`                    | docker            | Порт хоста для панелі керування                           |
+| `INTLAYER_API_PORT`       | `3100`                    | docker            | Порт хоста для API                                        |
+| `INTLAYER_S3_PORT`        | `9000`                    | docker            | Порт хоста для MinIO S3 API                               |
+| `INTLAYER_CONSOLE_PORT`   | `9001`                    | docker            | Порт хоста для консолі MinIO                              |
+| `INTLAYER_COMPOSE_DIR`    | `./intlayer`              | compose           | Куди записуються `docker-compose.yml` та `.env`           |
+| `INTLAYER_SELFHOST_REF`   | `main`                    | both              | Git ref, з якого завантажуються compose-файл і шаблон env |
+| `INTLAYER_BUILD_CONTEXT`  | `…/intlayer.git#main`     | both              | Контекст збірки, якщо власний домен вимагає перебудови    |
+| `INTLAYER_CUSTOM_IMAGE`   | `intlayer/cms-all:custom` | docker            | Тег образу all-in-one, зібраного для власного домену      |
 
 > Змінні портів змінюють лише сторону **хоста** у відображенні. Опубліковані образи мають значення `http://localhost:3000`, `http://localhost:3100` та `http://localhost:9000`, скомпільовані в пакет панелі керування, тому зберігайте значення за замовчуванням, якщо не збираєте власні образи, див. [Обмеження](#limitations).
 
@@ -420,11 +420,11 @@ $env:INTLAYER_MODE = "compose"; $env:INTLAYER_COMPOSE_DIR = ".\cms"; irm https:/
 
 ### Обов'язкові
 
-| Variable               | Example       | Description                                                                                                                                   |
-| ---------------------- | ------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| `BETTER_AUTH_SECRET`   | _(generated)_ | 32-byte secret for session signing                                                                                                            |
-| `S3_SECRET_ACCESS_KEY` | _(generated)_ | Secret for the bundled MinIO                                                                                                                  |
-| `RESEND_API_KEY`       | _(your key)_  | Transactional email via Resend. Required for first-run setup unless an SMTP relay is configured instead (see [Global mailer](#global-mailer)) |
+| Змінна                 | Приклад       | Опис                                                                                                                                                     |
+| ---------------------- | ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `BETTER_AUTH_SECRET`   | _(generated)_ | 32-байтний секрет для підпису сесій                                                                                                                      |
+| `S3_SECRET_ACCESS_KEY` | _(generated)_ | Секрет для вбудованого MinIO                                                                                                                             |
+| `RESEND_API_KEY`       | _(your key)_  | Транзакційна пошта через Resend. Обов'язкова для першого налаштування, якщо не налаштовано SMTP-реле (див. [Глобальний поштовий сервіс](#global-mailer)) |
 
 > Образ all-in-one також приймає порожній `S3_SECRET_ACCESS_KEY`: він генерує його під час першого запуску та зберігає в `/data/.s3-secret-access-key`. Для Docker Compose він і надалі обов'язковий.
 
@@ -432,19 +432,19 @@ $env:INTLAYER_MODE = "compose"; $env:INTLAYER_COMPOSE_DIR = ".\cms"; irm https:/
 
 Ці змінні задаються образом (all-in-one) або файлом compose, і перевизначати їх потрібно лише для нестандартної топології. Виняток становлять `DOMAIN`, `APP_URL`, `BACKEND_URL` та `S3_PUBLIC_URL`: задані в env-файлі, вони мають пріоритет в обох режимах (див. [Власний домен](#custom-domain)).
 
-| Variable           | All-in-one                                          | Docker Compose                   | Description                                                                   |
-| ------------------ | --------------------------------------------------- | -------------------------------- | ----------------------------------------------------------------------------- |
-| `PORT`             | `3100`                                              | `3100`                           | Backend listening port                                                        |
-| `APP_URL`          | `http://localhost:3000`                             | `http://localhost:3000`          | Public URL of the dashboard                                                   |
-| `BACKEND_URL`      | `http://localhost:3100`                             | `http://localhost:3100`          | Public URL of the backend API                                                 |
-| `DOMAIN`           | `localhost`                                         | `localhost`                      | Cookie domain                                                                 |
-| `SELF_HOSTED`      | `true`                                              | `true`                           | Disables the cloud-only API endpoints (billing, subscriptions, marketplace)   |
-| `MONGODB_URI`      | `mongodb://127.0.0.1:27017/intlayer?replicaSet=rs0` | `mongodb://mongo:27017/…`        | MongoDB connection string, any `mongodb://` or `mongodb+srv://` cluster works |
-| `REDIS_URL`        | `redis://127.0.0.1:6379`                            | `redis://redis:6379`             | Redis                                                                         |
-| `S3_ENDPOINT`      | `http://127.0.0.1:9000`                             | `http://minio:9000`              | MinIO (server-to-server)                                                      |
-| `S3_PUBLIC_URL`    | `http://localhost:9000/intlayer`                    | `http://localhost:9000/intlayer` | Public URL for browser asset loading                                          |
-| `S3_BUCKET_NAME`   | `intlayer`                                          | `intlayer`                       | Bucket name                                                                   |
-| `S3_ACCESS_KEY_ID` | `intlayer`                                          | `intlayer`                       | MinIO access key                                                              |
+| Змінна             | All-in-one                                          | Docker Compose                   | Опис                                                                                        |
+| ------------------ | --------------------------------------------------- | -------------------------------- | ------------------------------------------------------------------------------------------- |
+| `PORT`             | `3100`                                              | `3100`                           | Порт прослуховування бекенда                                                                |
+| `APP_URL`          | `http://localhost:3000`                             | `http://localhost:3000`          | Публічна URL-адреса панелі керування                                                        |
+| `BACKEND_URL`      | `http://localhost:3100`                             | `http://localhost:3100`          | Публічна URL-адреса REST API бекенда                                                        |
+| `DOMAIN`           | `localhost`                                         | `localhost`                      | Домен для файлів cookie                                                                     |
+| `SELF_HOSTED`      | `true`                                              | `true`                           | Вимикає ендпоінти, доступні лише в хмарі (білінг, підписки, маркетплейс)                    |
+| `MONGODB_URI`      | `mongodb://127.0.0.1:27017/intlayer?replicaSet=rs0` | `mongodb://mongo:27017/…`        | Рядок підключення до MongoDB, підходить будь-який кластер `mongodb://` або `mongodb+srv://` |
+| `REDIS_URL`        | `redis://127.0.0.1:6379`                            | `redis://redis:6379`             | Redis                                                                                       |
+| `S3_ENDPOINT`      | `http://127.0.0.1:9000`                             | `http://minio:9000`              | MinIO (server-to-server)                                                                    |
+| `S3_PUBLIC_URL`    | `http://localhost:9000/intlayer`                    | `http://localhost:9000/intlayer` | Публічна URL-адреса для завантаження ресурсів браузером                                     |
+| `S3_BUCKET_NAME`   | `intlayer`                                          | `intlayer`                       | Назва бакета                                                                                |
+| `S3_ACCESS_KEY_ID` | `intlayer`                                          | `intlayer`                       | Ключ доступу MinIO                                                                          |
 
 Сервіс Compose `app` додатково отримує `INTLAYER_BACKEND_INTERNAL_URL=http://backend:3100`: браузер звертається до API через `localhost:3100`, але серверний рендеринг виконується всередині мережі Compose і повинен використовувати ім'я сервісу.
 
@@ -481,13 +481,13 @@ $env:INTLAYER_MODE = "compose"; $env:INTLAYER_COMPOSE_DIR = ".\cms"; irm https:/
 
 ### Необов'язкові (функціональність м'яко деградує за їх відсутності)
 
-| Variable                                         | Feature                                   |
-| ------------------------------------------------ | ----------------------------------------- |
-| `OPENAI_API_KEY`                                 | AI-assisted translation and content audit |
-| `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`       | GitHub OAuth login                        |
-| `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`       | Google OAuth login                        |
-| `GITLAB_CLIENT_ID`, `GITLAB_CLIENT_SECRET`       | GitLab OAuth login                        |
-| `MICROSOFT_CLIENT_ID`, `MICROSOFT_CLIENT_SECRET` | Microsoft OAuth login                     |
+| Змінна                                           | Можливість                                 |
+| ------------------------------------------------ | ------------------------------------------ |
+| `OPENAI_API_KEY`                                 | Переклад за допомогою AI та аудит контенту |
+| `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`       | Вхід через GitHub OAuth                    |
+| `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`       | Вхід через Google OAuth                    |
+| `GITLAB_CLIENT_ID`, `GITLAB_CLIENT_SECRET`       | Вхід через GitLab OAuth                    |
+| `MICROSOFT_CLIENT_ID`, `MICROSOFT_CLIENT_SECRET` | Вхід через Microsoft OAuth                 |
 
 ### Глобальний поштовий сервіс
 
@@ -498,15 +498,15 @@ $env:INTLAYER_MODE = "compose"; $env:INTLAYER_COMPOSE_DIR = ".\cms"; irm https:/
 
 `MAIL_PROVIDER` потрібен лише для примусового вибору транспорту, коли налаштовано обидва (наприклад, `MAIL_PROVIDER=resend`, щоб зберегти Resend за наявності SMTP-хоста).
 
-| Variable             | Example                        | Description                                                                  |
-| -------------------- | ------------------------------ | ---------------------------------------------------------------------------- |
-| `MAIL_FROM`          | `Intlayer <no-reply@acme.com>` | Sender header for either transport. Accepts a bare address or `Name <email>` |
-| `MAIL_SMTP_HOST`     | `smtp.acme.com`                | SMTP host. Setting it selects the SMTP transport                             |
-| `MAIL_SMTP_PORT`     | `587`                          | SMTP port (defaults to `587`)                                                |
-| `MAIL_SMTP_SECURE`   | `false`                        | Implicit TLS. Set `true` for port `465`                                      |
-| `MAIL_SMTP_USER`     | _(your user)_                  | SMTP username (optional; omit for unauthenticated relays)                    |
-| `MAIL_SMTP_PASSWORD` | _(your password)_              | SMTP password                                                                |
-| `MAIL_PROVIDER`      | `resend`                       | Optional override: `smtp` or `resend`. Leave unset to auto-select            |
+| Variable             | Example                        | Description                                                                              |
+| -------------------- | ------------------------------ | ---------------------------------------------------------------------------------------- |
+| `MAIL_FROM`          | `Intlayer <no-reply@acme.com>` | Заголовок відправника для будь-якого транспорту. Приймає чисту адресу або `Ім'я <email>` |
+| `MAIL_SMTP_HOST`     | `smtp.acme.com`                | Хост SMTP. Його задання вмикає транспорт SMTP                                            |
+| `MAIL_SMTP_PORT`     | `587`                          | Порт SMTP (за замовчуванням `587`)                                                       |
+| `MAIL_SMTP_SECURE`   | `false`                        | Неявний TLS. Встановіть `true` для порту `465`                                           |
+| `MAIL_SMTP_USER`     | _(your user)_                  | Ім'я користувача SMTP (необов'язково; опустіть для реле без автентифікації)              |
+| `MAIL_SMTP_PASSWORD` | _(your password)_              | Пароль SMTP                                                                              |
+| `MAIL_PROVIDER`      | `resend`                       | Необов'язкове перевизначення: `smtp` або `resend`. Залиште порожнім для автовибору       |
 
 > Пріоритет: власний поштовий сервіс організації (налаштований на панелі **Організація**) має пріоритет над глобальним поштовим сервісом, який у свою чергу має пріоритет над ключем Resend за замовчуванням.
 
@@ -541,7 +541,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-Set the environment variables in your project's `.env`:
+Встановіть змінні середовища у файлі `.env` вашого проєкту:
 
 ```sh
 INTLAYER_CMS_URL=http://localhost:3000
@@ -573,7 +573,7 @@ const { data: dictionaries } = await dictionaryEndpoint(cms).getDictionaries();
 
 ## Обмеження
 
-- **Власний домен вимагає перебудови.** Усі URL `VITE_*` для браузера вбудовано в панель керування під час збірки, а опубліковані образи (і десктопний застосунок) постачаються зі значеннями `localhost` / Intlayer Cloud. За замовчуванням доступ до панелі має здійснюватися за адресою `http://localhost:3000`, до API — за `:3100`, а до MinIO — за `:9000`; перепризначення портів хоста має той самий ефект. Коли ви вказуєте домен, інсталятор готує все для перебудови з репозиторію (див. [Власний домен](#custom-domain)), але сама збірка триває кілька хвилин. Підключення десктопного застосунку до власного бекенду не підтримується.
+- **Власний домен вимагає перебудови.** Усі URL `VITE_*` для браузера вбудовано в панель керування під час збірки, а опубліковані образи (і десктопний застосунок) постачаються зі значеннями `localhost` / Intlayer Cloud. За замовчуванням доступ до панелі має здійснюватися за адресою `http://localhost:3000`, до API - за `:3100`, а до MinIO - за `:9000`; перепризначення портів хоста має той самий ефект. Коли ви вказуєте домен, інсталятор готує все для перебудови з репозиторію (див. [Власний домен](#custom-domain)), але сама збірка триває кілька хвилин. Підключення десктопного застосунку до власного бекенду не підтримується.
 - **Для роботи пошти потрібен робочий поштовий сервіс.** Перший запуск вимагає перевірки електронної пошти, тому необхідно налаштувати `RESEND_API_KEY` або [реле SMTP](#global-mailer) (`MAIL_SMTP_*`). Після входу першого адміністратора кожна організація може налаштувати власний SMTP або Resend з панелі керування.
 - **Десктопному застосунку потрібен Node.js** на комп'ютері для запуску вбудованого сервера.
 - **Немає асистента з документації.** ШІ-асистент з документації intlayer.org (`/api/ai/ask`, `/api/search/doc`) спирається на ~130 МБ попередньо обчислених ембедингів документації, яких немає в образах для самостійного розгортання; у цьому режимі ці два маршрути не реєструються. Власні функції ШІ панелі керування (переклад, аудит, автодоповнення, чат) не зачіпаються і потребують лише `OPENAI_API_KEY`.

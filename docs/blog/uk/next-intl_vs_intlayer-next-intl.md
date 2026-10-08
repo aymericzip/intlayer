@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-22
+updatedAt: 2026-10-08
 priority: 8
 title: "next-intl vs @intlayer/next-intl: Один API, різні Bundle"
 description: "Застосунок Next.js зберігає імпорти next-intl, які обслуговує адаптер @intlayer/next-intl. Виміряно розмір бандла, витоки, розмір компонентів і гідратацію."
@@ -48,8 +48,8 @@ author: aymericzip
 Три механізми роблять це можливим:
 
 1. **Import aliasing.** `createNextIntlPlugin()` з `@intlayer/next-intl/plugin` обертає `withIntlayer` і додає aliases у Webpack / Turbopack, щоб `next-intl`, `next-intl/server`, `next-intl/navigation` та `next-intl/middleware` були перенаправлені на `@intlayer/next-intl`. Жоден import у вашій codebase не перейменовується.
-2. **JSON як джерело істини.** The `syncJSON` plugin читає ваш існуючий `messages/{locale}.json`, ділить його top-level ключі на один словник на кожний namespace, і записує переклади назад в ті самі файли, коли CLI або CMS оновлює їх. Робочий процес ваших перекладачів залишається незмінним.
-3. **Call-site binding.** The Intlayer optimize pass (Babel or SWC) rewrites `useTranslations("about")` into a call that receives the `about` dictionary directly. The component no longer reaches a global message tree; it reaches its own content.
+2. **JSON як єдине джерело істини.** Плагін `syncJSON` читає ваш існуючий `messages/{locale}.json`, ділить його кореневі ключі на окремий словник для кожного простору імен (namespace), і записує переклади назад у ті самі файли, коли CLI або CMS оновлює їх. Робочий процес ваших перекладачів залишається незмінним.
+3. **Прив'язка за місцем виклику (Call-site binding).** Етап оптимізації Intlayer (Babel або SWC) переписує `useTranslations("about")` у виклик, який отримує словник `about` безпосередньо. Компонент більше не звертається до глобального дерева повідомлень; він отримує лише власний контент.
 
 ```tsx fileName="app/[locale]/about/page.tsx"
 // Ваш код, без змін
@@ -118,17 +118,17 @@ const AboutPage = () => {
 
 <I18nBenchmark framework="nextjs" packages="next-intl,@intlayer/next-intl,next-intlayer" vertical/>
 
-| Setup                     | Strategy       | Lib size (gz) | Page JS avg (gz) | Locale leak | Page leak | Component avg (gz) | E2E reactivity |   Hydration |
-| ------------------------- | -------------- | ------------: | ---------------: | ----------: | --------: | -----------------: | -------------: | ----------: |
-| **base** (no i18n)        | -              |        0.0 KB |         141.0 KB |        0.0% |      0.0% |             0.9 KB |        13.4 ms |     11.8 ms |
-| `next-intl`               | static         |       14.7 KB |         153.6 KB |        4.2% |     89.8% |            21.8 KB |        16.0 ms |     14.7 ms |
-| `next-intl`               | dynamic        |       14.7 KB |         153.6 KB |        9.7% |     89.9% |            21.8 KB |        15.6 ms |     14.8 ms |
-| `next-intl`               | scoped-static  |       14.7 KB |         153.6 KB |        0.0% |      0.0% |            80.1 KB |        17.9 ms |     17.4 ms |
-| `next-intl`               | scoped-dynamic |       14.7 KB |         153.6 KB |        0.0% |      0.0% |            22.9 KB |        17.8 ms |     16.8 ms |
-| **`@intlayer/next-intl`** | static         |    **8.0 KB** |     **147.5 KB** |    **0.0%** |  **0.0%** |         **8.1 KB** |    **14.5 ms** | **12.8 ms** |
-| **`@intlayer/next-intl`** | dynamic        |    **8.0 KB** |     **148.7 KB** |    **0.0%** |  **0.0%** |         **8.1 KB** |    **11.7 ms** | **12.8 ms** |
-| `next-intlayer` (native)  | static         |        5.5 KB |         141.3 KB |        0.0% |      0.0% |             8.5 KB |        15.5 ms |     16.9 ms |
-| `next-intlayer` (native)  | dynamic        |        5.5 KB |         141.3 KB |        0.0% |      0.0% |             6.9 KB |        15.3 ms |     15.9 ms |
+| Конфігурація              | Стратегія      | Розмір бібл. (gz) | Сер. JS стор. (gz) | Витік локалей | Витік сторінок | Сер. компонент (gz) | E2E реактивність |  Гідратація |
+| ------------------------- | -------------- | ----------------: | -----------------: | ------------: | -------------: | ------------------: | ---------------: | ----------: |
+| **base** (no i18n)        | -              |            0.0 KB |           141.0 KB |          0.0% |           0.0% |              0.9 KB |          13.4 ms |     11.8 ms |
+| `next-intl`               | static         |           14.7 KB |           153.6 KB |          4.2% |          89.8% |             21.8 KB |          16.0 ms |     14.7 ms |
+| `next-intl`               | dynamic        |           14.7 KB |           153.6 KB |          9.7% |          89.9% |             21.8 KB |          15.6 ms |     14.8 ms |
+| `next-intl`               | scoped-static  |           14.7 KB |           153.6 KB |          0.0% |           0.0% |             80.1 KB |          17.9 ms |     17.4 ms |
+| `next-intl`               | scoped-dynamic |           14.7 KB |           153.6 KB |          0.0% |           0.0% |             22.9 KB |          17.8 ms |     16.8 ms |
+| **`@intlayer/next-intl`** | static         |        **8.0 KB** |       **147.5 KB** |      **0.0%** |       **0.0%** |          **8.1 KB** |      **14.5 ms** | **12.8 ms** |
+| **`@intlayer/next-intl`** | dynamic        |        **8.0 KB** |       **148.7 KB** |      **0.0%** |       **0.0%** |          **8.1 KB** |      **11.7 ms** | **12.8 ms** |
+| `next-intlayer` (native)  | static         |            5.5 KB |           141.3 KB |          0.0% |           0.0% |              8.5 KB |          15.5 ms |     16.9 ms |
+| `next-intlayer` (native)  | dynamic        |            5.5 KB |           141.3 KB |          0.0% |           0.0% |              6.9 KB |          15.3 ms |     15.9 ms |
 
 **Як це читати**
 
@@ -404,19 +404,19 @@ export default withIntlayer(nextConfig);
 
 Та сама серія адаптерів:
 
-- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/i18next_vs_intlayer-i18next.md)
-- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/lingui_vs_intlayer-lingui.md)
-- [vue-i18n vs @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/vue-i18n_vs_intlayer-vue-i18n.md)
+- [i18next проти @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/i18next_vs_intlayer-i18next.md)
+- [Lingui проти @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/lingui_vs_intlayer-lingui.md)
+- [vue-i18n проти @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/vue-i18n_vs_intlayer-vue-i18n.md)
 
 Пряме порівняння бібліотек:
 
 - [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/next-intl_vs_intlayer.md)
-- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/next-i18next_vs_next-intl_vs_intlayer.md)
-- [Is next-intl outdated?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/is_next-intl_outdated.md)
+- [next-i18next проти next-intl проти Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/next-i18next_vs_next-intl_vs_intlayer.md)
+- [Чи застарів next-intl?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/is_next-intl_outdated.md)
 
 Довідкова документація:
 
-- [Compat adapter: next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/next-intl.md)
+- [Адаптер сумісності: next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/next-intl.md)
 - [Посібник із міграції: з next-intl на Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/migration_from_next-intl_to_intlayer.md)
 - [Звіт про бенчмарк Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/nextjs.md)
 - [звіт про бенчмарк TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/tanstack.md)

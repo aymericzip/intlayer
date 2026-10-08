@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-28
+updatedAt: 2026-10-08
 priority: 8
 title: "2026'da Doğru Svelte i18n Kütüphanesini Seçme Rehberi"
 description: "Svelte ve SvelteKit i18n için karar rehberi: svelte-i18n, Paraglide, typesafe-i18n, wuchale ve Intlayer'ı karşılaştırmadan önceki sorular."
@@ -96,11 +96,11 @@ Kütüphane boyutları [Svelte benchmark'ından](https://github.com/aymericzip/i
 
 | Kütüphane       | Mesajların konumu                      | Locale state                              | Tip güvenliği              | Mesaj formatı                 | Route başına splitting | Kütüphane boyutu                                    |
 | :-------------- | :------------------------------------- | :---------------------------------------- | :------------------------- | :---------------------------- | :--------------------- | :-------------------------------------------------- |
-| `svelte-i18n`   | Locale başına JSON katalogları         | Module-level Svelte store                 | 2/5 — Manuel union         | ICU                           | Hayır                  | ~16.6 kB                                            |
-| `typesafe-i18n` | Üretilen TS modülleri                  | Store adapter                             | 4/5 — Üretilen             | Özel (Own)                    | Kısmi                  | Küçük                                               |
-| Paraglide       | inlang projesi, fonksiyonlara derlenir | Cookie, URL veya storage'dan çağrı başına | 3.5/5 — Üretilen           | Özel (Own)                    | Evet, tree-shaking ile | Sıfıra yakın (kod tabanında üretilen kod sayesinde) |
+| `svelte-i18n`   | Locale başına JSON katalogları         | Module-level Svelte store                 | 2/5 - Manuel union         | ICU                           | Hayır                  | ~16.6 kB                                            |
+| `typesafe-i18n` | Üretilen TS modülleri                  | Store adapter                             | 4/5 - Üretilen             | Özel (Own)                    | Kısmi                  | Küçük                                               |
+| Paraglide       | inlang projesi, fonksiyonlara derlenir | Cookie, URL veya storage'dan çağrı başına | 3.5/5 - Üretilen           | Özel (Own)                    | Evet, tree-shaking ile | Sıfıra yakın (kod tabanında üretilen kod sayesinde) |
 | `wuchale`       | Build sırasında markup'tan çıkarılır   | Store                                     | Yok (key yok)              | Özel (Own)                    | Evet                   | ~30.7 kB                                            |
-| Intlayer        | Bileşenin yanındaki `.content.ts`      | Context ve store, rune uyumlu             | 5/5 — Üretilen, varsayılan | Intlayer (+ ICU, i18next, PO) | Evet, bileşen başına   | ~3.6 kB                                             |
+| Intlayer        | Bileşenin yanındaki `.content.ts`      | Context ve store, rune uyumlu             | 5/5 - Üretilen, varsayılan | Intlayer (+ ICU, i18next, PO) | Evet, bileşen başına   | ~3.6 kB                                             |
 
 > Rakamlar benchmark sırasındaki sürümlerin anlık görüntüsüdür. Yalnızca boyuta göre karar vermeden önce kendi uygulamanızda test edin.
 > Tip güvenliği: 5/5; anahtarların, parametrelerin ve her locale'in, URL biçimlendirici ve yardımcılar (helpers) dahil olmak üzere manuel kurulum olmadan kontrol edildiği anlamına gelir.

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-14
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "为什么选择 Intlayer？相比其他 i18n 库的优势"
 description: 探索在项目中使用 Intlayer 的好处和优势。了解为什么 Intlayer 在其他框架中脱颖而出。
@@ -40,59 +40,43 @@ author: aymericzip
 与 `next-intl` 或 `i18next` 等主要解决方案相比，Intlayer 是一个自带集成优化的解决方案，例如：
 
 <AccordionGroup>
-<Accordion header="打包体积">
+<Accordion header="打包体积 (Bundle Size)">
 
-无需在页面中加载庞大的 JSON 文件，只需加载必要的特定内容。Intlayer 可以帮助你**将打包体积和页面大小减少多达 50%**。
+您无需在页面中加载庞大的 JSON 文件，而是只加载所需的内容。Intlayer 可以帮助 **将您的打包产物和页面体积减少多达 50%**。
 
 </Accordion>
 <Accordion header="可维护性">
 
-对应用程序的内容进行组件级的范围限制，**大大简化了大型应用程序的维护工作**。你可以复制或删除单个功能文件夹，而无需承担审查整个内容代码库的精神负担。此外，Intlayer 是**完全类型化**的，以确保你内容的准确性。
+将应用程序内容与组件就近维护在相应作用域内，**极大提升了大体量应用的可维护性**。您可以直接复制或删除单个功能目录，而无需承担检查整个全局内容代码库的认知负担。此外，Intlayer 提供 **完整的 TypeScript 类型支持**，确保内容的准确性与安全性。
 
 </Accordion>
-<Accordion header="AI 智能体支持">
+<Accordion header="AI Agent 支持">
 
-将内容与组件共同放置（Co-location）**减少了大型语言模型（LLMs）所需的上下文**。Intlayer 还提供了一套工具，例如用于测试缺失翻译的 **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)** 以及 **[Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)**，使 AI 智能体的开发体验（DX）更加流畅。
+内容就近组织 (Co-location) **显著减少了大型语言模型 (LLM) 所需的上下文**。Intlayer 还配备了一套完整工具链，例如用于检测缺失翻译的 **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)** 以及 **[Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)**，让 AI 智能体的开发体验 (DX) 更加流畅丝滑。
 
 - [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)
 - [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)
 - [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)
 
 </Accordion>
-<Accordion header="功能丰富">
-
-Intlayer 提供了其他 i18n 解决方案所没有的一系列附加功能，例如 [Markdown 支持](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/markdown.md)、[外部内容获取](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/function_fetching.md)、[文件内容加载](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/file.md)、[实时内容更新](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/live.md)、[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)等。
-
-- [Markdown 支持](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/markdown.md)
-- [外部内容获取](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/function_fetching.md)
-- [文件内容加载](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/file.md)
-- [实时内容更新](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/live.md)
-- [可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)
-
-</Accordion>
 <Accordion header="自动化">
 
-使用自动化在你的 CI/CD 流程中翻译，可以使用你选择的任何 LLM，成本完全取决于你的 AI 提供商。Intlayer 还提供了一个**编译器**来自动提取内容，以及一个 [网页平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) 来帮助你**在后台进行翻译工作**。
+在 CI/CD 流水线中，使用您自选的 LLM（直接基于您自有的 AI 提供商 API 计费）实现自动化翻译。Intlayer 还提供了可自动提取内容的 **编译器**，并配备了 [Web 平台 / CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) 以便在后台管理系统中执行翻译。
 
-- [网页平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
-
-</Accordion>
-<Accordion header="性能">
-
-将庞大的 JSON 文件连接到组件上可能会导致性能和响应性问题。Intlayer 在构建时优化了你的内容加载方式。
+- [Web 平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
 
 </Accordion>
-<Accordion header="扩展至非开发团队">
+<Accordion header="性能表现 (Performance)">
 
-不仅仅是一个 i18n 解决方案，Intlayer 还提供了一个**自主托管的[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)**和一个**[功能完备的 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)**，帮助你**实时**管理多语言内容，使与翻译人员、文案人员和其他团队成员的协作变得无缝衔接。内容可以存储在本地和/或远程。
+将大型 JSON 文件全局挂载到各个组件容易导致渲染性能下降与响应迟滞。Intlayer 会在构建阶段自动优化内容加载。
+
+</Accordion>
+<Accordion header="赋能非技术人员协同扩展 (Scaling with non-dev)">
+
+Intlayer 不仅仅是一个简单的 i18n 解决方案。它还提供了 **支持自托管的[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)** 以及 **[完整的 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)**。借此，您可以 **实时** 管理多语言内容，让译者、文案及团队其他成员实现无缝协作。内容可存储在本地和/或远程服务器上。
 
 - [可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)
-- [功能完备的 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
-
-</Accordion>
-<Accordion header="跨框架设计">
-
-如果你在应用程序的不同部分使用不同的框架（例如 React、React-native、Vue、Angular、Svelte 等），Intlayer 提供了一种**在所有主流前端框架中使用通用语法和实现**的方法。你还可以跨设计系统、应用、后端等共享你的内容声明。
+- [完整的 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
@@ -269,7 +253,7 @@ export const ComponentExample = () => {
 
 | 功能                                          | `intlayer`                                                                       | `react-i18next`                                                | `react-intl` (FormatJS)                                                    | `lingui`                            | `next-intl`                                                    | `next-i18next`                                                 | `vue-i18n`                                        |
 | --------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------------------- | ----------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------- | ------------------------------------------------- |
-| **翻译就近组件**                              | ✅ 是，内容与每个组件协同定位                                                    | ❌ 否                                                          | ❌ 否                                                                      | ❌ 否                               | ❌ 否                                                          | ❌ 否                                                          | ✅ 是 - 使用 `Single File Components` (SFCs)      |
+| **翻译就近组件**                              | ✅ 是，内容与每个组件就近维护 (Co-location)                                      | ❌ 否                                                          | ❌ 否                                                                      | ❌ 否                               | ❌ 否                                                          | ❌ 否                                                          | ✅ 是 - 使用 `Single File Components` (SFCs)      |
 | **TypeScript 集成**                           | ✅ 高级，自动生成严格类型                                                        | ⚠️ 基础；为确保安全需额外配置                                  | ✅ 良好，但不够严格                                                        | ⚠️ 类型定义，需要配置               | ✅ 良好                                                        | ⚠️ 基础                                                        | ✅ 良好（类型可用；键安全需要设置）               |
 | **缺失翻译检测**                              | ✅ TypeScript 错误高亮及构建时错误/警告                                          | ⚠️ 运行时多为回退字符串                                        | ⚠️ 回退字符串                                                              | ⚠️ 需要额外配置                     | ⚠️ 运行时回退                                                  | ⚠️ 运行时回退                                                  | ⚠️ 运行时回退/警告（可配置）                      |
 | **富内容 (JSX/Markdown/组件)**                | ✅ 直接支持                                                                      | ⚠️ 受限 / 仅插值                                               | ⚠️ ICU 语法，非真实 JSX                                                    | ⚠️ 受限                             | ❌ 非针对富节点设计                                            | ⚠️ 受限                                                        | ⚠️ 受限（组件通过 `<i18n-t>`，Markdown 通过插件） |

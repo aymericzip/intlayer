@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-28
+updatedAt: 2026-10-08
 priority: 8
 title: "如何在 2026 年选择合适的 Svelte i18n 库"
 description: "Svelte 与 SvelteKit i18n 选型指南：在比较 svelte-i18n、Paraglide、typesafe-i18n、wuchale 和 Intlayer 之前需要回答的问题。"
@@ -98,11 +98,11 @@ Paraglide 将每条消息编译为导出的函数，以便打包工具对路由�
 
 | 库              | 消息存放位置                  | Locale 状态                                | 类型安全                 | 消息格式                      | 按路由代码分割        | 库体积                             |
 | :-------------- | :---------------------------- | :----------------------------------------- | :----------------------- | :---------------------------- | :-------------------- | :--------------------------------- |
-| `svelte-i18n`   | 每个 locale 一个 JSON catalog | 模块级 Svelte store                        | 2/5 — 手写 union         | ICU                           | 否                    | ~16.6 kB                           |
-| `typesafe-i18n` | 生成的 TS 模块                | Store 适配器                               | 4/5 — 自动生成           | 自定义                        | 部分支持              | 较小                               |
-| Paraglide       | inlang 项目，编译为函数       | 每次调用时从 cookie、URL 或 storage 中读取 | 3.5/5 — 自动生成         | 自定义                        | 是，通过 tree-shaking | 趋近于零（因为代码生成到代码库中） |
+| `svelte-i18n`   | 每个 locale 一个 JSON catalog | 模块级 Svelte store                        | 2/5 - 手写 union         | ICU                           | 否                    | ~16.6 kB                           |
+| `typesafe-i18n` | 生成的 TS 模块                | Store 适配器                               | 4/5 - 自动生成           | 自定义                        | 部分支持              | 较小                               |
+| Paraglide       | inlang 项目，编译为函数       | 每次调用时从 cookie、URL 或 storage 中读取 | 3.5/5 - 自动生成         | 自定义                        | 是，通过 tree-shaking | 趋近于零（因为代码生成到代码库中） |
 | `wuchale`       | 构建时从 markup 中提取        | Store                                      | 不适用（无 key）         | 自定义                        | 是                    | ~30.7 kB                           |
-| Intlayer        | 组件旁的 `.content.ts`        | Context 加 store，支持 runes               | 5/5 — 自动生成，默认开启 | Intlayer (+ ICU, i18next, PO) | 是，按组件划分        | ~3.6 kB                            |
+| Intlayer        | 组件旁的 `.content.ts`        | Context 加 store，支持 runes               | 5/5 - 自动生成，默认开启 | Intlayer (+ ICU, i18next, PO) | 是，按组件划分        | ~3.6 kB                            |
 
 > 数据为基准测试特定版本下的快照。在仅根据体积做决定之前，请在自己的应用中进行测试。
 > 类型安全：5/5 表示键、参数和每个语言环境均无需手动配置即可得到校验，包括 URL 格式化工具与辅助函数。

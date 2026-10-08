@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "File di dichiarazione dei contenuti per locale"
 description: Scopri come dichiarare contenuti per locale in Intlayer. Segui la documentazione per comprendere i diversi formati e casi d'uso.
@@ -125,7 +125,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-Utilizzando questa configurazione, tutti i file per-locale verranno generati con la locale predefinita impostata su inglese. Include anche la generazione di file `.content` utilizzando il comando `extract` e il compilatore. (Vedere [Compilatore](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compiler.md) o [Extract](https://github.com/aymericzip/intlayer/edit/main/docs/docs/en/cli/extract.md) per ulteriori informazioni.)
+Utilizzando questa configurazione, tutti i file per-locale verranno generati con la locale predefinita impostata su inglese. Include anche la generazione di file `.content` utilizzando il comando `extract` e il compilatore. (Vedere [Compilatore](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compiler.md) o [Extract](https://github.com/aymericzip/intlayer/edit/main/docs/docs/it/cli/extract.md) per ulteriori informazioni.)
 
 - [Compilatore](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compiler.md)
 

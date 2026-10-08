@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "Auto Fill：自动翻译缺失的内容"
 description: "使用 Intlayer 的 auto fill 从源语言生成缺失的翻译，并写入正确的内容文件。"

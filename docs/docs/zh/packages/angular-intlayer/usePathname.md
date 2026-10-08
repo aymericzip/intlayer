@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-22
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 5
 title: usePathname Hook 文档 | angular-intlayer
 description: "在 Angular 中使用 usePathname，以 signal 的形式获取去掉语言段的当前路径，用于支持语言的导航。"

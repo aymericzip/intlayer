@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-28
+updatedAt: 2026-10-08
 priority: 8
 title: "Cara Memilih Library Vue i18n yang Tepat di Tahun 2026"
 description: "Panduan memilih i18n untuk Vue dan Nuxt: pertanyaan sebelum membandingkan vue-i18n, @nuxtjs/i18n, fluent-vue, Paraglide, dan Intlayer."
@@ -96,11 +96,11 @@ Ukuran library diambil dari [benchmark Vue](https://github.com/aymericzip/intlay
 
 | Library        | Model konten                                              | Keamanan tipe                          | Format pesan                        | Splitting per-route     | Ukuran library                                              |
 | :------------- | :-------------------------------------------------------- | :------------------------------------- | :---------------------------------- | :---------------------- | :---------------------------------------------------------- |
-| `vue-i18n`     | Katalog terpusat per locale, opsional SFC `<i18n>` blocks | 2/5 — Opt-in via schema generic        | Khusus (pipe plurals)               | Tidak                   | ~24.3 kB                                                    |
-| `@nuxtjs/i18n` | Sama seperti `vue-i18n`, ditambah routing dan tag SEO     | 2/5 — Sama                             | Sama                                | Tidak, hanya per locale | ~24.3 kB                                                    |
-| `fluent-vue`   | File `.ftl` (Mozilla Fluent)                              | 1/5 — Tidak ada                        | Fluent                              | Tidak                   | ~29.7 kB                                                    |
-| Paraglide      | Project inlang, generated functions                       | 3.5/5 — Dihasilkan (generated)         | Khusus                              | Melalui tree-shaking    | Mendekati nol (karena kode yang dihasilkan di dalam proyek) |
-| Intlayer       | Satu `.content.ts` per komponen                           | 5/5 — Dihasilkan, aktif secara default | Intlayer (+ ICU, i18next, vue-i18n) | Ya, per komponen        | ~3.9 kB                                                     |
+| `vue-i18n`     | Katalog terpusat per locale, opsional SFC `<i18n>` blocks | 2/5 - Opt-in via schema generic        | Khusus (pipe plurals)               | Tidak                   | ~24.3 kB                                                    |
+| `@nuxtjs/i18n` | Sama seperti `vue-i18n`, ditambah routing dan tag SEO     | 2/5 - Sama                             | Sama                                | Tidak, hanya per locale | ~24.3 kB                                                    |
+| `fluent-vue`   | File `.ftl` (Mozilla Fluent)                              | 1/5 - Tidak ada                        | Fluent                              | Tidak                   | ~29.7 kB                                                    |
+| Paraglide      | Project inlang, generated functions                       | 3.5/5 - Dihasilkan (generated)         | Khusus                              | Melalui tree-shaking    | Mendekati nol (karena kode yang dihasilkan di dalam proyek) |
+| Intlayer       | Satu `.content.ts` per komponen                           | 5/5 - Dihasilkan, aktif secara default | Intlayer (+ ICU, i18next, vue-i18n) | Ya, per komponen        | ~3.9 kB                                                     |
 
 > Angka-angka tersebut merupakan gambaran pada versi saat benchmark dilakukan. Jalankan pengujian pada aplikasi Anda sendiri sebelum memutuskan hanya berdasarkan ukuran.
 > Keamanan tipe: 5/5 berarti kunci, parameter, dan setiap locale diperiksa tanpa penyiapan manual, termasuk pemformat URL dan pembantu (helpers).

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "ملفات تعريف المحتوى لكل لغة"
 description: اكتشف كيفية إعلان المحتوى لكل لغة في Intlayer. اتبع الوثائق لفهم التنسيقات المختلفة وحالات الاستخدام.
@@ -125,7 +125,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-باستخدام هذا التكوين، سيتم إنشاء جميع ملفات كل لغة مع تعيين اللغة الافتراضية إلى الإنجليزية. يتضمن ذلك أيضاً إنشاء ملفات `.content` باستخدام أمر `extract` والمترجم (compiler). (انظر [Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md) أو [Extract](https://github.com/aymericzip/intlayer/edit/main/docs/docs/en/cli/extract.md) لمزيد من المعلومات.)
+باستخدام هذا التكوين، سيتم إنشاء جميع ملفات كل لغة مع تعيين اللغة الافتراضية إلى الإنجليزية. يتضمن ذلك أيضاً إنشاء ملفات `.content` باستخدام أمر `extract` والمترجم (compiler). (انظر [Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md) أو [Extract](https://github.com/aymericzip/intlayer/edit/main/docs/docs/ar/cli/extract.md) لمزيد من المعلومات.)
 
 - [Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md)
 
@@ -266,6 +266,6 @@ console.log(JSON.stringify(intlayer, null, 2));
 
 ### التوليد التلقائي للترجمة
 
-استخدم [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md) لملء الترجمات المفقودة تلقائيًا بناءً على الخدمات المفضلة لديك.
+استخدم [واجهة سطر الأوامر Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md) لملء الترجمات المفقودة تلقائيًا بناءً على الخدمات المفضلة لديك.
 
-- [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md)
+- [واجهة سطر الأوامر Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md)

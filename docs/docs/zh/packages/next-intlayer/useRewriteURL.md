@@ -1,5 +1,5 @@
 ---
-updatedAt: 2025-08-23
+updatedAt: 2026-10-08
 priority: 5
 createdAt: 2025-08-23
 title: "useRewriteURL Hook 文档 | next-intlayer"
@@ -49,7 +49,7 @@ const MyClientComponent = () => {
 
 ## 为什么在 Next.js 中使用它？
 
-当 `intlayerMiddleware` 处理服务器端重写和初始重定向时，`useRewriteURL` 钩子确保在客户端跳转之后浏览器地址栏仍与您偏好的 SEO 结构保持一致。
+当 `intlayerMiddleware` 处理服务器端重写和初始重定向时，`useRewriteURL` Hook确保在客户端跳转之后浏览器地址栏仍与您偏好的 SEO 结构保持一致。
 
 - **简洁的 URL**：强制使用本地化段，例如 `/fr/essais` 而不是 `/fr/tests`。
 - **性能**：在不触发完整路由周期或重新获取数据的情况下更新地址栏。

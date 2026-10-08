@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-28
+updatedAt: 2026-10-08
 priority: 8
 title: "Comment choisir la bonne bibliothèque i18n pour React en 2026"
 description: "Un guide de décision pour l'i18n React : les questions à se poser avant de comparer react-i18next, react-intl, Lingui, use-intl, Paraglide et Intlayer."
@@ -109,13 +109,13 @@ La taille des bibliothèques provient du [benchmark TanStack Start](https://gith
 
 | Bibliothèque            | Vague        | Modèle de contenu                              | Sûreté des types                      | Format de message              | Taille de la bibliothèque                                  |
 | :---------------------- | :----------- | :--------------------------------------------- | :------------------------------------ | :----------------------------- | :--------------------------------------------------------- |
-| `react-i18next`         | Runtime      | JSON centralisé, namespaces                    | 2/5 — Optionnel (`CustomTypeOptions`) | i18next (pluriels par suffixe) | ~18.4 ko                                                   |
-| `react-intl` (FormatJS) | Runtime      | JSON centralisé, ICU                           | 2/5 — Optionnel (extraction + union)  | ICU                            | ~15.3 ko                                                   |
-| `use-intl`              | Server-first | JSON centralisé, ICU                           | 2/5 — Optionnel (declaration merging) | ICU                            | ~14.1 ko                                                   |
-| `@tolgee/react`         | Runtime      | Centralisé, édition in-context                 | 1/5 — Non                             | ICU                            | ~11.1 ko                                                   |
-| Lingui                  | Macro        | Texte source dans le code, catalogues compilés | 2/5 — Bon, via le compilateur         | ICU via macros                 | ~11.8 ko                                                   |
-| Paraglide               | Compilateur  | Projet inlang, fonctions générées              | 3.5/5 — Généré                        | Propriétaire                   | Proche de zéro (grâce au code généré dans la base de code) |
-| Intlayer                | Compilateur  | `.content.ts` par composant                    | 5/5 — Généré, actif par défaut        | Intlayer (+ ICU, i18next, PO)  | ~5.0 ko                                                    |
+| `react-i18next`         | Runtime      | JSON centralisé, namespaces                    | 2/5 - Optionnel (`CustomTypeOptions`) | i18next (pluriels par suffixe) | ~18.4 ko                                                   |
+| `react-intl` (FormatJS) | Runtime      | JSON centralisé, ICU                           | 2/5 - Optionnel (extraction + union)  | ICU                            | ~15.3 ko                                                   |
+| `use-intl`              | Server-first | JSON centralisé, ICU                           | 2/5 - Optionnel (declaration merging) | ICU                            | ~14.1 ko                                                   |
+| `@tolgee/react`         | Runtime      | Centralisé, édition in-context                 | 1/5 - Non                             | ICU                            | ~11.1 ko                                                   |
+| Lingui                  | Macro        | Texte source dans le code, catalogues compilés | 2/5 - Bon, via le compilateur         | ICU via macros                 | ~11.8 ko                                                   |
+| Paraglide               | Compilateur  | Projet inlang, fonctions générées              | 3.5/5 - Généré                        | Propriétaire                   | Proche de zéro (grâce au code généré dans la base de code) |
+| Intlayer                | Compilateur  | `.content.ts` par composant                    | 5/5 - Généré, actif par défaut        | Intlayer (+ ICU, i18next, PO)  | ~5.0 ko                                                    |
 
 > Les chiffres correspondent à un instantané basé sur les versions du benchmark et évoluent au fil des publications. Exécutez le benchmark sur votre propre application avant de vous décider uniquement sur la taille.
 > Sûreté des types : 5/5 signifie que les clés, les paramètres et chaque locale sont vérifiés sans configuration manuelle, y compris le formateur d'URL et les helpers.

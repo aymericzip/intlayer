@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-07-27
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "Treść zależna od płci w Intlayer"
 description: "Dopasuj komunikaty do płci czytelnika za pomocą węzła gender() w Intlayer: wariant męski, żeński i domyślny w jednym miejscu."
@@ -28,11 +28,11 @@ author: aymericzip
 
 ## Jak działa płeć
 
-W Intlayer treści oparte na płci są realizowane za pomocą funkcji `gender`, która mapuje konkretne wartości płci ('male', 'female') na odpowiadające im treści. Takie podejście pozwala na dynamiczny wybór zawartości w zależności od podanej płci. Po integracji z React Intlayer lub Next Intlayer odpowiednia treść jest automatycznie wybierana zgodnie z płcią przekazaną w czasie wykonywania.
+W Intlayer treści oparte na płci są realizowane za pomocą funkcji `gender`, która mapuje konkretne wartości płci ('male', 'female') na odpowiadające im treści. Takie podejście pozwala na dynamiczny wybór zawartości w zależności od podanej płci. Po integracji z React Intlayer, Next Intlayer lub innymi adapterami, odpowiednia treść jest automatycznie wybierana zgodnie z płcią przekazaną w czasie wykonywania.
 
 ## Konfiguracja treści opartych na płci
 
-Aby skonfigurować treści oparte na płci w swoim projekcie Intlayer, utwórz moduł zawartości, który będzie zawierał definicje specyficzne dla płci. Poniżej znajdują się przykłady w różnych formatach.
+Aby skonfigurować treści oparte na płci w swoim projekcie Intlayer, utwórz moduł deklaracji treści, który zawiera definicje specyficzne dla płci. Poniżej znajdują się przykłady w różnych formatach.
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { gender, type Dictionary } from "intlayer";
@@ -42,7 +42,7 @@ const myGenderContent = {
   content: {
     myGender: gender({
       male: "moja treść dla użytkowników płci męskiej",
-      female: "moja treść dla użytkowników płci żeńskiej",
+      female: "moja treść dla użytkowniczek płci żeńskiej",
       fallback: "moja treść, gdy płeć nie jest określona", // Opcjonalne
     }),
   },
@@ -60,7 +60,7 @@ export default myGenderContent;
       "nodeType": "gender",
       "gender": {
         "male": "moja treść dla użytkowników płci męskiej",
-        "female": "moja treść dla użytkowników płci żeńskiej",
+        "female": "moja treść dla użytkowniczek płci żeńskiej",
         "fallback": "moja treść, gdy płeć nie jest określona", // Opcjonalne
       },
     },
@@ -68,14 +68,14 @@ export default myGenderContent;
 }
 ```
 
-> Jeśli nie zostanie zadeklarowany fallback, ostatni zadeklarowany klucz zostanie użyty jako fallback, jeśli płeć nie zostanie określona lub nie będzie pasować do żadnej zdefiniowanej płci.
+> Jeśli nie zostanie zadeklarowany fallback, ostatni zadeklarowany klucz zostanie użyty jako fallback, jeśli płeć nie zostanie określona lub nie pasuje do żadnej zdefiniowanej wartości.
 
-## Używanie treści zależnych od płci z React Intlayer
+## Używanie treści zależnych od płci
 
 <Tabs group="framework">
   <Tab label="React" value="react">
 
-To utilize gender-based content within a React component, import and use the `useIntlayer` hook from the `react-intlayer` package. This hook fetches the content for the specified key and allows you to pass in a gender to select the appropriate output.
+Aby użyć treści zależnych od płci w komponencie React, zaimportuj i użyj hooka `useIntlayer` z pakietu `react-intlayer`. Hook ten pobiera treść dla podanego klucza i pozwala przekazać płeć, aby wybrać odpowiedni wynik.
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
@@ -88,37 +88,25 @@ const GenderComponent: FC = () => {
     <div>
       <p>
         {
-          /* Output: my content for male users */
+          /* Wynik: moja treść dla użytkowników płci męskiej */
           myGender("male")
         }
       </p>
       <p>
         {
-          /* Output: my content for female users */
+          /* Wynik: moja treść dla użytkowniczek płci żeńskiej */
           myGender("female")
         }
       </p>
       <p>
         {
-          /* Output: my content for male users */
-          myGender("m")
-        }
-      </p>
-      <p>
-        {
-          /* Output: my content for female users */
-          myGender("f")
-        }
-      </p>
-      <p>
-        {
-          /* Output: my content when gender is not specified */
+          /* Wynik: moja treść, gdy płeć nie jest określona */
           myGender("")
         }
       </p>
       <p>
         {
-          /* Output: my content when gender is not specified */
+          /* Wynik: moja treść, gdy płeć nie jest określona */
           myGender(undefined)
         }
       </p>
@@ -132,7 +120,7 @@ export default GenderComponent;
   </Tab>
   <Tab label="Next.js" value="nextjs">
 
-To utilize gender-based content in Next.js Client Components, retrieve it via the `useIntlayer` hook. Here's an example:
+Aby użyć treści zależnych od płci w komponentach klienckich Next.js (Client Components), pobierz je za pomocą hooka `useIntlayer`. Oto przykład:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 "use client";
@@ -157,7 +145,7 @@ export default GenderComponent;
   </Tab>
   <Tab label="Vue" value="vue">
 
-To utilize gender-based content in Vue components, retrieve it via the `useIntlayer` hook. Here's an example:
+Aby użyć treści zależnych od płci w komponentach Vue, pobierz je za pomocą hooka `useIntlayer`. Oto przykład:
 
 ```vue fileName="**/*.vue"
 <script setup lang="ts">
@@ -177,7 +165,7 @@ const { myGender } = useIntlayer("my_key");
   </Tab>
   <Tab label="Svelte" value="svelte">
 
-To utilize gender-based content in Svelte components, retrieve it via the `useIntlayer` hook. The store is accessed with `$`. Here's an example:
+Aby użyć treści zależnych od płci w komponentach Svelte, pobierz je za pomocą hooka `useIntlayer`. Dostęp do magazynu (store) uzyskujemy za pomocą `$`. Oto przykład:
 
 ```svelte fileName="**/*.svelte"
 <script lang="ts">
@@ -195,7 +183,7 @@ const content = useIntlayer("my_key");
   </Tab>
   <Tab label="Preact" value="preact">
 
-To utilize gender-based content in Preact components, retrieve it via the `useIntlayer` hook. Here's an example:
+Aby użyć treści zależnych od płci w komponentach Preact, pobierz je za pomocą hooka `useIntlayer`. Oto przykład:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "preact";
@@ -218,7 +206,7 @@ export default GenderComponent;
   </Tab>
   <Tab label="Solid" value="solid">
 
-To utilize gender-based content in SolidJS components, retrieve it via the `useIntlayer` hook. Here's an example:
+Aby użyć treści zależnych od płci w komponentach SolidJS, pobierz je za pomocą hooka `useIntlayer`. Oto przykład:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { Component } from "solid-js";
@@ -241,7 +229,7 @@ export default GenderComponent;
   </Tab>
   <Tab label="Angular" value="angular">
 
-To utilize gender-based content in Angular components, retrieve it via the `useIntlayer` hook. Here's an example:
+Aby użyć treści zależnych od płci w komponentach Angular, pobierz je za pomocą funkcji `useIntlayer`. Oto przykład:
 
 ```typescript fileName="app.component.ts" codeFormat="typescript"
 import { Component } from "@angular/core";
@@ -264,7 +252,7 @@ export class GenderComponent {
   </Tab>
   <Tab label="Vanilla JS" value="vanilla">
 
-To utilize gender-based content with `vanilla-intlayer`, retrieve it via the `useIntlayer` hook. Here's an example:
+Aby użyć treści zależnych od płci w czystym JavaScript (`vanilla-intlayer`), pobierz je za pomocą funkcji `useIntlayer`. Oto przykład:
 
 ```typescript fileName="**/*.ts" codeFormat={["typescript", "esm"]}
 import { installIntlayer, useIntlayer } from "vanilla-intlayer";
@@ -272,15 +260,15 @@ import { installIntlayer, useIntlayer } from "vanilla-intlayer";
 installIntlayer();
 
 const content = useIntlayer("my_key").onChange((newContent) => {
-  document.getElementById("gender-male")!.textContent =
+  document.getElementById("male-content")!.textContent =
     newContent.myGender("male");
-  document.getElementById("gender-female")!.textContent =
+  document.getElementById("female-content")!.textContent =
     newContent.myGender("female");
 });
 
-// Initial render
-document.getElementById("gender-male")!.textContent = content.myGender("male");
-document.getElementById("gender-female")!.textContent =
+// Pierwsze renderowanie
+document.getElementById("male-content")!.textContent = content.myGender("male");
+document.getElementById("female-content")!.textContent =
   content.myGender("female");
 ```
 
@@ -295,4 +283,4 @@ Aby uzyskać bardziej szczegółowe informacje na temat konfiguracji i użytkowa
 - [Dokumentacja React Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_create_react_app.md)
 - [Dokumentacja Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_nextjs_15.md)
 
-Te zasoby oferują dodatkowe informacje na temat konfiguracji i użytkowania Intlayer w różnych środowiskach i ramach pracy.
+Te zasoby oferują dodatkowe informacje na temat konfiguracji i użytkowania Intlayer w różnych środowiskach oraz frameworkach.

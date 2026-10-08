@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-19
-updatedAt: 2026-09-19
+updatedAt: 2026-10-08
 priority: 5
-title: useLocale 钩子文档 | astro-intlayer
-description: 了解如何在 Astro 应用程序中使用 useLocale 钩子访问和管理当前语言环境。
+title: useLocale Hook文档 | astro-intlayer
+description: 了解如何在 Astro 应用程序中使用 useLocale Hook访问和管理当前语言环境。
 keywords:
   - useLocale
   - locale
@@ -25,9 +25,9 @@ history:
 author: aymericzip
 ---
 
-# useLocale 钩子文档
+# useLocale Hook文档
 
-`astro-intlayer` 的 `useLocale` 钩子提供对 Astro 应用程序中当前请求语言环境、配置的默认语言环境以及所有可用语言环境的访问权限。
+`astro-intlayer` 的 `useLocale` Hook提供对 Astro 应用程序中当前请求语言环境、配置的默认语言环境以及所有可用语言环境的访问权限。
 
 它在服务器渲染的 `.astro` frontmatter 和客户端 `<script>` 块中表现一致。
 
@@ -105,7 +105,7 @@ const { locale, availableLocales } = useLocale();
 
 ## 返回值
 
-该钩子返回一个 `UseLocaleResult` 类型的对象：
+该Hook返回一个 `UseLocaleResult` 类型的对象：
 
 | 属性               | 类型                                   | 描述                                                                        |
 | ------------------ | -------------------------------------- | --------------------------------------------------------------------------- |
@@ -123,5 +123,5 @@ const { locale, availableLocales } = useLocale();
 ## 相关文档
 
 - [`intlayer` 集成](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/astro-intlayer/intlayer.md)
-- [`useIntlayer` 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/astro-intlayer/useIntlayer.md)
-- [`useDictionary` 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/astro-intlayer/useDictionary.md)
+- [`useIntlayer` Hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/astro-intlayer/useIntlayer.md)
+- [`useDictionary` Hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/astro-intlayer/useDictionary.md)

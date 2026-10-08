@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "File khai báo nội dung theo từng locale"
 description: Tìm hiểu cách khai báo nội dung theo từng ngôn ngữ trong Intlayer. Theo dõi tài liệu để hiểu các định dạng và trường hợp sử dụng khác nhau.
@@ -125,7 +125,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-Sử dụng cấu hình này, tất cả các tệp theo từng locale sẽ được tạo với locale mặc định được đặt là tiếng Anh. Nó cũng bao gồm việc tạo các tệp `.content` bằng cách sử dụng lệnh `extract` và compiler. (Xem [Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md) hoặc [Extract](https://github.com/aymericzip/intlayer/edit/main/docs/docs/en/cli/extract.md) để biết thêm thông tin.)
+Sử dụng cấu hình này, tất cả các tệp theo từng locale sẽ được tạo với locale mặc định được đặt là tiếng Anh. Nó cũng bao gồm việc tạo các tệp `.content` bằng cách sử dụng lệnh `extract` và compiler. (Xem [Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md) hoặc [Extract](https://github.com/aymericzip/intlayer/edit/main/docs/docs/vi/cli/extract.md) để biết thêm thông tin.)
 
 - [Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md)
 

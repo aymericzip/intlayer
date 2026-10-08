@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "Tłumaczenia: funkcja t()"
 description: "Deklaruj tłumaczenia dla każdego locale funkcją t() w Intlayer, z typowaniem, które wskazuje brakujące locale podczas budowania."
@@ -28,9 +28,9 @@ author: aymericzip
 
 ## Definiowanie tłumaczeń
 
-Funkcja `t` w `intlayer` pozwala na deklarowanie treści w wielu językach. Funkcja ta zapewnia bezpieczeństwo typów, zgłaszając błąd, jeśli brakuje jakichkolwiek tłumaczeń, co jest szczególnie przydatne w środowiskach TypeScript.
+Funkcja `t` w `intlayer` pozwala na deklarowanie treści w wielu językach. Funkcja ta zapewnia pełne bezpieczeństwo typów, zgłaszając błąd podczas kompilacji, jeśli brakuje jakichkolwiek tłumaczeń, co jest szczególnie przydatne w projektach TypeScript.
 
-Oto przykład, jak zadeklarować treść z tłumaczeniami.
+Oto przykład deklaracji treści z tłumaczeniami:
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
@@ -43,6 +43,7 @@ export default {
   key: "multi_lang",
   content: {
     welcomeMessage: t({
+      pl: "Witaj w naszej aplikacji",
       en: "Welcome to our application",
       fr: "Bienvenue dans notre application",
       es: "Bienvenido a nuestra aplicación",
@@ -59,6 +60,7 @@ export default {
     "welcomeMessage": {
       "nodeType": "translation",
       "translation": {
+        "pl": "Witaj w naszej aplikacji",
         "en": "Welcome to our application",
         "fr": "Bienvenue dans notre application",
         "es": "Bienvenido a nuestra aplicación"
@@ -70,26 +72,26 @@ export default {
 
 ## Konfiguracja lokalizacji
 
-Aby zapewnić prawidłowe zarządzanie tłumaczeniami, możesz skonfigurować akceptowane lokalizacje w pliku `intlayer.config.ts`. Ta konfiguracja pozwala zdefiniować języki, które Twoja aplikacja obsługuje:
+Aby zapewnić prawidłowe zarządzanie tłumaczeniami, skonfiguruj obsługiwane lokalizacje w pliku `intlayer.config.ts`. Ta konfiguracja pozwala zdefiniować języki, które Twoja aplikacja wspiera:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
   internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    locales: [Locales.POLISH, Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
   },
 };
 
 export default config;
 ```
 
-## Używanie tłumaczeń w komponentach React
+## Używanie tłumaczeń w komponentach
 
 <Tabs group="framework">
   <Tab label="React" value="react">
 
-With `react-intlayer`, you can use translations in React components. Here's an example:
+Dzięki `react-intlayer` możesz używać tłumaczeń w komponentach React. Oto przykład:
 
 ```jsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
@@ -108,12 +110,12 @@ const MyComponent: FC = () => {
 export default MyComponent;
 ```
 
-This component fetches the corresponding translation based on the current locale set in your application.
+Komponent ten pobiera odpowiednie tłumaczenie na podstawie aktualnego locale ustawionego w Twojej aplikacji.
 
   </Tab>
   <Tab label="Next.js" value="nextjs">
 
-With `next-intlayer`, you can use translations in React Server Components or Client Components. Here's an example in a Client Component:
+Dzięki `next-intlayer` możesz używać tłumaczeń zarówno w komponentach serwerowych (Server Components), jak i klienckich (Client Components). Oto przykład w komponencie klienckim:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 "use client";
@@ -137,7 +139,7 @@ export default MyComponent;
   </Tab>
   <Tab label="Vue" value="vue">
 
-With `vue-intlayer`, you can use translations in Vue components. Here's an example:
+Dzięki `vue-intlayer` możesz używać tłumaczeń w komponentach Vue. Oto przykład:
 
 ```vue fileName="**/*.vue"
 <script setup lang="ts">
@@ -156,7 +158,7 @@ const content = useIntlayer("multi_lang");
   </Tab>
   <Tab label="Svelte" value="svelte">
 
-With `svelte-intlayer`, you can use translations in Svelte components. The hook returns a Svelte store. Here's an example:
+Dzięki `svelte-intlayer` możesz używać tłumaczeń w komponentach Svelte. Dostęp do magazynu (store) uzyskujemy przez `$`:
 
 ```svelte fileName="**/*.svelte"
 <script lang="ts">
@@ -173,7 +175,7 @@ const content = useIntlayer("multi_lang");
   </Tab>
   <Tab label="Preact" value="preact">
 
-With `preact-intlayer`, you can use translations in Preact components. Here's an example:
+Dzięki `preact-intlayer` możesz używać tłumaczeń w komponentach Preact. Oto przykład:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "preact";
@@ -195,7 +197,7 @@ export default MyComponent;
   </Tab>
   <Tab label="Solid" value="solid">
 
-With `solid-intlayer`, you can use translations in SolidJS components. Here's an example:
+Dzięki `solid-intlayer` możesz używać tłumaczeń w komponentach SolidJS. Oto przykład:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { Component } from "solid-js";
@@ -217,7 +219,7 @@ export default MyComponent;
   </Tab>
   <Tab label="Angular" value="angular">
 
-With `angular-intlayer`, you can use translations in Angular components. Here's an example:
+Dzięki `angular-intlayer` możesz używać tłumaczeń w komponentach Angular. Oto przykład:
 
 ```typescript fileName="app.component.ts" codeFormat="typescript"
 import { Component } from "@angular/core";
@@ -239,7 +241,7 @@ export class MyComponent {
   </Tab>
   <Tab label="Vanilla JS" value="vanilla">
 
-With `vanilla-intlayer`, you can use translations by subscribing to content changes. Here's an example:
+Dzięki `vanilla-intlayer` możesz używać tłumaczeń w czystym JavaScript. Oto przykład:
 
 ```typescript fileName="**/*.ts" codeFormat={["typescript", "esm"]}
 import { installIntlayer, useIntlayer } from "vanilla-intlayer";
@@ -247,16 +249,24 @@ import { installIntlayer, useIntlayer } from "vanilla-intlayer";
 installIntlayer();
 
 const content = useIntlayer("multi_lang").onChange((newContent) => {
-  document.getElementById("welcome-message")!.textContent = String(
-    newContent.welcomeMessage
-  );
+  document.getElementById("welcome-message")!.textContent =
+    newContent.welcomeMessage;
 });
 
-// Initial render
-document.getElementById("welcome-message")!.textContent = String(
-  content.welcomeMessage
-);
+// Pierwsze renderowanie
+document.getElementById("welcome-message")!.textContent =
+  content.welcomeMessage;
 ```
 
   </Tab>
 </Tabs>
+
+## Dodatkowe zasoby
+
+Aby uzyskać bardziej szczegółowe informacje na temat konfiguracji i użytkowania, zapoznaj się z następującymi zasobami:
+
+- [Dokumentacja Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/index.md)
+- [Dokumentacja React Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_create_react_app.md)
+- [Dokumentacja Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_nextjs_15.md)
+
+Te zasoby oferują dodatkowe informacje na temat konfiguracji i użytkowania Intlayer w różnych środowiskach oraz frameworkach.

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-09-28
+updatedAt: 2026-10-08
 priority: 5
 title: "getIntlayerAsync 関数ドキュメント | intlayer"
 description: "getIntlayerAsync で辞書のコンテンツを 1 つのロケール分だけ読み込み、他の言語をバンドルせずに取得します。"
@@ -86,7 +86,7 @@ getIntlayerAsync(
   - **型**: `Plugins[]`
   - **必須**: No (オプション)
 
-### Returns
+### 戻り値
 
 - **型**: `Promise<Content>`、辞書の解釈されたコンテンツに解決する promise。型は宣言から取得されます。
 

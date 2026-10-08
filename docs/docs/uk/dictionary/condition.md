@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "Умовний контент в Intlayer"
 description: "Показуйте різний контент залежно від булевої умови за допомогою вузла cond() в Intlayer: оголошується один раз і обчислюється під час рендерингу."
@@ -75,7 +75,7 @@ export default myConditionalContent;
 <Tabs group="framework">
   <Tab label="React" value="react">
 
-To utilize conditional content within a React component, import and use the `useIntlayer` hook from the `react-intlayer` package. This hook fetches the content for the specified key and allows you to pass in a condition to select the appropriate output.
+Щоб використовувати умовний контент у компоненті React, імпортуйте та застосовуйте хук `useIntlayer` із пакета `react-intlayer`. Цей хук отримує контент за вказаним ключем і дозволяє передати умову для вибору відповідного результату.
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
@@ -120,7 +120,7 @@ export default ConditionalComponent;
   </Tab>
   <Tab label="Next.js" value="nextjs">
 
-To utilize conditional content in Next.js Client Components, retrieve it via the `useIntlayer` hook. Here's an example:
+Щоб використовувати умовний контент у клієнтських компонентах Next.js, отримайте його за допомогою хука `useIntlayer`. Ось приклад:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 "use client";
@@ -145,7 +145,7 @@ export default ConditionalComponent;
   </Tab>
   <Tab label="Vue" value="vue">
 
-To utilize conditional content in Vue components, retrieve it via the `useIntlayer` hook. Here's an example:
+Щоб використовувати умовний контент у компонентах Vue, отримайте його за допомогою хука `useIntlayer`. Ось приклад:
 
 ```vue fileName="**/*.vue"
 <script setup lang="ts">
@@ -165,7 +165,7 @@ const { myCondition } = useIntlayer("my_key");
   </Tab>
   <Tab label="Svelte" value="svelte">
 
-To utilize conditional content in Svelte components, retrieve it via the `useIntlayer` hook. The store is accessed with `$`. Here's an example:
+Щоб використовувати умовний контент у компонентах Svelte, отримайте його за допомогою хука `useIntlayer`. Доступ до сховища здійснюється через `$`. Ось приклад:
 
 ```svelte fileName="**/*.svelte"
 <script lang="ts">
@@ -183,7 +183,7 @@ const content = useIntlayer("my_key");
   </Tab>
   <Tab label="Preact" value="preact">
 
-To utilize conditional content in Preact components, retrieve it via the `useIntlayer` hook. Here's an example:
+Щоб використовувати умовний контент у компонентах Preact, отримайте його за допомогою хука `useIntlayer`. Ось приклад:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "preact";
@@ -206,7 +206,7 @@ export default ConditionalComponent;
   </Tab>
   <Tab label="Solid" value="solid">
 
-To utilize conditional content in SolidJS components, retrieve it via the `useIntlayer` hook. Here's an example:
+Щоб використовувати умовний контент у компонентах SolidJS, отримайте його за допомогою хука `useIntlayer`. Ось приклад:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { Component } from "solid-js";
@@ -229,7 +229,7 @@ export default ConditionalComponent;
   </Tab>
   <Tab label="Angular" value="angular">
 
-To utilize conditional content in Angular components, retrieve it via the `useIntlayer` hook. Here's an example:
+Щоб використовувати умовний контент у компонентах Angular, отримайте його за допомогою хука `useIntlayer`. Ось приклад:
 
 ```typescript fileName="app.component.ts" codeFormat="typescript"
 import { Component } from "@angular/core";
@@ -252,7 +252,7 @@ export class ConditionalComponent {
   </Tab>
   <Tab label="Vanilla JS" value="vanilla">
 
-To utilize conditional content with `vanilla-intlayer`, retrieve it via the `useIntlayer` hook. Here's an example:
+Щоб використовувати умовний контент із `vanilla-intlayer`, отримайте його за допомогою хука `useIntlayer`. Ось приклад:
 
 ```typescript fileName="**/*.ts" codeFormat={["typescript", "esm"]}
 import { installIntlayer, useIntlayer } from "vanilla-intlayer";

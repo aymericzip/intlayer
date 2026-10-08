@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-19
-updatedAt: 2026-09-19
+updatedAt: 2026-10-08
 priority: 5
-title: useDictionary 钩子文档 | remix-intlayer
-description: 了解如何在 Remix 3 应用程序中使用 useDictionary 钩子为当前请求语言环境解析字典对象。
+title: useDictionary Hook文档 | remix-intlayer
+description: 了解如何在 Remix 3 应用程序中使用 useDictionary Hook为当前请求语言环境解析字典对象。
 keywords:
   - useDictionary
   - dictionary
@@ -21,13 +21,13 @@ slugs:
 history:
   - version: 9.5.5
     date: 2026-09-19
-    changes: "useDictionary 钩子初始文档"
+    changes: "useDictionary Hook初始文档"
 author: aymericzip
 ---
 
-# useDictionary 钩子文档
+# useDictionary Hook文档
 
-`useDictionary` 钩子用于转换导入的或内联的字典对象，并在 Remix 3 应用程序中返回针对当前请求语言环境解析的内容。
+`useDictionary` Hook用于转换导入的或内联的字典对象，并在 Remix 3 应用程序中返回针对当前请求语言环境解析的内容。
 
 与通过全局字典注册表中的字符串键查找字典的 `useIntlayer` 不同，`useDictionary` 直接接受字典对象。
 
@@ -83,7 +83,7 @@ useDictionary(dictionary, localeOrSelector?)
 
 ## 说明
 
-该钩子执行以下任务：
+该Hook执行以下任务：
 
 1. **语言环境检测**: 从 `intlayer()` 中间件创建的 `AsyncLocalStorage` 存储中读取活动请求语言环境。
 2. **内容解析**: 根据解析出的语言环境评估翻译 (`t()`)、枚举、条件和嵌套结构。
@@ -92,5 +92,5 @@ useDictionary(dictionary, localeOrSelector?)
 ## 相关文档
 
 - [`intlayer` 中间件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/remix-intlayer/intlayerMiddleware.md)
-- [`useIntlayer` 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/remix-intlayer/useIntlayer.md)
-- [`useLocale` 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/remix-intlayer/useLocale.md)
+- [`useIntlayer` Hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/remix-intlayer/useIntlayer.md)
+- [`useLocale` Hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/remix-intlayer/useLocale.md)

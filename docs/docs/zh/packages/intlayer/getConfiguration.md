@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 5
 title: getConfiguration 函数文档 | intlayer
 description: "使用 getConfiguration 在客户端或服务器读取解析后的 Intlayer 配置，包括语言和路由。"

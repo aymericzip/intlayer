@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: Intlayer Compiler | Автоматизированное извлечение контента для i18n
 description: "Автоматически извлекайте контент из компонентов с компилятором Intlayer для более быстрой i18n в Vite, Next.js и других."
@@ -52,9 +52,9 @@ author: aymericzip
 - **Опыт разработчика**: храните объявления контента прямо там, где они используются, что улучшает поддерживаемость.
 - **Живые обновления**: поддержка Hot Module Replacement (HMR) для мгновенной обратной связи во время разработки.
 
-См. блог-пост [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/compiler_vs_declarative_i18n.md) для более глубокого сравнения.
+См. блог-пост [Компилятор против декларативного i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/compiler_vs_declarative_i18n.md) для более глубокого сравнения.
 
-- [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/compiler_vs_declarative_i18n.md)
+- [Компилятор против декларативного i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/compiler_vs_declarative_i18n.md)
 
 ## Почему не использовать Intlayer Compiler?
 
@@ -65,9 +65,9 @@ author: aymericzip
 
 - **Извлечение только статических элементов**: Извлечение на основе компилятора полагается на статический анализ. Строки, которые существуют только во время выполнения (коды ошибок API, поля CMS и т. д.), не могут быть обнаружены или переведены самим компилятором, поэтому вам все еще нужна дополнительная стратегия i18n во время выполнения.
 
-Для более глубокого архитектурного сравнения см. блог-пост [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/compiler_vs_declarative_i18n.md).
+Для более глубокого архитектурного сравнения см. блог-пост [Компилятор против декларативного i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/compiler_vs_declarative_i18n.md).
 
-- [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/compiler_vs_declarative_i18n.md)
+- [Компилятор против декларативного i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/compiler_vs_declarative_i18n.md)
 
 В качестве альтернативы, для автоматизации процесса i18n при сохранении полного контроля над контентом, Intlayer также предоставляет команду автоматического извлечения `intlayer extract` (см. [документацию CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/extract.md)) или команду `Intlayer: extract content to Dictionary` из расширения Intlayer VS Code (см. [документацию расширения VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/vs_code_extension.md)).
 

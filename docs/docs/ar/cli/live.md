@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 5
 title: "intlayer live: مزامنة محتوى CMS أثناء التشغيل"
 description: "استخدم Live Sync في Intlayer لتطبيق تغييرات CMS على تطبيقك أثناء تشغيله دون إعادة البناء أو النشر."
@@ -20,9 +20,9 @@ author: aymericzip
 
 # أوامر المزامنة الحية
 
-تتيح لك المزامنة الحية أن يعكس تطبيقك تغييرات محتوى CMS أثناء وقت التشغيل. لا حاجة لإعادة البناء أو إعادة النشر. عند التفعيل، يتم بث التحديثات إلى خادم المزامنة الحية الذي يقوم بتحديث القواميس التي يقرأها تطبيقك. راجع [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md) لمزيد من التفاصيل.
+تتيح لك المزامنة الحية أن يعكس تطبيقك تغييرات محتوى CMS أثناء وقت التشغيل. لا حاجة لإعادة البناء أو إعادة النشر. عند التفعيل، يتم بث التحديثات إلى خادم المزامنة الحية الذي يقوم بتحديث القواميس التي يقرأها تطبيقك. راجع [نظام إدارة المحتوى Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md) لمزيد من التفاصيل.
 
-- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
+- [نظام إدارة المحتوى Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
 
 ```json fileName="package.json"
 "scripts": {

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-09-28
+updatedAt: 2026-10-08
 priority: 5
 title: "getIntlayer 関数ドキュメント | intlayer"
 description: "getIntlayer で、どこからでもロケールに応じた辞書のコンテンツを取得。useIntlayer フックのフレームワーク非依存版です。"
@@ -32,11 +32,11 @@ author: aymericzip
 
 # Documentation: `intlayer` の `getIntlayer` 関数
 
-## Description
+## 説明
 
 `getIntlayer` 関数は、キーによって1つの辞書を選択し、指定されたロケールで解釈されたコンテンツを返します。これは `useIntlayer` フックのフレームワーク非依存の対応物です：同じコンテンツ、同じセレクタですが、React コンテキストが利用できない場所ならどこでも使用可能です。Node スクリプト、サーバー関数、ルートローダー、メタデータビルダー、Express/Fastify ハンドラ、テスト。
 
-Intlayer によって `.intlayer/` に生成された辞書を読み込むため、`key` 引数は型付けされており、独自のコンテンツ宣言から自動補完されます。返されるオブジェクトは各リーフまで完全に型付けされています。
+Intlayer によって `.intlayer/` に生成された辞書を読み込むため、`key` 引数は型付けされており、独自のコンテンツ宣言から自動補完されます。返されるオブジェクトは各リーフまで完全な型安全性を提供します。
 
 **主な機能：**
 

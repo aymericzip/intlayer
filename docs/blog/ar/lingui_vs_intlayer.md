@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "Lingui مقابل Intlayer: اختبار الأداء والمقارنة لعام 2026"
 description: "مكتبتا i18n قائمتان على المترجم البرمجي، مقاستان على Next.js وTanStack Start: الحزمة وتسرّب المحتوى وحجم المكوّنات والإماهة وتبديل اللغة."
@@ -490,7 +490,7 @@ export default defineConfig({
 
 - [تقرير قياس أداء Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md)
 - [تقرير قياس أداء TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md)
-- [Compat adapter: Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/lingui.md)
+- [محول التوافق: Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/lingui.md)
 - [تحسين الحزمة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md)
 - [مترجم Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md)
 

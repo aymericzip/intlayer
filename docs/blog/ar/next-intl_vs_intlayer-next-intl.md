@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-22
+updatedAt: 2026-10-08
 priority: 8
 title: "next-intl مقابل @intlayer/next-intl: نفس الواجهة البرمجية، حزمة مختلفة"
 description: "تطبيق Next.js يحتفظ باستيرادات next-intl التي يخدمها محوّل @intlayer/next-intl. قياس حجم الحزمة والتسرّب وحجم المكوّنات والإماهة."
@@ -416,7 +416,7 @@ export default withIntlayer(nextConfig);
 
 وثائق مرجعية:
 
-- [Compat adapter: next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/next-intl.md)
+- [محول التوافق: next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/next-intl.md)
 - [دليل الترحيل: من next-intl إلى Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_next-intl_to_intlayer.md)
 - [تقرير قياس أداء Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md)
 - [تقرير قياس أداء TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md)

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 9
 title: "next-i18next مقابل next-intl مقابل Intlayer: مقارنة 2026"
 description: "أي مكتبة i18n تختار لـ Next.js؟ مقارنة next-i18next وnext-intl وIntlayer من حيث الحزمة وTypeScript وServer Components والتوجيه وتجربة المطوّر."
@@ -41,12 +41,12 @@ author: aymericzip
 - **next-i18next** - i18next في هيئة Next.js. نظام بيئي ناضج وميزات عبر الإضافات (مثل ICU)، لكن التهيئة قد تكون مطولة وتميل الكتالوجات إلى المركزية مع نمو المشاريع.
 - **Intlayer** - نموذج محتوى يركز على المكونات لـ Next.js، **كتابة صارمة بـ TS**، **فحوصات وقت البناء**، **إزالة الشيفرة غير المستخدمة (tree-shaking)**، **وسائط مدمجة ومساعدات SEO**، محرر/نظام إدارة محتوى بصري اختياري، وترجمات بمساعدة الذكاء الاصطناعي.
 
-| Library                | GitHub Stars                                                                                                                                                                     | Total Commits                                                                                                                                                                        | Last Commit                                                                                                                                           | First Version | NPM Version                                                                                                         | NPM Downloads                                                                                                                  |
-| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| `aymericzip/intlayer`  | [![GitHub Repo stars](https://img.shields.io/github/stars/aymericzip/intlayer?style=for-the-badge&label=%E2%AD%90%20stars)](https://github.com/aymericzip/intlayer/stargazers)   | [![GitHub commit activity](https://img.shields.io/github/commit-activity/t/aymericzip/intlayer?style=for-the-badge&label=commits)](https://github.com/aymericzip/intlayer/commits)   | [![Last Commit](https://img.shields.io/github/last-commit/aymericzip/intlayer?style=for-the-badge)](https://github.com/aymericzip/intlayer/commits)   | April 2024    | [![npm](https://img.shields.io/npm/v/intlayer?style=for-the-badge)](https://www.npmjs.com/package/intlayer)         | [![npm downloads](https://img.shields.io/npm/dm/intlayer?style=for-the-badge)](https://www.npmjs.com/package/intlayer)         |
-| `amannn/next-intl`     | [![GitHub Repo stars](https://img.shields.io/github/stars/amannn/next-intl?style=for-the-badge&label=%E2%AD%90%20stars)](https://github.com/amannn/next-intl/stargazers)         | [![GitHub commit activity](https://img.shields.io/github/commit-activity/t/amannn/next-intl?style=for-the-badge&label=commits)](https://github.com/amannn/next-intl/commits)         | [![Last Commit](https://img.shields.io/github/last-commit/amannn/next-intl?style=for-the-badge)](https://github.com/amannn/next-intl/commits)         | Nov 2020      | [![npm](https://img.shields.io/npm/v/next-intl?style=for-the-badge)](https://www.npmjs.com/package/next-intl)       | [![npm downloads](https://img.shields.io/npm/dm/next-intl?style=for-the-badge)](https://www.npmjs.com/package/next-intl)       |
-| `i18next/i18next`      | [![GitHub Repo stars](https://img.shields.io/github/stars/i18next/i18next?style=for-the-badge&label=%E2%AD%90%20stars)](https://github.com/i18next/i18next/stargazers)           | [![GitHub commit activity](https://img.shields.io/github/commit-activity/t/i18next/i18next?style=for-the-badge&label=commits)](https://github.com/i18next/i18next/commits)           | [![Last Commit](https://img.shields.io/github/last-commit/i18next/i18next?style=for-the-badge)](https://github.com/i18next/i18next/commits)           | Jan 2012      | [![npm](https://img.shields.io/npm/v/i18next?style=for-the-badge)](https://www.npmjs.com/package/i18next)           | [![npm downloads](https://img.shields.io/npm/dm/i18next?style=for-the-badge)](https://www.npmjs.com/package/i18next)           |
-| `i18next/next-i18next` | [![GitHub Repo stars](https://img.shields.io/github/stars/i18next/next-i18next?style=for-the-badge&label=%E2%AD%90%20stars)](https://github.com/i18next/next-i18next/stargazers) | [![GitHub commit activity](https://img.shields.io/github/commit-activity/t/i18next/next-i18next?style=for-the-badge&label=commits)](https://github.com/i18next/next-i18next/commits) | [![Last Commit](https://img.shields.io/github/last-commit/i18next/next-i18next?style=for-the-badge)](https://github.com/i18next/next-i18next/commits) | Nov 2018      | [![npm](https://img.shields.io/npm/v/next-i18next?style=for-the-badge)](https://www.npmjs.com/package/next-i18next) | [![npm downloads](https://img.shields.io/npm/dm/next-i18next?style=for-the-badge)](https://www.npmjs.com/package/next-i18next) |
+| المكتبة                | نجوم GitHub                                                                                                                                                                      | إجمالي الالتزامات (Commits)                                                                                                                                                          | آخر التزام                                                                                                                                            | أول إصدار  | إصدار NPM                                                                                                           | تنزيلات NPM                                                                                                                    |
+| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `aymericzip/intlayer`  | [![GitHub Repo stars](https://img.shields.io/github/stars/aymericzip/intlayer?style=for-the-badge&label=%E2%AD%90%20stars)](https://github.com/aymericzip/intlayer/stargazers)   | [![GitHub commit activity](https://img.shields.io/github/commit-activity/t/aymericzip/intlayer?style=for-the-badge&label=commits)](https://github.com/aymericzip/intlayer/commits)   | [![Last Commit](https://img.shields.io/github/last-commit/aymericzip/intlayer?style=for-the-badge)](https://github.com/aymericzip/intlayer/commits)   | April 2024 | [![npm](https://img.shields.io/npm/v/intlayer?style=for-the-badge)](https://www.npmjs.com/package/intlayer)         | [![npm downloads](https://img.shields.io/npm/dm/intlayer?style=for-the-badge)](https://www.npmjs.com/package/intlayer)         |
+| `amannn/next-intl`     | [![GitHub Repo stars](https://img.shields.io/github/stars/amannn/next-intl?style=for-the-badge&label=%E2%AD%90%20stars)](https://github.com/amannn/next-intl/stargazers)         | [![GitHub commit activity](https://img.shields.io/github/commit-activity/t/amannn/next-intl?style=for-the-badge&label=commits)](https://github.com/amannn/next-intl/commits)         | [![Last Commit](https://img.shields.io/github/last-commit/amannn/next-intl?style=for-the-badge)](https://github.com/amannn/next-intl/commits)         | Nov 2020   | [![npm](https://img.shields.io/npm/v/next-intl?style=for-the-badge)](https://www.npmjs.com/package/next-intl)       | [![npm downloads](https://img.shields.io/npm/dm/next-intl?style=for-the-badge)](https://www.npmjs.com/package/next-intl)       |
+| `i18next/i18next`      | [![GitHub Repo stars](https://img.shields.io/github/stars/i18next/i18next?style=for-the-badge&label=%E2%AD%90%20stars)](https://github.com/i18next/i18next/stargazers)           | [![GitHub commit activity](https://img.shields.io/github/commit-activity/t/i18next/i18next?style=for-the-badge&label=commits)](https://github.com/i18next/i18next/commits)           | [![Last Commit](https://img.shields.io/github/last-commit/i18next/i18next?style=for-the-badge)](https://github.com/i18next/i18next/commits)           | Jan 2012   | [![npm](https://img.shields.io/npm/v/i18next?style=for-the-badge)](https://www.npmjs.com/package/i18next)           | [![npm downloads](https://img.shields.io/npm/dm/i18next?style=for-the-badge)](https://www.npmjs.com/package/i18next)           |
+| `i18next/next-i18next` | [![GitHub Repo stars](https://img.shields.io/github/stars/i18next/next-i18next?style=for-the-badge&label=%E2%AD%90%20stars)](https://github.com/i18next/next-i18next/stargazers) | [![GitHub commit activity](https://img.shields.io/github/commit-activity/t/i18next/next-i18next?style=for-the-badge&label=commits)](https://github.com/i18next/next-i18next/commits) | [![Last Commit](https://img.shields.io/github/last-commit/i18next/next-i18next?style=for-the-badge)](https://github.com/i18next/next-i18next/commits) | Nov 2018   | [![npm](https://img.shields.io/npm/v/next-i18next?style=for-the-badge)](https://www.npmjs.com/package/next-i18next) | [![npm downloads](https://img.shields.io/npm/dm/next-i18next?style=for-the-badge)](https://www.npmjs.com/package/next-i18next) |
 
 > يتم تحديث الشارات تلقائيًا. ستختلف اللقطات مع مرور الوقت.
 
@@ -1014,9 +1014,9 @@ const ServerComponent = ({
 export default ServerComponent;
 ```
 
-> As the server component cannot be async, you need to pass the translations and formatter function as props.
+> بما أن مكون الخادم هذا لا يمكن أن يكون غير متزامن (async)، ستحتاج إلى تمرير الترجمات ودالة التنسيق كـ props.
 >
-> In your page / layout:
+> في صفحتك أو التخطيط الخاص بك:
 >
 > - `import { getTranslations, getFormatter } from "next-intl/server";`
 > - `const t = await getTranslations("about.counter");`
@@ -1048,24 +1048,24 @@ const ServerComponent = ({ count }: ServerComponentProps) => {
   </Tab>
 </Tabs>
 
-> Intlayer exposes **server-safe** hooks via `next-intlayer/server`. To work, `useIntlayer` and `useNumber` use hooks-like syntax, similar to the client hooks, but depend under the hood on the server context (`IntlayerServerProvider`).
+> يوفر Intlayer خطافات **آمنة للخادم (Server-Safe)** عبر `next-intlayer/server`. تعمل `useIntlayer` و `useNumber` بصيغة تشبه الخطافات، مماثلة لخطافات العميل، ولكنها تعتمد داخليًا على سياق الخادم (`IntlayerServerProvider`).
 
 ### البيانات الوصفية / خريطة الموقع / روبوتات البحث
 
 ترجمة المحتوى أمر رائع. لكن الناس عادةً ما ينسون أن الهدف الرئيسي من التدويل هو جعل موقعك الإلكتروني أكثر ظهورًا للعالم. التدويل هو رافعة مذهلة لتحسين ظهور موقعك الإلكتروني.
 
-Here's a list of good practices regarding multilingual SEO.
+إليك قائمة بأفضل الممارسات المتعلقة بتحسين محركات البحث متعدد اللغات (Multilingual SEO):
 
-- set hreflang meta tags in the `<head>` tag
-  > It helps search engines to understand what languages are available on the page
-- list all pages translations in the sitemap.xml using `http://www.w3.org/1999/xhtml` XML schema
+- تعيين وسوم hreflang في علامة `<head>`
+  > يساعد ذلك محركات البحث على فهم اللغات المتاحة في الصفحة بدقة
+- إدراج ترجمات جميع الصفحات في ملف `sitemap.xml` باستخدام مخطط XML التالي: `http://www.w3.org/1999/xhtml`
   >
-- do not forget to exclude prefixed pages from the robots.txt (e.g. `/dashboard`, and `/fr/dashboard`, `/es/dashboard`)
+- لا تنسَ استبعاد الصفحات ذات البادئات من ملف `robots.txt` (مثل `/dashboard`، و `/fr/dashboard`، و `/es/dashboard`)
   >
-- use custom Link component to redirect to the most localized page (e.g. in french `<a href="/fr/about">A propos</a>` )
+- استخدام مكون Link مخصص لإعادة التوجيه إلى الصفحة المترجمة المناسبة (مثل `<a href="/fr/about">A propos</a>` بالفرنسية)
   >
 
-Developers often forget to properly reference their pages across locales.
+غالبًا ما ينسى المطورون ربط صفحاتهم بشكل صحيح عبر مختلف اللغات.
 
 <Tabs defaultTab="next-intl" group='techno'>
 
@@ -1323,14 +1323,14 @@ export default robots;
   </Tab>
 </Tabs>
 
-> Intlayer provides a `getMultilingualUrls` function to generate multilingual URLs for your sitemap.
+> يوفر Intlayer دالة `getMultilingualUrls` لإنشاء عناوين URL متعددة اللغات لخريطة موقعك (sitemap).
 
-### Middleware for locale routing
+### البرمجية الوسيطة (Middleware) لتوجيه اللغات
 
 <Tabs defaultTab="next-intl" group='techno'>
   <Tab label="next-i18next" value="next-i18next">
 
-Add a middleware to handle locale detection and routing:
+أضف برمجية وسيطة (Middleware) لمعالجة اكتشاف اللغة والتوجيه:
 
 ```ts fileName="src/middleware.ts"
 import { NextResponse, type NextRequest } from "next/server";
@@ -1393,7 +1393,7 @@ export const config = {
   </Tab>
   <Tab label="intlayer" value="intlayer">
 
-Intlayer provides built-in middleware handling through the `next-intlayer` package configuration.
+يوفر Intlayer معالجة مدمجة للبرمجيات الوسيطة عبر تكوين حزمة `next-intlayer`.
 
 ```ts fileName="src/middleware.ts"
 import { intlayerProxy } from "next-intlayer/proxy";
@@ -1406,7 +1406,7 @@ export const config = {
 };
 ```
 
-The set up of the middleware centralized in the `intlayer.config.ts` file.
+يتم إعداد البرمجية الوسيطة بشكل مركزي وموحد في ملف `intlayer.config.ts`.
 
   </Tab>
 </Tabs>

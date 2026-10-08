@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-06-29
+updatedAt: 2026-10-08
 priority: 5
 title: getMultilingualUrls 函数文档 | intlayer
 description: "使用 getMultilingualUrls 为每种支持的语言生成 URL 的本地化版本，用于 hreflang 标签和站点地图。"

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: مترجم Intlayer | استخراج المحتوى الآلي للتدويل
 description: "استخرج المحتوى من مكوّناتك تلقائيًا باستخدام مترجم Intlayer البرمجي لتنفيذ i18n أسرع في Vite وNext.js وغيرها."
@@ -106,9 +106,9 @@ export default defineConfig({
 
 > إن plugin `intlayerCompiler()` المستقل لا يزال يتم تصديره للإعدادات المتقدمة. تسجيله جنباً إلى جنب مع `intlayer()` آمن، المترجم يزيل التكرار عن نفسه ويعمل مرة واحدة فقط.
 
-See complete tutorial: [Translate Vite and React with Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+react.md)
+See complete tutorial: [ترجمة Vite و React باستخدام Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+react.md)
 
-- [Translate Vite and React with Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+react.md)
+- [ترجمة Vite و React باستخدام Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+react.md)
 
 #### دعم الأُطُر
 

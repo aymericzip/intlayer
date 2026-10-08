@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-07-08
+updatedAt: 2026-10-08
 priority: 8
 title: "Intlayer CMS: винесіть багатомовний контент"
 description: Виносьте свій контент у Intlayer CMS, щоб делегувати керування ним вашій команді.
@@ -443,7 +443,7 @@ curl -fsSL https://intlayer.org/install.sh | sh
 
 - Візуальний редактор використовує iframe для відображення вашого вебсайту. Переконайтеся, що Content Security Policy (CSP) вашого сайту дозволяє URL CMS у `frame-ancestors` ('https://app.intlayer.org' за замовчуванням). Перевірте консоль редактора на наявність помилок.
 
-## Часто задавані запитання
+## Поширені запитання
 
 <FAQ>
 

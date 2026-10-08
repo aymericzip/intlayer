@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-28
+updatedAt: 2026-10-08
 priority: 8
 title: "Cách chọn đúng thư viện Vue i18n năm 2026"
 description: "Hướng dẫn chọn i18n cho Vue và Nuxt: những câu hỏi trước khi so sánh vue-i18n, @nuxtjs/i18n, fluent-vue, Paraglide và Intlayer."
@@ -96,11 +96,11 @@ Kích thước thư viện được lấy từ bài [benchmark Vue](https://gith
 
 | Thư viện       | Mô hình nội dung                                           | An toàn kiểu                     | Định dạng message                   | Phân tách theo route   | Kích thước thư viện                                |
 | :------------- | :--------------------------------------------------------- | :------------------------------- | :---------------------------------- | :--------------------- | :------------------------------------------------- |
-| `vue-i18n`     | Catalog tập trung theo locale, tùy chọn SFC `<i18n>` block | 2/5 — Opt-in qua schema generic  | Riêng (pipe plural)                 | Không                  | ~24.3 kB                                           |
-| `@nuxtjs/i18n` | Tương tự `vue-i18n`, cộng thêm routing và thẻ SEO          | 2/5 — Tương tự                   | Tương tự                            | Không, chỉ theo locale | ~24.3 kB                                           |
-| `fluent-vue`   | File `.ftl` (Mozilla Fluent)                               | 1/5 — Không                      | Fluent                              | Không                  | ~29.7 kB                                           |
-| Paraglide      | Project inlang, các hàm được sinh ra                       | 3.5/5 — Được sinh ra             | Riêng                               | Qua tree-shaking       | Gần như bằng 0 (do mã được sinh ra trong codebase) |
-| Intlayer       | Một file `.content.ts` cho mỗi component                   | 5/5 — Được sinh ra, bật mặc định | Intlayer (+ ICU, i18next, vue-i18n) | Có, theo component     | ~3.9 kB                                            |
+| `vue-i18n`     | Catalog tập trung theo locale, tùy chọn SFC `<i18n>` block | 2/5 - Opt-in qua schema generic  | Riêng (pipe plural)                 | Không                  | ~24.3 kB                                           |
+| `@nuxtjs/i18n` | Tương tự `vue-i18n`, cộng thêm routing và thẻ SEO          | 2/5 - Tương tự                   | Tương tự                            | Không, chỉ theo locale | ~24.3 kB                                           |
+| `fluent-vue`   | File `.ftl` (Mozilla Fluent)                               | 1/5 - Không                      | Fluent                              | Không                  | ~29.7 kB                                           |
+| Paraglide      | Project inlang, các hàm được sinh ra                       | 3.5/5 - Được sinh ra             | Riêng                               | Qua tree-shaking       | Gần như bằng 0 (do mã được sinh ra trong codebase) |
+| Intlayer       | Một file `.content.ts` cho mỗi component                   | 5/5 - Được sinh ra, bật mặc định | Intlayer (+ ICU, i18next, vue-i18n) | Có, theo component     | ~3.9 kB                                            |
 
 > Các con số là ảnh chụp nhanh tại các phiên bản của bài benchmark. Hãy chạy thử nghiệm trên chính ứng dụng của bạn trước khi đưa ra quyết định chỉ dựa vào kích thước.
 > An toàn kiểu: 5/5 nghĩa là khóa, tham số và mọi locale đều được kiểm tra mà không cần thiết lập thủ công, bao gồm cả trình định dạng URL và các helper.

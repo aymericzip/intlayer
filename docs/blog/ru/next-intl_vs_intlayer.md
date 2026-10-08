@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "next-intl vs Intlayer: Benchmark и сравнение 2026"
 description: Bundle size, утечки контента, реактивность переключения локали и опыт разработчика, измеренные на Next.js и TanStack Start. Какую библиотеку i18n вам выбрать в 2026?
@@ -63,9 +63,9 @@ author: aymericzip
 | **Статический рендеринг**                                 | ✅ Не блокирует статический рендеринг                                                     | ⚠️ Требует `setRequestLocale()`; каталоги с пространствами имён по-прежнему исключали страницы из статического рендеринга в наших тестах |
 | **Tree-shaking (отправка только используемого контента)** | ✅ По компоненту, по локали, автоматизировано компилятором                                | ⚠️ Ручная работа: пространства имён + `pick(messages, [...])` на страницу                                                                |
 | **Lazy loading**                                          | ✅ `importMode: 'dynamic'` (одна строка конфигурации)                                     | ⚠️ Ручной динамический импорт в `getRequestConfig`                                                                                       |
-| **Purge unused content**                                  | ✅ Dead dictionaries are dropped at build time                                            | ❌ Not built-in                                                                                                                          |
-| **Testing missing translations (CLI / CI)**               | ✅ `npx intlayer content test`                                                            | ⚠️ Not built-in; docs suggest `npx @lingual/i18n-check`                                                                                  |
-| **AI-powered translation**                                | ✅ Built-in, uses your own provider keys                                                  | ❌ No                                                                                                                                    |
+| **Очистка неиспользуемого контента**                      | ✅ Неиспользуемые словари удаляются во время сборки                                       | ❌ Нет встроенной поддержки                                                                                                              |
+| **Проверка отсутствующих переводов (CLI / CI)**           | ✅ `npx intlayer content test`                                                            | ⚠️ Нет встроенной поддержки; документация предлагает `npx @lingual/i18n-check`                                                           |
+| **Перевод с помощью ИИ**                                  | ✅ Встроен, использует ключи вашего собственного провайдера                               | ❌ Нет                                                                                                                                   |
 | **Визуальный редактор / CMS**                             | ✅ Бесплатный визуальный редактор + опциональная CMS                                      | ❌ Нет (внешние платформы локализации)                                                                                                   |
 | **MCP server & Agent Skills**                             | ✅ Да                                                                                     | ❌ Нет                                                                                                                                   |
 | **Экосистема / сообщество**                               | ⚠️ Меньше, но быстро растет                                                               | ✅ Большое, справочный стандарт Next.js                                                                                                  |
@@ -103,17 +103,17 @@ Intlayer не имеет варианта "scoped": компилятор авт�
 
 <I18nBenchmark framework="nextjs" packages="next-intl,next-intlayer" vertical/>
 
-| Library                        | Strategy       | Lib size (gz) | Page JS avg (gz) | Locale leak | Page leak | Component avg (gz) | E2E reactivity | Hydration |
-| ------------------------------ | -------------- | ------------: | ---------------: | ----------: | --------: | -----------------: | -------------: | --------: |
-| **base** (no i18n)             | -              |        0.0 KB |         141.0 KB |        0.0% |      0.0% |             0.9 KB |        13.4 ms |   11.8 ms |
-| `next-intl`                    | static         |       14.7 KB |         153.6 KB |        4.2% |     89.8% |            21.8 KB |        16.0 ms |   14.7 ms |
-| `next-intl`                    | dynamic        |       14.7 KB |         153.6 KB |        9.7% |     89.9% |            21.8 KB |        15.6 ms |   14.8 ms |
-| `next-intl`                    | scoped-static  |       14.7 KB |         153.6 KB |        0.0% |      0.0% |            80.1 KB |        17.9 ms |   17.4 ms |
-| `next-intl`                    | scoped-dynamic |       14.7 KB |         153.6 KB |        0.0% |      0.0% |            22.9 KB |        17.8 ms |   16.8 ms |
-| **`next-intlayer`**            | static         |    **5.5 KB** |     **141.3 KB** |    **0.0%** |  **0.0%** |         **8.5 KB** |    **15.5 ms** |   16.9 ms |
-| **`next-intlayer`**            | dynamic        |    **5.5 KB** |     **141.3 KB** |    **0.0%** |  **0.0%** |         **6.9 KB** |    **15.3 ms** |   15.9 ms |
-| `@intlayer/next-intl` (compat) | static         |        8.0 KB |         147.5 KB |        0.0% |      0.0% |             8.1 KB |        14.5 ms |   12.8 ms |
-| `@intlayer/next-intl` (compat) | dynamic        |        8.0 KB |         148.7 KB |        0.0% |      0.0% |             8.1 KB |        11.7 ms |   12.8 ms |
+| Библиотека                     | Стратегия      | Размер библ. (gz) | Средн. JS стр. (gz) | Утечка локалей | Утечка страниц | Средн. комп. (gz) | E2E реактивность | Гидратация |
+| ------------------------------ | -------------- | ----------------: | ------------------: | -------------: | -------------: | ----------------: | ---------------: | ---------: |
+| **base** (no i18n)             | -              |            0.0 KB |            141.0 KB |           0.0% |           0.0% |            0.9 KB |          13.4 ms |    11.8 ms |
+| `next-intl`                    | static         |           14.7 KB |            153.6 KB |           4.2% |          89.8% |           21.8 KB |          16.0 ms |    14.7 ms |
+| `next-intl`                    | dynamic        |           14.7 KB |            153.6 KB |           9.7% |          89.9% |           21.8 KB |          15.6 ms |    14.8 ms |
+| `next-intl`                    | scoped-static  |           14.7 KB |            153.6 KB |           0.0% |           0.0% |           80.1 KB |          17.9 ms |    17.4 ms |
+| `next-intl`                    | scoped-dynamic |           14.7 KB |            153.6 KB |           0.0% |           0.0% |           22.9 KB |          17.8 ms |    16.8 ms |
+| **`next-intlayer`**            | static         |        **5.5 KB** |        **141.3 KB** |       **0.0%** |       **0.0%** |        **8.5 KB** |      **15.5 ms** |    16.9 ms |
+| **`next-intlayer`**            | dynamic        |        **5.5 KB** |        **141.3 KB** |       **0.0%** |       **0.0%** |        **6.9 KB** |      **15.3 ms** |    15.9 ms |
+| `@intlayer/next-intl` (compat) | static         |            8.0 KB |            147.5 KB |           0.0% |           0.0% |            8.1 KB |          14.5 ms |    12.8 ms |
+| `@intlayer/next-intl` (compat) | dynamic        |            8.0 KB |            148.7 KB |           0.0% |           0.0% |            8.1 KB |          11.7 ms |    12.8 ms |
 
 **Как это читать**
 
@@ -519,12 +519,12 @@ export default withIntlayer(nextConfig);
 - [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/i18next_vs_intlayer.md)
 - [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/lingui_vs_intlayer.md)
 - [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/vue-i18n_vs_intlayer.md)
-- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/next-i18next_vs_next-intl_vs_intlayer.md)
+- [Сравнение next-i18next, next-intl и Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/next-i18next_vs_next-intl_vs_intlayer.md)
 - [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/react-i18next_vs_react-intl_vs_intlayer.md)
 
 Подробнее о next-intl:
 
-- [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/next-intl_vs_intlayer-next-intl.md)
+- [Сравнение next-intl и @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/next-intl_vs_intlayer-next-intl.md)
 - [Is next-intl outdated?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/is_next-intl_outdated.md)
 - [Using Intlayer with next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/intlayer_with_next-intl.md)
 - [How to internationalize a Next.js app with next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/i18n_using_next-intl.md)

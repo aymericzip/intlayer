@@ -16,9 +16,9 @@ slugs:
   - useLocale
 description: "在 Next.js 中使用 useLocale 读取当前语言并切换语言，自动更新本地化路由。"
 createdAt: 2024-08-11
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 5
-title: useLocale 钩子文档 | next-intlayer
+title: useLocale Hook文档 | next-intlayer
 history:
   - version: 8.0.0
     date: 2026-01-26
@@ -29,13 +29,13 @@ history:
 author: aymericzip
 ---
 
-# Next.js 集成：`useLocale` 钩子文档（适用于 `next-intlayer`）
+# Next.js 集成：`useLocale` Hook文档（适用于 `next-intlayer`）
 
-本节提供了针对 Next.js 应用中 `next-intlayer` 库的 `useLocale` 钩子的详细文档。该钩子旨在高效处理语言环境切换和路由。
+本节提供了针对 Next.js 应用中 `next-intlayer` 库的 `useLocale` Hook的详细文档。该Hook旨在高效处理语言环境切换和路由。
 
 ## 在 Next.js 中导入 `useLocale`
 
-要在 Next.js 应用中使用 `useLocale` 钩子，请按如下方式导入：
+要在 Next.js 应用中使用 `useLocale` Hook，请按如下方式导入：
 
 ```javascript
 import { useLocale } from "next-intlayer"; // 用于管理 Next.js 中的语言环境和路由
@@ -43,7 +43,7 @@ import { useLocale } from "next-intlayer"; // 用于管理 Next.js 中的语言�
 
 ## 用法
 
-以下是在 Next.js 组件中实现 `useLocale` 钩子的方法：
+以下是在 Next.js 组件中实现 `useLocale` Hook的方法：
 
 ```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat={["typescript", "esm"]}
 "use client";
@@ -73,7 +73,7 @@ const LocaleSwitcher: FC = () => {
 
 ## 参数
 
-`useLocale` 钩子接受以下参数：
+`useLocale` Hook接受以下参数：
 
 - **`onLocaleChange`**：一个字符串，决定当语言环境改变时如何更新 URL。可以是 `"replace"`、`"push"` 或 `"none"`。
 
@@ -115,4 +115,4 @@ const LocaleSwitcher: FC = () => {
 
 ## 结论
 
-`next-intlayer` 的 `useLocale` 钩子是管理 Next.js 应用中多语言环境的关键工具。它通过无缝处理语言环境存储、状态管理和 URL 修改，提供了一种集成的方法来适配多语言应用。
+`next-intlayer` 的 `useLocale` Hook是管理 Next.js 应用中多语言环境的关键工具。它通过无缝处理语言环境存储、状态管理和 URL 修改，提供了一种集成的方法来适配多语言应用。

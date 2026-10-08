@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-28
-updatedAt: 2026-10-02
+updatedAt: 2026-10-08
 priority: 4
 title: "可以在没有全局 provider 的情况下使用 Intlayer 吗？"
 description: "在不挂载 provider 的情况下读取 Intlayer 内容，语言环境如何在服务器和浏览器中解析，以及与 provider 的性能差异。"
@@ -44,7 +44,7 @@ const { title } = getIntlayer("app"); // 未传入语言环境
 
 - [构建优化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md)
 
-[格式化器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/formatters.md)（`number`、`date`、`list`…）及其钩子（`useNumber`、`useDate`、`useList`…）在未传入 `locale` 时也遵循相同的顺序。
+[格式化器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/formatters.md)（`number`、`date`、`list`…）及其Hook（`useNumber`、`useDate`、`useList`…）在未传入 `locale` 时也遵循相同的顺序。
 
 - [格式化器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/formatters.md)
 

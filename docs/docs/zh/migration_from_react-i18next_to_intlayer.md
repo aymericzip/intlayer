@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-05
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 7
 title: "从 react-i18next 迁移到 Intlayer"
 description: "逐步将 React 或 Next.js 应用从 react-i18next 迁移到 Intlayer，先使用兼容适配器，确保不破坏现有代码。"
@@ -44,11 +44,11 @@ Intlayer 也是 i18n 生态中**最活跃开发**的方案，问题修复速度�
 </Accordion>
 <Accordion header="AI Agent">
 
-内容的共置**降低了大语言模型 (LLM) 所需的上下文**。Intlayer 还配备了一套工具，例如用于测试缺失翻译的 **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)** 和 **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)**，让 AI agent 的开发者体验 (DX) 更加顺畅。
+内容的共置**降低了大语言模型 (LLM) 所需的上下文**。Intlayer 还配备了一套工具，例如用于测试缺失翻译的 **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)** 和 **[Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)**，让 AI agent 的开发者体验 (DX) 更加顺畅。
 
 - [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)
 - [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)
-- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)
 
 </Accordion>
 <Accordion header="自动化">
@@ -83,7 +83,7 @@ Intlayer 不仅是一个 i18n 方案，它还提供**自托管的[可视化编�
 
 1. **兼容适配器（推荐用于现有应用）**：安装 `@intlayer/react-i18next`（用于 React 组件）和/或 `@intlayer/i18next`（用于核心 `i18n` 实例）。这些包暴露的 **API 完全相同**，但将所有翻译工作委托给底层的 Intlayer。你可以保持现有的 `useTranslation`、`Trans`、`withTranslation`、`i18next.t()` 调用，唯一的改变是导入路径。
 
-2. **完整迁移**：逐步将 `react-i18next` API 替换为原生 Intlayer hooks（`useIntlayer`、`IntlayerProvider`），并在组件旁的 `.content.ts` 文件中共置内容。
+2. **完整迁移**：逐步将 `react-i18next` API 替换为原生 Intlayer hooks（`useIntlayer`、`IntlayerProvider`），并在组件旁的 `.content.ts` 文件中内容就近维护 (Co-location)。
 
 本指南先介绍 **策略 1**（即插即用兼容适配器），然后讲解可选的完整迁移。
 

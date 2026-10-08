@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-10-02
+updatedAt: 2026-10-08
 priority: 8
 title: "Форматери: числа, дати й валюти за локаллю"
 description: "Форматуйте числа, відсотки, валюти, дати, відносний час і одиниці вимірювання за локаллю за допомогою кешованих помічників Intl в Intlayer."
@@ -53,9 +53,9 @@ author: aymericzip
 
 <TOC/>
 
-## Cached Intl
+## Кешований Intl
 
-Because formatter construction is relatively expensive, this caching improves performance without changing behavior. The wrapper exposes the same API as the native `Intl`, so usage is identical.
+Оскільки створення форматерів є відносно ресурсомісткою операцією, таке кешування покращує продуктивність без зміни поведінки. Обгортка надає той самий API, що й нативний `Intl`, тому використання є абсолютно ідентичним.
 
 > Якщо `Intl.DisplayNames` недоступний у середовищі, виводиться одне попередження лише для розробників (розгляньте можливість поліфілу).
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-10-29
+updatedAt: 2026-10-08
 priority: 8
 title: إنتلاير و next-i18next
 description: دمج إنتلاير مع next-i18next لحل شامل للتدويل في Next.js
@@ -45,9 +45,9 @@ author: aymericzip
 
 ## لماذا الجمع بين Intlayer و next-i18next؟
 
-بينما توفر Intlayer حلاً ممتازًا مستقلًا للترجمة الدولية (راجع دليل التكامل مع Next.js الخاص بنا [Next.js integration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_16.md))، قد ترغب في دمجها مع next-i18next لأسباب عدة:
+بينما توفر Intlayer حلاً ممتازًا مستقلًا للترجمة الدولية (راجع دليل التكامل مع Next.js الخاص بنا [دليل تكامل Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_16.md))، قد ترغب في دمجها مع next-i18next لأسباب عدة:
 
-- [Next.js integration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_16.md)
+- [دليل تكامل Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_16.md)
 
 1. **قاعدة كود موجودة**: لديك تنفيذ قائم لـ next-i18next وتريد الترحيل تدريجيًا إلى تجربة المطور المحسنة التي تقدمها Intlayer.
 2. **متطلبات قديمة**: مشروعك يتطلب التوافق مع الإضافات أو سير العمل الحالي لـ i18next.

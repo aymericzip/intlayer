@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-10-08
 priority: 5
 title: react-intlayer 包文档
 description: 面向 React 的 Intlayer 实现，为 React 应用提供 hooks 和 providers。
@@ -50,7 +50,7 @@ import "react-intlayer";
 | `IntlayerProviderContent` | 专注于内容的 provider 组件，不包含编辑器功能。当你不需要可视化编辑器时使用此组件。 | -                                                                                                                             |
 | `HTMLProvider`            | 用于与 HTML 相关的国际化设置的 Provider。允许覆盖 HTML 标签对应的组件。            | -                                                                                                                             |
 
-### 钩子
+### Hook
 
 导入：
 
@@ -58,7 +58,7 @@ import "react-intlayer";
 import "react-intlayer";
 ```
 
-| 钩子                   | 描述                                                                                                           | 相关文档                                                                                                                |
+| Hook                   | 描述                                                                                                           | 相关文档                                                                                                                |
 | ---------------------- | -------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
 | `useHTMLRenderer`      | 用于获取预配置的 HTML 渲染器函数的 Hook。                                                                      | -                                                                                                                       |
 | `useMarkdownRenderer`  | 用于获取预配置的 Markdown 渲染器函数的 Hook。                                                                  | -                                                                                                                       |

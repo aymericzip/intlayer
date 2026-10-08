@@ -1,5 +1,5 @@
 ---
-updatedAt: 2025-08-23
+updatedAt: 2026-10-08
 priority: 5
 createdAt: 2025-08-23
 title: "useRewriteURL Composable 文档 | vue-intlayer"

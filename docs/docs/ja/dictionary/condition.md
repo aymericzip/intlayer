@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "Intlayer の条件付きコンテンツ"
 description: "Intlayer の cond() ノードで真偽値に応じて異なるコンテンツを表示。一度宣言し、レンダリング時に解決されます。"
@@ -71,7 +71,7 @@ export default myConditionalContent;
 <Tabs group="framework">
   <Tab label="React" value="react">
 
-To utilize conditional content within a React component, import and use the `useIntlayer` hook from the `react-intlayer` package. This hook fetches the content for the specified key and allows you to pass in a condition to select the appropriate output.
+React コンポーネント内で条件付きコンテンツを使用するには、`react-intlayer` パッケージから `useIntlayer` フックをインポートして使用します。このフックは指定されたキーのコンテンツを取得し、適切な出力を選択するための条件を渡すことができます。
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
@@ -116,7 +116,7 @@ export default ConditionalComponent;
   </Tab>
   <Tab label="Next.js" value="nextjs">
 
-To utilize conditional content in Next.js Client Components, retrieve it via the `useIntlayer` hook. Here's an example:
+Next.js のクライアントコンポーネントで条件付きコンテンツを使用するには、`useIntlayer` フック経由で取得します。以下は使用例です：
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 "use client";
@@ -141,7 +141,7 @@ export default ConditionalComponent;
   </Tab>
   <Tab label="Vue" value="vue">
 
-To utilize conditional content in Vue components, retrieve it via the `useIntlayer` hook. Here's an example:
+Vue コンポーネントで条件付きコンテンツを使用するには、`useIntlayer` フック経由で取得します。以下は使用例です：
 
 ```vue fileName="**/*.vue"
 <script setup lang="ts">
@@ -161,7 +161,7 @@ const { myCondition } = useIntlayer("my_key");
   </Tab>
   <Tab label="Svelte" value="svelte">
 
-To utilize conditional content in Svelte components, retrieve it via the `useIntlayer` hook. The store is accessed with `$`. Here's an example:
+Svelte コンポーネントで条件付きコンテンツを使用するには、`useIntlayer` フック経由で取得します。ストアは `$` で参照します。以下は使用例です：
 
 ```svelte fileName="**/*.svelte"
 <script lang="ts">
@@ -179,7 +179,7 @@ const content = useIntlayer("my_key");
   </Tab>
   <Tab label="Preact" value="preact">
 
-To utilize conditional content in Preact components, retrieve it via the `useIntlayer` hook. Here's an example:
+Preact コンポーネントで条件付きコンテンツを使用するには、`useIntlayer` フック経由で取得します。以下は使用例です：
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "preact";
@@ -202,7 +202,7 @@ export default ConditionalComponent;
   </Tab>
   <Tab label="Solid" value="solid">
 
-To utilize conditional content in SolidJS components, retrieve it via the `useIntlayer` hook. Here's an example:
+SolidJS コンポーネントで条件付きコンテンツを使用するには、`useIntlayer` フック経由で取得します。以下は使用例です：
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { Component } from "solid-js";
@@ -225,7 +225,7 @@ export default ConditionalComponent;
   </Tab>
   <Tab label="Angular" value="angular">
 
-To utilize conditional content in Angular components, retrieve it via the `useIntlayer` hook. Here's an example:
+Angular コンポーネントで条件付きコンテンツを使用するには、`useIntlayer` フック経由で取得します。以下は使用例です：
 
 ```typescript fileName="app.component.ts" codeFormat="typescript"
 import { Component } from "@angular/core";
@@ -248,7 +248,7 @@ export class ConditionalComponent {
   </Tab>
   <Tab label="Vanilla JS" value="vanilla">
 
-To utilize conditional content with `vanilla-intlayer`, retrieve it via the `useIntlayer` hook. Here's an example:
+`vanilla-intlayer` で条件付きコンテンツを使用するには、`useIntlayer` を経由して取得します。以下は使用例です：
 
 ```typescript fileName="**/*.ts" codeFormat={["typescript", "esm"]}
 import { installIntlayer, useIntlayer } from "vanilla-intlayer";

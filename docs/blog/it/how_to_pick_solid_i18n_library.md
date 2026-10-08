@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-28
+updatedAt: 2026-10-08
 priority: 8
 title: "Come scegliere la giusta libreria i18n per Solid nel 2026"
 description: "Una guida decisionale per l'i18n in SolidJS e SolidStart: le domande da porsi prima di confrontare @solid-primitives/i18n, solid-i18next, Paraglide, Lingui e Intlayer."
@@ -98,11 +98,11 @@ Le dimensioni delle librerie provengono dal [benchmark Solid](https://github.com
 
 | Libreria                 | Modello di contenuto                  | Reattività al cambio di lingua             | Type safety                             | Scoping e lazy loading       | Dimensione libreria                              |
 | :----------------------- | :------------------------------------ | :----------------------------------------- | :-------------------------------------- | :--------------------------- | :----------------------------------------------- |
-| `@solid-primitives/i18n` | Dizionario flat gestito autonomamente | Signal, accessor restituiti da translator  | 3/5 — Dedotti dal dizionario sorgente   | Nessuno integrato            | ~0,6 kB                                          |
-| `solid-i18next`          | Cataloghi e namespace i18next         | Store, re-render tramite provider          | 2/5 — Dichiarazione manuale             | Namespace, backend lazy      | ~14,9 kB                                         |
-| Paraglide                | Progetto inlang, funzioni generate    | Lettura per chiamata da cookie o storage   | 3.5/5 — Generati                        | Tree-shaking (non nel bench) | Quasi zero (per il codice generato nel progetto) |
-| `@lingui/solid`          | Testo sorgente nel codice, compilato  | Basato su signal                           | 2/5 — Dal compilatore                   | Per catalogo                 | ~11,8 kB                                         |
-| Intlayer                 | Un file `.content.ts` per componente  | Nodi basati su signal, nessun re-run comp. | 5/5 — Generati, attivi per impostazione | Sì, per componente           | ~4,3 kB                                          |
+| `@solid-primitives/i18n` | Dizionario flat gestito autonomamente | Signal, accessor restituiti da translator  | 3/5 - Dedotti dal dizionario sorgente   | Nessuno integrato            | ~0,6 kB                                          |
+| `solid-i18next`          | Cataloghi e namespace i18next         | Store, re-render tramite provider          | 2/5 - Dichiarazione manuale             | Namespace, backend lazy      | ~14,9 kB                                         |
+| Paraglide                | Progetto inlang, funzioni generate    | Lettura per chiamata da cookie o storage   | 3.5/5 - Generati                        | Tree-shaking (non nel bench) | Quasi zero (per il codice generato nel progetto) |
+| `@lingui/solid`          | Testo sorgente nel codice, compilato  | Basato su signal                           | 2/5 - Dal compilatore                   | Per catalogo                 | ~11,8 kB                                         |
+| Intlayer                 | Un file `.content.ts` per componente  | Nodi basati su signal, nessun re-run comp. | 5/5 - Generati, attivi per impostazione | Sì, per componente           | ~4,3 kB                                          |
 
 > I numeri rappresentano uno snapshot alle versioni del benchmark. La dimensione di `@lingui/solid` proviene dal benchmark TanStack Start. Eseguite il test sulla vostra applicazione prima di decidere unicamente in base alle dimensioni.
 > Type safety: 5/5 significa che chiavi, parametri e ogni locale vengono verificati senza configurazione manuale, inclusi formattatori di URL e helper.

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-05-10
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 6
 title: "إضافة Sync PO: ملفات Gettext مع Intlayer"
 description: قم بمزامنة قواميس Intlayer مع ملفات Gettext PO. حافظ على نظام i18n الحالي الخاص بك مع استخدام Intlayer لإدارة رسائلك وترجمتها واختبارها.
@@ -320,9 +320,9 @@ loadPO({
 - `intlayer content push` لدفع ملفات PO المتزامنة
 - `intlayer content pull` لسحب ملفات PO المتزامنة
 
-راجع [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md) لمزيد من التفاصيل.
+راجع [واجهة سطر الأوامر Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md) لمزيد من التفاصيل.
 
-- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md)
+- [واجهة سطر الأوامر Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md)
 
 ## القيود (الحالية)
 

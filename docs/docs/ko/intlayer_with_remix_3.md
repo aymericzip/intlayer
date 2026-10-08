@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-09
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 9
 title: "Remix 3 i18n - 앱 다국어 번역 완벽 가이드"
 description: "Remix 3에 Intlayer 설정: 라우터 미들웨어에서 로케일 감지, 번역된 라우트 핸들러와 뷰, 현지화된 URL."
@@ -49,7 +49,7 @@ author: aymericzip
 
 <TOC/>
 
-## 다른 대안 대신 Intlayer를 선택해야 하는 이유
+## 왜 다른 대안 대신 Intlayer인가요?
 
 `i18next`나 맞춤형 번역 로더와 같은 기존 솔루션과 비교할 때 Intlayer는 최신 웹 아키텍처에 최적화된 통합 개발자 경험을 제공합니다.
 
@@ -92,7 +92,7 @@ Intlayer는 콘텐츠 선언(`.content.ts`)을 라우트 로직과 같은 위치
 <iframe
   src="https://ide.intlayer.org/aymericzip/intlayer-remix-3-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox - Intlayer를 사용하여 애플리케이션을 다국어화하는 방법"
+  title="CodeSandbox 데모 - Intlayer를 사용하여 애플리케이션을 다국어화하는 방법"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -114,7 +114,7 @@ Intlayer는 콘텐츠 선언(`.content.ts`)을 라우트 로직과 같은 위치
 GitHub에서 [애플리케이션 템플릿](https://github.com/aymericzip/intlayer-remix-3-template)을 확인하세요.
 
 <Steps>
-<Step number={1} title="종속성 설치">
+<Step number={1} title="의존성 패키지 설치">
 
 원하는 패키지 관리자를 사용하여 `intlayer`, `remix-intlayer` 및 `remix`(버전 3)를 설치합니다:
 

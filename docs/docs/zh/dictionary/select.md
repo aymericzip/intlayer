@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-07-30
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "Intlayer 中基于选择的内容"
 description: "使用 Intlayer 的 select 节点根据任意字符串值选择内容，类似 switch，适用于状态、角色或变体。"
@@ -119,7 +119,7 @@ return <p>{publishStatus(publishType)}</p>;
 <Tabs group="framework">
   <Tab label="React" value="react">
 
-要在 React 组件中使用基于选择的内容，请导入并使用 `react-intlayer` 包中的 `useIntlayer` 钩子。该钩子获取指定键的内容，并允许您传入一个值以选择适当的输出。
+要在 React 组件中使用基于选择的内容，请导入并使用 `react-intlayer` 包中的 `useIntlayer` Hook。该Hook获取指定键的内容，并允许您传入一个值以选择适当的输出。
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
@@ -158,7 +158,7 @@ export default PostStatus;
   </Tab>
   <Tab label="Next.js" value="nextjs">
 
-要在 Next.js 客户端组件中使用基于选择的内容，请通过 `useIntlayer` 钩子获取它。示例如下：
+要在 Next.js 客户端组件中使用基于选择的内容，请通过 `useIntlayer` Hook获取它。示例如下：
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 "use client";
@@ -183,7 +183,7 @@ export default PostStatus;
   </Tab>
   <Tab label="Vue" value="vue">
 
-要在 Vue 组件中使用基于选择的内容，请通过 `useIntlayer` 钩子获取它。示例如下：
+要在 Vue 组件中使用基于选择的内容，请通过 `useIntlayer` Hook获取它。示例如下：
 
 ```vue fileName="**/*.vue"
 <script setup lang="ts">
@@ -203,7 +203,7 @@ const { publishStatus } = useIntlayer("my_key");
   </Tab>
   <Tab label="Svelte" value="svelte">
 
-要在 Svelte 组件中使用基于选择的内容，请通过 `useIntlayer` 钩子获取它。可以通过 `$` 访问 store。示例如下：
+要在 Svelte 组件中使用基于选择的内容，请通过 `useIntlayer` Hook获取它。可以通过 `$` 访问 store。示例如下：
 
 ```svelte fileName="**/*.svelte"
 <script lang="ts">
@@ -221,7 +221,7 @@ const content = useIntlayer("my_key");
   </Tab>
   <Tab label="Preact" value="preact">
 
-要在 Preact 组件中使用基于选择的内容，请通过 `useIntlayer` 钩子获取它。示例如下：
+要在 Preact 组件中使用基于选择的内容，请通过 `useIntlayer` Hook获取它。示例如下：
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "preact";
@@ -244,7 +244,7 @@ export default PostStatus;
   </Tab>
   <Tab label="Solid" value="solid">
 
-要在 SolidJS 组件中使用基于选择的内容，请通过 `useIntlayer` 钩子获取它。示例如下：
+要在 SolidJS 组件中使用基于选择的内容，请通过 `useIntlayer` Hook获取它。示例如下：
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { Component } from "solid-js";
@@ -267,7 +267,7 @@ export default PostStatus;
   </Tab>
   <Tab label="Angular" value="angular">
 
-要在 Angular 组件中使用基于选择的内容，请通过 `useIntlayer` 钩子获取它。示例如下：
+要在 Angular 组件中使用基于选择的内容，请通过 `useIntlayer` Hook获取它。示例如下：
 
 ```typescript fileName="app.component.ts" codeFormat="typescript"
 import { Component } from "@angular/core";
@@ -290,7 +290,7 @@ export class PostStatusComponent {
   </Tab>
   <Tab label="Vanilla JS" value="vanilla">
 
-要在 `vanilla-intlayer` 中使用基于选择的内容，请通过 `useIntlayer` 钩子获取它。示例如下：
+要在 `vanilla-intlayer` 中使用基于选择的内容，请通过 `useIntlayer` Hook获取它。示例如下：
 
 ```typescript fileName="**/*.ts" codeFormat={["typescript", "esm"]}
 import { installIntlayer, useIntlayer } from "vanilla-intlayer";

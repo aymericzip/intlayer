@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "Файли оголошення контенту за локалями"
 description: Дізнайтеся, як оголошувати вміст за локалями в Intlayer. Ознайомтеся з документацією, щоб зрозуміти різні формати та сценарії використання.
@@ -237,7 +237,7 @@ export default helloWorldContent;
 }
 ```
 
-Intlayer merges multilingual and per-locale files automatically.
+Intlayer автоматично об'єднує багатомовні файли та файли для окремих локалей.
 
 ```tsx fileName="Components/MyComponent/index.ts"
 import { getIntlayer, Locales } from "intlayer";

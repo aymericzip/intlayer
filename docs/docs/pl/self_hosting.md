@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-30
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "Własny hosting Intlayer w Dockerze"
 description: "Uruchamiaj Intlayer na własnej infrastrukturze: aplikacja desktopowa, kontener Docker all-in-one lub stos Docker Compose, bez konta w chmurze."
@@ -23,24 +23,24 @@ author: aymericzip
 
 Intlayer może działać na Twojej własnej infrastrukturze, bez konieczności posiadania konta Intlayer Cloud. Dostępne są trzy konfiguracje, zarządzane przez ten sam instalator (`install.sh`, `install.ps1` w systemie Windows lub `npx intlayer init infra`):
 
-| Setup                    | What it is                                                                          | Pick it for                                        |
+| Konfiguracja             | Opis                                                                                | Zastosowanie                                       |
 | ------------------------ | ----------------------------------------------------------------------------------- | -------------------------------------------------- |
 | **Aplikacja desktopowa** | Natywny pulpit nawigacyjny dla systemów macOS, Linux i Windows                      | Klient lokalny, brak konieczności hostowania       |
 | **All-in-one Docker**    | Pulpit nawigacyjny, API, MongoDB, Redis i MinIO w **jednym kontenerze**             | Wersje próbne i instalacje na pojedynczej maszynie |
 | **Docker Compose**       | **Jeden kontener na usługę**, każdy magazyn danych wymienialny na usługę zarządzaną | Produkcja, skalowanie, zarządzane bazy danych      |
 
-## Table of Contents
+## Spis treści
 
 <TOC/>
 
 ## Opublikowane obrazy i pakiety
 
-| Artifact             | Docker Hub                                                                | GHCR mirror                                | Contents                                                                         |
-| -------------------- | ------------------------------------------------------------------------- | ------------------------------------------ | -------------------------------------------------------------------------------- |
-| All-in-one container | [`intlayer/cms-all`](https://hub.docker.com/r/intlayer/cms-all)           | `ghcr.io/aymericzip/intlayer/cms-all`      | app + backend + MongoDB 8 + Redis + MinIO + Chromium                             |
-| Dashboard (frontend) | [`intlayer/cms-frontend`](https://hub.docker.com/r/intlayer/cms-frontend) | `ghcr.io/aymericzip/intlayer/cms-frontend` | TanStack Start dashboard on Bun                                                  |
-| API (backend)        | [`intlayer/cms-backend`](https://hub.docker.com/r/intlayer/cms-backend)   | `ghcr.io/aymericzip/intlayer/cms-backend`  | Fastify REST API on Bun + Chromium                                               |
-| Desktop app          | [GitHub releases](https://github.com/aymericzip/intlayer/releases/latest) | n/a                                        | `.dmg` (macOS), `.deb` / `.rpm` / `.AppImage` (Linux), `.exe` / `.msi` (Windows) |
+| Artefakt                      | Docker Hub                                                                | Mirror GHCR                                | Zawartość                                                                        |
+| ----------------------------- | ------------------------------------------------------------------------- | ------------------------------------------ | -------------------------------------------------------------------------------- |
+| Kontener all-in-one           | [`intlayer/cms-all`](https://hub.docker.com/r/intlayer/cms-all)           | `ghcr.io/aymericzip/intlayer/cms-all`      | app + backend + MongoDB 8 + Redis + MinIO + Chromium                             |
+| Pulpit nawigacyjny (frontend) | [`intlayer/cms-frontend`](https://hub.docker.com/r/intlayer/cms-frontend) | `ghcr.io/aymericzip/intlayer/cms-frontend` | Pulpit nawigacyjny TanStack Start na Bun                                         |
+| API (backend)                 | [`intlayer/cms-backend`](https://hub.docker.com/r/intlayer/cms-backend)   | `ghcr.io/aymericzip/intlayer/cms-backend`  | Fastify REST API na Bun + Chromium                                               |
+| Aplikacja desktopowa          | [GitHub releases](https://github.com/aymericzip/intlayer/releases/latest) | n/a                                        | `.dmg` (macOS), `.deb` / `.rpm` / `.AppImage` (Linux), `.exe` / `.msi` (Windows) |
 
 Wszystkie trzy obrazy są budowane z tego samego pliku [`docker/selfhost/Dockerfile`](https://github.com/aymericzip/intlayer/tree/main/docker/selfhost) i publikowane przy każdym wydaniu. Stos Compose pobiera również oficjalne obrazy `mongo:8`, `redis:8-alpine` oraz `quay.io/minio/minio`.
 
@@ -356,51 +356,22 @@ cd docker/selfhost
 docker compose -f docker-compose.yml -f docker-compose.build.yml up -d --build
 ```
 
-Bez klonu wskaż kontekst budowania bezpośrednio na repozytorium, ustawiając `INTLAYER_BUILD_CONTEXT=https://github.com/aymericzip/intlayer.git#main` w `.env`. Argumenty budowania `VITE_*` pulpitu nawigacyjnego podążają za `DOMAIN`, `APP_URL` i `BACKEND_URL` z tego samego pliku — w ten sposób stosowana jest [domena niestandardowa](#custom-domain).
-
-### Kopia zapasowa i aktualizacja
-
-```sh
-# Backup one volume (repeat for intlayer_redis-data and intlayer_minio-data)
-docker compose stop
-docker run --rm -v intlayer_mongo-data:/data -v "$(pwd)":/backup busybox tar czf /backup/mongo-data.tar.gz /data
-docker compose start
-
-# Upgrade, volumes are kept
-docker compose pull && docker compose up -d
-```
-
-</Tab>
-</Tabs>
-
-### Ustawienia instalatora
-
-Bez `--mode` (lub `INTLAYER_MODE`) instalator wyświetla menu: `desktop`, `docker` (all-in-one) lub `compose`. Odczytuje również kilka zmiennych środowiskowych. Ponieważ instalator jest przekazywany potokiem do powłoki, przekaż je do powłoki, a nie do `curl`:
-
-```sh
-curl -fsSL https://intlayer.org/install.sh | INTLAYER_COMPOSE_DIR=./cms sh -s -- --mode compose
-```
-
-```powershell
-$env:INTLAYER_MODE = "compose"; $env:INTLAYER_COMPOSE_DIR = ".\cms"; irm https://intlayer.org/install.ps1 | iex
-```
-
-| Variable                  | Default                   | Applies to | Description                                                |
-| ------------------------- | ------------------------- | ---------- | ---------------------------------------------------------- |
-| `INTLAYER_MODE`           | _(asked)_                 | all        | `desktop`, `docker` or `compose`, same as `--mode`         |
-| `INTLAYER_DOWNLOAD_DIR`   | `~/Downloads`             | desktop    | Where the app installer is saved                           |
-| `INTLAYER_IMAGE`          | `intlayer/cms-all:latest` | docker     | All-in-one image to pull                                   |
-| `INTLAYER_ENV_FILE`       | `./intlayer.env`          | docker     | Where to write the environment file                        |
-| `INTLAYER_CONTAINER_NAME` | `intlayer`                | docker     | Container name                                             |
-| `INTLAYER_DATA_VOLUME`    | `intlayer-data`           | docker     | Named volume mounted at `/data`                            |
-| `INTLAYER_APP_PORT`       | `3000`                    | docker     | Host port for the dashboard                                |
-| `INTLAYER_API_PORT`       | `3100`                    | docker     | Host port for the API                                      |
-| `INTLAYER_S3_PORT`        | `9000`                    | docker     | Host port for the MinIO S3 API                             |
-| `INTLAYER_CONSOLE_PORT`   | `9001`                    | docker     | Host port for the MinIO console                            |
-| `INTLAYER_COMPOSE_DIR`    | `./intlayer`              | compose    | Where `docker-compose.yml` and `.env` are written          |
-| `INTLAYER_SELFHOST_REF`   | `main`                    | both       | Git ref the compose file and env template are fetched from |
-| `INTLAYER_BUILD_CONTEXT`  | `…/intlayer.git#main`     | both       | Build context used when a custom domain requires a rebuild |
-| `INTLAYER_CUSTOM_IMAGE`   | `intlayer/cms-all:custom` | docker     | Tag of the all-in-one image built for a custom domain      |
+Bez klonu wskaż kontekst budowania bezpośrednio na repozytorium, ustawiając `INTLAYER_BUILD_CONTEXT=https://github.com/aymericzip/intlayer.git#main` w `.env`. Argumenty budowania `VITE_*` pulpitu nawigacyjnego podążają za `DOMAIN`, `APP_URL` i `BACKEND_URL` z tego samego pliku - w ten sposób stosowana jest [domena niestandard| Zmienna | Wartość domyślna | Dotyczy | Opis |
+| ------------------------- | ------------------------- | ---------- | -------------------------------------------------------------------------------- |
+| `INTLAYER_MODE` | _(pytanie w instalatorze)_ | wszystkie | `desktop`, `docker` lub `compose`, to samo co `--mode` |
+| `INTLAYER_DOWNLOAD_DIR` | `~/Downloads` | desktop | Miejsce zapisu instalatora aplikacji |
+| `INTLAYER_IMAGE` | `intlayer/cms-all:latest` | docker | Obraz all-in-one do pobrania |
+| `INTLAYER_ENV_FILE` | `./intlayer.env` | docker | Gdzie zapisać plik środowiskowy |
+| `INTLAYER_CONTAINER_NAME` | `intlayer` | docker | Nazwa kontenera |
+| `INTLAYER_DATA_VOLUME` | `intlayer-data` | docker | Nazwany wolumen zamontowany w `/data` |
+| `INTLAYER_APP_PORT` | `3000` | docker | Port hosta dla pulpitu nawigacyjnego |
+| `INTLAYER_API_PORT` | `3100` | docker | Port hosta dla API |
+| `INTLAYER_S3_PORT` | `9000` | docker | Port hosta dla MinIO S3 API |
+| `INTLAYER_CONSOLE_PORT` | `9001` | docker | Port hosta dla konsoli MinIO |
+| `INTLAYER_COMPOSE_DIR` | `./intlayer` | compose | Gdzie zapisywane są pliki `docker-compose.yml` i `.env` |
+| `INTLAYER_SELFHOST_REF` | `main` | oba | Referencja Git, z której pobierany jest plik compose i szablon env |
+| `INTLAYER_BUILD_CONTEXT` | `…/intlayer.git#main` | oba | Kontekst budowania używany, gdy niestandardowa domena wymaga przebudowy |
+| `INTLAYER_CUSTOM_IMAGE` | `intlayer/cms-all:custom` | docker | Tag obrazu all-in-one zbudowanego dla niestandardowej domeny |
 
 > Zmienne portów zmieniają wyłącznie stronę **hosta** w mapowaniu. Opublikowane obrazy mają wartości `http://localhost:3000`, `http://localhost:3100` oraz `http://localhost:9000` skompilowane w pakiecie pulpitu, więc zachowaj wartości domyślne, chyba że budujesz własne obrazy, zobacz [Ograniczenia](#limitations).
 
@@ -420,11 +391,11 @@ Oba tryby Dockera odczytują ten sam plik (`intlayer.env` dla kontenera, `.env` 
 
 ### Wymagane
 
-| Variable               | Example       | Description                                                                                                                                   |
-| ---------------------- | ------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| `BETTER_AUTH_SECRET`   | _(generated)_ | 32-byte secret for session signing                                                                                                            |
-| `S3_SECRET_ACCESS_KEY` | _(generated)_ | Secret for the bundled MinIO                                                                                                                  |
-| `RESEND_API_KEY`       | _(your key)_  | Transactional email via Resend. Required for first-run setup unless an SMTP relay is configured instead (see [Global mailer](#global-mailer)) |
+| Zmienna                | Przykład         | Opis                                                                                                                                                          |
+| ---------------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `BETTER_AUTH_SECRET`   | _(wygenerowany)_ | 32-bajtowy sekret do podpisywania sesji                                                                                                                       |
+| `S3_SECRET_ACCESS_KEY` | _(wygenerowany)_ | Sekret dla dołączonego MinIO                                                                                                                                  |
+| `RESEND_API_KEY`       | _(twój klucz)_   | E-maile transakcyjne przez Resend. Wymagane przy pierwszej konfiguracji, chyba że skonfigurowano przekaźnik SMTP (zobacz [Globalny mailer](#globalny-mailer)) |
 
 > Obraz all-in-one akceptuje też pusty `S3_SECRET_ACCESS_KEY`: generuje go przy pierwszym uruchomieniu i zapisuje w `/data/.s3-secret-access-key`. Docker Compose nadal go wymaga.
 
@@ -432,19 +403,19 @@ Oba tryby Dockera odczytują ten sam plik (`intlayer.env` dla kontenera, `.env` 
 
 Są one ustawiane przez obraz (all-in-one) lub przez plik compose i wymagają nadpisania tylko w przypadku niestandardowej topologii. Wyjątkiem są `DOMAIN`, `APP_URL`, `BACKEND_URL` i `S3_PUBLIC_URL`: ustawione w pliku env, mają pierwszeństwo w obu trybach (zobacz [Domena niestandardowa](#custom-domain)).
 
-| Variable           | All-in-one                                          | Docker Compose                   | Description                                                                   |
-| ------------------ | --------------------------------------------------- | -------------------------------- | ----------------------------------------------------------------------------- |
-| `PORT`             | `3100`                                              | `3100`                           | Backend listening port                                                        |
-| `APP_URL`          | `http://localhost:3000`                             | `http://localhost:3000`          | Public URL of the dashboard                                                   |
-| `BACKEND_URL`      | `http://localhost:3100`                             | `http://localhost:3100`          | Public URL of the backend API                                                 |
-| `DOMAIN`           | `localhost`                                         | `localhost`                      | Cookie domain                                                                 |
-| `SELF_HOSTED`      | `true`                                              | `true`                           | Disables the cloud-only API endpoints (billing, subscriptions, marketplace)   |
-| `MONGODB_URI`      | `mongodb://127.0.0.1:27017/intlayer?replicaSet=rs0` | `mongodb://mongo:27017/…`        | MongoDB connection string, any `mongodb://` or `mongodb+srv://` cluster works |
-| `REDIS_URL`        | `redis://127.0.0.1:6379`                            | `redis://redis:6379`             | Redis                                                                         |
-| `S3_ENDPOINT`      | `http://127.0.0.1:9000`                             | `http://minio:9000`              | MinIO (server-to-server)                                                      |
-| `S3_PUBLIC_URL`    | `http://localhost:9000/intlayer`                    | `http://localhost:9000/intlayer` | Public URL for browser asset loading                                          |
-| `S3_BUCKET_NAME`   | `intlayer`                                          | `intlayer`                       | Bucket name                                                                   |
-| `S3_ACCESS_KEY_ID` | `intlayer`                                          | `intlayer`                       | MinIO access key                                                              |
+| Zmienna            | All-in-one                                          | Docker Compose                   | Opis                                                                               |
+| ------------------ | --------------------------------------------------- | -------------------------------- | ---------------------------------------------------------------------------------- |
+| `PORT`             | `3100`                                              | `3100`                           | Port nasłuchiwania backendu                                                        |
+| `APP_URL`          | `http://localhost:3000`                             | `http://localhost:3000`          | Publiczny URL pulpitu nawigacyjnego                                                |
+| `BACKEND_URL`      | `http://localhost:3100`                             | `http://localhost:3100`          | Publiczny URL API backendu                                                         |
+| `DOMAIN`           | `localhost`                                         | `localhost`                      | Domena ciasteczek                                                                  |
+| `SELF_HOSTED`      | `true`                                              | `true`                           | Wyłącza endpointy API specyficzne dla chmury (płatności, subskrypcje, rynek)       |
+| `MONGODB_URI`      | `mongodb://127.0.0.1:27017/intlayer?replicaSet=rs0` | `mongodb://mongo:27017/…`        | Parametry połączenia MongoDB, działa dowolny klaster mongodb:// lub mongodb+srv:// |
+| `REDIS_URL`        | `redis://127.0.0.1:6379`                            | `redis://redis:6379`             | Redis                                                                              |
+| `S3_ENDPOINT`      | `http://127.0.0.1:9000`                             | `http://minio:9000`              | MinIO (komunikacja serwer-serwer)                                                  |
+| `S3_PUBLIC_URL`    | `http://localhost:9000/intlayer`                    | `http://localhost:9000/intlayer` | Publiczny URL do ładowania zasobów przez przeglądarkę                              |
+| `S3_BUCKET_NAME`   | `intlayer`                                          | `intlayer`                       | Nazwa zasobnika (bucket)                                                           |
+| `S3_ACCESS_KEY_ID` | `intlayer`                                          | `intlayer`                       | Klucz dostępu MinIO                                                                |
 
 Usługa Compose `app` otrzymuje dodatkowo `INTLAYER_BACKEND_INTERNAL_URL=http://backend:3100`: przeglądarka łączy się z API pod adresem `localhost:3100`, ale renderowanie po stronie serwera działa wewnątrz sieci Compose i musi używać nazwy usługi.
 
@@ -455,7 +426,7 @@ Backend odczytuje swoje publiczne adresy URL w czasie działania, ale pulpit naw
 1. **Cztery zmienne w pliku env**, odczytywane przez backend (ciasteczka, linki w e-mailach, callbacki OAuth, adresy URL zasobów) i używane jako argumenty budowania przez `docker-compose.build.yml`:
 
    ```sh fileName="intlayer.env"
-   DOMAIN=example.org                          # cookie domain, parent of the hosts below
+   DOMAIN=example.org                          # domena ciasteczek, nadrzędna dla poniższych hostów
    APP_URL=https://cms.example.org
    BACKEND_URL=https://back.example.org
    S3_PUBLIC_URL=https://s3.example.org/intlayer
@@ -464,7 +435,7 @@ Backend odczytuje swoje publiczne adresy URL w czasie działania, ale pulpit naw
 2. **Obraz pulpitu nawigacyjnego zbudowany z tymi adresami URL.** Docker buduje go bezpośrednio z repozytorium, bez potrzeby klonowania:
 
    ```sh
-   # Docker Compose: the override reads the build args from .env
+   # Docker Compose: nadpisanie odczytuje argumenty budowania z .env
    docker compose -f docker-compose.yml -f docker-compose.build.yml up -d --build
 
    # All-in-one
@@ -481,13 +452,13 @@ Następnie umieść przed kontenerem reverse proxy z TLS: `cms.example.org` → 
 
 ### Opcjonalne (funkcje działają poprawnie w stopniu ograniczonym przy ich braku)
 
-| Variable                                         | Feature                                   |
-| ------------------------------------------------ | ----------------------------------------- |
-| `OPENAI_API_KEY`                                 | AI-assisted translation and content audit |
-| `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`       | GitHub OAuth login                        |
-| `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`       | Google OAuth login                        |
-| `GITLAB_CLIENT_ID`, `GITLAB_CLIENT_SECRET`       | GitLab OAuth login                        |
-| `MICROSOFT_CLIENT_ID`, `MICROSOFT_CLIENT_SECRET` | Microsoft OAuth login                     |
+| Zmienna                                          | Funkcja                                        |
+| ------------------------------------------------ | ---------------------------------------------- |
+| `OPENAI_API_KEY`                                 | Tłumaczenie i audyt treści wspomagane przez AI |
+| `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`       | Logowanie przez GitHub OAuth                   |
+| `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`       | Logowanie przez Google OAuth                   |
+| `GITLAB_CLIENT_ID`, `GITLAB_CLIENT_SECRET`       | Logowanie przez GitLab OAuth                   |
+| `MICROSOFT_CLIENT_ID`, `MICROSOFT_CLIENT_SECRET` | Logowanie przez Microsoft OAuth                |
 
 ### Globalny mailer
 
@@ -498,15 +469,22 @@ Każda transakcyjna wiadomość e-mail, w tym wiadomości spoza organizacji (tak
 
 `MAIL_PROVIDER` jest potrzebny tylko do wymuszenia jednego transportu, gdy oba są skonfigurowane (na przykład `MAIL_PROVIDER=resend`, aby zachować Resend, gdy zdefiniowany jest host SMTP).
 
-| Variable             | Example                        | Description                                                                  |
-| -------------------- | ------------------------------ | ---------------------------------------------------------------------------- |
-| `MAIL_FROM`          | `Intlayer <no-reply@acme.com>` | Sender header for either transport. Accepts a bare address or `Name <email>` |
-| `MAIL_SMTP_HOST`     | `smtp.acme.com`                | SMTP host. Setting it selects the SMTP transport                             |
-| `MAIL_SMTP_PORT`     | `587`                          | SMTP port (defaults to `587`)                                                |
-| `MAIL_SMTP_SECURE`   | `false`                        | Implicit TLS. Set `true` for port `465`                                      |
-| `MAIL_SMTP_USER`     | _(your user)_                  | SMTP username (optional; omit for unauthenticated relays)                    |
-| `MAIL_SMTP_PASSWORD` | _(your password)_              | SMTP password                                                                |
-| `MAIL_PROVIDER`      | `resend`                       | Optional override: `smtp` or `resend`. Leave unset to auto-select            |
+| Zmienna              | Przykład                       | Opis                                                                                 |
+| -------------------- | ------------------------------ | ------------------------------------------------------------------------------------ |
+| `MAIL_FROM`          | `Intlayer <no-reply@acme.com>` | Nagłówek nadawcy dla obu transportów. Akceptuje sam adres lub postać `Imię <email>`  |
+| `MAIL_SMTP_HOST`     | `smtp.acme.com`                | Host SMTP. Jego ustawienie aktywuje transport SMTP                                   |
+| `MAIL_SMTP_PORT`     | `587`                          | Port SMTP (domyślnie `587`)                                                          |
+| `MAIL_SMTP_SECURE`   | `false`                        | Niejawne TLS. Ustaw `true` dla portu `465`                                           |
+| `MAIL_SMTP_USER`     | _(twój użytkownik)_            | Nazwa użytkownika SMTP (opcjonalnie; pomiń dla przekaźników bez uwierzytelniania)    |
+| `MAIL_SMTP_PASSWORD` | _(twoje hasło)_                | Hasło SMTP                                                                           |
+| `MAIL_PROVIDER`      | `resend`                       | Opcjonalne nadpisanie: `smtp` lub `resend`. Pozostaw puste dla automatycznego wyboru | -------------------------------------------------------- |
+| `MAIL_FROM`          | `Intlayer <no-reply@acme.com>` | Sender header for either transport. Accepts a bare address or `Name <email>`         |
+| `MAIL_SMTP_HOST`     | `smtp.acme.com`                | SMTP host. Setting it selects the SMTP transport                                     |
+| `MAIL_SMTP_PORT`     | `587`                          | SMTP port (defaults to `587`)                                                        |
+| `MAIL_SMTP_SECURE`   | `false`                        | Implicit TLS. Set `true` for port `465`                                              |
+| `MAIL_SMTP_USER`     | _(your user)_                  | SMTP username (optional; omit for unauthenticated relays)                            |
+| `MAIL_SMTP_PASSWORD` | _(your password)_              | SMTP password                                                                        |
+| `MAIL_PROVIDER`      | `resend`                       | Optional override: `smtp` or `resend`. Leave unset to auto-select                    |
 
 > Pierwszeństwo: własny mailer organizacji (skonfigurowany w panelu **Organizacja**) ma pierwszeństwo przed mailerem globalnym, który z kolei ma pierwszeństwo przed domyślnym kluczem Resend.
 
@@ -525,23 +503,23 @@ const config: IntlayerConfig = {
     clientSecret: process.env.INTLAYER_CLIENT_SECRET,
 
     /**
-     * URL of the self-hosted CMS dashboard.
-     * Default: https://app.intlayer.org
+     * Adres URL samodzielnie hostowanego pulpitu nawigacyjnego CMS.
+     * Domyślnie: https://app.intlayer.org
      */
-    cmsURL: process.env.INTLAYER_CMS_URL, // e.g. http://localhost:3000
+    cmsURL: process.env.INTLAYER_CMS_URL, // np. http://localhost:3000
 
     /**
-     * URL of the self-hosted backend API.
-     * Default: https://back.intlayer.org
+     * Adres URL samodzielnie hostowanego API backendu.
+     * Domyślnie: https://back.intlayer.org
      */
-    backendURL: process.env.INTLAYER_BACKEND_URL, // e.g. http://localhost:3100
+    backendURL: process.env.INTLAYER_BACKEND_URL, // np. http://localhost:3100
   },
 };
 
 export default config;
 ```
 
-Set the environment variables in your project's `.env`:
+Ustaw zmienne środowiskowe w pliku `.env` swojego projektu:
 
 ```sh
 INTLAYER_CMS_URL=http://localhost:3000

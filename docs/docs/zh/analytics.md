@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-07-08
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "Intlayer Analytics：内容曝光与 A/B 测试"
 description: 探索 @intlayer/analytics 如何跟踪页面/区域设置浏览量和内容曝光，以及如何使用它对您的 Intlayer 内容运行 A/B 测试。
@@ -187,7 +187,7 @@ export default config;
   </Tab>
   <Tab label="Vue" value="vue">
 
-    `intlayer` 插件会在根组件的生命周期中注册分析钩子。
+    `intlayer` 插件会在根组件的生命周期中注册分析Hook。
 
     ```javascript fileName="main.js"
     import { createApp } from "vue";

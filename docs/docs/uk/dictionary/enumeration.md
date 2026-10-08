@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "Перелічення: повідомлення залежно від кількості"
 description: "Використовуйте перелічення Intlayer, щоб показувати різний контент залежно від числа чи діапазону, з вузлом enu() та умовами на кшталт '<-1' чи '>5'."
@@ -87,7 +87,7 @@ export default carEnumeration;
 <Tabs group="framework">
   <Tab label="React" value="react">
 
-To use enumeration in a React component, you can leverage the `useIntlayer` hook from the `react-intlayer` package. This hook retrieves the correct content based on the specified ID. Here's an example of how to use it:
+Щоб використовувати перелічення у компоненті React, ви можете скористатися хуком `useIntlayer` із пакета `react-intlayer`. Цей хук отримує потрібний контент на основі вказаного ключа. Ось приклад використання:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
@@ -126,7 +126,7 @@ const CarComponent: FC = () => {
   </Tab>
   <Tab label="Next.js" value="nextjs">
 
-To use enumeration in Next.js Client Components, retrieve it via the `useIntlayer` hook. Here's an example:
+Щоб використовувати перелічення у клієнтських компонентах Next.js, отримайте його за допомогою хука `useIntlayer`. Ось приклад:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 "use client";
@@ -150,7 +150,7 @@ export default CarComponent;
   </Tab>
   <Tab label="Vue" value="vue">
 
-To use enumeration in Vue components, retrieve it via the `useIntlayer` hook. Here's an example:
+Щоб використовувати перелічення у компонентах Vue, отримайте його за допомогою хука `useIntlayer`. Ось приклад:
 
 ```vue fileName="**/*.vue"
 <script setup lang="ts">
@@ -169,7 +169,7 @@ const { numberOfCar } = useIntlayer("car_count");
   </Tab>
   <Tab label="Svelte" value="svelte">
 
-To use enumeration in Svelte components, retrieve it via the `useIntlayer` hook. The store is accessed with `$`. Here's an example:
+Щоб використовувати перелічення у компонентах Svelte, отримайте його за допомогою хука `useIntlayer`. Доступ до сховища здійснюється через `$`. Ось приклад:
 
 ```svelte fileName="**/*.svelte"
 <script lang="ts">
@@ -186,7 +186,7 @@ const content = useIntlayer("car_count");
   </Tab>
   <Tab label="Preact" value="preact">
 
-To use enumeration in Preact components, retrieve it via the `useIntlayer` hook. Here's an example:
+Щоб використовувати перелічення у компонентах Preact, отримайте його за допомогою хука `useIntlayer`. Ось приклад:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "preact";
@@ -208,7 +208,7 @@ export default CarComponent;
   </Tab>
   <Tab label="Solid" value="solid">
 
-To use enumeration in SolidJS components, retrieve it via the `useIntlayer` hook. Here's an example:
+Щоб використовувати перелічення у компонентах SolidJS, отримайте його за допомогою хука `useIntlayer`. Ось приклад:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { Component } from "solid-js";
@@ -230,7 +230,7 @@ export default CarComponent;
   </Tab>
   <Tab label="Angular" value="angular">
 
-To use enumeration in Angular components, retrieve it via the `useIntlayer` hook. Here's an example:
+Щоб використовувати перелічення у компонентах Angular, отримайте його за допомогою хука `useIntlayer`. Ось приклад:
 
 ```typescript fileName="app.component.ts" codeFormat="typescript"
 import { Component } from "@angular/core";
@@ -252,7 +252,7 @@ export class CarComponent {
   </Tab>
   <Tab label="Vanilla JS" value="vanilla">
 
-To use enumeration with `vanilla-intlayer`, retrieve it via the `useIntlayer` hook. Here's an example:
+Щоб використовувати перелічення з `vanilla-intlayer`, отримайте його за допомогою хука `useIntlayer`. Ось приклад:
 
 ```typescript fileName="**/*.ts" codeFormat={["typescript", "esm"]}
 import { installIntlayer, useIntlayer } from "vanilla-intlayer";
@@ -280,12 +280,12 @@ document.getElementById("cars")!.textContent = content.numberOfCar(6);
 
 Ці ресурси надають додаткову інформацію про налаштування та використання Intlayer в різних середовищах і з різними фреймворками.
 
-### Using Ordinal Enumeration
+### Використання порядкового перелічення
 
 <Tabs group="framework">
   <Tab label="React" value="react">
 
-To use this in a React component, call the enumeration with the last digit of the number to get the correct suffix, then pass the full count as the insertion value:
+Щоб використовувати це в компоненті React, викличте перелічення з останньою цифрою числа для отримання правильного суфікса, а потім передайте повне число як значення вставки:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
@@ -312,7 +312,7 @@ const RankingComponent: FC<{ count: number }> = ({ count }) => {
   </Tab>
   <Tab label="Next.js" value="nextjs">
 
-To use this in Next.js Client Components, call the enumeration with the last digit of the number to get the correct suffix, then pass the full count as the insertion value:
+Щоб використовувати це в клієнтських компонентах Next.js, викличте перелічення з останньою цифрою числа для отримання правильного суфікса, а потім передайте повне число як значення вставки:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 "use client";
@@ -337,7 +337,7 @@ export default RankingComponent;
   </Tab>
   <Tab label="Vue" value="vue">
 
-To use this in Vue components, call the enumeration with the last digit of the number to get the correct suffix, then pass the full count as the insertion value:
+Щоб використовувати це в компонентах Vue, викличте перелічення з останньою цифрою числа для отримання правильного суфікса, а потім передайте повне число як значення вставки:
 
 ```vue fileName="**/*.vue"
 <script setup lang="ts">
@@ -358,7 +358,7 @@ const { ordinal } = useIntlayer("ranking_component");
   </Tab>
   <Tab label="Svelte" value="svelte">
 
-To use this in Svelte components, call the enumeration with the last digit of the number to get the correct suffix, then pass the full count as the insertion value:
+Щоб використовувати це в компонентах Svelte, викличте перелічення з останньою цифрою числа для отримання правильного суфікса, а потім передайте повне число як значення вставки:
 
 ```svelte fileName="**/*.svelte"
 <script lang="ts">
@@ -378,7 +378,7 @@ $: lastDigit = Math.abs(count) % 10;
   </Tab>
   <Tab label="Preact" value="preact">
 
-To use this in Preact components, call the enumeration with the last digit of the number to get the correct suffix, then pass the full count as the insertion value:
+Щоб використовувати це в компонентах Preact, викличте перелічення з останньою цифрою числа для отримання правильного суфікса, а потім передайте повне число як значення вставки:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "preact";
@@ -401,7 +401,7 @@ export default RankingComponent;
   </Tab>
   <Tab label="Solid" value="solid">
 
-To use this in SolidJS components, call the enumeration with the last digit of the number to get the correct suffix, then pass the full count as the insertion value:
+Щоб використовувати це в компонентах SolidJS, викличте перелічення з останньою цифрою числа для отримання правильного суфікса, а потім передайте повне число як значення вставки:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { Component } from "solid-js";
@@ -423,7 +423,7 @@ export default RankingComponent;
   </Tab>
   <Tab label="Angular" value="angular">
 
-To use this in Angular components, call the enumeration with the last digit of the number to get the correct suffix, then pass the full count as the insertion value:
+Щоб використовувати це в компонентах Angular, викличте перелічення з останньою цифрою числа для отримання правильного суфікса, а потім передайте повне число як значення вставки:
 
 ```typescript fileName="app.component.ts" codeFormat="typescript"
 import { Component, Input } from "@angular/core";
@@ -451,7 +451,7 @@ export class RankingComponent {
   </Tab>
   <Tab label="Vanilla JS" value="vanilla">
 
-To use this with `vanilla-intlayer`, call the enumeration with the last digit of the number to get the correct suffix, then pass the full count as the insertion value:
+Щоб використовувати це з `vanilla-intlayer`, викличте перелічення з останньою цифрою числа для отримання правильного суфікса, а потім передайте повне число як значення вставки:
 
 ```typescript fileName="**/*.ts" codeFormat={["typescript", "esm"]}
 import { installIntlayer, useIntlayer } from "vanilla-intlayer";
@@ -471,10 +471,10 @@ document.getElementById("ranking")!.textContent = content.ordinal(lastDigit)({
 
 ## Additional Resources
 
-For more detailed information on configuration and usage, refer to the following resources:
+Для отримання детальнішої інформації про налаштування та використання зверніться до наступних ресурсів:
 
 - [Intlayer CLI Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/index.md)
 - [React Intlayer Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_create_react_app.md)
 - [Next Intlayer Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_nextjs_15.md)
 
-These resources provide further insights into the setup and usage of Intlayer in different environments and with various frameworks.
+Ці ресурси надають глибше розуміння налаштування та використання Intlayer у різних середовищах та фреймворках.

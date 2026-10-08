@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-01-02
-updatedAt: 2025-10-29
+updatedAt: 2026-10-08
 priority: 8
 title: "Otomatiskan terjemahan JSON react-intl dengan Intlayer"
 description: Otomatiskan terjemahan JSON Anda dengan Intlayer dan react-intl untuk peningkatan internasionalisasi dalam aplikasi React.
@@ -37,7 +37,7 @@ author: aymericzip
 
 ## Apa itu Intlayer?
 
-**Intlayer** adalah perpustakaan internasionalisasi sumber terbuka yang inovatif, dirancang untuk mengatasi kekurangan solusi i18n tradisional. Ini menawarkan pendekatan modern untuk manajemen konten dalam aplikasi React.
+**Intlayer** adalah library internasionalisasi sumber terbuka yang inovatif, dirancang untuk mengatasi kekurangan solusi i18n tradisional. Ini menawarkan pendekatan modern untuk manajemen konten dalam aplikasi React.
 
 Lihat perbandingan konkret dengan react-intl dalam posting blog kami [react-i18next vs. react-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/react-i18next_vs_react-intl_vs_intlayer.md).
 
@@ -107,7 +107,7 @@ bun add intlayer @intlayer/sync-json-plugin --dev
 
 **Deskripsi paket:**
 
-- **intlayer**: Perpustakaan inti untuk manajemen internasionalisasi, deklarasi konten, dan pembangunan
+- **intlayer**: Library inti untuk manajemen internasionalisasi, deklarasi konten, dan pembangunan
 - **@intlayer/sync-json-plugin**: Plugin untuk mengekspor deklarasi konten Intlayer ke format JSON yang kompatibel dengan react-intl
 
 </Step>

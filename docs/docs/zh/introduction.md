@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 10
 title: "Intlayer 入门：适用于任意框架的 i18n"
 description: 了解 Intlayer 的工作原理。查看 Intlayer 在您的应用程序中使用的步骤。了解不同的包各自的功能。
@@ -28,7 +28,7 @@ author: aymericzip
 
 ### 什么是 Intlayer？
 
-**Intlayer** 是一个专门为 JavaScript 开发者设计的国际化库。它允许在代码的任何位置声明您的内容。它将多语言内容的声明转换为结构化的字典，以便轻松集成到您的代码中。通过使用 TypeScript，**Intlayer** 使您的开发更加强大和高效。
+**Intlayer** 是一个专门为 JavaScript 开发者打造的国际化库。它允许在代码的任意位置就近声明内容，并将多语言声明转换为结构化字典，以便无缝集成到业务代码中。结合 TypeScript，**Intlayer** 能极大提升开发体验与类型安全。
 
 Intlayer 还提供了一个可选的可视化编辑器，允许您轻松编辑和管理您的内容。该编辑器对于那些更喜欢使用可视化界面进行内容管理的开发者，或者对于在生成内容时不需要关注代码的团队来说特别有用。
 
@@ -94,19 +94,19 @@ export const MyComponent: FC = () => {
 与 `next-intl` 或 `i18next` 等主流解决方案相比，Intlayer 是一个自带多项集成的优化方案，例如：
 
 <AccordionGroup>
-<Accordion header="捆绑体积 (Bundle Size)">
+<Accordion header="打包体积 (Bundle Size)">
 
-您无需在页面中加载庞大的 JSON 文件，而是只加载所需的内容。Intlayer 可以帮助 **将您的捆绑包和页面大小减小多达 50%**。
+您无需在页面中加载庞大的 JSON 文件，而是只加载所需的内容。Intlayer 可以帮助 **将您的打包产物和页面体积减少多达 50%**。
 
 </Accordion>
 <Accordion header="可维护性">
 
-将您的应用程序内容局限在相应范围内，**有助于维护**大规模的应用程序。您可以复制或删除单个功能文件夹，而不会有审查整个内容代码库的心理负担。此外，Intlayer 是 **完全类型化 (fully typed)** 的，这能够确保您的内容的准确性。
+将应用程序内容与组件就近维护在相应作用域内，**极大提升了大体量应用的可维护性**。您可以直接复制或删除单个功能目录，而无需承担检查整个全局内容代码库的认知负担。此外，Intlayer 提供 **完整的 TypeScript 类型支持**，确保内容的准确性与安全性。
 
 </Accordion>
 <Accordion header="AI Agent 支持">
 
-将内容同位放置 **减少了所需的上下文**，这非常适合大型语言模型 (LLM)。Intlayer 还附带一套工具，例如用于测试缺失翻译的 **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)** 以及 **[Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)**，旨在让 AI 代理的开发者体验 (DX) 变得更加顺畅。
+内容就近组织 (Co-location) **显著减少了大型语言模型 (LLM) 所需的上下文**。Intlayer 还配备了一套完整工具链，例如用于检测缺失翻译的 **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)** 以及 **[Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)**，让 AI 智能体的开发体验 (DX) 更加流畅丝滑。
 
 - [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)
 - [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)
@@ -115,19 +115,19 @@ export const MyComponent: FC = () => {
 </Accordion>
 <Accordion header="自动化">
 
-使用您选择的 LLM 并在由您的 AI 提供商承担费用的情况下，通过自动化在您的 CI/CD 管道中进行翻译。Intlayer 还提供了一个 **编译器**，可自动提取内容；并配备了一个 [Web 平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) 以帮助您 **在后台执行翻译**。
+在 CI/CD 流水线中，使用您自选的 LLM（直接基于您自有的 AI 提供商 API 计费）实现自动化翻译。Intlayer 还提供了可自动提取内容的 **编译器**，并配备了 [Web 平台 / CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) 以便在后台管理系统中执行翻译。
 
 - [Web 平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="性能表现 (Performance)">
 
-将庞大的 JSON 文件连接到组件，可能会导致性能与响应式问题。Intlayer 会在构建时优化您的内容加载。
+将大型 JSON 文件全局挂载到各个组件容易导致渲染性能下降与响应迟滞。Intlayer 会在构建阶段自动优化内容加载。
 
 </Accordion>
-<Accordion header="无需开发人员的规模化运作 (Scaling with non-dev)">
+<Accordion header="赋能非技术人员协同扩展 (Scaling with non-dev)">
 
-Intlayer 不仅仅是一个简单的 i18n 解决方案。它还提供了一个 **支持自托管的[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)** 以及一个 **[完整的 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)**。借此，您可以 **实时** 管理多语言内容，并让译者、文案及其他团队成员之间的协作变得无缝。内容可以存储在本地和/或远程服务器上。
+Intlayer 不仅仅是一个简单的 i18n 解决方案。它还提供了 **支持自托管的[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)** 以及 **[完整的 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)**。借此，您可以 **实时** 管理多语言内容，让译者、文案及团队其他成员实现无缝协作。内容可存储在本地和/或远程服务器上。
 
 - [可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)
 - [完整的 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)

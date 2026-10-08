@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-22
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 5
 title: usePathname Hook 文档 | next-intlayer
 description: "在 Next.js 中使用 usePathname 获取去掉语言段的当前路径，用于支持语言的导航和激活链接。"
@@ -29,9 +29,9 @@ history:
 author: aymericzip
 ---
 
-# Next.js 集成：`usePathname` 钩子（Hook）文档
+# Next.js 集成：`usePathname` Hook（Hook）文档
 
-`usePathname` 钩子返回去除区域设置（locale）片段后的当前 Next.js 路径名（pathname）。这对于构建感知语言环境的导航非常有用（例如，判断哪个导航项处于活动状态）而无需手动剥离语言环境前缀。
+`usePathname` Hook返回去除区域设置（locale）片段后的当前 Next.js 路径名（pathname）。这对于构建感知语言环境的导航非常有用（例如，判断哪个导航项处于活动状态）而无需手动剥离语言环境前缀。
 
 ## 在 Next.js 中导入 `usePathname`
 
@@ -41,7 +41,7 @@ import { usePathname } from "next-intlayer";
 
 ## 概述
 
-`usePathname` 包装了来自 `next/navigation` 的 Next.js 内置 `usePathname()`，附加了任何搜索参数（search params），并通过 `getPathWithoutLocale` 去除语言环境前缀。在每次客户端导航时，它都会触发重新渲染。该钩子仅在客户端组件中可用（需要 `"use client"`）。
+`usePathname` 包装了来自 `next/navigation` 的 Next.js 内置 `usePathname()`，附加了任何搜索参数（search params），并通过 `getPathWithoutLocale` 去除语言环境前缀。在每次客户端导航时，它都会触发重新渲染。该Hook仅在客户端组件中可用（需要 `"use client"`）。
 
 ## 用法
 

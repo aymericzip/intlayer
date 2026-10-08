@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-07-27
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "المحتوى حسب الجنس في Intlayer"
 description: "كيّف الرسائل حسب جنس القارئ باستخدام العقدة gender() في Intlayer: صيغ المذكر والمؤنث والافتراضي في مكان واحد."
@@ -75,7 +75,7 @@ export default myGenderContent;
 <Tabs group="framework">
   <Tab label="React" value="react">
 
-To utilize gender-based content within a React component, import and use the `useIntlayer` hook from the `react-intlayer` package. This hook fetches the content for the specified key and allows you to pass in a gender to select the appropriate output.
+لاستخدام المحتوى المستند إلى الجنس داخل مكون React، استورد واستخدم خطاف `useIntlayer` من حزمة `react-intlayer`. يجلب هذا الخطاف المحتوى للمفتاح المحدد ويسمح لك بتمرير الجنس لتحديد المخرجات المناسبة.
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
@@ -132,7 +132,7 @@ export default GenderComponent;
   </Tab>
   <Tab label="Next.js" value="nextjs">
 
-To utilize gender-based content in Next.js Client Components, retrieve it via the `useIntlayer` hook. Here's an example:
+لاستخدام المحتوى المستند إلى الجنس في مكونات عميل Next.js، استرجعه عبر خطاف `useIntlayer`. فيما يلي مثال:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 "use client";
@@ -157,7 +157,7 @@ export default GenderComponent;
   </Tab>
   <Tab label="Vue" value="vue">
 
-To utilize gender-based content in Vue components, retrieve it via the `useIntlayer` hook. Here's an example:
+لاستخدام المحتوى المستند إلى الجنس في مكونات Vue، استرجعه عبر خطاف `useIntlayer`. فيما يلي مثال:
 
 ```vue fileName="**/*.vue"
 <script setup lang="ts">
@@ -177,7 +177,188 @@ const { myGender } = useIntlayer("my_key");
   </Tab>
   <Tab label="Svelte" value="svelte">
 
-To utilize gender-based content in Svelte components, retrieve it via the `useIntlayer` hook. The store is accessed with `$`. Here's an example:
+لاستخدام المحتوى المستند إلى الجنس في مكونات Svelte، استرجعه عبر خطاف `useIntlayer`. يتم الوصول إلى المخزن باستخدام `---
+createdAt: 2025-07-27
+updatedAt: 2026-09-27
+priority: 8
+title: "المحتوى حسب الجنس في Intlayer"
+description: "كيّف الرسائل حسب جنس القارئ باستخدام العقدة gender() في Intlayer: صيغ المذكر والمؤنث والافتراضي في مكان واحد."
+keywords:
+
+- المحتوى القائم على النوع الاجتماعي
+- العرض الديناميكي
+- التوثيق
+- Intlayer
+- Next.js
+- JavaScript
+- React
+  slugs:
+- doc
+- concept
+- content
+- gender
+  history:
+- version: 5.7.2
+  date: 2025-07-27
+  changes: "تقديم المحتوى المعتمد على الجنس"
+  author: aymericzip
+
+---
+
+# المحتوى القائم على النوع الاجتماعي / النوع في Intlayer
+
+## كيف يعمل النوع الاجتماعي
+
+في Intlayer، يتم تحقيق المحتوى القائم على النوع الاجتماعي من خلال دالة `gender`، التي تربط قيم النوع المحددة ('male'، 'female') بالمحتوى المقابل لها. تتيح لك هذه الطريقة اختيار المحتوى ديناميكيًا بناءً على النوع المعطى. عند التكامل مع React Intlayer أو Next Intlayer، يتم اختيار المحتوى المناسب تلقائيًا وفقًا للنوع المقدم أثناء وقت التشغيل.
+
+## إعداد المحتوى القائم على النوع الاجتماعي
+
+لإعداد المحتوى القائم على النوع الاجتماعي في مشروع Intlayer الخاص بك، قم بإنشاء وحدة محتوى تتضمن تعريفات النوع الخاصة بك. فيما يلي أمثلة بصيغ مختلفة.
+
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import { gender, type Dictionary } from "intlayer";
+
+const myGenderContent = {
+  key: "my_key",
+  content: {
+    myGender: gender({
+      male: "محتواي للمستخدمين الذكور",
+      female: "محتواي للمستخدمين الإناث",
+      fallback: "محتواي عندما لا يتم تحديد النوع", // اختياري
+    }),
+  },
+} satisfies Dictionary;
+
+export default myGenderContent;
+```
+
+```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "my_key",
+  "content": {
+    "myGender": {
+      "nodeType": "gender",
+      "gender": {
+        "male": "محتواي للمستخدمين الذكور",
+        "female": "محتواي للمستخدمين الإناث",
+        "fallback": "محتواي عندما لا يتم تحديد النوع", // اختياري
+      },
+    },
+  },
+}
+```
+
+> إذا لم يتم إعلان قيمة بديلة، فسيتم أخذ آخر مفتاح معلن كقيمة بديلة إذا لم يتم تحديد النوع أو لم يتطابق مع أي نوع معرف.
+
+## استخدام المحتوى المعتمد على النوع مع React Intlayer
+
+<Tabs group="framework">
+  <Tab label="React" value="react">
+
+لاستخدام المحتوى المستند إلى الجنس داخل مكون React، استورد واستخدم خطاف `useIntlayer` من حزمة `react-intlayer`. يجلب هذا الخطاف المحتوى للمفتاح المحدد ويسمح لك بتمرير الجنس لتحديد المخرجات المناسبة.
+
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
+import type { FC } from "react";
+import { useIntlayer } from "react-intlayer";
+
+const GenderComponent: FC = () => {
+  const { myGender } = useIntlayer("my_key");
+
+  return (
+    <div>
+      <p>
+        {
+          /* Output: my content for male users */
+          myGender("male")
+        }
+      </p>
+      <p>
+        {
+          /* Output: my content for female users */
+          myGender("female")
+        }
+      </p>
+      <p>
+        {
+          /* Output: my content for male users */
+          myGender("m")
+        }
+      </p>
+      <p>
+        {
+          /* Output: my content for female users */
+          myGender("f")
+        }
+      </p>
+      <p>
+        {
+          /* Output: my content when gender is not specified */
+          myGender("")
+        }
+      </p>
+      <p>
+        {
+          /* Output: my content when gender is not specified */
+          myGender(undefined)
+        }
+      </p>
+    </div>
+  );
+};
+
+export default GenderComponent;
+```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+
+لاستخدام المحتوى المستند إلى الجنس في مكونات عميل Next.js، استرجعه عبر خطاف `useIntlayer`. فيما يلي مثال:
+
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
+"use client";
+
+import type { FC } from "react";
+import { useIntlayer } from "next-intlayer";
+
+const GenderComponent: FC = () => {
+  const { myGender } = useIntlayer("my_key");
+
+  return (
+    <div>
+      <p>{myGender("male")}</p>
+      <p>{myGender("female")}</p>
+    </div>
+  );
+};
+
+export default GenderComponent;
+```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+لاستخدام المحتوى المستند إلى الجنس في مكونات Vue، استرجعه عبر خطاف `useIntlayer`. فيما يلي مثال:
+
+```vue fileName="**/*.vue"
+<script setup lang="ts">
+import { useIntlayer } from "vue-intlayer";
+
+const { myGender } = useIntlayer("my_key");
+</script>
+
+<template>
+  <div>
+    <p>{{ myGender("male") }}</p>
+    <p>{{ myGender("female") }}</p>
+  </div>
+</template>
+```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+. فيما يلي مثال:
 
 ```svelte fileName="**/*.svelte"
 <script lang="ts">
@@ -195,7 +376,7 @@ const content = useIntlayer("my_key");
   </Tab>
   <Tab label="Preact" value="preact">
 
-To utilize gender-based content in Preact components, retrieve it via the `useIntlayer` hook. Here's an example:
+لاستخدام المحتوى المستند إلى الجنس في مكونات Preact، استرجعه عبر خطاف `useIntlayer`. فيما يلي مثال:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "preact";
@@ -218,7 +399,7 @@ export default GenderComponent;
   </Tab>
   <Tab label="Solid" value="solid">
 
-To utilize gender-based content in SolidJS components, retrieve it via the `useIntlayer` hook. Here's an example:
+لاستخدام المحتوى المستند إلى الجنس في مكونات SolidJS، استرجعه عبر خطاف `useIntlayer`. فيما يلي مثال:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { Component } from "solid-js";
@@ -241,7 +422,7 @@ export default GenderComponent;
   </Tab>
   <Tab label="Angular" value="angular">
 
-To utilize gender-based content in Angular components, retrieve it via the `useIntlayer` hook. Here's an example:
+لاستخدام المحتوى المستند إلى الجنس في مكونات Angular، استرجعه عبر خطاف `useIntlayer`. فيما يلي مثال:
 
 ```typescript fileName="app.component.ts" codeFormat="typescript"
 import { Component } from "@angular/core";
@@ -264,7 +445,7 @@ export class GenderComponent {
   </Tab>
   <Tab label="Vanilla JS" value="vanilla">
 
-To utilize gender-based content with `vanilla-intlayer`, retrieve it via the `useIntlayer` hook. Here's an example:
+لاستخدام المحتوى المستند إلى الجنس مع `vanilla-intlayer`، استرجعه عبر خطاف `useIntlayer`. فيما يلي مثال:
 
 ```typescript fileName="**/*.ts" codeFormat={["typescript", "esm"]}
 import { installIntlayer, useIntlayer } from "vanilla-intlayer";

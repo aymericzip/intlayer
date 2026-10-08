@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "प्रति लोकेल कंटेंट डिक्लेरेशन फ़ाइलें"
 description: Intlayer में प्रति-स्थान सामग्री कैसे घोषित करें यह जानें। विभिन्न प्रारूपों और उपयोग मामलों को समझने के लिए दस्तावेज़ का पालन करें।
@@ -125,7 +125,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-इस कॉन्फ़िगरेशन का उपयोग करते हुए, सभी प्रति-लोकेल फ़ाइलें डिफ़ॉल्ट लोकेल को अंग्रेज़ी पर सेट करके जेनरेट की जाएंगी। इसमें `extract` कमांड और कंपाइलर का उपयोग करके `.content` फ़ाइलों का जनरेशन भी शामिल है। (अधिक जानकारी के लिए [Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md) या [Extract](https://github.com/aymericzip/intlayer/edit/main/docs/docs/en/cli/extract.md) देखें।)
+इस कॉन्फ़िगरेशन का उपयोग करते हुए, सभी प्रति-लोकेल फ़ाइलें डिफ़ॉल्ट लोकेल को अंग्रेज़ी पर सेट करके जेनरेट की जाएंगी। इसमें `extract` कमांड और कंपाइलर का उपयोग करके `.content` फ़ाइलों का जनरेशन भी शामिल है। (अधिक जानकारी के लिए [Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md) या [Extract](https://github.com/aymericzip/intlayer/edit/main/docs/docs/hi/cli/extract.md) देखें।)
 
 - [Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md)
 

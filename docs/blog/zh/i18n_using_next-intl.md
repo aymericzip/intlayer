@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-01
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 9
 title: "使用 next-intl 实现 Next.js 16 i18n：App Router 配置指南"
 description: "在 Next.js 16 App Router 应用中逐步配置 next-intl：语言路由、按页面加载消息、服务端与客户端组件，以及 SEO 元数据。"
@@ -492,9 +492,9 @@ export default async function AboutPage({
 </Step>
 <Step number={6} title="在客户端组件中使用翻译">
 
-客户端组件可以使用 `useTranslations` 和 `useFormatter` 钩子来访问翻译和格式化函数。这些钩子从 `NextIntlClientProvider` 上下文中读取数据。
+客户端组件可以使用 `useTranslations` 和 `useFormatter` Hook来访问翻译和格式化函数。这些Hook从 `NextIntlClientProvider` 上下文中读取数据。
 
-客户端组件需要 React 钩子来访问翻译。`useTranslations` 和 `useFormatter` 钩子与 next-intl 无缝集成，并在语言环境更改时提供响应式更新。
+客户端组件需要 React Hook来访问翻译。`useTranslations` 和 `useFormatter` Hook与 next-intl 无缝集成，并在语言环境更改时提供响应式更新。
 
 > 别忘了将所需的命名空间添加到页面的客户端消息中（只包含客户端组件实际需要的命名空间）。
 
@@ -506,7 +506,7 @@ import { useTranslations, useFormatter } from "next-intl";
 
 const ClientComponent = () => {
   // 直接作用于嵌套对象
-  // useTranslations/useFormatter 是从 NextIntlClientProvider 上下文读取的钩子
+  // useTranslations/useFormatter 是从 NextIntlClientProvider 上下文读取的Hook
   // 只有组件被包裹在 NextIntlClientProvider 中时它们才有效
   const t = useTranslations("about.counter");
   const format = useFormatter();
@@ -529,7 +529,7 @@ const ClientComponent = () => {
 </Step>
 <Step number={7} title="在服务器组件中使用翻译">
 
-服务器组件不能使用 React 钩子，因此它们通过父组件的 props 接收翻译和格式化函数。这种方法保持服务器组件的同步性，并允许它们嵌套在客户端组件内。
+服务器组件不能使用 React Hook，因此它们通过父组件的 props 接收翻译和格式化函数。这种方法保持服务器组件的同步性，并允许它们嵌套在客户端组件内。
 
 可能嵌套在客户端边界下的服务器组件需要是同步的。通过将翻译后的字符串和格式化的值作为 props 传递，我们避免了异步操作并确保正确渲染。在父页面组件中预先计算翻译和格式化。
 

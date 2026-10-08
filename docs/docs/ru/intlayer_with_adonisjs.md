@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 9
 title: "AdonisJS i18n - Полное руководство по переводу вашего приложения"
 description: "Настройка Intlayer в AdonisJS: определение локали для каждого запроса через middleware, перевод ответов API и представлений, типизированный контент."
@@ -54,7 +54,7 @@ author: aymericzip
   loading="lazy"
 />
 
-See [Application Template](https://github.com/aymericzip/intlayer-adonis-template) on GitHub.
+Смотрите [шаблон приложения](https://github.com/aymericzip/intlayer-adonis-template) на GitHub.
 
 ### Установка
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "让现有 Vite + React 应用支持多语言"
 description: "无需重写即可为现有 Vite 和 React 应用添加 i18n：自动提取硬编码文本，用 AI 翻译，并保持包体积小巧。"
@@ -314,7 +314,7 @@ fs.writeFileSync(path.join(__dirname, "public", "robots.txt"), robotsTxt);
 console.log("SEO 文件生成完毕。");
 ```
 
-在 `package.json` 中配置 `prebuild` 钩子以便在 `vite build` 之前自动执行：
+在 `package.json` 中配置 `prebuild` Hook以便在 `vite build` 之前自动执行：
 
 ```json fileName="package.json"
 {

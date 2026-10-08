@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2026-09-29
+updatedAt: 2026-10-08
 priority: 5
 title: "intlayer init：在项目中配置 Intlayer"
 description: "运行 intlayer init 为现有项目添加 Intlayer：自动检测框架、安装依赖并写入配置文件。"

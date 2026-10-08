@@ -175,9 +175,9 @@ W trakcie rozwoju, żądanie klucza, który nie ma wygenerowanego słownika, log
 
 ### Rozmiar pakietu
 
-`getIntlayer` reads the merged dictionary, which holds **every** locale. In client bundles, the [build plugins](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/bundle_optimization.md) rewrite the call so only the required content is shipped. When you read content outside of rendering (metadata, loaders, server functions) and want a single locale loaded on demand, use [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/intlayer/getIntlayerAsync.md) instead.
+`getIntlayer` odczytuje scalony słownik zawierający **wszystkie** locale. W pakietach klienckich [wtyczki budowania](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/bundle_optimization.md) przepisują to wywołanie, aby dostarczać wyłącznie wymaganą treść. Gdy odczytujesz treść poza renderowaniem (metadane, loadery, funkcje serwerowe) i chcesz załadować pojedyncze locale na żądanie, użyj zamiast tego [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/intlayer/getIntlayerAsync.md).
 
-- [build plugins](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/bundle_optimization.md)
+- [wtyczki budowania](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/bundle_optimization.md)
 - [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/intlayer/getIntlayerAsync.md)
 
 ## Powiązane funkcje

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-05
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 7
 title: "从 next-i18next 迁移到 Intlayer"
 description: "逐步将 Next.js 应用从 next-i18next 迁移到 Intlayer，先使用 @intlayer/next-i18next 适配器，确保不破坏现有代码。"
@@ -45,11 +45,11 @@ Intlayer 也是 i18n 生态系统中**开发最活跃**的解决方案，问题�
 </Accordion>
 <Accordion header="AI Agent">
 
-内容共置**减少了大型语言模型 (LLM) 所需的上下文**。Intlayer 还附带一套工具，例如用于测试缺失翻译的 **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)** 和 **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)**，使 AI agents 的开发者体验 (DX) 更加顺畅。
+内容共置**减少了大型语言模型 (LLM) 所需的上下文**。Intlayer 还附带一套工具，例如用于测试缺失翻译的 **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)** 和 **[Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)**，使 AI agents 的开发者体验 (DX) 更加顺畅。
 
 - [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)
 - [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)
-- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)
 
 </Accordion>
 <Accordion header="自动化">
@@ -61,7 +61,7 @@ Intlayer 也是 i18n 生态系统中**开发最活跃**的解决方案，问题�
 </Accordion>
 <Accordion header="性能">
 
-将大量 JSON 文件连接到组件可能会导致性能和响应性问题。Intlayer 在构建时优化了你的内容加载。
+将大量 JSON 文件连接到组件容易导致性能下降与响应迟滞问题。Intlayer 在构建时优化了你的内容加载。
 
 </Accordion>
 <Accordion header="与非开发人员协作扩展">
@@ -84,7 +84,7 @@ Intlayer 不仅仅是一个 i18n 解决方案，它还提供**自托管[可视�
 
 1. **兼容适配器（推荐用于现有应用）**：安装 `@intlayer/next-i18next`、`@intlayer/react-i18next` 和 `@intlayer/i18next`。这些包公开的 **API 完全相同**，但在底层将所有翻译工作委托给 Intlayer。您可以保持现有的 `useTranslation`、`appWithTranslation`、`serverSideTranslations` 调用和 Next.js Pages 路由不变，唯一的变化是初始化。
 
-2. **完全迁移**：逐步使用原生 Intlayer 钩子（`useIntlayer`）替换 `next-i18next` API，并在组件旁边的 `.content.ts` 文件中并置内容。
+2. **完全迁移**：逐步使用原生 Intlayer Hook（`useIntlayer`）替换 `next-i18next` API，并在组件旁边的 `.content.ts` 文件中并置内容。
 
 本指南首先介绍**策略 1**（即插即用的兼容适配器），然后演示可选的完全迁移。
 
@@ -233,7 +233,7 @@ Intlayer 插件已经在 bundler 级别处理别名。如果您更希望在源�
 | `import { useTranslation } from 'next-i18next'`                                | `import { useTranslation } from '@intlayer/next-i18next'`         |
 | `import { useTranslation } from 'react-i18next'`                               | `import { useTranslation } from '@intlayer/react-i18next'`        |
 
-这些是**即插即用替代品**，无需更改调用签名、参数或返回类型。
+这些是**即插即用的无缝替代方案**，无需更改调用签名、参数或返回类型。
 
 </Step>
 <Step number={5} title="启用 AI 驱动的翻译自动化" isOptional={true}>

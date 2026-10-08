@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-03-31
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 9
 title: "Vanilla JS i18n - 翻译你的应用的完整指南"
 description: "在不使用框架的原生 JavaScript 中配置 Intlayer：翻译静态 HTML 页面、切换语言并保持内容类型安全。"
@@ -59,7 +59,7 @@ author: aymericzip
 
 <TOC/>
 
-## 为什么选择 Inlayer 而不是替代品？
+## 为什么选择 Intlayer 而不是其他方案？
 
 与“i18next”或“i18n.js”等主要解决方案相比，Intlayer是一个具有集成优化的解决方案，例如：
 
@@ -69,40 +69,40 @@ author: aymericzip
 Intlayer 经过优化，可与 Vanilla JavaScript 完美配合，提供**与框架无关的内容管理**、**TypeScript 支持**以及扩展国际化 (i18n) 所需的所有功能。
 
 </Accordion>
-<Accordion header="捆绑尺寸">
+<Accordion header="打包体积 (Bundle Size)">
 
-不要将大量 JSON 文件加载到页面中，而只需加载必要的内容。 Intlayer 有助于**将捆绑包和页面大小减少多达 50%**。
+您无需在页面中加载庞大的 JSON 文件，而是只加载所需的内容。Intlayer 可以帮助 **将您的打包产物和页面体积减少多达 50%**。
 
 </Accordion>
 <Accordion header="可维护性">
 
-确定应用程序内容的范围**有利于大型应用程序的维护**。您可以复制或删除单个功能文件夹，而无需承担检查整个内容代码库的精神负担。此外，Intlayer 具有**完全类型化 (fully typed)**，以确保您的内容的准确性。
+将应用程序内容与组件就近维护在相应作用域内，**极大提升了大体量应用的可维护性**。您可以直接复制或删除单个功能目录，而无需承担检查整个全局内容代码库的认知负担。此外，Intlayer 提供 **完整的 TypeScript 类型支持**，确保内容的准确性与安全性。
 
 </Accordion>
-<Accordion header="AI Agent">
+<Accordion header="AI Agent 支持">
 
-共置内容**减少大型语言模型 (LLM) 所需的上下文**。 Intlayer 还附带了一套工具，例如用于测试缺失翻译的 **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)** 和 **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)**，使 AI 代理的开发者体验 (DX) 更加流畅。
+内容就近组织 (Co-location) **显著减少了大型语言模型 (LLM) 所需的上下文**。Intlayer 还配备了一套完整工具链，例如用于检测缺失翻译的 **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)** 以及 **[Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)**，让 AI 智能体的开发体验 (DX) 更加流畅丝滑。
 
 - [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)
 - [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)
-- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)
 
 </Accordion>
 <Accordion header="自动化">
 
-使用您选择的法学硕士，通过自动化在 CI/CD 管道中进行翻译，而费用由您的 AI 提供商承担。 Intlayer 还提供了一个**编译器**来自动提取内容，以及一个[网络平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)来帮助**在后台翻译**。
+在 CI/CD 流水线中，使用您自选的 LLM（直接基于您自有的 AI 提供商 API 计费）实现自动化翻译。Intlayer 还提供了可自动提取内容的 **编译器**，并配备了 [Web 平台 / CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) 以便在后台管理系统中执行翻译。
 
-- [网络平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
-
-</Accordion>
-<Accordion header="表现">
-
-将大量 JSON 文件连接到组件可能会导致性能和反应性问题。 Intlayer 可在构建时 (build time)优化您的内容加载。
+- [Web 平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
 
 </Accordion>
-<Accordion header="使用 none-dev 进行扩展">
+<Accordion header="性能表现 (Performance)">
 
-Intlayer 不仅仅是一个 i18n 解决方案，还提供了一个**自托管的[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)**和一个**[完整的 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)** 来帮助您管理多语言内容**实时**，与译员、文案人员和其他团队成员无缝协作。内容可以本地和/或远程存储。
+将大型 JSON 文件全局挂载到各个组件容易导致渲染性能下降与响应迟滞。Intlayer 会在构建阶段自动优化内容加载。
+
+</Accordion>
+<Accordion header="赋能非技术人员协同扩展 (Scaling with non-dev)">
+
+Intlayer 不仅仅是一个简单的 i18n 解决方案。它还提供了 **支持自托管的[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)** 以及 **[完整的 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)**。借此，您可以 **实时** 管理多语言内容，让译者、文案及团队其他成员实现无缝协作。内容可存储在本地和/或远程服务器上。
 
 - [可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)
 - [完整的 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
@@ -118,7 +118,7 @@ Intlayer 不仅仅是一个 i18n 解决方案，还提供了一个**自托管的
 使用 npm 安装必要的软件包：
 
 ```bash packageManager="npm"
-# 生成 intlayer 和 vanilla-intlayer 的独立捆绑包
+# 生成 intlayer 和 vanilla-intlayer 的独立打包产物
 # 此文件将被导入到您的 HTML 文件中
 npx intlayer standalone --packages intlayer vanilla-intlayer --outfile intlayer.js
 
@@ -130,7 +130,7 @@ npx intlayer build
 ```
 
 ```bash packageManager="pnpm"
-# 生成 intlayer 和 vanilla-intlayer 的独立捆绑包
+# 生成 intlayer 和 vanilla-intlayer 的独立打包产物
 # 此文件将被导入到您的 HTML 文件中
 pnpm intlayer standalone --packages intlayer vanilla-intlayer --outfile intlayer.js
 
@@ -142,7 +142,7 @@ pnpm intlayer build
 ```
 
 ```bash packageManager="yarn"
-# 生成 intlayer 和 vanilla-intlayer 的独立捆绑包
+# 生成 intlayer 和 vanilla-intlayer 的独立打包产物
 # 此文件将被导入到您的 HTML 文件中
 yarn intlayer standalone --packages intlayer vanilla-intlayer --outfile intlayer.js
 
@@ -154,7 +154,7 @@ yarn intlayer build
 ```
 
 ```bash packageManager="bun"
-# 生成 intlayer 和 vanilla-intlayer 的独立捆绑包
+# 生成 intlayer 和 vanilla-intlayer 的独立打包产物
 # 此文件将被导入到您的 HTML 文件中
 bun x intlayer standalone --packages intlayer vanilla-intlayer --outfile intlayer.js
 
@@ -171,7 +171,7 @@ bun x intlayer build
 - **vanilla-intlayer**
   将 Intlayer 与纯 JavaScript / TypeScript 应用程序集成的软件包。它提供了一个 pub/sub 单例（`IntlayerClient`）和基于回调的辅助函数（`useIntlayer`、`useLocale` 等），使应用的任何部分都可以响应语言区域变化，而无需依赖 UI 框架。
 
-> `intlayer standalone` CLI 的捆绑导出通过树摇动未使用的软件包、语言区域和特定于您的配置的非必要逻辑（如重定向或前缀）来生成优化的构建。
+> `intlayer standalone` CLI 的打包产物通过 Tree-shaking 摇树优化摇出未使用的软件包、语言区域以及特定于配置的非必要逻辑（如重定向或前缀），从而生成精简优化的生产构建。
 
 </Step>
 <Step number={2} title="配置您的项目">
@@ -217,9 +217,9 @@ export default config;
 - [配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)
 
 </Step>
-<Step number={3} title="在您的 HTML 中导入捆绑包">
+<Step number={3} title="在您的 HTML 中导入打包产物">
 
-生成 `intlayer.js` 捆绑包后，可以将其导入到 HTML 文件中：
+生成 `intlayer.js` 打包产物后，可以将其导入到 HTML 文件中：
 
 ```html fileName="index.html"
 <!DOCTYPE html>
@@ -227,7 +227,7 @@ export default config;
   <head>
     <meta charset="UTF-8" />
 
-    <!-- 导入捆绑包 -->
+    <!-- 导入打包产物 -->
     <script src="./intlayer.js" defer></script>
     <!-- 导入您的主脚本 -->
     <script src="./src/main.js" defer></script>
@@ -239,7 +239,7 @@ export default config;
 </html>
 ```
 
-该捆绑包在 `window` 上将 `Intlayer` 和 `VanillaIntlayer` 暴露为全局对象。
+该打包产物在 `window` 上将 `Intlayer` 和 `VanillaIntlayer` 暴露为全局对象。
 
 </Step>
 <Step number={4} title="在您的入口点引导 Intlayer">
@@ -442,7 +442,7 @@ useLocale({
 </Step>
 <Step number={9} title="按语言区域懒加载字典" isOptional={true}>
 
-如果您想按语言区域懒加载字典，可以使用 `useDictionaryDynamic`。这在您不想将所有翻译捆绑在初始 `intlayer.js` 文件中时很有用。
+如果您想按语言区域懒加载字典，可以使用 `useDictionaryDynamic`。这在您不想将所有翻译打包在初始 `intlayer.js` 文件中时很有用。
 
 ```javascript fileName="src/app.js"
 const { installIntlayer, useDictionaryDynamic } = window.VanillaIntlayer;

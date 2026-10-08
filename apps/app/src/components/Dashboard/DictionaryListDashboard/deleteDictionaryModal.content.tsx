@@ -10,7 +10,7 @@ const deleteDictionaryModalContent = {
       'en-GB': 'Delete Dictionary',
       es: 'Eliminar diccionario',
       fr: 'Supprimer le dictionnaire',
-      hi: 'शब्दкоश हटाएं',
+      hi: 'शब्दकोश हटाएं',
       it: 'Elimina dizionario',
       ja: '辞書を削除',
       ko: '사전 삭제',

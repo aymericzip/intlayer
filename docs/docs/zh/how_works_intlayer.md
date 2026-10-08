@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-12
-updatedAt: 2026-09-28
+updatedAt: 2026-10-08
 priority: 8
 title: "Intlayer 的工作原理：架构概览"
 description: 了解Intlayer的内部运作方式。理解使Intlayer强大的架构和组件。
@@ -73,7 +73,7 @@ Intlayer 的核心理念是采用每个组件的内容管理。因此，Intlayer
 
 ### 字典的解释步骤
 
-使用 Intlayer，您可以通过 `useIntlayer` 钩子在应用中访问您的内容。
+使用 Intlayer，您可以通过 `useIntlayer` Hook在应用中访问您的内容。
 
 ```tsx
 const MyComponent = () => {
@@ -82,7 +82,7 @@ const MyComponent = () => {
 };
 ```
 
-此钩子将为您管理语言环境检测，并返回当前语言环境的内容。通过此钩子，您还可以解释 markdown、管理复数化等。
+此Hook将为您管理语言环境检测，并返回当前语言环境的内容。通过此Hook，您还可以解释 markdown、管理复数化等。
 
 > 要查看 Intlayer 的所有功能，您可以阅读 [字典文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)。
 
@@ -106,18 +106,13 @@ Intlayer 还提供了一个可视化编辑器，允许您以可视化的方式�
 
 - 服务器是一个简单的 Express 应用程序，监听来自客户端的请求并检索您的应用内容，例如 `dictionaries` 和配置，以便在客户端访问。
 - 另一方面，客户端是一个 React 应用程序，用于通过可视化界面与您的内容交互。
-  当您使用 `useIntlayer` 调用内容且编辑器已启用时，它会自动使用名为 `IntlayerNode` 的 Proxy 对象包装您的字符串。该节点使用 `window.postMessage` 与包含可视化编辑器界面的嵌套 iframe 通信。  
-  在编辑器端，编辑器监听这些消息并模拟与您的内容的真实交互，允许您直接在应用程序的上下文中编辑文本。
-
-当你使用 `useIntlayer` 调用内容且编辑器已启用时，它会自动用一个名为 `IntlayerNode` 的 Proxy 对象包装你的字符串。这个节点使用 `window.postMessage` 与包含可视化编辑器界面的 iframe 进行通信。
-在编辑器端，编辑器监听这些消息并模拟与你的内容的真实交互，允许你在应用程序的上下文中直接编辑文本。
+  当您使用 `useIntlayer` 调用内容且编辑器已启用时，它会自动使用名为 `IntlayerNode` 的 Proxy 对象包装您的字符串。该节点使用 `window.postMessage` 与包含可视化编辑器界面的内嵌 iframe 通信。在编辑器端，编辑器监听这些消息并模拟与您的内容的真实交互，允许您直接在应用程序的上下文中编辑文本。
 
 ## 应用构建优化
 
-为了优化应用的Bundle 大小，Intlayer 提供了两个插件来优化应用的构建：`@intlayer/babel` 和 `@intlayer/swc` 插件。
-Babel 和 SWC 插件通过分析应用程序的抽象语法树（AST）来替换 Intlayer 函数的调用为优化后的代码。此过程确保只导入实际使用的字典，优化分块，从而减小生产环境中的最终包体积。
+为了优化应用的打包体积 (Bundle Size)，Intlayer 提供了两个插件来优化应用的构建：`@intlayer/babel` 和 `@intlayer/swc`。
 
-Babel 和 SWC 插件通过分析你的应用程序的抽象语法树 (AST) 来工作，用优化的代码替换 Intlayer 函数的调用。这个过程通过确保只导入实际使用的字典，优化分块并减少 bundle 大小，使你的最终 bundle 在生产环境中更轻。
+Babel 和 SWC 插件通过分析应用程序的抽象语法树（AST），将 Intlayer 函数调用替换为优化后的代码。此过程确保仅导入实际使用的字典、优化代码分块 (chunking)，从而显著减小生产环境中的最终包体积。
 
 在开发模式下，Intlayer 使用集中式静态导入字典以简化开发体验。
 
@@ -315,7 +310,7 @@ Intlayer 由多个包组成，每个包在翻译过程中都有特定的角色�
 
 ### @intlayer/editor-react
 
-`@intlayer/editor-react` 包提供状态、上下文、钩子和组件，以便使 React 应用程序与 Intlayer 编辑器接口。
+`@intlayer/editor-react` 包提供状态、上下文、Hook和组件，以便使 React 应用程序与 Intlayer 编辑器接口。
 
 ### @intlayer/babel
 

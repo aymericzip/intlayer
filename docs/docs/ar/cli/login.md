@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-12-16
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 5
 title: "intlayer login: تسجيل الدخول إلى CMS"
 description: تعلم كيفية استخدام أمر login في Intlayer CLI للمصادقة مع نظام إدارة المحتوى Intlayer والحصول على بيانات الاعتماد.
@@ -242,4 +242,4 @@ bun x intlayer login --verbose
 
 - [توثيق CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md)
 - [تكوين Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md)
-- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
+- [نظام إدارة المحتوى Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)

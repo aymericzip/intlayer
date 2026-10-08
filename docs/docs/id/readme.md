@@ -37,7 +37,7 @@
 
 ## Apa itu Intlayer?
 
-Sebagian besar perpustakaan i18n terlalu kompleks, terlalu kaku, atau tidak dibuat untuk framework modern.
+Sebagian besar library i18n terlalu kompleks, terlalu kaku, atau tidak dibuat untuk framework modern.
 
 Intlayer adalah **solusi i18n modern** untuk aplikasi web dan mobile.  
 Ini bersifat framework-agnostik, **ditenagai AI**, dan menyertakan **CMS & editor visual** gratis.

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 9
 title: "Fastify i18n - 翻译你的应用的完整指南"
 description: "在 Fastify 中配置 Intlayer：通过插件按请求检测语言，翻译 API 响应和错误信息，端到端类型安全。"
@@ -292,7 +292,7 @@ export default config;
 
 <Question title="国际化 Fastify 后端有哪些不同的解决方案？">
 
-通用方案是使用 `i18next` 配合 `fastify-i18next` 或手写钩子，它按命名空间加载 JSON 目录并将语言环境存储在请求对象上。另一种选择是通过 `fastify-intlayer` 使用 `Intlayer`，它自动为您注册插件，按请求解析语言环境，并与前端共享相同的类型化内容。
+通用方案是使用 `i18next` 配合 `fastify-i18next` 或手写Hook，它按命名空间加载 JSON 目录并将语言环境存储在请求对象上。另一种选择是通过 `fastify-intlayer` 使用 `Intlayer`，它自动为您注册插件，按请求解析语言环境，并与前端共享相同的类型化内容。
 
 后端国际化的核心原因在于，用户阅读的大量文本并不经过前端：API 错误消息、事务性邮件、推送通知、短信以及导出的 PDF 文件。这些内容都需要根据接收者的语言进行解析，且应针对每个请求独立解析，而非按会话存储。
 

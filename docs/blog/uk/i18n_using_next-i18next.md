@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-01
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 9
 title: "i18n у Next.js 16 з next-i18next: посібник із налаштування App Router"
 description: "Покрокове налаштування next-i18next та i18next у застосунку Next.js 16 з App Router: простори імен, маршрутизація за локалями, серверні та клієнтські компоненти й SEO-метадані."
@@ -48,7 +48,7 @@ author: aymericzip
 
 > Див. порівняння у [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/next-i18next_vs_next-intl_vs_intlayer.md).
 
-- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/next-i18next_vs_next-intl_vs_intlayer.md)
+- [next-i18next проти next-intl проти Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/next-i18next_vs_next-intl_vs_intlayer.md)
 
 > Щоб зрозуміти, звідки взялися ці бібліотеки, прочитайте історію i18n у JavaScript.
 
@@ -115,7 +115,7 @@ author: aymericzip
 > Розміри runtime взято з [бенчмарку Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/nextjs.md). Детальне обговорення читайте у статті [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/next-i18next_vs_next-intl_vs_intlayer.md).
 
 - [бенчмарку Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/nextjs.md)
-- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/next-i18next_vs_next-intl_vs_intlayer.md)
+- [next-i18next проти next-intl проти Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/next-i18next_vs_next-intl_vs_intlayer.md)
 
 ## Практики, яких слід дотримуватися
 
@@ -123,15 +123,15 @@ author: aymericzip
 
 - **Встановіть атрибути HTML `lang` та `dir`**
   У вашому layout обчисліть `dir` за допомогою `getLocaleDirection(locale)` і встановіть `<html lang={locale} dir={dir}>` для належної доступності та SEO.
-- **Split messages by namespace**
+- **Розділяйте повідомлення за просторами імен (namespace)**
   Організуйте JSON-файли за локаллю та неймспейсом (наприклад, `common.json`, `about.json`), щоб завантажувати лише те, що потрібно.
-- **Minimize client payload**
+- **Мінімізуйте корисне навантаження клієнта**
   На сторінках надсилайте до `NextIntlClientProvider` лише потрібні неймспейси (наприклад, `pick(messages, ['common', 'about'])`).
-- **Prefer static pages**
+- **Віддавайте перевагу статичним сторінкам**
   Віддавайте перевагу статичним сторінкам і використовуйте їх якомога частіше для кращої продуктивності та SEO.
-- **I18n in server components**
+- **i18n у серверних компонентах**
   Серверні компоненти, як-от pages або всі компоненти, що не позначені як `client`, є статичними і можуть бути попередньо зрендерені під час збірки. Тому нам доведеться передавати їм функції перекладу як пропси.
-- **Set up TypeScript types**
+- **Налаштуйте типи TypeScript**
   Налаштуйте типи TypeScript для забезпечення типобезпеки у вашому додатку.
   Для ваших локалей, щоб забезпечити безпеку типів у всьому вашому застосунку.
 - **Проксі для перенаправлення**
@@ -1210,7 +1210,7 @@ Intlayer дозволяє вам:
 
 - [Звіт бенчмарку Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/nextjs.md)
 - [Набір i18n-бенчмарків](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/index.md)
-- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/i18next_vs_intlayer-i18next.md)
+- [i18next проти @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/i18next_vs_intlayer-i18next.md)
 - [Адаптер сумісності @intlayer/next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/next-i18next.md)
 
 </Step>

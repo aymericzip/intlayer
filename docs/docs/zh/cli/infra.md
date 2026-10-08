@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-21
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 5
 title: "intlayer init infra：自托管 Intlayer CMS"
 description: "安装 Intlayer 桌面应用，或使用 Docker 自托管 Intlayer CMS，可选一体化容器或 Docker Compose 部署。"

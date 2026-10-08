@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-09-19
+updatedAt: 2026-10-08
 priority: 5
 title: intlayer 集成文档 | astro-intlayer
 description: 了解如何在 astro.config.mjs 中配置和使用 intlayer Astro 集成。
@@ -20,7 +20,7 @@ slugs:
 history:
   - version: 9.5.5
     date: 2026-09-19
-    changes: "更新了包含中间件和钩子细节的集成文档"
+    changes: "更新了包含中间件和Hook细节的集成文档"
   - version: 8.0.0
     date: 2026-01-21
     changes: "初始文档"
@@ -65,13 +65,13 @@ import intlayer from "astro-intlayer";
 
 配置完成后，您的 Astro 应用程序可以立即使用：
 
-- `.astro` 组件 frontmatter 中的 `useIntlayer`、`useDictionary` 和 `useLocale` 钩子。
+- `.astro` 组件 frontmatter 中的 `useIntlayer`、`useDictionary` 和 `useLocale` Hook。
 - Astro 端点和页面中的 `Astro.locals.intlayer` 对象。
 - `<script>` 块中的客户端导入，以响应式更新镜像相同的 API。
 - `astro-intlayer/format` 下的内置格式化程序（`useDate`、`useNumber`、`useCurrency` 等）。
 
 ## 相关文档
 
-- [`useIntlayer` 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/astro-intlayer/useIntlayer.md)
-- [`useLocale` 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/astro-intlayer/useLocale.md)
+- [`useIntlayer` Hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/astro-intlayer/useIntlayer.md)
+- [`useLocale` Hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/astro-intlayer/useLocale.md)
 - [`onRequest` 中间件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/astro-intlayer/onRequest.md)

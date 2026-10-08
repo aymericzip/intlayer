@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 10
 title: "TanStack Start i18n - 앱을 번역하는 완전 가이드"
 description: "TanStack Start에 Intlayer 설정: 라우트의 로케일 파라미터, SSR 안전한 번역 콘텐츠, 현지화된 head 메타데이터, hreflang과 사이트맵."
@@ -60,12 +60,12 @@ author: aymericzip
 
 이 가이드는 로케일 인식 라우팅, TypeScript 지원 및 최신 개발 방식을 사용하여 TanStack Start 프로젝트에서 원활한 국제화를 위해 **Intlayer**를 통합하는 방법을 보여줍니다.
 
-## 대안보다 Intlayer를 선택해야 하는 이유는 무엇입니까?
+## 왜 다른 대안 대신 Intlayer인가요?
 
-'react-i18next', 'use-intl' 또는 'paraglide'와 같은 주요 솔루션과 비교할 때 Intlayer는 다음과 같은 통합 최적화가 제공되는 솔루션입니다.
+`react-i18next`, `use-intl` 또는 `paraglide`와 같은 주요 솔루션과 비교할 때 Intlayer는 다음과 같은 통합 최적화가 제공되는 솔루션입니다.
 
 <AccordionGroup>
-<Accordion header="전체 TanStack 시작 범위">
+<Accordion header="전체 TanStack Start 지원">
 
 Intlayer는 TanStack Start에 완전히 최적화되어 **다국어 라우팅**, **쿠키 관리**, **사이트맵 생성**, **동적 콘텐츠 로딩** 및 국제화(i18n) 노력을 확장하는 데 필요한 모든 기능을 제공합니다.
 
@@ -77,21 +77,21 @@ Intlayer는 TanStack Start에 완전히 최적화되어 **다국어 라우팅**,
 </Accordion>
 <Accordion header="유지관리성">
 
-애플리케이션 콘텐츠의 범위를 지정하면 대규모 애플리케이션의 **유지 관리가 용이해집니다**. 전체 콘텐츠 코드베이스를 검토해야 하는 정신적 부담 없이 단일 기능 폴더를 복제하거나 삭제할 수 있습니다. 또한 Intlayer는 **완전히 유형**되어 콘텐츠의 정확성을 보장합니다.
+애플리케이션 콘텐츠의 범위를 지정하면 대규모 애플리케이션의 **유지 관리가 용이해집니다**. 전체 콘텐츠 코드베이스를 검토해야 하는 인지적 부담 없이 단일 기능 폴더를 복제하거나 삭제할 수 있습니다. 또한 Intlayer는 **완전한 TypeScript 타입 지원**을 제공하여 콘텐츠의 정확성을 보장합니다.
 
 </Accordion>
 <Accordion header="AI 에이전트">
 
-콘텐츠를 같은 위치에 배치하면 LLM(대형 언어 모델)에 **필요한 컨텍스트가 줄어듭니다**. Intlayer에는 누락된 번역을 테스트하기 위한 **CLI**, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/mcp_server.md)** 및 **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/agent_skills.md)**, AI 에이전트를 위한 개발자 경험(DX)을 더욱 원활하게 만듭니다.
+콘텐츠를 같은 위치에 배치하면 LLM(대형 언어 모델)에 **필요한 컨텍스트가 줄어듭니다**. Intlayer에는 누락된 번역을 테스트하기 위한 **CLI**, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/mcp_server.md)** 및 **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/agent_skills.md)**가 포함되어 있어, AI 에이전트를 위한 개발자 경험(DX)을 더욱 원활하게 만듭니다.
 
 - [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/lsp.md)
 - [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/mcp_server.md)
 - [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/agent_skills.md)
 
 </Accordion>
-<Accordion header="오토메이션">
+<Accordion header="자동화">
 
-AI 공급자의 비용으로 선택한 LLM을 사용하여 CI/CD 파이프라인을 번역하려면 자동화를 사용하세요. Intlayer는 또한 콘텐츠 추출을 자동화하는 **컴파일러**와 **백그라운드에서 번역**을 돕는 [웹 플랫폼](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)을 제공합니다.
+자체 AI 제공업체의 API 비용만으로 선택한 LLM을 사용하여 CI/CD 파이프라인에서 번역을 자동화하세요. Intlayer는 또한 콘텐츠 추출을 자동화하는 **컴파일러**와 **백그라운드에서 번역**을 돕는 [웹 플랫폼](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)을 제공합니다.
 
 - [웹 플랫폼](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)
 
@@ -101,7 +101,7 @@ AI 공급자의 비용으로 선택한 LLM을 사용하여 CI/CD 파이프라인
 대규모 JSON 파일을 구성 요소에 연결하면 성능 및 반응성 문제가 발생할 수 있습니다. Intlayer는 빌드 시 콘텐츠 로딩을 최적화합니다.
 
 </Accordion>
-<Accordion header="개발자가 없는 경우 확장">
+<Accordion header="비개발자와의 협업 및 확장 (Scaling with non-dev)">
 
 Intlayer는 단순한 i18n 솔루션 그 이상으로 관리에 도움이 되는 **자체 호스팅 [비주얼 편집기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)** 및 **[전체 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)**를 제공합니다. 다국어 콘텐츠를 **실시간**으로 제공하여 번역가, 카피라이터, 기타 팀원과 원활하게 협업할 수 있습니다. 콘텐츠는 로컬 및/또는 원격으로 저장될 수 있습니다.
 
@@ -906,13 +906,13 @@ export const Route = createFileRoute("/{-$locale}/")({
 
 ### 어떤 해결 방법을 선택해야 할까요?
 
-|                      | Static resolution     | Dynamic resolution         | Cached dynamic resolution              |
-| -------------------- | --------------------- | -------------------------- | -------------------------------------- |
-| API                  | `getIntlayer`         | `getIntlayerAsync` (v9.4+) | `getIntlayerAsync` in `loader` (v9.4+) |
-| `head` signature     | synchronous           | `async`                    | synchronous, reads `loaderData`        |
-| Locales shipped      | every declared locale | requested locale only      | requested locale only                  |
-| Client navigations   | nothing to resolve    | re-entered on every match  | served from the router cache           |
-| Developer experience | simplest              | one `await`                | content threaded through `loaderData`  |
+|                        | 정적 해석 (Static resolution) | 동적 해석 (Dynamic resolution) | 캐시된 동적 해석 (Cached dynamic resolution) |
+| ---------------------- | ----------------------------- | ------------------------------ | -------------------------------------------- |
+| API                    | `getIntlayer`                 | `getIntlayerAsync` (v9.4+)     | `loader` 내의 `getIntlayerAsync` (v9.4+)     |
+| `head` 시그니처        | 동기식 (synchronous)          | `async` 비동기식               | 동기식, `loaderData` 읽기                    |
+| 번들에 포함되는 로케일 | 선언된 모든 로케일            | 요청된 로케일만 포함           | 요청된 로케일만 포함                         |
+| 클라이언트 네비게이션  | 추가 해석 없음                | 매칭 시마다 재실행             | 라우터 캐시에서 제공                         |
+| 개발자 경험 (DX)       | 가장 간단함                   | `await` 한 번 사용             | `loaderData`를 통한 콘텐츠 전달 필요         |
 
 </Step>
 <Step number={13} title="서버 액션에서 로케일 검색">

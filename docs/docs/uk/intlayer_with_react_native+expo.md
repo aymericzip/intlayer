@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-06-18
-updatedAt: 2026-06-25
+updatedAt: 2026-10-08
 priority: 9
 title: "i18n в Expo + React Native: повний посібник"
 description: "Налаштування Intlayer в Expo та React Native: типізований контент за компонентами, визначення мови пристрою, перемикач мови та збирання через Metro."
@@ -105,10 +105,10 @@ Intlayer оптимізовано для ідеальної роботи з Reac
 </Accordion>
 <Accordion header="Співпраця з не-розробниками">
 
-Більше ніж просто рішення i18n, Intlayer пропонує **власний [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md)** і **[повний CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)**, щоб допомогти вам керувати своїм багатомовним вмістом у **реальному часі**, спрощуючи співпрацю з перекладачами, копірайтерами та іншими членами команди. Контент можна зберігати локально та/або віддалено.
+Більше ніж просто рішення i18n, Intlayer пропонує **власний [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md)** і **[повноцінну CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)**, щоб допомогти вам керувати своїм багатомовним вмістом у **реальному часі**, спрощуючи співпрацю з перекладачами, копірайтерами та іншими членами команди. Контент можна зберігати локально та/або віддалено.
 
 - [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md)
-- [повний CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)
+- [повноцінну CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="Розмір бандлу">
@@ -300,7 +300,7 @@ export default RootLayout;
 > **Expo Router (веб): тримайте файли `.content.*` поза каталогом `app/`.** Expo Router розглядає кожен файл JavaScript/TypeScript всередині `app/` як маршрут. У вебверсії пошук маршрутів сканує файлову систему безпосередньо і **не** враховує `resolver.blockList` від Metro, тому розташований поруч `*.content.ts` реєструється як маршрут. Файл, такий як `app/(tabs)/_layout.content.ts`, навіть аналізується як макет (частина `.content` читається як суфікс платформи), що конфліктує зі справжнім `_layout.tsx` і викликає помилку:
 >
 > ```
-> The layouts "./(tabs)/_layout.content.ts" and "./(tabs)/_layout.tsx" conflict on the route "/(tabs)/_layout.content". Remove or rename one of these files.
+> Макети "./(tabs)/_layout.content.ts" та "./(tabs)/_layout.tsx" конфліктують на маршруті "/(tabs)/_layout.content". Видаліть або перейменуйте один із цих файлів.
 > ```
 >
 > Розміщуйте свої оголошення в каталозі поза межами `app/` (наприклад, `content/` або `src/content/`). Intlayer виявляє файли `.content.*` будь-де в проєкті, а словники посилаються за їхнім `key`, тому жодних змін імпорту не потрібно. У нативних програмах це не обов'язково (`blockList` від Metro вже приховує їх), але використання каталогу поза `app/` забезпечує роботу обох платформ.
@@ -517,7 +517,7 @@ Intlayer генерує визначення типів у прихованій 
 
 ## Додаткові ресурси
 
-- [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md)
+- [Візуальний редактор Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md)
 - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)
 - [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/index.md)
 
@@ -549,7 +549,7 @@ import "@formatjs/intl-datetimeformat/polyfill";
 
 - Перевірте вашу конфігурацію Metro (resolver aliases, asset plugins, `tsconfig` paths), якщо модулі не вдається розв'язати.
 
-## Часто задавані запитання
+## Поширені запитання
 
 <FAQ>
 
@@ -575,7 +575,7 @@ import "@formatjs/intl-datetimeformat/polyfill";
 
 Так. Дотримуйтесь [посібника з міграції з react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/migration_from_react-i18next_to_intlayer.md) або адаптерів сумісності.
 
-- [i18n-js migration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/i18n-js.md)
+- [Посібник з міграції з i18n-js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/i18n-js.md)
 - [посібника з міграції з react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/migration_from_react-i18next_to_intlayer.md)
 - [Адаптери сумісності Intlayer для i18n-бібліотек](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/index.md)
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-22
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 5
 title: getLocalizedPath 函数文档 | intlayer
 description: "使用 getLocalizedPath 将内部路径转换为本地化形式，应用你的重写规则和语言前缀。"

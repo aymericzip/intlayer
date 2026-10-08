@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-29
-updatedAt: 2026-08-29
+updatedAt: 2026-10-08
 priority: 8
 title: "Hreflang, hướng dẫn cho SEO đa ngôn ngữ"
 description: "Hreflang là gì, các quy tắc mà các search engine thực thi, tại sao x-default hầu như luôn sai, và cách tạo các tags chính xác trong Next.js và TanStack Start."
@@ -39,11 +39,11 @@ Một annotation trên một trang nói: _URL này có các phiên bản tương
 
 Nó mang lại cho bạn hai điều: phiên bản phù hợp được hiển thị cho người dùng phù hợp, và các locale của bạn được hợp nhất thành một cụm thay vì tự hủy diệt lẫn nhau như những bản sao.
 
-Điều quan trọng là phải rõ ràng về những gì nó không phải. Nó **không phải là một chuyển hướng** — nó là một gợi ý, và Google có thể ghi đè nó. Nó **không phải là một tăng thứ hạng** — nó thay đổi _phiên bản nào_ được xếp hạng, không phải _liệu_ bạn có được xếp hạng hay không. Và Bing hoàn toàn bỏ qua nó, thay vào đó dựa vào `content-language` và geo-targeting.
+Điều quan trọng là phải rõ ràng về những gì nó không phải. Nó **không phải là một chuyển hướng** - nó là một gợi ý, và Google có thể ghi đè nó. Nó **không phải là một tăng thứ hạng** - nó thay đổi _phiên bản nào_ được xếp hạng, không phải _liệu_ bạn có được xếp hạng hay không. Và Bing hoàn toàn bỏ qua nó, thay vào đó dựa vào `content-language` và geo-targeting.
 
 ## Nơi khai báo nó
 
-Ba vị trí, tất cả đều hợp lệ. Chọn một và ở lại đó — cụm tương tự được khai báo ở hai nơi là cách làm cho các tập hợp trôi nổi.
+Ba vị trí, tất cả đều hợp lệ. Chọn một và ở lại đó - cụm tương tự được khai báo ở hai nơi là cách làm cho các tập hợp trôi nổi.
 
 **HTML `<head>`** là lựa chọn thông thường. Một lưu ý: các thẻ được chèn sau hydration không đáng tin cậy. Nếu framework của bạn chỉ thêm chúng phía client-side, crawler có thể không bao giờ thấy chúng.
 
@@ -69,24 +69,24 @@ Trong thực tế, điều này có nghĩa là **mọi trang trong một cụm �
 <link rel="alternate" hreflang="fr" href="https://example.com/fr/about" />
 ```
 
-Lý do đó là đáng hiểu hơn là ghi nhớ. `hreflang` là một tham chiếu qua tài liệu: các công cụ tìm kiếm xây dựng một cụm được khóa bằng URL, được chia sẻ trên mọi trang trong đó. Một đường dẫn tương đối chỉ có ý nghĩa tương đối với tài liệu chứa nó, vì vậy nó không thể biểu thị điều đó. Nó cũng không thể vượt qua một máy chủ — và một alternate rất thường xuyên làm như vậy, khi một locale nằm trên `example.fr` hoặc `fr.example.com`. Trong một sitemap hoặc HTTP header, không có tài liệu cơ sở để phân giải lại.
+Lý do đó là đáng hiểu hơn là ghi nhớ. `hreflang` là một tham chiếu qua tài liệu: các công cụ tìm kiếm xây dựng một cụm được khóa bằng URL, được chia sẻ trên mọi trang trong đó. Một đường dẫn tương đối chỉ có ý nghĩa tương đối với tài liệu chứa nó, vì vậy nó không thể biểu thị điều đó. Nó cũng không thể vượt qua một máy chủ - và một alternate rất thường xuyên làm như vậy, khi một locale nằm trên `example.fr` hoặc `fr.example.com`. Trong một sitemap hoặc HTTP header, không có tài liệu cơ sở để phân giải lại.
 
-Điều này có hệ quả trực tiếp trong code. `getLocalizedUrl("/about", "fr")` trả về `/fr/about` — relative vào, relative ra. Đối với `hreflang` bạn phải cung cấp cho nó một URL tuyệt đối:
+Điều này có hệ quả trực tiếp trong code. `getLocalizedUrl("/about", "fr")` trả về `/fr/about` - relative vào, relative ra. Đối với `hreflang` bạn phải cung cấp cho nó một URL tuyệt đối:
 
 ```ts
 getLocalizedUrl("/about", "fr"); // → "/fr/about"          ❌ bị loại bỏ
 getLocalizedUrl("https://example.com/about", "fr"); // → "https://example.com/fr/about"  ✅
 ```
 
-Ngoại lệ duy nhất là một framework giải quyết các giá trị relative cho bạn trước khi rendering: Next.js mở rộng `alternates` relative so với `metadataBase`. Được — nhưng quy tắc áp dụng cho **HTML được phát hành**, vì vậy hãy kiểm tra bằng `curl`, không phải DevTools inspector.
+Ngoại lệ duy nhất là một framework giải quyết các giá trị relative cho bạn trước khi rendering: Next.js mở rộng `alternates` relative so với `metadataBase`. Được - nhưng quy tắc áp dụng cho **HTML được phát hành**, vì vậy hãy kiểm tra bằng `curl`, không phải DevTools inspector.
 
 ### Mã ngôn ngữ
 
 ISO 639-1 cho ngôn ngữ, ISO 3166-1 Alpha 2 cho region tùy chọn: `fr`, `fr-CA`, `pt-BR`.
 
-Hai cạm bẫy bắt gần như tất cả mọi người. Một region riêng lẻ là không hợp lệ — `hreflang="ca"` là Catalan, không phải Canada; bạn cần `en-CA` hoặc `fr-CA`. Và `en-UK` không tồn tại: mã quốc gia cho Vương quốc Anh là `GB`, vì vậy nó là `en-GB`.
+Hai cạm bẫy bắt gần như tất cả mọi người. Một region riêng lẻ là không hợp lệ - `hreflang="ca"` là Catalan, không phải Canada; bạn cần `en-CA` hoặc `fr-CA`. Và `en-UK` không tồn tại: mã quốc gia cho Vương quốc Anh là `GB`, vì vậy nó là `en-GB`.
 
-Chỉ thêm region khi bạn thực sự phục vụ nội dung khác cho region đó — giá khác, thông báo pháp lý khác. `fr` và `fr-FR` trên nội dung giống hệt là tiếng ồn.
+Chỉ thêm region khi bạn thực sự phục vụ nội dung khác cho region đó - giá khác, thông báo pháp lý khác. `fr` và `fr-FR` trên nội dung giống hệt là tiếng ồn.
 
 ### x-default
 
@@ -94,11 +94,11 @@ Chỉ thêm region khi bạn thực sự phục vụ nội dung khác cho region
 <link rel="alternate" hreflang="x-default" href="https://example.com/" />
 ```
 
-Một khái niệm mà thường xuyên bị quên và hiểu sai nhất là `x-default` — ít hơn 30% các ứng dụng thực hiện nó đúng cách.
+Một khái niệm mà thường xuyên bị quên và hiểu sai nhất là `x-default` - ít hơn 30% các ứng dụng thực hiện nó đúng cách.
 
 Đó là fallback cho những người dùng có ngôn ngữ không khớp với bất kỳ mục nào trong tập hợp của bạn. Một người nói tiếng Hà Lan trên một trang cung cấp tiếng Anh, tiếng Pháp và tiếng Tây Ban Nha không khớp với bất kỳ mục nào; nếu không có `x-default`, Google sẽ chọn cho bạn.
 
-Điều mà mọi người hiểu sai là ý nghĩa của nó. `x-default` **không phải là "phiên bản tiếng Anh"** và **không phải là "locale mặc định"**, mặc dù nó thường trỏ đến đó. Nó có nghĩa là _trang dành cho những người dùng mà tập hợp này không bao gồm_. Đó là lý do tại sao việc trỏ nó đến một trang đích chọn ngôn ngữ hoặc đích đến chuyển hướng địa lý là hợp pháp — và thường tốt hơn — thay vì trỏ đến `/en`. Nếu bạn không có trang như vậy, ngôn ngữ chính của bạn là câu trả lời hợp lý.
+Điều mà mọi người hiểu sai là ý nghĩa của nó. `x-default` **không phải là "phiên bản tiếng Anh"** và **không phải là "locale mặc định"**, mặc dù nó thường trỏ đến đó. Nó có nghĩa là _trang dành cho những người dùng mà tập hợp này không bao gồm_. Đó là lý do tại sao việc trỏ nó đến một trang đích chọn ngôn ngữ hoặc đích đến chuyển hướng địa lý là hợp pháp - và thường tốt hơn - thay vì trỏ đến `/en`. Nếu bạn không có trang như vậy, ngôn ngữ chính của bạn là câu trả lời hợp lý.
 
 Hai điều cần phân biệt rõ: `x-default` là một mục bổ sung trong tập hợp, không phải là sự thay thế cho mục tự tham chiếu, và giống như mọi mục khác, nó phải xuất hiện giống hệt nhau trên mọi trang trong cụm.
 
@@ -116,7 +116,7 @@ Mỗi trang được bản địa hóa phải là **canonical của chính nó**
 Trỏ canonical của mọi locale tại phiên bản tiếng Anh thay vào đó:
 
 ```html
-<!-- On https://example.com/fr/about — kills the page -->
+<!-- On https://example.com/fr/about  -  kills the page -->
 <link rel="canonical" href="https://example.com/about" />
 ```
 
@@ -130,9 +130,9 @@ cho biết trang tiếng Pháp là một bản sao không nên được lập ch
 
 | Cấu trúc           | Ví dụ             | Cân bằng                                                                   |
 | ------------------ | ----------------- | -------------------------------------------------------------------------- |
-| **Subdirectories** | `example.com/fr/` | Một domain, cấu trúc quyền chia sẻ — tín hiệu địa lý yếu hơn               |
-| **Subdomains**     | `fr.example.com`  | Dễ dàng thêm hoặc xóa một locale — có thể được hiểu là một site riêng biệt |
-| **ccTLDs**         | `example.fr`      | Tín hiệu quốc gia mạnh nhất — quyền lực được xây dựng trên mỗi domain      |
+| **Subdirectories** | `example.com/fr/` | Một domain, cấu trúc quyền chia sẻ - tín hiệu địa lý yếu hơn               |
+| **Subdomains**     | `fr.example.com`  | Dễ dàng thêm hoặc xóa một locale - có thể được hiểu là một site riêng biệt |
+| **ccTLDs**         | `example.fr`      | Tín hiệu quốc gia mạnh nhất - quyền lực được xây dựng trên mỗi domain      |
 
 Subdirectories là lựa chọn mặc định phù hợp cho hầu hết các dự án. Chỉ nên sử dụng ccTLDs khi bạn thực sự hoạt động như những doanh nghiệp riêng biệt ở các quốc gia khác nhau.
 
@@ -258,15 +258,15 @@ const sitemap = generateSitemap(
 
 Hai tùy chọn đáng chú ý:
 
-- `xhtmlLinks` (mặc định `true`) — các liên kết thay thế chỉ được phát hành nơi URL locale thực sự khác nhau. Ở chế độ `no-prefix` mọi locale dùng chung một URL, vì vậy chúng bị bỏ qua trừ khi `routing.domains` cấp cho các locale tên miền riêng của chúng.
-- `entryPerLocale` (default `false`) — theo mặc định một mục `<url>` mang tất cả các alternates. Cả hai hình thức đều hợp lệ, nhưng chỉ một URL được liệt kê dưới dạng `<loc>` mới được tính là _submitted_ trong Search Console; các locale chỉ có alternate vẫn có thể khám phá được nhưng không được ghi vào sitemap. Bật tùy chọn này sẽ cho mỗi URL đã định địa phương một mục riêng với toàn bộ tập hợp alternate được lặp lại. Nó nhân các mục theo số lượng locale, vì vậy hãy chú ý đến giới hạn 50 000 URL / 50 MB và chia thành một sitemap index nếu vượt quá.
+- `xhtmlLinks` (mặc định `true`) - các liên kết thay thế chỉ được phát hành nơi URL locale thực sự khác nhau. Ở chế độ `no-prefix` mọi locale dùng chung một URL, vì vậy chúng bị bỏ qua trừ khi `routing.domains` cấp cho các locale tên miền riêng của chúng.
+- `entryPerLocale` (default `false`) - theo mặc định một mục `<url>` mang tất cả các alternates. Cả hai hình thức đều hợp lệ, nhưng chỉ một URL được liệt kê dưới dạng `<loc>` mới được tính là _submitted_ trong Search Console; các locale chỉ có alternate vẫn có thể khám phá được nhưng không được ghi vào sitemap. Bật tùy chọn này sẽ cho mỗi URL đã định địa phương một mục riêng với toàn bộ tập hợp alternate được lặp lại. Nó nhân các mục theo số lượng locale, vì vậy hãy chú ý đến giới hạn 50 000 URL / 50 MB và chia thành một sitemap index nếu vượt quá.
 
 </Step>
 <Step number={3} title="Xác minh những gì crawler nhận được">
 
 `hreflang` thất bại im lặng, vì vậy hãy kiểm tra nó thay vì giả định.
 
-Đọc nguồn, không phải trình kiểm tra — `curl https://example.com/fr/about | grep hreflang` hiển thị những gì một crawler nhận được; DevTools hiển thị DOM sau khi JavaScript chạy. Sau đó, theo từng alternate và xác nhận nó trỏ lại với bộ giống hệt, và không có cái nào trong số chúng chuyển hướng. International Targeting report của Search Console bắt phần còn lại trên toàn bộ trang web.
+Đọc nguồn, không phải trình kiểm tra - `curl https://example.com/fr/about | grep hreflang` hiển thị những gì một crawler nhận được; DevTools hiển thị DOM sau khi JavaScript chạy. Sau đó, theo từng alternate và xác nhận nó trỏ lại với bộ giống hệt, và không có cái nào trong số chúng chuyển hướng. International Targeting report của Search Console bắt phần còn lại trên toàn bộ trang web.
 
 Để crawl đặc trưng cho đa ngôn ngữ, [Intlayer SEO Scanner](https://intlayer.org/i18n-seo-scanner) kiểm tra các thẻ bị thiếu, alternates bị hỏng và xung đột canonical trên các trang được bản địa hóa của bạn.
 
