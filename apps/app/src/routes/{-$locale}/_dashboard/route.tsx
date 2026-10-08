@@ -160,6 +160,7 @@ function DashboardLayout() {
       icon: 'LayoutDashboard',
       label: navigation.overview.label.value,
       title: navigation.overview.title.value,
+      description: navigation.overview.description.value,
     },
     {
       key: 'content-group',
@@ -167,6 +168,7 @@ function DashboardLayout() {
       icon: 'FileText',
       label: navigation.content.label.value,
       title: navigation.content.title.value,
+      description: navigation.content.description.value,
       items: [
         {
           key: 'editor',
@@ -174,6 +176,7 @@ function DashboardLayout() {
           icon: 'PenTool',
           label: navigation.editor.label.value,
           title: navigation.editor.title.value,
+          description: navigation.editor.description.value,
           items:
             editorPageSidebarKeys.length > 0
               ? editorPageSidebarKeys.map((path) => ({
@@ -190,6 +193,7 @@ function DashboardLayout() {
           icon: 'Globe',
           label: navigation.translate.label.value,
           title: navigation.translate.title.value,
+          description: navigation.translate.description.value,
         },
         {
           key: 'dictionaries',
@@ -197,6 +201,7 @@ function DashboardLayout() {
           icon: 'Book',
           label: navigation.dictionaries.label.value,
           title: navigation.dictionaries.title.value,
+          description: navigation.dictionaries.description.value,
           items:
             sidebarKeys.length > 0
               ? sidebarKeys.map((dictionaryKey) => ({
@@ -213,6 +218,7 @@ function DashboardLayout() {
           icon: 'Tags',
           label: navigation.tags.label.value,
           title: navigation.tags.title.value,
+          description: navigation.tags.description.value,
           items:
             tagSidebarKeys.length > 0
               ? tagSidebarKeys.map((tagKey) => ({
@@ -229,6 +235,7 @@ function DashboardLayout() {
           icon: 'Image',
           label: navigation.assets.label.value,
           title: navigation.assets.title.value,
+          description: navigation.assets.description.value,
         },
       ],
     },
@@ -238,6 +245,7 @@ function DashboardLayout() {
       icon: 'ScanLine',
       label: navigation.scanner.label.value,
       title: navigation.scanner.title.value,
+      description: navigation.scanner.description.value,
     },
     {
       key: 'analytics',
@@ -245,6 +253,7 @@ function DashboardLayout() {
       icon: 'BarChart3',
       label: navigation.analytics.label.value,
       title: navigation.analytics.title.value,
+      description: navigation.analytics.description.value,
     },
     {
       key: 'ide',
@@ -252,6 +261,7 @@ function DashboardLayout() {
       icon: 'SquareCode',
       label: navigation.ide.label.value,
       title: navigation.ide.title.value,
+      description: navigation.ide.description.value,
     },
     {
       key: 'projects',
@@ -261,6 +271,7 @@ function DashboardLayout() {
       title: hasProject
         ? navigation.project.title.value
         : navigation.projects.title.value,
+      description: navigation.projects.description.value,
     },
     {
       key: 'organization',
@@ -268,6 +279,7 @@ function DashboardLayout() {
       icon: 'Building2',
       label: navigation.organization.label.value,
       title: navigation.organization.title.value,
+      description: navigation.organization.description.value,
     },
     {
       key: 'admin',
@@ -275,6 +287,7 @@ function DashboardLayout() {
       icon: 'Shield',
       label: navigation.admin.label.value,
       title: navigation.admin.title.value,
+      description: navigation.admin.description.value,
     },
   ];
 

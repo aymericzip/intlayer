@@ -284,7 +284,7 @@ const Detail: FC<DetailProps> = ({
 
         /* Arrow indicator */
         displayArrow &&
-          'before:absolute before:z-[999] before:h-0 before:w-0 before:content-[""]',
+          'before:absolute before:z-99 before:h-0 before:w-0 before:content-[""]',
 
         /* Horizontal positioning */
         displayArrow && xAlign === 'start' && 'before:inset-s-2',
@@ -296,12 +296,12 @@ const Detail: FC<DetailProps> = ({
         /* Arrow pointing up (when popover is below trigger) */
         displayArrow &&
           yAlign === 'below' &&
-          'before:-top-2.5 before:border-s-[10px] before:border-s-transparent before:border-e-[10px] before:border-e-transparent before:border-b-[10px] before:border-b-neutral',
+          'before:-top-3.5 before:border-s-[10px] before:border-s-transparent before:border-e-[10px] before:border-e-transparent before:border-b-[10px] before:border-b-neutral',
 
         /* Arrow pointing down (when popover is above trigger) */
         displayArrow &&
           yAlign === 'above' &&
-          'before:-bottom-2.5 before:border-s-[10px] before:border-s-transparent before:border-e-[10px] before:border-e-transparent before:border-t-[10px] before:border-t-neutral',
+          'before:-bottom-3.5 before:border-s-[10px] before:border-s-transparent before:border-e-[10px] before:border-e-transparent before:border-t-[10px] before:border-t-neutral',
 
         /* Visibility management */
         'overflow-x-visible opacity-0 transition-all duration-400 ease-in-out',

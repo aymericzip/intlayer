@@ -88,6 +88,8 @@ const dashboardSidebarContent = {
           vi: 'Tổng quan',
           uk: 'Огляд',
         }),
+        description:
+          'Get an overview of your project activity, statistics, and configuration',
       },
       editor: {
         label: t({
@@ -130,6 +132,8 @@ const dashboardSidebarContent = {
           vi: 'Trình chỉnh sửa',
           uk: 'Редактор',
         }),
+        description:
+          'Visually edit content directly on your website or application',
       },
       translate: {
         label: t({
@@ -172,6 +176,8 @@ const dashboardSidebarContent = {
           vi: 'Dịch',
           uk: 'Переклад',
         }),
+        description:
+          'Translate content and manage missing translations across languages',
       },
       dictionaries: {
         label: t({
@@ -214,6 +220,7 @@ const dashboardSidebarContent = {
           vi: 'Từ điển',
           uk: 'Словники',
         }),
+        description: 'Get a view of all your dictionaries in a table',
       },
       content: {
         label: t({
@@ -256,6 +263,8 @@ const dashboardSidebarContent = {
           vi: 'Nội dung',
           uk: 'Вміст',
         }),
+        description:
+          'Manage your content, visual editor, translations, dictionaries, tags, and assets',
       },
       tags: {
         label: t({
@@ -298,6 +307,8 @@ const dashboardSidebarContent = {
           vi: 'Thẻ',
           uk: 'Теги',
         }),
+        description:
+          'Organize, categorize, and filter your content and dictionaries using tags',
       },
       assets: {
         label: t({
@@ -340,6 +351,7 @@ const dashboardSidebarContent = {
           vi: 'Tài nguyên',
           uk: 'Ресурси',
         }),
+        description: 'Upload, manage, and optimize blog and media assets',
       },
       scanner: {
         label: t({
@@ -382,6 +394,8 @@ const dashboardSidebarContent = {
           vi: 'Trình quét',
           uk: 'Сканер',
         }),
+        description:
+          'Scan your website for internationalization and SEO compliance',
       },
       analytics: {
         label: t({
@@ -424,6 +438,8 @@ const dashboardSidebarContent = {
           vi: 'Phân tích',
           uk: 'Аналітика',
         }),
+        description:
+          'Track translation usage, audience metrics, and localization performance',
       },
       ide: {
         label: t({
@@ -447,6 +463,8 @@ const dashboardSidebarContent = {
           uk: 'Перейти до IDE',
         }),
         title: 'IDE',
+        description:
+          'Edit and manage your project code and configuration directly in the browser',
       },
       projects: {
         label: t({
@@ -489,6 +507,8 @@ const dashboardSidebarContent = {
           vi: 'Dự án',
           uk: 'Проєкти',
         }),
+        description:
+          'Manage your projects, environments, and repository configurations',
       },
       organization: {
         label: t({
@@ -531,6 +551,8 @@ const dashboardSidebarContent = {
           vi: 'Tổ chức',
           uk: 'Організація',
         }),
+        description:
+          'Manage organization settings, members, and access permissions',
       },
       admin: {
         label: t({
@@ -573,6 +595,8 @@ const dashboardSidebarContent = {
           vi: 'Quản trị',
           uk: 'Адміністрування',
         }),
+        description:
+          'Access administrative tools, user management, and system settings',
       },
       project: {
         title: t({

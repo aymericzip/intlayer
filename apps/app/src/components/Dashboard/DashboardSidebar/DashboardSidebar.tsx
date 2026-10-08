@@ -110,6 +110,7 @@ export type SidebarNavigationItem = {
   icon?: keyof typeof iconMap;
   label: string;
   title: string;
+  description?: string;
   items?: SidebarNavigationItem[];
 };
 
@@ -339,9 +340,6 @@ const SidebarTabItem = forwardRef<HTMLDivElement, SidebarTabItemProps>(
     },
     ref
   ) => {
-    const IconComponent = item.icon ? (iconMap[item.icon] ?? null) : null;
-    const isChild = item.level > 0;
-
     const isDictionaryItem = item.key.startsWith('dictionary-');
     const dictKey = isDictionaryItem
       ? item.key.slice('dictionary-'.length)
@@ -359,6 +357,16 @@ const SidebarTabItem = forwardRef<HTMLDivElement, SidebarTabItemProps>(
       : null;
     const isEditorPageItemPinned =
       editorPagePath !== null && pinnedEditorPageKeys.includes(editorPagePath);
+
+    let FallbackIcon: LucideIcon | null = null;
+    if (isDictionaryItem) FallbackIcon = Book;
+    else if (isTagItem) FallbackIcon = Tags;
+    else if (isEditorPageItem) FallbackIcon = FileText;
+
+    const IconComponent = item.icon
+      ? (iconMap[item.icon] ?? null)
+      : FallbackIcon;
+    const isChild = item.level > 0;
 
     const isPinnableItem = isDictionaryItem || isTagItem || isEditorPageItem;
     const isItemPinned =
@@ -379,6 +387,11 @@ const SidebarTabItem = forwardRef<HTMLDivElement, SidebarTabItemProps>(
         <Link
           to={item.href ?? '#'}
           label={item.label}
+          title={
+            item.description
+              ? `${item.title}\n\n${item.description}`
+              : item.title
+          }
           color="text"
           variant="invisible-link"
           preload="viewport"
@@ -405,7 +418,13 @@ const SidebarTabItem = forwardRef<HTMLDivElement, SidebarTabItemProps>(
             />
           )}
 
-          {IconComponent && <IconComponent className="size-4 shrink-0" />}
+          <div className="relative flex items-center justify-center">
+            {IconComponent && <IconComponent className="size-4 shrink-0" />}
+            {isCollapsed && isItemPinned && (
+              <Pin className="absolute -top-2 -right-2 size-3 text-text/60" />
+            )}
+          </div>
+
           <AnimatePresence initial={false}>
             {!isCollapsed && (
               <m.span
@@ -681,7 +700,7 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
                   color="text"
                   roundedSize="full"
                   className="border-none p-0!"
-                  label={environment}
+                  label={environment.value}
                 >
                   <div className="flex items-center justify-center p-1">
                     <Layers className="size-4 text-neutral" />
@@ -707,14 +726,14 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
 
                       return (
                         <Button
-                          key={String(env.id)}
+                          key={env.id}
                           type="button"
                           onClick={() =>
                             !isActive &&
                             !isSelectingEnv &&
-                            selectEnvironment(String(env.id))
+                            selectEnvironment(env.id)
                           }
-                          label={switchToName({ name: env.name })}
+                          label={switchToName({ name: env.name }).value}
                           disabled={isActive || isSelectingEnv}
                           isActive={isActive}
                           variant="hoverable"
@@ -751,7 +770,7 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
                   variant="hoverable"
                   color="neutral"
                   className="w-full min-w-0 p-1"
-                  label={environment}
+                  label={environment.value}
                 >
                   <div className="flex w-full items-center gap-3 px-2 py-1">
                     <Layers className="size-4 shrink-0 text-neutral" />
@@ -793,7 +812,7 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
                             !isSelectingEnv &&
                             selectEnvironment(String(env.id))
                           }
-                          label={switchToName({ name: env.name })}
+                          label={switchToName({ name: env.name }).value}
                           disabled={isActive || isSelectingEnv}
                           isActive={isActive}
                           variant="hoverable"
@@ -835,7 +854,7 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
               size={isCollapsed ? 'icon-lg' : 'md'}
               variant="hoverable"
               color="text"
-              label={collapseButton.label}
+              label={collapseButton.label.value}
               aria-expanded={!isCollapsed}
               aria-controls="dashboard-sidebar-nav"
               onClick={() => setIsCollapsed((prev) => !prev)}
