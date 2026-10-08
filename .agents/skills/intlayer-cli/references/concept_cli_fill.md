@@ -1,8 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
-title: Fill Dictionaries
-description: Learn how to fill, audit, and translate your dictionaries using AI.
+updatedAt: 2026-09-27
+priority: 5
+title: "intlayer fill: Translate Dictionaries with AI"
+description: "Fill missing translations, audit existing ones and translate your Intlayer dictionaries with AI from the CLI, locally or in CI."
 keywords:
   - Fill
   - Audit
@@ -16,12 +17,25 @@ slugs:
   - concept
   - cli
   - fill
+author: aymericzip
 ---
 
 # Fill / audit / translate dictionaries
 
-```bash
+```bash packageManager="npm"
 npx intlayer fill
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill
+```
+
+```bash packageManager="bun"
+bun x intlayer fill
 ```
 
 This command analyzes your content declaration files for potential issues such as missing translations, structural inconsistencies, or type mismatches. If it finds any problems, **intlayer fill** will propose or apply updates to keep your dictionaries consistent and complete.
@@ -165,8 +179,20 @@ Affected dictionary keys for processing: app, comp-test, hello-world, lang-switc
 
 ## Example:
 
-```bash
+```bash packageManager="npm"
 npx intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
+```
+
+```bash packageManager="bun"
+bun x intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
 ```
 
 This command will translate content from English to French and Spanish for all content declaration files in the `src/home/` directory using the GPT-3.5 Turbo model.

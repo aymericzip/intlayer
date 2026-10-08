@@ -49,17 +49,15 @@ const content = {
 export default content;
 ```
 
-# Intlayer React Usage
-
 ## Setup
 
 - [Vite and React](references/environment_vite-and-react.md)
 - [Create React App](references/environment_create-react-app.md)
 - [React Router v7](references/environment_vite-and-react_react-router-v7.md)
-- [React Router v7 (fs routes)](references/environment_vite-and-react_react-router-v7-fs-routes.md)
 - [Tanstack Start](references/environment_tanstack-start.md)
 - [React Native and Expo](references/environment_react-native-and-expo.md)
 - [Lynx and React](references/environment_lynx-and-react.md)
+- [Storybook](references/storybook.md)
 
 ## useIntlayer Hook
 
@@ -80,6 +78,14 @@ const MyComponent = () => {
 };
 ```
 
+## Bundle Optimization
+
+Read content fields by name (dot access or destructuring) so the build can purge and minify the dictionary. Never index content at runtime (`content.statuses[status]`, use `select()`), and call `useIntlayer` in each child component instead of passing content as a prop. See the `intlayer-bundle-optimization` skill.
+
+## Compiler
+
+The [Intlayer Compiler](references/compiler.md) can extract all your content keys from your components, using one CLI command (`npx intlayer extract`) or automatically at app build.
+
 ## References
 
 - [Website](https://intlayer.org)
@@ -90,7 +96,18 @@ const MyComponent = () => {
 - [Vite and React](references/environment_vite-and-react.md)
 - [Create React App](references/environment_create-react-app.md)
 - [Vite and React (React Router v7)](references/environment_vite-and-react_react-router-v7.md)
-- [Vite and React (React Router v7 FS Routes)](references/environment_vite-and-react_react-router-v7-fs-routes.md)
+- [Tanstack Start](references/environment_tanstack-start.md)
+- [React Native and Expo](references/environment_react-native-and-expo.md)
+- [Lynx and React](references/environment_lynx-and-react.md)
+- [Astro and React](references/environment_astro_react.md)
+- [Storybook](references/storybook.md)
+
+### Concepts
+
+- [Variants](references/concept_variants.md)
+- [Collections](references/concept_collections.md)
+- [Compiler](references/compiler.md)
+- [Formatters (number, currency, date, …)](references/formatters.md)
 
 ### Packages
 
@@ -103,3 +120,7 @@ const MyComponent = () => {
 - [React Intlayer useI18n](references/packages_react-intlayer_useI18n.md)
 - [React Intlayer useIntlayer](references/packages_react-intlayer_useIntlayer.md)
 - [React Intlayer useLocale](references/packages_react-intlayer_useLocale.md)
+- [lynx-intlayer Exports](references/packages_lynx-intlayer_exports.md)
+- [react-intlayer usePathname](references/packages_react-intlayer_usePathname.md)
+- [react-intlayer useRewriteURL](references/packages_react-intlayer_useRewriteURL.md)
+- [react-native-intlayer Exports](references/packages_react-native-intlayer_exports.md)

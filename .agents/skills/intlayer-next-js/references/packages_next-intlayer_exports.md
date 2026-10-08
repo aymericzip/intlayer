@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-08-22
+priority: 5
 title: next-intlayer Package Documentation
 description: Next.js-specific integration for Intlayer, providing middleware and providers for App Router and Page Router.
 keywords:
@@ -15,9 +16,16 @@ slugs:
   - next-intlayer
   - exports
 history:
+  - version: 9.4.0
+    date: 2026-08-22
+    changes: "Update to Next.js >= 9.4.0 architecture"
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "Add usePathname utility"
   - version: 8.0.0
     date: 2026-01-21
-    changes: Unified documentation for all exports
+    changes: "Unified documentation for all exports"
+author: aymericzip
 ---
 
 # next-intlayer Package
@@ -71,15 +79,16 @@ or
 import "next-intlayer/server";
 ```
 
-| Component                | Description                                                                                                  | Related Doc |
-| ------------------------ | ------------------------------------------------------------------------------------------------------------ | ----------- |
-| `IntlayerClientProvider` | Provider for client-side components in Next.js App Router. Wraps `IntlayerProvider` from react-intlayer.     | -           |
-| `IntlayerServerProvider` | Provider for server-side components in Next.js (App Router). Provides locale context on the server.          | -           |
-| `IntlayerServer`         | Server-side wrapper for Intlayer content in App Router. Ensures proper locale handling in Server Components. | -           |
-| `HTMLProvider`           | Provider for HTML-related internationalization settings. Allows component overrides for HTML tags.           | -           |
-| `HTMLRenderer`           | Renders HTML content with custom components.                                                                 | -           |
-| `MarkdownProvider`       | Provider for markdown rendering context. Allows custom component overrides for markdown elements.            | -           |
-| `MarkdownRenderer`       | Renders markdown content with custom components.                                                             | -           |
+| Component                | Description                                                                                                                                                                    | Related Doc |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------- |
+| `IntlayerProvider`       | Unified provider for the Next.js App Router. Mounted once in the locale layout, it seeds the request-scoped server context _and_ mounts the client provider. (Intlayer >= 9.4) | -           |
+| `IntlayerClientProvider` | **Deprecated**. Use `IntlayerProvider` from `next-intlayer/server`. Provider for client-side components in Next.js App Router. Wraps `IntlayerProvider` from react-intlayer.   | -           |
+| `IntlayerServerProvider` | **Deprecated**. Use `IntlayerProvider` from `next-intlayer/server`. Provides locale context on the server. (Intlayer < 9.4)                                                    | -           |
+| `IntlayerServer`         | Server-side wrapper for Intlayer content in App Router. Ensures proper locale handling in Server Components.                                                                   | -           |
+| `HTMLProvider`           | Provider for HTML-related internationalization settings. Allows component overrides for HTML tags.                                                                             | -           |
+| `HTMLRenderer`           | Renders HTML content with custom components.                                                                                                                                   | -           |
+| `MarkdownProvider`       | Provider for markdown rendering context. Allows custom component overrides for markdown elements.                                                                              | -           |
+| `MarkdownRenderer`       | Renders markdown content with custom components.                                                                                                                               | -           |
 
 ### Hooks (Client-side)
 
@@ -98,6 +107,7 @@ Re-exports most hooks from `react-intlayer`.
 | `useDictionaryAsync`   | Hook that handles asynchronous dictionaries. Accepts a promise-based dictionary map and resolves it for the current locale.               | -                                                                                                                       |
 | `useDictionaryDynamic` | Hook that handles dynamic dictionaries loaded by key. Uses React Suspense internally for loading states.                                  | -                                                                                                                       |
 | `useLocale`            | Client-side hook to get the current locale and a function to set it. Enhanced for Next.js App Router with navigation support.             | [useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useLocale.md)         |
+| `usePathname`          | Hook that returns the current Next.js pathname with the locale segment removed. Wraps `next/navigation` `usePathname` and strips locale.  | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/usePathname.md)      |
 | `useRewriteURL`        | Client-side hook to manage URL rewrites. Automatically updates the URL if a prettier localized rewrite rule exists.                       | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/useRewriteURL.md)  |
 | `useLocalePageRouter`  | Next.js Page Router specific hook for locale management. Handles redirections and page reloads upon locale changes.                       | -                                                                                                                       |
 | `useI18n`              | Hook that provides a translation function `t()` for accessing nested content by key. Mimics i18next/next-intl pattern.                    | [useI18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useI18n.md)             |

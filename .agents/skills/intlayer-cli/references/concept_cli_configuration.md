@@ -1,8 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
-title: Manage Configuration
-description: Learn how to get and push your Intlayer configuration to the CMS.
+updatedAt: 2026-09-27
+priority: 5
+title: "intlayer configuration: Get and Push Config"
+description: "Use the Intlayer CLI to print your resolved configuration and push it to the Intlayer CMS, so the dashboard and your project stay in sync."
 keywords:
   - Configuration
   - Config
@@ -14,6 +15,7 @@ slugs:
   - concept
   - cli
   - configuration
+author: aymericzip
 ---
 
 # Manage Configuration
@@ -22,8 +24,20 @@ slugs:
 
 The `configuration get` command retrieves the current configuration for Intlayer, particularly the locale settings. This is useful for verifying your setup.
 
-```bash
+```bash packageManager="npm"
 npx intlayer configuration get
+```
+
+```bash packageManager="yarn"
+yarn intlayer configuration get
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer configuration get
+```
+
+```bash packageManager="bun"
+bun x intlayer configuration get
 ```
 
 ## Aliases:
@@ -44,8 +58,20 @@ npx intlayer configuration get
 
 The `configuration push` command uploads your configuration to the Intlayer CMS and editor. This step is necessary to enable the use of distant dictionaries in the Intlayer Visual Editor.
 
-```bash
+```bash packageManager="npm"
 npx intlayer configuration push
+```
+
+```bash packageManager="yarn"
+yarn intlayer configuration push
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer configuration push
+```
+
+```bash packageManager="bun"
+bun x intlayer configuration push
 ```
 
 ## Aliases:

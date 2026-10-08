@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-21
 title: CLI - All Intlayer CLI commands for your multilingual website
 description: Discover how to use the Intlayer CLI to manage your multilingual website. Follow the steps in this online documentation to set up your project in a few minutes.
 keywords:
@@ -17,51 +17,61 @@ slugs:
   - concept
   - cli
 history:
+  - version: 9.5.6
+    date: 2026-09-21
+    changes: "Add init infra command"
   - version: 9.5.2
     date: 2026-09-12
-    changes: Replace the `ci` command by the `--ci` flag
+    changes: "Replace the `ci` command by the `--ci` flag"
+  - version: 9.0.0
+    date: 2026-06-11
+    changes: "Add scan command"
+  - version: 8.6.4
+    date: 2026-03-31
+    changes: "Add standalone command"
   - version: 7.5.11
     date: 2026-01-06
-    changes: Add CI command
+    changes: "Add CI command"
   - version: 7.5.11
     date: 2026-01-06
-    changes: Add projects list command
+    changes: "Add projects list command"
   - version: 7.5.9
     date: 2025-12-30
-    changes: Add init command
+    changes: "Add init command"
   - version: 7.2.3
     date: 2025-11-22
-    changes: Add extract command
+    changes: "Add extract command"
   - version: 7.1.0
     date: 2025-11-05
-    changes: Add skipIfExists option to translate command
+    changes: "Add skipIfExists option to translate command"
   - version: 6.1.4
     date: 2025-01-27
-    changes: Add aliases for CLI arguments and commands
+    changes: "Add aliases for CLI arguments and commands"
   - version: 6.1.3
     date: 2025-10-05
-    changes: Add build option to commands
+    changes: "Add build option to commands"
   - version: 6.1.2
     date: 2025-09-26
-    changes: Add version command
+    changes: "Add version command"
   - version: 6.1.0
     date: 2025-09-26
-    changes: Set verbose option to default to true using CLI
+    changes: "Set verbose option to default to true using CLI"
   - version: 6.1.0
     date: 2025-09-23
-    changes: Add watch command and with option
+    changes: "Add watch command and with option"
   - version: 6.0.1
     date: 2025-09-23
-    changes: Add editor command
+    changes: "Add editor command"
   - version: 6.0.0
     date: 2025-09-17
-    changes: Add content test and list command
+    changes: "Add content test and list command"
   - version: 5.5.11
     date: 2025-07-11
-    changes: Update CLI command parameters documentation
+    changes: "Update CLI command parameters documentation"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Init history
+    changes: "Init history"
+author: aymericzip
 ---
 
 # Intlayer CLI - All Intlayer CLI commands for your multilingual website
@@ -119,10 +129,13 @@ To see how to configure available locales, or other parameters, refer to the [co
 
 - **[Login](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/login.md)** - Authenticate with the Intlayer CMS and get access credentials
 
+> `intlayer login` issues an **access key** (`clientId` / `clientSecret`) that every credentialed command uses. The secret is a server-side credential and never reaches your client bundle — see [Keeping the access key safe](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/login.md#keeping-the-access-key-safe).
+
 ### Core Commands
 
 - **[Build Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/build.md)** - Build your dictionaries from content declaration files
 - **[Watch Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/watch.md)** - Watch for changes and automatically build dictionaries
+- **[Create Standalone Bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/standalone.md)** - Create a standalone JavaScript bundle containing Intlayer and specified packages
 - **[Check CLI Version](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/version.md)** - Check the installed Intlayer CLI version
 - **[List Projects](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/list_projects.md)** - List all Intlayer projects in a directory or git repository
 
@@ -141,6 +154,7 @@ To see how to configure available locales, or other parameters, refer to the [co
 ### Configuration
 
 - **[Initialize Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/init.md)** - Set up Intlayer in your project with automatic configuration
+- **[Set Up Infrastructure](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/infra.md)** - Install the desktop app or self-host the CMS with Docker (all-in-one or Compose)
 - **[Manage Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/configuration.md)** - Get and push your Intlayer configuration to the CMS
 
 ### Documentation Management
@@ -153,6 +167,10 @@ To see how to configure available locales, or other parameters, refer to the [co
 - **[Editor Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/editor.md)** - Use the Intlayer editor commands
 - **[Live Sync Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/live.md)** - Use Live Sync to reflect CMS content changes at runtime
 
+### Auditing & Diagnostics
+
+- **[Scan Website](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/scan.md)** - Measure page size and audit i18n/SEO health of any public URL
+
 ### Development Tools
 
 - **[CLI SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/sdk.md)** - Use the Intlayer CLI SDK in your own code
@@ -163,9 +181,11 @@ To see how to configure available locales, or other parameters, refer to the [co
 ```json fileName="package.json"
 "scripts": {
   "intlayer:init": "npx intlayer init",
+  "intlayer:infra": "npx intlayer init infra",
   "intlayer:login": "npx intlayer login",
   "intlayer:build": "npx intlayer build",
   "intlayer:watch": "npx intlayer build --watch",
+  "intlayer:standalone": "npx intlayer standalone --packages intlayer vanilla-intlayer",
   "intlayer:push": "npx intlayer push",
   "intlayer:pull": "npx intlayer pull",
   "intlayer:fill": "npx intlayer fill",
@@ -174,7 +194,8 @@ To see how to configure available locales, or other parameters, refer to the [co
   "intlayer:extract": "npx intlayer extract",
   "intlayer:projects": "npx intlayer projects list",
   "intlayer:doc:translate": "npx intlayer doc translate",
-  "intlayer:doc:review": "npx intlayer doc review"
+  "intlayer:doc:review": "npx intlayer doc review",
+  "intlayer:scan": "npx intlayer scan https://example.com"
 }
 ```
 

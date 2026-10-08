@@ -1,8 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
-title: Function Fetching
-description: Discover how to declare and use function fetching in your multilingual website. Follow the steps in this online documentation to set up your project in a few minutes.
+updatedAt: 2026-09-27
+priority: 8
+title: "Function Fetching: Load Content from Functions"
+description: "Declare Intlayer content from synchronous or asynchronous functions, for example to fetch translations from an API at build time."
 keywords:
   - Function Fetching
   - Internationalization
@@ -19,7 +20,8 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Init history
+    changes: "Init history"
+author: aymericzip
 ---
 
 # Function Fetching
@@ -88,11 +90,34 @@ No way to fetch content from a JSON file, use a .ts or .js file instead
 
 In this case, the `fakeFetch` function mimics a delay to simulate server response time. Intlayer executes the asynchronous function and uses the result as the content for the `text` key.
 
+## Fetching Remote Content
+
+You can also assign a promise directly to a content field. Intlayer awaits it while building the dictionaries and inlines the resolved value:
+
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import type { Dictionary } from "intlayer";
+
+const remoteContent = {
+  key: "remote_content",
+  content: {
+    externalContent: fetch("https://example.com").then((res) => res.json()),
+  },
+} satisfies Dictionary;
+
+export default remoteContent;
+```
+
+```plaintext fileName="**/*.content.json" contentDeclarationFormat="json"
+No way to fetch content from a JSON file, use a .ts or .js file instead
+```
+
+> The request runs at build time, so the fetched data is a snapshot embedded in the dictionary. Rebuild your dictionaries to refresh it.
+
 ## Using Function-Based Content in React Components
 
 To use function-based content in a React component, you need to import `useIntlayer` from `react-intlayer` and call it with the content ID to retrieve the content. Here's an example:
 
-```typescript fileName="**/*.jsx" codeFormat="typescript"
+```typescript fileName="**/*.jsx" codeFormat={["typescript", "esm", "commonjs"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -111,44 +136,4 @@ const MyComponent: FC = () => {
 };
 
 export default MyComponent;
-```
-
-```javascript fileName="**/*.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const MyComponent = () => {
-  const functionContent = useIntlayer("function_content");
-  const asyncFunctionContent = useIntlayer("async_function_content");
-
-  return (
-    <div>
-      <p>{functionContent.text}</p>
-      {/* Output: This is the content rendered by a function */}
-      <p>{asyncFunctionContent.text}</p>
-      {/* Output: This is the content fetched from the server */}
-    </div>
-  );
-};
-
-export default MyComponent;
-```
-
-```javascript fileName="**/*.cjs" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const MyComponent = () => {
-  const functionContent = useIntlayer("function_content");
-  const asyncFunctionContent = useIntlayer("async_function_content");
-
-  return (
-    <div>
-      <p>{functionContent.text}</p>
-      {/* Output: This is the content rendered by a function */}
-      <p>{asyncFunctionContent.text}</p>
-      {/* Output: This is the content fetched from the server */}
-    </div>
-  );
-};
-
-module.exports = MyComponent;
 ```

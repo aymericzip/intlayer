@@ -1,5 +1,5 @@
 ---
-name: intlayer-solid-js
+name: intlayer-solid
 description: Integrates Intlayer internationalization with SolidJS components. Use when the user asks to "setup SolidJS i18n", create a new translated component, use the "useIntlayer" hook in Solid, or configure providers.
 metadata:
   author: Intlayer
@@ -51,11 +51,13 @@ export default content;
 ## Setup
 
 - [Vite and Solid](references/environment_vite-and-solid.md)
+- [SolidStart](references/environment_solid-start.md)
+- [TanStack Start and Solid](references/environment_tanstack-start_solid.md)
 
 ## useIntlayer Hook
 
 > [!IMPORTANT]
-> In Solid, `useIntlayer` returns an **accessor** function (e.g., `content()`). You must call this function to access the reactive content.
+> In Solid, `useIntlayer` returns reactive content (e.g., `content`). You can access its properties directly.
 
 ```tsx
 import { useIntlayer } from "solid-intlayer";
@@ -67,14 +69,22 @@ const MyComponent = () => {
     <div>
       <h1>
         {/* Return content */}
-        {content().text}
+        {content.text}
       </h1>
       {/* Return string (.value) */}
-      <img src={content().text.value} alt={content().text.value} />
+      <img src={content.text.value} alt={content.text.value} />
     </div>
   );
 };
 ```
+
+## Bundle Optimization
+
+Read content fields by name (dot access or destructuring) so the build can purge and minify the dictionary. Never index content at runtime (`content.statuses[status]`, use `select()`), and call `useIntlayer` in each child component instead of passing content as a prop. See the `intlayer-bundle-optimization` skill.
+
+## Compiler
+
+The [Intlayer Compiler](references/compiler.md) can extract all your content keys from your components, using one CLI command (`npx intlayer extract`) or automatically at app build.
 
 ## References
 
@@ -84,7 +94,21 @@ const MyComponent = () => {
 ### Environments
 
 - [Vite and Solid](references/environment_vite-and-solid.md)
+- [SolidStart](references/environment_solid-start.md)
+- [TanStack Start and Solid](references/environment_tanstack-start_solid.md)
+
+### Concepts
+
+- [Variants](references/concept_variants.md)
+- [Collections](references/concept_collections.md)
+- [Compiler](references/compiler.md)
+- [Formatters (number, currency, date, …)](references/formatters.md)
 
 ### Packages
 
 - [Solid Intlayer Exports](references/packages_solid-intlayer_exports.md)
+- [solid-intlayer IntlayerProvider](references/packages_solid-intlayer_IntlayerProvider.md)
+- [solid-intlayer useIntlayer](references/packages_solid-intlayer_useIntlayer.md)
+- [solid-intlayer useLocale](references/packages_solid-intlayer_useLocale.md)
+- [solid-intlayer usePathname](references/packages_solid-intlayer_usePathname.md)
+- [solid-intlayer useRewriteURL](references/packages_solid-intlayer_useRewriteURL.md)

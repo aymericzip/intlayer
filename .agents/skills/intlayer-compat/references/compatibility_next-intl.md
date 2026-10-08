@@ -1,0 +1,66 @@
+---
+createdAt: 2026-06-13
+updatedAt: 2026-09-27
+priority: 7
+title: "@intlayer/next-intl: Compat Adapter for next-intl"
+description: "Keep your next-intl code and serve it from Intlayer: install @intlayer/next-intl, alias the imports, and see what the adapter changes under the hood."
+keywords:
+  - next-intl
+  - nextjs
+  - intlayer
+  - migration
+  - compat
+slugs:
+  - doc
+  - compatibility
+  - next-intl
+history:
+  - version: 9.0.0
+    date: 2026-06-13
+    changes: "Init history"
+author: aymericzip
+---
+
+# @intlayer/next-intl: Compat Adapter for next-intl
+
+For a complete and detailed step-by-step tutorial, please see our full [next-intl Migration Guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/migration_from_next-intl_to_intlayer.md).
+
+- [next-intl Migration Guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/migration_from_next-intl_to_intlayer.md)
+
+Migrating from `next-intl` to Intlayer allows you to maintain your application routing and syntax completely undisturbed.
+
+## What to do
+
+Execute the following command in your repository:
+
+```bash
+npx intlayer init --interactive
+```
+
+This will create an `intlayer.config.ts`. In your `next.config.ts`, use the plugin wrapper to seamlessly inject the `next-intl` aliases towards `@intlayer/next-intl`.
+
+```typescript fileName="next.config.ts"
+import type { NextConfig } from "next";
+import { createNextIntlPlugin } from "@intlayer/next-intl/plugin";
+
+const withIntlayer = createNextIntlPlugin();
+
+const nextConfig: NextConfig = {};
+
+export default withIntlayer(nextConfig);
+```
+
+## What it does under the hood
+
+The bundler wrapper replaces translations, but **leaves the `next-intl/navigation` features intact** (e.g. `Link`, `redirect`, `usePathname`).
+
+Under the hood:
+
+- **ICU runtime:** Plurals (`=0`, `one`, `other`), select/selectordinal, `#` arguments, and formatted args (`{ts, date, long}`) run correctly using the shared `resolveMessage(..., 'icu')` resolver.
+- **`useTranslations()` & `getTranslations()`:** The bare scope calls extract the first key segment as the correct dictionary identifier. Nested namespaces gracefully split into dictionary paths and prefixes.
+- **Rich formatting:** Both `t.rich()` and `t.markup()` are fully natively implemented, converting HTML-like nodes into rendered React chunks.
+- **`useFormatter`:** `relativeTime`, `list`, `dateTimeRange`, and named formats from the configuration bridge to the core native `Intl` formatters.
+
+> To understand where these libraries come from, read the history of JavaScript i18n.
+
+- [The history of JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/history_of_i18n.md)

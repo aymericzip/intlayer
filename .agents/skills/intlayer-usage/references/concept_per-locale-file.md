@@ -1,7 +1,8 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2025-06-29
-title: Declaration of `Per-Locale` Content Declaration in Intlayer
+updatedAt: 2026-09-27
+priority: 8
+title: "Per-Locale Content Declaration Files"
 description: Discover how to declare content per locale in Intlayer. Follow the documentation to understand the different formats and use cases.
 keywords:
   - Internationalization
@@ -17,10 +18,11 @@ slugs:
 history:
   - version: 7.3.1
     date: 2025-11-29
-    changes: Add global configuration for per-locale files
+    changes: "Add global configuration for per-locale files"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Init history
+    changes: "Init history"
+author: aymericzip
 ---
 
 # Declaration of `Per-Locale` Content Declaration in Intlayer
@@ -69,49 +71,6 @@ const helloWorldContent = {
 export default helloWorldContent;
 ```
 
-```tsx fileName="hello-world.es.content.mjs" contentDeclarationFormat="esm"
-import { t, Locales } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const helloWorldContent = {
-  key: "hello-world",
-  locale: Locales.SPANISH, // Important
-  content: { multilingualContent: "Título de mi componente" },
-};
-
-export default helloWorldContent;
-```
-
-```js fileName="hello-world.en.content.cjs" contentDeclarationFormat="commonjs"
-const { t, Locales } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const helloWorldContent = {
-  key: "hello-world",
-  locale: Locales.ENGLISH, // Important
-  content: {
-    multilingualContent: "Title of my component",
-  },
-};
-
-module.exports = helloWorldContent;
-```
-
-```tsx fileName="hello-world.es.content.cjs" contentDeclarationFormat="commonjs"
-const { t, Locales } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const helloWorldContent = {
-  key: "hello-world",
-  locale: Locales.SPANISH, // Important
-  content: {
-    multilingualContent: "Título de mi componente",
-  },
-};
-
-module.exports = helloWorldContent;
-```
-
 ```json5 fileName="hello-world.en.content.json" contentDeclarationFormat="json"
 {
   "$schema": "https://intlayer.org/schema.json",
@@ -154,7 +113,9 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-Using this configuration, all per-locale files will be generated with the default locale set to English. It also include generation of `.content` files using the `extract` command, and the compiler. (See [Compiler](https://intlayer.org/doc/compiler) or [Extract](https://github.com/aymericzip/intlayer/edit/main/docs/docs/en/cli/extract.md) for more information.)
+Using this configuration, all per-locale files will be generated with the default locale set to English. It also include generation of `.content` files using the `extract` command, and the compiler. (See [Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compiler.md) or [Extract](https://github.com/aymericzip/intlayer/edit/main/docs/docs/en/cli/extract.md) for more information.)
+
+- [Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compiler.md)
 
 ## Single File with Multiple Translations
 
@@ -308,3 +269,5 @@ console.log(JSON.stringify(intlayer, null, 2));
 ### Automatic Translation Generation
 
 Use the [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md) to auto-fill missing translations based on your preferred services.
+
+- [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md)

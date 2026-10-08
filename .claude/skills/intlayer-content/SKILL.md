@@ -32,6 +32,19 @@ const content = t({
 });
 ```
 
+Avoid using `t()` when the content is identical across locales or does not need internationalization:
+
+```typescript
+// Avoid
+myKey: t({
+  en: "Intlayer",
+  fr: "Intlayer",
+});
+
+// Prefer
+myKey: "Intlayer";
+```
+
 Find locales to declare in config file. Supported configuration files:
 
 - `intlayer.config.{ts|js|cjs|mjs|json|json5|jsonc|md|mdx|yml|yaml}`
@@ -210,9 +223,15 @@ const publishStatus = select({
 // Usage: publishStatus(post.status)
 ```
 
-> Prefer `select()` over indexing a plain object (`content.statuses[status]`): dynamic property access prevents the compiler from pruning and minifying the content, and the build warns `Opaque field`.
+> Prefer `select()` over indexing a plain object (`content[status]`): dynamic property access prevents the compiler from pruning and minifying the content.
 
 ### Choosing a node by discriminant
+
+Avoid using syntax like `myLabel={isLoggedIn ? content.welcome : content.goodbye}`.
+Prefer using `cond` instead, like `myLabel={content.welcomeGoodbye(isLoggedIn)}`.
+
+Avoid using syntax like `content[myKey]`.
+Prefer using `select` instead, like `content.selectContent(myKey)`.
 
 | Discriminant             | Node       |
 | ------------------------ | ---------- |
@@ -300,10 +319,11 @@ import {
   enu,
   file,
   gender,
-  insert,
   html,
+  insert,
   md,
   nest,
+  plural,
   select,
   t,
   type Dictionary,
@@ -313,7 +333,7 @@ const content = {
   key: "test",
   title: "Test component content",
   description:
-    "Content declarations for the Test component, including examples of plurals, conditions, gender-specific messages, string-based selections, dynamic insertions, markdown, file-based content and nested dictionaries used for demonstration and testing purposes.",
+    "Content declarations for the Test component, including examples of plurals, conditions, gender-specific messages, string-based selections, dynamic insertions, markdown, html, file-based content and nested dictionaries used for demonstration and testing purposes.",
   content: {
     baseContent: "Intlayer", // Content that no need to be i18n
     welcomeMessage: t({
@@ -348,6 +368,50 @@ const content = {
       published: "my content when the status is published",
       fallback: "my content for any other status", // Optional but avoid undefined type
     }),
+    myMultilingualSelect: select({
+      pending: t({
+        en: "Pending approval",
+        fr: "En attente d’approbation",
+        es: "Pendiente de aprobación",
+      }),
+      approved: t({
+        en: "Approved",
+        fr: "Approuvé",
+        es: "Aprobado",
+      }),
+      rejected: t({
+        en: "Rejeté",
+        fr: "Rejeté",
+        es: "Rechazado",
+      }),
+      fallback: t({
+        en: "Unknown status",
+        fr: "Statut inconnu",
+        es: "Estado desconocido",
+      }),
+    }),
+    myPlural: plural({
+      zero: "No items",
+      one: "{{count}} item",
+      other: "{{count}} items",
+    }),
+    myMultilingualPlural: t({
+      en: plural({
+        zero: "No books",
+        one: "{{count}} book",
+        other: "{{count}} books",
+      }),
+      fr: plural({
+        zero: "Aucun livre",
+        one: "{{count}} livre",
+        other: "{{count}} livres",
+      }),
+      es: plural({
+        zero: "Ningún libro",
+        one: "{{count}} libro",
+        other: "{{count}} libros",
+      }),
+    }),
     myInsertion: insert(
       "Hello, my name is {{name}} and I am {{age}} years old!"
     ),
@@ -363,6 +427,7 @@ const content = {
     subContent: {
       contentNumber: 0,
       contentString: "string",
+      contentBoolean: true,
     },
     fullNested: nest("code"),
     // References a specific nested value:
@@ -397,7 +462,7 @@ const content = {
       },
     },
   },
-  tags: ["test", "test page"],
+  tags: ["test", "test page", "select", "plural"],
 } satisfies Dictionary;
 
 export default content;

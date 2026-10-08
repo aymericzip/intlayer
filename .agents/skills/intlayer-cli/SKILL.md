@@ -33,36 +33,40 @@ npm install intlayer-cli
 | `npx intlayer push`      | Pushes dictionaries to a remote source.                       |
 | `npx intlayer test`      | Runs tests on dictionaries.                                   |
 | `npx intlayer extract`   | Extract content from component to create dictionary.          |
+| `npx intlayer upgrade`   | Upgrades every Intlayer package of the repo to latest.        |
 
 ## References
 
-### Concepts
+- [Website](https://intlayer.org)
+- [Doc](https://intlayer.org/doc)
 
-- [Build](references/concept_cli_build.md)
-- [CLI Overview](https://intlayer.org/doc/concept/cli.md)
-- [Configuration](references/concept_cli_configuration.md)
-- [Debug](references/concept_cli_debug.md)
-- [Doc Review](references/concept_cli_doc-review.md)
-- [Doc Translate](references/concept_cli_doc-translate.md)
-- [Editor](references/concept_cli_editor.md)
-- [Fill](references/concept_cli_fill.md)
-- [Init](references/concept_cli_init.md)
-- [List](references/concept_cli_list.md)
-- [List Projects](references/concept_cli_list-projects.md)
-- [Live](references/concept_cli_live.md)
+### Commands
+
+- [Build Dictionaries](references/concept_cli_build.md)
+- [Manage Configuration](references/concept_cli_configuration.md)
+- [Debug Intlayer Command](references/concept_cli_debug.md)
+- [Review Document](references/concept_cli_doc-review.md)
+- [Translate Document](references/concept_cli_doc-translate.md)
+- [Editor Commands](references/concept_cli_editor.md)
+- [Extract strings](references/concept_cli_extract.md)
+- [Fill Dictionaries](references/concept_cli_fill.md)
+- [CLI Overview](references/concept_cli.md)
+- [Init Infra](references/concept_cli_infra.md)
+- [Initialize Intlayer](references/concept_cli_init.md)
+- [List Content Declaration Files](references/concept_cli_list.md)
+- [List Intlayer Projects](references/concept_cli_list-projects.md)
+- [Live Sync Commands](references/concept_cli_live.md)
 - [Login](references/concept_cli_login.md)
-- [Pull](references/concept_cli_pull.md)
-- [Push](references/concept_cli_push.md)
-- [SDK](references/concept_cli_sdk.md)
-- [Test](references/concept_cli_test.md)
-- [Extract](references/concept_cli_extract.md)
-- [Version](references/concept_cli_version.md)
-- [Watch](references/concept_cli_watch.md)
+- [Pull Dictionaries](references/concept_cli_pull.md)
+- [Push Dictionaries](references/concept_cli_push.md)
+- [Scan Website](references/concept_cli_scan.md)
+- [CLI SDK](references/concept_cli_sdk.md)
+- [Standalone Bundle](references/concept_cli_standalone.md)
+- [Test Missing Translations](references/concept_cli_test.md)
+- [Upgrade Intlayer Packages](references/concept_cli_upgrade.md)
+- [Check CLI Version](references/concept_cli_version.md)
+- [Watch Dictionaries](references/concept_cli_watch.md)
 
 ### Packages
 
-- [Website](https://intlayer.org)
-- [Doc](https://intlayer.org/doc/concept/cli.md)
-
-- [Intlayer CLI](references/packages_intlayer-cli_exports.md)
-- [Intlayer CLI Exports](references/packages_intlayer-cli_exports.md)
+- [intlayer-cli Exports](references/packages_intlayer-cli_exports.md)

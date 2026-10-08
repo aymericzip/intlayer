@@ -1,8 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
+updatedAt: 2026-09-27
+priority: 5
 title: useDictionary Hook Documentation | next-intlayer
-description: See how to use the useDictionary hook for next-intlayer package
+description: "Use useDictionary in Next.js to interpret a dictionary object you declare yourself, with translations resolved for the current locale."
 keywords:
   - useDictionary
   - dictionary
@@ -19,9 +20,13 @@ slugs:
   - next-intlayer
   - useDictionary
 history:
+  - version: 9.4.0
+    date: 2026-08-22
+    changes: "Update to Next.js >= 9.4.0 architecture"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Init history
+    changes: "Init history"
+author: aymericzip
 ---
 
 # React Integration: `useDictionary` Hook Documentation
@@ -93,11 +98,13 @@ const exampleContent = {
 export default exampleContent;
 ```
 
+- [Content Declaration Files (.content.ts)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md)
+
 ## Example Usage in React Client Component
 
 Below is an example of how to use the `useDictionary` hook in a React component:
 
-```tsx fileName="ClientComponentExample.tsx" codeFormat="typescript"
+```tsx fileName="ClientComponentExample.tsx" codeFormat={["typescript", "esm"]}
 "use client";
 
 import type { FC } from "react";
@@ -116,85 +123,16 @@ const ClientComponentExample: FC = () => {
 };
 ```
 
-```javascript fileName="ClientComponentExample.mjs" codeFormat="esm"
-"use client";
-
-import type { FC } from "react";
-import { useDictionary } from "next-intlayer";
-import exampleContent from "./component.content";
-
-const ClientComponentExample: FC = () => {
-  const { title, content } = useDictionary(exampleContent);
-
-  return (
-    <div>
-      <h1>{title}</h1>
-      <p>{content}</p>
-    </div>
-  );
-};
-```
-
-```javascript fileName="ClientComponentExample.cjs" codeFormat="commonjs"
-"use client";
-
-const { useDictionary } = require("next-intlayer");
-const exampleContent = require("./component.content");
-
-const ClientComponentExample = () => {
-  const { title, content } = useDictionary(exampleContent);
-
-  return (
-    <div>
-      <h1>{title}</h1>
-      <p>{content}</p>
-    </div>
-  );
-};
-```
-
 ## Example Usage in React Server Component
 
-If you're using the `useDictionary` hook outside the `IntlayerServerProvider`, the locale must be explicitly provided as a parameter when rendering the component:
+If you're using the `useDictionary` hook outside the `IntlayerProvider` (or `IntlayerServerProvider` for Intlayer < 9.4), the locale must be explicitly provided as a parameter when rendering the component:
 
-```tsx fileName="ServerComponentExample.tsx" codeFormat="typescript"
+```tsx fileName="ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useDictionary } from "next-intlayer/server";
 import clientComponentExampleContent from "./component.content";
 
 const ServerComponentExample: FC = () => {
-  const { content } = useDictionary(clientComponentExampleContent);
-
-  return (
-    <div>
-      <h1>{content.title}</h1>
-      <p>{content.content}</p>
-    </div>
-  );
-};
-```
-
-```javascript fileName="ServerComponentExample.mjs" codeFormat="esm"
-import { useDictionary } from "next-intlayer/server";
-import clientComponentExampleContent from "./component.content";
-
-const ServerComponentExample = () => {
-  const { content } = useDictionary(clientComponentExampleContent);
-
-  return (
-    <div>
-      <h1>{content.title}</h1>
-      <p>{content.content}</p>
-    </div>
-  );
-};
-```
-
-```javascript fileName="ServerComponentExample.cjs" codeFormat="commonjs"
-import { useDictionary } from "next-intlayer/server";
-import clientComponentExampleContent from "./component.content";
-
-const ServerComponentExample = () => {
   const { content } = useDictionary(clientComponentExampleContent);
 
   return (

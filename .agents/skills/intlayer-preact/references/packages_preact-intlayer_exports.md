@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: preact-intlayer Package Documentation
 description: Preact-specific integration for Intlayer, providing providers and hooks for Preact applications.
 keywords:
@@ -14,9 +15,13 @@ slugs:
   - preact-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "Add usePathname utility"
   - version: 8.0.0
     date: 2026-01-21
-    changes: Unified documentation for all exports
+    changes: "Unified documentation for all exports"
+author: aymericzip
 ---
 
 # preact-intlayer Package
@@ -39,12 +44,13 @@ npm install preact-intlayer
 
 ### Hooks
 
-| Hook            | Description                                                                                                       | Related Doc                                                                                            |
-| --------------- | ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| `useIntlayer`   | Based on `useDictionary`, but injects an optimized version of the dictionary from the generated declaration.      | -                                                                                                      |
-| `useDictionary` | Processes objects that look like dictionaries (key, content). It processes `t()` translations, enumerations, etc. | -                                                                                                      |
-| `useLocale`     | Returns the current locale and a function to set it.                                                              | -                                                                                                      |
-| `t`             | Picks content based on the current locale.                                                                        | [translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/translation.md) |
+| Hook            | Description                                                                                                            | Related Doc                                                                                                          |
+| --------------- | ---------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| `useIntlayer`   | Based on `useDictionary`, but injects an optimized version of the dictionary from the generated declaration.           | -                                                                                                                    |
+| `useDictionary` | Processes objects that look like dictionaries (key, content). It processes `t()` translations, enumerations, etc.      | -                                                                                                                    |
+| `useLocale`     | Returns the current locale and a function to set it.                                                                   | -                                                                                                                    |
+| `usePathname`   | Hook that returns the current pathname with the locale segment removed. Reactive to browser navigation via `popstate`. | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/preact-intlayer/usePathname.md) |
+| `t`             | Picks content based on the current locale.                                                                             | [translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/translation.md)               |
 
 ### Components
 

@@ -1,7 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
-title: Extract strings
+updatedAt: 2026-09-27
+priority: 5
+title: "intlayer extract: Extract Strings from Components"
 description: Learn how to extract strings from your components into a .content file close to the component.
 keywords:
   - Extract
@@ -14,12 +15,25 @@ slugs:
   - concept
   - cli
   - extract
+author: aymericzip
 ---
 
 # Extract strings
 
-```bash
+```bash packageManager="npm"
 npx intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
 ```
 
 This command analyzes your code files to extract strings from components into a .content file close to the component. It supports interactive file selection or specific file targeting.

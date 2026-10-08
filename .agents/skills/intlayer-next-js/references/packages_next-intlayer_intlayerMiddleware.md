@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-02-25
+priority: 5
 title: intlayerMiddleware Documentation | next-intlayer
 description: See how to use the intlayerMiddleware function for next-intlayer package
 keywords:
@@ -19,10 +20,11 @@ slugs:
 history:
   - version: 8.1.7
     date: 2026-02-25
-    changes: Rename intlayerMiddleware to intlayerProxy
+    changes: "Rename intlayerMiddleware to intlayerProxy"
   - version: 8.0.0
     date: 2026-01-21
-    changes: Init doc
+    changes: "Init doc"
+author: aymericzip
 ---
 
 # intlayerProxy (intlayerMiddleware) Documentation
@@ -71,3 +73,5 @@ The function takes the standard Next.js `NextRequest` as a parameter when used d
 ## Configuration
 
 To configure the middleware, you can set up the `routing` option in the `intlayer.config.ts` file. See [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md) for more details.
+
+- [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)

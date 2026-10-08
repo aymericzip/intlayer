@@ -1,8 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-09-27
+priority: 5
 title: useIntlayer Hook Documentation | react-intlayer
-description: See how to use the useIntlayer hook for react-intlayer package
+description: "Use useIntlayer in React to read a dictionary's localized content by key, typed from your content declaration files."
 keywords:
   - useIntlayer
   - dictionary
@@ -18,7 +19,8 @@ slugs:
 history:
   - version: 7.5.14
     date: 2026-01-21
-    changes: Unified documentation for all exports
+    changes: "Unified documentation for all exports"
+author: aymericzip
 ---
 
 # useIntlayer Hook Documentation
