@@ -44,6 +44,7 @@
         "@intlayer/design-system": "workspace:*",
         "@intlayer/dictionaries-entry": "workspace:*",
         "@intlayer/docs": "workspace:*",
+        "@intlayer/editor": "workspace:*",
         "@intlayer/editor-react": "workspace:*",
         "@intlayer/types": "workspace:*",
         "@monaco-editor/react": "4.7.0",
