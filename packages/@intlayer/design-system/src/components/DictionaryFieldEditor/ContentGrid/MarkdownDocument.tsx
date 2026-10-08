@@ -131,9 +131,7 @@ export const MarkdownDocument: FC = () => {
                     type="button"
                     data-active={cellKey === activeCellKey}
                     onClick={() => setSelectedCellKey(cellKey)}
-                    title={
-                      isMissing ? content.missing.value : content.complete.value
-                    }
+                    title={content.completionStatus(isMissing).value}
                     className="flex cursor-pointer items-center gap-1.5 whitespace-nowrap rounded-md px-3 py-1 font-mono text-sm"
                   >
                     <span

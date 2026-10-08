@@ -1,4 +1,4 @@
-import { type Dictionary, t } from 'intlayer';
+import { cond, type Dictionary, t } from 'intlayer';
 
 const bookingModalContent = {
   key: 'booking-modal',
@@ -172,6 +172,48 @@ const bookingModalContent = {
       uk: 'Опишіть проект, тон, особливі вимоги...',
     }),
 
+    sendButton: cond({
+      true: t({
+        en: 'Sending...',
+        fr: 'Envoi en cours...',
+        es: 'Enviando...',
+        'en-GB': 'Sending...',
+        de: 'Senden...',
+        ja: '送信中...',
+        ko: '전송 중...',
+        zh: '发送中...',
+        it: 'Invio in corso...',
+        pt: 'Enviando...',
+        hi: 'भेज रहा है...',
+        ar: 'جارٍ الإرسال...',
+        ru: 'Отправка...',
+        tr: 'Gönderiliyor...',
+        pl: 'Wysyłanie...',
+        id: 'Mengirim...',
+        vi: 'Đang gửi...',
+        uk: 'Надсилання...',
+      }),
+      false: t({
+        en: 'Send request',
+        fr: 'Envoyer la demande',
+        es: 'Enviar solicitud',
+        'en-GB': 'Send request',
+        de: 'Anfrage senden',
+        ja: 'リクエストを送る',
+        ko: '요청 보내기',
+        zh: '发送请求',
+        it: 'Invia richiesta',
+        pt: 'Enviar solicitação',
+        hi: 'अनुरोध भेजें',
+        ar: 'إرسال الطلب',
+        ru: 'Отправить запрос',
+        tr: 'İstek gönder',
+        pl: 'Wyślij zgłoszenie',
+        id: 'Kirim permintaan',
+        vi: 'Gửi yêu cầu',
+        uk: 'Надіслати запит',
+      }),
+    }),
     sendRequest: t({
       en: 'Send request',
       fr: 'Envoyer la demande',

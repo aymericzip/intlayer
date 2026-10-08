@@ -87,9 +87,7 @@ export const AISelector = ({
               value={inputValue}
               onValueChange={setInputValue}
               autoFocus
-              placeholder={
-                hasCompletion ? content.tellAI.value : content.askAIToEdit.value
-              }
+              placeholder={content.inputPlaceholder(hasCompletion).value}
               onFocus={() => addAIHighlight(editor)}
             />
             <Button

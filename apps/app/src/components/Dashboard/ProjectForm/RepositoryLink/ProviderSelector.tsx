@@ -103,16 +103,10 @@ export const ProviderSelector: FC<ProviderSelectorProps> = ({
         size="sm"
         Icon={isShowingAllProviders ? ChevronUp : ChevronDown}
         className="mx-auto"
-        label={
-          isShowingAllProviders
-            ? content.seeLessOptions.value
-            : content.seeMoreOptions.value
-        }
+        label={content.seeMoreOptions(isShowingAllProviders).value}
         onClick={() => setIsShowingAllProviders((prev) => !prev)}
       >
-        {isShowingAllProviders
-          ? content.seeLessOptions
-          : content.seeMoreOptions}
+        {content.seeMoreOptions(isShowingAllProviders)}
       </Button>
     </div>
   );

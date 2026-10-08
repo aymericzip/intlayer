@@ -81,7 +81,7 @@ export const TranslationStatusBar: FC = () => {
       {/* Label + current dictionaries */}
       <span className="flex min-w-0 flex-1 items-baseline gap-2">
         <span className="shrink-0 font-medium text-text text-xs">
-          {isPaused ? content.translationPaused : content.translating}
+          {content.statusText(isPaused)}
         </span>
         {displayedTasks.length > 0 && (
           <span className="truncate font-mono text-neutral-500 text-xs">

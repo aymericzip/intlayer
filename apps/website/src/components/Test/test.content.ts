@@ -4,9 +4,12 @@ import {
   enu,
   file,
   gender,
+  html,
   insert,
   md,
   nest,
+  plural,
+  select,
   t,
 } from 'intlayer';
 
@@ -14,8 +17,9 @@ const content = {
   key: 'test',
   title: 'Test component content',
   description:
-    'Content declarations for the Test component, including examples of plurals, conditions, gender-specific messages, dynamic insertions, markdown, file-based content and nested dictionaries used for demonstration and testing purposes.',
+    'Content declarations for the Test component, including examples of plurals, conditions, gender-specific messages, string-based selections, dynamic insertions, markdown, html, file-based content and nested dictionaries used for demonstration and testing purposes.',
   content: {
+    baseContent: 'Intlayer',
     welcomeMessage: t({
       en: 'Welcome to our application',
       'en-GB': 'Welcome to our application',
@@ -55,6 +59,56 @@ const content = {
       female: 'my content for female users',
       fallback: 'my content when gender is not specified', // Optional
     }),
+    mySelect: select({
+      draft: 'my content when the status is draft',
+      published: 'my content when the status is published',
+      archived: 'my content when the status is archived',
+      fallback: 'my content for any other status', // Optional
+    }),
+    myMultilingualSelect: select({
+      pending: t({
+        en: 'Pending approval',
+        fr: 'En attente d’approbation',
+        es: 'Pendiente de aprobación',
+      }),
+      approved: t({
+        en: 'Approved',
+        fr: 'Approuvé',
+        es: 'Aprobado',
+      }),
+      rejected: t({
+        en: 'Rejected',
+        fr: 'Rejeté',
+        es: 'Rechazado',
+      }),
+      fallback: t({
+        en: 'Unknown status',
+        fr: 'Statut inconnu',
+        es: 'Estado desconocido',
+      }),
+    }),
+    myPlural: plural({
+      zero: 'No items',
+      one: '{{count}} item',
+      other: '{{count}} items',
+    }),
+    myMultilingualPlural: t({
+      en: plural({
+        zero: 'No books',
+        one: '{{count}} book',
+        other: '{{count}} books',
+      }),
+      fr: plural({
+        zero: 'Aucun livre',
+        one: '{{count}} livre',
+        other: '{{count}} livres',
+      }),
+      es: plural({
+        zero: 'Ningún libro',
+        one: '{{count}} libro',
+        other: '{{count}} libros',
+      }),
+    }),
     myInsertion: insert(
       'Hello, my name is {{name}} and I am {{age}} years old!'
     ),
@@ -84,12 +138,21 @@ const content = {
     subContent: {
       contentNumber: 0,
       contentString: 'string',
+      contentBoolean: true,
     },
     fullNestedContent: nest('code'),
     // References a specific nested value:
     partialNestedContent: nest('code', 'title') as any,
     myMarkdownContent: md('## My title \n\nLorem Ipsum'),
     myMarkdownFileContent: md(file('./test.md')),
+    myHtmlContent: html(
+      '<h3>HTML content title</h3><p>This is <strong>HTML</strong> content example.</p>'
+    ),
+    myMultilingualHtml: t({
+      en: html('<p><strong>English</strong> HTML content</p>'),
+      fr: html('<p>Contenu HTML en <strong>français</strong></p>'),
+      es: html('<p>Contenido HTML en <strong>español</strong></p>'),
+    }),
     contentMultilingual: t({
       en: md('## test en'),
       fr: md('## test fr'),
@@ -131,7 +194,7 @@ const content = {
       },
     },
   },
-  tags: ['test', 'component content', 'developer example'],
+  tags: ['test', 'component content', 'developer example', 'select', 'plural'],
 } satisfies Dictionary;
 
 export default content;

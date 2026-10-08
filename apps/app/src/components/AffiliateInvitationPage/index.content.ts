@@ -1,4 +1,4 @@
-import { type Dictionary, t } from 'intlayer';
+import { cond, type Dictionary, t } from 'intlayer';
 
 const affiliateInvitationPageContent = {
   key: 'affiliate-invitation-page',
@@ -598,6 +598,48 @@ const affiliateInvitationPageContent = {
       'en-GB': 'Start sharing while your account is being verified.',
     }),
 
+    copyLinkButton: cond({
+      true: t({
+        en: 'Copied!',
+        fr: 'Copié !',
+        de: 'Kopiert!',
+        es: '¡Copiado!',
+        it: 'Copiato!',
+        ja: 'コピーしました！',
+        ko: '복사됨!',
+        zh: '已复制！',
+        ru: 'Скопировано!',
+        ar: 'تم النسخ!',
+        pt: 'Copiado!',
+        hi: 'कॉपी हो गया!',
+        tr: 'Kopyalandı!',
+        pl: 'Skopiowano!',
+        id: 'Disalin!',
+        vi: 'Đã sao chép!',
+        uk: 'Скопійовано!',
+        'en-GB': 'Copied!',
+      }),
+      false: t({
+        en: 'Copy link',
+        fr: 'Copier le lien',
+        de: 'Link kopieren',
+        es: 'Copiar enlace',
+        it: 'Copia il link',
+        ja: 'リンクをコピー',
+        ko: '링크 복사',
+        zh: '复制链接',
+        ru: 'Скопировать ссылку',
+        ar: 'نسخ الرابط',
+        pt: 'Copiar link',
+        hi: 'लिंक कॉपी करें',
+        tr: 'Bağlantıyı kopyala',
+        pl: 'Skopiuj link',
+        id: 'Salin tautan',
+        vi: 'Sao chép liên kết',
+        uk: 'Скопіювати посилання',
+        'en-GB': 'Copy link',
+      }),
+    }),
     copyLink: t({
       en: 'Copy link',
       fr: 'Copier le lien',

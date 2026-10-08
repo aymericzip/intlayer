@@ -289,13 +289,13 @@ const AffiliateInvitationPending: FC<AffiliateInvitationPendingProps> = ({
                 {referralLink}
               </code>
               <Button
-                label={content.copyLink.value}
+                label={content.copyLinkButton(copied).value}
                 onClick={handleCopy}
                 color="text"
                 size="sm"
                 className="shrink-0"
               >
-                {copied ? content.linkCopied : content.copyLink}
+                {content.copyLinkButton(copied)}
               </Button>
             </div>
           </div>

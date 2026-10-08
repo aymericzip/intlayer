@@ -1,9 +1,51 @@
-import { type Dictionary, t } from 'intlayer';
+import { cond, type Dictionary, t } from 'intlayer';
 
 const translationStatusBarContent = {
   key: 'translation-status-bar',
 
   content: {
+    statusText: cond({
+      true: t({
+        en: 'Translation paused',
+        fr: 'Traduction en pause',
+        es: 'Traducción en pausa',
+        ru: 'Перевод приостановлен',
+        ja: '翻訳一時停止中',
+        ko: '번역 일시 정지됨',
+        zh: '翻译已暂停',
+        de: 'Übersetzung pausiert',
+        ar: 'الترجمة متوقفة مؤقتًا',
+        it: 'Traduzione in pausa',
+        'en-GB': 'Translation paused',
+        pt: 'Tradução pausada',
+        hi: 'अनुवाद रोका गया',
+        tr: 'Çeviri duraklatıldı',
+        pl: 'Tłumaczenie wstrzymane',
+        id: 'Terjemahan dijeda',
+        vi: 'Đã tạm dừng dịch',
+        uk: 'Переклад призупинено',
+      }),
+      false: t({
+        en: 'Translating…',
+        fr: 'Traduction en cours…',
+        es: 'Traduciendo…',
+        ru: 'Перевод…',
+        ja: '翻訳中…',
+        ko: '번역 중…',
+        zh: '翻译中…',
+        de: 'Übersetzen…',
+        ar: 'جارٍ الترجمة…',
+        it: 'Traduzione in corso…',
+        'en-GB': 'Translating…',
+        pt: 'Traduzindo…',
+        hi: 'अनुवाद हो रहा है…',
+        tr: 'Çevriliyor…',
+        pl: 'Tłumaczenie…',
+        id: 'Menerjemahkan…',
+        vi: 'Đang dịch…',
+        uk: 'Переклад…',
+      }),
+    }),
     translating: t({
       en: 'Translating…',
       fr: 'Traduction en cours…',

@@ -325,7 +325,7 @@ export const BookingModal: FC<BookingModalProps> = ({
         </div>
 
         <Button
-          label={sending ? content.sending.value : content.sendRequest.value}
+          label={content.sendButton(sending).value}
           disabled={
             sending ||
             (isTranslation && (!sourceLocale || targetLocales.length === 0))
@@ -334,7 +334,7 @@ export const BookingModal: FC<BookingModalProps> = ({
           onClick={handleSend}
           isFullWidth
         >
-          {sending ? content.sending : content.sendRequest}
+          {content.sendButton(sending)}
         </Button>
       </div>
     </Modal>

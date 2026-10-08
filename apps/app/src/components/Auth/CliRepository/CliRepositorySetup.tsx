@@ -97,12 +97,10 @@ export const CliRepositorySetup: FC<CliRepositorySetupProps> = ({
           variant={isRepositoryConnected ? 'default' : 'outline'}
           Icon={Check}
           isFullWidth={false}
-          label={
-            isRepositoryConnected ? content.finish.value : content.skip.value
-          }
+          label={content.finish(isRepositoryConnected).value}
           onClick={onFinish}
         >
-          {isRepositoryConnected ? content.finish : content.skip}
+          {content.finish(isRepositoryConnected)}
         </Button>
       </div>
     </div>
