@@ -1,13 +1,23 @@
-import { useSession } from '@intlayer/design-system/api';
+import { usePushDictionaries, useSession } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { Checkbox, SearchInput } from '@intlayer/design-system/input';
 import { PopoverStatic } from '@intlayer/design-system/popover';
-import type { Dictionary } from '@intlayer/types/dictionary';
-import { Blend, Columns, Filter, Plus, Trash2 } from 'lucide-react';
-import type { FC } from 'react';
+import {
+  type DictionaryContent,
+  type EditorStateManager,
+  getGlobalEditorManager,
+  onGlobalEditorManagerChange,
+} from '@intlayer/editor';
+import type { Dictionary, LocalDictionaryId } from '@intlayer/types/dictionary';
+import { Blend, Columns, Filter, Plus, Trash2, Upload } from 'lucide-react';
+import { type FC, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useIntlayer } from 'react-intlayer';
+import {
+  DashboardRightPanelId,
+  useDashboardRightPanel,
+} from '#hooks/useDashboardRightPanel';
 import type { DataTableInstance } from '#utils/reactTable';
 import type { useDictionaryDashboard } from './useDictionaryDashboard';
 
@@ -29,6 +39,95 @@ export const DictionaryToolbar: FC<DictionaryToolbarProps> = ({
     false;
 
   const { register } = useForm({ defaultValues: { search: params.search } });
+
+  const { isOpen: checkIsOpen } = useDashboardRightPanel();
+  const isEditorSidebarOpen = checkIsOpen(DashboardRightPanelId.VisualEditor);
+
+  const [editorManager, setEditorManager] = useState<EditorStateManager | null>(
+    () => getGlobalEditorManager()
+  );
+  const [unmergedDictionaries, setUnmergedDictionaries] = useState<
+    Dictionary[]
+  >(() => {
+    const mgr = getGlobalEditorManager();
+    return mgr?.localeDictionaries.value
+      ? (Object.values(mgr.localeDictionaries.value) as unknown as Dictionary[])
+      : [];
+  });
+
+  const { mutateAsync: pushDictionaries, isPending: isPushing } =
+    usePushDictionaries();
+
+  useEffect(() => {
+    const updateFromManager = (mgr: EditorStateManager | null) => {
+      setEditorManager(mgr);
+      setUnmergedDictionaries(
+        mgr?.localeDictionaries.value
+          ? (Object.values(
+              mgr.localeDictionaries.value
+            ) as unknown as Dictionary[])
+          : []
+      );
+    };
+
+    updateFromManager(getGlobalEditorManager());
+
+    return onGlobalEditorManagerChange(updateFromManager);
+  }, []);
+
+  useEffect(() => {
+    if (!editorManager) return;
+
+    const handleDictionariesChange = (e: Event) => {
+      const detail = (e as CustomEvent<DictionaryContent>).detail;
+      setUnmergedDictionaries(
+        detail ? (Object.values(detail) as unknown as Dictionary[]) : []
+      );
+    };
+
+    editorManager.localeDictionaries.addEventListener(
+      'change',
+      handleDictionariesChange
+    );
+
+    return () => {
+      editorManager.localeDictionaries.removeEventListener(
+        'change',
+        handleDictionariesChange
+      );
+    };
+  }, [editorManager]);
+
+  const hasLoadedDictionaries = unmergedDictionaries.length > 0;
+  const isPushUnmergedVisible = isEditorSidebarOpen && hasLoadedDictionaries;
+
+  const handlePushUnmergedDictionaries = async () => {
+    if (!unmergedDictionaries.length) return;
+
+    try {
+      const dictionariesToPush = unmergedDictionaries.map((dictionary) => {
+        const edited =
+          editorManager?.editedContent.value?.[
+            dictionary.localId as LocalDictionaryId
+          ];
+        return edited
+          ? ({ ...dictionary, ...edited } as Dictionary)
+          : dictionary;
+      });
+
+      await pushDictionaries({
+        dictionaries: dictionariesToPush,
+      });
+
+      if (editorManager) {
+        editorManager.editedContent.set({});
+      }
+
+      dashboard.actions.refetch();
+    } catch {
+      // Error toasts are handled globally by ReactQueryProvider
+    }
+  };
 
   const selectedCount = Object.keys(state.rowSelection).length;
 
@@ -152,8 +251,9 @@ export const DictionaryToolbar: FC<DictionaryToolbarProps> = ({
               disabled={!hasDictionaryWritePermission}
               onClick={() => state.setIsMergeModalOpen(true)}
             >
-              {content.mergeDuplicatesButton.text} (
-              {dashboard.data.duplicatePairs.length})
+              {content.mergeDuplicatesButton.text({
+                count: dashboard.data.duplicatePairs.length,
+              })}
             </Button>
             <PopoverStatic.Detail
               xAlign="end"
@@ -161,6 +261,31 @@ export const DictionaryToolbar: FC<DictionaryToolbarProps> = ({
             >
               <Container className="p-3">
                 <p>{content.mergeDuplicatesButton.popover}</p>
+              </Container>
+            </PopoverStatic.Detail>
+          </PopoverStatic>
+        )}
+
+        {isPushUnmergedVisible && (
+          <PopoverStatic identifier="push-dictionaries-toolbar">
+            <Button
+              Icon={Upload}
+              color="text"
+              variant="outline"
+              label={content.pushUnmergedDictionariesButton.label.value}
+              disabled={!hasDictionaryWritePermission || isPushing}
+              isLoading={isPushing}
+              onClick={handlePushUnmergedDictionaries}
+            >
+              {content.pushUnmergedDictionariesButton.text} (
+              {unmergedDictionaries.length})
+            </Button>
+            <PopoverStatic.Detail
+              xAlign="end"
+              identifier="push-dictionaries-toolbar"
+            >
+              <Container className="p-3">
+                <p>{content.pushUnmergedDictionariesButton.popover}</p>
               </Container>
             </PopoverStatic.Detail>
           </PopoverStatic>
