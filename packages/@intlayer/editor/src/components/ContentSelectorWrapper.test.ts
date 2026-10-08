@@ -303,3 +303,96 @@ describe('IntlayerContentSelectorWrapperElement with several matching wrappers',
     expect(window.scrollBy).not.toHaveBeenCalled();
   });
 });
+
+describe('IntlayerContentSelectorWrapperElement click outside', () => {
+  beforeEach(() => {
+    vi.spyOn(window, 'top', 'get').mockReturnValue({} as Window);
+    defineIntlayerElements();
+  });
+
+  afterEach(() => {
+    document.body.innerHTML = '';
+    setGlobalEditorManager(null);
+    vi.restoreAllMocks();
+  });
+
+  it('deselects focused content when clicking outside', async () => {
+    const focusedContent = Object.assign(new EventTarget(), {
+      value: { dictionaryKey: 'home', keyPath: KEY_PATH } as FileContent | null,
+      set: vi.fn(function (this: any, val: FileContent | null) {
+        this.value = val;
+        this.dispatchEvent(new CustomEvent('change', { detail: val }));
+      }),
+    });
+
+    setGlobalEditorManager({
+      editorEnabled: createStateMock(true),
+      focusedContent,
+      editedContent: createStateMock({}),
+      currentLocale: createStateMock(undefined),
+      getContentValue: () => undefined,
+    } as unknown as EditorStateManager);
+
+    const wrapper = document.createElement('intlayer-content-selector-wrapper');
+    wrapper.setAttribute('dictionary-key', 'home');
+    wrapper.setAttribute('key-path', JSON.stringify(KEY_PATH));
+    document.body.appendChild(wrapper);
+
+    const selector = wrapper.shadowRoot?.querySelector(
+      'intlayer-content-selector'
+    );
+    expect(selector?.hasAttribute('is-selecting')).toBe(true);
+
+    // Simulate clicking outside by dispatching mousedown on document
+    document.dispatchEvent(new MouseEvent('mousedown', { bubbles: true }));
+
+    expect(focusedContent.set).toHaveBeenCalledWith(null);
+    expect(selector?.hasAttribute('is-selecting')).toBe(false);
+  });
+
+  it('does not deselect when clicking another instance of the same content', async () => {
+    const focusedContent = Object.assign(new EventTarget(), {
+      value: { dictionaryKey: 'home', keyPath: KEY_PATH } as FileContent | null,
+      set: vi.fn(function (this: any, val: FileContent | null) {
+        this.value = val;
+        this.dispatchEvent(new CustomEvent('change', { detail: val }));
+      }),
+    });
+
+    setGlobalEditorManager({
+      editorEnabled: createStateMock(true),
+      focusedContent,
+      editedContent: createStateMock({}),
+      currentLocale: createStateMock(undefined),
+      getContentValue: () => undefined,
+    } as unknown as EditorStateManager);
+
+    const wrapper1 = document.createElement(
+      'intlayer-content-selector-wrapper'
+    );
+    wrapper1.setAttribute('dictionary-key', 'home');
+    wrapper1.setAttribute('key-path', JSON.stringify(KEY_PATH));
+    document.body.appendChild(wrapper1);
+
+    const wrapper2 = document.createElement(
+      'intlayer-content-selector-wrapper'
+    );
+    wrapper2.setAttribute('dictionary-key', 'home');
+    wrapper2.setAttribute('key-path', JSON.stringify(KEY_PATH));
+    const span2 = document.createElement('span');
+    span2.textContent = 'Second instance';
+    wrapper2.appendChild(span2);
+    document.body.appendChild(wrapper2);
+
+    const selector1 = wrapper1.shadowRoot?.querySelector(
+      'intlayer-content-selector'
+    );
+    expect(selector1?.hasAttribute('is-selecting')).toBe(true);
+
+    // Click on span2 inside wrapper2
+    span2.dispatchEvent(new MouseEvent('mousedown', { bubbles: true }));
+
+    expect(focusedContent.set).not.toHaveBeenCalledWith(null);
+    expect(selector1?.hasAttribute('is-selecting')).toBe(true);
+  });
+});

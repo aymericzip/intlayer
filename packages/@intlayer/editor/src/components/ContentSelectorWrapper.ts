@@ -146,6 +146,14 @@ export class IntlayerContentSelectorWrapperElement extends _HTMLElement {
     return ['key-path', 'dictionary-key'];
   }
 
+  get dictionaryKey(): string {
+    return this._dictionaryKey;
+  }
+
+  get filteredKeyPath(): KeyPath[] {
+    return this._getFilteredKeyPath();
+  }
+
   constructor() {
     super();
     const shadow = this.attachShadow({ mode: 'open' });
@@ -406,6 +414,39 @@ export class IntlayerContentSelectorWrapperElement extends _HTMLElement {
     );
   }
 
+  private _handleClickOutside(e: Event): void {
+    e.stopPropagation();
+    if (e.target !== this._selector) return;
+    if (!this._isSelected) return;
+
+    const customEvent = e as CustomEvent<{ originalEvent?: Event }>;
+    const originalEvent = customEvent.detail?.originalEvent;
+    if (originalEvent) {
+      const path = originalEvent.composedPath();
+      const isClickedOnSameContent = path.some((target) => {
+        if (
+          target instanceof HTMLElement &&
+          target.tagName === 'INTLAYER-CONTENT-SELECTOR-WRAPPER'
+        ) {
+          const wrapper = target as IntlayerContentSelectorWrapperElement;
+          return (
+            wrapper.dictionaryKey === this._dictionaryKey &&
+            isSameKeyPath(wrapper.filteredKeyPath, this._getFilteredKeyPath())
+          );
+        }
+        return false;
+      });
+      if (isClickedOnSameContent) {
+        this._selector?.setAttribute('is-selecting', '');
+        return;
+      }
+    }
+
+    const manager = getGlobalEditorManager();
+    if (!manager) return;
+    manager.focusedContent.set(null);
+  }
+
   private _render(): void {
     const useWrapper = this._isInIframe && this._editorEnabled;
     const editedValue = this._editedValue;
@@ -455,6 +496,9 @@ export class IntlayerContentSelectorWrapperElement extends _HTMLElement {
       selector.addEventListener('intlayer:hover', (e) => this._handleHover(e));
       selector.addEventListener('intlayer:unhover', (e) =>
         this._handleUnhover(e)
+      );
+      selector.addEventListener('intlayer:click-outside', (e) =>
+        this._handleClickOutside(e)
       );
 
       if (state === 'wrapped-text') {

@@ -58,7 +58,7 @@ export class IntlayerContentSelectorElement extends _HTMLElement {
   private _isSelectingState = false;
   private _wrapper: HTMLSpanElement;
   private _pressTimer: ReturnType<typeof setTimeout> | null = null;
-  private _clickOutsideHandler: ((e: MouseEvent) => void) | null = null;
+  private _clickOutsideHandler: ((e: Event) => void) | null = null;
 
   static get observedAttributes(): string[] {
     return ['is-selecting', 'press-duration'];
@@ -121,20 +121,27 @@ export class IntlayerContentSelectorElement extends _HTMLElement {
   }
 
   connectedCallback(): void {
-    this._clickOutsideHandler = (e: MouseEvent) => {
+    this._clickOutsideHandler = (e: Event) => {
+      if (!this._isSelecting && !this._isSelectingState) return;
+
       // composedPath() pierces shadow boundaries
       if (!e.composedPath().includes(this)) {
+        this._clearPressTimer();
         this._isSelectingState = false;
-        this._dispatch('intlayer:click-outside');
+        this._isSelecting = false;
+        this.removeAttribute('is-selecting');
+        this._dispatch('intlayer:click-outside', { originalEvent: e });
         this._updateActiveState();
       }
     };
     document.addEventListener('mousedown', this._clickOutsideHandler);
+    document.addEventListener('touchstart', this._clickOutsideHandler);
   }
 
   disconnectedCallback(): void {
     if (this._clickOutsideHandler) {
       document.removeEventListener('mousedown', this._clickOutsideHandler);
+      document.removeEventListener('touchstart', this._clickOutsideHandler);
       this._clickOutsideHandler = null;
     }
     this._clearPressTimer();
@@ -157,9 +164,9 @@ export class IntlayerContentSelectorElement extends _HTMLElement {
     }
   }
 
-  private _dispatch(eventName: string): void {
+  private _dispatch(eventName: string, detail?: unknown): void {
     this.dispatchEvent(
-      new CustomEvent(eventName, { bubbles: true, composed: true })
+      new CustomEvent(eventName, { detail, bubbles: true, composed: true })
     );
   }
 

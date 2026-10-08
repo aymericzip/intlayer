@@ -129,4 +129,102 @@ describe('intlayer-content-selector click selection', () => {
 
     expect(pressedSelectors.map((selector) => selector.id)).toEqual(['inner']);
   });
+
+  it('focuses an element on long press and deselects on click outside', () => {
+    vi.useFakeTimers();
+    try {
+      const pressedSelectors = renderContent(
+        '<intlayer-content-selector id="selector"><span id="text">Long press me</span></intlayer-content-selector>'
+      );
+      const selector = getElement('#selector');
+      const innerWrapper = selector.shadowRoot?.querySelector('.wrapper');
+      let clickOutsideFired = false;
+
+      selector.addEventListener('intlayer:click-outside', () => {
+        clickOutsideFired = true;
+      });
+
+      // Start long press
+      innerWrapper?.dispatchEvent(
+        new MouseEvent('mousedown', { bubbles: true })
+      );
+      expect(pressedSelectors).toHaveLength(0);
+
+      // Advance timers to trigger long press
+      vi.advanceTimersByTime(250);
+
+      expect(pressedSelectors).toHaveLength(1);
+      expect(innerWrapper?.hasAttribute('data-active')).toBe(true);
+
+      // Click outside
+      document.dispatchEvent(new MouseEvent('mousedown', { bubbles: true }));
+
+      expect(clickOutsideFired).toBe(true);
+      expect(innerWrapper?.hasAttribute('data-active')).toBe(false);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  it('deselects on touchstart outside', () => {
+    vi.useFakeTimers();
+    try {
+      renderContent(
+        '<intlayer-content-selector id="selector"><span id="text">Touch me</span></intlayer-content-selector>'
+      );
+      const selector = getElement('#selector');
+      const innerWrapper = selector.shadowRoot?.querySelector('.wrapper');
+      let clickOutsideFired = false;
+
+      selector.addEventListener('intlayer:click-outside', () => {
+        clickOutsideFired = true;
+      });
+
+      // Start touch long press
+      innerWrapper?.dispatchEvent(new Event('touchstart', { bubbles: true }));
+      vi.advanceTimersByTime(250);
+
+      expect(innerWrapper?.hasAttribute('data-active')).toBe(true);
+
+      // Touch outside
+      document.dispatchEvent(new Event('touchstart', { bubbles: true }));
+
+      expect(clickOutsideFired).toBe(true);
+      expect(innerWrapper?.hasAttribute('data-active')).toBe(false);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  it('does not deselect when clicking inside the selected element', () => {
+    vi.useFakeTimers();
+    try {
+      renderContent(
+        '<intlayer-content-selector id="selector"><span id="text">Click inside</span></intlayer-content-selector>'
+      );
+      const selector = getElement('#selector');
+      const innerWrapper = selector.shadowRoot?.querySelector('.wrapper');
+      let clickOutsideFired = false;
+
+      selector.addEventListener('intlayer:click-outside', () => {
+        clickOutsideFired = true;
+      });
+
+      innerWrapper?.dispatchEvent(
+        new MouseEvent('mousedown', { bubbles: true })
+      );
+      vi.advanceTimersByTime(250);
+      expect(innerWrapper?.hasAttribute('data-active')).toBe(true);
+
+      // Click inside
+      innerWrapper?.dispatchEvent(
+        new MouseEvent('mousedown', { bubbles: true })
+      );
+
+      expect(clickOutsideFired).toBe(false);
+      expect(innerWrapper?.hasAttribute('data-active')).toBe(true);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
 });
