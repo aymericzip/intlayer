@@ -114,7 +114,7 @@ export const MarkdownDocument: FC = () => {
     setCellValue(row, activeCellKey, `${frontMatterBlock}${value}`);
 
   return (
-    <div className="@container flex w-full flex-col gap-4">
+    <div className="flex w-full flex-col gap-4">
       <div className="flex flex-wrap items-center justify-between gap-3">
         {row.isLocalized ? (
           <div className="min-w-0 overflow-x-auto">
