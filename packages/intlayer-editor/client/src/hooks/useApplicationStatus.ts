@@ -44,10 +44,9 @@ export const useApplicationStatus = (applicationURL: string | undefined) => {
     queryFn: () => probeApplication(applicationURL!),
     enabled: Boolean(applicationURL),
     retry: false,
-    staleTime: Number.POSITIVE_INFINITY,
-    refetchOnWindowFocus: false,
-    refetchInterval: (query) =>
-      query.state.data?.isRunning === false ? RETRY_INTERVAL_MS : false,
+    staleTime: 0,
+    refetchOnWindowFocus: true,
+    refetchInterval: RETRY_INTERVAL_MS,
   });
 
   return {
