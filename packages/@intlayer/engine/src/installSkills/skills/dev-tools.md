@@ -1,6 +1,6 @@
 ---
 name: intlayer-dev-tools
-description: Sets up Intlayer developer tooling - ESLint / oxlint rules, the Language Server (LSP), the VS Code extension, the MCP server, CI/CD automation and the Chrome extension. Use when the user asks to "lint hardcoded strings", "setup Go-to-Definition for dictionary keys", "install the Intlayer MCP", or "automate translations in CI".
+description: Sets up Intlayer developer tooling - ESLint / oxlint rules, the Language Server (LSP), the VS Code extension, the MCP server, CI/CD automation, the Chrome extension and the Vue Devtools panel. Use when the user asks to "lint hardcoded strings", "setup Go-to-Definition for dictionary keys", "install the Intlayer MCP", or "automate translations in CI".
 metadata:
   author: Intlayer
   url: https://intlayer.org
@@ -69,6 +69,12 @@ npx intlayer test
 
 Inspect the i18n setup of any website: framework, i18n library, locales, hreflang and SEO tags. `npx intlayer init extension --browser chrome` opens its store page.
 
+## Vue Devtools
+
+`vue-intlayer` registers an **Intlayer** panel in [Vue Devtools](https://devtools.vuejs.org/) out of the box, nothing to configure. Open the **Vue** tab of the Chrome DevTools and select **Intlayer** to inspect dictionaries and their per-locale translations, or switch the app's current locale.
+
+When the [visual editor](https://intlayer.org/doc/concept/editor.md) is set up, plain-text translations can also be edited from the panel: edits are written back to the content declaration files and hot-reloaded. Without it, the panel is read-only.
+
 ## References
 
 - [Website](https://intlayer.org)
@@ -82,3 +88,4 @@ Inspect the i18n setup of any website: framework, i18n library, locales, hreflan
 - [MCP Server](https://intlayer.org/doc/mcp-server.md)
 - [CI/CD](https://intlayer.org/doc/concept/ci-cd.md)
 - [Chrome Extension](https://intlayer.org/doc/chrome-extension.md)
+- [Vue Devtools](https://intlayer.org/doc/environment/vite-and-vue.md)
