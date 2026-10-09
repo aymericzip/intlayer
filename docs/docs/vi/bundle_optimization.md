@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-25
-updatedAt: 2026-09-16
+updatedAt: 2026-10-09
 priority: 8
 title: Tối ưu hóa dung lượng Bundle & Hiệu suất i18n
 description: Giảm dung lượng bundle của ứng dụng bằng cách tối ưu hóa nội dung quốc tế hóa (i18n). Tìm hiểu cách tận dụng tree shaking và tải 지연 (lazy loading) cho các từ điển với Intlayer.
@@ -36,17 +36,29 @@ author: aymericzip
 
 Một trong những thách thức phổ biến nhất với các giải pháp i18n truyền thống dựa trên file JSON là quản lý dung lượng nội dung. Nếu lập trình viên không tự tay phân tách nội dung vào các namespace một cách hợp lý, người dùng cuối thường phải tải về toàn bộ bản dịch cho tất cả các trang và có thể là cả tất cả các ngôn ngữ chỉ để xem một trang duy nhất.
 
-Ví dụ, một ứng dụng có 10 trang được dịch ra 10 ngôn ngữ có thể khiến người dùng tải về nội dung tương đương 100 trang, mặc dù họ chỉ cần **một trang** (trang hiện tại với ngôn ngữ hiện tại). Điều này dẫn đến sự lãng phí băng thông và thời gian tải trang bị chậm đi đáng kể.
-
-Biểu đồ dưới đây ước tính dung lượng nội dung cho một ứng dụng giả định gồm 1 đến 10 trang, được dịch sang 1 đến 10 ngôn ngữ, với khoảng 30 KB văn bản mỗi trang. Tải nội dung động theo locale loại bỏ trục ngôn ngữ, giới hạn nội dung theo component hoặc route loại bỏ trục trang, và chỉ khi kết hợp cả hai thì dung lượng mới giữ nguyên.
-
-![Rò rỉ nội dung lý thuyết theo kiến trúc](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
-
 **Intlayer giải quyết vấn đề này thông qua tối ưu hóa ở thời điểm build.** Nó phân tích code của bạn để phát hiện chính xác các từ điển nào đang thực sự được sử dụng cho mỗi component, và chỉ tích hợp nội dung cần thiết đó vào bundle.
 
 ## Mục lục
 
 <TOC />
+
+## Các vấn đề cần lưu ý
+
+Một giải pháp i18n làm tăng dung lượng bundle của bạn theo năm cách. Intlayer giải quyết từng vấn đề trong số đó:
+
+1. **Mã thư viện (Library code).** Intlayer giữ cho các hàm của mình gọn nhẹ, chia sẻ logic giữa chúng và duy trì khả năng tree-shakable: bất kỳ hàm nào bạn không dùng đều được bundler loại bỏ.
+
+2. **Nội dung từ các trang và ngôn ngữ khác.** Một thư viện i18n trung bình nặng từ 5 KB đến 25 KB, trong khi nội dung văn bản của một trang trong một JS chunk nặng từ 20 KB đến 60 KB. Chi phí thực sự nằm ở sự rò rỉ nội dung (content leakage): một ứng dụng có 10 trang trong 10 ngôn ngữ có thể tải về nội dung của 100 trang trong khi chỉ cần **một** trang. Intlayer biến đổi mã nguồn của bạn tại thời điểm build (thông qua plugin Babel / SWC / Vite) để chỉ tải nội dung của trang hiện tại trong ngôn ngữ hiện tại.
+
+   ![Rò rỉ nội dung lý thuyết theo kiến trúc](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
+
+   Biểu đồ ước tính chi phí đó cho 1 đến 10 trang trong 1 đến 10 ngôn ngữ, với khoảng 30 KB văn bản trên mỗi trang. Dynamic import loại bỏ trục ngôn ngữ, chia nội dung theo component loại bỏ trục trang, và chỉ sự kết hợp của cả hai mới giữ cho dung lượng payload không bị tăng vọt.
+
+3. **Các tính năng không dùng đến.** Cookie, local storage, tiền tố URL, dự phòng nội dung (fallback), định dạng tin nhắn ICU: mỗi tính năng đều bổ sung thêm logic. Thay vì sinh thêm code vào mã nguồn của bạn (như cách Paraglide làm), Intlayer đưa các biến môi trường vào lúc build từ cấu hình của bạn, nhờ đó bundler có thể loại bỏ mọi tính năng bạn không sử dụng.
+
+4. **Nội dung dư thừa và dài dòng.** Trên Vite và Next.js, Intlayer [loại bỏ rác (purges)](#hệ-chức-năng-gạt-bỏ-rac-purging-xoa-trắng-cac-khoa-thuộc-tinh-trống-hoặc-dư) các trường từ điển mà mã của bạn không bao giờ đọc và [rút gọn (minifies)](#chức-năng-rut-gọn-minification-cắt-ngắn-độ-lớn-định-danh-trường-tham-chiếu) các khóa còn lại.
+
+5. **Nội dung trùng lặp.** Các từ điển dùng chung một khóa, dù chúng đến từ nhiều file `.content` hay từ nguồn cục bộ và từ xa ([CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)), đều được hợp nhất thành một từ điển duy nhất.
 
 ## Nó hoạt động như thế nào
 

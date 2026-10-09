@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-25
-updatedAt: 2026-09-16
+updatedAt: 2026-10-09
 priority: 8
 title: i18n Paket Boyutu ve Performans Optimizasyonu
 description: Uluslararasılaştırma (i18n) içeriğini optimize ederek uygulama paket boyutunuzu küçültün. Intlayer ile sözlükler için tree shaking ve lazy loading'i nasıl kullanacağınızı öğrenin.
@@ -36,17 +36,29 @@ author: aymericzip
 
 JSON dosyalarına dayanan geleneksel i18n çözümlerinde en yaygın zorluklardan biri içerik boyutunu yönetmektir. Geliştiriciler içeriği manuel olarak isim alanlarına (namespaces) ayırmazlarsa, kullanıcılar genellikle yalnızca tek bir sayfayı görüntülemek için her sayfanın ve potansiyel olarak her dilin çevirilerini indirir.
 
-Örneğin, 10 dilde çevrilmiş 10 sayfalı bir uygulama, bir kullanıcının yalnızca **birine** (geçerli dilde geçerli sayfaya) ihtiyacı olmasına rağmen 100 sayfanın içeriğini indirmesine neden olabilir. Bu da israf edilen bant genişliği ve daha yavaş yükleme süreleri anlamına gelir.
-
-Aşağıdaki grafik, sayfa başına yaklaşık 30 KB metin içeren, 1 ila 10 sayfadan oluşan ve 1 ila 10 dile çevrilmiş teorik bir uygulamanın içerik yükünü tahmin eder. İçeriği locale bazında dinamik yüklemek dil eksenini ortadan kaldırır, içeriği bileşen veya rota bazında sınırlamak sayfa eksenini ortadan kaldırır ve yalnızca ikisinin birleşimi yükü sabit tutar.
-
-![Mimariye göre teorik içerik sızıntısı](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
-
 **Intlayer bu sorunu build zamanı optimizasyonlarıyla çözer.** Kodunuzu analiz ederek her bileşen (component) için gerçekte hangi sözlüklerin kullanıldığını tespit eder ve yalnızca gerekli içeriği paketinizin (bundle) içine yeniden enjekte eder.
 
 ## İçindekiler
 
 <TOC />
+
+## Akılda Tutulması Gereken Sorunlar
+
+Bir i18n çözümü, paketinizin (bundle) boyutunu beş farklı şekilde artırır. Intlayer bunların her birini çözer:
+
+1. **Kütüphane kodu.** Intlayer fonksiyonlarını küçük tutar, aralarında ortak mantığı paylaşır ve tree-shakable kalır: Kullanmadığınız herhangi bir fonksiyon paketleyiciniz (bundler) tarafından elenir.
+
+2. **Diğer sayfalardan ve yerel ayarlardan (locales) gelen içerik.** Ortalama bir i18n kütüphanesi 5 KB ile 25 KB ağırlığındadır, oysa bir JS parçasındaki (chunk) bir sayfanın metin içeriği 20 KB ile 60 KB tutar. Asıl maliyet içerik sızıntısıdır: 10 dilde 10 sayfalı bir uygulama, yalnızca **tek bir** sayfaya ihtiyaç duyulduğunda 100 sayfalık içerik gönderebilir. Intlayer, yalnızca geçerli dildeki geçerli sayfanın içeriğini yüklemek için derleme zamanında (Babel / SWC / Vite eklentileri) kodunuzu dönüştürür.
+
+   ![Mimariye göre teorik içerik sızıntısı](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
+
+   Grafik, sayfa başına yaklaşık 30 KB metin içeren 1 ila 10 dildeki 1 ila 10 sayfa için bu maliyeti tahmin eder. Dinamik içe aktarmalar dil eksenini kaldırır, bileşen bazında içerik sayfa eksenini kaldırır ve yalnızca ikisinin kombinasyonu yükü sabit tutar.
+
+3. **Kullanılmayan özellikler.** Çerezler, yerel depolama, URL önekleri, içerik geri dönüşü (fallback), ICU mesaj biçimi: Her özellik mantık ekler. Paraglide'ın yaptığı gibi kod tabanınıza kod üretmek yerine Intlayer, yapılandırmanızdan derleme zamanında ortam değişkenleri enjekte eder, böylece paketleyici kullanmadığınız her özelliği kaldırabilir.
+
+4. **Kullanılmayan ve ayrıntılı içerik.** Vite ve Next.js'de Intlayer, kodunuzun asla okumadığı sözlük alanlarını [temizler (purges)](#purging-kullanılmayan-alanların-silinmesi) ve kalan anahtarları [küçültür (minifies)](#minification-alan-anahtarını-yeniden-adlandırma).
+
+5. **Yinelenen içerik.** İster birden fazla `.content` dosyasından ister yerel ve uzak ([CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)) kaynaklardan gelsin, aynı anahtarı paylaşan sözlükler tek bir sözlükte birleştirilir.
 
 ## Nasıl Çalışır
 

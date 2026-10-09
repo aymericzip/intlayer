@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-25
-updatedAt: 2026-09-16
+updatedAt: 2026-10-09
 priority: 8
 title: Optimizing i18n Bundle Size & Performance
 description: Reduce application bundle size by optimizing internationalization (i18n) content. Learn how to leverage tree shaking and lazy loading for dictionaries with Intlayer.
@@ -36,17 +36,29 @@ author: aymericzip
 
 One of the most common challenges with traditional i18n solutions relying on JSON files is managing content size. If developers do not manually separate content into namespaces, users often end up downloading translations for every page and potentially every language just to view a single page.
 
-For example, an application with 10 pages translated into 10 languages might result in a user downloading the content of 100 pages, even though they only need **one** (the current page in the current language). This leads to wasted bandwidth and slower load times.
-
-The graph below estimates that cost for a theoretical app of 1 to 10 pages translated into 1 to 10 locales, with about 30 KB of text per page. Dynamic imports remove the locale axis, scoping content per component removes the page axis, and only the combination keeps the payload flat.
-
-![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
-
 **Intlayer solves this problem through build-time optimization.** It analyzes your code to detect which dictionaries are actually used per component and reinjects only the necessary content into your bundle.
 
 ## Table of Contents
 
 <TOC />
+
+## Problems to keep in mind
+
+An i18n solution adds weight to your bundle in five ways. Intlayer addresses each of them:
+
+1. **Library code.** Intlayer keeps its functions small, shares logic between them, and stays tree-shakable: any function you do not use is dropped by your bundler.
+
+2. **Content from other pages and locales.** An average i18n library weighs 5 KB to 25 KB, while the text content of a page in a JS chunk weighs 20 KB to 60 KB. The real cost is content leakage: an app with 10 pages in 10 locales can ship the content of 100 pages when only **one** is needed. Intlayer transforms your code at build time (Babel / SWC / Vite plugins) to load only the content of the current page in the current locale.
+
+   ![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
+
+   The graph estimates that cost for 1 to 10 pages in 1 to 10 locales, with about 30 KB of text per page. Dynamic imports remove the locale axis, per-component content removes the page axis, and only the combination keeps the payload flat.
+
+3. **Unused features.** Cookies, local storage, URL prefixes, content fallback, ICU message format: each feature adds logic. Instead of generating code into your codebase (as Paraglide does), Intlayer injects environment variables at build time from your configuration, so the bundler can remove every feature you do not use.
+
+4. **Unused and verbose content.** On Vite and Next.js, Intlayer [purges](#purging-unused-field-removal) the dictionary fields your code never reads and [minifies](#minification-field-key-renaming) the remaining keys.
+
+5. **Duplicated content.** Dictionaries sharing the same key, whether they come from multiple `.content` files or from local and remote ([CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)) sources, are merged into a single dictionary.
 
 ## How It Works
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-25
-updatedAt: 2026-09-16
+updatedAt: 2026-10-09
 priority: 8
 title: Otimizando o Tamanho e a Performance do Bundle i18n
 description: Reduza o tamanho do bundle da sua aplicação otimizando o conteúdo de internacionalização (i18n). Aprenda como aproveitar o tree shaking e lazy loading para dicionários usando o Intlayer.
@@ -36,17 +36,29 @@ author: aymericzip
 
 Um dos desafios mais comuns em soluções tradicionais de i18n focadas em uso de arquivos JSON está em gerenciar de modo hábil o tamanho do conteúdo. Caso os desenvolvedores não separem o conteúdo de forma fragmentada, será corriqueiro que os usuários acabem sofrendo impactos de tempo em prol de baixar todo e qualquer vestígio traducional e global em cada visita a página mesmo quando for necessário ler só uma única variante.
 
-Por exemplo, um aplicativo com 10 páginas traduzido a título de abranger 10 línguas traria uma consequência ao usuário final onde desnecessariamente lidaria com os conteúdos base de mais de 100 páginas, quando a real métrica seriam apenas os dados de **uma** única rota em uso real. Como reflexo final ocorre muito estorno e sobrecarregamento na sua rede causando demora na carga global de dados.
-
-O gráfico abaixo estima o peso do conteúdo para uma aplicação teórica de 1 a 10 páginas traduzida para 1 a 10 idiomas, com cerca de 30 KB de texto por página. Carregar o conteúdo dinamicamente por locale remove o eixo dos idiomas, delimitar o conteúdo por componente ou por rota remove o eixo das páginas, e só a combinação dos dois mantém o peso estável.
-
-![Vazamento de conteúdo teórico por arquitetura](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
-
 **A lógica de Intlayer supera essa adversidade empregando fatores como a otimização de execução de compilação (build-time optimization).** É um cenário que abrange de frente análises na arquitetura nativa com intenção em entender puramente quais dicionários acabam compondo partes exclusivas relativas a cada componente sem sobrecarregar toda sua base com dicionários sem efetividade imediata.
 
 ## Índice
 
 <TOC />
+
+## Problemas a ter em mente
+
+Uma solução de i18n adiciona peso ao seu bundle de cinco maneiras. O Intlayer aborda cada uma delas:
+
+1. **Código da biblioteca.** O Intlayer mantém suas funções pequenas, compartilha lógica entre elas e permanece compatível com tree-shaking: qualquer função não utilizada é descartada pelo bundler.
+
+2. **Conteúdo de outras páginas e locais.** Uma biblioteca i18n comum pesa de 5 KB a 25 KB, enquanto o conteúdo de texto de uma página em um chunk JS pesa de 20 KB a 60 KB. O custo real está no vazamento de conteúdo: um aplicativo com 10 páginas em 10 idiomas pode entregar o conteúdo de 100 páginas quando apenas **uma** é necessária. O Intlayer transforma seu código em tempo de compilação (plugins Babel / SWC / Vite) para carregar apenas o conteúdo da página atual no idioma atual.
+
+   ![Vazamento de conteúdo teórico por arquitetura](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
+
+   O gráfico estima esse custo para 1 a 10 páginas em 1 a 10 idiomas, com cerca de 30 KB de texto por página. Importações dinâmicas removem o eixo de idiomas, conteúdo por componente remove o eixo de páginas, e apenas a combinação mantém o payload estável.
+
+3. **Recursos não utilizados.** Cookies, armazenamento local, prefixos de URL, fallback de conteúdo, formato de mensagens ICU: cada recurso adiciona lógica. Em vez de gerar código em sua base de código (como o Paraglide faz), o Intlayer injeta variáveis de ambiente em tempo de build a partir da sua configuração, para que o bundler possa remover todos os recursos que você não usa.
+
+4. **Conteúdo não utilizado e verboso.** No Vite e no Next.js, o Intlayer [remove](#foco-modular-constante-relativo-em-extensoes-exclusoes-focadas) os campos de dicionário que seu código nunca lê e [minifica](#reducao-modular-atrelada-nas-extensoes-minificacao-de-estruturas-relacionadas) as chaves restantes.
+
+5. **Conteúdo duplicado.** Dicionários que compartilham a mesma chave, seja de múltiplos arquivos `.content` ou de fontes locais e remotas ([CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md)), são mesclados em um único dicionário.
 
 ## Como a Base Opera
 

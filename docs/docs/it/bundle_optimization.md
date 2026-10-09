@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-25
-updatedAt: 2026-09-16
+updatedAt: 2026-10-09
 priority: 8
 title: Ottimizzazione delle dimensioni e delle prestazioni del bundle i18n
 description: Riduci le dimensioni del bundle della tua applicazione ottimizzando i contenuti di internazionalizzazione (i18n). Scopri come sfruttare il tree shaking e il lazy loading per i dizionari con Intlayer.
@@ -36,17 +36,29 @@ author: aymericzip
 
 Una delle sfide più comuni con le tradizionali soluzioni i18n basate su file JSON è la gestione delle dimensioni dei contenuti. Se gli sviluppatori non separano manualmente i contenuti in namespace, gli utenti finiscono spesso per scaricare le traduzioni per ogni pagina e potenzialmente per ogni lingua solo per visualizzare una singola pagina.
 
-Ad esempio, un'applicazione con 10 pagine tradotte in 10 lingue potrebbe far sì che un utente scarichi il contenuto di 100 pagine, anche se ne ha bisogno solo di **una** (la pagina attuale nella lingua attuale). Ciò porta a spreco di larghezza di banda e tempi di caricamento più lenti.
-
-Il grafico seguente stima il peso del contenuto per un'app teorica da 1 a 10 pagine tradotta in 1 a 10 lingue, con circa 30 KB di testo per pagina. Caricare il contenuto dinamicamente per locale elimina l'asse delle lingue, delimitare il contenuto per componente o per route elimina l'asse delle pagine, e solo la combinazione dei due mantiene il peso stabile.
-
-![Leakage di contenuto teorico per architettura](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
-
 **Intlayer risolve questo problema attraverso l'ottimizzazione in fase di compilazione (build).** Analizza il tuo codice per rilevare quali dizionari sono effettivamente utilizzati in ciascun componente e inietta solo il contenuto necessario nel tuo bundle.
 
 ## Indice dei Contenuti
 
 <TOC />
+
+## Problemi da tenere a mente
+
+Una soluzione i18n appesantisce il bundle in cinque modi. Intlayer affronta ciascuno di essi:
+
+1. **Codice della libreria.** Intlayer mantiene le sue funzioni ridotte, condivide la logica tra di esse e rimane tree-shakable: qualsiasi funzione non utilizzata viene rimossa dal bundler.
+
+2. **Contenuto di altre pagine e locale.** Una libreria i18n media pesa da 5 KB a 25 KB, mentre il contenuto testuale di una pagina in un chunk JS pesa da 20 KB a 60 KB. Il vero costo è la fuga di contenuti (content leakage): un'app con 10 pagine in 10 locale può inviare il contenuto di 100 pagine quando ne serve solo **una**. Intlayer trasforma il codice in fase di build (plugin Babel / SWC / Vite) per caricare solo il contenuto della pagina corrente nella lingua corrente.
+
+   ![Leakage di contenuto teorico per architettura](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
+
+   Il grafico stima tale costo per un intervallo da 1 a 10 pagine in 1 a 10 lingue, con circa 30 KB di testo per pagina. Le importazioni dinamiche rimuovono l'asse delle lingue, il contenuto suddiviso per componente rimuove l'asse delle pagine, e solo la loro combinazione mantiene il payload costante.
+
+3. **Funzionalità non utilizzate.** Cookie, archiviazione locale, prefissi URL, fallback dei contenuti, formato dei messaggi ICU: ogni funzionalità aggiunge logica. Invece di generare codice nella tua codebase (come fa Paraglide), Intlayer inietta variabili di ambiente in fase di compilazione dalla tua configurazione, consentendo al bundler di rimuovere ogni funzionalità non utilizzata.
+
+4. **Contenuto inutilizzato e prolisso.** Su Vite e Next.js, Intlayer [elimina](#purging-rimozione-dei-campi-non-usati) i campi del dizionario che il codice non legge mai e [minimizza](#minificazione-ridenominazione-chiave-dei-campi) le chiavi rimanenti.
+
+5. **Contenuto duplicato.** I dizionari che condividono la stessa chiave, sia che provengano da più file `.content` o da sorgenti locali e remote ([CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_CMS.md)), vengono uniti in un unico dizionario.
 
 ## Come Funziona
 

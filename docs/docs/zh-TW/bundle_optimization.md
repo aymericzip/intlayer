@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-25
-updatedAt: 2026-09-16
+updatedAt: 2026-10-09
 priority: 8
 title: 最佳化 i18n 打包體積與效能
 description: 透過最佳化國際化（i18n）內容來縮減應用程式包的大小。了解如何利用 Intlayer 實現字典的 tree shaking 和延遲載入（lazy loading）。
@@ -36,17 +36,29 @@ author: aymericzip
 
 依賴 JSON 檔案的傳統 i18n 解決方案中最常見的挑戰之一是管理內容體積。如果開發者沒有手動將內容拆分到各個命名空間（namespaces），使用者通常會為了查看一個頁面而下載所有頁面、甚至是所有語言的翻譯。
 
-例如，一個應用程式有 10 個頁面並被翻譯成了 10 種語言，可能導致使用者為了這 10 個頁面下載所有的內容，儘管他們只想要**一個頁面**的內容（當前語言版本的當前頁面）。這不僅會造成頻寬浪費，也會導致更慢的載入時間。
-
-下圖估算了一個理論應用程式的內容體積：1 到 10 個頁面，翻譯成 1 到 10 種語言，每頁約 30 KB 文字。依 locale 動態載入內容可消除語言維度，依元件或路由劃分內容可消除頁面維度，只有兩者結合才能讓體積保持平穩。
-
-![依架構劃分的理論內容洩漏](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
-
 **Intlayer 透過在建置時（build-time）進行最佳化來解決這一問題。** 它可以分析您的程式碼以檢測每個元件實際使用了哪些字典，並只將必要的內容注入到您的打包結果（bundle）中。
 
 ## 目錄
 
 <TOC />
+
+## 需要留意的問題
+
+國際化 (i18n) 解決方案通常會從五個方面增加打包產物體積。Intlayer 針對這每一個方面都做出了最佳化：
+
+1. **函式庫程式碼體積。** Intlayer 保持函式精簡、共用底層邏輯，並完全支援 Tree-shaking：任何未使用的函式都會被打包工具直接剔除。
+
+2. **來自其他頁面與語系的內容洩漏。** 一般的 i18n 函式庫體積在 5 KB 到 25 KB 之間，但 JS chunk 中一個頁面的文字內容往往在 20 KB 到 60 KB 之間。真正的成本在於內容洩漏：一個擁有 10 個頁面、支援 10 種語系的應用程式，在使用者只需要 **1 個** 頁面時，可能會打包傳送 100 個頁面的內容。Intlayer 在建置階段（透過 Babel / SWC / Vite 外掛）轉換程式碼，僅載入目前語系下的目前頁面內容。
+
+   ![依架構劃分的理論內容洩漏](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
+
+   該圖表估算了 1 到 10 個頁面在 1 到 10 種語系下的成本（每頁約 30 KB 文字）。動態匯入消除了語系軸的冗餘，依元件劃分內容消除了頁面軸的冗餘，只有兩者結合才能讓負載保持平穩。
+
+3. **未使用的功能特性。** Cookie、本機儲存、URL 前綴、內容後備 (fallback)、ICU 訊息格式：每項功能都會增加邏輯程式碼。Intlayer 不會在你的程式碼庫中產生多餘程式碼（如 Paraglide 那樣），而是在建置時依據設定注入環境變數，讓打包工具能夠移除所有未使用的功能。
+
+4. **未使用及冗長內容。** 在 Vite 和 Next.js 上，Intlayer 會[清除](#欄位清除--purging-去掉未被引用的欄位內容)程式碼從未讀取的字典欄位，並[壓縮](#壓縮--minification-重新命名欄位鍵值)剩餘的鍵名。
+
+5. **重複內容。** 共用相同鍵的字典，無論來自多個 `.content` 檔案還是來自本機與遠端（[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/intlayer_CMS.md)）來源，都會被合併為單一字典。
 
 ## 它是如何運作的
 

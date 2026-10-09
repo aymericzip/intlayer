@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-25
-updatedAt: 2026-09-16
+updatedAt: 2026-10-09
 priority: 8
 title: Optimasi Ukuran Bundle & Performa i18n
 description: Kurangi ukuran bundle aplikasi Anda dengan mengoptimalkan konten internasionalisasi (i18n). Pelajari cara memanfaatkan tree shaking dan lazy loading untuk kamus menggunakan Intlayer.
@@ -36,17 +36,29 @@ author: aymericzip
 
 Salah satu tantangan paling umum dari solusi i18n tradisional yang bergantung pada file JSON adalah mengelola ukuran konten. Jika developer tidak secara manual memisahkan konten ke dalam berbagai namespace, sering kali pengguna akan mengunduh terjemahan untuk semua halaman dan berpotensi untuk semua bahasa hanya demi melihat satu halaman saja.
 
-Sebagai contoh, sebuah aplikasi dengan 10 halaman yang diterjemahkan ke dalam 10 bahasa dapat menyebabkan pengguna mengunduh konten yang setara dengan 100 halaman, meskipun mereka sebenarnya hanya membutuhkan **satu** (halaman yang saat ini dibuka dalam bahasa yang sedang digunakan). Hal ini menyebabkan pemborosan bandwidth dan waktu pemuatan (load time) yang lebih lambat.
-
-Grafik di bawah memperkirakan ukuran konten untuk aplikasi teoretis dengan 1 hingga 10 halaman yang diterjemahkan ke 1 hingga 10 bahasa, dengan sekitar 30 KB teks per halaman. Memuat konten secara dinamis per locale menghilangkan sumbu bahasa, membatasi konten per komponen atau per rute menghilangkan sumbu halaman, dan hanya kombinasi keduanya yang menjaga ukuran tetap datar.
-
-![Kebocoran konten teoretis berdasarkan arsitektur](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
-
 **Intlayer menyelesaikan masalah ini melalui optimasi build-time.** Ia menganalisis kode Anda untuk mendeteksi secara pasti kamus mana yang benar-benar digunakan per komponen dan hanya menyuntikkan ulang konten yang diperlukan ke dalam bundle Anda.
 
 ## Daftar Isi
 
 <TOC />
+
+## Masalah yang perlu diperhatikan
+
+Solusi i18n menambah ukuran bundle Anda melalui lima cara. Intlayer menangani masing-masing masalah tersebut:
+
+1. **Kode library.** Intlayer menjaga ukuran fungsinya tetap kecil, berbagi logika di antara fungsi-fungsi tersebut, dan tetap mendukung tree-shaking: fungsi apa pun yang tidak Anda gunakan akan dibuang oleh bundler Anda.
+
+2. **Konten dari halaman dan locale lain.** Rata-rata library i18n berukuran 5 KB hingga 25 KB, sedangkan konten teks dari sebuah halaman dalam JS chunk berukuran 20 KB hingga 60 KB. Biaya sebenarnya adalah kebocoran konten (content leakage): aplikasi dengan 10 halaman dalam 10 bahasa dapat mengirimkan konten 100 halaman padahal yang dibutuhkan hanyalah **satu** halaman. Intlayer mentransformasi kode Anda pada waktu build (plugin Babel / SWC / Vite) untuk hanya memuat konten dari halaman saat ini dalam bahasa saat ini.
+
+   ![Kebocoran konten teoretis berdasarkan arsitektur](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
+
+   Grafik memperkirakan biaya tersebut untuk 1 hingga 10 halaman dalam 1 hingga 10 bahasa, dengan sekitar 30 KB teks per halaman. Dynamic import menghilangkan sumbu bahasa, konten per komponen menghilangkan sumbu halaman, dan hanya kombinasi keduanya yang menjaga payload tetap datar.
+
+3. **Fitur yang tidak digunakan.** Cookie, local storage, prefiks URL, fallback konten, format pesan ICU: setiap fitur menambahkan logika. Alih-alih menghasilkan kode ke dalam basis kode Anda (seperti yang dilakukan Paraglide), Intlayer menyuntikkan variabel lingkungan pada waktu build dari konfigurasi Anda, sehingga bundler dapat menghapus setiap fitur yang tidak Anda gunakan.
+
+4. **Konten yang tidak digunakan dan bertele-tele.** Di Vite dan Next.js, Intlayer [membersihkan (purge)](#purging-penghapusan-field-konten-tak-terpakai) field kamus yang tidak pernah dibaca oleh kode Anda dan [meminifikasi](#minifikasi-penggantian-nama-kunci-filefield) kunci yang tersisa.
+
+5. **Konten duplikat.** Kamus yang berbagi kunci yang sama, baik yang berasal dari beberapa file `.content` maupun dari sumber lokal dan jarak jauh ([CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)), akan digabungkan menjadi satu kamus tunggal.
 
 ## Bagaimana cara kerjanya
 
