@@ -7,8 +7,9 @@ import {
   useEditedContentPersistence,
   useEditorPingClient,
   useFrameConnectionStatus,
+  useFrameReconnection,
 } from '@intlayer/editor-react';
-import { type FC, type RefObject, useEffect } from 'react';
+import { type FC, type RefObject, useCallback, useEffect } from 'react';
 import { useEditorPagesSidebar } from '#hooks/useEditorPagesSidebar';
 import { useSearchParamState } from '#hooks/useSearchParamState';
 import { NoApplicationURLView } from './NoApplicationURLView/NoApplicationURLView';
@@ -22,6 +23,22 @@ export const IframeController: FC<{
     useFrameConnectionStatus();
 
   useEditedContentPersistence();
+
+  const reloadFrame = useCallback(() => {
+    const iframe = iframeRef.current;
+
+    if (!iframe) return;
+
+    const { src } = iframe;
+    iframe.src = src;
+  }, [iframeRef]);
+
+  // e.g. the application dev server restarted
+  useFrameReconnection({
+    applicationURL: editor?.applicationURL,
+    isDisconnected: isConnectionFailed,
+    reloadFrame,
+  });
 
   const { params, setParam } = useSearchParamState({
     path: { type: 'string', fallbackValue: undefined },
@@ -45,15 +62,6 @@ export const IframeController: FC<{
       </Container>
     );
   }
-
-  const reloadFrame = () => {
-    const iframe = iframeRef.current;
-
-    if (!iframe) return;
-
-    const { src } = iframe;
-    iframe.src = src;
-  };
 
   return (
     <div className="relative flex size-full flex-1 overflow-hidden rounded-lg">

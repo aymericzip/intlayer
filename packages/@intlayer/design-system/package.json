@@ -432,6 +432,11 @@
       "import": "./dist/esm/components/Toaster/index.mjs",
       "default": "./dist/esm/components/Toaster/index.mjs"
     },
+    "./virtualized-list": {
+      "types": "./dist/types/components/VirtualizedList/index.d.ts",
+      "import": "./dist/esm/components/VirtualizedList/index.mjs",
+      "default": "./dist/esm/components/VirtualizedList/index.mjs"
+    },
     "./with-resizer": {
       "types": "./dist/types/components/WithResizer/index.d.ts",
       "import": "./dist/esm/components/WithResizer/index.mjs",

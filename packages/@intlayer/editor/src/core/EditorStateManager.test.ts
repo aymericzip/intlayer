@@ -1,9 +1,10 @@
 // @vitest-environment node
 // jsdom breaks esbuild, loaded through the dictionary manipulator imports
 import type { Locale } from '@intlayer/types/allLocales';
-import { describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { MessageKey } from '../messageKey';
 import {
+  CLIENT_HEARTBEAT_TIMEOUT_MS,
   EditorStateManager,
   type EditorStateManagerConfig,
 } from './EditorStateManager';
@@ -89,5 +90,65 @@ describe('EditorStateManager displayed dictionary keys', () => {
       ['dict-a', 'dict-b']
     );
     manager.stop();
+  });
+});
+
+describe('EditorStateManager client heartbeat', () => {
+  // Node environment: a bare event target stands in for the window
+  beforeEach(() => {
+    vi.stubGlobal('window', new EventTarget());
+  });
+
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
+  const receive = (type: string, data?: unknown) =>
+    window.dispatchEvent(
+      new MessageEvent('message', {
+        data: {
+          type,
+          data,
+          senderId: 'client',
+          messageId: crypto.randomUUID(),
+        },
+        origin: 'http://localhost:3000',
+      })
+    );
+
+  it('activates a new client, then pings without broadcasting again', () => {
+    vi.useFakeTimers();
+    const manager = createManager('editor');
+    const sendSpy = vi.spyOn(manager.messenger, 'send');
+    manager.start();
+
+    receive(MessageKey.INTLAYER_CLIENT_READY, { isActivated: false });
+    expect(manager.editorEnabled.value).toBe(true);
+    expect(sendSpy).toHaveBeenCalledWith(MessageKey.INTLAYER_EDITOR_ACTIVATE);
+
+    sendSpy.mockClear();
+    receive(MessageKey.INTLAYER_CLIENT_READY, { isActivated: true });
+    expect(sendSpy).not.toHaveBeenCalledWith(
+      MessageKey.INTLAYER_EDITOR_ACTIVATE
+    );
+
+    manager.stop();
+    vi.useRealTimers();
+  });
+
+  it('marks a silent client disconnected, then reconnects it', () => {
+    vi.useFakeTimers();
+    const manager = createManager('editor');
+    manager.start();
+
+    receive(MessageKey.INTLAYER_CLIENT_READY, { isActivated: false });
+    vi.advanceTimersByTime(CLIENT_HEARTBEAT_TIMEOUT_MS + 3_000);
+    expect(manager.editorEnabled.value).toBe(false);
+
+    receive(MessageKey.INTLAYER_CLIENT_READY, { isActivated: true });
+    expect(manager.editorEnabled.value).toBe(true);
+
+    manager.stop();
+    vi.useRealTimers();
   });
 });

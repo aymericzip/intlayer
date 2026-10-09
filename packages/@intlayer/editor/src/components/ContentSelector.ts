@@ -24,7 +24,40 @@ const STYLES = `
   .wrapper[data-active] {
     outline-color: inherit;
   }
+
+  /*
+   * Text content wraps over several lines: an outline would frame the whole
+   * block, so each line fragment gets its own ring instead. The padding keeps
+   * the ring 4px away from the text, the negative margin cancels its layout.
+   */
+  .wrapper[data-text] {
+    display: inline;
+    outline: none;
+    padding: 4px;
+    margin: -4px;
+    box-shadow: 0 0 0 2px transparent;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
+
+  .wrapper[data-text][data-active] {
+    box-shadow: 0 0 0 2px currentColor;
+  }
 `;
+
+/**
+ * Whether the slotted content is only text, so it can be rendered inline and
+ * highlighted line by line. Elements (markdown blocks, framework nodes) may
+ * not lay out inline, and fall back to the outline.
+ */
+const isTextOnlyContent = (slot: HTMLSlotElement): boolean => {
+  const assignedNodes = slot.assignedNodes({ flatten: true });
+
+  return (
+    assignedNodes.length > 0 &&
+    assignedNodes.every((node) => node.nodeType === Node.TEXT_NODE)
+  );
+};
 
 const _HTMLElement =
   typeof HTMLElement !== 'undefined'
@@ -91,9 +124,14 @@ export class IntlayerContentSelectorElement extends _HTMLElement {
     wrapper.className = 'wrapper';
     wrapper.setAttribute('role', 'button');
     wrapper.setAttribute('tabindex', '0');
-    wrapper.appendChild(document.createElement('slot'));
+    const slot = document.createElement('slot');
+    wrapper.appendChild(slot);
     shadow.appendChild(wrapper);
     this._wrapper = wrapper;
+
+    slot.addEventListener('slotchange', () =>
+      wrapper.toggleAttribute('data-text', isTextOnlyContent(slot))
+    );
 
     wrapper.addEventListener('mousedown', () => this._handleMouseDown());
     wrapper.addEventListener('mouseup', () => this._handleMouseUpOrLeave());

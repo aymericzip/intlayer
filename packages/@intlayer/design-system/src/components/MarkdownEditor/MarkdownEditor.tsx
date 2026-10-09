@@ -1,8 +1,11 @@
 'use client';
 
+import { useAuthEnable } from '@api/hooks/utils';
+import type { AssetAPI } from '@intlayer/backend-contract/asset';
 import { cn } from '@utils/cn';
-import { type FC, useMemo, useState } from 'react';
+import { type FC, useMemo, useRef, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { AssetLibraryModal } from './AssetLibraryModal';
 import { defaultExtensions } from './extensions';
 import { GenerativeMenuSwitch } from './generative/GenerativeMenuSwitch';
 import {
@@ -47,6 +50,12 @@ export type MarkdownEditorProps = {
   uploadImage?: CreateEditorUploadFnOptions['uploadImage'];
   /** Maximum allowed image size in megabytes. Defaults to `20`. */
   maxImageSizeMb?: number;
+  /**
+   * Lists the project's uploaded assets in the slash menu ("Asset library").
+   * Only effective when a user and a project are authenticated. Defaults to
+   * `true`.
+   */
+  enableAssetLibrary?: boolean;
   /** Class applied to the editor surface. */
   className?: string;
 };
@@ -55,8 +64,9 @@ export type MarkdownEditorProps = {
  * Notion-style WYSIWYG markdown editor built on Novel / Tiptap.
  *
  * Features a slash command menu, a formatting bubble menu (node / link / color
- * / inline marks), image upload (drop / paste / slash), and an optional
- * AI assistant wired to the Intlayer AI backend.
+ * / inline marks), image upload (drop / paste / slash), insertion from the
+ * project asset library, and an optional AI assistant wired to the Intlayer AI
+ * backend.
  *
  * The value contract is markdown: pass `defaultValue` as a markdown string and
  * read changes from `onChange`.
@@ -68,10 +78,18 @@ export const MarkdownEditor: FC<MarkdownEditorProps> = ({
   enableAI = true,
   uploadImage,
   maxImageSizeMb,
+  enableAssetLibrary = true,
   className,
 }) => {
   const [openAI, setOpenAI] = useState(false);
+  const [isAssetLibraryOpen, setIsAssetLibraryOpen] = useState(false);
+  const assetTargetEditorRef = useRef<EditorInstance | null>(null);
   const content = useIntlayer('markdown-editor');
+  const { enable: isAuthenticatedOnProject } = useAuthEnable({
+    requireUser: true,
+    requireProject: true,
+  });
+  const isAssetLibraryEnabled = enableAssetLibrary && isAuthenticatedOnProject;
 
   const uploadFn = useMemo(
     () => createEditorUploadFn({ uploadImage, maxSizeMb: maxImageSizeMb }),
@@ -81,14 +99,40 @@ export const MarkdownEditor: FC<MarkdownEditorProps> = ({
   const { extensions, suggestionItems } = useMemo(() => {
     const { slashCommand, suggestionItems: items } = createSlashCommand(
       uploadFn,
-      content
+      content,
+      {
+        onOpenAssetLibrary: isAssetLibraryEnabled
+          ? (editor) => {
+              assetTargetEditorRef.current = editor;
+              setIsAssetLibraryOpen(true);
+            }
+          : undefined,
+      }
     );
 
     return {
       extensions: [...defaultExtensions, slashCommand],
       suggestionItems: items,
     };
-  }, [uploadFn, content]);
+  }, [uploadFn, content, isAssetLibraryEnabled]);
+
+  const closeAssetLibrary = () => {
+    setIsAssetLibraryOpen(false);
+    assetTargetEditorRef.current?.commands.focus();
+  };
+
+  const insertAsset = (asset: AssetAPI) => {
+    assetTargetEditorRef.current
+      ?.chain()
+      .focus()
+      .setImage({
+        src: asset.publicUrl,
+        alt: asset.alt ?? asset.originalName,
+        title: asset.caption,
+      })
+      .run();
+    setIsAssetLibraryOpen(false);
+  };
 
   const handleUpdate = ({ editor }: { editor: EditorInstance }) => {
     onChange?.(editor.storage.markdown.getMarkdown() as string);
@@ -173,6 +217,14 @@ export const MarkdownEditor: FC<MarkdownEditorProps> = ({
           )}
         </EditorContent>
       </EditorRoot>
+
+      {isAssetLibraryEnabled && (
+        <AssetLibraryModal
+          isOpen={isAssetLibraryOpen}
+          onClose={closeAssetLibrary}
+          onSelect={insertAsset}
+        />
+      )}
     </div>
   );
 };

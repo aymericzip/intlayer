@@ -40,7 +40,14 @@ export const findProjectRoot = (startPath?: string): string | undefined => {
     return projectRootByDirectory.get(startDirectory);
   }
 
-  const { configurationFilePath } = searchConfigurationFile(startDirectory);
+  let configurationFilePath: string | undefined;
+
+  try {
+    ({ configurationFilePath } = searchConfigurationFile(startDirectory));
+  } catch {
+    // Throws when no package.json encloses the directory: not a project
+  }
+
   const projectRoot = configurationFilePath
     ? dirname(configurationFilePath)
     : undefined;

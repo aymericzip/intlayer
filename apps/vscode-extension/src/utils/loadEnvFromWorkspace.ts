@@ -7,7 +7,8 @@ let hasLogged = false;
 
 export const loadEnvFromWorkspace = async (
   baseDir: string,
-  env?: string,
+  // Matches the editor server default: a `.env.production.local` must not win
+  env: string = 'development',
   logEnvFileName: boolean = false
 ): Promise<Record<string, string> | undefined> => {
   const folders = workspace.workspaceFolders;
@@ -15,11 +16,7 @@ export const loadEnvFromWorkspace = async (
     throw new Error('No workspace is open.');
   }
 
-  const candidates = [
-    ...(env ? [`.env.${env}.local`, `.env.${env}`] : []),
-    '.env.local',
-    '.env',
-  ];
+  const candidates = [`.env.${env}.local`, `.env.${env}`, '.env.local', '.env'];
 
   for (const candidate of candidates) {
     try {

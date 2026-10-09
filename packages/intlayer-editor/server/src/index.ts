@@ -15,7 +15,11 @@ import {
   getConfiguration,
   getEditorURLForPort,
 } from '@intlayer/config/node';
-import { overrideBuiltEditorConfiguration } from '@intlayer/engine/build';
+import {
+  type BuiltEditorOverride,
+  overrideBuiltEditorConfiguration,
+  watchBuiltEditorConfiguration,
+} from '@intlayer/engine/build';
 import { authRouter } from '@routes/auth.routes';
 import { configurationRouter } from '@routes/config.routes';
 import { dictionaryRouter } from '@routes/dictionary.routes';
@@ -82,10 +86,14 @@ const startServer = async (app: FastifyInstance) => {
 
   // Adapted in the built configuration only: the application must load the
   // editor client, and accept messages from the URL the editor is served at
-  const overriddenKeys = await overrideBuiltEditorConfiguration(config, {
+  const editorOverride: BuiltEditorOverride = {
     enabled: true,
     editorURL: getEditorURLForPort(config.editor.editorURL, port),
-  });
+  };
+  const overriddenKeys = await overrideBuiltEditorConfiguration(
+    config,
+    editorOverride
+  );
 
   if (overriddenKeys.length > 0) {
     const overriddenSettings = overriddenKeys.map((key) =>
@@ -98,6 +106,22 @@ const startServer = async (app: FastifyInstance) => {
         level: 'warn',
       }
     );
+
+    // An application (re)started aside rebuilds the configuration without them
+    watchBuiltEditorConfiguration(config.system.configDir, {
+      loadConfiguration: () =>
+        getConfiguration({ ...envFileOptions, cache: false }),
+      editorOverride,
+      onRestore: () =>
+        appLogger(
+          `${overriddenSettings.join(' and ')} adapted again in ${colorizePath(relative(config.system.baseDir, config.system.configDir))} after the application rebuilt it.`
+        ),
+      onError: (error) =>
+        appLogger(
+          `Failed to keep the editor settings in the built configuration: ${(error as Error).message}`,
+          { level: 'warn' }
+        ),
+    });
   }
 
   // Security Headers

@@ -1,3 +1,4 @@
+export * from './getPushableDictionaries';
 export * from './hooks/ai';
 export * from './hooks/analytics';
 export * from './hooks/asset';
@@ -21,6 +22,7 @@ export * from './hooks/stripe';
 export * from './hooks/tag';
 export * from './hooks/translate';
 export * from './hooks/user';
+export * from './pushDictionariesInBatches';
 export * from './useAuth';
 export * from './useIntlayerAPI';
 export * from './useUser';

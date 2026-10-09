@@ -294,7 +294,7 @@
     "menus": {
       "editor/title": [
         {
-          "when": "intlayer.isEditorPanelAvailable",
+          "when": "resourcePath in intlayer.editorPanelResources",
           "command": "intlayer.openEditorPanel",
           "group": "navigation@904"
         },

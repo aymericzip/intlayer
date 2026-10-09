@@ -9,6 +9,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
+import { createPortal } from 'react-dom';
 
 const HANDLE_DOUBLE_CLICK_ZONE_PX = 16;
 
@@ -393,6 +394,16 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
         onTouchStart={startResizing}
         onDoubleClick={handleDoubleClick}
       />
+      {/* Iframes swallow pointer events, so the drag would stop once the cursor
+          crosses one. A full-viewport shield keeps the events on this window. */}
+      {isResizing &&
+        createPortal(
+          <div
+            aria-hidden="true"
+            className="fixed inset-0 z-[2147483647] cursor-ew-resize"
+          />,
+          document.body
+        )}
     </div>
   );
 };

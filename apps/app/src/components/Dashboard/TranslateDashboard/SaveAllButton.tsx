@@ -1,120 +1,155 @@
-import {
-  useAuth,
-  usePushDictionaries,
-  useWriteDictionary,
-} from '@intlayer/design-system/api';
+import { useAuth } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
-import { DropDown } from '@intlayer/design-system/drop-down';
 import {
-  useDictionariesRecordActions,
-  useEditedContent,
-} from '@intlayer/editor-react';
+  getModifiedDictionaries,
+  type ModifiedDictionary,
+  useDictionarySave,
+} from '@intlayer/design-system/dictionary-field-editor';
+import { DropDown } from '@intlayer/design-system/drop-down';
+import { VirtualizedList } from '@intlayer/design-system/virtualized-list';
+import { useEditedContent } from '@intlayer/editor-react';
 import type { Dictionary, LocalDictionaryId } from '@intlayer/types/dictionary';
 import { RotateCcw, Save } from 'lucide-react';
-import { type FC, useState } from 'react';
+import { type FC, memo, useMemo, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
+
+/** Dictionaries saved at the same time by "save all". */
+const SAVE_ALL_CONCURRENCY = 5;
+
+/** Fixed height of one dictionary row (incl. its gap), in pixels. */
+const DICTIONARY_ROW_HEIGHT = 64;
+
+type ModifiedDictionaryRowProps = {
+  modifiedDictionary: ModifiedDictionary;
+  isSaving: boolean;
+  onSave: (modifiedDictionary: ModifiedDictionary) => void;
+  onRestore: (localId: LocalDictionaryId) => void;
+};
+
+/** One edited dictionary, with its own restore and save actions. */
+const ModifiedDictionaryRow: FC<ModifiedDictionaryRowProps> = memo(
+  ({ modifiedDictionary, isSaving, onSave, onRestore }) => {
+    const { saveDictionaryButton, restoreDictionaryButton } = useIntlayer(
+      'translate-dashboard'
+    );
+
+    return (
+      <div className="pb-2" style={{ height: DICTIONARY_ROW_HEIGHT }}>
+        <div className="flex h-full items-center justify-between gap-6 rounded-lg bg-white/5 px-3 transition-colors hover:bg-white/10">
+          <span className="truncate font-medium text-text-strong">
+            {modifiedDictionary.dictionaryToSave.key}
+          </span>
+          <div className="flex shrink-0 items-center gap-1">
+            <Button
+              label={restoreDictionaryButton?.label?.value}
+              variant="outline"
+              color="text"
+              size="icon-md"
+              Icon={RotateCcw}
+              className="p-2!"
+              onClick={(event) => {
+                event.stopPropagation();
+                onRestore(modifiedDictionary.localId);
+              }}
+            />
+            <Button
+              label={saveDictionaryButton?.label?.value}
+              isLoading={isSaving}
+              variant="outline"
+              color="text"
+              size="icon-md"
+              Icon={Save}
+              className="p-2!"
+              onClick={(event) => {
+                event.stopPropagation();
+                onSave(modifiedDictionary);
+              }}
+            />
+          </div>
+        </div>
+      </div>
+    );
+  }
+);
+
+const getModifiedDictionaryKey = (modifiedDictionary: ModifiedDictionary) =>
+  modifiedDictionary.localId;
 
 type SaveAllButtonProps = {
   dictionaries: Record<string, Dictionary>;
 };
 
 export const SaveAllButton: FC<SaveAllButtonProps> = ({ dictionaries }) => {
-  const {
-    saveAllButton,
-    restoreAllButton,
-    saveDictionaryButton,
-    restoreDictionaryButton,
-    modifiedCount,
-  } = useIntlayer('translate-dashboard');
+  const { saveAllButton, restoreAllButton, modifiedCount } = useIntlayer(
+    'translate-dashboard'
+  );
   const { editedContent, restoreEditedContent } = useEditedContent();
-  const { setLocaleDictionary } = useDictionariesRecordActions();
   const { isAuthenticated } = useAuth();
-  const { mutateAsync: writeDictionary } = useWriteDictionary();
-  const { mutateAsync: pushDictionaries } = usePushDictionaries();
+  const { saveDictionary } = useDictionarySave();
 
-  const [savingIds, setSavingIds] = useState<Set<string>>(new Set());
+  const [savingIds, setSavingIds] = useState<Set<LocalDictionaryId>>(new Set());
   const [isGlobalSaving, setIsGlobalSaving] = useState(false);
 
-  // Identify modified dictionaries
-  const getModifiedDictionaries = () => {
-    if (!editedContent) return [];
-    return Object.entries(editedContent)
-      .filter(([localId, editedDict]) => {
-        const originalDict = dictionaries[localId];
-        if (!originalDict) return true;
-        return JSON.stringify(editedDict) !== JSON.stringify(originalDict);
-      })
-      .map(([localId, editedDict]) => ({
-        localId,
-        editedDict,
-        originalDict: dictionaries[localId],
-      }));
-  };
-
-  const modifiedDictionaries = getModifiedDictionaries();
+  // Serializing every dictionary is costly: only redo it when either changes
+  const modifiedDictionaries = useMemo(
+    () => getModifiedDictionaries(editedContent, dictionaries),
+    [editedContent, dictionaries]
+  );
 
   if (modifiedDictionaries.length === 0) {
     return null;
   }
 
-  const saveOne = async (localId: string, dictionary: Dictionary) => {
-    setSavingIds((prev) => new Set(prev).add(localId));
-    try {
-      if (isAuthenticated) {
-        await pushDictionaries({ dictionaries: [dictionary] });
-      } else {
-        await writeDictionary({ dictionary });
-      }
+  const updateSavingIds = (
+    localId: LocalDictionaryId,
+    isSaving: boolean
+  ): void =>
+    setSavingIds((previousIds) => {
+      const nextIds = new Set(previousIds);
 
-      setLocaleDictionary(dictionary);
-      restoreEditedContent(localId as LocalDictionaryId);
-    } catch (error) {
-      console.error(`Failed to save dictionary ${localId}`, error);
-    } finally {
-      setSavingIds((prev) => {
-        const next = new Set(prev);
-        next.delete(localId);
-        return next;
-      });
-    }
+      if (isSaving) nextIds.add(localId);
+      else nextIds.delete(localId);
+
+      return nextIds;
+    });
+
+  const saveOne = async ({
+    localId,
+    dictionaryToSave,
+  }: ModifiedDictionary): Promise<void> => {
+    updateSavingIds(localId, true);
+
+    await saveDictionary(
+      dictionaryToSave,
+      isAuthenticated ? 'remote' : 'local'
+    );
+
+    updateSavingIds(localId, false);
   };
 
   const handleSaveAll = async () => {
     setIsGlobalSaving(true);
-    const limit = 5;
-    const queue = [...modifiedDictionaries];
-    const executing: Promise<void>[] = [];
 
-    const processItem = async (item: (typeof modifiedDictionaries)[0]) => {
-      const dictToSave = item.originalDict
-        ? ({ ...item.originalDict, ...item.editedDict } as Dictionary)
-        : item.editedDict;
-      await saveOne(item.localId, dictToSave);
-    };
-
-    const results = [];
-    for (const item of queue) {
-      const p = processItem(item);
-      results.push(p);
-      executing.push(p);
-      p.then(() => {
-        const index = executing.indexOf(p);
-        if (index > -1) executing.splice(index, 1);
-      });
-
-      if (executing.length >= limit) {
-        await Promise.race(executing);
-      }
+    for (
+      let startIndex = 0;
+      startIndex < modifiedDictionaries.length;
+      startIndex += SAVE_ALL_CONCURRENCY
+    ) {
+      await Promise.all(
+        modifiedDictionaries
+          .slice(startIndex, startIndex + SAVE_ALL_CONCURRENCY)
+          .map(saveOne)
+      );
     }
-    await Promise.all(results);
+
     setIsGlobalSaving(false);
   };
 
   const handleRestoreAll = () => {
-    modifiedDictionaries.forEach(({ localId }) => {
-      restoreEditedContent(localId as LocalDictionaryId);
-    });
+    for (const { localId } of modifiedDictionaries) {
+      restoreEditedContent(localId);
+    }
   };
 
   return (
@@ -144,7 +179,7 @@ export const SaveAllButton: FC<SaveAllButtonProps> = ({ dictionaries }) => {
           isHidden={isGlobalSaving ? false : undefined}
         >
           <Container
-            className="flex flex-col gap-4"
+            className="flex max-h-[60vh] flex-col gap-4"
             padding="md"
             roundedSize="2xl"
           >
@@ -157,8 +192,8 @@ export const SaveAllButton: FC<SaveAllButtonProps> = ({ dictionaries }) => {
                 variant="outline"
                 color="text"
                 size="icon-md"
-                onClick={(e) => {
-                  e.stopPropagation();
+                onClick={(event) => {
+                  event.stopPropagation();
                   handleRestoreAll();
                 }}
                 Icon={RotateCcw}
@@ -167,55 +202,21 @@ export const SaveAllButton: FC<SaveAllButtonProps> = ({ dictionaries }) => {
               </Button>
             </div>
 
-            <div className="flex max-h-[60vh] flex-col gap-2 overflow-y-auto">
-              {modifiedDictionaries.map(
-                ({ localId, editedDict, originalDict }) => (
-                  <div
-                    key={localId}
-                    className="flex items-center justify-between gap-6 rounded-lg bg-white/5 p-3 transition-colors hover:bg-white/10"
-                  >
-                    <span className="truncate font-medium text-text-strong">
-                      {localId?.split('::').slice(0, 1)}
-                    </span>
-                    <div className="flex shrink-0 items-center gap-1">
-                      <Button
-                        label={restoreDictionaryButton?.label?.value}
-                        isLoading={savingIds.has(localId)}
-                        variant="outline"
-                        color="text"
-                        size="icon-md"
-                        Icon={RotateCcw}
-                        className="p-2!"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          restoreEditedContent(localId as LocalDictionaryId);
-                        }}
-                      />
-                      <Button
-                        label={saveDictionaryButton?.label?.value}
-                        variant="outline"
-                        color="text"
-                        size="icon-md"
-                        Icon={Save}
-                        className="p-2!"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          saveOne(
-                            localId,
-                            originalDict
-                              ? ({
-                                  ...originalDict,
-                                  ...editedDict,
-                                } as Dictionary)
-                              : editedDict
-                          );
-                        }}
-                      />
-                    </div>
-                  </div>
-                )
+            <VirtualizedList
+              items={modifiedDictionaries}
+              itemHeight={DICTIONARY_ROW_HEIGHT}
+              getItemKey={getModifiedDictionaryKey}
+              // Absolute rows give the panel no intrinsic width
+              className="w-80 max-w-[80vw]"
+              renderItem={(modifiedDictionary) => (
+                <ModifiedDictionaryRow
+                  modifiedDictionary={modifiedDictionary}
+                  isSaving={savingIds.has(modifiedDictionary.localId)}
+                  onSave={saveOne}
+                  onRestore={restoreEditedContent}
+                />
               )}
-            </div>
+            />
           </Container>
         </DropDown.Panel>
       </DropDown>

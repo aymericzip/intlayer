@@ -62,4 +62,5 @@ export * from './Terminal';
 export * from './TextArea';
 export * from './ThemeSwitcherDropDown';
 export * from './Toaster';
+export * from './VirtualizedList';
 export * from './WithResizer';

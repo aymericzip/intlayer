@@ -18,6 +18,7 @@ import type { FunctionComponent } from 'preact';
 import { useMemo } from 'preact/hooks';
 import { useIntlayer } from 'preact-intlayer';
 import { getDrawerIdentifier } from '../DictionaryEditionDrawer/useDictionaryEditionDrawer';
+import { PushDictionariesButton } from '../PushDictionariesButton';
 import { dictionaryListDrawerIdentifier } from './dictionaryListDrawerIdentifier';
 
 export const DictionaryListDrawer: FunctionComponent = () => {
@@ -79,12 +80,13 @@ export const DictionaryListDrawer: FunctionComponent = () => {
       title={drawerTitle.label.value}
       identifier={dictionaryListDrawerIdentifier}
     >
-      <div className="p-3 pb-4">
+      <div className="flex items-center gap-2 p-3 pb-4">
         <SearchInput
           placeholder="Search dictionaries"
           onChange={(event) => setSearch(event.currentTarget.value)}
           type="search"
         />
+        <PushDictionariesButton identifier="push-dictionaries-drawer" />
       </div>
       <ul className="flex flex-col gap-1">
         {filteredDictionaries.map((dictionary) => (

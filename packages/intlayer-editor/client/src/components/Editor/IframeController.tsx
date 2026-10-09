@@ -11,14 +11,16 @@ import {
   useEditorEnabled,
   useEditorPingClient,
   useFrameConnectionStatus,
+  useFrameReconnection,
 } from '@intlayer/editor-react';
 import type { FunctionComponent, RefObject } from 'preact';
-import { useEffect, useState } from 'preact/hooks';
+import { useCallback, useEffect, useState } from 'preact/hooks';
 import { useIntlayer } from 'preact-intlayer';
 import { useIntlayerConfig } from '../../hooks/useIntlayerConfig';
 import { ApplicationLocaleSwitcher } from './ApplicationLocaleSwitcher';
 import { EditorProfile } from './EditorProfile';
 import { NoApplicationURLView } from './NoApplicationURLView/NoApplicationURLView';
+import { PushDictionariesButton } from './PushDictionariesButton';
 
 export const IframeController: FunctionComponent<{
   iframeRef: RefObject<HTMLIFrameElement | null>;
@@ -38,6 +40,22 @@ export const IframeController: FunctionComponent<{
     useFrameConnectionStatus();
 
   useEditedContentPersistence();
+
+  const reloadFrame = useCallback(() => {
+    const iframe = iframeRef.current;
+
+    if (!iframe) return;
+
+    const { src } = iframe;
+    iframe.src = src;
+  }, [iframeRef]);
+
+  // e.g. the application dev server restarted
+  useFrameReconnection({
+    applicationURL: editor?.applicationURL,
+    isDisconnected: isConnectionFailed,
+    reloadFrame,
+  });
 
   const [loading, setLoading] = useState(true);
 
@@ -65,15 +83,6 @@ export const IframeController: FunctionComponent<{
       </Container>
     );
   }
-
-  const reloadFrame = () => {
-    const iframe = iframeRef.current;
-
-    if (!iframe) return;
-
-    const { src } = iframe;
-    iframe.src = src;
-  };
 
   const connectionError = isConnectionFailed && (
     <FrameConnectionError
@@ -103,6 +112,7 @@ export const IframeController: FunctionComponent<{
         applicationURL={editor.applicationURL}
         applicationPath={applicationPath}
       />
+      <PushDictionariesButton identifier="push-dictionaries-toolbar" />
       <EditorProfile />
     </div>
   );

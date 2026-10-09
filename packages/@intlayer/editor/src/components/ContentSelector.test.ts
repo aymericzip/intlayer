@@ -228,3 +228,38 @@ describe('intlayer-content-selector click selection', () => {
     }
   });
 });
+
+describe('intlayer-content-selector highlight style', () => {
+  beforeAll(() => {
+    defineIntlayerElements();
+  });
+
+  afterEach(() => {
+    document.body.innerHTML = '';
+  });
+
+  /** Renders `markup` in a selector, once its slot is assigned. */
+  const getStyledWrapper = async (markup: string) => {
+    renderContent(
+      `<intlayer-content-selector>${markup}</intlayer-content-selector>`
+    );
+    // slotchange is dispatched in a microtask
+    await Promise.resolve();
+
+    return getElement('intlayer-content-selector').shadowRoot?.querySelector(
+      '.wrapper'
+    );
+  };
+
+  it('rings text content line by line', async () => {
+    const wrapper = await getStyledWrapper('A paragraph over two lines');
+
+    expect(wrapper?.hasAttribute('data-text')).toBe(true);
+  });
+
+  it('falls back to the outline for element content', async () => {
+    const wrapper = await getStyledWrapper('<div><p>Markdown</p></div>');
+
+    expect(wrapper?.hasAttribute('data-text')).toBe(false);
+  });
+});

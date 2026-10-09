@@ -10,7 +10,6 @@ import {
   type ExtensionContext,
   env,
   Range,
-  type TextEditor,
   Uri,
   ViewColumn,
   type WebviewPanel,
@@ -53,8 +52,11 @@ const getEditorTheme = (): EditorTheme =>
     ? 'light'
     : 'dark';
 
-/** Context key gating the editor title button. */
-const PANEL_AVAILABLE_CONTEXT_KEY = 'intlayer.isEditorPanelAvailable';
+/**
+ * Context key gating the editor title button: paths of the visible files
+ * belonging to a project that has an Intlayer configuration file.
+ */
+const PANEL_AVAILABLE_CONTEXT_KEY = 'intlayer.editorPanelResources';
 
 /** Time a reachability probe waits for the editor server. */
 const PROBE_TIMEOUT = 1_500;
@@ -550,16 +552,24 @@ const openEditorPanel = async (
   await renderPanel(panelState);
 };
 
-/** Shows the editor title button for files of an Intlayer project. */
-const updateAvailability = (textEditor: TextEditor | undefined): void => {
-  const isAvailable =
-    textEditor?.document.uri.scheme === 'file' &&
-    findProjectRoot(textEditor.document.uri.fsPath) !== undefined;
+/**
+ * Shows the editor title button only on the visible files of a project that
+ * has an Intlayer configuration file. Set per file, as every editor group
+ * shows its own title bar.
+ */
+const updateAvailability = (): void => {
+  const availableResourcePaths = window.visibleTextEditors
+    .map((textEditor) => textEditor.document.uri)
+    .filter(
+      (uri) =>
+        uri.scheme === 'file' && findProjectRoot(uri.fsPath) !== undefined
+    )
+    .map((uri) => uri.fsPath);
 
   void commands.executeCommand(
     'setContext',
     PANEL_AVAILABLE_CONTEXT_KEY,
-    isAvailable
+    availableResourcePaths
   );
 };
 
@@ -569,9 +579,9 @@ export const registerEditorPanel = (context: ExtensionContext): void => {
     commands.registerCommand('intlayer.openEditorPanel', (resource?: Uri) =>
       openEditorPanel(context, { filePath: resource?.fsPath })
     ),
-    window.onDidChangeActiveTextEditor(updateAvailability),
+    window.onDidChangeVisibleTextEditors(updateAvailability),
     onDidChangeConfiguration(() => {
-      updateAvailability(window.activeTextEditor);
+      updateAvailability();
 
       // Pick up a fix (e.g. `editor.enabled` turned on) without a retry
       if (panelState?.view === 'disabled' || panelState?.view === 'failed') {
@@ -586,5 +596,5 @@ export const registerEditorPanel = (context: ExtensionContext): void => {
     }
   );
 
-  updateAvailability(window.activeTextEditor);
+  updateAvailability();
 };

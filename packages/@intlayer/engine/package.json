@@ -60,6 +60,16 @@
       "require": "./dist/cjs/utils/index.cjs",
       "import": "./dist/esm/utils/index.mjs"
     },
+    "./utils/chunkArray": {
+      "types": "./dist/types/utils/chunkArray.d.ts",
+      "require": "./dist/cjs/utils/chunkArray.cjs",
+      "import": "./dist/esm/utils/chunkArray.mjs"
+    },
+    "./utils/parallelize": {
+      "types": "./dist/types/utils/parallelize.d.ts",
+      "require": "./dist/cjs/utils/parallelize.cjs",
+      "import": "./dist/esm/utils/parallelize.mjs"
+    },
     "./syncPluginKit": {
       "types": "./dist/types/syncPluginKit/index.d.ts",
       "require": "./dist/cjs/syncPluginKit/index.cjs",
@@ -111,6 +121,12 @@
       ],
       "utils": [
         "./dist/types/utils/index.d.ts"
+      ],
+      "utils/chunkArray": [
+        "./dist/types/utils/chunkArray.d.ts"
+      ],
+      "utils/parallelize": [
+        "./dist/types/utils/parallelize.d.ts"
       ],
       "syncPluginKit": [
         "./dist/types/syncPluginKit/index.d.ts"

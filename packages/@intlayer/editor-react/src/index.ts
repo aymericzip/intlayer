@@ -12,3 +12,4 @@ export * from './useEditedContentPersistence';
 export * from './useEditorLocale';
 export * from './useFocusUnmergedDictionary';
 export * from './useFrameConnectionStatus';
+export * from './useFrameReconnection';

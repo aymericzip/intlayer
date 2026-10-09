@@ -4,17 +4,12 @@ import {
   useAuth,
   useBearerAuth,
   useDeleteDictionary,
-  usePushDictionaries,
   useSession,
-  useWriteDictionary,
 } from '@api/index';
 import { FormButton } from '@components/Form';
 import { Modal } from '@components/Modal';
 import type { DictionaryAPI as DistantDictionary } from '@intlayer/backend-contract/dictionary';
-import {
-  useDictionariesRecordActions,
-  useEditedContent,
-} from '@intlayer/editor-react';
+import { useConfiguration, useEditedContent } from '@intlayer/editor-react';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import { cn } from '@utils/cn';
 import {
@@ -29,11 +24,22 @@ import {
   type FC,
   type FormHTMLAttributes,
   useEffect,
+  useMemo,
   useState,
 } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { ChangeSetPopover } from '../ContentGrid/ChangeSetPopover';
+import {
+  type ChangeSetEntry,
+  computeChangeSet,
+} from '../ContentGrid/changeSet';
+import { flattenContentRows } from '../ContentGrid/flattenContentRows';
 import { useOptionalContentGrid } from '../ContentGrid/useOptionalContentGrid';
+import { isDictionaryEdited, mergeDictionaryEdits } from './dictionaryEdits';
+import { useDictionarySave } from './useDictionarySave';
+
+/** Stable empty change set, so memoized consumers skip re-rendering. */
+const EMPTY_CHANGE_SET: ChangeSetEntry[] = [];
 
 type DictionaryDetailsProps = {
   dictionary: Dictionary;
@@ -51,14 +57,14 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
   ...props
 }) => {
   const [isFormatAlertModalOpen, setIsFormatAlertModalOpen] = useState(false);
-  const { setLocaleDictionary } = useDictionariesRecordActions();
   const { mutate: deleteDictionary, isPending: isDeleting } =
     useDeleteDictionary();
-  const { mutate: writeDictionary, isPending: isWriting } =
-    useWriteDictionary();
-  const { mutate: pushDictionaries, isPending: isPushing } =
-    usePushDictionaries();
-  const isLoading = isWriting || isPushing;
+  const {
+    saveDictionary,
+    isPushing,
+    isWriting,
+    isSaving: isLoading,
+  } = useDictionarySave();
 
   const { editedContent, restoreEditedContent } = useEditedContent();
   const {
@@ -72,7 +78,34 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
   } = useIntlayer('save-dictionary-details');
   // Absent when the form is rendered outside the dictionary editor
   const contentGrid = useOptionalContentGrid();
-  const changeCount = contentGrid?.changeSet.length ?? 0;
+  const configuration = useConfiguration();
+  const editedDictionary = editedContent?.[dictionary.localId!];
+
+  // Outside the grid (e.g. a drawer footer), the changes are computed here
+  const standaloneChangeSet = useMemo(() => {
+    if (contentGrid || !editedDictionary) return EMPTY_CHANGE_SET;
+
+    const locales = (configuration?.internationalization?.locales ?? []).map(
+      String
+    );
+    const flattenOptions = {
+      locales,
+      sourceLocale: String(
+        configuration?.internationalization?.defaultLocale ?? locales[0] ?? 'en'
+      ),
+    };
+
+    return computeChangeSet(
+      flattenContentRows(dictionary.content, flattenOptions),
+      flattenContentRows(
+        editedDictionary.content ?? dictionary.content,
+        flattenOptions
+      )
+    );
+  }, [contentGrid, editedDictionary, dictionary.content, configuration]);
+
+  const changeSet = contentGrid?.changeSet ?? standaloneChangeSet;
+  const changeCount = changeSet.length;
   const { isAuthenticated } = useAuth();
   const { session } = useSession();
   const bearerAuth = useBearerAuth();
@@ -91,57 +124,33 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
 
   const hasDictionaryDeletePermission = hasDictionaryWritePermission;
 
-  const editedDictionary = editedContent?.[dictionary.localId!];
-
-  const isEdited =
-    editedDictionary &&
-    JSON.stringify(editedDictionary) !== JSON.stringify(dictionary);
+  // Serializing a large dictionary is costly: only redo it when either changes
+  const isEdited = useMemo(
+    () => isDictionaryEdited(editedDictionary, dictionary),
+    [editedDictionary, dictionary]
+  );
 
   const isDistantDictionary =
     typeof (dictionary as unknown as DistantDictionary)?.id !== 'undefined';
 
+  const getDictionaryToSave = () =>
+    mergeDictionaryEdits(dictionary, editedDictionary ?? dictionary);
+
   const handleSaveDictionaryConfirmation = async () => {
-    if (!editedContent?.[dictionary.localId!]) return;
+    if (!editedDictionary) return;
 
-    const updatedDictionary = {
-      ...dictionary,
-      ...editedContent?.[dictionary.localId!],
-    };
+    const isSaved = await saveDictionary(getDictionaryToSave(), 'local');
 
-    writeDictionary(
-      {
-        dictionary: updatedDictionary,
-      },
-      {
-        onSuccess: () => {
-          const savedDictionary = editedContent?.[dictionary.localId!];
-          if (savedDictionary) setLocaleDictionary(savedDictionary);
-          restoreEditedContent(dictionary.localId!);
-          setIsFormatAlertModalOpen(false);
-          onSave?.();
-        },
-      }
-    );
+    if (!isSaved) return;
+
+    setIsFormatAlertModalOpen(false);
+    onSave?.();
   };
 
-  const handlePushDictionary = () => {
-    const updatedDictionary = {
-      ...dictionary,
-      ...editedContent?.[dictionary.localId!],
-    };
+  const handlePushDictionary = async () => {
+    const isSaved = await saveDictionary(getDictionaryToSave(), 'remote');
 
-    pushDictionaries(
-      { dictionaries: [updatedDictionary] },
-      {
-        onSuccess: (res) => {
-          if (res) {
-            setLocaleDictionary(updatedDictionary);
-            restoreEditedContent(dictionary.localId!);
-            onSave?.();
-          }
-        },
-      }
-    );
+    if (isSaved) onSave?.();
   };
 
   const handleLoginToPush = () => {
@@ -190,16 +199,18 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
       isLoading={isPushing}
       onClick={handlePushDictionary}
     >
-      {saveButton.text({ count: changeCount })(changeCount)}
+      {changeCount > 0
+        ? saveButton.text({ count: changeCount })(changeCount)
+        : saveButton.textWithoutCount}
     </FormButton>
   );
 
   // Hovering the save button reviews the unsaved changes
-  const SaveChangesButton = () =>
-    contentGrid && changeCount > 0 ? (
+  const saveChangesButtonElement =
+    changeCount > 0 ? (
       <ChangeSetPopover
-        changeSet={contentGrid.changeSet}
-        onRevert={contentGrid.revertChange}
+        changeSet={changeSet}
+        onRevert={contentGrid?.revertChange}
         className="max-w-2xs flex-1"
       >
         {saveButtonElement}
@@ -268,7 +279,8 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
         {mode.includes('remote') &&
           isAuthenticated &&
           isDistantDictionary &&
-          isEdited && <SaveChangesButton />}
+          isEdited &&
+          saveChangesButtonElement}
 
         {mode.includes('local') && dictionary.filePath && (
           <span
@@ -331,7 +343,9 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
             className="max-w-2xs flex-1"
             onClick={() => restoreEditedContent(dictionary.localId!)}
           >
-            {discardButton.text({ count: changeCount })(changeCount)}
+            {changeCount > 0
+              ? discardButton.text({ count: changeCount })(changeCount)
+              : discardButton.textWithoutCount}
           </FormButton>
         )}
 
