@@ -4,11 +4,7 @@ import {
   Website_Demo_Path,
   Website_Playground,
 } from '@intlayer/design-system/routes';
-import {
-  createFileRoute,
-  getRouteApi,
-  useParams,
-} from '@tanstack/react-router';
+import { createFileRoute, getRouteApi } from '@tanstack/react-router';
 import { defaultLocale, getIntlayerAsync, getLocalizedPath } from 'intlayer';
 import { lazy, Suspense } from 'react';
 import { useIntlayer } from 'react-intlayer';
