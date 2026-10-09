@@ -300,6 +300,7 @@ export const NavSectionItem: FC<NavSectionItemProps> = ({
         isActive={isSelfActive && !isSubSectionActive}
         frameworks={sectionData.frameworks}
         isLevel1={level === 1}
+        title={sectionData.title}
       >
         {sectionData.title}
       </OptionalLink>
@@ -333,6 +334,7 @@ export const NavSectionItem: FC<NavSectionItemProps> = ({
               label={`${sectionKey}-overview`}
               isActive={isSelfActive}
               frameworks={sectionData.frameworks}
+              title={sectionData.title}
             >
               {overviewText}
             </OptionalLink>
