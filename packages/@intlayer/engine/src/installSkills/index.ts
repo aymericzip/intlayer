@@ -18,6 +18,8 @@ export const SKILLS_METADATA = {
     'Intlayer Compiler setup and usage for automatic content extraction without .content files',
   BundleOptimization:
     'Purge, minify and import modes; writing code the bundle optimizer can follow',
+  DynamicDictionaries:
+    'Collections (item) and variants (A/B tests, CMS records, ambient variant)',
   RemoteContent: 'How to use Intlayer with Remote/CMS/Server-side content',
   DevTools: 'ESLint, LSP, VS Code & Chrome extensions, MCP server and CI/CD',
   Compat:
