@@ -18,7 +18,9 @@ const distPath = join(__dirname, '../server/dist/index.mjs');
 // Get arguments passed to the command (ignoring "node" and the script name)
 const args = process.argv.slice(2);
 
-let env = 'production'; // Default environment
+// Development first: the editor runs next to a dev server, and a
+// `.env.production.local` would otherwise win
+let env = 'development';
 let envFile = ''; // Default to no env file
 let withCommand;
 let parallelProcess = null;
