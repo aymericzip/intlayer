@@ -6,12 +6,22 @@ import {
   MessageKey,
   useCrossFrameState,
 } from '@intlayer/editor-react';
-import type { FC, ReactNode } from 'react';
+import type { ComponentProps, FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 
 /** Bordered chip naming a gesture, such as "Long press" or "⌘ + click". */
-const GestureChip: FC<{ children: ReactNode }> = ({ children }) => (
-  <span className="mx-1 whitespace-nowrap rounded-md border border-neutral px-1.5">
+const GestureChip = ({
+  children,
+  className,
+  ...props
+}: ComponentProps<'span'>) => (
+  <span
+    {...props}
+    className={cn(
+      'mx-1 whitespace-nowrap rounded-md border border-neutral px-1.5 font-semibold',
+      className
+    )}
+  >
     {children}
   </span>
 );
@@ -46,9 +56,9 @@ export const LongPressMessage: FC = () => {
                 </GestureChip>
               ),
               dictionaryKey: (
-                <strong className="wrap-break-word mx-1">
+                <GestureChip className="wrap-break-word mx-1">
                   {hoveredContent.dictionaryKey}
-                </strong>
+                </GestureChip>
               ),
             })
           : ''}
