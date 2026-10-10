@@ -50,12 +50,6 @@ Dieser Befehl analysiert Ihre Codedateien, um Strings aus Komponenten in eine .c
 
   > Beispiel: `npx intlayer extract -f src/components/MyComponent.tsx`
 
-**Ausgabeoptionen:**
-
-- **`-o, --output-content-declarations [outputContentDeclarations]`**: Verzeichnis zum Speichern der generierten Content-Deklarationsdateien.
-
-  > Beispiel: `npx intlayer extract -o src/content`
-
 - **`--code-only`**: Nur den Komponenten-Code extrahieren (keine Content-Deklaration schreiben).
 
   > Beispiel: `npx intlayer extract --code-only`

@@ -50,12 +50,6 @@ Bu komut, bileşenlerden stringleri bileşene yakın bir .content dosyasına ç�
 
   > Örnek: `npx intlayer extract -f src/components/MyComponent.tsx`
 
-**Çıktı seçenekleri:**
-
-- **`-o, --output-content-declarations [outputContentDeclarations]`**: Oluşturulan içerik bildirim dosyalarının kaydedileceği dizin.
-
-  > Örnek: `npx intlayer extract -o src/content`
-
 - **`--code-only`**: Sadece bileşen kodunu çıkarır (içerik bildirimi yazmaz).
 
   > Örnek: `npx intlayer extract --code-only`
