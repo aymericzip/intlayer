@@ -50,12 +50,6 @@ Este comando analisa os seus ficheiros de código para extrair strings dos compo
 
   > Exemplo: `npx intlayer extract -f src/components/MyComponent.tsx`
 
-**Opções de saída:**
-
-- **`-o, --output-content-declarations [outputContentDeclarations]`**: Diretório onde serão guardados os ficheiros de declaração de conteúdo gerados.
-
-  > Exemplo: `npx intlayer extract -o src/content`
-
 - **`--code-only`**: Extrair apenas o código do componente (não escrever a declaração de conteúdo).
 
   > Exemplo: `npx intlayer extract --code-only`

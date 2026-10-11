@@ -50,12 +50,6 @@ bun x intlayer extract
 
   > 예시: `npx intlayer extract -f src/components/MyComponent.tsx`
 
-**출력 옵션:**
-
-- **`-o, --output-content-declarations [outputContentDeclarations]`**: 생성된 content declaration 파일을 저장할 디렉터리입니다.
-
-  > 예시: `npx intlayer extract -o src/content`
-
 - **`--code-only`**: 컴포넌트 코드만 추출합니다 (content declaration을 작성하지 않습니다).
 
   > 예시: `npx intlayer extract --code-only`

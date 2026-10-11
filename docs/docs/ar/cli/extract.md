@@ -50,12 +50,6 @@ bun x intlayer extract
 
   > مثال: `npx intlayer extract -f src/components/MyComponent.tsx`
 
-**خيارات الإخراج:**
-
-- **`-o, --output-content-declarations [outputContentDeclarations]`**: الدليل لحفظ ملفات إعلانات المحتوى المولّدة.
-
-  > مثال: `npx intlayer extract -o src/content`
-
 - **`--code-only`**: استخراج كود المكون فقط (لا يكتب إعلان المحتوى).
 
   > مثال: `npx intlayer extract --code-only`

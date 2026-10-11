@@ -50,12 +50,6 @@ bun x intlayer extract
 
   > 示例：`npx intlayer extract -f src/components/MyComponent.tsx`
 
-**输出选项：**
-
-- **`-o, --output-content-declarations [outputContentDeclarations]`**：保存生成的内容声明文件的目录。
-
-  > 示例：`npx intlayer extract -o src/content`
-
 - **`--code-only`**：仅提取组件代码（不写入内容声明）。
 
   > 示例：`npx intlayer extract --code-only`
