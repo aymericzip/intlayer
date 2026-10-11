@@ -519,11 +519,6 @@ export const loadCLITools: LoadCLITools = async (server) => {
           .register(z.globalRegistry, {
             description: 'List of files to extract',
           }),
-        outputContentDeclarations: z
-          .optional(z.string())
-          .register(z.globalRegistry, {
-            description: 'Path to output content declaration files',
-          }),
         configOptions: configOptionsSchema,
       },
       annotations: {
