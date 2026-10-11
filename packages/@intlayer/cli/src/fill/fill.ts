@@ -35,6 +35,11 @@ import {
   listTranslationsTasks,
   type TranslationTask,
 } from './listTranslationsTasks';
+import {
+  getSourceChangesRef,
+  loadPreviousDictionaries,
+  type PreviousDictionaries,
+} from './sourceChanges';
 import { translateDictionary } from './translateDictionary';
 import { writeFill } from './writeFill';
 
@@ -177,14 +182,39 @@ export const fill = async (options?: FillOptions): Promise<FillResult> => {
    *
    * Create a list of per-locale dictionaries to translate
    *
-   * In 'complete' mode, filter only the missing locales to translate
+   * In 'complete' mode, filter only the locales with missing translations or
+   * with source values changed in git (compared to the last commit, or to the
+   * base branch with `--git-diff`)
    */
+  let previousDictionaries: PreviousDictionaries = {};
+
+  if (mode === 'complete') {
+    const { ref, skipReason } = await getSourceChangesRef(
+      options?.gitOptions,
+      configuration.system.baseDir
+    );
+
+    if (ref) {
+      previousDictionaries = await loadPreviousDictionaries(
+        targetUnmergedDictionaries,
+        configuration,
+        ref
+      );
+    } else {
+      appLogger(
+        `Source changes not checked: ${skipReason}. Only missing translations are filled.`,
+        { level: options?.gitOptions ? 'warn' : 'info' }
+      );
+    }
+  }
+
   const translationTasks: TranslationTask[] = listTranslationsTasks(
     targetUnmergedDictionaries.map((dictionary) => dictionary.localId!),
     outputLocales,
     mode,
     baseLocale,
-    configuration
+    configuration,
+    previousDictionaries
   );
 
   // AI calls in flight at once (translateJSON + metadata audit)

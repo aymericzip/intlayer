@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-27
+updatedAt: 2026-10-06
 priority: 5
 title: "intlayer fill: Translate Dictionaries with AI"
 description: "Fill missing translations, audit existing ones and translate your Intlayer dictionaries with AI from the CLI, locally or in CI."
@@ -117,7 +117,9 @@ Affected dictionary keys for processing: app, comp-test, hello-world, lang-switc
 
 - **`--output-locales [outputLocales...]`**: Target locales to translate to. If not specified, all locales from your configuration will be used except the source locale.
 
-- **`--mode [mode]`**: Translation mode: `complete`, `review`. Default is `complete`. `complete` will fill all missing content, `review` will fill missing content and review existing keys.
+- **`--mode [mode]`**: Translation mode: `complete`, `review`. Default is `complete`. `complete` will fill all missing content and re-translate values whose source changed in git, `review` will fill missing content and review existing keys.
+
+  > In `complete` mode, source values are compared with the last commit (`HEAD`), or with the base branch when `--git-diff` is set (with `--unpushed`, with the upstream branch). A translation is re-translated when its source value changed and the translation itself did not. No extra file is written. This applies to JSON, JS and TS content declaration files tracked by git. If that git ref can't be read (no git repository, no commit, or a shallow clone without the base branch), `fill` logs why and only fills missing translations. In CI, check out the full history (`fetch-depth: 0` with `actions/checkout`) to use `--git-diff`.
 
 **Git options:**
 
