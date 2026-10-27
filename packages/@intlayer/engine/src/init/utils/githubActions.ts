@@ -301,7 +301,7 @@ jobs:
       #
       # Option 1 — Use your own AI provider key (forwarded below via CLI flags):
       AI_PROVIDER: openai
-      AI_MODEL: gpt-5-mini
+      AI_MODEL: gpt-5.6-terra
       AI_API_KEY: \${{ secrets.AI_API_KEY }}
       #
       # Option 2 — Use Intlayer CMS access keys instead of your own AI key.

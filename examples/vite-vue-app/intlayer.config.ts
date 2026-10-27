@@ -36,7 +36,7 @@ const config: IntlayerConfig = {
   ai: {
     provider: 'openai',
     apiKey: process.env.OPENAI_API_KEY,
-    model: 'gpt-5-mini',
+    model: 'gpt-5.6-terra',
     applicationContext: 'This is a test application',
   },
   compiler: {

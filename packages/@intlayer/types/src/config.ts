@@ -647,7 +647,7 @@ type AiProviderConfig<Provider extends AiProviders> = {
    * The model to use for the AI features of Intlayer. Known models of the
    * selected provider are suggested, any other model id is accepted.
    *
-   * Example: 'gpt-5-mini'
+   * Example: 'gpt-5.6-terra'
    */
   model?: AiProviderModelMap[`${Provider}`];
 };

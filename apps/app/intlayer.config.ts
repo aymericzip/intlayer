@@ -82,7 +82,7 @@ const config: CustomIntlayerConfig = {
   },
   ai: {
     provider: 'openai',
-    model: 'gpt-5-mini',
+    model: 'gpt-5.6-terra',
     apiKey: process.env.OPENAI_API_KEY,
     applicationContext: [
       'Intlayer is a developer-friendly internationalization (i18n) solution combined with a multilingual CMS.',

@@ -26,7 +26,7 @@ const response = await fetch('https://api.openai.com/v1/chat/completions', {
     Authorization: `Bearer ${key}`,
   },
   body: JSON.stringify({
-    model: 'gpt-4o-mini',
+    model: 'gpt-6-luna',
     messages: [
       {
         role: 'user',

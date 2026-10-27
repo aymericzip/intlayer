@@ -293,7 +293,7 @@ const config: IntlayerConfig = {
   ai: {
     apiKey: process.env.OPENAI_API_KEY,
     // provider: "openai",     // 기본값
-    // model: "gpt-4o-mini",   // 기본값
+    // model: "gpt-5.6-terra",   // 기본값
   },
 };
 

@@ -15,7 +15,7 @@ const GENERATED_COMMIT_PATTERN = /^(Merge|Revert ")/;
 /** Maximum characters of file changes sent to the AI */
 const MAX_CHANGES_PROMPT_LENGTH = 4000;
 
-const AI_DEFAULT_OPTIONS = { model: 'gpt-4o-mini' };
+const AI_DEFAULT_OPTIONS = { model: 'gpt-6-luna' };
 
 export type CommitStyle = {
   /** Subjects follow `type(scope): subject` */

@@ -166,7 +166,7 @@ const config: IntlayerConfig = {
   },
   ai: {
     provider: "openai",
-    model: "gpt-4o-mini",
+    model: "gpt-5.6-terra",
     apiKey: process.env.OPENAI_API_KEY,
     applicationContext:
       "Сучасний SaaS-додаток і панель керування, створені на базі Vite та React",

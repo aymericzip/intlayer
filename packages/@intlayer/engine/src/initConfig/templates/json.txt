@@ -46,7 +46,7 @@
      * Options: "openai", "anthropic", "mistral", "deepseek", "gemini", "ollama", etc.
      */
     "provider": "openai",
-    "model": "gpt-4o",
+    "model": "gpt-5.6-terra",
     /**
      * API Key. Note: JSON does not support process.env. 
      * This value should be provided as a string or handled by your loader.

@@ -38,7 +38,10 @@ vi.mock('./translationQueue.service', () => ({
 }));
 
 vi.mock('@intlayer/ai', () => ({
-  getAIConfig: vi.fn(async () => ({ provider: 'openai', model: 'gpt-5-mini' })),
+  getAIConfig: vi.fn(async () => ({
+    provider: 'openai',
+    model: 'gpt-5.6-terra',
+  })),
 }));
 
 // Mock core plugins so tests control what content reaches translateDictionaryDB.
