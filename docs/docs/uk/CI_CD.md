@@ -140,8 +140,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       # Конфігурація OpenAI
-      AI_MODEL: openai
-      AI_PROVIDER: gpt-5-mini
+      AI_PROVIDER: openai
+      AI_MODEL: gpt-5.6-terra
       AI_API_KEY: ${{ secrets.AI_API_KEY }}
 
     steps:

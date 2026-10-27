@@ -32,7 +32,7 @@ export type TranslateJSONResultData<T = JSON> = {
 
 export const aiDefaultOptions: AIOptions = {
   provider: AIProvider.OPENAI,
-  model: 'gpt-5-mini',
+  model: 'gpt-5.6-terra',
 };
 
 /**

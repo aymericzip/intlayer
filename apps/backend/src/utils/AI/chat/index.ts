@@ -37,7 +37,7 @@ const PROMPT = readFileSync(join(__dirname, './PROMPT.md'), 'utf-8');
 
 export const aiDefaultOptions: AIOptions = {
   provider: AIProvider.OPENAI,
-  model: 'gpt-4o-mini',
+  model: 'gpt-6-luna',
 };
 
 // Keep last ≤8 messages, always starting on a 'user' turn (required by Anthropic).

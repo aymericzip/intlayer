@@ -25,7 +25,7 @@ export { AIProvider, type TranslateJSONResultData };
 
 export const aiDefaultOptions: AIOptions = {
   provider: AIProvider.OPENAI,
-  model: 'gpt-5-mini',
+  model: 'gpt-5.6-terra',
 };
 
 /**
