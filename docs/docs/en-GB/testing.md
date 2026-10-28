@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-01
-updatedAt: 2025-09-20
+updatedAt: 2026-10-27
 priority: 8
 title: "Testing Your Translations with Intlayer"
 description: "Test your Intlayer content: detect missing translations, validate dictionaries in CI and render components per locale in unit tests."
@@ -15,6 +15,9 @@ slugs:
   - doc
   - testing
 history:
+  - version: 6.1.0
+    date: 2026-10-27
+    changes: "Clarify that content test exits non-zero on missing required locales"
   - version: 6.0.0
     date: 2025-09-20
     changes: "Introduction of testing"
@@ -29,7 +32,7 @@ This guide shows how to automatically verify your dictionaries are complete, cat
 
 - **Missing translations**: fail CI if any required locales are missing for any dictionary.
 - **Localised UI rendering**: render components with a specific locale provider and assert on visible text/attributes.
-- **Build-time audits**: run a quick audit locally via CLI.
+- **Build-time audits**: run `npx intlayer content test` locally or in CI; it exits non-zero when required translations are missing.
 
 ## Quick start: audit via CLI
 
@@ -59,7 +62,7 @@ Useful flags:
 - `--verbose`: show verbose logs.
 - `--prefix [label]`: prefix log lines.
 
-Note: the CLI prints a detailed report but does not exit with a non-zero code on failures. For CI gating, add a unit test (below) that asserts zero missing required locales.
+The command exits with code `1` when any required locale is missing (see `requiredLocales` in your configuration), and `0` otherwise. You can use it directly to fail CI jobs or commit hooks. The programmatic test below is an optional alternative.
 
 ## Programmatic test (Vitest/Jest)
 
@@ -155,14 +158,24 @@ Tips:
 
 ## Continuous Integration
 
-Add a test that fails the build when required translations are missing.
+Run the CLI audit in CI. It fails the job when required translations are missing.
 
 `package.json`:
 
 ```json
 {
   "scripts": {
-    "test:i18n": "vitest run -c"
+    "test:i18n": "npx intlayer content test"
+  }
+}
+```
+
+Alternative: Vitest
+
+```json
+{
+  "scripts": {
+    "test:i18n": "vitest run"
   }
 }
 ```
@@ -181,7 +194,7 @@ jobs:
         with:
           node-version: 20
       - run: npm ci
-      - run: npm run test:i18n
+      - run: npx intlayer content test
 ```
 
 Optional: run the CLI audit for a human-readable summary alongside tests:

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-01
-updatedAt: 2025-09-20
+updatedAt: 2026-10-27
 priority: 8
 title: "Intlayer で翻訳をテストする"
 description: "Intlayer のコンテンツをテスト：不足している翻訳の検出、CI での辞書の検証、ユニットテストでのロケールごとのコンポーネント描画。"
@@ -15,6 +15,9 @@ slugs:
   - doc
   - testing
 history:
+  - version: 6.1.0
+    date: 2026-10-27
+    changes: "必須ロケールの欠落時に content test が非ゼロで終了することを明確化"
   - version: 6.0.0
     date: 2025-09-20
     changes: "テスト導入"
@@ -29,7 +32,7 @@ author: aymericzip
 
 - **翻訳漏れ**: 必須のロケールが辞書に欠けている場合、CIを失敗させます。
 - **ローカライズされたUIのレンダリング**: 特定のロケールプロバイダーでコンポーネントをレンダリングし、表示されるテキストや属性を検証します。
-- **ビルド時の監査**: CLIを使ってローカルで簡単な監査を実行します。
+- **ビルド時の監査**: `npx intlayer content test` をローカルまたは CI で実行します。必須の翻訳が欠けている場合は非ゼロのコードで終了します。
 
 ## クイックスタート: CLIによる監査
 
@@ -59,7 +62,7 @@ bun x intlayer content test
 - `--verbose`: 詳細なログを表示します。
 - `--prefix [label]`: ログ行にプレフィックスを付けます。
 
-注意: CLIは詳細なレポートを出力しますが、失敗時に非ゼロで終了しません。CIのゲーティングには、必須ロケールの欠落がゼロであることをアサートするユニットテスト（以下）を追加してください。
+必須ロケールが欠けている場合、コマンドはコード `1` で終了し、それ以外の場合は `0` で終了します（設定の `requiredLocales` を参照）。CI ジョブやコミットフックを失敗させるために直接利用できます。以下に示すプログラムによるテストは任意の代替手段です。
 
 ## プログラムによるテスト (Vitest/Jest)
 
@@ -155,14 +158,24 @@ test("フランス語でローカライズされた見出しをレンダリン�
 
 ## 継続的インテグレーション
 
-必要な翻訳が欠落している場合にビルドを失敗させるテストを追加します。
+CI で CLI 監査を実行します。必須の翻訳が欠けている場合、ジョブは失敗します。
 
 `package.json`:
 
 ```json
 {
   "scripts": {
-    "test:i18n": "vitest run -c"
+    "test:i18n": "npx intlayer content test"
+  }
+}
+```
+
+代替: Vitest
+
+```json
+{
+  "scripts": {
+    "test:i18n": "vitest run"
   }
 }
 ```
@@ -181,7 +194,7 @@ jobs:
         with:
           node-version: 20
       - run: npm ci
-      - run: npm run test:i18n
+      - run: npx intlayer content test
 ```
 
 オプション: テストと並行して、人間が読みやすい要約を得るために CLI 監査を実行します:

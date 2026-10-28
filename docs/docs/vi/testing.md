@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-01
-updatedAt: 2026-09-27
+updatedAt: 2026-10-27
 priority: 8
 title: "Kiểm thử bản dịch với Intlayer"
 description: "Kiểm thử nội dung Intlayer: phát hiện bản dịch còn thiếu, xác thực từ điển trong CI và render component theo locale trong unit test."
@@ -15,6 +15,9 @@ slugs:
   - doc
   - testing
 history:
+  - version: 6.1.0
+    date: 2026-10-27
+    changes: "Làm rõ rằng content test thoát với mã khác 0 khi thiếu locale bắt buộc"
   - version: 6.0.1
     date: 2025-10-05
     changes: "Thực hiện kiểm thử bất đồng bộ và thêm tùy chọn build"
@@ -32,7 +35,7 @@ Hướng dẫn này trình bày cách tự động xác minh từ điển của 
 
 - **Bản dịch còn thiếu**: làm cho CI thất bại nếu bất kỳ ngôn ngữ bắt buộc nào bị thiếu trong bất kỳ từ điển nào.
 - **Kết xuất giao diện người dùng địa phương hóa**: kết xuất các component với một provider locale cụ thể và xác nhận trên văn bản/thuộc tính hiển thị.
-- **Kiểm tra thời gian build**: chạy kiểm tra nhanh cục bộ qua CLI.
+- **Kiểm tra thời gian build**: chạy `npx intlayer content test` cục bộ hoặc trong CI; lệnh thoát với mã khác 0 khi thiếu bản dịch bắt buộc.
 
 ## Bắt đầu nhanh: kiểm tra qua CLI
 
@@ -63,7 +66,7 @@ Các cờ hữu ích:
 - `--prefix [label]`: thêm tiền tố cho dòng log.
 - `--build [build]`: build các từ điển trước khi kiểm thử để đảm bảo nội dung được cập nhật. True sẽ ép buộc build, false sẽ bỏ qua build, undefined sẽ cho phép sử dụng cache của build.
 
-Lưu ý: CLI in ra báo cáo chi tiết nhưng không thoát với mã lỗi khác 0 khi có lỗi. Để kiểm soát CI, hãy thêm một unit test (dưới đây) để xác nhận không có locale bắt buộc nào bị thiếu.
+Lệnh thoát với mã `1` khi thiếu bất kỳ locale bắt buộc nào (xem `requiredLocales` trong cấu hình của bạn), và mã `0` trong trường hợp còn lại. Bạn có thể dùng trực tiếp để làm thất bại các job CI hoặc hook commit. Bài kiểm thử lập trình bên dưới là một lựa chọn thay thế không bắt buộc.
 
 ## Kiểm tra lập trình (Vitest/Jest)
 
@@ -160,14 +163,24 @@ Mẹo:
 
 ## Tích hợp liên tục
 
-Thêm một bài kiểm thử mà sẽ làm build thất bại khi thiếu bản dịch bắt buộc.
+Chạy kiểm tra CLI trong CI. Lệnh làm job thất bại khi thiếu bản dịch bắt buộc.
 
 `package.json`:
 
 ```json
 {
   "scripts": {
-    "test:i18n": "vitest run -c"
+    "test:i18n": "npx intlayer content test"
+  }
+}
+```
+
+Lựa chọn thay thế: Vitest
+
+```json
+{
+  "scripts": {
+    "test:i18n": "vitest run"
   }
 }
 ```
@@ -186,7 +199,7 @@ jobs:
         with:
           node-version: 20
       - run: npm ci
-      - run: npm run test:i18n
+      - run: npx intlayer content test
 ```
 
 Tùy chọn: chạy kiểm tra CLI để có bản tóm tắt dễ đọc bên cạnh các bài kiểm tra:
