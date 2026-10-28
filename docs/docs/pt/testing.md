@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-01
-updatedAt: 2025-09-20
+updatedAt: 2026-10-27
 priority: 8
 title: "Testar suas traduções com o Intlayer"
 description: "Teste seu conteúdo do Intlayer: detecte traduções ausentes, valide os dicionários em CI e renderize componentes por locale nos testes."
@@ -15,6 +15,9 @@ slugs:
   - doc
   - testing
 history:
+  - version: 6.1.0
+    date: 2026-10-27
+    changes: "Esclarecer que o content test termina com código não zero quando faltam idiomas obrigatórios"
   - version: 6.0.0
     date: 2025-09-20
     changes: "Introdução dos testes"
@@ -29,7 +32,7 @@ Este guia mostra como verificar automaticamente se seus dicionários estão comp
 
 - **Traduções faltantes**: falhar no CI se algum idioma obrigatório estiver faltando em qualquer dicionário.
 - **Renderização da interface localizada**: renderizar componentes com um provedor de idioma específico e verificar textos/atributos visíveis.
-- **Auditorias em tempo de build**: executar uma auditoria rápida localmente via CLI.
+- **Auditorias em tempo de build**: executar `npx intlayer content test` localmente ou no CI; ele termina com um código não zero quando faltam traduções obrigatórias.
 
 ## Início rápido: auditoria via CLI
 
@@ -59,7 +62,7 @@ Flags úteis:
 - `--verbose`: exibe logs detalhados.
 - `--prefix [rótulo]`: prefixa as linhas de log.
 
-Nota: o CLI imprime um relatório detalhado, mas não retorna código de erro em caso de falhas. Para controle em CI, adicione um teste unitário (abaixo) que assegure que não há locais obrigatórios faltando.
+O comando termina com o código `1` quando falta qualquer idioma obrigatório (veja `requiredLocales` na sua configuração) e com `0` caso contrário. Você pode usá-lo diretamente para falhar jobs de CI ou hooks de commit. O teste programático abaixo é uma alternativa opcional.
 
 ## Teste programático (Vitest/Jest)
 
@@ -155,14 +158,24 @@ Dicas:
 
 ## Integração Contínua
 
-Adicione um teste que falhe a build quando traduções obrigatórias estiverem faltando.
+Execute a auditoria CLI no CI. Ela falha o job quando faltam traduções obrigatórias.
 
 `package.json`:
 
 ```json
 {
   "scripts": {
-    "test:i18n": "vitest run -c"
+    "test:i18n": "npx intlayer content test"
+  }
+}
+```
+
+Alternativa: Vitest
+
+```json
+{
+  "scripts": {
+    "test:i18n": "vitest run"
   }
 }
 ```
@@ -181,7 +194,7 @@ jobs:
         with:
           node-version: 20
       - run: npm ci
-      - run: npm run test:i18n
+      - run: npx intlayer content test
 ```
 
 Opcional: execute a auditoria CLI para um resumo legível por humanos junto com os testes:

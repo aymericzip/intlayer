@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-01
-updatedAt: 2026-10-08
+updatedAt: 2026-10-27
 priority: 8
 title: "使用 Intlayer 测试你的翻译"
 description: "测试 Intlayer 内容：检测缺失的翻译、在 CI 中校验字典，并在单元测试中按语言渲染组件。"
@@ -15,6 +15,9 @@ slugs:
   - doc
   - testing
 history:
+  - version: 6.1.0
+    date: 2026-10-27
+    changes: "说明 content test 在缺少必需语言环境时以非零代码退出"
   - version: 6.0.0
     date: 2025-09-20
     changes: "引入测试功能"
@@ -29,7 +32,7 @@ author: aymericzip
 
 - **缺失的翻译**：如果任何字典缺少必需的语言环境，则使 CI 失败。
 - **本地化 UI 渲染**：使用特定的语言环境提供者渲染组件，并断言可见的文本/属性。
-- **构建时审计**：通过 CLI 在本地运行快速审计。
+- **构建时审计**：在本地或 CI 中运行 `npx intlayer content test`；当缺少必需的翻译时，它会以非零代码退出。
 
 ## 快速开始：通过 CLI 审计
 
@@ -59,7 +62,7 @@ bun x intlayer content test
 - `--verbose`：显示详细日志。
 - `--prefix [标签]`：为日志行添加前缀。
 
-注意：CLI 会打印详细报告，但在失败时不会以非零状态退出。对于 CI 门控，请添加下面的单元测试，断言没有缺失的必需语言环境。
+当缺少任何必需的语言环境时，命令会以代码 `1` 退出，否则以 `0` 退出（参见配置中的 `requiredLocales`）。你可以直接用它让 CI 任务或提交钩子失败。下面的编程测试是可选的替代方案。
 
 ## 编程测试（Vitest/Jest）
 
@@ -153,14 +156,24 @@ test("渲染法语本地化标题", () => {
 
 ## 持续集成
 
-添加一个测试，当缺少必需的翻译时使构建失败。
+在 CI 中运行 CLI 审计。缺少必需的翻译时，它会使任务失败。
 
 `package.json`：
 
 ```json
 {
   "scripts": {
-    "test:i18n": "vitest run -c"
+    "test:i18n": "npx intlayer content test"
+  }
+}
+```
+
+替代方案：Vitest
+
+```json
+{
+  "scripts": {
+    "test:i18n": "vitest run"
   }
 }
 ```
@@ -179,7 +192,7 @@ jobs:
         with:
           node-version: 20
       - run: npm ci
-      - run: npm run test:i18n
+      - run: npx intlayer content test
 ```
 
 可选：在测试的同时运行 CLI 审计以获得人类可读的摘要：

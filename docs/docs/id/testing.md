@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-01
-updatedAt: 2026-09-27
+updatedAt: 2026-10-27
 priority: 8
 title: "Menguji terjemahan dengan Intlayer"
 description: "Uji konten Intlayer Anda: deteksi terjemahan yang hilang, validasi kamus di CI, dan render komponen per locale dalam unit test."
@@ -15,6 +15,9 @@ slugs:
   - doc
   - testing
 history:
+  - version: 6.1.0
+    date: 2026-10-27
+    changes: "Menjelaskan bahwa content test keluar dengan kode non-zero ketika locale wajib hilang"
   - version: 6.0.1
     date: 2025-10-05
     changes: "Membuat pengujian asinkron dan menambahkan opsi build"
@@ -32,7 +35,7 @@ Panduan ini menunjukkan cara memverifikasi secara otomatis bahwa kamus Anda leng
 
 - **Terjemahan yang hilang**: gagal CI jika ada locale yang diperlukan hilang untuk kamus apa pun.
 - **Rendering UI yang dilokalisasi**: render komponen dengan penyedia locale tertentu dan pastikan teks/atribut yang terlihat.
-- **Audit saat build**: jalankan audit cepat secara lokal melalui CLI.
+- **Audit saat build**: jalankan `npx intlayer content test` secara lokal atau di CI; perintah keluar dengan kode non-zero ketika terjemahan wajib hilang.
 
 ## Mulai cepat: audit melalui CLI
 
@@ -63,7 +66,7 @@ Flag yang berguna:
 - `--prefix [label]`: menambahkan prefix pada baris log.
 - `--build [build]`: membangun kamus sebelum pengujian untuk memastikan konten terbaru. True akan memaksa build, false akan melewati build, undefined akan menggunakan cache build.
 
-Catatan: CLI mencetak laporan terperinci tetapi tidak keluar dengan kode non-zero saat terjadi kegagalan. Untuk pengujian CI, tambahkan unit test (di bawah) yang memastikan tidak ada locale wajib yang hilang.
+Perintah keluar dengan kode `1` ketika ada locale wajib yang hilang (lihat `requiredLocales` di konfigurasi Anda), dan `0` jika tidak. Anda dapat menggunakannya langsung untuk menggagalkan job CI atau hook commit. Pengujian programatik di bawah ini adalah alternatif opsional.
 
 ## Pengujian programatik (Vitest/Jest)
 
@@ -160,14 +163,24 @@ Tips:
 
 ## Integrasi Berkelanjutan
 
-Tambahkan pengujian yang akan membuat build gagal ketika terjemahan yang dibutuhkan hilang.
+Jalankan audit CLI di CI. Perintah ini menggagalkan job ketika terjemahan wajib hilang.
 
 `package.json`:
 
 ```json
 {
   "scripts": {
-    "test:i18n": "vitest run -c"
+    "test:i18n": "npx intlayer content test"
+  }
+}
+```
+
+Alternatif: Vitest
+
+```json
+{
+  "scripts": {
+    "test:i18n": "vitest run"
   }
 }
 ```
@@ -186,7 +199,7 @@ jobs:
         with:
           node-version: 20
       - run: npm ci
-      - run: npm run test:i18n
+      - run: npx intlayer content test
 ```
 
 Opsional: jalankan audit CLI untuk ringkasan yang mudah dibaca manusia bersamaan dengan pengujian:
