@@ -1,3 +1,11 @@
+// @vitest-environment node
+//
+// This suite loads esbuild (via the config bundler), whose startup invariant
+// requires TextEncoder / Uint8Array from a single realm. jsdom swaps those
+// globals for its own realm's versions, which makes esbuild fail to load
+// intermittently. The test asserts on request batching only and needs no DOM,
+// so run it in node.
+
 import type {
   PushDictionariesBody,
   PushDictionariesResult,
