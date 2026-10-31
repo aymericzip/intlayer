@@ -3,6 +3,7 @@ export * from './useDevice';
 export * from './useDragReorder';
 export * from './useGetElementById';
 export * from './useGetElementOrWindow';
+export * from './useIframePointerEventsShield';
 export * from './useHorizontalSwipe';
 export * from './useIsMounted';
 export * from './useItemSelector';
