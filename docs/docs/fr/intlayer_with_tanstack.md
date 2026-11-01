@@ -558,7 +558,7 @@ Accédez à vos dictionnaires de contenu dans toute votre application :
 import { createFileRoute } from "@tanstack/react-router";
 import { useIntlayer } from "react-intlayer";
 
-import LocaleSwitcher from "@/components/locale-switcher";
+import { LocaleSwitcher } from "@/components/locale-switcher";
 import { LocalizedLink } from "@/components/localized-link";
 import { useLocalizedNavigate } from "@/hooks/useLocalizedNavigate";
 

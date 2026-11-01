@@ -557,7 +557,7 @@ Truy cập các từ điển nội dung của bạn trong toàn bộ ứng dụn
 import { createFileRoute } from "@tanstack/react-router";
 import { useIntlayer } from "react-intlayer";
 
-import LocaleSwitcher from "@/components/locale-switcher";
+import { LocaleSwitcher } from "@/components/locale-switcher";
 import { LocalizedLink } from "@/components/localized-link";
 import { useLocalizedNavigate } from "@/hooks/useLocalizedNavigate";
 
