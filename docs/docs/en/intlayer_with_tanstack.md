@@ -491,11 +491,14 @@ This component has two objectives:
 
 Then we can create a `useLocalizedNavigate` hook for programmatic navigation:
 
-```tsx fileName="src/hooks/useLocalizedNavigate.tsx"
+```tsx fileName="src/hooks/useLocalizedNavigate.ts"
 import { useNavigate } from "@tanstack/react-router";
 import { getPrefix } from "intlayer";
 import { useLocale } from "react-intlayer";
-import type { StripLocalePrefix } from "@/components/localized-link";
+import {
+  LOCALE_ROUTE,
+  type StripLocalePrefix,
+} from "@/components/localized-link";
 import type { FileRouteTypes } from "@/routeTree.gen";
 
 type NavigateFn = ReturnType<typeof useNavigate>;
@@ -530,13 +533,14 @@ export const useLocalizedNavigate = () => {
       });
     }
 
-    const { to, ...rest } = args;
+    const { to, params, ...rest } = args;
 
     const localizedTo = `/${LOCALE_ROUTE}${to}` as any;
 
     return navigate({
+      ...rest,
       to: localizedTo,
-      params: { locale: localePrefix, ...rest } as any,
+      params: { locale: localePrefix, ...params } as any,
     });
   };
 
