@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-10-08
+updatedAt: 2026-11-02
 priority: 10
 title: "TanStack Start i18n - 翻译你的应用的完整指南"
 description: "在 TanStack Start 中配置 Intlayer：路由中的语言参数、兼容 SSR 的翻译内容、本地化 head 元数据、hreflang 与站点地图。"
@@ -442,7 +442,7 @@ export default appContent;
 - [内容声明文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)
 
 </Step>
-<Step number={7} title="创建语言感知组件和 Hooks">
+<Step number={8} title="创建语言感知组件和 Hooks">
 
 为语言感知导航创建一个 `LocalizedLink` 组件：
 
@@ -546,7 +546,7 @@ export const useLocalizedNavigate = () => {
 ```
 
 </Step>
-<Step number={8} title="在您的页面中使用 Intlayer">
+<Step number={9} title="在您的页面中使用 Intlayer">
 
 > 在组件中请默认使用 **`useIntlayer`**：这是读取内容的推荐方式，编译器会把它解析为当前渲染的语言环境。仅在 React 树之外（路由 `head`、loader 和服务端函数）才使用 `getIntlayer` / `getIntlayerAsync`。
 
@@ -606,7 +606,7 @@ function RouteComponent() {
 - [useIntlayer Hook 文档 | react-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useIntlayer.md)
 
 </Step>
-<Step number={9} title="创建语言切换器组件">
+<Step number={10} title="创建语言切换器组件">
 
 创建一个组件来允许用户更改语言：
 
@@ -670,7 +670,7 @@ export const LocaleSwitcher: FC = () => {
 - [useLocale Hook 文档 | react-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useLocale.md)
 
 </Step>
-<Step number={10} title="HTML 属性管理">
+<Step number={11} title="HTML 属性管理">
 
 如第 5 步所述，您可以在根组件中使用 `useParams` 来管理 `html` 标签的 `lang` 和 `dir` 属性。这确保在服务器和客户端上设置正确的属性。
 
@@ -690,7 +690,7 @@ function RootDocument({ children }: { children: ReactNode }) {
 ```
 
 </Step>
-<Step number={11} title="添加中间件">
+<Step number={12} title="添加中间件">
 
 您也可以使用 `intlayerProxy` 为您的应用程序添加服务器端路由。该插件将根据 URL 自动检测当前区域设置并设置适当的区域设置 cookie。如果未指定任何区域设置，该插件将根据用户的浏览器语言偏好确定最合适的区域设置。如果未检测到任何区域设置，它将重定向到默认区域设置。
 
@@ -727,7 +727,7 @@ export default defineConfig({
 ```
 
 </Step>
-<Step number={12} title="国际化您的元数据">
+<Step number={13} title="国际化您的元数据">
 
 <Tabs>
 
@@ -919,7 +919,7 @@ export const Route = createFileRoute("/{-$locale}/")({
 | 开发者体验     | simplest              | one `await`                | content threaded through `loaderData`  |
 
 </Step>
-<Step number={13} title="在服务器操作中检索语言">
+<Step number={14} title="在服务器操作中检索语言">
 
 您可能希望从服务器操作或 API 端点内访问当前语言。
 您可以使用 `intlayer` 中的 `getLocale` 帮助器来实现此目的。
@@ -955,7 +955,7 @@ export const getLocaleServer = createServerFn().handler(async () => {
 ```
 
 </Step>
-<Step number={14} title="管理未找到页面">
+<Step number={15} title="管理未找到页面">
 
 当用户访问不存在的页面时，你可以显示自定义的未找到页面，语言区域前缀可能会影响未找到页面的触发方式。
 
@@ -1030,7 +1030,7 @@ export const Route = createFileRoute("/{-$locale}/$")({
 ```
 
 </Step>
-<Step number={15} title="提取组件内容" isOptional={true}> isOptional={true}>
+<Step number={16} title="提取组件内容" isOptional={true}> isOptional={true}>
 
 如果你有现有的 codebase，转换数千个文件可能会很耗时。
 
@@ -1147,7 +1147,7 @@ bun run build # 或 bun run dev
 </Tabs>
 
 </Step>
-<Step number={16} title="预渲染 & 生成 Sitemap">
+<Step number={17} title="预渲染 & 生成 Sitemap">
 
 Intlayer 配备了内置的 sitemap 生成器，可以帮助你轻松为应用程序创建 sitemap。它处理本地化路由并为搜索引擎添加必要的元数据。
 
@@ -1217,7 +1217,7 @@ export const Route = createFileRoute("/sitemap.xml")({
 ```
 
 </Step>
-<Step number={17} title="配置 TypeScript">
+<Step number={18} title="配置 TypeScript">
 
 Intlayer 使用模块扩展以获得 TypeScript 的好处并使你的 codebase 更强大。
 

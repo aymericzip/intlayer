@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-10-08
+updatedAt: 2026-11-02
 priority: 10
 title: "TanStack Start i18n - Kompletny przewodnik po tłumaczeniu swojej aplikacji"
 description: "Konfiguracja Intlayer w TanStack Start: parametr locale w trasach, przetłumaczona treść zgodna z SSR, zlokalizowane metadane head, hreflang i sitemap."
@@ -601,7 +601,7 @@ function RouteComponent() {
 - [Dokumentacja hooka useIntlayer | react-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/react-intlayer/useIntlayer.md)
 
 </Step>
-<Step number={9} title="Utwórz komponent przełącznika języków">
+<Step number={10} title="Utwórz komponent przełącznika języków">
 
 Utwórz komponent umożliwiający użytkownikom zmianę języka:
 
@@ -665,7 +665,7 @@ export const LocaleSwitcher: FC = () => {
 - [Dokumentacja hooka useLocale | react-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/react-intlayer/useLocale.md)
 
 </Step>
-<Step number={10} title="Zarządzanie atrybutami HTML">
+<Step number={11} title="Zarządzanie atrybutami HTML">
 
 Jak pokazano w kroku 5, możesz zarządzać atrybutami `lang` i `dir` tagu `html` za pomocą `useParams` w komponencie głównym. Zapewnia to, że prawidłowe atrybuty są ustawione na serwerze i kliencie.
 
@@ -685,7 +685,7 @@ function RootDocument({ children }: { children: ReactNode }) {
 ```
 
 </Step>
-<Step number={11} title="Dodaj middleware">
+<Step number={12} title="Dodaj middleware">
 
 Możesz także użyć `intlayerProxy` do dodania routingu po stronie serwera do aplikacji. Plugin ten automatycznie wykryje bieżący język na podstawie URL i ustawi odpowiedni plik cookie języka. Jeśli nie zostanie określony żaden język, plugin określi najbardziej odpowiedni język na podstawie preferencji języka przeglądarki użytkownika. Jeśli nie zostanie wykryty żaden język, nastąpi przekierowanie do języka domyślnego.
 
@@ -722,7 +722,7 @@ export default defineConfig({
 ```
 
 </Step>
-<Step number={12} title="Internationalizuj swoje metadane">
+<Step number={13} title="Internationalizuj swoje metadane">
 
 <Tabs>
 
@@ -914,7 +914,7 @@ Zachowujesz fragment dla konkretnego locale'a bez płacenia jego kosztu na kryty
 | Doświadczenie dewelopera | najprostsze                | jedno `await`                              | zawartość przesłana przez `loaderData` |
 
 </Step>
-<Step number={13} title="Pobierz locale w swoich server actions">
+<Step number={14} title="Pobierz locale w swoich server actions">
 
 Możesz chcieć uzyskać dostęp do bieżącego locale'a z wnętrza twoich server actions lub API endpoints.
 Możesz to zrobić używając helpera `getLocale` z `intlayer`.
@@ -950,7 +950,7 @@ export const getLocaleServer = createServerFn().handler(async () => {
 ```
 
 </Step>
-<Step number={14} title="Zarządzanie stronami &quot;nie znaleziono&quot;">
+<Step number={15} title="Zarządzanie stronami &quot;nie znaleziono&quot;">
 
 Gdy użytkownik odwiedza nieistniejącą stronę, możesz wyświetlić niestandardową stronę "nie znaleziono", a prefiks lokalizacji może wpływać na sposób wyzwalania strony "nie znaleziono".
 
@@ -1025,7 +1025,7 @@ export const Route = createFileRoute("/{-$locale}/$")({
 ```
 
 </Step>
-<Step number={15} title="Wyodrębnij zawartość swoich komponentów" isOptional={true}> isOptional={true}>
+<Step number={16} title="Wyodrębnij zawartość swoich komponentów" isOptional={true}> isOptional={true}>
 
 Jeśli masz istniejącą bazę kodu, transformacja tysięcy plików może być czasochłonna.
 
@@ -1138,7 +1138,7 @@ bun run build # Or bun run dev
 </Tabs>
 
 </Step>
-<Step number={16} title="Pre-render & Generate Sitemap">
+<Step number={17} title="Pre-render & Generate Sitemap">
 
 Intlayer wyposażony jest w wbudowany generator mapy witryny, który pomaga łatwo utworzyć mapę witryny dla aplikacji. Obsługuje zlokalizowane trasy i dodaje niezbędne metadane dla wyszukiwarek.
 
@@ -1208,7 +1208,7 @@ export const Route = createFileRoute("/sitemap.xml")({
 ```
 
 </Step>
-<Step number={17} title="Konfiguruj TypeScript">
+<Step number={18} title="Konfiguruj TypeScript">
 
 Intlayer wykorzystuje module augmentation, aby uzyskać korzyści z TypeScript i uczynić Twoją codebase mocniejszą.
 
@@ -1364,7 +1364,7 @@ Użyj hooka `useLocale` wraz ze zlokalizowanym komponentem linku opisanym w krok
 </Question>
 <Question title="Jak obsługiwać strony 404 na zlokalizowanych trasach?">
 
-Krok 14 to opisuje. Funkcja `validatePrefix` sprawdza, czy segment języka w adresie URL jest zadeklarowanym językiem, dzięki czemu `/xx/about` zwraca prawdziwy błąd 404 zamiast renderowania duplikatu strony.
+Krok 15 to opisuje. Funkcja `validatePrefix` sprawdza, czy segment języka w adresie URL jest zadeklarowanym językiem, dzięki czemu `/xx/about` zwraca prawdziwy błąd 404 zamiast renderowania duplikatu strony.
 
 </Question>
 <Question title="Jak automatycznie przetłumaczyć aplikację TanStack Start za pomocą AI?">

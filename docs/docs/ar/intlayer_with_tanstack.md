@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-10-08
+updatedAt: 2026-11-02
 priority: 10
 title: "تدويل TanStack Start - الدليل الكامل لترجمة تطبيقك"
 description: "إعداد Intlayer في TanStack Start: معامل اللغة في المسارات، ومحتوى مترجم متوافق مع SSR، وبيانات head مترجمة، وhreflang وخريطة موقع."
@@ -720,7 +720,7 @@ export default defineConfig({
 ```
 
 </Step>
-<Step number={12} title="تدويل البيانات الوصفية الخاصة بك">
+<Step number={13} title="تدويل البيانات الوصفية الخاصة بك">
 
 <Tabs>
 
@@ -912,7 +912,7 @@ export const Route = createFileRoute("/{-$locale}/")({
 | تجربة المطوّر      | الأبسط            | `await` واحد               | المحتوى يُمرَّر عبر `loaderData`        |
 
 </Step>
-<Step number={13} title="جلب اللغة في إجراءات الخادم الخاصة بك">
+<Step number={14} title="جلب اللغة في إجراءات الخادم الخاصة بك">
 
 قد ترغب في الوصول إلى اللغة الحالية من داخل إجراءات الخادم أو نقاط نهاية API الخاصة بك.
 يمكنك القيام بذلك باستخدام مساعد `getLocale` من `intlayer`.
@@ -948,7 +948,7 @@ export const getLocaleServer = createServerFn().handler(async () => {
 ```
 
 </Step>
-<Step number={14} title="إدارة الصفحات غير الموجودة">
+<Step number={15} title="إدارة الصفحات غير الموجودة">
 
 عندما يزور المستخدم صفحة غير موجودة، يمكنك عرض صفحة مخصصة "غير موجودة" وقد تؤثر بادئة اللغة على الطريقة التي يتم بها تشغيل صفحة "غير موجودة".
 
@@ -1023,7 +1023,7 @@ export const Route = createFileRoute("/{-$locale}/$")({
 ```
 
 </Step>
-<Step number={15} title="استخراج محتوى مكوناتك" isOptional={true}>
+<Step number={16} title="استخراج محتوى مكوناتك" isOptional={true}>
 
 إذا كان لديك قاعدة بيانات كود موجودة، فقد يكون تحويل آلاف الملفات مستهلكًا للوقت.
 
@@ -1136,7 +1136,7 @@ bun run build # Or bun run dev
 </Tabs>
 
 </Step>
-<Step number={16} title="Pre-render & Generate Sitemap">
+<Step number={17} title="Pre-render & Generate Sitemap">
 
 يأتي Intlayer مع مولد خريطة موقع مدمج لمساعدتك في إنشاء خريطة موقع لتطبيقك بسهولة. يتعامل مع المسارات المحلية ويضيف البيانات الوصفية الضرورية لمحركات البحث.
 
@@ -1206,7 +1206,7 @@ export const Route = createFileRoute("/sitemap.xml")({
 ```
 
 </Step>
-<Step number={17} title="تكوين TypeScript">
+<Step number={18} title="تكوين TypeScript">
 
 يستخدم Intlayer module augmentation للاستفادة من TypeScript وجعل codebase الخاص بك أقوى.
 
@@ -1357,12 +1357,12 @@ export const Route = createFileRoute("/sitemap.xml")({
 </Question>
 <Question title="كيف أنشئ مبدل لغة يحافظ على المسار الحالي؟">
 
-استخدم `useLocale` مع مكون الرابط المترجم الموضح في الخطوة 9.
+استخدم `useLocale` مع مكون الرابط المترجم الموضح في الخطوة 10.
 
 </Question>
 <Question title="كيف أتعامل مع صفحات 404 على المسارات المترجمة؟">
 
-توضح الخطوة 14 ذلك. يتحقق `validatePrefix` من صحة مقطع اللغة في URL.
+توضح الخطوة 15 ذلك. يتحقق `validatePrefix` من صحة مقطع اللغة في URL.
 
 </Question>
 <Question title="كيف أترجم تطبيق TanStack Start تلقائياً باستخدام الذكاء الاصطناعي؟">

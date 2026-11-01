@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-09-27
+updatedAt: 2026-11-02
 priority: 10
 title: "TanStack Start i18n - Guida completa per tradurre la tua applicazione"
 description: "Configura Intlayer in TanStack Start: parametro di locale nelle route, contenuti tradotti compatibili con SSR, metadati head localizzati, hreflang e sitemap."
@@ -602,7 +602,7 @@ function RouteComponent() {
 - [Documentazione Hook useIntlayer | react-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/react-intlayer/useIntlayer.md)
 
 </Step>
-<Step number={9} title="Creare un Componente di Selezione delle Lingue">
+<Step number={10} title="Creare un Componente di Selezione delle Lingue">
 
 Crea un componente per consentire agli utenti di cambiare lingua:
 
@@ -666,7 +666,7 @@ export const LocaleSwitcher: FC = () => {
 - [Documentazione Hook useLocale | react-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/react-intlayer/useLocale.md)
 
 </Step>
-<Step number={10} title="Gestione degli Attributi HTML">
+<Step number={11} title="Gestione degli Attributi HTML">
 
 Come visto nel Passaggio 5, puoi gestire gli attributi `lang` e `dir` del tag `html` utilizzando `useParams` nel tuo componente root. Questo assicura che gli attributi corretti siano impostati sia lato server che lato client.
 
@@ -686,7 +686,7 @@ function RootDocument({ children }: { children: ReactNode }) {
 ```
 
 </Step>
-<Step number={11} title="Aggiungi middleware">
+<Step number={12} title="Aggiungi middleware">
 
 Puoi anche usare `intlayerProxy` per aggiungere il routing lato server alla tua applicazione. Questo plugin rileva automaticamente la locale corrente in base all'URL e imposta il cookie della locale appropriato. Se non viene specificata alcuna locale, il plugin determinerà la locale più appropriata in base alle preferenze della lingua del browser dell'utente. Se non viene rilevata alcuna locale, reindirizzerà alla locale predefinita.
 
@@ -723,7 +723,7 @@ export default defineConfig({
 ```
 
 </Step>
-<Step number={12} title="Internazionalizza i tuoi Metadati">
+<Step number={13} title="Internazionalizza i tuoi Metadati">
 
 <Tabs>
 
@@ -915,7 +915,7 @@ Mantieni il chunk per locale senza pagarne il costo sul percorso critico dell'he
 | Developer experience | simplest              | one `await`                | content threaded through `loaderData`  |
 
 </Step>
-<Step number={13} title="Recupera la locale nelle tue server actions">
+<Step number={14} title="Recupera la locale nelle tue server actions">
 
 Potresti voler accedere alla locale corrente all'interno delle tue server actions o endpoint API.
 Puoi farlo usando l'helper `getLocale` da `intlayer`.
@@ -951,7 +951,7 @@ export const getLocaleServer = createServerFn().handler(async () => {
 ```
 
 </Step>
-<Step number={14} title="Gestire le pagine non trovate">
+<Step number={15} title="Gestire le pagine non trovate">
 
 Quando un utente visita una pagina non esistente, puoi visualizzare una pagina 404 personalizzata e il prefisso di localizzazione può influire sul modo in cui viene attivata la pagina non trovata.
 
@@ -1026,7 +1026,7 @@ export const Route = createFileRoute("/{-$locale}/$")({
 ```
 
 </Step>
-<Step number={15} title="Estrarre il contenuto dei tuoi componenti" isOptional={true}> isOptional={true}>
+<Step number={16} title="Estrarre il contenuto dei tuoi componenti" isOptional={true}> isOptional={true}>
 
 Se hai una base di codice esistente, trasformare migliaia di file può richiedere molto tempo.
 
@@ -1139,7 +1139,7 @@ bun run build # Or bun run dev
 </Tabs>
 
 </Step>
-<Step number={16} title="Generare una Sitemap">
+<Step number={17} title="Generare una Sitemap">
 
 Intlayer include un generatore di sitemap integrato per aiutarti a creare facilmente una sitemap per la tua applicazione. Gestisce i percorsi localizzati e aggiunge i metadati necessari per i motori di ricerca.
 
@@ -1209,7 +1209,7 @@ export const Route = createFileRoute("/sitemap.xml")({
 ```
 
 </Step>
-<Step number={17} title="Configurare TypeScript">
+<Step number={18} title="Configurare TypeScript">
 
 Intlayer utilizza l'augmentation dei moduli per ottenere i vantaggi di TypeScript e rendere il tuo codice più robusto.
 

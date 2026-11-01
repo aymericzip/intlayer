@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-10-08
+updatedAt: 2026-11-02
 priority: 10
 title: "TanStack Start i18n - 앱을 번역하는 완전 가이드"
 description: "TanStack Start에 Intlayer 설정: 라우트의 로케일 파라미터, SSR 안전한 번역 콘텐츠, 현지화된 head 메타데이터, hreflang과 사이트맵."
@@ -602,7 +602,7 @@ function RouteComponent() {
 - [useIntlayer 훅 문서 | react-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/useIntlayer.md)
 
 </Step>
-<Step number={9} title="로케일 전환 컴포넌트 만들기">
+<Step number={10} title="로케일 전환 컴포넌트 만들기">
 
 사용자가 언어를 변경할 수 있는 컴포넌트를 만듭니다:
 
@@ -666,7 +666,7 @@ export const LocaleSwitcher: FC = () => {
 - [useLocale 훅 문서 | react-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/useLocale.md)
 
 </Step>
-<Step number={10} title="HTML 속성 관리">
+<Step number={11} title="HTML 속성 관리">
 
 Step 5에서 본 것처럼 루트 컴포넌트에서 `useParams`를 사용하여 `html` 태그의 `lang`과 `dir` 속성을 관리할 수 있습니다. 이렇게 하면 서버와 클라이언트에서 올바른 속성이 설정됩니다.
 
@@ -686,7 +686,7 @@ function RootDocument({ children }: { children: ReactNode }) {
 ```
 
 </Step>
-<Step number={11} title="미들웨어 추가">
+<Step number={12} title="미들웨어 추가">
 
 또한 `intlayerProxy`를 사용하여 애플리케이션에 서버 측 라우팅을 추가할 수 있습니다. 이 플러그인은 URL을 기반으로 현재 로케일을 자동으로 감지하고 적절한 로케일 쿠키를 설정합니다. 로케일이 지정되지 않으면 플러그인이 사용자의 브라우저 언어 설정을 기반으로 가장 적절한 로케일을 결정합니다. 로케일이 감지되지 않으면 기본 로케일로 리다이렉트됩니다.
 
@@ -723,7 +723,7 @@ export default defineConfig({
 ```
 
 </Step>
-<Step number={12} title="메타데이터 국제화">
+<Step number={13} title="메타데이터 국제화">
 
 <Tabs>
 
@@ -915,7 +915,7 @@ export const Route = createFileRoute("/{-$locale}/")({
 | 개발자 경험 (DX)       | 가장 간단함                   | `await` 한 번 사용             | `loaderData`를 통한 콘텐츠 전달 필요         |
 
 </Step>
-<Step number={13} title="서버 액션에서 로케일 검색">
+<Step number={14} title="서버 액션에서 로케일 검색">
 
 서버 액션이나 API 엔드포인트 내에서 현재 로케일에 액세스하고 싶을 수 있습니다.
 `intlayer`의 `getLocale` 헬퍼를 사용하여 이를 수행할 수 있습니다.
@@ -951,7 +951,7 @@ export const getLocaleServer = createServerFn().handler(async () => {
 ```
 
 </Step>
-<Step number={14} title="찾을 수 없는 페이지 관리(선택 사항)" isOptional={true}>
+<Step number={15} title="찾을 수 없는 페이지 관리(선택 사항)" isOptional={true}>
 
 사용자가 존재하지 않는 페이지를 방문할 때 맞춤형 찾을 수 없음 페이지를 표시할 수 있으며, 로케일 접두사가 찾을 수 없음 페이지가 트리거되는 방식에 영향을 줄 수 있습니다.
 
@@ -1026,7 +1026,7 @@ export const Route = createFileRoute("/{-$locale}/$")({
 ```
 
 </Step>
-<Step number={15} title="컴포넌트에서 콘텐츠 추출(선택 사항)" isOptional={true}> isOptional={true}>
+<Step number={16} title="컴포넌트에서 콘텐츠 추출(선택 사항)" isOptional={true}> isOptional={true}>
 
 기존 코드베이스가 있는 경우 수천 개의 파일을 변환하는 데 시간이 많이 걸릴 수 있습니다.
 
@@ -1139,7 +1139,7 @@ bun run build # 또는 bun run dev
 </Tabs>
 
 </Step>
-<Step number={16} title="사이트맵 생성(선택 사항)" isOptional={true}>
+<Step number={17} title="사이트맵 생성(선택 사항)" isOptional={true}>
 
 Intlayer는 애플리케이션의 사이트맵을 쉽게 만들 수 있는 내장 사이트맵 생성기를 제공합니다. 로컬라이즈된 경로를 처리하고 검색 엔진에 필요한 메타데이터를 추가합니다.
 
@@ -1209,7 +1209,7 @@ export const Route = createFileRoute("/sitemap.xml")({
 ```
 
 </Step>
-<Step number={17} title="TypeScript 구성(선택 사항)" isOptional={true}>
+<Step number={18} title="TypeScript 구성(선택 사항)" isOptional={true}>
 
 Intlayer는 모듈 확장을 사용하여 TypeScript의 이점을 얻고 코드베이스를 더욱 견고하게 만듭니다.
 
@@ -1321,7 +1321,7 @@ TanStack Start에서 중요한 차이점은 라우팅과 서버 렌더링입니�
 </Question>
 <Question title="콘텐츠를 키 단위로 하나씩 옮겨야 하나요?">
 
-아닙니다. `npx intlayer extract`를 실행하면 Intlayer가 컴포넌트를 읽고 사용자 대면 문자열을 추출하여 각 컴포넌트 옆에 `.content` 파일을 생성하므로 카탈로그에 일일이 복사할 필요 없이 diff만 검토하면 됩니다. 이 가이드의 15단계를 확인하세요.
+아닙니다. `npx intlayer extract`를 실행하면 Intlayer가 컴포넌트를 읽고 사용자 대면 문자열을 추출하여 각 컴포넌트 옆에 `.content` 파일을 생성하므로 카탈로그에 일일이 복사할 필요 없이 diff만 검토하면 됩니다. 이 가이드의 16단계를 확인하세요.
 
 완전 자동화된 파이프라인을 위해 [Intlayer 컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md)는 빌드 타임에 JSX, TSX, Vue 및 Svelte 소스에서 동일한 작업을 수행하여 변경될 때마다 사전을 생성하고 HMR을 통해 동기화하므로 수동으로 키를 관리할 필요가 없습니다.
 
@@ -1345,12 +1345,12 @@ TanStack Start에서 중요한 차이점은 라우팅과 서버 렌더링입니�
 </Question>
 <Question title="Intlayer는 TanStack Start에서 서버 사이드 렌더링 및 사전 렌더링(pre-rendering)을 지원하나요?">
 
-네. SSR 중에 콘텐츠가 확인되며, 가이드에서는 지역화된 라우트당 하나의 정적 문서를 내보내는 사전 렌더링 구성을 다룹니다. 16단계에서는 `vite.config.ts`에서 `prerender`를 활성화하고 동일한 라우트 테이블에서 지역화된 사이트맵을 생성하는 방법을 보여줍니다.
+네. SSR 중에 콘텐츠가 확인되며, 가이드에서는 지역화된 라우트당 하나의 정적 문서를 내보내는 사전 렌더링 구성을 다룹니다. 17단계에서는 `vite.config.ts`에서 `prerender`를 활성화하고 동일한 라우트 테이블에서 지역화된 사이트맵을 생성하는 방법을 보여줍니다.
 
 </Question>
 <Question title="hreflang 태그 및 지역화된 사이트맵은 어떻게 추가하나요?">
 
-`src/routes/sitemap[.]xml.ts` 라우트에서 내장 `generateSitemap` 함수를 사용하세요. 일반 URL 목록과 달리 `xhtml:link` 네임스페이스를 내보내므로 페이지의 모든 언어 버전이 서로 양방향으로 연결되어 검색 엔진이 각 대상에게 적합한 버전을 인덱싱할 수 있습니다. 현지화된 `head` 메타데이터는 12단계에서 다룹니다.
+`src/routes/sitemap[.]xml.ts` 라우트에서 내장 `generateSitemap` 함수를 사용하세요. 일반 URL 목록과 달리 `xhtml:link` 네임스페이스를 내보내므로 페이지의 모든 언어 버전이 서로 양방향으로 연결되어 검색 엔진이 각 대상에게 적합한 버전을 인덱싱할 수 있습니다. 현지화된 `head` 메타데이터는 13단계에서 다룹니다.
 
 </Question>
 <Question title="URL에 로케일을 반드시 포함해야 하나요?">
@@ -1362,12 +1362,12 @@ TanStack Start에서 중요한 차이점은 라우팅과 서버 렌더링입니�
 </Question>
 <Question title="현재 라우트를 유지하는 로케일 전환기는 어떻게 만드나요?">
 
-9단계에 설명된 지역화된 링크 컴포넌트와 함께 `useLocale`을 사용하세요. `useLocale`은 활성 로케일, 사용 가능한 로케일 목록 및 선택 사항을 유지하는 setter를 노출하며, `getLocalizedUrl`은 현재 경로를 대상 언어로 다시 작성하므로 사용자가 홈 페이지로 튕겨 나가지 않고 동일한 페이지에 머무를 수 있습니다.
+10단계에 설명된 지역화된 링크 컴포넌트와 함께 `useLocale`을 사용하세요. `useLocale`은 활성 로케일, 사용 가능한 로케일 목록 및 선택 사항을 유지하는 setter를 노출하며, `getLocalizedUrl`은 현재 경로를 대상 언어로 다시 작성하므로 사용자가 홈 페이지로 튕겨 나가지 않고 동일한 페이지에 머무를 수 있습니다.
 
 </Question>
 <Question title="지역화된 라우트에서 404 페이지는 어떻게 처리하나요?">
 
-14단계에서 다룹니다. `validatePrefix`는 URL의 로케일 세그먼트가 선언된 로케일인지 여부를 확인하여 `/xx/about`이 일반 경로로 처리되지 않고 실제 404를 반환하도록 합니다. 이 작업이 없으면 알 수 없는 접두사가 조용히 해석되어 검색 엔진이 중복 페이지를 인덱싱하게 됩니다.
+15단계에서 다룹니다. `validatePrefix`는 URL의 로케일 세그먼트가 선언된 로케일인지 여부를 확인하여 `/xx/about`이 일반 경로로 처리되지 않고 실제 404를 반환하도록 합니다. 이 작업이 없으면 알 수 없는 접두사가 조용히 해석되어 검색 엔진이 중복 페이지를 인덱싱하게 됩니다.
 
 </Question>
 <Question title="AI를 사용하여 TanStack Start 앱을 자동으로 번역하려면 어떻게 하나요?">

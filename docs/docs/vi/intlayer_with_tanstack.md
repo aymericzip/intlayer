@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-09-27
+updatedAt: 2026-11-02
 priority: 10
 title: "TanStack Start i18n - Hướng dẫn đầy đủ để dịch ứng dụng của bạn"
 description: "Thiết lập Intlayer trong TanStack Start: tham số locale trong route, nội dung dịch an toàn với SSR, metadata head bản địa hóa, hreflang và sitemap."
@@ -601,7 +601,7 @@ function RouteComponent() {
 - [Tài liệu Hook useIntlayer | react-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/react-intlayer/useIntlayer.md)
 
 </Step>
-<Step number={9} title="Tạo Thành Phần Chuyển Đổi Ngôn Ngữ">
+<Step number={10} title="Tạo Thành Phần Chuyển Đổi Ngôn Ngữ">
 
 Tạo một thành phần để cho phép người dùng thay đổi ngôn ngữ:
 
@@ -665,7 +665,7 @@ export const LocaleSwitcher: FC = () => {
 - [Tài liệu Hook useLocale | react-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/react-intlayer/useLocale.md)
 
 </Step>
-<Step number={10} title="Quản Lý Thuộc Tính HTML">
+<Step number={11} title="Quản Lý Thuộc Tính HTML">
 
 Như đã thấy trong Bước 5, bạn có thể quản lý các thuộc tính `lang` và `dir` của thẻ `html` bằng cách sử dụng `useParams` trong thành phần gốc của mình. Điều này đảm bảo rằng các thuộc tính chính xác được đặt trên máy chủ và máy khách.
 
@@ -685,7 +685,7 @@ function RootDocument({ children }: { children: ReactNode }) {
 ```
 
 </Step>
-<Step number={11} title="Thêm middleware">
+<Step number={12} title="Thêm middleware">
 
 Bạn cũng có thể sử dụng `intlayerProxy` để thêm định tuyến phía máy chủ vào ứng dụng của mình. Plugin này sẽ tự động phát hiện ngôn ngữ hiện tại dựa trên URL và đặt cookie ngôn ngữ thích hợp. Nếu không có ngôn ngữ nào được chỉ định, plugin sẽ xác định ngôn ngữ phù hợp nhất dựa trên tùy chọn ngôn ngữ trình duyệt của người dùng. Nếu không phát hiện được ngôn ngữ nào, nó sẽ chuyển hướng đến ngôn ngữ mặc định.
 
@@ -722,7 +722,7 @@ export default defineConfig({
 ```
 
 </Step>
-<Step number={12} title="Bản Địa Hóa Metadata của Bạn">
+<Step number={13} title="Bản Địa Hóa Metadata của Bạn">
 
 <Tabs>
 
@@ -914,7 +914,7 @@ Bạn giữ phần theo ngôn ngữ mà không phải trả giá của nó trên
 | Developer experience | simplest              | one `await`                | content threaded through `loaderData`  |
 
 </Step>
-<Step number={13} title="Truy xuất locale trong các server actions của bạn">
+<Step number={14} title="Truy xuất locale trong các server actions của bạn">
 
 Bạn có thể muốn truy cập locale hiện tại từ bên trong các server actions hoặc API endpoints của mình.
 Bạn có thể thực hiện điều này bằng cách sử dụng helper `getLocale` từ `intlayer`.
@@ -950,7 +950,7 @@ export const getLocaleServer = createServerFn().handler(async () => {
 ```
 
 </Step>
-<Step number={14} title="Quản lý trang không tìm thấy">
+<Step number={15} title="Quản lý trang không tìm thấy">
 
 Khi người dùng truy cập một trang không tồn tại, bạn có thể hiển thị một trang không tìm thấy tùy chỉnh và tiền tố locale có thể ảnh hưởng đến cách trang không tìm thấy được kích hoạt.
 
@@ -1025,7 +1025,7 @@ export const Route = createFileRoute("/{-$locale}/$")({
 ```
 
 </Step>
-<Step number={15} title="Trích xuất nội dung các thành phần của bạn" isOptional={true}> isOptional={true}>
+<Step number={16} title="Trích xuất nội dung các thành phần của bạn" isOptional={true}> isOptional={true}>
 
 Nếu bạn có một cơ sở mã hiện có, việc chuyển đổi hàng nghìn tệp có thể tốn nhiều thời gian.
 
@@ -1138,7 +1138,7 @@ bun run build # Or bun run dev
 </Tabs>
 
 </Step>
-<Step number={16} title="Pre-render & Generate Sitemap">
+<Step number={17} title="Pre-render & Generate Sitemap">
 
 Intlayer đi kèm với một trình tạo sitemap tích hợp sẵn để giúp bạn tạo sitemap cho ứng dụng của mình một cách dễ dàng. Nó xử lý các tuyến đường đã được bản địa hóa và thêm các siêu dữ liệu cần thiết cho các công cụ tìm kiếm.
 
@@ -1208,7 +1208,7 @@ export const Route = createFileRoute("/sitemap.xml")({
 ```
 
 </Step>
-<Step number={17} title="Cấu hình TypeScript">
+<Step number={18} title="Cấu hình TypeScript">
 
 Intlayer sử dụng module augmentation để tận dụng lợi ích của TypeScript và làm cho codebase của bạn mạnh mẽ hơn.
 
@@ -1364,7 +1364,7 @@ Sử dụng `useLocale` kết hợp với component link được bản địa h
 </Question>
 <Question title="Làm cách nào để xử lý các trang 404 trên các tuyến đường được bản địa hóa?">
 
-Bước 14 giải thích điều này. `validatePrefix` xác thực phân đoạn ngôn ngữ trong URL.
+Bước 15 giải thích điều này. `validatePrefix` xác thực phân đoạn ngôn ngữ trong URL.
 
 </Question>
 <Question title="Làm cách nào để tự động dịch ứng dụng TanStack Start bằng AI?">
