@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-10-08
+updatedAt: 2026-11-02
 priority: 10
 title: "TanStack Start i18n - Panduan lengkap menerjemahkan aplikasi Anda"
 description: "Siapkan Intlayer di TanStack Start: parameter locale di rute, konten terjemahan yang aman untuk SSR, metadata head terlokalisasi, hreflang, dan sitemap."
@@ -601,7 +601,7 @@ function RouteComponent() {
 - [Dokumentasi Hook useIntlayer | react-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/react-intlayer/useIntlayer.md)
 
 </Step>
-<Step number={9} title="Buat Komponen Locale Switcher">
+<Step number={10} title="Buat Komponen Locale Switcher">
 
 Buat komponen untuk memungkinkan pengguna mengubah bahasa:
 
@@ -665,7 +665,7 @@ export const LocaleSwitcher: FC = () => {
 - [Dokumentasi Hook useLocale | react-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/react-intlayer/useLocale.md)
 
 </Step>
-<Step number={10} title="Manajemen Atribut HTML">
+<Step number={11} title="Manajemen Atribut HTML">
 
 Seperti yang terlihat di Step 5, Anda dapat mengelola atribut `lang` dan `dir` dari tag `html` menggunakan `useParams` di komponen root Anda. Ini memastikan bahwa atribut yang benar ditetapkan di server dan klien.
 
@@ -685,7 +685,7 @@ function RootDocument({ children }: { children: ReactNode }) {
 ```
 
 </Step>
-<Step number={11} title="Tambahkan middleware">
+<Step number={12} title="Tambahkan middleware">
 
 Anda juga dapat menggunakan `intlayerProxy` untuk menambahkan routing sisi server ke aplikasi Anda. Plugin ini akan secara otomatis mendeteksi locale saat ini berdasarkan URL dan menetapkan cookie locale yang sesuai. Jika tidak ada locale yang ditentukan, plugin akan menentukan locale yang paling sesuai berdasarkan preferensi bahasa browser pengguna. Jika tidak ada locale yang terdeteksi, plugin akan mengalihkan ke locale default.
 
@@ -722,7 +722,7 @@ export default defineConfig({
 ```
 
 </Step>
-<Step number={12} title="Internasionalisasi Metadata Anda">
+<Step number={13} title="Internasionalisasi Metadata Anda">
 
 <Tabs>
 
@@ -914,7 +914,7 @@ Anda menyimpan chunk per-locale tanpa membayar biayanya di jalur penting head. H
 | Developer experience | simplest              | one `await`                | content threaded through `loaderData`  |
 
 </Step>
-<Step number={13} title="Ambil locale di server actions Anda">
+<Step number={14} title="Ambil locale di server actions Anda">
 
 Anda mungkin ingin mengakses locale saat ini dari dalam server actions atau API endpoints Anda.
 Anda dapat melakukan ini menggunakan helper `getLocale` dari `intlayer`.
@@ -950,7 +950,7 @@ export const getLocaleServer = createServerFn().handler(async () => {
 ```
 
 </Step>
-<Step number={14} title="Kelola halaman tidak ditemukan">
+<Step number={15} title="Kelola halaman tidak ditemukan">
 
 Ketika seorang pengguna mengunjungi halaman yang tidak ada, Anda dapat menampilkan halaman tidak ditemukan yang disesuaikan dan awalan locale dapat mempengaruhi cara halaman tidak ditemukan dipicu.
 
@@ -1025,7 +1025,7 @@ export const Route = createFileRoute("/{-$locale}/$")({
 ```
 
 </Step>
-<Step number={15} title="Ekstrak konten komponen Anda" isOptional={true}> isOptional={true}>
+<Step number={16} title="Ekstrak konten komponen Anda" isOptional={true}> isOptional={true}>
 
 Jika Anda memiliki basis kode yang ada, mengubah ribuan file bisa memakan waktu lama.
 
@@ -1138,7 +1138,7 @@ bun run build # Or bun run dev
 </Tabs>
 
 </Step>
-<Step number={16} title="Pre-render & Generate Sitemap">
+<Step number={17} title="Pre-render & Generate Sitemap">
 
 Intlayer dilengkapi dengan pembuat sitemap bawaan untuk membantu Anda membuat sitemap untuk aplikasi Anda dengan mudah. Ini menangani rute yang dilokalisasi dan menambahkan metadata yang diperlukan untuk mesin pencari.
 
@@ -1208,7 +1208,7 @@ export const Route = createFileRoute("/sitemap.xml")({
 ```
 
 </Step>
-<Step number={17} title="Konfigurasi TypeScript">
+<Step number={18} title="Konfigurasi TypeScript">
 
 Intlayer menggunakan module augmentation untuk mendapatkan keuntungan dari TypeScript dan membuat codebase Anda lebih kuat.
 
@@ -1364,7 +1364,7 @@ Gunakan `useLocale` bersama dengan komponen link terlokalisasi yang dijelaskan p
 </Question>
 <Question title="Bagaimana cara menangani halaman 404 pada rute terlokalisasi?">
 
-Langkah 14 membahas hal ini. `validatePrefix` memvalidasi segmen bahasa di URL.
+Langkah 15 membahas hal ini. `validatePrefix` memvalidasi segmen bahasa di URL.
 
 </Question>
 <Question title="Bagaimana cara menerjemahkan aplikasi TanStack Start secara otomatis dengan AI?">

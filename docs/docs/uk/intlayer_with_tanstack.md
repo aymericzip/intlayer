@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-10-08
+updatedAt: 2026-11-02
 priority: 10
 title: "TanStack Start i18n - Повний посібник з перекладу вашого застосунку"
 description: "Налаштування Intlayer у TanStack Start: параметр локалі в маршрутах, сумісний із SSR перекладений контент, локалізовані head-метадані, hreflang і sitemap."
@@ -601,7 +601,7 @@ function RouteComponent() {
 - [Документація хуку useIntlayer | react-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/react-intlayer/useIntlayer.md)
 
 </Step>
-<Step number={9} title="Створення компоненту перемикача локалей">
+<Step number={10} title="Створення компоненту перемикача локалей">
 
 Створіть компонент, щоб дозволити користувачам змінювати мови:
 
@@ -665,7 +665,7 @@ export const LocaleSwitcher: FC = () => {
 - [Хук useLocale, документація | react-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/react-intlayer/useLocale.md)
 
 </Step>
-<Step number={10} title="Управління HTML атрибутами">
+<Step number={11} title="Управління HTML атрибутами">
 
 Як видно з кроку 5, ви можете керувати атрибутами `lang` та `dir` тега `html` за допомогою `useParams` у вашому кореневому компоненті. Це забезпечує встановлення правильних атрибутів на сервері та клієнті.
 
@@ -685,7 +685,7 @@ function RootDocument({ children }: { children: ReactNode }) {
 ```
 
 </Step>
-<Step number={11} title="Додавання middleware">
+<Step number={12} title="Додавання middleware">
 
 Ви також можете використовувати `intlayerProxy` для додавання маршрутизації на стороні сервера до вашої програми. Цей плагін автоматично визначить поточну локаль на основі URL-адреси та встановить відповідну cookie-файл локалі. Якщо локаль не вказана, плагін визначить найбільш відповідну локаль на основі параметрів мови браузера користувача. Якщо локаль не виявлена, він перенаправить на локаль за замовчуванням.
 
@@ -722,7 +722,7 @@ export default defineConfig({
 ```
 
 </Step>
-<Step number={12} title="Інтернаціоналізація ваших метаданих">
+<Step number={13} title="Інтернаціоналізація ваших метаданих">
 
 <Tabs>
 
@@ -914,7 +914,7 @@ export const Route = createFileRoute("/{-$locale}/")({
 | Досвід розробника    | найпростіший         | один `await`                         | контент передається через `loaderData` |
 
 </Step>
-<Step number={13} title="Отримайте локаль у своїх серверних діях">
+<Step number={14} title="Отримайте локаль у своїх серверних діях">
 
 Можливо, вам потрібно отримати доступ до поточної локалі всередині ваших серверних дій або API endpoints.
 Ви можете це зробити, використовуючи помічник `getLocale` з `intlayer`.
@@ -950,7 +950,7 @@ export const getLocaleServer = createServerFn().handler(async () => {
 ```
 
 </Step>
-<Step number={14} title="Керування сторінками «Не знайдено»">
+<Step number={15} title="Керування сторінками «Не знайдено»">
 
 Коли користувач переходить на неіснуючу сторінку, ви можете відобразити власну сторінку «не знайдено», і префікс локалі може впливати на те, як ця сторінка викликається.
 
@@ -1025,7 +1025,7 @@ export const Route = createFileRoute("/{-$locale}/$")({
 ```
 
 </Step>
-<Step number={15} title="Витягніть вміст ваших компонентів" isOptional={true}> isOptional={true}>
+<Step number={16} title="Витягніть вміст ваших компонентів" isOptional={true}> isOptional={true}>
 
 Якщо у вас є існуюча кодова база, перетворення тисяч файлів може зайняти багато часу.
 
@@ -1138,7 +1138,7 @@ bun run build # Or bun run dev
 </Tabs>
 
 </Step>
-<Step number={16} title="Pre-render & Generate Sitemap">
+<Step number={17} title="Pre-render & Generate Sitemap">
 
 Intlayer має вбудований генератор sitemap, який допомагає легко створити sitemap для вашої програми. Він обробляє локалізовані маршрути та додає необхідні метадані для пошукових систем.
 
@@ -1208,7 +1208,7 @@ export const Route = createFileRoute("/sitemap.xml")({
 ```
 
 </Step>
-<Step number={17} title="Налаштувати TypeScript">
+<Step number={18} title="Налаштувати TypeScript">
 
 Intlayer використовує module augmentation для отримання переваг TypeScript та зміцнення вашого codebase.
 
@@ -1364,7 +1364,7 @@ TanStack Start не має власного шару i18n:
 </Question>
 <Question title="Як обробляти сторінки 404 у локалізованих маршрутах?">
 
-Крок 14 описує це. `validatePrefix` перевіряє валідність сегмента мови в URL.
+Крок 15 описує це. `validatePrefix` перевіряє валідність сегмента мови в URL.
 
 </Question>
 <Question title="Як автоматично перекласти додаток TanStack Start за допомогою AI?">

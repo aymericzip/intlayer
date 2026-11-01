@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-09-27
+updatedAt: 2026-11-02
 priority: 10
 title: "TanStack Start i18n - अपने ऐप को अनुवाद करने का पूर्ण गाइड"
 description: "TanStack Start में Intlayer सेट करें: रूट में लोकेल पैरामीटर, SSR-सुरक्षित अनुवादित कंटेंट, स्थानीयकृत head मेटाडेटा, hreflang और साइटमैप।"
@@ -601,7 +601,7 @@ function RouteComponent() {
 - [useIntlayer हुक दस्तावेज़ | react-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/react-intlayer/useIntlayer.md)
 
 </Step>
-<Step number={9} title="एक लोकेल स्विचर कंपोनेंट बनाएं">
+<Step number={10} title="एक लोकेल स्विचर कंपोनेंट बनाएं">
 
 उपयोगकर्ताओं को भाषा बदलने की अनुमति देने के लिए एक कंपोनेंट बनाएं:
 
@@ -665,7 +665,7 @@ export const LocaleSwitcher: FC = () => {
 - [useLocale हुक दस्तावेज़ | react-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/react-intlayer/useLocale.md)
 
 </Step>
-<Step number={10} title="HTML विशेषताएं प्रबंधन">
+<Step number={11} title="HTML विशेषताएं प्रबंधन">
 
 जैसा कि स्टेप 5 में देखा गया है, आप अपने रूट कंपोनेंट में `useParams` का उपयोग करके `html` टैग की `lang` और `dir` विशेषताओं को प्रबंधित कर सकते हैं। यह सुनिश्चित करता है कि सही विशेषताएं सर्वर और क्लाइंट दोनों पर सेट हों।
 
@@ -685,7 +685,7 @@ function RootDocument({ children }: { children: ReactNode }) {
 ```
 
 </Step>
-<Step number={11} title="मिडलवेयर जोड़ें">
+<Step number={12} title="मिडलवेयर जोड़ें">
 
 आप अपने एप्लिकेशन में सर्वर-साइड रूटिंग जोड़ने के लिए `intlayerProxy` का भी उपयोग कर सकते हैं। यह plugin स्वचालित रूप से URL के आधार पर वर्तमान लोकेल का पता लगाएगा और उपयुक्त लोकेल कुकी सेट करेगा। यदि कोई लोकेल निर्दिष्ट नहीं है, तो plugin उपयोगकर्ता की ब्राउज़र भाषा वरीयताओं के आधार पर सबसे उपयुक्त लोकेल निर्धारित करेगा। यदि कोई लोकेल नहीं मिलता है, तो यह डिफ़ॉल्ट लोकेल पर रीडायरेक्ट करेगा।
 
@@ -722,7 +722,7 @@ export default defineConfig({
 ```
 
 </Step>
-<Step number={12} title="अपने मेटाडेटा को अंतर्राष्ट्रीयकृत करें">
+<Step number={13} title="अपने मेटाडेटा को अंतर्राष्ट्रीयकृत करें">
 
 <Tabs>
 
@@ -914,7 +914,7 @@ export const Route = createFileRoute("/{-$locale}/")({
 | Developer experience | simplest              | one `await`                | content threaded through `loaderData`  |
 
 </Step>
-<Step number={13} title="अपने server actions में locale को प्राप्त करें">
+<Step number={14} title="अपने server actions में locale को प्राप्त करें">
 
 आप अपने server actions या API endpoints के अंदर से current locale को access करना चाह सकते हैं।
 आप इसे `intlayer` से `getLocale` helper का उपयोग करके कर सकते हैं।
@@ -950,7 +950,7 @@ export const getLocaleServer = createServerFn().handler(async () => {
 ```
 
 </Step>
-<Step number={14} title="नहीं मिले पृष्ठों का प्रबंधन करें">
+<Step number={15} title="नहीं मिले पृष्ठों का प्रबंधन करें">
 
 जब कोई उपयोगकर्ता गैर-मौजूद पृष्ठ पर जाता है, तो आप एक कस्टम नहीं मिला पृष्ठ प्रदर्शित कर सकते हैं और लोकेल उपसर्ग नहीं मिला पृष्ठ के ट्रिगर होने के तरीके को प्रभावित कर सकता है।
 
@@ -1025,7 +1025,7 @@ export const Route = createFileRoute("/{-$locale}/$")({
 ```
 
 </Step>
-<Step number={15} title="अपने घटकों की सामग्री निकालें" isOptional={true}> isOptional={true}>
+<Step number={16} title="अपने घटकों की सामग्री निकालें" isOptional={true}> isOptional={true}>
 
 यदि आपके पास मौजूदा कोडबेस है, तो हजारों फ़ाइलों को बदलना समय लेने वाला हो सकता है।
 
@@ -1138,7 +1138,7 @@ bun run build # या bun run dev
 </Tabs>
 
 </Step>
-<Step number={16} title="पूर्व-प्रस्तुत करें और साइटमैप जनरेट करें">
+<Step number={17} title="पूर्व-प्रस्तुत करें और साइटमैप जनरेट करें">
 
 Intlayer में एक built-in sitemap generator है जो आपको अपने एप्लिकेशन के लिए आसानी से sitemap बनाने में मदद करता है। यह localized routes को handle करता है और search engines के लिए आवश्यक metadata जोड़ता है।
 
@@ -1208,7 +1208,7 @@ export const Route = createFileRoute("/sitemap.xml")({
 ```
 
 </Step>
-<Step number={17} title="TypeScript कॉन्फ़िगर करें">
+<Step number={18} title="TypeScript कॉन्फ़िगर करें">
 
 Intlayer module augmentation का उपयोग करके TypeScript के लाभ प्राप्त करता है और आपके codebase को मजबूत बनाता है।
 
@@ -1359,12 +1359,12 @@ TanStack Start की अपनी कोई i18n परत नहीं है:
 </Question>
 <Question title="वर्तमान रूट को बनाए रखने वाला भाषा स्विचर कैसे बनाएं?">
 
-चरण 9 में वर्णित स्थानीयकृत लिंक घटक के साथ संयोजन में `useLocale` का उपयोग करें।
+चरण 10 में वर्णित स्थानीयकृत लिंक घटक के साथ संयोजन में `useLocale` का उपयोग करें।
 
 </Question>
 <Question title="स्थानीयकृत मार्गों पर 404 पृष्ठों को कैसे संभालें?">
 
-चरण 14 इसे समझाता है। `validatePrefix` URL में भाषा खंड को मान्य करता है।
+चरण 15 इसे समझाता है। `validatePrefix` URL में भाषा खंड को मान्य करता है।
 
 </Question>
 <Question title="AI के साथ TanStack Start ऐप का स्वचालित अनुवाद कैसे करें?">

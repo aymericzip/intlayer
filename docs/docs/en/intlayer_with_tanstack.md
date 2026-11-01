@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-09-27
+updatedAt: 2026-11-02
 priority: 10
 title: "TanStack Start i18n - Complete guide to translate your app"
 description: "Set up Intlayer in TanStack Start: locale route params, SSR-safe translated content, localized head metadata, hreflang and sitemap."
@@ -441,7 +441,7 @@ export default appContent;
 - [content declaration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md)
 
 </Step>
-<Step number={7} title="Create Locale-Aware Components and Hooks">
+<Step number={8} title="Create Locale-Aware Components and Hooks">
 
 Create a `LocalizedLink` component for locale-aware navigation:
 
@@ -545,7 +545,7 @@ export const useLocalizedNavigate = () => {
 ```
 
 </Step>
-<Step number={8} title="Utilize Intlayer in Your Pages">
+<Step number={9} title="Utilize Intlayer in Your Pages">
 
 > Use **`useIntlayer`** by default: it is the recommended way to read content inside components, and the compiler resolves it to the locale being rendered. Reach for `getIntlayer` / `getIntlayerAsync` only outside the React tree: route `head`, loaders and server functions.
 
@@ -605,7 +605,7 @@ function RouteComponent() {
 - [useIntlayer Hook Documentation | react-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useIntlayer.md)
 
 </Step>
-<Step number={9} title="Create a Locale Switcher Component">
+<Step number={10} title="Create a Locale Switcher Component">
 
 Create a component to allow users to change languages:
 
@@ -669,7 +669,7 @@ export const LocaleSwitcher: FC = () => {
 - [useLocale Hook Documentation | react-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useLocale.md)
 
 </Step>
-<Step number={10} title="HTML Attributes Management">
+<Step number={11} title="HTML Attributes Management">
 
 As seen in Step 5, you can manage the `lang` and `dir` attributes of the `html` tag using `useParams` in your root component. This ensures that the correct attributes are set on the server and client.
 
@@ -689,7 +689,7 @@ function RootDocument({ children }: { children: ReactNode }) {
 ```
 
 </Step>
-<Step number={11} title="Add middleware">
+<Step number={12} title="Add middleware">
 
 You can also use the `intlayerProxy` to add server-side routing to your application. This plugin will automatically detect the current locale based on the URL and set the appropriate locale cookie. If no locale is specified, the plugin will determine the most appropriate locale based on the user's browser language preferences. If no locale is detected, it will redirect to the default locale.
 
@@ -726,7 +726,7 @@ export default defineConfig({
 ```
 
 </Step>
-<Step number={12} title="Internationalize your Metadata">
+<Step number={13} title="Internationalize your Metadata">
 
 <Tabs>
 
@@ -918,7 +918,7 @@ You keep the per-locale chunk without paying its cost on the head critical path.
 | Developer experience | simplest              | one `await`                | content threaded through `loaderData`  |
 
 </Step>
-<Step number={13} title="Retrieve the locale in your server actions">
+<Step number={14} title="Retrieve the locale in your server actions">
 
 You may want to access the current locale from inside your server actions or API endpoints.
 You can do this using the `getLocale` helper from `intlayer`.
@@ -954,7 +954,7 @@ export const getLocaleServer = createServerFn().handler(async () => {
 ```
 
 </Step>
-<Step number={14} title="Manage not found pages">
+<Step number={15} title="Manage not found pages">
 
 When a user visits a non-existing page, you can display a custom not found page and the locale prefix may impact the way the not found page is triggered.
 
@@ -1029,7 +1029,7 @@ export const Route = createFileRoute("/{-$locale}/$")({
 ```
 
 </Step>
-<Step number={15} title="Extract the content of your components" isOptional={true}>
+<Step number={16} title="Extract the content of your components" isOptional={true}>
 
 If you have an existing codebase, transforming thousands of files can be time-consuming.
 
@@ -1146,7 +1146,7 @@ bun run build # Or bun run dev
 </Tabs>
 
 </Step>
-<Step number={16} title="Pre-render & Generate Sitemap">
+<Step number={17} title="Pre-render & Generate Sitemap">
 
 Intlayer comes with a built-in sitemap generator to help you create a sitemap for your application easily. It handles localized routes and adds the necessary metadata for search engines.
 
@@ -1216,7 +1216,7 @@ export const Route = createFileRoute("/sitemap.xml")({
 ```
 
 </Step>
-<Step number={17} title="Configure TypeScript">
+<Step number={18} title="Configure TypeScript">
 
 Intlayer uses module augmentation to get benefits of TypeScript and make your codebase stronger.
 
@@ -1328,7 +1328,7 @@ Yes. The [sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/doc
 </Question>
 <Question title="Do I have to move my content key by key?">
 
-No. Run `npx intlayer extract` and Intlayer reads your components, pulls the user facing strings out and writes a `.content` file next to each one, so you review a diff instead of copying strings into a catalog one at a time. Step 15 of this guide walks through it.
+No. Run `npx intlayer extract` and Intlayer reads your components, pulls the user facing strings out and writes a `.content` file next to each one, so you review a diff instead of copying strings into a catalog one at a time. Step 16 of this guide walks through it.
 
 For a fully automated pipeline, the [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compiler.md) does the same at build time: it scans your JSX, TSX, Vue and Svelte source on every change, generates the dictionaries and keeps them in sync through hot module replacement, so there are no keys to maintain by hand at all.
 
@@ -1352,12 +1352,12 @@ Five pieces, all optional:
 </Question>
 <Question title="Does Intlayer support server side rendering and pre-rendering in TanStack Start?">
 
-Yes. Content resolves during SSR, and the guide covers the pre-render configuration that emits one static document per localized route. Step 16 shows how to enable `prerender` in `vite.config.ts` and generate a localized sitemap from the same route table.
+Yes. Content resolves during SSR, and the guide covers the pre-render configuration that emits one static document per localized route. Step 17 shows how to enable `prerender` in `vite.config.ts` and generate a localized sitemap from the same route table.
 
 </Question>
 <Question title="How do I add hreflang tags and a localized sitemap?">
 
-Use the built-in `generateSitemap` function in a `src/routes/sitemap[.]xml.ts` route. Unlike a plain URL list, it emits the `xhtml:link` namespace, so every language version of a page links bidirectionally to the others and search engines index the right one for each audience. Localized `head` metadata is covered in step 12.
+Use the built-in `generateSitemap` function in a `src/routes/sitemap[.]xml.ts` route. Unlike a plain URL list, it emits the `xhtml:link` namespace, so every language version of a page links bidirectionally to the others and search engines index the right one for each audience. Localized `head` metadata is covered in step 13.
 
 </Question>
 <Question title="Do I have to put the locale in the URL?">
@@ -1369,12 +1369,12 @@ No. `routing.mode` controls the URL scheme: `"prefix-no-default"` (the default, 
 </Question>
 <Question title="How do I build a locale switcher that keeps the current route?">
 
-Use `useLocale` together with the localized link component described in step 9. `useLocale` exposes the active locale, the available locales and a setter that persists the choice, while `getLocalizedUrl` rewrites the current path into the target language so the user stays on the same page instead of landing on the home page.
+Use `useLocale` together with the localized link component described in step 10. `useLocale` exposes the active locale, the available locales and a setter that persists the choice, while `getLocalizedUrl` rewrites the current path into the target language so the user stays on the same page instead of landing on the home page.
 
 </Question>
 <Question title="How do I handle 404 pages on localized routes?">
 
-Step 14 covers it. `validatePrefix` tells you whether the locale segment of the URL is a declared locale, so `/xx/about` returns a real 404 instead of being treated as a path. Without it, an unknown prefix silently resolves and search engines index a duplicate page.
+Step 15 covers it. `validatePrefix` tells you whether the locale segment of the URL is a declared locale, so `/xx/about` returns a real 404 instead of being treated as a path. Without it, an unknown prefix silently resolves and search engines index a duplicate page.
 
 </Question>
 <Question title="How do I translate a TanStack Start app automatically with AI?">

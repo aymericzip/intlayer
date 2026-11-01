@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-10-08
+updatedAt: 2026-11-02
 priority: 10
 title: "TanStack Start i18n - あなたのアプリを翻訳する完全ガイド"
 description: "TanStack Start に Intlayer を導入：ルートのロケールパラメーター、SSR 対応の翻訳コンテンツ、ローカライズされた head メタデータ、hreflang とサイトマップ。"
@@ -609,7 +609,7 @@ function RouteComponent() {
 - [useIntlayer フック ドキュメント | react-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useIntlayer.md)
 
 </Step>
-<Step number={9} title="ロケール切り替えコンポーネントを作成する">
+<Step number={10} title="ロケール切り替えコンポーネントを作成する">
 
 ユーザーが言語を変更できるようにするコンポーネントを作成します:
 
@@ -673,7 +673,7 @@ export const LocaleSwitcher: FC = () => {
 - [useLocale フック ドキュメント | react-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useLocale.md)
 
 </Step>
-<Step number={10} title="HTML 属性管理">
+<Step number={11} title="HTML 属性管理">
 
 ステップ 5 で見たように、ルートコンポーネントで `useParams` を使用して `html` タグの `lang` と `dir` 属性を管理できます。これにより、サーバーとクライアントで正しい属性が設定されます。
 
@@ -693,7 +693,7 @@ function RootDocument({ children }: { children: ReactNode }) {
 ```
 
 </Step>
-<Step number={11} title="ミドルウェアを追加する">
+<Step number={12} title="ミドルウェアを追加する">
 
 `intlayerProxy` を使用して、アプリケーションにサーバー側のルーティングを追加することもできます。このプラグインは URL に基づいて現在のロケールを自動的に検出し、適切なロケール cookie を設定します。ロケールが指定されていない場合、プラグインはユーザーのブラウザ言語設定に基づいて最も適切なロケールを決定します。ロケールが検出されない場合、デフォルトロケールにリダイレクトされます。
 
@@ -730,7 +730,7 @@ export default defineConfig({
 ```
 
 </Step>
-<Step number={12} title="メタデータを国際化する">
+<Step number={13} title="メタデータを国際化する">
 
 <Tabs>
 
@@ -922,7 +922,7 @@ head の重大パスでその コストを支払うことなく、ロケール�
 | Developer experience | simplest              | one `await`                | content threaded through `loaderData`  |
 
 </Step>
-<Step number={13} title="サーバーアクションでロケールを取得する">
+<Step number={14} title="サーバーアクションでロケールを取得する">
 
 サーバーアクションまたはAPIエンドポイント内から現在のロケールにアクセスしたい場合があります。
 `intlayer` から `getLocale` ヘルパーを使用してこれを実行できます。
@@ -958,7 +958,7 @@ export const getLocaleServer = createServerFn().handler(async () => {
 ```
 
 </Step>
-<Step number={14} title="見つからないページを管理する">
+<Step number={15} title="見つからないページを管理する">
 
 ユーザーが存在しないページにアクセスした場合、カスタムの 404 ページを表示できます。ロケールプレフィックスは、見つからないページがトリガーされる方法に影響を与える可能性があります。
 
@@ -1033,7 +1033,7 @@ export const Route = createFileRoute("/{-$locale}/$")({
 ```
 
 </Step>
-<Step number={15} title="コンポーネントのコンテンツを抽出する" isOptional={true}>
+<Step number={16} title="コンポーネントのコンテンツを抽出する" isOptional={true}>
 
 既存のコードベースがある場合、数千のファイルを変換するのは時間がかかることがあります。
 
@@ -1150,7 +1150,7 @@ bun run build # または bun run dev
 </Tabs>
 
 </Step>
-<Step number={16} title="プリレンダリングとサイトマップ生成">
+<Step number={17} title="プリレンダリングとサイトマップ生成">
 
 Intlayer には、アプリケーションのサイトマップを簡単に作成できるサイトマップ ジェネレーターが組み込まれています。ローカライズされたルートを処理し、検索エンジンに必要なメタデータを追加します。
 
@@ -1220,7 +1220,7 @@ export const Route = createFileRoute("/sitemap.xml")({
 ```
 
 </Step>
-<Step number={17} title="TypeScriptの構成">
+<Step number={18} title="TypeScriptの構成">
 
 Intlayer はモジュール拡張機能を利用して、TypeScript の利点を活用し、コードベースを強化します。
 
@@ -1332,7 +1332,7 @@ TanStack Start で重要な違いはルーティングとサーバーレンダ�
 </Question>
 <Question title="コンテンツをキーごとに移動する必要がありますか？">
 
-いいえ。`npx intlayer extract` を実行すると、Intlayer はコンポーネントを読み込み、ユーザーに見える文字列を抽出し、各コンポーネントの隣に `.content` ファイルを書き込むため、文字列を 1 つずつカタログにコピーする代わりに diff を確認できます。このガイドのステップ 15 でそれを説明しています。
+いいえ。`npx intlayer extract` を実行すると、Intlayer はコンポーネントを読み込み、ユーザーに見える文字列を抽出し、各コンポーネントの隣に `.content` ファイルを書き込むため、文字列を 1 つずつカタログにコピーする代わりに diff を確認できます。このガイドのステップ 16 でそれを説明しています。
 
 完全に自動化されたパイプラインの場合、[Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)はビルド時に同じことを行います：変更のたびに JSX、TSX、Vue、Svelte ソースをスキャンし、辞書を生成し、ホットモジュール置換を通じて同期を保つため、手動で保守するキーはまったくありません。
 
@@ -1356,12 +1356,12 @@ TanStack Start で重要な違いはルーティングとサーバーレンダ�
 </Question>
 <Question title="Intlayer は TanStack Start でサーバーサイドレンダリングとプリレンダリングをサポートしていますか？">
 
-はい。コンテンツは SSR 中に解決され、ガイドはローカライズされたルートごとに 1 つの静的ドキュメントを出力するプリレンダー構成をカバーしています。ステップ 16 は `vite.config.ts` で `prerender` を有効にし、同じルートテーブルからローカライズされたサイトマップを生成する方法を示しています。
+はい。コンテンツは SSR 中に解決され、ガイドはローカライズされたルートごとに 1 つの静的ドキュメントを出力するプリレンダー構成をカバーしています。ステップ 17 は `vite.config.ts` で `prerender` を有効にし、同じルートテーブルからローカライズされたサイトマップを生成する方法を示しています。
 
 </Question>
 <Question title="hreflang タグとローカライズされたサイトマップを追加するにはどうすればよいですか？">
 
-`src/routes/sitemap[.]xml.ts` ルートで組み込みの `generateSitemap` 関数を使用します。プレーンな URL リストとは異なり、`xhtml:link` ネームスペースを出力するため、ページのすべての言語バージョンは相互に双方向にリンクし、検索エンジンは各オーディエンスに対して正しいものをインデックスします。ローカライズされた `head` メタデータはステップ 12 で説明されています。
+`src/routes/sitemap[.]xml.ts` ルートで組み込みの `generateSitemap` 関数を使用します。プレーンな URL リストとは異なり、`xhtml:link` ネームスペースを出力するため、ページのすべての言語バージョンは相互に双方向にリンクし、検索エンジンは各オーディエンスに対して正しいものをインデックスします。ローカライズされた `head` メタデータはステップ 13 で説明されています。
 
 </Question>
 <Question title="URL にロケールを入れる必要がありますか？">
@@ -1373,12 +1373,12 @@ TanStack Start で重要な違いはルーティングとサーバーレンダ�
 </Question>
 <Question title="現在のルートを保持するロケール切り替え機能を構築するにはどうすればよいですか？">
 
-ステップ 9 で説明されているローカライズされたリンクコンポーネントと一緒に `useLocale` を使用します。`useLocale` はアクティブなロケール、利用可能なロケール、選択を永続化するセッターを公開し、`getLocalizedUrl` は現在のパスをターゲット言語に書き直すため、ユーザーはホームページに着地する代わりに同じページにとどまります。
+ステップ 10 で説明されているローカライズされたリンクコンポーネントと一緒に `useLocale` を使用します。`useLocale` はアクティブなロケール、利用可能なロケール、選択を永続化するセッターを公開し、`getLocalizedUrl` は現在のパスをターゲット言語に書き直すため、ユーザーはホームページに着地する代わりに同じページにとどまります。
 
 </Question>
 <Question title="ローカライズされたルートで 404 ページを処理するにはどうすればよいですか？">
 
-ステップ 14 でカバーされています。`validatePrefix` は URL のロケールセグメントが宣言されたロケールであるかどうかを判断するため、`/xx/about` は処理されたパスとして扱われるのではなく、実際の 404 を返します。それなしでは、未知のプレフィックスは静かに解決され、検索エンジンは重複ページをインデックスします。
+ステップ 15 でカバーされています。`validatePrefix` は URL のロケールセグメントが宣言されたロケールであるかどうかを判断するため、`/xx/about` は処理されたパスとして扱われるのではなく、実際の 404 を返します。それなしでは、未知のプレフィックスは静かに解決され、検索エンジンは重複ページをインデックスします。
 
 </Question>
 <Question title="TanStack Start アプリを AI で自動的に翻訳するにはどうすればよいですか？">
