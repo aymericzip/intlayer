@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs';
-import { join } from 'node:path';
+import { basename, dirname, join } from 'node:path';
 import { log } from '@intlayer/config/built';
 import { getAppLogger } from '@intlayer/config/logger';
 import { simpleGit } from 'simple-git';
@@ -198,4 +198,62 @@ export const listGitLines = async (
 
   // Return the list sorted for convenience
   return Array.from(changedLines).sort((a, b) => a - b);
+};
+
+/**
+ * Returns the content of a file at a git ref, or `undefined` if the file does
+ * not exist at that ref or git is not available.
+ */
+export const readGitFile = async (
+  filePath: string,
+  ref = 'HEAD'
+): Promise<string | undefined> => {
+  try {
+    const git = simpleGit(dirname(filePath));
+
+    return await git.show([`${ref}:./${basename(filePath)}`]);
+  } catch {
+    return undefined;
+  }
+};
+
+/**
+ * Returns `true` if `ref` points to a commit. Returns `false` if git is not
+ * installed, `cwd` is not in a git repository, or the ref is missing (no
+ * commit yet, no upstream branch, or a shallow clone without that history).
+ */
+export const hasGitRef = async (
+  ref: string,
+  cwd?: string
+): Promise<boolean> => {
+  try {
+    const commit = await simpleGit(cwd).raw([
+      'rev-parse',
+      '--verify',
+      `${ref}^{commit}`,
+    ]);
+
+    return commit.trim() !== '';
+  } catch {
+    return false;
+  }
+};
+
+/**
+ * Returns the commit `currentRef` forked from `baseRef`, which is the side
+ * `git diff baseRef...currentRef` compares against.
+ */
+export const getGitMergeBase = async (
+  baseRef = 'origin/main',
+  currentRef = 'HEAD'
+): Promise<string | undefined> => {
+  try {
+    const git = simpleGit();
+    await git.fetch(baseRef).catch(() => undefined);
+    const mergeBase = await git.raw(['merge-base', baseRef, currentRef]);
+
+    return mergeBase.trim() || undefined;
+  } catch {
+    return undefined;
+  }
 };
