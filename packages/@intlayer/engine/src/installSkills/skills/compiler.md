@@ -38,5 +38,8 @@ For more information, visit the [Intlayer Compiler Architecture Documentation](h
 
 ### Packages
 
+- [vite-intlayer Exports](https://intlayer.org/doc/packages/vite-intlayer/exports.md)
+- [vite-intlayer intlayer](https://intlayer.org/doc/packages/vite-intlayer/intlayer.md)
 - [vite-intlayer intlayerCompiler](https://intlayer.org/doc/packages/vite-intlayer/intlayerCompiler.md)
+- [vite-intlayer intlayerProxy](https://intlayer.org/doc/packages/vite-intlayer/intlayerProxy.md)
 - [@intlayer/babel Exports](https://intlayer.org/doc/packages/@intlayer/babel/export.md)
