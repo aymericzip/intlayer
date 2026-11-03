@@ -240,6 +240,10 @@ const Theme: FC<PropsWithChildren<ThemeProviderProps>> = ({
           // The script has already run by then; React never patches it.
           suppressHydrationWarning
           nonce={isServer ? nonce : ''}
+          // A client-mounted copy must stay inert: renderers that build it with
+          // `createElement` (Redact) would execute it without its nonce and hit
+          // the CSP. The layout effect below applies the theme on the client.
+          type={isServer ? undefined : 'text/plain'}
           // biome-ignore lint/security/noDangerouslySetInnerHtml: the bootstrap has to run before hydration, and its content is built from literals
           dangerouslySetInnerHTML={{ __html: buildBootstrap(storageKey) }}
         />

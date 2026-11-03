@@ -35,7 +35,7 @@ const fetchScript = async (): Promise<string> => {
   return cachedScript;
 };
 
-export const Route = createFileRoute('/api/proxy/ahrefs-analytics')({
+export const Route = createFileRoute('/api/proxy/ahrefs-analytics.js')({
   server: {
     handlers: {
       GET: async () => {

@@ -6,7 +6,10 @@ import {
 
 const MEASUREMENT_ID = 'G-TEST123';
 
-type GtagWindow = Window & { dataLayer?: unknown[] };
+type GtagWindow = Window & {
+  dataLayer?: unknown[];
+  __intlayerGoogleAnalyticsBootstrapped?: boolean;
+};
 
 const getGtagScripts = () =>
   Array.from(document.head.querySelectorAll('script')).filter((script) =>
@@ -28,8 +31,8 @@ describe('getGoogleAnalyticsHeadScripts', () => {
     const scripts = getGoogleAnalyticsHeadScripts(MEASUREMENT_ID, 'abc');
 
     expect(scripts).toHaveLength(1);
-    expect(scripts[0].nonce).toBe('abc');
-    expect(scripts[0].children).toContain(JSON.stringify(MEASUREMENT_ID));
+    expect(scripts[0]?.nonce).toBe('abc');
+    expect(scripts[0]?.children).toContain(JSON.stringify(MEASUREMENT_ID));
   });
 });
 
@@ -38,6 +41,7 @@ describe('buildGoogleAnalyticsBootstrap', () => {
     vi.useFakeTimers();
     vi.spyOn(document, 'readyState', 'get').mockReturnValue('loading');
     (window as GtagWindow).dataLayer = undefined;
+    (window as GtagWindow).__intlayerGoogleAnalyticsBootstrapped = undefined;
     for (const script of getGtagScripts()) script.remove();
   });
 
@@ -67,6 +71,20 @@ describe('buildGoogleAnalyticsBootstrap', () => {
       { page_location: window.location.href, page_referrer: document.referrer },
     ]);
     expect(getGtagScripts()).toHaveLength(0);
+  });
+
+  it('runs once even when the inline script is executed twice', () => {
+    // TanStack Router re-appends inline head scripts it cannot match by nonce.
+    runBootstrap();
+    runBootstrap();
+
+    const pageViews = ((window as GtagWindow).dataLayer ?? []).filter(
+      (entry) => Array.from(entry as ArrayLike<unknown>)[1] === 'page_view'
+    );
+    vi.runAllTimers();
+
+    expect(pageViews).toHaveLength(1);
+    expect(getGtagScripts()).toHaveLength(1);
   });
 
   it('loads gtag.js once, on the first interaction', () => {

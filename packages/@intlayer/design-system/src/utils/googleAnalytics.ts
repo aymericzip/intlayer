@@ -20,6 +20,10 @@ export type GoogleAnalyticsHeadScript = {
  * misattribute it. Later navigations are reported by GA4 enhanced measurement
  * ("page changes based on browser history events").
  *
+ * Idempotent: TanStack Router's client `<Script>` re-appends inline head
+ * scripts it cannot match by nonce (browsers hide the nonce attribute), and a
+ * second run would send a duplicate `page_view`.
+ *
  * @param measurementId - GA4 measurement id (e.g. `G-XXXXXXXXXX`).
  * @returns The bootstrap source, ready to inline in a `<script>`.
  */
@@ -29,6 +33,8 @@ export const buildGoogleAnalyticsBootstrap = (
   const scriptUrl = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(measurementId)}`;
 
   return `(() => {
+if (window.__intlayerGoogleAnalyticsBootstrapped) return;
+window.__intlayerGoogleAnalyticsBootstrapped = true;
 window.dataLayer = window.dataLayer || [];
 window.gtag = function () { dataLayer.push(arguments); };
 gtag('js', new Date());

@@ -231,6 +231,19 @@ describe('ThemeProvider', () => {
     // Browsers hide the nonce value from the DOM, so only the server emits it.
     expect(container.querySelector('script')?.getAttribute('nonce')).toBe('');
   });
+
+  test('renders an inert script on the client', () => {
+    const { container } = render(
+      <ThemeProvider nonce="test-nonce">
+        <ThemeProbe />
+      </ThemeProvider>
+    );
+
+    // Executed without its nonce, a client-mounted copy would violate the CSP.
+    expect(container.querySelector('script')?.getAttribute('type')).toBe(
+      'text/plain'
+    );
+  });
 });
 
 describe('theme bootstrap script', () => {

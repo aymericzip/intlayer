@@ -205,11 +205,13 @@ function RootDocument({ children }: { children: React.ReactNode }) {
               <ChunkErrorListener />
               <ServiceWorkerSubscriber />
               {/* The script derives its endpoints from its own origin, so the
-                  proxied copy needs them pointed back at Ahrefs explicitly. */}
+                  proxied copy needs them pointed back at Ahrefs explicitly.
+                  The `.js` extension keeps the Intlayer locale proxy from
+                  redirecting it to a non-existent `/fr/api/...` route. */}
               {import.meta.env.VITE_AHREFS_KEY && (
                 <script
                   async
-                  src="/api/proxy/ahrefs-analytics"
+                  src="/api/proxy/ahrefs-analytics.js"
                   data-key={import.meta.env.VITE_AHREFS_KEY}
                   data-api="https://analytics.ahrefs.com/api/event"
                   data-error="https://analytics.ahrefs.com/api/error"
