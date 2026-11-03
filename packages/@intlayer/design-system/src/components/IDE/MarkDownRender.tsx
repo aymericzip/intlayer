@@ -1,8 +1,12 @@
 import cn from 'cnfast';
-import type { FC } from 'react';
+import { type ComponentProps, type FC, type ReactNode, useMemo } from 'react';
 import { MarkdownRenderer as MarkdownRendererIntlayer } from 'react-intlayer/markdown';
 import { Code } from './Code';
 import type { CodeLanguage } from './shikiLanguages';
+
+type MarkdownComponents = NonNullable<
+  ComponentProps<typeof MarkdownRendererIntlayer>['components']
+>;
 
 type MarkdownRendererProps = {
   codeClassName?: string;
@@ -12,9 +16,15 @@ type MarkdownRendererProps = {
 export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
   children,
   codeClassName,
-}) => (
-  <MarkdownRendererIntlayer
-    components={{
+}) => {
+  /**
+   * Overrides are element types: a new function identity remounts the code
+   * block (dropping its Shiki highlight) on every parent re-render. Runtimes
+   * that skip React's same-element bailout (TanStack Redact) re-render on each
+   * scroll tick, so the identity must stay stable.
+   */
+  const components = useMemo<MarkdownComponents>(
+    () => ({
       code: (props) => (
         <Code
           {...props}
@@ -25,9 +35,14 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
           {props.children as string}
         </Code>
       ),
-      pre: (props) => props.children,
-    }}
-  >
-    {children ?? ''}
-  </MarkdownRendererIntlayer>
-);
+      pre: (props) => props.children as ReactNode,
+    }),
+    [codeClassName]
+  );
+
+  return (
+    <MarkdownRendererIntlayer components={components}>
+      {children ?? ''}
+    </MarkdownRendererIntlayer>
+  );
+};
