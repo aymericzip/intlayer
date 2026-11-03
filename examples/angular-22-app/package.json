@@ -27,12 +27,12 @@
     "@angular/build": "22.1.8",
     "@angular/cli": "22.1.8",
     "@angular/compiler-cli": "22.1.7",
-    "@tailwindcss/postcss": "4.3.3",
+    "@tailwindcss/postcss": "4.3.4",
     "jsdom": "30.0.1",
-    "postcss": "8.5.29",
+    "postcss": "8.5.32",
     "prettier": "3.9.8",
-    "tailwindcss": "4.3.3",
+    "tailwindcss": "4.3.4",
     "typescript": "~6.0.3",
-    "vitest": "5.0.3"
+    "vitest": "5.1.0"
   }
 }

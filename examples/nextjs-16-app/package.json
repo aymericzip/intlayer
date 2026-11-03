@@ -18,12 +18,12 @@
     "intlayer": "workspace:*",
     "next": "16.3.8",
     "next-intlayer": "workspace:*",
-    "react": "19.3.0",
+    "react": "19.3.1",
     "react-dom": "19.3.0"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "16.3.8",
-    "@tailwindcss/postcss": "4.3.3",
+    "@tailwindcss/postcss": "4.3.4",
     "@types/node": "^26",
     "@types/react": "19",
     "@types/react-dom": "19",
@@ -32,7 +32,7 @@
     "eslint-plugin-intlayer": "workspace:*",
     "intlayer-editor": "workspace:*",
     "next-rspack": "16.3.8",
-    "tailwindcss": "4.3.3",
+    "tailwindcss": "4.3.4",
     "typescript": "7.0.2"
   }
 }

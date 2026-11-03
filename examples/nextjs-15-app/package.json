@@ -18,18 +18,18 @@
     "intlayer": "workspace:*",
     "next": "15.5.27",
     "next-intlayer": "workspace:*",
-    "react": "19.3.0",
+    "react": "19.3.1",
     "react-dom": "19.3.0"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "15.5.27",
-    "@tailwindcss/postcss": "4.3.3",
+    "@tailwindcss/postcss": "4.3.4",
     "@types/node": "^26",
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
     "intlayer-editor": "workspace:*",
-    "postcss": "8.5.29",
-    "tailwindcss": "4.3.3",
+    "postcss": "8.5.32",
+    "tailwindcss": "4.3.4",
     "typescript": "7.0.2"
   }
 }

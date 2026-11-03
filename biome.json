@@ -1,5 +1,9 @@
 {
   "$schema": "https://biomejs.dev/schemas/latest/schema.json",
+  "tailwind": {
+    "mergeFunctions": ["cn", "clsx"],
+    "variantFunctions": ["cva"]
+  },
   "vcs": {
     "enabled": true,
     "clientKind": "git",
@@ -25,7 +29,7 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": true,
+      "preset": "recommended",
       "correctness": {
         "noUnusedVariables": "warn",
         "useExhaustiveDependencies": "off",
@@ -84,12 +88,9 @@
         "useAriaPropsSupportedByRole": "warn"
       },
       "nursery": {
-        "useSortedClasses": {
+        "useTailwindSortedClasses": {
           "level": "warn",
-          "fix": "safe",
-          "options": {
-            "functions": ["cva", "cn", "clsx"]
-          }
+          "fix": "safe"
         }
       }
     }

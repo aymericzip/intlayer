@@ -78,10 +78,10 @@
     "watch": "webpack --config ./webpack.config.ts --watch"
   },
   "dependencies": {
-    "@babel/core": "8.0.1",
+    "@babel/core": "8.1.0",
     "@intlayer/types": "workspace:*",
     "fast-glob": "3.3.3",
-    "magic-string": "1.4.2"
+    "magic-string": "1.4.5"
   },
   "devDependencies": {
     "@intlayer/config": "workspace:*",
@@ -94,9 +94,9 @@
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
     "rimraf": "6.1.3",
-    "tsdown": "0.23.0",
+    "tsdown": "0.23.4",
     "typescript": "7.0.2",
-    "vitest": "5.0.3"
+    "vitest": "5.1.0"
   },
   "peerDependencies": {
     "@babel/core": ">=6.0.0",

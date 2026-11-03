@@ -112,18 +112,18 @@
     "typecheck": "tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
-    "@ai-sdk/mcp": "2.0.71",
-    "@fastify/cors": "11.3.1",
-    "@fastify/helmet": "13.1.2",
+    "@ai-sdk/mcp": "2.0.89",
+    "@fastify/cors": "11.4.0",
+    "@fastify/helmet": "13.2.0",
     "@intlayer/api": "workspace:*",
     "@intlayer/cli": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/docs": "workspace:*",
     "@intlayer/engine": "workspace:*",
     "@intlayer/types": "workspace:*",
-    "dotenv": "18.0.6",
-    "fastify": "5.12.5",
-    "zod": "4.6.5"
+    "dotenv": "18.0.9",
+    "fastify": "5.12.8",
+    "zod": "4.6.7"
   },
   "devDependencies": {
     "@intlayer/types": "workspace:*",
@@ -132,9 +132,9 @@
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
     "rimraf": "6.1.3",
-    "tsdown": "0.23.0",
+    "tsdown": "0.23.4",
     "typescript": "7.0.2",
-    "vitest": "5.0.3"
+    "vitest": "5.1.0"
   },
   "engines": {
     "node": ">=14.18"
