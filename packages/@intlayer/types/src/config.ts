@@ -672,7 +672,7 @@ export type AiConfig = CommonAiConfig &
          *
          * The model to use for the AI features of Intlayer.
          *
-         * Example: 'claude-haiku-4-5'
+         * Example: 'claude-haiku-5-5'
          */
         model?: string;
       }
