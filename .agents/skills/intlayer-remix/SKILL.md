@@ -47,7 +47,7 @@ Register the `intlayer()` [router middleware](references/packages_remix-intlayer
 
 ## Hooks
 
-`useIntlayer`, `useDictionary` and `useLocale` read the request locale with no argument, anywhere downstream of the middleware (route handlers and `remix/ui` views).
+`useIntlayer`, `useDictionary` and `useLocale` read the request locale with no argument, anywhere downstream of the middleware (route handlers and `remix/component` views).
 
 ```tsx
 import { useIntlayer, useLocale } from "remix-intlayer";

@@ -38,7 +38,7 @@ author: aymericzip
 **Remix 3**는 **완전히 웹 표준을 기반으로 구축된, 조합 가능하고 런타임에 구애받지 않는 웹 프레임워크**로의 근본적인 아키텍처 전환을 의미합니다. 특정 번들러나 독점 서버 API에 종속되지 않고 단일 목적의 모듈형 패키지로 배포됩니다.
 
 - **`remix/fetch-router`** (또는 `remix/router`): Fetch API(`Request` 및 `Response`)를 기반으로 구축된 가볍고 표준을 준수하는 라우팅.
-- **`remix/ui`**: JSX 컴포넌트 모델(`jsxImportSource: "remix/ui"`). 컴포넌트는 Handle을 받아 렌더 함수를 반환하는 셋업 함수로, React와 유사하지만 상태는 순수 JavaScript 클로저에 유지됩니다.
+- **`remix/component`**: JSX 컴포넌트 모델(`jsxImportSource: "remix/component"`). 컴포넌트는 Handle을 받아 렌더 함수를 반환하는 셋업 함수로, React와 유사하지만 상태는 순수 JavaScript 클로저에 유지됩니다.
 - **`remix/middleware/render`**: 모든 요청에 `context.render(<Page />)`를 설치하여 JSX 트리를 HTML `Response`로 스트리밍합니다.
 - **`remix/node-fetch-server`**: Bun, Deno 및 엣지 런타임을 기본 지원하는 Node.js용 서버 어댑터.
 - **`remix/cookie`**: 암호학적으로 안전한 쿠키 파싱 및 직렬화.
@@ -56,7 +56,7 @@ author: aymericzip
 <AccordionGroup>
 <Accordion header="Remix 3 및 웹 표준 완전 지원">
 
-Intlayer는 웹 표준(`Request`, `Response`, `Headers`, `URL`)과 원활하게 작동하도록 구축되었습니다. `remix-intlayer`는 가벼운 미들웨어로 Remix 3의 Fetch 라우터에 플러그인되어 URL 경로, 쿠키 또는 `Accept-Language` 헤더에서 로케일을 추출하고, 인수를 직접 전달하지 않고도 핸들러, 뷰, `remix/ui` 컴포넌트 등 요청의 나머지 부분에 로케일을 노출합니다.
+Intlayer는 웹 표준(`Request`, `Response`, `Headers`, `URL`)과 원활하게 작동하도록 구축되었습니다. `remix-intlayer`는 가벼운 미들웨어로 Remix 3의 Fetch 라우터에 플러그인되어 URL 경로, 쿠키 또는 `Accept-Language` 헤더에서 로케일을 추출하고, 인수를 직접 전달하지 않고도 핸들러, 뷰, `remix/component` 컴포넌트 등 요청의 나머지 부분에 로케일을 노출합니다.
 
 </Accordion>
 <Accordion header="타입 안전한 콘텐츠 선언">
@@ -136,14 +136,14 @@ bun add intlayer remix-intlayer remix@next
 
 - **`intlayer`**: 구성 관리, 사전 선언(`t()`, `Dictionary`), CLI 도구 및 런타임 인터프리터를 제공하는 핵심 국제화 엔진입니다.
 - **`remix-intlayer`**: Remix 3 통합: 각 요청의 로케일을 확인하는 `intlayer()` 라우터 미들웨어와 이후 모든 곳에서 이를 읽는 `useIntlayer`, `useDictionary`, `useLocale` 훅.
-- **`remix`**: `remix/router`, `remix/routes`, `remix/ui`, `remix/middleware/render`, `remix/node-fetch-server`를 내보내는 통합 Remix 3 프레임워크 패키지입니다.
+- **`remix`**: `remix/router`, `remix/routes`, `remix/component`, `remix/middleware/render`, `remix/node-fetch-server`를 내보내는 통합 Remix 3 프레임워크 패키지입니다.
 
 </Step>
 <Step number={2} title="Intlayer 구성">
 
 ### 아키텍처
 
-이 아키텍처에서 `remix-intlayer`의 `intlayer()` 미들웨어는 `render()` 미들웨어에 앞서 `createRouter()`에 등록됩니다. 라우터가 매칭되기 전에 로케일 접두사를 제거하므로 라우트는 `:locale` 세그먼트 없이 `src/routes.ts`에 한 번만 선언되며, 요청의 나머지 부분을 `AsyncLocalStorage` 스코프 내에서 실행하여 라우트 핸들러 및 `remix/ui` 뷰에서 인자 없이 `useIntlayer` / `useLocale`이 로케일을 읽을 수 있도록 합니다. 콘텐츠 선언은 `src/`의 뷰와 함께 배치됩니다:
+이 아키텍처에서 `remix-intlayer`의 `intlayer()` 미들웨어는 `render()` 미들웨어에 앞서 `createRouter()`에 등록됩니다. 라우터가 매칭되기 전에 로케일 접두사를 제거하므로 라우트는 `:locale` 세그먼트 없이 `src/routes.ts`에 한 번만 선언되며, 요청의 나머지 부분을 `AsyncLocalStorage` 스코프 내에서 실행하여 라우트 핸들러 및 `remix/component` 뷰에서 인자 없이 `useIntlayer` / `useLocale`이 로케일을 읽을 수 있도록 합니다. 콘텐츠 선언은 `src/`의 뷰와 함께 배치됩니다:
 
 ```bash
 .
@@ -282,7 +282,7 @@ Remix 3은 `createRouter({ middleware: [...] })`를 통해 구성 가능한 미�
 2. 클라이언트에 의해 저장된 로케일: 스토리지 쿠키(`INTLAYER_LOCALE`) 또는 커스텀 헤더(`x-intlayer-locale`).
 3. 표준 `Accept-Language` 협상(구성된 `defaultLocale`로 대체).
 
-결과는 `locale`, `defaultLocale`, `availableLocales`와 함께 Remix 요청 컨텍스트에 `context.intlayer`(또는 `context.get(Intlayer)`)로 저장됩니다. 그런 다음 미들웨어는 해당 컨텍스트에 바인딩된 `AsyncLocalStorage` 범위 내에서 요청의 나머지 부분을 실행하므로 라우트 핸들러, 뷰, `remix/ui` 컴포넌트 모두에서 인수 없이 로케일을 읽을 수 있습니다:
+결과는 `locale`, `defaultLocale`, `availableLocales`와 함께 Remix 요청 컨텍스트에 `context.intlayer`(또는 `context.get(Intlayer)`)로 저장됩니다. 그런 다음 미들웨어는 해당 컨텍스트에 바인딩된 `AsyncLocalStorage` 범위 내에서 요청의 나머지 부분을 실행하므로 라우트 핸들러, 뷰, `remix/component` 컴포넌트 모두에서 인수 없이 로케일을 읽을 수 있습니다:
 
 ```typescript
 import { useIntlayer, useLocale } from "remix-intlayer";
@@ -325,14 +325,14 @@ routes.localizedHome.href({ locale: "ko" }); // "/ko"
 </Step>
 <Step number={7} title="JSX를 사용한 지역화된 페이지 렌더링">
 
-Remix 3는 `remix/ui`의 JSX 컴포넌트를 사용하여 UI를 렌더링합니다. 컴포넌트는 `Handle`을 받아 **렌더 함수**를 반환하는 **셋업 함수**입니다. 셋업은 인스턴스당 한 번 실행되고, 렌더는 매 업데이트마다 실행되며, props는 `handle.props`를 통해 읽습니다.
+Remix 3는 `remix/component`의 JSX 컴포넌트를 사용하여 UI를 렌더링합니다. 컴포넌트는 `Handle`을 받아 **렌더 함수**를 반환하는 **셋업 함수**입니다. 셋업은 인스턴스당 한 번 실행되고, 렌더는 매 업데이트마다 실행되며, props는 `handle.props`를 통해 읽습니다.
 
 미들웨어에서 확인된 로케일로부터 `<html lang="..." dir="...">` 속성을 설정하는 공유 `Document` 셸로 시작합니다:
 
 ```tsx fileName="src/views/document.tsx" codeFormat={["typescript", "esm"]}
 import { getHTMLTextDir } from "intlayer";
 import { useLocale } from "remix-intlayer";
-import type { Handle, RemixNode } from "remix/ui";
+import type { Handle, RemixNode } from "remix/component";
 
 type DocumentProps = {
   title: string;
@@ -511,7 +511,7 @@ bun x intlayer fill
 
 ## TypeScript 구성
 
-JSX가 `remix/ui` 런타임을 가리키도록 설정하고 `tsconfig.json`에 생성된 `.intlayer` 타입이 포함되어 있는지 확인하세요.
+JSX가 `remix/component` 런타임을 가리키도록 설정하고 `tsconfig.json`에 생성된 `.intlayer` 타입이 포함되어 있는지 확인하세요.
 
 ```json fileName="tsconfig.json"
 {
@@ -520,7 +520,7 @@ JSX가 `remix/ui` 런타임을 가리키도록 설정하고 `tsconfig.json`에 �
     "module": "ESNext",
     "target": "ESNext",
     "jsx": "react-jsx",
-    "jsxImportSource": "remix/ui",
+    "jsxImportSource": "remix/component",
     "skipLibCheck": true,
     "strict": true
   },
@@ -528,7 +528,7 @@ JSX가 `remix/ui` 런타임을 가리키도록 설정하고 `tsconfig.json`에 �
 }
 ```
 
-> `jsxImportSource: "remix/ui"`는 `<HomePage />`가 React 대신 Remix의 `createElement`로 해석되도록 만듭니다.
+> `jsxImportSource: "remix/component"`는 `<HomePage />`가 React 대신 Remix의 `createElement`로 해석되도록 만듭니다.
 
 ## 결론
 

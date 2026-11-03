@@ -38,7 +38,7 @@ author: aymericzip
 يمثل **Remix 3** تحولاً معماريًا جوهريًا نحو **إطار عمل ويب معياري ومستقل عن بيئة التشغيل ومبني بالكامل على معايير الويب**. بدلاً من الارتباط بحزم برمجية معينة أو واجهات برمجة تطبيقات خادم خاصة، يتم توزيع Remix 3 كحزم تركيبية أحادية الغرض:
 
 - **`remix/fetch-router`** (أو `remix/router`): توجيه خفيف ومتوافق مع المعايير مبني على Fetch API (`Request` و `Response`).
-- **`remix/ui`**: نموذج مكونات JSX (`jsxImportSource: "remix/ui"`). المكون عبارة عن دالة إعداد تستقبل Handle وتعيد دالة عرض، مما يجعله يشبه React ولكنه يحتفظ بالحالة في نطاقات إغلاق JavaScript عادية.
+- **`remix/component`**: نموذج مكونات JSX (`jsxImportSource: "remix/component"`). المكون عبارة عن دالة إعداد تستقبل Handle وتعيد دالة عرض، مما يجعله يشبه React ولكنه يحتفظ بالحالة في نطاقات إغلاق JavaScript عادية.
 - **`remix/middleware/render`**: يثبت `context.render(<Page />)` في كل طلب، مما يرسل شجرة JSX كاستجابة HTML `Response` متدفقة.
 - **`remix/node-fetch-server`**: محولات خادم لـ Node.js، مع دعم أصلي لـ Bun و Deno وبيئات الحافة (edge).
 - **`remix/cookie`**: تحليل وتسلسل ملفات تعريف الارتباط بطريقة مشفرة وآمنة.
@@ -56,7 +56,7 @@ author: aymericzip
 <AccordionGroup>
 <Accordion header="تغطية كاملة لـ Remix 3 ومعايير الويب">
 
-تم تصميم Intlayer للعمل بسلاسة مع معايير الويب (`Request` و `Response` و `Headers` و `URL`). يتم توصيل `remix-intlayer` بموجّه Fetch في Remix 3 كوسيط برمجي خفيف الوزن، حيث يستخرج اللغة من مسارات URL أو ملفات تعريف الارتباط أو ترويسات `Accept-Language` ويكشفها لبقية الطلب والمعالجات والواجهات ومكونات `remix/ui`، دون الحاجة إلى تمريرها يدوياً.
+تم تصميم Intlayer للعمل بسلاسة مع معايير الويب (`Request` و `Response` و `Headers` و `URL`). يتم توصيل `remix-intlayer` بموجّه Fetch في Remix 3 كوسيط برمجي خفيف الوزن، حيث يستخرج اللغة من مسارات URL أو ملفات تعريف الارتباط أو ترويسات `Accept-Language` ويكشفها لبقية الطلب والمعالجات والواجهات ومكونات `remix/component`، دون الحاجة إلى تمريرها يدوياً.
 
 </Accordion>
 <Accordion header="تصريحات محتوى آمنة من حيث النوع">
@@ -136,14 +136,14 @@ bun add intlayer remix-intlayer remix@next
 
 - **`intlayer`**: محرك التدويل الأساسي الذي يوفر إدارة التكوين، والتصريح عن القواميس (`t()`, `Dictionary`)، وأدوات CLI، ومفسر وقت التشغيل.
 - **`remix-intlayer`**: تكامل Remix 3: وسيط الموجه `intlayer()` الذي يحدد لغة كل طلب، وخطافات `useIntlayer` و `useDictionary` و `useLocale` التي تقرأها في أي مكان لاحق.
-- **`remix`**: حزمة إطار عمل Remix 3 الموحدة التي تصدر `remix/router` و `remix/routes` و `remix/ui` و `remix/middleware/render` و `remix/node-fetch-server`.
+- **`remix`**: حزمة إطار عمل Remix 3 الموحدة التي تصدر `remix/router` و `remix/routes` و `remix/component` و `remix/middleware/render` و `remix/node-fetch-server`.
 
 </Step>
 <Step number={2} title="تكوين Intlayer">
 
 ### البنية
 
-في هذه البنية، يتم تسجيل برمجية `intlayer()` الوسيطة الخاصة بـ `remix-intlayer` في `createRouter()` قبل برمجية `render()` الوسيطة. وهي تقوم بإزالة بادئة اللغة قبل مطابقة الموجه، بحيث يتم التصريح عن المسارات مرة واحدة في `src/routes.ts` بدون مقطع `:locale`، وتشغل بقية الطلب داخل نطاق `AsyncLocalStorage`، وهو ما يتيح لـ `useIntlayer` / `useLocale` قراءة اللغة بدون وسيطات في معالجات المسار وعروض `remix/ui`. توضع تصريحات المحتوى بجانب العروض الخاصة بك في `src/`:
+في هذه البنية، يتم تسجيل برمجية `intlayer()` الوسيطة الخاصة بـ `remix-intlayer` في `createRouter()` قبل برمجية `render()` الوسيطة. وهي تقوم بإزالة بادئة اللغة قبل مطابقة الموجه، بحيث يتم التصريح عن المسارات مرة واحدة في `src/routes.ts` بدون مقطع `:locale`، وتشغل بقية الطلب داخل نطاق `AsyncLocalStorage`، وهو ما يتيح لـ `useIntlayer` / `useLocale` قراءة اللغة بدون وسيطات في معالجات المسار وعروض `remix/component`. توضع تصريحات المحتوى بجانب العروض الخاصة بك في `src/`:
 
 ```bash
 .
@@ -282,7 +282,7 @@ bun x intlayer build
 2. اللغة المحفوظة بواسطة العميل: ملف تعريف ارتباط التخزين (`INTLAYER_LOCALE`) أو الترويسة المخصصة (`x-intlayer-locale`).
 3. تفاوض `Accept-Language` القياسي، مع الرجوع إلى `defaultLocale` المكون لديك.
 
-يتم تخزين النتيجة في سياق طلب Remix كـ `context.intlayer` (أو `context.get(Intlayer)`)، مع `locale` و `defaultLocale` و `availableLocales`. ثم يشغّل الوسيط بقية الطلب داخل نطاق `AsyncLocalStorage` المرتبط بهذا السياق، مما يتيح لخطافات الحزمة قراءة اللغة بدون وسيطات، في معالجات المسارات والعروض ومكونات `remix/ui` على حد سواء:
+يتم تخزين النتيجة في سياق طلب Remix كـ `context.intlayer` (أو `context.get(Intlayer)`)، مع `locale` و `defaultLocale` و `availableLocales`. ثم يشغّل الوسيط بقية الطلب داخل نطاق `AsyncLocalStorage` المرتبط بهذا السياق، مما يتيح لخطافات الحزمة قراءة اللغة بدون وسيطات، في معالجات المسارات والعروض ومكونات `remix/component` على حد سواء:
 
 ```typescript
 import { useIntlayer, useLocale } from "remix-intlayer";
@@ -325,14 +325,14 @@ routes.localizedHome.href({ locale: "ar" }); // "/ar"
 </Step>
 <Step number={7} title="عرض الصفحات المترجمة باستخدام JSX">
 
-يقدم Remix 3 واجهة المستخدم باستخدام مكونات JSX من `remix/ui`. المكون عبارة عن **دالة إعداد** تستقبل `Handle` وتعيد **دالة عرض**. يتم تشغيل الإعداد مرة واحدة لكل نسخة، ويعمل العرض مع كل تحديث، وتُقرأ الخصائص عبر `handle.props`.
+يقدم Remix 3 واجهة المستخدم باستخدام مكونات JSX من `remix/component`. المكون عبارة عن **دالة إعداد** تستقبل `Handle` وتعيد **دالة عرض**. يتم تشغيل الإعداد مرة واحدة لكل نسخة، ويعمل العرض مع كل تحديث، وتُقرأ الخصائص عبر `handle.props`.
 
 ابدأ بهيكل `Document` مشترك يحدد سمات `<html lang="..." dir="...">` من اللغة المحددة بواسطة الوسيط البرمجي:
 
 ```tsx fileName="src/views/document.tsx" codeFormat={["typescript", "esm"]}
 import { getHTMLTextDir } from "intlayer";
 import { useLocale } from "remix-intlayer";
-import type { Handle, RemixNode } from "remix/ui";
+import type { Handle, RemixNode } from "remix/component";
 
 type DocumentProps = {
   title: string;
@@ -511,7 +511,7 @@ bun x intlayer fill
 
 ## تكوين TypeScript
 
-وجّه JSX نحو بيئة تشغيل `remix/ui` وتأكد من أن ملف `tsconfig.json` الخاص بك يتضمن أنواع `.intlayer` المنشأة:
+وجّه JSX نحو بيئة تشغيل `remix/component` وتأكد من أن ملف `tsconfig.json` الخاص بك يتضمن أنواع `.intlayer` المنشأة:
 
 ```json fileName="tsconfig.json"
 {
@@ -520,7 +520,7 @@ bun x intlayer fill
     "module": "ESNext",
     "target": "ESNext",
     "jsx": "react-jsx",
-    "jsxImportSource": "remix/ui",
+    "jsxImportSource": "remix/component",
     "skipLibCheck": true,
     "strict": true
   },
@@ -528,7 +528,7 @@ bun x intlayer fill
 }
 ```
 
-> `jsxImportSource: "remix/ui"` هو ما يجعل `<HomePage />` يتم تحليله إلى `createElement` الخاص بـ Remix بدلاً من React.
+> `jsxImportSource: "remix/component"` هو ما يجعل `<HomePage />` يتم تحليله إلى `createElement` الخاص بـ Remix بدلاً من React.
 
 ## الخاتمة
 

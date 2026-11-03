@@ -38,7 +38,7 @@ This guide demonstrates how to integrate **Intlayer** for seamless international
 **Remix 3** represents a fundamental architectural shift towards a **composable, runtime-agnostic web framework built entirely on web standards**. Rather than being coupled to specific bundlers or proprietary server APIs, Remix 3 is distributed as single-purpose, composable packages:
 
 - **`remix/fetch-router`** (or `remix/router`): Lightweight, standard-compliant routing built on the Fetch API (`Request` and `Response`).
-- **`remix/ui`**: A JSX component model (`jsxImportSource: "remix/ui"`). A component is a setup function that returns a render function, so it looks like React but keeps state in plain JavaScript closures.
+- **`remix/component`**: A JSX component model (`jsxImportSource: "remix/component"`). A component is a setup function that returns a render function, so it looks like React but keeps state in plain JavaScript closures.
 - **`remix/middleware/render`**: Installs `context.render(<Page />)` on every request, streaming the JSX tree to an HTML `Response`.
 - **`remix/node-fetch-server`**: Server adapters for Node.js, while natively supporting Bun, Deno, and edge runtimes.
 - **`remix/cookie`**: Cryptographically secure cookie parsing and serialization.
@@ -56,7 +56,7 @@ Compared to traditional solutions like `i18next` or bespoke translation loaders,
 <AccordionGroup>
 <Accordion header="Full Remix 3 & Web Standards Coverage">
 
-Intlayer is built to work seamlessly with web standards (`Request`, `Response`, `Headers`, and `URL`). `remix-intlayer` plugs into Remix 3's Fetch router as a lightweight middleware, extracting the locale from URL paths, cookies, or `Accept-Language` headers and exposing it to the rest of the request (handlers, views and `remix/ui` components) without passing it around or locking you into a specific runtime.
+Intlayer is built to work seamlessly with web standards (`Request`, `Response`, `Headers`, and `URL`). `remix-intlayer` plugs into Remix 3's Fetch router as a lightweight middleware, extracting the locale from URL paths, cookies, or `Accept-Language` headers and exposing it to the rest of the request (handlers, views and `remix/component` components) without passing it around or locking you into a specific runtime.
 
 </Accordion>
 <Accordion header="Type-Safe Content Declarations">
@@ -136,14 +136,14 @@ bun add intlayer remix-intlayer remix@next
 
 - **`intlayer`**: Core internationalization engine providing configuration management, dictionary declaration (`t()`, `Dictionary`), CLI tools, and runtime interpreter.
 - **`remix-intlayer`**: The Remix 3 integration: the `intlayer()` router middleware that resolves the locale of each request, and the `useIntlayer`, `useDictionary` and `useLocale` hooks that read it anywhere downstream.
-- **`remix`**: The unified Remix 3 framework package exporting `remix/router`, `remix/routes`, `remix/ui`, `remix/middleware/render`, and `remix/node-fetch-server`.
+- **`remix`**: The unified Remix 3 framework package exporting `remix/router`, `remix/routes`, `remix/component`, `remix/middleware/render`, and `remix/node-fetch-server`.
 
 </Step>
 <Step number={2} title="Configure Intlayer">
 
 ### Architecture
 
-In this architecture, the `intlayer()` middleware of `remix-intlayer` is registered in `createRouter()` ahead of the `render()` middleware. It strips the locale prefix before the router matches, so routes are declared once in `src/routes.ts` without a `:locale` segment, and it runs the rest of the request inside an `AsyncLocalStorage` scope, which is what lets `useIntlayer` / `useLocale` read the locale with no argument in route handlers and `remix/ui` views. Content declarations are placed alongside your views in `src/`:
+In this architecture, the `intlayer()` middleware of `remix-intlayer` is registered in `createRouter()` ahead of the `render()` middleware. It strips the locale prefix before the router matches, so routes are declared once in `src/routes.ts` without a `:locale` segment, and it runs the rest of the request inside an `AsyncLocalStorage` scope, which is what lets `useIntlayer` / `useLocale` read the locale with no argument in route handlers and `remix/component` views. Content declarations are placed alongside your views in `src/`:
 
 ```bash
 .
@@ -279,7 +279,7 @@ Remix 3 provides a composable middleware pipeline via `createRouter({ middleware
 2. **Resolves the locale** into the Remix request context, as `context.intlayer` (or `context.get(Intlayer)`), with `locale`, `defaultLocale` and `availableLocales`.
 3. **Persists the locale** through the configured cookie / header, so the follow-up requests resolve the same locale.
 
-Because the locale prefix is stripped before the router matches, your routes are declared once, without a `:locale` segment, whatever the routing mode. The middleware then runs the rest of the request inside an `AsyncLocalStorage` scope bound to the request context, which is what lets the hooks of the package read the locale with no argument, in route handlers, views and `remix/ui` components alike:
+Because the locale prefix is stripped before the router matches, your routes are declared once, without a `:locale` segment, whatever the routing mode. The middleware then runs the rest of the request inside an `AsyncLocalStorage` scope bound to the request context, which is what lets the hooks of the package read the locale with no argument, in route handlers, views and `remix/component` components alike:
 
 ```typescript
 import { useIntlayer, useLocale } from "remix-intlayer";
@@ -321,14 +321,14 @@ getLocalizedPath(routes.home.href(), "en"); // "/" (default locale)
 </Step>
 <Step number={7} title="Render Localized Pages with JSX">
 
-Remix 3 renders UI with JSX components from `remix/ui`. A component is a **setup function** that receives a `Handle` and returns a **render function**. Setup runs once per instance, render runs on every update, and props are read through `handle.props`.
+Remix 3 renders UI with JSX components from `remix/component`. A component is a **setup function** that receives a `Handle` and returns a **render function**. Setup runs once per instance, render runs on every update, and props are read through `handle.props`.
 
 Start with a shared `Document` shell that sets the `<html lang="..." dir="...">` attributes from the locale resolved by the middleware:
 
 ```tsx fileName="src/views/document.tsx" codeFormat={["typescript", "esm"]}
 import { getHTMLTextDir } from "intlayer";
 import { useLocale } from "remix-intlayer";
-import type { Handle, RemixNode } from "remix/ui";
+import type { Handle, RemixNode } from "remix/component";
 
 type DocumentProps = {
   title: string;
@@ -497,7 +497,7 @@ bun x intlayer fill
 
 ## TypeScript Configuration
 
-Point JSX at the `remix/ui` runtime and ensure that your `tsconfig.json` includes the generated `.intlayer` types:
+Point JSX at the `remix/component` runtime and ensure that your `tsconfig.json` includes the generated `.intlayer` types:
 
 ```json fileName="tsconfig.json"
 {
@@ -506,7 +506,7 @@ Point JSX at the `remix/ui` runtime and ensure that your `tsconfig.json` include
     "module": "ESNext",
     "target": "ESNext",
     "jsx": "react-jsx",
-    "jsxImportSource": "remix/ui",
+    "jsxImportSource": "remix/component",
     "skipLibCheck": true,
     "strict": true
   },
@@ -514,7 +514,7 @@ Point JSX at the `remix/ui` runtime and ensure that your `tsconfig.json` include
 }
 ```
 
-> `jsxImportSource: "remix/ui"` is what makes `<HomePage />` resolve to Remix's `createElement` instead of React's.
+> `jsxImportSource: "remix/component"` is what makes `<HomePage />` resolve to Remix's `createElement` instead of React's.
 
 ## Conclusion
 

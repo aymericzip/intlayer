@@ -38,7 +38,7 @@ author: aymericzip
 **Remix 3** являє собою фундаментальну архітектурну зміну у бік **модульного, незалежного від середовища виконання веб-фреймворку, повністю побудованого на веб-стандартах**. Замість прив'язки до конкретних бандлерів або пропрієтарних серверних API, Remix 3 поширюється у вигляді спеціалізованих модульних пакетів:
 
 - **`remix/fetch-router`** (або `remix/router`): Легковажна маршрутизація відповідно до стандартів на базі Fetch API (`Request` та `Response`).
-- **`remix/ui`**: Модель компонентів JSX (`jsxImportSource: "remix/ui"`). Компонент є функцією налаштування (setup function), яка повертає функцію рендерингу (render function), отримуючи пропси через типізований дескриптор (handle).
+- **`remix/component`**: Модель компонентів JSX (`jsxImportSource: "remix/component"`). Компонент є функцією налаштування (setup function), яка повертає функцію рендерингу (render function), отримуючи пропси через типізований дескриптор (handle).
 - **`remix/middleware/render`**: Встановлює `context.render(<Page />)` для кожного запиту, транслюючи (streaming) дерево JSX у HTML-відповідь `Response`.
 - **`remix/node-fetch-server`**: Серверні адаптери для Node.js із нативною підтримкою Bun, Deno та edge-середовищ.
 - **`remix/cookie`**: Криптографічно підписаний парсинг і серіалізація файлів cookie.
@@ -56,7 +56,7 @@ author: aymericzip
 <AccordionGroup>
 <Accordion header="Повне охоплення Remix 3 та веб-стандартів">
 
-Intlayer розроблений для природної роботи з веб-стандартами (`Request`, `Response`, `Headers` і `URL`). `remix-intlayer` підключається до маршрутизатора Fetch Remix 3 як легке middleware, витягуючи локаль зі шляхів URL, cookie або заголовків `Accept-Language` та надаючи її решті запиту, обробникам, представленням і компонентам `remix/ui`, без необхідності передавати її вручну чи прив'язуватися до конкретного середовища виконання.
+Intlayer розроблений для природної роботи з веб-стандартами (`Request`, `Response`, `Headers` і `URL`). `remix-intlayer` підключається до маршрутизатора Fetch Remix 3 як легке middleware, витягуючи локаль зі шляхів URL, cookie або заголовків `Accept-Language` та надаючи її решті запиту, обробникам, представленням і компонентам `remix/component`, без необхідності передавати її вручну чи прив'язуватися до конкретного середовища виконання.
 
 </Accordion>
 <Accordion header="Типобезпечні оголошення вмісту">
@@ -136,14 +136,14 @@ bun add intlayer remix-intlayer remix@next
 
 - **`intlayer`**: Основний рушій інтернаціоналізації для керування конфігурацією, оголошення словників (`t()`, `Dictionary`), утиліт CLI та рантайм-інтерпретатора.
 - **`remix-intlayer`**: Інтеграція з Remix 3: middleware маршрутизатора `intlayer()`, що визначає локаль кожного запиту, та хуки `useIntlayer`, `useDictionary` і `useLocale`, які зчитують її далі в коді.
-- **`remix`**: Уніфікований пакет фреймворку Remix 3, що експортує `remix/router`, `remix/routes`, `remix/ui`, `remix/middleware/render` та `remix/node-fetch-server`.
+- **`remix`**: Уніфікований пакет фреймворку Remix 3, що експортує `remix/router`, `remix/routes`, `remix/component`, `remix/middleware/render` та `remix/node-fetch-server`.
 
 </Step>
 <Step number={2} title="Налаштування Intlayer">
 
 ### Архітектура
 
-У цій архітектурі middleware `intlayer()` з `remix-intlayer` реєструється в `createRouter()` перед middleware `render()`. Він видаляє префікс локалі до зіставлення маршрутизатором, тому маршрути оголошуються один раз у `src/routes.ts` без сегмента `:locale`, і виконує решту запиту всередині області `AsyncLocalStorage`, що дозволяє `useIntlayer` / `useLocale` зчитувати локаль без аргументів в обробниках маршрутів і представленнях `remix/ui`. Оголошення вмісту розміщуються поруч із вашими представленнями в `src/`:
+У цій архітектурі middleware `intlayer()` з `remix-intlayer` реєструється в `createRouter()` перед middleware `render()`. Він видаляє префікс локалі до зіставлення маршрутизатором, тому маршрути оголошуються один раз у `src/routes.ts` без сегмента `:locale`, і виконує решту запиту всередині області `AsyncLocalStorage`, що дозволяє `useIntlayer` / `useLocale` зчитувати локаль без аргументів в обробниках маршрутів і представленнях `remix/component`. Оголошення вмісту розміщуються поруч із вашими представленнями в `src/`:
 
 ```bash
 .
@@ -297,7 +297,7 @@ Remix 3 надає компонований конвеєр middleware через
 2. Локалі, збереженої клієнтом: cookie сховища (`INTLAYER_LOCALE`) або спеціального заголовка (`x-intlayer-locale`).
 3. Стандартного узгодження `Accept-Language` із поверненням до налаштованої `defaultLocale`.
 
-Результат зберігається в контексті запиту Remix як `context.intlayer` (або `context.get(Intlayer)`), з полями `locale`, `defaultLocale` та `availableLocales`. Потім middleware виконує решту запиту всередині області `AsyncLocalStorage`, прив'язаної до цього контексту, що дозволяє хукам пакета зчитувати локаль без аргументів, в обробниках маршрутів, представленнях і компонентах `remix/ui`:
+Результат зберігається в контексті запиту Remix як `context.intlayer` (або `context.get(Intlayer)`), з полями `locale`, `defaultLocale` та `availableLocales`. Потім middleware виконує решту запиту всередині області `AsyncLocalStorage`, прив'язаної до цього контексту, що дозволяє хукам пакета зчитувати локаль без аргументів, в обробниках маршрутів, представленнях і компонентах `remix/component`:
 
 ```typescript
 import { useIntlayer, useLocale } from "remix-intlayer";
@@ -340,14 +340,14 @@ routes.localizedHome.href({ locale: "uk" }); // "/uk"
 </Step>
 <Step number={7} title="Рендеринг локалізованих сторінок за допомогою JSX">
 
-Remix 3 використовує `remix/ui` для компонентів JSX. Компонент є **функцією налаштування (setup function)**, яка повертає **функцію рендерингу (render function)**. Пропси передаються через типізований `handle` (наприклад, `handle.props.locale`):
+Remix 3 використовує `remix/component` для компонентів JSX. Компонент є **функцією налаштування (setup function)**, яка повертає **функцію рендерингу (render function)**. Пропси передаються через типізований `handle` (наприклад, `handle.props.locale`):
 
 Почніть зі спільної оболонки `Document`, яка встановлює атрибути `<html lang="..." dir="...">` на основі локалі, визначеної middleware:
 
 ```tsx fileName="src/views/document.tsx" codeFormat={["typescript", "esm"]}
 import { getHTMLTextDir } from "intlayer";
 import { useLocale } from "remix-intlayer";
-import type { Handle, RemixNode } from "remix/ui";
+import type { Handle, RemixNode } from "remix/component";
 
 type DocumentProps = {
   title: string;
@@ -526,7 +526,7 @@ bun x intlayer fill
 
 ## Конфігурація TypeScript
 
-Налаштуйте `tsconfig.json`, щоб спрямувати JSX на середовище виконання `remix/ui` та включити згенеровані типи `.intlayer`:
+Налаштуйте `tsconfig.json`, щоб спрямувати JSX на середовище виконання `remix/component` та включити згенеровані типи `.intlayer`:
 
 ```json fileName="tsconfig.json"
 {
@@ -535,7 +535,7 @@ bun x intlayer fill
     "module": "ESNext",
     "target": "ESNext",
     "jsx": "react-jsx",
-    "jsxImportSource": "remix/ui",
+    "jsxImportSource": "remix/component",
     "skipLibCheck": true,
     "strict": true
   },
@@ -543,7 +543,7 @@ bun x intlayer fill
 }
 ```
 
-> `jsxImportSource: "remix/ui"` змушує `<HomePage />` перетворюватися на `createElement` від Remix замість React. Жодне середовище виконання React не завантажується.
+> `jsxImportSource: "remix/component"` змушує `<HomePage />` перетворюватися на `createElement` від Remix замість React. Жодне середовище виконання React не завантажується.
 
 ## Висновок
 

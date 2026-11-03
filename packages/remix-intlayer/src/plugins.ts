@@ -18,7 +18,7 @@ import { htmlPlugin, markdownPlugin } from 'vanilla-intlayer';
  * The base interpreter leaves `md()` and `html()` nodes untouched, so they are
  * handed to the string renderers of `vanilla-intlayer`: the node exposes the
  * rendered HTML as `.value` and `.use(components)` to override tags. Plain
- * strings stay primitives — a `remix/ui` child must be a string, not a wrapper.
+ * strings stay primitives — a `remix/component` child must be a string, not a wrapper.
  */
 export type IInterpreterPluginState = IInterpreterPluginStateCore & {
   vanillaMarkdown: true;

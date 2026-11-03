@@ -1,7 +1,7 @@
 import * as NodeTypes from '@intlayer/types/nodeType';
+import { createElement } from 'remix/component';
+import { renderToString } from 'remix/component/server';
 import { createRouter } from 'remix/router';
-import { createElement } from 'remix/ui';
-import { renderToString } from 'remix/ui/server';
 import { describe, expect, it, vi } from 'vitest';
 import {
   getIntlayerState,

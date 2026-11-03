@@ -38,7 +38,7 @@ author: aymericzip
 **Remix 3** पूरी तरह से वेब मानकों पर निर्मित, **एक कंपोज़ेबल, रनटाइम-अज्ञेयवादी वेब फ्रेमवर्क** की ओर एक मौलिक वास्तुकला परिवर्तन का प्रतिनिधित्व करता है। विशिष्ट बंडलर्स या मालिकाना सर्वर एपीआई से जुड़े होने के बजाय, Remix 3 को एकल-उद्देश्यीय, कंपोज़ेबल पैकेजों के रूप में वितरित किया जाता है:
 
 - **`remix/fetch-router`** (या `remix/router`): Fetch API (`Request` और `Response`) पर निर्मित हल्का, मानक-अनुरूप रूटिंग।
-- **`remix/ui`**: एक JSX घटक मॉडल (`jsxImportSource: "remix/ui"`). एक घटक एक सेटअप फ़ंक्शन है जो एक रेंडर फ़ंक्शन लौटाता है, इसलिए यह React जैसा दिखता है लेकिन स्थिति को सामान्य JavaScript क्लोजर में रखता है।
+- **`remix/component`**: एक JSX घटक मॉडल (`jsxImportSource: "remix/component"`). एक घटक एक सेटअप फ़ंक्शन है जो एक रेंडर फ़ंक्शन लौटाता है, इसलिए यह React जैसा दिखता है लेकिन स्थिति को सामान्य JavaScript क्लोजर में रखता है।
 - **`remix/middleware/render`**: प्रत्येक अनुरोध पर `context.render(<Page />)` स्थापित करता है, जो JSX ट्री को HTML `Response` में स्ट्रीम करता है।
 - **`remix/node-fetch-server`**: Bun, Deno और एज रनटाइम के मूल समर्थन के साथ Node.js के लिए सर्वर एडेप्टर।
 - **`remix/cookie`**: क्रिप्टोग्राफ़िक रूप से सुरक्षित कुकी पार्सिंग और क्रमांकन।
@@ -56,7 +56,7 @@ author: aymericzip
 <AccordionGroup>
 <Accordion header="पूर्ण Remix 3 और वेब मानक कवरेज">
 
-Intlayer को वेब मानकों (`Request`, `Response`, `Headers`, और `URL`) के साथ सहजता से काम करने के लिए बनाया गया है। `remix-intlayer` एक हल्के मिडलवेयर के रूप में Remix 3 के Fetch राउटर में प्लग करता है, URL पथों, कुकीज़ या `Accept-Language` हेडर से लोकेल निकालता है और इसे अनुरोध के बाकी हिस्सों, हैंडलर, दृश्यों और `remix/ui` घटकों को बिना किसी तर्क के पास किए प्रदर्शित करता है।
+Intlayer को वेब मानकों (`Request`, `Response`, `Headers`, और `URL`) के साथ सहजता से काम करने के लिए बनाया गया है। `remix-intlayer` एक हल्के मिडलवेयर के रूप में Remix 3 के Fetch राउटर में प्लग करता है, URL पथों, कुकीज़ या `Accept-Language` हेडर से लोकेल निकालता है और इसे अनुरोध के बाकी हिस्सों, हैंडलर, दृश्यों और `remix/component` घटकों को बिना किसी तर्क के पास किए प्रदर्शित करता है।
 
 </Accordion>
 <Accordion header="टाइप-सुरक्षित सामग्री घोषणाएं">
@@ -136,14 +136,14 @@ bun add intlayer remix-intlayer remix@next
 
 - **`intlayer`**: मुख्य अंतर्राष्ट्रीयकरण इंजन जो कॉन्फ़िगरेशन प्रबंधन, शब्दकोश घोषणा (`t()`, `Dictionary`), CLI उपकरण और रनटाइम दुभाषिया प्रदान करता है।
 - **`remix-intlayer`**: Remix 3 एकीकरण: `intlayer()` राउटर मिडलवेयर जो प्रत्येक अनुरोध के लोकेल को हल करता है, और `useIntlayer`, `useDictionary` और `useLocale` हुक्स जो इसे बाद में कहीं भी पढ़ते हैं।
-- **`remix`**: एकीकृत Remix 3 फ्रेमवर्क पैकेज जो `remix/router`, `remix/routes`, `remix/ui`, `remix/middleware/render`, और `remix/node-fetch-server` का निर्यात करता है।
+- **`remix`**: एकीकृत Remix 3 फ्रेमवर्क पैकेज जो `remix/router`, `remix/routes`, `remix/component`, `remix/middleware/render`, और `remix/node-fetch-server` का निर्यात करता है।
 
 </Step>
 <Step number={2} title="Intlayer कॉन्फ़िगर करें">
 
 ### आर्किटेक्चर
 
-इस आर्किटेक्चर में, `remix-intlayer` का `intlayer()` मिडलवेयर `render()` मिडलवेयर से पहले `createRouter()` में पंजीकृत होता है। यह राउटर मिलान से पहले लोकेल प्रीफ़िक्स को हटा देता है, जिससे रूट्स को बिना किसी `:locale` सेगमेंट के `src/routes.ts` में एक बार घोषित किया जाता है, और यह शेष अनुरोध को एक `AsyncLocalStorage` स्कोप के अंदर चलाता है, जिससे `useIntlayer` / `useLocale` रूट हैंडलर्स और `remix/ui` व्यूज़ में बिना किसी तर्क के लोकेल पढ़ सकते हैं। कंटेंट घोषणाएं `src/` में आपके व्यूज़ के साथ रखी जाती हैं:
+इस आर्किटेक्चर में, `remix-intlayer` का `intlayer()` मिडलवेयर `render()` मिडलवेयर से पहले `createRouter()` में पंजीकृत होता है। यह राउटर मिलान से पहले लोकेल प्रीफ़िक्स को हटा देता है, जिससे रूट्स को बिना किसी `:locale` सेगमेंट के `src/routes.ts` में एक बार घोषित किया जाता है, और यह शेष अनुरोध को एक `AsyncLocalStorage` स्कोप के अंदर चलाता है, जिससे `useIntlayer` / `useLocale` रूट हैंडलर्स और `remix/component` व्यूज़ में बिना किसी तर्क के लोकेल पढ़ सकते हैं। कंटेंट घोषणाएं `src/` में आपके व्यूज़ के साथ रखी जाती हैं:
 
 ```bash
 .
@@ -282,7 +282,7 @@ Remix 3 `createRouter({ middleware: [...] })` के माध्यम से �
 2. क्लाइंट द्वारा सहेजा गया लोकेल: स्टोरेज कुकी (`INTLAYER_LOCALE`) या कस्टम हेडर (`x-intlayer-locale`)।
 3. मानक `Accept-Language` वार्ता, आपके कॉन्फ़िगर किए गए `defaultLocale` पर वापस आना।
 
-परिणाम को Remix अनुरोध संदर्भ में `locale`, `defaultLocale` और `availableLocales` के साथ `context.intlayer` (या `context.get(Intlayer)`) के रूप में संग्रहीत किया जाता है। मिडलवेयर तब उस संदर्भ से बंधे `AsyncLocalStorage` दायरे के अंदर शेष अनुरोध को चलाता है, जिससे पैकेज के हुक्स बिना किसी तर्क के लोकेल को पढ़ सकते हैं, चाहे वह रूट हैंडलर, दृश्य या `remix/ui` घटक हों:
+परिणाम को Remix अनुरोध संदर्भ में `locale`, `defaultLocale` और `availableLocales` के साथ `context.intlayer` (या `context.get(Intlayer)`) के रूप में संग्रहीत किया जाता है। मिडलवेयर तब उस संदर्भ से बंधे `AsyncLocalStorage` दायरे के अंदर शेष अनुरोध को चलाता है, जिससे पैकेज के हुक्स बिना किसी तर्क के लोकेल को पढ़ सकते हैं, चाहे वह रूट हैंडलर, दृश्य या `remix/component` घटक हों:
 
 ```typescript
 import { useIntlayer, useLocale } from "remix-intlayer";
@@ -325,14 +325,14 @@ routes.localizedHome.href({ locale: "hi" }); // "/hi"
 </Step>
 <Step number={7} title="JSX के साथ स्थानीयकृत पृष्ठों को रेंडर करें">
 
-Remix 3 `remix/ui` के JSX घटकों के साथ UI को रेंडर करता है। एक घटक एक **सेटअप फ़ंक्शन** है जो एक `Handle` प्राप्त करता है और एक **रेंडर फ़ंक्शन** लौटाता है। सेटअप प्रति इंस्टेंस एक बार चलता है, रेंडर प्रत्येक अपडेट पर चलता है, और प्रॉप्स को `handle.props` के माध्यम से पढ़ा जाता है।
+Remix 3 `remix/component` के JSX घटकों के साथ UI को रेंडर करता है। एक घटक एक **सेटअप फ़ंक्शन** है जो एक `Handle` प्राप्त करता है और एक **रेंडर फ़ंक्शन** लौटाता है। सेटअप प्रति इंस्टेंस एक बार चलता है, रेंडर प्रत्येक अपडेट पर चलता है, और प्रॉप्स को `handle.props` के माध्यम से पढ़ा जाता है।
 
 एक साझा `Document` शेल से शुरू करें जो मिडलवेयर द्वारा हल किए गए लोकेल से `<html lang="..." dir="...">` विशेषताओं को सेट करता है:
 
 ```tsx fileName="src/views/document.tsx" codeFormat={["typescript", "esm"]}
 import { getHTMLTextDir } from "intlayer";
 import { useLocale } from "remix-intlayer";
-import type { Handle, RemixNode } from "remix/ui";
+import type { Handle, RemixNode } from "remix/component";
 
 type DocumentProps = {
   title: string;
@@ -511,7 +511,7 @@ bun x intlayer fill
 
 ## TypeScript कॉन्फ़िगरेशन
 
-JSX को `remix/ui` रनटाइम पर इंगित करें और सुनिश्चित करें कि आपकी `tsconfig.json` में उत्पन्न `.intlayer` प्रकार शामिल हैं:
+JSX को `remix/component` रनटाइम पर इंगित करें और सुनिश्चित करें कि आपकी `tsconfig.json` में उत्पन्न `.intlayer` प्रकार शामिल हैं:
 
 ```json fileName="tsconfig.json"
 {
@@ -520,7 +520,7 @@ JSX को `remix/ui` रनटाइम पर इंगित करें औ
     "module": "ESNext",
     "target": "ESNext",
     "jsx": "react-jsx",
-    "jsxImportSource": "remix/ui",
+    "jsxImportSource": "remix/component",
     "skipLibCheck": true,
     "strict": true
   },
@@ -528,7 +528,7 @@ JSX को `remix/ui` रनटाइम पर इंगित करें औ
 }
 ```
 
-> `jsxImportSource: "remix/ui"` के कारण ही `<HomePage />` React के बजाय Remix के `createElement` पर हल होता है।
+> `jsxImportSource: "remix/component"` के कारण ही `<HomePage />` React के बजाय Remix के `createElement` पर हल होता है।
 
 ## निष्कर्ष
 
