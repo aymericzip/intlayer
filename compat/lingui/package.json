@@ -84,8 +84,8 @@
     "vite-intlayer": "workspace:*"
   },
   "devDependencies": {
-    "@lingui/core": "^6.9.0",
-    "@lingui/react": "^6.9.0",
+    "@lingui/core": "^6.11.0",
+    "@lingui/react": "^6.11.0",
     "@types/node": "^26",
     "@types/react": "19.3.0",
     "@utils/ts-config": "workspace:*",

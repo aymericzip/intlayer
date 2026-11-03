@@ -82,8 +82,8 @@
     "vite-intlayer": "workspace:*"
   },
   "devDependencies": {
-    "@angular/compiler": "22.2.1",
-    "@angular/core": "22.2.1",
+    "@angular/compiler": "22.2.4",
+    "@angular/core": "22.2.4",
     "@ngx-translate/core": "^18.0.0",
     "@types/node": "^26",
     "@utils/ts-config": "workspace:*",

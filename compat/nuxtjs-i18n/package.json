@@ -78,8 +78,8 @@
     "vue-intlayer": "workspace:*"
   },
   "devDependencies": {
-    "@nuxt/kit": "4.5.2",
-    "@nuxt/schema": "4.5.2",
+    "@nuxt/kit": "4.6.4",
+    "@nuxt/schema": "4.6.4",
     "@nuxtjs/i18n": "^10.4.0",
     "@types/node": "^26",
     "@utils/ts-config": "workspace:*",
@@ -89,9 +89,9 @@
     "tsdown": "0.23.4",
     "typescript": "7.0.2",
     "vitest": "5.1.0",
-    "vue": "3.5.43",
-    "vue-i18n": "11.4.12",
-    "vue-router": "5.3.1"
+    "vue": "3.5.44",
+    "vue-i18n": "11.4.17",
+    "vue-router": "5.4.0"
   },
   "peerDependencies": {
     "@nuxt/kit": ">=3.0.0",

@@ -11,9 +11,9 @@
   },
   "dependencies": {
     "intlayer": "workspace:*",
-    "vue": "3.5.43",
+    "vue": "3.5.44",
     "vue-intlayer": "workspace:*",
-    "vue-router": "5.3.1"
+    "vue-router": "5.4.0"
   },
   "devDependencies": {
     "@types/node": "^26",
