@@ -20,6 +20,7 @@ import type {
   SelectContent,
   TranslationContent,
 } from '../../transpiler';
+import { DEFAULT_PLURAL_VARIABLE } from '../../transpiler/plural/plural';
 import { getCondition } from '../getCondition';
 import { getEnumeration } from '../getEnumeration';
 import { getGender } from '../getGender';
@@ -222,12 +223,19 @@ type PluralBranch<Branch> = Branch extends {
   ? InsertionContent
   : Branch;
 
+/** Value name a plural node selects on (`variable`, defaulting to `count`). */
+type PluralVariable<T> = T extends { variable: infer Variable extends string }
+  ? Variable
+  : typeof DEFAULT_PLURAL_VARIABLE;
+
 export type PluralCond<T, S, _L> = T extends {
   nodeType: NodeType | string;
   [NodeTypes.PLURAL]: object;
 }
   ? (
-      arg: number | { count: number; [key: string]: unknown }
+      arg:
+        | number
+        | ({ [Key in PluralVariable<T>]: number } & { [key: string]: unknown })
     ) => DeepTransformContent<
       PluralBranch<
         T[typeof NodeTypes.PLURAL][keyof T[typeof NodeTypes.PLURAL]]
@@ -253,10 +261,13 @@ export const pluralPlugin = (locale?: LocalesValues): Plugins =>
         transform: (node: PluralContent, props, deepTransformNode) => {
           const original = node[NodeTypes.PLURAL];
           const result: Record<string, any> = {};
+          const variable = node.variable ?? DEFAULT_PLURAL_VARIABLE;
           // The plural interpolates its own branches. A string plugin from an
-          // enclosing `insert()` would turn them into functions first.
+          // enclosing `insert()` or `plural()` would turn them into functions.
           const branchPlugins = (props.plugins ?? []).filter(
-            (plugin) => plugin.id !== 'insertion-string-plugin'
+            (plugin) =>
+              plugin.id !== 'insertion-string-plugin' &&
+              plugin.id !== 'plural-string-plugin'
           );
 
           /** String plugin for plural. Replaces string node with a component that renders the insertion. */
@@ -333,12 +344,10 @@ export const pluralPlugin = (locale?: LocalesValues): Plugins =>
 
           const effectiveLocale = String(locale ?? props.locale ?? 'en');
 
-          return (arg: number | { count: number; [key: string]: unknown }) => {
-            const count = typeof arg === 'number' ? arg : arg.count;
-            const values =
-              typeof arg === 'number'
-                ? { count: arg }
-                : (arg as { count: number; [key: string]: unknown });
+          return (arg: number | { [key: string]: unknown }) => {
+            const values: Record<string, unknown> =
+              typeof arg === 'number' ? { [variable]: arg } : arg;
+            const count = Number(values[variable]);
 
             const subResult: string | SubResultFunction = getPlural(
               result as PluralContent['plural'] as PluralContentState<string>,
@@ -347,7 +356,9 @@ export const pluralPlugin = (locale?: LocalesValues): Plugins =>
             );
 
             if (isAwaitingValues(subResult)) {
-              return (subResult as SubResultFunction)(values);
+              return (subResult as SubResultFunction)(
+                values as Record<string, string | number>
+              );
             }
 
             return subResult;
