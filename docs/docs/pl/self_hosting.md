@@ -356,22 +356,51 @@ cd docker/selfhost
 docker compose -f docker-compose.yml -f docker-compose.build.yml up -d --build
 ```
 
-Bez klonu wskaż kontekst budowania bezpośrednio na repozytorium, ustawiając `INTLAYER_BUILD_CONTEXT=https://github.com/aymericzip/intlayer.git#main` w `.env`. Argumenty budowania `VITE_*` pulpitu nawigacyjnego podążają za `DOMAIN`, `APP_URL` i `BACKEND_URL` z tego samego pliku - w ten sposób stosowana jest [domena niestandard| Zmienna | Wartość domyślna | Dotyczy | Opis |
-| ------------------------- | ------------------------- | ---------- | -------------------------------------------------------------------------------- |
-| `INTLAYER_MODE` | _(pytanie w instalatorze)_ | wszystkie | `desktop`, `docker` lub `compose`, to samo co `--mode` |
-| `INTLAYER_DOWNLOAD_DIR` | `~/Downloads` | desktop | Miejsce zapisu instalatora aplikacji |
-| `INTLAYER_IMAGE` | `intlayer/cms-all:latest` | docker | Obraz all-in-one do pobrania |
-| `INTLAYER_ENV_FILE` | `./intlayer.env` | docker | Gdzie zapisać plik środowiskowy |
-| `INTLAYER_CONTAINER_NAME` | `intlayer` | docker | Nazwa kontenera |
-| `INTLAYER_DATA_VOLUME` | `intlayer-data` | docker | Nazwany wolumen zamontowany w `/data` |
-| `INTLAYER_APP_PORT` | `3000` | docker | Port hosta dla pulpitu nawigacyjnego |
-| `INTLAYER_API_PORT` | `3100` | docker | Port hosta dla API |
-| `INTLAYER_S3_PORT` | `9000` | docker | Port hosta dla MinIO S3 API |
-| `INTLAYER_CONSOLE_PORT` | `9001` | docker | Port hosta dla konsoli MinIO |
-| `INTLAYER_COMPOSE_DIR` | `./intlayer` | compose | Gdzie zapisywane są pliki `docker-compose.yml` i `.env` |
-| `INTLAYER_SELFHOST_REF` | `main` | oba | Referencja Git, z której pobierany jest plik compose i szablon env |
-| `INTLAYER_BUILD_CONTEXT` | `…/intlayer.git#main` | oba | Kontekst budowania używany, gdy niestandardowa domena wymaga przebudowy |
-| `INTLAYER_CUSTOM_IMAGE` | `intlayer/cms-all:custom` | docker | Tag obrazu all-in-one zbudowanego dla niestandardowej domeny |
+Bez klonu wskaż kontekst budowania bezpośrednio na repozytorium, ustawiając `INTLAYER_BUILD_CONTEXT=https://github.com/aymericzip/intlayer.git#main` w `.env`. Argumenty budowania `VITE_*` pulpitu nawigacyjnego podążają za `DOMAIN`, `APP_URL` i `BACKEND_URL` z tego samego pliku - w ten sposób stosowana jest [domena niestandardowa](#custom-domain).
+
+### Kopia zapasowa i aktualizacja
+
+```sh
+# Kopia zapasowa jednego wolumenu (powtórz dla intlayer_redis-data i intlayer_minio-data)
+docker compose stop
+docker run --rm -v intlayer_mongo-data:/data -v "$(pwd)":/backup busybox tar czf /backup/mongo-data.tar.gz /data
+docker compose start
+
+# Aktualizacja, wolumeny zostają zachowane
+docker compose pull && docker compose up -d
+```
+
+</Tab>
+</Tabs>
+
+### Ustawienia instalatora
+
+Bez `--mode` (lub `INTLAYER_MODE`) instalator wyświetla menu: `desktop`, `docker` (all-in-one) lub `compose`. Odczytuje również kilka zmiennych środowiskowych. Ponieważ skrypt jest przekazywany potokiem do powłoki, przekaż je powłoce, a nie poleceniu `curl`:
+
+```sh
+curl -fsSL https://intlayer.org/install.sh | INTLAYER_COMPOSE_DIR=./cms sh -s -- --mode compose
+```
+
+```powershell
+$env:INTLAYER_MODE = "compose"; $env:INTLAYER_COMPOSE_DIR = ".\cms"; irm https://intlayer.org/install.ps1 | iex
+```
+
+| Zmienna                   | Wartość domyślna           | Dotyczy   | Opis                                                                    |
+| ------------------------- | -------------------------- | --------- | ----------------------------------------------------------------------- |
+| `INTLAYER_MODE`           | _(pytanie w instalatorze)_ | wszystkie | `desktop`, `docker` lub `compose`, to samo co `--mode`                  |
+| `INTLAYER_DOWNLOAD_DIR`   | `~/Downloads`              | desktop   | Miejsce zapisu instalatora aplikacji                                    |
+| `INTLAYER_IMAGE`          | `intlayer/cms-all:latest`  | docker    | Obraz all-in-one do pobrania                                            |
+| `INTLAYER_ENV_FILE`       | `./intlayer.env`           | docker    | Gdzie zapisać plik środowiskowy                                         |
+| `INTLAYER_CONTAINER_NAME` | `intlayer`                 | docker    | Nazwa kontenera                                                         |
+| `INTLAYER_DATA_VOLUME`    | `intlayer-data`            | docker    | Nazwany wolumen zamontowany w `/data`                                   |
+| `INTLAYER_APP_PORT`       | `3000`                     | docker    | Port hosta dla pulpitu nawigacyjnego                                    |
+| `INTLAYER_API_PORT`       | `3100`                     | docker    | Port hosta dla API                                                      |
+| `INTLAYER_S3_PORT`        | `9000`                     | docker    | Port hosta dla MinIO S3 API                                             |
+| `INTLAYER_CONSOLE_PORT`   | `9001`                     | docker    | Port hosta dla konsoli MinIO                                            |
+| `INTLAYER_COMPOSE_DIR`    | `./intlayer`               | compose   | Gdzie zapisywane są pliki `docker-compose.yml` i `.env`                 |
+| `INTLAYER_SELFHOST_REF`   | `main`                     | oba       | Referencja Git, z której pobierany jest plik compose i szablon env      |
+| `INTLAYER_BUILD_CONTEXT`  | `…/intlayer.git#main`      | oba       | Kontekst budowania używany, gdy niestandardowa domena wymaga przebudowy |
+| `INTLAYER_CUSTOM_IMAGE`   | `intlayer/cms-all:custom`  | docker    | Tag obrazu all-in-one zbudowanego dla niestandardowej domeny            |
 
 > Zmienne portów zmieniają wyłącznie stronę **hosta** w mapowaniu. Opublikowane obrazy mają wartości `http://localhost:3000`, `http://localhost:3100` oraz `http://localhost:9000` skompilowane w pakiecie pulpitu, więc zachowaj wartości domyślne, chyba że budujesz własne obrazy, zobacz [Ograniczenia](#limitations).
 
@@ -477,14 +506,7 @@ Każda transakcyjna wiadomość e-mail, w tym wiadomości spoza organizacji (tak
 | `MAIL_SMTP_SECURE`   | `false`                        | Niejawne TLS. Ustaw `true` dla portu `465`                                           |
 | `MAIL_SMTP_USER`     | _(twój użytkownik)_            | Nazwa użytkownika SMTP (opcjonalnie; pomiń dla przekaźników bez uwierzytelniania)    |
 | `MAIL_SMTP_PASSWORD` | _(twoje hasło)_                | Hasło SMTP                                                                           |
-| `MAIL_PROVIDER`      | `resend`                       | Opcjonalne nadpisanie: `smtp` lub `resend`. Pozostaw puste dla automatycznego wyboru | -------------------------------------------------------- |
-| `MAIL_FROM`          | `Intlayer <no-reply@acme.com>` | Sender header for either transport. Accepts a bare address or `Name <email>`         |
-| `MAIL_SMTP_HOST`     | `smtp.acme.com`                | SMTP host. Setting it selects the SMTP transport                                     |
-| `MAIL_SMTP_PORT`     | `587`                          | SMTP port (defaults to `587`)                                                        |
-| `MAIL_SMTP_SECURE`   | `false`                        | Implicit TLS. Set `true` for port `465`                                              |
-| `MAIL_SMTP_USER`     | _(your user)_                  | SMTP username (optional; omit for unauthenticated relays)                            |
-| `MAIL_SMTP_PASSWORD` | _(your password)_              | SMTP password                                                                        |
-| `MAIL_PROVIDER`      | `resend`                       | Optional override: `smtp` or `resend`. Leave unset to auto-select                    |
+| `MAIL_PROVIDER`      | `resend`                       | Opcjonalne nadpisanie: `smtp` lub `resend`. Pozostaw puste dla automatycznego wyboru |
 
 > Pierwszeństwo: własny mailer organizacji (skonfigurowany w panelu **Organizacja**) ma pierwszeństwo przed mailerem globalnym, który z kolei ma pierwszeństwo przed domyślnym kluczem Resend.
 
