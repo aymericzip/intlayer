@@ -41,3 +41,16 @@ if (!('ResizeObserver' in globalThis)) {
     disconnect() {}
   } as unknown as typeof ResizeObserver;
 }
+
+// jsdom's Blob has no stream(), yet shiki's inlined oniguruma WASM is
+// decompressed through `new Blob([binary]).stream()` on import.
+if (typeof Blob.prototype.stream !== 'function') {
+  Blob.prototype.stream = function stream(this: Blob) {
+    return new ReadableStream<Uint8Array>({
+      start: async (controller) => {
+        controller.enqueue(new Uint8Array(await this.arrayBuffer()));
+        controller.close();
+      },
+    }) as ReturnType<Blob['stream']>;
+  };
+}
