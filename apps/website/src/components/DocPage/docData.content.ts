@@ -57,7 +57,6 @@ const docDataContent: Dictionary = {
       }),
       default: getDocMetadata('./docs/en/introduction.md'),
     },
-
     concept: {
       title: t({
         en: 'Concept',
@@ -391,7 +390,6 @@ const docDataContent: Dictionary = {
           }),
           default: getDocMetadata('./docs/en/configuration.md'),
         },
-
         'content-functions': {
           title: t({
             en: 'Content Functions',
@@ -657,7 +655,139 @@ const docDataContent: Dictionary = {
             },
           },
         },
-
+        formatters: {
+          title: t({
+            en: 'Formatters',
+            'en-GB': 'Formatters',
+            fr: 'Formateurs',
+            es: 'Formateadores',
+            de: 'Formatierer',
+            it: 'Formattatori',
+            ja: 'フォーマッター',
+            ko: '포매터',
+            zh: '格式化器',
+            pt: 'Formatadores',
+            hi: 'फ़ॉर्मैटर',
+            ar: 'المنسقات',
+            uk: 'Форматувальники',
+            ru: 'Форматтеры',
+            tr: 'Biçimlendiriciler',
+            pl: 'Formatery',
+            id: 'Pemformat',
+            vi: 'Bộ định dạng',
+          }),
+          default: getDocMetadata('./docs/en/formatters.md'),
+        },
+        cli: {
+          title: 'CLI',
+          default: getDocMetadata('./docs/en/cli/index.md'),
+          subSections: {
+            test: {
+              title: 'Test',
+              default: getDocMetadata('./docs/en/cli/test.md'),
+            },
+            fill: {
+              title: 'Fill',
+              default: getDocMetadata('./docs/en/cli/fill.md'),
+            },
+            build: {
+              title: 'Build',
+              default: getDocMetadata('./docs/en/cli/build.md'),
+            },
+            watch: {
+              title: 'Watch',
+              default: getDocMetadata('./docs/en/cli/watch.md'),
+            },
+            extract: {
+              title: 'Extract',
+              default: getDocMetadata('./docs/en/cli/extract.md'),
+            },
+            login: {
+              title: 'Login',
+              default: getDocMetadata('./docs/en/cli/login.md'),
+            },
+            push: {
+              title: 'Push',
+              default: getDocMetadata('./docs/en/cli/push.md'),
+            },
+            pull: {
+              title: 'Pull',
+              default: getDocMetadata('./docs/en/cli/pull.md'),
+            },
+            configuration: {
+              title: 'Configuration',
+              default: getDocMetadata('./docs/en/cli/configuration.md'),
+            },
+            list: {
+              title: 'List',
+              default: getDocMetadata('./docs/en/cli/list.md'),
+            },
+            version: {
+              title: 'Version',
+              default: getDocMetadata('./docs/en/cli/version.md'),
+            },
+            editor: {
+              title: 'Editor',
+              default: getDocMetadata('./docs/en/cli/editor.md'),
+            },
+            live: {
+              title: 'Live',
+              default: getDocMetadata('./docs/en/cli/live.md'),
+            },
+            debug: {
+              title: 'Debug',
+              default: getDocMetadata('./docs/en/cli/debug.md'),
+            },
+            'doc-review': {
+              title: 'Doc Review',
+              default: getDocMetadata('./docs/en/cli/doc-review.md'),
+            },
+            'doc-translate': {
+              title: 'Doc Translate',
+              default: getDocMetadata('./docs/en/cli/doc-translate.md'),
+            },
+            sdk: {
+              title: 'SDK',
+              default: getDocMetadata('./docs/en/cli/sdk.md'),
+            },
+            scan: {
+              title: 'Scan',
+              default: getDocMetadata('./docs/en/cli/scan.md'),
+            },
+            infra: {
+              title: 'Infra',
+              default: getDocMetadata('./docs/en/cli/infra.md'),
+            },
+            upgrade: {
+              title: 'Upgrade',
+              default: getDocMetadata('./docs/en/cli/upgrade.md'),
+            },
+          },
+        },
+      },
+    },
+    ecosystem: {
+      title: t({
+        en: 'Ecosystem',
+        'en-GB': 'Ecosystem',
+        fr: 'Écosystème',
+        es: 'Ecosistema',
+        de: 'Ökosystem',
+        it: 'Ecosistema',
+        ja: 'エコシステム',
+        ko: '생태계',
+        zh: '生态系统',
+        pt: 'Ecossistema',
+        hi: 'इकोसिस्टम',
+        ar: 'المنظومة',
+        uk: 'Екосистема',
+        ru: 'Экосистема',
+        tr: 'Ekosistem',
+        pl: 'Ekosystem',
+        id: 'Ekosistem',
+        vi: 'Hệ sinh thái',
+      }),
+      subSections: {
         package: {
           title: 'Packages',
           subSections: {
@@ -1236,140 +1366,95 @@ const docDataContent: Dictionary = {
             },
           },
         },
-
-        formatters: {
+        adapters: {
+          deployed: false,
           title: t({
-            en: 'Formatters',
-            'en-GB': 'Formatters',
-            fr: 'Formateurs',
-            es: 'Formateadores',
-            de: 'Formatierer',
-            it: 'Formattatori',
-            ja: 'フォーマッター',
-            ko: '포매터',
-            zh: '格式化器',
-            pt: 'Formatadores',
-            hi: 'फ़ॉर्मैटर',
-            ar: 'المنسقات',
-            uk: 'Форматувальники',
-            ru: 'Форматтеры',
-            tr: 'Biçimlendiriciler',
-            pl: 'Formatery',
-            id: 'Pemformat',
-            vi: 'Bộ định dạng',
+            en: 'Adapters',
+            'en-GB': 'Adapters',
+            fr: 'Adaptateurs',
+            es: 'Adaptadores',
+            de: 'Adapter',
+            it: 'Adattatori',
+            ja: 'アダプター',
+            ko: '어댑터',
+            zh: '适配器',
+            pt: 'Adaptadores',
+            hi: 'एडैप्टर',
+            ar: 'المحولات',
+            uk: 'Адаптери',
+            ru: 'Адаптеры',
+            tr: 'Adaptörler',
+            pl: 'Adaptery',
+            id: 'Adaptor',
+            vi: 'Bộ chuyển đổi',
           }),
-          default: getDocMetadata('./docs/en/formatters.md'),
-        },
-        cli: {
-          title: 'CLI',
-          default: getDocMetadata('./docs/en/cli/index.md'),
+          default: getDocMetadata('./docs/en/compat/index.md'),
           subSections: {
-            test: {
-              title: 'Test',
-              default: getDocMetadata('./docs/en/cli/test.md'),
+            i18next: {
+              title: 'i18next',
+              default: getDocMetadata('./docs/en/compat/i18next.md'),
+              frameworks: ['vanilla'],
             },
-            fill: {
-              title: 'Fill',
-              default: getDocMetadata('./docs/en/cli/fill.md'),
+            'react-i18next': {
+              title: 'react-i18next',
+              default: getDocMetadata('./docs/en/compat/react-i18next.md'),
+              frameworks: ['react'],
             },
-            build: {
-              title: 'Build',
-              default: getDocMetadata('./docs/en/cli/build.md'),
+            'next-i18next': {
+              title: 'next-i18next',
+              default: getDocMetadata('./docs/en/compat/next-i18next.md'),
+              frameworks: ['nextjs', 'react'],
             },
-            watch: {
-              title: 'Watch',
-              default: getDocMetadata('./docs/en/cli/watch.md'),
+            'next-intl': {
+              title: 'next-intl',
+              default: getDocMetadata('./docs/en/compat/next-intl.md'),
+              frameworks: ['nextjs', 'react'],
             },
-            extract: {
-              title: 'Extract',
-              default: getDocMetadata('./docs/en/cli/extract.md'),
+            'react-intl': {
+              title: 'react-intl',
+              default: getDocMetadata('./docs/en/compat/react-intl.md'),
+              frameworks: ['react'],
             },
-            login: {
-              title: 'Login',
-              default: getDocMetadata('./docs/en/cli/login.md'),
+            lingui: {
+              title: 'Lingui',
+              default: getDocMetadata('./docs/en/compat/lingui.md'),
+              frameworks: ['vanilla', 'nextjs', 'react', 'vue'],
             },
-            push: {
-              title: 'Push',
-              default: getDocMetadata('./docs/en/cli/push.md'),
+            'vue-i18n': {
+              title: 'vue-i18n',
+              default: getDocMetadata('./docs/en/compat/vue-i18n.md'),
+              frameworks: ['vue'],
             },
-            pull: {
-              title: 'Pull',
-              default: getDocMetadata('./docs/en/cli/pull.md'),
+            'nuxt-i18n': {
+              title: '@nuxt/i18n',
+              default: getDocMetadata('./docs/en/compat/nuxtjs-i18n.md'),
+              frameworks: ['nuxt', 'vue'],
             },
-            configuration: {
-              title: 'Configuration',
-              default: getDocMetadata('./docs/en/cli/configuration.md'),
+            'ngx-translate': {
+              title: 'ngx-translate',
+              default: getDocMetadata('./docs/en/compat/ngx-translate.md'),
+              frameworks: ['angular'],
             },
-            list: {
-              title: 'List',
-              default: getDocMetadata('./docs/en/cli/list.md'),
-            },
-            version: {
-              title: 'Version',
-              default: getDocMetadata('./docs/en/cli/version.md'),
-            },
-            editor: {
-              title: 'Editor',
-              default: getDocMetadata('./docs/en/cli/editor.md'),
-            },
-            live: {
-              title: 'Live',
-              default: getDocMetadata('./docs/en/cli/live.md'),
-            },
-            debug: {
-              title: 'Debug',
-              default: getDocMetadata('./docs/en/cli/debug.md'),
-            },
-            'doc-review': {
-              title: 'Doc Review',
-              default: getDocMetadata('./docs/en/cli/doc-review.md'),
-            },
-            'doc-translate': {
-              title: 'Doc Translate',
-              default: getDocMetadata('./docs/en/cli/doc-translate.md'),
-            },
-            sdk: {
-              title: 'SDK',
-              default: getDocMetadata('./docs/en/cli/sdk.md'),
-            },
-            scan: {
-              title: 'Scan',
-              default: getDocMetadata('./docs/en/cli/scan.md'),
-            },
-            infra: {
-              title: 'Infra',
-              default: getDocMetadata('./docs/en/cli/infra.md'),
-            },
-            upgrade: {
-              title: 'Upgrade',
-              default: getDocMetadata('./docs/en/cli/upgrade.md'),
+            'svelte-i18n': {
+              title: 'svelte-i18n',
+              default: getDocMetadata('./docs/en/compat/svelte-i18n.md'),
+              frameworks: ['svelte'],
             },
           },
         },
-      },
-    },
-    guides: {
-      title: t({
-        en: 'Guides',
-        'en-GB': 'Guides',
-        fr: 'Guides',
-        es: 'Guías',
-        de: 'Anleitungen',
-        it: 'Guide',
-        ja: 'ガイド',
-        ko: '가이드',
-        zh: '指南',
-        pt: 'Guias',
-        hi: 'गाइड',
-        ar: 'الأدلة',
-        uk: 'Посібники',
-        ru: 'Руководства',
-        tr: 'Kılavuzlar',
-        pl: 'Przewodniki',
-        id: 'Panduan',
-        vi: 'Hướng dẫn',
-      }),
-      subSections: {
+        plugins: {
+          title: 'Plugins',
+          subSections: {
+            syncJSON: {
+              title: 'JSON',
+              default: getDocMetadata('./docs/en/plugins/sync-json.md'),
+            },
+            syncPO: {
+              title: 'gettext (.po)',
+              default: getDocMetadata('./docs/en/plugins/sync-po.md'),
+            },
+          },
+        },
         editor: {
           title: t({
             en: 'Visual Editor',
@@ -1407,6 +1492,53 @@ const docDataContent: Dictionary = {
               default: getDocMetadata('./docs/en/analytics.md'),
             },
           },
+        },
+      },
+    },
+    guide: {
+      title: t({
+        en: 'Guide',
+        'en-GB': 'Guide',
+        fr: 'Guide',
+        es: 'Guía',
+        de: 'Anleitung',
+        it: 'Guida',
+        ja: 'ガイド',
+        ko: '가이드',
+        zh: '指南',
+        pt: 'Guia',
+        hi: 'गाइड',
+        ar: 'دليل',
+        uk: 'Посібник',
+        ru: 'Руководство',
+        tr: 'Kılavuz',
+        pl: 'Przewodnik',
+        id: 'Panduan',
+        vi: 'Hướng dẫn',
+      }),
+      subSections: {
+        testing: {
+          title: t({
+            en: 'Testing',
+            fr: 'Tests',
+            es: 'Pruebas',
+            'en-GB': 'Testing',
+            de: 'Testen',
+            it: 'Test',
+            ja: 'テスト',
+            ko: '테스트',
+            zh: '测试',
+            pt: 'Testes',
+            hi: 'परीक्षण',
+            ar: 'اختبار',
+            uk: 'Тестування',
+            ru: 'Тестирование',
+            tr: 'Test',
+            pl: 'Testowanie',
+            id: 'Pengujian',
+            vi: 'Kiểm tra',
+          }),
+          default: getDocMetadata('./docs/en/testing.md'),
         },
         'ci-cd': {
           title: t({
@@ -1454,28 +1586,71 @@ const docDataContent: Dictionary = {
           }),
           default: getDocMetadata('./docs/en/autoFill.md'),
         },
-        testing: {
+        migration: {
           title: t({
-            en: 'Testing',
-            fr: 'Tests',
-            es: 'Pruebas',
-            'en-GB': 'Testing',
-            de: 'Testen',
-            it: 'Test',
-            ja: 'テスト',
-            ko: '테스트',
-            zh: '测试',
-            pt: 'Testes',
-            hi: 'परीक्षण',
-            ar: 'اختبار',
-            uk: 'Тестування',
-            ru: 'Тестирование',
-            tr: 'Test',
-            pl: 'Testowanie',
-            id: 'Pengujian',
-            vi: 'Kiểm tra',
+            en: 'Migration',
+            'en-GB': 'Migration',
+            fr: 'Migration',
+            es: 'Migración',
+            de: 'Migration',
+            it: 'Migrazione',
+            ja: '移行',
+            ko: '마이그레이션',
+            zh: '迁移',
+            pt: 'Migração',
+            hi: 'माइग्रेशन',
+            ar: 'الترحيل',
+            uk: 'Міграція',
+            ru: 'Миграция',
+            tr: 'Geçiş',
+            pl: 'Migracja',
+            id: 'Migrasi',
+            vi: 'Di chuyển',
           }),
-          default: getDocMetadata('./docs/en/testing.md'),
+          subSections: {
+            i18next: {
+              title: 'i18next',
+              default: getDocMetadata(
+                './docs/en/migration_from_i18next_to_intlayer.md'
+              ),
+              frameworks: ['vanilla'],
+            },
+            'react-i18next': {
+              title: 'react-i18next',
+              default: getDocMetadata(
+                './docs/en/migration_from_react-i18next_to_intlayer.md'
+              ),
+              frameworks: ['react'],
+            },
+            'next-i18next': {
+              title: 'next-i18next',
+              default: getDocMetadata(
+                './docs/en/migration_from_next-i18next_to_intlayer.md'
+              ),
+              frameworks: ['nextjs', 'react'],
+            },
+            'next-intl': {
+              title: 'next-intl',
+              default: getDocMetadata(
+                './docs/en/migration_from_next-intl_to_intlayer.md'
+              ),
+              frameworks: ['nextjs', 'react'],
+            },
+            'vue-i18n': {
+              title: 'vue-i18n',
+              default: getDocMetadata(
+                './docs/en/migration_from_vue-i18n_to_intlayer.md'
+              ),
+              frameworks: ['vue'],
+            },
+            'nuxt-i18n': {
+              title: '@nuxtjs/i18n',
+              default: getDocMetadata(
+                './docs/en/migration_from_nuxtjs_i18n_to_intlayer.md'
+              ),
+              frameworks: ['nuxt', 'vue'],
+            },
+          },
         },
       },
     },
@@ -2129,21 +2304,6 @@ const docDataContent: Dictionary = {
         },
       },
     },
-
-    plugins: {
-      title: 'Plugins',
-      subSections: {
-        syncJSON: {
-          title: 'JSON',
-          default: getDocMetadata('./docs/en/plugins/sync-json.md'),
-        },
-        syncPO: {
-          title: 'gettext (.po)',
-          default: getDocMetadata('./docs/en/plugins/sync-po.md'),
-        },
-      },
-    },
-
     'dev-tools': {
       title: t({
         en: 'Dev tools',
@@ -2335,82 +2495,6 @@ const docDataContent: Dictionary = {
         svelte: {
           title: 'Svelte',
           default: getDocMetadata('./docs/en/benchmark/svelte.md'),
-          frameworks: ['svelte'],
-        },
-      },
-    },
-    compatibility: {
-      deployed: false,
-      title: t({
-        en: 'Compatibility',
-        'en-GB': 'Compatibility',
-        fr: 'Compatibilité',
-        es: 'Compatibilidad',
-        de: 'Kompatibilität',
-        ja: '互換性',
-        ko: '호환성',
-        zh: '兼容性',
-        it: 'Compatibilità',
-        pt: 'Compatibilidade',
-        hi: 'अनुकूलता',
-        ar: 'التوافق',
-        uk: 'Сумісність',
-        ru: 'Совместимость',
-        tr: 'Uyumluluk',
-        pl: 'Kompatybilność',
-        id: 'Kompabilitas',
-        vi: 'Khả năng tương thích',
-      }),
-      default: getDocMetadata('./docs/en/compat/index.md'),
-      subSections: {
-        i18next: {
-          title: 'i18next',
-          default: getDocMetadata('./docs/en/compat/i18next.md'),
-          frameworks: ['vanilla'],
-        },
-        'react-i18next': {
-          title: 'react-i18next',
-          default: getDocMetadata('./docs/en/compat/react-i18next.md'),
-          frameworks: ['react'],
-        },
-        'next-i18next': {
-          title: 'next-i18next',
-          default: getDocMetadata('./docs/en/compat/next-i18next.md'),
-          frameworks: ['nextjs', 'react'],
-        },
-        'next-intl': {
-          title: 'next-intl',
-          default: getDocMetadata('./docs/en/compat/next-intl.md'),
-          frameworks: ['nextjs', 'react'],
-        },
-        'react-intl': {
-          title: 'react-intl',
-          default: getDocMetadata('./docs/en/compat/react-intl.md'),
-          frameworks: ['react'],
-        },
-        lingui: {
-          title: 'Lingui',
-          default: getDocMetadata('./docs/en/compat/lingui.md'),
-          frameworks: ['vanilla', 'nextjs', 'react', 'vue'],
-        },
-        'vue-i18n': {
-          title: 'vue-i18n',
-          default: getDocMetadata('./docs/en/compat/vue-i18n.md'),
-          frameworks: ['vue'],
-        },
-        'nuxt-i18n': {
-          title: '@nuxt/i18n',
-          default: getDocMetadata('./docs/en/compat/nuxtjs-i18n.md'),
-          frameworks: ['nuxt', 'vue'],
-        },
-        'ngx-translate': {
-          title: 'ngx-translate',
-          default: getDocMetadata('./docs/en/compat/ngx-translate.md'),
-          frameworks: ['angular'],
-        },
-        'svelte-i18n': {
-          title: 'svelte-i18n',
-          default: getDocMetadata('./docs/en/compat/svelte-i18n.md'),
           frameworks: ['svelte'],
         },
       },
