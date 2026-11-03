@@ -222,7 +222,11 @@ function RootDocument({ children }: { children: React.ReactNode }) {
               <DeferredAuthProvider>
                 <WebMCPTools />
                 <FirstConsultationProvider>
-                  {children}
+                  {/* The page's single main landmark: layouts, pages and
+                      error / not-found fallbacks must not render their own. */}
+                  <main className="flex w-full flex-1 flex-col">
+                    {children}
+                  </main>
                 </FirstConsultationProvider>
               </DeferredAuthProvider>
             </ReactQueryProvider>

@@ -4,8 +4,8 @@ import { Footer } from '~/components/Footer';
 import { Navbar } from '~/components/Navbar';
 
 export type PageContentLayoutProps = DetailedHTMLProps<
-  HTMLAttributes<HTMLElement>,
-  HTMLElement
+  HTMLAttributes<HTMLDivElement>,
+  HTMLDivElement
 > & {
   footer?: ReactNode;
   navbar?: ReactNode;
@@ -22,12 +22,12 @@ export const PageContentLayout: FC<PageContentLayoutProps> = ({
 }) => (
   <>
     {navbar ?? <Navbar mobileRollable={mobileRollable} />}
-    <main
+    <div
       className={cn('relative flex w-full flex-1 flex-col', className)}
       {...props}
     >
       {children}
-    </main>
+    </div>
     <div className="flex w-full flex-0 flex-col">{footer ?? <Footer />}</div>
   </>
 );

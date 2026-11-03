@@ -1,5 +1,6 @@
 import { getQueryClient } from '@intlayer/design-system/providers';
 import { createRouter as createTanStackRouter } from '@tanstack/react-router';
+import { ErrorComponent } from '~/components/ErrorComponent';
 import { NotFoundComponent } from '~/components/NotFoundComponent';
 import { routeTree } from './routeTree.gen';
 
@@ -14,6 +15,7 @@ export function getRouter() {
     defaultPreload: 'intent',
     defaultStaleTime: Infinity,
     defaultNotFoundComponent: NotFoundComponent,
+    defaultErrorComponent: ErrorComponent,
     ssr: {
       nonce: import.meta.env.VITE_CSP_NONCE,
     },

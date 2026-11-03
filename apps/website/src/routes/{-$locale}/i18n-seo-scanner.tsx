@@ -108,16 +108,16 @@ function AuditContent() {
   return (
     <div className="relative flex size-full flex-1 flex-col">
       <BackgroundLayout />
-      <main className="relative flex flex-1 flex-col items-center justify-center gap-16 px-4 pt-20 md:px-10">
+      <div className="relative flex flex-1 flex-col items-center justify-center gap-16 px-4 pt-20 md:px-10">
         <div className="flex max-w-3xl flex-col items-center">
-          <h1 className="mb-3 px-2 text-center font-bold text-3xl text-foreground leading-tight sm:text-4xl md:text-5xl lg:text-6xl">
+          <h1 className="text-foreground mb-3 px-2 text-center text-3xl leading-tight font-bold sm:text-4xl md:text-5xl lg:text-6xl">
             {heading}
           </h1>
-          <h2 className="px-2 text-center font-semibold text-foreground text-lg leading-snug sm:text-2xl md:text-3xl">
+          <h2 className="text-foreground px-2 text-center text-lg leading-snug font-semibold sm:text-2xl md:text-3xl">
             {subheading}
           </h2>
         </div>
-        <p className="max-w-2xl text-muted-foreground leading-relaxed">
+        <p className="text-muted-foreground max-w-2xl leading-relaxed">
           {description}
         </p>
         <LocalizationAnalyzer />
@@ -129,7 +129,7 @@ function AuditContent() {
         >
           {chromeExtension.text}
         </Link>
-      </main>
+      </div>
     </div>
   );
 }
