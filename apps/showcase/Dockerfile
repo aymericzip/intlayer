@@ -7,7 +7,7 @@
 # https://github.com/oven-sh/bun/issues/4795
 FROM node:26-alpine AS builder
 
-RUN npm install -g bun@1.4.2
+RUN npm install -g bun@1.4.4
 
 
 # Create app directory
@@ -67,7 +67,7 @@ RUN bun run build
 
 
 # Runner
-FROM oven/bun:1.4.2-alpine AS runner
+FROM oven/bun:1.4.4-alpine AS runner
 
 WORKDIR /app
 

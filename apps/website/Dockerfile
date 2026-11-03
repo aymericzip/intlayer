@@ -7,7 +7,7 @@
 # https://github.com/oven-sh/bun/issues/4795
 FROM node:26-alpine AS builder
 
-RUN npm install -g bun@1.4.2
+RUN npm install -g bun@1.4.4
 
 ARG INTLAYER_CLIENT_ID
 ARG VITE_DOMAIN
@@ -98,7 +98,7 @@ RUN --mount=type=secret,id=INTLAYER_CLIENT_SECRET,env=INTLAYER_CLIENT_SECRET \
 # ---------------------------------------------------------
 FROM node:26-alpine AS runner
 
-RUN npm install -g bun@1.4.2
+RUN npm install -g bun@1.4.4
 
 WORKDIR /app
 

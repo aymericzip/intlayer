@@ -10,7 +10,7 @@ of the same repository.
 ## Requirements
 
 - macOS, Linux or Windows (WSL)
-- [Bun](https://bun.sh) **1.4.2** (`curl -fsSL https://bun.sh/install | bash -s "bun-v1.4.2"`)
+- [Bun](https://bun.sh) **1.4.4** (`curl -fsSL https://bun.sh/install | bash -s "bun-v1.4.2"`)
 - Node.js **22+** (used by some build tools)
 - `zip` command-line tool
 

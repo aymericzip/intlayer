@@ -24,7 +24,7 @@
 # ---------------------------------------------------------------------------
 FROM node:26-alpine AS backend-builder
 
-RUN npm install -g bun@1.4.2
+RUN npm install -g bun@1.4.4
 RUN apk add --no-cache build-base zlib-dev autoconf automake
 
 WORKDIR /workspace
@@ -100,7 +100,7 @@ RUN rm -rf node_modules \
 # ---------------------------------------------------------------------------
 FROM node:26-alpine AS app-builder
 
-RUN npm install -g bun@1.4.2
+RUN npm install -g bun@1.4.4
 RUN apk add --no-cache build-base zlib-dev autoconf automake
 
 WORKDIR /workspace
@@ -173,7 +173,7 @@ RUN bun run build && bun scripts/generate-sw.ts
 # ---------------------------------------------------------------------------
 # backend — standalone API image (target for docker-compose / orchestrators)
 # ---------------------------------------------------------------------------
-FROM oven/bun:1.4.2-alpine AS backend
+FROM oven/bun:1.4.4-alpine AS backend
 
 # System deps for headless Chromium (Puppeteer screenshots)
 RUN apk add --no-cache \
@@ -216,7 +216,7 @@ CMD ["bun", "dist/esm/index.mjs"]
 # ---------------------------------------------------------------------------
 # app — standalone dashboard image (target for docker-compose / orchestrators)
 # ---------------------------------------------------------------------------
-FROM oven/bun:1.4.2-alpine AS app
+FROM oven/bun:1.4.4-alpine AS app
 
 ENV NODE_ENV=production \
     PORT=3000 \

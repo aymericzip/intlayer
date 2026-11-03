@@ -6,7 +6,7 @@
 # https://github.com/oven-sh/bun/issues/4795
 FROM node:26-alpine AS builder
 
-RUN npm install -g bun@1.4.2
+RUN npm install -g bun@1.4.4
 
 RUN apk add --no-cache build-base zlib-dev autoconf automake
 
@@ -67,7 +67,7 @@ ENV NODE_ENV=production
 RUN bun run build && bun scripts/generate-sw.ts
 
 # Runner — use oven/bun base image to avoid npm install overhead
-FROM oven/bun:1.4.2-alpine AS runner
+FROM oven/bun:1.4.4-alpine AS runner
 
 WORKDIR /app
 

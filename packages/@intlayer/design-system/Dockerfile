@@ -3,7 +3,7 @@
 # Builder stage
 FROM node:26-alpine AS builder
 
-RUN npm install -g bun@1.4.2
+RUN npm install -g bun@1.4.4
 
 # Put the repo in /workspace
 WORKDIR /workspace
@@ -66,7 +66,7 @@ RUN bun x storybook build --disable-telemetry
 # Runner — plain node + serve; no bun needed for static file serving
 FROM node:26-alpine AS runner
 
-RUN npm install -g bun@1.4.2
+RUN npm install -g bun@1.4.4
 
 RUN npm install -g serve
 
