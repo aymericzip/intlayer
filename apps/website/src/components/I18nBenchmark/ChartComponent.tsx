@@ -3,6 +3,7 @@ import {
   BarElement,
   CategoryScale,
   Chart,
+  type ChartConfiguration,
   Legend,
   LinearScale,
   type Plugin,
@@ -29,19 +30,14 @@ export const ChartComponent: FC<{
   data: ChartItem[];
   unit: string;
 }> = ({ data, unit }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const chartRef = useRef<Chart | null>(null);
 
   useEffect(() => {
-    if (!canvasRef.current) return;
-    if (data.length === 0) {
-      chartRef.current?.destroy();
-      chartRef.current = null;
-      return;
-    }
+    const container = containerRef.current;
+    const canvas = canvasRef.current;
 
-    chartRef.current?.destroy();
-    chartRef.current = null;
+    if (!container || !canvas || data.length === 0) return;
 
     const rangePlugin: Plugin<'bar'> = {
       id: 'rangePlugin',
@@ -90,84 +86,93 @@ export const ChartComponent: FC<{
       },
     };
 
-    let isCancelled = false;
-
-    // Defer chart instantiation to the next animation frame so that
-    // Framer Motion's mounting animations have finished applying styles,
-    // avoiding a forced reflow when Chart.js measures canvas dimensions.
-    const rafId = requestAnimationFrame(() => {
-      if (isCancelled || !canvasRef.current) return;
-
-      const currentCtx = canvasRef.current.getContext('2d');
-      if (!currentCtx) return;
-
-      chartRef.current = new Chart(currentCtx, {
-        type: 'bar',
-        data: {
-          labels: data.map((d) => d.label),
-          datasets: [
-            {
-              data: data.map((d) => d.value),
-              backgroundColor: data.map((d) => d.color),
-              borderRadius: 6,
-              borderSkipped: false,
-            },
-          ],
-        },
-        options: {
-          indexAxis: 'y',
-          responsive: true,
-          maintainAspectRatio: false,
-          animation: { duration: 350 },
-          plugins: {
-            legend: { display: false },
-            tooltip: {
-              callbacks: {
-                label: (context) => {
-                  const item = data[context.dataIndex];
-                  let text = `${context.parsed.x?.toFixed(1)} ${unit}`;
-                  if (item.min !== item.value || item.max !== item.value) {
-                    text += ` (range: ${item.min.toFixed(1)} - ${item.max.toFixed(1)})`;
-                  }
-                  if (item.version) text += ` · v${item.version}`;
-                  return text;
-                },
-              },
-            },
+    const configuration: ChartConfiguration<'bar'> = {
+      type: 'bar',
+      data: {
+        labels: data.map((d) => d.label),
+        datasets: [
+          {
+            data: data.map((d) => d.value),
+            backgroundColor: data.map((d) => d.color),
+            borderRadius: 6,
+            borderSkipped: false,
           },
-          layout: { padding: { right: 16 } },
-          scales: {
-            x: {
-              grid: { display: false },
-              ticks: { color: '#9ca3af' },
-              suggestedMax: Math.max(
-                ...data.map((d) => Math.max(d.value, d.max))
-              ),
-            },
-            y: {
-              grid: { display: false },
-              ticks: {
-                color: '#9ca3af',
-                font: { size: 11, weight: 'bold' },
-                autoSkip: false,
+        ],
+      },
+      options: {
+        indexAxis: 'y',
+        // Sized by the ResizeObserver below.
+        responsive: false,
+        maintainAspectRatio: false,
+        animation: { duration: 350 },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: (context) => {
+                const item = data[context.dataIndex];
+                let text = `${context.parsed.x?.toFixed(1)} ${unit}`;
+                if (item.min !== item.value || item.max !== item.value) {
+                  text += ` (range: ${item.min.toFixed(1)} - ${item.max.toFixed(1)})`;
+                }
+                if (item.version) text += ` · v${item.version}`;
+                return text;
               },
             },
           },
         },
-        plugins: [rangePlugin],
-      });
+        layout: { padding: { right: 16 } },
+        scales: {
+          x: {
+            grid: { display: false },
+            ticks: { color: '#9ca3af' },
+            suggestedMax: Math.max(
+              ...data.map((d) => Math.max(d.value, d.max))
+            ),
+          },
+          y: {
+            grid: { display: false },
+            ticks: {
+              color: '#9ca3af',
+              font: { size: 11, weight: 'bold' },
+              autoSkip: false,
+            },
+          },
+        },
+      },
+      plugins: [rangePlugin],
+    };
+
+    let chart: Chart<'bar'> | null = null;
+
+    // Chart.js measures its canvas when it is created and on every resize.
+    // `ResizeObserver` callbacks run right after layout, so measuring there is
+    // free; Chart.js' own responsive mode (and a requestAnimationFrame) reads
+    // before layout and forces a reflow instead.
+    const resizeObserver = new ResizeObserver(([entry]) => {
+      const { width, height } = entry.contentRect;
+
+      if (width === 0 && height === 0) return;
+
+      if (chart) {
+        chart.resize(width, height);
+        return;
+      }
+
+      chart = new Chart(canvas, configuration);
     });
 
+    resizeObserver.observe(container);
+
     return () => {
-      isCancelled = true;
-      cancelAnimationFrame(rafId);
-      chartRef.current?.destroy();
-      chartRef.current = null;
+      resizeObserver.disconnect();
+      chart?.destroy();
     };
   }, [data, unit]);
 
   return (
     <div
+      ref={containerRef}
       className="relative size-full"
       style={{
         minHeight: data.length * ROW_HEIGHT_PIXELS + AXIS_HEIGHT_PIXELS,

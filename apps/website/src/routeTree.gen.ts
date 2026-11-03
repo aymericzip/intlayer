@@ -232,11 +232,12 @@ const DotwellKnownMcpServerCardDotjsonRoute =
     path: '/.well-known/mcp/server-card.json',
     getParentRoute: () => rootRouteImport,
   } as any)
-const ApiProxyAhrefsAnalyticsDotjsRoute = ApiProxyAhrefsAnalyticsDotjsRouteImport.update({
-  id: '/api/proxy/ahrefs-analytics.js',
-  path: '/api/proxy/ahrefs-analytics.js',
-  getParentRoute: () => rootRouteImport,
-} as any)
+const ApiProxyAhrefsAnalyticsDotjsRoute =
+  ApiProxyAhrefsAnalyticsDotjsRouteImport.update({
+    id: '/api/proxy/ahrefs-analytics.js',
+    path: '/api/proxy/ahrefs-analytics.js',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const Char123LocaleChar125DocsPrivacyNoticeRoute =
   Char123LocaleChar125DocsPrivacyNoticeRouteImport.update({
     id: '/privacy-notice',
