@@ -276,7 +276,6 @@ export default defineConfig(({ mode }) => {
       headers,
     },
     // Bundle server deps so Redact can redirect their React imports too.
-    ssr: { noExternal: true },
     plugins: [
       // devtools(),
       nitro({

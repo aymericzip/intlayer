@@ -1,0 +1,28 @@
+diff --git a/dist/dom/features/suspense/full.js b/dist/dom/features/suspense/full.js
+index 1449439b96862749a1d5b3df098e21791274e5df..9e2ee8c11350b92c441ad5dfb83c2434cc17daa9 100644
+--- a/dist/dom/features/suspense/full.js
++++ b/dist/dom/features/suspense/full.js
+@@ -122,6 +122,15 @@ function renderSuspense(fiber) {
+     const checkpoint2 = checkpointCommit(fiber);
+     const wasHydrating = root.h;
+     root.h = true;
++    // Patched (intlayer): a child suspending while this dehydrated boundary
++    // re-hydrates must reach the catch below as its thenable. Without a
++    // handler, realHandleSuspended throws a RenderSuspenseCapture that drops
++    // the thenable, the boundary is rescheduled synchronously and flushPending
++    // spins until its 50-pass guard throws.
++    const prevHydrationHandler = suspendHandler;
++    suspendHandler = (thenable) => {
++      throw thenable;
++    };
+     try {
+       hydrateSuspenseBoundary(fiber, props, [state.b.data === "$!" ? 2 : 0, 0, state.b, state.e]);
+     } catch (error) {
+@@ -131,6 +140,7 @@ function renderSuspense(fiber) {
+       fiber.b = state;
+       retryHydration(fiber, error);
+     } finally {
++      suspendHandler = prevHydrationHandler;
+       root.h = wasHydrating;
+     }
+     return;
