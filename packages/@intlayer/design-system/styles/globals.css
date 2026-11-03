@@ -77,6 +77,20 @@ body {
 }
 
 /*
+ * Balanced line lengths for titles, orphan avoidance for body text.
+ * In the base layer so `text-wrap` / `text-balance` utilities still override.
+ */
+@layer base {
+  :where(h1, h2, h3, h4, h5, h6) {
+    text-wrap: balance;
+  }
+
+  :where(p) {
+    text-wrap: pretty;
+  }
+}
+
+/*
  * Mirrors directional icons (arrows, chevrons) in right-to-left text so
  * "next" / "go" affordances point toward the reading direction.
  * `:dir(rtl)` resolves on the icon itself, so left-to-right islands (code
