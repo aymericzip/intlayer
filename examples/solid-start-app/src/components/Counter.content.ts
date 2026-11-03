@@ -6,13 +6,13 @@ const counterContent = {
     clicks: plural({
       one: t({
         en: '{{count}} click',
-        fr: '{{count}} clic',
         es: '{{count}} clic',
+        fr: '{{count}} clic',
       }),
       other: t({
         en: '{{count}} clicks',
-        fr: '{{count}} clics',
         es: '{{count}} clics',
+        fr: '{{count}} clics',
       }),
     }),
   },

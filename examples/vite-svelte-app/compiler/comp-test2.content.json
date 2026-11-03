@@ -5,20 +5,20 @@
   "description": "Content declaration for the 'comp-test2' component containing test strings intended for extraction and localization (fields: thisIsATest2, helloWorld2ShouldBe).",
   "tags": ["component", "test", "localization"],
   "content": {
-    "thisIsATest2": {
-      "nodeType": "translation",
-      "translation": {
-        "en": "This is a test 2 (should be extracted)",
-        "fr": "Ceci est un test 2 (doit être extrait)",
-        "es": "Esto es una prueba 2 (debería extraerse)"
-      }
-    },
     "helloWorld2ShouldBe": {
       "nodeType": "translation",
       "translation": {
         "en": "Hello World 2 (should be extracted)",
-        "fr": "Bonjour le monde 2 (doit être extrait)",
-        "es": "Hola Mundo 2 (debería extraerse)"
+        "es": "Hola Mundo 2 (debería extraerse)",
+        "fr": "Bonjour le monde 2 (doit être extrait)"
+      }
+    },
+    "thisIsATest2": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "This is a test 2 (should be extracted)",
+        "es": "Esto es una prueba 2 (debería extraerse)",
+        "fr": "Ceci est un test 2 (doit être extrait)"
       }
     }
   }

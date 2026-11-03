@@ -485,6 +485,19 @@ export const setAPI = (): Command => {
     });
 
   initCmd
+    .command('prettier')
+    .description(
+      'Add the Intlayer Prettier plugin, when the project already formats with Prettier'
+    )
+    .option('--project-root [projectRoot]', 'Project root directory')
+    .action(async (options) => {
+      const { initSteps } = await import('./init');
+      return initSteps(options.projectRoot, ['prettier'], {
+        upgradeToVersion: packageJson.version,
+      });
+    });
+
+  initCmd
     .command('skills')
     .description('Initialize Intlayer skills in the project')
     .option('--project-root [projectRoot]', 'Project root directory')

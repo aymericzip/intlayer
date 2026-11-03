@@ -8,10 +8,12 @@ import {
   type ContentLayout,
   detectCompatI18nLibraries,
   hasLintTooling,
+  hasPrettier,
   hasUrlRoutingFramework,
   type InitOptions,
   initIntlayer,
   logInitSuccessMessage,
+  PRETTIER_CONFIG_FILES,
   type RoutingMode,
   setupCmsCredentials,
 } from '@intlayer/engine/cli';
@@ -53,6 +55,7 @@ export type InitStep =
   | 'vscodeExtension'
   | 'lsp'
   | 'eslint'
+  | 'prettier'
   | 'skills'
   | 'mcp'
   | 'infra'
@@ -93,6 +96,7 @@ export const INIT_STEP_COMMANDS: Record<InitStep, string> = {
   githubActions: 'intlayer init github-actions',
   vscodeExtension: 'intlayer init vscode-extension',
   eslint: 'intlayer init eslint',
+  prettier: 'intlayer init prettier',
   chromeExtension: 'intlayer init extension [--browser <chrome|firefox>]',
   skills: 'intlayer init skills [--platform <platform>] [--skills <skills...>]',
   mcp: 'intlayer init mcp [--platform <platform>] [--transport <stdio|sse>]',
@@ -124,6 +128,7 @@ export const getInitOptionsForSteps = (
     baseOptions?.noVscodeExtension || !steps.includes('vscodeExtension'),
   noLsp: baseOptions?.noLsp || !steps.includes('lsp'),
   noEslint: baseOptions?.noEslint || !steps.includes('eslint'),
+  noPrettier: baseOptions?.noPrettier || !steps.includes('prettier'),
   // The documentation link only matters once the project itself is set up.
   skipFinalMessage:
     baseOptions?.skipFinalMessage || !steps.includes('projectSetup'),
@@ -219,6 +224,11 @@ export const INIT_STEP_GROUPS: Record<string, InitStepOption[]> = {
       value: 'eslint',
       label: 'Lint rules (ESLint / oxlint)',
       hint: 'flag hardcoded text and dynamic calls the compiler cannot optimize',
+    },
+    {
+      value: 'prettier',
+      label: 'Prettier plugin',
+      hint: 'sort the keys of t(), plural(), enu() and select() on format',
     },
     {
       value: 'chromeExtension',
@@ -467,6 +477,22 @@ export const isEslintInstalled = (
 };
 
 /**
+ * Checks whether Prettier is installed or configured in the project.
+ */
+export const isPrettierInstalled = (
+  dependencies: Record<string, string>,
+  root?: string
+): boolean => {
+  if (hasPrettier(dependencies)) return true;
+
+  if (root) {
+    return PRETTIER_CONFIG_FILES.some((file) => existsSync(join(root, file)));
+  }
+
+  return false;
+};
+
+/**
  * Computes the initial setup steps selected by default in the interactive prompt.
  * Steps like infrastructure and browser extension require opt-in, while
  * eslint is preselected only if installed on the project.
@@ -476,6 +502,7 @@ export const getInitialInitSteps = (
   root?: string
 ): InitStep[] => {
   const isEslintPresent = isEslintInstalled(dependencies, root);
+  const isPrettierPresent = isPrettierInstalled(dependencies, root);
 
   return Object.values(INIT_STEP_GROUPS)
     .flat()
@@ -483,6 +510,7 @@ export const getInitialInitSteps = (
     .filter((step) => {
       if (OPT_IN_INIT_STEPS.includes(step)) return false;
       if (step === 'eslint' && !isEslintPresent) return false;
+      if (step === 'prettier' && !isPrettierPresent) return false;
       return true;
     });
 };

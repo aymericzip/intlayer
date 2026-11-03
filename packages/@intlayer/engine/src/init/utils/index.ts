@@ -8,6 +8,7 @@ export * from './jsonParser';
 export * from './lintConfig';
 export * from './nextCompilerBabel';
 export * from './packageManager';
+export * from './prettierConfig';
 export * from './tsConfig';
 export * from './urlRoutingFramework';
 export * from './version';

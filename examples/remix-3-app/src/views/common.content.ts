@@ -3,37 +3,33 @@ import { type Dictionary, t } from 'intlayer';
 const commonContent = {
   key: 'common',
   content: {
-    appName: t({
-      en: 'Remix 3 + Intlayer',
-      fr: 'Remix 3 + Intlayer',
-      es: 'Remix 3 + Intlayer',
+    appName: 'Remix 3 + Intlayer',
+    footer: t({
+      en: 'Built with Remix 3 and Intlayer internationalization.',
+      es: 'Construido con Remix 3 y la internacionalización de Intlayer.',
+      fr: 'Construit avec Remix 3 et l’internationalisation Intlayer.',
     }),
     nav: {
-      home: t({
-        en: 'Home',
-        fr: 'Accueil',
-        es: 'Inicio',
-      }),
       about: t({
         en: 'About',
-        fr: 'À propos',
         es: 'Acerca de',
+        fr: 'À propos',
       }),
       api: t({
         en: 'API Demo',
-        fr: 'Démo API',
         es: 'Demostración API',
+        fr: 'Démo API',
+      }),
+      home: t({
+        en: 'Home',
+        es: 'Inicio',
+        fr: 'Accueil',
       }),
     },
     switchLanguage: t({
       en: 'Switch language:',
-      fr: 'Changer de langue :',
       es: 'Cambiar idioma:',
-    }),
-    footer: t({
-      en: 'Built with Remix 3 and Intlayer internationalization.',
-      fr: 'Construit avec Remix 3 et l’internationalisation Intlayer.',
-      es: 'Construido con Remix 3 y la internacionalización de Intlayer.',
+      fr: 'Changer de langue :',
     }),
   },
 } satisfies Dictionary;

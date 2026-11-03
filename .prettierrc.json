@@ -19,6 +19,14 @@
       }
     },
     {
+      "files": "*.content.{ts,tsx,js,jsx,mjs,cjs,json,json5,jsonc}",
+      "options": {
+        "plugins": ["prettier-plugin-intlayer"],
+        "intlayerPinnedLocales": ["en"],
+        "intlayerSortContentKeys": true
+      }
+    },
+    {
       "files": "package.json",
       "options": {
         "plugins": ["prettier-plugin-packagejson"]

@@ -5,8 +5,8 @@ const AboutPageContent = {
   content: {
     title: t({
       en: 'About',
-      fr: 'À propos',
       es: 'Acerca de',
+      fr: 'À propos',
     }),
   },
 };

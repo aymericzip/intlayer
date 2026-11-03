@@ -21,6 +21,7 @@ import { setupFramework } from './frameworkSetup';
 import { upgradeIntlayerPackages } from './upgradeIntlayerPackages';
 import type { CompatSyncConfig, RoutingMode } from './utils';
 import {
+  addIntlayerPluginToPrettierConfig,
   addIntlayerRulesToOxlintConfig,
   BACKEND_INTLAYER_PACKAGES,
   detectCompatI18nLibraries,
@@ -37,13 +38,18 @@ import {
   hasIntlayerVitePlugin,
   hasLegacyEslint,
   hasLintTooling,
+  hasPrettier,
   hasUrlRoutingFramework,
   installPackages,
   isIntlayerPackageName,
+  JSON_PRETTIER_CONFIG_FILES,
   LINT_PLUGIN_PACKAGE_NAME,
   MINIMUM_ESLINT_MAJOR,
   moveCompatPackagesToDevDependencies,
   type OxlintConfig,
+  type PackageManager,
+  PRETTIER_PLUGIN_PACKAGE_NAME,
+  type PrettierConfig,
   parseJSONWithComments,
   readFileFromRoot,
   replaceViteConfigPluginImportSource,
@@ -113,6 +119,8 @@ export type InitOptions = {
   noLsp?: boolean;
   /** Skip enabling the Intlayer lint rules (ESLint / oxlint). */
   noEslint?: boolean;
+  /** Skip adding the Intlayer Prettier plugin (sorts translation keys). */
+  noPrettier?: boolean;
   /**
    * Skip the project setup: tsconfig types/aliases, the Intlayer config file,
    * bundler/framework configs and framework-specific
@@ -158,6 +166,108 @@ export type InitOptions = {
    * to the syncJSON `format` option. Defaults to `icu`.
    */
   contentMessageFormat?: CatalogMessageFormat;
+};
+
+/**
+ * Installs `prettier-plugin-intlayer` (when the package step is skipped) and
+ * registers it in the first JSON Prettier config found: `.prettierrc.json`, a
+ * JSON `.prettierrc`, or the `prettier` field of `package.json`. Any other
+ * config format gets the snippet printed instead.
+ */
+const setupPrettierPlugin = async (
+  rootDir: string,
+  allDependencies: Record<string, string>,
+  packageManager: PackageManager,
+  options?: InitOptions
+): Promise<void> => {
+  const pluginName = colorize(PRETTIER_PLUGIN_PACKAGE_NAME, ANSIColors.MAGENTA);
+
+  if (
+    options?.noInstallPackages &&
+    !allDependencies[PRETTIER_PLUGIN_PACKAGE_NAME]
+  ) {
+    const pluginSpecifier = options.upgradeToVersion
+      ? `${PRETTIER_PLUGIN_PACKAGE_NAME}@${options.upgradeToVersion}`
+      : PRETTIER_PLUGIN_PACKAGE_NAME;
+
+    try {
+      installPackages(rootDir, [pluginSpecifier], packageManager, true);
+      logger(`${v} Installed: ${pluginName}`);
+    } catch {
+      logger(
+        `${x} Failed to install ${PRETTIER_PLUGIN_PACKAGE_NAME}. Please install it manually.`,
+        { level: 'warn' }
+      );
+    }
+  }
+
+  /** Patches one JSON config; `undefined` when it is missing or not JSON. */
+  const patchJsonConfig = async (
+    configPath: string,
+    selectConfig: (fileContent: Record<string, unknown>) => unknown
+  ): Promise<boolean | undefined> => {
+    if (!(await exists(rootDir, configPath))) return undefined;
+
+    try {
+      const fileContent = parseJSONWithComments(
+        await readFileFromRoot(rootDir, configPath)
+      ) as Record<string, unknown>;
+      const prettierConfig = selectConfig(fileContent);
+
+      // A shared config referenced by name (`"prettier": "@org/prettier"`).
+      if (typeof prettierConfig !== 'object' || prettierConfig === null) {
+        return undefined;
+      }
+
+      const isUpdated = addIntlayerPluginToPrettierConfig(
+        prettierConfig as PrettierConfig
+      );
+
+      if (isUpdated) {
+        await writeFileToRoot(
+          rootDir,
+          configPath,
+          `${JSON.stringify(fileContent, null, 2)}\n`
+        );
+      }
+
+      logger(
+        isUpdated
+          ? `${v} Added ${pluginName} to ${colorizePath(configPath)}`
+          : `${v} ${colorizePath(configPath)} already includes ${pluginName}`
+      );
+
+      return isUpdated;
+    } catch {
+      return undefined;
+    }
+  };
+
+  for (const configPath of JSON_PRETTIER_CONFIG_FILES) {
+    if ((await patchJsonConfig(configPath, (config) => config)) !== undefined) {
+      return;
+    }
+  }
+
+  const packageJsonResult = await patchJsonConfig(
+    'package.json',
+    (packageJson) => packageJson.prettier
+  );
+
+  if (packageJsonResult !== undefined) return;
+
+  logger([
+    colorize('Intlayer Prettier plugin →', ANSIColors.MAGENTA),
+    colorize(
+      `Add ${PRETTIER_PLUGIN_PACKAGE_NAME} to the plugins of your Prettier config, to sort the keys of t(), plural(), enu() and select():`,
+      ANSIColors.GREY_LIGHT
+    ),
+    colorize(
+      `  { "plugins": ["${PRETTIER_PLUGIN_PACKAGE_NAME}"] }`,
+      ANSIColors.GREY_LIGHT
+    ),
+    colorizePath(DocumentationRouter.Prettier),
+  ]);
 };
 
 /**
@@ -248,6 +358,7 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
     dependencies: packageJson.dependencies,
     devDependencies: packageJson.devDependencies,
     skipLintPlugin: options?.noEslint,
+    skipPrettierPlugin: options?.noPrettier,
   });
 
   /** Whether the compat adapter for a library is not released yet. */
@@ -601,6 +712,15 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
         colorizePath(DocumentationRouter.ESLint),
       ]);
     }
+  }
+
+  // CHECK PRETTIER PLUGIN (prettier-plugin-intlayer)
+  //
+  // Gated on the project already formatting with Prettier. Only JSON configs
+  // (`.prettierrc.json`, a JSON `.prettierrc`, the `prettier` field of
+  // `package.json`) are patched; a JS/YAML/TOML config gets the snippet.
+  if (!options?.noPrettier && hasPrettier(allDeps)) {
+    await setupPrettierPlugin(rootDir, allDeps, packageManager, options);
   }
 
   // PROJECT SETUP

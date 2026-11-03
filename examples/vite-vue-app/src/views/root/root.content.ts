@@ -3,9 +3,9 @@ import type { Dictionary } from 'intlayer';
 const rootContent = {
   key: 'root',
   content: {
+    title: 'Vite + Vue',
     viteLogo: 'Vite logo',
     vueLogo: 'Vue logo',
-    title: 'Vite + Vue',
   },
 } satisfies Dictionary;
 

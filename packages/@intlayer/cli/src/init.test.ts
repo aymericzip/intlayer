@@ -12,6 +12,7 @@ import {
   INIT_STEP_GROUPS,
   init,
   isEslintInstalled,
+  isPrettierInstalled,
   LOCALE_ROUTING_CHOICES,
   OPT_IN_INIT_STEPS,
   parseLocaleRoutingChoice,
@@ -170,6 +171,18 @@ describe('getInitialInitSteps', () => {
   });
 });
 
+describe('isPrettierInstalled', () => {
+  it('detects prettier in dependencies', () => {
+    expect(isPrettierInstalled({ prettier: '^3.0.0' })).toBe(true);
+    expect(isPrettierInstalled({ eslint: '^9.0.0' })).toBe(false);
+  });
+
+  it('preselects the prettier step only when prettier is installed', () => {
+    expect(getInitialInitSteps({ prettier: '^3.0.0' })).toContain('prettier');
+    expect(getInitialInitSteps({})).not.toContain('prettier');
+  });
+});
+
 describe('getInitOptionsForSteps', () => {
   it('only installs the packages and sets up the framework by default', () => {
     expect(getInitOptionsForSteps(DEFAULT_INIT_STEPS)).toEqual({
@@ -180,6 +193,7 @@ describe('getInitOptionsForSteps', () => {
       noVscodeExtension: true,
       noLsp: true,
       noEslint: true,
+      noPrettier: true,
       skipFinalMessage: false,
     });
   });

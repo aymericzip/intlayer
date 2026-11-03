@@ -4,36 +4,36 @@ const homeContent = {
   key: 'home-content',
   importMode: 'fetch',
   content: {
-    getStartedByEditing: t({
-      en: 'Get started by editing',
-      fr: 'Commencez par éditer',
-      es: 'Comience por editar',
-    }),
-    saveAndSeeChanges: t({
-      en: 'Save and see your changes.',
-      fr: 'Enregistrez et voyez vos modifications.',
-      es: 'Guarde y vea sus cambios.',
-    }),
     deployNow: t({
       en: 'Deploy Now',
-      fr: 'Déployez maintenant',
       es: 'Desplegar ahora',
+      fr: 'Déployez maintenant',
     }),
-    readOurDocs: t({
-      en: 'Read our Docs',
-      fr: 'Lisez notre documentation',
-      es: 'Lea nuestra documentación',
+    examples: t({ en: 'Examples', es: 'Ejemplos', fr: 'Exemples' }),
+    getStartedByEditing: t({
+      en: 'Get started by editing',
+      es: 'Comience por editar',
+      fr: 'Commencez par éditer',
     }),
-    learn: t({ en: 'Learn', fr: 'En savoir plus', es: 'Aprender' }),
-    examples: t({ en: 'Examples', fr: 'Exemples', es: 'Ejemplos' }),
     goToNextjs: t({
       en: 'Go to Next.js',
-      fr: 'Accéder à Next.js',
       es: 'Ir a Next.js',
+      fr: 'Accéder à Next.js',
     }),
+    learn: t({ en: 'Learn', es: 'Aprender', fr: 'En savoir plus' }),
     markdownContent: md(
       'Simple paragraph. **Hello world**\n- **Bold text**\n- _Italic text_\n- ~~Strikethrough text~~\n- [Link](https://www.google.com)'
     ),
+    readOurDocs: t({
+      en: 'Read our Docs',
+      es: 'Lea nuestra documentación',
+      fr: 'Lisez notre documentation',
+    }),
+    saveAndSeeChanges: t({
+      en: 'Save and see your changes.',
+      es: 'Guarde y vea sus cambios.',
+      fr: 'Enregistrez et voyez vos modifications.',
+    }),
   },
 } satisfies Dictionary;
 

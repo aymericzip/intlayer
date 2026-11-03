@@ -21,6 +21,10 @@ export {
   installPackages,
   type PackageManager,
 } from './init/utils/packageManager';
+export {
+  hasPrettier,
+  PRETTIER_CONFIG_FILES,
+} from './init/utils/prettierConfig';
 export { hasUrlRoutingFramework } from './init/utils/urlRoutingFramework';
 export * from './installLSP';
 export * from './installMCP/installMCP';

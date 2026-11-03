@@ -5,11 +5,11 @@ const pricingPromo1 = {
   variant: 'promo',
   item: 1,
   content: {
-    plan: t({ en: 'Starter', fr: 'Débutant', es: 'Inicial' }),
+    plan: t({ en: 'Starter', es: 'Inicial', fr: 'Débutant' }),
     price: t({
       en: '$4.50 / mo (-50%)',
-      fr: '4,50 € / mois (-50%)',
       es: '4,50 $ / mes (-50%)',
+      fr: '4,50 € / mois (-50%)',
     }),
   },
 } satisfies Dictionary;
